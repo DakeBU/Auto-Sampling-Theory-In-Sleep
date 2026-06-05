@@ -1,0 +1,15 @@
+\section{Current Evidence}
+
+The current SALD faithful reproduction has 103 original source
+declarations in \Lean{research-wiki/source-index/SALD_original.jsonl}.  The
+trial log contains 1184 records, and the latest observed SALD cycle
+number is 113.
+
+The mandatory local gate is
+\[
+  \Lean{python3 tools/astis.py check},
+\]
+which runs Mathlib cache retrieval, \Lean{lake build}, \Lean{lake build Tests},
+and the ASTIS forbidden-pattern scan.  Forbidden proof closures include
+\Lean{sorry}, \Lean{admit}, \Lean{axiom}, \Lean{Prop := True}, and
+\Lean{:= trivial}.

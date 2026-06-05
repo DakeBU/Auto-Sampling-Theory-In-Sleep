@@ -1,0 +1,2146 @@
+# ASTIS Output Manifest
+
+| Timestamp | Tool | File | Stage | Description |
+|---|---|---|---|---|
+| 2026-05-24 18:44:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:45:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:45:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 18:45:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:45:26 | astis.py source-index | `research-wiki/source-index/RMFLD_paper.jsonl` | source-index | Indexed 101 source declarations for ASTIS-RMFLD-001 |
+| 2026-05-24 18:45:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:45:33 | astis.py run-cycle | `runs/20260524-184533-ASTIS-SALD-001-cycle01/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 18:45:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:45:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:45:47 | astis.py run-cycle | `runs/20260524-184547-567809-ASTIS-SALD-001-cycle01/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 18:45:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:45:47 | astis.py run-cycle | `runs/20260524-184547-569969-ASTIS-SALD-001-cycle02/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 18:47:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:48:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:56:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:56:53 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260524-185653-070694.log` | run | Started 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-24 18:56:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:56:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 18:56:53 | astis.py run-cycle | `runs/20260524-185653-295322-ASTIS-SALD-001-cycle01/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 19:02:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:02:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:02:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:02:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-190256-849532-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 19:05:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:05:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:06:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:06:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-190626-371671-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 19:09:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:09:52 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:10:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:10:20 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-191020-254988-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 19:12:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:12:10 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:13:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:13:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-191339-742204-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 19:14:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:14:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:14:25 | astis.py run-cycle | `runs/20260524-191425-733806-ASTIS-SALD-001-cycle02/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 19:18:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:18:39 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:19:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:19:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-191903-560129-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 19:25:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:25:57 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:26:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:26:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-192638-472855-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 19:31:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:31:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:31:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:31:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-193146-137793-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 19:33:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:33:33 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:35:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:35:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-193531-282530-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 19:36:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:36:00 | astis.py run-cycle | `runs/20260524-193600-994046-ASTIS-SALD-001-cycle03/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 19:42:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:42:53 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:43:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:43:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-194326-770330-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 19:51:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:51:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:51:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:51:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-195148-644054-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 19:52:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:52:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-195222-019569-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 19:59:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:59:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 19:59:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 19:59:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-195956-314594-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 20:01:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:01:48 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:02:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:02:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-200235-333167-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 20:03:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:03:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-200335-402114-ASTIS-SALD-001-reviewer-build |
+| 2026-05-24 20:03:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:03:51 | astis.py run-cycle | `runs/20260524-200351-331721-ASTIS-SALD-001-cycle04/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 20:11:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:11:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:11:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:11:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-201152-321305-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 20:20:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:20:04 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:20:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:20:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-202044-286848-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 20:26:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:26:19 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:26:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:26:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-202651-247591-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 20:27:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:27:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-202712-533997-ASTIS-SALD-001-lower-build |
+| 2026-05-24 20:28:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:28:52 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:29:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:29:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-202918-901286-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 20:29:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:29:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-202939-241900-ASTIS-SALD-001-reviewer-build |
+| 2026-05-24 20:30:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:30:14 | astis.py run-cycle | `runs/20260524-203014-425914-ASTIS-SALD-001-cycle05/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 20:33:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:33:42 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:34:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:34:36 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:35:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:35:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-203510-526202-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 20:39:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:39:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:40:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:40:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-204022-520693-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 20:40:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:40:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-204036-258315-ASTIS-SALD-001-middle-build |
+| 2026-05-24 20:40:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:45:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:45:13 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:45:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:45:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-204559-323791-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 20:47:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:47:57 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:48:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:48:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-204836-727465-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 20:49:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:49:12 | astis.py run-cycle | `runs/20260524-204912-166913-ASTIS-SALD-001-cycle06/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 20:54:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:54:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 20:55:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 20:55:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-205513-088327-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 21:00:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:00:22 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:00:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:00:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-210051-945518-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 21:01:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:01:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-210112-847167-ASTIS-SALD-001-middle-build |
+| 2026-05-24 21:07:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:07:48 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:08:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:08:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-210824-560936-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 21:08:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:08:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-210851-920176-ASTIS-SALD-001-lower-build |
+| 2026-05-24 21:11:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:11:15 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:11:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:11:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-211146-459047-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 21:12:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:12:45 | astis.py run-cycle | `runs/20260524-211245-280619-ASTIS-SALD-001-cycle07/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 21:18:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:18:09 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:18:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:18:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-211841-367159-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 21:18:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:27:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:27:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:27:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:27:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-212747-872923-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 21:28:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:28:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-212808-246077-ASTIS-SALD-001-middle-build |
+| 2026-05-24 21:32:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:32:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:33:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:33:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-213302-569196-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 21:35:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:35:22 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:36:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:36:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-213603-022314-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 21:36:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:36:37 | astis.py run-cycle | `runs/20260524-213637-927545-ASTIS-SALD-001-cycle08/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 21:43:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:43:42 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:44:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:44:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-214429-211934-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 21:50:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:50:51 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:51:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:51:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-215131-861002-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 21:51:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:58:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:58:39 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 21:59:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 21:59:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-215913-382766-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 22:01:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:01:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:01:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:01:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-220146-364852-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 22:02:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:02:07 | astis.py run-cycle | `runs/20260524-220207-073660-ASTIS-SALD-001-cycle09/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 22:06:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:06:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:07:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:07:34 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-220734-485374-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 22:13:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:13:41 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:15:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:15:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-221508-565764-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 22:17:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:17:02 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:20:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:20:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:20:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:20:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-222035-207858-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 22:22:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:22:25 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:22:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:22:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-222256-812470-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 22:23:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:23:28 | astis.py run-cycle | `runs/20260524-222328-839470-ASTIS-SALD-001-cycle10/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 22:29:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:29:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:30:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:30:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-223039-668443-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 22:37:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:37:34 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:38:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:38:20 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-223820-178680-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 22:44:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:44:24 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:45:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:45:00 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-224500-866071-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 22:46:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:46:24 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:48:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:48:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-224816-306372-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 22:48:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:48:53 | astis.py run-cycle | `runs/20260524-224853-085387-ASTIS-SALD-001-cycle11/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 22:57:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:57:33 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 22:58:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 22:58:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-225814-017691-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 23:05:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:05:34 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 23:06:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:06:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-230615-168997-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 23:14:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:14:25 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 23:14:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:14:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-231452-995619-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 23:16:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:16:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 23:16:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:16:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-231655-090291-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 23:17:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:17:14 | astis.py run-cycle | `runs/20260524-231714-576974-ASTIS-SALD-001-cycle12/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 23:26:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:26:57 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 23:27:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:27:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-232729-102383-ASTIS-SALD-001-upper-handoff |
+| 2026-05-24 23:34:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:34:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 23:35:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:35:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-233525-348361-ASTIS-SALD-001-middle-handoff |
+| 2026-05-24 23:41:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:41:48 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 23:42:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:42:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-234228-129114-ASTIS-SALD-001-lower-handoff |
+| 2026-05-24 23:45:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:45:18 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 23:47:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:47:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-234721-255510-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-24 23:47:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:47:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-234741-263296-ASTIS-SALD-001-reviewer-build |
+| 2026-05-24 23:48:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:48:09 | astis.py run-cycle | `runs/20260524-234809-240097-ASTIS-SALD-001-cycle13/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-24 23:53:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:53:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-24 23:56:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-24 23:56:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260524-235611-530025-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 00:03:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:03:04 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:03:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:03:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-000342-176577-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 00:09:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:09:28 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:10:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:10:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-001006-821943-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 00:12:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:12:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:13:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:13:40 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-001340-519266-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 00:14:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:14:18 | astis.py run-cycle | `runs/20260525-001418-949141-ASTIS-SALD-001-cycle14/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 00:17:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:17:57 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:18:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:18:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-001835-874377-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 00:20:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:20:33 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:26:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:26:14 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:27:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:27:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-002703-380321-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 00:39:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:39:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:40:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:40:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-004012-861701-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 00:42:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:42:04 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:43:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:43:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-004327-809166-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 00:43:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:43:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-004342-420050-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 00:44:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:44:20 | astis.py run-cycle | `runs/20260525-004420-605336-ASTIS-SALD-001-cycle15/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 00:50:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:50:52 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 00:52:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:52:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-005209-577543-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 00:52:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 00:52:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-005229-007342-ASTIS-SALD-001-upper-build |
+| 2026-05-25 01:38:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 01:38:29 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 01:39:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 01:39:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-013918-703747-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 01:39:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 01:39:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-013955-113455-ASTIS-SALD-001-middle-build |
+| 2026-05-25 01:50:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 01:50:29 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 01:51:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 01:51:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-015115-825665-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 01:53:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 01:53:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 01:53:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 01:53:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-015331-439217-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 01:54:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 01:54:12 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:01:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:01:48 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-05-25 02:02:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:02:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:02:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:02:41 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-05-25 02:02:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:02:59 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:03:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:03:21 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260525-020321-168610.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-25 02:03:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:03:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:03:21 | astis.py run-cycle | `runs/20260525-020321-368212-ASTIS-SALD-001-cycle16/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 02:03:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:03:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:03:55 | astis.py run-cycle | `runs/20260525-020355-573331-ASTIS-SALD-001-cycle9999/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 02:05:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:05:16 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260525-020516-341987.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-25 02:05:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:05:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:05:16 | astis.py run-cycle | `runs/20260525-020516-385763-ASTIS-SALD-001-cycle16/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 02:13:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:13:32 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:14:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:14:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-021428-820459-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 02:22:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:22:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:23:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:23:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-022305-363899-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 02:29:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:29:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:30:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:30:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-023041-859061-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 02:32:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:32:36 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:33:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:33:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-023303-123843-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 02:33:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:33:30 | astis.py run-cycle | `runs/20260525-023330-068760-ASTIS-SALD-001-cycle17/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 02:38:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:38:18 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:39:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:39:04 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-023904-360370-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 02:44:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:44:12 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:44:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:44:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-024452-274520-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 02:51:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:51:25 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:51:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:51:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-025159-040158-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 02:53:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:53:37 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 02:54:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:54:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-025456-650954-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 02:55:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 02:55:44 | astis.py run-cycle | `runs/20260525-025544-011375-ASTIS-SALD-001-cycle18/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 03:00:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:00:44 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:01:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:01:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-030148-671711-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 03:06:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:06:43 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:07:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:07:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-030742-137794-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 03:17:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:17:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:18:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:18:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-031808-818813-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 03:20:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:20:13 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:21:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:21:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-032101-841506-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 03:21:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:21:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-032109-962881-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 03:21:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:21:47 | astis.py run-cycle | `runs/20260525-032147-813716-ASTIS-SALD-001-cycle19/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 03:27:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:27:19 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:28:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:28:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-032807-134874-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 03:35:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:35:18 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:35:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:35:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-033548-433401-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 03:41:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:41:19 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:42:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:42:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-034202-103256-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 03:44:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:44:06 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:44:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:44:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-034435-603822-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 03:45:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:45:07 | astis.py run-cycle | `runs/20260525-034507-445329-ASTIS-SALD-001-cycle20/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 03:50:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:50:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:51:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:51:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-035112-757268-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 03:58:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:58:02 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 03:58:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 03:58:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-035852-091902-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 04:04:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:04:39 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:05:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:05:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-040522-806380-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 04:07:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:07:29 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:07:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:07:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-040758-060636-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 04:08:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:08:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-040813-412505-ASTIS-SALD-001-reviewer-source-index |
+| 2026-05-25 04:08:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:08:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-040819-095180-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 04:08:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:08:49 | astis.py run-cycle | `runs/20260525-040849-643035-ASTIS-SALD-001-cycle21/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 04:12:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:12:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:13:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:13:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-041335-371713-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 04:18:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:18:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:18:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:18:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-041846-185255-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 04:27:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:27:05 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:27:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:27:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-042754-704520-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 04:29:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:29:13 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:31:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:31:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-043149-970680-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 04:32:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:32:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-043218-762674-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 04:32:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:32:42 | astis.py run-cycle | `runs/20260525-043242-009044-ASTIS-SALD-001-cycle22/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 04:38:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:38:35 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:39:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:39:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-043910-357815-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 04:44:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:44:53 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:45:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:45:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-044536-659502-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 04:45:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:45:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:45:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-044556-625139-ASTIS-SALD-001-middle-build |
+| 2026-05-25 04:52:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:52:47 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:53:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:53:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-045337-362075-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 04:55:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:55:50 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 04:56:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:56:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-045626-933023-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 04:57:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 04:57:10 | astis.py run-cycle | `runs/20260525-045710-783991-ASTIS-SALD-001-cycle23/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 05:02:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:02:24 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:03:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:03:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-050306-824389-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 05:03:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:03:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-050319-569119-ASTIS-SALD-001-upper-build |
+| 2026-05-25 05:10:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:10:11 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:10:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:10:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-051057-951243-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 05:18:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:18:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:18:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:18:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-051849-365743-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 05:21:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:21:04 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:21:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:21:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-052151-743308-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 05:22:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:22:27 | astis.py run-cycle | `runs/20260525-052227-262544-ASTIS-SALD-001-cycle24/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 05:27:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:27:05 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:27:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:27:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-052747-882635-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 05:34:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:34:11 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:34:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:34:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-053453-348140-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 05:40:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:40:09 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:40:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:40:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-054057-901763-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 05:42:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:42:30 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:43:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:43:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-054321-738001-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 05:43:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:43:46 | astis.py run-cycle | `runs/20260525-054346-068248-ASTIS-SALD-001-cycle25/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 05:48:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:48:55 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:49:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:49:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-054956-094094-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 05:51:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:51:45 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:55:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:55:47 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 05:56:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 05:56:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-055633-807061-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 06:02:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:02:48 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:03:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:03:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-060337-313944-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 06:06:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:06:04 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:06:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:06:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-060636-016101-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 06:07:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:07:00 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-060700-367943-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 06:07:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:07:24 | astis.py run-cycle | `runs/20260525-060724-617119-ASTIS-SALD-001-cycle26/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 06:13:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:13:33 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:14:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:14:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-061417-957999-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 06:21:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:21:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:21:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:21:34 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-062134-351366-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 06:28:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:28:17 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:28:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:28:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-062850-756358-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 06:30:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:30:38 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:31:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:31:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-063107-052745-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 06:31:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:31:31 | astis.py run-cycle | `runs/20260525-063131-523285-ASTIS-SALD-001-cycle27/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 06:36:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:36:32 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:37:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:37:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-063719-982000-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 06:43:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:43:32 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:44:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:44:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-064416-141026-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 06:53:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:53:23 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:54:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:54:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-065412-535587-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 06:55:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:55:50 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 06:56:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:56:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-065652-646677-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 06:57:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 06:57:24 | astis.py run-cycle | `runs/20260525-065724-310530-ASTIS-SALD-001-cycle28/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 07:04:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:04:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:05:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:05:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-070508-488090-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 07:12:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:12:19 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:13:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:13:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-071307-123711-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 07:20:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:20:40 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:21:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:21:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-072124-908272-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 07:23:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:23:45 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:24:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:24:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-072417-671464-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 07:24:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:24:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-072442-269109-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 07:25:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:25:11 | astis.py run-cycle | `runs/20260525-072511-203127-ASTIS-SALD-001-cycle29/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 07:30:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:30:52 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:31:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:31:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-073159-805319-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 07:37:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:37:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:38:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:38:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-073815-005945-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 07:43:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:43:47 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:44:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:44:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-074455-668313-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 07:47:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:47:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:47:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:47:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-074754-734178-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 07:48:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:48:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-074811-152624-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 07:48:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:48:49 | astis.py run-cycle | `runs/20260525-074849-433196-ASTIS-SALD-001-cycle30/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 07:55:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:55:28 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 07:56:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 07:56:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-075619-326046-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 08:02:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:02:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 08:02:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:02:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-080246-984686-ASTIS-SALD-001-middle-build |
+| 2026-05-25 08:03:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:03:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-080302-795785-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 08:10:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:10:32 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 08:11:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:11:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-081118-749459-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 08:13:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:13:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 24 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 08:14:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:14:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 116 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 08:15:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:15:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 08:16:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:16:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-081617-616360-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 08:17:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 08:17:09 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-05-25 14:10:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:10:39 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 14:10:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:10:54 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260525-141054-114373.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-25 14:10:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:10:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:10:54 | astis.py run-cycle | `runs/20260525-141054-155782-ASTIS-SALD-001-cycle31/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 14:14:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:14:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-141425-078683-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 14:26:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:26:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-142608-634769-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 14:33:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:33:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-143351-054352-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 14:36:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:36:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 14:36:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:36:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-143657-261157-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 14:37:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:37:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:37:24 | astis.py run-cycle | `runs/20260525-143724-852971-ASTIS-SALD-001-cycle32/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 14:43:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:43:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-144353-426007-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 14:52:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:52:05 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 14:53:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:53:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-145312-583261-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 14:58:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:58:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 14:59:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 14:59:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-145927-865308-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 15:01:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:01:40 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 15:02:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:02:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-150211-676871-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 15:02:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:02:38 | astis.py run-cycle | `runs/20260525-150238-564441-ASTIS-SALD-001-cycle33/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 15:07:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:07:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-150746-586601-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 15:14:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:14:41 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 15:15:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:15:40 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-151540-025742-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 15:25:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:25:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 15:26:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:26:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-152633-057688-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 15:28:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:28:41 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 15:29:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:29:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-152933-542916-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 15:29:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:29:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-152948-853520-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 15:30:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:30:27 | astis.py run-cycle | `runs/20260525-153027-137825-ASTIS-SALD-001-cycle34/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 15:39:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:39:14 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 15:40:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:40:20 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-154020-659335-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 15:48:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:48:48 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 15:49:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:49:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-154938-545659-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 15:56:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:56:34 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 15:57:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:57:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-155726-777535-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 15:58:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:58:50 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 15:59:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:59:40 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-155940-756571-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 15:59:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 15:59:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-155959-959396-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 16:00:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:00:22 | astis.py run-cycle | `runs/20260525-160022-322532-ASTIS-SALD-001-cycle35/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 16:07:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:07:12 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 16:08:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:08:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-160817-504744-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 16:16:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:16:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 16:17:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:17:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-161737-988636-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 16:24:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:24:04 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 16:25:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:25:04 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-162504-333152-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 16:26:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:26:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 16:27:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:27:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-162735-547148-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 16:28:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:28:00 | astis.py run-cycle | `runs/20260525-162800-267685-ASTIS-SALD-001-cycle36/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 16:38:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:38:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-163815-571734-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 16:51:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 16:51:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-165159-459655-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 17:02:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:02:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-170219-644542-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 17:05:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:05:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-170519-934242-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 17:06:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:06:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-170605-946808-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 17:06:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:06:36 | astis.py run-cycle | `runs/20260525-170636-313093-ASTIS-SALD-001-cycle37/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 17:13:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:13:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-171309-260045-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 17:23:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:23:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-172321-703749-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 17:29:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:29:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-172945-847382-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 17:32:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:32:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-173230-044205-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 17:33:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:33:05 | astis.py run-cycle | `runs/20260525-173305-586747-ASTIS-SALD-001-cycle38/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 17:39:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:39:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-173939-937428-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 17:47:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:47:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 17:49:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:49:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-174902-332467-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 17:56:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:56:19 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 17:57:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 17:57:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-175757-497871-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 18:00:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:00:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 18:00:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:00:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-180059-430042-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 18:01:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:01:30 | astis.py run-cycle | `runs/20260525-180130-544800-ASTIS-SALD-001-cycle39/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 18:08:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:08:55 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 18:09:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:09:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-180941-629560-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 18:20:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:20:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 18:22:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:22:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-182214-264457-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 18:30:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:30:14 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 18:31:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:31:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-183113-928982-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 18:34:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:34:10 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 18:34:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:34:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-183449-456144-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 18:35:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:35:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-183501-239695-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 18:35:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:35:26 | astis.py run-cycle | `runs/20260525-183526-365387-ASTIS-SALD-001-cycle40/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 18:38:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:38:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-183843-682577-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 18:46:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:46:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 18:47:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:47:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-184758-423442-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 18:55:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:55:21 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 18:56:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:56:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-185615-092562-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 18:58:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:58:40 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 18:59:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:59:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-185911-883029-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 18:59:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:59:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-185921-302459-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 18:59:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 18:59:49 | astis.py run-cycle | `runs/20260525-185949-406461-ASTIS-SALD-001-cycle41/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 19:02:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:02:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-190237-288423-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 19:10:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:10:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-191022-265807-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 19:20:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:20:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-192018-920011-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 19:22:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:22:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-192259-021050-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 19:23:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:23:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-192316-989641-ASTIS-SALD-001-reviewer-build |
+| 2026-05-25 19:23:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:23:37 | astis.py run-cycle | `runs/20260525-192337-839293-ASTIS-SALD-001-cycle42/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 19:27:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:27:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-192721-752084-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 19:35:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:35:52 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 19:36:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:36:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-193621-814611-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 19:44:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:44:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 19:44:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:44:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-194457-089435-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 19:47:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:47:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 19:47:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:47:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-194737-559792-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 19:48:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:48:24 | astis.py run-cycle | `runs/20260525-194824-935273-ASTIS-SALD-001-cycle43/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-25 19:53:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:53:06 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 19:53:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 19:53:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-195347-461192-ASTIS-SALD-001-upper-handoff |
+| 2026-05-25 20:03:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 20:03:29 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 20:04:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 20:04:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-200406-092482-ASTIS-SALD-001-middle-handoff |
+| 2026-05-25 20:13:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 20:13:39 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 20:14:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 20:14:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-201422-157000-ASTIS-SALD-001-lower-handoff |
+| 2026-05-25 20:16:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 20:16:50 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-25 20:17:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 20:17:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260525-201723-886079-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-25 20:18:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-25 20:18:24 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-05-26 02:47:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:47:18 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 02:47:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:47:23 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260526-024723-805931.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-26 02:47:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:47:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:47:23 | astis.py run-cycle | `runs/20260526-024723-847663-ASTIS-SALD-001-cycle44/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 02:48:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:48:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:48:37 | astis.py run-cycle | `runs/20260526-024837-954591-ASTIS-SALD-001-cycle44/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 02:49:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:49:04 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260526-024904-496141.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-26 02:49:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:49:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 02:49:04 | astis.py run-cycle | `runs/20260526-024904-538211-ASTIS-SALD-001-cycle44/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 03:01:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:01:21 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:02:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:02:04 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-030204-515412-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 03:03:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:03:22 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:03:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:03:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-030344-494535-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 03:09:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:09:28 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:10:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:10:20 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-031020-250556-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 03:12:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:12:53 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:13:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:13:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-031324-562196-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 03:13:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:13:58 | astis.py run-cycle | `runs/20260526-031358-753548-ASTIS-SALD-001-cycle45/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 03:18:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:18:06 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:18:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:18:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-031854-950892-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 03:25:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:25:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:25:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:25:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-032558-164434-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 03:35:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:35:22 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:36:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:36:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-033612-044970-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 03:38:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:38:29 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:39:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:39:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-033905-106865-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 03:39:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:39:38 | astis.py run-cycle | `runs/20260526-033938-659009-ASTIS-SALD-001-cycle46/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 03:45:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:45:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:46:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:46:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-034625-524779-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 03:51:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:51:52 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 03:52:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:52:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-035244-984468-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 03:59:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 03:59:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:00:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:00:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-040005-932035-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 04:02:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:02:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:02:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:02:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-040257-900918-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 04:03:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:03:26 | astis.py run-cycle | `runs/20260526-040326-199166-ASTIS-SALD-001-cycle47/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 04:12:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:12:11 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:13:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:13:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-041308-425951-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 04:14:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:14:35 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:15:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:15:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-041502-485878-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 04:22:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:22:09 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:23:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:23:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-042303-850082-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 04:25:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:25:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:25:28 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:25:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:25:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-042557-893645-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 04:26:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:26:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:26:23 | astis.py run-cycle | `runs/20260526-042623-520299-ASTIS-SALD-001-cycle48/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 04:31:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:31:54 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:32:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:32:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-043257-875207-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 04:40:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:40:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:40:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:40:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-044030-461469-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 04:46:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:46:25 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:47:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:47:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-044725-250440-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 04:49:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:49:23 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:50:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:50:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-045011-589848-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 04:50:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:50:35 | astis.py run-cycle | `runs/20260526-045035-251096-ASTIS-SALD-001-cycle49/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 04:55:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:55:21 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:56:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:56:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-045610-918572-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 04:56:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:56:34 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 04:57:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 04:57:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-045718-257291-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 05:04:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:04:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:04:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:04:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-050433-025991-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 05:10:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:10:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:11:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:11:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-051148-056102-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 05:14:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:14:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:14:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:14:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-051437-721017-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 05:15:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:15:08 | astis.py run-cycle | `runs/20260526-051507-986799-ASTIS-SALD-001-cycle50/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 05:20:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:20:12 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:21:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:21:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-052109-068925-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 05:27:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:27:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:28:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:28:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-052806-757669-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 05:35:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:35:18 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:36:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:36:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-053618-939492-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 05:38:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:38:50 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:39:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:39:20 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-053920-081802-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 05:40:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:40:00 | astis.py run-cycle | `runs/20260526-054000-729752-ASTIS-SALD-001-cycle51/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 05:46:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:46:15 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:47:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:47:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-054707-057101-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 05:52:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:52:44 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 05:53:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:53:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-055339-515804-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 05:59:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 05:59:53 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:01:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:01:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-060101-609855-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 06:04:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:04:06 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:04:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:04:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-060446-636893-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 06:05:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:05:26 | astis.py run-cycle | `runs/20260526-060526-259084-ASTIS-SALD-001-cycle52/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 06:11:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:11:15 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:11:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:11:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-061152-298013-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 06:16:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:16:43 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:17:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:17:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-061743-588255-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 06:25:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:25:14 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:26:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:26:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-062606-670472-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 06:27:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:27:44 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:28:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:28:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-062814-143729-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 06:28:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:28:35 | astis.py run-cycle | `runs/20260526-062835-739967-ASTIS-SALD-001-cycle53/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 06:38:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:38:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:38:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:38:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-063838-360862-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 06:44:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:44:02 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:44:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:44:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-064436-215861-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 06:53:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:53:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:54:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:54:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-065441-381508-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 06:56:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:56:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 06:56:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:56:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-065649-297837-ASTIS-SALD-001-reviewer-build |
+| 2026-05-26 06:57:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:57:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-065705-503868-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 06:57:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 06:57:29 | astis.py run-cycle | `runs/20260526-065729-864718-ASTIS-SALD-001-cycle54/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 07:04:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:04:20 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:05:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:05:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-070501-124922-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 07:09:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:09:57 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:10:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:10:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-071050-605713-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 07:18:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:18:44 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:19:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:19:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-071937-508741-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 07:21:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:21:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:21:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:21:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-072158-672719-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 07:22:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:22:24 | astis.py run-cycle | `runs/20260526-072224-036278-ASTIS-SALD-001-cycle55/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 07:27:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:27:32 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:28:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:28:40 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-072840-875845-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 07:34:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:34:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:35:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:35:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-073552-702893-ASTIS-SALD-001-middle-handoff |
+| 2026-05-26 07:40:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:40:02 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:40:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:40:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-074054-391019-ASTIS-SALD-001-lower-handoff |
+| 2026-05-26 07:42:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:42:41 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:43:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:43:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-074314-788844-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-26 07:43:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:43:45 | astis.py run-cycle | `runs/20260526-074345-239038-ASTIS-SALD-001-cycle56/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 07:48:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:48:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 07:49:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 07:49:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-074950-232783-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 23:41:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:41:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 23:41:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:41:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:41:49 | astis.py run-cycle | `runs/20260526-234149-777120-ASTIS-SALD-001-cycle56/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 23:42:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:42:21 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260526-234221-792308.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-26 23:42:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:42:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:42:21 | astis.py run-cycle | `runs/20260526-234221-833521-ASTIS-SALD-001-cycle56/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-26 23:50:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:50:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 23:51:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:51:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-235144-551553-ASTIS-SALD-001-upper-handoff |
+| 2026-05-26 23:54:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:54:42 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-26 23:55:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-26 23:55:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260526-235511-727436-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 00:00:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:00:22 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:01:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:01:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-000119-526136-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 00:03:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:03:44 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:04:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:04:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-000423-754376-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 00:05:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:05:02 | astis.py run-cycle | `runs/20260527-000502-376444-ASTIS-SALD-001-cycle57/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 00:10:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:10:22 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:11:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:11:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-001124-039585-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 00:16:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:16:13 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:17:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:17:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-001747-587691-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 00:27:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:27:37 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:28:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:28:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-002811-952582-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 00:31:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:31:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:31:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:31:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-003146-182935-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 00:32:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:32:12 | astis.py run-cycle | `runs/20260527-003212-802235-ASTIS-SALD-001-cycle58/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 00:38:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:38:45 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:39:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:39:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-003949-984261-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 00:39:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:45:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:45:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:46:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:46:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-004622-551504-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 00:52:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:52:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:53:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:53:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-005324-524956-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 00:55:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:55:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 00:56:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:56:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-005630-249962-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 00:57:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 00:57:16 | astis.py run-cycle | `runs/20260527-005716-895855-ASTIS-SALD-001-cycle59/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 01:06:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:06:19 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 01:07:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:07:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-010717-468506-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 01:13:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:13:21 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 01:14:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:14:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-011419-810126-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 01:24:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:24:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 01:25:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:25:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-012514-474817-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 01:27:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:27:37 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 01:28:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:28:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-012853-937970-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 01:29:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:29:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:29:22 | astis.py run-cycle | `runs/20260527-012922-876311-ASTIS-SALD-001-cycle60/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 01:36:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:36:23 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 01:37:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:37:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-013723-458145-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 01:42:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:42:34 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 01:43:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:43:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-014329-283885-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 01:49:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:49:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 01:49:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:49:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-014952-373703-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 01:52:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:52:37 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 01:53:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:53:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-015305-707417-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 01:53:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:53:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-015313-583385-ASTIS-SALD-001-reviewer-build |
+| 2026-05-27 01:53:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:53:31 | astis.py run-cycle | `runs/20260527-015331-771246-ASTIS-SALD-001-cycle61/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 01:54:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:59:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 01:59:25 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:00:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:00:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-020021-975492-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 02:00:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:06:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:06:32 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:07:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:07:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-020739-688992-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 02:14:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:14:37 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:15:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:15:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-021530-661481-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 02:18:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:18:30 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:19:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:19:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-021902-331155-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 02:19:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:19:45 | astis.py run-cycle | `runs/20260527-021945-374529-ASTIS-SALD-001-cycle62/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 02:26:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:26:11 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:27:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:27:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-022706-607361-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 02:33:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:33:43 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:34:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:34:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-023448-626883-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 02:41:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:41:10 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:41:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:41:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-024151-064345-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 02:43:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:43:37 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:44:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:44:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-024428-006858-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 02:44:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:44:56 | astis.py run-cycle | `runs/20260527-024456-879134-ASTIS-SALD-001-cycle63/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 02:53:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:53:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 02:54:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 02:54:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-025421-978468-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 03:00:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:00:30 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:01:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:01:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-030125-470700-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 03:08:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:08:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:08:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:08:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-030859-394617-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 03:10:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:10:59 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:11:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:11:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-031125-382916-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 03:11:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:11:47 | astis.py run-cycle | `runs/20260527-031146-978662-ASTIS-SALD-001-cycle64/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 03:19:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:19:09 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:20:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:20:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-032003-078012-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 03:25:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:25:30 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:26:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:26:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-032625-474419-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 03:33:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:33:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:35:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:35:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-033501-064283-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 03:37:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:37:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:37:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:37:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-033745-510934-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 03:38:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:38:17 | astis.py run-cycle | `runs/20260527-033817-508354-ASTIS-SALD-001-cycle65/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 03:44:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:44:36 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:45:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:45:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-034550-015819-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 03:50:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:50:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:51:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:51:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-035148-951132-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 03:57:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:57:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 03:58:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 03:58:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-035805-829635-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 04:00:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:00:20 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:01:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:01:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-040117-601771-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 04:01:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:01:52 | astis.py run-cycle | `runs/20260527-040152-881376-ASTIS-SALD-001-cycle66/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 04:08:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:08:13 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:09:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:09:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-040915-476617-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 04:14:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:14:10 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:15:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:15:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-041507-597052-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 04:23:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:23:40 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:24:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:24:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-042436-123889-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 04:26:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:26:28 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:27:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:27:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-042718-555173-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 04:27:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:27:52 | astis.py run-cycle | `runs/20260527-042752-381318-ASTIS-SALD-001-cycle67/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 04:34:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:34:18 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:35:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:35:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-043513-938971-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 04:35:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:35:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-043524-095369-ASTIS-SALD-001-upper-attempt |
+| 2026-05-27 04:41:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:41:20 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:42:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:42:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-044213-339917-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 04:47:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:47:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:48:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:48:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-044817-740526-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 04:49:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:49:30 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:50:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:50:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-045056-455476-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 04:51:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:51:30 | astis.py run-cycle | `runs/20260527-045129-965421-ASTIS-SALD-001-cycle68/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 04:58:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:58:38 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 04:59:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 04:59:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-045931-839765-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 05:05:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:05:33 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 05:06:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:06:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-050630-244792-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 05:12:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:12:51 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 05:13:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:13:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-051350-294619-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 05:15:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:15:39 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 05:16:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:16:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-051603-691709-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 05:16:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:16:35 | astis.py run-cycle | `runs/20260527-051635-387389-ASTIS-SALD-001-cycle69/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-27 05:24:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:24:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 05:26:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:26:04 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-052604-150393-ASTIS-SALD-001-upper-handoff |
+| 2026-05-27 05:32:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:32:42 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 05:33:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:33:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-053316-550726-ASTIS-SALD-001-middle-handoff |
+| 2026-05-27 05:40:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:40:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 05:41:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:41:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-054103-857122-ASTIS-SALD-001-lower-handoff |
+| 2026-05-27 05:42:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:42:46 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-27 05:43:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:43:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260527-054343-586403-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-27 05:44:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-27 05:44:17 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-05-28 00:58:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 00:58:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-28 00:58:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 00:58:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 00:58:00 | astis.py run-cycle | `runs/20260528-005800-122204-ASTIS-SALD-001-cycle70/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-28 00:58:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 00:58:28 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260528-005828-924173.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-28 00:58:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 00:58:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 00:58:29 | astis.py run-cycle | `runs/20260528-005828-967999-ASTIS-SALD-001-cycle70/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-28 01:01:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 01:01:13 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-28 01:01:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 01:01:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260528-010148-646895-ASTIS-SALD-001-upper-handoff |
+| 2026-05-28 01:16:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 01:16:35 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-28 01:17:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 01:17:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260528-011718-252815-ASTIS-SALD-001-middle-handoff |
+| 2026-05-28 01:23:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 01:23:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-28 01:24:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 01:24:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260528-012452-323739-ASTIS-SALD-001-lower-handoff |
+| 2026-05-28 23:53:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-28 23:53:38 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-05-29 00:04:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:04:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:04:52 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260529-000452-979870.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-05-29 00:04:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:04:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:04:53 | astis.py run-cycle | `runs/20260529-000453-025296-ASTIS-SALD-001-cycle71/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 00:07:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:07:24 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 00:07:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:07:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-000754-208652-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 00:16:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:16:43 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 00:17:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:17:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-001747-902216-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 00:24:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:24:12 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 00:25:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:25:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-002513-141949-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 00:26:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:26:12 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 00:28:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:28:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-002812-362968-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 00:28:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:28:40 | astis.py run-cycle | `runs/20260529-002840-844883-ASTIS-SALD-001-cycle72/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 00:31:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:31:15 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 00:31:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:31:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-003154-205418-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 00:43:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:43:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 00:44:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:44:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-004407-335605-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 00:50:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:50:45 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 00:51:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:51:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:51:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-005149-654831-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 00:52:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:54:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:54:09 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 00:54:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:54:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-005458-987332-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 00:55:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 00:55:24 | astis.py run-cycle | `runs/20260529-005524-095063-ASTIS-SALD-001-cycle73/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 01:07:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:07:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 01:08:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:08:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-010841-238522-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 01:10:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:10:46 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 01:11:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:11:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-011110-763316-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 01:19:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:19:53 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 01:20:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:20:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-012025-618640-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 01:22:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:22:11 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 01:23:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:23:00 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-012300-728938-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 01:23:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:23:29 | astis.py run-cycle | `runs/20260529-012329-919241-ASTIS-SALD-001-cycle74/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 01:33:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:33:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 01:34:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:34:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-013431-189321-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 01:41:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:41:05 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 01:42:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:42:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-014225-407400-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 01:50:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:50:22 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 01:51:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:51:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-015122-214378-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 01:53:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:53:21 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 01:54:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:54:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-015424-334738-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 01:54:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 01:54:53 | astis.py run-cycle | `runs/20260529-015453-735157-ASTIS-SALD-001-cycle75/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 02:00:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:00:37 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:01:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:01:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-020142-731390-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 02:10:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:10:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:11:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:11:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-021131-518874-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 02:20:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:20:10 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:21:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:21:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-022111-825677-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 02:23:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:23:43 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:24:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:24:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-022415-456828-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 02:24:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:24:48 | astis.py run-cycle | `runs/20260529-022448-165198-ASTIS-SALD-001-cycle76/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 02:35:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:35:32 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:36:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:36:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-023641-656847-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 02:36:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:38:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:38:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:38:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:38:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-023859-224115-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 02:46:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:46:23 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:47:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:47:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-024716-687687-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 02:48:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:48:46 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:49:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:49:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-024942-741496-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 02:49:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:49:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-024951-498513-ASTIS-SALD-001-reviewer-build |
+| 2026-05-29 02:50:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:50:10 | astis.py run-cycle | `runs/20260529-025010-596109-ASTIS-SALD-001-cycle77/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 02:52:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:52:46 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 02:53:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 02:53:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-025323-094518-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 03:04:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:04:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:05:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:05:32 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-030532-328507-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 03:13:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:13:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:14:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:14:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-031411-710388-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 03:16:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:16:25 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:16:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:16:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-031651-447078-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 03:17:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:17:13 | astis.py run-cycle | `runs/20260529-031713-481583-ASTIS-SALD-001-cycle78/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 03:28:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:28:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:29:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:29:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-032910-794795-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 03:33:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:33:58 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:35:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:35:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-033502-508558-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 03:40:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:40:24 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:41:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:41:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-034122-831978-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 03:42:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:42:57 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:43:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:43:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-034331-463195-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 03:43:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:43:50 | astis.py run-cycle | `runs/20260529-034350-055074-ASTIS-SALD-001-cycle79/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 03:51:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:51:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:52:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:52:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-035225-182616-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 03:57:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:57:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 03:58:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 03:58:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-035806-326294-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 04:03:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:03:18 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:04:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:04:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-040422-470237-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 04:05:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:05:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:06:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:06:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-040618-140541-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 04:07:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:07:04 | astis.py run-cycle | `runs/20260529-040704-851674-ASTIS-SALD-001-cycle80/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 04:13:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:13:33 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:14:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:14:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-041426-799532-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 04:18:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:18:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:19:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:19:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-041957-028192-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 04:30:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:30:07 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:31:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:31:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-043105-732772-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 04:33:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:33:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:33:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:33:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-043338-800210-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 04:34:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:34:09 | astis.py run-cycle | `runs/20260529-043409-488712-ASTIS-SALD-001-cycle81/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 04:39:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:39:38 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:40:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:40:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-044048-144296-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 04:47:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:47:47 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:48:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:48:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-044844-548394-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 04:49:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:49:15 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:54:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:54:59 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 04:56:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:56:20 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-045620-475816-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 04:59:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 04:59:33 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:00:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:00:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-050031-721897-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 05:00:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:01:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:01:06 | astis.py run-cycle | `runs/20260529-050106-592781-ASTIS-SALD-001-cycle82/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 05:07:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:07:16 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:08:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:08:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-050837-058101-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 05:19:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:19:15 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:20:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:20:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-052016-432070-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 05:26:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:26:54 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:27:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:27:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-052753-441158-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 05:29:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:29:45 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:30:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:30:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-053029-868780-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 05:30:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:30:58 | astis.py run-cycle | `runs/20260529-053058-205434-ASTIS-SALD-001-cycle83/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 05:39:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:39:02 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:40:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:40:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-054002-840623-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 05:41:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:41:48 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:42:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:42:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-054210-582084-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 05:46:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:46:59 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:47:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:47:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-054755-432885-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 05:50:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:50:10 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:50:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:50:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-055039-897996-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 05:51:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:51:14 | astis.py run-cycle | `runs/20260529-055114-000012-ASTIS-SALD-001-cycle84/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-05-29 05:57:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:57:22 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 05:58:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 05:58:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-055830-603015-ASTIS-SALD-001-upper-handoff |
+| 2026-05-29 06:02:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:02:41 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 06:04:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:04:03 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 06:04:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:04:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-060457-722290-ASTIS-SALD-001-middle-handoff |
+| 2026-05-29 06:10:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:10:20 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 06:11:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:11:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-061115-825793-ASTIS-SALD-001-lower-handoff |
+| 2026-05-29 06:12:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:12:45 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-05-29 06:13:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:13:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:13:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260529-061359-923252-ASTIS-SALD-001-reviewer-handoff |
+| 2026-05-29 06:14:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:14:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-05-29 06:14:30 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-02 22:57:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 22:57:47 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-02 23:02:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:02:07 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260602-230207-398829.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-06-02 23:02:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:02:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:02:07 | astis.py run-cycle | `runs/20260602-230207-442976-ASTIS-SALD-001-cycle85/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-02 23:08:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:08:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-02 23:09:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:09:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260602-230907-125067-ASTIS-SALD-001-upper-handoff |
+| 2026-06-02 23:17:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:17:24 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-02 23:18:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:18:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260602-231843-276134-ASTIS-SALD-001-middle-handoff |
+| 2026-06-02 23:25:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:25:09 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-02 23:26:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:26:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260602-232630-185092-ASTIS-SALD-001-lower-handoff |
+| 2026-06-02 23:28:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:28:17 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-02 23:28:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:28:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260602-232847-608862-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-02 23:28:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:29:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:29:21 | astis.py run-cycle | `runs/20260602-232921-337363-ASTIS-SALD-001-cycle86/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-02 23:37:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:37:05 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-02 23:38:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:38:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260602-233809-237651-ASTIS-SALD-001-upper-handoff |
+| 2026-06-02 23:42:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:42:36 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-02 23:43:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:43:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260602-234345-754680-ASTIS-SALD-001-middle-handoff |
+| 2026-06-02 23:58:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:58:12 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-02 23:59:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-02 23:59:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260602-235929-333978-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 00:00:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:00:10 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:02:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:02:34 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:03:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:03:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-000321-677871-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 00:03:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:03:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:03:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-000344-183088-ASTIS-SALD-001-reviewer-source-index |
+| 2026-06-03 00:03:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-000344-191663-ASTIS-SALD-001-reviewer-build |
+| 2026-06-03 00:04:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:04:28 | astis.py run-cycle | `runs/20260603-000428-044416-ASTIS-SALD-001-cycle87/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 00:10:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:10:31 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:11:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:11:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-001145-511806-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 00:17:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:17:52 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:18:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:18:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-001855-446125-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 00:28:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:28:41 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:29:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:29:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-002949-925359-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 00:32:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:32:34 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:33:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:33:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-003317-464919-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 00:34:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:34:13 | astis.py run-cycle | `runs/20260603-003413-704847-ASTIS-SALD-001-cycle88/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 00:35:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:35:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-003544-743455-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 00:35:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:35:50 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:43:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:43:33 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:44:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:44:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-004453-417477-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 00:52:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:52:21 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:53:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:53:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-005323-745899-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 00:54:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:54:55 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 00:55:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:55:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-005536-704987-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 00:56:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 00:56:02 | astis.py run-cycle | `runs/20260603-005602-116198-ASTIS-SALD-001-cycle89/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 01:03:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:03:29 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:04:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:04:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-010438-494248-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 01:09:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:09:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:10:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:10:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-011016-063335-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 01:17:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:17:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:18:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:18:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-011825-192574-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 01:20:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:20:28 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:21:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:21:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-012118-689271-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 01:22:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:22:01 | astis.py run-cycle | `runs/20260603-012201-383841-ASTIS-SALD-001-cycle90/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 01:27:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:27:19 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:28:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:28:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-012821-240125-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 01:36:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:36:09 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:37:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:37:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-013714-622728-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 01:45:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:45:38 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:46:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:46:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-014644-875896-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 01:49:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:49:02 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:49:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:49:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-014954-375920-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 01:50:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:50:29 | astis.py run-cycle | `runs/20260603-015029-378442-ASTIS-SALD-001-cycle91/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 01:53:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:53:06 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 01:53:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 01:53:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-015337-248859-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 02:05:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:05:51 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:07:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:07:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-020707-330657-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 02:14:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:14:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:15:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:15:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-021551-561008-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 02:17:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:17:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:18:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:18:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:18:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-021849-556206-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 02:18:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:19:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:19:19 | astis.py run-cycle | `runs/20260603-021919-480410-ASTIS-SALD-001-cycle92/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 02:21:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:21:51 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:22:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:22:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-022218-412022-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 02:29:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:29:45 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:30:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:30:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-023021-990044-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 02:36:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:36:49 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:38:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:38:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-023814-914433-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 02:39:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:39:50 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:40:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:40:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-024042-796560-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 02:41:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:41:23 | astis.py run-cycle | `runs/20260603-024123-527928-ASTIS-SALD-001-cycle93/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 02:43:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:43:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-024316-020703-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 02:43:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:43:20 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:51:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:51:37 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 02:52:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:52:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-025249-850755-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 02:58:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 02:58:56 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:00:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:00:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-030002-570247-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 03:01:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:01:00 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:02:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:02:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-030248-353820-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 03:03:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:03:13 | astis.py run-cycle | `runs/20260603-030313-201785-ASTIS-SALD-001-cycle94/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 03:05:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:05:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-030523-212186-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 03:05:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:05:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:12:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:12:47 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:13:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:13:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-031356-198636-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 03:19:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:19:15 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:20:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:20:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-032016-962094-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 03:21:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:21:18 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:21:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:22:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:22:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-032219-905905-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 03:22:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:22:47 | astis.py run-cycle | `runs/20260603-032247-466172-ASTIS-SALD-001-cycle95/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 03:28:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:28:45 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:29:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:29:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-032955-988324-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 03:34:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:34:34 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:35:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:35:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-033558-844969-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 03:44:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:44:08 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:45:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:45:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-034517-231361-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 03:47:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:47:26 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:48:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:48:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-034853-752175-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 03:49:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:49:25 | astis.py run-cycle | `runs/20260603-034925-144009-ASTIS-SALD-001-cycle96/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 03:51:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:51:17 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 03:51:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:51:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-035149-510574-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 03:59:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 03:59:23 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:00:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:00:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-040024-229211-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 04:08:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:08:17 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:09:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:09:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-040929-274220-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 04:11:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:11:43 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:13:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:13:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-041313-400421-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 04:13:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:13:46 | astis.py run-cycle | `runs/20260603-041346-241121-ASTIS-SALD-001-cycle97/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 04:15:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:15:52 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:16:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:16:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-041623-971388-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 04:27:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:27:53 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:29:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:29:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-042912-285735-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 04:36:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:36:27 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:37:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:37:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-043751-135102-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 04:39:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:39:30 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:40:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:40:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-044042-658343-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 04:41:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:41:14 | astis.py run-cycle | `runs/20260603-044114-176672-ASTIS-SALD-001-cycle98/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-03 04:42:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:42:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-044256-639788-ASTIS-SALD-001-upper-handoff |
+| 2026-06-03 04:43:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:43:01 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:43:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:43:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-044333-684597-ASTIS-SALD-001-upper-build |
+| 2026-06-03 04:50:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:50:35 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:51:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:51:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-045142-304142-ASTIS-SALD-001-middle-handoff |
+| 2026-06-03 04:58:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:58:28 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 04:59:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 04:59:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-045954-367145-ASTIS-SALD-001-lower-handoff |
+| 2026-06-03 05:00:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 05:00:55 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-03 05:02:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 05:02:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260603-050235-649036-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-03 05:03:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-03 05:03:23 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-04 23:02:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:15:51 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle099.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 99 |
+| 2026-06-04 23:17:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:20:10 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260602-230207-398829.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260602-230207-398829.log |
+| 2026-06-04 23:21:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:21:54 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle099.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 99 |
+| 2026-06-04 23:21:54 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260604-232154-266416.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-06-04 23:21:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:21:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:21:54 | astis.py run-cycle | `runs/20260604-232154-315438-ASTIS-SALD-001-cycle99/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-04 23:24:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:24:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260604-232447-935236-ASTIS-SALD-001-upper-handoff |
+| 2026-06-04 23:34:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:34:50 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-04 23:35:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:35:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260604-233528-734658-ASTIS-SALD-001-middle-handoff |
+| 2026-06-04 23:44:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:44:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260604-234454-737478-ASTIS-SALD-001-lower-handoff |
+| 2026-06-04 23:47:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:47:10 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-04 23:47:53 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-04 23:49:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:49:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260604-234911-034508-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-04 23:49:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:49:46 | astis.py run-cycle | `runs/20260604-234946-598823-ASTIS-SALD-001-cycle100/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-04 23:52:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-04 23:52:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260604-235245-540496-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 00:04:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:04:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-000427-681576-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 00:13:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:13:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-001324-583837-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 00:16:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:16:24 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-05 00:16:57 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-05 00:17:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:17:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-001731-434890-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 00:18:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:18:01 | astis.py run-cycle | `runs/20260605-001800-892112-ASTIS-SALD-001-cycle101/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 00:21:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:21:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-002107-950682-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 00:29:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:29:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-002922-953790-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 00:37:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:37:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-003712-245962-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 00:39:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:39:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-003957-796645-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 00:40:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:40:22 | astis.py run-cycle | `runs/20260605-004022-692256-ASTIS-SALD-001-cycle102/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 00:43:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:43:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-004308-842604-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 00:54:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 00:54:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-005410-102514-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 01:00:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:00:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-010039-657698-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 01:02:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:02:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-010248-169021-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 01:03:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:03:14 | astis.py run-cycle | `runs/20260605-010314-053500-ASTIS-SALD-001-cycle103/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 01:06:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:06:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-010609-751074-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 01:14:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:14:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-011422-263096-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 01:15:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:15:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-011502-036509-ASTIS-SALD-001-middle-build |
+| 2026-06-05 01:26:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:26:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-012613-889369-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 01:29:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:29:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-012927-082688-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 01:30:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:30:09 | astis.py run-cycle | `runs/20260605-013008-947708-ASTIS-SALD-001-cycle104/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 01:40:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:40:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-014018-423572-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 01:43:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:43:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-014311-820821-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 01:45:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:45:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-014547-903152-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 01:46:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:46:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-014612-504542-ASTIS-SALD-001-lower-attempt |
+| 2026-06-05 01:49:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:49:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-014930-316056-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 01:50:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:50:06 | astis.py run-cycle | `runs/20260605-015006-086858-ASTIS-SALD-001-cycle105/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 01:52:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 01:52:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-015243-294512-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 02:01:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:01:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-020116-369884-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 02:03:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:03:32 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-020332-368733-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 02:05:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:05:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-020527-779918-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 02:06:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:06:08 | astis.py run-cycle | `runs/20260605-020608-578536-ASTIS-SALD-001-cycle106/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 02:16:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:16:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-021622-844976-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 02:18:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:18:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-021857-233552-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 02:24:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:24:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-022409-528006-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 02:27:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:27:19 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-05 02:28:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:28:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-022810-722162-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 02:28:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:28:49 | astis.py run-cycle | `runs/20260605-022849-280199-ASTIS-SALD-001-cycle107/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 02:32:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:32:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-023212-379713-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 02:37:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:37:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-023706-015103-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 02:46:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:46:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-024637-644502-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 02:49:15 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-05 02:50:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:50:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-025009-273388-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 02:50:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:50:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-025016-615264-ASTIS-SALD-001-reviewer-build |
+| 2026-06-05 02:50:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:50:42 | astis.py run-cycle | `runs/20260605-025042-504174-ASTIS-SALD-001-cycle108/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 02:52:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 02:52:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-025251-116782-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 03:03:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:03:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-030312-076566-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 03:11:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:11:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-031146-163197-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 03:14:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:14:57 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-05 03:15:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:15:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-031537-534327-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 03:15:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:16:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:16:06 | astis.py run-cycle | `runs/20260605-031605-885746-ASTIS-SALD-001-cycle109/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 03:18:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:18:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-031827-881693-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 03:28:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:28:24 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-05 03:29:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:29:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-032939-503428-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 03:40:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:40:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-034054-130200-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 03:43:01 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-05 03:43:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:43:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:43:21 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-05 03:44:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:44:04 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-034404-945164-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 03:44:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:44:33 | astis.py run-cycle | `runs/20260605-034433-625253-ASTIS-SALD-001-cycle110/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 03:46:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:46:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-034646-643732-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 03:56:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 03:56:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-035641-018213-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 04:08:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:08:04 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-040804-438166-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 04:10:44 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-05 04:11:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:11:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-041109-222482-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 04:11:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:11:39 | astis.py run-cycle | `runs/20260605-041139-502745-ASTIS-SALD-001-cycle111/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 04:13:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:13:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-041358-817435-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 04:23:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:23:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-042356-689852-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 04:30:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:30:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-043041-899777-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 04:33:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:33:32 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-043332-748557-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 04:34:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:34:00 | astis.py run-cycle | `runs/20260605-043400-136996-ASTIS-SALD-001-cycle112/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 04:36:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:36:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-043641-318890-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 04:48:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:48:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-044815-186246-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 04:58:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 04:58:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-045856-286371-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 05:01:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 05:01:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-050151-067776-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 05:02:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 05:02:24 | astis.py run-cycle | `runs/20260605-050224-371546-ASTIS-SALD-001-cycle113/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-05 05:04:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 05:04:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-050422-780788-ASTIS-SALD-001-upper-handoff |
+| 2026-06-05 05:08:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 05:08:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-050850-328987-ASTIS-SALD-001-middle-handoff |
+| 2026-06-05 05:23:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 05:23:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-052351-349924-ASTIS-SALD-001-lower-handoff |
+| 2026-06-05 05:26:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 05:26:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260605-052643-430677-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-05 05:27:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-05 05:27:29 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-06 00:33:46 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-06 00:41:06 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 00:41:06 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle114.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 114 |
+| 2026-06-06 00:41:07 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-06 00:42:23 | astis.py efficiency-report | `runs/efficiency/astis-sald-001-6h-20260604-232154-266416.md` | review | Wrote efficiency report for runs/logs/astis-sald-001-6h-20260604-232154-266416.log |
+| 2026-06-06 00:43:25 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 00:43:25 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle114.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 114 |
+| 2026-06-06 00:43:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 00:43:55 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-06 01:08:00 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 01:08:00 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 01:08:48 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle114.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 114 |
+| 2026-06-06 01:19:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 01:19:58 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-06 01:20:07 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 01:20:07 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle114.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 114 |
+| 2026-06-06 01:20:08 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 01:22:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 01:22:51 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-06 01:22:52 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 01:22:53 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 01:23:05 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle114.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 114 |

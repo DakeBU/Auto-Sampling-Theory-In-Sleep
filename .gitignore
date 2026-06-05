@@ -1,0 +1,12 @@
+/.astis/
+/.lake/
+/lake-packages/
+/build/
+/runs/logs/
+/runs/*.tmp
+/runs/*.pid
+*.olean
+*.ilean
+*.trace
+*.log
+/.DS_Store

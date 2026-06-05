@@ -1,0 +1,49 @@
+\section{Overview}
+
+\ASTIS{} is a Lean-centered automation system for SDE, sampling, and guided
+generation theory.  Its first faithful-paper target is the original VA-SALD
+paper source under the project task \Lean{ASTIS-SALD-001}; the draft
+\Lean{sald_version_2.tex} is intentionally excluded from that reproduction.
+
+The system adapts the public Quantum block-encoding automation workflow at
+\url{https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201}.  The domain semantics are different: ASTIS tracks laws,
+densities, transport velocities, Fokker--Planck identities, KL/FI/LSI/PI
+interfaces, Euler--Maruyama discretization, and particle approximations.
+
+ASTIS also uses \url{https://github.com/YuanheZ/lean-stat-learning-theory} and the article
+\url{https://arxiv.org/abs/2602.02285} as nearby Mathlib-based references.  That project
+formalizes statistical-learning and concentration tools such as entropy
+duality, Gaussian Poincare and log-Sobolev results, and one-step
+discretization statements.  ASTIS records these as reuse candidates rather
+than importing them directly while the toolchain versions differ.
+
+ASTIS deliberately combines several automation lineages.  From
+ARIS/auto-research-in-sleep \url{https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep}, it keeps the plain-file,
+long-window research loop and the upper/middle/lower/reviewer decomposition
+with an independent review pass.  From Learning Beyond Gradients
+\url{https://github.com/Trinkle23897/learning-beyond-gradients}, it keeps role-separated iterative improvement and trial
+memory: attempts, logs, summaries, rejected directions, negative caches, and
+reviewer feedback are first-class state rather than chat history.  ASTIS
+specializes this into upper/middle/lower plus reviewer agents for proof work.
+From EoH \url{https://github.com/FeiLiu36/EoH}, ASTIS keeps the population idea only for
+\Lean{exploratoryProof}: candidate proof routes may be initialized, varied,
+selected, and archived after a Lean-checkable acceptance predicate is fixed.
+Faithful-paper reproduction does not mutate the source theorem.
+
+For Lean-specific long-horizon orchestration, ASTIS attributes and studies
+LeanMarathon \url{https://github.com/YuanheZ/LeanMarathon} and its article
+\url{https://arxiv.org/abs/2606.05400}.  ASTIS absorbs its blueprint-as-system-of-record
+view, target-review discipline, dynamic proof-DAG leaves, illness-area
+refiner rule, and deterministic CI-gate principle.  This control layer
+complements rather than replaces the ARIS/LBG/EoH components above.  ASTIS's
+own specialization is the SDE/Sampling correspondence layer: source anchors,
+KL/FI/LSI/PI contracts, Fokker--Planck and Euler--Maruyama obligations,
+SLT/SDE cited-result ledgers, and Lean-Markdown-LaTeX exports.
+
+For proof-automation workflow design, ASTIS also studies
+\url{https://github.com/math-ai-org/mathcode}.  The adopted ideas are diagnostic rather than source-code
+reuse: explicit scans for hidden assumptions and placeholders, theorem-reuse
+memory before new lemma creation, tree-of-subgoals decomposition as an internal
+work plan, and proof-statistics review for broad rewrites.
+
+\input{figures/system_pipeline}

@@ -1,0 +1,103 @@
+{"file": "app_experiments.tex", "kind": "equation", "label": "eq:role_rb_DOIT", "line": 145, "snippet": "\\begin{equation}\\label{eq:role_rb_DOIT}", "title": ""}
+{"file": "app_experiments.tex", "kind": "equation", "label": "ODE_FlowMatching", "line": 378, "snippet": "\\begin{equation}", "title": ""}
+{"file": "app_experiments.tex", "kind": "equation", "label": "SDE_FlowMatching", "line": 382, "snippet": "\\begin{equation}", "title": ""}
+{"file": "app_experiments.tex", "kind": "align", "label": "eq:guided_sald_FlowMatching", "line": 393, "snippet": "\\begin{align}", "title": ""}
+{"file": "app_experiments.tex", "kind": "align", "label": "VA_SALD_FlowMatching_SDE", "line": 414, "snippet": "\\begin{align}\\label{VA_SALD_FlowMatching_SDE}", "title": ""}
+{"file": "app_experiments.tex", "kind": "align", "label": "BO", "line": 439, "snippet": "\\begin{align}", "title": ""}
+{"file": "app_experiments.tex", "kind": "align", "label": "VA_SALD_FlowMatching_SDE_discrete", "line": 451, "snippet": "\\begin{align}", "title": ""}
+{"file": "app_experiments.tex", "kind": "align", "label": "OBj_KL", "line": 519, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "lemma", "label": "lem:gronwall", "line": 47, "snippet": "\\begin{lemma}[Gr\\\"onwall's inequality]\\label{lem:gronwall}", "title": "Gr\\\"onwall's inequality"}
+{"file": "appendix.tex", "kind": "lemma", "label": "lem:dv_variation", "line": 73, "snippet": "\\begin{lemma}[Corollary 4.15, \\cite{boucheron2013concentration}]\\label{lem:dv_variation}", "title": "Corollary 4.15, \\cite{boucheron2013concentration}"}
+{"file": "appendix.tex", "kind": "definition", "label": "def:PI", "line": 86, "snippet": "\\begin{definition}[Poincar\\'{e} Inequality (PI)]\\label{def:PI}", "title": "Poincar\\'{e} Inequality (PI)"}
+{"file": "appendix.tex", "kind": "lemma", "label": "lem:velocity-norm-bound", "line": 114, "snippet": "\\begin{lemma}\\label{lem:velocity-norm-bound}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:weak-PDE", "line": 121, "snippet": "\\begin{equation}\\label{eq:weak-PDE}", "title": ""}
+{"file": "appendix.tex", "kind": "equation*", "label": "eq:action_bound_under_guidance", "line": 151, "snippet": "\\begin{equation*}\\label{eq:action_bound_under_guidance}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:KL-derivative-0", "line": 169, "snippet": "\\begin{equation}\\label{eq:KL-derivative-0}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:KL-derivative-1", "line": 181, "snippet": "\\begin{align}\\label{eq:KL-derivative-1}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:KL-derivative-2", "line": 200, "snippet": "\\begin{align}\\label{eq:KL-derivative-2}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:frozen_interp_terminal_disc_prop_additive_final", "line": 260, "snippet": "\\begin{equation}\\label{eq:frozen_interp_terminal_disc_prop_additive_final}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:discrete_delta_def", "line": 271, "snippet": "\\begin{equation}\\label{eq:discrete_delta_def}", "title": ""}
+{"file": "appendix.tex", "kind": "lemma", "label": "lem:frozen_delta_cross_lip_sald", "line": 279, "snippet": "\\begin{lemma}\\label{lem:frozen_delta_cross_lip_sald}", "title": ""}
+{"file": "appendix.tex", "kind": "align*", "label": "eq:score_time_regularity_lip", "line": 290, "snippet": "\\begin{align*}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:frozen_delta_cross_bound_sald", "line": 308, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:KL-derivative-0-discrete", "line": 338, "snippet": "\\begin{equation}\\label{eq:KL-derivative-0-discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:KL-derivative-1-discrete", "line": 388, "snippet": "\\begin{align}\\label{eq:KL-derivative-1-discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:KL-derivative-2-discrete", "line": 419, "snippet": "\\begin{align}\\label{eq:KL-derivative-2-discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:KL-derivative-3-discrete", "line": 434, "snippet": "\\begin{align}\\label{eq:KL-derivative-3-discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:frozen-cross-bound-discrete", "line": 455, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:KL-derivative-5-discrete", "line": 482, "snippet": "\\begin{align}\\label{eq:KL-derivative-5-discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:dv-v-term-discrete", "line": 498, "snippet": "\\begin{align}\\label{eq:dv-v-term-discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:KL-derivative-6-discrete", "line": 520, "snippet": "\\begin{align}\\label{eq:KL-derivative-6-discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:KL-derivative-7-discrete", "line": 541, "snippet": "\\begin{align}\\label{eq:KL-derivative-7-discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "proposition", "label": "prop:guided_path_residual", "line": 619, "snippet": "\\begin{proposition}[Residual identity for the guided path]", "title": "Residual identity for the guided path"}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:guided_path_residual", "line": 622, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:logZ_derivative", "line": 660, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:general_moving_target_SALD", "line": 711, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "theorem", "label": "thm:general-moving-target-SALD", "line": 724, "snippet": "\\begin{theorem}\\label{thm:general-moving-target-SALD}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_moving_target_KL_bound", "line": 727, "snippet": "\\begin{align}\\label{eq:general_moving_target_KL_bound}", "title": ""}
+{"file": "appendix.tex", "kind": "equation*", "label": "eq:self_cancel_condition_general", "line": 746, "snippet": "\\begin{equation*}\\label{eq:self_cancel_condition_general}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_moving_target_pure_contraction", "line": 752, "snippet": "\\begin{align}\\label{eq:general_moving_target_pure_contraction}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:general_KL_derivative_0", "line": 767, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:general_moving_target_FP", "line": 778, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_1", "line": 791, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_2", "line": 825, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_3", "line": 855, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:SALD_general_EM", "line": 959, "snippet": "\\begin{equation} \\label{eq:SALD_general_EM}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:general_moving_target_SALD_frozen_interp", "line": 983, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:general_discrete_delta_def", "line": 1005, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "lemma", "label": "lem:frozen_delta_cross_lip", "line": 1026, "snippet": "\\begin{lemma}\\label{lem:frozen_delta_cross_lip}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:c_space_regularity_lip", "line": 1031, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:c_time_regularity_lip", "line": 1044, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:frozen_delta_cross_bound", "line": 1072, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:delta-bound", "line": 1114, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:delta_l2_by_increment_revised", "line": 1146, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:increment_basic_bound_revised", "line": 1173, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:increment_resolved_bound", "line": 1204, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:phi_l2_split_revised", "line": 1234, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:phi_l2_bound_revised", "line": 1259, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "theorem", "label": "thm:general-moving-target-SALD-discrete", "line": 1313, "snippet": "\\begin{theorem}[Discrete-time general VA-SALD]", "title": "Discrete-time general VA-SALD"}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_moving_target_KL_bound_discrete", "line": 1316, "snippet": "\\begin{align}\\label{eq:general_moving_target_KL_bound_discrete}", "title": ""}
+{"file": "appendix.tex", "kind": "equation", "label": "eq:general_KL_derivative_0_discrete", "line": 1358, "snippet": "\\begin{equation}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_1_discrete", "line": 1422, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_2_discrete", "line": 1441, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_3_discrete", "line": 1455, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_4_discrete", "line": 1480, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_cross_m_discrete", "line": 1495, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_5_discrete", "line": 1514, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_6_discrete", "line": 1531, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_dv_m_discrete", "line": 1545, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_7_discrete", "line": 1557, "snippet": "\\begin{align}", "title": ""}
+{"file": "appendix.tex", "kind": "align", "label": "eq:general_KL_derivative_8_discrete", "line": 1584, "snippet": "\\begin{align}", "title": ""}
+{"file": "iteration_complexity.tex", "kind": "assumption", "label": "ass:regular-dissipative-data", "line": 30, "snippet": "\\begin{assumption}[Dissipativity and smoothness]", "title": "Dissipativity and smoothness"}
+{"file": "iteration_complexity.tex", "kind": "align", "label": "assumption:dissipativity", "line": 34, "snippet": "\\begin{align}\\label{assumption:dissipativity}", "title": ""}
+{"file": "iteration_complexity.tex", "kind": "align", "label": "assumption:smoothness", "line": 40, "snippet": "\\begin{align}\\label{assumption:smoothness}", "title": ""}
+{"file": "iteration_complexity.tex", "kind": "lemma", "label": "lem:radial-dissipativity-qem", "line": 50, "snippet": "\\begin{lemma}[Radial dissipativity and quadratic exponential moment]\\label{lem:radial-dissipativity-qem}", "title": "Radial dissipativity and quadratic exponential moment"}
+{"file": "iteration_complexity.tex", "kind": "equation", "label": "eq:radial-dissipativity", "line": 93, "snippet": "\\begin{equation}\\label{eq:radial-dissipativity}", "title": ""}
+{"file": "iteration_complexity.tex", "kind": "lemma", "label": "lem:posterior-first-moment-stein", "line": 148, "snippet": "\\begin{lemma}[Posterior first moment bound]\\label{lem:posterior-first-moment-stein}", "title": "Posterior first moment bound"}
+{"file": "iteration_complexity.tex", "kind": "lemma", "label": "lem:score-growth-final", "line": 197, "snippet": "\\begin{lemma}[Score growth]\\label{lem:score-growth-final}", "title": "Score growth"}
+{"file": "iteration_complexity.tex", "kind": "equation", "label": "eq:conditional-probability", "line": 233, "snippet": "\\begin{equation}\\label{eq:conditional-probability}", "title": ""}
+{"file": "iteration_complexity.tex", "kind": "lemma", "label": "lem:posterior-centered-moments", "line": 240, "snippet": "\\begin{lemma}[Posterior centered moments]", "title": "Posterior centered moments"}
+{"file": "iteration_complexity.tex", "kind": "equation", "label": "eq:general-p-bound", "line": 287, "snippet": "\\begin{equation}\\label{eq:general-p-bound}", "title": ""}
+{"file": "iteration_complexity.tex", "kind": "lemma", "label": "lem:score-hessian-final", "line": 309, "snippet": "\\begin{lemma}[Uniform spatial Lipschitzness of the VP score]", "title": "Uniform spatial Lipschitzness of the VP score"}
+{"file": "iteration_complexity.tex", "kind": "lemma", "label": "lem:score-third-final", "line": 370, "snippet": "\\begin{lemma}[Uniform third derivative bound for the VP score]", "title": "Uniform third derivative bound for the VP score"}
+{"file": "iteration_complexity.tex", "kind": "equation", "label": "eq:third-derivative_score", "line": 384, "snippet": "\\begin{equation}\\label{eq:third-derivative_score}", "title": ""}
+{"file": "iteration_complexity.tex", "kind": "lemma", "label": "lem:score-time-final", "line": 493, "snippet": "\\begin{lemma}[Time Lipschitzness of the VP score]", "title": "Time Lipschitzness of the VP score"}
+{"file": "iteration_complexity.tex", "kind": "proposition", "label": "prop:verify-thm2-dissipative", "line": 560, "snippet": "\\begin{proposition}[Verification of Theorem~\\ref{thm:forward-KL-discrete} assumptions]", "title": "Verification of Theorem~\\ref{thm:forward-KL-discrete} assumptions"}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:SALD", "line": 15, "snippet": "\\begin{equation}\\label{eq:SALD}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:FP-eq", "line": 19, "snippet": "\\begin{equation}\\label{eq:FP-eq}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:sald_em_terminal_disc_prop_additive_final", "line": 25, "snippet": "\\begin{equation}\\label{eq:sald_em_terminal_disc_prop_additive_final}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:ito_forward", "line": 53, "snippet": "\\begin{equation}\\label{eq:ito_forward}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:continuity_Ito", "line": 62, "snippet": "\\begin{equation}\\label{eq:continuity_Ito}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:SALD_Ito", "line": 77, "snippet": "\\begin{equation}\\label{eq:SALD_Ito}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:unified_guided_sald_explicit_with_B", "line": 104, "snippet": "\\begin{equation}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:LSI-KL-FI", "line": 209, "snippet": "\\begin{equation}\\label{eq:LSI-KL-FI}", "title": ""}
+{"file": "main_body.tex", "kind": "theorem", "label": "thm:forward-KL", "line": 240, "snippet": "\\begin{theorem}\\label{thm:forward-KL}", "title": ""}
+{"file": "main_body.tex", "kind": "corollary", "label": "corforward-KL", "line": 252, "snippet": "\\begin{corollary}[Continuous-time SALD with linear slowdown]\\label{corforward-KL}", "title": "Continuous-time SALD with linear slowdown"}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:lip_SALD_1", "line": 274, "snippet": "\\begin{equation}\\label{eq:lip_SALD_1}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:lip_SALD_2", "line": 279, "snippet": "\\begin{equation}\\label{eq:lip_SALD_2}", "title": ""}
+{"file": "main_body.tex", "kind": "theorem", "label": "thm:forward-KL-discrete", "line": 301, "snippet": "\\begin{theorem}\\label{thm:forward-KL-discrete}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:residual-term", "line": 359, "snippet": "\\begin{equation}\\label{eq:residual-term}", "title": ""}
+{"file": "main_body.tex", "kind": "equation", "label": "eq:poisson-eq", "line": 365, "snippet": "\\begin{equation}\\label{eq:poisson-eq}", "title": ""}
+{"file": "main_body.tex", "kind": "theorem", "label": "thm:unified-forward-KL", "line": 372, "snippet": "\\begin{theorem}\\label{thm:unified-forward-KL}", "title": ""}
+{"file": "main_body.tex", "kind": "align", "label": "eq:ito_forward_KL_bound_calibrated", "line": 374, "snippet": "\\begin{align}\\label{eq:ito_forward_KL_bound_calibrated}", "title": ""}
+{"file": "main_body.tex", "kind": "corollary", "label": "cor:unified-forward-KL", "line": 398, "snippet": "\\begin{corollary}\\label{cor:unified-forward-KL}", "title": ""}

@@ -1,0 +1,6 @@
+# Context
+
+Task: `ASTIS-SALD-001`
+Cycle: `36`
+Created: `2026-05-25 16:28:00`
+Focus: Proof-closure sprint 1: Gronwall: Translate `appendix.tex:47-71` into Lean proof-producing code for `lem:gronwall`; avoid another source-index rebaseline unless reviewer finds a blocking anchor gap.
