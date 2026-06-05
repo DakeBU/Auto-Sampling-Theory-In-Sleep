@@ -1,8 +1,8 @@
 # ASTIS Blueprint Control State
 
 - Task: `ASTIS-SALD-001`
-- Generated: `2026-06-06 01:22:51`
-- Latest cycle: `113`
+- Generated: `2026-06-06 02:27:40`
+- Latest cycle: `114`
 - Stage: LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization
 
 ## System Of Record
@@ -29,7 +29,7 @@ Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_se
 ## Recent Packet Classifications
 
 - `discharges-supplied-hypothesis`: 5
-- `narrows-source-cited-boundary`: 19
+- `narrows-source-cited-boundary`: 15
 - `rejected-wrapper-churn`: 0
 
 ## Proof Status Counts

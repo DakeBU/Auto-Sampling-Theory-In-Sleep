@@ -8,10 +8,10 @@
     "sampling/SDE-specific source anchors, proof obligations, and SLT reuse audit"
   ],
   "dynamic_leaf_candidate": "Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied",
-  "generated": "2026-06-06 01:22:51",
+  "generated": "2026-06-06 02:27:40",
   "illness_area_candidate": "Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied",
   "latest_blocker": "Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied",
-  "latest_cycle": 113,
+  "latest_cycle": 114,
   "leanmarathon_controls_absorbed": [
     "blueprint/system-of-record control state",
     "target-review no-more/no-less discipline",
@@ -29,12 +29,12 @@
     "sourceCited": 16
   },
   "recent_cycles": [
-    108,
     109,
     110,
     111,
     112,
-    113
+    113,
+    114
   ],
   "references": {
     "Auto-research-in-sleep": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
@@ -57,7 +57,7 @@
   "task_id": "ASTIS-SALD-001",
   "trial_classifications_recent": {
     "discharges-supplied-hypothesis": 5,
-    "narrows-source-cited-boundary": 19,
+    "narrows-source-cited-boundary": 15,
     "rejected-wrapper-churn": 0
   }
 }

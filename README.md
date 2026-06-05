@@ -16,10 +16,12 @@ ASTIS is designed for two research situations:
 - validating an evolving proof draft while the research is still being
   developed.
 
-The first faithful target is the original VA-SALD paper proof corpus under
-`/home/nitanda_sub/mark/repos/sald/paper`, excluding `sald_version_2.tex`.
-The first exploratory target is the RMFLD proof draft under
-`/home/nitanda_sub/mark/repos/RMFLD/RMFLD_paper`.
+The first faithful target is the SALD/VA-SALD theory in
+[Slowly Annealed Langevin Dynamics: Theory and Applications to
+Training-Free Guided Generation](https://arxiv.org/abs/2605.07950)
+([PDF](https://arxiv.org/pdf/2605.07950)).  The first exploratory target is
+the RMFLD proof program, used to test ASTIS on live sampling-theory arguments
+whose final theorem boundaries are still evolving.
 
 Every analytic fact must be one of:
 
@@ -196,7 +198,8 @@ machine-specific absolute path.
 ## Quick Start
 
 ```bash
-cd /home/nitanda_sub/mark/repos/Auto-Sampling-Theory-In-Sleep
+git clone https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep.git
+cd Auto-Sampling-Theory-In-Sleep
 
 python3 tools/astis.py init
 python3 tools/astis.py list-literature
@@ -238,7 +241,9 @@ python3 tools/astis.py export-latex
 
 ### `ASTIS-SALD-001`
 
-Faithfully reproduce the original VA-SALD paper proofs.
+Faithfully reproduce the SALD and VA-SALD proof corpus from
+[arXiv:2605.07950](https://arxiv.org/abs/2605.07950), without changing the
+paper's theorem statements, proof targets, or source attribution.
 
 Initial proof DAG:
 

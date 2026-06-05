@@ -2,7 +2,7 @@
 
 Task id: `ASTIS-SALD-001`
 Title: Faithfully reproduce the original VA-SALD paper proofs
-Updated: `2026-06-06 01:22:53`
+Updated: `2026-06-06 02:27:41`
 Blueprint stage: `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`
 
 This is ASTIS's compact system-of-record snapshot for long-horizon Lean proof
@@ -75,7 +75,7 @@ Frechet derivative of `x |-> hatRhoDensity x • barB x` from separate density
 ## Recent Packet Classifications
 
 - `discharges-supplied-hypothesis`: 5
-- `narrows-source-cited-boundary`: 19
+- `narrows-source-cited-boundary`: 15
 - `rejected-wrapper-churn`: 0
 
 ## Proof Status Counts
