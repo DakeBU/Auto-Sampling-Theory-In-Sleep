@@ -84,6 +84,18 @@ not mutate the paper.  In `exploratoryProof` mode, ASTIS can maintain
 candidate proof-route populations under `candidate-populations/`, but Lean plus
 source correspondence remains the acceptance criterion.
 
+## Sibling System Comparison
+
+| System | Mathematical domain | Domain-specific proof object | Paper mode | New-problem mode |
+| --- | --- | --- | --- | --- |
+| [ABEIS/QBE](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | Quantum block encoding | matrices, circuits, oracles, block-encoding invariants | Reproduce block-encoding papers and preserve paper-level operators. | Search for new block encodings and verified oracle constructions. |
+| [ASTIS](https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep) | Sampling theory and stochastic analysis | SDEs, distributions, KL/FI/LSI/PI chains, convergence bounds | Reproduce sampling papers with Lean statements and source-aligned proof maps. | Prove new sampling or diffusion claims from the accumulated library. |
+| [AGTIS](https://github.com/DakeBU/Auto-Colored-Graph-Theory-In-Sleep) | Colored graph theory | labels/SRLGs, labelled cuts, dual walks, winding, algorithmic obstruction certificates | Reproduce WDV2023 first, then label-cut and multigraph papers. | Prove new labelled-cut, SRLG, coloring, or labelled-matching statements with Lean verification. |
+
+The shared rule is: the repository must contain both the Lean code and the
+human-readable mathematical proof translation.  Lean verifies correctness;
+the natural-language proof keeps the result inspectable by humans.
+
 ## Agent And Blueprint Loop
 
 ASTIS uses a four-role loop over one shared repository.
@@ -176,16 +188,20 @@ docs/                               design notes, attribution, efficiency rules
 Shared external references are intentionally kept outside ASTIS:
 
 ```text
-../outer_repos/
+../outer_repos/automation_systems/
   Auto-claude-code-research-in-sleep
   EoH
   LeanMarathon
-  lean-stat-learning-theory
   learning-beyond-gradients
   mathcode
 
-../outer_papers/
+../outer_repos/sampling_theory_sde/
+  lean-stat-learning-theory
+
+../outer_papers/automation_systems/
   LeanMarathon-2606.05400.pdf
+
+../outer_papers/sampling_theory_sde/
   Statistical Learning Theory in Lean 4 Empirical Processes from Scratch
   Uniform-in-Time Weak Propagation-of-Chaos in Shallow Neural Networks
   ...
@@ -284,7 +300,7 @@ SDE/Sampling formalization.
 | [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) and [arXiv:2606.05400](https://arxiv.org/abs/2606.05400) | Blueprint as system of record, target review, dynamic proof-DAG leaves, refiners, and deterministic gates. | ASTIS keeps a local proof blueprint and adapts the control loop to SDE/Sampling proof obligations. |
 | [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics, theorem-reuse memory, hidden-placeholder scans, and tree-of-subgoals planning. | Diagnostics are advisory; `python3 tools/astis.py check` remains the acceptance gate. |
 | [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) and [arXiv:2602.02285](https://arxiv.org/abs/2602.02285) | Mathlib probability/concentration proof style, entropy duality, log-Sobolev/Poincare references, and discretization statements. | Used as audited reference/port source while toolchains differ. |
-| ABEIS/QBE | A mature example of Lean automation project engineering: CLI, prompt decks, conversion windows, proof obligations, and blueprint discipline. | ASTIS is not a quantum/block-encoding derivative; it replaces that domain with laws, kernels, drifts, densities, KL/FI/LSI/PI, Fokker--Planck, and Euler--Maruyama objects. |
+| [ABEIS/QBE](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | A mature example of Lean automation project engineering: CLI, prompt decks, conversion windows, proof obligations, and blueprint discipline. | ASTIS is not a quantum/block-encoding derivative; it replaces that domain with laws, kernels, drifts, densities, KL/FI/LSI/PI, Fokker--Planck, and Euler--Maruyama objects. |
 
 The LeanMarathon-style blueprint layer does not replace the LBG-style
 upper/middle/lower/reviewer hierarchy or the EoH-style exploratory population
