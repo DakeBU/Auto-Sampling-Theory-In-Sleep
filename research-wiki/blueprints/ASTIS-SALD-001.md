@@ -2,7 +2,7 @@
 
 Task id: `ASTIS-SALD-001`
 Title: Faithfully reproduce the original VA-SALD paper proofs
-Updated: `2026-06-06 02:27:41`
+Updated: `2026-06-08 23:04:11`
 Blueprint stage: `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`
 
 This is ASTIS's compact system-of-record snapshot for long-horizon Lean proof
@@ -15,8 +15,8 @@ Lean-Markdown-LaTeX exports must stay synchronized.
 
 ```text
 Mode: `ASTIS-SALD-001` follows `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`.
-Current dynamic leaf: Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied
-Current illness area: Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied
+Current dynamic leaf: Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
+Current illness area: Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
 Upper/middle must retire stale leaves before assigning lower work.
 Lower work should be one local Lean declaration/proof boundary at a time.
 Reviewer accepts progress only through `python3 tools/astis.py check` plus source correspondence.
@@ -29,61 +29,61 @@ middle must retire it before spending more proof-search tokens.
 
 | Leaf | Status |
 |---|---|
-| Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied | candidate |
-| narrows-source-cited-boundary: upper selected hbarBCondExp in SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpSourceDef as the one supplied EM conditional-integral hypothesis to replace or strictly narrow; active target remains sald.general_moving_target_discrete.em_interpolation_fp over appendix.tex:1358-1387; astis check passed. | candidate |
-| narrows-source-cited-boundary. Compiled SALD.generalMovingTargetDiscreteNamedBarBCondExpOfSetIntegralEq and SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpSetIntegralDef for appendix.tex:1368-1377, replacing primitive hbarBCondExp with the conditional-expectation uniqueness/set-integral characterization boundary. Remaining exact boundary is source set-integral characterization plus candidate regularity for barB(hatXAtS omega). Gate passed. | candidate |
-| narrows-source-cited-boundary: compiled state-event set-integral bridge for appendix.tex:1368-1377 hbarBCondExp boundary; gate passed. | candidate |
-| narrows-source-cited-boundary. Reviewer accepted cycle 112 after mandatory gate passed; proof-diagnostics forbidden_hits=0. hbarBCondExp in SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpSourceDef is replaced by compiled conditional-expectation uniqueness and state-event set-integral handoffs. Remaining exact boundary is candidate regularity plus the source state-event set-integral characterization for selected barB(hatXAtS omega). | candidate |
-| narrows-source-cited-boundary. Pressure test of thm:forward-KL-discrete reaches the compiled EM/target-time/scalar LSI-DV-Gronwall route; next non-wrapper blocker is ASTIS.SALD.cycle112.remaining_named_barB_set_integral_characterization for appendix.tex:1368-1377, consumed by SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpStateSetIntegralDef. Lower packet is candidate regularity plus source state-event Bochner set-integral characterization for barB(hatXAtS omega). Mandatory astis check passed. | candidate |
-| narrows-source-cited-boundary: cycle113 pressure test routes thm:forward-KL-discrete through compiled EM wrappers plus LSI/DV/Gronwall; first non-wrapper blocker is ASTIS.SALD.cycle112.remaining_named_barB_set_integral_characterization consumed by SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpStateSetIntegralDef at appendix.tex:1368-1377. Updated conversion/proof-obligation/SLT audit docs; gate passed. | candidate |
-| discharges-supplied-hypothesis: cycle 113 lower compiled named barB state-field regularity pullback and downstream state-field set-integral bridge; hbarBMeas/hbarBInt discharged, remaining blocker is source state-event Bochner set-integral characterization; mandatory ASTIS check passed. | candidate |
-| discharges-supplied-hypothesis. Reviewer accepted cycle 113 after python3 tools/astis.py check passed and proof-diagnostics forbidden_hits=0. hbarBMeas/hbarBInt in SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpStateSetIntegralDef are discharged by compiled SALD.generalMovingTargetDiscreteNamedBarBComapRegularityOfStateField and SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpStateFieldSetIntegralDef. Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event... | candidate |
+| Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387 | candidate |
+| narrows-source-cited-boundary middle packet: compiled SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator and SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoCoordinateGeneratorDefOfOneDimTaylor; hFrozenScalarBrownianItoCoordinateGeneratorDef narrowed to hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor; hFrozenScalarBrownianItoEventFieldCoordinateSum remains explicit; conversion/proof-obligation/SLT audit/dependency notes updated; no SLT import; mandatory gate passed p... | candidate |
+| lower_1 recorded as lower because astis.py rejects lower_1. narrows-source-cited-boundary lower_1 proof-scout packet. Compiled SALD.gaussianRealZeroSecondMoment from Mathlib Gaussian.Real, narrowing hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor by discharging the centered scalar Gaussian second moment. Remaining lower_2-ready theorem is hFrozenScalarBrownianItoOneDimTaylorExpansion: selected-test C^2 plus zero first moment, compiled second moment, and dominated Taylor/Ito generator limit imply brownian... | candidate |
+| lower_2 recorded as lower because astis.py rejects lower_2. narrows-source-cited-boundary dynamic-leaf worker packet. Compiled SALD.gaussianRealZeroOneDimTaylorMomentContribution, narrowing hFrozenScalarBrownianItoOneDimTaylorExpansion by removing centered scalar Gaussian Taylor moment algebra via ProbabilityTheory.integral_id_gaussianReal and SALD.gaussianRealZeroSecondMoment. Remaining smaller source-cited theorem: hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit; hFrozenScalarBrownianItoEventFieldCoordin... | candidate |
+| narrows-source-cited-boundary reviewer acceptance after mandatory gate. Accepted cycle-161 lower_2: SALD.gaussianRealZeroOneDimTaylorMomentContribution narrows hFrozenScalarBrownianItoOneDimTaylorExpansion to remaining hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit; dynamic-leaf scalar Brownian/Ito packet; appendix.tex:984-995 and 1379-1387 checked; no SLT import or fake closure; gate passed python3 tools/astis.py check. | candidate |
+| narrows-source-cited-boundary upper handoff after mandatory gate pass. Selected dynamic-leaf worker target hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit below hFrozenScalarBrownianItoOneDimTaylorExpansion inside sald.general_moving_target_discrete.em_interpolation_fp over appendix.tex:1358-1387, anchors appendix.tex:984-995 and 1379-1387. Reject wrapper churn, non-EM fallback, broad audits, Lake/SLT import, theorem-status promotion, fake closures, and sald_version_2.tex. Gate passed: python3 tools/astis.... | candidate |
+| narrows-source-cited-boundary dynamic-leaf worker packet: compiled SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder; narrowed hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit to hFrozenScalarBrownianItoTaylorMomentDecomposition plus hFrozenScalarBrownianItoQuadraticVariationNormalization plus hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes; conversion window, proof obligations, SLT audit, and Lean dependency index updated; n... | candidate |
+| lower_1 recorded as lower because astis.py rejects lower_1. narrows-source-cited-boundary dynamic-leaf proof-scout packet. Narrowed hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes to lower_2-ready theorem SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT using MeasureTheory.tendsto_integral_filter_of_dominated_convergence; follow-up pointwise source Taylor limit uses Real.taylor_tendsto or taylor_isLittleO for r /-> selectedTest phi (x + r • e_i). hFrozenScalarBrownianItoTaylorMomentDe... | candidate |
+| lower_2 recorded as lower because astis.py rejects lower_2. narrows-source-cited-boundary dynamic-leaf worker packet: compiled SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT, narrowing hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes by formalizing the Mathlib dominated-convergence Gaussian integral-limit step. Remaining smaller source-cited work: concrete selected-test scalar Taylor hPoint, hFrozenScalarBrownianItoTaylorMomentDecomposition, and hFrozenScalarBrownianItoQuadraticVaria... | candidate |
 
 ## Open Obligation Signals
 
 ```text
-| Obligation | Status | Source | Lean-facing contract |
-| Pressure-test route through discrete theorem dependencies | checked; no theorem status promotion | `main_body.tex:301-323`; `appendix.tex:334-592`; active backend `appendix.tex:1358-1387` | `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` includes `SALD.cycle112EmNamedBarBCondExpRepresentativeDependencyNames`, `SALD.cycle113EmNamedBarBStateFiel...
-| First non-wrapper blocker | source-cited/obligation boundary; narrows-source-cited-boundary | `appendix.tex:1368-1377` | `ASTIS.SALD.cycle112.remaining_named_barB_set_integral_characterization`; the exact consuming declaration is `SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpStateSetIntegralDef` |
-| Candidate regularity pullback | formalized local theorem; discharges-supplied-hypothesis | `appendix.tex:1368-1377`; named marginal `hatRhoS = Law(hatXAtS)` | `SALD.generalMovingTargetDiscreteNamedBarBComapRegularityOfStateField`; discharges `hbarBMeas` and `hbarBInt` from `StronglyMeasurable barB`, `Integrable barB hatRhoS`, `Measurable hatXAtS`, and `...
-| State-field set-integral bridge | formalized downstream handoff; discharges-supplied-hypothesis | `appendix.tex:1368-1377` | `SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpStateFieldSetIntegralDef`; feeds the derived regularity into `SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpStateSetIntegralDef` |
-| Remaining lower-ready declaration boundary | source-cited/obligation boundary | `appendix.tex:1368-1377` | Prove or strictly narrow `hbarBStateSetIntegral`: equality of Bochner set integrals over every source-facing state event `{omega | hatXAtS omega in t}`; also prove `Integrable barB hatRhoS` from the selected state representative if that is not alre...
-state-event set-integral characterization for `barB (hatXAtS omega)` or name
-one smaller Mathlib/conditional-expectation theorem with imports and exact
-and Bochner-integral style; no SLT theorem was found that directly supplies
-| Obligation | Status | Source | Lean-facing contract |
-| Source-signed named-law weak derivative | formalized local theorem; discharges `hsampleGenerator` in the named-law split-generator route | `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakConditionalFpNamedLawDerivativeOfDominatedSplitGeneratorHandoff`; dependency list `SALD.cycle110EmWeakFpDominatedGeneratorDependencyNames` |
-| Remaining theorem | obligation; exact lower boundary after dominated transport | EM interpolation proof at `appendix.tex:1379-1387`; drift source at `appendix.tex:1368-1377` | `ASTIS.SALD.cycle110.remaining_parametric_generator_boundary_after_dominated_transport`; prove the pointwise EM derivative/dominated-bound package and identify the derivative inte...
-`barB` representative, no-boundary theorem, box trace, KL/log-ratio, LSI, DV,
+| Trace-law source/event to total event | Feed the trace-action narrowing through the cycle-149 trace-field source/event total-event bridge. | trace-action helper; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceFieldSourceAndEventFormula`; `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldEqLaplacian` | `SALD.genera...
+| Trace-state source/event to total event | Transport the sample-space trace integral along `hatXAtS` to the law-space trace integral, then feed the trace-law total-event bridge. | `SALD.generalMovingTargetDiscreteEmGeneratorTraceLawIntegralOfStateIntegral`; `hhatRhoS`; `hhatX`; `htraceFieldMeas`; `hemGeneratorTraceStateIntegral`; trace-law total-event he...
+| Trace-Laplacian state source/event to total event | Feed the source-Laplacian measurability and selected-test Laplacian state integral through the local trace-field/Laplacian helpers, then reuse the trace-state total-event theorem. | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldMeasOfSourceLaplacianFieldMeas`; `SALD.generalMovingTargetDiscreteE...
+| Remaining EM source definitions | Prove the paper's selected-test Laplacian state integral, source-Laplacian measurability when not supplied by the source-Laplacian route, event-field/trace-field equality, and trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_mo...
+`hemGeneratorLaplacianStateIntegral`, `hsourceLaplacianFieldMeas` when not
+supplied by the source-Laplacian route,
+keep `hsourceLaplacianFunctional` and state-event equality explicit when not
 Classification: `narrows-source-cited-boundary`.
-`appendix.tex:1379-1387`, with `barB` supplied by `appendix.tex:1368-1377`.
-| Obligation | Status | Source | Lean-facing contract |
-| Product flux continuity on the Mathlib box | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1379-1387`; Mathlib topology/box divergence setup | `SALD.generalMovingTargetDiscreteHatRhoBarBWeightedFieldContinuousOnBox`; proves continuity of `x |-> hatRhoDensity x • barB x` on `Set.Icc a b` from separate continuity of the density...
-| Product-flux box handoff | formalized local theorem plus remaining obligations | `appendix.tex:1379-1387`; `appendix.tex:1368-1377` | `SALD.generalMovingTargetDiscreteBoundaryFluxIntegralOfHatRhoBarBBox`; instantiates the cycle-107 theorem with the concrete product flux and discharges the generic continuity premise |
-| Remaining box/trace instantiation | obligation; exact next non-wrapper blocker | `appendix.tex:1379-1387`; `appendix.tex:1368-1377` | prove the Frechet derivative of `x |-> hatRhoDensity x • barB x` off a countable interior set, divergence integrability, `boundaryFlux` equals the interior divergence integral, and signed Mathlib faces equal the `testTrac...
-`htestTraceZero` remain explicit. No non-EM fallback, source-index rebaseline,
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`.
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula`.
+It follows from the smaller source-facing law-space action integral
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
+The source event-field definition
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+| Law integral to standard-basis action | Rewrite the law-space Mathlib Laplacian integral as the `Set.univ` standard-basis second-derivative action. | `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; `Mathlib.Analysis.InnerProductSpace.Laplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStdBasisActionDefOfLawIntegra...
+| Downstream law-integral consumer | Feed the law-integral split through the cycle-144 standard-basis action consumer while keeping `hemGeneratorLaplacianEventFieldStdBasisDef` explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula`; law-integral helper | `SALD.generalMovingTargetDis...
+| Remaining EM source definitions | Prove the paper's law-space EM generator selected-test Laplacian action integral and the standard-basis event-field definition for the named frozen EM Laplacian event field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; existing EM c...
+`htraceFieldStdBasis`, source-field/source-functional leaves,
 Classification: `narrows-source-cited-boundary`.
-`appendix.tex:1379-1387`, with `barB` supplied by `appendix.tex:1368-1377`.
-Frechet derivative of `x |-> hatRhoDensity x • barB x` from separate density
-| Obligation | Status | Source | Lean-facing contract |
-| Product flux pointwise Frechet derivative | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1379-1387`; Mathlib `HasFDerivAt.smul` product rule | `SALD.generalMovingTargetDiscreteHatRhoBarBWeightedFieldHasFDerivAt`; proves the derivative formula `(hatRhoDensity x) • barBDeriv x + (hatRhoDeriv x).smulRight (barB x)` for `x |-> h...
-| Product flux derivative off countable union | formalized local theorem | `appendix.tex:1379-1387`; `appendix.tex:1368-1377` | `SALD.generalMovingTargetDiscreteHatRhoBarBWeightedFieldHasFDerivAtOffUnion`; reduces product-flux differentiability off one exception set to separate density and `barB` differentiability off their union |
-| Product-flux box handoff with derivative instantiated | formalized local theorem plus remaining obligations | `appendix.tex:1379-1387`; Mathlib box divergence setup | `SALD.generalMovingTargetDiscreteBoundaryFluxIntegralOfHatRhoBarBBoxProductDeriv`; instantiates `SALD.generalMovingTargetDiscreteBoundaryFluxIntegralOfHatRhoBarBBox` with the product deriv...
-| Remaining box/trace instantiation after derivative | obligation; exact next non-wrapper blocker | `appendix.tex:1379-1387`; `appendix.tex:1368-1377` | prove divergence integrability for the product derivative, `boundaryFlux` equals the interior divergence integral, and signed Mathlib faces equal the `testTrace`/`normalFluxTrace` boundary integral |
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventLawIntegralFormula`.
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`.
+It follows from the smaller source-facing equality
+together with the already explicit trace-field source formula
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+| Trace field to Laplacian event-field standard basis | Identify the named frozen-generator Laplacian event field with the already tracked trace field, then reuse `htraceFieldStdBasis`. | source equality `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldStdBasis` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfTraceF...
+| Downstream trace-event law-integral consumer | Feed the trace-event split through the cycle-145 law-integral route while keeping `hemGeneratorLaplacianLawIntegral` explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`; trace-event helper | `SALD.generalMovingTargetDiscreteWeakFpSour...
+| Remaining EM source definitions | Prove the paper's law-space EM generator selected-test Laplacian action integral and the source equality between the named Laplacian event field and the trace field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; trace-field naming at...
+source-field/source-functional leaves, density-Laplacian facts,
 ```
 
 ## Recent Packet Classifications
 
-- `discharges-supplied-hypothesis`: 5
-- `narrows-source-cited-boundary`: 15
-- `rejected-wrapper-churn`: 0
+- `discharges-supplied-hypothesis`: 0
+- `narrows-source-cited-boundary`: 28
+- `rejected-wrapper-churn`: 1
 
 ## Proof Status Counts
 
 - `blocked`: 0
 - `contractOnly`: 34
-- `formalized`: 52
-- `obligation`: 837
+- `formalized`: 183
+- `obligation`: 1070
 - `planned`: 9
 - `sourceCited`: 16
 
@@ -188,5 +188,5 @@ Frechet derivative of `x |-> hatRhoDensity x • barB x` from separate density
 
 - LeanMarathon: https://github.com/YuanheZ/LeanMarathon
 - LeanMarathon article: https://arxiv.org/abs/2606.05400
-- Shared local LeanMarathon repo: `/home/nitanda_sub/mark/repos/outer_repos/LeanMarathon`
-- Shared local LeanMarathon PDF: `/home/nitanda_sub/mark/repos/outer_papers/LeanMarathon-2606.05400.pdf`
+- Shared local LeanMarathon repo: `/home/nitanda_sub/mark/repos/outer_repos/automation_systems/LeanMarathon`
+- Shared local LeanMarathon PDF: `/home/nitanda_sub/mark/repos/outer_papers/automation_systems/LeanMarathon-2606.05400.pdf`

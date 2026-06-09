@@ -2,8 +2,8 @@
 
 The current SALD faithful reproduction has 103 original source
 declarations in \Lean{research-wiki/source-index/SALD_original.jsonl}.  The
-trial log contains 1184 records, and the latest observed SALD cycle
-number is 113.
+trial log contains 1754 records, and the latest observed SALD cycle
+number is 162.
 
 The mandatory local gate is
 \[
@@ -13,3 +13,55 @@ which runs Mathlib cache retrieval, \Lean{lake build}, \Lean{lake build Tests},
 and the ASTIS forbidden-pattern scan.  Forbidden proof closures include
 \Lean{sorry}, \Lean{admit}, \Lean{axiom}, \Lean{Prop := True}, and
 \Lean{:= trivial}.
+
+\subsection{Why the SALD Reproduction Is Not Finished}
+
+The current bottleneck is not source discovery or an interrupted run.  The
+remaining work is the analytic backend that the source proof compresses into
+standard prose.  In particular, ASTIS still has to discharge or precisely cite:
+\begin{itemize}
+\item weak Fokker--Planck source actions
+\item Laplacian source-field equality and measurability
+\item state-integral identities under the selected EM law
+\item Green identities and boundary trace terms
+\item box-divergence and diffusion-generator leaves
+\end{itemize}
+
+For a non-specialist, the issue is that a paper sentence such as ``by the weak
+Fokker--Planck equation and integration by parts'' hides many Lean obligations:
+the law being integrated against, the conditional-expectation representative,
+measurability, integrability, almost-everywhere equality, boundary terms, and
+the exact theorem instance for Laplacian or divergence calculus.
+
+\paragraph{Current dynamic leaf.}
+\begin{quote}\small
+Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general\_moving\_target\_SALD\_frozen\_interp and appendix.tex:1379-1387
+\end{quote}
+
+\paragraph{Current illness area.}
+\begin{quote}\small
+Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general\_moving\_target\_SALD\_frozen\_interp and appendix.tex:1379-1387
+\end{quote}
+
+\paragraph{Latest blocker.}
+\begin{quote}\small
+Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general\_moving\_target\_SALD\_frozen\_interp and appendix.tex:1379-1387
+\end{quote}
+
+\paragraph{Recent packet classifications.}
+\begin{itemize}
+\item \Lean{discharges-supplied-hypothesis}: 0
+\item \Lean{narrows-source-cited-boundary}: 29
+\item \Lean{rejected-wrapper-churn}: 1
+\end{itemize}
+
+\paragraph{Proof-status counts.}
+\begin{itemize}
+\item \Lean{blocked}: 0
+\item \Lean{contractOnly}: 34
+\item \Lean{formalized}: 183
+\item \Lean{obligation}: 1070
+\item \Lean{planned}: 9
+\item \Lean{sourceCited}: 16
+\end{itemize}
+

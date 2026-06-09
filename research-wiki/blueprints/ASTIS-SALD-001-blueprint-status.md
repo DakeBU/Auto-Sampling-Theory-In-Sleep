@@ -1,8 +1,8 @@
 # ASTIS Blueprint Control State
 
 - Task: `ASTIS-SALD-001`
-- Generated: `2026-06-06 02:27:40`
-- Latest cycle: `114`
+- Generated: `2026-06-08 23:04:09`
+- Latest cycle: `162`
 - Stage: LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization
 
 ## System Of Record
@@ -16,28 +16,28 @@
 
 ## Dynamic Leaf Candidate
 
-Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied
+Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
 
 ## Illness Area Candidate
 
-Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied
+Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
 
 ## Latest Blocker
 
-Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied
+Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
 
 ## Recent Packet Classifications
 
-- `discharges-supplied-hypothesis`: 5
-- `narrows-source-cited-boundary`: 15
-- `rejected-wrapper-churn`: 0
+- `discharges-supplied-hypothesis`: 0
+- `narrows-source-cited-boundary`: 28
+- `rejected-wrapper-churn`: 1
 
 ## Proof Status Counts
 
 - `blocked`: 0
 - `contractOnly`: 34
-- `formalized`: 52
-- `obligation`: 837
+- `formalized`: 183
+- `obligation`: 1070
 - `planned`: 9
 - `sourceCited`: 16
 
@@ -66,8 +66,8 @@ Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_se
 - Auto-research-in-sleep: https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep
 - LeanMarathon: https://github.com/YuanheZ/LeanMarathon
 - LeanMarathon paper: https://arxiv.org/abs/2606.05400
-- local LeanMarathon repo: /home/nitanda_sub/mark/repos/outer_repos/LeanMarathon
-- local LeanMarathon pdf: /home/nitanda_sub/mark/repos/outer_papers/LeanMarathon-2606.05400.pdf
+- local LeanMarathon repo: /home/nitanda_sub/mark/repos/outer_repos/automation_systems/LeanMarathon
+- local LeanMarathon pdf: /home/nitanda_sub/mark/repos/outer_papers/automation_systems/LeanMarathon-2606.05400.pdf
 
 ## Next-Cycle Discipline
 

@@ -2144,3 +2144,1124 @@
 | 2026-06-06 01:22:52 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
 | 2026-06-06 01:22:53 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
 | 2026-06-06 01:23:05 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle114.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 114 |
+| 2026-06-06 02:27:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:27:12 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 02:27:13 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 02:27:14 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 02:27:14 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle114.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 114 |
+| 2026-06-06 02:27:14 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260606-022714-831676.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-06-06 02:27:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:27:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:27:15 | astis.py run-cycle | `runs/20260606-022714-881750-ASTIS-SALD-001-cycle114/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 02:27:41 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 02:27:41 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 02:29:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:29:34 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-022934-301290-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 02:30:27 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 02:30:28 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 02:40:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:40:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-024026-607400-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 02:42:20 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 02:42:21 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 02:45:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:45:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-024529-889523-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 02:46:33 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 02:46:34 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 02:48:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:48:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-024807-062085-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 02:48:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:48:37 | astis.py run-cycle | `runs/20260606-024836-412600-ASTIS-SALD-001-cycle115/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 02:49:09 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 02:49:10 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 02:51:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:51:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-025158-331404-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 02:52:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 02:52:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-025218-513741-ASTIS-SALD-001-upper-build |
+| 2026-06-06 02:52:58 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 02:52:59 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:03:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:03:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-030306-527801-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 03:04:05 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:04:06 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:09:30 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:09:31 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:11:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:11:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-031112-321717-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 03:12:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:12:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:13:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:13:32 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-031332-585330-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 03:14:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:14:05 | astis.py run-cycle | `runs/20260606-031404-861616-ASTIS-SALD-001-cycle116/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 03:14:33 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:14:34 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:17:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:17:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-031725-434977-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 03:18:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:18:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-031803-308667-ASTIS-SALD-001-upper-build |
+| 2026-06-06 03:18:37 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:18:37 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:26:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:26:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-032612-445676-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 03:28:26 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:28:26 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:37:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:37:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-033754-437364-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 03:39:24 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:39:25 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:40:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:40:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-034041-334177-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 03:41:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:41:19 | astis.py run-cycle | `runs/20260606-034118-537961-ASTIS-SALD-001-cycle117/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 03:41:56 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:41:56 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:43:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:43:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-034336-776421-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 03:44:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:44:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-034424-918932-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 03:45:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:45:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 03:53:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 03:53:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-035325-410791-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 03:54:40 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 03:54:41 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:01:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:01:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-040115-444892-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 04:02:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:02:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:04:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:04:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-040405-424597-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 04:04:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:04:39 | astis.py run-cycle | `runs/20260606-040438-539131-ASTIS-SALD-001-cycle118/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 04:05:13 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:05:14 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:07:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:07:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-040718-019999-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 04:08:07 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:08:07 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:15:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:15:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-041502-770031-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 04:16:02 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:16:02 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:21:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:21:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-042144-022420-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 04:22:37 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:22:38 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:24:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:24:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-042426-519879-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 04:24:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:24:56 | astis.py run-cycle | `runs/20260606-042456-079820-ASTIS-SALD-001-cycle119/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 04:25:27 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:25:28 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:28:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:28:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-042856-140555-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 04:30:10 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:30:11 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:36:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:36:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-043649-691650-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 04:38:01 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:38:02 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:46:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:46:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-044656-231341-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 04:47:48 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:47:48 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:49:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:49:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-044928-482114-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 04:50:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:50:18 | astis.py run-cycle | `runs/20260606-045017-715410-ASTIS-SALD-001-cycle120/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 04:50:51 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:50:52 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:53:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 04:53:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-045306-110121-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 04:53:46 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:53:47 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 04:59:42 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 04:59:43 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:01:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:01:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-050129-242045-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 05:02:33 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:02:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:09:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:09:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-050945-300468-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 05:12:26 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:12:27 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:14:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:14:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-051430-973594-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 05:15:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:15:05 | astis.py run-cycle | `runs/20260606-051504-388889-ASTIS-SALD-001-cycle121/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 05:15:39 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:15:40 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:17:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:17:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-051745-103456-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 05:18:29 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:18:30 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:25:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:25:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-052502-853029-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 05:25:47 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:25:48 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:27:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:27:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-052711-516510-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 05:28:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:28:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:30:20 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:30:20 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-053020-034687-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 05:30:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:30:50 | astis.py run-cycle | `runs/20260606-053049-550853-ASTIS-SALD-001-cycle122/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 05:31:24 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:31:25 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:33:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:33:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-053343-419836-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 05:34:23 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:34:24 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:42:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:42:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-054255-063561-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 05:43:58 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:43:59 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:45:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:45:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-054505-470725-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 05:45:59 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:46:00 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:47:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:47:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-054749-775196-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 05:48:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:48:26 | astis.py run-cycle | `runs/20260606-054825-412456-ASTIS-SALD-001-cycle123/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 05:48:56 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:48:56 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 05:50:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:50:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-055038-455586-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 05:51:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 05:51:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-055110-669915-ASTIS-SALD-001-upper-build |
+| 2026-06-06 05:52:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 05:52:19 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:00:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:00:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-060026-461550-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 06:01:34 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:01:35 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:03:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:03:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-060312-927780-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 06:04:20 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:04:21 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:05:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:05:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-060541-166579-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 06:06:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:06:34 | astis.py run-cycle | `runs/20260606-060633-374391-ASTIS-SALD-001-cycle124/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 06:06:57 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:06:58 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:09:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:09:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-060926-940896-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 06:10:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:10:19 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:18:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:18:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-061845-409300-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 06:20:00 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:20:01 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:29:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:29:11 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:30:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:30:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-063045-232432-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 06:30:58 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:30:59 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:32:29 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:32:30 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:33:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:33:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-063359-982691-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 06:34:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:34:54 | astis.py run-cycle | `runs/20260606-063453-698046-ASTIS-SALD-001-cycle125/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 06:35:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:35:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:37:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:37:34 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-063734-558184-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 06:38:20 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:38:21 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:45:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:45:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-064543-723520-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 06:46:36 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:46:37 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:47:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:47:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-064748-513144-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 06:49:03 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:49:04 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:50:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:50:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-065038-502080-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 06:50:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:50:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-065059-463076-ASTIS-SALD-001-reviewer-build |
+| 2026-06-06 06:51:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:51:26 | astis.py run-cycle | `runs/20260606-065125-828608-ASTIS-SALD-001-cycle126/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 06:51:57 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:51:58 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 06:55:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 06:55:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-065529-911756-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 06:56:37 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 06:56:38 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 07:06:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:06:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-070650-791251-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 07:07:46 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 07:07:47 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 07:09:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:09:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-070923-196187-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 07:10:09 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 07:10:10 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 07:11:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:11:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-071150-022259-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 07:12:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:12:22 | astis.py run-cycle | `runs/20260606-071221-679167-ASTIS-SALD-001-cycle127/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 07:12:52 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 07:12:53 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 07:15:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:15:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-071545-388966-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 07:16:40 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 07:16:41 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 07:35:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:35:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-073543-945620-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 07:36:37 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 07:36:37 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 07:44:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:44:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-074428-199668-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 07:45:29 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 07:45:30 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 07:47:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:47:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-074714-358078-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 07:47:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:47:48 | astis.py run-cycle | `runs/20260606-074747-491011-ASTIS-SALD-001-cycle128/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 07:48:20 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 07:48:21 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 07:51:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 07:51:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-075108-247473-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 07:52:50 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 07:52:51 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 08:02:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:02:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-080242-972911-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 08:03:34 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 08:03:35 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 08:13:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:13:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-081347-618036-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 08:15:20 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 08:15:21 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 08:17:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:17:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-081723-952286-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 08:18:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:18:01 | astis.py run-cycle | `runs/20260606-081800-370544-ASTIS-SALD-001-cycle129/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-06 08:18:26 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 08:18:27 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 08:20:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:20:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-082045-973330-ASTIS-SALD-001-upper-handoff |
+| 2026-06-06 08:21:50 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 08:21:51 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 08:30:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:30:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-083023-507695-ASTIS-SALD-001-middle-handoff |
+| 2026-06-06 08:31:30 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 08:31:31 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 08:38:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:38:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-083807-982065-ASTIS-SALD-001-lower-handoff |
+| 2026-06-06 08:39:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-06 08:39:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-06 08:40:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:40:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260606-084052-099271-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-06 08:41:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-06 08:41:25 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-07 10:14:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:14:57 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:25:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:25:45 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:25:46 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 10:25:47 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:25:48 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle130.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 130 |
+| 2026-06-07 10:25:48 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260607-102548-173258.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-06-07 10:25:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:25:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:25:49 | astis.py run-cycle | `runs/20260607-102548-224837-ASTIS-SALD-001-cycle130/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 10:26:21 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:26:22 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 10:28:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:28:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-102839-766262-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 10:29:20 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:29:21 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 10:37:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:37:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-103758-821087-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 10:39:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:39:12 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 10:46:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:46:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-104646-379254-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 10:48:20 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:48:21 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 10:55:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:55:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-105559-566920-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 10:56:52 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:56:53 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 10:58:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:58:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-105851-905180-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 10:59:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 10:59:23 | astis.py run-cycle | `runs/20260607-105922-773886-ASTIS-SALD-001-cycle131/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 10:59:50 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 10:59:51 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 11:02:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 11:02:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-110216-122710-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 11:03:09 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 11:03:10 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 11:11:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 11:11:34 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-111134-771320-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 11:12:58 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 11:12:58 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 11:21:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 11:21:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-112107-620197-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 11:22:33 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 11:22:34 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 11:41:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 11:41:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-114154-823098-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 11:42:42 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 11:42:43 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 11:44:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 11:44:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-114416-407633-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 11:44:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 11:44:51 | astis.py run-cycle | `runs/20260607-114450-558399-ASTIS-SALD-001-cycle132/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 11:45:30 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 11:45:31 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 11:47:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 11:47:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-114710-060360-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 11:47:59 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 11:48:00 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 11:55:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 11:55:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-115550-294801-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 11:56:48 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 11:56:49 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:04:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:04:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-120402-867329-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 12:04:56 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:04:57 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:12:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:12:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-121258-226593-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 12:13:54 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:13:55 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:16:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:16:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-121619-686883-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 12:16:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:16:56 | astis.py run-cycle | `runs/20260607-121655-443153-ASTIS-SALD-001-cycle133/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 12:17:34 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:17:35 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:21:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:21:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-122126-519364-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 12:22:05 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:22:06 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:30:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:30:36 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-123036-590161-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 12:31:44 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:31:45 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:37:44 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:37:45 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:39:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:39:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-123938-289511-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 12:40:22 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:40:23 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:47:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:47:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-124709-343396-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 12:48:06 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:48:07 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:49:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:50:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:50:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-125001-116806-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 12:50:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:50:35 | astis.py run-cycle | `runs/20260607-125034-331988-ASTIS-SALD-001-cycle134/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 12:51:04 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:51:05 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 12:53:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:53:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-125318-387245-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 12:54:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 12:54:00 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-125400-095797-ASTIS-SALD-001-upper-build |
+| 2026-06-07 12:54:55 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 12:54:56 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 13:07:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:07:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-130747-202939-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 13:08:38 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 13:08:39 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 13:15:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:15:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-131559-180713-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 13:16:59 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 13:16:59 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 13:26:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:26:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-132642-852535-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 13:27:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 13:27:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 13:29:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:29:06 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 103 source declarations for ASTIS-SALD-001 |
+| 2026-06-07 13:29:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:29:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-132942-054275-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 13:30:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:30:36 | astis.py run-cycle | `runs/20260607-133035-109663-ASTIS-SALD-001-cycle135/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 13:31:03 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 13:31:04 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 13:32:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:32:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-133250-481466-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 13:33:51 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 13:33:52 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 13:42:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:42:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-134207-012753-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 13:43:27 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 13:43:28 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 13:51:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 13:51:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-135154-052648-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 13:52:51 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 13:52:52 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:04:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:04:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-140452-845984-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 14:06:09 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:06:10 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:07:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:07:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-140742-594196-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 14:08:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:08:25 | astis.py run-cycle | `runs/20260607-140824-083414-ASTIS-SALD-001-cycle136/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 14:08:59 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:09:00 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:11:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:11:00 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-141100-190399-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 14:11:47 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:11:48 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:18:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:18:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-141849-559545-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 14:20:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:20:12 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:27:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:27:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-142708-255646-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 14:27:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:27:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-142738-370608-ASTIS-SALD-001-lower-build |
+| 2026-06-07 14:28:31 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:28:32 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:36:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:36:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-143606-567333-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 14:37:25 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:37:26 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:38:57 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:39:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:39:32 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-143932-809433-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 14:40:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:40:07 | astis.py run-cycle | `runs/20260607-144006-646185-ASTIS-SALD-001-cycle137/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 14:40:43 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:40:44 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:43:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:43:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-144318-162818-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 14:43:53 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:43:54 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 14:53:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 14:53:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-145333-806061-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 14:54:31 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 14:54:31 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 15:00:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:00:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-150055-277534-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 15:02:01 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 15:02:02 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 15:14:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:14:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-151453-092568-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 15:17:12 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 15:17:13 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 15:18:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:18:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-151852-458279-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 15:19:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:19:23 | astis.py run-cycle | `runs/20260607-151922-613653-ASTIS-SALD-001-cycle138/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 15:20:00 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 15:20:01 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 15:23:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:23:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-152312-648382-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 15:23:54 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 15:23:55 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 15:34:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:34:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-153402-834681-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 15:35:02 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 15:35:03 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 15:42:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:42:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-154227-732171-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 15:43:34 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 15:43:35 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 15:52:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:52:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-155253-740105-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 15:54:21 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 15:54:22 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 15:57:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:57:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-155711-470433-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 15:57:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 15:57:39 | astis.py run-cycle | `runs/20260607-155738-728220-ASTIS-SALD-001-cycle139/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 15:58:12 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 15:58:13 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 16:02:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 16:02:40 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-160240-550340-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 16:03:56 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 16:03:57 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 16:10:55 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 16:10:56 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 16:13:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 16:13:34 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-161334-320288-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 16:14:52 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 16:14:53 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 16:26:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 16:26:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-162633-589076-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 16:27:53 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 16:27:54 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 16:35:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 16:35:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-163541-932297-ASTIS-SALD-001-lower-handoff |
+| 2026-06-07 16:37:00 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 16:37:01 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 16:39:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 16:39:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-163901-509729-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-07 23:25:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 23:27:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 23:39:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 23:39:24 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-07 23:39:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 23:39:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 23:39:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 23:39:34 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 23:39:35 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle140.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 140 |
+| 2026-06-07 23:39:35 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260607-233935-429875.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-06-07 23:39:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 23:39:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 23:39:36 | astis.py run-cycle | `runs/20260607-233935-482061-ASTIS-SALD-001-cycle140/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-07 23:40:15 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 23:40:16 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 23:42:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 23:42:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-234239-728154-ASTIS-SALD-001-upper-handoff |
+| 2026-06-07 23:43:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 23:43:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-07 23:52:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-07 23:52:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260607-235258-934134-ASTIS-SALD-001-middle-handoff |
+| 2026-06-07 23:53:58 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-07 23:53:59 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:00:42 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:00:43 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:02:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:02:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-000231-359829-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 00:03:49 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:03:50 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:10:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:10:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-001018-028536-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 00:11:23 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:11:24 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:13:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:13:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-001317-663031-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 00:13:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:13:45 | astis.py run-cycle | `runs/20260608-001344-298550-ASTIS-SALD-001-cycle141/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 00:14:24 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:14:25 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:16:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:16:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-001644-363652-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 00:17:42 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:17:44 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:26:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:26:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-002607-210907-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 00:27:08 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:27:09 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:34:40 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:34:41 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:37:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:37:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-003728-922527-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 00:38:39 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:38:40 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:46:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:46:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-004658-495491-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 00:48:29 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:48:30 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:50:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:50:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-005045-078815-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 00:51:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:51:36 | astis.py run-cycle | `runs/20260608-005135-333507-ASTIS-SALD-001-cycle142/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 00:51:58 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:51:59 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 00:53:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 00:53:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-005344-739890-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 00:54:30 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 00:54:31 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 01:01:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 01:01:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-010137-799031-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 01:03:15 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 01:03:16 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 01:12:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 01:12:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-011233-496684-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 01:13:29 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 01:13:30 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 01:20:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 01:20:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-012039-283772-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 01:22:02 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 01:22:03 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 01:24:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 01:24:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-012458-674425-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 01:25:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 01:25:36 | astis.py run-cycle | `runs/20260608-012535-292854-ASTIS-SALD-001-cycle143/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 01:26:12 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 01:26:13 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 01:29:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 01:29:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-012918-250582-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 01:30:15 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 01:30:16 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 01:41:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 01:41:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-014113-995434-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 01:42:14 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 01:42:15 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 01:52:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 01:52:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-015212-219269-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 01:53:04 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 01:53:05 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:01:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:01:40 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-020140-857960-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 02:02:53 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:02:54 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:04:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:04:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-020424-721411-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 02:04:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:04:59 | astis.py run-cycle | `runs/20260608-020458-395701-ASTIS-SALD-001-cycle144/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 02:05:33 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:05:34 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:07:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:07:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-020717-127578-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 02:07:59 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:08:00 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:16:07 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:16:08 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:18:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:18:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-021802-514304-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 02:19:03 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:19:04 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:21:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:21:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-022131-123074-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 02:22:16 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:22:17 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:29:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:29:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-022928-888421-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 02:31:16 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:31:17 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:33:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:33:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-023350-808505-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 02:34:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:34:42 | astis.py run-cycle | `runs/20260608-023441-773831-ASTIS-SALD-001-cycle145/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 02:35:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:35:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:37:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:37:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-023745-416754-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 02:38:41 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:38:42 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:48:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:48:34 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-024834-566780-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 02:49:28 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:49:29 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:51:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 02:51:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-025105-406643-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 02:51:51 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:51:52 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 02:58:15 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 02:58:16 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:00:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:00:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-030005-574504-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 03:00:56 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:00:57 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:02:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:02:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-030216-692126-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 03:02:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:02:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-030239-120976-ASTIS-SALD-001-reviewer-build |
+| 2026-06-08 03:03:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:03:05 | astis.py run-cycle | `runs/20260608-030304-042750-ASTIS-SALD-001-cycle146/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 03:03:40 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:03:41 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:04:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:04:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-030458-933852-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 03:06:03 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:06:04 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:16:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:16:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-031613-895585-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 03:17:17 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:17:18 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:27:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:27:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-032719-202018-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 03:28:29 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:28:30 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:36:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:36:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-033614-788144-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 03:37:08 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:37:09 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:39:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:39:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-033915-554927-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 03:39:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:39:53 | astis.py run-cycle | `runs/20260608-033952-070612-ASTIS-SALD-001-cycle147/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 03:40:28 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:40:29 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:42:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:42:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-034209-088559-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 03:42:45 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:42:46 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 03:51:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 03:51:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-035135-611744-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 03:52:26 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 03:52:27 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:01:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:01:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-040130-672607-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 04:02:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:02:12 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:09:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:09:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-040941-070893-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 04:10:44 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:10:45 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:12:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:12:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-041247-445343-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 04:13:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:13:15 | astis.py run-cycle | `runs/20260608-041314-014362-ASTIS-SALD-001-cycle148/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 04:13:49 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:13:50 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:15:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:15:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-041538-410394-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 04:16:42 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:16:43 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:27:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:27:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-042701-615411-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 04:27:33 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:27:34 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:28:38 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:28:39 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:35:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:35:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-043532-979587-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 04:36:46 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:36:47 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:42:10 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:42:11 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:44:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:44:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-044411-509433-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 04:44:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:44:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-044437-839112-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 04:45:31 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:45:32 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:47:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:47:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-044725-104487-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 04:47:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:48:00 | astis.py run-cycle | `runs/20260608-044759-576351-ASTIS-SALD-001-cycle149/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 04:48:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:48:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 04:51:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 04:51:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-045130-350902-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 04:52:16 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 04:52:17 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:00:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:00:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-050022-461808-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 05:01:12 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:01:13 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:06:26 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:06:27 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:08:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:08:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-050810-263827-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 05:09:17 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:09:18 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:17:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:17:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-051759-101445-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 05:19:25 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:19:26 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:21:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:21:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-052108-508728-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 05:21:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:21:40 | astis.py run-cycle | `runs/20260608-052139-068819-ASTIS-SALD-001-cycle150/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 05:22:12 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:22:13 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:24:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:24:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-052406-073994-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 05:25:02 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:25:03 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:34:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:34:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-053416-280311-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 05:35:07 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:35:07 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:42:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:42:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-054215-654221-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 05:43:28 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:43:29 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:52:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:52:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-055205-421192-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 05:53:00 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 05:53:01 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 05:54:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:54:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-055452-804498-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 05:55:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 05:55:24 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-08 16:02:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 16:04:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 16:04:41 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-08 16:04:41 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/markdown/zh/ASTIS-SALD-001-cycle140-150-zh.md` | paper | Exported Chinese 6h SALD proof-reproduction summary |
+| 2026-06-08 16:45:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 16:45:39 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 16:45:40 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 16:45:40 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 16:45:41 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle151.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 151 |
+| 2026-06-08 16:45:41 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260608-164541-891324.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-06-08 16:45:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 16:45:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 16:45:43 | astis.py run-cycle | `runs/20260608-164541-946009-ASTIS-SALD-001-cycle151/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 16:46:07 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 16:46:08 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 16:48:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 16:48:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-164825-434512-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 16:49:23 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 16:49:23 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 16:58:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 16:58:00 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-165800-147916-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 16:59:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 16:59:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:01:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:01:32 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-170132-466881-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 17:02:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:02:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:08:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:08:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-170842-608258-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 17:09:45 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:09:46 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:11:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:11:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-171118-190703-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 17:11:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:11:58 | astis.py run-cycle | `runs/20260608-171157-208781-ASTIS-SALD-001-cycle152/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 17:12:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:12:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:14:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:14:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-171409-399981-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 17:14:49 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:14:50 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:21:05 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:21:06 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:22:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:22:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-172238-566492-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 17:23:36 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:23:37 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:30:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:30:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-173014-839670-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 17:31:13 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:31:14 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:37:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:37:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-173748-662693-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 17:38:55 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:38:56 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:41:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:41:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-174143-647977-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 17:42:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:42:17 | astis.py run-cycle | `runs/20260608-174216-285750-ASTIS-SALD-001-cycle153/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 17:42:51 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:42:52 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:45:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:45:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-174558-891167-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 17:46:52 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:46:53 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 17:57:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 17:57:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-175729-940813-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 17:59:24 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 17:59:25 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:01:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:01:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-180159-153992-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 18:03:17 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:03:18 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:08:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:08:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-180855-454126-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 18:09:45 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:09:46 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:11:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:11:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-181112-560192-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 18:11:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:11:58 | astis.py run-cycle | `runs/20260608-181157-070968-ASTIS-SALD-001-cycle154/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 18:12:39 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:12:40 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:15:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:15:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-181525-440452-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 18:16:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:16:12 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:25:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:25:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-182556-199157-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 18:26:41 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:26:42 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:35:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:35:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-183503-363981-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 18:36:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:36:12 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:45:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:45:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-184512-870967-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 18:46:24 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:46:25 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:48:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:48:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-184856-282969-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 18:49:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:49:44 | astis.py run-cycle | `runs/20260608-184943-538418-ASTIS-SALD-001-cycle155/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 18:50:20 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:50:21 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 18:53:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 18:53:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-185303-778334-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 18:54:02 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 18:54:03 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:03:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:03:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-190316-986871-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 19:04:18 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:04:19 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:07:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:07:28 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-190728-131698-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 19:08:08 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:08:09 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:09:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:09:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-190953-172442-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 19:10:52 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:10:53 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:12:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:12:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-191231-961597-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 19:13:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:13:06 | astis.py run-cycle | `runs/20260608-191305-376032-ASTIS-SALD-001-cycle156/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 19:13:32 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:13:33 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:15:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:15:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-191549-824805-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 19:16:42 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:16:43 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:23:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:23:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-192352-496565-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 19:25:08 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:25:09 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:32:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:32:01 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-193201-773629-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 19:33:49 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:33:50 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:40:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:40:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-194047-290506-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 19:42:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:42:12 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:43:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:43:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-194350-007054-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 19:44:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:44:29 | astis.py run-cycle | `runs/20260608-194428-369911-ASTIS-SALD-001-cycle157/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 19:45:00 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:45:01 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:47:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:47:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-194755-336607-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 19:48:45 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:48:46 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 19:54:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 19:54:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-195444-103756-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 19:55:47 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 19:55:48 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:01:24 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:01:25 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:03:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:03:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-200353-451175-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 20:04:44 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:04:45 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:10:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:10:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-201046-023302-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 20:11:57 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:11:58 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:13:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:13:59 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-201359-510829-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 20:14:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:14:34 | astis.py run-cycle | `runs/20260608-201433-206167-ASTIS-SALD-001-cycle158/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 20:15:09 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:15:10 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:16:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:16:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-201652-803981-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 20:17:38 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:17:39 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:25:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:25:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-202509-885376-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 20:26:36 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:26:37 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:30:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:30:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-203037-387201-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 20:32:41 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:32:42 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:39:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:39:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-203929-928903-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 20:40:43 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:40:44 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:42:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:42:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-204238-406977-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 20:43:04 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:43:05 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:43:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:43:43 | astis.py run-cycle | `runs/20260608-204342-155485-ASTIS-SALD-001-cycle159/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 20:44:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:44:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:46:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:46:15 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-204615-652436-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 20:47:34 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:47:35 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:54:33 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:54:34 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 20:56:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 20:56:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-205631-476078-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 20:57:21 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 20:57:22 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:02:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:02:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-210206-400981-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 21:03:11 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:03:13 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:08:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:08:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-210848-128876-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 21:09:38 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:09:39 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:11:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:11:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-211110-345699-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 21:11:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:11:48 | astis.py run-cycle | `runs/20260608-211147-372470-ASTIS-SALD-001-cycle160/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 21:12:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:12:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:15:16 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:15:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-211516-998627-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 21:16:18 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:16:19 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:24:34 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:24:34 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-212434-559964-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 21:26:18 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:26:19 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:35:00 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:35:00 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-213500-565231-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 21:35:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:35:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-213527-923751-ASTIS-SALD-001-lower-build |
+| 2026-06-08 21:36:12 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:36:13 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:45:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:45:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-214542-659419-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 21:46:52 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:46:53 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:49:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:49:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-214902-773967-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 21:49:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:49:43 | astis.py run-cycle | `runs/20260608-214941-913275-ASTIS-SALD-001-cycle161/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 21:50:17 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:50:18 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 21:54:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 21:54:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-215444-164500-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 21:55:36 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 21:55:37 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 22:04:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 22:04:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-220442-119537-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 22:05:40 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 22:05:41 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 22:15:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 22:15:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-221512-382815-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 22:16:14 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 22:16:15 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 22:25:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 22:25:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-222507-936950-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 22:26:27 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 22:26:28 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 22:27:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 22:27:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-222752-519218-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 22:28:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 22:28:44 | astis.py run-cycle | `runs/20260608-222843-180297-ASTIS-SALD-001-cycle162/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-08 22:29:19 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 22:29:20 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 22:30:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 22:30:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-223058-387907-ASTIS-SALD-001-upper-handoff |
+| 2026-06-08 22:31:41 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 22:31:42 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 22:40:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 22:40:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-224030-522875-ASTIS-SALD-001-middle-handoff |
+| 2026-06-08 22:41:25 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 22:41:26 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 22:52:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 22:52:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-225221-570371-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 22:53:43 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 22:53:44 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 23:03:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 23:03:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-230312-453638-ASTIS-SALD-001-lower-handoff |
+| 2026-06-08 23:04:10 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-08 23:04:11 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-08 23:05:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 23:05:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260608-230525-657924-ASTIS-SALD-001-reviewer-handoff |
+| 2026-06-08 23:05:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-08 23:06:00 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-08 23:06:00 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/markdown/zh/ASTIS-SALD-001-cycle151-162-zh.md` | paper | Exported Chinese 6h SALD proof-reproduction summary |
+| 2026-06-09 13:32:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-09 13:34:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-09 13:34:22 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-09 13:34:22 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/markdown/zh/ASTIS-SALD-001-cycle151-162-zh.md` | paper | Exported Chinese 6h SALD proof-reproduction summary |

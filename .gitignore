@@ -7,6 +7,8 @@
 /runs/*.pid
 *.olean
 *.ilean
+*.pyc
 *.trace
 *.log
+__pycache__/
 /.DS_Store

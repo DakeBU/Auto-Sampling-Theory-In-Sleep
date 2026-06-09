@@ -4,8 +4,8 @@ Reference:
 
 - GitHub: https://github.com/YuanheZ/LeanMarathon
 - arXiv: https://arxiv.org/abs/2606.05400
-- Shared local clone: `/home/nitanda_sub/mark/repos/outer_repos/LeanMarathon`
-- Shared local PDF: `/home/nitanda_sub/mark/repos/outer_papers/LeanMarathon-2606.05400.pdf`
+- Shared local clone: `/home/nitanda_sub/mark/repos/outer_repos/automation_systems/LeanMarathon`
+- Shared local PDF: `/home/nitanda_sub/mark/repos/outer_papers/automation_systems/LeanMarathon-2606.05400.pdf`
 
 ASTIS studies LeanMarathon as a Lean-specific long-horizon autoformalization
 harness.  The systems are similar in that both need durable state across long

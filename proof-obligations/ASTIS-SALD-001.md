@@ -6746,6 +6746,339 @@ hypotheses.  Local SLT files were consulted only for `condExp`, `Measure.map`,
 and Bochner-integral style; no SLT theorem was found that directly supplies
 this SALD representative characterization, and no SLT dependency is imported.
 
+## Cycle 114 Canonical `barB` State-Event Set-Integral Narrowing
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 114 stays on the dynamic leaf
+`ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral` for
+`appendix.tex:1368-1377`.  The compiled local theorem proves the state-event
+Bochner set-integral characterization when the drift representative is the
+canonical Mathlib `condDistrib` field corresponding to the source conditional
+expectation.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Canonical state-event set-integral theorem | formalized local theorem; narrows `hbarBStateSetIntegral` | `appendix.tex:1368-1377`; Mathlib conditional expectation and `condDistrib` | `SALD.generalMovingTargetDiscreteCanonicalBarBStateSetIntegralOfCondDistrib`; for every measurable state set `t`, the set integral of the canonical conditional guide-plus-score drift over `{omega | hatXAtS omega in t}` equals the set integral of the frozen sample guide-plus-score drift on the same event |
+| Cycle 114 lower packet | obligation plus compiled theorem registration | active EM backend `sald.general_moving_target_discrete.em_interpolation_fp` | `SALD.cycle114GeneralMovingTargetDiscreteCanonicalBarBStateEventSetIntegralLowerObligation`; `SALD.cycle114GeneralMovingTargetDiscreteCanonicalBarBStateEventSetIntegralDag`; `SALD.cycle114EmCanonicalBarBStateEventSetIntegralDependencyNames` |
+| Remaining exact theorem after canonical narrowing | source-cited/obligation boundary | `appendix.tex:1368-1377`; selected paper representative | `ASTIS.SALD.cycle114.remaining_named_barB_version_after_canonical_state_event_integral`; prove the paper-selected named `barB` is the canonical `condDistrib` representative `hatRhoS`-a.e., or instantiate the downstream EM route with the canonical representative; if a separate version is kept, prove `Integrable barB hatRhoS` from the same source construction |
+
+The proof uses
+`ProbabilityTheory.condExp_prod_ae_eq_integral_condDistrib'`,
+`MeasureTheory.setIntegral_condExp`, `MeasureTheory.setIntegral_congr_ae`,
+and Bochner integral add/smul linearity.  It does not prove weak FP, KL
+derivative, LSI, DV, Gronwall, theorem closure, SLT reuse, Lake changes,
+source-index rebaseline, or `sald_version_2.tex` content.
+
+## Cycle 115 Named `barB` Selected-Version Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 115 stays on the illness area left by cycle 114:
+`ASTIS.SALD.cycle114.remaining_named_barB_version_after_canonical_state_event_integral`
+for `appendix.tex:1368-1377`.  The compiled local theorem packages the
+useful direction for lower work: the selected-to-canonical `hatRhoS`-a.e.
+equality implies both the old state-event Bochner set-integral premise and
+the separate `Integrable barB hatRhoS` side condition.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Selected-version-to-state-events bridge | formalized local theorem; narrows `hbarBStateSetIntegral` | `appendix.tex:1368-1377`; Mathlib a.e. pullback and Bochner set-integral congruence | `SALD.generalMovingTargetDiscreteNamedBarBStateEventIntegralAndIntegrableOfCanonicalAeEq`; from `hbarBAe : canonicalCondDistribBarB =ᵐ[hatRhoS] barB`, derive `Integrable barB hatRhoS` and the state-event set-integral equality for every measurable state set `t` |
+| Source conditional-expectation lower bridge | formalized local theorem; discharges supplied `hbarBAe` | `appendix.tex:1368-1377`; Mathlib product conditional expectation | `SALD.generalMovingTargetDiscreteNamedBarBStateEventIntegralAndIntegrableOfCondExpSourceDef`; derives the selected-to-canonical a.e. equality from `SALD.generalMovingTargetDiscreteCondDistribNamedBarBAeEqOfCondExpSourceDef` and the paper representative equality `hbarBCondExp`, then returns `Integrable barB hatRhoS` and the state-event set-integral equality |
+| Cycle 115 middle/lower packet | obligation plus compiled theorem registration | active EM backend `sald.general_moving_target_discrete.em_interpolation_fp` | `SALD.cycle115GeneralMovingTargetDiscreteNamedBarBSelectedVersionMiddleObligation`; `SALD.cycle115GeneralMovingTargetDiscreteNamedBarBCondExpSourceLowerObligation`; `SALD.cycle115GeneralMovingTargetDiscreteNamedBarBSelectedVersionDag`; `SALD.cycle115EmNamedBarBSelectedVersionDependencyNames` |
+| Remaining exact theorem after lower bridge | source-cited/obligation boundary | `appendix.tex:1368-1377`; selected paper representative | `ASTIS.SALD.cycle115.remaining_named_barB_condExp_source_representative`; prove `hbarBCondExp`, the sample-space conditional-expectation representative equality for `barB (hatXAtS omega)`; if not source-supplied, discharge `hbarBEqMeas` using the existing cycle-110 measurable-representative route |
+
+This packet uses `MeasureTheory.ae_eq_comp`,
+`MeasureTheory.setIntegral_congr_ae`,
+`SALD.generalMovingTargetDiscreteCanonicalBarBStateSetIntegralOfCondDistrib`,
+`SALD.generalMovingTargetDiscreteCondDistribNamedDriftRegularityOfCanonicalAeEq`,
+and `ProbabilityTheory.condExp_prod_ae_eq_integral_condDistrib'`.
+It does not prove weak FP, KL derivative, LSI, DV, Gronwall, theorem closure,
+SLT reuse, Lake changes, source-index rebaseline, or `sald_version_2.tex`
+content.
+
+## Cycle 116 Canonical `barB` CondExp Representative
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 116 stays on the dynamic leaf
+`ASTIS.SALD.cycle115.remaining_named_barB_condExp_source_representative`
+for `appendix.tex:1368-1377`.  The compiled local theorem proves the
+conditional-expectation representative equality for the canonical Mathlib
+`condDistrib` guide-plus-score field, rather than assuming `hbarBCondExp` as
+a primitive source hypothesis.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Canonical `hbarBCondExp` theorem | formalized local theorem; narrows `hbarBCondExp` | `appendix.tex:1368-1377`; Mathlib product conditional expectation and Bochner integral linearity | `SALD.generalMovingTargetDiscreteCanonicalBarBCondExpOfCondDistrib`; proves that the Mathlib conditional expectation of the frozen sample guide-plus-score drift given `mState.comap hatXAtS` is a.e. equal to the canonical `condDistrib` guide-plus-score field composed with `hatXAtS` |
+| Canonical state-event proof reuse | formalized local theorem; factored dependency | `appendix.tex:1368-1377`; Mathlib `setIntegral_condExp` | `SALD.generalMovingTargetDiscreteCanonicalBarBStateSetIntegralOfCondDistrib`; now reuses the standalone canonical `hbarBCondExp` theorem for the conditional-expectation step |
+| Canonical selected-bridge specialization | formalized local theorem; discharges `hbarBCondExp` and `hbarBEqMeas` for the canonical representative | `appendix.tex:1368-1377`; cycle-115 selected bridge | `SALD.generalMovingTargetDiscreteCanonicalBarBStateEventIntegralAndIntegrableOfCondDistrib`; instantiates `SALD.generalMovingTargetDiscreteNamedBarBStateEventIntegralAndIntegrableOfCondExpSourceDef` with the canonical `condDistrib` field and returns Integrable canonical `barB` plus the state-event set-integral equality |
+| Cycle 116 lower packet | obligation plus compiled theorem registration | active EM backend `sald.general_moving_target_discrete.em_interpolation_fp` | `SALD.cycle116GeneralMovingTargetDiscreteCanonicalBarBCondExpLowerObligation`; `SALD.cycle116GeneralMovingTargetDiscreteCanonicalBarBCondExpDag`; `SALD.cycle116EmCanonicalBarBCondExpDependencyNames` |
+| Remaining exact theorem after canonical CondExp narrowing | source-cited/obligation boundary | `appendix.tex:1368-1377`; selected paper representative | `ASTIS.SALD.cycle116.remaining_named_barB_selected_version_after_canonical_condExp`; identify the paper-selected named `barB` with the canonical `condDistrib` guide-plus-score field, or instantiate the downstream EM route with the canonical representative |
+
+The proof uses
+`ProbabilityTheory.condExp_prod_ae_eq_integral_condDistrib'`,
+`MeasureTheory.integral_add`, and `MeasureTheory.integral_smul`.  No local
+SLT theorem was used or imported; the configured SLT reference path is missing
+in this workspace.  It does not prove weak FP, KL derivative, LSI, DV,
+Gronwall, theorem closure, Lake changes, source-index rebaseline, wrapper
+churn, or `sald_version_2.tex` content.
+
+## Cycle 117 Selected `barB` Version-Selection Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 117 follows the refreshed blueprint illness area
+`ASTIS.SALD.cycle116.remaining_named_barB_selected_version_after_canonical_condExp`
+for `appendix.tex:1368-1377`.  The older
+`ASTIS.SALD.cycle115.remaining_named_barB_condExp_source_representative`
+boundary is now narrowed by cycle 116 to a representative-choice theorem:
+identify the paper-selected named `barB` with the canonical Mathlib
+`condDistrib` guide-plus-score field, or instantiate the downstream EM route
+with the canonical representative if the source definition supports that
+choice.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 117 middle packet | obligation; illness-area refiner | active EM backend `sald.general_moving_target_discrete.em_interpolation_fp` | `SALD.cycle117GeneralMovingTargetDiscreteNamedBarBVersionSelectionMiddleObligation`; rejects another `hbarBCondExp` wrapper because `SALD.generalMovingTargetDiscreteCanonicalBarBCondExpOfCondDistrib` already proves the canonical representative case |
+| Pointwise canonical representative handoff | formalized local theorem; narrows selected-version boundary | `appendix.tex:1368-1377`; paper definition of the conditional drift field | `SALD.generalMovingTargetDiscreteNamedBarBStateEventIntegralAndIntegrableOfCanonicalPointwiseEq`; from `forall x, canonicalCondDistribBarB x = barB x`, derive `Integrable barB hatRhoS` and the state-event set-integral identity through the cycle-115 selected-version bridge |
+| Selected paper representative equality | remaining source choice; source-cited | `appendix.tex:1368-1377`; selected conditional-expectation representative | `ASTIS.SALD.cycle117.lower_ready.selected_named_barB_canonical_ae_eq`; either use `canonicalCondDistribBarB` directly downstream, or prove pointwise equality to it for a separately retained named version |
+| Canonical reuse already formalized | formalized local theorem; reused dependency | `appendix.tex:1368-1377`; Mathlib product conditional expectation | `SALD.generalMovingTargetDiscreteCanonicalBarBCondExpOfCondDistrib`; `SALD.generalMovingTargetDiscreteCanonicalBarBStateEventIntegralAndIntegrableOfCondDistrib` |
+| Named bridge waiting on version selection | compiled downstream bridge; remaining input is selected-to-canonical equality | `appendix.tex:1368-1377`; active EM consumer `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteNamedBarBStateEventIntegralAndIntegrableOfCanonicalAeEq`; `SALD.generalMovingTargetDiscreteNamedBarBStateEventIntegralAndIntegrableOfCondExpSourceDef`; `hbarBEqMeas` remains available via `SALD.generalMovingTargetDiscreteCondDistribNamedBarBEqMeasOfStronglyMeasurable` if a separate selected version is retained |
+| Cycle 117 route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle117GeneralMovingTargetDiscreteNamedBarBVersionSelectionLowerObligation`; `SALD.cycle117GeneralMovingTargetDiscreteNamedBarBVersionSelectionDag`; `SALD.cycle117EmNamedBarBVersionSelectionDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+
+No local SLT theorem was consulted because the configured SLT reference path is
+missing in this workspace.  This packet does not prove weak FP, KL derivative,
+LSI, DV, Gronwall, theorem closure, Lake changes, theorem-status promotion,
+source-index rebaseline, wrapper churn, or `sald_version_2.tex` content.
+
+## Cycle 118 Direct Canonical `barB` Downstream Instantiation
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 118 follows the refreshed blueprint illness area
+`ASTIS.SALD.cycle117.lower_ready.selected_named_barB_canonical_ae_eq`.
+The old named-representative boundary is now narrowed to a direct downstream
+canonical instantiation for the active EM state-event interface at
+`appendix.tex:1379-1387`, using the conditional-drift definition at
+`appendix.tex:1368-1377`.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Direct canonical downstream packet | obligation; illness-area refiner | active EM backend `sald.general_moving_target_discrete.em_interpolation_fp` | `SALD.cycle118GeneralMovingTargetDiscreteCanonicalBarBDownstreamMiddleObligation`; choose the canonical `condDistrib` guide-plus-score field as the downstream `barB` representative and reject another `hbarBCondExp` wrapper |
+| Canonical representative package | formalized local theorem; reused dependency | `appendix.tex:1368-1377`; Mathlib product conditional expectation and set integral | `SALD.generalMovingTargetDiscreteCanonicalBarBCondExpOfCondDistrib`; `SALD.generalMovingTargetDiscreteCanonicalBarBStateEventIntegralAndIntegrableOfCondDistrib` |
+| Lower-ready direct EM state-event target | formalized local theorem; lower packet | `appendix.tex:1368-1387` | `SALD.generalMovingTargetDiscreteCanonicalBarBEmStateEventInterface`; `ASTIS.SALD.cycle118.lower_ready.direct_canonical_barB_em_state_event_interface`; existentially instantiate `sald.general_moving_target_discrete.em_interpolation_fp` with `barB := canonicalCondDistribBarB` and consume the canonical state-event/integrability package |
+| Separate named representative fallback | source-cited obligation only if retained | `appendix.tex:1368-1377`; selected representative choice | prove pointwise equality to the canonical field and use `SALD.generalMovingTargetDiscreteNamedBarBStateEventIntegralAndIntegrableOfCanonicalPointwiseEq` |
+| Cycle 118 route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle118GeneralMovingTargetDiscreteCanonicalBarBDownstreamDag`; `SALD.cycle118EmCanonicalBarBDownstreamDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+
+Cycle 118 lower compiles the direct canonical interface theorem and narrows the
+selected-version boundary to the remaining choice of retaining a separate
+named representative or using this canonical witness downstream.  No local SLT
+theorem was consulted because the configured SLT reference path is missing in
+this workspace.  This packet does not prove weak FP, KL derivative, LSI, DV,
+Gronwall, theorem closure, Lake changes, theorem-status promotion,
+source-index rebaseline, wrapper churn, non-EM fallback, or `sald_version_2.tex`
+content.
+
+## Cycle 119 Canonical `barB` Weak-FP Consumer Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 119 follows the refreshed illness area after
+`SALD.generalMovingTargetDiscreteCanonicalBarBEmStateEventInterface` compiled.
+The old `hbarBCondExp`/selected-representative boundary is no longer the lower
+target.  The new exact boundary is the canonical weak-FP consumer under
+`ASTIS.SALD.cycle110.remaining_parametric_generator_boundary_after_dominated_transport`,
+with source anchors `appendix.tex:1368-1377` for the conditional drift and
+`appendix.tex:1379-1387` for the frozen EM Fokker-Planck invocation.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Canonical `barB` witness reuse | formalized local theorem; reused dependency | `appendix.tex:1368-1377` and state-event use at `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteCanonicalBarBEmStateEventInterface`; supplies the canonical `condDistrib` guide-plus-score field, `Integrable barB hatRhoS`, and state-event set-integral identity |
+| Canonical weak-FP consumer packet | obligation; illness-area refiner | active EM backend `sald.general_moving_target_discrete.em_interpolation_fp` | `SALD.cycle119GeneralMovingTargetDiscreteCanonicalBarBWeakFpConsumerMiddleObligation`; `ASTIS.SALD.cycle119.middle_packet.canonical_barB_weak_fp_consumer` |
+| Lower canonical weak-FP consumer | formalized local theorem; narrows exact boundary | `appendix.tex:1368-1387` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfDominated`; `SALD.cycle119GeneralMovingTargetDiscreteCanonicalBarBWeakFpConsumerLowerObligation`; consumes the cycle-118 witness and removes the supplied `Integrable canonicalBarB (hatRhoS s0)` premise from the dominated named-law weak derivative route |
+| Remaining exact theorem | source-cited obligation | `appendix.tex:1379-1387`, with drift from `appendix.tex:1368-1377` | `ASTIS.SALD.cycle119.remaining_em_path_derivative_domination_and_source_actions`; prove the EM pointwise `HasDerivAt`, local dominated derivative-under-integral package, derivative-value split into `driftAction + diffusionAction`, canonical `barB` weak-gradient pairing, no-boundary divergence, diffusion source action, and law-derivative/`partialS` uniqueness if needed |
+| Cycle 119 route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle119GeneralMovingTargetDiscreteCanonicalBarBWeakFpConsumerDag`; `SALD.cycle119EmCanonicalBarBWeakFpConsumerDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+
+No local SLT theorem was consulted because the configured SLT reference path is
+missing in this workspace.  This packet does not prove weak FP, KL derivative,
+LSI, DV, Gronwall, theorem closure, Lake changes, theorem-status promotion,
+source-index rebaseline, wrapper churn, non-EM fallback, or `sald_version_2.tex`
+content.
+
+## Cycle 120 EM Path Derivative/Domination Boundary
+
+Classification: `discharges-supplied-hypothesis`.
+
+Cycle 120 follows the refreshed illness area after the compiled canonical
+weak-FP consumer.  It strictly narrows
+`ASTIS.SALD.cycle119.remaining_em_path_derivative_domination_and_source_actions`
+to the concrete EM sample-path derivative and local domination package used by
+the local dominated named-law theorem.  It does not reopen
+`hbarBCondExp`, selected representatives, or non-EM theorem routes.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Canonical weak-FP consumer reuse | formalized local theorem; reused dependency | `appendix.tex:1368-1387` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfDominated`; consumes the cycle-118 canonical `barB` witness and the cycle-110 dominated named-law transport |
+| Cycle 120 middle packet | obligation; illness-area refiner | `appendix.tex:1379-1387` with drift source `appendix.tex:1368-1377` | `SALD.cycle120GeneralMovingTargetDiscreteEmPathDerivativeDominationMiddleObligation`; target the seven parametric-integral inputs before derivative-value/source-action identities |
+| EM interval-neighborhood consumer | formalized local theorem; discharges supplied `hsampleNeighborhood` | frozen EM interval in `appendix.tex:1379-1387`; `eq:general_moving_target_SALD_frozen_interp` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalDominated`; specializes the canonical `barB` dominated weak-FP route to `Set.Ioo sLeft sRight` and proves the neighborhood input from `s0 ∈ Set.Ioo sLeft sRight` |
+| Lower-ready exact theorem after interval packet | source-cited obligation | frozen EM interpolation and Fokker-Planck invocation at `appendix.tex:1379-1387` | `ASTIS.SALD.cycle120.lower_ready.em_sample_path_derivative_domination`; prove the remaining six parametric-integral inputs `hsampleMeas`, `hsampleInt`, `hsampleDerivMeas`, `hsampleDerivBound`, `hboundInt`, and `hpathDeriv` for every admissible weak test on the source EM interval |
+| Remaining source-action theorem | obligation; exact next boundary after path derivative/domination | `appendix.tex:1379-1387`; canonical drift from `appendix.tex:1368-1377` | `ASTIS.SALD.cycle120.remaining_source_actions_after_path_derivative`; prove `hderivValue`, canonical `barB` drift weak-action/pairing regularity, no-boundary divergence, diffusion source action, and optional law-derivative/`partialS` uniqueness |
+| Cycle 120 route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle120GeneralMovingTargetDiscreteEmPathDerivativeDominationDag`; `SALD.cycle120EmPathDerivativeDominationDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+
+Mathlib-facing dependency is
+`Mathlib.Analysis.Calculus.ParametricIntegral.hasDerivAt_integral_of_dominated_loc_of_deriv_le`
+through `AutoSamplingTheory.lawIntegralHasDerivAtOfMeasureMapEqAndDominated`.
+The local interval-neighborhood discharge uses only Mathlib's open-interval
+neighborhood fact for `Set.Ioo`.
+No local SLT theorem was consulted because the configured SLT reference path is
+missing in this workspace.  No broad source-index rebaseline, theorem-route
+audit, wrapper churn, non-EM fallback, Lake change, theorem-status promotion,
+fake closure, or `sald_version_2.tex` content is included.
+
+## Cycle 121 EM Sample Measurability Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Cycle 121 remains inside the EM sample-path derivative/domination illness
+area.  It discharges exactly the supplied `hsampleMeas` input from the
+cycle-120 interval theorem by deriving sample-space test measurability from
+law-space test measurability under the mapped-law identity
+`hatRhoS s = Measure.map (hatX s) P`.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 121 lower packet | formalized local theorem; discharges supplied `hsampleMeas` | `appendix.tex:1379-1387`; mapped EM law from `eq:general_moving_target_SALD_frozen_interp` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasDominated`; derives `AEStronglyMeasurable (fun omega => testEval phi (hatX s omega)) P` from `htestMeas`, `hhatRhoS`, and `hhatX` |
+| Cycle 121 proof-DAG registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle121GeneralMovingTargetDiscreteEmSampleMeasLowerObligation`; `SALD.cycle121GeneralMovingTargetDiscreteEmSampleMeasDag`; `SALD.cycle121EmSampleMeasDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+| Remaining EM path derivative/domination theorem | source-cited obligation | `appendix.tex:1379-1387`, with canonical drift from `appendix.tex:1368-1377` | `ASTIS.SALD.cycle121.remaining_em_path_derivative_domination_after_sample_meas`; prove `hsampleInt`, `hsampleDerivMeas`, `hsampleDerivBound`, `hboundInt`, and `hpathDeriv`; keep `hderivValue`, canonical drift weak-action/pairing regularity, no-boundary divergence, diffusion source action, and optional law-derivative/`partialS` uniqueness separate |
+
+Local SLT consultation: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory/SLT/EfronStein.lean`
+was inspected for the explicit conditional-measurability/integrability style;
+no SLT result is imported or promoted.  Mathlib-facing dependency is
+`MeasureTheory.AEStronglyMeasurable.comp_aemeasurable`, with the remaining
+dominated derivative-under-integral boundary still depending on
+`Mathlib.Analysis.Calculus.ParametricIntegral.hasDerivAt_integral_of_dominated_loc_of_deriv_le`.
+No broad source-index rebaseline, theorem-route audit, wrapper churn,
+non-EM fallback, Lake change, theorem-status promotion, fake closure, or
+`sald_version_2.tex` content is included.
+
+## Cycle 122 EM Sample Integrability Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Cycle 122 remains inside the EM sample-path derivative/domination dynamic
+leaf.  It discharges exactly the supplied `hsampleInt` input from the
+cycle-121 measurable interval theorem by deriving sample-space test
+integrability from law-space test integrability under the mapped-law identity
+`hatRhoS s0 = Measure.map (hatX s0) P`.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 122 lower packet | formalized local theorem; discharges supplied `hsampleInt` | `appendix.tex:1379-1387`; mapped EM law from `eq:general_moving_target_SALD_frozen_interp` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDominated`; derives `Integrable (fun omega => testEval phi (hatX s0 omega)) P` from `htestInt`, `hhatRhoS`, and `hhatX` |
+| Cycle 122 proof-DAG registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle122GeneralMovingTargetDiscreteEmSampleIntLowerObligation`; `SALD.cycle122GeneralMovingTargetDiscreteEmSampleIntDag`; `SALD.cycle122EmSampleIntDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+| Remaining EM path derivative/domination theorem | source-cited obligation | `appendix.tex:1379-1387`, with canonical drift from `appendix.tex:1368-1377` | `ASTIS.SALD.cycle122.remaining_em_path_derivative_domination_after_sample_int`; prove `hsampleDerivMeas`, `hsampleDerivBound`, `hboundInt`, and `hpathDeriv`; keep `hderivValue`, canonical drift weak-action/pairing regularity, no-boundary divergence, diffusion source action, and optional law-derivative/`partialS` uniqueness separate |
+
+Local SLT consultation: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory/SLT`
+was searched for `Measure.map`/`integrable_map_measure` idioms; no SLT result
+is imported or promoted.  Mathlib-facing dependencies are
+`MeasureTheory.Integrable.comp_aemeasurable` and
+`MeasureTheory.integrable_map_measure`, with the remaining dominated
+derivative-under-integral boundary still depending on
+`Mathlib.Analysis.Calculus.ParametricIntegral.hasDerivAt_integral_of_dominated_loc_of_deriv_le`.
+No broad source-index rebaseline, theorem-route audit, wrapper churn,
+non-EM fallback, Lake change, theorem-status promotion, fake closure, or
+`sald_version_2.tex` content is included.
+
+## Cycle 123 EM Sample Derivative Measurability Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Cycle 123 remains inside the EM sample-path derivative/domination dynamic
+leaf.  It discharges exactly the supplied `hsampleDerivMeas` input from the
+cycle-122 measurable/integrable interval theorem by deriving measurability of
+the selected sample-derivative representative from a concrete EM derivative
+representative and a.e. equality.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 123 lower packet | formalized local theorem; discharges supplied `hsampleDerivMeas` | `appendix.tex:1379-1387`; derivative along `eq:general_moving_target_SALD_frozen_interp` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasDominated`; derives `AEStronglyMeasurable (sampleDeriv phi s0) P` from `AEStronglyMeasurable (fun omega => deriv (fun t => testEval phi (hatX t omega)) s0) P` plus `sampleDeriv phi s0 =ᵐ[P]` that concrete representative |
+| Cycle 123 proof-DAG registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle123GeneralMovingTargetDiscreteEmSampleDerivMeasLowerObligation`; `SALD.cycle123GeneralMovingTargetDiscreteEmSampleDerivMeasDag`; `SALD.cycle123EmSampleDerivMeasDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+| Remaining EM path derivative/domination theorem | source-cited obligation | `appendix.tex:1379-1387`, with canonical drift from `appendix.tex:1368-1377` | `ASTIS.SALD.cycle123.remaining_em_path_derivative_domination_after_deriv_meas`; prove `hsampleDerivBound`, `hboundInt`, and `hpathDeriv`; keep `hderivValue`, canonical drift weak-action/pairing regularity, no-boundary divergence, diffusion source action, and optional law-derivative/`partialS` uniqueness separate |
+
+Mathlib consultation: `Mathlib/Analysis/Calculus/FDeriv/Measurable.lean`
+was inspected for derivative-with-parameter measurability.  The compiled local
+theorem uses `MeasureTheory.AEStronglyMeasurable.congr`; no SLT result is
+imported or promoted.  The topological hypotheses needed to prove the concrete
+derivative representative measurable remain an explicit source-facing
+boundary.  No broad source-index rebaseline, theorem-route audit, wrapper
+churn, non-EM fallback, Lake change, theorem-status promotion, fake closure,
+or `sald_version_2.tex` content is included.
+
+## Cycle 124 EM Sample Derivative Bound Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Cycle 124 remains inside the EM sample-path derivative/domination dynamic
+leaf.  It discharges exactly the supplied `hsampleDerivBound` input from the
+cycle-123 interval theorem by transporting a concrete EM derivative norm bound
+through an a.e. interval equality to the selected `sampleDeriv` representative.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 124 lower packet | formalized local theorem; discharges supplied `hsampleDerivBound` | `appendix.tex:1379-1387`; derivative along `eq:general_moving_target_SALD_frozen_interp` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundDominated`; derives `∀ᵐ omega, ∀ s ∈ Set.Ioo sLeft sRight, ‖sampleDeriv phi s omega‖ ≤ bound phi omega` from the concrete derivative bound plus interval a.e. equality |
+| Cycle 124 proof-DAG registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle124GeneralMovingTargetDiscreteEmSampleDerivBoundLowerObligation`; `SALD.cycle124GeneralMovingTargetDiscreteEmSampleDerivBoundDag`; `SALD.cycle124EmSampleDerivBoundDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+| Remaining EM path derivative/domination theorem | source-cited obligation | `appendix.tex:1379-1387`, with canonical drift from `appendix.tex:1368-1377` | `ASTIS.SALD.cycle124.remaining_em_path_derivative_domination_after_deriv_bound`; prove `hboundInt` and `hpathDeriv`; keep `hderivValue`, canonical drift weak-action/pairing regularity, no-boundary divergence, diffusion source action, and optional law-derivative/`partialS` uniqueness separate |
+
+No SLT theorem was consulted or imported for this packet; it is a local
+a.e.-equality/norm-bound transport over the source EM interval.  No broad
+source-index rebaseline, theorem-route audit, wrapper churn, non-EM fallback,
+Lake change, theorem-status promotion, fake closure, or `sald_version_2.tex`
+content is included.
+
+## Cycle 124 EM Bound Integrability Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Cycle 124 remains inside the EM sample-path derivative/domination dynamic
+leaf.  It discharges exactly the supplied `hboundInt` input from the
+cycle-124 derivative-bound interval theorem by transporting a joint-law
+integrable bound through the paired EM random variable and an a.e. equality to
+the selected sample-space `bound` representative.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 124 lower packet | formalized local theorem; discharges supplied `hboundInt` | `appendix.tex:1379-1387`; dominated weak-test derivative bound for `eq:general_moving_target_SALD_frozen_interp` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntDominated`; derives `MeasureTheory.Integrable (bound phi) P` from `MeasureTheory.Integrable (jointBound phi) (Measure.map (fun omega => (hatX s0 omega, Xk omega)) P)` plus `bound phi =ᵐ[P] fun omega => jointBound phi (hatX s0 omega, Xk omega)` |
+| Cycle 124 proof-DAG registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle124GeneralMovingTargetDiscreteEmBoundIntLowerObligation`; `SALD.cycle124GeneralMovingTargetDiscreteEmBoundIntDag`; `SALD.cycle124EmBoundIntDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+| Remaining EM path derivative/domination theorem | source-cited obligation | `appendix.tex:1379-1387`, with canonical drift from `appendix.tex:1368-1377` | `ASTIS.SALD.cycle124.remaining_em_path_derivative_domination_after_bound_int`; prove `hpathDeriv`; keep `hderivValue`, canonical drift weak-action/pairing regularity, no-boundary divergence, diffusion source action, and optional law-derivative/`partialS` uniqueness separate |
+
+No SLT theorem was consulted or imported for this packet; it uses Mathlib
+`AEMeasurable.prodMk`, `Integrable.comp_aemeasurable`, and
+`Integrable.congr`.  No broad source-index rebaseline, theorem-route audit,
+wrapper churn, non-EM fallback, Lake change, theorem-status promotion, fake
+closure, or `sald_version_2.tex` content is included.
+
+## Cycle 125 EM Path Derivative Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Cycle 125 remains inside the EM sample-path derivative/domination dynamic
+leaf.  It discharges exactly the supplied `hpathDeriv` input from the
+cycle-124 bound-integrability interval theorem by converting concrete
+differentiability of the frozen EM weak-test path into the selected
+`HasDerivAt` witness through the interval a.e. equality to `sampleDeriv`.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 125 lower packet | formalized local theorem; discharges supplied `hpathDeriv` | `appendix.tex:1379-1387`; derivative along `eq:general_moving_target_SALD_frozen_interp` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathDominated`; derives `∀ᵐ omega, ∀ s ∈ Set.Ioo sLeft sRight, HasDerivAt (fun t => testEval phi (hatX t omega)) (sampleDeriv phi s omega) s` from `DifferentiableAt Real (fun t => testEval phi (hatX t omega)) s`, `DifferentiableAt.hasDerivAt`, and `sampleDeriv = deriv (...)` a.e. on the interval |
+| Cycle 125 proof-DAG registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle125GeneralMovingTargetDiscreteEmPathDerivLowerObligation`; `SALD.cycle125GeneralMovingTargetDiscreteEmPathDerivDag`; `SALD.cycle125EmPathDerivDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+| Remaining source-action theorem | source-cited obligation | `appendix.tex:1379-1387`, with canonical drift from `appendix.tex:1368-1377` | `ASTIS.SALD.cycle125.remaining_source_actions_after_path_deriv`; prove `hderivValue`, canonical drift weak-action/pairing regularity, no-boundary divergence, diffusion source action, and optional law-derivative/`partialS` uniqueness |
+
+No SLT theorem was consulted or imported for this packet; it uses Mathlib
+`DifferentiableAt.hasDerivAt` plus the existing concrete derivative
+representative equality.  No broad source-index rebaseline, theorem-route
+audit, wrapper churn, non-EM fallback, Lake change, theorem-status promotion,
+fake closure, or `sald_version_2.tex` content is included.
+
 ## Cycle 110 Dominated Generator-To-Law Weak-FP Transport
 
 Classification: `discharges-supplied-hypothesis`.
@@ -6809,3 +7142,2807 @@ and drift derivatives off their own countable exception sets.
 `htestTraceZero` remain explicit.  This does not promote weak FP, KL
 differentiation, LSI, DV, Gronwall, theorem status, SLT import, Lake
 dependency changes, or `sald_version_2.tex` use.
+
+## Cycle 126 EM Derivative-Value Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Global phase judgment: cycle 125 passed reviewer/build, so this is not a
+recovery cycle. Phase 1 theorem-skeleton translation is stable enough for
+single-backend cited-theory backfill on
+`sald.general_moving_target_discrete.em_interpolation_fp`. The lower packet
+that most reduces proof risk is the `hderivValue` discharge for
+`SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathDominated`,
+still over `appendix.tex:1358-1387`, especially `appendix.tex:1379-1387`,
+with the canonical drift source at `appendix.tex:1368-1377`.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 126 lower packet | formalized local theorem; dynamic-leaf worker packet; removes supplied `hderivValue` | `appendix.tex:1379-1387`; `eq:general_moving_target_SALD_frozen_interp`; drift definition from `appendix.tex:1368-1377` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathValueDominated`: derives `(integral omega, sampleDeriv phi s0 omega dP) = driftAction phi + diffusionAction phi` from the source-cited concrete derivative integral split for `deriv (fun t : Real => testEval phi (hatX t omega)) s0` plus `hsampleDerivConcreteAeEqInterval` specialized at `s0` and `MeasureTheory.integral_congr_ae` |
+| Cycle 126 proof-DAG registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle126GeneralMovingTargetDiscreteEmDerivValueLowerObligation`; `SALD.cycle126GeneralMovingTargetDiscreteEmDerivValueDag`; `SALD.cycle126EmDerivValueDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+| Reviewer checklist | obligation-level acceptance criteria | active EM conditional-law/Fokker--Planck backend | accept only if the old `hderivValue` premise is absent from the new theorem statement, `MeasureTheory.integral_congr_ae` or an equivalent local Mathlib lemma transports the interval a.e. equality, canonical `barB` weak-action/pairing regularity, no-boundary divergence, `hdiffusionSource`, and law-derivative/`partialS` uniqueness remain explicit, and `python3 tools/astis.py check` passes with proof-diagnostics forbidden hits zero |
+
+The concrete derivative integral split remains source-cited and is now the
+smaller named theorem boundary after this discharge: it refers to the concrete
+derivative representative, not the already-selected `sampleDeriv` abstraction.
+Remaining exact boundary: canonical `barB` weak-action/pairing regularity,
+no-boundary divergence, diffusion source action, and optional
+law-derivative/`partialS` uniqueness. This packet rejects broad wrapper churn,
+a new source-index rebaseline, a theorem-route audit, non-EM fallback, SLT
+import, Lake/toolchain changes, theorem-status promotion, fake proof closure,
+or `sald_version_2.tex` use.
+
+## Cycle 127 Canonical `barB` Drift-Action Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Global phase judgment: cycle 126 passed reviewer/build and needs no recovery.
+The active packet stays on
+`sald.general_moving_target_discrete.em_interpolation_fp` over
+`appendix.tex:1358-1387`, narrowed to the canonical conditional drift field in
+`appendix.tex:1368-1377` and the weak FP source-sign consumer in
+`appendix.tex:1379-1387`.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Cycle 127 lower packet | formalized local theorem; dynamic-leaf worker packet; removes supplied `hdriftBarBAction` | `appendix.tex:1368-1377`; `appendix.tex:1379-1387`; `eq:general_moving_target_SALD_frozen_interp` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathValueDriftActionDominated`: derives the canonical `driftAction phi = weakGradPairing canonicalBarB phi` continuation from a drift action split into guide/score component actions, the two canonical `condDistrib` component pairings, and weak-pairing congruence/additivity/scalar-linearity |
+| Cycle 127 pair-measurability refinement | formalized local theorem; dynamic-leaf lower packet; removes supplied `hpairMeas` | `appendix.tex:1368-1377`; `appendix.tex:1379-1387`; Mathlib `MeasureTheory.AEStronglyMeasurable.inner` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathValueDriftActionPairMeasDominated`: derives `AEStronglyMeasurable (fun x => inner Real (testGrad phi x) (canonicalBarB x))` from separate `AEStronglyMeasurable (testGrad phi)` and `AEStronglyMeasurable canonicalBarB` inputs, then reuses the drift-action theorem |
+| Cycle 127 proof-DAG registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle127GeneralMovingTargetDiscreteEmDriftActionLowerObligation`; `SALD.cycle127GeneralMovingTargetDiscreteEmPairMeasLowerObligation`; `SALD.cycle127GeneralMovingTargetDiscreteEmDriftActionDag`; `SALD.cycle127EmDriftActionDependencyNames` is included by both `SALD.saldDependenciesForLabel "thm:forward-KL-discrete"` and `SALD.saldDependenciesForLabel "thm:general-moving-target-SALD-discrete"` |
+| Reviewer checklist | obligation-level acceptance criteria | active EM conditional-law/Fokker--Planck backend | accept only if the old direct `hdriftBarBAction` continuation and old raw `hpairMeas` continuation are absent from the newest theorem statement, the `dotTk`/`sigmaCoeff` guide-plus-score signs match `appendix.tex:1368-1377`, separate weak-test-gradient/canonicalBarB measurability, gradient bound, no-boundary divergence, `hdiffusionSource`, and law-derivative/`partialS` uniqueness remain explicit, and `python3 tools/astis.py check` passes with proof-diagnostics forbidden hits zero |
+
+Remaining exact boundary: separate weak-test-gradient and canonicalBarB
+measurability, gradient-bound regularity, no-boundary divergence for
+`hatRhoS * canonicalBarB`, diffusion source action, and optional
+law-derivative/`partialS` uniqueness. This packet rejects broad wrapper churn,
+source-index rebaseline, theorem-route audit, non-EM fallback, SLT import,
+Lake/toolchain changes, theorem-status promotion, fake proof closure, or
+`sald_version_2.tex` use.
+
+## Cycle 128 Canonical `barB` No-Boundary Refiner
+
+Classification: `narrows-source-cited-boundary`.
+
+Global phase judgment: cycle 127 passed reviewer/build and needs no recovery.
+The theorem-skeleton route is stable enough for continued single-backend
+backfill on `sald.general_moving_target_discrete.em_interpolation_fp`.  The
+largest remaining local proof risk is the direct no-boundary divergence input
+inside the current canonical `barB` weak-FP consumer, not the older discharged
+`hsampleInt`, `hpathDeriv`, `hderivValue`, `hdriftBarBAction`, or raw
+`hpairMeas` leaves.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 128 lower packet | Strictly narrows the direct `hdivNoBoundary` premise in the post-cycle-127 `...PairMeasDominated` theorem to source-facing product-rule, divergence-theorem, boundary-flux integral, and zero-test-trace facts for `hatRhoS s0 * canonicalBarB` | Existing no-boundary algebra route: `SALD.generalMovingTargetDiscreteDriftDivNoBoundaryOfProductRule`, the trace-product/zero-boundary helpers, and Mathlib `MeasureTheory.integral_congr_ae`; keeps `htestGradMeas`, `hcanonicalBarBMeas`, `hgradNormBound`, and `hdiffusionSource` explicit | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathValueDriftActionPairMeasNoBoundaryTraceDominated`; registered by `SALD.cycle128GeneralMovingTargetDiscreteEmNoBoundaryTraceLowerObligation`, `SALD.cycle128GeneralMovingTargetDiscreteEmNoBoundaryTraceDag`, and `SALD.cycle128EmNoBoundaryTraceDependencyNames` | `appendix.tex:1358-1387`; canonical drift field `appendix.tex:1368-1377`; weak Fokker-Planck display `appendix.tex:1379-1387` | `thm:forward-KL-discrete`; `thm:general-moving-target-SALD-discrete` | formalized local theorem; illness-area refiner |
+| Cycle 128 canonical-field measurability discharge | Remove the direct `hcanonicalBarBMeas` premise introduced by the no-boundary trace theorem. | Existing canonical condDistrib regularity route: `SALD.generalMovingTargetDiscreteCondDistribCanonicalDriftRegularity`, backed by `AutoSamplingTheory.condDistribIntegralNamedLawAEStronglyMeasurable` and `AutoSamplingTheory.condDistribIntegralNamedLawIntegrable`; keeps `htestGradMeas`, `hgradNormBound`, and `hdiffusionSource` explicit | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathValueDriftActionPairMeasNoBoundaryTraceCanonicalMeasDominated`; registered by `SALD.cycle128GeneralMovingTargetDiscreteEmCanonicalBarBMeasLowerObligation`, `SALD.cycle128GeneralMovingTargetDiscreteEmNoBoundaryTraceDag`, and `SALD.cycle128EmNoBoundaryTraceDependencyNames` | `appendix.tex:1358-1387`; canonical drift field `appendix.tex:1368-1377`; weak Fokker-Planck display `appendix.tex:1379-1387` | `thm:forward-KL-discrete`; `thm:general-moving-target-SALD-discrete` | formalized local theorem; `discharges-supplied-hypothesis` |
+| Stale-leaf retirement | Do not reassign lower work to already discharged `hsampleInt`, `hpathDeriv`, `hderivValue`, `hdriftBarBAction`, or raw `hpairMeas` continuations | Recent reviewer acceptance and compiled theorem `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathValueDriftActionPairMeasDominated` | current Lean system state | `appendix.tex:1368-1387` | active EM conditional-law/Fokker-Planck backend | recorded guard |
+| Reviewer checklist | Accept only if the new theorem statement removes direct `hdivNoBoundary`, does not reintroduce raw `hpairMeas`, reconstructs no-boundary through product-rule/divergence/boundary-trace facts, keeps `hgradNormBound` and `hdiffusionSource` explicit, and passes `python3 tools/astis.py check` with forbidden hits zero | FaithfulPaper mode discipline; no non-EM fallback, SLT import, Lake/toolchain/status change, fake closure, broad route audit, project-article export, or `sald_version_2.tex` | reviewer gate | `appendix.tex:1368-1387` | cycle 128 lower/reviewer | queued |
+
+No local SLT files were consulted or imported for this packet.  The target is
+the existing SALD/Mathlib no-boundary algebra route rather than conditional
+expectation or product-measure transport.  The compiled theorem removes the
+direct `hdivNoBoundary` continuation and reconstructs it from
+`hproductRule`, `hdivergenceTheorem`, `hboundaryFluxIntegral`, and
+`htestTraceZero`, then delegates the algebraic sign conversion to
+`SALD.generalMovingTargetDiscreteDriftDivNoBoundaryOfProductRule`.  The
+follow-on compiled theorem removes `hcanonicalBarBMeas` using the existing
+condDistrib canonical drift regularity theorem; the remaining exact source
+inputs are `htestGradMeas`, `hgradNormBound`, `hdiffusionSource`, and optional
+law-derivative/`partialS` uniqueness.
+
+## Cycle 129 EM Diffusion Source-Action Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 129 middle rejects the refreshed `hpathDeriv` illness-area assignment as
+stale: cycle 125 already compiled the pathwise EM derivative discharge, and
+cycle 126 already compiled the derivative-value continuation.  The lower
+packet therefore targets the live remaining `hdiffusionSource` input in
+`SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathValueDriftActionPairMeasNoBoundaryTraceCanonicalMeasDominated`.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Canonical consumer continuation | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1379-1387` positive diffusion term `+(sigma_eta^2/2) Delta hat rho_s` | `SALD.generalMovingTargetDiscreteCanonicalBarBWeakConditionalFpNamedLawDerivativeOfEmIntervalMeasIntDerivMeasBoundIntPathValueDriftActionPairMeasNoBoundaryTraceCanonicalMeasDiffusionSourceDominated`; removes direct `hdiffusionSource` from the canonical EM consumer |
+| Remaining diffusion source-action boundary | source-cited boundary | `appendix.tex:1379-1387` positive diffusion term `+(sigma_eta^2/2) Delta hat rho_s` | prove the EM/Brownian diffusion generator weak action and weak Laplacian integration-by-parts action |
+| Local composition helper | formalized local theorem only | weak FP diffusion source display | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfLaplacianAction`; composes the two smaller source-facing facts into `diffusionAction phi = sigmaCoeff • laplacian phi` without proving the analytic Laplacian theorem |
+| Route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle129GeneralMovingTargetDiscreteEmDiffusionSourceDag`; `SALD.cycle129EmDiffusionSourceDependencyNames` included by both `thm:forward-KL-discrete` and `thm:general-moving-target-SALD-discrete` |
+
+No SLT theorem was consulted or imported.  The remaining exact inputs are
+`htestGradMeas`, `hgradNormBound`, the two narrowed diffusion-action facts
+`hdiffusionAction` and `hlaplacianAction`, and
+optional law-derivative/`partialS` uniqueness.  This packet does not promote
+weak FP, KL differentiation, LSI, DV, Gronwall, theorem status, Lake/toolchain
+state, fake proof closure, or `sald_version_2.tex`.
+
+## Cycle 130 EM Weak Laplacian IBP Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 130 middle follows the refreshed illness-area refiner and narrows the
+cycle-129 `hlaplacianAction` premise.  It does not reopen the already accepted
+direct `hdiffusionSource` continuation, and it keeps the EM/Brownian
+`hdiffusionAction` fact separate.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Weak Laplacian action handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1379-1387` positive diffusion term `+(sigma_eta^2/2) Delta hat rho_s` | `SALD.generalMovingTargetDiscreteWeakConditionalFpLaplacianActionOfIntegrationByParts`; derives the old `hlaplacianAction` from `hdiffusionLaplacianTerm` and `hweakLaplacianIbP` |
+| Diffusion-source helper with IBP exposed | formalized local theorem; lower-ready continuation | weak FP diffusion source display | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfLaplacianIntegrationByParts`; reuses the cycle-129 helper with direct `hlaplacianAction` absent |
+| Green-identity scout route | formalized local theorem plus proof-scout route; `narrows-source-cited-boundary` | `appendix.tex:1379-1387` positive diffusion term and no-boundary weak test use | `SALD.generalMovingTargetDiscreteWeakConditionalFpLaplacianIbPOfGreenIdentity` and `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfGreenLaplacianIbP`; replace direct `hweakLaplacianIbP` by first-Green density-Laplacian-to-negative-gradient-pairing, second-Green negative-gradient-pairing-to-test-Laplacian, and test-Laplacian normalization |
+| First-Green no-boundary flux handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1379-1387`; first Green identity and no-boundary weak test use | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfFirstGreenNoBoundaryFlux`; replaces direct `hfirstGreen` by first-Green residual, divergence-theorem boundary-flux identity, and zero boundary-flux condition |
+| Remaining weak Laplacian analysis | source-cited boundary | `appendix.tex:1379-1387`; admissible weak tests and boundary regularity | prove the density-Laplacian weak term for the EM/Brownian diffusion contribution, instantiate the first-Green residual/divergence/zero-flux facts, then prove the second Green identity and test-Laplacian normalization |
+| Route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle130GeneralMovingTargetDiscreteEmLaplacianIbPDag`; `SALD.cycle130EmLaplacianIbPDependencyNames` included by both `thm:forward-KL-discrete` and `thm:general-moving-target-SALD-discrete` |
+
+No SLT theorem was consulted or imported.  The local Mathlib/SALD proof route
+consulted for lower_2 is `Mathlib.MeasureTheory.Integral.DivergenceTheorem`,
+especially `MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable`,
+and the existing local wrapper
+`SALD.generalMovingTargetDiscreteBoundaryFluxIntegralOfDivergenceTheoremBox`.
+The remaining exact inputs are
+`htestGradMeas`, `hgradNormBound`, `hdiffusionAction`,
+`hdiffusionLaplacianTerm`, the first-Green residual/divergence/zero-boundary
+facts, `hsecondGreen`, test-Laplacian normalization `htestLaplacian`, and
+optional law-derivative/`partialS` uniqueness.  This packet does not promote weak FP,
+KL differentiation, LSI, DV, Gronwall, theorem status, Lake/toolchain state,
+fake proof closure, or `sald_version_2.tex`.
+
+## Cycle 131 EM Second-Green No-Boundary Flux Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 131 follows the refreshed illness-area handoff and narrows the direct
+`hsecondGreen` premise still exposed by
+`SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfFirstGreenNoBoundaryFlux`.
+The packet stays on the EM conditional-law/Fokker--Planck backend and does not
+reopen stale sample/path/canonical leaves.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Second-Green no-boundary flux handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1392-1427`; no-boundary weak test integration by parts feeding `eq:general_KL_derivative_1_discrete` | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenNoBoundaryFlux`; replaces direct `hsecondGreen` by `hsecondGreenResidual`, `hsecondGreenDivergence`, and `hsecondGreenZeroBoundary` |
+| Second-Green trace-boundary zero-flux handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1392-1427`; no-boundary trace condition for the second Green flux | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenTraceBoundary`; replaces direct `hsecondGreenZeroBoundary` by `hsecondGreenBoundaryFluxIntegral` and `hsecondGreenTraceProductZero` |
+| Second-Green box boundary-flux handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1392-1427`; Mathlib box divergence theorem plus source face-trace setup | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFlux`; replaces direct `hsecondGreenBoundaryFluxIntegral` by weighted-field continuity, countable derivative exception set, off-exception Frechet derivative, divergence integrability, boundaryFlux/interior-divergence identity, and signed-face trace identification |
+| Remaining weak Laplacian analysis | source-cited boundary | `appendix.tex:1379-1427`; admissible weak tests and boundary regularity | prove `hdiffusionLaplacianTerm`, instantiate the first-Green residual/divergence/zero-flux facts, instantiate the second-Green residual/divergence facts, prove the box-divergence regularity/face-trace facts behind second-Green boundary flux, prove trace-product-zero for source admissible tests, then prove `htestLaplacian` |
+| Route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle131GeneralMovingTargetDiscreteEmSecondGreenNoBoundaryFluxLowerObligation`; `SALD.cycle131GeneralMovingTargetDiscreteEmSecondGreenTraceBoundaryLowerObligation`; `SALD.cycle131GeneralMovingTargetDiscreteEmSecondGreenBoxBoundaryFluxLowerObligation`; `SALD.cycle131GeneralMovingTargetDiscreteEmSecondGreenNoBoundaryFluxDag`; `SALD.cycle131EmSecondGreenNoBoundaryFluxDependencyNames` included by both `thm:forward-KL-discrete` and `thm:general-moving-target-SALD-discrete` |
+
+No SLT theorem was consulted or imported.  The local Mathlib/SALD backend
+remains `Mathlib.MeasureTheory.Integral.DivergenceTheorem`, especially
+`MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable`, together with
+`SALD.generalMovingTargetDiscreteBoundaryFluxIntegralOfDivergenceTheoremBox`.
+The remaining exact inputs are `htestGradMeas`, `hgradNormBound`,
+`hdiffusionAction`, `hdiffusionLaplacianTerm`, first-Green
+residual/divergence/zero-boundary facts, second-Green residual/divergence
+facts, box-divergence regularity/face-trace facts behind second-Green boundary
+flux, second-Green trace-product-zero facts, `htestLaplacian`, and optional
+law-derivative/`partialS` uniqueness.  This
+packet does not promote weak FP,
+KL differentiation, LSI, DV, Gronwall, theorem status, Lake/toolchain state,
+fake proof closure, wrapper churn, broad audit, non-EM fallback, or
+`sald_version_2.tex`.
+
+## Cycle 132 EM Second-Green Test-Trace Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 132 follows the upper illness-area refiner packet and narrows the
+remaining `hsecondGreenTraceProductZero` input in
+`SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFlux`.
+The packet stays on the EM conditional-law/Fokker--Planck backend and does not
+reopen stale sample/path/canonical leaves.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Second-Green zero-test-trace handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1392-1427`; no-boundary trace condition for admissible weak tests in the second Green step | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfTestTraceZero`; replaces direct `hsecondGreenTraceProductZero` by `hsecondGreenTestTraceZero` and uses `SALD.generalMovingTargetDiscreteTraceProductZeroOfTestTraceZero` |
+| Second-Green trace-identification zero-trace scout handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1392-1427`; no-boundary trace condition for admissible weak tests in the second Green step, reusing the cycle-102 admissible-test trace route | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfTraceEqTestTraceZero`; replaces direct `hsecondGreenTestTraceZero` by `hsecondGreenTestTraceEq` plus `htestTraceZero` |
+| Second-Green pointwise trace-identification handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1392-1427`; source trace-definition equality for the selected second-Green boundary trace | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfPointwiseTraceEqTestTraceZero`; replaces direct a.e. `hsecondGreenTestTraceEq` by pointwise `hsecondGreenTestTracePointwiseEq` and derives the a.e. equality via `Filter.Eventually.of_forall` |
+| Remaining weak Laplacian analysis | source-cited boundary | `appendix.tex:1379-1427`; admissible weak tests and boundary regularity | prove `hdiffusionLaplacianTerm`, instantiate the first-Green residual/divergence/zero-flux facts, instantiate the second-Green residual/divergence facts, prove the box-divergence regularity/face-trace facts behind second-Green boundary flux, prove the pointwise source trace-definition equality identifying the second-Green test trace with the admissible-test boundary trace, prove analytic zero test trace for source admissible tests, then prove `htestLaplacian` |
+| Route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle132GeneralMovingTargetDiscreteEmSecondGreenTestTraceZeroLowerObligation`; `SALD.cycle132GeneralMovingTargetDiscreteEmSecondGreenTraceEqTestTraceZeroScoutObligation`; `SALD.cycle132GeneralMovingTargetDiscreteEmSecondGreenPointwiseTraceEqLowerObligation`; `SALD.cycle132GeneralMovingTargetDiscreteEmSecondGreenTestTraceZeroDag`; `SALD.cycle132EmSecondGreenTestTraceZeroDependencyNames` included by both `thm:forward-KL-discrete` and `thm:general-moving-target-SALD-discrete` |
+
+No SLT theorem was consulted or imported.  The local backend is
+`SALD.generalMovingTargetDiscreteTraceProductZeroOfTestTraceZero`, reused
+under the cycle-131 Mathlib/SALD box-divergence package.  The remaining exact
+inputs are `htestGradMeas`, `hgradNormBound`, `hdiffusionAction`,
+`hdiffusionLaplacianTerm`, first-Green residual/divergence/zero-boundary facts,
+second-Green residual/divergence facts, box-divergence regularity/face-trace
+facts behind second-Green boundary flux, pointwise source trace-definition
+equality identifying the second-Green test trace with the admissible-test
+boundary trace, analytic zero-test-trace for source admissible tests,
+`htestLaplacian`, and optional law-derivative/`partialS`
+uniqueness.  This packet does not promote weak FP, KL differentiation, LSI,
+DV, Gronwall, theorem status, Lake/toolchain state, fake proof closure, wrapper
+churn, broad audit, non-EM fallback, or `sald_version_2.tex`.
+
+## Cycle 133 EM Pointwise Test-Trace Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 133 follows the refreshed illness-area continuation and narrows the
+remaining a.e. admissible-test zero-trace input `htestTraceZero` in
+`SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfPointwiseTraceEqTestTraceZero`.
+The packet stays on the EM conditional-law/Fokker--Planck backend and does not
+reopen stale sample/path/canonical leaves.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Pointwise admissible-test zero-trace handoff | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1392-1427`; source no-boundary/compact-support condition for admissible weak tests | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfPointwiseTraceEqPointwiseTestTraceZero`; replaces direct a.e. `htestTraceZero` by pointwise `htestTracePointwiseZero` and derives the a.e. equality via `Filter.Eventually.of_forall` |
+| Test-local Laplacian normalization handoff | formalized local theorem plus scout boundary; `narrows-source-cited-boundary` | `appendix.tex:1379-1427`; source rewrite of the weak test Laplacian action | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfPointwiseTraceEqPointwiseTestTraceZeroOfTestLaplacianNormalization`; replaces broad `htestLaplacian` by `htestLaplacianLocal : forall phi, Admissible phi -> testRegular -> testLaplacianAction phi = laplacian phi` |
+| Operator-level test-Laplacian normalization handoff | formalized local theorem plus lower_2 boundary; `narrows-source-cited-boundary` | `appendix.tex:1379-1427`; source identification of the selected regular test calculus with the weak-FP Laplacian operator | `SALD.generalMovingTargetDiscreteTestLaplacianLocalOfOperatorNormalization`; derives `htestLaplacianLocal` from `htestLaplacianOperator : testRegular -> testLaplacianAction = laplacian`, so admissibility is no longer part of the analytic normalization leaf |
+| Remaining weak Laplacian analysis | source-cited boundary | `appendix.tex:1379-1427`; admissible weak tests and boundary regularity | prove `hdiffusionLaplacianTerm`, instantiate first-Green residual/divergence/zero-flux facts, instantiate second-Green residual/divergence facts, prove box-divergence regularity/face-trace facts behind second-Green boundary flux, prove pointwise source trace-definition equality, prove pointwise zero boundary trace for source admissible tests, then prove the operator-level `htestLaplacianOperator` |
+| Route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle133GeneralMovingTargetDiscreteEmSecondGreenPointwiseTestTraceZeroLowerObligation`; `SALD.cycle133GeneralMovingTargetDiscreteEmTestLaplacianNormalizationScoutObligation`; `SALD.cycle133GeneralMovingTargetDiscreteEmTestLaplacianOperatorNormalizationLowerObligation`; `SALD.cycle133GeneralMovingTargetDiscreteEmSecondGreenPointwiseTestTraceZeroDag`; `SALD.cycle133EmSecondGreenPointwiseTestTraceZeroDependencyNames` included by both `thm:forward-KL-discrete` and `thm:general-moving-target-SALD-discrete` |
+
+No SLT theorem was consulted or imported.  The local backend is
+`Filter.Eventually.of_forall`, reused under the cycle-131/132 SALD
+box-divergence and trace-identification package.  The remaining exact inputs
+are `htestGradMeas`, `hgradNormBound`, `hdiffusionAction`,
+`hdiffusionLaplacianTerm`, first-Green residual/divergence/zero-boundary facts,
+second-Green residual/divergence facts, box-divergence regularity/face-trace
+facts behind second-Green boundary flux, pointwise source trace-definition
+equality identifying the second-Green test trace with the admissible-test
+boundary trace, pointwise zero boundary trace for source admissible tests,
+the operator-level test-Laplacian normalization `htestLaplacianOperator`, and optional
+law-derivative/`partialS` uniqueness.  This packet does not promote weak FP,
+KL differentiation, LSI, DV, Gronwall, theorem status, Lake/toolchain state,
+fake proof closure, wrapper churn, broad audit, non-EM fallback, or
+`sald_version_2.tex`.
+
+## Cycle 134 EM Test-Laplacian Source Pullback Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Cycle 134 follows the refreshed dynamic leaf and narrows the remaining
+operator-level test-Laplacian normalization
+`htestLaplacianOperator : testRegular -> testLaplacianAction = laplacian`.
+The packet stays on the EM conditional-law/Fokker--Planck backend over
+`appendix.tex:1358-1387` and the weak-test calculus window
+`appendix.tex:1379-1427`.
+
+| Obligation | Status | Source | Lean-facing contract |
+|---|---|---|---|
+| Source-pullback operator normalization | formalized local theorem; `narrows-source-cited-boundary` | `appendix.tex:1379-1427`; the same selected weak-test Laplacian action is used by the test calculus and weak-FP display | `SALD.generalMovingTargetDiscreteTestLaplacianOperatorNormalizationOfSourcePullback`; derives the old operator equality from `htestLaplacianActionDef` and `hweakFpLaplacianDef` |
+| Downstream second-Green source-pullback consumer | formalized local theorem; dynamic-leaf worker packet | `appendix.tex:1379-1427`; feeds the cycle-133 pointwise trace/second-Green chain | `SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfPointwiseTraceEqPointwiseTestTraceZeroOfSourceLaplacianPullback`; replaces direct `htestLaplacianOperator` by the two shared source-definition facts |
+| Remaining source definitions | source-cited boundary | `appendix.tex:1379-1427`; selected regular weak-test calculus | instantiate the selected weak-test representation and prove `htestLaplacianActionDef` plus the lower_2 `hweakFpStdBasisDef` standard-basis formula; second-Green, box-divergence, trace, diffusion, and first-Green leaves remain separate |
+| Route registration | obligation plus proof-DAG registration | active EM/discrete routes | `SALD.cycle134GeneralMovingTargetDiscreteEmTestLaplacianSourcePullbackLowerObligation`; `SALD.cycle134GeneralMovingTargetDiscreteEmTestLaplacianSourcePullbackDag`; `SALD.cycle134EmTestLaplacianSourcePullbackDependencyNames` included by both `thm:forward-KL-discrete` and `thm:general-moving-target-SALD-discrete` |
+
+No SLT theorem was consulted or imported because this packet is a
+test-calculus/operator-definition split, not a conditional-expectation or
+product-measure proof.  The remaining exact inputs after lower_2 are
+`htestLaplacianActionDef`, `hweakFpStdBasisDef`, `htestGradMeas`, `hgradNormBound`,
+`hdiffusionAction`, `hdiffusionLaplacianTerm`, first-Green
+residual/divergence/zero-boundary facts, second-Green residual/divergence
+facts, box-divergence regularity/face-trace facts behind second-Green boundary
+flux, pointwise source trace-definition equality, pointwise zero boundary
+trace for source admissible tests, and optional law-derivative/`partialS`
+uniqueness.  This packet does not promote weak FP, KL differentiation, LSI,
+DV, Gronwall, theorem status, Lake/toolchain state, fake proof closure,
+wrapper churn, broad audit, non-EM fallback, or `sald_version_2.tex`.
+
+## Cycle 134 Lower_1 Source-Laplacian Standard-Basis Scout
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf proof scout on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the remaining source-definition facts
+`htestLaplacianActionDef` and `hweakFpLaplacianDef` left by
+`SALD.generalMovingTargetDiscreteTestLaplacianOperatorNormalizationOfSourcePullback`.
+They should now be implemented against Mathlib's concrete Laplacian on the
+selected source test, not against an unspecified `sourceLaplacianAction`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
+For a real-valued source test on a finite-dimensional real inner-product
+space, it identifies `Laplacian.laplacian sourceTest` with the standard-basis
+sum of second iterated Frechet derivatives via
+`InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis`.
+
+Lower_2-ready theorem block: prove one of the two definition leaves, preferably
+`hweakFpLaplacianDef`, by setting `sourceLaplacianAction` to Mathlib's
+`Laplacian.laplacian` on the selected weak-test representation and showing the
+weak-FP abstract `laplacian` action is definitionally or extensionally equal
+to that standard-basis second-derivative formula.  The sibling
+`htestLaplacianActionDef` is the same target for the local test-calculus action.
+
+Source and dependency classification: `appendix.tex:1379-1427`;
+`mathlib-available`; no SLT theorem is needed.  The relevant Mathlib file is
+`Mathlib.Analysis.InnerProductSpace.Laplacian`; the box-divergence theorem
+remains separate for the second-Green boundary-flux leaves.
+
+## Cycle 134 Lower_2 Weak-FP Standard-Basis Definition
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the `hweakFpLaplacianDef` source-definition fact left by
+`SALD.generalMovingTargetDiscreteTestLaplacianOperatorNormalizationOfSourcePullback`.
+It now follows from the smaller source formula `hweakFpStdBasisDef`, which says
+that the weak-FP abstract `laplacian` action is the standard-basis
+second-derivative action on the selected weak test after the source Laplacian is
+instantiated by Mathlib's `Laplacian.laplacian`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscreteWeakFpLaplacianDefOfStdBasisSourceFormula`.
+It reuses
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` and
+`InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis` to convert the
+standard-basis source formula into the Mathlib-Laplacian source pullback required
+by the cycle-134 operator-normalization handoff.
+
+Remaining lower boundary: prove `htestLaplacianActionDef` for the local
+test-calculus action and prove the source-facing `hweakFpStdBasisDef` theorem.
+Second-Green, box-divergence, trace, diffusion, and first-Green leaves remain
+separate.  No SLT theorem was consulted or imported.
+
+## Cycle 135 Lower Test-Laplacian Standard-Basis Definition
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the `htestLaplacianActionDef` source-definition fact
+left by
+`SALD.generalMovingTargetDiscreteTestLaplacianOperatorNormalizationOfSourcePullback`.
+It now follows from the smaller source formula `htestLaplacianStdBasisDef`,
+which says that the test-calculus abstract `testLaplacianAction` is the
+standard-basis second-derivative action on the selected weak test after the
+source Laplacian is instantiated by Mathlib's `Laplacian.laplacian`.
+
+Compiled local theorems:
+`SALD.generalMovingTargetDiscreteTestLaplacianActionDefOfStdBasisSourceFormula`
+and
+`SALD.generalMovingTargetDiscreteTestLaplacianOperatorNormalizationOfStdBasisSourceFormula`.
+The first reuses
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` and
+`InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis` to convert the
+standard-basis source formula into the Mathlib-Laplacian source pullback required
+by the cycle-134 operator-normalization handoff.  The second composes that
+test-action bridge with
+`SALD.generalMovingTargetDiscreteWeakFpLaplacianDefOfStdBasisSourceFormula` so
+that the old `htestLaplacianOperator` boundary follows directly from
+`htestLaplacianStdBasisDef` and `hweakFpStdBasisDef`.
+
+Lower_2 downstream consumer theorem:
+`SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfPointwiseTraceEqPointwiseTestTraceZeroOfStdBasisSourceFormula`.
+It feeds the standard-basis route into the second-Green diffusion-source
+consumer, so that consumer no longer takes `htestLaplacianActionDef` or
+`hweakFpLaplacianDef` as supplied hypotheses.  It keeps the source-facing
+`htestLaplacianStdBasisDef` and `hweakFpStdBasisDef`, second-Green,
+box-divergence, trace, diffusion, and first-Green leaves explicit.
+
+Proof-DAG registration:
+`SALD.cycle135GeneralMovingTargetDiscreteEmTestLaplacianStdBasisLowerObligation`,
+`SALD.cycle135GeneralMovingTargetDiscreteEmSecondGreenStdBasisConsumerLowerObligation`,
+`SALD.cycle135GeneralMovingTargetDiscreteEmTestLaplacianStdBasisDag`, and
+`SALD.cycle135EmTestLaplacianStdBasisDependencyNames`.
+
+Remaining lower boundary: prove the source-facing
+`htestLaplacianStdBasisDef` theorem for the local test-calculus action and prove
+`hweakFpStdBasisDef` for the weak-FP action.  After those two source formulas,
+the downstream second-Green consumer no longer needs the older source-pullback
+definition hypotheses.  Second-Green, box-divergence,
+trace, diffusion, first-Green, KL differentiation, LSI, DV, and Gronwall leaves
+remain separate.  No SLT theorem was consulted or imported; only
+`Mathlib.Analysis.InnerProductSpace.Laplacian` was used.
+
+## Cycle 136 Middle Weak-FP Standard-Basis Source-Density Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the `hweakFpStdBasisDef` source formula consumed by
+`SALD.generalMovingTargetDiscreteWeakConditionalFpDiffusionSourceOfSecondGreenBoxBoundaryFluxOfPointwiseTraceEqPointwiseTestTraceZeroOfStdBasisSourceFormula`.
+It now follows from the smaller density-Laplacian pair
+`hweakFpDensityLaplacianAction` plus `hdensityLaplacianStdBasisDef`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfSourceDensityLaplacianFormula`.
+It composes the weak-FP selection equality
+`laplacian = densityLaplacianAction` with the source density-Laplacian
+standard-basis second-derivative formula.  This does not reintroduce
+`htestLaplacianOperator`, `htestLaplacianActionDef`, or
+`hweakFpLaplacianDef`.
+
+Lower_1 proof-scout narrowing:
+`SALD.generalMovingTargetDiscreteDensityLaplacianStdBasisDefOfPointwiseSourceFormula`.
+It derives `hdensityLaplacianStdBasisDef` from the smaller pair
+`hdensityLaplacianActionDef`, representing the density-Laplacian action as the
+source functional applied to a named pointwise source field, and
+`hsourceDensityLaplacianStdBasis`, the pointwise standard-basis
+second-derivative formula for that field.
+
+Lower_2 proof-implementer narrowing:
+`SALD.generalMovingTargetDiscreteSourceDensityLaplacianStdBasisOfLaplacianSourceField`.
+It derives `hsourceDensityLaplacianStdBasis` from the smaller source-field
+identity `hsourceDensityLaplacianEqLaplacian`, identifying the named source
+density-Laplacian field with Mathlib's `Laplacian.laplacian` of the selected
+weak test; `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`
+supplies the standard-basis second-derivative formula.
+
+Proof-DAG registration:
+`SALD.cycle136GeneralMovingTargetDiscreteEmWeakFpStdBasisSourceDensityLowerObligation`,
+`SALD.cycle136GeneralMovingTargetDiscreteEmWeakFpStdBasisSourceDensityDag`, and
+`SALD.cycle136EmWeakFpStdBasisSourceDensityDependencyNames`.
+
+Remaining lower boundary: prove `hweakFpDensityLaplacianAction` for the
+source density-Laplacian weak action and prove the two smaller facts
+`hdensityLaplacianActionDef` plus `hsourceDensityLaplacianEqLaplacian` for the
+selected weak-test source formula over `appendix.tex:1379-1427`.  The sibling
+`htestLaplacianStdBasisDef`, second-Green, box-divergence, trace, diffusion,
+first-Green, KL differentiation, LSI, DV, and Gronwall leaves remain separate.
+No SLT theorem was consulted or imported; no non-EM fallback, wrapper churn,
+broad audit, theorem-status promotion, Lake/toolchain change, fake closure, or
+`sald_version_2.tex` use is part of the packet.
+
+## Cycle 137 Middle Weak-FP Density-Laplacian Pointwise IBP
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the cycle-136 `hweakFpDensityLaplacianAction`
+function-equality input consumed by
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfSourceDensityLaplacianFormula`.
+It is now derived from the smaller pointwise weak Laplacian IBP statement
+`testRegular -> forall phi, densityLaplacianAction phi = laplacian phi`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscreteWeakFpDensityLaplacianActionOfPointwiseWeakLaplacianIbP`.
+It converts the pointwise weak Laplacian IBP equality into
+`testRegular -> laplacian = densityLaplacianAction` by function extensionality.
+
+Downstream standard-basis bridge:
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfPointwiseWeakLaplacianIbP`.
+It feeds the pointwise weak Laplacian IBP equality plus
+`hdensityLaplacianStdBasisDef` into the existing cycle-136 weak-FP
+standard-basis source formula, so the standard-basis consumer no longer takes
+primitive `hweakFpDensityLaplacianAction`.
+
+Proof-DAG registration:
+`SALD.cycle137GeneralMovingTargetDiscreteEmWeakFpDensityLaplacianActionLowerObligation`,
+`SALD.cycle137GeneralMovingTargetDiscreteEmWeakFpDensityLaplacianActionDag`, and
+`SALD.cycle137EmWeakFpDensityLaplacianActionDependencyNames`.
+
+Remaining lower boundary: prove the pointwise weak Laplacian IBP identity for
+each selected weak test over `appendix.tex:1379-1427`, plus the already separate
+`hdensityLaplacianActionDef` and `hsourceDensityLaplacianEqLaplacian` source
+facts from cycle 136.  The sibling `htestLaplacianStdBasisDef`, second-Green,
+box-divergence, trace, diffusion, first-Green, KL differentiation, LSI, DV, and
+Gronwall leaves remain separate.  No SLT theorem was consulted or imported; no
+non-EM fallback, wrapper churn, broad audit, theorem-status promotion,
+Lake/toolchain change, fake closure, or `sald_version_2.tex` use is part of the
+packet.
+
+## Cycle 137 Lower_1 Pointwise Green IBP Scout
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the cycle-137 pointwise weak Laplacian IBP statement
+`testRegular -> forall phi, densityLaplacianAction phi = laplacian phi`.
+It is now narrowed to three pointwise source-facing leaves:
+
+- `hfirstGreenPointwise : testRegular -> forall phi, densityLaplacianAction phi = negativeGradientPairAction phi`;
+- `hsecondGreenPointwise : testRegular -> forall phi, negativeGradientPairAction phi = testLaplacianAction phi`;
+- `htestLaplacianPointwise : testRegular -> forall phi, testLaplacianAction phi = laplacian phi`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscretePointwiseWeakLaplacianIbPOfGreenIdentity`.
+It composes the three pointwise equalities by transitivity.
+
+Downstream standard-basis bridge:
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfPointwiseGreenIdentity`.
+It feeds the three pointwise leaves plus `hdensityLaplacianStdBasisDef` into
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfPointwiseWeakLaplacianIbP`.
+
+Proof-DAG registration:
+`SALD.cycle137GeneralMovingTargetDiscreteEmPointwiseGreenIbPScoutObligation`,
+`ASTIS.SALD.cycle137.lower_1_packet.pointwise_green_ibp_scout`, and
+`SALD.cycle137EmWeakFpDensityLaplacianActionDependencyNames`.
+
+## Cycle 137 Lower_2 Second-Green Pointwise Box Boundary Flux
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the direct lower_1 pointwise second-Green leaf
+`hsecondGreenPointwise : testRegular -> forall phi,
+negativeGradientPairAction phi = testLaplacianAction phi`.
+It is now derived from smaller source-facing leaves over
+`appendix.tex:1392-1427`:
+
+- `hsecondGreenResidual : testRegular -> forall phi, negativeGradientPairAction phi - testLaplacianAction phi = secondGreenTotal phi`;
+- `hsecondGreenDivergence : testRegular -> forall phi, secondGreenTotal phi = secondGreenBoundaryFlux phi`;
+- Mathlib box-divergence inputs: weighted-field continuity, countable derivative exception set, off-exception Frechet derivative, divergence integrability, and boundary-flux/interior-divergence equality;
+- signed-face trace identification for `secondGreenBoundaryFlux`;
+- `hsecondGreenTestTracePointwiseEq : testRegular -> forall phi y, secondGreenTestTrace phi y = testTrace phi y`;
+- `htestTracePointwiseZero : testRegular -> forall phi y, testTrace phi y = 0`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscreteSecondGreenPointwiseOfBoxBoundaryFluxOfPointwiseTraceEqPointwiseTestTraceZero`.
+It uses `MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable`,
+`MeasureTheory.integral_congr_ae`, `Filter.Eventually.of_forall`, and real
+linear arithmetic to reconstruct the pointwise second-Green equality.
+
+Downstream standard-basis bridge:
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfPointwiseGreenSecondGreenBoxBoundaryFlux`.
+It instantiates
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfPointwiseGreenIdentity`
+after deriving `hsecondGreenPointwise`, while keeping `hfirstGreenPointwise`,
+`htestLaplacianPointwise`, and `hdensityLaplacianStdBasisDef` explicit.
+
+Proof-DAG registration:
+`SALD.cycle137GeneralMovingTargetDiscreteEmSecondGreenPointwiseBoxBoundaryFluxLowerObligation`,
+`ASTIS.SALD.cycle137.lower_2_packet.second_green_pointwise_box_boundary_flux`,
+and `SALD.cycle137EmWeakFpDensityLaplacianActionDependencyNames`.
+
+Remaining lower boundary: prove the first-Green pointwise identity and the
+test-Laplacian pointwise normalization for the selected weak-test class, plus
+the explicit second-Green residual/divergence, box-divergence, signed-face
+trace, pointwise trace equality, and pointwise zero-trace leaves when applying
+the lower_2 bridge.  The separate `hdensityLaplacianActionDef`,
+`hsourceDensityLaplacianEqLaplacian`, `htestLaplacianStdBasisDef`, diffusion,
+KL differentiation, LSI, DV, and Gronwall leaves remain explicit.
+
+## Cycle 138 Middle First-Green Pointwise Boundary Flux
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the direct lower_1 pointwise first-Green leaf
+`hfirstGreenPointwise : testRegular -> forall phi,
+densityLaplacianAction phi = negativeGradientPairAction phi` consumed by
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfPointwiseGreenSecondGreenBoxBoundaryFlux`.
+It is now derived from smaller source-facing leaves over
+`appendix.tex:1392-1427`:
+
+- `hfirstGreenResidual : testRegular -> forall phi, densityLaplacianAction phi - negativeGradientPairAction phi = firstGreenTotal phi`;
+- `hfirstGreenDivergence : testRegular -> forall phi, firstGreenTotal phi = firstGreenBoundaryFlux phi`;
+- `hfirstGreenZeroBoundary : testRegular -> forall phi, firstGreenBoundaryFlux phi = 0`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscreteFirstGreenPointwiseOfBoundaryFluxZero`.
+It reconstructs the pointwise first-Green equality from the residual,
+divergence, and zero-boundary facts by real linear arithmetic.
+
+Downstream standard-basis bridge:
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfFirstGreenBoundaryFluxAndSecondGreenBoxBoundaryFlux`.
+It derives `hfirstGreenPointwise` and reuses
+`SALD.generalMovingTargetDiscreteWeakFpStdBasisDefOfPointwiseGreenSecondGreenBoxBoundaryFlux`,
+while keeping `htestLaplacianPointwise`, `hdensityLaplacianStdBasisDef`, and all
+second-Green box-divergence/trace leaves explicit.
+
+Proof-DAG registration:
+`SALD.cycle138GeneralMovingTargetDiscreteEmFirstGreenPointwiseBoundaryFluxLowerObligation`,
+`ASTIS.SALD.cycle138.middle_packet.first_green_pointwise_boundary_flux`, and
+`SALD.cycle138EmFirstGreenPointwiseBoundaryFluxDependencyNames`.
+
+Remaining lower boundary: prove the test-Laplacian pointwise normalization for
+the selected weak-test class, the density-Laplacian source-action/source-field
+facts from cycle 136, and the explicit second-Green residual/divergence,
+box-divergence, signed-face trace, pointwise trace equality, and pointwise
+zero-trace leaves when applying the second-Green bridge.  The first-Green
+pointwise leaf is narrowed to residual/divergence/zero-boundary facts.  No SLT
+theorem was consulted or imported; no non-EM fallback, wrapper churn, broad
+audit, theorem-status promotion, Lake/toolchain change, fake closure, or
+`sald_version_2.tex` use is part of the packet.
+
+## Cycle 138 Lower_1 Test-Laplacian Pointwise Source Pullback Scout
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the direct pointwise test-Laplacian leaf
+`htestLaplacianPointwise : testRegular -> forall phi,
+testLaplacianAction phi = laplacian phi` consumed by
+`SALD.generalMovingTargetDiscretePointwiseWeakLaplacianIbPOfGreenIdentity`.
+It is now derived from the smaller source-pullback facts over
+`appendix.tex:1379-1427`:
+
+- `htestLaplacianActionDef : testRegular -> testLaplacianAction = fun phi => sourceLaplacianAction (selectedTest phi)`;
+- `hweakFpLaplacianDef : testRegular -> laplacian = fun phi => sourceLaplacianAction (selectedTest phi)`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscreteTestLaplacianPointwiseOfSourcePullback`.
+It reuses
+`SALD.generalMovingTargetDiscreteTestLaplacianOperatorNormalizationOfSourcePullback`
+and applies function congruence to obtain the pointwise equality for each test.
+
+Proof route for lower_2:
+instantiate `selectedTest` with the source weak-test representative and
+instantiate `sourceLaplacianAction` with the source Laplacian functional.  The
+test-calculus side should use the already isolated
+`htestLaplacianStdBasisDef` plus
+`SALD.generalMovingTargetDiscreteTestLaplacianActionDefOfStdBasisSourceFormula`;
+the weak-FP side should use a non-circular weak-FP source-definition fact rather
+than feeding the target weak-FP standard-basis conclusion back into this theorem.
+
+Remaining lower boundary: prove or instantiate `htestLaplacianActionDef` and
+`hweakFpLaplacianDef` (or their standard-basis refinements) for the selected
+weak-test source calculus, plus the density-Laplacian source-action/source-field
+facts and the explicit second-Green residual/divergence, box-divergence,
+signed-face trace, pointwise trace equality, and pointwise zero-trace leaves.
+No SLT theorem was consulted or imported; the only Mathlib ingredient reused is
+the existing source-pullback/function-congruence bridge.
+
+## Cycle 138 Lower_2 Test-Laplacian Pointwise Standard-Basis Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: the `htestLaplacianActionDef` source-definition fact
+inside the pointwise test-Laplacian route left by lower_1.  The valid
+non-circular compiled step is:
+
+`SALD.generalMovingTargetDiscreteTestLaplacianPointwiseOfTestStdBasisSourceFormula`.
+
+It derives
+`testRegular -> forall phi, testLaplacianAction phi = laplacian phi` from:
+
+- `htestLaplacianStdBasisDef`, the source-facing standard-basis
+  second-derivative formula for the test-calculus action;
+- `hweakFpLaplacianDef`, the still-explicit weak-FP source-Laplacian
+  definition.
+
+The route intentionally does not derive `hweakFpLaplacianDef` from
+`hweakFpStdBasisDef` or `hweakFpDensityLaplacianAction`, since either would
+reuse the standard-basis/pointwise-IBP conclusion being proved.  The next
+remaining source-cited theorem boundary is therefore the non-circular
+weak-FP source-Laplacian definition, together with the source-facing
+`htestLaplacianStdBasisDef`, the density-Laplacian source-action/source-field
+facts from cycle 136, and the explicit second-Green box/trace leaves.
+
+## Cycle 139 Weak-FP Source-Laplacian Field Split
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet on the EM conditional-law/Fokker--Planck
+backend.
+
+Exact boundary narrowed: `hweakFpLaplacianDef` in
+`SALD.generalMovingTargetDiscreteTestLaplacianPointwiseOfTestStdBasisSourceFormula`.
+The compiled bridge replaces that single weak-FP source-definition premise by:
+
+- `hweakFpSourceActionDef : testRegular -> laplacian = fun phi => sourceLaplacianFunctional (weakFpLaplacianSourceField phi)`;
+- `hweakFpSourceFieldEqLaplacian : testRegular -> weakFpLaplacianSourceField = fun phi => Laplacian.laplacian (selectedTest phi)`.
+
+Compiled local theorem:
+`SALD.generalMovingTargetDiscreteWeakFpLaplacianDefOfSourceLaplacianField`.
+It composes the two smaller weak-FP source-field facts into the older
+`hweakFpLaplacianDef` shape without using `hweakFpStdBasisDef` or
+`hweakFpDensityLaplacianAction`.
+
+Downstream pointwise bridge:
+`SALD.generalMovingTargetDiscreteTestLaplacianPointwiseOfWeakFpSourceLaplacianField`.
+It feeds the weak-FP source-field split into
+`SALD.generalMovingTargetDiscreteTestLaplacianPointwiseOfTestStdBasisSourceFormula`
+while keeping the test-side `htestLaplacianStdBasisDef` explicit.
+
+Proof-DAG registration:
+`SALD.cycle139GeneralMovingTargetDiscreteEmWeakFpSourceLaplacianLowerObligation`,
+`ASTIS.SALD.cycle139.middle_packet.weak_fp_source_laplacian_field`, and
+`SALD.cycle139EmWeakFpSourceLaplacianDependencyNames`.
+
+Remaining lower boundary: prove `hweakFpSourceActionDef`,
+`hweakFpSourceFieldEqLaplacian`, and `htestLaplacianStdBasisDef` from the source
+test calculus over `appendix.tex:1379-1427`; keep density-Laplacian
+source-action/source-field facts, second-Green residual/divergence,
+box-divergence, signed-face trace, pointwise trace equality, pointwise zero
+trace, and diffusion leaves explicit.  The packet deliberately avoids
+`htestLaplacianOperator`, broad wrappers, non-EM fallback, theorem-status
+promotion, SLT import, Lake/toolchain change, fake closure, and
+`sald_version_2.tex`.
+
+## Cycle 139 Lower_1 Weak-FP Source-Action State Integral Scout
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf lower_1 proof-scout packet on the EM
+conditional-law/Fokker--Planck backend.
+
+Exact boundary narrowed: the `hweakFpSourceActionDef` leaf exposed by
+`SALD.generalMovingTargetDiscreteWeakFpLaplacianDefOfSourceLaplacianField`.
+The compiled theorem
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfStateIntegral` proves
+that this function equality follows from a concrete EM state-law integral
+interface:
+
+- `hhatRhoS : hatRhoS = Measure.map hatXAtS P`;
+- `hsourceLaplacianFunctional : sourceLaplacianFunctional = fun psi => integral psi d hatRhoS`;
+- `hweakFpFieldMeas : testRegular -> forall phi, AEStronglyMeasurable (weakFpLaplacianSourceField phi) hatRhoS`;
+- `hlaplacianStateIntegral : testRegular -> forall phi, laplacian phi = integral (weakFpLaplacianSourceField phi o hatXAtS) dP`.
+
+Proof route: after `funext phi`, use `hlaplacianStateIntegral`; rewrite
+`hatRhoS` by the map-law identity; apply `MeasureTheory.integral_map` with
+`hhatX` and `hweakFpFieldMeas`; then unfold the source functional definition.
+
+Lower_2-ready theorem block: prove `hlaplacianStateIntegral` for the paper's
+selected weak-FP Laplacian action and `weakFpLaplacianSourceField` over
+`appendix.tex:1379-1387`, together with the field measurability under
+`hatRhoS`.  The sibling `hweakFpSourceFieldEqLaplacian`,
+`htestLaplacianStdBasisDef`, density-Laplacian source-action/source-field
+facts, second-Green box/trace leaves, and diffusion leaves remain separate.
+No SLT import or `hweakFpStdBasisDef`/`hweakFpDensityLaplacianAction` route is
+used.
+
+## Cycle 139 Lower_2 Source-Laplacian State Integral
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf lower_2 Lean proof packet on the EM
+conditional-law/Fokker--Planck backend.
+
+Exact boundary narrowed: the lower_1 `hweakFpFieldMeas` and
+`hlaplacianStateIntegral` inputs to
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfStateIntegral`.
+Compiled theorem:
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfSourceLaplacianStateIntegral`.
+
+The theorem proves `hweakFpSourceActionDef` from:
+
+- `hhatRhoS : hatRhoS = Measure.map hatXAtS P`;
+- `hsourceLaplacianFunctional : sourceLaplacianFunctional = fun psi => integral psi d hatRhoS`;
+- `hhatX : AEMeasurable hatXAtS P`;
+- `hweakFpSourceFieldEqLaplacian : testRegular -> weakFpLaplacianSourceField = fun phi => Laplacian.laplacian (selectedTest phi)`;
+- `hsourceLaplacianFieldMeas : testRegular -> forall phi, AEStronglyMeasurable (Laplacian.laplacian (selectedTest phi)) hatRhoS`;
+- `hlaplacianSourceStateIntegral : testRegular -> forall phi, laplacian phi = integral (fun omega => Laplacian.laplacian (selectedTest phi) (hatXAtS omega)) dP`.
+
+Remaining source-cited boundary: prove `hweakFpSourceFieldEqLaplacian`,
+`hsourceLaplacianFieldMeas`, and `hlaplacianSourceStateIntegral` for the
+selected weak-FP Laplacian field in `appendix.tex:1379-1387`; keep
+`htestLaplacianStdBasisDef`, density-Laplacian source facts, Green/trace/
+box-divergence leaves, and diffusion leaves explicit.  The packet uses no SLT
+import, non-EM fallback, theorem-status promotion, fake closure, or wrapper
+churn.
+
+## Cycle 140 EM Generator Source-Laplacian State Integral
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: illness-area refiner packet on the EM
+conditional-law/Fokker--Planck backend.
+
+Exact boundary narrowed: the `hlaplacianSourceStateIntegral` premise selected by
+the cycle-140 blueprint illness area under
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfSourceLaplacianStateIntegral`.
+The compiled theorem
+`SALD.generalMovingTargetDiscreteLaplacianSourceStateIntegralOfEmGeneratorStateIntegral`
+replaces it with two smaller source-cited facts:
+
+- `hlaplacianEqEmGenerator : testRegular -> forall phi,
+  laplacian phi = emGeneratorLaplacianAction phi`;
+- `hemGeneratorStateIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral (fun omega =>
+  Laplacian.laplacian (selectedTest phi) (hatXAtS omega)) dP`.
+
+The consumer theorem
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorStateIntegral`
+feeds this derived `hlaplacianSourceStateIntegral` into the existing cycle-139
+source-action bridge, while leaving `hweakFpSourceFieldEqLaplacian`,
+`hsourceLaplacianFieldMeas`, and `hsourceLaplacianFunctional` explicit.
+
+Lower_1 law-integral scout:
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfLawIntegral`
+narrows `hemGeneratorStateIntegral` to the law-space source fact
+`hemGeneratorLawIntegral`:
+
+- `hemGeneratorLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral (fun x =>
+  Laplacian.laplacian (selectedTest phi) x) d hatRhoS`.
+
+The proof uses `hhatRhoS : hatRhoS = Measure.map hatXAtS P`,
+`hhatX : AEMeasurable hatXAtS P`, `hsourceLaplacianFieldMeas`, and
+`MeasureTheory.integral_map`.  The downstream compiled consumer
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorLawIntegral`
+feeds this law-integral bridge into the existing cycle-140 source-action route.
+
+| Proof block | Source anchor | Lean declaration | Status |
+|---|---|---|---|
+| Frozen EM generator component identifies the weak-FP Laplacian action. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hlaplacianEqEmGenerator` | obligation |
+| Frozen EM generator component has the selected source-Laplacian law integral. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hemGeneratorLawIntegral` | obligation |
+| Transport the generator law integral to the sample integral along `hatXAtS`. | `appendix.tex:1379-1387`; Mathlib `Measure.map` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfLawIntegral` | formalized local theorem |
+| Compose the two facts into the old source state-integral premise. | `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteLaplacianSourceStateIntegralOfEmGeneratorStateIntegral` | formalized local theorem |
+| Feed the law-integral premise into the weak-FP source-action bridge. | `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorLawIntegral` | formalized local theorem |
+
+Remaining exact boundary: prove `hlaplacianEqEmGenerator` and
+`hemGeneratorLawIntegral` for the selected frozen EM generator component; then
+the cycle-140 law-integral consumer feeds cycle 139.  Still explicit:
+`hweakFpSourceFieldEqLaplacian`, `hsourceLaplacianFieldMeas`,
+`hsourceLaplacianFunctional`, `htestLaplacianStdBasisDef`,
+density-Laplacian source facts, Green/trace/box-divergence leaves, and
+diffusion leaves.  No SLT theorem was consulted or imported; this lower_1
+packet uses local ASTIS composition, Mathlib's existing Laplacian namespace,
+and Mathlib `MeasureTheory.integral_map`.
+
+## Cycle 140 Lower_2 EM Generator Source Functional
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: illness-area lower_2 Lean proof packet.
+
+Exact boundary narrowed: the lower_1 `hemGeneratorLawIntegral` premise is no
+longer primitive under
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorLawIntegral`.
+The compiled theorem
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorSourceFunctional`
+derives the law-space generator Laplacian integral from:
+
+- `hemGeneratorSourceActionDef : testRegular -> emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional (Laplacian.laplacian (selectedTest phi))`;
+- `hsourceLaplacianFunctional : sourceLaplacianFunctional = fun psi =>
+  integral psi d hatRhoS`.
+
+| Proof block | Source anchor | Lean declaration | Status |
+|---|---|---|---|
+| Frozen EM generator Laplacian action is the source functional applied to the selected test Laplacian. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hemGeneratorSourceActionDef` | obligation |
+| Source functional is integration against the EM law `hatRhoS`. | `appendix.tex:1379-1387` | `hsourceLaplacianFunctional` | obligation |
+| Feed the source-functional definition into the law-integral consumer. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorSourceFunctional` | formalized local theorem |
+
+Remaining exact boundary after lower_2: prove `hlaplacianEqEmGenerator`,
+`hemGeneratorSourceActionDef`, `hweakFpSourceFieldEqLaplacian`,
+`hsourceLaplacianFieldMeas`, `hsourceLaplacianFunctional`,
+`htestLaplacianStdBasisDef`, density-Laplacian source facts,
+Green/trace/box-divergence leaves, and diffusion leaves.  No SLT theorem was
+consulted or imported.
+
+## Cycle 141 EM Generator Standard-Basis Source Action
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: illness-area refiner packet on the EM
+conditional-law/Fokker--Planck backend.
+
+Exact boundary narrowed: `hemGeneratorSourceActionDef` is no longer primitive
+under `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorSourceFunctional`.
+The compiled theorem
+`SALD.generalMovingTargetDiscreteEmGeneratorSourceActionDefOfStdBasisSourceFormula`
+derives it from the smaller standard-basis source formula:
+
+- `hemGeneratorStdBasisDef : testRegular -> emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional (fun x => sum_i iteratedFDeriv Real 2
+  (selectedTest phi) x ![e_i,e_i])`.
+
+The downstream theorem
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorStdBasisSourceFormula`
+feeds this split into the cycle-140 law-integral/source-functional route.
+
+| Proof block | Source anchor | Lean declaration | Status |
+|---|---|---|---|
+| Frozen EM generator Laplacian component has the selected-test standard-basis second-derivative source action. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hemGeneratorStdBasisDef` | obligation |
+| Convert the standard-basis source formula to the Mathlib selected-test Laplacian source action. | `appendix.tex:1379-1387`; Mathlib Laplacian source bridge | `SALD.generalMovingTargetDiscreteEmGeneratorSourceActionDefOfStdBasisSourceFormula` | formalized local theorem |
+| Feed the standard-basis source formula through the cycle-140 source-functional consumer. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorStdBasisSourceFormula` | formalized local theorem |
+| Named EM generator trace field supplies the standard-basis source formula. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorStdBasisDefOfTraceField` from `hemGeneratorTraceActionDef` and `htraceFieldStdBasis` | formalized local theorem |
+| Feed the trace-field split through the standard-basis source-action consumer. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceFieldSourceFormula` | formalized local theorem |
+| Recover the trace-action source formula from a law-space trace integral plus the source-functional definition. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLawIntegralSourceFormula` from `hemGeneratorTraceLawIntegral` and `hsourceLaplacianFunctional` | formalized local theorem |
+
+Lower_1 proof-scout narrowing: direct `hemGeneratorStdBasisDef` is no longer
+primitive under the cycle-141 consumer.  It follows from:
+
+- `hemGeneratorTraceActionDef : testRegular -> emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional (emGeneratorTraceField phi)`;
+- `htraceFieldStdBasis : testRegular -> emGeneratorTraceField =
+  fun phi x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`.
+
+Lower_2 narrowing: direct `hemGeneratorTraceActionDef` is no longer primitive
+for the downstream trace-field consumer.  It follows from
+`hsourceLaplacianFunctional` and:
+
+- `hemGeneratorTraceLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral (emGeneratorTraceField phi) d
+  hatRhoS`.
+
+Remaining exact boundary after cycle 141 lower_2: prove
+`hlaplacianEqEmGenerator`, `hemGeneratorTraceLawIntegral`, and
+`htraceFieldStdBasis`.  Still explicit:
+`hweakFpSourceFieldEqLaplacian`, `hsourceLaplacianFieldMeas`,
+`hsourceLaplacianFunctional`, `htestLaplacianStdBasisDef`,
+density-Laplacian source facts, Green/trace/box-divergence leaves, and
+diffusion leaves.  No SLT theorem was consulted or imported.
+
+## Cycle 142 EM Generator Trace State Integral
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf middle packet inside the cycle-141 EM generator trace-field
+illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceLawIntegralOfStateIntegral`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceStateIntegralSourceFormula`.
+
+Exact boundary narrowed: the law-space premise
+
+- `hemGeneratorTraceLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral x,
+  emGeneratorTraceField phi x d hatRhoS`
+
+is no longer primitive.  It follows by `MeasureTheory.integral_map` from:
+
+- `hemGeneratorTraceStateIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral omega,
+  emGeneratorTraceField phi (hatXAtS omega) dP`;
+- `hhatRhoS : hatRhoS = Measure.map hatXAtS P`;
+- `hhatX : AEMeasurable hatXAtS P`;
+- `htraceFieldMeas : testRegular -> forall phi,
+  AEStronglyMeasurable (emGeneratorTraceField phi) hatRhoS`.
+
+| Proof block | Source anchor | Lean declaration | Status |
+|---|---|---|---|
+| Push the EM trace-field sample-space integral along `hatXAtS` to the law-space integral against `hatRhoS`. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceLawIntegralOfStateIntegral` | formalized local theorem |
+| Feed the trace state-integral boundary through the existing trace-law/source-functional route. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceStateIntegralSourceFormula` | formalized local theorem |
+| Source-cited EM trace action as a sample-space integral along the frozen interpolation state. | `appendix.tex:984-995` | `hemGeneratorTraceStateIntegral` | obligation |
+| Trace-field measurability under the EM law. | `appendix.tex:1379-1387` | `htraceFieldMeas` | obligation |
+
+Remaining exact boundary after cycle 142 middle: prove
+`hlaplacianEqEmGenerator`, `hemGeneratorTraceStateIntegral`,
+`htraceFieldMeas`, and `htraceFieldStdBasis`.  Still explicit:
+`hweakFpSourceFieldEqLaplacian`, `hsourceLaplacianFieldMeas`,
+`hsourceLaplacianFunctional`, `htestLaplacianStdBasisDef`,
+density-Laplacian source facts, Green/trace/box-divergence leaves, and
+diffusion leaves.  No SLT theorem was consulted or imported; no wrapper churn,
+non-EM fallback, theorem-status promotion, or `sald_version_2.tex` use.
+
+## Cycle 142 EM Generator Trace Laplacian State Integral
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_1 proof-scout packet inside the cycle-142 EM generator
+trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldMeasOfSourceLaplacianFieldMeas`;
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceStateIntegralOfLaplacianStateIntegral`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStateIntegralSourceFormula`.
+
+Exact boundary narrowed: the trace-specific premises exposed by the cycle-142
+middle packet,
+
+- `htraceFieldMeas : testRegular -> forall phi,
+  AEStronglyMeasurable (emGeneratorTraceField phi) hatRhoS`;
+- `hemGeneratorTraceStateIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral omega,
+  emGeneratorTraceField phi (hatXAtS omega) dP`,
+
+are no longer primitive.  They follow from:
+
+- `hsourceLaplacianFieldMeas : testRegular -> forall phi,
+  AEStronglyMeasurable (Laplacian.laplacian (selectedTest phi)) hatRhoS`;
+- `hemGeneratorLaplacianStateIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral omega,
+  Laplacian.laplacian (selectedTest phi) (hatXAtS omega) dP`;
+- `htraceFieldStdBasis : testRegular -> emGeneratorTraceField =
+  fun phi x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`;
+- `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
+
+| Proof block | Source anchor | Lean declaration | Status |
+|---|---|---|---|
+| Identify trace-field measurability with selected-test Laplacian measurability. | `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldMeasOfSourceLaplacianFieldMeas` | formalized local theorem |
+| Replace the trace-field sample integrand by Mathlib's selected-test Laplacian. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceStateIntegralOfLaplacianStateIntegral` | formalized local theorem |
+| Feed the Laplacian state-integral split through the trace-state consumer. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStateIntegralSourceFormula` | formalized local theorem |
+| Source-cited EM generator selected-test Laplacian action as a sample-space integral along the frozen interpolation state. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hemGeneratorLaplacianStateIntegral` | obligation |
+| Named trace-field pointwise standard-basis identity. | `appendix.tex:1379-1387` | `htraceFieldStdBasis` | obligation |
+
+Remaining exact boundary after cycle 142 lower_1: prove
+`hlaplacianEqEmGenerator`, `hemGeneratorLaplacianStateIntegral`, and
+`htraceFieldStdBasis`.  Still explicit:
+`hweakFpSourceFieldEqLaplacian`, `hsourceLaplacianFieldMeas`,
+`hsourceLaplacianFunctional`, `htestLaplacianStdBasisDef`,
+density-Laplacian source facts, Green/trace/box-divergence leaves, and
+diffusion leaves.  No SLT theorem was consulted or imported; the only local
+library bridge used here was the already-local Mathlib selected-test Laplacian
+standard-basis formula.
+
+## Cycle 142 EM Generator Laplacian Law Integral
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_2 packet inside the cycle-142 EM generator trace-state
+illness area.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianLawIntegralSourceFormula`.
+
+Exact boundary narrowed: the selected-test Laplacian state-integral premise
+
+- `hemGeneratorLaplacianStateIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral omega,
+  Laplacian.laplacian (selectedTest phi) (hatXAtS omega) dP`
+
+is no longer primitive for the cycle-142 trace-state consumer.  It follows from:
+
+- `hemGeneratorLaplacianLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral x,
+  Laplacian.laplacian (selectedTest phi) x d hatRhoS`;
+- `hhatRhoS : hatRhoS = Measure.map hatXAtS P`;
+- `hhatX : AEMeasurable hatXAtS P`;
+- `hsourceLaplacianFieldMeas : testRegular -> forall phi,
+  AEStronglyMeasurable (Laplacian.laplacian (selectedTest phi)) hatRhoS`;
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfLawIntegral`.
+
+| Proof block | Source anchor | Lean declaration | Status |
+|---|---|---|---|
+| Transport the frozen EM generator selected-test Laplacian action from the law of `hatXAtS` to the sample-space integral. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfLawIntegral` | formalized local theorem, reused |
+| Feed the law-integral split through the trace-Laplacian state-integral consumer. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianLawIntegralSourceFormula` | formalized local theorem |
+| Source-cited EM generator selected-test Laplacian action as a law-space integral against `hatRhoS`. | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hemGeneratorLaplacianLawIntegral` | obligation |
+| Named trace-field pointwise standard-basis identity. | `appendix.tex:1379-1387` | `htraceFieldStdBasis` | obligation |
+
+Remaining exact boundary after cycle 142 lower_2: prove
+`hlaplacianEqEmGenerator`, `hemGeneratorLaplacianLawIntegral`, and
+`htraceFieldStdBasis`.  Still explicit:
+`hweakFpSourceFieldEqLaplacian`, `hsourceLaplacianFieldMeas`,
+`hsourceLaplacianFunctional`, `htestLaplacianStdBasisDef`,
+density-Laplacian source facts, Green/trace/box-divergence leaves, and
+diffusion leaves.  No SLT theorem was consulted or imported; the local
+transport uses the existing `MeasureTheory.integral_map` bridge.
+
+## Cycle 143 EM Generator Laplacian State-Event Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf middle packet inside the cycle-143 EM generator trace-state
+illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianLawIntegralOfStateEventFormula`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStateEventFormula`.
+
+Exact boundary narrowed: the law-space premise
+
+- `hemGeneratorLaplacianLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral x,
+  Laplacian.laplacian (selectedTest phi) x d hatRhoS`
+
+is no longer primitive for the cycle-142 trace-Laplacian law-integral consumer.
+It follows from the source-cited EM conditional-law/state-event interface:
+
+- `hemGeneratorLaplacianTotalEventIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral x in univ,
+  emGeneratorLaplacianEventField phi x d hatRhoS`;
+- `hemGeneratorLaplacianStateEventEqLaplacian : testRegular -> forall phi t,
+  MeasurableSet t -> integral x in t,
+  emGeneratorLaplacianEventField phi x d hatRhoS =
+  integral x in t, Laplacian.laplacian (selectedTest phi) x d hatRhoS`.
+
+| Proof block | Source anchor | Lean declaration | Status |
+|---|---|---|---|
+| Recover the old law-space selected-test Laplacian integral by applying the state-event formula to `Set.univ`. | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianLawIntegralOfStateEventFormula` | formalized local theorem |
+| Feed the state-event split through the cycle-142 trace-Laplacian law-integral route. | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStateEventFormula` | formalized local theorem |
+| Source-cited EM generator state-event formula for the named Laplacian event field. | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `hemGeneratorLaplacianTotalEventIntegral`; `hemGeneratorLaplacianStateEventEqLaplacian` | obligation |
+
+Remaining exact boundary after cycle 143 middle: prove the EM generator
+Laplacian event-field total action and every measurable state-event equality.
+Still explicit: `hlaplacianEqEmGenerator`, `htraceFieldStdBasis`,
+`hweakFpSourceFieldEqLaplacian`, `hsourceLaplacianFieldMeas`,
+`hsourceLaplacianFunctional`, `htestLaplacianStdBasisDef`,
+density-Laplacian source facts, Green/trace/box-divergence leaves, and
+diffusion leaves.  No SLT theorem was consulted or imported; no cycle-140/141
+source-functional wrapper was reintroduced.
+
+## Cycle 143 Lower_1 EM Generator Laplacian Pointwise Event Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_1 proof-scout packet inside the cycle-143 EM generator
+trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateEventEqOfPointwise`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventFormula`.
+
+Exact boundary narrowed: the all-state-events premise
+
+- `hemGeneratorLaplacianStateEventEqLaplacian : testRegular -> forall phi t,
+  MeasurableSet t -> integral x in t,
+  emGeneratorLaplacianEventField phi x d hatRhoS =
+  integral x in t, Laplacian.laplacian (selectedTest phi) x d hatRhoS`
+
+is no longer primitive for the cycle-143 state-event consumer.  It follows
+from the smaller pointwise source-cited field identity
+
+- `hemGeneratorLaplacianEventFieldEqLaplacian : testRegular -> forall phi,
+  emGeneratorLaplacianEventField phi =
+  fun x => Laplacian.laplacian (selectedTest phi) x`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Pointwise event-field equality to state-event integrals | If the named event field is pointwise the selected-test Laplacian, then its integral over every measurable state event is the selected-test Laplacian integral. | Function equality rewrite under set integral; no conditional-expectation or SLT theorem | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateEventEqOfPointwise` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventFormula` | formalized local theorem |
+| Downstream pointwise event consumer | Feed the pointwise event-field split through the cycle-143 state-event route while keeping total-event action explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStateEventFormula`; pointwise event-field equality theorem | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining event-field source definition | Prove the paper's named frozen-generator Laplacian event field is pointwise `Laplacian.laplacian (selectedTest phi)` and prove the total-event action formula. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; existing EM conditional-law setup | `hemGeneratorLaplacianTotalEventIntegral`; `hemGeneratorLaplacianEventFieldEqLaplacian` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | lower_2 next packet | obligation |
+
+Proof route for lower_2: instantiate `emGeneratorLaplacianEventField` as the
+frozen EM generator's diffusion/Laplacian test-event integrand from
+`appendix.tex:984-995` and `appendix.tex:1368-1387`; prove the pointwise
+identity with `Laplacian.laplacian (selectedTest phi)` directly from that
+definition; separately prove `hemGeneratorLaplacianTotalEventIntegral` by the
+same total-event generator-action definition.  Once those two source facts are
+available,
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventFormula`
+removes the older `hemGeneratorLaplacianStateEventEqLaplacian` premise.
+
+Source-dependency classification: the compiled set-integral step is a
+`local-lemma`; the remaining pointwise event-field and total-action facts are
+`internal-paper-step`s.  No SLT theorem, external citation, Lake/toolchain
+change, source-index rebaseline, broad route audit, non-EM fallback, or
+cycle-140/141 wrapper churn was used.
+
+## Cycle 143 Lower_2 EM Generator Laplacian Action-Definition Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_2 worker packet inside the cycle-143 EM generator
+trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfActionDef`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventActionDefFormula`.
+
+Exact boundary narrowed: the lower_1 total-event premise
+
+- `hemGeneratorLaplacianTotalEventIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral x in univ,
+  emGeneratorLaplacianEventField phi x d hatRhoS`
+
+is no longer primitive for the pointwise-event consumer.  It follows from the
+source-facing action definition
+
+- `hemGeneratorLaplacianActionDef : testRegular ->
+  emGeneratorLaplacianAction = fun phi => integral x in univ,
+  emGeneratorLaplacianEventField phi x d hatRhoS`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Total-event formula from action definition | Apply the source action definition to each test to recover the old total-event integral formula. | Function extensionality/application only; no conditional-expectation or SLT theorem | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfActionDef` | `appendix.tex:984-995`; `appendix.tex:1368-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventActionDefFormula` | formalized local theorem |
+| Downstream action-definition consumer | Feed the action-definition split through the lower_1 pointwise event route while keeping the pointwise event-field identity explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventFormula`; total-event helper | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventActionDefFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining action/event-field source definitions | Prove the paper's source action definition for the named frozen-generator Laplacian event field and prove the pointwise identity with `Laplacian.laplacian (selectedTest phi)`. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; existing EM conditional-law setup | `hemGeneratorLaplacianActionDef`; `hemGeneratorLaplacianEventFieldEqLaplacian` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after lower_2: prove `hemGeneratorLaplacianActionDef`
+and `hemGeneratorLaplacianEventFieldEqLaplacian` for the named frozen EM
+Laplacian event field.  Still explicit: `hlaplacianEqEmGenerator`,
+`htraceFieldStdBasis`, source-field/source-functional leaves,
+density-Laplacian facts, Green/trace/box-divergence, and diffusion leaves.  No
+SLT theorem was consulted or imported; no Lake/toolchain change, theorem-status
+promotion, non-EM fallback, broad route audit, fake closure, or
+cycle-140/141 wrapper churn was used.
+
+## Cycle 144 EM Generator Laplacian Standard-Basis Event Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet inside the cycle-142/143 EM generator trace-state
+illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqOfStdBasisSourceFormula`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventActionDefFormula`.
+
+Exact boundary narrowed: the direct pointwise premise
+
+- `hemGeneratorLaplacianEventFieldEqLaplacian : testRegular -> forall phi,
+  emGeneratorLaplacianEventField phi =
+  fun x => Laplacian.laplacian (selectedTest phi) x`
+
+is no longer primitive for
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventActionDefFormula`.
+It follows from the smaller source-facing event-field definition
+
+- `hemGeneratorLaplacianEventFieldStdBasisDef : testRegular ->
+  emGeneratorLaplacianEventField = fun phi x =>
+  sum_i iteratedFDeriv Real 2 (selectedTest phi) x
+  ![(stdOrthonormalBasis Real E) i, (stdOrthonormalBasis Real E) i]`,
+
+plus the compiled Mathlib bridge
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Event-field standard-basis to Mathlib Laplacian | Convert the source standard-basis second-derivative definition of the named frozen EM event field into the old pointwise equality with `Laplacian.laplacian (selectedTest phi)`. | `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; `Mathlib.Analysis.InnerProductSpace.Laplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqOfStdBasisSourceFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventActionDefFormula` | formalized local theorem |
+| Downstream standard-basis event consumer | Feed the standard-basis event-field split through the cycle-143 action-definition route while keeping `hemGeneratorLaplacianActionDef` explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventActionDefFormula`; event-field standard-basis helper | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventActionDefFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining action/event-field source definitions | Prove the paper's action definition and the standard-basis definition for the named frozen EM Laplacian event field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; existing EM conditional-law setup | `hemGeneratorLaplacianActionDef`; `hemGeneratorLaplacianEventFieldStdBasisDef` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 144: prove
+`hemGeneratorLaplacianActionDef` and
+`hemGeneratorLaplacianEventFieldStdBasisDef` for the named frozen EM
+Laplacian event field.  Still explicit: `hlaplacianEqEmGenerator`,
+`htraceFieldStdBasis`, source-field/source-functional leaves,
+density-Laplacian facts, Green/trace/box-divergence, and diffusion leaves.
+The only Mathlib item used was the existing local standard-basis Laplacian
+bridge; no SLT theorem was consulted or imported.
+
+## Cycle 144 Lower_2 EM Generator Laplacian Standard-Basis Action Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_2 worker packet inside the cycle-142/143/144 EM generator
+trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianActionDefOfStdBasisActionFormula`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula`.
+
+Exact boundary narrowed: the source action-definition premise
+
+- `hemGeneratorLaplacianActionDef : testRegular ->
+  emGeneratorLaplacianAction = fun phi => integral x in univ,
+  emGeneratorLaplacianEventField phi x d hatRhoS`
+
+is no longer primitive for
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventActionDefFormula`.
+It follows from the smaller source-facing standard-basis action integral
+
+- `hemGeneratorLaplacianStdBasisActionDef : testRegular ->
+  emGeneratorLaplacianAction = fun phi => integral x in univ,
+  sum_i iteratedFDeriv Real 2 (selectedTest phi) x
+  ![(stdOrthonormalBasis Real E) i, (stdOrthonormalBasis Real E) i] d hatRhoS`,
+
+together with the already exposed event-field standard-basis definition
+`hemGeneratorLaplacianEventFieldStdBasisDef`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Standard-basis action to event-field action | Rewrite the standard-basis event-field definition under the `Set.univ` state integral to recover the older source action definition. | Function extensionality and integrand rewrite; no conditional-expectation or SLT theorem | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianActionDefOfStdBasisActionFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula` | formalized local theorem |
+| Downstream standard-basis action consumer | Feed the standard-basis action split through the cycle-144 standard-basis event consumer while keeping `hemGeneratorLaplacianEventFieldStdBasisDef` explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventActionDefFormula`; action helper | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining standard-basis EM source definitions | Prove the paper's standard-basis action integral and standard-basis event-field definition for the named frozen EM Laplacian event field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; existing EM conditional-law setup | `hemGeneratorLaplacianStdBasisActionDef`; `hemGeneratorLaplacianEventFieldStdBasisDef` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 144 lower_2: prove
+`hemGeneratorLaplacianStdBasisActionDef` and
+`hemGeneratorLaplacianEventFieldStdBasisDef` for the named frozen EM
+Laplacian event field.  The older `hemGeneratorLaplacianActionDef` and the
+pointwise equality with Mathlib's Laplacian now follow locally.  Still
+explicit: `hlaplacianEqEmGenerator`, `htraceFieldStdBasis`,
+source-field/source-functional leaves, density-Laplacian facts,
+Green/trace/box-divergence, and diffusion leaves.  No SLT theorem was
+consulted or imported; no Lake/toolchain change, theorem-status promotion,
+non-EM fallback, wrapper churn, fake closure, or `sald_version_2.tex` use.
+
+## Cycle 156 EM Generator Trace-Field Pointwise Laplacian Leaf
+
+Classification: `narrows-source-cited-boundary`.
+
+Illness-area refiner packet inside the EM conditional-law/state-event backend.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldEqLaplacianOfPointwise`.
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldPointwiseEqLaplacianOfStdBasis`.
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldPointwiseStdBasisOfEventFieldStdBasis`.
+
+Exact boundary narrowed: the direct trace-field/Laplacian premise
+
+- `htraceFieldEqLaplacian : testRegular ->
+  emGeneratorTraceField = fun phi => Laplacian.laplacian (selectedTest phi)`
+
+is no longer primitive for the active trace-state and trace-event routes.  It
+follows from the smaller pointwise source-cited identity
+
+- `htraceFieldPointwiseEqLaplacian : testRegular -> forall phi,
+  emGeneratorTraceField phi = Laplacian.laplacian (selectedTest phi)`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Trace-field equality from pointwise identity | Promote the per-test trace-field/Laplacian identity to the field-level equality used by the cycle-155 trace-state route and trace-event Laplacian bridge. | `htraceFieldPointwiseEqLaplacian`; function extensionality | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldEqLaplacianOfPointwise` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceStateIntegralOfLaplacianStateIntegralLaplacianField`; `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldStdBasisOfLaplacianField`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqTraceFieldOfLaplacianFields` | formalized local theorem |
+| Pointwise trace-field Laplacian from standard-basis display | Convert the pointwise Hessian-trace display for each selected weak test into Mathlib's `Laplacian.laplacian`. | `htraceFieldPointwiseStdBasis`; `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldPointwiseEqLaplacianOfStdBasis` | same anchors | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldEqLaplacianOfPointwise`; cycle-155 trace-state route | formalized local theorem |
+| Trace-field pointwise display from event-field display | Transfer the source standard-basis Hessian-trace display from the named frozen EM Laplacian event field to the trace field. | `hemGeneratorLaplacianEventFieldEqTraceField`; `hemGeneratorLaplacianEventFieldStdBasisDef`; function equality | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldPointwiseStdBasisOfEventFieldStdBasis` | same anchors | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldPointwiseEqLaplacianOfStdBasis`; cycle-155 trace-state route | formalized local theorem |
+| Remaining source boundary | Prove the event/trace field identification and the event-field standard-basis Hessian-trace display for the named frozen EM Laplacian contribution. | frozen EM generator definition; Fokker--Planck Laplacian source display; source `Delta` notation | `hemGeneratorLaplacianEventFieldEqTraceField`; `hemGeneratorLaplacianEventFieldStdBasisDef` | same anchors | next lower packet | obligation |
+
+Remaining exact boundary after cycle 156 lower_2: prove
+`hemGeneratorLaplacianEventFieldEqTraceField` and
+`hemGeneratorLaplacianEventFieldStdBasisDef`; then
+`htraceFieldPointwiseStdBasis` follows by
+`SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldPointwiseStdBasisOfEventFieldStdBasis`,
+`htraceFieldPointwiseEqLaplacian` follows by
+`SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldPointwiseEqLaplacianOfStdBasis`,
+and `htraceFieldEqLaplacian` follows by
+`SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldEqLaplacianOfPointwise`.
+Keep
+`hemGeneratorLaplacianStateIntegral`, `htraceFieldMeas`,
+`hsourceLaplacianFunctional`, `hsourceLaplacianFieldMeas`,
+`hweakFpSourceFieldPointwiseEqLaplacian`, state-event, and sibling EM leaves
+explicit.  Stale `hemGeneratorTraceLawIntegral` and
+`hemGeneratorTraceStateIntegral` consumer wrappers are rejected because cycles
+154 and 155 already narrowed those leaves.  No SLT theorem was consulted or
+imported; no Lake/toolchain change, theorem-status promotion, non-EM fallback,
+broad audit, fake closure, downstream wrapper churn, or `sald_version_2.tex`
+use.
+
+## Cycle 157 EM Generator Laplacian Event-Field Pointwise Standard-Basis Split
+
+Classification: `narrows-source-cited-boundary`.
+
+Illness-area refiner packet inside the active
+`sald.general_moving_target_discrete.em_interpolation_fp` backend.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfPointwise`.
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldPointwiseStdBasisDefOfPointwiseLaplacian`.
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqLaplacianOfPointwiseScalar`.
+
+Exact boundary narrowed: the field-level event-field standard-basis premise
+
+- `hemGeneratorLaplacianEventFieldStdBasisDef : testRegular ->
+  emGeneratorLaplacianEventField = fun phi x =>
+  sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`
+
+is no longer primitive.  It follows from the smaller pointwise source-cited
+display
+
+- `hEmGeneratorLaplacianEventFieldPointwiseStdBasisDef : testRegular ->
+  forall phi, emGeneratorLaplacianEventField phi = fun x =>
+  sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`
+
+by function extensionality.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Event-field standard basis from pointwise display | Promote the per-test Hessian-trace display to the field-level event-field standard-basis definition. | `hEmGeneratorLaplacianEventFieldPointwiseStdBasisDef`; function extensionality | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfPointwise` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldPointwiseStdBasisOfEventFieldStdBasis`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqSourceFieldOfStdBasisFields` | formalized local theorem |
+| Pointwise standard basis from source `Delta` identity | Expand the paper's pointwise `Delta` field into the standard-basis Hessian trace using the existing finite-dimensional Laplacian bridge. | `hemGeneratorLaplacianEventFieldEqLaplacian`; `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldPointwiseStdBasisDefOfPointwiseLaplacian` | same anchors | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfPointwise` | formalized local theorem |
+| Pointwise `Delta` identity from statewise source display | Promote the scalar event-field/Laplacian equality at each state point to the per-test field equality. | `hEmGeneratorLaplacianEventFieldPointwiseEqLaplacian`; function extensionality | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqLaplacianOfPointwiseScalar` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldPointwiseStdBasisDefOfPointwiseLaplacian` | formalized local theorem |
+| Remaining scalar event-field source display | Prove the paper's scalar `Delta` identity for the named frozen EM Laplacian event field at each selected weak test and state point directly from the frozen EM/Fokker--Planck display. | frozen EM generator definition; conditional-drift Fokker--Planck Laplacian source display; no cycle-151/152 source-field or trace-field detour | `hEmGeneratorLaplacianEventFieldPointwiseEqLaplacian` | same anchors | next lower packet | obligation |
+| Cycle 158 scalar event-field source audit | Reject wrappers and classify the remaining blocker as the paper-internal Brownian-generator event-field definition gap. | `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck diffusion term; abstract `emGeneratorLaplacianEventField`; no weak-FP source-field/trace-field fallback | `SALD.cycle158GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldPointwiseScalarAuditObligation`; `ASTIS.SALD.cycle158.middle_packet.scalar_event_field_delta_source_gap`; `ASTIS.SALD.cycle158.middle_packet.rejected_scalar_delta_wrapper_churn` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | next lower packet | obligation; `rejected-wrapper-churn` |
+| Cycle 158 lower_2 Brownian event-field split | Derive the scalar statewise Delta identity from the smaller source-facing definition of the frozen Brownian-generator Laplacian event field. | `SALD.emFrozenBrownianLaplacianEventField`; definition equality `hEmGeneratorLaplacianEventFieldBrownianDef`; no weak-FP source-field/trace-field/consumer fallback | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldPointwiseEqLaplacianOfBrownianDef`; `SALD.cycle158GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianDefLowerObligation`; `ASTIS.SALD.cycle158.lower_2_packet.scalar_delta_from_brownian_event_field_def` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle 157 scalar/standard-basis bridges; EM FP backend | formalized local theorem plus remaining obligation; `narrows-source-cited-boundary` |
+| Cycle 159 Brownian event-field pointwise split | Derive the function-level Brownian event-field definition from the smaller pointwise source display at each selected weak test and state. | `SALD.emFrozenBrownianLaplacianEventField`; pointwise definition `hEmGeneratorLaplacianEventFieldBrownianPointwiseDef`; no weak-FP source-field/trace-field/consumer fallback | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianDefOfPointwise`; `SALD.cycle159GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianPointwiseLowerObligation`; `ASTIS.SALD.cycle159.middle_packet.brownian_event_field_def_from_pointwise` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle 158 Brownian-definition bridge; EM FP backend | formalized local theorem; `narrows-source-cited-boundary` |
+| Cycle 159 lower_2 Brownian coordinate-trace split | Narrow the pointwise Brownian event-field definition to the coordinate Hessian-trace display for the scalar Brownian generator, then use the existing local Mathlib Laplacian bridge. | `hEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDef`; `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; `SALD.emFrozenBrownianLaplacianEventField`; no weak-FP source-field/trace-field/consumer fallback | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianPointwiseDefOfStdBasis`; `SALD.cycle159GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisLowerObligation`; `ASTIS.SALD.cycle159.remaining_brownian_event_field_pointwise_stdbasis_def` | `appendix.tex:984-995`; `appendix.tex:1379-1387`; `.lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Laplacian.lean` | cycle 159 pointwise bridge; EM FP backend | formalized local theorem plus smaller remaining obligation; `narrows-source-cited-boundary` |
+
+Remaining exact boundary after cycle 157 lower_2: prove
+`hEmGeneratorLaplacianEventFieldPointwiseEqLaplacian : testRegular -> forall
+phi x, emGeneratorLaplacianEventField phi x =
+Laplacian.laplacian (selectedTest phi) x`, then apply the compiled lower_2
+and lower_1 bridges to recover `hemGeneratorLaplacianEventFieldEqLaplacian`
+and `hEmGeneratorLaplacianEventFieldPointwiseStdBasisDef`.  Keep
+`hemGeneratorLaplacianEventFieldEqTraceField`,
+`hemGeneratorLaplacianStateIntegral`, `htraceFieldMeas`,
+`hsourceLaplacianFunctional`, `hsourceLaplacianFieldMeas`,
+`hweakFpSourceFieldPointwiseEqLaplacian`, state-event, and sibling EM leaves
+explicit.  Stale `htraceFieldEqLaplacian` wrappers, downstream
+total-event/source-functional consumers, non-EM fallbacks, broad audits,
+theorem-status promotion, fake closure, Lake/toolchain changes, and
+`sald_version_2.tex` use are rejected.  The lower_2 proof must not close this
+through the older source-field/trace-field consumer route.  No SLT theorem was
+consulted or imported.
+
+Cycle 158 middle audit: `rejected-wrapper-churn`.
+
+The source-dependency audit classifies the active blocker as
+`source-contract-gap` / `internal-paper-step`, not a Mathlib or SLT lookup
+problem.  Lean currently treats `emGeneratorLaplacianEventField` as an abstract
+field; `appendix.tex:984-995` and `appendix.tex:1379-1387` must supply the
+source definition identifying the frozen Brownian-generator Laplacian event
+field pointwise with `Laplacian.laplacian (selectedTest phi) x`.  A valid lower
+packet must either prove
+`hEmGeneratorLaplacianEventFieldPointwiseEqLaplacian` directly from that source
+definition, or narrow it to one smaller named Brownian-generator event-field
+definition.  The cycle rejects any theorem that merely assumes the scalar
+identity and returns an equivalent identity, and rejects weak-FP source-field,
+trace-field, downstream total-event/source-functional, non-EM, SLT-import,
+Lake/toolchain, broad-audit, theorem-status-promotion, fake-closure, or
+`sald_version_2.tex` work.  Local SLT consultation was not needed beyond
+checking that the configured SLT project path is absent.
+
+Cycle 158 lower_1 proof scout: `narrows-source-cited-boundary`.
+
+Exact boundary narrowed for lower_2: replace the current scalar identity
+
+- `hEmGeneratorLaplacianEventFieldPointwiseEqLaplacian : testRegular ->
+  forall phi x, emGeneratorLaplacianEventField phi x =
+  Laplacian.laplacian (selectedTest phi) x`
+
+by one smaller source-facing definition of the Brownian-generator event field:
+
+- `hEmGeneratorLaplacianEventFieldBrownianDef : testRegular ->
+  emGeneratorLaplacianEventField =
+  emFrozenBrownianLaplacianEventField selectedTest`, where
+  `emFrozenBrownianLaplacianEventField selectedTest := fun phi x =>
+  Laplacian.laplacian (selectedTest phi) x`.
+
+Source justification: in `appendix.tex:984-995`, the frozen interpolation has
+additive scalar Brownian noise on the interval.  In `appendix.tex:1379-1387`,
+the FP diffusion contribution is `(sigma_eta^2/2) Delta hat rho_s`; after weak
+testing, the coefficient stays in the diffusion action, while the event-field
+factor at state `x` is exactly `Delta(selectedTest phi)(x)`.
+
+Lower_2-ready proof block:
+
+```lean
+def emFrozenBrownianLaplacianEventField
+    {Test E : Type*} [NormedAddCommGroup E] [InnerProductSpace Real E]
+    [FiniteDimensional Real E]
+    (selectedTest : Test -> E -> Real) : Test -> E -> Real :=
+  fun phi x => Laplacian.laplacian (selectedTest phi) x
+
+theorem generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldPointwiseEqLaplacianOfBrownianDef
+    {Test E : Type*} [NormedAddCommGroup E] [InnerProductSpace Real E]
+    [FiniteDimensional Real E]
+    (selectedTest : Test -> E -> Real)
+    (emGeneratorLaplacianEventField : Test -> E -> Real)
+    (testRegular : Prop)
+    (hEmGeneratorLaplacianEventFieldBrownianDef :
+      testRegular ->
+        emGeneratorLaplacianEventField =
+          emFrozenBrownianLaplacianEventField selectedTest) :
+    testRegular ->
+      forall phi x,
+        emGeneratorLaplacianEventField phi x =
+          Laplacian.laplacian (selectedTest phi) x
+```
+
+Proof route: `intro htests phi x`; rewrite by
+`hEmGeneratorLaplacianEventFieldBrownianDef htests`; unfold the proposed
+definition; close by `rfl`.  If lower_2 formalizes the source line through the
+standard-basis Hessian trace first, use
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` to
+identify that trace with `Laplacian.laplacian`.  Do not route this through
+`hweakFpSourceFieldPointwiseEqLaplacian`, trace-field equality, or downstream
+total-event/source-functional consumers.
+
+Cycle 158 lower_2 implementation: `narrows-source-cited-boundary`.
+
+Compiled theorem:
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldPointwiseEqLaplacianOfBrownianDef`
+derives `hEmGeneratorLaplacianEventFieldPointwiseEqLaplacian` from the smaller
+definition equality
+`hEmGeneratorLaplacianEventFieldBrownianDef : testRegular ->
+emGeneratorLaplacianEventField =
+SALD.emFrozenBrownianLaplacianEventField selectedTest`, where
+`SALD.emFrozenBrownianLaplacianEventField selectedTest` unfolds to
+`fun phi x => Laplacian.laplacian (selectedTest phi) x`.
+
+Remaining exact source boundary:
+`hEmGeneratorLaplacianEventFieldBrownianDef`.  It must be proved from
+`eq:general_moving_target_SALD_frozen_interp` and the Fokker--Planck diffusion
+display in `appendix.tex:1379-1387`, not from weak-FP source-field,
+trace-field, downstream total-event/source-functional, non-EM, or theorem
+promotion routes.  The local theorem uses no SLT file or imported SLT result;
+the configured SLT project remains irrelevant for this paper-internal event
+field definition.
+
+Cycle 159 middle implementation: `narrows-source-cited-boundary`.
+
+Compiled theorem:
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianDefOfPointwise`
+derives `hEmGeneratorLaplacianEventFieldBrownianDef` from the smaller
+pointwise source display
+`hEmGeneratorLaplacianEventFieldBrownianPointwiseDef : testRegular ->
+forall phi x, emGeneratorLaplacianEventField phi x =
+SALD.emFrozenBrownianLaplacianEventField selectedTest phi x`.
+
+Remaining exact source boundary:
+`hEmGeneratorLaplacianEventFieldBrownianPointwiseDef`.  It must be proved
+directly from `eq:general_moving_target_SALD_frozen_interp` and the
+Fokker--Planck diffusion display in `appendix.tex:1379-1387`, not from
+weak-FP source-field, trace-field, downstream total-event/source-functional,
+non-EM, theorem promotion, or broad-audit routes.  No local SLT file was
+consulted or imported because this split is a paper-internal pointwise
+definition/exensionality bridge.
+
+Cycle 159 lower_1 proof scout: `narrows-source-cited-boundary`.
+
+Exact boundary narrowed for lower_2: replace
+
+- `hEmGeneratorLaplacianEventFieldBrownianPointwiseDef : testRegular ->
+  forall phi x, emGeneratorLaplacianEventField phi x =
+  SALD.emFrozenBrownianLaplacianEventField selectedTest phi x`
+
+by the smaller coordinate Brownian-generator display
+
+- `hEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDef :
+  testRegular -> forall phi x, emGeneratorLaplacianEventField phi x =
+  sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`.
+
+Source route: `appendix.tex:984-995` defines the interpolation with scalar
+Brownian noise `sigma_eta (W_s-W_{s_k})`; `appendix.tex:1379-1387` gives the
+corresponding FP diffusion term `(sigma_eta^2/2) Delta hat rho_s`.  In weak
+test form, the coefficient is outside this event field, and the statewise
+Brownian generator factor is the Hessian trace of `selectedTest phi` at `x`.
+The local bridge
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`
+turns that coordinate trace into
+`Laplacian.laplacian (selectedTest phi) x`, hence into
+`SALD.emFrozenBrownianLaplacianEventField selectedTest phi x`.
+
+Lower_2-ready proof block:
+
+```lean
+theorem generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianPointwiseDefOfStdBasis
+    {Test E : Type*} [NormedAddCommGroup E] [InnerProductSpace Real E]
+    [FiniteDimensional Real E]
+    (selectedTest : Test -> E -> Real)
+    (emGeneratorLaplacianEventField : Test -> E -> Real)
+    (testRegular : Prop)
+    (hEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDef :
+      testRegular ->
+        forall phi x,
+          emGeneratorLaplacianEventField phi x =
+            ∑ i, iteratedFDeriv Real 2 (selectedTest phi) x
+              ![(stdOrthonormalBasis Real E) i,
+                (stdOrthonormalBasis Real E) i]) :
+    testRegular ->
+      forall phi x,
+        emGeneratorLaplacianEventField phi x =
+          SALD.emFrozenBrownianLaplacianEventField selectedTest phi x
+```
+
+Proof route: `intro htests phi x`; use
+`hEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDef htests phi x`;
+unfold `SALD.emFrozenBrownianLaplacianEventField`; close with
+`(congrFun (SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv
+(sourceTest := selectedTest phi)) x).symm`.  Dependency classification:
+`source-contract-gap` / `internal-paper-step` for the remaining Brownian
+coordinate trace theorem; `mathlib-available` only for the Laplacian
+normalization.  Consulted local/Mathlib files:
+`AutoSamplingTheory/SALD.lean`, `AutoSamplingTheory/SDE.lean`,
+`AutoSamplingTheory/Probability.lean`, and
+`.lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Laplacian.lean`.
+The configured local SLT project path is absent, so no SLT result was
+consulted or imported.
+
+Cycle 159 lower_2 implementation: `narrows-source-cited-boundary`.
+
+Compiled theorem:
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianPointwiseDefOfStdBasis`
+derives `hEmGeneratorLaplacianEventFieldBrownianPointwiseDef` from the smaller
+coordinate Brownian-generator display
+`hEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDef : testRegular ->
+forall phi x, emGeneratorLaplacianEventField phi x =
+sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`.
+
+Exact boundary narrowed:
+`hEmGeneratorLaplacianEventFieldBrownianPointwiseDef` is no longer primitive;
+it follows by rewriting the coordinate trace through
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` and
+unfolding `SALD.emFrozenBrownianLaplacianEventField`.
+
+Remaining exact source boundary:
+`hEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDef`.  This is the
+paper-internal coordinate trace theorem for the Brownian generator in
+`appendix.tex:984-995` and `appendix.tex:1379-1387`.  Weak-FP source-field,
+trace-field, downstream total-event/source-functional, non-EM, wrapper,
+broad-audit, theorem-status-promotion, fake-closure, Lake/toolchain,
+SLT-import, and `sald_version_2.tex` routes remain rejected.
+
+Cycle 160 middle implementation: `narrows-source-cited-boundary`.
+
+Compiled declaration:
+`SALD.emFrozenScalarBrownianItoGeneratorEventField` and
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDefOfFrozenScalarBrownianItoGenerator`.
+
+Exact boundary narrowed:
+`hEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDef : testRegular ->
+forall phi x, emGeneratorLaplacianEventField phi x =
+sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`
+is no longer primitive.  It follows from the smaller named source-cited
+stochastic-generator interface
+`hFrozenScalarBrownianItoGeneratorEventFieldDef : testRegular ->
+emGeneratorLaplacianEventField =
+SALD.emFrozenScalarBrownianItoGeneratorEventField selectedTest`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 160 named scalar Brownian/Ito generator field | Name the frozen scalar Brownian generator coordinate-trace event field, keeping the `sigma_eta^2/2` coefficient outside this field. | `eq:general_moving_target_SALD_frozen_interp`; FP diffusion term | `SALD.emFrozenScalarBrownianItoGeneratorEventField` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | lower source theorem for EM FP backend | compiled local definition |
+| Cycle 160 pointwise standard-basis bridge | Derive `hEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDef` by unfolding the named scalar Brownian/Ito generator field equality. | `hFrozenScalarBrownianItoGeneratorEventFieldDef`; function congruence | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldBrownianPointwiseStdBasisDefOfFrozenScalarBrownianItoGenerator`; `SALD.cycle160GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoLowerObligation` | same anchors | cycle 159 Brownian pointwise bridge; EM FP backend | formalized local theorem; `narrows-source-cited-boundary` |
+| Remaining frozen scalar Brownian/Ito source theorem | Prove the named event-field equality from the frozen interpolation and the positive FP diffusion term. | Brownian increment covariance `sigma_eta^2 I`; Ito generator coordinate Hessian trace; no weak-FP source-field/trace-field fallback | `hFrozenScalarBrownianItoGeneratorEventFieldDef` | same anchors | next lower packet | obligation |
+
+Remaining exact source boundary:
+`hFrozenScalarBrownianItoGeneratorEventFieldDef`.  Lower must prove that the
+abstract EM Laplacian event field is the named frozen scalar Brownian/Ito
+generator coordinate-trace field directly from
+`eq:general_moving_target_SALD_frozen_interp` and the FP diffusion display at
+`appendix.tex:1379-1387`.  The `sigma_eta^2/2` coefficient stays in the
+surrounding weak-FP action.  Weak-FP source-field, trace-field, downstream
+total-event/source-functional, non-EM, wrapper, broad-audit,
+theorem-status-promotion, fake-closure, Lake/toolchain, SLT-import, and
+`sald_version_2.tex` routes remain rejected.  The configured local SLT project
+path was checked and is absent; no SLT theorem was consulted or imported.
+
+Cycle 160 lower_1 scout implementation: `narrows-source-cited-boundary`.
+
+Compiled declaration:
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoGeneratorDefOfPointwise`.
+
+Exact boundary narrowed:
+`hFrozenScalarBrownianItoGeneratorEventFieldDef : testRegular ->
+emGeneratorLaplacianEventField =
+SALD.emFrozenScalarBrownianItoGeneratorEventField selectedTest`
+is no longer primitive.  It follows from the pointwise source theorem
+`hFrozenScalarBrownianItoGeneratorEventFieldPointwiseDef : testRegular ->
+forall phi x, emGeneratorLaplacianEventField phi x =
+SALD.emFrozenScalarBrownianItoGeneratorEventField selectedTest phi x`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 160 lower_1 pointwise scout bridge | Derive the function-level named scalar Brownian/Ito generator event-field equality by function extensionality from the pointwise generator display. | `hFrozenScalarBrownianItoGeneratorEventFieldPointwiseDef`; `SALD.emFrozenScalarBrownianItoGeneratorEventField` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoGeneratorDefOfPointwise`; `SALD.cycle160GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoPointwiseScoutObligation` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle 160 middle theorem; EM FP backend | formalized local theorem; `narrows-source-cited-boundary` |
+| Remaining pointwise frozen scalar Brownian/Ito source theorem | Prove the pointwise event-field equality from the frozen interpolation's scalar Brownian increment and the FP diffusion display. | selected-test `C^2` regularity; scalar Brownian increment covariance `sigma_eta^2 I`; second-order Ito/Taylor generator expansion; separation of first-order frozen drift from Brownian second-order contribution | `hFrozenScalarBrownianItoGeneratorEventFieldPointwiseDef` | same anchors | next lower_2 packet | obligation |
+
+Remaining exact source boundary:
+`hFrozenScalarBrownianItoGeneratorEventFieldPointwiseDef`.  Lower_2 should
+formalize one theorem/proof block that, for every selected weak test `phi` and
+state `x`, identifies the abstract EM Laplacian event field with
+`SALD.emFrozenScalarBrownianItoGeneratorEventField selectedTest phi x`.
+The proof route is internal to the SALD paper: the scalar Brownian increment in
+`eq:general_moving_target_SALD_frozen_interp` has covariance
+`sigma_eta^2 I` per unit `s`-time, the first-order frozen drift is already
+assigned to the conditional drift field, and the second-order Ito/Taylor term
+gives the coordinate Hessian trace.  The coefficient `sigma_eta^2/2` remains in
+the surrounding weak-FP action.  Consulted local candidates:
+`Mathlib.Probability.Distributions.Gaussian.Real`,
+`Mathlib.Probability.Moments.CovarianceBilin`, and
+`Mathlib.Analysis.InnerProductSpace.Laplacian`; the configured local SLT path is
+absent, so no SLT theorem was imported.
+
+Cycle 160 lower_2 implementation: `narrows-source-cited-boundary`.
+
+Compiled declaration:
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoPointwiseDefOfCoordinateGenerator`.
+
+Exact boundary narrowed:
+`hFrozenScalarBrownianItoGeneratorEventFieldPointwiseDef : testRegular ->
+forall phi x, emGeneratorLaplacianEventField phi x =
+SALD.emFrozenScalarBrownianItoGeneratorEventField selectedTest phi x`
+is no longer primitive.  It follows from the smaller coordinate-generator pair:
+
+- `hFrozenScalarBrownianItoEventFieldCoordinateSum : testRegular ->
+  forall phi x, emGeneratorLaplacianEventField phi x =
+  sum_i brownianCoordinateGenerator phi x i`;
+- `hFrozenScalarBrownianItoCoordinateGeneratorDef : testRegular ->
+  forall phi x i, brownianCoordinateGenerator phi x i =
+  iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 160 lower_2 coordinate-generator bridge | Assemble the coordinate Brownian generator sum and per-coordinate Ito/Taylor formula into the named pointwise scalar Brownian/Ito event field. | `hFrozenScalarBrownianItoEventFieldCoordinateSum`; `hFrozenScalarBrownianItoCoordinateGeneratorDef`; finite-sum congruence | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoPointwiseDefOfCoordinateGenerator`; `SALD.cycle160GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoPointwiseCoordinateLowerObligation` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle 160 lower_1/middle theorem; EM FP backend | formalized local theorem; `narrows-source-cited-boundary` |
+| Remaining coordinate Brownian/Ito source facts | Prove the event field is the sum of coordinate Brownian generator contributions and each coordinate contribution is the diagonal Hessian term. | scalar Brownian increment covariance `sigma_eta^2 I`; coordinate independence/isotropy; second-order Ito/Taylor expansion; separation of first-order frozen drift | `hFrozenScalarBrownianItoEventFieldCoordinateSum`; `hFrozenScalarBrownianItoCoordinateGeneratorDef` | same anchors | next lower packet | obligation |
+
+Remaining exact source boundary:
+prove `hFrozenScalarBrownianItoEventFieldCoordinateSum` and
+`hFrozenScalarBrownianItoCoordinateGeneratorDef` directly from the frozen
+interpolation and the positive FP diffusion display.  The coefficient
+`sigma_eta^2/2` remains outside the event field.  Weak-FP source-field,
+trace-field, downstream total-event/source-functional, non-EM fallback,
+wrapper churn, broad audit, theorem-status promotion, fake closure,
+Lake/toolchain change, SLT import, and `sald_version_2.tex` remain rejected.
+
+Cycle 161 upper packet: `narrows-source-cited-boundary`.
+
+Global phase judgment: cycle 160 did not fail and the reviewer gate passed, so
+there is no recovery task.  Phase 1 theorem-skeleton translation is stable
+enough for cited-theory backfill on the active EM conditional-law/Fokker--
+Planck backend `sald.general_moving_target_discrete.em_interpolation_fp` over
+`appendix.tex:1358-1387`.  The single lower packet that now reduces the largest
+proof risk is the per-coordinate frozen scalar Brownian/Ito generator theorem
+`hFrozenScalarBrownianItoCoordinateGeneratorDef`; it is one of the two
+remaining supplied hypotheses left by cycle 160, and it is the part that must
+connect the scalar Brownian increment in
+`eq:general_moving_target_SALD_frozen_interp` to the diagonal Hessian term.
+
+Self-reflection guard: a total-event consumer, weak-FP source-field wrapper,
+trace-field wrapper, broad source-index rebaseline, or project-article export
+would not discharge either of the two cycle-160 supplied hypotheses.  Those
+directions are rejected as wrapper churn for this cycle.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 160 coordinate-generator bridge | Assemble the coordinate Brownian generator sum and per-coordinate Ito/Taylor formula into the named pointwise scalar Brownian/Ito event field. | `hFrozenScalarBrownianItoEventFieldCoordinateSum`; `hFrozenScalarBrownianItoCoordinateGeneratorDef`; finite-sum congruence | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoPointwiseDefOfCoordinateGenerator` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle 160 lower_1/middle theorem; EM FP backend | formalized local theorem |
+| Cycle 161 lower target: per-coordinate Ito/Taylor diagonal generator | Discharge `hFrozenScalarBrownianItoCoordinateGeneratorDef` directly, or strictly narrow it to a named one-dimensional Brownian second-moment/Taylor interface with explicit hypotheses. | selected-test `C^2` regularity; scalar Brownian increment covariance; coordinate independence/isotropy; drift separated into the first-order conditional drift field | lower_2 to produce one compiled local theorem or one smaller source-cited obligation below formalized | `eq:general_moving_target_SALD_frozen_interp`; `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoPointwiseDefOfCoordinateGenerator`; `sald.general_moving_target_discrete.em_interpolation_fp` | lower-ready obligation |
+| Residual coordinate-sum boundary | Keep `hFrozenScalarBrownianItoEventFieldCoordinateSum` explicit unless the lower theorem also truly discharges it from the source Brownian coordinate decomposition. | event field equals the sum of coordinate Brownian generator contributions | `hFrozenScalarBrownianItoEventFieldCoordinateSum` | same anchors | cycle 160 coordinate-generator bridge | obligation |
+| Rejected wrapper churn | Do not introduce downstream trace/source/event-action wrappers that merely consume the same pair. | none | none | same anchors | reviewer rejection cache | rejected direction |
+
+Lower packet: lower_1 should write the natural-language route for the
+per-coordinate scalar Brownian/Ito generator, naming the exact Brownian
+increment moment/covariance and Taylor/Ito hypotheses.  lower_2 should
+implement exactly one compiled Lean theorem that removes
+`hFrozenScalarBrownianItoCoordinateGeneratorDef`, or, if the stochastic theorem
+is too large, replace it with one strictly smaller source-cited theorem
+boundary with imports and hypotheses.  The packet must stay inside
+`sald.general_moving_target_discrete.em_interpolation_fp`; `sigma_eta^2/2`
+remains outside the event field in the weak-FP action.
+
+Mathlib/SLT consultation: consulted
+`.lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Laplacian.lean`,
+`.lake/packages/mathlib/Mathlib/Probability/Distributions/Gaussian/Real.lean`,
+and `.lake/packages/mathlib/Mathlib/Probability/Moments/CovarianceBilin.lean`
+for the local vocabulary.  The configured SLT clone
+`/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory` is absent, so no
+SLT theorem was consulted, imported, or marked formalized.
+
+Reviewer checklist: accept only if the remaining boundary is strictly smaller
+than the cycle-160 pair, preferably because
+`hFrozenScalarBrownianItoCoordinateGeneratorDef` is discharged by a compiled
+local theorem.  A fallback source-cited obligation is acceptable only if it
+names a smaller one-dimensional Brownian/Ito or covariance/Taylor theorem with
+explicit imports and hypotheses.  Reject weak-FP source-field, trace-field,
+downstream total-event/source-functional, non-EM fallback, theorem-status
+promotion, fake closure, Lake/toolchain change, broad audit, SLT import, and
+`sald_version_2.tex` routes.  Require `python3 tools/astis.py check`.
+
+Cycle 161 middle implementation: `narrows-source-cited-boundary`.
+
+Compiled declarations:
+
+- `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`;
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoCoordinateGeneratorDefOfOneDimTaylor`.
+
+Exact boundary narrowed:
+
+- `hFrozenScalarBrownianItoCoordinateGeneratorDef : testRegular ->
+  forall phi x i, brownianCoordinateGenerator phi x i =
+  iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`
+
+is no longer primitive.  It follows from the smaller source-cited boundary
+
+- `hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor : testRegular ->
+  forall phi x i, brownianCoordinateGenerator phi x i =
+  SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+  (selectedTest phi) x ((stdOrthonormalBasis Real E) i)`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 161 one-dimensional Taylor bridge | Unfold the named scalar Brownian/Ito one-dimensional Taylor term along a standard Brownian coordinate to recover the previous per-coordinate Hessian generator display. | `hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor`; `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoCoordinateGeneratorDefOfOneDimTaylor`; `SALD.cycle161GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoCoordinateGeneratorLowerObligation` | `eq:general_moving_target_SALD_frozen_interp`; `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle 160 coordinate-generator bridge; EM FP backend | formalized local theorem; `narrows-source-cited-boundary` |
+| Remaining one-dimensional Brownian/Ito Taylor source theorem | Prove that one scalar Brownian coordinate contribution equals the named one-dimensional second-order Taylor term. | selected-test `C^2` regularity; scalar Brownian coordinate covariance/second moment; Taylor/Ito expansion; drift separated into first-order field | `hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor` | same anchors; Mathlib Gaussian/Covariance/Laplacian vocabulary | next lower packet | obligation |
+| Cycle 161 lower_1 scalar Gaussian moment scout | Remove the centered scalar Gaussian second moment from the open part of the one-dimensional Brownian/Ito boundary. | `ProbabilityTheory.variance_id_gaussianReal`; `ProbabilityTheory.variance_eq_integral`; `ProbabilityTheory.integral_id_gaussianReal` | `SALD.gaussianRealZeroSecondMoment`; `SALD.cycle161GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorScoutObligation` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | next lower_2 scalar Taylor/generator theorem | formalized local theorem plus narrowed scout obligation; `narrows-source-cited-boundary` |
+| Cycle 161 lower_2 scalar Taylor moment collapse | Remove the centered scalar Gaussian first/second moment algebra from the Taylor/generator passage. | `ProbabilityTheory.integral_id_gaussianReal`; `SALD.gaussianRealZeroSecondMoment` | `SALD.gaussianRealZeroOneDimTaylorMomentContribution`; `SALD.cycle161GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorMomentLowerObligation` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | next dominated Taylor remainder/generator-limit theorem | formalized local theorem plus narrowed source-cited obligation; `narrows-source-cited-boundary` |
+| Remaining scalar Taylor/generator passage | Convert the compiled scalar moment collapse and selected-test second-order Taylor expansion into the source-defined coordinate generator equality. | selected-test `C^2`; `SALD.gaussianRealZeroOneDimTaylorMomentContribution`; dominated Taylor remainder / derivative-under-expectation; drift separated into conditional drift | `hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit`; then `hFrozenScalarBrownianItoOneDimTaylorExpansion` and `hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor` | same anchors | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoCoordinateGeneratorDefOfOneDimTaylor` | remaining smaller source-cited obligation |
+| Residual coordinate-sum boundary | Keep the event field equals coordinate-generator sum fact explicit. | scalar Brownian coordinate decomposition of the abstract EM Laplacian event field | `hFrozenScalarBrownianItoEventFieldCoordinateSum` | same anchors | cycle 160 coordinate-generator bridge | obligation |
+
+Remaining exact source boundary:
+`hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor`.  Lower should prove
+this from the scalar Brownian increment in
+`eq:general_moving_target_SALD_frozen_interp`, the coordinate second
+moment/covariance, and the second-order Taylor/Ito expansion, or record a
+smaller named Mathlib/theory gap.  The sibling
+`hFrozenScalarBrownianItoEventFieldCoordinateSum` remains explicit.  The
+`sigma_eta^2/2` coefficient stays outside the event field.  Consulted local
+Mathlib files:
+`.lake/packages/mathlib/Mathlib/Probability/Distributions/Gaussian/Real.lean`,
+`.lake/packages/mathlib/Mathlib/Probability/Moments/CovarianceBilin.lean`, and
+`.lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Laplacian.lean`.
+The configured local SLT clone is absent; no SLT theorem was imported or
+marked formalized.  Reject weak-FP source-field, trace-field, downstream
+total-event/source-functional, non-EM fallback, wrapper churn, broad audit,
+theorem-status promotion, fake closure, Lake/toolchain change, SLT import, and
+`sald_version_2.tex`.
+
+Cycle 161 lower_1 proof scout: `narrows-source-cited-boundary`.
+
+Compiled declaration:
+
+- `SALD.gaussianRealZeroSecondMoment`.
+
+Exact boundary narrowed:
+`hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor` no longer needs a
+separate supplied hypothesis for the scalar centered Gaussian second moment.
+The remaining smaller source-cited theorem is
+`hFrozenScalarBrownianItoOneDimTaylorExpansion`, which should prove
+
+```lean
+testRegular ->
+  forall phi x i,
+    brownianCoordinateGenerator phi x i =
+      SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+        (selectedTest phi) x ((stdOrthonormalBasis Real E) i)
+```
+
+using selected-test `C^2` regularity, zero first moment for the centered scalar
+Brownian coordinate (`ProbabilityTheory.integral_id_gaussianReal`), the
+formalized second moment (`SALD.gaussianRealZeroSecondMoment`), and a
+dominated-remainder Taylor/Ito generator limit.  The deterministic frozen drift
+stays in the first-order conditional drift field, `sigma_eta^2/2` stays in the
+surrounding weak-FP action, and `hFrozenScalarBrownianItoEventFieldCoordinateSum`
+remains explicit.
+
+Cycle 161 lower_2 implementation: `narrows-source-cited-boundary`.
+
+Compiled declaration:
+
+- `SALD.gaussianRealZeroOneDimTaylorMomentContribution`.
+
+Exact boundary narrowed:
+`hFrozenScalarBrownianItoOneDimTaylorExpansion` no longer needs a separate open
+moment-algebra step for the centered scalar Gaussian coordinate.  The theorem
+compiles the local collapse
+
+```lean
+linearCoeff * (integral z, z d gaussianReal 0 v) +
+  quadraticCoeff * (integral z, z^2 d gaussianReal 0 v)
+  = quadraticCoeff * (v : Real)
+```
+
+from `ProbabilityTheory.integral_id_gaussianReal` and
+`SALD.gaussianRealZeroSecondMoment`.
+
+Remaining smaller source-cited theorem:
+`hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit`.  It should prove the
+dominated second-order Taylor remainder and generator-limit step under
+selected-test `C^2`, integrability, and drift-separation hypotheses, then feed
+`hFrozenScalarBrownianItoOneDimTaylorExpansion` and the cycle-161 one-dimensional
+Taylor bridge.  The sibling
+`hFrozenScalarBrownianItoEventFieldCoordinateSum` remains explicit, and
+`sigma_eta^2/2` remains outside the event field.
+
+Cycle 162 middle implementation: `narrows-source-cited-boundary`.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder`.
+
+Exact boundary narrowed:
+`hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit` no longer stands as one
+opaque generator-limit theorem.  The compiled cycle-162 bridge proves the
+one-dimensional coordinate generator equality from the already formalized
+Gaussian moment collapse plus three smaller source-facing obligations:
+
+- `hFrozenScalarBrownianItoTaylorMomentDecomposition`, which expands the
+  source-defined coordinate generator as the centered Gaussian linear moment,
+  the centered Gaussian quadratic moment, and a normalized remainder term;
+- `hFrozenScalarBrownianItoQuadraticVariationNormalization`, which identifies
+  the normalized quadratic moment contribution with
+  `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator (selectedTest phi) x e_i`
+  after the paper's `sigma_eta^2/2` coefficient has been kept outside the event
+  field;
+- `hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes`, the dominated
+  Taylor remainder / derivative-under-expectation limit.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 162 scalar Taylor moment/remainder bridge | Assemble the source Taylor moment decomposition, quadratic-variation normalization, and vanishing normalized remainder using the compiled centered Gaussian moment collapse. | `SALD.gaussianRealZeroOneDimTaylorMomentContribution`; `hFrozenScalarBrownianItoTaylorMomentDecomposition`; `hFrozenScalarBrownianItoQuadraticVariationNormalization`; `hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder`; `SALD.cycle162GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoTaylorRemainderLowerObligation` | `eq:general_moving_target_SALD_frozen_interp`; `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle 161 one-dimensional Taylor bridge; cycle 160 coordinate-generator bridge; EM FP backend | formalized local theorem plus narrowed source-cited obligation |
+| Remaining normalized Taylor remainder boundary | Prove the Taylor moment decomposition, the quadratic-variation normalization after factoring out `sigma_eta^2/2`, and the vanishing normalized remainder under selected-test `C^2`/integrability/dominated-convergence hypotheses. | selected-test regularity; scalar Brownian increment law; Mathlib Taylor/FDeriv/integral APIs | `hFrozenScalarBrownianItoTaylorMomentDecomposition`; `hFrozenScalarBrownianItoQuadraticVariationNormalization`; `hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes` | same anchors | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder` | remaining smaller source-cited obligation |
+| Residual coordinate-sum boundary | Keep the event field equals coordinate-generator sum fact explicit. | scalar Brownian coordinate decomposition of the abstract EM Laplacian event field | `hFrozenScalarBrownianItoEventFieldCoordinateSum` | same anchors | cycle 160 coordinate-generator bridge | obligation |
+
+Remaining exact source boundary after cycle 162:
+`hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes` together with the
+named Taylor moment decomposition and quadratic-variation normalization
+hypotheses.  This is lower-ready over `appendix.tex:984-995` and
+`appendix.tex:1379-1387`, and should consult Mathlib Taylor/FDeriv/integral APIs
+before any new abstraction.  Reject weak-FP source-field, trace-field,
+downstream total-event/source-functional, non-EM fallback, wrapper churn, broad
+audit, theorem-status promotion, fake closure, Lake/toolchain change, SLT
+import, and `sald_version_2.tex`.
+
+Cycle 162 lower_1 scout refinement: `narrows-source-cited-boundary`.
+
+Lean obligation:
+`SALD.cycle162GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoNormalizedRemainderScoutObligation`.
+
+Exact boundary narrowed:
+`hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes` should be handled as
+a dominated-convergence theorem for the normalized scalar Taylor remainder
+integral.  It should not repackage the already compiled cycle-162 bridge, and it
+should not absorb the separate Taylor moment decomposition or
+quadratic-variation normalization hypotheses.
+
+Lower_2-ready theorem block:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Normalized Taylor remainder DCT | If `normalizedRemainder h z` is eventually a.e. strongly measurable, eventually a.e. bounded by an integrable function under `ProbabilityTheory.gaussianReal 0 v`, and tends pointwise a.e. to `0` as `h -> 0+`, then its Gaussian integral tends to `0`. | `MeasureTheory.tendsto_integral_filter_of_dominated_convergence`; `Mathlib.MeasureTheory.Integral.DominatedConvergence`; scalar Brownian coordinate law | `SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT`; `SALD.cycle162GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoNormalizedRemainderDctLowerObligation` | `eq:general_moving_target_SALD_frozen_interp`; `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes`; cycle-162 moment/remainder bridge | formalized local theorem; narrows source-cited boundary |
+| Scalar Taylor pointwise limit | For `r |-> selectedTest phi (x + r • e_i)`, selected-test `C^2`/`ContDiffOn` gives the normalized second-order remainder limit needed by the DCT theorem. | `Real.taylor_tendsto` or `taylor_isLittleO`; selected-test regularity; local coordinate path calculus | follow-up source-cited theorem supplying `hPoint` for the DCT theorem | same anchors | normalized remainder DCT | remaining analytic obligation |
+
+Exact hypotheses lower_2 should expose:
+
+- `hMeas`: eventual `MeasureTheory.AEStronglyMeasurable (normalizedRemainder h)` under
+  `ProbabilityTheory.gaussianReal 0 v`;
+- `hBound`: eventual a.e. domination
+  `||normalizedRemainder h z|| <= bound z`;
+- `hBoundInt`: `MeasureTheory.Integrable bound (ProbabilityTheory.gaussianReal 0 v)`;
+- `hPoint`: a.e. `Filter.Tendsto (fun h => normalizedRemainder h z) (nhdsWithin 0 (Set.Ioi 0)) (nhds 0)`.
+
+Mathlib/local consultation: `Mathlib.MeasureTheory.Integral.DominatedConvergence`
+for `MeasureTheory.tendsto_integral_filter_of_dominated_convergence`, and
+`Mathlib.Analysis.Calculus.Taylor` for `Real.taylor_tendsto` /
+`taylor_isLittleO`.  No SLT theorem is imported, ported, or marked formalized.
+
+Cycle 162 lower_2 update: `SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT`
+is compiled, so `hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes` is
+now narrowed to the source-specific `hPoint` Taylor limit plus the unchanged
+Taylor moment decomposition and quadratic-variation normalization hypotheses.
+
+## Cycle 151 EM Generator Pointwise Event/Trace Total Event
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet inside the EM conditional-law/state-event
+set-integral illness area selected by the refreshed blueprint.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceLaplacianStateIntegralSourceAndPointwiseEventFormula`.
+
+Exact boundary narrowed: the direct event-field/trace-field equality
+
+- `hemGeneratorLaplacianEventFieldEqTraceField : testRegular ->
+  emGeneratorLaplacianEventField = emGeneratorTraceField`
+
+is no longer primitive for the current cycle-150 trace-Laplacian state
+total-event route.  It follows from the smaller pointwise source identity
+
+- `hemGeneratorLaplacianEventFieldEqLaplacian : testRegular -> forall phi,
+  emGeneratorLaplacianEventField phi =
+  fun x => Laplacian.laplacian (selectedTest phi) x`,
+
+together with the already explicit trace-field identity
+`htraceFieldEqLaplacian`, by
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqTraceFieldOfLaplacianFields`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Pointwise event/trace total-event bridge | Recover `hemGeneratorLaplacianEventFieldEqTraceField` from the pointwise event-field Laplacian identity and `htraceFieldEqLaplacian`, then feed the cycle-150 trace-Laplacian state total-event theorem. | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqTraceFieldOfLaplacianFields`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceLaplacianStateIntegralSourceAndEventFormula`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `htraceFieldEqLaplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceLaplacianStateIntegralSourceAndPointwiseEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Lower_2 pointwise event source-field leaf | Derive `hemGeneratorLaplacianEventFieldEqLaplacian` from the smaller source equality identifying the named EM event field with the weak-FP source Laplacian field, plus the existing source-field/Laplacian definition. | `hemGeneratorLaplacianEventFieldEqSourceField`; `hweakFpSourceFieldEqLaplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqLaplacianOfWeakFpSourceField` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqTraceFieldOfLaplacianFields`; `sald.general_moving_target_discrete.em_interpolation_fp` | formalized local theorem |
+| Remaining direct leaves | Prove the selected-test Laplacian state integral, source-Laplacian measurability when not supplied by the source-Laplacian route, pointwise event-field/Laplacian identity, and trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | frozen EM generator definition; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorLaplacianStateIntegral`; `hsourceLaplacianFieldMeas`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `htraceFieldEqLaplacian` | same anchors | next lower packet | obligation |
+
+Remaining exact boundary after cycle 151: `hemGeneratorLaplacianStateIntegral`,
+`hsourceLaplacianFieldMeas` when not supplied,
+`hemGeneratorLaplacianEventFieldEqLaplacian`, and
+`htraceFieldEqLaplacian`; keep `hsourceLaplacianFunctional` and
+state-event/sibling EM leaves explicit.  Local consultation reused existing
+SALD declarations only; no SLT theorem was consulted or imported; no
+Lake/toolchain change, theorem-status promotion, non-EM fallback, broad audit,
+fake closure, wrapper churn outside this direct leaf, or `sald_version_2.tex`
+use.
+
+Lower_2 refinement after the shared dialogue: the direct event-field/Laplacian
+leaf now follows locally from `hemGeneratorLaplacianEventFieldEqSourceField`
+and `hweakFpSourceFieldEqLaplacian` via
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqLaplacianOfWeakFpSourceField`.
+The remaining exact lower_2 source boundary is
+`hemGeneratorLaplacianEventFieldEqSourceField`; keep the sibling
+`hweakFpSourceFieldEqLaplacian`, `htraceFieldEqLaplacian`,
+`hemGeneratorLaplacianStateIntegral`, `hsourceLaplacianFieldMeas`,
+`hsourceLaplacianFunctional`, and state-event leaves separate.
+
+Cycle 152 dynamic-leaf worker packet:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Event/source equality from common standard-basis fields | Recover `hemGeneratorLaplacianEventFieldEqSourceField` from two smaller source-facing field definitions: the frozen EM event field standard-basis formula and the weak-FP source-field standard-basis formula. | `hemGeneratorLaplacianEventFieldStdBasisDef`; `hweakFpSourceFieldStdBasisDef` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqSourceFieldOfStdBasisFields` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqLaplacianOfWeakFpSourceField`; `sald.general_moving_target_discrete.em_interpolation_fp` | formalized local theorem |
+| Remaining direct leaves | Prove the two standard-basis source field definitions while keeping sibling source and state-event leaves explicit. | frozen EM generator definition; weak-FP Laplacian source display; selected-test calculus | `hemGeneratorLaplacianEventFieldStdBasisDef`; `hweakFpSourceFieldStdBasisDef`; `hweakFpSourceFieldEqLaplacian`; `htraceFieldEqLaplacian`; `hemGeneratorLaplacianStateIntegral`; `hsourceLaplacianFieldMeas`; `hsourceLaplacianFunctional` | same anchors | next lower packet | obligation |
+
+Exact boundary narrowed: `hemGeneratorLaplacianEventFieldEqSourceField` is no
+longer primitive; it follows by
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqSourceFieldOfStdBasisFields`
+from `hemGeneratorLaplacianEventFieldStdBasisDef` and
+`hweakFpSourceFieldStdBasisDef`.  This is a direct equality leaf.  It does not
+use the old `hemGeneratorLaplacianEventFieldEqLaplacian` route backwards, add a
+total-event/source-functional consumer wrapper, import or port SLT, change
+Lake/toolchain state, or use `sald_version_2.tex`.
+
+Cycle 152 lower_1 proof-scout continuation:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Weak-FP source-field standard basis from Mathlib Laplacian | Convert the weak-FP source-field/Laplacian equality into the source standard-basis second-derivative field by the local Mathlib Laplacian bridge. | `hweakFpSourceFieldEqLaplacian`; `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` | `SALD.generalMovingTargetDiscreteWeakFpSourceFieldStdBasisDefOfLaplacianField` | `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqSourceFieldOfStdBasisFields`; `sald.general_moving_target_discrete.em_interpolation_fp` | formalized local theorem |
+| Remaining direct leaves | Prove the weak-FP source-field/Laplacian equality and the EM event-field standard-basis definition while keeping sibling source and state-event leaves explicit. | weak-FP Laplacian source display; frozen EM generator definition; selected-test calculus | `hweakFpSourceFieldEqLaplacian`; `hemGeneratorLaplacianEventFieldStdBasisDef`; `htraceFieldEqLaplacian`; `hemGeneratorLaplacianStateIntegral`; `hsourceLaplacianFieldMeas`; `hsourceLaplacianFunctional` | same anchors | next lower packet | obligation |
+
+Exact boundary narrowed: `hweakFpSourceFieldStdBasisDef` is no longer
+primitive.  It follows by
+`SALD.generalMovingTargetDiscreteWeakFpSourceFieldStdBasisDefOfLaplacianField`
+from the smaller source-cited field identity `hweakFpSourceFieldEqLaplacian`
+plus the already compiled Mathlib standard-basis theorem
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
+The lower_2-ready theorem block is to prove `hweakFpSourceFieldEqLaplacian`
+directly from the weak-FP source-field definition in `appendix.tex:1379-1387`;
+`hemGeneratorLaplacianEventFieldStdBasisDef` and the state-event/source
+functional sibling leaves remain separate.
+
+Cycle 152 lower_2 dynamic-leaf worker continuation:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Weak-FP source-field equality from pointwise source identity | Convert the pointwise equality for each selected weak test into the field-level equality used by the lower_1 standard-basis bridge. | `hweakFpSourceFieldPointwiseEqLaplacian` | `SALD.generalMovingTargetDiscreteWeakFpSourceFieldEqLaplacianOfPointwise` | `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceFieldStdBasisDefOfLaplacianField`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqSourceFieldOfStdBasisFields`; `sald.general_moving_target_discrete.em_interpolation_fp` | formalized local theorem |
+| Remaining direct leaves | Prove the pointwise weak-FP source-field/Laplacian identity and the EM event-field standard-basis definition while keeping sibling source and state-event leaves explicit. | weak-FP Laplacian source display; frozen EM generator definition; selected-test calculus | `hweakFpSourceFieldPointwiseEqLaplacian`; `hemGeneratorLaplacianEventFieldStdBasisDef`; `htraceFieldEqLaplacian`; `hemGeneratorLaplacianStateIntegral`; `hsourceLaplacianFieldMeas`; `hsourceLaplacianFunctional` | same anchors | next lower packet | obligation |
+
+Exact boundary narrowed: `hweakFpSourceFieldEqLaplacian` is no longer
+primitive.  It follows by
+`SALD.generalMovingTargetDiscreteWeakFpSourceFieldEqLaplacianOfPointwise`
+from the smaller pointwise source-cited identity
+`hweakFpSourceFieldPointwiseEqLaplacian`.  The packet does not prove that
+analytic pointwise identity, the EM event-field standard-basis definition,
+any total-event/source-functional consumer, an SLT port, or a non-EM fallback.
+
+Cycle 153 dynamic-leaf worker packet inside the EM conditional-law/state-event
+set-integral illness area:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| State integral from source functional | Recover the direct selected-test Laplacian state integral from the source-functional action definition, the explicit `hsourceLaplacianFunctional` law-integral definition, and the existing law-to-state map integral transport. | `hemGeneratorSourceActionDef`; `hsourceLaplacianFunctional`; `hsourceLaplacianFieldMeas`; `hhatRhoS`; `hhatX`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfLawIntegral` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfSourceFunctional` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceLaplacianStateIntegralSourceAndEventFormula`; `sald.general_moving_target_discrete.em_interpolation_fp` | formalized local theorem |
+| Remaining direct leaves | Prove the source-functional action definition for the named frozen EM Laplacian action, while keeping sibling source and state-event leaves explicit. | frozen EM generator definition; source functional for `hatRhoS`; selected-test Laplacian calculus | `hemGeneratorSourceActionDef`; `hsourceLaplacianFunctional`; `hsourceLaplacianFieldMeas`; `hemGeneratorLaplacianEventFieldStdBasisDef`; `hweakFpSourceFieldPointwiseEqLaplacian`; `htraceFieldEqLaplacian` | same anchors | next lower packet | obligation |
+
+Exact boundary narrowed: `hemGeneratorLaplacianStateIntegral` is no longer
+primitive for the active trace-Laplacian state-total-event route.  It follows by
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfSourceFunctional`
+from the smaller source-cited action definition `hemGeneratorSourceActionDef`
+plus the explicit source functional as integration against `hatRhoS`, then
+uses `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfLawIntegral`
+for the `Measure.map` transport along `hatXAtS`.  The packet keeps
+`hsourceLaplacianFunctional` and `hsourceLaplacianFieldMeas` explicit, and does
+not prove the EM event-field standard-basis definition, the weak-FP pointwise
+source identity, the trace-field Laplacian identity, any total-event consumer,
+an SLT port, or a non-EM fallback.
+
+Cycle 154 dynamic-leaf worker packet inside the EM conditional-law/state-event
+set-integral illness area:
+
+Classification: `discharges-supplied-hypothesis`.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceFieldSourceFunctional`.
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceLawIntegralLaplacianField`.
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceStateIntegralLaplacianField`.
+
+Exact supplied hypothesis discharged: the standard-basis source premise
+
+- `hemGeneratorStdBasisDef : testRegular -> emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional
+    (fun x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i])`
+
+is no longer primitive for
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfStdBasisSourceFunctional`.
+It follows from the smaller source-facing trace-field pair:
+
+- `hemGeneratorTraceActionDef : testRegular -> emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional (emGeneratorTraceField phi)`;
+- `htraceFieldStdBasis : testRegular -> emGeneratorTraceField =
+  fun phi x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Trace-field pair to state integral | Recover `hemGeneratorStdBasisDef` from `hemGeneratorTraceActionDef` and `htraceFieldStdBasis`, then reuse the cycle-153 state-integral standard-basis source-functional bridge. | `SALD.generalMovingTargetDiscreteEmGeneratorStdBasisDefOfTraceField`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfStdBasisSourceFunctional`; `hsourceLaplacianFunctional`; `hsourceLaplacianFieldMeas`; `hhatRhoS`; `hhatX` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceFieldSourceFunctional` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Trace-law/Laplacian-field to state integral | Recover `hemGeneratorTraceActionDef` from `hemGeneratorTraceLawIntegral` and `hsourceLaplacianFunctional`; recover `htraceFieldStdBasis` from `htraceFieldEqLaplacian`; then reuse the trace-field state-integral bridge. | `SALD.generalMovingTargetDiscreteEmGeneratorTraceActionDefOfTraceLawIntegral`; `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldStdBasisOfLaplacianField`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceFieldSourceFunctional`; `hsourceLaplacianFunctional`; `hsourceLaplacianFieldMeas`; `hhatRhoS`; `hhatX` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceLawIntegralLaplacianField` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Trace-state/Laplacian-field to state integral | Recover `hemGeneratorTraceLawIntegral` from the sample-space trace integral through the map-law transport, then reuse the trace-law/Laplacian-field state-integral bridge. | `SALD.generalMovingTargetDiscreteEmGeneratorTraceLawIntegralOfStateIntegral`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceLawIntegralLaplacianField`; `hemGeneratorTraceStateIntegral`; `htraceFieldMeas`; `hhatRhoS`; `hhatX`; `htraceFieldEqLaplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceStateIntegralLaplacianField` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining source boundary | Prove the paper's sample-space trace integral, trace-field measurability, and trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | frozen EM generator definition; Fokker--Planck line for `hatRhoS`; trace/Laplacian notation; map-law regularity | `hemGeneratorTraceStateIntegral`; `htraceFieldMeas`; `htraceFieldEqLaplacian`; `hsourceLaplacianFunctional`; `hsourceLaplacianFieldMeas`; `hemGeneratorLaplacianEventFieldStdBasisDef`; `hweakFpSourceFieldPointwiseEqLaplacian` | same anchors | next lower packet | obligation |
+
+The lower_1 scout continuation classifies as `narrows-source-cited-boundary`:
+`hemGeneratorTraceActionDef` and `htraceFieldStdBasis` are no longer primitive
+for this state-integral path.  The packet does not prove
+`hemGeneratorTraceLawIntegral`, `htraceFieldEqLaplacian`, source-functional
+construction, source-Laplacian measurability, the EM event-field
+standard-basis definition, the weak-FP pointwise source identity, any
+state-event theorem, an SLT port, a non-EM fallback, or a downstream
+total-event wrapper.  The lower_2 continuation classifies as
+`narrows-source-cited-boundary`: `hemGeneratorTraceLawIntegral` is no longer
+primitive for the state-integral route because it follows from
+`hemGeneratorTraceStateIntegral`, `htraceFieldMeas`, `hhatRhoS`, and `hhatX`
+through `SALD.generalMovingTargetDiscreteEmGeneratorTraceLawIntegralOfStateIntegral`.
+
+Cycle 155 dynamic-leaf middle packet inside the EM conditional-law/state-event
+set-integral illness area:
+
+Classification: `narrows-source-cited-boundary`.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceStateIntegralOfLaplacianStateIntegralLaplacianField`.
+
+Exact boundary narrowed: the sample-space trace integral premise
+
+- `hemGeneratorTraceStateIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral omega, emGeneratorTraceField phi (hatXAtS omega) dP`
+
+is no longer primitive under
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceStateIntegralLaplacianField`.
+It follows from the smaller source-facing pair
+
+- `hemGeneratorLaplacianStateIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral omega, Laplacian.laplacian (selectedTest phi) (hatXAtS omega) dP`;
+- `htraceFieldEqLaplacian : testRegular ->
+  emGeneratorTraceField = fun phi => Laplacian.laplacian (selectedTest phi)`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Trace-state integral from Laplacian state integral | Rewrite the sample-space trace-field integrand along `hatXAtS` using the trace-field/Laplacian identity, then reuse the selected-test Laplacian state integral. | `hemGeneratorLaplacianStateIntegral`; `htraceFieldEqLaplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceStateIntegralOfLaplacianStateIntegralLaplacianField` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateIntegralOfTraceStateIntegralLaplacianField`; `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining source boundary | Prove the selected-test Laplacian state integral or its accepted source-functional subleaf, trace-field measurability for map-law transport, and the trace-field/Laplacian identity. | frozen EM generator definition; Fokker--Planck line for `hatRhoS`; trace/Laplacian notation; map-law regularity | `hemGeneratorLaplacianStateIntegral`; `htraceFieldMeas`; `htraceFieldEqLaplacian`; `hsourceLaplacianFunctional`; `hsourceLaplacianFieldMeas`; `hemGeneratorLaplacianEventFieldStdBasisDef`; `hweakFpSourceFieldPointwiseEqLaplacian` | same anchors | next lower packet | obligation |
+
+This packet does not discharge `htraceFieldMeas`, does not add a downstream
+total-event/source-functional consumer wrapper, does not prove
+`hemGeneratorLaplacianStateIntegral`, and does not import or port SLT.  It
+only removes the primitive trace-state integral hypothesis by local function
+equality rewriting under the sample integral.
+
+## Cycle 146 EM Generator Trace-Event Total-Event Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet inside the cycle-142/143/144/145 EM generator
+trace-state illness area.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventTotalEventFormula`.
+
+Exact boundary narrowed: the law-space generator premise
+
+- `hemGeneratorLaplacianLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral x, Laplacian.laplacian (selectedTest phi) x d hatRhoS`
+
+is no longer primitive for
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventLawIntegralFormula`.
+It follows from the smaller source-facing state-event action formula
+
+- `hemGeneratorLaplacianTotalEventIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi = integral x in univ,
+  emGeneratorLaplacianEventField phi x d hatRhoS`,
+
+together with `hemGeneratorLaplacianEventFieldEqTraceField` and
+`htraceFieldStdBasis`.  The compiled proof derives the all-state-event
+Laplacian equality through the trace-field standard-basis route, then recovers
+the old law integral by taking the event to be `Set.univ`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Trace-event total-event consumer | Reconstruct the old law-space generator Laplacian integral from the total state-event formula plus trace-event equality. | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfTraceField`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqOfStdBasisSourceFormula`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateEventEqOfPointwise`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianLawIntegralOfStateEventFormula`; `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventTotalEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the total state-event formula, the event-field/trace-field equality, and the trace-field standard-basis formula for the named frozen EM Laplacian event field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; trace-field naming at the Laplacian term | `hemGeneratorLaplacianTotalEventIntegral`; `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldStdBasis` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 146: prove
+`hemGeneratorLaplacianTotalEventIntegral`,
+`hemGeneratorLaplacianEventFieldEqTraceField`, and `htraceFieldStdBasis`.
+The older `hemGeneratorLaplacianLawIntegral` now follows locally from the
+total state-event formula plus the trace-event standard-basis route.  Still
+explicit: `hlaplacianEqEmGenerator`, source-field/source-functional leaves,
+density-Laplacian facts, Green/trace/box-divergence, and diffusion leaves.
+No SLT theorem was consulted or imported; the only Mathlib-facing item reused
+was the existing local standard-basis Laplacian bridge.  No Lake/toolchain
+change, theorem-status promotion, non-EM fallback, wrapper churn, broad audit,
+fake closure, or `sald_version_2.tex` use.
+
+## Cycle 146 Lower_1 EM Trace-Field Laplacian Scout
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_1 proof-scout packet inside the cycle-142/143/144/145/146
+EM generator trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldStdBasisOfLaplacianField`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventTotalEventTraceLaplacianFormula`.
+
+Exact boundary narrowed: the trace-field standard-basis premise
+
+- `htraceFieldStdBasis : testRegular -> emGeneratorTraceField =
+  fun phi x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x
+  ![(stdOrthonormalBasis Real E) i, (stdOrthonormalBasis Real E) i]`
+
+is no longer primitive for the current trace-event total-event consumer.  It
+follows from the smaller source-facing Laplacian identity
+
+- `htraceFieldEqLaplacian : testRegular -> emGeneratorTraceField =
+  fun phi => Laplacian.laplacian (selectedTest phi)`,
+
+together with
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Trace field Laplacian to standard basis | Recover `htraceFieldStdBasis` from `htraceFieldEqLaplacian` and the local Mathlib standard-basis Laplacian bridge. | `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; `Mathlib.Analysis.InnerProductSpace.Laplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldStdBasisOfLaplacianField` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle-146 lower_1 consumer | formalized local theorem |
+| Current trace-event total-event consumer | Feed the trace-field Laplacian split through the already compiled total-event route. | trace-field helper; cycle-146 total-event theorem | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventTotalEventTraceLaplacianFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the total state-event formula, the event-field/trace-field equality, and the trace-field/Laplacian identity for the named frozen EM Laplacian event field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorLaplacianTotalEventIntegral`; `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldEqLaplacian` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower_2 packet | obligation |
+
+Remaining exact boundary after cycle 146 lower_1: prove
+`hemGeneratorLaplacianTotalEventIntegral`,
+`hemGeneratorLaplacianEventFieldEqTraceField`, and
+`htraceFieldEqLaplacian`.  The older `htraceFieldStdBasis` now follows locally
+from the trace-field/Laplacian equality plus the Mathlib standard-basis bridge.
+Still explicit: `hlaplacianEqEmGenerator`, source-field/source-functional
+leaves, density-Laplacian facts, Green/trace/box-divergence, and diffusion
+leaves.  No SLT theorem was consulted or imported; no Lake/toolchain change,
+theorem-status promotion, non-EM fallback, wrapper churn, broad audit, fake
+closure, or `sald_version_2.tex` use.
+
+## Cycle 146 Lower 2 EM Pointwise Trace-Event Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_2 worker packet inside the cycle-142/143/144/145/146 EM
+generator trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqTraceFieldOfLaplacianFields`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventTotalEventTraceLaplacianFormula`.
+
+Exact boundary narrowed: the event-field/trace-field equality
+
+- `hemGeneratorLaplacianEventFieldEqTraceField : testRegular ->
+  emGeneratorLaplacianEventField = emGeneratorTraceField`
+
+is no longer primitive.  It follows from the smaller pointwise event-field
+Laplacian identity
+
+- `hemGeneratorLaplacianEventFieldEqLaplacian : testRegular -> forall phi,
+  emGeneratorLaplacianEventField phi =
+  fun x => Laplacian.laplacian (selectedTest phi) x`,
+
+and the lower_1 trace-field Laplacian identity
+
+- `htraceFieldEqLaplacian : testRegular -> emGeneratorTraceField =
+  fun phi => Laplacian.laplacian (selectedTest phi)`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Event/trace equality through Laplacian | Recover `hemGeneratorLaplacianEventFieldEqTraceField` from `hemGeneratorLaplacianEventFieldEqLaplacian` and `htraceFieldEqLaplacian`. | source pointwise event-field identity; lower_1 trace-field Laplacian identity | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqTraceFieldOfLaplacianFields` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | lower_2 consumer | formalized local theorem |
+| Current pointwise trace-event consumer | Feed the event/trace equality through the already compiled total-event trace-Laplacian route. | event/trace helper; lower_1 total-event trace-Laplacian consumer | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventTotalEventTraceLaplacianFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the total state-event formula, the pointwise event-field/Laplacian identity, and the trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorLaplacianTotalEventIntegral`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `htraceFieldEqLaplacian` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 146 lower_2: prove
+`hemGeneratorLaplacianTotalEventIntegral`,
+`hemGeneratorLaplacianEventFieldEqLaplacian`, and
+`htraceFieldEqLaplacian`.  The older
+`hemGeneratorLaplacianEventFieldEqTraceField` now follows locally from the two
+Laplacian identities.  Still explicit: `hlaplacianEqEmGenerator`,
+source-field/source-functional leaves, density-Laplacian facts,
+Green/trace/box-divergence, and diffusion leaves.  No SLT theorem was
+consulted or imported; no Lake/toolchain change, theorem-status promotion,
+non-EM fallback, wrapper churn, broad audit, fake closure, or
+`sald_version_2.tex` use.
+
+## Cycle 147 EM Generator Pointwise Action-Definition Trace-Laplacian Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet inside the cycle-142/143/144/145/146/147 EM
+generator trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventActionDefTraceLaplacianFormula`.
+
+Exact boundary narrowed: the total-event formula
+
+- `hemGeneratorLaplacianTotalEventIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral x in Set.univ, emGeneratorLaplacianEventField phi x d hatRhoS`
+
+is no longer primitive under the current pointwise trace-event consumer.  It
+follows from the smaller source-facing action definition
+
+- `hemGeneratorLaplacianActionDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => integral x in Set.univ,
+    emGeneratorLaplacianEventField phi x d hatRhoS`
+
+through the already compiled helper
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfActionDef`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Action definition to total event | Recover `hemGeneratorLaplacianTotalEventIntegral` from `hemGeneratorLaplacianActionDef`. | source action definition; cycle-143 helper | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfActionDef` | `appendix.tex:984-995`; `appendix.tex:1368-1387` | cycle-147 consumer | formalized local theorem |
+| Current pointwise action-definition trace-Laplacian consumer | Feed the action-definition split through the cycle-146 lower_2 pointwise event/trace Laplacian route. | action-definition helper; current pointwise event/trace Laplacian consumer | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventActionDefTraceLaplacianFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the action definition, the pointwise event-field/Laplacian identity, and the trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorLaplacianActionDef`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `htraceFieldEqLaplacian` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 147: prove
+`hemGeneratorLaplacianActionDef`,
+`hemGeneratorLaplacianEventFieldEqLaplacian`, and
+`htraceFieldEqLaplacian`.  The older
+`hemGeneratorLaplacianTotalEventIntegral` now follows locally from the action
+definition.  Still explicit: `hlaplacianEqEmGenerator`,
+source-field/source-functional leaves, density-Laplacian facts,
+Green/trace/box-divergence, and diffusion leaves.  No SLT theorem was
+consulted or imported; no Lake/toolchain change, theorem-status promotion,
+non-EM fallback, wrapper churn, broad audit, fake closure, or
+`sald_version_2.tex` use.
+
+## Cycle 147 Lower-1 EM Generator Pointwise Standard-Basis Action Trace-Laplacian Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf proof-scout packet inside the cycle-142/143/144/145/146/147 EM
+generator trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianActionDefOfStdBasisActionPointwiseEventFormula`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventStdBasisActionTraceLaplacianFormula`.
+
+Exact boundary narrowed: the action-definition premise
+
+- `hemGeneratorLaplacianActionDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => integral x in Set.univ,
+    emGeneratorLaplacianEventField phi x d hatRhoS`
+
+is no longer primitive under the current pointwise event/trace Laplacian
+consumer.  It follows from the source standard-basis action formula
+
+- `hemGeneratorLaplacianStdBasisActionDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => integral x in Set.univ,
+    sum_i iteratedFDeriv Real 2 (selectedTest phi) x
+      ![(stdOrthonormalBasis Real E) i,
+        (stdOrthonormalBasis Real E) i] d hatRhoS`
+
+together with the already explicit pointwise event-field/Laplacian identity
+`hemGeneratorLaplacianEventFieldEqLaplacian`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Standard-basis action to action definition | Recover `hemGeneratorLaplacianActionDef` from the standard-basis action formula and the current pointwise event-field/Laplacian identity. | `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; Mathlib Laplacian standard-basis formula; event-field identity | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianActionDefOfStdBasisActionPointwiseEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | cycle-147 lower_1 consumer | formalized local theorem |
+| Current pointwise standard-basis action trace-Laplacian consumer | Feed the standard-basis action split through the current action-definition trace-Laplacian route. | action-definition helper; current action-definition consumer | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventStdBasisActionTraceLaplacianFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the standard-basis action formula, the pointwise event-field/Laplacian identity, and the trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorLaplacianStdBasisActionDef`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `htraceFieldEqLaplacian` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower_2 packet | obligation |
+
+Remaining exact boundary after cycle 147 lower_1: prove
+`hemGeneratorLaplacianStdBasisActionDef`,
+`hemGeneratorLaplacianEventFieldEqLaplacian`, and
+`htraceFieldEqLaplacian`.  The older
+`hemGeneratorLaplacianActionDef` now follows locally from the standard-basis
+action formula plus the pointwise event-field/Laplacian identity.  Still
+explicit: `hlaplacianEqEmGenerator`, source-field/source-functional leaves,
+density-Laplacian facts, Green/trace/box-divergence, and diffusion leaves.  No
+SLT theorem was consulted or imported; no Lake/toolchain change,
+theorem-status promotion, non-EM fallback, wrapper churn, broad audit, fake
+closure, or `sald_version_2.tex` use.
+
+## Cycle 147 Lower-2 EM Generator Pointwise Law-Integral Trace-Laplacian Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_2 worker packet inside the cycle-142/143/144/145/146/147 EM
+generator trace-state illness area.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventLawIntegralTraceLaplacianFormula`.
+
+Exact boundary narrowed: the standard-basis action premise
+
+- `hemGeneratorLaplacianStdBasisActionDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => integral x in Set.univ,
+    sum_i iteratedFDeriv Real 2 (selectedTest phi) x
+      ![(stdOrthonormalBasis Real E) i,
+        (stdOrthonormalBasis Real E) i] d hatRhoS`
+
+is no longer primitive under the current pointwise event/trace Laplacian
+consumer.  It follows from the smaller law-space action integral
+
+- `hemGeneratorLaplacianLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral x, Laplacian.laplacian (selectedTest phi) x d hatRhoS`
+
+through
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStdBasisActionDefOfLawIntegralFormula`
+and the local Mathlib standard-basis bridge
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Law integral to standard-basis action | Recover `hemGeneratorLaplacianStdBasisActionDef` from the law-space selected-test Laplacian action integral. | `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; Mathlib Laplacian standard-basis formula | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStdBasisActionDefOfLawIntegralFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | cycle-147 lower_2 consumer | formalized local theorem |
+| Current pointwise law-integral trace-Laplacian consumer | Feed the law-integral split through the current pointwise event/trace Laplacian route. | lower_1 standard-basis action consumer; law-integral helper | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventLawIntegralTraceLaplacianFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the law-space action integral, the pointwise event-field/Laplacian identity, and the trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorLaplacianLawIntegral`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `htraceFieldEqLaplacian` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 147 lower_2: prove
+`hemGeneratorLaplacianLawIntegral`,
+`hemGeneratorLaplacianEventFieldEqLaplacian`, and
+`htraceFieldEqLaplacian`.  The older
+`hemGeneratorLaplacianStdBasisActionDef` now follows locally from the law
+integral plus the standard-basis Laplacian bridge.  Still explicit:
+`hlaplacianEqEmGenerator`, source-field/source-functional leaves,
+density-Laplacian facts, Green/trace/box-divergence, and diffusion leaves.  No
+SLT theorem was consulted or imported; no Lake/toolchain change,
+theorem-status promotion, non-EM fallback, wrapper churn, broad audit, fake
+closure, or `sald_version_2.tex` use.
+
+## Cycle 148 EM Generator Pointwise State-Event Trace-Laplacian Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf middle packet inside the cycle-142/143/144/145/146/147/148 EM
+generator trace-state illness area.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventStateEventTraceLaplacianFormula`.
+
+Exact boundary narrowed: the direct law-space premise
+
+- `hemGeneratorLaplacianLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral x, Laplacian.laplacian (selectedTest phi) x d hatRhoS`
+
+is no longer primitive under the current pointwise event/trace Laplacian
+consumer
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventLawIntegralTraceLaplacianFormula`.
+It follows from the smaller source-cited EM conditional-law/state-event
+formula through
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianLawIntegralOfStateEventFormula`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| State-event formula to law integral | Recover `hemGeneratorLaplacianLawIntegral` by taking the source-cited state event to be `Set.univ`. | `hemGeneratorLaplacianTotalEventIntegral`; `hemGeneratorLaplacianStateEventEqLaplacian`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianLawIntegralOfStateEventFormula` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianLawIntegralOfStateEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | cycle-148 downstream consumer | formalized local theorem |
+| Current pointwise state-event trace-Laplacian consumer | Feed the state-event split through the current pointwise event/trace Laplacian route while keeping field identities explicit. | state-event helper; cycle-147 law-integral consumer | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventStateEventTraceLaplacianFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the EM conditional-law/state-event formula plus the pointwise event-field/Laplacian and trace-field/Laplacian identities for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorLaplacianTotalEventIntegral`; `hemGeneratorLaplacianStateEventEqLaplacian`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `htraceFieldEqLaplacian` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 148 middle: prove
+`hemGeneratorLaplacianTotalEventIntegral` and
+`hemGeneratorLaplacianStateEventEqLaplacian` for the source-cited EM
+conditional-law/state-event formula, while still proving
+`hemGeneratorLaplacianEventFieldEqLaplacian` and
+`htraceFieldEqLaplacian`.  The older
+`hemGeneratorLaplacianLawIntegral` now follows locally from the state-event
+formula.  Still explicit: `hlaplacianEqEmGenerator`,
+source-field/source-functional leaves, density-Laplacian facts,
+Green/trace/box-divergence, and diffusion leaves.  No SLT theorem was
+consulted or imported; no Lake/toolchain change, theorem-status promotion,
+non-EM fallback, wrapper churn, broad audit, fake closure, or
+`sald_version_2.tex` use.
+
+## Cycle 148 Lower_1 EM State-Event Pointwise Scout
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_1 proof-scout packet inside the cycle-142/143/144/145/146/147/148
+EM generator trace-state illness area.
+
+Exact boundary narrowed: the remaining state-event equality premise
+
+- `hemGeneratorLaplacianStateEventEqLaplacian : testRegular -> forall phi t,
+  MeasurableSet t -> integral x in t, emGeneratorLaplacianEventField phi x d
+  hatRhoS = integral x in t, Laplacian.laplacian (selectedTest phi) x d
+  hatRhoS`
+
+is no longer a separate proof target once the current branch already requires
+
+- `hemGeneratorLaplacianEventFieldEqLaplacian : testRegular -> forall phi,
+  emGeneratorLaplacianEventField phi =
+  fun x => Laplacian.laplacian (selectedTest phi) x`.
+
+The compiled local theorem
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateEventEqOfPointwise`
+derives the state-event set-integral equality by rewriting the integrand on
+each measurable state event.  This is a proof route, not a new theorem-status
+promotion for the analytic EM generator leaves.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| State-event equality from pointwise field equality | Derive `hemGeneratorLaplacianStateEventEqLaplacian` from `hemGeneratorLaplacianEventFieldEqLaplacian`. | pointwise field equality; set-integral rewrite | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStateEventEqOfPointwise` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | cycle-148 state-event route | formalized local theorem |
+| Duplicate-wrapper rejection | A theorem replacing `hemGeneratorLaplacianStateEventEqLaplacian` by the pointwise event-field identity in the cycle-148 consumer would restate the already compiled `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianPointwiseEventTotalEventTraceLaplacianFormula`. | current state-event consumer; pointwise total-event consumer | none | same anchors | lower_2 handoff | obligation |
+
+Lower_2-ready handoff: implement one genuine source leaf next, preferably
+`hemGeneratorLaplacianTotalEventIntegral` for the named frozen EM Laplacian
+event field.  Keep `hemGeneratorLaplacianEventFieldEqLaplacian` and
+`htraceFieldEqLaplacian` explicit unless the proof of that source leaf exposes
+a strictly smaller source-cited definition.  No SLT theorem was consulted or
+imported; no Lake/toolchain change, theorem-status promotion, non-EM fallback,
+broad audit, fake closure, duplicate wrapper theorem, or `sald_version_2.tex`
+use.
+
+## Cycle 148 Lower_2 EM Total-Event Source-Functional Leaf
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_2 worker packet inside the cycle-142/143/144/145/146/147/148
+EM generator trace-state illness area.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfSourceFunctional`.
+
+Exact boundary narrowed: the remaining total-event action premise
+
+- `hemGeneratorLaplacianTotalEventIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral x in Set.univ, emGeneratorLaplacianEventField phi x d hatRhoS`
+
+is no longer primitive under the source-functional route.  It follows from the
+smaller source-cited interface consisting of
+`hemGeneratorSourceActionDef`, `hsourceLaplacianFunctional`, and the already
+explicit `hemGeneratorLaplacianEventFieldEqLaplacian`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Total event from source functional | Derive `hemGeneratorLaplacianTotalEventIntegral` from the source-functional action definition and the event-field/Laplacian identity by rewriting the law integral over `Set.univ`. | `hemGeneratorSourceActionDef`; `hsourceLaplacianFunctional`; `hemGeneratorLaplacianEventFieldEqLaplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfSourceFunctional` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | cycle-148 state-event route | formalized local theorem |
+| Remaining EM source definitions | Prove the source-functional action definition, the pointwise event-field/Laplacian identity, the state-event equality when not supplied through pointwise rewriting, and the trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | frozen EM generator definition; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorSourceActionDef`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `hemGeneratorLaplacianStateEventEqLaplacian`; `htraceFieldEqLaplacian` | same anchors | next lower packet | obligation |
+
+Remaining exact boundary after cycle 148 lower_2: prove
+`hemGeneratorSourceActionDef` for the named frozen EM Laplacian action,
+`hemGeneratorLaplacianEventFieldEqLaplacian`, and
+`htraceFieldEqLaplacian`; if the pointwise route is not used, also prove the
+state-event equality.  The older `hemGeneratorLaplacianTotalEventIntegral` now
+follows locally from the source-functional action definition and event-field
+identity.  Still explicit: `hlaplacianEqEmGenerator`, source-field leaves,
+density-Laplacian facts, Green/trace/box-divergence, and diffusion leaves.  No
+SLT theorem was consulted or imported; no Lake/toolchain change,
+theorem-status promotion, non-EM fallback, broad audit, fake closure, duplicate
+wrapper theorem, or `sald_version_2.tex` use.
+
+## Cycle 149 EM Total-Event Standard-Basis Source-Functional Leaf
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet inside the EM conditional-law/state-event
+set-integral illness area.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfStdBasisSourceFunctional`.
+
+Exact boundary narrowed: the direct source-functional action-definition premise
+
+- `hemGeneratorSourceActionDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional
+    (Laplacian.laplacian (selectedTest phi))`
+
+is no longer primitive for the cycle-148 total-event source-functional route.
+It follows from the smaller source-cited standard-basis source formula
+
+- `hemGeneratorStdBasisDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional
+    (fun x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i])`,
+
+using
+`SALD.generalMovingTargetDiscreteEmGeneratorSourceActionDefOfStdBasisSourceFormula`
+and the existing cycle-148 total-event theorem.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Standard-basis source to total-event formula | Derive `hemGeneratorSourceActionDef` from `hemGeneratorStdBasisDef`, then apply `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfSourceFunctional` while keeping `hsourceLaplacianFunctional` and `hemGeneratorLaplacianEventFieldEqLaplacian` explicit. | `SALD.generalMovingTargetDiscreteEmGeneratorSourceActionDefOfStdBasisSourceFormula`; `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; cycle-148 total-event theorem | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfStdBasisSourceFunctional` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | cycle-148 state-event route | formalized local theorem |
+| Remaining EM source definitions | Prove the paper's standard-basis source formula for the named frozen EM Laplacian action, plus the pointwise event-field/Laplacian and trace-field/Laplacian identities. | frozen EM generator definition; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorStdBasisDef`; `hemGeneratorLaplacianEventFieldEqLaplacian`; `htraceFieldEqLaplacian` | same anchors | next lower packet | obligation |
+
+Remaining exact boundary after cycle 149: prove `hemGeneratorStdBasisDef`,
+`hemGeneratorLaplacianEventFieldEqLaplacian`, and
+`htraceFieldEqLaplacian`; keep `hemGeneratorLaplacianStateEventEqLaplacian`
+explicit only where it is not supplied by the pointwise rewrite route.  No SLT
+theorem was consulted or imported; no Lake/toolchain change, theorem-status
+promotion, non-EM fallback, broad audit, fake closure, duplicate wrapper
+theorem, or `sald_version_2.tex` use.
+
+## Cycle 149 Lower_1 EM Generator Standard-Basis Event Source Scout
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_1 worker/scout packet inside the EM conditional-law/state-event
+set-integral illness area.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfStdBasisSourceAndEventFormula`.
+
+Exact boundary narrowed: the direct pointwise event-field premise
+
+- `hemGeneratorLaplacianEventFieldEqLaplacian : testRegular -> forall phi,
+  emGeneratorLaplacianEventField phi =
+  fun x => Laplacian.laplacian (selectedTest phi) x`
+
+is no longer primitive for the cycle-149 total-event standard-basis
+source-functional route.  It follows from the smaller source-facing event-field
+definition
+
+- `hemGeneratorLaplacianEventFieldStdBasisDef : testRegular ->
+  emGeneratorLaplacianEventField =
+  fun phi x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`,
+
+through
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqOfStdBasisSourceFormula`
+and the existing Mathlib standard-basis Laplacian bridge.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Standard-basis source and event field to total event | Recover `hemGeneratorLaplacianTotalEventIntegral` from `hemGeneratorStdBasisDef`, `hemGeneratorLaplacianEventFieldStdBasisDef`, and `hsourceLaplacianFunctional`; derive the old pointwise event-field identity first, then apply the cycle-149 source-functional theorem. | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfStdBasisSourceFunctional`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldEqOfStdBasisSourceFormula`; `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfStdBasisSourceAndEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | current cycle-148 state-event route | formalized local theorem |
+| Remaining source boundary | Prove the paper's standard-basis source formula and standard-basis event-field definition for the named frozen EM Laplacian contribution, plus the trace-field/Laplacian identity. | frozen EM generator definition; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorStdBasisDef`; `hemGeneratorLaplacianEventFieldStdBasisDef`; `htraceFieldEqLaplacian` | same anchors | lower_2 next packet | obligation |
+
+Remaining exact boundary after cycle 149 lower_1: prove
+`hemGeneratorStdBasisDef`, `hemGeneratorLaplacianEventFieldStdBasisDef`, and
+`htraceFieldEqLaplacian`; keep `hemGeneratorLaplacianStateEventEqLaplacian`
+explicit only when it is not supplied by the pointwise rewrite route.  Local
+consultation was limited to `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`
+and Mathlib's local Laplacian bridge already imported in SALD.  No SLT theorem
+was consulted or imported; no Lake/toolchain change, theorem-status promotion,
+non-EM fallback, broad audit, fake closure, duplicate wrapper theorem, or
+`sald_version_2.tex` use.
+
+## Cycle 149 Lower_2 EM Generator Trace-Field Source/Event Total Event
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_2 worker packet inside the EM conditional-law/state-event
+set-integral illness area.
+
+Compiled declaration:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceFieldSourceAndEventFormula`.
+
+Exact boundaries narrowed:
+
+- `hemGeneratorStdBasisDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional
+    (fun x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i])`;
+- `hemGeneratorLaplacianEventFieldStdBasisDef : testRegular ->
+  emGeneratorLaplacianEventField =
+  fun phi x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x ![e_i,e_i]`.
+
+Both are now derived for the total-event route from the smaller source-facing
+trace-field packet:
+
+- `hemGeneratorTraceActionDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional (emGeneratorTraceField phi)`;
+- `hemGeneratorLaplacianEventFieldEqTraceField : testRegular ->
+  emGeneratorLaplacianEventField = emGeneratorTraceField`;
+- `htraceFieldEqLaplacian : testRegular ->
+  emGeneratorTraceField =
+  fun phi => Laplacian.laplacian (selectedTest phi)`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Trace-field source/event to total event | Reconstruct `hemGeneratorStdBasisDef` and `hemGeneratorLaplacianEventFieldStdBasisDef` from trace-field source identities, then apply the lower_1 total-event bridge. | `SALD.generalMovingTargetDiscreteEmGeneratorStdBasisDefOfTraceField`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfTraceField`; `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldStdBasisOfLaplacianField`; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfStdBasisSourceAndEventFormula` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceFieldSourceAndEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | current cycle-148 state-event route | formalized local theorem |
+| Remaining EM source definitions | Prove the paper's trace-action definition, the event-field/trace-field equality, and the trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorTraceActionDef`; `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldEqLaplacian` | same anchors | next lower packet | obligation |
+
+Remaining exact boundary after cycle 149 lower_2: prove
+`hemGeneratorTraceActionDef`, `hemGeneratorLaplacianEventFieldEqTraceField`,
+and `htraceFieldEqLaplacian`; keep `hsourceLaplacianFunctional` and
+state-event equality explicit when not supplied by pointwise rewriting.  Local
+consultation was limited to existing SALD trace-field bridges and the
+already-imported Mathlib Laplacian standard-basis bridge.  No SLT theorem was
+consulted or imported; no Lake/toolchain change, theorem-status promotion,
+non-EM fallback, broad audit, fake closure, duplicate wrapper theorem, or
+`sald_version_2.tex` use.
+
+## Cycle 150 EM Generator Trace-Law Source/Event Total Event
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf middle packet inside the EM conditional-law/state-event
+set-integral illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorTraceActionDefOfTraceLawIntegral`;
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceLawIntegralSourceAndEventFormula`;
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceStateIntegralSourceAndEventFormula`;
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceLaplacianStateIntegralSourceAndEventFormula`.
+
+Exact boundary narrowed: the direct trace-action source formula
+
+- `hemGeneratorTraceActionDef : testRegular ->
+  emGeneratorLaplacianAction =
+  fun phi => sourceLaplacianFunctional (emGeneratorTraceField phi)`
+
+is no longer primitive for
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceFieldSourceAndEventFormula`.
+It follows from the smaller source-cited law-space trace integral
+
+- `hemGeneratorTraceLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral x, emGeneratorTraceField phi x d hatRhoS`,
+
+and the already explicit definition of `sourceLaplacianFunctional`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Trace action from trace law integral | Rewrite the law-space trace integral through `hsourceLaplacianFunctional` to recover `hemGeneratorTraceActionDef`. | `hemGeneratorTraceLawIntegral`; `hsourceLaplacianFunctional` | `SALD.generalMovingTargetDiscreteEmGeneratorTraceActionDefOfTraceLawIntegral` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle-150 total-event route | formalized local theorem |
+| Trace-law source/event to total event | Feed the trace-action narrowing through the cycle-149 trace-field source/event total-event bridge. | trace-action helper; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceFieldSourceAndEventFormula`; `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldEqLaplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceLawIntegralSourceAndEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | current cycle-148 state-event route | formalized local theorem |
+| Trace-state source/event to total event | Transport the sample-space trace integral along `hatXAtS` to the law-space trace integral, then feed the trace-law total-event bridge. | `SALD.generalMovingTargetDiscreteEmGeneratorTraceLawIntegralOfStateIntegral`; `hhatRhoS`; `hhatX`; `htraceFieldMeas`; `hemGeneratorTraceStateIntegral`; trace-law total-event helper | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceStateIntegralSourceAndEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | current cycle-148 state-event route | formalized local theorem |
+| Trace-Laplacian state source/event to total event | Feed the source-Laplacian measurability and selected-test Laplacian state integral through the local trace-field/Laplacian helpers, then reuse the trace-state total-event theorem. | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldMeasOfSourceLaplacianFieldMeas`; `SALD.generalMovingTargetDiscreteEmGeneratorTraceStateIntegralOfLaplacianStateIntegral`; `hemGeneratorLaplacianStateIntegral`; `hsourceLaplacianFieldMeas`; `htraceFieldEqLaplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceLaplacianStateIntegralSourceAndEventFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | current cycle-148 state-event route | formalized local theorem |
+| Remaining EM source definitions | Prove the paper's selected-test Laplacian state integral, source-Laplacian measurability when not supplied by the source-Laplacian route, event-field/trace-field equality, and trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; source `Delta` notation | `hemGeneratorLaplacianStateIntegral`; `hsourceLaplacianFieldMeas`; `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldEqLaplacian` | same anchors | next lower packet | obligation |
+
+Remaining exact boundary after cycle 150 lower_2: prove
+`hemGeneratorLaplacianStateIntegral`, `hsourceLaplacianFieldMeas` when not
+supplied by the source-Laplacian route,
+`hemGeneratorLaplacianEventFieldEqTraceField`, and `htraceFieldEqLaplacian`;
+keep `hsourceLaplacianFunctional` and state-event equality explicit when not
+supplied by pointwise rewriting.  Local consultation reused existing SALD
+trace-field/Laplacian helper declarations and the already-local Mathlib
+standard-basis Laplacian bridge; no SLT theorem was consulted or imported; no
+Lake/toolchain change, theorem-status promotion, non-EM fallback, broad audit,
+fake closure, duplicate wrapper theorem, or `sald_version_2.tex` use.
+
+## Cycle 145 EM Generator Laplacian Law-Integral Standard-Basis Action Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet inside the cycle-142/143/144 EM generator
+trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStdBasisActionDefOfLawIntegralFormula`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`.
+
+Exact boundary narrowed: the standard-basis action premise
+
+- `hemGeneratorLaplacianStdBasisActionDef : testRegular ->
+  emGeneratorLaplacianAction = fun phi => integral x in univ,
+  sum_i iteratedFDeriv Real 2 (selectedTest phi) x
+  ![(stdOrthonormalBasis Real E) i, (stdOrthonormalBasis Real E) i] d hatRhoS`
+
+is no longer primitive for
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula`.
+It follows from the smaller source-facing law-space action integral
+
+- `hemGeneratorLaplacianLawIntegral : testRegular -> forall phi,
+  emGeneratorLaplacianAction phi =
+  integral x, Laplacian.laplacian (selectedTest phi) x d hatRhoS`,
+
+plus the already compiled Mathlib standard-basis bridge
+`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
+The source event-field definition
+`hemGeneratorLaplacianEventFieldStdBasisDef` remains explicit.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Law integral to standard-basis action | Rewrite the law-space Mathlib Laplacian integral as the `Set.univ` standard-basis second-derivative action. | `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; `Mathlib.Analysis.InnerProductSpace.Laplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStdBasisActionDefOfLawIntegralFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula` | formalized local theorem |
+| Downstream law-integral consumer | Feed the law-integral split through the cycle-144 standard-basis action consumer while keeping `hemGeneratorLaplacianEventFieldStdBasisDef` explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula`; law-integral helper | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the paper's law-space EM generator selected-test Laplacian action integral and the standard-basis event-field definition for the named frozen EM Laplacian event field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; existing EM conditional-law setup | `hemGeneratorLaplacianLawIntegral`; `hemGeneratorLaplacianEventFieldStdBasisDef` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 145: prove
+`hemGeneratorLaplacianLawIntegral` and
+`hemGeneratorLaplacianEventFieldStdBasisDef` for the named frozen EM
+Laplacian event field.  The older standard-basis action integral now follows
+locally.  Still explicit: `hlaplacianEqEmGenerator`,
+`htraceFieldStdBasis`, source-field/source-functional leaves,
+density-Laplacian facts, Green/trace/box-divergence, and diffusion leaves.
+No SLT theorem was consulted or imported; no Lake/toolchain change,
+theorem-status promotion, non-EM fallback, wrapper churn, fake closure, or
+`sald_version_2.tex` use.
+
+## Cycle 145 Lower_2 EM Generator Laplacian Trace-Event Formula
+
+Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf lower_2 worker packet inside the cycle-142/143/144/145 EM
+generator trace-state illness area.
+
+Compiled declarations:
+
+- `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfTraceField`;
+- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventLawIntegralFormula`.
+
+Exact boundary narrowed: the event-field standard-basis premise
+
+- `hemGeneratorLaplacianEventFieldStdBasisDef : testRegular ->
+  emGeneratorLaplacianEventField = fun phi x =>
+  sum_i iteratedFDeriv Real 2 (selectedTest phi) x
+  ![(stdOrthonormalBasis Real E) i, (stdOrthonormalBasis Real E) i]`
+
+is no longer primitive for
+`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`.
+It follows from the smaller source-facing equality
+
+- `hemGeneratorLaplacianEventFieldEqTraceField : testRegular ->
+  emGeneratorLaplacianEventField = emGeneratorTraceField`,
+
+together with the already explicit trace-field source formula
+
+- `htraceFieldStdBasis : testRegular -> emGeneratorTraceField =
+  fun phi x => sum_i iteratedFDeriv Real 2 (selectedTest phi) x
+  ![(stdOrthonormalBasis Real E) i, (stdOrthonormalBasis Real E) i]`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Trace field to Laplacian event-field standard basis | Identify the named frozen-generator Laplacian event field with the already tracked trace field, then reuse `htraceFieldStdBasis`. | source equality `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldStdBasis` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfTraceField` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventLawIntegralFormula` | formalized local theorem |
+| Downstream trace-event law-integral consumer | Feed the trace-event split through the cycle-145 law-integral route while keeping `hemGeneratorLaplacianLawIntegral` explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`; trace-event helper | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventLawIntegralFormula` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; `sald.discrete_forward_kl.em_interpolation_fp` | formalized local theorem |
+| Remaining EM source definitions | Prove the paper's law-space EM generator selected-test Laplacian action integral and the source equality between the named Laplacian event field and the trace field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; trace-field naming at the Laplacian term | `hemGeneratorLaplacianLawIntegral`; `hemGeneratorLaplacianEventFieldEqTraceField` | `appendix.tex:984-995`; `appendix.tex:1368-1387`; `appendix.tex:1379-1387` | next lower packet | obligation |
+
+Remaining exact boundary after cycle 145 lower_2: prove
+`hemGeneratorLaplacianLawIntegral` and
+`hemGeneratorLaplacianEventFieldEqTraceField` for the named frozen EM
+Laplacian event field.  The older event-field standard-basis definition now
+follows locally from that equality and `htraceFieldStdBasis`.  Still explicit:
+`hlaplacianEqEmGenerator`, `htraceFieldStdBasis`,
+source-field/source-functional leaves, density-Laplacian facts,
+Green/trace/box-divergence, and diffusion leaves.  No SLT theorem was
+consulted or imported; no Lake/toolchain change, theorem-status promotion,
+non-EM fallback, wrapper churn, fake closure, or `sald_version_2.tex` use.

@@ -7,11 +7,11 @@
     "plain-file reproducibility without requiring GitHub PR or Slurm for local research iteration",
     "sampling/SDE-specific source anchors, proof obligations, and SLT reuse audit"
   ],
-  "dynamic_leaf_candidate": "Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied",
-  "generated": "2026-06-06 02:27:40",
-  "illness_area_candidate": "Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied",
-  "latest_blocker": "Remaining exact blocker: ASTIS.SALD.cycle113.remaining_named_barB_state_event_set_integral / hbarBStateSetIntegral for appendix.tex:1368-1377, plus Integrable barB hatRhoS if not source-supplied",
-  "latest_cycle": 114,
+  "dynamic_leaf_candidate": "Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387",
+  "generated": "2026-06-08 23:04:09",
+  "illness_area_candidate": "Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387",
+  "latest_blocker": "Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387",
+  "latest_cycle": 162,
   "leanmarathon_controls_absorbed": [
     "blueprint/system-of-record control state",
     "target-review no-more/no-less discipline",
@@ -23,18 +23,18 @@
   "proof_status_counts": {
     "blocked": 0,
     "contractOnly": 34,
-    "formalized": 52,
-    "obligation": 837,
+    "formalized": 183,
+    "obligation": 1070,
     "planned": 9,
     "sourceCited": 16
   },
   "recent_cycles": [
-    109,
-    110,
-    111,
-    112,
-    113,
-    114
+    157,
+    158,
+    159,
+    160,
+    161,
+    162
   ],
   "references": {
     "Auto-research-in-sleep": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
@@ -42,8 +42,8 @@
     "LeanMarathon": "https://github.com/YuanheZ/LeanMarathon",
     "LeanMarathon paper": "https://arxiv.org/abs/2606.05400",
     "Learning beyond gradients": "https://github.com/Trinkle23897/learning-beyond-gradients",
-    "local LeanMarathon pdf": "/home/nitanda_sub/mark/repos/outer_papers/LeanMarathon-2606.05400.pdf",
-    "local LeanMarathon repo": "/home/nitanda_sub/mark/repos/outer_repos/LeanMarathon"
+    "local LeanMarathon pdf": "/home/nitanda_sub/mark/repos/outer_papers/automation_systems/LeanMarathon-2606.05400.pdf",
+    "local LeanMarathon repo": "/home/nitanda_sub/mark/repos/outer_repos/automation_systems/LeanMarathon"
   },
   "stage": "LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization",
   "system_of_record": [
@@ -56,8 +56,8 @@
   ],
   "task_id": "ASTIS-SALD-001",
   "trial_classifications_recent": {
-    "discharges-supplied-hypothesis": 5,
-    "narrows-source-cited-boundary": 15,
-    "rejected-wrapper-churn": 0
+    "discharges-supplied-hypothesis": 0,
+    "narrows-source-cited-boundary": 28,
+    "rejected-wrapper-churn": 1
   }
 }

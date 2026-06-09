@@ -35,8 +35,11 @@ SLT_ROOT = Path("/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory")
 SLT_ARTICLE_ROOT = Path("/home/nitanda_sub/mark/repos/RMFLD/Statistical Learning Theory in Lean 4 Empirical Processes from Scratch")
 OUTER_REPOS_ROOT = Path("/home/nitanda_sub/mark/repos/outer_repos")
 OUTER_PAPERS_ROOT = Path("/home/nitanda_sub/mark/repos/outer_papers")
-LEANMARATHON_ROOT = OUTER_REPOS_ROOT / "LeanMarathon"
-LEANMARATHON_PDF = OUTER_PAPERS_ROOT / "LeanMarathon-2606.05400.pdf"
+OUTER_REPOS_AUTOMATION_ROOT = OUTER_REPOS_ROOT / "automation_systems"
+OUTER_REPOS_SAMPLING_ROOT = OUTER_REPOS_ROOT / "sampling_theory_sde"
+OUTER_PAPERS_AUTOMATION_ROOT = OUTER_PAPERS_ROOT / "automation_systems"
+LEANMARATHON_ROOT = OUTER_REPOS_AUTOMATION_ROOT / "LeanMarathon"
+LEANMARATHON_PDF = OUTER_PAPERS_AUTOMATION_ROOT / "LeanMarathon-2606.05400.pdf"
 
 QUANTUM_AUTOPROOF_URL = "https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201"
 SLT_URL = "https://github.com/YuanheZ/lean-stat-learning-theory"
@@ -44,7 +47,7 @@ SLT_ARXIV_URL = "https://arxiv.org/abs/2602.02285"
 LEANMARATHON_URL = "https://github.com/YuanheZ/LeanMarathon"
 LEANMARATHON_ARXIV_URL = "https://arxiv.org/abs/2606.05400"
 MATHCODE_URL = "https://github.com/math-ai-org/mathcode"
-MATHCODE_LOCAL_REFERENCE = Path("/home/nitanda_sub/mark/repos/Quantum/mathcode")
+MATHCODE_LOCAL_REFERENCE = OUTER_REPOS_AUTOMATION_ROOT / "mathcode"
 ARIS_URL = "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep"
 LBG_URL = "https://github.com/Trinkle23897/learning-beyond-gradients"
 EOH_URL = "https://github.com/FeiLiu36/EoH"
@@ -1078,6 +1081,20 @@ def slt_reference_pack() -> str:
     ])
 
 
+def external_lookup_discipline() -> str:
+    return (
+        "External lookup discipline: upper and middle may use network search when "
+        "local context is insufficient for Mathlib names, Lean API examples, or "
+        "standard SDE/measure-theory statements such as weak Fokker-Planck, "
+        "Green identities, trace theorems, or divergence theorems. Prefer primary "
+        "sources: Mathlib docs/source, Lean project repositories, arXiv papers, "
+        "or official project documentation. Any external result must be converted "
+        "into a local ASTIS compiled declaration or a precise source-cited "
+        "ProofObligation; do not mark it formalized just because it was found "
+        "online."
+    )
+
+
 def compact_task_context(task_id: str, title: str, task_text: str, cycle: int) -> str:
     if task_id != "ASTIS-SALD-001" or cycle < SALD_COMPACT_CONTEXT_START_CYCLE:
         return task_text.strip()
@@ -1242,11 +1259,23 @@ def sald_cycle_focus(cycle: int) -> str:
     return f"{title}: {labels}"
 
 
-def role_prompt(role: str, task_id: str, title: str, task_text: str, cycle: int, run_dir: Path, context_pack: str) -> str:
+def role_prompt(
+    role: str,
+    task_id: str,
+    title: str,
+    task_text: str,
+    cycle: int,
+    run_dir: Path,
+    context_pack: str,
+    role_name: str = "",
+    lower_count: int = 1,
+) -> str:
     task_contract = compact_task_context(task_id, title, task_text, cycle)
+    displayed_role = role_name or role
     shared = f"""Task: {task_id} - {title}
 Cycle: {cycle}
-Role: {role}
+Role: {displayed_role}
+Base role: {role}
 Run directory: {rel(run_dir)}
 
 Mandatory gate:
@@ -1284,10 +1313,30 @@ Shared dialogue board: `{rel(run_dir / "dialogue.md")}`
 When finished, append a handoff:
 
 ```bash
-python3 tools/astis.py agent-note {run_dir.name} --role {role} --message "..."
-python3 tools/astis.py trial-log --task {task_id} --role {role} --kind handoff --status queued --artifact {rel(run_dir)} --notes "..."
+python3 tools/astis.py agent-note {run_dir.name} --role {displayed_role} --message "..."
+python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind handoff --status queued --artifact {rel(run_dir)} --notes "..."
 ```
 """
+    post_129_guard = (
+        "For SALD cycle 130 and later, treat the cycle-129 illness-area boundary as the live target unless the reviewer records a newer one: "
+        "`hdiffusionSource` has been narrowed to the EM/Brownian diffusion generator weak action plus weak Laplacian integration-by-parts action. "
+        "Do not reassign already-discharged leaves `hsampleInt`, `hsampleDerivMeas`, `hsampleDerivBound`, `hboundInt`, `hpathDeriv`, `hderivValue`, "
+        "`hdriftBarBAction`, raw `hpairMeas`, or `hcanonicalBarBMeas`."
+    )
+    post_150_guard = (
+        "For SALD cycle 151 and later, the reviewer-accepted cycle-150 boundary overrides older broad guards. "
+        "The active EM conditional-law / weak-FP backend remains `sald.general_moving_target_discrete.em_interpolation_fp` over "
+        "`appendix.tex:1358-1387`, with source anchors `appendix.tex:984-995`, `appendix.tex:1368-1387`, and "
+        "`appendix.tex:1379-1387`. "
+        "Prioritize one direct definition/equality leaf at a time: `htraceFieldEqLaplacian`, "
+        "`hemGeneratorLaplacianEventFieldEqTraceField`, `hemGeneratorLaplacianStateIntegral`, or "
+        "`hsourceLaplacianFieldMeas`. "
+        "Upper should choose the smallest leaf that reduces this boundary; middle should coordinate the proof route and split lower-agent roles; "
+        "lower_1 should produce the natural-language/math route and lower_2 should implement exactly one compiled Lean theorem or a strictly smaller "
+        "source-cited obligation. "
+        "Reject new total-event/source-functional consumer wrappers unless they discharge one of these direct leaves. "
+        "Reviewer must check that the remaining boundary is strictly smaller, not merely renamed, and that `python3 tools/astis.py check` passes."
+    )
     role_specific = {
         "upper": (
             "Choose one faithful-paper objective, mode discipline, non-goals, lower packet, and reviewer checklist. "
@@ -1303,7 +1352,12 @@ python3 tools/astis.py trial-log --task {task_id} --role {role} --kind handoff -
             "Phase 2, only after the transcript is complete, reorganizes reusable APIs for teaching, later SDE/Sampling papers, and exploratoryProof mode. "
             "Require middle to keep two-way Lean/Markdown/LaTeX synchronization, but defer polished project-article export to the batch end. "
             "If a cited analytic theorem is too large to prove now, require a precise source-cited interface and keep its status below formalized. "
-            "Use `/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory` as a reference for Mathlib measure/probability style when helpful, but do not import it as a Lake dependency or claim an SLT theorem is formalized unless a local ASTIS declaration compiles."
+            + external_lookup_discipline()
+            + " "
+            "Use `/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory` as a reference for Mathlib measure/probability style when helpful, but do not import it as a Lake dependency or claim an SLT theorem is formalized unless a local ASTIS declaration compiles. "
+            + post_129_guard
+            + " "
+            + post_150_guard
         ),
         "middle": (
             "Maintain conversion windows, proof obligations, source indexes, SLT reuse audit, and lower packets. "
@@ -1314,8 +1368,13 @@ python3 tools/astis.py trial-log --task {task_id} --role {role} --kind handoff -
             "Before inventing an abstraction, inspect the local `lean-stat-learning-theory` reference for Mathlib measure/probability idioms that can be ported locally under this project's toolchain. "
             "Also follow the MathCode-inspired theorem-reuse discipline: search existing ASTIS declarations, conversion windows, proof obligations, and cited-result ledgers before creating a duplicate interface. "
             "Before lower work, translate the relevant LaTeX proof step into Lean-facing declarations; after lower/reviewer work, translate accepted Lean declarations and remaining obligations back into Markdown/LaTeX notes. "
+            + external_lookup_discipline()
+            + " "
             "During this sprint, avoid broad rebaseline work, broad SLT/SDE library import, and lower packets outside the active EM backend unless reviewer found a blocker. "
-            "Export the Overleaf-ready project article only at the end of a multi-hour batch."
+            "Export the Overleaf-ready project article only at the end of a multi-hour batch. "
+            + post_129_guard
+            + " "
+            + post_150_guard
         ),
         "lower": (
             "Attempt one narrow proof-producing Lean task for the assigned active backend before creating more ledger-only obligations. Do not change the theorem target. "
@@ -1324,7 +1383,10 @@ python3 tools/astis.py trial-log --task {task_id} --role {role} --kind handoff -
             "Do not work on unrelated display algebra, route audits, or general API cleanup unless the upper/middle packet explicitly assigns it. "
             "After cycle 84, a new supplied-hypothesis wrapper is acceptable only if it removes an older supplied hypothesis, exposes a strictly smaller missing theorem boundary, or produces a compiled local theorem using Mathlib/local SLT-style ingredients. "
             "Do not add fake proof closures; if the analysis fact is not formalized, add a precise source-cited interface or refine a ProofObligation and keep the build green. "
-            "In Phase 1 faithfulPaper mode, do not introduce broad library reorganizations or educational APIs unless upper/middle explicitly assign them."
+            "In Phase 1 faithfulPaper mode, do not introduce broad library reorganizations or educational APIs unless upper/middle explicitly assign them. "
+            + post_129_guard
+            + " "
+            + post_150_guard
         ),
         "reviewer": (
             "Audit build gate, fake proof closures, source correspondence, cited results, and SLT port status. "
@@ -1332,9 +1394,26 @@ python3 tools/astis.py trial-log --task {task_id} --role {role} --kind handoff -
             "Apply LeanMarathon-style target-review discipline: no more/no less than the source theorem, deterministic gate is the only progress authority, and a worker packet may not escape its local region without a concrete issue. "
             "Reject contract drift, missing source anchors, or any claim marked proved without a compiled Lean declaration. "
             "Use the MathCode-inspired diagnostics policy: hidden `axiom`, `constant`, `postulate`, `sorry`, `admit`, `Prop := True`, or `:= trivial` closures are blocking defects, and proof statistics should be used to notice suspicious broad rewrites. "
-            "Also check backend-focus discipline: reject cycles that only add rebaseline/ledger work, broad route audits, unrelated display algebra, or SLT import claims when the active EM conditional-law/Fokker--Planck backend could have been advanced."
+            "Also check backend-focus discipline: reject cycles that only add rebaseline/ledger work, broad route audits, unrelated display algebra, or SLT import claims when the active EM conditional-law/Fokker--Planck backend could have been advanced. "
+            + post_150_guard
         ),
     }[role]
+    if role == "lower" and lower_count >= 2:
+        if role_name == "lower_1":
+            role_specific += (
+                "\n\nParallel lower specialization: you are the natural-language proof scout. "
+                "Your primary job is to reason mathematically from the source proof, Mathlib-style measure/SDE facts, and local Lean declarations before the Lean implementer runs. "
+                "Produce a precise proof route for the current boundary, list the exact hypotheses needed, name the expected Lean theorem shape, and identify which Mathlib/local lemmas should discharge each step. "
+                "You may add or refine a narrowly scoped ProofObligation or conversion-window row, but do not spend the packet on broad documentation and do not claim formalization unless a local declaration compiles. "
+                "End with a lower_2-ready handoff that states one theorem/proof block to implement next."
+            )
+        elif role_name == "lower_2":
+            role_specific += (
+                "\n\nParallel lower specialization: you are the Lean proof implementer. "
+                "First read the shared dialogue for the lower_1 natural-language proof scout handoff, then implement exactly one compiled Lean theorem or a strictly smaller source-cited boundary from that route. "
+                "If lower_1's route is invalid, record the precise failure and implement the next smallest correct boundary instead. "
+                "Keep the build green and do not broaden the target."
+            )
     return shared + "\n## Role Instructions\n\n" + role_specific + "\n"
 
 
@@ -1381,7 +1460,7 @@ def create_run_cycle(task_id: str, cycle: int, lower_count: int, run_id: str = "
         prefix = {"upper": "10_upper_director", "middle": "20_middle_formalizer", "lower": f"30_{role_name}", "reviewer": "40_reviewer"}[role]
         prompt_path = run_dir / f"{prefix}.md"
         prompt_path.write_text(
-            role_prompt(role, task_id, title, task_text, cycle, run_dir, context_pack),
+            role_prompt(role, task_id, title, task_text, cycle, run_dir, context_pack, role_name=role_name, lower_count=lower_count),
             encoding="utf-8",
         )
         prompt_paths.append(prompt_path)
@@ -1469,8 +1548,12 @@ def latest_cycle_number(task_id: str) -> int:
 
 def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> int:
     final_code = 0
+    active_agent_seconds = 0.0
     for prompt in cycle_prompt_paths(run_dir, args.skip_reviewer):
+        started = time.monotonic()
         code = run_agent_command(args.agent_cmd, prompt, run_dir, args.task, cycle)
+        elapsed = time.monotonic() - started
+        active_agent_seconds += elapsed
         status = "accepted" if code == 0 else "failed"
         append_jsonl(TRIAL_LOG, {
             "timestamp": now_stamp(),
@@ -1482,12 +1565,13 @@ def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> 
             "lean_gate": "not-run",
             "artifact": rel(prompt),
             "changed_files": git_changed_files(),
-            "notes": f"External agent command exit code {code}.",
+            "notes": f"External agent command exit code {code}. active_agent_seconds={elapsed:.1f}.",
         })
         write_trial_summary(load_jsonl(TRIAL_LOG))
         if code != 0:
             final_code = code
             break
+    setattr(args, "_last_agent_seconds", active_agent_seconds)
     if args.check_each_cycle:
         code = cmd_check(argparse.Namespace())
         append_jsonl(TRIAL_LOG, {
@@ -1540,24 +1624,45 @@ def cmd_sleep_run_window(args: argparse.Namespace) -> int:
     start = time.monotonic()
     deadline = start + args.hours * 3600.0
     guard_seconds = max(args.guard_minutes, 0.0) * 60.0
+    agent_budget_seconds = max(getattr(args, "agent_hours_budget", 0.0), 0.0) * 3600.0
+    use_agent_budget = agent_budget_seconds > 0.0
+    active_agent_seconds_total = 0.0
     cycle = args.start_cycle or latest_cycle_number(args.task) + 1
     completed = 0
     final_code = 0
 
     while completed < args.max_cycles:
-        remaining = deadline - time.monotonic()
-        if completed > 0 and remaining <= guard_seconds:
-            print("window closed before starting another cycle")
-            break
-        if completed == 0 and remaining <= 0:
-            print("window elapsed before first cycle; starting one final cycle by request")
-        elif completed > 0 and remaining <= 0:
-            print("window elapsed after completed cycle")
-            break
+        if use_agent_budget:
+            remaining = agent_budget_seconds - active_agent_seconds_total
+            wall_remaining = deadline - time.monotonic()
+            if completed > 0 and wall_remaining <= 0:
+                print("wall-clock safety window elapsed after completed cycle")
+                break
+            if completed > 0 and remaining <= guard_seconds:
+                print("active-agent budget closed before starting another cycle")
+                break
+            if completed == 0 and remaining <= 0:
+                print("active-agent budget elapsed before first cycle; starting one final cycle by request")
+            elif completed > 0 and remaining <= 0:
+                print("active-agent budget elapsed after completed cycle")
+                break
+        else:
+            remaining = deadline - time.monotonic()
+            if completed > 0 and remaining <= guard_seconds:
+                print("window closed before starting another cycle")
+                break
+            if completed == 0 and remaining <= 0:
+                print("window elapsed before first cycle; starting one final cycle by request")
+            elif completed > 0 and remaining <= 0:
+                print("window elapsed after completed cycle")
+                break
 
         run_dir = create_run_cycle(args.task, cycle, args.lower_count)
         print(f"cycle {cycle}: {rel(run_dir)}")
-        print("cycle will run to completion even if the wall-clock window expires")
+        if use_agent_budget:
+            print("cycle will run to completion even if the active-agent budget expires")
+        else:
+            print("cycle will run to completion even if the wall-clock window expires")
 
         if args.dry_run or not args.agent_cmd:
             print("dry run: prompt deck created, no external agent command executed")
@@ -1571,6 +1676,9 @@ def cmd_sleep_run_window(args: argparse.Namespace) -> int:
             continue
 
         final_code = execute_prompt_deck(args, run_dir, cycle)
+        active_agent_seconds_total += float(getattr(args, "_last_agent_seconds", 0.0))
+        if use_agent_budget:
+            print(f"active-agent seconds used: {active_agent_seconds_total:.1f} / {agent_budget_seconds:.1f}")
         completed += 1
         cycle += 1
         if final_code != 0:
@@ -1586,7 +1694,11 @@ def cmd_sleep_run_window(args: argparse.Namespace) -> int:
         "lean_gate": "not-run",
         "artifact": "runs",
         "changed_files": git_changed_files(),
-        "notes": f"Graceful sleep window completed {completed} cycle(s); final cycle was not interrupted.",
+        "notes": (
+            f"Graceful sleep window completed {completed} cycle(s); final cycle was not interrupted; "
+            f"active_agent_seconds={active_agent_seconds_total:.1f}; "
+            f"agent_budget_seconds={agent_budget_seconds:.1f}."
+        ),
     })
     write_trial_summary(load_jsonl(TRIAL_LOG))
 
@@ -1612,6 +1724,8 @@ def cmd_launch_six_hour_sald(args: argparse.Namespace) -> int:
         "sleep-run-window",
         "ASTIS-SALD-001",
         "--hours",
+        str(args.wall_hours),
+        "--agent-hours-budget",
         str(args.hours),
         "--max-cycles",
         str(args.max_cycles),
@@ -1621,8 +1735,9 @@ def cmd_launch_six_hour_sald(args: argparse.Namespace) -> int:
         "bash tools/astis_codex_faithful.sh {root} {prompt}",
         "--execute",
         "--check-each-cycle",
-        "--after-latex",
     ]
+    if args.after_latex:
+        command.append("--after-latex")
     if getattr(args, "start_cycle", 0):
         command.extend(["--start-cycle", str(args.start_cycle)])
     if args.skip_reviewer:
@@ -1640,8 +1755,10 @@ def cmd_launch_six_hour_sald(args: argparse.Namespace) -> int:
     pid = str(proc.pid)
     pid_path.write_text(pid + "\n", encoding="utf-8")
     add_manifest("astis.py launch-sald-6h", log_path, "run", "Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run")
-    print("started ASTIS-SALD-001 graceful 6h run")
+    print("started ASTIS-SALD-001 graceful active-agent-budget run")
     print(f"pid: {pid}")
+    print(f"active-agent-hours: {args.hours}")
+    print(f"wall-hours safety: {args.wall_hours}")
     print(f"log: {rel(log_path)}")
     print(f"pid-file: {rel(pid_path)}")
     print(f"blueprint: {rel(blueprint_path)}")
@@ -1654,6 +1771,167 @@ def latest_log_file() -> Path | None:
     logs_dir = ROOT / "runs" / "logs"
     logs = sorted(logs_dir.glob("astis-sald-001-6h-*.log")) if logs_dir.exists() else []
     return logs[-1] if logs else None
+
+
+def latest_sald_window_info() -> dict:
+    """Return lightweight metadata for the latest SALD long-window run."""
+
+    log_path = latest_log_file()
+    if log_path is None or not log_path.exists():
+        return {"log": "", "cycles": [], "cycle_range": "unknown", "active_agent_seconds": ""}
+    text = read_text(log_path)
+    cycles = [int(value) for value in re.findall(r"^cycle\s+(\d+):", text, flags=re.M)]
+    active_matches = re.findall(r"active-agent seconds used:\s*([0-9.]+)\s*/\s*([0-9.]+)", text)
+    if cycles:
+        cycle_range = f"{min(cycles)}-{max(cycles)}" if min(cycles) != max(cycles) else str(cycles[0])
+    else:
+        cycle_range = "unknown"
+    active = ""
+    if active_matches:
+        used, budget = active_matches[-1]
+        active = f"{used} / {budget} seconds"
+    return {
+        "log": rel(log_path),
+        "cycles": cycles,
+        "cycle_range": cycle_range,
+        "active_agent_seconds": active,
+    }
+
+
+def chinese_sald_window_summary_text(
+    task: str,
+    export_date: str,
+    source_count: int,
+    trial_count: int,
+    state: dict,
+    handoffs: list[str],
+    diagnostics: dict,
+) -> str:
+    window = latest_sald_window_info()
+    status_counts = "\n".join(
+        f"- `{key}`: {value}" for key, value in sorted(state["proof_status_counts"].items())
+    )
+    packet_counts = "\n".join(
+        f"- `{key}`: {value}" for key, value in state["trial_classifications_recent"].items()
+    )
+    handoff_text = "\n".join(f"- {note}" for note in handoffs) or "- 暂无最近 handoff。"
+    totals = diagnostics.get("totals", {})
+    theorem_count = totals.get("theorem", "unknown")
+    def_count = totals.get("def", "unknown")
+    forbidden_hits = totals.get("forbidden_hits", "unknown")
+    return f"""# ASTIS 6h 中文复盘：{task}
+
+- 导出时间: {export_date}
+- 本轮 cycle: {window["cycle_range"]}
+- 本轮日志: `{window["log"]}`
+- active-agent 用量: {window["active_agent_seconds"] or "unknown"}
+- source-indexed SALD declarations: {source_count}
+- trial-log records: {trial_count}
+- Lean theorem 数: {theorem_count}
+- Lean def 数: {def_count}
+- forbidden proof hits: {forbidden_hits}
+
+## 总结结论
+
+这轮还没有完整复现完 SALD 论文的剩余基础分析部分。它完成的是更细的
+source-cited boundary narrowing：本轮 cycle `{window["cycle_range"]}` 一直由
+blueprint/reviewer 的动态 leaf 驱动，主要推进 EM conditional-law /
+weak Fokker--Planck 后端，没有把时间花在无关的 KL/LSI/DV/Gronwall
+重排或项目文章润色上。
+
+最新 reviewer 认可的状态是：
+
+```text
+{state["latest_blocker"]}
+```
+
+这说明系统仍在把论文中一句
+“by the Fokker--Planck equation / integration by parts / Laplacian/Ito
+calculus”拆成 Lean 必须检查的具体对象。当前剩余困难已经从宽泛的
+trace/source-functional wrapper 进一步推进到内部 Brownian/Ito coordinate
+decomposition、per-coordinate Hessian generator、Taylor remainder、Gaussian
+moment/limit、measurability/integrability 这类底层分析边界。
+
+## 对应原文位置
+
+这里的“原文位置”对应 ASTIS 当前 SALD 复现任务的源论文位置；类比 QBE/GHL
+任务中的 `main.tex` 对照表，但本任务不是 GHL。
+
+| 原文位置 | 内容 | 当前 Lean 复现状态 |
+|---|---|---|
+| `main_body.tex:301-326` | `thm:forward-KL-discrete` 离散 SALD 主定理显示式 | theorem contract 已建；分析后端仍在补 |
+| `main_body.tex:372-392` | `thm:unified-forward-KL` general / guided VA-SALD 连续主定理 | theorem contract 已建；与离散后端共享部分义务 |
+| `appendix.tex:982-995` | frozen EM interpolation `eq:general_moving_target_SALD_frozen_interp` | 本轮反复使用的 EM generator 来源 |
+| `appendix.tex:1354-1366` | `hat rho_s` endpoint law 与 KL derivative 起点 | 已进入 proof DAG；mass/KL derivative 后端仍需精化 |
+| `appendix.tex:1368-1377` | conditional drift `bar b_{{k,s}}` 定义 | conditional-law 代表元与 measurability 仍是关键基础边界 |
+| `appendix.tex:1379-1387` | 论文直接写的 weak Fokker--Planck equation | 当前 6h 的核心未完成分析后端 |
+| `appendix.tex:1402-1427` | divergence rewrite、Fisher information 项、IBP 入口 | Green/trace/box-divergence 与 Laplacian source leaves 仍未完全 formalized |
+
+## 当前未复现的关键边界
+
+```text
+{state["latest_blocker"]}
+```
+
+下一轮应优先处理 latest blocker 里点名的最小 leaf，而不是回到旧的
+total-event/source-functional consumer wrapper。若最新 blocker 是
+Brownian/Ito/Taylor 方向，则优先处理：
+
+- selected-test scalar Taylor pointwise limit；
+- Taylor moment decomposition；
+- quadratic-variation normalization；
+- per-coordinate Hessian generator identity；
+- 必要的 Gaussian moment、dominated-convergence、measurability/integrability leaf。
+
+若 reviewer 指回 trace/Laplacian 命名方向，则再处理：
+
+- `hemGeneratorLaplacianStateIntegral`；
+- `hsourceLaplacianFieldMeas`；
+- `hemGeneratorLaplacianEventFieldEqTraceField`；
+- `htraceFieldEqLaplacian`。
+
+## 为什么还没有完成
+
+论文里可以把 `appendix.tex:1379-1387` 写成一个 Fokker--Planck 方程，把
+`appendix.tex:1402-1427` 写成一次 divergence rewrite 和 integration by
+parts。Lean 里这些不是一句话：它需要知道具体是哪一个 law、哪个版本的
+conditional expectation、哪个 measurable representative、哪个 Laplacian
+定义、哪个边界 trace 为零、哪个积分换元定理可用。
+
+因此，本轮是在把“大而模糊的标准分析步骤”切成小接口：law integral、
+state integral、source functional、trace field、Laplacian field、event
+field、standard-basis formula、Brownian/Ito scalar coordinate expansion、
+Gaussian dominated convergence。这个方向是对的，但还没有完成所有底层
+Taylor/Ito/可测性/积分/边界定理。
+
+## 本轮 packet 统计
+
+{packet_counts}
+
+## Proof status counts
+
+{status_counts}
+
+## 最近 handoff 摘要
+
+{handoff_text}
+
+## 下一轮科学计划
+
+1. upper 必须从 latest blocker 里选一个最小 direct leaf；不要回到已经缩小过的
+   total-event/source-functional wrapper。
+2. middle 负责把该 leaf 的源文位置、Lean declaration、依赖 DAG、可用 Mathlib
+   theorem 和仍需 source-cited 的假设写清楚，再分派 lower agents。
+3. lower_1 先做自然语言证明路线，明确哪些步骤是 Taylor/Ito 展开、Gaussian
+   moment、dominated convergence、measurability/integrability 或定义展开。
+4. lower_2 只实现一个 compiled Lean theorem，或者把该 leaf 严格缩小成更小的
+   source-cited obligation。
+5. reviewer 必须拒绝只把同一个大前提换名字的 wrapper churn；接受标准是
+   `python3 tools/astis.py check` 通过且剩余边界严格变小。
+6. 如本地 Mathlib/SLT 参考不够，upper/middle 可以网络检索 Mathlib source、
+   Lean API 或标准 SDE/Fokker--Planck/Ito/Taylor/Green identity 文献，但所有结果必须回写成
+   本地 compiled declaration 或明确 `ProofObligation`。
+"""
 
 
 def analyze_efficiency_log(path: Path) -> dict:
@@ -1858,6 +2136,136 @@ def cmd_export_latex(args: argparse.Namespace) -> int:
     trial_count = len(load_jsonl(TRIAL_LOG))
     latest_cycle = latest_cycle_number(task)
     export_date = now_stamp()
+    blueprint_state = blueprint_control_state(task)
+    latest_handoffs = latest_handoff_notes(task, limit=5)
+
+    def latex_escape(value: str) -> str:
+        replacements = {
+            "\\": r"\textbackslash{}",
+            "&": r"\&",
+            "%": r"\%",
+            "$": r"\$",
+            "#": r"\#",
+            "_": r"\_",
+            "{": r"\{",
+            "}": r"\}",
+            "~": r"\textasciitilde{}",
+            "^": r"\textasciicircum{}",
+        }
+        return "".join(replacements.get(char, char) for char in value)
+
+    proof_status_markdown = "\n".join(
+        f"- `{key}`: {value}" for key, value in sorted(blueprint_state["proof_status_counts"].items())
+    )
+    packet_markdown = "\n".join(
+        f"- `{key}`: {value}" for key, value in blueprint_state["trial_classifications_recent"].items()
+    )
+    handoff_markdown = "\n".join(
+        f"- {note}" for note in latest_handoffs
+    ) or "- No recent handoff notes were found."
+    blocker_markdown = f"""## Human-Readable Blocker Report
+
+The current SALD reproduction is not blocked by a missing source index or by
+an interrupted run.  It is blocked by the analytic backend that the paper treats
+as standard prose: weak Fokker--Planck source actions, Laplacian source fields,
+measurability and state-integral identities, Green identities, boundary trace
+conditions, box-divergence facts, and diffusion generator leaves.
+
+For a non-specialist: the paper can write one line such as "by the weak
+Fokker--Planck equation and integration by parts".  Lean needs every object in
+that sentence to be explicit: which law is being integrated against, which
+representative of a conditional expectation is used, why the function is
+measurable and integrable, why the boundary term is zero, and which exact
+Laplacian/divergence theorem applies.
+
+Current dynamic leaf:
+
+```text
+{blueprint_state["dynamic_leaf_candidate"]}
+```
+
+Current illness area:
+
+```text
+{blueprint_state["illness_area_candidate"]}
+```
+
+Latest blocker:
+
+```text
+{blueprint_state["latest_blocker"]}
+```
+
+Recent packet classifications:
+
+{packet_markdown}
+
+Proof-status counts:
+
+{proof_status_markdown}
+
+Recent reviewer/lower handoffs:
+
+{handoff_markdown}
+"""
+    blocker_latex_items = [
+        "weak Fokker--Planck source actions",
+        "Laplacian source-field equality and measurability",
+        "state-integral identities under the selected EM law",
+        "Green identities and boundary trace terms",
+        "box-divergence and diffusion-generator leaves",
+    ]
+    blocker_latex_items_text = "\n".join(
+        rf"\item {latex_escape(item)}" for item in blocker_latex_items
+    )
+    proof_status_latex = "\n".join(
+        rf"\item \Lean{{{latex_escape(str(key))}}}: {value}"
+        for key, value in sorted(blueprint_state["proof_status_counts"].items())
+    )
+    packet_latex = "\n".join(
+        rf"\item \Lean{{{latex_escape(str(key))}}}: {value}"
+        for key, value in blueprint_state["trial_classifications_recent"].items()
+    )
+    blocker_latex = rf"""\subsection{{Why the SALD Reproduction Is Not Finished}}
+
+The current bottleneck is not source discovery or an interrupted run.  The
+remaining work is the analytic backend that the source proof compresses into
+standard prose.  In particular, ASTIS still has to discharge or precisely cite:
+\begin{{itemize}}
+{blocker_latex_items_text}
+\end{{itemize}}
+
+For a non-specialist, the issue is that a paper sentence such as ``by the weak
+Fokker--Planck equation and integration by parts'' hides many Lean obligations:
+the law being integrated against, the conditional-expectation representative,
+measurability, integrability, almost-everywhere equality, boundary terms, and
+the exact theorem instance for Laplacian or divergence calculus.
+
+\paragraph{{Current dynamic leaf.}}
+\begin{{quote}}\small
+{latex_escape(blueprint_state["dynamic_leaf_candidate"])}
+\end{{quote}}
+
+\paragraph{{Current illness area.}}
+\begin{{quote}}\small
+{latex_escape(blueprint_state["illness_area_candidate"])}
+\end{{quote}}
+
+\paragraph{{Latest blocker.}}
+\begin{{quote}}\small
+{latex_escape(blueprint_state["latest_blocker"])}
+\end{{quote}}
+
+\paragraph{{Recent packet classifications.}}
+\begin{{itemize}}
+{packet_latex}
+\end{{itemize}}
+
+\paragraph{{Proof-status counts.}}
+\begin{{itemize}}
+{proof_status_latex}
+\end{{itemize}}
+"""
 
     replacements = {
         "@EXPORT_DATE@": export_date,
@@ -1873,6 +2281,8 @@ def cmd_export_latex(args: argparse.Namespace) -> int:
         "@ARIS_URL@": ARIS_URL,
         "@LBG_URL@": LBG_URL,
         "@EOH_URL@": EOH_URL,
+        "@HUMAN_BLOCKER_MARKDOWN@": blocker_markdown,
+        "@HUMAN_BLOCKER_LATEX@": blocker_latex,
     }
 
     def fill(text: str) -> str:
@@ -1908,7 +2318,24 @@ Last exported: @EXPORT_DATE@
 
 The export is batch-based.  Lean and the conversion windows remain the source
 of truth; this document is the middle-agent human-audit layer.
+
+@HUMAN_BLOCKER_MARKDOWN@
 """))
+
+    zh_summary = chinese_sald_window_summary_text(
+        task=task,
+        export_date=export_date,
+        source_count=source_count,
+        trial_count=trial_count,
+        state=blueprint_state,
+        handoffs=latest_handoffs,
+        diagnostics=lean_diagnostics(),
+    )
+    window_info = latest_sald_window_info()
+    zh_dir = markdown / "zh"
+    zh_cycle_name = f"{slugify(task)}-cycle{window_info['cycle_range']}-zh.md"
+    write_text(zh_dir / zh_cycle_name, zh_summary)
+    write_text(zh_dir / f"{slugify(task)}-latest-zh.md", zh_summary)
 
     write_text(latex / "main.tex", fill(r"""\documentclass[11pt]{article}
 
@@ -2105,6 +2532,8 @@ which runs Mathlib cache retrieval, \Lean{lake build}, \Lean{lake build Tests},
 and the ASTIS forbidden-pattern scan.  Forbidden proof closures include
 \Lean{sorry}, \Lean{admit}, \Lean{axiom}, \Lean{Prop := True}, and
 \Lean{:= trivial}.
+
+@HUMAN_BLOCKER_LATEX@
 """))
 
     write_text(sections / "A_sald_case.tex", r"""\section{VA-SALD Faithful-Reproduction Case}
@@ -2177,7 +2606,9 @@ remaining obligation \\
 """)
 
     add_manifest("astis.py export-latex", latex / "main.tex", "paper", "Exported ASTIS project article and SALD appendix")
+    add_manifest("astis.py export-latex", zh_dir / zh_cycle_name, "paper", "Exported Chinese 6h SALD proof-reproduction summary")
     print(f"exported LaTeX article to {rel(latex / 'main.tex')}")
+    print(f"exported Chinese summary to {rel(zh_dir / zh_cycle_name)}")
     return 0
 
 
@@ -2349,6 +2780,7 @@ def build_parser() -> argparse.ArgumentParser:
     sleep_window = sub.add_parser("sleep-run-window")
     sleep_window.add_argument("task")
     sleep_window.add_argument("--hours", type=float, default=6.0)
+    sleep_window.add_argument("--agent-hours-budget", type=float, default=0.0)
     sleep_window.add_argument("--max-cycles", type=int, default=999)
     sleep_window.add_argument("--start-cycle", type=int, default=0)
     sleep_window.add_argument("--guard-minutes", type=float, default=0.0)
@@ -2362,10 +2794,12 @@ def build_parser() -> argparse.ArgumentParser:
     sleep_window.set_defaults(func=cmd_sleep_run_window)
 
     launch = sub.add_parser("launch-sald-6h")
-    launch.add_argument("--hours", type=float, default=6.0)
-    launch.add_argument("--max-cycles", type=int, default=16)
-    launch.add_argument("--lower-count", type=int, default=1)
+    launch.add_argument("--hours", type=float, default=6.0, help="active agent budget in hours")
+    launch.add_argument("--wall-hours", type=float, default=24.0, help="wall-clock safety window for an active-agent-budget run")
+    launch.add_argument("--max-cycles", type=int, default=64)
+    launch.add_argument("--lower-count", type=int, default=2)
     launch.add_argument("--start-cycle", type=int, default=0)
+    launch.add_argument("--after-latex", action="store_true")
     launch.add_argument("--skip-reviewer", action="store_true")
     launch.set_defaults(func=cmd_launch_six_hour_sald)
 

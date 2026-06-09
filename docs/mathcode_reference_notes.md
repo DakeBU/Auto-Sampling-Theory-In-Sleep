@@ -5,7 +5,7 @@ Reference repository: [math-ai-org/mathcode](https://github.com/math-ai-org/math
 Local checkout inspected during ASTIS development:
 
 ```text
-/home/nitanda_sub/mark/repos/Quantum/mathcode
+/home/nitanda_sub/mark/repos/outer_repos/automation_systems/mathcode
 ```
 
 Public ASTIS documentation should cite the upstream repository URL above, not a
