@@ -4869,6 +4869,707 @@ Cycle 55 lower proof-producing increment:
 No theorem statement, source label, coefficient, theorem status, SLT reuse
 status, or analytic backend status changed.
 
+## Cycle 173 Middle Hessian Source-Contract Recovery
+
+Classification: `rejected-wrapper-churn`.
+
+Illness-area middle packet after
+`python3 tools/astis.py blueprint-refresh ASTIS-SALD-001`.  The refreshed
+dynamic leaf still names the selected-test second-Frechet-derivative
+operator-norm/Brownian coordinate region, but the current Lean state has
+already compiled the non-source parts:
+
+- Brownian coordinate unit direction:
+  `SALD.gaussianRealStdOrthonormalBasisUnit`.
+- Hessian-to-iterated-Frechet bridge:
+  `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm`.
+- Brownian standard-basis specialization:
+  `SALD.gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNormStdOrthonormalBasis`.
+
+The exact remaining Lean-facing boundary is unchanged:
+
+```lean
+hHessianOpNorm :
+  forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Source audit:
+
+- `appendix.tex:984-995` gives the frozen EM interpolation and Brownian
+  increment.
+- `appendix.tex:1379-1387` gives the associated weak Fokker--Planck
+  diffusion/Laplacian display.
+- `appendix.tex:1026-1072` and `main_body.tex:273-305` give nearby drift/score
+  Lipschitz and integrability assumptions.
+- `iteration_complexity.tex:309-321` gives a VP score Hessian bound, but this
+  is a score regularity theorem and does not bound the selected weak test
+  `sourceTest`.
+- Original-source search excluding `sald_version_2.tex` for
+  smooth/test/Hessian/bounded regularity terms still found no selected weak-test
+  global bounded-Hessian field.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 173 middle source-contract recheck | Preserve `hHessianOpNorm` as the exact boundary after confirming Brownian unit direction and the Hessian bridge are compiled. | cycle-172 lower_2 rejection; Brownian unit theorem; Hessian-to-iterated-Frechet bridge; refreshed blueprint | `SALD.cycle173GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceMiddleObligation`; `ASTIS.SALD.cycle173.middle_refiner.hessian_source_contract_recheck` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | future source-backed selected weak-test bounded-Hessian interface; `hSecondFDerivOpNorm`; `hDirectionalSecond`; selected-line Taylor domination | obligation |
+| Cycle 173 wrapper rejection | Reject unexpanded `testRegular`, unsourced `SourceSelectedWeakTestC2bBoundedHessian`/`SelectedWeakTestC2bBoundedHessian`, and VP score-Hessian substitutions unless the source correspondence first supplies an independent selected weak-test bounded-Hessian field. | cycle-172 lower_2 rejection; source audit including `iteration_complexity.tex:309-321`; paper-wide original-source search excluding `sald_version_2.tex` | `SALD.cycle173GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceDag`; `ASTIS.SALD.cycle173.middle_refiner.reject_unsourced_projection_and_score_hessian` | same anchors plus `iteration_complexity.tex:309-321` | reviewer wrapper-churn check; next lower source-contract recovery packet | obligation |
+
+Dependency classification remains `source-contract-gap`, not
+`mathlib-available`, `slt-port-candidate`, or `local-lemma`.  No SLT theorem was
+consulted or imported because this packet does not need a probability-library
+lemma; the blocker is the absence of a source-backed selected weak-test
+bounded-Hessian field.
+
+## Cycle 173 Lower_1 Source-Hessian Proof Route Window
+
+Mode: `faithfulPaper`.  Classification: `narrows-source-cited-boundary`.
+
+Paper-to-Lean target:
+
+| Source view | Lean view | Status |
+|---|---|---|
+| The selected weak test used in the EM Brownian/Laplacian weak action has a source-backed bounded Hessian. | `sourceHessian : E -> E ->L[Real] (E ->L[Real] Real)` plus `hSourceHasHessian : forall z, HasFDerivAt (fderiv Real sourceTest) (sourceHessian z) z` and `hSourceHessianBound : forall z, norm (sourceHessian z) <= C1`. | exact source-contract fields still missing |
+| The downstream Ito/Taylor leaves need `hHessianOpNorm`. | `forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1`. | lower_2 theorem can derive this from the two source fields |
+
+Expected lower_2 theorem:
+
+```lean
+selectedWeakTestHessianOpNormOfSourceHessianField
+    (sourceTest : E -> Real)
+    (sourceHessian : E -> E ->L[Real] (E ->L[Real] Real))
+    (C1 : Real)
+    (hSourceHasHessian :
+      forall z : E,
+        HasFDerivAt (fderiv Real sourceTest) (sourceHessian z) z)
+    (hSourceHessianBound :
+      forall z : E, norm (sourceHessian z) <= C1) :
+    forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Proof sketch: for each `z`, use `(hSourceHasHessian z).fderiv` from
+`Mathlib.Analysis.Calculus.FDeriv.Basic` to rewrite the second Frechet
+derivative as `sourceHessian z`, then apply `hSourceHessianBound z`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 173 lower_1 source-Hessian route | Split the source-facing Hessian contract into a named Hessian representative and a uniform operator-norm bound. | `HasFDerivAt.fderiv`; cycle-173 middle source audit; Brownian unit theorem; Hessian bridge | `SALD.cycle173GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceLower1Obligation`; `ASTIS.SALD.cycle173.lower_1_refiner.source_hessian_field_proof_route` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | lower_2 source-backed theorem; `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm`; `SALD.gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNormStdOrthonormalBasis` | obligation |
+
+This is not a replacement for the missing source regularity.  If
+`hSourceHasHessian` or `hSourceHessianBound` is defined from `hHessianOpNorm`,
+unexpanded `testRegular`, or an unsourced same-field predicate, the route
+collapses back into wrapper churn.
+
+## Cycle 173 Lower_2 Compiled Source-Hessian Bridge
+
+Mode: `faithfulPaper`.  Classification: `narrows-source-cited-boundary`.
+
+Compiled Lean declaration:
+
+```lean
+SALD.selectedWeakTestHessianOpNormOfSourceHessianField
+```
+
+This theorem proves the downstream
+
+```lean
+forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+from the two source-facing fields:
+
+- `hSourceHasHessian : forall z, HasFDerivAt (fderiv Real sourceTest) (sourceHessian z) z`
+- `hSourceHessianBound : forall z, norm (sourceHessian z) <= C1`
+
+The proof is the lower_1 route in Lean: rewrite by
+`(hSourceHasHessian z).fderiv` and apply `hSourceHessianBound z`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 173 lower_2 source-Hessian bridge | Compile the Mathlib bridge from a source-backed Hessian representative and uniform bound to `hHessianOpNorm`. | `HasFDerivAt.fderiv`; lower_1 source-Hessian route; cycle-173 middle rejection of wrappers | `SALD.selectedWeakTestHessianOpNormOfSourceHessianField`; `SALD.cycle173GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceLower2Obligation`; `ASTIS.SALD.cycle173.lower_2_packet.source_hessian_field_bridge` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | `hHessianOpNorm`; `hSecondFDerivOpNorm`; `hDirectionalSecond`; selected-line Taylor domination | formalized |
+
+Remaining source-contract boundary: the faithful source correspondence must
+still supply `hSourceHasHessian` and `hSourceHessianBound` for the selected weak
+test.  This packet does not promote `testRegular`, introduce
+`SourceSelectedWeakTestC2bBoundedHessian`, use `sald_version_2.tex`, or reuse the
+VP score Hessian result from `iteration_complexity.tex:309-321`.
+
+## Cycle 168 Lower_1 Selected-Line Hessian Scout Window
+
+Mode: `faithfulPaper`.  Classification: `narrows-source-cited-boundary`.
+
+Source window:
+
+- `appendix.tex:984-995`: frozen EM interpolation; the scalar Brownian
+  coordinate increment is read as a selected line `q |-> sourceTest (x + q • e)`.
+- `appendix.tex:1379-1387`: Fokker--Planck diffusion term; this is the source
+  of the selected-test second-order/Laplacian contribution.
+
+Lean-facing route:
+
+| Source step | Lean-facing declaration | Status |
+|---|---|---|
+| Ambient selected-test regularity supplies the selected and reflected scalar line regularity. | `SALD.gaussianRealSelectedTestLineContDiffOnOfSourceContDiffOn` | formalized local theorem |
+| Interval second-derivative domination reduces to global selected/reflected line second-derivative bounds. | `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOnAndLineSecondBounds` | formalized local theorem |
+| Ambient bounded Hessian should supply the global selected/reflected line second-derivative bounds. | `hLineSecond`; `hNegLineSecond` via `iteratedDeriv_vcomp_two` and affine-line derivative algebra | remaining source/theory boundary |
+
+Compiled lower_2 theorem:
+
+```lean
+theorem gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOnAndLineSecondBounds
+    (sourceTest : E -> Real) (x e : E) (C1 : Real)
+    (hSource : ContDiffOn Real 2 sourceTest Set.univ)
+    (hC1 : 0 <= C1)
+    (hLineSecond :
+      forall y : Real,
+        ‖iteratedDeriv 2 (fun q : Real => sourceTest (x + q • e)) y‖ <= C1)
+    (hNegLineSecond :
+      forall y : Real,
+        ‖iteratedDeriv 2 (fun q : Real => sourceTest (x + q • (-e))) y‖ <= C1) :
+    forall r : Real,
+      ‖sourceTest (x + r • e) -
+          taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+            1 Set.univ 0 r‖ <= C1 * r ^ 2
+```
+
+Proof notes:
+derive `hNonnegSecond` and `hNegSecond` internally.  For `r = 0`, rewrite
+`Icc 0 0` to `{0}`, use `accPt_iff_nhds` to show the singleton interval has
+no accumulation point at the base, and use `derivWithin_zero_of_not_accPt` to
+make the second within-derivative zero; `hC1` closes the norm inequality.  For
+`0 < r`, use `uniqueDiffOn_Icc` and
+`iteratedDerivWithin_eq_iteratedDeriv` to replace the interval derivative by
+the global `iteratedDeriv 2`, then apply the corresponding global line bound.
+Feed these two constructed hypotheses into
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOn`.
+
+Mathlib/theory dependencies:
+`Mathlib.Analysis.Calculus.IteratedDeriv.Defs` for
+`iteratedDerivWithin_eq_iteratedDeriv`, `Mathlib.Analysis.Calculus.TangentCone.Real`
+for `uniqueDiffOn_Icc`, and
+`Mathlib.Analysis.Calculus.IteratedDeriv.FaaDiBruno` for the follow-up
+ambient Hessian-to-global-line-second-derivative chain rule.
+
+Reverse-map status:
+after the lower_2 theorem, the current signed interval
+`hNonnegSecond`/`hNegSecond` boundary is strictly smaller: prove only
+`hLineSecond` and `hNegLineSecond`, the global selected/reflected line
+second-derivative bounds, from selected-test bounded-Hessian regularity.
+Ambient source `ContDiffOn Real 2` and `hC1` remain explicit inputs.
+`hSecondCoeff`, Taylor moment decomposition, quadratic-variation
+normalization, and coordinate-sum leaves remain separate.  No SLT theorem is
+needed.
+
+## Cycle 168 Lower_2 Global Line-Second Bridge
+
+Mode: `faithfulPaper`.  Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet for the current scalar Brownian/Ito Taylor leaf
+under the EM conditional-law/Fokker--Planck backend.
+
+Exact boundary narrowed:
+`hNonnegSecond` and `hNegSecond` below
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOn`
+are no longer primitive signed interval `iteratedDerivWithin 2` domination
+hypotheses.  The compiled theorem
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOnAndLineSecondBounds`
+derives them from global selected/reflected scalar-line `iteratedDeriv 2`
+bounds plus `hC1 : 0 <= C1`.
+
+Remaining boundary:
+prove `hLineSecond` and `hNegLineSecond` from the selected-test
+bounded-Hessian regularity using the expected `iteratedDeriv_vcomp_two` /
+affine-line derivative route.  `hSecondCoeff`, Taylor moment decomposition,
+quadratic-variation normalization, and coordinate-sum leaves remain separate.
+
+## Cycle 169 Ambient Directional-Hessian Line-Second Bridge
+
+Mode: `faithfulPaper`.  Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet for the scalar Brownian/Ito Taylor leaf under the
+EM conditional-law/Fokker--Planck backend.
+
+Exact boundary narrowed:
+`hLineSecond` and `hNegLineSecond` below
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOnAndLineSecondBounds`
+are no longer primitive global scalar-line `iteratedDeriv 2` bounds.  They
+follow from one ambient selected-test diagonal directional-Hessian bound:
+
+```lean
+hDirectionalSecond :
+  forall z : E,
+    ‖iteratedFDeriv Real 2 sourceTest z (fun _ : Fin 2 => e)‖ <= C1
+```
+
+Compiled declarations:
+
+- `SALD.gaussianRealSelectedTestLineSecondDerivEqDirectionalFDeriv`;
+- `SALD.gaussianRealSelectedTestLineSecondBoundsOfDirectionalSecondBound`;
+- `SALD.gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNorm`;
+- `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOnAndDirectionalSecondBound`;
+- `SALD.cycle169GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoDirectionalSecondLower2Obligation`;
+- `SALD.cycle169GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoDirectionalSecondMiddleObligation`;
+- `SALD.cycle169GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoDirectionalSecondDag`.
+
+Proof route:
+use `Mathlib.Analysis.Calculus.IteratedDeriv.FaaDiBruno.iteratedDeriv_vcomp_two`
+for `sourceTest ∘ (fun q => x + q • e)`.  The affine line has
+`deriv = e` and `iteratedDeriv 2 = 0` by
+`iteratedDeriv_const_add`, `iteratedDeriv_smul_const`, and
+`iteratedDeriv_fun_id`.  For the reflected line, apply the same theorem with
+`-e`; `ContinuousMultilinearMap.map_smul_univ` cancels the two signs, so the
+same ambient diagonal bound controls the reflected line.  The old `hC1`
+nonnegativity input follows from the norm bound at `x`.
+
+Lower_2 update:
+the diagonal directional-Hessian bound now follows locally from a selected-test
+second-Frechet-derivative operator-norm bound
+`forall z : E, ‖iteratedFDeriv Real 2 sourceTest z‖ <= C1` and
+`‖e‖ <= 1`, via
+`SALD.gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNorm`.
+
+Remaining boundary:
+expose that operator-norm bounded-Hessian hypothesis, and the intended Brownian
+coordinate unit-direction fact, from the paper/testRegular regularity
+interface at `appendix.tex:984-995` and `appendix.tex:1379-1387`.  `hSource`,
+`hSecondCoeff`, Taylor moment decomposition, quadratic-variation normalization,
+and coordinate-sum leaves remain separate.  No SLT theorem is needed.
+
+## Cycle 169 Lower_1 Selected-Test Hessian Source Audit
+
+Mode: `faithfulPaper`.  Classification: `narrows-source-cited-boundary`.
+
+Exact boundary narrowed for lower_2:
+the remaining `hDirectionalSecond`
+
+```lean
+forall z : E,
+  ‖iteratedFDeriv Real 2 sourceTest z (fun _ : Fin 2 => e)‖ <= C1
+```
+
+should not be treated as a primitive scalar-line fact.  It is the diagonal
+application of the selected weak-test Hessian.  A lower_2 implementation should
+first target the local operator-norm bridge from a bounded second Frechet
+derivative hypothesis:
+
+```lean
+forall z : E, ‖iteratedFDeriv Real 2 sourceTest z‖ <= C1
+```
+
+plus the explicit unit-direction side condition `‖e‖ <= 1`.  For the intended
+coordinate Brownian/Ito use, `e` is a standard orthonormal-basis direction and
+`OrthonormalBasis.norm_eq_one` supplies the side condition.
+
+Compiled lower_2 theorem:
+
+```lean
+theorem gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNorm
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace Real E]
+    (sourceTest : E -> Real) (e : E) (C1 : Real)
+    (hSecondFDerivOpNorm :
+      forall z : E, ‖iteratedFDeriv Real 2 sourceTest z‖ <= C1)
+    (heUnit : ‖e‖ <= 1) :
+    forall z : E,
+      ‖iteratedFDeriv Real 2 sourceTest z (fun _ : Fin 2 => e)‖ <= C1
+```
+
+Proof route:
+formalized in `AutoSamplingTheory/SALD.lean` using
+`ContinuousMultilinearMap.le_mul_prod_of_opNorm_le_of_le`, with both `Fin 2`
+inputs bounded by `1` from `heUnit`, followed by finite-product simplification.
+If a later packet specializes to standard basis directions, use
+`OrthonormalBasis.norm_eq_one (stdOrthonormalBasis Real E) i` to supply
+`heUnit`.
+
+Source-dependency classification:
+`appendix.tex:984-995` and `appendix.tex:1379-1387` justify that this is the
+selected-test Brownian generator/Laplacian regularity needed by the EM
+Fokker--Planck proof, but the original paper text does not state this local
+`C^2_b` selected-test bound at those lines.  The remaining faithful source
+contract is therefore the selected weak-test bounded-Hessian interface itself:
+either expose it from the existing `testRegular` hypothesis, or record it as a
+source-contract gap before claiming the operator-norm premise.  `hSource`,
+`hSecondCoeff`, Taylor moment decomposition, quadratic-variation normalization,
+and coordinate-sum leaves remain separate.
+
+## Cycle 170 Brownian Coordinate Unit Direction
+
+Mode: `faithfulPaper`.  Classification: `discharges-supplied-hypothesis`.
+
+Dynamic-leaf worker packet for the selected-test Hessian leaf under the EM
+conditional-law/Fokker--Planck backend.
+
+Exact supplied hypothesis discharged:
+for the intended Brownian coordinate direction
+`e = (stdOrthonormalBasis Real E) i`, the cycle-169 side condition
+`heUnit : ‖e‖ <= 1` is no longer primitive.  It follows from Mathlib's
+standard orthonormal-basis norm theorem.
+
+Compiled declarations:
+
+- `SALD.gaussianRealStdOrthonormalBasisUnit`;
+- `SALD.gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNormStdOrthonormalBasis`.
+
+Lean-facing route:
+
+```lean
+theorem gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNormStdOrthonormalBasis
+    {E : Type*} [NormedAddCommGroup E] [InnerProductSpace Real E]
+    [FiniteDimensional Real E]
+    (sourceTest : E -> Real) (C1 : Real) (i : Fin (Module.finrank Real E))
+    (hSecondFDerivOpNorm :
+      forall z : E, ‖iteratedFDeriv Real 2 sourceTest z‖ <= C1) :
+    forall z : E,
+      ‖iteratedFDeriv Real 2 sourceTest z
+        (fun _ : Fin 2 => (stdOrthonormalBasis Real E) i)‖ <= C1
+```
+
+Proof-DAG pane:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Brownian coordinate unit direction | Supply `heUnit` for `e = (stdOrthonormalBasis Real E) i`. | `OrthonormalBasis.norm_eq_one`; standard-basis Brownian coordinate route | `SALD.gaussianRealStdOrthonormalBasisUnit` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle-169 operator-norm-to-directional-Hessian bridge | formalized local theorem |
+| Standard-basis operator-norm specialization | Specialize the cycle-169 operator-norm bridge to Brownian standard-basis directions, removing `heUnit` from the consumer shape. | `SALD.gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNorm`; `SALD.gaussianRealStdOrthonormalBasisUnit` | `SALD.gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNormStdOrthonormalBasis` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hDirectionalSecond` for Brownian coordinate leaves | formalized local theorem |
+| Remaining selected-test Hessian contract | Expose the selected-test bounded-Hessian operator-norm bound from `testRegular`/source regularity. | selected weak-test `C^2_b` or bounded-Hessian source interface | `hHessianOpNorm : forall z, ‖fderiv Real (fderiv Real sourceTest) z‖ <= C1` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | selected-line Taylor domination and scalar Ito generator leaves through `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm` | source-contract gap |
+
+Remaining exact source-contract gap:
+`hHessianOpNorm : forall z : E,
+‖fderiv Real (fderiv Real sourceTest) z‖ <= C1`.  The Lean-specific
+`hSecondFDerivOpNorm` shape now follows locally from this Hessian bound by
+`SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm`.  Do not
+reintroduce `heUnit` for the standard-basis Brownian coordinate route, and do
+not claim the Hessian operator-norm bound until it is supplied by `testRegular`
+or recorded as a source-contract gap.
+
+## Cycle 170 Lower_1 Selected-Test Hessian Source Audit
+
+Mode: `faithfulPaper`.  Classification: `rejected-wrapper-churn`.
+
+Dynamic-leaf proof-scout packet for the remaining selected-test
+second-Frechet-derivative operator-norm boundary.
+
+Source-to-Lean map:
+
+| Source step | Lean-facing boundary | Audit result |
+|---|---|---|
+| `appendix.tex:984-995`: frozen interpolation has Brownian increment `sigma_eta * (W_s - W_s_k)`. | Brownian coordinate directions are standard-basis directions in the scalar Ito/Taylor branch. | Unit side condition already formalized by `SALD.gaussianRealStdOrthonormalBasisUnit`. |
+| `appendix.tex:1379-1387`: the conditional Fokker--Planck equation has diffusion term `(sigma_eta^2 / 2) Delta hatRho_s`. | The selected weak-test action needs the Laplacian/coordinate Hessian trace of `sourceTest`. | Existing local bridge reduces this to `hSecondFDerivOpNorm`. |
+| `appendix.tex:1026-1072` and `main_body.tex:273-305`: discrete backend assumptions. | Potential source of `testRegular` analytic content. | These lines give drift/score Lipschitz and integrability assumptions, not a selected weak-test global bounded-Hessian hypothesis. |
+
+Rejected theorem shape:
+
+```lean
+testRegular ->
+  forall z : E, norm (iteratedFDeriv Real 2 sourceTest z) <= C1
+```
+
+is not acceptable if `testRegular` remains opaque or if the new premise is only
+a renamed copy of the same bound.  That would not narrow the faithful-paper
+boundary.
+
+Lower_2-ready proof block:
+only implement the next Lean step if a source-backed selected weak-test
+`C^2_b`/bounded-Hessian interface is found or added to the source
+correspondence.  Its usable content must supply
+the bounded-Hessian operator-norm field for the selected `sourceTest`; the
+lower_2 theorem below then supplies `hSecondFDerivOpNorm`, and the already
+compiled standard-basis theorem feeds the scalar Brownian/Ito Taylor branch.
+Otherwise keep this row as `source-contract-gap`, not a Mathlib or SLT gap.
+
+## Cycle 170 Lower_2 Hessian Operator-Norm Interface
+
+Mode: `faithfulPaper`.  Classification: `narrows-source-cited-boundary`.
+
+Dynamic-leaf worker packet for the remaining selected-test Hessian boundary.
+
+Exact boundary narrowed:
+the Lean-facing premise
+
+```lean
+hSecondFDerivOpNorm :
+  forall z : E, ‖iteratedFDeriv Real 2 sourceTest z‖ <= C1
+```
+
+is no longer primitive if the source supplies the standard bounded-Hessian
+operator-norm statement
+
+```lean
+hHessianOpNorm :
+  forall z : E, ‖fderiv Real (fderiv Real sourceTest) z‖ <= C1
+```
+
+Compiled declaration:
+
+- `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm`.
+
+Lean-facing route:
+
+```lean
+theorem gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace Real E]
+    (sourceTest : E -> Real) (C1 : Real)
+    (hHessianOpNorm :
+      forall z : E, ‖fderiv Real (fderiv Real sourceTest) z‖ <= C1) :
+    forall z : E, ‖iteratedFDeriv Real 2 sourceTest z‖ <= C1
+```
+
+Proof route:
+formalized in `AutoSamplingTheory/SALD.lean` using Mathlib
+`norm_iteratedFDeriv_fderiv` at `n = 1` and `norm_iteratedFDeriv_one`.
+
+Proof-DAG pane:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Hessian operator norm to iterated Frechet norm | Convert the source-facing `fderiv (fderiv sourceTest)` bound to `hSecondFDerivOpNorm`. | Mathlib `norm_iteratedFDeriv_fderiv`; `norm_iteratedFDeriv_one` | `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | cycle-169/170 selected-test directional-Hessian bridge | formalized local theorem |
+| Remaining selected weak-test Hessian source field | Expose a genuine `C^2_b`/bounded-Hessian contract for the selected weak test. | paper/testRegular source interface, not an opaque wrapper | `hHessianOpNorm` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hSecondFDerivOpNorm`, selected-line Taylor domination, scalar Ito generator leaves | source-contract gap |
+
+Remaining exact source-contract gap:
+the source correspondence must supply `hHessianOpNorm` for the selected
+`sourceTest`.  The audited paper anchors justify why this Hessian is needed for
+the Brownian generator/Laplacian weak action, but they still do not state the
+bounded-Hessian regularity field.  Do not replace this with an opaque
+`testRegular -> hSecondFDerivOpNorm` wrapper.
+
+## Cycle 171 Middle Hessian Source-Contract Refiner
+
+Mode: `faithfulPaper`.  Classification: `rejected-wrapper-churn`.
+
+Illness-area refiner packet for the selected-test Hessian source-contract gap
+under `sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Exact wrapper churn rejected:
+
+```lean
+testRegular ->
+  forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+is not lower-ready if `testRegular` is opaque or if the theorem merely renames
+the missing bounded-Hessian field.  The only acceptable lower packet is a
+source-backed selected weak-test `C^2_b`/bounded-Hessian interface whose content
+is the field itself:
+
+```lean
+hHessianOpNorm :
+  forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Source-to-Lean audit:
+
+| Source step | Lean-facing boundary | Cycle-171 result |
+|---|---|---|
+| `appendix.tex:984-995`: frozen EM interpolation includes the Brownian increment. | Brownian coordinate unit direction and scalar Ito generator route. | Unit direction is already discharged by `SALD.gaussianRealStdOrthonormalBasisUnit`. |
+| `appendix.tex:1379-1387`: the conditional Fokker--Planck equation uses the diffusion/Laplacian term. | Selected weak tests need a Laplacian/Hessian action. | The local bridge from `hHessianOpNorm` to `hSecondFDerivOpNorm` is already compiled. |
+| `appendix.tex:1026-1072`; `main_body.tex:273-305`: nearby discrete backend assumptions. | Potential source of selected-test regularity. | These lines state drift/score Lipschitz and exponential-integrability assumptions, not a global bounded Hessian for `sourceTest`. |
+
+Proof-DAG pane:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Reject opaque Hessian wrapper | Do not derive `hHessianOpNorm` or `hSecondFDerivOpNorm` from an unexpanded `testRegular`. | cycle-170 Hessian bridge; Brownian coordinate unit theorem; source audit above | `SALD.cycle171GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceMiddleObligation`; `SALD.cycle171GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceDag` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | next lower packet for selected weak-test `C^2_b`/bounded-Hessian source field | obligation |
+
+Remaining exact lower-ready boundary:
+find or add to the source correspondence a non-opaque selected weak-test
+bounded-Hessian field supplying `hHessianOpNorm`.  If the source does not
+contain that field, keep this as a source-contract gap.  No SLT theorem was
+consulted or imported; this is not a Mathlib gap.
+
+## Cycle 171 Lower_1 Hessian Source Proof Scout
+
+Mode: `faithfulPaper`.  Classification: `rejected-wrapper-churn`.
+
+Illness-area proof-scout packet for the selected weak-test Hessian source
+contract.  The exact missing theorem boundary remains:
+
+```lean
+hHessianOpNorm :
+  forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Source-to-Lean audit:
+
+| Source step | Lean-facing boundary | Lower_1 result |
+|---|---|---|
+| `appendix.tex:984-995`: frozen EM interpolation with Brownian increment. | Brownian coordinate directions in the scalar Ito generator. | Unit direction is already compiled by `SALD.gaussianRealStdOrthonormalBasisUnit`. |
+| `appendix.tex:1379-1387`: associated Fokker--Planck diffusion/Laplacian term. | Selected weak-test Laplacian/Hessian action. | `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm` already bridges `hHessianOpNorm` to `hSecondFDerivOpNorm`. |
+| `appendix.tex:1026-1072`; `main_body.tex:273-305`: nearby discrete assumptions. | Possible selected-test regularity source. | These lines give drift/score Lipschitz and integrability assumptions, not a global bounded Hessian for `sourceTest`. |
+| Original SALD source search excluding `sald_version_2.tex`. | Possible `testRegular`, `C^2_b`, or bounded-Hessian source field. | No non-opaque selected weak-test bounded-Hessian field was found. |
+
+Lower_2-ready theorem shape, only if backed by a faithful source interface:
+
+```lean
+structure SelectedWeakTestC2bBoundedHessian
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace Real E]
+    (sourceTest : E -> Real) (C1 : Real) : Prop where
+  hHessianOpNorm :
+    forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+
+theorem selectedWeakTestHessianOpNormOfSourceRegularity
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace Real E]
+    (sourceTest : E -> Real) (C1 : Real)
+    (hRegular : SelectedWeakTestC2bBoundedHessian sourceTest C1) :
+    forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Do not implement this route as an opaque `testRegular -> hHessianOpNorm`
+wrapper.  The current classification is `source-contract-gap`, not a Mathlib or
+SLT gap; no SLT theorem was consulted, imported, or marked formalized.
+
+## Cycle 171 Lower_2 Hessian Source Rejection
+
+Mode: `faithfulPaper`.  Classification: `rejected-wrapper-churn`.
+
+Illness-area lower_2 refiner packet for the selected weak-test Hessian
+source-contract gap under `sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Lower_1's proposed projection route was checked and rejected.  The route would
+be acceptable only if the source correspondence already defined a genuine
+selected weak-test `C^2_b`/bounded-Hessian field:
+
+```lean
+SelectedWeakTestC2bBoundedHessian sourceTest C1
+```
+
+The original source audit found no such field, so implementing
+`selectedWeakTestHessianOpNormOfSourceRegularity` would be an opaque wrapper.
+
+Source-to-Lean status:
+
+| Source step | Lean-facing boundary | Lower_2 result |
+|---|---|---|
+| `appendix.tex:984-995`: frozen EM interpolation with Brownian increment. | Brownian coordinate scalar Ito route. | Already covered by `SALD.gaussianRealStdOrthonormalBasisUnit`. |
+| `appendix.tex:1379-1387`: Fokker--Planck diffusion/Laplacian term. | Selected weak-test Hessian/Laplacian action. | `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm` already reduces the downstream `hSecondFDerivOpNorm` to `hHessianOpNorm`. |
+| `appendix.tex:1026-1072`; `main_body.tex:273-305`; paper-wide original-source search excluding `sald_version_2.tex`. | Possible selected weak-test regularity source. | No selected weak-test global bounded-Hessian field was found; keep `hHessianOpNorm` as a source-contract gap. |
+
+Proof-DAG pane:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Reject unsourced Hessian projection | Preserve `hHessianOpNorm` as the exact missing source contract instead of adding `SelectedWeakTestC2bBoundedHessian` as a same-field wrapper. | lower_1 audit; cycle-170 Hessian bridge; Brownian coordinate unit theorem | `SALD.cycle171GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceLower2Obligation`; `SALD.cycle171GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceDag` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | future source-backed selected weak-test bounded-Hessian interface; `hSecondFDerivOpNorm`; `hDirectionalSecond` | obligation |
+
+Reverse-map status:
+`hHessianOpNorm : forall z : E,
+norm (fderiv Real (fderiv Real sourceTest) z) <= C1` remains the exact missing
+paper/source-contract boundary.  It is not a Mathlib or SLT gap; no SLT theorem
+was consulted, imported, or promoted.
+
+## Cycle 172 Middle Blueprint-Refreshed Hessian Source Refiner
+
+Mode: `faithfulPaper`.  Classification: `rejected-wrapper-churn`.
+
+Illness-area refiner packet after
+`python3 tools/astis.py blueprint-refresh ASTIS-SALD-001`.  The refreshed
+dynamic leaf still names the selected-test second-Frechet-derivative
+operator-norm/Brownian coordinate unit region, and the illness area reduces it
+to the exact source-contract boundary:
+
+```lean
+hHessianOpNorm :
+  forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Source-to-Lean status:
+
+| Source step | Lean-facing boundary | Cycle-172 result |
+|---|---|---|
+| `appendix.tex:984-995`: frozen EM interpolation with Brownian increment. | Brownian coordinate direction for scalar Ito/Taylor generator. | Already discharged by `SALD.gaussianRealStdOrthonormalBasisUnit`. |
+| `appendix.tex:1379-1387`: weak Fokker--Planck diffusion/Laplacian term. | Selected weak-test Hessian/Laplacian action. | Already reduced from `hSecondFDerivOpNorm` to `hHessianOpNorm` by `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm`. |
+| `appendix.tex:1026-1072`; `main_body.tex:273-305`; targeted original-source search excluding `sald_version_2.tex`. | Possible selected weak-test regularity source. | No selected weak-test global bounded-Hessian field was found. |
+
+Proof-DAG pane:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Blueprint-refreshed Hessian source contract | Preserve `hHessianOpNorm` as the live boundary after blueprint refresh. | cycle-171 rejection; Brownian unit theorem; Hessian-to-iterated-Frechet bridge | `SALD.cycle172GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceMiddleObligation`; `SALD.cycle172GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceDag` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | next source-contract recovery packet; `hSecondFDerivOpNorm`; `hDirectionalSecond` | obligation |
+| Reject same-field projection | Do not introduce `testRegular -> hHessianOpNorm`, `testRegular -> hSecondFDerivOpNorm`, or a `SelectedWeakTestC2bBoundedHessian` projection unless the source correspondence independently supplies the bounded-Hessian field. | cycle-171 lower_2 rejection; source search excluding `sald_version_2.tex` | `ASTIS.SALD.cycle172.middle_refiner.reject_same_field_projection` | same anchors | reviewer wrapper-churn check | obligation |
+
+Reverse-map status:
+the lower-ready packet is source-contract recovery only.  Lower should either
+find a genuine source-backed selected weak-test `C^2_b`/bounded-Hessian field,
+or keep `hHessianOpNorm` as the exact source-contract gap.  No local SLT file
+was consulted because the blocker is not an SLT theorem; the configured SLT
+clone is absent, and the relevant Mathlib/local bridges are already compiled.
+
+## Cycle 172 Lower_1 Hessian Source Proof Scout
+
+Mode: `faithfulPaper`.  Classification: `rejected-wrapper-churn`.
+
+Lower_1 rechecked the active illness area after blueprint refresh.  The exact
+Lean boundary is unchanged:
+
+```lean
+hHessianOpNorm :
+  forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Source-to-Lean route for lower_2:
+
+| Source/Lean input | Role | Lower_1 result |
+|---|---|---|
+| `appendix.tex:984-995` | Frozen EM interpolation and Brownian increment. | Brownian coordinate unit side is already compiled by `SALD.gaussianRealStdOrthonormalBasisUnit`. |
+| `appendix.tex:1379-1387` | Weak Fokker--Planck diffusion/Laplacian display for selected weak tests. | Downstream `hSecondFDerivOpNorm` is already reduced to `hHessianOpNorm` by `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm`. |
+| `appendix.tex:1026-1072`; `main_body.tex:273-305`; original-source search excluding `sald_version_2.tex` | Candidate source for selected weak-test regularity. | No selected weak-test global bounded-Hessian field was found. |
+
+Expected theorem/proof block, only after the source correspondence supplies a
+real bounded-Hessian field:
+
+```lean
+selectedWeakTestHessianOpNormOfSourceBoundedHessian
+    (sourceTest : E -> Real) (C1 : Real)
+    (hSourceC2b :
+      SourceSelectedWeakTestC2bBoundedHessian sourceTest C1) :
+    forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Do not implement this from unexpanded `testRegular` or from an unsourced
+`SelectedWeakTestC2bBoundedHessian` predicate.  That would only rename the
+current supplied hypothesis.
+
+Proof-DAG pane:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Lower_1 Hessian proof route | Preserve `hHessianOpNorm` as the source-contract gap and name the only lower_2 theorem shape that would not be wrapper churn. | cycle-172 middle refiner; cycle-171 lower_2 rejection; Brownian unit theorem; Hessian-to-iterated-Frechet bridge | `SALD.cycle172GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceLower1Obligation`; `ASTIS.SALD.cycle172.lower_1_refiner.hessian_source_contract_proof_route` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | lower_2 source-backed theorem shape; reviewer wrapper-churn check; `hSecondFDerivOpNorm`; `hDirectionalSecond` | obligation |
+
+Reverse-map status:
+`hHessianOpNorm` remains a `source-contract-gap`, not a Mathlib or SLT gap.
+No SLT file was consulted or imported; the local/Mathlib facts after this
+boundary have already compiled.
+
+## Cycle 172 Lower_2 Hessian Source Projection Rejection
+
+Mode: `faithfulPaper`.  Classification: `rejected-wrapper-churn`.
+
+Lower_2 checked the lower_1 theorem route and did not implement the projection
+because the required source field is absent:
+
+```lean
+selectedWeakTestHessianOpNormOfSourceBoundedHessian
+    (sourceTest : E -> Real) (C1 : Real)
+    (hSourceC2b :
+      SourceSelectedWeakTestC2bBoundedHessian sourceTest C1) :
+    forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+```
+
+Source-to-Lean reverse map:
+
+| Source/Lean input | Role | Lower_2 result |
+|---|---|---|
+| `appendix.tex:984-995`; `appendix.tex:1379-1387` | EM interpolation and weak-FP Brownian/Laplacian display. | These anchors justify the Brownian generator context, not a selected weak-test Hessian bound. |
+| `appendix.tex:1026-1072`; `main_body.tex:273-305` | Drift/score Lipschitz and integrability assumptions near the discrete theorem. | These are score/drift assumptions, not a `sourceTest` bounded-Hessian field. |
+| `iteration_complexity.tex:309-321` | VP score Hessian/Lipschitz verification. | Rejected for this leaf: it bounds the score Hessian, not the selected weak test `sourceTest`. |
+| `SALD.gaussianRealStdOrthonormalBasisUnit`; `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm` | Existing local bridges after `hHessianOpNorm`. | Already compiled; no new theorem should wrap them unless it removes a real supplied source hypothesis. |
+
+Proof-DAG pane:
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Lower_2 Hessian projection rejection | Preserve `hHessianOpNorm` as the exact source-contract gap and reject both unsourced selected-test field projections and score-Hessian substitutions. | lower_1 route; cycle-171 lower_2 rejection; Brownian unit theorem; Hessian-to-iterated-Frechet bridge | `SALD.cycle172GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianSourceLower2Obligation`; `ASTIS.SALD.cycle172.lower_2_refiner.reject_score_or_unsourced_test_hessian_projection` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305`; `iteration_complexity.tex:309-321` | future source-backed selected weak-test bounded-Hessian interface; reviewer wrapper-churn check; `hSecondFDerivOpNorm`; `hDirectionalSecond` | obligation |
+
+Reverse-map status:
+the only remaining source boundary is
+`hHessianOpNorm : forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1`.
+No SLT file was consulted or imported.
+
 ## Cycle 151 EM Generator Pointwise Event/Trace Total Event
 
 Classification: `narrows-source-cited-boundary`.
@@ -5657,6 +6358,540 @@ Taylor pointwise limit supplying `hPoint`; the Taylor moment decomposition and
 quadratic-variation normalization remain separate hypotheses.  Source anchors
 stay `eq:general_moving_target_SALD_frozen_interp`, `appendix.tex:984-995`, and
 `appendix.tex:1379-1387`.
+
+Cycle 163 dynamic-leaf worker packet: `narrows-source-cited-boundary`.
+
+Lean theorem:
+`SALD.gaussianRealSelectedTestLineSecondOrderTaylorRemainderPointwiseAE`.
+Lower_1 source-identification bridge:
+`SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfSelectedTestLineEq`.
+
+Exact boundary narrowed:
+the source Taylor pointwise limit supplying `hPoint` is now compiled for the
+selected scalar line
+`r |-> sourceTest (x + r • e)`.  Under
+`ContDiffOn Real 2 (fun r => sourceTest (x + r • e)) Set.univ`, Mathlib
+`Real.taylor_tendsto` gives, for Gaussian-a.e. scalar coordinate `z`,
+
+```lean
+Filter.Tendsto
+  (fun h : Real =>
+    ((sourceTest (x + (h * z) • e) -
+          taylorWithinEval (fun r : Real => sourceTest (x + r • e))
+            2 Set.univ 0 (h * z)) / (h * z) ^ 2) * z ^ 2)
+  (𝓝[Set.Ioi (0 : Real)] (0 : Real)) (𝓝 0)
+```
+
+Lower_1 source-cited boundary:
+the compiled bridge reduced the DCT side to the source equality
+
+```lean
+∀ᵐ z ∂ProbabilityTheory.gaussianReal (0 : Real) v,
+  (fun h : Real => normalizedRemainder h z) =ᶠ[
+    𝓝[Set.Ioi (0 : Real)] (0 : Real)]
+    fun h : Real =>
+      ((sourceTest (x + (h * z) • e) -
+            taylorWithinEval (fun r : Real => sourceTest (x + r • e))
+              2 Set.univ 0 (h * z)) / (h * z) ^ 2) * z ^ 2
+```
+
+Cycle 163 lower_2 update:
+`SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainder`,
+`SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderSourceEq`, and
+`SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderIntegralTendstoZero`
+are compiled.  The concrete selected-test source-shaped `normalizedRemainder`
+now supplies that equality by definitional equality, so the DCT side no longer
+has an open `hSourceEq` premise for this expression.
+
+Remaining source-cited boundary after lower_2:
+prove the eventual `AEStronglyMeasurable`, a.e. domination, and integrable
+bound inputs `hMeas`, `hBound`, and `hBoundInt` for the concrete selected-test
+normalized remainder.  Keep `hFrozenScalarBrownianItoTaylorMomentDecomposition`,
+`hFrozenScalarBrownianItoQuadraticVariationNormalization`, and
+`hFrozenScalarBrownianItoEventFieldCoordinateSum` as separate hypotheses.
+Source anchors remain `eq:general_moving_target_SALD_frozen_interp`,
+`appendix.tex:984-995`, and `appendix.tex:1379-1387`.  Local Mathlib consulted:
+`Mathlib.Analysis.Calculus.Taylor`,
+`Mathlib.MeasureTheory.Integral.DominatedConvergence`, and
+`Mathlib.Order.Filter.Tendsto`; no SLT theorem was imported or marked
+formalized.
+
+| Source step | Lean-facing boundary | Status |
+|---|---|---|
+| Selected-test scalar line Taylor pointwise limit. | `SALD.gaussianRealSelectedTestLineSecondOrderTaylorRemainderPointwiseAE` | formalized local theorem |
+| Eventual source equality from the paper normalized remainder to the selected-test line expression. | `SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderSourceEq` plus `SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderIntegralTendstoZero` | formalized local theorem; narrows source-cited boundary |
+| DCT measurability for the concrete selected-test normalized remainder. | `SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderEventuallyAEStronglyMeasurable` | formalized local theorem; discharges supplied `hMeas` |
+| Gaussian integrability for the quadratic domination bound. | `SALD.gaussianRealSelectedTestLineSecondOrderQuadraticBoundIntegrable` supplies `hBoundInt` for `fun z : Real => C * z^2` | formalized local theorem; discharges supplied `hBoundInt` for the quadratic bound |
+| DCT pointwise domination for the concrete selected-test normalized remainder. | `SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderQuadraticBoundOfTaylorQuotientBound` supplies `hBound` from a deterministic scalar Taylor quotient bound | formalized local theorem; narrows source-cited boundary |
+
+Cycle 164 dynamic-leaf worker packet: `discharges-supplied-hypothesis`.
+
+Lean theorem:
+`SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderEventuallyAEStronglyMeasurable`.
+
+Exact supplied hypothesis discharged:
+the `hMeas` input of
+`SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderIntegralTendstoZero`
+for the concrete source-shaped selected-test normalized remainder.  From
+`ContDiffOn Real 2 (fun r => sourceTest (x + r • e)) Set.univ`, Lean now
+derives
+
+```lean
+∀ᶠ h in 𝓝[Set.Ioi (0 : Real)] (0 : Real),
+  MeasureTheory.AEStronglyMeasurable
+    (SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainder
+      sourceTest x e h)
+    (ProbabilityTheory.gaussianReal (0 : Real) v)
+```
+
+The proof uses `ContDiffOn.continuousOn` for the selected scalar line,
+`hasDerivAt_taylorWithinEval_succ` for continuity of `taylorWithinEval` in
+the evaluation variable, `Continuous.comp_aestronglyMeasurable`, and
+`MeasureTheory.AEStronglyMeasurable` arithmetic closure.  It does not bundle
+domination or integrability.
+
+Cycle 164 lower_2 dynamic-leaf worker packet: `discharges-supplied-hypothesis`.
+
+Lean theorem:
+`SALD.gaussianRealSelectedTestLineSecondOrderQuadraticBoundIntegrable`.
+
+Exact supplied hypothesis discharged:
+the `hBoundInt` input of
+`SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderIntegralTendstoZero`
+for the quadratic Gaussian bound
+`fun z : Real => C * z^2`.  Lean now derives
+
+```lean
+MeasureTheory.Integrable
+  (fun z : Real => C * z ^ 2)
+  (ProbabilityTheory.gaussianReal (0 : Real) v)
+```
+
+from `ProbabilityTheory.integrable_exp_mul_gaussianReal`,
+`ProbabilityTheory.integrable_pow_of_integrable_exp_mul`, and
+`MeasureTheory.Integrable.const_mul`.  It does not discharge the pointwise
+domination estimate.
+
+Remaining source-cited boundary after cycle 164 lower_2:
+prove `hBound` for the concrete selected-test normalized remainder against
+`fun z : Real => C * z^2`, and separately prove
+`hFrozenScalarBrownianItoTaylorMomentDecomposition`,
+`hFrozenScalarBrownianItoQuadraticVariationNormalization`, and
+`hFrozenScalarBrownianItoEventFieldCoordinateSum`.  Source anchors remain
+`eq:general_moving_target_SALD_frozen_interp`, `appendix.tex:984-995`, and
+`appendix.tex:1379-1387`.  Local Mathlib consulted:
+`Mathlib.Analysis.Calculus.Taylor`,
+`Mathlib.MeasureTheory.Function.StronglyMeasurable.AEStronglyMeasurable`,
+`Mathlib.Probability.Distributions.Gaussian.Real`, and
+`Mathlib.Probability.Moments.IntegrableExpMul`; the configured SLT clone is
+absent, and no SLT theorem was imported or marked formalized.
+
+Cycle 165 dynamic-leaf worker packet: `narrows-source-cited-boundary`.
+
+Lean theorem:
+`SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderQuadraticBoundOfTaylorQuotientBound`.
+
+Exact boundary narrowed:
+the `hBound` input of
+`SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainderIntegralTendstoZero`
+is now reduced to a deterministic scalar Taylor quotient estimate for the
+selected line `r |-> sourceTest (x + r • e)`.  Lean proves the exact eventual
+Gaussian-a.e. domination
+
+```lean
+∀ᶠ h in 𝓝[Set.Ioi (0 : Real)] (0 : Real),
+  ∀ᵐ z ∂ProbabilityTheory.gaussianReal (0 : Real) v,
+    ‖SALD.gaussianRealSelectedTestLineSecondOrderNormalizedRemainder
+        sourceTest x e h z‖ <= C * z ^ 2
+```
+
+from
+
+```lean
+∀ r : Real,
+  ‖(sourceTest (x + r • e) -
+      taylorWithinEval (fun r : Real => sourceTest (x + r • e))
+        2 Set.univ 0 r) / r ^ 2‖ <= C
+```
+
+using the definition of the normalized remainder, `norm_mul`, and
+`mul_le_mul_of_nonneg_right`.
+
+Remaining source-cited boundary after cycle 165:
+prove the deterministic scalar Taylor quotient bound with the same constant
+`C`, and separately prove
+`hFrozenScalarBrownianItoTaylorMomentDecomposition`,
+`hFrozenScalarBrownianItoQuadraticVariationNormalization`, and
+`hFrozenScalarBrownianItoEventFieldCoordinateSum`.  Source anchors remain
+`eq:general_moving_target_SALD_frozen_interp`, `appendix.tex:984-995`, and
+`appendix.tex:1379-1387`.  No SLT theorem was consulted or marked formalized.
+
+Cycle 165 lower_1 proof-scout refinement:
+`narrows-source-cited-boundary`.
+
+Lower_2-ready Lean block:
+`SALD.gaussianRealSelectedTestLineSecondOrderTaylorQuotientBoundOfFirstOrderAndSecondCoeff`.
+Cycle 165 lower_2 now compiles this block in `AutoSamplingTheory/SALD.lean`.
+It derives the existing `hTaylorQuotientBound` from two smaller
+source-facing inputs for the selected scalar line `r |-> sourceTest (x + r • e)`:
+
+```lean
+∀ r : Real,
+  ‖(sourceTest (x + r • e) -
+      taylorWithinEval (fun r : Real => sourceTest (x + r • e))
+        1 Set.univ 0 r) / r ^ 2‖ ≤ C1
+```
+
+and
+
+```lean
+‖taylorCoeffWithin
+    (fun r : Real => sourceTest (x + r • e)) 2 Set.univ 0‖ ≤ C2
+```
+
+with `0 ≤ C` and `C1 + C2 ≤ C`.  The proof is deterministic algebra:
+`taylorWithinEval_succ` splits the degree-two Taylor polynomial into the
+degree-one polynomial plus the second coefficient term, `r = 0` is closed by
+`taylorWithinEval_self`, and `r != 0` is closed by division by `r ^ 2`, the
+triangle inequality, `hFirst`, and `hSecondCoeff`.
+
+The remaining analytic/source fact is `hFirst`: obtain the first-order
+quadratic remainder bound and the second coefficient bound `hSecondCoeff`
+from the paper's selected-test quantitative regularity, with constant
+bookkeeping `C1 + C2 <= C`.  The likely route for `hFirst` uses
+`taylor_mean_remainder_bound` with `n = 1` or the Mathlib mean-value
+derivative-bound route.  This needs an explicit bounded
+second-derivative/compact-support-growth hypothesis; `ContDiffOn Real 2`
+alone only supplies the already compiled pointwise Taylor limit.
+
+Cycle 166 upper synchronization:
+`narrows-source-cited-boundary`.
+
+The next lower packet is the first-order selected-line quadratic remainder
+estimate `hFirst`, not another theorem consuming an assumed `hFirst` and not
+the separate `hSecondCoeff` coefficient bound.  The target remains
+`sald.general_moving_target_discrete.em_interpolation_fp` over
+`appendix.tex:1358-1387`, with the scalar Brownian/Ito anchors
+`appendix.tex:984-995` and `appendix.tex:1379-1387`.
+
+Lower target statement:
+
+```lean
+∀ r : Real,
+  ‖(sourceTest (x + r • e) -
+      taylorWithinEval (fun r : Real => sourceTest (x + r • e))
+        1 Set.univ 0 r) / r ^ 2‖ ≤ C1
+```
+
+Expected source route: use the paper's quantitative selected-test
+regularity/compact-support or bounded-Hessian hypothesis to bound the
+second derivative of `r |-> sourceTest (x + r • e)`, then use
+`Mathlib.Analysis.Calculus.Taylor.taylor_mean_remainder_bound` with `n = 1`
+or the local mean-value derivative-bound route.  The implementation must also
+handle the interval-to-`Set.univ` Taylor-polynomial compatibility and the
+positive/negative `r` split.  If that compatibility is missing in Mathlib, the
+lower packet should record that exact named gap rather than falling back to a
+wrapper.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| First-order selected-line quadratic remainder | Prove `hFirst` for the selected scalar line with the degree-one Taylor polynomial at `0` over `Set.univ`. | `taylor_mean_remainder_bound` or `MeanValue`; interval-to-`Set.univ` Taylor compatibility; sign split; source bounded-Hessian/second-derivative estimate. | follow-up `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBound` or a more explicit source-hypothesis variant | `eq:general_moving_target_SALD_frozen_interp`; `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.gaussianRealSelectedTestLineSecondOrderTaylorQuotientBoundOfFirstOrderAndSecondCoeff`; concrete normalized-remainder domination | obligation; cycle-166 lower target |
+| Selected-line second coefficient bound | Keep `hSecondCoeff` separate after `hFirst`; do not merge it back into a broad quotient theorem. | `taylorCoeffWithin`; selected-test Hessian bound; coordinate/Hessian source identification. | follow-up theorem supplying `hSecondCoeff` | same anchors | Taylor quotient split | obligation |
+
+Cycle 166 middle implementation:
+`SALD.gaussianRealSelectedTestLineFirstOrderTaylorQuotientBoundOfQuadraticRemainder`
+now compiles in `AutoSamplingTheory/SALD.lean`.
+
+Lean-facing source split:
+
+```lean
+theorem gaussianRealSelectedTestLineFirstOrderTaylorQuotientBoundOfQuadraticRemainder
+    (sourceTest : E -> Real) (x e : E) (C1 : Real)
+    (hC1 : 0 <= C1)
+    (hRemainder :
+      forall r : Real,
+        ‖sourceTest (x + r • e) -
+            taylorWithinEval (fun r : Real => sourceTest (x + r • e))
+              1 Set.univ 0 r‖ <= C1 * r ^ 2) :
+    forall r : Real,
+      ‖(sourceTest (x + r • e) -
+          taylorWithinEval (fun r : Real => sourceTest (x + r • e))
+            1 Set.univ 0 r) / r ^ 2‖ <= C1
+```
+
+Reverse-map status:
+the old supplied `hFirst` quotient bound is no longer the primitive source
+leaf; it follows from the non-quotient quadratic remainder estimate and
+`0 <= C1`.  The remaining faithful source task is to prove that non-quotient
+estimate from the paper's selected-test second-derivative/bounded-Hessian
+regularity.  Mathlib's available `taylor_mean_remainder_bound` is interval
+based, so the next lower packet must also account for interval-to-`Set.univ`
+Taylor compatibility and the sign split for negative `r`.  `hSecondCoeff`,
+Taylor moment decomposition, quadratic-variation normalization, and
+coordinate-sum leaves remain separate.
+
+Cycle 166 lower_1 interval-Taylor synchronization:
+`narrows-source-cited-boundary`.
+
+Compiled declaration:
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundNonnegOfIntervalTaylor`.
+
+Lean-facing source split:
+
+```lean
+theorem gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundNonnegOfIntervalTaylor
+    (sourceTest : E -> Real) (x e : E) (C1 r : Real)
+    (hr : 0 <= r)
+    (hCont :
+      ContDiffOn Real 2 (fun q : Real => sourceTest (x + q • e)) (Set.Icc 0 r))
+    (hSecond :
+      ∀ y ∈ Set.Icc (0 : Real) r,
+        ‖iteratedDerivWithin 2 (fun q : Real => sourceTest (x + q • e))
+            (Set.Icc 0 r) y‖ <= C1)
+    (hTaylorCompat :
+      taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+          1 (Set.Icc 0 r) 0 r =
+        taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+          1 Set.univ 0 r) :
+    ‖sourceTest (x + r • e) -
+        taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+          1 Set.univ 0 r‖ <= C1 * r ^ 2
+```
+
+The actual Lean theorem uses `∀ y ∈ Set.Icc (0 : Real) r` syntax for
+`hSecond`.  The proof instantiates
+`Mathlib.Analysis.Calculus.Taylor.taylor_mean_remainder_bound` with
+`a = 0`, `b = r`, `x = r`, and `n = 1`, then rewrites the interval Taylor
+polynomial to the `Set.univ` polynomial using `hTaylorCompat`.
+
+Reverse-map status:
+the nonnegative half of the source-facing non-quotient first-order remainder
+is now formalized under explicit interval hypotheses.  The remaining
+lower_2-ready block is the signed combination theorem: use this nonnegative
+lemma, add the reflected negative-side lemma for
+`g u := sourceTest (x + (-u) • e)`, and discharge the source-facing
+selected-line interval second-derivative bound plus `Icc`-to-`Set.univ`
+Taylor compatibility from the paper's bounded-Hessian/selected-test
+regularity.  `hSecondCoeff`, Taylor moment decomposition, quadratic-variation
+normalization, and coordinate-sum leaves remain separate.
+
+Cycle 166 lower_2 signed-interval synchronization:
+`narrows-source-cited-boundary`.
+
+Compiled declaration:
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylor`.
+
+Lean-facing signed source split:
+
+```lean
+theorem gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylor
+    (sourceTest : E -> Real) (x e : E) (C1 : Real)
+    (hNonnegCont : ∀ r : Real, 0 <= r ->
+      ContDiffOn Real 2 (fun q : Real => sourceTest (x + q • e)) (Set.Icc 0 r))
+    (hNonnegSecond : ∀ r : Real, 0 <= r ->
+      ∀ y ∈ Set.Icc (0 : Real) r,
+        ‖iteratedDerivWithin 2 (fun q : Real => sourceTest (x + q • e))
+            (Set.Icc 0 r) y‖ <= C1)
+    (hNonnegTaylorCompat : ∀ r : Real, 0 <= r ->
+      taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+          1 (Set.Icc 0 r) 0 r =
+        taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+          1 Set.univ 0 r)
+    (hNegCont : ∀ u : Real, 0 <= u ->
+      ContDiffOn Real 2 (fun q : Real => sourceTest (x + q • (-e))) (Set.Icc 0 u))
+    (hNegSecond : ∀ u : Real, 0 <= u ->
+      ∀ y ∈ Set.Icc (0 : Real) u,
+        ‖iteratedDerivWithin 2 (fun q : Real => sourceTest (x + q • (-e)))
+            (Set.Icc 0 u) y‖ <= C1)
+    (hNegTaylorCompat : ∀ u : Real, 0 <= u ->
+      taylorWithinEval (fun q : Real => sourceTest (x + q • (-e)))
+          1 (Set.Icc 0 u) 0 u =
+        taylorWithinEval (fun q : Real => sourceTest (x + q • (-e)))
+          1 Set.univ 0 u)
+    (hNegTaylorReflect : ∀ r : Real, r < 0 ->
+      taylorWithinEval (fun q : Real => sourceTest (x + q • (-e)))
+          1 Set.univ 0 (-r) =
+        taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+          1 Set.univ 0 r) :
+    ∀ r : Real,
+      ‖sourceTest (x + r • e) -
+          taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+            1 Set.univ 0 r‖ <= C1 * r ^ 2
+```
+
+Reverse-map status:
+the signed combination is now formalized.  The remaining source-facing
+boundary is not the all-`r` quadratic remainder itself, but the signed interval
+regularity, signed second-derivative domination, interval-to-`Set.univ`
+Taylor compatibility, and reflected `Set.univ` Taylor-polynomial compatibility
+from the selected-test bounded-Hessian/regularity assumptions.  `hSecondCoeff`,
+Taylor moment decomposition, quadratic-variation normalization, and
+coordinate-sum leaves remain separate.
+
+Cycle 167 middle reflection-compatibility implementation:
+`discharges-supplied-hypothesis`.
+
+Compiled declarations:
+
+- `SALD.gaussianRealSelectedTestLineFirstOrderTaylorReflectSetUniv`;
+- `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylorNoReflect`.
+
+Exact supplied hypothesis discharged:
+`hNegTaylorReflect` in
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylor`
+is no longer primitive.  Lean now proves the reflected `Set.univ`
+first-order Taylor-polynomial compatibility
+
+```lean
+taylorWithinEval (fun q : Real => sourceTest (x + q • (-e)))
+    1 Set.univ 0 (-r) =
+  taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+    1 Set.univ 0 r
+```
+
+for every `r`, by expanding the order-one Taylor polynomial with
+`taylorWithinEval_succ` and using Mathlib's `deriv_comp_neg` for the domain
+reflection `q |-> -q`.  The signed interval theorem is then available without
+the `hNegTaylorReflect` argument, because it supplies that compatibility
+internally from the compiled reflection lemma.
+
+Remaining source/theory gap after cycle 167:
+derive only the six signed interval data
+`hNonnegCont`, `hNonnegSecond`, `hNonnegTaylorCompat`, `hNegCont`,
+`hNegSecond`, and `hNegTaylorCompat` from the paper's selected-test
+bounded-Hessian/regularity assumptions.  `hSecondCoeff`, Taylor moment
+decomposition, quadratic-variation normalization, and coordinate-sum leaves
+remain separate.  Local Mathlib consulted: `Mathlib.Analysis.Calculus.Taylor`
+and `Mathlib.Analysis.Calculus.Deriv.Shift` through the imported Taylor stack.
+The configured local SLT clone is absent, and no SLT theorem was imported,
+ported, or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Reflected `Set.univ` Taylor compatibility | Prove the negative-side first-order Taylor polynomial over `Set.univ` equals the original selected-line polynomial at the reflected point. | `taylorWithinEval_succ`; `deriv_comp_neg`; algebra `x + (-r) • (-e) = x + r • e`. | `SALD.gaussianRealSelectedTestLineFirstOrderTaylorReflectSetUniv` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | signed interval first-order remainder | formalized local theorem |
+| Signed interval theorem without reflection premise | Use the cycle-166 signed theorem but supply `hNegTaylorReflect` internally from the reflection lemma. | cycle-166 signed interval theorem; reflected Taylor compatibility. | `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylorNoReflect` | same anchors | `hFirstQuadraticRemainder`; `hFirst` | formalized local theorem; discharges supplied hypothesis |
+| Remaining signed interval data | Prove signed interval regularity, signed interval second-derivative domination, and interval-to-`Set.univ` Taylor compatibility from selected-test bounded-Hessian/regularity assumptions. | source selected-test regularity; Mathlib interval Taylor compatibility or named gap. | follow-up theorem below `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylorNoReflect` | same anchors | `SALD.gaussianRealSelectedTestLineFirstOrderTaylorQuotientBoundOfQuadraticRemainder` | obligation |
+
+Cycle 167 lower_1 interval Taylor-compatibility narrowing:
+`narrows-source-cited-boundary`.
+
+Compiled declarations:
+
+- `SALD.gaussianRealSelectedTestLineFirstOrderTaylorCompatOfDifferentiableAt`;
+- `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylorBaseDiff`.
+
+Lean-facing theorem shape:
+
+```lean
+theorem gaussianRealSelectedTestLineFirstOrderTaylorCompatOfDifferentiableAt
+    (sourceTest : E -> Real) (x e : E) (r : Real)
+    (hr : 0 <= r)
+    (hDiff :
+      DifferentiableAt Real (fun q : Real => sourceTest (x + q • e)) 0) :
+    taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+        1 (Set.Icc 0 r) 0 r =
+      taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+        1 Set.univ 0 r
+```
+
+The proof route is Mathlib-local: split `r = 0` and `0 < r`; in the positive
+case use `uniqueDiffOn_Icc`, `DifferentiableAt.derivWithin`,
+`derivWithin_univ`, and `taylorWithinEval_succ` to identify the first-order
+coefficient.  The signed theorem
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylorBaseDiff`
+then supplies both `hNonnegTaylorCompat` and `hNegTaylorCompat` from base
+differentiability of the selected and reflected scalar lines.
+
+Updated reverse-map status:
+the remaining signed interval boundary is now only
+`hNonnegCont`, `hNonnegSecond`, `hNegCont`, `hNegSecond`,
+`hNonnegBaseDiff`, and `hNegBaseDiff` from selected-test
+bounded-Hessian/regularity assumptions.  `hSecondCoeff`, Taylor moment
+decomposition, quadratic-variation normalization, and coordinate-sum leaves
+remain separate.  Local Mathlib consulted: `Mathlib.Analysis.Calculus.Taylor`,
+`Mathlib.Analysis.Calculus.Deriv.Basic`, `Mathlib.Analysis.Calculus.FDeriv.Basic`,
+and `Mathlib.Analysis.Calculus.TangentCone.Real`.  The configured local SLT
+clone is absent and no SLT theorem was imported, ported, or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Interval-to-`Set.univ` first-order Taylor compatibility | Prove first-order Taylor compatibility on `Icc 0 r` from base differentiability at `0`. | `uniqueDiffOn_Icc`; `DifferentiableAt.derivWithin`; `derivWithin_univ`; `taylorWithinEval_succ`. | `SALD.gaussianRealSelectedTestLineFirstOrderTaylorCompatOfDifferentiableAt` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hNonnegTaylorCompat`; `hNegTaylorCompat` | formalized local theorem |
+| Signed interval theorem with base differentiability | Remove the two Taylor-compatibility premises from the no-reflection signed theorem by deriving them internally. | compatibility lemma; no-reflection signed theorem. | `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylorBaseDiff` | same anchors | `hFirstQuadraticRemainder`; `hFirst` | formalized local theorem |
+| Remaining signed interval data | Prove signed interval `ContDiffOn`, signed interval second-derivative domination, and base differentiability for selected/reflected scalar lines from selected-test regularity. | source selected-test regularity; bounded Hessian/second-derivative domination. | follow-up theorem below the base-differentiability signed interval theorem | same anchors | Taylor quotient split | obligation |
+
+Cycle 167 lower_2 global line-regularity narrowing:
+`narrows-source-cited-boundary`.
+
+Compiled declarations:
+
+- `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfGlobalLineContDiff`;
+- `SALD.cycle167GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoLineContDiffLower2Obligation`.
+
+Reverse-map update:
+the old signed interval regularity/base-differentiability inputs
+`hNonnegCont`, `hNegCont`, `hNonnegBaseDiff`, and `hNegBaseDiff` are no longer
+primitive below
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSignedIntervalTaylorBaseDiff`.
+They are derived from one global selected-line regularity fact
+`ContDiffOn Real 2 (fun q : Real => sourceTest (x + q • e)) Set.univ`.
+The reflected negative-line regularity is obtained by composing the selected
+line with `q |-> -q`; base differentiability at `0` follows from
+`ContDiffOn.contDiffAt` and `ContDiffAt.differentiableAt`.
+
+Remaining source/theory gap:
+prove the global selected-line `ContDiffOn Real 2` fact and the signed interval
+second-derivative domination hypotheses from the paper's selected-test
+bounded-Hessian/regularity assumptions.  `hSecondCoeff`, Taylor moment
+decomposition, quadratic-variation normalization, and coordinate-sum leaves
+remain separate.  Local Mathlib consulted: `Mathlib.Analysis.Calculus.Taylor`
+and ContDiff composition/basic-operation APIs (`contDiffOn_univ`,
+`ContDiff.comp`, `contDiff_neg`, `contDiff_id`).  The configured local SLT
+clone is absent and no SLT theorem was imported, ported, or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Global line regularity to signed Taylor data | Derive signed interval `ContDiffOn` and base differentiability for selected/reflected lines from one global selected-line `ContDiffOn Real 2` assumption. | `ContDiffOn.mono`; `contDiffOn_univ`; `ContDiff.comp`; `contDiff_neg`; `contDiff_id`; `ContDiffOn.contDiffAt`; `ContDiffAt.differentiableAt`. | `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfGlobalLineContDiff` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hFirstQuadraticRemainder`; `hFirst` | formalized local theorem |
+| Remaining signed second-derivative data | Prove the global selected-line `ContDiffOn Real 2` fact and signed interval second-derivative domination from selected-test bounded-Hessian regularity. | source selected-test regularity; bounded Hessian/second-derivative domination. | follow-up theorem below the global-line theorem | same anchors | Taylor quotient split | obligation |
+
+Cycle 168 middle ambient source-test regularity narrowing:
+`narrows-source-cited-boundary`.
+
+Compiled declarations:
+
+- `SALD.gaussianRealSelectedTestLineContDiffOnOfSourceContDiffOn`;
+- `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOn`;
+- `SALD.cycle168GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceContDiffMiddleObligation`;
+- `SALD.cycle168GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceContDiffDag`.
+
+Reverse-map update:
+the `hLine` input below
+`SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfGlobalLineContDiff`
+is no longer primitive once the selected source test has ambient global
+regularity
+
+```lean
+ContDiffOn Real 2 sourceTest Set.univ
+```
+
+on the state space.  Lean proves the scalar line regularity for
+`q |-> sourceTest (x + q • e)` by composing `sourceTest` with the affine map
+`q |-> x + q • e`, using `contDiffOn_univ`, `ContDiff.comp`,
+`ContDiff.add`, `ContDiff.smul_const`, `contDiff_const`, and `contDiff_id`.
+
+Remaining source/theory gap:
+prove ambient selected-test `ContDiffOn Real 2` and the two signed interval
+second-derivative domination hypotheses from the paper's selected-test
+bounded-Hessian/regularity assumptions.  `hSecondCoeff`, Taylor moment
+decomposition, quadratic-variation normalization, and coordinate-sum leaves
+remain separate.  Local Mathlib consulted: ContDiff Basic/Operations/Comp.
+The configured local SLT clone is absent and no SLT theorem was imported,
+ported, or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Ambient regularity to selected line | Compose ambient source-test `ContDiffOn Real 2` with the affine scalar line `q |-> x + q • e`. | `contDiffOn_univ`; `ContDiff.comp`; `ContDiff.add`; `ContDiff.smul_const`; `contDiff_const`; `contDiff_id`. | `SALD.gaussianRealSelectedTestLineContDiffOnOfSourceContDiffOn` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `hLine`; global-line Taylor bridge | formalized local theorem |
+| Source-contdiff Taylor bridge | Feed the compiled selected-line regularity into the cycle-167 global-line theorem while keeping `hNonnegSecond` and `hNegSecond` explicit. | ambient line lemma; cycle-167 global-line theorem. | `SALD.gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfSourceContDiffOn` | same anchors | `hFirstQuadraticRemainder`; `hFirst` | formalized local theorem |
+| Remaining bounded-Hessian data | Prove ambient selected-test `ContDiffOn Real 2` and signed interval second-derivative domination from the paper's selected-test bounded-Hessian/regularity assumptions. | source selected-test regularity; bounded Hessian/second-derivative domination. | follow-up theorem below the source-contdiff bridge | same anchors | Taylor quotient split | obligation |
 
 ## Cycle 145 EM Generator Law-Integral Standard-Basis Action Window
 

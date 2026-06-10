@@ -1,8 +1,7 @@
 \section{VA-SALD Faithful-Reproduction Case}
 
 The first case study is \Lean{ASTIS-SALD-001}: faithful reproduction of the
-original VA-SALD paper proofs, excluding \Lean{sald_version_2.tex}.  The first
-proof DAG tracks
+public VA-SALD paper proofs.  The first proof DAG tracks
 \[
 \texttt{lem:gronwall},\quad
 \texttt{lem:dv\_variation},\quad
@@ -17,7 +16,7 @@ The accepted lower slice for \Lean{thm:forward-KL-discrete} is
 \[
   \text{\Lean{sald.discrete_forward_kl.conditional_drift_density}}.
 \]
-It corresponds to the source proof lines defining
+It corresponds to the source proof step defining
 \[
   \bar b_{k,s}(x)
   = \mathbb{E}\!\left[\nabla \log \pi_{t_k}(X_k^\eta)

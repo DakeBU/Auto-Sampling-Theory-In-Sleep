@@ -1,9 +1,9 @@
 # ASTIS Project Article Export
 
 - Task: `ASTIS-SALD-001`
-- Latest cycle number observed: 162
+- Latest cycle number observed: 173
 - Source-indexed original SALD declarations: 103
-- Trial-log records: 1754
+- Trial-log records: 1891
 - Quantum automation reference: https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201
 - SLT reference: https://github.com/YuanheZ/lean-stat-learning-theory
 - SLT article: https://arxiv.org/abs/2602.02285
@@ -35,41 +35,41 @@ Laplacian/divergence theorem applies.
 Current dynamic leaf:
 
 ```text
-Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald_version_2 use. Gate passed: python3 tools/astis.py check.
 ```
 
 Current illness area:
 
 ```text
-Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
+remaining exact boundary is hHessianOpNorm : forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1 from selected weak-test C2_b/bounded-Hessian source interface under sald.general_moving_target_discrete.em_interpolation_fp. Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled. Source anchors checked: the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the corresponding SALD main-text passage. No SLT/external lookup/import/status promotion/wrapper churn/non-EM fallback/sald_version_2. Gate passed: python3 tools/astis.py check.
 ```
 
 Latest blocker:
 
 ```text
-Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald_version_2 use. Gate passed: python3 tools/astis.py check.
 ```
 
 Recent packet classifications:
 
-- `discharges-supplied-hypothesis`: 0
-- `narrows-source-cited-boundary`: 29
-- `rejected-wrapper-churn`: 1
+- `discharges-supplied-hypothesis`: 1
+- `narrows-source-cited-boundary`: 15
+- `rejected-wrapper-churn`: 14
 
 Proof-status counts:
 
 - `blocked`: 0
 - `contractOnly`: 34
-- `formalized`: 183
-- `obligation`: 1070
+- `formalized`: 225
+- `obligation`: 1101
 - `planned`: 9
 - `sourceCited`: 16
 
 Recent reviewer/lower handoffs:
 
-- narrows-source-cited-boundary upper handoff after mandatory gate pass. Selected dynamic-leaf worker target hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit below hFrozenScalarBrownianItoOneDimTaylorExpansion inside sald.general_moving_target_discrete.em_interpolation_fp over appendix.tex:1358-1387, anchors appendix.tex:984-995 and 1379-1387. Reject wrapper churn, non-EM fallback, broad audits, Lake/SLT import, theorem-status promotion, fake closures, and sald_version_2.tex. Gate passed: python3 tools/astis....
-- narrows-source-cited-boundary dynamic-leaf worker packet: compiled SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder; narrowed hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit to hFrozenScalarBrownianItoTaylorMomentDecomposition plus hFrozenScalarBrownianItoQuadraticVariationNormalization plus hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes; conversion window, proof obligations, SLT audit, and Lean dependency index updated; n...
-- lower_1 recorded as lower because astis.py rejects lower_1. narrows-source-cited-boundary dynamic-leaf proof-scout packet. Narrowed hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes to lower_2-ready theorem SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT using MeasureTheory.tendsto_integral_filter_of_dominated_convergence; follow-up pointwise source Taylor limit uses Real.taylor_tendsto or taylor_isLittleO for r |-> selectedTest phi (x + r • e_i). hFrozenScalarBrownianItoTaylorMomentDe...
-- lower_2 recorded as lower because astis.py rejects lower_2. narrows-source-cited-boundary dynamic-leaf worker packet: compiled SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT, narrowing hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes by formalizing the Mathlib dominated-convergence Gaussian integral-limit step. Remaining smaller source-cited work: concrete selected-test scalar Taylor hPoint, hFrozenScalarBrownianItoTaylorMomentDecomposition, and hFrozenScalarBrownianItoQuadraticVaria...
-- narrows-source-cited-boundary reviewer acceptance after mandatory gate. Accepted cycle-162 lower_2: SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT narrows hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes to selected-test scalar Taylor hPoint plus Taylor moment decomposition and quadratic-variation normalization. Source anchors appendix.tex:984-995,1379-1387 checked; no SLT import, fake closure, wrapper churn, non-EM fallback, theorem-status promotion, or sald_version_2.tex use. Gate...
+- rejected-wrapper-churn upper illness-area refiner after gate pass: no cycle-172 recovery; Phase 1 skeleton stable for single-backend backfill; active lower packet remains source-contract recovery for hHessianOpNorm under sald.general_moving_target_discrete.em_interpolation_fp over the relevant SALD appendix passage. No wrapper churn, non-EM fallback, SLT import, theorem-status promotion, VP score-Hessian substitution, or sald_version_2 use. Gate passed: python3 tools/astis.py check.
+- rejected-wrapper-churn middle illness-area refiner after gate pass: preserved exact hHessianOpNorm source-contract gap under sald.general_moving_target_discrete.em_interpolation_fp; Brownian unit and Hessian-to-iterated-Frechet bridges already compiled; source recheck found no selected weak-test bounded-Hessian field and rejected testRegular, SourceSelectedWeakTestC2bBoundedHessian, and VP score-Hessian substitutions; synchronized Lean, conversion-window, proof-obligation, blueprint, and SLT audit; gate passed:...
+- narrows-source-cited-boundary lower_1 illness-area proof-scout packet: hHessianOpNorm narrowed to sourceHessian plus hSourceHasHessian/hSourceHessianBound theorem route; lower_2 implement selectedWeakTestHessianOpNormOfSourceHessianField only if those source fields are source-backed; no wrapper churn, no SLT import; gate passed.
+- narrows-source-cited-boundary lower_2 compiled SALD.selectedWeakTestHessianOpNormOfSourceHessianField; hHessianOpNorm now follows from sourceHessian plus hSourceHasHessian and hSourceHessianBound via HasFDerivAt.fderiv; remaining source-contract gap is the two source-backed selected weak-test Hessian fields; no SLT import or wrapper churn; gate passed.
+- narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald_version_...
 

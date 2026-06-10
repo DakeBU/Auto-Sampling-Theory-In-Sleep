@@ -258,8 +258,13 @@ Phase 2 begins only after the faithful transcript is complete.
   and LaTeX notes.
 - Maintain `conversion-windows/`, `proof-obligations/`,
   `research-wiki/cited-results/`, and `research-wiki/source-index/`.
-- Export the project LaTeX only at the end of a multi-hour batch, after the
-  final reviewer gate.
+- Export the project LaTeX and external technical-report snippets only at the
+  end of a multi-hour batch, after the final reviewer gate.
+- Treat the report-writing pass as a middle-agent responsibility inherited
+  from the ARIS-style paper-writing workflow: explain what Lean proved, what
+  remains a named obligation, why the remaining boundary is mathematically
+  meaningful, and which coordination rules should guide the next upper/middle
+  cycle.
 
 ## Lower Agent
 

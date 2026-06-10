@@ -2,7 +2,7 @@
 
 Task id: `ASTIS-SALD-001`
 Title: Faithfully reproduce the original VA-SALD paper proofs
-Updated: `2026-06-08 23:04:11`
+Updated: `2026-06-10 07:34:25`
 Blueprint stage: `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`
 
 This is ASTIS's compact system-of-record snapshot for long-horizon Lean proof
@@ -15,8 +15,8 @@ Lean-Markdown-LaTeX exports must stay synchronized.
 
 ```text
 Mode: `ASTIS-SALD-001` follows `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`.
-Current dynamic leaf: Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
-Current illness area: Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
+Current dynamic leaf: Remaining boundary: selected-test second-Frechet-derivative operator-norm bound and Brownian coordinate unit direction from testRegular/source regularity. Gate passed: python3 tools/astis.py check.
+Current illness area: remaining exact boundary is hHessianOpNorm : forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1 from selected weak-test C2_b/bounded-Hessian source interface under sald.general_moving_target_discrete.em_interpolation_fp. Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled. Source anchors checked: appendix.tex:984-995, appendix.tex:1026-1072, appendix.tex:1379-1387, main_body.tex:273-305. No SLT/external lookup/import/status promotion/wrapper churn/non-EM fallback/sald_version_2. Gate passed: python3 tools/astis.py check.
 Upper/middle must retire stale leaves before assigning lower work.
 Lower work should be one local Lean declaration/proof boundary at a time.
 Reviewer accepts progress only through `python3 tools/astis.py check` plus source correspondence.
@@ -29,61 +29,62 @@ middle must retire it before spending more proof-search tokens.
 
 | Leaf | Status |
 |---|---|
-| Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387 | candidate |
-| narrows-source-cited-boundary middle packet: compiled SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator and SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoCoordinateGeneratorDefOfOneDimTaylor; hFrozenScalarBrownianItoCoordinateGeneratorDef narrowed to hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor; hFrozenScalarBrownianItoEventFieldCoordinateSum remains explicit; conversion/proof-obligation/SLT audit/dependency notes updated; no SLT import; mandatory gate passed p... | candidate |
-| lower_1 recorded as lower because astis.py rejects lower_1. narrows-source-cited-boundary lower_1 proof-scout packet. Compiled SALD.gaussianRealZeroSecondMoment from Mathlib Gaussian.Real, narrowing hFrozenScalarBrownianItoCoordinateGeneratorOneDimTaylor by discharging the centered scalar Gaussian second moment. Remaining lower_2-ready theorem is hFrozenScalarBrownianItoOneDimTaylorExpansion: selected-test C^2 plus zero first moment, compiled second moment, and dominated Taylor/Ito generator limit imply brownian... | candidate |
-| lower_2 recorded as lower because astis.py rejects lower_2. narrows-source-cited-boundary dynamic-leaf worker packet. Compiled SALD.gaussianRealZeroOneDimTaylorMomentContribution, narrowing hFrozenScalarBrownianItoOneDimTaylorExpansion by removing centered scalar Gaussian Taylor moment algebra via ProbabilityTheory.integral_id_gaussianReal and SALD.gaussianRealZeroSecondMoment. Remaining smaller source-cited theorem: hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit; hFrozenScalarBrownianItoEventFieldCoordin... | candidate |
-| narrows-source-cited-boundary reviewer acceptance after mandatory gate. Accepted cycle-161 lower_2: SALD.gaussianRealZeroOneDimTaylorMomentContribution narrows hFrozenScalarBrownianItoOneDimTaylorExpansion to remaining hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit; dynamic-leaf scalar Brownian/Ito packet; appendix.tex:984-995 and 1379-1387 checked; no SLT import or fake closure; gate passed python3 tools/astis.py check. | candidate |
-| narrows-source-cited-boundary upper handoff after mandatory gate pass. Selected dynamic-leaf worker target hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit below hFrozenScalarBrownianItoOneDimTaylorExpansion inside sald.general_moving_target_discrete.em_interpolation_fp over appendix.tex:1358-1387, anchors appendix.tex:984-995 and 1379-1387. Reject wrapper churn, non-EM fallback, broad audits, Lake/SLT import, theorem-status promotion, fake closures, and sald_version_2.tex. Gate passed: python3 tools/astis.... | candidate |
-| narrows-source-cited-boundary dynamic-leaf worker packet: compiled SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder; narrowed hFrozenScalarBrownianItoTaylorRemainderGeneratorLimit to hFrozenScalarBrownianItoTaylorMomentDecomposition plus hFrozenScalarBrownianItoQuadraticVariationNormalization plus hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes; conversion window, proof obligations, SLT audit, and Lean dependency index updated; n... | candidate |
-| lower_1 recorded as lower because astis.py rejects lower_1. narrows-source-cited-boundary dynamic-leaf proof-scout packet. Narrowed hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes to lower_2-ready theorem SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT using MeasureTheory.tendsto_integral_filter_of_dominated_convergence; follow-up pointwise source Taylor limit uses Real.taylor_tendsto or taylor_isLittleO for r /-> selectedTest phi (x + r • e_i). hFrozenScalarBrownianItoTaylorMomentDe... | candidate |
-| lower_2 recorded as lower because astis.py rejects lower_2. narrows-source-cited-boundary dynamic-leaf worker packet: compiled SALD.gaussianRealNormalizedTaylorRemainderIntegralTendstoZeroOfDCT, narrowing hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes by formalizing the Mathlib dominated-convergence Gaussian integral-limit step. Remaining smaller source-cited work: concrete selected-test scalar Taylor hPoint, hFrozenScalarBrownianItoTaylorMomentDecomposition, and hFrozenScalarBrownianItoQuadraticVaria... | candidate |
+| Remaining boundary: selected-test second-Frechet-derivative operator-norm bound and Brownian coordinate unit direction from testRegular/source regularity. Gate passed: python3 tools/astis.py check. | candidate |
+| remaining exact boundary is hHessianOpNorm : forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1 from selected weak-test C2_b/bounded-Hessian source interface under sald.general_moving_target_discrete.em_interpolation_fp. Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled. Source anchors checked: appendix.tex:984-995, appendix.tex:1026-1072, appendix.tex:1379-1387, main_body.tex:273-305. No SLT/external lookup/import/status promotion/wrapper churn/non-EM fallb... | candidate |
+| rejected-wrapper-churn middle handoff after gate pass: cycle-172 blueprint-refreshed illness-area refiner preserved hHessianOpNorm source-contract gap, rejected same-field testRegular/SelectedWeakTestC2bBoundedHessian wrappers, synchronized Lean/conversion/proof-obligation/SLT audit notes, and passed python3 tools/astis.py check. | candidate |
+| lower_1 recorded as lower because astis.py rejects lower_1. rejected-wrapper-churn lower_1 illness-area proof-scout handoff after gate pass: preserved exact hHessianOpNorm source-contract gap under sald.general_moving_target_discrete.em_interpolation_fp; Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled; source anchors and original-source search excluding sald_version_2.tex still lack selected weak-test global bounded-Hessian field; added synchronized Lean ProofObligation/... | candidate |
+| lower_2 recorded as lower because astis.py rejects lower_2. rejected-wrapper-churn lower_2 after gate pass: rejected unsourced SourceSelectedWeakTestC2bBoundedHessian/hHessianOpNorm projection and rejected iteration_complexity.tex:309-321 VP score Hessian as wrong object for sourceTest; added cycle172 lower2 ProofObligation/DAG/dependency plus proof-obligation/conversion-window/SLT audit sync. Remaining exact hHessianOpNorm source-contract gap. Gate passed: python3 tools/astis.py check. | candidate |
+| rejected-wrapper-churn reviewer acceptance after gate pass: accepted cycle-172 illness-area refiner packet; exact hHessianOpNorm source-contract gap preserved under sald.general_moving_target_discrete.em_interpolation_fp; no theorem-status promotion, no unsourced SelectedWeakTestC2bBoundedHessian projection, no SLT import, no sald_version_2 use; source anchors and iteration_complexity score-Hessian rejection checked; gate passed: python3 tools/astis.py check. | candidate |
+| rejected-wrapper-churn upper illness-area refiner after gate pass: no cycle-172 recovery; Phase 1 skeleton stable for single-backend backfill; active lower packet remains source-contract recovery for hHessianOpNorm under sald.general_moving_target_discrete.em_interpolation_fp over appendix.tex:1358-1387. No wrapper churn, non-EM fallback, SLT import, theorem-status promotion, VP score-Hessian substitution, or sald_version_2 use. Gate passed: python3 tools/astis.py check. | candidate |
+| rejected-wrapper-churn middle illness-area refiner after gate pass: preserved exact hHessianOpNorm source-contract gap under sald.general_moving_target_discrete.em_interpolation_fp; Brownian unit and Hessian-to-iterated-Frechet bridges already compiled; source recheck found no selected weak-test bounded-Hessian field and rejected testRegular, SourceSelectedWeakTestC2bBoundedHessian, and VP score-Hessian substitutions; synchronized Lean, conversion-window, proof-obligation, blueprint, and SLT audit; gate passed:... | candidate |
+| lower_1 recorded as lower because astis.py rejects lower_1. narrows-source-cited-boundary lower_1 illness-area proof-scout packet: hHessianOpNorm narrowed to sourceHessian plus hSourceHasHessian/hSourceHessianBound theorem route; lower_2 implement selectedWeakTestHessianOpNormOfSourceHessianField only if those source fields are source-backed; no wrapper churn, no SLT import; gate passed. | candidate |
+| lower_2 recorded as lower because astis.py rejects lower_2. narrows-source-cited-boundary lower_2 compiled SALD.selectedWeakTestHessianOpNormOfSourceHessianField; hHessianOpNorm now follows from sourceHessian plus hSourceHasHessian and hSourceHessianBound via HasFDerivAt.fderiv; remaining source-contract gap is the two source-backed selected weak-test Hessian fields; no SLT import or wrapper churn; gate passed. | candidate |
 
 ## Open Obligation Signals
 
 ```text
-| Trace-law source/event to total event | Feed the trace-action narrowing through the cycle-149 trace-field source/event total-event bridge. | trace-action helper; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfTraceFieldSourceAndEventFormula`; `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldEqLaplacian` | `SALD.genera...
-| Trace-state source/event to total event | Transport the sample-space trace integral along `hatXAtS` to the law-space trace integral, then feed the trace-law total-event bridge. | `SALD.generalMovingTargetDiscreteEmGeneratorTraceLawIntegralOfStateIntegral`; `hhatRhoS`; `hhatX`; `htraceFieldMeas`; `hemGeneratorTraceStateIntegral`; trace-law total-event he...
-| Trace-Laplacian state source/event to total event | Feed the source-Laplacian measurability and selected-test Laplacian state integral through the local trace-field/Laplacian helpers, then reuse the trace-state total-event theorem. | `SALD.generalMovingTargetDiscreteEmGeneratorTraceFieldMeasOfSourceLaplacianFieldMeas`; `SALD.generalMovingTargetDiscreteE...
-| Remaining EM source definitions | Prove the paper's selected-test Laplacian state integral, source-Laplacian measurability when not supplied by the source-Laplacian route, event-field/trace-field equality, and trace-field/Laplacian identity for the named frozen EM Laplacian contribution. | Source definition of the frozen EM generator from `eq:general_mo...
-`hemGeneratorLaplacianStateIntegral`, `hsourceLaplacianFieldMeas` when not
-supplied by the source-Laplacian route,
-keep `hsourceLaplacianFunctional` and state-event equality explicit when not
-Classification: `narrows-source-cited-boundary`.
-- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`.
-`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula`.
-It follows from the smaller source-facing law-space action integral
-`SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`.
-The source event-field definition
+source-facing obligations are now exactly:
+- `hSourceHasHessian`: the selected weak test has the named Hessian
+representative `sourceHessian`.
+- `hSourceHessianBound`: that representative has uniform operator norm at most
+The route is admissible only if those two fields are source-backed from the
+selected weak-test interface. Defining `sourceHessian` or either field from
+`hHessianOpNorm`, unexpanded `testRegular`, or an unsourced
+`SourceSelectedWeakTestC2bBoundedHessian` predicate is wrapper churn.
 | Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
-| Law integral to standard-basis action | Rewrite the law-space Mathlib Laplacian integral as the `Set.univ` standard-basis second-derivative action. | `SALD.generalMovingTargetDiscreteSourceTestLaplacianEqStdIteratedFDeriv`; `Mathlib.Analysis.InnerProductSpace.Laplacian` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianStdBasisActionDefOfLawIntegra...
-| Downstream law-integral consumer | Feed the law-integral split through the cycle-144 standard-basis action consumer while keeping `hemGeneratorLaplacianEventFieldStdBasisDef` explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventStdBasisActionFormula`; law-integral helper | `SALD.generalMovingTargetDis...
-| Remaining EM source definitions | Prove the paper's law-space EM generator selected-test Laplacian action integral and the standard-basis event-field definition for the named frozen EM Laplacian event field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; existing EM c...
-`htraceFieldStdBasis`, source-field/source-functional leaves,
+| Cycle 173 lower_1 source-Hessian proof route | Reduce `hHessianOpNorm` to a source-backed Hessian representative plus a uniform bound. | `HasFDerivAt.fderiv`; Brownian unit theorem; Hessian-to-iterated-Frechet bridge; cycle-173 middle rejection of wrappers | `SALD.cycle173GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHe...
+Dependency classification remains `source-contract-gap`, with a Mathlib
+derivative-uniqueness proof route once the source-backed fields exist. No SLT
+## Cycle 173 Lower_2 Compiled Source-Hessian Bridge
 Classification: `narrows-source-cited-boundary`.
-- `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianTraceEventLawIntegralFormula`.
-`SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`.
-It follows from the smaller source-facing equality
-together with the already explicit trace-field source formula
+SALD.selectedWeakTestHessianOpNormOfSourceHessianField
+smaller source-facing pair
+hSourceHasHessian :
+HasFDerivAt (fderiv Real sourceTest) (sourceHessian z) z
+hSourceHessianBound :
+forall z : E, norm (sourceHessian z) <= C1
+forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1
+by rewriting with `(hSourceHasHessian z).fderiv` and applying
+`hSourceHessianBound z`.
 | Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
-| Trace field to Laplacian event-field standard basis | Identify the named frozen-generator Laplacian event field with the already tracked trace field, then reuse `htraceFieldStdBasis`. | source equality `hemGeneratorLaplacianEventFieldEqTraceField`; `htraceFieldStdBasis` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldStdBasisDefOfTraceF...
-| Downstream trace-event law-integral consumer | Feed the trace-event split through the cycle-145 law-integral route while keeping `hemGeneratorLaplacianLawIntegral` explicit. | `SALD.generalMovingTargetDiscreteWeakFpSourceActionDefOfEmGeneratorTraceLaplacianStdBasisEventLawIntegralFormula`; trace-event helper | `SALD.generalMovingTargetDiscreteWeakFpSour...
-| Remaining EM source definitions | Prove the paper's law-space EM generator selected-test Laplacian action integral and the source equality between the named Laplacian event field and the trace field. | Source definition of the frozen EM generator from `eq:general_moving_target_SALD_frozen_interp`; Fokker--Planck line for `hatRhoS`; trace-field naming at...
-source-field/source-functional leaves, density-Laplacian facts,
+| Cycle 173 lower_2 source-Hessian bridge | Compile the bridge from source-backed Hessian fields to the downstream selected-test Hessian operator-norm bound. | `HasFDerivAt.fderiv`; lower_1 source-Hessian route; cycle-173 middle wrapper rejection | `SALD.selectedWeakTestHessianOpNormOfSourceHessianField`; `SALD.cycle173GeneralMovingTargetDiscreteEmGenerat...
+Remaining dependency classification: `source-contract-gap` for
+`hSourceHasHessian` and `hSourceHessianBound`. The compiled theorem does not
+unsourced `SourceSelectedWeakTestC2bBoundedHessian`, and does not use the VP
 ```
 
 ## Recent Packet Classifications
 
-- `discharges-supplied-hypothesis`: 0
-- `narrows-source-cited-boundary`: 28
-- `rejected-wrapper-churn`: 1
+- `discharges-supplied-hypothesis`: 1
+- `narrows-source-cited-boundary`: 14
+- `rejected-wrapper-churn`: 14
 
 ## Proof Status Counts
 
 - `blocked`: 0
 - `contractOnly`: 34
-- `formalized`: 183
-- `obligation`: 1070
+- `formalized`: 225
+- `obligation`: 1101
 - `planned`: 9
 - `sourceCited`: 16
 

@@ -55,7 +55,16 @@ python3 tools/astis.py launch-sald-6h
 
 The launcher does not use shell `timeout`; once a cycle begins, it lets the
 upper/middle/lower/reviewer sequence and build gate finish.  The batch-end
-LaTeX export is generated only after the final completed cycle.
+writing pass is generated only after the final completed cycle.  It updates
+the internal proof-note export under `paper-notes/AutoLeanInSleepSampling/`
+and the external ASTIS technical-report snippets under
+`/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS`.
+
+The middle agent owns this two-way conversion layer.  During proof search it
+keeps conversion windows and obligations synchronized; at batch end it performs
+the ARIS-style paper-writing pass that explains the latest Lean state,
+remaining blocker, source anchors, and updated coordination rules in
+Markdown/LaTeX.
 
 See `docs/phase_and_agent_tasklist.md` for the two-phase faithful-paper
 discipline and `docs/sleep_run_guide.md` for monitoring details.

@@ -229,10 +229,10 @@ Refresh the current SALD proof blueprint:
 python3 tools/astis.py blueprint-refresh ASTIS-SALD-001
 ```
 
-Write the next compact context pack:
+Write a compact context pack for the next cycle:
 
 ```bash
-python3 tools/astis.py write-context-pack ASTIS-SALD-001 --cycle 114
+python3 tools/astis.py write-context-pack ASTIS-SALD-001 --cycle <next-cycle>
 ```
 
 Run a short dry cycle:
@@ -247,10 +247,18 @@ Run a graceful long batch:
 python3 tools/astis.py launch-sald-6h
 ```
 
-Export the human-readable project article:
+By default, `launch-sald-6h` lets the final completed cycle finish and then
+runs the batch-end writing pass.  This updates both the internal proof-note
+article under `paper-notes/AutoLeanInSleepSampling/` and, when configured, the
+external ASTIS technical-report checkout selected by `ASTIS_TECH_REPORT_ROOT`.
+Use `--no-after-latex` only for a proof-only run.
+
+Export the human-readable project article and technical-report snippets
+manually:
 
 ```bash
 python3 tools/astis.py export-latex
+python3 tools/astis.py export-technical-report
 ```
 
 ## First Targets
@@ -273,9 +281,12 @@ Initial proof DAG:
 - `thm:unified-forward-KL`
 - `thm:general-moving-target-SALD-discrete`
 
-Current long-run checkpoint: after cycle 113, the active blocker is the named
-`barB` state-event Bochner set-integral characterization around
-`appendix.tex:1368-1377`.  The useful packet classifications are:
+Current long-run checkpoint: after cycle 173, the active blocker has been
+narrowed from the broad EM conditional-law/Fokker--Planck backend to the
+source-facing selected weak-test Hessian fields `hSourceHasHessian` and
+`hSourceHessianBound`, which support the compiled bridge
+`SALD.selectedWeakTestHessianOpNormOfSourceHessianField`.  The useful packet
+classifications are:
 
 - `discharges-supplied-hypothesis`
 - `narrows-source-cited-boundary`
@@ -335,6 +346,17 @@ paper-notes/AutoLeanInSleepSampling/latex/main.tex
 The SALD reproduction is treated as a case study appendix inside the larger
 ASTIS article.  The exported paper notes are for collaborator inspection; the
 Lean files and proof-obligation ledgers remain the source of truth.
+
+The public-facing technical report source is maintained as a separate paper
+checkout.  Set `ASTIS_TECH_REPORT_ROOT` when the report lives outside this
+repository.
+
+Each 6h batch updates generated report snippets:
+
+```text
+sections/generated_run_status.tex
+sections/generated_middle_rules.tex
+```
 
 ## GitHub
 

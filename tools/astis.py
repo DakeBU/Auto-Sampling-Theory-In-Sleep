@@ -12,6 +12,7 @@ import argparse
 import csv
 import datetime as _dt
 import json
+import os
 import re
 import subprocess
 import sys
@@ -40,6 +41,7 @@ OUTER_REPOS_SAMPLING_ROOT = OUTER_REPOS_ROOT / "sampling_theory_sde"
 OUTER_PAPERS_AUTOMATION_ROOT = OUTER_PAPERS_ROOT / "automation_systems"
 LEANMARATHON_ROOT = OUTER_REPOS_AUTOMATION_ROOT / "LeanMarathon"
 LEANMARATHON_PDF = OUTER_PAPERS_AUTOMATION_ROOT / "LeanMarathon-2606.05400.pdf"
+TECH_REPORT_ROOT = Path(os.environ.get("ASTIS_TECH_REPORT_ROOT", str(ROOT.parent / "Auto_Proof_Papers" / "ASTIS")))
 
 QUANTUM_AUTOPROOF_URL = "https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201"
 SLT_URL = "https://github.com/YuanheZ/lean-stat-learning-theory"
@@ -108,12 +110,40 @@ def file_stamp() -> str:
 
 
 def rel(path: Path) -> str:
-    return str(path.relative_to(ROOT))
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
 
 
 def slugify(value: str) -> str:
     value = re.sub(r"[^A-Za-z0-9_.-]+", "-", value).strip("-")
     return value or "untitled"
+
+
+def public_article_text(value: str) -> str:
+    """Convert internal run notes into public-facing report prose."""
+
+    replacements = {
+        "sald_version_2.tex": "unrelated draft routes",
+        "•": " dot ",
+        "→": " -> ",
+        "↦": " |-> ",
+        "–": "-",
+        "—": "--",
+        "“": '"',
+        "”": '"',
+        "’": "'",
+    }
+    for old, new in replacements.items():
+        value = value.replace(old, new)
+    value = re.sub(r"/home/nitanda_sub/mark/repos/[^\s`]+", "[local source path]", value)
+    value = re.sub(r"\bappendix\.tex:\d+(?:-\d+)?", "the relevant SALD appendix passage", value)
+    value = re.sub(r"\bmain_body\.tex:\d+(?:-\d+)?", "the corresponding SALD main-text passage", value)
+    value = re.sub(r"\b[A-Za-z0-9_.-]+\.tex:\d+(?:-\d+)?", "the source LaTeX passage", value)
+    value = re.sub(r"\b[1-9]\d{2,3}-\d{3,4}\b", "the relevant SALD source passage", value)
+    value = re.sub(r"lower_\d+ recorded as lower because astis\.py rejects lower_\d+\.\s*", "", value)
+    return value
 
 
 def run(cmd: list[str]) -> int:
@@ -1350,7 +1380,7 @@ python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind
             "Do not spend the cycle on source-index rebaseline unless reviewer found a blocking source-anchor defect. "
             "Faithful work has two phases: Phase 1 is a complete source-to-Lean transcript with exact constants and obligations; "
             "Phase 2, only after the transcript is complete, reorganizes reusable APIs for teaching, later SDE/Sampling papers, and exploratoryProof mode. "
-            "Require middle to keep two-way Lean/Markdown/LaTeX synchronization, but defer polished project-article export to the batch end. "
+            "Require middle to keep two-way Lean/Markdown/LaTeX synchronization, but defer polished project-article and technical-report export to the batch end. "
             "If a cited analytic theorem is too large to prove now, require a precise source-cited interface and keep its status below formalized. "
             + external_lookup_discipline()
             + " "
@@ -1368,10 +1398,11 @@ python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind
             "Before inventing an abstraction, inspect the local `lean-stat-learning-theory` reference for Mathlib measure/probability idioms that can be ported locally under this project's toolchain. "
             "Also follow the MathCode-inspired theorem-reuse discipline: search existing ASTIS declarations, conversion windows, proof obligations, and cited-result ledgers before creating a duplicate interface. "
             "Before lower work, translate the relevant LaTeX proof step into Lean-facing declarations; after lower/reviewer work, translate accepted Lean declarations and remaining obligations back into Markdown/LaTeX notes. "
+            "At the end of a multi-hour batch, perform the ARIS-style writing pass: update the generated technical-report snippets with the latest run evidence, middle-agent rule changes, source anchors, and remaining proof boundary, while keeping Lean/proof obligations authoritative. "
             + external_lookup_discipline()
             + " "
             "During this sprint, avoid broad rebaseline work, broad SLT/SDE library import, and lower packets outside the active EM backend unless reviewer found a blocker. "
-            "Export the Overleaf-ready project article only at the end of a multi-hour batch. "
+            "Export the Overleaf-ready project article and the external ASTIS technical-report snippets only at the end of a multi-hour batch. "
             + post_129_guard
             + " "
             + post_150_guard
@@ -1759,6 +1790,7 @@ def cmd_launch_six_hour_sald(args: argparse.Namespace) -> int:
     print(f"pid: {pid}")
     print(f"active-agent-hours: {args.hours}")
     print(f"wall-hours safety: {args.wall_hours}")
+    print(f"batch-end report export: {'enabled' if args.after_latex else 'disabled'}")
     print(f"log: {rel(log_path)}")
     print(f"pid-file: {rel(pid_path)}")
     print(f"blueprint: {rel(blueprint_path)}")
@@ -1932,6 +1964,201 @@ Taylor/Ito/可测性/积分/边界定理。
    Lean API 或标准 SDE/Fokker--Planck/Ito/Taylor/Green identity 文献，但所有结果必须回写成
    本地 compiled declaration 或明确 `ProofObligation`。
 """
+
+
+def cmd_export_technical_report(args: argparse.Namespace) -> int:
+    cmd_init(argparse.Namespace())
+    task = getattr(args, "task", "ASTIS-SALD-001")
+    report_root = Path(getattr(args, "report_root", "") or TECH_REPORT_ROOT)
+    sections = report_root / "sections"
+    markdown_dir = ROOT / "paper-notes" / "AutoLeanInSleepSampling" / "markdown" / "technical-report-updates"
+
+    source_count = len(load_jsonl(ROOT / "research-wiki" / "source-index" / "SALD_original.jsonl"))
+    trial_count = len(load_jsonl(TRIAL_LOG))
+    latest_cycle = latest_cycle_number(task)
+    export_date = now_stamp()
+    window = latest_sald_window_info()
+    state = blueprint_control_state(task)
+    handoffs = latest_handoff_notes(task, limit=6)
+    diagnostics = lean_diagnostics()
+    totals = diagnostics.get("totals", {})
+
+    def public_report_text(value: str) -> str:
+        return public_article_text(value)
+
+    def latex_escape(value: str) -> str:
+        value = public_report_text(value)
+        return latex_escape_raw(value)
+
+    def latex_escape_raw(value: str) -> str:
+        replacements = {
+            "\\": r"\textbackslash{}",
+            "&": r"\&",
+            "%": r"\%",
+            "$": r"\$",
+            "#": r"\#",
+            "_": r"\_",
+            "{": r"\{",
+            "}": r"\}",
+            "~": r"\textasciitilde{}",
+            "^": r"\textasciicircum{}",
+        }
+        return "".join(replacements.get(char, char) for char in value)
+
+    proof_status_items = "\n".join(
+        rf"\item \texttt{{{latex_escape(str(key))}}}: {value}"
+        for key, value in sorted(state["proof_status_counts"].items())
+    )
+    packet_items = "\n".join(
+        rf"\item \texttt{{{latex_escape(str(key))}}}: {value}"
+        for key, value in state["trial_classifications_recent"].items()
+    )
+    handoff_items = "\n".join(
+        rf"\item {latex_escape(note)}" for note in handoffs
+    ) or r"\item No recent handoff notes were found."
+    active_seconds = window["active_agent_seconds"] or "unknown"
+
+    report_latex = rf"""% Auto-generated by `python3 tools/astis.py export-technical-report`.
+% Do not hand-edit this file; edit the generator or surrounding report text.
+
+\subsection{{Latest Automated Report Update}}
+\label{{sec:generated-report-update}}
+
+This subsection is generated by the middle-layer report-writing pass after a
+completed ASTIS batch.  The Lean repository, conversion windows, proof
+obligations, and reviewer gate remain the source of truth; this text is a
+human-readable technical-report projection of that state.
+
+\begin{{center}}
+\begin{{tabular}}{{lr}}
+\toprule
+Quantity & Value \\
+\midrule
+Export time & {latex_escape_raw(export_date)} \\
+Task & \texttt{{{latex_escape_raw(task)}}} \\
+Latest observed cycle & {latest_cycle} \\
+Latest 6h cycle range & {latex_escape_raw(window["cycle_range"])} \\
+Active-agent usage & {latex_escape_raw(active_seconds)} \\
+Source-indexed SALD declarations & {source_count} \\
+Trial-log records & {trial_count} \\
+Lean theorem declarations & {latex_escape_raw(str(totals.get("theorem", "unknown")))} \\
+Lean definition declarations & {latex_escape_raw(str(totals.get("def", "unknown")))} \\
+Forbidden proof-pattern hits & {latex_escape_raw(str(totals.get("forbidden_hits", "unknown")))} \\
+\bottomrule
+\end{{tabular}}
+\end{{center}}
+
+\paragraph{{Current dynamic leaf.}}
+\begin{{quote}}\small
+{latex_escape(state["dynamic_leaf_candidate"])}
+\end{{quote}}
+
+\paragraph{{Current illness area.}}
+\begin{{quote}}\small
+{latex_escape(state["illness_area_candidate"])}
+\end{{quote}}
+
+\paragraph{{Latest reviewer blocker.}}
+\begin{{quote}}\small
+{latex_escape(state["latest_blocker"])}
+\end{{quote}}
+
+\paragraph{{Recent packet classifications.}}
+\begin{{itemize}}
+{packet_items}
+\end{{itemize}}
+
+\paragraph{{Proof-status counts.}}
+\begin{{itemize}}
+{proof_status_items}
+\end{{itemize}}
+
+\paragraph{{Recent handoff notes.}}
+\begin{{itemize}}
+{handoff_items}
+\end{{itemize}}
+"""
+
+    rules_latex = r"""% Auto-generated by `python3 tools/astis.py export-technical-report`.
+% This file records the article-writing contract used by 6h ASTIS batches.
+
+\subsection{Batch-End Article-Writing Pass}
+\label{sec:generated-article-writing-pass}
+
+ASTIS treats technical-report writing as part of the middle-agent conversion
+layer.  During proof search, the middle agent keeps source-to-Lean and
+Lean-to-Markdown/LaTeX conversion windows current, but it does not spend lower
+proof-search packets on polished article prose.  After the final completed
+upper/middle/lower/reviewer cycle of a multi-hour batch, the report-writing
+pass updates the human-readable article projection.
+
+The pass has four responsibilities:
+\begin{enumerate}[leftmargin=*]
+  \item translate accepted Lean declarations and remaining proof obligations
+        into ordinary mathematical language;
+  \item name the exact source-paper region and active dynamic proof leaf;
+  \item record lessons for the next upper and middle agents as rules, not
+        chat history;
+  \item keep the technical report synchronized with run evidence while
+        preserving Lean and the proof-obligation ledger as the authority.
+\end{enumerate}
+
+This policy follows the writing-skill discipline of long-horizon autonomous
+research systems: a paper is a maintained artifact, and every long run should
+leave a clearer explanation of what the system has proved, what it has not
+proved, and why the remaining boundary is mathematically meaningful.
+"""
+
+    status_md_lines = [
+        "# ASTIS Technical Report Update",
+        "",
+        f"- Export time: {export_date}",
+        f"- Task: `{task}`",
+        f"- Latest observed cycle: {latest_cycle}",
+        f"- Latest 6h cycle range: `{window['cycle_range']}`",
+        f"- Latest log: `{window['log']}`",
+        f"- Active-agent usage: {active_seconds}",
+        f"- Source-indexed SALD declarations: {source_count}",
+        f"- Trial-log records: {trial_count}",
+        f"- Lean theorem declarations: {totals.get('theorem', 'unknown')}",
+        f"- Lean def declarations: {totals.get('def', 'unknown')}",
+        f"- Forbidden proof-pattern hits: {totals.get('forbidden_hits', 'unknown')}",
+        "",
+        "## Current Dynamic Leaf",
+        "",
+        "```text",
+        public_report_text(state["dynamic_leaf_candidate"]),
+        "```",
+        "",
+        "## Latest Reviewer Blocker",
+        "",
+        "```text",
+        public_report_text(state["latest_blocker"]),
+        "```",
+        "",
+        "## Middle-Agent Rule Update",
+        "",
+        "- Keep source-to-Lean and Lean-to-Markdown/LaTeX conversion synchronized during every cycle.",
+        "- Defer polished article edits to the batch-end report-writing pass.",
+        "- The generated technical-report snippets are explanatory projections; Lean, conversion windows, and proof obligations remain authoritative.",
+        "- Each report update must tell a human why the current proof boundary is smaller or why the cycle was rejected as wrapper churn.",
+        "",
+        "## Recent Handoffs",
+        "",
+        *(f"- {public_report_text(note)}" for note in handoffs),
+        "",
+    ]
+
+    write_text(sections / "generated_run_status.tex", report_latex)
+    write_text(sections / "generated_middle_rules.tex", rules_latex)
+    cycle_name = f"{slugify(task)}-cycle{window['cycle_range']}-report-update.md"
+    write_text(markdown_dir / cycle_name, "\n".join(status_md_lines))
+    write_text(markdown_dir / f"{slugify(task)}-latest-report-update.md", "\n".join(status_md_lines))
+
+    add_manifest("astis.py export-technical-report", sections / "generated_run_status.tex", "paper", "Updated ASTIS technical-report run-status section")
+    add_manifest("astis.py export-technical-report", sections / "generated_middle_rules.tex", "paper", "Updated ASTIS technical-report middle-agent writing rules")
+    print(f"updated technical report snippets under {rel(report_root)}")
+    return 0
 
 
 def analyze_efficiency_log(path: Path) -> dict:
@@ -2140,6 +2367,7 @@ def cmd_export_latex(args: argparse.Namespace) -> int:
     latest_handoffs = latest_handoff_notes(task, limit=5)
 
     def latex_escape(value: str) -> str:
+        value = public_article_text(value)
         replacements = {
             "\\": r"\textbackslash{}",
             "&": r"\&",
@@ -2161,7 +2389,7 @@ def cmd_export_latex(args: argparse.Namespace) -> int:
         f"- `{key}`: {value}" for key, value in blueprint_state["trial_classifications_recent"].items()
     )
     handoff_markdown = "\n".join(
-        f"- {note}" for note in latest_handoffs
+        f"- {public_article_text(note)}" for note in latest_handoffs
     ) or "- No recent handoff notes were found."
     blocker_markdown = f"""## Human-Readable Blocker Report
 
@@ -2181,19 +2409,19 @@ Laplacian/divergence theorem applies.
 Current dynamic leaf:
 
 ```text
-{blueprint_state["dynamic_leaf_candidate"]}
+{public_article_text(blueprint_state["dynamic_leaf_candidate"])}
 ```
 
 Current illness area:
 
 ```text
-{blueprint_state["illness_area_candidate"]}
+{public_article_text(blueprint_state["illness_area_candidate"])}
 ```
 
 Latest blocker:
 
 ```text
-{blueprint_state["latest_blocker"]}
+{public_article_text(blueprint_state["latest_blocker"])}
 ```
 
 Recent packet classifications:
@@ -2422,9 +2650,9 @@ contracts are SDE/Sampling objects rather than circuit oracles.}
     write_text(sections / "00_overview.tex", fill(r"""\section{Overview}
 
 \ASTIS{} is a Lean-centered automation system for SDE, sampling, and guided
-generation theory.  Its first faithful-paper target is the original VA-SALD
-paper source under the project task \Lean{ASTIS-SALD-001}; the draft
-\Lean{sald_version_2.tex} is intentionally excluded from that reproduction.
+generation theory.  Its first faithful-paper target is the public VA-SALD
+paper under the project task \Lean{ASTIS-SALD-001}.  The reproduction treats
+that paper as the source of truth rather than later internal drafts.
 
 The system adapts the public Quantum block-encoding automation workflow at
 \url{@QUANTUM_URL@}.  The domain semantics are different: ASTIS tracks laws,
@@ -2539,8 +2767,7 @@ and the ASTIS forbidden-pattern scan.  Forbidden proof closures include
     write_text(sections / "A_sald_case.tex", r"""\section{VA-SALD Faithful-Reproduction Case}
 
 The first case study is \Lean{ASTIS-SALD-001}: faithful reproduction of the
-original VA-SALD paper proofs, excluding \Lean{sald_version_2.tex}.  The first
-proof DAG tracks
+public VA-SALD paper proofs.  The first proof DAG tracks
 \[
 \texttt{lem:gronwall},\quad
 \texttt{lem:dv\_variation},\quad
@@ -2555,7 +2782,7 @@ The accepted lower slice for \Lean{thm:forward-KL-discrete} is
 \[
   \text{\Lean{sald.discrete_forward_kl.conditional_drift_density}}.
 \]
-It corresponds to the source proof lines defining
+It corresponds to the source proof step defining
 \[
   \bar b_{k,s}(x)
   = \mathbb{E}\!\left[\nabla \log \pi_{t_k}(X_k^\eta)
@@ -2609,6 +2836,8 @@ remaining obligation \\
     add_manifest("astis.py export-latex", zh_dir / zh_cycle_name, "paper", "Exported Chinese 6h SALD proof-reproduction summary")
     print(f"exported LaTeX article to {rel(latex / 'main.tex')}")
     print(f"exported Chinese summary to {rel(zh_dir / zh_cycle_name)}")
+    if not getattr(args, "skip_technical_report", False):
+        return cmd_export_technical_report(argparse.Namespace(task=task, report_root=str(TECH_REPORT_ROOT)))
     return 0
 
 
@@ -2799,13 +3028,20 @@ def build_parser() -> argparse.ArgumentParser:
     launch.add_argument("--max-cycles", type=int, default=64)
     launch.add_argument("--lower-count", type=int, default=2)
     launch.add_argument("--start-cycle", type=int, default=0)
-    launch.add_argument("--after-latex", action="store_true")
+    launch.add_argument("--after-latex", dest="after_latex", action="store_true", default=True)
+    launch.add_argument("--no-after-latex", dest="after_latex", action="store_false")
     launch.add_argument("--skip-reviewer", action="store_true")
     launch.set_defaults(func=cmd_launch_six_hour_sald)
 
     export = sub.add_parser("export-latex")
     export.add_argument("--task", default="ASTIS-SALD-001")
+    export.add_argument("--skip-technical-report", action="store_true")
     export.set_defaults(func=cmd_export_latex)
+
+    report_export = sub.add_parser("export-technical-report")
+    report_export.add_argument("--task", default="ASTIS-SALD-001")
+    report_export.add_argument("--report-root", default=str(TECH_REPORT_ROOT))
+    report_export.set_defaults(func=cmd_export_technical_report)
 
     note = sub.add_parser("agent-note")
     note.add_argument("run")

@@ -1,8 +1,8 @@
 # ASTIS Blueprint Control State
 
 - Task: `ASTIS-SALD-001`
-- Generated: `2026-06-08 23:04:09`
-- Latest cycle: `162`
+- Generated: `2026-06-10 07:34:23`
+- Latest cycle: `173`
 - Stage: LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization
 
 ## System Of Record
@@ -16,28 +16,28 @@
 
 ## Dynamic Leaf Candidate
 
-Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
+Remaining boundary: selected-test second-Frechet-derivative operator-norm bound and Brownian coordinate unit direction from testRegular/source regularity. Gate passed: python3 tools/astis.py check.
 
 ## Illness Area Candidate
 
-Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
+remaining exact boundary is hHessianOpNorm : forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1 from selected weak-test C2_b/bounded-Hessian source interface under sald.general_moving_target_discrete.em_interpolation_fp. Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled. Source anchors checked: appendix.tex:984-995, appendix.tex:1026-1072, appendix.tex:1379-1387, main_body.tex:273-305. No SLT/external lookup/import/status promotion/wrapper churn/non-EM fallback/sald_version_2. Gate passed: python3 tools/astis.py check.
 
 ## Latest Blocker
 
-Remaining boundary is the internal-paper scalar Brownian/Ito coordinate decomposition and per-coordinate Hessian generator theorem from eq:general_moving_target_SALD_frozen_interp and appendix.tex:1379-1387
+Remaining boundary: selected-test second-Frechet-derivative operator-norm bound and Brownian coordinate unit direction from testRegular/source regularity. Gate passed: python3 tools/astis.py check.
 
 ## Recent Packet Classifications
 
-- `discharges-supplied-hypothesis`: 0
-- `narrows-source-cited-boundary`: 28
-- `rejected-wrapper-churn`: 1
+- `discharges-supplied-hypothesis`: 1
+- `narrows-source-cited-boundary`: 14
+- `rejected-wrapper-churn`: 14
 
 ## Proof Status Counts
 
 - `blocked`: 0
 - `contractOnly`: 34
-- `formalized`: 183
-- `obligation`: 1070
+- `formalized`: 225
+- `obligation`: 1101
 - `planned`: 9
 - `sourceCited`: 16
 
