@@ -3572,3 +3572,5 @@
 | 2026-06-10 11:14:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
 | 2026-06-10 11:14:28 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_run_status.tex` | paper | Updated ASTIS technical-report run-status section |
 | 2026-06-10 11:14:28 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_middle_rules.tex` | paper | Updated ASTIS technical-report middle-agent writing rules |
+| 2026-06-10 11:21:55 | astis.py blueprint-status | `research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-10 11:21:56 | astis.py blueprint-refresh | `research-wiki/blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |

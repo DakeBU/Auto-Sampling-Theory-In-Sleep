@@ -1198,6 +1198,23 @@ def write_context_pack(task_id: str, cycle: int, output: Path | None = None) -> 
 
 
 def sald_cycle_focus(cycle: int) -> str:
+    if cycle >= 174:
+        return (
+            "Post-cycle-173 source-Hessian leaf: stay on "
+            "`sald.general_moving_target_discrete.em_interpolation_fp` and discharge or strictly narrow the two "
+            "source-facing selected weak-test Hessian fields left by "
+            "`SALD.selectedWeakTestHessianOpNormOfSourceHessianField`: "
+            "`hSourceHasHessian : forall z, HasFDerivAt (fderiv Real sourceTest) (sourceHessian z) z` and "
+            "`hSourceHessianBound : forall z, norm (sourceHessian z) <= C1`. "
+            "Upper/middle must first decide whether these fields are genuine source assumptions or derivable from "
+            "the selected-test regularity used by the EM Brownian/Ito weak action. "
+            "If derivable, lower_1 writes the natural-language Mathlib route and lower_2 implements exactly one "
+            "compiled theorem. If not derivable from the paper source, record the gap honestly and move to the next "
+            "real leaf in the same Brownian/Ito chain: selected-line Taylor domination, Gaussian DCT integrability, "
+            "quadratic-variation normalization, or per-coordinate Hessian generator identity. "
+            "Do not return to older `htraceFieldEqLaplacian`/consumer-wrapper targets unless this Hessian leaf is "
+            "closed or reviewer records a strict dependency."
+        )
     if cycle >= 114:
         return (
             "Blueprint-guided dynamic leaf: use `python3 tools/astis.py blueprint-refresh ASTIS-SALD-001` "
@@ -1367,6 +1384,22 @@ python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind
         "Reject new total-event/source-functional consumer wrappers unless they discharge one of these direct leaves. "
         "Reviewer must check that the remaining boundary is strictly smaller, not merely renamed, and that `python3 tools/astis.py check` passes."
     )
+    post_173_guard = (
+        "For SALD cycle 174 and later, the reviewer-accepted cycle-173 boundary overrides the older cycle-150 direct-leaf list. "
+        "The active target is still the EM conditional-law / weak-FP Brownian/Ito backend, but the immediate live leaf is now the "
+        "source-Hessian contract behind `SALD.selectedWeakTestHessianOpNormOfSourceHessianField`: "
+        "`hSourceHasHessian : forall z, HasFDerivAt (fderiv Real sourceTest) (sourceHessian z) z` and "
+        "`hSourceHessianBound : forall z, norm (sourceHessian z) <= C1`. "
+        "Upper must decide whether these fields are paper assumptions or can be derived from selected-test regularity; middle must "
+        "translate that decision into a single Lean theorem/proof-obligation with source anchors; lower_1 should give the natural-language "
+        "Mathlib route, using the local SLT Taylor/DCT/measure files only as style references; lower_2 should implement exactly one compiled "
+        "theorem or strictly smaller source-cited boundary. "
+        "Reject routes that define `sourceHessian` from the desired conclusion, reintroduce `SelectedWeakTestC2bBoundedHessian` without source "
+        "support, use VP score-Hessian regularity for the selected weak test, import SLT as a dependency, or return to consumer-wrapper churn. "
+        "If the source-Hessian fields are confirmed absent from the paper source, keep the gap honest and move only to the next connected "
+        "Brownian/Ito leaf: selected-line Taylor domination, Gaussian dominated-convergence integrability, quadratic-variation normalization, "
+        "or per-coordinate Hessian generator identity."
+    )
     role_specific = {
         "upper": (
             "Choose one faithful-paper objective, mode discipline, non-goals, lower packet, and reviewer checklist. "
@@ -1388,6 +1421,8 @@ python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind
             + post_129_guard
             + " "
             + post_150_guard
+            + " "
+            + post_173_guard
         ),
         "middle": (
             "Maintain conversion windows, proof obligations, source indexes, SLT reuse audit, and lower packets. "
@@ -1406,6 +1441,8 @@ python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind
             + post_129_guard
             + " "
             + post_150_guard
+            + " "
+            + post_173_guard
         ),
         "lower": (
             "Attempt one narrow proof-producing Lean task for the assigned active backend before creating more ledger-only obligations. Do not change the theorem target. "
@@ -1418,6 +1455,8 @@ python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind
             + post_129_guard
             + " "
             + post_150_guard
+            + " "
+            + post_173_guard
         ),
         "reviewer": (
             "Audit build gate, fake proof closures, source correspondence, cited results, and SLT port status. "
@@ -1427,6 +1466,8 @@ python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind
             "Use the MathCode-inspired diagnostics policy: hidden `axiom`, `constant`, `postulate`, `sorry`, `admit`, `Prop := True`, or `:= trivial` closures are blocking defects, and proof statistics should be used to notice suspicious broad rewrites. "
             "Also check backend-focus discipline: reject cycles that only add rebaseline/ledger work, broad route audits, unrelated display algebra, or SLT import claims when the active EM conditional-law/Fokker--Planck backend could have been advanced. "
             + post_150_guard
+            + " "
+            + post_173_guard
         ),
     }[role]
     if role == "lower" and lower_count >= 2:

@@ -32,9 +32,9 @@ It starts the same graceful 6-hour SALD process under `nohup`, writes a PID
 file, writes a log under `runs/logs/`, runs one lower worker per cycle, checks
 each completed cycle, and refreshes the human-readable exports after the final
 completed cycle.  This includes both the internal proof article under
-`paper-notes/` and the external ASTIS technical-report snippets under
-`/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS`.  To disable this
-batch-end writing pass for a proof-only run, use:
+`paper-notes/` and, when configured, the external ASTIS technical-report
+snippets selected by `ASTIS_TECH_REPORT_ROOT`.  To disable this batch-end
+writing pass for a proof-only run, use:
 
 ```bash
 python3 tools/astis.py launch-sald-6h --no-after-latex
@@ -64,11 +64,12 @@ The internal Overleaf-style proof-note entry point is:
 paper-notes/AutoLeanInSleepSampling/latex/main.tex
 ```
 
-The external technical report snippets updated by each batch are:
+The external technical report snippets updated by each batch are, relative to
+the configured report checkout:
 
 ```text
-/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_run_status.tex
-/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_middle_rules.tex
+sections/generated_run_status.tex
+sections/generated_middle_rules.tex
 ```
 
 The generated snippets are explanatory projections.  Lean files, conversion

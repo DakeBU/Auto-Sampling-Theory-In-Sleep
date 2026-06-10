@@ -22,8 +22,8 @@ discretization, and particle approximations.
 
 Phase 1 is the priority for `ASTIS-SALD-001`.
 
-- Reproduce the original VA-SALD paper in `/home/nitanda_sub/mark/repos/sald/paper`.
-- Exclude `sald_version_2.tex`.
+- Reproduce the original VA-SALD paper
+  [arXiv:2605.07950](https://arxiv.org/abs/2605.07950) faithfully.
 - Keep theorem statements, constants, hypotheses, and source proof order fixed.
 - Map every source theorem, definition, equation, and proof step to a Lean
   declaration, cited-result row, or `ProofObligation`.
@@ -191,11 +191,19 @@ LeanMarathon controls:
 - Deterministic gate: `python3 tools/astis.py check` is the only progress
   authority; agent confidence is not enough.
 
-For SALD after cycle 113, the generated proof blueprint should be treated as
-the current system-of-record snapshot.  The expected next packet is either the named
-dynamic leaf around `hbarBStateSetIntegral` / source state-event Bochner
-set-integral characterization, or a strictly smaller illness area inside that
-boundary.
+For SALD after cycle 173, the generated proof blueprint should be treated as
+the current system-of-record snapshot.  The expected next packet is the
+source-Hessian leaf behind
+`SALD.selectedWeakTestHessianOpNormOfSourceHessianField`: either prove or
+strictly narrow the two fields
+`hSourceHasHessian : forall z, HasFDerivAt (fderiv Real sourceTest)
+(sourceHessian z) z` and `hSourceHessianBound : forall z, norm
+(sourceHessian z) <= C1`.  If those fields are not actually supplied by the
+source paper's selected weak-test regularity, the system must record that as a
+source-contract gap and move only to the next connected Brownian/Ito leaf
+inside the same backend: selected-line Taylor domination, Gaussian dominated
+convergence integrability, quadratic-variation normalization, or
+per-coordinate Hessian generator identity.
 
 Mode boundary: `faithfulPaper` may keep failed proof attempts and negative
 caches for a fixed theorem, but must not use EoH-style mutation to change the

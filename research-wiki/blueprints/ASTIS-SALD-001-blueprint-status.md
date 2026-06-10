@@ -1,7 +1,7 @@
 # ASTIS Blueprint Control State
 
 - Task: `ASTIS-SALD-001`
-- Generated: `2026-06-10 07:34:23`
+- Generated: `2026-06-10 11:21:54`
 - Latest cycle: `173`
 - Stage: LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization
 
@@ -16,7 +16,7 @@
 
 ## Dynamic Leaf Candidate
 
-Remaining boundary: selected-test second-Frechet-derivative operator-norm bound and Brownian coordinate unit direction from testRegular/source regularity. Gate passed: python3 tools/astis.py check.
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald_version_2 use. Gate passed: python3 tools/astis.py check.
 
 ## Illness Area Candidate
 
@@ -24,12 +24,12 @@ remaining exact boundary is hHessianOpNorm : forall z : E, norm (fderiv Real (fd
 
 ## Latest Blocker
 
-Remaining boundary: selected-test second-Frechet-derivative operator-norm bound and Brownian coordinate unit direction from testRegular/source regularity. Gate passed: python3 tools/astis.py check.
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald_version_2 use. Gate passed: python3 tools/astis.py check.
 
 ## Recent Packet Classifications
 
 - `discharges-supplied-hypothesis`: 1
-- `narrows-source-cited-boundary`: 14
+- `narrows-source-cited-boundary`: 15
 - `rejected-wrapper-churn`: 14
 
 ## Proof Status Counts

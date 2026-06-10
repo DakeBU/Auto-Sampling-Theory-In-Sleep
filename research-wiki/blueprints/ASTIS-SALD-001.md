@@ -2,7 +2,7 @@
 
 Task id: `ASTIS-SALD-001`
 Title: Faithfully reproduce the original VA-SALD paper proofs
-Updated: `2026-06-10 07:34:25`
+Updated: `2026-06-10 11:21:56`
 Blueprint stage: `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`
 
 This is ASTIS's compact system-of-record snapshot for long-horizon Lean proof
@@ -15,7 +15,7 @@ Lean-Markdown-LaTeX exports must stay synchronized.
 
 ```text
 Mode: `ASTIS-SALD-001` follows `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`.
-Current dynamic leaf: Remaining boundary: selected-test second-Frechet-derivative operator-norm bound and Brownian coordinate unit direction from testRegular/source regularity. Gate passed: python3 tools/astis.py check.
+Current dynamic leaf: narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald_version_2 use. Gate passed: python3 tools/astis.py check.
 Current illness area: remaining exact boundary is hHessianOpNorm : forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1 from selected weak-test C2_b/bounded-Hessian source interface under sald.general_moving_target_discrete.em_interpolation_fp. Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled. Source anchors checked: appendix.tex:984-995, appendix.tex:1026-1072, appendix.tex:1379-1387, main_body.tex:273-305. No SLT/external lookup/import/status promotion/wrapper churn/non-EM fallback/sald_version_2. Gate passed: python3 tools/astis.py check.
 Upper/middle must retire stale leaves before assigning lower work.
 Lower work should be one local Lean declaration/proof boundary at a time.
@@ -29,9 +29,8 @@ middle must retire it before spending more proof-search tokens.
 
 | Leaf | Status |
 |---|---|
-| Remaining boundary: selected-test second-Frechet-derivative operator-norm bound and Brownian coordinate unit direction from testRegular/source regularity. Gate passed: python3 tools/astis.py check. | candidate |
+| narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald_version_... | candidate |
 | remaining exact boundary is hHessianOpNorm : forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1 from selected weak-test C2_b/bounded-Hessian source interface under sald.general_moving_target_discrete.em_interpolation_fp. Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled. Source anchors checked: appendix.tex:984-995, appendix.tex:1026-1072, appendix.tex:1379-1387, main_body.tex:273-305. No SLT/external lookup/import/status promotion/wrapper churn/non-EM fallb... | candidate |
-| rejected-wrapper-churn middle handoff after gate pass: cycle-172 blueprint-refreshed illness-area refiner preserved hHessianOpNorm source-contract gap, rejected same-field testRegular/SelectedWeakTestC2bBoundedHessian wrappers, synchronized Lean/conversion/proof-obligation/SLT audit notes, and passed python3 tools/astis.py check. | candidate |
 | lower_1 recorded as lower because astis.py rejects lower_1. rejected-wrapper-churn lower_1 illness-area proof-scout handoff after gate pass: preserved exact hHessianOpNorm source-contract gap under sald.general_moving_target_discrete.em_interpolation_fp; Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled; source anchors and original-source search excluding sald_version_2.tex still lack selected weak-test global bounded-Hessian field; added synchronized Lean ProofObligation/... | candidate |
 | lower_2 recorded as lower because astis.py rejects lower_2. rejected-wrapper-churn lower_2 after gate pass: rejected unsourced SourceSelectedWeakTestC2bBoundedHessian/hHessianOpNorm projection and rejected iteration_complexity.tex:309-321 VP score Hessian as wrong object for sourceTest; added cycle172 lower2 ProofObligation/DAG/dependency plus proof-obligation/conversion-window/SLT audit sync. Remaining exact hHessianOpNorm source-contract gap. Gate passed: python3 tools/astis.py check. | candidate |
 | rejected-wrapper-churn reviewer acceptance after gate pass: accepted cycle-172 illness-area refiner packet; exact hHessianOpNorm source-contract gap preserved under sald.general_moving_target_discrete.em_interpolation_fp; no theorem-status promotion, no unsourced SelectedWeakTestC2bBoundedHessian projection, no SLT import, no sald_version_2 use; source anchors and iteration_complexity score-Hessian rejection checked; gate passed: python3 tools/astis.py check. | candidate |
@@ -76,7 +75,7 @@ unsourced `SourceSelectedWeakTestC2bBoundedHessian`, and does not use the VP
 ## Recent Packet Classifications
 
 - `discharges-supplied-hypothesis`: 1
-- `narrows-source-cited-boundary`: 14
+- `narrows-source-cited-boundary`: 15
 - `rejected-wrapper-churn`: 14
 
 ## Proof Status Counts
