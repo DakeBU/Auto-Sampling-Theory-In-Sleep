@@ -1,0 +1,26 @@
+\paragraph{Cycle 187 ASTIS status update.}
+The current SALD state is not missing the VA-SALD idea.  The remaining work is mainly background analysis that papers cite as standard but Lean must instantiate for the exact law, conditional representative, measurability/integrability assumptions, domination argument, boundary condition, and KL/FI/LSI or Fokker--Planck statement in use.
+
+\paragraph{Open paper-contribution leaves.}
+\begin{itemize}
+\item \texttt{discrete-forward-kl-main}: the corresponding SALD main-text passage; Keep theorem contract fixed; discharge the EM weak-FP and Brownian/Ito generator leaves below.
+\item \texttt{unified-forward-kl-main}: the corresponding SALD main-text passage; Do not mutate the statement; backfill shared KL/FI/LSI and moving-target interfaces.
+\item \texttt{frozen-em-interpolation}: the relevant SALD appendix passage; Prove one coordinate generator equality or narrow it to a single Taylor/Ito source obligation.
+\item \texttt{conditional-drift-definition}: the relevant SALD appendix passage; Close or strictly narrow conditional expectation representative and integrability hypotheses.
+\item \texttt{weak-fokker-planck-line}: the relevant SALD appendix passage; Prove/narrow generator-to-law weak action with the selected test function and Brownian term.
+\item \texttt{kl-derivative-start}: the relevant SALD appendix passage; Connect the weak-FP identity to the KL derivative only after the law-level backend is stable.
+\item \texttt{divergence-fi-ibp}: the relevant SALD appendix passage; Use local measure/variational technical lemmas first; queue missing Green/trace facts explicitly.
+\item \texttt{selected-source-hessian-fields}: the relevant SALD appendix passage; Either locate the exact source regularity assumption or leave a precise ProofObligation.
+\end{itemize}
+
+\paragraph{Open technical-lemma leaves.}
+\begin{itemize}
+\item \texttt{SLT/GaussianMeasure.lean}: SLT/GaussianMeasure.lean; Port to ASTIS-owned TechnicalLemmas before using.
+\item \texttt{SLT/GaussianPoincare/TaylorBound.lean}: SLT/GaussianPoincare/TaylorBound.lean; Port to ASTIS-owned TechnicalLemmas before using.
+\item \texttt{SLT/GaussianPoincare/Limit.lean}: SLT/GaussianPoincare/Limit.lean; Port to ASTIS-owned TechnicalLemmas before using.
+\item \texttt{SLT/GaussianLSI/DualityEntropy.lean}: SLT/GaussianLSI/DualityEntropy.lean; Port to ASTIS-owned TechnicalLemmas before using.
+\item \texttt{SLT/GaussianLSI/TensorizedGLSI.lean}: SLT/GaussianLSI/TensorizedGLSI.lean; Port to ASTIS-owned TechnicalLemmas before using.
+\end{itemize}
+
+\paragraph{Harness lesson.}
+ASTIS now records an ABEIS-style compact retrieval packet after each completed cycle.  The packet separates paper-specific source-line obligations from reusable technical lemmas, so upper and middle agents can make high-level decisions without replaying long logs.

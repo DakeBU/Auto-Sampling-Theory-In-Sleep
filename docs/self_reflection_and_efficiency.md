@@ -31,7 +31,8 @@ The compact pack contains:
 - the fixed faithful-paper contract;
 - the current reviewer blocker;
 - recent high-signal handoffs only;
-- local SLT/Mathlib reference targets;
+- task-local paper contribution memory and unfinished source-line coverage;
+- local ASTIS technical lemma memory and Mathlib reference targets;
 - the LeanMarathon-inspired blueprint control state;
 - retained LBG/EoH/ARIS memory boundaries: trial logs, negative cache,
   candidate populations for exploratory mode, and reviewer-agent handoffs;
@@ -111,34 +112,67 @@ The next 6-hour launch also writes the next-cycle compact context pack before
 starting the background process and refreshes the proof blueprint plus its
 control-state summary.
 
-## Local SLT Reuse Protocol
+## Technical Lemma Memory Protocol
 
-ASTIS uses the local clone
-`/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory` as a
-Mathlib-style proof engineering reference, not as a Lake dependency while the
-toolchain mismatch remains.
+ASTIS uses compiled local technical lemmas as the callable memory layer for
+SDE/Sampling proof work.  External repositories such as
+`/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory`
+are only source material for local ports and provenance records, not runtime
+dependencies.
 
 Before inventing a new measure/probability interface, middle and lower should
 consult:
 
-- `SLT/EfronStein.lean` for conditional expectation and product-measure
-  rewrites;
-- `SLT/GaussianLSI/TensorizedGLSI.lean` for tensor/product and map-measure
-  orientation;
-- `SLT/GaussianMeasure.lean` and `SLT/SmallBallProb.lean` for `Measure.map`,
-  integral, and Bochner-style proof idioms;
-- `/home/nitanda_sub/mark/repos/RMFLD/Statistical Learning Theory in Lean 4
-  Empirical Processes from Scratch` for the article-level methodology:
+- `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` and
+  `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` for compiled local lemmas;
+- `AutoSamplingTheory/TechnicalLemmas/Registry.lean` and
+  `research-wiki/technical-lemma-memory/technical_lemma_registry.jsonl` for
+  local lemma names, tags, and SALD uses;
+- `research-wiki/technical-lemma-memory/SALD_remaining_map.md` for the current
+  SALD leaf-to-lemma mapping;
+- `research-wiki/technical-lemma-memory/SLT_port_queue.jsonl` for upstream
+  theorem shapes that still require local ASTIS ports;
+- `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Statistical Learning Theory in Lean 4 Empirical Processes from Scratch`
+  for the article-level methodology:
   state analytic hypotheses explicitly, separate background facts from local
   proof targets, and avoid overclaiming formalization status.
 
 The correct borrowing pattern is:
 
-1. search existing ASTIS declarations and ledgers;
-2. inspect the local SLT file for a proof idiom or theorem shape;
-3. port a small local statement if it compiles under ASTIS's toolchain;
+1. search existing ASTIS declarations, technical lemma memory, and ledgers;
+2. inspect the local SLT file only for a proof idiom or theorem shape if no
+   ASTIS lemma exists;
+3. port a small local statement into `AutoSamplingTheory/TechnicalLemmas` if
+   it compiles under ASTIS's toolchain;
 4. otherwise record a source-cited `ProofObligation` with the exact missing
    theorem boundary.
+
+## Paper Contribution Memory Protocol
+
+Faithful-paper proof state must live separately from reusable technical lemma
+memory.  For `ASTIS-SALD-001`, the task-local paper memory is:
+
+```text
+research-wiki/paper-memory/ASTIS-SALD-001/
+```
+
+The key file is:
+
+```text
+research-wiki/paper-memory/ASTIS-SALD-001/unfinished_source_map.md
+```
+
+It records the SALD-specific source line range, Lean boundary, status, and
+next action for each unfinished paper contribution leaf.  Middle must consult
+this file before assigning lower work.  Lower must name either one source-line
+leaf from this file or one compiled technical lemma registry entry.  Reviewer
+rejects a cycle if it claims completion while an active paper leaf is marked
+`line-range-missing`.
+
+At the end of a long run, the finalizer refreshes the paper memory, TODO,
+Chinese summary, and technical-report snippets together.  This prevents a
+cycle from looking successful in Lean while leaving humans unable to see which
+SALD LaTeX lines remain unfinished.
 
 ## Current SALD Negative Cache
 

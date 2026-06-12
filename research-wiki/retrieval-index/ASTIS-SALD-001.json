@@ -1,0 +1,663 @@
+{
+  "cycle": 194,
+  "dynamic_leaf_queue": [
+    "narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.",
+    "narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted."
+  ],
+  "generated": "2026-06-12 07:19:02",
+  "mode": "faithfulPaper",
+  "next_lower_tasks": [
+    {
+      "goal": "Translate the active SALD source-line leaf into a dependency DAG with exact technical lemma needs.",
+      "must_write": "proof-attempts/<task>/...-natural-language-dag.md or a dialogue handoff.",
+      "role": "lower-1-natural-language-proof-scout"
+    },
+    {
+      "goal": "Close one compiled Lean theorem or strictly narrow one source-cited Sampling/SDE boundary.",
+      "must_write": "Lean declaration plus typed verifier feedback fields.",
+      "role": "lower-2-lean-implementation-worker"
+    }
+  ],
+  "open_external_technical_lemma_obligations": [
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianMeasure.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Gaussian.lean",
+      "lean_status": "port-candidate",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "`integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi`",
+      "tags": [],
+      "used_by": "Brownian/Ito coordinate integrability and polynomial moment leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/TaylorBound.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Taylor.lean",
+      "lean_status": "port-candidate",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "`taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `deriv2_bounded_of_compactlySupported`, `integrable_deriv_sq`",
+      "tags": [],
+      "used_by": "selected scalar Taylor integral/remainder and bounded-Hessian leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/Limit.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/GaussianPoincare.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/Limit.lean",
+      "statement": "`tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq`, `gaussianPoincare`",
+      "tags": [],
+      "used_by": "Taylor remainder limits and Gaussian Poincare backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/DualityEntropy.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/EntropyDuality.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/DualityEntropy.lean",
+      "statement": "`entropy_duality`, `entropy_ge_integral_mul`, `expMeasure_isProbabilityMeasure`, `integral_expMeasure`",
+      "tags": [],
+      "used_by": "DV/KL variational formula backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/GaussianLSI.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "statement": "`gaussian_logSobolev_W12_pi`, `condEntExceptCoord_sq_eq_slice_entropy`, `condEnt_sq_le_partial_deriv_sq`",
+      "tags": [],
+      "used_by": "product Gaussian LSI backend"
+    }
+  ],
+  "open_obligation_signals": [
+    "narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted."
+  ],
+  "open_sald_contribution_obligations": [
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "discrete-forward-kl-main",
+      "is_sald_contribution": true,
+      "lean_boundary": "SALD.discreteForwardKlProofDag / thm:forward-KL-discrete contract",
+      "lean_status": "source-indexed; analytic backend open",
+      "next_action": "Keep theorem contract fixed; discharge the EM weak-FP and Brownian/Ito generator leaves below.",
+      "open": true,
+      "paper_object": "Discrete VA-SALD Euler--Maruyama forward-KL theorem statement and proof route.",
+      "source_ref": "main_body.tex:301-326"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "unified-forward-kl-main",
+      "is_sald_contribution": true,
+      "lean_boundary": "SALD.unifiedForwardKlContract",
+      "lean_status": "source-indexed; depends on general theorem closure",
+      "next_action": "Do not mutate the statement; backfill shared KL/FI/LSI and moving-target interfaces.",
+      "open": true,
+      "paper_object": "Unified guided VA-SALD theorem that depends on the general moving-target theorem.",
+      "source_ref": "main_body.tex:372-392"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "frozen-em-interpolation",
+      "is_sald_contribution": true,
+      "lean_boundary": "hBrownianCoordinateGeneratorTaylorIntegralDef; hRemainderGeneratorLimitDef",
+      "lean_status": "active unfinished leaf",
+      "next_action": "Prove one coordinate generator equality or narrow it to a single Taylor/Ito source obligation.",
+      "open": true,
+      "paper_object": "Frozen EM interpolation used to identify the Brownian/Ito scalar generator and Taylor remainder.",
+      "source_ref": "appendix.tex:983-996"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "conditional-drift-definition",
+      "is_sald_contribution": true,
+      "lean_boundary": "conditional drift representative and law integral fields",
+      "lean_status": "source-line mapped; representative/measurability leaves open",
+      "next_action": "Close or strictly narrow conditional expectation representative and integrability hypotheses.",
+      "open": true,
+      "paper_object": "The conditional drift \\bar b_{k,s} and conditional-law representative used by the weak FP equation.",
+      "source_ref": "appendix.tex:1368-1377"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "weak-fokker-planck-line",
+      "is_sald_contribution": true,
+      "lean_boundary": "sald.general_moving_target_discrete.em_interpolation_fp",
+      "lean_status": "core unfinished analytic backend",
+      "next_action": "Prove/narrow generator-to-law weak action with the selected test function and Brownian term.",
+      "open": true,
+      "paper_object": "Weak Fokker--Planck equation for the EM interpolation law.",
+      "source_ref": "appendix.tex:1379-1387"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "kl-derivative-start",
+      "is_sald_contribution": true,
+      "lean_boundary": "KL derivative handoff for hat rho_s versus pi_s",
+      "lean_status": "source-indexed; depends on weak-FP and admissible log-ratio test",
+      "next_action": "Connect the weak-FP identity to the KL derivative only after the law-level backend is stable.",
+      "open": true,
+      "paper_object": "First derivative of the KL along the discrete moving-target law.",
+      "source_ref": "appendix.tex:1358-1365"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "divergence-fi-ibp",
+      "is_sald_contribution": true,
+      "lean_boundary": "divergence rewrite, FI term, and no-boundary IBP",
+      "lean_status": "source-indexed; Green/trace and integration-by-parts leaves open",
+      "next_action": "Use local measure/variational technical lemmas first; queue missing Green/trace facts explicitly.",
+      "open": true,
+      "paper_object": "Divergence/Laplacian rewrite producing the Fisher-information term and residual pairing.",
+      "source_ref": "appendix.tex:1422-1434"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "selected-source-hessian-fields",
+      "is_sald_contribution": true,
+      "lean_boundary": "hSourceHasHessian; hSourceHessianBound",
+      "lean_status": "source-contract gap; do not fake via wrapper assumptions",
+      "next_action": "Either locate the exact source regularity assumption or leave a precise ProofObligation.",
+      "open": true,
+      "paper_object": "Selected weak-test Hessian regularity required by the Brownian/Ito Taylor expansion.",
+      "source_ref": "appendix.tex:982-995"
+    }
+  ],
+  "proof_status_counts": {
+    "blocked": 0,
+    "contractOnly": 34,
+    "formalized": 286,
+    "obligation": 1157,
+    "planned": 9,
+    "sourceCited": 16
+  },
+  "recent_trials": [
+    {
+      "artifact": "runs",
+      "kind": "compression",
+      "lean_gate": "not-run",
+      "role": "upper",
+      "status": "accepted",
+      "timestamp": "2026-06-12 07:18:52",
+      "trial_id": "20260612-071852-628474-ASTIS-SALD-001-sleep-window"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "kind": "build",
+      "lean_gate": "pass",
+      "role": "reviewer",
+      "status": "compiled",
+      "timestamp": "2026-06-12 07:18:45",
+      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-build-gate"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/40_reviewer.md",
+      "kind": "attempt",
+      "lean_gate": "not-run",
+      "role": "reviewer",
+      "status": "accepted",
+      "timestamp": "2026-06-12 07:18:34",
+      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-40_reviewer"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "kind": "handoff",
+      "lean_gate": "pass",
+      "role": "reviewer",
+      "status": "queued",
+      "timestamp": "2026-06-12 07:18:13",
+      "trial_id": "20260612-071813-569043-ASTIS-SALD-001-reviewer-handoff"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "kind": "build",
+      "lean_gate": "pass",
+      "role": "reviewer",
+      "status": "compiled",
+      "timestamp": "2026-06-12 07:17:55",
+      "trial_id": "20260612-071755-395599-ASTIS-SALD-001-reviewer-build"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/30_lower_2.md",
+      "kind": "attempt",
+      "lean_gate": "not-run",
+      "role": "lower",
+      "status": "accepted",
+      "timestamp": "2026-06-12 07:15:19",
+      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-30_lower_2"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "kind": "handoff",
+      "lean_gate": "not-run",
+      "role": "lower",
+      "status": "queued",
+      "timestamp": "2026-06-12 07:14:49",
+      "trial_id": "20260612-071449-280333-ASTIS-SALD-001-lower-handoff"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/30_lower_1.md",
+      "kind": "attempt",
+      "lean_gate": "not-run",
+      "role": "lower",
+      "status": "accepted",
+      "timestamp": "2026-06-12 06:18:21",
+      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-30_lower_1"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "kind": "handoff",
+      "lean_gate": "not-run",
+      "role": "lower",
+      "status": "queued",
+      "timestamp": "2026-06-12 06:18:03",
+      "trial_id": "20260612-061803-391597-ASTIS-SALD-001-lower-handoff"
+    },
+    {
+      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/20_middle_formalizer.md",
+      "kind": "attempt",
+      "lean_gate": "not-run",
+      "role": "middle",
+      "status": "accepted",
+      "timestamp": "2026-06-12 06:16:02",
+      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-20_middle_formalizer"
+    }
+  ],
+  "recent_verifier_feedback": [],
+  "run_dir": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+  "sald_contributions": [
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "discrete-forward-kl-main",
+      "is_sald_contribution": true,
+      "lean_boundary": "SALD.discreteForwardKlProofDag / thm:forward-KL-discrete contract",
+      "lean_status": "source-indexed; analytic backend open",
+      "next_action": "Keep theorem contract fixed; discharge the EM weak-FP and Brownian/Ito generator leaves below.",
+      "open": true,
+      "paper_object": "Discrete VA-SALD Euler--Maruyama forward-KL theorem statement and proof route.",
+      "source_ref": "main_body.tex:301-326"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "unified-forward-kl-main",
+      "is_sald_contribution": true,
+      "lean_boundary": "SALD.unifiedForwardKlContract",
+      "lean_status": "source-indexed; depends on general theorem closure",
+      "next_action": "Do not mutate the statement; backfill shared KL/FI/LSI and moving-target interfaces.",
+      "open": true,
+      "paper_object": "Unified guided VA-SALD theorem that depends on the general moving-target theorem.",
+      "source_ref": "main_body.tex:372-392"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "frozen-em-interpolation",
+      "is_sald_contribution": true,
+      "lean_boundary": "hBrownianCoordinateGeneratorTaylorIntegralDef; hRemainderGeneratorLimitDef",
+      "lean_status": "active unfinished leaf",
+      "next_action": "Prove one coordinate generator equality or narrow it to a single Taylor/Ito source obligation.",
+      "open": true,
+      "paper_object": "Frozen EM interpolation used to identify the Brownian/Ito scalar generator and Taylor remainder.",
+      "source_ref": "appendix.tex:983-996"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "conditional-drift-definition",
+      "is_sald_contribution": true,
+      "lean_boundary": "conditional drift representative and law integral fields",
+      "lean_status": "source-line mapped; representative/measurability leaves open",
+      "next_action": "Close or strictly narrow conditional expectation representative and integrability hypotheses.",
+      "open": true,
+      "paper_object": "The conditional drift \\bar b_{k,s} and conditional-law representative used by the weak FP equation.",
+      "source_ref": "appendix.tex:1368-1377"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "weak-fokker-planck-line",
+      "is_sald_contribution": true,
+      "lean_boundary": "sald.general_moving_target_discrete.em_interpolation_fp",
+      "lean_status": "core unfinished analytic backend",
+      "next_action": "Prove/narrow generator-to-law weak action with the selected test function and Brownian term.",
+      "open": true,
+      "paper_object": "Weak Fokker--Planck equation for the EM interpolation law.",
+      "source_ref": "appendix.tex:1379-1387"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "kl-derivative-start",
+      "is_sald_contribution": true,
+      "lean_boundary": "KL derivative handoff for hat rho_s versus pi_s",
+      "lean_status": "source-indexed; depends on weak-FP and admissible log-ratio test",
+      "next_action": "Connect the weak-FP identity to the KL derivative only after the law-level backend is stable.",
+      "open": true,
+      "paper_object": "First derivative of the KL along the discrete moving-target law.",
+      "source_ref": "appendix.tex:1358-1365"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "divergence-fi-ibp",
+      "is_sald_contribution": true,
+      "lean_boundary": "divergence rewrite, FI term, and no-boundary IBP",
+      "lean_status": "source-indexed; Green/trace and integration-by-parts leaves open",
+      "next_action": "Use local measure/variational technical lemmas first; queue missing Green/trace facts explicitly.",
+      "open": true,
+      "paper_object": "Divergence/Laplacian rewrite producing the Fisher-information term and residual pairing.",
+      "source_ref": "appendix.tex:1422-1434"
+    },
+    {
+      "depends_on_external_technical_lemma": false,
+      "id": "selected-source-hessian-fields",
+      "is_sald_contribution": true,
+      "lean_boundary": "hSourceHasHessian; hSourceHessianBound",
+      "lean_status": "source-contract gap; do not fake via wrapper assumptions",
+      "next_action": "Either locate the exact source regularity assumption or leave a precise ProofObligation.",
+      "open": true,
+      "paper_object": "Selected weak-test Hessian regularity required by the Brownian/Ito Taylor expansion.",
+      "source_ref": "appendix.tex:982-995"
+    },
+    {
+      "depends_on_external_technical_lemma": true,
+      "id": "taylor-dct-technical-backend",
+      "is_sald_contribution": false,
+      "lean_boundary": "hRemainderMeas; hRemainderBound; hRemainderBoundInt",
+      "lean_status": "technical lemma port/proof queue",
+      "next_action": "Port or prove ASTIS-owned local lemmas before calling them from SALD proof code.",
+      "open": true,
+      "paper_object": "Taylor remainder measurability, domination, integrability, and Gaussian moment/limit facts.",
+      "source_ref": "appendix.tex:982-995"
+    }
+  ],
+  "stage": "LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization",
+  "task_id": "ASTIS-SALD-001",
+  "technical_lemmas": [
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.map_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.map_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "normalized scalar coordinate law in the Brownian/Ito EM backend",
+      "tags": [
+        "gaussian",
+        "coordinate-law",
+        "brownian-increment"
+      ],
+      "used_by": "normalized scalar coordinate law in the Brownian/Ito EM backend"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "centered scalar Gaussian increment bookkeeping",
+      "tags": [
+        "gaussian",
+        "mean",
+        "brownian-increment"
+      ],
+      "used_by": "centered scalar Gaussian increment bookkeeping"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Distributions.Gaussian.Real",
+      "statement": "turn scalar Gaussian law and variance-field definition into normalized variance one",
+      "tags": [
+        "gaussian",
+        "variance",
+        "NNReal"
+      ],
+      "used_by": "turn scalar Gaussian law and variance-field definition into normalized variance one"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound",
+      "tags": [
+        "taylor",
+        "hessian",
+        "source-contract"
+      ],
+      "used_by": "convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "feed selected-line Taylor bounds from a Hessian operator-norm field",
+      "tags": [
+        "taylor",
+        "iteratedFDeriv",
+        "hessian"
+      ],
+      "used_by": "feed selected-line Taylor bounds from a Hessian operator-norm field"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "ASTIS/SALD cycles 174-176",
+      "statement": "assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization",
+      "tags": [
+        "brownian",
+        "ito",
+        "quadratic-variation",
+        "normalization"
+      ],
+      "used_by": "assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegral",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegral",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib measure/integration APIs",
+      "statement": "rewrite weak-test integrals under endpoint laws and EM interpolation laws",
+      "tags": [
+        "measure-map",
+        "law",
+        "integral"
+      ],
+      "used_by": "rewrite weak-test integrals under endpoint laws and EM interpolation laws"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegralHasDerivAtOfDominated",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegralHasDerivAtOfDominated",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Analysis.Calculus.ParametricIntegral",
+      "statement": "transport dominated sample-space derivatives to law-level weak-test derivatives",
+      "tags": [
+        "parametric-integral",
+        "dominated-convergence",
+        "weak-test"
+      ],
+      "used_by": "transport dominated sample-space derivatives to law-level weak-test derivatives"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Measure.condDistribIntegralNamedLawIntegral",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Measure.condDistribIntegralNamedLawIntegral",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Kernel.CondDistrib and Condexp",
+      "statement": "conditional frozen drift and named-law conditional integral interface",
+      "tags": [
+        "conditional-law",
+        "kernel",
+        "Bochner-integral"
+      ],
+      "used_by": "conditional frozen drift and named-law conditional integral interface"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Variational.dvVariationalScaledTestEnergyBound",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Variational.dvVariationalScaledTestEnergyBound",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Boucheron-style cited result / future SLT entropy-duality port",
+      "statement": "convert finite log-mgf and KL hypotheses into residual energy bounds",
+      "tags": [
+        "DV",
+        "KL",
+        "energy"
+      ],
+      "used_by": "convert finite log-mgf and KL hypotheses into residual energy bounds"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Variational.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Variational.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib/SLT-inspired entropy and LSI proof shape",
+      "statement": "bookkeeping for LSI-to-KL/FI handoff after density assumptions are supplied",
+      "tags": [
+        "LSI",
+        "FI",
+        "density"
+      ],
+      "used_by": "bookkeeping for LSI-to-KL/FI handoff after density assumptions are supplied"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.gronwallExpProductRewriteScalar",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.gronwallExpProductRewriteScalar",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "forward-KL and discrete forward-KL Gronwall display algebra",
+      "tags": [
+        "Gronwall",
+        "scalar-algebra",
+        "SALD-extracted"
+      ],
+      "used_by": "forward-KL and discrete forward-KL Gronwall display algebra"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.discreteForwardKlEmEndpointLawPairHandoff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.discreteForwardKlEmEndpointLawPairHandoff",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "endpoint-law pair handoff for discrete SALD/VA-SALD proofs",
+      "tags": [
+        "Euler-Maruyama",
+        "endpoint-law",
+        "SALD-extracted"
+      ],
+      "used_by": "endpoint-law pair handoff for discrete SALD/VA-SALD proofs"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "active Brownian/Ito scalar generator backend and coordinate variance leaves",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "SALD-extracted"
+      ],
+      "used_by": "active Brownian/Ito scalar generator backend and coordinate variance leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "discharge hRemainderMeas in the active Brownian/Ito Taylor moment backend",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "measurability",
+        "SALD-extracted"
+      ],
+      "used_by": "discharge hRemainderMeas in the active Brownian/Ito Taylor moment backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianMeasure.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Gaussian.lean",
+      "lean_status": "port-candidate",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "`integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi`",
+      "tags": [],
+      "used_by": "Brownian/Ito coordinate integrability and polynomial moment leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/TaylorBound.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Taylor.lean",
+      "lean_status": "port-candidate",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "`taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `deriv2_bounded_of_compactlySupported`, `integrable_deriv_sq`",
+      "tags": [],
+      "used_by": "selected scalar Taylor integral/remainder and bounded-Hessian leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/Limit.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/GaussianPoincare.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/Limit.lean",
+      "statement": "`tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq`, `gaussianPoincare`",
+      "tags": [],
+      "used_by": "Taylor remainder limits and Gaussian Poincare backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/DualityEntropy.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/EntropyDuality.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/DualityEntropy.lean",
+      "statement": "`entropy_duality`, `entropy_ge_integral_mul`, `expMeasure_isProbabilityMeasure`, `integral_expMeasure`",
+      "tags": [],
+      "used_by": "DV/KL variational formula backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/GaussianLSI.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "statement": "`gaussian_logSobolev_W12_pi`, `condEntExceptCoord_sq_eq_slice_entropy`, `condEnt_sq_le_partial_deriv_sq`",
+      "tags": [],
+      "used_by": "product Gaussian LSI backend"
+    }
+  ],
+  "title": "Faithfully reproduce the original VA-SALD paper proofs"
+}

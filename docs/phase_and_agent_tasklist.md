@@ -29,8 +29,12 @@ Phase 1 is the priority for `ASTIS-SALD-001`.
   declaration, cited-result row, or `ProofObligation`.
 - Prefer narrow obligation refinement over broad proof search when an analytic
   backend is missing.
-- Keep the source index, conversion window, proof obligations, SLT reuse audit,
-  and proof DAG synchronized.
+- Keep the source index, conversion window, proof obligations, technical lemma
+  memory, SLT port audit, and proof DAG synchronized.
+- Keep paper contribution memory separate from technical lemma memory:
+  `research-wiki/paper-memory/<task>/` stores task-specific source-line
+  leaves and proof DAG state, while `research-wiki/technical-lemma-memory/`
+  and `AutoSamplingTheory/TechnicalLemmas/` store reusable prior facts.
 
 ## Current Single-Backend Backfill Sprint
 
@@ -48,9 +52,9 @@ Fokker--Planck interface:
 - theorem consumers: `thm:forward-KL-discrete` and
   `thm:general-moving-target-SALD-discrete`;
 - allowed reference material:
-  `/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory`, especially
-  measure/probability style and local theorem patterns, but not as a Lake
-  dependency.
+  ASTIS `AutoSamplingTheory/TechnicalLemmas` first; external
+  `lean-stat-learning-theory` files only as port/provenance sources, never as
+  callable dependencies.
 
 Lower work should follow this order:
 
@@ -87,8 +91,8 @@ The theorem skeletons may remain `contractOnly` or depend on
 `sourceCited`/`obligation` interfaces; reviewer must reject any upgrade to
 `formalized` that is not backed by compiled local proofs.  Systematic
 measure-theory and SDE backfill, including material guided by
-`/home/nitanda_sub/mark/repos/RMFLD/Statistical Learning Theory in Lean 4
-Empirical Processes from Scratch` and `YuanheZ/lean-stat-learning-theory`, comes
+`/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Statistical Learning Theory in Lean 4 Empirical Processes from Scratch`
+and `YuanheZ/lean-stat-learning-theory`, comes
 after this theorem skeleton is stable.
 
 ## Post-Cycle-84 Closure Sprint
@@ -118,14 +122,22 @@ Use this priority order:
 5. If and only if the EM backend is blocked by a named Mathlib/theory gap, move
    one cycle to the smallest LSI/DV/Gronwall backend needed by theorem closure.
 
-Local references to consult before inventing declarations:
+- Local references to consult before inventing declarations:
 
-- `/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory/SLT/EfronStein.lean`
-  for conditional-expectation proof engineering and product-measure rewrites.
-- `/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory/SLT/GaussianLSI/TensorizedGLSI.lean`
-  for `Measure.map`/swap/product orientation patterns.
-- `/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory/SLT/GaussianMeasure.lean`
-  and `SLT/SmallBallProb.lean` for `Measure.map` and Bochner integral style.
+- `research-wiki/paper-memory/ASTIS-SALD-001/unfinished_source_map.md` for
+  SALD-specific source-line leaves and the next smallest unfinished boundary.
+- `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean`,
+  `AutoSamplingTheory/TechnicalLemmas/Taylor.lean`, and
+  `AutoSamplingTheory/TechnicalLemmas/Registry.lean` for compiled local
+  technical lemmas.
+- `research-wiki/technical-lemma-memory/technical_lemma_registry.jsonl` for
+  searchable local lemma names and tags.
+- `research-wiki/technical-lemma-memory/SALD_remaining_map.md` for the current
+  SALD remaining-leaf mapping.
+- `research-wiki/technical-lemma-memory/SLT_port_queue.jsonl` for upstream
+  theorem shapes that still need ASTIS-owned ports before use.
+- External `lean-stat-learning-theory` files only after the local memory search
+  fails, and only to create a local port or a precise proof obligation.
 - Mathlib `Probability.Kernel.CondDistrib`, `Probability.Kernel.Condexp`, and
   `Analysis/Calculus/ParametricIntegral` for the actual measure/SDE theorem
   boundaries.
@@ -145,13 +157,16 @@ main context instead of replaying full task history.
 
 At the start of each cycle:
 
-1. Upper reads the latest compact context pack and names the active blocker.
-2. Middle checks existing ASTIS declarations, proof obligations, cited-result
-   ledgers, and the local SLT reference before inventing a new interface.
-3. Lower states the packet classification and exact hypothesis/theorem boundary
-   before editing Lean.
+1. Upper reads only the compact context pack, blueprint, TODO, and paper
+   memory summary, then names the active blocker.
+2. Middle checks task-local paper memory first, then existing ASTIS
+   declarations, technical lemma memory, proof obligations, and cited-result
+   ledgers before inventing a new interface.
+3. Lower states the packet classification and exact source-line leaf or
+   technical-lemma registry entry before editing Lean.
 4. Reviewer rejects the cycle if it lacks a classification, repeats a wrapper,
-   or spends broad context on a non-active target.
+   cites a non-compiled technical lemma as proved, or claims completion without
+   concrete source-line coverage.
 
 Use the efficiency report after every long run:
 
@@ -168,9 +183,9 @@ python3 tools/astis.py blueprint-refresh ASTIS-SALD-001
 
 High token use is only acceptable when it buys one of the two useful progress
 signals: a supplied hypothesis is discharged, or a source-cited theorem
-boundary is strictly narrowed.  The local SLT project and the SLT article
-should be used as proof-engineering references for measure theory and
-probability, not as unchecked imported facts.
+boundary is strictly narrowed.  The local technical lemma memory is the
+callable source; the SLT project and article are proof-engineering references
+for future local ports, not unchecked imported facts.
 
 ## LeanMarathon-Inspired Control Loop
 
@@ -257,11 +272,12 @@ Phase 2 begins only after the faithful transcript is complete.
   `rejected-wrapper-churn`.
 - State whether the packet is dynamic-leaf worker work or illness-area refiner
   work, and keep the lower-ready declarations inside that local region.
-- Consult the local SLT project for Mathlib measure/probability idioms before
-  inventing a new abstraction, but do not import it as a dependency.
+- Consult ASTIS technical lemma memory before inventing a new abstraction.
+  External SLT files may be inspected only as port references, and never
+  imported as dependencies.
 - Follow the MathCode-inspired reuse rule: search existing ASTIS declarations,
-  conversion windows, proof obligations, cited-result ledgers, and local SLT
-  references before creating duplicate interfaces.
+  `AutoSamplingTheory/TechnicalLemmas`, conversion windows, proof obligations,
+  cited-result ledgers, and port queues before creating duplicate interfaces.
 - After lower and reviewer work, translate the Lean state back into Markdown
   and LaTeX notes.
 - Maintain `conversion-windows/`, `proof-obligations/`,

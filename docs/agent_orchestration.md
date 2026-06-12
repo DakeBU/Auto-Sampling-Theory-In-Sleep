@@ -13,19 +13,46 @@ https://github.com/math-ai-org/mathcode
 Design-lineage ledger:
 `docs/attribution.md`
 
-The roles are:
+The roles are layered panels rather than one monolithic agent per layer.
 
-- `upper`: classify mode, choose one objective, select the active dynamic leaf
-  or illness area, and compress memory.
-- `middle`: maintain conversion windows, SLT reuse audit, obligations, and
-  theorem-reuse searches before introducing duplicate interfaces; translate
-  source LaTeX into Lean-facing packets and accepted Lean back into
-  Markdown/LaTeX.
-- `lower`: work on one Lean/proof/source-index target or one exploratory
-  candidate route.
-- `reviewer`: audit build, source correspondence, cited results, and hidden
-  assumptions.  Use `python3 tools/astis.py proof-diagnostics` for lightweight
-  proof-statistics and hidden-placeholder summaries when needed.
+Upper panel:
+
+- `11_upper_source_math`: source anchors, assumptions, regularity,
+  boundary conditions, conditional-law choices, and source-contract gaps.
+- `12_upper_proof_dag`: root theorem, shortest dependency path, active leaf,
+  stale leaf retirement, and lower split.
+- `13_upper_process_memory`: repeated failures, stale memory, report
+  usability, and token/time waste.
+- `10_upper_director`: synthesizes the panel and chooses one executable
+  decision.
+
+Middle panel:
+
+- `21_middle_source_correspondence`: exact LaTeX line range, paper object,
+  Lean boundary, and hypotheses.
+- `22_middle_technical_lemma`: ASTIS-owned technical lemma memory, Mathlib/SLT
+  provenance, port queue, and background facts.
+- `23_middle_report_export`: Chinese report, Markdown status, project article,
+  and technical report snippets.
+- `20_middle_formalizer`: synthesizes lower packets.
+
+Lower agents:
+
+- `lower_1`: natural-language proof route and dependency analysis.
+- `lower_2`: Lean implementation of one theorem or one strictly smaller
+  source-cited boundary.
+- `lower_3`: technical-lemma/API scout for the smallest background fact needed
+  by the active leaf.
+- `lower_4`: optional refiner after a concrete Lean failure; not enabled by
+  default.
+
+Reviewer agents:
+
+- `40_reviewer_gate`: build gate, source correspondence, cited results, and
+  hidden assumptions.  Use `python3 tools/astis.py proof-diagnostics` for
+  lightweight proof-statistics and hidden-placeholder summaries when needed.
+- `41_reviewer_waste`: final-audit opportunity-cost reviewer; it checks
+  wrapper churn, old-context replay, and low-value targets.
 
 This four-role loop is part of the retained ARIS/Learning-Beyond-Gradients/QBE
 automation frame.  In particular, ASTIS keeps the LBG-style idea that the
@@ -38,7 +65,7 @@ cache, candidate-population, or reviewer-agent components.
 Generate a dry prompt deck:
 
 ```bash
-python3 tools/astis.py run-cycle ASTIS-SALD-001 --cycle 1 --lower-count 1
+python3 tools/astis.py run-cycle ASTIS-SALD-001 --cycle 1 --lower-count 3 --upper-panel --middle-panel --reviewer-waste
 ```
 
 Generate repeated decks:
@@ -50,15 +77,16 @@ python3 tools/astis.py sleep-run ASTIS-SALD-001 --cycles 2 --lower-count 1 --dry
 Run a graceful 6-hour SALD batch:
 
 ```bash
-python3 tools/astis.py launch-sald-6h
+bash tools/astis_run_sald_closure.sh
 ```
 
 The launcher does not use shell `timeout`; once a cycle begins, it lets the
-upper/middle/lower/reviewer sequence and build gate finish.  The batch-end
-writing pass is generated only after the final completed cycle.  It updates
-the internal proof-note export under `paper-notes/AutoLeanInSleepSampling/`
-and the external ASTIS technical-report snippets under
-`/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS`.
+current sequence and build gate finish.  By default, inner cycles are light
+proof-search cycles with no upper/middle panel.  The final audit runs the
+upper and middle panels plus `reviewer_waste`, then writes the batch-end
+Chinese report, internal proof-note export under
+`paper-notes/AutoLeanInSleepSampling/`, and external ASTIS technical-report
+snippets under `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS`.
 
 The middle agent owns this two-way conversion layer.  During proof search it
 keeps conversion windows and obligations synchronized; at batch end it performs

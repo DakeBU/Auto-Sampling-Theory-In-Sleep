@@ -10,7 +10,11 @@
 
 1. Faithfully index and translate the original VA-SALD paper proofs, excluding
    `sald_version_2.tex`.
-2. Maintain an SLT reuse audit for Mathlib-based probability tools.
+2. Maintain an ASTIS-owned technical lemma memory for Mathlib-based
+   probability tools.  The short entry point is
+   `research-wiki/technical-lemma-memory/README.md`; external SLT material is
+   only a port/provenance source until the corresponding local declaration
+   builds.
 3. Create RMFLD exploratory proof-route memory without attempting large theorem
    proofs prematurely.
 4. Preserve Phase 1 faithful-paper discipline before Phase 2 reusable API

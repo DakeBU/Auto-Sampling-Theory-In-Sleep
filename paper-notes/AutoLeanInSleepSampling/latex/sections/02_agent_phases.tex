@@ -12,9 +12,35 @@ proof work.  Examples include reusable interfaces for KL/FI/LSI, Fokker--
 Planck weak forms, Euler--Maruyama one-step errors, and Feynman--Kac particle
 systems.
 
-The middle agent owns the two-way conversion layer.  Before lower-agent work,
-middle translates the source LaTeX proof fragment into Lean declarations,
-cited-result rows, or proof obligations.  After lower and reviewer work,
-middle translates the accepted Lean state back into Markdown and LaTeX.  The
-polished Overleaf export is batch-based: it is updated at the end of a
-multi-hour run, after the final reviewer gate.
+The agent stack is deliberately split into lightweight inner cycles and
+bounded final-audit panels.  During ordinary proof-search cycles, ASTIS runs
+\Lean{upper\_director}, \Lean{middle\_formalizer}, lower workers, and
+\Lean{reviewer\_gate}.  At the final audit, the upper panel adds
+\Lean{upper\_source\_math}, \Lean{upper\_proof\_dag}, and
+\Lean{upper\_process\_memory} before director synthesis.  The middle panel adds
+\Lean{middle\_source\_correspondence}, \Lean{middle\_technical\_lemma}, and
+\Lean{middle\_report\_export} before coordinator synthesis.
+
+The lower layer is also specialized.  \Lean{lower\_1} writes the natural-
+language proof route and dependency analysis, \Lean{lower\_2} implements one
+Lean theorem or one strictly smaller source-cited boundary, and
+\Lean{lower\_3} scouts the smallest technical lemma or Mathlib API fact needed
+by the active leaf.  \Lean{lower\_4} is reserved for concrete Lean-failure
+refinement and is not enabled by default.
+
+This split matters more for Sampling/SDE than for small algebraic examples.
+The same paper sentence can hide a source-specific theorem leaf and several
+background obligations about laws, conditional representatives, measurability,
+integrability, Ito/Taylor expansion, and boundary terms.  A single middle agent
+is too easily pulled into copying handoffs.  ASTIS therefore makes source-DAG
+architecture, lemma-memory retrieval, and human-report synchronization separate
+responsibilities.
+
+The middle layer still owns the two-way conversion layer.  Before lower-agent
+work, it translates the source LaTeX proof fragment into Lean declarations,
+cited-result rows, or proof obligations.  After lower and reviewer work, it
+translates the accepted Lean state back into Markdown and LaTeX.  The polished
+Overleaf export is batch-based: it is updated at the end of a multi-hour run,
+after the final reviewer gate.
+
+\input{figures/run_loop}

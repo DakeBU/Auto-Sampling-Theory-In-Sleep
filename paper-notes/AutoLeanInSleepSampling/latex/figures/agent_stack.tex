@@ -4,15 +4,17 @@
   box/.style={draw, rounded corners=2pt, align=left, minimum width=0.85\textwidth, inner sep=6pt},
   arrow/.style={-{Latex[length=2mm]}, thick}
 ]
-\node[box, fill=purple!5] (upper) {\textbf{Upper}: mode, objective, phase discipline, memory compression};
-\node[box, fill=blue!5, below=0.45cm of upper] (middle) {\textbf{Middle}: source-to-Lean and Lean-to-Markdown/LaTeX conversion, proof DAGs, cited results};
-\node[box, fill=orange!8, below=0.45cm of middle] (lower) {\textbf{Lower}: one Lean declaration, proof block, source-index change, or obligation refinement};
-\node[box, fill=green!6, below=0.45cm of lower] (reviewer) {\textbf{Reviewer}: build gate, source correspondence, no fake proof closure, phase discipline};
+\node[box, fill=purple!5] (upper) {\textbf{Upper panel}: \Lean{source\_math}, \Lean{proof\_dag}, and \Lean{process\_memory} specialists feed \Lean{upper\_director}};
+\node[box, fill=blue!5, below=0.45cm of upper] (middle) {\textbf{Middle panel}: \Lean{source\_correspondence}, \Lean{technical\_lemma}, and \Lean{report\_export} feed \Lean{middle\_formalizer}};
+\node[box, fill=orange!8, below=0.45cm of middle] (lower) {\textbf{Lower}: \Lean{lower\_1} proof route, \Lean{lower\_2} Lean theorem, \Lean{lower\_3} technical lemma/API};
+\node[box, fill=green!6, below=0.45cm of lower] (reviewer) {\textbf{Reviewer}: \Lean{reviewer\_gate} checks Lean/source; \Lean{reviewer\_waste} audits opportunity cost at final audit};
 \draw[arrow] (upper) -- (middle);
 \draw[arrow] (middle) -- (lower);
 \draw[arrow] (lower) -- (reviewer);
 \draw[arrow] (reviewer.east) .. controls +(1.0,0.7) and +(1.0,-0.7) .. (upper.east);
 \end{tikzpicture}
-\caption{The four-agent stack mirrors the Quantum automation project, but the
-contracts are SDE/Sampling objects rather than circuit oracles.}
+\caption{ASTIS uses lightweight inner cycles and bounded final-audit panels.
+The panel split is specialized to Sampling/SDE proof bottlenecks: source
+regularity, proof-DAG leaves, technical lemma retrieval, implementation, and
+human-readable reporting.}
 \end{figure}

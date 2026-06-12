@@ -96,24 +96,53 @@ The shared rule is: the repository must contain both the Lean code and the
 human-readable mathematical proof translation.  Lean verifies correctness;
 the natural-language proof keeps the result inspectable by humans.
 
-## Agent And Blueprint Loop
+## Agent Panels And Blueprint Loop
 
-ASTIS uses a four-role loop over one shared repository.
+ASTIS keeps the upper/middle/lower/reviewer hierarchy, but the recent SALD
+logs showed that one upper agent and one middle agent were too easy to turn
+into passive handoff copyists.  The current harness therefore uses bounded
+panels when needed.
 
 ```mermaid
-flowchart TB
-  U[Upper agent<br/>mode, objective, dynamic leaf, non-goals]
-  M[Middle agent<br/>source-to-Lean and Lean-to-LaTeX conversion]
-  L[Lower agent<br/>one Lean/proof/candidate target]
-  R[Reviewer agent<br/>build gate, source correspondence, hidden assumptions]
-  B[Proof blueprint<br/>system-of-record snapshot]
+flowchart TD
+  B[Proof blueprint<br/>system of record]
+  S[11 upper_source_math<br/>source, assumptions, regularity]
+  D[12 upper_proof_dag<br/>root theorem, active leaf]
+  P[13 upper_process_memory<br/>stale routes, report usability]
+  U[10 upper_director<br/>one executable decision]
+  C[21 middle_source_correspondence<br/>LaTeX lines to Lean boundary]
+  T[22 middle_technical_lemma<br/>ASTIS lemma memory and port queue]
+  E[23 middle_report_export<br/>human status and article snippets]
+  M[20 middle_formalizer<br/>lower packets]
+  L1[lower_1<br/>natural-language proof route]
+  L2[lower_2<br/>Lean implementation]
+  L3[lower_3<br/>technical lemma/API scout]
+  R[40 reviewer_gate<br/>Lean/source/fake-closure gate]
+  W[41 reviewer_waste<br/>opportunity-cost audit]
 
-  B --> U
-  U --> M
-  M --> L
-  L --> R
+  B --> S
+  B --> D
+  B --> P
+  S --> U
+  D --> U
+  P --> U
+  U --> C
+  U --> T
+  U --> E
+  C --> M
+  T --> M
+  E --> M
+  M --> L1
+  M --> L2
+  M --> L3
+  L1 --> R
+  L2 --> R
+  L3 --> R
   R --> B
+  W --> B
 ```
+
+![ASTIS layer-panel agent stack](docs/assets/agent_stack.svg)
 
 The proof blueprint is the compact state that prevents long runs from
 replaying broad history:
@@ -133,6 +162,22 @@ research-wiki/blueprints/ASTIS-SALD-001-blueprint-status.json
 A lower agent should work on one dynamic leaf or one named illness area, not on
 a broad theorem-route replay.  Reviewer acceptance requires the gate above and
 an explicit source-correspondence account.
+
+The default 6h cadence is intentionally asymmetric:
+
+- inner proof-search cycles stay cheap: `upper_director -> middle_formalizer -> lower_1/lower_2/lower_3 -> reviewer_gate`;
+- final audit runs the upper and middle panels: source-math, proof-DAG,
+  process-memory, source-correspondence, technical-lemma retrieval, and
+  report/export synchronization;
+- `reviewer_waste` runs at final audit by default and only runs inside inner
+  cycles when explicitly enabled.
+
+This is domain-specific.  For Sampling/SDE, many failures are not caused by
+the SALD theorem itself but by background facts about laws, conditional
+representatives, measurability, integrability, Ito/Taylor expansion,
+Fokker--Planck weak forms, and boundary terms.  `middle_technical_lemma` and
+`lower_3` exist to stop the system from repeatedly asking the Lean worker to
+rediscover those facts from scratch.
 
 ## Lean And Mathlib
 
@@ -252,6 +297,24 @@ runs the batch-end writing pass.  This updates both the internal proof-note
 article under `paper-notes/AutoLeanInSleepSampling/` and, when configured, the
 external ASTIS technical-report checkout selected by `ASTIS_TECH_REPORT_ROOT`.
 Use `--no-after-latex` only for a proof-only run.
+
+ABEIS-style panel controls are available through flags or environment
+variables:
+
+```bash
+ASTIS_HOURS=6 \
+ASTIS_LOWER_COUNT=3 \
+ASTIS_UPPER_PANEL_FINAL=1 \
+ASTIS_UPPER_PANEL_INNER=0 \
+ASTIS_MIDDLE_PANEL_FINAL=1 \
+ASTIS_MIDDLE_PANEL_INNER=0 \
+ASTIS_REVIEWER_WASTE_FINAL=1 \
+bash tools/astis_run_sald_closure.sh
+```
+
+Use inner panels only when the run is repeatedly losing source correspondence,
+proof-DAG focus, technical-lemma memory, or human-report clarity.  Routine
+inner cycles should spend the budget on proof work.
 
 Export the human-readable project article and technical-report snippets
 manually:

@@ -11301,3 +11301,2280 @@ Remaining dependency classification: `source-contract-gap` for
 derive those fields from unexpanded `testRegular`, does not introduce an
 unsourced `SourceSelectedWeakTestC2bBoundedHessian`, and does not use the VP
 score Hessian bound from `iteration_complexity.tex:309-321`.
+
+## Cycle 174 Middle Quadratic-Variation Normalization Packet
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet after the cycle-174 source-Hessian audit.
+
+Middle decision: the cycle-173 source-facing Hessian fields
+`hSourceHasHessian` and `hSourceHessianBound` are not derivable from the checked
+original paper anchors and remain a source-contract gap.  Do not close them from
+unexpanded `testRegular`, a definition of `sourceHessian` from the desired
+conclusion, an unsourced selected weak-test bounded-Hessian predicate, or the VP
+score-Hessian theorem.
+
+Exact lower-ready boundary:
+
+```lean
+hFrozenScalarBrownianItoQuadraticVariationNormalization :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i * (variance phi x i : Real) =
+      SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+        (selectedTest phi) x ((stdOrthonormalBasis Real E) i)
+```
+
+Lower_1 route: use `appendix.tex:984-995` to identify the normalized Brownian
+coordinate increment and keep the paper's `sigma_eta^2/2` outside the event
+field, then use `appendix.tex:1379-1387` for the weak-FP diffusion/Laplacian
+placement.
+
+Lower_2 theorem shape, only if source-backed fields exist:
+
+```lean
+hQuadraticCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+        (selectedTest phi) x ((stdOrthonormalBasis Real E) i)
+
+hVarianceOne :
+  testRegular -> forall phi x i, (variance phi x i : Real) = 1
+```
+
+From those two fields, prove the normalization equality above by rewriting
+`quadraticCoeff` and `variance` and simplifying multiplication by one.  If the
+source does not provide either field, record the smaller source-cited boundary
+`hQuadraticCoeffDef`/`hVarianceOne` instead of adding a wrapper.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 174 source-Hessian gap decision | Keep `hSourceHasHessian`/`hSourceHessianBound` as a source-contract gap and reject wrapper substitutions. | cycle-173 lower_2 bridge; source audit; VP score-Hessian rejection | `SALD.cycle174GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoQuadraticVariationDag`; `ASTIS.SALD.cycle174.middle_refiner.source_hessian_gap_decision` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | reviewer source-contract check | obligation |
+| Cycle 174 quadratic-variation lower route | Narrow `hFrozenScalarBrownianItoQuadraticVariationNormalization` to source-backed coefficient and variance definitions. | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder`; `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`; `hQuadraticCoeffDef`; `hVarianceOne` | `SALD.cycle174GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoQuadraticVariationMiddleObligation`; `ASTIS.SALD.cycle174.middle_packet.quadratic_variation_normalization_lower_route` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | scalar Brownian/Ito one-dimensional Taylor bridge; EM FP backend | obligation |
+| Cycle 174 lower_2 coefficient/variance bridge | Compile the algebraic bridge from source-backed `hQuadraticCoeffDef` and `hVarianceOne` to `hFrozenScalarBrownianItoQuadraticVariationNormalization`. | lower_1 route; `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`; rewrite and `mul_one` | `SALD.selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne`; `SALD.cycle174GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoQuadraticVariationLower2Obligation`; `ASTIS.SALD.cycle174.lower_2_packet.quadratic_variation_coeff_variance_bridge` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder`; EM FP backend | formalized |
+
+The sibling leaves remain explicit:
+`hFrozenScalarBrownianItoTaylorMomentDecomposition`,
+`hFrozenScalarBrownianItoNormalizedTaylorRemainderVanishes`, and
+`hFrozenScalarBrownianItoEventFieldCoordinateSum`.
+
+No local SLT file was consulted or imported; the needed Mathlib context is the
+already compiled local Gaussian moment/Taylor chain in `AutoSamplingTheory/SALD.lean`.
+
+## Cycle 174 Lower_1 Quadratic-Variation Proof Route
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf proof-scout packet.
+
+Exact missing theorem boundary narrowed:
+
+```lean
+hFrozenScalarBrownianItoQuadraticVariationNormalization :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i * (variance phi x i : Real) =
+      SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+        (selectedTest phi) x ((stdOrthonormalBasis Real E) i)
+```
+
+Lower_2-ready theorem shape:
+
+```lean
+selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne
+    (selectedTest : Test -> E -> Real)
+    (quadraticCoeff : Test -> E -> Fin (Module.finrank Real E) -> Real)
+    (variance : Test -> E -> Fin (Module.finrank Real E) -> NNReal)
+    (testRegular : Prop)
+    (hQuadraticCoeffDef :
+      testRegular -> forall phi x i,
+        quadraticCoeff phi x i =
+          SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+            (selectedTest phi) x ((stdOrthonormalBasis Real E) i))
+    (hVarianceOne :
+      testRegular -> forall phi x i, (variance phi x i : Real) = 1) :
+    testRegular -> forall phi x i,
+      quadraticCoeff phi x i * (variance phi x i : Real) =
+        SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+          (selectedTest phi) x ((stdOrthonormalBasis Real E) i)
+```
+
+Proof route: introduce `htests`, `phi`, `x`, and `i`; rewrite
+`quadraticCoeff phi x i` using `hQuadraticCoeffDef htests phi x i`; rewrite
+`(variance phi x i : Real)` using `hVarianceOne htests phi x i`; simplify
+`a * 1 = a`.
+
+Source route:
+
+- `appendix.tex:984-995` supplies the frozen interpolation Brownian increment
+  `sigma_eta (W_s-W_{s_k})`.  After drift separation and the normalized scalar
+  coordinate change, the coordinate variance is one, giving `hVarianceOne`.
+- `appendix.tex:1379-1387` places the diffusion coefficient
+  `sigma_eta^2/2` in the weak-FP diffusion term, outside the Brownian event
+  field.  Therefore the normalized quadratic coefficient is the diagonal
+  Hessian generator `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`,
+  giving `hQuadraticCoeffDef`.
+
+If either source-backed field is unavailable, the remaining honest boundary is
+the pair `hQuadraticCoeffDef`/`hVarianceOne`.  Do not close this from
+unexpanded `testRegular`, do not move `sigma_eta^2/2` into the event field, and
+do not return to selected weak-test Hessian wrapper churn.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 174 lower_1 coefficient/variance route | Reduce `hFrozenScalarBrownianItoQuadraticVariationNormalization` to source-backed `hQuadraticCoeffDef` plus `hVarianceOne`. | cycle-174 middle packet; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder`; `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`; compiled Gaussian moment chain | `SALD.cycle174GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoQuadraticVariationLower1Obligation`; `ASTIS.SALD.cycle174.lower_1_packet.quadratic_variation_coeff_variance_route` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | lower_2 algebraic bridge; scalar Brownian/Ito one-dimensional Taylor bridge; EM FP backend | obligation |
+
+No local SLT file was consulted or imported.  The only local Lean context used
+was the already compiled Gaussian moment/Taylor chain in
+`AutoSamplingTheory/SALD.lean`.
+
+## Cycle 174 Lower_2 Quadratic-Variation Algebra Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf Lean implementation packet.
+
+Exact boundary narrowed:
+`hFrozenScalarBrownianItoQuadraticVariationNormalization` is no longer a
+primitive supplied hypothesis once the source correspondence supplies the exact
+pair:
+
+```lean
+hQuadraticCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+        (selectedTest phi) x ((stdOrthonormalBasis Real E) i)
+
+hVarianceOne :
+  testRegular -> forall phi x i, (variance phi x i : Real) = 1
+```
+
+Compiled theorem:
+`SALD.selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne`.
+The proof introduces `htests`, `phi`, `x`, and `i`, rewrites by
+`hQuadraticCoeffDef htests phi x i` and `hVarianceOne htests phi x i`, and closes
+with `mul_one`.
+
+Remaining source-facing boundary: justify `hQuadraticCoeffDef` and
+`hVarianceOne` from `appendix.tex:984-995` and `appendix.tex:1379-1387`.  The
+theorem does not move `sigma_eta^2/2` into the event field, derive the fields
+from unexpanded `testRegular`, or return to selected weak-test Hessian wrapper
+churn.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 174 lower_2 coefficient/variance bridge | Compile the rewrite bridge from source-backed coefficient and variance fields to the quadratic-variation normalization. | lower_1 route; `hQuadraticCoeffDef`; `hVarianceOne`; `mul_one` | `SALD.selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne`; `SALD.cycle174GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoQuadraticVariationLower2Obligation` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | scalar Brownian/Ito one-dimensional Taylor bridge; EM FP backend | formalized |
+
+## Cycle 175 Middle Selected-Line Taylor Domination Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact theorem boundary narrowed: the standard-basis selected-line first-order
+quadratic Taylor remainder is no longer primitive once the selected weak test
+has ambient `ContDiffOn Real 2` regularity and the source-backed Hessian
+representative fields are supplied.
+
+Compiled theorem:
+
+```lean
+SALD.gaussianRealSelectedTestStdOrthonormalFirstOrderQuadraticRemainderBoundOfSourceHessianField
+```
+
+The theorem proves, for `e = (stdOrthonormalBasis Real E) i`,
+
+```lean
+forall r : Real,
+  norm (sourceTest (x + r • e) -
+    taylorWithinEval (fun q : Real => sourceTest (x + q • e))
+      1 Set.univ 0 r) <= C1 * r ^ 2
+```
+
+from:
+
+```lean
+hSource :
+  ContDiffOn Real 2 sourceTest Set.univ
+hSourceHasHessian :
+  forall z : E,
+    HasFDerivAt (fderiv Real sourceTest) (sourceHessian z) z
+hSourceHessianBound :
+  forall z : E, norm (sourceHessian z) <= C1
+```
+
+Proof route: compile the source-Hessian fields into `hHessianOpNorm` with
+`SALD.selectedWeakTestHessianOpNormOfSourceHessianField`, convert to
+`hSecondFDerivOpNorm`, specialize to the Brownian standard coordinate, then
+feed the directional bound into the existing selected-line Taylor theorem.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 175 standard-basis first-order remainder | Compile the selected-line first-order quadratic remainder from ambient selected-test `ContDiffOn` plus source-backed Hessian fields for the standard Brownian coordinate. | `SALD.selectedWeakTestHessianOpNormOfSourceHessianField`; `SALD.gaussianRealSelectedTestSecondFDerivOpNormOfFDerivFDerivOpNorm`; `SALD.gaussianRealSelectedTestDirectionalSecondBoundOfSecondFDerivOpNormStdOrthonormalBasis`; selected-line Taylor bridge | `SALD.gaussianRealSelectedTestStdOrthonormalFirstOrderQuadraticRemainderBoundOfSourceHessianField`; `SALD.cycle175GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoTaylorDominationMiddleObligation`; `SALD.cycle175GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoTaylorDominationDag` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305` | `hFirst`; selected-line Taylor quotient split; normalized-remainder domination | formalized |
+| Remaining cycle 175 source boundary | Source the selected weak-test `ContDiffOn` field and the two Hessian fields; keep `hSecondCoeff`, `hQuadraticCoeffDef`, `hVarianceOne`, Taylor moment decomposition, DCT data, and coordinate-sum separate. | original-source audit excluding `sald_version_2.tex`; cycle-173 Hessian source-contract gap; cycle-174 coefficient/variance boundary | `ASTIS.SALD.cycle175.remaining_selected_line_taylor_boundary` | same anchors | future selected-line Taylor domination and normalized-remainder closure | obligation |
+
+No SLT file was consulted or imported.  The local proof uses only already
+compiled Mathlib-backed derivative/Hessian bridges in `AutoSamplingTheory/SALD.lean`.
+
+## Cycle 175 Lower_1 Quadratic-Coefficient Proof Route
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf proof-scout packet inside the same
+`sald.general_moving_target_discrete.em_interpolation_fp` Brownian/Ito backend.
+
+Exact missing theorem boundary narrowed:
+
+```lean
+hQuadraticCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+        (selectedTest phi) x ((stdOrthonormalBasis Real E) i)
+```
+
+Lower_2 should reduce this to the smaller source-cited coefficient identity:
+
+```lean
+hSecondTaylorCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      iteratedFDeriv Real 2 (selectedTest phi) x
+        ![(stdOrthonormalBasis Real E) i,
+          (stdOrthonormalBasis Real E) i]
+```
+
+Proof route: introduce `htests`, `phi`, `x`, and `i`; unfold
+`SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`; close by the supplied
+`hSecondTaylorCoeffDef htests phi x i`.
+
+Source route:
+
+- `appendix.tex:984-995` supplies the frozen interpolation Brownian increment
+  `sigma_eta (W_s-W_{s_k})`.  After drift separation and scalar
+  standard-coordinate normalization, the quadratic coefficient attached to the
+  normalized Brownian coordinate is the diagonal second Frechet derivative of
+  the selected weak test.
+- `appendix.tex:1379-1387` keeps the diffusion coefficient
+  `sigma_eta^2/2` outside the Brownian event field, so
+  `hQuadraticCoeffDef` must not absorb that coefficient.
+
+If `hSecondTaylorCoeffDef` is not source-backed, the honest remaining boundary
+is exactly that identity.  Keep `hVarianceOne`, `hSourceHasHessian`,
+`hSourceHessianBound`, `hSecondCoeff`, the Taylor moment decomposition,
+normalized-remainder DCT data, and coordinate-sum leaves explicit.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 175 lower_1 quadratic-coefficient route | Reduce `hQuadraticCoeffDef` to the source-backed diagonal second-Taylor-coefficient identity `hSecondTaylorCoeffDef`. | `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`; source Brownian increment; diffusion coefficient placement | `SALD.cycle175GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoQuadraticCoeffLower1Obligation`; `ASTIS.SALD.cycle175.lower_1_packet.quadratic_coeff_second_taylor_route` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | lower_2 definitional bridge; `SALD.selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne`; EM FP backend | obligation |
+
+No local SLT file was consulted or imported.  The lower_2 theorem should use
+only the local definition `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`
+and the source-backed `hSecondTaylorCoeffDef`.
+
+## Cycle 175 Lower_2 Quadratic-Coefficient Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf Lean implementer packet inside the
+`sald.general_moving_target_discrete.em_interpolation_fp` Brownian/Ito backend.
+
+Compiled theorem:
+
+```lean
+SALD.selectedWeakTestQuadraticCoeffDefOfSecondTaylorCoeffDef
+```
+
+Exact theorem boundary narrowed: `hQuadraticCoeffDef` is no longer primitive
+once the source correspondence supplies:
+
+```lean
+hSecondTaylorCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      iteratedFDeriv Real 2 (selectedTest phi) x
+        ![(stdOrthonormalBasis Real E) i,
+          (stdOrthonormalBasis Real E) i]
+```
+
+The proof introduces `htests`, `phi`, `x`, and `i`, then closes by
+`simpa [SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator]` using
+`hSecondTaylorCoeffDef htests phi x i`.
+
+Remaining source-facing boundary: justify `hSecondTaylorCoeffDef` from
+`appendix.tex:984-995` and `appendix.tex:1379-1387`; keep `hVarianceOne`,
+`hSecondCoeff`, the source-Hessian fields, Taylor moment decomposition,
+normalized-remainder DCT data, and coordinate-sum leaves separate.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 175 lower_2 quadratic-coefficient bridge | Compile the definitional bridge from source-backed `hSecondTaylorCoeffDef` to `hQuadraticCoeffDef`. | lower_1 route; `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`; definitional unfolding | `SALD.selectedWeakTestQuadraticCoeffDefOfSecondTaylorCoeffDef`; `SALD.cycle175GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoQuadraticCoeffLower2Obligation`; `ASTIS.SALD.cycle175.lower_2_packet.quadratic_coeff_second_taylor_bridge` | `appendix.tex:984-995`; `appendix.tex:1379-1387` | `SALD.selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne`; `hFrozenScalarBrownianItoQuadraticVariationNormalization`; EM FP backend | formalized |
+
+No local SLT file was consulted or imported.  This bridge is local unfolding
+only; it does not formalize `hSecondTaylorCoeffDef`, does not absorb
+`sigma_eta^2/2`, and does not add a source-Hessian wrapper.
+
+## Cycle 176 Lower_1 Normalized Brownian Variance Proof Scout
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf proof-scout packet inside the
+`sald.general_moving_target_discrete.em_interpolation_fp` Brownian/Ito backend.
+
+Exact missing theorem boundary narrowed:
+
+```lean
+hVarianceOne :
+  testRegular -> forall phi x i,
+    (variance phi x i : Real) = 1
+```
+
+should be supplied from the smaller source-facing normalized-variance field:
+
+```lean
+hNormalizedVarianceDef :
+  testRegular -> forall phi x i,
+    variance phi x i = (1 : NNReal)
+```
+
+Natural-language Mathlib route for lower_2:
+
+1. Introduce `htests`, `phi`, `x`, and `i`.
+2. Rewrite `variance phi x i` by `hNormalizedVarianceDef htests phi x i`.
+3. Close the coercion equality `((1 : NNReal) : Real) = 1` with `norm_num`.
+
+Expected theorem shape:
+
+```lean
+SALD.selectedWeakTestVarianceOneOfNormalizedBrownianVarianceDef
+```
+
+Source route:
+
+- `appendix.tex:958-970` states the EM noise
+  `xi_k iid N(0,I_d)`.
+- `appendix.tex:984-995` gives the frozen Brownian increment
+  `sigma_eta (W_s-W_{s_k})`.
+- `appendix.tex:1170-1176` rewrites the increment as
+  `sigma_eta(t(s))*sqrt(s-s_k)*xi` with `xi ~ N(0,I)`.
+- `appendix.tex:1379-1387` keeps the coefficient `sigma_eta^2/2` outside the
+  Brownian event field.
+
+Thus the local variance field for the normalized scalar Brownian coordinate is
+the unit `NNReal` variance before applying the external diffusion coefficient.
+The packet does not prove `hNormalizedVarianceDef`; that remains the exact
+source-facing stochastic correspondence gap.  It also does not move
+`sigma_eta^2/2` into the event field, use VP score-Hessian regularity, or add a
+selected weak-test Hessian wrapper.
+
+## Cycle 176 Middle Normalized Brownian Variance Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet inside the
+`sald.general_moving_target_discrete.em_interpolation_fp` Brownian/Ito backend.
+
+Exact missing theorem boundary narrowed:
+
+```lean
+hVarianceOne :
+  testRegular -> forall phi x i,
+    (variance phi x i : Real) = 1
+```
+
+is reduced to the smaller source-facing field definition:
+
+```lean
+hNormalizedVarianceDef :
+  testRegular -> forall phi x i,
+    variance phi x i = (1 : NNReal)
+```
+
+Compiled theorem:
+
+```lean
+SALD.selectedWeakTestVarianceOneOfNormalizedBrownianVarianceDef
+```
+
+Proof route: introduce `htests`, `phi`, `x`, and `i`; rewrite by
+`hNormalizedVarianceDef htests phi x i`; close the `NNReal` to `Real`
+coercion with `norm_num`.
+
+Source route:
+
+- `appendix.tex:958-970` states the EM noise
+  `xi_k iid N(0,I_d)`.
+- `appendix.tex:984-995` gives the frozen Brownian increment
+  `sigma_eta (W_s-W_{s_k})`.
+- `appendix.tex:1170-1176` rewrites the increment as
+  `sigma_eta(t(s))*sqrt(s-s_k)*xi` with `xi ~ N(0,I)`.
+- `appendix.tex:1379-1387` keeps the coefficient `sigma_eta^2/2` outside the
+  Brownian event field, so the normalized scalar-coordinate variance field is
+  the constant one field before the external diffusion coefficient is applied.
+
+Remaining source-facing boundary: justify `hNormalizedVarianceDef` from the
+standard Gaussian coordinate normalization.  Keep `hSecondTaylorCoeffDef`,
+`hSourceHasHessian`, `hSourceHessianBound`, `hSecondCoeff`, the Taylor moment
+decomposition, normalized-remainder DCT data, and coordinate-sum leaves
+separate.
+
+## Cycle 176 Lower_2 Direct Quadratic-Variation Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet inside the same Brownian/Ito backend.
+
+Lower_1's exact variance theorem was already present locally, so lower_2 avoided
+duplicating it and compiled the next non-duplicative bridge:
+
+```lean
+SALD.selectedWeakTestQuadraticVariationNormalizationOfSecondTaylorCoeffAndNormalizedVarianceDef
+```
+
+Exact missing theorem boundary narrowed: the quadratic-variation normalization
+no longer needs the intermediate pair
+
+```lean
+hQuadraticCoeffDef
+hVarianceOne
+```
+
+once the source correspondence supplies the smaller pair
+
+```lean
+hSecondTaylorCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      iteratedFDeriv Real 2 (selectedTest phi) x
+        ![(stdOrthonormalBasis Real E) i,
+          (stdOrthonormalBasis Real E) i]
+
+hNormalizedVarianceDef :
+  testRegular -> forall phi x i,
+    variance phi x i = (1 : NNReal)
+```
+
+The proof composes
+`SALD.selectedWeakTestQuadraticCoeffDefOfSecondTaylorCoeffDef`,
+`SALD.selectedWeakTestVarianceOneOfNormalizedBrownianVarianceDef`, and
+`SALD.selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne`.
+The remaining source-facing boundary for this local normalization step is
+exactly `hSecondTaylorCoeffDef` plus `hNormalizedVarianceDef`; the source-Hessian
+fields, `hSecondCoeff`, Taylor moment decomposition, normalized-remainder DCT
+data, and coordinate-sum remain separate.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 176 normalized-variance bridge | Reduce downstream real-valued `hVarianceOne` to the source-facing `NNReal` normalized Brownian variance definition. | `hNormalizedVarianceDef`; `NNReal` coercion to `Real`; standard Gaussian coordinate normalization | `SALD.selectedWeakTestVarianceOneOfNormalizedBrownianVarianceDef`; `SALD.cycle176GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoVarianceOneMiddleObligation`; `SALD.cycle176GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoVarianceOneDag` | `appendix.tex:958-970`; `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `SALD.selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne`; `hFrozenScalarBrownianItoQuadraticVariationNormalization`; EM FP backend | formalized |
+| Cycle 176 lower_1 variance proof scout | Lower_1 route reducing `hVarianceOne` to `hNormalizedVarianceDef`, with lower_2 proof by rewrite and `norm_num`. | source normalized coordinate; `NNReal` coercion | `SALD.cycle176GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoVarianceOneLower1Obligation`; `ASTIS.SALD.cycle176.lower_1_packet.variance_one_normalized_source_route` | same anchors | `SALD.selectedWeakTestVarianceOneOfNormalizedBrownianVarianceDef`; quadratic-variation bridge | obligation |
+| Cycle 176 lower_2 direct normalization bridge | Compose the second-Taylor coefficient bridge and normalized-variance bridge to derive the quadratic-variation normalization from `hSecondTaylorCoeffDef` and `hNormalizedVarianceDef`. | `SALD.selectedWeakTestQuadraticCoeffDefOfSecondTaylorCoeffDef`; `SALD.selectedWeakTestVarianceOneOfNormalizedBrownianVarianceDef`; `SALD.selectedWeakTestQuadraticVariationNormalizationOfCoeffDefAndVarianceOne` | `SALD.selectedWeakTestQuadraticVariationNormalizationOfSecondTaylorCoeffAndNormalizedVarianceDef`; `SALD.cycle176GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoVarianceOneLower2Obligation`; `ASTIS.SALD.cycle176.lower_2_packet.quadratic_variation_from_second_taylor_and_normalized_variance` | same anchors | `hFrozenScalarBrownianItoQuadraticVariationNormalization`; EM FP backend | formalized |
+| Remaining cycle 176 source boundary | Source `hSecondTaylorCoeffDef` and `hNormalizedVarianceDef` from the selected-line second Taylor coefficient and `xi ~ N(0,I)` normalized scalar Brownian coordinate. | original-source audit excluding `sald_version_2.tex`; cycle-174/175 coefficient and variance boundary | `ASTIS.SALD.cycle176.remaining_variance_source_boundary` | same anchors | future Brownian/Ito quadratic-variation assembly | obligation |
+
+No local SLT file was consulted or imported.  The compiled proofs are local
+coercion/definition-composition bridges; they do not formalize the stochastic
+coordinate normalization or second Taylor coefficient source facts, do not move
+`sigma_eta^2/2` inside the event field, and do not add a source-Hessian wrapper.
+
+## Cycle 177 Upper Hessian Decision And Coefficient Packet
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: upper dynamic-leaf worker packet for the Brownian/Ito backend under
+`sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Global phase judgment: cycle 176 did not fail and needs no recovery; the
+reviewer accepted the direct quadratic-variation bridge after a passing gate.
+The Phase 1 theorem-skeleton route is stable enough for cited-theory backfill.
+The largest non-wrapper proof risk is now the source-facing per-coordinate
+second Taylor coefficient field, while the selected weak-test Hessian fields
+remain an honest source-contract gap.
+
+Upper source-Hessian decision: `hSourceHasHessian` and
+`hSourceHessianBound` are not derivable from the checked original source
+anchors.  The checked anchors supply the frozen EM Brownian interpolation,
+nearby score/drift Lipschitz and integrability assumptions, the weak
+Fokker--Planck diffusion/Laplacian display, and a VP score-Hessian bound, but
+they do not supply a selected weak-test Hessian representative
+`sourceHessian` with
+
+```lean
+hSourceHasHessian :
+  forall z,
+    HasFDerivAt (fderiv Real sourceTest) (sourceHessian z) z
+
+hSourceHessianBound :
+  forall z, norm (sourceHessian z) <= C1
+```
+
+Therefore the cycle must not close those fields from unexpanded `testRegular`,
+a `sourceHessian` definition taken from the desired conclusion, an unsourced
+`SelectedWeakTestC2bBoundedHessian` predicate, or the VP score-Hessian theorem
+in `iteration_complexity.tex:309-321`.
+
+Next lower packet: target the connected Brownian/Ito coefficient leaf
+`hSecondTaylorCoeffDef` in the cycle-176 remaining boundary
+
+```lean
+hSecondTaylorCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      iteratedFDeriv Real 2 (selectedTest phi) x
+        ![(stdOrthonormalBasis Real E) i,
+          (stdOrthonormalBasis Real E) i]
+```
+
+Middle should keep the source theorem fixed at
+`sald.general_moving_target_discrete.em_interpolation_fp` over
+`appendix.tex:1358-1387`, with Brownian/Ito anchors `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.  Lower_1 should write
+the natural-language route identifying this coefficient as the normalized
+scalar Brownian second Taylor coefficient after drift separation and before the
+paper's external `sigma_eta^2/2` factor.  Lower_2 should implement exactly one
+compiled bridge only if there is an independently source-shaped coefficient
+field already present; otherwise lower_2 should record a strictly smaller
+source-cited obligation for that coefficient field, not a wrapper from
+`testRegular`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 177 Hessian source decision | Preserve `hSourceHasHessian`/`hSourceHessianBound` as source-contract gaps; reject test-regularity, sourceHessian-by-conclusion, unsourced bounded-Hessian, and VP score-Hessian substitutions. | cycle-173 bridge; cycle-174 source-Hessian decision; source recheck excluding `sald_version_2.tex` | this cycle-177 upper note | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1379-1387`; `main_body.tex:273-305`; `iteration_complexity.tex:309-321` | reviewer wrapper-churn check | obligation |
+| Cycle 177 coefficient lower packet | Narrow the remaining quadratic-variation source boundary on the coefficient side from `hSecondTaylorCoeffDef` to the smallest source-shaped per-coordinate second Taylor coefficient statement lower can justify. | `SALD.selectedWeakTestQuadraticVariationNormalizationOfSecondTaylorCoeffAndNormalizedVarianceDef`; `SALD.selectedWeakTestQuadraticCoeffDefOfSecondTaylorCoeffDef`; `SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator`; normalized Brownian scalar coordinate source route | next middle/lower declaration or proof obligation | `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `hFrozenScalarBrownianItoQuadraticVariationNormalization`; scalar Brownian/Ito generator assembly | obligation |
+
+No local SLT file was consulted or imported.  The only local Lean context
+consulted was the already compiled Brownian/Ito Gaussian moment, Taylor, and
+Hessian-bridge chain in `AutoSamplingTheory/SALD.lean`.
+
+## Cycle 177 Middle Scalar-Line Second Taylor Coefficient Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet for the Brownian/Ito backend
+under `sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Middle accepts the upper source-Hessian decision for this cycle:
+`hSourceHasHessian` and `hSourceHessianBound` are not derivable from the
+checked original-source anchors and remain source-contract gaps.  The middle
+packet therefore does not use `sourceHessian`, an unexpanded `testRegular`
+projection, an unsourced bounded-Hessian predicate, or the VP score-Hessian
+result.
+
+Compiled local bridge:
+`SALD.selectedWeakTestSecondTaylorCoeffDefOfScalarLineSecondCoeffDef` narrows
+the source-facing coefficient field
+
+```lean
+hSecondTaylorCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      iteratedFDeriv Real 2 (selectedTest phi) x
+        ![(stdOrthonormalBasis Real E) i,
+          (stdOrthonormalBasis Real E) i]
+```
+
+to the smaller scalar-line coefficient boundary
+
+```lean
+hScalarLineSecondCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      iteratedDeriv 2
+        (fun q : Real =>
+          selectedTest phi (x + q • (stdOrthonormalBasis Real E i))) 0
+```
+
+plus the already explicit ambient selected-test regularity
+`hSource : testRegular -> forall phi,
+ContDiffOn Real 2 (selectedTest phi) Set.univ`.
+
+The proof applies
+`SALD.gaussianRealSelectedTestLineSecondDerivEqDirectionalFDeriv` at `q = 0`
+and identifies the repeated `Fin 2` direction with `![e_i, e_i]`.  The
+remaining exact source boundary is now `hScalarLineSecondCoeffDef`, together
+with the already separate `hNormalizedVarianceDef`; `hSecondCoeff`, Taylor
+moment decomposition, normalized-remainder DCT data, coordinate-sum, and the
+source-Hessian fields remain explicit.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`, with the negative
+Hessian-source audit still checking `appendix.tex:1026-1072`,
+`main_body.tex:273-305`, and `iteration_complexity.tex:309-321`.
+
+No local SLT file was consulted or imported.  This is a local chain-rule bridge,
+not a probability-library import or theorem-status promotion.
+
+## Cycle 177 Lower_1 Scalar-Line Coefficient Normalization Route
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: lower_1 dynamic-leaf proof-scout packet for the Brownian/Ito
+backend under `sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Exact downstream boundary narrowed: after the middle bridge, lower_2 should not
+consume the older
+
+```lean
+hSecondTaylorCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      iteratedFDeriv Real 2 (selectedTest phi) x
+        ![(stdOrthonormalBasis Real E) i,
+          (stdOrthonormalBasis Real E) i]
+```
+
+as a primitive field in the quadratic-variation normalization.  The next local
+bridge should consume only the smaller scalar-line coefficient field
+
+```lean
+hScalarLineSecondCoeffDef :
+  testRegular -> forall phi x i,
+    quadraticCoeff phi x i =
+      iteratedDeriv 2
+        (fun q : Real =>
+          selectedTest phi (x + q • (stdOrthonormalBasis Real E i))) 0
+```
+
+together with the already explicit selected-test regularity
+
+```lean
+hSource :
+  testRegular -> forall phi,
+    ContDiffOn Real 2 (selectedTest phi) Set.univ
+```
+
+and the separate normalized Brownian variance field
+
+```lean
+hNormalizedVarianceDef :
+  testRegular -> forall phi x i, variance phi x i = (1 : NNReal).
+```
+
+Lower_2-ready theorem shape:
+
+```lean
+theorem selectedWeakTestQuadraticVariationNormalizationOfScalarLineSecondCoeffAndNormalizedVarianceDef
+    {Test E : Type*} [NormedAddCommGroup E] [InnerProductSpace Real E]
+    [FiniteDimensional Real E]
+    (selectedTest : Test -> E -> Real)
+    (quadraticCoeff : Test -> E -> Fin (Module.finrank Real E) -> Real)
+    (variance : Test -> E -> Fin (Module.finrank Real E) -> NNReal)
+    (testRegular : Prop)
+    (hSource :
+      testRegular ->
+        forall phi, ContDiffOn Real 2 (selectedTest phi) Set.univ)
+    (hScalarLineSecondCoeffDef :
+      testRegular ->
+        forall phi x i,
+          quadraticCoeff phi x i =
+            iteratedDeriv 2
+              (fun q : Real =>
+                selectedTest phi
+                  (x + q • (stdOrthonormalBasis Real E i))) 0)
+    (hNormalizedVarianceDef :
+      testRegular ->
+        forall phi x i, variance phi x i = (1 : NNReal)) :
+    testRegular ->
+      forall phi x i,
+        quadraticCoeff phi x i * (variance phi x i : Real) =
+          SALD.emFrozenScalarBrownianItoOneDimTaylorGenerator
+            (selectedTest phi) x ((stdOrthonormalBasis Real E) i)
+```
+
+Proof route: first obtain `hSecondTaylorCoeffDef` by applying
+`SALD.selectedWeakTestSecondTaylorCoeffDefOfScalarLineSecondCoeffDef` to
+`hSource` and `hScalarLineSecondCoeffDef`.  Then apply
+`SALD.selectedWeakTestQuadraticVariationNormalizationOfSecondTaylorCoeffAndNormalizedVarianceDef`
+with that derived `hSecondTaylorCoeffDef` and the supplied
+`hNormalizedVarianceDef`.  This removes the older supplied
+`hSecondTaylorCoeffDef` field from the downstream normalization without
+formalizing the stochastic source facts themselves.
+
+Source route: `appendix.tex:958-970` supplies the EM Gaussian increment
+`xi_k ~ N(0,I_d)`, `appendix.tex:984-995` supplies the frozen Brownian
+interpolation, `appendix.tex:1170-1176` rewrites the increment as a scaled
+standard Gaussian coordinate, and `appendix.tex:1379-1387` keeps the
+`sigma_eta^2/2` diffusion coefficient outside this Brownian event-field
+coefficient.  The scalar Taylor coefficient therefore remains the ordinary
+second derivative of the selected one-dimensional line at the expansion point,
+while the variance normalization remains a separate source field.
+
+The selected weak-test Hessian fields `hSourceHasHessian` and
+`hSourceHessianBound` remain source-contract gaps.  This route does not define
+`sourceHessian` from the desired conclusion, does not derive a bounded-Hessian
+predicate from unexpanded `testRegular`, does not use the VP score-Hessian
+result, does not import or port SLT, and does not use `sald_version_2.tex`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 177 lower_1 direct scalar-line normalization route | Compose the middle scalar-line bridge with the cycle-176 normalization bridge so lower_2 can remove primitive `hSecondTaylorCoeffDef` from the downstream quadratic-variation normalization. | `SALD.selectedWeakTestSecondTaylorCoeffDefOfScalarLineSecondCoeffDef`; `SALD.selectedWeakTestQuadraticVariationNormalizationOfSecondTaylorCoeffAndNormalizedVarianceDef`; `hSource`; `hScalarLineSecondCoeffDef`; `hNormalizedVarianceDef` | `SALD.selectedWeakTestQuadraticVariationNormalizationOfScalarLineSecondCoeffAndNormalizedVarianceDef` | `appendix.tex:958-970`; `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `hFrozenScalarBrownianItoQuadraticVariationNormalization`; EM weak-FP Brownian/Ito backend | formalized by lower_2 |
+
+## Cycle 177 Lower_2 Scalar-Line Normalization Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: lower_2 dynamic-leaf Lean implementer packet for the Brownian/Ito
+backend under `sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Compiled local bridge:
+`SALD.selectedWeakTestQuadraticVariationNormalizationOfScalarLineSecondCoeffAndNormalizedVarianceDef`
+derives the downstream quadratic-variation normalization from
+`hScalarLineSecondCoeffDef`, `hSource`, and `hNormalizedVarianceDef` by first
+recovering `hSecondTaylorCoeffDef` through
+`SALD.selectedWeakTestSecondTaylorCoeffDefOfScalarLineSecondCoeffDef`, then
+applying
+`SALD.selectedWeakTestQuadraticVariationNormalizationOfSecondTaylorCoeffAndNormalizedVarianceDef`.
+
+Exact boundary narrowed: the normalization step no longer consumes primitive
+`hSecondTaylorCoeffDef`; its source-facing coefficient boundary is now
+`hScalarLineSecondCoeffDef`, with `hNormalizedVarianceDef` still separate for
+the normalized Brownian variance.  The selected weak-test Hessian fields
+`hSourceHasHessian` and `hSourceHessianBound`, plus `hSecondCoeff`, Taylor
+moment decomposition, normalized-remainder DCT data, and coordinate-sum remain
+separate leaves.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.  No SLT file was
+consulted or imported; the proof only composes already compiled local bridges.
+
+## Cycle 178 Middle Normalized Coordinate Variance Law
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet for the Brownian/Ito backend
+under `sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Exact boundary narrowed: `hNormalizedVarianceDef` is no longer primitive.  It
+now follows from the smaller source-facing coordinate-law interface
+
+```lean
+hNormalizedCoordinateLaw :
+  testRegular ->
+    forall phi x i,
+      normalizedCoordinateLaw phi x i =
+        ProbabilityTheory.gaussianReal (0 : Real) (1 : NNReal)
+```
+
+plus the variance-field definition
+
+```lean
+hVarianceDef :
+  testRegular ->
+    forall phi x i,
+      (variance phi x i : Real) =
+        ProbabilityTheory.variance (id : Real -> Real)
+          (normalizedCoordinateLaw phi x i)
+```
+
+Compiled local bridge:
+
+```lean
+SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw
+```
+
+This theorem rewrites the normalized coordinate law to
+`ProbabilityTheory.gaussianReal 0 1`, applies
+`ProbabilityTheory.variance_id_gaussianReal`, and uses
+`NNReal.coe_injective` to recover
+
+```lean
+hNormalizedVarianceDef :
+  testRegular ->
+    forall phi x i, variance phi x i = (1 : NNReal)
+```
+
+Source route: `appendix.tex:958-970` supplies the EM Gaussian increment
+`xi_k ~ N(0,I_d)`, `appendix.tex:984-995` supplies the frozen Brownian
+interpolation, `appendix.tex:1170-1176` rewrites the increment with
+`xi ~ N(0,I)`, and `appendix.tex:1379-1387` keeps the `sigma_eta^2/2`
+diffusion coefficient outside this Brownian event-field normalization.
+
+Remaining exact source boundary: prove `hNormalizedCoordinateLaw` and
+`hVarianceDef` for the normalized scalar Brownian coordinate.  The separate
+coefficient source fact `hScalarLineSecondCoeffDef`, selected weak-test Hessian
+fields `hSourceHasHessian`/`hSourceHessianBound`, `hSecondCoeff`, Taylor moment
+decomposition, normalized-remainder DCT data, and coordinate-sum remain
+unchanged.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 178 normalized variance law bridge | Derive `hNormalizedVarianceDef` from the source-backed standard Gaussian coordinate law and the variance-field definition. | `ProbabilityTheory.variance_id_gaussianReal`; `NNReal.coe_injective`; `hNormalizedCoordinateLaw`; `hVarianceDef` | `SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw`; `SALD.cycle178GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoNormalizedVarianceMiddleObligation` | `appendix.tex:958-970`; `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `SALD.selectedWeakTestVarianceOneOfNormalizedBrownianVarianceDef`; `SALD.selectedWeakTestQuadraticVariationNormalizationOfScalarLineSecondCoeffAndNormalizedVarianceDef` | formalized |
+| Remaining normalized coordinate law boundary | Prove `hNormalizedCoordinateLaw` and `hVarianceDef` from the paper's standard Gaussian coordinate normalization. | source Gaussian coordinate normalization; local variance-field packaging | `ASTIS.SALD.cycle178.remaining_normalized_coordinate_law_boundary` | same anchors | future lower packet; Brownian/Ito scalar generator bookkeeping | obligation |
+
+No local SLT file was consulted or imported.  This packet does not move
+`sigma_eta^2/2` into the event field, does not derive source-Hessian fields, and
+does not use `sald_version_2.tex`.
+
+## Cycle 178 Lower_1 Normalized Coordinate Law Route
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: lower_1 dynamic-leaf proof-scout packet for the Brownian/Ito
+backend under `sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Exact boundary narrowed: the remaining scalar-law field
+`hNormalizedCoordinateLaw` should be proved from a vector standard-Gaussian law
+for the normalized increment and the definition of the coordinate law, not
+treated as a primitive source field.
+
+Lower_2-ready theorem shape:
+
+```lean
+selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw
+  (normalizedVectorLaw :
+    Test -> E -> MeasureTheory.Measure E)
+  (normalizedCoordinateLaw :
+    Test -> E -> Fin (Module.finrank Real E) -> MeasureTheory.Measure Real)
+  (testRegular : Prop)
+  (hNormalizedVectorLaw :
+    testRegular ->
+      forall phi x,
+        normalizedVectorLaw phi x = ProbabilityTheory.stdGaussian E)
+  (hCoordinateLawDef :
+    testRegular ->
+      forall phi x i,
+        normalizedCoordinateLaw phi x i =
+          (normalizedVectorLaw phi x).map
+            (fun y : E => inner (stdOrthonormalBasis Real E i) y)) :
+  testRegular ->
+    forall phi x i,
+      normalizedCoordinateLaw phi x i =
+        ProbabilityTheory.gaussianReal (0 : Real) (1 : NNReal)
+```
+
+Mathlib route for the inner projection step:
+
+1. Use `Mathlib.Probability.Distributions.Gaussian.Multivariate`.
+2. For `L : StrongDual Real E :=
+   InnerProductSpace.toDual Real E ((stdOrthonormalBasis Real E) i)`,
+   apply `ProbabilityTheory.IsGaussian.map_eq_gaussianReal` to
+   `ProbabilityTheory.stdGaussian E`.
+3. Rewrite the mean with
+   `ProbabilityTheory.integral_strongDual_stdGaussian`.
+4. Rewrite the variance with
+   `ProbabilityTheory.variance_dual_stdGaussian` and the
+   orthonormal-basis norm simplifier, giving variance `1`.
+5. Rewrite `hCoordinateLawDef` and `hNormalizedVectorLaw`.
+
+Source route: `appendix.tex:958-970` supplies
+`\xi_k \stackrel{i.i.d.}{\sim} \mathcal N(0,I_d)`,
+`appendix.tex:984-995` gives the frozen Brownian increment
+`\sigma_\eta(W_s-W_{s_k})`, `appendix.tex:1170-1176` rewrites it as
+`\sigma_\eta(t(s))\sqrt{s-s_k}\xi` with `\xi ~ \mathcal N(0,I)`, and
+`appendix.tex:1379-1387` keeps the `sigma_eta^2/2` diffusion coefficient
+outside the Brownian event field.
+
+The variance packaging field `hVarianceDef` remains separate.  After lower_2
+proves the coordinate-law theorem above, the already compiled
+`SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw` discharges
+`hNormalizedVarianceDef` from that coordinate law plus `hVarianceDef`.
+`hScalarLineSecondCoeffDef`, `hSourceHasHessian`/`hSourceHessianBound`,
+`hSecondCoeff`, Taylor moment decomposition, normalized-remainder DCT data, and
+coordinate-sum remain unchanged.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 178 lower_1 normalized coordinate law route | Reduce `hNormalizedCoordinateLaw` to the vector standard-Gaussian normalized increment law plus coordinate-law definition. | `ProbabilityTheory.stdGaussian`; `ProbabilityTheory.IsGaussian.map_eq_gaussianReal`; `ProbabilityTheory.integral_strongDual_stdGaussian`; `ProbabilityTheory.variance_dual_stdGaussian`; `hNormalizedVectorLaw`; `hCoordinateLawDef` | `SALD.cycle178GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoNormalizedCoordinateLawLower1Obligation`; proposed `selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw` | `appendix.tex:958-970`; `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `hNormalizedCoordinateLaw`; `SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw`; `hNormalizedVarianceDef` | obligation |
+
+No local SLT file was consulted, imported, ported, or marked formalized.  This
+is a Mathlib Gaussian-coordinate projection route plus source-law
+correspondence, not a wrapper around `hNormalizedCoordinateLaw`.
+
+## Cycle 179 Middle Source-Hessian Audit and Scalar-Line Coefficient Packet
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet for the Brownian/Ito backend
+under `sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Exact source decision: `hSourceHasHessian` and `hSourceHessianBound` are not
+derivable from the checked original VA-SALD source anchors.  They remain
+source-contract gaps behind
+`SALD.selectedWeakTestHessianOpNormOfSourceHessianField`.
+
+Checked anchors:
+
+| Source | Result of audit |
+|---|---|
+| `appendix.tex:984-995` | frozen interpolation and Brownian increment, no selected weak-test Hessian field |
+| `appendix.tex:1026-1072` | Lipschitz assumptions for frozen-delta bound, no Hessian of `sourceTest` |
+| `appendix.tex:1170-1176` | normalized Gaussian increment representation, no selected weak-test Hessian field |
+| `appendix.tex:1379-1387` | weak Fokker-Planck diffusion term with `sigma_eta^2/2` outside the event field |
+| `main_body.tex:273-305` | discrete SALD Lipschitz assumptions only |
+| `iteration_complexity.tex:309-321` | VP score-Hessian bound, rejected as the wrong object for `sourceTest` |
+
+Next lower boundary:
+
+```lean
+hScalarLineSecondCoeffDef
+```
+
+Lower_1 should write the natural-language source/Mathlib route for the scalar
+Brownian coordinate Taylor coefficient from `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.  Lower_2 should
+implement exactly one compiled theorem or record one strictly smaller
+source-cited obligation narrowing `hScalarLineSecondCoeffDef`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 179 source-Hessian audit closure | Keep `hSourceHasHessian`/`hSourceHessianBound` as source-contract gaps and reject wrapper routes or VP score-Hessian substitution. | `SALD.selectedWeakTestHessianOpNormOfSourceHessianField`; source anchors checked above | `SALD.cycle179GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoHessianAuditScalarLineCoeffMiddleObligation`; `ASTIS.SALD.cycle179.middle_packet.source_hessian_audit_closed` | `appendix.tex:984-995`; `appendix.tex:1026-1072`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387`; `main_body.tex:273-305`; `iteration_complexity.tex:309-321` | reviewer source-contract check | obligation |
+| Cycle 179 scalar-line lower route | Assign lower work to the connected scalar Brownian Taylor coefficient boundary, not to another Hessian wrapper. | `hScalarLineSecondCoeffDef`; `SALD.selectedWeakTestSecondTaylorCoeffDefOfScalarLineSecondCoeffDef`; existing variance bridges | `ASTIS.SALD.cycle179.middle_packet.scalar_line_second_coeff_lower_route`; `ASTIS.SALD.cycle179.middle_packet.lower_2_exact_target` | `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `hSecondTaylorCoeffDef`; `hFrozenScalarBrownianItoQuadraticVariationNormalization` | obligation |
+
+No local SLT file was consulted or imported.  No theorem status was promoted,
+`sigma_eta^2/2` was not moved into the event field, and
+`sald_version_2.tex` was not used.
+
+## Cycle 179 Lower_1 Scalar-Line Coefficient Route
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: lower_1 dynamic-leaf proof-scout packet.
+
+Exact boundary narrowed: `hScalarLineSecondCoeffDef` should reduce to the
+paper's scalar Taylor coefficient convention
+
+```lean
+hScalarLineTaylorCoeffDef :
+  testRegular ->
+    forall phi x i,
+      quadraticCoeff phi x i =
+        (2 : Real) *
+          taylorCoeffWithin
+            (fun q : Real =>
+              selectedTest phi
+                (x + q • (stdOrthonormalBasis Real E i)))
+            2 Set.univ 0
+```
+
+and the local Mathlib theorem
+
+```lean
+selectedWeakTestScalarLineSecondCoeffDefOfTaylorCoeffWithin :
+  hScalarLineTaylorCoeffDef ->
+    testRegular ->
+      forall phi x i,
+        quadraticCoeff phi x i =
+          iteratedDeriv 2
+            (fun q : Real =>
+              selectedTest phi
+                (x + q • (stdOrthonormalBasis Real E i)))
+            0
+```
+
+Mathlib route for lower_2: rewrite `hScalarLineTaylorCoeffDef`, unfold
+`taylorCoeffWithin`, rewrite `iteratedDerivWithin_univ`, then simplify
+`(2 : Real) * (2 ! : Real)^-1` to `1`.  The source factor
+`sigma_eta^2/2` stays outside this field because `appendix.tex:1379-1387`
+places it in the weak-FP diffusion term.
+
+Source route: `appendix.tex:984-995` gives the frozen Brownian interpolation,
+`appendix.tex:1170-1176` rewrites the increment as
+`\sigma_\eta(t(s))\sqrt{s-s_k}\xi` with `\xi ~ N(0,I)`, and
+`appendix.tex:1379-1387` supplies the diffusion coefficient convention.
+
+Keep `hSource`, `hNormalizedVectorLaw`, `hCoordinateLawDef`, `hVarianceDef`,
+`hSecondCoeff`, Taylor moment decomposition, DCT domination, coordinate-sum,
+and `hSourceHasHessian`/`hSourceHessianBound` explicit.
+
+## Cycle 179 Lower_2 Scalar-Line Taylor Coefficient Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: lower_2 dynamic-leaf Lean implementer packet.
+
+Exact boundary narrowed: `hScalarLineSecondCoeffDef` is no longer primitive
+once the source correspondence supplies the smaller scalar Taylor coefficient
+convention
+
+```lean
+hScalarLineTaylorCoeffDef :
+  testRegular ->
+    forall phi x i,
+      quadraticCoeff phi x i =
+        (2 : Real) *
+          taylorCoeffWithin
+            (fun q : Real =>
+              selectedTest phi
+                (x + q • (stdOrthonormalBasis Real E i)))
+            2 Set.univ 0
+```
+
+Compiled local bridge:
+
+```lean
+SALD.selectedWeakTestScalarLineSecondCoeffDefOfTaylorCoeffWithin
+```
+
+The theorem rewrites by `hScalarLineTaylorCoeffDef`, unfolds
+`taylorCoeffWithin` over `Set.univ`, uses the `iteratedDerivWithin_univ`
+simplification available through Mathlib, and cancels the order-two factorial
+normalization to recover
+
+```lean
+hScalarLineSecondCoeffDef :
+  testRegular ->
+    forall phi x i,
+      quadraticCoeff phi x i =
+        iteratedDeriv 2
+          (fun q : Real =>
+            selectedTest phi
+              (x + q • (stdOrthonormalBasis Real E i))) 0
+```
+
+Source route: `appendix.tex:984-995` gives the frozen Brownian interpolation,
+`appendix.tex:1170-1176` gives the normalized Gaussian increment, and
+`appendix.tex:1379-1387` keeps the `sigma_eta^2/2` diffusion coefficient
+outside the Brownian event field.  The remaining exact coefficient boundary is
+`hScalarLineTaylorCoeffDef`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 179 lower_2 scalar-line Taylor coefficient bridge | Derive `hScalarLineSecondCoeffDef` from `hScalarLineTaylorCoeffDef` by Mathlib's `taylorCoeffWithin` convention over `Set.univ`. | `taylorCoeffWithin`; `iteratedDerivWithin_univ`; `Nat.factorial`; `hScalarLineTaylorCoeffDef` | `SALD.selectedWeakTestScalarLineSecondCoeffDefOfTaylorCoeffWithin`; `SALD.cycle179GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoScalarLineCoeffLower2Obligation`; `ASTIS.SALD.cycle179.lower_2_packet.scalar_line_second_coeff_from_taylor_coeff` | `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `SALD.selectedWeakTestSecondTaylorCoeffDefOfScalarLineSecondCoeffDef`; `SALD.selectedWeakTestQuadraticVariationNormalizationOfScalarLineSecondCoeffAndNormalizedVarianceDef` | formalized |
+| Remaining scalar-line Taylor convention boundary | Prove the scalar Brownian coefficient is twice Mathlib's order-two scalar Taylor coefficient, with `sigma_eta^2/2` outside the event field. | source coefficient convention; frozen Brownian interpolation; normalized coordinate law | `hScalarLineTaylorCoeffDef` | same anchors | future coefficient source correspondence packet | obligation |
+
+No local SLT file was consulted or imported.  Mathlib consultation was limited
+to the already imported Taylor/iterated-derivative API used by the compiled
+bridge.  This packet does not define `sourceHessian` from the desired
+conclusion, does not use VP score-Hessian regularity, does not move
+`sigma_eta^2/2` into the event field, and does not use `sald_version_2.tex`.
+
+## Cycle 180 Middle Taylor Moment Integral Split
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet.
+
+Exact boundary narrowed: the primitive source-facing field
+
+```lean
+hFrozenScalarBrownianItoTaylorMomentDecomposition :
+  testRegular ->
+    forall phi x i,
+      brownianCoordinateGenerator phi x i =
+        linearCoeff phi x i * E[Z] +
+        quadraticCoeff phi x i * E[Z^2] +
+        remainderGeneratorLimit phi x i
+```
+
+is replaced by the smaller Taylor-integral source boundary
+
+```lean
+hBrownianCoordinateGeneratorTaylorIntegralDef :
+  testRegular ->
+    forall phi x i,
+      brownianCoordinateGenerator phi x i =
+        ∫ z : Real,
+          linearCoeff phi x i * z +
+            quadraticCoeff phi x i * z ^ 2 +
+            normalizedRemainder phi x i z ∂
+          ProbabilityTheory.gaussianReal 0 (variance phi x i)
+
+hLinearInt :
+  testRegular ->
+    forall phi x i,
+      Integrable (fun z => linearCoeff phi x i * z)
+        (ProbabilityTheory.gaussianReal 0 (variance phi x i))
+
+hQuadraticInt :
+  testRegular ->
+    forall phi x i,
+      Integrable (fun z => quadraticCoeff phi x i * z ^ 2)
+        (ProbabilityTheory.gaussianReal 0 (variance phi x i))
+
+hRemainderInt :
+  testRegular ->
+    forall phi x i,
+      Integrable (fun z => normalizedRemainder phi x i z)
+        (ProbabilityTheory.gaussianReal 0 (variance phi x i))
+
+hRemainderGeneratorLimitDef :
+  testRegular ->
+    forall phi x i,
+      remainderGeneratorLimit phi x i =
+        ∫ z : Real, normalizedRemainder phi x i z ∂
+          ProbabilityTheory.gaussianReal 0 (variance phi x i)
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefs
+```
+
+The proof uses `MeasureTheory.integral_add` twice to split the
+linear/quadratic/remainder integral, `MeasureTheory.integral_const_mul` to pull
+out `linearCoeff` and `quadraticCoeff`, and `hRemainderGeneratorLimitDef` to
+identify the remainder contribution.  This is an integral-linearity bridge only;
+the stochastic source Taylor expansion and its integrability facts remain
+obligations.
+
+Source anchors: `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.  The factor
+`sigma_eta^2/2` remains outside the Brownian event field.
+
+`hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps.  This
+packet does not define `sourceHessian` from the conclusion, does not project
+the Hessian fields from `testRegular`, does not use VP score-Hessian
+regularity, does not import SLT, and does not use `sald_version_2.tex`.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 180 Taylor moment integral split | Compile the integral-linearity bridge from a source Taylor integral definition plus summand integrability and remainder definition to `hFrozenScalarBrownianItoTaylorMomentDecomposition`. | `MeasureTheory.integral_add`; `MeasureTheory.integral_const_mul`; `hBrownianCoordinateGeneratorTaylorIntegralDef`; `hLinearInt`; `hQuadraticInt`; `hRemainderInt`; `hRemainderGeneratorLimitDef` | `SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefs`; `SALD.cycle180GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoTaylorMomentMiddleObligation`; `ASTIS.SALD.cycle180.middle_packet.taylor_moment_integral_split` | `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder` | formalized |
+| Cycle 180 lower_1 polynomial summand integrability | Discharge the linear and quadratic Gaussian summand integrability fields in the Taylor moment split. | `ProbabilityTheory.integrable_exp_mul_gaussianReal`; `ProbabilityTheory.integrable_pow_of_integrable_exp_mul`; `MeasureTheory.Integrable.const_mul`; existing Taylor moment integral split | `SALD.gaussianRealLinearQuadraticTaylorSummandsIntegrable`; `SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsAndGaussianPolynomialIntegrability`; `SALD.cycle180GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoPolynomialIntegrabilityLower1Obligation`; `ASTIS.SALD.cycle180.lower_1_packet.polynomial_summand_integrability` | same anchors | future Taylor-integral source packet; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder` | formalized |
+| Cycle 180 lower_2 dominated remainder integrability | Discharge `hRemainderInt` in the Taylor moment split from a.e. measurability, a.e. domination, and an integrable dominating bound for `normalizedRemainder`. | `MeasureTheory.Integrable.mono'`; `hRemainderMeas`; `hRemainderBound`; `hRemainderBoundInt`; lower_1 polynomial summand bridge | `SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsAndDominatedRemainder`; `SALD.cycle180GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoDominatedRemainderLower2Obligation`; `ASTIS.SALD.cycle180.lower_2_packet.dominated_remainder_integrability` | same anchors | future Taylor-integral source packet; `SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoOneDimTaylorOfGaussianMomentRemainder` | formalized |
+| Remaining Taylor-integral source boundary after lower_2 | Prove the coordinate-generator Taylor integral definition and normalized-remainder definition for the paper's frozen scalar Brownian coordinate, and instantiate the concrete normalized-remainder measurability/domination package. | frozen interpolation; normalized Gaussian increment; selected scalar Taylor expansion; DCT/integrability facts | `hBrownianCoordinateGeneratorTaylorIntegralDef`; `hRemainderGeneratorLimitDef`; `hRemainderMeas`; `hRemainderBound`; `hRemainderBoundInt` | same anchors | future lower packet | obligation |
+
+## Cycle 180 Lower_1 Polynomial Summand Integrability Bridge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Packet type: dynamic-leaf worker/proof-scout packet inside the same
+`sald.general_moving_target_discrete.em_interpolation_fp` Brownian/Ito scalar
+generator chain.
+
+Exact supplied hypotheses discharged:
+
+```lean
+hLinearInt :
+  testRegular ->
+    forall phi x i,
+      Integrable (fun z => linearCoeff phi x i * z)
+        (ProbabilityTheory.gaussianReal 0 (variance phi x i))
+
+hQuadraticInt :
+  testRegular ->
+    forall phi x i,
+      Integrable (fun z => quadraticCoeff phi x i * z ^ 2)
+        (ProbabilityTheory.gaussianReal 0 (variance phi x i))
+```
+
+Compiled declarations:
+
+```lean
+SALD.gaussianRealLinearQuadraticTaylorSummandsIntegrable
+SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsAndGaussianPolynomialIntegrability
+```
+
+Mathlib route: for `Z ~ gaussianReal 0 v`, use
+`ProbabilityTheory.integrable_exp_mul_gaussianReal` at `t = 1` and `t = -1`,
+then `ProbabilityTheory.integrable_pow_of_integrable_exp_mul` for powers
+`1` and `2`.  Apply `MeasureTheory.Integrable.const_mul` to attach the fixed
+coefficients `linearCoeff phi x i` and `quadraticCoeff phi x i`.  Compose these
+two integrability proofs with
+`SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefs`.
+
+Remaining exact source boundary for lower_2:
+
+```lean
+hBrownianCoordinateGeneratorTaylorIntegralDef
+hRemainderInt
+hRemainderGeneratorLimitDef
+```
+
+The next theorem should not reintroduce `hLinearInt` or `hQuadraticInt`.  A
+natural lower_2 target is the source-correspondence bridge that proves
+`hBrownianCoordinateGeneratorTaylorIntegralDef` from the frozen interpolation
+`appendix.tex:984-995`, the normalized Gaussian increment
+`appendix.tex:1170-1176`, and the scalar second-order Taylor expansion, while
+leaving the concrete normalized-remainder integrability/DCT package explicit.
+
+No local SLT file was consulted or imported.  Mathlib consultation was limited
+to Gaussian exponential moments, polynomial moment integrability, and
+`Integrable.const_mul`.  This packet keeps `sigma_eta^2/2` outside the Brownian
+event field, keeps `hSourceHasHessian`/`hSourceHessianBound` as source-contract
+gaps, and does not use `sald_version_2.tex`.
+
+## Cycle 180 Lower_2 Dominated Remainder Integrability Bridge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Packet type: dynamic-leaf worker packet inside the same
+`sald.general_moving_target_discrete.em_interpolation_fp` Brownian/Ito scalar
+generator chain.
+
+Exact supplied hypothesis discharged:
+
+```lean
+hRemainderInt :
+  testRegular ->
+    forall phi x i,
+      Integrable (fun z => normalizedRemainder phi x i z)
+        (ProbabilityTheory.gaussianReal 0 (variance phi x i))
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsAndDominatedRemainder
+```
+
+Mathlib route: `MeasureTheory.Integrable.mono'` derives the integrability of
+the normalized remainder from `hRemainderMeas`, `hRemainderBound`, and
+`hRemainderBoundInt`.  The theorem then composes this integrability proof with
+the lower_1 Gaussian polynomial-integrability bridge, so the Taylor moment split
+no longer takes `hRemainderInt` as a supplied field.
+
+Remaining exact source boundary for the next packet:
+
+```lean
+hBrownianCoordinateGeneratorTaylorIntegralDef
+hRemainderGeneratorLimitDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+The source Taylor integral definition and the remainder-generator definition
+remain open.  The concrete normalized-remainder measurability/domination
+package must be instantiated without deriving `hSourceHasHessian` or
+`hSourceHessianBound` from `testRegular`, without VP score-Hessian substitution,
+without moving `sigma_eta^2/2` into the event field, and without using
+`sald_version_2.tex`.
+
+## Cycle 183 Middle Brownian Coordinate Source-Integral Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet for the Brownian/Ito frozen
+backend.
+
+Exact missing theorem boundary narrowed:
+
+```lean
+hBrownianCoordinateGeneratorTaylorIntegralDef :
+  testRegular ->
+    forall phi x i,
+      brownianCoordinateGenerator phi x i =
+        ∫ z : Real,
+          linearCoeff phi x i * z +
+            quadraticCoeff phi x i * z ^ 2 +
+            normalizedRemainder phi x i z ∂
+          ProbabilityTheory.gaussianReal 0 (variance phi x i)
+```
+
+is replaced by the smaller source-cited pair:
+
+```lean
+hBrownianCoordinateGeneratorSourceIntegralDef :
+  testRegular ->
+    forall phi x i,
+      brownianCoordinateGenerator phi x i =
+        ∫ z : Real, sourceTaylorIntegrand phi x i z ∂
+          ProbabilityTheory.gaussianReal 0 (variance phi x i)
+
+hBrownianCoordinateGeneratorTaylorIntegrandAE :
+  testRegular ->
+    forall phi x i,
+      sourceTaylorIntegrand phi x i =ᵐ[
+        ProbabilityTheory.gaussianReal 0 (variance phi x i)]
+        fun z =>
+          linearCoeff phi x i * z +
+            quadraticCoeff phi x i * z ^ 2 +
+            normalizedRemainder phi x i z
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfSourceIntegralAndAE
+```
+
+The compiled proof is exactly the integral transport step:
+`hBrownianCoordinateGeneratorSourceIntegralDef` gives the paper source
+integral, and `MeasureTheory.integral_congr_ae` transports it across
+`hBrownianCoordinateGeneratorTaylorIntegrandAE`.  It does not prove the
+pointwise scalar Taylor identity.
+
+Source anchors: `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.
+The source-Hessian fields `hSourceHasHessian` and `hSourceHessianBound` remain
+documented source-contract gaps and are not active proof targets.
+
+Lower_1 route: give the classical proof of
+`hBrownianCoordinateGeneratorTaylorIntegrandAE` by identifying the paper's
+`sourceTaylorIntegrand` for the frozen scalar Brownian coordinate with the
+local Taylor polynomial plus normalized remainder a.e. under
+`ProbabilityTheory.gaussianReal 0 (variance phi x i)`.  Use the existing
+source coefficient convention `hScalarLineTaylorCoeffDef`, normalized
+coordinate-law fields, and normalized-remainder definition as dependencies;
+do not move `sigma_eta^2/2` into the event field.
+
+Lower_2 result: compiled a strictly smaller ASTIS-owned theorem reducing
+`hBrownianCoordinateGeneratorTaylorIntegrandAE` to the pointwise source Taylor
+identity `hSourceTaylorIntegrandPointwise` for `sourceTaylorIntegrand`:
+`SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegrandAEOfPointwise`.
+
+Remaining exact source boundary:
+
+```lean
+hBrownianCoordinateGeneratorSourceIntegralDef
+hSourceTaylorIntegrandPointwise
+hRemainderGeneratorLimitDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+No SLT file was consulted, imported, or marked formalized.  Mathlib use is
+limited to `MeasureTheory.integral_congr_ae` and
+`Filter.Eventually.of_forall`.  This packet rejects wrapper churn,
+`testRegular` Hessian repackaging, VP score-Hessian substitution,
+theorem-status promotion, `sigma_eta^2/2` event-field movement, and
+`sald_version_2.tex` use.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 183 source-integral/a.e. bridge | Derive `hBrownianCoordinateGeneratorTaylorIntegralDef` from the paper source integral and a.e. scalar Taylor integrand equality. | `MeasureTheory.integral_congr_ae`; `hBrownianCoordinateGeneratorSourceIntegralDef`; `hBrownianCoordinateGeneratorTaylorIntegrandAE` | `SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfSourceIntegralAndAE`; `SALD.cycle183GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceIntegralMiddleObligation`; `ASTIS.SALD.cycle183.middle_packet.source_integral_ae_bridge` | `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `hBrownianCoordinateGeneratorTaylorIntegralDef`; Taylor moment split; weak-FP backend | formalized |
+| Cycle 183 lower_1 Taylor-integrand route | Natural-language route for `hBrownianCoordinateGeneratorTaylorIntegrandAE`. | source Taylor expansion; normalized Gaussian coordinate; `hScalarLineTaylorCoeffDef`; normalized remainder definition | `ASTIS.SALD.cycle183.lower_1_packet.taylor_integrand_ae_route` | same anchors | lower_2 pointwise source Taylor identity | obligation |
+| Cycle 183 lower_2 pointwise source Taylor identity | Derive `hBrownianCoordinateGeneratorTaylorIntegrandAE` from `hSourceTaylorIntegrandPointwise`. | `Filter.Eventually.of_forall`; `sourceTaylorIntegrand`; `normalizedRemainder`; `hScalarLineTaylorCoeffDef` | `SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegrandAEOfPointwise`; `SALD.cycle183GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoTaylorIntegrandLower2Obligation`; `ASTIS.SALD.cycle183.lower_2_packet.pointwise_source_taylor_identity` | `appendix.tex:984-995`; `appendix.tex:1170-1176` | `hBrownianCoordinateGeneratorTaylorIntegrandAE` | formalized |
+| Remaining Brownian Taylor backend | Prove the source integral, pointwise source Taylor identity, remainder-generator definition, and concrete remainder domination package. | frozen interpolation; normalized Gaussian increment; source Taylor expansion; DCT data | `ASTIS.SALD.cycle183.remaining_brownian_taylor_backend` | same anchors | weak-FP, KL derivative, divergence/FI/IBP handoff | obligation |
+
+## Cycle 184 Brownian Coordinate Source-Integral Law Split
+
+Classification: `narrows-source-cited-boundary`.
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestBrownianCoordinateGeneratorSourceIntegralDefOfStdGaussianVectorLaw
+SALD.selectedWeakTestBrownianCoordinateGeneratorNormalizedLawDefOfScalarPushforward
+```
+
+The exact narrowed boundary is
+`hBrownianCoordinateGeneratorSourceIntegralDef`.  It is no longer primitive
+once the source supplies:
+
+```lean
+hBrownianCoordinateGeneratorNormalizedLawDef
+hNormalizedVectorLaw
+hCoordinateLawDef
+hVarianceDef
+```
+
+The compiled proof reuses only local SALD Gaussian-coordinate and
+variance-packaging bridges:
+
+```lean
+SALD.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw
+SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw
+```
+
+Remaining exact Brownian/Ito backend after cycle 184:
+
+```lean
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hSourceTaylorIntegrandPointwise
+hRemainderGeneratorLimitDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+Source anchors: `appendix.tex:958-996`, `appendix.tex:1170-1176`,
+and `appendix.tex:1379-1387`.  `hSourceHasHessian` and
+`hSourceHessianBound` stay source-contract gaps.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 184 source-integral law bridge | Derive `hBrownianCoordinateGeneratorSourceIntegralDef` from normalized-law source integral and standard-Gaussian law/variance fields. | `hBrownianCoordinateGeneratorNormalizedLawDef`; `hNormalizedVectorLaw`; `hCoordinateLawDef`; `hVarianceDef`; local Gaussian law/variance bridges | `SALD.selectedWeakTestBrownianCoordinateGeneratorSourceIntegralDefOfStdGaussianVectorLaw`; `SALD.cycle184GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceIntegralLawMiddleObligation` | `appendix.tex:958-996`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | Taylor integral bridge; weak-FP backend | formalized |
+| Cycle 184 lower_1 normalized-law route | Prove `hBrownianCoordinateGeneratorNormalizedLawDef` by defining the coordinate generator as the expectation of `sourceTaylorIntegrand` under the actual normalized scalar Brownian coordinate law before Gaussian replacement. | frozen interpolation; normalized scalar coordinate; source integrand definition | `ASTIS.SALD.cycle184.lower_1_packet.normalized_law_route` | `appendix.tex:984-995`; `appendix.tex:1170-1176` | future source-law definition packet | obligation |
+| Cycle 184 lower_2 scalar pushforward bridge | Derive `hBrownianCoordinateGeneratorNormalizedLawDef` from scalar-coordinate measurability, normalized-law pushforward definition, source-integrand measurability, and sample-space generator definition. | `MeasureTheory.integral_map`; `hScalarMeas`; `hNormalizedCoordinateLawDef`; `hSourceTaylorIntegrandMeas`; `hGeneratorPullbackDef` | `SALD.selectedWeakTestBrownianCoordinateGeneratorNormalizedLawDefOfScalarPushforward`; `SALD.cycle184GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoNormalizedLawLower2Obligation`; `ASTIS.SALD.cycle184.lower_2_packet.normalized_law_scalar_pushforward` | `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | normalized-law source definition; source-integral law bridge; weak-FP backend | formalized |
+| Cycle 184 remaining Brownian Taylor backend | Keep only the scalar-coordinate source fields, pointwise source Taylor identity, remainder-generator definition, and concrete remainder domination package open. | `hScalarMeas`; `hNormalizedCoordinateLawDef`; `hSourceTaylorIntegrandMeas`; `hGeneratorPullbackDef`; scalar Taylor expansion; DCT data | `ASTIS.SALD.cycle184.remaining_brownian_taylor_backend` | same anchors | weak-FP, KL derivative, divergence/FI/IBP handoff | obligation |
+
+## Cycle 185 Remainder Generator Normalized-Law Split
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact missing theorem boundary narrowed:
+
+```lean
+hRemainderGeneratorLimitDef :
+  testRegular ->
+    forall phi x i,
+      remainderGeneratorLimit phi x i =
+        ∫ z : Real, normalizedRemainder phi x i z ∂
+          ProbabilityTheory.gaussianReal 0 (variance phi x i)
+```
+
+is replaced by the smaller source-cited package:
+
+```lean
+hRemainderGeneratorNormalizedLawDef :
+  testRegular ->
+    forall phi x i,
+      remainderGeneratorLimit phi x i =
+        ∫ z : Real, normalizedRemainder phi x i z ∂
+          normalizedCoordinateLaw phi x i
+
+hNormalizedVectorLaw
+hCoordinateLawDef
+hVarianceDef
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestRemainderGeneratorLimitDefOfStdGaussianVectorLaw
+```
+
+The compiled proof mirrors the accepted cycle-184 coordinate-law bridge:
+`SALD.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw` rewrites
+the normalized scalar coordinate law to `gaussianReal 0 1`, and
+`SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw` rewrites the
+variance field back into the local `gaussianReal 0 (variance phi x i)` shape.
+This is only a law-transport/integral-definition bridge; it does not prove the
+source definition `hRemainderGeneratorNormalizedLawDef`, the scalar pushforward
+field, or the DCT remainder package.
+
+Lower_1 route artifact:
+`runs/20260612-012747-657607-ASTIS-SALD-001-cycle185/lower_1_remainder_generator_limit_route.md`.
+
+Source anchors: `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.
+`hSourceHasHessian` and `hSourceHessianBound` remain documented
+source-contract gaps and are not active proof targets.
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hRemainderGeneratorNormalizedLawDef
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hSourceTaylorIntegrandPointwise
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+No external SLT file was consulted, imported, ported, or marked formalized.
+Mathlib support is only through the already compiled local SALD Gaussian
+coordinate-law and variance bridges.  This packet rejects source-Hessian
+wrapper churn, `testRegular` Hessian repackaging, VP score-Hessian
+substitution, theorem-status promotion, `sigma_eta^2/2` event-field movement,
+and `sald_version_2.tex` use.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 185 lower_1 remainder-limit route | Treat `hRemainderGeneratorLimitDef` as a normalized-coordinate-law integral-definition/law-transport leaf, separate from downstream DCT vanishing. | frozen interpolation; normalized scalar coordinate; variance packaging | `ASTIS.SALD.cycle185.lower_1_packet.remainder_generator_limit_route` | `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | lower_2 bridge | obligation |
+| Cycle 185 lower_2 normalized-law bridge | Derive `hRemainderGeneratorLimitDef` from `hRemainderGeneratorNormalizedLawDef`, `hNormalizedVectorLaw`, `hCoordinateLawDef`, and `hVarianceDef`. | `SALD.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw`; `SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw` | `SALD.selectedWeakTestRemainderGeneratorLimitDefOfStdGaussianVectorLaw`; `SALD.cycle185GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderLimitLower2Obligation`; `ASTIS.SALD.cycle185.lower_2_packet.remainder_limit_normalized_law_bridge` | same anchors | `hRemainderGeneratorLimitDef`; weak-FP, KL derivative, divergence/FI/IBP handoff | formalized |
+| Cycle 185 remaining Brownian Taylor backend | Keep source remainder law definition, scalar pushforward/measurability, pointwise source Taylor identity, and concrete normalized-remainder domination package open. | `hRemainderGeneratorNormalizedLawDef`; `hScalarMeas`; `hNormalizedCoordinateLawDef`; `hSourceTaylorIntegrandMeas`; `hGeneratorPullbackDef`; `hSourceTaylorIntegrandPointwise`; `hRemainderMeas`; `hRemainderBound`; `hRemainderBoundInt` | `ASTIS.SALD.cycle185.remaining_brownian_taylor_backend` | same anchors | weak-FP backend | obligation |
+
+## Cycle 186 Source Taylor Integrand Pointwise Split
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hSourceTaylorIntegrandPointwise :
+  testRegular ->
+    forall phi x i z,
+      sourceTaylorIntegrand phi x i z =
+        linearCoeff phi x i * z + quadraticCoeff phi x i * z ^ 2 +
+          normalizedRemainder phi x i z
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestSourceTaylorIntegrandPointwiseOfLineTermDefs
+```
+
+The pointwise source identity is now reduced to the smaller source-facing
+fields `hSourceTaylorIntegrandDef`, `hSourceLinearTermDef`, and
+`hSourceQuadraticTermDef`.  The compiled theorem performs only the local
+rewrite from the source linear/quadratic terms to `linearCoeff * z` and
+`quadraticCoeff * z ^ 2`; it does not prove those source fields.
+
+Source anchors: `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hSourceTaylorIntegrandDef
+hSourceLinearTermDef
+hSourceQuadraticTermDef
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hNormalizedRemainderMeas
+hRemainderPullbackDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+`hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps.  No
+external SLT theorem was imported, ported, or marked formalized.
+
+## Cycle 194 Lower_2 Remainder-Meas Gaussian-Law Transport
+
+Classification: `discharges-supplied-hypothesis`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact supplied hypothesis discharged:
+
+```lean
+hRemainderMeas :
+  testRegular ->
+    forall phi x i,
+      MeasureTheory.AEStronglyMeasurable
+        (fun z : Real => normalizedRemainder phi x i z)
+        (ProbabilityTheory.gaussianReal (0 : Real) (variance phi x i))
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw
+```
+
+The compiled bridge transports the source/pullback-side
+`hNormalizedRemainderMeas` from `normalizedCoordinateLaw phi x i` to
+`ProbabilityTheory.gaussianReal 0 (variance phi x i)`.  It uses only the
+local SALD standard-Gaussian coordinate-law bridge
+`SALD.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw`, the
+local variance packaging bridge
+`SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw`, and
+equality rewriting for `MeasureTheory.AEStronglyMeasurable`.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.
+
+Remaining exact Taylor-DCT backend after this packet:
+
+```lean
+hRemainderBound
+hRemainderBoundInt
+```
+
+`hSourceHasHessian` and `hSourceHessianBound` remain documented
+source-contract gaps.  No external SLT import/call/queue, source-Hessian
+re-audit, `testRegular` repackaging, VP score-Hessian substitution, broad
+route audit, or wrapper churn is used.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 194 lower_1 remainder-meas route | Natural-language proof route transporting normalized-remainder measurability from the normalized scalar coordinate law to the Gaussian law with packaged variance. | normalized coordinate law; variance packaging; `AEStronglyMeasurable` equality transport | `runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/lower_1_remainder_meas_route.md` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | lower_2 theorem and Taylor moment consumers | formalized route note |
+| Cycle 194 lower_2 remainder-meas bridge | Derive `hRemainderMeas` from `hNormalizedRemainderMeas`, `hNormalizedVectorLaw`, `hCoordinateLawDef`, and `hVarianceDef`. | `SALD.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw`; `SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw` | `SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw` | same anchors | `SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfScalarPushforwardRawTaylorAndDominatedRemainder`; `SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsDominatedRemainderAndRemainderLimitScalarPushforward`; weak-FP backend | formalized |
+
+## Cycle 193 Middle Taylor Moment Scalar-Pushforward/Remainder Discharge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Status: `formalized` in
+`SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfScalarPushforwardRawTaylorAndDominatedRemainder`.
+
+Exact supplied hypotheses discharged inside the Taylor moment decomposition
+consumer:
+
+```lean
+hBrownianCoordinateGeneratorTaylorIntegralDef
+hRemainderGeneratorLimitDef
+```
+
+The compiled bridge composes:
+
+```lean
+SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfScalarPushforwardRawTaylorAndTermDefs
+SALD.selectedWeakTestRemainderGeneratorLimitDefOfScalarPushforwardAndStdGaussianVectorLaw
+SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsAndDominatedRemainder
+```
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hNormalizedRemainderMeas
+hRemainderPullbackDef
+hNormalizedVectorLaw
+hCoordinateLawDef
+hVarianceDef
+hSourceTaylorIntegrandRawDef
+hSelectedLineTaylorRawSplitDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermTaylorDef
+hScalarLineTaylorCoeffDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.  The selected
+weak-test Hessian fields remain documented source-contract gaps.
+
+## Cycle 190 Selected-Increment Endpoint Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hSelectedIncrementCoordinateLineDef
+```
+
+is no longer primitive once the source correspondence supplies:
+
+```lean
+hSelectedIncrementEndpointDef :
+  testRegular ->
+    forall phi x i z,
+      sourceSelectedLineIncrement phi x i z =
+        selectedTest phi (sourceSelectedEndpoint phi x i z) -
+          selectedTest phi x
+
+hSelectedEndpointCoordinateLineDef :
+  testRegular ->
+    forall phi x i z,
+      sourceSelectedEndpoint phi x i z =
+        x + z • (stdOrthonormalBasis Real E i)
+```
+
+Compiled declarations:
+
+```lean
+SALD.selectedWeakTestSelectedIncrementCoordinateLineDefOfEndpointAndLineDef
+SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementEndpointAndLineDef
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.  The remaining
+paper-specific endpoint fields are `hSelectedIncrementEndpointDef` and
+`hSelectedEndpointCoordinateLineDef`; the selected weak-test Hessian fields
+remain a documented source-contract gap.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 190 selected-increment endpoint bridge | Derive the old selected-increment coordinate-line field from endpoint naming and endpoint coordinate-line identity. | `hSelectedIncrementEndpointDef`; `hSelectedEndpointCoordinateLineDef`; frozen interpolation endpoint; normalized Brownian coordinate | `SALD.selectedWeakTestSelectedIncrementCoordinateLineDefOfEndpointAndLineDef` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | `hSelectedIncrementCoordinateLineDef`; `hSourceTaylorIntegrandRawDef`; weak-FP backend | formalized |
+| Cycle 190 raw-integrand endpoint bridge | Derive `hSourceTaylorIntegrandRawDef` without taking `hSelectedIncrementCoordinateLineDef` as primitive. | `hSourceTaylorIntegrandSelectedIncrementDef`; compiled endpoint bridge | `SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementEndpointAndLineDef` | same anchors | Brownian coordinate Taylor integral backend | formalized |
+
+## Cycle 188 Source Taylor Integrand Definition Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hSourceTaylorIntegrandDef :
+  testRegular ->
+    forall phi x i z,
+      sourceTaylorIntegrand phi x i z =
+        sourceLinearTerm phi x i z + sourceQuadraticTerm phi x i z +
+          normalizedRemainder phi x i z
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestSourceTaylorIntegrandDefOfRawAndLineTaylorSplit
+```
+
+The compiled bridge reduces the source-integrand definition to the smaller
+source-cited pair:
+
+```lean
+hSourceTaylorIntegrandRawDef :
+  testRegular ->
+    forall phi x i z,
+      sourceTaylorIntegrand phi x i z =
+        selectedTest phi
+          (x + z • (stdOrthonormalBasis Real E i)) -
+          selectedTest phi x
+
+hSelectedLineTaylorSplitDef :
+  testRegular ->
+    forall phi x i z,
+      selectedTest phi
+          (x + z • (stdOrthonormalBasis Real E i)) -
+          selectedTest phi x =
+        sourceLinearTerm phi x i z + sourceQuadraticTerm phi x i z +
+          normalizedRemainder phi x i z
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.  The route names the
+paper selected-line increment separately from the scalar Taylor split and keeps
+`sigma_eta^2/2` outside the scalar event-field identity.
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hSourceTaylorIntegrandRawDef
+hSelectedLineTaylorRawSplitDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermTaylorDef
+hScalarLineTaylorCoeffDef
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hNormalizedRemainderMeas
+hRemainderPullbackDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+`hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps.  No
+external SLT theorem was imported, ported, called, or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 188 lower_1 source-integrand definition route | Reduce `hSourceTaylorIntegrandDef` to the raw selected-line increment and the selected-line Taylor split. | frozen interpolation; normalized scalar coordinate; scalar Taylor split | `runs/20260612-025449-004585-ASTIS-SALD-001-cycle188/lower_1_source_taylor_integrand_def_route.md` | `appendix.tex:958-970`; `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | lower_2 bridge | obligation |
+| Cycle 188 lower_2 raw/split bridge | Derive `hSourceTaylorIntegrandDef` from `hSourceTaylorIntegrandRawDef` and `hSelectedLineTaylorSplitDef`. | local two-rewrite bridge | `SALD.selectedWeakTestSourceTaylorIntegrandDefOfRawAndLineTaylorSplit`; `SALD.cycle188GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceTaylorIntegrandDefMiddleObligation` | same anchors | `hSourceTaylorIntegrandDef`; `SALD.selectedWeakTestSourceTaylorIntegrandPointwiseOfLineTermDefs`; weak-FP backend | formalized |
+
+## Cycle 188 Lower_2 Selected-Line Taylor Split Raw-Term Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hSelectedLineTaylorSplitDef :
+  testRegular ->
+    forall phi x i z,
+      selectedTest phi
+          (x + z • (stdOrthonormalBasis Real E i)) -
+          selectedTest phi x =
+        sourceLinearTerm phi x i z + sourceQuadraticTerm phi x i z +
+          normalizedRemainder phi x i z
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestSelectedLineTaylorSplitDefOfRawTaylorAndTermDefs
+```
+
+The compiled bridge reduces the selected-line split to the smaller
+source-cited package:
+
+```lean
+hSelectedLineTaylorRawSplitDef :
+  testRegular ->
+    forall phi x i z,
+      selectedTest phi
+          (x + z • (stdOrthonormalBasis Real E i)) -
+          selectedTest phi x =
+        deriv (fun q => selectedTest phi
+          (x + q • (stdOrthonormalBasis Real E i))) 0 * z +
+        ((2 : Real) * taylorCoeffWithin (fun q => selectedTest phi
+          (x + q • (stdOrthonormalBasis Real E i))) 2 Set.univ 0) * z ^ 2 +
+        normalizedRemainder phi x i z
+
+hSourceLinearTermTaylorDef
+hSourceQuadraticTermTaylorDef
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.  The bridge only
+renames raw Taylor terms as the source linear/quadratic terms; it does not
+prove the raw scalar Taylor expansion, any selected-test Hessian field, or any
+normalized-remainder domination field.
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hSourceTaylorIntegrandRawDef
+hSelectedLineTaylorRawSplitDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermTaylorDef
+hScalarLineTaylorCoeffDef
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hNormalizedRemainderMeas
+hRemainderPullbackDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+`hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps.  No
+external SLT theorem was imported, ported, called, or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 188 lower_2 selected-line raw-term bridge | Derive `hSelectedLineTaylorSplitDef` from `hSelectedLineTaylorRawSplitDef`, `hSourceLinearTermTaylorDef`, and `hSourceQuadraticTermTaylorDef`. | local source-term naming bridge; no measure theory or SLT dependency | `SALD.selectedWeakTestSelectedLineTaylorSplitDefOfRawTaylorAndTermDefs`; `SALD.cycle188GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedLineTaylorSplitLower2Obligation` | same anchors | `hSelectedLineTaylorSplitDef`; `SALD.selectedWeakTestSourceTaylorIntegrandDefOfRawAndLineTaylorSplit`; weak-FP backend | formalized |
+
+## Cycle 189 Coordinate Taylor Integral Raw-Term Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hBrownianCoordinateGeneratorTaylorIntegralDef
+```
+
+is reduced to:
+
+```lean
+hBrownianCoordinateGeneratorSourceIntegralDef
+hSourceTaylorIntegrandRawDef
+hSelectedLineTaylorRawSplitDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermTaylorDef
+hScalarLineTaylorCoeffDef
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfSourceIntegralRawTaylorAndTermDefs
+```
+
+The compiled theorem composes the existing cycle-183 source-integral bridge,
+the cycle-183 pointwise-to-a.e. bridge, the cycle-186 source-term and
+source-linear bridges, the cycle-187 source-quadratic bridge, and the
+cycle-188 raw selected-line Taylor split.  Source anchors:
+`appendix.tex:958-970`, `appendix.tex:984-995`, `appendix.tex:1170-1176`,
+and `appendix.tex:1379-1387`.
+
+Remaining exact backend:
+
+```lean
+hBrownianCoordinateGeneratorSourceIntegralDef
+hSourceTaylorIntegrandRawDef
+hSelectedLineTaylorRawSplitDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermTaylorDef
+hScalarLineTaylorCoeffDef
+hRemainderGeneratorLimitDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+`hSourceHasHessian` and `hSourceHessianBound` remain documented
+source-contract gaps.  No external SLT theorem was imported, called, ported,
+or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 189 middle raw-term coordinate integral bridge | Derive `hBrownianCoordinateGeneratorTaylorIntegralDef` from the source integral definition and raw selected-line Taylor fields. | cycle-183 source-integral/a.e. bridge; cycle-186 source-term bridge; cycle-187 source-quadratic bridge; cycle-188 raw selected-line split | `SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfSourceIntegralRawTaylorAndTermDefs`; `SALD.cycle189GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoTaylorIntegralRawTermsMiddleObligation`; `runs/20260612-033149-517699-ASTIS-SALD-001-cycle189/middle_coordinate_taylor_integral_raw_terms_route.md` | `appendix.tex:958-970`; `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `hBrownianCoordinateGeneratorTaylorIntegralDef`; weak-FP backend; KL derivative handoff; divergence/FI/IBP handoff | formalized |
+
+## Cycle 189 Lower_1 Source Taylor Integrand Raw Definition Route
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf proof-scout packet.
+
+Exact boundary narrowed:
+
+```lean
+hSourceTaylorIntegrandRawDef :
+  testRegular ->
+    forall phi x i z,
+      sourceTaylorIntegrand phi x i z =
+        selectedTest phi
+          (x + z • (stdOrthonormalBasis Real E i)) -
+        selectedTest phi x
+```
+
+Lower_2-ready smaller source-cited boundary:
+
+```lean
+hSourceTaylorIntegrandSelectedIncrementDef :
+  testRegular ->
+    forall phi x i z,
+      sourceTaylorIntegrand phi x i z =
+        sourceSelectedLineIncrement phi x i z
+
+hSelectedIncrementCoordinateLineDef :
+  testRegular ->
+    forall phi x i z,
+      sourceSelectedLineIncrement phi x i z =
+        selectedTest phi
+          (x + z • (stdOrthonormalBasis Real E i)) -
+        selectedTest phi x
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.
+
+Expected compiled bridge:
+
+```lean
+SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementAndLineDef
+```
+
+The proof should be a two-rewrite local bridge from the source selected
+increment name to the normalized scalar coordinate-line expression.  It uses
+only local SALD declarations and existing `stdOrthonormalBasis` notation.  It
+does not prove the two smaller source fields, does not invoke SLT, does not
+reopen `hSourceHasHessian` or `hSourceHessianBound`, and does not place the
+weak-FP `sigma_eta^2/2` prefactor inside the scalar Brownian integrand.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 189 lower_1 sourceTaylorIntegrand raw route | Reduce `hSourceTaylorIntegrandRawDef` to the source selected-increment definition and the normalized coordinate-line identity. | frozen EM interpolation; normalized scalar Brownian coordinate; `selectedTest`; `stdOrthonormalBasis`; no Hessian fields | `runs/20260612-033149-517699-ASTIS-SALD-001-cycle189/lower_1_source_taylor_integrand_raw_def_route.md`; `SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementAndLineDef` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | `hSourceTaylorIntegrandRawDef`; `SALD.selectedWeakTestSourceTaylorIntegrandDefOfRawAndLineTaylorSplit`; `hBrownianCoordinateGeneratorTaylorIntegralDef`; weak-FP backend | formalized |
+
+## Cycle 189 Lower_2 Source Taylor Integrand Raw Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hSourceTaylorIntegrandRawDef :
+  testRegular ->
+    forall phi x i z,
+      sourceTaylorIntegrand phi x i z =
+        selectedTest phi
+          (x + z • (stdOrthonormalBasis Real E i)) -
+        selectedTest phi x
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementAndLineDef
+```
+
+The theorem derives `hSourceTaylorIntegrandRawDef` from the two smaller
+source-cited fields `hSourceTaylorIntegrandSelectedIncrementDef` and
+`hSelectedIncrementCoordinateLineDef`.  It is a local two-rewrite bridge using
+only SALD declarations and existing `stdOrthonormalBasis` notation.  It does
+not prove either smaller field, does not import or call SLT, does not reopen
+`hSourceHasHessian` or `hSourceHessianBound`, and does not move the weak-FP
+`sigma_eta^2/2` prefactor into the scalar Brownian integrand.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 189 lower_2 sourceTaylorIntegrand raw selected-increment bridge | Derive `hSourceTaylorIntegrandRawDef` from the selected-increment source definition and normalized coordinate-line identity. | `hSourceTaylorIntegrandSelectedIncrementDef`; `hSelectedIncrementCoordinateLineDef`; `selectedTest`; `stdOrthonormalBasis`; no Hessian fields | `SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementAndLineDef`; `SALD.cycle189GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceTaylorIntegrandRawLower2Obligation`; `SALD.cycle189GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceTaylorIntegrandRawLower2Dag` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | `hSourceTaylorIntegrandRawDef`; `SALD.selectedWeakTestSourceTaylorIntegrandDefOfRawAndLineTaylorSplit`; `SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfSourceIntegralRawTaylorAndTermDefs`; weak-FP backend | formalized |
+
+## Cycle 190 Lower_2 Remainder Limit Scalar-Pushforward Bridge
+
+Classification: `discharges-supplied-hypothesis`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact supplied hypothesis discharged:
+
+```lean
+hRemainderGeneratorNormalizedLawDef
+```
+
+inside the source-facing `hRemainderGeneratorLimitDef` backend.
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestRemainderGeneratorLimitDefOfScalarPushforwardAndStdGaussianVectorLaw
+```
+
+The theorem composes two existing local SALD bridges.  First,
+`SALD.selectedWeakTestRemainderGeneratorNormalizedLawDefOfScalarPushforward`
+derives the normalized-law remainder definition from
+`hScalarMeas`, `hNormalizedCoordinateLawDef`,
+`hNormalizedRemainderMeas`, and `hRemainderPullbackDef`.  Then
+`SALD.selectedWeakTestRemainderGeneratorLimitDefOfStdGaussianVectorLaw`
+rewrites that normalized-coordinate law to the Gaussian law using
+`hNormalizedVectorLaw`, `hCoordinateLawDef`, and `hVarianceDef`.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.  The weak-FP
+`sigma_eta^2/2` prefactor remains outside this scalar law leaf.
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hBrownianCoordinateGeneratorSourceIntegralDef
+hSourceTaylorIntegrandSelectedIncrementDef
+hSelectedIncrementEndpointDef
+hSelectedEndpointCoordinateLineDef
+hSelectedLineTaylorRawSplitDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermTaylorDef
+hScalarLineTaylorCoeffDef
+hScalarMeas
+hNormalizedCoordinateLawDef
+hNormalizedRemainderMeas
+hRemainderPullbackDef
+hNormalizedVectorLaw
+hCoordinateLawDef
+hVarianceDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+No external SLT theorem was consulted, imported, ported, called, queued, or
+marked formalized.  `hSourceHasHessian` and `hSourceHessianBound` remain
+source-contract gaps.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 190 lower_1 remainder-limit scalar-pushforward route | Remove `hRemainderGeneratorNormalizedLawDef` from the remainder-limit route by deriving it from scalar pushforward and normalized-remainder pullback fields, then reuse Gaussian coordinate-law/variance fields. | `hScalarMeas`; `hNormalizedCoordinateLawDef`; `hNormalizedRemainderMeas`; `hRemainderPullbackDef`; `hNormalizedVectorLaw`; `hCoordinateLawDef`; `hVarianceDef` | `runs/20260612-041014-095507-ASTIS-SALD-001-cycle190/lower_1_remainder_limit_scalar_pushforward_route.md` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | lower_2 compiled bridge | obligation |
+| Cycle 190 lower_2 remainder-limit scalar-pushforward bridge | Derive `hRemainderGeneratorLimitDef` directly from scalar pushforward/pullback fields plus standard-Gaussian coordinate-law and variance fields. | `SALD.selectedWeakTestRemainderGeneratorNormalizedLawDefOfScalarPushforward`; `SALD.selectedWeakTestRemainderGeneratorLimitDefOfStdGaussianVectorLaw`; fields above | `SALD.selectedWeakTestRemainderGeneratorLimitDefOfScalarPushforwardAndStdGaussianVectorLaw`; `SALD.cycle190GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderLimitLower2Obligation`; `SALD.cycle190GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderLimitLower2Dag` | same anchors | `hRemainderGeneratorLimitDef`; Taylor moment split; weak-FP backend | formalized |
+
+## Cycle 191 Lower_1 Source-Integral Scalar-Pushforward Route
+
+Classification: `discharges-supplied-hypothesis`.
+
+Packet type: dynamic-leaf proof-scout packet.
+
+Exact supplied hypothesis discharged:
+
+```lean
+hBrownianCoordinateGeneratorNormalizedLawDef
+```
+
+inside the source-facing `hBrownianCoordinateGeneratorSourceIntegralDef`
+backend.
+
+Lower_2-ready declaration:
+
+```lean
+SALD.selectedWeakTestBrownianCoordinateGeneratorSourceIntegralDefOfScalarPushforwardAndStdGaussianVectorLaw
+```
+
+The route derives `hBrownianCoordinateGeneratorNormalizedLawDef` from
+`hScalarMeas`, `hNormalizedCoordinateLawDef`,
+`hSourceTaylorIntegrandMeas`, and `hGeneratorPullbackDef` using the local
+scalar-pushforward bridge
+`SALD.selectedWeakTestBrownianCoordinateGeneratorNormalizedLawDefOfScalarPushforward`.
+It then composes with
+`SALD.selectedWeakTestBrownianCoordinateGeneratorSourceIntegralDefOfStdGaussianVectorLaw`
+using `hNormalizedVectorLaw`, `hCoordinateLawDef`, and `hVarianceDef`.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.  The weak-FP
+`sigma_eta^2/2` prefactor remains outside this scalar coordinate-law leaf.
+No external SLT theorem is imported, called, queued, or marked formalized.
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hNormalizedVectorLaw
+hCoordinateLawDef
+hVarianceDef
+hSourceTaylorIntegrandSelectedIncrementDef
+hSelectedIncrementEndpointDef
+hSelectedEndpointCoordinateLineDef
+hSelectedLineTaylorRawSplitDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermTaylorDef
+hScalarLineTaylorCoeffDef
+hRemainderGeneratorLimitDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+`hSourceHasHessian` and `hSourceHessianBound` remain documented
+source-contract gaps.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 191 lower_1 source-integral scalar-pushforward route | Remove `hBrownianCoordinateGeneratorNormalizedLawDef` from the source-integral route by deriving it from scalar pushforward and source-integrand pullback fields, then reuse Gaussian coordinate-law/variance fields. | `hScalarMeas`; `hNormalizedCoordinateLawDef`; `hSourceTaylorIntegrandMeas`; `hGeneratorPullbackDef`; `hNormalizedVectorLaw`; `hCoordinateLawDef`; `hVarianceDef` | `runs/20260612-044238-334925-ASTIS-SALD-001-cycle191/lower_1_source_integral_scalar_pushforward_route.md` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | lower_2 compiled bridge | obligation |
+| Cycle 191 lower_2 source-integral scalar-pushforward bridge | Derive `hBrownianCoordinateGeneratorSourceIntegralDef` directly from scalar pushforward/pullback fields plus standard-Gaussian coordinate-law and variance fields. | `SALD.selectedWeakTestBrownianCoordinateGeneratorNormalizedLawDefOfScalarPushforward`; `SALD.selectedWeakTestBrownianCoordinateGeneratorSourceIntegralDefOfStdGaussianVectorLaw`; fields above | `SALD.selectedWeakTestBrownianCoordinateGeneratorSourceIntegralDefOfScalarPushforwardAndStdGaussianVectorLaw`; `SALD.cycle191GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceIntegralLower2Obligation`; `SALD.cycle191GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceIntegralLower2Dag` | same anchors | `hBrownianCoordinateGeneratorSourceIntegralDef`; Taylor integral split; weak-FP backend | formalized |
+
+## Cycle 187 Source Quadratic Term Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hSourceQuadraticTermDef :
+  testRegular ->
+    forall phi x i z,
+      sourceQuadraticTerm phi x i z = quadraticCoeff phi x i * z ^ 2
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestSourceQuadraticTermDefOfScalarLineTaylorCoeffDef
+```
+
+The compiled bridge reduces the source-quadratic field to the smaller
+source-cited pair `hSourceQuadraticTermTaylorDef` and
+`hScalarLineTaylorCoeffDef`.  It rewrites the source quadratic term to the
+order-two selected-line Taylor expression and rewrites that coefficient by the
+local scalar Taylor coefficient convention.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hSourceTaylorIntegrandDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermTaylorDef
+hScalarLineTaylorCoeffDef
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hNormalizedRemainderMeas
+hRemainderPullbackDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+`hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps.  No
+external SLT theorem was imported, ported, called, or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 187 lower_1 source-quadratic route | Reduce `hSourceQuadraticTermDef` to the source order-two Taylor term and the scalar Taylor coefficient convention. | scalar selected line; `taylorCoeffWithin`; `stdOrthonormalBasis`; source Brownian coordinate normalization | `runs/20260612-023148-576665-ASTIS-SALD-001-cycle187/lower_1_source_quadratic_term_route.md` | `appendix.tex:958-970`; `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `hSourceQuadraticTermDef`; `hSourceTaylorIntegrandPointwise`; weak-FP backend | obligation |
+| Cycle 187 lower_2 source-quadratic bridge | Derive `hSourceQuadraticTermDef` from `hSourceQuadraticTermTaylorDef` and `hScalarLineTaylorCoeffDef`. | local two-rewrite bridge; `Mathlib.Analysis.Calculus.Taylor` already imported | `SALD.selectedWeakTestSourceQuadraticTermDefOfScalarLineTaylorCoeffDef`; `SALD.cycle187GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceQuadraticTermMiddleObligation` | same anchors | `hSourceQuadraticTermDef`; `SALD.selectedWeakTestSourceTaylorIntegrandPointwiseOfLineTermDefs`; weak-FP backend | formalized |
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 186 source Taylor integrand route | Natural-language route for the pointwise scalar Taylor identity, split into source integrand sum and source linear/quadratic coefficient fields. | frozen interpolation; normalized scalar coordinate; scalar Taylor expansion | `runs/20260612-015813-121084-ASTIS-SALD-001-cycle186/middle_source_taylor_integrand_pointwise_packet.md`; `ASTIS.SALD.cycle186.lower_1_packet.source_taylor_integrand_pointwise_route` | `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | lower_2 source-term bridge | obligation |
+| Cycle 186 source-term bridge | Derive `hSourceTaylorIntegrandPointwise` from `hSourceTaylorIntegrandDef`, `hSourceLinearTermDef`, and `hSourceQuadraticTermDef`. | local source-term rewrite | `SALD.selectedWeakTestSourceTaylorIntegrandPointwiseOfLineTermDefs`; `SALD.cycle186GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceTaylorIntegrandPointwiseMiddleObligation` | same anchors | cycle-183 a.e. bridge; weak-FP backend | formalized |
+| Cycle 186 remaining pointwise backend | Keep source integrand split fields, law/measurability fields, and normalized-remainder domination package open. | `hSourceTaylorIntegrandDef`; `hSourceLinearTermDef`; `hSourceQuadraticTermDef`; scalar pushforward/remainder fields | `ASTIS.SALD.cycle186.remaining_source_taylor_integrand_backend` | same anchors | weak-FP, KL derivative, divergence/FI/IBP handoff | obligation |
+
+## Cycle 186 Lower_1 Source Linear Term Route
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf proof-scout packet.
+
+Exact boundary narrowed:
+
+```lean
+hSourceLinearTermDef :
+  testRegular ->
+    forall phi x i z,
+      sourceLinearTerm phi x i z = linearCoeff phi x i * z
+```
+
+The next smaller source-cited obligation package is:
+
+```lean
+hSourceLinearTermTaylorDef :
+  testRegular ->
+    forall phi x i z,
+      sourceLinearTerm phi x i z =
+        deriv
+          (fun q : Real =>
+            selectedTest phi (x + q • (stdOrthonormalBasis Real E i))) 0 * z
+
+hScalarLineFirstCoeffDef :
+  testRegular ->
+    forall phi x i,
+      linearCoeff phi x i =
+        deriv
+          (fun q : Real =>
+            selectedTest phi (x + q • (stdOrthonormalBasis Real E i))) 0
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.  The route uses the
+frozen Brownian scalar coordinate and the first-order Taylor term of the
+selected line.  It keeps `sigma_eta^2/2` outside the event-field identity and
+does not reopen the selected weak-test Hessian source-contract gap.
+
+Lower_2-ready bridge:
+
+```lean
+selectedWeakTestSourceLinearTermDefOfScalarLineFirstCoeffDef
+```
+
+This bridge should prove `hSourceLinearTermDef` from
+`hSourceLinearTermTaylorDef` and `hScalarLineFirstCoeffDef` by two rewrites.
+No measure-theory or SLT dependency is needed for the bridge itself; the
+analytic content remains in the two smaller source-cited fields.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 186 lower_1 source-linear route | Reduce `hSourceLinearTermDef` to the source first-order Taylor term and the local first-derivative coefficient convention. | scalar selected line; `deriv`; `stdOrthonormalBasis`; source Brownian coordinate normalization | `runs/20260612-015813-121084-ASTIS-SALD-001-cycle186/lower_1_source_linear_term_route.md`; proposed `SALD.selectedWeakTestSourceLinearTermDefOfScalarLineFirstCoeffDef` | `appendix.tex:958-970`; `appendix.tex:984-995`; `appendix.tex:1170-1176`; `appendix.tex:1379-1387` | `hSourceLinearTermDef`; `hSourceTaylorIntegrandPointwise`; weak-FP backend | obligation |
+| Cycle 186 lower_2 source-linear bridge | Derive `hSourceLinearTermDef` from `hSourceLinearTermTaylorDef` and `hScalarLineFirstCoeffDef`. | local two-rewrite bridge; no measure theory or SLT dependency | `SALD.selectedWeakTestSourceLinearTermDefOfScalarLineFirstCoeffDef`; `SALD.cycle186GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceLinearTermLower2Obligation` | same anchors | `hSourceLinearTermDef`; `SALD.selectedWeakTestSourceTaylorIntegrandPointwiseOfLineTermDefs`; weak-FP backend | formalized |
+
+## Cycle 186 Lower_2 Source Linear Term Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hSourceLinearTermDef :
+  testRegular ->
+    forall phi x i z,
+      sourceLinearTerm phi x i z = linearCoeff phi x i * z
+```
+
+Compiled declaration:
+
+```lean
+SALD.selectedWeakTestSourceLinearTermDefOfScalarLineFirstCoeffDef
+```
+
+The compiled bridge reduces the source-linear field to the smaller
+source-cited pair `hSourceLinearTermTaylorDef` and
+`hScalarLineFirstCoeffDef`.  It rewrites the source linear term to the
+first-order selected-line Taylor expression and rewrites the derivative by the
+coefficient convention.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
+`appendix.tex:1170-1176`, and `appendix.tex:1379-1387`.
+
+Remaining exact Brownian/Ito backend:
+
+```lean
+hSourceTaylorIntegrandDef
+hSourceLinearTermTaylorDef
+hScalarLineFirstCoeffDef
+hSourceQuadraticTermDef
+hScalarMeas
+hNormalizedCoordinateLawDef
+hSourceTaylorIntegrandMeas
+hGeneratorPullbackDef
+hNormalizedRemainderMeas
+hRemainderPullbackDef
+hRemainderMeas
+hRemainderBound
+hRemainderBoundInt
+```
+
+`hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps.  No
+external SLT theorem was imported, ported, or marked formalized.

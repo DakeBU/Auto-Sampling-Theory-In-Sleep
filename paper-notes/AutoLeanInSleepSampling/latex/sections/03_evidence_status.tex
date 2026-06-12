@@ -1,9 +1,9 @@
 \section{Current Evidence}
 
-The current SALD faithful reproduction has 103 original source
+The current SALD faithful reproduction has 90 original source
 declarations in \Lean{research-wiki/source-index/SALD_original.jsonl}.  The
-trial log contains 1891 records, and the latest observed SALD cycle
-number is 173.
+trial log contains 2141 records, and the latest observed SALD cycle
+number is 194.
 
 The mandatory local gate is
 \[
@@ -33,35 +33,93 @@ the law being integrated against, the conditional-expectation representative,
 measurability, integrability, almost-everywhere equality, boundary terms, and
 the exact theorem instance for Laplacian or divergence calculus.
 
+\paragraph{Plain-language separation.}
+The current blocker does not mean that the VA-SALD construction is absent.
+The source theorem route and many local substeps are represented.  What remains
+is a mixture of SALD-specific source leaves and background technical lemmas.
+In papers, KL/FI/LSI identities, weak Fokker--Planck equations, Ito/Taylor
+expansions, Gaussian moment bounds, measurability, integrability, and
+integration by parts are often treated as standard.  In ASTIS, they are not
+callable facts until they are either ASTIS-owned compiled Lean declarations or
+explicit source-cited proof obligations.
+
+\begin{center}
+\begin{tabular}{p{0.22\linewidth}p{0.34\linewidth}p{0.32\linewidth}}
+\toprule
+Layer & Meaning & Run policy \\
+\midrule
+SALD contribution & The paper's theorem statements and proof route & Preserve
+the source statements and constants. \\
+Technical lemma memory & Reusable measure/probability/SDE tools & Port only
+the smallest lemma needed by the active source-line leaf unless a reusable
+library push is explicitly chosen. \\
+Source-contract gap & Implicit regularity or representative choices & Locate
+the source assumption or keep an honest obligation. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Human guidance before the next run.}
+A useful high-level instruction can choose between three policies: keep
+background facts as source-cited obligations to complete the proof DAG faster;
+spend a run building reusable technical lemma memory; or use the default local
+strategy, where ASTIS ports only the smallest background lemma needed by the
+next SALD source-line leaf.
+
 \paragraph{Current dynamic leaf.}
 \begin{quote}\small
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald\_version\_2 use. Gate passed: python3 tools/astis.py check.
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
 \end{quote}
 
 \paragraph{Current illness area.}
 \begin{quote}\small
-remaining exact boundary is hHessianOpNorm : forall z : E, norm (fderiv Real (fderiv Real sourceTest) z) <= C1 from selected weak-test C2\_b/bounded-Hessian source interface under sald.general\_moving\_target\_discrete.em\_interpolation\_fp. Brownian unit direction and hHessianOpNorm-to-hSecondFDerivOpNorm bridge already compiled. Source anchors checked: the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the corresponding SALD main-text passage. No SLT/external lookup/import/status promotion/wrapper churn/non-EM fallback/sald\_version\_2. Gate passed: python3 tools/astis.py check.
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
 \end{quote}
 
 \paragraph{Latest blocker.}
 \begin{quote}\small
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-173 illness-area implementer packet; SALD.selectedWeakTestHessianOpNormOfSourceHessianField compiles and narrows hHessianOpNorm to sourceHessian plus hSourceHasHessian and hSourceHessianBound. Remaining exact source-contract gap is those two selected weak-test Hessian fields. Source anchors checked; VP score-Hessian and wrapper routes rejected; no SLT import, theorem-status promotion, non-EM fallback, fake closure, or sald\_version\_2 use. Gate passed: python3 tools/astis.py check.
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
 \end{quote}
 
 \paragraph{Recent packet classifications.}
 \begin{itemize}
-\item \Lean{discharges-supplied-hypothesis}: 1
-\item \Lean{narrows-source-cited-boundary}: 15
-\item \Lean{rejected-wrapper-churn}: 14
+\item \Lean{discharges-supplied-hypothesis}: 22
+\item \Lean{narrows-source-cited-boundary}: 10
+\item \Lean{rejected-wrapper-churn}: 0
 \end{itemize}
 
 \paragraph{Proof-status counts.}
 \begin{itemize}
 \item \Lean{blocked}: 0
 \item \Lean{contractOnly}: 34
-\item \Lean{formalized}: 225
-\item \Lean{obligation}: 1101
+\item \Lean{formalized}: 286
+\item \Lean{obligation}: 1157
 \item \Lean{planned}: 9
 \item \Lean{sourceCited}: 16
 \end{itemize}
+
+\paragraph{Unfinished source-line map.}
+\begin{center}
+\begin{tabular}{p{0.28\linewidth}p{0.22\linewidth}p{0.38\linewidth}}
+\toprule
+Boundary & Source lines & Status \\
+\midrule
+discrete-forward-kl-main & the corresponding SALD main-text passage & source-indexed; analytic backend open \\
+unified-forward-kl-main & the corresponding SALD main-text passage & source-indexed; depends on general theorem closure \\
+frozen-em-interpolation & the relevant SALD appendix passage & active unfinished leaf \\
+conditional-drift-definition & the relevant SALD appendix passage & source-line mapped; representative/measurability leaves open \\
+weak-fokker-planck-line & the relevant SALD appendix passage & core unfinished analytic backend \\
+kl-derivative-start & the relevant SALD appendix passage & source-indexed; depends on weak-FP and admissible log-ratio test \\
+divergence-fi-ibp & the relevant SALD appendix passage & source-indexed; Green/trace and integration-by-parts leaves open \\
+selected-source-hessian-fields & the relevant SALD appendix passage & source-contract gap; do not fake via wrapper assumptions \\
+taylor-dct-technical-backend & the relevant SALD appendix passage & technical lemma port/proof queue \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Technical lemma memory.}
+ASTIS currently records 15 formalized local technical-lemma
+registry entries and 5 technical-lemma port-queue entries.  Port
+candidates are not callable until they become ASTIS-owned compiled
+declarations under \Lean{AutoSamplingTheory/TechnicalLemmas}.
 

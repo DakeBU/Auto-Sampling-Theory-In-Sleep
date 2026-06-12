@@ -65,8 +65,8 @@ These theorem skeletons may remain `contractOnly` or depend on
 of this six-hour run is to finish the SALD paper proof translation route, not
 to solve all background analysis from scratch.
 
-Use `/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory` as a
-reference for Mathlib measure/probability style when useful, especially
+Use `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory`
+as a reference for Mathlib measure/probability style when useful, especially
 `SLT/MeasureInfrastructure.lean`, `SLT/GaussianMeasure.lean`, and any reusable
 integral/measure-map patterns.  Do not add it as a Lake dependency and do not
 claim an SLT theorem is formalized unless the corresponding local ASTIS
