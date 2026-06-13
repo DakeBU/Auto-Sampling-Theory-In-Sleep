@@ -13,6 +13,15 @@ namespace AutoSamplingTheory
 namespace TechnicalLemmas
 namespace Measure
 
+/-- Integrability is invariant under replacing the ambient measure by an equal measure. -/
+theorem integrable_of_measure_eq
+    {alpha eps : Type*} [MeasurableSpace alpha] [TopologicalSpace eps]
+    [ContinuousENorm eps]
+    {f : alpha -> eps} {mu nu : MeasureTheory.Measure alpha} (hmunu : mu = nu)
+    (hf : MeasureTheory.Integrable f mu) :
+    MeasureTheory.Integrable f nu := by
+  simpa [hmunu] using hf
+
 export AutoSamplingTheory (
   lawMapEqOfAEEq
   lawMapIntegral
@@ -40,4 +49,3 @@ export AutoSamplingTheory (
 end Measure
 end TechnicalLemmas
 end AutoSamplingTheory
-

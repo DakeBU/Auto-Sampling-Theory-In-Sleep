@@ -56,6 +56,36 @@ def gaussianMemory : List LemmaMemoryEntry := [
     note := "ASTIS-native product-Gaussian coordinate projection theorem."
   },
   {
+    key := "gaussian.product.coordinate-integrable",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi",
+    upstreamDecl := "integrable_eval_stdGaussianPi",
+    upstreamFile := "SLT/GaussianMeasure.lean",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["gaussian", "integrability", "coordinate", "brownian-increment"],
+    saldUse := "Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves",
+    note := "Cycle 203 lower_3 ASTIS-owned port; uses Mathlib Gaussian exponential integrability and Measure.map transport."
+  },
+  {
+    key := "gaussian.product.coordinate-square-integrable",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi",
+    upstreamDecl := "integrable_sq_eval_stdGaussianPi",
+    upstreamFile := "SLT/GaussianMeasure.lean",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["gaussian", "integrability", "quadratic-moment", "brownian-increment"],
+    saldUse := "Brownian/Ito coordinate square integrability for polynomial moment leaves",
+    note := "Cycle 203 lower_3 ASTIS-owned port; reuses the local quadratic Gaussian integrability lemma."
+  },
+  {
+    key := "gaussian.product.coordinate-mean-zero",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi",
+    upstreamDecl := "integral_eval_stdGaussianPi",
+    upstreamFile := "SLT/GaussianMeasure.lean",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["gaussian", "mean", "coordinate", "brownian-increment"],
+    saldUse := "coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves",
+    note := "Cycle 203 lower_3 ASTIS-owned port; combines product-coordinate law with the local centered Gaussian mean."
+  },
+  {
     key := "gaussian.unit-variance.nnreal",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
     upstreamDecl := "variance_id_gaussianReal",
@@ -64,6 +94,16 @@ def gaussianMemory : List LemmaMemoryEntry := [
     tags := ["gaussian", "variance", "NNReal"],
     saldUse := "turn scalar Gaussian law and variance-field definition into normalized variance one",
     note := "Uses Mathlib Gaussian variance locally; no SLT import."
+  },
+  {
+    key := "gaussian.quadratic-bound-integrable",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+    upstreamDecl := "integrable_exp_mul_gaussianReal / integrable_pow_of_integrable_exp_mul",
+    upstreamFile := "Mathlib.Probability.Distributions.Gaussian.Real",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["gaussian", "integrability", "quadratic-bound", "brownian-increment"],
+    saldUse := "supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2",
+    note := "Cycle 196 lower_3 ASTIS-owned Gaussian quadratic integrability support; no SLT import."
   }
 ]
 
@@ -206,6 +246,26 @@ def saldExtractedMemory : List LemmaMemoryEntry := [
     tags := ["Brownian", "Ito", "Gaussian", "domination", "SALD-extracted"],
     saldUse := "narrow hRemainderBound to normalized-coordinate-law domination in the active Brownian/Ito Taylor moment backend",
     note := "Cycle 194 bridge transporting ae domination across the normalized coordinate-law and variance equalities."
+  },
+  {
+    key := "sald.remainder-bound-integrable-gaussian-law",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundIntegrableOfStdGaussianVectorLaw",
+    upstreamDecl := "SALD Brownian/Ito normalized-remainder dominating-bound integrability bridge",
+    upstreamFile := "AutoSamplingTheory/SALD.lean",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Brownian", "Ito", "Gaussian", "integrability", "SALD-extracted"],
+    saldUse := "narrow hRemainderBoundInt to normalized-coordinate-law integrability in the active Brownian/Ito Taylor moment backend",
+    note := "Cycle 195 bridge transporting MeasureTheory.Integrable across the normalized coordinate-law and variance equalities."
+  },
+  {
+    key := "sald.normalized-remainder-bound-int-quadratic",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound",
+    upstreamDecl := "SALD Brownian/Ito normalized-remainder quadratic domination integrability bridge",
+    upstreamFile := "AutoSamplingTheory/SALD.lean",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Brownian", "Ito", "Gaussian", "integrability", "quadratic-bound", "SALD-extracted"],
+    saldUse := "narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability",
+    note := "Cycle 196 bridge from source-cited remainderBound = C * z ^ 2 to normalized-coordinate-law integrability."
   }
 ]
 

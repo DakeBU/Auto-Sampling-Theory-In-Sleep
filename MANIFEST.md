@@ -4188,3 +4188,442 @@
 | 2026-06-13 01:27:14 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
 | 2026-06-13 01:27:18 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_run_status.tex` | paper | Updated ASTIS technical-report run-status section |
 | 2026-06-13 01:27:18 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_middle_rules.tex` | paper | Updated ASTIS technical-report middle-agent writing rules |
+| 2026-06-13 01:52:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 01:52:31 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 01:52:31 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 01:52:31 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 01:52:36 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-13 01:52:36 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/markdown/zh/ASTIS-SALD-001-cycle183-194-zh.md` | paper | Exported Chinese 6h SALD proof-reproduction summary |
+| 2026-06-13 01:52:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 01:52:36 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 01:52:40 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_run_status.tex` | paper | Updated ASTIS technical-report run-status section |
+| 2026-06-13 01:52:40 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_middle_rules.tex` | paper | Updated ASTIS technical-report middle-agent writing rules |
+| 2026-06-13 01:52:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 01:52:51 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 01:52:52 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 01:52:53 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 01:52:53 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 01:52:53 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 01:52:54 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle195.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 195 |
+| 2026-06-13 01:52:54 | astis.py launch-sald-6h | `runs/logs/astis-sald-001-6h-20260613-015254-545194.log` | run | Started graceful 6-hour ASTIS-SALD-001 Codex faithful-paper run |
+| 2026-06-13 01:52:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 01:52:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 01:52:54 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 01:52:54 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 01:52:56 | astis.py run-cycle | `runs/20260613-015254-657989-ASTIS-SALD-001-cycle195/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 01:55:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 01:55:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-015544-882853-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 01:59:32 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 01:59:32 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-015932-548351-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 02:05:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:05:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-020511-334154-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 02:05:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:05:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-020519-337474-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 02:05:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:05:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-020531-617633-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 02:09:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:09:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-020914-090493-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 02:09:53 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 02:09:55 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 02:09:56 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 02:09:56 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:09:56 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:09:56 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 02:09:57 | astis.py memory-refresh | `runs/20260613-015254-657989-ASTIS-SALD-001-cycle195/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 195 |
+| 2026-06-13 02:09:57 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 02:09:58 | astis.py project-article-update | `runs/20260613-015254-657989-ASTIS-SALD-001-cycle195/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 195 |
+| 2026-06-13 02:09:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:09:58 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:09:58 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 02:10:00 | astis.py run-cycle | `runs/20260613-020958-527485-ASTIS-SALD-001-cycle196/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 02:13:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:13:23 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-021323-054163-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 02:17:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:17:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-021755-568467-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 02:24:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:24:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-022402-500062-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 02:24:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:24:37 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-022437-227687-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 02:25:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:25:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-022518-143702-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 02:28:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:28:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-022811-701750-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 02:28:44 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 02:28:45 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 02:28:46 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 02:28:46 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:28:46 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:28:46 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 02:28:47 | astis.py memory-refresh | `runs/20260613-020958-527485-ASTIS-SALD-001-cycle196/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 196 |
+| 2026-06-13 02:28:47 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 02:28:49 | astis.py project-article-update | `runs/20260613-020958-527485-ASTIS-SALD-001-cycle196/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 196 |
+| 2026-06-13 02:28:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:28:49 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:28:49 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 02:28:50 | astis.py run-cycle | `runs/20260613-022849-070921-ASTIS-SALD-001-cycle197/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 02:32:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:32:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-023211-350963-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 02:36:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:36:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-023625-181970-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 02:41:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:41:08 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-024108-696194-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 02:41:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:41:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-024124-885839-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 02:43:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:43:10 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-024310-405922-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 02:46:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:46:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-024607-125350-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 02:46:24 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:46:24 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-024624-900466-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 02:46:59 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 02:47:01 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 02:47:02 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 02:47:02 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:47:02 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:47:02 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 02:47:03 | astis.py memory-refresh | `runs/20260613-022849-070921-ASTIS-SALD-001-cycle197/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 197 |
+| 2026-06-13 02:47:03 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 02:47:04 | astis.py project-article-update | `runs/20260613-022849-070921-ASTIS-SALD-001-cycle197/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 197 |
+| 2026-06-13 02:47:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:47:04 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 02:47:04 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 02:47:06 | astis.py run-cycle | `runs/20260613-024704-572927-ASTIS-SALD-001-cycle198/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 02:50:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:50:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-025052-607319-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 02:57:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 02:57:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-025727-210837-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 03:03:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:03:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-030349-463694-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 03:03:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:03:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-030353-425522-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 03:04:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:04:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-030435-222362-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 03:06:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:06:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-030658-939739-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 03:07:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:07:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-030711-316864-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 03:07:51 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 03:07:52 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 03:07:53 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 03:07:53 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:07:53 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:07:53 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 03:07:55 | astis.py memory-refresh | `runs/20260613-024704-572927-ASTIS-SALD-001-cycle198/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 198 |
+| 2026-06-13 03:07:55 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 03:07:56 | astis.py project-article-update | `runs/20260613-024704-572927-ASTIS-SALD-001-cycle198/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 198 |
+| 2026-06-13 03:07:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:07:56 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:07:56 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 03:07:57 | astis.py run-cycle | `runs/20260613-030756-260318-ASTIS-SALD-001-cycle199/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 03:11:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:11:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-031146-859345-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 03:23:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:23:35 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-032335-002290-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 03:27:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:27:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-032702-626468-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 03:27:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:27:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-032748-882113-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 03:28:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:28:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-032805-534663-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 03:31:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:31:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-033138-913318-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 03:33:55 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:33:55 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-033355-092036-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 03:34:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:34:22 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-033422-157789-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 03:34:53 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 03:34:54 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 03:34:55 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 03:34:55 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:34:55 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:34:55 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 03:34:57 | astis.py memory-refresh | `runs/20260613-030756-260318-ASTIS-SALD-001-cycle199/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 199 |
+| 2026-06-13 03:34:57 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 03:34:58 | astis.py project-article-update | `runs/20260613-030756-260318-ASTIS-SALD-001-cycle199/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 199 |
+| 2026-06-13 03:34:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:34:58 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:34:58 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 03:34:59 | astis.py run-cycle | `runs/20260613-033458-161044-ASTIS-SALD-001-cycle200/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 03:37:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:37:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-033730-653587-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 03:41:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:41:27 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-034127-530993-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 03:43:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:43:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-034330-577370-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 03:44:05 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:44:05 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-034405-156431-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 03:44:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:44:46 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-034446-231404-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 03:45:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:45:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-034519-169154-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 03:47:43 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:47:43 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-034743-705451-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 03:48:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:48:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-034856-751685-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 03:49:42 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 03:49:43 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 03:49:44 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 03:49:44 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:49:44 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:49:44 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 03:49:45 | astis.py memory-refresh | `runs/20260613-033458-161044-ASTIS-SALD-001-cycle200/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 200 |
+| 2026-06-13 03:49:45 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 03:49:46 | astis.py project-article-update | `runs/20260613-033458-161044-ASTIS-SALD-001-cycle200/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 200 |
+| 2026-06-13 03:49:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:49:46 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 03:49:47 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 03:49:48 | astis.py run-cycle | `runs/20260613-034947-012144-ASTIS-SALD-001-cycle201/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 03:53:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:53:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-035350-324049-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 03:59:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 03:59:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-035930-353849-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 04:02:48 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:02:48 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-040248-523018-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 04:03:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:03:13 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-040312-980496-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 04:04:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:04:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-040425-779881-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 04:06:41 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:06:41 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-040641-233806-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 04:11:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:11:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-041142-256580-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 04:12:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:12:04 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-041204-201511-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 04:12:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:12:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-041226-751562-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 04:12:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:12:38 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-041238-409873-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 04:13:09 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 04:13:11 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 04:13:12 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 04:13:12 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:13:12 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:13:12 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 04:13:13 | astis.py memory-refresh | `runs/20260613-034947-012144-ASTIS-SALD-001-cycle201/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 201 |
+| 2026-06-13 04:13:13 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 04:13:14 | astis.py project-article-update | `runs/20260613-034947-012144-ASTIS-SALD-001-cycle201/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 201 |
+| 2026-06-13 04:13:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:13:14 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:13:14 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 04:13:16 | astis.py run-cycle | `runs/20260613-041314-517136-ASTIS-SALD-001-cycle202/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 04:16:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:16:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-041630-822974-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 04:21:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:21:47 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-042147-228972-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 04:23:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:23:54 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-042354-068775-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 04:26:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:26:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-042631-551409-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 04:26:57 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:26:57 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-042657-500499-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 04:29:07 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:29:07 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-042907-267025-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 04:29:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:29:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-042925-418081-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 04:29:55 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 04:29:56 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 04:29:57 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 04:29:57 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:29:57 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:29:57 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 04:29:58 | astis.py memory-refresh | `runs/20260613-041314-517136-ASTIS-SALD-001-cycle202/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 202 |
+| 2026-06-13 04:29:58 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 04:29:59 | astis.py project-article-update | `runs/20260613-041314-517136-ASTIS-SALD-001-cycle202/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 202 |
+| 2026-06-13 04:29:59 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:29:59 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:29:59 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 04:30:01 | astis.py run-cycle | `runs/20260613-042959-955757-ASTIS-SALD-001-cycle203/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 04:32:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:32:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-043251-846211-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 04:37:02 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:37:02 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-043702-492081-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 04:41:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:41:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-044126-662648-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 04:42:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:42:16 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-044215-989115-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 04:43:04 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:43:04 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-044304-622086-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 04:45:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:45:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-044519-257374-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 04:45:49 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:45:49 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-044549-691000-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 04:46:18 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 04:46:19 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 04:46:20 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 04:46:20 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:46:20 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:46:20 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 04:46:21 | astis.py memory-refresh | `runs/20260613-042959-955757-ASTIS-SALD-001-cycle203/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 203 |
+| 2026-06-13 04:46:21 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 04:46:22 | astis.py project-article-update | `runs/20260613-042959-955757-ASTIS-SALD-001-cycle203/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 203 |
+| 2026-06-13 04:46:22 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:46:22 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 04:46:22 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 04:46:24 | astis.py run-cycle | `runs/20260613-044622-678656-ASTIS-SALD-001-cycle204/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 04:49:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:49:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-044929-884882-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 04:49:50 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:49:50 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-044950-293088-ASTIS-SALD-001-upper_director-build |
+| 2026-06-13 04:54:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:54:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-045403-405541-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 04:58:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:58:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-045852-792129-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 04:59:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:59:09 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-045909-658097-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 04:59:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 04:59:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-045945-377847-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 05:01:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:01:39 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-050139-827346-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 05:01:58 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:01:58 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-050158-181212-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 05:02:31 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 05:02:33 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 05:02:34 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 05:02:34 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:02:34 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:02:34 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 05:02:35 | astis.py memory-refresh | `runs/20260613-044622-678656-ASTIS-SALD-001-cycle204/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 204 |
+| 2026-06-13 05:02:35 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 05:02:36 | astis.py project-article-update | `runs/20260613-044622-678656-ASTIS-SALD-001-cycle204/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 204 |
+| 2026-06-13 05:02:36 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:02:36 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:02:36 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 05:02:38 | astis.py run-cycle | `runs/20260613-050236-675526-ASTIS-SALD-001-cycle205/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 05:05:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:05:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-050525-209335-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 05:10:12 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:10:12 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-051012-483141-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 05:13:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:13:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-051344-903859-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 05:14:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:14:11 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-051411-097306-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 05:17:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:17:31 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-051731-559961-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 05:22:45 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:22:45 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-052245-834428-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 05:23:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:23:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-052303-430609-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 05:23:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:23:29 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-052329-489015-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 05:24:40 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 05:24:41 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 05:24:42 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 05:24:42 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:24:42 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:24:42 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 05:24:43 | astis.py memory-refresh | `runs/20260613-050236-675526-ASTIS-SALD-001-cycle205/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 205 |
+| 2026-06-13 05:24:43 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 05:24:44 | astis.py project-article-update | `runs/20260613-050236-675526-ASTIS-SALD-001-cycle205/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 205 |
+| 2026-06-13 05:24:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:24:44 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:24:44 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 05:24:46 | astis.py run-cycle | `runs/20260613-052444-683667-ASTIS-SALD-001-cycle206/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 05:28:19 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:28:19 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-052819-686184-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 05:34:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:34:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-053406-649601-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 05:37:33 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:37:33 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-053733-499665-ASTIS-SALD-001-lower_1-handoff |
+| 2026-06-13 05:39:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:39:21 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-053921-830275-ASTIS-SALD-001-lower_3-handoff |
+| 2026-06-13 05:40:17 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:40:17 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-054017-770320-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 05:42:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:42:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-054252-213567-ASTIS-SALD-001-lower_2-handoff |
+| 2026-06-13 05:46:18 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:46:18 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-054618-666153-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 05:46:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:46:51 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-054651-767448-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 05:47:06 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:47:06 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-054706-481131-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 05:48:22 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 05:48:24 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 05:48:25 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 05:48:25 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:48:25 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:48:25 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 05:48:26 | astis.py memory-refresh | `runs/20260613-052444-683667-ASTIS-SALD-001-cycle206/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 206 |
+| 2026-06-13 05:48:26 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 05:48:27 | astis.py project-article-update | `runs/20260613-052444-683667-ASTIS-SALD-001-cycle206/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 206 |
+| 2026-06-13 05:48:27 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:48:27 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 05:48:27 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 05:48:29 | astis.py run-cycle | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/00_context.md` | run | Created prompt deck for ASTIS-SALD-001 |
+| 2026-06-13 05:51:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:51:42 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-055142-306928-ASTIS-SALD-001-upper_source_math-handoff |
+| 2026-06-13 05:54:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:54:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-055452-219848-ASTIS-SALD-001-upper_proof_dag-handoff |
+| 2026-06-13 05:57:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:57:14 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-055714-691279-ASTIS-SALD-001-upper_process_memory-handoff |
+| 2026-06-13 05:59:52 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 05:59:52 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-055952-673678-ASTIS-SALD-001-upper_director-handoff |
+| 2026-06-13 06:05:56 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:05:56 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-060556-195087-ASTIS-SALD-001-middle_source_correspondence-handoff |
+| 2026-06-13 06:09:44 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:09:44 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-060944-315969-ASTIS-SALD-001-middle_technical_lemma-handoff |
+| 2026-06-13 06:12:25 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:12:25 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-061225-406016-ASTIS-SALD-001-middle_report_export-handoff |
+| 2026-06-13 06:15:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:15:26 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-061526-214515-ASTIS-SALD-001-middle_formalizer-handoff |
+| 2026-06-13 06:17:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:17:30 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-061730-246614-ASTIS-SALD-001-reviewer_gate-build |
+| 2026-06-13 06:18:03 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:18:03 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-061803-523215-ASTIS-SALD-001-reviewer_gate-handoff |
+| 2026-06-13 06:20:53 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:20:53 | astis.py trial-log | `runs/trials.jsonl` | trial | Logged 20260613-062053-085495-ASTIS-SALD-001-reviewer_waste-handoff |
+| 2026-06-13 06:21:30 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 06:21:31 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 06:21:32 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 06:21:32 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:32 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:32 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 06:21:34 | astis.py memory-refresh | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 207 |
+| 2026-06-13 06:21:34 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 06:21:35 | astis.py project-article-update | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 207 |
+| 2026-06-13 06:21:35 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:21:35 | astis.py source-index | `research-wiki/source-index/SALD_original.jsonl` | source-index | Indexed 90 source declarations for ASTIS-SALD-001 |
+| 2026-06-13 06:21:36 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 06:21:37 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 06:21:38 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 06:21:38 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:38 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:38 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 06:21:38 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:38 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 06:21:39 | astis.py write-context-pack | `runs/context-packs/ASTIS-SALD-001-cycle208.md` | context | Wrote compact context pack for ASTIS-SALD-001 cycle 208 |
+| 2026-06-13 06:21:40 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 06:21:42 | astis.py blueprint-refresh | `proof-blueprints/ASTIS-SALD-001.md` | blueprint | Refreshed proof blueprint for ASTIS-SALD-001 |
+| 2026-06-13 06:21:43 | astis.py blueprint-status | `proof-blueprints/ASTIS-SALD-001-blueprint-status.md` | blueprint | Wrote blueprint control state for ASTIS-SALD-001 |
+| 2026-06-13 06:21:43 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:43 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:43 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 06:21:44 | astis.py memory-refresh | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/memory_digest.md` | memory | Wrote memory digest for ASTIS-SALD-001 cycle 207 |
+| 2026-06-13 06:21:44 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-SALD-001.json` | memory | Wrote retrieval index for ASTIS-SALD-001 |
+| 2026-06-13 06:21:45 | astis.py cycle-zh-summary | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/zh_summary.md` | paper | Wrote Chinese cycle summary for ASTIS-SALD-001 cycle 207 |
+| 2026-06-13 06:21:46 | astis.py project-article-update | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/article_update.tex` | paper | Wrote project article update for ASTIS-SALD-001 cycle 207 |
+| 2026-06-13 06:21:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:21:46 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:46 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:46 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 06:21:51 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-13 06:21:51 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/markdown/zh/ASTIS-SALD-001-cycle195-206-zh.md` | paper | Exported Chinese 6h SALD proof-reproduction summary |
+| 2026-06-13 06:21:51 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 06:21:51 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 06:21:54 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_run_status.tex` | paper | Updated ASTIS technical-report run-status section |
+| 2026-06-13 06:21:54 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_middle_rules.tex` | paper | Updated ASTIS technical-report middle-agent writing rules |
+| 2026-06-13 13:10:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 13:14:37 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 13:14:37 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 13:14:37 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 13:14:37 | astis.py update-sald-todo | `research-wiki/todo/SALD_REPRODUCTION_TODO.md` | todo | Updated human-readable SALD reproduction TODO |
+| 2026-06-13 13:14:42 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/latex/main.tex` | paper | Exported ASTIS project article and SALD appendix |
+| 2026-06-13 13:14:42 | astis.py export-latex | `paper-notes/AutoLeanInSleepSampling/markdown/zh/ASTIS-SALD-001-cycle195-207-zh.md` | paper | Exported Chinese 6h SALD proof-reproduction summary |
+| 2026-06-13 13:14:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 13:14:42 | astis.py update-sald-paper-memory | `research-wiki/paper-contributions/SALD/unfinished_source_map.md` | paper-contributions | Updated SALD unfinished source-line map |
+| 2026-06-13 13:14:46 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_run_status.tex` | paper | Updated ASTIS technical-report run-status section |
+| 2026-06-13 13:14:46 | astis.py export-technical-report | `/home/nitanda_sub/mark/repos/Auto_Proof_Papers/ASTIS/sections/generated_middle_rules.tex` | paper | Updated ASTIS technical-report middle-agent writing rules |
+| 2026-06-13 15:33:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 15:33:41 | astis.py cycle-pro-prompt | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/chatgpt_pro_prompt.md` | pro-prompt | Wrote ChatGPT Pro prompt for ASTIS-SALD-001 cycle 207 |
+| 2026-06-13 15:34:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 15:34:54 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-13 15:34:55 | astis.py cycle-pro-prompt | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/chatgpt_pro_prompt.md` | pro-prompt | Wrote ChatGPT Pro prompt for ASTIS-SALD-001 cycle 207 |

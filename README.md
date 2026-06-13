@@ -171,6 +171,9 @@ The default 6h cadence is intentionally asymmetric:
   report/export synchronization;
 - `reviewer_waste` runs at final audit by default and only runs inside inner
   cycles when explicitly enabled.
+- lower agents run as independent Codex processes in parallel by default
+  during `launch-sald-6h`; active-agent accounting sums each lower process,
+  so three 20-minute lower calls count as roughly one hour of agent usage.
 
 This is domain-specific.  For Sampling/SDE, many failures are not caused by
 the SALD theorem itself but by background facts about laws, conditional
@@ -178,6 +181,19 @@ representatives, measurability, integrability, Ito/Taylor expansion,
 Fokker--Planck weak forms, and boundary terms.  `middle_technical_lemma` and
 `lower_3` exist to stop the system from repeatedly asking the Lean worker to
 rediscover those facts from scratch.
+
+Human and external-review entry points after a long run:
+
+- Chinese status: `paper-notes/SALD/markdown/cycle-summaries/latest.md`.
+- ChatGPT Pro prompt: `runs/pro-prompts/ASTIS-SALD-001-latest.md`.
+- Policy: [`docs/pro_prompt_policy.md`](docs/pro_prompt_policy.md).
+- Blueprint/workflow formalization notes:
+  [`docs/agent_blueprint_formalization.md`](docs/agent_blueprint_formalization.md).
+
+The Pro prompt is self-contained because ChatGPT Pro cannot read local files.
+It includes public paper links when available, open paper-contribution
+obligations, open technical lemmas, typed verifier feedback, and the exact
+answer shape needed for the next Lean run.
 
 ## Lean And Mathlib
 
@@ -298,12 +314,19 @@ article under `paper-notes/AutoLeanInSleepSampling/` and, when configured, the
 external ASTIS technical-report checkout selected by `ASTIS_TECH_REPORT_ROOT`.
 Use `--no-after-latex` only for a proof-only run.
 
+To regenerate the latest Pro prompt manually:
+
+```bash
+python3 tools/astis.py cycle-pro-prompt ASTIS-SALD-001 --run-id latest
+```
+
 ABEIS-style panel controls are available through flags or environment
 variables:
 
 ```bash
 ASTIS_HOURS=6 \
 ASTIS_LOWER_COUNT=3 \
+ASTIS_PARALLEL_LOWER=1 \
 ASTIS_UPPER_PANEL_FINAL=1 \
 ASTIS_UPPER_PANEL_INNER=0 \
 ASTIS_MIDDLE_PANEL_FINAL=1 \
@@ -373,6 +396,8 @@ SDE/Sampling formalization.
 | [EoH](https://github.com/FeiLiu36/EoH) | Population-style candidate search with initialization, variation, selection, and archives. | Used only for `exploratoryProof`; faithful paper reproduction cannot mutate the source theorem. |
 | [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) and [arXiv:2606.05400](https://arxiv.org/abs/2606.05400) | Blueprint as system of record, target review, dynamic proof-DAG leaves, refiners, and deterministic gates. | ASTIS keeps a local proof blueprint and adapts the control loop to SDE/Sampling proof obligations. |
 | [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics, theorem-reuse memory, hidden-placeholder scans, and tree-of-subgoals planning. | Diagnostics are advisory; `python3 tools/astis.py check` remains the acceptance gate. |
+| [Goedel-Architect](https://arxiv.org/abs/2606.06468) | Blueprint generation, solved-node preservation, and failed-node refinement by diagnosis. | ASTIS applies this to source theorem leaves, probability/SDE technical lemmas, Mathlib portability gaps, and stale proof routes. |
+| [Lean4Agent](https://arxiv.org/abs/2606.06523) | Formal modeling of agent workflow and execution trajectories. | ASTIS records a future route for Lean-checking orchestration pre/postconditions without replacing Lean theorem closure. |
 | [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) and [arXiv:2602.02285](https://arxiv.org/abs/2602.02285) | Mathlib probability/concentration proof style, entropy duality, log-Sobolev/Poincare references, and discretization statements. | Used as audited reference/port source while toolchains differ. |
 | [ABEIS/QBE](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | A mature example of Lean automation project engineering: CLI, prompt decks, conversion windows, proof obligations, and blueprint discipline. | ASTIS is not a quantum/block-encoding derivative; it replaces that domain with laws, kernels, drifts, densities, KL/FI/LSI/PI, Fokker--Planck, and Euler--Maruyama objects. |
 

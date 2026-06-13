@@ -12817,6 +12817,489 @@ hRemainderBoundInt
 `hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps.  No
 external SLT theorem was imported, ported, or marked formalized.
 
+## Cycle 205 Middle Selected-Line Raw Taylor Split Packet
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact missing theorem boundary selected for lower work:
+
+```lean
+hSelectedLineTaylorRawSplitDef :
+  testRegular ->
+    forall phi x i z,
+      selectedTest phi
+          (x + z • (stdOrthonormalBasis Real E i)) -
+          selectedTest phi x =
+        deriv
+            (fun q : Real =>
+              selectedTest phi
+                (x + q • (stdOrthonormalBasis Real E i))) 0 * z +
+          ((2 : Real) *
+            taylorCoeffWithin
+              (fun q : Real =>
+                selectedTest phi
+                  (x + q • (stdOrthonormalBasis Real E i)))
+              2 Set.univ 0) * z ^ 2 +
+          normalizedRemainder phi x i z
+```
+
+This boundary is strictly smaller than the accepted cycle-204
+`hSourceTaylorIntegrandSelectedIncrementDef` naming gap.  The compiled cycle
+188 bridge already reduces `hSelectedLineTaylorSplitDef` to
+`hSelectedLineTaylorRawSplitDef`, `hSourceLinearTermTaylorDef`, and
+`hSourceQuadraticTermTaylorDef`; cycle 189 and the later scalar-pushforward
+bridges then feed the Brownian coordinate generator and Taylor moment
+consumer.  Cycle 205 therefore targets the raw selected scalar Taylor
+identity itself, not endpoint naming, sourceTaylorIntegrand naming, or a
+consumer wrapper.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1176`, and `appendix.tex:1379-1387`.  These lines identify
+the discrete EM increment, frozen interpolation, normalized Gaussian coordinate
+line, and weak-Fokker--Planck consumer.  They do not by themselves state a
+Lean-facing definition of `normalizedRemainder` as the residual of the selected
+scalar Taylor expansion.
+
+Lower_1 natural-language task: inspect only whether the original source gives
+the one-dimensional selected-line Taylor expansion or defines
+`normalizedRemainder phi x i z` as the residual after the first and second
+Taylor terms.  Reject source-Hessian work, `testRegular` repackaging, VP
+score-Hessian substitution, endpoint/naming replay, and `sald_version_2.tex`.
+
+Lower_2 Lean task: if the local definitions unfold, compile one ASTIS-owned
+theorem proving the boundary.  If they remain abstract, record typed verifier
+feedback:
+
+```text
+leaf=hSelectedLineTaylorRawSplitDef
+error_class=source_contract_gap_missing_selected_line_taylor_raw_split_definition
+needed_shape=testRegular -> forall phi x i z,
+  selectedTest phi (x + z smul stdOrthonormalBasis Real E i) - selectedTest phi x =
+    deriv (fun q => selectedTest phi (x + q smul stdOrthonormalBasis Real E i)) 0 * z +
+    ((2 : Real) * taylorCoeffWithin (fun q => selectedTest phi (x + q smul stdOrthonormalBasis Real E i)) 2 Set.univ 0) * z ^ 2 +
+    normalizedRemainder phi x i z
+source_lines=appendix.tex:958-970;appendix.tex:983-996;appendix.tex:1161-1176;appendix.tex:1379-1387
+blocked_by=no original-paper or local Lean definition was found identifying normalizedRemainder with the residual of the selected scalar Taylor expansion
+```
+
+Local ingredients available to lower_2:
+
+```lean
+SALD.selectedWeakTestSelectedLineTaylorSplitDefOfRawTaylorAndTermDefs
+SALD.selectedWeakTestSourceTaylorIntegrandDefOfRawAndLineTaylorSplit
+SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfSourceIntegralRawTaylorAndTermDefs
+SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfScalarPushforwardRawTaylorAndTermDefs
+SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfScalarPushforwardRawTaylorAndDominatedRemainder
+```
+
+No external SLT theorem is imported, called, queued, or marked formalized by
+this packet.  Mathlib use is limited to already imported `deriv`,
+`taylorCoeffWithin`, and `Set.univ` notation unless lower_2/lower_3 identifies
+a concrete local ASTIS-owned Taylor lemma to add.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 205 selected-line raw Taylor split | Compiled lower_2 source-cited boundary for the scalar selected-line Taylor identity with `normalizedRemainder` as residual. | scalar selected line; `deriv`; `taylorCoeffWithin`; `Set.univ`; `normalizedRemainder`; compiled cycle-188/189/192/193 bridges | `SALD.cycle205GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedLineTaylorRawSplitLower2Obligation` / `SALD.cycle205GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedLineTaylorRawSplitLower2Dag` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1176`; `appendix.tex:1379-1387` | `hSelectedLineTaylorSplitDef`; `hBrownianCoordinateGeneratorTaylorIntegralDef`; Taylor moment split; weak-FP/KL/IBP handoff | obligation |
+
+Lower_2 result: local Lean/source inspection did not find a reducible
+definition of `normalizedRemainder` as the selected scalar Taylor residual.  The
+compiled obligation records typed feedback
+`leaf=hSelectedLineTaylorRawSplitDef`,
+`error_class=source_contract_gap_missing_selected_line_taylor_raw_split_definition`,
+and `blocked_by=normalizedRemainder is an abstract parameter in the compiled
+Taylor bridges and no original-paper definition identifies it with the selected
+scalar Taylor residual`.
+
+## Cycle 202 Lower_3 Endpoint Coordinate-Line Source Dependency Audit
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker/API scout.
+
+Exact boundary narrowed: `hSourceTaylorIntegrandRawDef` is not a Mathlib or
+SLT theorem gap.  It is already reducible by the compiled local SALD bridges
+`SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementEndpointAndLineDef`
+and `SALD.selectedWeakTestSelectedIncrementCoordinateLineDefOfEndpointAndLineDef`
+to the smaller source-cited endpoint-line field:
+
+```lean
+hSelectedEndpointCoordinateLineDef :
+  testRegular ->
+    forall phi x i z,
+      sourceSelectedEndpoint phi x i z =
+        x + z • (stdOrthonormalBasis Real E i)
+```
+
+Use site: this endpoint-line field feeds
+`SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementEndpointAndLineDef`,
+then the raw scalar selected-line integrand required by
+`SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfScalarPushforwardRawTaylorAndTermDefs`
+on the Brownian/Ito Taylor-integral backend.
+
+Source anchors checked:
+
+- `appendix.tex:958-970`: discrete EM update with Gaussian increment.
+- `appendix.tex:983-996`: frozen interpolation endpoint.
+- `appendix.tex:1161-1170`: increment restated as
+  `sigma_eta(t(s)) sqrt(s - s_k) xi`, with `xi ~ N(0,I)`.
+- `appendix.tex:1379-1387`: weak Fokker-Planck equation tied to the same
+  frozen interpolation.
+
+Dependency classification:
+
+- `internal-paper-step`: extract the selected scalar coordinate endpoint from
+  the frozen interpolation and normalized Brownian coordinate.
+- `source-contract-gap`: if no Lean definition unfolds `sourceSelectedEndpoint`
+  to the coordinate line, record the missing field exactly as
+  `hSelectedEndpointCoordinateLineDef`.
+- Not `mathlib-available`: Mathlib handles `stdOrthonormalBasis` and Gaussian
+  coordinate-law infrastructure, but not this SALD endpoint naming.
+- Not `slt-port-candidate`: no SLT theorem was imported, queued, called, or
+  marked formalized.
+
+Typed verifier feedback for a non-unfolding endpoint definition:
+
+```text
+leaf=hSelectedEndpointCoordinateLineDef
+error_class=source_contract_gap_missing_selected_endpoint_coordinate_line_definition
+needed_shape=testRegular -> forall phi x i z, sourceSelectedEndpoint phi x i z = x + z smul stdOrthonormalBasis Real E i
+```
+
+Lower_3 conclusion: no new TechnicalLemmas wrapper/export is justified for
+this packet.  The existing compiled SALD bridges are sufficient once the
+paper-specific endpoint correspondence field above is supplied.
+
+## Cycle 201 Middle Selected-Test Laplacian Regularity Packet
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet for
+`sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Exact boundary narrowed:
+
+```lean
+hSelectedTestLaplacianMeasurable :
+  testRegular ->
+    forall phi, Measurable (Laplacian.laplacian (selectedTest phi))
+```
+
+Cycle 199 already compiled the local theorem:
+
+```lean
+SALD.generalMovingTargetDiscreteSelectedTestLaplacianMeasurableOfContinuous
+```
+
+so the next lower-ready boundary is the strictly smaller source-facing field:
+
+```lean
+hSelectedTestLaplacianContinuous :
+  testRegular ->
+    forall phi, Continuous (Laplacian.laplacian (selectedTest phi))
+```
+
+Source anchors and audit lines:
+
+- `appendix.tex:983-996`: frozen EM interpolation use site.
+- `appendix.tex:1379-1387`: weak Fokker--Planck Laplacian use site.
+- `appendix.tex:1313-1316`: discrete theorem inherits continuous theorem and
+  frozen-delta assumptions.
+- `appendix.tex:724-727`: continuous theorem assumptions.
+- `appendix.tex:1028-1070`: frozen-delta Lipschitz, integrability, and
+  step-size assumptions.
+
+The audited source lines do not state selected-test Laplacian continuity or
+measurability.  Do not fill this gap by projecting from opaque `testRegular`,
+reopening the selected-test Hessian source-contract gap, using VP score-Hessian
+regularity, or adding a duplicate wrapper around
+`hsourceLaplacianFieldMeas`.
+
+Lower_2 typed feedback if no source-backed continuity field exists:
+
+```text
+leaf=hSelectedTestLaplacianContinuous
+error_class=source_contract_gap_missing_selected_test_laplacian_continuity
+needed_shape=testRegular -> forall phi, Continuous (Laplacian.laplacian (selectedTest phi))
+source_lines=appendix.tex:724-727;appendix.tex:1028-1070;appendix.tex:1313-1316;appendix.tex:983-996;appendix.tex:1379-1387
+blocked_by=no original-paper line found that states selected-test Laplacian continuity/measurability
+```
+
+Local facts allowed: `SALD.generalMovingTargetDiscreteSourceLaplacianFieldMeasOfSelectedTestLaplacianMeasurable`,
+`SALD.generalMovingTargetDiscreteSelectedTestLaplacianMeasurableOfContinuous`,
+Mathlib `Continuous.measurable`, and Mathlib
+`Measurable.aestronglyMeasurable`.  No external SLT theorem is imported,
+called, queued, or marked formalized.
+
+## Cycle 201 Lower_2 Selected-Test Laplacian Continuity Source Gap
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet for
+`sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Compiled obligation:
+
+```lean
+SALD.cycle201GeneralMovingTargetDiscreteEmInterpolationSelectedTestLaplacianContinuityLower2Obligation
+```
+
+Exact missing theorem boundary narrowed:
+
+```lean
+hSelectedTestLaplacianContinuous :
+  testRegular ->
+    forall phi, Continuous (Laplacian.laplacian (selectedTest phi))
+```
+
+This is the remaining source-facing field after the compiled cycle-199 bridge
+`SALD.generalMovingTargetDiscreteSelectedTestLaplacianMeasurableOfContinuous`.
+The source lines checked for this packet,
+`appendix.tex:724-727`, `appendix.tex:1028-1070`,
+`appendix.tex:1313-1316`, `appendix.tex:983-996`, and
+`appendix.tex:1379-1387`, do not state selected-test Laplacian continuity or
+measurability.
+
+Typed verifier feedback:
+
+```text
+leaf=hSelectedTestLaplacianContinuous
+error_class=source_contract_gap_missing_selected_test_laplacian_continuity
+needed_shape=testRegular -> forall phi, Continuous (Laplacian.laplacian (selectedTest phi))
+source_lines=appendix.tex:724-727;appendix.tex:1028-1070;appendix.tex:1313-1316;appendix.tex:983-996;appendix.tex:1379-1387
+blocked_by=no original-paper line found that states selected-test Laplacian continuity/measurability
+```
+
+No duplicate wrapper for `hsourceLaplacianFieldMeas`, source-Hessian
+repackaging, VP score-Hessian substitution, direct SLT dependency, or
+`sald_version_2.tex` use was introduced.
+
+## Cycle 199 Source-Laplacian Measurability Bridge
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet for
+`sald.general_moving_target_discrete.em_interpolation_fp`.
+
+Exact boundary narrowed:
+
+```lean
+hsourceLaplacianFieldMeas :
+  testRegular ->
+    forall phi,
+      MeasureTheory.AEStronglyMeasurable
+        (Laplacian.laplacian (selectedTest phi)) hatRhoS
+```
+
+Compiled declaration:
+
+```lean
+SALD.generalMovingTargetDiscreteSourceLaplacianFieldMeasOfSelectedTestLaplacianMeasurable
+```
+
+The compiled bridge reduces the law-dependent AE-strong measurability premise
+to the smaller source-facing regularity field:
+
+```lean
+hSelectedTestLaplacianMeasurable :
+  testRegular ->
+    forall phi, Measurable (Laplacian.laplacian (selectedTest phi))
+```
+
+Source anchors: `appendix.tex:983-996` and `appendix.tex:1379-1387`.
+The bridge uses only `Measurable.aestronglyMeasurable`; no SLT theorem was
+consulted, imported, queued, or marked formalized.  It does not reopen
+`hSourceHasHessian`/`hSourceHessianBound`, does not repackage `testRegular`,
+and does not add a same-shape wrapper for `hsourceLaplacianFieldMeas`.
+
+Remaining proof obligation for the next lower packet:
+
+```text
+leaf=hSelectedTestLaplacianMeasurable
+needed_shape=testRegular -> forall phi, Measurable (Laplacian.laplacian (selectedTest phi))
+source_lines=appendix.tex:983-996; appendix.tex:1379-1387
+blocked_by=need explicit selected-test Laplacian measurability or continuity from the original SALD test-class assumptions
+```
+
+## Cycle 196 Middle Normalized Remainder Bound-Int Packet
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact boundary narrowed:
+
+```lean
+hNormalizedRemainderBoundInt :
+  testRegular ->
+    forall phi x i,
+      MeasureTheory.Integrable
+        (fun z : Real => remainderBound phi x i z)
+        (normalizedCoordinateLaw phi x i)
+```
+
+Compiled lower_2 declaration:
+
+```lean
+SALD.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound
+```
+
+Cycle 196 lower_2 compiled this theorem to derive
+normalized-coordinate-law integrability from the smaller source-cited
+definition
+
+```lean
+hNormalizedRemainderBoundDef :
+  testRegular ->
+    forall phi x i z,
+      remainderBound phi x i z = remainderBoundC phi x i * z ^ 2
+```
+
+and the normalized scalar coordinate law.  The Gaussian moment part is already
+compiled locally as
+`SALD.gaussianRealSelectedTestLineSecondOrderQuadraticBoundIntegrable`.
+
+Therefore the remaining exact source-cited boundary is
+`hNormalizedRemainderBoundDef`.  If a later worker cannot find a Lean-side
+definition of `remainderBound`, it must record that source definition with
+typed verifier feedback:
+
+```text
+leaf=hNormalizedRemainderBoundDef
+error_class=missing-source-definition
+needed_shape=remainderBound phi x i z = remainderBoundC phi x i * z ^ 2
+source_lines=appendix.tex:983-996; appendix.tex:1161-1170; appendix.tex:1379-1387
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.
+No external SLT theorem is callable for this packet.  `hSourceHasHessian` and
+`hSourceHessianBound` remain documented source-contract gaps.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 196 normalized remainder quadratic-bound integrability | Reduce `hNormalizedRemainderBoundInt` to `hNormalizedRemainderBoundDef` plus Gaussian quadratic integrability. | normalized scalar coordinate law; `SALD.gaussianRealSelectedTestLineSecondOrderQuadraticBoundIntegrable`; optional local coordinate-law bridge | compiled `SALD.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound`; exported as `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | `hRemainderBoundInt`; Taylor-DCT remainder package; weak-FP backend | formalized; remaining boundary `hNormalizedRemainderBoundDef` |
+
+## Cycle 197 Middle Normalized Remainder Bound-Definition Audit
+
+Classification: `rejected-wrapper-churn`.
+
+Packet type: dynamic-leaf worker packet.
+
+Blocked Lean statement:
+
+```lean
+hNormalizedRemainderBoundDef :
+  testRegular ->
+    forall phi x i z,
+      remainderBound phi x i z = remainderBoundC phi x i * z ^ 2
+```
+
+Audit classification: `source-contract-gap`.
+
+Cycle 196 already compiled the local theorem
+`SALD.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound`, exported
+through
+`AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound`.
+The remaining equality is not an integrability fact, a coordinate-law fact, or
+a measure transport.  It is the missing source definition of the chosen
+dominating bound.
+
+Checked source anchors: `appendix.tex:958-996`, `appendix.tex:1161-1170`,
+`appendix.tex:1358-1387`, and `appendix.tex:1422-1434`.  A TeX search over
+`/home/nitanda_sub/mark/repos/sald/paper`, excluding `sald_version_2.tex`,
+found no original-paper definition of `remainderBound`, `remainderBoundC`, or
+the quadratic bound `remainderBoundC phi x i * z ^ 2`.
+
+Required lower feedback if no definitional Lean unfolding exists:
+
+```text
+leaf=hNormalizedRemainderBoundDef
+error_class=source_contract_gap_missing_remainder_bound_definition
+needed_shape=remainderBound phi x i z = remainderBoundC phi x i * z ^ 2
+source_lines=appendix.tex:958-996; appendix.tex:1161-1170; appendix.tex:1358-1387; appendix.tex:1422-1434
+blocked_by=no original-paper definition of remainderBound/remainderBoundC outside sald_version_2.tex
+```
+
+No external SLT theorem is callable for this packet, and no SLT port is
+assigned.  Wrapper theorems that assume this equality under a new name must be
+rejected.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 197 normalized remainder bound-definition audit | Reject wrapper proof of `hNormalizedRemainderBoundDef`; keep the missing equality as a source-contract gap unless an existing Lean definition unfolds to the quadratic bound. | cycle-196 compiled bridge; local Gaussian quadratic integrability; TeX source audit excluding `sald_version_2.tex` | no new theorem unless definitional unfolding exists; otherwise typed ProofObligation | `appendix.tex:958-996`; `appendix.tex:1161-1170`; `appendix.tex:1358-1387`; `appendix.tex:1422-1434` | `hNormalizedRemainderBoundInt`; `hRemainderBoundInt`; Taylor-DCT package; weak-FP/KL/IBP backend | queued as source-contract gap / rejected wrapper churn |
+
+### Cycle 197 Lower_3 API Scout Addendum
+
+Classification: `rejected-wrapper-churn`.
+
+Lower_3 checked the Lean API surface for the same boundary.  In
+`AutoSamplingTheory/SALD.lean`, `remainderBound` and `remainderBoundC` occur
+as parameters to the relevant Brownian/Ito remainder theorems, including
+`SALD.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound`; they are
+not definitions that reduce to `remainderBoundC phi x i * z ^ 2`.  Therefore
+there is no proof-producing TechnicalLemmas patch that can derive
+`hNormalizedRemainderBoundDef` by unfolding.
+
+Callable local facts remain:
+
+- `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound`
+- `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero`
+- registry keys `sald.normalized-remainder-bound-int-quadratic` and
+  `gaussian.quadratic-bound-integrable`
+
+No external SLT theorem supplies this source definition, and no SLT import,
+call, port, or queue entry is part of this leaf.  The next lower packet should
+either find a genuine paper-backed definition of `remainderBound` /
+`remainderBoundC`, or record the typed feedback already displayed above.
+
+## Cycle 198 Lower_2 Event-Field Coordinate-Sum Audit
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Blocked Lean statement:
+
+```lean
+hFrozenScalarBrownianItoEventFieldCoordinateSum :
+  testRegular ->
+    forall phi x,
+      emGeneratorLaplacianEventField phi x =
+        Finset.univ.sum
+          (fun i : Fin (Module.finrank Real E) =>
+            brownianCoordinateGenerator phi x i)
+```
+
+Audit classification: `source-contract-gap`.
+
+Cycle 160 already compiled
+`SALD.generalMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoPointwiseDefOfCoordinateGenerator`,
+but that theorem consumes `hFrozenScalarBrownianItoEventFieldCoordinateSum`
+as a supplied input.  The named field
+`SALD.emFrozenScalarBrownianItoGeneratorEventField` unfolds to a finite sum of
+diagonal `iteratedFDeriv` terms only after the coordinate generators have been
+identified; it does not define the abstract `emGeneratorLaplacianEventField`
+as a finite sum of `brownianCoordinateGenerator`.
+
+Required lower feedback:
+
+```text
+leaf=hFrozenScalarBrownianItoEventFieldCoordinateSum
+error_class=source_contract_gap_missing_event_field_coordinate_sum_definition
+needed_shape=emGeneratorLaplacianEventField phi x = Finset.univ.sum (fun i : Fin (Module.finrank Real E) => brownianCoordinateGenerator phi x i)
+source_lines=appendix.tex:983-996; appendix.tex:1379-1387
+blocked_by=no original-paper/Lean definition connecting emGeneratorLaplacianEventField to the finite sum of brownianCoordinateGenerator
+```
+
+No external SLT theorem is callable or queued.  `sigma_eta^2/2` remains
+outside this Brownian event field, as in the weak-FP diffusion line.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 198 event-field coordinate-sum audit | Keep `hFrozenScalarBrownianItoEventFieldCoordinateSum` as the exact missing source definition unless an existing Lean definition unfolds the abstract EM Brownian event field to the coordinate-generator sum. | cycle-160 coordinate-generator assembly theorem; lower_1 coordinate-sum route; local Brownian/Ito Taylor consumer facts | `SALD.cycle198GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoCoordinateSumLower2Obligation`; no same-shape theorem | `appendix.tex:983-996`; `appendix.tex:1379-1387` | `sald.general_moving_target_discrete.em_interpolation_fp`; KL derivative handoff; divergence/FI/IBP handoff | queued as source-contract gap / narrows-source-cited-boundary |
+
 ## Cycle 194 Lower_2 Remainder-Meas Gaussian-Law Transport
 
 Classification: `discharges-supplied-hypothesis`.
@@ -12965,6 +13448,220 @@ remain a documented source-contract gap.
 |---|---|---|---|---|---|---|
 | Cycle 190 selected-increment endpoint bridge | Derive the old selected-increment coordinate-line field from endpoint naming and endpoint coordinate-line identity. | `hSelectedIncrementEndpointDef`; `hSelectedEndpointCoordinateLineDef`; frozen interpolation endpoint; normalized Brownian coordinate | `SALD.selectedWeakTestSelectedIncrementCoordinateLineDefOfEndpointAndLineDef` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | `hSelectedIncrementCoordinateLineDef`; `hSourceTaylorIntegrandRawDef`; weak-FP backend | formalized |
 | Cycle 190 raw-integrand endpoint bridge | Derive `hSourceTaylorIntegrandRawDef` without taking `hSelectedIncrementCoordinateLineDef` as primitive. | `hSourceTaylorIntegrandSelectedIncrementDef`; compiled endpoint bridge | `SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementEndpointAndLineDef` | same anchors | Brownian coordinate Taylor integral backend | formalized |
+
+## Cycle 202 Selected Endpoint Coordinate-Line Source Gap
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: lower_2 dynamic-leaf worker packet.
+
+Exact missing theorem boundary narrowed:
+
+```lean
+hSelectedEndpointCoordinateLineDef :
+  testRegular ->
+    forall phi x i z,
+      sourceSelectedEndpoint phi x i z =
+        x + z smul (stdOrthonormalBasis Real E i)
+```
+
+The cycle-190 compiled bridges already reduce
+`hSelectedIncrementCoordinateLineDef` and `hSourceTaylorIntegrandRawDef` to
+`hSelectedIncrementEndpointDef` plus this endpoint-coordinate field.  Lean
+inspection in cycle 202 found that `sourceSelectedEndpoint` remains an
+abstract source-facing function, not a local definition that unfolds to the
+standard-basis coordinate line.  Therefore the smaller source-cited blocker is
+recorded as:
+
+```lean
+SALD.cycle202GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedEndpointCoordinateLineLower2Obligation
+```
+
+Typed verifier feedback:
+
+```text
+leaf=hSelectedEndpointCoordinateLineDef
+error_class=source_contract_gap_missing_selected_endpoint_coordinate_line_definition
+needed_shape=testRegular -> forall phi x i z,
+  sourceSelectedEndpoint phi x i z =
+    x + z smul stdOrthonormalBasis Real E i
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.  The weak-FP
+`sigma_eta^2/2` prefactor remains outside this scalar endpoint field.  No
+external SLT theorem is imported, called, queued, or marked formalized.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 202 selected-endpoint coordinate-line source gap | Record the exact endpoint-coordinate source contract needed by the cycle-190 selected-increment and raw-integrand bridges. | `hSelectedEndpointCoordinateLineDef`; `hSelectedIncrementEndpointDef`; `sourceSelectedEndpoint`; frozen interpolation endpoint; normalized Brownian coordinate | `SALD.cycle202GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedEndpointCoordinateLineLower2Obligation`; `SALD.cycle202GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedEndpointCoordinateLineLower2Dag` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | `hSelectedIncrementCoordinateLineDef`; `hSourceTaylorIntegrandRawDef`; `hBrownianCoordinateGeneratorTaylorIntegralDef`; weak-FP backend | obligation |
+
+## Cycle 203 Selected-Increment Endpoint Definition Packet
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet.
+
+Exact missing theorem boundary selected for lower work:
+
+```lean
+hSelectedIncrementEndpointDef :
+  testRegular ->
+    forall phi x i z,
+      sourceSelectedLineIncrement phi x i z =
+        selectedTest phi (sourceSelectedEndpoint phi x i z) -
+          selectedTest phi x
+```
+
+Reason this is strictly smaller: cycle 190 already compiled the bridges
+
+```lean
+SALD.selectedWeakTestSelectedIncrementCoordinateLineDefOfEndpointAndLineDef
+SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementEndpointAndLineDef
+```
+
+so the older `hSourceTaylorIntegrandRawDef` consumer no longer needs
+`hSelectedIncrementCoordinateLineDef` as a primitive field.  Cycle 202 then
+recorded the endpoint coordinate-line leaf
+`hSelectedEndpointCoordinateLineDef`.  The remaining companion field is the
+selected weak-test increment endpoint definition above.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.  The source lines
+identify the EM increment, frozen interpolation endpoint, normalized Gaussian
+coordinate increment, and weak-FP consumer.  They do not justify moving the
+weak-FP `sigma_eta^2/2` diffusion coefficient into this scalar selected-test
+increment field.
+
+Lower_1 natural-language task: prove or reject, at the source-correspondence
+level, that `sourceSelectedLineIncrement` is merely the paper name for
+`selectedTest` evaluated at `sourceSelectedEndpoint` minus its value at the
+base point.  Do not replay `hSelectedEndpointCoordinateLineDef`,
+`hNormalizedRemainderBoundDef`, selected-test Hessian regularity, VP
+score-Hessian substitution, or any wrapper projection.
+
+Lower_2 Lean task: inspect whether `sourceSelectedLineIncrement` or
+`sourceSelectedEndpoint` has a reducible local definition supporting the
+equality.  If so, compile one ASTIS-owned declaration for the equality.  If
+not, record this typed verifier feedback:
+
+```text
+leaf=hSelectedIncrementEndpointDef
+error_class=source_contract_gap_missing_selected_increment_endpoint_definition
+needed_shape=testRegular -> forall phi x i z,
+  sourceSelectedLineIncrement phi x i z =
+    selectedTest phi (sourceSelectedEndpoint phi x i z) - selectedTest phi x
+blocked_by=sourceSelectedLineIncrement is an abstract source-facing parameter in the compiled cycle-190 bridges unless lower_2 finds a reducible local definition
+```
+
+Lower_2 result: Lean inspection found no reducible local definition of
+`sourceSelectedLineIncrement` or `sourceSelectedEndpoint`; both occur only as
+abstract parameters of the compiled cycle-190 endpoint/raw-integrand bridges.
+The lower_2 source-cited obligation is therefore recorded as:
+
+```lean
+SALD.cycle203GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedIncrementEndpointLower2Obligation
+SALD.cycle203GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedIncrementEndpointLower2Dag
+```
+
+No external SLT theorem is imported, called, queued, or marked formalized.
+ASTIS-owned reusable ingredients are limited to the compiled SALD endpoint and
+raw-integrand bridges named above.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 203 selected-increment endpoint definition source gap | Record the source-contract boundary for the paper-specific selected weak-test increment as an endpoint difference. | `hSelectedIncrementEndpointDef`; `sourceSelectedLineIncrement`; `sourceSelectedEndpoint`; `selectedTest`; cycle-190 compiled endpoint/raw-integrand bridges; cycle-202 endpoint-coordinate gap kept separate | `SALD.cycle203GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedIncrementEndpointLower2Obligation`; `SALD.cycle203GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSelectedIncrementEndpointLower2Dag` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | `hSelectedIncrementCoordinateLineDef`; `hSourceTaylorIntegrandRawDef`; `hBrownianCoordinateGeneratorTaylorIntegralDef`; weak-FP backend | obligation |
+
+## Cycle 204 Source Taylor Integrand Selected-Increment Naming Packet
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: middle dynamic-leaf worker packet.
+
+Exact missing theorem boundary selected for lower work:
+
+```lean
+hSourceTaylorIntegrandSelectedIncrementDef :
+  testRegular ->
+    forall phi x i z,
+      sourceTaylorIntegrand phi x i z =
+        sourceSelectedLineIncrement phi x i z
+```
+
+This is the source-facing naming field still needed by the compiled cycle-189
+raw-integrand bridge:
+
+```lean
+SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementAndLineDef
+```
+
+and by the cycle-190 endpoint/raw-integrand bridge:
+
+```lean
+SALD.selectedWeakTestSourceTaylorIntegrandRawDefOfSelectedIncrementEndpointAndLineDef
+```
+
+Cycles 202 and 203 already recorded the endpoint coordinate-line and
+endpoint-difference fields as source-contract gaps.  Cycle 204 keeps those
+separate and narrows only the source-level question whether the paper's
+`sourceTaylorIntegrand` is definitionally the selected weak-test increment
+for the normalized frozen Brownian coordinate.
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.  These anchor the EM
+increment, frozen interpolation, normalized Brownian coordinate, and weak-FP
+consumer.  They do not justify moving the weak-FP `sigma_eta^2/2` coefficient
+inside the scalar source-integrand definition.
+
+Lower_1 natural-language task: inspect the source correspondence for exactly
+`hSourceTaylorIntegrandSelectedIncrementDef`; do not replay endpoint gaps,
+normalized-remainder domination, source-Hessian regularity, VP score-Hessian
+substitution, or wrapper projections.
+
+Lower_2 Lean task: inspect whether `sourceTaylorIntegrand` and
+`sourceSelectedLineIncrement` have reducible local definitions.  If so,
+compile one ASTIS-owned theorem for the equality above.  If not, record typed
+verifier feedback:
+
+```text
+leaf=hSourceTaylorIntegrandSelectedIncrementDef
+error_class=source_contract_gap_missing_source_taylor_integrand_selected_increment_definition
+needed_shape=testRegular -> forall phi x i z,
+  sourceTaylorIntegrand phi x i z =
+    sourceSelectedLineIncrement phi x i z
+blocked_by=sourceTaylorIntegrand and sourceSelectedLineIncrement are abstract parameters in the compiled selected-increment/raw-integrand bridges unless lower_2 finds a reducible local definition
+```
+
+Lower_2 result: Lean inspection found no reducible local definition of
+`sourceTaylorIntegrand` or `sourceSelectedLineIncrement`; both occur as
+abstract parameters in the compiled cycle-189/190 selected-increment and
+raw-integrand bridges.  The lower_2 source-cited obligation is therefore
+recorded as:
+
+```lean
+SALD.cycle204GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceTaylorIntegrandSelectedIncrementLower2Obligation
+SALD.cycle204GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceTaylorIntegrandSelectedIncrementLower2Dag
+```
+
+Typed verifier feedback:
+
+```text
+leaf=hSourceTaylorIntegrandSelectedIncrementDef
+error_class=source_contract_gap_missing_source_taylor_integrand_selected_increment_definition
+needed_shape=testRegular -> forall phi x i z,
+  sourceTaylorIntegrand phi x i z =
+    sourceSelectedLineIncrement phi x i z
+blocked_by=sourceTaylorIntegrand and sourceSelectedLineIncrement are abstract parameters in the compiled selected-increment/raw-integrand bridges
+```
+
+No external SLT theorem is imported, called, queued, or marked formalized.
+Local ingredients are the compiled ASTIS-owned cycle-189/190 SALD bridges
+listed above.
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 204 sourceTaylorIntegrand selected-increment naming source gap | Record the source-level naming boundary `sourceTaylorIntegrand = sourceSelectedLineIncrement`; Lean inspection found both names abstract in the cycle-189/190 bridges. | `hSourceTaylorIntegrandSelectedIncrementDef`; `sourceTaylorIntegrand`; `sourceSelectedLineIncrement`; compiled cycle-189/190 bridges; cycle-202/203 endpoint gaps kept separate | `SALD.cycle204GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceTaylorIntegrandSelectedIncrementLower2Obligation`; `SALD.cycle204GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoSourceTaylorIntegrandSelectedIncrementLower2Dag` | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | `hSourceTaylorIntegrandRawDef`; `hBrownianCoordinateGeneratorTaylorIntegralDef`; weak-FP backend; KL derivative handoff; divergence/FI/IBP handoff | obligation |
+| Cycle 204 lower_1 sourceTaylorIntegrand selected-increment route | Natural-language proof route for the same boundary: if the two Lean-facing names unfold to the same selected weak-test increment, the proof is definitional by `rfl`/`simp`; if they remain abstract parameters, the strict source-contract gap is the missing definition itself. | `hSourceTaylorIntegrandSelectedIncrementDef`; no endpoint replay, no source-Hessian fields, no Gaussian/SLT backend | `runs/20260613-044622-678656-ASTIS-SALD-001-cycle204/lower_1_source_taylor_integrand_selected_increment_route.md`; lower_2 typed feedback should use `leaf=hSourceTaylorIntegrandSelectedIncrementDef` and `error_class=source_contract_gap_missing_source_taylor_integrand_selected_increment_definition` when no reducible definition is found | `appendix.tex:958-970`; `appendix.tex:983-996`; `appendix.tex:1161-1170`; `appendix.tex:1379-1387` | cycle-189/190 raw-integrand bridges and Brownian/Ito backend | proof-scout route |
 
 ## Cycle 188 Source Taylor Integrand Definition Bridge
 
@@ -13578,3 +14275,114 @@ hRemainderBoundInt
 
 `hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps.  No
 external SLT theorem was imported, ported, or marked formalized.
+
+## Cycle 206 Middle Remainder Pullback Source Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: dynamic-leaf worker packet.
+
+Exact missing theorem boundary narrowed: `hRemainderPullbackDef`.
+
+```lean
+hRemainderPullbackDef :
+  testRegular ->
+    forall phi x i,
+      remainderGeneratorLimit phi x i =
+        ∫ omega : Omega,
+          normalizedRemainder phi x i
+            (scalarBrownianCoordinate phi x i omega) ∂P
+```
+
+This is the sample-space definition needed by the already compiled bridge
+`SALD.selectedWeakTestRemainderGeneratorNormalizedLawDefOfScalarPushforward`.
+It is strictly smaller than `hRemainderGeneratorLimitDef`, since the law
+transport and Gaussian coordinate-law rewrite are already handled by:
+
+```lean
+SALD.selectedWeakTestRemainderGeneratorNormalizedLawDefOfScalarPushforward
+SALD.selectedWeakTestRemainderGeneratorLimitDefOfStdGaussianVectorLaw
+SALD.selectedWeakTestRemainderGeneratorLimitDefOfScalarPushforwardAndStdGaussianVectorLaw
+```
+
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+`appendix.tex:1161-1170`, and `appendix.tex:1379-1387`.
+
+Local callable facts: `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw`
+and the local Gaussian variance registry entries.  No external SLT declaration
+is imported, called, queued, or marked formalized for this packet.
+
+Typed feedback if the local source definitions do not reduce:
+
+```text
+leaf=hRemainderPullbackDef
+error_class=source_contract_gap_missing_remainder_pullback_definition
+needed_shape=testRegular -> forall phi x i, remainderGeneratorLimit phi x i =
+  integral omega, normalizedRemainder phi x i
+    (scalarBrownianCoordinate phi x i omega) dP
+source_lines=appendix.tex:958-970;appendix.tex:983-996;appendix.tex:1161-1170;appendix.tex:1379-1387
+blocked_by=remainderGeneratorLimit and normalizedRemainder are source-facing abstract fields in the compiled scalar-pushforward remainder bridge unless lower_2 finds a reducible local definition
+```
+
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+|---|---|---|---|---|---|---|
+| Cycle 206 middle source boundary | Record `hRemainderPullbackDef` as the exact sample-space normalized-remainder expectation required below `hRemainderGeneratorLimitDef`. | `SALD.selectedWeakTestRemainderGeneratorNormalizedLawDefOfScalarPushforward`; `MeasureTheory.integral_map`; local Gaussian coordinate-law/variance facts | `SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackMiddleObligation`; `SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackMiddleDag` | same anchors | `hRemainderGeneratorNormalizedLawDef`; `hRemainderGeneratorLimitDef`; weak-FP/KL/IBP backend | obligation |
+| Cycle 206 lower_2 remainder-pullback source gap | Lean inspection found `remainderGeneratorLimit`, `normalizedRemainder`, and `scalarBrownianCoordinate` only as abstract bridge parameters, so the pullback identity is recorded as the exact source-contract gap rather than closed by a wrapper. | existing scalar-pushforward remainder bridge; local Gaussian coordinate-law facts; targeted source search excluding `sald_version_2.tex` | `SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackLower2Obligation`; `SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackLower2Dag`; `runs/20260613-052444-683667-ASTIS-SALD-001-cycle206/lower_2_remainder_pullback_boundary.md` | same anchors | `hRemainderGeneratorNormalizedLawDef`; `hRemainderGeneratorLimitDef`; weak-FP/KL/IBP backend | obligation |
+
+## Cycle 207 Middle Conditional-Law Weak-FP Boundary
+
+Classification: `narrows-source-cited-boundary`.
+
+Packet type: illness-area refiner packet.
+
+Exact missing theorem boundary narrowed:
+
+```text
+sald.general_moving_target_discrete.em_interpolation_fp
+  -> emInterpolationConditionalWeakFp
+```
+
+The paper object is the weak Fokker--Planck equation for the frozen EM
+interpolation law.  The source lines are `appendix.tex:1368-1377` for the
+conditional drift `bar b_{k,s}`, `appendix.tex:1379-1387` for the weak-FP
+identity, `appendix.tex:983-996` for the frozen interpolation defining the law,
+and `appendix.tex:1358-1365` only as the downstream KL-derivative consumer.
+
+Lean-facing shape:
+
+```lean
+emInterpolationConditionalWeakFp :
+  forall phi, Admissible phi ->
+    HasDerivAt
+      (fun s => integral x, testEval phi x d(hatRhoS s))
+      (-(driftDiv phi) + (sigmaEta ^ 2 / 2) * laplacian phi)
+      s0
+```
+
+Callable compiled local facts: `AutoSamplingTheory.condDistribIntegralNamedLawIntegral`,
+`AutoSamplingTheory.condDistribIntegralNamedFieldRegularity`,
+`AutoSamplingTheory.lawMapIntegralHasDerivAtOfDominated`,
+`AutoSamplingTheory.lawIntegralHasDerivAtOfMeasureMapEqAndDominated`,
+`SALD.generalMovingTargetDiscreteCondDistribCanonicalDriftRegularity`,
+`SALD.generalMovingTargetDiscreteCondDistribNamedDriftRegularityOfCanonicalAeEq`,
+and `SALD.generalMovingTargetDiscreteWeakConditionalFpNamedLawDerivativeOfDominatedSplitGeneratorHandoff`.
+No external SLT theorem is imported, called, queued, or marked formalized.
+
+Do not reassign retired leaves: `hRemainderPullbackDef`, `hsampleInt`,
+`hsampleDerivMeas`, `hsampleDerivBound`, `hboundInt`, `hpathDeriv`,
+`hderivValue`, `hdriftBarBAction`, raw `hpairMeas`, or `hcanonicalBarBMeas`.
+Do not reopen `hSourceHasHessian` or `hSourceHessianBound`.
+
+Typed verifier feedback for a non-compiled lower attempt:
+
+```text
+leaf=emInterpolationConditionalWeakFp
+error_class=source_contract_gap_missing_conditional_fp_generator_definition
+needed_shape=forall phi, Admissible phi -> HasDerivAt (fun s => integral x, testEval phi x d(hatRhoS s)) (-(driftDiv phi) + (sigmaEta^2/2) * laplacian phi) s0
+source_lines=appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387;appendix.tex:983-996
+blocked_by=need source-selected generator/weak-FP definition connecting the frozen interpolation law to the conditional drift and Brownian Laplacian after already compiled law-map, condDistrib, and retired path/domination leaves
+```
+
+| Obligation | Boundary | Dependencies | Lean-facing contract | Source | Reuse | Status |
+|---|---|---|---|---|---|---|
+| Cycle 207 middle conditional-law weak-FP source correspondence | Narrow the broad EM interpolation weak-FP backend to the conditional-law source-sign law-derivative theorem, keeping KL differentiation downstream and avoiding wrapper churn. | frozen interpolation law; conditional drift definition; local law-map derivative and condDistrib handoffs | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/middle_source_correspondence_conditional_weak_fp.md`; planned `emInterpolationConditionalWeakFp` | `appendix.tex:1358-1365`; `appendix.tex:1368-1377`; `appendix.tex:1379-1387`; `appendix.tex:983-996` | KL derivative handoff; divergence/FI/IBP handoff; general moving-target discrete theorem | obligation |

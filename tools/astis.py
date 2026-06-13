@@ -47,6 +47,7 @@ SALD_UNFINISHED_SOURCE_JSONL = SALD_PAPER_MEMORY_DIR / "unfinished_source_map.js
 LEGACY_SALD_UNFINISHED_SOURCE_MAP = LEGACY_SALD_PAPER_MEMORY_DIR / "unfinished_source_map.md"
 LEGACY_SALD_UNFINISHED_SOURCE_JSONL = LEGACY_SALD_PAPER_MEMORY_DIR / "unfinished_source_map.jsonl"
 PROJECT_ARTICLE_UPDATE_DIR = ROOT / "paper-notes" / "project-paper" / "cycle-updates"
+PRO_PROMPT_DIR = ROOT / "runs" / "pro-prompts"
 SALD_CYCLE_SUMMARY_DIR = ROOT / "paper-notes" / "SALD" / "markdown" / "cycle-summaries"
 
 OUTER_REPOS_ROOT = Path("/home/nitanda_sub/mark/repos/outer_repos")
@@ -135,6 +136,7 @@ WORK_DIRS = [
     "runs",
     "runs/efficiency",
     "runs/context-packs",
+    "runs/pro-prompts",
     "research-wiki/cited-results",
     "research-wiki/source-index",
     "research-wiki/blueprints",
@@ -854,6 +856,13 @@ def latest_matching_note(task_id: str, patterns: list[str]) -> str:
 
 
 def latest_reviewer_blocker(task_id: str) -> str:
+    decision_patterns = [
+        "Exact boundary narrowed",
+        "next best leaf",
+        "leaf=",
+        "error_class=",
+        "source-contract gap",
+    ]
     for record in reversed(trial_records_for_task(task_id)):
         if base_agent_role(record.get("role", "")) != "reviewer" or record.get("kind") != "handoff":
             continue
@@ -861,6 +870,8 @@ def latest_reviewer_blocker(task_id: str) -> str:
         remaining = extract_remaining_boundary(note)
         if remaining != note:
             return remaining
+        if any(pattern in note for pattern in decision_patterns):
+            return note
         if "Remaining" in note:
             return note
     if task_id == "ASTIS-SALD-001":
@@ -2192,6 +2203,7 @@ python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind
                 "\n\nParallel lower specialization: you are the technical-lemma/API scout. "
                 "Work only when middle_technical_lemma or middle_formalizer identifies a missing background fact. "
                 "Search local ASTIS declarations and Mathlib/SLT provenance, then either port one tiny ASTIS-owned lemma that compiles or record a precise ProofObligation with the exact source and use site. "
+                "In parallel-lower runs, prefer a run-local retrieval packet or isolated TechnicalLemmas edit; avoid editing the same SALD theorem block that lower_2 is likely to touch. "
                 "Do not attack the root SALD theorem directly."
             )
         elif role_name == "lower_4":
@@ -2433,9 +2445,9 @@ def cmd_run_cycle(args: argparse.Namespace) -> int:
     return 0
 
 
-def run_agent_command(template: str, prompt: Path, run_dir: Path, task_id: str, cycle: int) -> int:
+def format_agent_command(template: str, prompt: Path, run_dir: Path, task_id: str, cycle: int) -> str:
     role = prompt_role(prompt)
-    command = template.format(
+    return template.format(
         root=str(ROOT),
         prompt=str(prompt),
         run_dir=str(run_dir),
@@ -2443,9 +2455,63 @@ def run_agent_command(template: str, prompt: Path, run_dir: Path, task_id: str, 
         cycle=cycle,
         role=role,
     )
+
+
+def run_agent_command(template: str, prompt: Path, run_dir: Path, task_id: str, cycle: int) -> int:
+    command = format_agent_command(template, prompt, run_dir, task_id, cycle)
     print("$ " + command)
     completed = subprocess.run(command, cwd=ROOT, shell=True)
     return completed.returncode
+
+
+def run_agent_commands_parallel(
+    template: str,
+    prompts: list[Path],
+    run_dir: Path,
+    task_id: str,
+    cycle: int,
+) -> list[dict]:
+    log_dir = run_dir / "agent-logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    launched = []
+    for prompt in prompts:
+        command = format_agent_command(template, prompt, run_dir, task_id, cycle)
+        log_path = log_dir / f"{prompt.stem}.log"
+        handle = log_path.open("wb")
+        print("$ " + command + f" > {rel(log_path)} 2>&1 &")
+        proc = subprocess.Popen(
+            command,
+            cwd=ROOT,
+            shell=True,
+            stdout=handle,
+            stderr=subprocess.STDOUT,
+        )
+        launched.append({
+            "prompt": prompt,
+            "command": command,
+            "log_path": log_path,
+            "handle": handle,
+            "proc": proc,
+            "started": time.monotonic(),
+        })
+
+    results = []
+    for item in launched:
+        code = item["proc"].wait()
+        ended = time.monotonic()
+        item["handle"].close()
+        elapsed = ended - item["started"]
+        results.append({
+            "prompt": item["prompt"],
+            "code": code,
+            "elapsed": elapsed,
+            "log_path": item["log_path"],
+        })
+        print(
+            f"parallel agent {item['prompt'].name} exit={code} "
+            f"active_agent_seconds={elapsed:.1f} log={rel(item['log_path'])}"
+        )
+    return results
 
 
 def upper_prompt_sequence(run_dir: Path, use_panel: bool) -> list[Path]:
@@ -2498,12 +2564,48 @@ def latest_cycle_number(task_id: str) -> int:
 def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> int:
     final_code = 0
     active_agent_seconds = 0.0
-    for prompt in cycle_prompt_paths(
+    prompts = cycle_prompt_paths(
         run_dir,
         args.skip_reviewer,
         getattr(args, "upper_panel", False),
         getattr(args, "middle_panel", False),
-    ):
+    )
+    index = 0
+    while index < len(prompts):
+        prompt = prompts[index]
+        if getattr(args, "parallel_lower", False) and prompt_role(prompt) == "lower":
+            lower_prompts = []
+            while index < len(prompts) and prompt_role(prompts[index]) == "lower":
+                lower_prompts.append(prompts[index])
+                index += 1
+            results = run_agent_commands_parallel(args.agent_cmd, lower_prompts, run_dir, args.task, cycle)
+            for result in results:
+                elapsed = float(result["elapsed"])
+                code = int(result["code"])
+                active_agent_seconds += elapsed
+                status = "accepted" if code == 0 else "failed"
+                append_jsonl(TRIAL_LOG, {
+                    "timestamp": now_stamp(),
+                    "trial_id": f"{run_dir.name}-{result['prompt'].stem}",
+                    "task_id": args.task,
+                    "role": prompt_role_label(result["prompt"]),
+                    "kind": "attempt",
+                    "status": status,
+                    "lean_gate": "not-run",
+                    "artifact": rel(result["prompt"]),
+                    "changed_files": git_changed_files(),
+                    "notes": (
+                        f"Parallel external agent command exit code {code}. "
+                        f"active_agent_seconds={elapsed:.1f}. "
+                        f"log={rel(result['log_path'])}."
+                    ),
+                })
+                write_trial_summary(load_jsonl(TRIAL_LOG))
+                if code != 0 and final_code == 0:
+                    final_code = code
+            if final_code != 0:
+                break
+            continue
         started = time.monotonic()
         code = run_agent_command(args.agent_cmd, prompt, run_dir, args.task, cycle)
         elapsed = time.monotonic() - started
@@ -2525,6 +2627,7 @@ def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> 
         if code != 0:
             final_code = code
             break
+        index += 1
     setattr(args, "_last_agent_seconds", active_agent_seconds)
     if args.check_each_cycle:
         code = cmd_check(argparse.Namespace())
@@ -2748,6 +2851,7 @@ def cmd_launch_six_hour_sald(args: argparse.Namespace) -> int:
     upper_panel_final = env_flag("ASTIS_UPPER_PANEL_FINAL", args.upper_panel_final)
     middle_panel_final = env_flag("ASTIS_MIDDLE_PANEL_FINAL", args.middle_panel_final)
     reviewer_waste_final = env_flag("ASTIS_REVIEWER_WASTE_FINAL", args.reviewer_waste_final)
+    parallel_lower = env_flag("ASTIS_PARALLEL_LOWER", args.parallel_lower)
     if upper_panel_inner:
         command.append("--upper-panel")
     if middle_panel_inner:
@@ -2760,6 +2864,8 @@ def cmd_launch_six_hour_sald(args: argparse.Namespace) -> int:
         command.append("--middle-panel-final")
     if reviewer_waste_final:
         command.append("--reviewer-waste-final")
+    if parallel_lower:
+        command.append("--parallel-lower")
     if args.after_latex:
         command.append("--after-latex")
     if getattr(args, "start_cycle", 0):
@@ -2789,7 +2895,7 @@ def cmd_launch_six_hour_sald(args: argparse.Namespace) -> int:
         f"middle_inner={int(middle_panel_inner)} middle_final={int(middle_panel_final)} "
         f"reviewer_waste_inner={int(reviewer_waste_inner)} reviewer_waste_final={int(reviewer_waste_final)}"
     )
-    print(f"lower-count: {args.lower_count}")
+    print(f"lower-count: {args.lower_count}; parallel-lower: {int(parallel_lower)}")
     print(f"batch-end report export: {'enabled' if args.after_latex else 'disabled'}")
     print(f"log: {rel(log_path)}")
     print(f"pid-file: {rel(pid_path)}")
@@ -2810,14 +2916,30 @@ def latest_sald_window_info() -> dict:
 
     log_path = latest_log_file()
     if log_path is None or not log_path.exists():
-        return {"log": "", "cycles": [], "cycle_range": "unknown", "active_agent_seconds": ""}
+        return {
+            "log": "",
+            "cycles": [],
+            "final_audit_cycles": [],
+            "cycle_range": "unknown",
+            "proof_cycle_range": "unknown",
+            "final_audit_cycle": "",
+            "active_agent_seconds": "",
+        }
     text = read_text(log_path)
     cycles = [int(value) for value in re.findall(r"^cycle\s+(\d+):", text, flags=re.M)]
+    final_audit_cycles = [
+        int(value) for value in re.findall(r"^final audit cycle\s+(\d+):", text, flags=re.M)
+    ]
+    all_cycles = cycles + final_audit_cycles
     active_matches = re.findall(r"active-agent seconds used:\s*([0-9.]+)\s*/\s*([0-9.]+)", text)
-    if cycles:
-        cycle_range = f"{min(cycles)}-{max(cycles)}" if min(cycles) != max(cycles) else str(cycles[0])
+    if all_cycles:
+        cycle_range = f"{min(all_cycles)}-{max(all_cycles)}" if min(all_cycles) != max(all_cycles) else str(all_cycles[0])
     else:
         cycle_range = "unknown"
+    if cycles:
+        proof_cycle_range = f"{min(cycles)}-{max(cycles)}" if min(cycles) != max(cycles) else str(cycles[0])
+    else:
+        proof_cycle_range = "unknown"
     active = ""
     if active_matches:
         used, budget = active_matches[-1]
@@ -2825,8 +2947,51 @@ def latest_sald_window_info() -> dict:
     return {
         "log": rel(log_path),
         "cycles": cycles,
+        "final_audit_cycles": final_audit_cycles,
         "cycle_range": cycle_range,
+        "proof_cycle_range": proof_cycle_range,
+        "final_audit_cycle": str(max(final_audit_cycles)) if final_audit_cycles else "",
         "active_agent_seconds": active,
+    }
+
+
+def sald_blocker_plain_language(blocker: str) -> dict[str, str]:
+    """Translate the latest reviewer decision into a short human-facing summary."""
+
+    if "emInterpolationConditionalWeakFp" in blocker:
+        return {
+            "current_leaf": "`emInterpolationConditionalWeakFp`",
+            "source_ref": "`appendix.tex:1358-1365`, `appendix.tex:1368-1377`, `appendix.tex:1379-1387`",
+            "lean_boundary": "`sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp`",
+            "progress": (
+                "final audit 已经停止继续围绕 `hRemainderPullbackDef` 换名字打转，"
+                "把下一步改成 conditional-law weak Fokker--Planck 的最小边界。"
+            ),
+            "next_action": (
+                "下一轮 lower agent 只做一个目标：证明 conditional generator-to-law weak action "
+                "的一个非 wrapper theorem，或者把它缩小成更精确的 source-contract gap。"
+            ),
+        }
+    if "hRemainderPullbackDef" in blocker:
+        return {
+            "current_leaf": "`hRemainderPullbackDef`",
+            "source_ref": "`appendix.tex:958-970`, `appendix.tex:983-996`, `appendix.tex:1161-1170`, `appendix.tex:1379-1387`",
+            "lean_boundary": "`hRemainderGeneratorLimitDef -> hRemainderPullbackDef`",
+            "progress": (
+                "本轮把 Gaussian/Taylor remainder 的大边界缩小到了 remainder pullback "
+                "definition，但还没有找到足够具体的原文定义来直接关闭。"
+            ),
+            "next_action": (
+                "先找原文或本地 declaration 中 remainderGeneratorLimit、normalizedRemainder "
+                "和 scalarBrownianCoordinate 的可展开定义；找不到就不要继续 wrapper churn。"
+            ),
+        }
+    return {
+        "current_leaf": "`latest reviewer blocker`",
+        "source_ref": "`research-wiki/paper-contributions/SALD/unfinished_source_map.md`",
+        "lean_boundary": "`state.latest_blocker`",
+        "progress": "reviewer 记录了一个剩余边界，但 summary 生成器没有识别出专门模式。",
+        "next_action": "下一轮先让 middle agent 把该 blocker 翻译成一个具体 source-line leaf。",
     }
 
 
@@ -2852,9 +3017,9 @@ def chinese_sald_window_summary_text(
     def_count = totals.get("def", "unknown")
     forbidden_hits = totals.get("forbidden_hits", "unknown")
     gate_status = latest_lean_gate_status(task)
+    blocker_info = sald_blocker_plain_language(state["latest_blocker"])
     unfinished_items = sald_unfinished_source_items() if task == "ASTIS-SALD-001" else []
     unfinished_table = unfinished_source_markdown_table(unfinished_items) if unfinished_items else "| none | none | none | none | none | none |"
-    next_leaf = unfinished_items[2] if len(unfinished_items) > 2 else (unfinished_items[0] if unfinished_items else {})
     technical_ports = technical_lemma_port_queue_rows()
     technical_port_text = "\n".join(
         f"- `{row.get('upstream_file', '')}` -> {format_decl_list(row.get('upstream_declarations', row.get('upstream_decl', '')))}; target: {row.get('astis_target', row.get('target_local_module', ''))}; status: {row.get('status', '')}"
@@ -2863,7 +3028,8 @@ def chinese_sald_window_summary_text(
     return f"""# ASTIS 6h 中文复盘：{task}
 
 - 导出时间: {export_date}
-- 本轮 cycle: {window["cycle_range"]}
+- 本轮 proof cycles: {window["proof_cycle_range"]}
+- final audit cycle: {window["final_audit_cycle"] or "none"}
 - 本轮日志: `{window["log"]}`
 - active-agent 用量: {window["active_agent_seconds"] or "unknown"}
 - source-indexed SALD declarations: {source_count}
@@ -2875,34 +3041,28 @@ def chinese_sald_window_summary_text(
 
 ## 一页版结论
 
-这轮没有完整关掉 SALD 复现的最后基础分析边界，但不是原地打转。它把问题从
-“weak Fokker--Planck / Ito / Taylor / Gaussian remainder 这一大块标准分析”
-继续缩小到 reviewer 点名的更小 leaf。人类读这份报告时先看下面四点即可：
+这轮没有完整关掉 SALD 复现的最后基础分析边界，但比之前更有效。最重要的
+变化不是“又写了一堆 obligation”，而是 final audit 把系统从一个重复路线里拉出来，
+重新指定了下一轮真正该攻的最小 leaf。
 
 - **是否完成整篇复现**：没有。
-- **本轮是否有有效进展**：有，主要是把当前 Brownian/Ito frozen backend 的
-  measurability / Gaussian-law transport / remainder boundary 继续缩小。
-- **当前最小 blocker**：看下面 latest reviewer 状态；下一轮不应回到旧的
-  source-functional wrapper 或大范围 KL/LSI 重排。
-- **下一轮高层选择**：继续关掉当前最小 leaf；或者把过大的前置常识降级为
-  source-cited obligation，先完成 SALD proof DAG 的完整教学版本。
+- **本轮是否有有效进展**：有。Lean gate 通过；Lean theorem 数到 `{theorem_count}`，
+  def 数到 `{def_count}`；并行 lower agents 正常产生独立日志。
+- **本轮真正推进**：{blocker_info["progress"]}
+- **当前最小 blocker**：{blocker_info["current_leaf"]}。
+- **对应原文行号**：{blocker_info["source_ref"]}。
+- **Lean 边界**：{blocker_info["lean_boundary"]}。
+- **下一轮唯一推荐动作**：{blocker_info["next_action"]}
 
-本轮 cycle `{window["cycle_range"]}` 仍由 blueprint/reviewer 的动态 leaf 驱动，
-主要推进 EM conditional-law / weak Fokker--Planck 后端，没有把时间花在项目文章
-润色上。
+本轮 proof cycles 是 `{window["proof_cycle_range"]}`；`{window["final_audit_cycle"] or "none"}` 是
+最终审计 cycle。final audit 不算作新增证明进度，但它对减少浪费很重要：它明确指出
+不要再回到旧的 `hRemainderPullbackDef` wrapper churn，而是处理
+conditional-law weak Fokker--Planck 的源文边界。
 
-最新 reviewer 认可的状态是：
-
-```text
-{state["latest_blocker"]}
-```
-
-这说明系统仍在把论文中一句
-“by the Fokker--Planck equation / integration by parts / Laplacian/Ito
-calculus”拆成 Lean 必须检查的具体对象。当前剩余困难已经从宽泛的
-trace/source-functional wrapper 进一步推进到内部 Brownian/Ito coordinate
-decomposition、per-coordinate Hessian generator、Taylor remainder、Gaussian
-moment/limit、measurability/integrability 这类底层分析边界。
+用不懂 Lean 的话说，系统仍在把论文中一句
+“by the Fokker--Planck equation / integration by parts / Laplacian/Ito calculus”
+拆成 Lean 必须逐项检查的对象：具体 law、条件分布代表元、test function 的可测可积性、
+generator 对 test function 的 weak action，以及边界项为什么可以消失。
 
 ## 为什么“常识”还会拖很久
 
@@ -2979,10 +3139,10 @@ ASTIS-owned declaration。
 
 ## 下一轮最小 leaf
 
-- Boundary: `{next_leaf.get("id", "unknown")}`
-- 原文行号: `{next_leaf.get("source_ref", "line-range-missing")}`
-- Lean boundary: `{next_leaf.get("lean_boundary", "")}`
-- 下一步: {next_leaf.get("next_action", "")}
+- Boundary: {blocker_info["current_leaf"]}
+- 原文行号: {blocker_info["source_ref"]}
+- Lean boundary: {blocker_info["lean_boundary"]}
+- 下一步: {blocker_info["next_action"]}
 
 ## 当前未复现的关键边界
 
@@ -3933,6 +4093,137 @@ def write_memory_refresh(task_id: str, cycle: int, run_dir: Path) -> tuple[Path,
     return digest_path, todo_path, index_path
 
 
+def public_source_block_for_pro(task_id: str) -> str:
+    if task_id == "ASTIS-SALD-001":
+        return """- SALD/VA-SALD target paper, "Learning Distributional Diffusion Models with Training-Free Guided Generation": https://arxiv.org/abs/2605.07950
+- PDF: https://arxiv.org/pdf/2605.07950
+"""
+    if task_id == "ASTIS-RMFLD-001":
+        return """- RMFLD is currently tracked as an exploratory local proof program.  ChatGPT Pro cannot access the local manuscript, so only use the theorem statements and status pasted below unless the user separately provides a public arXiv link.
+"""
+    return """- No public source URL was recorded for this task.  Use only the theorem statements and status pasted below unless the user supplies a public arXiv or paper link.
+"""
+
+
+def chatgpt_pro_prompt_markdown(task_id: str, cycle: int, run_dir: Path) -> str:
+    snapshot = memory_snapshot_state(task_id, cycle, run_dir)
+    title, task_text = task_context(task_id)
+    dynamic = [item for item in snapshot.get("dynamic_leaf_queue", []) if item]
+    obligations = [item for item in snapshot.get("open_obligation_signals", []) if item]
+    return f"""# ChatGPT Pro Prompt: ASTIS {task_id} cycle {cycle}
+
+Copy everything below this line into ChatGPT Pro.
+
+---
+
+You are helping with ASTIS, an Auto-Sampling-Theory-in-Sleep Lean 4 project for
+faithful paper reproduction and sampling/SDE proof exploration.  You cannot
+access my local files.  Use only public links and the self-contained status in
+this prompt.  Local Lean names and local paths are labels for me to patch later.
+
+## Public sources you may use
+
+{public_source_block_for_pro(task_id)}
+## Current ASTIS task
+
+Task: `{task_id}`
+
+Title: {title}
+
+Cycle: `{cycle}`
+
+Run label: `{run_dir.name}`
+
+Task contract excerpt:
+
+```text
+{compact_inline_text(task_text, 1800)}
+```
+
+If this is faithful-paper mode, do not change the theorem statement,
+assumptions, constants, or proof target.  If a paper proof says "standard" or
+"by Fokker--Planck/KL/FI/LSI/Ito/Taylor/integration by parts", classify that as
+an external technical lemma or classical fact unless it is fully proved in the
+target paper.
+
+## Current status
+
+Plain-language status: {sald_plain_language_status_en()}
+
+### Active proof-DAG leaves
+
+{chr(10).join(f"- {item}" for item in dynamic) or "- No active proof-DAG leaf was recorded."}
+
+### Open obligation signals
+
+{chr(10).join(f"- {item}" for item in obligations) or "- No compact obligation signal was recorded."}
+
+### Open paper-contribution obligations
+
+{markdown_table(snapshot.get('open_sald_contribution_obligations', []), [
+    ('id', 'id'),
+    ('source', 'source_ref'),
+    ('paper object', 'paper_object'),
+    ('Lean/status', 'lean_status'),
+    ('next action', 'next_action'),
+], limit=12)}
+
+### Open external technical-lemma obligations
+
+{markdown_table(snapshot.get('open_external_technical_lemma_obligations', []), [
+    ('id', 'id'),
+    ('source', 'source'),
+    ('statement', 'statement'),
+    ('status', 'lean_status'),
+    ('used by', 'used_by'),
+    ('next action', 'next_action'),
+], limit=12)}
+
+### Recent typed verifier feedback
+
+{markdown_table(snapshot.get('recent_verifier_feedback', []), [
+    ('leaf', 'leaf'),
+    ('error class', 'error_class'),
+    ('Lean build', 'lean_build_ok'),
+    ('measure theory', 'measure_theory_ok'),
+    ('technical lemma', 'technical_lemma_ok'),
+    ('next route', 'next_route'),
+], limit=10)}
+
+## What I need from you
+
+Please return a proof-engineering answer that can guide the next ASTIS 6h run.
+
+1. Identify which remaining items are target-paper contributions and which are
+   external technical lemmas/classical facts.
+2. For the smallest next leaf, write a source-faithful natural-language proof
+   route and a dependency DAG.
+3. Propose Lean-facing lemma statements in pseudo-Lean if necessary.  Be
+   precise about measures, kernels, laws, densities, conditioning, integrability,
+   differentiability, domination, and boundary conditions.
+4. Identify any pre-Lean sanity checks that are necessary conditions and cannot
+   reject a theorem that Lean could prove.  Examples may include finite
+   Gaussian-moment checks, dimensional consistency, sign conventions, or toy
+   scalar cases; do not present them as formal proof.
+5. If an external theorem is needed, name the exact public theorem/source I
+   should cite or formalize next.
+6. Do not claim completion unless the remaining proof obligations are closed by
+   Lean-level theorem routes.
+"""
+
+
+def write_cycle_pro_prompt(task_id: str, cycle: int, run_dir: Path) -> tuple[Path, Path, Path]:
+    text = public_article_text(chatgpt_pro_prompt_markdown(task_id, cycle, run_dir))
+    run_path = run_dir / "chatgpt_pro_prompt.md"
+    archive_path = PRO_PROMPT_DIR / f"{slugify(task_id)}-cycle{cycle:03d}.md"
+    latest_path = PRO_PROMPT_DIR / f"{slugify(task_id)}-latest.md"
+    write_text(run_path, text)
+    write_text(archive_path, text)
+    write_text(latest_path, text)
+    add_manifest("astis.py cycle-pro-prompt", run_path, "pro-prompt", f"Wrote ChatGPT Pro prompt for {task_id} cycle {cycle}")
+    return run_path, archive_path, latest_path
+
+
 def run_dir_from_arg(run_id: str) -> Path:
     if run_id == "latest":
         run_dir = latest_run_dir()
@@ -4063,6 +4354,17 @@ def cmd_cycle_zh_summary(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_cycle_pro_prompt(args: argparse.Namespace) -> int:
+    cmd_init(argparse.Namespace())
+    run_dir = run_dir_from_arg(args.run_id)
+    cycle = resolved_cycle(args.task, args.cycle, run_dir)
+    run_path, archive_path, latest_path = write_cycle_pro_prompt(args.task, cycle, run_dir)
+    print(f"pro-prompt: {rel(run_path)}")
+    print(f"pro-prompt-archive: {rel(archive_path)}")
+    print(f"pro-prompt-latest: {rel(latest_path)}")
+    return 0
+
+
 def project_article_update_markdown(snapshot: dict) -> str:
     return f"""# Project Article Cycle Update: {snapshot.get('task_id')} cycle {snapshot.get('cycle')}
 
@@ -4168,6 +4470,7 @@ def post_cycle_refresh(task_id: str, cycle: int, run_dir: Path, write_zh_summary
     write_memory_refresh(task_id, cycle, run_dir)
     if write_zh_summary:
         write_cycle_zh_summary(task_id, cycle, run_dir)
+        write_cycle_pro_prompt(task_id, cycle, run_dir)
     write_project_article_update(task_id, cycle, run_dir)
 
 
@@ -5050,6 +5353,12 @@ def build_parser() -> argparse.ArgumentParser:
     zh_summary.add_argument("--run-id", default="latest")
     zh_summary.set_defaults(func=cmd_cycle_zh_summary)
 
+    pro_prompt = sub.add_parser("cycle-pro-prompt")
+    pro_prompt.add_argument("task")
+    pro_prompt.add_argument("--cycle", type=int, default=0)
+    pro_prompt.add_argument("--run-id", default="latest")
+    pro_prompt.set_defaults(func=cmd_cycle_pro_prompt)
+
     article_update = sub.add_parser("project-article-update")
     article_update.add_argument("task")
     article_update.add_argument("--cycle", type=int, default=0)
@@ -5093,6 +5402,7 @@ def build_parser() -> argparse.ArgumentParser:
     sleep_run.add_argument("--upper-panel", action="store_true")
     sleep_run.add_argument("--middle-panel", action="store_true")
     sleep_run.add_argument("--reviewer-waste", action="store_true")
+    sleep_run.add_argument("--parallel-lower", action="store_true", help="run lower prompts concurrently after middle synthesis")
     sleep_run.add_argument("--agent-cmd", default="")
     sleep_run.add_argument("--execute", action="store_true")
     sleep_run.add_argument("--dry-run", action="store_true")
@@ -5114,6 +5424,7 @@ def build_parser() -> argparse.ArgumentParser:
     sleep_window.add_argument("--upper-panel-final", action="store_true", help="run upper specialists in the final audit cycle")
     sleep_window.add_argument("--middle-panel-final", action="store_true", help="run middle specialists in the final audit cycle")
     sleep_window.add_argument("--reviewer-waste-final", action="store_true", help="run progress-economics reviewer in the final audit cycle")
+    sleep_window.add_argument("--parallel-lower", action="store_true", help="run lower prompts concurrently after middle synthesis")
     sleep_window.add_argument("--agent-cmd", default="")
     sleep_window.add_argument("--execute", action="store_true")
     sleep_window.add_argument("--dry-run", action="store_true")
@@ -5137,6 +5448,8 @@ def build_parser() -> argparse.ArgumentParser:
     launch.add_argument("--no-middle-panel-final", dest="middle_panel_final", action="store_false")
     launch.add_argument("--reviewer-waste-final", dest="reviewer_waste_final", action="store_true", default=True)
     launch.add_argument("--no-reviewer-waste-final", dest="reviewer_waste_final", action="store_false")
+    launch.add_argument("--parallel-lower", dest="parallel_lower", action="store_true", default=True)
+    launch.add_argument("--no-parallel-lower", dest="parallel_lower", action="store_false")
     launch.add_argument("--after-latex", dest="after_latex", action="store_true", default=True)
     launch.add_argument("--no-after-latex", dest="after_latex", action="store_false")
     launch.add_argument("--skip-reviewer", action="store_true")

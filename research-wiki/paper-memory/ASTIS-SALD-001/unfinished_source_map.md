@@ -1,8 +1,8 @@
 # ASTIS-SALD-001 Paper Memory: Unfinished Source Map
 
-Generated: `2026-06-13 01:27:14`
+Generated: `2026-06-13 13:14:42`
 
-Cycle considered: `194`.
+Cycle considered: `207`.
 
 This file is task-local paper contribution memory.  It records the VA-SALD
 paper-specific source lines and Lean proof boundaries that remain unfinished.
@@ -45,8 +45,12 @@ contribution leaf is missing concrete source lines.
 | Local declaration | Tags | SALD use | File |
 |---|---|---|---|
 | `AutoSamplingTheory.TechnicalLemmas.Gaussian.map_eval_stdGaussianPi` | gaussian, coordinate-law, brownian-increment | normalized scalar coordinate law in the Brownian/Ito EM backend | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi` | gaussian, integrability, coordinate, brownian-increment | Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi` | gaussian, integrability, quadratic-moment, brownian-increment | Brownian/Ito coordinate square integrability for polynomial moment leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi` | gaussian, mean, coordinate, brownian-increment | coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero` | gaussian, mean, brownian-increment | centered scalar Gaussian increment bookkeeping | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw` | gaussian, variance, NNReal | turn scalar Gaussian law and variance-field definition into normalized variance one | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero` | gaussian, integrability, quadratic-bound, brownian-increment | supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2 | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField` | taylor, hessian, source-contract | convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm` | taylor, iteratedFDeriv, hessian | feed selected-line Taylor bounds from a Hessian operator-norm field | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne` | brownian, ito, quadratic-variation, normalization | assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
@@ -59,12 +63,13 @@ contribution leaf is missing concrete source lines.
 | `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.discreteForwardKlEmEndpointLawPairHandoff` | Euler-Maruyama, endpoint-law, SALD-extracted | endpoint-law pair handoff for discrete SALD/VA-SALD proofs | `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw` | Brownian, Ito, Gaussian, SALD-extracted | active Brownian/Ito scalar generator backend and coordinate variance leaves | `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw` | Brownian, Ito, Gaussian, measurability, SALD-extracted | discharge hRemainderMeas in the active Brownian/Ito Taylor moment backend | `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound` | Brownian, Ito, Gaussian, integrability, quadratic-bound, SALD-extracted | narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability | `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean` |
 
 ## Technical Lemma Port Queue
 
 | Source / upstream | Declarations | ASTIS target | Status |
 |---|---|---|---|
-| `SLT/GaussianMeasure.lean` | `integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi` | Brownian/Ito coordinate integrability and polynomial moment leaves | port-candidate |
+| `SLT/GaussianMeasure.lean` | `integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi` | Brownian/Ito coordinate integrability and polynomial moment leaves | formalized-local |
 | `SLT/GaussianPoincare/TaylorBound.lean` | `taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `deriv2_bounded_of_compactlySupported`, `integrable_deriv_sq` | selected scalar Taylor integral/remainder and bounded-Hessian leaves | port-candidate |
 | `SLT/GaussianPoincare/Limit.lean` | `tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq`, `gaussianPoincare` | Taylor remainder limits and Gaussian Poincare backend | future-port |
 | `SLT/GaussianLSI/DualityEntropy.lean` | `entropy_duality`, `entropy_ge_integral_mul`, `expMeasure_isProbabilityMeasure`, `integral_expMeasure` | DV/KL variational formula backend | future-port |

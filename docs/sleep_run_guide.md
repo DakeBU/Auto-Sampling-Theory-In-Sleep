@@ -202,6 +202,12 @@ inner cycles: upper_director -> middle_formalizer -> lower_1/lower_2/lower_3 -> 
 final audit: upper panel -> upper_director -> middle panel -> middle_formalizer -> reviewer_gate/reviewer_waste
 ```
 
+With `launch-sald-6h`, lower agents run in parallel by default.  Their output
+goes to `runs/<run>/agent-logs/<prompt>.log`.  The active-agent budget is the
+sum of process durations, not just wall-clock time, so parallelism improves
+iteration latency without pretending three simultaneous Codex calls cost only
+one call.
+
 Environment controls:
 
 ```bash
@@ -211,6 +217,7 @@ ASTIS_MIDDLE_PANEL_FINAL=1
 ASTIS_MIDDLE_PANEL_INNER=0
 ASTIS_REVIEWER_WASTE_FINAL=1
 ASTIS_LOWER_COUNT=3
+ASTIS_PARALLEL_LOWER=1
 ```
 
 ## Monitoring

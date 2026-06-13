@@ -49,6 +49,28 @@ and Gaussian-coordinate bookkeeping, dominated-convergence proof shape, and
 the discipline of keeping analytic background facts as explicit hypotheses
 until a local theorem compiles.
 
+## Cycle 203 GaussianMeasure Port
+
+Status: `formalized-local`.
+
+Ported as ASTIS-owned declarations in
+`AutoSamplingTheory/TechnicalLemmas/Gaussian.lean`:
+
+- `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi`
+- `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi`
+- `AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi`
+
+Upstream provenance: `SLT/GaussianMeasure.lean` declarations
+`integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, and
+`integral_eval_stdGaussianPi`.  The ASTIS proofs do not import SLT.  They use
+Mathlib Gaussian exponential integrability, the local ASTIS product-coordinate
+law `map_eval_stdGaussianPi`, the local quadratic integrability lemma
+`integrable_const_mul_sq_gaussianReal_zero`, and `Measure.map` integral/
+integrability transport.  These declarations support the Brownian/Ito
+coordinate integrability and polynomial moment leaves under
+`appendix.tex:983-996` and the weak-FP Brownian term at
+`appendix.tex:1379-1387`.
+
 ## High-Value Port Candidates
 
 These are the first blocks worth porting into ASTIS as local declarations,
@@ -63,7 +85,7 @@ not as a dependency:
 | `SLT/GaussianLSI/TensorizedGLSI.lean` | `MemW12GaussianPi`, `condEntExceptCoord_sq_eq_slice_entropy`, `condEnt_sq_le_partial_deriv_sq`, `gaussian_logSobolev_W12_pi` | product-Gaussian LSI and coordinate-slice proof pattern |
 | `SLT/GaussianPoincare/TaylorBound.lean` | `deriv2_bounded_of_compactlySupported`, `taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `integrable_deriv_sq` | Brownian/Ito scalar Taylor bounds and bounded-Hessian leaves |
 | `SLT/GaussianPoincare/Limit.lean` | `gaussianPoincare`, `tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq` | Gaussian Poincare and limiting entropy/Poincare arguments |
-| `SLT/GaussianMeasure.lean` | `map_eval_stdGaussianPi`, `integral_id_gaussianReal_zero`, `integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi` | Gaussian-coordinate law, mean/variance, and polynomial integrability leaves |
+| `SLT/GaussianMeasure.lean` | `map_eval_stdGaussianPi`, `integral_id_gaussianReal_zero`, `integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi` | Gaussian-coordinate law, mean/variance, and polynomial integrability leaves; current listed coordinate-moment declarations are formalized locally in `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
 | `SLT/ConvergenceL1Subseq.lean` | `exists_seq_tendsto_ae_of_tendsto_eLpNorm_one` | density/approximation passage from norm convergence to a.e. subsequences |
 | `SLT/GaussianSobolevDense/*` | `MemW12GaussianReal`, `GaussianSobolevNormSqReal`, smooth cutoff/mollification/density lemmas | later LSI density and approximation backend |
 
@@ -1218,3 +1240,40 @@ result formalized until it builds under Lean 4.29.1 in this repository.
 | Local target | Upstream or cited candidate | Current status | Notes |
 |---|---|---|---|
 | `SALD.cycle193GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoTaylorMomentMiddleObligation` / `SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfScalarPushforwardRawTaylorAndDominatedRemainder` | no SLT theorem; local composition of existing SALD scalar-pushforward, raw Taylor, Gaussian coordinate-law, variance, and dominated-remainder bridges | `formalized-local-composition+discharges-supplied-hypothesis/no-slt-import` | Cycle 193 discharges the primitive `hBrownianCoordinateGeneratorTaylorIntegralDef` and `hRemainderGeneratorLimitDef` supplied hypotheses inside the Taylor moment decomposition consumer. The compiled theorem composes `SALD.selectedWeakTestBrownianCoordinateGeneratorTaylorIntegralDefOfScalarPushforwardRawTaylorAndTermDefs`, `SALD.selectedWeakTestRemainderGeneratorLimitDefOfScalarPushforwardAndStdGaussianVectorLaw`, and `SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsAndDominatedRemainder`. Remaining exact Brownian/Ito backend: scalar law/pushforward fields, normalized-remainder pullback fields, raw selected-line Taylor fields, and `hRemainderMeas`/`hRemainderBound`/`hRemainderBoundInt`. `hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps. No external SLT file was consulted, imported, ported, called, queued, or marked formalized; no Lake/toolchain change, wrapper churn, VP score-Hessian substitution, `sigma_eta^2/2` event-field move, broad route audit, or `sald_version_2.tex` use. |
+
+## SALD Cycle 195 Lower_3 Status
+
+| Local target | Upstream or cited candidate | Current status | Notes |
+|---|---|---|---|
+| `AutoSamplingTheory.TechnicalLemmas.Measure.integrable_of_measure_eq` supporting planned `SALD.selectedWeakTestRemainderBoundIntegrableOfStdGaussianVectorLaw` | no SLT theorem; Mathlib `MeasureTheory.Integrable` is transported by equality rewrite of the ambient measure | `formalized-local-technical-lemma+narrows-source-cited-boundary/no-slt-import` | Cycle 195 lower_3 compiled the reusable local API fact needed to transport `hRemainderBoundInt` from `normalizedCoordinateLaw phi x i` to `ProbabilityTheory.gaussianReal 0 (variance phi x i)` after the already local `SALD.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw` and `SALD.selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw` rewrites. Source anchors remain `appendix.tex:958-970`, `appendix.tex:983-996`, `appendix.tex:1161-1170`, and `appendix.tex:1379-1387`. No external SLT file was consulted, imported, ported, called, queued, or marked formalized; no source-Hessian repackaging, VP score-Hessian substitution, wrapper churn, or `sald_version_2.tex` use. |
+
+## SALD Cycle 196 Lower_3 Status
+
+| Local target | Upstream or cited candidate | Current status | Notes |
+|---|---|---|---|
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero` supporting planned `SALD.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound` | no SLT theorem; Mathlib `ProbabilityTheory.integrable_exp_mul_gaussianReal`, `ProbabilityTheory.integrable_pow_of_integrable_exp_mul`, and `MeasureTheory.Integrable.const_mul` supply scalar Gaussian integrability of `fun z : Real => C * z^2` | `formalized-local-technical-lemma+narrows-source-cited-boundary/no-slt-import` | Cycle 196 lower_3 compiled the ASTIS-owned Gaussian quadratic-bound integrability lemma needed after the source correspondence supplies `hNormalizedRemainderBoundDef : remainderBound phi x i z = remainderBoundC phi x i * z^2` and the normalized coordinate law `ProbabilityTheory.gaussianReal 0 1`. This narrows `hNormalizedRemainderBoundInt` to that source definition plus the already local normalized-coordinate law bridge. Source anchors remain `appendix.tex:958-970`, `appendix.tex:983-996`, `appendix.tex:1161-1170`, and `appendix.tex:1379-1387`. No external SLT file was imported, called, queued, or marked formalized; no source-Hessian repackaging, VP score-Hessian substitution, wrapper churn, or `sald_version_2.tex` use. |
+| `SALD.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound` | no SLT theorem; local reuse of the normalized scalar coordinate law and compiled Gaussian quadratic integrability `SALD.gaussianRealSelectedTestLineSecondOrderQuadraticBoundIntegrable` | `formalized-local-normalized-remainder-bound-int-quadratic+narrows-source-cited-boundary/no-slt-import` | Cycle 196 lower_2 compiled the source-facing bridge from `hNormalizedRemainderBoundDef : remainderBound phi x i z = remainderBoundC phi x i * z^2` and `normalizedCoordinateLaw phi x i = ProbabilityTheory.gaussianReal 0 1` to `hNormalizedRemainderBoundInt`. The exact remaining source-cited boundary is the concrete definition `hNormalizedRemainderBoundDef`; the theorem does not prove the Taylor quotient identity itself. Exported as `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound` with registry key `sald.normalized-remainder-bound-int-quadratic`. Source anchors remain `appendix.tex:958-970`, `appendix.tex:983-996`, `appendix.tex:1161-1170`, and `appendix.tex:1379-1387`. No external SLT file was imported, called, queued, or marked formalized; no source-Hessian repackaging, VP score-Hessian substitution, wrapper churn, or `sald_version_2.tex` use. |
+
+## SALD Cycle 199 Status
+
+| Local target | Upstream or cited candidate | Current status | Notes |
+|---|---|---|---|
+| `SALD.generalMovingTargetDiscreteSourceLaplacianFieldMeasOfSelectedTestLaplacianMeasurable` | no SLT theorem; Mathlib `Measurable.aestronglyMeasurable` only | `formalized-local-source-laplacian-measurable-bridge+narrows-source-cited-boundary/no-slt-import` | Cycle 199 narrows the weak-FP premise `hsourceLaplacianFieldMeas : testRegular -> forall phi, AEStronglyMeasurable (Laplacian.laplacian (selectedTest phi)) hatRhoS` to the smaller source-facing field `hSelectedTestLaplacianMeasurable : testRegular -> forall phi, Measurable (Laplacian.laplacian (selectedTest phi))`. Source anchors are `appendix.tex:983-996` and `appendix.tex:1379-1387`. No external SLT file was consulted, imported, queued, ported, or marked formalized; no source-Hessian repackaging, `testRegular` wrapper churn, VP score-Hessian substitution, coordinate-sum reopening, or `sald_version_2.tex` use. |
+
+## SALD Cycle 201 Status
+
+| Local target | Upstream or cited candidate | Current status | Notes |
+|---|---|---|---|
+| `SALD.cycle201GeneralMovingTargetDiscreteEmInterpolationSelectedTestLaplacianContinuityLower2Obligation` | no SLT theorem; local SALD cycle-199 bridges plus Mathlib `Continuous.measurable` / `Measurable.aestronglyMeasurable` only | `lower_2-dynamic-leaf+narrows-source-cited-boundary/source-contract-gap/no-slt-import` | Cycle 201 lower_2 records the remaining selected-test Laplacian source contract: `hSelectedTestLaplacianMeasurable` is reduced by `SALD.generalMovingTargetDiscreteSelectedTestLaplacianMeasurableOfContinuous` to `hSelectedTestLaplacianContinuous : testRegular -> forall phi, Continuous (Laplacian.laplacian (selectedTest phi))`. Source lines `appendix.tex:724-727`, `appendix.tex:1028-1070`, `appendix.tex:1313-1316`, `appendix.tex:983-996`, and `appendix.tex:1379-1387` do not state selected-test Laplacian continuity or measurability, so the packet records a source-contract gap instead of projecting from opaque `testRegular`. No external SLT file was consulted, imported, queued, ported, or marked formalized; no source-Hessian repackaging, VP score-Hessian substitution, duplicate `hsourceLaplacianFieldMeas` wrapper, or `sald_version_2.tex` use. |
+
+## SALD Cycle 206 Lower_3 Status
+
+| Local target | Upstream or cited candidate | Current status | Notes |
+|---|---|---|---|
+| `hRemainderPullbackDef` / `SALD.selectedWeakTestRemainderGeneratorNormalizedLawDefOfScalarPushforward` | no SLT theorem; local `MeasureTheory.integral_map` and `AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegral` already cover pushforward integral transport | `lower_3-api-scout+rejected-wrapper-churn/source-contract-gap/no-slt-import` | Cycle 206 lower_3 rejects a new technical-lemma wrapper for the normalized-remainder pullback: the compiled bridge `SALD.selectedWeakTestRemainderGeneratorNormalizedLawDefOfScalarPushforward` already uses `MeasureTheory.integral_map` once `hRemainderPullbackDef` is supplied. Targeted source search excluding `sald_version_2.tex` found no named `normalizedRemainder`, `remainderGeneratorLimit`, or pullback definition at anchors `appendix.tex:958-970`, `appendix.tex:983-996`, `appendix.tex:1161-1170`, and `appendix.tex:1379-1387`. Remaining exact boundary is the source-facing identity `testRegular -> forall phi x i, remainderGeneratorLimit phi x i = integral omega, normalizedRemainder phi x i (scalarBrownianCoordinate phi x i omega) dP`. No external SLT declaration was imported, called, queued, ported, or marked formalized; no source-Hessian replay, selected-line Taylor replay, theorem-status promotion, or consumer-wrapper churn is introduced. |
+
+## SALD Cycle 207 Middle Technical-Lemma Status
+
+| Local target | Upstream or cited candidate | Current status | Notes |
+|---|---|---|---|
+| `emInterpolationConditionalWeakFp` below `sald.general_moving_target_discrete.em_interpolation_fp` | no SLT theorem; local `AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegralHasDerivAtOfDominated`, `AutoSamplingTheory.TechnicalLemmas.Measure.lawIntegralHasDerivAtOfMeasureMapEqAndDominated`, `AutoSamplingTheory.TechnicalLemmas.Measure.condDistribIntegralNamedLawIntegral`, and existing SALD weak-FP handoffs cover the reusable measure/conditional-law APIs | `middle_technical_lemma+narrows-source-cited-boundary/illness-area-refiner/no-slt-import` | Cycle 207 middle_technical_lemma narrows the broad EM interpolation weak-FP backend over `appendix.tex:1358-1387` to the conditional-law generator-to-law theorem `emInterpolationConditionalWeakFp`, with source anchors `appendix.tex:983-996`, `appendix.tex:1358-1365`, `appendix.tex:1368-1377`, and `appendix.tex:1379-1387`. The reusable facts are already ASTIS-owned and compiled in `AutoSamplingTheory/TechnicalLemmas/Measure.lean` and `AutoSamplingTheory/SALD.lean`; lower agents should not add a duplicate law-map, condDistrib, named-law derivative, or source-sign wrapper. If the compiled handoffs cannot be instantiated, the remaining exact obligation is `leaf=emInterpolationConditionalWeakFp` with `error_class=source_contract_gap_missing_conditional_fp_generator_definition`. No external SLT declaration is imported, called, queued, ported, or marked formalized. |

@@ -1,8 +1,8 @@
 # ASTIS Blueprint Control State
 
 - Task: `ASTIS-SALD-001`
-- Generated: `2026-06-12 07:19:00`
-- Latest cycle: `194`
+- Generated: `2026-06-13 06:21:42`
+- Latest cycle: `207`
 - Stage: LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization
 
 ## System Of Record
@@ -20,28 +20,28 @@
 
 ## Dynamic Leaf Candidate
 
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-206 dynamic-leaf worker packet. Exact boundary narrowed: hRemainderGeneratorLimitDef -> hRemainderPullbackDef, recorded by compiled SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackLower2Obligation/Dag with typed feedback leaf=hRemainderPullbackDef error_class=source_contract_gap_missing_remainder_pullback_definition. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:958-970;appendix.tex:983-996;appendix.tex:1161-1170;appendix.tex:1379-1387 checked against original SALD source excluding sald_version_2.tex. Local ASTIS declarations only: existing SALD scalar-pushforward/Gaussian-law remainder bridges, TechnicalLemmas.SALDExtracted/Gaussian/Measure entries, and Mathlib MeasureTheory.integral_map. No external SLT import/call/queue, fake closure, wrapper churn, source-Hessian replay, selected-line Taylor replay, endpoint/naming replay, or theorem-status promotion. Remaining gap is the source-backed pullback definition of re...
 
 ## Illness Area Candidate
 
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
+narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:983-996;appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387 verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition.
 
 ## Latest Blocker
 
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
+narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-206 dynamic-leaf worker packet. Exact boundary narrowed: hRemainderGeneratorLimitDef -> hRemainderPullbackDef, recorded by compiled SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackLower2Obligation/Dag with typed feedback leaf=hRemainderPullbackDef error_class=source_contract_gap_missing_remainder_pullback_definition. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:958-970;appendix.tex:983-996;appendix.tex:1161-1170;appendix.tex:1379-1387 checked against original SALD source excluding sald_version_2.tex. Local ASTIS declarations only: existing SALD scalar-pushforward/Gaussian-law remainder bridges, TechnicalLemmas.SALDExtracted/Gaussian/Measure entries, and Mathlib MeasureTheory.integral_map. No external SLT import/call/queue, fake closure, wrapper churn, source-Hessian replay, selected-line Taylor replay, endpoint/naming replay, or theorem-status promotion. Remaining gap is the source-backed pullback definition of re...
 
 ## Recent Packet Classifications
 
-- `discharges-supplied-hypothesis`: 22
-- `narrows-source-cited-boundary`: 10
-- `rejected-wrapper-churn`: 0
+- `discharges-supplied-hypothesis`: 0
+- `narrows-source-cited-boundary`: 39
+- `rejected-wrapper-churn`: 4
 
 ## Proof Status Counts
 
 - `blocked`: 0
 - `contractOnly`: 34
 - `formalized`: 286
-- `obligation`: 1157
+- `obligation`: 1175
 - `planned`: 9
 - `sourceCited`: 16
 

@@ -40,7 +40,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 15 := rfl
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 21 := rfl
 
 example :
     ∫ x : ℝ, x ∂(ProbabilityTheory.gaussianReal 0 (1 : NNReal)) = 0 :=

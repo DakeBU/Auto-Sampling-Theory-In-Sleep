@@ -67,6 +67,13 @@ Default `launch-sald-6h` cadence:
 - inner cycles: `upper_director -> middle_formalizer -> lower_1/lower_2/lower_3 -> reviewer_gate`;
 - final audit: upper panel -> `upper_director` -> middle panel -> `middle_formalizer` -> `reviewer_gate/reviewer_waste`.
 
+In long SALD runs, lower agents should be independent Codex processes by
+default.  The harness records each lower output under `runs/<run>/agent-logs/`
+and counts active-agent time as the sum of lower process durations.  `lower_3`
+should avoid editing the same SALD theorem block as `lower_2`; it should
+produce a retrieval packet, ProofObligation, or isolated TechnicalLemmas patch
+unless the middle coordinator explicitly assigns a code edit.
+
 ## Canonical Memory Protocol
 
 ASTIS now follows ABEIS-style names where the function is similar, while the

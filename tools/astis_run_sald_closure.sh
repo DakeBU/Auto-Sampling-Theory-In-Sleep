@@ -6,6 +6,7 @@ HOURS="${ASTIS_HOURS:-6}"
 WALL_HOURS="${ASTIS_WALL_HOURS:-24}"
 LOWER_COUNT="${ASTIS_LOWER_COUNT:-3}"
 MAX_CYCLES="${ASTIS_MAX_CYCLES:-64}"
+PARALLEL_LOWER="${ASTIS_PARALLEL_LOWER:-1}"
 UPPER_PANEL_INNER="${ASTIS_UPPER_PANEL_INNER:-0}"
 UPPER_PANEL_FINAL="${ASTIS_UPPER_PANEL_FINAL:-1}"
 MIDDLE_PANEL_INNER="${ASTIS_MIDDLE_PANEL_INNER:-0}"
@@ -40,9 +41,14 @@ fi
 if [ "$REVIEWER_WASTE_FINAL" = "0" ]; then
   args+=(--no-reviewer-waste-final)
 fi
+if [ "$PARALLEL_LOWER" = "0" ]; then
+  args+=(--no-parallel-lower)
+else
+  args+=(--parallel-lower)
+fi
 
 echo "[$(date)] ASTIS SALD closure launch"
-echo "hours=$HOURS wall_hours=$WALL_HOURS lower_count=$LOWER_COUNT max_cycles=$MAX_CYCLES"
+echo "hours=$HOURS wall_hours=$WALL_HOURS lower_count=$LOWER_COUNT parallel_lower=$PARALLEL_LOWER max_cycles=$MAX_CYCLES"
 echo "upper_panel_inner=$UPPER_PANEL_INNER upper_panel_final=$UPPER_PANEL_FINAL"
 echo "middle_panel_inner=$MIDDLE_PANEL_INNER middle_panel_final=$MIDDLE_PANEL_FINAL"
 echo "reviewer_waste_inner=$REVIEWER_WASTE_INNER reviewer_waste_final=$REVIEWER_WASTE_FINAL"

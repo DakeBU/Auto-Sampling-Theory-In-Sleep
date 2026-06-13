@@ -1,9 +1,9 @@
 # ASTIS Project Article Export
 
 - Task: `ASTIS-SALD-001`
-- Latest cycle number observed: 194
+- Latest cycle number observed: 207
 - Source-indexed original SALD declarations: 90
-- Trial-log records: 2141
+- Trial-log records: 2352
 - Quantum automation reference: https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201
 - SLT reference: https://github.com/YuanheZ/lean-stat-learning-theory
 - SLT article: https://arxiv.org/abs/2602.02285
@@ -48,33 +48,33 @@ smallest background lemma needed by the next SALD source-line leaf.
 Current dynamic leaf:
 
 ```text
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
+narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition.
 ```
 
 Current illness area:
 
 ```text
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
+narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition.
 ```
 
 Latest blocker:
 
 ```text
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
+narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition.
 ```
 
 Recent packet classifications:
 
-- `discharges-supplied-hypothesis`: 22
-- `narrows-source-cited-boundary`: 10
-- `rejected-wrapper-churn`: 0
+- `discharges-supplied-hypothesis`: 0
+- `narrows-source-cited-boundary`: 39
+- `rejected-wrapper-churn`: 4
 
 Proof-status counts:
 
 - `blocked`: 0
 - `contractOnly`: 34
 - `formalized`: 286
-- `obligation`: 1157
+- `obligation`: 1175
 - `planned`: 9
 - `sourceCited`: 16
 
@@ -94,15 +94,15 @@ Unfinished source-line map:
 
 Technical lemma memory status:
 
-- Formalized local registry entries: 15
+- Formalized local registry entries: 20
 - Port queue entries: 5
 - Port candidates are not callable until they become ASTIS-owned compiled declarations.
 
 Recent reviewer/lower handoffs:
 
-- lower_2 recorded as lower because astis.py role choices exclude lower_2. discharges-supplied-hypothesis dynamic-leaf worker packet: compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw discharges hRemainderMeas from hNormalizedRemainderMeas plus standard-Gaussian vector coordinate-law and variance-def fields. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage. Checks: lake env lean AutoSamplingTheory/SALD.lean passed; python3 tools/astis.py chec...
-- discharges-supplied-hypothesis dynamic-leaf worker packet after gate pass: hRemainderMeas discharged by compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw. Uses local SALD selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw and selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw plus equality/simpa transport for AEStronglyMeasurable; exposed via TechnicalLemmas.SALDExtracted and registry key sald.remainder-meas-gaussian-law. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage...
-- lower_1 recorded as lower because astis.py role choices exclude lower_1. discharges-supplied-hypothesis dynamic-leaf proof-scout packet after gate pass for hRemainderMeas Gaussian-law transport. Route artifact: runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/lower_1_remainder_meas_route.md. Exact supplied hypothesis: hRemainderMeas in the cycle-193 Taylor moment consumers. The route uses local SALD.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw and SALD.selectedWeakTestNormalizedVarianceDefOfG...
-- lower_2 recorded as lower because astis.py role choices exclude lower_2. narrows-source-cited-boundary dynamic-leaf worker packet after gate pass: compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw narrows hRemainderBound from Gaussian-law domination to hNormalizedRemainderBound under normalizedCoordinateLaw, using local SALD Gaussian coordinate-law and variance bridges. Exposed through TechnicalLemmas.SALDExtracted and registry key sald.remainder-bound-gaussian-law. Source anchors the relevant SALD appendix passage...
-- narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors the relevant SALD appendix passage, the relevant SALD appendix passage, the relevant SALD appendix passage...
+- narrows-source-cited-boundary illness-area refiner packet: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Artifact runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/middle_technical_lemma_conditional_weak_fp.md; SLT audit updated with no-slt status; compiled-local Measure/condDistrib/weak-FP handoffs only; no external SLT import/call/queue/port. Gate passed: python3 tools/astis.py check.
+- narrows-source-cited-boundary illness-area report/export synchronization packet. Exact boundary for human-readable status: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp over the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage; cycle-206 hRemainderGeneratorLimitDef -> hRemainderPullbackDef remains a recorded source-contract gap, not a proved result. No broad export-latex or project-article rewrite during this inner proof-search cycle; cite only compil...
+- narrows-source-cited-boundary illness-area refiner packet. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Artifact: runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/middle_formalizer_conditional_weak_fp_handoff.md. lower_1 classical route; lower_2 one non-wrapper compiled theorem or typed feedback leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition. Local ASTIS declarations only...
+- narrows-source-cited-boundary reviewer_gate acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner; accepted only as obligation-level boundary narrowing, not as a proved Lean theorem and not as a lower_2 worker proof. Gate passed: python3 tools/astis.py check. Source anchors: the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage. Canonical unfi...
+- narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage;the relevant SALD appendix passage verified. Local compiled ASTIS TechnicalLe...
 

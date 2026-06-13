@@ -70,6 +70,28 @@ structure AgentContract where
   mustLogTrial : Bool
 deriving Repr, DecidableEq
 
+inductive PostCycleArtifactKind where
+  | chineseSummary
+  | chatgptProPrompt
+  | retrievalIndex
+  | technicalReportUpdate
+  | verifierFeedback
+deriving Repr, DecidableEq
+
+structure PostCycleArtifactSpec where
+  kind : PostCycleArtifactKind
+  pathPattern : String
+  selfContainedForExternalModel : Bool
+  note : String
+deriving Repr, DecidableEq
+
+structure WorkflowCheckSpec where
+  name : String
+  checks : List String
+  inspiredBy : String
+  note : String
+deriving Repr, DecidableEq
+
 def leanBuildGate : AcceptanceGate where
   name := "Lean build"
   command := "lake exe cache get && lake build && lake build Tests"
@@ -83,6 +105,50 @@ def forbiddenPatternGate : AcceptanceGate where
   note := "Mathematical content must be obligations or real proofs, not fake closures."
 
 def defaultGates : List AcceptanceGate := [leanBuildGate, forbiddenPatternGate]
+
+def postCycleArtifactSpecs : List PostCycleArtifactSpec :=
+  [
+    {
+      kind := PostCycleArtifactKind.chineseSummary
+      pathPattern := "paper-notes/SALD/markdown/cycle-summaries/latest.md"
+      selfContainedForExternalModel := false
+      note := "Human-facing Chinese source audit for the latest long SALD run."
+    },
+    {
+      kind := PostCycleArtifactKind.chatgptProPrompt
+      pathPattern := "runs/pro-prompts/<task-id>-latest.md"
+      selfContainedForExternalModel := true
+      note := "Prompt assumes ChatGPT Pro cannot read local files."
+    },
+    {
+      kind := PostCycleArtifactKind.retrievalIndex
+      pathPattern := "research-wiki/retrieval-index/<task-id>.json"
+      selfContainedForExternalModel := false
+      note := "Compact upper/middle memory for the next cycle."
+    },
+    {
+      kind := PostCycleArtifactKind.technicalReportUpdate
+      pathPattern := "paper-notes/project-paper/cycle-updates/<task-id>-latest.tex"
+      selfContainedForExternalModel := false
+      note := "Middle-agent article update; must separate SALD contributions from external technical lemmas."
+    }
+  ]
+
+def workflowCheckSpecs : List WorkflowCheckSpec :=
+  [
+    {
+      name := "Blueprint DAG refinement"
+      checks := ["active source leaf recorded", "solved nodes preserved", "failed route classified"]
+      inspiredBy := "arXiv:2606.06468"
+      note := "Goedel-Architect-like blueprint control, specialized to sampling/SDE proof leaves."
+    },
+    {
+      name := "Agent trajectory audit"
+      checks := ["required artifacts exist", "role handoff recorded", "stale technical-lemma route not reassigned unchanged"]
+      inspiredBy := "arXiv:2606.06523"
+      note := "Lean4Agent-like workflow verification; separate from the sampling theorem."
+    }
+  ]
 
 def threeLayerAgentContracts : List AgentContract :=
   [

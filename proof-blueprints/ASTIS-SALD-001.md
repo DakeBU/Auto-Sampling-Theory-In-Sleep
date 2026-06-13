@@ -2,7 +2,7 @@
 
 Task id: `ASTIS-SALD-001`
 Title: Faithfully reproduce the original VA-SALD paper proofs
-Updated: `2026-06-12 07:18:59`
+Updated: `2026-06-13 06:21:42`
 Blueprint stage: `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`
 
 This is ASTIS's compact system-of-record snapshot for long-horizon Lean proof
@@ -16,8 +16,8 @@ Lean-Markdown-LaTeX exports must stay synchronized.
 
 ```text
 Mode: `ASTIS-SALD-001` follows `LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization`.
-Current dynamic leaf: narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
-Current illness area: narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
+Current dynamic leaf: narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-206 dynamic-leaf worker packet. Exact boundary narrowed: hRemainderGeneratorLimitDef -> hRemainderPullbackDef, recorded by compiled SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackLower2Obligation/Dag with typed feedback leaf=hRemainderPullbackDef error_class=source_contract_gap_missing_remainder_pullback_definition. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:958-970;appendix.tex:983-996;appendix.tex:1161-1170;appendix.tex:1379-1387 checked against original SALD source excluding sald_version_2.tex. Local ASTIS declarations only: existing SALD scalar-pushforward/Gaussian-law remainder bridges, TechnicalLemmas.SALDExtracted/Gaussian/Measure entries, and Mathlib MeasureTheory.integral_map. No external SLT import/call/queue, fake closure, wrapper churn, source-Hessian replay, selected-line Taylor replay, endpoint/naming replay, or theorem-status promotion. Remaining gap is the source-backed pullback definition of re...
+Current illness area: narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:983-996;appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387 verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition.
 Upper/middle must retire stale leaves before assigning lower work.
 Lower work should be one local Lean declaration/proof boundary at a time.
 Reviewer accepts progress only through `python3 tools/astis.py check` plus source correspondence.
@@ -30,60 +30,61 @@ middle must retire it before spending more proof-search tokens.
 
 | Leaf | Status |
 |---|---|
-| narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:116... | candidate |
-| lower_2 recorded as lower because astis.py role choices exclude lower_2. discharges-supplied-hypothesis dynamic-leaf worker packet after gate pass: compiled SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsDominatedRemainderAndRemainderLimitScalarPushforward, discharging hRemainderGeneratorLimitDef inside the dominated Taylor moment consumer while keeping hBrownianCoordinateGeneratorTaylorIntegralDef explicit. Reuses local SALD.selectedWeakTestRemainderGeneratorLimitDefOfScalarP... | candidate |
-| discharges-supplied-hypothesis reviewer acceptance after gate pass: accepted cycle-193 dynamic-leaf worker packet. hRemainderGeneratorLimitDef is discharged by SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsDominatedRemainderAndRemainderLimitScalarPushforward, and hBrownianCoordinateGeneratorTaylorIntegralDef plus hRemainderGeneratorLimitDef are discharged inside the Taylor moment consumer by SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfScalarPushforw... | candidate |
-| discharges-supplied-hypothesis dynamic-leaf worker packet queued after gate pass. Exact supplied hypothesis: hRemainderMeas in SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfScalarPushforwardRawTaylorAndDominatedRemainder, with optional same-hypothesis follow-through in SALD.selectedWeakTestFrozenScalarBrownianItoTaylorMomentDecompositionOfIntegralDefsDominatedRemainderAndRemainderLimitScalarPushforward. Lower_2 target: SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw from hNormal... | candidate |
-| lower_2 recorded as lower because astis.py role choices exclude lower_2. discharges-supplied-hypothesis dynamic-leaf worker packet: compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw discharges hRemainderMeas from hNormalizedRemainderMeas plus standard-Gaussian vector coordinate-law and variance-def fields. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387. Checks: lake env lean AutoSamplingTheory/SALD.lean passed; python3 tools/astis.py chec... | candidate |
-| discharges-supplied-hypothesis dynamic-leaf worker packet after gate pass: hRemainderMeas discharged by compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw. Uses local SALD selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw and selectedWeakTestNormalizedVarianceDefOfGaussianRealUnitLaw plus equality/simpa transport for AEStronglyMeasurable; exposed via TechnicalLemmas.SALDExtracted and registry key sald.remainder-meas-gaussian-law. Source anchors appendix.tex:958-970, appendix.tex:983-99... | candidate |
-| lower_1 recorded as lower because astis.py role choices exclude lower_1. discharges-supplied-hypothesis dynamic-leaf proof-scout packet after gate pass for hRemainderMeas Gaussian-law transport. Route artifact: runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/lower_1_remainder_meas_route.md. Exact supplied hypothesis: hRemainderMeas in the cycle-193 Taylor moment consumers. The route uses local SALD.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw and SALD.selectedWeakTestNormalizedVarianceDefOfG... | candidate |
-| lower_2 recorded as lower because astis.py role choices exclude lower_2. narrows-source-cited-boundary dynamic-leaf worker packet after gate pass: compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw narrows hRemainderBound from Gaussian-law domination to hNormalizedRemainderBound under normalizedCoordinateLaw, using local SALD Gaussian coordinate-law and variance bridges. Exposed through TechnicalLemmas.SALDExtracted and registry key sald.remainder-bound-gaussian-law. Source anchors appendix.tex:9... | candidate |
+| narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-206 dynamic-leaf worker packet. Exact boundary narrowed: hRemainderGeneratorLimitDef -> hRemainderPullbackDef, recorded by compiled SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackLower2Obligation/Dag with typed feedback leaf=hRemainderPullbackDef error_class=source_contract_gap_missing_remainder_pullback_definition. Gate passed: python3 tools/astis.py check. Source anch... | candidate |
+| narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:983-996;appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387 verified. Local compiled ASTIS TechnicalLe... | candidate |
+| narrows-source-cited-boundary illness-area refiner packet. Global phase judgment: cycle 206 passed and needs no recovery; Phase 1 transcript is stable enough for cited-theory backfill; next lower packet narrows sald.general_moving_target_discrete.em_interpolation_fp over appendix.tex:1358-1387 to emInterpolationConditionalWeakFp over appendix.tex:1368-1387 and appendix.tex:1379-1387. Process audit: accepted hRemainderPullbackDef below hRemainderGeneratorLimitDef is honest source-contract memory, but further same... | candidate |
+| narrows-source-cited-boundary illness-area refiner packet queued after gate pass. Global phase judgment: cycle 206 needs no recovery; Phase 1 theorem skeleton is stable; retire repeated hRemainderPullbackDef loop as accepted source-contract gap below hRemainderGeneratorLimitDef unless reducible-definition evidence appears. Exact boundary narrowed for cycle 207: sald.general_moving_target_discrete.em_interpolation_fp over appendix.tex:1358-1387 -> emInterpolationConditionalWeakFp over appendix.tex:1368-1387 and a... | candidate |
+| narrows-source-cited-boundary illness-area refiner packet: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp; source artifact middle_source_correspondence_conditional_weak_fp.md; local ASTIS law-map/condDistrib/weak-FP handoffs only; no SLT; gate passed. | candidate |
+| narrows-source-cited-boundary illness-area refiner packet: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Artifact runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/middle_technical_lemma_conditional_weak_fp.md; SLT audit updated with no-slt status; compiled-local Measure/condDistrib/weak-FP handoffs only; no external SLT import/call/queue/port. Gate passed: python3 tools/astis.py check. | candidate |
+| narrows-source-cited-boundary illness-area report/export synchronization packet. Exact boundary for human-readable status: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp over appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387; cycle-206 hRemainderGeneratorLimitDef -> hRemainderPullbackDef remains a recorded source-contract gap, not a proved result. No broad export-latex or project-article rewrite during this inner proof-search cycle; cite only compil... | candidate |
+| narrows-source-cited-boundary illness-area refiner packet. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Artifact: runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/middle_formalizer_conditional_weak_fp_handoff.md. lower_1 classical route; lower_2 one non-wrapper compiled theorem or typed feedback leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition. Local ASTIS declarations only... | candidate |
+| narrows-source-cited-boundary reviewer_gate acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner; accepted only as obligation-level boundary narrowing, not as a proved Lean theorem and not as a lower_2 worker proof. Gate passed: python3 tools/astis.py check. Source anchors: appendix.tex:983-996;appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387. Canonical unfi... | candidate |
 
 ## Open Obligation Signals
 
 ```text
-hSourceLinearTermDef :
-sourceLinearTerm phi x i z = linearCoeff phi x i * z
-The next smaller source-cited obligation package is:
-hSourceLinearTermTaylorDef :
-sourceLinearTerm phi x i z =
-Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
-does not reopen the selected weak-test Hessian source-contract gap.
-selectedWeakTestSourceLinearTermDefOfScalarLineFirstCoeffDef
-This bridge should prove `hSourceLinearTermDef` from
-`hSourceLinearTermTaylorDef` and `hScalarLineFirstCoeffDef` by two rewrites.
-analytic content remains in the two smaller source-cited fields.
-| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
-| Cycle 186 lower_1 source-linear route | Reduce `hSourceLinearTermDef` to the source first-order Taylor term and the local first-derivative coefficient convention. | scalar selected line; `deriv`; `stdOrthonormalBasis`; source Brownian coordinate normalization | `runs/20260612-015813-121084-ASTIS-SALD-001-cycle186/lower_1_source_linear_term_route.md`; pr...
-| Cycle 186 lower_2 source-linear bridge | Derive `hSourceLinearTermDef` from `hSourceLinearTermTaylorDef` and `hScalarLineFirstCoeffDef`. | local two-rewrite bridge; no measure theory or SLT dependency | `SALD.selectedWeakTestSourceLinearTermDefOfScalarLineFirstCoeffDef`; `SALD.cycle186GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalar...
-## Cycle 186 Lower_2 Source Linear Term Bridge
-Classification: `narrows-source-cited-boundary`.
-hSourceLinearTermDef :
-sourceLinearTerm phi x i z = linearCoeff phi x i * z
-SALD.selectedWeakTestSourceLinearTermDefOfScalarLineFirstCoeffDef
-The compiled bridge reduces the source-linear field to the smaller
-source-cited pair `hSourceLinearTermTaylorDef` and
-`hScalarLineFirstCoeffDef`. It rewrites the source linear term to the
-Source anchors: `appendix.tex:958-970`, `appendix.tex:984-995`,
-hSourceTaylorIntegrandDef
-hSourceLinearTermTaylorDef
 hSourceQuadraticTermDef
 hSourceTaylorIntegrandMeas
 `hSourceHasHessian` and `hSourceHessianBound` remain source-contract gaps. No
+## Cycle 206 Middle Remainder Pullback Source Boundary
+Classification: `narrows-source-cited-boundary`.
+Source anchors: `appendix.tex:958-970`, `appendix.tex:983-996`,
+Typed feedback if the local source definitions do not reduce:
+error_class=source_contract_gap_missing_remainder_pullback_definition
+source_lines=appendix.tex:958-970;appendix.tex:983-996;appendix.tex:1161-1170;appendix.tex:1379-1387
+blocked_by=remainderGeneratorLimit and normalizedRemainder are source-facing abstract fields in the compiled scalar-pushforward remainder bridge unless lower_2 finds a reducible local definition
+| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
+| Cycle 206 middle source boundary | Record `hRemainderPullbackDef` as the exact sample-space normalized-remainder expectation required below `hRemainderGeneratorLimitDef`. | `SALD.selectedWeakTestRemainderGeneratorNormalizedLawDefOfScalarPushforward`; `MeasureTheory.integral_map`; local Gaussian coordinate-law/variance facts | `SALD.cycle206GeneralMoving...
+| Cycle 206 lower_2 remainder-pullback source gap | Lean inspection found `remainderGeneratorLimit`, `normalizedRemainder`, and `scalarBrownianCoordinate` only as abstract bridge parameters, so the pullback identity is recorded as the exact source-contract gap rather than closed by a wrapper. | existing scalar-pushforward remainder bridge; local Gaussian...
+## Cycle 207 Middle Conditional-Law Weak-FP Boundary
+Classification: `narrows-source-cited-boundary`.
+-> emInterpolationConditionalWeakFp
+interpolation law. The source lines are `appendix.tex:1368-1377` for the
+conditional drift `bar b_{k,s}`, `appendix.tex:1379-1387` for the weak-FP
+emInterpolationConditionalWeakFp :
+and `SALD.generalMovingTargetDiscreteWeakConditionalFpNamedLawDerivativeOfDominatedSplitGeneratorHandoff`.
+`hderivValue`, `hdriftBarBAction`, raw `hpairMeas`, or `hcanonicalBarBMeas`.
+Do not reopen `hSourceHasHessian` or `hSourceHessianBound`.
+leaf=emInterpolationConditionalWeakFp
+error_class=source_contract_gap_missing_conditional_fp_generator_definition
+source_lines=appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387;appendix.tex:983-996
+blocked_by=need source-selected generator/weak-FP definition connecting the frozen interpolation law to the conditional drift and Brownian Laplacian after already compiled law-map, condDistrib, and retired path/domination leaves
+| Obligation | Boundary | Dependencies | Lean-facing contract | Source | Reuse | Status |
+| Cycle 207 middle conditional-law weak-FP source correspondence | Narrow the broad EM interpolation weak-FP backend to the conditional-law source-sign law-derivative theorem, keeping KL differentiation downstream and avoiding wrapper churn. | frozen interpolation law; conditional drift definition; local law-map derivative and condDistrib handoffs | `runs...
 ```
 
 ## Recent Packet Classifications
 
-- `discharges-supplied-hypothesis`: 22
-- `narrows-source-cited-boundary`: 10
-- `rejected-wrapper-churn`: 0
+- `discharges-supplied-hypothesis`: 0
+- `narrows-source-cited-boundary`: 39
+- `rejected-wrapper-churn`: 4
 
 ## Proof Status Counts
 
 - `blocked`: 0
 - `contractOnly`: 34
 - `formalized`: 286
-- `obligation`: 1157
+- `obligation`: 1175
 - `planned`: 9
 - `sourceCited`: 16
 

@@ -1,11 +1,11 @@
 # SALD Reproduction TODO
 
-Generated: `2026-06-13 01:27:09`
+Generated: `2026-06-13 13:14:37`
 
 Task: faithful Lean reproduction of the original VA-SALD paper
 ([arXiv:2605.07950](https://arxiv.org/abs/2605.07950)).
 
-Latest cycle considered: `194`.
+Latest cycle considered: `207`.
 
 Gate to trust this dashboard:
 
@@ -58,7 +58,7 @@ line range is missing, reviewer rejects any cycle that claims completion.
 Latest reviewer blocker:
 
 ```text
-narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.
+narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:983-996;appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387 verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition.
 ```
 
 ## Formalized Technical Lemma Memory
@@ -66,8 +66,12 @@ narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycl
 | Local declaration | Tags | SALD use | File |
 |---|---|---|---|
 | `AutoSamplingTheory.TechnicalLemmas.Gaussian.map_eval_stdGaussianPi` | gaussian, coordinate-law, brownian-increment | normalized scalar coordinate law in the Brownian/Ito EM backend | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi` | gaussian, integrability, coordinate, brownian-increment | Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi` | gaussian, integrability, quadratic-moment, brownian-increment | Brownian/Ito coordinate square integrability for polynomial moment leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi` | gaussian, mean, coordinate, brownian-increment | coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero` | gaussian, mean, brownian-increment | centered scalar Gaussian increment bookkeeping | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw` | gaussian, variance, NNReal | turn scalar Gaussian law and variance-field definition into normalized variance one | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero` | gaussian, integrability, quadratic-bound, brownian-increment | supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2 | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField` | taylor, hessian, source-contract | convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm` | taylor, iteratedFDeriv, hessian | feed selected-line Taylor bounds from a Hessian operator-norm field | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne` | brownian, ito, quadratic-variation, normalization | assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
@@ -80,12 +84,13 @@ narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycl
 | `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.discreteForwardKlEmEndpointLawPairHandoff` | Euler-Maruyama, endpoint-law, SALD-extracted | endpoint-law pair handoff for discrete SALD/VA-SALD proofs | `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw` | Brownian, Ito, Gaussian, SALD-extracted | active Brownian/Ito scalar generator backend and coordinate variance leaves | `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw` | Brownian, Ito, Gaussian, measurability, SALD-extracted | discharge hRemainderMeas in the active Brownian/Ito Taylor moment backend | `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound` | Brownian, Ito, Gaussian, integrability, quadratic-bound, SALD-extracted | narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability | `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean` |
 
 ## Technical Lemma Port Queue
 
 | Source / upstream | Declarations | ASTIS target | Status |
 |---|---|---|---|
-| `SLT/GaussianMeasure.lean` | `integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi` | Brownian/Ito coordinate integrability and polynomial moment leaves | port-candidate |
+| `SLT/GaussianMeasure.lean` | `integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi` | Brownian/Ito coordinate integrability and polynomial moment leaves | formalized-local |
 | `SLT/GaussianPoincare/TaylorBound.lean` | `taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `deriv2_bounded_of_compactlySupported`, `integrable_deriv_sq` | selected scalar Taylor integral/remainder and bounded-Hessian leaves | port-candidate |
 | `SLT/GaussianPoincare/Limit.lean` | `tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq`, `gaussianPoincare` | Taylor remainder limits and Gaussian Poincare backend | future-port |
 | `SLT/GaussianLSI/DualityEntropy.lean` | `entropy_duality`, `entropy_ge_integral_mul`, `expMeasure_isProbabilityMeasure`, `integral_expMeasure` | DV/KL variational formula backend | future-port |

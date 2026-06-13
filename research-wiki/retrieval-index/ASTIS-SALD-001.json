@@ -1,10 +1,10 @@
 {
-  "cycle": 194,
+  "cycle": 207,
   "dynamic_leaf_queue": [
-    "narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted.",
-    "narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted."
+    "narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-206 dynamic-leaf worker packet. Exact boundary narrowed: hRemainderGeneratorLimitDef -> hRemainderPullbackDef, recorded by compiled SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackLower2Obligation/Dag with typed feedback leaf=hRemainderPullbackDef error_class=source_contract_gap_missing_remainder_pullback_definition. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:958-970;appendix.tex:983-996;appendix.tex:1161-1170;appendix.tex:1379-1387 checked against original SALD source excluding sald_version_2.tex. Local ASTIS declarations only: existing SALD scalar-pushforward/Gaussian-law remainder bridges, TechnicalLemmas.SALDExtracted/Gaussian/Measure entries, and Mathlib MeasureTheory.integral_map. No external SLT import/call/queue, fake closure, wrapper churn, source-Hessian replay, selected-line Taylor replay, endpoint/naming replay, or theorem-status promotion. Remaining gap is the source-backed pullback definition of re...",
+    "narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:983-996;appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387 verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition."
   ],
-  "generated": "2026-06-12 07:19:02",
+  "generated": "2026-06-13 06:21:44",
   "mode": "faithfulPaper",
   "next_lower_tasks": [
     {
@@ -19,17 +19,6 @@
     }
   ],
   "open_external_technical_lemma_obligations": [
-    {
-      "dependencies": [],
-      "id": "SLT/GaussianMeasure.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Gaussian.lean",
-      "lean_status": "port-candidate",
-      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
-      "source": "SLT/GaussianMeasure.lean",
-      "statement": "`integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi`",
-      "tags": [],
-      "used_by": "Brownian/Ito coordinate integrability and polynomial moment leaves"
-    },
     {
       "dependencies": [],
       "id": "SLT/GaussianPoincare/TaylorBound.lean",
@@ -76,7 +65,7 @@
     }
   ],
   "open_obligation_signals": [
-    "narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-194 dynamic-leaf worker packet. hRemainderBound under ProbabilityTheory.gaussianReal 0 (variance phi x i) is reduced to hNormalizedRemainderBound under normalizedCoordinateLaw by compiled SALD.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw. Confirmed compiled SALD.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw formalizes hRemainderMeas transport. Source anchors appendix.tex:958-970, appendix.tex:983-996, appendix.tex:1161-1170, appendix.tex:1379-1387 checked. Gate passed python3 tools/astis.py check. Remaining hNormalizedRemainderBound and hRemainderBoundInt; hSourceHasHessian and hSourceHessianBound remain source-contract gaps. No external SLT import/call/queue or wrapper churn accepted."
+    "narrows-source-cited-boundary reviewer acceptance after gate pass: accepted cycle-206 dynamic-leaf worker packet. Exact boundary narrowed: hRemainderGeneratorLimitDef -> hRemainderPullbackDef, recorded by compiled SALD.cycle206GeneralMovingTargetDiscreteEmGeneratorLaplacianEventFieldFrozenScalarBrownianItoRemainderPullbackLower2Obligation/Dag with typed feedback leaf=hRemainderPullbackDef error_class=source_contract_gap_missing_remainder_pullback_definition. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:958-970;appendix.tex:983-996;appendix.tex:1161-1170;appendix.tex:1379-1387 checked against original SALD source excluding sald_version_2.tex. Local ASTIS declarations only: existing SALD scalar-pushforward/Gaussian-law remainder bridges, TechnicalLemmas.SALDExtracted/Gaussian/Measure entries, and Mathlib MeasureTheory.integral_map. No external SLT import/call/queue, fake closure, wrapper churn, source-Hessian replay, selected-line Taylor replay, endpoint/naming replay, or theorem-status promotion. Remaining gap is the source-backed pullback definition of re..."
   ],
   "open_sald_contribution_obligations": [
     {
@@ -172,7 +161,7 @@
     "blocked": 0,
     "contractOnly": 34,
     "formalized": 286,
-    "obligation": 1157,
+    "obligation": 1175,
     "planned": 9,
     "sourceCited": 16
   },
@@ -183,93 +172,254 @@
       "lean_gate": "not-run",
       "role": "upper",
       "status": "accepted",
-      "timestamp": "2026-06-12 07:18:52",
-      "trial_id": "20260612-071852-628474-ASTIS-SALD-001-sleep-window"
+      "timestamp": "2026-06-13 06:21:35",
+      "trial_id": "20260613-062135-149406-ASTIS-SALD-001-sleep-window"
     },
     {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207",
       "kind": "build",
       "lean_gate": "pass",
       "role": "reviewer",
       "status": "compiled",
-      "timestamp": "2026-06-12 07:18:45",
-      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-build-gate"
+      "timestamp": "2026-06-13 06:21:29",
+      "trial_id": "20260613-054827-700501-ASTIS-SALD-001-cycle207-build-gate"
     },
     {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/40_reviewer.md",
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/41_reviewer_waste.md",
       "kind": "attempt",
       "lean_gate": "not-run",
-      "role": "reviewer",
+      "role": "reviewer_waste",
       "status": "accepted",
-      "timestamp": "2026-06-12 07:18:34",
-      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-40_reviewer"
+      "timestamp": "2026-06-13 06:21:18",
+      "trial_id": "20260613-054827-700501-ASTIS-SALD-001-cycle207-41_reviewer_waste"
     },
     {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207",
       "kind": "handoff",
-      "lean_gate": "pass",
-      "role": "reviewer",
+      "lean_gate": "not-run",
+      "role": "reviewer_waste",
       "status": "queued",
-      "timestamp": "2026-06-12 07:18:13",
-      "trial_id": "20260612-071813-569043-ASTIS-SALD-001-reviewer-handoff"
+      "timestamp": "2026-06-13 06:20:53",
+      "trial_id": "20260613-062053-085495-ASTIS-SALD-001-reviewer_waste-handoff"
     },
     {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/40_reviewer_gate.md",
+      "kind": "attempt",
+      "lean_gate": "not-run",
+      "role": "reviewer_gate",
+      "status": "accepted",
+      "timestamp": "2026-06-13 06:18:32",
+      "trial_id": "20260613-054827-700501-ASTIS-SALD-001-cycle207-40_reviewer_gate"
+    },
+    {
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207",
+      "kind": "handoff",
+      "lean_gate": "not-run",
+      "role": "reviewer_gate",
+      "status": "queued",
+      "timestamp": "2026-06-13 06:18:03",
+      "trial_id": "20260613-061803-523215-ASTIS-SALD-001-reviewer_gate-handoff"
+    },
+    {
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207",
       "kind": "build",
-      "lean_gate": "pass",
-      "role": "reviewer",
+      "lean_gate": "not-run",
+      "role": "reviewer_gate",
       "status": "compiled",
-      "timestamp": "2026-06-12 07:17:55",
-      "trial_id": "20260612-071755-395599-ASTIS-SALD-001-reviewer-build"
+      "timestamp": "2026-06-13 06:17:30",
+      "trial_id": "20260613-061730-246614-ASTIS-SALD-001-reviewer_gate-build"
     },
     {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/30_lower_2.md",
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/20_middle_formalizer.md",
       "kind": "attempt",
       "lean_gate": "not-run",
-      "role": "lower",
+      "role": "middle_formalizer",
       "status": "accepted",
-      "timestamp": "2026-06-12 07:15:19",
-      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-30_lower_2"
+      "timestamp": "2026-06-13 06:15:47",
+      "trial_id": "20260613-054827-700501-ASTIS-SALD-001-cycle207-20_middle_formalizer"
     },
     {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207",
       "kind": "handoff",
       "lean_gate": "not-run",
-      "role": "lower",
+      "role": "middle_formalizer",
       "status": "queued",
-      "timestamp": "2026-06-12 07:14:49",
-      "trial_id": "20260612-071449-280333-ASTIS-SALD-001-lower-handoff"
+      "timestamp": "2026-06-13 06:15:26",
+      "trial_id": "20260613-061526-214515-ASTIS-SALD-001-middle_formalizer-handoff"
     },
     {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/30_lower_1.md",
+      "artifact": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/23_middle_report_export.md",
       "kind": "attempt",
       "lean_gate": "not-run",
-      "role": "lower",
+      "role": "middle_report_export",
       "status": "accepted",
-      "timestamp": "2026-06-12 06:18:21",
-      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-30_lower_1"
-    },
-    {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
-      "kind": "handoff",
-      "lean_gate": "not-run",
-      "role": "lower",
-      "status": "queued",
-      "timestamp": "2026-06-12 06:18:03",
-      "trial_id": "20260612-061803-391597-ASTIS-SALD-001-lower-handoff"
-    },
-    {
-      "artifact": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194/20_middle_formalizer.md",
-      "kind": "attempt",
-      "lean_gate": "not-run",
-      "role": "middle",
-      "status": "accepted",
-      "timestamp": "2026-06-12 06:16:02",
-      "trial_id": "20260612-060143-086541-ASTIS-SALD-001-cycle194-20_middle_formalizer"
+      "timestamp": "2026-06-13 06:12:48",
+      "trial_id": "20260613-054827-700501-ASTIS-SALD-001-cycle207-23_middle_report_export"
     }
   ],
-  "recent_verifier_feedback": [],
-  "run_dir": "runs/20260612-060143-086541-ASTIS-SALD-001-cycle194",
+  "recent_verifier_feedback": [
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_remainder_pullback_definition",
+      "leaf": "hRemainderPullbackDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "reviewer_gate",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 05:47:06",
+      "trial_id": "20260613-054706-481131-ASTIS-SALD-001-reviewer_gate-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_remainder_pullback_definition",
+      "leaf": "hRemainderPullbackDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "reviewer_gate",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 05:46:51",
+      "trial_id": "20260613-054651-767448-ASTIS-SALD-001-reviewer_gate-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_remainder_pullback_definition",
+      "leaf": "hRemainderPullbackDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "lower_2",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 05:42:52",
+      "trial_id": "20260613-054252-213567-ASTIS-SALD-001-lower_2-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_remainder_pullback_definition",
+      "leaf": "hRemainderPullbackDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "lower_2",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 05:40:17",
+      "trial_id": "20260613-054017-770320-ASTIS-SALD-001-lower_2-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_selected_line_taylor_raw_split_definition",
+      "leaf": "hSelectedLineTaylorRawSplitDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "reviewer_gate",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 05:23:29",
+      "trial_id": "20260613-052329-489015-ASTIS-SALD-001-reviewer_gate-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_selected_line_taylor_raw_split_definition",
+      "leaf": "hSelectedLineTaylorRawSplitDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "reviewer_gate",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 05:23:03",
+      "trial_id": "20260613-052303-430609-ASTIS-SALD-001-reviewer_gate-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_selected_line_taylor_raw_split_definition",
+      "leaf": "hSelectedLineTaylorRawSplitDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "lower_2",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 05:17:31",
+      "trial_id": "20260613-051731-559961-ASTIS-SALD-001-lower_2-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_source_taylor_integrand_selected_increment_definition",
+      "leaf": "hSourceTaylorIntegrandSelectedIncrementDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "lower_2",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 04:59:45",
+      "trial_id": "20260613-045945-377847-ASTIS-SALD-001-lower_2-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_selected_increment_endpoint_definition",
+      "leaf": "hSelectedIncrementEndpointDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "reviewer_gate",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 04:45:49",
+      "trial_id": "20260613-044549-691000-ASTIS-SALD-001-reviewer_gate-handoff"
+    },
+    {
+      "closed_theorem_ok": "",
+      "error_class": "source_contract_gap_missing_selected_endpoint_coordinate_line_definition",
+      "leaf": "hSelectedEndpointCoordinateLineDef",
+      "lean_build_ok": "",
+      "mathlib_api_ok": "",
+      "measure_theory_ok": "",
+      "next_route": "",
+      "regularity_assumption_ok": "",
+      "role": "lower_2",
+      "source_correspondence_ok": "",
+      "status": "queued",
+      "technical_lemma_ok": "",
+      "timestamp": "2026-06-13 04:26:57",
+      "trial_id": "20260613-042657-500499-ASTIS-SALD-001-lower_2-handoff"
+    }
+  ],
+  "run_dir": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207",
   "sald_contributions": [
     {
       "depends_on_external_technical_lemma": false,
@@ -391,6 +541,54 @@
     },
     {
       "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "coordinate",
+        "brownian-increment"
+      ],
+      "used_by": "Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "Brownian/Ito coordinate square integrability for polynomial moment leaves",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "quadratic-moment",
+        "brownian-increment"
+      ],
+      "used_by": "Brownian/Ito coordinate square integrability for polynomial moment leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves",
+      "tags": [
+        "gaussian",
+        "mean",
+        "coordinate",
+        "brownian-increment"
+      ],
+      "used_by": "coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves"
+    },
+    {
+      "dependencies": [],
       "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero",
       "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero",
       "lean_status": "formalized-local",
@@ -418,6 +616,22 @@
         "NNReal"
       ],
       "used_by": "turn scalar Gaussian law and variance-field definition into normalized variance one"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Distributions.Gaussian.Real",
+      "statement": "supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "quadratic-bound",
+        "brownian-increment"
+      ],
+      "used_by": "supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2"
     },
     {
       "dependencies": [],
@@ -605,9 +819,27 @@
     },
     {
       "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "integrability",
+        "quadratic-bound",
+        "SALD-extracted"
+      ],
+      "used_by": "narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability"
+    },
+    {
+      "dependencies": [],
       "id": "SLT/GaussianMeasure.lean",
       "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Gaussian.lean",
-      "lean_status": "port-candidate",
+      "lean_status": "formalized-local",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianMeasure.lean",
       "statement": "`integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi`",
