@@ -14,6 +14,13 @@ contribution obligations, open external technical lemmas, recent typed verifier
 feedback, and the exact kind of answer needed next.  Local file paths and Lean
 names may appear only as labels for patching this repository later.
 
+The human expert review is a separate post-cycle channel.  After the Chinese
+summary and any Pro answer are available, the user may give source-level,
+modeling, regularity, or priority guidance.  The next upper director must
+combine the Pro advice and human steering into one Lean-checkable active leaf,
+source anchor, or named technical-lemma obligation.  Neither Pro prose nor
+human prose closes a theorem by itself.
+
 Faithful-paper prompts must forbid changing theorem statements, constants,
 assumptions, schedules, or proof targets.  Exploratory prompts must first state
 the acceptance predicate and Lean-checkable target before asking for new proof

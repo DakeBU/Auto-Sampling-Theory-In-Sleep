@@ -140,6 +140,15 @@ flowchart TD
   L3 --> R
   R --> B
   W --> B
+  R --> ZH[6h Chinese summary]
+  W --> ZH
+  R --> PRO[ChatGPT Pro self-contained prompt]
+  W --> PRO
+  PRO --> PA[Pro advisory answer]
+  ZH --> HU[human expert steering]
+  PA --> NX[next upper directive]
+  HU --> NX
+  NX --> B
 ```
 
 ![ASTIS layer-panel agent stack](docs/assets/agent_stack.svg)
@@ -194,6 +203,11 @@ The Pro prompt is self-contained because ChatGPT Pro cannot read local files.
 It includes public paper links when available, open paper-contribution
 obligations, open technical lemmas, typed verifier feedback, and the exact
 answer shape needed for the next Lean run.
+The human expert entry point is separate.  After reading the Chinese status
+and any Pro answer, the user can accept, reject, or redirect the next
+source-aligned proof leaf.  The next upper-director cycle must translate both
+inputs into an explicit theorem target, source anchor, or technical-lemma
+obligation before any lower agent acts on it.
 
 ## Lean And Mathlib
 
