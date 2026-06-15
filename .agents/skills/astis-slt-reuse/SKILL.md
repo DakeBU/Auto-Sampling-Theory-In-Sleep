@@ -14,7 +14,10 @@ has been ported as ASTIS-owned Lean code.
 
 - GitHub: `https://github.com/YuanheZ/lean-stat-learning-theory`
 - Paper: `https://arxiv.org/abs/2602.02285`
+- Related AutoRes formalization: `https://github.com/auto-res/lean-rademacher`
+- Related paper: `https://arxiv.org/abs/2503.19605`
 - Local clone: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory`
+- Local AutoRes clone: `/home/nitanda_sub/mark/repos/outer_repos/automation_systems/lean-rademacher`
 - Upstream toolchain: `leanprover/lean4:v4.27.0-rc1`
 - ASTIS toolchain: `leanprover/lean4:v4.29.1`
 
@@ -25,7 +28,11 @@ has been ported as ASTIS-owned Lean code.
 2. For SALD, read
    `research-wiki/technical-lemma-memory/SALD_remaining_map.md`.
 3. If no ASTIS local declaration exists, locate the upstream file and
-   declaration as port source material.
+   declaration as port source material.  Prefer the source whose statement
+   matches the needed theorem boundary: `lean-rademacher` for concentration,
+   Rademacher/symmetrization, separability, covering-number, and Dudley-style
+   facts; `lean-stat-learning-theory` for the empirical-process proof program
+   already tracked by ASTIS.
 4. Copy the exact statement into a local ASTIS module or a reuse entry.
 5. Classify status as `direct-port`, `needs-mathlib-api-update`,
    `reference-only`, `blocked`, or `formalized`.
@@ -38,3 +45,9 @@ has been ported as ASTIS-owned Lean code.
 
 Do not treat an upstream theorem as proved in ASTIS until the corresponding
 ASTIS declaration builds locally.
+
+The Rademacher formalization is also a process model: large analysis projects
+should stage reusable definitions, concentration lemmas, symmetrization
+arguments, separability/countable-density bridges, and applications as named
+DAG nodes.  Lower agents should not inline this whole pipeline into a SALD
+proof attempt.

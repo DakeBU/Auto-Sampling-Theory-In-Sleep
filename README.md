@@ -412,6 +412,10 @@ SDE/Sampling formalization.
 | [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics, theorem-reuse memory, hidden-placeholder scans, and tree-of-subgoals planning. | Diagnostics are advisory; `python3 tools/astis.py check` remains the acceptance gate. |
 | [Goedel-Architect](https://arxiv.org/abs/2606.06468) | Blueprint generation, solved-node preservation, and failed-node refinement by diagnosis. | ASTIS applies this to source theorem leaves, probability/SDE technical lemmas, Mathlib portability gaps, and stale proof routes. |
 | [Lean4Agent](https://arxiv.org/abs/2606.06523) | Formal modeling of agent workflow and execution trajectories. | ASTIS records a future route for Lean-checking orchestration pre/postconditions without replacing Lean theorem closure. |
+| [Exponential separation for hierarchical agentic theorem provers](https://arxiv.org/abs/2602.10512) | Reusable cuts/lemmas can be exponentially more sample-efficient than flat proof traces. | ASTIS treats Gronwall, KL/FI identities, weak Fokker--Planck bridges, measurability facts, and EM local-error lemmas as memoized proof-DAG nodes rather than repeatedly inlining them. |
+| [Statistical provability theory](https://arxiv.org/abs/2602.10538) | Finite-budget success probability, verifier-call budgets, average truncated proof length, and high-mass proof-state coverage. | ASTIS uses these as efficiency signals for 6h runs: proof routes should shorten future Lean work or retire a blocker, not merely create more wrapper lemmas. |
+| [Conjecturing-Proving Loop](https://arxiv.org/abs/2509.14274) and [LeanConjecturer](https://arxiv.org/abs/2506.22005) | Separate conjecture generation from proving; feed verified Lean theorems back as in-context examples; filter non-trivial conjectures. | ASTIS uses this only in `exploratoryProof` mode, for RMFLD-style candidate lemmas or proof-route hypotheses under fixed assumptions.  Faithful SALD reproduction cannot mutate the source theorem. |
+| [lean-rademacher](https://github.com/auto-res/lean-rademacher) and [arXiv:2503.19605](https://arxiv.org/abs/2503.19605) | A large Lean formalization of Rademacher complexity, concentration, symmetrization, separability, and Dudley entropy. | Directly relevant as a reusable probability/formalization style reference for concentration, measurability, separability, and technical-lemma staging. |
 | [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) and [arXiv:2602.02285](https://arxiv.org/abs/2602.02285) | Mathlib probability/concentration proof style, entropy duality, log-Sobolev/Poincare references, and discretization statements. | Used as audited reference/port source while toolchains differ. |
 | [ABEIS/QBE](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | A mature example of Lean automation project engineering: CLI, prompt decks, conversion windows, proof obligations, and blueprint discipline. | ASTIS is not a quantum/block-encoding derivative; it replaces that domain with laws, kernels, drifts, densities, KL/FI/LSI/PI, Fokker--Planck, and Euler--Maruyama objects. |
 
@@ -419,6 +423,36 @@ The LeanMarathon-style blueprint layer does not replace the LBG-style
 upper/middle/lower/reviewer hierarchy or the EoH-style exploratory population
 layer.  It makes those loops more reliable by forcing each long run to start
 from the current proof blueprint and by retiring stale dynamic leaves.
+The Sonoda--Akiyama--Uezato cut/DAG lesson adds a sharper reviewer rule:
+do not eliminate reusable analytic cuts.  If a weak-Fokker--Planck identity,
+conditional-law lemma, Hessian bound, or concentration inequality appears in
+several places, promote it to a named DAG node and context-pack example rather
+than asking lower agents to rediscover it in each theorem.
+
+ASTIS absorbs external automation ideas only when they address an SDE/Sampling
+failure mode.  SALD runs showed that agents can waste time by rewriting theorem
+wrappers while the real blocker is a background analytic bridge such as a
+conditional-law identity, weak Fokker--Planck statement, measurability lemma,
+or discretization error bound.  ASTIS therefore keeps the following boundary:
+
+| Observed ASTIS failure | Absorbed mechanism | Not absorbed |
+| --- | --- | --- |
+| Long proofs repeatedly need the same KL/FI, LSI, weak-FP, or Gronwall subargument. | Hierarchical proof-DAG cuts and LeanMarathon-style active leaves. | Flattening the whole analytic proof into one giant theorem attempt. |
+| Large Mathlib/probability dependencies are hard to locate. | MathCode/AI4SLT/lean-rademacher-style theorem-reuse memory and technical-lemma staging. | Treating an external theorem as locally proved before it builds in ASTIS. |
+| Faithful paper reproduction and new-theorem exploration have different failure semantics. | LBG-style mode discipline plus EoH/CPL-style populations only in exploratory mode. | Mutating SALD source theorems, constants, or assumptions during faithful reproduction. |
+| Six-hour runs generate too much prose without retiring blockers. | Statistical-provability metrics: finite-budget closure chance, verifier calls, repeated-state failures, and future proof length. | Counting narrative volume as progress. |
+
+The ASTIS-specific workflow is:
+
+```text
+paper theorem or new sampling claim
+-> analytic object map: laws / kernels / drifts / densities / KL-FI-LSI
+-> source-aligned proof DAG with reusable analytic cuts
+-> technical-lemma retrieval or explicit cited obligation
+-> one lower Lean leaf
+-> Lean gate
+-> human summary, Pro prompt, and report appendix update
+```
 
 ## For SDE/Sampling Authors
 
