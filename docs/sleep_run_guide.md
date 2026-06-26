@@ -56,6 +56,14 @@ The finalizer refreshes:
 - `research-wiki/technical-lemmas/index.md` and the legacy
   `research-wiki/technical-lemma-memory/` mirror;
 - `research-wiki/retrieval-index/ASTIS-SALD-001.json`;
+- `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` and
+  `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md`;
+- `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md`;
+- `docs/module-graph.svg` and
+  `research-wiki/sampling-sde-library/lean-leaf-module-graph.md`;
+- `docs/mathlib_ready_leaf_protocol.md`,
+  `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md`, and
+  `research-wiki/technical-lemmas/hidden_regularities.md`;
 - `runs/<latest-cycle>/memory_digest.md`, `runs/<latest-cycle>/todo.md`,
   `runs/<latest-cycle>/zh_summary.md`, and
   `runs/<latest-cycle>/article_update.tex`;
@@ -138,6 +146,69 @@ Reviewer should reject a completed-cycle claim if the finalizer did not refresh
 the unfinished source-line map, if an active paper leaf lacks concrete source
 lines, or if a technical lemma is cited before it exists as a compiled local
 declaration.
+
+## Mathlib-Ready Leaf Gate
+
+Reusable background facts should be organized as Mathlib-ready leaf lemmas.
+This is the main difference between "we know the paper proof in natural
+language" and "the automation system can reuse the result in future
+Sampling/SDE papers."
+
+Run this command after changing the leaf decomposition rules or technical
+lemma memory:
+
+```bash
+python3 tools/astis.py lemma-dag-refresh
+```
+
+It refreshes:
+
+```text
+docs/mathlib_ready_leaf_protocol.md
+research-wiki/lemma-dags/SDE_Sampling_skill_tree.md
+research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md
+research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md
+research-wiki/technical-lemmas/mathlib_ready_leaf_template.md
+research-wiki/technical-lemmas/hidden_regularities.md
+agent-briefs/mathlib_ready_leaf_packet.md
+```
+
+For each next lower packet, middle must provide the theorem statement plus
+local APIs and intended proof route.  If the same theorem repeatedly fails,
+the next cycle must diagnose missing assumptions, false-statement risk,
+representative mismatch, Mathlib API mismatch, or target size before trying a
+new proof script.
+
+## Lean Arsenal Module Graph
+
+The public module graph is generated from the current Lean import tree and
+declaration/export surface:
+
+```bash
+python3 tools/astis.py module-graph-refresh
+```
+
+It refreshes:
+
+```text
+docs/module-graph.svg
+docs/assets/astis_lean_arsenal_module_graph.svg
+docs/assets/astis_lean_arsenal_module_graph.png
+docs/assets/sampling_sde_leaf_network.svg
+docs/assets/sampling_sde_leaf_network.png
+research-wiki/sampling-sde-library/lean-leaf-module-graph.md
+research-wiki/sampling-sde-library/cards/
+research-wiki/external-lean-libraries/
+research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json
+```
+
+Upper and middle agents should use this graph as the first routing map for
+Sampling/SDE technical lemmas.  The SALD and RMFLD modules are consumers.  The
+current reusable arsenal is the green technical surface: `Probability.lean`,
+`SDE.lean`, and `AutoSamplingTheory/TechnicalLemmas/*`.
+The leaf-network SVG is the proof-task view: it shows where Mathlib search,
+external reference cards, hidden regularity contracts, reusable leaf families,
+and paper consumers interact.
 
 ## ABEIS-Compatible Names
 

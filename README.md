@@ -72,6 +72,28 @@ lake build Tests
 python3 tools/astis.py check
 ```
 
+## Lean Arsenal Map
+
+The public Lean module graph is generated from the current ASTIS source tree,
+not from a hand-drawn concept sketch:
+
+![ASTIS SDE/Sampling Lean arsenal module graph](docs/module-graph.svg)
+
+Regenerate it with:
+
+```bash
+python3 tools/astis.py module-graph-refresh
+```
+
+The corresponding ledger is
+[`research-wiki/sampling-sde-library/lean-leaf-module-graph.md`](research-wiki/sampling-sde-library/lean-leaf-module-graph.md).
+It separates the Mathlib-ready technical lemma surface from paper consumers:
+
+- green nodes: current reusable SDE/Sampling technical lemmas;
+- orange nodes: compiled paper-extracted lemmas that need generalization before
+  Mathlib submission;
+- purple nodes: paper or exploratory consumers such as SALD and RMFLD.
+
 ## Two Modes
 
 | Mode | Use case | Rule |
@@ -218,6 +240,52 @@ leanprover/lean4:v4.29.1
 mathlib4 tag v4.29.1
 ```
 
+### Mathlib-Ready Leaf Lemmas
+
+ASTIS now treats reusable Sampling/SDE background facts as future
+Mathlib-ready leaf lemmas.  This does not mean every SALD-specific theorem is
+meant for Mathlib.  It means the generic facts underneath the paper proof
+should be stated at a reusable granularity: law-map integral rewrites,
+conditional-kernel pairings, dominated derivative transfer, weak
+Fokker--Planck bridges, KL/FI algebra, Gaussian moments, Ito/Taylor
+remainders, and integration-by-parts identities.
+
+The rule for lower agents is deliberately strict:
+
+- one packet targets one small theorem;
+- the packet must include local Mathlib/ASTIS APIs, hidden regularity
+  contracts, and an intended proof route;
+- repeated failure is treated as a mathematical signal, not an invitation to
+  keep changing the script;
+- paper-specific contribution memory and reusable technical lemma memory stay
+  separate.
+
+Generated entry points:
+
+```bash
+python3 tools/astis.py lemma-dag-refresh
+```
+
+Key artifacts:
+
+```text
+docs/mathlib_ready_leaf_protocol.md
+docs/assets/sampling_sde_leaf_network.svg
+research-wiki/lemma-dags/SDE_Sampling_skill_tree.md
+research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md
+research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md
+research-wiki/technical-lemmas/mathlib_ready_leaf_template.md
+research-wiki/technical-lemmas/hidden_regularities.md
+```
+
+![ASTIS SDE/Sampling leaf lemma network](docs/assets/sampling_sde_leaf_network.svg)
+
+The practical meaning is simple: if a paper says "by a standard
+Fokker--Planck argument", ASTIS does not let the agent use that phrase as a
+proof.  The system must either find the existing Mathlib/local theorem, prove
+the smallest missing reusable lemma locally, or record a precise proof
+obligation with the hidden regularity assumptions exposed.
+
 The root library is:
 
 ```text
@@ -254,6 +322,8 @@ candidate-populations/              exploratory proof-route populations
 research-wiki/source-index/         generated source labels
 research-wiki/cited-results/        external theorem and port-status ledgers
 research-wiki/blueprints/           proof blueprints and compact status JSON
+research-wiki/sampling-sde-library/ module/leaf atlas and cards for the Lean arsenal
+research-wiki/external-lean-libraries reference cards for Mathlib and external Lean/text sources
 runs/                               prompt decks, logs, context packs, trials
 reviews/                            reviewer artifacts
 paper-notes/AutoLeanInSleepSampling LaTeX/Markdown project article export
@@ -302,6 +372,12 @@ Refresh the current SALD proof blueprint:
 
 ```bash
 python3 tools/astis.py blueprint-refresh ASTIS-SALD-001
+```
+
+Refresh the public SDE/Sampling Lean arsenal graph:
+
+```bash
+python3 tools/astis.py module-graph-refresh
 ```
 
 Write a compact context pack for the next cycle:
@@ -398,26 +474,29 @@ Index and validate RMFLD exploratory proof routes.  This mode may use
 candidate proof populations, but only after the target predicate and
 assumptions are explicit.
 
-## Design Lineage And Differences
+## Counter-Design Relative To Related Work
 
-ASTIS learns from several automation systems, but its center of gravity is
-SDE/Sampling formalization.
+ASTIS is not a generic reuse wrapper around prior automation systems.  Its
+counter-design starts from the bottlenecks of SDE/Sampling formalization:
+hidden regularity, conditional laws, weak generator identities, KL/FI/LSI
+chains, and discretization error.  Related projects supply pressure tests and
+design contrasts; ASTIS keeps only the mechanisms that serve this domain.
 
-| Reference | What ASTIS borrows | What ASTIS changes |
+| Reference | Counter-design absorbed by ASTIS | ASTIS-specific boundary |
 |---|---|---|
-| [ARIS / Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Plain-file long-window research loops, durable handoffs, and reviewer passes. | The loop is aimed at Lean proof state, source correspondence, and proof obligations rather than empirical experiments alone. |
-| [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Role-separated iterative improvement, trial logs, summaries, rejected directions, and maintaining the system as the object being improved. | ASTIS specializes this into upper/middle/lower plus reviewer agents for theorem proving. |
-| [EoH](https://github.com/FeiLiu36/EoH) | Population-style candidate search with initialization, variation, selection, and archives. | Used only for `exploratoryProof`; faithful paper reproduction cannot mutate the source theorem. |
-| [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) and [arXiv:2606.05400](https://arxiv.org/abs/2606.05400) | Blueprint as system of record, target review, dynamic proof-DAG leaves, refiners, and deterministic gates. | ASTIS keeps a local proof blueprint and adapts the control loop to SDE/Sampling proof obligations. |
-| [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics, theorem-reuse memory, hidden-placeholder scans, and tree-of-subgoals planning. | Diagnostics are advisory; `python3 tools/astis.py check` remains the acceptance gate. |
-| [Goedel-Architect](https://arxiv.org/abs/2606.06468) | Blueprint generation, solved-node preservation, and failed-node refinement by diagnosis. | ASTIS applies this to source theorem leaves, probability/SDE technical lemmas, Mathlib portability gaps, and stale proof routes. |
-| [Lean4Agent](https://arxiv.org/abs/2606.06523) | Formal modeling of agent workflow and execution trajectories. | ASTIS records a future route for Lean-checking orchestration pre/postconditions without replacing Lean theorem closure. |
-| [Exponential separation for hierarchical agentic theorem provers](https://arxiv.org/abs/2602.10512) | Reusable cuts/lemmas can be exponentially more sample-efficient than flat proof traces. | ASTIS treats Gronwall, KL/FI identities, weak Fokker--Planck bridges, measurability facts, and EM local-error lemmas as memoized proof-DAG nodes rather than repeatedly inlining them. |
-| [Statistical provability theory](https://arxiv.org/abs/2602.10538) | Finite-budget success probability, verifier-call budgets, average truncated proof length, and high-mass proof-state coverage. | ASTIS uses these as efficiency signals for 6h runs: proof routes should shorten future Lean work or retire a blocker, not merely create more wrapper lemmas. |
-| [Conjecturing-Proving Loop](https://arxiv.org/abs/2509.14274) and [LeanConjecturer](https://arxiv.org/abs/2506.22005) | Separate conjecture generation from proving; feed verified Lean theorems back as in-context examples; filter non-trivial conjectures. | ASTIS uses this only in `exploratoryProof` mode, for RMFLD-style candidate lemmas or proof-route hypotheses under fixed assumptions.  Faithful SALD reproduction cannot mutate the source theorem. |
-| [lean-rademacher](https://github.com/auto-res/lean-rademacher) and [arXiv:2503.19605](https://arxiv.org/abs/2503.19605) | A large Lean formalization of Rademacher complexity, concentration, symmetrization, separability, and Dudley entropy. | Directly relevant as a reusable probability/formalization style reference for concentration, measurability, separability, and technical-lemma staging. |
-| [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) and [arXiv:2602.02285](https://arxiv.org/abs/2602.02285) | Mathlib probability/concentration proof style, entropy duality, log-Sobolev/Poincare references, and discretization statements. | Used as audited reference/port source while toolchains differ. |
-| [ABEIS/QBE](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | A mature example of Lean automation project engineering: CLI, prompt decks, conversion windows, proof obligations, and blueprint discipline. | ASTIS is not a quantum/block-encoding derivative; it replaces that domain with laws, kernels, drifts, densities, KL/FI/LSI/PI, Fokker--Planck, and Euler--Maruyama objects. |
+| [ARIS / Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Durable plain-file long-window loops are valuable only when the artifacts remain inspectable. | ASTIS makes Lean proof state, source correspondence, and proof obligations the inspected artifacts. |
+| [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Iterative feedback should improve the system itself, not only one proof attempt. | ASTIS splits feedback into upper/middle/lower/reviewer agents and memory gates for theorem proving. |
+| [EoH](https://github.com/FeiLiu36/EoH) | Candidate populations are useful for exploration. | Faithful proof reproduction cannot mutate theorem statements; populations are confined to `exploratoryProof`. |
+| [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) and [arXiv:2606.05400](https://arxiv.org/abs/2606.05400) | Blueprint/DAG control prevents long Lean work from drifting. | ASTIS adapts the blueprint to measure theory, stochastic processes, and SDE technical lemmas. |
+| [MathCode](https://github.com/math-ai-org/mathcode) | Theorem-reuse memory and diagnostics reduce redundant Lean work. | Diagnostics are advisory; `python3 tools/astis.py check` remains the acceptance gate. |
+| [Goedel-Architect](https://arxiv.org/abs/2606.06468) | Solved-node preservation and failed-node diagnosis are stronger than transcript replay. | ASTIS applies this to source leaves, technical lemmas, Mathlib portability gaps, and stale proof routes. |
+| [Lean4Agent](https://arxiv.org/abs/2606.06523) | Agent workflows can themselves become formal objects. | ASTIS records orchestration contracts without replacing theorem closure by process closure. |
+| [Exponential separation for hierarchical agentic theorem provers](https://arxiv.org/abs/2602.10512) | Reusable cuts are more efficient than flat proof traces. | ASTIS turns KL/FI identities, weak Fokker--Planck bridges, measurability facts, and EM local-error lemmas into named memory nodes. |
+| [Statistical provability theory](https://arxiv.org/abs/2602.10538) | Finite-budget success probability matters. | ASTIS scores cycles by whether they retire blockers or shorten future proof work. |
+| [Conjecturing-Proving Loop](https://arxiv.org/abs/2509.14274) and [LeanConjecturer](https://arxiv.org/abs/2506.22005) | Statement generation must be separated from proof search. | Generated statements become candidate analytic lemmas only after syntax, assumption, and non-triviality filters. |
+| [lean-rademacher](https://github.com/auto-res/lean-rademacher) and [arXiv:2503.19605](https://arxiv.org/abs/2503.19605) | Large probability formalizations should stage concentration and separability as separate blocks. | ASTIS stores this as external Lean reference memory before porting any theorem. |
+| [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) and [arXiv:2602.02285](https://arxiv.org/abs/2602.02285) | Mathlib-oriented SLT formalization gives nearby probability/concentration patterns. | Toolchain mismatch forces ASTIS to audit and port into ASTIS-owned declarations. |
+| [ABEIS/QBE](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | A mature auto-proof system should expose a public module/leaf atlas. | ASTIS replaces quantum matrices/oracles with laws, kernels, drifts, densities, KL/FI/LSI/PI, Fokker--Planck, and Euler--Maruyama objects. |
 
 The LeanMarathon-style blueprint layer does not replace the LBG-style
 upper/middle/lower/reviewer hierarchy or the EoH-style exploratory population
@@ -500,6 +579,12 @@ Private repository target:
 
 ```text
 https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep
+```
+
+Project author name for public reports and README citation:
+
+```text
+Anonymous ASTIS Contributors
 ```
 
 Before pushing, run:

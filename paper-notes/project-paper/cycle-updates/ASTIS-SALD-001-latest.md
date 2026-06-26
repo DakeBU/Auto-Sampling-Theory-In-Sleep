@@ -1,12 +1,20 @@
 # Project Article Cycle Update: ASTIS-SALD-001 cycle 207
 
-Generated: `2026-06-13 06:21:46`
+Generated: `2026-06-27 01:58:35`
 
 ## Reader-Facing Status
 
 The current SALD state is not missing the VA-SALD idea.  The remaining work is mainly background analysis that papers cite as standard but Lean must instantiate for the exact law, conditional representative, measurability/integrability assumptions, domination argument, boundary condition, and KL/FI/LSI or Fokker--Planck statement in use.
 
 ASTIS separates paper-specific contributions from reusable background formalization.  The former records what the target paper actually proves and where it appears in the source; the latter records common probability, measure-theory, and SDE lemmas that must compile locally before an agent may use them.
+
+## Mathlib-Ready Leaf Discipline
+
+Reusable background leaves are treated as future Mathlib candidates.  Each
+lower packet should close one small theorem, state the local APIs and proof
+route, expose measurability/integrability/smoothness assumptions, and stop
+when repeated failure indicates a missing assumption or false statement.  The
+current generated DAGs live under `research-wiki/lemma-dags/`.
 
 ## Open Paper-Contribution Leaves
 

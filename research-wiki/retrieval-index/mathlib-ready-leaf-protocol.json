@@ -1,0 +1,30 @@
+{
+  "canonical_docs": [
+    "docs/mathlib_ready_leaf_protocol.md",
+    "research-wiki/lemma-dags/README.md",
+    "research-wiki/lemma-dags/SDE_Sampling_skill_tree.md",
+    "research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md",
+    "research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md",
+    "docs/assets/sampling_lemma_dag.mmd",
+    "docs/assets/sampling_sde_leaf_network.svg",
+    "agent-briefs/mathlib_ready_leaf_packet.md",
+    "docs/assets/sampling_sde_leaf_network.png",
+    "research-wiki/technical-lemmas/README.md",
+    "research-wiki/technical-lemmas/mathlib_ready_leaf_template.md",
+    "research-wiki/technical-lemmas/hidden_regularities.md"
+  ],
+  "generated": "2026-06-27 01:58:31",
+  "leaf_network_svg": "docs/assets/sampling_sde_leaf_network.svg",
+  "mathlib_url": "https://mathlib-initiative.org/",
+  "next_sald_dag": "research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md",
+  "pro_assimilated_leaf_targets": "research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md",
+  "protocol": "mathlib-ready-leaf",
+  "rules": [
+    "decompose aggressively",
+    "specify theorem plus APIs plus proof route",
+    "treat persistent failure as mathematical signal",
+    "make hidden regularity reusable",
+    "do not frequently change the proof",
+    "search Mathlib before inventing local lemmas"
+  ]
+}

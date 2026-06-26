@@ -1,12 +1,20 @@
 # Next Todo Packet: ASTIS-SALD-001 cycle 207
 
-Generated: `2026-06-13 06:21:44`
+Generated: `2026-06-27 01:58:34`
 
 ## Human Default
 
 Use the local strategy: port or prove only the smallest technical lemma needed
 by the next SALD source-line leaf.  Do not build a broad measure-theory library
 unless the same missing fact blocks multiple leaves.
+
+## Mathlib-Ready Leaf Gate
+
+Before assigning lower work, middle must fill the leaf packet shape from
+`research-wiki/technical-lemmas/mathlib_ready_leaf_template.md`: theorem,
+local APIs, hidden regularity, proof route, and failure policy.  If a proof has
+already failed repeatedly, the next action is statement diagnosis, not another
+proof-script rewrite.
 
 ## Lower 1
 

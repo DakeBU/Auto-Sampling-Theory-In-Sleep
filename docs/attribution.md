@@ -1,10 +1,11 @@
 # Attribution And Design Lineage
 
 ASTIS is not a copy of any single automation system.  It is a Lean-first
-SDE/Sampling proof workflow that combines several useful ideas while keeping a
-stricter proof gate than empirical search systems.
+SDE/Sampling proof workflow whose counter-design is shaped by hidden
+regularity, conditional laws, weak generators, KL/FI/LSI chains, and
+Euler--Maruyama discretization.
 
-| Source | What ASTIS borrows | What ASTIS changes | ASTIS advantage |
+| Source | Counter-design absorbed by ASTIS | ASTIS-specific boundary | ASTIS advantage |
 |---|---|---|---|
 | [ARIS / Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Long-window autonomous research loops, plain-file artifacts, durable handoffs, and independent reviewer passes. | The loop is aimed at Lean proof state, source correspondence, and proof obligations rather than experiments and paper drafting alone. | Runs are inspectable locally; a 6h batch finishes the current upper/middle/lower/reviewer cycle before exporting notes. |
 | [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Role-separated iterative improvement, trial memory, summaries, logs, rejected directions, and treating the maintained system as the object being improved. | ASTIS adapts the layered agent loop to proof work: upper chooses the proof objective, middle translates source/Lean state, lower edits one local target, and reviewer gates source correspondence and Lean correctness. | Later agents avoid replaying broad failed routes and can focus on the current proof boundary without losing the reviewer-agent safeguard. |

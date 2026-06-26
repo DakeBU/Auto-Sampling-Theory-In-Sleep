@@ -11,9 +11,11 @@ from __future__ import annotations
 import argparse
 import csv
 import datetime as _dt
+import html
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -37,6 +39,9 @@ RETRIEVAL_INDEX_DIR = ROOT / "research-wiki" / "retrieval-index"
 TECHNICAL_LEMMAS_DIR = ROOT / "research-wiki" / "technical-lemmas"
 LEGACY_TECHNICAL_LEMMA_MEMORY_DIR = ROOT / "research-wiki" / "technical-lemma-memory"
 TECHNICAL_LEMMA_MEMORY_DIR = LEGACY_TECHNICAL_LEMMA_MEMORY_DIR
+LEMMA_DAG_DIR = ROOT / "research-wiki" / "lemma-dags"
+SAMPLING_LIBRARY_DIR = ROOT / "research-wiki" / "sampling-sde-library"
+EXTERNAL_LEAN_LIBRARY_DIR = ROOT / "research-wiki" / "external-lean-libraries"
 PAPER_CONTRIBUTION_DIR = ROOT / "research-wiki" / "paper-contributions"
 SALD_CONTRIBUTION_DIR = PAPER_CONTRIBUTION_DIR / "SALD"
 PAPER_MEMORY_DIR = ROOT / "research-wiki" / "paper-memory"
@@ -66,6 +71,7 @@ LEANMARATHON_PDF = OUTER_PAPERS_AUTOMATION_ROOT / "LeanMarathon-2606.05400.pdf"
 TECH_REPORT_ROOT = Path(os.environ.get("ASTIS_TECH_REPORT_ROOT", str(ROOT.parent / "Auto_Proof_Papers" / "ASTIS")))
 
 QUANTUM_AUTOPROOF_URL = "https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201"
+MATHLIB_URL = "https://mathlib-initiative.org/"
 SLT_URL = "https://github.com/YuanheZ/lean-stat-learning-theory"
 SLT_ARXIV_URL = "https://arxiv.org/abs/2602.02285"
 LEANMARATHON_URL = "https://github.com/YuanheZ/LeanMarathon"
@@ -143,6 +149,10 @@ WORK_DIRS = [
     "research-wiki/retrieval-index",
     "research-wiki/technical-lemmas",
     "research-wiki/technical-lemma-memory",
+    "research-wiki/lemma-dags",
+    "research-wiki/sampling-sde-library",
+    "research-wiki/sampling-sde-library/cards",
+    "research-wiki/external-lean-libraries",
     "research-wiki/paper-contributions",
     "research-wiki/paper-contributions/SALD",
     "research-wiki/paper-memory",
@@ -520,6 +530,25 @@ def init_texts() -> dict[Path, str]:
             "weak Fokker--Planck, Ito/Taylor, Gaussian moments, measurability,\n"
             "integrability, and integration-by-parts tools.  Legacy mirrors may\n"
             "exist under `research-wiki/technical-lemma-memory/`.\n"
+        ),
+        LEMMA_DAG_DIR / "README.md": (
+            "# Lemma DAGs\n\n"
+            "Mathlib-ready dependency graphs for reusable SDE/Sampling leaf lemmas.\n"
+            "Run `python3 tools/astis.py lemma-dag-refresh` to regenerate the\n"
+            "standard skill tree and current SALD weak-Fokker--Planck leaf DAG.\n"
+        ),
+        SAMPLING_LIBRARY_DIR / "README.md": (
+            "# Sampling/SDE Lean Library\n\n"
+            "Public module and leaf-lemma atlas for the ASTIS-owned SDE/Sampling\n"
+            "arsenal.  Run `python3 tools/astis.py module-graph-refresh` to\n"
+            "regenerate the SVG graph, module ledger, cards, and retrieval index.\n"
+        ),
+        EXTERNAL_LEAN_LIBRARY_DIR / "README.md": (
+            "# External Lean And Textbook Reference Cards\n\n"
+            "Memory cards for Mathlib, external Lean projects, and textbooks used as\n"
+            "references or port sources.  These are not local proof certificates;\n"
+            "a theorem becomes callable only after ASTIS owns a compiled Lean\n"
+            "declaration for it.\n"
         ),
         PAPER_CONTRIBUTION_DIR / "README.md": (
             "# Paper Contributions\n\n"
@@ -1534,6 +1563,1235 @@ def technical_lemma_status_markdown() -> str:
 |---|---|---|---|
 {port_table}
 """
+
+
+def mathlib_ready_leaf_protocol_text() -> str:
+    return f"""# Mathlib-Ready Leaf Lemma Protocol
+
+ASTIS treats every reusable SDE/Sampling background result as a possible future
+Mathlib contribution.  The immediate rule is more modest: before a lemma is
+called by a SALD or RMFLD proof, it must be an ASTIS-owned Lean declaration
+that builds locally, or it must be recorded as an explicit proof obligation.
+
+Reference target: {MATHLIB_URL}
+
+## Core Rule
+
+One lower-agent packet should target one small theorem.  The packet must fit in
+one agent context window and must include more than the theorem statement:
+
+- proposed declaration name and namespace;
+- existing local APIs and Mathlib declarations to try first;
+- minimal imports;
+- hidden regularity contracts;
+- intended proof route in at most seven steps;
+- source anchor or upstream theorem reference;
+- failure policy.
+
+The lower agent should not repeatedly redesign the statement.  If the same
+target fails two or three times for the same reason, treat that as a
+mathematical signal: look for a missing assumption, a false statement, a
+wrong representative, a typeclass mismatch, or a counterexample.
+
+## Mathlib-Ready Shape
+
+A leaf is Mathlib-ready when it has these properties.
+
+| Check | Required behavior |
+|---|---|
+| Generality | State the reusable mathematical fact, not a SALD-specific wrapper. |
+| Minimal assumptions | Expose only the regularity actually used by the proof. |
+| Local API | Reuse existing Mathlib names before inventing ASTIS names. |
+| Naming | Prefer descriptive names that would still make sense outside SALD. |
+| Proof route | Keep one stable proof route unless reviewer identifies a real statement issue. |
+| Import discipline | Use the smallest reasonable imports and avoid hidden project dependencies. |
+| Callability | Status becomes callable only after `lake build` covers the declaration. |
+
+SALD-specific theorem boundaries still belong in paper-contribution memory.
+Only reusable facts such as law-map integrals, dominated derivative transfer,
+conditional-kernel pairings, KL/FI algebra, weak Fokker--Planck statements,
+Gaussian moments, Ito/Taylor remainders, and integration-by-parts identities
+belong in technical lemma memory.
+
+## Hidden Regularity Contracts
+
+Paper prose often hides assumptions behind phrases such as "standard",
+"smooth", "by Fokker--Planck", or "by integration by parts".  In Lean these
+must be explicit contracts.  Common contracts include:
+
+- measurability or `AEStronglyMeasurable`;
+- integrability or domination for exchanging limits and integrals;
+- finite measure, probability measure, sigma-finiteness, or nonempty space;
+- continuity, differentiability, `ContDiff`, bounded Hessian, or compact
+  support;
+- positivity or nonzero density hypotheses for logarithms and KL terms;
+- no-boundary, compact-support, or decay assumptions for integration by parts;
+- a fixed conditional-distribution representative when conditional laws are
+  used.
+
+When a hidden regularity fact is needed in more than one proof, promote it to
+`AutoSamplingTheory/TechnicalLemmas/*` and register it under
+`research-wiki/technical-lemmas/`.
+
+## Local Mathlib Search Discipline
+
+Before writing a new technical lemma, middle and lower agents should search
+the local Mathlib checkout and ASTIS memory:
+
+```bash
+rg -n "condDistrib|map.*integral|HasDerivAt|Kullback|Fisher|Gaussian" .lake/packages/mathlib/Mathlib AutoSamplingTheory
+rg -n "theorem|lemma" AutoSamplingTheory/TechnicalLemmas research-wiki/technical-lemmas
+```
+
+If Mathlib already has the theorem, the ASTIS leaf should be a thin usage
+proof or notation bridge.  If Mathlib has only nearby infrastructure, the
+ASTIS leaf should be written in a way that could later be upstreamed.
+"""
+
+
+def technical_lemmas_readme_text() -> str:
+    return """# Technical Lemmas
+
+Canonical memory for reusable Sampling/SDE background facts: KL/FI/LSI, weak
+Fokker--Planck, Ito/Taylor, Gaussian moments, measurability, integrability,
+conditional laws, law-map rewrites, and integration-by-parts tools.
+
+This folder is the skill memory for lower agents.  A lemma is callable only
+when it is ASTIS-owned Lean code and the local gate covers it.  External Lean
+projects such as lean-stat-learning-theory, lean-rademacher, MathCode, and
+LeanMarathon are references or port sources; they are not silently treated as
+local proofs.
+
+## Memory Split
+
+| Layer | What goes here | What does not go here |
+|---|---|---|
+| Technical lemma memory | General SDE/Sampling facts that can be reused across papers. | SALD-specific theorem statements or paper-only constants. |
+| Paper contribution memory | A paper's own theorem leaves, source lines, and exact proof route. | Generic measure-theory, probability, or analysis facts. |
+| Port queue | External declarations that look useful but are not yet ASTIS-owned. | Claims marked callable before they compile locally. |
+
+## Required Leaf Packet
+
+Every new reusable lemma should be accompanied by the template in
+`mathlib_ready_leaf_template.md`.  The packet must name local APIs, intended
+proof route, hidden regularity contracts, and failure policy.
+
+## DAG Entry Points
+
+- `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` gives the reusable
+  skill tree.
+- `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` gives the current SALD
+  weak-Fokker--Planck leaf DAG and next lower-agent priorities.
+- `hidden_regularities.md` lists reusable regularity contracts that should be
+  pulled out of paper prose and made explicit.
+"""
+
+
+def mathlib_ready_leaf_template_text() -> str:
+    return """# Mathlib-Ready Leaf Template
+
+Copy this template for every reusable technical lemma target.  Keep it short:
+the goal is a packet that one lower agent can execute without rereading the
+whole paper or long run history.
+
+## Leaf
+
+- Leaf id:
+- Proposed Lean name:
+- Proposed namespace:
+- Target file:
+- Status: `candidate`, `in-progress`, `formalized-local`, `port-queue`, or
+  `blocked-by-statement`.
+
+## Mathematical Statement
+
+Write the statement in ordinary mathematics in one paragraph.  State whether
+it is domain-general enough to become a Mathlib contribution or should remain
+ASTIS-local.
+
+## Local APIs To Try First
+
+- ASTIS declarations:
+- Mathlib files/declarations:
+- External reference projects:
+
+## Hidden Regularity Contracts
+
+List the exact assumptions required by the proof:
+
+- measurability:
+- integrability/domination:
+- differentiability/smoothness:
+- boundedness/compact support/decay:
+- measure assumptions:
+- conditional-distribution representative:
+- positivity/nonzero assumptions:
+
+## Intended Proof Route
+
+1. 
+2. 
+3. 
+
+Stop at seven steps.  If more steps are needed, decompose the target.
+
+## Failure Policy
+
+If the same proof route fails two or three times, do not keep editing the
+proof script.  Record the failure as one of:
+
+- missing assumption;
+- false statement or counterexample risk;
+- wrong representative or definitional mismatch;
+- Mathlib API mismatch;
+- target too large and must be split.
+
+## Reviewer Checklist
+
+- Builds locally.
+- No fake proof closure.
+- Statement is smaller than the parent theorem.
+- No broad same-shape wrapper.
+- Hidden regularity is explicit.
+- Source/upstream reference is recorded.
+"""
+
+
+def hidden_regularities_text() -> str:
+    return """# Hidden Regularity Contracts
+
+This file turns paper prose such as "standard", "smooth", or "by dominated
+convergence" into reusable theorem-contract categories.  These are not
+annoying bookkeeping details; they are the assumptions that decide whether a
+Lean statement is true.
+
+| Contract | Why it matters | Typical ASTIS location |
+|---|---|---|
+| Measurability | Needed before integrals, kernels, conditional expectations, and laws are well-typed. | `AutoSamplingTheory/TechnicalLemmas/Measure.lean` |
+| Integrability | Needed before Bochner integrals, KL/FI terms, and limits under integrals are legal. | `Measure.lean`, `Variational.lean` |
+| Domination | Needed for dominated convergence and parametric integral differentiation. | `Measure.lean` |
+| Smoothness | Needed for Ito/Taylor generator and Hessian remainder statements. | `Taylor.lean`, SDE leaf files |
+| Bounded Hessian | Needed for one-step Taylor remainders and EM weak-error bounds. | `Taylor.lean` |
+| Compact support or decay | Needed to erase boundary terms in integration by parts. | future `IBP.lean` |
+| Probability/finite measure | Needed for law-map, conditional law, and entropy statements. | `Measure.lean` |
+| Conditional representative | Needed because conditional laws are only defined up to a.e. equality. | `Measure.lean`, `SDE.lean` |
+| Positivity/nonzero density | Needed for log, KL, score, and Fisher-information algebra. | `Variational.lean` |
+| Time regularity | Needed for differentiating time-indexed laws and weak-test integrals. | future `WeakFP.lean` |
+
+Reviewer rule: if a lower proof succeeds only by assuming one of these
+contracts informally, the result is not complete.  Either add the contract to
+the statement, prove it from existing hypotheses, or record a source-cited
+proof obligation.
+"""
+
+
+def sde_sampling_skill_tree_text() -> str:
+    return """# SDE/Sampling Technical Lemma Skill Tree
+
+This is the reusable lemma network ASTIS should grow beyond SALD.  The aim is
+not only to reproduce one paper, but to build a Mathlib-ready path for common
+Sampling/SDE proof blocks.
+
+```mermaid
+flowchart LR
+  M[Mathlib foundations]
+  Search[Mathlib search and API scout]
+  Measure[Measure and law-map rewrites]
+  Kernel[Conditional laws and kernels]
+  Deriv[Parametric integral and law derivatives]
+  Ito[Ito generator and weak FP]
+  Taylor[Ito/Taylor local error]
+  Gaussian[Gaussian and Brownian moments]
+  KL[KL/FI/log-density algebra]
+  LSI[LSI/DV/Gronwall chains]
+  IBP[Integration by parts and boundary contracts]
+  SALD[SALD faithful proof DAG]
+  RMFLD[RMFLD exploratory DAG]
+
+  M --> Search
+  Search --> Measure
+  Search --> Kernel
+  Search --> Gaussian
+  Measure --> Deriv
+  Kernel --> Ito
+  Deriv --> Ito
+  Gaussian --> Taylor
+  Taylor --> Ito
+  KL --> LSI
+  IBP --> KL
+  Ito --> SALD
+  LSI --> SALD
+  Ito --> RMFLD
+  KL --> RMFLD
+```
+
+## Skill Blocks
+
+| Block | Typical leaf size | Mathlib-ready target |
+|---|---|---|
+| Mathlib search | One API packet. | Find existing lemma before porting. |
+| Measure/law map | One rewrite theorem. | Integral of a test function under a map/law. |
+| Conditional laws | One pairing identity. | `condDistrib` kernel pairing, then optional conditional-mean form. |
+| Parametric integral | One derivative transfer. | Move sample-space derivative to law-level weak-test derivative under domination. |
+| Ito/weak FP | One weak-test identity. | Derive law-level weak FP from a source-cited Ito generator theorem plus law rewrites. |
+| Ito/Taylor | One local expansion or bound. | Backup Gaussian one-step generator, covariance trace, or Taylor remainder bound. |
+| KL/FI | One algebraic derivative/integrability fact. | KL pointwise derivative, mass-term removal, or Fisher-information rewrite. |
+| LSI/DV/Gronwall | One inequality handoff. | Donsker--Varadhan, LSI-to-KL/FI, or scalar Gronwall block. |
+| IBP | One boundary contract plus identity. | Integration-by-parts identity with explicit decay/compact support. |
+
+## Current Pro-Assimilated Leaf Families
+
+These are the concrete leaf families extracted from the external proof-engineering
+advice packet.
+
+| Family | First leaf | Keep source-cited? | Why |
+|---|---|---|---|
+| Conditional pairing | `condDistrib_pairing_kernel_integral` | no | Directly prove from `ProbabilityTheory.condDistrib` and integral-map APIs. |
+| Conditional mean | `condDrift_pairing_of_condMean` | no | Use Bochner integral and continuous linear maps after the kernel form. |
+| Weak FP bridge | `weakFP_from_ito_generator` | no | Small rewriting theorem once Ito derivative, conditional pairing, and law-map rewrites are supplied. |
+| Frozen Ito generator | `frozen_interpolation_ito_generator_derivative` | yes, initially | This is the analytic Ito theorem; isolate and cite until a local SDE library exists. |
+| KL density derivative | `hasDerivAt_KLDens` | yes/local structure | Requires local dominated derivative structure; prove pointwise algebra separately. |
+| KL algebra | `kl_pointwise_deriv_simplify`, `kl_derivative_remove_mass_term` | no | Small real algebra leaf. |
+| IBP theorem | `integral_div_smul_eq_neg_integral_inner_grad` | yes, initially | Whole-space boundary conditions are substantial; use explicit compact-support/decay contract. |
+| Fisher algebra | `fp_rewrite_scalar_algebra`, `fisher_ibp_algebra` | no | Small algebra once analytic IBP identities are supplied. |
+| Gaussian fallback | `covariance_contracts_bilinear_form`, `frozen_gaussian_one_step_generator` | maybe | Backup route if Ito generator source theorem is not usable. |
+
+## Agent Routing
+
+- `upper_proof_dag` chooses which skill block is the true bottleneck.
+- `middle_technical_lemma` searches Mathlib and ASTIS memory before assigning
+  lower work.
+- `lower_1` writes the natural-language proof and hidden regularity list.
+- `lower_2` implements the smallest Lean theorem.
+- `lower_3` searches APIs and external reference projects.
+- `reviewer_gate` rejects broad wrappers and missing regularity.
+"""
+
+
+def sald_weak_fp_leaf_dag_text() -> str:
+    return """# SALD Weak-Fokker--Planck Leaf DAG
+
+This graph records the current reusable technical-lemma route for the SALD
+Euler--Maruyama interpolation / conditional weak Fokker--Planck backend.  It
+is deliberately smaller than the whole SALD proof.  The purpose is to stop
+lower agents from replaying broad SALD routes when one weak-test bridge is the
+real blocker.
+
+```mermaid
+flowchart TD
+  Root[emInterpolationConditionalWeakFp]
+  Bridge[weakFP_from_ito_generator]
+  ItoGen[frozen_interpolation_ito_generator_derivative]
+  LawDeriv[law-level weak-test derivative rewrite]
+  PairKernel[condDistrib_pairing_kernel_integral]
+  PairMean[condDrift_pairing_of_condMean]
+  LapLaw[laplacian law-map rewrite]
+  Reg[hidden regularity contracts]
+  KL[KL/FI downstream handoff]
+  KLPt[kl_pointwise_deriv_simplify]
+  KLMass[kl_derivative_remove_mass_term]
+  IBP[integral_div_smul_eq_neg_integral_inner_grad]
+  Fisher[fisher_ibp_algebra]
+  SALD[SALD discrete moving-target theorem]
+  Fallback[Brownian Taylor/DCT fallback]
+  Cov[covariance_contracts_bilinear_form]
+  GaussGen[frozen_gaussian_one_step_generator]
+
+  SALD --> Root
+  Root --> Bridge
+  Bridge --> ItoGen
+  Bridge --> LawDeriv
+  Bridge --> PairKernel
+  PairKernel --> PairMean
+  Bridge --> LapLaw
+  Bridge --> Reg
+  Root --> KL
+  KL --> KLPt
+  KL --> KLMass
+  KL --> IBP
+  IBP --> Fisher
+  Fallback -. use only if Ito route is false .-> Cov
+  Cov --> GaussGen
+  GaussGen -. backup generator .-> ItoGen
+```
+
+## Current Leaf Priorities
+
+| Priority | Leaf | Status | Route |
+|---|---|---|---|
+| 1 | `condDistrib_pairing_kernel_integral` | directly provable target | Use `ProbabilityTheory.condDistrib`/conditional expectation bridge plus integral-map. Avoid vector conditional mean at first. |
+| 2 | `weakFP_from_ito_generator` | directly provable target | Rewrite sample-space Ito derivative into law-level weak FP using law identity, conditional pairing, and Laplacian map rewrite. |
+| 3 | `condDrift_pairing_of_condMean` | technical lemma after priority 1 | Pull inner product through Bochner integral with a continuous linear map. |
+| 4 | `lawLevelDerivative_of_sampleDerivative` | technical lemma | Use eventual equality of law integrals and `HasDerivAt.congr_of_eventuallyEq`. |
+| 5 | `laplacianLawMapIntegral` | technical lemma | Rewrite law integral of Laplacian/test function under endpoint map. |
+| 6 | `kl_pointwise_deriv_simplify` and `kl_derivative_remove_mass_term` | directly provable algebra | Keep KL analytic domination as a separate contract; close only the algebra leaf locally. |
+| 7 | `fp_rewrite_scalar_algebra` and `fisher_ibp_algebra` | directly provable algebra | Use only after IBP identities are supplied. |
+
+## Non-Goals For The Next Lower Packet
+
+- Do not reprove the whole SALD theorem.
+- Do not add same-shape theorem wrappers.
+- Do not switch back to Brownian Taylor/DCT unless the Ito-generator bridge is
+  shown false or missing a necessary assumption.
+- Do not mark external SLT or Mathlib-inspired facts as callable until they
+  are ASTIS-owned compiled declarations.
+
+## Source-Cited Analytic Contracts
+
+These are intentionally isolated.  They can become future local SDE library
+theorems, but they should not block the directly provable measure-rewrite and
+algebra leaves.
+
+| Contract | Why source-cited first |
+|---|---|
+| `frozen_interpolation_ito_generator_derivative` | Finite-dimensional Ito formula plus martingale expectation zero is real stochastic-analysis infrastructure. |
+| `hasDerivAt_KLDens` | Requires dominated differentiation under the KL-density integral.  Pointwise algebra is small, domination is not. |
+| `integral_div_smul_eq_neg_integral_inner_grad` | Whole-space no-boundary IBP needs compact-support, periodic, or decay hypotheses. |
+| `taylor_second_order_remainder_bound` | High-order Frechet Taylor theorem with explicit remainder is a separate calculus block. |
+
+## Human Reading Guide
+
+The remaining issue is not that the VA-SALD idea is unclear.  The paper uses
+standard stochastic-analysis language.  Lean needs the exact bridge from a
+sample-path generator statement to a law-level weak equation, including the
+conditional-law representative and regularity assumptions.  That bridge is a
+reusable SDE/Sampling technical lemma, so ASTIS should grow it in technical
+lemma memory and not hide it inside a SALD-specific proof block.
+"""
+
+
+def pro_assimilated_leaf_targets_text() -> str:
+    return """# Pro-Assimilated SDE/Sampling Leaf Targets
+
+This file compresses the external proof-engineering advice packet into ASTIS
+leaf targets.  It is meant for upper and middle agents before the next 6h run.
+Do not paste the long advice packet into every prompt; retrieve this compact
+DAG instead.
+
+## Main Route
+
+```mermaid
+flowchart TD
+  A1[condDistrib_pairing_kernel_integral]
+  A2[condDrift_pairing_of_condMean]
+  B1[weakFP_from_ito_generator]
+  Ito[frozen_interpolation_ito_generator_derivative]
+  Law[law integral eventual equality]
+  Lap[laplacian law-map integral]
+  KL1[kl_pointwise_deriv_simplify]
+  KL2[kl_derivative_remove_mass_term]
+  IBP[integral_div_smul_eq_neg_integral_inner_grad]
+  ALG1[fp_rewrite_scalar_algebra]
+  ALG2[fisher_ibp_algebra]
+
+  A1 --> A2
+  Ito --> B1
+  A1 --> B1
+  Law --> B1
+  Lap --> B1
+  B1 --> KL1
+  KL1 --> KL2
+  B1 --> IBP
+  IBP --> ALG1
+  ALG1 --> ALG2
+```
+
+## Directly Provable Lean Leaves
+
+| Leaf | Intended shape | First search area |
+|---|---|---|
+| `condDistrib_pairing_kernel_integral` | Kernel integral of inner product equals sample-space integral. | `Mathlib.Probability.Kernel.CondDistrib`, `MeasureTheory.integral_map`. |
+| `condDrift_pairing_of_condMean` | Conditional mean version using Bochner integral and continuous linear maps. | Bochner integral continuous-linear-map APIs. |
+| `weakFP_from_ito_generator` | HasDerivAt law-level weak FP from supplied Ito derivative, pairing, and law rewrites. | `HasDerivAt.congr_of_eventuallyEq`, integral-map rewrites. |
+| `kl_pointwise_deriv_simplify` | Real algebra for derivative of `q * log (q / p)`. | `field_simp`, `ring`. |
+| `kl_derivative_remove_mass_term` | Remove the mass-conservation derivative term. | `simpa`, commutative additive rewrites. |
+| `fp_rewrite_scalar_algebra` | Rewrite `-div(q b) + a lap q` into `a div(q A) + div(q V)`. | `ring`. |
+| `fisher_ibp_algebra` | Combine two IBP identities into the Fisher/cross term. | `ring`. |
+| `covariance_contracts_bilinear_form` | Covariance contracts a bilinear form to the coordinate trace. | Finite sums over `Fin d`, coordinate moments. |
+
+## Source-Cited Or Isolated Analytic Contracts
+
+| Contract | Why it is isolated |
+|---|---|
+| `frozen_interpolation_ito_generator_derivative` | Requires finite-dimensional Ito formula and martingale expectation zero. |
+| `hasDerivAt_KLDens` | Requires local dominated derivative structure for a parameter integral. |
+| `integral_div_smul_eq_neg_integral_inner_grad` | Requires compact-support, torus, or decay/no-boundary assumptions. |
+| `taylor_second_order_remainder_bound` | Requires high-order finite-dimensional Taylor theorem with explicit remainder. |
+| `frozen_gaussian_one_step_generator` | Backup Markov-kernel route; useful only if the Ito route is unusable. |
+
+## Hidden Contracts To Expose
+
+- `State d = EuclideanSpace R (Fin d)` or an explicitly equivalent state
+  type.
+- Probability or finite measure assumptions on the sample space.
+- Measurability/a.e. measurability of `hatX`, frozen drift `B`, tests, gradient,
+  and Laplacian fields.
+- Integrability of `B`, pairings, Laplacian test, and KL/FI quantities.
+- Eventual law identity `hatRho s = mu.map (hatX s)` near the derivative point.
+- Conditional drift representative
+  `barB = ae[mu.map (hatX s0)] condMean (hatX s0) B`.
+- Positivity and domination assumptions for KL density derivatives.
+- Compact support, periodicity, or decay/no-boundary assumptions for IBP.
+
+## Next-Run Directive
+
+The next lower batch should start with `condDistrib_pairing_kernel_integral`
+or `weakFP_from_ito_generator`.  These are small enough to be meaningful Lean
+work.  Do not send lower agents back to the whole SALD theorem, and do not ask
+them to formalize the full Ito formula unless the smaller bridge has been
+diagnosed as false or unusable.
+"""
+
+
+def sampling_lemma_dag_mmd_text() -> str:
+    return """flowchart LR
+  M[Mathlib]
+  A[ASTIS Technical Lemmas]
+  P[Paper Contributions]
+  R[Reviewer Gate]
+  S[Source Lines]
+  L[One Leaf Lemma]
+  H[Hidden Regularity Contracts]
+  D[Dependency DAG]
+  E[Compiled Lean Declaration]
+
+  S --> D
+  D --> L
+  A --> L
+  M --> L
+  H --> L
+  L --> E
+  E --> R
+  R --> P
+"""
+
+
+def render_svg_preview(svg_path: Path, png_path: Path) -> bool:
+    converter = shutil.which("convert") or shutil.which("magick")
+    if not converter:
+        return False
+    convert_cmd = [converter, str(svg_path), str(png_path)]
+    if Path(converter).name == "magick":
+        convert_cmd = [converter, "convert", str(svg_path), str(png_path)]
+    completed = subprocess.run(convert_cmd, cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if completed.returncode != 0:
+        print(f"warning: could not render PNG preview with {converter}: {completed.stdout.strip()}")
+        return False
+    print(f"wrote {rel(png_path)}")
+    return True
+
+
+def leaf_network_style(kind: str) -> tuple[str, str, str]:
+    styles = {
+        "input": ("#eef4ff", "#2d5fb3", "#17335f"),
+        "memory": ("#e6f4ea", "#2e7d59", "#214f3b"),
+        "contract": ("#fff4d8", "#b7791f", "#6b4a13"),
+        "leaf": ("#f1f7ff", "#3973b7", "#1f4e7a"),
+        "analytic": ("#fdecea", "#c24135", "#7f1d1d"),
+        "consumer": ("#efe7f7", "#6d4aa2", "#442465"),
+        "gate": ("#f8fafc", "#64748b", "#334155"),
+    }
+    return styles.get(kind, ("#ffffff", "#94a3b8", "#334155"))
+
+
+def leaf_network_node(node_id: str, x: int, y: int, w: int, h: int, title: str, subtitle: str, kind: str) -> str:
+    fill, stroke, text = leaf_network_style(kind)
+    title = html.escape(title)
+    subtitle = html.escape(subtitle)
+    return f"""
+<g id="{html.escape(node_id)}">
+  <rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" ry="10" fill="{fill}" stroke="{stroke}" stroke-width="2"/>
+  <text x="{x + w / 2:.1f}" y="{y + 26}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="{text}">{title}</text>
+  <text x="{x + w / 2:.1f}" y="{y + 49}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">{subtitle}</text>
+</g>"""
+
+
+def leaf_network_edge(
+    src: tuple[int, int, int, int],
+    dst: tuple[int, int, int, int],
+    label: str = "",
+    dashed: bool = False,
+) -> str:
+    sx = src[0] + src[2] / 2
+    sy = src[1] + src[3]
+    dx = dst[0] + dst[2] / 2
+    dy = dst[1]
+    mid = (sy + dy) / 2
+    dash = ' stroke-dasharray="7 5"' if dashed else ""
+    label_svg = ""
+    if label:
+        label_svg = (
+            f'<text x="{(sx + dx) / 2:.1f}" y="{mid - 5:.1f}" text-anchor="middle" '
+            'font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#475569">'
+            f"{html.escape(label)}</text>"
+        )
+    return (
+        f'<path d="M {sx:.1f} {sy:.1f} C {sx:.1f} {mid:.1f}, {dx:.1f} {mid:.1f}, {dx:.1f} {dy:.1f}" '
+        f'fill="none" stroke="#7f8da3" stroke-width="1.5"{dash} marker-end="url(#arrowLeaf)"/>'
+        + label_svg
+    )
+
+
+def sampling_sde_leaf_network_svg() -> str:
+    boxes = {
+        "mathlib": (55, 90, 220, 64, "Mathlib search", "reuse before porting", "input"),
+        "refs": (55, 200, 220, 64, "Reference projects", "SLT, stochastic notes, local Lean", "input"),
+        "memory": (365, 90, 245, 64, "Technical lemma memory", "ASTIS-owned compiled surface", "memory"),
+        "regularity": (365, 200, 245, 64, "Hidden regularity contracts", "measurable, integrable, bounded", "contract"),
+        "measure": (710, 55, 245, 64, "Measure and law map", "integral_map, laws, domination", "leaf"),
+        "kernel": (1010, 55, 245, 64, "Conditional laws", "condDistrib pairing leaves", "leaf"),
+        "gaussian": (710, 165, 245, 64, "Gaussian/Taylor", "moments, trace, local error", "leaf"),
+        "ito": (1010, 165, 245, 64, "Weak FP bridge", "Ito generator to law identity", "leaf"),
+        "kl": (710, 300, 245, 64, "KL/FI algebra", "log-density and mass terms", "leaf"),
+        "ibp": (1010, 300, 245, 64, "IBP/boundary", "compact support or decay contract", "analytic"),
+        "lsi": (710, 430, 245, 64, "LSI/DV/Gronwall", "inequality handoff blocks", "leaf"),
+        "analytic": (1010, 430, 245, 64, "Source-cited analysis", "Ito, KL derivative, no-boundary IBP", "analytic"),
+        "sald": (710, 605, 245, 68, "SALD case study", "paper contribution consumer", "consumer"),
+        "rmfld": (1010, 605, 245, 68, "Exploratory SDE tasks", "RMFLD and future papers", "consumer"),
+        "reviewer": (365, 605, 245, 68, "Reviewer gate", "build, source, regularity, no churn", "gate"),
+    }
+    edges = [
+        ("mathlib", "memory", "API scout", False),
+        ("refs", "memory", "port queue", False),
+        ("refs", "regularity", "assumptions", True),
+        ("memory", "measure", "", False),
+        ("memory", "kernel", "", False),
+        ("memory", "gaussian", "", False),
+        ("regularity", "measure", "", True),
+        ("regularity", "kernel", "", True),
+        ("regularity", "ito", "", True),
+        ("measure", "ito", "law rewrite", False),
+        ("kernel", "ito", "conditional drift", False),
+        ("gaussian", "ito", "backup generator", False),
+        ("ito", "kl", "weak equation", False),
+        ("ibp", "kl", "Fisher term", False),
+        ("kl", "lsi", "entropy chain", False),
+        ("analytic", "ito", "source contract", True),
+        ("analytic", "ibp", "source contract", True),
+        ("lsi", "sald", "", False),
+        ("ito", "sald", "", False),
+        ("kl", "rmfld", "", False),
+        ("ito", "rmfld", "", False),
+        ("sald", "reviewer", "", False),
+        ("rmfld", "reviewer", "", False),
+    ]
+    node_parts = [
+        leaf_network_node(node_id, x, y, w, h, title, subtitle, kind)
+        for node_id, (x, y, w, h, title, subtitle, kind) in boxes.items()
+    ]
+    edge_parts = [
+        leaf_network_edge(boxes[src][:4], boxes[dst][:4], label, dashed)
+        for src, dst, label, dashed in edges
+    ]
+    generated = html.escape(now_stamp())
+    return f"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1320" height="750" viewBox="0 0 1320 750" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arrowLeaf" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+    <polygon points="0 0, 9 3.5, 0 7" fill="#7f8da3"/>
+  </marker>
+</defs>
+<rect width="1320" height="750" fill="white"/>
+<text x="660" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">ASTIS SDE/Sampling Leaf Lemma Network</text>
+<text x="660" y="58" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Reusable technical lemmas are the library center.  SALD and RMFLD consume this arsenal instead of owning background analysis facts.</text>
+<rect x="690" y="35" width="585" height="480" rx="16" ry="16" fill="none" stroke="#2e7d59" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="982" y="525" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700" fill="#2e7d59">Mathlib-ready leaf families</text>
+<g id="edges">
+{chr(10).join(edge_parts)}
+</g>
+<g id="nodes">
+{chr(10).join(node_parts)}
+</g>
+<g id="legend">
+  <rect x="55" y="675" width="560" height="50" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="75" y="697" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">Reviewer principle</text>
+  <text x="75" y="717" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#475569">One leaf lemma per packet; expose regularity; repeated failure means recheck the statement, not churn the proof.</text>
+  <text x="970" y="724" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py lemma-dag-refresh</text>
+</g>
+</svg>
+"""
+
+
+def leaf_packet_brief_text() -> str:
+    return """# Lower-Agent Mathlib-Ready Leaf Packet
+
+Use this brief when assigning lower agents to reusable SDE/Sampling lemmas.
+
+## Assignment Rule
+
+One packet, one theorem.  Do not change the theorem statement unless the
+reviewer or upper director has identified a mathematical issue.
+
+## Required Output
+
+- final theorem name and file;
+- proof route actually tried;
+- exact Mathlib or ASTIS declarations reused;
+- hidden regularity contracts consumed;
+- whether the target compiled;
+- if blocked, the mathematical signal: missing assumption, false statement,
+  API mismatch, representative mismatch, or too-large target.
+
+## Anti-Churn Rule
+
+After repeated failure, stop editing the proof script.  Return a smaller leaf
+or a statement diagnosis.  This is especially important for measure theory,
+conditional laws, weak Fokker--Planck identities, and KL/FI algebra.
+"""
+
+
+def write_mathlib_ready_leaf_docs() -> list[Path]:
+    outputs: list[Path] = []
+    path_texts = [
+        (ROOT / "docs" / "mathlib_ready_leaf_protocol.md", mathlib_ready_leaf_protocol_text()),
+        (LEMMA_DAG_DIR / "README.md", "# Lemma DAGs\n\nThis folder stores Mathlib-ready dependency graphs for reusable SDE/Sampling leaf lemmas.\n\nRun:\n\n```bash\npython3 tools/astis.py lemma-dag-refresh\n```\n\n"),
+        (LEMMA_DAG_DIR / "SDE_Sampling_skill_tree.md", sde_sampling_skill_tree_text()),
+        (LEMMA_DAG_DIR / "SALD_weak_fp_leaf_dag.md", sald_weak_fp_leaf_dag_text()),
+        (LEMMA_DAG_DIR / "Pro_assimilated_leaf_targets.md", pro_assimilated_leaf_targets_text()),
+        (ROOT / "docs" / "assets" / "sampling_lemma_dag.mmd", sampling_lemma_dag_mmd_text()),
+        (ROOT / "docs" / "assets" / "sampling_sde_leaf_network.svg", sampling_sde_leaf_network_svg()),
+        (AGENT_BRIEFS_DIR / "mathlib_ready_leaf_packet.md", leaf_packet_brief_text()),
+    ]
+    for path, text in path_texts:
+        write_text(path, text)
+        outputs.append(path)
+
+    leaf_png = ROOT / "docs" / "assets" / "sampling_sde_leaf_network.png"
+    if render_svg_preview(ROOT / "docs" / "assets" / "sampling_sde_leaf_network.svg", leaf_png):
+        outputs.append(leaf_png)
+
+    mirror_path_texts = [
+        (TECHNICAL_LEMMAS_DIR / "README.md", technical_lemmas_readme_text(), LEGACY_TECHNICAL_LEMMA_MEMORY_DIR / "README.md"),
+        (TECHNICAL_LEMMAS_DIR / "mathlib_ready_leaf_template.md", mathlib_ready_leaf_template_text(), LEGACY_TECHNICAL_LEMMA_MEMORY_DIR / "mathlib_ready_leaf_template.md"),
+        (TECHNICAL_LEMMAS_DIR / "hidden_regularities.md", hidden_regularities_text(), LEGACY_TECHNICAL_LEMMA_MEMORY_DIR / "hidden_regularities.md"),
+    ]
+    for primary, text, mirror in mirror_path_texts:
+        write_text_mirror(primary, text, [mirror])
+        outputs.extend([primary, mirror])
+
+    retrieval = {
+        "generated": now_stamp(),
+        "protocol": "mathlib-ready-leaf",
+        "mathlib_url": MATHLIB_URL,
+        "canonical_docs": [rel(path) for path in outputs if "technical-lemma-memory" not in rel(path)],
+        "leaf_network_svg": "docs/assets/sampling_sde_leaf_network.svg",
+        "rules": [
+            "decompose aggressively",
+            "specify theorem plus APIs plus proof route",
+            "treat persistent failure as mathematical signal",
+            "make hidden regularity reusable",
+            "do not frequently change the proof",
+            "search Mathlib before inventing local lemmas",
+        ],
+        "next_sald_dag": rel(LEMMA_DAG_DIR / "SALD_weak_fp_leaf_dag.md"),
+        "pro_assimilated_leaf_targets": rel(LEMMA_DAG_DIR / "Pro_assimilated_leaf_targets.md"),
+    }
+    retrieval_path = RETRIEVAL_INDEX_DIR / "mathlib-ready-leaf-protocol.json"
+    write_text(retrieval_path, json.dumps(retrieval, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+    outputs.append(retrieval_path)
+    return outputs
+
+
+def cmd_lemma_dag_refresh(_: argparse.Namespace) -> int:
+    cmd_init(argparse.Namespace())
+    outputs = write_mathlib_ready_leaf_docs()
+    for path in outputs:
+        add_manifest("astis.py lemma-dag-refresh", path, "memory", "Refreshed Mathlib-ready SDE/Sampling leaf lemma memory")
+    print("lemma-dag-refresh wrote:")
+    for path in outputs:
+        print(f"- {rel(path)}")
+    return 0
+
+
+ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
+    "AutoSamplingTheory.Core": {
+        "layer": "foundation",
+        "summary": "source anchors, proof obligations, theorem contracts, DAG records",
+        "status": "ASTIS infrastructure; not Mathlib material",
+    },
+    "AutoSamplingTheory.Probability": {
+        "layer": "generic technical core",
+        "summary": "law-map rewrites, dominated law derivatives, conditional-law bridges, KL/DV/LSI bookkeeping",
+        "status": "main Mathlib-ready adapter surface after naming/generalization cleanup",
+    },
+    "AutoSamplingTheory.SDE": {
+        "layer": "contract layer",
+        "summary": "Ito diffusion, Fokker--Planck, Euler--Maruyama, discretization contracts",
+        "status": "ASTIS contract surface; future executable SDE theorem layer",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Gaussian": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "product Gaussian coordinate law, integrability, mean zero, variance-one packaging",
+        "status": "best current upstream candidates after namespace/name cleanup",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Measure": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "search surface for law-map, dominated derivative, conditional-distribution lemmas",
+        "status": "re-export surface over compiled generic probability lemmas",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Taylor": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Hessian/operator norm bridges, orthonormal basis unit, quadratic normalization",
+        "status": "small calculus/algebra leaves; SALD names need generalization before upstream",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Variational": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Donsker--Varadhan, KL/FI/LSI scalar and integral bookkeeping exports",
+        "status": "small compiled consequences; full DV/LSI remains port queue",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Registry": {
+        "layer": "memory index",
+        "summary": "compiled lemma-memory metadata and external port queue",
+        "status": "agent retrieval registry, not theorem content",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.SALDExtracted": {
+        "layer": "paper-extracted technical lemma",
+        "summary": "compiled SALD-derived Brownian/Ito/Gronwall bridges exposed for search",
+        "status": "compiled and useful; must be generalized before Mathlib submission",
+    },
+    "AutoSamplingTheory.SALD": {
+        "layer": "paper consumer",
+        "summary": "SALD case-study theorem contracts, compiled sublemmas, obligations",
+        "status": "consumer of arsenal; no longer the center of the public library map",
+    },
+    "AutoSamplingTheory.RMFLD": {
+        "layer": "exploratory consumer",
+        "summary": "exploratory sampling-theory proof targets",
+        "status": "consumer of arsenal",
+    },
+    "AutoSamplingTheory.Automation": {
+        "layer": "harness",
+        "summary": "compiled process contracts, role contracts, acceptance gates",
+        "status": "automation metadata",
+    },
+    "AutoSamplingTheory.Literature": {
+        "layer": "reference registry",
+        "summary": "paper/source registry",
+        "status": "metadata",
+    },
+    "AutoSamplingTheory.OpenProblems": {
+        "layer": "exploration registry",
+        "summary": "open problem registry",
+        "status": "metadata",
+    },
+    "AutoSamplingTheory": {
+        "layer": "root",
+        "summary": "public root import surface",
+        "status": "module root",
+    },
+}
+
+
+def module_name_from_lean_path(path: Path) -> str:
+    if path == ROOT / "AutoSamplingTheory.lean":
+        return "AutoSamplingTheory"
+    relative = path.relative_to(ROOT).with_suffix("")
+    return ".".join(relative.parts)
+
+
+def lean_module_records() -> list[dict]:
+    files = [*sorted((ROOT / "AutoSamplingTheory").rglob("*.lean")), ROOT / "AutoSamplingTheory.lean"]
+    records: list[dict] = []
+    for path in files:
+        if not path.exists():
+            continue
+        text = read_text(path)
+        module = module_name_from_lean_path(path)
+        imports = re.findall(r"^import\s+([A-Za-z0-9_.'/-]+)$", text, flags=re.M)
+        decls = [
+            {"kind": match.group(1), "name": match.group(2)}
+            for match in re.finditer(
+                LEAN_DECL_NAME_REGEX.pattern,
+                strip_lean_comments_and_strings(text),
+                flags=re.M,
+            )
+        ]
+        exported: list[str] = []
+        for block in re.findall(r"export\s+[A-Za-z0-9_.']+\s*\((.*?)\)", text, flags=re.S):
+            exported.extend(re.findall(r"[A-Za-z][A-Za-z0-9_'.]*", block))
+        records.append({
+            "module": module,
+            "path": rel(path),
+            "imports": imports,
+            "local_imports": [item for item in imports if item.startswith("AutoSamplingTheory")],
+            "declarations": decls,
+            "exports": sorted(set(exported)),
+            "summary": ARSENAL_MODULE_SUMMARIES.get(module, {}).get("summary", ""),
+            "layer": ARSENAL_MODULE_SUMMARIES.get(module, {}).get("layer", "uncategorized"),
+            "status": ARSENAL_MODULE_SUMMARIES.get(module, {}).get("status", ""),
+        })
+    return records
+
+
+def module_record_map(records: list[dict]) -> dict[str, dict]:
+    return {record["module"]: record for record in records}
+
+
+def module_decl_names(record: dict, limit: int = 8) -> list[str]:
+    names = [decl["name"] for decl in record.get("declarations", [])]
+    names.extend(record.get("exports", []))
+    deduped: list[str] = []
+    for name in names:
+        if name not in deduped:
+            deduped.append(name)
+    return deduped[:limit]
+
+
+def arsenal_module_coords() -> dict[str, tuple[int, int, int, int]]:
+    return {
+        "AutoSamplingTheory.Core": (60, 90, 230, 58),
+        "AutoSamplingTheory.Automation": (60, 210, 230, 58),
+        "AutoSamplingTheory.Literature": (60, 330, 230, 58),
+        "AutoSamplingTheory.OpenProblems": (60, 450, 230, 58),
+        "AutoSamplingTheory.Probability": (365, 90, 300, 70),
+        "AutoSamplingTheory.SDE": (700, 90, 250, 70),
+        "AutoSamplingTheory.TechnicalLemmas.Gaussian": (365, 255, 300, 66),
+        "AutoSamplingTheory.TechnicalLemmas.Measure": (700, 255, 300, 66),
+        "AutoSamplingTheory.TechnicalLemmas.Taylor": (365, 380, 300, 66),
+        "AutoSamplingTheory.TechnicalLemmas.Variational": (700, 380, 300, 66),
+        "AutoSamplingTheory.TechnicalLemmas.Registry": (535, 520, 300, 66),
+        "AutoSamplingTheory.TechnicalLemmas.SALDExtracted": (870, 520, 310, 66),
+        "AutoSamplingTheory.RMFLD": (700, 665, 250, 60),
+        "AutoSamplingTheory.SALD": (365, 665, 300, 60),
+        "AutoSamplingTheory": (535, 800, 300, 58),
+    }
+
+
+def arsenal_node_style(layer: str) -> tuple[str, str]:
+    if layer == "root":
+        return "#eaf2ff", "#2563eb"
+    if "Mathlib-ready" in layer or layer == "generic technical core":
+        return "#dff0e4", "#2e7d59"
+    if layer == "paper-extracted technical lemma":
+        return "#f8e5d0", "#d97924"
+    if layer.endswith("consumer"):
+        return "#ece4f5", "#6d4aa2"
+    if layer in {"foundation", "contract layer"}:
+        return "#d8eef6", "#214e8a"
+    return "#f8fafc", "#7f8da3"
+
+
+def svg_rect_node(record: dict, x: int, y: int, w: int, h: int) -> str:
+    fill, stroke = arsenal_node_style(record.get("layer", ""))
+    title = html.escape(record["module"])
+    layer = html.escape(record.get("layer", ""))
+    decl_count = len(record.get("declarations", [])) + len(record.get("exports", []))
+    subtitle = html.escape(f"{layer}; leaves/exports: {decl_count}")
+    return f"""
+<g id="{html.escape(record['module'])}">
+  <rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" ry="8" fill="{fill}" stroke="{stroke}" stroke-width="1.8"/>
+  <text x="{x + w / 2:.1f}" y="{y + 23}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">{title}</text>
+  <text x="{x + w / 2:.1f}" y="{y + 45}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">{subtitle}</text>
+</g>"""
+
+
+def svg_edge(src_box: tuple[int, int, int, int], dst_box: tuple[int, int, int, int]) -> str:
+    sx = src_box[0] + src_box[2] / 2
+    sy = src_box[1] + src_box[3]
+    dx = dst_box[0] + dst_box[2] / 2
+    dy = dst_box[1]
+    mid = (sy + dy) / 2
+    return (
+        f'<path d="M {sx:.1f} {sy:.1f} C {sx:.1f} {mid:.1f}, {dx:.1f} {mid:.1f}, {dx:.1f} {dy:.1f}" '
+        'fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>'
+    )
+
+
+def arsenal_module_graph_svg(records: list[dict]) -> str:
+    coords = arsenal_module_coords()
+    by_module = module_record_map(records)
+    edges: list[str] = []
+    for record in records:
+        dst = record["module"]
+        if dst not in coords:
+            continue
+        for imported in record.get("local_imports", []):
+            if imported in coords and imported != dst:
+                edges.append(svg_edge(coords[imported], coords[dst]))
+    node_parts = []
+    for module, box in coords.items():
+        record = by_module.get(module, {
+            "module": module,
+            "layer": ARSENAL_MODULE_SUMMARIES.get(module, {}).get("layer", ""),
+            "declarations": [],
+            "exports": [],
+        })
+        node_parts.append(svg_rect_node(record, *box))
+    generated = html.escape(now_stamp())
+    return f"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1240" height="900" viewBox="0 0 1240 900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+    <polygon points="0 0, 9 3.5, 0 7" fill="#8a97aa"/>
+  </marker>
+</defs>
+<rect width="1240" height="900" fill="white"/>
+<text x="620" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">ASTIS SDE/Sampling Lean Arsenal Module Graph</text>
+<text x="620" y="58" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Green nodes are the current Mathlib-ready technical lemma surface; orange nodes are compiled but paper-extracted and need generalization.</text>
+<rect x="330" y="225" width="890" height="390" rx="14" ry="14" fill="none" stroke="#2e7d59" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="775" y="245" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#2e7d59">AutoSamplingTheory/TechnicalLemmas</text>
+<g id="edges">
+{chr(10).join(edges)}
+</g>
+<g id="nodes">
+{chr(10).join(node_parts)}
+</g>
+<g id="legend">
+  <rect x="60" y="785" width="355" height="90" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="78" y="810" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">Legend</text>
+  <rect x="78" y="824" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="835" font-family="Helvetica,Arial,sans-serif" font-size="11">Mathlib-ready / generic technical lemma surface</text>
+  <rect x="78" y="844" width="18" height="12" fill="#f8e5d0" stroke="#d97924"/><text x="104" y="855" font-family="Helvetica,Arial,sans-serif" font-size="11">Compiled paper-extracted lemma; generalize before upstream</text>
+  <text x="78" y="870" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py module-graph-refresh</text>
+</g>
+</svg>
+"""
+
+
+def module_file_tree_text() -> str:
+    return """AutoSamplingTheory
+|-- Core.lean
+|-- Probability.lean
+|-- SDE.lean
+|-- TechnicalLemmas
+|   |-- Gaussian.lean
+|   |-- Measure.lean
+|   |-- Taylor.lean
+|   |-- Variational.lean
+|   |-- Registry.lean
+|   `-- SALDExtracted.lean
+|-- Automation.lean
+|-- Literature.lean
+|-- OpenProblems.lean
+|-- SALD.lean
+`-- RMFLD.lean
+"""
+
+
+def arsenal_module_graph_markdown(records: list[dict]) -> str:
+    rows = []
+    for record in records:
+        module = record["module"]
+        if module == "AutoSamplingTheory" or module not in ARSENAL_MODULE_SUMMARIES:
+            continue
+        leaves = ", ".join(f"`{name}`" for name in module_decl_names(record, limit=8)) or "exports/metadata only"
+        if len(module_decl_names(record, limit=99)) > 8:
+            leaves += ", ..."
+        rows.append({
+            "module": f"`{module}`",
+            "file": f"`{record['path']}`",
+            "layer": record.get("layer", ""),
+            "summary": record.get("summary", ""),
+            "leaves": leaves,
+            "status": record.get("status", ""),
+        })
+    return f"""# ASTIS Lean Leaf Module Graph
+
+This is the textual ledger behind `docs/module-graph.svg`.  It lists the
+ASTIS-owned Lean files that form the reusable SDE/Sampling proof-weapon
+library and separates Mathlib-ready technical lemmas from paper consumers.
+
+The graph is intentionally organized like a library map, not like a run log.
+SALD is now only a consumer/case study.  The library center is the reusable
+`Probability`, `SDE`, and `TechnicalLemmas` surface.
+
+![ASTIS module graph](../../docs/module-graph.svg)
+
+## Public Module Tree
+
+```text
+{module_file_tree_text()}```
+
+## Compiled Module And Leaf Families
+
+{markdown_table(rows, [
+    ("Module", "module"),
+    ("File", "file"),
+    ("Layer", "layer"),
+    ("Purpose", "summary"),
+    ("Representative compiled leaves/exports", "leaves"),
+    ("Mathlib-quality status", "status"),
+])}
+
+## Current Library Boundary
+
+| Layer | Rule |
+|---|---|
+| Mathlib-ready technical surface | `Probability.lean`, `TechnicalLemmas/Gaussian.lean`, `TechnicalLemmas/Measure.lean`, `TechnicalLemmas/Taylor.lean`, and `TechnicalLemmas/Variational.lean` are the first upstream-quality targets after names and hypotheses are generalized. |
+| ASTIS contract surface | `SDE.lean` states the domain contracts that future executable SDE lemmas should discharge. |
+| Paper-extracted compiled leaves | `TechnicalLemmas/SALDExtracted.lean` exposes useful local theorems, but they remain SALD-derived until generalized. |
+| Consumers | `SALD.lean` and `RMFLD.lean` consume the arsenal; they are not the public foundation. |
+
+## External Reference Memory
+
+External Lean code and textbooks are preserved as reference cards under
+`research-wiki/external-lean-libraries/`.  They are port sources and proof-style
+memory, not local proof certificates.
+
+| Reference | Card |
+|---|---|
+| Mathlib | `research-wiki/external-lean-libraries/mathlib.md` |
+| `YuanheZ/lean-stat-learning-theory` | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` |
+| `auto-res/lean-rademacher` | `research-wiki/external-lean-libraries/lean-rademacher.md` |
+| Chewisinho stochastic-process notes | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` |
+
+## Agent Rule
+
+Upper agents use this graph to choose the likely proof family.  Middle agents
+turn the selected family into one or two Mathlib-ready leaves and must search
+Mathlib plus this arsenal before assigning generic infrastructure.  Lower Lean
+workers prove one stable leaf at a time.  Persistent failure means the
+statement probably needs a hidden regularity contract, a missing assumption, or
+a counterexample audit.
+"""
+
+
+def arsenal_module_card_text(record: dict) -> str:
+    decls = module_decl_names(record, limit=40)
+    decl_lines = "\n".join(f"- `{name}`" for name in decls) or "- no direct declarations or exports"
+    imports = "\n".join(f"- `{item}`" for item in record.get("imports", [])) or "- none"
+    return f"""# {record['module']}
+
+- File: `{record['path']}`
+- Layer: {record.get('layer', 'uncategorized')}
+- Purpose: {record.get('summary', '')}
+- Mathlib-quality status: {record.get('status', '')}
+
+## Imports
+
+{imports}
+
+## Representative Declarations And Exports
+
+{decl_lines}
+
+## Agent Usage
+
+Search this card before inventing a nearby technical lemma.  If the needed fact
+is generic and missing, create a Mathlib-ready leaf packet rather than hiding
+the requirement inside a paper-specific theorem.
+"""
+
+
+def external_reference_cards() -> dict[Path, str]:
+    chewi_pdf = OUTER_REPOS_SAMPLING_ROOT / "chewisinho-stochastic-processes-main.pdf"
+    return {
+        EXTERNAL_LEAN_LIBRARY_DIR / "mathlib.md": f"""# Mathlib
+
+- Public site: {MATHLIB_URL}
+- Local checkout searched by ASTIS: `.lake/packages/mathlib/Mathlib`
+- Role: upstream target and first search surface for reusable SDE/Sampling
+  technical lemmas.
+
+ASTIS agents must search Mathlib before creating a generic local theorem.  If
+Mathlib already has the result, ASTIS should prove only the narrow adapter
+needed by the current project.  If ASTIS proves a clean generic theorem, the
+leaf should be written so it can later be proposed upstream.
+""",
+        EXTERNAL_LEAN_LIBRARY_DIR / "lean-stat-learning-theory.md": f"""# YuanheZ/lean-stat-learning-theory
+
+- Public repository: {SLT_URL}
+- Paper: {SLT_ARXIV_URL}
+- Local checkout: `{SLT_ROOT}`
+- Role: audited port/reference source for probability, Gaussian,
+  concentration, entropy duality, log-Sobolev/Poincare, and discretization
+  proof style.
+
+ASTIS does not use this as a Lake dependency because toolchains differ.  Useful
+theorems are copied only as ASTIS-owned Lean declarations after local build
+verification, or recorded in the port queue.
+""",
+        EXTERNAL_LEAN_LIBRARY_DIR / "lean-rademacher.md": """# auto-res/lean-rademacher
+
+- Public repository: https://github.com/auto-res/lean-rademacher
+- Local checkout: `../outer_repos/automation_systems/lean-rademacher`
+- Role: nearby reference for concentration, symmetrization, separability,
+  Dudley-style entropy, and large-proof staging.
+
+ASTIS treats it as proof-architecture memory.  Any theorem needed by ASTIS
+must be ported into an ASTIS-owned module or recorded as a proof obligation.
+""",
+        EXTERNAL_LEAN_LIBRARY_DIR / "chewisinho-stochastic-processes.md": f"""# Chewisinho Stochastic-Process Notes
+
+- Public PDF: https://chewisinho.github.io/main.pdf
+- Local downloaded PDF: `{chewi_pdf}`
+- Role: textbook-style source for stochastic processes, SDE intuition, Markov
+  kernels, conditional expectation, and weak-generator routes.
+
+Textbook statements are not automatically Lean-ready.  Agents should extract
+small theorem contracts, expose hidden regularity assumptions, then search
+Mathlib and ASTIS before assigning lower work.
+""",
+    }
+
+
+def write_arsenal_module_graph_docs() -> list[Path]:
+    records = lean_module_records()
+    outputs: list[Path] = []
+    path_texts = [
+        (ROOT / "docs" / "module-graph.svg", arsenal_module_graph_svg(records)),
+        (ROOT / "docs" / "assets" / "astis_lean_arsenal_module_graph.svg", arsenal_module_graph_svg(records)),
+        (SAMPLING_LIBRARY_DIR / "lean-leaf-module-graph.md", arsenal_module_graph_markdown(records)),
+        (SAMPLING_LIBRARY_DIR / "index.md", "# ASTIS Sampling/SDE Lean Library\n\nStart with [`lean-leaf-module-graph.md`](lean-leaf-module-graph.md).\n"),
+    ]
+    json_payload = {
+        "generated": now_stamp(),
+        "module_graph_svg": "docs/module-graph.svg",
+        "ledger": rel(SAMPLING_LIBRARY_DIR / "lean-leaf-module-graph.md"),
+        "modules": records,
+    }
+    path_texts.append((RETRIEVAL_INDEX_DIR / "astis-lean-arsenal-module-graph.json",
+                       json.dumps(json_payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n"))
+    for path, text in path_texts:
+        write_text(path, text)
+        outputs.append(path)
+
+    converter = shutil.which("convert") or shutil.which("magick")
+    if converter:
+        png_path = ROOT / "docs" / "assets" / "astis_lean_arsenal_module_graph.png"
+        convert_cmd = [converter, str(ROOT / "docs" / "module-graph.svg"), str(png_path)]
+        if Path(converter).name == "magick":
+            convert_cmd = [converter, "convert", str(ROOT / "docs" / "module-graph.svg"), str(png_path)]
+        completed = subprocess.run(convert_cmd, cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        if completed.returncode == 0:
+            print(f"wrote {rel(png_path)}")
+            outputs.append(png_path)
+        else:
+            print(f"warning: could not render PNG preview with {converter}: {completed.stdout.strip()}")
+
+    for record in records:
+        if record["module"] == "AutoSamplingTheory":
+            continue
+        card_path = SAMPLING_LIBRARY_DIR / "cards" / f"{slugify(record['module'])}.md"
+        write_text(card_path, arsenal_module_card_text(record))
+        outputs.append(card_path)
+
+    for path, text in external_reference_cards().items():
+        write_text(path, text)
+        outputs.append(path)
+
+    external_index = {
+        "generated": now_stamp(),
+        "references": [
+            {"id": path.stem, "path": rel(path)}
+            for path in sorted(external_reference_cards())
+        ],
+    }
+    external_index_path = RETRIEVAL_INDEX_DIR / "external-lean-reference-cards.json"
+    write_text(external_index_path, json.dumps(external_index, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+    outputs.append(external_index_path)
+    return outputs
+
+
+def cmd_module_graph_refresh(_: argparse.Namespace) -> int:
+    cmd_init(argparse.Namespace())
+    outputs = write_arsenal_module_graph_docs()
+    outputs.extend(write_mathlib_ready_leaf_docs())
+    for path in outputs:
+        add_manifest("astis.py module-graph-refresh", path, "memory", "Refreshed ASTIS SDE/Sampling Lean arsenal module graph")
+    print("module-graph-refresh wrote:")
+    for path in outputs:
+        print(f"- {rel(path)}")
+    return 0
 
 
 def write_sald_unfinished_source_map(cycle: int | None = None) -> Path:
@@ -3352,6 +4610,20 @@ obligation with exact hypotheses.  Broad KL/measure-theory library building is
 reserved for moments when the same missing lemma blocks multiple SALD leaves
 or will clearly be reused by later SDE/Sampling papers.
 
+\paragraph{{Mathlib-ready leaf gate.}}
+ASTIS now treats reusable Sampling/SDE leaves as future Mathlib candidates.
+Each lower packet must target one small theorem, name the local Mathlib and
+ASTIS APIs to try first, expose hidden regularity contracts, and keep one
+stable proof route unless the reviewer identifies a mathematical statement
+problem.  Persistent proof failure is treated as evidence for a missing
+assumption, false statement, representative mismatch, API mismatch, or
+over-large target rather than as a reason to keep editing the same script.
+The generated DAG entry points are
+\texttt{{research-wiki/lemma-dags/SDE\_Sampling\_skill\_tree.md}} and
+\texttt{{research-wiki/lemma-dags/SALD\_weak\_fp\_leaf\_dag.md}}; the
+compressed external-advice target map is
+\texttt{{research-wiki/lemma-dags/Pro\_assimilated\_leaf\_targets.md}}.
+
 \paragraph{{Current dynamic leaf.}}
 \begin{{quote}}\small
 {latex_escape(state["dynamic_leaf_candidate"])}
@@ -3430,6 +4702,10 @@ SDE facts cannot be treated as proved until they match a compiled local Lean
 statement, and state how a human can give high-level guidance for the next
 run without reading Lean code.
 
+The batch-end pass must also say whether the next lower packet satisfies the
+Mathlib-ready leaf gate: one small theorem, explicit local APIs, hidden
+regularity contracts, intended proof route, and a failure diagnosis policy.
+
 This policy follows the writing-skill discipline of long-horizon autonomous
 research systems: a paper is a maintained artifact, and every long run should
 leave a clearer explanation of what the system has proved, what it has not
@@ -3480,6 +4756,13 @@ proved, and why the remaining boundary is mathematically meaningful.
         f"- Formalized local registry entries: {formalized_count}",
         f"- Port queue entries: {port_count}",
         "- Port candidates are not callable until they become ASTIS-owned compiled declarations.",
+        "",
+        "## Mathlib-Ready Leaf Gate",
+        "",
+        "- Each reusable SDE/Sampling leaf should be small enough for one lower-agent context window.",
+        "- The lower packet must include theorem statement, local APIs, hidden regularity contracts, intended proof route, and failure policy.",
+        "- Repeated failure is a mathematical signal: check missing assumptions, false statement risk, representative mismatch, API mismatch, or target size.",
+        "- Generated DAGs: `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md`, `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md`, and `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md`.",
         "",
         "## Middle-Agent Rule Update",
         "",
@@ -3938,6 +5221,21 @@ should read this before replaying long logs.
 
 {obligation_text}
 
+## Mathlib-Ready Leaf Discipline
+
+- Decompose aggressively: one lower packet should target one small lemma.
+- Specify the theorem together with local APIs, imports, hidden regularity
+  contracts, and an intended proof route.
+- Search Mathlib and `AutoSamplingTheory/TechnicalLemmas` before inventing a
+  local bridge.
+- Treat repeated failure as a mathematical signal: missing assumption, false
+  statement, representative mismatch, API mismatch, or over-large target.
+- Do not churn the theorem shape or proof route without reviewer diagnosis.
+- Protocol: `docs/mathlib_ready_leaf_protocol.md`.
+- Skill tree: `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md`.
+- Compressed Pro leaf targets:
+  `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md`.
+
 ## Open SALD Contribution Obligations
 
 {markdown_table(snapshot.get('open_sald_contribution_obligations', []), [
@@ -3989,6 +5287,14 @@ Generated: `{snapshot.get('generated')}`
 Use the local strategy: port or prove only the smallest technical lemma needed
 by the next SALD source-line leaf.  Do not build a broad measure-theory library
 unless the same missing fact blocks multiple leaves.
+
+## Mathlib-Ready Leaf Gate
+
+Before assigning lower work, middle must fill the leaf packet shape from
+`research-wiki/technical-lemmas/mathlib_ready_leaf_template.md`: theorem,
+local APIs, hidden regularity, proof route, and failure policy.  If a proof has
+already failed repeatedly, the next action is statement diagnosis, not another
+proof-script rewrite.
 
 ## Lower 1
 
@@ -4052,6 +5358,8 @@ def technical_lemma_index_markdown(rows: list[dict]) -> str:
 
 def write_memory_refresh(task_id: str, cycle: int, run_dir: Path) -> tuple[Path, Path, Path]:
     mirror_existing_technical_lemma_memory()
+    write_mathlib_ready_leaf_docs()
+    write_arsenal_module_graph_docs()
     snapshot = memory_snapshot_state(task_id, cycle, run_dir)
     digest_path = run_dir / "memory_digest.md"
     todo_path = run_dir / "todo.md"
@@ -4290,6 +5598,18 @@ def cycle_zh_summary_markdown(snapshot: dict) -> str:
 
 先看“本轮还没完成的 SALD 本文贡献”，确认是否仍是原论文自己的 leaf；再看“前置 technical lemma”，确认是不是只缺一个常识工具。下面表格是审查入口，不是要求你读 Lean code。
 
+## 新的 leaf 证明标准
+
+下轮 lower agent 不能拿一个大 theorem 直接乱试。每个 packet 必须只对应一个小 lemma，并写清楚：
+
+- theorem statement；
+- 本地 ASTIS lemma 和 Mathlib API 先查哪里；
+- 需要哪些隐藏正则性假设，例如可测、可积、dominated convergence、条件分布代表元、边界项；
+- 预计证明路线；
+- 如果重复失败，究竟是缺假设、statement 可能错、代表元不匹配、Mathlib API 不匹配，还是目标太大。
+
+这些规则已经写入 `docs/mathlib_ready_leaf_protocol.md` 和 `research-wiki/lemma-dags/`。目标不是只为 SALD 临时补洞，而是把 SDE/Sampling 的通用 leaf lemma 做到 future Mathlib-ready 的粒度。
+
 ## 本轮还没完成的 SALD 本文贡献
 
 {markdown_table(open_sald, [
@@ -4376,6 +5696,14 @@ Generated: `{snapshot.get('generated')}`
 
 ASTIS separates paper-specific contributions from reusable background formalization.  The former records what the target paper actually proves and where it appears in the source; the latter records common probability, measure-theory, and SDE lemmas that must compile locally before an agent may use them.
 
+## Mathlib-Ready Leaf Discipline
+
+Reusable background leaves are treated as future Mathlib candidates.  Each
+lower packet should close one small theorem, state the local APIs and proof
+route, expose measurability/integrability/smoothness assumptions, and stop
+when repeated failure indicates a missing assumption or false statement.  The
+current generated DAGs live under `research-wiki/lemma-dags/`.
+
 ## Open Paper-Contribution Leaves
 
 {markdown_table(snapshot.get('open_sald_contribution_obligations', []), [
@@ -4425,6 +5753,9 @@ def project_article_update_latex(snapshot: dict) -> str:
 \begin{{itemize}}
 {tech_items}
 \end{{itemize}}
+
+\paragraph{{Mathlib-ready leaf discipline.}}
+Reusable background leaves are treated as future Mathlib candidates.  Each lower packet should close one small theorem, name the local APIs and proof route, expose hidden regularity assumptions, and stop when repeated failure indicates a missing assumption, false statement, representative mismatch, or API mismatch.
 
 \paragraph{{Harness lesson.}}
 ASTIS now records an ABEIS-style compact retrieval packet after each completed cycle.  The packet separates paper-specific source-line obligations from reusable technical lemmas, so upper and middle agents can make high-level decisions without replaying long logs.
@@ -5346,6 +6677,9 @@ def build_parser() -> argparse.ArgumentParser:
     memory_refresh.add_argument("--cycle", type=int, default=0)
     memory_refresh.add_argument("--run-id", default="latest")
     memory_refresh.set_defaults(func=cmd_memory_refresh)
+
+    sub.add_parser("lemma-dag-refresh").set_defaults(func=cmd_lemma_dag_refresh)
+    sub.add_parser("module-graph-refresh").set_defaults(func=cmd_module_graph_refresh)
 
     zh_summary = sub.add_parser("cycle-zh-summary")
     zh_summary.add_argument("task")

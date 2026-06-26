@@ -1,6 +1,6 @@
 # ASTIS Technical Report Update
 
-- Export time: 2026-06-13 13:14:42
+- Export time: 2026-06-27 01:58:35
 - Task: `ASTIS-SALD-001`
 - Latest observed cycle: 207
 - Latest 6h cycle range: `195-207`
@@ -9,7 +9,7 @@
 - Source-indexed SALD declarations: 90
 - Trial-log records: 2352
 - Lean theorem declarations: 489
-- Lean def declarations: 1109
+- Lean def declarations: 1111
 - Forbidden proof-pattern hits: 0
 
 ## Plain-Language Status
@@ -49,6 +49,13 @@ narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pas
 - Formalized local registry entries: 20
 - Port queue entries: 5
 - Port candidates are not callable until they become ASTIS-owned compiled declarations.
+
+## Mathlib-Ready Leaf Gate
+
+- Each reusable SDE/Sampling leaf should be small enough for one lower-agent context window.
+- The lower packet must include theorem statement, local APIs, hidden regularity contracts, intended proof route, and failure policy.
+- Repeated failure is a mathematical signal: check missing assumptions, false statement risk, representative mismatch, API mismatch, or target size.
+- Generated DAGs: `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md`, `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md`, and `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md`.
 
 ## Middle-Agent Rule Update
 

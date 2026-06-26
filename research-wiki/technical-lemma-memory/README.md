@@ -1,45 +1,34 @@
-# ASTIS Technical Lemma Memory
+# Technical Lemmas
 
-This directory is the agent-facing memory layer for reusable SDE/Sampling
-lemmas.  It is not a runtime dependency on any external Lean project.
+Canonical memory for reusable Sampling/SDE background facts: KL/FI/LSI, weak
+Fokker--Planck, Ito/Taylor, Gaussian moments, measurability, integrability,
+conditional laws, law-map rewrites, and integration-by-parts tools.
 
-## Rule
+This folder is the skill memory for lower agents.  A lemma is callable only
+when it is ASTIS-owned Lean code and the local gate covers it.  External Lean
+projects such as lean-stat-learning-theory, lean-rademacher, MathCode, and
+LeanMarathon are references or port sources; they are not silently treated as
+local proofs.
 
-Agents must search local ASTIS declarations first.  A lemma is callable only if
-it appears as a compiled local declaration under `AutoSamplingTheory`.
+## Memory Split
 
-External repositories such as
-`YuanheZ/lean-stat-learning-theory` are used only as audited source material for
-porting.  Do not write "SLT proves this" in a proof packet unless the packet
-also names a compiled ASTIS declaration or records a precise port obligation.
+| Layer | What goes here | What does not go here |
+|---|---|---|
+| Technical lemma memory | General SDE/Sampling facts that can be reused across papers. | SALD-specific theorem statements or paper-only constants. |
+| Paper contribution memory | A paper's own theorem leaves, source lines, and exact proof route. | Generic measure-theory, probability, or analysis facts. |
+| Port queue | External declarations that look useful but are not yet ASTIS-owned. | Claims marked callable before they compile locally. |
 
-## Lean Module
+## Required Leaf Packet
 
-Compiled lemma memory lives in:
+Every new reusable lemma should be accompanied by the template in
+`mathlib_ready_leaf_template.md`.  The packet must name local APIs, intended
+proof route, hidden regularity contracts, and failure policy.
 
-- `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean`
-- `AutoSamplingTheory/TechnicalLemmas/Taylor.lean`
-- `AutoSamplingTheory/TechnicalLemmas/Measure.lean`
-- `AutoSamplingTheory/TechnicalLemmas/Variational.lean`
-- `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean`
-- `AutoSamplingTheory/TechnicalLemmas/Registry.lean`
+## DAG Entry Points
 
-The Lean registry entry point is:
-
-```lean
-AutoSamplingTheory.TechnicalLemmas.technicalLemmaMemory
-```
-
-Human-readable compiled inventory:
-
-- `research-wiki/technical-lemma-memory/compiled_sublemma_inventory.md`
-
-## Agent Search Order
-
-1. Search `AutoSamplingTheory/TechnicalLemmas`.
-2. Search current theorem files such as `AutoSamplingTheory/SALD.lean`.
-3. Search this directory's registry and SALD map.
-4. Only then inspect external SLT files as port candidates.
-5. If a useful upstream theorem is found, add an ASTIS-native Lean declaration
-   or a precise proof obligation.  Do not add the upstream repo as a Lake
-   dependency.
+- `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` gives the reusable
+  skill tree.
+- `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` gives the current SALD
+  weak-Fokker--Planck leaf DAG and next lower-agent priorities.
+- `hidden_regularities.md` lists reusable regularity contracts that should be
+  pulled out of paper prose and made explicit.

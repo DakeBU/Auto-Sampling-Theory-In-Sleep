@@ -34,6 +34,61 @@ The gate runs the Lake build and scans for fake proof closures.
    lower attempts must include typed verifier feedback, for example
    `--feedback-field leaf=... --feedback-field error_class=...`.
 
+## Mathlib-Ready Leaf Lemma Protocol
+
+Reusable SDE/Sampling background facts should be written as future
+Mathlib-ready leaf lemmas.  The immediate acceptance condition is still local:
+the declaration must be ASTIS-owned Lean code that builds, or it must remain a
+named proof obligation.  But the target shape should be general enough to
+survive outside one SALD theorem whenever possible.
+
+Mandatory packet shape for any reusable technical lemma:
+
+- one theorem or one strictly smaller source-cited boundary;
+- proposed Lean name, namespace, file, and minimal imports;
+- exact local ASTIS APIs and Mathlib declarations to search first;
+- hidden regularity contracts: measurability, integrability, domination,
+  smoothness, boundedness, positivity, conditional representative, and
+  boundary/decay assumptions as needed;
+- intended proof route in at most seven steps;
+- failure policy.
+
+Persistent failure is a mathematical signal.  After two or three same-shape
+failures, stop editing the proof script and diagnose the statement: missing
+assumption, false theorem/counterexample risk, wrong conditional
+representative, Mathlib API mismatch, or target too large.
+
+Do not frequently change the proof or theorem shape.  A reviewer may authorize
+a statement change only when the failure diagnosis identifies a real
+mathematical or API issue.
+
+Entry points:
+
+```bash
+python3 tools/astis.py lemma-dag-refresh
+python3 tools/astis.py module-graph-refresh
+```
+
+```text
+docs/module-graph.svg
+docs/mathlib_ready_leaf_protocol.md
+research-wiki/sampling-sde-library/lean-leaf-module-graph.md
+research-wiki/sampling-sde-library/cards/
+research-wiki/external-lean-libraries/
+research-wiki/lemma-dags/SDE_Sampling_skill_tree.md
+research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md
+research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md
+research-wiki/technical-lemmas/mathlib_ready_leaf_template.md
+research-wiki/technical-lemmas/hidden_regularities.md
+agent-briefs/mathlib_ready_leaf_packet.md
+```
+
+Before assigning a generic Sampling/SDE leaf, middle agents should read
+`research-wiki/sampling-sde-library/lean-leaf-module-graph.md` and the
+corresponding module card.  SALD/RMFLD files are consumers; the reusable
+arsenal lives in `Probability.lean`, `SDE.lean`, and
+`AutoSamplingTheory/TechnicalLemmas/`.
+
 ## Layered Agent Roles
 
 ASTIS uses lightweight inner cycles and bounded final-audit panels.  The goal
