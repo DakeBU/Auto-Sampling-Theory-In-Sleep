@@ -10,8 +10,8 @@ Lean statement is true.
 | Measurability | Needed before integrals, kernels, conditional expectations, and laws are well-typed. | `AutoSamplingTheory/TechnicalLemmas/Measure.lean` |
 | Integrability | Needed before Bochner integrals, KL/FI terms, and limits under integrals are legal. | `Measure.lean`, `Variational.lean` |
 | Domination | Needed for dominated convergence and parametric integral differentiation. | `Measure.lean` |
-| Smoothness | Needed for Ito/Taylor generator and Hessian remainder statements. | `Taylor.lean`, SDE leaf files |
-| Bounded Hessian | Needed for one-step Taylor remainders and EM weak-error bounds. | `Taylor.lean` |
+| Smoothness | Needed for Ito/Taylor generator and Hessian remainder statements. | `Analysis/Calculus/Taylor.lean`, SDE leaf files |
+| Bounded Hessian | Needed for one-step Taylor remainders and EM weak-error bounds. | `Analysis/Calculus/Taylor.lean` |
 | Compact support or decay | Needed to erase boundary terms in integration by parts. | future `IBP.lean` |
 | Probability/finite measure | Needed for law-map, conditional law, and entropy statements. | `Measure.lean` |
 | Conditional representative | Needed because conditional laws are only defined up to a.e. equality. | `Measure.lean`, `SDE.lean` |

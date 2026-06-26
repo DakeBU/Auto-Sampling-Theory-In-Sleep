@@ -1,9 +1,9 @@
 # AutoSamplingTheory.TechnicalLemmas.Gaussian
 
 - File: `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean`
-- Layer: Mathlib-ready technical lemma
-- Purpose: product Gaussian coordinate law, integrability, mean zero, variance-one packaging
-- Mathlib-quality status: best current upstream candidates after namespace/name cleanup
+- Layer: compatibility source
+- Purpose: source file for ASTIS-owned Gaussian coordinate and moment leaves
+- Mathlib-quality status: legacy import surface; prefer TechnicalLemmas.ProbabilityDistributions.Gaussian
 
 ## Imports
 
@@ -25,6 +25,10 @@
 - `variance_id_gaussianReal_zero_one`
 - `nnrealVarianceOneOfGaussianRealUnitLaw`
 - `realVarianceOneOfNNRealVarianceOne`
+
+## Curated Formalized Memory Entries
+
+- no curated formalized memory entries for this module
 
 ## Agent Usage
 

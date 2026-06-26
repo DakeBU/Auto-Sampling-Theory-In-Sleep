@@ -1,9 +1,9 @@
 # AutoSamplingTheory.TechnicalLemmas.Taylor
 
 - File: `AutoSamplingTheory/TechnicalLemmas/Taylor.lean`
-- Layer: Mathlib-ready technical lemma
-- Purpose: Hessian/operator norm bridges, orthonormal basis unit, quadratic normalization
-- Mathlib-quality status: small calculus/algebra leaves; SALD names need generalization before upstream
+- Layer: compatibility source
+- Purpose: source file for ASTIS-owned Taylor/Hessian and quadratic-normalization leaves
+- Mathlib-quality status: legacy import surface; prefer TechnicalLemmas.Analysis.Calculus.Taylor
 
 ## Imports
 
@@ -19,6 +19,10 @@
 - `iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm`
 - `stdOrthonormalBasisUnit`
 - `quadraticVariationNormalizationOfCoeffDefAndVarianceOne`
+
+## Curated Formalized Memory Entries
+
+- no curated formalized memory entries for this module
 
 ## Agent Usage
 

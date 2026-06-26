@@ -42,6 +42,16 @@
 - `selectedWeakTestRemainderMeasOfStdGaussianVectorLaw`
 - `selectedWeakTestVarianceOneOfNormalizedBrownianVarianceDef`
 
+## Curated Formalized Memory Entries
+
+- `sald.gronwall.scalar-rewrites` -> `gronwallExpProductRewriteScalar` (AutoSamplingTheory/SALD.lean)
+- `sald.em-endpoint-law-handoff` -> `discreteForwardKlEmEndpointLawPairHandoff` (AutoSamplingTheory/SALD.lean)
+- `sald.brownian-normalization-bridges` -> `selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw` (AutoSamplingTheory/SALD.lean)
+- `sald.remainder-meas-gaussian-law` -> `selectedWeakTestRemainderMeasOfStdGaussianVectorLaw` (AutoSamplingTheory/SALD.lean)
+- `sald.remainder-bound-gaussian-law` -> `selectedWeakTestRemainderBoundOfStdGaussianVectorLaw` (AutoSamplingTheory/SALD.lean)
+- `sald.remainder-bound-integrable-gaussian-law` -> `selectedWeakTestRemainderBoundIntegrableOfStdGaussianVectorLaw` (AutoSamplingTheory/SALD.lean)
+- `sald.normalized-remainder-bound-int-quadratic` -> `selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound` (AutoSamplingTheory/SALD.lean)
+
 ## Agent Usage
 
 Search this card before inventing a nearby technical lemma.  If the needed fact

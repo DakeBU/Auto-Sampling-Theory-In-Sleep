@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-27 01:58:32",
+  "generated": "2026-06-27 02:50:54",
   "ledger": "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
   "module_graph_svg": "docs/module-graph.svg",
   "modules": [
@@ -6856,6 +6856,101 @@
       "summary": "Ito diffusion, Fokker--Planck, Euler--Maruyama, discretization contracts"
     },
     {
+      "declarations": [],
+      "exports": [
+        "hessianOpNormOfSourceHessianField",
+        "iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+        "quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+        "stdOrthonormalBasisUnit"
+      ],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Taylor"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Taylor"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean",
+      "status": "preferred Mathlib-style location for Ito/Taylor local-error leaves",
+      "summary": "Hessian/operator norm bridges, orthonormal-basis units, quadratic normalization"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus.lean",
+      "status": "preferred parent module for Taylor and Hessian leaves",
+      "summary": "parent import surface for calculus leaves used by SDE/Sampling proofs"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis.lean",
+      "status": "preferred parent module for calculus, regularity, and future IBP leaves",
+      "summary": "parent import surface for reusable analysis leaves"
+    },
+    {
+      "declarations": [],
+      "exports": [
+        "lsiKlFiRnDerivDensityMassOne",
+        "lsiKlFiRnDerivEntropyIntegral",
+        "lsiKlFiRnDerivLIntegralMassOne",
+        "lsiKlFiSqrtDensityEntropyIntegrandScalar",
+        "lsiKlFiSqrtDensityFisherChainFiniteSumHandoffScalar",
+        "lsiKlFiSqrtDensityFisherChainFiniteSumScalar",
+        "lsiKlFiSqrtDensityFisherChainIntegralFiniteSum",
+        "lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+        "lsiKlFiSqrtDensityFisherChainOfDerivativesScalar",
+        "lsiKlFiSqrtDensityFisherChainScalar",
+        "lsiKlFiSqrtDensityNormalizationScalar",
+        "lsiKlFiSqrtDensitySquareScalar",
+        "lsiKlFiSqrtRnDerivEntropyIntegral",
+        "lsiKlFiSqrtRnDerivTestMassOne"
+      ],
+      "imports": [
+        "AutoSamplingTheory.Probability"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.Probability"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+      "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/LogSobolev.lean",
+      "status": "preferred Mathlib-style location for LSI/FI bookkeeping leaves",
+      "summary": "log-Sobolev to KL/FI bookkeeping leaves"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
+      "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities.lean",
+      "status": "preferred parent module for functional-inequality leaves",
+      "summary": "parent import surface for LSI/FI/PI-style technical lemmas"
+    },
+    {
       "declarations": [
         {
           "kind": "def",
@@ -6912,12 +7007,51 @@
         "Mathlib.Probability.Distributions.Gaussian.Multivariate",
         "Mathlib.Probability.Independence.Basic"
       ],
-      "layer": "Mathlib-ready technical lemma",
+      "layer": "compatibility source",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Gaussian",
       "path": "AutoSamplingTheory/TechnicalLemmas/Gaussian.lean",
-      "status": "best current upstream candidates after namespace/name cleanup",
-      "summary": "product Gaussian coordinate law, integrability, mean zero, variance-one packaging"
+      "status": "legacy import surface; prefer TechnicalLemmas.ProbabilityDistributions.Gaussian",
+      "summary": "source file for ASTIS-owned Gaussian coordinate and moment leaves"
+    },
+    {
+      "declarations": [],
+      "exports": [
+        "dvFiniteLogMgfOfLeAlpha",
+        "dvVariationalOneSidedConsequenceScalar",
+        "dvVariationalOneSidedFromSupremumScalar",
+        "dvVariationalOneSidedOfScaledTest",
+        "dvVariationalOneSidedOfTiltedRight",
+        "dvVariationalScaledTestEnergyBound",
+        "dvVariationalScaledTestEnergyBoundWithCoeff",
+        "dvVariationalTiltedRightOneSidedConsequence"
+      ],
+      "imports": [
+        "AutoSamplingTheory.Probability"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.Probability"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
+      "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/DonskerVaradhan.lean",
+      "status": "preferred Mathlib-style location for DV/KL energy leaves",
+      "summary": "Donsker--Varadhan one-sided and scaled-test energy leaves"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory",
+      "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory.lean",
+      "status": "preferred parent module for information-theoretic leaves",
+      "summary": "parent import surface for KL/DV/entropy technical lemmas"
     },
     {
       "declarations": [
@@ -6950,16 +7084,133 @@
         "lawMapProdSwap"
       ],
       "imports": [
+        "AutoSamplingTheory.Probability",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.Probability",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Measure",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Measure.lean",
+      "status": "legacy search surface; prefer TechnicalLemmas.Probability.* for new work",
+      "summary": "compatibility aggregator for law-map and conditional-kernel lemmas"
+    },
+    {
+      "declarations": [],
+      "exports": [
+        "condDistribAeEqCondExpKernelMap",
+        "condDistribIntegralAEStronglyMeasurable",
+        "condDistribIntegralIntegrable",
+        "condDistribIntegralMapAEStronglyMeasurable",
+        "condDistribIntegralMapIntegrable",
+        "condDistribIntegralMapIntegral",
+        "condDistribIntegralNamedFieldRegularity",
+        "condDistribIntegralNamedLawAEStronglyMeasurable",
+        "condDistribIntegralNamedLawIntegrable",
+        "condDistribIntegralNamedLawIntegral",
+        "condDistribIntegralSampleAeEqOfCondExpKernelMap"
+      ],
+      "imports": [
         "AutoSamplingTheory.Probability"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
         "AutoSamplingTheory.Probability"
       ],
-      "module": "AutoSamplingTheory.TechnicalLemmas.Measure",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Measure.lean",
-      "status": "re-export surface over compiled generic probability lemmas",
-      "summary": "search surface for law-map, dominated derivative, conditional-distribution lemmas"
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Probability/ConditionalKernel.lean",
+      "status": "preferred Mathlib-style location for conditional-kernel leaves",
+      "summary": "condDistrib/condExpKernel bridges and conditional-integral regularity leaves"
+    },
+    {
+      "declarations": [],
+      "exports": [
+        "lawIntegralHasDerivAtOfMeasureMapEqAndDominated",
+        "lawIntegralHasDerivAtOfMeasureMapEqAndSample",
+        "lawMapEqOfAEEq",
+        "lawMapIntegral",
+        "lawMapIntegralHasDerivAtOfDominated",
+        "lawMapIntegralHasDerivAtOfSample",
+        "lawMapProdEqOfAEEq",
+        "lawMapProdFst",
+        "lawMapProdSnd",
+        "lawMapProdSwap"
+      ],
+      "imports": [
+        "AutoSamplingTheory.Probability"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.Probability"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Probability/LawMap.lean",
+      "status": "preferred Mathlib-style location for law-map leaves",
+      "summary": "pushforward law, weak-test integral, and dominated derivative transport leaves"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Probability.lean",
+      "status": "preferred parent module for law-map and conditional-kernel leaves",
+      "summary": "parent import surface for probability technical lemmas"
+    },
+    {
+      "declarations": [],
+      "exports": [
+        "integrable_const_mul_sq_gaussianReal_zero",
+        "integrable_eval_stdGaussianPi",
+        "integrable_sq_eval_stdGaussianPi",
+        "integral_eval_stdGaussianPi",
+        "integral_id_gaussianReal_zero",
+        "map_eval_stdGaussianPi",
+        "nnrealVarianceOneOfGaussianRealUnitLaw",
+        "realVarianceOneOfNNRealVarianceOne",
+        "stdGaussianPi",
+        "stdGaussianPi_isFiniteMeasure",
+        "stdGaussianPi_isProbabilityMeasure",
+        "variance_id_gaussianReal_zero_one"
+      ],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Gaussian"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Gaussian"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian",
+      "path": "AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+      "status": "preferred Mathlib-style location for Gaussian/Brownian increment leaves",
+      "summary": "Gaussian coordinate laws, integrability, mean-zero, and variance-one packaging"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions",
+      "path": "AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions.lean",
+      "status": "preferred parent module for Gaussian and future Gamma/Ornstein--Uhlenbeck distribution leaves",
+      "summary": "parent import surface for distribution-specific reusable leaves"
     },
     {
       "declarations": [
@@ -7011,18 +7262,22 @@
       "exports": [],
       "imports": [
         "AutoSamplingTheory.Core",
-        "AutoSamplingTheory.TechnicalLemmas.Gaussian",
-        "AutoSamplingTheory.TechnicalLemmas.Measure",
-        "AutoSamplingTheory.TechnicalLemmas.Taylor",
-        "AutoSamplingTheory.TechnicalLemmas.Variational"
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
       ],
       "layer": "memory index",
       "local_imports": [
         "AutoSamplingTheory.Core",
-        "AutoSamplingTheory.TechnicalLemmas.Gaussian",
-        "AutoSamplingTheory.TechnicalLemmas.Measure",
-        "AutoSamplingTheory.TechnicalLemmas.Taylor",
-        "AutoSamplingTheory.TechnicalLemmas.Variational"
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Registry",
       "path": "AutoSamplingTheory/TechnicalLemmas/Registry.lean",
@@ -7102,12 +7357,12 @@
         "Mathlib.Analysis.Normed.Module.Multilinear.Basic",
         "Mathlib.LinearAlgebra.FiniteDimensional.Basic"
       ],
-      "layer": "Mathlib-ready technical lemma",
+      "layer": "compatibility source",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Taylor",
       "path": "AutoSamplingTheory/TechnicalLemmas/Taylor.lean",
-      "status": "small calculus/algebra leaves; SALD names need generalization before upstream",
-      "summary": "Hessian/operator norm bridges, orthonormal basis unit, quadratic normalization"
+      "status": "legacy import surface; prefer TechnicalLemmas.Analysis.Calculus.Taylor",
+      "summary": "source file for ASTIS-owned Taylor/Hessian and quadratic-normalization leaves"
     },
     {
       "declarations": [],
@@ -7136,16 +7391,53 @@
         "lsiKlFiSqrtRnDerivTestMassOne"
       ],
       "imports": [
-        "AutoSamplingTheory.Probability"
+        "AutoSamplingTheory.Probability",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
-        "AutoSamplingTheory.Probability"
+        "AutoSamplingTheory.Probability",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Variational",
       "path": "AutoSamplingTheory/TechnicalLemmas/Variational.lean",
-      "status": "small compiled consequences; full DV/LSI remains port queue",
-      "summary": "Donsker--Varadhan, KL/FI/LSI scalar and integral bookkeeping exports"
+      "status": "legacy search surface; prefer InformationTheory and FunctionalInequalities modules",
+      "summary": "compatibility aggregator for DV and LSI/FI leaves"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
+        "AutoSamplingTheory.TechnicalLemmas.Gaussian",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory",
+        "AutoSamplingTheory.TechnicalLemmas.Measure",
+        "AutoSamplingTheory.TechnicalLemmas.Probability",
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions",
+        "AutoSamplingTheory.TechnicalLemmas.Registry",
+        "AutoSamplingTheory.TechnicalLemmas.Taylor",
+        "AutoSamplingTheory.TechnicalLemmas.Variational"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
+        "AutoSamplingTheory.TechnicalLemmas.Gaussian",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory",
+        "AutoSamplingTheory.TechnicalLemmas.Measure",
+        "AutoSamplingTheory.TechnicalLemmas.Probability",
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions",
+        "AutoSamplingTheory.TechnicalLemmas.Registry",
+        "AutoSamplingTheory.TechnicalLemmas.Taylor",
+        "AutoSamplingTheory.TechnicalLemmas.Variational"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas",
+      "path": "AutoSamplingTheory/TechnicalLemmas.lean",
+      "status": "public import surface for the Mathlib-ready arsenal; excludes SALDExtracted quarantine",
+      "summary": "parent import surface for reusable ASTIS-owned technical lemmas"
     },
     {
       "declarations": [],
@@ -7159,10 +7451,8 @@
         "AutoSamplingTheory.RMFLD",
         "AutoSamplingTheory.SALD",
         "AutoSamplingTheory.SDE",
-        "AutoSamplingTheory.TechnicalLemmas.Measure",
-        "AutoSamplingTheory.TechnicalLemmas.Registry",
-        "AutoSamplingTheory.TechnicalLemmas.SALDExtracted",
-        "AutoSamplingTheory.TechnicalLemmas.Variational"
+        "AutoSamplingTheory.TechnicalLemmas",
+        "AutoSamplingTheory.TechnicalLemmas.SALDExtracted"
       ],
       "layer": "root",
       "local_imports": [
@@ -7174,10 +7464,8 @@
         "AutoSamplingTheory.RMFLD",
         "AutoSamplingTheory.SALD",
         "AutoSamplingTheory.SDE",
-        "AutoSamplingTheory.TechnicalLemmas.Measure",
-        "AutoSamplingTheory.TechnicalLemmas.Registry",
-        "AutoSamplingTheory.TechnicalLemmas.SALDExtracted",
-        "AutoSamplingTheory.TechnicalLemmas.Variational"
+        "AutoSamplingTheory.TechnicalLemmas",
+        "AutoSamplingTheory.TechnicalLemmas.SALDExtracted"
       ],
       "module": "AutoSamplingTheory",
       "path": "AutoSamplingTheory.lean",

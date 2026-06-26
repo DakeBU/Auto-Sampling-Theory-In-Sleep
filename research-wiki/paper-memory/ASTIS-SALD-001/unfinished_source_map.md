@@ -1,6 +1,6 @@
 # ASTIS-SALD-001 Paper Memory: Unfinished Source Map
 
-Generated: `2026-06-27 01:58:35`
+Generated: `2026-06-27 02:49:22`
 
 Cycle considered: `207`.
 
@@ -44,16 +44,16 @@ contribution leaf is missing concrete source lines.
 
 | Local declaration | Tags | SALD use | File |
 |---|---|---|---|
-| `AutoSamplingTheory.TechnicalLemmas.Gaussian.map_eval_stdGaussianPi` | gaussian, coordinate-law, brownian-increment | normalized scalar coordinate law in the Brownian/Ito EM backend | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi` | gaussian, integrability, coordinate, brownian-increment | Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi` | gaussian, integrability, quadratic-moment, brownian-increment | Brownian/Ito coordinate square integrability for polynomial moment leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi` | gaussian, mean, coordinate, brownian-increment | coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero` | gaussian, mean, brownian-increment | centered scalar Gaussian increment bookkeeping | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw` | gaussian, variance, NNReal | turn scalar Gaussian law and variance-field definition into normalized variance one | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero` | gaussian, integrability, quadratic-bound, brownian-increment | supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2 | `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField` | taylor, hessian, source-contract | convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm` | taylor, iteratedFDeriv, hessian | feed selected-line Taylor bounds from a Hessian operator-norm field | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
-| `AutoSamplingTheory.TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne` | brownian, ito, quadratic-variation, normalization | assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi` | gaussian, coordinate-law, brownian-increment | normalized scalar coordinate law in the Brownian/Ito EM backend | `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_eval_stdGaussianPi` | gaussian, integrability, coordinate, brownian-increment | Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves | `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_sq_eval_stdGaussianPi` | gaussian, integrability, quadratic-moment, brownian-increment | Brownian/Ito coordinate square integrability for polynomial moment leaves | `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_eval_stdGaussianPi` | gaussian, mean, coordinate, brownian-increment | coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves | `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_id_gaussianReal_zero` | gaussian, mean, brownian-increment | centered scalar Gaussian increment bookkeeping | `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw` | gaussian, variance, NNReal | turn scalar Gaussian law and variance-field definition into normalized variance one | `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_const_mul_sq_gaussianReal_zero` | gaussian, integrability, quadratic-bound, brownian-increment | supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2 | `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField` | taylor, hessian, source-contract | convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound | `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm` | taylor, iteratedFDeriv, hessian | feed selected-line Taylor bounds from a Hessian operator-norm field | `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean` |
+| `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne` | brownian, ito, quadratic-variation, normalization | assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization | `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegral` | measure-map, law, integral | rewrite weak-test integrals under endpoint laws and EM interpolation laws | `AutoSamplingTheory/TechnicalLemmas/Measure.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegralHasDerivAtOfDominated` | parametric-integral, dominated-convergence, weak-test | transport dominated sample-space derivatives to law-level weak-test derivatives | `AutoSamplingTheory/TechnicalLemmas/Measure.lean` |
 | `AutoSamplingTheory.TechnicalLemmas.Measure.condDistribIntegralNamedLawIntegral` | conditional-law, kernel, Bochner-integral | conditional frozen drift and named-law conditional integral interface | `AutoSamplingTheory/TechnicalLemmas/Measure.lean` |

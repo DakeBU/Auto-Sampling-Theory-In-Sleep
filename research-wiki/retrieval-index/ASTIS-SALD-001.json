@@ -4,7 +4,7 @@
     "narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:983-996;appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387 verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition.",
     "narrows-source-cited-boundary reviewer_waste acceptance after mandatory gate pass. Exact boundary narrowed: sald.general_moving_target_discrete.em_interpolation_fp -> emInterpolationConditionalWeakFp. Packet type: illness-area refiner, obligation-level only; no lower_1/lower_2 artifact and no proved Lean theorem in cycle207. Gate passed: python3 tools/astis.py check. Source anchors appendix.tex:983-996;appendix.tex:1358-1365;appendix.tex:1368-1377;appendix.tex:1379-1387 verified. Local compiled ASTIS TechnicalLemmas.Measure and SALD weak-FP/condDistrib handoffs only; no external SLT import/call/queue/port. Waste diagnosis: useful progress is retiring repeated hRemainderPullbackDef wrapper churn and selecting emInterpolationConditionalWeakFp; no formal proof progress occurred; next best leaf is lower_2 compiling one non-wrapper theorem for emInterpolationConditionalWeakFp or logging leaf=emInterpolationConditionalWeakFp error_class=source_contract_gap_missing_conditional_fp_generator_definition."
   ],
-  "generated": "2026-06-27 01:58:34",
+  "generated": "2026-06-27 02:48:52",
   "mode": "faithfulPaper",
   "next_lower_tasks": [
     {
@@ -22,7 +22,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianPoincare/TaylorBound.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Taylor.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean",
       "lean_status": "port-candidate",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianPoincare/TaylorBound.lean",
@@ -33,7 +33,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianPoincare/Limit.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/GaussianPoincare.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianPoincare.lean",
       "lean_status": "future-port",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianPoincare/Limit.lean",
@@ -44,7 +44,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianLSI/DualityEntropy.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/EntropyDuality.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/EntropyDuality.lean",
       "lean_status": "future-port",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianLSI/DualityEntropy.lean",
@@ -55,7 +55,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianLSI/TensorizedGLSI.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/GaussianLSI.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianLSI.lean",
       "lean_status": "future-port",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianLSI/TensorizedGLSI.lean",
@@ -526,8 +526,8 @@
   "technical_lemmas": [
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.map_eval_stdGaussianPi",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.map_eval_stdGaussianPi",
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "SLT/GaussianMeasure.lean",
@@ -541,8 +541,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi",
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_eval_stdGaussianPi",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "SLT/GaussianMeasure.lean",
@@ -557,8 +557,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi",
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_sq_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_sq_eval_stdGaussianPi",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "SLT/GaussianMeasure.lean",
@@ -573,8 +573,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi",
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_eval_stdGaussianPi",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "SLT/GaussianMeasure.lean",
@@ -589,8 +589,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero",
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_id_gaussianReal_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_id_gaussianReal_zero",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "SLT/GaussianMeasure.lean",
@@ -604,8 +604,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "Mathlib.Probability.Distributions.Gaussian.Real",
@@ -619,8 +619,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "Mathlib.Probability.Distributions.Gaussian.Real",
@@ -635,8 +635,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField",
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "SLT/GaussianPoincare/TaylorBound.lean",
@@ -650,8 +650,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "SLT/GaussianPoincare/TaylorBound.lean",
@@ -665,8 +665,8 @@
     },
     {
       "dependencies": [],
-      "id": "AutoSamplingTheory.TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
-      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
       "lean_status": "formalized-local",
       "next_action": "Use as callable only when status is formalized-local.",
       "source": "ASTIS/SALD cycles 174-176",
@@ -838,7 +838,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianMeasure.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Gaussian.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
       "lean_status": "formalized-local",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianMeasure.lean",
@@ -849,7 +849,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianPoincare/TaylorBound.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Taylor.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean",
       "lean_status": "port-candidate",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianPoincare/TaylorBound.lean",
@@ -860,7 +860,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianPoincare/Limit.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/GaussianPoincare.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianPoincare.lean",
       "lean_status": "future-port",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianPoincare/Limit.lean",
@@ -871,7 +871,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianLSI/DualityEntropy.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/EntropyDuality.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/EntropyDuality.lean",
       "lean_status": "future-port",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianLSI/DualityEntropy.lean",
@@ -882,7 +882,7 @@
     {
       "dependencies": [],
       "id": "SLT/GaussianLSI/TensorizedGLSI.lean",
-      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/GaussianLSI.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianLSI.lean",
       "lean_status": "future-port",
       "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
       "source": "SLT/GaussianLSI/TensorizedGLSI.lean",

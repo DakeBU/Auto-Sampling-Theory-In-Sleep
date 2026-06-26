@@ -10,6 +10,10 @@ import Mathlib.LinearAlgebra.FiniteDimensional.Basic
 These are small reusable bridges for translating paper-level smoothness fields
 into Lean-facing derivative and normalization facts.  They are local ASTIS
 lemmas, not imports from an external project.
+
+New code should prefer the Mathlib-style re-export path
+`AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor`.  This file
+remains the compatibility source for the compiled declarations.
 -/
 
 noncomputable section

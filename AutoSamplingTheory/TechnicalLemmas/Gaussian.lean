@@ -9,6 +9,10 @@ This module stores the local ASTIS versions of Gaussian facts that are useful
 for SDE/Sampling proof backends.  Some statements were selected after auditing
 nearby results in `YuanheZ/lean-stat-learning-theory`, but the declarations
 below are ASTIS-owned Lean code and do not import that project.
+
+New code should prefer the Mathlib-style re-export path
+`AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian`.  This
+file remains the compatibility source for the compiled declarations.
 -/
 
 noncomputable section

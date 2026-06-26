@@ -1,141 +1,240 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="1240" height="900" viewBox="0 0 1240 900" xmlns="http://www.w3.org/2000/svg">
+<svg width="1850" height="1280" viewBox="0 0 1850 1280" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <marker id="arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
     <polygon points="0 0, 9 3.5, 0 7" fill="#8a97aa"/>
   </marker>
 </defs>
-<rect width="1240" height="900" fill="white"/>
-<text x="620" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">ASTIS SDE/Sampling Lean Arsenal Module Graph</text>
-<text x="620" y="58" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Green nodes are the current Mathlib-ready technical lemma surface; orange nodes are compiled but paper-extracted and need generalization.</text>
-<rect x="330" y="225" width="890" height="390" rx="14" ry="14" fill="none" stroke="#2e7d59" stroke-width="2" stroke-dasharray="8 5"/>
-<text x="775" y="245" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#2e7d59">AutoSamplingTheory/TechnicalLemmas</text>
+<rect width="1850" height="1280" fill="white"/>
+<text x="925" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">ASTIS SDE/Sampling Lean Weapon Arsenal</text>
+<text x="925" y="60" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Curated module dependency graph generated from compiled Lean files.  External projects are reference cards; callable weapons are ASTIS-owned declarations.</text>
+<rect x="330" y="85" width="1180" height="1030" rx="16" ry="16" fill="none" stroke="#2e7d59" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="920" y="82" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700" fill="#2e7d59">Reusable Mathlib-ready probability, distribution, analysis, information, and functional-inequality surfaces</text>
 <g id="edges">
-<path d="M 175.0 148.0 C 175.0 179.0, 175.0 179.0, 175.0 210.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 175.0 148.0 C 175.0 239.0, 175.0 239.0, 175.0 330.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 175.0 148.0 C 175.0 299.0, 175.0 299.0, 175.0 450.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 175.0 148.0 C 175.0 119.0, 515.0 119.0, 515.0 90.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 825.0 160.0 C 825.0 412.5, 825.0 412.5, 825.0 665.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 825.0 160.0 C 825.0 412.5, 515.0 412.5, 515.0 665.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 515.0 160.0 C 515.0 125.0, 825.0 125.0, 825.0 90.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 515.0 160.0 C 515.0 207.5, 850.0 207.5, 850.0 255.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 175.0 148.0 C 175.0 334.0, 685.0 334.0, 685.0 520.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 515.0 321.0 C 515.0 420.5, 685.0 420.5, 685.0 520.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 850.0 321.0 C 850.0 420.5, 685.0 420.5, 685.0 520.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 515.0 446.0 C 515.0 483.0, 685.0 483.0, 685.0 520.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 850.0 446.0 C 850.0 483.0, 685.0 483.0, 685.0 520.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 515.0 725.0 C 515.0 622.5, 1025.0 622.5, 1025.0 520.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 515.0 160.0 C 515.0 270.0, 850.0 270.0, 850.0 380.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 175.0 268.0 C 175.0 534.0, 685.0 534.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 175.0 148.0 C 175.0 474.0, 685.0 474.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 175.0 388.0 C 175.0 594.0, 685.0 594.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 175.0 508.0 C 175.0 654.0, 685.0 654.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 515.0 160.0 C 515.0 480.0, 685.0 480.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 825.0 725.0 C 825.0 762.5, 685.0 762.5, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 515.0 725.0 C 515.0 762.5, 685.0 762.5, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 825.0 160.0 C 825.0 480.0, 685.0 480.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 850.0 321.0 C 850.0 560.5, 685.0 560.5, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 685.0 586.0 C 685.0 693.0, 685.0 693.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 1025.0 586.0 C 1025.0 693.0, 685.0 693.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 850.0 446.0 C 850.0 623.0, 685.0 623.0, 685.0 800.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 182.5 161.0 C 182.5 133.0, 520.0 133.0, 520.0 105.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 182.5 161.0 C 182.5 353.0, 1295.0 353.0, 1295.0 545.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 161.0 C 520.0 330.5, 182.5 330.5, 182.5 500.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 161.0 C 520.0 183.0, 520.0 183.0, 520.0 205.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 161.0 C 520.0 233.0, 520.0 233.0, 520.0 305.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 261.0 C 520.0 333.0, 520.0 333.0, 520.0 405.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 361.0 C 520.0 383.0, 520.0 383.0, 520.0 405.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 461.0 C 520.0 483.0, 520.0 483.0, 520.0 505.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 357.0 C 900.0 231.0, 900.0 231.0, 900.0 105.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 161.0 C 900.0 183.0, 900.0 183.0, 900.0 205.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 161.0 C 900.0 353.0, 1295.0 353.0, 1295.0 545.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 261.0 C 520.0 403.0, 1295.0 403.0, 1295.0 545.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 361.0 C 520.0 453.0, 1295.0 453.0, 1295.0 545.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 757.0 C 900.0 581.0, 900.0 581.0, 900.0 405.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 461.0 C 900.0 483.0, 900.0 483.0, 900.0 505.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 557.0 C 900.0 581.0, 900.0 581.0, 900.0 605.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 461.0 C 900.0 503.0, 1295.0 503.0, 1295.0 545.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 161.0 C 520.0 133.0, 1295.0 133.0, 1295.0 105.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 161.0 C 1295.0 183.0, 1295.0 183.0, 1295.0 205.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 161.0 C 1295.0 353.0, 1295.0 353.0, 1295.0 545.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 161.0 C 520.0 233.0, 1295.0 233.0, 1295.0 305.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 361.0 C 1295.0 383.0, 1295.0 383.0, 1295.0 405.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 361.0 C 1295.0 453.0, 1295.0 453.0, 1295.0 545.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 257.0 C 1295.0 431.0, 520.0 431.0, 520.0 605.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 457.0 C 1295.0 531.0, 520.0 531.0, 520.0 605.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 601.0 C 1295.0 653.0, 1295.0 653.0, 1295.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 257.0 C 900.0 481.0, 1295.0 481.0, 1295.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 461.0 C 520.0 583.0, 1295.0 583.0, 1295.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 557.0 C 520.0 631.0, 1295.0 631.0, 1295.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 900.0 657.0 C 900.0 681.0, 1295.0 681.0, 1295.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 257.0 C 1295.0 481.0, 1295.0 481.0, 1295.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 457.0 C 1295.0 581.0, 1295.0 581.0, 1295.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 520.0 657.0 C 520.0 681.0, 1295.0 681.0, 1295.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1682.5 620.0 C 1682.5 655.0, 1680.0 655.0, 1680.0 690.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1295.0 761.0 C 1295.0 963.0, 937.5 963.0, 937.5 1165.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 182.5 550.0 C 182.5 857.5, 937.5 857.5, 937.5 1165.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1680.0 746.0 C 1680.0 955.5, 937.5 955.5, 937.5 1165.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1682.5 880.0 C 1682.5 1022.5, 937.5 1022.5, 937.5 1165.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 </g>
 <g id="nodes">
 
 <g id="AutoSamplingTheory.Core">
-  <rect x="60" y="90" width="230" height="58" rx="8" ry="8" fill="#d8eef6" stroke="#214e8a" stroke-width="1.8"/>
-  <text x="175.0" y="113" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.Core</text>
-  <text x="175.0" y="135" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">foundation; leaves/exports: 10</text>
-</g>
-
-<g id="AutoSamplingTheory.Automation">
-  <rect x="60" y="210" width="230" height="58" rx="8" ry="8" fill="#f8fafc" stroke="#7f8da3" stroke-width="1.8"/>
-  <text x="175.0" y="233" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.Automation</text>
-  <text x="175.0" y="255" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">harness; leaves/exports: 20</text>
-</g>
-
-<g id="AutoSamplingTheory.Literature">
-  <rect x="60" y="330" width="230" height="58" rx="8" ry="8" fill="#f8fafc" stroke="#7f8da3" stroke-width="1.8"/>
-  <text x="175.0" y="353" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.Literature</text>
-  <text x="175.0" y="375" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">reference registry; leaves/exports: 5</text>
-</g>
-
-<g id="AutoSamplingTheory.OpenProblems">
-  <rect x="60" y="450" width="230" height="58" rx="8" ry="8" fill="#f8fafc" stroke="#7f8da3" stroke-width="1.8"/>
-  <text x="175.0" y="473" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.OpenProblems</text>
-  <text x="175.0" y="495" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">exploration registry; leaves/exports: 3</text>
-</g>
-
-<g id="AutoSamplingTheory.Probability">
-  <rect x="365" y="90" width="300" height="70" rx="8" ry="8" fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8"/>
-  <text x="515.0" y="113" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.Probability</text>
-  <text x="515.0" y="135" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">generic technical core; leaves/exports: 54</text>
+  <path fill="#d8eef6" stroke="#214e8a" stroke-width="1.8" d="M72,115 L293,115 Q305,115 305,127 L305,149 Q305,161 293,161 L72,161 Q60,161 60,149 L60,127 Q60,115 72,115 Z"/>
+  <text x="182.5" y="131" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">AutoSamplingTheory</text>
+  <text x="182.5" y="146" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Core</text>
+  <text x="182.5" y="163" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Core.lean; compiled 10</text>
 </g>
 
 <g id="AutoSamplingTheory.SDE">
-  <rect x="700" y="90" width="250" height="70" rx="8" ry="8" fill="#d8eef6" stroke="#214e8a" stroke-width="1.8"/>
-  <text x="825.0" y="113" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.SDE</text>
-  <text x="825.0" y="135" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">contract layer; leaves/exports: 4</text>
+  <path fill="#d8eef6" stroke="#214e8a" stroke-width="1.8" d="M72,500 L293,500 Q305,500 305,512 L305,538 Q305,550 293,550 L72,550 Q60,550 60,538 L60,512 Q60,500 72,500 Z"/>
+  <text x="182.5" y="516" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">AutoSamplingTheory</text>
+  <text x="182.5" y="531" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.SDE</text>
+  <text x="182.5" y="548" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">SDE.lean; compiled 4</text>
 </g>
 
-<g id="AutoSamplingTheory.TechnicalLemmas.Gaussian">
-  <rect x="365" y="255" width="300" height="66" rx="8" ry="8" fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8"/>
-  <text x="515.0" y="278" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.TechnicalLemmas.Gaussian</text>
-  <text x="515.0" y="300" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">Mathlib-ready technical lemma; leaves/exports: 12</text>
+<g id="AutoSamplingTheory.Probability">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M372,105 L668,105 Q680,105 680,117 L680,149 Q680,161 668,161 L372,161 Q360,161 360,149 L360,117 Q360,105 372,105 Z"/>
+  <text x="520.0" y="121" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">AutoSamplingTheory</text>
+  <text x="520.0" y="136" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Probability</text>
+  <text x="520.0" y="153" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Probability.lean; compiled 54</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Probability.LawMap">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M372,205 L668,205 Q680,205 680,217 L680,249 Q680,261 668,261 L372,261 Q360,261 360,249 L360,217 Q360,205 372,205 Z"/>
+  <text x="520.0" y="221" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Probability</text>
+  <text x="520.0" y="236" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.LawMap</text>
+  <text x="520.0" y="253" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">LawMap.lean; compiled 10; memory 2</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M372,305 L668,305 Q680,305 680,317 L680,349 Q680,361 668,361 L372,361 Q360,361 360,349 L360,317 Q360,305 372,305 Z"/>
+  <text x="520.0" y="321" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Probability</text>
+  <text x="520.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.ConditionalKernel</text>
+  <text x="520.0" y="353" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">ConditionalKernel.lean; compiled 11; memory 1</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Probability">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M372,405 L668,405 Q680,405 680,417 L680,449 Q680,461 668,461 L372,461 Q360,461 360,449 L360,417 Q360,405 372,405 Z"/>
+  <text x="520.0" y="421" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="520.0" y="436" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Probability</text>
+  <text x="520.0" y="453" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Probability.lean; compiled 0</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.Measure">
-  <rect x="700" y="255" width="300" height="66" rx="8" ry="8" fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8"/>
-  <text x="850.0" y="278" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.TechnicalLemmas.Measure</text>
-  <text x="850.0" y="300" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">Mathlib-ready technical lemma; leaves/exports: 22</text>
-</g>
-
-<g id="AutoSamplingTheory.TechnicalLemmas.Taylor">
-  <rect x="365" y="380" width="300" height="66" rx="8" ry="8" fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8"/>
-  <text x="515.0" y="403" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.TechnicalLemmas.Taylor</text>
-  <text x="515.0" y="425" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">Mathlib-ready technical lemma; leaves/exports: 4</text>
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M372,505 L668,505 Q680,505 680,517 L680,545 Q680,557 668,557 L372,557 Q360,557 360,545 L360,517 Q360,505 372,505 Z"/>
+  <text x="520.0" y="521" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="520.0" y="536" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Measure</text>
+  <text x="520.0" y="553" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Measure.lean; compiled 22</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.Variational">
-  <rect x="700" y="380" width="300" height="66" rx="8" ry="8" fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8"/>
-  <text x="850.0" y="403" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.TechnicalLemmas.Variational</text>
-  <text x="850.0" y="425" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">Mathlib-ready technical lemma; leaves/exports: 22</text>
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M372,605 L668,605 Q680,605 680,617 L680,645 Q680,657 668,657 L372,657 Q360,657 360,645 L360,617 Q360,605 372,605 Z"/>
+  <text x="520.0" y="621" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="520.0" y="636" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Variational</text>
+  <text x="520.0" y="653" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Variational.lean; compiled 22</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M732,105 L1068,105 Q1080,105 1080,117 L1080,149 Q1080,161 1068,161 L732,161 Q720,161 720,149 L720,117 Q720,105 732,105 Z"/>
+  <text x="900.0" y="121" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.ProbabilityDistributions</text>
+  <text x="900.0" y="136" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Gaussian</text>
+  <text x="900.0" y="153" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Gaussian.lean; compiled 12; memory 6</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M732,205 L1068,205 Q1080,205 1080,217 L1080,245 Q1080,257 1068,257 L732,257 Q720,257 720,245 L720,217 Q720,205 732,205 Z"/>
+  <text x="900.0" y="221" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="900.0" y="236" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.ProbabilityDistributions</text>
+  <text x="900.0" y="253" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">ProbabilityDistributions.lean; compiled 0</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Gaussian">
+  <path fill="#f1f5f9" stroke="#64748b" stroke-width="1.8" d="M732,305 L1068,305 Q1080,305 1080,317 L1080,345 Q1080,357 1068,357 L732,357 Q720,357 720,345 L720,317 Q720,305 732,305 Z"/>
+  <text x="900.0" y="321" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="900.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Gaussian</text>
+  <text x="900.0" y="353" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Gaussian.lean; compiled 12</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M732,405 L1068,405 Q1080,405 1080,417 L1080,449 Q1080,461 1068,461 L732,461 Q720,461 720,449 L720,417 Q720,405 732,405 Z"/>
+  <text x="900.0" y="421" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Analysis</text>
+  <text x="900.0" y="436" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Calculus.Taylor</text>
+  <text x="900.0" y="453" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Taylor.lean; compiled 4; memory 3</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M732,505 L1068,505 Q1080,505 1080,517 L1080,545 Q1080,557 1068,557 L732,557 Q720,557 720,545 L720,517 Q720,505 732,505 Z"/>
+  <text x="900.0" y="521" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Analysis</text>
+  <text x="900.0" y="536" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Calculus</text>
+  <text x="900.0" y="553" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Calculus.lean; compiled 0</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Analysis">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M732,605 L1068,605 Q1080,605 1080,617 L1080,645 Q1080,657 1068,657 L732,657 Q720,657 720,645 L720,617 Q720,605 732,605 Z"/>
+  <text x="900.0" y="621" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="900.0" y="636" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Analysis</text>
+  <text x="900.0" y="653" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Analysis.lean; compiled 0</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Taylor">
+  <path fill="#f1f5f9" stroke="#64748b" stroke-width="1.8" d="M732,705 L1068,705 Q1080,705 1080,717 L1080,745 Q1080,757 1068,757 L732,757 Q720,757 720,745 L720,717 Q720,705 732,705 Z"/>
+  <text x="900.0" y="721" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="900.0" y="736" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Taylor</text>
+  <text x="900.0" y="753" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Taylor.lean; compiled 4</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1127,105 L1463,105 Q1475,105 1475,117 L1475,149 Q1475,161 1463,161 L1127,161 Q1115,161 1115,149 L1115,117 Q1115,105 1127,105 Z"/>
+  <text x="1295.0" y="121" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.InformationTheory</text>
+  <text x="1295.0" y="136" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.DonskerVaradhan</text>
+  <text x="1295.0" y="153" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">DonskerVaradhan.lean; compiled 8; memory 1</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.InformationTheory">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1127,205 L1463,205 Q1475,205 1475,217 L1475,245 Q1475,257 1463,257 L1127,257 Q1115,257 1115,245 L1115,217 Q1115,205 1127,205 Z"/>
+  <text x="1295.0" y="221" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="1295.0" y="236" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.InformationTheory</text>
+  <text x="1295.0" y="253" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">InformationTheory.lean; compiled 0</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1127,305 L1463,305 Q1475,305 1475,317 L1475,349 Q1475,361 1463,361 L1127,361 Q1115,361 1115,349 L1115,317 Q1115,305 1127,305 Z"/>
+  <text x="1295.0" y="321" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.FunctionalInequalities</text>
+  <text x="1295.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.LogSobolev</text>
+  <text x="1295.0" y="353" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">LogSobolev.lean; compiled 14; memory 1</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1127,405 L1463,405 Q1475,405 1475,417 L1475,445 Q1475,457 1463,457 L1127,457 Q1115,457 1115,445 L1115,417 Q1115,405 1127,405 Z"/>
+  <text x="1295.0" y="421" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="1295.0" y="436" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.FunctionalInequalities</text>
+  <text x="1295.0" y="453" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">FunctionalInequalities.lean; compiled 0</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.Registry">
-  <rect x="535" y="520" width="300" height="66" rx="8" ry="8" fill="#f8fafc" stroke="#7f8da3" stroke-width="1.8"/>
-  <text x="685.0" y="543" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.TechnicalLemmas.Registry</text>
-  <text x="685.0" y="565" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">memory index; leaves/exports: 11</text>
+  <path fill="#f8fafc" stroke="#2e7d59" stroke-width="1.8" d="M1127,545 L1463,545 Q1475,545 1475,557 L1475,589 Q1475,601 1463,601 L1127,601 Q1115,601 1115,589 L1115,557 Q1115,545 1127,545 Z"/>
+  <text x="1295.0" y="561" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="1295.0" y="576" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Registry</text>
+  <text x="1295.0" y="593" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Registry.lean; compiled 11</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1127,705 L1463,705 Q1475,705 1475,717 L1475,749 Q1475,761 1463,761 L1127,761 Q1115,761 1115,749 L1115,717 Q1115,705 1127,705 Z"/>
+  <text x="1295.0" y="721" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">AutoSamplingTheory</text>
+  <text x="1295.0" y="736" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.TechnicalLemmas</text>
+  <text x="1295.0" y="753" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">parent import surface for reusable lemmas</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.SALDExtracted">
-  <rect x="870" y="520" width="310" height="66" rx="8" ry="8" fill="#f8e5d0" stroke="#d97924" stroke-width="1.8"/>
-  <text x="1025.0" y="543" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.TechnicalLemmas.SALDExtracted</text>
-  <text x="1025.0" y="565" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">paper-extracted technical lemma; leaves/exports: 30</text>
-</g>
-
-<g id="AutoSamplingTheory.RMFLD">
-  <rect x="700" y="665" width="250" height="60" rx="8" ry="8" fill="#ece4f5" stroke="#6d4aa2" stroke-width="1.8"/>
-  <text x="825.0" y="688" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.RMFLD</text>
-  <text x="825.0" y="710" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">exploratory consumer; leaves/exports: 5</text>
+  <path fill="#f8e5d0" stroke="#d97924" stroke-width="1.8" d="M1542,690 L1818,690 Q1830,690 1830,702 L1830,734 Q1830,746 1818,746 L1542,746 Q1530,746 1530,734 L1530,702 Q1530,690 1542,690 Z"/>
+  <text x="1680.0" y="706" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="1680.0" y="721" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.SALDExtracted</text>
+  <text x="1680.0" y="738" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">SALDExtracted.lean; compiled 30; memory 7</text>
 </g>
 
 <g id="AutoSamplingTheory.SALD">
-  <rect x="365" y="665" width="300" height="60" rx="8" ry="8" fill="#ece4f5" stroke="#6d4aa2" stroke-width="1.8"/>
-  <text x="515.0" y="688" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory.SALD</text>
-  <text x="515.0" y="710" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">paper consumer; leaves/exports: 1575</text>
+  <path fill="#f4f1f8" stroke="#8d7aa8" stroke-width="1.8" d="M1572,570 L1793,570 Q1805,570 1805,582 L1805,608 Q1805,620 1793,620 L1572,620 Q1560,620 1560,608 L1560,582 Q1560,570 1572,570 Z"/>
+  <text x="1682.5" y="586" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">AutoSamplingTheory</text>
+  <text x="1682.5" y="601" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.SALD</text>
+  <text x="1682.5" y="618" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">SALD.lean; compiled 1575</text>
+</g>
+
+<g id="AutoSamplingTheory.RMFLD">
+  <path fill="#f4f1f8" stroke="#8d7aa8" stroke-width="1.8" d="M1572,830 L1793,830 Q1805,830 1805,842 L1805,868 Q1805,880 1793,880 L1572,880 Q1560,880 1560,868 L1560,842 Q1560,830 1572,830 Z"/>
+  <text x="1682.5" y="846" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">AutoSamplingTheory</text>
+  <text x="1682.5" y="861" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.RMFLD</text>
+  <text x="1682.5" y="878" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">RMFLD.lean; compiled 5</text>
 </g>
 
 <g id="AutoSamplingTheory">
-  <rect x="535" y="800" width="300" height="58" rx="8" ry="8" fill="#eaf2ff" stroke="#2563eb" stroke-width="1.8"/>
-  <text x="685.0" y="823" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">AutoSamplingTheory</text>
-  <text x="685.0" y="845" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">root; leaves/exports: 0</text>
+  <path fill="#eaf2ff" stroke="#2563eb" stroke-width="1.8" d="M772,1165 L1103,1165 Q1115,1165 1115,1177 L1115,1207 Q1115,1219 1103,1219 L772,1219 Q760,1219 760,1207 L760,1177 Q760,1165 772,1165 Z"/>
+  <text x="937.5" y="1181" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">AutoSamplingTheory</text>
+  
+  <text x="937.5" y="1213" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">root public import surface</text>
 </g>
 </g>
 <g id="legend">
-  <rect x="60" y="785" width="355" height="90" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="78" y="810" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">Legend</text>
-  <rect x="78" y="824" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="835" font-family="Helvetica,Arial,sans-serif" font-size="11">Mathlib-ready / generic technical lemma surface</text>
-  <rect x="78" y="844" width="18" height="12" fill="#f8e5d0" stroke="#d97924"/><text x="104" y="855" font-family="Helvetica,Arial,sans-serif" font-size="11">Compiled paper-extracted lemma; generalize before upstream</text>
-  <text x="78" y="870" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated 2026-06-27 01:58:32 by tools/astis.py module-graph-refresh</text>
+  <rect x="60" y="760" width="470" height="145" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="78" y="785" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">Legend</text>
+  <rect x="78" y="799" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="810" font-family="Helvetica,Arial,sans-serif" font-size="11">Mathlib-ready candidate file: compiled local reusable lemmas</text>
+  <rect x="78" y="819" width="18" height="12" fill="#f1f5f9" stroke="#64748b"/><text x="104" y="830" font-family="Helvetica,Arial,sans-serif" font-size="11">Compatibility source: old import path kept stable</text>
+  <rect x="78" y="839" width="18" height="12" fill="#d8eef6" stroke="#214e8a"/><text x="104" y="850" font-family="Helvetica,Arial,sans-serif" font-size="11">Foundation or SDE contract layer</text>
+  <rect x="78" y="859" width="18" height="12" fill="#f8e5d0" stroke="#d97924"/><text x="104" y="870" font-family="Helvetica,Arial,sans-serif" font-size="11">Compiled paper-extracted bridge; not yet Mathlib-ready</text>
+  <rect x="78" y="879" width="18" height="12" fill="#f4f1f8" stroke="#8d7aa8"/><text x="104" y="890" font-family="Helvetica,Arial,sans-serif" font-size="11">Downstream paper/exploration consumer</text>
+  <text x="1335" y="1245" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated 2026-06-27 02:50:54 by tools/astis.py module-graph-refresh</text>
 </g>
 </svg>

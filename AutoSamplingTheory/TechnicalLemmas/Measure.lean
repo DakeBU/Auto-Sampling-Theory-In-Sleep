@@ -1,4 +1,6 @@
 import AutoSamplingTheory.Probability
+import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
+import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 
 /-!
 # ASTIS-native measure and conditional-law technical lemmas
@@ -7,6 +9,11 @@ This file is the reusable memory surface for measure-theoretic lemmas already
 formalized while reproducing SALD.  The proofs live in `Probability.lean`; this
 module gives agents a stable technical-lemma namespace to search before they
 invent new interfaces.
+
+New code should prefer the more focused modules:
+`TechnicalLemmas.Probability.LawMap` and
+`TechnicalLemmas.Probability.ConditionalKernel`.  This file remains as a
+compatibility aggregator.
 -/
 
 namespace AutoSamplingTheory

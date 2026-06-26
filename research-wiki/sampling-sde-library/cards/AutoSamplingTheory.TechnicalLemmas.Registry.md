@@ -8,10 +8,12 @@
 ## Imports
 
 - `AutoSamplingTheory.Core`
-- `AutoSamplingTheory.TechnicalLemmas.Gaussian`
-- `AutoSamplingTheory.TechnicalLemmas.Measure`
-- `AutoSamplingTheory.TechnicalLemmas.Taylor`
-- `AutoSamplingTheory.TechnicalLemmas.Variational`
+- `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor`
+- `AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev`
+- `AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.LawMap`
+- `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian`
 
 ## Representative Declarations And Exports
 
@@ -26,6 +28,10 @@
 - `portQueueMemory`
 - `technicalLemmaMemory`
 - `formalizedTechnicalLemmaCount`
+
+## Curated Formalized Memory Entries
+
+- no curated formalized memory entries for this module
 
 ## Agent Usage
 

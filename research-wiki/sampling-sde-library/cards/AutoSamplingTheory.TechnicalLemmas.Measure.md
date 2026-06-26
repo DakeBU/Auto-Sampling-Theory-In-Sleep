@@ -2,12 +2,14 @@
 
 - File: `AutoSamplingTheory/TechnicalLemmas/Measure.lean`
 - Layer: Mathlib-ready technical lemma
-- Purpose: search surface for law-map, dominated derivative, conditional-distribution lemmas
-- Mathlib-quality status: re-export surface over compiled generic probability lemmas
+- Purpose: compatibility aggregator for law-map and conditional-kernel lemmas
+- Mathlib-quality status: legacy search surface; prefer TechnicalLemmas.Probability.* for new work
 
 ## Imports
 
 - `AutoSamplingTheory.Probability`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.LawMap`
 
 ## Representative Declarations And Exports
 
@@ -33,6 +35,10 @@
 - `lawMapProdFst`
 - `lawMapProdSnd`
 - `lawMapProdSwap`
+
+## Curated Formalized Memory Entries
+
+- no curated formalized memory entries for this module
 
 ## Agent Usage
 

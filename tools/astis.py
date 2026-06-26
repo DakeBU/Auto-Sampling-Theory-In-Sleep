@@ -1770,8 +1770,8 @@ Lean statement is true.
 | Measurability | Needed before integrals, kernels, conditional expectations, and laws are well-typed. | `AutoSamplingTheory/TechnicalLemmas/Measure.lean` |
 | Integrability | Needed before Bochner integrals, KL/FI terms, and limits under integrals are legal. | `Measure.lean`, `Variational.lean` |
 | Domination | Needed for dominated convergence and parametric integral differentiation. | `Measure.lean` |
-| Smoothness | Needed for Ito/Taylor generator and Hessian remainder statements. | `Taylor.lean`, SDE leaf files |
-| Bounded Hessian | Needed for one-step Taylor remainders and EM weak-error bounds. | `Taylor.lean` |
+| Smoothness | Needed for Ito/Taylor generator and Hessian remainder statements. | `Analysis/Calculus/Taylor.lean`, SDE leaf files |
+| Bounded Hessian | Needed for one-step Taylor remainders and EM weak-error bounds. | `Analysis/Calculus/Taylor.lean` |
 | Compact support or decay | Needed to erase boundary terms in integration by parts. | future `IBP.lean` |
 | Probability/finite measure | Needed for law-map, conditional law, and entropy statements. | `Measure.lean` |
 | Conditional representative | Needed because conditional laws are only defined up to a.e. equality. | `Measure.lean`, `SDE.lean` |
@@ -2320,29 +2320,94 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "status": "ASTIS contract surface; future executable SDE theorem layer",
     },
     "AutoSamplingTheory.TechnicalLemmas.Gaussian": {
-        "layer": "Mathlib-ready technical lemma",
-        "summary": "product Gaussian coordinate law, integrability, mean zero, variance-one packaging",
-        "status": "best current upstream candidates after namespace/name cleanup",
+        "layer": "compatibility source",
+        "summary": "source file for ASTIS-owned Gaussian coordinate and moment leaves",
+        "status": "legacy import surface; prefer TechnicalLemmas.ProbabilityDistributions.Gaussian",
     },
     "AutoSamplingTheory.TechnicalLemmas.Measure": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "search surface for law-map, dominated derivative, conditional-distribution lemmas",
-        "status": "re-export surface over compiled generic probability lemmas",
+        "summary": "compatibility aggregator for law-map and conditional-kernel lemmas",
+        "status": "legacy search surface; prefer TechnicalLemmas.Probability.* for new work",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Probability": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "parent import surface for probability technical lemmas",
+        "status": "preferred parent module for law-map and conditional-kernel leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "pushforward law, weak-test integral, and dominated derivative transport leaves",
+        "status": "preferred Mathlib-style location for law-map leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "condDistrib/condExpKernel bridges and conditional-integral regularity leaves",
+        "status": "preferred Mathlib-style location for conditional-kernel leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "parent import surface for distribution-specific reusable leaves",
+        "status": "preferred parent module for Gaussian and future Gamma/Ornstein--Uhlenbeck distribution leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Gaussian coordinate laws, integrability, mean-zero, and variance-one packaging",
+        "status": "preferred Mathlib-style location for Gaussian/Brownian increment leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.Taylor": {
+        "layer": "compatibility source",
+        "summary": "source file for ASTIS-owned Taylor/Hessian and quadratic-normalization leaves",
+        "status": "legacy import surface; prefer TechnicalLemmas.Analysis.Calculus.Taylor",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "Hessian/operator norm bridges, orthonormal basis unit, quadratic normalization",
-        "status": "small calculus/algebra leaves; SALD names need generalization before upstream",
+        "summary": "parent import surface for reusable analysis leaves",
+        "status": "preferred parent module for calculus, regularity, and future IBP leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "parent import surface for calculus leaves used by SDE/Sampling proofs",
+        "status": "preferred parent module for Taylor and Hessian leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Hessian/operator norm bridges, orthonormal-basis units, quadratic normalization",
+        "status": "preferred Mathlib-style location for Ito/Taylor local-error leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "parent import surface for KL/DV/entropy technical lemmas",
+        "status": "preferred parent module for information-theoretic leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Donsker--Varadhan one-sided and scaled-test energy leaves",
+        "status": "preferred Mathlib-style location for DV/KL energy leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "parent import surface for LSI/FI/PI-style technical lemmas",
+        "status": "preferred parent module for functional-inequality leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "log-Sobolev to KL/FI bookkeeping leaves",
+        "status": "preferred Mathlib-style location for LSI/FI bookkeeping leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.Variational": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "Donsker--Varadhan, KL/FI/LSI scalar and integral bookkeeping exports",
-        "status": "small compiled consequences; full DV/LSI remains port queue",
+        "summary": "compatibility aggregator for DV and LSI/FI leaves",
+        "status": "legacy search surface; prefer InformationTheory and FunctionalInequalities modules",
     },
     "AutoSamplingTheory.TechnicalLemmas.Registry": {
         "layer": "memory index",
         "summary": "compiled lemma-memory metadata and external port queue",
         "status": "agent retrieval registry, not theorem content",
+    },
+    "AutoSamplingTheory.TechnicalLemmas": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "parent import surface for reusable ASTIS-owned technical lemmas",
+        "status": "public import surface for the Mathlib-ready arsenal; excludes SALDExtracted quarantine",
     },
     "AutoSamplingTheory.TechnicalLemmas.SALDExtracted": {
         "layer": "paper-extracted technical lemma",
@@ -2437,23 +2502,58 @@ def module_decl_names(record: dict, limit: int = 8) -> list[str]:
     return deduped[:limit]
 
 
+def formalized_memory_entries_by_module() -> dict[str, list[dict[str, str]]]:
+    registry = ROOT / "AutoSamplingTheory" / "TechnicalLemmas" / "Registry.lean"
+    if not registry.exists():
+        return {}
+    text = read_text(registry)
+    entries: dict[str, list[dict[str, str]]] = {}
+    for block in re.findall(r"\{\s*key := .*?\n\s*\}", text, flags=re.S):
+        status = re.search(r"status\s*:=\s*LemmaMemoryStatus\.([A-Za-z0-9_]+)", block)
+        local_decl = re.search(r'localDecl\s*:=\s*"([^"]*)"', block)
+        key = re.search(r'key\s*:=\s*"([^"]*)"', block)
+        upstream = re.search(r'upstreamFile\s*:=\s*"([^"]*)"', block)
+        if not status or status.group(1) != "formalizedLocal":
+            continue
+        if not local_decl or not local_decl.group(1):
+            continue
+        decl = local_decl.group(1)
+        module = decl.rsplit(".", 1)[0]
+        entries.setdefault(module, []).append({
+            "key": key.group(1) if key else decl.rsplit(".", 1)[-1],
+            "decl": decl,
+            "upstream": upstream.group(1) if upstream else "",
+        })
+    return entries
+
+
 def arsenal_module_coords() -> dict[str, tuple[int, int, int, int]]:
     return {
-        "AutoSamplingTheory.Core": (60, 90, 230, 58),
-        "AutoSamplingTheory.Automation": (60, 210, 230, 58),
-        "AutoSamplingTheory.Literature": (60, 330, 230, 58),
-        "AutoSamplingTheory.OpenProblems": (60, 450, 230, 58),
-        "AutoSamplingTheory.Probability": (365, 90, 300, 70),
-        "AutoSamplingTheory.SDE": (700, 90, 250, 70),
-        "AutoSamplingTheory.TechnicalLemmas.Gaussian": (365, 255, 300, 66),
-        "AutoSamplingTheory.TechnicalLemmas.Measure": (700, 255, 300, 66),
-        "AutoSamplingTheory.TechnicalLemmas.Taylor": (365, 380, 300, 66),
-        "AutoSamplingTheory.TechnicalLemmas.Variational": (700, 380, 300, 66),
-        "AutoSamplingTheory.TechnicalLemmas.Registry": (535, 520, 300, 66),
-        "AutoSamplingTheory.TechnicalLemmas.SALDExtracted": (870, 520, 310, 66),
-        "AutoSamplingTheory.RMFLD": (700, 665, 250, 60),
-        "AutoSamplingTheory.SALD": (365, 665, 300, 60),
-        "AutoSamplingTheory": (535, 800, 300, 58),
+        "AutoSamplingTheory.Core": (60, 115, 245, 46),
+        "AutoSamplingTheory.SDE": (60, 500, 245, 50),
+        "AutoSamplingTheory.Probability": (360, 105, 320, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap": (360, 205, 320, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel": (360, 305, 320, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Probability": (360, 405, 320, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Measure": (360, 505, 320, 52),
+        "AutoSamplingTheory.TechnicalLemmas.Variational": (360, 605, 320, 52),
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian": (720, 105, 360, 56),
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions": (720, 205, 360, 52),
+        "AutoSamplingTheory.TechnicalLemmas.Gaussian": (720, 305, 360, 52),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor": (720, 405, 360, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": (720, 505, 360, 52),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis": (720, 605, 360, 52),
+        "AutoSamplingTheory.TechnicalLemmas.Taylor": (720, 705, 360, 52),
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan": (1115, 105, 360, 56),
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory": (1115, 205, 360, 52),
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev": (1115, 305, 360, 56),
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities": (1115, 405, 360, 52),
+        "AutoSamplingTheory.TechnicalLemmas.Registry": (1115, 545, 360, 56),
+        "AutoSamplingTheory.TechnicalLemmas": (1115, 705, 360, 56),
+        "AutoSamplingTheory.TechnicalLemmas.SALDExtracted": (1530, 690, 300, 56),
+        "AutoSamplingTheory.SALD": (1560, 570, 245, 50),
+        "AutoSamplingTheory.RMFLD": (1560, 830, 245, 50),
+        "AutoSamplingTheory": (760, 1165, 355, 54),
     }
 
 
@@ -2462,26 +2562,60 @@ def arsenal_node_style(layer: str) -> tuple[str, str]:
         return "#eaf2ff", "#2563eb"
     if "Mathlib-ready" in layer or layer == "generic technical core":
         return "#dff0e4", "#2e7d59"
+    if layer == "compatibility source":
+        return "#f1f5f9", "#64748b"
     if layer == "paper-extracted technical lemma":
         return "#f8e5d0", "#d97924"
     if layer.endswith("consumer"):
-        return "#ece4f5", "#6d4aa2"
+        return "#f4f1f8", "#8d7aa8"
     if layer in {"foundation", "contract layer"}:
         return "#d8eef6", "#214e8a"
+    if layer in {"memory index"}:
+        return "#f8fafc", "#2e7d59"
     return "#f8fafc", "#7f8da3"
 
 
-def svg_rect_node(record: dict, x: int, y: int, w: int, h: int) -> str:
+def module_title_lines(module: str) -> list[str]:
+    if module == "AutoSamplingTheory":
+        return ["AutoSamplingTheory"]
+    for family in [
+        "Probability",
+        "ProbabilityDistributions",
+        "Analysis",
+        "InformationTheory",
+        "FunctionalInequalities",
+    ]:
+        prefix = f"AutoSamplingTheory.TechnicalLemmas.{family}."
+        if module.startswith(prefix):
+            return [f"TechnicalLemmas.{family}", "." + module.removeprefix(prefix)]
+    prefix = "AutoSamplingTheory.TechnicalLemmas."
+    if module.startswith(prefix):
+        return ["TechnicalLemmas", "." + module.removeprefix(prefix)]
+    if module.startswith("AutoSamplingTheory."):
+        return ["AutoSamplingTheory", "." + module.removeprefix("AutoSamplingTheory.")]
+    return [module]
+
+
+def svg_rect_node(record: dict, x: int, y: int, w: int, h: int, memory_entries: dict[str, list[dict[str, str]]]) -> str:
     fill, stroke = arsenal_node_style(record.get("layer", ""))
-    title = html.escape(record["module"])
-    layer = html.escape(record.get("layer", ""))
+    title_lines = [html.escape(line) for line in module_title_lines(record["module"])]
     decl_count = len(record.get("declarations", [])) + len(record.get("exports", []))
-    subtitle = html.escape(f"{layer}; leaves/exports: {decl_count}")
+    curated_count = len(memory_entries.get(record["module"], []))
+    file_label = Path(record.get("path", "")).name if record.get("path", "") else ""
+    if record["module"] == "AutoSamplingTheory.TechnicalLemmas":
+        subtitle = "parent import surface for reusable lemmas"
+    elif record["module"] == "AutoSamplingTheory":
+        subtitle = "root public import surface"
+    elif curated_count:
+        subtitle = html.escape(f"{file_label}; compiled {decl_count}; memory {curated_count}")
+    else:
+        subtitle = html.escape(f"{file_label}; compiled {decl_count}")
     return f"""
 <g id="{html.escape(record['module'])}">
-  <rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" ry="8" fill="{fill}" stroke="{stroke}" stroke-width="1.8"/>
-  <text x="{x + w / 2:.1f}" y="{y + 23}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">{title}</text>
-  <text x="{x + w / 2:.1f}" y="{y + 45}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#334155">{subtitle}</text>
+  <path fill="{fill}" stroke="{stroke}" stroke-width="1.8" d="M{x + 12},{y} L{x + w - 12},{y} Q{x + w},{y} {x + w},{y + 12} L{x + w},{y + h - 12} Q{x + w},{y + h} {x + w - 12},{y + h} L{x + 12},{y + h} Q{x},{y + h} {x},{y + h - 12} L{x},{y + 12} Q{x},{y} {x + 12},{y} Z"/>
+  <text x="{x + w / 2:.1f}" y="{y + 16}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">{title_lines[0]}</text>
+  {f'<text x="{x + w / 2:.1f}" y="{y + 31}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">{title_lines[1]}</text>' if len(title_lines) > 1 else ''}
+  <text x="{x + w / 2:.1f}" y="{y + 48}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">{subtitle}</text>
 </g>"""
 
 
@@ -2500,14 +2634,52 @@ def svg_edge(src_box: tuple[int, int, int, int], dst_box: tuple[int, int, int, i
 def arsenal_module_graph_svg(records: list[dict]) -> str:
     coords = arsenal_module_coords()
     by_module = module_record_map(records)
-    edges: list[str] = []
-    for record in records:
-        dst = record["module"]
-        if dst not in coords:
-            continue
-        for imported in record.get("local_imports", []):
-            if imported in coords and imported != dst:
-                edges.append(svg_edge(coords[imported], coords[dst]))
+    memory_entries = formalized_memory_entries_by_module()
+    curated_edges = [
+        ("AutoSamplingTheory.Core", "AutoSamplingTheory.Probability"),
+        ("AutoSamplingTheory.Core", "AutoSamplingTheory.TechnicalLemmas.Registry"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.SDE"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel"),
+        ("AutoSamplingTheory.TechnicalLemmas.Probability.LawMap", "AutoSamplingTheory.TechnicalLemmas.Probability"),
+        ("AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel", "AutoSamplingTheory.TechnicalLemmas.Probability"),
+        ("AutoSamplingTheory.TechnicalLemmas.Probability", "AutoSamplingTheory.TechnicalLemmas.Measure"),
+        ("AutoSamplingTheory.TechnicalLemmas.Gaussian", "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"),
+        ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian", "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions"),
+        ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian", "AutoSamplingTheory.TechnicalLemmas.Registry"),
+        ("AutoSamplingTheory.TechnicalLemmas.Probability.LawMap", "AutoSamplingTheory.TechnicalLemmas.Registry"),
+        ("AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel", "AutoSamplingTheory.TechnicalLemmas.Registry"),
+        ("AutoSamplingTheory.TechnicalLemmas.Taylor", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus", "AutoSamplingTheory.TechnicalLemmas.Analysis"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor", "AutoSamplingTheory.TechnicalLemmas.Registry"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"),
+        ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
+        ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan", "AutoSamplingTheory.TechnicalLemmas.Registry"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"),
+        ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities"),
+        ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev", "AutoSamplingTheory.TechnicalLemmas.Registry"),
+        ("AutoSamplingTheory.TechnicalLemmas.InformationTheory", "AutoSamplingTheory.TechnicalLemmas.Variational"),
+        ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities", "AutoSamplingTheory.TechnicalLemmas.Variational"),
+        ("AutoSamplingTheory.TechnicalLemmas.Registry", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.Probability", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.Measure", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.InformationTheory", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.Variational", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.SALD", "AutoSamplingTheory.TechnicalLemmas.SALDExtracted"),
+        ("AutoSamplingTheory.TechnicalLemmas", "AutoSamplingTheory"),
+        ("AutoSamplingTheory.SDE", "AutoSamplingTheory"),
+        ("AutoSamplingTheory.TechnicalLemmas.SALDExtracted", "AutoSamplingTheory"),
+        ("AutoSamplingTheory.RMFLD", "AutoSamplingTheory"),
+    ]
+    edges = [
+        svg_edge(coords[src], coords[dst])
+        for src, dst in curated_edges
+        if src in coords and dst in coords
+    ]
     node_parts = []
     for module, box in coords.items():
         record = by_module.get(module, {
@@ -2515,21 +2687,22 @@ def arsenal_module_graph_svg(records: list[dict]) -> str:
             "layer": ARSENAL_MODULE_SUMMARIES.get(module, {}).get("layer", ""),
             "declarations": [],
             "exports": [],
+            "path": "",
         })
-        node_parts.append(svg_rect_node(record, *box))
+        node_parts.append(svg_rect_node(record, *box, memory_entries))
     generated = html.escape(now_stamp())
     return f"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="1240" height="900" viewBox="0 0 1240 900" xmlns="http://www.w3.org/2000/svg">
+<svg width="1850" height="1280" viewBox="0 0 1850 1280" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <marker id="arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
     <polygon points="0 0, 9 3.5, 0 7" fill="#8a97aa"/>
   </marker>
 </defs>
-<rect width="1240" height="900" fill="white"/>
-<text x="620" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">ASTIS SDE/Sampling Lean Arsenal Module Graph</text>
-<text x="620" y="58" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Green nodes are the current Mathlib-ready technical lemma surface; orange nodes are compiled but paper-extracted and need generalization.</text>
-<rect x="330" y="225" width="890" height="390" rx="14" ry="14" fill="none" stroke="#2e7d59" stroke-width="2" stroke-dasharray="8 5"/>
-<text x="775" y="245" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#2e7d59">AutoSamplingTheory/TechnicalLemmas</text>
+<rect width="1850" height="1280" fill="white"/>
+<text x="925" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">ASTIS SDE/Sampling Lean Weapon Arsenal</text>
+<text x="925" y="60" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Curated module dependency graph generated from compiled Lean files.  External projects are reference cards; callable weapons are ASTIS-owned declarations.</text>
+<rect x="330" y="85" width="1180" height="1030" rx="16" ry="16" fill="none" stroke="#2e7d59" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="920" y="82" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700" fill="#2e7d59">Reusable Mathlib-ready probability, distribution, analysis, information, and functional-inequality surfaces</text>
 <g id="edges">
 {chr(10).join(edges)}
 </g>
@@ -2537,11 +2710,14 @@ def arsenal_module_graph_svg(records: list[dict]) -> str:
 {chr(10).join(node_parts)}
 </g>
 <g id="legend">
-  <rect x="60" y="785" width="355" height="90" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="78" y="810" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">Legend</text>
-  <rect x="78" y="824" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="835" font-family="Helvetica,Arial,sans-serif" font-size="11">Mathlib-ready / generic technical lemma surface</text>
-  <rect x="78" y="844" width="18" height="12" fill="#f8e5d0" stroke="#d97924"/><text x="104" y="855" font-family="Helvetica,Arial,sans-serif" font-size="11">Compiled paper-extracted lemma; generalize before upstream</text>
-  <text x="78" y="870" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py module-graph-refresh</text>
+  <rect x="60" y="760" width="470" height="145" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="78" y="785" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">Legend</text>
+  <rect x="78" y="799" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="810" font-family="Helvetica,Arial,sans-serif" font-size="11">Mathlib-ready candidate file: compiled local reusable lemmas</text>
+  <rect x="78" y="819" width="18" height="12" fill="#f1f5f9" stroke="#64748b"/><text x="104" y="830" font-family="Helvetica,Arial,sans-serif" font-size="11">Compatibility source: old import path kept stable</text>
+  <rect x="78" y="839" width="18" height="12" fill="#d8eef6" stroke="#214e8a"/><text x="104" y="850" font-family="Helvetica,Arial,sans-serif" font-size="11">Foundation or SDE contract layer</text>
+  <rect x="78" y="859" width="18" height="12" fill="#f8e5d0" stroke="#d97924"/><text x="104" y="870" font-family="Helvetica,Arial,sans-serif" font-size="11">Compiled paper-extracted bridge; not yet Mathlib-ready</text>
+  <rect x="78" y="879" width="18" height="12" fill="#f4f1f8" stroke="#8d7aa8"/><text x="104" y="890" font-family="Helvetica,Arial,sans-serif" font-size="11">Downstream paper/exploration consumer</text>
+  <text x="1335" y="1245" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py module-graph-refresh</text>
 </g>
 </svg>
 """
@@ -2549,50 +2725,85 @@ def arsenal_module_graph_svg(records: list[dict]) -> str:
 
 def module_file_tree_text() -> str:
     return """AutoSamplingTheory
-|-- Core.lean
-|-- Probability.lean
-|-- SDE.lean
+|-- Core.lean                         infrastructure contracts
+|-- Probability.lean                  reusable law/KL/FI/conditional-law surface
+|-- SDE.lean                          SDE/Fokker--Planck/EM contracts
+|-- TechnicalLemmas.lean              parent import surface for reusable lemmas
 |-- TechnicalLemmas
-|   |-- Gaussian.lean
-|   |-- Measure.lean
-|   |-- Taylor.lean
-|   |-- Variational.lean
-|   |-- Registry.lean
-|   `-- SALDExtracted.lean
-|-- Automation.lean
-|-- Literature.lean
-|-- OpenProblems.lean
-|-- SALD.lean
-`-- RMFLD.lean
+|   |-- Analysis.lean                 parent for reusable analysis leaves
+|   |-- Analysis
+|   |   |-- Calculus.lean             parent for calculus leaves
+|   |   `-- Calculus
+|   |       `-- Taylor.lean           Mathlib-style Taylor/Hessian leaves
+|   |-- Gaussian.lean                 compatibility source for Gaussian leaves
+|   |-- Probability.lean              parent for probability technical lemmas
+|   |-- Probability
+|   |   |-- LawMap.lean               pushforward-law and weak-test rewrites
+|   |   `-- ConditionalKernel.lean    condDistrib and conditional-integral leaves
+|   |-- ProbabilityDistributions.lean parent for distribution-specific leaves
+|   |-- ProbabilityDistributions
+|   |   `-- Gaussian.lean             Mathlib-style Gaussian coordinate leaves
+|   |-- InformationTheory.lean        parent for KL/DV/entropy leaves
+|   |-- InformationTheory
+|   |   `-- DonskerVaradhan.lean      one-sided DV and energy bounds
+|   |-- FunctionalInequalities.lean   parent for LSI/FI/PI-style leaves
+|   |-- FunctionalInequalities
+|   |   `-- LogSobolev.lean           LSI-to-KL/FI bookkeeping leaves
+|   |-- Measure.lean                  compatibility aggregator for probability leaves
+|   |-- Taylor.lean                   compatibility source for Taylor leaves
+|   |-- Variational.lean              compatibility aggregator for DV/LSI exports
+|   |-- Registry.lean                 compiled memory registry
+|   `-- SALDExtracted.lean            compiled paper-extracted bridges; generalize first
+|-- SALD.lean                         downstream paper consumer
+`-- RMFLD.lean                        downstream exploratory consumer
 """
 
 
 def arsenal_module_graph_markdown(records: list[dict]) -> str:
+    memory_entries = formalized_memory_entries_by_module()
     rows = []
     for record in records:
         module = record["module"]
-        if module == "AutoSamplingTheory" or module not in ARSENAL_MODULE_SUMMARIES:
+        if module == "AutoSamplingTheory" or module not in arsenal_module_coords():
             continue
         leaves = ", ".join(f"`{name}`" for name in module_decl_names(record, limit=8)) or "exports/metadata only"
         if len(module_decl_names(record, limit=99)) > 8:
             leaves += ", ..."
+        memory_count = len(memory_entries.get(module, []))
         rows.append({
             "module": f"`{module}`",
             "file": f"`{record['path']}`",
             "layer": record.get("layer", ""),
             "summary": record.get("summary", ""),
             "leaves": leaves,
+            "memory_count": str(memory_count),
             "status": record.get("status", ""),
         })
+    memory_rows = []
+    extracted_memory_rows = []
+    for module, entries in sorted(memory_entries.items()):
+        for entry in entries:
+            row = {
+                "module": f"`{module}`",
+                "key": f"`{entry['key']}`",
+                "decl": f"`{entry['decl'].rsplit('.', 1)[-1]}`",
+                "upstream": entry["upstream"] or "local",
+            }
+            if module.endswith(".SALDExtracted"):
+                extracted_memory_rows.append(row)
+            else:
+                memory_rows.append(row)
     return f"""# ASTIS Lean Leaf Module Graph
 
 This is the textual ledger behind `docs/module-graph.svg`.  It lists the
 ASTIS-owned Lean files that form the reusable SDE/Sampling proof-weapon
-library and separates Mathlib-ready technical lemmas from paper consumers.
+library and separates Mathlib-ready technical lemma files from paper
+consumers.
 
-The graph is intentionally organized like a library map, not like a run log.
-SALD is now only a consumer/case study.  The library center is the reusable
-`Probability`, `SDE`, and `TechnicalLemmas` surface.
+The graph is intentionally organized like a Lean module map, following the
+style of the public QuantumComputing module graph.  SALD is no longer the
+center of this artifact; it is a downstream consumer.  The library center is
+the reusable `Probability`, `SDE`, and `TechnicalLemmas` surface.
 
 ![ASTIS module graph](../../docs/module-graph.svg)
 
@@ -2609,14 +2820,45 @@ SALD is now only a consumer/case study.  The library center is the reusable
     ("Layer", "layer"),
     ("Purpose", "summary"),
     ("Representative compiled leaves/exports", "leaves"),
+    ("Curated memory entries", "memory_count"),
     ("Mathlib-quality status", "status"),
+])}
+
+## Mathlib-Ready Callable Arsenal
+
+The table below is generated from
+`AutoSamplingTheory/TechnicalLemmas/Registry.lean`.  These are the currently
+compiled local entries that agents may retrieve as proven technical lemma
+memory for future Mathlib-style cleanup.  External Lean projects may motivate
+a row, but the callable proof is the ASTIS-owned declaration listed here.
+
+{markdown_table(memory_rows, [
+    ("Module", "module"),
+    ("Memory key", "key"),
+    ("Local declaration", "decl"),
+    ("Upstream or source orientation", "upstream"),
+])}
+
+## Paper-Extracted Quarantine
+
+These declarations also compile, but they are not counted as the Mathlib-ready
+arsenal until the SALD-specific names and assumptions are generalized.  The
+main graph places `SALDExtracted.lean` outside the reusable technical-lemma
+folder for this reason.
+
+{markdown_table(extracted_memory_rows, [
+    ("Module", "module"),
+    ("Memory key", "key"),
+    ("Local declaration", "decl"),
+    ("Source orientation", "upstream"),
 ])}
 
 ## Current Library Boundary
 
 | Layer | Rule |
 |---|---|
-| Mathlib-ready technical surface | `Probability.lean`, `TechnicalLemmas/Gaussian.lean`, `TechnicalLemmas/Measure.lean`, `TechnicalLemmas/Taylor.lean`, and `TechnicalLemmas/Variational.lean` are the first upstream-quality targets after names and hypotheses are generalized. |
+| Mathlib-ready technical surface | `Probability.lean`, `TechnicalLemmas/Probability/*`, `TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`, `TechnicalLemmas/Analysis/Calculus/Taylor.lean`, `TechnicalLemmas/InformationTheory/*`, and `TechnicalLemmas/FunctionalInequalities/*` are the first upstream-quality targets after final naming/API cleanup. |
+| Compatibility surfaces | `TechnicalLemmas/Gaussian.lean`, `TechnicalLemmas/Taylor.lean`, `TechnicalLemmas/Measure.lean`, and `TechnicalLemmas/Variational.lean` remain stable imports but new tasks should prefer the family-specific modules. |
 | ASTIS contract surface | `SDE.lean` states the domain contracts that future executable SDE lemmas should discharge. |
 | Paper-extracted compiled leaves | `TechnicalLemmas/SALDExtracted.lean` exposes useful local theorems, but they remain SALD-derived until generalized. |
 | Consumers | `SALD.lean` and `RMFLD.lean` consume the arsenal; they are not the public foundation. |
@@ -2646,8 +2888,13 @@ a counterexample audit.
 
 
 def arsenal_module_card_text(record: dict) -> str:
+    memory_entries = formalized_memory_entries_by_module().get(record["module"], [])
     decls = module_decl_names(record, limit=40)
     decl_lines = "\n".join(f"- `{name}`" for name in decls) or "- no direct declarations or exports"
+    memory_lines = "\n".join(
+        f"- `{entry['key']}` -> `{entry['decl'].rsplit('.', 1)[-1]}` ({entry['upstream'] or 'local'})"
+        for entry in memory_entries
+    ) or "- no curated formalized memory entries for this module"
     imports = "\n".join(f"- `{item}`" for item in record.get("imports", [])) or "- none"
     return f"""# {record['module']}
 
@@ -2663,6 +2910,10 @@ def arsenal_module_card_text(record: dict) -> str:
 ## Representative Declarations And Exports
 
 {decl_lines}
+
+## Curated Formalized Memory Entries
+
+{memory_lines}
 
 ## Agent Usage
 
@@ -3004,7 +3255,7 @@ def technical_lemma_memory_pack(task_id: str) -> str:
         return "- No task-specific technical lemma memory pack selected."
     return "\n".join([
         "- Technical lemma entry point: `research-wiki/technical-lemmas/README.md` (legacy mirror: `research-wiki/technical-lemma-memory/README.md`).",
-        "- Compiled local Lean modules: `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean`, `AutoSamplingTheory/TechnicalLemmas/Taylor.lean`, `AutoSamplingTheory/TechnicalLemmas/Measure.lean`, `AutoSamplingTheory/TechnicalLemmas/Variational.lean`, `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean`, and `AutoSamplingTheory/TechnicalLemmas/Registry.lean`.",
+        "- Compiled local Lean modules: `AutoSamplingTheory/TechnicalLemmas/Probability/*`, `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`, `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean`, `AutoSamplingTheory/TechnicalLemmas/InformationTheory/*`, `AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/*`, `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean`, and `AutoSamplingTheory/TechnicalLemmas/Registry.lean`.",
         "- Local registry: `research-wiki/technical-lemmas/technical_lemma_registry.jsonl` (mirrored from legacy when needed).",
         "- SALD map: `research-wiki/technical-lemmas/SALD_remaining_map.md`.",
         "- Human TODO dashboard: `research-wiki/todo/SALD_REPRODUCTION_TODO.md`.",
@@ -3013,8 +3264,9 @@ def technical_lemma_memory_pack(task_id: str) -> str:
         "- Port queue: `research-wiki/technical-lemmas/SLT_port_queue.jsonl`; queue entries are not callable until ported locally.",
         "- Separation rule: common prior knowledge lives here; SALD-specific theorem leaves and source line coverage live in paper memory.",
         "- Current SALD priority: use ASTIS technical lemmas for the EM Brownian/Ito scalar generator backend before broad LSI/DV backfill.",
-        "- First local candidates: `TechnicalLemmas.Gaussian.map_eval_stdGaussianPi`, `TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw`, and `TechnicalLemmas.Gaussian.realVarianceOneOfNNRealVarianceOne`.",
-        "- Second local candidates: `TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField`, `TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm`, and `TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne`.",
+        "- First local candidates: `TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi`, `TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw`, and `TechnicalLemmas.ProbabilityDistributions.Gaussian.realVarianceOneOfNNRealVarianceOne`.",
+        "- Second local candidates: `TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField`, `TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm`, and `TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne`.",
+        "- Compatibility source files `TechnicalLemmas/Gaussian.lean` and `TechnicalLemmas/Taylor.lean` remain stable, but new lower packets should use the family-specific paths.",
         "- Current active leaves after cycle 181: `hBrownianCoordinateGeneratorTaylorIntegralDef`, `hRemainderGeneratorLimitDef`, concrete remainder measurability/domination, and coordinate-law/variance side leaves.",
         "- Known source-contract gap: `hSourceHasHessian` and `hSourceHessianBound`; do not fake it via technical lemmas unless the original source supplies the fields.",
         "- Deferred backends: `entropy_duality` for DV and `gaussian_logSobolev_W12_pi` for LSI are high-value port candidates, but only after they are implemented as local ASTIS declarations.",

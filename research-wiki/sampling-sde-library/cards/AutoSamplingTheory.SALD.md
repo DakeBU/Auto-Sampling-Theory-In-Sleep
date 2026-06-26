@@ -64,6 +64,10 @@
 - `saldUnifiedForwardKlSource`
 - `saldUnifiedForwardKlProofSource`
 
+## Curated Formalized Memory Entries
+
+- no curated formalized memory entries for this module
+
 ## Agent Usage
 
 Search this card before inventing a nearby technical lemma.  If the needed fact

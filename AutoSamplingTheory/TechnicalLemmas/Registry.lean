@@ -1,8 +1,10 @@
 import AutoSamplingTheory.Core
-import AutoSamplingTheory.TechnicalLemmas.Gaussian
-import AutoSamplingTheory.TechnicalLemmas.Measure
-import AutoSamplingTheory.TechnicalLemmas.Taylor
-import AutoSamplingTheory.TechnicalLemmas.Variational
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
+import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
+import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
+import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian
 
 /-!
 # Technical lemma memory registry
@@ -47,7 +49,7 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 def gaussianMemory : List LemmaMemoryEntry := [
   {
     key := "gaussian.product.coordinate-law",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.map_eval_stdGaussianPi",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi",
     upstreamDecl := "map_eval_stdGaussianPi",
     upstreamFile := "SLT/GaussianMeasure.lean",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -57,7 +59,7 @@ def gaussianMemory : List LemmaMemoryEntry := [
   },
   {
     key := "gaussian.product.coordinate-integrable",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_eval_stdGaussianPi",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_eval_stdGaussianPi",
     upstreamDecl := "integrable_eval_stdGaussianPi",
     upstreamFile := "SLT/GaussianMeasure.lean",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -67,7 +69,7 @@ def gaussianMemory : List LemmaMemoryEntry := [
   },
   {
     key := "gaussian.product.coordinate-square-integrable",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_sq_eval_stdGaussianPi",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_sq_eval_stdGaussianPi",
     upstreamDecl := "integrable_sq_eval_stdGaussianPi",
     upstreamFile := "SLT/GaussianMeasure.lean",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -77,7 +79,7 @@ def gaussianMemory : List LemmaMemoryEntry := [
   },
   {
     key := "gaussian.product.coordinate-mean-zero",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.integral_eval_stdGaussianPi",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_eval_stdGaussianPi",
     upstreamDecl := "integral_eval_stdGaussianPi",
     upstreamFile := "SLT/GaussianMeasure.lean",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -87,7 +89,7 @@ def gaussianMemory : List LemmaMemoryEntry := [
   },
   {
     key := "gaussian.unit-variance.nnreal",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
     upstreamDecl := "variance_id_gaussianReal",
     upstreamFile := "Mathlib.Probability.Distributions.Gaussian.Real",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -97,7 +99,7 @@ def gaussianMemory : List LemmaMemoryEntry := [
   },
   {
     key := "gaussian.quadratic-bound-integrable",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
     upstreamDecl := "integrable_exp_mul_gaussianReal / integrable_pow_of_integrable_exp_mul",
     upstreamFile := "Mathlib.Probability.Distributions.Gaussian.Real",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -110,7 +112,7 @@ def gaussianMemory : List LemmaMemoryEntry := [
 def taylorMemory : List LemmaMemoryEntry := [
   {
     key := "taylor.hessian.source-field-to-opnorm",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Taylor.hessianOpNormOfSourceHessianField",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField",
     upstreamDecl := "deriv2_bounded_of_compactlySupported",
     upstreamFile := "SLT/GaussianPoincare/TaylorBound.lean",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -120,7 +122,7 @@ def taylorMemory : List LemmaMemoryEntry := [
   },
   {
     key := "taylor.fderiv-hessian-to-iterated",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
     upstreamDecl := "taylor_order_one / TaylorBound proof idiom",
     upstreamFile := "SLT/GaussianPoincare/TaylorBound.lean",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -130,7 +132,7 @@ def taylorMemory : List LemmaMemoryEntry := [
   },
   {
     key := "brownian.quadratic-variation-normalization",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
     upstreamDecl := "not upstream; extracted from SALD local proof needs",
     upstreamFile := "ASTIS/SALD cycles 174-176",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -143,7 +145,7 @@ def taylorMemory : List LemmaMemoryEntry := [
 def measureMemory : List LemmaMemoryEntry := [
   {
     key := "measure.law-map.integral",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegral",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegral",
     upstreamDecl := "Mathlib.MeasureTheory.Measure.map / integral_map",
     upstreamFile := "Mathlib measure/integration APIs",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -153,7 +155,7 @@ def measureMemory : List LemmaMemoryEntry := [
   },
   {
     key := "measure.law-map.dominated-derivative",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.lawMapIntegralHasDerivAtOfDominated",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegralHasDerivAtOfDominated",
     upstreamDecl := "hasDerivAt_integral_of_dominated_loc_of_deriv_le",
     upstreamFile := "Mathlib.Analysis.Calculus.ParametricIntegral",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -163,7 +165,7 @@ def measureMemory : List LemmaMemoryEntry := [
   },
   {
     key := "measure.conditional-distribution.integral",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.condDistribIntegralNamedLawIntegral",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedLawIntegral",
     upstreamDecl := "condDistrib / condExpKernel map orientation",
     upstreamFile := "Mathlib.Probability.Kernel.CondDistrib and Condexp",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -176,7 +178,7 @@ def measureMemory : List LemmaMemoryEntry := [
 def variationalMemory : List LemmaMemoryEntry := [
   {
     key := "dv.scaled-test.energy-bound",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Variational.dvVariationalScaledTestEnergyBound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.dvVariationalScaledTestEnergyBound",
     upstreamDecl := "Donsker--Varadhan one-sided variational consequence",
     upstreamFile := "Boucheron-style cited result / future SLT entropy-duality port",
     status := LemmaMemoryStatus.formalizedLocal,
@@ -186,7 +188,7 @@ def variationalMemory : List LemmaMemoryEntry := [
   },
   {
     key := "lsi.sqrt-density.fisher-chain",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.Variational.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
     upstreamDecl := "LSI density and Fisher-information bookkeeping",
     upstreamFile := "Mathlib/SLT-inspired entropy and LSI proof shape",
     status := LemmaMemoryStatus.formalizedLocal,

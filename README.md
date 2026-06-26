@@ -89,7 +89,8 @@ The corresponding ledger is
 [`research-wiki/sampling-sde-library/lean-leaf-module-graph.md`](research-wiki/sampling-sde-library/lean-leaf-module-graph.md).
 It separates the Mathlib-ready technical lemma surface from paper consumers:
 
-- green nodes: current reusable SDE/Sampling technical lemmas;
+- green nodes: current reusable SDE/Sampling technical lemma files;
+- blue nodes: foundation or SDE contract files;
 - orange nodes: compiled paper-extracted lemmas that need generalization before
   Mathlib submission;
 - purple nodes: paper or exploratory consumers such as SALD and RMFLD.
@@ -270,15 +271,12 @@ Key artifacts:
 
 ```text
 docs/mathlib_ready_leaf_protocol.md
-docs/assets/sampling_sde_leaf_network.svg
 research-wiki/lemma-dags/SDE_Sampling_skill_tree.md
 research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md
 research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md
 research-wiki/technical-lemmas/mathlib_ready_leaf_template.md
 research-wiki/technical-lemmas/hidden_regularities.md
 ```
-
-![ASTIS SDE/Sampling leaf lemma network](docs/assets/sampling_sde_leaf_network.svg)
 
 The practical meaning is simple: if a paper says "by a standard
 Fokker--Planck argument", ASTIS does not let the agent use that phrase as a
@@ -300,6 +298,26 @@ Core Lean modules:
   conditional-distribution and measure/integral proof infrastructure.
 - `AutoSamplingTheory/SDE.lean`: Ito diffusion, Fokker--Planck, and
   Euler--Maruyama statement layer.
+- `AutoSamplingTheory/TechnicalLemmas.lean`: parent import surface for
+  reusable, ASTIS-owned technical lemmas intended for Mathlib-style cleanup.
+- `AutoSamplingTheory/TechnicalLemmas/Probability.lean`: parent import
+  surface for law-map and conditional-kernel technical lemmas.
+- `AutoSamplingTheory/TechnicalLemmas/Probability/LawMap.lean` and
+  `ConditionalKernel.lean`: focused Mathlib-style search surfaces for
+  pushforward-law and conditional-distribution leaves.
+- `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`:
+  preferred Mathlib-style surface for Gaussian coordinate-law, moment,
+  integrability, and variance-normalization leaves.
+- `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean`:
+  preferred Mathlib-style surface for Hessian, Taylor/Ito local-error, and
+  quadratic-normalization leaves.
+- `AutoSamplingTheory/TechnicalLemmas/InformationTheory/DonskerVaradhan.lean`:
+  focused surface for DV/KL energy leaves.
+- `AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/LogSobolev.lean`:
+  focused surface for LSI-to-KL/FI bookkeeping leaves.
+- `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` and
+  `Taylor.lean`: compatibility source files kept stable for older imports;
+  new proof packets should use the family-specific modules above.
 - `AutoSamplingTheory/SALD.lean`: VA-SALD faithful-paper proof skeleton,
   theorem dependency registry, and compiled local proof blocks.
 - `AutoSamplingTheory/RMFLD.lean`: exploratory RMFLD proof targets.

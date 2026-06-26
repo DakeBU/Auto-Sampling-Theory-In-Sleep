@@ -45,3 +45,27 @@ example : TechnicalLemmas.formalizedTechnicalLemmaCount = 21 := rfl
 example :
     ∫ x : ℝ, x ∂(ProbabilityTheory.gaussianReal 0 (1 : NNReal)) = 0 :=
   TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero 1
+
+example :
+    @TechnicalLemmas.Probability.LawMap.lawMapIntegral =
+      @lawMapIntegral := rfl
+
+example :
+    @TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedLawIntegral =
+      @condDistribIntegralNamedLawIntegral := rfl
+
+example :
+    @TechnicalLemmas.InformationTheory.DonskerVaradhan.dvVariationalScaledTestEnergyBound =
+      @dvVariationalScaledTestEnergyBound := rfl
+
+example :
+    @TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar =
+      @lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar := rfl
+
+example :
+    @TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_id_gaussianReal_zero =
+      @TechnicalLemmas.Gaussian.integral_id_gaussianReal_zero := rfl
+
+example :
+    @TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm =
+      @TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm := rfl

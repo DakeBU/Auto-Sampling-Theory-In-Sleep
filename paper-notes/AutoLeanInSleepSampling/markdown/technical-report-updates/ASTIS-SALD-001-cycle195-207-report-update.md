@@ -1,6 +1,6 @@
 # ASTIS Technical Report Update
 
-- Export time: 2026-06-27 01:58:35
+- Export time: 2026-06-27 02:49:22
 - Task: `ASTIS-SALD-001`
 - Latest observed cycle: 207
 - Latest 6h cycle range: `195-207`

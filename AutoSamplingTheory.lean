@@ -6,7 +6,5 @@ import AutoSamplingTheory.Probability
 import AutoSamplingTheory.RMFLD
 import AutoSamplingTheory.SALD
 import AutoSamplingTheory.SDE
-import AutoSamplingTheory.TechnicalLemmas.Measure
-import AutoSamplingTheory.TechnicalLemmas.Registry
+import AutoSamplingTheory.TechnicalLemmas
 import AutoSamplingTheory.TechnicalLemmas.SALDExtracted
-import AutoSamplingTheory.TechnicalLemmas.Variational
