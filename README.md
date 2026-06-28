@@ -16,12 +16,14 @@ ASTIS is designed for two research situations:
 - validating an evolving proof draft while the research is still being
   developed.
 
-The first faithful target is the SALD/VA-SALD theory in
+The current case-study corpus includes the SALD/VA-SALD theory in
 [Slowly Annealed Langevin Dynamics: Theory and Applications to
 Training-Free Guided Generation](https://arxiv.org/abs/2605.07950)
-([PDF](https://arxiv.org/pdf/2605.07950)).  The first exploratory target is
-the RMFLD proof program, used to test ASTIS on live sampling-theory arguments
-whose final theorem boundaries are still evolving.
+([PDF](https://arxiv.org/pdf/2605.07950)), but the public ASTIS objective is
+larger: build a reusable SDE/Sampling Lean technical-lemma arsenal that can
+support many papers.  The exploratory corpus includes the RMFLD proof program,
+used to test ASTIS on live sampling-theory arguments whose final theorem
+boundaries are still evolving.
 
 Every analytic fact must be one of:
 
@@ -87,13 +89,17 @@ python3 tools/astis.py module-graph-refresh
 
 The corresponding ledger is
 [`research-wiki/sampling-sde-library/lean-leaf-module-graph.md`](research-wiki/sampling-sde-library/lean-leaf-module-graph.md).
-It separates the Mathlib-ready technical lemma surface from paper consumers:
+It shows only the canonical Mathlib-ready technical lemma surface: compiled
+ASTIS-owned reusable leaves and their parent import surfaces.  The following
+are deliberately documented outside the main graph so the arsenal stays easy
+to scan:
 
-- green nodes: current reusable SDE/Sampling technical lemma files;
-- blue nodes: foundation or SDE contract files;
-- orange nodes: compiled paper-extracted lemmas that need generalization before
-  Mathlib submission;
-- purple nodes: paper or exploratory consumers such as SALD and RMFLD.
+- compatibility source files such as `TechnicalLemmas/Gaussian.lean` and
+  `TechnicalLemmas/Taylor.lean`;
+- paper-extracted quarantine files such as `TechnicalLemmas/SALDExtracted.lean`;
+- paper or exploratory consumers such as `SALD.lean` and `RMFLD.lean`;
+- external references such as Mathlib, `lean-stat-learning-theory`,
+  `lean-rademacher`, and the Chewisinho stochastic-process notes.
 
 ## Two Modes
 
@@ -507,6 +513,11 @@ design contrasts; ASTIS keeps only the mechanisms that serve this domain.
 | [EoH](https://github.com/FeiLiu36/EoH) | Candidate populations are useful for exploration. | Faithful proof reproduction cannot mutate theorem statements; populations are confined to `exploratoryProof`. |
 | [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) and [arXiv:2606.05400](https://arxiv.org/abs/2606.05400) | Blueprint/DAG control prevents long Lean work from drifting. | ASTIS adapts the blueprint to measure theory, stochastic processes, and SDE technical lemmas. |
 | [MathCode](https://github.com/math-ai-org/mathcode) | Theorem-reuse memory and diagnostics reduce redundant Lean work. | Diagnostics are advisory; `python3 tools/astis.py check` remains the acceptance gate. |
+| [LeanSearch v2](https://github.com/frenzymath/LeanSearch-v2) and [REAL-Prover](https://github.com/frenzymath/REAL-Prover) | Global premise retrieval and retrieval-augmented Lean proving are essential when probability lemmas are scattered across Mathlib. | ASTIS uses retrieval as a lemma-candidate source; a retrieved theorem must still match the exact measure/SDE hypotheses. |
+| [Matlas](https://arxiv.org/abs/2604.17484) | Literature-scale semantic theorem retrieval can locate classical analytic facts and source variants. | Matlas results become cited obligations or source leads, not local theorem closure. |
+| [Chain-of-States](https://arxiv.org/abs/2512.10317) and [Herald](https://arxiv.org/abs/2410.10878) | Intermediate proof states and NL annotations improve informal-to-Lean translation. | Middle agents should expose the analytic state chain before lower agents attack KL/FI/LSI or Fokker--Planck leaves. |
+| [Iteris](https://arxiv.org/abs/2606.02484) | Computational-math research loops need distinct experiment, proof, and route-review modes. | ASTIS keeps numerical intuition separate from Lean proof obligations and source-cited analytic contracts. |
+| [AlphaProof Nexus](https://arxiv.org/abs/2605.22763) and [results](https://github.com/google-deepmind/alphaproof-nexus-results) | Parallel Lean agents and evolutionary coordination can reduce hard-proof search cost. | ASTIS borrows the cost-awareness, not AlphaProof's competition/open-problem target distribution. |
 | [Goedel-Architect](https://arxiv.org/abs/2606.06468) | Solved-node preservation and failed-node diagnosis are stronger than transcript replay. | ASTIS applies this to source leaves, technical lemmas, Mathlib portability gaps, and stale proof routes. |
 | [Lean4Agent](https://arxiv.org/abs/2606.06523) | Agent workflows can themselves become formal objects. | ASTIS records orchestration contracts without replacing theorem closure by process closure. |
 | [Exponential separation for hierarchical agentic theorem provers](https://arxiv.org/abs/2602.10512) | Reusable cuts are more efficient than flat proof traces. | ASTIS turns KL/FI identities, weak Fokker--Planck bridges, measurability facts, and EM local-error lemmas into named memory nodes. |

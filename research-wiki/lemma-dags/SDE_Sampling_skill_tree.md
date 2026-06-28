@@ -58,14 +58,14 @@ advice packet.
 
 | Family | First leaf | Keep source-cited? | Why |
 |---|---|---|---|
-| Conditional pairing | `condDistrib_pairing_kernel_integral` | no | Directly prove from `ProbabilityTheory.condDistrib` and integral-map APIs. |
+| Conditional pairing/versioning | `condDistribIntegralNamedFieldIntegral` | formalized-local | Directly proved from `condDistrib`, named-law integral, and `integral_congr_ae`. |
 | Conditional mean | `condDrift_pairing_of_condMean` | no | Use Bochner integral and continuous linear maps after the kernel form. |
-| Weak FP bridge | `weakFP_from_ito_generator` | no | Small rewriting theorem once Ito derivative, conditional pairing, and law-map rewrites are supplied. |
+| Weak-generator bridge | `weakGeneratorFromSampleDerivative` | formalized-local | Small rewriting theorem once Ito derivative, law identity, and generator pairings are supplied. |
 | Frozen Ito generator | `frozen_interpolation_ito_generator_derivative` | yes, initially | This is the analytic Ito theorem; isolate and cite until a local SDE library exists. |
 | KL density derivative | `hasDerivAt_KLDens` | yes/local structure | Requires local dominated derivative structure; prove pointwise algebra separately. |
-| KL algebra | `kl_pointwise_deriv_simplify`, `kl_derivative_remove_mass_term` | no | Small real algebra leaf. |
+| KL algebra | `klPointwiseDerivSimplify`, `klDerivativeRemoveMassTerm` | formalized-local | Small real algebra and derivative-target leaves. |
 | IBP theorem | `integral_div_smul_eq_neg_integral_inner_grad` | yes, initially | Whole-space boundary conditions are substantial; use explicit compact-support/decay contract. |
-| Fisher algebra | `fp_rewrite_scalar_algebra`, `fisher_ibp_algebra` | no | Small algebra once analytic IBP identities are supplied. |
+| Fisher/FP algebra | `fpRewriteScalarAlgebra`, `fisherIbpAlgebra` | formalized-local | Small algebra once analytic FP/IBP identities are supplied. |
 | Gaussian fallback | `covariance_contracts_bilinear_form`, `frozen_gaussian_one_step_generator` | maybe | Backup route if Ito generator source theorem is not usable. |
 
 ## Agent Routing

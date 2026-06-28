@@ -1,7 +1,7 @@
 # AutoSamplingTheory.TechnicalLemmas.Measure
 
 - File: `AutoSamplingTheory/TechnicalLemmas/Measure.lean`
-- Layer: Mathlib-ready technical lemma
+- Layer: compatibility source
 - Purpose: compatibility aggregator for law-map and conditional-kernel lemmas
 - Mathlib-quality status: legacy search surface; prefer TechnicalLemmas.Probability.* for new work
 

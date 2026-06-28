@@ -1757,6 +1757,66 @@ proof script.  Record the failure as one of:
 """
 
 
+def mathlib_leaf_reviewer_checklist_text() -> str:
+    return """# Mathlib-Ready Leaf Reviewer Checklist
+
+Reviewer agents use this checklist before marking a reusable SDE/Sampling leaf
+as `formalized-local` or a plausible future Mathlib contribution.  The goal is
+not only to make the current paper compile; the goal is a small, stable,
+searchable theorem that later papers can call.
+
+## Gate 1: Stable Statement
+
+- The theorem is one leaf, not a bundled paper proof.
+- The statement is domain-general unless a local ASTIS namespace is explicitly
+  justified.
+- All hidden regularity assumptions are explicit: measurability, integrability,
+  domination, differentiability, boundedness, nonemptiness, positivity,
+  compact support or boundary decay, and conditional representatives.
+- Constants and conventions are named rather than buried in prose.
+- The statement has not been repeatedly rewritten just to satisfy the current
+  proof script.  Persistent failure triggers a statement audit.
+
+## Gate 2: API And File Placement
+
+- The file path matches the mathematical family: `Probability`,
+  `ProbabilityDistributions`, `Analysis/Calculus`, `InformationTheory`, or
+  `FunctionalInequalities`.
+- Existing Mathlib declarations were searched first.
+- External projects such as `lean-stat-learning-theory` or `lean-rademacher`
+  are cited as port/reference memory, not treated as local proof certificates.
+- Imports are the smallest reasonable imports for the family.
+- The theorem name would still make sense outside SALD/RMFLD.
+
+## Gate 3: Proof Quality
+
+- The proof route is stable and described in the leaf packet.
+- No `axiom`, `sorry`, `admit`, fake `Prop := True`, or fake `trivial` closure.
+- No broad wrapper that merely repackages the parent theorem.
+- If the proof depends on a large theorem, that theorem is either a compiled
+  local declaration or a named proof obligation.
+- The declaration is covered by `lake build` and `lake build Tests`.
+
+## Gate 4: Retrieval And Memory
+
+- The leaf is recorded in `AutoSamplingTheory/TechnicalLemmas/Registry.lean`
+  if it is meant to be callable memory.
+- The technical-lemma registry, retrieval index, module graph, and card are
+  refreshed.
+- The external source is recorded under `research-wiki/external-lean-libraries/`
+  or the port queue.
+
+Reviewer outcome should be one of:
+
+- `accept-mathlib-ready-local`: compiled, small, reusable, and correctly placed;
+- `accept-astis-local`: compiled but intentionally project-local;
+- `split-required`: target too large for one lower agent;
+- `regularity-gap`: hidden assumptions missing;
+- `api-search-required`: likely already in Mathlib or nearby ASTIS memory;
+- `statement-risk`: possible false statement, counterexample, or wrong version.
+"""
+
+
 def hidden_regularities_text() -> str:
     return """# Hidden Regularity Contracts
 
@@ -1846,14 +1906,14 @@ advice packet.
 
 | Family | First leaf | Keep source-cited? | Why |
 |---|---|---|---|
-| Conditional pairing | `condDistrib_pairing_kernel_integral` | no | Directly prove from `ProbabilityTheory.condDistrib` and integral-map APIs. |
+| Conditional pairing/versioning | `condDistribIntegralNamedFieldIntegral` | formalized-local | Directly proved from `condDistrib`, named-law integral, and `integral_congr_ae`. |
 | Conditional mean | `condDrift_pairing_of_condMean` | no | Use Bochner integral and continuous linear maps after the kernel form. |
-| Weak FP bridge | `weakFP_from_ito_generator` | no | Small rewriting theorem once Ito derivative, conditional pairing, and law-map rewrites are supplied. |
+| Weak-generator bridge | `weakGeneratorFromSampleDerivative` | formalized-local | Small rewriting theorem once Ito derivative, law identity, and generator pairings are supplied. |
 | Frozen Ito generator | `frozen_interpolation_ito_generator_derivative` | yes, initially | This is the analytic Ito theorem; isolate and cite until a local SDE library exists. |
 | KL density derivative | `hasDerivAt_KLDens` | yes/local structure | Requires local dominated derivative structure; prove pointwise algebra separately. |
-| KL algebra | `kl_pointwise_deriv_simplify`, `kl_derivative_remove_mass_term` | no | Small real algebra leaf. |
+| KL algebra | `klPointwiseDerivSimplify`, `klDerivativeRemoveMassTerm` | formalized-local | Small real algebra and derivative-target leaves. |
 | IBP theorem | `integral_div_smul_eq_neg_integral_inner_grad` | yes, initially | Whole-space boundary conditions are substantial; use explicit compact-support/decay contract. |
-| Fisher algebra | `fp_rewrite_scalar_algebra`, `fisher_ibp_algebra` | no | Small algebra once analytic IBP identities are supplied. |
+| Fisher/FP algebra | `fpRewriteScalarAlgebra`, `fisherIbpAlgebra` | formalized-local | Small algebra once analytic FP/IBP identities are supplied. |
 | Gaussian fallback | `covariance_contracts_bilinear_form`, `frozen_gaussian_one_step_generator` | maybe | Backup route if Ito generator source theorem is not usable. |
 
 ## Agent Routing
@@ -1880,18 +1940,18 @@ real blocker.
 ```mermaid
 flowchart TD
   Root[emInterpolationConditionalWeakFp]
-  Bridge[weakFP_from_ito_generator]
+  Bridge[weakGeneratorFromSampleDerivative compiled]
   ItoGen[frozen_interpolation_ito_generator_derivative]
   LawDeriv[law-level weak-test derivative rewrite]
-  PairKernel[condDistrib_pairing_kernel_integral]
+  PairKernel[condDistribIntegralNamedFieldIntegral compiled]
   PairMean[condDrift_pairing_of_condMean]
   LapLaw[laplacian law-map rewrite]
   Reg[hidden regularity contracts]
   KL[KL/FI downstream handoff]
-  KLPt[kl_pointwise_deriv_simplify]
-  KLMass[kl_derivative_remove_mass_term]
+  KLPt[klPointwiseDerivSimplify compiled]
+  KLMass[klDerivativeRemoveMassTerm compiled]
   IBP[integral_div_smul_eq_neg_integral_inner_grad]
-  Fisher[fisher_ibp_algebra]
+  Fisher[fisherIbpAlgebra compiled]
   SALD[SALD discrete moving-target theorem]
   Fallback[Brownian Taylor/DCT fallback]
   Cov[covariance_contracts_bilinear_form]
@@ -1919,17 +1979,18 @@ flowchart TD
 
 | Priority | Leaf | Status | Route |
 |---|---|---|---|
-| 1 | `condDistrib_pairing_kernel_integral` | directly provable target | Use `ProbabilityTheory.condDistrib`/conditional expectation bridge plus integral-map. Avoid vector conditional mean at first. |
-| 2 | `weakFP_from_ito_generator` | directly provable target | Rewrite sample-space Ito derivative into law-level weak FP using law identity, conditional pairing, and Laplacian map rewrite. |
+| 1 | `condDistribIntegralNamedFieldIntegral` | formalized-local | Use named-law conditional integral and a.e. versioning; avoid vector conditional mean unless needed. |
+| 2 | `weakGeneratorFromSampleDerivative` | formalized-local | Rewrite sample-space Ito derivative into law-level weak-generator form using law identity and supplied pairings. |
 | 3 | `condDrift_pairing_of_condMean` | technical lemma after priority 1 | Pull inner product through Bochner integral with a continuous linear map. |
-| 4 | `lawLevelDerivative_of_sampleDerivative` | technical lemma | Use eventual equality of law integrals and `HasDerivAt.congr_of_eventuallyEq`. |
+| 4 | `lawIntegralHasDerivAtOfMeasureMapEqAndSample` | formalized-local backend | Existing law-map derivative rewrite consumed by `weakGeneratorFromSampleDerivative`. |
 | 5 | `laplacianLawMapIntegral` | technical lemma | Rewrite law integral of Laplacian/test function under endpoint map. |
-| 6 | `kl_pointwise_deriv_simplify` and `kl_derivative_remove_mass_term` | directly provable algebra | Keep KL analytic domination as a separate contract; close only the algebra leaf locally. |
-| 7 | `fp_rewrite_scalar_algebra` and `fisher_ibp_algebra` | directly provable algebra | Use only after IBP identities are supplied. |
+| 6 | `klPointwiseDerivSimplify` and `klDerivativeRemoveMassTerm` | formalized-local | KL analytic domination remains a separate contract; algebra leaves are compiled. |
+| 7 | `fpRewriteScalarAlgebra` and `fisherIbpAlgebra` | formalized-local | Use after FP/IBP analytic identities are supplied. |
 
 ## Non-Goals For The Next Lower Packet
 
 - Do not reprove the whole SALD theorem.
+- Do not redo leaves now marked `formalized-local`.
 - Do not add same-shape theorem wrappers.
 - Do not switch back to Brownian Taylor/DCT unless the Ito-generator bridge is
   shown false or missing a necessary assumption.
@@ -1972,24 +2033,28 @@ DAG instead.
 
 ```mermaid
 flowchart TD
-  A1[condDistrib_pairing_kernel_integral]
-  A2[condDrift_pairing_of_condMean]
-  B1[weakFP_from_ito_generator]
-  Ito[frozen_interpolation_ito_generator_derivative]
-  Law[law integral eventual equality]
-  Lap[laplacian law-map integral]
-  KL1[kl_pointwise_deriv_simplify]
-  KL2[kl_derivative_remove_mass_term]
-  IBP[integral_div_smul_eq_neg_integral_inner_grad]
-  ALG1[fp_rewrite_scalar_algebra]
-  ALG2[fisher_ibp_algebra]
+  A0[condDistribIntegralNamedLawIntegral compiled]
+  A1[condDistribIntegralNamedFieldIntegral compiled]
+  A2[condDrift_pairing_of_condMean future]
+  B1[weakGeneratorFromSampleDerivative compiled]
+  Ito[frozen_interpolation_ito_generator_derivative source-cited]
+  Law[lawIntegralHasDerivAtOfMeasureMapEqAndSample compiled]
+  Lap[laplacian law-map integral supplied]
+  KL0[hasDerivAt_KLDens source-cited]
+  KL1[klPointwiseDerivSimplify compiled]
+  KL2[klDerivativeRemoveMassTerm compiled]
+  IBP[integral_div_smul_eq_neg_integral_inner_grad source-cited]
+  ALG1[fpRewriteScalarAlgebra compiled]
+  ALG2[fisherIbpAlgebra compiled]
 
+  A0 --> A1
   A1 --> A2
   Ito --> B1
   A1 --> B1
   Law --> B1
   Lap --> B1
-  B1 --> KL1
+  B1 --> KL0
+  KL0 --> KL1
   KL1 --> KL2
   B1 --> IBP
   IBP --> ALG1
@@ -2000,13 +2065,13 @@ flowchart TD
 
 | Leaf | Intended shape | First search area |
 |---|---|---|
-| `condDistrib_pairing_kernel_integral` | Kernel integral of inner product equals sample-space integral. | `Mathlib.Probability.Kernel.CondDistrib`, `MeasureTheory.integral_map`. |
+| `condDistribIntegralNamedFieldIntegral` | Named conditional-integral version integrates to the original joint-law integral. | ASTIS conditional-kernel module, `integral_congr_ae`. |
 | `condDrift_pairing_of_condMean` | Conditional mean version using Bochner integral and continuous linear maps. | Bochner integral continuous-linear-map APIs. |
-| `weakFP_from_ito_generator` | HasDerivAt law-level weak FP from supplied Ito derivative, pairing, and law rewrites. | `HasDerivAt.congr_of_eventuallyEq`, integral-map rewrites. |
-| `kl_pointwise_deriv_simplify` | Real algebra for derivative of `q * log (q / p)`. | `field_simp`, `ring`. |
-| `kl_derivative_remove_mass_term` | Remove the mass-conservation derivative term. | `simpa`, commutative additive rewrites. |
-| `fp_rewrite_scalar_algebra` | Rewrite `-div(q b) + a lap q` into `a div(q A) + div(q V)`. | `ring`. |
-| `fisher_ibp_algebra` | Combine two IBP identities into the Fisher/cross term. | `ring`. |
+| `weakGeneratorFromSampleDerivative` | HasDerivAt law-level weak-generator form from supplied Ito/sample derivative and pairings. | ASTIS law-map derivative rewrite. |
+| `klPointwiseDerivSimplify` | Real algebra for derivative of `q * log (q / p)`. | `field_simp`, `ring`. |
+| `klDerivativeRemoveMassTerm` | Remove the mass-conservation derivative term. | `simpa`, commutative additive rewrites. |
+| `fpRewriteScalarAlgebra` | Rewrite `-div(q b) + a lap q` into `a div(q A) + div(q V)`. | `ring`. |
+| `fisherIbpAlgebra` | Combine two IBP identities into the Fisher/cross term. | `ring`. |
 | `covariance_contracts_bilinear_form` | Covariance contracts a bilinear form to the coordinate trace. | Finite sums over `Fin d`, coordinate moments. |
 
 ## Source-Cited Or Isolated Analytic Contracts
@@ -2035,11 +2100,15 @@ flowchart TD
 
 ## Next-Run Directive
 
-The next lower batch should start with `condDistrib_pairing_kernel_integral`
-or `weakFP_from_ito_generator`.  These are small enough to be meaningful Lean
-work.  Do not send lower agents back to the whole SALD theorem, and do not ask
-them to formalize the full Ito formula unless the smaller bridge has been
-diagnosed as false or unusable.
+The next lower batch should not redo `condDistribIntegralNamedFieldIntegral`,
+`weakGeneratorFromSampleDerivative`, `klPointwiseDerivSimplify`,
+`klDerivativeRemoveMassTerm`, `fpRewriteScalarAlgebra`, or `fisherIbpAlgebra`;
+these leaves now compile locally.  The next real targets are the conditional
+mean form if it is still needed, the dominated KL-density derivative contract,
+the no-boundary IBP contract, and the covariance-to-trace Gaussian fallback.
+Do not send lower agents back to the whole SALD theorem, and do not ask them
+to formalize the full Ito formula unless the compiled weak-generator bridge is
+shown insufficient.
 """
 
 
@@ -2206,7 +2275,7 @@ def sampling_sde_leaf_network_svg() -> str:
   <rect x="55" y="675" width="560" height="50" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="75" y="697" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">Reviewer principle</text>
   <text x="75" y="717" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#475569">One leaf lemma per packet; expose regularity; repeated failure means recheck the statement, not churn the proof.</text>
-  <text x="970" y="724" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py lemma-dag-refresh</text>
+  <text x="970" y="869" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py lemma-dag-refresh</text>
 </g>
 </svg>
 """
@@ -2251,6 +2320,8 @@ def write_mathlib_ready_leaf_docs() -> list[Path]:
         (ROOT / "docs" / "assets" / "sampling_lemma_dag.mmd", sampling_lemma_dag_mmd_text()),
         (ROOT / "docs" / "assets" / "sampling_sde_leaf_network.svg", sampling_sde_leaf_network_svg()),
         (AGENT_BRIEFS_DIR / "mathlib_ready_leaf_packet.md", leaf_packet_brief_text()),
+        (ROOT / "docs" / "mathlib_ready_leaf_reviewer_checklist.md", mathlib_leaf_reviewer_checklist_text()),
+        (AGENT_BRIEFS_DIR / "mathlib_ready_leaf_reviewer_checklist.md", mathlib_leaf_reviewer_checklist_text()),
     ]
     for path, text in path_texts:
         write_text(path, text)
@@ -2282,6 +2353,7 @@ def write_mathlib_ready_leaf_docs() -> list[Path]:
             "make hidden regularity reusable",
             "do not frequently change the proof",
             "search Mathlib before inventing local lemmas",
+            "review every callable leaf against the Mathlib-ready checklist",
         ],
         "next_sald_dag": rel(LEMMA_DAG_DIR / "SALD_weak_fp_leaf_dag.md"),
         "pro_assimilated_leaf_targets": rel(LEMMA_DAG_DIR / "Pro_assimilated_leaf_targets.md"),
@@ -2325,7 +2397,7 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "status": "legacy import surface; prefer TechnicalLemmas.ProbabilityDistributions.Gaussian",
     },
     "AutoSamplingTheory.TechnicalLemmas.Measure": {
-        "layer": "Mathlib-ready technical lemma",
+        "layer": "compatibility source",
         "summary": "compatibility aggregator for law-map and conditional-kernel lemmas",
         "status": "legacy search surface; prefer TechnicalLemmas.Probability.* for new work",
     },
@@ -2384,6 +2456,11 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "summary": "Donsker--Varadhan one-sided and scaled-test energy leaves",
         "status": "preferred Mathlib-style location for DV/KL energy leaves",
     },
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "KL-density pointwise derivative and mass-conservation algebra leaves",
+        "status": "preferred Mathlib-style location for KL density algebra after analytic domination is supplied",
+    },
     "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities": {
         "layer": "Mathlib-ready technical lemma",
         "summary": "parent import surface for LSI/FI/PI-style technical lemmas",
@@ -2394,8 +2471,23 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "summary": "log-Sobolev to KL/FI bookkeeping leaves",
         "status": "preferred Mathlib-style location for LSI/FI bookkeeping leaves",
     },
-    "AutoSamplingTheory.TechnicalLemmas.Variational": {
+    "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses": {
         "layer": "Mathlib-ready technical lemma",
+        "summary": "parent import surface for weak-generator and Fokker--Planck algebra leaves",
+        "status": "preferred parent module for SDE/Sampling stochastic-process leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "sample-space generator derivative to named law weak-generator rewrite",
+        "status": "preferred Mathlib-style location for weak FP generator bridge leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Fokker--Planck split and Fisher/IBP scalar algebra leaves",
+        "status": "preferred Mathlib-style location for weak FP and Fisher algebra handoffs",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Variational": {
+        "layer": "compatibility source",
         "summary": "compatibility aggregator for DV and LSI/FI leaves",
         "status": "legacy search surface; prefer InformationTheory and FunctionalInequalities modules",
     },
@@ -2527,33 +2619,267 @@ def formalized_memory_entries_by_module() -> dict[str, list[dict[str, str]]]:
     return entries
 
 
+def canonical_arsenal_modules() -> set[str]:
+    return {
+        module
+        for module in arsenal_module_coords()
+        if module not in {"AutoSamplingTheory", "AutoSamplingTheory.TechnicalLemmas"}
+    }
+
+
+def mathlib_readiness_tier(record: dict, memory_count: int) -> tuple[str, str, str]:
+    module = record["module"]
+    decl_count = len(record.get("declarations", [])) + len(record.get("exports", []))
+    if module == "AutoSamplingTheory.Probability":
+        return (
+            "adapter-surface",
+            "compiled local adapter surface; too broad for direct upstreaming as one unit",
+            "split reusable declarations into family modules before proposing upstream",
+        )
+    if memory_count > 0:
+        return (
+            "compiled-local-candidate",
+            "locally compiled and registered as callable technical lemma memory",
+            "review names, imports, assumptions, and theorem generality against Mathlib conventions",
+        )
+    if decl_count == 0:
+        return (
+            "parent-import-surface",
+            "compiled parent file with no direct mathematical declarations",
+            "keep as project organization; upstream individual child leaves instead",
+        )
+    return (
+        "compiled-local-unreviewed",
+        "compiled declarations exist but are not yet curated as formalized memory entries",
+        "add reviewer audit rows or move non-upstream declarations out of the canonical arsenal",
+    )
+
+
+def mathlib_readiness_audit(records: list[dict]) -> tuple[Path, Path]:
+    memory_entries = formalized_memory_entries_by_module()
+    by_module = module_record_map(records)
+    rows: list[dict[str, str]] = []
+    for module in sorted(canonical_arsenal_modules()):
+        record = by_module.get(module)
+        if not record:
+            continue
+        memory_count = len(memory_entries.get(module, []))
+        tier, reviewer_status, next_action = mathlib_readiness_tier(record, memory_count)
+        decls = module_decl_names(record, limit=12)
+        rows.append({
+            "module": f"`{module}`",
+            "file": f"`{record['path']}`",
+            "tier": tier,
+            "compiled_items": str(len(record.get("declarations", [])) + len(record.get("exports", []))),
+            "memory_entries": str(memory_count),
+            "representative_items": ", ".join(f"`{name}`" for name in decls) or "none",
+            "reviewer_status": reviewer_status,
+            "next_action": next_action,
+        })
+    table = markdown_table(rows, [
+        ("Module", "module"),
+        ("File", "file"),
+        ("Tier", "tier"),
+        ("Compiled items", "compiled_items"),
+        ("Memory entries", "memory_entries"),
+        ("Representative items", "representative_items"),
+        ("Reviewer status", "reviewer_status"),
+        ("Next action", "next_action"),
+    ])
+    md_path = SAMPLING_LIBRARY_DIR / "mathlib-readiness-audit.md"
+    json_path = RETRIEVAL_INDEX_DIR / "mathlib-readiness-audit.json"
+    text = f"""# Mathlib Readiness Audit For The ASTIS SDE/Sampling Arsenal
+
+Generated: `{now_stamp()}`
+
+This audit is deliberately stricter than "the file builds".  A declaration is
+callable inside ASTIS after it compiles and appears in technical lemma memory.
+It becomes a Mathlib-upstream candidate only after reviewer agents check its
+generality, naming, imports, hidden regularity assumptions, and proof route.
+
+The main module graph shows the canonical local arsenal.  This audit explains
+what still separates those compiled leaves from an actual Mathlib contribution.
+
+## Reviewer Rules
+
+- Decompose aggressively: one candidate row should lead to one small theorem or
+  one small file-cleanup packet.
+- Specify more than the theorem: include local APIs, minimal imports, hidden
+  assumptions, and intended proof route.
+- Treat persistent failure as mathematical signal: recheck the statement for
+  missing assumptions or counterexamples.
+- Make hidden regularity reusable: measurability, integrability, continuity,
+  nonemptiness, boundedness, and domination hypotheses belong in theorem
+  contracts.
+- Do not frequently change the proof route unless the reviewer identifies a
+  real statement problem.
+
+## Current Canonical Arsenal
+
+{table}
+
+## Interpretation
+
+`compiled-local-candidate` means ASTIS has a local proof and the declaration is
+registered as callable technical lemma memory.  It does not mean the theorem is
+already formatted for a Mathlib pull request.  `parent-import-surface` files are
+useful project organization, but their child declarations are the upstreamable
+objects.  `adapter-surface` files contain useful glue and should be split before
+upstream review.
+"""
+    write_text(md_path, text)
+    payload = {
+        "generated": now_stamp(),
+        "rows": rows,
+        "rules": [
+            "decompose aggressively",
+            "specify theorem plus APIs and proof route",
+            "treat repeated failure as statement signal",
+            "make hidden regularity reusable",
+            "do not frequently change the proof",
+        ],
+    }
+    write_text(json_path, json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+    return md_path, json_path
+
+
+def chewisinho_to_lean_roadmap() -> tuple[Path, Path]:
+    md_path = SAMPLING_LIBRARY_DIR / "roadmap" / "chewisinho_to_lean_tree.md"
+    json_path = RETRIEVAL_INDEX_DIR / "chewisinho-to-lean-tree.json"
+    chewi_pdf = OUTER_REPOS_SAMPLING_ROOT / "chewisinho-stochastic-processes-main.pdf"
+    rows = [
+        {
+            "source": "Part I, Ch. 1.1 stochastic calculus",
+            "lean_family": "ProbabilityDistributions/Gaussian + Analysis/Calculus/Taylor",
+            "first_leaf": "Gaussian increment moments; quadratic variation normalization; Ito/Taylor local error",
+            "status": "partial-local-compiled",
+            "review": "split textbook intuition into finite-dimensional Gaussian leaves before Brownian-path theorems",
+        },
+        {
+            "source": "Part I, Ch. 1.2 Markov semigroup theory",
+            "lean_family": "future TechnicalLemmas/SDE/MarkovSemigroup",
+            "first_leaf": "semigroup test-function pairing and generator domain contracts",
+            "status": "planned",
+            "review": "do not encode informal generator equalities without domain and integrability hypotheses",
+        },
+        {
+            "source": "Part I, Ch. 2 functional inequalities",
+            "lean_family": "FunctionalInequalities/{Poincare,LogSobolev,Transport}",
+            "first_leaf": "LSI-to-KL/FI bookkeeping; tensorization and Poincare as future ports",
+            "status": "partial-local-compiled",
+            "review": "separate algebraic KL/FI handoff from analytic LSI theorem",
+        },
+        {
+            "source": "Part I, Ch. 3 change of measure, Doob transform, Follmer drift",
+            "lean_family": "InformationTheory/PathSpace + SDE/DoobTransform",
+            "first_leaf": "finite-time Radon--Nikodym and Feynman--Kac weight contracts",
+            "status": "planned",
+            "review": "path-space theorems need explicit filtrations, adaptedness, absolute continuity, and martingale integrability",
+        },
+        {
+            "source": "Part II, Ch. 4 Langevin Monte Carlo interpolation",
+            "lean_family": "SDE/EulerMaruyama + Probability/LawMap",
+            "first_leaf": "EM interpolation weak-test law derivative under domination",
+            "status": "partial-local-compiled",
+            "review": "start from law-map and parametric integral leaves; keep full Ito theorem source-cited until local SDE layer exists",
+        },
+        {
+            "source": "Part II, Ch. 6 Renyi divergence",
+            "lean_family": "InformationTheory/Renyi",
+            "first_leaf": "Renyi density algebra and monotonicity side conditions",
+            "status": "planned",
+            "review": "separate pointwise real algebra from measure-theoretic absolute-continuity assumptions",
+        },
+        {
+            "source": "Part II, Ch. 7 MALA and Markov chains",
+            "lean_family": "Probability/MarkovKernel + Sampling/MH",
+            "first_leaf": "proposal/acceptance kernel mass and reversibility contracts",
+            "status": "planned",
+            "review": "finite/discrete Markov chain facts may already exist in Mathlib; search before porting",
+        },
+        {
+            "source": "Part II, Ch. 8 proximal sampler",
+            "lean_family": "Sampling/Proximal + Convex",
+            "first_leaf": "restricted Gaussian oracle contracts and conditional law identities",
+            "status": "planned",
+            "review": "requires convex-analysis interfaces; keep separate from stochastic-process core",
+        },
+    ]
+    table = markdown_table(rows, [
+        ("Textbook source", "source"),
+        ("Target Lean family", "lean_family"),
+        ("First small leaf", "first_leaf"),
+        ("Status", "status"),
+        ("Reviewer warning", "review"),
+    ])
+    text = f"""# Chewisinho-To-Lean Foundation Roadmap
+
+Generated: `{now_stamp()}`
+
+Reference PDF: `https://chewisinho.github.io/main.pdf`
+
+Local copy: `{chewi_pdf}`
+
+This roadmap is not a theorem dependency.  It is a textbook-to-Lean planning
+map.  Textbook statements are often intentionally informal; ASTIS agents must
+turn them into small theorem contracts with hidden regularity assumptions before
+assigning lower Lean work.
+
+## Roadmap
+
+{table}
+
+## Agent Protocol
+
+1. Start with Mathlib search and the current ASTIS arsenal.
+2. If a textbook claim is useful, decompose it into one local theorem packet.
+3. State measurability, integrability, continuity, nonemptiness, boundedness,
+   domination, and boundary assumptions explicitly.
+4. Use external Lean projects such as `lean-stat-learning-theory` and
+   `lean-rademacher` as reference memory only; callable lemmas must be
+   ASTIS-owned declarations that build locally.
+5. If a packet fails repeatedly, audit the mathematical statement instead of
+   changing the proof script.
+
+## Current Priority
+
+Do not attempt to formalize the whole textbook in one pass.  The next reusable
+growth path is:
+
+- Gaussian/product moment leaves already represented locally.
+- Law-map and conditional-kernel leaves already represented locally.
+- Local weak-generator and EM interpolation contracts.
+- Functional-inequality backend split into algebraic handoff leaves and future
+  analytic theorem ports.
+- Path-space change-of-measure and Doob-transform contracts after the finite
+  dimensional law/KL/FI layer is stable.
+"""
+    write_text(md_path, text)
+    write_text(json_path, json.dumps({"generated": now_stamp(), "pdf": str(chewi_pdf), "rows": rows}, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+    return md_path, json_path
+
+
 def arsenal_module_coords() -> dict[str, tuple[int, int, int, int]]:
     return {
-        "AutoSamplingTheory.Core": (60, 115, 245, 46),
-        "AutoSamplingTheory.SDE": (60, 500, 245, 50),
-        "AutoSamplingTheory.Probability": (360, 105, 320, 56),
-        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap": (360, 205, 320, 56),
-        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel": (360, 305, 320, 56),
-        "AutoSamplingTheory.TechnicalLemmas.Probability": (360, 405, 320, 56),
-        "AutoSamplingTheory.TechnicalLemmas.Measure": (360, 505, 320, 52),
-        "AutoSamplingTheory.TechnicalLemmas.Variational": (360, 605, 320, 52),
-        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian": (720, 105, 360, 56),
-        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions": (720, 205, 360, 52),
-        "AutoSamplingTheory.TechnicalLemmas.Gaussian": (720, 305, 360, 52),
-        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor": (720, 405, 360, 56),
-        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": (720, 505, 360, 52),
-        "AutoSamplingTheory.TechnicalLemmas.Analysis": (720, 605, 360, 52),
-        "AutoSamplingTheory.TechnicalLemmas.Taylor": (720, 705, 360, 52),
-        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan": (1115, 105, 360, 56),
-        "AutoSamplingTheory.TechnicalLemmas.InformationTheory": (1115, 205, 360, 52),
-        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev": (1115, 305, 360, 56),
-        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities": (1115, 405, 360, 52),
-        "AutoSamplingTheory.TechnicalLemmas.Registry": (1115, 545, 360, 56),
-        "AutoSamplingTheory.TechnicalLemmas": (1115, 705, 360, 56),
-        "AutoSamplingTheory.TechnicalLemmas.SALDExtracted": (1530, 690, 300, 56),
-        "AutoSamplingTheory.SALD": (1560, 570, 245, 50),
-        "AutoSamplingTheory.RMFLD": (1560, 830, 245, 50),
-        "AutoSamplingTheory": (760, 1165, 355, 54),
+        "AutoSamplingTheory.Probability": (675, 75, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap": (70, 190, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel": (400, 190, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian": (730, 190, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor": (1060, 190, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity": (1390, 190, 330, 56),
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator": (235, 320, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra": (565, 320, 330, 56),
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan": (1060, 320, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev": (1390, 320, 330, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Probability": (235, 455, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions": (730, 455, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": (1060, 455, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory": (1390, 455, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses": (400, 580, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis": (1060, 580, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities": (1390, 580, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas": (765, 705, 330, 58),
+        "AutoSamplingTheory": (765, 805, 330, 54),
     }
 
 
@@ -2584,13 +2910,25 @@ def module_title_lines(module: str) -> list[str]:
         "Analysis",
         "InformationTheory",
         "FunctionalInequalities",
+        "StochasticProcesses",
     ]:
         prefix = f"AutoSamplingTheory.TechnicalLemmas.{family}."
         if module.startswith(prefix):
-            return [f"TechnicalLemmas.{family}", "." + module.removeprefix(prefix)]
+            display_family = {
+                "ProbabilityDistributions": "ProbDistributions",
+                "FunctionalInequalities": "FuncInequalities",
+                "InformationTheory": "InformationTheory",
+                "StochasticProcesses": "StochasticProcesses",
+            }.get(family, family)
+            return [f"TechnicalLemmas.{display_family}", "." + module.removeprefix(prefix)]
     prefix = "AutoSamplingTheory.TechnicalLemmas."
     if module.startswith(prefix):
-        return ["TechnicalLemmas", "." + module.removeprefix(prefix)]
+        tail = module.removeprefix(prefix)
+        display_tail = {
+            "ProbabilityDistributions": "ProbDistributions",
+            "FunctionalInequalities": "FuncInequalities",
+        }.get(tail, tail)
+        return ["TechnicalLemmas", "." + display_tail]
     if module.startswith("AutoSamplingTheory."):
         return ["AutoSamplingTheory", "." + module.removeprefix("AutoSamplingTheory.")]
     return [module]
@@ -2636,44 +2974,32 @@ def arsenal_module_graph_svg(records: list[dict]) -> str:
     by_module = module_record_map(records)
     memory_entries = formalized_memory_entries_by_module()
     curated_edges = [
-        ("AutoSamplingTheory.Core", "AutoSamplingTheory.Probability"),
-        ("AutoSamplingTheory.Core", "AutoSamplingTheory.TechnicalLemmas.Registry"),
-        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.SDE"),
         ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"),
         ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"),
         ("AutoSamplingTheory.TechnicalLemmas.Probability.LawMap", "AutoSamplingTheory.TechnicalLemmas.Probability"),
         ("AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel", "AutoSamplingTheory.TechnicalLemmas.Probability"),
-        ("AutoSamplingTheory.TechnicalLemmas.Probability", "AutoSamplingTheory.TechnicalLemmas.Measure"),
-        ("AutoSamplingTheory.TechnicalLemmas.Gaussian", "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"),
+        ("AutoSamplingTheory.TechnicalLemmas.Probability.LawMap", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"),
+        ("AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"),
         ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian", "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions"),
-        ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian", "AutoSamplingTheory.TechnicalLemmas.Registry"),
-        ("AutoSamplingTheory.TechnicalLemmas.Probability.LawMap", "AutoSamplingTheory.TechnicalLemmas.Registry"),
-        ("AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel", "AutoSamplingTheory.TechnicalLemmas.Registry"),
-        ("AutoSamplingTheory.TechnicalLemmas.Taylor", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus", "AutoSamplingTheory.TechnicalLemmas.Analysis"),
-        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor", "AutoSamplingTheory.TechnicalLemmas.Registry"),
-        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"),
         ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
-        ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan", "AutoSamplingTheory.TechnicalLemmas.Registry"),
-        ("AutoSamplingTheory.Probability", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"),
+        ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
+        ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
+        ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
         ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities"),
-        ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev", "AutoSamplingTheory.TechnicalLemmas.Registry"),
-        ("AutoSamplingTheory.TechnicalLemmas.InformationTheory", "AutoSamplingTheory.TechnicalLemmas.Variational"),
-        ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities", "AutoSamplingTheory.TechnicalLemmas.Variational"),
-        ("AutoSamplingTheory.TechnicalLemmas.Registry", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.Probability", "AutoSamplingTheory.TechnicalLemmas"),
-        ("AutoSamplingTheory.TechnicalLemmas.Measure", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.InformationTheory", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities", "AutoSamplingTheory.TechnicalLemmas"),
-        ("AutoSamplingTheory.TechnicalLemmas.Variational", "AutoSamplingTheory.TechnicalLemmas"),
-        ("AutoSamplingTheory.SALD", "AutoSamplingTheory.TechnicalLemmas.SALDExtracted"),
         ("AutoSamplingTheory.TechnicalLemmas", "AutoSamplingTheory"),
-        ("AutoSamplingTheory.SDE", "AutoSamplingTheory"),
-        ("AutoSamplingTheory.TechnicalLemmas.SALDExtracted", "AutoSamplingTheory"),
-        ("AutoSamplingTheory.RMFLD", "AutoSamplingTheory"),
+        ("AutoSamplingTheory.Probability", "AutoSamplingTheory"),
     ]
     edges = [
         svg_edge(coords[src], coords[dst])
@@ -2692,17 +3018,15 @@ def arsenal_module_graph_svg(records: list[dict]) -> str:
         node_parts.append(svg_rect_node(record, *box, memory_entries))
     generated = html.escape(now_stamp())
     return f"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="1850" height="1280" viewBox="0 0 1850 1280" xmlns="http://www.w3.org/2000/svg">
+<svg width="1780" height="980" viewBox="0 0 1780 980" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <marker id="arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
     <polygon points="0 0, 9 3.5, 0 7" fill="#8a97aa"/>
   </marker>
 </defs>
-<rect width="1850" height="1280" fill="white"/>
-<text x="925" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">ASTIS SDE/Sampling Lean Weapon Arsenal</text>
-<text x="925" y="60" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Curated module dependency graph generated from compiled Lean files.  External projects are reference cards; callable weapons are ASTIS-owned declarations.</text>
-<rect x="330" y="85" width="1180" height="1030" rx="16" ry="16" fill="none" stroke="#2e7d59" stroke-width="2" stroke-dasharray="8 5"/>
-<text x="920" y="82" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700" fill="#2e7d59">Reusable Mathlib-ready probability, distribution, analysis, information, and functional-inequality surfaces</text>
+<rect width="1780" height="980" fill="white"/>
+<text x="890" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">ASTIS Mathlib-Ready SDE/Sampling Lean Arsenal</text>
+<text x="890" y="60" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Canonical local modules only: compiled ASTIS-owned technical leaves and their parent import surfaces.  Paper consumers and external projects are documented in ledgers, not shown as arsenal nodes.</text>
 <g id="edges">
 {chr(10).join(edges)}
 </g>
@@ -2710,52 +3034,60 @@ def arsenal_module_graph_svg(records: list[dict]) -> str:
 {chr(10).join(node_parts)}
 </g>
 <g id="legend">
-  <rect x="60" y="760" width="470" height="145" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="78" y="785" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">Legend</text>
-  <rect x="78" y="799" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="810" font-family="Helvetica,Arial,sans-serif" font-size="11">Mathlib-ready candidate file: compiled local reusable lemmas</text>
-  <rect x="78" y="819" width="18" height="12" fill="#f1f5f9" stroke="#64748b"/><text x="104" y="830" font-family="Helvetica,Arial,sans-serif" font-size="11">Compatibility source: old import path kept stable</text>
-  <rect x="78" y="839" width="18" height="12" fill="#d8eef6" stroke="#214e8a"/><text x="104" y="850" font-family="Helvetica,Arial,sans-serif" font-size="11">Foundation or SDE contract layer</text>
-  <rect x="78" y="859" width="18" height="12" fill="#f8e5d0" stroke="#d97924"/><text x="104" y="870" font-family="Helvetica,Arial,sans-serif" font-size="11">Compiled paper-extracted bridge; not yet Mathlib-ready</text>
-  <rect x="78" y="879" width="18" height="12" fill="#f4f1f8" stroke="#8d7aa8"/><text x="104" y="890" font-family="Helvetica,Arial,sans-serif" font-size="11">Downstream paper/exploration consumer</text>
-  <text x="1335" y="1245" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py module-graph-refresh</text>
+  <rect x="60" y="845" width="520" height="105" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="78" y="869" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700">Legend</text>
+  <rect x="78" y="883" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="894" font-family="Helvetica,Arial,sans-serif" font-size="11">Canonical Mathlib-ready candidate module: compiled local reusable leaves</text>
+  <rect x="78" y="905" width="18" height="12" fill="#eaf2ff" stroke="#2563eb"/><text x="104" y="916" font-family="Helvetica,Arial,sans-serif" font-size="11">Root public import surface</text>
+  <text x="78" y="938" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#475569">Omitted from the main graph: SALD/RMFLD consumers, SALDExtracted quarantine, compatibility files, registry metadata, and external references.</text>
+  <text x="1260" y="955" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py module-graph-refresh</text>
 </g>
 </svg>
 """
 
 
 def module_file_tree_text() -> str:
-    return """AutoSamplingTheory
-|-- Core.lean                         infrastructure contracts
-|-- Probability.lean                  reusable law/KL/FI/conditional-law surface
-|-- SDE.lean                          SDE/Fokker--Planck/EM contracts
+    return """Main graph tree:
+
+AutoSamplingTheory
+|-- Probability.lean                  shared probability adapter surface
 |-- TechnicalLemmas.lean              parent import surface for reusable lemmas
-|-- TechnicalLemmas
-|   |-- Analysis.lean                 parent for reusable analysis leaves
-|   |-- Analysis
-|   |   |-- Calculus.lean             parent for calculus leaves
-|   |   `-- Calculus
-|   |       `-- Taylor.lean           Mathlib-style Taylor/Hessian leaves
-|   |-- Gaussian.lean                 compatibility source for Gaussian leaves
-|   |-- Probability.lean              parent for probability technical lemmas
-|   |-- Probability
-|   |   |-- LawMap.lean               pushforward-law and weak-test rewrites
-|   |   `-- ConditionalKernel.lean    condDistrib and conditional-integral leaves
-|   |-- ProbabilityDistributions.lean parent for distribution-specific leaves
-|   |-- ProbabilityDistributions
-|   |   `-- Gaussian.lean             Mathlib-style Gaussian coordinate leaves
-|   |-- InformationTheory.lean        parent for KL/DV/entropy leaves
-|   |-- InformationTheory
-|   |   `-- DonskerVaradhan.lean      one-sided DV and energy bounds
-|   |-- FunctionalInequalities.lean   parent for LSI/FI/PI-style leaves
-|   |-- FunctionalInequalities
-|   |   `-- LogSobolev.lean           LSI-to-KL/FI bookkeeping leaves
-|   |-- Measure.lean                  compatibility aggregator for probability leaves
-|   |-- Taylor.lean                   compatibility source for Taylor leaves
-|   |-- Variational.lean              compatibility aggregator for DV/LSI exports
-|   |-- Registry.lean                 compiled memory registry
-|   `-- SALDExtracted.lean            compiled paper-extracted bridges; generalize first
-|-- SALD.lean                         downstream paper consumer
-`-- RMFLD.lean                        downstream exploratory consumer
+`-- TechnicalLemmas/
+    |-- Analysis.lean                 parent for reusable analysis leaves
+    |-- Analysis/
+    |   |-- Calculus.lean             parent for calculus leaves
+    |   `-- Calculus/
+    |       `-- Taylor.lean           Mathlib-style Taylor/Hessian leaves
+    |-- Probability.lean              parent for probability technical lemmas
+    |-- Probability/
+    |   |-- LawMap.lean               pushforward-law and weak-test rewrites
+    |   `-- ConditionalKernel.lean    condDistrib and conditional-integral leaves
+    |-- ProbabilityDistributions.lean parent for distribution-specific leaves
+    |-- ProbabilityDistributions/
+    |   `-- Gaussian.lean             Mathlib-style Gaussian coordinate leaves
+    |-- StochasticProcesses.lean      parent for SDE/weak-generator leaves
+    |-- StochasticProcesses/
+    |   |-- WeakGenerator.lean        sample-to-law weak-generator rewrites
+    |   `-- FokkerPlanckAlgebra.lean  FP split and Fisher/IBP algebra leaves
+    |-- InformationTheory.lean        parent for KL/DV/entropy leaves
+    |-- InformationTheory/
+    |   |-- DonskerVaradhan.lean      one-sided DV and energy bounds
+    |   `-- KLDensity.lean            KL density derivative algebra leaves
+    |-- FunctionalInequalities.lean   parent for LSI/FI/PI-style leaves
+    `-- FunctionalInequalities/
+        `-- LogSobolev.lean           LSI-to-KL/FI bookkeeping leaves
+
+Compatibility surfaces not shown in the main graph:
+|-- TechnicalLemmas/Gaussian.lean
+|-- TechnicalLemmas/Taylor.lean
+|-- TechnicalLemmas/Measure.lean
+`-- TechnicalLemmas/Variational.lean
+
+Non-arsenal files documented separately:
+|-- Core.lean, SDE.lean, Automation.lean, Literature.lean, OpenProblems.lean
+|-- TechnicalLemmas/Registry.lean
+|-- TechnicalLemmas/SALDExtracted.lean
+|-- SALD.lean
+`-- RMFLD.lean
 """
 
 
@@ -2795,15 +3127,16 @@ def arsenal_module_graph_markdown(records: list[dict]) -> str:
                 memory_rows.append(row)
     return f"""# ASTIS Lean Leaf Module Graph
 
-This is the textual ledger behind `docs/module-graph.svg`.  It lists the
-ASTIS-owned Lean files that form the reusable SDE/Sampling proof-weapon
-library and separates Mathlib-ready technical lemma files from paper
-consumers.
+This is the textual ledger behind `docs/module-graph.svg`.  The graph itself
+shows only canonical ASTIS-owned Lean modules that are currently treated as the
+Mathlib-ready SDE/Sampling proof-weapon library: compiled reusable leaves and
+their parent import surfaces.
 
 The graph is intentionally organized like a Lean module map, following the
-style of the public QuantumComputing module graph.  SALD is no longer the
-center of this artifact; it is a downstream consumer.  The library center is
-the reusable `Probability`, `SDE`, and `TechnicalLemmas` surface.
+style of the public QuantumComputing module graph.  Paper consumers, registry
+metadata, compatibility files, and external references are not main graph
+nodes.  They are documented below so the reusable arsenal stays visible at a
+glance.
 
 ![ASTIS module graph](../../docs/module-graph.svg)
 
@@ -2812,7 +3145,7 @@ the reusable `Probability`, `SDE`, and `TechnicalLemmas` surface.
 ```text
 {module_file_tree_text()}```
 
-## Compiled Module And Leaf Families
+## Canonical Compiled Module And Leaf Families
 
 {markdown_table(rows, [
     ("Module", "module"),
@@ -2842,9 +3175,8 @@ a row, but the callable proof is the ASTIS-owned declaration listed here.
 ## Paper-Extracted Quarantine
 
 These declarations also compile, but they are not counted as the Mathlib-ready
-arsenal until the SALD-specific names and assumptions are generalized.  The
-main graph places `SALDExtracted.lean` outside the reusable technical-lemma
-folder for this reason.
+arsenal until the paper-specific names and assumptions are generalized.  The
+main graph omits `SALDExtracted.lean` for this reason.
 
 {markdown_table(extracted_memory_rows, [
     ("Module", "module"),
@@ -2857,11 +3189,11 @@ folder for this reason.
 
 | Layer | Rule |
 |---|---|
-| Mathlib-ready technical surface | `Probability.lean`, `TechnicalLemmas/Probability/*`, `TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`, `TechnicalLemmas/Analysis/Calculus/Taylor.lean`, `TechnicalLemmas/InformationTheory/*`, and `TechnicalLemmas/FunctionalInequalities/*` are the first upstream-quality targets after final naming/API cleanup. |
-| Compatibility surfaces | `TechnicalLemmas/Gaussian.lean`, `TechnicalLemmas/Taylor.lean`, `TechnicalLemmas/Measure.lean`, and `TechnicalLemmas/Variational.lean` remain stable imports but new tasks should prefer the family-specific modules. |
-| ASTIS contract surface | `SDE.lean` states the domain contracts that future executable SDE lemmas should discharge. |
-| Paper-extracted compiled leaves | `TechnicalLemmas/SALDExtracted.lean` exposes useful local theorems, but they remain SALD-derived until generalized. |
-| Consumers | `SALD.lean` and `RMFLD.lean` consume the arsenal; they are not the public foundation. |
+| Main graph surface | `Probability.lean`, `TechnicalLemmas/Probability/*`, `TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`, `TechnicalLemmas/Analysis/Calculus/Taylor.lean`, `TechnicalLemmas/StochasticProcesses/*`, `TechnicalLemmas/InformationTheory/*`, and `TechnicalLemmas/FunctionalInequalities/*`. |
+| Compatibility surfaces | `TechnicalLemmas/Gaussian.lean`, `TechnicalLemmas/Taylor.lean`, `TechnicalLemmas/Measure.lean`, and `TechnicalLemmas/Variational.lean` remain stable imports but are omitted from the main graph. |
+| Contract and automation surfaces | `Core.lean`, `SDE.lean`, `Automation.lean`, `Literature.lean`, and `OpenProblems.lean` are system interfaces, not Mathlib-ready leaf families. |
+| Paper-extracted compiled leaves | `TechnicalLemmas/SALDExtracted.lean` exposes useful local theorems, but they remain paper-derived until generalized. |
+| Consumers | `SALD.lean` and `RMFLD.lean` are downstream users of the arsenal; they are not the public foundation. |
 
 ## External Reference Memory
 
@@ -2947,9 +3279,10 @@ leaf should be written so it can later be proposed upstream.
   concentration, entropy duality, log-Sobolev/Poincare, and discretization
   proof style.
 
-ASTIS does not use this as a Lake dependency because toolchains differ.  Useful
-theorems are copied only as ASTIS-owned Lean declarations after local build
-verification, or recorded in the port queue.
+ASTIS keeps this project as audited port/reference memory rather than a Lake
+dependency because toolchains differ.  Useful theorems become callable only
+after they are copied as ASTIS-owned Lean declarations and pass the local build,
+or they remain recorded in the port queue.
 """,
         EXTERNAL_LEAN_LIBRARY_DIR / "lean-rademacher.md": """# auto-res/lean-rademacher
 

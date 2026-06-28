@@ -8,6 +8,7 @@
 ## Imports
 
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan`
+- `AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity`
 
 ## Representative Declarations And Exports
 

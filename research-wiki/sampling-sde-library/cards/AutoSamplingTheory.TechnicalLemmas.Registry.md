@@ -11,9 +11,11 @@
 - `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor`
 - `AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev`
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan`
+- `AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.LawMap`
 - `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian`
+- `AutoSamplingTheory.TechnicalLemmas.StochasticProcesses`
 
 ## Representative Declarations And Exports
 
@@ -23,6 +25,8 @@
 - `gaussianMemory`
 - `taylorMemory`
 - `measureMemory`
+- `stochasticProcessMemory`
+- `klDensityMemory`
 - `variationalMemory`
 - `saldExtractedMemory`
 - `portQueueMemory`

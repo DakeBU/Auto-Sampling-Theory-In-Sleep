@@ -40,7 +40,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 21 := rfl
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 27 := rfl
 
 example :
     ∫ x : ℝ, x ∂(ProbabilityTheory.gaussianReal 0 (1 : NNReal)) = 0 :=
@@ -57,6 +57,26 @@ example :
 example :
     @TechnicalLemmas.InformationTheory.DonskerVaradhan.dvVariationalScaledTestEnergyBound =
       @dvVariationalScaledTestEnergyBound := rfl
+
+example :
+    @TechnicalLemmas.InformationTheory.KLDensity.klPointwiseDerivSimplify =
+      @TechnicalLemmas.InformationTheory.KLDensity.klPointwiseDerivSimplify := rfl
+
+example :
+    @TechnicalLemmas.InformationTheory.KLDensity.klDerivativeRemoveMassTerm =
+      @TechnicalLemmas.InformationTheory.KLDensity.klDerivativeRemoveMassTerm := rfl
+
+example :
+    @TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative =
+      @TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative := rfl
+
+example :
+    @TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fpRewriteScalarAlgebra =
+      @TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fpRewriteScalarAlgebra := rfl
+
+example :
+    @TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fisherIbpAlgebra =
+      @TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fisherIbpAlgebra := rfl
 
 example :
     @TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar =

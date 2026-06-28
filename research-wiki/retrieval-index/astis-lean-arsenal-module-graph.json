@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-27 02:50:54",
+  "generated": "2026-06-28 18:01:17",
   "ledger": "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
   "module_graph_svg": "docs/module-graph.svg",
   "modules": [
@@ -7039,14 +7039,40 @@
       "summary": "Donsker--Varadhan one-sided and scaled-test energy leaves"
     },
     {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "klPointwiseDerivSimplify"
+        },
+        {
+          "kind": "theorem",
+          "name": "klDerivativeRemoveMassTerm"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.Analysis.Calculus.Deriv.Basic",
+        "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+        "Mathlib.Tactic"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
+      "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/KLDensity.lean",
+      "status": "preferred Mathlib-style location for KL density algebra after analytic domination is supplied",
+      "summary": "KL-density pointwise derivative and mass-conservation algebra leaves"
+    },
+    {
       "declarations": [],
       "exports": [],
       "imports": [
-        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
-        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory",
       "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory.lean",
@@ -7088,7 +7114,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
       ],
-      "layer": "Mathlib-ready technical lemma",
+      "layer": "compatibility source",
       "local_imports": [
         "AutoSamplingTheory.Probability",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
@@ -7100,7 +7126,12 @@
       "summary": "compatibility aggregator for law-map and conditional-kernel lemmas"
     },
     {
-      "declarations": [],
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "condDistribIntegralNamedFieldIntegral"
+        }
+      ],
       "exports": [
         "condDistribAeEqCondExpKernelMap",
         "condDistribIntegralAEStronglyMeasurable",
@@ -7240,6 +7271,14 @@
         },
         {
           "kind": "def",
+          "name": "stochasticProcessMemory"
+        },
+        {
+          "kind": "def",
+          "name": "klDensityMemory"
+        },
+        {
+          "kind": "def",
           "name": "variationalMemory"
         },
         {
@@ -7265,9 +7304,11 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
-        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"
       ],
       "layer": "memory index",
       "local_imports": [
@@ -7275,9 +7316,11 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
-        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Registry",
       "path": "AutoSamplingTheory/TechnicalLemmas/Registry.lean",
@@ -7329,6 +7372,65 @@
       "path": "AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean",
       "status": "compiled and useful; must be generalized before Mathlib submission",
       "summary": "compiled SALD-derived Brownian/Ito/Gronwall bridges exposed for search"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "fpRewriteScalarAlgebra"
+        },
+        {
+          "kind": "theorem",
+          "name": "fisherIbpAlgebra"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.Tactic"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra",
+      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean",
+      "status": "preferred Mathlib-style location for weak FP and Fisher algebra handoffs",
+      "summary": "Fokker--Planck split and Fisher/IBP scalar algebra leaves"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "weakGeneratorFromSampleDerivative"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.Probability"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.Probability"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator",
+      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/WeakGenerator.lean",
+      "status": "preferred Mathlib-style location for weak FP generator bridge leaves",
+      "summary": "sample-space generator derivative to named law weak-generator rewrite"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses",
+      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses.lean",
+      "status": "preferred parent module for SDE/Sampling stochastic-process leaves",
+      "summary": "parent import surface for weak-generator and Fokker--Planck algebra leaves"
     },
     {
       "declarations": [
@@ -7395,7 +7497,7 @@
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"
       ],
-      "layer": "Mathlib-ready technical lemma",
+      "layer": "compatibility source",
       "local_imports": [
         "AutoSamplingTheory.Probability",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
@@ -7418,6 +7520,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Probability",
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions",
         "AutoSamplingTheory.TechnicalLemmas.Registry",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses",
         "AutoSamplingTheory.TechnicalLemmas.Taylor",
         "AutoSamplingTheory.TechnicalLemmas.Variational"
       ],
@@ -7431,6 +7534,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Probability",
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions",
         "AutoSamplingTheory.TechnicalLemmas.Registry",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses",
         "AutoSamplingTheory.TechnicalLemmas.Taylor",
         "AutoSamplingTheory.TechnicalLemmas.Variational"
       ],

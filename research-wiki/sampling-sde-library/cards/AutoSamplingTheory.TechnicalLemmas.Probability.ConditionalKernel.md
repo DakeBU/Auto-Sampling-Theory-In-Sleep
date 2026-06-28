@@ -11,6 +11,7 @@
 
 ## Representative Declarations And Exports
 
+- `condDistribIntegralNamedFieldIntegral`
 - `condDistribAeEqCondExpKernelMap`
 - `condDistribIntegralAEStronglyMeasurable`
 - `condDistribIntegralIntegrable`
@@ -26,6 +27,7 @@
 ## Curated Formalized Memory Entries
 
 - `measure.conditional-distribution.integral` -> `condDistribIntegralNamedLawIntegral` (Mathlib.Probability.Kernel.CondDistrib and Condexp)
+- `conditional-kernel.named-field-integral` -> `condDistribIntegralNamedFieldIntegral` (Mathlib.Probability.Kernel.CondDistrib and MeasureTheory integral APIs)
 
 ## Agent Usage
 

@@ -8,12 +8,14 @@
     "docs/assets/sampling_lemma_dag.mmd",
     "docs/assets/sampling_sde_leaf_network.svg",
     "agent-briefs/mathlib_ready_leaf_packet.md",
+    "docs/mathlib_ready_leaf_reviewer_checklist.md",
+    "agent-briefs/mathlib_ready_leaf_reviewer_checklist.md",
     "docs/assets/sampling_sde_leaf_network.png",
     "research-wiki/technical-lemmas/README.md",
     "research-wiki/technical-lemmas/mathlib_ready_leaf_template.md",
     "research-wiki/technical-lemmas/hidden_regularities.md"
   ],
-  "generated": "2026-06-27 02:50:56",
+  "generated": "2026-06-28 18:01:19",
   "leaf_network_svg": "docs/assets/sampling_sde_leaf_network.svg",
   "mathlib_url": "https://mathlib-initiative.org/",
   "next_sald_dag": "research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md",
@@ -25,6 +27,7 @@
     "treat persistent failure as mathematical signal",
     "make hidden regularity reusable",
     "do not frequently change the proof",
-    "search Mathlib before inventing local lemmas"
+    "search Mathlib before inventing local lemmas",
+    "review every callable leaf against the Mathlib-ready checklist"
   ]
 }

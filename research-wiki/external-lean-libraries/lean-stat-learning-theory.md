@@ -7,6 +7,7 @@
   concentration, entropy duality, log-Sobolev/Poincare, and discretization
   proof style.
 
-ASTIS does not use this as a Lake dependency because toolchains differ.  Useful
-theorems are copied only as ASTIS-owned Lean declarations after local build
-verification, or recorded in the port queue.
+ASTIS keeps this project as audited port/reference memory rather than a Lake
+dependency because toolchains differ.  Useful theorems become callable only
+after they are copied as ASTIS-owned Lean declarations and pass the local build,
+or they remain recorded in the port queue.

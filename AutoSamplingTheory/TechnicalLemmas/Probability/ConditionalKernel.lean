@@ -16,6 +16,35 @@ namespace TechnicalLemmas
 namespace Probability
 namespace ConditionalKernel
 
+open MeasureTheory
+open scoped ProbabilityTheory
+
+/-- Integral identity for a named conditional-integral field.
+
+If `field` is the chosen `hatRho`-a.e. version of the canonical
+`condDistrib` integral, then integrating `field` against the named law equals
+the original joint-law integral.  This is the small reusable versioning step
+behind conditional frozen drifts; it does not construct the version or prove a
+weak Fokker--Planck equation.
+-/
+theorem condDistribIntegralNamedFieldIntegral {Ω β γ F : Type*}
+    [MeasurableSpace Ω] [MeasurableSpace β] [MeasurableSpace γ]
+    [NormedAddCommGroup F] [NormedSpace ℝ F]
+    [StandardBorelSpace γ] [Nonempty γ]
+    {μ : Measure Ω} [IsFiniteMeasure μ] {hatRho : Measure β}
+    {X : Ω → β} {Y : Ω → γ} {f : β × γ → F} {field : β → F}
+    (hhatRho : hatRho = μ.map X)
+    (hX : AEMeasurable X μ) (hY : AEMeasurable Y μ)
+    (hf : Integrable f (μ.map fun a => (X a, Y a)))
+    (hfield :
+      (fun x => ∫ y, f (x, y) ∂ProbabilityTheory.condDistrib Y X μ x)
+        =ᵐ[hatRho] field) :
+    (∫ x, field x ∂hatRho) = ∫ a, f (X a, Y a) ∂μ := by
+  rw [← AutoSamplingTheory.condDistribIntegralNamedLawIntegral
+    (hatRho := hatRho) (X := X) (Y := Y) (f := f)
+    hhatRho hX hY hf]
+  exact integral_congr_ae hfield.symm
+
 export AutoSamplingTheory (
   condDistribAeEqCondExpKernelMap
   condDistribIntegralSampleAeEqOfCondExpKernelMap

@@ -6,6 +6,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure
 import AutoSamplingTheory.TechnicalLemmas.Probability
 import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions
 import AutoSamplingTheory.TechnicalLemmas.Registry
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
 import AutoSamplingTheory.TechnicalLemmas.Taylor
 import AutoSamplingTheory.TechnicalLemmas.Variational
 

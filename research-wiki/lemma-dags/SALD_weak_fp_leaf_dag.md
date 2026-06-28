@@ -9,18 +9,18 @@ real blocker.
 ```mermaid
 flowchart TD
   Root[emInterpolationConditionalWeakFp]
-  Bridge[weakFP_from_ito_generator]
+  Bridge[weakGeneratorFromSampleDerivative compiled]
   ItoGen[frozen_interpolation_ito_generator_derivative]
   LawDeriv[law-level weak-test derivative rewrite]
-  PairKernel[condDistrib_pairing_kernel_integral]
+  PairKernel[condDistribIntegralNamedFieldIntegral compiled]
   PairMean[condDrift_pairing_of_condMean]
   LapLaw[laplacian law-map rewrite]
   Reg[hidden regularity contracts]
   KL[KL/FI downstream handoff]
-  KLPt[kl_pointwise_deriv_simplify]
-  KLMass[kl_derivative_remove_mass_term]
+  KLPt[klPointwiseDerivSimplify compiled]
+  KLMass[klDerivativeRemoveMassTerm compiled]
   IBP[integral_div_smul_eq_neg_integral_inner_grad]
-  Fisher[fisher_ibp_algebra]
+  Fisher[fisherIbpAlgebra compiled]
   SALD[SALD discrete moving-target theorem]
   Fallback[Brownian Taylor/DCT fallback]
   Cov[covariance_contracts_bilinear_form]
@@ -48,17 +48,18 @@ flowchart TD
 
 | Priority | Leaf | Status | Route |
 |---|---|---|---|
-| 1 | `condDistrib_pairing_kernel_integral` | directly provable target | Use `ProbabilityTheory.condDistrib`/conditional expectation bridge plus integral-map. Avoid vector conditional mean at first. |
-| 2 | `weakFP_from_ito_generator` | directly provable target | Rewrite sample-space Ito derivative into law-level weak FP using law identity, conditional pairing, and Laplacian map rewrite. |
+| 1 | `condDistribIntegralNamedFieldIntegral` | formalized-local | Use named-law conditional integral and a.e. versioning; avoid vector conditional mean unless needed. |
+| 2 | `weakGeneratorFromSampleDerivative` | formalized-local | Rewrite sample-space Ito derivative into law-level weak-generator form using law identity and supplied pairings. |
 | 3 | `condDrift_pairing_of_condMean` | technical lemma after priority 1 | Pull inner product through Bochner integral with a continuous linear map. |
-| 4 | `lawLevelDerivative_of_sampleDerivative` | technical lemma | Use eventual equality of law integrals and `HasDerivAt.congr_of_eventuallyEq`. |
+| 4 | `lawIntegralHasDerivAtOfMeasureMapEqAndSample` | formalized-local backend | Existing law-map derivative rewrite consumed by `weakGeneratorFromSampleDerivative`. |
 | 5 | `laplacianLawMapIntegral` | technical lemma | Rewrite law integral of Laplacian/test function under endpoint map. |
-| 6 | `kl_pointwise_deriv_simplify` and `kl_derivative_remove_mass_term` | directly provable algebra | Keep KL analytic domination as a separate contract; close only the algebra leaf locally. |
-| 7 | `fp_rewrite_scalar_algebra` and `fisher_ibp_algebra` | directly provable algebra | Use only after IBP identities are supplied. |
+| 6 | `klPointwiseDerivSimplify` and `klDerivativeRemoveMassTerm` | formalized-local | KL analytic domination remains a separate contract; algebra leaves are compiled. |
+| 7 | `fpRewriteScalarAlgebra` and `fisherIbpAlgebra` | formalized-local | Use after FP/IBP analytic identities are supplied. |
 
 ## Non-Goals For The Next Lower Packet
 
 - Do not reprove the whole SALD theorem.
+- Do not redo leaves now marked `formalized-local`.
 - Do not add same-shape theorem wrappers.
 - Do not switch back to Brownian Taylor/DCT unless the Ito-generator bridge is
   shown false or missing a necessary assumption.

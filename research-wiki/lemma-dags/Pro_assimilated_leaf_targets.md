@@ -9,24 +9,28 @@ DAG instead.
 
 ```mermaid
 flowchart TD
-  A1[condDistrib_pairing_kernel_integral]
-  A2[condDrift_pairing_of_condMean]
-  B1[weakFP_from_ito_generator]
-  Ito[frozen_interpolation_ito_generator_derivative]
-  Law[law integral eventual equality]
-  Lap[laplacian law-map integral]
-  KL1[kl_pointwise_deriv_simplify]
-  KL2[kl_derivative_remove_mass_term]
-  IBP[integral_div_smul_eq_neg_integral_inner_grad]
-  ALG1[fp_rewrite_scalar_algebra]
-  ALG2[fisher_ibp_algebra]
+  A0[condDistribIntegralNamedLawIntegral compiled]
+  A1[condDistribIntegralNamedFieldIntegral compiled]
+  A2[condDrift_pairing_of_condMean future]
+  B1[weakGeneratorFromSampleDerivative compiled]
+  Ito[frozen_interpolation_ito_generator_derivative source-cited]
+  Law[lawIntegralHasDerivAtOfMeasureMapEqAndSample compiled]
+  Lap[laplacian law-map integral supplied]
+  KL0[hasDerivAt_KLDens source-cited]
+  KL1[klPointwiseDerivSimplify compiled]
+  KL2[klDerivativeRemoveMassTerm compiled]
+  IBP[integral_div_smul_eq_neg_integral_inner_grad source-cited]
+  ALG1[fpRewriteScalarAlgebra compiled]
+  ALG2[fisherIbpAlgebra compiled]
 
+  A0 --> A1
   A1 --> A2
   Ito --> B1
   A1 --> B1
   Law --> B1
   Lap --> B1
-  B1 --> KL1
+  B1 --> KL0
+  KL0 --> KL1
   KL1 --> KL2
   B1 --> IBP
   IBP --> ALG1
@@ -37,13 +41,13 @@ flowchart TD
 
 | Leaf | Intended shape | First search area |
 |---|---|---|
-| `condDistrib_pairing_kernel_integral` | Kernel integral of inner product equals sample-space integral. | `Mathlib.Probability.Kernel.CondDistrib`, `MeasureTheory.integral_map`. |
+| `condDistribIntegralNamedFieldIntegral` | Named conditional-integral version integrates to the original joint-law integral. | ASTIS conditional-kernel module, `integral_congr_ae`. |
 | `condDrift_pairing_of_condMean` | Conditional mean version using Bochner integral and continuous linear maps. | Bochner integral continuous-linear-map APIs. |
-| `weakFP_from_ito_generator` | HasDerivAt law-level weak FP from supplied Ito derivative, pairing, and law rewrites. | `HasDerivAt.congr_of_eventuallyEq`, integral-map rewrites. |
-| `kl_pointwise_deriv_simplify` | Real algebra for derivative of `q * log (q / p)`. | `field_simp`, `ring`. |
-| `kl_derivative_remove_mass_term` | Remove the mass-conservation derivative term. | `simpa`, commutative additive rewrites. |
-| `fp_rewrite_scalar_algebra` | Rewrite `-div(q b) + a lap q` into `a div(q A) + div(q V)`. | `ring`. |
-| `fisher_ibp_algebra` | Combine two IBP identities into the Fisher/cross term. | `ring`. |
+| `weakGeneratorFromSampleDerivative` | HasDerivAt law-level weak-generator form from supplied Ito/sample derivative and pairings. | ASTIS law-map derivative rewrite. |
+| `klPointwiseDerivSimplify` | Real algebra for derivative of `q * log (q / p)`. | `field_simp`, `ring`. |
+| `klDerivativeRemoveMassTerm` | Remove the mass-conservation derivative term. | `simpa`, commutative additive rewrites. |
+| `fpRewriteScalarAlgebra` | Rewrite `-div(q b) + a lap q` into `a div(q A) + div(q V)`. | `ring`. |
+| `fisherIbpAlgebra` | Combine two IBP identities into the Fisher/cross term. | `ring`. |
 | `covariance_contracts_bilinear_form` | Covariance contracts a bilinear form to the coordinate trace. | Finite sums over `Fin d`, coordinate moments. |
 
 ## Source-Cited Or Isolated Analytic Contracts
@@ -72,8 +76,12 @@ flowchart TD
 
 ## Next-Run Directive
 
-The next lower batch should start with `condDistrib_pairing_kernel_integral`
-or `weakFP_from_ito_generator`.  These are small enough to be meaningful Lean
-work.  Do not send lower agents back to the whole SALD theorem, and do not ask
-them to formalize the full Ito formula unless the smaller bridge has been
-diagnosed as false or unusable.
+The next lower batch should not redo `condDistribIntegralNamedFieldIntegral`,
+`weakGeneratorFromSampleDerivative`, `klPointwiseDerivSimplify`,
+`klDerivativeRemoveMassTerm`, `fpRewriteScalarAlgebra`, or `fisherIbpAlgebra`;
+these leaves now compile locally.  The next real targets are the conditional
+mean form if it is still needed, the dominated KL-density derivative contract,
+the no-boundary IBP contract, and the covariance-to-trace Gaussian fallback.
+Do not send lower agents back to the whole SALD theorem, and do not ask them
+to formalize the full Ito formula unless the compiled weak-generator bridge is
+shown insufficient.

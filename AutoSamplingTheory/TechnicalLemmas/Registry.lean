@@ -2,9 +2,11 @@ import AutoSamplingTheory.Core
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
 
 /-!
 # Technical lemma memory registry
@@ -172,6 +174,73 @@ def measureMemory : List LemmaMemoryEntry := [
     tags := ["conditional-law", "kernel", "Bochner-integral"],
     saldUse := "conditional frozen drift and named-law conditional integral interface",
     note := "Compiled ASTIS conditional-law bridge from Probability.lean."
+  },
+  {
+    key := "conditional-kernel.named-field-integral",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedFieldIntegral",
+    upstreamDecl := "condDistrib / compProd_map_condDistrib / integral_congr_ae",
+    upstreamFile := "Mathlib.Probability.Kernel.CondDistrib and MeasureTheory integral APIs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["conditional-law", "kernel", "Bochner-integral", "versioning"],
+    saldUse := "turn a named conditional drift component version into the joint-law weak-generator integral",
+    note := "Pro-assimilated leaf: conditional-pairing/versioning backend separated from weak FP and Ito."
+  }
+]
+
+
+def stochasticProcessMemory : List LemmaMemoryEntry := [
+  {
+    key := "weak-generator.sample-to-law-derivative",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
+    upstreamDecl := "law-map integral rewrite plus supplied Ito-generator derivative",
+    upstreamFile := "Mathlib Measure.map / ASTIS lawIntegralHasDerivAtOfMeasureMapEqAndSample",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["weak-generator", "weak-FP", "law-map", "HasDerivAt", "SDE"],
+    saldUse := "rewrite frozen EM/Ito sample-space weak-test derivative into a named law-level weak-generator identity",
+    note := "Pro-assimilated leaf: does not prove Ito, density PDE, or conditional drift construction."
+  },
+  {
+    key := "fokker-planck.scalar-divergence-rewrite",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fpRewriteScalarAlgebra",
+    upstreamDecl := "elementary scalar algebra after supplied FP/divergence identities",
+    upstreamFile := "local Mathlib ring proof",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["weak-FP", "Fokker-Planck", "scalar-algebra", "divergence"],
+    saldUse := "post-process supplied weak FP and score-split identities before Fisher/IBP handoff",
+    note := "Small Mathlib-ready algebra leaf; analytic PDE hypotheses remain explicit contracts."
+  },
+  {
+    key := "fisher.ibp.scalar-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fisherIbpAlgebra",
+    upstreamDecl := "elementary scalar algebra after supplied IBP identities",
+    upstreamFile := "local Mathlib ring proof",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Fisher-information", "IBP", "scalar-algebra"],
+    saldUse := "combine two no-boundary IBP identities into the Fisher/cross-term display",
+    note := "Small Mathlib-ready algebra leaf; no-boundary/divergence theorem remains a separate analytic contract."
+  }
+]
+
+def klDensityMemory : List LemmaMemoryEntry := [
+  {
+    key := "kl-density.pointwise-derivative-simplify",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klPointwiseDerivSimplify",
+    upstreamDecl := "pointwise real-field algebra for d/ds q log(q/p)",
+    upstreamFile := "local Mathlib field_simp/ring proof",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["KL", "density", "log", "pointwise-algebra"],
+    saldUse := "separate KL density derivative algebra from dominated differentiation and density regularity assumptions",
+    note := "Pro-assimilated leaf; positivity/nonzero and domination stay explicit."
+  },
+  {
+    key := "kl-density.remove-mass-term",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klDerivativeRemoveMassTerm",
+    upstreamDecl := "mass-conservation derivative simplification",
+    upstreamFile := "local Mathlib HasDerivAt congruence/simp proof",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["KL", "density", "mass-conservation", "HasDerivAt"],
+    saldUse := "remove the integral qdot term in KL differentiation after mass conservation is supplied",
+    note := "Small derivative-target rewrite; mass conservation itself remains a separate theorem or hypothesis."
   }
 ]
 
@@ -295,8 +364,8 @@ def portQueueMemory : List LemmaMemoryEntry := [
 ]
 
 def technicalLemmaMemory : List LemmaMemoryEntry :=
-  gaussianMemory ++ taylorMemory ++ measureMemory ++ variationalMemory ++
-    saldExtractedMemory ++ portQueueMemory
+  gaussianMemory ++ taylorMemory ++ measureMemory ++ stochasticProcessMemory ++
+    klDensityMemory ++ variationalMemory ++ saldExtractedMemory ++ portQueueMemory
 
 def formalizedTechnicalLemmaCount : Nat :=
   (technicalLemmaMemory.filter fun entry =>

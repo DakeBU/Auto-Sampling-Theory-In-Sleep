@@ -15,6 +15,7 @@
 - `AutoSamplingTheory.TechnicalLemmas.Probability`
 - `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions`
 - `AutoSamplingTheory.TechnicalLemmas.Registry`
+- `AutoSamplingTheory.TechnicalLemmas.StochasticProcesses`
 - `AutoSamplingTheory.TechnicalLemmas.Taylor`
 - `AutoSamplingTheory.TechnicalLemmas.Variational`
 

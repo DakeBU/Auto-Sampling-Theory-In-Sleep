@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity
 
 /-!
 # Information-theoretic technical lemma arsenal
