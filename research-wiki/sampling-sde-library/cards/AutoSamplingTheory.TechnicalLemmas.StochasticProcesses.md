@@ -2,12 +2,13 @@
 
 - File: `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses.lean`
 - Layer: Mathlib-ready technical lemma
-- Purpose: parent import surface for weak-generator and Fokker--Planck algebra leaves
+- Purpose: parent import surface for weak-generator, Fokker--Planck algebra, and finite-dimensional Girsanov cylinder leaves
 - Mathlib-quality status: preferred parent module for SDE/Sampling stochastic-process leaves
 
 ## Imports
 
 - `AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra`
+- `AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov`
 - `AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator`
 
 ## Representative Declarations And Exports

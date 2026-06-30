@@ -1,0 +1,569 @@
+{
+  "cycle": 207,
+  "dynamic_leaf_queue": [
+    "No reviewer blocker recorded yet; use source index and proof-obligation ledger.",
+    "No reviewer blocker recorded yet; use source index and proof-obligation ledger."
+  ],
+  "generated": "2026-07-01 00:45:44",
+  "mode": "exploratoryProof",
+  "next_lower_tasks": [
+    {
+      "goal": "Translate the active SALD source-line leaf into a dependency DAG with exact technical lemma needs.",
+      "must_write": "proof-attempts/<task>/...-natural-language-dag.md or a dialogue handoff.",
+      "role": "lower-1-natural-language-proof-scout"
+    },
+    {
+      "goal": "Close one compiled Lean theorem or strictly narrow one source-cited Sampling/SDE boundary.",
+      "must_write": "Lean declaration plus typed verifier feedback fields.",
+      "role": "lower-2-lean-implementation-worker"
+    }
+  ],
+  "open_external_technical_lemma_obligations": [
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/TaylorBound.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean",
+      "lean_status": "port-candidate",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "`taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `deriv2_bounded_of_compactlySupported`, `integrable_deriv_sq`",
+      "tags": [],
+      "used_by": "selected scalar Taylor integral/remainder and bounded-Hessian leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/Limit.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianPoincare.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/Limit.lean",
+      "statement": "`tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq`, `gaussianPoincare`",
+      "tags": [],
+      "used_by": "Taylor remainder limits and Gaussian Poincare backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/DualityEntropy.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/EntropyDuality.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/DualityEntropy.lean",
+      "statement": "`entropy_duality`, `entropy_ge_integral_mul`, `expMeasure_isProbabilityMeasure`, `integral_expMeasure`",
+      "tags": [],
+      "used_by": "DV/KL variational formula backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianLSI.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "statement": "`gaussian_logSobolev_W12_pi`, `condEntExceptCoord_sq_eq_slice_entropy`, `condEnt_sq_le_partial_deriv_sq`",
+      "tags": [],
+      "used_by": "product Gaussian LSI backend"
+    }
+  ],
+  "open_obligation_signals": [
+    "No reviewer blocker recorded yet; use source index and proof-obligation ledger."
+  ],
+  "open_sald_contribution_obligations": [],
+  "proof_status_counts": {
+    "blocked": 0,
+    "contractOnly": 34,
+    "formalized": 286,
+    "obligation": 1175,
+    "planned": 9,
+    "sourceCited": 16
+  },
+  "recent_trials": [],
+  "recent_verifier_feedback": [],
+  "run_dir": "runs/20260613-054827-700501-ASTIS-SALD-001-cycle207",
+  "sald_contributions": [],
+  "stage": "exploratoryProof blueprint construction",
+  "task_id": "ASTIS-CHEWI-001",
+  "technical_lemmas": [
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "normalized scalar coordinate law in the Brownian/Ito EM backend",
+      "tags": [
+        "gaussian",
+        "coordinate-law",
+        "brownian-increment"
+      ],
+      "used_by": "normalized scalar coordinate law in the Brownian/Ito EM backend"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "coordinate",
+        "brownian-increment"
+      ],
+      "used_by": "Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_sq_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_sq_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "Brownian/Ito coordinate square integrability for polynomial moment leaves",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "quadratic-moment",
+        "brownian-increment"
+      ],
+      "used_by": "Brownian/Ito coordinate square integrability for polynomial moment leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves",
+      "tags": [
+        "gaussian",
+        "mean",
+        "coordinate",
+        "brownian-increment"
+      ],
+      "used_by": "coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Distributions.Gaussian.Real",
+      "statement": "turn scalar Gaussian law and variance-field definition into normalized variance one",
+      "tags": [
+        "gaussian",
+        "variance",
+        "NNReal"
+      ],
+      "used_by": "turn scalar Gaussian law and variance-field definition into normalized variance one"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Distributions.Gaussian.Real",
+      "statement": "supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "quadratic-bound",
+        "brownian-increment"
+      ],
+      "used_by": "supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound",
+      "tags": [
+        "taylor",
+        "hessian",
+        "source-contract"
+      ],
+      "used_by": "convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "feed selected-line Taylor bounds from a Hessian operator-norm field",
+      "tags": [
+        "taylor",
+        "iteratedFDeriv",
+        "hessian"
+      ],
+      "used_by": "feed selected-line Taylor bounds from a Hessian operator-norm field"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "ASTIS/SALD cycles 174-176",
+      "statement": "assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization",
+      "tags": [
+        "brownian",
+        "ito",
+        "quadratic-variation",
+        "normalization"
+      ],
+      "used_by": "assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegral",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegral",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib measure/integration APIs",
+      "statement": "rewrite weak-test integrals under endpoint laws and EM interpolation laws",
+      "tags": [
+        "measure-map",
+        "law",
+        "integral"
+      ],
+      "used_by": "rewrite weak-test integrals under endpoint laws and EM interpolation laws"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegralHasDerivAtOfDominated",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegralHasDerivAtOfDominated",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Analysis.Calculus.ParametricIntegral",
+      "statement": "transport dominated sample-space derivatives to law-level weak-test derivatives",
+      "tags": [
+        "parametric-integral",
+        "dominated-convergence",
+        "weak-test"
+      ],
+      "used_by": "transport dominated sample-space derivatives to law-level weak-test derivatives"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedLawIntegral",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedLawIntegral",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Kernel.CondDistrib and Condexp",
+      "statement": "conditional frozen drift and named-law conditional integral interface",
+      "tags": [
+        "conditional-law",
+        "kernel",
+        "Bochner-integral"
+      ],
+      "used_by": "conditional frozen drift and named-law conditional integral interface"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedFieldIntegral",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedFieldIntegral",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Kernel.CondDistrib and MeasureTheory integral APIs",
+      "statement": "turn a named conditional drift component version into the joint-law weak-generator integral",
+      "tags": [
+        "conditional-law",
+        "kernel",
+        "Bochner-integral",
+        "versioning"
+      ],
+      "used_by": "turn a named conditional drift component version into the joint-law weak-generator integral"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib Measure.map / ASTIS lawIntegralHasDerivAtOfMeasureMapEqAndSample",
+      "statement": "rewrite frozen EM/Ito sample-space weak-test derivative into a named law-level weak-generator identity",
+      "tags": [
+        "weak-generator",
+        "weak-FP",
+        "law-map",
+        "HasDerivAt",
+        "SDE"
+      ],
+      "used_by": "rewrite frozen EM/Ito sample-space weak-test derivative into a named law-level weak-generator identity"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fpRewriteScalarAlgebra",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fpRewriteScalarAlgebra",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "local Mathlib ring proof",
+      "statement": "post-process supplied weak FP and score-split identities before Fisher/IBP handoff",
+      "tags": [
+        "weak-FP",
+        "Fokker-Planck",
+        "scalar-algebra",
+        "divergence"
+      ],
+      "used_by": "post-process supplied weak FP and score-split identities before Fisher/IBP handoff"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fisherIbpAlgebra",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fisherIbpAlgebra",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "local Mathlib ring proof",
+      "statement": "combine two no-boundary IBP identities into the Fisher/cross-term display",
+      "tags": [
+        "Fisher-information",
+        "IBP",
+        "scalar-algebra"
+      ],
+      "used_by": "combine two no-boundary IBP identities into the Fisher/cross-term display"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klPointwiseDerivSimplify",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klPointwiseDerivSimplify",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "local Mathlib field_simp/ring proof",
+      "statement": "separate KL density derivative algebra from dominated differentiation and density regularity assumptions",
+      "tags": [
+        "KL",
+        "density",
+        "log",
+        "pointwise-algebra"
+      ],
+      "used_by": "separate KL density derivative algebra from dominated differentiation and density regularity assumptions"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klDerivativeRemoveMassTerm",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klDerivativeRemoveMassTerm",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "local Mathlib HasDerivAt congruence/simp proof",
+      "statement": "remove the integral qdot term in KL differentiation after mass conservation is supplied",
+      "tags": [
+        "KL",
+        "density",
+        "mass-conservation",
+        "HasDerivAt"
+      ],
+      "used_by": "remove the integral qdot term in KL differentiation after mass conservation is supplied"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.dvVariationalScaledTestEnergyBound",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.dvVariationalScaledTestEnergyBound",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Boucheron-style cited result / future SLT entropy-duality port",
+      "statement": "convert finite log-mgf and KL hypotheses into residual energy bounds",
+      "tags": [
+        "DV",
+        "KL",
+        "energy"
+      ],
+      "used_by": "convert finite log-mgf and KL hypotheses into residual energy bounds"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib/SLT-inspired entropy and LSI proof shape",
+      "statement": "bookkeeping for LSI-to-KL/FI handoff after density assumptions are supplied",
+      "tags": [
+        "LSI",
+        "FI",
+        "density"
+      ],
+      "used_by": "bookkeeping for LSI-to-KL/FI handoff after density assumptions are supplied"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.gronwallExpProductRewriteScalar",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.gronwallExpProductRewriteScalar",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "forward-KL and discrete forward-KL Gronwall display algebra",
+      "tags": [
+        "Gronwall",
+        "scalar-algebra",
+        "SALD-extracted"
+      ],
+      "used_by": "forward-KL and discrete forward-KL Gronwall display algebra"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.discreteForwardKlEmEndpointLawPairHandoff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.discreteForwardKlEmEndpointLawPairHandoff",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "endpoint-law pair handoff for discrete SALD/VA-SALD proofs",
+      "tags": [
+        "Euler-Maruyama",
+        "endpoint-law",
+        "SALD-extracted"
+      ],
+      "used_by": "endpoint-law pair handoff for discrete SALD/VA-SALD proofs"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "active Brownian/Ito scalar generator backend and coordinate variance leaves",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "SALD-extracted"
+      ],
+      "used_by": "active Brownian/Ito scalar generator backend and coordinate variance leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "discharge hRemainderMeas in the active Brownian/Ito Taylor moment backend",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "measurability",
+        "SALD-extracted"
+      ],
+      "used_by": "discharge hRemainderMeas in the active Brownian/Ito Taylor moment backend"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "narrow hRemainderBound to normalized-coordinate-law domination in the active Brownian/Ito Taylor moment backend",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "domination",
+        "SALD-extracted"
+      ],
+      "used_by": "narrow hRemainderBound to normalized-coordinate-law domination in the active Brownian/Ito Taylor moment backend"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundIntegrableOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundIntegrableOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "narrow hRemainderBoundInt to normalized-coordinate-law integrability in the active Brownian/Ito Taylor moment backend",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "integrability",
+        "SALD-extracted"
+      ],
+      "used_by": "narrow hRemainderBoundInt to normalized-coordinate-law integrability in the active Brownian/Ito Taylor moment backend"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "integrability",
+        "quadratic-bound",
+        "SALD-extracted"
+      ],
+      "used_by": "narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianMeasure.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+      "lean_status": "formalized-local",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "`integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi`",
+      "tags": [],
+      "used_by": "Brownian/Ito coordinate integrability and polynomial moment leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/TaylorBound.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean",
+      "lean_status": "port-candidate",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "`taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `deriv2_bounded_of_compactlySupported`, `integrable_deriv_sq`",
+      "tags": [],
+      "used_by": "selected scalar Taylor integral/remainder and bounded-Hessian leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/Limit.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianPoincare.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/Limit.lean",
+      "statement": "`tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq`, `gaussianPoincare`",
+      "tags": [],
+      "used_by": "Taylor remainder limits and Gaussian Poincare backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/DualityEntropy.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/EntropyDuality.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/DualityEntropy.lean",
+      "statement": "`entropy_duality`, `entropy_ge_integral_mul`, `expMeasure_isProbabilityMeasure`, `integral_expMeasure`",
+      "tags": [],
+      "used_by": "DV/KL variational formula backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianLSI.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "statement": "`gaussian_logSobolev_W12_pi`, `condEntExceptCoord_sq_eq_slice_entropy`, `condEnt_sq_le_partial_deriv_sq`",
+      "tags": [],
+      "used_by": "product Gaussian LSI backend"
+    }
+  ],
+  "title": "Build the Chewi Log-Concave Sampling Lean foundation"
+}

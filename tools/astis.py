@@ -66,6 +66,14 @@ SALD_ROOT = Path("/home/nitanda_sub/mark/repos/sald/paper")
 RMFLD_ROOT = Path("/home/nitanda_sub/mark/repos/RMFLD/RMFLD_paper")
 SLT_ROOT = OUTER_REPOS_SAMPLING_ROOT / "lean-stat-learning-theory"
 SLT_ARTICLE_ROOT = OUTER_PAPERS_SAMPLING_ROOT / "Statistical Learning Theory in Lean 4 Empirical Processes from Scratch"
+CHEWI_LOG_CONCAVE_PDF = OUTER_PAPERS_SAMPLING_ROOT / "Chewi-Log-Concave-Sampling" / "main.pdf"
+CHEWI_LEGACY_PDF = OUTER_REPOS_SAMPLING_ROOT / "chewisinho-stochastic-processes-main.pdf"
+LEAN_ASYMPTOTIC_STATISTICS_ROOT = OUTER_REPOS_SAMPLING_ROOT / "Lean-Asymptotic-Statistical-Theory"
+LEAN_ASYMPTOTIC_STATISTICS_PDF = (
+    OUTER_PAPERS_SAMPLING_ROOT
+    / "Hypothesis-Disciplined-Asymptotic-Statistical-Theory"
+    / "2606.20642.pdf"
+)
 LEANMARATHON_ROOT = OUTER_REPOS_AUTOMATION_ROOT / "LeanMarathon"
 LEANMARATHON_PDF = OUTER_PAPERS_AUTOMATION_ROOT / "LeanMarathon-2606.05400.pdf"
 TECH_REPORT_ROOT = Path(os.environ.get("ASTIS_TECH_REPORT_ROOT", str(ROOT.parent / "Auto_Proof_Papers" / "ASTIS")))
@@ -74,6 +82,9 @@ QUANTUM_AUTOPROOF_URL = "https://github.com/DakeBU/Quantum-Computing-Block-Encod
 MATHLIB_URL = "https://mathlib-initiative.org/"
 SLT_URL = "https://github.com/YuanheZ/lean-stat-learning-theory"
 SLT_ARXIV_URL = "https://arxiv.org/abs/2602.02285"
+CHEWI_LOG_CONCAVE_URL = "https://chewisinho.github.io/main.pdf"
+LEAN_ASYMPTOTIC_STATISTICS_URL = "https://github.com/junwei-lu/Lean-Asymptotic-Statistical-Theory"
+LEAN_ASYMPTOTIC_STATISTICS_ARXIV_URL = "https://arxiv.org/abs/2606.20642"
 LEANMARATHON_URL = "https://github.com/YuanheZ/LeanMarathon"
 LEANMARATHON_ARXIV_URL = "https://arxiv.org/abs/2606.05400"
 MATHCODE_URL = "https://github.com/math-ai-org/mathcode"
@@ -2281,6 +2292,1106 @@ def sampling_sde_leaf_network_svg() -> str:
 """
 
 
+def chewi_shared_root_rows() -> list[dict[str, str]]:
+    return [
+        {
+            "label": "MEAS",
+            "root": "measure-space and law transport",
+            "module": "TechnicalLemmas/Probability/LawMap.lean",
+            "role": "push forward laws, weak-test integrals, map/withDensity/RN bridges",
+            "status": "partial-compiled-local",
+        },
+        {
+            "label": "KERN",
+            "root": "conditional kernels and representatives",
+            "module": "TechnicalLemmas/Probability/ConditionalKernel.lean",
+            "role": "condDistrib pairings, conditional drifts, a.e. representative discipline",
+            "status": "partial-compiled-local",
+        },
+        {
+            "label": "DENS",
+            "root": "densities, RN derivative, KL/Renyi integrands",
+            "module": "TechnicalLemmas/Geometry/LogConcavity.lean; Measure/{Gibbs,RadonNikodym}.lean; InformationTheory/*",
+            "role": "positive density APIs, Gibbs ENNReal density, finite-measure and quadratic Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra",
+            "status": "partial-compiled-local",
+        },
+        {
+            "label": "GAUSS",
+            "root": "Gaussian and product Gaussian infrastructure",
+            "module": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "role": "standard Gaussian laws, moments, MGF, finite-dimensional tilts",
+            "status": "partial-compiled-local",
+        },
+        {
+            "label": "CONV",
+            "root": "convex and log-concave geometry",
+            "module": "TechnicalLemmas/Geometry/{Convex,LogConcavity,PrekopaLeindler}.lean",
+            "role": "convex functions/sets, log-concavity, Prekopa-Leindler, Brunn-Minkowski",
+            "status": "partial-compiled-local",
+        },
+        {
+            "label": "FI",
+            "root": "functional inequalities",
+            "module": "TechnicalLemmas/FunctionalInequalities/*",
+            "role": "PI, LSI, transport, concentration, isoperimetry, preservation",
+            "status": "planned-plus-LSI-bookkeeping-compiled",
+        },
+        {
+            "label": "SDE",
+            "root": "semigroup, generator, weak-FP, Langevin",
+            "module": "TechnicalLemmas/StochasticProcesses/*",
+            "role": "Markov semigroups, invariant Gibbs law, generator/KL dissipation",
+            "status": "partial-compiled-local",
+        },
+        {
+            "label": "PATH",
+            "root": "path-space change of measure",
+            "module": "TechnicalLemmas/StochasticProcesses/{Girsanov,DoobTransform,FollmerDrift}.lean",
+            "role": "Girsanov, Doob transform, Follmer drift, Schrodinger bridge",
+            "status": "planned",
+        },
+        {
+            "label": "DISC",
+            "root": "algorithm discretization layer",
+            "module": "SamplingAlgorithms/*",
+            "role": "LMC, randomized midpoint, HMC, underdamped, MALA, proximal sampler",
+            "status": "planned-consumer",
+        },
+        {
+            "label": "REG",
+            "root": "hidden regularity contracts",
+            "module": "research-wiki/technical-lemmas/hidden_regularities.md",
+            "role": "measurability, integrability, domination, smoothness, boundary, positivity",
+            "status": "protocol",
+        },
+    ]
+
+
+def chewi_chapter_rows() -> list[dict[str, str]]:
+    return [
+        {
+            "chapter": "1.1 stochastic calculus",
+            "shared": "MEAS, GAUSS, REG",
+            "dag": "Ito/quadratic-variation/Taylor local-error subtree",
+            "first_leaf": "quadratic variation normalization and finite-dimensional Ito test identity",
+            "status": "partial-local-compiled",
+        },
+        {
+            "chapter": "1.2 Markov semigroups",
+            "shared": "MEAS, SDE, REG",
+            "dag": "semigroup -> generator-domain -> weak-test derivative subtree",
+            "first_leaf": "semigroup test-function pairing under generator-domain hypotheses",
+            "status": "planned",
+        },
+        {
+            "chapter": "1.3 optimal transport geometry",
+            "shared": "MEAS, CONV, REG",
+            "dag": "couplings -> Wasserstein distance -> geodesic convexity subtree",
+            "first_leaf": "law-map/coupling measurable pushforward interface",
+            "status": "planned",
+        },
+        {
+            "chapter": "1.4 Langevin as gradient flow",
+            "shared": "DENS, FI, SDE, REG",
+            "dag": "Gibbs density -> generator -> KL/FI dissipation -> WGF contract",
+            "first_leaf": "finite-measure bounded-below and finite-dimensional quadratic-Lebesgue Gibbs normalization compiled; Langevin generator invariant Gibbs law contract remains",
+            "status": "quadratic-gibbs-envelope-compiled",
+        },
+        {
+            "chapter": "2 functional inequalities",
+            "shared": "CONV, DENS, FI, REG",
+            "dag": "PI/LSI/TI/isoperimetry plus preservation-operation subtrees",
+            "first_leaf": "log-concavity plus Prekopa-Leindler preservation audit",
+            "status": "partial-local-compiled",
+        },
+        {
+            "chapter": "3 stochastic analysis topics",
+            "shared": "PATH, DENS, SDE, REG",
+            "dag": "Girsanov -> Doob transform -> Follmer drift -> Schrodinger bridge",
+            "first_leaf": "finite-dimensional Gaussian Esscher density, stdGaussian inner-product form, cylindrical Girsanov integral, and RN/withDensity identity compiled; full Brownian path packaging remains",
+            "status": "finite-girsanov-rn-cylinder-compiled",
+        },
+        {
+            "chapter": "4 Langevin Monte Carlo",
+            "shared": "MEAS, KERN, SDE, DENS, REG, DISC",
+            "dag": "coupling/interpolation/convex-optimization/Girsanov proof subtrees",
+            "first_leaf": "LMC interpolation weak-test law derivative under domination",
+            "status": "partial-local-compiled",
+        },
+        {
+            "chapter": "5 faster low-accuracy samplers",
+            "shared": "GAUSS, SDE, DISC, REG",
+            "dag": "randomized midpoint, HMC, underdamped generator subtrees",
+            "first_leaf": "Hamiltonian/underdamped transition-kernel regularity contract",
+            "status": "planned",
+        },
+        {
+            "chapter": "6 Renyi divergence",
+            "shared": "DENS, FI, SDE, REG",
+            "dag": "Renyi density algebra -> interpolation/Girsanov derivative subtrees",
+            "first_leaf": "Renyi density algebra with positivity and finite-integral contracts",
+            "status": "first algebra leaves compiled",
+        },
+        {
+            "chapter": "7 high-accuracy samplers",
+            "shared": "KERN, DENS, DISC, REG",
+            "dag": "rejection/MH/MALA kernels, detailed balance, warm-start subtrees",
+            "first_leaf": "proposal/acceptance Markov-kernel mass and reversibility contract",
+            "status": "planned",
+        },
+        {
+            "chapter": "8 proximal sampler",
+            "shared": "CONV, GAUSS, KERN, DISC, REG",
+            "dag": "restricted Gaussian oracle -> conditional laws -> proximal transition subtree",
+            "first_leaf": "restricted Gaussian conditional law and convex potential contract",
+            "status": "planned",
+        },
+        {
+            "chapter": "9-12 lower bounds, structure, non-log-concave, diffusion models",
+            "shared": "MEAS, DENS, SDE, PATH, DISC, REG",
+            "dag": "consumer subtrees after core log-concave foundation stabilizes",
+            "first_leaf": "source-specific leaf only after shared roots are compiled",
+            "status": "deferred-consumer",
+        },
+    ]
+
+
+def chewi_open_leaf_rows() -> list[dict[str, str]]:
+    return [
+        {
+            "leaf": "logConcaveOn_density_def",
+            "label": "CONV/DENS",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "borrow": "Mathlib `ConcaveOn`, `ConcaveOn.subset`, `strictConcaveOn_log_Ioi`; AST Prekopa files for next statement style",
+            "status": "core API plus Gibbs positive-rescale leaves compiled; next density/RN integration",
+        },
+        {
+            "leaf": "prekopaLeindler_finiteDimensional",
+            "label": "CONV/MEAS",
+            "target": "TechnicalLemmas/Geometry/PrekopaLeindler.lean",
+            "borrow": "external `AsymptoticStatistics/ForMathlib/PrekopaLeindler.lean`; Mathlib lacks direct PL package",
+            "status": "external-port-audit",
+        },
+        {
+            "leaf": "brunnMinkowski_oneDim_outerMeasure",
+            "label": "CONV/MEAS",
+            "target": "TechnicalLemmas/Geometry/BrunnMinkowski.lean",
+            "borrow": "external `Brunn1D.lean`; Mathlib convex/volume APIs",
+            "status": "external-port-audit",
+        },
+        {
+            "leaf": "gibbsDensity_withDensity_normalized",
+            "label": "DENS/CONV",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean",
+            "borrow": "compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` quadratic Lebesgue Gibbs normalization from Mathlib Gaussian Fourier tails; next generalize beyond quadratic/coercive tails",
+            "status": "convex shape plus Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, quadratic Lebesgue envelope, and normalized withDensity probability bridges compiled; nonquadratic coercivity envelopes remain",
+        },
+        {
+            "leaf": "langevinGenerator_invariant_gibbs_weak",
+            "label": "SDE/DENS/FI",
+            "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean",
+            "borrow": "ASTIS WeakGenerator/FokkerPlanckAlgebra plus Mathlib calculus/integration APIs",
+            "status": "source-contract",
+        },
+        {
+            "leaf": "lsi_tensorization_or_preservation_contract",
+            "label": "FI/CONV",
+            "target": "TechnicalLemmas/FunctionalInequalities/Preservation.lean",
+            "borrow": "Mathlib convex/Jensen APIs; SLT/AST reference style for functional inequality statements",
+            "status": "planned",
+        },
+        {
+            "leaf": "gaussianEsscher_shift_density",
+            "label": "GAUSS/PATH",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "borrow": "external `GaussianMGF.lean`, `PiWithDensity.lean`, `GaussianShift.lean`",
+            "status": "formalized-local-density-half",
+        },
+        {
+            "leaf": "gaussianShift_change_of_measure",
+            "label": "GAUSS/PATH",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "borrow": "external `GaussianShift.lean`; local `stdGaussianPi_withDensity_exp_shift`",
+            "status": "formalized-local-product-measure",
+        },
+        {
+            "leaf": "gaussianShift_euclidean_pushforward",
+            "label": "GAUSS/PATH",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "borrow": "Mathlib `EuclideanSpace`/`WithLp.toLp`; local `stdGaussianPi_shift_integral`",
+            "status": "formalized-local-euclidean-pushforward",
+        },
+        {
+            "leaf": "gaussianShift_stdGaussian_inner",
+            "label": "GAUSS/PATH",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "borrow": "Mathlib `map_pi_eq_stdGaussian`, `PiLp.inner_apply`, `EuclideanSpace.real_norm_sq_eq`",
+            "status": "formalized-local-stdGaussian-inner",
+        },
+        {
+            "leaf": "finiteGaussianGirsanov_cylinder",
+            "label": "PATH/GAUSS",
+            "target": "TechnicalLemmas/StochasticProcesses/Girsanov.lean",
+            "borrow": "compiled `stdGaussian_shift_integral_map_toLp`; finite-dimensional cylindrical path-coordinate packaging",
+            "status": "formalized-local-cylinder",
+        },
+        {
+            "leaf": "finiteGaussianGirsanov_rn_density",
+            "label": "PATH/MEAS/GAUSS",
+            "target": "TechnicalLemmas/StochasticProcesses/Girsanov.lean",
+            "borrow": "compiled `measurableEquiv_map_withDensity`, product Gaussian withDensity shift, and `map_pi_eq_stdGaussian`",
+            "status": "formalized-local-rn-density",
+        },
+        {
+            "leaf": "lmcInterpolation_weakGenerator",
+            "label": "DISC/SDE/KERN",
+            "target": "SamplingAlgorithms/LangevinMonteCarlo.lean",
+            "borrow": "ASTIS LawMap/ConditionalKernel/WeakGenerator; SALD weak-FP as consumer pressure test",
+            "status": "planned-generalization",
+        },
+        {
+            "leaf": "renyiDensity_pointwiseDerivative",
+            "label": "DENS/FI",
+            "target": "TechnicalLemmas/InformationTheory/Renyi.lean",
+            "borrow": "compiled `renyiIntegrand`, positivity, measurability, finite-envelope, and `HasDerivAt` rpow-product leaves; next add full divergence/log-normalization and path derivative contracts",
+            "status": "first-leaves-compiled",
+        },
+        {
+            "leaf": "mhKernel_detailedBalance",
+            "label": "DISC/KERN",
+            "target": "SamplingAlgorithms/MetropolisAdjustedLangevin.lean",
+            "borrow": "Mathlib probability kernels/Markov-chain APIs if present; otherwise local kernel contracts",
+            "status": "mathlib-search-required",
+        },
+    ]
+
+
+def chewi_api_audit_rows() -> list[dict[str, str]]:
+    return [
+        {
+            "area": "convex/log-concave base",
+            "mathlib": "`Analysis/Convex/*`, `ConvexOn`, `ConcaveOn`, log convexity examples",
+            "external": "`ForMathlib/PrekopaLeindler.lean`, `Brunn1D.lean`, `Anderson.lean`",
+            "gap": "No direct Mathlib Prekopa-Leindler/Brunn-Minkowski package observed.",
+        },
+        {
+            "area": "density/RN/withDensity",
+            "mathlib": "`Probability/Density.lean`, `Measure/Decomposition/*`, `withDensity`, `rnDeriv`",
+            "external": "`RnDerivSqrt.lean`, `HellingerProduct.lean`, `L2.lean`",
+            "gap": "Gibbs nonzero, finite-by-envelope, finite-measure bounded-below, and quadratic Lebesgue normalization contracts are compiled; need general nonquadratic coercivity/growth leaves proving tail-integrable envelopes.",
+        },
+        {
+            "area": "Gaussian/product Gaussian",
+            "mathlib": "`Probability.Distributions.Gaussian.Real`, CLT/charFun support",
+            "external": "`PiGaussian.lean`, `GaussianMGF.lean`, `GaussianShift.lean`, `PiWithDensity.lean`",
+            "gap": "Product Gaussian MGF, normalizer, shifted withDensity identity, product integral change-of-measure, EuclideanSpace pushforward bridge, and stdGaussian inner-product form are compiled; Brownian/path packaging remains.",
+        },
+        {
+            "area": "conditional kernels",
+            "mathlib": "`Probability.Kernel.CondDistrib`, conditional expectation APIs",
+            "external": "`CondExpL2.lean`, Markov-kernel/selection files",
+            "gap": "Need fixed representative policy for conditional drifts in algorithm proofs.",
+        },
+        {
+            "area": "SDE/semigroup/Langevin",
+            "mathlib": "general topology/calculus/integration; no full finite-dimensional Ito/SDE library observed",
+            "external": "ASTIS WeakGenerator/FokkerPlanckAlgebra, source-cited Chewi textbook route",
+            "gap": "Finite-dimensional cylindrical Girsanov integral and RN/withDensity identity are compiled; Ito, generator domains, invariant Gibbs proof, and full Brownian path-space change of measure remain real analytic leaves.",
+        },
+        {
+            "area": "information theory",
+            "mathlib": "`InformationTheory/KullbackLeibler/KLFun.lean`, convexity of KL integrand",
+            "external": "ASTIS `KLDensity`, `DonskerVaradhan`, external Hellinger/RN files",
+            "gap": "Renyi divergence and derivative identities need new local leaves.",
+        },
+        {
+            "area": "algorithms",
+            "mathlib": "kernel/measure infrastructure; search per algorithm before local coding",
+            "external": "SALD weak-FP as pressure test, AST Gaussian/conditional references",
+            "gap": "LMC/HMC/MALA/proximal trees should be consumers until shared roots compile.",
+        },
+    ]
+
+
+def chewi_foundation_mmd_text() -> str:
+    return """flowchart LR
+  Chewi[Chewi Log-Concave Sampling]
+  Mathlib[Mathlib API search]
+  ASTRef[External Lean references]
+  REG[REG hidden regularity contracts]
+  MEAS[MEAS law map and measures]
+  KERN[KERN conditional kernels]
+  DENS[DENS densities RN KL Renyi]
+  GAUSS[GAUSS Gaussian products]
+  CONV[CONV convex log-concave PL BM]
+  FI[FI PI LSI transport concentration]
+  SDE[SDE semigroup generator Langevin weak-FP]
+  PATH[PATH Girsanov Doob Follmer bridge]
+  DISC[DISC LMC HMC MALA proximal]
+  Consumers[SALD RMFLD future papers]
+
+  Chewi --> MEAS
+  Chewi --> CONV
+  Chewi --> FI
+  Chewi --> SDE
+  Chewi --> PATH
+  Chewi --> DISC
+  Mathlib --> MEAS
+  Mathlib --> DENS
+  Mathlib --> CONV
+  Mathlib --> FI
+  ASTRef --> CONV
+  ASTRef --> GAUSS
+  ASTRef --> DENS
+  ASTRef --> PATH
+  REG -. required by every leaf .-> MEAS
+  REG -. required by every leaf .-> CONV
+  REG -. required by every leaf .-> SDE
+  MEAS --> KERN
+  MEAS --> DENS
+  DENS --> FI
+  GAUSS --> PATH
+  CONV --> FI
+  FI --> SDE
+  SDE --> DISC
+  PATH --> DISC
+  DISC --> Consumers
+"""
+
+
+def chewi_foundation_svg() -> str:
+    boxes = {
+        "chewi": (45, 105, 240, 70, "Chewi roadmap", "chapter/theorem source DAG", "input"),
+        "mathlib": (45, 245, 240, 70, "Mathlib scout", "search before porting", "input"),
+        "refs": (45, 385, 240, 70, "Reference repos", "AST, SLT, Rademacher", "input"),
+        "reg": (365, 80, 260, 74, "REG contracts", "measurable, integrable, smooth, boundary", "contract"),
+        "meas": (360, 205, 245, 70, "MEAS law maps", "map, withDensity, RN", "leaf"),
+        "kern": (665, 205, 245, 70, "KERN conditional", "condDistrib representatives", "leaf"),
+        "dens": (970, 205, 245, 70, "DENS entropy", "KL, Renyi, FI algebra", "leaf"),
+        "gauss": (360, 350, 245, 70, "GAUSS products", "moments, MGF, tilts", "leaf"),
+        "conv": (665, 350, 245, 70, "CONV geometry", "log-concavity, PL, BM", "leaf"),
+        "fi": (970, 350, 245, 70, "FI inequalities", "PI, LSI, TI, concentration", "leaf"),
+        "sde": (665, 500, 245, 74, "SDE Langevin", "semigroup, generator, weak-FP", "leaf"),
+        "path": (970, 500, 245, 74, "PATH transforms", "Girsanov, Doob, Follmer", "analytic"),
+        "disc": (665, 650, 245, 74, "DISC algorithms", "LMC, HMC, MALA, proximal", "consumer"),
+        "gate": (970, 650, 245, 74, "Reviewer gate", "Mathlib-ready, no hidden assumptions", "gate"),
+    }
+    edges = [
+        ("chewi", "reg", "extract", False),
+        ("mathlib", "meas", "reuse", False),
+        ("mathlib", "conv", "reuse", False),
+        ("refs", "gauss", "port plan", False),
+        ("refs", "conv", "port plan", False),
+        ("refs", "path", "port plan", True),
+        ("reg", "meas", "", True),
+        ("reg", "conv", "", True),
+        ("reg", "sde", "", True),
+        ("meas", "kern", "", False),
+        ("meas", "dens", "", False),
+        ("gauss", "path", "tilt", False),
+        ("conv", "fi", "preserve", False),
+        ("dens", "fi", "entropy", False),
+        ("fi", "sde", "dissipation", False),
+        ("kern", "sde", "drift", False),
+        ("sde", "disc", "interpolation", False),
+        ("path", "disc", "change measure", False),
+        ("disc", "gate", "gate", False),
+    ]
+    node_parts = [
+        leaf_network_node(node_id, x, y, w, h, title, subtitle, kind)
+        for node_id, (x, y, w, h, title, subtitle, kind) in boxes.items()
+    ]
+    edge_parts = [
+        leaf_network_edge(boxes[src][:4], boxes[dst][:4], label, dashed)
+        for src, dst, label, dashed in edges
+    ]
+    generated = html.escape(now_stamp())
+    return f"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1280" height="790" viewBox="0 0 1280 790" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arrowLeaf" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+    <polygon points="0 0, 9 3.5, 0 7" fill="#7f8da3"/>
+  </marker>
+</defs>
+<rect width="1280" height="790" fill="white"/>
+<text x="640" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">Chewi Log-Concave Sampling Formalization Spine</text>
+<text x="640" y="58" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Shared root nodes are reused across chapter/theorem DAGs; chapter proofs become consumers of the same Mathlib-ready leaves.</text>
+<g id="edges">
+{chr(10).join(edge_parts)}
+</g>
+<g id="nodes">
+{chr(10).join(node_parts)}
+</g>
+<text x="830" y="760" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py lemma-dag-refresh</text>
+</svg>
+"""
+
+
+def chewi_lean_tree_status_rows() -> list[dict[str, str]]:
+    return [
+        {
+            "family": "MEAS/KERN",
+            "node": "Probability.LawMap",
+            "target": "TechnicalLemmas/Probability/LawMap.lean",
+            "status": "compiled-blue",
+            "role": "law-map and weak-test integral rewrites",
+        },
+        {
+            "family": "MEAS/KERN",
+            "node": "Probability.ConditionalKernel",
+            "target": "TechnicalLemmas/Probability/ConditionalKernel.lean",
+            "status": "compiled-blue",
+            "role": "condDistrib and conditional-integral representatives",
+        },
+        {
+            "family": "MEAS/KERN",
+            "node": "Measure.Transport",
+            "target": "TechnicalLemmas/Measure/Transport.lean",
+            "status": "todo-red",
+            "role": "transport/coupling/Wasserstein interfaces",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Geometry.LogConcavity",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "positive log-concavity and convex-potential Gibbs shape",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Measure.RadonNikodym",
+            "target": "TechnicalLemmas/Measure/RadonNikodym.lean",
+            "status": "compiled-blue",
+            "role": "withDensity, reciprocal-lintegral normalization, RN wrappers",
+        },
+        {
+            "family": "DENS/MEAS",
+            "node": "Measure.pi withDensity product",
+            "target": "TechnicalLemmas/Measure/RadonNikodym.lean",
+            "status": "compiled-blue",
+            "role": "finite-product ENNReal Fubini and coordinatewise density-tilt decomposition",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Measure.Gibbs",
+            "target": "TechnicalLemmas/Measure/Gibbs.lean",
+            "status": "compiled-blue",
+            "role": "Gibbs ENNReal density, measurability, envelope comparison, and normalization",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Potential lower-bound envelope",
+            "target": "TechnicalLemmas/Measure/Gibbs.lean",
+            "status": "compiled-blue",
+            "role": "`W ≤ V` a.e. and finite `∫ exp(-W)` imply finite `∫ exp(-V)` and normalized Gibbs law",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Finite-measure Gibbs envelope",
+            "target": "TechnicalLemmas/Measure/Gibbs.lean",
+            "status": "compiled-blue",
+            "role": "finite base measure plus a.e. constant lower bound on `V` gives finite Gibbs normalizer and normalized target law",
+        },
+        {
+            "family": "DENS/CONV/ANALYSIS",
+            "node": "Quadratic Lebesgue Gibbs envelope",
+            "target": "TechnicalLemmas/Analysis/Integrability.lean",
+            "status": "compiled-blue",
+            "role": "finite-dimensional Lebesgue quadratic lower bounds give finite Gibbs normalizer and normalized target law",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "InformationTheory.KLDensity/DV",
+            "target": "TechnicalLemmas/InformationTheory/{KLDensity,DonskerVaradhan}.lean",
+            "status": "compiled-blue",
+            "role": "KL pointwise algebra and DV energy leaves",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Prekopa/Brunn/Convex",
+            "target": "TechnicalLemmas/Geometry/{Convex,PrekopaLeindler,BrunnMinkowski}.lean",
+            "status": "todo-red",
+            "role": "finite-dimensional PL/BM and convex-measure preservation",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Concrete Gibbs envelope",
+            "target": "TechnicalLemmas/Measure/Gibbs.lean or Analysis/Integrability.lean",
+            "status": "todo-red",
+            "role": "general nonquadratic Lebesgue coercivity/growth assumptions supply a tail-integrable lower-potential envelope",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Renyi density calculus",
+            "target": "TechnicalLemmas/InformationTheory/Renyi.lean",
+            "status": "compiled-blue",
+            "role": "Renyi integrand positivity, measurability, finite-envelope, and pointwise derivative leaves",
+        },
+        {
+            "family": "GAUSS",
+            "node": "ProbabilityDistributions.Gaussian",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "compiled-blue",
+            "role": "Gaussian moments, coordinate laws, finite linear forms, MGF normalizers, shifted densities, and variance packaging",
+        },
+        {
+            "family": "GAUSS",
+            "node": "Product Gaussian linear forms",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "compiled-blue",
+            "role": "finite product-Gaussian linear-form integrability and zero mean",
+        },
+        {
+            "family": "GAUSS",
+            "node": "Product Gaussian MGF / normalizer",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "compiled-blue",
+            "role": "finite product-Gaussian linear-form MGF and centered Esscher mass-one normalizer",
+        },
+        {
+            "family": "GAUSS",
+            "node": "Scalar Gaussian Esscher shift",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "compiled-blue",
+            "role": "one-dimensional Gaussian exponential tilt shifts the mean",
+        },
+        {
+            "family": "GAUSS",
+            "node": "Product Gaussian shifted density",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "compiled-blue",
+            "role": "finite product standard Gaussian withDensity tilt equals shifted product Gaussian",
+        },
+        {
+            "family": "GAUSS",
+            "node": "Product Gaussian change of measure",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "compiled-blue",
+            "role": "finite shifted product-Gaussian integrals rewrite as centered weighted integrals",
+        },
+        {
+            "family": "GAUSS",
+            "node": "EuclideanSpace Gaussian pushforward",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "compiled-blue",
+            "role": "transport finite product-Gaussian Esscher change-of-measure through `WithLp.toLp 2`",
+        },
+        {
+            "family": "GAUSS",
+            "node": "stdGaussian inner-product change of measure",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "compiled-blue",
+            "role": "rewrite the Euclidean change-of-measure against Mathlib `stdGaussian` with inner-product/norm exponent",
+        },
+        {
+            "family": "GAUSS",
+            "node": "Full path-space Gaussian / Girsanov",
+            "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+            "status": "todo-red",
+            "role": "Brownian/path-space RN derivative beyond finite-dimensional cylinders",
+        },
+        {
+            "family": "FI",
+            "node": "FunctionalInequalities.LogSobolev",
+            "target": "TechnicalLemmas/FunctionalInequalities/LogSobolev.lean",
+            "status": "compiled-blue",
+            "role": "LSI to KL/FI bookkeeping and sqrt-density handoffs",
+        },
+        {
+            "family": "FI",
+            "node": "PI/TI/Isoperimetry",
+            "target": "TechnicalLemmas/FunctionalInequalities/{Poincare,Transport,Isoperimetry}.lean",
+            "status": "todo-red",
+            "role": "Poincare, transport inequalities, concentration, isoperimetry",
+        },
+        {
+            "family": "FI",
+            "node": "Preservation/tensorization",
+            "target": "TechnicalLemmas/FunctionalInequalities/Preservation.lean",
+            "status": "todo-red",
+            "role": "tensorization and preservation under log-concavity operations",
+        },
+        {
+            "family": "SDE/PATH",
+            "node": "StochasticProcesses.WeakGenerator",
+            "target": "TechnicalLemmas/StochasticProcesses/WeakGenerator.lean",
+            "status": "compiled-blue",
+            "role": "sample-to-law weak-generator rewrite",
+        },
+        {
+            "family": "SDE/PATH",
+            "node": "StochasticProcesses.FokkerPlanckAlgebra",
+            "target": "TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean",
+            "status": "compiled-blue",
+            "role": "weak-FP and Fisher/IBP scalar algebra",
+        },
+        {
+            "family": "SDE/PATH",
+            "node": "StochasticProcesses.Girsanov finite cylinder",
+            "target": "TechnicalLemmas/StochasticProcesses/Girsanov.lean",
+            "status": "compiled-blue",
+            "role": "finite-dimensional cylindrical Gaussian Girsanov weight, RN density, and integral change-of-measure",
+        },
+        {
+            "family": "SDE/PATH",
+            "node": "MarkovSemigroup/Langevin/Ito",
+            "target": "TechnicalLemmas/StochasticProcesses/{MarkovSemigroup,Langevin,Ito}.lean",
+            "status": "todo-red",
+            "role": "semigroup domains, invariant Gibbs law, Ito interfaces",
+        },
+        {
+            "family": "SDE/PATH",
+            "node": "Girsanov/Doob/Follmer",
+            "target": "TechnicalLemmas/StochasticProcesses/{Girsanov,DoobTransform,FollmerDrift}.lean",
+            "status": "todo-red",
+            "role": "path-space RN derivatives and bridge transforms",
+        },
+        {
+            "family": "DISC",
+            "node": "LMC interpolation",
+            "target": "SamplingAlgorithms/LangevinMonteCarlo.lean",
+            "status": "todo-red",
+            "role": "LMC interpolation, coupling, KL/FI derivative consumers",
+        },
+        {
+            "family": "DISC",
+            "node": "HMC/underdamped/RM",
+            "target": "SamplingAlgorithms/{HamiltonianMonteCarlo,UnderdampedLangevin,RandomizedMidpoint}.lean",
+            "status": "todo-red",
+            "role": "faster low-accuracy sampler transition/generator contracts",
+        },
+        {
+            "family": "DISC",
+            "node": "MALA/proximal/high-accuracy",
+            "target": "SamplingAlgorithms/{MetropolisAdjustedLangevin,ProximalSampler}.lean",
+            "status": "todo-red",
+            "role": "acceptance kernels, detailed balance, restricted Gaussian oracles",
+        },
+    ]
+
+
+def chewi_lean_tree_status_mmd_text() -> str:
+    return """flowchart TD
+  Root[ASTIS-CHEWI-001<br/>Chewi Mathlib-ready Lean tree]
+  MEAS[MEAS/KERN<br/>measure and kernels]
+  DENS[DENS/CONV<br/>densities and convexity]
+  GAUSS[GAUSS<br/>Gaussian infrastructure]
+  FI[FI<br/>functional inequalities]
+  SDE[SDE/PATH<br/>continuous-time and transforms]
+  DISC[DISC<br/>sampling algorithms]
+
+  Root --> MEAS
+  Root --> DENS
+  Root --> GAUSS
+  Root --> FI
+  Root --> SDE
+  Root --> DISC
+
+  MEAS --> LawMap[Probability.LawMap]
+  MEAS --> CondKernel[Probability.ConditionalKernel]
+  MEAS --> Transport[Measure.Transport]
+
+  DENS --> LogConcavity[Geometry.LogConcavity]
+  DENS --> RN[Measure.RadonNikodym]
+  DENS --> PiDensity[Measure.pi withDensity product]
+  DENS --> Gibbs[Measure.Gibbs]
+  DENS --> GibbsPotentialEnv[Potential lower-bound envelope]
+  DENS --> GibbsFiniteEnv[Finite-measure Gibbs envelope]
+  DENS --> GibbsQuadEnv[Quadratic Lebesgue Gibbs envelope]
+  DENS --> KLDV[InformationTheory.KLDensity/DV]
+  DENS --> PLBM[Prekopa/Brunn/Convex]
+  DENS --> GibbsEnv[General coercivity Gibbs envelope]
+  DENS --> Renyi[Renyi density calculus]
+
+  GAUSS --> Gaussian[ProbabilityDistributions.Gaussian]
+  GAUSS --> GaussianLinear[Product Gaussian linear forms]
+  GAUSS --> GaussianMGF[Product Gaussian MGF / normalizer]
+  GAUSS --> GaussianScalarShift[Scalar Gaussian Esscher shift]
+  GAUSS --> GaussianProductShift[Product Gaussian shifted density]
+  GAUSS --> GaussianCOM[Product Gaussian change of measure]
+  GAUSS --> GaussianEuclidean[EuclideanSpace Gaussian pushforward]
+  GAUSS --> GaussianStd[stdGaussian inner-product change of measure]
+  GAUSS --> GaussianPath[Full path-space Gaussian / Girsanov]
+
+  FI --> LSI[FunctionalInequalities.LogSobolev]
+  FI --> PITI[PI/TI/Isoperimetry]
+  FI --> Preserve[Preservation/tensorization]
+
+  SDE --> WeakGen[StochasticProcesses.WeakGenerator]
+  SDE --> FP[StochasticProcesses.FokkerPlanckAlgebra]
+  SDE --> GirsanovFinite[StochasticProcesses.Girsanov finite cylinder]
+  SDE --> Langevin[MarkovSemigroup/Langevin/Ito]
+  SDE --> Path[Girsanov/Doob/Follmer]
+
+  DISC --> LMC[LMC interpolation]
+  DISC --> HMC[HMC/underdamped/RM]
+  DISC --> MALA[MALA/proximal/high-accuracy]
+
+  classDef root fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
+  classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
+  class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
+  class LawMap,CondKernel,LogConcavity,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
+  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,Langevin,Path,LMC,HMC,MALA todo;
+"""
+
+
+def chewi_status_color(status: str) -> tuple[str, str, str]:
+    if status == "compiled-blue":
+        return "#dbeafe", "#2563eb", "#0f172a"
+    if status == "todo-red":
+        return "#fee2e2", "#dc2626", "#450a0a"
+    return "#f8fafc", "#475569", "#0f172a"
+
+
+def chewi_status_svg_node(
+    node_id: str,
+    x: int,
+    y: int,
+    w: int,
+    h: int,
+    title: str,
+    subtitle: str,
+    status: str,
+) -> str:
+    fill, stroke, text_color = chewi_status_color(status)
+    title = html.escape(title)
+    subtitle = html.escape(subtitle)
+    return f"""<g id="{html.escape(node_id)}">
+  <rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" fill="{fill}" stroke="{stroke}" stroke-width="1.8"/>
+  <text x="{x + w / 2:.1f}" y="{y + 20}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="{text_color}">{title}</text>
+  <text x="{x + w / 2:.1f}" y="{y + 38}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="{text_color}">{subtitle}</text>
+</g>"""
+
+
+def chewi_status_svg_edge(src: tuple[int, int, int, int], dst: tuple[int, int, int, int]) -> str:
+    x1 = src[0] + src[2] / 2
+    y1 = src[1] + src[3]
+    x2 = dst[0] + dst[2] / 2
+    y2 = dst[1]
+    mid = (y1 + y2) / 2
+    return (
+        f'<path d="M {x1:.1f} {y1:.1f} C {x1:.1f} {mid:.1f}, {x2:.1f} {mid:.1f}, {x2:.1f} {y2:.1f}" '
+        'fill="none" stroke="#94a3b8" stroke-width="1.1" marker-end="url(#arrowStatus)"/>'
+    )
+
+
+def chewi_lean_tree_status_svg() -> str:
+    columns = [
+        ("MEAS/KERN", 30, [
+            ("Probability.LawMap", "compiled", "compiled-blue"),
+            ("Probability.ConditionalKernel", "compiled", "compiled-blue"),
+            ("Measure.Transport", "todo", "todo-red"),
+        ]),
+        ("DENS/CONV", 275, [
+            ("Geometry.LogConcavity", "compiled", "compiled-blue"),
+            ("Measure.RadonNikodym", "compiled", "compiled-blue"),
+            ("Pi withDensity", "compiled", "compiled-blue"),
+            ("Measure.Gibbs", "compiled", "compiled-blue"),
+            ("Potential envelope", "compiled", "compiled-blue"),
+            ("KLDensity / DV", "compiled", "compiled-blue"),
+            ("Renyi density", "compiled", "compiled-blue"),
+            ("Prekopa / Brunn", "todo", "todo-red"),
+            ("Coercivity envelope", "todo", "todo-red"),
+        ]),
+        ("GAUSS", 520, [
+            ("Gaussian coordinates", "compiled", "compiled-blue"),
+            ("Linear forms", "compiled", "compiled-blue"),
+            ("MGF normalizer", "compiled", "compiled-blue"),
+            ("Scalar shift", "compiled", "compiled-blue"),
+            ("Product shift", "compiled", "compiled-blue"),
+            ("Change of measure", "compiled", "compiled-blue"),
+            ("Euclidean pushforward", "compiled", "compiled-blue"),
+            ("stdGaussian inner form", "compiled", "compiled-blue"),
+            ("Path-space packaging", "todo", "todo-red"),
+        ]),
+        ("FI", 765, [
+            ("LogSobolev bookkeeping", "compiled", "compiled-blue"),
+            ("PI / TI / Isoperimetry", "todo", "todo-red"),
+            ("Preservation", "todo", "todo-red"),
+        ]),
+        ("SDE/PATH", 1010, [
+            ("WeakGenerator", "compiled", "compiled-blue"),
+            ("FokkerPlanck algebra", "compiled", "compiled-blue"),
+            ("Finite Girsanov RN cylinder", "compiled", "compiled-blue"),
+            ("Semigroup/Langevin/Ito", "todo", "todo-red"),
+            ("Girsanov/Doob/Follmer", "todo", "todo-red"),
+        ]),
+        ("DISC", 1255, [
+            ("LMC interpolation", "todo", "todo-red"),
+            ("HMC / underdamped / RM", "todo", "todo-red"),
+            ("MALA / proximal", "todo", "todo-red"),
+        ]),
+    ]
+    root = (555, 52, 420, 58)
+    nodes = [
+        chewi_status_svg_node("root", *root, "ASTIS-CHEWI-001 Chewi Lean tree", "blue = compiled locally; red = todo", "root")
+    ]
+    edges = []
+    family_boxes: dict[str, tuple[int, int, int, int]] = {}
+    for family, x, children in columns:
+        family_box = (x, 150, 210, 54)
+        family_boxes[family] = family_box
+        nodes.append(chewi_status_svg_node(slugify(family), *family_box, family, "shared root", "root"))
+        edges.append(chewi_status_svg_edge(root, family_box))
+        for i, (title, subtitle, status) in enumerate(children):
+            child_box = (x, 245 + 64 * i, 210, 50)
+            nodes.append(chewi_status_svg_node(slugify(f"{family}-{title}"), *child_box, title, subtitle, status))
+            edges.append(chewi_status_svg_edge(family_box, child_box))
+    generated = html.escape(now_stamp())
+    legend_y = 760
+    return f"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1500" height="840" viewBox="0 0 1500 840" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arrowStatus" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+  </marker>
+</defs>
+<rect width="1500" height="840" fill="white"/>
+<text x="750" y="30" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">Chewi Mathlib-Ready Lean Tree Status</text>
+<g id="edges">
+{chr(10).join(edges)}
+</g>
+<g id="nodes">
+{chr(10).join(nodes)}
+</g>
+<rect x="30" y="{legend_y}" width="22" height="16" fill="#dbeafe" stroke="#2563eb"/>
+<text x="60" y="{legend_y + 13}" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#0f172a">compiled local ASTIS/Mathlib-ready leaf or module</text>
+<rect x="350" y="{legend_y}" width="22" height="16" fill="#fee2e2" stroke="#dc2626"/>
+<text x="380" y="{legend_y + 13}" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#450a0a">todo branch/leaf with explicit target module and reviewer contract</text>
+<text x="970" y="805" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py lemma-dag-refresh</text>
+</svg>
+"""
+
+
+def chewi_chapter_dag_text() -> str:
+    root_table = markdown_table(chewi_shared_root_rows(), [
+        ("Label", "label"),
+        ("Shared root", "root"),
+        ("Target module/root", "module"),
+        ("Role", "role"),
+        ("Status", "status"),
+    ])
+    chapter_table = markdown_table(chewi_chapter_rows(), [
+        ("Chewi chapter/topic", "chapter"),
+        ("Shared labels", "shared"),
+        ("Subtree to draw/formalize", "dag"),
+        ("First lower-agent leaf", "first_leaf"),
+        ("Status", "status"),
+    ])
+    leaf_table = markdown_table(chewi_open_leaf_rows(), [
+        ("Open leaf", "leaf"),
+        ("Label", "label"),
+        ("Target file", "target"),
+        ("Mathlib/external borrow plan", "borrow"),
+        ("Status", "status"),
+    ])
+    status_table = markdown_table(chewi_lean_tree_status_rows(), [
+        ("Family", "family"),
+        ("Branch/leaf", "node"),
+        ("Target", "target"),
+        ("Color status", "status"),
+        ("Role", "role"),
+    ])
+    api_table = markdown_table(chewi_api_audit_rows(), [
+        ("Area", "area"),
+        ("Mathlib surface", "mathlib"),
+        ("External reference", "external"),
+        ("Gap / next action", "gap"),
+    ])
+    return f"""# Chewi Log-Concave Sampling Foundation DAG
+
+Generated: `{now_stamp()}`
+
+Primary source: `{CHEWI_LOG_CONCAVE_URL}`
+
+Local source: `{CHEWI_LOG_CONCAVE_PDF}`
+
+This is the master visualization ledger for `ASTIS-CHEWI-001`.  The goal is
+to avoid one oversized graph: every Chewi chapter or major theorem should point
+to shared root nodes and then have its own smaller subtree.  Shared labels make
+common Lean leaves reusable across chapters, SALD, RMFLD, and future papers.
+
+## Global Spine
+
+```mermaid
+{chewi_foundation_mmd_text()}```
+
+## Blue/Red Lean Tree Status
+
+Blue nodes are compiled local ASTIS declarations or modules covered by
+`lake build`.  Red nodes are the todo branches I can keep driving with
+Mathlib-first leaves and explicit source/regularity contracts.
+
+Rendered status tree:
+`docs/assets/chewi_lean_tree_status.svg`
+
+```mermaid
+{chewi_lean_tree_status_mmd_text()}```
+
+{status_table}
+
+## Shared Root Nodes
+
+{root_table}
+
+## Chapter And Theorem Subtree Registry
+
+{chapter_table}
+
+## Chapter 1 Langevin Continuous-Time Subtree
+
+```mermaid
+flowchart TD
+  C1[Chewi Ch.1 Langevin diffusion]
+  SC[1.1 stochastic calculus]
+  MS[1.2 Markov semigroup]
+  OT[1.3 optimal transport]
+  WGF[1.4 Wasserstein gradient flow]
+  GAUSS[GAUSS Gaussian increments]
+  TAY[Taylor/Ito local error]
+  SEM[Markov semigroup operator]
+  GEN[generator-domain contract]
+  INV[invariant Gibbs law]
+  KL[KL/FI dissipation]
+  W2[Wasserstein gradient-flow contract]
+  REG[REG hidden regularity]
+
+  C1 --> SC
+  C1 --> MS
+  C1 --> OT
+  C1 --> WGF
+  SC --> GAUSS --> TAY
+  MS --> SEM --> GEN
+  WGF --> INV --> KL --> W2
+  REG -.-> TAY
+  REG -.-> GEN
+  REG -.-> INV
+```
+
+## Chapter 2 Functional-Inequality Subtree
+
+```mermaid
+flowchart TD
+  C2[Chewi Ch.2 functional inequalities]
+  DEF[PI LSI TI definitions]
+  SEM[semigroup proof route]
+  PRES[preservation operations]
+  CONC[concentration and isoperimetry]
+  DISC[discrete space/time]
+  CONV[CONV log-concavity]
+  PL[Prekopa-Leindler]
+  LSI[LSI to KL/FI compiled bookkeeping]
+  REG[REG hidden regularity]
+
+  C2 --> DEF
+  C2 --> SEM
+  C2 --> PRES
+  C2 --> CONC
+  C2 --> DISC
+  CONV --> PL --> PRES
+  DEF --> LSI
+  SEM --> LSI
+  REG -.-> PL
+  REG -.-> LSI
+```
+
+## Chapter 4 LMC Interpolation Subtree
+
+```mermaid
+flowchart TD
+  C4[Chewi Ch.4 Langevin Monte Carlo]
+  COUP[Wasserstein coupling proof]
+  INT[interpolation proof]
+  OPT[convex optimization proof]
+  GIR[Girsanov proof]
+  LAW[MEAS law-map derivative]
+  KERN[KERN conditional drift]
+  WFP[SDE weak-FP bridge]
+  KL[DENS KL/FI derivative]
+  PATH[PATH change of measure]
+  DISC[DISC LMC theorem]
+  REG[REG hidden regularity]
+
+  C4 --> COUP
+  C4 --> INT
+  C4 --> OPT
+  C4 --> GIR
+  INT --> LAW --> WFP
+  KERN --> WFP
+  WFP --> KL --> DISC
+  GIR --> PATH --> DISC
+  REG -.-> LAW
+  REG -.-> WFP
+  REG -.-> KL
+```
+
+## Open Leaf Queue
+
+{leaf_table}
+
+## Mathlib And External API Audit
+
+{api_table}
+
+## Review Rule
+
+Every subtree edge must eventually be one of:
+
+- a compiled ASTIS-owned Lean declaration;
+- a Mathlib theorem/API name used directly;
+- an external reference theorem with a local port plan;
+- a source-cited `ProofObligation` whose hidden regularity is explicit.
+
+Do not add a chapter theorem node unless it reuses the shared roots above or
+creates a new shared root with a label and reviewer contract.
+"""
+
+
+def write_chewi_foundation_docs() -> list[Path]:
+    outputs: list[Path] = []
+    path_texts = [
+        (LEMMA_DAG_DIR / "Chewi_log_concave_sampling_foundation.md", chewi_chapter_dag_text()),
+        (ROOT / "docs" / "assets" / "chewi_log_concave_foundation.mmd", chewi_foundation_mmd_text()),
+        (ROOT / "docs" / "assets" / "chewi_log_concave_foundation.svg", chewi_foundation_svg()),
+        (ROOT / "docs" / "assets" / "chewi_lean_tree_status.mmd", chewi_lean_tree_status_mmd_text()),
+        (ROOT / "docs" / "assets" / "chewi_lean_tree_status.svg", chewi_lean_tree_status_svg()),
+    ]
+    for path, text in path_texts:
+        write_text(path, text)
+        outputs.append(path)
+    png_path = ROOT / "docs" / "assets" / "chewi_log_concave_foundation.png"
+    if render_svg_preview(ROOT / "docs" / "assets" / "chewi_log_concave_foundation.svg", png_path):
+        outputs.append(png_path)
+    status_png_path = ROOT / "docs" / "assets" / "chewi_lean_tree_status.png"
+    if render_svg_preview(ROOT / "docs" / "assets" / "chewi_lean_tree_status.svg", status_png_path):
+        outputs.append(status_png_path)
+
+    md_path, json_path = chewisinho_to_lean_roadmap()
+    outputs.extend([md_path, json_path])
+    retrieval = {
+        "generated": now_stamp(),
+        "task": "ASTIS-CHEWI-001",
+        "source_pdf": str(CHEWI_LOG_CONCAVE_PDF),
+        "public_pdf": CHEWI_LOG_CONCAVE_URL,
+        "foundation_dag": rel(LEMMA_DAG_DIR / "Chewi_log_concave_sampling_foundation.md"),
+        "foundation_svg": "docs/assets/chewi_log_concave_foundation.svg",
+        "foundation_mmd": "docs/assets/chewi_log_concave_foundation.mmd",
+        "status_tree_svg": "docs/assets/chewi_lean_tree_status.svg",
+        "status_tree_mmd": "docs/assets/chewi_lean_tree_status.mmd",
+        "roadmap": rel(SAMPLING_LIBRARY_DIR / "roadmap" / "chewisinho_to_lean_tree.md"),
+        "shared_roots": chewi_shared_root_rows(),
+        "blue_red_lean_tree": chewi_lean_tree_status_rows(),
+        "chapter_subtrees": chewi_chapter_rows(),
+        "open_leaf_queue": chewi_open_leaf_rows(),
+        "api_audit": chewi_api_audit_rows(),
+    }
+    retrieval_path = RETRIEVAL_INDEX_DIR / "ASTIS-CHEWI-001.json"
+    write_text(retrieval_path, json.dumps(retrieval, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+    outputs.append(retrieval_path)
+    return outputs
+
+
 def leaf_packet_brief_text() -> str:
     return """# Lower-Agent Mathlib-Ready Leaf Packet
 
@@ -2313,7 +3424,7 @@ def write_mathlib_ready_leaf_docs() -> list[Path]:
     outputs: list[Path] = []
     path_texts = [
         (ROOT / "docs" / "mathlib_ready_leaf_protocol.md", mathlib_ready_leaf_protocol_text()),
-        (LEMMA_DAG_DIR / "README.md", "# Lemma DAGs\n\nThis folder stores Mathlib-ready dependency graphs for reusable SDE/Sampling leaf lemmas.\n\nRun:\n\n```bash\npython3 tools/astis.py lemma-dag-refresh\n```\n\n"),
+        (LEMMA_DAG_DIR / "README.md", "# Lemma DAGs\n\nThis folder stores Mathlib-ready dependency graphs for reusable SDE/Sampling leaf lemmas.\n\nKey ledgers:\n\n- `Chewi_log_concave_sampling_foundation.md` is the active Chewi-led chapter/theorem DAG and shared-root taxonomy.\n- `SDE_Sampling_skill_tree.md` is the generic reusable proof-skill tree.\n- `SALD_weak_fp_leaf_dag.md` is a downstream consumer pressure-test DAG.\n\nRun:\n\n```bash\npython3 tools/astis.py lemma-dag-refresh\n```\n\n"),
         (LEMMA_DAG_DIR / "SDE_Sampling_skill_tree.md", sde_sampling_skill_tree_text()),
         (LEMMA_DAG_DIR / "SALD_weak_fp_leaf_dag.md", sald_weak_fp_leaf_dag_text()),
         (LEMMA_DAG_DIR / "Pro_assimilated_leaf_targets.md", pro_assimilated_leaf_targets_text()),
@@ -2326,6 +3437,8 @@ def write_mathlib_ready_leaf_docs() -> list[Path]:
     for path, text in path_texts:
         write_text(path, text)
         outputs.append(path)
+
+    outputs.extend(write_chewi_foundation_docs())
 
     leaf_png = ROOT / "docs" / "assets" / "sampling_sde_leaf_network.png"
     if render_svg_preview(ROOT / "docs" / "assets" / "sampling_sde_leaf_network.svg", leaf_png):
@@ -2398,8 +3511,18 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.Measure": {
         "layer": "compatibility source",
-        "summary": "compatibility aggregator for law-map and conditional-kernel lemmas",
-        "status": "legacy search surface; prefer TechnicalLemmas.Probability.* for new work",
+        "summary": "compatibility aggregator for measure, Gibbs, law-map, conditional-kernel, and RN/withDensity lemmas",
+        "status": "legacy search surface; prefer TechnicalLemmas.Measure.* and TechnicalLemmas.Probability.* for new work",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges",
+        "status": "preferred Mathlib-style location for Chewi Gibbs target-measure wrappers",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "withDensity mass, reciprocal-lintegral normalization, finite-pi product density decomposition, measurable-equivalence density transport, absolute-continuity, and RN reconstruction wrappers",
+        "status": "preferred Mathlib-style location for density normalization and RN derivative leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.Probability": {
         "layer": "Mathlib-ready technical lemma",
@@ -2423,8 +3546,18 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "Gaussian coordinate laws, integrability, mean-zero, and variance-one packaging",
+        "summary": "Gaussian coordinate laws, finite linear-form integrability/mean-zero, product MGF normalizers, Esscher shifted densities/change-of-measure, EuclideanSpace/stdGaussian change-of-measure bridges, and variance-one packaging",
         "status": "preferred Mathlib-style location for Gaussian/Brownian increment leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Geometry": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "parent import surface for convex-geometric and log-concavity leaves",
+        "status": "preferred parent module for Chewi CONV/DENS roots",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "positive-function log-concavity API over Mathlib ConcaveOn",
+        "status": "first compiled Chewi CONV/DENS leaf; extend toward density and Prekopa-Leindler interfaces",
     },
     "AutoSamplingTheory.TechnicalLemmas.Taylor": {
         "layer": "compatibility source",
@@ -2433,8 +3566,8 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "parent import surface for reusable analysis leaves",
-        "status": "preferred parent module for calculus, regularity, and future IBP leaves",
+        "summary": "parent import surface for reusable analysis and integrability leaves",
+        "status": "preferred parent module for calculus, integrability, regularity, and future IBP leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": {
         "layer": "Mathlib-ready technical lemma",
@@ -2446,9 +3579,14 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "summary": "Hessian/operator norm bridges, orthonormal-basis units, quadratic normalization",
         "status": "preferred Mathlib-style location for Ito/Taylor local-error leaves",
     },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, and quadratic lower-bound Gibbs normalization leaves",
+        "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves",
+    },
     "AutoSamplingTheory.TechnicalLemmas.InformationTheory": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "parent import surface for KL/DV/entropy technical lemmas",
+        "summary": "parent import surface for KL/DV/Renyi/entropy technical lemmas",
         "status": "preferred parent module for information-theoretic leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan": {
@@ -2460,6 +3598,11 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "layer": "Mathlib-ready technical lemma",
         "summary": "KL-density pointwise derivative and mass-conservation algebra leaves",
         "status": "preferred Mathlib-style location for KL density algebra after analytic domination is supplied",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Renyi density integrand positivity, measurability, finite-envelope, and pointwise derivative algebra leaves",
+        "status": "preferred Mathlib-style location for Renyi density algebra before integral/path regularity contracts",
     },
     "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities": {
         "layer": "Mathlib-ready technical lemma",
@@ -2473,7 +3616,7 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "parent import surface for weak-generator and Fokker--Planck algebra leaves",
+        "summary": "parent import surface for weak-generator, Fokker--Planck algebra, and finite-dimensional Girsanov cylinder leaves",
         "status": "preferred parent module for SDE/Sampling stochastic-process leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator": {
@@ -2485,6 +3628,11 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "layer": "Mathlib-ready technical lemma",
         "summary": "Fokker--Planck split and Fisher/IBP scalar algebra leaves",
         "status": "preferred Mathlib-style location for weak FP and Fisher algebra handoffs",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "finite-dimensional cylindrical Gaussian Girsanov weight, RN/withDensity identity, change-of-measure, and normalization leaves",
+        "status": "preferred Mathlib-style location for PATH change-of-measure bridge leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.Variational": {
         "layer": "compatibility source",
@@ -2584,6 +3732,22 @@ def module_record_map(records: list[dict]) -> dict[str, dict]:
     return {record["module"]: record for record in records}
 
 
+def local_lean_module_names() -> list[str]:
+    files = [*sorted((ROOT / "AutoSamplingTheory").rglob("*.lean")), ROOT / "AutoSamplingTheory.lean"]
+    return sorted(
+        {module_name_from_lean_path(path) for path in files if path.exists()},
+        key=len,
+        reverse=True,
+    )
+
+
+def module_for_local_decl(decl: str, module_names: list[str]) -> str:
+    for module in module_names:
+        if decl == module or decl.startswith(module + "."):
+            return module
+    return decl.rsplit(".", 1)[0]
+
+
 def module_decl_names(record: dict, limit: int = 8) -> list[str]:
     names = [decl["name"] for decl in record.get("declarations", [])]
     names.extend(record.get("exports", []))
@@ -2599,6 +3763,7 @@ def formalized_memory_entries_by_module() -> dict[str, list[dict[str, str]]]:
     if not registry.exists():
         return {}
     text = read_text(registry)
+    module_names = local_lean_module_names()
     entries: dict[str, list[dict[str, str]]] = {}
     for block in re.findall(r"\{\s*key := .*?\n\s*\}", text, flags=re.S):
         status = re.search(r"status\s*:=\s*LemmaMemoryStatus\.([A-Za-z0-9_]+)", block)
@@ -2610,7 +3775,7 @@ def formalized_memory_entries_by_module() -> dict[str, list[dict[str, str]]]:
         if not local_decl or not local_decl.group(1):
             continue
         decl = local_decl.group(1)
-        module = decl.rsplit(".", 1)[0]
+        module = module_for_local_decl(decl, module_names)
         entries.setdefault(module, []).append({
             "key": key.group(1) if key else decl.rsplit(".", 1)[-1],
             "decl": decl,
@@ -2746,64 +3911,15 @@ upstream review.
 def chewisinho_to_lean_roadmap() -> tuple[Path, Path]:
     md_path = SAMPLING_LIBRARY_DIR / "roadmap" / "chewisinho_to_lean_tree.md"
     json_path = RETRIEVAL_INDEX_DIR / "chewisinho-to-lean-tree.json"
-    chewi_pdf = OUTER_REPOS_SAMPLING_ROOT / "chewisinho-stochastic-processes-main.pdf"
     rows = [
         {
-            "source": "Part I, Ch. 1.1 stochastic calculus",
-            "lean_family": "ProbabilityDistributions/Gaussian + Analysis/Calculus/Taylor",
-            "first_leaf": "Gaussian increment moments; quadratic variation normalization; Ito/Taylor local error",
-            "status": "partial-local-compiled",
-            "review": "split textbook intuition into finite-dimensional Gaussian leaves before Brownian-path theorems",
-        },
-        {
-            "source": "Part I, Ch. 1.2 Markov semigroup theory",
-            "lean_family": "future TechnicalLemmas/SDE/MarkovSemigroup",
-            "first_leaf": "semigroup test-function pairing and generator domain contracts",
-            "status": "planned",
-            "review": "do not encode informal generator equalities without domain and integrability hypotheses",
-        },
-        {
-            "source": "Part I, Ch. 2 functional inequalities",
-            "lean_family": "FunctionalInequalities/{Poincare,LogSobolev,Transport}",
-            "first_leaf": "LSI-to-KL/FI bookkeeping; tensorization and Poincare as future ports",
-            "status": "partial-local-compiled",
-            "review": "separate algebraic KL/FI handoff from analytic LSI theorem",
-        },
-        {
-            "source": "Part I, Ch. 3 change of measure, Doob transform, Follmer drift",
-            "lean_family": "InformationTheory/PathSpace + SDE/DoobTransform",
-            "first_leaf": "finite-time Radon--Nikodym and Feynman--Kac weight contracts",
-            "status": "planned",
-            "review": "path-space theorems need explicit filtrations, adaptedness, absolute continuity, and martingale integrability",
-        },
-        {
-            "source": "Part II, Ch. 4 Langevin Monte Carlo interpolation",
-            "lean_family": "SDE/EulerMaruyama + Probability/LawMap",
-            "first_leaf": "EM interpolation weak-test law derivative under domination",
-            "status": "partial-local-compiled",
-            "review": "start from law-map and parametric integral leaves; keep full Ito theorem source-cited until local SDE layer exists",
-        },
-        {
-            "source": "Part II, Ch. 6 Renyi divergence",
-            "lean_family": "InformationTheory/Renyi",
-            "first_leaf": "Renyi density algebra and monotonicity side conditions",
-            "status": "planned",
-            "review": "separate pointwise real algebra from measure-theoretic absolute-continuity assumptions",
-        },
-        {
-            "source": "Part II, Ch. 7 MALA and Markov chains",
-            "lean_family": "Probability/MarkovKernel + Sampling/MH",
-            "first_leaf": "proposal/acceptance kernel mass and reversibility contracts",
-            "status": "planned",
-            "review": "finite/discrete Markov chain facts may already exist in Mathlib; search before porting",
-        },
-        {
-            "source": "Part II, Ch. 8 proximal sampler",
-            "lean_family": "Sampling/Proximal + Convex",
-            "first_leaf": "restricted Gaussian oracle contracts and conditional law identities",
-            "status": "planned",
-            "review": "requires convex-analysis interfaces; keep separate from stochastic-process core",
-        },
+            "source": row["chapter"],
+            "lean_family": row["dag"],
+            "first_leaf": row["first_leaf"],
+            "status": row["status"],
+            "review": f"reuse shared roots {row['shared']}; create a separate subtree when the theorem becomes active",
+        }
+        for row in chewi_chapter_rows()
     ]
     table = markdown_table(rows, [
         ("Textbook source", "source"),
@@ -2816,14 +3932,17 @@ def chewisinho_to_lean_roadmap() -> tuple[Path, Path]:
 
 Generated: `{now_stamp()}`
 
-Reference PDF: `https://chewisinho.github.io/main.pdf`
+Reference PDF: `{CHEWI_LOG_CONCAVE_URL}`
 
-Local copy: `{chewi_pdf}`
+Local primary copy: `{CHEWI_LOG_CONCAVE_PDF}`
+
+Local legacy mirror: `{CHEWI_LEGACY_PDF}`
 
 This roadmap is not a theorem dependency.  It is a textbook-to-Lean planning
 map.  Textbook statements are often intentionally informal; ASTIS agents must
 turn them into small theorem contracts with hidden regularity assumptions before
-assigning lower Lean work.
+assigning lower Lean work.  The matching visual ledger is
+`research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md`.
 
 ## Roadmap
 
@@ -2846,16 +3965,25 @@ assigning lower Lean work.
 Do not attempt to formalize the whole textbook in one pass.  The next reusable
 growth path is:
 
-- Gaussian/product moment leaves already represented locally.
-- Law-map and conditional-kernel leaves already represented locally.
-- Local weak-generator and EM interpolation contracts.
-- Functional-inequality backend split into algebraic handoff leaves and future
-  analytic theorem ports.
-- Path-space change-of-measure and Doob-transform contracts after the finite
-  dimensional law/KL/FI layer is stable.
+- lock the shared-root taxonomy (`MEAS`, `KERN`, `DENS`, `GAUSS`, `CONV`,
+  `FI`, `SDE`, `PATH`, `DISC`, `REG`);
+- extend the compiled log-concavity API toward density/Gibbs interfaces
+  and finish the Prekopa-Leindler port audit;
+- generalize existing law-map, conditional-kernel, Gaussian, KL, weak-generator,
+  and LSI bookkeeping leaves away from SALD-specific naming;
+- add one subtree per Chewi chapter/theorem only when it reuses shared roots;
+- keep algorithm theorems as consumers until their root leaves compile locally.
 """
     write_text(md_path, text)
-    write_text(json_path, json.dumps({"generated": now_stamp(), "pdf": str(chewi_pdf), "rows": rows}, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+    write_text(json_path, json.dumps({
+        "generated": now_stamp(),
+        "pdf": str(CHEWI_LOG_CONCAVE_PDF),
+        "legacy_pdf": str(CHEWI_LEGACY_PDF),
+        "public_pdf": CHEWI_LOG_CONCAVE_URL,
+        "rows": rows,
+        "shared_roots": chewi_shared_root_rows(),
+        "open_leaf_queue": chewi_open_leaf_rows(),
+    }, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
     return md_path, json_path
 
 
@@ -2867,15 +3995,22 @@ def arsenal_module_coords() -> dict[str, tuple[int, int, int, int]]:
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian": (730, 190, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor": (1060, 190, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity": (1390, 190, 330, 56),
-        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator": (235, 320, 300, 56),
-        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra": (565, 320, 330, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability": (1390, 255, 330, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity": (70, 320, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator": (400, 320, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra": (730, 320, 330, 56),
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan": (1060, 320, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev": (1390, 320, 330, 56),
-        "AutoSamplingTheory.TechnicalLemmas.Probability": (235, 455, 300, 54),
-        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions": (730, 455, 300, 54),
-        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": (1060, 455, 300, 54),
-        "AutoSamplingTheory.TechnicalLemmas.InformationTheory": (1390, 455, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov": (400, 390, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym": (70, 455, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs": (400, 455, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Probability": (730, 455, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions": (1060, 455, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": (1390, 455, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi": (1390, 520, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Geometry": (70, 580, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses": (400, 580, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory": (730, 580, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.Analysis": (1060, 580, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities": (1390, 580, 330, 54),
         "AutoSamplingTheory.TechnicalLemmas": (765, 705, 330, 58),
@@ -2907,7 +4042,9 @@ def module_title_lines(module: str) -> list[str]:
     for family in [
         "Probability",
         "ProbabilityDistributions",
+        "Measure",
         "Analysis",
+        "Geometry",
         "InformationTheory",
         "FunctionalInequalities",
         "StochasticProcesses",
@@ -2984,17 +4121,26 @@ def arsenal_module_graph_svg(records: list[dict]) -> str:
         ("AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel", "AutoSamplingTheory.TechnicalLemmas.Probability"),
         ("AutoSamplingTheory.TechnicalLemmas.Probability.LawMap", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"),
         ("AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"),
+        ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov"),
         ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian", "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions"),
+        ("AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus", "AutoSamplingTheory.TechnicalLemmas.Analysis"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability", "AutoSamplingTheory.TechnicalLemmas.Analysis"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability", "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs"),
+        ("AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity", "AutoSamplingTheory.TechnicalLemmas.Geometry"),
         ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
         ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
+        ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
         ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
         ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
+        ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
         ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities"),
         ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.Probability", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.Geometry", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.InformationTheory", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities", "AutoSamplingTheory.TechnicalLemmas"),
@@ -3064,14 +4210,22 @@ AutoSamplingTheory
     |-- ProbabilityDistributions.lean parent for distribution-specific leaves
     |-- ProbabilityDistributions/
     |   `-- Gaussian.lean             Mathlib-style Gaussian coordinate leaves
+    |-- Measure/
+    |   |-- Gibbs.lean                ENNReal Gibbs density and normalization bridge
+    |   `-- RadonNikodym.lean         withDensity, density transport, and RN normalization leaves
+    |-- Geometry.lean                 parent for convex-geometric leaves
+    |-- Geometry/
+    |   `-- LogConcavity.lean         positive log-concavity API leaves
     |-- StochasticProcesses.lean      parent for SDE/weak-generator leaves
     |-- StochasticProcesses/
     |   |-- WeakGenerator.lean        sample-to-law weak-generator rewrites
-    |   `-- FokkerPlanckAlgebra.lean  FP split and Fisher/IBP algebra leaves
-    |-- InformationTheory.lean        parent for KL/DV/entropy leaves
+    |   |-- FokkerPlanckAlgebra.lean  FP split and Fisher/IBP algebra leaves
+    |   `-- Girsanov.lean             finite-dimensional cylindrical change-of-measure leaves
+    |-- InformationTheory.lean        parent for KL/DV/Renyi/entropy leaves
     |-- InformationTheory/
     |   |-- DonskerVaradhan.lean      one-sided DV and energy bounds
-    |   `-- KLDensity.lean            KL density derivative algebra leaves
+    |   |-- KLDensity.lean            KL density derivative algebra leaves
+    |   `-- Renyi.lean                Renyi integrand and derivative leaves
     |-- FunctionalInequalities.lean   parent for LSI/FI/PI-style leaves
     `-- FunctionalInequalities/
         `-- LogSobolev.lean           LSI-to-KL/FI bookkeeping leaves
@@ -3145,6 +4299,52 @@ glance.
 ```text
 {module_file_tree_text()}```
 
+## Chewi-Oriented Planned Extension
+
+`ASTIS-CHEWI-001` extends the library goal from SALD-specific backfill to a
+Chewi-led log-concave sampling foundation.  `Geometry.LogConcavity` now has
+the first compiled leaves; the remaining planned modules are not callable
+until they contain ASTIS-owned compiled declarations, but they define the
+intended scientific organization for new leaves:
+
+```text
+Planned Chewi extension:
+
+AutoSamplingTheory
+`-- TechnicalLemmas/
+    |-- Measure/
+    |   |-- Transport.lean
+    |   |-- Gibbs.lean
+    |   `-- RadonNikodym.lean
+    |-- Geometry/
+    |   |-- Convex.lean
+    |   |-- LogConcavity.lean  compiled core API; extend toward density/Gibbs leaves
+    |   `-- PrekopaLeindler.lean
+    |-- FunctionalInequalities/
+    |   |-- Poincare.lean
+    |   |-- Transport.lean
+    |   `-- Isoperimetry.lean
+    |-- StochasticProcesses/
+    |   |-- MarkovSemigroup.lean
+    |   |-- Ito.lean
+    |   |-- Langevin.lean
+    |   |-- Girsanov.lean
+    |   |-- DoobTransform.lean
+    |   `-- FollmerDrift.lean
+    `-- SamplingAlgorithms/
+        |-- LangevinMonteCarlo.lean
+        |-- RandomizedMidpoint.lean
+        |-- HamiltonianMonteCarlo.lean
+        |-- UnderdampedLangevin.lean
+        |-- MetropolisAdjustedLangevin.lean
+        `-- ProximalSampler.lean
+```
+
+New modules should be added only when a small, source-anchored leaf is ready.
+The next expected expansion is density-aware log-concavity and
+Prekopa-Leindler support, with Mathlib searched first and
+`Lean-Asymptotic-Statistical-Theory` used as an external reference project.
+
 ## Canonical Compiled Module And Leaf Families
 
 {markdown_table(rows, [
@@ -3189,7 +4389,7 @@ main graph omits `SALDExtracted.lean` for this reason.
 
 | Layer | Rule |
 |---|---|
-| Main graph surface | `Probability.lean`, `TechnicalLemmas/Probability/*`, `TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`, `TechnicalLemmas/Analysis/Calculus/Taylor.lean`, `TechnicalLemmas/StochasticProcesses/*`, `TechnicalLemmas/InformationTheory/*`, and `TechnicalLemmas/FunctionalInequalities/*`. |
+| Main graph surface | `Probability.lean`, `TechnicalLemmas/Probability/*`, `TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`, `TechnicalLemmas/Analysis/Calculus/Taylor.lean`, `TechnicalLemmas/Analysis/Integrability.lean`, `TechnicalLemmas/StochasticProcesses/*`, `TechnicalLemmas/InformationTheory/*`, and `TechnicalLemmas/FunctionalInequalities/*`. |
 | Compatibility surfaces | `TechnicalLemmas/Gaussian.lean`, `TechnicalLemmas/Taylor.lean`, `TechnicalLemmas/Measure.lean`, and `TechnicalLemmas/Variational.lean` remain stable imports but are omitted from the main graph. |
 | Contract and automation surfaces | `Core.lean`, `SDE.lean`, `Automation.lean`, `Literature.lean`, and `OpenProblems.lean` are system interfaces, not Mathlib-ready leaf families. |
 | Paper-extracted compiled leaves | `TechnicalLemmas/SALDExtracted.lean` exposes useful local theorems, but they remain paper-derived until generalized. |
@@ -3207,6 +4407,7 @@ memory, not local proof certificates.
 | `YuanheZ/lean-stat-learning-theory` | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` |
 | `auto-res/lean-rademacher` | `research-wiki/external-lean-libraries/lean-rademacher.md` |
 | Chewisinho stochastic-process notes | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` |
+| `junwei-lu/Lean-Asymptotic-Statistical-Theory` | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` |
 
 ## Agent Rule
 
@@ -3256,7 +4457,6 @@ the requirement inside a paper-specific theorem.
 
 
 def external_reference_cards() -> dict[Path, str]:
-    chewi_pdf = OUTER_REPOS_SAMPLING_ROOT / "chewisinho-stochastic-processes-main.pdf"
     return {
         EXTERNAL_LEAN_LIBRARY_DIR / "mathlib.md": f"""# Mathlib
 
@@ -3294,16 +4494,106 @@ or they remain recorded in the port queue.
 ASTIS treats it as proof-architecture memory.  Any theorem needed by ASTIS
 must be ported into an ASTIS-owned module or recorded as a proof obligation.
 """,
-        EXTERNAL_LEAN_LIBRARY_DIR / "chewisinho-stochastic-processes.md": f"""# Chewisinho Stochastic-Process Notes
+        EXTERNAL_LEAN_LIBRARY_DIR / "chewisinho-stochastic-processes.md": f"""# Chewi Log-Concave Sampling
 
-- Public PDF: https://chewisinho.github.io/main.pdf
-- Local downloaded PDF: `{chewi_pdf}`
-- Role: textbook-style source for stochastic processes, SDE intuition, Markov
-  kernels, conditional expectation, and weak-generator routes.
+- Public PDF: {CHEWI_LOG_CONCAVE_URL}
+- Local primary PDF: `{CHEWI_LOG_CONCAVE_PDF}`
+- Local legacy mirror: `{CHEWI_LEGACY_PDF}`
+- Role: primary roadmap for `ASTIS-CHEWI-001`, the log-concave sampling
+  foundation program.
 
-Textbook statements are not automatically Lean-ready.  Agents should extract
-small theorem contracts, expose hidden regularity assumptions, then search
-Mathlib and ASTIS before assigning lower work.
+Chewi is now the organizing textbook for ASTIS's reusable Sampling/SDE Lean
+arsenal.  SALD and RMFLD should be treated as downstream consumers of this
+foundation, not as the reason for every local technical lemma.
+
+## Chapter-To-Lean Families
+
+| Chewi part | ASTIS Lean family |
+|---|---|
+| Stochastic calculus primer | `TechnicalLemmas/StochasticProcesses/Ito`, quadratic variation, martingale and weak-generator leaves |
+| Markov semigroups | `TechnicalLemmas/StochasticProcesses/MarkovSemigroup`, invariant-measure and generator interfaces |
+| Optimal transport geometry | `TechnicalLemmas/Measure/Transport` and Wasserstein gradient-flow contracts |
+| Langevin as Wasserstein gradient flow | `TechnicalLemmas/StochasticProcesses/Langevin` plus KL/FI dissipation leaves |
+| Functional inequalities | `TechnicalLemmas/FunctionalInequalities/*` for PI, LSI, transport, concentration, isoperimetry, and preservation operations |
+| Change of measure, Doob transform, Follmer drift, Schrodinger bridge | `TechnicalLemmas/StochasticProcesses/Girsanov`, `DoobTransform`, `FollmerDrift`, and path-space RN derivative leaves |
+| LMC and interpolation arguments | `SamplingAlgorithms/LangevinMonteCarlo` plus weak-FP, interpolation, and discretization-error leaves |
+| HMC, underdamped, MALA, proximal sampler | `SamplingAlgorithms/*` consumers built only after the analytic foundation is local |
+| Diffusion generative models | future consumer layer after path-space and score-drift leaves exist |
+
+## Rigor Policy
+
+The notes are a roadmap, not a Lean certificate.  Every extracted statement
+must become one of:
+
+- an ASTIS-owned compiled Lean declaration;
+- an explicit `ProofObligation` with source anchor and hidden regularity
+  contract;
+- a cited-result memory card tied to a primary source;
+- a rejected statement if the Lean assumptions would silently strengthen or
+  change the textbook claim.
+
+Do not import informal textbook shortcuts as assumptions.  For phrases such as
+"standard", "by Fokker--Planck", "by Girsanov", "by integration by parts", or
+"under regularity assumptions", agents must expose the exact measurability,
+integrability, differentiability, boundary/decay, positivity, and
+representative-choice hypotheses before lower proof work starts.
+""",
+        EXTERNAL_LEAN_LIBRARY_DIR / "lean-asymptotic-statistical-theory.md": f"""# Lean-Asymptotic-Statistical-Theory
+
+- Public repo: {LEAN_ASYMPTOTIC_STATISTICS_URL}
+- Local checkout: `{LEAN_ASYMPTOTIC_STATISTICS_ROOT}`
+- Related paper: `Hypothesis-Disciplined Multi-Agent Automated Formalization of Asymptotic Statistical Theory`, {LEAN_ASYMPTOTIC_STATISTICS_ARXIV_URL}
+- Local paper: `{LEAN_ASYMPTOTIC_STATISTICS_PDF}`
+- Toolchain observed in repo: Lean 4.29.1 / Mathlib 4.29.1.
+- Observed local commit: `8e7f22c88cc3280e898005b6445d94c581dd8b4d`
+  (`2026-06-09 15:57:20 -0400`).
+- Role: external reference project and process model.  It is not an ASTIS Lake
+  dependency and none of its theorems are callable until ported or reproved
+  locally.
+
+## Useful Code For Chewi/ASTIS
+
+The repository contains a broad `AsymptoticStatistics/ForMathlib` layer.  The
+following files are especially relevant to Chewi-style log-concave sampling
+infrastructure:
+
+- `AsymptoticStatistics/ForMathlib/PrekopaLeindler.lean` for
+  Prekopa-Leindler and Brunn-Minkowski style convex-measure infrastructure.
+- `AsymptoticStatistics/ForMathlib/Brunn1D.lean` for the one-dimensional
+  Brunn-Minkowski boundary used by the Prekopa-Leindler development.
+- `AsymptoticStatistics/ForMathlib/GaussianMGF.lean`,
+  `PiGaussian.lean`, `PiWithDensity.lean`, `GaussianRealTV.lean`, and
+  `GaussianShift.lean` for Gaussian density, product Gaussian, MGF, and
+  finite-dimensional change-of-measure patterns.
+- `AsymptoticStatistics/ForMathlib/RnDerivSqrt.lean`,
+  `HellingerProduct.lean`, and `L2.lean` for RN derivative, square-root
+  density, Hellinger, and L2-style proof patterns.
+- `AsymptoticStatistics/ForMathlib/Contiguity.lean`,
+  `Prohorov.lean`, `PortmanteauLscBridge.lean`, and weak-convergence files for
+  probability-limit infrastructure.
+- `AsymptoticStatistics/ForMathlib/MeasurableSelection*.lean`,
+  `MarkovKernelProhorov.lean`, and kernel files for measurable-selection,
+  tightness, and Markov-kernel proof style.
+
+The first audit of these Chewi-relevant `ForMathlib` files found no `sorry`,
+`axiom`, or `unsafe` hits in the selected port candidates.  ASTIS should still
+reprove or port only the minimal Mathlib-ready leaves needed by the Chewi tree.
+
+## Process Lessons To Reuse
+
+The associated paper proposes a hypothesis-disciplined multi-agent pipeline.
+ASTIS should reuse the discipline, not the exact domain:
+
+- every theorem hypothesis must be source-anchored, a Lean encoding adapter,
+  source-implied, or explicitly rejected;
+- concept-layer fields must not drift from the informal theorem;
+- dependency graphs and side-by-side informal/Lean statements are useful
+  review artifacts for long proof runs;
+- "hypothesis laundering" is a failure mode: do not close a proof by adding
+  assumptions that the source does not justify.
+
+For `ASTIS-CHEWI-001`, this reference should guide the audit protocol for
+Chewi chapter extraction and Mathlib-ready leaf acceptance.
 """,
     }
 
@@ -3588,7 +4878,7 @@ def technical_lemma_memory_pack(task_id: str) -> str:
         return "- No task-specific technical lemma memory pack selected."
     return "\n".join([
         "- Technical lemma entry point: `research-wiki/technical-lemmas/README.md` (legacy mirror: `research-wiki/technical-lemma-memory/README.md`).",
-        "- Compiled local Lean modules: `AutoSamplingTheory/TechnicalLemmas/Probability/*`, `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`, `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean`, `AutoSamplingTheory/TechnicalLemmas/InformationTheory/*`, `AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/*`, `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean`, and `AutoSamplingTheory/TechnicalLemmas/Registry.lean`.",
+        "- Compiled local Lean modules: `AutoSamplingTheory/TechnicalLemmas/Probability/*`, `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`, `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean`, `AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean`, `AutoSamplingTheory/TechnicalLemmas/InformationTheory/*`, `AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/*`, `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean`, and `AutoSamplingTheory/TechnicalLemmas/Registry.lean`.",
         "- Local registry: `research-wiki/technical-lemmas/technical_lemma_registry.jsonl` (mirrored from legacy when needed).",
         "- SALD map: `research-wiki/technical-lemmas/SALD_remaining_map.md`.",
         "- Human TODO dashboard: `research-wiki/todo/SALD_REPRODUCTION_TODO.md`.",

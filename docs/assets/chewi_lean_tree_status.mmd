@@ -1,0 +1,62 @@
+flowchart TD
+  Root[ASTIS-CHEWI-001<br/>Chewi Mathlib-ready Lean tree]
+  MEAS[MEAS/KERN<br/>measure and kernels]
+  DENS[DENS/CONV<br/>densities and convexity]
+  GAUSS[GAUSS<br/>Gaussian infrastructure]
+  FI[FI<br/>functional inequalities]
+  SDE[SDE/PATH<br/>continuous-time and transforms]
+  DISC[DISC<br/>sampling algorithms]
+
+  Root --> MEAS
+  Root --> DENS
+  Root --> GAUSS
+  Root --> FI
+  Root --> SDE
+  Root --> DISC
+
+  MEAS --> LawMap[Probability.LawMap]
+  MEAS --> CondKernel[Probability.ConditionalKernel]
+  MEAS --> Transport[Measure.Transport]
+
+  DENS --> LogConcavity[Geometry.LogConcavity]
+  DENS --> RN[Measure.RadonNikodym]
+  DENS --> PiDensity[Measure.pi withDensity product]
+  DENS --> Gibbs[Measure.Gibbs]
+  DENS --> GibbsPotentialEnv[Potential lower-bound envelope]
+  DENS --> GibbsFiniteEnv[Finite-measure Gibbs envelope]
+  DENS --> GibbsQuadEnv[Quadratic Lebesgue Gibbs envelope]
+  DENS --> KLDV[InformationTheory.KLDensity/DV]
+  DENS --> PLBM[Prekopa/Brunn/Convex]
+  DENS --> GibbsEnv[General coercivity Gibbs envelope]
+  DENS --> Renyi[Renyi density calculus]
+
+  GAUSS --> Gaussian[ProbabilityDistributions.Gaussian]
+  GAUSS --> GaussianLinear[Product Gaussian linear forms]
+  GAUSS --> GaussianMGF[Product Gaussian MGF / normalizer]
+  GAUSS --> GaussianScalarShift[Scalar Gaussian Esscher shift]
+  GAUSS --> GaussianProductShift[Product Gaussian shifted density]
+  GAUSS --> GaussianCOM[Product Gaussian change of measure]
+  GAUSS --> GaussianEuclidean[EuclideanSpace Gaussian pushforward]
+  GAUSS --> GaussianStd[stdGaussian inner-product change of measure]
+  GAUSS --> GaussianPath[Full path-space Gaussian / Girsanov]
+
+  FI --> LSI[FunctionalInequalities.LogSobolev]
+  FI --> PITI[PI/TI/Isoperimetry]
+  FI --> Preserve[Preservation/tensorization]
+
+  SDE --> WeakGen[StochasticProcesses.WeakGenerator]
+  SDE --> FP[StochasticProcesses.FokkerPlanckAlgebra]
+  SDE --> GirsanovFinite[StochasticProcesses.Girsanov finite cylinder]
+  SDE --> Langevin[MarkovSemigroup/Langevin/Ito]
+  SDE --> Path[Girsanov/Doob/Follmer]
+
+  DISC --> LMC[LMC interpolation]
+  DISC --> HMC[HMC/underdamped/RM]
+  DISC --> MALA[MALA/proximal/high-accuracy]
+
+  classDef root fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
+  classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
+  class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
+  class LawMap,CondKernel,LogConcavity,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
+  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,Langevin,Path,LMC,HMC,MALA todo;

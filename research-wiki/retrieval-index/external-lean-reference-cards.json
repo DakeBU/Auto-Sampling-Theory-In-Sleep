@@ -1,9 +1,13 @@
 {
-  "generated": "2026-06-28 18:01:18",
+  "generated": "2026-07-01 00:45:43",
   "references": [
     {
       "id": "chewisinho-stochastic-processes",
       "path": "research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md"
+    },
+    {
+      "id": "lean-asymptotic-statistical-theory",
+      "path": "research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md"
     },
     {
       "id": "lean-rademacher",

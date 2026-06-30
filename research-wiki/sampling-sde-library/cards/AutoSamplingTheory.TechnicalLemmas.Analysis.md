@@ -2,12 +2,13 @@
 
 - File: `AutoSamplingTheory/TechnicalLemmas/Analysis.lean`
 - Layer: Mathlib-ready technical lemma
-- Purpose: parent import surface for reusable analysis leaves
-- Mathlib-quality status: preferred parent module for calculus, regularity, and future IBP leaves
+- Purpose: parent import surface for reusable analysis and integrability leaves
+- Mathlib-quality status: preferred parent module for calculus, integrability, regularity, and future IBP leaves
 
 ## Imports
 
 - `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus`
+- `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability`
 
 ## Representative Declarations And Exports
 

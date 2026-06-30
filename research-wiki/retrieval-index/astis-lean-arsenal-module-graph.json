@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-28 18:01:17",
+  "generated": "2026-07-01 00:45:41",
   "ledger": "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
   "module_graph_svg": "docs/module-graph.svg",
   "modules": [
@@ -6891,19 +6891,62 @@
       "summary": "parent import surface for calculus leaves used by SDE/Sampling proofs"
     },
     {
-      "declarations": [],
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "lintegral_ofReal_ne_top_of_integrable_nonneg"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrable_exp_neg_mul_norm_sq"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrable_exp_neg_add_mul_norm_sq"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_exp_neg_add_mul_norm_sq_ne_top"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_gibbsDensityENNReal_ne_top_of_ae_quadratic_lower_bound"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_quadratic_lower_bound"
+        }
+      ],
       "exports": [],
       "imports": [
-        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "Mathlib.Analysis.SpecialFunctions.Gaussian.FourierTransform"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
-        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean",
+      "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves",
+      "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, and quadratic lower-bound Gibbs normalization leaves"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis",
       "path": "AutoSamplingTheory/TechnicalLemmas/Analysis.lean",
-      "status": "preferred parent module for calculus, regularity, and future IBP leaves",
-      "summary": "parent import surface for reusable analysis leaves"
+      "status": "preferred parent module for calculus, integrability, regularity, and future IBP leaves",
+      "summary": "parent import surface for reusable analysis and integrability leaves"
     },
     {
       "declarations": [],
@@ -6974,7 +7017,23 @@
         },
         {
           "kind": "theorem",
+          "name": "integral_exp_mul_gaussianReal"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_exp_mul_gaussianReal_zero_one"
+        },
+        {
+          "kind": "theorem",
           "name": "integrable_eval_stdGaussianPi"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrable_const_mul_eval_stdGaussianPi"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrable_linearForm_stdGaussianPi"
         },
         {
           "kind": "theorem",
@@ -6987,6 +7046,62 @@
         {
           "kind": "theorem",
           "name": "integral_eval_stdGaussianPi"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_const_mul_eval_stdGaussianPi"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_linearForm_stdGaussianPi"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_exp_linearForm_stdGaussianPi"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_exp_centered_linearForm_stdGaussianPi"
+        },
+        {
+          "kind": "theorem",
+          "name": "gaussianReal_withDensity_exp_shift"
+        },
+        {
+          "kind": "theorem",
+          "name": "pi_gaussianReal_withDensity_exp_shift"
+        },
+        {
+          "kind": "theorem",
+          "name": "pi_gaussianReal_shift_integral"
+        },
+        {
+          "kind": "theorem",
+          "name": "stdGaussianPi_withDensity_exp_shift"
+        },
+        {
+          "kind": "theorem",
+          "name": "stdGaussianPi_shift_integral"
+        },
+        {
+          "kind": "theorem",
+          "name": "pi_gaussianReal_shift_integral_map_toLp"
+        },
+        {
+          "kind": "theorem",
+          "name": "stdGaussianPi_shift_integral_map_toLp"
+        },
+        {
+          "kind": "theorem",
+          "name": "inner_toLp_toLp_eq_sum_mul"
+        },
+        {
+          "kind": "theorem",
+          "name": "norm_sq_toLp_eq_sum_sq"
+        },
+        {
+          "kind": "theorem",
+          "name": "stdGaussian_shift_integral_map_toLp"
         },
         {
           "kind": "theorem",
@@ -7005,14 +7120,97 @@
       "imports": [
         "Mathlib.Probability.Distributions.Gaussian.Real",
         "Mathlib.Probability.Distributions.Gaussian.Multivariate",
-        "Mathlib.Probability.Independence.Basic"
+        "Mathlib.Probability.Independence.Basic",
+        "Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap",
+        "Mathlib.MeasureTheory.Integral.Pi",
+        "Mathlib.MeasureTheory.Measure.WithDensity",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym"
       ],
       "layer": "compatibility source",
-      "local_imports": [],
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym"
+      ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Gaussian",
       "path": "AutoSamplingTheory/TechnicalLemmas/Gaussian.lean",
       "status": "legacy import surface; prefer TechnicalLemmas.ProbabilityDistributions.Gaussian",
       "summary": "source file for ASTIS-owned Gaussian coordinate and moment leaves"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "def",
+          "name": "LogConcaveOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_iff"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_of_concave_log"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.pos"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.concaveOn_log"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.convex_domain"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.subset"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.const_mul"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_const"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_exp_neg_of_convexOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_const_mul_exp_neg_of_convexOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_id_Ioi"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.Analysis.Convex.SpecificFunctions.Basic"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean",
+      "status": "first compiled Chewi CONV/DENS leaf; extend toward density and Prekopa-Leindler interfaces",
+      "summary": "positive-function log-concavity API over Mathlib ConcaveOn"
+    },
+    {
+      "declarations": [],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Geometry",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Geometry.lean",
+      "status": "preferred parent module for Chewi CONV/DENS roots",
+      "summary": "parent import surface for convex-geometric and log-concavity leaves"
     },
     {
       "declarations": [],
@@ -7063,21 +7261,209 @@
       "summary": "KL-density pointwise derivative and mass-conservation algebra leaves"
     },
     {
+      "declarations": [
+        {
+          "kind": "def",
+          "name": "renyiIntegrand"
+        },
+        {
+          "kind": "def",
+          "name": "renyiIntegrandENNReal"
+        },
+        {
+          "kind": "theorem",
+          "name": "renyiIntegrand_nonneg"
+        },
+        {
+          "kind": "theorem",
+          "name": "renyiIntegrand_pos"
+        },
+        {
+          "kind": "theorem",
+          "name": "measurable_renyiIntegrand"
+        },
+        {
+          "kind": "theorem",
+          "name": "measurable_renyiIntegrandENNReal"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_renyiIntegrandENNReal_ne_top_of_ae_le"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasDerivAt_renyiIntegrand"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.Analysis.SpecialFunctions.Pow.Deriv",
+        "Mathlib.MeasureTheory.Constructions.BorelSpace.Real",
+        "Mathlib.MeasureTheory.Integral.Lebesgue.Basic"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi",
+      "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/Renyi.lean",
+      "status": "preferred Mathlib-style location for Renyi density algebra before integral/path regularity contracts",
+      "summary": "Renyi density integrand positivity, measurability, finite-envelope, and pointwise derivative algebra leaves"
+    },
+    {
       "declarations": [],
       "exports": [],
       "imports": [
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
-        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity"
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
-        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity"
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory",
       "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory.lean",
       "status": "preferred parent module for information-theoretic leaves",
-      "summary": "parent import surface for KL/DV/entropy technical lemmas"
+      "summary": "parent import surface for KL/DV/Renyi/entropy technical lemmas"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "def",
+          "name": "gibbsDensityENNReal"
+        },
+        {
+          "kind": "theorem",
+          "name": "gibbsDensityENNReal_pos"
+        },
+        {
+          "kind": "theorem",
+          "name": "gibbsDensityENNReal_lt_top"
+        },
+        {
+          "kind": "theorem",
+          "name": "measurable_gibbsDensityENNReal"
+        },
+        {
+          "kind": "theorem",
+          "name": "aemeasurable_gibbsDensityENNReal"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_gibbsDensityENNReal_ne_zero"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_gibbsDensityENNReal_ne_top_of_ae_le"
+        },
+        {
+          "kind": "theorem",
+          "name": "gibbsDensityENNReal_le_of_potential_ge"
+        },
+        {
+          "kind": "theorem",
+          "name": "gibbsDensityENNReal_ae_le_of_ae_potential_ge"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_gibbsDensityENNReal_ne_top_of_ae_potential_ge"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_gibbsDensityENNReal_ne_top_of_ae_ge_const"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_gibbs"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_le"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_potential_ge"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_ge_const"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
+        "Mathlib.MeasureTheory.Function.SpecialFunctions.Basic"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean",
+      "status": "preferred Mathlib-style location for Chewi Gibbs target-measure wrappers",
+      "summary": "ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "lintegral_fin_nat_prod_eq_prod"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_fintype_prod_eq_prod"
+        },
+        {
+          "kind": "theorem",
+          "name": "pi_withDensity_prod"
+        },
+        {
+          "kind": "theorem",
+          "name": "withDensity_univ_eq_lintegral"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_of_lintegral_eq_one"
+        },
+        {
+          "kind": "theorem",
+          "name": "isFiniteMeasure_withDensity_of_lintegral_ne_top"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_inv_lintegral_mul_eq_one"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_lintegral"
+        },
+        {
+          "kind": "theorem",
+          "name": "withDensity_absolutelyContinuous_base"
+        },
+        {
+          "kind": "theorem",
+          "name": "measurableEquiv_map_withDensity"
+        },
+        {
+          "kind": "theorem",
+          "name": "withDensity_rnDeriv_eq_of_absolutelyContinuous"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.MeasureTheory.Measure.Decomposition.RadonNikodym",
+        "Mathlib.MeasureTheory.Constructions.Pi",
+        "Mathlib.MeasureTheory.Integral.Lebesgue.Map",
+        "Mathlib.MeasureTheory.Measure.WithDensity"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean",
+      "status": "preferred Mathlib-style location for density normalization and RN derivative leaves",
+      "summary": "withDensity mass, reciprocal-lintegral normalization, finite-pi product density decomposition, measurable-equivalence density transport, absolute-continuity, and RN reconstruction wrappers"
     },
     {
       "declarations": [
@@ -7111,19 +7497,23 @@
       ],
       "imports": [
         "AutoSamplingTheory.Probability",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
       ],
       "layer": "compatibility source",
       "local_imports": [
         "AutoSamplingTheory.Probability",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Measure",
       "path": "AutoSamplingTheory/TechnicalLemmas/Measure.lean",
-      "status": "legacy search surface; prefer TechnicalLemmas.Probability.* for new work",
-      "summary": "compatibility aggregator for law-map and conditional-kernel lemmas"
+      "status": "legacy search surface; prefer TechnicalLemmas.Measure.* and TechnicalLemmas.Probability.* for new work",
+      "summary": "compatibility aggregator for measure, Gibbs, law-map, conditional-kernel, and RN/withDensity lemmas"
     },
     {
       "declarations": [
@@ -7203,17 +7593,35 @@
     {
       "declarations": [],
       "exports": [
+        "gaussianReal_withDensity_exp_shift",
+        "inner_toLp_toLp_eq_sum_mul",
+        "integrable_const_mul_eval_stdGaussianPi",
         "integrable_const_mul_sq_gaussianReal_zero",
         "integrable_eval_stdGaussianPi",
+        "integrable_linearForm_stdGaussianPi",
         "integrable_sq_eval_stdGaussianPi",
+        "integral_const_mul_eval_stdGaussianPi",
         "integral_eval_stdGaussianPi",
+        "integral_exp_centered_linearForm_stdGaussianPi",
+        "integral_exp_linearForm_stdGaussianPi",
+        "integral_exp_mul_gaussianReal",
+        "integral_exp_mul_gaussianReal_zero_one",
         "integral_id_gaussianReal_zero",
+        "integral_linearForm_stdGaussianPi",
         "map_eval_stdGaussianPi",
         "nnrealVarianceOneOfGaussianRealUnitLaw",
+        "norm_sq_toLp_eq_sum_sq",
+        "pi_gaussianReal_shift_integral",
+        "pi_gaussianReal_shift_integral_map_toLp",
+        "pi_gaussianReal_withDensity_exp_shift",
         "realVarianceOneOfNNRealVarianceOne",
         "stdGaussianPi",
         "stdGaussianPi_isFiniteMeasure",
         "stdGaussianPi_isProbabilityMeasure",
+        "stdGaussianPi_shift_integral",
+        "stdGaussianPi_shift_integral_map_toLp",
+        "stdGaussianPi_withDensity_exp_shift",
+        "stdGaussian_shift_integral_map_toLp",
         "variance_id_gaussianReal_zero_one"
       ],
       "imports": [
@@ -7226,7 +7634,7 @@
       "module": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian",
       "path": "AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
       "status": "preferred Mathlib-style location for Gaussian/Brownian increment leaves",
-      "summary": "Gaussian coordinate laws, integrability, mean-zero, and variance-one packaging"
+      "summary": "Gaussian coordinate laws, finite linear-form integrability/mean-zero, product MGF normalizers, Esscher shifted densities/change-of-measure, EuclideanSpace/stdGaussian change-of-measure bridges, and variance-one packaging"
     },
     {
       "declarations": [],
@@ -7259,6 +7667,10 @@
         },
         {
           "kind": "def",
+          "name": "analysisMemory"
+        },
+        {
+          "kind": "def",
           "name": "gaussianMemory"
         },
         {
@@ -7279,7 +7691,15 @@
         },
         {
           "kind": "def",
+          "name": "renyiDensityMemory"
+        },
+        {
+          "kind": "def",
           "name": "variationalMemory"
+        },
+        {
+          "kind": "def",
+          "name": "geometryMemory"
         },
         {
           "kind": "def",
@@ -7301,10 +7721,15 @@
       "exports": [],
       "imports": [
         "AutoSamplingTheory.Core",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian",
@@ -7313,10 +7738,15 @@
       "layer": "memory index",
       "local_imports": [
         "AutoSamplingTheory.Core",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian",
@@ -7398,6 +7828,42 @@
     {
       "declarations": [
         {
+          "kind": "def",
+          "name": "finiteShiftedGaussianPathMeasure"
+        },
+        {
+          "kind": "def",
+          "name": "finiteGaussianGirsanovWeight"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteGaussianGirsanovCylinderIntegral"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteGaussianGirsanovCylinderMeasure_eq_withDensity"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_finiteGaussianGirsanovWeight_eq_one"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov",
+      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Girsanov.lean",
+      "status": "preferred Mathlib-style location for PATH change-of-measure bridge leaves",
+      "summary": "finite-dimensional cylindrical Gaussian Girsanov weight, RN/withDensity identity, change-of-measure, and normalization leaves"
+    },
+    {
+      "declarations": [
+        {
           "kind": "theorem",
           "name": "weakGeneratorFromSampleDerivative"
         }
@@ -7420,17 +7886,19 @@
       "exports": [],
       "imports": [
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov",
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov",
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses",
       "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses.lean",
       "status": "preferred parent module for SDE/Sampling stochastic-process leaves",
-      "summary": "parent import surface for weak-generator and Fokker--Planck algebra leaves"
+      "summary": "parent import surface for weak-generator, Fokker--Planck algebra, and finite-dimensional Girsanov cylinder leaves"
     },
     {
       "declarations": [
@@ -7515,6 +7983,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
         "AutoSamplingTheory.TechnicalLemmas.Gaussian",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory",
         "AutoSamplingTheory.TechnicalLemmas.Measure",
         "AutoSamplingTheory.TechnicalLemmas.Probability",
@@ -7529,6 +7998,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
         "AutoSamplingTheory.TechnicalLemmas.Gaussian",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory",
         "AutoSamplingTheory.TechnicalLemmas.Measure",
         "AutoSamplingTheory.TechnicalLemmas.Probability",

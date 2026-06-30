@@ -14,23 +14,32 @@
 <path d="M 825.0 131.0 C 825.0 225.5, 1210.0 225.5, 1210.0 320.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 <path d="M 825.0 131.0 C 825.0 160.5, 1555.0 160.5, 1555.0 190.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 <path d="M 825.0 131.0 C 825.0 225.5, 1555.0 225.5, 1555.0 320.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 825.0 131.0 C 825.0 225.5, 385.0 225.5, 385.0 320.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 220.0 246.0 C 220.0 350.5, 385.0 350.5, 385.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 550.0 246.0 C 550.0 350.5, 385.0 350.5, 385.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 220.0 246.0 C 220.0 283.0, 385.0 283.0, 385.0 320.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 550.0 246.0 C 550.0 283.0, 385.0 283.0, 385.0 320.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 880.0 246.0 C 880.0 350.5, 880.0 350.5, 880.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 1210.0 246.0 C 1210.0 350.5, 1210.0 350.5, 1210.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 1210.0 509.0 C 1210.0 544.5, 1210.0 544.5, 1210.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 1210.0 376.0 C 1210.0 415.5, 1555.0 415.5, 1555.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 1555.0 246.0 C 1555.0 350.5, 1555.0 350.5, 1555.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 385.0 376.0 C 385.0 478.0, 565.0 478.0, 565.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 730.0 376.0 C 730.0 478.0, 565.0 478.0, 565.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 825.0 131.0 C 825.0 225.5, 550.0 225.5, 550.0 320.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 220.0 246.0 C 220.0 350.5, 880.0 350.5, 880.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 550.0 246.0 C 550.0 350.5, 880.0 350.5, 880.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 220.0 246.0 C 220.0 283.0, 550.0 283.0, 550.0 320.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 550.0 246.0 C 550.0 283.0, 550.0 283.0, 550.0 320.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 880.0 246.0 C 880.0 318.0, 550.0 318.0, 550.0 390.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 880.0 246.0 C 880.0 350.5, 1210.0 350.5, 1210.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 220.0 509.0 C 220.0 607.0, 930.0 607.0, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 550.0 509.0 C 550.0 607.0, 930.0 607.0, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1210.0 246.0 C 1210.0 350.5, 1555.0 350.5, 1555.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1555.0 509.0 C 1555.0 544.5, 1210.0 544.5, 1210.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1555.0 311.0 C 1555.0 445.5, 1210.0 445.5, 1210.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1555.0 311.0 C 1555.0 383.0, 550.0 383.0, 550.0 455.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 220.0 376.0 C 220.0 478.0, 220.0 478.0, 220.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1210.0 376.0 C 1210.0 478.0, 880.0 478.0, 880.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1555.0 246.0 C 1555.0 413.0, 880.0 413.0, 880.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1555.0 574.0 C 1555.0 577.0, 880.0 577.0, 880.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 550.0 376.0 C 550.0 478.0, 565.0 478.0, 565.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 895.0 376.0 C 895.0 478.0, 565.0 478.0, 565.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 550.0 444.0 C 550.0 512.0, 565.0 512.0, 565.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 <path d="M 1555.0 376.0 C 1555.0 478.0, 1555.0 478.0, 1555.0 580.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 1210.0 509.0 C 1210.0 607.0, 930.0 607.0, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 <path d="M 880.0 509.0 C 880.0 607.0, 930.0 607.0, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 385.0 509.0 C 385.0 607.0, 930.0 607.0, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 <path d="M 1210.0 634.0 C 1210.0 669.5, 930.0 669.5, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
-<path d="M 1555.0 509.0 C 1555.0 607.0, 930.0 607.0, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 220.0 634.0 C 220.0 669.5, 930.0 669.5, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M 880.0 634.0 C 880.0 669.5, 930.0 669.5, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 <path d="M 565.0 634.0 C 565.0 669.5, 930.0 669.5, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 <path d="M 1555.0 634.0 C 1555.0 669.5, 930.0 669.5, 930.0 705.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
 <path d="M 930.0 763.0 C 930.0 784.0, 930.0 784.0, 930.0 805.0" fill="none" stroke="#8a97aa" stroke-width="1.2" marker-end="url(#arrow)"/>
@@ -63,7 +72,7 @@
   <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M742,190 L1018,190 Q1030,190 1030,202 L1030,234 Q1030,246 1018,246 L742,246 Q730,246 730,234 L730,202 Q730,190 742,190 Z"/>
   <text x="880.0" y="206" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.ProbDistributions</text>
   <text x="880.0" y="221" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Gaussian</text>
-  <text x="880.0" y="238" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Gaussian.lean; compiled 12; memory 6</text>
+  <text x="880.0" y="238" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Gaussian.lean; compiled 30; memory 15</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor">
@@ -80,18 +89,32 @@
   <text x="1555.0" y="238" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">KLDensity.lean; compiled 2; memory 2</text>
 </g>
 
+<g id="AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1402,255 L1708,255 Q1720,255 1720,267 L1720,299 Q1720,311 1708,311 L1402,311 Q1390,311 1390,299 L1390,267 Q1390,255 1402,255 Z"/>
+  <text x="1555.0" y="271" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Analysis</text>
+  <text x="1555.0" y="286" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Integrability</text>
+  <text x="1555.0" y="303" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Integrability.lean; compiled 6; memory 5</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M82,320 L358,320 Q370,320 370,332 L370,364 Q370,376 358,376 L82,376 Q70,376 70,364 L70,332 Q70,320 82,320 Z"/>
+  <text x="220.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Geometry</text>
+  <text x="220.0" y="351" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.LogConcavity</text>
+  <text x="220.0" y="368" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">LogConcavity.lean; compiled 12; memory 4</text>
+</g>
+
 <g id="AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator">
-  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M247,320 L523,320 Q535,320 535,332 L535,364 Q535,376 523,376 L247,376 Q235,376 235,364 L235,332 Q235,320 247,320 Z"/>
-  <text x="385.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.StochasticProcesses</text>
-  <text x="385.0" y="351" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.WeakGenerator</text>
-  <text x="385.0" y="368" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">WeakGenerator.lean; compiled 1; memory 1</text>
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M412,320 L688,320 Q700,320 700,332 L700,364 Q700,376 688,376 L412,376 Q400,376 400,364 L400,332 Q400,320 412,320 Z"/>
+  <text x="550.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.StochasticProcesses</text>
+  <text x="550.0" y="351" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.WeakGenerator</text>
+  <text x="550.0" y="368" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">WeakGenerator.lean; compiled 1; memory 1</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra">
-  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M577,320 L883,320 Q895,320 895,332 L895,364 Q895,376 883,376 L577,376 Q565,376 565,364 L565,332 Q565,320 577,320 Z"/>
-  <text x="730.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.StochasticProcesses</text>
-  <text x="730.0" y="351" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.FokkerPlanckAlgebra</text>
-  <text x="730.0" y="368" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">FokkerPlanckAlgebra.lean; compiled 2; memory 2</text>
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M742,320 L1048,320 Q1060,320 1060,332 L1060,364 Q1060,376 1048,376 L742,376 Q730,376 730,364 L730,332 Q730,320 742,320 Z"/>
+  <text x="895.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.StochasticProcesses</text>
+  <text x="895.0" y="351" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.FokkerPlanckAlgebra</text>
+  <text x="895.0" y="368" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">FokkerPlanckAlgebra.lean; compiled 2; memory 2</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan">
@@ -108,32 +131,60 @@
   <text x="1555.0" y="368" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">LogSobolev.lean; compiled 14; memory 1</text>
 </g>
 
+<g id="AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M412,390 L688,390 Q700,390 700,402 L700,432 Q700,444 688,444 L412,444 Q400,444 400,432 L400,402 Q400,390 412,390 Z"/>
+  <text x="550.0" y="406" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.StochasticProcesses</text>
+  <text x="550.0" y="421" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Girsanov</text>
+  <text x="550.0" y="438" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Girsanov.lean; compiled 5; memory 2</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M82,455 L358,455 Q370,455 370,467 L370,497 Q370,509 358,509 L82,509 Q70,509 70,497 L70,467 Q70,455 82,455 Z"/>
+  <text x="220.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Measure</text>
+  <text x="220.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.RadonNikodym</text>
+  <text x="220.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">RadonNikodym.lean; compiled 11; memory 8</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M412,455 L688,455 Q700,455 700,467 L700,497 Q700,509 688,509 L412,509 Q400,509 400,497 L400,467 Q400,455 412,455 Z"/>
+  <text x="550.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Measure</text>
+  <text x="550.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Gibbs</text>
+  <text x="550.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Gibbs.lean; compiled 15; memory 10</text>
+</g>
+
 <g id="AutoSamplingTheory.TechnicalLemmas.Probability">
-  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M247,455 L523,455 Q535,455 535,467 L535,497 Q535,509 523,509 L247,509 Q235,509 235,497 L235,467 Q235,455 247,455 Z"/>
-  <text x="385.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
-  <text x="385.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Probability</text>
-  <text x="385.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Probability.lean; compiled 0</text>
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M742,455 L1018,455 Q1030,455 1030,467 L1030,497 Q1030,509 1018,509 L742,509 Q730,509 730,497 L730,467 Q730,455 742,455 Z"/>
+  <text x="880.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="880.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Probability</text>
+  <text x="880.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Probability.lean; compiled 0</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions">
-  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M742,455 L1018,455 Q1030,455 1030,467 L1030,497 Q1030,509 1018,509 L742,509 Q730,509 730,497 L730,467 Q730,455 742,455 Z"/>
-  <text x="880.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
-  <text x="880.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.ProbDistributions</text>
-  <text x="880.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">ProbabilityDistributions.lean; compiled 0</text>
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1072,455 L1348,455 Q1360,455 1360,467 L1360,497 Q1360,509 1348,509 L1072,509 Q1060,509 1060,497 L1060,467 Q1060,455 1072,455 Z"/>
+  <text x="1210.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="1210.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.ProbDistributions</text>
+  <text x="1210.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">ProbabilityDistributions.lean; compiled 0</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus">
-  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1072,455 L1348,455 Q1360,455 1360,467 L1360,497 Q1360,509 1348,509 L1072,509 Q1060,509 1060,497 L1060,467 Q1060,455 1072,455 Z"/>
-  <text x="1210.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Analysis</text>
-  <text x="1210.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Calculus</text>
-  <text x="1210.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Calculus.lean; compiled 0</text>
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1402,455 L1708,455 Q1720,455 1720,467 L1720,497 Q1720,509 1708,509 L1402,509 Q1390,509 1390,497 L1390,467 Q1390,455 1402,455 Z"/>
+  <text x="1555.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Analysis</text>
+  <text x="1555.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Calculus</text>
+  <text x="1555.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Calculus.lean; compiled 0</text>
 </g>
 
-<g id="AutoSamplingTheory.TechnicalLemmas.InformationTheory">
-  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1402,455 L1708,455 Q1720,455 1720,467 L1720,497 Q1720,509 1708,509 L1402,509 Q1390,509 1390,497 L1390,467 Q1390,455 1402,455 Z"/>
-  <text x="1555.0" y="471" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
-  <text x="1555.0" y="486" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.InformationTheory</text>
-  <text x="1555.0" y="503" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">InformationTheory.lean; compiled 0</text>
+<g id="AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M1402,520 L1708,520 Q1720,520 1720,532 L1720,562 Q1720,574 1708,574 L1402,574 Q1390,574 1390,562 L1390,532 Q1390,520 1402,520 Z"/>
+  <text x="1555.0" y="536" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.InformationTheory</text>
+  <text x="1555.0" y="551" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Renyi</text>
+  <text x="1555.0" y="568" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Renyi.lean; compiled 8; memory 4</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.Geometry">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M82,580 L358,580 Q370,580 370,592 L370,622 Q370,634 358,634 L82,634 Q70,634 70,622 L70,592 Q70,580 82,580 Z"/>
+  <text x="220.0" y="596" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="220.0" y="611" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Geometry</text>
+  <text x="220.0" y="628" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Geometry.lean; compiled 0</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.StochasticProcesses">
@@ -141,6 +192,13 @@
   <text x="565.0" y="596" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
   <text x="565.0" y="611" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.StochasticProcesses</text>
   <text x="565.0" y="628" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">StochasticProcesses.lean; compiled 0</text>
+</g>
+
+<g id="AutoSamplingTheory.TechnicalLemmas.InformationTheory">
+  <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M742,580 L1018,580 Q1030,580 1030,592 L1030,622 Q1030,634 1018,634 L742,634 Q730,634 730,622 L730,592 Q730,580 742,580 Z"/>
+  <text x="880.0" y="596" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas</text>
+  <text x="880.0" y="611" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.InformationTheory</text>
+  <text x="880.0" y="628" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">InformationTheory.lean; compiled 0</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.Analysis">
@@ -177,6 +235,6 @@
   <rect x="78" y="883" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="894" font-family="Helvetica,Arial,sans-serif" font-size="11">Canonical Mathlib-ready candidate module: compiled local reusable leaves</text>
   <rect x="78" y="905" width="18" height="12" fill="#eaf2ff" stroke="#2563eb"/><text x="104" y="916" font-family="Helvetica,Arial,sans-serif" font-size="11">Root public import surface</text>
   <text x="78" y="938" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#475569">Omitted from the main graph: SALD/RMFLD consumers, SALDExtracted quarantine, compatibility files, registry metadata, and external references.</text>
-  <text x="1260" y="955" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated 2026-06-28 18:01:17 by tools/astis.py module-graph-refresh</text>
+  <text x="1260" y="955" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated 2026-07-01 00:45:41 by tools/astis.py module-graph-refresh</text>
 </g>
 </svg>

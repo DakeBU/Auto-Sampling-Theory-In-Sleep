@@ -8,10 +8,15 @@
 ## Imports
 
 - `AutoSamplingTheory.Core`
+- `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability`
 - `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor`
 - `AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev`
+- `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity`
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan`
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity`
+- `AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi`
+- `AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs`
+- `AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.LawMap`
 - `AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian`
@@ -22,12 +27,15 @@
 - `LemmaMemoryStatus`
 - `LemmaMemoryEntry`
 - `sltSourceAnchor`
+- `analysisMemory`
 - `gaussianMemory`
 - `taylorMemory`
 - `measureMemory`
 - `stochasticProcessMemory`
 - `klDensityMemory`
+- `renyiDensityMemory`
 - `variationalMemory`
+- `geometryMemory`
 - `saldExtractedMemory`
 - `portQueueMemory`
 - `technicalLemmaMemory`

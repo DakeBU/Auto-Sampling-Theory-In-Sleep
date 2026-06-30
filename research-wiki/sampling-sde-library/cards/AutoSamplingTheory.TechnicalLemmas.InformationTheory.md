@@ -2,13 +2,14 @@
 
 - File: `AutoSamplingTheory/TechnicalLemmas/InformationTheory.lean`
 - Layer: Mathlib-ready technical lemma
-- Purpose: parent import surface for KL/DV/entropy technical lemmas
+- Purpose: parent import surface for KL/DV/Renyi/entropy technical lemmas
 - Mathlib-quality status: preferred parent module for information-theoretic leaves
 
 ## Imports
 
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan`
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity`
+- `AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi`
 
 ## Representative Declarations And Exports
 

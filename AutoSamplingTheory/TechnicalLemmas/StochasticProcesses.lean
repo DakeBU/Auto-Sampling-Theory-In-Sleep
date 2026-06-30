@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 
 /-!
@@ -7,4 +8,3 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 Parent import surface for weak-generator, weak Fokker--Planck, and
 Euler--Maruyama/SDE reusable leaves.
 -/
-

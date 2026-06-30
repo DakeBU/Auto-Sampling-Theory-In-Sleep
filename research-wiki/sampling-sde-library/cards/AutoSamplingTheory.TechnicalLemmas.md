@@ -10,6 +10,7 @@
 - `AutoSamplingTheory.TechnicalLemmas.Analysis`
 - `AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities`
 - `AutoSamplingTheory.TechnicalLemmas.Gaussian`
+- `AutoSamplingTheory.TechnicalLemmas.Geometry`
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory`
 - `AutoSamplingTheory.TechnicalLemmas.Measure`
 - `AutoSamplingTheory.TechnicalLemmas.Probability`

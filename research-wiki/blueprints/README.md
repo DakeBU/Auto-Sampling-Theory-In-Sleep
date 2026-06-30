@@ -10,6 +10,8 @@ it to SDE/Sampling papers:
   faithful-paper reproduction.
 - `ASTIS-SALD-001-blueprint-status.md` and `.json` are compact control-state
   summaries for prompts, context packs, and efficiency reports.
+- `ASTIS-CHEWI-001.md` mirrors the current Chewi/log-concave sampling
+  foundation blueprint; the canonical copy is under `proof-blueprints/`.
 
 Refresh before long runs:
 

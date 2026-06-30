@@ -5832,3 +5832,1344 @@
 | 2026-06-28 18:01:19 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
 | 2026-06-28 18:01:19 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
 | 2026-06-28 18:01:19 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:07:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:07:47 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:47 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:08:48 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:09:10 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:17:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:32 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:17:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:46 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:18:50 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:24:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:30 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:25:34 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:42 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:32:46 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:39:23 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:39:27 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:26 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:47:28 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:47:32 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:08 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:52:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:52:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 22:58:11 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/chewi_lean_tree_status.mmd` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/chewi_lean_tree_status.svg` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/chewi_lean_tree_status.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 22:58:13 | astis.py lemma-dag-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed Mathlib-ready SDE/Sampling leaf lemma memory |
+| 2026-06-30 23:01:31 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:01:35 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:13 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:08:18 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:39 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:15:43 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:22:14 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:10 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:28:15 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:40 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:40:45 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/module-graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/index.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/retrieval-index/astis-lean-arsenal-module-graph.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/astis_lean_arsenal_module_graph.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Automation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Core.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Literature.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.OpenProblems.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.RMFLD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SALD.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.SDE.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Geometry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Measure.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Registry.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.SALDExtracted.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Taylor.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Variational.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/mathlib.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-rademacher.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/retrieval-index/external-lean-reference-cards.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_protocol.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/lemma-dags/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SDE_Sampling_skill_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/lemma-dags/SALD_weak_fp_leaf_dag.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/sampling_lemma_dag.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_packet.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `agent-briefs/mathlib_ready_leaf_reviewer_checklist.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.mmd` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.svg` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/chewi_log_concave_foundation.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/chewi_lean_tree_status.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/retrieval-index/chewisinho-to-lean-tree.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `docs/assets/sampling_sde_leaf_network.png` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/README.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/mathlib_ready_leaf_template.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/technical-lemmas/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/technical-lemma-memory/hidden_regularities.md` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:48:20 | astis.py module-graph-refresh | `research-wiki/retrieval-index/mathlib-ready-leaf-protocol.json` | memory | Refreshed ASTIS SDE/Sampling Lean arsenal module graph |
+| 2026-06-30 23:56:14 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-06-30 23:56:20 | astis.py memory-refresh | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/memory_digest.md` | memory | Wrote memory digest for ASTIS-CHEWI-001 cycle 207 |
+| 2026-06-30 23:56:20 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Wrote retrieval index for ASTIS-CHEWI-001 |
+| 2026-07-01 00:04:09 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-07-01 00:04:15 | astis.py memory-refresh | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/memory_digest.md` | memory | Wrote memory digest for ASTIS-CHEWI-001 cycle 207 |
+| 2026-07-01 00:04:15 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Wrote retrieval index for ASTIS-CHEWI-001 |
+| 2026-07-01 00:12:15 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-07-01 00:12:21 | astis.py memory-refresh | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/memory_digest.md` | memory | Wrote memory digest for ASTIS-CHEWI-001 cycle 207 |
+| 2026-07-01 00:12:21 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Wrote retrieval index for ASTIS-CHEWI-001 |
+| 2026-07-01 00:21:29 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-07-01 00:21:35 | astis.py memory-refresh | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/memory_digest.md` | memory | Wrote memory digest for ASTIS-CHEWI-001 cycle 207 |
+| 2026-07-01 00:21:35 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Wrote retrieval index for ASTIS-CHEWI-001 |
+| 2026-07-01 00:29:21 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-07-01 00:29:27 | astis.py memory-refresh | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/memory_digest.md` | memory | Wrote memory digest for ASTIS-CHEWI-001 cycle 207 |
+| 2026-07-01 00:29:27 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Wrote retrieval index for ASTIS-CHEWI-001 |
+| 2026-07-01 00:45:01 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-07-01 00:45:38 | astis.py init | `ASTIS.md` | init | Initialized ASTIS workflow state |
+| 2026-07-01 00:45:44 | astis.py memory-refresh | `runs/20260613-054827-700501-ASTIS-SALD-001-cycle207/memory_digest.md` | memory | Wrote memory digest for ASTIS-CHEWI-001 cycle 207 |
+| 2026-07-01 00:45:44 | astis.py memory-refresh | `research-wiki/retrieval-index/ASTIS-CHEWI-001.json` | memory | Wrote retrieval index for ASTIS-CHEWI-001 |
