@@ -6,7 +6,7 @@
   </marker>
 </defs>
 <rect width="1500" height="840" fill="white"/>
-<text x="750" y="30" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">Chewi Mathlib-Ready Lean Tree Status</text>
+<text x="750" y="30" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">Log-Concave Sampling Mathlib-Ready Lean Tree Status</text>
 <g id="edges">
 <path d="M 765.0 110.0 C 765.0 130.0, 135.0 130.0, 135.0 150.0" fill="none" stroke="#94a3b8" stroke-width="1.1" marker-end="url(#arrowStatus)"/>
 <path d="M 135.0 204.0 C 135.0 224.5, 135.0 224.5, 135.0 245.0" fill="none" stroke="#94a3b8" stroke-width="1.1" marker-end="url(#arrowStatus)"/>
@@ -50,7 +50,7 @@
 <g id="nodes">
 <g id="root">
   <rect x="555" y="52" width="420" height="58" rx="7" fill="#f8fafc" stroke="#475569" stroke-width="1.8"/>
-  <text x="765.0" y="72" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#0f172a">ASTIS-CHEWI-001 Chewi Lean tree</text>
+  <text x="765.0" y="72" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#0f172a">ASTIS-CHEWI-001 Lean tree</text>
   <text x="765.0" y="90" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#0f172a">blue = compiled locally; red = todo</text>
 </g>
 <g id="MEAS-KERN">
@@ -248,5 +248,5 @@
 <text x="60" y="773" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#0f172a">compiled local ASTIS/Mathlib-ready leaf or module</text>
 <rect x="350" y="760" width="22" height="16" fill="#fee2e2" stroke="#dc2626"/>
 <text x="380" y="773" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#450a0a">todo branch/leaf with explicit target module and reviewer contract</text>
-<text x="970" y="805" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated 2026-07-01 00:45:38 by tools/astis.py lemma-dag-refresh</text>
+<text x="970" y="805" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated 2026-07-02 02:55:25 by tools/astis.py lemma-dag-refresh</text>
 </svg>

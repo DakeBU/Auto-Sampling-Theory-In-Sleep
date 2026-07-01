@@ -85,6 +85,36 @@ def analysisMemory : List LemmaMemoryEntry := [
     note := "Keeps additive constants in coercive lower potentials separate from the Gaussian tail theorem."
   },
   {
+    key := "analysis.integrability.gaussian-quadratic-tail-normalizer",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_exp_neg_mul_norm_sq_eq",
+    upstreamDecl := "GaussianFourier.integral_rexp_neg_mul_sq_norm / ofReal_integral_eq_lintegral_ofReal",
+    upstreamFile := "Mathlib.Analysis.SpecialFunctions.Gaussian.FourierTransform; Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "integrability", "Lebesgue", "Gaussian-tail", "quadratic", "normalizer"],
+    saldUse := "Chewi DENS/CONV root: exact ENNReal normalizer for finite-dimensional quadratic Gaussian tails",
+    note := "Stronger than finiteness; exposes the normalizing constant needed by explicit Gibbs densities."
+  },
+  {
+    key := "analysis.integrability.shifted-gaussian-quadratic-tail-normalizer",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_exp_neg_add_mul_norm_sq_eq",
+    upstreamDecl := "lintegral_exp_neg_mul_norm_sq_eq / integral_const_mul / Real.exp_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "integrability", "Lebesgue", "Gaussian-tail", "quadratic", "shifted", "normalizer"],
+    saldUse := "Chewi DENS/CONV root: exact ENNReal normalizer for shifted quadratic Gibbs envelopes",
+    note := "Tracks additive constants explicitly instead of hiding them in finite-envelope hypotheses."
+  },
+  {
+    key := "measure.gibbs-density.explicit-quadratic-normalized-probability",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sq",
+    upstreamDecl := "lintegral_exp_neg_add_mul_norm_sq_eq / isProbabilityMeasure_withDensity_normalized_gibbs",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "Lebesgue", "quadratic", "normalizer", "probability-measure"],
+    saldUse := "Chewi DENS/CONV root: construct the explicitly normalized finite-dimensional quadratic Gibbs law",
+    note := "Useful consumer-facing version for Gaussian-reference Gibbs targets and Langevin invariant-law statements."
+  },
+  {
     key := "measure.gibbs-density.integral-finite-quadratic-lower-bound",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_gibbsDensityENNReal_ne_top_of_ae_quadratic_lower_bound",
     upstreamDecl := "lintegral_exp_neg_add_mul_norm_sq_ne_top / lintegral_gibbsDensityENNReal_ne_top_of_ae_potential_ge",
@@ -670,6 +700,26 @@ def geometryMemory : List LemmaMemoryEntry := [
     note := "Small ASTIS-owned wrapper around Mathlib ConcaveOn with explicit positivity."
   },
   {
+    key := "geometry.log-concavity.negative-log-potential-convex",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.convexOn_neg_log",
+    upstreamDecl := "ConcaveOn.neg",
+    upstreamFile := "Mathlib.Analysis.Convex.Function",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "negative-log", "convex-potential", "Gibbs", "density"],
+    saldUse := "Chewi DENS/CONV/SDE root: extract the convex potential `-log f` from a positive log-concave density",
+    note := "Converse interface to the existing `exp (-V)` log-concavity leaf; useful for Gibbs potentials, score/FI, and Langevin generator subtrees."
+  },
+  {
+    key := "geometry.log-concavity.negative-log-potential-sublevel-convex",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.convex_sublevel_neg_log",
+    upstreamDecl := "ConvexOn.quasiconvexOn / LogConcaveOn.convexOn_neg_log",
+    upstreamFile := "Mathlib.Analysis.Convex.Quasiconvex; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "negative-log", "sublevel", "convex-set", "localization"],
+    saldUse := "Chewi CONV/DENS root: turn log-concave density energy sublevels into convex sets",
+    note := "Energy-sublevel counterpart to positive-density superlevel convexity; supports localization and warm-start geometry."
+  },
+  {
     key := "geometry.log-concavity.positive-ray-id",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi",
     upstreamDecl := "strictConcaveOn_log_Ioi",
@@ -678,6 +728,56 @@ def geometryMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "log-concavity", "positive-ray", "convex-analysis"],
     saldUse := "Chewi CONV sanity leaf before density/Gibbs and Prekopa--Leindler ports",
     note := "Compiled one-dimensional leaf reusing Mathlib's strict concavity of log."
+  },
+  {
+    key := "geometry.log-concavity.linear-precomposition",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.comp_linearMap",
+    upstreamDecl := "ConcaveOn.comp_linearMap",
+    upstreamFile := "Mathlib.Analysis.Convex.Function",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "linear-map", "preimage", "density", "coordinate"],
+    saldUse := "Chewi CONV/DENS root: pull log-concave density factors through linear coordinate maps",
+    note := "Preimage-domain transport leaf for coordinate projections, linear observations, and product-density factors."
+  },
+  {
+    key := "geometry.log-concavity.affine-precomposition",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.comp_affineMap",
+    upstreamDecl := "ConcaveOn.comp_affineMap",
+    upstreamFile := "Mathlib.Analysis.Convex.Function",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "affine-map", "preimage", "density", "shift"],
+    saldUse := "Chewi CONV/DENS root: preserve log-concavity under shifts and affine coordinate changes",
+    note := "Vector-space affine transport leaf; useful for shifted Gaussian/Gibbs densities and restricted affine charts."
+  },
+  {
+    key := "geometry.log-concavity.convex-superlevel",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.convex_superlevel",
+    upstreamDecl := "ConcaveOn.quasiconcaveOn / Real.log_le_log_iff",
+    upstreamFile := "Mathlib.Analysis.Convex.Quasiconvex; Mathlib.Analysis.SpecialFunctions.Log.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "superlevel", "convex-set", "restricted-oracle"],
+    saldUse := "Chewi CONV/DENS root: identify positive-density superlevel sets as convex bodies for restrictions and localization",
+    note := "Handles all real thresholds: nonpositive thresholds use positivity, positive thresholds use log monotonicity and concavity."
+  },
+  {
+    key := "geometry.log-concavity.quasiconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.quasiconcaveOn",
+    upstreamDecl := "QuasiconcaveOn / convex_superlevel",
+    upstreamFile := "Mathlib.Analysis.Convex.Quasiconvex; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "quasiconcavity", "superlevel", "convex-set"],
+    saldUse := "Chewi CONV root: expose log-concavity as quasiconcavity so all superlevel-set APIs become callable",
+    note := "Small wrapper around `convex_superlevel`; useful for convex-body and restricted-Gaussian subtrees."
+  },
+  {
+    key := "geometry.log-concavity.restrict-superlevel",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.restrict_superlevel",
+    upstreamDecl := "LogConcaveOn.subset / LogConcaveOn.convex_superlevel",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "superlevel", "restriction", "restricted-oracle"],
+    saldUse := "Chewi CONV/DENS root: preserve log-concavity when restricting a density to a convex superlevel body",
+    note := "Consumer-facing restricted-density wrapper for localization, warm starts, restricted Gaussian oracles, and proximal subtrees."
   },
   {
     key := "geometry.log-concavity.positive-rescale",
@@ -690,6 +790,36 @@ def geometryMemory : List LemmaMemoryEntry := [
     note := "Separates positive scalar normalization from measure/integral normalization."
   },
   {
+    key := "geometry.log-concavity.pointwise-product",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.mul",
+    upstreamDecl := "ConcaveOn.add / Real.log_mul",
+    upstreamFile := "Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Log.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "product", "density", "tensorization"],
+    saldUse := "Chewi CONV/DENS root: multiply positive log-concave density factors on a shared domain",
+    note := "Used before product-density, tilted-density, and normalized-density tensorization leaves."
+  },
+  {
+    key := "geometry.log-concavity.nonnegative-rpow",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.rpow",
+    upstreamDecl := "ConcaveOn.smul / Real.log_rpow",
+    upstreamFile := "Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "rpow", "density", "positive-function"],
+    saldUse := "Chewi CONV/DENS root: nonnegative powers preserve positive log-concavity for density algebra",
+    note := "Keeps exponent bookkeeping local before Renyi/Hellinger-style powered density consumers."
+  },
+  {
+    key := "geometry.log-concavity.product-domain-product",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.prod",
+    upstreamDecl := "Convex.prod / ConcaveOn.add / Real.log_mul",
+    upstreamFile := "Mathlib.Analysis.Convex.Basic; Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Log.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-concavity", "product-domain", "density", "tensorization"],
+    saldUse := "Chewi CONV/DENS root: tensorize log-concave density factors over Cartesian product domains",
+    note := "Small product-domain API used by future Prekopa, Gaussian product-density, and tensorization subtrees."
+  },
+  {
     key := "geometry.gibbs-density.convex-potential",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_const_mul_exp_neg_of_convexOn",
     upstreamDecl := "ConvexOn.neg / Real.log_exp",
@@ -698,6 +828,136 @@ def geometryMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Gibbs", "convex-potential", "log-concavity", "density"],
     saldUse := "Chewi DENS/CONV root for Gibbs target densities before withDensity normalization",
     note := "Compiled convex-analytic Gibbs leaf; no measure normalization or integrability is claimed."
+  },
+  {
+    key := "geometry.convexity.norm-square",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_norm_sq",
+    upstreamDecl := "norm_add_le / norm_smul / sq_le_sq₀",
+    upstreamFile := "Mathlib.Analysis.Normed.Group.Basic; Mathlib.Analysis.Normed.MulAction; Mathlib.Algebra.Order.GroupWithZero.Unbundled.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "convexity", "norm-square", "quadratic", "normed-space"],
+    saldUse := "Chewi CONV root: reusable convexity of the quadratic norm energy `‖x‖^2`",
+    note := "Works in any real normed vector space; uses the triangle inequality and scalar Jensen algebra."
+  },
+  {
+    key := "geometry.convexity.quadratic-norm-potential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_const_mul_norm_sq_add",
+    upstreamDecl := "convexOn_univ_norm_sq / ConvexOn.smul / ConvexOn.add_const",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.Convex.Function",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "convexity", "quadratic-potential", "Gibbs", "density"],
+    saldUse := "Chewi DENS/CONV root: package nonnegative quadratic norm potentials `a‖x‖^2+b` as convex",
+    note := "This is the convex-geometry counterpart of the exact quadratic normalizer in Analysis.Integrability."
+  },
+  {
+    key := "geometry.gibbs-density.quadratic-potential-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_exp_neg_quadratic_norm",
+    upstreamDecl := "logConcaveOn_exp_neg_of_convexOn / convexOn_univ_const_mul_norm_sq_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "quadratic-potential", "log-concavity", "density"],
+    saldUse := "Chewi DENS/CONV root: prove `exp (-(a‖x‖^2+b))` is log-concave before measure normalization",
+    note := "Keeps log-concavity separate from Lebesgue integrability and probability-measure construction."
+  },
+  {
+    key := "geometry.gibbs-density.quadratic-positive-rescale-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_const_mul_exp_neg_quadratic_norm",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_of_convexOn / convexOn_univ_const_mul_norm_sq_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "quadratic-potential", "normalization", "log-concavity", "density"],
+    saldUse := "Chewi DENS/CONV root: positive scalar normalizers preserve quadratic Gibbs log-concavity",
+    note := "This removes scalar-normalizer bookkeeping from later invariant-law and Prekopa-style leaves."
+  },
+  {
+    key := "geometry.gibbs-density.explicit-quadratic-normalized-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_explicit_quadratic_normalized_density",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_quadratic_norm / Real.rpow_pos_of_pos",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Lebesgue", "quadratic", "normalizer", "log-concavity", "finite-dimensional"],
+    saldUse := "Chewi DENS/CONV root: connect the explicit finite-dimensional quadratic normalizer to log-concavity of the normalized density",
+    note := "Geometric companion to `isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sq`; it claims density log-concavity, not a measure-level theorem."
+  },
+  {
+    key := "geometry.convexity.shifted-quadratic-norm-potential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_const_mul_norm_sub_sq_add",
+    upstreamDecl := "ConvexOn.comp_affineMap / convexOn_univ_const_mul_norm_sq_add",
+    upstreamFile := "Mathlib.Analysis.Convex.Function; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "convexity", "shifted-quadratic", "Gibbs", "density", "affine-map"],
+    saldUse := "Chewi DENS/CONV/GAUSS root: package shifted quadratic potentials `a‖x-m‖^2+b` as convex",
+    note := "Uses affine precomposition of the centered quadratic norm potential; this is the geometry leaf behind shifted Gaussian/Gibbs densities."
+  },
+  {
+    key := "geometry.gibbs-density.shifted-quadratic-potential-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_exp_neg_shifted_quadratic_norm",
+    upstreamDecl := "logConcaveOn_exp_neg_of_convexOn / convexOn_univ_const_mul_norm_sub_sq_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "shifted-quadratic", "log-concavity", "density", "Gaussian"],
+    saldUse := "Chewi DENS/CONV/GAUSS root: prove `exp (-(a‖x-m‖^2+b))` is log-concave before measure normalization",
+    note := "Shifted counterpart of the centered quadratic Gibbs shape; measure-level translation invariance remains separate."
+  },
+  {
+    key := "geometry.gibbs-density.shifted-quadratic-positive-rescale-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_const_mul_exp_neg_shifted_quadratic_norm",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_of_convexOn / convexOn_univ_const_mul_norm_sub_sq_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "shifted-quadratic", "normalization", "log-concavity", "density"],
+    saldUse := "Chewi DENS/CONV/GAUSS root: positive scalar normalizers preserve shifted quadratic Gibbs log-concavity",
+    note := "Keeps shifted-density scalar normalization separate from exact Lebesgue normalizer and withDensity probability leaves."
+  },
+  {
+    key := "geometry.gibbs-density.explicit-shifted-quadratic-normalized-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_explicit_shifted_quadratic_normalized_density",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_shifted_quadratic_norm / Real.rpow_pos_of_pos",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Gaussian", "shifted-quadratic", "normalizer", "log-concavity", "finite-dimensional"],
+    saldUse := "Chewi DENS/CONV/GAUSS root: connect the explicit finite-dimensional quadratic normalizer to shifted density log-concavity",
+    note := "Geometric shifted-density companion to exact quadratic normalizer leaves; it does not assert the translated Lebesgue integral identity."
+  },
+  {
+    key := "geometry.convexity.pair-sub-quadratic-kernel-potential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_const_mul_norm_fst_sub_snd_sq_add",
+    upstreamDecl := "ConvexOn.comp_linearMap / convexOn_univ_const_mul_norm_sq_add",
+    upstreamFile := "Mathlib.Analysis.Convex.Function; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "convexity", "pair-difference", "quadratic-kernel", "proximal", "coupling"],
+    saldUse := "Chewi DENS/CONV/GAUSS/DISC root: package two-point potentials `a‖x-y‖^2+b` as convex on product space",
+    note := "Uses the linear map `(x,y) ↦ x-y`; this is the geometry leaf behind Gaussian transition and proximal-kernel log-concavity."
+  },
+  {
+    key := "geometry.gibbs-density.pair-sub-quadratic-kernel-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_exp_neg_pair_sub_quadratic_norm",
+    upstreamDecl := "logConcaveOn_exp_neg_of_convexOn / convexOn_univ_const_mul_norm_fst_sub_snd_sq_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Gaussian-kernel", "pair-difference", "log-concavity", "proximal"],
+    saldUse := "Chewi DENS/CONV/GAUSS/DISC root: prove `exp (-(a‖x-y‖^2+b))` is log-concave as a kernel shape",
+    note := "Product-space kernel geometry only; transition-kernel measurability and conditional normalization remain separate leaves."
+  },
+  {
+    key := "geometry.gibbs-density.pair-sub-quadratic-kernel-positive-rescale-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_const_mul_exp_neg_pair_sub_quadratic_norm",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_of_convexOn / convexOn_univ_const_mul_norm_fst_sub_snd_sq_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Gaussian-kernel", "normalization", "pair-difference", "log-concavity"],
+    saldUse := "Chewi DENS/CONV/GAUSS/DISC root: positive constants preserve two-point Gaussian-kernel log-concavity",
+    note := "Keeps scalar kernel constants separate from Markov kernel mass, detailed balance, and Lebesgue integral identities."
+  },
+  {
+    key := "geometry.gibbs-density.explicit-pair-sub-quadratic-kernel-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_explicit_pair_sub_quadratic_kernel",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_pair_sub_quadratic_norm / Real.rpow_pos_of_pos",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Gaussian-kernel", "proximal", "pair-difference", "normalizer", "log-concavity"],
+    saldUse := "Chewi GAUSS/DISC root: log-concavity of finite-dimensional Gaussian-kernel shapes with the usual conditional normalizing constant",
+    note := "This is not a probability-density theorem on product volume; it is the reusable convex-geometric kernel-shape leaf."
   }
 ]
 

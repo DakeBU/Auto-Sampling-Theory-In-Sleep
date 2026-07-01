@@ -1,18 +1,17 @@
-# Chewi Log-Concave Sampling
+# Log-Concave Sampling Notes
 
 - Public PDF: https://chewisinho.github.io/main.pdf
 - Local primary PDF: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf`
-- Local legacy mirror: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/chewisinho-stochastic-processes-main.pdf`
 - Role: primary roadmap for `ASTIS-CHEWI-001`, the log-concave sampling
   foundation program.
 
-Chewi is now the organizing textbook for ASTIS's reusable Sampling/SDE Lean
+The textbook is the organizing source for ASTIS's reusable Sampling/SDE Lean
 arsenal.  SALD and RMFLD should be treated as downstream consumers of this
 foundation, not as the reason for every local technical lemma.
 
 ## Chapter-To-Lean Families
 
-| Chewi part | ASTIS Lean family |
+| Textbook part | ASTIS Lean family |
 |---|---|
 | Stochastic calculus primer | `TechnicalLemmas/StochasticProcesses/Ito`, quadratic variation, martingale and weak-generator leaves |
 | Markov semigroups | `TechnicalLemmas/StochasticProcesses/MarkovSemigroup`, invariant-measure and generator interfaces |

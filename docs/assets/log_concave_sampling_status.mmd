@@ -1,5 +1,5 @@
 flowchart TD
-  Root[ASTIS-CHEWI-001<br/>Chewi Mathlib-ready Lean tree]
+  Root[ASTIS-CHEWI-001<br/>Log-concave sampling Lean tree]
   MEAS[MEAS/KERN<br/>measure and kernels]
   DENS[DENS/CONV<br/>densities and convexity]
   GAUSS[GAUSS<br/>Gaussian infrastructure]
@@ -19,6 +19,13 @@ flowchart TD
   MEAS --> Transport[Measure.Transport]
 
   DENS --> LogConcavity[Geometry.LogConcavity]
+  DENS --> LogConcavityTensor[Log-concavity algebra/tensorization]
+  DENS --> LogConcavityMaps[Log-concavity under maps]
+  DENS --> LogConcavityLevels[Log-concavity level sets]
+  DENS --> NegLogPotential[Negative-log potential geometry]
+  DENS --> GibbsQuadLogConcavity[Quadratic Gibbs log-concavity]
+  DENS --> ShiftedGibbsQuad[Shifted quadratic Gibbs geometry]
+  DENS --> PairKernelGeometry[Two-point Gaussian/proximal kernel geometry]
   DENS --> RN[Measure.RadonNikodym]
   DENS --> PiDensity[Measure.pi withDensity product]
   DENS --> Gibbs[Measure.Gibbs]
@@ -58,5 +65,5 @@ flowchart TD
   classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
   class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
-  class LawMap,CondKernel,LogConcavity,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
+  class LawMap,CondKernel,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
   class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,Langevin,Path,LMC,HMC,MALA todo;

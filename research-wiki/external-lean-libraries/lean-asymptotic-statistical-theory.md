@@ -11,10 +11,10 @@
   dependency and none of its theorems are callable until ported or reproved
   locally.
 
-## Useful Code For Chewi/ASTIS
+## Useful Code For Log-Concave Sampling
 
 The repository contains a broad `AsymptoticStatistics/ForMathlib` layer.  The
-following files are especially relevant to Chewi-style log-concave sampling
+following files are especially relevant to log-concave sampling
 infrastructure:
 
 - `AsymptoticStatistics/ForMathlib/PrekopaLeindler.lean` for
@@ -35,9 +35,9 @@ infrastructure:
   `MarkovKernelProhorov.lean`, and kernel files for measurable-selection,
   tightness, and Markov-kernel proof style.
 
-The first audit of these Chewi-relevant `ForMathlib` files found no `sorry`,
+The first audit of these log-concave-sampling-relevant `ForMathlib` files found no `sorry`,
 `axiom`, or `unsafe` hits in the selected port candidates.  ASTIS should still
-reprove or port only the minimal Mathlib-ready leaves needed by the Chewi tree.
+reprove or port only the minimal Mathlib-ready leaves needed by the log-concave sampling tree.
 
 ## Process Lessons To Reuse
 
@@ -53,4 +53,4 @@ ASTIS should reuse the discipline, not the exact domain:
   assumptions that the source does not justify.
 
 For `ASTIS-CHEWI-001`, this reference should guide the audit protocol for
-Chewi chapter extraction and Mathlib-ready leaf acceptance.
+textbook chapter extraction and Mathlib-ready leaf acceptance.

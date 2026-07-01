@@ -6,13 +6,13 @@ Local PDF:
 `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf`
 
 This memory is for textbook-guided foundation building.  It should not record
-paper-owned contribution claims.  Its job is to map Chewi chapters to reusable
+paper-owned contribution claims.  Its job is to map textbook chapters to reusable
 Lean leaf families and to record the exact source or upstream theorem behind
 each bottom-level assumption.
 
 ## Initial Chapter Map
 
-| Chewi chapter/topic | Lean target |
+| Chapter/topic | Lean target |
 |---|---|
 | Langevin diffusion in continuous time | Markov semigroup, generator, invariant measure, Wasserstein gradient-flow leaves |
 | Functional inequalities | PI, LSI, transport, concentration/isoperimetry, preservation leaves |
@@ -29,8 +29,8 @@ each bottom-level assumption.
 
 ## Visualization Artifacts
 
-- `research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md`
-- `docs/assets/chewi_log_concave_foundation.svg`
-- `docs/assets/chewi_log_concave_foundation.png`
-- `research-wiki/sampling-sde-library/roadmap/chewisinho_to_lean_tree.md`
+- `research-wiki/lemma-dags/log_concave_sampling_foundation.md`
+- `docs/assets/log_concave_sampling_foundation.svg`
+- `docs/assets/log_concave_sampling_foundation.png`
+- `research-wiki/sampling-sde-library/roadmap/log_concave_sampling_to_lean_tree.md`
 - `research-wiki/retrieval-index/ASTIS-CHEWI-001.json`

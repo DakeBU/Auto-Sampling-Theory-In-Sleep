@@ -42,7 +42,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 69 := rfl
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 95 := rfl
 
 example :
     MeasureTheory.Integrable
@@ -50,6 +50,23 @@ example :
       MeasureTheory.volume :=
   TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_mul_norm_sq
     (E := ℝ) (a := 2) (by norm_num)
+
+example :
+    ∫⁻ x : ℝ, ENNReal.ofReal (Real.exp (-(2 : ℝ) * ‖x‖ ^ 2))
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) =
+      ENNReal.ofReal ((Real.pi / (2 : ℝ)) ^ ((Module.finrank ℝ ℝ : ℝ) / 2)) :=
+  TechnicalLemmas.Analysis.Integrability.lintegral_exp_neg_mul_norm_sq_eq
+    (E := ℝ) (a := 2) (by norm_num)
+
+example :
+    MeasureTheory.IsProbabilityMeasure
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).withDensity fun x =>
+        (ENNReal.ofReal
+          (Real.exp (-(0 : ℝ)) *
+            (Real.pi / (1 : ℝ)) ^ ((Module.finrank ℝ ℝ : ℝ) / 2)))⁻¹ *
+          ENNReal.ofReal (Real.exp (-((1 : ℝ) * ‖x‖ ^ 2 + 0)))) :=
+  TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sq
+    (E := ℝ) (a := 1) (b := 0) (by norm_num)
 
 example :
     ∫⁻ x : ℝ, TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal
@@ -77,11 +94,126 @@ example :
       (Set.Ioi (0 : ℝ)) (fun x : ℝ => x) :=
   TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi
 
+example : ConvexOn ℝ (Set.Ioi (0 : ℝ)) (fun x : ℝ => -Real.log x) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.convexOn_neg_log
+
+example : Convex ℝ {x : ℝ | x ∈ Set.Ioi (0 : ℝ) ∧ -Real.log x ≤ 1} :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.convex_sublevel_neg_log 1
+
+example : Convex ℝ {x : ℝ | x ∈ Set.Ioi (0 : ℝ) ∧ (1 : ℝ) ≤ x} :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.convex_superlevel 1
+
+example : QuasiconcaveOn ℝ (Set.Ioi (0 : ℝ)) (fun x : ℝ => x) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.quasiconcaveOn
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      {x : ℝ | x ∈ Set.Ioi (0 : ℝ) ∧ (1 : ℝ) ≤ x} (fun x : ℝ => x) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.restrict_superlevel 1
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      ((LinearMap.id : ℝ →ₗ[ℝ] ℝ) ⁻¹' Set.Ioi (0 : ℝ))
+      (fun x : ℝ => ((LinearMap.id : ℝ →ₗ[ℝ] ℝ) x)) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.comp_linearMap
+    (LinearMap.id : ℝ →ₗ[ℝ] ℝ)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      ((AffineMap.id ℝ ℝ) ⁻¹' Set.Ioi (0 : ℝ))
+      (fun x : ℝ => (AffineMap.id ℝ ℝ) x) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.comp_affineMap
+    (AffineMap.id ℝ ℝ)
+
 example :
     TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
       (Set.univ : Set ℝ) (fun x : ℝ => 2 * Real.exp (-x)) :=
   TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_const_mul_exp_neg_of_convexOn
     (convexOn_id convex_univ) (by norm_num)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      (Set.Ioi (0 : ℝ)) (fun x : ℝ => x * x) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.mul
+    TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      (Set.Ioi (0 : ℝ)) (fun x : ℝ => x ^ ((1 : ℝ) / 2)) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.rpow (by norm_num)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      ((Set.Ioi (0 : ℝ)) ×ˢ (Set.Ioi (0 : ℝ))) (fun x : ℝ × ℝ => x.1 * x.2) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi.prod
+    TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_id_Ioi
+
+example : ConvexOn ℝ (Set.univ : Set ℝ) (fun x : ℝ => ‖x‖ ^ 2) :=
+  TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_norm_sq
+
+example : ConvexOn ℝ (Set.univ : Set ℝ) (fun x : ℝ => (2 : ℝ) * ‖x‖ ^ 2 + 3) :=
+  TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_const_mul_norm_sq_add
+    (E := ℝ) (a := 2) (b := 3) (by norm_num)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      (Set.univ : Set ℝ)
+      (fun x : ℝ => Real.exp (-((1 : ℝ) * ‖x‖ ^ 2 + 0))) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_exp_neg_quadratic_norm
+    (E := ℝ) (a := 1) (b := 0) (by norm_num)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      (Set.univ : Set ℝ)
+      (fun x : ℝ =>
+        (Real.exp (-(0 : ℝ)) *
+            (Real.pi / (1 : ℝ)) ^ ((Module.finrank ℝ ℝ : ℝ) / 2))⁻¹ *
+          Real.exp (-((1 : ℝ) * ‖x‖ ^ 2 + 0))) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_explicit_quadratic_normalized_density
+    (E := ℝ) (a := 1) (b := 0) (by norm_num)
+
+example : ConvexOn ℝ (Set.univ : Set ℝ) (fun x : ℝ => (2 : ℝ) * ‖x - 3‖ ^ 2 + 1) :=
+  TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_const_mul_norm_sub_sq_add
+    (E := ℝ) (a := 2) (b := 1) (3 : ℝ) (by norm_num)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      (Set.univ : Set ℝ)
+      (fun x : ℝ => Real.exp (-((1 : ℝ) * ‖x - 3‖ ^ 2 + 0))) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_exp_neg_shifted_quadratic_norm
+    (E := ℝ) (a := 1) (b := 0) (3 : ℝ) (by norm_num)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      (Set.univ : Set ℝ)
+      (fun x : ℝ =>
+        (Real.exp (-(0 : ℝ)) *
+            (Real.pi / (1 : ℝ)) ^ ((Module.finrank ℝ ℝ : ℝ) / 2))⁻¹ *
+          Real.exp (-((1 : ℝ) * ‖x - 3‖ ^ 2 + 0))) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_explicit_shifted_quadratic_normalized_density
+    (E := ℝ) (a := 1) (b := 0) (3 : ℝ) (by norm_num)
+
+example : ConvexOn ℝ (Set.univ : Set (ℝ × ℝ))
+    (fun z : ℝ × ℝ => (2 : ℝ) * ‖z.1 - z.2‖ ^ 2 + 1) :=
+  TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_const_mul_norm_fst_sub_snd_sq_add
+    (E := ℝ) (a := 2) (b := 1) (by norm_num)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      (Set.univ : Set (ℝ × ℝ))
+      (fun z : ℝ × ℝ => Real.exp (-((1 : ℝ) * ‖z.1 - z.2‖ ^ 2 + 0))) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_exp_neg_pair_sub_quadratic_norm
+    (E := ℝ) (a := 1) (b := 0) (by norm_num)
+
+example :
+    TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn
+      (Set.univ : Set (ℝ × ℝ))
+      (fun z : ℝ × ℝ =>
+        (Real.exp (-(0 : ℝ)) *
+            (Real.pi / (1 : ℝ)) ^ ((Module.finrank ℝ ℝ : ℝ) / 2))⁻¹ *
+          Real.exp (-((1 : ℝ) * ‖z.1 - z.2‖ ^ 2 + 0))) :=
+  TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_explicit_pair_sub_quadratic_kernel
+    (E := ℝ) (a := 1) (b := 0) (by norm_num)
 
 example :
     MeasureTheory.IsProbabilityMeasure

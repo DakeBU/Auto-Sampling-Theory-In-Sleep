@@ -3,7 +3,7 @@
 - File: `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges
-- Mathlib-quality status: preferred Mathlib-style location for Chewi Gibbs target-measure wrappers
+- Mathlib-quality status: preferred Mathlib-style location for Gibbs target-measure wrappers
 
 ## Imports
 

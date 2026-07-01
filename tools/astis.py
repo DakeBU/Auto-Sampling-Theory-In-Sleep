@@ -41,6 +41,15 @@ LEGACY_TECHNICAL_LEMMA_MEMORY_DIR = ROOT / "research-wiki" / "technical-lemma-me
 TECHNICAL_LEMMA_MEMORY_DIR = LEGACY_TECHNICAL_LEMMA_MEMORY_DIR
 LEMMA_DAG_DIR = ROOT / "research-wiki" / "lemma-dags"
 SAMPLING_LIBRARY_DIR = ROOT / "research-wiki" / "sampling-sde-library"
+LOG_CONCAVE_OVERVIEW_MD = SAMPLING_LIBRARY_DIR / "log_concave_sampling_overview.md"
+LOG_CONCAVE_FOUNDATION_DAG_MD = LEMMA_DAG_DIR / "log_concave_sampling_foundation.md"
+LOG_CONCAVE_EXECUTION_PACK_MD = AGENT_BRIEFS_DIR / "log_concave_sampling_6h_execution_pack.md"
+LOG_CONCAVE_FOUNDATION_MMD = ROOT / "docs" / "assets" / "log_concave_sampling_foundation.mmd"
+LOG_CONCAVE_FOUNDATION_SVG = ROOT / "docs" / "assets" / "log_concave_sampling_foundation.svg"
+LOG_CONCAVE_FOUNDATION_PNG = ROOT / "docs" / "assets" / "log_concave_sampling_foundation.png"
+LOG_CONCAVE_STATUS_MMD = ROOT / "docs" / "assets" / "log_concave_sampling_status.mmd"
+LOG_CONCAVE_STATUS_SVG = ROOT / "docs" / "assets" / "log_concave_sampling_status.svg"
+LOG_CONCAVE_STATUS_PNG = ROOT / "docs" / "assets" / "log_concave_sampling_status.png"
 EXTERNAL_LEAN_LIBRARY_DIR = ROOT / "research-wiki" / "external-lean-libraries"
 PAPER_CONTRIBUTION_DIR = ROOT / "research-wiki" / "paper-contributions"
 SALD_CONTRIBUTION_DIR = PAPER_CONTRIBUTION_DIR / "SALD"
@@ -958,6 +967,22 @@ def blueprint_control_state(task_id: str) -> dict:
             "runs/trials.jsonl",
         ]
         stage = "LeanMarathon Stage-2 analogue: DAG-guided proof discharge after faithful source transcript stabilization"
+    elif task_id == "ASTIS-CHEWI-001":
+        system_of_record = [
+            "tasks/ASTIS-CHEWI-001.md",
+            "proof-blueprints/ASTIS-CHEWI-001.md",
+            "research-wiki/sampling-sde-library/log_concave_sampling_overview.md",
+            "research-wiki/lemma-dags/log_concave_sampling_foundation.md",
+            "research-wiki/sampling-sde-library/roadmap/log_concave_sampling_to_lean_tree.md",
+            "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
+            "research-wiki/retrieval-index/ASTIS-CHEWI-001.json",
+            "research-wiki/external-lean-libraries/log-concave-sampling-notes.md",
+            "research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md",
+            "agent-briefs/log_concave_sampling_6h_execution_pack.md",
+            "AutoSamplingTheory/TechnicalLemmas/Registry.lean",
+            "runs/trials.jsonl",
+        ]
+        stage = "Log-concave sampling foundation Stage-1: chapter map, shared-root DAG, and Mathlib-ready leaf growth"
     else:
         system_of_record = [
             "AutoSamplingTheory/RMFLD.lean",
@@ -1137,11 +1162,38 @@ def blueprint_refresh_text(task_id: str) -> str:
     status_md = BLUEPRINT_DIR / f"{slugify(task_id)}-blueprint-status.md"
     obligation_path = ROOT / "proof-obligations" / f"{task_id}.md"
     conversion_path = ROOT / "conversion-windows" / f"{task_id}.md"
-    source_index_path = (
-        ROOT / "research-wiki" / "source-index" / "SALD_original.jsonl"
-        if task_id == "ASTIS-SALD-001"
-        else ROOT / "research-wiki" / "source-index" / "RMFLD_paper.jsonl"
-    )
+    if task_id == "ASTIS-SALD-001":
+        source_index_path = ROOT / "research-wiki" / "source-index" / "SALD_original.jsonl"
+    elif task_id == "ASTIS-CHEWI-001":
+        source_index_path = ROOT / "research-wiki" / "retrieval-index" / "ASTIS-CHEWI-001.json"
+    else:
+        source_index_path = ROOT / "research-wiki" / "source-index" / "RMFLD_paper.jsonl"
+    if task_id == "ASTIS-CHEWI-001":
+        gate_policy = "\n".join([
+            "- Textbook mode may not silently strengthen a mathematical statement to close Lean.",
+            "- Chapter summaries, shared-root DAGs, module cards, and retrieval indexes must stay synchronized.",
+            "- Algorithm chapters are consumers until their shared analytic roots compile locally.",
+            "- Lower workers compile one Mathlib-ready ASTIS-owned leaf or return one strictly smaller source-cited blocker.",
+            "- Reviewer accepts progress only through `python3 tools/astis.py check`, a precise proof obligation, a concrete port plan, or explicit rejection of an unsupported statement.",
+        ])
+        extra_sections = f"""
+## Library And Run Entry Points
+
+- Library overview: `{rel(LOG_CONCAVE_OVERVIEW_MD)}`
+- Master chapter/theorem DAG: `{rel(LOG_CONCAVE_FOUNDATION_DAG_MD)}`
+- Blue/red status tree: `{rel(LOG_CONCAVE_STATUS_SVG)}`
+- Six-hour execution pack: `{rel(LOG_CONCAVE_EXECUTION_PACK_MD)}`
+- Launcher: `python3 tools/astis.py launch-log-concave-6h --hours 6 --wall-hours 24 --lower-count 3`
+"""
+    else:
+        gate_policy = "\n".join([
+            "- Faithful paper mode may not weaken the SALD statement to close a Lean goal.",
+            "- Stage 1 target/source review remains active when notation or hypotheses move.",
+            "- Stage 2 proof discharge assigns lower workers to dynamic leaves only.",
+            "- Refiner work should repair one connected illness area instead of stacking unrelated wrapper lemmas.",
+            "- Lean plus explicit source correspondence is the gate; agent self-assessment is not proof progress.",
+        ])
+        extra_sections = ""
     directive = "\n".join([
         f"Mode: `{task_id}` follows `{state['stage']}`.",
         f"Current dynamic leaf: {state['dynamic_leaf_candidate']}",
@@ -1272,13 +1324,9 @@ middle must retire it before spending more proof-search tokens.
 
 ## Gate Policy
 
-- Faithful paper mode may not weaken the SALD statement to close a Lean goal.
-- Stage 1 target/source review remains active when notation or hypotheses move.
-- Stage 2 proof discharge assigns lower workers to dynamic leaves only.
-- Refiner work should repair one connected illness area instead of stacking
-  unrelated wrapper lemmas.
-- Lean plus explicit source correspondence is the gate; agent self-assessment is
-  not proof progress.
+{gate_policy}
+
+{extra_sections}
 
 ## External References
 
@@ -2312,21 +2360,21 @@ def chewi_shared_root_rows() -> list[dict[str, str]]:
             "label": "DENS",
             "root": "densities, RN derivative, KL/Renyi integrands",
             "module": "TechnicalLemmas/Geometry/LogConcavity.lean; Measure/{Gibbs,RadonNikodym}.lean; InformationTheory/*",
-            "role": "positive density APIs, Gibbs ENNReal density, finite-measure and quadratic Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra",
+            "role": "positive density APIs, density-to-potential extraction, log-concavity algebra/tensorization, level-set quasiconcavity/restriction, linear/affine precomposition, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs ENNReal density, finite-measure and exact quadratic Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra",
             "status": "partial-compiled-local",
         },
         {
             "label": "GAUSS",
             "root": "Gaussian and product Gaussian infrastructure",
             "module": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
-            "role": "standard Gaussian laws, moments, MGF, finite-dimensional tilts",
+            "role": "standard Gaussian laws, moments, MGF, finite-dimensional tilts, shifted and two-point quadratic density geometry",
             "status": "partial-compiled-local",
         },
         {
             "label": "CONV",
             "root": "convex and log-concave geometry",
             "module": "TechnicalLemmas/Geometry/{Convex,LogConcavity,PrekopaLeindler}.lean",
-            "role": "convex functions/sets, log-concavity, Prekopa-Leindler, Brunn-Minkowski",
+            "role": "convex functions/sets, negative-log potentials, log-concave superlevels, quadratic norm potentials, log-concavity products/powers and linear/affine pullbacks, Prekopa-Leindler, Brunn-Minkowski",
             "status": "partial-compiled-local",
         },
         {
@@ -2394,14 +2442,14 @@ def chewi_chapter_rows() -> list[dict[str, str]]:
             "chapter": "1.4 Langevin as gradient flow",
             "shared": "DENS, FI, SDE, REG",
             "dag": "Gibbs density -> generator -> KL/FI dissipation -> WGF contract",
-            "first_leaf": "finite-measure bounded-below and finite-dimensional quadratic-Lebesgue Gibbs normalization compiled; Langevin generator invariant Gibbs law contract remains",
+            "first_leaf": "finite-measure bounded-below, finite-dimensional quadratic-Lebesgue Gibbs normalization, explicit centered/shifted quadratic normalized-density log-concavity, and negative-log potential extraction compiled; Langevin generator invariant Gibbs law contract remains",
             "status": "quadratic-gibbs-envelope-compiled",
         },
         {
             "chapter": "2 functional inequalities",
             "shared": "CONV, DENS, FI, REG",
             "dag": "PI/LSI/TI/isoperimetry plus preservation-operation subtrees",
-            "first_leaf": "log-concavity plus Prekopa-Leindler preservation audit",
+            "first_leaf": "log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit",
             "status": "partial-local-compiled",
         },
         {
@@ -2415,7 +2463,7 @@ def chewi_chapter_rows() -> list[dict[str, str]]:
             "chapter": "4 Langevin Monte Carlo",
             "shared": "MEAS, KERN, SDE, DENS, REG, DISC",
             "dag": "coupling/interpolation/convex-optimization/Girsanov proof subtrees",
-            "first_leaf": "LMC interpolation weak-test law derivative under domination",
+            "first_leaf": "LMC interpolation weak-test law derivative under domination; two-point Gaussian transition-kernel geometry compiled",
             "status": "partial-local-compiled",
         },
         {
@@ -2443,14 +2491,115 @@ def chewi_chapter_rows() -> list[dict[str, str]]:
             "chapter": "8 proximal sampler",
             "shared": "CONV, GAUSS, KERN, DISC, REG",
             "dag": "restricted Gaussian oracle -> conditional laws -> proximal transition subtree",
-            "first_leaf": "restricted Gaussian conditional law and convex potential contract",
-            "status": "planned",
+            "first_leaf": "two-point Gaussian/proximal kernel log-concavity and log-concave superlevel restriction compiled; restricted Gaussian conditional law remains",
+            "status": "kernel-geometry-compiled",
         },
         {
             "chapter": "9-12 lower bounds, structure, non-log-concave, diffusion models",
             "shared": "MEAS, DENS, SDE, PATH, DISC, REG",
             "dag": "consumer subtrees after core log-concave foundation stabilizes",
             "first_leaf": "source-specific leaf only after shared roots are compiled",
+            "status": "deferred-consumer",
+        },
+    ]
+
+
+def log_concave_chapter_map_rows() -> list[dict[str, str]]:
+    return [
+        {
+            "part": "Part I",
+            "chapter": "1. Langevin diffusion in continuous time",
+            "reader_summary": "The continuous-time backbone: stochastic calculus, Markov semigroups, optimal-transport geometry, Langevin dynamics, and convergence viewpoints.",
+            "lean_plan": "Build reusable interfaces for Gaussian increments, weak generators, semigroups, Gibbs invariant laws, KL/FI dissipation, and Wasserstein-gradient-flow contracts.",
+            "shared": "MEAS, GAUSS, DENS, FI, SDE, REG",
+            "status": "partial-local-compiled",
+        },
+        {
+            "part": "Part I",
+            "chapter": "2. Functional inequalities",
+            "reader_summary": "The inequality toolkit that turns geometry of the target into convergence rates: PI, LSI, transport, concentration, isoperimetry, and preservation operations.",
+            "lean_plan": "Separate definitions and bookkeeping from preservation theorems; reuse log-concavity, Prekopa-Leindler/Brunn-Minkowski, and LSI/KL/FI leaves.",
+            "shared": "CONV, DENS, FI, REG",
+            "status": "partial-local-compiled",
+        },
+        {
+            "part": "Part I",
+            "chapter": "3. Stochastic analysis topics",
+            "reader_summary": "Path-space tools used repeatedly later: quadratic variation, Girsanov change of measure, Doob transforms, Follmer drift, and Schrodinger bridges.",
+            "lean_plan": "Keep finite-dimensional Gaussian change of measure as the compiled base; only then lift to Brownian/path-space RN derivatives and bridge transforms.",
+            "shared": "GAUSS, PATH, DENS, SDE, REG",
+            "status": "finite-girsanov-rn-cylinder-compiled",
+        },
+        {
+            "part": "Part II",
+            "chapter": "4. Analysis of Langevin Monte Carlo",
+            "reader_summary": "The first algorithmic convergence chapter, presenting coupling, interpolation, convex-optimization, and Girsanov proof routes for LMC.",
+            "lean_plan": "Treat LMC as a consumer of law-map, conditional-kernel, weak-FP, KL/FI, Girsanov, and Gaussian-transition geometry leaves.",
+            "shared": "MEAS, KERN, SDE, DENS, PATH, DISC, REG",
+            "status": "partial-local-compiled",
+        },
+        {
+            "part": "Part II",
+            "chapter": "5. Faster low-accuracy samplers",
+            "reader_summary": "Randomized midpoint, Hamiltonian Monte Carlo, and underdamped Langevin methods, organized around better discretizations and dynamics.",
+            "lean_plan": "Delay algorithm theorems until transition kernels, Hamiltonian/underdamped generators, and Gaussian-noise update contracts are local.",
+            "shared": "GAUSS, SDE, DISC, REG",
+            "status": "planned",
+        },
+        {
+            "part": "Part II",
+            "chapter": "6. Convergence in Renyi divergence",
+            "reader_summary": "Stronger divergence control for LMC and underdamped methods, using interpolation and Girsanov routes.",
+            "lean_plan": "Extend compiled Renyi integrand algebra toward full divergence, log-normalizer, and path-derivative contracts.",
+            "shared": "DENS, FI, SDE, PATH, REG",
+            "status": "first algebra leaves compiled",
+        },
+        {
+            "part": "Part II",
+            "chapter": "7. High-accuracy samplers",
+            "reader_summary": "Rejection sampling, Metropolis-Hastings filters, discrete-time Markov chains, and MALA cold/warm start analyses.",
+            "lean_plan": "Formalize proposal kernels, acceptance probabilities, reversibility/detailed balance, and warm-start density comparisons after kernel infrastructure is stable.",
+            "shared": "KERN, DENS, GAUSS, DISC, REG",
+            "status": "planned",
+        },
+        {
+            "part": "Part II",
+            "chapter": "8. Proximal sampler",
+            "reader_summary": "Restricted Gaussian oracles and proximal transitions, with convergence under strong log-concavity, log-concavity, and functional inequalities.",
+            "lean_plan": "Use two-point Gaussian/proximal kernel log-concavity as the compiled start; add restricted Gaussian conditional laws and time-reversal flow interfaces.",
+            "shared": "CONV, GAUSS, KERN, FI, DISC, REG",
+            "status": "kernel-geometry-compiled",
+        },
+        {
+            "part": "Part II",
+            "chapter": "9. Lower bounds for sampling",
+            "reader_summary": "Oracle/query lower bounds in one dimension, constant dimension, and Gaussian families.",
+            "lean_plan": "Treat as a consumer of oracle models, information lower bounds, Gaussian comparison, and dimension-specific construction lemmas.",
+            "shared": "MEAS, GAUSS, DENS, DISC, REG",
+            "status": "deferred-consumer",
+        },
+        {
+            "part": "Part II",
+            "chapter": "10. Structured sampling",
+            "reader_summary": "Sampling with stochastic gradients, coordinate methods, and mirror Langevin geometry.",
+            "lean_plan": "Introduce oracle/noisy-gradient and coordinate-update interfaces only after base kernels and mirror-geometry assumptions are explicit.",
+            "shared": "MEAS, CONV, SDE, DISC, REG",
+            "status": "deferred-consumer",
+        },
+        {
+            "part": "Part II",
+            "chapter": "11. Non-log-concave sampling",
+            "reader_summary": "Approximate stationarity and nonconvex behavior controlled through Fisher information bounds and applications.",
+            "lean_plan": "Reuse FI, KL, weak-FP, and score/Fisher algebra; do not assume convexity roots unless the theorem explicitly requires them.",
+            "shared": "DENS, FI, SDE, DISC, REG",
+            "status": "deferred-consumer",
+        },
+        {
+            "part": "Part II",
+            "chapter": "12. Diffusion generative models",
+            "reader_summary": "Score matching and discretization analysis for diffusion generative modeling.",
+            "lean_plan": "Use path-space change of measure, score-drift regularity, weak-FP, and discretization leaves after the SDE/PATH foundation is mature.",
+            "shared": "MEAS, DENS, SDE, PATH, DISC, REG",
             "status": "deferred-consumer",
         },
     ]
@@ -2463,7 +2612,7 @@ def chewi_open_leaf_rows() -> list[dict[str, str]]:
             "label": "CONV/DENS",
             "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
             "borrow": "Mathlib `ConcaveOn`, `ConcaveOn.subset`, `strictConcaveOn_log_Ioi`; AST Prekopa files for next statement style",
-            "status": "core API plus Gibbs positive-rescale leaves compiled; next density/RN integration",
+            "status": "core API, negative-log potential extraction, quasiconcavity/superlevel convexity and restriction, linear/affine precomposition, product/power/product-domain tensorization, norm-square convexity, centered/shifted/two-point quadratic Gibbs log-concavity, and Gibbs positive-rescale leaves compiled; next Prekopa/RN integration",
         },
         {
             "leaf": "prekopaLeindler_finiteDimensional",
@@ -2483,8 +2632,8 @@ def chewi_open_leaf_rows() -> list[dict[str, str]]:
             "leaf": "gibbsDensity_withDensity_normalized",
             "label": "DENS/CONV",
             "target": "TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean",
-            "borrow": "compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` quadratic Lebesgue Gibbs normalization from Mathlib Gaussian Fourier tails; next generalize beyond quadratic/coercive tails",
-            "status": "convex shape plus Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, quadratic Lebesgue envelope, and normalized withDensity probability bridges compiled; nonquadratic coercivity envelopes remain",
+            "borrow": "compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic Lebesgue Gibbs normalizers from Mathlib Gaussian Fourier tails; next generalize beyond quadratic/coercive tails",
+            "status": "convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic Lebesgue normalizer, and normalized withDensity probability bridges compiled; nonquadratic coercivity envelopes remain",
         },
         {
             "leaf": "langevinGenerator_invariant_gibbs_weak",
@@ -2578,7 +2727,7 @@ def chewi_api_audit_rows() -> list[dict[str, str]]:
             "area": "density/RN/withDensity",
             "mathlib": "`Probability/Density.lean`, `Measure/Decomposition/*`, `withDensity`, `rnDeriv`",
             "external": "`RnDerivSqrt.lean`, `HellingerProduct.lean`, `L2.lean`",
-            "gap": "Gibbs nonzero, finite-by-envelope, finite-measure bounded-below, and quadratic Lebesgue normalization contracts are compiled; need general nonquadratic coercivity/growth leaves proving tail-integrable envelopes.",
+            "gap": "Gibbs nonzero, finite-by-envelope, finite-measure bounded-below, and exact quadratic Lebesgue normalization contracts are compiled; need general nonquadratic coercivity/growth leaves proving tail-integrable envelopes.",
         },
         {
             "area": "Gaussian/product Gaussian",
@@ -2595,7 +2744,7 @@ def chewi_api_audit_rows() -> list[dict[str, str]]:
         {
             "area": "SDE/semigroup/Langevin",
             "mathlib": "general topology/calculus/integration; no full finite-dimensional Ito/SDE library observed",
-            "external": "ASTIS WeakGenerator/FokkerPlanckAlgebra, source-cited Chewi textbook route",
+            "external": "ASTIS WeakGenerator/FokkerPlanckAlgebra, source-cited textbook route",
             "gap": "Finite-dimensional cylindrical Girsanov integral and RN/withDensity identity are compiled; Ito, generator domains, invariant Gibbs proof, and full Brownian path-space change of measure remain real analytic leaves.",
         },
         {
@@ -2615,7 +2764,7 @@ def chewi_api_audit_rows() -> list[dict[str, str]]:
 
 def chewi_foundation_mmd_text() -> str:
     return """flowchart LR
-  Chewi[Chewi Log-Concave Sampling]
+  Source[Log-Concave Sampling textbook]
   Mathlib[Mathlib API search]
   ASTRef[External Lean references]
   REG[REG hidden regularity contracts]
@@ -2630,12 +2779,12 @@ def chewi_foundation_mmd_text() -> str:
   DISC[DISC LMC HMC MALA proximal]
   Consumers[SALD RMFLD future papers]
 
-  Chewi --> MEAS
-  Chewi --> CONV
-  Chewi --> FI
-  Chewi --> SDE
-  Chewi --> PATH
-  Chewi --> DISC
+  Source --> MEAS
+  Source --> CONV
+  Source --> FI
+  Source --> SDE
+  Source --> PATH
+  Source --> DISC
   Mathlib --> MEAS
   Mathlib --> DENS
   Mathlib --> CONV
@@ -2661,7 +2810,7 @@ def chewi_foundation_mmd_text() -> str:
 
 def chewi_foundation_svg() -> str:
     boxes = {
-        "chewi": (45, 105, 240, 70, "Chewi roadmap", "chapter/theorem source DAG", "input"),
+        "source": (45, 105, 240, 70, "Textbook roadmap", "chapter/theorem source DAG", "input"),
         "mathlib": (45, 245, 240, 70, "Mathlib scout", "search before porting", "input"),
         "refs": (45, 385, 240, 70, "Reference repos", "AST, SLT, Rademacher", "input"),
         "reg": (365, 80, 260, 74, "REG contracts", "measurable, integrable, smooth, boundary", "contract"),
@@ -2677,7 +2826,7 @@ def chewi_foundation_svg() -> str:
         "gate": (970, 650, 245, 74, "Reviewer gate", "Mathlib-ready, no hidden assumptions", "gate"),
     }
     edges = [
-        ("chewi", "reg", "extract", False),
+        ("source", "reg", "extract", False),
         ("mathlib", "meas", "reuse", False),
         ("mathlib", "conv", "reuse", False),
         ("refs", "gauss", "port plan", False),
@@ -2714,7 +2863,7 @@ def chewi_foundation_svg() -> str:
   </marker>
 </defs>
 <rect width="1280" height="790" fill="white"/>
-<text x="640" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">Chewi Log-Concave Sampling Formalization Spine</text>
+<text x="640" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">Log-Concave Sampling Formalization Spine</text>
 <text x="640" y="58" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#475569">Shared root nodes are reused across chapter/theorem DAGs; chapter proofs become consumers of the same Mathlib-ready leaves.</text>
 <g id="edges">
 {chr(10).join(edge_parts)}
@@ -2727,7 +2876,7 @@ def chewi_foundation_svg() -> str:
 """
 
 
-def chewi_lean_tree_status_rows() -> list[dict[str, str]]:
+def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
     return [
         {
             "family": "MEAS/KERN",
@@ -2755,7 +2904,56 @@ def chewi_lean_tree_status_rows() -> list[dict[str, str]]:
             "node": "Geometry.LogConcavity",
             "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
             "status": "compiled-blue",
-            "role": "positive log-concavity and convex-potential Gibbs shape",
+            "role": "positive log-concavity, norm-square convexity, and convex-potential Gibbs shape",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Log-concavity algebra/tensorization",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "pointwise products, nonnegative real powers, and Cartesian-product density factors preserve log-concavity",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Log-concavity under maps",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "linear and affine precomposition preserve log-concavity on preimage domains",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Log-concavity level sets",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "positive log-concave functions are quasiconcave; convex superlevel restrictions remain log-concave",
+        },
+        {
+            "family": "DENS/CONV/SDE",
+            "node": "Negative-log potential geometry",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "positive log-concave densities have convex negative-log potentials and convex energy sublevels",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Quadratic Gibbs log-concavity",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "nonnegative quadratic norm potentials and explicit normalized quadratic Gibbs densities are log-concave",
+        },
+        {
+            "family": "DENS/CONV/GAUSS",
+            "node": "Shifted quadratic Gibbs geometry",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "shifted potentials `a‖x-m‖^2+b` and explicit shifted quadratic densities are log-concave",
+        },
+        {
+            "family": "DENS/CONV/GAUSS/DISC",
+            "node": "Two-point Gaussian/proximal kernel geometry",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "two-point potentials `a‖x-y‖^2+b` and Gaussian-kernel shapes are log-concave on product space",
         },
         {
             "family": "DENS/CONV",
@@ -2797,7 +2995,7 @@ def chewi_lean_tree_status_rows() -> list[dict[str, str]]:
             "node": "Quadratic Lebesgue Gibbs envelope",
             "target": "TechnicalLemmas/Analysis/Integrability.lean",
             "status": "compiled-blue",
-            "role": "finite-dimensional Lebesgue quadratic lower bounds give finite Gibbs normalizer and normalized target law",
+            "role": "finite-dimensional Lebesgue quadratic tails have exact ENNReal normalizers, and quadratic lower bounds give normalized Gibbs target laws",
         },
         {
             "family": "DENS/CONV",
@@ -2970,9 +3168,9 @@ def chewi_lean_tree_status_rows() -> list[dict[str, str]]:
     ]
 
 
-def chewi_lean_tree_status_mmd_text() -> str:
+def log_concave_lean_tree_status_mmd_text() -> str:
     return """flowchart TD
-  Root[ASTIS-CHEWI-001<br/>Chewi Mathlib-ready Lean tree]
+  Root[ASTIS-CHEWI-001<br/>Log-concave sampling Lean tree]
   MEAS[MEAS/KERN<br/>measure and kernels]
   DENS[DENS/CONV<br/>densities and convexity]
   GAUSS[GAUSS<br/>Gaussian infrastructure]
@@ -2992,6 +3190,13 @@ def chewi_lean_tree_status_mmd_text() -> str:
   MEAS --> Transport[Measure.Transport]
 
   DENS --> LogConcavity[Geometry.LogConcavity]
+  DENS --> LogConcavityTensor[Log-concavity algebra/tensorization]
+  DENS --> LogConcavityMaps[Log-concavity under maps]
+  DENS --> LogConcavityLevels[Log-concavity level sets]
+  DENS --> NegLogPotential[Negative-log potential geometry]
+  DENS --> GibbsQuadLogConcavity[Quadratic Gibbs log-concavity]
+  DENS --> ShiftedGibbsQuad[Shifted quadratic Gibbs geometry]
+  DENS --> PairKernelGeometry[Two-point Gaussian/proximal kernel geometry]
   DENS --> RN[Measure.RadonNikodym]
   DENS --> PiDensity[Measure.pi withDensity product]
   DENS --> Gibbs[Measure.Gibbs]
@@ -3031,7 +3236,7 @@ def chewi_lean_tree_status_mmd_text() -> str:
   classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
   class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
-  class LawMap,CondKernel,LogConcavity,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
+  class LawMap,CondKernel,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
   class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,Langevin,Path,LMC,HMC,MALA todo;
 """
 
@@ -3076,7 +3281,7 @@ def chewi_status_svg_edge(src: tuple[int, int, int, int], dst: tuple[int, int, i
     )
 
 
-def chewi_lean_tree_status_svg() -> str:
+def log_concave_lean_tree_status_svg() -> str:
     columns = [
         ("MEAS/KERN", 30, [
             ("Probability.LawMap", "compiled", "compiled-blue"),
@@ -3125,7 +3330,7 @@ def chewi_lean_tree_status_svg() -> str:
     ]
     root = (555, 52, 420, 58)
     nodes = [
-        chewi_status_svg_node("root", *root, "ASTIS-CHEWI-001 Chewi Lean tree", "blue = compiled locally; red = todo", "root")
+        chewi_status_svg_node("root", *root, "ASTIS-CHEWI-001 Lean tree", "blue = compiled locally; red = todo", "root")
     ]
     edges = []
     family_boxes: dict[str, tuple[int, int, int, int]] = {}
@@ -3148,7 +3353,7 @@ def chewi_lean_tree_status_svg() -> str:
   </marker>
 </defs>
 <rect width="1500" height="840" fill="white"/>
-<text x="750" y="30" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">Chewi Mathlib-Ready Lean Tree Status</text>
+<text x="750" y="30" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#1f2933">Log-Concave Sampling Mathlib-Ready Lean Tree Status</text>
 <g id="edges">
 {chr(10).join(edges)}
 </g>
@@ -3164,6 +3369,495 @@ def chewi_lean_tree_status_svg() -> str:
 """
 
 
+def chewi_additional_chapter_subtrees_text() -> str:
+    return """## Chapter 3 Path-Space Stochastic Analysis Subtree
+
+```mermaid
+flowchart TD
+  C3[Ch.3 stochastic analysis topics]
+  QV[quadratic variation]
+  COM[change of measure in path space]
+  DOOB[Doob transform]
+  FOLL[Follmer drift]
+  SB[Schrodinger bridge]
+  GAUSS[GAUSS finite Gaussian shifts]
+  CYL[finite-dimensional Girsanov cylinder]
+  RN[PATH RN derivative]
+  BRIDGE[bridge drift transform]
+  REG[REG path regularity]
+
+  C3 --> QV
+  C3 --> COM
+  C3 --> DOOB
+  C3 --> FOLL
+  C3 --> SB
+  GAUSS --> CYL --> RN
+  COM --> RN
+  DOOB --> BRIDGE
+  FOLL --> BRIDGE
+  SB --> BRIDGE
+  REG -.-> QV
+  REG -.-> RN
+  REG -.-> BRIDGE
+```
+
+## Chapter 5 Faster Low-Accuracy Samplers Subtree
+
+```mermaid
+flowchart TD
+  C5[Ch.5 faster low-accuracy samplers]
+  RMD[randomized midpoint]
+  HMC[Hamiltonian Monte Carlo]
+  ULD[underdamped Langevin]
+  GAUSS[GAUSS update noise]
+  GEN[SDE generator contracts]
+  KERN[DISC transition kernels]
+  RATE[low-accuracy rate theorem]
+  REG[REG smoothness and moments]
+
+  C5 --> RMD
+  C5 --> HMC
+  C5 --> ULD
+  GAUSS --> KERN
+  RMD --> KERN
+  HMC --> GEN
+  ULD --> GEN
+  GEN --> RATE
+  KERN --> RATE
+  REG -.-> GEN
+  REG -.-> KERN
+```
+
+## Chapter 6 Renyi Divergence Subtree
+
+```mermaid
+flowchart TD
+  C6[Ch.6 Renyi divergence]
+  LMCINT[LMC interpolation route]
+  LMCGIR[LMC Girsanov route]
+  ULMC[ULMC Girsanov route]
+  RENYI[DENS Renyi density calculus]
+  FI[FI differential inequality]
+  PATH[PATH change of measure]
+  DISC[DISC algorithm theorem]
+  REG[REG integrability and positivity]
+
+  C6 --> LMCINT
+  C6 --> LMCGIR
+  C6 --> ULMC
+  RENYI --> FI --> DISC
+  PATH --> RENYI
+  LMCINT --> FI
+  LMCGIR --> PATH
+  ULMC --> PATH
+  REG -.-> RENYI
+  REG -.-> FI
+```
+
+## Chapter 7 High-Accuracy Samplers Subtree
+
+```mermaid
+flowchart TD
+  C7[Ch.7 high-accuracy samplers]
+  RS[rejection sampling]
+  MH[Metropolis-Hastings filter]
+  MC[discrete-time Markov chains]
+  COLD[MALA cold start]
+  WARM[MALA warm start]
+  KERN[KERN Markov kernels]
+  BAL[detailed balance and reversibility]
+  DENS[DENS warm-start densities]
+  DISC[DISC high-accuracy theorem]
+  REG[REG acceptance and support]
+
+  C7 --> RS
+  C7 --> MH
+  C7 --> MC
+  C7 --> COLD
+  C7 --> WARM
+  KERN --> BAL --> DISC
+  DENS --> WARM --> DISC
+  MH --> BAL
+  MC --> KERN
+  REG -.-> KERN
+  REG -.-> BAL
+```
+
+## Chapter 8 Proximal Sampler Subtree
+
+```mermaid
+flowchart TD
+  C8[Ch.8 proximal sampler]
+  RGO[restricted Gaussian oracle]
+  SLC[strong log-concavity]
+  STR[simultaneous flow and time reversal]
+  LC[log-concavity]
+  FI[functional inequalities]
+  IMPL[RGO implementations]
+  CONV[CONV proximal geometry]
+  GAUSS[GAUSS two-point kernels]
+  KERN[KERN conditional law]
+  DISC[DISC proximal transition]
+  REG[REG oracle and support]
+
+  C8 --> RGO
+  C8 --> SLC
+  C8 --> STR
+  C8 --> LC
+  C8 --> FI
+  C8 --> IMPL
+  CONV --> GAUSS --> KERN --> DISC
+  RGO --> KERN
+  LC --> CONV
+  FI --> DISC
+  REG -.-> KERN
+```
+
+## Chapter 9 Lower-Bound Subtree
+
+```mermaid
+flowchart TD
+  C9[Ch.9 lower bounds]
+  QUERY[query complexity model]
+  ONE[one-dimensional constructions]
+  CONST[constant-dimensional constructions]
+  GAUSS[Gaussian lower bounds]
+  ORACLE[DISC oracle interface]
+  INFO[DENS information comparison]
+  GROOT[GAUSS comparison lemmas]
+  REG[REG model assumptions]
+
+  C9 --> QUERY
+  C9 --> ONE
+  C9 --> CONST
+  C9 --> GAUSS
+  QUERY --> ORACLE
+  ONE --> INFO
+  CONST --> INFO
+  GAUSS --> GROOT --> INFO
+  REG -.-> ORACLE
+```
+
+## Chapter 10 Structured-Sampling Subtree
+
+```mermaid
+flowchart TD
+  C10[Ch.10 structured sampling]
+  SG[stochastic gradients]
+  COORD[coordinate methods]
+  MIRROR[mirror Langevin]
+  ORACLE[MEAS noisy oracle laws]
+  GEOM[CONV mirror geometry]
+  GEN[SDE generator]
+  DISC[DISC structured updates]
+  REG[REG unbiasedness and smoothness]
+
+  C10 --> SG
+  C10 --> COORD
+  C10 --> MIRROR
+  SG --> ORACLE --> DISC
+  COORD --> DISC
+  MIRROR --> GEOM --> GEN --> DISC
+  REG -.-> ORACLE
+  REG -.-> GEOM
+```
+
+## Chapter 11 Non-Log-Concave Sampling Subtree
+
+```mermaid
+flowchart TD
+  C11[Ch.11 non-log-concave sampling]
+  STAT[approximate stationarity via FI]
+  FIB[Fisher information bounds]
+  APP[applications]
+  LB[lower bounds]
+  FI[FI score and Fisher algebra]
+  SDE[SDE weak-FP]
+  DISC[DISC algorithm consumers]
+  REG[REG nonconvex regularity]
+
+  C11 --> STAT
+  C11 --> FIB
+  C11 --> APP
+  C11 --> LB
+  STAT --> FI
+  FIB --> FI --> SDE --> DISC
+  APP --> DISC
+  REG -.-> FI
+  REG -.-> SDE
+```
+
+## Chapter 12 Diffusion-Generative-Models Subtree
+
+```mermaid
+flowchart TD
+  C12[Ch.12 diffusion generative models]
+  INTRO[introduction]
+  SCORE[score matching and variants]
+  DISCANA[discretization analysis]
+  DENS[DENS score density]
+  PATH[PATH reverse-time change of measure]
+  SDE[SDE forward/reverse dynamics]
+  DISC[DISC discretization theorem]
+  REG[REG score and time regularity]
+
+  C12 --> INTRO
+  C12 --> SCORE
+  C12 --> DISCANA
+  SCORE --> DENS
+  DENS --> PATH --> SDE
+  SDE --> DISC
+  DISCANA --> DISC
+  REG -.-> DENS
+  REG -.-> SDE
+```
+"""
+
+
+def log_concave_sampling_overview_text() -> str:
+    chapter_table = markdown_table(log_concave_chapter_map_rows(), [
+        ("Part", "part"),
+        ("Chapter", "chapter"),
+        ("Summary", "reader_summary"),
+        ("Lean organization plan", "lean_plan"),
+        ("Shared roots", "shared"),
+        ("Status", "status"),
+    ])
+    return f"""# Log-Concave Sampling Lean Organization
+
+Generated: `{now_stamp()}`
+
+Primary source: `{CHEWI_LOG_CONCAVE_URL}`
+
+Local source: `{CHEWI_LOG_CONCAVE_PDF}`
+
+The Lean repository is organized as a reusable mathematical library, not as a
+line-by-line encoding of one proof.  Each textbook chapter is mapped to shared
+proof roots, and each root is built from small lemmas that can plausibly become
+Mathlib-style contributions.
+
+## How To Read The Library
+
+- Blue nodes in the status tree are compiled local Lean leaves or modules.
+- Red nodes are missing mathematical infrastructure with a named target file.
+- Shared roots (`MEAS`, `KERN`, `DENS`, `GAUSS`, `CONV`, `FI`, `SDE`, `PATH`,
+  `DISC`, `REG`) are reused across chapters so the library does not duplicate
+  the same measure-theory, convexity, Gaussian, or SDE lemmas for each sampler.
+- Algorithm chapters should be consumers.  They should call the shared roots
+  after those roots compile locally.
+
+Main visual ledger:
+`{rel(LOG_CONCAVE_FOUNDATION_DAG_MD)}`
+
+Rendered status tree:
+`{rel(LOG_CONCAVE_STATUS_SVG)}`
+
+## Chapter-By-Chapter Map
+
+{chapter_table}
+
+## Current Compiled Foundation
+
+- Positive log-concavity, products, powers, pullbacks, superlevel geometry, and
+  negative-log potential convexity live in
+  `AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean`.
+- Gibbs density, finite-measure lower-bound envelopes, exact finite-dimensional
+  quadratic normalizers, and normalized withDensity probability bridges live in
+  `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean` and
+  `AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean`.
+- Product Gaussian linear forms, moment-generating normalizers, Esscher shifts,
+  finite-dimensional change of measure, and Euclidean `stdGaussian` bridges
+  live in `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`.
+- KL/DV/Renyi algebra, LSI bookkeeping, weak generator, weak-FP algebra, and
+  finite-dimensional Girsanov cylinders are compiled as reusable support.
+
+## Immediate Library Boundary
+
+The next high-value roots are:
+
+1. `CONV/MEAS`: finite-dimensional Prekopa-Leindler and Brunn-Minkowski
+   interfaces, using `Lean-Asymptotic-Statistical-Theory/ForMathlib` as a
+   reference but porting only small local leaves.
+2. `DENS/CONV`: nonquadratic coercive Gibbs envelopes for Lebesgue targets.
+3. `SDE/DENS/FI`: invariant Gibbs law and KL/FI dissipation for Langevin.
+4. `PATH/GAUSS`: Brownian/path-space change of measure beyond finite
+   cylinders.
+5. `DISC`: LMC/MALA/HMC/proximal samplers only after the above roots are local.
+
+## Rigor Contract
+
+Whenever the textbook uses a standard analytic phrase such as Fokker-Planck,
+Girsanov, integration by parts, regularity assumptions, or invariant measure,
+the Lean plan must expose the hidden assumptions: measurability,
+integrability, domination, differentiability, boundary decay, positivity, and
+representative choices.  Unsupported assumptions are recorded as red proof
+obligations rather than being silently added to close a theorem.
+"""
+
+
+def chewi_agent_execution_pack_text() -> str:
+    role_rows = [
+        {
+            "role": "upper_director",
+            "job": "Choose the one chapter/root/leaf that gives the most reusable progress; reject SALD-style wrapper churn.",
+            "output": "One cycle packet with source anchor, shared roots, lower split, and reviewer gate.",
+        },
+        {
+            "role": "upper_source_math",
+            "job": "Audit the source statement and hidden regularity before proof search starts.",
+            "output": "Source-faithfulness decision: supported, standard background, regularity gap, or statement drift.",
+        },
+        {
+            "role": "upper_proof_dag",
+            "job": "Pick the shortest dependency path through the shared-root DAG.",
+            "output": "A small active leaf and stale-leaf retirements.",
+        },
+        {
+            "role": "upper_process_memory",
+            "job": "Check whether the run is repeating old work or ignoring existing compiled roots.",
+            "output": "One process correction if needed.",
+        },
+        {
+            "role": "middle_formalizer",
+            "job": "Translate the upper packet into lower-ready Lean theorem shapes.",
+            "output": "One lower_1 math route, one lower_2 Lean implementation task, optional lower_3 API scout task.",
+        },
+        {
+            "role": "middle_source_correspondence",
+            "job": "Map textbook prose to exact Lean-facing objects and assumptions.",
+            "output": "Source line/range, informal statement, Lean statement skeleton, hidden regularity list.",
+        },
+        {
+            "role": "middle_technical_lemma",
+            "job": "Search Mathlib, local ASTIS registry, and external reference repos as provenance only.",
+            "output": "Compiled-local, needs-small-port, or proof-obligation classification.",
+        },
+        {
+            "role": "middle_report_export",
+            "job": "Keep library summaries and run summaries synchronized after proof progress.",
+            "output": "Plain-language update, not proof search.",
+        },
+        {
+            "role": "lower_1",
+            "job": "Natural-language proof scout for exactly one leaf.",
+            "output": "Math route, required hypotheses, expected Lean theorem shape, lower_2 handoff.",
+        },
+        {
+            "role": "lower_2",
+            "job": "Lean implementer for exactly one theorem or smaller source-cited boundary.",
+            "output": "Compiled declaration or precise typed blocker.",
+        },
+        {
+            "role": "lower_3",
+            "job": "API/technical-lemma scout for missing reusable facts.",
+            "output": "One tiny local port or proof-obligation packet.",
+        },
+        {
+            "role": "reviewer_gate",
+            "job": "Deterministic correctness gate.",
+            "output": "`python3 tools/astis.py check` status, no fake closure, source/API consistency.",
+        },
+        {
+            "role": "reviewer_waste",
+            "job": "Progress-economics review for the 6h batch.",
+            "output": "What improved, what wasted effort, and the best next leaf.",
+        },
+    ]
+    return f"""# Log-Concave Sampling Six-Hour Execution Pack
+
+Generated: `{now_stamp()}`
+
+This pack is the control-console entry point for running the hierarchical
+multi-agent system on the log-concave sampling foundation.  The run must keep
+the textbook as the source roadmap, Mathlib-ready reusable leaves as the output, and SALD/RMFLD as
+downstream consumers only.
+
+## One-Command Launch
+
+```bash
+python3 tools/astis.py launch-log-concave-6h --hours 6 --wall-hours 24 --lower-count 3
+```
+
+This creates a long-window `sleep-run-window` job in the background.  It uses
+an active-agent budget of 6 hours, keeps a larger wall-clock safety window, runs
+lower workers in parallel, and executes `python3 tools/astis.py check` after
+each cycle.
+
+## Equivalent Direct Command
+
+```bash
+python3 tools/astis.py sleep-run-window ASTIS-CHEWI-001 \\
+  --hours 24 \\
+  --agent-hours-budget 6 \\
+  --max-cycles 64 \\
+  --lower-count 3 \\
+  --parallel-lower \\
+  --upper-panel-final \\
+  --middle-panel-final \\
+  --reviewer-waste-final \\
+  --agent-cmd "bash tools/astis_codex_faithful.sh {{root}} {{prompt}}" \\
+  --execute \\
+  --check-each-cycle
+```
+
+## GNU Screen Mode
+
+Use this when you want the long run to live in a named terminal session:
+
+```bash
+screen -dmS astis_log_concave_6h bash -lc 'cd /home/nitanda_sub/mark/repos/Auto-Sampling-Theory-In-Sleep; python3 tools/astis.py sleep-run-window ASTIS-CHEWI-001 --hours 24 --agent-hours-budget 6 --max-cycles 64 --lower-count 3 --parallel-lower --upper-panel-final --middle-panel-final --reviewer-waste-final --agent-cmd "bash tools/astis_codex_faithful.sh {{root}} {{prompt}}" --execute --check-each-cycle'
+```
+
+Attach/detach:
+
+```bash
+screen -r astis_log_concave_6h
+```
+
+Inside screen, detach with `Ctrl-a d`.  The run itself writes per-agent logs
+under `runs/<cycle>/agent-logs/` and the global trial ledger under
+`runs/trials.jsonl`.
+
+## Role Split
+
+{markdown_table(role_rows, [
+    ("Role", "role"),
+    ("Job", "job"),
+    ("Required output", "output"),
+])}
+
+## Cycle Discipline
+
+1. Upper picks one reusable shared-root leaf, not an algorithm theorem unless
+   all analytic roots are already local.
+2. Middle translates the leaf into a stable theorem statement, source anchor,
+   hidden regularity list, and Mathlib/API search target.
+3. Lower workers either compile one small ASTIS-owned theorem or return a
+   strictly smaller blocker.
+4. Reviewer accepts only compiled local Lean, source-indexed proof obligations,
+   concrete port plans, or explicit rejection of a false/unsupported statement.
+5. After a successful cycle, regenerate DAGs, module cards, and retrieval
+   indexes so the next screen cycle starts from the updated plan.
+
+## First Three Recommended Cycles
+
+| Cycle | Objective | Reason |
+|---|---|---|
+| 1 | Chapter map plus shared-root lock | Prevent the system from drifting back to paper-specific SALD wrappers. |
+| 2 | `CONV/MEAS` Prekopa-Leindler audit and smallest port candidate | This is the missing preservation root for functional inequalities. |
+| 3 | `DENS/CONV` nonquadratic coercive Gibbs envelope | This connects textbook target densities to normalized probability laws beyond quadratic examples. |
+
+## Hard Stops
+
+- Do not treat external Lean repos as callable dependencies.
+- Do not add assumptions just to make Lean close.
+- Do not mark a red node blue without a local compiled declaration covered by
+  `lake build` and `lake build Tests`.
+- Do not let lower workers edit the same theorem block in parallel unless
+  middle explicitly assigned disjoint files.
+"""
+
+
 def chewi_chapter_dag_text() -> str:
     root_table = markdown_table(chewi_shared_root_rows(), [
         ("Label", "label"),
@@ -3173,7 +3867,7 @@ def chewi_chapter_dag_text() -> str:
         ("Status", "status"),
     ])
     chapter_table = markdown_table(chewi_chapter_rows(), [
-        ("Chewi chapter/topic", "chapter"),
+        ("Chapter/topic", "chapter"),
         ("Shared labels", "shared"),
         ("Subtree to draw/formalize", "dag"),
         ("First lower-agent leaf", "first_leaf"),
@@ -3186,7 +3880,7 @@ def chewi_chapter_dag_text() -> str:
         ("Mathlib/external borrow plan", "borrow"),
         ("Status", "status"),
     ])
-    status_table = markdown_table(chewi_lean_tree_status_rows(), [
+    status_table = markdown_table(log_concave_lean_tree_status_rows(), [
         ("Family", "family"),
         ("Branch/leaf", "node"),
         ("Target", "target"),
@@ -3199,7 +3893,7 @@ def chewi_chapter_dag_text() -> str:
         ("External reference", "external"),
         ("Gap / next action", "gap"),
     ])
-    return f"""# Chewi Log-Concave Sampling Foundation DAG
+    return f"""# Log-Concave Sampling Foundation DAG
 
 Generated: `{now_stamp()}`
 
@@ -3208,7 +3902,7 @@ Primary source: `{CHEWI_LOG_CONCAVE_URL}`
 Local source: `{CHEWI_LOG_CONCAVE_PDF}`
 
 This is the master visualization ledger for `ASTIS-CHEWI-001`.  The goal is
-to avoid one oversized graph: every Chewi chapter or major theorem should point
+to avoid one oversized graph: every chapter or major theorem should point
 to shared root nodes and then have its own smaller subtree.  Shared labels make
 common Lean leaves reusable across chapters, SALD, RMFLD, and future papers.
 
@@ -3224,10 +3918,10 @@ Blue nodes are compiled local ASTIS declarations or modules covered by
 Mathlib-first leaves and explicit source/regularity contracts.
 
 Rendered status tree:
-`docs/assets/chewi_lean_tree_status.svg`
+`{rel(LOG_CONCAVE_STATUS_SVG)}`
 
 ```mermaid
-{chewi_lean_tree_status_mmd_text()}```
+{log_concave_lean_tree_status_mmd_text()}```
 
 {status_table}
 
@@ -3243,7 +3937,7 @@ Rendered status tree:
 
 ```mermaid
 flowchart TD
-  C1[Chewi Ch.1 Langevin diffusion]
+  C1[Ch.1 Langevin diffusion]
   SC[1.1 stochastic calculus]
   MS[1.2 Markov semigroup]
   OT[1.3 optimal transport]
@@ -3273,7 +3967,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  C2[Chewi Ch.2 functional inequalities]
+  C2[Ch.2 functional inequalities]
   DEF[PI LSI TI definitions]
   SEM[semigroup proof route]
   PRES[preservation operations]
@@ -3300,7 +3994,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  C4[Chewi Ch.4 Langevin Monte Carlo]
+  C4[Ch.4 Langevin Monte Carlo]
   COUP[Wasserstein coupling proof]
   INT[interpolation proof]
   OPT[convex optimization proof]
@@ -3325,6 +4019,8 @@ flowchart TD
   REG -.-> WFP
   REG -.-> KL
 ```
+
+{chewi_additional_chapter_subtrees_text()}
 
 ## Open Leaf Queue
 
@@ -3351,37 +4047,42 @@ creates a new shared root with a label and reviewer contract.
 def write_chewi_foundation_docs() -> list[Path]:
     outputs: list[Path] = []
     path_texts = [
-        (LEMMA_DAG_DIR / "Chewi_log_concave_sampling_foundation.md", chewi_chapter_dag_text()),
-        (ROOT / "docs" / "assets" / "chewi_log_concave_foundation.mmd", chewi_foundation_mmd_text()),
-        (ROOT / "docs" / "assets" / "chewi_log_concave_foundation.svg", chewi_foundation_svg()),
-        (ROOT / "docs" / "assets" / "chewi_lean_tree_status.mmd", chewi_lean_tree_status_mmd_text()),
-        (ROOT / "docs" / "assets" / "chewi_lean_tree_status.svg", chewi_lean_tree_status_svg()),
+        (LOG_CONCAVE_FOUNDATION_DAG_MD, chewi_chapter_dag_text()),
+        (LOG_CONCAVE_FOUNDATION_MMD, chewi_foundation_mmd_text()),
+        (LOG_CONCAVE_FOUNDATION_SVG, chewi_foundation_svg()),
+        (LOG_CONCAVE_STATUS_MMD, log_concave_lean_tree_status_mmd_text()),
+        (LOG_CONCAVE_STATUS_SVG, log_concave_lean_tree_status_svg()),
+        (LOG_CONCAVE_OVERVIEW_MD, log_concave_sampling_overview_text()),
+        (LOG_CONCAVE_EXECUTION_PACK_MD, chewi_agent_execution_pack_text()),
     ]
     for path, text in path_texts:
         write_text(path, text)
         outputs.append(path)
-    png_path = ROOT / "docs" / "assets" / "chewi_log_concave_foundation.png"
-    if render_svg_preview(ROOT / "docs" / "assets" / "chewi_log_concave_foundation.svg", png_path):
+    png_path = LOG_CONCAVE_FOUNDATION_PNG
+    if render_svg_preview(LOG_CONCAVE_FOUNDATION_SVG, png_path):
         outputs.append(png_path)
-    status_png_path = ROOT / "docs" / "assets" / "chewi_lean_tree_status.png"
-    if render_svg_preview(ROOT / "docs" / "assets" / "chewi_lean_tree_status.svg", status_png_path):
+    status_png_path = LOG_CONCAVE_STATUS_PNG
+    if render_svg_preview(LOG_CONCAVE_STATUS_SVG, status_png_path):
         outputs.append(status_png_path)
 
-    md_path, json_path = chewisinho_to_lean_roadmap()
+    md_path, json_path = log_concave_sampling_to_lean_roadmap()
     outputs.extend([md_path, json_path])
     retrieval = {
         "generated": now_stamp(),
         "task": "ASTIS-CHEWI-001",
         "source_pdf": str(CHEWI_LOG_CONCAVE_PDF),
         "public_pdf": CHEWI_LOG_CONCAVE_URL,
-        "foundation_dag": rel(LEMMA_DAG_DIR / "Chewi_log_concave_sampling_foundation.md"),
-        "foundation_svg": "docs/assets/chewi_log_concave_foundation.svg",
-        "foundation_mmd": "docs/assets/chewi_log_concave_foundation.mmd",
-        "status_tree_svg": "docs/assets/chewi_lean_tree_status.svg",
-        "status_tree_mmd": "docs/assets/chewi_lean_tree_status.mmd",
-        "roadmap": rel(SAMPLING_LIBRARY_DIR / "roadmap" / "chewisinho_to_lean_tree.md"),
+        "foundation_dag": rel(LOG_CONCAVE_FOUNDATION_DAG_MD),
+        "foundation_svg": rel(LOG_CONCAVE_FOUNDATION_SVG),
+        "foundation_mmd": rel(LOG_CONCAVE_FOUNDATION_MMD),
+        "status_tree_svg": rel(LOG_CONCAVE_STATUS_SVG),
+        "status_tree_mmd": rel(LOG_CONCAVE_STATUS_MMD),
+        "roadmap": rel(SAMPLING_LIBRARY_DIR / "roadmap" / "log_concave_sampling_to_lean_tree.md"),
+        "library_overview": rel(LOG_CONCAVE_OVERVIEW_MD),
+        "agent_execution_pack": rel(LOG_CONCAVE_EXECUTION_PACK_MD),
         "shared_roots": chewi_shared_root_rows(),
-        "blue_red_lean_tree": chewi_lean_tree_status_rows(),
+        "blue_red_lean_tree": log_concave_lean_tree_status_rows(),
+        "chapter_map": log_concave_chapter_map_rows(),
         "chapter_subtrees": chewi_chapter_rows(),
         "open_leaf_queue": chewi_open_leaf_rows(),
         "api_audit": chewi_api_audit_rows(),
@@ -3424,7 +4125,7 @@ def write_mathlib_ready_leaf_docs() -> list[Path]:
     outputs: list[Path] = []
     path_texts = [
         (ROOT / "docs" / "mathlib_ready_leaf_protocol.md", mathlib_ready_leaf_protocol_text()),
-        (LEMMA_DAG_DIR / "README.md", "# Lemma DAGs\n\nThis folder stores Mathlib-ready dependency graphs for reusable SDE/Sampling leaf lemmas.\n\nKey ledgers:\n\n- `Chewi_log_concave_sampling_foundation.md` is the active Chewi-led chapter/theorem DAG and shared-root taxonomy.\n- `SDE_Sampling_skill_tree.md` is the generic reusable proof-skill tree.\n- `SALD_weak_fp_leaf_dag.md` is a downstream consumer pressure-test DAG.\n\nRun:\n\n```bash\npython3 tools/astis.py lemma-dag-refresh\n```\n\n"),
+        (LEMMA_DAG_DIR / "README.md", "# Lemma DAGs\n\nThis folder stores Mathlib-ready dependency graphs for reusable SDE/Sampling leaf lemmas.\n\nKey ledgers:\n\n- `log_concave_sampling_foundation.md` is the active log-concave sampling chapter/theorem DAG and shared-root taxonomy.\n- `SDE_Sampling_skill_tree.md` is the generic reusable proof-skill tree.\n- `SALD_weak_fp_leaf_dag.md` is a downstream consumer pressure-test DAG.\n\nRun:\n\n```bash\npython3 tools/astis.py lemma-dag-refresh\n```\n\n"),
         (LEMMA_DAG_DIR / "SDE_Sampling_skill_tree.md", sde_sampling_skill_tree_text()),
         (LEMMA_DAG_DIR / "SALD_weak_fp_leaf_dag.md", sald_weak_fp_leaf_dag_text()),
         (LEMMA_DAG_DIR / "Pro_assimilated_leaf_targets.md", pro_assimilated_leaf_targets_text()),
@@ -3517,7 +4218,7 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs": {
         "layer": "Mathlib-ready technical lemma",
         "summary": "ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges",
-        "status": "preferred Mathlib-style location for Chewi Gibbs target-measure wrappers",
+        "status": "preferred Mathlib-style location for Gibbs target-measure wrappers",
     },
     "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym": {
         "layer": "Mathlib-ready technical lemma",
@@ -3552,12 +4253,12 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     "AutoSamplingTheory.TechnicalLemmas.Geometry": {
         "layer": "Mathlib-ready technical lemma",
         "summary": "parent import surface for convex-geometric and log-concavity leaves",
-        "status": "preferred parent module for Chewi CONV/DENS roots",
+        "status": "preferred parent module for CONV/DENS roots",
     },
     "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "positive-function log-concavity API over Mathlib ConcaveOn",
-        "status": "first compiled Chewi CONV/DENS leaf; extend toward density and Prekopa-Leindler interfaces",
+        "summary": "positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic and Gaussian-kernel log-concavity",
+        "status": "compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces",
     },
     "AutoSamplingTheory.TechnicalLemmas.Taylor": {
         "layer": "compatibility source",
@@ -3581,7 +4282,7 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, and quadratic lower-bound Gibbs normalization leaves",
+        "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, and quadratic lower-bound Gibbs normalization leaves",
         "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.InformationTheory": {
@@ -3908,9 +4609,9 @@ upstream review.
     return md_path, json_path
 
 
-def chewisinho_to_lean_roadmap() -> tuple[Path, Path]:
-    md_path = SAMPLING_LIBRARY_DIR / "roadmap" / "chewisinho_to_lean_tree.md"
-    json_path = RETRIEVAL_INDEX_DIR / "chewisinho-to-lean-tree.json"
+def log_concave_sampling_to_lean_roadmap() -> tuple[Path, Path]:
+    md_path = SAMPLING_LIBRARY_DIR / "roadmap" / "log_concave_sampling_to_lean_tree.md"
+    json_path = RETRIEVAL_INDEX_DIR / "log-concave-sampling-to-lean-tree.json"
     rows = [
         {
             "source": row["chapter"],
@@ -3928,7 +4629,7 @@ def chewisinho_to_lean_roadmap() -> tuple[Path, Path]:
         ("Status", "status"),
         ("Reviewer warning", "review"),
     ])
-    text = f"""# Chewisinho-To-Lean Foundation Roadmap
+    text = f"""# Log-Concave Sampling To Lean Foundation Roadmap
 
 Generated: `{now_stamp()}`
 
@@ -3942,7 +4643,7 @@ This roadmap is not a theorem dependency.  It is a textbook-to-Lean planning
 map.  Textbook statements are often intentionally informal; ASTIS agents must
 turn them into small theorem contracts with hidden regularity assumptions before
 assigning lower Lean work.  The matching visual ledger is
-`research-wiki/lemma-dags/Chewi_log_concave_sampling_foundation.md`.
+`{rel(LOG_CONCAVE_FOUNDATION_DAG_MD)}`.
 
 ## Roadmap
 
@@ -3967,11 +4668,11 @@ growth path is:
 
 - lock the shared-root taxonomy (`MEAS`, `KERN`, `DENS`, `GAUSS`, `CONV`,
   `FI`, `SDE`, `PATH`, `DISC`, `REG`);
-- extend the compiled log-concavity API toward density/Gibbs interfaces
-  and finish the Prekopa-Leindler port audit;
+- extend from the compiled log-concavity density-to-potential extraction, level-set geometry, algebra, and centered/shifted/two-point quadratic Gibbs geometry
+  toward Prekopa-Leindler and nonquadratic coercive Gibbs envelopes;
 - generalize existing law-map, conditional-kernel, Gaussian, KL, weak-generator,
   and LSI bookkeeping leaves away from SALD-specific naming;
-- add one subtree per Chewi chapter/theorem only when it reuses shared roots;
+- add one subtree per chapter/theorem only when it reuses shared roots;
 - keep algorithm theorems as consumers until their root leaves compile locally.
 """
     write_text(md_path, text)
@@ -4215,7 +4916,7 @@ AutoSamplingTheory
     |   `-- RadonNikodym.lean         withDensity, density transport, and RN normalization leaves
     |-- Geometry.lean                 parent for convex-geometric leaves
     |-- Geometry/
-    |   `-- LogConcavity.lean         positive log-concavity API leaves
+    |   `-- LogConcavity.lean         positive log-concavity, negative-log potential, level-set, and centered/shifted/two-point quadratic Gibbs geometry leaves
     |-- StochasticProcesses.lean      parent for SDE/weak-generator leaves
     |-- StochasticProcesses/
     |   |-- WeakGenerator.lean        sample-to-law weak-generator rewrites
@@ -4299,16 +5000,16 @@ glance.
 ```text
 {module_file_tree_text()}```
 
-## Chewi-Oriented Planned Extension
+## Log-Concave Sampling Planned Extension
 
 `ASTIS-CHEWI-001` extends the library goal from SALD-specific backfill to a
-Chewi-led log-concave sampling foundation.  `Geometry.LogConcavity` now has
-the first compiled leaves; the remaining planned modules are not callable
-until they contain ASTIS-owned compiled declarations, but they define the
+log-concave sampling foundation.  `Geometry.LogConcavity` now has
+compiled core, density-to-potential extraction, level-set/restriction geometry, map-stability, tensorization algebra, and centered/shifted/two-point quadratic Gibbs geometry leaves; the
+remaining planned modules are not callable until they contain ASTIS-owned compiled declarations, but they define the
 intended scientific organization for new leaves:
 
 ```text
-Planned Chewi extension:
+Planned log-concave sampling extension:
 
 AutoSamplingTheory
 `-- TechnicalLemmas/
@@ -4318,7 +5019,7 @@ AutoSamplingTheory
     |   `-- RadonNikodym.lean
     |-- Geometry/
     |   |-- Convex.lean
-    |   |-- LogConcavity.lean  compiled core API; extend toward density/Gibbs leaves
+    |   |-- LogConcavity.lean  compiled core/potential/level-set/map/tensorization API plus centered/shifted/two-point quadratic Gibbs geometry
     |   `-- PrekopaLeindler.lean
     |-- FunctionalInequalities/
     |   |-- Poincare.lean
@@ -4341,8 +5042,8 @@ AutoSamplingTheory
 ```
 
 New modules should be added only when a small, source-anchored leaf is ready.
-The next expected expansion is density-aware log-concavity and
-Prekopa-Leindler support, with Mathlib searched first and
+The next expected expansion is Prekopa-Leindler support and nonquadratic
+coercive Gibbs envelopes, with Mathlib searched first and
 `Lean-Asymptotic-Statistical-Theory` used as an external reference project.
 
 ## Canonical Compiled Module And Leaf Families
@@ -4406,7 +5107,7 @@ memory, not local proof certificates.
 | Mathlib | `research-wiki/external-lean-libraries/mathlib.md` |
 | `YuanheZ/lean-stat-learning-theory` | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` |
 | `auto-res/lean-rademacher` | `research-wiki/external-lean-libraries/lean-rademacher.md` |
-| Chewisinho stochastic-process notes | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` |
+| Log-concave sampling notes | `research-wiki/external-lean-libraries/log-concave-sampling-notes.md` |
 | `junwei-lu/Lean-Asymptotic-Statistical-Theory` | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` |
 
 ## Agent Rule
@@ -4494,21 +5195,20 @@ or they remain recorded in the port queue.
 ASTIS treats it as proof-architecture memory.  Any theorem needed by ASTIS
 must be ported into an ASTIS-owned module or recorded as a proof obligation.
 """,
-        EXTERNAL_LEAN_LIBRARY_DIR / "chewisinho-stochastic-processes.md": f"""# Chewi Log-Concave Sampling
+        EXTERNAL_LEAN_LIBRARY_DIR / "log-concave-sampling-notes.md": f"""# Log-Concave Sampling Notes
 
 - Public PDF: {CHEWI_LOG_CONCAVE_URL}
 - Local primary PDF: `{CHEWI_LOG_CONCAVE_PDF}`
-- Local legacy mirror: `{CHEWI_LEGACY_PDF}`
 - Role: primary roadmap for `ASTIS-CHEWI-001`, the log-concave sampling
   foundation program.
 
-Chewi is now the organizing textbook for ASTIS's reusable Sampling/SDE Lean
+The textbook is the organizing source for ASTIS's reusable Sampling/SDE Lean
 arsenal.  SALD and RMFLD should be treated as downstream consumers of this
 foundation, not as the reason for every local technical lemma.
 
 ## Chapter-To-Lean Families
 
-| Chewi part | ASTIS Lean family |
+| Textbook part | ASTIS Lean family |
 |---|---|
 | Stochastic calculus primer | `TechnicalLemmas/StochasticProcesses/Ito`, quadratic variation, martingale and weak-generator leaves |
 | Markov semigroups | `TechnicalLemmas/StochasticProcesses/MarkovSemigroup`, invariant-measure and generator interfaces |
@@ -4551,10 +5251,10 @@ representative-choice hypotheses before lower proof work starts.
   dependency and none of its theorems are callable until ported or reproved
   locally.
 
-## Useful Code For Chewi/ASTIS
+## Useful Code For Log-Concave Sampling
 
 The repository contains a broad `AsymptoticStatistics/ForMathlib` layer.  The
-following files are especially relevant to Chewi-style log-concave sampling
+following files are especially relevant to log-concave sampling
 infrastructure:
 
 - `AsymptoticStatistics/ForMathlib/PrekopaLeindler.lean` for
@@ -4575,9 +5275,9 @@ infrastructure:
   `MarkovKernelProhorov.lean`, and kernel files for measurable-selection,
   tightness, and Markov-kernel proof style.
 
-The first audit of these Chewi-relevant `ForMathlib` files found no `sorry`,
+The first audit of these log-concave-sampling-relevant `ForMathlib` files found no `sorry`,
 `axiom`, or `unsafe` hits in the selected port candidates.  ASTIS should still
-reprove or port only the minimal Mathlib-ready leaves needed by the Chewi tree.
+reprove or port only the minimal Mathlib-ready leaves needed by the log-concave sampling tree.
 
 ## Process Lessons To Reuse
 
@@ -4593,7 +5293,7 @@ ASTIS should reuse the discipline, not the exact domain:
   assumptions that the source does not justify.
 
 For `ASTIS-CHEWI-001`, this reference should guide the audit protocol for
-Chewi chapter extraction and Mathlib-ready leaf acceptance.
+textbook chapter extraction and Mathlib-ready leaf acceptance.
 """,
     }
 
@@ -4949,7 +5649,7 @@ def build_context_pack(task_id: str, title: str, task_text: str, cycle: int) -> 
         "",
         "## Cycle Focus",
         "",
-        sald_cycle_focus(cycle) if task_id == "ASTIS-SALD-001" else "Follow the task contract and current conversion window.",
+        task_cycle_focus(task_id, cycle),
         "",
         "## Recent High-Signal Handoffs",
         "",
@@ -4969,9 +5669,7 @@ def build_context_pack(task_id: str, title: str, task_text: str, cycle: int) -> 
         "",
         "## Human TODO Dashboard",
         "",
-        "- Current human-readable SALD reproduction TODO: `research-wiki/todo/SALD_REPRODUCTION_TODO.md`.",
-        "- Current unfinished source-line map: `research-wiki/paper-contributions/SALD/unfinished_source_map.md`.",
-        "- Compact retrieval index for upper/middle: `research-wiki/retrieval-index/ASTIS-SALD-001.json`.",
+        task_human_dashboard(task_id),
         "",
         "## Blueprint Control State",
         "",
@@ -5126,6 +5824,144 @@ def sald_cycle_focus(cycle: int) -> str:
     return f"{title}: {labels}"
 
 
+def chewi_cycle_focus(cycle: int) -> str:
+    priorities = [
+        (
+            "chapter map and shared-root lock",
+            f"Keep `{rel(LOG_CONCAVE_OVERVIEW_MD)}`, the chapter DAG, and the blue/red status tree synchronized. No proof work should bypass the shared roots.",
+        ),
+        (
+            "CONV/MEAS Prekopa-Leindler port audit",
+            "Use Mathlib first and `Lean-Asymptotic-Statistical-Theory/ForMathlib/PrekopaLeindler.lean` as provenance only. Select one smallest local ASTIS-owned lemma.",
+        ),
+        (
+            "DENS/CONV nonquadratic Gibbs envelope",
+            "Generalize from exact quadratic normalizers toward coercive lower-potential envelopes for normalized Gibbs laws.",
+        ),
+        (
+            "SDE/DENS/FI invariant Gibbs and KL/FI dissipation",
+            "Translate the Langevin invariant-measure and generator-dissipation statements into explicit weak-generator, integration-by-parts, and regularity contracts.",
+        ),
+        (
+            "PATH/GAUSS path-space change of measure",
+            "Extend the compiled finite-dimensional Gaussian/Girsanov cylinder leaves toward Brownian path-space RN derivatives only through explicit source contracts.",
+        ),
+        (
+            "DISC consumer pressure test",
+            "Use LMC/proximal/MALA only to identify missing shared roots. Do not formalize an algorithm theorem before its analytic leaves compile locally.",
+        ),
+    ]
+    title, body = priorities[(max(cycle, 1) - 1) % len(priorities)]
+    return f"Log-concave sampling foundation cycle: {title}. {body}"
+
+
+def task_cycle_focus(task_id: str, cycle: int) -> str:
+    if task_id == "ASTIS-SALD-001":
+        return sald_cycle_focus(cycle)
+    if task_id == "ASTIS-CHEWI-001":
+        return chewi_cycle_focus(cycle)
+    return "Follow the task contract and current conversion window."
+
+
+def task_human_dashboard(task_id: str) -> str:
+    if task_id == "ASTIS-CHEWI-001":
+        return "\n".join([
+            f"- Library overview: `{rel(LOG_CONCAVE_OVERVIEW_MD)}`.",
+            f"- Master chapter/theorem DAG: `{rel(LOG_CONCAVE_FOUNDATION_DAG_MD)}`.",
+            f"- Blue/red status tree: `{rel(LOG_CONCAVE_STATUS_SVG)}`.",
+            f"- Six-hour execution pack: `{rel(LOG_CONCAVE_EXECUTION_PACK_MD)}`.",
+            "- Compact retrieval index: `research-wiki/retrieval-index/ASTIS-CHEWI-001.json`.",
+        ])
+    if task_id == "ASTIS-SALD-001":
+        return "\n".join([
+            "- Current human-readable SALD reproduction TODO: `research-wiki/todo/SALD_REPRODUCTION_TODO.md`.",
+            "- Current unfinished source-line map: `research-wiki/paper-contributions/SALD/unfinished_source_map.md`.",
+            "- Compact retrieval index for upper/middle: `research-wiki/retrieval-index/ASTIS-SALD-001.json`.",
+        ])
+    return f"- Compact retrieval index: `research-wiki/retrieval-index/{task_id}.json` if present."
+
+
+def chewi_role_instructions(role: str, role_name: str, lower_count: int) -> str:
+    role_specific = {
+        "upper": (
+            "Choose exactly one log-concave sampling objective for this cycle. Start from the library overview, chapter DAG, module graph, and retrieval index. "
+            "Prefer shared roots over chapter-specific theorem work: MEAS, KERN, DENS, GAUSS, CONV, FI, SDE, PATH, DISC, REG. "
+            "Do not assign SALD/RMFLD wrapper work unless it extracts a reusable ASTIS-owned lemma for the log-concave sampling foundation. "
+            "The upper packet must name the chapter/topic, the shared roots reused, the target module, one lower-ready leaf, and reviewer criteria."
+        ),
+        "middle": (
+            "Translate the upper packet into Lean-facing declarations and proof obligations. "
+            "For every textbook phrase such as standard Fokker-Planck, Girsanov, invariant measure, integration by parts, or regularity assumptions, list the exact hidden assumptions: measurability, integrability, domination, differentiability, boundary decay, positivity, and representative choices. "
+            "Search Mathlib and the local ASTIS registry before assigning a new lemma. External repos are provenance only until the needed fact is ported or reproved locally."
+        ),
+        "lower": (
+            "Work on exactly one Mathlib-ready log-concave sampling foundation leaf. "
+            "Either compile one small ASTIS-owned theorem in the assigned module or return a strictly smaller source-cited blocker. "
+            "Do not broaden into a whole chapter proof, do not add assumptions only to make Lean close, and do not mark external Lean code as callable. "
+            "If blocked, classify the blocker as Mathlib API missing, regularity gap, false/too-strong statement, representative mismatch, or target too large."
+        ),
+        "reviewer": (
+            "Review the cycle as a library-quality gate. "
+            "Accept only compiled local Lean, source-indexed proof obligations, concrete port plans, or explicit rejection of unsupported statements. "
+            "Reject fake proof closures, broad wrappers, external-theorem-as-callable claims, statement drift, missing source/Mathlib anchors, and any blue status without `python3 tools/astis.py check`."
+        ),
+    }[role]
+    if role_name == "upper_source_math":
+        role_specific += (
+            "\n\nUpper-panel profile: source-math auditor. Check whether the selected source statement is faithful to the textbook and identify hidden regularity. "
+            "End with supported, standard-background-needed, regularity-gap, or statement-drift."
+        )
+    elif role_name == "upper_proof_dag":
+        role_specific += (
+            "\n\nUpper-panel profile: proof-DAG strategist. Pick the shortest path through shared roots and retire stale or duplicated leaves."
+        )
+    elif role_name == "upper_process_memory":
+        role_specific += (
+            "\n\nUpper-panel profile: process-memory auditor. Check that this run is not repeating SALD-style wrapper churn and that library docs remain usable."
+        )
+    elif role_name == "upper_director":
+        role_specific += (
+            "\n\nUpper profile: director synthesis. If panel handoffs exist, synthesize them into one executable packet with one target leaf and one reviewer gate."
+        )
+    elif role_name == "middle_source_correspondence":
+        role_specific += (
+            "\n\nMiddle-panel profile: source correspondence. Produce the informal source statement, Lean statement skeleton, source/Mathlib anchors, and hidden regularity list."
+        )
+    elif role_name == "middle_technical_lemma":
+        role_specific += (
+            "\n\nMiddle-panel profile: technical-lemma curator. Search local ASTIS, Mathlib, and external references as provenance; classify each fact as compiled-local, needs-small-port, proof-obligation, or irrelevant."
+        )
+    elif role_name == "middle_report_export":
+        role_specific += (
+            f"\n\nMiddle-panel profile: report/export maintainer. Keep `{rel(LOG_CONCAVE_OVERVIEW_MD)}`, the DAG, status tree, retrieval index, and execution pack synchronized."
+        )
+    elif role_name == "middle_formalizer":
+        role_specific += (
+            "\n\nMiddle profile: coordinator synthesis. Produce one lower_1 math route, one lower_2 Lean implementation task, and optionally one lower_3 API/port scout task."
+        )
+    elif role_name == "lower_1" and lower_count >= 2:
+        role_specific += (
+            "\n\nParallel lower specialization: natural-language proof scout. Give the mathematical route, exact assumptions, Mathlib/local lemmas, and one lower_2-ready theorem shape."
+        )
+    elif role_name == "lower_2" and lower_count >= 2:
+        role_specific += (
+            "\n\nParallel lower specialization: Lean implementer. Implement exactly one compiled theorem or a strictly smaller source-cited blocker from lower_1/middle."
+        )
+    elif role_name == "lower_3" and lower_count >= 3:
+        role_specific += (
+            "\n\nParallel lower specialization: API/port scout. Search Mathlib and external reference code, then port/reprove one tiny local lemma or record a precise proof obligation."
+        )
+    elif role_name == "reviewer_gate":
+        role_specific += (
+            "\n\nSpecialization: deterministic gate reviewer. Require `python3 tools/astis.py check` before accepting compiled progress."
+        )
+    elif role_name == "reviewer_waste":
+        role_specific += (
+            "\n\nSpecialization: progress-economics reviewer. Report what improved, what wasted effort, and the best next shared-root leaf."
+        )
+    return role_specific
+
+
 def role_prompt(
     role: str,
     task_id: str,
@@ -5160,7 +5996,7 @@ Task contract:
 Cycle focus:
 
 ```text
-{sald_cycle_focus(cycle) if task_id == "ASTIS-SALD-001" else "Follow the task contract and current conversion window."}
+{task_cycle_focus(task_id, cycle)}
 ```
 
 Recent trial memory:
@@ -5184,6 +6020,8 @@ python3 tools/astis.py agent-note {run_dir.name} --role {displayed_role} --messa
 python3 tools/astis.py trial-log --task {task_id} --role {displayed_role} --kind handoff --status queued --artifact {rel(run_dir)} --notes "..."
 ```
 """
+    if task_id == "ASTIS-CHEWI-001":
+        return shared + "\n## Role Instructions\n\n" + chewi_role_instructions(role, role_name, lower_count) + "\n"
     post_129_guard = (
         "For SALD cycle 130 and later, treat the cycle-129 illness-area boundary as the live target unless the reviewer records a newer one: "
         "`hdiffusionSource` has been narrowed to the EM/Brownian diffusion generator weak action plus weak Laplacian integration-by-parts action. "
@@ -5473,7 +6311,7 @@ def create_run_cycle(
         f"Task: `{task_id}`\n"
         f"Cycle: `{cycle}`\n"
         f"Created: `{now_stamp()}`\n"
-        f"Focus: {sald_cycle_focus(cycle) if task_id == 'ASTIS-SALD-001' else 'task contract'}\n"
+        f"Focus: {task_cycle_focus(task_id, cycle)}\n"
         f"Compact context pack: `{rel(run_dir / '05_context_pack.md')}`\n"
     )
     (run_dir / "00_context.md").write_text(context, encoding="utf-8")
@@ -6035,6 +6873,106 @@ def cmd_launch_six_hour_sald(args: argparse.Namespace) -> int:
     print(f"blueprint: {rel(blueprint_path)}")
     print(f"blueprint-status: {rel(blueprint_md)}")
     print(f"next-cycle context-pack: {rel(context_path)}")
+    return 0
+
+
+def cmd_launch_six_hour_chewi(args: argparse.Namespace) -> int:
+    cmd_init(argparse.Namespace())
+
+    def env_flag(name: str, default: bool) -> bool:
+        value = os.environ.get(name)
+        if value is None:
+            return default
+        return value.strip().lower() not in {"0", "false", "no", "off", ""}
+
+    logs_dir = ROOT / "runs" / "logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    task_id = "ASTIS-CHEWI-001"
+    next_cycle = args.start_cycle or latest_cycle_number(task_id) + 1
+    blueprint_path = write_blueprint_refresh(task_id)
+    blueprint_md, _ = write_blueprint_status(task_id)
+    context_path = write_context_pack(task_id, next_cycle)
+    write_chewi_foundation_docs()
+    stamp = file_stamp()
+    log_path = logs_dir / f"astis-chewi-001-6h-{stamp}.log"
+    pid_path = logs_dir / f"astis-chewi-001-6h-{stamp}.pid"
+    command = [
+        sys.executable,
+        "tools/astis.py",
+        "sleep-run-window",
+        task_id,
+        "--hours",
+        str(args.wall_hours),
+        "--agent-hours-budget",
+        str(args.hours),
+        "--max-cycles",
+        str(args.max_cycles),
+        "--lower-count",
+        str(args.lower_count),
+        "--agent-cmd",
+        "bash tools/astis_codex_faithful.sh {root} {prompt}",
+        "--execute",
+        "--check-each-cycle",
+    ]
+    upper_panel_inner = env_flag("ASTIS_CHEWI_UPPER_PANEL_INNER", args.upper_panel_inner)
+    middle_panel_inner = env_flag("ASTIS_CHEWI_MIDDLE_PANEL_INNER", args.middle_panel_inner)
+    reviewer_waste_inner = env_flag("ASTIS_CHEWI_REVIEWER_WASTE_INNER", args.reviewer_waste_inner)
+    upper_panel_final = env_flag("ASTIS_CHEWI_UPPER_PANEL_FINAL", args.upper_panel_final)
+    middle_panel_final = env_flag("ASTIS_CHEWI_MIDDLE_PANEL_FINAL", args.middle_panel_final)
+    reviewer_waste_final = env_flag("ASTIS_CHEWI_REVIEWER_WASTE_FINAL", args.reviewer_waste_final)
+    parallel_lower = env_flag("ASTIS_CHEWI_PARALLEL_LOWER", args.parallel_lower)
+    if upper_panel_inner:
+        command.append("--upper-panel")
+    if middle_panel_inner:
+        command.append("--middle-panel")
+    if reviewer_waste_inner:
+        command.append("--reviewer-waste")
+    if upper_panel_final:
+        command.append("--upper-panel-final")
+    if middle_panel_final:
+        command.append("--middle-panel-final")
+    if reviewer_waste_final:
+        command.append("--reviewer-waste-final")
+    if parallel_lower:
+        command.append("--parallel-lower")
+    if args.after_latex:
+        command.append("--after-latex")
+    if getattr(args, "start_cycle", 0):
+        command.extend(["--start-cycle", str(args.start_cycle)])
+    if args.skip_reviewer:
+        command.append("--skip-reviewer")
+    with log_path.open("wb") as log:
+        log.write(("$ " + " ".join(subprocess.list2cmdline([part]) for part in command) + "\n").encode("utf-8"))
+        log.flush()
+        proc = subprocess.Popen(
+            command,
+            cwd=ROOT,
+            stdout=log,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
+        )
+    pid = str(proc.pid)
+    pid_path.write_text(pid + "\n", encoding="utf-8")
+    add_manifest("astis.py launch-log-concave-6h", log_path, "run", "Started graceful 6-hour ASTIS-CHEWI-001 Codex foundation run")
+    print("started ASTIS-CHEWI-001 graceful active-agent-budget run")
+    print(f"pid: {pid}")
+    print(f"active-agent-hours: {args.hours}")
+    print(f"wall-hours safety: {args.wall_hours}")
+    print(
+        "panel cadence: "
+        f"upper_inner={int(upper_panel_inner)} upper_final={int(upper_panel_final)} "
+        f"middle_inner={int(middle_panel_inner)} middle_final={int(middle_panel_final)} "
+        f"reviewer_waste_inner={int(reviewer_waste_inner)} reviewer_waste_final={int(reviewer_waste_final)}"
+    )
+    print(f"lower-count: {args.lower_count}; parallel-lower: {int(parallel_lower)}")
+    print(f"batch-end report export: {'enabled' if args.after_latex else 'disabled'}")
+    print(f"log: {rel(log_path)}")
+    print(f"pid-file: {rel(pid_path)}")
+    print(f"blueprint: {rel(blueprint_path)}")
+    print(f"blueprint-status: {rel(blueprint_md)}")
+    print(f"next-cycle context-pack: {rel(context_path)}")
+    print(f"library overview: {rel(LOG_CONCAVE_OVERVIEW_MD)}")
+    print(f"execution pack: {rel(LOG_CONCAVE_EXECUTION_PACK_MD)}")
     return 0
 
 
@@ -8663,6 +9601,27 @@ def build_parser() -> argparse.ArgumentParser:
     launch.add_argument("--no-after-latex", dest="after_latex", action="store_false")
     launch.add_argument("--skip-reviewer", action="store_true")
     launch.set_defaults(func=cmd_launch_six_hour_sald)
+
+    launch_log_concave = sub.add_parser("launch-log-concave-6h")
+    launch_log_concave.add_argument("--hours", type=float, default=6.0, help="active agent budget in hours")
+    launch_log_concave.add_argument("--wall-hours", type=float, default=24.0, help="wall-clock safety window for an active-agent-budget run")
+    launch_log_concave.add_argument("--max-cycles", type=int, default=64)
+    launch_log_concave.add_argument("--lower-count", type=int, default=3)
+    launch_log_concave.add_argument("--start-cycle", type=int, default=0)
+    launch_log_concave.add_argument("--upper-panel-inner", action="store_true")
+    launch_log_concave.add_argument("--middle-panel-inner", action="store_true")
+    launch_log_concave.add_argument("--reviewer-waste-inner", action="store_true")
+    launch_log_concave.add_argument("--upper-panel-final", dest="upper_panel_final", action="store_true", default=True)
+    launch_log_concave.add_argument("--no-upper-panel-final", dest="upper_panel_final", action="store_false")
+    launch_log_concave.add_argument("--middle-panel-final", dest="middle_panel_final", action="store_true", default=True)
+    launch_log_concave.add_argument("--no-middle-panel-final", dest="middle_panel_final", action="store_false")
+    launch_log_concave.add_argument("--reviewer-waste-final", dest="reviewer_waste_final", action="store_true", default=True)
+    launch_log_concave.add_argument("--no-reviewer-waste-final", dest="reviewer_waste_final", action="store_false")
+    launch_log_concave.add_argument("--parallel-lower", dest="parallel_lower", action="store_true", default=True)
+    launch_log_concave.add_argument("--no-parallel-lower", dest="parallel_lower", action="store_false")
+    launch_log_concave.add_argument("--after-latex", action="store_true")
+    launch_log_concave.add_argument("--skip-reviewer", action="store_true")
+    launch_log_concave.set_defaults(func=cmd_launch_six_hour_chewi)
 
     export = sub.add_parser("export-latex")
     export.add_argument("--task", default="ASTIS-SALD-001")

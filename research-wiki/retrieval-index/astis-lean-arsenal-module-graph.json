@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-01 00:45:41",
+  "generated": "2026-07-02 02:55:24",
   "ledger": "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
   "module_graph_svg": "docs/module-graph.svg",
   "modules": [
@@ -6910,6 +6910,18 @@
         },
         {
           "kind": "theorem",
+          "name": "lintegral_exp_neg_mul_norm_sq_eq"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_exp_neg_add_mul_norm_sq_eq"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sq"
+        },
+        {
+          "kind": "theorem",
           "name": "lintegral_gibbsDensityENNReal_ne_top_of_ae_quadratic_lower_bound"
         },
         {
@@ -6929,7 +6941,7 @@
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
       "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean",
       "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves",
-      "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, and quadratic lower-bound Gibbs normalization leaves"
+      "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, and quadratic lower-bound Gibbs normalization leaves"
     },
     {
       "declarations": [],
@@ -7159,11 +7171,51 @@
         },
         {
           "kind": "theorem",
+          "name": "LogConcaveOn.convexOn_neg_log"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.convex_sublevel_neg_log"
+        },
+        {
+          "kind": "theorem",
           "name": "LogConcaveOn.convex_domain"
         },
         {
           "kind": "theorem",
+          "name": "LogConcaveOn.convex_superlevel"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.quasiconcaveOn"
+        },
+        {
+          "kind": "theorem",
           "name": "LogConcaveOn.subset"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.restrict_superlevel"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.comp_linearMap"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.comp_affineMap"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.mul"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.rpow"
+        },
+        {
+          "kind": "theorem",
+          "name": "LogConcaveOn.prod"
         },
         {
           "kind": "theorem",
@@ -7183,19 +7235,74 @@
         },
         {
           "kind": "theorem",
+          "name": "convexOn_univ_norm_sq"
+        },
+        {
+          "kind": "theorem",
+          "name": "convexOn_univ_const_mul_norm_sq_add"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_exp_neg_quadratic_norm"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_const_mul_exp_neg_quadratic_norm"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_explicit_quadratic_normalized_density"
+        },
+        {
+          "kind": "theorem",
+          "name": "convexOn_univ_const_mul_norm_sub_sq_add"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_exp_neg_shifted_quadratic_norm"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_const_mul_exp_neg_shifted_quadratic_norm"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_explicit_shifted_quadratic_normalized_density"
+        },
+        {
+          "kind": "theorem",
+          "name": "convexOn_univ_const_mul_norm_fst_sub_snd_sq_add"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_exp_neg_pair_sub_quadratic_norm"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_const_mul_exp_neg_pair_sub_quadratic_norm"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_explicit_pair_sub_quadratic_kernel"
+        },
+        {
+          "kind": "theorem",
           "name": "logConcaveOn_id_Ioi"
         }
       ],
       "exports": [],
       "imports": [
-        "Mathlib.Analysis.Convex.SpecificFunctions.Basic"
+        "Mathlib.Analysis.Convex.SpecificFunctions.Basic",
+        "Mathlib.Analysis.Convex.Quasiconvex",
+        "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+        "Mathlib.LinearAlgebra.FiniteDimensional.Defs"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
       "path": "AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean",
-      "status": "first compiled Chewi CONV/DENS leaf; extend toward density and Prekopa-Leindler interfaces",
-      "summary": "positive-function log-concavity API over Mathlib ConcaveOn"
+      "status": "compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces",
+      "summary": "positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic and Gaussian-kernel log-concavity"
     },
     {
       "declarations": [],
@@ -7209,7 +7316,7 @@
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Geometry",
       "path": "AutoSamplingTheory/TechnicalLemmas/Geometry.lean",
-      "status": "preferred parent module for Chewi CONV/DENS roots",
+      "status": "preferred parent module for CONV/DENS roots",
       "summary": "parent import surface for convex-geometric and log-concavity leaves"
     },
     {
@@ -7401,7 +7508,7 @@
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
       "path": "AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean",
-      "status": "preferred Mathlib-style location for Chewi Gibbs target-measure wrappers",
+      "status": "preferred Mathlib-style location for Gibbs target-measure wrappers",
       "summary": "ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges"
     },
     {

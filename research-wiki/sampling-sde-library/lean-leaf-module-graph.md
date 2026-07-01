@@ -39,7 +39,7 @@ AutoSamplingTheory
     |   `-- RadonNikodym.lean         withDensity, density transport, and RN normalization leaves
     |-- Geometry.lean                 parent for convex-geometric leaves
     |-- Geometry/
-    |   `-- LogConcavity.lean         positive log-concavity API leaves
+    |   `-- LogConcavity.lean         positive log-concavity, negative-log potential, level-set, and centered/shifted/two-point quadratic Gibbs geometry leaves
     |-- StochasticProcesses.lean      parent for SDE/weak-generator leaves
     |-- StochasticProcesses/
     |   |-- WeakGenerator.lean        sample-to-law weak-generator rewrites
@@ -68,16 +68,16 @@ Non-arsenal files documented separately:
 `-- RMFLD.lean
 ```
 
-## Chewi-Oriented Planned Extension
+## Log-Concave Sampling Planned Extension
 
 `ASTIS-CHEWI-001` extends the library goal from SALD-specific backfill to a
-Chewi-led log-concave sampling foundation.  `Geometry.LogConcavity` now has
-the first compiled leaves; the remaining planned modules are not callable
-until they contain ASTIS-owned compiled declarations, but they define the
+log-concave sampling foundation.  `Geometry.LogConcavity` now has
+compiled core, density-to-potential extraction, level-set/restriction geometry, map-stability, tensorization algebra, and centered/shifted/two-point quadratic Gibbs geometry leaves; the
+remaining planned modules are not callable until they contain ASTIS-owned compiled declarations, but they define the
 intended scientific organization for new leaves:
 
 ```text
-Planned Chewi extension:
+Planned log-concave sampling extension:
 
 AutoSamplingTheory
 `-- TechnicalLemmas/
@@ -87,7 +87,7 @@ AutoSamplingTheory
     |   `-- RadonNikodym.lean
     |-- Geometry/
     |   |-- Convex.lean
-    |   |-- LogConcavity.lean  compiled core API; extend toward density/Gibbs leaves
+    |   |-- LogConcavity.lean  compiled core/potential/level-set/map/tensorization API plus centered/shifted/two-point quadratic Gibbs geometry
     |   `-- PrekopaLeindler.lean
     |-- FunctionalInequalities/
     |   |-- Poincare.lean
@@ -110,8 +110,8 @@ AutoSamplingTheory
 ```
 
 New modules should be added only when a small, source-anchored leaf is ready.
-The next expected expansion is density-aware log-concavity and
-Prekopa-Leindler support, with Mathlib searched first and
+The next expected expansion is Prekopa-Leindler support and nonquadratic
+coercive Gibbs envelopes, with Mathlib searched first and
 `Lean-Asymptotic-Statistical-Theory` used as an external reference project.
 
 ## Canonical Compiled Module And Leaf Families
@@ -121,17 +121,17 @@ Prekopa-Leindler support, with Mathlib searched first and
 | `AutoSamplingTheory.Probability` | `AutoSamplingTheory/Probability.lean` | generic technical core | law-map rewrites, dominated law derivatives, conditional-law bridges, KL/DV/LSI bookkeeping | `lawMapEqOfAEEq`, `lawMapIntegral`, `lawMapIntegralHasDerivAtOfSample`, `lawIntegralHasDerivAtOfMeasureMapEqAndSample`, `lawMapIntegralHasDerivAtOfDominated`, `lawIntegralHasDerivAtOfMeasureMapEqAndDominated`, `lawMapProdEqOfAEEq`, `lawMapProdFst`, ... | 0 | main Mathlib-ready adapter surface after naming/generalization cleanup |
 | `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor` | `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean` | Mathlib-ready technical lemma | Hessian/operator norm bridges, orthonormal-basis units, quadratic normalization | `hessianOpNormOfSourceHessianField`, `iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm`, `quadraticVariationNormalizationOfCoeffDefAndVarianceOne`, `stdOrthonormalBasisUnit` | 3 | preferred Mathlib-style location for Ito/Taylor local-error leaves |
 | `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus` | `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus.lean` | Mathlib-ready technical lemma | parent import surface for calculus leaves used by SDE/Sampling proofs | exports/metadata only | 0 | preferred parent module for Taylor and Hessian leaves |
-| `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean` | Mathlib-ready technical lemma | ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, and quadratic lower-bound Gibbs normalization leaves | `lintegral_ofReal_ne_top_of_integrable_nonneg`, `integrable_exp_neg_mul_norm_sq`, `integrable_exp_neg_add_mul_norm_sq`, `lintegral_exp_neg_add_mul_norm_sq_ne_top`, `lintegral_gibbsDensityENNReal_ne_top_of_ae_quadratic_lower_bound`, `isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_quadratic_lower_bound` | 5 | preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves |
+| `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean` | Mathlib-ready technical lemma | ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, and quadratic lower-bound Gibbs normalization leaves | `lintegral_ofReal_ne_top_of_integrable_nonneg`, `integrable_exp_neg_mul_norm_sq`, `integrable_exp_neg_add_mul_norm_sq`, `lintegral_exp_neg_add_mul_norm_sq_ne_top`, `lintegral_exp_neg_mul_norm_sq_eq`, `lintegral_exp_neg_add_mul_norm_sq_eq`, `isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sq`, `lintegral_gibbsDensityENNReal_ne_top_of_ae_quadratic_lower_bound`, ... | 8 | preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves |
 | `AutoSamplingTheory.TechnicalLemmas.Analysis` | `AutoSamplingTheory/TechnicalLemmas/Analysis.lean` | Mathlib-ready technical lemma | parent import surface for reusable analysis and integrability leaves | exports/metadata only | 0 | preferred parent module for calculus, integrability, regularity, and future IBP leaves |
 | `AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev` | `AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/LogSobolev.lean` | Mathlib-ready technical lemma | log-Sobolev to KL/FI bookkeeping leaves | `lsiKlFiRnDerivDensityMassOne`, `lsiKlFiRnDerivEntropyIntegral`, `lsiKlFiRnDerivLIntegralMassOne`, `lsiKlFiSqrtDensityEntropyIntegrandScalar`, `lsiKlFiSqrtDensityFisherChainFiniteSumHandoffScalar`, `lsiKlFiSqrtDensityFisherChainFiniteSumScalar`, `lsiKlFiSqrtDensityFisherChainIntegralFiniteSum`, `lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar`, ... | 1 | preferred Mathlib-style location for LSI/FI bookkeeping leaves |
 | `AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities` | `AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities.lean` | Mathlib-ready technical lemma | parent import surface for LSI/FI/PI-style technical lemmas | exports/metadata only | 0 | preferred parent module for functional-inequality leaves |
-| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean` | Mathlib-ready technical lemma | positive-function log-concavity API over Mathlib ConcaveOn | `LogConcaveOn`, `logConcaveOn_iff`, `logConcaveOn_of_concave_log`, `LogConcaveOn.pos`, `LogConcaveOn.concaveOn_log`, `LogConcaveOn.convex_domain`, `LogConcaveOn.subset`, `LogConcaveOn.const_mul`, ... | 4 | first compiled Chewi CONV/DENS leaf; extend toward density and Prekopa-Leindler interfaces |
-| `AutoSamplingTheory.TechnicalLemmas.Geometry` | `AutoSamplingTheory/TechnicalLemmas/Geometry.lean` | Mathlib-ready technical lemma | parent import surface for convex-geometric and log-concavity leaves | exports/metadata only | 0 | preferred parent module for Chewi CONV/DENS roots |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean` | Mathlib-ready technical lemma | positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic and Gaussian-kernel log-concavity | `LogConcaveOn`, `logConcaveOn_iff`, `logConcaveOn_of_concave_log`, `LogConcaveOn.pos`, `LogConcaveOn.concaveOn_log`, `LogConcaveOn.convexOn_neg_log`, `LogConcaveOn.convex_sublevel_neg_log`, `LogConcaveOn.convex_domain`, ... | 27 | compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry` | `AutoSamplingTheory/TechnicalLemmas/Geometry.lean` | Mathlib-ready technical lemma | parent import surface for convex-geometric and log-concavity leaves | exports/metadata only | 0 | preferred parent module for CONV/DENS roots |
 | `AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan` | `AutoSamplingTheory/TechnicalLemmas/InformationTheory/DonskerVaradhan.lean` | Mathlib-ready technical lemma | Donsker--Varadhan one-sided and scaled-test energy leaves | `dvFiniteLogMgfOfLeAlpha`, `dvVariationalOneSidedConsequenceScalar`, `dvVariationalOneSidedFromSupremumScalar`, `dvVariationalOneSidedOfScaledTest`, `dvVariationalOneSidedOfTiltedRight`, `dvVariationalScaledTestEnergyBound`, `dvVariationalScaledTestEnergyBoundWithCoeff`, `dvVariationalTiltedRightOneSidedConsequence` | 1 | preferred Mathlib-style location for DV/KL energy leaves |
 | `AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity` | `AutoSamplingTheory/TechnicalLemmas/InformationTheory/KLDensity.lean` | Mathlib-ready technical lemma | KL-density pointwise derivative and mass-conservation algebra leaves | `klPointwiseDerivSimplify`, `klDerivativeRemoveMassTerm` | 2 | preferred Mathlib-style location for KL density algebra after analytic domination is supplied |
 | `AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi` | `AutoSamplingTheory/TechnicalLemmas/InformationTheory/Renyi.lean` | Mathlib-ready technical lemma | Renyi density integrand positivity, measurability, finite-envelope, and pointwise derivative algebra leaves | `renyiIntegrand`, `renyiIntegrandENNReal`, `renyiIntegrand_nonneg`, `renyiIntegrand_pos`, `measurable_renyiIntegrand`, `measurable_renyiIntegrandENNReal`, `lintegral_renyiIntegrandENNReal_ne_top_of_ae_le`, `hasDerivAt_renyiIntegrand` | 4 | preferred Mathlib-style location for Renyi density algebra before integral/path regularity contracts |
 | `AutoSamplingTheory.TechnicalLemmas.InformationTheory` | `AutoSamplingTheory/TechnicalLemmas/InformationTheory.lean` | Mathlib-ready technical lemma | parent import surface for KL/DV/Renyi/entropy technical lemmas | exports/metadata only | 0 | preferred parent module for information-theoretic leaves |
-| `AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean` | Mathlib-ready technical lemma | ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges | `gibbsDensityENNReal`, `gibbsDensityENNReal_pos`, `gibbsDensityENNReal_lt_top`, `measurable_gibbsDensityENNReal`, `aemeasurable_gibbsDensityENNReal`, `lintegral_gibbsDensityENNReal_ne_zero`, `lintegral_gibbsDensityENNReal_ne_top_of_ae_le`, `gibbsDensityENNReal_le_of_potential_ge`, ... | 10 | preferred Mathlib-style location for Chewi Gibbs target-measure wrappers |
+| `AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean` | Mathlib-ready technical lemma | ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges | `gibbsDensityENNReal`, `gibbsDensityENNReal_pos`, `gibbsDensityENNReal_lt_top`, `measurable_gibbsDensityENNReal`, `aemeasurable_gibbsDensityENNReal`, `lintegral_gibbsDensityENNReal_ne_zero`, `lintegral_gibbsDensityENNReal_ne_top_of_ae_le`, `gibbsDensityENNReal_le_of_potential_ge`, ... | 10 | preferred Mathlib-style location for Gibbs target-measure wrappers |
 | `AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean` | Mathlib-ready technical lemma | withDensity mass, reciprocal-lintegral normalization, finite-pi product density decomposition, measurable-equivalence density transport, absolute-continuity, and RN reconstruction wrappers | `lintegral_fin_nat_prod_eq_prod`, `lintegral_fintype_prod_eq_prod`, `pi_withDensity_prod`, `withDensity_univ_eq_lintegral`, `isProbabilityMeasure_withDensity_of_lintegral_eq_one`, `isFiniteMeasure_withDensity_of_lintegral_ne_top`, `lintegral_inv_lintegral_mul_eq_one`, `isProbabilityMeasure_withDensity_normalized_lintegral`, ... | 8 | preferred Mathlib-style location for density normalization and RN derivative leaves |
 | `AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel` | `AutoSamplingTheory/TechnicalLemmas/Probability/ConditionalKernel.lean` | Mathlib-ready technical lemma | condDistrib/condExpKernel bridges and conditional-integral regularity leaves | `condDistribIntegralNamedFieldIntegral`, `condDistribAeEqCondExpKernelMap`, `condDistribIntegralAEStronglyMeasurable`, `condDistribIntegralIntegrable`, `condDistribIntegralMapAEStronglyMeasurable`, `condDistribIntegralMapIntegrable`, `condDistribIntegralMapIntegral`, `condDistribIntegralNamedFieldRegularity`, ... | 2 | preferred Mathlib-style location for conditional-kernel leaves |
 | `AutoSamplingTheory.TechnicalLemmas.Probability.LawMap` | `AutoSamplingTheory/TechnicalLemmas/Probability/LawMap.lean` | Mathlib-ready technical lemma | pushforward law, weak-test integral, and dominated derivative transport leaves | `lawIntegralHasDerivAtOfMeasureMapEqAndDominated`, `lawIntegralHasDerivAtOfMeasureMapEqAndSample`, `lawMapEqOfAEEq`, `lawMapIntegral`, `lawMapIntegralHasDerivAtOfDominated`, `lawMapIntegralHasDerivAtOfSample`, `lawMapProdEqOfAEEq`, `lawMapProdFst`, ... | 2 | preferred Mathlib-style location for law-map leaves |
@@ -160,13 +160,39 @@ a row, but the callable proof is the ASTIS-owned declaration listed here.
 | `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `analysis.integrability.of-real-lintegral-finite` | `lintegral_ofReal_ne_top_of_integrable_nonneg` | Mathlib.MeasureTheory.Function.L1Space.Integrable |
 | `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `analysis.integrability.gaussian-quadratic-tail` | `integrable_exp_neg_mul_norm_sq` | Mathlib.Analysis.SpecialFunctions.Gaussian.FourierTransform |
 | `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `analysis.integrability.shifted-gaussian-quadratic-tail` | `integrable_exp_neg_add_mul_norm_sq` | AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability |
+| `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `analysis.integrability.gaussian-quadratic-tail-normalizer` | `lintegral_exp_neg_mul_norm_sq_eq` | Mathlib.Analysis.SpecialFunctions.Gaussian.FourierTransform; Mathlib.MeasureTheory.Integral.Bochner.Basic |
+| `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `analysis.integrability.shifted-gaussian-quadratic-tail-normalizer` | `lintegral_exp_neg_add_mul_norm_sq_eq` | AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability |
+| `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `measure.gibbs-density.explicit-quadratic-normalized-probability` | `isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sq` | AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs |
 | `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `measure.gibbs-density.integral-finite-quadratic-lower-bound` | `lintegral_gibbsDensityENNReal_ne_top_of_ae_quadratic_lower_bound` | AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs |
 | `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability` | `measure.gibbs-density.normalized-probability-quadratic-lower-bound` | `isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_quadratic_lower_bound` | AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs |
 | `AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev` | `lsi.sqrt-density.fisher-chain` | `lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar` | Mathlib/SLT-inspired entropy and LSI proof shape |
 | `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.def` | `LogConcaveOn` | Mathlib.Analysis.Convex.Function; Mathlib.Analysis.Convex.SpecificFunctions.Basic |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.negative-log-potential-convex` | `convexOn_neg_log` | Mathlib.Analysis.Convex.Function |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.negative-log-potential-sublevel-convex` | `convex_sublevel_neg_log` | Mathlib.Analysis.Convex.Quasiconvex; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
 | `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.positive-ray-id` | `logConcaveOn_id_Ioi` | Mathlib.Analysis.Convex.SpecificFunctions.Basic |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.linear-precomposition` | `comp_linearMap` | Mathlib.Analysis.Convex.Function |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.affine-precomposition` | `comp_affineMap` | Mathlib.Analysis.Convex.Function |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.convex-superlevel` | `convex_superlevel` | Mathlib.Analysis.Convex.Quasiconvex; Mathlib.Analysis.SpecialFunctions.Log.Basic |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.quasiconcave` | `quasiconcaveOn` | Mathlib.Analysis.Convex.Quasiconvex; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.restrict-superlevel` | `restrict_superlevel` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
 | `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.positive-rescale` | `const_mul` | Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Log.Basic |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.pointwise-product` | `mul` | Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Log.Basic |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.nonnegative-rpow` | `rpow` | Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Pow.Real |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.log-concavity.product-domain-product` | `prod` | Mathlib.Analysis.Convex.Basic; Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Log.Basic |
 | `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.convex-potential` | `logConcaveOn_const_mul_exp_neg_of_convexOn` | Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Log.Basic |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.convexity.norm-square` | `convexOn_univ_norm_sq` | Mathlib.Analysis.Normed.Group.Basic; Mathlib.Analysis.Normed.MulAction; Mathlib.Algebra.Order.GroupWithZero.Unbundled.Basic |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.convexity.quadratic-norm-potential` | `convexOn_univ_const_mul_norm_sq_add` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.Convex.Function |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.quadratic-potential-logconcave` | `logConcaveOn_exp_neg_quadratic_norm` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.quadratic-positive-rescale-logconcave` | `logConcaveOn_const_mul_exp_neg_quadratic_norm` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.explicit-quadratic-normalized-logconcave` | `logConcaveOn_explicit_quadratic_normalized_density` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.SpecialFunctions.Pow.Real |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.convexity.shifted-quadratic-norm-potential` | `convexOn_univ_const_mul_norm_sub_sq_add` | Mathlib.Analysis.Convex.Function; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.shifted-quadratic-potential-logconcave` | `logConcaveOn_exp_neg_shifted_quadratic_norm` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.shifted-quadratic-positive-rescale-logconcave` | `logConcaveOn_const_mul_exp_neg_shifted_quadratic_norm` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.explicit-shifted-quadratic-normalized-logconcave` | `logConcaveOn_explicit_shifted_quadratic_normalized_density` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.SpecialFunctions.Pow.Real |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.convexity.pair-sub-quadratic-kernel-potential` | `convexOn_univ_const_mul_norm_fst_sub_snd_sq_add` | Mathlib.Analysis.Convex.Function; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.pair-sub-quadratic-kernel-logconcave` | `logConcaveOn_exp_neg_pair_sub_quadratic_norm` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.pair-sub-quadratic-kernel-positive-rescale-logconcave` | `logConcaveOn_const_mul_exp_neg_pair_sub_quadratic_norm` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity |
+| `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity` | `geometry.gibbs-density.explicit-pair-sub-quadratic-kernel-logconcave` | `logConcaveOn_explicit_pair_sub_quadratic_kernel` | AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.SpecialFunctions.Pow.Real |
 | `AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan` | `dv.scaled-test.energy-bound` | `dvVariationalScaledTestEnergyBound` | Boucheron-style cited result / future SLT entropy-duality port |
 | `AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity` | `kl-density.pointwise-derivative-simplify` | `klPointwiseDerivSimplify` | local Mathlib field_simp/ring proof |
 | `AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity` | `kl-density.remove-mass-term` | `klDerivativeRemoveMassTerm` | local Mathlib HasDerivAt congruence/simp proof |
@@ -254,7 +280,7 @@ memory, not local proof certificates.
 | Mathlib | `research-wiki/external-lean-libraries/mathlib.md` |
 | `YuanheZ/lean-stat-learning-theory` | `research-wiki/external-lean-libraries/lean-stat-learning-theory.md` |
 | `auto-res/lean-rademacher` | `research-wiki/external-lean-libraries/lean-rademacher.md` |
-| Chewisinho stochastic-process notes | `research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md` |
+| Log-concave sampling notes | `research-wiki/external-lean-libraries/log-concave-sampling-notes.md` |
 | `junwei-lu/Lean-Asymptotic-Statistical-Theory` | `research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md` |
 
 ## Agent Rule

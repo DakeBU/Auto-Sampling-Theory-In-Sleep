@@ -3,7 +3,7 @@
 - File: `AutoSamplingTheory/TechnicalLemmas/Geometry.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: parent import surface for convex-geometric and log-concavity leaves
-- Mathlib-quality status: preferred parent module for Chewi CONV/DENS roots
+- Mathlib-quality status: preferred parent module for CONV/DENS roots
 
 ## Imports
 

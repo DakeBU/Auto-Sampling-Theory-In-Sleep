@@ -4,7 +4,7 @@ This folder stores Mathlib-ready dependency graphs for reusable SDE/Sampling lea
 
 Key ledgers:
 
-- `Chewi_log_concave_sampling_foundation.md` is the active Chewi-led chapter/theorem DAG and shared-root taxonomy.
+- `log_concave_sampling_foundation.md` is the active log-concave sampling chapter/theorem DAG and shared-root taxonomy.
 - `SDE_Sampling_skill_tree.md` is the generic reusable proof-skill tree.
 - `SALD_weak_fp_leaf_dag.md` is a downstream consumer pressure-test DAG.
 

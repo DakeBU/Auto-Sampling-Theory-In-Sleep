@@ -10,7 +10,7 @@ declaration for it.
 | Reference | Card | Role |
 |---|---|---|
 | Mathlib | `mathlib.md` | primary local API and upstream target |
-| Chewi Log-Concave Sampling | `chewisinho-stochastic-processes.md` | primary roadmap for `ASTIS-CHEWI-001` |
+| Chewi Log-Concave Sampling | `log-concave-sampling-notes.md` | primary roadmap for `ASTIS-CHEWI-001` |
 | `YuanheZ/lean-stat-learning-theory` | `lean-stat-learning-theory.md` | probability/statistics porting style and reusable proof patterns |
 | `auto-res/lean-rademacher` | `lean-rademacher.md` | Rademacher and empirical-process reference patterns |
 | `junwei-lu/Lean-Asymptotic-Statistical-Theory` | `lean-asymptotic-statistical-theory.md` | hypothesis audit, dependency graph, Gaussian/Prekopa-style `ForMathlib` reference |

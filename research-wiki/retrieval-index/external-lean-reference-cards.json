@@ -1,10 +1,6 @@
 {
-  "generated": "2026-07-01 00:45:43",
+  "generated": "2026-07-02 02:55:25",
   "references": [
-    {
-      "id": "chewisinho-stochastic-processes",
-      "path": "research-wiki/external-lean-libraries/chewisinho-stochastic-processes.md"
-    },
     {
       "id": "lean-asymptotic-statistical-theory",
       "path": "research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md"
@@ -16,6 +12,10 @@
     {
       "id": "lean-stat-learning-theory",
       "path": "research-wiki/external-lean-libraries/lean-stat-learning-theory.md"
+    },
+    {
+      "id": "log-concave-sampling-notes",
+      "path": "research-wiki/external-lean-libraries/log-concave-sampling-notes.md"
     },
     {
       "id": "mathlib",
