@@ -2,13 +2,14 @@
 
 - File: `AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean`
 - Layer: Mathlib-ready technical lemma
-- Purpose: positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic and Gaussian-kernel log-concavity
-- Mathlib-quality status: compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces
+- Purpose: positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square, absolute-linear, and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic, Laplace, and Gaussian-kernel log-concavity
+- Mathlib-quality status: compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, one-dimensional Laplace geometry, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces
 
 ## Imports
 
 - `Mathlib.Analysis.Convex.SpecificFunctions.Basic`
 - `Mathlib.Analysis.Convex.Quasiconvex`
+- `Mathlib.Analysis.Normed.Module.Convex`
 - `Mathlib.Analysis.SpecialFunctions.Pow.Real`
 - `Mathlib.LinearAlgebra.FiniteDimensional.Defs`
 
@@ -35,6 +36,11 @@
 - `logConcaveOn_const`
 - `logConcaveOn_exp_neg_of_convexOn`
 - `logConcaveOn_const_mul_exp_neg_of_convexOn`
+- `convexOn_univ_abs`
+- `convexOn_univ_const_mul_abs_add`
+- `logConcaveOn_exp_neg_abs_linear`
+- `logConcaveOn_const_mul_exp_neg_abs_linear`
+- `logConcaveOn_explicit_abs_linear_normalized_density`
 - `convexOn_univ_norm_sq`
 - `convexOn_univ_const_mul_norm_sq_add`
 - `logConcaveOn_exp_neg_quadratic_norm`
@@ -66,6 +72,11 @@
 - `geometry.log-concavity.nonnegative-rpow` -> `rpow` (Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Pow.Real)
 - `geometry.log-concavity.product-domain-product` -> `prod` (Mathlib.Analysis.Convex.Basic; Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Log.Basic)
 - `geometry.gibbs-density.convex-potential` -> `logConcaveOn_const_mul_exp_neg_of_convexOn` (Mathlib.Analysis.Convex.Function; Mathlib.Analysis.SpecialFunctions.Log.Basic)
+- `geometry.convexity.absolute-value` -> `convexOn_univ_abs` (Mathlib.Analysis.Normed.Module.Convex)
+- `geometry.convexity.absolute-linear-potential` -> `convexOn_univ_const_mul_abs_add` (AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity)
+- `geometry.gibbs-density.absolute-linear-potential-logconcave` -> `logConcaveOn_exp_neg_abs_linear` (AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity)
+- `geometry.gibbs-density.absolute-linear-positive-rescale-logconcave` -> `logConcaveOn_const_mul_exp_neg_abs_linear` (AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity)
+- `geometry.gibbs-density.explicit-laplace-normalized-logconcave` -> `logConcaveOn_explicit_abs_linear_normalized_density` (AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity)
 - `geometry.convexity.norm-square` -> `convexOn_univ_norm_sq` (Mathlib.Analysis.Normed.Group.Basic; Mathlib.Analysis.Normed.MulAction; Mathlib.Algebra.Order.GroupWithZero.Unbundled.Basic)
 - `geometry.convexity.quadratic-norm-potential` -> `convexOn_univ_const_mul_norm_sq_add` (AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity; Mathlib.Analysis.Convex.Function)
 - `geometry.gibbs-density.quadratic-potential-logconcave` -> `logConcaveOn_exp_neg_quadratic_norm` (AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity)

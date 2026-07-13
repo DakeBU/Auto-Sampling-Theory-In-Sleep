@@ -559,9 +559,58 @@ def init_texts() -> dict[Path, str]:
         ),
         SAMPLING_LIBRARY_DIR / "README.md": (
             "# Sampling/SDE Lean Library\n\n"
-            "Public module and leaf-lemma atlas for the ASTIS-owned SDE/Sampling\n"
-            "arsenal.  Run `python3 tools/astis.py module-graph-refresh` to\n"
-            "regenerate the SVG graph, module ledger, cards, and retrieval index.\n"
+            "This directory is the atlas for the Lean leaves used to formalize\n"
+            "`Log-Concave Sampling`.  It is organized by reusable mathematical roots, not\n"
+            "by temporary proof attempts.  Chapter subtrees should point into these roots\n"
+            "and only create new leaves when no shared Mathlib-shaped fact exists.\n\n"
+            "## Navigation Graph\n\n"
+            "```mermaid\n"
+            "flowchart LR\n"
+            "  Readme[this atlas]:::node\n"
+            "  Roadmap[roadmap<br/>chapter to root map]:::node\n"
+            "  DAG[foundation DAG<br/>blue/red theorem tree]:::node\n"
+            "  Modules[module graph<br/>Lean owners]:::node\n"
+            "  Cards[cards<br/>one file per module]:::node\n"
+            "  Registry[registry<br/>compiled facts only]:::node\n\n"
+            "  Readme --> Roadmap --> DAG --> Modules --> Cards --> Registry\n\n"
+            "  classDef node fill:#e0f2fe,stroke:#0284c7,color:#0f172a,stroke-width:2px;\n"
+            "```\n\n"
+            "| Need | File |\n"
+            "|---|---|\n"
+            "| chapter-to-Lean roadmap | `roadmap/log_concave_sampling_to_lean_tree.md` |\n"
+            "| master theorem DAG | `../lemma-dags/log_concave_sampling_foundation.md` |\n"
+            "| generated Lean module graph | `lean-leaf-module-graph.md` |\n"
+            "| module cards | `cards/` |\n"
+            "| compiled declaration registry | `../../AutoSamplingTheory/TechnicalLemmas/Registry.lean` |\n\n"
+            "## Ch.1 Active Subtree\n\n"
+            "```mermaid\n"
+            "flowchart LR\n"
+            "  A[pointwise generator<br/>Lf = Delta f - grad V . grad f]:::blue\n"
+            "  B[weighted coordinate sum<br/>exp(-V)Lf]:::blue\n"
+            "  C[coordinateDivergence<br/>ASTIS convention]:::blue\n"
+            "  D[Mathlib fderiv<br/>summand bridge]:::blue\n"
+            "  AE[WithLp/Pi a.e.<br/>trace bridge]:::blue\n"
+            "  P[explicit Pi trace<br/>= exp(-V)Lf]:::blue\n"
+            "  R[scalar display ContinuousOn<br/>from components]:::blue\n"
+            "  Q[trace IntegrableOn<br/>under global C1/C2<br/>with canonical fderiv]:::blue\n"
+            "  T[trace-to-coordinate<br/>IntegrableOn transfer]:::blue\n"
+            "  E[box divergence theorem<br/>face terms]:::blue\n"
+            "  X[global C1/C2 components<br/>and Pi field fderiv]:::blue\n"
+            "  F[weighted IBP<br/>no boundary]:::red\n"
+            "  G[invariant Gibbs law]:::red\n\n"
+            "  A --> B --> C --> D --> AE --> T --> E --> F --> G\n"
+            "  D --> P --> Q --> T\n"
+            "  R --> Q\n"
+            "  X --> P\n"
+            "  X --> R\n"
+            "  X --> Q\n\n"
+            "  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;\n"
+            "  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;\n"
+            "```\n\n"
+            "Run `python3 tools/astis.py module-graph-refresh` to regenerate the SVG graph,\n"
+            "module ledger, cards, and retrieval index.  Blue status is reserved for\n"
+            "compiled ASTIS-owned declarations; external references and unproved analytic\n"
+            "backends stay red or orange.\n"
         ),
         EXTERNAL_LEAN_LIBRARY_DIR / "README.md": (
             "# External Lean And Textbook Reference Cards\n\n"
@@ -2360,7 +2409,7 @@ def chewi_shared_root_rows() -> list[dict[str, str]]:
             "label": "DENS",
             "root": "densities, RN derivative, KL/Renyi integrands",
             "module": "TechnicalLemmas/Geometry/LogConcavity.lean; Measure/{Gibbs,RadonNikodym}.lean; InformationTheory/*",
-            "role": "positive density APIs, density-to-potential extraction, log-concavity algebra/tensorization, level-set quasiconcavity/restriction, linear/affine precomposition, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs ENNReal density, finite-measure and exact quadratic Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra",
+            "role": "positive density APIs, density-to-potential extraction, log-concavity algebra/tensorization, level-set quasiconcavity/restriction, linear/affine precomposition, centered/shifted/two-point quadratic and one-dimensional Laplace Gibbs log-concavity, Gibbs ENNReal density, finite-measure, exact quadratic, and exact one-dimensional Laplace Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra",
             "status": "partial-compiled-local",
         },
         {
@@ -2442,8 +2491,8 @@ def chewi_chapter_rows() -> list[dict[str, str]]:
             "chapter": "1.4 Langevin as gradient flow",
             "shared": "DENS, FI, SDE, REG",
             "dag": "Gibbs density -> generator -> KL/FI dissipation -> WGF contract",
-            "first_leaf": "finite-measure bounded-below, finite-dimensional quadratic-Lebesgue Gibbs normalization, explicit centered/shifted quadratic normalized-density log-concavity, and negative-log potential extraction compiled; Langevin generator invariant Gibbs law contract remains",
-            "status": "quadratic-gibbs-envelope-compiled",
+            "first_leaf": "Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateau cutoffs, and radial pointwise exhaustion compiled; scaled cutoff derivatives and dominated whole-space IBP remain",
+            "status": "cutoff-exhaustion-base-compiled",
         },
         {
             "chapter": "2 functional inequalities",
@@ -2510,7 +2559,7 @@ def log_concave_chapter_map_rows() -> list[dict[str, str]]:
             "part": "Part I",
             "chapter": "1. Langevin diffusion in continuous time",
             "reader_summary": "The continuous-time backbone: stochastic calculus, Markov semigroups, optimal-transport geometry, Langevin dynamics, and convergence viewpoints.",
-            "lean_plan": "Build reusable interfaces for Gaussian increments, weak generators, semigroups, Gibbs invariant laws, KL/FI dissipation, and Wasserstein-gradient-flow contracts.",
+            "lean_plan": "Build Gaussian increments and generator algebra, then close the explicit cutoff -> tail -> weighted-IBP -> generator-domain -> invariant-Gibbs chain before KL/FI and Wasserstein-gradient-flow consumers.",
             "shared": "MEAS, GAUSS, DENS, FI, SDE, REG",
             "status": "partial-local-compiled",
         },
@@ -2632,15 +2681,15 @@ def chewi_open_leaf_rows() -> list[dict[str, str]]:
             "leaf": "gibbsDensity_withDensity_normalized",
             "label": "DENS/CONV",
             "target": "TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean",
-            "borrow": "compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic Lebesgue Gibbs normalizers from Mathlib Gaussian Fourier tails; next generalize beyond quadratic/coercive tails",
-            "status": "convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic Lebesgue normalizer, and normalized withDensity probability bridges compiled; nonquadratic coercivity envelopes remain",
+            "borrow": "compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic and one-dimensional Laplace normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic plus exact one-dimensional Laplace Lebesgue Gibbs normalizers; next generalize beyond finite-dimensional quadratic and one-dimensional Laplace tails",
+            "status": "convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic and one-dimensional Laplace Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic and exact one-dimensional Laplace Lebesgue normalizers, and normalized withDensity probability bridges compiled; general coercivity envelopes remain",
         },
         {
             "leaf": "langevinGenerator_invariant_gibbs_weak",
             "label": "SDE/DENS/FI",
             "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean",
-            "borrow": "ASTIS WeakGenerator/FokkerPlanckAlgebra plus Mathlib calculus/integration APIs",
-            "status": "source-contract",
+            "borrow": "compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, and the radial compact-support pointwise-exhaustion family ported from the audited SLT pattern; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces",
+            "status": "generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, and radial compact-support pointwise exhaustion are compiled; scaled first/Hessian/Laplacian cutoff bounds, domination and Gibbs tails, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red",
         },
         {
             "leaf": "lsi_tensorization_or_preservation_contract",
@@ -2695,7 +2744,7 @@ def chewi_open_leaf_rows() -> list[dict[str, str]]:
             "leaf": "lmcInterpolation_weakGenerator",
             "label": "DISC/SDE/KERN",
             "target": "SamplingAlgorithms/LangevinMonteCarlo.lean",
-            "borrow": "ASTIS LawMap/ConditionalKernel/WeakGenerator; SALD weak-FP as consumer pressure test",
+            "borrow": "ASTIS LawMap/ConditionalKernel/WeakGenerator; textbook LMC interpolation as the consumer route",
             "status": "planned-generalization",
         },
         {
@@ -2727,7 +2776,7 @@ def chewi_api_audit_rows() -> list[dict[str, str]]:
             "area": "density/RN/withDensity",
             "mathlib": "`Probability/Density.lean`, `Measure/Decomposition/*`, `withDensity`, `rnDeriv`",
             "external": "`RnDerivSqrt.lean`, `HellingerProduct.lean`, `L2.lean`",
-            "gap": "Gibbs nonzero, finite-by-envelope, finite-measure bounded-below, and exact quadratic Lebesgue normalization contracts are compiled; need general nonquadratic coercivity/growth leaves proving tail-integrable envelopes.",
+            "gap": "Gibbs nonzero, finite-by-envelope, finite-measure bounded-below, exact quadratic Lebesgue, and exact one-dimensional Laplace normalization contracts are compiled; need general coercivity/growth leaves proving tail-integrable envelopes.",
         },
         {
             "area": "Gaussian/product Gaussian",
@@ -2756,7 +2805,7 @@ def chewi_api_audit_rows() -> list[dict[str, str]]:
         {
             "area": "algorithms",
             "mathlib": "kernel/measure infrastructure; search per algorithm before local coding",
-            "external": "SALD weak-FP as pressure test, AST Gaussian/conditional references",
+            "external": "AST Gaussian/conditional references and textbook algorithm proof routes",
             "gap": "LMC/HMC/MALA/proximal trees should be consumers until shared roots compile.",
         },
     ]
@@ -2777,7 +2826,7 @@ def chewi_foundation_mmd_text() -> str:
   SDE[SDE semigroup generator Langevin weak-FP]
   PATH[PATH Girsanov Doob Follmer bridge]
   DISC[DISC LMC HMC MALA proximal]
-  Consumers[SALD RMFLD future papers]
+  Consumers[textbook theorem and algorithm consumers]
 
   Source --> MEAS
   Source --> CONV
@@ -2904,7 +2953,7 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
             "node": "Geometry.LogConcavity",
             "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
             "status": "compiled-blue",
-            "role": "positive log-concavity, norm-square convexity, and convex-potential Gibbs shape",
+            "role": "positive log-concavity, norm-square and absolute-value convexity, and convex-potential Gibbs shape",
         },
         {
             "family": "DENS/CONV",
@@ -2928,6 +2977,41 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
             "role": "positive log-concave functions are quasiconcave; convex superlevel restrictions remain log-concave",
         },
         {
+            "family": "GEOM/GAUSS/SDE",
+            "node": "EuclideanSpace coordinate inner products",
+            "target": "TechnicalLemmas/Geometry/EuclideanSpaceCoordinates.lean",
+            "status": "compiled-blue",
+            "role": "finite-dimensional coordinate formulas for `inner ℝ u v`, including direct `EuclideanSpace` vectors and `WithLp.toLp 2` coordinate functions",
+        },
+        {
+            "family": "ANALYSIS/SDE",
+            "node": "Laplacian standard-basis formula",
+            "target": "TechnicalLemmas/Analysis/Calculus/Laplacian.lean",
+            "status": "compiled-blue",
+            "role": "Mathlib `Laplacian.laplacian` equals the finite standard-orthonormal-basis second-derivative sum; no IBP or invariant-law proof",
+        },
+        {
+            "family": "ANALYSIS/SDE",
+            "node": "Gradient coordinate-unit line derivative",
+            "target": "TechnicalLemmas/Analysis/Calculus/Gradient.lean",
+            "status": "compiled-blue",
+            "role": "a supplied Mathlib gradient gives the coordinate-unit line derivative equal to the corresponding gradient coordinate; no divergence or IBP proof",
+        },
+        {
+            "family": "ANALYSIS/SDE",
+            "node": "Gibbs-weight gradient chain rule",
+            "target": "TechnicalLemmas/Analysis/Calculus/Gradient.lean",
+            "status": "compiled-blue",
+            "role": "a supplied `HasGradientAt V gradV x` or `DifferentiableAt ℝ V x` gives Mathlib `gradient (exp(-V))` and coordinate chain-rule displays; no weighted divergence, coordinate product-rule, or IBP proof",
+        },
+        {
+            "family": "ANALYSIS/SDE",
+            "node": "Line-derivative product rule",
+            "target": "TechnicalLemmas/Analysis/Calculus/LineDeriv.lean",
+            "status": "compiled-blue",
+            "role": "Mathlib `HasDerivAt.mul` exposed as real-valued `HasLineDerivAt` and `lineDeriv` product rules, explicit coordinate `lineDeriv (exp(-V) * g)` leaves, and `fderiv`-to-`iteratedFDeriv` coordinate wiring; no divergence or IBP proof",
+        },
+        {
             "family": "DENS/CONV/SDE",
             "node": "Negative-log potential geometry",
             "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
@@ -2940,6 +3024,13 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
             "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
             "status": "compiled-blue",
             "role": "nonnegative quadratic norm potentials and explicit normalized quadratic Gibbs densities are log-concave",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Absolute-linear Laplace geometry",
+            "target": "TechnicalLemmas/Geometry/LogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "one-dimensional potentials `a|x|+b` and positive rescaled Laplace shapes are log-concave",
         },
         {
             "family": "DENS/CONV/GAUSS",
@@ -2970,11 +3061,32 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
             "role": "finite-product ENNReal Fubini and coordinatewise density-tilt decomposition",
         },
         {
+            "family": "MEAS/FI/SDE",
+            "node": "Measure.Product coordinate update",
+            "target": "TechnicalLemmas/Measure/Product.lean",
+            "status": "compiled-blue",
+            "role": "finite product-law coordinate replacement map, measure-preserving wrapper, Bochner integral rewrite, and a.e. slice integrability",
+        },
+        {
             "family": "DENS/CONV",
             "node": "Measure.Gibbs",
             "target": "TechnicalLemmas/Measure/Gibbs.lean",
             "status": "compiled-blue",
             "role": "Gibbs ENNReal density, measurability, envelope comparison, and normalization",
+        },
+        {
+            "family": "DENS/MEAS/SDE",
+            "node": "Gibbs withDensity Bochner integral rewrite",
+            "target": "TechnicalLemmas/Measure/GibbsIntegral.lean",
+            "status": "compiled-blue",
+            "role": "Bochner integrals under `Z⁻¹ exp(-V)` withDensity rewrite to density-weighted base-measure integrals",
+        },
+        {
+            "family": "DENS/CONV",
+            "node": "Normalized Gibbs real-density bridge",
+            "target": "TechnicalLemmas/Measure/GibbsLogConcavity.lean",
+            "status": "compiled-blue",
+            "role": "finite nonzero ENNReal normalizer plus convex or strongly convex potential gives a real-valued normalized Gibbs density shape that is log-concave",
         },
         {
             "family": "DENS/CONV",
@@ -2998,6 +3110,13 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
             "role": "finite-dimensional Lebesgue quadratic tails have exact ENNReal normalizers, and quadratic lower bounds give normalized Gibbs target laws",
         },
         {
+            "family": "DENS/CONV/ANALYSIS",
+            "node": "One-dimensional Laplace normalizer",
+            "target": "TechnicalLemmas/Analysis/Integrability.lean",
+            "status": "compiled-blue",
+            "role": "exact `∫ exp (-(a|x|+b)) = 2 exp(-b)/a`, exact ENNReal normalizer, and explicit normalized Laplace law on `ℝ`",
+        },
+        {
             "family": "DENS/CONV",
             "node": "InformationTheory.KLDensity/DV",
             "target": "TechnicalLemmas/InformationTheory/{KLDensity,DonskerVaradhan}.lean",
@@ -3016,7 +3135,7 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
             "node": "Concrete Gibbs envelope",
             "target": "TechnicalLemmas/Measure/Gibbs.lean or Analysis/Integrability.lean",
             "status": "todo-red",
-            "role": "general nonquadratic Lebesgue coercivity/growth assumptions supply a tail-integrable lower-potential envelope",
+            "role": "general nonquadratic Lebesgue coercivity/growth assumptions beyond finite-dimensional quadratic and one-dimensional Laplace envelopes",
         },
         {
             "family": "DENS/CONV",
@@ -3125,6 +3244,27 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
         },
         {
             "family": "SDE/PATH",
+            "node": "StochasticProcesses.Langevin",
+            "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean",
+            "status": "compiled-blue",
+            "role": "Finite Euclidean pointwise display and supplied-hypothesis Langevin algebra: basis/coordinate display for the formal expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs discharging only the Gibbs-weight gradient premise, pointwise coordinateDivergence display, finite-box signed face-term wrapper with explicit assumptions, 1D pointwise derivative, finite-coordinate aggregation, and EuclideanSpace inner-product notation wrappers; no box-integrability discharge, semigroup-generator, IBP, stationarity, or invariant-law proof",
+        },
+        {
+            "family": "ANALYSIS/SDE",
+            "node": "Reusable smooth cutoffs and plateaus",
+            "target": "TechnicalLemmas/Analysis/Calculus/{Cutoff,Divergence}.lean",
+            "status": "compiled-blue",
+            "role": "unit and radial smooth cutoffs, support/tsupport and compact-support bounds, pointwise exhaustion, compact-in-open plateau, and finite Pi-box plateau",
+        },
+        {
+            "family": "ANALYSIS/SDE",
+            "node": "Cutoff derivatives and dominated exhaustion",
+            "target": "TechnicalLemmas/Analysis/Calculus/Cutoff.lean then Langevin whole-space IBP",
+            "status": "todo-red",
+            "role": "scaled first/Hessian/Laplacian bounds, integrable domination, Gibbs-tail convergence, and whole-space passage",
+        },
+        {
+            "family": "SDE/PATH",
             "node": "StochasticProcesses.Girsanov finite cylinder",
             "target": "TechnicalLemmas/StochasticProcesses/Girsanov.lean",
             "status": "compiled-blue",
@@ -3132,8 +3272,8 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
         },
         {
             "family": "SDE/PATH",
-            "node": "MarkovSemigroup/Langevin/Ito",
-            "target": "TechnicalLemmas/StochasticProcesses/{MarkovSemigroup,Langevin,Ito}.lean",
+            "node": "Semigroup/Ito/invariant Gibbs law",
+            "target": "TechnicalLemmas/StochasticProcesses/{MarkovSemigroup,Ito}.lean plus stronger Langevin analytic leaves",
             "status": "todo-red",
             "role": "semigroup domains, invariant Gibbs law, Ito interfaces",
         },
@@ -3187,6 +3327,7 @@ def log_concave_lean_tree_status_mmd_text() -> str:
 
   MEAS --> LawMap[Probability.LawMap]
   MEAS --> CondKernel[Probability.ConditionalKernel]
+  MEAS --> PiUpdate[Measure.Product coordinate update]
   MEAS --> Transport[Measure.Transport]
 
   DENS --> LogConcavity[Geometry.LogConcavity]
@@ -3200,6 +3341,7 @@ def log_concave_lean_tree_status_mmd_text() -> str:
   DENS --> RN[Measure.RadonNikodym]
   DENS --> PiDensity[Measure.pi withDensity product]
   DENS --> Gibbs[Measure.Gibbs]
+  DENS --> GibbsIntegral[Gibbs withDensity Bochner integral rewrite]
   DENS --> GibbsPotentialEnv[Potential lower-bound envelope]
   DENS --> GibbsFiniteEnv[Finite-measure Gibbs envelope]
   DENS --> GibbsQuadEnv[Quadratic Lebesgue Gibbs envelope]
@@ -3224,8 +3366,18 @@ def log_concave_lean_tree_status_mmd_text() -> str:
 
   SDE --> WeakGen[StochasticProcesses.WeakGenerator]
   SDE --> FP[StochasticProcesses.FokkerPlanckAlgebra]
+  SDE --> Langevin1D[StochasticProcesses.Langevin expression display/algebra]
+  SDE --> BoxDiv[Analysis.Calculus.Divergence box face-term wrapper]
+  SDE --> AEBridge[Analysis.Calculus.Divergence a.e. trace bridge]
+  SDE --> IntTransfer[Analysis.Calculus.Divergence trace-to-coordinate IntegrableOn]
+  SDE --> ExplicitTrace[StochasticProcesses.Langevin explicit trace display]
+  SDE --> DisplayContinuity[Scalar display ContinuousOn from components]
+  SDE --> TraceIntegrability[Trace IntegrableOn under global C1/C2]
+  SDE --> TestRegularity[Global C1/C2 components and Pi field fderiv]
+  SDE --> CutoffBase[Reusable smooth cutoffs and plateaus]
+  SDE --> CutoffLimit[Cutoff derivatives and dominated exhaustion]
   SDE --> GirsanovFinite[StochasticProcesses.Girsanov finite cylinder]
-  SDE --> Langevin[MarkovSemigroup/Langevin/Ito]
+  SDE --> Langevin[Semigroup/Ito/invariant Gibbs law]
   SDE --> Path[Girsanov/Doob/Follmer]
 
   DISC --> LMC[LMC interpolation]
@@ -3236,8 +3388,8 @@ def log_concave_lean_tree_status_mmd_text() -> str:
   classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
   class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
-  class LawMap,CondKernel,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
-  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,Langevin,Path,LMC,HMC,MALA todo;
+  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,GirsanovFinite compiled;
+  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,CutoffLimit,Langevin,Path,LMC,HMC,MALA todo;
 """
 
 
@@ -3286,6 +3438,7 @@ def log_concave_lean_tree_status_svg() -> str:
         ("MEAS/KERN", 30, [
             ("Probability.LawMap", "compiled", "compiled-blue"),
             ("Probability.ConditionalKernel", "compiled", "compiled-blue"),
+            ("Measure.Product", "compiled", "compiled-blue"),
             ("Measure.Transport", "todo", "todo-red"),
         ]),
         ("DENS/CONV", 275, [
@@ -3293,6 +3446,7 @@ def log_concave_lean_tree_status_svg() -> str:
             ("Measure.RadonNikodym", "compiled", "compiled-blue"),
             ("Pi withDensity", "compiled", "compiled-blue"),
             ("Measure.Gibbs", "compiled", "compiled-blue"),
+            ("Gibbs integral rewrite", "compiled", "compiled-blue"),
             ("Potential envelope", "compiled", "compiled-blue"),
             ("KLDensity / DV", "compiled", "compiled-blue"),
             ("Renyi density", "compiled", "compiled-blue"),
@@ -3318,8 +3472,11 @@ def log_concave_lean_tree_status_svg() -> str:
         ("SDE/PATH", 1010, [
             ("WeakGenerator", "compiled", "compiled-blue"),
             ("FokkerPlanck algebra", "compiled", "compiled-blue"),
+            ("Langevin expression/algebra", "compiled", "compiled-blue"),
+            ("Smooth cutoff/plateau base", "compiled", "compiled-blue"),
+            ("Cutoff derivatives/tails", "todo", "todo-red"),
             ("Finite Girsanov RN cylinder", "compiled", "compiled-blue"),
-            ("Semigroup/Langevin/Ito", "todo", "todo-red"),
+            ("Semigroup/Ito/invariant law", "todo", "todo-red"),
             ("Girsanov/Doob/Follmer", "todo", "todo-red"),
         ]),
         ("DISC", 1255, [
@@ -3335,18 +3492,18 @@ def log_concave_lean_tree_status_svg() -> str:
     edges = []
     family_boxes: dict[str, tuple[int, int, int, int]] = {}
     for family, x, children in columns:
-        family_box = (x, 150, 210, 54)
+        family_box = (x, 140, 210, 52)
         family_boxes[family] = family_box
         nodes.append(chewi_status_svg_node(slugify(family), *family_box, family, "shared root", "root"))
         edges.append(chewi_status_svg_edge(root, family_box))
         for i, (title, subtitle, status) in enumerate(children):
-            child_box = (x, 245 + 64 * i, 210, 50)
+            child_box = (x, 220 + 56 * i, 210, 46)
             nodes.append(chewi_status_svg_node(slugify(f"{family}-{title}"), *child_box, title, subtitle, status))
             edges.append(chewi_status_svg_edge(family_box, child_box))
     generated = html.escape(now_stamp())
-    legend_y = 760
+    legend_y = 810
     return f"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="1500" height="840" viewBox="0 0 1500 840" xmlns="http://www.w3.org/2000/svg">
+<svg width="1500" height="880" viewBox="0 0 1500 880" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <marker id="arrowStatus" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
     <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
@@ -3364,7 +3521,7 @@ def log_concave_lean_tree_status_svg() -> str:
 <text x="60" y="{legend_y + 13}" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#0f172a">compiled local ASTIS/Mathlib-ready leaf or module</text>
 <rect x="350" y="{legend_y}" width="22" height="16" fill="#fee2e2" stroke="#dc2626"/>
 <text x="380" y="{legend_y + 13}" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#450a0a">todo branch/leaf with explicit target module and reviewer contract</text>
-<text x="970" y="805" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py lemma-dag-refresh</text>
+<text x="970" y="855" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated {generated} by tools/astis.py lemma-dag-refresh</text>
 </svg>
 """
 
@@ -3631,10 +3788,10 @@ Primary source: `{CHEWI_LOG_CONCAVE_URL}`
 
 Local source: `{CHEWI_LOG_CONCAVE_PDF}`
 
-The Lean repository is organized as a reusable mathematical library, not as a
-line-by-line encoding of one proof.  Each textbook chapter is mapped to shared
-proof roots, and each root is built from small lemmas that can plausibly become
-Mathlib-style contributions.
+The repository is a faithful reconstruction of the textbook mathematics.  A
+textbook sentence is not stored as one monolithic Lean theorem: it is decomposed
+into reusable leaves, and the cited or implicit background steps are made
+explicit when Lean needs them.
 
 ## How To Read The Library
 
@@ -3652,37 +3809,132 @@ Main visual ledger:
 Rendered status tree:
 `{rel(LOG_CONCAVE_STATUS_SVG)}`
 
+## Visual Index
+
+```mermaid
+flowchart LR
+  PDF[textbook statement]:::source
+  Hidden[cited or implicit<br/>background fact]:::source
+  Root[shared root<br/>MEAS DENS CONV CALC SDE]:::root
+  Leaf[small Lean leaf<br/>blue/red]:::leaf
+  Module[owning Lean module]:::module
+  Chapter[chapter theorem<br/>consumer]:::consumer
+
+  PDF --> Hidden --> Root --> Leaf --> Module --> Chapter
+
+  classDef source fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+  classDef root fill:#e0f2fe,stroke:#0284c7,color:#0f172a,stroke-width:2px;
+  classDef leaf fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef module fill:#fef3c7,stroke:#d97706,color:#422006,stroke-width:2px;
+  classDef consumer fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:2px;
+```
+
 ## Chapter-By-Chapter Map
 
 {chapter_table}
 
+## Current Ch.1 Ladder
+
+```mermaid
+flowchart TD
+  A[generator display<br/>Lf = Delta f - gradV dot gradf]:::blue
+  B[weighted display<br/>exp(-V)Lf]:::blue
+  C[coordinate divergence<br/>and trace bridge]:::blue
+  D[global C1/C2 regularity<br/>gradient, Laplacian, Pi fderiv]:::blue
+  E[finite-box trace<br/>IntegrableOn]:::blue
+  F[finite-box face terms]:::blue
+  G[local and exact-support<br/>smooth cutoffs]:::blue
+  H[compact-in-open and Pi-box<br/>plateau = 1]:::blue
+  I[radial cutoff family<br/>compact support + tends to 1]:::blue
+  J[scaled cutoff derivatives<br/>O(R^-1), O(R^-2)]:::red
+  K[dominated tail<br/>and exhaustion passage]:::red
+  L[weighted whole-space IBP<br/>integral Lf d pi = 0]:::red
+  M[generator and semigroup<br/>domain contract]:::red
+  N[invariant Gibbs law]:::red
+  O[reversibility<br/>KL/FI dissipation]:::red
+
+  A --> B --> C --> E --> F --> K --> L --> N --> O
+  D --> B
+  D --> E
+  G --> F
+  G --> H --> J
+  I --> J --> K
+  M --> N
+
+  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
+```
+
+| Layer | Current blue result | Remaining red edge |
+| --- | --- | --- |
+| display algebra | pointwise generator, weighted display, coordinate sum conventions | none for finite-dimensional pointwise algebra |
+| regularity | global `C¹/C²` gives gradient continuity, Laplacian continuity, scalar `ContinuousOn`, and Pi-field `HasFDerivAt` with Mathlib `fderiv` | closed-box/local regularity variants if later needed |
+| finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | no whole-space limit yet |
+| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, and pointwise exhaustion | `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian bounds |
+| whole-space passage | finite-box zero-face cancellation | domination, tail convergence, and passage from cutoff identities to whole-space weighted IBP |
+| invariant law | source contract is identified | weighted IBP, generator domains, and semigroup semantics |
+
 ## Current Compiled Foundation
 
-- Positive log-concavity, products, powers, pullbacks, superlevel geometry, and
-  negative-log potential convexity live in
+- Positive log-concavity, products, powers, pullbacks, superlevel geometry,
+  absolute-linear Laplace geometry, and negative-log potential convexity live in
   `AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean`.
-- Gibbs density, finite-measure lower-bound envelopes, exact finite-dimensional
-  quadratic normalizers, and normalized withDensity probability bridges live in
-  `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean` and
+- Gibbs density, the ENNReal-to-real log-concavity bridge for finite nonzero
+  normalizers, finite-measure lower-bound envelopes, exact finite-dimensional
+  quadratic normalizers, exact one-dimensional Laplace normalizers, and
+  normalized withDensity probability bridges under those explicit envelope
+  hypotheses live in `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean` and
   `AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean`.
 - Product Gaussian linear forms, moment-generating normalizers, Esscher shifts,
   finite-dimensional change of measure, and Euclidean `stdGaussian` bridges
   live in `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`.
 - KL/DV/Renyi algebra, LSI bookkeeping, weak generator, weak-FP algebra, and
   finite-dimensional Girsanov cylinders are compiled as reusable support.
+- `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean` contains
+  the reusable smooth unit cutoff, positive-scale radial family, closed-ball
+  support and topological-support bounds, compact support, pointwise convergence
+  to one, and a general compact-in-open smooth plateau theorem.  These results
+  do not yet provide scale-uniform first- or second-derivative bounds.
+- `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean`
+  contains the finite coordinate-divergence convention, Euclidean/Pi `WithLp`
+  trace bridge, open-box/off-countable to closed-box a.e. transfer,
+  trace-to-coordinate `IntegrableOn` transfer, and the finite-box signed
+  face-term wrapper with trace-integrability input.  It also specializes the
+  plateau theorem to an inner closed Pi-box inside a larger open Pi-box.  It
+  still does not prove derivative-controlled exhaustion, whole-space weighted
+  IBP, generator domains, invariant laws, reversibility, or KL/FI dissipation.
+- `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean`
+  contains Langevin-specific blue leaves: finite Euclidean basis/coordinate
+  displays of the formal expression `Delta f - <grad V, grad f>`, supplied
+  coordinate-to-Mathlib weighted-divergence handoffs, the `exp(-V)` handoffs
+  that discharge only the Gibbs-weight gradient premise, the one-dimensional
+  Gibbs-weighted generator pointwise identity, the multidimensional
+  inner-product supplied-hypothesis weighted-divergence algebra handoff,
+  finite-coordinate aggregation handoff, the explicit Pi trace display, and
+  the closed-box trace `IntegrableOn` handoff under global `C¹/C²` regularity
+  for the canonical Mathlib `fderiv` trace.  It also assembles the scalar
+  display `ContinuousOn` fact from global `C¹/C²` and proves the explicit
+  Pi-field `HasFDerivAt` needed by the trace handoff.  It is not a
+  semigroup-generator, invariant-law, reversibility, integration-by-parts, or
+  semigroup-domain theorem.
 
 ## Immediate Library Boundary
 
-The next high-value roots are:
+The next high-value roots, ordered by the active textbook dependency, are:
 
-1. `CONV/MEAS`: finite-dimensional Prekopa-Leindler and Brunn-Minkowski
+1. `REG/CALC/SDE`: `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian
+   estimates for the compiled radial cutoff family.
+2. `MEAS/CALC/SDE`: domination and Gibbs-tail lemmas that pass finite-box or
+   compact-support identities to the whole-space weighted IBP identity.
+3. `SDE/DENS/FI`: generator-domain and semigroup contracts that turn weighted
+   IBP into the invariant Gibbs law and then KL/FI dissipation.
+4. `CONV/MEAS`: finite-dimensional Prekopa-Leindler and Brunn-Minkowski
    interfaces, using `Lean-Asymptotic-Statistical-Theory/ForMathlib` as a
    reference but porting only small local leaves.
-2. `DENS/CONV`: nonquadratic coercive Gibbs envelopes for Lebesgue targets.
-3. `SDE/DENS/FI`: invariant Gibbs law and KL/FI dissipation for Langevin.
-4. `PATH/GAUSS`: Brownian/path-space change of measure beyond finite
+5. `DENS/CONV`: nonquadratic coercive Gibbs envelopes for Lebesgue targets.
+6. `PATH/GAUSS`: Brownian/path-space change of measure beyond finite
    cylinders.
-5. `DISC`: LMC/MALA/HMC/proximal samplers only after the above roots are local.
+7. `DISC`: LMC/MALA/HMC/proximal samplers only after the above roots are local.
 
 ## Rigor Contract
 
@@ -3699,7 +3951,7 @@ def chewi_agent_execution_pack_text() -> str:
     role_rows = [
         {
             "role": "upper_director",
-            "job": "Choose the one chapter/root/leaf that gives the most reusable progress; reject SALD-style wrapper churn.",
+            "job": "Choose the one chapter/root/leaf that gives the most reusable progress; reject wrapper churn that does not serve the textbook tree.",
             "output": "One cycle packet with source anchor, shared roots, lower split, and reviewer gate.",
         },
         {
@@ -3769,8 +4021,7 @@ Generated: `{now_stamp()}`
 
 This pack is the control-console entry point for running the hierarchical
 multi-agent system on the log-concave sampling foundation.  The run must keep
-the textbook as the source roadmap, Mathlib-ready reusable leaves as the output, and SALD/RMFLD as
-downstream consumers only.
+the textbook as the source roadmap and Mathlib-ready reusable leaves as the output.
 
 ## One-Command Launch
 
@@ -3843,7 +4094,7 @@ under `runs/<cycle>/agent-logs/` and the global trial ledger under
 
 | Cycle | Objective | Reason |
 |---|---|---|
-| 1 | Chapter map plus shared-root lock | Prevent the system from drifting back to paper-specific SALD wrappers. |
+| 1 | Chapter map plus shared-root lock | Prevent the system from drifting into wrappers that do not close textbook leaves. |
 | 2 | `CONV/MEAS` Prekopa-Leindler audit and smallest port candidate | This is the missing preservation root for functional inequalities. |
 | 3 | `DENS/CONV` nonquadratic coercive Gibbs envelope | This connects textbook target densities to normalized probability laws beyond quadratic examples. |
 
@@ -3904,7 +4155,7 @@ Local source: `{CHEWI_LOG_CONCAVE_PDF}`
 This is the master visualization ledger for `ASTIS-CHEWI-001`.  The goal is
 to avoid one oversized graph: every chapter or major theorem should point
 to shared root nodes and then have its own smaller subtree.  Shared labels make
-common Lean leaves reusable across chapters, SALD, RMFLD, and future papers.
+common Lean leaves reusable across chapters and later theorem subtrees.
 
 ## Global Spine
 
@@ -3946,7 +4197,15 @@ flowchart TD
   TAY[Taylor/Ito local error]
   SEM[Markov semigroup operator]
   GEN[generator-domain contract]
-  INV[invariant Gibbs law]
+  GENALG[Gibbs-weight generator algebra]:::blue
+  BOX[finite-box divergence<br/>and zero-face handoffs]:::blue
+  LOCAL[local/exact-support<br/>cutoff leaves]:::blue
+  PLATEAU[compact-in-open and Pi-box<br/>plateau cutoffs]:::blue
+  RADIAL[radial cutoff family<br/>compact support + pointwise limit]:::blue
+  DERIV[scaled cutoff derivative bounds]:::red
+  TAIL[dominated cutoff/tail passage]:::red
+  IBP[whole-space weighted IBP]:::red
+  INV[invariant Gibbs law]:::red
   KL[KL/FI dissipation]
   W2[Wasserstein gradient-flow contract]
   REG[REG hidden regularity]
@@ -3957,10 +4216,24 @@ flowchart TD
   C1 --> WGF
   SC --> GAUSS --> TAY
   MS --> SEM --> GEN
+  GEN --> GENALG --> BOX --> IBP --> INV
+  LOCAL --> BOX
+  LOCAL --> PLATEAU
+  PLATEAU --> BOX
+  PLATEAU --> DERIV
+  RADIAL --> DERIV --> TAIL --> IBP
   WGF --> INV --> KL --> W2
   REG -.-> TAY
   REG -.-> GEN
+  REG -.-> GENALG
+  REG -.-> BOX
+  REG -.-> DERIV
+  REG -.-> TAIL
+  REG -.-> IBP
   REG -.-> INV
+
+  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
 ```
 
 ## Chapter 2 Functional-Inequality Subtree
@@ -4220,6 +4493,21 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "summary": "ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges",
         "status": "preferred Mathlib-style location for Gibbs target-measure wrappers",
     },
+    "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Bochner integral rewrites for Gibbs withDensity measures, turning `Z⁻¹ * gibbsDensityENNReal V` integrals into real `Z.toReal⁻¹ * exp(-V)` weighted base-measure integrals",
+        "status": "preferred bridge from Gibbs target-measure wrappers to weak-generator, invariant-law, and KL/FI test-function algebra; does not prove normalization",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "finite nonzero ENNReal normalizer bridge from normalized Gibbs densities to real-valued LogConcaveOn shapes for convex and strongly convex potentials",
+        "status": "preferred bridge between measure-facing Gibbs density wrappers and real-valued log-concavity geometry; does not prove normalizer finiteness",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Measure.Product": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "finite product-measure coordinate replacement map, measure-preserving wrapper, Bochner integral rewrite, and a.e. slice integrability for `Function.update` coordinate refreshes",
+        "status": "preferred Mathlib-style location for product-measure coordinate update and slice/Fubini leaves; does not prove kernels, entropy, LSI, or invariance",
+    },
     "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym": {
         "layer": "Mathlib-ready technical lemma",
         "summary": "withDensity mass, reciprocal-lintegral normalization, finite-pi product density decomposition, measurable-equivalence density transport, absolute-continuity, and RN reconstruction wrappers",
@@ -4255,10 +4543,20 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "summary": "parent import surface for convex-geometric and log-concavity leaves",
         "status": "preferred parent module for CONV/DENS roots",
     },
+    "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "finite-dimensional EuclideanSpace coordinate bridges, including inner-product coordinate-sum identities for direct vectors and `WithLp.toLp 2` coordinate functions",
+        "status": "preferred shared GEOM/GAUSS/SDE notation bridge; does not define gradients, divergence, Laplacian, or analytic regularity",
+    },
     "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic and Gaussian-kernel log-concavity",
-        "status": "compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces",
+        "summary": "positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square, absolute-linear, and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic, Laplace, and Gaussian-kernel log-concavity",
+        "status": "compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, one-dimensional Laplace geometry, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "strong-convexity to convex-potential/log-concave Gibbs-shape bridges and the midpoint `k/4` centered quadratic lower envelope from a supplied global minimizer",
+        "status": "compiled CONV/DENS bridge; sharp `k/2` first-order envelope and minimizer-existence theory remain separate red branches",
     },
     "AutoSamplingTheory.TechnicalLemmas.Taylor": {
         "layer": "compatibility source",
@@ -4272,8 +4570,33 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "parent import surface for calculus leaves used by SDE/Sampling proofs",
-        "status": "preferred parent module for Taylor and Hessian leaves",
+        "summary": "parent import surface for smooth cutoffs, gradient, line-derivative, Laplacian, Taylor/Hessian, pointwise coordinate-divergence, WithLp/Pi a.e. trace bridge, trace-to-coordinate `IntegrableOn` transfer, and finite-box face-term wrapper leaves used by SDE/Sampling proofs",
+        "status": "preferred parent module for calculus leaves before explicit trace-integrability, IBP, and domain contracts",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "smooth unit and radial cutoffs, range bounds, plain/topological support control, compact support, pointwise exhaustion, and a generic compact-in-open smooth plateau theorem",
+        "status": "compiled ANALYSIS/REG/SDE base; scaled first/Hessian/Laplacian estimates and dominated tail passage remain separate red leaves",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "Mathlib gradient bridges for Langevin calculus: Gibbs-weight chain rule `∇ exp(-V) = -exp(-V) • ∇V` from `HasGradientAt` or `DifferentiableAt`, coordinate displays, finite-dimensional coordinate-unit line derivatives, and pointwise `fderiv`-to-`gradient` inner-product/coordinate bridges",
+        "status": "preferred ANALYSIS/SDE bridge from Mathlib gradient API to finite-coordinate Langevin algebra; pointwise only, with no divergence, IBP, or invariant-law claims",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "finite-dimensional pointwise coordinate-divergence convention `sum_i lineDeriv F_i x e_i`, `HasFDerivAt` expansion to `sum_i F' e_i i`, `DifferentiableAt` bridge to the default Mathlib `fderiv` summand, WithLp/Pi pointwise and a.e. trace bridges, open-box/countable a.e. transfer, trace-to-coordinate `IntegrableOn` transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization",
+        "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation; no derivative-controlled exhaustion, whole-space IBP, no-boundary limit, or invariant-law claim",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "line-derivative product-rule and second-derivative wiring bridges for finite-coordinate weighted-product calculations, including equality-form `lineDeriv`, explicit `exp(-V) * g` coordinate leaves, and `fderiv`-to-`iteratedFDeriv` coordinate leaves",
+        "status": "preferred ANALYSIS/SDE bridge for the product-rule and Hessian-coordinate components before divergence, IBP, or invariant-law contracts",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "finite-dimensional real inner-product-space Laplacian coordinate bridges: Mathlib Laplacian equals the standard orthonormal-basis second-derivative sum, plus source-functional handoff",
+        "status": "preferred ANALYSIS/SDE bridge for Langevin generator displays; does not prove IBP, boundary decay, stationarity, or invariant laws",
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor": {
         "layer": "Mathlib-ready technical lemma",
@@ -4282,8 +4605,8 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, and quadratic lower-bound Gibbs normalization leaves",
-        "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves",
+        "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, exact one-dimensional Laplace normalizers, and quadratic/Laplace lower-bound Gibbs normalization leaves",
+        "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves; general coercive envelopes remain red",
     },
     "AutoSamplingTheory.TechnicalLemmas.InformationTheory": {
         "layer": "Mathlib-ready technical lemma",
@@ -4317,7 +4640,7 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "parent import surface for weak-generator, Fokker--Planck algebra, and finite-dimensional Girsanov cylinder leaves",
+        "summary": "parent import surface for weak-generator, Fokker--Planck algebra, Langevin generator, and finite-dimensional Girsanov cylinder leaves",
         "status": "preferred parent module for SDE/Sampling stochastic-process leaves",
     },
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator": {
@@ -4329,6 +4652,11 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
         "layer": "Mathlib-ready technical lemma",
         "summary": "Fokker--Planck split and Fisher/IBP scalar algebra leaves",
         "status": "preferred Mathlib-style location for weak FP and Fisher algebra handoffs",
+    },
+    "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin": {
+        "layer": "Mathlib-ready technical lemma",
+        "summary": "finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs that discharge only the Gibbs-weight gradient premise, coordinate-sum displays for `lineDeriv_i (exp(-V) * fderiv f eᵢ)` including the local `fderiv`-coordinate-to-`gradient` bridge under `DifferentiableAt f x`, named coordinateDivergence display for the explicit field, Gibbs-weighted one-dimensional derivative identity, multidimensional inner-product supplied-hypothesis weighted-divergence handoff, finite-coordinate aggregation, and EuclideanSpace inner-product notation wrappers",
+        "status": "preferred Mathlib-style location for finite Langevin expression-display/algebra leaves before a.e. divergence bridge discharge, IBP, invariant-law, Ito-generator, and semigroup-domain contracts",
     },
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov": {
         "layer": "Mathlib-ready technical lemma",
@@ -4668,10 +4996,19 @@ growth path is:
 
 - lock the shared-root taxonomy (`MEAS`, `KERN`, `DENS`, `GAUSS`, `CONV`,
   `FI`, `SDE`, `PATH`, `DISC`, `REG`);
-- extend from the compiled log-concavity density-to-potential extraction, level-set geometry, algebra, and centered/shifted/two-point quadratic Gibbs geometry
-  toward Prekopa-Leindler and nonquadratic coercive Gibbs envelopes;
+- first close the Ch.1 Langevin cutoff branch beyond the compiled local,
+  compact-in-open, Pi-box, and radial cutoff bases: prove scale-uniform
+  `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian estimates;
+- use those estimates to prove integrable domination and Gibbs-tail convergence,
+  then pass the compiled finite-box identities to whole-space weighted IBP;
+- add generator-domain and semigroup contracts only after weighted IBP is blue,
+  and do not state the invariant Gibbs law before both branches are available;
+- in parallel, extend from the compiled log-concavity density-to-potential
+  extraction, level-set geometry, algebra, and centered/shifted/two-point
+  quadratic Gibbs geometry toward Prekopa-Leindler and nonquadratic coercive
+  Gibbs envelopes;
 - generalize existing law-map, conditional-kernel, Gaussian, KL, weak-generator,
-  and LSI bookkeeping leaves away from SALD-specific naming;
+  and LSI bookkeeping leaves away from paper-specific naming;
 - add one subtree per chapter/theorem only when it reuses shared roots;
 - keep algorithm theorems as consumers until their root leaves compile locally.
 """
@@ -4696,18 +5033,28 @@ def arsenal_module_coords() -> dict[str, tuple[int, int, int, int]]:
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian": (730, 190, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor": (1060, 190, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity": (1390, 190, 330, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff": (70, 255, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence": (400, 255, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient": (730, 255, 300, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian": (1060, 255, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability": (1390, 255, 330, 56),
         "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity": (70, 320, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator": (400, 320, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra": (730, 320, 330, 56),
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan": (1060, 320, 300, 56),
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev": (1390, 320, 330, 56),
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates": (70, 390, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov": (400, 390, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin": (730, 390, 330, 54),
         "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym": (70, 455, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs": (400, 455, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral": (70, 520, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.Probability": (730, 455, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions": (1060, 455, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus": (1390, 455, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity": (400, 520, 300, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity": (730, 520, 330, 54),
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Product": (1060, 520, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi": (1390, 520, 330, 54),
         "AutoSamplingTheory.TechnicalLemmas.Geometry": (70, 580, 300, 54),
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses": (400, 580, 330, 54),
@@ -4826,16 +5173,36 @@ def arsenal_module_graph_svg(records: list[dict]) -> str:
         ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian", "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions"),
         ("AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym", "AutoSamplingTheory.TechnicalLemmas"),
         ("AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs", "AutoSamplingTheory.TechnicalLemmas"),
+        ("AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs", "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral"),
+        ("AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs", "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity"),
+        ("AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral", "AutoSamplingTheory.TechnicalLemmas.Measure"),
+        ("AutoSamplingTheory.TechnicalLemmas.Measure.Product", "AutoSamplingTheory.TechnicalLemmas.Measure"),
+        ("AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity", "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity"),
+        ("AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity", "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity"),
+        ("AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity", "AutoSamplingTheory.TechnicalLemmas.Measure"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian", "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus"),
+        ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus", "AutoSamplingTheory.TechnicalLemmas.Analysis"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability", "AutoSamplingTheory.TechnicalLemmas.Analysis"),
         ("AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability", "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs"),
         ("AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity", "AutoSamplingTheory.TechnicalLemmas.Geometry"),
+        ("AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity", "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity"),
+        ("AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity", "AutoSamplingTheory.TechnicalLemmas.Geometry"),
+        ("AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates", "AutoSamplingTheory.TechnicalLemmas.Geometry"),
+        ("AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin"),
         ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
         ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
         ("AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi", "AutoSamplingTheory.TechnicalLemmas.InformationTheory"),
         ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
         ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
+        ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
         ("AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"),
         ("AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities"),
         ("AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions", "AutoSamplingTheory.TechnicalLemmas"),
@@ -4903,6 +5270,9 @@ AutoSamplingTheory
     |-- Analysis/
     |   |-- Calculus.lean             parent for calculus leaves
     |   `-- Calculus/
+    |       |-- Divergence.lean       Mathlib-style pointwise coordinate-divergence bridge
+    |       |-- Gradient.lean         Mathlib-style gradient coordinate bridges
+    |       |-- Laplacian.lean        Mathlib-style Laplacian coordinate bridges
     |       `-- Taylor.lean           Mathlib-style Taylor/Hessian leaves
     |-- Probability.lean              parent for probability technical lemmas
     |-- Probability/
@@ -4913,14 +5283,20 @@ AutoSamplingTheory
     |   `-- Gaussian.lean             Mathlib-style Gaussian coordinate leaves
     |-- Measure/
     |   |-- Gibbs.lean                ENNReal Gibbs density and normalization bridge
+    |   |-- GibbsIntegral.lean        Gibbs withDensity Bochner integral rewrites
+    |   |-- GibbsLogConcavity.lean    normalized Gibbs real-density log-concavity bridge
+    |   |-- Product.lean              product-measure coordinate update and Fubini leaves
     |   `-- RadonNikodym.lean         withDensity, density transport, and RN normalization leaves
     |-- Geometry.lean                 parent for convex-geometric leaves
     |-- Geometry/
-    |   `-- LogConcavity.lean         positive log-concavity, negative-log potential, level-set, and centered/shifted/two-point quadratic Gibbs geometry leaves
+    |   |-- EuclideanSpaceCoordinates.lean finite-dimensional inner-product coordinate bridges
+    |   |-- LogConcavity.lean         positive log-concavity, negative-log potential, level-set, and centered/shifted/two-point quadratic Gibbs geometry leaves
+    |   `-- StrongConvexity.lean      strong-convexity to log-concavity and quadratic-envelope bridges
     |-- StochasticProcesses.lean      parent for SDE/weak-generator leaves
     |-- StochasticProcesses/
     |   |-- WeakGenerator.lean        sample-to-law weak-generator rewrites
     |   |-- FokkerPlanckAlgebra.lean  FP split and Fisher/IBP algebra leaves
+    |   |-- Langevin.lean             finite Langevin expression display and Gibbs-weighted algebra leaves
     |   `-- Girsanov.lean             finite-dimensional cylindrical change-of-measure leaves
     |-- InformationTheory.lean        parent for KL/DV/Renyi/entropy leaves
     |-- InformationTheory/
@@ -5002,8 +5378,8 @@ glance.
 
 ## Log-Concave Sampling Planned Extension
 
-`ASTIS-CHEWI-001` extends the library goal from SALD-specific backfill to a
-log-concave sampling foundation.  `Geometry.LogConcavity` now has
+`ASTIS-CHEWI-001` sets the library goal to a log-concave sampling foundation.
+`Geometry.LogConcavity` now has
 compiled core, density-to-potential extraction, level-set/restriction geometry, map-stability, tensorization algebra, and centered/shifted/two-point quadratic Gibbs geometry leaves; the
 remaining planned modules are not callable until they contain ASTIS-owned compiled declarations, but they define the
 intended scientific organization for new leaves:
@@ -5176,14 +5552,69 @@ leaf should be written so it can later be proposed upstream.
 - Public repository: {SLT_URL}
 - Paper: {SLT_ARXIV_URL}
 - Local checkout: `{SLT_ROOT}`
+- Current audited checkout: `216e578c9576bab6b0abc3ba6c65762536768e96`
+  on `main`.  The last commit itself is a README edit, but the updated local
+  checkout contains the current proof surface listed below.
+- Latest verification: `git fetch --prune origin` on 2026-07-13 left local
+  `HEAD` equal to `origin/main` at `216e578c9576bab6b0abc3ba6c65762536768e96`.
+  The checkout has only untracked `.lake/` cache files, not source edits.  A
+  full external `lake build` passed at this commit (8630 jobs).
 - Role: audited port/reference source for probability, Gaussian,
-  concentration, entropy duality, log-Sobolev/Poincare, and discretization
-  proof style.
+  concentration, entropy duality, log-Sobolev/Poincare, product-measure
+  slicing, matrix concentration, and discretization proof style.
 
 ASTIS keeps this project as audited port/reference memory rather than a Lake
 dependency because toolchains differ.  Useful theorems become callable only
 after they are copied as ASTIS-owned Lean declarations and pass the local build,
 or they remain recorded in the port queue.
+
+## Current Useful Surfaces
+
+| SLT file/family | ASTIS use |
+|---|---|
+| `SLT/EfronStein.lean` | coordinate replacement under product laws, especially `map_update_prod_pi` and integral rewrites for `Function.update` |
+| `SLT/GaussianLSI/SubAddEnt/Basic.lean` | product-coordinate slice integrability and AE nonnegativity patterns such as `integrable_update_slice` |
+| `SLT/GaussianLSI/SubAddEnt/Subadditivity.lean` | coordinate selection maps, tower properties, and entropy subadditivity staging |
+| `SLT/GaussianLSI/SubAddEnt/Decomposition.lean` | entropy telescoping/decomposition patterns for product laws |
+| `SLT/GaussianLSI/Entropy.lean` and `SLT/GaussianLSI/DualEntApp.lean` | entropy, Jensen, and Gibbs-duality proof patterns |
+| `SLT/GaussianMeasure.lean` | `stdGaussianPi`, coordinate laws, independence, linear MGFs, and Gaussian tail/mean identities |
+| `SLT/GaussianLSI/TensorizedGLSI.lean` | `partialDeriv`, `sliceFunction`, derivative of slices, and tensorized Gaussian LSI proof architecture |
+| `SLT/GaussianPoincare/*` | Rademacher/Efron-Stein/limit architecture for Gaussian Poincare |
+| `SLT/GaussianSobolevDense/Defs.lean` | radial smooth cutoff definitions: the support, compact-support, smoothness, range, and pointwise-exhaustion base has been ported as ASTIS-owned declarations in `Analysis/Calculus/Cutoff.lean` |
+| `SLT/GaussianSobolevDense/Cutoff.lean` | cutoff-gradient estimates and product-rule staging such as `smoothCutoffR_fderiv_bound`, `cutoff_product_rule`, and `tendsto_cutoff_W12`; next port target for scaled derivative bounds and dominated cutoff limits before IBP |
+| `SLT/GaussianPoincare/TaylorBound.lean` | compact-support derivative support/boundedness patterns: `deriv_hasCompactSupport`, `deriv2_hasCompactSupport`, `deriv_bounded_of_compactlySupported`; closest SLT staging pattern for no-boundary/IBP prerequisites |
+| `SLT/MeasureInfrastructure.lean` | Chernoff, layer-cake, Jensen, finite sup/union, and integrability proof patterns |
+| `SLT/HansonWright.lean`, `SLT/MatrixInfra/*`, `SLT/RMT/*`, `SLT/TDudley.lean` | later matrix concentration, empirical-process, and random-matrix proof patterns |
+
+Immediate port candidates for the log-concave sampling tree:
+
+- `Measure.pi` coordinate replacement: port an ASTIS-owned version of
+  `map_update_prod_pi` into a focused product-measure module.
+- coordinate slices: reuse the `partialDeriv`/`sliceFunction` pattern when
+  formalizing product/tensorization arguments and coordinate Langevin leaves.
+- Gaussian product law surface: mirror the `stdGaussianPi` and coordinate-law
+  interface when strengthening ASTIS Gaussian transition kernels and LMC noise.
+- entropy/Jensen surface: reuse the proof staging around `entropy_nonneg`,
+  conditional entropy, and subadditivity for FI/LSI chapters.
+- cutoff/no-boundary surface: the radial support/exhaustion base is now ported;
+  continue using `GaussianSobolevDense/Cutoff.lean` and
+  `GaussianPoincare/TaylorBound.lean` as proof-pattern memory for ASTIS-owned
+  derivative-support, scaled-gradient, Hessian/Laplacian, and dominated-limit
+  leaves.
+- Gaussian tensorization: use the LSI/Poincare files as proof architecture
+  references only; no theorem is callable until ported locally.
+
+Recommended migration order for ASTIS roots:
+
+1. `MEAS/KERN`: product update, Fubini, and slice-integrability facts.
+2. `GAUSS/MEAS`: product Gaussian law and coordinate/linear functional facts.
+3. `GAUSS/FI/DENS/REG`: coordinate derivative slicing and tensorized Gaussian
+   LSI proof architecture.
+4. `REG/CALC/SDE`: extend the compiled smooth-cutoff and compact-support base
+   with derivative-support, scaled-gradient, Hessian/Laplacian, and domination
+   facts needed before no-boundary IBP.
+5. `FI/DENS/MEAS`: entropy/Jensen and Gibbs-duality infrastructure.
+6. `FI/MEAS`: entropy chain rule and product subadditivity.
 """,
         EXTERNAL_LEAN_LIBRARY_DIR / "lean-rademacher.md": """# auto-res/lean-rademacher
 
@@ -5203,8 +5634,8 @@ must be ported into an ASTIS-owned module or recorded as a proof obligation.
   foundation program.
 
 The textbook is the organizing source for ASTIS's reusable Sampling/SDE Lean
-arsenal.  SALD and RMFLD should be treated as downstream consumers of this
-foundation, not as the reason for every local technical lemma.
+arsenal.  Local technical lemmas should be justified by the textbook tree or by
+background sources cited by that tree.
 
 ## Chapter-To-Lean Families
 
@@ -7939,6 +8370,12 @@ def recent_trial_rows(task_id: str, limit: int = 8) -> list[dict]:
             "status": record.get("status", ""),
             "lean_gate": record.get("lean_gate", ""),
             "artifact": record.get("artifact", ""),
+            "notes": record.get("notes", ""),
+            "next_route": (
+                record.get("verifier_feedback", {}).get("next_route", "")
+                if isinstance(record.get("verifier_feedback", {}), dict)
+                else ""
+            ),
         })
     return rows
 
@@ -7956,27 +8393,38 @@ def memory_snapshot_state(task_id: str, cycle: int, run_dir: Path) -> dict:
         tech_rows = technical_lemma_rows()
         open_sald = []
         open_tech = [row for row in tech_rows if row.get("lean_status") not in {"formalized-local", "formalized"}]
-    return {
-        "task_id": task_id,
-        "title": title,
-        "cycle": cycle,
-        "generated": now_stamp(),
-        "run_dir": rel(run_dir),
-        "mode": "faithfulPaper" if task_id == "ASTIS-SALD-001" else "exploratoryProof",
-        "stage": state.get("stage", ""),
-        "dynamic_leaf_queue": [
-            state.get("dynamic_leaf_candidate", ""),
-            state.get("illness_area_candidate", ""),
-        ],
-        "open_obligation_signals": [state.get("latest_blocker", "")],
-        "sald_contributions": sald_rows,
-        "open_sald_contribution_obligations": open_sald,
-        "technical_lemmas": tech_rows,
-        "open_external_technical_lemma_obligations": open_tech,
-        "recent_verifier_feedback": recent_verifier_feedback(task_id, limit=10),
-        "recent_trials": recent_trial_rows(task_id, limit=10),
-        "proof_status_counts": state.get("proof_status_counts", {}),
-        "next_lower_tasks": [
+    feedback_rows = recent_verifier_feedback(task_id, limit=10)
+    trial_rows = recent_trial_rows(task_id, limit=10)
+    latest_route = next(
+        (str(row.get("next_route", "")).strip() for row in feedback_rows
+         if str(row.get("next_route", "")).strip()),
+        "",
+    )
+    if not latest_route:
+        latest_route = next(
+            (str(row.get("notes", "")).strip() for row in trial_rows
+             if str(row.get("notes", "")).strip()),
+            "",
+        )
+    if task_id == "ASTIS-CHEWI-001":
+        route = latest_route or (
+            "Prove one scale-uniform derivative bound for the compiled radial "
+            "cutoff family before attempting dominated tails or whole-space IBP."
+        )
+        next_lower_tasks = [
+            {
+                "role": "lower-1-textbook-proof-scout",
+                "goal": f"Audit the natural-language proof and exact assumptions for this active route: {route}",
+                "must_write": "proof-attempts/<task>/...-textbook-dag.md or a dialogue handoff.",
+            },
+            {
+                "role": "lower-2-lean-implementation-worker",
+                "goal": f"Compile the smallest Mathlib-ready leaf on this route, or return one typed blocker: {route}",
+                "must_write": "Lean declaration plus typed verifier feedback fields.",
+            },
+        ]
+    else:
+        next_lower_tasks = [
             {
                 "role": "lower-1-natural-language-proof-scout",
                 "goal": "Translate the active SALD source-line leaf into a dependency DAG with exact technical lemma needs.",
@@ -7987,7 +8435,39 @@ def memory_snapshot_state(task_id: str, cycle: int, run_dir: Path) -> dict:
                 "goal": "Close one compiled Lean theorem or strictly narrow one source-cited Sampling/SDE boundary.",
                 "must_write": "Lean declaration plus typed verifier feedback fields.",
             },
-        ],
+        ]
+    dynamic_leaf_queue = [
+        str(state.get("dynamic_leaf_candidate", "")).strip(),
+        str(state.get("illness_area_candidate", "")).strip(),
+    ]
+    blocker = str(state.get("latest_blocker", "")).strip()
+    generic_signal = "No reviewer blocker recorded yet; use source index and proof-obligation ledger."
+    dynamic_leaf_queue = [item for item in dynamic_leaf_queue if item and item != generic_signal]
+    open_obligation_signals = [blocker] if blocker and blocker != generic_signal else []
+    if task_id == "ASTIS-CHEWI-001" and latest_route:
+        dynamic_leaf_queue = [latest_route, *dynamic_leaf_queue]
+        open_obligation_signals = [latest_route, *open_obligation_signals]
+    dynamic_leaf_queue = list(dict.fromkeys(dynamic_leaf_queue))
+    open_obligation_signals = list(dict.fromkeys(open_obligation_signals))
+    return {
+        "task_id": task_id,
+        "title": title,
+        "cycle": cycle,
+        "generated": now_stamp(),
+        "run_dir": rel(run_dir),
+        "mode": "faithfulPaper" if task_id in {"ASTIS-SALD-001", "ASTIS-CHEWI-001"} else "exploratoryProof",
+        "stage": state.get("stage", ""),
+        "dynamic_leaf_queue": dynamic_leaf_queue,
+        "open_obligation_signals": open_obligation_signals,
+        "latest_next_route": latest_route,
+        "sald_contributions": sald_rows,
+        "open_sald_contribution_obligations": open_sald,
+        "technical_lemmas": tech_rows,
+        "open_external_technical_lemma_obligations": open_tech,
+        "recent_verifier_feedback": feedback_rows,
+        "recent_trials": trial_rows,
+        "proof_status_counts": state.get("proof_status_counts", {}),
+        "next_lower_tasks": next_lower_tasks,
     }
 
 
@@ -8010,9 +8490,33 @@ def sald_plain_language_status_en() -> str:
     )
 
 
+def log_concave_plain_language_status_en() -> str:
+    return (
+        "The active textbook edge is Chapter 1, Example 1.2.8 to Corollary "
+        "1.2.9.  Generator algebra, finite-box cancellation, smooth plateau "
+        "cutoffs, and the radial compact-support pointwise-exhaustion base are "
+        "compiled locally.  Scale-uniform cutoff derivatives, dominated Gibbs "
+        "tails, whole-space weighted integration by parts, generator/semigroup "
+        "domains, and the invariant Gibbs law remain explicit red nodes."
+    )
+
+
+def task_plain_language_status_en(task_id: str) -> str:
+    if task_id == "ASTIS-SALD-001":
+        return sald_plain_language_status_en()
+    if task_id == "ASTIS-CHEWI-001":
+        return log_concave_plain_language_status_en()
+    return (
+        "This task is tracked as an exploratory proof program.  Keep theorem "
+        "boundaries explicit, use compiled local declarations as the only blue "
+        "facts, and record every missing cited result as a red obligation."
+    )
+
+
 def memory_digest_markdown(snapshot: dict) -> str:
     dynamic_text = "\n".join(f"- {item}" for item in snapshot.get("dynamic_leaf_queue", []) if item) or "- no dynamic leaf"
     obligation_text = "\n".join(f"- {item}" for item in snapshot.get("open_obligation_signals", []) if item) or "- no compact obligation"
+    task_id = str(snapshot.get("task_id", ""))
     return f"""# Memory Digest: {snapshot.get('task_id')} cycle {snapshot.get('cycle')}
 
 Generated: `{snapshot.get('generated')}`
@@ -8024,7 +8528,7 @@ should read this before replaying long logs.
 
 ## Plain-Language Status
 
-{sald_plain_language_status_en()}
+{task_plain_language_status_en(task_id)}
 
 ## Active Proof-DAG Leaves
 
@@ -8049,7 +8553,7 @@ should read this before replaying long logs.
 - Compressed Pro leaf targets:
   `research-wiki/lemma-dags/Pro_assimilated_leaf_targets.md`.
 
-## Open SALD Contribution Obligations
+## Open Paper Contribution Obligations
 
 {markdown_table(snapshot.get('open_sald_contribution_obligations', []), [
     ('id', 'id'),
@@ -8091,15 +8595,65 @@ should read this before replaying long logs.
 
 
 def todo_markdown(snapshot: dict) -> str:
+    task_id = str(snapshot.get("task_id", ""))
+    if task_id == "ASTIS-CHEWI-001":
+        active_route = str(snapshot.get("latest_next_route", "")).strip()
+        human_default = (
+            "Use the reviewer-recorded active route: " + active_route
+            if active_route else
+            "Prove the smallest scale-uniform derivative leaf for the compiled "
+            "radial cutoff family before attempting dominated tails, "
+            "whole-space weighted IBP, or invariant Gibbs claims."
+        )
+        lower_1 = (
+            "Write the natural-language proof route and exact typeclass/regularity "
+            "assumptions for the active cutoff-derivative leaf.  Name the Mathlib "
+            "APIs and audited SLT source pattern before lower 2 edits Lean."
+        )
+        lower_2 = (
+            "Implement the smallest scale-uniform cutoff derivative declaration "
+            "on the active route, or return one typed blocker.  Do not combine "
+            "it with dominated tails or whole-space IBP unless the first leaf "
+            "already compiles."
+        )
+    elif task_id == "ASTIS-SALD-001":
+        human_default = (
+            "Use the local strategy: port or prove only the smallest technical "
+            "lemma needed by the next SALD source-line leaf.  Do not build a "
+            "broad measure-theory library unless the same missing fact blocks "
+            "multiple leaves."
+        )
+        lower_1 = (
+            "Write the natural-language proof route for the first active SALD "
+            "contribution leaf.  Name exact source lines and the minimal "
+            "technical lemma needed."
+        )
+    else:
+        human_default = (
+            "Choose one narrow theorem boundary, prove one compiled local "
+            "declaration when possible, and otherwise record a precise red "
+            "source-cited obligation."
+        )
+        lower_1 = (
+            "Write the natural-language proof route for the active theorem "
+            "leaf, naming exact dependencies and missing assumptions."
+        )
+        lower_2 = (
+            "Implement one compiled Lean declaration or reduce the source-cited "
+            "boundary.  Log typed verifier feedback with `--feedback-field`."
+        )
+    if task_id == "ASTIS-SALD-001":
+        lower_2 = (
+            "Implement one compiled Lean declaration or reduce the source-cited "
+            "boundary.  Log typed verifier feedback with `--feedback-field`."
+        )
     return f"""# Next Todo Packet: {snapshot.get('task_id')} cycle {snapshot.get('cycle')}
 
 Generated: `{snapshot.get('generated')}`
 
 ## Human Default
 
-Use the local strategy: port or prove only the smallest technical lemma needed
-by the next SALD source-line leaf.  Do not build a broad measure-theory library
-unless the same missing fact blocks multiple leaves.
+{human_default}
 
 ## Mathlib-Ready Leaf Gate
 
@@ -8111,15 +8665,13 @@ proof-script rewrite.
 
 ## Lower 1
 
-Write the natural-language proof route for the first active SALD contribution
-leaf.  Name exact source lines and the minimal technical lemma needed.
+{lower_1}
 
 ## Lower 2
 
-Implement one compiled Lean declaration or reduce the source-cited boundary.
-Log typed verifier feedback with `--feedback-field`.
+{lower_2}
 
-## Open SALD Contribution Obligations
+## Open Paper Contribution Obligations
 
 {markdown_table(snapshot.get('open_sald_contribution_obligations', []), [
     ('id', 'id'),
@@ -8218,6 +8770,10 @@ def public_source_block_for_pro(task_id: str) -> str:
     if task_id == "ASTIS-SALD-001":
         return """- SALD/VA-SALD target paper, "Learning Distributional Diffusion Models with Training-Free Guided Generation": https://arxiv.org/abs/2605.07950
 - PDF: https://arxiv.org/pdf/2605.07950
+"""
+    if task_id == "ASTIS-CHEWI-001":
+        return """- Primary textbook target, "Log-Concave Sampling": https://chewisinho.github.io/main.pdf
+- ASTIS task mode: faithful reconstruction of the textbook route and the cited rigorous background results needed by that route.
 """
     if task_id == "ASTIS-RMFLD-001":
         return """- RMFLD is currently tracked as an exploratory local proof program.  ChatGPT Pro cannot access the local manuscript, so only use the theorem statements and status pasted below unless the user separately provides a public arXiv link.

@@ -1,6 +1,6 @@
 # Log-Concave Sampling To Lean Foundation Roadmap
 
-Generated: `2026-07-02 02:55:27`
+Generated: `2026-07-13 18:17:19`
 
 Reference PDF: `https://chewisinho.github.io/main.pdf`
 
@@ -21,7 +21,7 @@ assigning lower Lean work.  The matching visual ledger is
 | 1.1 stochastic calculus | Ito/quadratic-variation/Taylor local-error subtree | quadratic variation normalization and finite-dimensional Ito test identity | partial-local-compiled | reuse shared roots MEAS, GAUSS, REG; create a separate subtree when the theorem becomes active |
 | 1.2 Markov semigroups | semigroup -> generator-domain -> weak-test derivative subtree | semigroup test-function pairing under generator-domain hypotheses | planned | reuse shared roots MEAS, SDE, REG; create a separate subtree when the theorem becomes active |
 | 1.3 optimal transport geometry | couplings -> Wasserstein distance -> geodesic convexity subtree | law-map/coupling measurable pushforward interface | planned | reuse shared roots MEAS, CONV, REG; create a separate subtree when the theorem becomes active |
-| 1.4 Langevin as gradient flow | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | finite-measure bounded-below, finite-dimensional quadratic-Lebesgue Gibbs normalization, explicit centered/shifted quadratic normalized-density log-concavity, and negative-log potential extraction compiled; Langevin generator invariant Gibbs law contract remains | quadratic-gibbs-envelope-compiled | reuse shared roots DENS, FI, SDE, REG; create a separate subtree when the theorem becomes active |
+| 1.4 Langevin as gradient flow | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateau cutoffs, and radial pointwise exhaustion compiled; scaled cutoff derivatives and dominated whole-space IBP remain | cutoff-exhaustion-base-compiled | reuse shared roots DENS, FI, SDE, REG; create a separate subtree when the theorem becomes active |
 | 2 functional inequalities | PI/LSI/TI/isoperimetry plus preservation-operation subtrees | log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit | partial-local-compiled | reuse shared roots CONV, DENS, FI, REG; create a separate subtree when the theorem becomes active |
 | 3 stochastic analysis topics | Girsanov -> Doob transform -> Follmer drift -> Schrodinger bridge | finite-dimensional Gaussian Esscher density, stdGaussian inner-product form, cylindrical Girsanov integral, and RN/withDensity identity compiled; full Brownian path packaging remains | finite-girsanov-rn-cylinder-compiled | reuse shared roots PATH, DENS, SDE, REG; create a separate subtree when the theorem becomes active |
 | 4 Langevin Monte Carlo | coupling/interpolation/convex-optimization/Girsanov proof subtrees | LMC interpolation weak-test law derivative under domination; two-point Gaussian transition-kernel geometry compiled | partial-local-compiled | reuse shared roots MEAS, KERN, SDE, DENS, REG, DISC; create a separate subtree when the theorem becomes active |
@@ -50,9 +50,18 @@ growth path is:
 
 - lock the shared-root taxonomy (`MEAS`, `KERN`, `DENS`, `GAUSS`, `CONV`,
   `FI`, `SDE`, `PATH`, `DISC`, `REG`);
-- extend from the compiled log-concavity density-to-potential extraction, level-set geometry, algebra, and centered/shifted/two-point quadratic Gibbs geometry
-  toward Prekopa-Leindler and nonquadratic coercive Gibbs envelopes;
+- first close the Ch.1 Langevin cutoff branch beyond the compiled local,
+  compact-in-open, Pi-box, and radial cutoff bases: prove scale-uniform
+  `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian estimates;
+- use those estimates to prove integrable domination and Gibbs-tail convergence,
+  then pass the compiled finite-box identities to whole-space weighted IBP;
+- add generator-domain and semigroup contracts only after weighted IBP is blue,
+  and do not state the invariant Gibbs law before both branches are available;
+- in parallel, extend from the compiled log-concavity density-to-potential
+  extraction, level-set geometry, algebra, and centered/shifted/two-point
+  quadratic Gibbs geometry toward Prekopa-Leindler and nonquadratic coercive
+  Gibbs envelopes;
 - generalize existing law-map, conditional-kernel, Gaussian, KL, weak-generator,
-  and LSI bookkeeping leaves away from SALD-specific naming;
+  and LSI bookkeeping leaves away from paper-specific naming;
 - add one subtree per chapter/theorem only when it reuses shared roots;
 - keep algorithm theorems as consumers until their root leaves compile locally.

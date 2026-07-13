@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-02 02:55:24",
+  "generated": "2026-07-13 18:17:21",
   "ledger": "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
   "module_graph_svg": "docs/module-graph.svg",
   "modules": [
@@ -6856,6 +6856,458 @@
       "summary": "Ito diffusion, Fokker--Planck, Euler--Maruyama, discretization contracts"
     },
     {
+      "declarations": [
+        {
+          "kind": "def",
+          "name": "smoothUnitCutoff"
+        },
+        {
+          "kind": "theorem",
+          "name": "smoothUnitCutoff_eq_smoothTransition"
+        },
+        {
+          "kind": "theorem",
+          "name": "smoothUnitCutoff_contDiff"
+        },
+        {
+          "kind": "theorem",
+          "name": "smoothUnitCutoff_eq_one_of_abs_le_one"
+        },
+        {
+          "kind": "theorem",
+          "name": "smoothUnitCutoff_eq_zero_of_two_le_abs"
+        },
+        {
+          "kind": "theorem",
+          "name": "smoothUnitCutoff_mem_Icc"
+        },
+        {
+          "kind": "def",
+          "name": "radialSmoothCutoff"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_eq_one_of_norm_le"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_eq_zero_of_two_mul_le_norm"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_mem_Icc"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_contDiff"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_support_subset_closedBall"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_tsupport_subset_closedBall"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_hasCompactSupport"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_tendsto_one"
+        },
+        {
+          "kind": "theorem",
+          "name": "exists_contDiff_eq_one_tsupport_subset"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+      "status": "compiled ANALYSIS/REG/SDE base; scaled first/Hessian/Laplacian estimates and dominated tail passage remain separate red leaves",
+      "summary": "smooth unit and radial cutoffs, range bounds, plain/topological support control, compact support, pointwise exhaustion, and a generic compact-in-open smooth plateau theorem"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "def",
+          "name": "coordinateDivergence"
+        },
+        {
+          "kind": "theorem",
+          "name": "coordinateDivergence_eq_sum_lineDeriv"
+        },
+        {
+          "kind": "theorem",
+          "name": "coordinateDivergence_eq_sum_fderiv_apply_of_hasFDerivAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "coordinateDivergence_eq_sum_fderiv_apply_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "continuousLinearEquiv_apply_euclideanSpace_single"
+        },
+        {
+          "kind": "theorem",
+          "name": "coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "eventuallyEq_restrict_Icc_of_eqOn_univ_pi_Ioo_diff_countable"
+        },
+        {
+          "kind": "theorem",
+          "name": "coordinateDivergence_wrapped_toPi_trace_ae_of_ae_hasFDerivAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "coordinateDivergence_wrapped_toPi_trace_ae_of_hasFDerivAt_off_countable"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrableOn_coordinateDivergence_wrapped_of_integrableOn_trace_of_hasFDerivAt_off_countable"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_of_hasFDerivAt_off_countable"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_of_integrableOn_trace_of_hasFDerivAt_off_countable"
+        },
+        {
+          "kind": "theorem",
+          "name": "signedFaceTermSum_eq_zero_of_boundary_component_eq_zero"
+        },
+        {
+          "kind": "theorem",
+          "name": "signedFaceTermSum_eq_zero_of_update_boundary_component_eq_zero"
+        },
+        {
+          "kind": "theorem",
+          "name": "update_boundary_component_eq_zero_of_eq_zero_off_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "signedFaceTermSum_eq_zero_of_eq_zero_off_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "eq_zero_off_univ_pi_Ioo_of_support_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "exists_contDiff_cutoff_tsupport_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "support_subset_univ_pi_Ioo_of_tsupport_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "exists_contDiff_cutoff_support_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "exists_contDiff_support_eq_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "positive_on_univ_pi_Ioo_of_support_eq_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "Icc_subset_univ_pi_Ioo_of_strict_bounds"
+        },
+        {
+          "kind": "theorem",
+          "name": "exists_contDiff_cutoff_eq_one_on_Icc_tsupport_subset_outer_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "exists_contDiff_cutoff_support_subset_outer_univ_pi_Ioo_of_mem_Icc"
+        },
+        {
+          "kind": "theorem",
+          "name": "signedFaceTermSum_eq_zero_of_support_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "support_smul_subset_univ_pi_Ioo_of_eq_zero_off_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "support_smul_subset_univ_pi_Ioo_of_scalar_support_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "support_smul_subset_univ_pi_Ioo_of_scalar_tsupport_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "continuousOn_smul_vectorField_of_continuousOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasFDerivAt_smul_vectorField_of_hasFDerivAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasFDerivAt_smul_vectorField_off_countable"
+        },
+        {
+          "kind": "theorem",
+          "name": "continuousOn_smul_vectorField_trace_of_component_continuousOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "continuousOn_smul_vectorField_trace_of_components"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrableOn_smul_vectorField_trace_of_continuousOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "signedFaceTermSum_smul_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "signedFaceTermSum_smul_eq_zero_of_scalar_support_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "signedFaceTermSum_smul_eq_zero_of_scalar_tsupport_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_integrableOn_trace_of_hasFDerivAt_off_countable"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_boundary_component_eq_zero"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_update_boundary_component_eq_zero"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_eq_zero_off_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_support_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_tsupport_subset_univ_pi_Ioo"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_regularity"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_trace_continuous"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_component_continuous"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_regularity"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_fderiv"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_trace_continuous"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_component_continuous"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+        "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension",
+        "Mathlib.Analysis.Calculus.FDeriv.WithLp",
+        "Mathlib.Analysis.Normed.Operator.BoundedLinearMaps",
+        "Mathlib.MeasureTheory.Integral.DivergenceTheorem"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean",
+      "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation; no derivative-controlled exhaustion, whole-space IBP, no-boundary limit, or invariant-law claim",
+      "summary": "finite-dimensional pointwise coordinate-divergence convention `sum_i lineDeriv F_i x e_i`, `HasFDerivAt` expansion to `sum_i F' e_i i`, `DifferentiableAt` bridge to the default Mathlib `fderiv` summand, WithLp/Pi pointwise and a.e. trace bridges, open-box/countable a.e. transfer, trace-to-coordinate `IntegrableOn` transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "hasGradientAt_expNegPotential_of_hasGradientAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "gradient_expNegPotential_eq_of_hasGradientAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "gradient_expNegPotential_coordinate_eq_of_hasGradientAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "gradient_expNegPotential_eq_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "gradient_expNegPotential_coordinate_eq_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "continuous_gradient_of_contDiff_one"
+        },
+        {
+          "kind": "theorem",
+          "name": "fderiv_apply_eq_inner_of_hasGradientAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "fderiv_apply_eq_inner_gradient_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "fderiv_apply_coordinate_eq_gradient_coordinate_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasGradientAt_coordinateUnit_hasLineDerivAt"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+        "Mathlib.Analysis.Calculus.Gradient.Basic",
+        "Mathlib.Analysis.Calculus.LineDeriv.Basic",
+        "Mathlib.Analysis.SpecialFunctions.ExpDeriv"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Gradient.lean",
+      "status": "preferred ANALYSIS/SDE bridge from Mathlib gradient API to finite-coordinate Langevin algebra; pointwise only, with no divergence, IBP, or invariant-law claims",
+      "summary": "Mathlib gradient bridges for Langevin calculus: Gibbs-weight chain rule `∇ exp(-V) = -exp(-V) • ∇V` from `HasGradientAt` or `DifferentiableAt`, coordinate displays, finite-dimensional coordinate-unit line derivatives, and pointwise `fderiv`-to-`gradient` inner-product/coordinate bridges"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "laplacian_eq_sum_stdOrthonormalBasis"
+        },
+        {
+          "kind": "theorem",
+          "name": "laplacianFunctional_eq_of_stdOrthonormalBasis_sum"
+        },
+        {
+          "kind": "theorem",
+          "name": "continuous_laplacian_of_contDiff_two"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.Analysis.InnerProductSpace.Laplacian"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Laplacian.lean",
+      "status": "preferred ANALYSIS/SDE bridge for Langevin generator displays; does not prove IBP, boundary decay, stationarity, or invariant laws",
+      "summary": "finite-dimensional real inner-product-space Laplacian coordinate bridges: Mathlib Laplacian equals the standard orthonormal-basis second-derivative sum, plus source-functional handoff"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "hasLineDerivAt_mul"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasLineDerivAt_rho_mul"
+        },
+        {
+          "kind": "theorem",
+          "name": "lineDeriv_rho_mul_eq_of_hasLineDerivAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "lineDeriv_expNegPotential_mul_eq_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasLineDerivAt_fderiv_apply_const_of_hasFDerivAt_fderiv"
+        },
+        {
+          "kind": "theorem",
+          "name": "lineDeriv_fderiv_apply_const_eq_of_hasFDerivAt_fderiv"
+        },
+        {
+          "kind": "theorem",
+          "name": "lineDeriv_fderiv_apply_const_eq_iteratedFDeriv_two"
+        },
+        {
+          "kind": "theorem",
+          "name": "lineDeriv_fderiv_apply_coordinate_eq_iteratedFDeriv_two"
+        },
+        {
+          "kind": "theorem",
+          "name": "lineDeriv_expNegPotential_mul_fderiv_coordinate_eq"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+        "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+        "Mathlib.Analysis.Calculus.FDeriv.CompCLM",
+        "Mathlib.Analysis.Calculus.LineDeriv.Basic"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/LineDeriv.lean",
+      "status": "preferred ANALYSIS/SDE bridge for the product-rule and Hessian-coordinate components before divergence, IBP, or invariant-law contracts",
+      "summary": "line-derivative product-rule and second-derivative wiring bridges for finite-coordinate weighted-product calculations, including equality-form `lineDeriv`, explicit `exp(-V) * g` coordinate leaves, and `fderiv`-to-`iteratedFDeriv` coordinate leaves"
+    },
+    {
       "declarations": [],
       "exports": [
         "hessianOpNormOfSourceHessianField",
@@ -6879,16 +7331,26 @@
       "declarations": [],
       "exports": [],
       "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus",
       "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus.lean",
-      "status": "preferred parent module for Taylor and Hessian leaves",
-      "summary": "parent import surface for calculus leaves used by SDE/Sampling proofs"
+      "status": "preferred parent module for calculus leaves before explicit trace-integrability, IBP, and domain contracts",
+      "summary": "parent import surface for smooth cutoffs, gradient, line-derivative, Laplacian, Taylor/Hessian, pointwise coordinate-divergence, WithLp/Pi a.e. trace bridge, trace-to-coordinate `IntegrableOn` transfer, and finite-box face-term wrapper leaves used by SDE/Sampling proofs"
     },
     {
       "declarations": [
@@ -6910,6 +7372,30 @@
         },
         {
           "kind": "theorem",
+          "name": "integrable_exp_neg_add_mul_norm_sub_sq"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_exp_neg_add_mul_norm_sub_sq_ne_top"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrable_exp_neg_add_mul_abs"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_exp_neg_add_mul_abs_ne_top"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_exp_neg_add_mul_abs_eq"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_exp_neg_add_mul_abs_eq"
+        },
+        {
+          "kind": "theorem",
           "name": "lintegral_exp_neg_mul_norm_sq_eq"
         },
         {
@@ -6918,7 +7404,19 @@
         },
         {
           "kind": "theorem",
+          "name": "lintegral_exp_neg_add_mul_norm_sub_sq_eq"
+        },
+        {
+          "kind": "theorem",
           "name": "isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sq"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sub_sq"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_exp_neg_add_mul_abs"
         },
         {
           "kind": "theorem",
@@ -6926,22 +7424,49 @@
         },
         {
           "kind": "theorem",
+          "name": "lintegral_gibbsDensityENNReal_ne_top_of_ae_centered_quadratic_lower_bound"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_gibbsDensityENNReal_ne_top_of_ae_abs_linear_lower_bound"
+        },
+        {
+          "kind": "theorem",
+          "name": "lintegral_gibbsDensityENNReal_ne_top_of_strongConvexOn_minimizer"
+        },
+        {
+          "kind": "theorem",
           "name": "isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_quadratic_lower_bound"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_centered_quadratic_lower_bound"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_abs_linear_lower_bound"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_normalized_gibbs_of_strongConvexOn_minimizer"
         }
       ],
       "exports": [],
       "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "Mathlib.Analysis.SpecialFunctions.ImproperIntegrals",
         "Mathlib.Analysis.SpecialFunctions.Gaussian.FourierTransform"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
       "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean",
-      "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves",
-      "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, and quadratic lower-bound Gibbs normalization leaves"
+      "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves; general coercive envelopes remain red",
+      "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, exact one-dimensional Laplace normalizers, and quadratic/Laplace lower-bound Gibbs normalization leaves"
     },
     {
       "declarations": [],
@@ -7150,6 +7675,29 @@
     {
       "declarations": [
         {
+          "kind": "theorem",
+          "name": "euclideanSpace_inner_toLp_toLp_eq_sum_mul"
+        },
+        {
+          "kind": "theorem",
+          "name": "euclideanSpace_inner_eq_sum_mul"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.Tactic.Ring"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Geometry/EuclideanSpaceCoordinates.lean",
+      "status": "preferred shared GEOM/GAUSS/SDE notation bridge; does not define gradients, divergence, Laplacian, or analytic regularity",
+      "summary": "finite-dimensional EuclideanSpace coordinate bridges, including inner-product coordinate-sum identities for direct vectors and `WithLp.toLp 2` coordinate functions"
+    },
+    {
+      "declarations": [
+        {
           "kind": "def",
           "name": "LogConcaveOn"
         },
@@ -7235,6 +7783,26 @@
         },
         {
           "kind": "theorem",
+          "name": "convexOn_univ_abs"
+        },
+        {
+          "kind": "theorem",
+          "name": "convexOn_univ_const_mul_abs_add"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_exp_neg_abs_linear"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_const_mul_exp_neg_abs_linear"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_explicit_abs_linear_normalized_density"
+        },
+        {
+          "kind": "theorem",
           "name": "convexOn_univ_norm_sq"
         },
         {
@@ -7294,6 +7862,7 @@
       "imports": [
         "Mathlib.Analysis.Convex.SpecificFunctions.Basic",
         "Mathlib.Analysis.Convex.Quasiconvex",
+        "Mathlib.Analysis.Normed.Module.Convex",
         "Mathlib.Analysis.SpecialFunctions.Pow.Real",
         "Mathlib.LinearAlgebra.FiniteDimensional.Defs"
       ],
@@ -7301,18 +7870,55 @@
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
       "path": "AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean",
-      "status": "compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces",
-      "summary": "positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic and Gaussian-kernel log-concavity"
+      "status": "compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, one-dimensional Laplace geometry, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces",
+      "summary": "positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square, absolute-linear, and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic, Laplace, and Gaussian-kernel log-concavity"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "convexOn_of_strongConvexOn_nonneg"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_exp_neg_of_strongConvexOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_const_mul_exp_neg_of_strongConvexOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "centered_quadratic_lower_bound_of_strongConvexOn_minimizer"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+        "Mathlib.Analysis.Convex.Strong"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Geometry/StrongConvexity.lean",
+      "status": "compiled CONV/DENS bridge; sharp `k/2` first-order envelope and minimizer-existence theory remain separate red branches",
+      "summary": "strong-convexity to convex-potential/log-concave Gibbs-shape bridges and the midpoint `k/4` centered quadratic lower envelope from a supplied global minimizer"
     },
     {
       "declarations": [],
       "exports": [],
       "imports": [
-        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity"
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
-        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity"
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Geometry",
       "path": "AutoSamplingTheory/TechnicalLemmas/Geometry.lean",
@@ -7515,6 +8121,114 @@
       "declarations": [
         {
           "kind": "theorem",
+          "name": "integral_withDensity_inv_mul_gibbsDensityENNReal_eq_integral_inv_mul_exp_smul"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_withDensity_lintegral_inv_mul_gibbsDensityENNReal_eq_integral_lintegral_inv_mul_exp_smul"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_withDensity_lintegral_inv_mul_gibbsDensityENNReal_eq_integral_lintegral_inv_mul_exp_smul_of_neZero"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/GibbsIntegral.lean",
+      "status": "preferred bridge from Gibbs target-measure wrappers to weak-generator, invariant-law, and KL/FI test-function algebra; does not prove normalization",
+      "summary": "Bochner integral rewrites for Gibbs withDensity measures, turning `Z⁻¹ * gibbsDensityENNReal V` integrals into real `Z.toReal⁻¹ * exp(-V)` weighted base-measure integrals"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_convexOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_convexOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn_minimizer"
+        },
+        {
+          "kind": "theorem",
+          "name": "logConcaveOn_normalized_laplace_gibbsDensityENNReal_toReal"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/GibbsLogConcavity.lean",
+      "status": "preferred bridge between measure-facing Gibbs density wrappers and real-valued log-concavity geometry; does not prove normalizer finiteness",
+      "summary": "finite nonzero ENNReal normalizer bridge from normalized Gibbs densities to real-valued LogConcaveOn shapes for convex and strongly convex potentials"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "measurable_update_prod_pi"
+        },
+        {
+          "kind": "theorem",
+          "name": "map_update_prod_pi"
+        },
+        {
+          "kind": "theorem",
+          "name": "measurePreserving_update_prod_pi"
+        },
+        {
+          "kind": "theorem",
+          "name": "integral_update_prod_pi_eq_integral"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrable_update_slice_ae"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "Mathlib.MeasureTheory.Constructions.Pi",
+        "Mathlib.MeasureTheory.Integral.Prod"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [],
+      "module": "AutoSamplingTheory.TechnicalLemmas.Measure.Product",
+      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/Product.lean",
+      "status": "preferred Mathlib-style location for product-measure coordinate update and slice/Fubini leaves; does not prove kernels, entropy, LSI, or invariance",
+      "summary": "finite product-measure coordinate replacement map, measure-preserving wrapper, Bochner integral rewrite, and a.e. slice integrability for `Function.update` coordinate refreshes"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
           "name": "lintegral_fin_nat_prod_eq_prod"
         },
         {
@@ -7532,6 +8246,10 @@
         {
           "kind": "theorem",
           "name": "isProbabilityMeasure_withDensity_of_lintegral_eq_one"
+        },
+        {
+          "kind": "theorem",
+          "name": "isProbabilityMeasure_withDensity_ofReal_exp_of_integral_eq_one"
         },
         {
           "kind": "theorem",
@@ -7563,6 +8281,7 @@
         "Mathlib.MeasureTheory.Measure.Decomposition.RadonNikodym",
         "Mathlib.MeasureTheory.Constructions.Pi",
         "Mathlib.MeasureTheory.Integral.Lebesgue.Map",
+        "Mathlib.MeasureTheory.Function.SpecialFunctions.Basic",
         "Mathlib.MeasureTheory.Measure.WithDensity"
       ],
       "layer": "Mathlib-ready technical lemma",
@@ -7605,6 +8324,9 @@
       "imports": [
         "AutoSamplingTheory.Probability",
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Product",
         "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
@@ -7613,6 +8335,9 @@
       "local_imports": [
         "AutoSamplingTheory.Probability",
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Product",
         "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
@@ -7786,6 +8511,10 @@
         },
         {
           "kind": "def",
+          "name": "calculusMemory"
+        },
+        {
+          "kind": "def",
           "name": "measureMemory"
         },
         {
@@ -7829,13 +8558,22 @@
       "imports": [
         "AutoSamplingTheory.Core",
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
         "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi",
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Product",
         "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
@@ -7846,13 +8584,22 @@
       "local_imports": [
         "AutoSamplingTheory.Core",
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
         "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi",
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Product",
         "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
         "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
@@ -7972,6 +8719,139 @@
       "declarations": [
         {
           "kind": "theorem",
+          "name": "hasDerivAt_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d"
+        },
+        {
+          "kind": "theorem",
+          "name": "deriv_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d"
+        },
+        {
+          "kind": "theorem",
+          "name": "weightedDivergence_gibbsWeight_langevinGenerator_algebra"
+        },
+        {
+          "kind": "theorem",
+          "name": "expNeg_weightedDivergence_langevinGenerator_algebra"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteCoord_weightedDivergence_langevinGenerator_algebra"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteCoord_named_weightedDivergence_langevinGenerator_algebra"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteCoord_toLpInner_weightedDivergence_langevinGenerator_algebra"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteCoord_euclideanInner_weightedDivergence_langevinGenerator_algebra"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteEuclidean_langevinGenerator_basisDisplay"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteEuclidean_langevinGenerator_coordinateDisplay"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteEuclidean_weightedDivergence_langevinGenerator_basisHandoff"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteEuclidean_weightedDivergence_langevinGenerator_coordinateHandoff"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_basisHandoff"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_coordinateHandoff"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display"
+        },
+        {
+          "kind": "theorem",
+          "name": "finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "coordinateDivergence_expNeg_fderivCoordinateField_langevinGenerator_display_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "trace_expNeg_fderivCoordinateField_langevinGenerator_display_of_hasFDerivAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "continuousOn_expNeg_langevinGenerator_rhs_of_components"
+        },
+        {
+          "kind": "theorem",
+          "name": "continuousOn_expNeg_langevinGenerator_rhs_of_contDiff"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasFDerivAt_expNeg_fderivCoordinateField_of_differentiableAt"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasFDerivAt_expNeg_fderivCoordinateField_of_contDiff"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrableOn_trace_expNeg_fderivCoordinateField_of_continuousOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrableOn_trace_expNeg_fderivCoordinateField_of_component_continuousOn"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv"
+        }
+      ],
+      "exports": [],
+      "imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+        "Mathlib.Analysis.InnerProductSpace.Basic",
+        "Mathlib.Analysis.SpecialFunctions.ExpDeriv",
+        "Mathlib.Analysis.Calculus.Deriv.Mul",
+        "Mathlib.Algebra.BigOperators.Fin",
+        "Mathlib.Tactic.Ring"
+      ],
+      "layer": "Mathlib-ready technical lemma",
+      "local_imports": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates"
+      ],
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean",
+      "status": "preferred Mathlib-style location for finite Langevin expression-display/algebra leaves before a.e. divergence bridge discharge, IBP, invariant-law, Ito-generator, and semigroup-domain contracts",
+      "summary": "finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs that discharge only the Gibbs-weight gradient premise, coordinate-sum displays for `lineDeriv_i (exp(-V) * fderiv f eᵢ)` including the local `fderiv`-coordinate-to-`gradient` bridge under `DifferentiableAt f x`, named coordinateDivergence display for the explicit field, Gibbs-weighted one-dimensional derivative identity, multidimensional inner-product supplied-hypothesis weighted-divergence handoff, finite-coordinate aggregation, and EuclideanSpace inner-product notation wrappers"
+    },
+    {
+      "declarations": [
+        {
+          "kind": "theorem",
           "name": "weakGeneratorFromSampleDerivative"
         }
       ],
@@ -7994,18 +8874,20 @@
       "imports": [
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra",
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra",
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses",
       "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses.lean",
       "status": "preferred parent module for SDE/Sampling stochastic-process leaves",
-      "summary": "parent import surface for weak-generator, Fokker--Planck algebra, and finite-dimensional Girsanov cylinder leaves"
+      "summary": "parent import surface for weak-generator, Fokker--Planck algebra, Langevin generator, and finite-dimensional Girsanov cylinder leaves"
     },
     {
       "declarations": [

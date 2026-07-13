@@ -1,8 +1,8 @@
 # ASTIS Proof Blueprint: ASTIS-CHEWI-001
 
 Task id: `ASTIS-CHEWI-001`
-Title: Build the Chewi Log-Concave Sampling Lean foundation
-Updated: `2026-07-02 02:55:30`
+Title: Build the Log-Concave Sampling Lean foundation
+Updated: `2026-07-13 18:13:12`
 Blueprint stage: `Log-concave sampling foundation Stage-1: chapter map, shared-root DAG, and Mathlib-ready leaf growth`
 
 This is ASTIS's compact system-of-record snapshot for long-horizon Lean proof
@@ -57,54 +57,27 @@ no compact obligation signals found
 
 | Kind | Lean name | File |
 |---|---|---|
-| theorem | `measurable_renyiIntegrand` | `AutoSamplingTheory/TechnicalLemmas/InformationTheory/Renyi.lean:50` |
-| theorem | `measurable_renyiIntegrandENNReal` | `AutoSamplingTheory/TechnicalLemmas/InformationTheory/Renyi.lean:61` |
-| theorem | `lintegral_renyiIntegrandENNReal_ne_top_of_ae_le` | `AutoSamplingTheory/TechnicalLemmas/InformationTheory/Renyi.lean:69` |
-| theorem | `hasDerivAt_renyiIntegrand` | `AutoSamplingTheory/TechnicalLemmas/InformationTheory/Renyi.lean:79` |
-| def | `gibbsDensityENNReal` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:25` |
-| theorem | `gibbsDensityENNReal_pos` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:29` |
-| theorem | `gibbsDensityENNReal_lt_top` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:34` |
-| theorem | `measurable_gibbsDensityENNReal` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:41` |
-| theorem | `aemeasurable_gibbsDensityENNReal` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:48` |
-| theorem | `lintegral_gibbsDensityENNReal_ne_zero` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:58` |
-| theorem | `lintegral_gibbsDensityENNReal_ne_top_of_ae_le` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:72` |
-| theorem | `gibbsDensityENNReal_le_of_potential_ge` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:82` |
-| theorem | `gibbsDensityENNReal_ae_le_of_ae_potential_ge` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:88` |
-| theorem | `lintegral_gibbsDensityENNReal_ne_top_of_ae_potential_ge` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:96` |
-| theorem | `lintegral_gibbsDensityENNReal_ne_top_of_ae_ge_const` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:107` |
-| theorem | `isProbabilityMeasure_withDensity_normalized_gibbs` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:122` |
-| theorem | `isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_le` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:135` |
-| theorem | `isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_potential_ge` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:151` |
-| theorem | `isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_ge_const` | `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean:165` |
-| theorem | `lintegral_fin_nat_prod_eq_prod` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:31` |
-| theorem | `lintegral_fintype_prod_eq_prod` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:75` |
-| theorem | `pi_withDensity_prod` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:91` |
-| theorem | `withDensity_univ_eq_lintegral` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:124` |
-| theorem | `isProbabilityMeasure_withDensity_of_lintegral_eq_one` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:130` |
-| theorem | `isFiniteMeasure_withDensity_of_lintegral_ne_top` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:138` |
-| theorem | `lintegral_inv_lintegral_mul_eq_one` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:146` |
-| theorem | `isProbabilityMeasure_withDensity_normalized_lintegral` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:156` |
-| theorem | `withDensity_absolutelyContinuous_base` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:168` |
-| theorem | `measurableEquiv_map_withDensity` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:175` |
-| theorem | `withDensity_rnDeriv_eq_of_absolutelyContinuous` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:191` |
-| theorem | `integrable_of_measure_eq` | `AutoSamplingTheory/TechnicalLemmas/Measure.lean:27` |
+| theorem | `measurableEquiv_map_withDensity` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:193` |
+| theorem | `withDensity_rnDeriv_eq_of_absolutelyContinuous` | `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean:209` |
+| theorem | `integrable_of_measure_eq` | `AutoSamplingTheory/TechnicalLemmas/Measure.lean:32` |
 | theorem | `condDistribIntegralNamedFieldIntegral` | `AutoSamplingTheory/TechnicalLemmas/Probability/ConditionalKernel.lean:30` |
-| inductive | `LemmaMemoryStatus` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:27` |
-| structure | `LemmaMemoryEntry` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:37` |
-| def | `sltSourceAnchor` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:48` |
-| def | `analysisMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:56` |
-| def | `gaussianMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:139` |
-| def | `taylorMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:292` |
-| def | `measureMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:325` |
-| def | `stochasticProcessMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:549` |
-| def | `klDensityMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:602` |
-| def | `renyiDensityMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:625` |
-| def | `variationalMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:668` |
-| def | `geometryMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:691` |
-| def | `saldExtractedMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:964` |
-| def | `portQueueMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:1037` |
-| def | `technicalLemmaMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:1060` |
-| def | `formalizedTechnicalLemmaCount` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:1065` |
+| inductive | `LemmaMemoryStatus` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:36` |
+| structure | `LemmaMemoryEntry` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:46` |
+| def | `sltSourceAnchor` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:57` |
+| def | `analysisMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:65` |
+| def | `gaussianMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:288` |
+| def | `taylorMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:441` |
+| def | `calculusMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:474` |
+| def | `measureMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:1357` |
+| def | `stochasticProcessMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:1721` |
+| def | `klDensityMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:2024` |
+| def | `renyiDensityMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:2047` |
+| def | `variationalMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:2090` |
+| def | `geometryMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:2113` |
+| def | `saldExtractedMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:2496` |
+| def | `portQueueMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:2569` |
+| def | `technicalLemmaMemory` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:2592` |
+| def | `formalizedTechnicalLemmaCount` | `AutoSamplingTheory/TechnicalLemmas/Registry.lean:2597` |
 | theorem | `fpRewriteScalarAlgebra` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean:19` |
 | theorem | `fisherIbpAlgebra` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean:33` |
 | def | `finiteShiftedGaussianPathMeasure` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Girsanov.lean:27` |
@@ -112,6 +85,33 @@ no compact obligation signals found
 | theorem | `finiteGaussianGirsanovCylinderIntegral` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Girsanov.lean:44` |
 | theorem | `finiteGaussianGirsanovCylinderMeasure_eq_withDensity` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Girsanov.lean:56` |
 | theorem | `integral_finiteGaussianGirsanovWeight_eq_one` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Girsanov.lean:108` |
+| theorem | `hasDerivAt_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:43` |
+| theorem | `deriv_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:61` |
+| theorem | `weightedDivergence_gibbsWeight_langevinGenerator_algebra` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:78` |
+| theorem | `expNeg_weightedDivergence_langevinGenerator_algebra` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:95` |
+| theorem | `finiteCoord_weightedDivergence_langevinGenerator_algebra` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:114` |
+| theorem | `finiteCoord_named_weightedDivergence_langevinGenerator_algebra` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:147` |
+| theorem | `finiteCoord_toLpInner_weightedDivergence_langevinGenerator_algebra` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:170` |
+| theorem | `finiteCoord_euclideanInner_weightedDivergence_langevinGenerator_algebra` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:201` |
+| theorem | `finiteEuclidean_langevinGenerator_basisDisplay` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:227` |
+| theorem | `finiteEuclidean_langevinGenerator_coordinateDisplay` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:257` |
+| theorem | `finiteEuclidean_weightedDivergence_langevinGenerator_basisHandoff` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:274` |
+| theorem | `finiteEuclidean_weightedDivergence_langevinGenerator_coordinateHandoff` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:321` |
+| theorem | `finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_basisHandoff` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:374` |
+| theorem | `finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_coordinateHandoff` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:409` |
+| theorem | `finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:454` |
+| theorem | `finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display_of_differentiableAt` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:521` |
+| theorem | `coordinateDivergence_expNeg_fderivCoordinateField_langevinGenerator_display_of_differentiableAt` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:549` |
+| theorem | `trace_expNeg_fderivCoordinateField_langevinGenerator_display_of_hasFDerivAt` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:582` |
+| theorem | `continuousOn_expNeg_langevinGenerator_rhs_of_components` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:629` |
+| theorem | `only` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:665` |
+| theorem | `continuousOn_expNeg_langevinGenerator_rhs_of_contDiff` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:674` |
+| theorem | `hasFDerivAt_expNeg_fderivCoordinateField_of_differentiableAt` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:725` |
+| theorem | `hasFDerivAt_expNeg_fderivCoordinateField_of_contDiff` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:770` |
+| theorem | `integrableOn_trace_expNeg_fderivCoordinateField_of_continuousOn` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:804` |
+| theorem | `integrableOn_trace_expNeg_fderivCoordinateField_of_component_continuousOn` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:868` |
+| theorem | `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:927` |
+| theorem | `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean:973` |
 | theorem | `weakGeneratorFromSampleDerivative` | `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/WeakGenerator.lean:30` |
 | theorem | `hessianOpNormOfSourceHessianField` | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean:35` |
 | theorem | `iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm` | `AutoSamplingTheory/TechnicalLemmas/Taylor.lean:51` |
@@ -143,7 +143,7 @@ no compact obligation signals found
 ## Source Contract Excerpt
 
 ```text
-# Build the Chewi Log-Concave Sampling Lean foundation Task id: `ASTIS-CHEWI-001` Kind: `textbookReproduction` Mode: `faithfulTextbook + MathlibReadyFoundation` Status: `active-priority` ## Goal Reproduce the foundations needed for Sinho Chewi's `Log-Concave Sampling` in a scientifically organized, Mathlib-ready Lean tree. The goal is not to prove one SALD theorem. Chewi is the roadmap for the full Sampling/SDE arsenal; SALD, RMFLD, and future sampling papers are consumers of this foundation. Primary source: - Public PDF: https://chewisinho.github.io/main.pdf - Local PDF: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf` ## Source Discipline Chewi's notes are allowed to guide theorem ordering and proof strategy, but bottom-level Lean assumptions must be justified by Mathlib, source textbooks, primary papers cited by Chewi, or audited external Lean reference projects. Every reusable leaf must record: - source anchor or upstream theorem reference; - Mathlib/API search surface; - exact hidden regularity contracts; - target module and proposed declaration name; - proof route in small steps; - failure policy if the route does not clos...
+# Build the Log-Concave Sampling Lean foundation Task id: `ASTIS-CHEWI-001` Kind: `textbookReproduction` Mode: `faithfulTextbook + MathlibReadyFoundation` Status: `active-priority` ## Goal Reproduce the `Log-Concave Sampling` textbook route in a scientifically organized, Mathlib-ready Lean tree. The project follows the textbook itself: chapter order, theorem statements, constants, cited background sources, hidden regularity assumptions, and proof dependencies. Primary source: - Public PDF: https://chewisinho.github.io/main.pdf - Local PDF: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf` ## Source Discipline The textbook is allowed to guide theorem ordering and proof strategy, but bottom-level Lean assumptions must be justified by Mathlib, source textbooks, primary papers cited by the textbook, or audited external Lean reference projects. Every reusable leaf must record: - source anchor or upstream theorem reference; - Mathlib/API search surface; - exact hidden regularity contracts; - target module and proposed declaration name; - proof route in small steps; - failure policy if the route does not close. Do not silently strengthe...
 ```
 
 ## Gate Policy

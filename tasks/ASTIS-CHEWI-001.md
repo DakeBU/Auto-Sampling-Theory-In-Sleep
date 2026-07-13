@@ -1,4 +1,4 @@
-# Build the Chewi Log-Concave Sampling Lean foundation
+# Build the Log-Concave Sampling Lean foundation
 
 Task id: `ASTIS-CHEWI-001`
 Kind: `textbookReproduction`
@@ -7,10 +7,10 @@ Status: `active-priority`
 
 ## Goal
 
-Reproduce the foundations needed for Sinho Chewi's `Log-Concave Sampling` in
-a scientifically organized, Mathlib-ready Lean tree.  The goal is not to prove
-one SALD theorem.  Chewi is the roadmap for the full Sampling/SDE arsenal;
-SALD, RMFLD, and future sampling papers are consumers of this foundation.
+Reproduce the `Log-Concave Sampling` textbook route in a scientifically
+organized, Mathlib-ready Lean tree.  The project follows the textbook itself:
+chapter order, theorem statements, constants, cited background sources, hidden
+regularity assumptions, and proof dependencies.
 
 Primary source:
 
@@ -20,9 +20,10 @@ Primary source:
 
 ## Source Discipline
 
-Chewi's notes are allowed to guide theorem ordering and proof strategy, but
+The textbook is allowed to guide theorem ordering and proof strategy, but
 bottom-level Lean assumptions must be justified by Mathlib, source textbooks,
-primary papers cited by Chewi, or audited external Lean reference projects.
+primary papers cited by the textbook, or audited external Lean reference
+projects.
 
 Every reusable leaf must record:
 
@@ -33,7 +34,7 @@ Every reusable leaf must record:
 - proof route in small steps;
 - failure policy if the route does not close.
 
-Do not silently strengthen a Chewi statement just to make Lean accept it.
+Do not silently strengthen a textbook statement just to make Lean accept it.
 Unsupported assumptions must be logged as proof obligations or rejected as
 definition drift.
 
@@ -74,6 +75,8 @@ AutoSamplingTheory/TechnicalLemmas/
 
 Existing compiled families remain canonical until generalized:
 
+- `TechnicalLemmas/Analysis/Calculus/Cutoff.lean`
+- `TechnicalLemmas/Analysis/Calculus/Divergence.lean`
 - `TechnicalLemmas/Probability/LawMap.lean`
 - `TechnicalLemmas/Probability/ConditionalKernel.lean`
 - `TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`
@@ -102,6 +105,17 @@ Existing compiled families remain canonical until generalized:
 6. Discrete sampling layer:
    LMC interpolation, randomized midpoint, HMC, underdamped Langevin, MALA,
    proximal sampler, and high-accuracy sampler interfaces.
+
+## Active Chapter 1 Frontier
+
+The current source edge is Example 1.2.8 -> Corollary 1.2.9.  Locally compiled
+blue nodes include the generator display, finite-box divergence and zero-face
+handoffs, smooth local/exact-support cutoffs, compact-in-open and Pi-box
+plateaus, and a compactly supported radial cutoff family converging pointwise to
+one.  The next red nodes are scaled first/Hessian/Laplacian cutoff estimates,
+integrable domination and Gibbs-tail passage, whole-space weighted integration
+by parts, and generator/semigroup domain semantics.  Do not mark the invariant
+Gibbs law blue before both the analytic and operator-domain branches compile.
 
 ## Visualization And Retrieval Artifacts
 

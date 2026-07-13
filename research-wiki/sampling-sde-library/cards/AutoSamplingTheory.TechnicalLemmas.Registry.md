@@ -9,13 +9,22 @@
 
 - `AutoSamplingTheory.Core`
 - `AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability`
+- `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff`
+- `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence`
+- `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient`
+- `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian`
 - `AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor`
 - `AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev`
+- `AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates`
 - `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity`
+- `AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity`
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan`
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity`
 - `AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi`
 - `AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs`
+- `AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral`
+- `AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity`
+- `AutoSamplingTheory.TechnicalLemmas.Measure.Product`
 - `AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.LawMap`
@@ -30,6 +39,7 @@
 - `analysisMemory`
 - `gaussianMemory`
 - `taylorMemory`
+- `calculusMemory`
 - `measureMemory`
 - `stochasticProcessMemory`
 - `klDensityMemory`

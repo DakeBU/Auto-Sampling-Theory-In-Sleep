@@ -1,12 +1,21 @@
 import AutoSamplingTheory.Core
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
+import AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
+import AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi
 import AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs
+import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral
+import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity
+import AutoSamplingTheory.TechnicalLemmas.Measure.Product
 import AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
@@ -85,6 +94,26 @@ def analysisMemory : List LemmaMemoryEntry := [
     note := "Keeps additive constants in coercive lower potentials separate from the Gaussian tail theorem."
   },
   {
+    key := "analysis.integrability.centered-gaussian-quadratic-tail",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_norm_sub_sq",
+    upstreamDecl := "integrable_exp_neg_add_mul_norm_sq / Integrable.comp_sub_right",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; Mathlib.MeasureTheory.Group.Integral",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "integrability", "Lebesgue", "Gaussian-tail", "quadratic", "centered"],
+    saldUse := "Chewi DENS/CONV root: integrability of translated quadratic envelopes `exp (-(a‖x-m‖^2+b))`",
+    note := "Fills the center-translation gap for mode-centered strongly convex Gibbs envelopes; does not claim a general coercive-tail theorem."
+  },
+  {
+    key := "analysis.integrability.laplace-absolute-linear-tail",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_abs",
+    upstreamDecl := "integrableOn_exp_mul_Ioi / integrableOn_exp_mul_Iic / integrableOn_union",
+    upstreamFile := "Mathlib.Analysis.SpecialFunctions.ImproperIntegrals; Mathlib.MeasureTheory.Integral.IntegrableOn",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "integrability", "Lebesgue", "Laplace-tail", "absolute-value", "one-dimensional"],
+    saldUse := "Chewi DENS/CONV root: integrability of one-dimensional Laplace tails `exp (-(a|x|+b))` for log-concave non-strongly-convex examples",
+    note := "Splits the real line into `Iic 0` and `Ioi 0`; this is a one-dimensional nonquadratic envelope, not a general coercive theorem."
+  },
+  {
     key := "analysis.integrability.gaussian-quadratic-tail-normalizer",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_exp_neg_mul_norm_sq_eq",
     upstreamDecl := "GaussianFourier.integral_rexp_neg_mul_sq_norm / ofReal_integral_eq_lintegral_ofReal",
@@ -105,6 +134,56 @@ def analysisMemory : List LemmaMemoryEntry := [
     note := "Tracks additive constants explicitly instead of hiding them in finite-envelope hypotheses."
   },
   {
+    key := "analysis.integrability.centered-gaussian-quadratic-tail-normalizer",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_exp_neg_add_mul_norm_sub_sq_eq",
+    upstreamDecl := "lintegral_exp_neg_add_mul_norm_sq_eq / lintegral_sub_right_eq_self",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; Mathlib.MeasureTheory.Group.Integral",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "integrability", "Lebesgue", "Gaussian-tail", "quadratic", "centered", "normalizer"],
+    saldUse := "Chewi DENS/CONV root: exact ENNReal normalizer for translated finite-dimensional quadratic Gibbs envelopes",
+    note := "Uses Lebesgue translation invariance to reuse the explicit quadratic normalizer; still only covers quadratic tails."
+  },
+  {
+    key := "analysis.integrability.laplace-absolute-linear-tail-finite-lintegral",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_exp_neg_add_mul_abs_ne_top",
+    upstreamDecl := "integrable_exp_neg_add_mul_abs / lintegral_ofReal_ne_top_of_integrable_nonneg",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "integrability", "lintegral", "ENNReal", "Laplace-tail", "absolute-value"],
+    saldUse := "Chewi DENS/CONV root: finite ENNReal integral for one-dimensional absolute-linear lower-potential envelopes",
+    note := "Finite-tail theorem for Laplace-type examples; the exact one-dimensional normalizer is recorded as a separate stronger leaf."
+  },
+  {
+    key := "analysis.integrability.laplace-absolute-linear-tail-real-normalizer",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integral_exp_neg_add_mul_abs_eq",
+    upstreamDecl := "integral_exp_mul_Ioi / integral_exp_mul_Iic / setIntegral_union",
+    upstreamFile := "Mathlib.Analysis.SpecialFunctions.ImproperIntegrals; Mathlib.MeasureTheory.Integral.Bochner.Set",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "integrability", "Lebesgue", "Laplace-tail", "absolute-value", "normalizer", "one-dimensional"],
+    saldUse := "Chewi DENS/CONV root: exact real integral `∫ exp (-(a|x|+b)) = 2 exp(-b)/a` for Laplace examples",
+    note := "Splits the real line into the two exponential half-lines; this is exact only in one dimension."
+  },
+  {
+    key := "analysis.integrability.laplace-absolute-linear-tail-ennreal-normalizer",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_exp_neg_add_mul_abs_eq",
+    upstreamDecl := "integral_exp_neg_add_mul_abs_eq / ofReal_integral_eq_lintegral_ofReal",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "integrability", "lintegral", "ENNReal", "Laplace-tail", "absolute-value", "normalizer"],
+    saldUse := "Chewi DENS root: exact ENNReal normalizer for normalized one-dimensional Laplace Gibbs densities",
+    note := "Consumer-facing normalizer for `withDensity`; does not imply any multidimensional coercive theorem."
+  },
+  {
+    key := "measure.gibbs-density.explicit-laplace-normalized-probability",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_exp_neg_add_mul_abs",
+    upstreamDecl := "lintegral_exp_neg_add_mul_abs_eq / isProbabilityMeasure_withDensity_normalized_gibbs",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "Laplace-tail", "absolute-value", "normalizer", "probability-measure"],
+    saldUse := "Chewi DENS/CONV root: construct explicitly normalized one-dimensional Laplace-type Gibbs laws",
+    note := "Exact-probability version of the Laplace example; base measure is Lebesgue on `ℝ`."
+  },
+  {
     key := "measure.gibbs-density.explicit-quadratic-normalized-probability",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sq",
     upstreamDecl := "lintegral_exp_neg_add_mul_norm_sq_eq / isProbabilityMeasure_withDensity_normalized_gibbs",
@@ -113,6 +192,16 @@ def analysisMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Gibbs", "withDensity", "Lebesgue", "quadratic", "normalizer", "probability-measure"],
     saldUse := "Chewi DENS/CONV root: construct the explicitly normalized finite-dimensional quadratic Gibbs law",
     note := "Useful consumer-facing version for Gaussian-reference Gibbs targets and Langevin invariant-law statements."
+  },
+  {
+    key := "measure.gibbs-density.explicit-centered-quadratic-normalized-probability",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_exp_neg_add_mul_norm_sub_sq",
+    upstreamDecl := "lintegral_exp_neg_add_mul_norm_sub_sq_eq / isProbabilityMeasure_withDensity_normalized_gibbs",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "Lebesgue", "quadratic", "centered", "normalizer", "probability-measure"],
+    saldUse := "Chewi DENS/CONV root: construct explicitly normalized mode-centered quadratic Gibbs laws",
+    note := "Consumer-facing centered Gaussian law bridge; log-concavity geometry and later stationarity are separate leaves."
   },
   {
     key := "measure.gibbs-density.integral-finite-quadratic-lower-bound",
@@ -125,6 +214,16 @@ def analysisMemory : List LemmaMemoryEntry := [
     note := "First concrete Lebesgue coercivity envelope leaf; stronger nonquadratic/coercive tails remain future analysis leaves."
   },
   {
+    key := "measure.gibbs-density.integral-finite-centered-quadratic-lower-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_gibbsDensityENNReal_ne_top_of_ae_centered_quadratic_lower_bound",
+    upstreamDecl := "lintegral_exp_neg_add_mul_norm_sub_sq_ne_top / lintegral_gibbsDensityENNReal_ne_top_of_ae_potential_ge",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "density", "Lebesgue", "coercivity", "quadratic-lower-bound", "centered", "finite"],
+    saldUse := "Chewi DENS/CONV root: prove finite Gibbs normalizer from a mode-centered quadratic lower bound on the potential",
+    note := "Adds the translated quadratic lower-bound case needed by strongly convex targets with nonzero minimizer; general coercive envelopes remain future work."
+  },
+  {
     key := "measure.gibbs-density.normalized-probability-quadratic-lower-bound",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_quadratic_lower_bound",
     upstreamDecl := "lintegral_gibbsDensityENNReal_ne_zero / lintegral_gibbsDensityENNReal_ne_top_of_ae_quadratic_lower_bound",
@@ -133,6 +232,56 @@ def analysisMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Gibbs", "withDensity", "Lebesgue", "coercivity", "quadratic-lower-bound", "probability-measure"],
     saldUse := "Chewi DENS/CONV root: construct normalized finite-dimensional Lebesgue Gibbs targets from measurable potentials with quadratic lower bounds",
     note := "Turns the first concrete coercivity normalizer into the normalized target law consumed by Langevin and KL/FI branches."
+  },
+  {
+    key := "measure.gibbs-density.normalized-probability-centered-quadratic-lower-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_centered_quadratic_lower_bound",
+    upstreamDecl := "lintegral_gibbsDensityENNReal_ne_zero / lintegral_gibbsDensityENNReal_ne_top_of_ae_centered_quadratic_lower_bound",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "Lebesgue", "coercivity", "quadratic-lower-bound", "centered", "probability-measure"],
+    saldUse := "Chewi DENS/CONV root: construct normalized finite-dimensional Lebesgue Gibbs targets from measurable potentials with centered quadratic lower bounds",
+    note := "This is the normalized target-law handoff for strongly convex potentials after a minimizer/mode has been exposed."
+  },
+  {
+    key := "measure.gibbs-density.integral-finite-strong-convex-minimizer",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_gibbsDensityENNReal_ne_top_of_strongConvexOn_minimizer",
+    upstreamDecl := "centered_quadratic_lower_bound_of_strongConvexOn_minimizer / lintegral_gibbsDensityENNReal_ne_top_of_ae_centered_quadratic_lower_bound",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity; AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "density", "strong-convexity", "minimizer", "quadratic-lower-bound", "finite"],
+    saldUse := "Chewi DENS/CONV root: prove finite Gibbs normalizer from strong convexity once a global minimizer is exposed",
+    note := "Uses the compiled midpoint `k/4` lower envelope; the sharper first-order `k/2` envelope remains a separate future leaf."
+  },
+  {
+    key := "measure.gibbs-density.normalized-probability-strong-convex-minimizer",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_normalized_gibbs_of_strongConvexOn_minimizer",
+    upstreamDecl := "lintegral_gibbsDensityENNReal_ne_zero / lintegral_gibbsDensityENNReal_ne_top_of_strongConvexOn_minimizer",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "strong-convexity", "minimizer", "probability-measure"],
+    saldUse := "Chewi DENS/CONV/SDE root: construct normalized finite-dimensional Gibbs targets for strongly convex potentials with a known minimizer",
+    note := "Direct consumer-facing target-law constructor for strongly log-concave finite-dimensional Langevin branches."
+  },
+  {
+    key := "measure.gibbs-density.integral-finite-absolute-linear-lower-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_gibbsDensityENNReal_ne_top_of_ae_abs_linear_lower_bound",
+    upstreamDecl := "lintegral_exp_neg_add_mul_abs_ne_top / lintegral_gibbsDensityENNReal_ne_top_of_ae_potential_ge",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "density", "Laplace-tail", "absolute-linear-lower-bound", "finite"],
+    saldUse := "Chewi DENS/CONV root: prove finite one-dimensional Gibbs normalizer from an absolute-linear lower bound",
+    note := "First compiled nonquadratic Lebesgue Gibbs envelope; full multidimensional/general coercive envelopes remain todo-red."
+  },
+  {
+    key := "measure.gibbs-density.normalized-probability-absolute-linear-lower-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.isProbabilityMeasure_withDensity_normalized_gibbs_of_ae_abs_linear_lower_bound",
+    upstreamDecl := "lintegral_gibbsDensityENNReal_ne_zero / lintegral_gibbsDensityENNReal_ne_top_of_ae_abs_linear_lower_bound",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "Laplace-tail", "absolute-linear-lower-bound", "probability-measure"],
+    saldUse := "Chewi DENS/CONV/SDE root: construct normalized one-dimensional Gibbs targets with Laplace-type tails",
+    note := "Source-facing probability bridge for Chewi's log-concave but non-strongly-log-concave Laplace examples."
   }
 ]
 
@@ -322,6 +471,889 @@ def taylorMemory : List LemmaMemoryEntry := [
   }
 ]
 
+def calculusMemory : List LemmaMemoryEntry := [
+  {
+    key := "analysis.calculus.smooth-unit-cutoff-eq-smoothTransition",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_smoothTransition",
+    upstreamDecl := "GaussianSobolev.smoothCutoff_eq_smoothTransition",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578; Mathlib.Analysis.Calculus.BumpFunction.InnerProduct",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "smoothTransition", "unit-scale"],
+    saldUse := "log-concave sampling Ch.1 cutoff root: expose the unit cutoff through Mathlib's smooth-transition formula",
+    note := "Formula leaf only. It does not assert a scaled family, derivative bounds, tail passage, weighted IBP, or invariant law."
+  },
+  {
+    key := "analysis.calculus.smooth-unit-cutoff-contDiff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+    upstreamDecl := "GaussianSobolev.smoothCutoff_contDiff",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578; Mathlib.Analysis.Calculus.BumpFunction.InnerProduct",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "ContDiff", "unit-scale"],
+    saldUse := "log-concave sampling Ch.1 cutoff root: global smoothness of the reusable one-dimensional unit cutoff",
+    note := "Smoothness leaf only. It gives no derivative-size estimate or integration theorem."
+  },
+  {
+    key := "analysis.calculus.smooth-unit-cutoff-one-of-abs-le-one",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_one_of_abs_le_one",
+    upstreamDecl := "GaussianSobolev.smoothCutoff_eq_one_of_le",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578; Mathlib.Analysis.SpecialFunctions.SmoothTransition",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "plateau", "unit-scale"],
+    saldUse := "log-concave sampling Ch.1 cutoff root: identify the unit cutoff plateau on the closed unit interval",
+    note := "Unit-scale value leaf only; no scaled derivative or tail claim."
+  },
+  {
+    key := "analysis.calculus.smooth-unit-cutoff-zero-of-two-le-abs",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_zero_of_two_le_abs",
+    upstreamDecl := "GaussianSobolev.smoothCutoff_eq_zero_of_ge",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578; Mathlib.Analysis.SpecialFunctions.SmoothTransition",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "support", "unit-scale"],
+    saldUse := "log-concave sampling Ch.1 cutoff root: the unit cutoff vanishes beyond radius two",
+    note := "Pointwise vanishing leaf only; compactness and topological support are separate leaves."
+  },
+  {
+    key := "analysis.calculus.smooth-unit-cutoff-mem-Icc",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_mem_Icc",
+    upstreamDecl := "ContDiffBumpBase.mem_Icc",
+    upstreamFile := "Mathlib.Analysis.Calculus.BumpFunction.InnerProduct",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "range", "unit-scale"],
+    saldUse := "log-concave sampling Ch.1 cutoff root: pointwise [0,1] range of the unit cutoff",
+    note := "Range leaf only; it does not provide monotonicity or derivative bounds."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-one-of-norm-le",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le",
+    upstreamDecl := "GaussianSobolev.smoothCutoffR_eq_one_of_norm_le",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "plateau", "closed-ball"],
+    saldUse := "log-concave sampling Ch.1 exhaustion base: the scale-R radial cutoff equals one on the radius-R closed ball",
+    note := "Plateau-value leaf only. Uniform derivative and tail estimates remain red."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-zero-of-two-mul-le-norm",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_zero_of_two_mul_le_norm",
+    upstreamDecl := "GaussianSobolev.smoothCutoffR_eq_zero_of_norm_ge",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "support", "closed-ball"],
+    saldUse := "log-concave sampling Ch.1 exhaustion base: the scale-R radial cutoff vanishes at norm at least 2R",
+    note := "Pointwise vanishing leaf only. It does not identify support equality."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-mem-Icc",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_mem_Icc",
+    upstreamDecl := "GaussianSobolev.smoothCutoffR_nonneg plus smoothCutoffR_le_one",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "range"],
+    saldUse := "log-concave sampling Ch.1 exhaustion base: every radial cutoff value lies in [0,1]",
+    note := "Range leaf only; scale positivity is not needed for this statement."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-contDiff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_contDiff",
+    upstreamDecl := "GaussianSobolev.smoothCutoffR_contDiff",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578; Mathlib.Analysis.Calculus.BumpFunction.InnerProduct",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "ContDiff", "inner-product-space"],
+    saldUse := "log-concave sampling Ch.1 exhaustion base: smoothness of the positive-scale radial cutoff on real inner-product spaces",
+    note := "Requires an inner-product norm; no claim is made for arbitrary nonsmooth norms or for derivative magnitude."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-support-subset-closedBall",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_support_subset_closedBall",
+    upstreamDecl := "GaussianSobolev.smoothCutoffR_support_subset",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "Function.support", "closed-ball"],
+    saldUse := "log-concave sampling Ch.1 exhaustion base: plain support of the scale-R cutoff is contained in the radius-2R closed ball",
+    note := "Support containment, not equality. Box support and boundary-face handoffs remain separate."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-tsupport-subset-closedBall",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tsupport_subset_closedBall",
+    upstreamDecl := "radialSmoothCutoff_support_subset_closedBall plus closure_minimal",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "tsupport", "closed-ball"],
+    saldUse := "log-concave sampling Ch.1 exhaustion base: topological support remains inside the radius-2R closed ball",
+    note := "Topological-support containment only; it does not claim a box-shaped tsupport or support equality."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-hasCompactSupport",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_hasCompactSupport",
+    upstreamDecl := "GaussianSobolev.smoothCutoffR_hasCompactSupport",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "HasCompactSupport", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 exhaustion base: positive-scale radial cutoffs have compact support in finite dimension",
+    note := "Compact-support leaf only. No derivative, domination, integration, or invariant-law conclusion."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-tendsto-one",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tendsto_one",
+    upstreamDecl := "GaussianSobolev.smoothCutoffR_tendsto_one",
+    upstreamFile := "SLT/GaussianSobolevDense/Defs.lean@216e578",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "exhaustion", "Tendsto"],
+    saldUse := "log-concave sampling Ch.1 exhaustion base: at each fixed point the radial cutoff is eventually one as R tends to infinity",
+    note := "Pointwise eventual constancy only. It does not prove dominated convergence for cutoff errors or derivative terms."
+  },
+  {
+    key := "analysis.calculus.exists-contDiff-eq-one-tsupport-subset",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.exists_contDiff_eq_one_tsupport_subset",
+    upstreamDecl := "exists_compact_between; IsOpen.exists_contDiff_support_eq; IsCompact.exists_forall_le'; Real.smoothTransition",
+    upstreamFile := "Mathlib.Topology.Compactness.LocallyCompact; Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; Mathlib.Topology.Order.Compact; Mathlib.Analysis.SpecialFunctions.SmoothTransition",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "plateau", "compact", "open-set", "tsupport", "ContDiff"],
+    saldUse := "log-concave sampling Ch.1 cutoff root: a compact set inside an open finite-dimensional neighborhood admits a smooth [0,1] plateau with compact support inside that neighborhood",
+    note := "Generic compact-in-open plateau leaf. It supplies no exhausting sequence, derivative bounds, tail passage, weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.exists-contDiff-cutoff-eq-one-on-Icc-tsupport-subset-outer-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_eq_one_on_Icc_tsupport_subset_outer_univ_pi_Ioo",
+    upstreamDecl := "Cutoff.exists_contDiff_eq_one_tsupport_subset plus Icc_subset_univ_pi_Ioo_of_strict_bounds",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "cutoff", "plateau", "closed-box", "open-box", "tsupport", "ContDiff"],
+    saldUse := "log-concave sampling Ch.1 finite-box route: one smooth compactly supported cutoff equals one on the entire inner closed Pi-box and is topologically supported in the outer open Pi-box",
+    note := "One-cutoff box specialization only. Exhausting families with derivative bookkeeping, tail limits, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, and KL/FI remain red."
+  },
+  {
+    key := "analysis.calculus.gradient-exp-neg-potential-chain-rule",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.hasGradientAt_expNegPotential_of_hasGradientAt",
+    upstreamDecl := "HasGradientAt.hasFDerivAt / HasFDerivAt.neg / HasFDerivAt.exp",
+    upstreamFile := "Mathlib.Analysis.Calculus.Gradient.Basic; Mathlib.Analysis.SpecialFunctions.ExpDeriv",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "gradient", "chain-rule", "exp-neg-potential"],
+    saldUse := "Chewi SDE/DENS root: turn a supplied potential gradient `∇V` into the Gibbs-weight gradient `∇ exp(-V) = -exp(-V) • ∇V` before finite-coordinate Langevin divergence algebra",
+    note := "Pointwise gradient chain-rule leaf only. It does not prove weighted divergence, product rules for `rho ∇f`, integration by parts, boundary decay, stationarity, reversibility, or invariant Gibbs law."
+  },
+  {
+    key := "analysis.calculus.gradient-exp-neg-potential-mathlib-gradient-from-hasGradientAt",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_eq_of_hasGradientAt",
+    upstreamDecl := "HasGradientAt.gradient plus hasGradientAt_expNegPotential_of_hasGradientAt",
+    upstreamFile := "Mathlib.Analysis.Calculus.Gradient.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "gradient", "HasGradientAt", "Mathlib-gradient", "exp-neg-potential"],
+    saldUse := "Chewi SDE/DENS root: rewrite Mathlib's total `gradient (exp(-V)) x` from a supplied `HasGradientAt V gradV x`, keeping the potential-gradient representative explicit",
+    note := "Pointwise Mathlib-gradient selection leaf only. It uses uniqueness of gradients after the local chain rule; divergence, product rule, IBP, generator domains, invariant law, reversibility, and KL/FI remain red."
+  },
+  {
+    key := "analysis.calculus.gradient-exp-neg-potential-coordinate-from-hasGradientAt",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_coordinate_eq_of_hasGradientAt",
+    upstreamDecl := "gradient_expNegPotential_eq_of_hasGradientAt plus EuclideanSpace coordinate evaluation of scalar multiplication",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "gradient", "HasGradientAt", "EuclideanSpace", "coordinate"],
+    saldUse := "Chewi SDE/DENS root: coordinate Gibbs-weight chain-rule equality from a supplied potential gradient representative before finite Euclidean weighted-divergence algebra",
+    note := "Coordinate Mathlib-gradient display only. It does not prove coordinate product rules, the a.e. bridge or box-integrability assumptions needed by the compiled box divergence wrapper, Laplacian identities, IBP, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.gradient-exp-neg-potential-mathlib-gradient",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_eq_of_differentiableAt",
+    upstreamDecl := "HasGradientAt.gradient plus hasGradientAt_expNegPotential_of_hasGradientAt",
+    upstreamFile := "Mathlib.Analysis.Calculus.Gradient.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "gradient", "DifferentiableAt", "Mathlib-gradient", "exp-neg-potential"],
+    saldUse := "Chewi SDE/DENS root: turn `DifferentiableAt ℝ V x` into the Mathlib total-gradient identity `gradient (exp(-V)) x = -exp(-V x) • gradient V x` before weighted-divergence handoffs",
+    note := "Pointwise Mathlib-gradient display only. It removes the separate Gibbs-weight chain-rule hypothesis when `V` is differentiable at the point; divergence, product rule, IBP, generator domains, invariant law, reversibility, and KL/FI remain red."
+  },
+  {
+    key := "analysis.calculus.gradient-exp-neg-potential-coordinate",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_coordinate_eq_of_differentiableAt",
+    upstreamDecl := "gradient_expNegPotential_eq_of_differentiableAt plus EuclideanSpace coordinate evaluation of scalar multiplication",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "gradient", "EuclideanSpace", "coordinate", "DifferentiableAt"],
+    saldUse := "Chewi SDE/DENS root: supply the coordinate Gibbs-weight chain-rule equality used by finite Euclidean Langevin weighted-divergence handoffs",
+    note := "Coordinate chain-rule display only. It does not prove coordinate product rules, the a.e. bridge or box-integrability assumptions needed by the compiled box divergence wrapper, Laplacian identities, IBP, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.continuous-gradient-of-contDiff-one",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one",
+    upstreamDecl := "ContDiff.continuous_fderiv plus the continuous inverse Riesz equivalence for `gradient`",
+    upstreamFile := "Mathlib.Analysis.Calculus.ContDiff.Basic; Mathlib.Analysis.Calculus.Gradient.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "gradient", "ContDiff", "Continuous", "regularity", "test-function"],
+    saldUse := "Chewi Ch.1 Langevin root: derive continuity of Mathlib's total gradient from global `C¹` regularity before the scalar generator display on boxes",
+    note := "Global `C¹` to continuous Mathlib gradient only. It does not assert a closed-box `ContDiffOn` variant, field differentiability for `rho * fderiv f eᵢ`, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.gradient-coordinate-unit-line-derivative",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.hasGradientAt_coordinateUnit_hasLineDerivAt",
+    upstreamDecl := "HasGradientAt.hasFDerivAt / HasFDerivAt.hasLineDerivAt / InnerProductSpace.toDual_apply_apply",
+    upstreamFile := "Mathlib.Analysis.Calculus.Gradient.Basic; Mathlib.Analysis.Calculus.LineDeriv.Basic; AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "gradient", "line-derivative", "EuclideanSpace", "coordinate", "finite-dimensional"],
+    saldUse := "Chewi SDE/ANALYSIS root: identify a coordinate-unit line derivative with the corresponding coordinate of a supplied Mathlib gradient before finite-coordinate Langevin generator algebra",
+    note := "Pointwise gradient-coordinate bridge only. It does not prove divergence, weighted product rules, Laplacian identities, IBP, boundary decay, stationarity, reversibility, or invariant Gibbs law."
+  },
+  {
+    key := "analysis.calculus.fderiv-apply-eq-inner-of-hasGradientAt",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_of_hasGradientAt",
+    upstreamDecl := "HasGradientAt.hasFDerivAt plus HasFDerivAt.unique and InnerProductSpace.toDual_apply_apply",
+    upstreamFile := "Mathlib.Analysis.Calculus.Gradient.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "gradient", "fderiv", "inner-product", "HasGradientAt", "pointwise"],
+    saldUse := "Chewi Ch.1 calculus root: rewrite a pointwise Frechet derivative application through a supplied Mathlib gradient representative before coordinate Langevin displays",
+    note := "Pointwise fderiv/gradient bridge only. It does not choose coordinate bases, define divergence, prove product rules, IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.fderiv-apply-eq-inner-gradient",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt",
+    upstreamDecl := "DifferentiableAt.hasGradientAt plus fderiv_apply_eq_inner_of_hasGradientAt",
+    upstreamFile := "Mathlib.Analysis.Calculus.Gradient.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "gradient", "fderiv", "inner-product", "DifferentiableAt", "pointwise"],
+    saldUse := "Chewi Ch.1 calculus root: under `DifferentiableAt ℝ f x`, rewrite `fderiv ℝ f x v` as `inner ℝ (gradient f x) v`",
+    note := "Pointwise total-gradient display only. It does not prove global smoothness, divergence, coordinate sums, IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.fderiv-coordinate-eq-gradient-coordinate",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_coordinate_eq_gradient_coordinate_of_differentiableAt",
+    upstreamDecl := "fderiv_apply_eq_inner_gradient_of_differentiableAt plus EuclideanSpace.inner_basisFun_real",
+    upstreamFile := "Mathlib.Analysis.Calculus.Gradient.Basic; Mathlib.Analysis.InnerProductSpace.PiL2; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "gradient", "fderiv", "EuclideanSpace", "coordinate", "DifferentiableAt"],
+    saldUse := "Chewi Ch.1 Langevin root: discharge the local bridge `fderiv ℝ f x eᵢ = (gradient f x) i` used by finite-coordinate generator displays",
+    note := "Pointwise coordinate bridge only. It requires `DifferentiableAt ℝ f x`; differentiability of `fun y => fderiv ℝ f y` alone is not a substitute. It does not define divergence, prove that a coordinate sum is divergence, prove IBP/no-boundary terms, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.coordinate-divergence-sum-lineDeriv",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_lineDeriv",
+    upstreamDecl := "definition of coordinateDivergence",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; Mathlib.Analysis.BoxIntegral.DivergenceTheorem pointwise summand shape",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "lineDeriv", "EuclideanSpace", "pointwise"],
+    saldUse := "Chewi Ch.1 calculus root: name the finite-dimensional coordinate divergence convention `sum_i lineDeriv F_i x e_i` before Langevin divergence-form displays",
+    note := "Definition/unfolding leaf only. It is pointwise and coordinate-dependent; it does not prove a divergence theorem, integration by parts, boundary cancellation, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.coordinate-divergence-fderiv-trace-sum",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_fderiv_apply_of_hasFDerivAt",
+    upstreamDecl := "HasFDerivAt.hasLineDerivAt plus PiLp.proj component projection",
+    upstreamFile := "Mathlib.Analysis.Calculus.LineDeriv.Basic; Mathlib.Analysis.Normed.Lp.PiLp; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "fderiv", "trace-style", "EuclideanSpace", "pointwise"],
+    saldUse := "Chewi Ch.1 calculus root: align ASTIS coordinate divergence with the Mathlib divergence-theorem summand shape `sum_i F' e_i i` under `HasFDerivAt F F' x`",
+    note := "Pointwise Frechet-derivative expansion only. It does not assert coordinate independence, prove the Mathlib divergence theorem, instantiate box/all-space integrability, prove IBP/no-boundary terms, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.coordinate-divergence-fderiv-default-summand",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_fderiv_apply_of_differentiableAt",
+    upstreamDecl := "coordinateDivergence_eq_sum_fderiv_apply_of_hasFDerivAt plus DifferentiableAt.hasFDerivAt",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; Mathlib.MeasureTheory.Integral.DivergenceTheorem summand shape",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "fderiv", "DifferentiableAt", "EuclideanSpace", "pointwise"],
+    saldUse := "Chewi Ch.1 calculus root: rewrite ASTIS `coordinateDivergence F x` to the exact default Mathlib `fderiv ℝ F x` summand shape before any integral divergence-theorem instantiation",
+    note := "Pointwise bridge to the Bochner divergence theorem integrand only. It does not prove integrability on boxes, face terms, no-boundary cancellation, weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.withlp-continuousLinearEquiv-euclidean-single",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousLinearEquiv_apply_euclideanSpace_single",
+    upstreamDecl := "PiLp.continuousLinearEquiv_apply",
+    upstreamFile := "Mathlib.Analysis.Calculus.FDeriv.WithLp; Mathlib.Analysis.Normed.Lp.PiLp",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "WithLp", "PiLp", "EuclideanSpace", "coordinate-unit"],
+    saldUse := "Chewi Ch.1 calculus root: identify the Euclidean coordinate unit with the Pi-space `Pi.single` unit before transporting derivative traces through `WithLp`",
+    note := "Representation bridge only. It does not prove differentiability, divergence, a.e. equality, integrability, IBP, boundary cancellation, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.coordinate-divergence-wrapped-toPi-trace",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt",
+    upstreamDecl := "PiLp.hasFDerivAt_ofLp / PiLp.hasFDerivAt_toLp / HasFDerivAt.comp",
+    upstreamFile := "Mathlib.Analysis.Calculus.FDeriv.WithLp; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "WithLp", "Pi-space", "fderiv", "trace-style", "pointwise"],
+    saldUse := "Chewi Ch.1 calculus root: transport a Pi-space `HasFDerivAt F F' x` into the ASTIS wrapped `EuclideanSpace` coordinate divergence trace formula",
+    note := "Pointwise interface bridge only. It does not prove the derivative exists a.e., box integrability, face terms, no-boundary cancellation, weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.eventuallyEq-restrict-Icc-open-box-diff-countable",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.eventuallyEq_restrict_Icc_of_eqOn_univ_pi_Ioo_diff_countable",
+    upstreamDecl := "Measure.univ_pi_Ioo_ae_eq_Icc plus Set.Countable.ae_notMem",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.DivergenceTheorem; Mathlib.MeasureTheory.Constructions.Polish.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "measure", "eventuallyEq", "closed-box", "open-box", "countable-exception"],
+    saldUse := "Chewi Ch.1 calculus root: turn equality on the open Pi-box away from a countable exceptional set into equality a.e. on the restricted closed box",
+    note := "A.e. transport leaf only. It does not prove differentiability, integrability, a divergence theorem, IBP, no-boundary limits, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.coordinate-divergence-wrapped-toPi-trace-ae",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_ae_of_ae_hasFDerivAt",
+    upstreamDecl := "coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "WithLp", "Pi-space", "a.e.", "HasFDerivAt"],
+    saldUse := "Chewi Ch.1 calculus root: discharge the finite-box face-term wrapper's `hdiv_ae` equality from an explicit a.e. Pi-space differentiability hypothesis",
+    note := "A.e. equality bridge only. It assumes the derivative exists a.e.; it does not prove box integrability, face terms, no-boundary cancellation, weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.coordinate-divergence-wrapped-toPi-trace-ae-off-countable",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_ae_of_hasFDerivAt_off_countable",
+    upstreamDecl := "coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt plus eventuallyEq_restrict_Icc_of_eqOn_univ_pi_Ioo_diff_countable",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; Mathlib.MeasureTheory.Integral.DivergenceTheorem",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "WithLp", "Pi-space", "a.e.", "open-box", "countable-exception"],
+    saldUse := "Chewi Ch.1 calculus root: discharge the finite-box face-term wrapper's `hdiv_ae` equality from Mathlib-style open-box/off-countable differentiability data",
+    note := "This closes only the a.e. bridge assumption for the box wrapper. Box integrability, whole-space/no-boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, and KL/FI dissipation remain red."
+  },
+  {
+    key := "analysis.calculus.integrableOn-coordinate-divergence-wrapped-of-trace",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integrableOn_coordinateDivergence_wrapped_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+    upstreamDecl := "IntegrableOn.congr_fun_ae plus coordinateDivergence_wrapped_toPi_trace_ae_of_hasFDerivAt_off_countable",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.IntegrableOn; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "WithLp", "Pi-space", "IntegrableOn", "trace-style", "a.e.", "open-box"],
+    saldUse := "Chewi Ch.1 calculus root: transfer Mathlib trace-summand `IntegrableOn` across the compiled a.e. bridge to the ASTIS wrapped coordinate-divergence integrand",
+    note := "Integrability transfer only. It assumes trace integrability and differentiability off a countable set; it does not prove trace integrability for a concrete Langevin field, weighted IBP, no-boundary terms, generator domains, invariant law, reversibility, stationarity, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-trace-integrable",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+    upstreamDecl := "MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable plus integrableOn_coordinateDivergence_wrapped_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.DivergenceTheorem; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "box-divergence-theorem", "face-terms", "IntegrableOn", "trace-style", "finite-dimensional"],
+    saldUse := "Chewi Ch.1 calculus root: finite-box signed face-term formula for ASTIS coordinateDivergence with only Mathlib trace-integrability as the integrability input",
+    note := "Box-level signed face-term wrapper only. It derives the a.e. bridge and ASTIS-side integrability internally, but still assumes trace integrability. It does not prove trace integrability for the explicit Langevin field, whole-space/no-boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-face",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+    upstreamDecl := "integral_coordinateDivergence_toPi_box_of_integrableOn_trace_of_hasFDerivAt_off_countable plus supplied zero signed-face term",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "coordinate-divergence", "box-divergence-theorem", "face-terms", "zero-face", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 finite-box weighted-IBP route: once the signed face term is explicitly zero, the ASTIS coordinate-divergence box integral is zero",
+    note := "Conditional zero-face handoff only. It assumes the face term vanishes; it does not prove compact support, boundary decay, whole-space limits, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.signed-face-term-sum-zero-of-boundary-component-zero",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_boundary_component_eq_zero",
+    upstreamDecl := "integral_zero / Finset.sum_eq_zero via componentwise zero values on lower and upper faces",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "face-terms", "zero-face", "finite-box", "coordinate-divergence"],
+    saldUse := "log-concave sampling Ch.1 boundary route: explicit zero normal components on all finite-box faces imply the signed face-term sum vanishes",
+    note := "Boundary-value producer only. It assumes componentwise zero values on the faces; it does not prove compact support, tail decay, whole-space limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-boundary-component",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_boundary_component_eq_zero",
+    upstreamDecl := "integral_coordinateDivergence_toPi_box_eq_zero_of_integrableOn_trace_of_hasFDerivAt_off_countable plus signedFaceTermSum_eq_zero_of_boundary_component_eq_zero",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "coordinate-divergence", "box-divergence-theorem", "zero-face", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 finite-box weighted-IBP route: if the vector field's normal component is zero on each lower and upper face, the ASTIS coordinate-divergence box integral is zero",
+    note := "Finite-box conditional boundary handoff only. It still assumes trace integrability and open-box/off-countable differentiability; it does not derive compact support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.signed-face-term-sum-zero-of-update-boundary-component-zero",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_update_boundary_component_eq_zero",
+    upstreamDecl := "signedFaceTermSum_eq_zero_of_boundary_component_eq_zero plus Function.update_eq_self on Fin.insertNth faces",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "Function.update", "face-terms", "zero-face", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 boundary route: update-to-boundary zero component hypotheses imply the finite-box signed face-term sum vanishes",
+    note := "Update-shaped boundary-value producer only. It assumes zero components after replacing a coordinate by the face endpoint; it does not prove compact support, tail decay, whole-space limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-update-boundary-component",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_update_boundary_component_eq_zero",
+    upstreamDecl := "integral_coordinateDivergence_toPi_box_eq_zero_of_integrableOn_trace_of_hasFDerivAt_off_countable plus signedFaceTermSum_eq_zero_of_update_boundary_component_eq_zero",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "Function.update", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box weighted-IBP route: update-to-boundary zero component hypotheses imply the ASTIS coordinate-divergence box integral is zero",
+    note := "Finite-box conditional update-boundary handoff only. It still assumes trace integrability and open-box/off-countable differentiability; it does not derive compact support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.update-boundary-component-zero-of-eq-zero-off-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.update_boundary_component_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+    upstreamDecl := "Set.mem_univ_pi plus endpoint self-inequality contradiction for Function.update boundary points",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "open-box", "Function.update", "zero-boundary", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 boundary route: off-open-box vanishing implies update-to-boundary normal components are zero",
+    note := "Off-open-box boundary producer only. It assumes the vector field is already zero outside the open Pi-box; it does not prove compact support, cutoff support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.signed-face-term-sum-zero-of-eq-zero-off-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+    upstreamDecl := "update_boundary_component_eq_zero_of_eq_zero_off_univ_pi_Ioo plus signedFaceTermSum_eq_zero_of_update_boundary_component_eq_zero",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "open-box", "face-terms", "zero-face", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 boundary route: off-open-box vanishing implies Mathlib's finite-box signed face-term sum is zero",
+    note := "Signed face-term producer only. It assumes off-open-box vanishing; it does not prove compact support, tail decay, whole-space limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-off-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+    upstreamDecl := "integral_coordinateDivergence_toPi_box_eq_zero_of_integrableOn_trace_of_hasFDerivAt_off_countable plus signedFaceTermSum_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "open-box", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box weighted-IBP route: off-open-box vanishing implies the ASTIS coordinate-divergence box integral is zero",
+    note := "Finite-box off-open-box handoff only. It still assumes trace integrability and open-box/off-countable differentiability; it does not derive compact support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.eq-zero-off-univ-pi-Ioo-of-support-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.eq_zero_off_univ_pi_Ioo_of_support_subset_univ_pi_Ioo",
+    upstreamDecl := "Function.support subset plus contradiction outside target set",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "support", "open-box", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 boundary route: a support subset of the open Pi-box implies the vector field is zero outside that open Pi-box",
+    note := "Plain support-to-off-open-box producer only. It assumes the support subset; it does not prove compact support construction, cutoff support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.exists-contDiff-cutoff-tsupport-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_tsupport_subset_univ_pi_Ioo",
+    upstreamDecl := "exists_contDiff_tsupport_subset specialized to finite Pi-open boxes",
+    upstreamFile := "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smooth-cutoff", "ContDiff", "HasCompactSupport", "tsupport", "open-box", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: construct a local smooth real-valued cutoff whose topological support is contained in a finite Pi-open box and which equals one at a chosen interior point",
+    note := "Local smooth-cutoff existence leaf only. It does not choose an exhausting cutoff family, prove concrete derivative formulas for the cutoff, pass to whole-space tail limits, prove weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.support-subset-univ-pi-Ioo-of-tsupport-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_subset_univ_pi_Ioo_of_tsupport_subset_univ_pi_Ioo",
+    upstreamDecl := "subset_tsupport composed with finite Pi-open-box containment",
+    upstreamFile := "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "tsupport", "open-box", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: convert Mathlib topological-support containment for a scalar cutoff into the plain Function.support containment consumed by finite-box zero-face handoffs",
+    note := "Support-API bridge only. It does not construct a cutoff, prove compactness, choose an exhausting cutoff family, prove derivative formulas, tail limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.exists-contDiff-cutoff-support-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_support_subset_univ_pi_Ioo",
+    upstreamDecl := "exists_contDiff_cutoff_tsupport_subset_univ_pi_Ioo plus support_subset_univ_pi_Ioo_of_tsupport_subset_univ_pi_Ioo",
+    upstreamFile := "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smooth-cutoff", "ContDiff", "HasCompactSupport", "support", "tsupport", "open-box", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: construct a local smooth cutoff with both topological support and plain Function.support contained in the finite Pi-open box",
+    note := "Local smooth-cutoff packaging leaf only. It does not choose an exhausting cutoff family, prove concrete derivative formulas, pass to whole-space tail limits, prove weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.exists-contDiff-support-eq-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_support_eq_univ_pi_Ioo",
+    upstreamDecl := "IsOpen.exists_contDiff_support_eq specialized to finite Pi-open boxes",
+    upstreamFile := "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smooth-cutoff", "ContDiff", "support", "support-eq", "open-box", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 cutoff/exhaustion route: construct a smooth [0,1]-valued function whose plain support is exactly a finite Pi-open box",
+    note := "Exact plain-support open-box smooth function only. It does not prove compact support, topological-support containment, plateau equal to one on an inner closed box, an exhausting family, derivative bounds, tail limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.positive-on-univ-pi-Ioo-of-support-eq-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.positive_on_univ_pi_Ioo_of_support_eq_univ_pi_Ioo",
+    upstreamDecl := "Function.support equality plus range subset Set.Icc 0 1",
+    upstreamFile := "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "support-eq", "positivity", "open-box", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 cutoff/exhaustion route: turn exact open-box plain support and [0,1] range into strict positivity on the finite Pi-open box",
+    note := "Support/range consequence only. It does not construct a cutoff, prove compact support, prove plateau behavior, choose an exhausting family, prove derivative bounds, tail limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.Icc-subset-univ-pi-Ioo-of-forall-lt",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.Icc_subset_univ_pi_Ioo_of_strict_bounds",
+    upstreamDecl := "coordinatewise order on Pi spaces plus strict outer bounds",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "closed-box", "open-box", "exhaustion", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 cutoff/exhaustion route: an inner closed Pi-box is contained in any coordinatewise strictly larger open Pi-box",
+    note := "Closed-box/open-box containment bookkeeping only. It does not construct a cutoff, choose an exhausting family, prove derivative bounds, tail limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.exists-contDiff-cutoff-support-subset-outer-univ-pi-Ioo-of-mem-Icc",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_support_subset_outer_univ_pi_Ioo_of_mem_Icc",
+    upstreamDecl := "Icc_subset_univ_pi_Ioo_of_strict_bounds plus exists_contDiff_cutoff_support_subset_univ_pi_Ioo",
+    upstreamFile := "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smooth-cutoff", "closed-box", "open-box", "support", "tsupport", "exhaustion", "finite-dimensional"],
+    saldUse := "log-concave sampling Ch.1 cutoff/exhaustion route: every point of an inner closed Pi-box has a local smooth cutoff whose support and topological support lie in a strictly larger open Pi-box",
+    note := "Local pointwise cutoff in an outer open box only. It does not construct one cutoff equal to one on the whole inner closed box, choose an exhausting cutoff family, prove derivative bounds, pass to whole-space tail limits, prove weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.signed-face-term-sum-zero-of-support-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_support_subset_univ_pi_Ioo",
+    upstreamDecl := "eq_zero_off_univ_pi_Ioo_of_support_subset_univ_pi_Ioo plus signedFaceTermSum_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "support", "open-box", "face-terms", "zero-face", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 boundary route: a support subset of the open Pi-box implies Mathlib's finite-box signed face-term sum is zero",
+    note := "Support-subset face-term producer only. It assumes the support subset; it does not prove compact support construction, cutoff support, tail decay, whole-space limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-support-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_support_subset_univ_pi_Ioo",
+    upstreamDecl := "integral_coordinateDivergence_toPi_box_eq_zero_of_integrableOn_trace_of_hasFDerivAt_off_countable plus signedFaceTermSum_eq_zero_of_support_subset_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "support", "open-box", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box weighted-IBP route: a support subset of the open Pi-box implies the ASTIS coordinate-divergence box integral is zero",
+    note := "Finite-box support-subset handoff only. It still assumes trace integrability and open-box/off-countable differentiability, and it assumes the support subset; it does not derive compact support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.support-smul-subset-univ-pi-Ioo-of-cutoff-eq-zero-off-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_eq_zero_off_univ_pi_Ioo",
+    upstreamDecl := "scalar zero outside open Pi-box implies zero smul vector field outside open Pi-box",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "smul", "open-box", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: a scalar cutoff vanishing outside the open Pi-box forces the cutoff-smul vector field to be supported in the open Pi-box",
+    note := "Plain support-containment bridge only. It does not construct a smooth cutoff, prove HasCompactSupport, prove cutoff-smul regularity, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.support-smul-subset-univ-pi-Ioo-of-scalar-support-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_scalar_support_subset_univ_pi_Ioo",
+    upstreamDecl := "scalar Function.support subset plus support_smul_subset_univ_pi_Ioo_of_eq_zero_off_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "smul", "open-box", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: a scalar cutoff supported in the open Pi-box forces the cutoff-smul vector field to be supported in the open Pi-box",
+    note := "Scalar-support-to-vector-support bridge only. It uses Function.support, not topological compact support, and does not prove cutoff construction, cutoff-smul regularity, tail decay, whole-space weighted IBP, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.support-smul-subset-univ-pi-Ioo-of-scalar-tsupport-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_scalar_tsupport_subset_univ_pi_Ioo",
+    upstreamDecl := "support_subset_univ_pi_Ioo_of_tsupport_subset_univ_pi_Ioo plus support_smul_subset_univ_pi_Ioo_of_scalar_support_subset_univ_pi_Ioo",
+    upstreamFile := "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "tsupport", "smul", "open-box", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: a scalar cutoff with topological support inside the open Pi-box forces the cutoff-smul vector field to be plain-supported in that open box",
+    note := "Direct tsupport-to-cutoff-smul support bridge only. It does not construct a cutoff, prove cutoff-smul regularity, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.continuousOn-smul-vectorField-of-continuousOn",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_of_continuousOn",
+    upstreamDecl := "ContinuousOn.smul",
+    upstreamFile := "Mathlib.Topology.Algebra.Module.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "ContinuousOn", "closed-box", "regularity"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: derive closed-box continuity of a cutoff-smul vector field from separate cutoff and vector-field continuity",
+    note := "Closed-box continuity bridge only. It does not prove smooth cutoff construction, differentiability, trace integrability, boundary cancellation, weighted IBP, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.hasFDerivAt-smul-vectorField-of-hasFDerivAt",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.hasFDerivAt_smul_vectorField_of_hasFDerivAt",
+    upstreamDecl := "HasFDerivAt.smul",
+    upstreamFile := "Mathlib.Analysis.Calculus.FDeriv.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "HasFDerivAt", "product-rule", "regularity"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: pointwise product-rule Frechet derivative for the cutoff-smul vector field",
+    note := "Pointwise derivative bridge only. It does not prove continuity, open-box/off-countable coverage, trace integrability, boundary cancellation, weighted IBP, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.hasFDerivAt-smul-vectorField-off-countable",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.hasFDerivAt_smul_vectorField_off_countable",
+    upstreamDecl := "hasFDerivAt_smul_vectorField_of_hasFDerivAt applied pointwise on open box minus a countable set",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "HasFDerivAt", "open-box", "countable-exception", "regularity"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: derive the divergence-theorem off-countable derivative hypothesis for a cutoff-smul field from separate cutoff and vector-field derivative hypotheses",
+    note := "Off-countable derivative bridge only. It assumes a shared exceptional set and does not prove trace integrability, closed-box continuity, boundary cancellation, weighted IBP, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.signed-face-term-sum-smul-zero-of-cutoff-eq-zero-off-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo",
+    upstreamDecl := "support_smul_subset_univ_pi_Ioo_of_eq_zero_off_univ_pi_Ioo plus signedFaceTermSum_eq_zero_of_support_subset_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "face-terms", "zero-face", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: a scalar cutoff vanishing outside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero",
+    note := "Finite-box cutoff-smul face-term producer only. It does not prove smooth cutoff existence, regularity, trace integrability, tail limits, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.signed-face-term-sum-smul-zero-of-scalar-support-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+    upstreamDecl := "support_smul_subset_univ_pi_Ioo_of_scalar_support_subset_univ_pi_Ioo plus signedFaceTermSum_eq_zero_of_support_subset_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "smul", "face-terms", "zero-face", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: scalar cutoff support inside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero",
+    note := "Finite-box scalar-support face-term producer only. It does not prove smooth cutoff existence, regularity, trace integrability, tail limits, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.signed-face-term-sum-smul-zero-of-scalar-tsupport-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_scalar_tsupport_subset_univ_pi_Ioo",
+    upstreamDecl := "support_subset_univ_pi_Ioo_of_tsupport_subset_univ_pi_Ioo plus signedFaceTermSum_smul_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+    upstreamFile := "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "tsupport", "smul", "face-terms", "zero-face", "finite-box"],
+    saldUse := "log-concave sampling Ch.1 cutoff route: scalar topological support inside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero",
+    note := "Finite-box scalar-tsupport face-term producer only. It does not prove smooth cutoff construction, cutoff-smul regularity, trace integrability, tail limits, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-cutoff-eq-zero-off-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo",
+    upstreamDecl := "integral_coordinateDivergence_toPi_box_eq_zero_of_support_subset_univ_pi_Ioo plus support_smul_subset_univ_pi_Ioo_of_eq_zero_off_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff vanishing outside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions",
+    note := "Finite-box cutoff-smul handoff only. It still assumes continuity, open-box/off-countable differentiability, and trace integrability for the cutoff-smul field; it does not prove those regularity facts, smooth cutoff existence, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-scalar-support-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+    upstreamDecl := "integral_coordinateDivergence_toPi_box_eq_zero_of_support_subset_univ_pi_Ioo plus support_smul_subset_univ_pi_Ioo_of_scalar_support_subset_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "smul", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff support inside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions",
+    note := "Finite-box scalar-support cutoff handoff only. It still assumes continuity, open-box/off-countable differentiability, and trace integrability for the cutoff-smul field; it does not prove those regularity facts, smooth cutoff existence, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-scalar-tsupport-subset-univ-pi-Ioo",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_tsupport_subset_univ_pi_Ioo",
+    upstreamDecl := "support_subset_univ_pi_Ioo_of_tsupport_subset_univ_pi_Ioo plus integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+    upstreamFile := "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "tsupport", "smul", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff topological support inside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions",
+    note := "Finite-box scalar-tsupport cutoff handoff only. It still assumes continuity, open-box/off-countable differentiability, and trace integrability for the cutoff-smul field; it does not prove smooth cutoff construction, cutoff-smul regularity, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-cutoff-eq-zero-off-univ-pi-Ioo-regularity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_regularity",
+    upstreamDecl := "continuousOn_smul_vectorField_of_continuousOn plus hasFDerivAt_smul_vectorField_off_countable plus integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "regularity", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: derive the cutoff-smul continuity and off-countable derivative hypotheses before applying the zero-face coordinate-divergence handoff",
+    note := "Finite-box regularity handoff only. Trace integrability for the product-rule derivative remains explicit; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-scalar-support-subset-univ-pi-Ioo-regularity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_regularity",
+    upstreamDecl := "continuousOn_smul_vectorField_of_continuousOn plus hasFDerivAt_smul_vectorField_off_countable plus integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "smul", "regularity", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity hypotheses before applying the scalar-support zero-face coordinate-divergence handoff",
+    note := "Finite-box scalar-support regularity handoff only. Trace integrability for the product-rule derivative remains explicit; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-scalar-support-subset-univ-pi-Ioo-fderiv",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_fderiv",
+    upstreamDecl := "scalar-support regularity handoff specialized to canonical fderiv field",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "smul", "fderiv", "regularity", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: replace the supplied vector-field derivative parameter by the canonical `fderiv ℝ G` in the scalar-support zero integral handoff",
+    note := "Finite-box canonical-fderiv handoff only. It still assumes cutoff derivative data, continuity, trace integrability, and scalar support containment; it does not construct an exhausting cutoff family, prove tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integrableOn-smul-vectorField-trace-of-continuousOn",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integrableOn_smul_vectorField_trace_of_continuousOn",
+    upstreamDecl := "ContinuousOn.integrableOn_compact on isCompact_Icc",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Bochner.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "trace-style", "IntegrableOn", "ContinuousOn", "closed-box"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: discharge compact-box integrability of the cutoff-smul product-rule trace from closed-box trace continuity",
+    note := "Compact-box integrability handoff only. It assumes trace continuity and does not prove trace continuity from component assumptions, smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-cutoff-eq-zero-off-univ-pi-Ioo-trace-continuous",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_trace_continuous",
+    upstreamDecl := "integrableOn_smul_vectorField_trace_of_continuousOn plus integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_regularity",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "trace-style", "ContinuousOn", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity and compact-box trace integrability before applying the zero-face coordinate-divergence handoff",
+    note := "Finite-box trace-continuity handoff only. It still assumes closed-box trace continuity and cutoff vanishing outside the open box; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-scalar-support-subset-univ-pi-Ioo-trace-continuous",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_trace_continuous",
+    upstreamDecl := "integrableOn_smul_vectorField_trace_of_continuousOn plus integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_regularity",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "smul", "trace-style", "ContinuousOn", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity and compact-box trace integrability before applying the scalar-support zero-face coordinate-divergence handoff",
+    note := "Finite-box scalar-support trace-continuity handoff only. It still assumes closed-box trace continuity and scalar Function.support containment; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.continuousOn-smul-vectorField-trace-of-component-continuousOn",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_trace_of_component_continuousOn",
+    upstreamDecl := "continuousOn_finset_sum plus scalar ContinuousOn.mul/add after expanding smulRight trace",
+    upstreamFile := "Mathlib.Topology.Algebra.Group.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "trace-style", "ContinuousOn", "component", "closed-box"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: derive closed-box continuity of the cutoff-smul product-rule trace from exactly the diagonal component continuity hypotheses used by the trace summand",
+    note := "Trace-continuity assembly only. It does not prove that the component fields are derivatives, does not identify the product-rule operator with canonical fderiv, and does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.continuousOn-smul-vectorField-trace-of-components",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_trace_of_components",
+    upstreamDecl := "continuousOn_smul_vectorField_trace_of_component_continuousOn plus ContinuousOn.clm_apply/component projection",
+    upstreamFile := "Mathlib.Analysis.Normed.Operator.BoundedLinearMaps; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "trace-style", "ContinuousOn", "closed-box"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: convenience wrapper deriving trace continuity from CLM-valued continuity of χ' and G'",
+    note := "Convenience trace-continuity wrapper only. It is stronger than the component-continuity leaf and still does not prove derivative existence, smooth cutoff construction, tail decay, weighted IBP, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-cutoff-eq-zero-off-univ-pi-Ioo-component-continuous",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_component_continuous",
+    upstreamDecl := "continuousOn_smul_vectorField_trace_of_component_continuousOn plus trace-continuous zero-face handoff",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "smul", "component", "trace-style", "ContinuousOn", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: component trace continuity, regularity hypotheses, and cutoff vanishing imply the finite-box cutoff-smul coordinate-divergence integral is zero",
+    note := "Finite-box component-continuity handoff only. It assumes derivative hypotheses and cutoff vanishing; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box-zero-scalar-support-subset-univ-pi-Ioo-component-continuous",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_component_continuous",
+    upstreamDecl := "continuousOn_smul_vectorField_trace_of_component_continuousOn plus scalar-support trace-continuous zero-face handoff",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Langevin", "boundary", "cutoff", "support", "smul", "component", "trace-style", "ContinuousOn", "coordinate-divergence", "box-divergence-theorem", "zero-face"],
+    saldUse := "log-concave sampling Ch.1 finite-box cutoff route: component trace continuity, regularity hypotheses, and scalar support containment imply the finite-box cutoff-smul coordinate-divergence integral is zero",
+    note := "Finite-box scalar-support component-continuity handoff only. It assumes derivative hypotheses and scalar Function.support containment; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.integral-coordinate-divergence-toPi-box",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_of_hasFDerivAt_off_countable",
+    upstreamDecl := "MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable plus coordinateDivergence_eq_sum_fderiv_apply_of_differentiableAt",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.DivergenceTheorem; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "box-divergence-theorem", "face-terms", "IntegrableOn", "ae-equality", "finite-dimensional"],
+    saldUse := "Chewi Ch.1 calculus root: integrate ASTIS coordinateDivergence over a finite Mathlib box and obtain only the signed face-term formula, assuming the a.e. bridge to Mathlib's trace integrand and box integrability explicitly",
+    note := "Box-level signed face-term wrapper only. It assumes the finite-box continuity/off-countable differentiability hypotheses, an a.e. bridge from ASTIS coordinateDivergence to Mathlib's trace integrand, and IntegrableOn for the coordinate-divergence integrand. It does not derive that a.e. bridge, prove box integrability, prove whole-space/no-boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.line-derivative-product-rule",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_mul",
+    upstreamDecl := "HasDerivAt.mul applied to the line curve t ↦ x + t • v",
+    upstreamFile := "Mathlib.Analysis.Calculus.LineDeriv.Basic; Mathlib.Analysis.Calculus.Deriv.Mul",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "line-derivative", "product-rule", "coordinate", "weighted-divergence", "NormedAlgebra"],
+    saldUse := "Chewi SDE/ANALYSIS root: expose the generic algebra-valued line-derivative product rule before finite Euclidean weighted-divergence algebra",
+    note := "Generic product-rule leaf only. It does not by itself discharge the current Langevin `hdiv` hypothesis; it does not identify `g` with a coordinate derivative of a test function, prove Hessian/iterated-derivative identities, define divergence, prove divergence-sum identities, IBP, boundary decay, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.line-derivative-rho-product-rule",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_rho_mul",
+    upstreamDecl := "hasLineDerivAt_mul specialized to real-valued `rho * g`, reordered for weighted-divergence algebra",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "line-derivative", "product-rule", "rho", "coordinate", "weighted-divergence"],
+    saldUse := "Chewi SDE/ANALYSIS root: isolate the product-rule component of a coordinate calculation `∂ᵢ (rho * g) = rho * ∂ᵢ g + (∂ᵢ rho) * g` before finite Euclidean weighted-divergence algebra",
+    note := "Real-valued product-rule specialization only. It does not by itself discharge the current Langevin `hdiv` hypothesis; `g = ∂ᵢ f`, the diagonal Hessian/iterated derivative, divergence-sum identity, IBP, stationarity, reversibility, invariant Gibbs law, and KL/FI remain red."
+  },
+  {
+    key := "analysis.calculus.line-derivative-rho-product-rule-lineDeriv",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_rho_mul_eq_of_hasLineDerivAt",
+    upstreamDecl := "HasLineDerivAt.lineDeriv applied to hasLineDerivAt_rho_mul",
+    upstreamFile := "Mathlib.Analysis.Calculus.LineDeriv.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "line-derivative", "product-rule", "rho", "coordinate", "weighted-divergence", "lineDeriv"],
+    saldUse := "Chewi SDE/ANALYSIS root: convert supplied coordinate derivative facts for `rho` and `g` into the exact `lineDeriv` equality shape used by weighted-divergence displays",
+    note := "Equality-form product-rule leaf only. It does not identify `g` with a coordinate derivative of a test function, prove Hessian/iterated-derivative identities, define divergence, prove divergence-sum identities, IBP, boundary decay, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.line-derivative-exp-neg-potential-product-coordinate",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_expNegPotential_mul_eq_of_differentiableAt",
+    upstreamDecl := "DifferentiableAt.hasGradientAt; hasGradientAt_expNegPotential_of_hasGradientAt; hasGradientAt_coordinateUnit_hasLineDerivAt; lineDeriv_rho_mul_eq_of_hasLineDerivAt",
+    upstreamFile := "Mathlib.Analysis.Calculus.LineDeriv.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "line-derivative", "product-rule", "exp-neg-potential", "EuclideanSpace", "coordinate"],
+    saldUse := "Chewi SDE/DENS root: compute the coordinate-unit line derivative of `fun y => exp (-V y) * g y` from `DifferentiableAt ℝ V x` and a supplied coordinate derivative of `g`, narrowing the remaining Langevin `hdiv` branch to `g = ∂ᵢ f` and Hessian-coordinate wiring",
+    note := "Pointwise coordinate product-rule leaf for the explicit Gibbs weight. It does not identify `g` with a coordinate derivative of a test function, prove the diagonal Hessian/iterated derivative, define divergence, prove divergence-sum identities, IBP, no-boundary terms, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.line-derivative-fderiv-apply-const-from-hasFDerivAt",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_fderiv_apply_const_of_hasFDerivAt_fderiv",
+    upstreamDecl := "HasFDerivAt.clm_apply plus HasFDerivAt.hasLineDerivAt",
+    upstreamFile := "Mathlib.Analysis.Calculus.FDeriv.CompCLM; Mathlib.Analysis.Calculus.LineDeriv.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "line-derivative", "fderiv", "second-derivative", "Hessian", "coordinate"],
+    saldUse := "Chewi SDE/ANALYSIS root: a supplied derivative of `fun y => fderiv ℝ f y` gives the line derivative of the first-derivative slice `fun y => fderiv ℝ f y v`",
+    note := "Second-derivative wiring leaf only. It does not identify the supplied derivative with `iteratedFDeriv`, replace `fderiv ℝ f y eᵢ` by `(gradient f y) i`, define divergence, prove IBP, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.line-derivative-fderiv-apply-const-lineDeriv",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_const_eq_of_hasFDerivAt_fderiv",
+    upstreamDecl := "HasLineDerivAt.lineDeriv applied to hasLineDerivAt_fderiv_apply_const_of_hasFDerivAt_fderiv",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "lineDeriv", "fderiv", "second-derivative", "Hessian", "coordinate"],
+    saldUse := "Chewi SDE/ANALYSIS root: equality-form line derivative of a first-derivative slice, usable as an input to later supplied weighted-product/divergence displays",
+    note := "Equality-form second-derivative wiring leaf only. It does not identify `fderiv ℝ f` with a gradient coordinate, prove divergence, prove IBP, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.line-derivative-fderiv-apply-iteratedFDeriv-two",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_const_eq_iteratedFDeriv_two",
+    upstreamDecl := "iteratedFDeriv_two_apply plus lineDeriv_fderiv_apply_const_eq_of_hasFDerivAt_fderiv",
+    upstreamFile := "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "lineDeriv", "fderiv", "iteratedFDeriv", "Hessian", "second-derivative"],
+    saldUse := "Chewi SDE/ANALYSIS root: rewrite the line derivative of `fun y => fderiv ℝ f y v` as Mathlib's `iteratedFDeriv ℝ 2 f x ![w, v]` under differentiability of the total `fderiv` map at `x`",
+    note := "Pointwise total-fderiv/lineDeriv leaf only. It rewrites a fixed `fderiv ℝ f · v` slice into Mathlib's total `iteratedFDeriv ℝ 2` representative at `x`. It does not assert `f` is globally C², does not prove classical Hessian symmetry, does not replace `fderiv ℝ f x eᵢ` by `(gradient f x) i`, does not define or sum divergence, and does not prove IBP, boundary decay, invariant Gibbs law, reversibility, or KL/FI dissipation."
+  },
+  {
+    key := "analysis.calculus.line-derivative-fderiv-coordinate-iteratedFDeriv-two",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_coordinate_eq_iteratedFDeriv_two",
+    upstreamDecl := "lineDeriv_fderiv_apply_const_eq_iteratedFDeriv_two specialized to EuclideanSpace coordinate units",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "EuclideanSpace", "coordinate", "lineDeriv", "fderiv", "iteratedFDeriv", "Hessian"],
+    saldUse := "Chewi Ch.1 Langevin root: coordinate-unit line derivative of a first-derivative slice equals the diagonal `iteratedFDeriv` term used by finite-coordinate generator displays",
+    note := "Pointwise total-fderiv/lineDeriv coordinate leaf only. It rewrites the coordinate-unit line derivative of the fixed `fderiv ℝ f · eᵢ` slice into Mathlib's `iteratedFDeriv ℝ 2` representative at `x`. It does not assert global C² regularity, classical Hessian symmetry, gradient-coordinate replacement, divergence, IBP, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.line-derivative-exp-neg-potential-fderiv-coordinate",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_expNegPotential_mul_fderiv_coordinate_eq",
+    upstreamDecl := "lineDeriv_expNegPotential_mul_eq_of_differentiableAt plus lineDeriv_fderiv_apply_coordinate_eq_iteratedFDeriv_two",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "lineDeriv", "fderiv", "iteratedFDeriv", "Hessian", "EuclideanSpace", "coordinate"],
+    saldUse := "Chewi Ch.1 Langevin root: compute the coordinate line derivative of `exp(-V) * fderiv f eᵢ`, producing the Gibbs-weighted diagonal iterated-derivative term and the potential-gradient product term",
+    note := "Pointwise Gibbs-weight product-rule leaf for `lineDeriv_i (exp(-V) * fderiv f eᵢ)`. It discharges only the local `exp(-V)` derivative and the local total-fderiv slice derivative under the stated pointwise assumptions. Gradient-coordinate replacement, divergence operator/sum, Laplacian identification, IBP/no-boundary terms, stationarity, reversibility, invariant Gibbs law, and KL/FI remain separate obligations."
+  },
+  {
+    key := "analysis.calculus.laplacian-std-orthonormal-basis",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian.laplacian_eq_sum_stdOrthonormalBasis",
+    upstreamDecl := "InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis",
+    upstreamFile := "Mathlib.Analysis.InnerProductSpace.Laplacian",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Laplacian", "finite-dimensional", "stdOrthonormalBasis", "iteratedFDeriv"],
+    saldUse := "Chewi SDE/ANALYSIS root: identify Mathlib's finite-dimensional Laplacian with the standard orthonormal-basis second-derivative sum used in Langevin generator displays",
+    note := "Coordinate Laplacian bridge only. It does not prove gradients, divergence, integration by parts, boundary decay, stationarity, reversibility, or invariant Gibbs law."
+  },
+  {
+    key := "analysis.calculus.laplacian-functional-std-orthonormal-basis",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian.laplacianFunctional_eq_of_stdOrthonormalBasis_sum",
+    upstreamDecl := "laplacian_eq_sum_stdOrthonormalBasis",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Laplacian", "weak-generator", "finite-dimensional", "test-function"],
+    saldUse := "Chewi SDE/ANALYSIS root: rewrite weak-generator or source-defined test-function Laplacian actions from coordinate second-derivative sums to Mathlib `Laplacian.laplacian`",
+    note := "Functional handoff for definitions only; analytic weak-FP, IBP, and invariant-law statements remain separate red branches."
+  },
+  {
+    key := "analysis.calculus.continuous-laplacian-of-contDiff-two",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian.continuous_laplacian_of_contDiff_two",
+    upstreamDecl := "ContDiff.iteratedFDeriv_right plus Mathlib finite-dimensional Laplacian basis display",
+    upstreamFile := "Mathlib.Analysis.InnerProductSpace.Laplacian; Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Laplacian", "ContDiff", "Continuous", "iteratedFDeriv", "regularity"],
+    saldUse := "Chewi Ch.1 Langevin root: derive continuity of Mathlib's finite-dimensional total Laplacian from global `C²` regularity before closed-box integrability handoffs",
+    note := "Global `C²` to continuous Mathlib Laplacian only. It does not assert a closed-box `ContDiffOn` variant, field differentiability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI."
+  }
+]
+
 def measureMemory : List LemmaMemoryEntry := [
   {
     key := "measure.law-map.integral",
@@ -374,6 +1406,16 @@ def measureMemory : List LemmaMemoryEntry := [
     note := "Small measure-normalization wrapper; concrete Gibbs integrability remains a separate analytic leaf."
   },
   {
+    key := "measure.with-density.ofReal-exp-probability-normalization",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.isProbabilityMeasure_withDensity_ofReal_exp_of_integral_eq_one",
+    upstreamDecl := "ofReal_integral_eq_lintegral_ofReal / isProbabilityMeasure_withDensity_of_lintegral_eq_one",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Bochner.Basic; AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym; SLT/GaussianLSI/DualityEntropy.lean as proof-pattern provenance",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "SLT", "withDensity", "exponential-tilt", "probability-measure", "entropy-duality", "Girsanov"],
+    saldUse := "log-concave sampling DENS/MEAS/PATH root: normalize real exponential tilts for entropy duality, Gibbs variational formulas, and finite-dimensional Girsanov/RN routes",
+    note := "ASTIS-owned exponential-tilt normalization leaf. It assumes integrability and unit mass of `exp U`; it does not prove DV duality, Girsanov, or any entropy inequality."
+  },
+  {
     key := "measure.density.normalized-lintegral-one",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.lintegral_inv_lintegral_mul_eq_one",
     upstreamDecl := "lintegral_const_mul' / ENNReal.inv_mul_cancel",
@@ -412,6 +1454,46 @@ def measureMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Measure.pi", "withDensity", "product-density", "tensorization"],
     saldUse := "Chewi MEAS/DENS root: decompose finite product density tilts into coordinatewise withDensity measures",
     note := "Shared root for product Gaussian Esscher, product Gibbs, and tensorization-style density constructions."
+  },
+  {
+    key := "measure.pi.update-coordinate-map",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Product.map_update_prod_pi",
+    upstreamDecl := "SLT.EfronStein.map_update_prod_pi",
+    upstreamFile := "SLT/EfronStein.lean; Mathlib.MeasureTheory.Constructions.Pi",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "SLT", "Measure.pi", "product-measure", "Function.update", "finite-coordinate"],
+    saldUse := "Chewi MEAS/FI/SDE root: replace one coordinate of a finite product sample by an independent coordinate draw while preserving the product law",
+    note := "Finite product probability map leaf only; no conditional expectation theorem, entropy, LSI, kernel selection, weak-FP, or stationarity statement."
+  },
+  {
+    key := "measure.pi.update-coordinate-map-preserving",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Product.measurePreserving_update_prod_pi",
+    upstreamDecl := "SLT.EfronStein.map_update_prod_pi",
+    upstreamFile := "SLT/EfronStein.lean; Mathlib.MeasureTheory.Constructions.Pi",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "SLT", "Measure.pi", "product-measure", "Function.update", "Fubini", "conditional-slice"],
+    saldUse := "Chewi tensorization and coordinate-slice roots: treat coordinate replacement as a `MeasurePreserving` map before moving between product integrals and slices",
+    note := "Measure-preserving wrapper for finite product probability laws only; coordinate slice integrability, entropy subadditivity, LSI, and conditional kernels remain separate leaves."
+  },
+  {
+    key := "measure.pi.update-coordinate-integral",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Product.integral_update_prod_pi_eq_integral",
+    upstreamDecl := "SLT.EfronStein.integral_update_eq_integral",
+    upstreamFile := "SLT/EfronStein.lean; Mathlib.MeasureTheory.Integral.Prod",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "SLT", "Measure.pi", "Bochner-integral", "product-measure", "Function.update", "Fubini"],
+    saldUse := "Chewi MEAS/FI/SDE root: rewrite the two-step integral over a fresh coordinate and a product sample back to the original product-law integral",
+    note := "Bochner integral transport leaf derived from the coordinate replacement map; does not prove conditional expectation identities, entropy subadditivity, LSI, or sampler weak-FP statements."
+  },
+  {
+    key := "measure.pi.update-coordinate-slice-integrable-ae",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Product.integrable_update_slice_ae",
+    upstreamDecl := "SLT.GaussianLSI.SubAddEnt.Basic.integrable_update_slice / Integrable.prod_left_ae",
+    upstreamFile := "SLT/GaussianLSI/SubAddEnt/Basic.lean; Mathlib.MeasureTheory.Integral.Prod",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "SLT", "Measure.pi", "Bochner-integral", "product-measure", "Function.update", "Fubini", "slice-integrability"],
+    saldUse := "Chewi FI/MEAS root: expose a.e. integrability of coordinate-replacement slices before tensorization, conditional entropy, and product functional-inequality arguments",
+    note := "A.e. slice integrability only; no conditional expectation identity, entropy subadditivity, LSI, Markov kernel construction, or Gibbs invariant-law statement."
   },
   {
     key := "measure.with-density.absolute-continuity",
@@ -462,6 +1544,96 @@ def measureMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Gibbs", "density", "measurability", "ENNReal"],
     saldUse := "Chewi DENS/MEAS root: turn a measurable/a.e.-measurable potential into a measurable Gibbs density",
     note := "Keeps the measurable potential contract separate from convexity and integrability."
+  },
+  {
+    key := "measure.gibbs-density.normalized-toReal-logconcave-convex-potential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_convexOn",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_of_convexOn / ENNReal.toReal_mul / ENNReal.toReal_inv",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "density", "toReal", "log-concavity", "convex-potential", "normalization"],
+    saldUse := "Chewi DENS/CONV root: view an ENNReal normalized Gibbs density with finite nonzero normalizer as a positive real log-concave density shape",
+    note := "Requires supplied `Z ≠ 0` and `Z ≠ ∞`; it does not prove the normalizer exists or that a probability law has been constructed."
+  },
+  {
+    key := "measure.gibbs-density.normalized-toReal-logconcave-strong-convex-potential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn",
+    upstreamDecl := "convexOn_of_strongConvexOn_nonneg / logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_convexOn",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity; AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "density", "toReal", "log-concavity", "strong-convexity", "normalization"],
+    saldUse := "Chewi DENS/CONV root: expose normalized ENNReal Gibbs densities of strongly convex potentials as real log-concave shapes once `Z` is finite and nonzero",
+    note := "Geometry/typing bridge only; finite normalizer, minimizer existence, invariant law, and PI/LSI remain separate obligations."
+  },
+  {
+    key := "measure.gibbs-density.lintegral-normalized-toReal-logconcave-convex-potential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_convexOn",
+    upstreamDecl := "logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_convexOn with `Z = ∫⁻ gibbsDensity`",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "density", "toReal", "lintegral", "log-concavity", "convex-potential"],
+    saldUse := "Chewi DENS/CONV root: match the source notation `Z^{-1} exp(-V)` when a finite nonzero Gibbs integral has already been proved",
+    note := "The finite and nonzero lintegral hypotheses are inputs, not consequences of convexity."
+  },
+  {
+    key := "measure.gibbs-density.lintegral-normalized-toReal-logconcave-strong-convex-potential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn",
+    upstreamDecl := "logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn with `Z = ∫⁻ gibbsDensity`",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "density", "toReal", "lintegral", "log-concavity", "strong-convexity"],
+    saldUse := "Chewi DENS/CONV root: expose strong-convex Gibbs density shapes under a supplied finite nonzero Gibbs integral",
+    note := "Requires `0 ≤ k`; sharp growth, minimizer existence, and finite normalization remain separate leaves."
+  },
+  {
+    key := "measure.gibbs-density.lintegral-normalized-toReal-logconcave-strong-convex-minimizer",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn_minimizer",
+    upstreamDecl := "lintegral_gibbsDensityENNReal_ne_zero / lintegral_gibbsDensityENNReal_ne_top_of_strongConvexOn_minimizer / logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity; AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Gibbs", "density", "toReal", "lintegral", "log-concavity", "strong-convexity", "minimizer"],
+    saldUse := "log-concave sampling DENS/CONV root: combine the strong-convex minimizer finite-normalizer leaf with the normalized real log-concavity shape",
+    note := "Convenience composition for finite-dimensional strongly convex targets with an exposed minimizer. It does not prove minimizer existence, invariant law, PI/LSI, or sampler convergence."
+  },
+  {
+    key := "measure.gibbs-density.explicit-laplace-toReal-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_normalized_laplace_gibbsDensityENNReal_toReal",
+    upstreamDecl := "convexOn_univ_const_mul_abs_add / logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_convexOn",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Laplace-tail", "toReal", "log-concavity", "normalizer", "one-dimensional"],
+    saldUse := "Chewi DENS/CONV root: source-facing one-dimensional Laplace `ENNReal` Gibbs density as a real log-concave normalized shape",
+    note := "Uses the explicit positive Laplace constant; the exact integral equality is provided by the separate Integrability normalizer leaf."
+  },
+  {
+    key := "measure.gibbs-density.withDensity-integral-rewrite",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral.integral_withDensity_inv_mul_gibbsDensityENNReal_eq_integral_inv_mul_exp_smul",
+    upstreamDecl := "integral_withDensity_eq_integral_toReal_smul₀ / gibbsDensityENNReal_lt_top",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral; Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "Bochner-integral", "test-function-integral", "toReal"],
+    saldUse := "Chewi MEAS/DENS/SDE root: rewrite Bochner integrals under a Gibbs withDensity measure as density-weighted base-measure integrals",
+    note := "Algebraic Bochner-integral bridge only; stationarity, reversibility, KL/FI decay, and finite normalizer proofs remain separate leaves."
+  },
+  {
+    key := "measure.gibbs-density.lintegral-withDensity-integral-rewrite",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral.integral_withDensity_lintegral_inv_mul_gibbsDensityENNReal_eq_integral_lintegral_inv_mul_exp_smul",
+    upstreamDecl := "integral_withDensity_inv_mul_gibbsDensityENNReal_eq_integral_inv_mul_exp_smul with `Z = ∫⁻ gibbsDensity`",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "Bochner-integral", "lintegral", "test-function-integral"],
+    saldUse := "Chewi MEAS/DENS/SDE root: match the source density notation `Z^{-1} exp(-V(x)) dx` inside Bochner test-function integrals",
+    note := "Consumes the nonzero normalizer hypothesis; if the goal needs a probability law, combine with the finite-normalizer probability leaf."
+  },
+  {
+    key := "measure.gibbs-density.lintegral-withDensity-integral-rewrite-nonzero-base",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral.integral_withDensity_lintegral_inv_mul_gibbsDensityENNReal_eq_integral_lintegral_inv_mul_exp_smul_of_neZero",
+    upstreamDecl := "integral_withDensity_lintegral_inv_mul_gibbsDensityENNReal_eq_integral_lintegral_inv_mul_exp_smul / lintegral_gibbsDensityENNReal_ne_zero",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral; AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "withDensity", "Bochner-integral", "lintegral", "nonzero-base-measure"],
+    saldUse := "Chewi MEAS/DENS/SDE root: use textbook-shaped `Z = ∫ exp(-V)` Gibbs density inside Bochner test-function integrals without separately passing the nonzero-normalizer proof",
+    note := "Derives only nonzero normalizer from `[NeZero μ]` and a.e.-measurability; finite normalizer and probability-measure status remain separate."
   },
   {
     key := "measure.gibbs-density.normalized-probability",
@@ -578,6 +1750,256 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Small Mathlib-ready algebra leaf; no-boundary/divergence theorem remains a separate analytic contract."
   },
   {
+    key := "langevin.gibbs-weighted-generator-hasDerivAt-1d",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.hasDerivAt_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d",
+    upstreamDecl := "ordinary product rule plus derivative of exp(-V)",
+    upstreamFile := "Mathlib.Analysis.SpecialFunctions.ExpDeriv; Mathlib.Analysis.Calculus.Deriv.Mul",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "generator", "one-dimensional", "pointwise-calculus"],
+    saldUse := "Chewi SDE/DENS root: pointwise bridge from the 1D overdamped generator `f'' - V' * f'` to the derivative of the Gibbs-weighted test derivative",
+    note := "This is only a pointwise ordinary-derivative calculation. Stationarity, reversibility, IBP, boundary terms, generator domains, and invariant-law proofs remain separate red obligations."
+  },
+  {
+    key := "langevin.gibbs-weighted-generator-deriv-1d",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.deriv_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d",
+    upstreamDecl := "hasDerivAt_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "generator", "one-dimensional", "deriv"],
+    saldUse := "Chewi SDE/DENS root: rewrite `(exp(-V) f')'` as the Gibbs weight times the 1D overdamped generator expression",
+    note := "Derivative-form wrapper only; it does not assert integration by parts, zero boundary term, stationarity, reversibility, or a normalized Gibbs law."
+  },
+  {
+    key := "langevin.gibbs-weighted-divergence-generator-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.weightedDivergence_gibbsWeight_langevinGenerator_algebra",
+    upstreamDecl := "inner-product algebra after supplied product rule and Gibbs-weight gradient identity",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; Mathlib.Analysis.InnerProductSpace.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "generator", "divergence-form", "inner-product", "algebra"],
+    saldUse := "Chewi SDE/DENS root: assemble `div (rho ∇f) = rho * (lapF - <∇V, ∇f>)` once product-rule and chain-rule facts are supplied",
+    note := "Supplied-hypothesis algebra only. It does not define or prove gradient, divergence, Laplacian, product rule, chain rule, IBP, boundary decay, stationarity, reversibility, or invariant Gibbs law."
+  },
+  {
+    key := "langevin.exp-neg-weighted-divergence-generator-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.expNeg_weightedDivergence_langevinGenerator_algebra",
+    upstreamDecl := "weightedDivergence_gibbsWeight_langevinGenerator_algebra with `rho = exp (-Vx)`",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs-weight", "exp-neg-potential", "divergence-form", "algebra"],
+    saldUse := "Chewi SDE/DENS root: source-facing `exp(-V)` weighted-divergence algebra before the invariant Gibbs and reversibility proof branches",
+    note := "Thin source-facing wrapper only; all analytic facts about `∇ exp(-V)`, divergence theorem, no-boundary terms, domains, and invariant laws remain red obligations."
+  },
+  {
+    key := "langevin.finite-coordinate-weighted-divergence-generator-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteCoord_weightedDivergence_langevinGenerator_algebra",
+    upstreamDecl := "finite-coordinate summation algebra after supplied coordinate product and chain rules",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; Mathlib.Algebra.BigOperators.Fin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-coordinate", "Gibbs-weight", "divergence-form", "Laplacian", "algebra"],
+    saldUse := "Chewi SDE/DENS root: aggregate coordinate identities `∂ᵢ(rho ∂ᵢf)` into the finite-sum Langevin divergence-form expression",
+    note := "Supplied-hypothesis finite-sum algebra only. It does not define/prove partial derivatives, gradients, divergence, Laplacian, product rule, chain rule, IBP, boundary decay, stationarity, reversibility, or invariant Gibbs law."
+  },
+  {
+    key := "langevin.finite-coordinate-named-weighted-divergence-generator-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteCoord_named_weightedDivergence_langevinGenerator_algebra",
+    upstreamDecl := "finiteCoord_weightedDivergence_langevinGenerator_algebra plus supplied names for divergence, Laplacian, and gradient inner-product sums",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-coordinate", "Laplacian", "gradient-inner-product", "divergence-form", "algebra"],
+    saldUse := "Chewi SDE/DENS root: source-facing finite-coordinate handoff to named `divWeighted = rho * (lapF - innerGradVGradF)`",
+    note := "Names the coordinate sums only after they are supplied as hypotheses; true Euclidean `grad/div/laplace` API wrappers and analytic regularity remain red obligations."
+  },
+  {
+    key := "langevin.finite-coordinate-toLp-inner-weighted-divergence-generator-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteCoord_toLpInner_weightedDivergence_langevinGenerator_algebra",
+    upstreamDecl := "finite-coordinate Langevin algebra plus EuclideanSpace `WithLp.toLp 2` inner-product coordinate bridge",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-coordinate", "EuclideanSpace", "WithLp.toLp", "gradient-inner-product", "algebra"],
+    saldUse := "Chewi SDE/DENS root: rewrite finite-coordinate Langevin divergence algebra with Mathlib `EuclideanSpace` inner-product notation after coordinate representatives are supplied",
+    note := "Coordinate-to-inner-product notation bridge only; it does not define/prove gradients, divergence, Laplacian, IBP, stationarity, reversibility, or invariant Gibbs law."
+  },
+  {
+    key := "langevin.finite-coordinate-euclidean-inner-weighted-divergence-generator-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteCoord_euclideanInner_weightedDivergence_langevinGenerator_algebra",
+    upstreamDecl := "finite-coordinate Langevin algebra plus direct `EuclideanSpace` inner-product coordinate bridge",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-coordinate", "EuclideanSpace", "gradient-inner-product", "algebra"],
+    saldUse := "Chewi SDE/DENS root: source-facing finite-dimensional handoff to `divWeighted = rho * (lapF - inner ℝ gradV gradF)`",
+    note := "Direct Euclidean inner-product wrapper after supplied coordinate product-rule, chain-rule, and Laplacian identities; analytic generator and invariant-law theorems remain red."
+  },
+  {
+    key := "langevin.finite-euclidean-generator-basis-display",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_langevinGenerator_basisDisplay",
+    upstreamDecl := "InnerProductSpace.laplacian_eq_iteratedFDeriv_orthonormalBasis plus EuclideanSpace inner-product coordinate bridge",
+    upstreamFile := "Mathlib.Analysis.InnerProductSpace.Laplacian; AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-dimensional", "EuclideanSpace", "generator-display", "Laplacian", "gradient-inner-product", "basisFun"],
+    saldUse := "Chewi SDE/ANALYSIS root: pointwise finite-dimensional display of the formal differential expression `Laplacian.laplacian f x - inner ℝ (gradient V x) (gradient f x)` using Mathlib's `EuclideanSpace.basisFun` coordinate basis",
+    note := "Pointwise display leaf only using Mathlib's total `gradient` and `Laplacian.laplacian` definitions. It does not prove divergence, product rules for `rho ∇f`, IBP, boundary decay, generator domains, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "langevin.finite-euclidean-generator-coordinate-display",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_langevinGenerator_coordinateDisplay",
+    upstreamDecl := "finiteEuclidean_langevinGenerator_basisDisplay plus EuclideanSpace.basisFun_apply",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; Mathlib.Analysis.InnerProductSpace.PiL2",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-dimensional", "EuclideanSpace", "generator-display", "Laplacian", "gradient-inner-product", "coordinate-unit"],
+    saldUse := "Chewi SDE/ANALYSIS root: pointwise coordinate-unit display of the formal Langevin differential expression `Δ f - <∇V, ∇f>` as diagonal second derivatives minus the gradient-coordinate inner-product sum",
+    note := "Explicit coordinate-unit display only. It requires `[DecidableEq ι]` to unfold `EuclideanSpace.basisFun` to `EuclideanSpace.single i 1`; it does not assert divergence, IBP, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "langevin.finite-euclidean-weighted-divergence-basis-handoff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_weightedDivergence_langevinGenerator_basisHandoff",
+    upstreamDecl := "finiteCoord_weightedDivergence_langevinGenerator_algebra plus finiteEuclidean_langevinGenerator_basisDisplay",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-dimensional", "EuclideanSpace", "weighted-divergence", "supplied-hypothesis", "basisFun", "handoff"],
+    saldUse := "Chewi SDE/DENS root: after coordinate product-rule and Gibbs-weight chain-rule facts are supplied, rewrite the finite weighted-divergence sum as `rho * (Laplacian.laplacian f x - inner ℝ (gradient V x) (gradient f x))` using the basis display",
+    note := "Supplied-hypothesis handoff only. It does not prove coordinate product rules, the a.e. bridge or box-integrability assumptions needed by the compiled box divergence wrapper, IBP, boundary decay, semigroup generator theorem, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "langevin.finite-euclidean-weighted-divergence-coordinate-handoff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_weightedDivergence_langevinGenerator_coordinateHandoff",
+    upstreamDecl := "finiteCoord_weightedDivergence_langevinGenerator_algebra plus finiteEuclidean_langevinGenerator_coordinateDisplay",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-dimensional", "EuclideanSpace", "weighted-divergence", "supplied-hypothesis", "coordinate-unit", "handoff"],
+    saldUse := "Chewi SDE/DENS root: explicit coordinate-unit handoff from supplied coordinate divergence/product-rule and Gibbs-weight chain-rule facts to the Mathlib expression `rho * (Δ f - <∇V, ∇f>)`",
+    note := "Coordinate-unit supplied-hypothesis handoff only. It does not prove divergence theorem, product rule, IBP, no-boundary term, semigroup/Ito generator result, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "langevin.finite-euclidean-exp-neg-weighted-divergence-basis-handoff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_basisHandoff",
+    upstreamDecl := "finiteEuclidean_weightedDivergence_langevinGenerator_basisHandoff plus gradient_expNegPotential_coordinate_eq_of_differentiableAt",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-dimensional", "EuclideanSpace", "Gibbs-weight", "weighted-divergence", "DifferentiableAt", "basisFun", "handoff"],
+    saldUse := "Chewi SDE/DENS root: basis-coordinate handoff from supplied divergence sum and coordinate product-rule facts to `exp(-V x) * (Laplacian.laplacian f x - inner ℝ (gradient V x) (gradient f x))`, with the Gibbs-weight chain-rule coordinate equality discharged from `DifferentiableAt ℝ V x`",
+    note := "Discharges only the Gibbs-weight chain-rule hypothesis used by the earlier supplied-hypothesis handoff. Coordinate product rules, the a.e. bridge and box-integrability assumptions needed by the compiled box divergence wrapper, IBP, boundary decay, semigroup/Ito generator theorem, stationarity, reversibility, invariant Gibbs law, and KL/FI remain red."
+  },
+  {
+    key := "langevin.finite-euclidean-exp-neg-weighted-divergence-coordinate-handoff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_coordinateHandoff",
+    upstreamDecl := "finiteEuclidean_weightedDivergence_langevinGenerator_coordinateHandoff plus gradient_expNegPotential_coordinate_eq_of_differentiableAt",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-dimensional", "EuclideanSpace", "Gibbs-weight", "weighted-divergence", "DifferentiableAt", "coordinate-unit", "handoff"],
+    saldUse := "Chewi SDE/DENS root: coordinate-unit handoff from supplied divergence sum and coordinate product-rule facts to `exp(-V x) * (Δ f - <∇V, ∇f>)`, with the Gibbs-weight chain-rule coordinate equality discharged from `DifferentiableAt ℝ V x`",
+    note := "Discharges only the Gibbs-weight chain-rule hypothesis for the coordinate-unit display. It does not prove divergence theorem, coordinate product rule, IBP/no-boundary term, semigroup/Ito generator result, stationarity, reversibility, invariant Gibbs law, or KL/FI dissipation."
+  },
+  {
+    key := "langevin.finite-euclidean-exp-neg-lineDeriv-fderiv-coordinate-sum-display",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display",
+    upstreamDecl := "lineDeriv_expNegPotential_mul_fderiv_coordinate_eq plus finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_coordinateHandoff",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-dimensional", "EuclideanSpace", "Gibbs-weight", "lineDeriv", "fderiv", "coordinate-sum", "generator-display", "coordinate-unit"],
+    saldUse := "Chewi Ch.1 Langevin root: aggregate the compiled coordinate line-derivative calculation for `exp(-V) * fderiv f eᵢ` into the finite Euclidean `exp(-V x) * (Δ f - <∇V, ∇f>)` display",
+    note := "Pointwise finite-coordinate sum display only. It discharges the coordinate product-rule/diagonal second-derivative branch for the explicit field `exp(-V) * fderiv f eᵢ`, but keeps the gradient-coordinate bridge `fderiv ℝ f x eᵢ = (gradient f x) i` as a hypothesis. It does not define a divergence operator, assert that the sum is a divergence, prove IBP/no-boundary terms, semigroup/Ito generator domains, stationarity, reversibility, invariant Gibbs law, or KL/FI."
+  },
+  {
+    key := "langevin.finite-euclidean-exp-neg-lineDeriv-fderiv-coordinate-sum-display-differentiable",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display_of_differentiableAt",
+    upstreamDecl := "finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display plus fderiv_apply_coordinate_eq_gradient_coordinate_of_differentiableAt",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "finite-dimensional", "EuclideanSpace", "Gibbs-weight", "lineDeriv", "fderiv", "coordinate-sum", "generator-display", "DifferentiableAt"],
+    saldUse := "Chewi Ch.1 Langevin root: coordinate-sum display for `exp(-V) * fderiv f eᵢ` with the local `fderiv`-coordinate-to-`gradient`-coordinate bridge discharged from `DifferentiableAt ℝ f x`",
+    note := "Pointwise finite-coordinate sum display only. It removes the earlier supplied `hgradF` hypothesis by adding the explicit assumption `DifferentiableAt ℝ f x`. It does not assert that differentiability of `fun y => fderiv ℝ f y` implies differentiability of `f`; it does not define divergence, prove that the sum is divergence, prove IBP/no-boundary terms, semigroup/Ito generator domains, stationarity, reversibility, invariant Gibbs law, or KL/FI."
+  },
+  {
+    key := "langevin.coordinate-divergence-exp-neg-fderiv-display",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.coordinateDivergence_expNeg_fderivCoordinateField_langevinGenerator_display_of_differentiableAt",
+    upstreamDecl := "coordinateDivergence_eq_sum_lineDeriv plus finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display_of_differentiableAt",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "finite-dimensional", "EuclideanSpace", "Gibbs-weight", "fderiv", "generator-display", "DifferentiableAt"],
+    saldUse := "Chewi Ch.1 Langevin root: rewrite the explicit Gibbs-weighted first-derivative coordinate field through ASTIS `coordinateDivergence` and recover `exp(-V x) * (Delta f - <grad V, grad f>)` pointwise",
+    note := "Named coordinate-divergence display only. It packages the compiled pointwise coordinate sum; it does not prove Mathlib's divergence theorem, weighted IBP, boundary decay, semigroup/Ito generator domains, invariant Gibbs law, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.trace-exp-neg-fderiv-coordinate-field-display",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.trace_expNeg_fderivCoordinateField_langevinGenerator_display_of_hasFDerivAt",
+    upstreamDecl := "coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt plus coordinateDivergence_expNeg_fderivCoordinateField_langevinGenerator_display_of_differentiableAt",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "trace-style", "Pi-space", "Gibbs-weight", "fderiv", "generator-display", "HasFDerivAt"],
+    saldUse := "Chewi Ch.1 Langevin root: pointwise handoff from Mathlib's Pi-space finite-box trace summand for the explicit field `exp(-V) * fderiv f eᵢ` to the scalar display `exp(-V) * (Delta f - <grad V, grad f>)`",
+    note := "Pointwise trace-display handoff only. It assumes the explicit Pi-space field has the supplied Frechet derivative and the needed pointwise differentiability hypotheses. It does not prove differentiability on a box, continuity, integrability, a divergence theorem, boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, or KL/FI."
+  },
+  {
+    key := "langevin.integrableOn-trace-exp-neg-fderiv-coordinate-field-continuous",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_continuousOn",
+    upstreamDecl := "ContinuousOn.integrableOn_compact on Set.Icc plus trace_expNeg_fderivCoordinateField_langevinGenerator_display_of_hasFDerivAt and IntegrableOn.congr_fun",
+    upstreamFile := "Mathlib.MeasureTheory.Function.LocallyIntegrable; Mathlib.MeasureTheory.Integral.IntegrableOn; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "IntegrableOn", "trace-style", "closed-box", "ContinuousOn", "Gibbs-weight", "generator-display"],
+    saldUse := "Chewi Ch.1 Langevin root: finite closed-box handoff proving Mathlib trace-summand `IntegrableOn` for the explicit Gibbs-weighted fderiv-coordinate field when the scalar Langevin display is already continuous on the box",
+    note := "Finite closed-box regularity handoff only. It assumes the trace/display equality hypotheses and continuity of the displayed scalar RHS; it does not prove RHS continuity, field differentiability, whole-space integrability, boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, or KL/FI."
+  },
+  {
+    key := "langevin.continuousOn-exp-neg-generator-rhs-components",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.continuousOn_expNeg_langevinGenerator_rhs_of_components",
+    upstreamDecl := "ContinuousOn.rexp / ContinuousOn.mul / ContinuousOn.sub / ContinuousOn.inner",
+    upstreamFile := "Mathlib.Analysis.SpecialFunctions.Exp; Mathlib.Analysis.InnerProductSpace.Continuous; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "ContinuousOn", "closed-box", "Gibbs-weight", "generator-display", "components"],
+    saldUse := "Chewi Ch.1 Langevin root: assemble component continuity of `V`, `Delta f`, `grad V`, and `grad f` into continuity of the scalar display `exp(-V) * (Delta f - <grad V, grad f>)` on a finite Pi-box",
+    note := "Component-continuity assembly only. It does not derive those component continuity hypotheses from a ContDiff/test-function class, does not prove field differentiability, integrability, IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.integrableOn-trace-exp-neg-fderiv-coordinate-field-components",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_component_continuousOn",
+    upstreamDecl := "continuousOn_expNeg_langevinGenerator_rhs_of_components plus integrableOn_trace_expNeg_fderivCoordinateField_of_continuousOn",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "IntegrableOn", "trace-style", "closed-box", "ContinuousOn", "components", "Gibbs-weight"],
+    saldUse := "Chewi Ch.1 Langevin root: finite closed-box trace `IntegrableOn` handoff for the explicit Gibbs-weighted fderiv-coordinate field under component continuity plus the existing trace/display differentiability hypotheses",
+    note := "Finite closed-box handoff under component continuity only. It still assumes the explicit Pi-space field derivative and pointwise differentiability hypotheses; it does not derive them from a test-function class and does not prove whole-space integrability, IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.continuousOn-exp-neg-generator-rhs-contDiff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.continuousOn_expNeg_langevinGenerator_rhs_of_contDiff",
+    upstreamDecl := "continuousOn_expNeg_langevinGenerator_rhs_of_components plus continuous_gradient_of_contDiff_one and continuous_laplacian_of_contDiff_two",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "ContinuousOn", "ContDiff", "closed-box", "Gibbs-weight", "generator-display", "components"],
+    saldUse := "Chewi Ch.1 Langevin root: derive closed-box continuity of `exp(-V) * (Delta f - <grad V, grad f>)` from global `C¹/C²` hypotheses",
+    note := "Component continuity is now discharged from global `ContDiff` regularity. The explicit Pi-space field derivative, trace integrability without that derivative, whole-space integrability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, and KL/FI remain separate obligations."
+  },
+  {
+    key := "langevin.integrableOn-trace-exp-neg-fderiv-coordinate-field-contDiff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff",
+    upstreamDecl := "integrableOn_trace_expNeg_fderivCoordinateField_of_component_continuousOn plus global `ContDiff` component regularity",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "IntegrableOn", "ContDiff", "trace-style", "closed-box", "Gibbs-weight"],
+    saldUse := "Chewi Ch.1 Langevin root: close finite-box trace `IntegrableOn` from global `C¹/C²` regularity once the explicit Pi-space field derivative is supplied",
+    note := "Finite-box trace handoff under `ContDiff ℝ 1 V`, `ContDiff ℝ 2 f`, and supplied field derivative only. It does not prove that field derivative, whole-space integrability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.hasFDerivAt-exp-neg-fderiv-coordinate-field-contDiff",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.hasFDerivAt_expNeg_fderivCoordinateField_of_contDiff",
+    upstreamDecl := "DifferentiableAt.hasFDerivAt, differentiableAt_pi, PiLp.hasFDerivAt_toLp, product/chain differentiability",
+    upstreamFile := "Mathlib.Analysis.Calculus.FDeriv.Prod; Mathlib.Analysis.Calculus.FDeriv.WithLp; Mathlib.Analysis.SpecialFunctions.ExpDeriv; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "HasFDerivAt", "ContDiff", "Pi-space", "Gibbs-weight", "fderiv", "regularity"],
+    saldUse := "Chewi Ch.1 Langevin root: discharge the explicit Pi-space field differentiability input for `z ↦ exp(-V(toLp z)) * fderiv f (toLp z) eᵢ` from global `C¹/C²` regularity",
+    note := "The derivative representative is Mathlib's `fderiv` of the field, not a closed-form Jacobian. It does not prove a divergence theorem, whole-space integrability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.integrableOn-trace-exp-neg-fderiv-coordinate-field-contDiff-fderiv",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv",
+    upstreamDecl := "integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff plus hasFDerivAt_expNeg_fderivCoordinateField_of_contDiff",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "IntegrableOn", "ContDiff", "HasFDerivAt", "fderiv", "trace-style", "closed-box"],
+    saldUse := "Chewi Ch.1 Langevin root: finite-box trace `IntegrableOn` for the canonical `fderiv` trace of the explicit Gibbs-weighted first-derivative field under global `C¹/C²` regularity",
+    note := "This removes the supplied field-derivative hypothesis only for the canonical `fderiv` representative. It remains finite-box regularity, not boundary cancellation, weighted IBP, generator-domain semantics, invariant law, reversibility, or KL/FI."
+  },
+  {
     key := "girsanov.finite-gaussian-cylinder-integral",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov.finiteGaussianGirsanovCylinderIntegral",
     upstreamDecl := "stdGaussian_shift_integral_map_toLp / finite-dimensional Gaussian Esscher",
@@ -689,6 +2111,26 @@ def variationalMemory : List LemmaMemoryEntry := [
 ]
 
 def geometryMemory : List LemmaMemoryEntry := [
+  {
+    key := "geometry.euclidean-space.inner-toLp-toLp-sum",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates.euclideanSpace_inner_toLp_toLp_eq_sum_mul",
+    upstreamDecl := "PiLp.inner_apply",
+    upstreamFile := "Mathlib.Analysis.InnerProductSpace.PiL2",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "EuclideanSpace", "inner-product", "coordinates", "WithLp.toLp", "finite-dimensional"],
+    saldUse := "Chewi GAUSS/SDE root: bridge coordinate gradient representatives to Mathlib `EuclideanSpace` inner-product notation",
+    note := "Pure finite-dimensional coordinate identity; it does not define gradients, divergence, Laplacian, or analytic regularity."
+  },
+  {
+    key := "geometry.euclidean-space.inner-sum",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates.euclideanSpace_inner_eq_sum_mul",
+    upstreamDecl := "PiLp.inner_apply",
+    upstreamFile := "Mathlib.Analysis.InnerProductSpace.PiL2",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "EuclideanSpace", "inner-product", "coordinates", "finite-dimensional"],
+    saldUse := "Chewi GAUSS/SDE root: expose the direct finite-coordinate formula for `inner ℝ u v` in `EuclideanSpace ℝ ι`",
+    note := "Reusable notation bridge for Gaussian and Langevin finite-dimensional leaves; no calculus or measure statement is hidden here."
+  },
   {
     key := "geometry.log-concavity.def",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn",
@@ -828,6 +2270,96 @@ def geometryMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Gibbs", "convex-potential", "log-concavity", "density"],
     saldUse := "Chewi DENS/CONV root for Gibbs target densities before withDensity normalization",
     note := "Compiled convex-analytic Gibbs leaf; no measure normalization or integrability is claimed."
+  },
+  {
+    key := "geometry.convexity.absolute-value",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_abs",
+    upstreamDecl := "convexOn_univ_norm / Real.norm_eq_abs",
+    upstreamFile := "Mathlib.Analysis.Normed.Module.Convex",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "convexity", "absolute-value", "Laplace-tail", "one-dimensional"],
+    saldUse := "Chewi CONV root: expose convexity of `|x|` for the one-dimensional Laplace density example",
+    note := "Geometry counterpart of the exact one-dimensional Laplace normalizer; this is not a multidimensional norm-tail theorem."
+  },
+  {
+    key := "geometry.convexity.absolute-linear-potential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.convexOn_univ_const_mul_abs_add",
+    upstreamDecl := "convexOn_univ_abs / ConvexOn.smul / ConvexOn.add_const",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "convexity", "absolute-linear-potential", "Laplace-tail", "Gibbs"],
+    saldUse := "Chewi CONV/DENS root: package `a|x|+b` with `0 ≤ a` as a convex Gibbs potential",
+    note := "Keeps the convexity assumption for Laplace examples explicit before density normalization."
+  },
+  {
+    key := "geometry.gibbs-density.absolute-linear-potential-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_exp_neg_abs_linear",
+    upstreamDecl := "logConcaveOn_exp_neg_of_convexOn / convexOn_univ_const_mul_abs_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Laplace-tail", "log-concavity", "density", "one-dimensional"],
+    saldUse := "Chewi CONV/DENS root: prove the unnormalized one-dimensional Laplace Gibbs shape is log-concave",
+    note := "Geometry-only result; measure normalization is supplied by the exact Laplace normalizer leaves."
+  },
+  {
+    key := "geometry.gibbs-density.absolute-linear-positive-rescale-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_const_mul_exp_neg_abs_linear",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_of_convexOn / convexOn_univ_const_mul_abs_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Laplace-tail", "log-concavity", "normalization", "density"],
+    saldUse := "Chewi DENS/CONV root: preserve log-concavity after multiplying the Laplace shape by a positive normalizing constant",
+    note := "Use with `analysis.integrability.laplace-absolute-linear-tail-ennreal-normalizer`; it does not construct a probability measure by itself."
+  },
+  {
+    key := "geometry.gibbs-density.explicit-laplace-normalized-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.logConcaveOn_explicit_abs_linear_normalized_density",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_abs_linear / positivity of `2*exp(-b)/a`",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gibbs", "Laplace-tail", "log-concavity", "normalizer", "density"],
+    saldUse := "Chewi DENS/CONV root: expose the explicitly normalized one-dimensional Laplace-type real density as log-concave",
+    note := "Real-density geometry companion to the exact ENNReal normalizer and withDensity probability theorem."
+  },
+  {
+    key := "geometry.strong-convexity.convex-potential-nonnegative-modulus",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity.convexOn_of_strongConvexOn_nonneg",
+    upstreamDecl := "StrongConvexOn.mono / strongConvexOn_zero",
+    upstreamFile := "Mathlib.Analysis.Convex.Strong",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "strong-convexity", "convexity", "convex-potential", "density"],
+    saldUse := "Chewi CONV/DENS root: translate strongly convex potential assumptions into ordinary convex-potential geometry",
+    note := "Uses Mathlib's strong-convexity monotonicity to lower the modulus to zero; requires `0 ≤ k`."
+  },
+  {
+    key := "geometry.strong-convexity.gibbs-shape-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity.logConcaveOn_exp_neg_of_strongConvexOn",
+    upstreamDecl := "convexOn_of_strongConvexOn_nonneg / logConcaveOn_exp_neg_of_convexOn",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "strong-convexity", "Gibbs", "log-concavity", "density"],
+    saldUse := "Chewi DENS/CONV root: expose the unnormalized Gibbs density shape of a strongly convex potential as log-concave",
+    note := "Geometry-only bridge; it does not claim a finite normalizer, invariant law, or functional inequality."
+  },
+  {
+    key := "geometry.strong-convexity.normalized-gibbs-shape-logconcave",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity.logConcaveOn_const_mul_exp_neg_of_strongConvexOn",
+    upstreamDecl := "logConcaveOn_const_mul_exp_neg_of_convexOn / convexOn_of_strongConvexOn_nonneg",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity; AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "strong-convexity", "Gibbs", "log-concavity", "normalization", "density"],
+    saldUse := "Chewi DENS/CONV root: keep positive scalar normalizers separate while preserving strong-convex Gibbs log-concavity",
+    note := "Pairs with the normalized Gibbs probability branch after a positive normalizing constant has been constructed separately."
+  },
+  {
+    key := "geometry.strong-convexity.minimizer-centered-quadratic-lower-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity.centered_quadratic_lower_bound_of_strongConvexOn_minimizer",
+    upstreamDecl := "StrongConvexOn / IsMinOn / UniformConvexOn midpoint inequality",
+    upstreamFile := "Mathlib.Analysis.Convex.Strong; Mathlib.Order.Filter.Extr",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "strong-convexity", "minimizer", "quadratic-lower-bound", "Gibbs", "coercivity"],
+    saldUse := "Chewi CONV/DENS root: expose the quadratic tail envelope used by strong log-concavity and Gibbs normalization",
+    note := "Mathlib-native `StrongConvexOn` bridge with an explicit global minimizer; proves the robust midpoint `k/4` envelope."
   },
   {
     key := "geometry.convexity.norm-square",
@@ -1058,7 +2590,7 @@ def portQueueMemory : List LemmaMemoryEntry := [
 ]
 
 def technicalLemmaMemory : List LemmaMemoryEntry :=
-  analysisMemory ++ gaussianMemory ++ taylorMemory ++ measureMemory ++ stochasticProcessMemory ++
+  analysisMemory ++ gaussianMemory ++ taylorMemory ++ calculusMemory ++ measureMemory ++ stochasticProcessMemory ++
     klDensityMemory ++ renyiDensityMemory ++ variationalMemory ++ geometryMemory ++
     saldExtractedMemory ++ portQueueMemory
 

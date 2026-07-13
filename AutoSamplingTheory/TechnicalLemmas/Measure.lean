@@ -1,5 +1,8 @@
 import AutoSamplingTheory.Probability
 import AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs
+import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral
+import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity
+import AutoSamplingTheory.TechnicalLemmas.Measure.Product
 import AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
@@ -15,7 +18,9 @@ invent new interfaces.
 New code should prefer the more focused modules:
 `TechnicalLemmas.Probability.LawMap` and
 `TechnicalLemmas.Probability.ConditionalKernel`, and
-`TechnicalLemmas.Measure.RadonNikodym` / `TechnicalLemmas.Measure.Gibbs`.
+`TechnicalLemmas.Measure.RadonNikodym` / `TechnicalLemmas.Measure.Gibbs` /
+`TechnicalLemmas.Measure.GibbsIntegral` /
+`TechnicalLemmas.Measure.Product`.
 This file remains as a compatibility aggregator.
 -/
 

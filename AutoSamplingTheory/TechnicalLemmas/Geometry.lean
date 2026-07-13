@@ -1,4 +1,6 @@
+import AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
+import AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
 
 /-!
 # Geometry technical lemmas
@@ -6,4 +8,3 @@ import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
 Preferred Mathlib-style import surface for convex-geometric leaves used by
 log-concave sampling proofs.
 -/
-

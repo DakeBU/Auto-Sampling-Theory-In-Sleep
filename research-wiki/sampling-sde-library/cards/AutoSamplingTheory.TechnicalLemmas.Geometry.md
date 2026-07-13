@@ -7,7 +7,9 @@
 
 ## Imports
 
+- `AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates`
 - `AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity`
+- `AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity`
 
 ## Representative Declarations And Exports
 

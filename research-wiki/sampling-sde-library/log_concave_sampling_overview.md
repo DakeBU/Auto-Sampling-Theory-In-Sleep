@@ -1,15 +1,15 @@
 # Log-Concave Sampling Lean Organization
 
-Generated: `2026-07-02 02:55:25`
+Generated: `2026-07-13 18:17:17`
 
 Primary source: `https://chewisinho.github.io/main.pdf`
 
 Local source: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf`
 
-The Lean repository is organized as a reusable mathematical library, not as a
-line-by-line encoding of one proof.  Each textbook chapter is mapped to shared
-proof roots, and each root is built from small lemmas that can plausibly become
-Mathlib-style contributions.
+The repository is a faithful reconstruction of the textbook mathematics.  A
+textbook sentence is not stored as one monolithic Lean theorem: it is decomposed
+into reusable leaves, and the cited or implicit background steps are made
+explicit when Lean needs them.
 
 ## How To Read The Library
 
@@ -27,11 +27,31 @@ Main visual ledger:
 Rendered status tree:
 `docs/assets/log_concave_sampling_status.svg`
 
+## Visual Index
+
+```mermaid
+flowchart LR
+  PDF[textbook statement]:::source
+  Hidden[cited or implicit<br/>background fact]:::source
+  Root[shared root<br/>MEAS DENS CONV CALC SDE]:::root
+  Leaf[small Lean leaf<br/>blue/red]:::leaf
+  Module[owning Lean module]:::module
+  Chapter[chapter theorem<br/>consumer]:::consumer
+
+  PDF --> Hidden --> Root --> Leaf --> Module --> Chapter
+
+  classDef source fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+  classDef root fill:#e0f2fe,stroke:#0284c7,color:#0f172a,stroke-width:2px;
+  classDef leaf fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef module fill:#fef3c7,stroke:#d97706,color:#422006,stroke-width:2px;
+  classDef consumer fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:2px;
+```
+
 ## Chapter-By-Chapter Map
 
 | Part | Chapter | Summary | Lean organization plan | Shared roots | Status |
 | --- | --- | --- | --- | --- | --- |
-| Part I | 1. Langevin diffusion in continuous time | The continuous-time backbone: stochastic calculus, Markov semigroups, optimal-transport geometry, Langevin dynamics, and convergence viewpoints. | Build reusable interfaces for Gaussian increments, weak generators, semigroups, Gibbs invariant laws, KL/FI dissipation, and Wasserstein-gradient-flow contracts. | MEAS, GAUSS, DENS, FI, SDE, REG | partial-local-compiled |
+| Part I | 1. Langevin diffusion in continuous time | The continuous-time backbone: stochastic calculus, Markov semigroups, optimal-transport geometry, Langevin dynamics, and convergence viewpoints. | Build Gaussian increments and generator algebra, then close the explicit cutoff -> tail -> weighted-IBP -> generator-domain -> invariant-Gibbs chain before KL/FI and Wasserstein-gradient-flow consumers. | MEAS, GAUSS, DENS, FI, SDE, REG | partial-local-compiled |
 | Part I | 2. Functional inequalities | The inequality toolkit that turns geometry of the target into convergence rates: PI, LSI, transport, concentration, isoperimetry, and preservation operations. | Separate definitions and bookkeeping from preservation theorems; reuse log-concavity, Prekopa-Leindler/Brunn-Minkowski, and LSI/KL/FI leaves. | CONV, DENS, FI, REG | partial-local-compiled |
 | Part I | 3. Stochastic analysis topics | Path-space tools used repeatedly later: quadratic variation, Girsanov change of measure, Doob transforms, Follmer drift, and Schrodinger bridges. | Keep finite-dimensional Gaussian change of measure as the compiled base; only then lift to Brownian/path-space RN derivatives and bridge transforms. | GAUSS, PATH, DENS, SDE, REG | finite-girsanov-rn-cylinder-compiled |
 | Part II | 4. Analysis of Langevin Monte Carlo | The first algorithmic convergence chapter, presenting coupling, interpolation, convex-optimization, and Girsanov proof routes for LMC. | Treat LMC as a consumer of law-map, conditional-kernel, weak-FP, KL/FI, Girsanov, and Gaussian-transition geometry leaves. | MEAS, KERN, SDE, DENS, PATH, DISC, REG | partial-local-compiled |
@@ -44,33 +64,108 @@ Rendered status tree:
 | Part II | 11. Non-log-concave sampling | Approximate stationarity and nonconvex behavior controlled through Fisher information bounds and applications. | Reuse FI, KL, weak-FP, and score/Fisher algebra; do not assume convexity roots unless the theorem explicitly requires them. | DENS, FI, SDE, DISC, REG | deferred-consumer |
 | Part II | 12. Diffusion generative models | Score matching and discretization analysis for diffusion generative modeling. | Use path-space change of measure, score-drift regularity, weak-FP, and discretization leaves after the SDE/PATH foundation is mature. | MEAS, DENS, SDE, PATH, DISC, REG | deferred-consumer |
 
+## Current Ch.1 Ladder
+
+```mermaid
+flowchart TD
+  A[generator display<br/>Lf = Delta f - gradV dot gradf]:::blue
+  B[weighted display<br/>exp(-V)Lf]:::blue
+  C[coordinate divergence<br/>and trace bridge]:::blue
+  D[global C1/C2 regularity<br/>gradient, Laplacian, Pi fderiv]:::blue
+  E[finite-box trace<br/>IntegrableOn]:::blue
+  F[finite-box face terms]:::blue
+  G[local and exact-support<br/>smooth cutoffs]:::blue
+  H[compact-in-open and Pi-box<br/>plateau = 1]:::blue
+  I[radial cutoff family<br/>compact support + tends to 1]:::blue
+  J[scaled cutoff derivatives<br/>O(R^-1), O(R^-2)]:::red
+  K[dominated tail<br/>and exhaustion passage]:::red
+  L[weighted whole-space IBP<br/>integral Lf d pi = 0]:::red
+  M[generator and semigroup<br/>domain contract]:::red
+  N[invariant Gibbs law]:::red
+  O[reversibility<br/>KL/FI dissipation]:::red
+
+  A --> B --> C --> E --> F --> K --> L --> N --> O
+  D --> B
+  D --> E
+  G --> F
+  G --> H --> J
+  I --> J --> K
+  M --> N
+
+  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
+```
+
+| Layer | Current blue result | Remaining red edge |
+| --- | --- | --- |
+| display algebra | pointwise generator, weighted display, coordinate sum conventions | none for finite-dimensional pointwise algebra |
+| regularity | global `C¹/C²` gives gradient continuity, Laplacian continuity, scalar `ContinuousOn`, and Pi-field `HasFDerivAt` with Mathlib `fderiv` | closed-box/local regularity variants if later needed |
+| finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | no whole-space limit yet |
+| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, and pointwise exhaustion | `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian bounds |
+| whole-space passage | finite-box zero-face cancellation | domination, tail convergence, and passage from cutoff identities to whole-space weighted IBP |
+| invariant law | source contract is identified | weighted IBP, generator domains, and semigroup semantics |
+
 ## Current Compiled Foundation
 
-- Positive log-concavity, products, powers, pullbacks, superlevel geometry, and
-  negative-log potential convexity live in
+- Positive log-concavity, products, powers, pullbacks, superlevel geometry,
+  absolute-linear Laplace geometry, and negative-log potential convexity live in
   `AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean`.
-- Gibbs density, finite-measure lower-bound envelopes, exact finite-dimensional
-  quadratic normalizers, and normalized withDensity probability bridges live in
-  `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean` and
+- Gibbs density, the ENNReal-to-real log-concavity bridge for finite nonzero
+  normalizers, finite-measure lower-bound envelopes, exact finite-dimensional
+  quadratic normalizers, exact one-dimensional Laplace normalizers, and
+  normalized withDensity probability bridges under those explicit envelope
+  hypotheses live in `AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean` and
   `AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean`.
 - Product Gaussian linear forms, moment-generating normalizers, Esscher shifts,
   finite-dimensional change of measure, and Euclidean `stdGaussian` bridges
   live in `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`.
 - KL/DV/Renyi algebra, LSI bookkeeping, weak generator, weak-FP algebra, and
   finite-dimensional Girsanov cylinders are compiled as reusable support.
+- `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean` contains
+  the reusable smooth unit cutoff, positive-scale radial family, closed-ball
+  support and topological-support bounds, compact support, pointwise convergence
+  to one, and a general compact-in-open smooth plateau theorem.  These results
+  do not yet provide scale-uniform first- or second-derivative bounds.
+- `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean`
+  contains the finite coordinate-divergence convention, Euclidean/Pi `WithLp`
+  trace bridge, open-box/off-countable to closed-box a.e. transfer,
+  trace-to-coordinate `IntegrableOn` transfer, and the finite-box signed
+  face-term wrapper with trace-integrability input.  It also specializes the
+  plateau theorem to an inner closed Pi-box inside a larger open Pi-box.  It
+  still does not prove derivative-controlled exhaustion, whole-space weighted
+  IBP, generator domains, invariant laws, reversibility, or KL/FI dissipation.
+- `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean`
+  contains Langevin-specific blue leaves: finite Euclidean basis/coordinate
+  displays of the formal expression `Delta f - <grad V, grad f>`, supplied
+  coordinate-to-Mathlib weighted-divergence handoffs, the `exp(-V)` handoffs
+  that discharge only the Gibbs-weight gradient premise, the one-dimensional
+  Gibbs-weighted generator pointwise identity, the multidimensional
+  inner-product supplied-hypothesis weighted-divergence algebra handoff,
+  finite-coordinate aggregation handoff, the explicit Pi trace display, and
+  the closed-box trace `IntegrableOn` handoff under global `C¹/C²` regularity
+  for the canonical Mathlib `fderiv` trace.  It also assembles the scalar
+  display `ContinuousOn` fact from global `C¹/C²` and proves the explicit
+  Pi-field `HasFDerivAt` needed by the trace handoff.  It is not a
+  semigroup-generator, invariant-law, reversibility, integration-by-parts, or
+  semigroup-domain theorem.
 
 ## Immediate Library Boundary
 
-The next high-value roots are:
+The next high-value roots, ordered by the active textbook dependency, are:
 
-1. `CONV/MEAS`: finite-dimensional Prekopa-Leindler and Brunn-Minkowski
+1. `REG/CALC/SDE`: `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian
+   estimates for the compiled radial cutoff family.
+2. `MEAS/CALC/SDE`: domination and Gibbs-tail lemmas that pass finite-box or
+   compact-support identities to the whole-space weighted IBP identity.
+3. `SDE/DENS/FI`: generator-domain and semigroup contracts that turn weighted
+   IBP into the invariant Gibbs law and then KL/FI dissipation.
+4. `CONV/MEAS`: finite-dimensional Prekopa-Leindler and Brunn-Minkowski
    interfaces, using `Lean-Asymptotic-Statistical-Theory/ForMathlib` as a
    reference but porting only small local leaves.
-2. `DENS/CONV`: nonquadratic coercive Gibbs envelopes for Lebesgue targets.
-3. `SDE/DENS/FI`: invariant Gibbs law and KL/FI dissipation for Langevin.
-4. `PATH/GAUSS`: Brownian/path-space change of measure beyond finite
+5. `DENS/CONV`: nonquadratic coercive Gibbs envelopes for Lebesgue targets.
+6. `PATH/GAUSS`: Brownian/path-space change of measure beyond finite
    cylinders.
-5. `DISC`: LMC/MALA/HMC/proximal samplers only after the above roots are local.
+7. `DISC`: LMC/MALA/HMC/proximal samplers only after the above roots are local.
 
 ## Rigor Contract
 

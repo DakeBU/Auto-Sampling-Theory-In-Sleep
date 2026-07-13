@@ -1,3 +1,8 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
 
 /-!
@@ -5,4 +10,3 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
 
 Parent import surface for calculus leaves used by SDE/Sampling proofs.
 -/
-

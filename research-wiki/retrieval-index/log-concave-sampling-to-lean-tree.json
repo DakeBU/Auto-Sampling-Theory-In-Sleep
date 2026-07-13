@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-02 02:55:27",
+  "generated": "2026-07-13 18:17:19",
   "legacy_pdf": "/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/chewisinho-stochastic-processes-main.pdf",
   "open_leaf_queue": [
     {
@@ -24,17 +24,17 @@
       "target": "TechnicalLemmas/Geometry/BrunnMinkowski.lean"
     },
     {
-      "borrow": "compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic Lebesgue Gibbs normalizers from Mathlib Gaussian Fourier tails; next generalize beyond quadratic/coercive tails",
+      "borrow": "compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic and one-dimensional Laplace normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic plus exact one-dimensional Laplace Lebesgue Gibbs normalizers; next generalize beyond finite-dimensional quadratic and one-dimensional Laplace tails",
       "label": "DENS/CONV",
       "leaf": "gibbsDensity_withDensity_normalized",
-      "status": "convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic Lebesgue normalizer, and normalized withDensity probability bridges compiled; nonquadratic coercivity envelopes remain",
+      "status": "convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic and one-dimensional Laplace Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic and exact one-dimensional Laplace Lebesgue normalizers, and normalized withDensity probability bridges compiled; general coercivity envelopes remain",
       "target": "TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean"
     },
     {
-      "borrow": "ASTIS WeakGenerator/FokkerPlanckAlgebra plus Mathlib calculus/integration APIs",
+      "borrow": "compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, and the radial compact-support pointwise-exhaustion family ported from the audited SLT pattern; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces",
       "label": "SDE/DENS/FI",
       "leaf": "langevinGenerator_invariant_gibbs_weak",
-      "status": "source-contract",
+      "status": "generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, and radial compact-support pointwise exhaustion are compiled; scaled first/Hessian/Laplacian cutoff bounds, domination and Gibbs tails, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red",
       "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean"
     },
     {
@@ -87,7 +87,7 @@
       "target": "TechnicalLemmas/StochasticProcesses/Girsanov.lean"
     },
     {
-      "borrow": "ASTIS LawMap/ConditionalKernel/WeakGenerator; SALD weak-FP as consumer pressure test",
+      "borrow": "ASTIS LawMap/ConditionalKernel/WeakGenerator; textbook LMC interpolation as the consumer route",
       "label": "DISC/SDE/KERN",
       "leaf": "lmcInterpolation_weakGenerator",
       "status": "planned-generalization",
@@ -133,11 +133,11 @@
       "status": "planned"
     },
     {
-      "first_leaf": "finite-measure bounded-below, finite-dimensional quadratic-Lebesgue Gibbs normalization, explicit centered/shifted quadratic normalized-density log-concavity, and negative-log potential extraction compiled; Langevin generator invariant Gibbs law contract remains",
+      "first_leaf": "Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateau cutoffs, and radial pointwise exhaustion compiled; scaled cutoff derivatives and dominated whole-space IBP remain",
       "lean_family": "Gibbs density -> generator -> KL/FI dissipation -> WGF contract",
       "review": "reuse shared roots DENS, FI, SDE, REG; create a separate subtree when the theorem becomes active",
       "source": "1.4 Langevin as gradient flow",
-      "status": "quadratic-gibbs-envelope-compiled"
+      "status": "cutoff-exhaustion-base-compiled"
     },
     {
       "first_leaf": "log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit",
@@ -214,7 +214,7 @@
     {
       "label": "DENS",
       "module": "TechnicalLemmas/Geometry/LogConcavity.lean; Measure/{Gibbs,RadonNikodym}.lean; InformationTheory/*",
-      "role": "positive density APIs, density-to-potential extraction, log-concavity algebra/tensorization, level-set quasiconcavity/restriction, linear/affine precomposition, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs ENNReal density, finite-measure and exact quadratic Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra",
+      "role": "positive density APIs, density-to-potential extraction, log-concavity algebra/tensorization, level-set quasiconcavity/restriction, linear/affine precomposition, centered/shifted/two-point quadratic and one-dimensional Laplace Gibbs log-concavity, Gibbs ENNReal density, finite-measure, exact quadratic, and exact one-dimensional Laplace Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra",
       "root": "densities, RN derivative, KL/Renyi integrands",
       "status": "partial-compiled-local"
     },

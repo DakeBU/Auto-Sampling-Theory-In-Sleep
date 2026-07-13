@@ -1,11 +1,10 @@
 # Log-Concave Sampling Six-Hour Execution Pack
 
-Generated: `2026-07-02 02:55:25`
+Generated: `2026-07-13 18:17:17`
 
 This pack is the control-console entry point for running the hierarchical
 multi-agent system on the log-concave sampling foundation.  The run must keep
-the textbook as the source roadmap, Mathlib-ready reusable leaves as the output, and SALD/RMFLD as
-downstream consumers only.
+the textbook as the source roadmap and Mathlib-ready reusable leaves as the output.
 
 ## One-Command Launch
 
@@ -57,7 +56,7 @@ under `runs/<cycle>/agent-logs/` and the global trial ledger under
 
 | Role | Job | Required output |
 | --- | --- | --- |
-| upper_director | Choose the one chapter/root/leaf that gives the most reusable progress; reject SALD-style wrapper churn. | One cycle packet with source anchor, shared roots, lower split, and reviewer gate. |
+| upper_director | Choose the one chapter/root/leaf that gives the most reusable progress; reject wrapper churn that does not serve the textbook tree. | One cycle packet with source anchor, shared roots, lower split, and reviewer gate. |
 | upper_source_math | Audit the source statement and hidden regularity before proof search starts. | Source-faithfulness decision: supported, standard background, regularity gap, or statement drift. |
 | upper_proof_dag | Pick the shortest dependency path through the shared-root DAG. | A small active leaf and stale-leaf retirements. |
 | upper_process_memory | Check whether the run is repeating old work or ignoring existing compiled roots. | One process correction if needed. |
@@ -88,7 +87,7 @@ under `runs/<cycle>/agent-logs/` and the global trial ledger under
 
 | Cycle | Objective | Reason |
 |---|---|---|
-| 1 | Chapter map plus shared-root lock | Prevent the system from drifting back to paper-specific SALD wrappers. |
+| 1 | Chapter map plus shared-root lock | Prevent the system from drifting into wrappers that do not close textbook leaves. |
 | 2 | `CONV/MEAS` Prekopa-Leindler audit and smallest port candidate | This is the missing preservation root for functional inequalities. |
 | 3 | `DENS/CONV` nonquadratic coercive Gibbs envelope | This connects textbook target densities to normalized probability laws beyond quadratic examples. |
 

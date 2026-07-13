@@ -1,6 +1,7 @@
 import Mathlib.MeasureTheory.Measure.Decomposition.RadonNikodym
 import Mathlib.MeasureTheory.Constructions.Pi
 import Mathlib.MeasureTheory.Integral.Lebesgue.Map
+import Mathlib.MeasureTheory.Function.SpecialFunctions.Basic
 import Mathlib.MeasureTheory.Measure.WithDensity
 
 /-!
@@ -132,6 +133,23 @@ theorem isProbabilityMeasure_withDensity_of_lintegral_eq_one
     (hf : ∫⁻ x, f x ∂μ = 1) :
     IsProbabilityMeasure (μ.withDensity f) :=
   ⟨by simpa [withDensity_univ_eq_lintegral] using hf⟩
+
+/-- A real exponential tilt with Bochner integral one defines a probability
+measure through `withDensity`.
+
+This is the small ASTIS-owned version of the exponential-tilt normalization
+pattern used in entropy-duality and Girsanov arguments. -/
+theorem isProbabilityMeasure_withDensity_ofReal_exp_of_integral_eq_one
+    (μ : MeasureTheory.Measure α) {U : α → ℝ}
+    (hU_int : Integrable (fun x => Real.exp (U x)) μ)
+    (hU_mass : ∫ x, Real.exp (U x) ∂μ = 1) :
+    IsProbabilityMeasure
+      (μ.withDensity fun x => ENNReal.ofReal (Real.exp (U x))) := by
+  refine isProbabilityMeasure_withDensity_of_lintegral_eq_one μ
+    (fun x => ENNReal.ofReal (Real.exp (U x))) ?_
+  rw [← ofReal_integral_eq_lintegral_ofReal hU_int
+    (ae_of_all _ fun _ => (Real.exp_pos _).le), hU_mass]
+  norm_num
 
 /-- A density with finite lintegral defines a finite measure after
 `withDensity`. -/

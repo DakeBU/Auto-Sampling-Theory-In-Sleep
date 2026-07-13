@@ -1,5 +1,6 @@
 import Mathlib.Analysis.Convex.SpecificFunctions.Basic
 import Mathlib.Analysis.Convex.Quasiconvex
+import Mathlib.Analysis.Normed.Module.Convex
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.LinearAlgebra.FiniteDimensional.Defs
 
@@ -241,6 +242,45 @@ theorem logConcaveOn_const_mul_exp_neg_of_convexOn {E : Type*}
     (hV : ConvexOn ℝ s V) (hc : 0 < c) :
     LogConcaveOn s (fun x => c * Real.exp (-V x)) :=
   (logConcaveOn_exp_neg_of_convexOn hV).const_mul hc
+
+/-- The absolute value is convex on the real line. -/
+theorem convexOn_univ_abs :
+    ConvexOn ℝ (Set.univ : Set ℝ) (fun x : ℝ => |x|) := by
+  simpa [Real.norm_eq_abs] using (convexOn_univ_norm (E := ℝ))
+
+/-- Nonnegative absolute-linear real potentials are convex. -/
+theorem convexOn_univ_const_mul_abs_add {a b : ℝ} (ha : 0 ≤ a) :
+    ConvexOn ℝ (Set.univ : Set ℝ) (fun x : ℝ => a * |x| + b) := by
+  have h := convexOn_univ_abs.smul ha
+  simpa [smul_eq_mul] using h.add_const b
+
+/-- The Gibbs shape of a nonnegative absolute-linear real potential is
+log-concave. -/
+theorem logConcaveOn_exp_neg_abs_linear {a b : ℝ} (ha : 0 ≤ a) :
+    LogConcavity.LogConcaveOn (Set.univ : Set ℝ)
+      (fun x : ℝ => Real.exp (-(a * |x| + b))) := by
+  simpa using logConcaveOn_exp_neg_of_convexOn
+    (convexOn_univ_const_mul_abs_add (a := a) (b := b) ha)
+
+/-- Positive scalar normalization preserves log-concavity of absolute-linear
+Laplace shapes. -/
+theorem logConcaveOn_const_mul_exp_neg_abs_linear {a b c : ℝ}
+    (ha : 0 ≤ a) (hc : 0 < c) :
+    LogConcavity.LogConcaveOn (Set.univ : Set ℝ)
+      (fun x : ℝ => c * Real.exp (-(a * |x| + b))) := by
+  simpa using logConcaveOn_const_mul_exp_neg_of_convexOn
+    (convexOn_univ_const_mul_abs_add (a := a) (b := b) ha) hc
+
+/-- The explicitly normalized one-dimensional absolute-linear Laplace density
+is log-concave as a real-valued density shape. -/
+theorem logConcaveOn_explicit_abs_linear_normalized_density {a b : ℝ} (ha : 0 < a) :
+    LogConcavity.LogConcaveOn (Set.univ : Set ℝ)
+      (fun x : ℝ => (2 * Real.exp (-b) / a)⁻¹ * Real.exp (-(a * |x| + b))) := by
+  have hZpos : 0 < 2 * Real.exp (-b) / a := by
+    positivity
+  exact logConcaveOn_const_mul_exp_neg_abs_linear
+    (a := a) (b := b) (c := (2 * Real.exp (-b) / a)⁻¹) ha.le
+    (inv_pos.mpr hZpos)
 
 /-- The squared norm is convex on any real normed vector space. -/
 theorem convexOn_univ_norm_sq {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] :

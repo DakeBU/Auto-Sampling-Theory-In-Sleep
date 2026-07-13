@@ -16,6 +16,7 @@ flowchart TD
 
   MEAS --> LawMap[Probability.LawMap]
   MEAS --> CondKernel[Probability.ConditionalKernel]
+  MEAS --> PiUpdate[Measure.Product coordinate update]
   MEAS --> Transport[Measure.Transport]
 
   DENS --> LogConcavity[Geometry.LogConcavity]
@@ -29,6 +30,7 @@ flowchart TD
   DENS --> RN[Measure.RadonNikodym]
   DENS --> PiDensity[Measure.pi withDensity product]
   DENS --> Gibbs[Measure.Gibbs]
+  DENS --> GibbsIntegral[Gibbs withDensity Bochner integral rewrite]
   DENS --> GibbsPotentialEnv[Potential lower-bound envelope]
   DENS --> GibbsFiniteEnv[Finite-measure Gibbs envelope]
   DENS --> GibbsQuadEnv[Quadratic Lebesgue Gibbs envelope]
@@ -53,8 +55,18 @@ flowchart TD
 
   SDE --> WeakGen[StochasticProcesses.WeakGenerator]
   SDE --> FP[StochasticProcesses.FokkerPlanckAlgebra]
+  SDE --> Langevin1D[StochasticProcesses.Langevin expression display/algebra]
+  SDE --> BoxDiv[Analysis.Calculus.Divergence box face-term wrapper]
+  SDE --> AEBridge[Analysis.Calculus.Divergence a.e. trace bridge]
+  SDE --> IntTransfer[Analysis.Calculus.Divergence trace-to-coordinate IntegrableOn]
+  SDE --> ExplicitTrace[StochasticProcesses.Langevin explicit trace display]
+  SDE --> DisplayContinuity[Scalar display ContinuousOn from components]
+  SDE --> TraceIntegrability[Trace IntegrableOn under global C1/C2]
+  SDE --> TestRegularity[Global C1/C2 components and Pi field fderiv]
+  SDE --> CutoffBase[Reusable smooth cutoffs and plateaus]
+  SDE --> CutoffLimit[Cutoff derivatives and dominated exhaustion]
   SDE --> GirsanovFinite[StochasticProcesses.Girsanov finite cylinder]
-  SDE --> Langevin[MarkovSemigroup/Langevin/Ito]
+  SDE --> Langevin[Semigroup/Ito/invariant Gibbs law]
   SDE --> Path[Girsanov/Doob/Follmer]
 
   DISC --> LMC[LMC interpolation]
@@ -65,5 +77,5 @@ flowchart TD
   classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
   class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
-  class LawMap,CondKernel,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
-  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,Langevin,Path,LMC,HMC,MALA todo;
+  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,GirsanovFinite compiled;
+  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,CutoffLimit,Langevin,Path,LMC,HMC,MALA todo;

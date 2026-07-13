@@ -10,6 +10,7 @@
 - `Mathlib.MeasureTheory.Measure.Decomposition.RadonNikodym`
 - `Mathlib.MeasureTheory.Constructions.Pi`
 - `Mathlib.MeasureTheory.Integral.Lebesgue.Map`
+- `Mathlib.MeasureTheory.Function.SpecialFunctions.Basic`
 - `Mathlib.MeasureTheory.Measure.WithDensity`
 
 ## Representative Declarations And Exports
@@ -19,6 +20,7 @@
 - `pi_withDensity_prod`
 - `withDensity_univ_eq_lintegral`
 - `isProbabilityMeasure_withDensity_of_lintegral_eq_one`
+- `isProbabilityMeasure_withDensity_ofReal_exp_of_integral_eq_one`
 - `isFiniteMeasure_withDensity_of_lintegral_ne_top`
 - `lintegral_inv_lintegral_mul_eq_one`
 - `isProbabilityMeasure_withDensity_normalized_lintegral`
@@ -29,6 +31,7 @@
 ## Curated Formalized Memory Entries
 
 - `measure.with-density.probability-normalization` -> `isProbabilityMeasure_withDensity_of_lintegral_eq_one` (Mathlib.MeasureTheory.Measure.WithDensity; Mathlib.MeasureTheory.Measure.Typeclasses.Probability)
+- `measure.with-density.ofReal-exp-probability-normalization` -> `isProbabilityMeasure_withDensity_ofReal_exp_of_integral_eq_one` (Mathlib.MeasureTheory.Integral.Bochner.Basic; AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym; SLT/GaussianLSI/DualityEntropy.lean as proof-pattern provenance)
 - `measure.density.normalized-lintegral-one` -> `lintegral_inv_lintegral_mul_eq_one` (Mathlib.MeasureTheory.Integral.Lebesgue.Add; Mathlib.Data.ENNReal.Inv)
 - `measure.with-density.normalized-probability` -> `isProbabilityMeasure_withDensity_normalized_lintegral` (Mathlib.MeasureTheory.Measure.WithDensity; Mathlib.MeasureTheory.Integral.Lebesgue.Add)
 - `measure.pi.lintegral-product-factorization` -> `lintegral_fintype_prod_eq_prod` (Mathlib.MeasureTheory.Integral.Pi; external AST PiWithDensity.lean)

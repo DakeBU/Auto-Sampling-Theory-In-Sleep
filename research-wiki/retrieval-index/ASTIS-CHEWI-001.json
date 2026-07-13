@@ -1,710 +1,2342 @@
 {
-  "agent_execution_pack": "agent-briefs/log_concave_sampling_6h_execution_pack.md",
-  "api_audit": [
+  "cycle": 23,
+  "dynamic_leaf_queue": [
+    "Prove an operator-norm fderiv bound of order R^-1 for radialSmoothCutoff at positive scale in a finite-dimensional real inner-product space; keep Hessian/Laplacian bounds and dominated tails separate."
+  ],
+  "generated": "2026-07-13 18:17:24",
+  "latest_next_route": "Prove an operator-norm fderiv bound of order R^-1 for radialSmoothCutoff at positive scale in a finite-dimensional real inner-product space; keep Hessian/Laplacian bounds and dominated tails separate.",
+  "mode": "faithfulPaper",
+  "next_lower_tasks": [
     {
-      "area": "convex/log-concave base",
-      "external": "`ForMathlib/PrekopaLeindler.lean`, `Brunn1D.lean`, `Anderson.lean`",
-      "gap": "No direct Mathlib Prekopa-Leindler/Brunn-Minkowski package observed.",
-      "mathlib": "`Analysis/Convex/*`, `ConvexOn`, `ConcaveOn`, log convexity examples"
+      "goal": "Audit the natural-language proof and exact assumptions for this active route: Prove an operator-norm fderiv bound of order R^-1 for radialSmoothCutoff at positive scale in a finite-dimensional real inner-product space; keep Hessian/Laplacian bounds and dominated tails separate.",
+      "must_write": "proof-attempts/<task>/...-textbook-dag.md or a dialogue handoff.",
+      "role": "lower-1-textbook-proof-scout"
     },
     {
-      "area": "density/RN/withDensity",
-      "external": "`RnDerivSqrt.lean`, `HellingerProduct.lean`, `L2.lean`",
-      "gap": "Gibbs nonzero, finite-by-envelope, finite-measure bounded-below, and exact quadratic Lebesgue normalization contracts are compiled; need general nonquadratic coercivity/growth leaves proving tail-integrable envelopes.",
-      "mathlib": "`Probability/Density.lean`, `Measure/Decomposition/*`, `withDensity`, `rnDeriv`"
-    },
-    {
-      "area": "Gaussian/product Gaussian",
-      "external": "`PiGaussian.lean`, `GaussianMGF.lean`, `GaussianShift.lean`, `PiWithDensity.lean`",
-      "gap": "Product Gaussian MGF, normalizer, shifted withDensity identity, product integral change-of-measure, EuclideanSpace pushforward bridge, and stdGaussian inner-product form are compiled; Brownian/path packaging remains.",
-      "mathlib": "`Probability.Distributions.Gaussian.Real`, CLT/charFun support"
-    },
-    {
-      "area": "conditional kernels",
-      "external": "`CondExpL2.lean`, Markov-kernel/selection files",
-      "gap": "Need fixed representative policy for conditional drifts in algorithm proofs.",
-      "mathlib": "`Probability.Kernel.CondDistrib`, conditional expectation APIs"
-    },
-    {
-      "area": "SDE/semigroup/Langevin",
-      "external": "ASTIS WeakGenerator/FokkerPlanckAlgebra, source-cited textbook route",
-      "gap": "Finite-dimensional cylindrical Girsanov integral and RN/withDensity identity are compiled; Ito, generator domains, invariant Gibbs proof, and full Brownian path-space change of measure remain real analytic leaves.",
-      "mathlib": "general topology/calculus/integration; no full finite-dimensional Ito/SDE library observed"
-    },
-    {
-      "area": "information theory",
-      "external": "ASTIS `KLDensity`, `DonskerVaradhan`, external Hellinger/RN files",
-      "gap": "Renyi divergence and derivative identities need new local leaves.",
-      "mathlib": "`InformationTheory/KullbackLeibler/KLFun.lean`, convexity of KL integrand"
-    },
-    {
-      "area": "algorithms",
-      "external": "SALD weak-FP as pressure test, AST Gaussian/conditional references",
-      "gap": "LMC/HMC/MALA/proximal trees should be consumers until shared roots compile.",
-      "mathlib": "kernel/measure infrastructure; search per algorithm before local coding"
+      "goal": "Compile the smallest Mathlib-ready leaf on this route, or return one typed blocker: Prove an operator-norm fderiv bound of order R^-1 for radialSmoothCutoff at positive scale in a finite-dimensional real inner-product space; keep Hessian/Laplacian bounds and dominated tails separate.",
+      "must_write": "Lean declaration plus typed verifier feedback fields.",
+      "role": "lower-2-lean-implementation-worker"
     }
   ],
-  "blue_red_lean_tree": [
+  "open_external_technical_lemma_obligations": [
     {
-      "family": "MEAS/KERN",
-      "node": "Probability.LawMap",
-      "role": "law-map and weak-test integral rewrites",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Probability/LawMap.lean"
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/TaylorBound.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean",
+      "lean_status": "port-candidate",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "`taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `deriv2_bounded_of_compactlySupported`, `integrable_deriv_sq`",
+      "tags": [],
+      "used_by": "selected scalar Taylor integral/remainder and bounded-Hessian leaves"
     },
     {
-      "family": "MEAS/KERN",
-      "node": "Probability.ConditionalKernel",
-      "role": "condDistrib and conditional-integral representatives",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Probability/ConditionalKernel.lean"
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/Limit.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianPoincare.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/Limit.lean",
+      "statement": "`tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq`, `gaussianPoincare`",
+      "tags": [],
+      "used_by": "Taylor remainder limits and Gaussian Poincare backend"
     },
     {
-      "family": "MEAS/KERN",
-      "node": "Measure.Transport",
-      "role": "transport/coupling/Wasserstein interfaces",
-      "status": "todo-red",
-      "target": "TechnicalLemmas/Measure/Transport.lean"
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/DualityEntropy.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/EntropyDuality.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/DualityEntropy.lean",
+      "statement": "`entropy_duality`, `entropy_ge_integral_mul`, `expMeasure_isProbabilityMeasure`, `integral_expMeasure`",
+      "tags": [],
+      "used_by": "DV/KL variational formula backend"
     },
     {
-      "family": "DENS/CONV",
-      "node": "Geometry.LogConcavity",
-      "role": "positive log-concavity, norm-square convexity, and convex-potential Gibbs shape",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Log-concavity algebra/tensorization",
-      "role": "pointwise products, nonnegative real powers, and Cartesian-product density factors preserve log-concavity",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Log-concavity under maps",
-      "role": "linear and affine precomposition preserve log-concavity on preimage domains",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Log-concavity level sets",
-      "role": "positive log-concave functions are quasiconcave; convex superlevel restrictions remain log-concave",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
-    },
-    {
-      "family": "DENS/CONV/SDE",
-      "node": "Negative-log potential geometry",
-      "role": "positive log-concave densities have convex negative-log potentials and convex energy sublevels",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Quadratic Gibbs log-concavity",
-      "role": "nonnegative quadratic norm potentials and explicit normalized quadratic Gibbs densities are log-concave",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
-    },
-    {
-      "family": "DENS/CONV/GAUSS",
-      "node": "Shifted quadratic Gibbs geometry",
-      "role": "shifted potentials `a‖x-m‖^2+b` and explicit shifted quadratic densities are log-concave",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
-    },
-    {
-      "family": "DENS/CONV/GAUSS/DISC",
-      "node": "Two-point Gaussian/proximal kernel geometry",
-      "role": "two-point potentials `a‖x-y‖^2+b` and Gaussian-kernel shapes are log-concave on product space",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Measure.RadonNikodym",
-      "role": "withDensity, reciprocal-lintegral normalization, RN wrappers",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Measure/RadonNikodym.lean"
-    },
-    {
-      "family": "DENS/MEAS",
-      "node": "Measure.pi withDensity product",
-      "role": "finite-product ENNReal Fubini and coordinatewise density-tilt decomposition",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Measure/RadonNikodym.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Measure.Gibbs",
-      "role": "Gibbs ENNReal density, measurability, envelope comparison, and normalization",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Measure/Gibbs.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Potential lower-bound envelope",
-      "role": "`W ≤ V` a.e. and finite `∫ exp(-W)` imply finite `∫ exp(-V)` and normalized Gibbs law",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Measure/Gibbs.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Finite-measure Gibbs envelope",
-      "role": "finite base measure plus a.e. constant lower bound on `V` gives finite Gibbs normalizer and normalized target law",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Measure/Gibbs.lean"
-    },
-    {
-      "family": "DENS/CONV/ANALYSIS",
-      "node": "Quadratic Lebesgue Gibbs envelope",
-      "role": "finite-dimensional Lebesgue quadratic tails have exact ENNReal normalizers, and quadratic lower bounds give normalized Gibbs target laws",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/Analysis/Integrability.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "InformationTheory.KLDensity/DV",
-      "role": "KL pointwise algebra and DV energy leaves",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/InformationTheory/{KLDensity,DonskerVaradhan}.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Prekopa/Brunn/Convex",
-      "role": "finite-dimensional PL/BM and convex-measure preservation",
-      "status": "todo-red",
-      "target": "TechnicalLemmas/Geometry/{Convex,PrekopaLeindler,BrunnMinkowski}.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Concrete Gibbs envelope",
-      "role": "general nonquadratic Lebesgue coercivity/growth assumptions supply a tail-integrable lower-potential envelope",
-      "status": "todo-red",
-      "target": "TechnicalLemmas/Measure/Gibbs.lean or Analysis/Integrability.lean"
-    },
-    {
-      "family": "DENS/CONV",
-      "node": "Renyi density calculus",
-      "role": "Renyi integrand positivity, measurability, finite-envelope, and pointwise derivative leaves",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/InformationTheory/Renyi.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "ProbabilityDistributions.Gaussian",
-      "role": "Gaussian moments, coordinate laws, finite linear forms, MGF normalizers, shifted densities, and variance packaging",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "Product Gaussian linear forms",
-      "role": "finite product-Gaussian linear-form integrability and zero mean",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "Product Gaussian MGF / normalizer",
-      "role": "finite product-Gaussian linear-form MGF and centered Esscher mass-one normalizer",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "Scalar Gaussian Esscher shift",
-      "role": "one-dimensional Gaussian exponential tilt shifts the mean",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "Product Gaussian shifted density",
-      "role": "finite product standard Gaussian withDensity tilt equals shifted product Gaussian",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "Product Gaussian change of measure",
-      "role": "finite shifted product-Gaussian integrals rewrite as centered weighted integrals",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "EuclideanSpace Gaussian pushforward",
-      "role": "transport finite product-Gaussian Esscher change-of-measure through `WithLp.toLp 2`",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "stdGaussian inner-product change of measure",
-      "role": "rewrite the Euclidean change-of-measure against Mathlib `stdGaussian` with inner-product/norm exponent",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "GAUSS",
-      "node": "Full path-space Gaussian / Girsanov",
-      "role": "Brownian/path-space RN derivative beyond finite-dimensional cylinders",
-      "status": "todo-red",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
-    },
-    {
-      "family": "FI",
-      "node": "FunctionalInequalities.LogSobolev",
-      "role": "LSI to KL/FI bookkeeping and sqrt-density handoffs",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/FunctionalInequalities/LogSobolev.lean"
-    },
-    {
-      "family": "FI",
-      "node": "PI/TI/Isoperimetry",
-      "role": "Poincare, transport inequalities, concentration, isoperimetry",
-      "status": "todo-red",
-      "target": "TechnicalLemmas/FunctionalInequalities/{Poincare,Transport,Isoperimetry}.lean"
-    },
-    {
-      "family": "FI",
-      "node": "Preservation/tensorization",
-      "role": "tensorization and preservation under log-concavity operations",
-      "status": "todo-red",
-      "target": "TechnicalLemmas/FunctionalInequalities/Preservation.lean"
-    },
-    {
-      "family": "SDE/PATH",
-      "node": "StochasticProcesses.WeakGenerator",
-      "role": "sample-to-law weak-generator rewrite",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/StochasticProcesses/WeakGenerator.lean"
-    },
-    {
-      "family": "SDE/PATH",
-      "node": "StochasticProcesses.FokkerPlanckAlgebra",
-      "role": "weak-FP and Fisher/IBP scalar algebra",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean"
-    },
-    {
-      "family": "SDE/PATH",
-      "node": "StochasticProcesses.Girsanov finite cylinder",
-      "role": "finite-dimensional cylindrical Gaussian Girsanov weight, RN density, and integral change-of-measure",
-      "status": "compiled-blue",
-      "target": "TechnicalLemmas/StochasticProcesses/Girsanov.lean"
-    },
-    {
-      "family": "SDE/PATH",
-      "node": "MarkovSemigroup/Langevin/Ito",
-      "role": "semigroup domains, invariant Gibbs law, Ito interfaces",
-      "status": "todo-red",
-      "target": "TechnicalLemmas/StochasticProcesses/{MarkovSemigroup,Langevin,Ito}.lean"
-    },
-    {
-      "family": "SDE/PATH",
-      "node": "Girsanov/Doob/Follmer",
-      "role": "path-space RN derivatives and bridge transforms",
-      "status": "todo-red",
-      "target": "TechnicalLemmas/StochasticProcesses/{Girsanov,DoobTransform,FollmerDrift}.lean"
-    },
-    {
-      "family": "DISC",
-      "node": "LMC interpolation",
-      "role": "LMC interpolation, coupling, KL/FI derivative consumers",
-      "status": "todo-red",
-      "target": "SamplingAlgorithms/LangevinMonteCarlo.lean"
-    },
-    {
-      "family": "DISC",
-      "node": "HMC/underdamped/RM",
-      "role": "faster low-accuracy sampler transition/generator contracts",
-      "status": "todo-red",
-      "target": "SamplingAlgorithms/{HamiltonianMonteCarlo,UnderdampedLangevin,RandomizedMidpoint}.lean"
-    },
-    {
-      "family": "DISC",
-      "node": "MALA/proximal/high-accuracy",
-      "role": "acceptance kernels, detailed balance, restricted Gaussian oracles",
-      "status": "todo-red",
-      "target": "SamplingAlgorithms/{MetropolisAdjustedLangevin,ProximalSampler}.lean"
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianLSI.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "statement": "`gaussian_logSobolev_W12_pi`, `condEntExceptCoord_sq_eq_slice_entropy`, `condEnt_sq_le_partial_deriv_sq`",
+      "tags": [],
+      "used_by": "product Gaussian LSI backend"
     }
   ],
-  "chapter_map": [
+  "open_obligation_signals": [
+    "Prove an operator-norm fderiv bound of order R^-1 for radialSmoothCutoff at positive scale in a finite-dimensional real inner-product space; keep Hessian/Laplacian bounds and dominated tails separate."
+  ],
+  "open_sald_contribution_obligations": [],
+  "proof_status_counts": {
+    "blocked": 0,
+    "contractOnly": 34,
+    "formalized": 286,
+    "obligation": 1175,
+    "planned": 9,
+    "sourceCited": 16
+  },
+  "recent_trials": [
     {
-      "chapter": "1. Langevin diffusion in continuous time",
-      "lean_plan": "Build reusable interfaces for Gaussian increments, weak generators, semigroups, Gibbs invariant laws, KL/FI dissipation, and Wasserstein-gradient-flow contracts.",
-      "part": "Part I",
-      "reader_summary": "The continuous-time backbone: stochastic calculus, Markov semigroups, optimal-transport geometry, Langevin dynamics, and convergence viewpoints.",
-      "shared": "MEAS, GAUSS, DENS, FI, SDE, REG",
-      "status": "partial-local-compiled"
+      "artifact": "runs/20260713-ASTIS-CHEWI-001-cycle023/10_harness_cycle_summary.md",
+      "kind": "review",
+      "lean_gate": "pass",
+      "next_route": "Prove an operator-norm fderiv bound of order R^-1 for radialSmoothCutoff at positive scale in a finite-dimensional real inner-product space; keep Hessian/Laplacian bounds and dominated tails separate.",
+      "notes": "Cycle 23 reviewer gate: cutoff support, compactness, smoothness, plateau, and pointwise exhaustion accepted; derivative and whole-space claims remain red.",
+      "role": "reviewer",
+      "status": "accepted",
+      "timestamp": "2026-07-13 18:17:11",
+      "trial_id": "20260713-ASTIS-CHEWI-001-cycle023-review-gate"
     },
     {
-      "chapter": "2. Functional inequalities",
-      "lean_plan": "Separate definitions and bookkeeping from preservation theorems; reuse log-concavity, Prekopa-Leindler/Brunn-Minkowski, and LSI/KL/FI leaves.",
-      "part": "Part I",
-      "reader_summary": "The inequality toolkit that turns geometry of the target into convergence rates: PI, LSI, transport, concentration, isoperimetry, and preservation operations.",
-      "shared": "CONV, DENS, FI, REG",
-      "status": "partial-local-compiled"
-    },
-    {
-      "chapter": "3. Stochastic analysis topics",
-      "lean_plan": "Keep finite-dimensional Gaussian change of measure as the compiled base; only then lift to Brownian/path-space RN derivatives and bridge transforms.",
-      "part": "Part I",
-      "reader_summary": "Path-space tools used repeatedly later: quadratic variation, Girsanov change of measure, Doob transforms, Follmer drift, and Schrodinger bridges.",
-      "shared": "GAUSS, PATH, DENS, SDE, REG",
-      "status": "finite-girsanov-rn-cylinder-compiled"
-    },
-    {
-      "chapter": "4. Analysis of Langevin Monte Carlo",
-      "lean_plan": "Treat LMC as a consumer of law-map, conditional-kernel, weak-FP, KL/FI, Girsanov, and Gaussian-transition geometry leaves.",
-      "part": "Part II",
-      "reader_summary": "The first algorithmic convergence chapter, presenting coupling, interpolation, convex-optimization, and Girsanov proof routes for LMC.",
-      "shared": "MEAS, KERN, SDE, DENS, PATH, DISC, REG",
-      "status": "partial-local-compiled"
-    },
-    {
-      "chapter": "5. Faster low-accuracy samplers",
-      "lean_plan": "Delay algorithm theorems until transition kernels, Hamiltonian/underdamped generators, and Gaussian-noise update contracts are local.",
-      "part": "Part II",
-      "reader_summary": "Randomized midpoint, Hamiltonian Monte Carlo, and underdamped Langevin methods, organized around better discretizations and dynamics.",
-      "shared": "GAUSS, SDE, DISC, REG",
-      "status": "planned"
-    },
-    {
-      "chapter": "6. Convergence in Renyi divergence",
-      "lean_plan": "Extend compiled Renyi integrand algebra toward full divergence, log-normalizer, and path-derivative contracts.",
-      "part": "Part II",
-      "reader_summary": "Stronger divergence control for LMC and underdamped methods, using interpolation and Girsanov routes.",
-      "shared": "DENS, FI, SDE, PATH, REG",
-      "status": "first algebra leaves compiled"
-    },
-    {
-      "chapter": "7. High-accuracy samplers",
-      "lean_plan": "Formalize proposal kernels, acceptance probabilities, reversibility/detailed balance, and warm-start density comparisons after kernel infrastructure is stable.",
-      "part": "Part II",
-      "reader_summary": "Rejection sampling, Metropolis-Hastings filters, discrete-time Markov chains, and MALA cold/warm start analyses.",
-      "shared": "KERN, DENS, GAUSS, DISC, REG",
-      "status": "planned"
-    },
-    {
-      "chapter": "8. Proximal sampler",
-      "lean_plan": "Use two-point Gaussian/proximal kernel log-concavity as the compiled start; add restricted Gaussian conditional laws and time-reversal flow interfaces.",
-      "part": "Part II",
-      "reader_summary": "Restricted Gaussian oracles and proximal transitions, with convergence under strong log-concavity, log-concavity, and functional inequalities.",
-      "shared": "CONV, GAUSS, KERN, FI, DISC, REG",
-      "status": "kernel-geometry-compiled"
-    },
-    {
-      "chapter": "9. Lower bounds for sampling",
-      "lean_plan": "Treat as a consumer of oracle models, information lower bounds, Gaussian comparison, and dimension-specific construction lemmas.",
-      "part": "Part II",
-      "reader_summary": "Oracle/query lower bounds in one dimension, constant dimension, and Gaussian families.",
-      "shared": "MEAS, GAUSS, DENS, DISC, REG",
-      "status": "deferred-consumer"
-    },
-    {
-      "chapter": "10. Structured sampling",
-      "lean_plan": "Introduce oracle/noisy-gradient and coordinate-update interfaces only after base kernels and mirror-geometry assumptions are explicit.",
-      "part": "Part II",
-      "reader_summary": "Sampling with stochastic gradients, coordinate methods, and mirror Langevin geometry.",
-      "shared": "MEAS, CONV, SDE, DISC, REG",
-      "status": "deferred-consumer"
-    },
-    {
-      "chapter": "11. Non-log-concave sampling",
-      "lean_plan": "Reuse FI, KL, weak-FP, and score/Fisher algebra; do not assume convexity roots unless the theorem explicitly requires them.",
-      "part": "Part II",
-      "reader_summary": "Approximate stationarity and nonconvex behavior controlled through Fisher information bounds and applications.",
-      "shared": "DENS, FI, SDE, DISC, REG",
-      "status": "deferred-consumer"
-    },
-    {
-      "chapter": "12. Diffusion generative models",
-      "lean_plan": "Use path-space change of measure, score-drift regularity, weak-FP, and discretization leaves after the SDE/PATH foundation is mature.",
-      "part": "Part II",
-      "reader_summary": "Score matching and discretization analysis for diffusion generative modeling.",
-      "shared": "MEAS, DENS, SDE, PATH, DISC, REG",
-      "status": "deferred-consumer"
+      "artifact": "runs/20260713-ASTIS-CHEWI-001-cycle023/10_harness_cycle_summary.md",
+      "kind": "build",
+      "lean_gate": "pass",
+      "next_route": "",
+      "notes": "Cycle 23 compiled 15 cutoff/plateau theorem leaves and raised the registry to 247. Remaining exact boundary: radial cutoff derivative bounds, dominated Gibbs-tail passage, whole-space weighted IBP, and generator-domain semantics.",
+      "role": "reviewer",
+      "status": "compiled",
+      "timestamp": "2026-07-13 18:13:02",
+      "trial_id": "20260713-ASTIS-CHEWI-001-cycle023-build-gate"
     }
   ],
-  "chapter_subtrees": [
+  "recent_verifier_feedback": [
     {
-      "chapter": "1.1 stochastic calculus",
-      "dag": "Ito/quadratic-variation/Taylor local-error subtree",
-      "first_leaf": "quadratic variation normalization and finite-dimensional Ito test identity",
-      "shared": "MEAS, GAUSS, REG",
-      "status": "partial-local-compiled"
-    },
-    {
-      "chapter": "1.2 Markov semigroups",
-      "dag": "semigroup -> generator-domain -> weak-test derivative subtree",
-      "first_leaf": "semigroup test-function pairing under generator-domain hypotheses",
-      "shared": "MEAS, SDE, REG",
-      "status": "planned"
-    },
-    {
-      "chapter": "1.3 optimal transport geometry",
-      "dag": "couplings -> Wasserstein distance -> geodesic convexity subtree",
-      "first_leaf": "law-map/coupling measurable pushforward interface",
-      "shared": "MEAS, CONV, REG",
-      "status": "planned"
-    },
-    {
-      "chapter": "1.4 Langevin as gradient flow",
-      "dag": "Gibbs density -> generator -> KL/FI dissipation -> WGF contract",
-      "first_leaf": "finite-measure bounded-below, finite-dimensional quadratic-Lebesgue Gibbs normalization, explicit centered/shifted quadratic normalized-density log-concavity, and negative-log potential extraction compiled; Langevin generator invariant Gibbs law contract remains",
-      "shared": "DENS, FI, SDE, REG",
-      "status": "quadratic-gibbs-envelope-compiled"
-    },
-    {
-      "chapter": "2 functional inequalities",
-      "dag": "PI/LSI/TI/isoperimetry plus preservation-operation subtrees",
-      "first_leaf": "log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit",
-      "shared": "CONV, DENS, FI, REG",
-      "status": "partial-local-compiled"
-    },
-    {
-      "chapter": "3 stochastic analysis topics",
-      "dag": "Girsanov -> Doob transform -> Follmer drift -> Schrodinger bridge",
-      "first_leaf": "finite-dimensional Gaussian Esscher density, stdGaussian inner-product form, cylindrical Girsanov integral, and RN/withDensity identity compiled; full Brownian path packaging remains",
-      "shared": "PATH, DENS, SDE, REG",
-      "status": "finite-girsanov-rn-cylinder-compiled"
-    },
-    {
-      "chapter": "4 Langevin Monte Carlo",
-      "dag": "coupling/interpolation/convex-optimization/Girsanov proof subtrees",
-      "first_leaf": "LMC interpolation weak-test law derivative under domination; two-point Gaussian transition-kernel geometry compiled",
-      "shared": "MEAS, KERN, SDE, DENS, REG, DISC",
-      "status": "partial-local-compiled"
-    },
-    {
-      "chapter": "5 faster low-accuracy samplers",
-      "dag": "randomized midpoint, HMC, underdamped generator subtrees",
-      "first_leaf": "Hamiltonian/underdamped transition-kernel regularity contract",
-      "shared": "GAUSS, SDE, DISC, REG",
-      "status": "planned"
-    },
-    {
-      "chapter": "6 Renyi divergence",
-      "dag": "Renyi density algebra -> interpolation/Girsanov derivative subtrees",
-      "first_leaf": "Renyi density algebra with positivity and finite-integral contracts",
-      "shared": "DENS, FI, SDE, REG",
-      "status": "first algebra leaves compiled"
-    },
-    {
-      "chapter": "7 high-accuracy samplers",
-      "dag": "rejection/MH/MALA kernels, detailed balance, warm-start subtrees",
-      "first_leaf": "proposal/acceptance Markov-kernel mass and reversibility contract",
-      "shared": "KERN, DENS, DISC, REG",
-      "status": "planned"
-    },
-    {
-      "chapter": "8 proximal sampler",
-      "dag": "restricted Gaussian oracle -> conditional laws -> proximal transition subtree",
-      "first_leaf": "two-point Gaussian/proximal kernel log-concavity and log-concave superlevel restriction compiled; restricted Gaussian conditional law remains",
-      "shared": "CONV, GAUSS, KERN, DISC, REG",
-      "status": "kernel-geometry-compiled"
-    },
-    {
-      "chapter": "9-12 lower bounds, structure, non-log-concave, diffusion models",
-      "dag": "consumer subtrees after core log-concave foundation stabilizes",
-      "first_leaf": "source-specific leaf only after shared roots are compiled",
-      "shared": "MEAS, DENS, SDE, PATH, DISC, REG",
-      "status": "deferred-consumer"
+      "closed_theorem_ok": false,
+      "error_class": "next-red-leaf",
+      "leaf": "analysis.calculus.radial-smooth-cutoff-fderiv-bound",
+      "lean_build_ok": true,
+      "mathlib_api_ok": true,
+      "measure_theory_ok": "",
+      "next_route": "Prove an operator-norm fderiv bound of order R^-1 for radialSmoothCutoff at positive scale in a finite-dimensional real inner-product space; keep Hessian/Laplacian bounds and dominated tails separate.",
+      "regularity_assumption_ok": true,
+      "role": "reviewer",
+      "source_correspondence_ok": true,
+      "status": "accepted",
+      "technical_lemma_ok": true,
+      "timestamp": "2026-07-13 18:17:11",
+      "trial_id": "20260713-ASTIS-CHEWI-001-cycle023-review-gate"
     }
   ],
-  "foundation_dag": "research-wiki/lemma-dags/log_concave_sampling_foundation.md",
-  "foundation_mmd": "docs/assets/log_concave_sampling_foundation.mmd",
-  "foundation_svg": "docs/assets/log_concave_sampling_foundation.svg",
-  "generated": "2026-07-02 02:55:27",
-  "library_overview": "research-wiki/sampling-sde-library/log_concave_sampling_overview.md",
-  "open_leaf_queue": [
+  "run_dir": "runs/20260713-ASTIS-CHEWI-001-cycle023",
+  "sald_contributions": [],
+  "stage": "Log-concave sampling foundation Stage-1: chapter map, shared-root DAG, and Mathlib-ready leaf growth",
+  "task_id": "ASTIS-CHEWI-001",
+  "technical_lemmas": [
     {
-      "borrow": "Mathlib `ConcaveOn`, `ConcaveOn.subset`, `strictConcaveOn_log_Ioi`; AST Prekopa files for next statement style",
-      "label": "CONV/DENS",
-      "leaf": "logConcaveOn_density_def",
-      "status": "core API, negative-log potential extraction, quasiconcavity/superlevel convexity and restriction, linear/affine precomposition, product/power/product-domain tensorization, norm-square convexity, centered/shifted/two-point quadratic Gibbs log-concavity, and Gibbs positive-rescale leaves compiled; next Prekopa/RN integration",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.map_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "normalized scalar coordinate law in the Brownian/Ito EM backend",
+      "tags": [
+        "gaussian",
+        "coordinate-law",
+        "brownian-increment"
+      ],
+      "used_by": "normalized scalar coordinate law in the Brownian/Ito EM backend"
     },
     {
-      "borrow": "external `AsymptoticStatistics/ForMathlib/PrekopaLeindler.lean`; Mathlib lacks direct PL package",
-      "label": "CONV/MEAS",
-      "leaf": "prekopaLeindler_finiteDimensional",
-      "status": "external-port-audit",
-      "target": "TechnicalLemmas/Geometry/PrekopaLeindler.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "coordinate",
+        "brownian-increment"
+      ],
+      "used_by": "Brownian/Ito coordinate integrability for scalar Taylor moment and generator leaves"
     },
     {
-      "borrow": "external `Brunn1D.lean`; Mathlib convex/volume APIs",
-      "label": "CONV/MEAS",
-      "leaf": "brunnMinkowski_oneDim_outerMeasure",
-      "status": "external-port-audit",
-      "target": "TechnicalLemmas/Geometry/BrunnMinkowski.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_sq_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_sq_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "Brownian/Ito coordinate square integrability for polynomial moment leaves",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "quadratic-moment",
+        "brownian-increment"
+      ],
+      "used_by": "Brownian/Ito coordinate square integrability for polynomial moment leaves"
     },
     {
-      "borrow": "compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic Lebesgue Gibbs normalizers from Mathlib Gaussian Fourier tails; next generalize beyond quadratic/coercive tails",
-      "label": "DENS/CONV",
-      "leaf": "gibbsDensity_withDensity_normalized",
-      "status": "convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic Lebesgue normalizer, and normalized withDensity probability bridges compiled; nonquadratic coercivity envelopes remain",
-      "target": "TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_eval_stdGaussianPi",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_eval_stdGaussianPi",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves",
+      "tags": [
+        "gaussian",
+        "mean",
+        "coordinate",
+        "brownian-increment"
+      ],
+      "used_by": "coordinate mean-zero rewrite for Brownian/Ito scalar Taylor moment leaves"
     },
     {
-      "borrow": "ASTIS WeakGenerator/FokkerPlanckAlgebra plus Mathlib calculus/integration APIs",
-      "label": "SDE/DENS/FI",
-      "leaf": "langevinGenerator_invariant_gibbs_weak",
-      "status": "source-contract",
-      "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.nnrealVarianceOneOfGaussianRealUnitLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Distributions.Gaussian.Real",
+      "statement": "turn scalar Gaussian law and variance-field definition into normalized variance one",
+      "tags": [
+        "gaussian",
+        "variance",
+        "NNReal"
+      ],
+      "used_by": "turn scalar Gaussian law and variance-field definition into normalized variance one"
     },
     {
-      "borrow": "Mathlib convex/Jensen APIs; SLT/AST reference style for functional inequality statements",
-      "label": "FI/CONV",
-      "leaf": "lsi_tensorization_or_preservation_contract",
-      "status": "planned",
-      "target": "TechnicalLemmas/FunctionalInequalities/Preservation.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian.integrable_const_mul_sq_gaussianReal_zero",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Distributions.Gaussian.Real",
+      "statement": "supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2",
+      "tags": [
+        "gaussian",
+        "integrability",
+        "quadratic-bound",
+        "brownian-increment"
+      ],
+      "used_by": "supply normalized-remainder bound integrability once the source identifies remainderBound as C * z^2"
     },
     {
-      "borrow": "external `GaussianMGF.lean`, `PiWithDensity.lean`, `GaussianShift.lean`",
-      "label": "GAUSS/PATH",
-      "leaf": "gaussianEsscher_shift_density",
-      "status": "formalized-local-density-half",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.hessianOpNormOfSourceHessianField",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound",
+      "tags": [
+        "taylor",
+        "hessian",
+        "source-contract"
+      ],
+      "used_by": "convert source-supplied selected-test Hessian representative into downstream Hessian operator-norm bound"
     },
     {
-      "borrow": "external `GaussianShift.lean`; local `stdGaussianPi_withDensity_exp_shift`",
-      "label": "GAUSS/PATH",
-      "leaf": "gaussianShift_change_of_measure",
-      "status": "formalized-local-product-measure",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "feed selected-line Taylor bounds from a Hessian operator-norm field",
+      "tags": [
+        "taylor",
+        "iteratedFDeriv",
+        "hessian"
+      ],
+      "used_by": "feed selected-line Taylor bounds from a Hessian operator-norm field"
     },
     {
-      "borrow": "Mathlib `EuclideanSpace`/`WithLp.toLp`; local `stdGaussianPi_shift_integral`",
-      "label": "GAUSS/PATH",
-      "leaf": "gaussianShift_euclidean_pushforward",
-      "status": "formalized-local-euclidean-pushforward",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor.quadraticVariationNormalizationOfCoeffDefAndVarianceOne",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "ASTIS/SALD cycles 174-176",
+      "statement": "assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization",
+      "tags": [
+        "brownian",
+        "ito",
+        "quadratic-variation",
+        "normalization"
+      ],
+      "used_by": "assemble quadratic coefficient and variance-one fields without re-assuming the downstream normalization"
     },
     {
-      "borrow": "Mathlib `map_pi_eq_stdGaussian`, `PiLp.inner_apply`, `EuclideanSpace.real_norm_sq_eq`",
-      "label": "GAUSS/PATH",
-      "leaf": "gaussianShift_stdGaussian_inner",
-      "status": "formalized-local-stdGaussian-inner",
-      "target": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegral",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegral",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib measure/integration APIs",
+      "statement": "rewrite weak-test integrals under endpoint laws and EM interpolation laws",
+      "tags": [
+        "measure-map",
+        "law",
+        "integral"
+      ],
+      "used_by": "rewrite weak-test integrals under endpoint laws and EM interpolation laws"
     },
     {
-      "borrow": "compiled `stdGaussian_shift_integral_map_toLp`; finite-dimensional cylindrical path-coordinate packaging",
-      "label": "PATH/GAUSS",
-      "leaf": "finiteGaussianGirsanov_cylinder",
-      "status": "formalized-local-cylinder",
-      "target": "TechnicalLemmas/StochasticProcesses/Girsanov.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegralHasDerivAtOfDominated",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegralHasDerivAtOfDominated",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Analysis.Calculus.ParametricIntegral",
+      "statement": "transport dominated sample-space derivatives to law-level weak-test derivatives",
+      "tags": [
+        "parametric-integral",
+        "dominated-convergence",
+        "weak-test"
+      ],
+      "used_by": "transport dominated sample-space derivatives to law-level weak-test derivatives"
     },
     {
-      "borrow": "compiled `measurableEquiv_map_withDensity`, product Gaussian withDensity shift, and `map_pi_eq_stdGaussian`",
-      "label": "PATH/MEAS/GAUSS",
-      "leaf": "finiteGaussianGirsanov_rn_density",
-      "status": "formalized-local-rn-density",
-      "target": "TechnicalLemmas/StochasticProcesses/Girsanov.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedLawIntegral",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedLawIntegral",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Kernel.CondDistrib and Condexp",
+      "statement": "conditional frozen drift and named-law conditional integral interface",
+      "tags": [
+        "conditional-law",
+        "kernel",
+        "Bochner-integral"
+      ],
+      "used_by": "conditional frozen drift and named-law conditional integral interface"
     },
     {
-      "borrow": "ASTIS LawMap/ConditionalKernel/WeakGenerator; SALD weak-FP as consumer pressure test",
-      "label": "DISC/SDE/KERN",
-      "leaf": "lmcInterpolation_weakGenerator",
-      "status": "planned-generalization",
-      "target": "SamplingAlgorithms/LangevinMonteCarlo.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedFieldIntegral",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel.condDistribIntegralNamedFieldIntegral",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib.Probability.Kernel.CondDistrib and MeasureTheory integral APIs",
+      "statement": "turn a named conditional drift component version into the joint-law weak-generator integral",
+      "tags": [
+        "conditional-law",
+        "kernel",
+        "Bochner-integral",
+        "versioning"
+      ],
+      "used_by": "turn a named conditional drift component version into the joint-law weak-generator integral"
     },
     {
-      "borrow": "compiled `renyiIntegrand`, positivity, measurability, finite-envelope, and `HasDerivAt` rpow-product leaves; next add full divergence/log-normalization and path derivative contracts",
-      "label": "DENS/FI",
-      "leaf": "renyiDensity_pointwiseDerivative",
-      "status": "first-leaves-compiled",
-      "target": "TechnicalLemmas/InformationTheory/Renyi.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib Measure.map / ASTIS lawIntegralHasDerivAtOfMeasureMapEqAndSample",
+      "statement": "rewrite frozen EM/Ito sample-space weak-test derivative into a named law-level weak-generator identity",
+      "tags": [
+        "weak-generator",
+        "weak-FP",
+        "law-map",
+        "HasDerivAt",
+        "SDE"
+      ],
+      "used_by": "rewrite frozen EM/Ito sample-space weak-test derivative into a named law-level weak-generator identity"
     },
     {
-      "borrow": "Mathlib probability kernels/Markov-chain APIs if present; otherwise local kernel contracts",
-      "label": "DISC/KERN",
-      "leaf": "mhKernel_detailedBalance",
-      "status": "mathlib-search-required",
-      "target": "SamplingAlgorithms/MetropolisAdjustedLangevin.lean"
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fpRewriteScalarAlgebra",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fpRewriteScalarAlgebra",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "local Mathlib ring proof",
+      "statement": "post-process supplied weak FP and score-split identities before Fisher/IBP handoff",
+      "tags": [
+        "weak-FP",
+        "Fokker-Planck",
+        "scalar-algebra",
+        "divergence"
+      ],
+      "used_by": "post-process supplied weak FP and score-split identities before Fisher/IBP handoff"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fisherIbpAlgebra",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra.fisherIbpAlgebra",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "local Mathlib ring proof",
+      "statement": "combine two no-boundary IBP identities into the Fisher/cross-term display",
+      "tags": [
+        "Fisher-information",
+        "IBP",
+        "scalar-algebra"
+      ],
+      "used_by": "combine two no-boundary IBP identities into the Fisher/cross-term display"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klPointwiseDerivSimplify",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klPointwiseDerivSimplify",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "local Mathlib field_simp/ring proof",
+      "statement": "separate KL density derivative algebra from dominated differentiation and density regularity assumptions",
+      "tags": [
+        "KL",
+        "density",
+        "log",
+        "pointwise-algebra"
+      ],
+      "used_by": "separate KL density derivative algebra from dominated differentiation and density regularity assumptions"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klDerivativeRemoveMassTerm",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity.klDerivativeRemoveMassTerm",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "local Mathlib HasDerivAt congruence/simp proof",
+      "statement": "remove the integral qdot term in KL differentiation after mass conservation is supplied",
+      "tags": [
+        "KL",
+        "density",
+        "mass-conservation",
+        "HasDerivAt"
+      ],
+      "used_by": "remove the integral qdot term in KL differentiation after mass conservation is supplied"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.dvVariationalScaledTestEnergyBound",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan.dvVariationalScaledTestEnergyBound",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Boucheron-style cited result / future SLT entropy-duality port",
+      "statement": "convert finite log-mgf and KL hypotheses into residual energy bounds",
+      "tags": [
+        "DV",
+        "KL",
+        "energy"
+      ],
+      "used_by": "convert finite log-mgf and KL hypotheses into residual energy bounds"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "Mathlib/SLT-inspired entropy and LSI proof shape",
+      "statement": "bookkeeping for LSI-to-KL/FI handoff after density assumptions are supplied",
+      "tags": [
+        "LSI",
+        "FI",
+        "density"
+      ],
+      "used_by": "bookkeeping for LSI-to-KL/FI handoff after density assumptions are supplied"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.gronwallExpProductRewriteScalar",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.gronwallExpProductRewriteScalar",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "forward-KL and discrete forward-KL Gronwall display algebra",
+      "tags": [
+        "Gronwall",
+        "scalar-algebra",
+        "SALD-extracted"
+      ],
+      "used_by": "forward-KL and discrete forward-KL Gronwall display algebra"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.discreteForwardKlEmEndpointLawPairHandoff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.discreteForwardKlEmEndpointLawPairHandoff",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "endpoint-law pair handoff for discrete SALD/VA-SALD proofs",
+      "tags": [
+        "Euler-Maruyama",
+        "endpoint-law",
+        "SALD-extracted"
+      ],
+      "used_by": "endpoint-law pair handoff for discrete SALD/VA-SALD proofs"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedCoordinateLawOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "active Brownian/Ito scalar generator backend and coordinate variance leaves",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "SALD-extracted"
+      ],
+      "used_by": "active Brownian/Ito scalar generator backend and coordinate variance leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderMeasOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "discharge hRemainderMeas in the active Brownian/Ito Taylor moment backend",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "measurability",
+        "SALD-extracted"
+      ],
+      "used_by": "discharge hRemainderMeas in the active Brownian/Ito Taylor moment backend"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "narrow hRemainderBound to normalized-coordinate-law domination in the active Brownian/Ito Taylor moment backend",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "domination",
+        "SALD-extracted"
+      ],
+      "used_by": "narrow hRemainderBound to normalized-coordinate-law domination in the active Brownian/Ito Taylor moment backend"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundIntegrableOfStdGaussianVectorLaw",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestRemainderBoundIntegrableOfStdGaussianVectorLaw",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "narrow hRemainderBoundInt to normalized-coordinate-law integrability in the active Brownian/Ito Taylor moment backend",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "integrability",
+        "SALD-extracted"
+      ],
+      "used_by": "narrow hRemainderBoundInt to normalized-coordinate-law integrability in the active Brownian/Ito Taylor moment backend"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted.selectedWeakTestNormalizedRemainderBoundIntOfQuadraticBound",
+      "lean_status": "formalized-local",
+      "next_action": "Use as callable only when status is formalized-local.",
+      "source": "AutoSamplingTheory/SALD.lean",
+      "statement": "narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability",
+      "tags": [
+        "Brownian",
+        "Ito",
+        "Gaussian",
+        "integrability",
+        "quadratic-bound",
+        "SALD-extracted"
+      ],
+      "used_by": "narrow hNormalizedRemainderBoundInt to hNormalizedRemainderBoundDef plus normalized-coordinate-law integrability"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_weightedDivergence_langevinGenerator_basisHandoff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_weightedDivergence_langevinGenerator_basisHandoff",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a supplied-hypothesis algebra/display handoff; divergence, product rule, IBP, semigroup generator, invariant law, reversibility, and KL/FI remain separate red obligations.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 handoff: supplied coordinate product-rule, Gibbs-weight chain-rule, and divergence-sum hypotheses rewritten into the Mathlib pointwise expression rho * (Laplacian.laplacian f x - inner R (gradient V x) (gradient f x)) using EuclideanSpace.basisFun",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "finite-dimensional",
+        "EuclideanSpace",
+        "weighted-divergence",
+        "supplied-hypothesis",
+        "basisFun",
+        "handoff"
+      ],
+      "used_by": "log-concave sampling Ch.1 handoff: supplied coordinate product-rule, Gibbs-weight chain-rule, and divergence-sum hypotheses rewritten into the Mathlib pointwise expression rho * (Laplacian.laplacian f x - inner R (gradient V x) (gradient f x)) using EuclideanSpace.basisFun"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_weightedDivergence_langevinGenerator_coordinateHandoff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_weightedDivergence_langevinGenerator_coordinateHandoff",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a supplied-hypothesis algebra/display handoff; divergence theorem, product rule, IBP, no-boundary argument, semigroup/Ito generator, invariant law, reversibility, and KL/FI remain separate red obligations.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 handoff: explicit coordinate-unit supplied-hypothesis rewrite from coordinate weighted-divergence data to the Mathlib pointwise expression rho * (Laplacian.laplacian f x - inner R (gradient V x) (gradient f x))",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "finite-dimensional",
+        "EuclideanSpace",
+        "weighted-divergence",
+        "supplied-hypothesis",
+        "coordinate-unit",
+        "handoff"
+      ],
+      "used_by": "log-concave sampling Ch.1 handoff: explicit coordinate-unit supplied-hypothesis rewrite from coordinate weighted-divergence data to the Mathlib pointwise expression rho * (Laplacian.laplacian f x - inner R (gradient V x) (gradient f x))"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_eq_of_hasGradientAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_eq_of_hasGradientAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise gradient-selection/chain-rule leaf; divergence, coordinate product rules, IBP, generator domains, invariant law, reversibility, and KL/FI remain red.",
+      "source": "Mathlib.Analysis.Calculus.Gradient.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 calculus leaf: rewrite Mathlib gradient of exp(-V) from a supplied HasGradientAt V gradV x, keeping the potential-gradient representative explicit",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "Gibbs-weight",
+        "gradient",
+        "HasGradientAt",
+        "Mathlib-gradient",
+        "exp-neg-potential"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: rewrite Mathlib gradient of exp(-V) from a supplied HasGradientAt V gradV x, keeping the potential-gradient representative explicit"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_coordinate_eq_of_hasGradientAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_coordinate_eq_of_hasGradientAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise coordinate gradient display; coordinate product rules, the a.e. bridge or box-integrability assumptions needed by the compiled box divergence wrapper, Laplacian identities, IBP, stationarity, reversibility, invariant law, and KL/FI remain red.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 calculus leaf: coordinate Gibbs-weight chain-rule equality from a supplied potential gradient representative before finite Euclidean weighted-divergence algebra",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "Gibbs-weight",
+        "gradient",
+        "HasGradientAt",
+        "EuclideanSpace",
+        "coordinate"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: coordinate Gibbs-weight chain-rule equality from a supplied potential gradient representative before finite Euclidean weighted-divergence algebra"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_eq_of_differentiableAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_eq_of_differentiableAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only to discharge the Gibbs-weight chain-rule hypothesis when V is differentiable at the point; divergence, product rule, IBP, generator domains, invariant law, reversibility, and KL/FI remain red.",
+      "source": "Mathlib.Analysis.Calculus.Gradient.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 calculus leaf: turn DifferentiableAt R V x into the Mathlib total-gradient identity for exp(-V)",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "Gibbs-weight",
+        "gradient",
+        "DifferentiableAt",
+        "Mathlib-gradient",
+        "exp-neg-potential"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: turn DifferentiableAt R V x into the Mathlib total-gradient identity for exp(-V)"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_coordinate_eq_of_differentiableAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.gradient_expNegPotential_coordinate_eq_of_differentiableAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise coordinate chain-rule display; coordinate product rules, the a.e. bridge or box-integrability assumptions needed by the compiled box divergence wrapper, Laplacian identities, IBP, stationarity, reversibility, invariant law, and KL/FI remain red.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 calculus leaf: coordinate Gibbs-weight chain-rule equality from DifferentiableAt R V x used by finite Euclidean Langevin handoffs",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "Gibbs-weight",
+        "gradient",
+        "EuclideanSpace",
+        "coordinate",
+        "DifferentiableAt"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: coordinate Gibbs-weight chain-rule equality from DifferentiableAt R V x used by finite Euclidean Langevin handoffs"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_of_hasGradientAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_of_hasGradientAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise fderiv/gradient bridge; it does not choose coordinates, define divergence, prove product rules, IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.Gradient.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 calculus leaf: rewrite a pointwise Frechet derivative application through a supplied Mathlib gradient representative",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "gradient",
+        "fderiv",
+        "inner-product",
+        "HasGradientAt",
+        "pointwise"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: rewrite a pointwise Frechet derivative application through a supplied Mathlib gradient representative"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise total-gradient display; it does not prove global smoothness, divergence, coordinate sums, IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.Gradient.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 calculus leaf: under DifferentiableAt R f x, rewrite fderiv R f x v as inner R (gradient f x) v",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "gradient",
+        "fderiv",
+        "inner-product",
+        "DifferentiableAt",
+        "pointwise"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: under DifferentiableAt R f x, rewrite fderiv R f x v as inner R (gradient f x) v"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_coordinate_eq_gradient_coordinate_of_differentiableAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_coordinate_eq_gradient_coordinate_of_differentiableAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise coordinate bridge requiring DifferentiableAt R f x; differentiability of fun y => fderiv R f y alone is not a substitute. It does not define divergence, prove that a coordinate sum is divergence, prove IBP/no-boundary terms, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.Gradient.Basic; Mathlib.Analysis.InnerProductSpace.PiL2; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 Langevin leaf: discharge the local bridge fderiv R f x e_i = (gradient f x) i used by finite-coordinate generator displays",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "gradient",
+        "fderiv",
+        "EuclideanSpace",
+        "coordinate",
+        "DifferentiableAt"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin leaf: discharge the local bridge fderiv R f x e_i = (gradient f x) i used by finite-coordinate generator displays"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_mul",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_mul",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a generic line-derivative product-rule leaf; it does not identify g with a coordinate derivative of f, prove Hessian/iterated-derivative identities, define divergence, prove divergence-sum identities, IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.LineDeriv.Basic",
+      "statement": "log-concave sampling Ch.1 calculus leaf: expose the generic algebra-valued line-derivative product rule before finite Euclidean weighted-divergence algebra",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "line-derivative",
+        "product-rule",
+        "coordinate",
+        "weighted-divergence",
+        "NormedAlgebra"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: expose the generic algebra-valued line-derivative product rule before finite Euclidean weighted-divergence algebra"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_rho_mul",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_rho_mul",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as the product-rule component of hdiv; it does not identify g with a coordinate derivative of f, prove the diagonal Hessian/iterated derivative, define divergence, prove divergence-sum identities, IBP, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+      "statement": "log-concave sampling Ch.1 calculus leaf: real-valued rho * g product-rule specialization in the summand order used by finite Euclidean weighted-divergence algebra",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "line-derivative",
+        "product-rule",
+        "rho",
+        "coordinate",
+        "weighted-divergence"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: real-valued rho * g product-rule specialization in the summand order used by finite Euclidean weighted-divergence algebra"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_rho_mul_eq_of_hasLineDerivAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_rho_mul_eq_of_hasLineDerivAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as an equality-form product-rule leaf; it does not identify g with a coordinate derivative of f, prove Hessian identities, define divergence, prove divergence-sum identities, IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.LineDeriv.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+      "statement": "log-concave sampling Ch.1 calculus leaf: convert supplied coordinate derivative facts for rho and g into the exact lineDeriv equality shape used by weighted-divergence displays",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "line-derivative",
+        "product-rule",
+        "rho",
+        "coordinate",
+        "weighted-divergence",
+        "lineDeriv"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: convert supplied coordinate derivative facts for rho and g into the exact lineDeriv equality shape used by weighted-divergence displays"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_expNegPotential_mul_eq_of_differentiableAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_expNegPotential_mul_eq_of_differentiableAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as the explicit Gibbs-weight coordinate product-rule component; it still does not identify g with a coordinate derivative of f, prove the diagonal Hessian/iterated derivative, define divergence, prove divergence-sum identities, IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.LineDeriv.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+      "statement": "log-concave sampling Ch.1 calculus leaf: compute the coordinate-unit line derivative of exp(-V) * g from DifferentiableAt V and a supplied coordinate derivative of g, narrowing the remaining hdiv branch to g = partial_i f and Hessian-coordinate wiring",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "Gibbs-weight",
+        "line-derivative",
+        "product-rule",
+        "exp-neg-potential",
+        "EuclideanSpace",
+        "coordinate"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: compute the coordinate-unit line derivative of exp(-V) * g from DifferentiableAt V and a supplied coordinate derivative of g, narrowing the remaining hdiv branch to g = partial_i f and Hessian-coordinate wiring"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_fderiv_apply_const_of_hasFDerivAt_fderiv",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.hasLineDerivAt_fderiv_apply_const_of_hasFDerivAt_fderiv",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as second-derivative wiring; it does not identify the supplied derivative with iteratedFDeriv, replace fderiv R f y e_i by gradient coordinate, define divergence, prove IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.FDeriv.CompCLM; Mathlib.Analysis.Calculus.LineDeriv.Basic",
+      "statement": "log-concave sampling Ch.1 calculus leaf: a supplied derivative of fun y => fderiv R f y gives the line derivative of the first-derivative slice fun y => fderiv R f y v",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "line-derivative",
+        "fderiv",
+        "second-derivative",
+        "Hessian",
+        "coordinate"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: a supplied derivative of fun y => fderiv R f y gives the line derivative of the first-derivative slice fun y => fderiv R f y v"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_const_eq_of_hasFDerivAt_fderiv",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_const_eq_of_hasFDerivAt_fderiv",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as equality-form second-derivative wiring; it does not identify fderiv R f with a gradient coordinate, prove divergence, prove IBP, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+      "statement": "log-concave sampling Ch.1 calculus leaf: equality-form line derivative of a first-derivative slice, usable as an input to later supplied weighted-product/divergence displays",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "lineDeriv",
+        "fderiv",
+        "second-derivative",
+        "Hessian",
+        "coordinate"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: equality-form line derivative of a first-derivative slice, usable as an input to later supplied weighted-product/divergence displays"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_const_eq_iteratedFDeriv_two",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_const_eq_iteratedFDeriv_two",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise total-fderiv/lineDeriv leaf. It rewrites a fixed fderiv R f slice into Mathlib's total iteratedFDeriv R 2 representative at x; it does not assert global C2 regularity, classical Hessian symmetry, gradient-coordinate replacement, divergence, IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+      "statement": "log-concave sampling Ch.1 calculus leaf: rewrite the line derivative of fun y => fderiv R f y v as Mathlib iteratedFDeriv R 2 f x ![w, v] under differentiability of the total fderiv map at x",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "lineDeriv",
+        "fderiv",
+        "iteratedFDeriv",
+        "Hessian",
+        "second-derivative"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: rewrite the line derivative of fun y => fderiv R f y v as Mathlib iteratedFDeriv R 2 f x ![w, v] under differentiability of the total fderiv map at x"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_coordinate_eq_iteratedFDeriv_two",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_fderiv_apply_coordinate_eq_iteratedFDeriv_two",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise total-fderiv/lineDeriv coordinate leaf; it rewrites the coordinate-unit line derivative of fixed fderiv R f e_i into Mathlib's iteratedFDeriv R 2 representative at x and does not assert global C2 regularity, classical Hessian symmetry, gradient-coordinate replacement, divergence, IBP, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+      "statement": "log-concave sampling Ch.1 calculus leaf: coordinate-unit line derivative of a first-derivative slice equals the diagonal iteratedFDeriv term used by finite-coordinate generator displays",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "EuclideanSpace",
+        "coordinate",
+        "lineDeriv",
+        "fderiv",
+        "iteratedFDeriv",
+        "Hessian"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: coordinate-unit line derivative of a first-derivative slice equals the diagonal iteratedFDeriv term used by finite-coordinate generator displays"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_expNegPotential_mul_fderiv_coordinate_eq",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.lineDeriv_expNegPotential_mul_fderiv_coordinate_eq",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise Gibbs-weight product-rule leaf for lineDeriv_i (exp(-V) * fderiv f e_i). It discharges only the local exp(-V) derivative and local total-fderiv slice derivative; gradient-coordinate replacement, divergence operator/sum, Laplacian identification, IBP, invariant law, reversibility, and KL/FI remain separate obligations.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
+      "statement": "log-concave sampling Ch.1 calculus leaf: compute the coordinate line derivative of exp(-V) * fderiv f e_i, producing the Gibbs-weighted diagonal iterated-derivative term and the potential-gradient product term",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "Gibbs-weight",
+        "lineDeriv",
+        "fderiv",
+        "iteratedFDeriv",
+        "Hessian",
+        "EuclideanSpace",
+        "coordinate"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: compute the coordinate line derivative of exp(-V) * fderiv f e_i, producing the Gibbs-weighted diagonal iterated-derivative term and the potential-gradient product term"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_basisHandoff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_basisHandoff",
+      "lean_status": "formalized-local",
+      "next_action": "Use only after hdivWeighted and hdiv are supplied; the a.e. bridge and box-integrability assumptions needed by the compiled box divergence wrapper, coordinate product rules, IBP, boundary decay, semigroup/Ito generator theorem, stationarity, reversibility, invariant law, and KL/FI remain red.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 handoff: supplied divergence sum and coordinate product-rule facts rewritten to exp(-V x) times the Mathlib Langevin expression, with only the Gibbs-weight gradient premise discharged from DifferentiableAt R V x",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "finite-dimensional",
+        "EuclideanSpace",
+        "Gibbs-weight",
+        "weighted-divergence",
+        "DifferentiableAt",
+        "basisFun",
+        "handoff"
+      ],
+      "used_by": "log-concave sampling Ch.1 handoff: supplied divergence sum and coordinate product-rule facts rewritten to exp(-V x) times the Mathlib Langevin expression, with only the Gibbs-weight gradient premise discharged from DifferentiableAt R V x"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_coordinateHandoff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_weightedDivergence_langevinGenerator_coordinateHandoff",
+      "lean_status": "formalized-local",
+      "next_action": "Use only after hdivWeighted and hdiv are supplied; divergence theorem, coordinate product rule, IBP/no-boundary term, semigroup/Ito generator result, stationarity, reversibility, invariant law, and KL/FI remain red.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
+      "statement": "log-concave sampling Ch.1 handoff: explicit coordinate-unit version of the exp(-V) weighted-divergence handoff, discharging only the Gibbs-weight gradient premise from DifferentiableAt R V x",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "finite-dimensional",
+        "EuclideanSpace",
+        "Gibbs-weight",
+        "weighted-divergence",
+        "DifferentiableAt",
+        "coordinate-unit",
+        "handoff"
+      ],
+      "used_by": "log-concave sampling Ch.1 handoff: explicit coordinate-unit version of the exp(-V) weighted-divergence handoff, discharging only the Gibbs-weight gradient premise from DifferentiableAt R V x"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise finite-coordinate sum display. It discharges the coordinate product-rule and diagonal second-derivative branch for the explicit field exp(-V) * fderiv f e_i, but keeps fderiv R f x e_i = (gradient f x) i as a hypothesis; divergence operator/sum semantics, IBP/no-boundary terms, semigroup/Ito generator domains, invariant law, reversibility, and KL/FI remain red.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin leaf: aggregate the coordinate line-derivative calculation for exp(-V) * fderiv f e_i into the finite Euclidean exp(-V x) * (Delta f - <grad V, grad f>) display",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "finite-dimensional",
+        "EuclideanSpace",
+        "Gibbs-weight",
+        "lineDeriv",
+        "fderiv",
+        "coordinate-sum",
+        "generator-display",
+        "coordinate-unit"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin leaf: aggregate the coordinate line-derivative calculation for exp(-V) * fderiv f e_i into the finite Euclidean exp(-V x) * (Delta f - <grad V, grad f>) display"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display_of_differentiableAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display_of_differentiableAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise finite-coordinate sum display. It removes the earlier supplied hgradF hypothesis by adding explicit DifferentiableAt R f x; it does not assert that differentiability of fun y => fderiv R f y implies differentiability of f, define divergence, prove that the sum is divergence, prove IBP/no-boundary terms, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin leaf: coordinate-sum display for exp(-V) * fderiv f e_i with the local fderiv-coordinate-to-gradient-coordinate bridge discharged from DifferentiableAt R f x",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "finite-dimensional",
+        "EuclideanSpace",
+        "Gibbs-weight",
+        "lineDeriv",
+        "fderiv",
+        "coordinate-sum",
+        "generator-display",
+        "DifferentiableAt"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin leaf: coordinate-sum display for exp(-V) * fderiv f e_i with the local fderiv-coordinate-to-gradient-coordinate bridge discharged from DifferentiableAt R f x"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_lineDeriv",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_lineDeriv",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise coordinate-divergence convention. It does not prove a divergence theorem, integration by parts, no-boundary terms, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; Mathlib.Analysis.BoxIntegral.DivergenceTheorem",
+      "statement": "log-concave sampling Ch.1 calculus leaf: name the finite-dimensional pointwise coordinate divergence convention as the coordinate line-derivative sum",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "lineDeriv",
+        "EuclideanSpace",
+        "pointwise"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: name the finite-dimensional pointwise coordinate divergence convention as the coordinate line-derivative sum"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_fderiv_apply_of_hasFDerivAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_fderiv_apply_of_hasFDerivAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as pointwise Frechet-derivative expansion. It does not assert coordinate independence, instantiate Mathlib's divergence theorem, prove IBP/no-boundary terms, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.LineDeriv.Basic; Mathlib.Analysis.Normed.Lp.PiLp; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 calculus leaf: expand coordinateDivergence under HasFDerivAt into the Mathlib divergence-theorem summand shape sum_i F' e_i i",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "fderiv",
+        "trace-style",
+        "EuclideanSpace",
+        "pointwise"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: expand coordinateDivergence under HasFDerivAt into the Mathlib divergence-theorem summand shape sum_i F' e_i i"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_fderiv_apply_of_differentiableAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_eq_sum_fderiv_apply_of_differentiableAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise bridge to the Bochner divergence theorem integrand. It does not prove integrability on boxes, face terms, no-boundary cancellation, weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; Mathlib.MeasureTheory.Integral.DivergenceTheorem summand shape",
+      "statement": "log-concave sampling Ch.1 calculus leaf: rewrite coordinateDivergence F x to the exact default Mathlib fderiv R F x summand shape before any integral divergence-theorem instantiation",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "fderiv",
+        "DifferentiableAt",
+        "EuclideanSpace",
+        "pointwise"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: rewrite coordinateDivergence F x to the exact default Mathlib fderiv R F x summand shape before any integral divergence-theorem instantiation"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousLinearEquiv_apply_euclideanSpace_single",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousLinearEquiv_apply_euclideanSpace_single",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a representation bridge. It does not prove differentiability, divergence, a.e. equality, integrability, IBP, boundary cancellation, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.FDeriv.WithLp; Mathlib.Analysis.Normed.Lp.PiLp",
+      "statement": "log-concave sampling Ch.1 calculus leaf: identify the Euclidean coordinate unit with the Pi-space Pi.single unit before transporting derivative traces through WithLp",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "WithLp",
+        "PiLp",
+        "EuclideanSpace",
+        "coordinate-unit"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: identify the Euclidean coordinate unit with the Pi-space Pi.single unit before transporting derivative traces through WithLp"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a pointwise interface bridge. It does not prove the derivative exists a.e., box integrability, face terms, no-boundary cancellation, weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.FDeriv.WithLp; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 calculus leaf: transport a Pi-space HasFDerivAt F F' x into the ASTIS wrapped EuclideanSpace coordinate divergence trace formula",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "WithLp",
+        "Pi-space",
+        "fderiv",
+        "trace-style",
+        "pointwise"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: transport a Pi-space HasFDerivAt F F' x into the ASTIS wrapped EuclideanSpace coordinate divergence trace formula"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.eventuallyEq_restrict_Icc_of_eqOn_univ_pi_Ioo_diff_countable",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.eventuallyEq_restrict_Icc_of_eqOn_univ_pi_Ioo_diff_countable",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as an a.e. transport leaf. It does not prove differentiability, integrability, a divergence theorem, IBP, no-boundary limits, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.MeasureTheory.Integral.DivergenceTheorem; Mathlib.MeasureTheory.Constructions.Polish.Basic",
+      "statement": "log-concave sampling Ch.1 calculus leaf: turn equality on the open Pi-box away from a countable exceptional set into equality a.e. on the restricted closed box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "measure",
+        "eventuallyEq",
+        "closed-box",
+        "open-box",
+        "countable-exception"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: turn equality on the open Pi-box away from a countable exceptional set into equality a.e. on the restricted closed box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_ae_of_ae_hasFDerivAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_ae_of_ae_hasFDerivAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as an a.e. equality bridge. It assumes the derivative exists a.e.; it does not prove box integrability, face terms, no-boundary cancellation, weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 calculus leaf: discharge the finite-box face-term wrapper's hdiv_ae equality from an explicit a.e. Pi-space differentiability hypothesis",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "WithLp",
+        "Pi-space",
+        "a.e.",
+        "HasFDerivAt"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: discharge the finite-box face-term wrapper's hdiv_ae equality from an explicit a.e. Pi-space differentiability hypothesis"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_ae_of_hasFDerivAt_off_countable",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_ae_of_hasFDerivAt_off_countable",
+      "lean_status": "formalized-local",
+      "next_action": "Use only to close the a.e. bridge assumption for the box wrapper. Box integrability, whole-space/no-boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, and KL/FI dissipation remain red.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; Mathlib.MeasureTheory.Integral.DivergenceTheorem",
+      "statement": "log-concave sampling Ch.1 calculus leaf: discharge the finite-box face-term wrapper's hdiv_ae equality from Mathlib-style open-box/off-countable differentiability data",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "WithLp",
+        "Pi-space",
+        "a.e.",
+        "open-box",
+        "countable-exception"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: discharge the finite-box face-term wrapper's hdiv_ae equality from Mathlib-style open-box/off-countable differentiability data"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integrableOn_coordinateDivergence_wrapped_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integrableOn_coordinateDivergence_wrapped_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as an integrability transfer leaf. It assumes trace integrability and differentiability off a countable set; it does not prove trace integrability for a concrete Langevin field, weighted IBP, no-boundary terms, generator domains, invariant law, reversibility, stationarity, or KL/FI.",
+      "source": "Mathlib.MeasureTheory.Integral.IntegrableOn; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 calculus leaf: transfer Mathlib trace-summand IntegrableOn across the compiled a.e. bridge to the ASTIS wrapped coordinate-divergence integrand",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "WithLp",
+        "Pi-space",
+        "IntegrableOn",
+        "trace-style",
+        "a.e.",
+        "open-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: transfer Mathlib trace-summand IntegrableOn across the compiled a.e. bridge to the ASTIS wrapped coordinate-divergence integrand"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a box-level signed face-term wrapper. It derives the a.e. bridge and ASTIS-side integrability internally, but still assumes trace integrability. It does not prove trace integrability for the explicit Langevin field, whole-space/no-boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, or KL/FI.",
+      "source": "Mathlib.MeasureTheory.Integral.DivergenceTheorem; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 calculus root: finite-box signed face-term formula for ASTIS coordinateDivergence with only Mathlib trace-integrability as the integrability input",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "face-terms",
+        "IntegrableOn",
+        "trace-style",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus root: finite-box signed face-term formula for ASTIS coordinateDivergence with only Mathlib trace-integrability as the integrability input"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_of_hasFDerivAt_off_countable",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_of_hasFDerivAt_off_countable",
+      "lean_status": "formalized-local",
+      "next_action": "Box-level signed face-term wrapper only. It assumes the finite-box continuity/off-countable differentiability hypotheses, an a.e. bridge from ASTIS coordinateDivergence to Mathlib's trace integrand, and IntegrableOn for the coordinate-divergence integrand. It does not derive that a.e. bridge, prove box integrability, prove whole-space/no-boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, or KL/FI dissipation.",
+      "source": "Mathlib.MeasureTheory.Integral.DivergenceTheorem; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 calculus leaf: integrate ASTIS coordinateDivergence over a finite Mathlib box and obtain only the signed face-term formula, assuming the a.e. bridge to Mathlib's trace integrand and box integrability explicitly",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "face-terms",
+        "IntegrableOn",
+        "ae-equality",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 calculus leaf: integrate ASTIS coordinateDivergence over a finite Mathlib box and obtain only the signed face-term formula, assuming the a.e. bridge to Mathlib's trace integrand and box integrability explicitly"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.coordinateDivergence_expNeg_fderivCoordinateField_langevinGenerator_display_of_differentiableAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.coordinateDivergence_expNeg_fderivCoordinateField_langevinGenerator_display_of_differentiableAt",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as a named pointwise coordinate-divergence display. It does not prove Mathlib's divergence theorem, weighted IBP, boundary decay, semigroup/Ito generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin leaf: rewrite the explicit Gibbs-weighted first-derivative coordinate field through ASTIS coordinateDivergence and recover exp(-V x) * (Delta f - <grad V, grad f>) pointwise",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "finite-dimensional",
+        "EuclideanSpace",
+        "Gibbs-weight",
+        "fderiv",
+        "generator-display",
+        "DifferentiableAt"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin leaf: rewrite the explicit Gibbs-weighted first-derivative coordinate field through ASTIS coordinateDivergence and recover exp(-V x) * (Delta f - <grad V, grad f>) pointwise"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.trace_expNeg_fderivCoordinateField_langevinGenerator_display_of_hasFDerivAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.trace_expNeg_fderivCoordinateField_langevinGenerator_display_of_hasFDerivAt",
+      "lean_status": "formalized-local",
+      "next_action": "Pointwise trace-display handoff only. It assumes the explicit Pi-space field has the supplied Frechet derivative and the needed pointwise differentiability hypotheses. It does not prove differentiability on a box, continuity, integrability, a divergence theorem, boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin root: pointwise handoff from Mathlib's Pi-space finite-box trace summand for the explicit field exp(-V) * fderiv f e_i to the scalar display exp(-V) * (Delta f - <grad V, grad f>)",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "trace-style",
+        "Pi-space",
+        "Gibbs-weight",
+        "fderiv",
+        "generator-display",
+        "HasFDerivAt"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: pointwise handoff from Mathlib's Pi-space finite-box trace summand for the explicit field exp(-V) * fderiv f e_i to the scalar display exp(-V) * (Delta f - <grad V, grad f>)"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_continuousOn",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_continuousOn",
+      "lean_status": "formalized-local",
+      "next_action": "Finite closed-box regularity handoff only. It assumes the trace/display equality hypotheses and continuity of the displayed scalar RHS; it does not prove RHS continuity, field differentiability, whole-space integrability, boundary cancellation, weighted IBP, generator domains, invariant Gibbs law, reversibility, stationarity, or KL/FI.",
+      "source": "Mathlib.MeasureTheory.Function.LocallyIntegrable; Mathlib.MeasureTheory.Integral.IntegrableOn; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin root: finite closed-box handoff proving Mathlib trace-summand IntegrableOn for the explicit Gibbs-weighted fderiv-coordinate field when the scalar Langevin display is already continuous on the box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "IntegrableOn",
+        "trace-style",
+        "closed-box",
+        "ContinuousOn",
+        "Gibbs-weight",
+        "generator-display"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: finite closed-box handoff proving Mathlib trace-summand IntegrableOn for the explicit Gibbs-weighted fderiv-coordinate field when the scalar Langevin display is already continuous on the box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.continuousOn_expNeg_langevinGenerator_rhs_of_components",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.continuousOn_expNeg_langevinGenerator_rhs_of_components",
+      "lean_status": "formalized-local",
+      "next_action": "Component-continuity assembly only. It does not derive those component continuity hypotheses from a ContDiff/test-function class, does not prove field differentiability, integrability, IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.SpecialFunctions.Exp; Mathlib.Analysis.InnerProductSpace.Continuous; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin root: assemble component continuity of V, Delta f, grad V, and grad f into continuity of the scalar display exp(-V) * (Delta f - <grad V, grad f>) on a finite Pi-box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "ContinuousOn",
+        "closed-box",
+        "Gibbs-weight",
+        "generator-display",
+        "components"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: assemble component continuity of V, Delta f, grad V, and grad f into continuity of the scalar display exp(-V) * (Delta f - <grad V, grad f>) on a finite Pi-box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_component_continuousOn",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_component_continuousOn",
+      "lean_status": "formalized-local",
+      "next_action": "Finite closed-box handoff under component continuity only. It still assumes the explicit Pi-space field derivative and pointwise differentiability hypotheses; it does not derive them from a test-function class and does not prove whole-space integrability, IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin root: finite closed-box trace IntegrableOn handoff for the explicit Gibbs-weighted fderiv-coordinate field under component continuity plus the existing trace/display differentiability hypotheses",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "IntegrableOn",
+        "trace-style",
+        "closed-box",
+        "ContinuousOn",
+        "components",
+        "Gibbs-weight"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: finite closed-box trace IntegrableOn handoff for the explicit Gibbs-weighted fderiv-coordinate field under component continuity plus the existing trace/display differentiability hypotheses"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as global C1-to-gradient-continuity. It does not assert a closed-box ContDiffOn variant, field differentiability for rho * fderiv f e_i, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.ContDiff.Basic; Mathlib.Analysis.Calculus.Gradient.Basic",
+      "statement": "log-concave sampling Ch.1 Langevin root: derive continuity of Mathlib's total gradient from global C1 regularity before the scalar generator display on boxes",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "gradient",
+        "ContDiff",
+        "Continuous",
+        "regularity",
+        "test-function"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: derive continuity of Mathlib's total gradient from global C1 regularity before the scalar generator display on boxes"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian.continuous_laplacian_of_contDiff_two",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian.continuous_laplacian_of_contDiff_two",
+      "lean_status": "formalized-local",
+      "next_action": "Use only as global C2-to-Laplacian-continuity. It does not assert a closed-box ContDiffOn variant, field differentiability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.InnerProductSpace.Laplacian; Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+      "statement": "log-concave sampling Ch.1 Langevin root: derive continuity of Mathlib's finite-dimensional total Laplacian from global C2 regularity before closed-box integrability handoffs",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "Laplacian",
+        "ContDiff",
+        "Continuous",
+        "iteratedFDeriv",
+        "regularity"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: derive continuity of Mathlib's finite-dimensional total Laplacian from global C2 regularity before closed-box integrability handoffs"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.continuousOn_expNeg_langevinGenerator_rhs_of_contDiff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.continuousOn_expNeg_langevinGenerator_rhs_of_contDiff",
+      "lean_status": "formalized-local",
+      "next_action": "Component continuity is discharged from global ContDiff regularity. The explicit Pi-space field derivative, whole-space integrability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, and KL/FI remain separate obligations.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
+      "statement": "log-concave sampling Ch.1 Langevin root: derive closed-box continuity of exp(-V) * (Delta f - <grad V, grad f>) from global C1/C2 hypotheses",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "ContinuousOn",
+        "ContDiff",
+        "closed-box",
+        "Gibbs-weight",
+        "generator-display",
+        "components"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: derive closed-box continuity of exp(-V) * (Delta f - <grad V, grad f>) from global C1/C2 hypotheses"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box trace handoff under ContDiff R 1 V, ContDiff R 2 f, and supplied field derivative only. It does not prove that field derivative, whole-space integrability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin root: close finite-box trace IntegrableOn from global C1/C2 regularity once the explicit Pi-space field derivative is supplied",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "IntegrableOn",
+        "ContDiff",
+        "trace-style",
+        "closed-box",
+        "Gibbs-weight"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: close finite-box trace IntegrableOn from global C1/C2 regularity once the explicit Pi-space field derivative is supplied"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.hasFDerivAt_expNeg_fderivCoordinateField_of_contDiff",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.hasFDerivAt_expNeg_fderivCoordinateField_of_contDiff",
+      "lean_status": "formalized-local",
+      "next_action": "The derivative representative is Mathlib's fderiv of the field, not a closed-form Jacobian. It does not prove a divergence theorem, whole-space integrability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.FDeriv.Prod; Mathlib.Analysis.Calculus.FDeriv.WithLp; Mathlib.Analysis.SpecialFunctions.ExpDeriv; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin root: discharge the explicit Pi-space field differentiability input for z -> exp(-V(toLp z)) * fderiv f (toLp z) e_i from global C1/C2 regularity",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "HasFDerivAt",
+        "ContDiff",
+        "Pi-space",
+        "Gibbs-weight",
+        "fderiv",
+        "regularity"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: discharge the explicit Pi-space field differentiability input for z -> exp(-V(toLp z)) * fderiv f (toLp z) e_i from global C1/C2 regularity"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv",
+      "lean_status": "formalized-local",
+      "next_action": "This removes the supplied field-derivative hypothesis only for the canonical fderiv representative. It remains finite-box regularity, not boundary cancellation, weighted IBP, generator-domain semantics, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "statement": "log-concave sampling Ch.1 Langevin root: finite-box trace IntegrableOn for the canonical fderiv trace of the explicit Gibbs-weighted first-derivative field under global C1/C2 regularity",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "IntegrableOn",
+        "ContDiff",
+        "HasFDerivAt",
+        "fderiv",
+        "trace-style",
+        "closed-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 Langevin root: finite-box trace IntegrableOn for the canonical fderiv trace of the explicit Gibbs-weighted first-derivative field under global C1/C2 regularity"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn_minimizer",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_lintegral_normalized_gibbsDensityENNReal_toReal_of_strongConvexOn_minimizer",
+      "lean_status": "formalized-local",
+      "next_action": "Use as a finite-dimensional strongly convex target-density shape leaf. It does not prove minimizer existence, invariant law, PI/LSI, or sampler convergence.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity; AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
+      "statement": "log-concave sampling DENS/CONV root: combine strong-convex minimizer finite normalizer with normalized real log-concavity of the Gibbs density",
+      "tags": [
+        "log-concave-sampling",
+        "Gibbs",
+        "density",
+        "toReal",
+        "lintegral",
+        "log-concavity",
+        "strong-convexity",
+        "minimizer"
+      ],
+      "used_by": "log-concave sampling DENS/CONV root: combine strong-convex minimizer finite normalizer with normalized real log-concavity of the Gibbs density"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_integrableOn_trace_of_hasFDerivAt_off_countable",
+      "lean_status": "formalized-local",
+      "next_action": "Conditional zero-face handoff only. It assumes the face term vanishes; it does not prove compact support, boundary decay, whole-space limits, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box weighted-IBP route: once the signed face term is explicitly zero, the ASTIS coordinate-divergence box integral is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "face-terms",
+        "zero-face",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box weighted-IBP route: once the signed face term is explicitly zero, the ASTIS coordinate-divergence box integral is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.isProbabilityMeasure_withDensity_ofReal_exp_of_integral_eq_one",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.isProbabilityMeasure_withDensity_ofReal_exp_of_integral_eq_one",
+      "lean_status": "formalized-local",
+      "next_action": "Use as an ASTIS-owned exponential-tilt normalization leaf. It assumes integrability and unit mass of exp U; it does not prove DV duality, Girsanov, or entropy inequalities.",
+      "source": "Mathlib.MeasureTheory.Integral.Bochner.Basic; AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym; SLT/GaussianLSI/DualityEntropy.lean as proof-pattern provenance",
+      "statement": "log-concave sampling DENS/MEAS/PATH root: normalize real exponential tilts for entropy duality, Gibbs variational formulas, and finite-dimensional Girsanov/RN routes",
+      "tags": [
+        "log-concave-sampling",
+        "SLT",
+        "withDensity",
+        "exponential-tilt",
+        "probability-measure",
+        "entropy-duality",
+        "Girsanov"
+      ],
+      "used_by": "log-concave sampling DENS/MEAS/PATH root: normalize real exponential tilts for entropy duality, Gibbs variational formulas, and finite-dimensional Girsanov/RN routes"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_boundary_component_eq_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_boundary_component_eq_zero",
+      "lean_status": "formalized-local",
+      "next_action": "Boundary-value producer only. It assumes componentwise zero values on the faces; it does not prove compact support, tail decay, whole-space limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 boundary route: explicit zero normal components on all finite-box faces imply the signed face-term sum vanishes",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "face-terms",
+        "zero-face",
+        "finite-box",
+        "coordinate-divergence"
+      ],
+      "used_by": "log-concave sampling Ch.1 boundary route: explicit zero normal components on all finite-box faces imply the signed face-term sum vanishes"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_boundary_component_eq_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_boundary_component_eq_zero",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box conditional boundary handoff only. It still assumes trace integrability and open-box/off-countable differentiability; it does not derive compact support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box weighted-IBP route: if the vector field's normal component is zero on each lower and upper face, the ASTIS coordinate-divergence box integral is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box weighted-IBP route: if the vector field's normal component is zero on each lower and upper face, the ASTIS coordinate-divergence box integral is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_update_boundary_component_eq_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_update_boundary_component_eq_zero",
+      "lean_status": "formalized-local",
+      "next_action": "Update-shaped boundary-value producer only. It assumes zero components after replacing a coordinate by the face endpoint; it does not prove compact support, tail decay, whole-space limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 boundary route: update-to-boundary zero component hypotheses imply the finite-box signed face-term sum vanishes",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "Function.update",
+        "face-terms",
+        "zero-face",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 boundary route: update-to-boundary zero component hypotheses imply the finite-box signed face-term sum vanishes"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_update_boundary_component_eq_zero",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_update_boundary_component_eq_zero",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box conditional update-boundary handoff only. It still assumes trace integrability and open-box/off-countable differentiability; it does not derive compact support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box weighted-IBP route: update-to-boundary zero component hypotheses imply the ASTIS coordinate-divergence box integral is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "Function.update",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box weighted-IBP route: update-to-boundary zero component hypotheses imply the ASTIS coordinate-divergence box integral is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.update_boundary_component_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.update_boundary_component_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Off-open-box boundary producer only. It assumes the vector field is already zero outside the open Pi-box; it does not prove compact support, cutoff support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 boundary route: off-open-box vanishing implies update-to-boundary normal components are zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "open-box",
+        "Function.update",
+        "zero-boundary",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 boundary route: off-open-box vanishing implies update-to-boundary normal components are zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Signed face-term producer only. It assumes off-open-box vanishing; it does not prove compact support, tail decay, whole-space limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 boundary route: off-open-box vanishing implies Mathlib's finite-box signed face-term sum is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "open-box",
+        "face-terms",
+        "zero-face",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 boundary route: off-open-box vanishing implies Mathlib's finite-box signed face-term sum is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_eq_zero_off_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box off-open-box handoff only. It still assumes trace integrability and open-box/off-countable differentiability; it does not derive compact support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box weighted-IBP route: off-open-box vanishing implies the ASTIS coordinate-divergence box integral is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "open-box",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box weighted-IBP route: off-open-box vanishing implies the ASTIS coordinate-divergence box integral is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.eq_zero_off_univ_pi_Ioo_of_support_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.eq_zero_off_univ_pi_Ioo_of_support_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Support-to-off-open-box producer only. It assumes the support subset; it does not prove compact support construction, cutoff support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 boundary route: support contained in the open Pi-box implies the vector field is zero outside that open Pi-box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "support",
+        "open-box",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 boundary route: support contained in the open Pi-box implies the vector field is zero outside that open Pi-box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_support_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_eq_zero_of_support_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Support-subset face-term producer only. It assumes the support subset; it does not prove compact support construction, cutoff support, tail decay, whole-space limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 boundary route: support contained in the open Pi-box implies Mathlib's finite-box signed face-term sum is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "support",
+        "open-box",
+        "face-terms",
+        "zero-face",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 boundary route: support contained in the open Pi-box implies Mathlib's finite-box signed face-term sum is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_support_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_support_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box support-subset handoff only. It still assumes trace integrability and open-box/off-countable differentiability, and it assumes the support subset; it does not derive compact support, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box weighted-IBP route: support contained in the open Pi-box implies the ASTIS coordinate-divergence box integral is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "support",
+        "open-box",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box weighted-IBP route: support contained in the open Pi-box implies the ASTIS coordinate-divergence box integral is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_eq_zero_off_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_eq_zero_off_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Plain support-containment bridge only. It does not construct a smooth cutoff, prove HasCompactSupport, prove cutoff-smul regularity, tail decay, whole-space weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: a scalar cutoff vanishing outside the open Pi-box forces the cutoff-smul vector field to be supported in the open Pi-box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "smul",
+        "open-box",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: a scalar cutoff vanishing outside the open Pi-box forces the cutoff-smul vector field to be supported in the open Pi-box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_scalar_support_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_scalar_support_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Scalar-support-to-vector-support bridge only. It uses Function.support, not topological compact support, and does not prove cutoff construction, cutoff-smul regularity, tail decay, whole-space weighted IBP, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: a scalar cutoff supported in the open Pi-box forces the cutoff-smul vector field to be supported in the open Pi-box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "smul",
+        "open-box",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: a scalar cutoff supported in the open Pi-box forces the cutoff-smul vector field to be supported in the open Pi-box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_of_continuousOn",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_of_continuousOn",
+      "lean_status": "formalized-local",
+      "next_action": "Closed-box continuity bridge only. It does not prove smooth cutoff construction, differentiability, trace integrability, boundary cancellation, weighted IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Topology.Algebra.Module.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: derive closed-box continuity of a cutoff-smul vector field from separate cutoff and vector-field continuity",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "ContinuousOn",
+        "closed-box",
+        "regularity"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: derive closed-box continuity of a cutoff-smul vector field from separate cutoff and vector-field continuity"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.hasFDerivAt_smul_vectorField_of_hasFDerivAt",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.hasFDerivAt_smul_vectorField_of_hasFDerivAt",
+      "lean_status": "formalized-local",
+      "next_action": "Pointwise derivative bridge only. It does not prove continuity, open-box/off-countable coverage, trace integrability, boundary cancellation, weighted IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.FDeriv.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: pointwise product-rule Frechet derivative for the cutoff-smul vector field",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "HasFDerivAt",
+        "product-rule",
+        "regularity"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: pointwise product-rule Frechet derivative for the cutoff-smul vector field"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.hasFDerivAt_smul_vectorField_off_countable",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.hasFDerivAt_smul_vectorField_off_countable",
+      "lean_status": "formalized-local",
+      "next_action": "Off-countable derivative bridge only. It assumes a shared exceptional set and does not prove trace integrability, closed-box continuity, boundary cancellation, weighted IBP, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: derive the divergence-theorem off-countable derivative hypothesis for a cutoff-smul field from separate cutoff and vector-field derivative hypotheses",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "HasFDerivAt",
+        "open-box",
+        "countable-exception",
+        "regularity"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: derive the divergence-theorem off-countable derivative hypothesis for a cutoff-smul field from separate cutoff and vector-field derivative hypotheses"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box cutoff-smul face-term producer only. It does not prove smooth cutoff existence, regularity, trace integrability, tail limits, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: a scalar cutoff vanishing outside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "face-terms",
+        "zero-face",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: a scalar cutoff vanishing outside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box scalar-support face-term producer only. It does not prove smooth cutoff existence, regularity, trace integrability, tail limits, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: scalar cutoff support inside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "smul",
+        "face-terms",
+        "zero-face",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: scalar cutoff support inside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box cutoff-smul handoff only. It still assumes continuity, open-box/off-countable differentiability, and trace integrability for the cutoff-smul field; it does not prove those regularity facts, smooth cutoff existence, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff vanishing outside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff vanishing outside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box scalar-support cutoff handoff only. It still assumes continuity, open-box/off-countable differentiability, and trace integrability for the cutoff-smul field; it does not prove those regularity facts, smooth cutoff existence, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff support inside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "smul",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff support inside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_regularity",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_regularity",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box regularity handoff only. Trace integrability for the product-rule derivative remains explicit; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: derive the cutoff-smul continuity and off-countable derivative hypotheses before applying the zero-face coordinate-divergence handoff",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "regularity",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: derive the cutoff-smul continuity and off-countable derivative hypotheses before applying the zero-face coordinate-divergence handoff"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_regularity",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_regularity",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box scalar-support regularity handoff only. Trace integrability for the product-rule derivative remains explicit; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity hypotheses before applying the scalar-support zero-face coordinate-divergence handoff",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "smul",
+        "regularity",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity hypotheses before applying the scalar-support zero-face coordinate-divergence handoff"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integrableOn_smul_vectorField_trace_of_continuousOn",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integrableOn_smul_vectorField_trace_of_continuousOn",
+      "lean_status": "formalized-local",
+      "next_action": "Compact-box integrability handoff only. It assumes trace continuity and does not prove trace continuity from component assumptions, smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.MeasureTheory.Integral.Bochner.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: discharge compact-box integrability of the cutoff-smul product-rule trace from closed-box trace continuity",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "trace-style",
+        "IntegrableOn",
+        "ContinuousOn",
+        "closed-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: discharge compact-box integrability of the cutoff-smul product-rule trace from closed-box trace continuity"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_trace_continuous",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_trace_continuous",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box trace-continuity handoff only. It still assumes closed-box trace continuity and cutoff vanishing outside the open box; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity and compact-box trace integrability before applying the zero-face coordinate-divergence handoff",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "trace-style",
+        "ContinuousOn",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity and compact-box trace integrability before applying the zero-face coordinate-divergence handoff"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_trace_continuous",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_trace_continuous",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box scalar-support trace-continuity handoff only. It still assumes closed-box trace continuity and scalar Function.support containment; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity and compact-box trace integrability before applying the scalar-support zero-face coordinate-divergence handoff",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "smul",
+        "trace-style",
+        "ContinuousOn",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: derive cutoff-smul regularity and compact-box trace integrability before applying the scalar-support zero-face coordinate-divergence handoff"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_trace_of_component_continuousOn",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_trace_of_component_continuousOn",
+      "lean_status": "formalized-local",
+      "next_action": "Trace-continuity assembly only. It does not prove that the component fields are derivatives, does not identify the product-rule operator with canonical fderiv, and does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Topology.Algebra.Group.Basic; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: derive closed-box continuity of the cutoff-smul product-rule trace from exactly the diagonal component continuity hypotheses used by the trace summand",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "trace-style",
+        "ContinuousOn",
+        "component",
+        "closed-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: derive closed-box continuity of the cutoff-smul product-rule trace from exactly the diagonal component continuity hypotheses used by the trace summand"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_trace_of_components",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.continuousOn_smul_vectorField_trace_of_components",
+      "lean_status": "formalized-local",
+      "next_action": "Convenience trace-continuity wrapper only. It is stronger than the component-continuity leaf and still does not prove derivative existence, smooth cutoff construction, tail decay, weighted IBP, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Normed.Operator.BoundedLinearMaps; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: convenience wrapper deriving trace continuity from CLM-valued continuity of chi' and G'",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "trace-style",
+        "ContinuousOn",
+        "closed-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: convenience wrapper deriving trace continuity from CLM-valued continuity of chi' and G'"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_component_continuous",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo_of_component_continuous",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box component-continuity handoff only. It assumes derivative hypotheses and cutoff vanishing; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: component trace continuity, regularity hypotheses, and cutoff vanishing imply the finite-box cutoff-smul coordinate-divergence integral is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smul",
+        "component",
+        "trace-style",
+        "ContinuousOn",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: component trace continuity, regularity hypotheses, and cutoff vanishing imply the finite-box cutoff-smul coordinate-divergence integral is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_component_continuous",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_component_continuous",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box scalar-support component-continuity handoff only. It assumes derivative hypotheses and scalar Function.support containment; it does not prove smooth cutoff construction, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: component trace continuity, regularity hypotheses, and scalar support containment imply the finite-box cutoff-smul coordinate-divergence integral is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "smul",
+        "component",
+        "trace-style",
+        "ContinuousOn",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: component trace continuity, regularity hypotheses, and scalar support containment imply the finite-box cutoff-smul coordinate-divergence integral is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_tsupport_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_tsupport_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Local smooth-cutoff existence leaf only. It does not choose an exhausting cutoff family, prove concrete derivative formulas for the cutoff, pass to whole-space tail limits, prove weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: construct a local smooth real-valued cutoff whose topological support is contained in a finite Pi-open box and which equals one at a chosen interior point",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smooth-cutoff",
+        "ContDiff",
+        "HasCompactSupport",
+        "tsupport",
+        "open-box",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: construct a local smooth real-valued cutoff whose topological support is contained in a finite Pi-open box and which equals one at a chosen interior point"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_fderiv",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_univ_pi_Ioo_of_fderiv",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box canonical-fderiv handoff only. It still assumes cutoff derivative data, continuity, trace integrability, and scalar support containment; it does not construct an exhausting cutoff family, prove tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: replace the supplied vector-field derivative parameter by the canonical fderiv G in the scalar-support zero integral handoff",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "smul",
+        "fderiv",
+        "regularity",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: replace the supplied vector-field derivative parameter by the canonical fderiv G in the scalar-support zero integral handoff"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_subset_univ_pi_Ioo_of_tsupport_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_subset_univ_pi_Ioo_of_tsupport_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Support-API bridge only. It does not construct a cutoff, prove compactness, choose an exhausting cutoff family, prove derivative formulas, tail limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: convert Mathlib topological-support containment for a scalar cutoff into the plain Function.support containment consumed by finite-box zero-face handoffs",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "tsupport",
+        "open-box",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: convert Mathlib topological-support containment for a scalar cutoff into the plain Function.support containment consumed by finite-box zero-face handoffs"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_support_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_support_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Local smooth-cutoff packaging leaf only. It does not choose an exhausting cutoff family, prove concrete derivative formulas, pass to whole-space tail limits, prove weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: construct a local smooth cutoff with both topological support and plain Function.support contained in the finite Pi-open box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smooth-cutoff",
+        "ContDiff",
+        "HasCompactSupport",
+        "support",
+        "tsupport",
+        "open-box",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: construct a local smooth cutoff with both topological support and plain Function.support contained in the finite Pi-open box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_scalar_tsupport_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.support_smul_subset_univ_pi_Ioo_of_scalar_tsupport_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Direct tsupport-to-cutoff-smul support bridge only. It does not construct a cutoff, prove cutoff-smul regularity, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: a scalar cutoff with topological support inside the open Pi-box forces the cutoff-smul vector field to be plain-supported in that open box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "tsupport",
+        "smul",
+        "open-box",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: a scalar cutoff with topological support inside the open Pi-box forces the cutoff-smul vector field to be plain-supported in that open box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_scalar_tsupport_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.signedFaceTermSum_smul_eq_zero_of_scalar_tsupport_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box scalar-tsupport face-term producer only. It does not prove smooth cutoff construction, cutoff-smul regularity, trace integrability, tail limits, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff route: scalar topological support inside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "tsupport",
+        "smul",
+        "face-terms",
+        "zero-face",
+        "finite-box"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff route: scalar topological support inside the open Pi-box implies the cutoff-smul finite-box signed face-term sum is zero"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_tsupport_subset_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_tsupport_subset_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Finite-box scalar-tsupport cutoff handoff only. It still assumes continuity, open-box/off-countable differentiability, and trace integrability for the cutoff-smul field; it does not prove smooth cutoff construction, cutoff-smul regularity, tail decay, whole-space weighted IBP, generator domains, invariant law, reversibility, or KL/FI.",
+      "source": "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff topological support inside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "tsupport",
+        "smul",
+        "coordinate-divergence",
+        "box-divergence-theorem",
+        "zero-face"
+      ],
+      "used_by": "log-concave sampling Ch.1 finite-box cutoff route: scalar cutoff topological support inside the open Pi-box implies the cutoff-smul coordinate-divergence box integral is zero under the existing trace/differentiability assumptions"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.Icc_subset_univ_pi_Ioo_of_strict_bounds",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.Icc_subset_univ_pi_Ioo_of_strict_bounds",
+      "lean_status": "formalized-local",
+      "next_action": "Closed-box/open-box containment bookkeeping only. It does not construct a cutoff, choose an exhausting family, prove derivative bounds, tail limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff/exhaustion route: an inner closed Pi-box is contained in any coordinatewise strictly larger open Pi-box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "closed-box",
+        "open-box",
+        "exhaustion",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff/exhaustion route: an inner closed Pi-box is contained in any coordinatewise strictly larger open Pi-box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_support_subset_outer_univ_pi_Ioo_of_mem_Icc",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_cutoff_support_subset_outer_univ_pi_Ioo_of_mem_Icc",
+      "lean_status": "formalized-local",
+      "next_action": "Local pointwise cutoff in an outer open box only. It does not construct one cutoff equal to one on the whole inner closed box, choose an exhausting cutoff family, prove derivative bounds, pass to whole-space tail limits, prove weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff/exhaustion route: every point of an inner closed Pi-box has a local smooth cutoff whose support and topological support lie in a strictly larger open Pi-box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smooth-cutoff",
+        "closed-box",
+        "open-box",
+        "support",
+        "tsupport",
+        "exhaustion",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff/exhaustion route: every point of an inner closed Pi-box has a local smooth cutoff whose support and topological support lie in a strictly larger open Pi-box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_support_eq_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.exists_contDiff_support_eq_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Exact plain-support open-box smooth function only. It does not prove compact support, topological-support containment, plateau equal to one on an inner closed box, an exhausting family, derivative bounds, tail limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff/exhaustion route: construct a smooth [0,1]-valued function whose plain support is exactly a finite Pi-open box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "smooth-cutoff",
+        "ContDiff",
+        "support",
+        "support-eq",
+        "open-box",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff/exhaustion route: construct a smooth [0,1]-valued function whose plain support is exactly a finite Pi-open box"
+    },
+    {
+      "dependencies": [],
+      "id": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.positive_on_univ_pi_Ioo_of_support_eq_univ_pi_Ioo",
+      "lean_decl": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.positive_on_univ_pi_Ioo_of_support_eq_univ_pi_Ioo",
+      "lean_status": "formalized-local",
+      "next_action": "Support/range consequence only. It does not construct a cutoff, prove compact support, prove plateau behavior, choose an exhausting family, prove derivative bounds, tail limits, weighted IBP, generator domains, invariant Gibbs law, reversibility, or KL/FI.",
+      "source": "Mathlib.Topology.Support; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "statement": "log-concave sampling Ch.1 cutoff/exhaustion route: turn exact open-box plain support and [0,1] range into strict positivity on the finite Pi-open box",
+      "tags": [
+        "log-concave-sampling",
+        "Langevin",
+        "boundary",
+        "cutoff",
+        "support",
+        "support-eq",
+        "positivity",
+        "open-box",
+        "finite-dimensional"
+      ],
+      "used_by": "log-concave sampling Ch.1 cutoff/exhaustion route: turn exact open-box plain support and [0,1] range into strict positivity on the finite Pi-open box"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianMeasure.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+      "lean_status": "formalized-local",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianMeasure.lean",
+      "statement": "`integrable_eval_stdGaussianPi`, `integrable_sq_eval_stdGaussianPi`, `integral_eval_stdGaussianPi`",
+      "tags": [],
+      "used_by": "Brownian/Ito coordinate integrability and polynomial moment leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/TaylorBound.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean",
+      "lean_status": "port-candidate",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/TaylorBound.lean",
+      "statement": "`taylor_order_one`, `taylor_mean_value_bound`, `taylor_diff_abs_bound`, `deriv2_bounded_of_compactlySupported`, `integrable_deriv_sq`",
+      "tags": [],
+      "used_by": "selected scalar Taylor integral/remainder and bounded-Hessian leaves"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianPoincare/Limit.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianPoincare.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianPoincare/Limit.lean",
+      "statement": "`tendsto_integral_deriv_sq`, `tendsto_entropy_f_sq`, `gaussianPoincare`",
+      "tags": [],
+      "used_by": "Taylor remainder limits and Gaussian Poincare backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/DualityEntropy.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/EntropyDuality.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/DualityEntropy.lean",
+      "statement": "`entropy_duality`, `entropy_ge_integral_mul`, `expMeasure_isProbabilityMeasure`, `integral_expMeasure`",
+      "tags": [],
+      "used_by": "DV/KL variational formula backend"
+    },
+    {
+      "dependencies": [],
+      "id": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "lean_decl": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/GaussianLSI.lean",
+      "lean_status": "future-port",
+      "next_action": "Port to ASTIS-owned TechnicalLemmas before using.",
+      "source": "SLT/GaussianLSI/TensorizedGLSI.lean",
+      "statement": "`gaussian_logSobolev_W12_pi`, `condEntExceptCoord_sq_eq_slice_entropy`, `condEnt_sq_le_partial_deriv_sq`",
+      "tags": [],
+      "used_by": "product Gaussian LSI backend"
     }
   ],
-  "public_pdf": "https://chewisinho.github.io/main.pdf",
-  "roadmap": "research-wiki/sampling-sde-library/roadmap/log_concave_sampling_to_lean_tree.md",
-  "shared_roots": [
-    {
-      "label": "MEAS",
-      "module": "TechnicalLemmas/Probability/LawMap.lean",
-      "role": "push forward laws, weak-test integrals, map/withDensity/RN bridges",
-      "root": "measure-space and law transport",
-      "status": "partial-compiled-local"
-    },
-    {
-      "label": "KERN",
-      "module": "TechnicalLemmas/Probability/ConditionalKernel.lean",
-      "role": "condDistrib pairings, conditional drifts, a.e. representative discipline",
-      "root": "conditional kernels and representatives",
-      "status": "partial-compiled-local"
-    },
-    {
-      "label": "DENS",
-      "module": "TechnicalLemmas/Geometry/LogConcavity.lean; Measure/{Gibbs,RadonNikodym}.lean; InformationTheory/*",
-      "role": "positive density APIs, density-to-potential extraction, log-concavity algebra/tensorization, level-set quasiconcavity/restriction, linear/affine precomposition, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs ENNReal density, finite-measure and exact quadratic Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra",
-      "root": "densities, RN derivative, KL/Renyi integrands",
-      "status": "partial-compiled-local"
-    },
-    {
-      "label": "GAUSS",
-      "module": "TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
-      "role": "standard Gaussian laws, moments, MGF, finite-dimensional tilts, shifted and two-point quadratic density geometry",
-      "root": "Gaussian and product Gaussian infrastructure",
-      "status": "partial-compiled-local"
-    },
-    {
-      "label": "CONV",
-      "module": "TechnicalLemmas/Geometry/{Convex,LogConcavity,PrekopaLeindler}.lean",
-      "role": "convex functions/sets, negative-log potentials, log-concave superlevels, quadratic norm potentials, log-concavity products/powers and linear/affine pullbacks, Prekopa-Leindler, Brunn-Minkowski",
-      "root": "convex and log-concave geometry",
-      "status": "partial-compiled-local"
-    },
-    {
-      "label": "FI",
-      "module": "TechnicalLemmas/FunctionalInequalities/*",
-      "role": "PI, LSI, transport, concentration, isoperimetry, preservation",
-      "root": "functional inequalities",
-      "status": "planned-plus-LSI-bookkeeping-compiled"
-    },
-    {
-      "label": "SDE",
-      "module": "TechnicalLemmas/StochasticProcesses/*",
-      "role": "Markov semigroups, invariant Gibbs law, generator/KL dissipation",
-      "root": "semigroup, generator, weak-FP, Langevin",
-      "status": "partial-compiled-local"
-    },
-    {
-      "label": "PATH",
-      "module": "TechnicalLemmas/StochasticProcesses/{Girsanov,DoobTransform,FollmerDrift}.lean",
-      "role": "Girsanov, Doob transform, Follmer drift, Schrodinger bridge",
-      "root": "path-space change of measure",
-      "status": "planned"
-    },
-    {
-      "label": "DISC",
-      "module": "SamplingAlgorithms/*",
-      "role": "LMC, randomized midpoint, HMC, underdamped, MALA, proximal sampler",
-      "root": "algorithm discretization layer",
-      "status": "planned-consumer"
-    },
-    {
-      "label": "REG",
-      "module": "research-wiki/technical-lemmas/hidden_regularities.md",
-      "role": "measurability, integrability, domination, smoothness, boundary, positivity",
-      "root": "hidden regularity contracts",
-      "status": "protocol"
-    }
-  ],
-  "source_pdf": "/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf",
-  "status_tree_mmd": "docs/assets/log_concave_sampling_status.mmd",
-  "status_tree_svg": "docs/assets/log_concave_sampling_status.svg",
-  "task": "ASTIS-CHEWI-001"
+  "title": "Build the Log-Concave Sampling Lean foundation"
 }

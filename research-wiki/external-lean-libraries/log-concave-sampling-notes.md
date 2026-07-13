@@ -6,8 +6,8 @@
   foundation program.
 
 The textbook is the organizing source for ASTIS's reusable Sampling/SDE Lean
-arsenal.  SALD and RMFLD should be treated as downstream consumers of this
-foundation, not as the reason for every local technical lemma.
+arsenal.  Local technical lemmas should be justified by the textbook tree or by
+background sources cited by that tree.
 
 ## Chapter-To-Lean Families
 

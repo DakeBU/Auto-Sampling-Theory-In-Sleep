@@ -9,6 +9,9 @@
 
 - `AutoSamplingTheory.Probability`
 - `AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs`
+- `AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral`
+- `AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity`
+- `AutoSamplingTheory.TechnicalLemmas.Measure.Product`
 - `AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.LawMap`

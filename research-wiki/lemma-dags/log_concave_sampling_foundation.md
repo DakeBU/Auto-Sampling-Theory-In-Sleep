@@ -1,6 +1,6 @@
 # Log-Concave Sampling Foundation DAG
 
-Generated: `2026-07-02 02:55:25`
+Generated: `2026-07-13 18:17:17`
 
 Primary source: `https://chewisinho.github.io/main.pdf`
 
@@ -9,7 +9,7 @@ Local source: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Che
 This is the master visualization ledger for `ASTIS-CHEWI-001`.  The goal is
 to avoid one oversized graph: every chapter or major theorem should point
 to shared root nodes and then have its own smaller subtree.  Shared labels make
-common Lean leaves reusable across chapters, SALD, RMFLD, and future papers.
+common Lean leaves reusable across chapters and later theorem subtrees.
 
 ## Global Spine
 
@@ -28,7 +28,7 @@ flowchart LR
   SDE[SDE semigroup generator Langevin weak-FP]
   PATH[PATH Girsanov Doob Follmer bridge]
   DISC[DISC LMC HMC MALA proximal]
-  Consumers[SALD RMFLD future papers]
+  Consumers[textbook theorem and algorithm consumers]
 
   Source --> MEAS
   Source --> CONV
@@ -86,6 +86,7 @@ flowchart TD
 
   MEAS --> LawMap[Probability.LawMap]
   MEAS --> CondKernel[Probability.ConditionalKernel]
+  MEAS --> PiUpdate[Measure.Product coordinate update]
   MEAS --> Transport[Measure.Transport]
 
   DENS --> LogConcavity[Geometry.LogConcavity]
@@ -99,6 +100,7 @@ flowchart TD
   DENS --> RN[Measure.RadonNikodym]
   DENS --> PiDensity[Measure.pi withDensity product]
   DENS --> Gibbs[Measure.Gibbs]
+  DENS --> GibbsIntegral[Gibbs withDensity Bochner integral rewrite]
   DENS --> GibbsPotentialEnv[Potential lower-bound envelope]
   DENS --> GibbsFiniteEnv[Finite-measure Gibbs envelope]
   DENS --> GibbsQuadEnv[Quadratic Lebesgue Gibbs envelope]
@@ -123,8 +125,18 @@ flowchart TD
 
   SDE --> WeakGen[StochasticProcesses.WeakGenerator]
   SDE --> FP[StochasticProcesses.FokkerPlanckAlgebra]
+  SDE --> Langevin1D[StochasticProcesses.Langevin expression display/algebra]
+  SDE --> BoxDiv[Analysis.Calculus.Divergence box face-term wrapper]
+  SDE --> AEBridge[Analysis.Calculus.Divergence a.e. trace bridge]
+  SDE --> IntTransfer[Analysis.Calculus.Divergence trace-to-coordinate IntegrableOn]
+  SDE --> ExplicitTrace[StochasticProcesses.Langevin explicit trace display]
+  SDE --> DisplayContinuity[Scalar display ContinuousOn from components]
+  SDE --> TraceIntegrability[Trace IntegrableOn under global C1/C2]
+  SDE --> TestRegularity[Global C1/C2 components and Pi field fderiv]
+  SDE --> CutoffBase[Reusable smooth cutoffs and plateaus]
+  SDE --> CutoffLimit[Cutoff derivatives and dominated exhaustion]
   SDE --> GirsanovFinite[StochasticProcesses.Girsanov finite cylinder]
-  SDE --> Langevin[MarkovSemigroup/Langevin/Ito]
+  SDE --> Langevin[Semigroup/Ito/invariant Gibbs law]
   SDE --> Path[Girsanov/Doob/Follmer]
 
   DISC --> LMC[LMC interpolation]
@@ -135,8 +147,8 @@ flowchart TD
   classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
   class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
-  class LawMap,CondKernel,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,GirsanovFinite compiled;
-  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,Langevin,Path,LMC,HMC,MALA todo;
+  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,GirsanovFinite compiled;
+  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,CutoffLimit,Langevin,Path,LMC,HMC,MALA todo;
 ```
 
 | Family | Branch/leaf | Target | Color status | Role |
@@ -144,23 +156,33 @@ flowchart TD
 | MEAS/KERN | Probability.LawMap | TechnicalLemmas/Probability/LawMap.lean | compiled-blue | law-map and weak-test integral rewrites |
 | MEAS/KERN | Probability.ConditionalKernel | TechnicalLemmas/Probability/ConditionalKernel.lean | compiled-blue | condDistrib and conditional-integral representatives |
 | MEAS/KERN | Measure.Transport | TechnicalLemmas/Measure/Transport.lean | todo-red | transport/coupling/Wasserstein interfaces |
-| DENS/CONV | Geometry.LogConcavity | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | positive log-concavity, norm-square convexity, and convex-potential Gibbs shape |
+| DENS/CONV | Geometry.LogConcavity | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | positive log-concavity, norm-square and absolute-value convexity, and convex-potential Gibbs shape |
 | DENS/CONV | Log-concavity algebra/tensorization | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | pointwise products, nonnegative real powers, and Cartesian-product density factors preserve log-concavity |
 | DENS/CONV | Log-concavity under maps | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | linear and affine precomposition preserve log-concavity on preimage domains |
 | DENS/CONV | Log-concavity level sets | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | positive log-concave functions are quasiconcave; convex superlevel restrictions remain log-concave |
+| GEOM/GAUSS/SDE | EuclideanSpace coordinate inner products | TechnicalLemmas/Geometry/EuclideanSpaceCoordinates.lean | compiled-blue | finite-dimensional coordinate formulas for `inner ℝ u v`, including direct `EuclideanSpace` vectors and `WithLp.toLp 2` coordinate functions |
+| ANALYSIS/SDE | Laplacian standard-basis formula | TechnicalLemmas/Analysis/Calculus/Laplacian.lean | compiled-blue | Mathlib `Laplacian.laplacian` equals the finite standard-orthonormal-basis second-derivative sum; no IBP or invariant-law proof |
+| ANALYSIS/SDE | Gradient coordinate-unit line derivative | TechnicalLemmas/Analysis/Calculus/Gradient.lean | compiled-blue | a supplied Mathlib gradient gives the coordinate-unit line derivative equal to the corresponding gradient coordinate; no divergence or IBP proof |
+| ANALYSIS/SDE | Gibbs-weight gradient chain rule | TechnicalLemmas/Analysis/Calculus/Gradient.lean | compiled-blue | a supplied `HasGradientAt V gradV x` or `DifferentiableAt ℝ V x` gives Mathlib `gradient (exp(-V))` and coordinate chain-rule displays; no weighted divergence, coordinate product-rule, or IBP proof |
+| ANALYSIS/SDE | Line-derivative product rule | TechnicalLemmas/Analysis/Calculus/LineDeriv.lean | compiled-blue | Mathlib `HasDerivAt.mul` exposed as real-valued `HasLineDerivAt` and `lineDeriv` product rules, explicit coordinate `lineDeriv (exp(-V) * g)` leaves, and `fderiv`-to-`iteratedFDeriv` coordinate wiring; no divergence or IBP proof |
 | DENS/CONV/SDE | Negative-log potential geometry | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | positive log-concave densities have convex negative-log potentials and convex energy sublevels |
 | DENS/CONV | Quadratic Gibbs log-concavity | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | nonnegative quadratic norm potentials and explicit normalized quadratic Gibbs densities are log-concave |
+| DENS/CONV | Absolute-linear Laplace geometry | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | one-dimensional potentials `a\|x\|+b` and positive rescaled Laplace shapes are log-concave |
 | DENS/CONV/GAUSS | Shifted quadratic Gibbs geometry | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | shifted potentials `a‖x-m‖^2+b` and explicit shifted quadratic densities are log-concave |
 | DENS/CONV/GAUSS/DISC | Two-point Gaussian/proximal kernel geometry | TechnicalLemmas/Geometry/LogConcavity.lean | compiled-blue | two-point potentials `a‖x-y‖^2+b` and Gaussian-kernel shapes are log-concave on product space |
 | DENS/CONV | Measure.RadonNikodym | TechnicalLemmas/Measure/RadonNikodym.lean | compiled-blue | withDensity, reciprocal-lintegral normalization, RN wrappers |
 | DENS/MEAS | Measure.pi withDensity product | TechnicalLemmas/Measure/RadonNikodym.lean | compiled-blue | finite-product ENNReal Fubini and coordinatewise density-tilt decomposition |
+| MEAS/FI/SDE | Measure.Product coordinate update | TechnicalLemmas/Measure/Product.lean | compiled-blue | finite product-law coordinate replacement map, measure-preserving wrapper, Bochner integral rewrite, and a.e. slice integrability |
 | DENS/CONV | Measure.Gibbs | TechnicalLemmas/Measure/Gibbs.lean | compiled-blue | Gibbs ENNReal density, measurability, envelope comparison, and normalization |
+| DENS/MEAS/SDE | Gibbs withDensity Bochner integral rewrite | TechnicalLemmas/Measure/GibbsIntegral.lean | compiled-blue | Bochner integrals under `Z⁻¹ exp(-V)` withDensity rewrite to density-weighted base-measure integrals |
+| DENS/CONV | Normalized Gibbs real-density bridge | TechnicalLemmas/Measure/GibbsLogConcavity.lean | compiled-blue | finite nonzero ENNReal normalizer plus convex or strongly convex potential gives a real-valued normalized Gibbs density shape that is log-concave |
 | DENS/CONV | Potential lower-bound envelope | TechnicalLemmas/Measure/Gibbs.lean | compiled-blue | `W ≤ V` a.e. and finite `∫ exp(-W)` imply finite `∫ exp(-V)` and normalized Gibbs law |
 | DENS/CONV | Finite-measure Gibbs envelope | TechnicalLemmas/Measure/Gibbs.lean | compiled-blue | finite base measure plus a.e. constant lower bound on `V` gives finite Gibbs normalizer and normalized target law |
 | DENS/CONV/ANALYSIS | Quadratic Lebesgue Gibbs envelope | TechnicalLemmas/Analysis/Integrability.lean | compiled-blue | finite-dimensional Lebesgue quadratic tails have exact ENNReal normalizers, and quadratic lower bounds give normalized Gibbs target laws |
+| DENS/CONV/ANALYSIS | One-dimensional Laplace normalizer | TechnicalLemmas/Analysis/Integrability.lean | compiled-blue | exact `∫ exp (-(a\|x\|+b)) = 2 exp(-b)/a`, exact ENNReal normalizer, and explicit normalized Laplace law on `ℝ` |
 | DENS/CONV | InformationTheory.KLDensity/DV | TechnicalLemmas/InformationTheory/{KLDensity,DonskerVaradhan}.lean | compiled-blue | KL pointwise algebra and DV energy leaves |
 | DENS/CONV | Prekopa/Brunn/Convex | TechnicalLemmas/Geometry/{Convex,PrekopaLeindler,BrunnMinkowski}.lean | todo-red | finite-dimensional PL/BM and convex-measure preservation |
-| DENS/CONV | Concrete Gibbs envelope | TechnicalLemmas/Measure/Gibbs.lean or Analysis/Integrability.lean | todo-red | general nonquadratic Lebesgue coercivity/growth assumptions supply a tail-integrable lower-potential envelope |
+| DENS/CONV | Concrete Gibbs envelope | TechnicalLemmas/Measure/Gibbs.lean or Analysis/Integrability.lean | todo-red | general nonquadratic Lebesgue coercivity/growth assumptions beyond finite-dimensional quadratic and one-dimensional Laplace envelopes |
 | DENS/CONV | Renyi density calculus | TechnicalLemmas/InformationTheory/Renyi.lean | compiled-blue | Renyi integrand positivity, measurability, finite-envelope, and pointwise derivative leaves |
 | GAUSS | ProbabilityDistributions.Gaussian | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | compiled-blue | Gaussian moments, coordinate laws, finite linear forms, MGF normalizers, shifted densities, and variance packaging |
 | GAUSS | Product Gaussian linear forms | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | compiled-blue | finite product-Gaussian linear-form integrability and zero mean |
@@ -176,8 +198,11 @@ flowchart TD
 | FI | Preservation/tensorization | TechnicalLemmas/FunctionalInequalities/Preservation.lean | todo-red | tensorization and preservation under log-concavity operations |
 | SDE/PATH | StochasticProcesses.WeakGenerator | TechnicalLemmas/StochasticProcesses/WeakGenerator.lean | compiled-blue | sample-to-law weak-generator rewrite |
 | SDE/PATH | StochasticProcesses.FokkerPlanckAlgebra | TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean | compiled-blue | weak-FP and Fisher/IBP scalar algebra |
+| SDE/PATH | StochasticProcesses.Langevin | TechnicalLemmas/StochasticProcesses/Langevin.lean | compiled-blue | Finite Euclidean pointwise display and supplied-hypothesis Langevin algebra: basis/coordinate display for the formal expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs discharging only the Gibbs-weight gradient premise, pointwise coordinateDivergence display, finite-box signed face-term wrapper with explicit assumptions, 1D pointwise derivative, finite-coordinate aggregation, and EuclideanSpace inner-product notation wrappers; no box-integrability discharge, semigroup-generator, IBP, stationarity, or invariant-law proof |
+| ANALYSIS/SDE | Reusable smooth cutoffs and plateaus | TechnicalLemmas/Analysis/Calculus/{Cutoff,Divergence}.lean | compiled-blue | unit and radial smooth cutoffs, support/tsupport and compact-support bounds, pointwise exhaustion, compact-in-open plateau, and finite Pi-box plateau |
+| ANALYSIS/SDE | Cutoff derivatives and dominated exhaustion | TechnicalLemmas/Analysis/Calculus/Cutoff.lean then Langevin whole-space IBP | todo-red | scaled first/Hessian/Laplacian bounds, integrable domination, Gibbs-tail convergence, and whole-space passage |
 | SDE/PATH | StochasticProcesses.Girsanov finite cylinder | TechnicalLemmas/StochasticProcesses/Girsanov.lean | compiled-blue | finite-dimensional cylindrical Gaussian Girsanov weight, RN density, and integral change-of-measure |
-| SDE/PATH | MarkovSemigroup/Langevin/Ito | TechnicalLemmas/StochasticProcesses/{MarkovSemigroup,Langevin,Ito}.lean | todo-red | semigroup domains, invariant Gibbs law, Ito interfaces |
+| SDE/PATH | Semigroup/Ito/invariant Gibbs law | TechnicalLemmas/StochasticProcesses/{MarkovSemigroup,Ito}.lean plus stronger Langevin analytic leaves | todo-red | semigroup domains, invariant Gibbs law, Ito interfaces |
 | SDE/PATH | Girsanov/Doob/Follmer | TechnicalLemmas/StochasticProcesses/{Girsanov,DoobTransform,FollmerDrift}.lean | todo-red | path-space RN derivatives and bridge transforms |
 | DISC | LMC interpolation | SamplingAlgorithms/LangevinMonteCarlo.lean | todo-red | LMC interpolation, coupling, KL/FI derivative consumers |
 | DISC | HMC/underdamped/RM | SamplingAlgorithms/{HamiltonianMonteCarlo,UnderdampedLangevin,RandomizedMidpoint}.lean | todo-red | faster low-accuracy sampler transition/generator contracts |
@@ -189,7 +214,7 @@ flowchart TD
 | --- | --- | --- | --- | --- |
 | MEAS | measure-space and law transport | TechnicalLemmas/Probability/LawMap.lean | push forward laws, weak-test integrals, map/withDensity/RN bridges | partial-compiled-local |
 | KERN | conditional kernels and representatives | TechnicalLemmas/Probability/ConditionalKernel.lean | condDistrib pairings, conditional drifts, a.e. representative discipline | partial-compiled-local |
-| DENS | densities, RN derivative, KL/Renyi integrands | TechnicalLemmas/Geometry/LogConcavity.lean; Measure/{Gibbs,RadonNikodym}.lean; InformationTheory/* | positive density APIs, density-to-potential extraction, log-concavity algebra/tensorization, level-set quasiconcavity/restriction, linear/affine precomposition, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs ENNReal density, finite-measure and exact quadratic Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra | partial-compiled-local |
+| DENS | densities, RN derivative, KL/Renyi integrands | TechnicalLemmas/Geometry/LogConcavity.lean; Measure/{Gibbs,RadonNikodym}.lean; InformationTheory/* | positive density APIs, density-to-potential extraction, log-concavity algebra/tensorization, level-set quasiconcavity/restriction, linear/affine precomposition, centered/shifted/two-point quadratic and one-dimensional Laplace Gibbs log-concavity, Gibbs ENNReal density, finite-measure, exact quadratic, and exact one-dimensional Laplace Lebesgue normalization, absolute continuity, withDensity, pointwise entropy algebra | partial-compiled-local |
 | GAUSS | Gaussian and product Gaussian infrastructure | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | standard Gaussian laws, moments, MGF, finite-dimensional tilts, shifted and two-point quadratic density geometry | partial-compiled-local |
 | CONV | convex and log-concave geometry | TechnicalLemmas/Geometry/{Convex,LogConcavity,PrekopaLeindler}.lean | convex functions/sets, negative-log potentials, log-concave superlevels, quadratic norm potentials, log-concavity products/powers and linear/affine pullbacks, Prekopa-Leindler, Brunn-Minkowski | partial-compiled-local |
 | FI | functional inequalities | TechnicalLemmas/FunctionalInequalities/* | PI, LSI, transport, concentration, isoperimetry, preservation | planned-plus-LSI-bookkeeping-compiled |
@@ -205,7 +230,7 @@ flowchart TD
 | 1.1 stochastic calculus | MEAS, GAUSS, REG | Ito/quadratic-variation/Taylor local-error subtree | quadratic variation normalization and finite-dimensional Ito test identity | partial-local-compiled |
 | 1.2 Markov semigroups | MEAS, SDE, REG | semigroup -> generator-domain -> weak-test derivative subtree | semigroup test-function pairing under generator-domain hypotheses | planned |
 | 1.3 optimal transport geometry | MEAS, CONV, REG | couplings -> Wasserstein distance -> geodesic convexity subtree | law-map/coupling measurable pushforward interface | planned |
-| 1.4 Langevin as gradient flow | DENS, FI, SDE, REG | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | finite-measure bounded-below, finite-dimensional quadratic-Lebesgue Gibbs normalization, explicit centered/shifted quadratic normalized-density log-concavity, and negative-log potential extraction compiled; Langevin generator invariant Gibbs law contract remains | quadratic-gibbs-envelope-compiled |
+| 1.4 Langevin as gradient flow | DENS, FI, SDE, REG | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateau cutoffs, and radial pointwise exhaustion compiled; scaled cutoff derivatives and dominated whole-space IBP remain | cutoff-exhaustion-base-compiled |
 | 2 functional inequalities | CONV, DENS, FI, REG | PI/LSI/TI/isoperimetry plus preservation-operation subtrees | log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit | partial-local-compiled |
 | 3 stochastic analysis topics | PATH, DENS, SDE, REG | Girsanov -> Doob transform -> Follmer drift -> Schrodinger bridge | finite-dimensional Gaussian Esscher density, stdGaussian inner-product form, cylindrical Girsanov integral, and RN/withDensity identity compiled; full Brownian path packaging remains | finite-girsanov-rn-cylinder-compiled |
 | 4 Langevin Monte Carlo | MEAS, KERN, SDE, DENS, REG, DISC | coupling/interpolation/convex-optimization/Girsanov proof subtrees | LMC interpolation weak-test law derivative under domination; two-point Gaussian transition-kernel geometry compiled | partial-local-compiled |
@@ -228,7 +253,15 @@ flowchart TD
   TAY[Taylor/Ito local error]
   SEM[Markov semigroup operator]
   GEN[generator-domain contract]
-  INV[invariant Gibbs law]
+  GENALG[Gibbs-weight generator algebra]:::blue
+  BOX[finite-box divergence<br/>and zero-face handoffs]:::blue
+  LOCAL[local/exact-support<br/>cutoff leaves]:::blue
+  PLATEAU[compact-in-open and Pi-box<br/>plateau cutoffs]:::blue
+  RADIAL[radial cutoff family<br/>compact support + pointwise limit]:::blue
+  DERIV[scaled cutoff derivative bounds]:::red
+  TAIL[dominated cutoff/tail passage]:::red
+  IBP[whole-space weighted IBP]:::red
+  INV[invariant Gibbs law]:::red
   KL[KL/FI dissipation]
   W2[Wasserstein gradient-flow contract]
   REG[REG hidden regularity]
@@ -239,10 +272,24 @@ flowchart TD
   C1 --> WGF
   SC --> GAUSS --> TAY
   MS --> SEM --> GEN
+  GEN --> GENALG --> BOX --> IBP --> INV
+  LOCAL --> BOX
+  LOCAL --> PLATEAU
+  PLATEAU --> BOX
+  PLATEAU --> DERIV
+  RADIAL --> DERIV --> TAIL --> IBP
   WGF --> INV --> KL --> W2
   REG -.-> TAY
   REG -.-> GEN
+  REG -.-> GENALG
+  REG -.-> BOX
+  REG -.-> DERIV
+  REG -.-> TAIL
+  REG -.-> IBP
   REG -.-> INV
+
+  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
 ```
 
 ## Chapter 2 Functional-Inequality Subtree
@@ -552,8 +599,8 @@ flowchart TD
 | logConcaveOn_density_def | CONV/DENS | TechnicalLemmas/Geometry/LogConcavity.lean | Mathlib `ConcaveOn`, `ConcaveOn.subset`, `strictConcaveOn_log_Ioi`; AST Prekopa files for next statement style | core API, negative-log potential extraction, quasiconcavity/superlevel convexity and restriction, linear/affine precomposition, product/power/product-domain tensorization, norm-square convexity, centered/shifted/two-point quadratic Gibbs log-concavity, and Gibbs positive-rescale leaves compiled; next Prekopa/RN integration |
 | prekopaLeindler_finiteDimensional | CONV/MEAS | TechnicalLemmas/Geometry/PrekopaLeindler.lean | external `AsymptoticStatistics/ForMathlib/PrekopaLeindler.lean`; Mathlib lacks direct PL package | external-port-audit |
 | brunnMinkowski_oneDim_outerMeasure | CONV/MEAS | TechnicalLemmas/Geometry/BrunnMinkowski.lean | external `Brunn1D.lean`; Mathlib convex/volume APIs | external-port-audit |
-| gibbsDensity_withDensity_normalized | DENS/CONV | TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean | compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic Lebesgue Gibbs normalizers from Mathlib Gaussian Fourier tails; next generalize beyond quadratic/coercive tails | convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic Lebesgue normalizer, and normalized withDensity probability bridges compiled; nonquadratic coercivity envelopes remain |
-| langevinGenerator_invariant_gibbs_weak | SDE/DENS/FI | TechnicalLemmas/StochasticProcesses/Langevin.lean | ASTIS WeakGenerator/FokkerPlanckAlgebra plus Mathlib calculus/integration APIs | source-contract |
+| gibbsDensity_withDensity_normalized | DENS/CONV | TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean | compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic and one-dimensional Laplace normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic plus exact one-dimensional Laplace Lebesgue Gibbs normalizers; next generalize beyond finite-dimensional quadratic and one-dimensional Laplace tails | convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic and one-dimensional Laplace Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic and exact one-dimensional Laplace Lebesgue normalizers, and normalized withDensity probability bridges compiled; general coercivity envelopes remain |
+| langevinGenerator_invariant_gibbs_weak | SDE/DENS/FI | TechnicalLemmas/StochasticProcesses/Langevin.lean | compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, and the radial compact-support pointwise-exhaustion family ported from the audited SLT pattern; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces | generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, and radial compact-support pointwise exhaustion are compiled; scaled first/Hessian/Laplacian cutoff bounds, domination and Gibbs tails, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red |
 | lsi_tensorization_or_preservation_contract | FI/CONV | TechnicalLemmas/FunctionalInequalities/Preservation.lean | Mathlib convex/Jensen APIs; SLT/AST reference style for functional inequality statements | planned |
 | gaussianEsscher_shift_density | GAUSS/PATH | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | external `GaussianMGF.lean`, `PiWithDensity.lean`, `GaussianShift.lean` | formalized-local-density-half |
 | gaussianShift_change_of_measure | GAUSS/PATH | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | external `GaussianShift.lean`; local `stdGaussianPi_withDensity_exp_shift` | formalized-local-product-measure |
@@ -561,7 +608,7 @@ flowchart TD
 | gaussianShift_stdGaussian_inner | GAUSS/PATH | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | Mathlib `map_pi_eq_stdGaussian`, `PiLp.inner_apply`, `EuclideanSpace.real_norm_sq_eq` | formalized-local-stdGaussian-inner |
 | finiteGaussianGirsanov_cylinder | PATH/GAUSS | TechnicalLemmas/StochasticProcesses/Girsanov.lean | compiled `stdGaussian_shift_integral_map_toLp`; finite-dimensional cylindrical path-coordinate packaging | formalized-local-cylinder |
 | finiteGaussianGirsanov_rn_density | PATH/MEAS/GAUSS | TechnicalLemmas/StochasticProcesses/Girsanov.lean | compiled `measurableEquiv_map_withDensity`, product Gaussian withDensity shift, and `map_pi_eq_stdGaussian` | formalized-local-rn-density |
-| lmcInterpolation_weakGenerator | DISC/SDE/KERN | SamplingAlgorithms/LangevinMonteCarlo.lean | ASTIS LawMap/ConditionalKernel/WeakGenerator; SALD weak-FP as consumer pressure test | planned-generalization |
+| lmcInterpolation_weakGenerator | DISC/SDE/KERN | SamplingAlgorithms/LangevinMonteCarlo.lean | ASTIS LawMap/ConditionalKernel/WeakGenerator; textbook LMC interpolation as the consumer route | planned-generalization |
 | renyiDensity_pointwiseDerivative | DENS/FI | TechnicalLemmas/InformationTheory/Renyi.lean | compiled `renyiIntegrand`, positivity, measurability, finite-envelope, and `HasDerivAt` rpow-product leaves; next add full divergence/log-normalization and path derivative contracts | first-leaves-compiled |
 | mhKernel_detailedBalance | DISC/KERN | SamplingAlgorithms/MetropolisAdjustedLangevin.lean | Mathlib probability kernels/Markov-chain APIs if present; otherwise local kernel contracts | mathlib-search-required |
 
@@ -570,12 +617,12 @@ flowchart TD
 | Area | Mathlib surface | External reference | Gap / next action |
 | --- | --- | --- | --- |
 | convex/log-concave base | `Analysis/Convex/*`, `ConvexOn`, `ConcaveOn`, log convexity examples | `ForMathlib/PrekopaLeindler.lean`, `Brunn1D.lean`, `Anderson.lean` | No direct Mathlib Prekopa-Leindler/Brunn-Minkowski package observed. |
-| density/RN/withDensity | `Probability/Density.lean`, `Measure/Decomposition/*`, `withDensity`, `rnDeriv` | `RnDerivSqrt.lean`, `HellingerProduct.lean`, `L2.lean` | Gibbs nonzero, finite-by-envelope, finite-measure bounded-below, and exact quadratic Lebesgue normalization contracts are compiled; need general nonquadratic coercivity/growth leaves proving tail-integrable envelopes. |
+| density/RN/withDensity | `Probability/Density.lean`, `Measure/Decomposition/*`, `withDensity`, `rnDeriv` | `RnDerivSqrt.lean`, `HellingerProduct.lean`, `L2.lean` | Gibbs nonzero, finite-by-envelope, finite-measure bounded-below, exact quadratic Lebesgue, and exact one-dimensional Laplace normalization contracts are compiled; need general coercivity/growth leaves proving tail-integrable envelopes. |
 | Gaussian/product Gaussian | `Probability.Distributions.Gaussian.Real`, CLT/charFun support | `PiGaussian.lean`, `GaussianMGF.lean`, `GaussianShift.lean`, `PiWithDensity.lean` | Product Gaussian MGF, normalizer, shifted withDensity identity, product integral change-of-measure, EuclideanSpace pushforward bridge, and stdGaussian inner-product form are compiled; Brownian/path packaging remains. |
 | conditional kernels | `Probability.Kernel.CondDistrib`, conditional expectation APIs | `CondExpL2.lean`, Markov-kernel/selection files | Need fixed representative policy for conditional drifts in algorithm proofs. |
 | SDE/semigroup/Langevin | general topology/calculus/integration; no full finite-dimensional Ito/SDE library observed | ASTIS WeakGenerator/FokkerPlanckAlgebra, source-cited textbook route | Finite-dimensional cylindrical Girsanov integral and RN/withDensity identity are compiled; Ito, generator domains, invariant Gibbs proof, and full Brownian path-space change of measure remain real analytic leaves. |
 | information theory | `InformationTheory/KullbackLeibler/KLFun.lean`, convexity of KL integrand | ASTIS `KLDensity`, `DonskerVaradhan`, external Hellinger/RN files | Renyi divergence and derivative identities need new local leaves. |
-| algorithms | kernel/measure infrastructure; search per algorithm before local coding | SALD weak-FP as pressure test, AST Gaussian/conditional references | LMC/HMC/MALA/proximal trees should be consumers until shared roots compile. |
+| algorithms | kernel/measure infrastructure; search per algorithm before local coding | AST Gaussian/conditional references and textbook algorithm proof routes | LMC/HMC/MALA/proximal trees should be consumers until shared roots compile. |
 
 ## Review Rule
 
