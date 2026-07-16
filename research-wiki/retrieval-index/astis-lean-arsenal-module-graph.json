@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-13 18:17:21",
+  "generated": "2026-07-16 22:13:36",
   "ledger": "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
   "module_graph_svg": "docs/module-graph.svg",
   "modules": [
@@ -6882,6 +6882,10 @@
           "name": "smoothUnitCutoff_mem_Icc"
         },
         {
+          "kind": "theorem",
+          "name": "smoothUnitCutoff_deriv_bounded"
+        },
+        {
           "kind": "def",
           "name": "radialSmoothCutoff"
         },
@@ -6899,7 +6903,19 @@
         },
         {
           "kind": "theorem",
+          "name": "fderiv_norm_div_bound"
+        },
+        {
+          "kind": "theorem",
           "name": "radialSmoothCutoff_contDiff"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_fderiv_bound"
+        },
+        {
+          "kind": "theorem",
+          "name": "radialSmoothCutoff_fderiv_eq_zero_of_two_mul_le_norm"
         },
         {
           "kind": "theorem",
@@ -6924,14 +6940,15 @@
       ],
       "exports": [],
       "imports": [
-        "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension"
+        "Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension",
+        "Mathlib.Analysis.Calculus.LocalExtr.Basic"
       ],
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
       "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
-      "status": "compiled ANALYSIS/REG/SDE base; scaled first/Hessian/Laplacian estimates and dominated tail passage remain separate red leaves",
-      "summary": "smooth unit and radial cutoffs, range bounds, plain/topological support control, compact support, pointwise exhaustion, and a generic compact-in-open smooth plateau theorem"
+      "status": "compiled ANALYSIS/REG/SDE base through O(R^-1) fderiv and the closed outer derivative-zero leaf; L1 tail passage is red, while Hessian/Laplacian estimates remain separate until a named consumer requires them",
+      "summary": "smooth unit and radial cutoffs, range bounds, support control, compact support, pointwise exhaustion, compact-in-open plateaus, scale-uniform radial first-derivative control, and closed outer-region totalized-fderiv vanishing"
     },
     {
       "declarations": [
@@ -6954,6 +6971,14 @@
         {
           "kind": "theorem",
           "name": "continuousLinearEquiv_apply_euclideanSpace_single"
+        },
+        {
+          "kind": "theorem",
+          "name": "hasFDerivAt_radialSmoothCutoff_comp_toLp"
+        },
+        {
+          "kind": "theorem",
+          "name": "sum_smulRight_apply_pi_single_eq_apply"
         },
         {
           "kind": "theorem",
@@ -7164,8 +7189,8 @@
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
       "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean",
-      "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation; no derivative-controlled exhaustion, whole-space IBP, no-boundary limit, or invariant-law claim",
-      "summary": "finite-dimensional pointwise coordinate-divergence convention `sum_i lineDeriv F_i x e_i`, `HasFDerivAt` expansion to `sum_i F' e_i i`, `DifferentiableAt` bridge to the default Mathlib `fderiv` summand, WithLp/Pi pointwise and a.e. trace bridges, open-box/countable a.e. transfer, trace-to-coordinate `IntegrableOn` transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization"
+      "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation and the cutoff cross-term interface; no L1 tail limit, whole-space IBP, no-boundary limit, or invariant-law claim",
+      "summary": "finite-dimensional pointwise coordinate-divergence convention `sum_i lineDeriv F_i x e_i`, `HasFDerivAt` expansion to `sum_i F' e_i i`, `DifferentiableAt` bridge to the default Mathlib `fderiv` summand, radial-cutoff PiLp derivative producer, smulRight basis-trace identity, WithLp/Pi pointwise and a.e. trace bridges, open-box/countable a.e. transfer, trace-to-coordinate `IntegrableOn` transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization"
     },
     {
       "declarations": [

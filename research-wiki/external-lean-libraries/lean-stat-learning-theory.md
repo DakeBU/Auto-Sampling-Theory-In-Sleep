@@ -3,13 +3,13 @@
 - Public repository: https://github.com/YuanheZ/lean-stat-learning-theory
 - Paper: https://arxiv.org/abs/2602.02285
 - Local checkout: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory`
-- Current audited checkout: `216e578c9576bab6b0abc3ba6c65762536768e96`
-  on `main`.  The last commit itself is a README edit, but the updated local
-  checkout contains the current proof surface listed below.
-- Latest verification: `git fetch --prune origin` on 2026-07-13 left local
-  `HEAD` equal to `origin/main` at `216e578c9576bab6b0abc3ba6c65762536768e96`.
-  The checkout has only untracked `.lake/` cache files, not source edits.  A
-  full external `lake build` passed at this commit (8630 jobs).
+- Current audited checkout: `d0f506f0a695018265dccb33bcb05e2f5ca1c876`
+  on `main`, tagged `v4.32.0`.
+- Latest verification: `git fetch --prune origin` and fast-forward on 2026-07-16
+  left local `HEAD` equal to `origin/main`.  The checkout has only untracked
+  `.lake/` cache files, not source edits.  The focused target
+  `lake build SLT.GaussianSobolevDense.Cutoff` passed at this commit under Lean
+  `v4.32.0` (3115 jobs, including rebuilt dependencies).
 - Role: audited port/reference source for probability, Gaussian,
   concentration, entropy duality, log-Sobolev/Poincare, product-measure
   slicing, matrix concentration, and discretization proof style.
@@ -32,7 +32,7 @@ or they remain recorded in the port queue.
 | `SLT/GaussianLSI/TensorizedGLSI.lean` | `partialDeriv`, `sliceFunction`, derivative of slices, and tensorized Gaussian LSI proof architecture |
 | `SLT/GaussianPoincare/*` | Rademacher/Efron-Stein/limit architecture for Gaussian Poincare |
 | `SLT/GaussianSobolevDense/Defs.lean` | radial smooth cutoff definitions: the support, compact-support, smoothness, range, and pointwise-exhaustion base has been ported as ASTIS-owned declarations in `Analysis/Calculus/Cutoff.lean` |
-| `SLT/GaussianSobolevDense/Cutoff.lean` | cutoff-gradient estimates and product-rule staging such as `smoothCutoffR_fderiv_bound`, `cutoff_product_rule`, and `tendsto_cutoff_W12`; next port target for scaled derivative bounds and dominated cutoff limits before IBP |
+| `SLT/GaussianSobolevDense/Cutoff.lean` | the scalar derivative bound, norm-scaling bound, strengthened one-constant-for-all-R radial first-derivative theorem, and closed outer derivative-zero leaf have been ported as ASTIS-owned declarations; ASTIS also supplies the finite-Pi derivative/trace consumer bridge; dominated cutoff limits remain reference targets before IBP |
 | `SLT/GaussianPoincare/TaylorBound.lean` | compact-support derivative support/boundedness patterns: `deriv_hasCompactSupport`, `deriv2_hasCompactSupport`, `deriv_bounded_of_compactlySupported`; closest SLT staging pattern for no-boundary/IBP prerequisites |
 | `SLT/MeasureInfrastructure.lean` | Chernoff, layer-cake, Jensen, finite sup/union, and integrability proof patterns |
 | `SLT/HansonWright.lean`, `SLT/MatrixInfra/*`, `SLT/RMT/*`, `SLT/TDudley.lean` | later matrix concentration, empirical-process, and random-matrix proof patterns |
@@ -47,11 +47,13 @@ Immediate port candidates for the log-concave sampling tree:
   interface when strengthening ASTIS Gaussian transition kernels and LMC noise.
 - entropy/Jensen surface: reuse the proof staging around `entropy_nonneg`,
   conditional entropy, and subadditivity for FI/LSI chapters.
-- cutoff/no-boundary surface: the radial support/exhaustion base is now ported;
+- cutoff/no-boundary surface: the radial support/exhaustion, scale-uniform
+  first-derivative, closed outer derivative-zero, and finite-Pi consumer bases
+  are now ported;
   continue using `GaussianSobolevDense/Cutoff.lean` and
   `GaussianPoincare/TaylorBound.lean` as proof-pattern memory for ASTIS-owned
-  derivative-support, scaled-gradient, Hessian/Laplacian, and dominated-limit
-  leaves.
+  dominated-limit leaves, and for Hessian/Laplacian leaves only when a named
+  second-order consumer requires them.
 - Gaussian tensorization: use the LSI/Poincare files as proof architecture
   references only; no theorem is callable until ported locally.
 
@@ -61,8 +63,9 @@ Recommended migration order for ASTIS roots:
 2. `GAUSS/MEAS`: product Gaussian law and coordinate/linear functional facts.
 3. `GAUSS/FI/DENS/REG`: coordinate derivative slicing and tensorized Gaussian
    LSI proof architecture.
-4. `REG/CALC/SDE`: extend the compiled smooth-cutoff and compact-support base
-   with derivative-support, scaled-gradient, Hessian/Laplacian, and domination
-   facts needed before no-boundary IBP.
+4. `REG/CALC/SDE`: use the compiled smooth-cutoff, compact-support,
+   scale-uniform first-derivative, closed outer derivative-zero, and finite-Pi
+   consumer bases to prove the generic `L¹` cutoff-gradient tail; add
+   Hessian/Laplacian facts only for named second-order consumers.
 5. `FI/DENS/MEAS`: entropy/Jensen and Gibbs-duality infrastructure.
 6. `FI/MEAS`: entropy chain rule and product subadditivity.

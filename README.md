@@ -15,10 +15,10 @@ owns a compiled Lean declaration and records it in the registry.
 |---|---|
 | primary source | `https://chewisinho.github.io/main.pdf` |
 | local source copy | `outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf` |
-| compiled local technical leaves | 247 |
+| compiled local technical leaves | 253 |
 | active frontier | Chapter 1, Example 1.2.8 -> Corollary 1.2.9: justify the omitted whole-space integration by parts before claiming the Gibbs invariant law |
-| newest closed edge | compact-in-open smooth plateau, finite Pi-box plateau, radial compactly supported cutoff family with pointwise convergence to `1`, local support handoffs, cutoff-smul support, finite-box signed-face cancellation |
-| next red edge | `O(R^{-1})`/`O(R^{-2})` cutoff derivative packages, dominated tail passage, whole-space weighted IBP |
+| newest closed edge | scale-uniform `O(R^{-1})` radial derivative bound, derivative zero on the closed outer region, PiLp cutoff chain rule, and the cutoff cross-term trace identity |
+| next red edge | generic `L¹` cutoff-gradient integral limit from `Integrable G`, then Gibbs-specific domination and whole-space weighted IBP |
 
 ## Visual Index
 
@@ -124,7 +124,7 @@ flowchart TD
 
 | Chapter | Main mathematical package | Blue foundation | Red boundary |
 |---|---|---|---|
-| 1 Langevin diffusion | Gibbs density, generator display, finite-box IBP, invariant law | Gibbs wrappers, generator algebra, finite-coordinate calculus, finite-box divergence, compact-in-open/Pi-box plateaus, radial exhaustion base, support/face handoffs | cutoff derivative bounds, dominated tail passage, whole-space weighted IBP, generator domains, invariant law |
+| 1 Langevin diffusion | Gibbs density, generator display, finite-box IBP, invariant law | Gibbs wrappers, generator algebra, finite-coordinate calculus, finite-box divergence, compact-in-open/Pi-box plateaus, radial exhaustion, `O(R^{-1})` first derivative, closed-outer derivative zero, PiLp/trace consumer bridges | `L¹` cutoff-gradient tail, Gibbs domination, whole-space weighted IBP, generator domains, invariant law |
 | 2 Functional inequalities | PI, LSI, TI, isoperimetry, preservation | log-concavity algebra, level sets, products, powers, pullbacks, LSI bookkeeping | Prekopa-Leindler, Brunn-Minkowski, PI/TI/isoperimetry, preservation theorems |
 | 3 Stochastic analysis | Girsanov, Doob, Follmer, Schrodinger bridge | finite Gaussian shifts, finite-cylinder Girsanov, RN/withDensity handoffs | Brownian path-space packaging and bridge transforms |
 | 4 LMC | coupling, interpolation, convex-optimization, Girsanov routes | law-map, weak-generator, conditional-kernel, Gaussian transition, KL/FI algebra leaves | theorem-level convergence packages |
@@ -256,8 +256,11 @@ flowchart TD
   Plateau[compact-in-open / Pi-box<br/>plateau = 1]:::blue
   Radial[radial cutoff family<br/>compact support + pointwise limit]:::blue
   Zero[zero-face wrappers<br/>support or boundary cancellation]:::blue
-  Deriv[scaled cutoff derivatives<br/>O(R^-1), O(R^-2)]:::red
-  Tail[box-to-whole-space<br/>tail/exhaustion passage]:::red
+  Deriv1[scale-uniform cutoff fderiv<br/>O(R^-1)]:::blue
+  DZero[closed outer region<br/>totalized fderiv = 0]:::blue
+  PiBridge[PiLp cutoff derivative<br/>and smulRight trace]:::blue
+  Deriv2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
+  Tail[L1 cutoff-gradient tail<br/>from Integrable field]:::red
   IBP[weighted IBP<br/>integral Lf d pi = 0]:::red
   Domain[generator/semigroup<br/>domain contracts]:::red
   Inv[invariant Gibbs law]:::red
@@ -268,9 +271,9 @@ flowchart TD
   Cut --> Zero
   Exact --> Zero
   Exact --> Plateau
-  Plateau --> Deriv
-  Radial --> Deriv
-  Deriv --> Tail
+  Radial --> Deriv1 --> PiBridge --> Tail
+  Radial --> DZero
+  Radial --> Deriv2
   Domain --> Inv
 
   classDef goal fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
@@ -314,8 +317,11 @@ flowchart TD
   Reg[cutoff-smul regularity<br/>ContinuousOn + fderiv off countable]:::blue
   Trace[cutoff-smul trace<br/>ContinuousOn + IntegrableOn]:::blue
   Zero[finite-box divergence<br/>integral = 0]:::blue
-  Deriv[cutoff derivative bounds<br/>and scaled formulas]:::red
-  Tail[tail and dominated limit]:::red
+  Deriv1[radial cutoff fderiv<br/>O(R^-1)]:::blue
+  DZero[closed outer region<br/>totalized fderiv = 0]:::blue
+  PiBridge[PiLp derivative +<br/>smulRight trace]:::blue
+  Deriv2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
+  Tail[L1 cutoff-gradient tail<br/>from Integrable field]:::red
   IBP[weighted Gibbs IBP]:::red
 
   Local --> Supp --> Smul --> Zero
@@ -323,11 +329,13 @@ flowchart TD
   Exact --> Plateau
   Exact --> Smul
   Plateau --> Smul
-  Radial --> Deriv
+  Radial --> Deriv1 --> PiBridge
+  Radial --> DZero
+  Radial --> Deriv2
   Reg --> Zero
   Trace --> Zero
-  Plateau --> Deriv
-  Deriv --> Reg
+  Deriv1 --> Reg
+  PiBridge --> Tail
   Zero --> Tail --> IBP
 
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
@@ -342,9 +350,9 @@ flowchart TD
 | Gibbs density | `Measure.Gibbs`, `Measure.GibbsIntegral`, `Measure.GibbsLogConcavity` | normalized withDensity wrappers, real-density bridges | no invariant-law statement |
 | regularity | `Analysis.Calculus.*`, `StochasticProcesses.Langevin` | gradient continuity, Laplacian continuity, canonical `fderiv` trace handoffs | no whole-space domination |
 | finite boxes | `Analysis.Calculus.Divergence` | trace-to-coordinate transfer, a.e. bridge, signed face terms | no tail limit |
-| reusable smooth cutoffs | `Analysis.Calculus.Cutoff` | unit and radial cutoffs, closed-ball support/`tsupport`, compact support, pointwise exhaustion, generic compact-in-open plateau | no uniform derivative/Hessian bounds or dominated tail passage |
+| reusable smooth cutoffs | `Analysis.Calculus.Cutoff` | unit/radial cutoffs, closed-ball support/`tsupport`, compact support, pointwise exhaustion, generic compact-in-open plateau, one-constant-for-all-scales `O(R^-1)` first-derivative control, and closed outer-region derivative zero | `L¹` tail passage remains; second-order bounds wait for a named consumer |
 | finite-box cutoffs | `Analysis.Calculus.Divergence` | local Pi-open-box cutoffs, exact plain support and positivity, one compactly supported cutoff equal to `1` on an entire inner closed Pi-box | no derivative-controlled box exhaustion or whole-space limit |
-| cutoff-smul | `Analysis.Calculus.Divergence` | support, face cancellation, regularity, trace integrability wrappers | no chosen cutoff derivative bounds |
+| cutoff-smul | `Analysis.Calculus.Divergence` | support, face cancellation, regularity, trace integrability wrappers, radial-cutoff PiLp derivative producer, and `smulRight` basis-trace identity | no integral tail limit |
 
 ## Other Theorem Subtrees
 
@@ -431,10 +439,10 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  R1[radial cutoff fderiv bound<br/>O(R^-1)]:::red
-  R2[Hessian/Laplacian cutoff bound<br/>O(R^-2)]:::red
-  R3[concrete source package<br/>chosen V f cutoff field]:::red
-  R4[dominated tail limit<br/>finite box to whole space]:::red
+  R1[generic L1 cutoff-gradient limit<br/>Integrable G + C/R]:::red
+  R2[Hessian/Laplacian cutoff bound<br/>only for named 2nd-order consumer]:::red
+  R3[source-field integrability<br/>for chosen V and f]:::red
+  R4[main-term dominated convergence<br/>and Gibbs tail passage]:::red
   R5[weighted IBP<br/>for Gibbs density]:::red
   R6[generator and semigroup<br/>domain contracts]:::red
   R7[invariant Gibbs law<br/>then reversibility]:::red
@@ -443,7 +451,7 @@ flowchart TD
   R10[sampler consumers<br/>LMC HMC MALA proximal]:::red
 
   R1 --> R4
-  R2 --> R4
+  R3 --> R1
   R3 --> R4
   R4 --> R5
   R5 --> R7

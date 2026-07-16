@@ -1,6 +1,6 @@
 # Log-Concave Sampling To Lean Foundation Roadmap
 
-Generated: `2026-07-13 18:17:19`
+Generated: `2026-07-16 22:13:34`
 
 Reference PDF: `https://chewisinho.github.io/main.pdf`
 
@@ -21,7 +21,7 @@ assigning lower Lean work.  The matching visual ledger is
 | 1.1 stochastic calculus | Ito/quadratic-variation/Taylor local-error subtree | quadratic variation normalization and finite-dimensional Ito test identity | partial-local-compiled | reuse shared roots MEAS, GAUSS, REG; create a separate subtree when the theorem becomes active |
 | 1.2 Markov semigroups | semigroup -> generator-domain -> weak-test derivative subtree | semigroup test-function pairing under generator-domain hypotheses | planned | reuse shared roots MEAS, SDE, REG; create a separate subtree when the theorem becomes active |
 | 1.3 optimal transport geometry | couplings -> Wasserstein distance -> geodesic convexity subtree | law-map/coupling measurable pushforward interface | planned | reuse shared roots MEAS, CONV, REG; create a separate subtree when the theorem becomes active |
-| 1.4 Langevin as gradient flow | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateau cutoffs, and radial pointwise exhaustion compiled; scaled cutoff derivatives and dominated whole-space IBP remain | cutoff-exhaustion-base-compiled | reuse shared roots DENS, FI, SDE, REG; create a separate subtree when the theorem becomes active |
+| 1.4 Langevin as gradient flow | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateaus, radial pointwise exhaustion, a scale-uniform first-derivative cutoff bound, closed outer-region derivative vanishing, and the finite-Pi cutoff derivative/trace interfaces compiled; L1 tail passage and whole-space IBP remain | cutoff-first-derivative-consumer-bridge-compiled | reuse shared roots DENS, FI, SDE, REG; create a separate subtree when the theorem becomes active |
 | 2 functional inequalities | PI/LSI/TI/isoperimetry plus preservation-operation subtrees | log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit | partial-local-compiled | reuse shared roots CONV, DENS, FI, REG; create a separate subtree when the theorem becomes active |
 | 3 stochastic analysis topics | Girsanov -> Doob transform -> Follmer drift -> Schrodinger bridge | finite-dimensional Gaussian Esscher density, stdGaussian inner-product form, cylindrical Girsanov integral, and RN/withDensity identity compiled; full Brownian path packaging remains | finite-girsanov-rn-cylinder-compiled | reuse shared roots PATH, DENS, SDE, REG; create a separate subtree when the theorem becomes active |
 | 4 Langevin Monte Carlo | coupling/interpolation/convex-optimization/Girsanov proof subtrees | LMC interpolation weak-test law derivative under domination; two-point Gaussian transition-kernel geometry compiled | partial-local-compiled | reuse shared roots MEAS, KERN, SDE, DENS, REG, DISC; create a separate subtree when the theorem becomes active |
@@ -51,10 +51,13 @@ growth path is:
 - lock the shared-root taxonomy (`MEAS`, `KERN`, `DENS`, `GAUSS`, `CONV`,
   `FI`, `SDE`, `PATH`, `DISC`, `REG`);
 - first close the Ch.1 Langevin cutoff branch beyond the compiled local,
-  compact-in-open, Pi-box, and radial cutoff bases: prove scale-uniform
-  `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian estimates;
-- use those estimates to prove integrable domination and Gibbs-tail convergence,
+  compact-in-open, Pi-box, radial, scale-uniform `O(R⁻¹)` first-derivative,
+  closed-outer derivative-zero, and Pi derivative/trace bases: prove the generic
+  `L¹` cutoff-gradient integral limit from `Integrable G`;
+- use that limit to prove Gibbs-tail convergence,
   then pass the compiled finite-box identities to whole-space weighted IBP;
+- add second-order cutoff estimates only when a named Hessian/Laplacian consumer
+  requires them;
 - add generator-domain and semigroup contracts only after weighted IBP is blue,
   and do not state the invariant Gibbs law before both branches are available;
 - in parallel, extend from the compiled log-concavity density-to-potential

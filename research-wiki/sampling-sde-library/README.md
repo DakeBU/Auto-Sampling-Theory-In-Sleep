@@ -89,7 +89,7 @@ flowchart TD
 |---|---|---|---|
 | `MEAS/KERN` | `Probability.LawMap`, `Probability.ConditionalKernel`, `Measure.Product`, `Measure.RadonNikodym` | map/withDensity/RN rewrites, finite product and conditional-law interfaces | richer transition kernels, coupling/transport APIs |
 | `DENS/CONV` | `Measure.Gibbs`, `GibbsIntegral`, `GibbsLogConcavity`, `Geometry.LogConcavity`, `StrongConvexity` | normalized Gibbs wrappers, density-to-potential geometry, products, powers, pullbacks, level sets | general coercive Gibbs envelopes, Prekopa-Leindler, Brunn-Minkowski |
-| `GEOM/CALC` | `EuclideanSpaceCoordinates`, `Analysis.Calculus.{Cutoff,Gradient,LineDeriv,Laplacian,Divergence}` | coordinate conventions, gradient/laplacian displays, finite-box divergence, compact-in-open and Pi-box plateaus, radial compactly supported exhaustion base, local support handoffs | cutoff derivative bounds, dominated tail passage, whole-space IBP |
+| `GEOM/CALC` | `EuclideanSpaceCoordinates`, `Analysis.Calculus.{Cutoff,Gradient,LineDeriv,Laplacian,Divergence}` | coordinate conventions, gradient/laplacian displays, finite-box divergence, compact-in-open and Pi-box plateaus, radial compactly supported exhaustion, scale-uniform `O(R^-1)` first-derivative control, closed outer-region derivative zero, PiLp cutoff derivative and cross-term trace bridges | generic `L¹` cutoff-gradient tail, Gibbs domination, whole-space IBP; second-order cutoff bounds only for named consumers |
 | `GAUSS/PATH` | `ProbabilityDistributions.Gaussian`, `StochasticProcesses.Girsanov` | finite Gaussian linear forms, Esscher shifts, finite-cylinder Girsanov | Brownian path-space Girsanov, Doob/Follmer/bridge transforms |
 | `FI` | `FunctionalInequalities.LogSobolev` | KL/FI bookkeeping for LSI-style statements | PI, transport inequalities, tensorization, preservation |
 | `SDE/DISC` | `WeakGenerator`, `FokkerPlanckAlgebra`, `Langevin` | weak-test rewrites, FP algebra, pointwise Langevin generator displays | invariant Gibbs law, semigroup domains, algorithm rates |
@@ -120,7 +120,8 @@ flowchart TD
   N[Divergence<br/>exact open-box support + positivity]:::blue
   I[Cutoff/Divergence<br/>compact/open and Pi-box plateau]:::blue
   R[Cutoff<br/>radial compact support + pointwise limit]:::blue
-  J[REG<br/>scaled derivative bounds]:::red
+  J1[Cutoff<br/>fderiv O(R^-1)]:::blue
+  J2[REG<br/>Hessian/Laplacian O(R^-2)]:::red
   K[REG<br/>tail passage]:::red
   L[Langevin<br/>weighted IBP]:::red
   M[Langevin<br/>invariant Gibbs law]:::red
@@ -130,11 +131,8 @@ flowchart TD
   N --> F
   N --> I
   I --> H
-  I --> J
-  R --> J
-  J --> G
-  J --> H
-  J --> K
+  R --> J1 --> K
+  R --> J2
 
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
@@ -158,7 +156,8 @@ flowchart LR
   BoxZero[finite-box integral zero]:::blue
   Plateau[compact/open plateau<br/>Pi-box specialization]:::blue
   Radial[radial family<br/>compact support + tends to 1]:::blue
-  Deriv[scaled derivative bounds]:::red
+  Deriv1[first derivative<br/>O(R^-1)]:::blue
+  Deriv2[Hessian/Laplacian<br/>O(R^-2)]:::red
   Whole[whole-space IBP]:::red
 
   Open --> Local
@@ -168,8 +167,8 @@ flowchart LR
   Exact --> Smul
   Exact --> Plateau
   Plateau --> Smul
-  Plateau --> Deriv
-  Radial --> Deriv --> Whole
+  Radial --> Deriv1 --> Whole
+  Radial --> Deriv2
 
   classDef gray fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;

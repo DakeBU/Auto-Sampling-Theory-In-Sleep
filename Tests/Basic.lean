@@ -42,7 +42,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 247 := by native_decide
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 253 := by native_decide
 
 example (x : ℝ) :
     TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x =
@@ -65,6 +65,10 @@ example (x : ℝ) :
     TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x ∈ Set.Icc (0 : ℝ) 1 :=
   TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_mem_Icc x
 
+example : ∃ C : ℝ, 0 < C ∧ ∀ x : ℝ,
+    ‖deriv TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x‖ ≤ C :=
+  TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_deriv_bounded
+
 example {E : Type*} [NormedAddCommGroup E] {R : ℝ} (hR : 0 < R) {x : E}
     (hx : ‖x‖ ≤ R) :
     TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R x = 1 :=
@@ -75,11 +79,30 @@ example {E : Type*} [NormedAddCommGroup E] {R : ℝ} (hR : 0 < R) {x : E}
     TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R x = 0 :=
   TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_zero_of_two_mul_le_norm hR hx
 
+example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {R : ℝ} (hR : 0 < R) (x : E) :
+    ‖fderiv ℝ (fun y : E => ‖y‖ / R) x‖ ≤ 1 / R :=
+  TechnicalLemmas.Analysis.Calculus.Cutoff.fderiv_norm_div_bound hR x
+
 example {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
     {R : ℝ} (hR : 0 < R) :
     ContDiff ℝ (⊤ : ℕ∞)
       (TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R : E → ℝ) :=
   TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_contDiff hR
+
+example {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] :
+    ∃ C : ℝ, 0 < C ∧ ∀ R : ℝ, 0 < R → ∀ x : E,
+      ‖fderiv ℝ
+          (TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R : E → ℝ) x‖
+        ≤ C / R :=
+  TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_fderiv_bound
+
+example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {R : ℝ} (hR : 0 < R) {x : E} (hx : 2 * R ≤ ‖x‖) :
+    fderiv ℝ
+        (TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R : E → ℝ) x = 0 :=
+  TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_fderiv_eq_zero_of_two_mul_le_norm
+    hR hx
 
 example {E : Type*} [NormedAddCommGroup E] {R : ℝ} (hR : 0 < R) :
     tsupport (TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R : E → ℝ) ⊆
@@ -226,6 +249,26 @@ example {ι : Type*} [Fintype ι] [DecidableEq ι] (i : ι) :
       (EuclideanSpace.single i (1 : ℝ)) = Pi.single i (1 : ℝ) :=
   TechnicalLemmas.Analysis.Calculus.Divergence.continuousLinearEquiv_apply_euclideanSpace_single
     i
+
+example {n : ℕ} {R : ℝ} (hR : 0 < R) (x : Fin (n + 1) → ℝ) :
+    HasFDerivAt
+      (fun z => TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R
+        (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+      ((fderiv ℝ
+          (TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R :
+            EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+          (WithLp.toLp 2 x)).comp
+        (PiLp.continuousLinearEquiv
+          2 ℝ (fun _ : Fin (n + 1) => ℝ)).symm.toContinuousLinearMap)
+      x :=
+  TechnicalLemmas.Analysis.Calculus.Divergence.hasFDerivAt_radialSmoothCutoff_comp_toLp
+    hR x
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (χ' : (ι → ℝ) →L[ℝ] ℝ) (G : ι → ℝ) :
+    ∑ i, ((χ'.smulRight G) (Pi.single i (1 : ℝ))) i = χ' G :=
+  TechnicalLemmas.Analysis.Calculus.Divergence.sum_smulRight_apply_pi_single_eq_apply
+    χ' G
 
 example {ι : Type*} [Fintype ι] [DecidableEq ι]
     {F : (ι → ℝ) → ι → ℝ}

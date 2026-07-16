@@ -1,6 +1,6 @@
 # Log-Concave Sampling Foundation DAG
 
-Generated: `2026-07-13 18:17:17`
+Generated: `2026-07-16 22:13:32`
 
 Primary source: `https://chewisinho.github.io/main.pdf`
 
@@ -134,7 +134,8 @@ flowchart TD
   SDE --> TraceIntegrability[Trace IntegrableOn under global C1/C2]
   SDE --> TestRegularity[Global C1/C2 components and Pi field fderiv]
   SDE --> CutoffBase[Reusable smooth cutoffs and plateaus]
-  SDE --> CutoffLimit[Cutoff derivatives and dominated exhaustion]
+  SDE --> CutoffFirst[Scale-uniform cutoff first derivative]
+  SDE --> CutoffLimit[Second-order cutoff and dominated exhaustion]
   SDE --> GirsanovFinite[StochasticProcesses.Girsanov finite cylinder]
   SDE --> Langevin[Semigroup/Ito/invariant Gibbs law]
   SDE --> Path[Girsanov/Doob/Follmer]
@@ -147,7 +148,7 @@ flowchart TD
   classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
   class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
-  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,GirsanovFinite compiled;
+  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,CutoffFirst,GirsanovFinite compiled;
   class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,CutoffLimit,Langevin,Path,LMC,HMC,MALA todo;
 ```
 
@@ -200,7 +201,8 @@ flowchart TD
 | SDE/PATH | StochasticProcesses.FokkerPlanckAlgebra | TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean | compiled-blue | weak-FP and Fisher/IBP scalar algebra |
 | SDE/PATH | StochasticProcesses.Langevin | TechnicalLemmas/StochasticProcesses/Langevin.lean | compiled-blue | Finite Euclidean pointwise display and supplied-hypothesis Langevin algebra: basis/coordinate display for the formal expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs discharging only the Gibbs-weight gradient premise, pointwise coordinateDivergence display, finite-box signed face-term wrapper with explicit assumptions, 1D pointwise derivative, finite-coordinate aggregation, and EuclideanSpace inner-product notation wrappers; no box-integrability discharge, semigroup-generator, IBP, stationarity, or invariant-law proof |
 | ANALYSIS/SDE | Reusable smooth cutoffs and plateaus | TechnicalLemmas/Analysis/Calculus/{Cutoff,Divergence}.lean | compiled-blue | unit and radial smooth cutoffs, support/tsupport and compact-support bounds, pointwise exhaustion, compact-in-open plateau, and finite Pi-box plateau |
-| ANALYSIS/SDE | Cutoff derivatives and dominated exhaustion | TechnicalLemmas/Analysis/Calculus/Cutoff.lean then Langevin whole-space IBP | todo-red | scaled first/Hessian/Laplacian bounds, integrable domination, Gibbs-tail convergence, and whole-space passage |
+| ANALYSIS/SDE | Scale-uniform cutoff first derivative | TechnicalLemmas/Analysis/Calculus/{Cutoff,Divergence}.lean | compiled-blue | one unit-cutoff constant controls every positive-scale radial fderiv by C/R; the totalized fderiv vanishes on the closed outer region; PiLp chain-rule and standard-basis trace bridges expose the cutoff cross term |
+| ANALYSIS/SDE | L1 cutoff-gradient tail and later second-order consumers | TechnicalLemmas/Analysis/Calculus/Cutoff.lean then Langevin whole-space IBP | todo-red | first prove the generic cutoff-gradient integral limit from Integrable G and C/R; keep Hessian/Laplacian bounds separate until a named second-order consumer; then discharge Gibbs-tail convergence and whole-space passage |
 | SDE/PATH | StochasticProcesses.Girsanov finite cylinder | TechnicalLemmas/StochasticProcesses/Girsanov.lean | compiled-blue | finite-dimensional cylindrical Gaussian Girsanov weight, RN density, and integral change-of-measure |
 | SDE/PATH | Semigroup/Ito/invariant Gibbs law | TechnicalLemmas/StochasticProcesses/{MarkovSemigroup,Ito}.lean plus stronger Langevin analytic leaves | todo-red | semigroup domains, invariant Gibbs law, Ito interfaces |
 | SDE/PATH | Girsanov/Doob/Follmer | TechnicalLemmas/StochasticProcesses/{Girsanov,DoobTransform,FollmerDrift}.lean | todo-red | path-space RN derivatives and bridge transforms |
@@ -230,7 +232,7 @@ flowchart TD
 | 1.1 stochastic calculus | MEAS, GAUSS, REG | Ito/quadratic-variation/Taylor local-error subtree | quadratic variation normalization and finite-dimensional Ito test identity | partial-local-compiled |
 | 1.2 Markov semigroups | MEAS, SDE, REG | semigroup -> generator-domain -> weak-test derivative subtree | semigroup test-function pairing under generator-domain hypotheses | planned |
 | 1.3 optimal transport geometry | MEAS, CONV, REG | couplings -> Wasserstein distance -> geodesic convexity subtree | law-map/coupling measurable pushforward interface | planned |
-| 1.4 Langevin as gradient flow | DENS, FI, SDE, REG | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateau cutoffs, and radial pointwise exhaustion compiled; scaled cutoff derivatives and dominated whole-space IBP remain | cutoff-exhaustion-base-compiled |
+| 1.4 Langevin as gradient flow | DENS, FI, SDE, REG | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateaus, radial pointwise exhaustion, a scale-uniform first-derivative cutoff bound, closed outer-region derivative vanishing, and the finite-Pi cutoff derivative/trace interfaces compiled; L1 tail passage and whole-space IBP remain | cutoff-first-derivative-consumer-bridge-compiled |
 | 2 functional inequalities | CONV, DENS, FI, REG | PI/LSI/TI/isoperimetry plus preservation-operation subtrees | log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit | partial-local-compiled |
 | 3 stochastic analysis topics | PATH, DENS, SDE, REG | Girsanov -> Doob transform -> Follmer drift -> Schrodinger bridge | finite-dimensional Gaussian Esscher density, stdGaussian inner-product form, cylindrical Girsanov integral, and RN/withDensity identity compiled; full Brownian path packaging remains | finite-girsanov-rn-cylinder-compiled |
 | 4 Langevin Monte Carlo | MEAS, KERN, SDE, DENS, REG, DISC | coupling/interpolation/convex-optimization/Girsanov proof subtrees | LMC interpolation weak-test law derivative under domination; two-point Gaussian transition-kernel geometry compiled | partial-local-compiled |
@@ -258,8 +260,11 @@ flowchart TD
   LOCAL[local/exact-support<br/>cutoff leaves]:::blue
   PLATEAU[compact-in-open and Pi-box<br/>plateau cutoffs]:::blue
   RADIAL[radial cutoff family<br/>compact support + pointwise limit]:::blue
-  DERIV[scaled cutoff derivative bounds]:::red
-  TAIL[dominated cutoff/tail passage]:::red
+  DERIV1[scale-uniform fderiv<br/>O(R^-1)]:::blue
+  DSUP[closed outer region<br/>totalized fderiv = 0]:::blue
+  PIB[PiLp derivative and<br/>smulRight trace bridges]:::blue
+  DERIV2[Hessian/Laplacian<br/>O(R^-2)]:::red
+  TAIL[L1 cutoff-gradient tail<br/>from Integrable field]:::red
   IBP[whole-space weighted IBP]:::red
   INV[invariant Gibbs law]:::red
   KL[KL/FI dissipation]
@@ -276,14 +281,18 @@ flowchart TD
   LOCAL --> BOX
   LOCAL --> PLATEAU
   PLATEAU --> BOX
-  PLATEAU --> DERIV
-  RADIAL --> DERIV --> TAIL --> IBP
+  RADIAL --> DERIV1 --> PIB --> TAIL --> IBP
+  RADIAL --> DSUP
+  RADIAL --> DERIV2
   WGF --> INV --> KL --> W2
   REG -.-> TAY
   REG -.-> GEN
   REG -.-> GENALG
   REG -.-> BOX
-  REG -.-> DERIV
+  REG -.-> DERIV1
+  REG -.-> DSUP
+  REG -.-> PIB
+  REG -.-> DERIV2
   REG -.-> TAIL
   REG -.-> IBP
   REG -.-> INV
@@ -600,7 +609,7 @@ flowchart TD
 | prekopaLeindler_finiteDimensional | CONV/MEAS | TechnicalLemmas/Geometry/PrekopaLeindler.lean | external `AsymptoticStatistics/ForMathlib/PrekopaLeindler.lean`; Mathlib lacks direct PL package | external-port-audit |
 | brunnMinkowski_oneDim_outerMeasure | CONV/MEAS | TechnicalLemmas/Geometry/BrunnMinkowski.lean | external `Brunn1D.lean`; Mathlib convex/volume APIs | external-port-audit |
 | gibbsDensity_withDensity_normalized | DENS/CONV | TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean | compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic and one-dimensional Laplace normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic plus exact one-dimensional Laplace Lebesgue Gibbs normalizers; next generalize beyond finite-dimensional quadratic and one-dimensional Laplace tails | convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic and one-dimensional Laplace Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic and exact one-dimensional Laplace Lebesgue normalizers, and normalized withDensity probability bridges compiled; general coercivity envelopes remain |
-| langevinGenerator_invariant_gibbs_weak | SDE/DENS/FI | TechnicalLemmas/StochasticProcesses/Langevin.lean | compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, and the radial compact-support pointwise-exhaustion family ported from the audited SLT pattern; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces | generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, and radial compact-support pointwise exhaustion are compiled; scaled first/Hessian/Laplacian cutoff bounds, domination and Gibbs tails, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red |
+| langevinGenerator_invariant_gibbs_weak | SDE/DENS/FI | TechnicalLemmas/StochasticProcesses/Langevin.lean | compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, and the radial compact-support pointwise-exhaustion plus scale-uniform first-derivative family ported and strengthened from the audited SLT pattern; the closed outer derivative-zero leaf and finite-Pi cutoff derivative/trace interfaces now connect that family to the divergence consumer; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces | generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, radial pointwise exhaustion, one-constant-for-all-R first-derivative control, closed outer derivative vanishing, and finite-Pi cutoff derivative/trace interfaces are compiled; L1 tail passage, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red; second-order cutoff bounds stay separate until a named consumer needs them |
 | lsi_tensorization_or_preservation_contract | FI/CONV | TechnicalLemmas/FunctionalInequalities/Preservation.lean | Mathlib convex/Jensen APIs; SLT/AST reference style for functional inequality statements | planned |
 | gaussianEsscher_shift_density | GAUSS/PATH | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | external `GaussianMGF.lean`, `PiWithDensity.lean`, `GaussianShift.lean` | formalized-local-density-half |
 | gaussianShift_change_of_measure | GAUSS/PATH | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | external `GaussianShift.lean`; local `stdGaussianPi_withDensity_exp_shift` | formalized-local-product-measure |

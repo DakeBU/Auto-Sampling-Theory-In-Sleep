@@ -1,6 +1,6 @@
 # Log-Concave Sampling Lean Organization
 
-Generated: `2026-07-13 18:17:17`
+Generated: `2026-07-16 22:13:32`
 
 Primary source: `https://chewisinho.github.io/main.pdf`
 
@@ -77,8 +77,12 @@ flowchart TD
   G[local and exact-support<br/>smooth cutoffs]:::blue
   H[compact-in-open and Pi-box<br/>plateau = 1]:::blue
   I[radial cutoff family<br/>compact support + tends to 1]:::blue
-  J[scaled cutoff derivatives<br/>O(R^-1), O(R^-2)]:::red
-  K[dominated tail<br/>and exhaustion passage]:::red
+  J1[scale-uniform cutoff fderiv<br/>O(R^-1)]:::blue
+  J1S[closed outer region<br/>totalized fderiv = 0]:::blue
+  JP[PiLp cutoff derivative<br/>chain-rule bridge]:::blue
+  JT[smulRight basis trace<br/>equals derivative on field]:::blue
+  J2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
+  K[L1 cutoff-gradient tail<br/>from Integrable field]:::red
   L[weighted whole-space IBP<br/>integral Lf d pi = 0]:::red
   M[generator and semigroup<br/>domain contract]:::red
   N[invariant Gibbs law]:::red
@@ -88,8 +92,10 @@ flowchart TD
   D --> B
   D --> E
   G --> F
-  G --> H --> J
-  I --> J --> K
+  G --> H
+  I --> J1 --> JP --> JT --> K
+  I --> J1S
+  I --> J2
   M --> N
 
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
@@ -101,7 +107,7 @@ flowchart TD
 | display algebra | pointwise generator, weighted display, coordinate sum conventions | none for finite-dimensional pointwise algebra |
 | regularity | global `C¹/C²` gives gradient continuity, Laplacian continuity, scalar `ContinuousOn`, and Pi-field `HasFDerivAt` with Mathlib `fderiv` | closed-box/local regularity variants if later needed |
 | finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | no whole-space limit yet |
-| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, and pointwise exhaustion | `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian bounds |
+| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, pointwise exhaustion, one-constant-for-all-scales `O(R⁻¹)` first-derivative control, closed outer-region derivative vanishing, and finite-Pi derivative/trace consumer bridges | `O(R⁻²)` Hessian/Laplacian bounds only when a named second-order consumer requires them |
 | whole-space passage | finite-box zero-face cancellation | domination, tail convergence, and passage from cutoff identities to whole-space weighted IBP |
 | invariant law | source contract is identified | weighted IBP, generator domains, and semigroup semantics |
 
@@ -124,11 +130,16 @@ flowchart TD
 - `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean` contains
   the reusable smooth unit cutoff, positive-scale radial family, closed-ball
   support and topological-support bounds, compact support, pointwise convergence
-  to one, and a general compact-in-open smooth plateau theorem.  These results
-  do not yet provide scale-uniform first- or second-derivative bounds.
+  to one, a general compact-in-open smooth plateau theorem, a bounded unit-cutoff
+  derivative, the totalized `fderiv` bound for `x -> ||x|| / R`, a single
+  constant controlling every radial first derivative by `C / R`, and zero
+  totalized derivative throughout the closed outer region `2R <= ||x||`.
+  Integral tail passage remains separate; second-order estimates are added only
+  for named consumers.
 - `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean`
   contains the finite coordinate-divergence convention, Euclidean/Pi `WithLp`
-  trace bridge, open-box/off-countable to closed-box a.e. transfer,
+  trace bridge, the radial-cutoff `toLp` derivative producer, the standard-basis
+  `smulRight` trace identity, open-box/off-countable to closed-box a.e. transfer,
   trace-to-coordinate `IntegrableOn` transfer, and the finite-box signed
   face-term wrapper with trace-integrability input.  It also specializes the
   plateau theorem to an inner closed Pi-box inside a larger open Pi-box.  It
@@ -153,9 +164,11 @@ flowchart TD
 
 The next high-value roots, ordered by the active textbook dependency, are:
 
-1. `REG/CALC/SDE`: `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian
-   estimates for the compiled radial cutoff family.
-2. `MEAS/CALC/SDE`: domination and Gibbs-tail lemmas that pass finite-box or
+1. `MEAS/CALC/SDE`: a generic `L¹` cutoff-gradient integral limit from
+   `Integrable G` and the compiled `C/R` derivative estimate, using the compiled
+   finite-Pi derivative/trace consumer bridges.
+2. `MEAS/CALC/SDE`: Gibbs-specific domination and tail lemmas that use that
+   generic limit to pass finite-box or
    compact-support identities to the whole-space weighted IBP identity.
 3. `SDE/DENS/FI`: generator-domain and semigroup contracts that turn weighted
    IBP into the invariant Gibbs law and then KL/FI dissipation.

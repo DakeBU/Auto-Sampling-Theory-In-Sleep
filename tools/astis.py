@@ -2491,8 +2491,8 @@ def chewi_chapter_rows() -> list[dict[str, str]]:
             "chapter": "1.4 Langevin as gradient flow",
             "shared": "DENS, FI, SDE, REG",
             "dag": "Gibbs density -> generator -> KL/FI dissipation -> WGF contract",
-            "first_leaf": "Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateau cutoffs, and radial pointwise exhaustion compiled; scaled cutoff derivatives and dominated whole-space IBP remain",
-            "status": "cutoff-exhaustion-base-compiled",
+            "first_leaf": "Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateaus, radial pointwise exhaustion, a scale-uniform first-derivative cutoff bound, closed outer-region derivative vanishing, and the finite-Pi cutoff derivative/trace interfaces compiled; L1 tail passage and whole-space IBP remain",
+            "status": "cutoff-first-derivative-consumer-bridge-compiled",
         },
         {
             "chapter": "2 functional inequalities",
@@ -2688,8 +2688,8 @@ def chewi_open_leaf_rows() -> list[dict[str, str]]:
             "leaf": "langevinGenerator_invariant_gibbs_weak",
             "label": "SDE/DENS/FI",
             "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean",
-            "borrow": "compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, and the radial compact-support pointwise-exhaustion family ported from the audited SLT pattern; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces",
-            "status": "generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, and radial compact-support pointwise exhaustion are compiled; scaled first/Hessian/Laplacian cutoff bounds, domination and Gibbs tails, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red",
+            "borrow": "compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, and the radial compact-support pointwise-exhaustion plus scale-uniform first-derivative family ported and strengthened from the audited SLT pattern; the closed outer derivative-zero leaf and finite-Pi cutoff derivative/trace interfaces now connect that family to the divergence consumer; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces",
+            "status": "generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, radial pointwise exhaustion, one-constant-for-all-R first-derivative control, closed outer derivative vanishing, and finite-Pi cutoff derivative/trace interfaces are compiled; L1 tail passage, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red; second-order cutoff bounds stay separate until a named consumer needs them",
         },
         {
             "leaf": "lsi_tensorization_or_preservation_contract",
@@ -3258,10 +3258,17 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
         },
         {
             "family": "ANALYSIS/SDE",
-            "node": "Cutoff derivatives and dominated exhaustion",
+            "node": "Scale-uniform cutoff first derivative",
+            "target": "TechnicalLemmas/Analysis/Calculus/{Cutoff,Divergence}.lean",
+            "status": "compiled-blue",
+            "role": "one unit-cutoff constant controls every positive-scale radial fderiv by C/R; the totalized fderiv vanishes on the closed outer region; PiLp chain-rule and standard-basis trace bridges expose the cutoff cross term",
+        },
+        {
+            "family": "ANALYSIS/SDE",
+            "node": "L1 cutoff-gradient tail and later second-order consumers",
             "target": "TechnicalLemmas/Analysis/Calculus/Cutoff.lean then Langevin whole-space IBP",
             "status": "todo-red",
-            "role": "scaled first/Hessian/Laplacian bounds, integrable domination, Gibbs-tail convergence, and whole-space passage",
+            "role": "first prove the generic cutoff-gradient integral limit from Integrable G and C/R; keep Hessian/Laplacian bounds separate until a named second-order consumer; then discharge Gibbs-tail convergence and whole-space passage",
         },
         {
             "family": "SDE/PATH",
@@ -3375,7 +3382,8 @@ def log_concave_lean_tree_status_mmd_text() -> str:
   SDE --> TraceIntegrability[Trace IntegrableOn under global C1/C2]
   SDE --> TestRegularity[Global C1/C2 components and Pi field fderiv]
   SDE --> CutoffBase[Reusable smooth cutoffs and plateaus]
-  SDE --> CutoffLimit[Cutoff derivatives and dominated exhaustion]
+  SDE --> CutoffFirst[Scale-uniform cutoff first derivative]
+  SDE --> CutoffLimit[Second-order cutoff and dominated exhaustion]
   SDE --> GirsanovFinite[StochasticProcesses.Girsanov finite cylinder]
   SDE --> Langevin[Semigroup/Ito/invariant Gibbs law]
   SDE --> Path[Girsanov/Doob/Follmer]
@@ -3388,7 +3396,7 @@ def log_concave_lean_tree_status_mmd_text() -> str:
   classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
   class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
-  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,GirsanovFinite compiled;
+  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,CutoffFirst,GirsanovFinite compiled;
   class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,CutoffLimit,Langevin,Path,LMC,HMC,MALA todo;
 """
 
@@ -3474,7 +3482,9 @@ def log_concave_lean_tree_status_svg() -> str:
             ("FokkerPlanck algebra", "compiled", "compiled-blue"),
             ("Langevin expression/algebra", "compiled", "compiled-blue"),
             ("Smooth cutoff/plateau base", "compiled", "compiled-blue"),
-            ("Cutoff derivatives/tails", "todo", "todo-red"),
+            ("Cutoff fderiv O(R^-1) + Pi trace", "compiled", "compiled-blue"),
+            ("L1 cutoff-gradient tail", "todo", "todo-red"),
+            ("2nd-order cutoff (on demand)", "todo", "todo-red"),
             ("Finite Girsanov RN cylinder", "compiled", "compiled-blue"),
             ("Semigroup/Ito/invariant law", "todo", "todo-red"),
             ("Girsanov/Doob/Follmer", "todo", "todo-red"),
@@ -3846,8 +3856,12 @@ flowchart TD
   G[local and exact-support<br/>smooth cutoffs]:::blue
   H[compact-in-open and Pi-box<br/>plateau = 1]:::blue
   I[radial cutoff family<br/>compact support + tends to 1]:::blue
-  J[scaled cutoff derivatives<br/>O(R^-1), O(R^-2)]:::red
-  K[dominated tail<br/>and exhaustion passage]:::red
+  J1[scale-uniform cutoff fderiv<br/>O(R^-1)]:::blue
+  J1S[closed outer region<br/>totalized fderiv = 0]:::blue
+  JP[PiLp cutoff derivative<br/>chain-rule bridge]:::blue
+  JT[smulRight basis trace<br/>equals derivative on field]:::blue
+  J2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
+  K[L1 cutoff-gradient tail<br/>from Integrable field]:::red
   L[weighted whole-space IBP<br/>integral Lf d pi = 0]:::red
   M[generator and semigroup<br/>domain contract]:::red
   N[invariant Gibbs law]:::red
@@ -3857,8 +3871,10 @@ flowchart TD
   D --> B
   D --> E
   G --> F
-  G --> H --> J
-  I --> J --> K
+  G --> H
+  I --> J1 --> JP --> JT --> K
+  I --> J1S
+  I --> J2
   M --> N
 
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
@@ -3870,7 +3886,7 @@ flowchart TD
 | display algebra | pointwise generator, weighted display, coordinate sum conventions | none for finite-dimensional pointwise algebra |
 | regularity | global `C¹/C²` gives gradient continuity, Laplacian continuity, scalar `ContinuousOn`, and Pi-field `HasFDerivAt` with Mathlib `fderiv` | closed-box/local regularity variants if later needed |
 | finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | no whole-space limit yet |
-| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, and pointwise exhaustion | `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian bounds |
+| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, pointwise exhaustion, one-constant-for-all-scales `O(R⁻¹)` first-derivative control, closed outer-region derivative vanishing, and finite-Pi derivative/trace consumer bridges | `O(R⁻²)` Hessian/Laplacian bounds only when a named second-order consumer requires them |
 | whole-space passage | finite-box zero-face cancellation | domination, tail convergence, and passage from cutoff identities to whole-space weighted IBP |
 | invariant law | source contract is identified | weighted IBP, generator domains, and semigroup semantics |
 
@@ -3893,11 +3909,16 @@ flowchart TD
 - `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean` contains
   the reusable smooth unit cutoff, positive-scale radial family, closed-ball
   support and topological-support bounds, compact support, pointwise convergence
-  to one, and a general compact-in-open smooth plateau theorem.  These results
-  do not yet provide scale-uniform first- or second-derivative bounds.
+  to one, a general compact-in-open smooth plateau theorem, a bounded unit-cutoff
+  derivative, the totalized `fderiv` bound for `x -> ||x|| / R`, a single
+  constant controlling every radial first derivative by `C / R`, and zero
+  totalized derivative throughout the closed outer region `2R <= ||x||`.
+  Integral tail passage remains separate; second-order estimates are added only
+  for named consumers.
 - `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean`
   contains the finite coordinate-divergence convention, Euclidean/Pi `WithLp`
-  trace bridge, open-box/off-countable to closed-box a.e. transfer,
+  trace bridge, the radial-cutoff `toLp` derivative producer, the standard-basis
+  `smulRight` trace identity, open-box/off-countable to closed-box a.e. transfer,
   trace-to-coordinate `IntegrableOn` transfer, and the finite-box signed
   face-term wrapper with trace-integrability input.  It also specializes the
   plateau theorem to an inner closed Pi-box inside a larger open Pi-box.  It
@@ -3922,9 +3943,11 @@ flowchart TD
 
 The next high-value roots, ordered by the active textbook dependency, are:
 
-1. `REG/CALC/SDE`: `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian
-   estimates for the compiled radial cutoff family.
-2. `MEAS/CALC/SDE`: domination and Gibbs-tail lemmas that pass finite-box or
+1. `MEAS/CALC/SDE`: a generic `L¹` cutoff-gradient integral limit from
+   `Integrable G` and the compiled `C/R` derivative estimate, using the compiled
+   finite-Pi derivative/trace consumer bridges.
+2. `MEAS/CALC/SDE`: Gibbs-specific domination and tail lemmas that use that
+   generic limit to pass finite-box or
    compact-support identities to the whole-space weighted IBP identity.
 3. `SDE/DENS/FI`: generator-domain and semigroup contracts that turn weighted
    IBP into the invariant Gibbs law and then KL/FI dissipation.
@@ -4202,8 +4225,11 @@ flowchart TD
   LOCAL[local/exact-support<br/>cutoff leaves]:::blue
   PLATEAU[compact-in-open and Pi-box<br/>plateau cutoffs]:::blue
   RADIAL[radial cutoff family<br/>compact support + pointwise limit]:::blue
-  DERIV[scaled cutoff derivative bounds]:::red
-  TAIL[dominated cutoff/tail passage]:::red
+  DERIV1[scale-uniform fderiv<br/>O(R^-1)]:::blue
+  DSUP[closed outer region<br/>totalized fderiv = 0]:::blue
+  PIB[PiLp derivative and<br/>smulRight trace bridges]:::blue
+  DERIV2[Hessian/Laplacian<br/>O(R^-2)]:::red
+  TAIL[L1 cutoff-gradient tail<br/>from Integrable field]:::red
   IBP[whole-space weighted IBP]:::red
   INV[invariant Gibbs law]:::red
   KL[KL/FI dissipation]
@@ -4220,14 +4246,18 @@ flowchart TD
   LOCAL --> BOX
   LOCAL --> PLATEAU
   PLATEAU --> BOX
-  PLATEAU --> DERIV
-  RADIAL --> DERIV --> TAIL --> IBP
+  RADIAL --> DERIV1 --> PIB --> TAIL --> IBP
+  RADIAL --> DSUP
+  RADIAL --> DERIV2
   WGF --> INV --> KL --> W2
   REG -.-> TAY
   REG -.-> GEN
   REG -.-> GENALG
   REG -.-> BOX
-  REG -.-> DERIV
+  REG -.-> DERIV1
+  REG -.-> DSUP
+  REG -.-> PIB
+  REG -.-> DERIV2
   REG -.-> TAIL
   REG -.-> IBP
   REG -.-> INV
@@ -4575,8 +4605,8 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "smooth unit and radial cutoffs, range bounds, plain/topological support control, compact support, pointwise exhaustion, and a generic compact-in-open smooth plateau theorem",
-        "status": "compiled ANALYSIS/REG/SDE base; scaled first/Hessian/Laplacian estimates and dominated tail passage remain separate red leaves",
+        "summary": "smooth unit and radial cutoffs, range bounds, support control, compact support, pointwise exhaustion, compact-in-open plateaus, scale-uniform radial first-derivative control, and closed outer-region totalized-fderiv vanishing",
+        "status": "compiled ANALYSIS/REG/SDE base through O(R^-1) fderiv and the closed outer derivative-zero leaf; L1 tail passage is red, while Hessian/Laplacian estimates remain separate until a named consumer requires them",
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient": {
         "layer": "Mathlib-ready technical lemma",
@@ -4585,8 +4615,8 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "finite-dimensional pointwise coordinate-divergence convention `sum_i lineDeriv F_i x e_i`, `HasFDerivAt` expansion to `sum_i F' e_i i`, `DifferentiableAt` bridge to the default Mathlib `fderiv` summand, WithLp/Pi pointwise and a.e. trace bridges, open-box/countable a.e. transfer, trace-to-coordinate `IntegrableOn` transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization",
-        "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation; no derivative-controlled exhaustion, whole-space IBP, no-boundary limit, or invariant-law claim",
+        "summary": "finite-dimensional pointwise coordinate-divergence convention `sum_i lineDeriv F_i x e_i`, `HasFDerivAt` expansion to `sum_i F' e_i i`, `DifferentiableAt` bridge to the default Mathlib `fderiv` summand, radial-cutoff PiLp derivative producer, smulRight basis-trace identity, WithLp/Pi pointwise and a.e. trace bridges, open-box/countable a.e. transfer, trace-to-coordinate `IntegrableOn` transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization",
+        "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation and the cutoff cross-term interface; no L1 tail limit, whole-space IBP, no-boundary limit, or invariant-law claim",
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv": {
         "layer": "Mathlib-ready technical lemma",
@@ -4997,10 +5027,13 @@ growth path is:
 - lock the shared-root taxonomy (`MEAS`, `KERN`, `DENS`, `GAUSS`, `CONV`,
   `FI`, `SDE`, `PATH`, `DISC`, `REG`);
 - first close the Ch.1 Langevin cutoff branch beyond the compiled local,
-  compact-in-open, Pi-box, and radial cutoff bases: prove scale-uniform
-  `O(R⁻¹)` first-derivative and `O(R⁻²)` Hessian/Laplacian estimates;
-- use those estimates to prove integrable domination and Gibbs-tail convergence,
+  compact-in-open, Pi-box, radial, scale-uniform `O(R⁻¹)` first-derivative,
+  closed-outer derivative-zero, and Pi derivative/trace bases: prove the generic
+  `L¹` cutoff-gradient integral limit from `Integrable G`;
+- use that limit to prove Gibbs-tail convergence,
   then pass the compiled finite-box identities to whole-space weighted IBP;
+- add second-order cutoff estimates only when a named Hessian/Laplacian consumer
+  requires them;
 - add generator-domain and semigroup contracts only after weighted IBP is blue,
   and do not state the invariant Gibbs law before both branches are available;
 - in parallel, extend from the compiled log-concavity density-to-potential
@@ -5552,13 +5585,13 @@ leaf should be written so it can later be proposed upstream.
 - Public repository: {SLT_URL}
 - Paper: {SLT_ARXIV_URL}
 - Local checkout: `{SLT_ROOT}`
-- Current audited checkout: `216e578c9576bab6b0abc3ba6c65762536768e96`
-  on `main`.  The last commit itself is a README edit, but the updated local
-  checkout contains the current proof surface listed below.
-- Latest verification: `git fetch --prune origin` on 2026-07-13 left local
-  `HEAD` equal to `origin/main` at `216e578c9576bab6b0abc3ba6c65762536768e96`.
-  The checkout has only untracked `.lake/` cache files, not source edits.  A
-  full external `lake build` passed at this commit (8630 jobs).
+- Current audited checkout: `d0f506f0a695018265dccb33bcb05e2f5ca1c876`
+  on `main`, tagged `v4.32.0`.
+- Latest verification: `git fetch --prune origin` and fast-forward on 2026-07-16
+  left local `HEAD` equal to `origin/main`.  The checkout has only untracked
+  `.lake/` cache files, not source edits.  The focused target
+  `lake build SLT.GaussianSobolevDense.Cutoff` passed at this commit under Lean
+  `v4.32.0` (3115 jobs, including rebuilt dependencies).
 - Role: audited port/reference source for probability, Gaussian,
   concentration, entropy duality, log-Sobolev/Poincare, product-measure
   slicing, matrix concentration, and discretization proof style.
@@ -5581,7 +5614,7 @@ or they remain recorded in the port queue.
 | `SLT/GaussianLSI/TensorizedGLSI.lean` | `partialDeriv`, `sliceFunction`, derivative of slices, and tensorized Gaussian LSI proof architecture |
 | `SLT/GaussianPoincare/*` | Rademacher/Efron-Stein/limit architecture for Gaussian Poincare |
 | `SLT/GaussianSobolevDense/Defs.lean` | radial smooth cutoff definitions: the support, compact-support, smoothness, range, and pointwise-exhaustion base has been ported as ASTIS-owned declarations in `Analysis/Calculus/Cutoff.lean` |
-| `SLT/GaussianSobolevDense/Cutoff.lean` | cutoff-gradient estimates and product-rule staging such as `smoothCutoffR_fderiv_bound`, `cutoff_product_rule`, and `tendsto_cutoff_W12`; next port target for scaled derivative bounds and dominated cutoff limits before IBP |
+| `SLT/GaussianSobolevDense/Cutoff.lean` | the scalar derivative bound, norm-scaling bound, strengthened one-constant-for-all-R radial first-derivative theorem, and closed outer derivative-zero leaf have been ported as ASTIS-owned declarations; ASTIS also supplies the finite-Pi derivative/trace consumer bridge; dominated cutoff limits remain reference targets before IBP |
 | `SLT/GaussianPoincare/TaylorBound.lean` | compact-support derivative support/boundedness patterns: `deriv_hasCompactSupport`, `deriv2_hasCompactSupport`, `deriv_bounded_of_compactlySupported`; closest SLT staging pattern for no-boundary/IBP prerequisites |
 | `SLT/MeasureInfrastructure.lean` | Chernoff, layer-cake, Jensen, finite sup/union, and integrability proof patterns |
 | `SLT/HansonWright.lean`, `SLT/MatrixInfra/*`, `SLT/RMT/*`, `SLT/TDudley.lean` | later matrix concentration, empirical-process, and random-matrix proof patterns |
@@ -5596,11 +5629,13 @@ Immediate port candidates for the log-concave sampling tree:
   interface when strengthening ASTIS Gaussian transition kernels and LMC noise.
 - entropy/Jensen surface: reuse the proof staging around `entropy_nonneg`,
   conditional entropy, and subadditivity for FI/LSI chapters.
-- cutoff/no-boundary surface: the radial support/exhaustion base is now ported;
+- cutoff/no-boundary surface: the radial support/exhaustion, scale-uniform
+  first-derivative, closed outer derivative-zero, and finite-Pi consumer bases
+  are now ported;
   continue using `GaussianSobolevDense/Cutoff.lean` and
   `GaussianPoincare/TaylorBound.lean` as proof-pattern memory for ASTIS-owned
-  derivative-support, scaled-gradient, Hessian/Laplacian, and dominated-limit
-  leaves.
+  dominated-limit leaves, and for Hessian/Laplacian leaves only when a named
+  second-order consumer requires them.
 - Gaussian tensorization: use the LSI/Poincare files as proof architecture
   references only; no theorem is callable until ported locally.
 
@@ -5610,9 +5645,10 @@ Recommended migration order for ASTIS roots:
 2. `GAUSS/MEAS`: product Gaussian law and coordinate/linear functional facts.
 3. `GAUSS/FI/DENS/REG`: coordinate derivative slicing and tensorized Gaussian
    LSI proof architecture.
-4. `REG/CALC/SDE`: extend the compiled smooth-cutoff and compact-support base
-   with derivative-support, scaled-gradient, Hessian/Laplacian, and domination
-   facts needed before no-boundary IBP.
+4. `REG/CALC/SDE`: use the compiled smooth-cutoff, compact-support,
+   scale-uniform first-derivative, closed outer derivative-zero, and finite-Pi
+   consumer bases to prove the generic `L¹` cutoff-gradient tail; add
+   Hessian/Laplacian facts only for named second-order consumers.
 5. `FI/DENS/MEAS`: entropy/Jensen and Gibbs-duality infrastructure.
 6. `FI/MEAS`: entropy chain rule and product subadditivity.
 """,
@@ -8408,8 +8444,9 @@ def memory_snapshot_state(task_id: str, cycle: int, run_dir: Path) -> dict:
         )
     if task_id == "ASTIS-CHEWI-001":
         route = latest_route or (
-            "Prove one scale-uniform derivative bound for the compiled radial "
-            "cutoff family before attempting dominated tails or whole-space IBP."
+            "Prove a generic L1 cutoff-gradient integral limit for the PiLp-wrapped "
+            "radial cutoff from Integrable G and the compiled C/R bound; keep the "
+            "main-term dominated-convergence and source-field integrability leaves red."
         )
         next_lower_tasks = [
             {
@@ -8494,8 +8531,10 @@ def log_concave_plain_language_status_en() -> str:
     return (
         "The active textbook edge is Chapter 1, Example 1.2.8 to Corollary "
         "1.2.9.  Generator algebra, finite-box cancellation, smooth plateau "
-        "cutoffs, and the radial compact-support pointwise-exhaustion base are "
-        "compiled locally.  Scale-uniform cutoff derivatives, dominated Gibbs "
+        "cutoffs, the radial compact-support pointwise-exhaustion base, a "
+        "scale-uniform O(R^-1) first-derivative bound, closed outer-region "
+        "derivative vanishing, and finite-Pi cutoff derivative/trace bridges are "
+        "compiled locally.  The generic L1 cutoff-gradient limit, dominated Gibbs "
         "tails, whole-space weighted integration by parts, generator/semigroup "
         "domains, and the invariant Gibbs law remain explicit red nodes."
     )
@@ -8601,17 +8640,17 @@ def todo_markdown(snapshot: dict) -> str:
         human_default = (
             "Use the reviewer-recorded active route: " + active_route
             if active_route else
-            "Prove the smallest scale-uniform derivative leaf for the compiled "
-            "radial cutoff family before attempting dominated tails, "
-            "whole-space weighted IBP, or invariant Gibbs claims."
+            "Prove the generic L1 cutoff-gradient integral limit from Integrable G "
+            "and the compiled C/R radial first-derivative bound before attempting "
+            "whole-space weighted IBP or invariant Gibbs claims."
         )
         lower_1 = (
-            "Write the natural-language proof route and exact typeclass/regularity "
-            "assumptions for the active cutoff-derivative leaf.  Name the Mathlib "
+            "Write the natural-language proof route and exact measure/integrability "
+            "assumptions for the active L1 cutoff-gradient leaf.  Name the Mathlib "
             "APIs and audited SLT source pattern before lower 2 edits Lean."
         )
         lower_2 = (
-            "Implement the smallest scale-uniform cutoff derivative declaration "
+            "Implement the smallest generic L1 cutoff-gradient limit declaration "
             "on the active route, or return one typed blocker.  Do not combine "
             "it with dominated tails or whole-space IBP unless the first leaf "
             "already compiles."

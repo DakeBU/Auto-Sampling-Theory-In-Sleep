@@ -105,6 +105,67 @@ theorem continuousLinearEquiv_apply_euclideanSpace_single
     simp [Pi.single]
   · simp [Pi.single, h]
 
+/-- The derivative of the Euclidean radial cutoff transports to raw finite Pi
+space through `WithLp.toLp 2` by the chain rule.
+
+This is the cutoff-side `HasFDerivAt` producer consumed by the finite-box
+cutoff-smul route.  It is pointwise and proves no support containment,
+integrability, tail limit, or integration-by-parts identity. -/
+theorem hasFDerivAt_radialSmoothCutoff_comp_toLp
+    {n : ℕ} {R : ℝ} (hR : 0 < R) (x : Fin (n + 1) → ℝ) :
+    HasFDerivAt
+      (fun z => Cutoff.radialSmoothCutoff R
+        (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+      ((fderiv ℝ
+          (Cutoff.radialSmoothCutoff R :
+            EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+          (WithLp.toLp 2 x)).comp
+        (PiLp.continuousLinearEquiv
+          2 ℝ (fun _ : Fin (n + 1) => ℝ)).symm.toContinuousLinearMap)
+      x := by
+  let e : EuclideanSpace ℝ (Fin (n + 1)) ≃L[ℝ] (Fin (n + 1) → ℝ) :=
+    PiLp.continuousLinearEquiv 2 ℝ (fun _ : Fin (n + 1) => ℝ)
+  have htoLp : HasFDerivAt
+      (fun z : Fin (n + 1) → ℝ =>
+        (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+      e.symm.toContinuousLinearMap x := by
+    simpa [e] using
+      (PiLp.hasFDerivAt_toLp (𝕜 := ℝ)
+        (E := fun _ : Fin (n + 1) => ℝ) 2 x)
+  have hcutoff : HasFDerivAt
+      (Cutoff.radialSmoothCutoff R :
+        EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+      (fderiv ℝ
+        (Cutoff.radialSmoothCutoff R :
+          EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+        (WithLp.toLp 2 x))
+      (WithLp.toLp 2 x) :=
+    ((Cutoff.radialSmoothCutoff_contDiff hR).differentiable
+      (WithTop.coe_ne_zero.mpr WithTop.top_ne_zero)
+      (WithLp.toLp 2 x)).hasFDerivAt
+  simpa [Function.comp_def, e] using hcutoff.comp x htoLp
+
+/-- The trace contribution of `χ'.smulRight G` over the standard finite Pi
+basis is exactly the scalar derivative `χ'` applied to `G`.
+
+This is pure finite-dimensional linear algebra.  It identifies the cutoff
+cross term used by the divergence product rule but proves no measurability,
+integrability, convergence, or boundary result. -/
+theorem sum_smulRight_apply_pi_single_eq_apply
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (χ' : (ι → ℝ) →L[ℝ] ℝ) (G : ι → ℝ) :
+    ∑ i, ((χ'.smulRight G) (Pi.single i (1 : ℝ))) i = χ' G := by
+  calc
+    ∑ i, ((χ'.smulRight G) (Pi.single i (1 : ℝ))) i =
+        ∑ i, χ' ((G i) • Pi.single (M := fun _ : ι => ℝ) i (1 : ℝ)) := by
+      apply Finset.sum_congr rfl
+      intro i _hi
+      simp [ContinuousLinearMap.smulRight_apply, Pi.smul_apply, smul_eq_mul,
+        mul_comm]
+    _ = χ' (∑ i, (G i) • Pi.single (M := fun _ : ι => ℝ) i (1 : ℝ)) := by
+      rw [map_sum]
+    _ = χ' G := by rw [← pi_eq_sum_univ' G]
+
 /-- Pointwise bridge from Mathlib's Pi-space derivative to ASTIS
 `EuclideanSpace` coordinate divergence for a wrapped vector field.
 

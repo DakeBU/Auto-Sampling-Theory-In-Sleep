@@ -4,13 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Yuanhe Zhang, Jason D. Lee, Fanghui Liu
 -/
 import Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension
+import Mathlib.Analysis.Calculus.LocalExtr.Basic
 
 /-!
 # Smooth radial cutoff functions
 
 This file adapts the smooth cutoff construction from
 `SLT.GaussianSobolevDense.Defs` in `lean-stat-learning-theory`, at commit
-`216e578c9576bab6b0abc3ba6c65762536768e96`, and generalizes its radial cutoff
+`d0f506f0a695018265dccb33bcb05e2f5ca1c876`, and generalizes its radial cutoff
 from Euclidean coordinate spaces to real normed spaces, adding inner-product
 and finite-dimensional hypotheses only where smoothness and compactness need
 them.
@@ -21,8 +22,9 @@ compact support in finite dimension, and converges pointwise to one as
 `R -> infinity`.  The final theorem constructs a smooth compactly supported
 plateau equal to one on a compact set inside any prescribed open neighborhood.
 
-This module does not provide derivative bounds, box-shaped `tsupport` bounds,
-weighted integration by parts, or invariance statements.
+The first derivative of the radial family has a scale-uniform `C / R` bound.
+This module does not provide second-derivative bounds, box-shaped `tsupport`
+bounds, weighted integration by parts, or invariance statements.
 -/
 
 namespace AutoSamplingTheory
@@ -84,6 +86,36 @@ theorem smoothUnitCutoff_eq_zero_of_two_le_abs {x : ℝ} (hx : 2 ≤ |x|) :
 theorem smoothUnitCutoff_mem_Icc (x : ℝ) : smoothUnitCutoff x ∈ Set.Icc (0 : ℝ) 1 := by
   exact (ContDiffBumpBase.ofInnerProductSpace ℝ).mem_Icc 2 x
 
+/-- The derivative of the one-dimensional unit cutoff is bounded by one
+positive constant.  The constant is chosen before any radial scale. -/
+theorem smoothUnitCutoff_deriv_bounded :
+    ∃ C : ℝ, 0 < C ∧ ∀ x : ℝ, ‖deriv smoothUnitCutoff x‖ ≤ C := by
+  have hcont : Continuous (deriv smoothUnitCutoff) :=
+    smoothUnitCutoff_contDiff.continuous_deriv
+      (WithTop.coe_le_coe.mpr (le_top : (1 : ℕ∞) ≤ ⊤))
+  have hcutoff : HasCompactSupport smoothUnitCutoff := by
+    apply HasCompactSupport.of_support_subset_isCompact
+      (K := Set.Icc (-2 : ℝ) 2) isCompact_Icc
+    intro x hx
+    rw [Function.mem_support] at hx
+    simp only [Set.mem_Icc]
+    constructor
+    · by_contra hleft
+      push Not at hleft
+      apply hx
+      apply smoothUnitCutoff_eq_zero_of_two_le_abs
+      rw [abs_of_nonpos (by linarith : x ≤ 0)]
+      linarith
+    · by_contra hright
+      push Not at hright
+      apply hx
+      apply smoothUnitCutoff_eq_zero_of_two_le_abs
+      rw [abs_of_nonneg (by linarith : 0 ≤ x)]
+      linarith
+  obtain ⟨C, hC⟩ := hcutoff.deriv.exists_bound_of_continuous hcont
+  exact ⟨max C 1, lt_max_of_lt_right one_pos, fun x =>
+    (hC x).trans (le_max_left C 1)⟩
+
 section Radial
 
 variable {E : Type*} [NormedAddCommGroup E]
@@ -112,6 +144,24 @@ theorem radialSmoothCutoff_eq_zero_of_two_mul_le_norm {R : ℝ} (hR : 0 < R) {x 
 theorem radialSmoothCutoff_mem_Icc (R : ℝ) (x : E) :
     radialSmoothCutoff R x ∈ Set.Icc (0 : ℝ) 1 :=
   smoothUnitCutoff_mem_Icc _
+
+/-- Scaling the norm by a positive radius gives an operator-norm derivative
+bound of `1 / R`.  Mathlib's totalized `fderiv` makes the statement valid at
+the origin as well. -/
+theorem fderiv_norm_div_bound [NormedSpace ℝ E] {R : ℝ} (hR : 0 < R) (x : E) :
+    ‖fderiv ℝ (fun y : E => ‖y‖ / R) x‖ ≤ 1 / R := by
+  have hLip : LipschitzWith ⟨1 / R, by positivity⟩ (fun y : E => ‖y‖ / R) :=
+    LipschitzWith.of_dist_le_mul fun y z => by
+      have hnorm : |‖y‖ - ‖z‖| ≤ ‖y - z‖ := abs_norm_sub_norm_le y z
+      simp only [Real.dist_eq]
+      have hdiv : ‖y‖ / R - ‖z‖ / R = (‖y‖ - ‖z‖) / R := by ring
+      rw [hdiv, abs_div, abs_of_pos hR]
+      calc
+        |‖y‖ - ‖z‖| / R ≤ ‖y - z‖ / R :=
+          div_le_div_of_nonneg_right hnorm hR.le
+        _ = 1 / R * ‖y - z‖ := by ring
+        _ = 1 / R * dist y z := by rw [dist_eq_norm]
+  exact norm_fderiv_le_of_lipschitz ℝ hLip
 
 /-- For positive scale, the radial cutoff is infinitely differentiable. -/
 theorem radialSmoothCutoff_contDiff [InnerProductSpace ℝ E] {R : ℝ} (hR : 0 < R) :
@@ -147,6 +197,78 @@ theorem radialSmoothCutoff_contDiff [InnerProductSpace ℝ E] {R : ℝ} (hR : 0 
     have hscaled : ContDiffAt ℝ (⊤ : ℕ∞) (fun y : E => ‖y‖ / R) x :=
       hdiv.contDiffAt.comp x hnorm
     exact smoothUnitCutoff_contDiff.contDiffAt.comp x hscaled
+
+/-- A single positive constant controls the first derivative of every
+positive-scale radial cutoff by `C / R`.  The quantifier order records the
+scale-uniformity needed by cutoff exhaustion arguments. -/
+theorem radialSmoothCutoff_fderiv_bound [InnerProductSpace ℝ E] :
+    ∃ C : ℝ, 0 < C ∧ ∀ R : ℝ, 0 < R → ∀ x : E,
+      ‖fderiv ℝ (radialSmoothCutoff R : E → ℝ) x‖ ≤ C / R := by
+  obtain ⟨C, hC_pos, hC_bound⟩ := smoothUnitCutoff_deriv_bounded
+  refine ⟨C, hC_pos, ?_⟩
+  intro R hR x
+  by_cases hxR : ‖x‖ < R
+  · have h_eq : ∀ᶠ y in 𝓝 x, radialSmoothCutoff R y = 1 := by
+      have hradius : 0 < R - ‖x‖ := sub_pos.mpr hxR
+      refine Metric.eventually_nhds_iff.mpr ⟨R - ‖x‖, hradius, ?_⟩
+      intro y hy
+      apply radialSmoothCutoff_eq_one_of_norm_le hR
+      rw [dist_eq_norm] at hy
+      have hynorm : ‖y‖ ≤ ‖x‖ + ‖y - x‖ := by
+        calc
+          ‖y‖ = ‖x + (y - x)‖ := by congr 1; abel
+          _ ≤ ‖x‖ + ‖y - x‖ := norm_add_le x (y - x)
+      linarith
+    have hfderiv_eq : fderiv ℝ (radialSmoothCutoff R : E → ℝ) x = 0 := by
+      have hconst : fderiv ℝ (fun _ : E => (1 : ℝ)) x = 0 := by simp
+      exact (Filter.EventuallyEq.fderiv_eq h_eq).trans hconst
+    rw [hfderiv_eq, norm_zero]
+    exact div_nonneg hC_pos.le hR.le
+  · push Not at hxR
+    have hx_ne : x ≠ 0 := by
+      intro hzero
+      rw [hzero, norm_zero] at hxR
+      linarith
+    have hnorm_diff : DifferentiableAt ℝ (fun y : E => ‖y‖ / R) x := by
+      have hnorm : DifferentiableAt ℝ (fun y : E => ‖y‖) x :=
+        (contDiffAt_norm ℝ hx_ne).differentiableAt WithTop.top_ne_zero
+      simpa only [div_eq_mul_inv] using hnorm.mul_const R⁻¹
+    have hcutoff_diff : DifferentiableAt ℝ smoothUnitCutoff (‖x‖ / R) :=
+      smoothUnitCutoff_contDiff.differentiable
+        (WithTop.coe_ne_zero.mpr WithTop.top_ne_zero) (‖x‖ / R)
+    have hchain :
+        fderiv ℝ (radialSmoothCutoff R : E → ℝ) x =
+          fderiv ℝ smoothUnitCutoff (‖x‖ / R) ∘L
+            fderiv ℝ (fun y : E => ‖y‖ / R) x := by
+      unfold radialSmoothCutoff
+      exact fderiv_comp x hcutoff_diff hnorm_diff
+    rw [hchain]
+    calc
+      ‖fderiv ℝ smoothUnitCutoff (‖x‖ / R) ∘L
+          fderiv ℝ (fun y : E => ‖y‖ / R) x‖
+          ≤ ‖fderiv ℝ smoothUnitCutoff (‖x‖ / R)‖ *
+              ‖fderiv ℝ (fun y : E => ‖y‖ / R) x‖ :=
+            ContinuousLinearMap.opNorm_comp_le _ _
+      _ ≤ C * (1 / R) := by
+        apply mul_le_mul
+        · rw [← norm_deriv_eq_norm_fderiv]
+          exact hC_bound _
+        · exact fderiv_norm_div_bound hR x
+        · exact norm_nonneg _
+        · exact hC_pos.le
+      _ = C / R := by ring
+
+/-- The totalized derivative of the radial cutoff vanishes throughout the
+outer zero region, including its boundary sphere.  At the boundary the cutoff
+is a global minimum rather than locally constant; `IsLocalMin.fderiv_eq_zero`
+records that distinction. -/
+theorem radialSmoothCutoff_fderiv_eq_zero_of_two_mul_le_norm [NormedSpace ℝ E]
+    {R : ℝ} (hR : 0 < R) {x : E} (hx : 2 * R ≤ ‖x‖) :
+    fderiv ℝ (radialSmoothCutoff R : E → ℝ) x = 0 := by
+  apply IsLocalMin.fderiv_eq_zero
+  change ∀ᶠ y in 𝓝 x, radialSmoothCutoff R x ≤ radialSmoothCutoff R y
+  rw [radialSmoothCutoff_eq_zero_of_two_mul_le_norm hR hx]
+  exact Filter.Eventually.of_forall fun y => (radialSmoothCutoff_mem_Icc R y).1
 
 /-- The support of the radial cutoff lies in the closed ball of radius `2 * R`. -/
 theorem radialSmoothCutoff_support_subset_closedBall {R : ℝ} (hR : 0 < R) :
