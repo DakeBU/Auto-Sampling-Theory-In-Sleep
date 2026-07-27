@@ -1,0 +1,325 @@
+[
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "A positive real-valued function is log-concave on a set when its logarithm is concave there.",
+    "mathematical_statement": "LogConcaveOn(s,f) means (forall x in s, 0 < f(x)) and log(f) is concave on s.",
+    "intuition": "Taking logarithms turns multiplicative interpolation inequalities for densities into ordinary additive concavity. ASTIS keeps positivity in the definition because the real logarithm alone would otherwise hide the density domain.",
+    "assumptions": [
+      "The domain is a real module with additive structure.",
+      "Strict positivity holds at every point of the stated set.",
+      "Concavity is relative to the same set and scalar field."
+    ],
+    "why_assumptions": [
+      "Without positivity, Real.log is totalized in Lean and no longer expresses the intended density logarithm.",
+      "Without a convex domain, Mathlib's ConcaveOn package cannot supply the interpolation consequences used later."
+    ],
+    "proof_route": [
+      "This is the canonical ASTIS definition.",
+      "Projection lemmas expose positivity and concavity separately.",
+      "Closure lemmas derive superlevel convexity, products, powers, and affine pullbacks."
+    ],
+    "lean_notes": [
+      "The definition is a conjunction, so .1 and .2 are the primitive interfaces.",
+      "Set membership is explicit in positivity and ConcaveOn.",
+      "Real.log is total; the strict positivity conjunct is mathematically essential."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "The unnormalized Gibbs weight associated with a potential V is exp(-V), represented as an extended nonnegative real density.",
+    "mathematical_statement": "g_V(x) = exp(-V(x)), encoded as ENNReal.ofReal(exp(-V(x))).",
+    "intuition": "withDensity and lintegral use ENNReal-valued densities. The wrapper keeps positivity and possible infinite normalization in the measure-theoretic type rather than prematurely coercing to real numbers.",
+    "assumptions": [
+      "No measurability or integrability is built into the definition.",
+      "A measurable-space structure is introduced only by later lemmas."
+    ],
+    "why_assumptions": [
+      "A formal Gibbs expression is not automatically measurable.",
+      "The normalization integral may be zero or infinite until separate theorems rule those cases out."
+    ],
+    "proof_route": [
+      "Define the ENNReal density pointwise.",
+      "Prove positivity, finiteness, and measurability as separate leaves.",
+      "Use envelope or coercivity lemmas to prove finite nonzero normalization."
+    ],
+    "lean_notes": [
+      "ENNReal.ofReal is used because Measure.withDensity expects an ENNReal density.",
+      "Real.exp is nonnegative, so the coercion preserves the intended value.",
+      "Definition-level compilation does not certify normalizability."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.isProbabilityMeasure_withDensity_normalized_gibbs",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "A Gibbs density with a finite, nonzero normalization constant defines a probability measure after reciprocal normalization.",
+    "mathematical_statement": "If Z = integral exp(-V) dmu satisfies Z != 0 and Z != infinity, then mu.withDensity(Z^{-1} exp(-V)) has total mass one.",
+    "intuition": "This theorem isolates the normalization algebra from the harder analytic question of proving that the partition function is finite and nonzero.",
+    "assumptions": [
+      "The Gibbs lintegral is nonzero.",
+      "The Gibbs lintegral is finite.",
+      "The base measure and potential are exactly those used in the density."
+    ],
+    "why_assumptions": [
+      "If Z is zero, reciprocal normalization is invalid.",
+      "If Z is infinite, ENNReal inversion collapses and cannot produce a probability law."
+    ],
+    "proof_route": [
+      "Apply the generic normalized-withDensity theorem.",
+      "Instantiate its density with gibbsDensityENNReal.",
+      "Keep coercivity and envelope proofs outside this leaf."
+    ],
+    "lean_notes": [
+      "IsProbabilityMeasure is a typeclass-valued proposition about total mass.",
+      "The theorem is a reusable normalization wrapper, not an invariance theorem.",
+      "lintegral values live in ENNReal, so zero and infinity are explicit side conditions."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity.logConcaveOn_normalized_gibbsDensityENNReal_toReal_of_convexOn",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "Normalizing exp(-V) by a finite nonzero constant preserves log-concavity whenever V is convex.",
+    "mathematical_statement": "ConvexOn(s,V), Z != 0, and Z != infinity imply LogConcaveOn(s, x -> (Z^{-1} g_V(x)).toReal).",
+    "intuition": "The negative of a convex potential is concave, exponentiation makes it log-concave, and multiplication by a positive constant only shifts the logarithm.",
+    "assumptions": [
+      "V is convex on the target set.",
+      "The ENNReal normalizer is nonzero and finite."
+    ],
+    "why_assumptions": [
+      "ENNReal.toReal sends zero and infinity to degenerate real values.",
+      "Degenerate normalization would violate the strict positivity built into LogConcaveOn."
+    ],
+    "proof_route": [
+      "Convert finite nonzero Z to a positive real scalar.",
+      "Apply the constant-times-exp-negative-convex-potential closure lemma.",
+      "Normalize ENNReal.toReal and inverse expressions by simp."
+    ],
+    "lean_notes": [
+      "ENNReal.toReal_pos requires both Z != 0 and Z != infinity.",
+      "simpa performs only representation rewrites after the mathematical closure lemma is supplied."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.condDistribAeEqCondExpKernelMap",
+    "chapter": 3,
+    "route_status": "Partial",
+    "plain_english": "A conditional distribution agrees almost everywhere with the conditional-expectation kernel mapped through the sampled random variable.",
+    "mathematical_statement": "For measurable X and Y and measurable s, condDistrib(Y|X)(X(a),s) equals the mapped condExpKernel value for mu-almost every a.",
+    "intuition": "Mathlib exposes conditional laws through kernels and only up to almost-everywhere equality. This bridge aligns the orientation used by sampling proofs without choosing a pointwise version.",
+    "assumptions": [
+      "X and Y are measurable.",
+      "The source and target standard-Borel hypotheses required by Mathlib are present.",
+      "The base measure is finite.",
+      "The queried set is measurable."
+    ],
+    "why_assumptions": [
+      "Conditional expectations and regular conditional distributions are version-dependent and generally only almost-everywhere defined.",
+      "Standard-Borel hypotheses support the regular conditional-distribution construction.",
+      "Kernel evaluation on a nonmeasurable set is outside the API contract."
+    ],
+    "proof_route": [
+      "Use Mathlib's conditional-distribution versus mapped conditional-expectation-kernel theorem.",
+      "Swap the X/Y orientation to match the ASTIS consumer.",
+      "Preserve equality in the ae filter rather than strengthening it pointwise."
+    ],
+    "lean_notes": [
+      "=ᵐ[mu] is Filter.Eventually equality in the almost-everywhere filter.",
+      "MeasurableSpace.comap X is the sigma-algebra generated by the conditioning variable.",
+      "Kernel.map Y pushes the conditional kernel through Y."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "A radial cutoff at scale R is obtained by applying a fixed smooth one-dimensional cutoff to norm(x)/R.",
+    "mathematical_statement": "chi_R(x) = smoothUnitCutoff(norm(x)/R).",
+    "intuition": "The family is one on an inner ball, zero outside a larger ball, and approaches one pointwise as R grows. It is the approximation device for replacing compactly supported integration by parts with a whole-space statement.",
+    "assumptions": [
+      "The ambient space is normed.",
+      "Scale-dependent derivative results separately require R > 0."
+    ],
+    "why_assumptions": [
+      "Division by a nonpositive scale does not describe an expanding cutoff.",
+      "Nondifferentiability of the norm at zero must be handled by the plateau region, not ignored."
+    ],
+    "proof_route": [
+      "Start from a fixed smooth unit cutoff on the real line.",
+      "Compose with the scaled norm.",
+      "Prove plateau, support, smoothness, derivative bound, compact support, and convergence as separate leaves."
+    ],
+    "lean_notes": [
+      "The definition itself is total in R; meaningful analytic theorems state positivity hypotheses.",
+      "HasCompactSupport and Function.support are different APIs and have separate bridge lemmas."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tendsto_one",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "For each fixed point, the radial cutoff converges to one as its scale tends to positive infinity.",
+    "mathematical_statement": "For fixed x, Tendsto (R -> chi_R(x)) atTop (nhds 1).",
+    "intuition": "Eventually R exceeds norm(x), so the scaled point lies in the unit plateau where the cutoff is exactly one.",
+    "assumptions": [
+      "The point x is fixed while R tends to infinity.",
+      "The ambient space is normed."
+    ],
+    "why_assumptions": [
+      "Pointwise convergence does not imply dominated convergence of integrals.",
+      "Uniform derivative or tail estimates require additional independent lemmas."
+    ],
+    "proof_route": [
+      "Use the eventual inequality norm(x) <= R at atTop.",
+      "Rewrite the cutoff by its plateau theorem.",
+      "Conclude eventual equality and hence Tendsto."
+    ],
+    "lean_notes": [
+      "Tendsto is filter-level convergence.",
+      "This leaf cannot by itself justify passing a limit through an integral."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_langevinGenerator_coordinateDisplay",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "The finite-dimensional Langevin generator is displayed as a Laplacian term minus the inner product of the potential gradient with the test-function gradient.",
+    "mathematical_statement": "L phi = laplacian(phi) - <grad V, grad phi> in finite Euclidean coordinates, under the derivative hypotheses stated in Lean.",
+    "intuition": "This is the differential expression predicted by Ito's formula. It is an algebraic and calculus identity, not yet a theorem that a stochastic process has this closed generator.",
+    "assumptions": [
+      "Finite-dimensional Euclidean coordinates are available.",
+      "The required first and second Frechet derivatives exist at the point.",
+      "Coordinate and basis representations use the same PiLp convention."
+    ],
+    "why_assumptions": [
+      "Mathlib's fderiv is totalized and has no derivative meaning without differentiability evidence.",
+      "A displayed differential expression does not identify a semigroup domain."
+    ],
+    "proof_route": [
+      "Expand the basis form of gradient and Laplacian.",
+      "Rewrite Euclidean inner products as finite coordinate sums.",
+      "Assemble the coordinate generator identity."
+    ],
+    "lean_notes": [
+      "EuclideanSpace is a PiLp wrapper, so WithLp coercions are visible.",
+      "HasFDerivAt hypotheses carry genuine differentiability evidence.",
+      "The theorem does not prove SDE existence, Ito's formula, or invariance."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov.finiteGaussianGirsanovCylinderMeasure_eq_withDensity",
+    "chapter": 3,
+    "route_status": "Partial",
+    "plain_english": "A finite-dimensional shifted standard Gaussian law is the centered standard Gaussian law tilted by the exponential shift likelihood.",
+    "mathematical_statement": "Law(Z+h) = stdGaussian.withDensity(exp(<h,z> - norm(h)^2/2)).",
+    "intuition": "This is the finite-cylinder Radon-Nikodym identity behind Girsanov. Path-space Girsanov additionally needs filtrations, adaptedness, stochastic integration, and martingale conditions.",
+    "assumptions": [
+      "The coordinate index is finite.",
+      "Both laws use unit-variance Gaussian coordinates.",
+      "The coordinate-to-EuclideanSpace map is the measurable PiLp equivalence."
+    ],
+    "why_assumptions": [
+      "The finite product proof does not automatically extend to an infinite path space.",
+      "Changing covariance changes the likelihood and normalization."
+    ],
+    "proof_route": [
+      "Use the product Gaussian shift density identity.",
+      "Map both measures through the measurable Euclidean equivalence.",
+      "Commute map with withDensity.",
+      "Rewrite coordinate sums as inner products and squared norms."
+    ],
+    "lean_notes": [
+      "Measure.withDensity stores an ENNReal likelihood.",
+      "MeasurableEquiv transports both the measure and its density.",
+      "The local let-bindings expose the intermediate product law and coordinate density."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "A derivative identity for expectations on the sample space can be rewritten as a weak generator identity for the corresponding time-indexed laws.",
+    "mathematical_statement": "If rho_s is the pushforward law of X_s, the sample expectation has the stated derivative, and drift/diffusion expectations equal law integrals, then the law integral has the corresponding derivative.",
+    "intuition": "The theorem is a transport and rewrite layer. Ito's formula or another stochastic argument must first provide the sample-space derivative.",
+    "assumptions": [
+      "rho_s is exactly the pushforward of X_s for every s.",
+      "X_s and the test function have the stated almost-everywhere measurability.",
+      "The sample derivative and drift/diffusion integral identifications are supplied."
+    ],
+    "why_assumptions": [
+      "Integrals cannot be transported through Measure.map without measurability.",
+      "The theorem does not infer a drift or diffusion field from process notation."
+    ],
+    "proof_route": [
+      "Apply the generic law-integral derivative transport theorem.",
+      "Obtain the derivative with sample-space drift and diffusion terms.",
+      "Rewrite those terms by the supplied law-level identities."
+    ],
+    "lean_notes": [
+      "HasDerivAt gives a one-dimensional time derivative.",
+      "AEMeasurable and AEStronglyMeasurable are measure-relative conditions.",
+      "simpa only performs the final named-integral rewrite."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.hasDerivAt_renyiIntegrand",
+    "chapter": 6,
+    "route_status": "Partial",
+    "plain_english": "The pointwise Renyi integrand p(t)^a q(t)^(1-a) has the expected product-rule derivative when p and q are differentiable and nonzero.",
+    "mathematical_statement": "d/dt [p^a q^(1-a)] is the sum of the differentiated p-power and q-power terms shown in the Lean statement.",
+    "intuition": "This is only the pointwise calculus leaf. Differentiating a Renyi integral also needs positivity, measurability, integrability, and a dominating function.",
+    "assumptions": [
+      "p and q have derivatives at t.",
+      "p(t) and q(t) are nonzero for the real-power derivative API."
+    ],
+    "why_assumptions": [
+      "Real powers have singular derivative behavior at zero for general exponents.",
+      "A pointwise derivative does not justify differentiation under the integral."
+    ],
+    "proof_route": [
+      "Apply the constant real-power derivative rule to p.",
+      "Apply it to q with exponent 1-a.",
+      "Use the product derivative rule and normalize exponents."
+    ],
+    "lean_notes": [
+      "HasDerivAt.rpow_const exposes the nonzero side condition.",
+      "The integral and ENNReal finiteness layers are separate declarations."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.dvVariationalScaledTestEnergyBound",
+    "chapter": 2,
+    "route_status": "Partial",
+    "plain_english": "A one-sided Donsker-Varadhan bound controls the expectation of an energy q under nu by KL(nu||mu)/alpha plus a log-moment term under mu.",
+    "mathematical_statement": "E_nu[q] <= alpha^{-1} KL(nu||mu) + alpha^{-1} log E_mu[exp(alpha q)], with the latter term named eAlpha.",
+    "intuition": "Exponential tilting converts a selected test function into a relative-entropy inequality. ASTIS formalizes this selected-test direction, not the full variational supremum equality.",
+    "assumptions": [
+      "nu and mu are probability measures and sigma-finite.",
+      "nu is absolutely continuous with respect to mu.",
+      "q is integrable under nu.",
+      "The alpha0 exponential moment under mu is finite.",
+      "The log-likelihood ratio is integrable under nu.",
+      "alpha is positive and no larger than alpha0."
+    ],
+    "why_assumptions": [
+      "Absolute continuity and log-likelihood integrability connect Mathlib klDiv to the llr integral.",
+      "The exponential-moment hypothesis makes the tilted measure and logarithm finite.",
+      "alpha > 0 is required when dividing the scaled inequality."
+    ],
+    "proof_route": [
+      "Instantiate the compiled one-sided DV theorem with Z = alpha*q.",
+      "Obtain integrability of the selected exponential from the alpha0 bound.",
+      "Rewrite the scaled integral.",
+      "Divide by positive alpha and substitute the named log-moment quantity."
+    ],
+    "lean_notes": [
+      "Measure-theoretic hypotheses are typeclasses and explicit arguments together.",
+      "klDiv is ENNReal and is converted to Real only under the stated finite representation.",
+      "This result must not be labeled as the full Donsker-Varadhan variational formula."
+    ]
+  }
+]

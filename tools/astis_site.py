@@ -12,10 +12,14 @@ from __future__ import annotations
 
 import argparse
 import dataclasses
+import datetime as dt
+import hashlib
 import html
 import json
+import os
 import re
 import shutil
+import subprocess
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -31,7 +35,7 @@ DIAGRAMS = WEBSITE / "diagrams"
 REGISTRY = ROOT / "AutoSamplingTheory" / "TechnicalLemmas" / "Registry.lean"
 TESTS = ROOT / "Tests" / "Basic.lean"
 DEFAULT_OUTPUT = ROOT / "_site"
-GITHUB_ROOT = "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/blob/main"
+GATE_EVIDENCE = ROOT / ".astis" / "site-lean-gate.json"
 CHEWI_URL = "https://chewisinho.github.io/main.pdf"
 
 
@@ -70,6 +74,56 @@ class RegistryEntry:
         return self.status == "formalizedLocal" and bool(self.source_file)
 
 
+@dataclasses.dataclass
+class SourceDeclaration:
+    full_name: str
+    short_name: str
+    kind: str
+    module: str
+    source_file: str
+    source_line: int
+    source_text: str
+    docstring: str
+    anchor: str
+    has_placeholder: bool
+    placeholder_tokens: list[str]
+    registry_status: str = ""
+    registry_card: str = ""
+    route_status: str = "Not mapped"
+    route_note: str = "No textbook milestone metadata is attached to this declaration."
+
+
+@dataclasses.dataclass
+class SourceModule:
+    name: str
+    source_file: str
+    imports: list[str]
+    declarations: list[SourceDeclaration]
+    role: str
+
+
+@dataclasses.dataclass
+class GitContext:
+    commit: str
+    ref: str
+    remote_url: str
+    web_root: str
+    commit_published: bool
+    public_source_links: bool
+    dirty_files: set[str]
+
+
+@dataclasses.dataclass
+class GateEvidence:
+    passed: bool
+    current: bool
+    commit: str
+    source_digest: str
+    generated_at: str
+    commands: list[str]
+    note: str
+
+
 def slugify(value: str) -> str:
     value = re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
     return value or "entry"
@@ -81,6 +135,291 @@ def esc(value: object) -> str:
 
 def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def run_command(command: list[str], *, check: bool = True) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        command,
+        cwd=ROOT,
+        check=check,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+
+
+def source_digest() -> str:
+    digest = hashlib.sha256()
+    paths = [
+        ROOT / "AutoSamplingTheory.lean",
+        *sorted((ROOT / "AutoSamplingTheory").rglob("*.lean")),
+        ROOT / "Tests.lean",
+        *sorted((ROOT / "Tests").rglob("*.lean")),
+        ROOT / "lakefile.lean",
+        ROOT / "lean-toolchain",
+        ROOT / "lake-manifest.json",
+    ]
+    for path in paths:
+        if not path.exists():
+            continue
+        digest.update(path.relative_to(ROOT).as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def git_context() -> GitContext:
+    def git(*args: str) -> str:
+        result = run_command(["git", *args], check=False)
+        return result.stdout.strip() if result.returncode == 0 else ""
+
+    commit = git("rev-parse", "HEAD")
+    ref = git("symbolic-ref", "--short", "-q", "HEAD") or commit[:12] or "unknown"
+    remote_url = git("remote", "get-url", "origin")
+    web_root = ""
+    match = re.match(r"(?:https://github\.com/|git@github\.com:)([^/]+/[^/]+?)(?:\.git)?$", remote_url)
+    if match:
+        web_root = f"https://github.com/{match.group(1)}"
+    published_refs = git("branch", "-r", "--contains", commit).splitlines() if commit else []
+    dirty_files: set[str] = set()
+    for line in git("status", "--porcelain=v1", "--untracked-files=all").splitlines():
+        path = line[3:]
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1]
+        if path:
+            dirty_files.add(path)
+    return GitContext(
+        commit=commit,
+        ref=ref,
+        remote_url=remote_url,
+        web_root=web_root,
+        commit_published=bool(published_refs),
+        public_source_links=os.environ.get("ASTIS_PUBLIC_SOURCE_LINKS", "").lower()
+        in {"1", "true", "yes"},
+        dirty_files=dirty_files,
+    )
+
+
+def load_gate_evidence(path: Path = GATE_EVIDENCE) -> GateEvidence:
+    current_commit = run_command(["git", "rev-parse", "HEAD"], check=False).stdout.strip()
+    current_digest = source_digest()
+    if not path.exists():
+        return GateEvidence(
+            passed=False,
+            current=False,
+            commit=current_commit,
+            source_digest=current_digest,
+            generated_at="",
+            commands=[],
+            note="Lean gate has not been recorded for this checkout.",
+        )
+    try:
+        raw = load_json(path)
+        assert isinstance(raw, dict)
+    except (OSError, ValueError, AssertionError):
+        return GateEvidence(
+            passed=False,
+            current=False,
+            commit=current_commit,
+            source_digest=current_digest,
+            generated_at="",
+            commands=[],
+            note="Lean gate evidence is unreadable.",
+        )
+    evidence_commit = str(raw.get("commit", ""))
+    evidence_digest = str(raw.get("source_digest", ""))
+    current = evidence_commit == current_commit and evidence_digest == current_digest
+    passed = bool(raw.get("passed")) and current
+    note = (
+        "Lean gate passed for this exact Lean source digest."
+        if passed
+        else "Lean gate evidence does not match this checkout or source digest."
+    )
+    return GateEvidence(
+        passed=passed,
+        current=current,
+        commit=evidence_commit,
+        source_digest=evidence_digest,
+        generated_at=str(raw.get("generated_at", "")),
+        commands=[str(command) for command in raw.get("commands", [])],
+        note=note,
+    )
+
+
+def sanitize_lean(text: str) -> str:
+    """Remove comments and strings while preserving line and column positions."""
+    chars = list(text)
+    result = list(text)
+    i = 0
+    block_depth = 0
+    in_string = False
+    while i < len(chars):
+        if block_depth:
+            if i + 1 < len(chars) and chars[i] == "/" and chars[i + 1] == "-":
+                result[i] = result[i + 1] = " "
+                block_depth += 1
+                i += 2
+                continue
+            if i + 1 < len(chars) and chars[i] == "-" and chars[i + 1] == "/":
+                result[i] = result[i + 1] = " "
+                block_depth -= 1
+                i += 2
+                continue
+            if chars[i] != "\n":
+                result[i] = " "
+            i += 1
+            continue
+        if in_string:
+            if chars[i] == "\\" and i + 1 < len(chars):
+                if chars[i] != "\n":
+                    result[i] = " "
+                if chars[i + 1] != "\n":
+                    result[i + 1] = " "
+                i += 2
+                continue
+            if chars[i] == '"':
+                result[i] = " "
+                in_string = False
+            elif chars[i] != "\n":
+                result[i] = " "
+            i += 1
+            continue
+        if i + 1 < len(chars) and chars[i] == "-" and chars[i + 1] == "-":
+            while i < len(chars) and chars[i] != "\n":
+                result[i] = " "
+                i += 1
+            continue
+        if i + 1 < len(chars) and chars[i] == "/" and chars[i + 1] == "-":
+            result[i] = result[i + 1] = " "
+            block_depth = 1
+            i += 2
+            continue
+        if chars[i] == '"':
+            result[i] = " "
+            in_string = True
+        i += 1
+    return "".join(result)
+
+
+def declaration_anchor(module: str, full_name: str, line: int) -> str:
+    stable = hashlib.sha1(f"{module}\0{full_name}\0{line}".encode("utf-8")).hexdigest()[:10]
+    return f"decl-{slugify(full_name)[:72]}-{stable}"
+
+
+def project_lean_paths() -> list[Path]:
+    paths = [ROOT / "AutoSamplingTheory.lean", *sorted((ROOT / "AutoSamplingTheory").rglob("*.lean"))]
+    paths.extend([ROOT / "Tests.lean", *sorted((ROOT / "Tests").rglob("*.lean"))])
+    return [path for path in paths if path.exists()]
+
+
+def scan_project_sources() -> tuple[list[SourceModule], list[SourceDeclaration]]:
+    declaration_re = re.compile(
+        r"^\s*(?:@\[[^\]]*\]\s*)*"
+        r"(?:(?:noncomputable|private|protected|local|unsafe)\s+)*"
+        r"(theorem|lemma|def|abbrev|structure|class|inductive|opaque|axiom|instance)\s+"
+        r"([A-Za-z_][A-Za-z0-9_'.]*)"
+    )
+    modules: list[SourceModule] = []
+    declarations: list[SourceDeclaration] = []
+    for path in project_lean_paths():
+        rel = path.relative_to(ROOT).as_posix()
+        module_name = lean_module_from_path(path)
+        text = path.read_text(encoding="utf-8")
+        lines = text.splitlines()
+        clean_lines = sanitize_lean(text).splitlines()
+        imports = []
+        for line in clean_lines:
+            match = re.match(r"^\s*import\s+([A-Za-z0-9_'.]+)", line)
+            if match:
+                imports.append(match.group(1))
+
+        contexts: list[tuple[str, list[str]]] = []
+        starts: list[tuple[int, str, str, list[str]]] = []
+        for index, line in enumerate(clean_lines):
+            namespace_match = re.match(r"^\s*namespace\s+([A-Za-z0-9_'.]+)\s*$", line)
+            if namespace_match:
+                contexts.append(("namespace", namespace_match.group(1).split(".")))
+                continue
+            if re.match(r"^\s*section(?:\s+[A-Za-z0-9_'.]+)?\s*$", line):
+                contexts.append(("section", []))
+                continue
+            if re.match(r"^\s*end(?:\s+[A-Za-z0-9_'.]+)?\s*$", line):
+                if contexts:
+                    contexts.pop()
+                continue
+            match = declaration_re.match(line)
+            if not match:
+                continue
+            kind, name = match.groups()
+            if kind == "instance" and name in {"where", "by"}:
+                continue
+            namespace_parts = [
+                part
+                for context_kind, parts in contexts
+                if context_kind == "namespace"
+                for part in parts
+            ]
+            full_name = ".".join([*namespace_parts, *name.split(".")])
+            starts.append((index, kind, name, [full_name]))
+
+        module_declarations: list[SourceDeclaration] = []
+        for position, (start, kind, name, full_name_box) in enumerate(starts):
+            end = starts[position + 1][0] if position + 1 < len(starts) else len(lines)
+            full_name = full_name_box[0]
+            cursor = start - 1
+            while cursor >= 0 and not lines[cursor].strip():
+                cursor -= 1
+            doc_lines: list[str] = []
+            if cursor >= 0 and "-/" in lines[cursor]:
+                while cursor >= 0:
+                    doc_lines.append(lines[cursor])
+                    if "/--" in lines[cursor] or "/-!" in lines[cursor]:
+                        break
+                    cursor -= 1
+                doc_lines.reverse()
+            docstring = "\n".join(doc_lines)
+            docstring = re.sub(r"^\s*/-[*!]?", "", docstring)
+            docstring = re.sub(r"-/\s*$", "", docstring).strip()
+            source_text = "\n".join(lines[start:end]).rstrip()
+            clean_source = sanitize_lean(source_text)
+            placeholder_tokens = sorted(
+                {
+                    token
+                    for token in ("sorry", "admit")
+                    if re.search(rf"\b{token}\b", clean_source)
+                }
+            )
+            if kind == "axiom":
+                placeholder_tokens.append("axiom")
+            declaration = SourceDeclaration(
+                full_name=full_name,
+                short_name=name.rsplit(".", 1)[-1],
+                kind=kind,
+                module=module_name,
+                source_file=rel,
+                source_line=start + 1,
+                source_text=source_text,
+                docstring=docstring,
+                anchor=declaration_anchor(module_name, full_name, start + 1),
+                has_placeholder=bool(placeholder_tokens),
+                placeholder_tokens=placeholder_tokens,
+            )
+            module_declarations.append(declaration)
+            declarations.append(declaration)
+        role = "test" if rel == "Tests.lean" or rel.startswith("Tests/") else (
+            "root aggregator" if rel == "AutoSamplingTheory.lean" else "production"
+        )
+        modules.append(
+            SourceModule(
+                name=module_name,
+                source_file=rel,
+                imports=imports,
+                declarations=module_declarations,
+                role=role,
+            )
+        )
+    return modules, declarations
 
 
 def parse_string(field: str, block: str) -> str:
@@ -273,15 +612,65 @@ def code_html(code: str, language: str = "lean") -> str:
 
 
 NAV = [
-    ("Home", "index.html"),
+    ("Overview", "index.html"),
     ("Textbook", "textbook/index.html"),
     ("Implementation", "implementation-map/index.html"),
-    ("Source map", "source-correspondence.html"),
-    ("Dependencies", "dependency-explorer.html"),
-    ("Progress", "progress.html"),
-    ("Frontier", "frontier.html"),
-    ("Learn Lean", "learn-lean.html"),
+    ("Learning path", "learning-path/index.html"),
+    ("Declarations", "declarations/index.html"),
+    ("Modules", "modules/index.html"),
+    ("Roadmap", "roadmap/index.html"),
+    ("Workflow", "workflow/index.html"),
 ]
+
+_ACTIVE_GATE: GateEvidence | None = None
+_ACTIVE_GIT: GitContext | None = None
+_SOURCE_BY_NAME: dict[str, SourceDeclaration] = {}
+_TEACHING_BY_NAME: dict[str, dict[str, object]] = {}
+
+
+def route_badge(status: str) -> str:
+    css = {
+        "Compiled": "blue",
+        "Partial": "yellow",
+        "Stated/incomplete": "orange",
+        "Planned": "gray",
+        "Blocked": "red",
+        "External/upstream dependency": "purple",
+        "Not mapped": "gray",
+    }.get(status, "gray")
+    return badge(status, css)
+
+
+def local_declaration_status(declaration: SourceDeclaration, gate: GateEvidence) -> str:
+    if declaration.has_placeholder:
+        return "Stated/incomplete"
+    if declaration.kind in {"structure", "class", "inductive"}:
+        return "Compiled" if gate.passed else "Partial"
+    return "Compiled" if gate.passed else "Partial"
+
+
+def source_href(
+    declaration: SourceDeclaration,
+    *,
+    from_path: str,
+) -> tuple[str, str]:
+    git = _ACTIVE_GIT or git_context()
+    if (
+        git.web_root
+        and git.commit
+        and git.commit_published
+        and git.public_source_links
+        and declaration.source_file not in git.dirty_files
+    ):
+        return (
+            f"{git.web_root}/blob/{git.commit}/{declaration.source_file}#L{declaration.source_line}",
+            f"published source at {git.commit[:12]}",
+        )
+    prefix = relative_prefix(from_path)
+    return (
+        f"{prefix}modules/{slugify(declaration.module)}.html#{declaration.anchor}",
+        "local preview source",
+    )
 
 
 def relative_prefix(rel_path: str) -> str:
@@ -298,9 +687,18 @@ def page(
     extra_head: str = "",
 ) -> str:
     prefix = relative_prefix(rel_path)
+    gate = _ACTIVE_GATE or load_gate_evidence()
+    git = _ACTIVE_GIT or git_context()
     nav = "".join(
         f'<a href="{prefix}{href}"{" aria-current=\"page\"" if label == active else ""}>{esc(label)}</a>'
         for label, href in NAV
+    )
+    gate_class = "verified" if gate.passed else "unverified"
+    gate_label = "Lean gate passed" if gate.passed else "Lean gate not recorded for this source state"
+    gate_detail = (
+        f"{gate.generated_at} · {git.commit[:12]}"
+        if gate.passed
+        else f"{git.ref} · {git.commit[:12] or 'uncommitted'}"
     )
     return f"""<!doctype html>
 <html lang="en" data-theme="blueprint" data-color-scheme="light">
@@ -310,9 +708,10 @@ def page(
   <meta name="description" content="{esc(description)}">
   <meta property="og:title" content="{esc(title)} · ASTIS">
   <meta property="og:description" content="{esc(description)}">
+  <link rel="icon" href="data:,">
   <meta property="og:image" content="{prefix}assets/astis-blueprint-og.png">
   <title>{esc(title)} · Auto-Sampling-Theory-In-Sleep</title>
-  <link rel="stylesheet" href="{prefix}assets/styles.css">
+  <link rel="stylesheet" href="{prefix}assets/site.css">
   <script>
     window.MathJax = {{
       tex: {{inlineMath: [['\\\\(', '\\\\)']], displayMath: [['\\\\[', '\\\\]']]}},
@@ -331,6 +730,11 @@ def page(
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" class="site-nav" aria-label="Primary">{nav}</nav>
+    <div class="search-shell">
+      <label class="sr-only" for="global-search">Search declarations and modules</label>
+      <input id="global-search" data-global-search data-search-root="{prefix}" type="search" placeholder="Search Lean declarations">
+      <ul class="search-results" data-global-results hidden></ul>
+    </div>
     <div class="display-controls">
       <label>Theme
         <select id="theme-select">
@@ -342,12 +746,16 @@ def page(
       <button id="scheme-toggle" title="Toggle light and dark color scheme">◐</button>
     </div>
   </header>
+  <div class="verification-strip {gate_class}">
+    <span><strong>{esc(gate_label)}</strong></span>
+    <span>{esc(gate_detail)}</span>
+  </div>
   <main id="content">{body}</main>
   <footer>
     <p><strong>Auto-Sampling-Theory-In-Sleep</strong> · a faithful, dependency-aware reconstruction of Sinho Chewi's <em>Log-Concave Sampling</em>.</p>
-    <p><a href="{prefix}attribution.html">Attribution and licensing</a> · <a href="{prefix}maintenance.html">Build and maintenance</a> · Generated from ASTIS-owned metadata.</p>
+    <p><a href="{prefix}attribution/index.html">Attribution</a> · <a href="{prefix}maintenance.html">Build and maintenance</a> · generated from Lean source, route metadata, and gate evidence.</p>
   </footer>
-  <script src="{prefix}assets/app.js"></script>
+  <script src="{prefix}assets/site.js"></script>
 </body>
 </html>
 """
@@ -859,6 +1267,7 @@ def theorem_card(
     entry: RegistryEntry,
     entries_by_decl: dict[str, RegistryEntry],
     source_links: list[dict[str, object]],
+    teaching: dict[str, object] | None = None,
 ) -> str:
     deps = [
         f'<a href="{entries_by_decl[dep].slug}.html"><code>{esc(entries_by_decl[dep].short_name)}</code></a>'
@@ -868,7 +1277,14 @@ def theorem_card(
         f'<a href="{entries_by_decl[item].slug}.html"><code>{esc(entries_by_decl[item].short_name)}</code></a>'
         for item in entry.consumers if item in entries_by_decl
     ]
-    source_url = f"{GITHUB_ROOT}/{entry.source_file}#L{entry.source_line}" if entry.source_file else ""
+    source_declaration = _SOURCE_BY_NAME.get(entry.local_decl)
+    source_url = ""
+    source_label = ""
+    if source_declaration:
+        source_url, source_label = source_href(
+            source_declaration,
+            from_path=f"theorems/{entry.slug}.html",
+        )
     mathlib_items = [entry.upstream_decl, entry.upstream_file]
     strict_note = (
         "This card records a compiled local declaration. Its mathematical scope is exactly the Lean statement below; "
@@ -882,27 +1298,45 @@ def theorem_card(
         f'Chapter {int(item["chapter"])} §{esc(item["section"])} · {esc(item["source_kind"])}</a>'
         for item in source_links
     ]
-    body = f"""
-<section class="page-hero compact theorem-hero">
-  <div class="eyebrow">Theorem card · {esc(entry.key)}</div>
-  <h1><code>{esc(entry.short_name)}</code></h1>
-  <div>{badge(status_label(entry), status_class(entry))} {'<span class="status status-green">explicit smoke test</span>' if entry.explicit_test else '<span class="status status-gray">covered by Tests build</span>'}</div>
-  <p class="lede">{esc(inferred_natural_statement(entry))}</p>
-</section>
-<section class="theorem-layout">
-  <article>
-    <h2>Plain-English statement and role</h2>
-    <p>{esc(inferred_natural_statement(entry))}</p>
-    <div class="note"><strong>Scope guard.</strong> {esc(strict_note)}</div>
-    <h2>Lean statement</h2>
-    {code_html(statement)}
-    {f'<p><a href="{esc(source_url)}">Open source at {esc(entry.source_file)}:{entry.source_line} ↗</a></p>' if source_url else ''}
+    natural_statement = (
+        str(teaching["plain_english"]) if teaching else inferred_natural_statement(entry)
+    )
+    if teaching:
+        teaching_html = f"""
+    <h2>Mathematical statement</h2>
+    <div class="math-statement"><p>{esc(teaching["mathematical_statement"])}</p></div>
+    <h2>Intuition</h2><p>{esc(teaching["intuition"])}</p>
+    <h2>Conditions</h2>{list_html(teaching["assumptions"])}
+    <h3>Why these conditions cannot be dropped</h3>{list_html(teaching["why_assumptions"])}
+    <h2>Proof route</h2>{list_html(teaching["proof_route"])}
+    <h2>Lean interface notes</h2>{list_html(teaching["lean_notes"])}
+"""
+    else:
+        teaching_html = f"""
     <h2>Proof architecture</h2>
     <p>{esc(entry.sald_use or "The declaration is a reusable technical leaf recorded by the ASTIS registry.")}</p>
     <h3>Lean proof walkthrough</h3>{list_html(proof_walkthrough(entry))}
     <h3>Why the statement has this shape</h3>
     <p>The declaration is kept at the reusable level recorded by its Registry tags and direct consumers. Explicit measures, spaces, wrappers, and regularity hypotheses expose interfaces that paper notation often infers. A theorem card explains those interfaces but never widens the compiled statement.</p>
     <h3>Hidden assumptions and non-claims</h3>{list_html(hidden_contracts(entry))}
+"""
+    body = f"""
+<section class="page-hero compact theorem-hero">
+  <div class="eyebrow">{'Reviewed teaching declaration' if teaching else 'Registry leaf card'} · {esc(entry.key)}</div>
+  <h1><code>{esc(entry.short_name)}</code></h1>
+  <div>{badge(status_label(entry), status_class(entry))} {route_badge(str(teaching.get("route_status", "Not mapped")) if teaching else "Not mapped")} {'<span class="status status-green">explicit smoke test</span>' if entry.explicit_test else '<span class="status status-gray">module/build coverage</span>'}</div>
+  <p class="lede">{esc(natural_statement)}</p>
+</section>
+<section class="theorem-layout">
+  <article>
+    <h2>Plain-English statement</h2>
+    <p>{esc(natural_statement)}</p>
+    <div class="note"><strong>Scope guard.</strong> {esc(strict_note)}</div>
+    {teaching_html if teaching else ''}
+    <h2>Lean statement</h2>
+    {code_html(statement)}
+    {f'<p class="source-links"><a href="{esc(source_url)}">Open {esc(entry.source_file)}:{entry.source_line}</a><span>{esc(source_label)}</span></p>' if source_url else ''}
+    {teaching_html if not teaching else ''}
   </article>
   <aside class="theorem-sidebar">
     <section><h2>Status</h2>
@@ -1127,31 +1561,475 @@ def render_attribution() -> str:
 def render_maintenance(count: int) -> str:
     body = f"""
 <section class="page-hero compact"><div class="eyebrow">Contributor guide</div>
-<h1>Build and Maintain the Site</h1><p class="lede">The site is a generated view of the repository—not a second proof database.</p></section>
+<h1>Build and Maintain the Site</h1><p class="lede">The site is a generated view of Lean source and reviewed route metadata, not a second proof database.</p></section>
 <section class="two-column">
-  <div><h2>Build</h2>{code_html("python tools/astis.py site-build\npython tools/astis.py site-check", "shell")}
-  <p>On Windows, use <code>py -3</code> instead of <code>python</code> if that is how Python is installed. The generator uses only the Python standard library.</p></div>
-  <div><h2>Preview</h2>{code_html("python -m http.server 8000 --directory _site", "shell")}
-  <p>This command is for a developer-run foreground preview. The ASTIS harness never launches it detached or in the background.</p></div>
+  <div><h2>Build and certify</h2>{code_html("python3 website/scripts/lean_gate.py\npython3 website/scripts/build_site.py\npython3 website/scripts/check_site.py", "shell")}
+  <p>The ignored gate record is valid only for the exact commit and Lean-source digest that passed the canonical ASTIS check.</p></div>
+  <div><h2>Private preview</h2>{code_html("export ASTIS_PREVIEW_USER='reviewer'\nexport ASTIS_PREVIEW_PASSWORD='generated-outside-git'\npython3 website/scripts/serve_preview.py", "shell")}
+  <p>Credentials come only from environment variables. <code>quick_tunnel.py</code> can open a temporary Cloudflare review tunnel; it is not a production deployment.</p></div>
 </section>
 <section><h2>Add or update content</h2>
-<ol><li>Add a compiled theorem through the normal Lean workflow, then add exactly one Registry entry. The theorem card is generated automatically.</li>
+<ol><li>Add a Lean declaration normally. It enters the exhaustive catalog automatically; add a Registry entry only for a selected reusable leaf.</li>
 <li>Add or edit a source anchor in <code>website/content/source_correspondence.json</code>. Use a precise page/section/theorem/equation reference and an honest wording label.</li>
-<li>Edit chapter exposition in <code>website/content/chapters.json</code>.</li>
+<li>Edit chapter exposition, reviewed teaching declarations, and route milestones in <code>website/content/</code>.</li>
 <li>Edit maintainable diagrams in <code>website/diagrams/*.mmd</code>; do not hand-maintain generated HTML status.</li>
-<li>Run the Lean gates, <code>site-build</code>, and <code>site-check</code>.</li></ol></section>
+<li>Run the Lean gate, site build, and site check.</li></ol></section>
 <section><h2>Consistency checks</h2>{list_html([
   f"Registry formalizedLocal count equals the Tests baseline ({count} at this build).",
-  "Every blue declaration resolves to a real Lean source declaration.",
-  "Every internal link and generated declaration card exists.",
-  "Every chapter module link resolves to a real module card.",
-  "No absolute Windows path appears in generated output.",
-  "The required theme, formula-rendering, code, graph, and attribution hooks are present.",
-  "Todo source edges cannot be rendered as compiled mappings."
+  "Every named Lean declaration and module appears in the inventory and search index.",
+  "Teaching and milestone metadata may reference only existing declarations.",
+  "Internal links and fragments, source links, formulas, Mermaid sources, and assets resolve.",
+  "A gate banner can say passed only when evidence matches the current source digest.",
+  "Public, clean, published sources use a commit SHA only when ASTIS_PUBLIC_SOURCE_LINKS=1; all other sources use checked local preview anchors."
 ])}</section>
-<section><h2>Deployment</h2><p><code>.github/workflows/blueprint-site.yml</code> builds, validates, and deploys the static artifact to GitHub Pages when Pages is enabled for the repository. The workflow never edits theorem status. A separate Sites deployment may be used for a reviewable production preview; its opaque project ID is stored only in <code>.openai/hosting.json</code>.</p></section>
+<section><h2>Deployment</h2><p><code>.github/workflows/blueprint-site.yml</code> runs Lean and Tests before producing the Pages artifact. GitHub Pages must be enabled for Actions; a workflow file alone does not make a 404 deployment live.</p></section>
 """
     return page("Build and Maintenance", "maintenance.html", body)
+
+
+def teaching_card_path(declaration: SourceDeclaration) -> str:
+    stable = hashlib.sha1(declaration.full_name.encode("utf-8")).hexdigest()[:10]
+    return f"declarations/{slugify(declaration.full_name)[:110]}-{stable}.html"
+
+
+def declaration_path(declaration: SourceDeclaration) -> str:
+    if declaration.registry_card:
+        return declaration.registry_card
+    if declaration.full_name in _TEACHING_BY_NAME:
+        return teaching_card_path(declaration)
+    return f"modules/{slugify(declaration.module)}.html#{declaration.anchor}"
+
+
+def compact_source(source: str, *, max_lines: int = 44, max_chars: int = 9000) -> tuple[str, bool]:
+    lines = source.splitlines()
+    clipped = len(lines) > max_lines or len(source) > max_chars
+    excerpt = "\n".join(lines[:max_lines])
+    if len(excerpt) > max_chars:
+        excerpt = excerpt[:max_chars]
+    if clipped:
+        excerpt = excerpt.rstrip() + "\n-- Source excerpt truncated; follow the exact source link."
+    return excerpt, clipped
+
+
+def annotate_declarations(
+    declarations: list[SourceDeclaration],
+    entries: list[RegistryEntry],
+    teaching: list[dict[str, object]],
+) -> None:
+    registry_by_name = {entry.local_decl: entry for entry in entries if entry.local_decl}
+    teaching_by_name = {str(item["declaration"]): item for item in teaching}
+    for declaration in declarations:
+        entry = registry_by_name.get(declaration.full_name)
+        if entry:
+            declaration.registry_status = entry.status
+            declaration.registry_card = f"theorems/{entry.slug}.html"
+        metadata = teaching_by_name.get(declaration.full_name)
+        if metadata:
+            declaration.route_status = str(metadata.get("route_status", "Not mapped"))
+            declaration.route_note = str(metadata.get("plain_english", declaration.route_note))
+
+
+def render_overview(
+    chapters: list[dict[str, object]],
+    modules: list[SourceModule],
+    declarations: list[SourceDeclaration],
+    entries: list[RegistryEntry],
+    milestones: list[dict[str, object]],
+    teaching: list[dict[str, object]],
+) -> str:
+    gate = _ACTIVE_GATE or load_gate_evidence()
+    production_modules = [module for module in modules if module.role != "test"]
+    local_compiled = sum(
+        local_declaration_status(declaration, gate) == "Compiled"
+        for declaration in declarations
+        if declaration.module != "Tests" and not declaration.module.startswith("Tests.")
+    )
+    blocked = sum(str(item["route_status"]) == "Blocked" for item in milestones)
+    body = f"""
+<section class="hero overview-hero">
+  <span class="eyebrow">Literate Lean formalization</span>
+  <h1>Log-concave sampling, from measure foundations to sampler proofs.</h1>
+  <p class="lede">ASTIS reconstructs Sinho Chewi's <em>Log-Concave Sampling</em> in Lean: the textbook theorem route, cited background, hidden measurability and integrability conditions, reusable proof leaves, and the remaining mathematical frontier.</p>
+  <div class="hero-actions">
+    <a class="button primary" href="learning-path/index.html">Follow the learning path</a>
+    <a class="button" href="implementation-map/index.html">Inspect the implementation map</a>
+  </div>
+  <div class="metric-row">
+    <div><strong>{len(production_modules)}</strong><span>source and root modules</span></div>
+    <div><strong>{len(declarations)}</strong><span>named Lean declarations indexed</span></div>
+    <div><strong>{len(teaching)}</strong><span>reviewed teaching declarations</span></div>
+    <div><strong>{blocked}</strong><span>blocked mathematical milestones</span></div>
+  </div>
+</section>
+<section id="scope">
+  <div class="section-heading"><span>Formalization scope</span><h2>What ASTIS is trying to prove</h2></div>
+  <div class="card-grid four">
+    <article class="info-card"><h3>Probability foundations</h3><p>Measures, random variables as measurable maps, pushforward laws, densities, moments, kernels, conditional expectation, and almost-everywhere representatives.</p></article>
+    <article class="info-card"><h3>Continuous sampling processes</h3><p>Langevin dynamics, weak generators, Fokker-Planck identities, functional inequalities, change of measure, and entropy dissipation.</p></article>
+    <article class="info-card"><h3>Discrete samplers</h3><p>Markov kernels and numerical schemes that approximate a continuous process, together with bias, stability, convergence, and complexity bounds.</p></article>
+    <article class="info-card"><h3>Textbook reconstruction</h3><p>Each theorem is decomposed into source assumptions, reusable Lean leaves, a theorem-level DAG, and an honest route status.</p></article>
+  </div>
+</section>
+<section id="probability-stack">
+  <div class="section-heading"><span>Mathematical interfaces</span><h2>Probability spaces, kernels, and processes</h2></div>
+  <p class="section-intro">A random variable is a measurable map out of a probability space. Its law is a pushforward measure. A probability kernel assigns a measure to each input state, while conditional expectation and conditional distribution are version-dependent objects represented only almost everywhere. A stochastic process is a time-indexed family of random variables; filtrations and adaptedness constrain which information its dynamics may use.</p>
+  {diagram_block("measure-kernel-conditional", "The dependency order used by the real ASTIS probability and conditional-kernel modules.")}
+</section>
+<section id="continuous-discrete">
+  <div class="section-heading"><span>Sampler semantics</span><h2>From a target law to an algorithm</h2></div>
+  <p class="section-intro">The target distribution is first defined as a normalized measure. A continuous Langevin process is intended to preserve or converge to that law. A discrete sampler supplies a computable transition kernel that approximates the process. Correctness therefore needs both a continuous-time theorem and a discretization/error theorem; an SDE contract or a formal generator display is not a sampler convergence certificate.</p>
+  {diagram_block("probability-sampling-sde", "Shared foundations feed the continuous process; discretization and algorithmic kernels remain separate proof layers.")}
+</section>
+<section id="automation">
+  <div class="section-heading"><span>Certificate boundary</span><h2>Automation proposes; Lean certifies</h2></div>
+  <p class="section-intro">ASTIS agents select a source-backed leaf, search Mathlib and audited repositories, produce a small Lean patch or a narrower obligation, and pass it to an independent reviewer. Task cards, natural-language derivations, and compiled data structures can organize the route, but only a checked theorem declaration is a local proof certificate.</p>
+  {diagram_block("harness-workflow", "The upper, middle, lower, and reviewer roles recorded in AGENTS.md and AutoSamplingTheory.Automation.")}
+</section>
+<section id="reading-order">
+  <div class="section-heading"><span>Recommended order</span><h2>Read the mathematics and the code together</h2></div>
+  {diagram_block("learning-path", "The guided path starts with measure transport and ends at the still-open sampler theorem packages.")}
+  <ol class="reading-list">
+    <li>Read the <a href="learning-path/index.html">guided learning path</a> and Chapters 1-3.</li>
+    <li>Use the <a href="implementation-map/index.html">implementation map</a> to separate local declarations from textbook milestones.</li>
+    <li>Search the <a href="declarations/index.html">exhaustive declaration catalog</a>, then inspect the owning module.</li>
+    <li>Read the <a href="roadmap/index.html">roadmap</a> before interpreting any partial or blocked theorem route.</li>
+  </ol>
+</section>
+<section class="note"><h2>Build interpretation</h2><p>{esc(gate.note)} The current generated view classifies {local_compiled} production declarations as compiled only when gate evidence matches this Lean source digest. Registry count ({len(entries)}) and textbook completion are separate quantities.</p></section>
+"""
+    return page("Overview", "index.html", body, active="Overview")
+
+
+def render_full_implementation_map(
+    modules: list[SourceModule],
+    declarations: list[SourceDeclaration],
+    milestones: list[dict[str, object]],
+) -> str:
+    gate = _ACTIVE_GATE or load_gate_evidence()
+    milestone_rows = "".join(
+        f"""<tr>
+  <td><strong>{esc(item["title"])}</strong><small>Chapter {item["chapter"] or "shared"}</small></td>
+  <td>{route_badge(str(item["local_status"]))}</td>
+  <td>{route_badge(str(item["route_status"]))}</td>
+  <td>{esc(item["summary"])}</td>
+  <td>{len(item["evidence_declarations"])}</td>
+  <td>{len(item["blockers"])}</td>
+</tr>"""
+        for item in milestones
+    )
+    module_rows = []
+    for module in modules:
+        statuses = Counter(local_declaration_status(declaration, gate) for declaration in module.declarations)
+        module_rows.append(
+            f"""<tr data-search="{esc((module.name + " " + module.source_file + " " + " ".join(module.imports)).lower())}">
+  <td><a href="../modules/{slugify(module.name)}.html"><code>{esc(module.name)}</code></a><small>{esc(module.source_file)}</small></td>
+  <td>{esc(module.role)}</td><td>{len(module.imports)}</td><td>{len(module.declarations)}</td>
+  <td>{statuses["Compiled"]}</td><td>{statuses["Stated/incomplete"]}</td>
+</tr>"""
+        )
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Two status layers</div>
+<h1>Sampling/SDE Implementation Map</h1>
+<p class="lede">The declaration inventory answers “what Lean accepts locally?” The milestone ledger answers “how much of the mathematical textbook route is reproduced?” A compiled helper never promotes an incomplete chapter theorem.</p></section>
+<section><h2>Status vocabulary</h2>
+  <div class="status-key">
+    {route_badge("Compiled")}{route_badge("Partial")}{route_badge("Stated/incomplete")}
+    {route_badge("Planned")}{route_badge("Blocked")}{route_badge("External/upstream dependency")}
+  </div>
+</section>
+<section><h2>Mathematical route and local evidence</h2>
+<div class="table-wrap"><table><thead><tr><th>Milestone</th><th>Local evidence</th><th>Route status</th><th>Boundary</th><th>Evidence declarations</th><th>Blockers</th></tr></thead><tbody>{milestone_rows}</tbody></table></div></section>
+<section><h2>Major theorem dependencies</h2>{diagram_block("major-theorem-dag", "A theorem DAG using declarations and open boundaries that exist in the current ASTIS route.")}</section>
+<section><h2>Complete module inventory</h2>
+<div class="toolbar"><label>Filter modules <input id="module-search" data-table-search="module-inventory" type="search" placeholder="Gibbs, ConditionalKernel, SALD"></label></div>
+<div class="table-wrap"><table id="module-inventory"><thead><tr><th>Module</th><th>Role</th><th>Imports</th><th>Declarations</th><th>Compiled</th><th>Incomplete</th></tr></thead><tbody>{''.join(module_rows)}</tbody></table></div></section>
+"""
+    return page(
+        "Sampling/SDE Implementation Map",
+        "implementation-map/index.html",
+        body,
+        active="Implementation",
+    )
+
+
+def render_learning_path(
+    chapters: list[dict[str, object]],
+    teaching: list[dict[str, object]],
+    declarations_by_name: dict[str, SourceDeclaration],
+) -> str:
+    teaching_by_chapter: dict[int, list[dict[str, object]]] = defaultdict(list)
+    for item in teaching:
+        teaching_by_chapter[int(item["chapter"])].append(item)
+    chapter_cards = []
+    for chapter in chapters:
+        number = int(chapter["number"])
+        interfaces = []
+        for item in teaching_by_chapter.get(number, []):
+            declaration = declarations_by_name[str(item["declaration"])]
+            interfaces.append(
+                f'<a href="../{declaration_path(declaration)}"><code>{esc(declaration.short_name)}</code></a>'
+            )
+        chapter_cards.append(
+            f"""<article class="chapter-card">
+  <div class="chapter-index">{number:02d}</div>
+  <div><h2><a href="../textbook/{esc(chapter["id"])}.html">{esc(chapter["title"])}</a></h2>
+  <div>{route_badge("Partial" if chapter["status"] in {"active", "partial"} else "Planned")}</div>
+  <p>{esc(chapter["core_definitions"][0])}</p>
+  <p class="card-meta">Prerequisites: {esc("; ".join(chapter["prerequisites"]))}</p>
+  <div class="decl-links">{''.join(interfaces) if interfaces else '<span class="muted">No reviewed declaration selected yet.</span>'}</div></div>
+</article>"""
+        )
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Guided Learning Path</div>
+<h1>How to read the formalization</h1><p class="lede">Start from measures and measurable maps, then move through Gibbs laws, kernels, stochastic processes, continuous Langevin dynamics, and finally discrete sampler error. The chapter order follows the textbook, while shared Lean roots are introduced where they are first needed.</p></section>
+<section><h2>Recommended path</h2>{diagram_block("learning-path", "A dependency-first reading order; it is not a claim that the later routes are formalized.")}</section>
+<section class="two-column">
+  <div><h2>Mathematical reading</h2>{list_html([
+    "Measure and pushforward law before probability kernels.",
+    "Kernels and almost-everywhere conditional representatives before stochastic-process consumers.",
+    "Normalized target laws before invariance or convergence claims.",
+    "Continuous-time dynamics before discretization and sampler complexity."
+  ])}</div>
+  <div><h2>Lean reading</h2>{list_html([
+    "Read structures and definitions as interfaces, not theorem certificates.",
+    "Track every explicit measure in ae, integrability, and conditional statements.",
+    "Treat fderiv as totalized unless accompanied by derivative evidence.",
+    "Follow imports and declaration consumers from the module pages."
+  ])}</div>
+</section>
+<section><h2>Textbook chapter guide</h2><div class="chapter-list">{''.join(chapter_cards)}</div></section>
+"""
+    return page("Guided Learning Path", "learning-path/index.html", body, active="Learning path")
+
+
+def render_declaration_catalog(
+    declarations: list[SourceDeclaration],
+) -> str:
+    gate = _ACTIVE_GATE or load_gate_evidence()
+    rows = []
+    for declaration in declarations:
+        local_status = local_declaration_status(declaration, gate)
+        search = " ".join(
+            [
+                declaration.full_name,
+                declaration.kind,
+                declaration.module,
+                declaration.source_file,
+                declaration.docstring,
+            ]
+        ).lower()
+        rows.append(
+            f"""<tr data-search="{esc(search)}" data-kind="{esc(declaration.kind)}" data-local-status="{esc(local_status)}">
+  <td><a href="../{esc(declaration_path(declaration))}"><code>{esc(declaration.full_name)}</code></a>
+    <small>{esc(declaration.docstring[:220])}</small></td>
+  <td>{esc(declaration.kind)}</td><td>{route_badge(local_status)}</td><td>{route_badge(declaration.route_status)}</td>
+  <td><a href="../modules/{slugify(declaration.module)}.html"><code>{esc(declaration.module)}</code></a></td>
+  <td><code>{esc(declaration.source_file)}:{declaration.source_line}</code></td>
+</tr>"""
+        )
+    kinds = sorted({declaration.kind for declaration in declarations})
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Exhaustive source inventory</div>
+<h1>Declaration Catalog</h1><p class="lede">Every named declaration scanned from ASTIS production roots and tests appears here. Registry leaves and 12 reviewed interfaces have richer cards; internal helpers stay concise and link to their exact module anchor.</p></section>
+<section class="toolbar catalog-toolbar">
+  <label>Search <input id="declaration-search" type="search" placeholder="conditional kernel, Gibbs, Tendsto"></label>
+  <label>Kind <select id="declaration-kind"><option value="">All</option>{''.join(f'<option value="{esc(kind)}">{esc(kind)}</option>' for kind in kinds)}</select></label>
+  <label>Local status <select id="declaration-local-status"><option value="">All</option><option>Compiled</option><option>Partial</option><option>Stated/incomplete</option></select></label>
+  <span id="declaration-count" class="result-count">{len(declarations)} declarations</span>
+</section>
+<div class="table-wrap catalog-table"><table id="declaration-table"><thead><tr><th>Declaration</th><th>Kind</th><th>Local status</th><th>Route status</th><th>Module</th><th>Source</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
+"""
+    return page("Declaration Catalog", "declarations/index.html", body, active="Declarations")
+
+
+def render_module_index(modules: list[SourceModule]) -> str:
+    reverse_imports: Counter[str] = Counter(
+        imported for module in modules for imported in module.imports
+    )
+    rows = "".join(
+        f"""<tr data-search="{esc((module.name + " " + module.source_file + " " + " ".join(module.imports)).lower())}">
+  <td><a href="{slugify(module.name)}.html"><code>{esc(module.name)}</code></a><small>{esc(module.source_file)}</small></td>
+  <td>{esc(module.role)}</td><td>{len(module.imports)}</td><td>{reverse_imports[module.name]}</td><td>{len(module.declarations)}</td>
+</tr>"""
+        for module in modules
+    )
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Imports and ownership</div>
+<h1>Module Pages</h1><p class="lede">The module inventory includes both root aggregators and every production/test Lean file. Each page lists imports, reverse consumers, declarations, exact source lines, and concise source excerpts.</p></section>
+<section>{diagram_block("module-family-map", "Mathematical ownership follows the actual AutoSamplingTheory namespace and import surface.")}</section>
+<section><div class="toolbar"><label>Filter modules <input id="module-index-search" data-table-search="module-index-table" type="search" placeholder="Probability, SDE, Measure"></label></div>
+<div class="table-wrap"><table id="module-index-table"><thead><tr><th>Module</th><th>Role</th><th>Imports</th><th>Imported by</th><th>Declarations</th></tr></thead><tbody>{rows}</tbody></table></div></section>
+"""
+    return page("Module Pages", "modules/index.html", body, active="Modules")
+
+
+def render_source_module(
+    module: SourceModule,
+    imported_by: list[str],
+) -> str:
+    gate = _ACTIVE_GATE or load_gate_evidence()
+    imports = [
+        f'<a href="{slugify(name)}.html"><code>{esc(name)}</code></a>'
+        if any(candidate.name == name for candidate in _ALL_MODULES)
+        else f'<code>{esc(name)}</code> <span class="muted">external</span>'
+        for name in module.imports
+    ]
+    consumers = [
+        f'<a href="{slugify(name)}.html"><code>{esc(name)}</code></a>'
+        for name in imported_by
+    ]
+    declaration_blocks = []
+    for declaration in module.declarations:
+        excerpt, clipped = compact_source(declaration.source_text)
+        local_status = local_declaration_status(declaration, gate)
+        source_url, source_label = source_href(
+            declaration,
+            from_path=f"modules/{slugify(module.name)}.html",
+        )
+        detail_link = ""
+        target = declaration_path(declaration)
+        own_anchor = f"modules/{slugify(module.name)}.html#{declaration.anchor}"
+        if target != own_anchor:
+            detail_link = f'<a href="../{esc(target)}">Open detailed card</a>'
+        declaration_blocks.append(
+            f"""<details class="declaration" id="{esc(declaration.anchor)}">
+  <summary><span class="kind">{esc(declaration.kind)}</span> <code>{esc(declaration.full_name)}</code> {route_badge(local_status)} {route_badge(declaration.route_status)}</summary>
+  <div class="declaration-content">
+    {f'<p class="docstring">{esc(declaration.docstring)}</p>' if declaration.docstring else '<p class="muted">No declaration docstring.</p>'}
+    {code_html(excerpt)}
+    <p class="source-links"><a href="{esc(source_url)}">{esc(module.source_file)}:{declaration.source_line}</a><span>{esc(source_label)}</span>{detail_link}</p>
+    {f'<p class="muted">Excerpt truncated; the exact source link is authoritative.</p>' if clipped else ''}
+  </div>
+</details>"""
+        )
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">{esc(module.role)} module</div>
+<h1><code>{esc(module.name)}</code></h1><p class="lede">{len(module.declarations)} named declarations scanned from <code>{esc(module.source_file)}</code>.</p></section>
+<section class="module-meta">
+  <div><dt>Imports</dt><dd class="decl-links">{''.join(imports) if imports else 'None'}</dd></div>
+  <div><dt>Imported by</dt><dd class="decl-links">{''.join(consumers) if consumers else 'No local reverse import.'}</dd></div>
+  <div><dt>Placeholder scan</dt><dd>{sum(item.has_placeholder for item in module.declarations)} declaration(s) flagged</dd></div>
+  <div><dt>Gate status</dt><dd>{route_badge("Compiled" if gate.passed else "Partial")}</dd></div>
+</section>
+<section><h2>Declarations</h2><div class="declaration-list">{''.join(declaration_blocks) if declaration_blocks else '<p class="muted">This aggregator contains no named declarations.</p>'}</div></section>
+"""
+    return page(module.name, f"modules/{slugify(module.name)}.html", body, active="Modules")
+
+
+def render_teaching_declaration(
+    declaration: SourceDeclaration,
+    teaching: dict[str, object],
+) -> str:
+    gate = _ACTIVE_GATE or load_gate_evidence()
+    source_url, source_label = source_href(
+        declaration,
+        from_path=teaching_card_path(declaration),
+    )
+    body = f"""
+<section class="page-hero compact theorem-hero">
+  <div class="eyebrow">Reviewed teaching declaration</div>
+  <h1><code>{esc(declaration.short_name)}</code></h1>
+  <div>{route_badge(local_declaration_status(declaration, gate))}{route_badge(str(teaching["route_status"]))}</div>
+  <p class="lede">{esc(teaching["plain_english"])}</p>
+</section>
+<section class="theorem-layout">
+  <article>
+    <h2>Plain-English statement</h2><p>{esc(teaching["plain_english"])}</p>
+    <h2>Mathematical statement</h2><div class="math-statement"><p>{esc(teaching["mathematical_statement"])}</p></div>
+    <h2>Intuition</h2><p>{esc(teaching["intuition"])}</p>
+    <h2>Conditions</h2>{list_html(teaching["assumptions"])}
+    <h3>Why these conditions cannot be dropped</h3>{list_html(teaching["why_assumptions"])}
+    <h2>Proof route</h2>{list_html(teaching["proof_route"])}
+    <h2>Lean statement</h2>{code_html(declaration.source_text)}
+    <h2>Lean interface notes</h2>{list_html(teaching["lean_notes"])}
+  </article>
+  <aside class="theorem-sidebar">
+    <section><h2>Location</h2><dl><dt>Module</dt><dd><a href="../modules/{slugify(declaration.module)}.html#{declaration.anchor}"><code>{esc(declaration.module)}</code></a></dd><dt>File</dt><dd><code>{esc(declaration.source_file)}</code></dd><dt>Line</dt><dd>{declaration.source_line}</dd></dl></section>
+    <section><h2>Status boundary</h2><p>The local status reports whether this declaration is accepted by the current Lean gate. The route status reports whether the surrounding textbook theorem package is complete.</p></section>
+    <section><h2>Exact source</h2><p class="source-links"><a href="{esc(source_url)}">{esc(declaration.source_file)}:{declaration.source_line}</a><span>{esc(source_label)}</span></p></section>
+  </aside>
+</section>
+"""
+    return page(
+        declaration.short_name,
+        teaching_card_path(declaration),
+        body,
+        active="Declarations",
+    )
+
+
+def render_roadmap(milestones: list[dict[str, object]]) -> str:
+    entries = []
+    for item in milestones:
+        evidence = [
+            f'<a href="../{declaration_path(_SOURCE_BY_NAME[name])}"><code>{esc(name.rsplit(".", 1)[-1])}</code></a>'
+            for name in item["evidence_declarations"]
+            if name in _SOURCE_BY_NAME
+        ]
+        entries.append(
+            f"""<article class="status-entry status-{slugify(str(item["route_status"]))}">
+  <header><div><span class="eyebrow">Chapter {item["chapter"] or "shared"}</span><h3>{esc(item["title"])}</h3></div><div>{route_badge(str(item["local_status"]))}{route_badge(str(item["route_status"]))}</div></header>
+  <p>{esc(item["summary"])}</p>
+  <div class="decl-links">{''.join(evidence) if evidence else '<span class="muted">No local theorem evidence is claimed.</span>'}</div>
+  <h4>Open boundary</h4>{list_html(item["blockers"])}
+</article>"""
+        )
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Progress without invented percentages</div>
+<h1>Progress and Roadmap</h1><p class="lede">Milestones are categorical and evidence-backed. “Compiled” applies to local declarations. “Partial” or “blocked” records the mathematical route, including unformalized hypotheses and theorem assembly.</p></section>
+<section>{diagram_block("milestone-status", "The status graph distinguishes compiled leaves, partial theorem packages, blockers, plans, and external dependencies.")}</section>
+<section><h2>Milestone ledger</h2><div class="status-ledger">{''.join(entries)}</div></section>
+"""
+    return page("Progress and Roadmap", "roadmap/index.html", body, active="Roadmap")
+
+
+def render_workflow(gate: GateEvidence) -> str:
+    commands = "\n".join(gate.commands) if gate.commands else (
+        "python3 website/scripts/lean_gate.py\n"
+        "python3 website/scripts/build_site.py\n"
+        "python3 website/scripts/check_site.py"
+    )
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">ASTIS Automation Workflow</div>
+<h1>Source-backed leaves, independent review, Lean certificates.</h1><p class="lede">The hierarchical loop coordinates mathematical source audit and Lean implementation. It does not convert an agent report, task card, or theorem-shaped data record into a proof.</p></section>
+<section><h2>Hierarchical loop</h2>{diagram_block("automation-workflow", "The real upper, middle, lower, and reviewer responsibilities from AGENTS.md.")}</section>
+<section class="card-grid four">
+  <article class="info-card"><h3>Upper</h3><p>Audits the source theorem and shared-root DAG, selects one active leaf, and retires stale routes.</p></article>
+  <article class="info-card"><h3>Middle</h3><p>Searches existing ASTIS/Mathlib interfaces, fixes the exact theorem boundary, and writes a lower-ready packet.</p></article>
+  <article class="info-card"><h3>Lower</h3><p>Implements one declaration or returns one strictly smaller source-cited proof obligation with typed failure feedback.</p></article>
+  <article class="info-card"><h3>Reviewer</h3><p>Runs deterministic gates, checks hidden hypotheses and source correspondence, and rejects wrapper churn or fake closure.</p></article>
+</section>
+<section class="two-column">
+  <div><h2>Reproducible gate</h2>{code_html(commands, "shell")}<p>{esc(gate.note)}</p></div>
+  <div><h2>Failure is retained</h2>{list_html([
+    "Missing assumptions become explicit proof obligations.",
+    "API mismatches are recorded with the attempted declaration and error class.",
+    "External theorems remain upstream dependencies until ported and compiled locally.",
+    "Repeated same-shape failures trigger statement review rather than silent theorem drift."
+  ])}</div>
+</section>
+<section><h2>Paper-to-proof-leaf conversion</h2>{diagram_block("source-to-lean", "The textbook statement is decomposed through assumptions and shared roots before lower proof work begins.")}</section>
+"""
+    return page("ASTIS Automation Workflow", "workflow/index.html", body, active="Workflow")
+
+
+def render_attribution_index(git: GitContext) -> str:
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Provenance and ownership</div>
+<h1>Attribution</h1><p class="lede">ASTIS separates the textbook route, Mathlib facts, external proof references, ASTIS-owned Lean declarations, and generated exposition.</p></section>
+<section class="attribution-grid">
+  <article><h2>Primary mathematical source</h2><p>Sinho Chewi's <a href="{CHEWI_URL}"><em>Log-Concave Sampling</em></a> determines the chapter route. ASTIS uses original summaries, exact source correspondence, and supplemental regularity details; it does not imply author endorsement.</p></article>
+  <article><h2>Lean and Mathlib</h2><p>Lean checks the local declarations. Mathlib supplies the measure, probability, analysis, convexity, kernel, and calculus APIs. A Mathlib theorem is labeled external until ASTIS owns the local declaration that consumes it.</p></article>
+  <article><h2>External papers and repositories</h2><p>Cited textbooks, papers, <a href="https://github.com/YuanheZ/lean-stat-learning-theory">lean-stat-learning-theory</a>, and <a href="https://github.com/junwei-lu/Lean-Asymptotic-Statistical-Theory">Lean-Asymptotic-Statistical-Theory</a> are audited references or port sources. Their licenses and theorem hypotheses remain controlling.</p></article>
+  <article><h2>Formalization-site lineage</h2><p>The implementation-map and literate formalization pattern is informed by Lean-Ridgelet and the ABRL review deployment supplied for this work. ASTIS uses an independent Python generator and sampling/SDE-specific content; no bandit or quantum chapters are copied.</p></article>
+</section>
+<section><h2>Source state</h2><dl><dt>Git ref</dt><dd><code>{esc(git.ref)}</code></dd><dt>Commit</dt><dd><code>{esc(git.commit)}</code></dd><dt>Remote</dt><dd><code>{esc(git.remote_url)}</code></dd><dt>Published commit</dt><dd>{"yes" if git.commit_published else "not found on a configured remote ref"}</dd><dt>Public source links</dt><dd>{"enabled" if git.public_source_links else "disabled; using site-local anchors"}</dd></dl></section>
+<section class="note"><h2>Source-link rule</h2><p>By default every declaration links to the generated module anchor, so private or unpublished repositories cannot create public 404s. Set <code>ASTIS_PUBLIC_SOURCE_LINKS=1</code> only after verifying that the remote is public; clean files at a remote-published commit then link to that exact SHA. Modified or untracked files always remain labeled “local preview source”. The generator never assumes that checkout content already exists on <code>main</code>.</p></section>
+"""
+    return page("Attribution", "attribution/index.html", body)
+
+
+_ALL_MODULES: list[SourceModule] = []
 
 
 def copy_assets(output: Path) -> None:
@@ -1178,20 +2056,54 @@ def copy_assets(output: Path) -> None:
 
 
 def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
+    global _ACTIVE_GATE, _ACTIVE_GIT, _SOURCE_BY_NAME, _TEACHING_BY_NAME, _ALL_MODULES
     chapters = load_json(CONTENT / "chapters.json")
     source_entries = load_json(CONTENT / "source_correspondence.json")
+    milestones = load_json(CONTENT / "milestones.json")
+    teaching = load_json(CONTENT / "teaching_declarations.json")
     assert isinstance(chapters, list)
     assert isinstance(source_entries, list)
+    assert isinstance(milestones, list)
+    assert isinstance(teaching, list)
     entries, module_files = enrich_entries(parse_registry())
     entries_by_decl = {entry.local_decl: entry for entry in entries if entry.local_decl}
     entries_by_short = {entry.short_name: entry for entry in entries if entry.local_decl}
+    modules, declarations = scan_project_sources()
+    declarations_by_name = {declaration.full_name: declaration for declaration in declarations}
+    missing_teaching = sorted(
+        str(item["declaration"])
+        for item in teaching
+        if str(item["declaration"]) not in declarations_by_name
+    )
+    missing_milestone_evidence = sorted(
+        str(name)
+        for milestone in milestones
+        for name in milestone["evidence_declarations"]
+        if str(name) not in declarations_by_name
+    )
+    if missing_teaching:
+        raise RuntimeError(f"teaching metadata references unknown declarations: {missing_teaching}")
+    if missing_milestone_evidence:
+        raise RuntimeError(
+            f"milestone metadata references unknown declarations: {missing_milestone_evidence}"
+        )
+    annotate_declarations(declarations, entries, teaching)
+    _ACTIVE_GATE = load_gate_evidence()
+    _ACTIVE_GIT = git_context()
+    _SOURCE_BY_NAME = declarations_by_name
+    _TEACHING_BY_NAME = {str(item["declaration"]): item for item in teaching}
+    _ALL_MODULES = modules
 
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
     copy_assets(output)
 
-    write_page(output, "index.html", render_home(chapters, entries))
+    write_page(
+        output,
+        "index.html",
+        render_overview(chapters, modules, declarations, entries, milestones, teaching),
+    )
     write_page(output, "textbook/index.html", render_textbook_index(chapters))
     for chapter in chapters:
         write_page(
@@ -1210,8 +2122,22 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     write_page(
         output,
         "implementation-map/index.html",
-        render_implementation_map(entries),
+        render_full_implementation_map(modules, declarations, milestones),
     )
+    write_page(
+        output,
+        "learning-path/index.html",
+        render_learning_path(chapters, teaching, declarations_by_name),
+    )
+    write_page(
+        output,
+        "declarations/index.html",
+        render_declaration_catalog(declarations),
+    )
+    write_page(output, "modules/index.html", render_module_index(modules))
+    write_page(output, "roadmap/index.html", render_roadmap(milestones))
+    write_page(output, "workflow/index.html", render_workflow(_ACTIVE_GATE))
+    write_page(output, "attribution/index.html", render_attribution_index(_ACTIVE_GIT))
     write_page(output, "dependency-explorer.html", render_dependency_explorer(entries))
     write_page(output, "progress.html", render_progress(chapters, entries, source_entries))
     write_page(output, "frontier.html", render_frontier(entries_by_short))
@@ -1227,28 +2153,36 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
         write_page(
             output,
             f"theorems/{entry.slug}.html",
-            theorem_card(entry, entries_by_decl, source_by_decl.get(entry.local_decl, [])),
+            theorem_card(
+                entry,
+                entries_by_decl,
+                source_by_decl.get(entry.local_decl, []),
+                _TEACHING_BY_NAME.get(entry.local_decl),
+            ),
         )
 
-    entries_by_module: dict[str, list[RegistryEntry]] = defaultdict(list)
-    for entry in entries:
-        if entry.source_file:
-            module = ".".join(Path(entry.source_file).with_suffix("").parts)
-            entries_by_module[module].append(entry)
-    requested_modules = {
-        str(module)
-        for chapter in chapters
-        for module in chapter["lean_modules"]
-    }
-    all_modules = sorted(set(entries_by_module) | requested_modules)
-    for module in all_modules:
-        rel_file = module_files.get(module, "/".join(module.split(".")) + ".lean")
+    reverse_imports: dict[str, list[str]] = defaultdict(list)
+    for module in modules:
+        for imported in module.imports:
+            reverse_imports[imported].append(module.name)
+    for module in modules:
         write_page(
             output,
-            f"modules/{slugify(module)}.html",
-            module_card(module, rel_file, sorted(entries_by_module[module], key=lambda item: item.short_name)),
+            f"modules/{slugify(module.name)}.html",
+            render_source_module(module, sorted(reverse_imports[module.name])),
         )
+    for item in teaching:
+        declaration = declarations_by_name[str(item["declaration"])]
+        if not declaration.registry_card:
+            write_page(
+                output,
+                teaching_card_path(declaration),
+                render_teaching_declaration(declaration, item),
+            )
 
+    git_data = dataclasses.asdict(_ACTIVE_GIT)
+    git_data["dirty_files"] = sorted(_ACTIVE_GIT.dirty_files)
+    gate_data = dataclasses.asdict(_ACTIVE_GATE)
     site_data = {
         "project": "Auto-Sampling-Theory-In-Sleep",
         "short_name": "ASTIS",
@@ -1263,9 +2197,55 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
             "compiled_local_leaves": sum(entry.is_blue for entry in entries),
             "tests_baseline": test_registry_count(),
         },
+        "git": git_data,
+        "gate": gate_data,
+        "inventory": {
+            "modules": len(modules),
+            "production_modules": sum(module.role != "test" for module in modules),
+            "declarations": len(declarations),
+            "production_declarations": sum(
+                declaration.module != "Tests" and not declaration.module.startswith("Tests.")
+                for declaration in declarations
+            ),
+            "teaching_declarations": len(teaching),
+            "placeholder_declarations": sum(
+                declaration.has_placeholder for declaration in declarations
+            ),
+        },
         "chapters": chapters,
+        "milestones": milestones,
+        "teaching_declarations": teaching,
         "source_correspondence": source_entries,
+        "modules": [
+            {
+                "name": module.name,
+                "source_file": module.source_file,
+                "role": module.role,
+                "imports": module.imports,
+                "declaration_count": len(module.declarations),
+                "page": f"modules/{slugify(module.name)}.html",
+            }
+            for module in modules
+        ],
         "declarations": [
+            {
+                "full_name": declaration.full_name,
+                "short_name": declaration.short_name,
+                "kind": declaration.kind,
+                "module": declaration.module,
+                "source_file": declaration.source_file,
+                "source_line": declaration.source_line,
+                "anchor": declaration.anchor,
+                "local_status": local_declaration_status(declaration, _ACTIVE_GATE),
+                "route_status": declaration.route_status,
+                "has_placeholder": declaration.has_placeholder,
+                "placeholder_tokens": declaration.placeholder_tokens,
+                "registry_status": declaration.registry_status,
+                "page": declaration_path(declaration),
+            }
+            for declaration in declarations
+        ],
+        "registry_declarations": [
             {
                 "key": entry.key,
                 "local_decl": entry.local_decl,
@@ -1286,6 +2266,57 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     data_dir.mkdir()
     (data_dir / "site-data.json").write_text(
         json.dumps(site_data, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    search_index = [
+        {
+            "name": declaration.full_name,
+            "kind": declaration.kind,
+            "module": declaration.module,
+            "chapter": next(
+                (
+                    int(item["chapter"])
+                    for item in teaching
+                    if item["declaration"] == declaration.full_name
+                ),
+                "",
+            ),
+            "local_status": local_declaration_status(declaration, _ACTIVE_GATE),
+            "route_status": declaration.route_status,
+            "url": declaration_path(declaration),
+        }
+        for declaration in declarations
+    ]
+    search_index.extend(
+        {
+            "name": module.name,
+            "kind": "module",
+            "module": module.name,
+            "chapter": "",
+            "local_status": "Compiled" if _ACTIVE_GATE.passed else "Partial",
+            "route_status": "Not mapped",
+            "url": f"modules/{slugify(module.name)}.html",
+        }
+        for module in modules
+    )
+    (output / "search-index.json").write_text(
+        json.dumps(search_index, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    (data_dir / "build-metadata.json").write_text(
+        json.dumps(
+            {
+                "git": git_data,
+                "gate": gate_data,
+                "source_digest": source_digest(),
+                "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n",
         encoding="utf-8",
         newline="\n",
     )
@@ -1312,20 +2343,19 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "index.html",
         "textbook/index.html",
         "textbook/chapter-01.html",
-        "calculation-route.html",
-        "rigorous-details.html",
-        "lean-foundations.html",
-        "source-correspondence.html",
         "implementation-map/index.html",
-        "dependency-explorer.html",
-        "progress.html",
-        "frontier.html",
-        "learn-lean.html",
-        "attribution.html",
+        "learning-path/index.html",
+        "declarations/index.html",
+        "modules/index.html",
+        "roadmap/index.html",
+        "workflow/index.html",
+        "attribution/index.html",
         "maintenance.html",
         "data/site-data.json",
-        "assets/styles.css",
-        "assets/app.js",
+        "data/build-metadata.json",
+        "search-index.json",
+        "assets/site.css",
+        "assets/site.js",
         "assets/astis-blueprint-og.png",
     ]
     for rel in required:
@@ -1335,6 +2365,9 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
     if errors:
         return errors
     site_data = json.loads((output / "data" / "site-data.json").read_text(encoding="utf-8"))
+    build_metadata = json.loads(
+        (output / "data" / "build-metadata.json").read_text(encoding="utf-8")
+    )
     compiled = int(site_data["registry"]["compiled_local_leaves"])
     baseline = site_data["registry"]["tests_baseline"]
     if baseline is not None and compiled != int(baseline):
@@ -1355,7 +2388,23 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
             if not chapter.get(field):
                 errors.append(f"{chapter.get('id', 'chapter')} has empty required field: {field}")
 
-    entries, module_files = enrich_entries(parse_registry())
+    entries, _ = enrich_entries(parse_registry())
+    modules, declarations = scan_project_sources()
+    declarations_by_name = {declaration.full_name: declaration for declaration in declarations}
+    module_names = {module.name for module in modules}
+    if int(site_data["inventory"]["modules"]) != len(modules):
+        errors.append("generated module count does not match source scan")
+    if int(site_data["inventory"]["declarations"]) != len(declarations):
+        errors.append("generated declaration count does not match source scan")
+    if len(site_data["declarations"]) != len(declarations):
+        errors.append("site-data declaration inventory is not exhaustive")
+    if len(site_data["modules"]) != len(modules):
+        errors.append("site-data module inventory is not exhaustive")
+    if int(site_data["inventory"]["placeholder_declarations"]) != sum(
+        declaration.has_placeholder for declaration in declarations
+    ):
+        errors.append("placeholder declaration count does not match source scan")
+
     for entry in entries:
         if entry.status == "formalizedLocal" and not entry.source_file:
             errors.append(f"formalizedLocal declaration does not resolve: {entry.local_decl}")
@@ -1385,9 +2434,83 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         for module in chapter["lean_modules"]
     }
     for module in requested_modules:
-        if module not in module_files:
+        if module not in module_names:
             errors.append(f"chapter references missing Lean module: {module}")
 
+    valid_statuses = {
+        "Compiled",
+        "Partial",
+        "Stated/incomplete",
+        "Planned",
+        "Blocked",
+        "External/upstream dependency",
+        "Not mapped",
+    }
+    teaching_names: set[str] = set()
+    teaching_fields = {
+        "declaration",
+        "chapter",
+        "route_status",
+        "plain_english",
+        "mathematical_statement",
+        "intuition",
+        "assumptions",
+        "why_assumptions",
+        "proof_route",
+        "lean_notes",
+    }
+    for item in site_data["teaching_declarations"]:
+        name = str(item.get("declaration", ""))
+        if name in teaching_names:
+            errors.append(f"duplicate teaching declaration: {name}")
+        teaching_names.add(name)
+        missing_fields = teaching_fields - set(item)
+        if missing_fields:
+            errors.append(f"teaching declaration {name} missing fields: {sorted(missing_fields)}")
+        if name not in declarations_by_name:
+            errors.append(f"teaching metadata references unknown declaration: {name}")
+        if item.get("route_status") not in valid_statuses:
+            errors.append(f"invalid teaching route status for {name}: {item.get('route_status')}")
+    if len(teaching_names) != int(site_data["inventory"]["teaching_declarations"]):
+        errors.append("teaching declaration count does not match inventory")
+
+    milestone_ids: set[str] = set()
+    for milestone in site_data["milestones"]:
+        milestone_id = str(milestone.get("id", ""))
+        if milestone_id in milestone_ids:
+            errors.append(f"duplicate milestone id: {milestone_id}")
+        milestone_ids.add(milestone_id)
+        for field in ("local_status", "route_status"):
+            if milestone.get(field) not in valid_statuses:
+                errors.append(
+                    f"invalid milestone {field} for {milestone_id}: {milestone.get(field)}"
+                )
+        for name in milestone.get("evidence_declarations", []):
+            if name not in declarations_by_name:
+                errors.append(
+                    f"milestone {milestone_id} references unknown declaration: {name}"
+                )
+
+    search_index = json.loads((output / "search-index.json").read_text(encoding="utf-8"))
+    if len(search_index) != len(declarations) + len(modules):
+        errors.append("search index does not contain every declaration and module")
+    catalog_text = (output / "declarations" / "index.html").read_text(
+        encoding="utf-8", errors="ignore"
+    )
+    if catalog_text.count("<tr data-search=") != len(declarations):
+        errors.append("declaration catalog row count does not match source inventory")
+
+    gate = site_data["gate"]
+    gate_current = (
+        bool(gate.get("passed"))
+        and gate.get("commit") == site_data["git"].get("commit")
+        and gate.get("source_digest") == source_digest()
+        and build_metadata.get("source_digest") == source_digest()
+    )
+    if bool(gate.get("passed")) != gate_current:
+        errors.append("site claims a Lean gate pass without current matching evidence")
+
+    anchor_cache: dict[Path, set[str]] = {}
     for html_path in output.rglob("*.html"):
         for value, target, fragment in iter_local_links(html_path, output):
             try:
@@ -1399,14 +2522,47 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
                 errors.append(f"broken local link: {html_path.relative_to(output)} -> {value}")
                 continue
             if fragment and target.suffix.lower() == ".html":
-                target_text = target.read_text(encoding="utf-8", errors="ignore")
-                if not re.search(
-                    rf"\bid=[\"']{re.escape(fragment)}[\"']",
-                    target_text,
-                ):
+                if target not in anchor_cache:
+                    target_text = target.read_text(encoding="utf-8", errors="ignore")
+                    anchor_cache[target] = set(
+                        re.findall(r"\bid=[\"']([^\"']+)[\"']", target_text)
+                    )
+                if fragment not in anchor_cache[target]:
                     errors.append(
                         f"broken local anchor: {html_path.relative_to(output)} -> {value}"
                     )
+    for module in modules:
+        module_page = output / "modules" / f"{slugify(module.name)}.html"
+        if not module_page.exists():
+            errors.append(f"missing generated module page: {module.name}")
+            continue
+        module_text = module_page.read_text(encoding="utf-8", errors="ignore")
+        for declaration in module.declarations:
+            if f'id="{declaration.anchor}"' not in module_text:
+                errors.append(
+                    f"missing declaration anchor in {module.name}: {declaration.full_name}"
+                )
+
+    required_diagrams = {
+        "measure-kernel-conditional",
+        "probability-sampling-sde",
+        "major-theorem-dag",
+        "learning-path",
+        "automation-workflow",
+        "milestone-status",
+        "module-family-map",
+        "source-to-lean",
+    }
+    for name in required_diagrams:
+        source = DIAGRAMS / f"{name}.mmd"
+        copied = output / "assets" / f"{name}.mmd"
+        if not source.exists() or not copied.exists():
+            errors.append(f"missing editable Mermaid source or copied asset: {name}")
+            continue
+        text = source.read_text(encoding="utf-8")
+        if not re.search(r"^\s*(?:flowchart|graph)\s+", text):
+            errors.append(f"Mermaid diagram has no graph header: {name}")
+
     generated_text = "\n".join(
         path.read_text(encoding="utf-8", errors="ignore")
         for path in output.rglob("*")
@@ -1425,6 +2581,18 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         errors.append("fewer than ten rendered Mermaid diagram placements")
     if "Sho Sonoda" not in generated_text or "Sinho Chewi" not in generated_text:
         errors.append("required attribution missing")
+    if re.search(r"github\.com/DakeBU/Auto-Sampling-Theory-In-Sleep/blob/main/", generated_text):
+        errors.append("source links incorrectly assume files exist on main")
+    commit = str(site_data["git"].get("commit", ""))
+    for source_link in re.findall(
+        r'href="(https://github\.com/[^"]+/blob/[^"]+)"',
+        generated_text,
+    ):
+        if commit and f"/blob/{commit}/" not in source_link:
+            errors.append(f"source link is not pinned to the generated commit: {source_link}")
+            break
+    if not gate.get("passed") and "Lean gate passed" in generated_text:
+        errors.append("unverified build displays a Lean gate passed label")
     return errors
 
 
@@ -1434,7 +2602,8 @@ def command_build(args: argparse.Namespace) -> int:
     print(
         f"built {output}: {len(data['chapters'])} chapters, "
         f"{data['registry']['compiled_local_leaves']} compiled local leaves, "
-        f"{len(data['declarations'])} Registry cards"
+        f"{data['inventory']['modules']} modules, "
+        f"{data['inventory']['declarations']} declarations"
     )
     return 0
 
@@ -1452,7 +2621,9 @@ def command_check(args: argparse.Namespace) -> int:
     data = json.loads((output / "data" / "site-data.json").read_text(encoding="utf-8"))
     print(
         f"ASTIS site check passed: {len(data['chapters'])} chapters, "
-        f"{data['registry']['compiled_local_leaves']} compiled local leaves"
+        f"{data['inventory']['modules']} modules, "
+        f"{data['inventory']['declarations']} declarations, "
+        f"{data['inventory']['teaching_declarations']} reviewed teaching declarations"
     )
     return 0
 

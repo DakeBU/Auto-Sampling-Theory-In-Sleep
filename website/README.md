@@ -1,119 +1,145 @@
-# ASTIS Blueprint-style textbook site
+# ASTIS literate formalization website
 
-This directory contains the maintainable sources for the
-Auto-Sampling-Theory-In-Sleep textbook and Lean formalization website.
+This directory contains the maintainable sources for the generated
+Auto-Sampling-Theory-In-Sleep website. The site follows the actual ASTIS
+sampling/SDE modules and the twelve-chapter *Log-Concave Sampling* route.
+Generated output is written to the ignored `_site/` directory.
 
-The site is intentionally generated from shared repository truth:
+## Source of truth
 
-- `AutoSamplingTheory/TechnicalLemmas/Registry.lean` supplies Registry status;
-- the Lean source tree supplies declarations, files, lines, statements,
-  docstrings, direct dependencies, and direct consumers;
-- `Tests/Basic.lean` supplies the compiled-leaf count baseline and explicit
-  smoke-test signal;
-- `content/chapters.json` supplies original ASTIS textbook exposition;
-- `content/source_correspondence.json` supplies precise Chewi source anchors;
-- `diagrams/*.mmd` supplies version-controlled diagrams.
+The Python standard-library generator combines:
 
-Generated HTML under `_site/` is disposable and is not committed.
+- every project Lean module, import, named declaration, source line, docstring,
+  and placeholder signal;
+- `AutoSamplingTheory/TechnicalLemmas/Registry.lean` for selected reusable
+  leaf provenance and Registry cards;
+- `Tests/Basic.lean` for the Registry baseline;
+- `content/chapters.json` for the textbook chapter route;
+- `content/source_correspondence.json` for exact Chewi source anchors;
+- `content/teaching_declarations.json` for the small set of manually reviewed
+  teaching declarations;
+- `content/milestones.json` for mathematical-route status;
+- editable Mermaid sources under `diagrams/`;
+- a source-bound Lean gate record under ignored
+  `.astis/site-lean-gate.json`.
 
-## Build
+Local declaration status and mathematical route status are independent.
+Compiling a helper declaration never marks an incomplete textbook theorem as
+formalized.
+
+## Rebuild
 
 From the repository root:
 
 ```bash
+python3 website/scripts/lean_gate.py
+python3 website/scripts/build_site.py
+python3 website/scripts/check_site.py
+```
+
+`lean_gate.py` runs the canonical `python3 tools/astis.py check` gate, which
+builds the Lean library and `Tests` and scans for fake proof closures. It writes
+gate evidence only after success. The site refuses to display “Lean gate
+passed” when that evidence is absent or does not match the current commit and
+Lean-source digest.
+
+The established commands remain available:
+
+```bash
 python3 tools/astis.py site-build
 python3 tools/astis.py site-check
 ```
 
-The generator uses only the Python standard library. On Windows, use the
-Python command available in the active development environment.
+## Generated pages
 
-For a foreground local preview:
+- Overview;
+- Sampling/SDE Implementation Map;
+- Guided Learning Path and twelve textbook chapters;
+- exhaustive Declaration Catalog and search index;
+- one page for every Lean module and stable declaration anchors;
+- reviewed declaration explanations and Registry leaf cards;
+- Progress and Roadmap;
+- ASTIS Automation Workflow;
+- Attribution and build metadata.
+
+All named declarations enter the catalog. Only selected interfaces receive
+long mathematical explanations; internal helper lemmas receive source,
+status, module, and exact-line metadata without generated mathematical prose.
+
+## Status rules
+
+Local status:
+
+- `Compiled`: accepted by gate evidence for the exact Lean source digest;
+- `Partial`: real local source, but the current generated build has no matching
+  gate evidence or the object is only part of a larger interface;
+- `Stated/incomplete`: `sorry`, `admit`, `axiom`, or an explicitly incomplete
+  contract boundary;
+- `External/upstream dependency`: not an ASTIS-owned local certificate.
+
+Route status:
+
+- `Compiled`, `Partial`, `Planned`, or `Blocked`, as recorded in reviewed
+  milestone metadata;
+- external source and port dependencies remain explicit.
+
+Task cards, natural-language theorem cards, proof obligations, and compiled
+metadata structures do not count as theorem proofs.
+
+## Source links
+
+The build inspects the current Git commit, ref, origin, remote refs, and dirty
+files. By default, source links point to checked site-local module anchors and
+are labeled `local preview source`; this avoids public 404s for a private
+repository. After verifying that the remote is public, set
+`ASTIS_PUBLIC_SOURCE_LINKS=1`. Clean Lean files at a remote-published commit
+then link to that exact SHA, while modified or untracked files remain local.
+The generator never assumes checkout content already exists on `main`.
+
+## Private preview
+
+Credentials must come from environment variables:
 
 ```bash
-python3 -m http.server 8000 --directory _site
+export ASTIS_PREVIEW_USER='reviewer'
+export ASTIS_PREVIEW_PASSWORD='generate-a-secret-outside-git'
+python3 website/scripts/serve_preview.py
 ```
 
-Do not run this preview as a detached ASTIS harness process.
+The default address is `http://127.0.0.1:8765/`. Neither credential is written
+to generated output or committed files.
 
-## Metadata contracts
+When `cloudflared` is installed, a temporary authenticated review tunnel can
+be opened with:
 
-### Chapter entry
+```bash
+python3 website/scripts/quick_tunnel.py
+```
 
-Each `chapters.json` entry contains:
+A Cloudflare Quick Tunnel is temporary and has no uptime, hostname, or
+production-security guarantee. It is not the formal deployment.
 
-- stable chapter ID, number, title, and source-page range;
-- chapter goal, prerequisites, concepts, and source sections;
-- a self-contained calculation route;
-- rigorous-detail obligations;
-- real current Lean modules;
-- red blockers, downstream consumers, recommended order, and status.
+## CI and Pages
 
-Chapter status is pedagogical coverage status. It never turns a theorem blue.
-
-### Source correspondence entry
-
-Each `source_correspondence.json` entry contains:
-
-- a stable ID and precise chapter/section/page/kind/source URL;
-- `wording_status`: `licensed original`, `short quotation`, or
-  `faithful paraphrase`;
-- separate source summary, ASTIS exposition, and rigorous packet;
-- exact Registry declaration names only;
-- separate source assumptions, formal assumptions, consumers, and status.
-
-Do not add a declaration name until it exists in the Registry. A source entry
-with `status: todo` remains red even when nearby supporting declarations are
-blue.
-
-## Adding a theorem card
-
-Do not hand-write HTML. Add the Lean theorem through the normal ASTIS process,
-compile it, register it exactly once, add an explicit test when appropriate,
-then rebuild the site. `tools/astis_site.py` creates the theorem card.
-
-The source scanner intentionally computes a conservative dependency graph by
-looking for direct Registry declaration references inside each declaration
-block. The resulting consumer count can under-approximate tactic-mediated or
-namespace-indirect uses; it must not be described as a complete call graph.
-
-## Updating diagrams
-
-Edit the Mermaid source in `diagrams/`. Large graphs are split into chapter,
-shared-root, frontier, and theorem-local views. Blue is reserved for compiled
-ASTIS-owned declarations; red marks unfinished edges.
-
-Run the site build, open the rendered view, and check node text, edges, color,
-mobile overflow, and shared-node identity.
+`.github/workflows/blueprint-site.yml` installs the pinned Lean toolchain,
+runs the canonical Lean/Tests/consistency gate, compiles the Python tools,
+builds and validates the site, uploads the Pages artifact, and deploys it on
+non-PR runs. GitHub Pages must still be enabled for Actions in the repository
+settings; the workflow does not invent a successful URL before deployment.
 
 ## Validation
 
-`site-check` rejects:
+`check_site.py` rejects:
 
-- a Registry `formalizedLocal` declaration that cannot be resolved in source;
-- a blue declaration without a generated theorem card;
-- a compiled-leaf count that differs from the test baseline;
-- unknown declarations in source correspondence;
-- missing chapter modules;
-- broken or escaping internal links;
-- absolute Windows paths in generated output;
-- missing themes, Lean code, formula renderer, diagrams, or attribution.
+- stale or fabricated Lean gate claims;
+- Registry/test count drift;
+- unknown declarations in teaching, milestone, or source metadata;
+- an incomplete declaration/module/search inventory;
+- missing stable anchors or broken internal links/fragments;
+- source links pinned to `main` or to the wrong commit;
+- missing formulas, Lean code, Mermaid sources, static assets, or attribution;
+- leaked absolute Windows paths.
 
-The full release gate remains:
-
-```bash
-lake build Tests
-python3 tools/astis.py check
-python3 -m py_compile tools/astis.py tools/astis_site.py
-python3 tools/astis.py site-build
-python3 tools/astis.py site-check
-git diff --check
-```
-
-## Copyright
-
-The public *Log-Concave Sampling* draft exposes no explicit permission for
-wholesale republication. Website prose must therefore be original ASTIS
-writing, faithful to the mathematics, linked to precise source locations, and
-clearly labeled. Do not paste long source passages into the metadata.
-
+Website prose must remain original ASTIS writing. The public Chewi draft is
+summarized and linked by precise source correspondence; long source passages
+must not be copied into metadata.

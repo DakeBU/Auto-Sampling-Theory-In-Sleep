@@ -515,40 +515,50 @@ blue.
 Build and validate the static site from the repository root:
 
 ```bash
-python3 tools/astis.py site-build
-python3 tools/astis.py site-check
+python3 website/scripts/lean_gate.py
+python3 website/scripts/build_site.py
+python3 website/scripts/check_site.py
 ```
 
-For a developer-run foreground preview:
+For a Basic Auth foreground preview, supply credentials through the
+environment:
 
 ```bash
-python3 -m http.server 8000 --directory _site
+export ASTIS_PREVIEW_USER='reviewer'
+export ASTIS_PREVIEW_PASSWORD='generate-a-secret-outside-git'
+python3 website/scripts/serve_preview.py
 ```
 
-The repository does not start this server as a detached or background ASTIS
-session. The generated `_site/` directory is disposable.
+`python3 website/scripts/quick_tunnel.py` can place this authenticated local
+server behind a temporary Cloudflare Quick Tunnel when `cloudflared` is
+installed. Quick Tunnel is a review convenience, not a production deployment.
+The generated `_site/` directory and `.astis/site-lean-gate.json` are
+disposable.
 
 Deployment is defined by
-`.github/workflows/blueprint-site.yml`: it builds and validates the site, then
-publishes the artifact through GitHub Pages when Pages is enabled. The site
-generator is Linux-compatible and uses only the Python standard library.
+`.github/workflows/blueprint-site.yml`: it runs the Lean and `Tests` gate,
+builds and validates the complete source inventory, and publishes the artifact
+through GitHub Pages when Pages is enabled. The generator uses only the Python
+standard library.
 
 Maintenance follows one-source-of-truth rules:
 
-1. Add a theorem normally in Lean, compile it, and add one Registry entry. Its
-   theorem card is generated automatically.
+1. Add a declaration normally in Lean and compile it. It enters the exhaustive
+   catalog automatically; add a Registry entry only when it is a selected
+   reusable leaf.
 2. Add a Chewi mapping to
    `website/content/source_correspondence.json`, including page/section,
    wording status, source assumptions, formal assumptions, and exact
    declaration names.
-3. Update chapter exposition in `website/content/chapters.json`.
-4. Update dependency diagrams in `website/diagrams/*.mmd`.
-5. Run `site-build`, `site-check`, the Lean gates, and `git diff --check`.
+3. Put reviewed route state in `website/content/milestones.json` and long
+   declaration explanations in `website/content/teaching_declarations.json`.
+4. Update chapter exposition and editable Mermaid diagrams.
+5. Run the Lean gate, site build/check, and `git diff --check`.
 
-`site-check` rejects unknown blue declarations, Registry/test count drift,
-unknown source mappings, missing module cards, broken internal links, absolute
-Windows paths, and missing theme/formula/code/attribution hooks. The full
-schema and contributor workflow are documented in
+The checker validates the exhaustive module/declaration/search inventory,
+dual-layer status, gate evidence, precise Git source links, internal
+links/fragments, formulas, diagrams, assets, and attribution. The full schema
+and contributor workflow are documented in
 [`website/README.md`](website/README.md).
 
 ## File Map
@@ -566,7 +576,9 @@ schema and contributor workflow are documented in
 | source/citation obligations | `research-wiki/source-index/`, `research-wiki/cited-results/` |
 | next six-hour run packet | `agent-briefs/log_concave_sampling_6h_execution_pack.md` |
 | website content and source correspondence | `website/content/` |
-| website generator and validator | `tools/astis_site.py` |
+| website generator core | `tools/astis_site.py` |
+| website build/check/gate/preview entry points | `website/scripts/` |
+| teaching and milestone metadata | `website/content/teaching_declarations.json`, `website/content/milestones.json` |
 | maintainable website diagrams | `website/diagrams/` |
 
 ## ASTIS Run Loop

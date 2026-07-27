@@ -1,20 +1,30 @@
-name: Blueprint textbook site
+name: ASTIS literate formalization site
 
 on:
   push:
     branches: [main]
     paths:
       - "AutoSamplingTheory/**"
+      - "AutoSamplingTheory.lean"
       - "Tests/**"
+      - "Tests.lean"
       - "website/**"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
       - "tools/astis.py"
       - "tools/astis_site.py"
       - ".github/workflows/blueprint-site.yml"
   pull_request:
     paths:
       - "AutoSamplingTheory/**"
+      - "AutoSamplingTheory.lean"
       - "Tests/**"
+      - "Tests.lean"
       - "website/**"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
       - "tools/astis.py"
       - "tools/astis_site.py"
       - ".github/workflows/blueprint-site.yml"
@@ -34,16 +44,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Build Registry-driven site
-        run: python3 tools/astis.py site-build
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
 
-      - name: Validate declarations, status, and links
-        run: python3 tools/astis.py site-check
+      - name: Compile generator and preview tools
+        run: |
+          python3 -m py_compile \
+            tools/astis_site.py \
+            website/scripts/build_site.py \
+            website/scripts/check_site.py \
+            website/scripts/lean_gate.py \
+            website/scripts/serve_preview.py \
+            website/scripts/quick_tunnel.py
+
+      - name: Run Lean, Tests, and ASTIS consistency gate
+        run: python3 website/scripts/lean_gate.py
+
+      - name: Build source-derived site
+        run: python3 website/scripts/build_site.py
+
+      - name: Validate inventory, status, links, formulas, diagrams, and assets
+        run: python3 website/scripts/check_site.py
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload static artifact
         uses: actions/upload-pages-artifact@v3
@@ -61,4 +97,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

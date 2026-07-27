@@ -73,6 +73,113 @@
     status?.addEventListener("change", run);
   }
 
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function globalSearch() {
+    const input = document.querySelector("[data-global-search]");
+    const results = document.querySelector("[data-global-results]");
+    if (!input || !results) return;
+    const rootPath = input.dataset.searchRoot || "";
+    let indexPromise = null;
+
+    const loadIndex = () => {
+      if (!indexPromise) {
+        indexPromise = fetch(`${rootPath}search-index.json`).then((response) => {
+          if (!response.ok) throw new Error(`search index: ${response.status}`);
+          return response.json();
+        });
+      }
+      return indexPromise;
+    };
+
+    const hide = () => {
+      results.hidden = true;
+      results.innerHTML = "";
+    };
+
+    input.addEventListener("input", async () => {
+      const query = input.value.trim().toLowerCase();
+      if (query.length < 2) {
+        hide();
+        return;
+      }
+      const terms = query.split(/\s+/).filter(Boolean);
+      try {
+        const index = await loadIndex();
+        const matches = index
+          .filter((item) => {
+            const haystack = `${item.name} ${item.kind} ${item.module} ${item.chapter} ${item.local_status} ${item.route_status}`.toLowerCase();
+            return terms.every((term) => haystack.includes(term));
+          })
+          .slice(0, 18);
+        results.innerHTML = matches.length
+          ? matches.map((item) => (
+            `<li><a href="${rootPath}${encodeURI(item.url)}"><code>${escapeHtml(item.name)}</code>` +
+            `<span class="search-kind">${escapeHtml(item.kind)} · ${escapeHtml(item.module)} · ${escapeHtml(item.local_status)}</span></a></li>`
+          )).join("")
+          : '<li class="empty">No matching declaration or module.</li>';
+        results.hidden = false;
+      } catch (error) {
+        results.innerHTML = `<li class="empty">${escapeHtml(error.message)}</li>`;
+        results.hidden = false;
+      }
+    });
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".search-shell")) hide();
+    });
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") hide();
+    });
+  }
+
+  function filterCatalog() {
+    const search = document.getElementById("declaration-search");
+    const kind = document.getElementById("declaration-kind");
+    const localStatus = document.getElementById("declaration-local-status");
+    const count = document.getElementById("declaration-count");
+    const rows = [...document.querySelectorAll("#declaration-table tbody tr")];
+    if (!rows.length) return;
+    const run = () => {
+      const terms = (search?.value || "").trim().toLowerCase().split(/\s+/).filter(Boolean);
+      const selectedKind = kind?.value || "";
+      const selectedStatus = localStatus?.value || "";
+      let visible = 0;
+      rows.forEach((row) => {
+        const haystack = row.dataset.search || row.textContent.toLowerCase();
+        const matches = terms.every((term) => haystack.includes(term))
+          && (!selectedKind || row.dataset.kind === selectedKind)
+          && (!selectedStatus || row.dataset.localStatus === selectedStatus);
+        row.hidden = !matches;
+        if (matches) visible += 1;
+      });
+      if (count) count.textContent = `${visible.toLocaleString()} declarations`;
+    };
+    search?.addEventListener("input", run);
+    kind?.addEventListener("change", run);
+    localStatus?.addEventListener("change", run);
+  }
+
+  function filterGenericTables() {
+    document.querySelectorAll("[data-table-search]").forEach((input) => {
+      const table = document.getElementById(input.dataset.tableSearch);
+      const rows = [...(table?.querySelectorAll("tbody tr") || [])];
+      if (!rows.length) return;
+      input.addEventListener("input", () => {
+        const terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+        rows.forEach((row) => {
+          const haystack = row.dataset.search || row.textContent.toLowerCase();
+          row.hidden = !terms.every((term) => haystack.includes(term));
+        });
+      });
+    });
+  }
+
   function highlightLean() {
     const keywords = /\b(theorem|lemma|def|abbrev|structure|class|inductive|namespace|end|where|by|fun|let|have|show|exact|apply|refine|intro|constructor|cases|simpa|simp|rw|calc|match|with|if|then|else|∀|∃)\b/g;
     const types = /\b(Prop|Type|Set|Measure|Integrable|Tendsto|HasFDerivAt|DifferentiableAt|ContinuousLinearMap|EuclideanSpace|PiLp|ENNReal|ℝ|ℕ)\b/g;
@@ -120,6 +227,9 @@
 
   filterCards();
   filterImplementation();
+  globalSearch();
+  filterCatalog();
+  filterGenericTables();
   highlightLean();
   loadMermaid();
 })();
