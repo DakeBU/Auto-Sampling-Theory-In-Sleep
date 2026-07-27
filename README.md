@@ -541,6 +541,16 @@ builds and validates the complete source inventory, and publishes the artifact
 through GitHub Pages when Pages is enabled. The generator uses only the Python
 standard library.
 
+The checked output can also be packaged for the owner-only Sites deployment:
+
+```bash
+python3 website/scripts/build_sites_bundle.py \
+  --archive /tmp/astis-sites.tar.gz
+```
+
+The ignored `.open-next/` output is only a static asset adapter around the
+same `_site/` tree. It does not maintain a second copy of the formalization.
+
 Maintenance follows one-source-of-truth rules:
 
 1. Add a declaration normally in Lean and compile it. It enters the exhaustive

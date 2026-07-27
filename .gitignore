@@ -3,6 +3,7 @@
 /lake-packages/
 /build/
 /_site/
+/.open-next/
 /runs/logs/
 /runs/*.tmp
 /runs/*.pid

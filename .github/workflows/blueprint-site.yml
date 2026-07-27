@@ -65,6 +65,7 @@ jobs:
             tools/astis_site.py \
             website/scripts/build_site.py \
             website/scripts/check_site.py \
+            website/scripts/build_sites_bundle.py \
             website/scripts/lean_gate.py \
             website/scripts/serve_preview.py \
             website/scripts/quick_tunnel.py
@@ -77,6 +78,11 @@ jobs:
 
       - name: Validate inventory, status, links, formulas, diagrams, and assets
         run: python3 website/scripts/check_site.py
+
+      - name: Build deployable static worker bundle
+        run: |
+          python3 website/scripts/build_sites_bundle.py
+          node --check .open-next/worker.js
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

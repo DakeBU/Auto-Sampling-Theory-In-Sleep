@@ -127,6 +127,18 @@ builds and validates the site, uploads the Pages artifact, and deploys it on
 non-PR runs. GitHub Pages must still be enabled for Actions in the repository
 settings; the workflow does not invent a successful URL before deployment.
 
+The same checked `_site/` tree can be packaged for the private Sites project:
+
+```bash
+python3 website/scripts/build_sites_bundle.py \
+  --archive /tmp/astis-sites.tar.gz
+```
+
+This creates an ignored `.open-next/` directory containing the static assets
+and a minimal asset-serving Worker. It does not regenerate mathematical
+content or replace the GitHub Pages artifact. The archive must be created
+after the exact source commit has passed the Lean gate.
+
 ## Validation
 
 `check_site.py` rejects:
