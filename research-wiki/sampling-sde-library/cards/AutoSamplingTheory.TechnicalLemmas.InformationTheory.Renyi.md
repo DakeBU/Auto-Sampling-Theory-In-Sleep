@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi
 
-- File: `AutoSamplingTheory/TechnicalLemmas/InformationTheory/Renyi.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\InformationTheory\Renyi.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: Renyi density integrand positivity, measurability, finite-envelope, and pointwise derivative algebra leaves
 - Mathlib-quality status: preferred Mathlib-style location for Renyi density algebra before integral/path regularity contracts

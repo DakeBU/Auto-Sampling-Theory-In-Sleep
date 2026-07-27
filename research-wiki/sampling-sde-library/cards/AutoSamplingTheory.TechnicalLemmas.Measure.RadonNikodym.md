@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Measure\RadonNikodym.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: withDensity mass, reciprocal-lintegral normalization, finite-pi product density decomposition, measurable-equivalence density transport, absolute-continuity, and RN reconstruction wrappers
 - Mathlib-quality status: preferred Mathlib-style location for density normalization and RN derivative leaves

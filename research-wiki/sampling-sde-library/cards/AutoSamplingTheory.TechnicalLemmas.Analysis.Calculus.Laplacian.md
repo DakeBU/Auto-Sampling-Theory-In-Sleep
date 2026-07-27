@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Laplacian.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Analysis\Calculus\Laplacian.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: finite-dimensional real inner-product-space Laplacian coordinate bridges: Mathlib Laplacian equals the standard orthonormal-basis second-derivative sum, plus source-functional handoff
 - Mathlib-quality status: preferred ANALYSIS/SDE bridge for Langevin generator displays; does not prove IBP, boundary decay, stationarity, or invariant laws

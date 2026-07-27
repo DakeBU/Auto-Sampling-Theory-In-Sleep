@@ -1,5 +1,26 @@
 # Notices
 
+## Textbook and Blueprint website
+
+- Sinho Chewi, *Log-Concave Sampling*
+  - Source: https://chewisinho.github.io/main.pdf
+  - Role: primary mathematical textbook reconstructed by ASTIS.
+  - Copyright boundary: the public draft exposes no explicit license for
+    wholesale republication. ASTIS uses original faithful paraphrase, precise
+    source correspondence, and separately identified supplemental
+    derivations/formalizations. Sinho Chewi does not participate in, endorse,
+    or maintain ASTIS.
+- Sho Sonoda, Lean-Ridgelet
+  - Repository: https://github.com/shosonoda/lean-ridgelet
+  - Blueprint:
+    https://shosonoda.github.io/lean-ridgelet/blueprint/html-multi/overview/#Lean-Ridgelet-Blueprint--L2-theory___-arXiv___2106___04770v2-implementation-map
+  - License: Apache-2.0.
+  - Role: inspiration for the Blueprint-style organization and implementation
+    map. ASTIS copied no Lean-Ridgelet source code, template, or style.
+    Sho Sonoda does not participate in, endorse, or maintain ASTIS.
+
+## Automation workflow
+
 This project includes an automation workflow inspired by:
 
 - `DakeBU/Quantum-Computing-Block-Encoding`

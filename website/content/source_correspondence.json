@@ -1,0 +1,408 @@
+[
+  {
+    "id": "chewi-1-2-semigroup",
+    "chapter": 1,
+    "section": "1.2",
+    "page": "book 10 / PDF 22",
+    "source_kind": "Definition 1.2.1",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=22",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "A Markov semigroup records how the law or observables evolve with time.",
+    "astis_exposition": "ASTIS separates the algebraic semigroup laws from measurability, continuity, and the choice of function space on which the operators act.",
+    "rigorous_packet": "The eventual packet must fix the measurable state space, the observable space, positivity and constant preservation, the semigroup law, and the continuity notion used to recover a generator.",
+    "lean_declarations": [],
+    "source_assumptions": [
+      "Markov evolution",
+      "time-homogeneous composition"
+    ],
+    "formal_assumptions": [
+      "measurable state space",
+      "specified operator domain",
+      "chosen continuity topology"
+    ],
+    "downstream_consumers": [
+      "generator domain",
+      "stationarity",
+      "mixing estimates"
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "chewi-1-2-generator",
+    "chapter": 1,
+    "section": "1.2",
+    "page": "book 11 / PDF 23",
+    "source_kind": "Definition 1.2.3",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=23",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The generator is the derivative at time zero of the Markov semigroup.",
+    "astis_exposition": "The formal differential expression and the closed infinitesimal generator are different objects. ASTIS keeps the analytic domain as an explicit red node.",
+    "rigorous_packet": "Specify the Banach or Hilbert space, the strong limit defining the generator, its domain, and the relation between that closed operator and any smooth-core differential expression.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative"
+    ],
+    "source_assumptions": [
+      "existence of the derivative of the semigroup"
+    ],
+    "formal_assumptions": [
+      "explicit difference-quotient convergence",
+      "explicit observable and scalar field"
+    ],
+    "downstream_consumers": [
+      "generator/semigroup domain packet",
+      "invariant Gibbs law"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-1-2-langevin-generator",
+    "chapter": 1,
+    "section": "1.2",
+    "page": "book 11 / PDF 23",
+    "source_kind": "Example 1.2.4",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=23",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "For overdamped Langevin diffusion, Itô's formula displays the formal generator as a Laplacian minus a score-directional derivative.",
+    "astis_exposition": "ASTIS owns algebraic, basis, coordinate, and differentiability-aware display lemmas. None of these alone identifies a closed generator domain.",
+    "rigorous_packet": "The display requires the relevant first and second derivatives at the point. A semigroup generator theorem additionally needs a process, Itô integration, and a core/domain argument.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_langevinGenerator_basisDisplay",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_langevinGenerator_coordinateDisplay",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_display_of_differentiableAt"
+    ],
+    "source_assumptions": [
+      "twice differentiable test function with controlled derivatives",
+      "differentiable potential"
+    ],
+    "formal_assumptions": [
+      "finite-dimensional Euclidean index type",
+      "explicit Fréchet derivatives",
+      "pointwise differentiability hypotheses where genuine derivatives are used"
+    ],
+    "downstream_consumers": [
+      "weighted integration by parts",
+      "formal symmetry",
+      "generator core"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-1-2-weighted-ibp",
+    "chapter": 1,
+    "section": "1.2",
+    "page": "book 13 / PDF 25",
+    "source_kind": "Example 1.2.8",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=25",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "A weighted integration-by-parts calculation makes the Langevin generator formally symmetric under its Gibbs weight.",
+    "astis_exposition": "ASTIS expands this short calculation into cutoff construction, compact-support divergence, boundary cancellation, source-field integrability, dominated convergence, and only then a whole-space identity.",
+    "rigorous_packet": "Do not pass directly from an algebraic divergence display to a whole-space integral identity. The cutoff-gradient error and the main weighted term require distinct integrability arguments.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.weightedDivergence_gibbsWeight_langevinGenerator_algebra",
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_hasCompactSupport",
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tendsto_one",
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_norm_fderiv_radialSmoothCutoff_comp_toLp_apply",
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_radialSmoothCutoff_comp_toLp_smul"
+    ],
+    "source_assumptions": [
+      "sufficiently regular test functions",
+      "vanishing boundary contribution"
+    ],
+    "formal_assumptions": [
+      "measurability and integrability of every source field",
+      "compact support at the bounded-domain stage",
+      "dominating functions for both cutoff-limit terms",
+      "genuine differentiability where derivative formulas are invoked"
+    ],
+    "downstream_consumers": [
+      "whole-space weighted integration by parts",
+      "generator symmetry",
+      "Gibbs stationarity"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-1-2-stationarity",
+    "chapter": 1,
+    "section": "1.2",
+    "page": "book 13 / PDF 25",
+    "source_kind": "Corollary 1.2.9",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=25",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The Gibbs measure is the stationary law suggested by the weighted generator identity.",
+    "astis_exposition": "ASTIS marks this as red. A formal density calculation does not by itself prove invariance for the Markov semigroup.",
+    "rigorous_packet": "Bridge from a core identity to the generator domain, identify the forward or adjoint equation in a justified sense, and connect it to the semigroup law.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.isProbabilityMeasure_withDensity_normalized_gibbs"
+    ],
+    "source_assumptions": [
+      "normalizable Gibbs density",
+      "formal integration by parts"
+    ],
+    "formal_assumptions": [
+      "probability normalization",
+      "whole-space weighted integration by parts",
+      "generator/semigroup domain",
+      "well-posed Markov evolution"
+    ],
+    "downstream_consumers": [
+      "equilibrium convergence",
+      "algorithmic sampling interpretation"
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "chewi-1-3-poincare",
+    "chapter": 1,
+    "section": "1.3",
+    "page": "book 17 / PDF 29",
+    "source_kind": "Poincaré inequality packet",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=29",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Variance is bounded by an energy involving the gradient.",
+    "astis_exposition": "The ASTIS layer makes the measure, function class, integrability, and gradient representation visible.",
+    "rigorous_packet": "Variance and energy must both be defined and finite in the intended function space; extension from a smooth core requires a density or closure theorem.",
+    "lean_declarations": [],
+    "source_assumptions": [
+      "sufficiently regular functions"
+    ],
+    "formal_assumptions": [
+      "explicit measure and scalar field",
+      "integrability/square-integrability",
+      "explicit Dirichlet form"
+    ],
+    "downstream_consumers": [
+      "variance decay",
+      "spectral-gap estimates"
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "chewi-1-3-log-sobolev",
+    "chapter": 1,
+    "section": "1.3",
+    "page": "book 18 / PDF 30",
+    "source_kind": "Log-Sobolev inequality packet",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=30",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Entropy is controlled by a Fisher-information or Dirichlet-form term.",
+    "astis_exposition": "ASTIS records the scalar handoff from a square-root density form to a KL/Fisher-information chain, while retaining all finiteness requirements.",
+    "rigorous_packet": "The density, logarithm convention at zero, square-root derivative, and absolute continuity all need stated representatives and integrability.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+    ],
+    "source_assumptions": [
+      "density relative to the reference measure",
+      "regularity sufficient for Fisher information"
+    ],
+    "formal_assumptions": [
+      "nonnegative measurable density",
+      "normalization",
+      "finite entropy and energy terms in the handoff"
+    ],
+    "downstream_consumers": [
+      "entropy decay",
+      "Langevin mixing in KL"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-2-functional-inequalities-overview",
+    "chapter": 2,
+    "section": "2.1",
+    "page": "book 48 / PDF 60",
+    "source_kind": "Section 2.1 overview",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=60",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The chapter organizes Poincaré, log-Sobolev, transport, and concentration inequalities in a common measure-theoretic language.",
+    "astis_exposition": "ASTIS separates the probability-law and density prerequisites from the analytic inequality and its semigroup consumers.",
+    "rigorous_packet": "Each inequality needs an explicit function class and finite terms; extension beyond a smooth compactly supported core requires a closure or density argument.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+    ],
+    "source_assumptions": [
+      "probability reference law",
+      "regular test functions or densities"
+    ],
+    "formal_assumptions": [
+      "explicit measure",
+      "finite entropy/energy terms",
+      "explicit function class"
+    ],
+    "downstream_consumers": [
+      "semigroup convergence",
+      "sampling complexity"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-3-girsanov",
+    "chapter": 3,
+    "section": "3.2",
+    "page": "book 99 / PDF 111",
+    "source_kind": "Girsanov comparison route",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=111",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "A change in drift can be represented by an exponential likelihood ratio.",
+    "astis_exposition": "ASTIS currently owns finite Gaussian cylinder identities. The path-space theorem remains a separate red boundary.",
+    "rigorous_packet": "A full result requires adapted drift differences, a stochastic integral, a martingale criterion, and identification of the changed path law.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov.finiteGaussianGirsanovCylinderIntegral",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov.finiteGaussianGirsanovCylinderMeasure_eq_withDensity"
+    ],
+    "source_assumptions": [
+      "controlled drift change"
+    ],
+    "formal_assumptions": [
+      "finite-dimensional Gaussian cylinder at the compiled layer",
+      "path-space martingale hypotheses still missing"
+    ],
+    "downstream_consumers": [
+      "continuous-time comparison",
+      "LMC and ULMC discretization"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-6-renyi",
+    "chapter": 6,
+    "section": "6",
+    "page": "book 166 / PDF 178",
+    "source_kind": "Rényi divergence integrand",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=178",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Rényi divergence packages a power integral of a density ratio.",
+    "astis_exposition": "ASTIS first establishes positivity, measurability, finite lintegral transfer, and calculus for the scalar integrand.",
+    "rigorous_packet": "Absolute continuity and the extended-value behavior of the density ratio cannot be suppressed.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.renyiIntegrand_pos",
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.measurable_renyiIntegrandENNReal",
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi.lintegral_renyiIntegrandENNReal_ne_top_of_ae_le"
+    ],
+    "source_assumptions": [
+      "density ratio",
+      "order parameter"
+    ],
+    "formal_assumptions": [
+      "measurable nonnegative densities",
+      "explicit domination for finiteness"
+    ],
+    "downstream_consumers": [
+      "warm-start comparison",
+      "discretization error conversion"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-6-discretization",
+    "chapter": 6,
+    "section": "6.1–6.3",
+    "page": "book 166–178 / PDF 178–190",
+    "source_kind": "LMC/ULMC discretization route",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=178",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Continuous interpolation and change of measure convert local numerical error into sampling error.",
+    "astis_exposition": "The website exposes the compiled divergence and Girsanov leaves, while the full stochastic interpolation chain remains red.",
+    "rigorous_packet": "Prove adaptedness, moment bounds, integrated drift error, absolute continuity of path laws, and the terminal-time data-processing step independently.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov.finiteGaussianGirsanovCylinderMeasure_eq_withDensity"
+    ],
+    "source_assumptions": [
+      "smooth drift",
+      "stable step size"
+    ],
+    "formal_assumptions": [
+      "moment and path-law hypotheses not yet fully formalized"
+    ],
+    "downstream_consumers": [
+      "LMC complexity",
+      "ULMC complexity"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-8-proximal",
+    "chapter": 8,
+    "section": "8.1",
+    "page": "book 210 / PDF 222",
+    "source_kind": "Proximal augmentation",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=222",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "A Gaussian augmentation creates alternating conditional distributions with the target as a marginal.",
+    "astis_exposition": "ASTIS treats kernel measurability, normalization, Fubini/Tonelli, and marginal preservation as independent reusable roots.",
+    "rigorous_packet": "Before composing kernels, both conditional normalizers must be measurable, positive, and finite.",
+    "lean_declarations": [],
+    "source_assumptions": [
+      "well-defined conditional samplers"
+    ],
+    "formal_assumptions": [
+      "kernel measurability",
+      "finite conditional normalizers",
+      "joint-law marginal identity"
+    ],
+    "downstream_consumers": [
+      "proximal sampler convergence",
+      "structured sampling"
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "chewi-11-fisher-stationarity",
+    "chapter": 11,
+    "section": "11.1–11.2",
+    "page": "book 267 / PDF 279",
+    "source_kind": "Fisher-information stationarity route",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=279",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Relative Fisher information is used as a first-order stationarity measure for non-log-concave sampling, and entropy dissipation supplies an averaged finite-time bound.",
+    "astis_exposition": "ASTIS exposes the density, score-representative, absolute-continuity, entropy-dissipation, and randomized-time interfaces separately.",
+    "rigorous_packet": "Define the relative score almost everywhere, prove Fisher-information measurability and finiteness where used, justify entropy dissipation on a stated domain, then add discretization and oracle errors.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+    ],
+    "source_assumptions": [
+      "absolutely continuous time marginals",
+      "finite initial relative entropy"
+    ],
+    "formal_assumptions": [
+      "chosen score representative",
+      "finite Fisher-information terms",
+      "justified entropy-dissipation identity",
+      "measurable randomized output time"
+    ],
+    "downstream_consumers": [
+      "non-log-concave stationarity bounds",
+      "algorithmic Fisher-information estimates"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chewi-12-score",
+    "chapter": 12,
+    "section": "12.1–12.3",
+    "page": "book 278–290 / PDF 290–302",
+    "source_kind": "Score-based reverse diffusion route",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=290",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The reverse-time drift uses the score of the forward marginal, and approximation errors become drift errors.",
+    "astis_exposition": "ASTIS exposes Fisher-information roots but does not yet claim a reverse-time SDE theorem.",
+    "rigorous_packet": "Choose a density representative, establish spatial and temporal regularity, state the time-reversal theorem, and only then analyze learned-score and discretization errors.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+    ],
+    "source_assumptions": [
+      "regular time marginals",
+      "available score approximation"
+    ],
+    "formal_assumptions": [
+      "score representative",
+      "time-reversal regularity",
+      "law under which score error is controlled"
+    ],
+    "downstream_consumers": [
+      "diffusion generative models"
+    ],
+    "status": "partial"
+  }
+]

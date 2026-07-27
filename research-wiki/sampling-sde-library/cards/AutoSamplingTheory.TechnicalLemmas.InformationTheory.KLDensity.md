@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity
 
-- File: `AutoSamplingTheory/TechnicalLemmas/InformationTheory/KLDensity.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\InformationTheory\KLDensity.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: KL-density pointwise derivative and mass-conservation algebra leaves
 - Mathlib-quality status: preferred Mathlib-style location for KL density algebra after analytic domination is supplied

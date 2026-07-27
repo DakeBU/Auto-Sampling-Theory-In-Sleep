@@ -813,6 +813,26 @@ def calculusMemory : List LemmaMemoryEntry := [
     note := "Pointwise derivative transport only. It proves no support, measurability, integrability, tail convergence, IBP, generator-domain, or invariant-law statement."
   },
   {
+    key := "analysis.calculus.pilp-radial-cutoff-gradient-L1-tendsto-zero",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_norm_fderiv_radialSmoothCutoff_comp_toLp_apply",
+    upstreamDecl := "radialSmoothCutoff_fderiv_bound; hasFDerivAt_radialSmoothCutoff_comp_toLp; MeasureTheory.tendsto_integral_filter_of_dominated_convergence",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.{Cutoff,Divergence}; Mathlib.MeasureTheory.Integral.DominatedConvergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "cutoff", "WithLp", "PiLp", "L1", "Integrable", "dominated-convergence"],
+    saldUse := "Chewi Ch.1 cutoff-smul route: make the cutoff-gradient cross term vanish in L1 for every integrable finite-Pi vector field",
+    note := "Generic cutoff-gradient L1 limit only. The PiLp inverse-equivalence operator norm is retained explicitly; the theorem proves neither Gibbs/source-field integrability, main-term convergence, Gibbs tails, whole-space IBP, generator domains, nor invariant law."
+  },
+  {
+    key := "analysis.calculus.pilp-radial-cutoff-main-integral-tendsto",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_radialSmoothCutoff_comp_toLp_smul",
+    upstreamDecl := "radialSmoothCutoff_contDiff; radialSmoothCutoff_mem_Icc; radialSmoothCutoff_tendsto_one; MeasureTheory.tendsto_integral_filter_of_dominated_convergence",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.{Cutoff,Divergence}; Mathlib.MeasureTheory.Integral.DominatedConvergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "cutoff", "WithLp", "PiLp", "Integrable", "Bochner-integral", "dominated-convergence"],
+    saldUse := "Chewi Ch.1 cutoff-smul route: pass the main integrable field through the PiLp-wrapped radial cutoff by dominated convergence",
+    note := "Generic cutoff main-term limit only. It assumes the source field is Integrable and proves neither integrability of the concrete Langevin generator display, Gibbs tails, the cutoff-gradient cross term, whole-space IBP, generator domains, nor invariant law."
+  },
+  {
     key := "analysis.calculus.sum-smulRight-apply-pi-single-eq-apply",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.sum_smulRight_apply_pi_single_eq_apply",
     upstreamDecl := "pi_eq_sum_univ'; ContinuousLinearMap.map_sum; ContinuousLinearMap.map_smul",
@@ -2058,6 +2078,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Langevin", "IntegrableOn", "ContDiff", "HasFDerivAt", "fderiv", "trace-style", "closed-box"],
     saldUse := "Chewi Ch.1 Langevin root: finite-box trace `IntegrableOn` for the canonical `fderiv` trace of the explicit Gibbs-weighted first-derivative field under global `C¹/C²` regularity",
     note := "This removes the supplied field-derivative hypothesis only for the canonical `fderiv` representative. It remains finite-box regularity, not boundary cancellation, weighted IBP, generator-domain semantics, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.integrable-exp-neg-fderiv-coordinate-source-field",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le",
+    upstreamDecl := "lintegral_ofReal_ne_top_iff_integrable, PiLp.volume_preserving_toLp, Integrable.smul_bdd, ContinuousLinearMap.le_opNorm",
+    upstreamFile := "Mathlib.MeasureTheory.Function.L1Space.Integrable; Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Integrable", "whole-space", "Gibbs-weight", "fderiv", "coordinate-field", "bounded-derivative"],
+    saldUse := "Chewi Ch.1 Example 1.2.8 cutoff route: discharge the concrete `Integrable G volume` premise for `G = exp(-V) * fderiv f` in raw Pi coordinates from finite Gibbs mass and a bounded first derivative",
+    note := "Whole-space source-field integrability only. It uses genuine `C¹` regularity for `fderiv`, transports the scalar Gibbs weight through the volume-preserving PiLp bridge, and bounds the raw Pi sup norm coordinatewise. It does not prove a Gibbs tail, cutoff main-term convergence, weighted IBP, generator/semigroup domains, stationarity, invariant law, reversibility, or any second-order cutoff estimate."
   },
   {
     key := "girsanov.finite-gaussian-cylinder-integral",

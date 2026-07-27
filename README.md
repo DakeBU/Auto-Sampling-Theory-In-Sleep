@@ -1,6 +1,6 @@
-# Log-Concave Sampling Lean Reconstruction
+# Auto-Sampling-Theory-In-Sleep
 
-ASTIS is a Lean reconstruction of
+Auto-Sampling-Theory-In-Sleep (ASTIS) is a Lean reconstruction of
 [`Log-Concave Sampling`](https://chewisinho.github.io/main.pdf).
 The public target is this textbook route: chapter order, theorem statements,
 constants, cited background, and the regularity assumptions that the prose
@@ -11,14 +11,36 @@ used only to clarify a cited background result, borrow a proof pattern, or
 identify a Mathlib-ready leaf.  A fact becomes blue only when this repository
 owns a compiled Lean declaration and records it in the registry.
 
+## News
+
+**Blueprint-style textbook and formalization site.** ASTIS now includes a
+generated static site that organizes Sinho Chewi's *Log-Concave Sampling* as
+three linked reading depths:
+
+- **Calculation Route** for the textbook's concepts, formulas, and proof
+  calculations;
+- **Rigorous Details** for measurability, integrability, approximation,
+  boundary, representative, regularity, and operator-domain conditions
+  suppressed by concise prose;
+- **Lean Foundations** for exact declarations, statements, source lines,
+  dependencies, consumers, Registry records, and tests.
+
+The site also provides a twelve-chapter spine, source correspondence,
+implementation map, split dependency graphs, current formalization progress,
+and the strict Chapter 1 frontier. Status is generated from the Registry,
+Lean source, and tests rather than copied into HTML. No public deployment URL
+is claimed until GitHub Pages or the review deployment has actually completed.
+
+[Website sources and maintenance guide](website/README.md)
+
 | Item | Current status |
 |---|---|
 | primary source | `https://chewisinho.github.io/main.pdf` |
 | local source copy | `outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf` |
-| compiled local technical leaves | 253 |
+| compiled local technical leaves | 256 |
 | active frontier | Chapter 1, Example 1.2.8 -> Corollary 1.2.9: justify the omitted whole-space integration by parts before claiming the Gibbs invariant law |
-| newest closed edge | scale-uniform `O(R^{-1})` radial derivative bound, derivative zero on the closed outer region, PiLp cutoff chain rule, and the cutoff cross-term trace identity |
-| next red edge | generic `L¹` cutoff-gradient integral limit from `Integrable G`, then Gibbs-specific domination and whole-space weighted IBP |
+| newest closed edge | generic dominated convergence for an `Integrable` normed-space-valued field multiplied by the PiLp-wrapped radial cutoff |
+| next red edge | integrability of the concrete Gibbs-weighted Langevin generator display; Gibbs-tail passage remains a separate sibling before whole-space weighted IBP |
 
 ## Visual Index
 
@@ -32,6 +54,7 @@ Start with the diagrams, then open the exact Lean file or registry row.
 | current proof frontier | [Chapter 1 proof chain](#chapter-1-proof-chain) | `Analysis.Calculus.Divergence`, `StochasticProcesses.Langevin` |
 | exact next tasks | [Current red queue](#current-red-queue) | README, DAG, run packet |
 | compiled declarations | [File map](#file-map) | `AutoSamplingTheory/TechnicalLemmas/Registry.lean` |
+| student textbook site | [Website build and maintenance](#blueprint-style-textbook-site) | Registry, Lean source, Tests, `website/content/` |
 
 Color rule:
 
@@ -124,7 +147,7 @@ flowchart TD
 
 | Chapter | Main mathematical package | Blue foundation | Red boundary |
 |---|---|---|---|
-| 1 Langevin diffusion | Gibbs density, generator display, finite-box IBP, invariant law | Gibbs wrappers, generator algebra, finite-coordinate calculus, finite-box divergence, compact-in-open/Pi-box plateaus, radial exhaustion, `O(R^{-1})` first derivative, closed-outer derivative zero, PiLp/trace consumer bridges | `L¹` cutoff-gradient tail, Gibbs domination, whole-space weighted IBP, generator domains, invariant law |
+| 1 Langevin diffusion | Gibbs density, generator display, finite-box IBP, invariant law | Gibbs wrappers, generator algebra, finite-coordinate calculus, finite-box divergence, compact-in-open/Pi-box plateaus, radial exhaustion, `O(R^{-1})` first derivative, closed-outer derivative zero, PiLp/trace consumer bridges, generic `L¹` cutoff-gradient limit, concrete Gibbs/source-field integrability, generic cutoff main-term dominated convergence | concrete generator-display integrability, Gibbs tails, whole-space weighted IBP, generator domains, invariant law |
 | 2 Functional inequalities | PI, LSI, TI, isoperimetry, preservation | log-concavity algebra, level sets, products, powers, pullbacks, LSI bookkeeping | Prekopa-Leindler, Brunn-Minkowski, PI/TI/isoperimetry, preservation theorems |
 | 3 Stochastic analysis | Girsanov, Doob, Follmer, Schrodinger bridge | finite Gaussian shifts, finite-cylinder Girsanov, RN/withDensity handoffs | Brownian path-space packaging and bridge transforms |
 | 4 LMC | coupling, interpolation, convex-optimization, Girsanov routes | law-map, weak-generator, conditional-kernel, Gaussian transition, KL/FI algebra leaves | theorem-level convergence packages |
@@ -260,18 +283,25 @@ flowchart TD
   DZero[closed outer region<br/>totalized fderiv = 0]:::blue
   PiBridge[PiLp cutoff derivative<br/>and smulRight trace]:::blue
   Deriv2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
-  Tail[L1 cutoff-gradient tail<br/>from Integrable field]:::red
+  Tail[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
+  SourceInt[Gibbs source-field<br/>integrability]:::blue
+  MainConv[generic main-term<br/>dominated convergence]:::blue
+  MainInt[concrete generator-display<br/>integrability]:::red
+  GibbsTail[Gibbs-tail passage]:::red
   IBP[weighted IBP<br/>integral Lf d pi = 0]:::red
   Domain[generator/semigroup<br/>domain contracts]:::red
   Inv[invariant Gibbs law]:::red
   Rev[reversibility<br/>KL/FI dissipation]:::red
 
   Gibbs --> Norm --> Inv
-  Gen --> Weight --> Div --> Box --> Zero --> Tail --> IBP --> Inv --> Rev
+  Gen --> Weight --> Div --> Box --> Zero --> IBP --> Inv --> Rev
   Cut --> Zero
   Exact --> Zero
   Exact --> Plateau
-  Radial --> Deriv1 --> PiBridge --> Tail
+  Radial --> Deriv1 --> PiBridge --> Tail --> IBP
+  SourceInt --> IBP
+  MainConv --> MainInt --> IBP
+  GibbsTail --> IBP
   Radial --> DZero
   Radial --> Deriv2
   Domain --> Inv
@@ -321,7 +351,11 @@ flowchart TD
   DZero[closed outer region<br/>totalized fderiv = 0]:::blue
   PiBridge[PiLp derivative +<br/>smulRight trace]:::blue
   Deriv2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
-  Tail[L1 cutoff-gradient tail<br/>from Integrable field]:::red
+  Tail[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
+  SourceInt[Gibbs source-field<br/>integrability]:::blue
+  MainConv[generic main-term<br/>dominated convergence]:::blue
+  MainInt[concrete generator-display<br/>integrability]:::red
+  GibbsTail[Gibbs-tail passage]:::red
   IBP[weighted Gibbs IBP]:::red
 
   Local --> Supp --> Smul --> Zero
@@ -336,7 +370,11 @@ flowchart TD
   Trace --> Zero
   Deriv1 --> Reg
   PiBridge --> Tail
-  Zero --> Tail --> IBP
+  Zero --> IBP
+  Tail --> IBP
+  SourceInt --> IBP
+  MainConv --> MainInt --> IBP
+  GibbsTail --> IBP
 
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
@@ -349,10 +387,10 @@ flowchart TD
 | generator display | `StochasticProcesses.Langevin` | finite Euclidean/Pi displays of `Delta f - <grad V, grad f>` | no semigroup-generator semantics |
 | Gibbs density | `Measure.Gibbs`, `Measure.GibbsIntegral`, `Measure.GibbsLogConcavity` | normalized withDensity wrappers, real-density bridges | no invariant-law statement |
 | regularity | `Analysis.Calculus.*`, `StochasticProcesses.Langevin` | gradient continuity, Laplacian continuity, canonical `fderiv` trace handoffs | no whole-space domination |
-| finite boxes | `Analysis.Calculus.Divergence` | trace-to-coordinate transfer, a.e. bridge, signed face terms | no tail limit |
-| reusable smooth cutoffs | `Analysis.Calculus.Cutoff` | unit/radial cutoffs, closed-ball support/`tsupport`, compact support, pointwise exhaustion, generic compact-in-open plateau, one-constant-for-all-scales `O(R^-1)` first-derivative control, and closed outer-region derivative zero | `L¹` tail passage remains; second-order bounds wait for a named consumer |
+| finite boxes | `Analysis.Calculus.Divergence` | trace-to-coordinate transfer, a.e. bridge, signed face terms | no whole-space limit |
+| reusable smooth cutoffs | `Analysis.Calculus.Cutoff` | unit/radial cutoffs, closed-ball support/`tsupport`, compact support, pointwise exhaustion, generic compact-in-open plateau, one-constant-for-all-scales `O(R^-1)` first-derivative control, and closed outer-region derivative zero | second-order bounds wait for a named consumer |
 | finite-box cutoffs | `Analysis.Calculus.Divergence` | local Pi-open-box cutoffs, exact plain support and positivity, one compactly supported cutoff equal to `1` on an entire inner closed Pi-box | no derivative-controlled box exhaustion or whole-space limit |
-| cutoff-smul | `Analysis.Calculus.Divergence` | support, face cancellation, regularity, trace integrability wrappers, radial-cutoff PiLp derivative producer, and `smulRight` basis-trace identity | no integral tail limit |
+| cutoff-smul | `Analysis.Calculus.Divergence` | support, face cancellation, regularity, trace integrability wrappers, radial-cutoff PiLp derivative producer, `smulRight` basis-trace identity, generic `L¹` cutoff-gradient limit, and generic cutoff main-term dominated convergence from `Integrable` fields | no concrete generator-display integrability, Gibbs tail, or whole-space IBP |
 
 ## Other Theorem Subtrees
 
@@ -435,14 +473,16 @@ flowchart TD
   classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
 ```
 
-## Current Red Queue
+## Current Frontier Queue
 
 ```mermaid
 flowchart TD
-  R1[generic L1 cutoff-gradient limit<br/>Integrable G + C/R]:::red
+  R1[generic L1 cutoff-gradient limit<br/>Integrable G + C/R]:::blue
   R2[Hessian/Laplacian cutoff bound<br/>only for named 2nd-order consumer]:::red
-  R3[source-field integrability<br/>for chosen V and f]:::red
-  R4[main-term dominated convergence<br/>and Gibbs tail passage]:::red
+  R3[source-field integrability<br/>for chosen V and f]:::blue
+  R4[generic main-term<br/>dominated convergence]:::blue
+  R4A[concrete generator-display<br/>integrability]:::red
+  R4B[Gibbs-tail passage]:::red
   R5[weighted IBP<br/>for Gibbs density]:::red
   R6[generator and semigroup<br/>domain contracts]:::red
   R7[invariant Gibbs law<br/>then reversibility]:::red
@@ -451,21 +491,65 @@ flowchart TD
   R10[sampler consumers<br/>LMC HMC MALA proximal]:::red
 
   R1 --> R4
-  R3 --> R1
   R3 --> R4
-  R4 --> R5
+  R4 --> R4A --> R5
+  R4B --> R5
   R5 --> R7
   R6 --> R7
   R8 --> R10
   R9 --> R10
+
+  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   R7 --> R10
 
   classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
 ```
 
-Next work should close one red prerequisite at a time.  It should not state an
+`R4` is the newest compiled blue edge; next work should close one red
+prerequisite at a time.  It should not state an
 invariant-law theorem until weighted IBP and generator-domain contracts are
 blue.
+
+## Blueprint-Style Textbook Site
+
+Build and validate the static site from the repository root:
+
+```bash
+python3 tools/astis.py site-build
+python3 tools/astis.py site-check
+```
+
+For a developer-run foreground preview:
+
+```bash
+python3 -m http.server 8000 --directory _site
+```
+
+The repository does not start this server as a detached or background ASTIS
+session. The generated `_site/` directory is disposable.
+
+Deployment is defined by
+`.github/workflows/blueprint-site.yml`: it builds and validates the site, then
+publishes the artifact through GitHub Pages when Pages is enabled. The site
+generator is Linux-compatible and uses only the Python standard library.
+
+Maintenance follows one-source-of-truth rules:
+
+1. Add a theorem normally in Lean, compile it, and add one Registry entry. Its
+   theorem card is generated automatically.
+2. Add a Chewi mapping to
+   `website/content/source_correspondence.json`, including page/section,
+   wording status, source assumptions, formal assumptions, and exact
+   declaration names.
+3. Update chapter exposition in `website/content/chapters.json`.
+4. Update dependency diagrams in `website/diagrams/*.mmd`.
+5. Run `site-build`, `site-check`, the Lean gates, and `git diff --check`.
+
+`site-check` rejects unknown blue declarations, Registry/test count drift,
+unknown source mappings, missing module cards, broken internal links, absolute
+Windows paths, and missing theme/formula/code/attribution hooks. The full
+schema and contributor workflow are documented in
+[`website/README.md`](website/README.md).
 
 ## File Map
 
@@ -481,6 +565,9 @@ blue.
 | external Lean references | `research-wiki/external-lean-libraries/` |
 | source/citation obligations | `research-wiki/source-index/`, `research-wiki/cited-results/` |
 | next six-hour run packet | `agent-briefs/log_concave_sampling_6h_execution_pack.md` |
+| website content and source correspondence | `website/content/` |
+| website generator and validator | `tools/astis_site.py` |
+| maintainable website diagrams | `website/diagrams/` |
 
 ## ASTIS Run Loop
 

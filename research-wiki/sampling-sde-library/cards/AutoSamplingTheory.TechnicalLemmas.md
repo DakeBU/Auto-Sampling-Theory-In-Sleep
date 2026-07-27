@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas
 
-- File: `AutoSamplingTheory/TechnicalLemmas.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: parent import surface for reusable ASTIS-owned technical lemmas
 - Mathlib-quality status: public import surface for the Mathlib-ready arsenal; excludes SALDExtracted quarantine

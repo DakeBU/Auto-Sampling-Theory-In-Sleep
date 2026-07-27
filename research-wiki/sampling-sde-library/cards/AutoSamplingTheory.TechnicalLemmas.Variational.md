@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Variational
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Variational.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Variational.lean`
 - Layer: compatibility source
 - Purpose: compatibility aggregator for DV and LSI/FI leaves
 - Mathlib-quality status: legacy search surface; prefer InformationTheory and FunctionalInequalities modules

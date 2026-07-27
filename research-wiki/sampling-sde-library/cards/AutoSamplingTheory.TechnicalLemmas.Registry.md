@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Registry
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Registry.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Registry.lean`
 - Layer: memory index
 - Purpose: compiled lemma-memory metadata and external port queue
 - Mathlib-quality status: agent retrieval registry, not theorem content

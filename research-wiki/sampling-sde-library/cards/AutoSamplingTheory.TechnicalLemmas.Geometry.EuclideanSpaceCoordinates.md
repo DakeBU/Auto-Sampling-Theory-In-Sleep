@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Geometry/EuclideanSpaceCoordinates.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Geometry\EuclideanSpaceCoordinates.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: finite-dimensional EuclideanSpace coordinate bridges, including inner-product coordinate-sum identities for direct vectors and `WithLp.toLp 2` coordinate functions
 - Mathlib-quality status: preferred shared GEOM/GAUSS/SDE notation bridge; does not define gradients, divergence, Laplacian, or analytic regularity

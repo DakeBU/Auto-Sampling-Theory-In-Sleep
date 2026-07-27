@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Measure
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Measure.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Measure.lean`
 - Layer: compatibility source
 - Purpose: compatibility aggregator for measure, Gibbs, law-map, conditional-kernel, and RN/withDensity lemmas
 - Mathlib-quality status: legacy search surface; prefer TechnicalLemmas.Measure.* and TechnicalLemmas.Probability.* for new work

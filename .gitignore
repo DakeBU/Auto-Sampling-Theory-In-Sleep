@@ -2,6 +2,7 @@
 /.lake/
 /lake-packages/
 /build/
+/_site/
 /runs/logs/
 /runs/*.tmp
 /runs/*.pid

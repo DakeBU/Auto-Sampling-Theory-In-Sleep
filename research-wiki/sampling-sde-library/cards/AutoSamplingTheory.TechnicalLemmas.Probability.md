@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Probability
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Probability.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Probability.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: parent import surface for probability technical lemmas
 - Mathlib-quality status: preferred parent module for law-map and conditional-kernel leaves

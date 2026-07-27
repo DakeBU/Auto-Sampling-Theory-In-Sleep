@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/LineDeriv.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Analysis\Calculus\LineDeriv.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: line-derivative product-rule and second-derivative wiring bridges for finite-coordinate weighted-product calculations, including equality-form `lineDeriv`, explicit `exp(-V) * g` coordinate leaves, and `fderiv`-to-`iteratedFDeriv` coordinate leaves
 - Mathlib-quality status: preferred ANALYSIS/SDE bridge for the product-rule and Hessian-coordinate components before divergence, IBP, or invariant-law contracts

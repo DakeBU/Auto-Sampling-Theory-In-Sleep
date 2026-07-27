@@ -32,7 +32,7 @@ namespace TechnicalLemmas
 namespace StochasticProcesses
 namespace Langevin
 
-open scoped RealInnerProductSpace BigOperators
+open scoped RealInnerProductSpace BigOperators ENNReal
 open MeasureTheory
 
 /-- Pointwise product-rule identity for the one-dimensional Gibbs weight
@@ -999,6 +999,69 @@ theorem integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv
   simpa [F] using
     integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff
       a b V f (fun x => fderiv ℝ F x) hF hV hf
+
+/-- Whole-space integrability of the Gibbs-weighted coordinate derivative
+field from finiteness of the unnormalized Gibbs mass and a uniform operator
+norm bound on the test-function derivative.
+
+This theorem proves only source-field integrability.  It does not prove a
+cutoff main-term limit, weighted integration by parts, stationarity, or an
+invariant Gibbs law. -/
+theorem integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le
+    {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ} {C : ℝ}
+    (hV : Continuous V)
+    (hf : ContDiff ℝ 1 f)
+    (hZ : (∫⁻ y : EuclideanSpace ℝ (Fin (n + 1)),
+      ENNReal.ofReal (Real.exp (-V y)) ∂volume) ≠ ∞)
+    (hf_bound : ∀ y, ‖fderiv ℝ f y‖ ≤ C) :
+    Integrable
+      (fun x : Fin (n + 1) → ℝ => fun i =>
+        Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))) *
+          fderiv ℝ f (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))
+            (EuclideanSpace.single i (1 : ℝ))) volume := by
+  have hweight_euclidean :
+      Integrable (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+        Real.exp (-V y)) volume := by
+    exact
+      (lintegral_ofReal_ne_top_iff_integrable
+        hV.neg.rexp.aestronglyMeasurable
+        (Filter.Eventually.of_forall fun y => Real.exp_nonneg (-V y))).1 hZ
+  have hweight :
+      Integrable (fun x : Fin (n + 1) → ℝ =>
+        Real.exp (-V (WithLp.toLp 2 x :
+          EuclideanSpace ℝ (Fin (n + 1))))) volume := by
+    rw [← (PiLp.volume_preserving_toLp (Fin (n + 1))).integrable_comp_emb
+      (MeasurableEquiv.toLp 2 _).measurableEmbedding] at hweight_euclidean
+    simpa [Function.comp_def] using hweight_euclidean
+  let D : (Fin (n + 1) → ℝ) → (Fin (n + 1) → ℝ) :=
+    fun x i =>
+      fderiv ℝ f (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))
+        (EuclideanSpace.single i (1 : ℝ))
+  have hD_continuous : Continuous D := by
+    refine continuous_pi fun i => ?_
+    exact
+      ((hf.continuous_fderiv one_ne_zero).comp
+        (PiLp.continuous_toLp 2 _)).clm_apply continuous_const
+  have hC : 0 ≤ C := by
+    exact (norm_nonneg (fderiv ℝ f 0)).trans (hf_bound 0)
+  have hD_bound : ∀ x, ‖D x‖ ≤ C := by
+    intro x
+    refine (pi_norm_le_iff_of_nonneg hC).2 fun i => ?_
+    calc
+      ‖D x i‖ ≤
+          ‖fderiv ℝ f
+            (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖ *
+            ‖EuclideanSpace.single i (1 : ℝ)‖ :=
+        ContinuousLinearMap.le_opNorm _ _
+      _ = ‖fderiv ℝ f
+            (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖ := by
+        rw [(EuclideanSpace.orthonormal_single (𝕜 := ℝ)).1 i]
+        simp
+      _ ≤ C := hf_bound _
+  have hproduct := hweight.smul_bdd C hD_continuous.aestronglyMeasurable
+    (Filter.Eventually.of_forall hD_bound)
+  simpa [D, Pi.smul_apply, smul_eq_mul] using hproduct
 
 end Langevin
 end StochasticProcesses

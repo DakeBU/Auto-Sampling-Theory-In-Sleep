@@ -65,7 +65,9 @@ flowchart TD
   SDE --> TestRegularity[Global C1/C2 components and Pi field fderiv]
   SDE --> CutoffBase[Reusable smooth cutoffs and plateaus]
   SDE --> CutoffFirst[Scale-uniform cutoff first derivative]
-  SDE --> CutoffLimit[Second-order cutoff and dominated exhaustion]
+  SDE --> CutoffL1[Generic L1 cutoff-gradient limit]
+  SDE --> CutoffMain[Generic cutoff main-term DCT]
+  SDE --> CutoffSecond[Second-order cutoff on demand]
   SDE --> GirsanovFinite[StochasticProcesses.Girsanov finite cylinder]
   SDE --> Langevin[Semigroup/Ito/invariant Gibbs law]
   SDE --> Path[Girsanov/Doob/Follmer]
@@ -78,5 +80,5 @@ flowchart TD
   classDef compiled fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
   class Root,MEAS,DENS,GAUSS,FI,SDE,DISC root;
-  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,CutoffFirst,GirsanovFinite compiled;
-  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,CutoffLimit,Langevin,Path,LMC,HMC,MALA todo;
+  class LawMap,CondKernel,PiUpdate,LogConcavity,LogConcavityTensor,LogConcavityMaps,LogConcavityLevels,NegLogPotential,GibbsQuadLogConcavity,ShiftedGibbsQuad,PairKernelGeometry,RN,PiDensity,Gibbs,GibbsIntegral,GibbsPotentialEnv,GibbsFiniteEnv,GibbsQuadEnv,KLDV,Renyi,Gaussian,GaussianLinear,GaussianMGF,GaussianScalarShift,GaussianProductShift,GaussianCOM,GaussianEuclidean,GaussianStd,LSI,WeakGen,FP,Langevin1D,BoxDiv,AEBridge,IntTransfer,ExplicitTrace,DisplayContinuity,TraceIntegrability,TestRegularity,CutoffBase,CutoffFirst,CutoffL1,GirsanovFinite compiled;
+  class Transport,PLBM,GibbsEnv,GaussianPath,PITI,Preserve,CutoffSecond,Langevin,Path,LMC,HMC,MALA todo;

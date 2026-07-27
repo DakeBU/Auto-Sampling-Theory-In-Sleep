@@ -1,8 +1,10 @@
 import AutoSamplingTheory
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence
 
 open scoped ENNReal RealInnerProductSpace BigOperators
 
 open AutoSamplingTheory
+open MeasureTheory Filter Topology
 
 example : literatureCount = 4 := rfl
 
@@ -42,7 +44,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 253 := by native_decide
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 256 := by native_decide
 
 example (x : ℝ) :
     TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x =
@@ -263,6 +265,32 @@ example {n : ℕ} {R : ℝ} (hR : 0 < R) (x : Fin (n + 1) → ℝ) :
       x :=
   TechnicalLemmas.Analysis.Calculus.Divergence.hasFDerivAt_radialSmoothCutoff_comp_toLp
     hR x
+
+example {n : ℕ} {μ : Measure (Fin (n + 1) → ℝ)}
+    {G : (Fin (n + 1) → ℝ) → Fin (n + 1) → ℝ}
+    (hG : Integrable G μ) :
+    Tendsto
+      (fun R : ℝ =>
+        ∫ x, ‖fderiv ℝ
+          (fun z => TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R
+            (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+          x (G x)‖ ∂μ)
+      atTop (𝓝 0) :=
+  TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_norm_fderiv_radialSmoothCutoff_comp_toLp_apply
+    hG
+
+example {n : ℕ} {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
+    {μ : Measure (Fin (n + 1) → ℝ)}
+    {H : (Fin (n + 1) → ℝ) → F}
+    (hH : Integrable H μ) :
+    Tendsto
+      (fun R : ℝ =>
+        ∫ x,
+          TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R
+            (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) • H x ∂μ)
+      atTop (𝓝 (∫ x, H x ∂μ)) :=
+  TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_radialSmoothCutoff_comp_toLp_smul
+    hH
 
 example {ι : Type*} [Fintype ι] [DecidableEq ι]
     (χ' : (ι → ℝ) →L[ℝ] ℝ) (G : ι → ℝ) :
@@ -2494,6 +2522,21 @@ example {n : ℕ}
       (Set.Icc a b) MeasureTheory.volume :=
   TechnicalLemmas.StochasticProcesses.Langevin.integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv
     a b V f hV hf
+
+example {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ} {C : ℝ}
+    (hV : Continuous V)
+    (hf : ContDiff ℝ 1 f)
+    (hZ : (∫⁻ y : EuclideanSpace ℝ (Fin (n + 1)),
+      ENNReal.ofReal (Real.exp (-V y)) ∂MeasureTheory.volume) ≠ ∞)
+    (hf_bound : ∀ y, ‖fderiv ℝ f y‖ ≤ C) :
+    MeasureTheory.Integrable
+      (fun x : Fin (n + 1) → ℝ => fun i =>
+        Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))) *
+          fderiv ℝ f (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))
+            (EuclideanSpace.single i (1 : ℝ))) MeasureTheory.volume :=
+  TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le
+    hV hf hZ hf_bound
 
 example :
     @TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar =

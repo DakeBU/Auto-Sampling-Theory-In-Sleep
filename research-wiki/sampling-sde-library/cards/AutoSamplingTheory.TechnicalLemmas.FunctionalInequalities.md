@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities
 
-- File: `AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\FunctionalInequalities.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: parent import surface for LSI/FI/PI-style technical lemmas
 - Mathlib-quality status: preferred parent module for functional-inequality leaves

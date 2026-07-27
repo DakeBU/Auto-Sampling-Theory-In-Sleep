@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 
-- File: `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/WeakGenerator.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\StochasticProcesses\WeakGenerator.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: sample-space generator derivative to named law weak-generator rewrite
 - Mathlib-quality status: preferred Mathlib-style location for weak FP generator bridge leaves

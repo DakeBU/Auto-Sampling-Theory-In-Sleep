@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Measure/GibbsLogConcavity.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Measure\GibbsLogConcavity.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: finite nonzero ENNReal normalizer bridge from normalized Gibbs densities to real-valued LogConcaveOn shapes for convex and strongly convex potentials
 - Mathlib-quality status: preferred bridge between measure-facing Gibbs density wrappers and real-valued log-concavity geometry; does not prove normalizer finiteness

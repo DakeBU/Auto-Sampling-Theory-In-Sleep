@@ -1,7 +1,7 @@
 # Log-Concave Sampling Notes
 
 - Public PDF: https://chewisinho.github.io/main.pdf
-- Local primary PDF: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf`
+- Local primary PDF: `\home\nitanda_sub\mark\repos\outer_papers\sampling_theory_sde\Chewi-Log-Concave-Sampling\main.pdf`
 - Role: primary roadmap for `ASTIS-CHEWI-001`, the log-concave sampling
   foundation program.
 

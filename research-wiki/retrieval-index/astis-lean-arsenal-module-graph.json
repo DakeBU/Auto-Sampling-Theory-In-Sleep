@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-16 22:13:36",
-  "ledger": "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
+  "generated": "2026-07-27 17:42:57",
+  "ledger": "research-wiki\\sampling-sde-library\\lean-leaf-module-graph.md",
   "module_graph_svg": "docs/module-graph.svg",
   "modules": [
     {
@@ -95,7 +95,7 @@
         "AutoSamplingTheory.Core"
       ],
       "module": "AutoSamplingTheory.Automation",
-      "path": "AutoSamplingTheory/Automation.lean",
+      "path": "AutoSamplingTheory\\Automation.lean",
       "status": "automation metadata",
       "summary": "compiled process contracts, role contracts, acceptance gates"
     },
@@ -149,7 +149,7 @@
       "layer": "foundation",
       "local_imports": [],
       "module": "AutoSamplingTheory.Core",
-      "path": "AutoSamplingTheory/Core.lean",
+      "path": "AutoSamplingTheory\\Core.lean",
       "status": "ASTIS infrastructure; not Mathlib material",
       "summary": "source anchors, proof obligations, theorem contracts, DAG records"
     },
@@ -185,7 +185,7 @@
         "AutoSamplingTheory.Core"
       ],
       "module": "AutoSamplingTheory.Literature",
-      "path": "AutoSamplingTheory/Literature.lean",
+      "path": "AutoSamplingTheory\\Literature.lean",
       "status": "metadata",
       "summary": "paper/source registry"
     },
@@ -213,7 +213,7 @@
         "AutoSamplingTheory.Core"
       ],
       "module": "AutoSamplingTheory.OpenProblems",
-      "path": "AutoSamplingTheory/OpenProblems.lean",
+      "path": "AutoSamplingTheory\\OpenProblems.lean",
       "status": "metadata",
       "summary": "open problem registry"
     },
@@ -455,7 +455,7 @@
         "AutoSamplingTheory.Core"
       ],
       "module": "AutoSamplingTheory.Probability",
-      "path": "AutoSamplingTheory/Probability.lean",
+      "path": "AutoSamplingTheory\\Probability.lean",
       "status": "main Mathlib-ready adapter surface after naming/generalization cleanup",
       "summary": "law-map rewrites, dominated law derivatives, conditional-law bridges, KL/DV/LSI bookkeeping"
     },
@@ -491,7 +491,7 @@
         "AutoSamplingTheory.SDE"
       ],
       "module": "AutoSamplingTheory.RMFLD",
-      "path": "AutoSamplingTheory/RMFLD.lean",
+      "path": "AutoSamplingTheory\\RMFLD.lean",
       "status": "consumer of arsenal",
       "summary": "exploratory sampling-theory proof targets"
     },
@@ -6819,7 +6819,7 @@
         "AutoSamplingTheory.SDE"
       ],
       "module": "AutoSamplingTheory.SALD",
-      "path": "AutoSamplingTheory/SALD.lean",
+      "path": "AutoSamplingTheory\\SALD.lean",
       "status": "consumer of arsenal; no longer the center of the public library map",
       "summary": "SALD case-study theorem contracts, compiled sublemmas, obligations"
     },
@@ -6851,7 +6851,7 @@
         "AutoSamplingTheory.Probability"
       ],
       "module": "AutoSamplingTheory.SDE",
-      "path": "AutoSamplingTheory/SDE.lean",
+      "path": "AutoSamplingTheory\\SDE.lean",
       "status": "ASTIS contract surface; future executable SDE theorem layer",
       "summary": "Ito diffusion, Fokker--Planck, Euler--Maruyama, discretization contracts"
     },
@@ -6946,8 +6946,8 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
-      "status": "compiled ANALYSIS/REG/SDE base through O(R^-1) fderiv and the closed outer derivative-zero leaf; L1 tail passage is red, while Hessian/Laplacian estimates remain separate until a named consumer requires them",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis\\Calculus\\Cutoff.lean",
+      "status": "compiled ANALYSIS/REG/SDE base through O(R^-1) fderiv and the closed outer derivative-zero leaf; its finite-Pi generic L1 consumer is compiled in Divergence, while Hessian/Laplacian estimates remain separate until a named consumer requires them",
       "summary": "smooth unit and radial cutoffs, range bounds, support control, compact support, pointwise exhaustion, compact-in-open plateaus, scale-uniform radial first-derivative control, and closed outer-region totalized-fderiv vanishing"
     },
     {
@@ -6975,6 +6975,14 @@
         {
           "kind": "theorem",
           "name": "hasFDerivAt_radialSmoothCutoff_comp_toLp"
+        },
+        {
+          "kind": "theorem",
+          "name": "tendsto_integral_norm_fderiv_radialSmoothCutoff_comp_toLp_apply"
+        },
+        {
+          "kind": "theorem",
+          "name": "tendsto_integral_radialSmoothCutoff_comp_toLp_smul"
         },
         {
           "kind": "theorem",
@@ -7188,9 +7196,9 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean",
-      "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation and the cutoff cross-term interface; no L1 tail limit, whole-space IBP, no-boundary limit, or invariant-law claim",
-      "summary": "finite-dimensional pointwise coordinate-divergence convention `sum_i lineDeriv F_i x e_i`, `HasFDerivAt` expansion to `sum_i F' e_i i`, `DifferentiableAt` bridge to the default Mathlib `fderiv` summand, radial-cutoff PiLp derivative producer, smulRight basis-trace identity, WithLp/Pi pointwise and a.e. trace bridges, open-box/countable a.e. transfer, trace-to-coordinate `IntegrableOn` transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization"
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis\\Calculus\\Divergence.lean",
+      "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation and the compiled generic cutoff cross-term/main-term limits; concrete generator-display integrability, Gibbs tails, whole-space IBP, no-boundary passage, and invariant law remain separate",
+      "summary": "finite-dimensional pointwise coordinate-divergence convention, fderiv trace bridges, radial-cutoff PiLp derivative producer, smulRight basis-trace identity, the generic L1 cutoff-gradient limit and generic cutoff main-term dominated convergence for Integrable fields, a.e. trace transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization"
     },
     {
       "declarations": [
@@ -7247,7 +7255,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Gradient.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis\\Calculus\\Gradient.lean",
       "status": "preferred ANALYSIS/SDE bridge from Mathlib gradient API to finite-coordinate Langevin algebra; pointwise only, with no divergence, IBP, or invariant-law claims",
       "summary": "Mathlib gradient bridges for Langevin calculus: Gibbs-weight chain rule `∇ exp(-V) = -exp(-V) • ∇V` from `HasGradientAt` or `DifferentiableAt`, coordinate displays, finite-dimensional coordinate-unit line derivatives, and pointwise `fderiv`-to-`gradient` inner-product/coordinate bridges"
     },
@@ -7273,7 +7281,7 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Laplacian.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis\\Calculus\\Laplacian.lean",
       "status": "preferred ANALYSIS/SDE bridge for Langevin generator displays; does not prove IBP, boundary decay, stationarity, or invariant laws",
       "summary": "finite-dimensional real inner-product-space Laplacian coordinate bridges: Mathlib Laplacian equals the standard orthonormal-basis second-derivative sum, plus source-functional handoff"
     },
@@ -7328,7 +7336,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/LineDeriv.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis\\Calculus\\LineDeriv.lean",
       "status": "preferred ANALYSIS/SDE bridge for the product-rule and Hessian-coordinate components before divergence, IBP, or invariant-law contracts",
       "summary": "line-derivative product-rule and second-derivative wiring bridges for finite-coordinate weighted-product calculations, including equality-form `lineDeriv`, explicit `exp(-V) * g` coordinate leaves, and `fderiv`-to-`iteratedFDeriv` coordinate leaves"
     },
@@ -7348,7 +7356,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Taylor"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis\\Calculus\\Taylor.lean",
       "status": "preferred Mathlib-style location for Ito/Taylor local-error leaves",
       "summary": "Hessian/operator norm bridges, orthonormal-basis units, quadratic normalization"
     },
@@ -7373,7 +7381,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis\\Calculus.lean",
       "status": "preferred parent module for calculus leaves before explicit trace-integrability, IBP, and domain contracts",
       "summary": "parent import surface for smooth cutoffs, gradient, line-derivative, Laplacian, Taylor/Hessian, pointwise coordinate-divergence, WithLp/Pi a.e. trace bridge, trace-to-coordinate `IntegrableOn` transfer, and finite-box face-term wrapper leaves used by SDE/Sampling proofs"
     },
@@ -7489,7 +7497,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis\\Integrability.lean",
       "status": "preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves; general coercive envelopes remain red",
       "summary": "ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, exact one-dimensional Laplace normalizers, and quadratic/Laplace lower-bound Gibbs normalization leaves"
     },
@@ -7506,7 +7514,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Analysis",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Analysis.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Analysis.lean",
       "status": "preferred parent module for calculus, integrability, regularity, and future IBP leaves",
       "summary": "parent import surface for reusable analysis and integrability leaves"
     },
@@ -7536,7 +7544,7 @@
         "AutoSamplingTheory.Probability"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
-      "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/LogSobolev.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\FunctionalInequalities\\LogSobolev.lean",
       "status": "preferred Mathlib-style location for LSI/FI bookkeeping leaves",
       "summary": "log-Sobolev to KL/FI bookkeeping leaves"
     },
@@ -7551,7 +7559,7 @@
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
-      "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\FunctionalInequalities.lean",
       "status": "preferred parent module for functional-inequality leaves",
       "summary": "parent import surface for LSI/FI/PI-style technical lemmas"
     },
@@ -7693,7 +7701,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Gaussian",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Gaussian.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Gaussian.lean",
       "status": "legacy import surface; prefer TechnicalLemmas.ProbabilityDistributions.Gaussian",
       "summary": "source file for ASTIS-owned Gaussian coordinate and moment leaves"
     },
@@ -7716,7 +7724,7 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Geometry/EuclideanSpaceCoordinates.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Geometry\\EuclideanSpaceCoordinates.lean",
       "status": "preferred shared GEOM/GAUSS/SDE notation bridge; does not define gradients, divergence, Laplacian, or analytic regularity",
       "summary": "finite-dimensional EuclideanSpace coordinate bridges, including inner-product coordinate-sum identities for direct vectors and `WithLp.toLp 2` coordinate functions"
     },
@@ -7894,7 +7902,7 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Geometry\\LogConcavity.lean",
       "status": "compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, one-dimensional Laplace geometry, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces",
       "summary": "positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square, absolute-linear, and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic, Laplace, and Gaussian-kernel log-concavity"
     },
@@ -7927,7 +7935,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Geometry/StrongConvexity.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Geometry\\StrongConvexity.lean",
       "status": "compiled CONV/DENS bridge; sharp `k/2` first-order envelope and minimizer-existence theory remain separate red branches",
       "summary": "strong-convexity to convex-potential/log-concave Gibbs-shape bridges and the midpoint `k/4` centered quadratic lower envelope from a supplied global minimizer"
     },
@@ -7946,7 +7954,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Geometry",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Geometry.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Geometry.lean",
       "status": "preferred parent module for CONV/DENS roots",
       "summary": "parent import surface for convex-geometric and log-concavity leaves"
     },
@@ -7970,7 +7978,7 @@
         "AutoSamplingTheory.Probability"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan",
-      "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/DonskerVaradhan.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\InformationTheory\\DonskerVaradhan.lean",
       "status": "preferred Mathlib-style location for DV/KL energy leaves",
       "summary": "Donsker--Varadhan one-sided and scaled-test energy leaves"
     },
@@ -7994,7 +8002,7 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
-      "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/KLDensity.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\InformationTheory\\KLDensity.lean",
       "status": "preferred Mathlib-style location for KL density algebra after analytic domination is supplied",
       "summary": "KL-density pointwise derivative and mass-conservation algebra leaves"
     },
@@ -8042,7 +8050,7 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi",
-      "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/Renyi.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\InformationTheory\\Renyi.lean",
       "status": "preferred Mathlib-style location for Renyi density algebra before integral/path regularity contracts",
       "summary": "Renyi density integrand positivity, measurability, finite-envelope, and pointwise derivative algebra leaves"
     },
@@ -8061,7 +8069,7 @@
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory",
-      "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\InformationTheory.lean",
       "status": "preferred parent module for information-theoretic leaves",
       "summary": "parent import surface for KL/DV/Renyi/entropy technical lemmas"
     },
@@ -8138,7 +8146,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/Gibbs.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Measure\\Gibbs.lean",
       "status": "preferred Mathlib-style location for Gibbs target-measure wrappers",
       "summary": "ENNReal Gibbs density, positivity/finite-value, measurability, nonzero/finite-by-envelope, potential-envelope, and finite-measure lower-bound integral contracts, plus normalized withDensity probability bridges"
     },
@@ -8167,7 +8175,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/GibbsIntegral.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Measure\\GibbsIntegral.lean",
       "status": "preferred bridge from Gibbs target-measure wrappers to weak-generator, invariant-law, and KL/FI test-function algebra; does not prove normalization",
       "summary": "Bochner integral rewrites for Gibbs withDensity measures, turning `Z⁻¹ * gibbsDensityENNReal V` integrals into real `Z.toReal⁻¹ * exp(-V)` weighted base-measure integrals"
     },
@@ -8211,7 +8219,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/GibbsLogConcavity.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Measure\\GibbsLogConcavity.lean",
       "status": "preferred bridge between measure-facing Gibbs density wrappers and real-valued log-concavity geometry; does not prove normalizer finiteness",
       "summary": "finite nonzero ENNReal normalizer bridge from normalized Gibbs densities to real-valued LogConcaveOn shapes for convex and strongly convex potentials"
     },
@@ -8246,7 +8254,7 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Measure.Product",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/Product.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Measure\\Product.lean",
       "status": "preferred Mathlib-style location for product-measure coordinate update and slice/Fubini leaves; does not prove kernels, entropy, LSI, or invariance",
       "summary": "finite product-measure coordinate replacement map, measure-preserving wrapper, Bochner integral rewrite, and a.e. slice integrability for `Function.update` coordinate refreshes"
     },
@@ -8312,7 +8320,7 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Measure/RadonNikodym.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Measure\\RadonNikodym.lean",
       "status": "preferred Mathlib-style location for density normalization and RN derivative leaves",
       "summary": "withDensity mass, reciprocal-lintegral normalization, finite-pi product density decomposition, measurable-equivalence density transport, absolute-continuity, and RN reconstruction wrappers"
     },
@@ -8368,7 +8376,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Measure",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Measure.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Measure.lean",
       "status": "legacy search surface; prefer TechnicalLemmas.Measure.* and TechnicalLemmas.Probability.* for new work",
       "summary": "compatibility aggregator for measure, Gibbs, law-map, conditional-kernel, and RN/withDensity lemmas"
     },
@@ -8400,7 +8408,7 @@
         "AutoSamplingTheory.Probability"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Probability/ConditionalKernel.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Probability\\ConditionalKernel.lean",
       "status": "preferred Mathlib-style location for conditional-kernel leaves",
       "summary": "condDistrib/condExpKernel bridges and conditional-integral regularity leaves"
     },
@@ -8426,7 +8434,7 @@
         "AutoSamplingTheory.Probability"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Probability/LawMap.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Probability\\LawMap.lean",
       "status": "preferred Mathlib-style location for law-map leaves",
       "summary": "pushforward law, weak-test integral, and dominated derivative transport leaves"
     },
@@ -8443,7 +8451,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Probability",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Probability.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Probability.lean",
       "status": "preferred parent module for law-map and conditional-kernel leaves",
       "summary": "parent import surface for probability technical lemmas"
     },
@@ -8489,7 +8497,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Gaussian"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian",
-      "path": "AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\ProbabilityDistributions\\Gaussian.lean",
       "status": "preferred Mathlib-style location for Gaussian/Brownian increment leaves",
       "summary": "Gaussian coordinate laws, finite linear-form integrability/mean-zero, product MGF normalizers, Esscher shifted densities/change-of-measure, EuclideanSpace/stdGaussian change-of-measure bridges, and variance-one packaging"
     },
@@ -8504,7 +8512,7 @@
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions",
-      "path": "AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\ProbabilityDistributions.lean",
       "status": "preferred parent module for Gaussian and future Gamma/Ornstein--Uhlenbeck distribution leaves",
       "summary": "parent import surface for distribution-specific reusable leaves"
     },
@@ -8632,7 +8640,7 @@
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Registry",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Registry.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Registry.lean",
       "status": "agent retrieval registry, not theorem content",
       "summary": "compiled lemma-memory metadata and external port queue"
     },
@@ -8678,7 +8686,7 @@
         "AutoSamplingTheory.SALD"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.SALDExtracted",
-      "path": "AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\SALDExtracted.lean",
       "status": "compiled and useful; must be generalized before Mathlib submission",
       "summary": "compiled SALD-derived Brownian/Ito/Gronwall bridges exposed for search"
     },
@@ -8700,7 +8708,7 @@
       "layer": "Mathlib-ready technical lemma",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra",
-      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\StochasticProcesses\\FokkerPlanckAlgebra.lean",
       "status": "preferred Mathlib-style location for weak FP and Fisher algebra handoffs",
       "summary": "Fokker--Planck split and Fisher/IBP scalar algebra leaves"
     },
@@ -8736,7 +8744,7 @@
         "AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov",
-      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Girsanov.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\StochasticProcesses\\Girsanov.lean",
       "status": "preferred Mathlib-style location for PATH change-of-measure bridge leaves",
       "summary": "finite-dimensional cylindrical Gaussian Girsanov weight, RN/withDensity identity, change-of-measure, and normalization leaves"
     },
@@ -8845,6 +8853,10 @@
         {
           "kind": "theorem",
           "name": "integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv"
+        },
+        {
+          "kind": "theorem",
+          "name": "integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le"
         }
       ],
       "exports": [],
@@ -8869,9 +8881,9 @@
         "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
-      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean",
-      "status": "preferred Mathlib-style location for finite Langevin expression-display/algebra leaves before a.e. divergence bridge discharge, IBP, invariant-law, Ito-generator, and semigroup-domain contracts",
-      "summary": "finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs that discharge only the Gibbs-weight gradient premise, coordinate-sum displays for `lineDeriv_i (exp(-V) * fderiv f eᵢ)` including the local `fderiv`-coordinate-to-`gradient` bridge under `DifferentiableAt f x`, named coordinateDivergence display for the explicit field, Gibbs-weighted one-dimensional derivative identity, multidimensional inner-product supplied-hypothesis weighted-divergence handoff, finite-coordinate aggregation, and EuclideanSpace inner-product notation wrappers"
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\StochasticProcesses\\Langevin.lean",
+      "status": "preferred Mathlib-style location for Langevin expression algebra and the compiled source-field integrability leaf before concrete generator-display integrability, Gibbs tails, IBP, invariant-law, Ito-generator, and semigroup-domain contracts",
+      "summary": "finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs, coordinate-sum and coordinateDivergence displays, finite-box trace regularity, and whole-space integrability of the concrete Gibbs-weighted first-derivative coordinate field under finite Gibbs mass and a bounded `fderiv`"
     },
     {
       "declarations": [
@@ -8889,7 +8901,7 @@
         "AutoSamplingTheory.Probability"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator",
-      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/WeakGenerator.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\StochasticProcesses\\WeakGenerator.lean",
       "status": "preferred Mathlib-style location for weak FP generator bridge leaves",
       "summary": "sample-space generator derivative to named law weak-generator rewrite"
     },
@@ -8910,7 +8922,7 @@
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses",
-      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\StochasticProcesses.lean",
       "status": "preferred parent module for SDE/Sampling stochastic-process leaves",
       "summary": "parent import surface for weak-generator, Fokker--Planck algebra, Langevin generator, and finite-dimensional Girsanov cylinder leaves"
     },
@@ -8944,7 +8956,7 @@
       "layer": "compatibility source",
       "local_imports": [],
       "module": "AutoSamplingTheory.TechnicalLemmas.Taylor",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Taylor.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Taylor.lean",
       "status": "legacy import surface; prefer TechnicalLemmas.Analysis.Calculus.Taylor",
       "summary": "source file for ASTIS-owned Taylor/Hessian and quadratic-normalization leaves"
     },
@@ -8986,7 +8998,7 @@
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas.Variational",
-      "path": "AutoSamplingTheory/TechnicalLemmas/Variational.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas\\Variational.lean",
       "status": "legacy search surface; prefer InformationTheory and FunctionalInequalities modules",
       "summary": "compatibility aggregator for DV and LSI/FI leaves"
     },
@@ -9023,7 +9035,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Variational"
       ],
       "module": "AutoSamplingTheory.TechnicalLemmas",
-      "path": "AutoSamplingTheory/TechnicalLemmas.lean",
+      "path": "AutoSamplingTheory\\TechnicalLemmas.lean",
       "status": "public import surface for the Mathlib-ready arsenal; excludes SALDExtracted quarantine",
       "summary": "parent import surface for reusable ASTIS-owned technical lemmas"
     },

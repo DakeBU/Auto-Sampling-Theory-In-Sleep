@@ -1,6 +1,6 @@
 # AutoSamplingTheory.Core
 
-- File: `AutoSamplingTheory/Core.lean`
+- File: `AutoSamplingTheory\Core.lean`
 - Layer: foundation
 - Purpose: source anchors, proof obligations, theorem contracts, DAG records
 - Mathlib-quality status: ASTIS infrastructure; not Mathlib material

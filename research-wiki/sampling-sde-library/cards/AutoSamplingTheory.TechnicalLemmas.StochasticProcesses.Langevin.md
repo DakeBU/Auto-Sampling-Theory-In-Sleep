@@ -1,9 +1,9 @@
 # AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin
 
-- File: `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\StochasticProcesses\Langevin.lean`
 - Layer: Mathlib-ready technical lemma
-- Purpose: finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs that discharge only the Gibbs-weight gradient premise, coordinate-sum displays for `lineDeriv_i (exp(-V) * fderiv f eᵢ)` including the local `fderiv`-coordinate-to-`gradient` bridge under `DifferentiableAt f x`, named coordinateDivergence display for the explicit field, Gibbs-weighted one-dimensional derivative identity, multidimensional inner-product supplied-hypothesis weighted-divergence handoff, finite-coordinate aggregation, and EuclideanSpace inner-product notation wrappers
-- Mathlib-quality status: preferred Mathlib-style location for finite Langevin expression-display/algebra leaves before a.e. divergence bridge discharge, IBP, invariant-law, Ito-generator, and semigroup-domain contracts
+- Purpose: finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs, coordinate-sum and coordinateDivergence displays, finite-box trace regularity, and whole-space integrability of the concrete Gibbs-weighted first-derivative coordinate field under finite Gibbs mass and a bounded `fderiv`
+- Mathlib-quality status: preferred Mathlib-style location for Langevin expression algebra and the compiled source-field integrability leaf before concrete generator-display integrability, Gibbs tails, IBP, invariant-law, Ito-generator, and semigroup-domain contracts
 
 ## Imports
 
@@ -46,6 +46,7 @@
 - `integrableOn_trace_expNeg_fderivCoordinateField_of_component_continuousOn`
 - `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff`
 - `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv`
+- `integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le`
 
 ## Curated Formalized Memory Entries
 
@@ -74,6 +75,7 @@
 - `langevin.integrableOn-trace-exp-neg-fderiv-coordinate-field-contDiff` -> `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff` (AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
 - `langevin.hasFDerivAt-exp-neg-fderiv-coordinate-field-contDiff` -> `hasFDerivAt_expNeg_fderivCoordinateField_of_contDiff` (Mathlib.Analysis.Calculus.FDeriv.Prod; Mathlib.Analysis.Calculus.FDeriv.WithLp; Mathlib.Analysis.SpecialFunctions.ExpDeriv; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
 - `langevin.integrableOn-trace-exp-neg-fderiv-coordinate-field-contDiff-fderiv` -> `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv` (AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
+- `langevin.integrable-exp-neg-fderiv-coordinate-source-field` -> `integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le` (Mathlib.MeasureTheory.Function.L1Space.Integrable; Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
 
 ## Agent Usage
 

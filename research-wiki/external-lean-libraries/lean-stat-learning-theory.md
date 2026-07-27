@@ -2,7 +2,7 @@
 
 - Public repository: https://github.com/YuanheZ/lean-stat-learning-theory
 - Paper: https://arxiv.org/abs/2602.02285
-- Local checkout: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory`
+- Local checkout: `\home\nitanda_sub\mark\repos\outer_repos\sampling_theory_sde\lean-stat-learning-theory`
 - Current audited checkout: `d0f506f0a695018265dccb33bcb05e2f5ca1c876`
   on `main`, tagged `v4.32.0`.
 - Latest verification: `git fetch --prune origin` and fast-forward on 2026-07-16
@@ -48,8 +48,9 @@ Immediate port candidates for the log-concave sampling tree:
 - entropy/Jensen surface: reuse the proof staging around `entropy_nonneg`,
   conditional entropy, and subadditivity for FI/LSI chapters.
 - cutoff/no-boundary surface: the radial support/exhaustion, scale-uniform
-  first-derivative, closed outer derivative-zero, and finite-Pi consumer bases
-  are now ported;
+  first-derivative, closed outer derivative-zero, finite-Pi consumer bases,
+  generic `L¹` cutoff-gradient limit, and generic cutoff main-term dominated
+  convergence from `Integrable` fields are now ported;
   continue using `GaussianSobolevDense/Cutoff.lean` and
   `GaussianPoincare/TaylorBound.lean` as proof-pattern memory for ASTIS-owned
   dominated-limit leaves, and for Hessian/Laplacian leaves only when a named
@@ -63,9 +64,9 @@ Recommended migration order for ASTIS roots:
 2. `GAUSS/MEAS`: product Gaussian law and coordinate/linear functional facts.
 3. `GAUSS/FI/DENS/REG`: coordinate derivative slicing and tensorized Gaussian
    LSI proof architecture.
-4. `REG/CALC/SDE`: use the compiled smooth-cutoff, compact-support,
-   scale-uniform first-derivative, closed outer derivative-zero, and finite-Pi
-   consumer bases to prove the generic `L¹` cutoff-gradient tail; add
-   Hessian/Laplacian facts only for named second-order consumers.
+4. `REG/CALC/SDE`: use the compiled generic `L¹` cutoff-gradient and main-term
+   dominated-convergence limits plus the concrete Gibbs/source-field integrability
+   leaf, separately prove concrete Langevin generator-display integrability, and add Hessian/Laplacian facts only
+   for named second-order consumers.
 5. `FI/DENS/MEAS`: entropy/Jensen and Gibbs-duality infrastructure.
 6. `FI/MEAS`: entropy chain rule and product subadditivity.

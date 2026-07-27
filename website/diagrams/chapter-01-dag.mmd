@@ -1,0 +1,19 @@
+flowchart TD
+  Smooth["radial cutoff smoothness"] --> Bound["all-scale C/R fderiv bound"]
+  Smooth --> Support["support / compact support"]
+  Smooth --> Exhaust["pointwise exhaustion"]
+  Bound --> Bridge["PiLp derivative bridge"]
+  Bridge --> L1["generic L1 cutoff-gradient limit"]
+  L1 --> Weighted["source-field integrability"]
+  Exhaust --> DCT["main-term dominated convergence"]
+  Weighted --> DCT
+  DCT --> DisplayInt["concrete generator-display integrability"]
+  DisplayInt --> IBP["whole-space weighted IBP"]
+  Tail["Gibbs tail"] --> IBP
+  IBP --> Domain["generator / semigroup domains"]
+  Domain --> Invariant["invariant Gibbs law"]
+  classDef blue fill:#dcecff,stroke:#155eef,color:#102a56;
+  classDef red fill:#ffe5e5,stroke:#c92a2a,color:#5c1111;
+  class Smooth,Bound,Support,Exhaust,Bridge,L1,Weighted,DCT blue;
+  class DisplayInt,Tail,IBP,Domain,Invariant red;
+

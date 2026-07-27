@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Taylor
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Taylor.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Taylor.lean`
 - Layer: compatibility source
 - Purpose: source file for ASTIS-owned Taylor/Hessian and quadratic-normalization leaves
 - Mathlib-quality status: legacy import surface; prefer TechnicalLemmas.Analysis.Calculus.Taylor

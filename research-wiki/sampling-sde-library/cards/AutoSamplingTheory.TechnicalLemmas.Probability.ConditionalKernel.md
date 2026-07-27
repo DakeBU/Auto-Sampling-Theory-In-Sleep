@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Probability/ConditionalKernel.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Probability\ConditionalKernel.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: condDistrib/condExpKernel bridges and conditional-integral regularity leaves
 - Mathlib-quality status: preferred Mathlib-style location for conditional-kernel leaves

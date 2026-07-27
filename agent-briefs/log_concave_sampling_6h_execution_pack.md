@@ -1,6 +1,6 @@
 # Log-Concave Sampling Six-Hour Execution Pack
 
-Generated: `2026-07-16 22:13:32`
+Generated: `2026-07-27 17:42:56`
 
 This pack is the control-console entry point for running the hierarchical
 multi-agent system on the log-concave sampling foundation.  The run must keep

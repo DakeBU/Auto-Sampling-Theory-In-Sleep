@@ -7,6 +7,8 @@ Euler--Maruyama discretization.
 
 | Source | Counter-design absorbed by ASTIS | ASTIS-specific boundary | ASTIS advantage |
 |---|---|---|---|
+| [Sinho Chewi, *Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) | Primary textbook chapter order, theorem route, calculations, constants, and cited mathematical background. | The public draft exposes no explicit wholesale-republication license. ASTIS uses original faithful paraphrase, precise source anchors, separate supplemental derivations, and ASTIS-owned Lean declarations. Chewi does not participate in, endorse, or maintain ASTIS. | Students can follow the book route while opening the rigorous conditions and formal proof dependencies that compact textbook prose omits. |
+| Sho Sonoda's [Lean-Ridgelet repository](https://github.com/shosonoda/lean-ridgelet) and [Blueprint site](https://shosonoda.github.io/lean-ridgelet/blueprint/html-multi/overview/#Lean-Ridgelet-Blueprint--L2-theory___-arXiv___2106___04770v2-implementation-map) | Blueprint-style organization and the idea of an implementation map linking informal mathematics to Lean declarations. | Lean-Ridgelet is Apache-2.0. ASTIS uses an independently implemented standard-library Python generator and copies no Lean-Ridgelet code, template, or style. Sho Sonoda does not participate in, endorse, or maintain ASTIS. | The implementation-map idea is adapted to a full textbook, three reading depths, hidden-assumption packets, Registry-derived status, and split chapter/theorem DAGs. |
 | [ARIS / Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Long-window autonomous research loops, plain-file artifacts, durable handoffs, and independent reviewer passes. | The loop is aimed at Lean proof state, source correspondence, and proof obligations rather than experiments and paper drafting alone. | Runs are inspectable locally; a 6h batch finishes the current upper/middle/lower/reviewer cycle before exporting notes. |
 | [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Role-separated iterative improvement, trial memory, summaries, logs, rejected directions, and treating the maintained system as the object being improved. | ASTIS adapts the layered agent loop to proof work: upper chooses the proof objective, middle translates source/Lean state, lower edits one local target, and reviewer gates source correspondence and Lean correctness. | Later agents avoid replaying broad failed routes and can focus on the current proof boundary without losing the reviewer-agent safeguard. |
 | [EoH](https://github.com/FeiLiu36/EoH) | Population-style search with initialization, variation, selection, and archive pressure. | ASTIS permits this only in `exploratoryProof` mode after a Lean-checkable target is fixed; `faithfulPaper` mode must not mutate the source theorem or proof target. | Candidate proof routes can compete for RMFLD-style drafts while SALD paper reproduction stays faithful. |
@@ -46,3 +48,16 @@ the ARIS/LBG/EoH-style memory and exploration layers.  ASTIS's central
 acceptance rule is stricter than all search heuristics: a mathematical claim is
 accepted only through compiled Lean plus explicit source correspondence, or it
 remains a named proof obligation.
+
+## Textbook Website Copyright Boundary
+
+The ASTIS website distinguishes five content classes:
+
+- a licensed original, only when a source license has been verified;
+- a necessary short quotation with direct attribution;
+- a faithful ASTIS paraphrase with an exact source anchor;
+- an ASTIS supplemental derivation or hidden-assumption packet;
+- an ASTIS-owned Lean formalization.
+
+The current Chewi book entries use faithful paraphrase. A license attached to a
+different work by the same author does not grant rights to this book draft.

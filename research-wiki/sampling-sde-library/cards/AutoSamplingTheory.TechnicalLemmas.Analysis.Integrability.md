@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Analysis/Integrability.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Analysis\Integrability.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: ofReal lintegral/Integrable bridge, finite-dimensional Gaussian quadratic-tail integrability, exact quadratic normalizers, exact one-dimensional Laplace normalizers, and quadratic/Laplace lower-bound Gibbs normalization leaves
 - Mathlib-quality status: preferred Mathlib-style location for Lebesgue tail and coercive-envelope leaves; general coercive envelopes remain red

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.SALDExtracted
 
-- File: `AutoSamplingTheory/TechnicalLemmas/SALDExtracted.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\SALDExtracted.lean`
 - Layer: paper-extracted technical lemma
 - Purpose: compiled SALD-derived Brownian/Ito/Gronwall bridges exposed for search
 - Mathlib-quality status: compiled and useful; must be generalized before Mathlib submission

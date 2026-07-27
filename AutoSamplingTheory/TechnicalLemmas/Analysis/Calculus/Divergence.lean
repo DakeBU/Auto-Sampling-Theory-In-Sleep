@@ -25,7 +25,7 @@ namespace Calculus
 namespace Divergence
 
 open scoped BigOperators RealInnerProductSpace
-open Set MeasureTheory
+open Set MeasureTheory Filter Topology
 
 /-- Pointwise coordinate divergence of a finite-dimensional Euclidean vector
 field.
@@ -144,6 +144,216 @@ theorem hasFDerivAt_radialSmoothCutoff_comp_toLp
       (WithTop.coe_ne_zero.mpr WithTop.top_ne_zero)
       (WithLp.toLp 2 x)).hasFDerivAt
   simpa [Function.comp_def, e] using hcutoff.comp x htoLp
+
+/-- For an integrable finite Pi-space vector field, the `L¹` norm of the
+radial-cutoff gradient applied to that field vanishes as the cutoff scale tends
+to infinity.
+
+The domination retains the operator norm of the inverse `PiLp` equivalence:
+the raw Pi norm is not identified with the Euclidean `L²` norm.  This theorem
+only controls the cutoff-gradient cross term; it proves no source-field
+integrability, main-term convergence, integration by parts, or invariant-law
+statement. -/
+theorem tendsto_integral_norm_fderiv_radialSmoothCutoff_comp_toLp_apply
+    {n : ℕ} {μ : Measure (Fin (n + 1) → ℝ)}
+    {G : (Fin (n + 1) → ℝ) → Fin (n + 1) → ℝ}
+    (hG : Integrable G μ) :
+    Tendsto
+      (fun R : ℝ =>
+        ∫ x, ‖fderiv ℝ
+          (fun z => Cutoff.radialSmoothCutoff R
+            (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+          x (G x)‖ ∂μ)
+      atTop (𝓝 0) := by
+  let e : EuclideanSpace ℝ (Fin (n + 1)) ≃L[ℝ] (Fin (n + 1) → ℝ) :=
+    PiLp.continuousLinearEquiv 2 ℝ (fun _ : Fin (n + 1) => ℝ)
+  obtain ⟨C, hC_pos, hC⟩ :=
+    Cutoff.radialSmoothCutoff_fderiv_bound
+      (E := EuclideanSpace ℝ (Fin (n + 1)))
+  let bound : (Fin (n + 1) → ℝ) → ℝ :=
+    fun x => (C * ‖e.symm.toContinuousLinearMap‖) * ‖G x‖
+  have hbound_integrable : Integrable bound μ := by
+    exact (hG.norm.const_mul (C * ‖e.symm.toContinuousLinearMap‖))
+  have hmeas :
+      ∀ᶠ R : ℝ in atTop,
+        AEStronglyMeasurable
+          (fun x => ‖fderiv ℝ
+            (fun z => Cutoff.radialSmoothCutoff R
+              (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+            x (G x)‖) μ := by
+    filter_upwards [eventually_gt_atTop (0 : ℝ)] with R hR
+    have hsmooth :
+        ContDiff ℝ (⊤ : ℕ∞)
+          (fun z : Fin (n + 1) → ℝ =>
+            Cutoff.radialSmoothCutoff R
+              (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1)))) :=
+      (Cutoff.radialSmoothCutoff_contDiff hR).comp
+        (PiLp.contDiff_toLp (𝕜 := ℝ) (E := fun _ : Fin (n + 1) => ℝ))
+    have hderiv :
+        AEStronglyMeasurable
+          (fun x => fderiv ℝ
+            (fun z : Fin (n + 1) → ℝ =>
+              Cutoff.radialSmoothCutoff R
+                (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+            x) μ :=
+      (hsmooth.continuous_fderiv
+        (WithTop.coe_ne_zero.mpr WithTop.top_ne_zero)).aestronglyMeasurable
+    let eval :
+        ((Fin (n + 1) → ℝ) →L[ℝ] ℝ) →L[ℝ]
+          (Fin (n + 1) → ℝ) →L[ℝ] ℝ :=
+      ContinuousLinearMap.flip (ContinuousLinearMap.apply ℝ ℝ)
+    exact
+      (eval.aestronglyMeasurable_comp₂
+        hderiv hG.aestronglyMeasurable).norm
+  have hdom :
+      ∀ᶠ R : ℝ in atTop, ∀ᵐ x ∂μ,
+        ‖(fun x => ‖fderiv ℝ
+          (fun z => Cutoff.radialSmoothCutoff R
+            (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+          x (G x)‖) x‖ ≤ bound x := by
+    filter_upwards [eventually_ge_atTop (1 : ℝ)] with R hR
+    filter_upwards with x
+    have hR_pos : 0 < R := lt_of_lt_of_le zero_lt_one hR
+    have hfderiv :
+        fderiv ℝ
+          (fun z => Cutoff.radialSmoothCutoff R
+            (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+          x =
+        (fderiv ℝ
+          (Cutoff.radialSmoothCutoff R :
+            EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+          (WithLp.toLp 2 x)).comp e.symm.toContinuousLinearMap :=
+      (hasFDerivAt_radialSmoothCutoff_comp_toLp hR_pos x).fderiv
+    rw [norm_norm, hfderiv]
+    calc
+      ‖((fderiv ℝ
+          (Cutoff.radialSmoothCutoff R :
+            EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+          (WithLp.toLp 2 x)).comp e.symm.toContinuousLinearMap) (G x)‖
+          ≤ ‖(fderiv ℝ
+              (Cutoff.radialSmoothCutoff R :
+                EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+              (WithLp.toLp 2 x)).comp e.symm.toContinuousLinearMap‖ * ‖G x‖ :=
+        ContinuousLinearMap.le_opNorm _ _
+      _ ≤ ((C / R) * ‖e.symm.toContinuousLinearMap‖) * ‖G x‖ := by
+        gcongr
+        exact (ContinuousLinearMap.opNorm_comp_le _ _).trans
+          (mul_le_mul_of_nonneg_right
+            (hC R hR_pos (WithLp.toLp 2 x)) (norm_nonneg _))
+      _ ≤ bound x := by
+        dsimp [bound]
+        gcongr
+        exact div_le_self hC_pos.le hR
+  have hpoint :
+      ∀ᵐ x ∂μ,
+        Tendsto
+          (fun R : ℝ => ‖fderiv ℝ
+            (fun z => Cutoff.radialSmoothCutoff R
+              (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+            x (G x)‖)
+          atTop (𝓝 0) := by
+    filter_upwards with x
+    refine squeeze_zero'
+      (g := fun R =>
+        ((C / R) * ‖e.symm.toContinuousLinearMap‖) * ‖G x‖) ?_ ?_ ?_
+    · exact Filter.Eventually.of_forall fun R => norm_nonneg _
+    · filter_upwards [eventually_gt_atTop (0 : ℝ)] with R hR
+      have hfderiv :
+          fderiv ℝ
+            (fun z => Cutoff.radialSmoothCutoff R
+              (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+            x =
+          (fderiv ℝ
+            (Cutoff.radialSmoothCutoff R :
+              EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+            (WithLp.toLp 2 x)).comp e.symm.toContinuousLinearMap :=
+        (hasFDerivAt_radialSmoothCutoff_comp_toLp hR x).fderiv
+      rw [hfderiv]
+      calc
+        ‖((fderiv ℝ
+            (Cutoff.radialSmoothCutoff R :
+              EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+            (WithLp.toLp 2 x)).comp e.symm.toContinuousLinearMap) (G x)‖
+            ≤ ‖(fderiv ℝ
+                  (Cutoff.radialSmoothCutoff R :
+                    EuclideanSpace ℝ (Fin (n + 1)) → ℝ)
+                  (WithLp.toLp 2 x)).comp e.symm.toContinuousLinearMap‖ *
+                  ‖G x‖ := ContinuousLinearMap.le_opNorm _ _
+        _ ≤ ((C / R) * ‖e.symm.toContinuousLinearMap‖) * ‖G x‖ := by
+          gcongr
+          exact (ContinuousLinearMap.opNorm_comp_le _ _).trans
+            (mul_le_mul_of_nonneg_right
+              (hC R hR (WithLp.toLp 2 x)) (norm_nonneg _))
+    · simpa [mul_assoc] using
+        (tendsto_const_nhds.div_atTop tendsto_id).mul_const
+          (‖e.symm.toContinuousLinearMap‖ * ‖G x‖)
+  have hDCT :=
+    MeasureTheory.tendsto_integral_filter_of_dominated_convergence
+      (μ := μ) (l := atTop)
+      (F := fun R x => ‖fderiv ℝ
+        (fun z => Cutoff.radialSmoothCutoff R
+          (WithLp.toLp 2 z : EuclideanSpace ℝ (Fin (n + 1))))
+        x (G x)‖)
+      (f := fun _ => (0 : ℝ)) bound hmeas hdom hbound_integrable hpoint
+  simpa using hDCT
+
+/-- Multiplication by the PiLp-wrapped radial cutoff converges to the identity
+under integration for every integrable real normed-space-valued source field.
+
+The statement is measure-generic and uses only integrability of the source.
+It proves the cutoff main-term limit, but no Gibbs-specific integrability,
+cutoff-gradient estimate, integration by parts, generator-domain result, or
+invariant-law statement. -/
+theorem tendsto_integral_radialSmoothCutoff_comp_toLp_smul
+    {n : ℕ} {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
+    {μ : Measure (Fin (n + 1) → ℝ)}
+    {H : (Fin (n + 1) → ℝ) → F}
+    (hH : Integrable H μ) :
+    Tendsto
+      (fun R : ℝ => ∫ x,
+        Cutoff.radialSmoothCutoff R
+          (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) • H x ∂μ)
+      atTop (𝓝 (∫ x, H x ∂μ)) := by
+  have hmeas :
+      ∀ᶠ R : ℝ in atTop,
+        AEStronglyMeasurable
+          (fun x : Fin (n + 1) → ℝ =>
+            Cutoff.radialSmoothCutoff R
+              (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) • H x) μ := by
+    filter_upwards [eventually_gt_atTop (0 : ℝ)] with R hR
+    exact
+      (((Cutoff.radialSmoothCutoff_contDiff hR).continuous.comp
+        (PiLp.continuous_toLp 2 _)).aestronglyMeasurable).smul
+        hH.aestronglyMeasurable
+  have hdom :
+      ∀ᶠ R : ℝ in atTop, ∀ᵐ x ∂μ,
+        ‖Cutoff.radialSmoothCutoff R
+            (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) • H x‖ ≤
+          ‖H x‖ := by
+    filter_upwards with R
+    filter_upwards with x
+    have hcutoff :=
+      Cutoff.radialSmoothCutoff_mem_Icc R
+        (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))
+    rw [norm_smul, Real.norm_eq_abs, abs_of_nonneg hcutoff.1]
+    exact mul_le_of_le_one_left (norm_nonneg _) hcutoff.2
+  have hpoint :
+      ∀ᵐ x ∂μ,
+        Tendsto
+          (fun R : ℝ =>
+            Cutoff.radialSmoothCutoff R
+              (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) • H x)
+          atTop (𝓝 (H x)) := by
+    filter_upwards with x
+    simpa using
+      (Cutoff.radialSmoothCutoff_tendsto_one
+        (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))).smul_const (H x)
+  exact MeasureTheory.tendsto_integral_filter_of_dominated_convergence
+    (μ := μ) (l := atTop)
+    (F := fun R x =>
+      Cutoff.radialSmoothCutoff R
+        (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) • H x)
+    (f := H) (fun x => ‖H x‖) hmeas hdom hH.norm hpoint
 
 /-- The trace contribution of `χ'.smulRight G` over the standard finite Pi
 basis is exactly the scalar derivative `χ'` applied to `G`.

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 
-- File: `AutoSamplingTheory/TechnicalLemmas/Probability/LawMap.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\Probability\LawMap.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: pushforward law, weak-test integral, and dominated derivative transport leaves
 - Mathlib-quality status: preferred Mathlib-style location for law-map leaves

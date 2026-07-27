@@ -1,0 +1,16 @@
+flowchart TD
+  A["Cycle 26 · generic L1 norm limit"] --> B["Cycle 27 · source-field integrability"]
+  B --> C["Cycle 28 · vector integral limit"]
+  C --> F["Current audit<br/>concrete generator-display integrability"]
+  F --> T["Gibbs tail"]
+  F --> I["whole-space weighted IBP"]
+  T --> I
+  I --> D["generator / semigroup domains"]
+  D --> V["invariant Gibbs law"]
+  H["Hessian / Laplacian O(R⁻²)"] -. "only with a second-order consumer" .-> D
+  classDef blue fill:#dcecff,stroke:#155eef,color:#102a56;
+  classDef red fill:#ffe5e5,stroke:#c92a2a,color:#5c1111;
+  classDef gray fill:#eff1f4,stroke:#737b8c,color:#303747;
+  class A,B,C blue;
+  class F,T,I,D,V red;
+  class H gray;

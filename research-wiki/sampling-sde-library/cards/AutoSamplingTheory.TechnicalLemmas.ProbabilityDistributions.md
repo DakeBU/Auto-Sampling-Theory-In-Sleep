@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions
 
-- File: `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions.lean`
+- File: `AutoSamplingTheory\TechnicalLemmas\ProbabilityDistributions.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: parent import surface for distribution-specific reusable leaves
 - Mathlib-quality status: preferred parent module for Gaussian and future Gamma/Ornstein--Uhlenbeck distribution leaves

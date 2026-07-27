@@ -1,10 +1,10 @@
 # Log-Concave Sampling Lean Organization
 
-Generated: `2026-07-16 22:13:32`
+Generated: `2026-07-27 17:42:56`
 
 Primary source: `https://chewisinho.github.io/main.pdf`
 
-Local source: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf`
+Local source: `\home\nitanda_sub\mark\repos\outer_papers\sampling_theory_sde\Chewi-Log-Concave-Sampling\main.pdf`
 
 The repository is a faithful reconstruction of the textbook mathematics.  A
 textbook sentence is not stored as one monolithic Lean theorem: it is decomposed
@@ -22,10 +22,10 @@ explicit when Lean needs them.
   after those roots compile locally.
 
 Main visual ledger:
-`research-wiki/lemma-dags/log_concave_sampling_foundation.md`
+`research-wiki\lemma-dags\log_concave_sampling_foundation.md`
 
 Rendered status tree:
-`docs/assets/log_concave_sampling_status.svg`
+`docs\assets\log_concave_sampling_status.svg`
 
 ## Visual Index
 
@@ -82,18 +82,25 @@ flowchart TD
   JP[PiLp cutoff derivative<br/>chain-rule bridge]:::blue
   JT[smulRight basis trace<br/>equals derivative on field]:::blue
   J2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
-  K[L1 cutoff-gradient tail<br/>from Integrable field]:::red
+  K[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
+  KS[Gibbs source-field<br/>integrability]:::blue
+  KM[generic main-term<br/>dominated convergence]:::blue
+  KMI[concrete generator-display<br/>integrability]:::red
+  KGT[Gibbs-tail passage]:::red
   L[weighted whole-space IBP<br/>integral Lf d pi = 0]:::red
   M[generator and semigroup<br/>domain contract]:::red
   N[invariant Gibbs law]:::red
   O[reversibility<br/>KL/FI dissipation]:::red
 
-  A --> B --> C --> E --> F --> K --> L --> N --> O
+  A --> B --> C --> E --> F --> L --> N --> O
   D --> B
   D --> E
   G --> F
   G --> H
-  I --> J1 --> JP --> JT --> K
+  I --> J1 --> JP --> JT --> K --> L
+  KS --> L
+  KM --> KMI --> L
+  KGT --> L
   I --> J1S
   I --> J2
   M --> N
@@ -108,7 +115,7 @@ flowchart TD
 | regularity | global `C¹/C²` gives gradient continuity, Laplacian continuity, scalar `ContinuousOn`, and Pi-field `HasFDerivAt` with Mathlib `fderiv` | closed-box/local regularity variants if later needed |
 | finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | no whole-space limit yet |
 | cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, pointwise exhaustion, one-constant-for-all-scales `O(R⁻¹)` first-derivative control, closed outer-region derivative vanishing, and finite-Pi derivative/trace consumer bridges | `O(R⁻²)` Hessian/Laplacian bounds only when a named second-order consumer requires them |
-| whole-space passage | finite-box zero-face cancellation | domination, tail convergence, and passage from cutoff identities to whole-space weighted IBP |
+| whole-space passage | finite-box zero-face cancellation, the generic `L¹` cutoff-gradient cross-term limit from `Integrable G`, concrete Gibbs-weighted source-field integrability, and generic cutoff main-term dominated convergence | concrete Langevin generator-display integrability, Gibbs tails, and passage from cutoff identities to whole-space weighted IBP |
 | invariant law | source contract is identified | weighted IBP, generator domains, and semigroup semantics |
 
 ## Current Compiled Foundation
@@ -134,17 +141,20 @@ flowchart TD
   derivative, the totalized `fderiv` bound for `x -> ||x|| / R`, a single
   constant controlling every radial first derivative by `C / R`, and zero
   totalized derivative throughout the closed outer region `2R <= ||x||`.
-  Integral tail passage remains separate; second-order estimates are added only
-  for named consumers.
+  The finite-Pi generic `L¹` consumer is compiled in `Divergence.lean`;
+  second-order estimates are added only for named consumers.
 - `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean`
   contains the finite coordinate-divergence convention, Euclidean/Pi `WithLp`
   trace bridge, the radial-cutoff `toLp` derivative producer, the standard-basis
-  `smulRight` trace identity, open-box/off-countable to closed-box a.e. transfer,
+  `smulRight` trace identity, the generic `L¹` cutoff-gradient limit for every
+  `Integrable` finite-Pi vector field, generic cutoff main-term dominated convergence,
+  open-box/off-countable to closed-box a.e. transfer,
   trace-to-coordinate `IntegrableOn` transfer, and the finite-box signed
   face-term wrapper with trace-integrability input.  It also specializes the
   plateau theorem to an inner closed Pi-box inside a larger open Pi-box.  It
-  still does not prove derivative-controlled exhaustion, whole-space weighted
-  IBP, generator domains, invariant laws, reversibility, or KL/FI dissipation.
+  still does not itself prove concrete Langevin generator-display integrability,
+  Gibbs-tail passage, whole-space weighted IBP, generator domains,
+  invariant laws, reversibility, or KL/FI dissipation.
 - `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean`
   contains Langevin-specific blue leaves: finite Euclidean basis/coordinate
   displays of the formal expression `Delta f - <grad V, grad f>`, supplied
@@ -154,7 +164,9 @@ flowchart TD
   inner-product supplied-hypothesis weighted-divergence algebra handoff,
   finite-coordinate aggregation handoff, the explicit Pi trace display, and
   the closed-box trace `IntegrableOn` handoff under global `C¹/C²` regularity
-  for the canonical Mathlib `fderiv` trace.  It also assembles the scalar
+  for the canonical Mathlib `fderiv` trace, and whole-space integrability of
+  the concrete Gibbs-weighted first-derivative coordinate field from finite
+  Gibbs mass and a uniform `fderiv` bound.  It also assembles the scalar
   display `ContinuousOn` fact from global `C¹/C²` and proves the explicit
   Pi-field `HasFDerivAt` needed by the trace handoff.  It is not a
   semigroup-generator, invariant-law, reversibility, integration-by-parts, or
@@ -164,21 +176,19 @@ flowchart TD
 
 The next high-value roots, ordered by the active textbook dependency, are:
 
-1. `MEAS/CALC/SDE`: a generic `L¹` cutoff-gradient integral limit from
-   `Integrable G` and the compiled `C/R` derivative estimate, using the compiled
-   finite-Pi derivative/trace consumer bridges.
-2. `MEAS/CALC/SDE`: Gibbs-specific domination and tail lemmas that use that
-   generic limit to pass finite-box or
+1. `MEAS/CALC/SDE`: concrete Langevin generator-display integrability and Gibbs-tail lemmas,
+   kept separate from the compiled generic cutoff main-term convergence and source-field leaves, before passing finite-box or
    compact-support identities to the whole-space weighted IBP identity.
-3. `SDE/DENS/FI`: generator-domain and semigroup contracts that turn weighted
+2. `SDE/DENS/FI`: the whole-space weighted IBP theorem, followed separately by
+   generator-domain and semigroup contracts that turn weighted
    IBP into the invariant Gibbs law and then KL/FI dissipation.
-4. `CONV/MEAS`: finite-dimensional Prekopa-Leindler and Brunn-Minkowski
+3. `CONV/MEAS`: finite-dimensional Prekopa-Leindler and Brunn-Minkowski
    interfaces, using `Lean-Asymptotic-Statistical-Theory/ForMathlib` as a
    reference but porting only small local leaves.
-5. `DENS/CONV`: nonquadratic coercive Gibbs envelopes for Lebesgue targets.
-6. `PATH/GAUSS`: Brownian/path-space change of measure beyond finite
+4. `DENS/CONV`: nonquadratic coercive Gibbs envelopes for Lebesgue targets.
+5. `PATH/GAUSS`: Brownian/path-space change of measure beyond finite
    cylinders.
-7. `DISC`: LMC/MALA/HMC/proximal samplers only after the above roots are local.
+6. `DISC`: LMC/MALA/HMC/proximal samplers only after the above roots are local.
 
 ## Rigor Contract
 
