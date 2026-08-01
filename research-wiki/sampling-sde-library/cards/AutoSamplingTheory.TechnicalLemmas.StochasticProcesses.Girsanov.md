@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov
 
-- File: `AutoSamplingTheory\TechnicalLemmas\StochasticProcesses\Girsanov.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Girsanov.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: finite-dimensional cylindrical Gaussian Girsanov weight, RN/withDensity identity, change-of-measure, and normalization leaves
 - Mathlib-quality status: preferred Mathlib-style location for PATH change-of-measure bridge leaves

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra
 
-- File: `AutoSamplingTheory\TechnicalLemmas\StochasticProcesses\FokkerPlanckAlgebra.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/FokkerPlanckAlgebra.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: Fokker--Planck split and Fisher/IBP scalar algebra leaves
 - Mathlib-quality status: preferred Mathlib-style location for weak FP and Fisher algebra handoffs

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.Literature
 
-- File: `AutoSamplingTheory\Literature.lean`
+- File: `AutoSamplingTheory/Literature.lean`
 - Layer: reference registry
 - Purpose: paper/source registry
 - Mathlib-quality status: metadata

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.OpenProblems
 
-- File: `AutoSamplingTheory\OpenProblems.lean`
+- File: `AutoSamplingTheory/OpenProblems.lean`
 - Layer: exploration registry
 - Purpose: open problem registry
 - Mathlib-quality status: metadata

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.Probability
 
-- File: `AutoSamplingTheory\Probability.lean`
+- File: `AutoSamplingTheory/Probability.lean`
 - Layer: generic technical core
 - Purpose: law-map rewrites, dominated law derivatives, conditional-law bridges, KL/DV/LSI bookkeeping
 - Mathlib-quality status: main Mathlib-ready adapter surface after naming/generalization cleanup

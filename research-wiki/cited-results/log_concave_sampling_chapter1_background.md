@@ -11,9 +11,9 @@ Primary source:
 | Anchor | Informal role | Formalization boundary |
 |---|---|---|
 | Section 1.1 opening | Stochastic-calculus proofs are sketches; the text refers readers to detailed treatments. | Ito/SDE leaves must recover omitted hypotheses from the cited texts or Mathlib. |
-| Section 1.2 warning | Generator domains and symmetric versus self-adjoint operators are deliberately not developed. | Domain and semigroup statements remain separate red nodes. |
-| Example 1.2.8 | The Langevin adjoint display uses an integration-by-parts equality. | Pointwise generator algebra and finite-box cancellation are blue; cutoff derivative estimates, tail passage, and whole-space weighted IBP are red. |
-| Corollary 1.2.9 | The Gibbs density proportional to `exp(-V)` is identified as stationary. | This is not blue until both weighted IBP and generator/semigroup semantics are compiled. |
+| Section 1.2 warning | Generator domains and symmetric versus self-adjoint operators are deliberately not developed. | A local `C_c^2` core contract and an abstract semigroup/domain bridge compile; the concrete Langevin semigroup and semigroup-stable domain remain red. |
+| Example 1.2.8 | The Langevin adjoint display uses an integration-by-parts equality. | Pointwise generator algebra, integrability, Gibbs-tail convergence, finite-box cancellation, and compact-support whole-space weighted IBP are blue. |
+| Corollary 1.2.9 | The Gibbs density proportional to `exp(-V)` is identified as stationary. | Normalized Gibbs annihilation on the `C_c^2` core and the abstract invariance bridge are blue. The invariant-law conclusion remains red until the concrete Langevin semigroup and a valid stable-domain extension are compiled. |
 | Theorem 1.2.14 | Reversibility yields the fundamental integration-by-parts identity. | Reversibility is downstream of, and must not be used circularly to prove, the initial Gibbs stationarity claim. |
 
 ## Textbooks Cited By Chapter 1

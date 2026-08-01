@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Analysis\Calculus\Cutoff.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: smooth unit and radial cutoffs, range bounds, support control, compact support, pointwise exhaustion, compact-in-open plateaus, scale-uniform radial first-derivative control, and closed outer-region totalized-fderiv vanishing
 - Mathlib-quality status: compiled ANALYSIS/REG/SDE base through O(R^-1) fderiv and the closed outer derivative-zero leaf; its finite-Pi generic L1 consumer is compiled in Divergence, while Hessian/Laplacian estimates remain separate until a named consumer requires them

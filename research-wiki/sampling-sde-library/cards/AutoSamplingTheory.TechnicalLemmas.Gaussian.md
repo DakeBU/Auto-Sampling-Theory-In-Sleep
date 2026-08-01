@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Gaussian
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Gaussian.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean`
 - Layer: compatibility source
 - Purpose: source file for ASTIS-owned Gaussian coordinate and moment leaves
 - Mathlib-quality status: legacy import surface; prefer TechnicalLemmas.ProbabilityDistributions.Gaussian

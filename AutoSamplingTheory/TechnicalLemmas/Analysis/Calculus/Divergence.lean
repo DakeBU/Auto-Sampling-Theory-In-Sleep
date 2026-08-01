@@ -355,6 +355,45 @@ theorem tendsto_integral_radialSmoothCutoff_comp_toLp_smul
         (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) • H x)
     (f := H) (fun x => ‖H x‖) hmeas hdom hH.norm hpoint
 
+/-- The `L¹` norm of an integrable field on the complement of an expanding
+Euclidean ball tends to zero, expressed in raw finite-Pi coordinates.
+
+The tail sets are `R ≤ ‖WithLp.toLp 2 x‖`.  They form an antitone family with
+empty intersection, so Mathlib's antitone set-integral convergence theorem
+applies to `‖H‖`.  This is measure-generic and contains no Gibbs, generator,
+integration-by-parts, or invariance semantics. -/
+theorem tendsto_setIntegral_norm_norm_ge_comp_toLp
+    {n : ℕ} {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
+    {μ : Measure (Fin (n + 1) → ℝ)}
+    {H : (Fin (n + 1) → ℝ) → F}
+    (hH : Integrable H μ) :
+    Tendsto
+      (fun R : ℝ => ∫ x in
+        {x : Fin (n + 1) → ℝ |
+          R ≤ ‖(WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖},
+        ‖H x‖ ∂μ)
+      atTop (𝓝 0) := by
+  let s : ℝ → Set (Fin (n + 1) → ℝ) :=
+    fun R => {x | R ≤ ‖(WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖}
+  have hs_measurable : ∀ R, MeasurableSet (s R) := by
+    intro R
+    exact measurableSet_le measurable_const
+      ((continuous_norm.comp (PiLp.continuous_toLp 2 _)).measurable)
+  have hs_antitone : Antitone s := by
+    intro R S hRS x hx
+    exact hRS.trans hx
+  have hs_iInter : ⋂ R : ℝ, s R = ∅ := by
+    apply Set.Subset.antisymm
+    · intro x hx
+      have hx' := Set.mem_iInter.mp hx
+        (‖(WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖ + 1)
+      simp only [s, Set.mem_setOf_eq] at hx'
+      linarith
+    · exact Set.empty_subset _
+  have htail := tendsto_setIntegral_of_antitone
+    hs_measurable hs_antitone ⟨0, hH.norm.integrableOn⟩
+  simpa [s, hs_iInter] using htail
+
 /-- The trace contribution of `χ'.smulRight G` over the standard finite Pi
 basis is exactly the scalar derivative `χ'` applied to `G`.
 
@@ -1739,6 +1778,106 @@ theorem integral_coordinateDivergence_toPi_box_eq_zero_of_scalar_support_subset_
     (continuousOn_smul_vectorField_trace_of_component_continuousOn a b χ χ' G G' hχc
       (fun i => (continuous_apply i).comp_continuousOn hGc) hχ'c hG'c)
     hχsupp
+
+/-- The whole-space coordinate-divergence integral of a compactly supported
+`C¹` vector field is zero.
+
+The field is represented in raw finite-Pi coordinates, while
+`coordinateDivergence` is evaluated after the canonical `PiLp` transport to
+Euclidean space.  The proof encloses `tsupport F` in a strict finite box,
+derives trace integrability from `C¹` regularity, invokes Mathlib's finite-box
+divergence theorem through the ASTIS zero-face wrapper, and then removes the
+box because the derivative vanishes off `tsupport F`.
+
+This is a reusable whole-space no-boundary leaf.  It contains no Gibbs,
+Langevin, generator-domain, semigroup, or invariant-measure semantics. -/
+theorem integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactSupport
+    {n : ℕ}
+    (F : (Fin (n + 1) → ℝ) → Fin (n + 1) → ℝ)
+    (hF : ContDiff ℝ 1 F)
+    (hF_support : HasCompactSupport F) :
+    ∫ x : Fin (n + 1) → ℝ,
+        coordinateDivergence
+          (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+            (WithLp.toLp 2 (F (WithLp.ofLp y)) :
+              EuclideanSpace ℝ (Fin (n + 1))))
+          (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) = 0 := by
+  obtain ⟨R, hR, htsupport_ball⟩ :=
+    hF_support.isCompact.isBounded.subset_ball_lt 0
+      (0 : Fin (n + 1) → ℝ)
+  let a : Fin (n + 1) → ℝ := fun _ => -R
+  let b : Fin (n + 1) → ℝ := fun _ => R
+  have hab : a ≤ b := by
+    intro i
+    dsimp [a, b]
+    linarith
+  have hopen_closed :
+      (Set.univ.pi fun i => Set.Ioo (a i) (b i)) ⊆ Set.Icc a b := by
+    intro x hx
+    rw [Set.mem_pi] at hx
+    exact Set.mem_Icc.2 ⟨fun i => (hx i (Set.mem_univ i)).1.le,
+      fun i => (hx i (Set.mem_univ i)).2.le⟩
+  have hball_open : Metric.ball (0 : Fin (n + 1) → ℝ) R ⊆
+      (Set.univ.pi fun i => Set.Ioo (a i) (b i)) := by
+    intro x hxball
+    have hxnorm : ‖x‖ < R := by
+      simpa [Metric.mem_ball, dist_zero_right] using hxball
+    rw [Set.mem_pi]
+    intro i _hi
+    have hxi : |x i| < R := by
+      calc
+        |x i| = ‖x i‖ := (Real.norm_eq_abs _).symm
+        _ ≤ ‖x‖ := norm_le_pi_norm x i
+        _ < R := hxnorm
+    simpa [a, b] using (abs_lt.mp hxi)
+  have hsupport : Function.support F ⊆
+      (Set.univ.pi fun i => Set.Ioo (a i) (b i)) := by
+    intro x hx
+    exact hball_open (htsupport_ball (subset_tsupport F hx))
+  have htrace_cont : Continuous
+      (fun x : Fin (n + 1) → ℝ =>
+        ∑ i, fderiv ℝ F x (Pi.single i (1 : ℝ)) i) := by
+    apply continuous_finset_sum
+    intro i _hi
+    exact (continuous_apply i).comp
+      (hF.continuous_fderiv one_ne_zero |>.clm_apply continuous_const)
+  have hbox :
+      ∫ x in Set.Icc a b,
+          coordinateDivergence
+            (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+              (WithLp.toLp 2 (F (WithLp.ofLp y)) :
+                EuclideanSpace ℝ (Fin (n + 1))))
+            (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) = 0 := by
+    apply integral_coordinateDivergence_toPi_box_eq_zero_of_support_subset_univ_pi_Ioo
+      a b hab F (fun x => fderiv ℝ F x) ∅ Set.countable_empty
+    · exact hF.continuous.continuousOn
+    · intro x _hx
+      exact (hF.differentiable one_ne_zero x).hasFDerivAt
+    · exact htrace_cont.continuousOn.integrableOn_compact isCompact_Icc
+    · exact hsupport
+  calc
+    ∫ x : Fin (n + 1) → ℝ,
+        coordinateDivergence
+          (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+            (WithLp.toLp 2 (F (WithLp.ofLp y)) :
+              EuclideanSpace ℝ (Fin (n + 1))))
+          (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) =
+        ∫ x in Set.Icc a b,
+          coordinateDivergence
+            (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+              (WithLp.toLp 2 (F (WithLp.ofLp y)) :
+                EuclideanSpace ℝ (Fin (n + 1))))
+            (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) := by
+      symm
+      apply setIntegral_eq_integral_of_forall_compl_eq_zero
+      intro x hx
+      have hxtsupport : x ∉ tsupport F := by
+        intro hxt
+        exact hx (hopen_closed (hball_open (htsupport_ball hxt)))
+      have hzero := coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt
+        (ι := Fin (n + 1)) (HasFDerivAt.of_notMem_tsupport ℝ hxtsupport)
+      simpa using hzero
+    _ = 0 := hbox
 
 end Divergence
 end Calculus

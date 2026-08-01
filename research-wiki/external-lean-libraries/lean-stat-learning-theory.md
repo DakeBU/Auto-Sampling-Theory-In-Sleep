@@ -2,7 +2,7 @@
 
 - Public repository: https://github.com/YuanheZ/lean-stat-learning-theory
 - Paper: https://arxiv.org/abs/2602.02285
-- Local checkout: `\home\nitanda_sub\mark\repos\outer_repos\sampling_theory_sde\lean-stat-learning-theory`
+- Local checkout: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory`
 - Current audited checkout: `d0f506f0a695018265dccb33bcb05e2f5ca1c876`
   on `main`, tagged `v4.32.0`.
 - Latest verification: `git fetch --prune origin` and fast-forward on 2026-07-16

@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-27 17:42:56",
-  "legacy_pdf": "\\home\\nitanda_sub\\mark\\repos\\outer_repos\\sampling_theory_sde\\chewisinho-stochastic-processes-main.pdf",
+  "generated": "2026-08-02 02:28:33",
+  "legacy_pdf": "/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/chewisinho-stochastic-processes-main.pdf",
   "open_leaf_queue": [
     {
       "borrow": "Mathlib `ConcaveOn`, `ConcaveOn.subset`, `strictConcaveOn_log_Ioi`; AST Prekopa files for next statement style",
@@ -31,10 +31,10 @@
       "target": "TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean"
     },
     {
-      "borrow": "compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, the radial compact-support pointwise-exhaustion plus scale-uniform first-derivative family ported and strengthened from the audited SLT pattern, the closed outer derivative-zero leaf, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit from Integrable G, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces",
+      "borrow": "compiled Langevin algebra and IBP, explicit C_c^2 core/domain agreement, normalized-Gibbs core annihilation, and the abstract integrated-semigroup-generator invariance bridge; ASTIS WeakGenerator, LangevinGenerator, and GibbsIntegral supply the interfaces",
       "label": "SDE/DENS/FI",
       "leaf": "langevinGenerator_invariant_gibbs_weak",
-      "status": "generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, radial pointwise exhaustion, one-constant-for-all-R first-derivative control, closed outer derivative vanishing, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence are compiled; concrete generator-display integrability, Gibbs tails, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red; second-order cutoff bounds stay separate until a named consumer needs them",
+      "status": "analytic core, core-domain contract, normalized core mean-zero, and abstract semigroup bridge compile; concrete Langevin semigroup construction plus extension to a semigroup-stable domain remain red before invariant Gibbs law",
       "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean"
     },
     {
@@ -108,7 +108,7 @@
       "target": "SamplingAlgorithms/MetropolisAdjustedLangevin.lean"
     }
   ],
-  "pdf": "\\home\\nitanda_sub\\mark\\repos\\outer_papers\\sampling_theory_sde\\Chewi-Log-Concave-Sampling\\main.pdf",
+  "pdf": "/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf",
   "public_pdf": "https://chewisinho.github.io/main.pdf",
   "rows": [
     {
@@ -133,11 +133,11 @@
       "status": "planned"
     },
     {
-      "first_leaf": "Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateaus, radial pointwise exhaustion, a scale-uniform first-derivative cutoff bound, closed outer-region derivative vanishing, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence compiled; concrete generator-display integrability and whole-space IBP remain",
+      "first_leaf": "Whole-space IBP, the C_c^2 core-domain contract, normalized-Gibbs core annihilation, and the abstract semigroup/domain-to-invariance bridge compile; concrete Langevin semigroup instantiation and domain extension remain",
       "lean_family": "Gibbs density -> generator -> KL/FI dissipation -> WGF contract",
       "review": "reuse shared roots DENS, FI, SDE, REG; create a separate subtree when the theorem becomes active",
       "source": "1.4 Langevin as gradient flow",
-      "status": "cutoff-main-term-dominated-convergence-compiled"
+      "status": "abstract-semigroup-invariance-bridge-compiled"
     },
     {
       "first_leaf": "log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit",

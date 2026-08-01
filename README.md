@@ -37,10 +37,10 @@ is claimed until GitHub Pages or the review deployment has actually completed.
 |---|---|
 | primary source | `https://chewisinho.github.io/main.pdf` |
 | local source copy | `outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf` |
-| compiled local technical leaves | 256 |
-| active frontier | Chapter 1, Example 1.2.8 -> Corollary 1.2.9: justify the omitted whole-space integration by parts before claiming the Gibbs invariant law |
-| newest closed edge | generic dominated convergence for an `Integrable` normed-space-valued field multiplied by the PiLp-wrapped radial cutoff |
-| next red edge | integrability of the concrete Gibbs-weighted Langevin generator display; Gibbs-tail passage remains a separate sibling before whole-space weighted IBP |
+| compiled local technical leaves | 270 |
+| active frontier | Chapter 1, Corollary 1.2.9: instantiate the compiled semigroup/domain bridge for the actual Langevin evolution |
+| newest closed edge | explicit Langevin core-domain contract, normalized-Gibbs core annihilation, and abstract semigroup/domain-to-invariance bridge |
+| next red edge | extend the `C_c^2` mean-zero identity to a semigroup-stable domain, or supply a rigorous martingale-problem/Fokker-Planck uniqueness route |
 
 ## Visual Index
 
@@ -147,7 +147,7 @@ flowchart TD
 
 | Chapter | Main mathematical package | Blue foundation | Red boundary |
 |---|---|---|---|
-| 1 Langevin diffusion | Gibbs density, generator display, finite-box IBP, invariant law | Gibbs wrappers, generator algebra, finite-coordinate calculus, finite-box divergence, compact-in-open/Pi-box plateaus, radial exhaustion, `O(R^{-1})` first derivative, closed-outer derivative zero, PiLp/trace consumer bridges, generic `L¹` cutoff-gradient limit, concrete Gibbs/source-field integrability, generic cutoff main-term dominated convergence | concrete generator-display integrability, Gibbs tails, whole-space weighted IBP, generator domains, invariant law |
+| 1 Langevin diffusion | Gibbs density, generator display, finite-box IBP, invariant law | Gibbs wrappers, generator algebra, finite-box and whole-space divergence, weighted IBP, explicit `C_c^2` core/domain agreement contract, normalized-Gibbs core annihilation, abstract semigroup/domain-to-invariance bridge | concrete Langevin semigroup contract, semigroup-stable domain extension, invariant law |
 | 2 Functional inequalities | PI, LSI, TI, isoperimetry, preservation | log-concavity algebra, level sets, products, powers, pullbacks, LSI bookkeeping | Prekopa-Leindler, Brunn-Minkowski, PI/TI/isoperimetry, preservation theorems |
 | 3 Stochastic analysis | Girsanov, Doob, Follmer, Schrodinger bridge | finite Gaussian shifts, finite-cylinder Girsanov, RN/withDensity handoffs | Brownian path-space packaging and bridge transforms |
 | 4 LMC | coupling, interpolation, convex-optimization, Girsanov routes | law-map, weak-generator, conditional-kernel, Gaussian transition, KL/FI algebra leaves | theorem-level convergence packages |
@@ -253,14 +253,14 @@ Blue requires all three gates:
 ## Chapter 1 Proof Chain
 
 The active chain is the continuous-time Langevin route toward the Gibbs
-invariant law.  The blue work is finite-dimensional finite-box analytic
-infrastructure.  It is not yet a whole-space IBP theorem, generator-domain
-theorem, semigroup theorem, invariant-measure theorem, or reversibility theorem.
+invariant law.  The finite-dimensional whole-space analytic core is now blue.
+Generator-domain, semigroup, invariant-measure, and reversibility theorems
+remain separate red boundaries.
 
 | Textbook anchor | Textbook step | Lean status |
 |---|---|---|
-| Example 1.2.8 | compute the Langevin adjoint; the second equality is attributed to integration by parts | pointwise algebra and finite-box cancellation are blue; whole-space passage is red |
-| Corollary 1.2.9 | conclude that the stationary density is proportional to `exp(-V)` | red until weighted IBP and generator/semigroup domain contracts are blue |
+| Example 1.2.8 | compute the Langevin adjoint; the second equality is attributed to integration by parts | whole-space identity is blue for `C_c^2` tests and `C^1` potentials |
+| Corollary 1.2.9 | conclude that the stationary density is proportional to `exp(-V)` | red until generator/semigroup domain contracts are blue |
 | Section 1.2 warning | generator domains and symmetric/self-adjoint operator distinctions are deliberately brushed over | tracked as separate red contracts, not hidden inside the IBP theorem |
 
 The source and background-textbook audit is recorded in
@@ -286,9 +286,9 @@ flowchart TD
   Tail[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   SourceInt[Gibbs source-field<br/>integrability]:::blue
   MainConv[generic main-term<br/>dominated convergence]:::blue
-  MainInt[concrete generator-display<br/>integrability]:::red
-  GibbsTail[Gibbs-tail passage]:::red
-  IBP[weighted IBP<br/>integral Lf d pi = 0]:::red
+  MainInt[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
+  GibbsTail[Gibbs-tail passage]:::blue
+  IBP[weighted IBP<br/>integral Lf d pi = 0]:::blue
   Domain[generator/semigroup<br/>domain contracts]:::red
   Inv[invariant Gibbs law]:::red
   Rev[reversibility<br/>KL/FI dissipation]:::red
@@ -322,7 +322,7 @@ flowchart LR
   Faces[signed lower/upper<br/>face terms]:::blue
   Vanish[face terms vanish]:::blue
   BoxZero[box integral = 0]:::blue
-  Whole[whole-space IBP]:::red
+  Whole[whole-space IBP]:::blue
 
   Field --> Deriv --> DivThm
   Field --> Trace --> DivThm
@@ -354,9 +354,9 @@ flowchart TD
   Tail[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   SourceInt[Gibbs source-field<br/>integrability]:::blue
   MainConv[generic main-term<br/>dominated convergence]:::blue
-  MainInt[concrete generator-display<br/>integrability]:::red
-  GibbsTail[Gibbs-tail passage]:::red
-  IBP[weighted Gibbs IBP]:::red
+  MainInt[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
+  GibbsTail[Gibbs-tail passage]:::blue
+  IBP[weighted Gibbs IBP]:::blue
 
   Local --> Supp --> Smul --> Zero
   Exact --> Pos
@@ -390,7 +390,7 @@ flowchart TD
 | finite boxes | `Analysis.Calculus.Divergence` | trace-to-coordinate transfer, a.e. bridge, signed face terms | no whole-space limit |
 | reusable smooth cutoffs | `Analysis.Calculus.Cutoff` | unit/radial cutoffs, closed-ball support/`tsupport`, compact support, pointwise exhaustion, generic compact-in-open plateau, one-constant-for-all-scales `O(R^-1)` first-derivative control, and closed outer-region derivative zero | second-order bounds wait for a named consumer |
 | finite-box cutoffs | `Analysis.Calculus.Divergence` | local Pi-open-box cutoffs, exact plain support and positivity, one compactly supported cutoff equal to `1` on an entire inner closed Pi-box | no derivative-controlled box exhaustion or whole-space limit |
-| cutoff-smul | `Analysis.Calculus.Divergence` | support, face cancellation, regularity, trace integrability wrappers, radial-cutoff PiLp derivative producer, `smulRight` basis-trace identity, generic `L¹` cutoff-gradient limit, and generic cutoff main-term dominated convergence from `Integrable` fields | no concrete generator-display integrability, Gibbs tail, or whole-space IBP |
+| whole-space IBP | `Analysis.Calculus.Divergence`, `StochasticProcesses.Langevin` | compact-support whole-space divergence and `integral exp(-V) Lf = 0` for `C_c^2` tests | no generator-domain or semigroup semantics |
 
 ## Other Theorem Subtrees
 
@@ -481,9 +481,9 @@ flowchart TD
   R2[Hessian/Laplacian cutoff bound<br/>only for named 2nd-order consumer]:::red
   R3[source-field integrability<br/>for chosen V and f]:::blue
   R4[generic main-term<br/>dominated convergence]:::blue
-  R4A[concrete generator-display<br/>integrability]:::red
-  R4B[Gibbs-tail passage]:::red
-  R5[weighted IBP<br/>for Gibbs density]:::red
+  R4A[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
+  R4B[Gibbs-tail passage]:::blue
+  R5[weighted IBP<br/>for Gibbs density]:::blue
   R6[generator and semigroup<br/>domain contracts]:::red
   R7[invariant Gibbs law<br/>then reversibility]:::red
   R8[Prekopa-Leindler / Brunn-Minkowski<br/>functional-inequality preservation]:::red
@@ -505,10 +505,9 @@ flowchart TD
   classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
 ```
 
-`R4` is the newest compiled blue edge; next work should close one red
-prerequisite at a time.  It should not state an
-invariant-law theorem until weighted IBP and generator-domain contracts are
-blue.
+`R5` is the newest compiled blue edge.  The next pass should close the
+generator-domain contract and semigroup bridge separately before stating an
+invariant-law theorem.
 
 ## Blueprint-Style Textbook Site
 

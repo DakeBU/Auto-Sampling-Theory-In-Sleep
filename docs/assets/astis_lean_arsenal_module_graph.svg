@@ -115,7 +115,7 @@
   <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M412,255 L688,255 Q700,255 700,267 L700,299 Q700,311 688,311 L412,311 Q400,311 400,299 L400,267 Q400,255 412,255 Z"/>
   <text x="550.0" y="271" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.Analysis</text>
   <text x="550.0" y="286" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Calculus.Divergence</text>
-  <text x="550.0" y="303" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Divergence.lean; compiled 57; memory 56</text>
+  <text x="550.0" y="303" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Divergence.lean; compiled 59; memory 58</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient">
@@ -150,7 +150,7 @@
   <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M412,320 L688,320 Q700,320 700,332 L700,364 Q700,376 688,376 L412,376 Q400,376 400,364 L400,332 Q400,320 412,320 Z"/>
   <text x="550.0" y="336" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.StochasticProcesses</text>
   <text x="550.0" y="351" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.WeakGenerator</text>
-  <text x="550.0" y="368" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">WeakGenerator.lean; compiled 1; memory 1</text>
+  <text x="550.0" y="368" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">WeakGenerator.lean; compiled 4; memory 4</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra">
@@ -192,7 +192,7 @@
   <path fill="#dff0e4" stroke="#2e7d59" stroke-width="1.8" d="M742,390 L1048,390 Q1060,390 1060,402 L1060,432 Q1060,444 1048,444 L742,444 Q730,444 730,432 L730,402 Q730,390 742,390 Z"/>
   <text x="895.0" y="406" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">TechnicalLemmas.StochasticProcesses</text>
   <text x="895.0" y="421" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700">.Langevin</text>
-  <text x="895.0" y="438" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Langevin.lean; compiled 27; memory 26</text>
+  <text x="895.0" y="438" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#334155">Langevin.lean; compiled 32; memory 31</text>
 </g>
 
 <g id="AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym">
@@ -320,6 +320,6 @@
   <rect x="78" y="883" width="18" height="12" fill="#dff0e4" stroke="#2e7d59"/><text x="104" y="894" font-family="Helvetica,Arial,sans-serif" font-size="11">Canonical Mathlib-ready candidate module: compiled local reusable leaves</text>
   <rect x="78" y="905" width="18" height="12" fill="#eaf2ff" stroke="#2563eb"/><text x="104" y="916" font-family="Helvetica,Arial,sans-serif" font-size="11">Root public import surface</text>
   <text x="78" y="938" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#475569">Omitted from the main graph: SALD/RMFLD consumers, SALDExtracted quarantine, compatibility files, registry metadata, and external references.</text>
-  <text x="1260" y="955" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated 2026-07-27 17:42:57 by tools/astis.py module-graph-refresh</text>
+  <text x="1260" y="955" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#64748b">Generated 2026-08-02 02:28:29 by tools/astis.py module-graph-refresh</text>
 </g>
 </svg>

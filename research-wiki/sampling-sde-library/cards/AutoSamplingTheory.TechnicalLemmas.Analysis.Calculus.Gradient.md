@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Analysis\Calculus\Gradient.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Gradient.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: Mathlib gradient bridges for Langevin calculus: Gibbs-weight chain rule `∇ exp(-V) = -exp(-V) • ∇V` from `HasGradientAt` or `DifferentiableAt`, coordinate displays, finite-dimensional coordinate-unit line derivatives, and pointwise `fderiv`-to-`gradient` inner-product/coordinate bridges
 - Mathlib-quality status: preferred ANALYSIS/SDE bridge from Mathlib gradient API to finite-coordinate Langevin algebra; pointwise only, with no divergence, IBP, or invariant-law claims

@@ -211,6 +211,178 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "For a twice continuously differentiable compactly supported test function, the exact Gibbs-weighted Langevin generator display is integrable over the whole Euclidean space.",
+    "mathematical_statement": "If V is C1 and f is C2 with compact support, then exp(-V) (Delta f - <grad V, grad f>) belongs to L1(dx).",
+    "intuition": "Outside the compact support of f, local equality with zero forces both its gradient and Laplacian to vanish. The generator display therefore has compact support even when the potential gradient is unbounded.",
+    "assumptions": [
+      "The potential V is globally C1.",
+      "The test function f is globally C2.",
+      "The test function f has compact support."
+    ],
+    "why_assumptions": [
+      "C1 regularity makes grad V continuous on the compact region where the test function derivatives can be nonzero.",
+      "C2 regularity makes grad f and Delta f continuous and gives genuine derivative semantics.",
+      "Compact support supplies whole-space domination without imposing a false bounded-gradient condition on a strongly convex potential."
+    ],
+    "proof_route": [
+      "Use the ASTIS C1-gradient and C2-Laplacian continuity leaves to prove continuity of the displayed integrand.",
+      "At a point outside tsupport f, rewrite f locally as the zero function.",
+      "Use fderiv congruence for grad f and Mathlib Laplacian congruence for Delta f.",
+      "Conclude that the display is supported inside tsupport f.",
+      "Apply continuous integrability for compactly supported functions."
+    ],
+    "lean_notes": [
+      "HasCompactSupport means compact topological support, not merely bounded pointwise support.",
+      "Mathlib derivatives are totalized, so the ContDiff hypotheses retain their analytic meaning.",
+      "This theorem is an integrability certificate; the cutoff limit, weighted IBP, generator domain, and invariant law remain separate declarations."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.tendsto_setIntegral_expNeg_norm_ge_comp_toLp_of_lintegral_expNeg_ne_top",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "If the unnormalized Gibbs weight has finite total mass, then its mass outside expanding Euclidean balls tends to zero.",
+    "mathematical_statement": "If integral exp(-V(x)) dx is finite, then integral over {x : R <= norm(x)} of exp(-V(x)) dx tends to zero as R tends to infinity.",
+    "intuition": "An integrable density cannot retain positive mass arbitrarily far into the tail. ASTIS states this in the same raw finite-coordinate representation used by the radial cutoffs.",
+    "assumptions": [
+      "The potential V is continuous, so the Gibbs weight is measurable.",
+      "The ENNReal integral of exp(-V) is finite."
+    ],
+    "why_assumptions": [
+      "Tail convergence is an L1 consequence and therefore needs finite total mass.",
+      "Continuity is stronger than the minimal measurability assumption, but matches the current Chapter 1 Langevin interface and avoids a hidden measurable-representative choice."
+    ],
+    "proof_route": [
+      "Convert finite ENNReal Gibbs mass into real-valued Integrable on Euclidean space.",
+      "Transport integrability through the volume-preserving PiLp coordinate equivalence.",
+      "Apply the generic antitone expanding-ball tail theorem to the Gibbs weight.",
+      "Use positivity of Real.exp to remove the scalar norm."
+    ],
+    "lean_notes": [
+      "The tail family is indexed by real radii and converges in the atTop filter.",
+      "The generic tail theorem is stored in Analysis.Calculus.Divergence and is independent of Gibbs measures.",
+      "This result does not assemble weighted integration by parts or any semigroup invariance statement."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactSupport",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The integral over the whole finite-dimensional space of the divergence of a continuously differentiable compactly supported vector field is zero.",
+    "mathematical_statement": "If F is C1 with compact support on R^d, then integral div F dx = 0.",
+    "intuition": "A compactly supported field has no flux at infinity. ASTIS makes that sentence precise by enclosing its topological support in a strict finite box and applying the finite-box divergence theorem where every face value is zero.",
+    "assumptions": [
+      "The coordinate index is finite and nonempty in the current Fin (n+1) interface.",
+      "The vector field is globally C1.",
+      "The vector field has compact topological support."
+    ],
+    "why_assumptions": [
+      "C1 regularity gives a genuine Frechet derivative and a continuous, hence box-integrable, derivative trace.",
+      "Compact support supplies an actual zero-boundary region rather than an informal decay-at-infinity claim.",
+      "Finite dimension is required by the current Mathlib box divergence theorem and PiLp coordinate trace."
+    ],
+    "proof_route": [
+      "Use compactness to place tsupport F inside an open norm ball and then a strict Pi-box.",
+      "Derive continuity and integrability of the canonical fderiv trace from ContDiff C1.",
+      "Invoke the ASTIS finite-box zero-face divergence wrapper.",
+      "Outside the closed box, use the zero local germ off tsupport F to show fderiv F and the wrapped divergence vanish.",
+      "Rewrite the closed-box integral as the whole-space integral."
+    ],
+    "lean_notes": [
+      "The theorem explicitly bridges raw finite-Pi coordinates and EuclideanSpace through WithLp.",
+      "HasCompactSupport controls tsupport, which is stronger and topologically more stable than a bare Function.support bound.",
+      "The declaration is independent of Gibbs measures and can be reused by other conservation-law proofs."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "For every compactly supported twice continuously differentiable test function, the unnormalized Gibbs-weighted Langevin generator has integral zero.",
+    "mathematical_statement": "If V is C1 and f is C2 with compact support, then integral exp(-V(x)) (Delta f(x) - <grad V(x), grad f(x)>) dx = 0.",
+    "intuition": "The displayed integrand is the divergence of exp(-V) grad f. Since f is compactly supported, its derivative and the weighted vector field vanish near infinity, so no boundary flux remains.",
+    "assumptions": [
+      "The potential V is globally C1.",
+      "The test function f is globally C2.",
+      "The test function f has compact topological support."
+    ],
+    "why_assumptions": [
+      "C1 regularity gives the Gibbs-weight chain rule and a continuous gradient of V on the relevant compact region.",
+      "C2 regularity gives the differentiable gradient field and Laplacian appearing in the generator.",
+      "Compact support removes the boundary term without requiring finite total Gibbs mass or a globally bounded potential gradient."
+    ],
+    "proof_route": [
+      "Build the raw finite-Pi field exp(-V) times the coordinate derivatives of f.",
+      "Prove that field is C1 and supported in the transported topological support of f.",
+      "Apply the generic compact-support whole-space divergence theorem.",
+      "Use the compiled trace identity to identify the divergence with the Gibbs-weighted Langevin display pointwise.",
+      "Transport the integral through the volume-preserving PiLp equivalence."
+    ],
+    "lean_notes": [
+      "The result is the analytic core integral Lf d pi = 0 before normalization; multiplying by the finite normalizing constant is downstream algebra.",
+      "It proves no closed-generator membership or derivative of a semigroup pairing.",
+      "The invariant-law milestone remains red until those operator and semigroup contracts compile."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.CoreContract",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A candidate Langevin generator must declare a function domain containing every compactly supported C2 test and must agree with the displayed Langevin differential operator on that core.",
+    "mathematical_statement": "C_c^2 is contained in D(A), and Af = Delta f - <grad V, grad f> for every f in C_c^2.",
+    "intuition": "Writing down a differential formula does not determine the domain of an unbounded generator. The contract keeps domain membership and formula agreement as separate proof obligations.",
+    "assumptions": [
+      "A candidate operator action and an explicit domain set are supplied.",
+      "The state space is finite-dimensional EuclideanSpace in the current interface."
+    ],
+    "why_assumptions": [
+      "Unbounded operators with the same pointwise formula can have different domains and closures.",
+      "The current IBP theorem is established only on the compactly supported C2 core."
+    ],
+    "proof_route": [
+      "Name the compactly supported C2 predicate.",
+      "Name the displayed Langevin operator independently.",
+      "Record core inclusion and operator agreement as fields that a concrete semigroup generator must discharge."
+    ],
+    "lean_notes": [
+      "CoreContract is a Prop-valued structure, so it packages evidence rather than constructing an operator.",
+      "It does not assert closedness, closability, strong continuity, or semigroup generation."
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.isInvariantOn_of_integral_generator_eq_zero",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "If a nonnegative-time semigroup preserves its generator domain, its integrated pairing has the declared right derivative, and the generator has zero mean throughout that domain, then the measure is invariant on that domain.",
+    "mathematical_statement": "If d/dt integral P_t f dmu = integral A(P_t f) dmu = 0 and P_0 f = f, then integral P_t f dmu = integral f dmu for t >= 0.",
+    "intuition": "The expected value along the semigroup orbit has zero right derivative on every finite time interval, so the mean-value theorem makes it constant.",
+    "assumptions": [
+      "Identity and semigroup laws hold for nonnegative times.",
+      "The semigroup orbit remains in the declared generator domain.",
+      "The integral pairing is continuous and has the stated right derivative.",
+      "The integrated generator vanishes on the entire domain."
+    ],
+    "why_assumptions": [
+      "Core-level mean-zero is insufficient when the semigroup orbit leaves that core.",
+      "A formal generator formula does not justify differentiating an integral pairing.",
+      "Right derivatives respect the one-sided time domain of a Markov semigroup."
+    ],
+    "proof_route": [
+      "Use domain preservation to apply generator mean-zero at every orbit point.",
+      "Rewrite every supplied right derivative of the pairing as zero.",
+      "Apply Mathlib's constant_of_has_deriv_right_zero on [0,t].",
+      "Use the time-zero identity to obtain invariance."
+    ],
+    "lean_notes": [
+      "Time is represented by real numbers, while all semigroup laws are guarded by nonnegativity.",
+      "The theorem proves invariance only on the explicit domain/test class.",
+      "Concrete Langevin semigroup construction and the C_c^2 domain-extension step remain open."
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov.finiteGaussianGirsanovCylinderMeasure_eq_withDensity",
     "chapter": 3,
     "route_status": "Partial",

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Geometry\StrongConvexity.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Geometry/StrongConvexity.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: strong-convexity to convex-potential/log-concave Gibbs-shape bridges and the midpoint `k/4` centered quadratic lower envelope from a supplied global minimizer
 - Mathlib-quality status: compiled CONV/DENS bridge; sharp `k/2` first-order envelope and minimizer-existence theory remain separate red branches

@@ -1,25 +1,25 @@
 {
-  "generated": "2026-07-27 17:42:57",
+  "generated": "2026-08-02 02:28:31",
   "references": [
     {
       "id": "lean-asymptotic-statistical-theory",
-      "path": "research-wiki\\external-lean-libraries\\lean-asymptotic-statistical-theory.md"
+      "path": "research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md"
     },
     {
       "id": "lean-rademacher",
-      "path": "research-wiki\\external-lean-libraries\\lean-rademacher.md"
+      "path": "research-wiki/external-lean-libraries/lean-rademacher.md"
     },
     {
       "id": "lean-stat-learning-theory",
-      "path": "research-wiki\\external-lean-libraries\\lean-stat-learning-theory.md"
+      "path": "research-wiki/external-lean-libraries/lean-stat-learning-theory.md"
     },
     {
       "id": "log-concave-sampling-notes",
-      "path": "research-wiki\\external-lean-libraries\\log-concave-sampling-notes.md"
+      "path": "research-wiki/external-lean-libraries/log-concave-sampling-notes.md"
     },
     {
       "id": "mathlib",
-      "path": "research-wiki\\external-lean-libraries\\mathlib.md"
+      "path": "research-wiki/external-lean-libraries/mathlib.md"
     }
   ]
 }

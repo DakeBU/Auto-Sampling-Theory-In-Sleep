@@ -33,7 +33,7 @@ namespace StochasticProcesses
 namespace Langevin
 
 open scoped RealInnerProductSpace BigOperators ENNReal
-open MeasureTheory
+open MeasureTheory Filter
 
 /-- Pointwise product-rule identity for the one-dimensional Gibbs weight
 `exp (-V)`.  In source notation this is the local calculation
@@ -1000,6 +1000,249 @@ theorem integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv
     integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff
       a b V f (fun x => fderiv ℝ F x) hF hV hf
 
+/-- Whole-space integrability of the concrete Gibbs-weighted Langevin
+generator display for a compactly supported `C²` test function.
+
+The compact support belongs to the test function, not to the Gibbs weight.
+Outside `tsupport f`, local equality with the zero function forces both
+`gradient f` and `Laplacian.laplacian f` to vanish.  Thus the full display
+`exp (-V) * (Δ f - <∇V, ∇f>)` is continuous and compactly supported even when
+`gradient V` is unbounded and the unnormalized Gibbs mass has not been shown
+finite.
+
+This is the concrete main-term integrability input for the cutoff route.  It
+does not prove the cutoff limit itself, weighted integration by parts,
+generator-domain semantics, stationarity, an invariant law, reversibility, or
+KL/FI dissipation. -/
+theorem integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport
+    {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hf : ContDiff ℝ 2 f)
+    (hf_support : HasCompactSupport f) :
+    Integrable
+      (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+        Real.exp (-V y) *
+          (Laplacian.laplacian f y - inner ℝ (gradient V y) (gradient f y)))
+      volume := by
+  have hcontinuous : Continuous
+      (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+        Real.exp (-V y) *
+          (Laplacian.laplacian f y - inner ℝ (gradient V y) (gradient f y))) := by
+    exact hV.continuous.neg.rexp.mul
+      ((_root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian.continuous_laplacian_of_contDiff_two
+          hf).sub
+        ((_root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one
+            hV).inner
+          (_root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one
+            (hf.of_le (by norm_num)))))
+  have hsupport : HasCompactSupport
+      (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+        Real.exp (-V y) *
+          (Laplacian.laplacian f y - inner ℝ (gradient V y) (gradient f y))) := by
+    refine HasCompactSupport.of_support_subset_isCompact hf_support ?_
+    intro y hy
+    by_contra hy_mem
+    have hzero : f =ᶠ[nhds y] (0 : EuclideanSpace ℝ (Fin (n + 1)) → ℝ) := by
+      rwa [← notMem_tsupport_iff_eventuallyEq]
+    have hgrad : gradient f y = 0 := by
+      rw [gradient, hzero.fderiv_eq]
+      simp
+    have hlap : Laplacian.laplacian f y = 0 := by
+      have hzero_lap := InnerProductSpace.laplacian_congr_nhds hzero
+      have hzero_lap_y := mem_of_mem_nhds hzero_lap
+      calc
+        Laplacian.laplacian f y =
+            Laplacian.laplacian
+              (0 : EuclideanSpace ℝ (Fin (n + 1)) → ℝ) y := hzero_lap_y
+        _ = 0 := by
+          change Laplacian.laplacian
+            (fun _ : EuclideanSpace ℝ (Fin (n + 1)) => (0 : ℝ)) y = 0
+          rw [InnerProductSpace.laplacian_const]
+          rfl
+    exact hy (by simp [hlap, hgrad])
+  exact hcontinuous.integrable_of_hasCompactSupport hsupport
+
+/-- Raw finite-coordinate form of
+`integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport`.
+
+This transports the Euclidean-space result through Mathlib's
+volume-preserving `WithLp.toLp 2` equivalence.  Its conclusion is in the exact
+shape consumed by the radial-cutoff dominated-convergence theorem.  It does
+not itself take a cutoff limit or prove weighted integration by parts,
+generator-domain semantics, stationarity, or invariance. -/
+theorem integrable_expNeg_langevinGenerator_rhs_comp_toLp_of_contDiff_of_hasCompactSupport
+    {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hf : ContDiff ℝ 2 f)
+    (hf_support : HasCompactSupport f) :
+    Integrable
+      (fun x : Fin (n + 1) → ℝ =>
+        Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))) *
+          (Laplacian.laplacian f
+              (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) -
+            inner ℝ
+              (gradient V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))))
+              (gradient f (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))))))
+      volume := by
+  have hintegrable :=
+    integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport
+      (V := V) (f := f) hV hf hf_support
+  rw [← (PiLp.volume_preserving_toLp (Fin (n + 1))).integrable_comp_emb
+    (MeasurableEquiv.toLp 2 _).measurableEmbedding] at hintegrable
+  simpa [Function.comp_def] using hintegrable
+
+/-- Whole-space integrability of the unnormalized Gibbs weight in raw
+finite-Pi coordinates.
+
+The hypothesis is the finite `ℝ≥0∞` Gibbs mass on Euclidean space.  Continuity
+supplies measurability, and Mathlib's volume-preserving `WithLp.toLp 2`
+equivalence transports integrability to the coordinate representation used by
+the cutoff lemmas.  No test function, generator, tail limit, IBP, or invariant
+law is asserted here. -/
+theorem integrable_expNeg_comp_toLp_of_lintegral_expNeg_ne_top
+    {n : ℕ}
+    {V : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : Continuous V)
+    (hZ : (∫⁻ y : EuclideanSpace ℝ (Fin (n + 1)),
+      ENNReal.ofReal (Real.exp (-V y)) ∂volume) ≠ ∞) :
+    Integrable
+      (fun x : Fin (n + 1) → ℝ =>
+        Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))))
+      volume := by
+  have hweight_euclidean :
+      Integrable (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+        Real.exp (-V y)) volume := by
+    exact
+      (lintegral_ofReal_ne_top_iff_integrable
+        hV.neg.rexp.aestronglyMeasurable
+        (Filter.Eventually.of_forall fun y => Real.exp_nonneg (-V y))).1 hZ
+  rw [← (PiLp.volume_preserving_toLp (Fin (n + 1))).integrable_comp_emb
+    (MeasurableEquiv.toLp 2 _).measurableEmbedding] at hweight_euclidean
+  simpa [Function.comp_def] using hweight_euclidean
+
+/-- The unnormalized Gibbs mass outside expanding Euclidean balls tends to
+zero, in the raw finite-Pi coordinates used by the radial cutoff route.
+
+This combines finite Gibbs mass with the generic `L¹` tail theorem.  It is a
+Gibbs-tail convergence certificate only: it does not identify a cutoff-field
+divergence, prove weighted integration by parts, supply generator/semigroup
+domains, or establish stationarity or invariance. -/
+theorem tendsto_setIntegral_expNeg_norm_ge_comp_toLp_of_lintegral_expNeg_ne_top
+    {n : ℕ}
+    {V : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : Continuous V)
+    (hZ : (∫⁻ y : EuclideanSpace ℝ (Fin (n + 1)),
+      ENNReal.ofReal (Real.exp (-V y)) ∂volume) ≠ ∞) :
+    Tendsto
+      (fun R : ℝ => ∫ x in
+        {x : Fin (n + 1) → ℝ |
+          R ≤ ‖(WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖},
+        Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))))
+          ∂volume)
+      atTop (nhds 0) := by
+  have htail :=
+    _root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_setIntegral_norm_norm_ge_comp_toLp
+      (integrable_expNeg_comp_toLp_of_lintegral_expNeg_ne_top hV hZ)
+  simpa [Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)] using htail
+
+/-- Whole-space Gibbs-weighted Langevin integration by parts for a compactly
+supported `C²` test function:
+`∫ exp (-V) * (Δ f - ⟪∇V, ∇f⟫) = 0`.
+
+The proof builds the raw finite-Pi vector field `exp (-V) * Df`, proves that
+it is `C¹` and compactly supported, applies the reusable whole-space
+coordinate-divergence theorem, identifies its trace with the Langevin
+generator display pointwise, and transports volume back to Euclidean space.
+No finite Gibbs-mass assumption is needed because the test function is
+compactly supported.
+
+This is the analytic core identity used by a later generator-domain and
+semigroup-to-invariance bridge.  It does not itself construct a closed
+generator, a Markov semigroup, or an invariant probability measure. -/
+theorem integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport
+    {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hf : ContDiff ℝ 2 f)
+    (hf_support : HasCompactSupport f) :
+    ∫ y : EuclideanSpace ℝ (Fin (n + 1)),
+        Real.exp (-V y) *
+          (Laplacian.laplacian f y - inner ℝ (gradient V y) (gradient f y)) = 0 := by
+  let e : EuclideanSpace ℝ (Fin (n + 1)) ≃L[ℝ] (Fin (n + 1) → ℝ) :=
+    PiLp.continuousLinearEquiv 2 ℝ (fun _ : Fin (n + 1) => ℝ)
+  let F : (Fin (n + 1) → ℝ) → Fin (n + 1) → ℝ :=
+    fun z => fun i =>
+      Real.exp (-V (e.symm z)) *
+        fderiv ℝ f (e.symm z) (EuclideanSpace.single i (1 : ℝ))
+  have hF : ContDiff ℝ 1 F := by
+    apply contDiff_pi.2
+    intro i
+    exact (hV.comp e.symm.contDiff).neg.exp.mul
+      (((hf.fderiv_right (m := 1) (by norm_num)).comp e.symm.contDiff).clm_apply
+        contDiff_const)
+  have hF_support : HasCompactSupport F := by
+    refine HasCompactSupport.of_support_subset_isCompact
+      (hf_support.isCompact.image e.continuous) ?_
+    intro x hx
+    have hxe : e.symm x ∈ tsupport f := by
+      by_contra hxe
+      have hzero : fderiv ℝ f (e.symm x) = 0 :=
+        fderiv_of_notMem_tsupport ℝ hxe
+      exact hx (by
+        funext i
+        simp [F, hzero])
+    exact ⟨e.symm x, hxe, e.apply_symm_apply x⟩
+  have hdiv :=
+    _root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactSupport
+      F hF hF_support
+  have hraw :
+      ∫ x : Fin (n + 1) → ℝ,
+          Real.exp (-V (e.symm x)) *
+            (Laplacian.laplacian f (e.symm x) -
+              inner ℝ (gradient V (e.symm x)) (gradient f (e.symm x))) = 0 := by
+    calc
+      ∫ x : Fin (n + 1) → ℝ,
+          Real.exp (-V (e.symm x)) *
+            (Laplacian.laplacian f (e.symm x) -
+              inner ℝ (gradient V (e.symm x)) (gradient f (e.symm x))) =
+          ∫ x : Fin (n + 1) → ℝ,
+            _root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence
+              (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+                (WithLp.toLp 2 (F (WithLp.ofLp y)) :
+                  EuclideanSpace ℝ (Fin (n + 1))))
+              (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) := by
+        apply integral_congr_ae
+        exact Filter.Eventually.of_forall fun x => by
+          have htrace :=
+            trace_expNeg_fderivCoordinateField_langevinGenerator_display_of_hasFDerivAt
+              (V := V) (f := f) (x := x) (F' := fderiv ℝ F x)
+              (by simpa [F, e] using (hF.differentiable one_ne_zero x).hasFDerivAt)
+              (hV.differentiable one_ne_zero _)
+              ((hf.fderiv_right (m := 1) (by norm_num)).differentiable one_ne_zero _)
+              (hf.differentiable (by norm_num) _)
+          have hwrapped :=
+            _root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt
+              (ι := Fin (n + 1)) (hF.differentiable one_ne_zero x).hasFDerivAt
+          change
+            Real.exp (-V (e.symm x)) *
+                (Laplacian.laplacian f (e.symm x) -
+                  inner ℝ (gradient V (e.symm x)) (gradient f (e.symm x))) =
+              _root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence
+                (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+                  (WithLp.toLp 2 (F (WithLp.ofLp y)) :
+                    EuclideanSpace ℝ (Fin (n + 1))))
+                (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))
+          calc
+            _ = ∑ i, fderiv ℝ F x (Pi.single i (1 : ℝ)) i := by
+              simpa [e] using htrace.symm
+            _ = _ := hwrapped.symm
+      _ = 0 := by simpa [F, e] using hdiv
+  rw [← (PiLp.volume_preserving_toLp (Fin (n + 1))).integral_comp
+    (MeasurableEquiv.toLp 2 _).measurableEmbedding]
+  simpa [e] using hraw
+
 /-- Whole-space integrability of the Gibbs-weighted coordinate derivative
 field from finiteness of the unnormalized Gibbs mass and a uniform operator
 norm bound on the test-function derivative.
@@ -1020,20 +1263,8 @@ theorem integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fd
         Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))) *
           fderiv ℝ f (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))
             (EuclideanSpace.single i (1 : ℝ))) volume := by
-  have hweight_euclidean :
-      Integrable (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
-        Real.exp (-V y)) volume := by
-    exact
-      (lintegral_ofReal_ne_top_iff_integrable
-        hV.neg.rexp.aestronglyMeasurable
-        (Filter.Eventually.of_forall fun y => Real.exp_nonneg (-V y))).1 hZ
-  have hweight :
-      Integrable (fun x : Fin (n + 1) → ℝ =>
-        Real.exp (-V (WithLp.toLp 2 x :
-          EuclideanSpace ℝ (Fin (n + 1))))) volume := by
-    rw [← (PiLp.volume_preserving_toLp (Fin (n + 1))).integrable_comp_emb
-      (MeasurableEquiv.toLp 2 _).measurableEmbedding] at hweight_euclidean
-    simpa [Function.comp_def] using hweight_euclidean
+  have hweight :=
+    integrable_expNeg_comp_toLp_of_lintegral_expNeg_ne_top hV hZ
   let D : (Fin (n + 1) → ℝ) → (Fin (n + 1) → ℝ) :=
     fun x i =>
       fderiv ℝ f (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))

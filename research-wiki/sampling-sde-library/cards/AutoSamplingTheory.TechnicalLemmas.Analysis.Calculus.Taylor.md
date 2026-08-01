@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Analysis\Calculus\Taylor.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Taylor.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: Hessian/operator norm bridges, orthonormal-basis units, quadratic normalization
 - Mathlib-quality status: preferred Mathlib-style location for Ito/Taylor local-error leaves

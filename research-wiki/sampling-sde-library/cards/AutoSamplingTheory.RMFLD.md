@@ -1,6 +1,6 @@
 # AutoSamplingTheory.RMFLD
 
-- File: `AutoSamplingTheory\RMFLD.lean`
+- File: `AutoSamplingTheory/RMFLD.lean`
 - Layer: exploratory consumer
 - Purpose: exploratory sampling-theory proof targets
 - Mathlib-quality status: consumer of arsenal

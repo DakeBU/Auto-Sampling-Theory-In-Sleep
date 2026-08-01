@@ -1,9 +1,9 @@
 # AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Analysis\Calculus\Divergence.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: finite-dimensional pointwise coordinate-divergence convention, fderiv trace bridges, radial-cutoff PiLp derivative producer, smulRight basis-trace identity, the generic L1 cutoff-gradient limit and generic cutoff main-term dominated convergence for Integrable fields, a.e. trace transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization
-- Mathlib-quality status: preferred ANALYSIS/SDE bridge for finite-box cancellation and the compiled generic cutoff cross-term/main-term limits; concrete generator-display integrability, Gibbs tails, whole-space IBP, no-boundary passage, and invariant law remain separate
+- Mathlib-quality status: preferred ANALYSIS/SDE bridge for finite-box cancellation and the compiled generic cutoff cross-term/main-term/tail limits; concrete compact-test generator-display integrability and Gibbs-tail convergence are compiled in Langevin, while whole-space IBP, no-boundary passage, and invariant law remain separate
 
 ## Imports
 
@@ -24,6 +24,7 @@
 - `hasFDerivAt_radialSmoothCutoff_comp_toLp`
 - `tendsto_integral_norm_fderiv_radialSmoothCutoff_comp_toLp_apply`
 - `tendsto_integral_radialSmoothCutoff_comp_toLp_smul`
+- `tendsto_setIntegral_norm_norm_ge_comp_toLp`
 - `sum_smulRight_apply_pi_single_eq_apply`
 - `coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt`
 - `eventuallyEq_restrict_Icc_of_eqOn_univ_pi_Ioo_diff_countable`
@@ -55,7 +56,6 @@
 - `continuousOn_smul_vectorField_trace_of_component_continuousOn`
 - `continuousOn_smul_vectorField_trace_of_components`
 - `integrableOn_smul_vectorField_trace_of_continuousOn`
-- `signedFaceTermSum_smul_eq_zero_of_cutoff_eq_zero_off_univ_pi_Ioo`
 
 ## Curated Formalized Memory Entries
 
@@ -67,6 +67,8 @@
 - `analysis.calculus.radial-smooth-cutoff-comp-toLp-hasFDerivAt` -> `hasFDerivAt_radialSmoothCutoff_comp_toLp` (Mathlib.Analysis.Calculus.FDeriv.WithLp; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff)
 - `analysis.calculus.pilp-radial-cutoff-gradient-L1-tendsto-zero` -> `tendsto_integral_norm_fderiv_radialSmoothCutoff_comp_toLp_apply` (AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.{Cutoff,Divergence}; Mathlib.MeasureTheory.Integral.DominatedConvergence)
 - `analysis.calculus.pilp-radial-cutoff-main-integral-tendsto` -> `tendsto_integral_radialSmoothCutoff_comp_toLp_smul` (AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.{Cutoff,Divergence}; Mathlib.MeasureTheory.Integral.DominatedConvergence)
+- `analysis.calculus.pilp-integrable-field-norm-tail-tendsto-zero` -> `tendsto_setIntegral_norm_norm_ge_comp_toLp` (Mathlib.MeasureTheory.Integral.Bochner.Set; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence)
+- `analysis.calculus.compact-support-whole-space-coordinate-divergence-zero` -> `integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactSupport` (Mathlib.MeasureTheory.Integral.DivergenceTheorem; Mathlib.Topology.MetricSpace.Bounded; Mathlib.MeasureTheory.Integral.Bochner.Set; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence)
 - `analysis.calculus.sum-smulRight-apply-pi-single-eq-apply` -> `sum_smulRight_apply_pi_single_eq_apply` (Mathlib.Algebra.BigOperators.Pi; Mathlib.Topology.Algebra.Module.FiniteDimension)
 - `analysis.calculus.coordinate-divergence-wrapped-toPi-trace` -> `coordinateDivergence_wrapped_toPi_trace_of_hasFDerivAt` (Mathlib.Analysis.Calculus.FDeriv.WithLp; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence)
 - `analysis.calculus.eventuallyEq-restrict-Icc-open-box-diff-countable` -> `eventuallyEq_restrict_Icc_of_eqOn_univ_pi_Ioo_diff_countable` (Mathlib.MeasureTheory.Integral.DivergenceTheorem; Mathlib.MeasureTheory.Constructions.Polish.Basic)

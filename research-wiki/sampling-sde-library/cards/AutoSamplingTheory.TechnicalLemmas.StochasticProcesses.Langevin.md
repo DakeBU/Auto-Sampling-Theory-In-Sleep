@@ -1,9 +1,9 @@
 # AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin
 
-- File: `AutoSamplingTheory\TechnicalLemmas\StochasticProcesses\Langevin.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean`
 - Layer: Mathlib-ready technical lemma
-- Purpose: finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs, coordinate-sum and coordinateDivergence displays, finite-box trace regularity, and whole-space integrability of the concrete Gibbs-weighted first-derivative coordinate field under finite Gibbs mass and a bounded `fderiv`
-- Mathlib-quality status: preferred Mathlib-style location for Langevin expression algebra and the compiled source-field integrability leaf before concrete generator-display integrability, Gibbs tails, IBP, invariant-law, Ito-generator, and semigroup-domain contracts
+- Purpose: finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs, coordinate-sum and coordinateDivergence displays, finite-box trace regularity, whole-space Gibbs-weighted source-field and compact-test generator-display integrability, and Gibbs-tail convergence
+- Mathlib-quality status: preferred Mathlib-style location for Langevin expression algebra and the compiled source-field, compact-test generator-display, and Gibbs-tail leaves before IBP, invariant-law, Ito-generator, and semigroup-domain contracts
 
 ## Imports
 
@@ -46,6 +46,11 @@
 - `integrableOn_trace_expNeg_fderivCoordinateField_of_component_continuousOn`
 - `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff`
 - `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv`
+- `integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport`
+- `integrable_expNeg_langevinGenerator_rhs_comp_toLp_of_contDiff_of_hasCompactSupport`
+- `integrable_expNeg_comp_toLp_of_lintegral_expNeg_ne_top`
+- `tendsto_setIntegral_expNeg_norm_ge_comp_toLp_of_lintegral_expNeg_ne_top`
+- `integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport`
 - `integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le`
 
 ## Curated Formalized Memory Entries
@@ -76,6 +81,11 @@
 - `langevin.hasFDerivAt-exp-neg-fderiv-coordinate-field-contDiff` -> `hasFDerivAt_expNeg_fderivCoordinateField_of_contDiff` (Mathlib.Analysis.Calculus.FDeriv.Prod; Mathlib.Analysis.Calculus.FDeriv.WithLp; Mathlib.Analysis.SpecialFunctions.ExpDeriv; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
 - `langevin.integrableOn-trace-exp-neg-fderiv-coordinate-field-contDiff-fderiv` -> `integrableOn_trace_expNeg_fderivCoordinateField_of_contDiff_fderiv` (AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
 - `langevin.integrable-exp-neg-fderiv-coordinate-source-field` -> `integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le` (Mathlib.MeasureTheory.Function.L1Space.Integrable; Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
+- `langevin.integrable-exp-neg-generator-rhs-compact-test` -> `integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport` (Mathlib.MeasureTheory.Function.LocallyIntegrable; Mathlib.Analysis.Calculus.FDeriv.Const; Mathlib.Analysis.InnerProductSpace.Laplacian; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
+- `langevin.integrable-exp-neg-generator-rhs-compact-test-raw-pi` -> `integrable_expNeg_langevinGenerator_rhs_comp_toLp_of_contDiff_of_hasCompactSupport` (Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
+- `langevin.integrable-exp-neg-weight-raw-pi` -> `integrable_expNeg_comp_toLp_of_lintegral_expNeg_ne_top` (Mathlib.MeasureTheory.Function.L1Space.Integrable; Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin)
+- `langevin.gibbs-weight-tail-tendsto-zero-raw-pi` -> `tendsto_setIntegral_expNeg_norm_ge_comp_toLp_of_lintegral_expNeg_ne_top` (AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence)
+- `langevin.whole-space-gibbs-weighted-generator-ibp-compact-test` -> `integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport` (AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace)
 
 ## Agent Usage
 

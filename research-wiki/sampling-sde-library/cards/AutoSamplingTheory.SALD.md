@@ -1,6 +1,6 @@
 # AutoSamplingTheory.SALD
 
-- File: `AutoSamplingTheory\SALD.lean`
+- File: `AutoSamplingTheory/SALD.lean`
 - Layer: paper consumer
 - Purpose: SALD case-study theorem contracts, compiled sublemmas, obligations
 - Mathlib-quality status: consumer of arsenal; no longer the center of the public library map

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.Automation
 
-- File: `AutoSamplingTheory\Automation.lean`
+- File: `AutoSamplingTheory/Automation.lean`
 - Layer: harness
 - Purpose: compiled process contracts, role contracts, acceptance gates
 - Mathlib-quality status: automation metadata

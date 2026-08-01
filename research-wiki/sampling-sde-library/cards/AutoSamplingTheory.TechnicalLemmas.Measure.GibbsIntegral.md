@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Measure\GibbsIntegral.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Measure/GibbsIntegral.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: Bochner integral rewrites for Gibbs withDensity measures, turning `Z⁻¹ * gibbsDensityENNReal V` integrals into real `Z.toReal⁻¹ * exp(-V)` weighted base-measure integrals
 - Mathlib-quality status: preferred bridge from Gibbs target-measure wrappers to weak-generator, invariant-law, and KL/FI test-function algebra; does not prove normalization

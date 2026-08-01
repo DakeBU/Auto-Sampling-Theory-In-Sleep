@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Analysis\Calculus.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: parent import surface for smooth cutoffs, gradient, line-derivative, Laplacian, Taylor/Hessian, pointwise coordinate-divergence, WithLp/Pi a.e. trace bridge, trace-to-coordinate `IntegrableOn` transfer, and finite-box face-term wrapper leaves used by SDE/Sampling proofs
 - Mathlib-quality status: preferred parent module for calculus leaves before explicit trace-integrability, IBP, and domain contracts

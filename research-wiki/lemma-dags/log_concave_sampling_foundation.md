@@ -1,10 +1,10 @@
 # Log-Concave Sampling Foundation DAG
 
-Generated: `2026-07-27 17:42:56`
+Generated: `2026-08-02 02:28:31`
 
 Primary source: `https://chewisinho.github.io/main.pdf`
 
-Local source: `\home\nitanda_sub\mark\repos\outer_papers\sampling_theory_sde\Chewi-Log-Concave-Sampling\main.pdf`
+Local source: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf`
 
 This is the master visualization ledger for `ASTIS-CHEWI-001`.  The goal is
 to avoid one oversized graph: every chapter or major theorem should point
@@ -65,7 +65,7 @@ Blue nodes are compiled local ASTIS declarations or modules covered by
 Mathlib-first leaves and explicit source/regularity contracts.
 
 Rendered status tree:
-`docs\assets\log_concave_sampling_status.svg`
+`docs/assets/log_concave_sampling_status.svg`
 
 ```mermaid
 flowchart TD
@@ -206,7 +206,7 @@ flowchart TD
 | ANALYSIS/SDE | Scale-uniform cutoff first derivative | TechnicalLemmas/Analysis/Calculus/{Cutoff,Divergence}.lean | compiled-blue | one unit-cutoff constant controls every positive-scale radial fderiv by C/R; the totalized fderiv vanishes on the closed outer region; PiLp chain-rule and standard-basis trace bridges expose the cutoff cross term |
 | ANALYSIS/SDE | Generic L1 cutoff-gradient limit | TechnicalLemmas/Analysis/Calculus/Divergence.lean | compiled-blue | for every Integrable finite-Pi vector field, the norm integral of the PiLp-wrapped radial cutoff derivative applied to the field tends to zero |
 | ANALYSIS/SDE | Generic cutoff main-term dominated convergence | TechnicalLemmas/Analysis/Calculus/Divergence.lean | compiled-blue | for every Integrable normed-space-valued field, multiplication by the PiLp-wrapped radial cutoff converges under the integral to the original field |
-| ANALYSIS/SDE | Gibbs source integrability | TechnicalLemmas/StochasticProcesses/Langevin.lean plus on-demand cutoff leaves | compiled-blue | finite Gibbs mass plus bounded genuine first derivative gives Integrable exp(-V)-weighted coordinate field; concrete generator-display integrability, Gibbs tails, whole-space IBP, and Hessian/Laplacian consumers remain separate |
+| ANALYSIS/SDE | Gibbs source and generator-display integrability | TechnicalLemmas/StochasticProcesses/Langevin.lean plus on-demand cutoff leaves | compiled-blue | finite Gibbs mass plus bounded genuine first derivative gives Integrable exp(-V)-weighted coordinate fields; compact C_c^2 tests give both the concrete Integrable generator display and the compiled whole-space identity integral exp(-V) Lf = 0 |
 | SDE/PATH | StochasticProcesses.Girsanov finite cylinder | TechnicalLemmas/StochasticProcesses/Girsanov.lean | compiled-blue | finite-dimensional cylindrical Gaussian Girsanov weight, RN density, and integral change-of-measure |
 | SDE/PATH | Semigroup/Ito/invariant Gibbs law | TechnicalLemmas/StochasticProcesses/{MarkovSemigroup,Ito}.lean plus stronger Langevin analytic leaves | todo-red | semigroup domains, invariant Gibbs law, Ito interfaces |
 | SDE/PATH | Girsanov/Doob/Follmer | TechnicalLemmas/StochasticProcesses/{Girsanov,DoobTransform,FollmerDrift}.lean | todo-red | path-space RN derivatives and bridge transforms |
@@ -236,7 +236,7 @@ flowchart TD
 | 1.1 stochastic calculus | MEAS, GAUSS, REG | Ito/quadratic-variation/Taylor local-error subtree | quadratic variation normalization and finite-dimensional Ito test identity | partial-local-compiled |
 | 1.2 Markov semigroups | MEAS, SDE, REG | semigroup -> generator-domain -> weak-test derivative subtree | semigroup test-function pairing under generator-domain hypotheses | planned |
 | 1.3 optimal transport geometry | MEAS, CONV, REG | couplings -> Wasserstein distance -> geodesic convexity subtree | law-map/coupling measurable pushforward interface | planned |
-| 1.4 Langevin as gradient flow | DENS, FI, SDE, REG | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateaus, radial pointwise exhaustion, a scale-uniform first-derivative cutoff bound, closed outer-region derivative vanishing, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence compiled; concrete generator-display integrability and whole-space IBP remain | cutoff-main-term-dominated-convergence-compiled |
+| 1.4 Langevin as gradient flow | DENS, FI, SDE, REG | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Whole-space IBP, the C_c^2 core-domain contract, normalized-Gibbs core annihilation, and the abstract semigroup/domain-to-invariance bridge compile; concrete Langevin semigroup instantiation and domain extension remain | abstract-semigroup-invariance-bridge-compiled |
 | 2 functional inequalities | CONV, DENS, FI, REG | PI/LSI/TI/isoperimetry plus preservation-operation subtrees | log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit | partial-local-compiled |
 | 3 stochastic analysis topics | PATH, DENS, SDE, REG | Girsanov -> Doob transform -> Follmer drift -> Schrodinger bridge | finite-dimensional Gaussian Esscher density, stdGaussian inner-product form, cylindrical Girsanov integral, and RN/withDensity identity compiled; full Brownian path packaging remains | finite-girsanov-rn-cylinder-compiled |
 | 4 Langevin Monte Carlo | MEAS, KERN, SDE, DENS, REG, DISC | coupling/interpolation/convex-optimization/Girsanov proof subtrees | LMC interpolation weak-test law derivative under domination; two-point Gaussian transition-kernel geometry compiled | partial-local-compiled |
@@ -258,7 +258,7 @@ flowchart TD
   GAUSS[GAUSS Gaussian increments]
   TAY[Taylor/Ito local error]
   SEM[Markov semigroup operator]
-  GEN[generator-domain contract]
+  GEN[generator-domain contract]:::blue
   GENALG[Gibbs-weight generator algebra]:::blue
   BOX[finite-box divergence<br/>and zero-face handoffs]:::blue
   LOCAL[local/exact-support<br/>cutoff leaves]:::blue
@@ -271,9 +271,11 @@ flowchart TD
   TAIL[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   SOURCEINT[Gibbs source-field<br/>integrability]:::blue
   MAINCONV[generic main-term<br/>dominated convergence]:::blue
-  MAININT[concrete generator-display<br/>integrability]:::red
-  GIBBSTAIL[Gibbs-tail passage]:::red
-  IBP[whole-space weighted IBP]:::red
+  MAININT[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
+  GIBBSTAIL[Gibbs-tail passage]:::blue
+  IBP[whole-space weighted IBP]:::blue
+  BRIDGE[abstract semigroup/domain<br/>to invariance]:::blue
+  CONCRETE[concrete Langevin semigroup<br/>and stable domain]:::red
   INV[invariant Gibbs law]:::red
   KL[KL/FI dissipation]
   W2[Wasserstein gradient-flow contract]
@@ -284,8 +286,8 @@ flowchart TD
   C1 --> OT
   C1 --> WGF
   SC --> GAUSS --> TAY
-  MS --> SEM --> GEN
-  GEN --> GENALG --> BOX --> IBP --> INV
+  MS --> SEM --> GEN --> BRIDGE
+  GEN --> GENALG --> BOX --> IBP --> BRIDGE --> CONCRETE --> INV
   LOCAL --> BOX
   LOCAL --> PLATEAU
   PLATEAU --> BOX
@@ -622,7 +624,7 @@ flowchart TD
 | prekopaLeindler_finiteDimensional | CONV/MEAS | TechnicalLemmas/Geometry/PrekopaLeindler.lean | external `AsymptoticStatistics/ForMathlib/PrekopaLeindler.lean`; Mathlib lacks direct PL package | external-port-audit |
 | brunnMinkowski_oneDim_outerMeasure | CONV/MEAS | TechnicalLemmas/Geometry/BrunnMinkowski.lean | external `Brunn1D.lean`; Mathlib convex/volume APIs | external-port-audit |
 | gibbsDensity_withDensity_normalized | DENS/CONV | TechnicalLemmas/Geometry/LogConcavity.lean; then TechnicalLemmas/Measure/{Gibbs,RadonNikodym}.lean | compiled `logConcaveOn_const_mul_exp_neg_of_convexOn`, log-concavity linear/affine precomposition and product/rpow/tensorization leaves, centered/shifted/two-point quadratic and one-dimensional Laplace normalized-density log-concavity, `gibbsDensityENNReal`, nonzero/finite envelope leaves, finite-measure lower-bound normalization, and `Analysis.Integrability` exact quadratic plus exact one-dimensional Laplace Lebesgue Gibbs normalizers; next generalize beyond finite-dimensional quadratic and one-dimensional Laplace tails | convex shape plus map pullbacks, product/power tensorization, centered/shifted/two-point quadratic and one-dimensional Laplace Gibbs log-concavity, Gibbs density, measurability, nonzero integral, finite-by-envelope, finite-measure lower-bound envelope, exact quadratic and exact one-dimensional Laplace Lebesgue normalizers, and normalized withDensity probability bridges compiled; general coercivity envelopes remain |
-| langevinGenerator_invariant_gibbs_weak | SDE/DENS/FI | TechnicalLemmas/StochasticProcesses/Langevin.lean | compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, the radial compact-support pointwise-exhaustion plus scale-uniform first-derivative family ported and strengthened from the audited SLT pattern, the closed outer derivative-zero leaf, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit from Integrable G, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces | generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, radial pointwise exhaustion, one-constant-for-all-R first-derivative control, closed outer derivative vanishing, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence are compiled; concrete generator-display integrability, Gibbs tails, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red; second-order cutoff bounds stay separate until a named consumer needs them |
+| langevinGenerator_invariant_gibbs_weak | SDE/DENS/FI | TechnicalLemmas/StochasticProcesses/Langevin.lean | compiled Langevin algebra and IBP, explicit C_c^2 core/domain agreement, normalized-Gibbs core annihilation, and the abstract integrated-semigroup-generator invariance bridge; ASTIS WeakGenerator, LangevinGenerator, and GibbsIntegral supply the interfaces | analytic core, core-domain contract, normalized core mean-zero, and abstract semigroup bridge compile; concrete Langevin semigroup construction plus extension to a semigroup-stable domain remain red before invariant Gibbs law |
 | lsi_tensorization_or_preservation_contract | FI/CONV | TechnicalLemmas/FunctionalInequalities/Preservation.lean | Mathlib convex/Jensen APIs; SLT/AST reference style for functional inequality statements | planned |
 | gaussianEsscher_shift_density | GAUSS/PATH | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | external `GaussianMGF.lean`, `PiWithDensity.lean`, `GaussianShift.lean` | formalized-local-density-half |
 | gaussianShift_change_of_measure | GAUSS/PATH | TechnicalLemmas/ProbabilityDistributions/Gaussian.lean | external `GaussianShift.lean`; local `stdGaussianPi_withDensity_exp_shift` | formalized-local-product-measure |

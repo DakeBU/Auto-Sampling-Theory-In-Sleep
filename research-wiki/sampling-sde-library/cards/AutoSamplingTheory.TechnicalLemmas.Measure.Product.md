@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Measure.Product
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Measure\Product.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Measure/Product.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: finite product-measure coordinate replacement map, measure-preserving wrapper, Bochner integral rewrite, and a.e. slice integrability for `Function.update` coordinate refreshes
 - Mathlib-quality status: preferred Mathlib-style location for product-measure coordinate update and slice/Fubini leaves; does not prove kernels, entropy, LSI, or invariance

@@ -26,10 +26,10 @@
     "summary": "Coordinate, basis, gradient, Laplacian, and weighted-divergence identities compile locally. They establish the formal differential expression, not the operator domain or invariant law.",
     "evidence_declarations": [
       "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.finiteEuclidean_langevinGenerator_coordinateDisplay",
-      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.coordinateDivergence_expNeg_fderivCoordinateField_langevinGenerator_display_of_differentiableAt"
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.coordinateDivergence_expNeg_fderivCoordinateField_langevinGenerator_display_of_differentiableAt",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport"
     ],
     "blockers": [
-      "Concrete generator-display integrability.",
       "Closed generator and semigroup domain semantics."
     ]
   },
@@ -38,16 +38,21 @@
     "title": "Whole-space weighted integration by parts and Gibbs invariance",
     "chapter": 1,
     "local_status": "Partial",
-    "route_status": "Blocked",
-    "summary": "Finite-box cancellation, smooth cutoffs, first-derivative bounds, and generic dominated-convergence handoffs exist, but the concrete Gibbs-tail passage and operator-domain branch are not closed.",
+    "route_status": "Partial",
+    "summary": "Whole-space weighted IBP, an explicit C_c^2 generator-core contract, normalized-Gibbs annihilation on that core, and an abstract semigroup/domain-to-invariance bridge compile locally. The actual Langevin semigroup does not preserve compact support, so the concrete domain extension or a uniqueness route remains open.",
     "evidence_declarations": [
       "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tendsto_one",
-      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_radialSmoothCutoff_comp_toLp_smul"
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_radialSmoothCutoff_comp_toLp_smul",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_langevinGenerator_rhs_comp_toLp_of_contDiff_of_hasCompactSupport",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.tendsto_setIntegral_expNeg_norm_ge_comp_toLp_of_lintegral_expNeg_ne_top",
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactSupport",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.CoreContract",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.isInvariantOn_of_integral_generator_eq_zero"
     ],
     "blockers": [
-      "Concrete Gibbs-weighted generator and score integrability.",
-      "Whole-space weighted integration by parts.",
-      "Invariant Gibbs law with a valid generator/semigroup domain."
+      "Construct the concrete Langevin semigroup contract and extend Gibbs generator-mean zero from C_c^2 to a semigroup-stable domain, or prove an equivalent martingale-problem/Fokker-Planck uniqueness theorem."
     ]
   },
   {

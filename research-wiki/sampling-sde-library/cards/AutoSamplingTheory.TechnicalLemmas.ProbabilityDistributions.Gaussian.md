@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian
 
-- File: `AutoSamplingTheory\TechnicalLemmas\ProbabilityDistributions\Gaussian.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/ProbabilityDistributions/Gaussian.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: Gaussian coordinate laws, finite linear-form integrability/mean-zero, product MGF normalizers, Esscher shifted densities/change-of-measure, EuclideanSpace/stdGaussian change-of-measure bridges, and variance-one packaging
 - Mathlib-quality status: preferred Mathlib-style location for Gaussian/Brownian increment leaves

@@ -1,9 +1,9 @@
 # Lean-Asymptotic-Statistical-Theory
 
 - Public repo: https://github.com/junwei-lu/Lean-Asymptotic-Statistical-Theory
-- Local checkout: `\home\nitanda_sub\mark\repos\outer_repos\sampling_theory_sde\Lean-Asymptotic-Statistical-Theory`
+- Local checkout: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/Lean-Asymptotic-Statistical-Theory`
 - Related paper: `Hypothesis-Disciplined Multi-Agent Automated Formalization of Asymptotic Statistical Theory`, https://arxiv.org/abs/2606.20642
-- Local paper: `\home\nitanda_sub\mark\repos\outer_papers\sampling_theory_sde\Hypothesis-Disciplined-Asymptotic-Statistical-Theory\2606.20642.pdf`
+- Local paper: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Hypothesis-Disciplined-Asymptotic-Statistical-Theory/2606.20642.pdf`
 - Toolchain observed in repo: Lean 4.29.1 / Mathlib 4.29.1.
 - Observed local commit: `8e7f22c88cc3280e898005b6445d94c581dd8b4d`
   (`2026-06-09 15:57:20 -0400`).

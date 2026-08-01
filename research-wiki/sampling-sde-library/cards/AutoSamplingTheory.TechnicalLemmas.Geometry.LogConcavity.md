@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
 
-- File: `AutoSamplingTheory\TechnicalLemmas\Geometry\LogConcavity.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/Geometry/LogConcavity.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: positive-function log-concavity API over Mathlib ConcaveOn; negative-log potential convexity and energy sublevels; quasiconcavity, convex superlevel sets, and restricted superlevel log-concavity; linear/affine precomposition; products, nonnegative powers, product-domain tensorization; norm-square, absolute-linear, and centered/shifted/two-point quadratic-potential convexity; explicit normalized quadratic, Laplace, and Gaussian-kernel log-concavity
 - Mathlib-quality status: compiled CONV/DENS leaf with density-to-potential extraction, level-set/restriction geometry, map-stability, algebra, one-dimensional Laplace geometry, and centered/shifted/two-point quadratic Gibbs geometry; extend toward Prekopa-Leindler interfaces

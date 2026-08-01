@@ -596,9 +596,11 @@ def init_texts() -> dict[Path, str]:
             "  T[trace-to-coordinate<br/>IntegrableOn transfer]:::blue\n"
             "  E[box divergence theorem<br/>face terms]:::blue\n"
             "  X[global C1/C2 components<br/>and Pi field fderiv]:::blue\n"
-            "  F[weighted IBP<br/>no boundary]:::red\n"
+            "  F[weighted IBP<br/>no boundary]:::blue\n"
+            "  DOM[generator and semigroup<br/>domain contracts]:::red\n"
             "  G[invariant Gibbs law]:::red\n\n"
             "  A --> B --> C --> D --> AE --> T --> E --> F --> G\n"
+            "  DOM --> G\n"
             "  D --> P --> Q --> T\n"
             "  R --> Q\n"
             "  X --> P\n"
@@ -2491,8 +2493,8 @@ def chewi_chapter_rows() -> list[dict[str, str]]:
             "chapter": "1.4 Langevin as gradient flow",
             "shared": "DENS, FI, SDE, REG",
             "dag": "Gibbs density -> generator -> KL/FI dissipation -> WGF contract",
-            "first_leaf": "Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateaus, radial pointwise exhaustion, a scale-uniform first-derivative cutoff bound, closed outer-region derivative vanishing, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence compiled; concrete generator-display integrability and whole-space IBP remain",
-            "status": "cutoff-main-term-dominated-convergence-compiled",
+            "first_leaf": "Whole-space IBP, the C_c^2 core-domain contract, normalized-Gibbs core annihilation, and the abstract semigroup/domain-to-invariance bridge compile; concrete Langevin semigroup instantiation and domain extension remain",
+            "status": "abstract-semigroup-invariance-bridge-compiled",
         },
         {
             "chapter": "2 functional inequalities",
@@ -2688,8 +2690,8 @@ def chewi_open_leaf_rows() -> list[dict[str, str]]:
             "leaf": "langevinGenerator_invariant_gibbs_weak",
             "label": "SDE/DENS/FI",
             "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean",
-            "borrow": "compiled Langevin pointwise/coordinate generator algebra, Mathlib gradient/fderiv/Laplacian bridges, finite-box divergence and zero-face wrappers, ASTIS-owned local/exact-support and compact-in-open/Pi-box plateau cutoffs, the radial compact-support pointwise-exhaustion plus scale-uniform first-derivative family ported and strengthened from the audited SLT pattern, the closed outer derivative-zero leaf, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit from Integrable G, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence; ASTIS WeakGenerator/FokkerPlanckAlgebra and GibbsIntegral supply downstream interfaces",
-            "status": "generator algebra, canonical trace regularity and IntegrableOn handoffs, finite-box signed-face cancellation, local/exact support, compact-in-open and Pi-box plateaus, radial pointwise exhaustion, one-constant-for-all-R first-derivative control, closed outer derivative vanishing, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence are compiled; concrete generator-display integrability, Gibbs tails, whole-space weighted IBP, semigroup domains, invariant Gibbs law, reversibility, and KL/FI dissipation remain red; second-order cutoff bounds stay separate until a named consumer needs them",
+            "borrow": "compiled Langevin algebra and IBP, explicit C_c^2 core/domain agreement, normalized-Gibbs core annihilation, and the abstract integrated-semigroup-generator invariance bridge; ASTIS WeakGenerator, LangevinGenerator, and GibbsIntegral supply the interfaces",
+            "status": "analytic core, core-domain contract, normalized core mean-zero, and abstract semigroup bridge compile; concrete Langevin semigroup construction plus extension to a semigroup-stable domain remain red before invariant Gibbs law",
         },
         {
             "leaf": "lsi_tensorization_or_preservation_contract",
@@ -3279,10 +3281,10 @@ def log_concave_lean_tree_status_rows() -> list[dict[str, str]]:
         },
         {
             "family": "ANALYSIS/SDE",
-            "node": "Gibbs source integrability",
+            "node": "Gibbs source and generator-display integrability",
             "target": "TechnicalLemmas/StochasticProcesses/Langevin.lean plus on-demand cutoff leaves",
             "status": "compiled-blue",
-            "role": "finite Gibbs mass plus bounded genuine first derivative gives Integrable exp(-V)-weighted coordinate field; concrete generator-display integrability, Gibbs tails, whole-space IBP, and Hessian/Laplacian consumers remain separate",
+            "role": "finite Gibbs mass plus bounded genuine first derivative gives Integrable exp(-V)-weighted coordinate fields; compact C_c^2 tests give both the concrete Integrable generator display and the compiled whole-space identity integral exp(-V) Lf = 0",
         },
         {
             "family": "SDE/PATH",
@@ -3881,9 +3883,9 @@ flowchart TD
   K[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   KS[Gibbs source-field<br/>integrability]:::blue
   KM[generic main-term<br/>dominated convergence]:::blue
-  KMI[concrete generator-display<br/>integrability]:::red
-  KGT[Gibbs-tail passage]:::red
-  L[weighted whole-space IBP<br/>integral Lf d pi = 0]:::red
+  KMI[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
+  KGT[Gibbs-tail passage]:::blue
+  L[weighted whole-space IBP<br/>integral Lf d pi = 0]:::blue
   M[generator and semigroup<br/>domain contract]:::red
   N[invariant Gibbs law]:::red
   O[reversibility<br/>KL/FI dissipation]:::red
@@ -3909,10 +3911,11 @@ flowchart TD
 | --- | --- | --- |
 | display algebra | pointwise generator, weighted display, coordinate sum conventions | none for finite-dimensional pointwise algebra |
 | regularity | global `C¹/C²` gives gradient continuity, Laplacian continuity, scalar `ContinuousOn`, and Pi-field `HasFDerivAt` with Mathlib `fderiv` | closed-box/local regularity variants if later needed |
-| finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | no whole-space limit yet |
+| finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | none for the compact-support whole-space route |
 | cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, pointwise exhaustion, one-constant-for-all-scales `O(R⁻¹)` first-derivative control, closed outer-region derivative vanishing, and finite-Pi derivative/trace consumer bridges | `O(R⁻²)` Hessian/Laplacian bounds only when a named second-order consumer requires them |
-| whole-space passage | finite-box zero-face cancellation, the generic `L¹` cutoff-gradient cross-term limit from `Integrable G`, concrete Gibbs-weighted source-field integrability, and generic cutoff main-term dominated convergence | concrete Langevin generator-display integrability, Gibbs tails, and passage from cutoff identities to whole-space weighted IBP |
-| invariant law | source contract is identified | weighted IBP, generator domains, and semigroup semantics |
+| whole-space passage | compact-support whole-space divergence and Gibbs-weighted `integral exp(-V) Lf = 0` for `C_c^2` tests, plus generic cutoff/tail infrastructure | stronger noncompact test classes when a consumer requires them |
+| operator bridge | C_c^2 core/domain agreement, normalized-Gibbs core annihilation, and abstract semigroup/domain-to-invariance theorem compile | instantiate the contract for the Langevin evolution and extend mean-zero to its stable domain |
+| invariant law | abstract implication is compiled | concrete Langevin semigroup contract or an equivalent uniqueness theorem |
 
 ## Current Compiled Foundation
 
@@ -3943,14 +3946,15 @@ flowchart TD
   contains the finite coordinate-divergence convention, Euclidean/Pi `WithLp`
   trace bridge, the radial-cutoff `toLp` derivative producer, the standard-basis
   `smulRight` trace identity, the generic `L¹` cutoff-gradient limit for every
-  `Integrable` finite-Pi vector field, generic cutoff main-term dominated convergence,
+  `Integrable` finite-Pi vector field, the generic expanding-ball `L¹` tail
+  limit, generic cutoff main-term dominated convergence,
   open-box/off-countable to closed-box a.e. transfer,
   trace-to-coordinate `IntegrableOn` transfer, and the finite-box signed
-  face-term wrapper with trace-integrability input.  It also specializes the
-  plateau theorem to an inner closed Pi-box inside a larger open Pi-box.  It
-  still does not itself prove concrete Langevin generator-display integrability,
-  Gibbs-tail passage, whole-space weighted IBP, generator domains,
-  invariant laws, reversibility, or KL/FI dissipation.
+  face-term wrapper with trace-integrability input, and the reusable theorem
+  that a compactly supported `C¹` finite-dimensional vector field has zero
+  whole-space divergence integral. It also specializes the plateau theorem to
+  an inner closed Pi-box inside a larger open Pi-box. It contains no
+  generator-domain, semigroup, invariant-law, reversibility, or KL/FI semantics.
 - `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/Langevin.lean`
   contains Langevin-specific blue leaves: finite Euclidean basis/coordinate
   displays of the formal expression `Delta f - <grad V, grad f>`, supplied
@@ -3962,22 +3966,27 @@ flowchart TD
   the closed-box trace `IntegrableOn` handoff under global `C¹/C²` regularity
   for the canonical Mathlib `fderiv` trace, and whole-space integrability of
   the concrete Gibbs-weighted first-derivative coordinate field from finite
-  Gibbs mass and a uniform `fderiv` bound.  It also assembles the scalar
+  Gibbs mass and a uniform `fderiv` bound, concrete compact-test generator
+  integrability, expanding-ball Gibbs-tail convergence, and whole-space
+  Gibbs-weighted integration by parts for `C_c^2` tests. It also assembles the scalar
   display `ContinuousOn` fact from global `C¹/C²` and proves the explicit
-  Pi-field `HasFDerivAt` needed by the trace handoff.  It is not a
-  semigroup-generator, invariant-law, reversibility, integration-by-parts, or
-  semigroup-domain theorem.
+  Pi-field `HasFDerivAt` needed by the trace handoff. It is not a closed
+  semigroup-generator, invariant-law, reversibility, or semigroup-domain theorem.
+- `AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/LangevinGenerator.lean`
+  names the `C_c^2` test core, the displayed operator, an explicit candidate
+  generator core/domain agreement contract, and normalized-Gibbs generator
+  mean-zero on that core. `WeakGenerator.lean` contains the separate abstract
+  integrated-semigroup-generator contract and its invariance theorem.
 
 ## Immediate Library Boundary
 
 The next high-value roots, ordered by the active textbook dependency, are:
 
-1. `MEAS/CALC/SDE`: concrete Langevin generator-display integrability and Gibbs-tail lemmas,
-   kept separate from the compiled generic cutoff main-term convergence and source-field leaves, before passing finite-box or
-   compact-support identities to the whole-space weighted IBP identity.
-2. `SDE/DENS/FI`: the whole-space weighted IBP theorem, followed separately by
-   generator-domain and semigroup contracts that turn weighted
-   IBP into the invariant Gibbs law and then KL/FI dissipation.
+1. `SDE/REG`: instantiate the integrated semigroup-generator contract for the
+   actual Langevin evolution, including the right derivative of Gibbs pairings.
+2. `SDE/DENS/FI`: extend normalized-Gibbs generator mean-zero from the
+   `C_c^2` core to the semigroup-stable domain, or supply an equivalent
+   martingale-problem/Fokker-Planck uniqueness theorem.
 3. `CONV/MEAS`: finite-dimensional Prekopa-Leindler and Brunn-Minkowski
    interfaces, using `Lean-Asymptotic-Statistical-Theory/ForMathlib` as a
    reference but porting only small local leaves.
@@ -4246,7 +4255,7 @@ flowchart TD
   GAUSS[GAUSS Gaussian increments]
   TAY[Taylor/Ito local error]
   SEM[Markov semigroup operator]
-  GEN[generator-domain contract]
+  GEN[generator-domain contract]:::blue
   GENALG[Gibbs-weight generator algebra]:::blue
   BOX[finite-box divergence<br/>and zero-face handoffs]:::blue
   LOCAL[local/exact-support<br/>cutoff leaves]:::blue
@@ -4259,9 +4268,11 @@ flowchart TD
   TAIL[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   SOURCEINT[Gibbs source-field<br/>integrability]:::blue
   MAINCONV[generic main-term<br/>dominated convergence]:::blue
-  MAININT[concrete generator-display<br/>integrability]:::red
-  GIBBSTAIL[Gibbs-tail passage]:::red
-  IBP[whole-space weighted IBP]:::red
+  MAININT[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
+  GIBBSTAIL[Gibbs-tail passage]:::blue
+  IBP[whole-space weighted IBP]:::blue
+  BRIDGE[abstract semigroup/domain<br/>to invariance]:::blue
+  CONCRETE[concrete Langevin semigroup<br/>and stable domain]:::red
   INV[invariant Gibbs law]:::red
   KL[KL/FI dissipation]
   W2[Wasserstein gradient-flow contract]
@@ -4272,8 +4283,8 @@ flowchart TD
   C1 --> OT
   C1 --> WGF
   SC --> GAUSS --> TAY
-  MS --> SEM --> GEN
-  GEN --> GENALG --> BOX --> IBP --> INV
+  MS --> SEM --> GEN --> BRIDGE
+  GEN --> GENALG --> BOX --> IBP --> BRIDGE --> CONCRETE --> INV
   LOCAL --> BOX
   LOCAL --> PLATEAU
   PLATEAU --> BOX
@@ -4652,7 +4663,7 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence": {
         "layer": "Mathlib-ready technical lemma",
         "summary": "finite-dimensional pointwise coordinate-divergence convention, fderiv trace bridges, radial-cutoff PiLp derivative producer, smulRight basis-trace identity, the generic L1 cutoff-gradient limit and generic cutoff main-term dominated convergence for Integrable fields, a.e. trace transfer, finite-box signed face-term wrappers, and the inner-closed-Pi-box/outer-open-Pi-box plateau specialization",
-        "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation and the compiled generic cutoff cross-term/main-term limits; concrete generator-display integrability, Gibbs tails, whole-space IBP, no-boundary passage, and invariant law remain separate",
+        "status": "preferred ANALYSIS/SDE bridge for finite-box cancellation and the compiled generic cutoff cross-term/main-term/tail limits; concrete compact-test generator-display integrability and Gibbs-tail convergence are compiled in Langevin, while whole-space IBP, no-boundary passage, and invariant law remain separate",
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv": {
         "layer": "Mathlib-ready technical lemma",
@@ -4721,8 +4732,8 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs, coordinate-sum and coordinateDivergence displays, finite-box trace regularity, and whole-space integrability of the concrete Gibbs-weighted first-derivative coordinate field under finite Gibbs mass and a bounded `fderiv`",
-        "status": "preferred Mathlib-style location for Langevin expression algebra and the compiled source-field integrability leaf before concrete generator-display integrability, Gibbs tails, IBP, invariant-law, Ito-generator, and semigroup-domain contracts",
+        "summary": "finite-dimensional pointwise display for the formal differential expression `Δ f - <∇V, ∇f>`, supplied coordinate-to-Mathlib weighted-divergence handoffs, `exp(-V)` handoffs, coordinate-sum and coordinateDivergence displays, finite-box trace regularity, whole-space Gibbs-weighted source-field and compact-test generator-display integrability, and Gibbs-tail convergence",
+        "status": "preferred Mathlib-style location for Langevin expression algebra and the compiled source-field, compact-test generator-display, and Gibbs-tail leaves before IBP, invariant-law, Ito-generator, and semigroup-domain contracts",
     },
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov": {
         "layer": "Mathlib-ready technical lemma",
@@ -5067,12 +5078,13 @@ growth path is:
   closed-outer derivative-zero, Pi derivative/trace bases, the generic
   `L¹` cutoff-gradient integral limit from `Integrable G`, the concrete
   Gibbs/source-field `Integrable` premise, and generic cutoff main-term dominated convergence;
-- next prove concrete Langevin generator-display integrability and, separately, Gibbs-tail convergence,
-  then pass the compiled finite-box identities to whole-space weighted IBP;
+- the compact-support whole-space divergence theorem and Gibbs-weighted identity
+  `integral exp(-V) Lf = 0` for `C_c^2` tests are compiled;
 - add second-order cutoff estimates only when a named Hessian/Laplacian consumer
   requires them;
-- add generator-domain and semigroup contracts only after weighted IBP is blue,
-  and do not state the invariant Gibbs law before both branches are available;
+- the explicit core-domain contract and abstract semigroup pairing derivative
+  bridge compile; next instantiate them for the actual Langevin evolution and
+  prove the domain extension before stating the invariant Gibbs law;
 - in parallel, extend from the compiled log-concavity density-to-potential
   extraction, level-set geometry, algebra, and centered/shifted/two-point
   quadratic Gibbs geometry toward Prekopa-Leindler and nonquadratic coercive
@@ -8482,9 +8494,9 @@ def memory_snapshot_state(task_id: str, cycle: int, run_dir: Path) -> dict:
         )
     if task_id == "ASTIS-CHEWI-001":
         route = latest_route or (
-            "Prove integrability of the concrete Gibbs-weighted Langevin generator display "
-            "`exp(-V) * (Delta f - <grad V, grad f>)` under explicit source assumptions; "
-            "keep the Gibbs-tail, whole-space IBP, domains, invariance, and second-order cutoff branch separate."
+            "Assemble the compiled finite-box, cutoff-limit, integrability, and Gibbs-tail "
+            "leaves into the smallest whole-space weighted-IBP declaration; keep domains, "
+            "invariance, and second-order cutoff branches separate."
         )
         next_lower_tasks = [
             {
@@ -8572,9 +8584,9 @@ def log_concave_plain_language_status_en() -> str:
         "cutoffs, the radial compact-support pointwise-exhaustion base, a "
         "scale-uniform O(R^-1) first-derivative bound, closed outer-region "
         "derivative vanishing, finite-Pi cutoff derivative/trace bridges, and the "
-        "generic L1 cutoff-gradient limit, the concrete Gibbs-weighted source-field "
-        "integrability leaf, and generic cutoff main-term dominated convergence are compiled locally.  "
-        "Concrete Langevin generator-display integrability, Gibbs tails, whole-space weighted integration by parts, generator/semigroup "
+        "generic L1 cutoff-gradient and expanding-ball tail limits, the concrete Gibbs-weighted source-field "
+        "integrability leaf, generic cutoff main-term dominated convergence, compact-test generator-display integrability, and Gibbs-tail convergence are compiled locally.  "
+        "Whole-space weighted integration by parts, generator/semigroup "
         "domains, and the invariant Gibbs law remain explicit red nodes."
     )
 
@@ -8679,18 +8691,16 @@ def todo_markdown(snapshot: dict) -> str:
         human_default = (
             "Use the reviewer-recorded active route: " + active_route
             if active_route else
-            "Prove integrability of the concrete Gibbs-weighted Langevin generator display "
-            "before attempting Gibbs-tail, whole-space weighted IBP, or invariant Gibbs claims."
+            "Instantiate the compiled integrated semigroup-generator contract for the actual "
+            "Langevin evolution and keep the C_c^2-to-stable-domain gap explicit."
         )
         lower_1 = (
-            "Write the natural-language proof route and exact potential/test-function "
-            "assumptions for concrete Langevin generator-display integrability.  Name the "
-            "Mathlib APIs and source correspondence before lower 2 edits Lean."
+            "Write the exact analytic route for a concrete Langevin semigroup pairing derivative "
+            "or martingale-problem uniqueness theorem, including every regularity assumption."
         )
         lower_2 = (
-            "Implement only the smallest concrete generator-display integrability declaration "
-            "on the active route, or return one typed blocker.  Do not combine it "
-            "with Gibbs-tail passage, whole-space IBP, domains, or invariance."
+            "Implement only the smallest concrete semigroup/domain instantiation leaf, or return "
+            "one typed blocker. Do not assert invariant Gibbs law from C_c^2 core data alone."
         )
     elif task_id == "ASTIS-SALD-001":
         human_default = (

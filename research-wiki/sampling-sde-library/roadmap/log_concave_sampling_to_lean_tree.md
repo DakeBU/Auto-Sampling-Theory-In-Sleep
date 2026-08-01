@@ -1,18 +1,18 @@
 # Log-Concave Sampling To Lean Foundation Roadmap
 
-Generated: `2026-07-27 17:42:56`
+Generated: `2026-08-02 02:28:33`
 
 Reference PDF: `https://chewisinho.github.io/main.pdf`
 
-Local primary copy: `\home\nitanda_sub\mark\repos\outer_papers\sampling_theory_sde\Chewi-Log-Concave-Sampling\main.pdf`
+Local primary copy: `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf`
 
-Local legacy mirror: `\home\nitanda_sub\mark\repos\outer_repos\sampling_theory_sde\chewisinho-stochastic-processes-main.pdf`
+Local legacy mirror: `/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/chewisinho-stochastic-processes-main.pdf`
 
 This roadmap is not a theorem dependency.  It is a textbook-to-Lean planning
 map.  Textbook statements are often intentionally informal; ASTIS agents must
 turn them into small theorem contracts with hidden regularity assumptions before
 assigning lower Lean work.  The matching visual ledger is
-`research-wiki\lemma-dags\log_concave_sampling_foundation.md`.
+`research-wiki/lemma-dags/log_concave_sampling_foundation.md`.
 
 ## Roadmap
 
@@ -21,7 +21,7 @@ assigning lower Lean work.  The matching visual ledger is
 | 1.1 stochastic calculus | Ito/quadratic-variation/Taylor local-error subtree | quadratic variation normalization and finite-dimensional Ito test identity | partial-local-compiled | reuse shared roots MEAS, GAUSS, REG; create a separate subtree when the theorem becomes active |
 | 1.2 Markov semigroups | semigroup -> generator-domain -> weak-test derivative subtree | semigroup test-function pairing under generator-domain hypotheses | planned | reuse shared roots MEAS, SDE, REG; create a separate subtree when the theorem becomes active |
 | 1.3 optimal transport geometry | couplings -> Wasserstein distance -> geodesic convexity subtree | law-map/coupling measurable pushforward interface | planned | reuse shared roots MEAS, CONV, REG; create a separate subtree when the theorem becomes active |
-| 1.4 Langevin as gradient flow | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Gibbs normalization, generator algebra, finite-box divergence, local/Pi-box plateaus, radial pointwise exhaustion, a scale-uniform first-derivative cutoff bound, closed outer-region derivative vanishing, finite-Pi cutoff derivative/trace interfaces, the generic L1 cutoff-gradient limit, concrete Gibbs/source-field integrability, and generic cutoff main-term dominated convergence compiled; concrete generator-display integrability and whole-space IBP remain | cutoff-main-term-dominated-convergence-compiled | reuse shared roots DENS, FI, SDE, REG; create a separate subtree when the theorem becomes active |
+| 1.4 Langevin as gradient flow | Gibbs density -> generator -> KL/FI dissipation -> WGF contract | Whole-space IBP, the C_c^2 core-domain contract, normalized-Gibbs core annihilation, and the abstract semigroup/domain-to-invariance bridge compile; concrete Langevin semigroup instantiation and domain extension remain | abstract-semigroup-invariance-bridge-compiled | reuse shared roots DENS, FI, SDE, REG; create a separate subtree when the theorem becomes active |
 | 2 functional inequalities | PI/LSI/TI/isoperimetry plus preservation-operation subtrees | log-concavity products, nonnegative powers, product-domain tensorization, linear/affine precomposition, negative-log potential convexity, superlevel convexity, plus Prekopa-Leindler preservation audit | partial-local-compiled | reuse shared roots CONV, DENS, FI, REG; create a separate subtree when the theorem becomes active |
 | 3 stochastic analysis topics | Girsanov -> Doob transform -> Follmer drift -> Schrodinger bridge | finite-dimensional Gaussian Esscher density, stdGaussian inner-product form, cylindrical Girsanov integral, and RN/withDensity identity compiled; full Brownian path packaging remains | finite-girsanov-rn-cylinder-compiled | reuse shared roots PATH, DENS, SDE, REG; create a separate subtree when the theorem becomes active |
 | 4 Langevin Monte Carlo | coupling/interpolation/convex-optimization/Girsanov proof subtrees | LMC interpolation weak-test law derivative under domination; two-point Gaussian transition-kernel geometry compiled | partial-local-compiled | reuse shared roots MEAS, KERN, SDE, DENS, REG, DISC; create a separate subtree when the theorem becomes active |
@@ -55,12 +55,13 @@ growth path is:
   closed-outer derivative-zero, Pi derivative/trace bases, the generic
   `L¹` cutoff-gradient integral limit from `Integrable G`, the concrete
   Gibbs/source-field `Integrable` premise, and generic cutoff main-term dominated convergence;
-- next prove concrete Langevin generator-display integrability and, separately, Gibbs-tail convergence,
-  then pass the compiled finite-box identities to whole-space weighted IBP;
+- the compact-support whole-space divergence theorem and Gibbs-weighted identity
+  `integral exp(-V) Lf = 0` for `C_c^2` tests are compiled;
 - add second-order cutoff estimates only when a named Hessian/Laplacian consumer
   requires them;
-- add generator-domain and semigroup contracts only after weighted IBP is blue,
-  and do not state the invariant Gibbs law before both branches are available;
+- the explicit core-domain contract and abstract semigroup pairing derivative
+  bridge compile; next instantiate them for the actual Langevin evolution and
+  prove the domain extension before stating the invariant Gibbs law;
 - in parallel, extend from the compiled log-concavity density-to-potential
   extraction, level-set geometry, algebra, and centered/shifted/two-point
   quadratic Gibbs geometry toward Prekopa-Leindler and nonquadratic coercive

@@ -44,7 +44,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 256 := by native_decide
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 270 := by native_decide
 
 example (x : ℝ) :
     TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x =
@@ -290,6 +290,19 @@ example {n : ℕ} {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
             (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) • H x ∂μ)
       atTop (𝓝 (∫ x, H x ∂μ)) :=
   TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_radialSmoothCutoff_comp_toLp_smul
+    hH
+
+example {n : ℕ} {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
+    {μ : Measure (Fin (n + 1) → ℝ)}
+    {H : (Fin (n + 1) → ℝ) → F}
+    (hH : Integrable H μ) :
+    Tendsto
+      (fun R : ℝ => ∫ x in
+        {x : Fin (n + 1) → ℝ |
+          R ≤ ‖(WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖},
+        ‖H x‖ ∂μ)
+      atTop (𝓝 0) :=
+  TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_setIntegral_norm_norm_ge_comp_toLp
     hH
 
 example {ι : Type*} [Fintype ι] [DecidableEq ι]
@@ -2537,6 +2550,132 @@ example {n : ℕ}
             (EuclideanSpace.single i (1 : ℝ))) MeasureTheory.volume :=
   TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fderiv_norm_le
     hV hf hZ hf_bound
+
+example {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hf : ContDiff ℝ 2 f)
+    (hf_support : HasCompactSupport f) :
+    MeasureTheory.Integrable
+      (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+        Real.exp (-V y) *
+          (Laplacian.laplacian f y - inner ℝ (gradient V y) (gradient f y)))
+      MeasureTheory.volume :=
+  TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport
+    hV hf hf_support
+
+example {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hf : ContDiff ℝ 2 f)
+    (hf_support : HasCompactSupport f) :
+    MeasureTheory.Integrable
+      (fun x : Fin (n + 1) → ℝ =>
+        Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))) *
+          (Laplacian.laplacian f
+              (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) -
+            inner ℝ
+              (gradient V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))))
+              (gradient f (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))))))
+      MeasureTheory.volume :=
+  TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_langevinGenerator_rhs_comp_toLp_of_contDiff_of_hasCompactSupport
+    hV hf hf_support
+
+example {n : ℕ}
+    {V : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : Continuous V)
+    (hZ : (∫⁻ y : EuclideanSpace ℝ (Fin (n + 1)),
+      ENNReal.ofReal (Real.exp (-V y)) ∂MeasureTheory.volume) ≠ ∞) :
+    MeasureTheory.Integrable
+      (fun x : Fin (n + 1) → ℝ =>
+        Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))))
+      MeasureTheory.volume :=
+  TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_comp_toLp_of_lintegral_expNeg_ne_top
+    hV hZ
+
+example {n : ℕ}
+    {V : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : Continuous V)
+    (hZ : (∫⁻ y : EuclideanSpace ℝ (Fin (n + 1)),
+      ENNReal.ofReal (Real.exp (-V y)) ∂MeasureTheory.volume) ≠ ∞) :
+    Tendsto
+      (fun R : ℝ => ∫ x in
+        {x : Fin (n + 1) → ℝ |
+          R ≤ ‖(WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖},
+        Real.exp (-V (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))))
+          ∂MeasureTheory.volume)
+      atTop (𝓝 0) :=
+  TechnicalLemmas.StochasticProcesses.Langevin.tendsto_setIntegral_expNeg_norm_ge_comp_toLp_of_lintegral_expNeg_ne_top
+    hV hZ
+
+example {n : ℕ}
+    (F : (Fin (n + 1) → ℝ) → Fin (n + 1) → ℝ)
+    (hF : ContDiff ℝ 1 F)
+    (hF_support : HasCompactSupport F) :
+    ∫ x : Fin (n + 1) → ℝ,
+        TechnicalLemmas.Analysis.Calculus.Divergence.coordinateDivergence
+          (fun y : EuclideanSpace ℝ (Fin (n + 1)) =>
+            (WithLp.toLp 2 (F (WithLp.ofLp y)) :
+              EuclideanSpace ℝ (Fin (n + 1))))
+          (WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1))) = 0 :=
+  TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactSupport
+    F hF hF_support
+
+example {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hf : ContDiff ℝ 2 f)
+    (hf_support : HasCompactSupport f) :
+    ∫ y : EuclideanSpace ℝ (Fin (n + 1)),
+        Real.exp (-V y) *
+          (Laplacian.laplacian f y - inner ℝ (gradient V y) (gradient f y)) = 0 :=
+  TechnicalLemmas.StochasticProcesses.Langevin.integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport
+    hV hf hf_support
+
+example {n : ℕ} {f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ} :
+    TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2 f ↔
+      ContDiff ℝ 2 f ∧ HasCompactSupport f :=
+  Iff.rfl
+
+example {n : ℕ} (V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ) (x) :
+    TechnicalLemmas.StochasticProcesses.LangevinGenerator.operator V f x =
+      Laplacian.laplacian f x - inner ℝ (gradient V x) (gradient f x) :=
+  rfl
+
+example {n : ℕ}
+    {V : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    {A : (EuclideanSpace ℝ (Fin (n + 1)) → ℝ) →
+      EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    {D : Set (EuclideanSpace ℝ (Fin (n + 1)) → ℝ)}
+    (hcore : TechnicalLemmas.StochasticProcesses.LangevinGenerator.CoreContract V A D)
+    {f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hf : TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2 f) :
+    f ∈ D :=
+  hcore.core_mem_domain f hf
+
+example {n : ℕ}
+    {V f : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hf : TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2 f) :
+    ∫ x, TechnicalLemmas.StochasticProcesses.LangevinGenerator.operator V f x
+        ∂MeasureTheory.volume.withDensity
+          (fun x =>
+            (∫⁻ y, TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V y
+              ∂MeasureTheory.volume)⁻¹ *
+              TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V x) = 0 :=
+  TechnicalLemmas.StochasticProcesses.LangevinGenerator.integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2
+    hV hf
+
+example {E : Type*} [MeasurableSpace E]
+    {P : ℝ → (E → ℝ) → E → ℝ}
+    {A : (E → ℝ) → E → ℝ}
+    {D : Set (E → ℝ)} {μ : MeasureTheory.Measure E}
+    (hP : TechnicalLemmas.StochasticProcesses.WeakGenerator.IntegratedSemigroupGeneratorContract
+      P A D μ)
+    (hA : ∀ f ∈ D, ∫ x, A f x ∂μ = 0) :
+    TechnicalLemmas.StochasticProcesses.WeakGenerator.IsInvariantOn P μ D :=
+  TechnicalLemmas.StochasticProcesses.WeakGenerator.isInvariantOn_of_integral_generator_eq_zero
+    hP hA
 
 example :
     @TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar =

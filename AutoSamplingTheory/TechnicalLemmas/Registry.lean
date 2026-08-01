@@ -833,6 +833,26 @@ def calculusMemory : List LemmaMemoryEntry := [
     note := "Generic cutoff main-term limit only. It assumes the source field is Integrable and proves neither integrability of the concrete Langevin generator display, Gibbs tails, the cutoff-gradient cross term, whole-space IBP, generator domains, nor invariant law."
   },
   {
+    key := "analysis.calculus.pilp-integrable-field-norm-tail-tendsto-zero",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_setIntegral_norm_norm_ge_comp_toLp",
+    upstreamDecl := "MeasureTheory.tendsto_setIntegral_of_antitone",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Bochner.Set; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "tail", "WithLp", "PiLp", "L1", "Integrable", "set-integral"],
+    saldUse := "Chewi Ch.1 cutoff route: make the L1 norm of any integrable raw-Pi field vanish outside expanding Euclidean balls",
+    note := "Generic antitone-set tail theorem only. It has no Gibbs, generator, weighted-IBP, generator-domain, stationarity, invariance, reversibility, or KL/FI semantics."
+  },
+  {
+    key := "analysis.calculus.compact-support-whole-space-coordinate-divergence-zero",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactSupport",
+    upstreamDecl := "MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable; HasCompactSupport; Bornology.IsBounded.subset_ball_lt; setIntegral_eq_integral_of_forall_compl_eq_zero",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.DivergenceTheorem; Mathlib.Topology.MetricSpace.Bounded; Mathlib.MeasureTheory.Integral.Bochner.Set; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "coordinate-divergence", "whole-space", "compact-support", "ContDiff", "zero-boundary", "PiLp"],
+    saldUse := "Chewi Ch.1 weighted-IBP root: integrate the divergence of any compactly supported C1 finite-dimensional vector field over the whole space and obtain zero",
+    note := "Reusable analytic no-boundary theorem. It encloses the compact support in a strict Pi-box and invokes the finite-box divergence theorem; it contains no Gibbs, generator-domain, semigroup, invariant-law, reversibility, or KL/FI semantics."
+  },
+  {
     key := "analysis.calculus.sum-smulRight-apply-pi-single-eq-apply",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.sum_smulRight_apply_pi_single_eq_apply",
     upstreamDecl := "pi_eq_sum_univ'; ContinuousLinearMap.map_sum; ContinuousLinearMap.map_smul",
@@ -2088,6 +2108,126 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Langevin", "Integrable", "whole-space", "Gibbs-weight", "fderiv", "coordinate-field", "bounded-derivative"],
     saldUse := "Chewi Ch.1 Example 1.2.8 cutoff route: discharge the concrete `Integrable G volume` premise for `G = exp(-V) * fderiv f` in raw Pi coordinates from finite Gibbs mass and a bounded first derivative",
     note := "Whole-space source-field integrability only. It uses genuine `C¹` regularity for `fderiv`, transports the scalar Gibbs weight through the volume-preserving PiLp bridge, and bounds the raw Pi sup norm coordinatewise. It does not prove a Gibbs tail, cutoff main-term convergence, weighted IBP, generator/semigroup domains, stationarity, invariant law, reversibility, or any second-order cutoff estimate."
+  },
+  {
+    key := "langevin.integrable-exp-neg-generator-rhs-compact-test",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport",
+    upstreamDecl := "Continuous.integrable_of_hasCompactSupport, notMem_tsupport_iff_eventuallyEq, InnerProductSpace.laplacian_congr_nhds",
+    upstreamFile := "Mathlib.MeasureTheory.Function.LocallyIntegrable; Mathlib.Analysis.Calculus.FDeriv.Const; Mathlib.Analysis.InnerProductSpace.Laplacian; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Integrable", "whole-space", "Gibbs-weight", "generator-display", "compact-support", "test-function"],
+    saldUse := "Chewi Ch.1 Example 1.2.8 cutoff route: prove whole-space integrability of the exact Euclidean display `exp(-V) * (Delta f - <grad V, grad f>)` for a C_c^2 test function and a C^1 potential",
+    note := "Concrete generator-display integrability on EuclideanSpace. Compact support is imposed on the test function; no bounded gradient of the potential and no finite Gibbs-mass premise is needed. The theorem does not prove a cutoff limit, Gibbs tail, weighted IBP, generator/semigroup domains, stationarity, invariance, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.integrable-exp-neg-generator-rhs-compact-test-raw-pi",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_langevinGenerator_rhs_comp_toLp_of_contDiff_of_hasCompactSupport",
+    upstreamDecl := "integrable_expNeg_langevinGenerator_rhs_of_contDiff_of_hasCompactSupport plus PiLp.volume_preserving_toLp",
+    upstreamFile := "Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Integrable", "whole-space", "Gibbs-weight", "generator-display", "compact-support", "PiLp"],
+    saldUse := "Chewi Ch.1 Example 1.2.8 cutoff route: expose concrete generator-display integrability in the raw finite-Pi coordinate shape consumed by radial-cutoff dominated convergence",
+    note := "Volume-preserving coordinate transport of the Euclidean compact-test theorem. It does not itself take the radial-cutoff limit or prove Gibbs tails, weighted IBP, generator/semigroup domains, stationarity, invariance, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.integrable-exp-neg-weight-raw-pi",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integrable_expNeg_comp_toLp_of_lintegral_expNeg_ne_top",
+    upstreamDecl := "lintegral_ofReal_ne_top_iff_integrable plus PiLp.volume_preserving_toLp",
+    upstreamFile := "Mathlib.MeasureTheory.Function.L1Space.Integrable; Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs", "Integrable", "whole-space", "PiLp", "weight"],
+    saldUse := "Chewi Ch.1 Gibbs-tail route: transport finite unnormalized Gibbs mass to an Integrable raw-Pi scalar weight shared by cutoff and tail consumers",
+    note := "Integrability transport only. It does not prove tail convergence, generator-display integrability, weighted IBP, domains, stationarity, invariance, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.gibbs-weight-tail-tendsto-zero-raw-pi",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.tendsto_setIntegral_expNeg_norm_ge_comp_toLp_of_lintegral_expNeg_ne_top",
+    upstreamDecl := "integrable_expNeg_comp_toLp_of_lintegral_expNeg_ne_top plus tendsto_setIntegral_norm_norm_ge_comp_toLp",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs", "tail", "whole-space", "PiLp", "set-integral", "Tendsto"],
+    saldUse := "Chewi Ch.1 Example 1.2.8 cutoff route: prove that finite unnormalized Gibbs mass outside expanding Euclidean balls tends to zero in raw-Pi coordinates",
+    note := "Concrete Gibbs-tail convergence only. It does not assemble the cutoff divergence identity, prove whole-space weighted IBP, supply generator/semigroup domains, or establish stationarity, invariance, reversibility, or KL/FI."
+  },
+  {
+    key := "langevin.whole-space-gibbs-weighted-generator-ibp-compact-test",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport",
+    upstreamDecl := "integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactSupport plus trace_expNeg_fderivCoordinateField_langevinGenerator_display_of_hasFDerivAt and PiLp.volume_preserving_toLp",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin; Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs", "weighted-IBP", "whole-space", "compact-support", "generator", "EuclideanSpace"],
+    saldUse := "Chewi Ch.1 Example 1.2.8: justify the omitted whole-space integration-by-parts identity integral exp(-V) * (Delta f - inner (grad V) (grad f)) = 0 for C_c^2 tests",
+    note := "Compiled analytic core identity. Compact test support removes the boundary without a finite Gibbs-mass hypothesis. Closed-generator domains, semigroup differentiation, invariant probability law, reversibility, and KL/FI dissipation remain separate."
+  },
+  {
+    key := "langevin-generator.compactly-supported-c2-core",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2",
+    upstreamDecl := "ContDiff and HasCompactSupport",
+    upstreamFile := "Mathlib.Analysis.Calculus.ContDiff.Defs; Mathlib.Topology.Algebra.Support; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "generator", "domain", "core", "C2", "compact-support"],
+    saldUse := "Chewi Ch.1 generator-domain branch: name the C_c^2 test core on which the whole-space Gibbs-weighted IBP theorem is proved",
+    note := "Domain predicate only. It does not claim closability, closed-generator membership beyond the core, semigroup generation, invariance, or reversibility."
+  },
+  {
+    key := "langevin-generator.displayed-operator",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.operator",
+    upstreamDecl := "Laplacian.laplacian and gradient",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.{Gradient,Laplacian}; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "generator", "operator", "Laplacian", "gradient"],
+    saldUse := "Chewi Ch.1 generator-domain branch: name the displayed differential action Delta f - inner (grad V) (grad f) independently of any operator-domain claim",
+    note := "Formal differential operator only. Genuine generator semantics are supplied by CoreContract rather than inferred from this definition."
+  },
+  {
+    key := "langevin-generator.core-domain-contract",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.CoreContract",
+    upstreamDecl := "CompactlySupportedC2 and LangevinGenerator.operator",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "generator", "domain", "contract", "core", "operator-agreement"],
+    saldUse := "Chewi Ch.1 generator-domain branch: require a candidate generator domain to contain C_c^2 and its action to agree there with the displayed Langevin operator",
+    note := "Honest core-domain interface. It deliberately does not construct a closed operator or prove that a Markov semigroup satisfies the contract; the semigroup bridge remains separate."
+  },
+  {
+    key := "langevin-generator.normalized-gibbs-annihilates-compact-c2-core",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2",
+    upstreamDecl := "integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport plus GibbsIntegral integral_withDensity rewrite",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.{Langevin,LangevinGenerator}; AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "generator", "Gibbs", "normalized", "core", "infinitesimal-stationarity"],
+    saldUse := "Chewi Ch.1 Example 1.2.8 to Corollary 1.2.9: prove normalized Gibbs expectation of the displayed generator is zero on the C_c^2 test core",
+    note := "Compiled core-level infinitesimal stationarity. It is not semigroup invariance: Langevin evolution generally does not preserve compact support, so a domain-extension/core theorem or martingale-problem uniqueness remains necessary."
+  },
+  {
+    key := "weak-generator.invariance-on-tests",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.IsInvariantOn",
+    upstreamDecl := "MeasureTheory.integral",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "semigroup", "invariance", "measure", "test-class"],
+    saldUse := "Chewi Ch.1 invariant-law branch: state invariance for nonnegative times on an explicit test class before any measure-extensionality upgrade",
+    note := "Definition only. It does not assert that a test class determines measures or that a supplied operator family is Markov."
+  },
+  {
+    key := "weak-generator.integrated-semigroup-generator-contract",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.IntegratedSemigroupGeneratorContract",
+    upstreamDecl := "HasDerivWithinAt on Ici and ContinuousOn on finite intervals",
+    upstreamFile := "Mathlib.Analysis.Calculus.MeanValue; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "semigroup", "generator", "domain", "right-derivative", "integral-pairing"],
+    saldUse := "Chewi Ch.1 operator branch: package identity, semigroup law, domain preservation, pairing continuity, and right-generator derivative without extending time to a group",
+    note := "Explicit semigroup/domain contract. It is not constructed for the Langevin SDE here; positivity, mass preservation, strong continuity, and the concrete SDE realization remain separate when needed."
+  },
+  {
+    key := "weak-generator.semigroup-domain-to-invariance",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.isInvariantOn_of_integral_generator_eq_zero",
+    upstreamDecl := "constant_of_has_deriv_right_zero",
+    upstreamFile := "Mathlib.Analysis.Calculus.MeanValue; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "semigroup", "generator", "domain", "invariance", "mean-zero"],
+    saldUse := "Chewi Ch.1 Corollary 1.2.9 route: turn domain preservation, the integrated generator derivative, and zero generator mean into semigroup invariance on the domain",
+    note := "Compiled abstract bridge. A concrete Langevin invariant law still requires constructing the semigroup contract and extending the Gibbs mean-zero identity from C_c^2 to its semigroup-stable domain."
   },
   {
     key := "girsanov.finite-gaussian-cylinder-integral",

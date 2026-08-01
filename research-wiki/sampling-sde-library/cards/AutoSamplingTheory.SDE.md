@@ -1,6 +1,6 @@
 # AutoSamplingTheory.SDE
 
-- File: `AutoSamplingTheory\SDE.lean`
+- File: `AutoSamplingTheory/SDE.lean`
 - Layer: contract layer
 - Purpose: Ito diffusion, Fokker--Planck, Euler--Maruyama, discretization contracts
 - Mathlib-quality status: ASTIS contract surface; future executable SDE theorem layer

@@ -1,6 +1,6 @@
 # AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
 
-- File: `AutoSamplingTheory\TechnicalLemmas\InformationTheory\DonskerVaradhan.lean`
+- File: `AutoSamplingTheory/TechnicalLemmas/InformationTheory/DonskerVaradhan.lean`
 - Layer: Mathlib-ready technical lemma
 - Purpose: Donsker--Varadhan one-sided and scaled-test energy leaves
 - Mathlib-quality status: preferred Mathlib-style location for DV/KL energy leaves

@@ -89,16 +89,16 @@ flowchart TD
 |---|---|---|---|
 | `MEAS/KERN` | `Probability.LawMap`, `Probability.ConditionalKernel`, `Measure.Product`, `Measure.RadonNikodym` | map/withDensity/RN rewrites, finite product and conditional-law interfaces | richer transition kernels, coupling/transport APIs |
 | `DENS/CONV` | `Measure.Gibbs`, `GibbsIntegral`, `GibbsLogConcavity`, `Geometry.LogConcavity`, `StrongConvexity` | normalized Gibbs wrappers, density-to-potential geometry, products, powers, pullbacks, level sets | general coercive Gibbs envelopes, Prekopa-Leindler, Brunn-Minkowski |
-| `GEOM/CALC` | `EuclideanSpaceCoordinates`, `Analysis.Calculus.{Cutoff,Gradient,LineDeriv,Laplacian,Divergence}` | coordinate conventions, gradient/laplacian displays, finite-box divergence, compact-in-open and Pi-box plateaus, radial compactly supported exhaustion, scale-uniform `O(R^-1)` first-derivative control, closed outer-region derivative zero, PiLp cutoff derivative and cross-term trace bridges | generic `L¹` cutoff-gradient tail, Gibbs domination, whole-space IBP; second-order cutoff bounds only for named consumers |
+| `GEOM/CALC` | `EuclideanSpaceCoordinates`, `Analysis.Calculus.{Cutoff,Gradient,LineDeriv,Laplacian,Divergence}` | coordinate conventions, gradient/laplacian displays, finite-box divergence, compact-support enclosure in a strict Pi-box, whole-space coordinate-divergence cancellation, radial compactly supported exhaustion, and scale-uniform `O(R^-1)` first-derivative control | generic `L¹` cutoff-gradient tail and second-order cutoff bounds for consumers beyond the compiled compact-support route |
 | `GAUSS/PATH` | `ProbabilityDistributions.Gaussian`, `StochasticProcesses.Girsanov` | finite Gaussian linear forms, Esscher shifts, finite-cylinder Girsanov | Brownian path-space Girsanov, Doob/Follmer/bridge transforms |
 | `FI` | `FunctionalInequalities.LogSobolev` | KL/FI bookkeeping for LSI-style statements | PI, transport inequalities, tensorization, preservation |
-| `SDE/DISC` | `WeakGenerator`, `FokkerPlanckAlgebra`, `Langevin` | weak-test rewrites, FP algebra, pointwise Langevin generator displays | invariant Gibbs law, semigroup domains, algorithm rates |
+| `SDE/DISC` | `WeakGenerator`, `FokkerPlanckAlgebra`, `Langevin`, `LangevinGenerator` | weak-test rewrites, FP algebra, pointwise and integrated Langevin generator identities, a `C_c^2` core contract, normalized-Gibbs core annihilation, and an abstract semigroup-to-invariance bridge | concrete Langevin semigroup, semigroup-stable generator-domain extension, invariant Gibbs law, algorithm rates |
 
 ## Chapter Consumer Matrix
 
 | Chapter theorem family | Needs first | Then consumes | Current status |
 |---|---|---|---|
-| Ch.1 invariant Langevin law | `DENS`, `CALC`, `SDE`, `REG` | `FI` for dissipation/reversibility | finite-box calculus blue, IBP/domain red |
+| Ch.1 invariant Langevin law | `DENS`, `CALC`, `SDE`, `REG` | `FI` for dissipation/reversibility | whole-space weighted IBP, `C_c^2` core annihilation, and abstract invariance bridge blue; concrete semigroup/stable-domain instantiation red |
 | Ch.2 functional inequalities | `CONV`, `DENS`, `FI`, `REG` | `SDE` for semigroup proofs | log-concavity algebra blue, PL/BM red |
 | Ch.3 stochastic analysis | `MEAS`, `GAUSS`, `PATH`, `REG` | `SDE` for drift/generator packages | finite-cylinder Girsanov blue, path-space red |
 | Ch.4 LMC | `KERN`, `SDE`, `DENS`, `GAUSS`, `PATH`, `REG` | `DISC` rate statements | weak-test and Gaussian geometry partial blue |
@@ -110,37 +110,35 @@ flowchart TD
 ```mermaid
 flowchart TD
   A[Langevin<br/>pointwise generator display]:::blue
-  B[Gradient/Laplacian<br/>coordinate calculus]:::blue
-  C[Divergence<br/>coordinateDivergence + trace]:::blue
-  D[Divergence<br/>finite closed-box theorem]:::blue
-  E[Divergence<br/>signed face terms]:::blue
-  F[Divergence<br/>support/face cancellation]:::blue
-  G[Divergence<br/>local smooth cutoff in Pi-open box]:::blue
-  H[Divergence<br/>cutoff-smul support and trace wrappers]:::blue
-  N[Divergence<br/>exact open-box support + positivity]:::blue
-  I[Cutoff/Divergence<br/>compact/open and Pi-box plateau]:::blue
-  R[Cutoff<br/>radial compact support + pointwise limit]:::blue
-  J1[Cutoff<br/>fderiv O(R^-1)]:::blue
-  J2[REG<br/>Hessian/Laplacian O(R^-2)]:::red
-  K[REG<br/>tail passage]:::red
-  L[Langevin<br/>weighted IBP]:::red
-  M[Langevin<br/>invariant Gibbs law]:::red
+  B[Generator-display<br/>integrability]:::blue
+  C[Gibbs weighted<br/>tail convergence]:::blue
+  D[Compact support<br/>inside strict Pi-box]:::blue
+  E[Finite-box divergence<br/>and face cancellation]:::blue
+  F[Whole-space<br/>weighted IBP]:::blue
+  G[C_c^2 core-domain<br/>contract]:::blue
+  H[Normalized Gibbs<br/>annihilates core generator]:::blue
+  I[Abstract semigroup/domain<br/>invariance bridge]:::blue
+  J[Concrete Langevin<br/>semigroup construction]:::red
+  K[Semigroup-stable domain<br/>and core extension]:::red
+  L[Invariant<br/>Gibbs law]:::red
 
-  A --> B --> C --> D --> E --> F --> K --> L --> M
-  G --> H --> F
-  N --> F
-  N --> I
-  I --> H
-  R --> J1 --> K
-  R --> J2
+  A --> B --> F
+  C --> F
+  D --> E --> F
+  F --> H
+  G --> H
+  H --> K
+  I --> L
+  J --> K --> I
 
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
 ```
 
-The blue path is finite-box infrastructure.  The red path is where the
-textbook-style no-boundary phrase must become precise Lean hypotheses and
-lemmas.
+The compact-support no-boundary calculation and the abstract generator bridge
+are compiled.  The remaining red boundary is analytic and probabilistic: a
+concrete Langevin semigroup plus a generator domain stable under that semigroup,
+with a justified extension of the `C_c^2` identity to that domain.
 
 ## Local Cutoff Subtree
 
@@ -158,7 +156,7 @@ flowchart LR
   Radial[radial family<br/>compact support + tends to 1]:::blue
   Deriv1[first derivative<br/>O(R^-1)]:::blue
   Deriv2[Hessian/Laplacian<br/>O(R^-2)]:::red
-  Whole[whole-space IBP]:::red
+  Whole[whole-space coordinate-divergence<br/>cancellation for compact support]:::blue
 
   Open --> Local
   Point --> Local
@@ -167,7 +165,7 @@ flowchart LR
   Exact --> Smul
   Exact --> Plateau
   Plateau --> Smul
-  Radial --> Deriv1 --> Whole
+  Radial --> Deriv1
   Radial --> Deriv2
 
   classDef gray fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
