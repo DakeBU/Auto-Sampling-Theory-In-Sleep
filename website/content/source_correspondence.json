@@ -10,7 +10,10 @@
     "source_summary": "A Markov semigroup records how the law or observables evolve with time.",
     "astis_exposition": "ASTIS separates the algebraic semigroup laws from measurability, continuity, and the choice of function space on which the operators act.",
     "rigorous_packet": "The eventual packet must fix the measurable state space, the observable space, positivity and constant preservation, the semigroup law, and the continuity notion used to recover a generator.",
-    "lean_declarations": [],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.IntegratedSemigroupGeneratorContract",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.isInvariantOn_of_integral_generator_eq_zero"
+    ],
     "source_assumptions": [
       "Markov evolution",
       "time-homogeneous composition"
@@ -25,7 +28,7 @@
       "stationarity",
       "mixing estimates"
     ],
-    "status": "todo"
+    "status": "partial"
   },
   {
     "id": "chewi-1-2-generator",
@@ -103,7 +106,8 @@
       "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_hasCompactSupport",
       "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tendsto_one",
       "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_norm_fderiv_radialSmoothCutoff_comp_toLp_apply",
-      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_radialSmoothCutoff_comp_toLp_smul"
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence.tendsto_integral_radialSmoothCutoff_comp_toLp_smul",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin.integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport"
     ],
     "source_assumptions": [
       "sufficiently regular test functions",
@@ -134,7 +138,9 @@
     "astis_exposition": "ASTIS marks this as red. A formal density calculation does not by itself prove invariance for the Markov semigroup.",
     "rigorous_packet": "Bridge from a core identity to the generator domain, identify the forward or adjoint equation in a justified sense, and connect it to the semigroup law.",
     "lean_declarations": [
-      "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.isProbabilityMeasure_withDensity_normalized_gibbs"
+      "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs.isProbabilityMeasure_withDensity_normalized_gibbs",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.isInvariantOn_normalizedGibbs_on_compactlySupportedC2"
     ],
     "source_assumptions": [
       "normalizable Gibbs density",
@@ -150,7 +156,7 @@
       "equilibrium convergence",
       "algorithmic sampling interpretation"
     ],
-    "status": "todo"
+    "status": "partial"
   },
   {
     "id": "chewi-1-3-poincare",
@@ -163,12 +169,23 @@
     "source_summary": "Variance is bounded by an energy involving the gradient.",
     "astis_exposition": "The ASTIS layer makes the measure, function class, integrability, and gradient representation visible.",
     "rigorous_packet": "Variance and energy must both be defined and finite in the intended function space; extension from a smooth core requires a density or closure theorem.",
-    "lean_declarations": [],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.variance",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.dirichletEnergy",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Admissible",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.variance_nonneg",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.dirichletEnergy_nonneg",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_constant",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.variance_le",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_tests"
+    ],
     "source_assumptions": [
       "sufficiently regular functions"
     ],
     "formal_assumptions": [
       "explicit measure and scalar field",
+      "probability normalization",
       "integrability/square-integrability",
       "explicit Dirichlet form"
     ],
@@ -176,7 +193,7 @@
       "variance decay",
       "spectral-gap estimates"
     ],
-    "status": "todo"
+    "status": "partial"
   },
   {
     "id": "chewi-1-3-log-sobolev",
@@ -190,6 +207,9 @@
     "astis_exposition": "ASTIS records the scalar handoff from a square-root density form to a KL/Fisher-information chain, while retaining all finiteness requirements.",
     "rigorous_packet": "The density, logarithm convention at zero, square-root derivative, and absolute continuity all need stated representatives and integrability.",
     "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_constant",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_tests",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
     ],
     "source_assumptions": [
@@ -227,6 +247,7 @@
     ],
     "formal_assumptions": [
       "explicit measure",
+      "probability normalization for the Poincare interface",
       "finite entropy/energy terms",
       "explicit function class"
     ],

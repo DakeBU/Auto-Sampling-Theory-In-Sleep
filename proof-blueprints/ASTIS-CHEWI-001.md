@@ -2,7 +2,7 @@
 
 Task id: `ASTIS-CHEWI-001`
 Title: Build the Log-Concave Sampling Lean foundation
-Updated: `2026-07-13 18:13:12`
+Updated: `2026-08-07`
 Blueprint stage: `Log-concave sampling foundation Stage-1: chapter map, shared-root DAG, and Mathlib-ready leaf growth`
 
 This is ASTIS's compact system-of-record snapshot for long-horizon Lean proof
@@ -16,8 +16,8 @@ Lean-Markdown-LaTeX exports must stay synchronized.
 
 ```text
 Mode: `ASTIS-CHEWI-001` follows `Log-concave sampling foundation Stage-1: chapter map, shared-root DAG, and Mathlib-ready leaf growth`.
-Current dynamic leaf: No reviewer blocker recorded yet; use source index and proof-obligation ledger.
-Current illness area: No reviewer blocker recorded yet; use source index and proof-obligation ledger.
+Current dynamic leaf: none in the audited Chapter 1 graph; all dependency-ready local analytic and cutoff leaves compile.
+Current main-line blocker: concrete Langevin Markov semigroup construction and semigroup-stable domain extension; this is an external/upstream dependency, not a lower-agent-ready proof leaf.
 Upper/middle must retire stale leaves before assigning lower work.
 Lower work should be one local Lean declaration/proof boundary at a time.
 Reviewer accepts progress only through `python3 tools/astis.py check` plus source correspondence.
@@ -30,7 +30,14 @@ middle must retire it before spending more proof-search tokens.
 
 | Leaf | Status |
 |---|---|
-| No reviewer blocker recorded yet; use source index and proof-obligation ledger. | candidate |
+| radial second-derivative/Laplacian cutoff scaling | compiled local |
+| typed Poincaré probability/test/integrability interface | compiled local |
+| Poincaré inequality elimination and constant/test-class monotonicity | compiled local |
+| concrete Langevin Markov semigroup construction | external/upstream dependency |
+| semigroup-stable domain/core extension | blocked by concrete semigroup |
+| invariant normalized Gibbs law | blocked by domain extension |
+| Bakry–Émery Poincaré criterion | external-blocked by semigroup/domain package |
+| localization and sharp log-concave isoperimetry | external/upstream dependency |
 
 ## Open Obligation Signals
 

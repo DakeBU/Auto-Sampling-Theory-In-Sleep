@@ -51,7 +51,7 @@ flowchart LR
 
 | Part | Chapter | Summary | Lean organization plan | Shared roots | Status |
 | --- | --- | --- | --- | --- | --- |
-| Part I | 1. Langevin diffusion in continuous time | The continuous-time backbone: stochastic calculus, Markov semigroups, optimal-transport geometry, Langevin dynamics, and convergence viewpoints. | Build Gaussian increments and generator algebra, then close the explicit cutoff -> tail -> weighted-IBP -> generator-domain -> invariant-Gibbs chain before KL/FI and Wasserstein-gradient-flow consumers. | MEAS, GAUSS, DENS, FI, SDE, REG | partial-local-compiled |
+| Part I | 1. Langevin diffusion in continuous time | The continuous-time backbone: stochastic calculus, Markov semigroups, optimal-transport geometry, Langevin dynamics, and convergence viewpoints. | Generator integrability, Gibbs tails, whole-space weighted IBP, the `C_c^2` core, normalized core annihilation, conditional core invariance, and radial `O(R^-2)` second-derivative/Laplacian cutoff scaling compile locally. The concrete Langevin semigroup/domain extension is external-blocked. | MEAS, GAUSS, DENS, FI, SDE, REG | partial-local-compiled |
 | Part I | 2. Functional inequalities | The inequality toolkit that turns geometry of the target into convergence rates: PI, LSI, transport, concentration, isoperimetry, and preservation operations. | Separate definitions and bookkeeping from preservation theorems; reuse log-concavity, Prekopa-Leindler/Brunn-Minkowski, and LSI/KL/FI leaves. | CONV, DENS, FI, REG | partial-local-compiled |
 | Part I | 3. Stochastic analysis topics | Path-space tools used repeatedly later: quadratic variation, Girsanov change of measure, Doob transforms, Follmer drift, and Schrodinger bridges. | Keep finite-dimensional Gaussian change of measure as the compiled base; only then lift to Brownian/path-space RN derivatives and bridge transforms. | GAUSS, PATH, DENS, SDE, REG | finite-girsanov-rn-cylinder-compiled |
 | Part II | 4. Analysis of Langevin Monte Carlo | The first algorithmic convergence chapter, presenting coupling, interpolation, convex-optimization, and Girsanov proof routes for LMC. | Treat LMC as a consumer of law-map, conditional-kernel, weak-FP, KL/FI, Girsanov, and Gaussian-transition geometry leaves. | MEAS, KERN, SDE, DENS, PATH, DISC, REG | partial-local-compiled |
@@ -81,7 +81,7 @@ flowchart TD
   J1S[closed outer region<br/>totalized fderiv = 0]:::blue
   JP[PiLp cutoff derivative<br/>chain-rule bridge]:::blue
   JT[smulRight basis trace<br/>equals derivative on field]:::blue
-  J2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
+  J2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::blue
   K[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   KS[Gibbs source-field<br/>integrability]:::blue
   KM[generic main-term<br/>dominated convergence]:::blue
@@ -114,7 +114,7 @@ flowchart TD
 | display algebra | pointwise generator, weighted display, coordinate sum conventions | none for finite-dimensional pointwise algebra |
 | regularity | global `C¹/C²` gives gradient continuity, Laplacian continuity, scalar `ContinuousOn`, and Pi-field `HasFDerivAt` with Mathlib `fderiv` | closed-box/local regularity variants if later needed |
 | finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | none for the compact-support whole-space route |
-| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, pointwise exhaustion, one-constant-for-all-scales `O(R⁻¹)` first-derivative control, closed outer-region derivative vanishing, and finite-Pi derivative/trace consumer bridges | `O(R⁻²)` Hessian/Laplacian bounds only when a named second-order consumer requires them |
+| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, pointwise exhaustion, `O(R⁻¹)` first-derivative control, and `O(R⁻²)` second-derivative/Laplacian control | no cutoff estimate is a semigroup-domain theorem |
 | whole-space passage | compact-support whole-space divergence and Gibbs-weighted `integral exp(-V) Lf = 0` for `C_c^2` tests, plus generic cutoff/tail infrastructure | stronger noncompact test classes when a consumer requires them |
 | operator bridge | C_c^2 core/domain agreement, normalized-Gibbs core annihilation, and abstract semigroup/domain-to-invariance theorem compile | instantiate the contract for the Langevin evolution and extend mean-zero to its stable domain |
 | invariant law | abstract implication is compiled | concrete Langevin semigroup contract or an equivalent uniqueness theorem |
@@ -141,9 +141,10 @@ flowchart TD
   to one, a general compact-in-open smooth plateau theorem, a bounded unit-cutoff
   derivative, the totalized `fderiv` bound for `x -> ||x|| / R`, a single
   constant controlling every radial first derivative by `C / R`, and zero
-  totalized derivative throughout the closed outer region `2R <= ||x||`.
-  The finite-Pi generic `L¹` consumer is compiled in `Divergence.lean`;
-  second-order estimates are added only for named consumers.
+  totalized derivative throughout the closed outer region `2R <= ||x||`, and
+  a single constant controlling every radial second iterated derivative by
+  `C / R^2`.  The finite-dimensional Laplacian trace bound is compiled in
+  `Analysis/Calculus/Laplacian.lean`.
 - `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean`
   contains the finite coordinate-divergence convention, Euclidean/Pi `WithLp`
   trace bridge, the radial-cutoff `toLp` derivative producer, the standard-basis

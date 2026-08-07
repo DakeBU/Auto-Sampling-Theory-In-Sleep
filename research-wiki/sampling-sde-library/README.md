@@ -155,7 +155,7 @@ flowchart LR
   Plateau[compact/open plateau<br/>Pi-box specialization]:::blue
   Radial[radial family<br/>compact support + tends to 1]:::blue
   Deriv1[first derivative<br/>O(R^-1)]:::blue
-  Deriv2[Hessian/Laplacian<br/>O(R^-2)]:::red
+  Deriv2[Hessian/Laplacian<br/>O(R^-2)]:::blue
   Whole[whole-space coordinate-divergence<br/>cancellation for compact support]:::blue
 
   Open --> Local

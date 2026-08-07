@@ -27,7 +27,7 @@ three linked reading depths:
 
 The site also provides a twelve-chapter spine, source correspondence,
 implementation map, split dependency graphs, current formalization progress,
-and the strict Chapter 1 frontier. Status is generated from the Registry,
+and source-derived Chapter 1–2 frontiers. Status is generated from the Registry,
 Lean source, and tests rather than copied into HTML. No public deployment URL
 is claimed until GitHub Pages or the review deployment has actually completed.
 
@@ -37,10 +37,10 @@ is claimed until GitHub Pages or the review deployment has actually completed.
 |---|---|
 | primary source | `https://chewisinho.github.io/main.pdf` |
 | local source copy | `outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf` |
-| compiled local technical leaves | 270 |
-| active frontier | Chapter 1, Corollary 1.2.9: instantiate the compiled semigroup/domain bridge for the actual Langevin evolution |
-| newest closed edge | explicit Langevin core-domain contract, normalized-Gibbs core annihilation, and abstract semigroup/domain-to-invariance bridge |
-| next red edge | extend the `C_c^2` mean-zero identity to a semigroup-stable domain, or supply a rigorous martingale-problem/Fokker-Planck uniqueness route |
+| compiled local technical leaves | 286 |
+| active frontier | Chapter 1 analytic/cutoff branches are blue through radial `O(R^-2)` bounds; Chapter 2 now has a typed Poincaré interface with explicit test and integrability domains |
+| newest closed edge | Poincaré variance/energy, explicit probability and integrability domain, inequality elimination, and constant/test-class monotonicity leaves |
+| next red edge | concrete Langevin semigroup/domain construction for the Bakry–Émery route, or an independently sourced localization theorem |
 
 ## Visual Index
 
@@ -51,7 +51,7 @@ Start with the diagrams, then open the exact Lean file or registry row.
 | whole project shape | [One-screen map](#one-screen-map) | this README |
 | chapter coverage | [Chapter spine](#chapter-spine), [Chapter dashboard](#chapter-dashboard) | roadmap plus lemma DAG |
 | reusable Lean roots | [Shared root graph](#shared-root-graph), [Root matrix](#root-matrix) | module cards and imports |
-| current proof frontier | [Chapter 1 proof chain](#chapter-1-proof-chain) | `Analysis.Calculus.Divergence`, `StochasticProcesses.Langevin` |
+| current proof frontier | [Chapter 1 proof chain](#chapter-1-proof-chain), [Chapter 2 subtree](#other-theorem-subtrees) | `StochasticProcesses.LangevinGenerator`, `FunctionalInequalities.Poincare` |
 | exact next tasks | [Current red queue](#current-red-queue) | README, DAG, run packet |
 | compiled declarations | [File map](#file-map) | `AutoSamplingTheory/TechnicalLemmas/Registry.lean` |
 | student textbook site | [Website build and maintenance](#blueprint-style-textbook-site) | Registry, Lean source, Tests, `website/content/` |
@@ -253,14 +253,16 @@ Blue requires all three gates:
 ## Chapter 1 Proof Chain
 
 The active chain is the continuous-time Langevin route toward the Gibbs
-invariant law.  The finite-dimensional whole-space analytic core is now blue.
-Generator-domain, semigroup, invariant-measure, and reversibility theorems
-remain separate red boundaries.
+invariant law.  The finite-dimensional whole-space analytic core, explicit
+`C_c^2` domain contract, normalized Gibbs core annihilation, and conditional
+semigroup-to-core-invariance composition are blue.  Constructing the concrete
+Langevin semigroup, extending to a semigroup-stable domain, proving a full
+invariant law, and reversibility remain separate boundaries.
 
 | Textbook anchor | Textbook step | Lean status |
 |---|---|---|
 | Example 1.2.8 | compute the Langevin adjoint; the second equality is attributed to integration by parts | whole-space identity is blue for `C_c^2` tests and `C^1` potentials |
-| Corollary 1.2.9 | conclude that the stationary density is proportional to `exp(-V)` | red until generator/semigroup domain contracts are blue |
+| Corollary 1.2.9 | conclude that the stationary density is proportional to `exp(-V)` | conditional core-invariance bridge is blue; concrete semigroup and domain extension remain red |
 | Section 1.2 warning | generator domains and symmetric/self-adjoint operator distinctions are deliberately brushed over | tracked as separate red contracts, not hidden inside the IBP theorem |
 
 The source and background-textbook audit is recorded in
@@ -282,14 +284,18 @@ flowchart TD
   Deriv1[scale-uniform cutoff fderiv<br/>O(R^-1)]:::blue
   DZero[closed outer region<br/>totalized fderiv = 0]:::blue
   PiBridge[PiLp cutoff derivative<br/>and smulRight trace]:::blue
-  Deriv2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
+  Unit2[unit cutoff second derivative<br/>continuous + compact + bounded]:::blue
+  Deriv2[radial second derivative/Laplacian cutoff<br/>O(R^-2)]:::blue
   Tail[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   SourceInt[Gibbs source-field<br/>integrability]:::blue
   MainConv[generic main-term<br/>dominated convergence]:::blue
   MainInt[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
   GibbsTail[Gibbs-tail passage]:::blue
   IBP[weighted IBP<br/>integral Lf d pi = 0]:::blue
-  Domain[generator/semigroup<br/>domain contracts]:::red
+  Core[explicit C_c^2 generator core<br/>and normalized mean-zero]:::blue
+  CondInv[conditional semigroup<br/>core invariance]:::blue
+  Semigroup[concrete Langevin semigroup<br/>external/upstream dependency]:::red
+  Domain[semigroup-stable<br/>domain extension]:::red
   Inv[invariant Gibbs law]:::red
   Rev[reversibility<br/>KL/FI dissipation]:::red
 
@@ -303,8 +309,10 @@ flowchart TD
   MainConv --> MainInt --> IBP
   GibbsTail --> IBP
   Radial --> DZero
-  Radial --> Deriv2
-  Domain --> Inv
+  Radial --> Unit2 --> Deriv2
+  IBP --> Core --> CondInv
+  Semigroup --> Domain --> Inv
+  CondInv --> Semigroup
 
   classDef goal fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
@@ -350,7 +358,7 @@ flowchart TD
   Deriv1[radial cutoff fderiv<br/>O(R^-1)]:::blue
   DZero[closed outer region<br/>totalized fderiv = 0]:::blue
   PiBridge[PiLp derivative +<br/>smulRight trace]:::blue
-  Deriv2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
+  Deriv2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::blue
   Tail[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   SourceInt[Gibbs source-field<br/>integrability]:::blue
   MainConv[generic main-term<br/>dominated convergence]:::blue
@@ -388,7 +396,7 @@ flowchart TD
 | Gibbs density | `Measure.Gibbs`, `Measure.GibbsIntegral`, `Measure.GibbsLogConcavity` | normalized withDensity wrappers, real-density bridges | no invariant-law statement |
 | regularity | `Analysis.Calculus.*`, `StochasticProcesses.Langevin` | gradient continuity, Laplacian continuity, canonical `fderiv` trace handoffs | no whole-space domination |
 | finite boxes | `Analysis.Calculus.Divergence` | trace-to-coordinate transfer, a.e. bridge, signed face terms | no whole-space limit |
-| reusable smooth cutoffs | `Analysis.Calculus.Cutoff` | unit/radial cutoffs, closed-ball support/`tsupport`, compact support, pointwise exhaustion, generic compact-in-open plateau, one-constant-for-all-scales `O(R^-1)` first-derivative control, and closed outer-region derivative zero | second-order bounds wait for a named consumer |
+| reusable smooth cutoffs | `Analysis.Calculus.Cutoff`, `Analysis.Calculus.Laplacian` | unit/radial cutoffs, compact support, pointwise exhaustion, `O(R^-1)` first-derivative control, and `O(R^-2)` second-derivative/Laplacian control | no cutoff limit is silently promoted to a semigroup-domain theorem |
 | finite-box cutoffs | `Analysis.Calculus.Divergence` | local Pi-open-box cutoffs, exact plain support and positivity, one compactly supported cutoff equal to `1` on an entire inner closed Pi-box | no derivative-controlled box exhaustion or whole-space limit |
 | whole-space IBP | `Analysis.Calculus.Divergence`, `StochasticProcesses.Langevin` | compact-support whole-space divergence and `integral exp(-V) Lf = 0` for `C_c^2` tests | no generator-domain or semigroup semantics |
 
@@ -400,16 +408,22 @@ reusing the same root labels.
 ```mermaid
 flowchart TD
   C2[Ch.2 functional inequalities]:::chapter
-  Def[definitions<br/>PI LSI TI]:::red
+  PIDef[PI variance + energy<br/>admissibility + test class]:::blue
+  LSIdef[LSI / TI full interfaces]:::red
   Conv[log-concavity algebra]:::blue
   PL[Prekopa-Leindler<br/>Brunn-Minkowski]:::red
   Pres[preservation<br/>products maps marginals]:::red
   LSI[LSI to KL/FI<br/>bookkeeping]:::blue
-  Sem[semigroup proof route]:::red
+  Sem[concrete semigroup<br/>Bakry-Emery route]:::red
+  Loc[localization<br/>one-dimensional reduction]:::red
+  Sharp[sharp log-concave<br/>isoperimetry]:::red
 
-  C2 --> Def --> LSI
+  C2 --> PIDef
+  C2 --> LSIdef --> LSI
   C2 --> Conv --> PL --> Pres
-  C2 --> Sem --> LSI
+  PIDef --> Sem
+  PIDef --> Loc --> Sharp
+  Sem --> LSI
 
   classDef chapter fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
@@ -478,7 +492,7 @@ flowchart TD
 ```mermaid
 flowchart TD
   R1[generic L1 cutoff-gradient limit<br/>Integrable G + C/R]:::blue
-  R2[Hessian/Laplacian cutoff bound<br/>only for named 2nd-order consumer]:::red
+  R2[Hessian/Laplacian cutoff bound<br/>uniform O(R^-2)]:::blue
   R3[source-field integrability<br/>for chosen V and f]:::blue
   R4[generic main-term<br/>dominated convergence]:::blue
   R4A[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
@@ -489,6 +503,8 @@ flowchart TD
   R8[Prekopa-Leindler / Brunn-Minkowski<br/>functional-inequality preservation]:::red
   R9[Brownian path-space<br/>Girsanov and bridges]:::red
   R10[sampler consumers<br/>LMC HMC MALA proximal]:::red
+  R11[typed Poincare interface<br/>explicit tests + integrability]:::blue
+  R12[Bakry-Emery or localization<br/>Poincare theorem]:::red
 
   R1 --> R4
   R3 --> R4
@@ -498,6 +514,7 @@ flowchart TD
   R6 --> R7
   R8 --> R10
   R9 --> R10
+  R11 --> R12 --> R8
 
   classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
   R7 --> R10
@@ -505,9 +522,10 @@ flowchart TD
   classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
 ```
 
-`R5` is the newest compiled blue edge.  The next pass should close the
-generator-domain contract and semigroup bridge separately before stating an
-invariant-law theorem.
+`R11` is the newest compiled blue edge.  It is an interface, not a proof that
+any particular measure satisfies Poincaré.  The next mathematical package must
+either construct the concrete semigroup/domain needed by Bakry–Émery or source
+and decompose the localization route; neither is currently a lower-ready leaf.
 
 ## Blueprint-Style Textbook Site
 

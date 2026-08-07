@@ -267,7 +267,7 @@ flowchart TD
   DERIV1[scale-uniform fderiv<br/>O(R^-1)]:::blue
   DSUP[closed outer region<br/>totalized fderiv = 0]:::blue
   PIB[PiLp derivative and<br/>smulRight trace bridges]:::blue
-  DERIV2[Hessian/Laplacian<br/>O(R^-2)]:::red
+  DERIV2[Hessian/Laplacian<br/>O(R^-2)]:::blue
   TAIL[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   SOURCEINT[Gibbs source-field<br/>integrability]:::blue
   MAINCONV[generic main-term<br/>dominated convergence]:::blue

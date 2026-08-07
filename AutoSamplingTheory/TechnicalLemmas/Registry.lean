@@ -6,6 +6,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare
 import AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
 import AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
@@ -533,6 +534,36 @@ def calculusMemory : List LemmaMemoryEntry := [
     note := "One-dimensional compact-support bound. It supplies the scale-independent constant used by the radial first-derivative leaf."
   },
   {
+    key := "analysis.calculus.smooth-unit-cutoff-second-deriv-continuous",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_continuous",
+    upstreamDecl := "ContDiff.iterate_deriv'",
+    upstreamFile := "SLT/GaussianPoincare/TaylorBound.lean@d0f506f; Mathlib.Analysis.Calculus.ContDiff",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "second-derivative", "continuity", "SLT-port"],
+    saldUse := "log-concave sampling Ch.1 second-order cutoff root: continuity input for a unit-scale Hessian bound",
+    note := "ASTIS-owned adaptation of the audited SLT C_c^2 second-derivative continuity leaf."
+  },
+  {
+    key := "analysis.calculus.smooth-unit-cutoff-second-deriv-compact-support",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_hasCompactSupport",
+    upstreamDecl := "HasCompactSupport.deriv",
+    upstreamFile := "SLT/GaussianPoincare/TaylorBound.lean@d0f506f; Mathlib.Topology.Algebra.Support",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "second-derivative", "compact-support", "SLT-port"],
+    saldUse := "log-concave sampling Ch.1 second-order cutoff root: compact-support input for a global derivative bound",
+    note := "The fixed unit cutoff is differentiated twice; no radial scaling or Hessian estimate is claimed here."
+  },
+  {
+    key := "analysis.calculus.smooth-unit-cutoff-second-deriv-bounded",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_bounded",
+    upstreamDecl := "HasCompactSupport.exists_bound_of_continuous",
+    upstreamFile := "SLT/GaussianPoincare/TaylorBound.lean@d0f506f; Mathlib.Topology.Algebra.Support",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "second-derivative", "uniform-bound", "SLT-port"],
+    saldUse := "log-concave sampling Ch.1: choose the unit-scale constant before proving O(R^-2) radial Hessian/Laplacian bounds",
+    note := "Compiled unit-scale bound only. The chain rule and radial Hessian/Laplacian scaling remain a separate red leaf."
+  },
+  {
     key := "analysis.calculus.radial-smooth-cutoff-one-of-norm-le",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le",
     upstreamDecl := "GaussianSobolev.smoothCutoffR_eq_one_of_norm_le",
@@ -591,6 +622,16 @@ def calculusMemory : List LemmaMemoryEntry := [
     tags := ["log-concave-sampling", "cutoff", "radial", "fderiv", "O-R-inverse", "inner-product-space"],
     saldUse := "log-concave sampling Ch.1 exhaustion base: one constant controls the first derivative of every positive-scale radial cutoff by C/R",
     note := "The existential constant precedes the radius quantifier. Hessian, Laplacian, dominated-tail, weighted-IBP, and invariance leaves remain separate."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-iterated-fderiv-two-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_iteratedFDeriv_two_bound",
+    upstreamDecl := "ContinuousLinearMap.iteratedFDeriv_comp_right; HasCompactSupport.iteratedFDeriv; ContinuousMultilinearMap.norm_compContinuousLinearMap_le",
+    upstreamFile := "Mathlib.Analysis.Calculus.ContDiff.{Bounds,FTaylorSeries}; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "iteratedFDeriv", "second-order", "O-R-inverse-squared"],
+    saldUse := "log-concave sampling Ch.1 second-order exhaustion branch: one constant controls the second iterated Frechet derivative at every positive scale by C/R^2",
+    note := "The unit-scale derivative field is bounded by continuity and compact support, then transported by exact linear dilation. Laplacian trace and any integral consumer remain separate."
   },
   {
     key := "analysis.calculus.radial-smooth-cutoff-fderiv-zero-of-two-mul-le-norm",
@@ -1451,6 +1492,26 @@ def calculusMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Langevin", "Laplacian", "ContDiff", "Continuous", "iteratedFDeriv", "regularity"],
     saldUse := "Chewi Ch.1 Langevin root: derive continuity of Mathlib's finite-dimensional total Laplacian from global `C²` regularity before closed-box integrability handoffs",
     note := "Global `C²` to continuous Mathlib Laplacian only. It does not assert a closed-box `ContDiffOn` variant, field differentiability, weighted IBP, boundary cancellation, domains, invariant law, reversibility, or KL/FI."
+  },
+  {
+    key := "analysis.calculus.laplacian-finrank-iterated-fderiv-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian.norm_laplacian_le_finrank_mul_norm_iteratedFDeriv_two",
+    upstreamDecl := "InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis; ContinuousMultilinearMap.le_opNorm",
+    upstreamFile := "Mathlib.Analysis.InnerProductSpace.Laplacian",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "Laplacian", "iteratedFDeriv", "finrank", "trace-bound"],
+    saldUse := "log-concave sampling Ch.1: turn an operator-norm second-derivative estimate into a Laplacian estimate with an explicit dimension factor",
+    note := "Pointwise finite-dimensional trace bound only; no compact support, integrability, cutoff, or invariant-law statement is included."
+  },
+  {
+    key := "analysis.calculus.radial-smooth-cutoff-laplacian-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian.radialSmoothCutoff_laplacian_bound",
+    upstreamDecl := "radialSmoothCutoff_iteratedFDeriv_two_bound; norm_laplacian_le_finrank_mul_norm_iteratedFDeriv_two",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.{Cutoff,Laplacian}",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["log-concave-sampling", "cutoff", "radial", "Laplacian", "O-R-inverse-squared", "finrank"],
+    saldUse := "log-concave sampling Ch.1 second-order exhaustion branch: radial cutoff Laplacian bound with explicit finrank times C/R^2",
+    note := "Compiled second-order cutoff estimate. It remains independent of the external-blocked concrete Langevin semigroup/domain construction."
   }
 ]
 
@@ -2230,6 +2291,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Compiled abstract bridge. A concrete Langevin invariant law still requires constructing the semigroup contract and extending the Gibbs mean-zero identity from C_c^2 to its semigroup-stable domain."
   },
   {
+    key := "langevin-generator.conditional-normalized-gibbs-core-invariance",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.isInvariantOn_normalizedGibbs_on_compactlySupportedC2",
+    upstreamDecl := "integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2 plus isInvariantOn_of_integral_generator_eq_zero",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.{LangevinGenerator,WeakGenerator}",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "Gibbs", "semigroup", "generator", "core", "conditional-invariance"],
+    saldUse := "Chewi Ch.1 Corollary 1.2.9 route: compose Gibbs core annihilation with an explicit integrated-semigroup contract on C_c^2",
+    note := "Compiled conditional core-level bridge. It does not construct the Langevin semigroup and does not extend equality from C_c^2 to a measure-determining or semigroup-stable domain."
+  },
+  {
     key := "girsanov.finite-gaussian-cylinder-integral",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov.finiteGaussianGirsanovCylinderIntegral",
     upstreamDecl := "stdGaussian_shift_integral_map_toLp / finite-dimensional Gaussian Esscher",
@@ -2337,6 +2408,96 @@ def variationalMemory : List LemmaMemoryEntry := [
     tags := ["LSI", "FI", "density"],
     saldUse := "bookkeeping for LSI-to-KL/FI handoff after density assumptions are supplied",
     note := "Compiled scalar/integral algebra; full LSI analytic theorem remains an obligation."
+  },
+  {
+    key := "poincare.variance",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.variance",
+    upstreamDecl := "MeasureTheory.integral",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "variance", "definition"],
+    saldUse := "shared Chapter 2 variance interface with the centering convention visible in Lean",
+    note := "The integral is totalized; consumers must carry the separate admissibility hypotheses."
+  },
+  {
+    key := "poincare.dirichlet-energy",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.dirichletEnergy",
+    upstreamDecl := "Analysis.Calculus.gradient / MeasureTheory.integral",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient; Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "Dirichlet-energy", "definition"],
+    saldUse := "shared gradient-energy term for Poincare statements and later semigroup dissipation leaves",
+    note := "This is the Euclidean/inner-product energy interface, not a closed Dirichlet-form construction."
+  },
+  {
+    key := "poincare.admissible",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Admissible",
+    upstreamDecl := "MeasureTheory.Integrable",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "integrability", "domain"],
+    saldUse := "prevent totalized integrals from hiding the variance and gradient-energy domain",
+    note := "Function, centered square, and squared gradient integrability are all explicit."
+  },
+  {
+    key := "poincare.satisfies",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies",
+    upstreamDecl := "Poincare inequality, Chewi section 2.1",
+    upstreamFile := "Log-Concave Sampling, Chapter 2",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "test-class", "interface"],
+    saldUse := "typed replacement for string-only PI task contracts on an explicit test class",
+    note := "Probability normalization is explicit; no concrete target measure is asserted to satisfy PI here."
+  },
+  {
+    key := "poincare.variance-nonnegative",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.variance_nonneg",
+    upstreamDecl := "integral_nonneg_of_ae / sq_nonneg",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "variance", "nonnegative"],
+    saldUse := "basic order leaf for variance estimates",
+    note := "Proves nonnegativity of the explicit centered-square integral."
+  },
+  {
+    key := "poincare.dirichlet-energy-nonnegative",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.dirichletEnergy_nonneg",
+    upstreamDecl := "integral_nonneg_of_ae / sq_nonneg",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "Dirichlet-energy", "nonnegative"],
+    saldUse := "order-theoretic leaf used when changing Poincare constants",
+    note := "No differentiability claim is needed because Mathlib derivatives are totalized."
+  },
+  {
+    key := "poincare.constant-monotonicity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_constant",
+    upstreamDecl := "mul_le_mul_of_nonneg_right",
+    upstreamFile := "Mathlib algebra/order API",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "constant", "monotonicity"],
+    saldUse := "reuse a proved PI bound at any larger nonnegative constant",
+    note := "Preserves the same test class and exact admissibility domain."
+  },
+  {
+    key := "poincare.variance-bound-elimination",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.variance_le",
+    upstreamDecl := "Poincare.Satisfies",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "consumer", "interface"],
+    saldUse := "stable consumer API for extracting the PI inequality",
+    note := "Requires explicit test membership and admissibility."
+  },
+  {
+    key := "poincare.test-class-monotonicity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_tests",
+    upstreamDecl := "Set inclusion",
+    upstreamFile := "Mathlib.Data.Set.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "chapter-2", "Poincare", "test-class", "monotonicity"],
+    saldUse := "restrict a PI package to a smaller core or downstream test class",
+    note := "Keeps probability normalization, constant, and admissibility unchanged."
   }
 ]
 

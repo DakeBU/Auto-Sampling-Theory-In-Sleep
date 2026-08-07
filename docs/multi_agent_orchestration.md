@@ -1,6 +1,46 @@
 # ASTIS Multi-Agent Orchestration Audit
 
-This note records the 2026-06-13 audit of recent SALD 6h loops.
+This note records the orchestration audit and the deterministic recovery layer
+added after replaying the CHEWI cycles 26--28 and the older SALD loops.
+
+## Current Control Plane
+
+Prompt prose is not the frontier authority.  Before creating a deck,
+`tools/astis_harness.py` scans the current Lean tree and emits a bounded
+`06_harness_capsule.json`.  It currently identifies `ASTIS-CHEWI-001` as the
+primary log-concave-sampling foundation and SALD/RMFLD as downstream
+consumers.  This prevents a stale SALD state or an old reviewer paragraph from
+reopening already compiled generator-integrability, Gibbs-tail, IBP, or
+generator-core leaves.
+
+The durable coordination rules are:
+
+- append-only JSONL uses a canonical-path `flock`, `fsync`, and interrupted
+  tail recovery;
+- complete snapshots use a temporary file plus atomic replacement;
+- role outputs are typed and stored separately;
+- typed-memory validation and append happen under one cross-process lock;
+- every analytic route is an immutable branch record with exact assumptions,
+  measure, spaces, regularity, domination, domains, citations, and siblings;
+- bounded prompt capsules retain exact structured fields and report omitted
+  record and serialized-character counts rather than using prose compaction;
+- a route key includes target statement, missing property, assumptions,
+  Mathlib candidates, and compiler-error class;
+- a changed candidate, subgoal, or compiled declaration counts as progress;
+- after two unchanged repeats beyond the first attempt, the route freezes for
+  reviewer diagnosis;
+- steering events precede followups, with FIFO order inside each class;
+- only transient provider/network failures are retried;
+- a started role without a terminal event is closed as interrupted before a
+  resumed deck proceeds.
+
+These policies are tested with faux providers, four-process JSONL writers,
+truncated records, and a shadow replay of the stale cycle-28 frontier:
+
+```bash
+python3 tools/astis.py harness-test
+python3 tools/astis.py harness-reconcile
+```
 
 ## Diagnosis
 

@@ -44,7 +44,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 270 := by native_decide
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 286 := by native_decide
 
 example (x : ℝ) :
     TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x =
@@ -70,6 +70,18 @@ example (x : ℝ) :
 example : ∃ C : ℝ, 0 < C ∧ ∀ x : ℝ,
     ‖deriv TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x‖ ≤ C :=
   TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_deriv_bounded
+
+example : Continuous
+    (deriv (deriv TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff)) :=
+  TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_continuous
+
+example : HasCompactSupport
+    (deriv (deriv TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff)) :=
+  TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_hasCompactSupport
+
+example : ∃ C : ℝ, 0 < C ∧ ∀ x : ℝ,
+    ‖deriv (deriv TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff) x‖ ≤ C :=
+  TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_bounded
 
 example {E : Type*} [NormedAddCommGroup E] {R : ℝ} (hR : 0 < R) {x : E}
     (hx : ‖x‖ ≤ R) :
@@ -98,6 +110,29 @@ example {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] :
           (TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R : E → ℝ) x‖
         ≤ C / R :=
   TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_fderiv_bound
+
+example {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+    [FiniteDimensional ℝ E] [Nontrivial E] :
+    ∃ C : ℝ, 0 < C ∧ ∀ R : ℝ, 0 < R → ∀ x : E,
+      ‖iteratedFDeriv ℝ 2
+        (TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R : E → ℝ) x‖ ≤
+          C / R ^ 2 :=
+  TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_iteratedFDeriv_two_bound
+
+example {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+    [FiniteDimensional ℝ E] (f : E → ℝ) (x : E) :
+    ‖Laplacian.laplacian f x‖ ≤
+      (Module.finrank ℝ E : ℝ) * ‖iteratedFDeriv ℝ 2 f x‖ :=
+  TechnicalLemmas.Analysis.Calculus.Laplacian.norm_laplacian_le_finrank_mul_norm_iteratedFDeriv_two
+    f x
+
+example {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+    [FiniteDimensional ℝ E] [Nontrivial E] :
+    ∃ C : ℝ, 0 < C ∧ ∀ R : ℝ, 0 < R → ∀ x : E,
+      ‖Laplacian.laplacian
+        (TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff R : E → ℝ) x‖ ≤
+          (Module.finrank ℝ E : ℝ) * (C / R ^ 2) :=
+  TechnicalLemmas.Analysis.Calculus.Laplacian.radialSmoothCutoff_laplacian_bound
 
 example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
     {R : ℝ} (hR : 0 < R) {x : E} (hx : 2 * R ≤ ‖x‖) :
@@ -2677,9 +2712,60 @@ example {E : Type*} [MeasurableSpace E]
   TechnicalLemmas.StochasticProcesses.WeakGenerator.isInvariantOn_of_integral_generator_eq_zero
     hP hA
 
+example {n : ℕ}
+    {V : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    {P : ℝ →
+      (EuclideanSpace ℝ (Fin (n + 1)) → ℝ) →
+        EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    {A :
+      (EuclideanSpace ℝ (Fin (n + 1)) → ℝ) →
+        EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hcore : TechnicalLemmas.StochasticProcesses.LangevinGenerator.CoreContract
+      V A (setOf TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2))
+    (hsemigroup :
+      TechnicalLemmas.StochasticProcesses.WeakGenerator.IntegratedSemigroupGeneratorContract
+        P A
+        (setOf TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2)
+        (MeasureTheory.volume.withDensity
+          (fun x =>
+            (∫⁻ y, TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V y
+              ∂MeasureTheory.volume)⁻¹ *
+              TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V x))) :
+    TechnicalLemmas.StochasticProcesses.WeakGenerator.IsInvariantOn P
+      (MeasureTheory.volume.withDensity
+        (fun x =>
+          (∫⁻ y, TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V y
+            ∂MeasureTheory.volume)⁻¹ *
+            TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V x))
+      (setOf TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2) :=
+  TechnicalLemmas.StochasticProcesses.LangevinGenerator.isInvariantOn_normalizedGibbs_on_compactlySupportedC2
+    hV hcore hsemigroup
+
 example :
     @TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar =
       @lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar := rfl
+
+example {E : Type*} [MeasurableSpace E] [NormedAddCommGroup E]
+    [InnerProductSpace ℝ E] [CompleteSpace E] (μ : Measure E) (f : E → ℝ) :
+    TechnicalLemmas.FunctionalInequalities.Poincare.dirichletEnergy μ f =
+      ∫ x, ‖gradient f x‖ ^ 2 ∂μ := rfl
+
+example {E : Type*} [MeasurableSpace E] [NormedAddCommGroup E]
+    [InnerProductSpace ℝ E] [CompleteSpace E]
+    {μ : Measure E} {tests : Set (E → ℝ)} {C D : ℝ}
+    (hC : TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies μ tests C)
+    (hCD : C ≤ D) :
+    TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies μ tests D :=
+  TechnicalLemmas.FunctionalInequalities.Poincare.mono_constant hC hCD
+
+example {E : Type*} [MeasurableSpace E] [NormedAddCommGroup E]
+    [InnerProductSpace ℝ E] [CompleteSpace E]
+    {μ : Measure E} {small large : Set (E → ℝ)} {C : ℝ}
+    (hC : TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies μ large C)
+    (hsub : small ⊆ large) :
+    TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies μ small C :=
+  TechnicalLemmas.FunctionalInequalities.Poincare.mono_tests hC hsub
 
 example :
     @TechnicalLemmas.ProbabilityDistributions.Gaussian.integral_id_gaussianReal_zero =

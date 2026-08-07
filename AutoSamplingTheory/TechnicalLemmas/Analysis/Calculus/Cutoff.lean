@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Yuanhe Zhang, Jason D. Lee, Fanghui Liu
 -/
 import Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension
+import Mathlib.Analysis.Calculus.ContDiff.Bounds
 import Mathlib.Analysis.Calculus.LocalExtr.Basic
 
 /-!
@@ -86,6 +87,27 @@ theorem smoothUnitCutoff_eq_zero_of_two_le_abs {x : ℝ} (hx : 2 ≤ |x|) :
 theorem smoothUnitCutoff_mem_Icc (x : ℝ) : smoothUnitCutoff x ∈ Set.Icc (0 : ℝ) 1 := by
   exact (ContDiffBumpBase.ofInnerProductSpace ℝ).mem_Icc 2 x
 
+/-- The one-dimensional unit cutoff has compact support. -/
+theorem smoothUnitCutoff_hasCompactSupport : HasCompactSupport smoothUnitCutoff := by
+  apply HasCompactSupport.of_support_subset_isCompact
+    (K := Set.Icc (-2 : ℝ) 2) isCompact_Icc
+  intro x hx
+  rw [Function.mem_support] at hx
+  simp only [Set.mem_Icc]
+  constructor
+  · by_contra hleft
+    push Not at hleft
+    apply hx
+    apply smoothUnitCutoff_eq_zero_of_two_le_abs
+    rw [abs_of_nonpos (by linarith : x ≤ 0)]
+    linarith
+  · by_contra hright
+    push Not at hright
+    apply hx
+    apply smoothUnitCutoff_eq_zero_of_two_le_abs
+    rw [abs_of_nonneg (by linarith : 0 ≤ x)]
+    linarith
+
 /-- The derivative of the one-dimensional unit cutoff is bounded by one
 positive constant.  The constant is chosen before any radial scale. -/
 theorem smoothUnitCutoff_deriv_bounded :
@@ -93,26 +115,35 @@ theorem smoothUnitCutoff_deriv_bounded :
   have hcont : Continuous (deriv smoothUnitCutoff) :=
     smoothUnitCutoff_contDiff.continuous_deriv
       (WithTop.coe_le_coe.mpr (le_top : (1 : ℕ∞) ≤ ⊤))
-  have hcutoff : HasCompactSupport smoothUnitCutoff := by
-    apply HasCompactSupport.of_support_subset_isCompact
-      (K := Set.Icc (-2 : ℝ) 2) isCompact_Icc
-    intro x hx
-    rw [Function.mem_support] at hx
-    simp only [Set.mem_Icc]
-    constructor
-    · by_contra hleft
-      push Not at hleft
-      apply hx
-      apply smoothUnitCutoff_eq_zero_of_two_le_abs
-      rw [abs_of_nonpos (by linarith : x ≤ 0)]
-      linarith
-    · by_contra hright
-      push Not at hright
-      apply hx
-      apply smoothUnitCutoff_eq_zero_of_two_le_abs
-      rw [abs_of_nonneg (by linarith : 0 ≤ x)]
-      linarith
-  obtain ⟨C, hC⟩ := hcutoff.deriv.exists_bound_of_continuous hcont
+  obtain ⟨C, hC⟩ :=
+    smoothUnitCutoff_hasCompactSupport.deriv.exists_bound_of_continuous hcont
+  exact ⟨max C 1, lt_max_of_lt_right one_pos, fun x =>
+    (hC x).trans (le_max_left C 1)⟩
+
+/-- The second derivative of the unit cutoff is continuous. -/
+theorem smoothUnitCutoff_secondDeriv_continuous :
+    Continuous (deriv (deriv smoothUnitCutoff)) := by
+  have htwo : ContDiff ℝ 2 smoothUnitCutoff :=
+    smoothUnitCutoff_contDiff.of_le
+      (WithTop.coe_le_coe.mpr (le_top : (2 : ℕ∞) ≤ ⊤))
+  have hzero : ContDiff ℝ 0 (deriv^[2] smoothUnitCutoff) :=
+    htwo.iterate_deriv' 0 2
+  simp only [Function.iterate_succ, Function.iterate_zero, Function.comp_apply] at hzero
+  exact hzero.continuous
+
+/-- The second derivative of the unit cutoff has compact support. -/
+theorem smoothUnitCutoff_secondDeriv_hasCompactSupport :
+    HasCompactSupport (deriv (deriv smoothUnitCutoff)) :=
+  smoothUnitCutoff_hasCompactSupport.deriv.deriv
+
+/-- One positive constant bounds the second derivative of the fixed unit
+cutoff.  The constant is chosen before any radial scale, which is the compact
+support input needed for a later `C / R^2` radial Hessian bound. -/
+theorem smoothUnitCutoff_secondDeriv_bounded :
+    ∃ C : ℝ, 0 < C ∧ ∀ x : ℝ, ‖deriv (deriv smoothUnitCutoff) x‖ ≤ C := by
+  obtain ⟨C, hC⟩ :=
+    smoothUnitCutoff_secondDeriv_hasCompactSupport.exists_bound_of_continuous
+      smoothUnitCutoff_secondDeriv_continuous
   exact ⟨max C 1, lt_max_of_lt_right one_pos, fun x =>
     (hC x).trans (le_max_left C 1)⟩
 
@@ -297,6 +328,63 @@ theorem radialSmoothCutoff_hasCompactSupport [NormedSpace ℝ E] [FiniteDimensio
   exact IsCompact.of_isClosed_subset
     (isCompact_closedBall (0 : E) (2 * R)) isClosed_closure
     (radialSmoothCutoff_tsupport_subset_closedBall hR)
+
+/-- A single positive constant controls the second iterated Fréchet
+derivative of every positive-scale radial cutoff by `C / R^2`.
+
+The proof first bounds the second derivative of the unit-scale radial cutoff
+using continuity and compact support.  It then writes the radius-`R` cutoff as
+the unit cutoff composed with scalar dilation and applies Mathlib's exact
+iterated-derivative composition rule for continuous linear maps. -/
+theorem radialSmoothCutoff_iteratedFDeriv_two_bound
+    [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [Nontrivial E] :
+    ∃ C : ℝ, 0 < C ∧ ∀ R : ℝ, 0 < R → ∀ x : E,
+      ‖iteratedFDeriv ℝ 2 (radialSmoothCutoff R : E → ℝ) x‖ ≤ C / R ^ 2 := by
+  have hunit_smooth : ContDiff ℝ (⊤ : ℕ∞)
+      (radialSmoothCutoff 1 : E → ℝ) :=
+    radialSmoothCutoff_contDiff one_pos
+  have hunit_continuous : Continuous
+      (iteratedFDeriv ℝ 2 (radialSmoothCutoff 1 : E → ℝ)) :=
+    hunit_smooth.continuous_iteratedFDeriv
+      (WithTop.coe_le_coe.mpr (le_top : (2 : ℕ∞) ≤ ⊤))
+  have hunit_support : HasCompactSupport
+      (iteratedFDeriv ℝ 2 (radialSmoothCutoff 1 : E → ℝ)) :=
+    (radialSmoothCutoff_hasCompactSupport one_pos).iteratedFDeriv 2
+  obtain ⟨C, hC⟩ :=
+    hunit_support.exists_bound_of_continuous hunit_continuous
+  let C' : ℝ := max C 1
+  have hC'_pos : 0 < C' := lt_max_of_lt_right one_pos
+  refine ⟨C', hC'_pos, ?_⟩
+  intro R hR x
+  let L : E →L[ℝ] E := R⁻¹ • ContinuousLinearMap.id ℝ E
+  have hL_norm : ‖L‖ ≤ 1 / R := by
+    refine L.opNorm_le_bound (by positivity) ?_
+    intro y
+    simp only [L, ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply]
+    rw [norm_smul, Real.norm_eq_abs, abs_inv, abs_of_pos hR]
+    simp [one_div]
+  have hfun : (radialSmoothCutoff R : E → ℝ) =
+      (radialSmoothCutoff 1 : E → ℝ) ∘ L := by
+    funext y
+    simp only [radialSmoothCutoff, Function.comp_apply, L,
+      ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply, div_one]
+    rw [norm_smul, Real.norm_eq_abs, abs_inv, abs_of_pos hR]
+    ring_nf
+  rw [hfun]
+  rw [L.iteratedFDeriv_comp_right hunit_smooth x
+    (i := 2) (WithTop.coe_le_coe.mpr (le_top : (2 : ℕ∞) ≤ ⊤))]
+  calc
+    ‖(iteratedFDeriv ℝ 2 (radialSmoothCutoff 1 : E → ℝ) (L x)).compContinuousLinearMap
+        (fun _ => L)‖ ≤
+        ‖iteratedFDeriv ℝ 2 (radialSmoothCutoff 1 : E → ℝ) (L x)‖ *
+          ∏ _ : Fin 2, ‖L‖ :=
+      ContinuousMultilinearMap.norm_compContinuousLinearMap_le _ _
+    _ = ‖iteratedFDeriv ℝ 2 (radialSmoothCutoff 1 : E → ℝ) (L x)‖ * ‖L‖ ^ 2 := by
+      simp
+    _ ≤ C' * (1 / R) ^ 2 := by
+      gcongr
+      exact (hC (L x)).trans (le_max_left C 1)
+    _ = C' / R ^ 2 := by ring
 
 /-- At each fixed point, the positive-scale radial cutoffs tend to one as the scale diverges. -/
 theorem radialSmoothCutoff_tendsto_one (x : E) :

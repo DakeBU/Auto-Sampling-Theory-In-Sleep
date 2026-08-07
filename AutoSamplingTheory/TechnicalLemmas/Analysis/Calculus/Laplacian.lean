@@ -1,3 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff
 import Mathlib.Analysis.InnerProductSpace.Laplacian
 
 /-!
@@ -72,6 +73,49 @@ theorem continuous_laplacian_of_contDiff_two
   have h2 : Continuous (fun x : E => iteratedFDeriv ℝ 2 f x) := by
     exact (hf.iteratedFDeriv_right (m := 0) (i := 2) (by norm_num)).continuous
   exact (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ v).continuous.comp h2
+
+/-- The Laplacian is bounded by dimension times the operator norm of the
+second iterated Fréchet derivative.
+
+The dimension factor comes only from summing the diagonal evaluations in a
+standard orthonormal basis.  This is a pointwise finite-dimensional trace
+bound; it assumes no compact support or integrability. -/
+theorem norm_laplacian_le_finrank_mul_norm_iteratedFDeriv_two
+    {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+    [FiniteDimensional ℝ E] (f : E → ℝ) (x : E) :
+    ‖Laplacian.laplacian f x‖ ≤
+      (Module.finrank ℝ E : ℝ) * ‖iteratedFDeriv ℝ 2 f x‖ := by
+  rw [congrFun (InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis f) x]
+  calc
+    ‖∑ i, iteratedFDeriv ℝ 2 f x
+        ![(stdOrthonormalBasis ℝ E) i, (stdOrthonormalBasis ℝ E) i]‖ ≤
+        ∑ i, ‖iteratedFDeriv ℝ 2 f x
+          ![(stdOrthonormalBasis ℝ E) i, (stdOrthonormalBasis ℝ E) i]‖ :=
+      norm_sum_le _ _
+    _ ≤ ∑ _i : Fin (Module.finrank ℝ E), ‖iteratedFDeriv ℝ 2 f x‖ := by
+      gcongr with i
+      simpa using
+        (iteratedFDeriv ℝ 2 f x).le_opNorm
+          ![(stdOrthonormalBasis ℝ E) i, (stdOrthonormalBasis ℝ E) i]
+    _ = (Module.finrank ℝ E : ℝ) * ‖iteratedFDeriv ℝ 2 f x‖ := by
+      simp
+
+/-- Positive-scale radial cutoff Laplacians have the expected `R^-2` bound,
+with the finite-dimensional trace factor shown explicitly. -/
+theorem radialSmoothCutoff_laplacian_bound
+    {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+    [FiniteDimensional ℝ E] [Nontrivial E] :
+    ∃ C : ℝ, 0 < C ∧ ∀ R : ℝ, 0 < R → ∀ x : E,
+      ‖Laplacian.laplacian
+        (Cutoff.radialSmoothCutoff R : E → ℝ) x‖ ≤
+          (Module.finrank ℝ E : ℝ) * (C / R ^ 2) := by
+  obtain ⟨C, hC, hbound⟩ :=
+    Cutoff.radialSmoothCutoff_iteratedFDeriv_two_bound (E := E)
+  refine ⟨C, hC, ?_⟩
+  intro R hR x
+  exact (norm_laplacian_le_finrank_mul_norm_iteratedFDeriv_two
+    (Cutoff.radialSmoothCutoff R : E → ℝ) x).trans
+      (mul_le_mul_of_nonneg_left (hbound R hR x) (Nat.cast_nonneg _))
 
 end Laplacian
 end Calculus

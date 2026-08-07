@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral
 
 /-!
@@ -77,6 +78,42 @@ theorem integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2
   rw [Langevin.integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport
     hV hf.1 hf.2]
   simp
+
+/-- A semigroup satisfying the integrated-generator contract on the
+compactly supported `C²` core preserves normalized Gibbs expectations on that
+core.
+
+This theorem composes the concrete Gibbs integration-by-parts identity with
+the abstract semigroup-to-invariance bridge.  The semigroup contract remains
+an explicit hypothesis: no Langevin SDE, Markov semigroup, core closure, or
+measure-determining extension is constructed here. -/
+theorem isInvariantOn_normalizedGibbs_on_compactlySupportedC2
+    {n : ℕ}
+    {V : EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    {P : ℝ →
+      (EuclideanSpace ℝ (Fin (n + 1)) → ℝ) →
+        EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    {generator :
+      (EuclideanSpace ℝ (Fin (n + 1)) → ℝ) →
+        EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
+    (hV : ContDiff ℝ 1 V)
+    (hcore : CoreContract V generator (setOf CompactlySupportedC2))
+    (hsemigroup : WeakGenerator.IntegratedSemigroupGeneratorContract
+      P generator (setOf CompactlySupportedC2)
+      (volume.withDensity
+        (fun x =>
+          (∫⁻ y, Measure.Gibbs.gibbsDensityENNReal V y ∂volume)⁻¹ *
+            Measure.Gibbs.gibbsDensityENNReal V x))) :
+    WeakGenerator.IsInvariantOn P
+      (volume.withDensity
+        (fun x =>
+          (∫⁻ y, Measure.Gibbs.gibbsDensityENNReal V y ∂volume)⁻¹ *
+            Measure.Gibbs.gibbsDensityENNReal V x))
+      (setOf CompactlySupportedC2) := by
+  refine WeakGenerator.isInvariantOn_of_integral_generator_eq_zero hsemigroup ?_
+  intro f hf
+  rw [hcore.generator_eq_operator_on_core f hf]
+  exact integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2 hV hf
 
 end LangevinGenerator
 end StochasticProcesses

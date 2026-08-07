@@ -826,7 +826,7 @@ def render_home(chapters: list[dict[str, object]], entries: list[RegistryEntry])
     integration by parts, operator domains, and invariance remain separate red nodes.</p>
     <a class="text-link" href="frontier.html">Inspect the strict boundary →</a>
   </div>
-  {diagram_block("current-frontier", "Current Chapter 1 frontier. Blue means compiled ASTIS declarations; red means unfinished mathematical edges.")}
+  {diagram_block("current-frontier", "Current Chapter 1–2 frontier. Blue means compiled ASTIS declarations; red means unfinished mathematical edges.")}
 </section>
 <section>
   <div class="section-heading"><span>Book map</span><h2>Twelve connected chapters</h2></div>
@@ -923,7 +923,13 @@ def render_chapter(
         module_links.append(
             f'<a href="../modules/{slugify(str(module))}.html"><code>{esc(module)}</code></a>'
         )
-    graph = diagram_block("chapter-01-dag", "Chapter 1 local dependency DAG.") if int(chapter["number"]) == 1 else diagram_block("shared-root-dag", "Shared ASTIS roots used across chapters.")
+    chapter_number = int(chapter["number"])
+    if chapter_number == 1:
+        graph = diagram_block("chapter-01-dag", "Chapter 1 local dependency DAG.")
+    elif chapter_number == 2:
+        graph = diagram_block("chapter-02-dag", "Chapter 2 functional-inequality dependency DAG.")
+    else:
+        graph = diagram_block("shared-root-dag", "Shared ASTIS roots used across chapters.")
     body = f"""
 <section class="page-hero compact chapter-hero">
   <div class="eyebrow">Chapter {int(chapter["number"]):02d} · source pp. {esc(chapter["source_pages"])}</div>
@@ -1395,7 +1401,8 @@ def render_dependency_explorer(entries: list[RegistryEntry]) -> str:
 <section><h2>Book spine</h2>{diagram_block("chapter-spine", "Chapter-level learning dependencies.")}</section>
 <section><h2>Shared-root DAG</h2>{diagram_block("shared-root-dag", "Reusable roots are displayed once and tagged by mathematical role.")}</section>
 <section><h2>Chapter 1</h2>{diagram_block("chapter-01-dag", "Cutoff, integrability, weighted IBP, domains, and invariance remain separate nodes.")}</section>
-<section><h2>Current frontier</h2>{diagram_block("current-frontier", "The current statement-audit boundary after Cycle 28.")}</section>
+<section><h2>Chapter 2</h2>{diagram_block("chapter-02-dag", "The compiled Poincare interface is separated from external criteria and downstream theorem packages.")}</section>
+<section><h2>Current frontier</h2>{diagram_block("current-frontier", "The current source-derived statement-audit boundary.")}</section>
 <section><h2>Cutoff theorem packet</h2>{diagram_block("cutoff-packet", "A local theorem-level DAG.")}</section>
 <section><div class="section-heading"><span>Generated dependency signal</span><h2>Most reused Registry leaves</h2></div>
 <p class="muted">Consumers are conservatively inferred from direct declaration-name references in ASTIS source. Namespace-qualified tactic indirection may make the count an under-approximation.</p>
@@ -1469,7 +1476,7 @@ def render_frontier(entries_by_short: dict[str, RegistryEntry]) -> str:
     body = f"""
 <section class="page-hero compact"><div class="eyebrow">Strict mathematical boundary</div>
 <h1>Roadmap and Current Frontier</h1><p class="lede">The site preserves both the user-supplied Cycle 26 historical snapshot and the later compiled worktree truth. It does not roll the repository back.</p></section>
-{diagram_block("current-frontier", "Blue nodes compiled in Cycles 26–28; red nodes remain mathematically distinct.")}
+{diagram_block("current-frontier", "Blue nodes compile locally; red nodes remain mathematically distinct.")}
 <section><h2>Cycle ledger</h2><div class="table-wrap"><table><thead><tr><th>Cycle</th><th>Registry count</th><th>Closed edge</th><th>Status</th></tr></thead><tbody>{rows}</tbody></table></div></section>
 <section class="two-column">
   <div><h2>Blue cutoff-limit leaves</h2><div class="decl-links">{''.join(links)}</div>
@@ -2552,6 +2559,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "milestone-status",
         "module-family-map",
         "source-to-lean",
+        "chapter-02-dag",
     }
     for name in required_diagrams:
         source = DIAGRAMS / f"{name}.mmd"

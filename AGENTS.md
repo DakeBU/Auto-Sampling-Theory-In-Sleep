@@ -14,7 +14,9 @@ The gate runs the Lake build and scans for fake proof closures.
 
 ## Operating Loop
 
-1. Pick one task from `tasks/` or `AutoSamplingTheory/Automation.lean`.
+1. Run `python3 tools/astis.py harness-reconcile`.  For the main textbook
+   program, select only its dependency-ready leaf; do not recover a frontier
+   from an old prose handoff.
 2. Maintain a conversion window when translating between LaTeX, Markdown, and
    Lean.
 3. Keep source labels indexed under `research-wiki/source-index/`.
@@ -33,6 +35,46 @@ The gate runs the Lake build and scans for fake proof closures.
 8. Log serious attempts with `tools/astis.py trial-log`.  Failed or partial
    lower attempts must include typed verifier feedback, for example
    `--feedback-field leaf=... --feedback-field error_class=...`.
+
+## Deterministic Harness State
+
+`tools/astis_harness.py` is the authority for coordination state that prompts
+must not improvise.  It derives the CHEWI frontier from current Lean
+declarations, records the CHEWI foundation/SALD consumer relationship, and
+provides cross-process locked JSONL, atomic publication, interrupted-run
+recovery, statement-header fences, typed memory, immutable proof branches,
+bounded exact-field capsules, and route fingerprints.  Typed-memory duplicate
+and supersession checks happen in the same lock transaction as publication.
+
+Every generated run contains `06_harness_capsule.json`.  Read it before old
+trial notes.  Upper, middle, lower, and reviewer publish separate typed files
+under `runs/<run>/artifacts/<role>/`; one role must never overwrite another
+role's artifact.  The required contents are:
+
+| Role | Typed artifact | Required evidence |
+|---|---|---|
+| upper | `analytic_contract` | exact statement, all assumptions, measure/codomain, source, dependencies |
+| middle | `formalization_map` | Lean header, local/Mathlib candidates, hypothesis mapping, rejected mismatches |
+| lower | `proof_attempt` | one leaf, statement hash, focused compile, exact residual subgoal |
+| reviewer | `review` | independent assumptions/source audit, fake-closure scan, Lean gate |
+
+Capsule compaction may omit old records, but it may not paraphrase exact
+assumptions, measures, spaces, domains, source anchors, or compiler evidence.
+
+Use append-only typed memory kinds `analytic_contract`,
+`integrability_source`, `domination`, `measurability`, `domain`,
+`ibp_boundary`, `failed_path`, and `verified_lemma`.  Supersession must name
+the replaced record; it must not rewrite history.  After the first attempt and
+two unchanged repeats of the same route fingerprint and progress signature,
+freeze the route for reviewer diagnosis.  Retry only transient provider or
+network failures; Lean proof/type errors are mathematical/API feedback.
+
+Harness checks:
+
+```bash
+python3 tools/astis.py harness-test
+python3 tools/astis.py harness-reconcile --write-state
+```
 
 ## Mathlib-Ready Leaf Lemma Protocol
 

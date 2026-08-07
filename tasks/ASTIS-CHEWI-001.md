@@ -108,14 +108,37 @@ Existing compiled families remain canonical until generalized:
 
 ## Active Chapter 1 Frontier
 
-The current source edge is Example 1.2.8 -> Corollary 1.2.9.  Locally compiled
-blue nodes include the generator display, finite-box divergence and zero-face
-handoffs, smooth local/exact-support cutoffs, compact-in-open and Pi-box
-plateaus, and a compactly supported radial cutoff family converging pointwise to
-one.  The next red nodes are scaled first/Hessian/Laplacian cutoff estimates,
-integrable domination and Gibbs-tail passage, whole-space weighted integration
-by parts, and generator/semigroup domain semantics.  Do not mark the invariant
-Gibbs law blue before both the analytic and operator-domain branches compile.
+The current source edge is Example 1.2.8 -> Corollary 1.2.9.  The finite-
+dimensional analytic branch is blue through concrete generator integrability,
+Gibbs-tail convergence, whole-space weighted integration by parts, the
+`C_c^2` generator core, normalized Gibbs core annihilation, and a conditional
+semigroup-to-core-invariance theorem.  The remaining main-line boundary is a
+concrete Langevin Markov semigroup plus a semigroup-stable domain/core
+extension; Mathlib currently supplies no ready SDE/Markov-semigroup
+construction, so this is an external/upstream dependency rather than a lower-
+agent proof-ready leaf.
+
+The independent cutoff branch is also blue through a positive global bound on
+the fixed unit cutoff's second derivative, the radial second iterated Frechet
+derivative `C / R^2` scaling theorem, and the corresponding Laplacian bound
+with explicit finite-dimensional trace factor.  There is no remaining
+dependency-ready local leaf in this audited Chapter 1 graph.  Do not mark the
+invariant Gibbs law blue before a concrete evolution and its operator-domain
+extension compile.
+
+## Chapter 2 Foundation
+
+`TechnicalLemmas/FunctionalInequalities/Poincare.lean` now provides the
+compiled local Poincaré interface: variance, Dirichlet energy, the exact
+integrability domain, probability normalization, an explicit test class,
+nonnegativity, inequality elimination, and monotonicity in both the constant
+and test class.  These are reusable blue leaves, not evidence that a concrete
+Gibbs measure satisfies the inequality.
+
+The Bakry–Émery route depends on the external-blocked concrete semigroup and
+domain package from Chapter 1.  The localization route is independently
+external, and dimension-sharp log-concave isoperimetry remains blocked behind
+it.  None of these broad results is currently a lower-agent-ready leaf.
 
 ## Visualization And Retrieval Artifacts
 

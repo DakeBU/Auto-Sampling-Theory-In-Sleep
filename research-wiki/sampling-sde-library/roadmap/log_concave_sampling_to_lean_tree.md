@@ -57,8 +57,8 @@ growth path is:
   Gibbs/source-field `Integrable` premise, and generic cutoff main-term dominated convergence;
 - the compact-support whole-space divergence theorem and Gibbs-weighted identity
   `integral exp(-V) Lf = 0` for `C_c^2` tests are compiled;
-- add second-order cutoff estimates only when a named Hessian/Laplacian consumer
-  requires them;
+- reuse the compiled `O(R⁻²)` radial Hessian/Laplacian estimates when a
+  named second-order consumer reaches the frontier;
 - the explicit core-domain contract and abstract semigroup pairing derivative
   bridge compile; next instantiate them for the actual Langevin evolution and
   prove the domain extension before stating the invariant Gibbs law;

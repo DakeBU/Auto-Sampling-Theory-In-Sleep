@@ -68,11 +68,9 @@
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities"
     ],
     "blockers": [
-      "Concrete generator-display integrability and weighted-score integrability",
-      "Gibbs tail packet",
-      "Whole-space weighted integration by parts",
-      "Generator and semigroup domains",
-      "Invariant Gibbs law"
+      "Concrete Langevin Markov semigroup construction (external/upstream dependency)",
+      "Semigroup-stable generator-domain extension beyond the compiled C_c^2 core",
+      "Full invariant Gibbs law and measure-determining extension"
     ],
     "consumers": [
       "Mixing estimates throughout Chapters 2–8",
@@ -114,7 +112,7 @@
       "log-Sobolev constant"
     ],
     "core_definitions": [
-      "Poincaré inequality: variance is controlled by Dirichlet energy.",
+      "Poincaré inequality: variance is controlled by Dirichlet energy; the compiled local interface records probability normalization, its test class, and all three integrability requirements explicitly.",
       "Log-Sobolev inequality: relative entropy is controlled by Fisher information.",
       "Talagrand transport inequalities compare relative entropy with Wasserstein distance.",
       "Isoperimetric and concentration profiles quantify boundary expansion and tail decay."
@@ -145,9 +143,11 @@
     "lean_modules": [
       "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
       "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
-      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities"
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare"
     ],
     "blockers": [
+      "Bakry–Émery Poincaré criterion, pending a concrete semigroup/generator domain",
       "Full localization theorem",
       "Dimension-sharp log-concave isoperimetry",
       "Complete perturbation hierarchy"

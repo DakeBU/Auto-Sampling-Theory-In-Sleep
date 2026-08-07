@@ -12,6 +12,7 @@ import argparse
 import csv
 import datetime as _dt
 import html
+import io
 import json
 import os
 import re
@@ -20,6 +21,8 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+
+import astis_harness as harness
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -390,8 +393,7 @@ def read_text(path: Path) -> str:
 def write_if_missing(path: Path, text: str) -> bool:
     if path.exists():
         return False
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    harness.atomic_write_text(path, text)
     print(f"initialized {rel(path)}")
     return True
 
@@ -399,14 +401,12 @@ def write_if_missing(path: Path, text: str) -> bool:
 def write_new(path: Path, text: str) -> None:
     if path.exists():
         raise SystemExit(f"refusing to overwrite existing file: {rel(path)}")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    harness.atomic_write_text(path, text)
     print(f"wrote {rel(path)}")
 
 
 def write_text(path: Path, text: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    harness.atomic_write_text(path, text)
     print(f"wrote {rel(path)}")
 
 
@@ -427,25 +427,19 @@ def copy_text_if_exists(source: Path, destination: Path) -> bool:
 
 def append_line(path: Path, line: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as handle:
-        handle.write(line + "\n")
+    with harness.file_lock(path.resolve()):
+        with path.open("a", encoding="utf-8") as handle:
+            handle.write(line + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
 
 
 def append_jsonl(path: Path, record: dict) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(record, sort_keys=True, ensure_ascii=False) + "\n")
+    harness.append_jsonl(path, record)
 
 
 def load_jsonl(path: Path) -> list[dict]:
-    if not path.exists():
-        return []
-    records = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        records.append(json.loads(line))
-    return records
+    return harness.load_jsonl(path)
 
 
 def load_feedback_payload(args: argparse.Namespace) -> dict:
@@ -485,13 +479,12 @@ def load_feedback_payload(args: argparse.Namespace) -> dict:
 
 def load_state() -> dict:
     if not STATE_FILE.exists():
-        return {"version": 1, "active_task": "ASTIS-SALD-001", "last_check": None}
+        return {"version": 2, "active_task": "ASTIS-CHEWI-001", "last_check": None}
     return json.loads(read_text(STATE_FILE))
 
 
 def save_state(state: dict) -> None:
-    STATE_DIR.mkdir(parents=True, exist_ok=True)
-    STATE_FILE.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    harness.atomic_write_text(STATE_FILE, json.dumps(state, indent=2, sort_keys=True) + "\n")
 
 
 def ensure_manifest() -> None:
@@ -641,8 +634,13 @@ def cmd_init(_: argparse.Namespace) -> int:
         write_if_missing(path, text)
     ensure_manifest()
     state = load_state()
-    state.setdefault("version", 1)
-    state.setdefault("active_task", "ASTIS-SALD-001")
+    state["version"] = 2
+    if state.get("active_task") in {None, "", "ASTIS-SALD-001"}:
+        state["active_task"] = "ASTIS-CHEWI-001"
+    state["task_relationship"] = {
+        "primary_foundation": "ASTIS-CHEWI-001",
+        "downstream_consumers": ["ASTIS-SALD-001", "ASTIS-RMFLD-001"],
+    }
     state["initialized_at"] = state.get("initialized_at") or now_stamp()
     save_state(state)
     add_manifest("astis.py init", ROOT / "ASTIS.md", "init", "Initialized ASTIS workflow state")
@@ -1004,6 +1002,15 @@ def blueprint_control_state(task_id: str) -> dict:
         r"appendix\.tex:1379-1387",
         r"appendix\.tex:1358-1366",
     ]) or dynamic_leaf
+    if task_id == "ASTIS-CHEWI-001":
+        frontier = harness.reconcile_frontier(ROOT)
+        selected = frontier.get("selected_ready_leaf")
+        if selected:
+            dynamic_leaf = (
+                f"{selected['node_id']}: {selected['label']}; missing declarations: "
+                + ", ".join(selected["missing_declarations"])
+            )
+            illness_area = dynamic_leaf
     if task_id == "ASTIS-SALD-001":
         system_of_record = [
             "AutoSamplingTheory/SALD.lean",
@@ -3879,7 +3886,7 @@ flowchart TD
   J1S[closed outer region<br/>totalized fderiv = 0]:::blue
   JP[PiLp cutoff derivative<br/>chain-rule bridge]:::blue
   JT[smulRight basis trace<br/>equals derivative on field]:::blue
-  J2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::red
+  J2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::blue
   K[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   KS[Gibbs source-field<br/>integrability]:::blue
   KM[generic main-term<br/>dominated convergence]:::blue
@@ -3912,7 +3919,7 @@ flowchart TD
 | display algebra | pointwise generator, weighted display, coordinate sum conventions | none for finite-dimensional pointwise algebra |
 | regularity | global `C¹/C²` gives gradient continuity, Laplacian continuity, scalar `ContinuousOn`, and Pi-field `HasFDerivAt` with Mathlib `fderiv` | closed-box/local regularity variants if later needed |
 | finite boxes | trace `IntegrableOn`, a.e. trace bridge, trace-to-coordinate transfer, signed face-term wrapper | none for the compact-support whole-space route |
-| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, pointwise exhaustion, one-constant-for-all-scales `O(R⁻¹)` first-derivative control, closed outer-region derivative vanishing, and finite-Pi derivative/trace consumer bridges | `O(R⁻²)` Hessian/Laplacian bounds only when a named second-order consumer requires them |
+| cutoffs | local/exact support, compact-in-open and Pi-box plateaus, radial compact support, pointwise exhaustion, `O(R⁻¹)` first-derivative control, and `O(R⁻²)` second-derivative/Laplacian control | no cutoff estimate is a semigroup-domain theorem |
 | whole-space passage | compact-support whole-space divergence and Gibbs-weighted `integral exp(-V) Lf = 0` for `C_c^2` tests, plus generic cutoff/tail infrastructure | stronger noncompact test classes when a consumer requires them |
 | operator bridge | C_c^2 core/domain agreement, normalized-Gibbs core annihilation, and abstract semigroup/domain-to-invariance theorem compile | instantiate the contract for the Langevin evolution and extend mean-zero to its stable domain |
 | invariant law | abstract implication is compiled | concrete Langevin semigroup contract or an equivalent uniqueness theorem |
@@ -3939,9 +3946,10 @@ flowchart TD
   to one, a general compact-in-open smooth plateau theorem, a bounded unit-cutoff
   derivative, the totalized `fderiv` bound for `x -> ||x|| / R`, a single
   constant controlling every radial first derivative by `C / R`, and zero
-  totalized derivative throughout the closed outer region `2R <= ||x||`.
-  The finite-Pi generic `L¹` consumer is compiled in `Divergence.lean`;
-  second-order estimates are added only for named consumers.
+  totalized derivative throughout the closed outer region `2R <= ||x||`, and
+  a single constant controlling every radial second iterated derivative by
+  `C / R^2`.  The finite-dimensional Laplacian trace bound is compiled in
+  `Analysis/Calculus/Laplacian.lean`.
 - `AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Divergence.lean`
   contains the finite coordinate-divergence convention, Euclidean/Pi `WithLp`
   trace bridge, the radial-cutoff `toLp` derivative producer, the standard-basis
@@ -4264,7 +4272,7 @@ flowchart TD
   DERIV1[scale-uniform fderiv<br/>O(R^-1)]:::blue
   DSUP[closed outer region<br/>totalized fderiv = 0]:::blue
   PIB[PiLp derivative and<br/>smulRight trace bridges]:::blue
-  DERIV2[Hessian/Laplacian<br/>O(R^-2)]:::red
+  DERIV2[Hessian/Laplacian<br/>O(R^-2)]:::blue
   TAIL[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
   SOURCEINT[Gibbs source-field<br/>integrability]:::blue
   MAINCONV[generic main-term<br/>dominated convergence]:::blue
@@ -4652,8 +4660,8 @@ ARSENAL_MODULE_SUMMARIES: dict[str, dict[str, str]] = {
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff": {
         "layer": "Mathlib-ready technical lemma",
-        "summary": "smooth unit and radial cutoffs, range bounds, support control, compact support, pointwise exhaustion, compact-in-open plateaus, scale-uniform radial first-derivative control, and closed outer-region totalized-fderiv vanishing",
-        "status": "compiled ANALYSIS/REG/SDE base through O(R^-1) fderiv and the closed outer derivative-zero leaf; its finite-Pi generic L1 consumer is compiled in Divergence, while Hessian/Laplacian estimates remain separate until a named consumer requires them",
+        "summary": "smooth unit and radial cutoffs, range bounds, support control, compact support, pointwise exhaustion, compact-in-open plateaus, and scale-uniform first- and second-derivative control",
+        "status": "compiled ANALYSIS/REG/SDE base through O(R^-1) fderiv and O(R^-2) second iterated derivative; the finite-dimensional Laplacian trace consumer is compiled in Laplacian",
     },
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient": {
         "layer": "Mathlib-ready technical lemma",
@@ -5080,8 +5088,8 @@ growth path is:
   Gibbs/source-field `Integrable` premise, and generic cutoff main-term dominated convergence;
 - the compact-support whole-space divergence theorem and Gibbs-weighted identity
   `integral exp(-V) Lf = 0` for `C_c^2` tests are compiled;
-- add second-order cutoff estimates only when a named Hessian/Laplacian consumer
-  requires them;
+- reuse the compiled `O(R⁻²)` radial Hessian/Laplacian bounds when a
+  second-order consumer reaches the frontier;
 - the explicit core-domain contract and abstract semigroup pairing derivative
   bridge compile; next instantiate them for the actual Langevin evolution and
   prove the domain extension before stating the invariant Gibbs law;
@@ -6342,34 +6350,24 @@ def sald_cycle_focus(cycle: int) -> str:
 
 
 def chewi_cycle_focus(cycle: int) -> str:
-    priorities = [
-        (
-            "chapter map and shared-root lock",
-            f"Keep `{rel(LOG_CONCAVE_OVERVIEW_MD)}`, the chapter DAG, and the blue/red status tree synchronized. No proof work should bypass the shared roots.",
-        ),
-        (
-            "CONV/MEAS Prekopa-Leindler port audit",
-            "Use Mathlib first and `Lean-Asymptotic-Statistical-Theory/ForMathlib/PrekopaLeindler.lean` as provenance only. Select one smallest local ASTIS-owned lemma.",
-        ),
-        (
-            "DENS/CONV nonquadratic Gibbs envelope",
-            "Generalize from exact quadratic normalizers toward coercive lower-potential envelopes for normalized Gibbs laws.",
-        ),
-        (
-            "SDE/DENS/FI invariant Gibbs and KL/FI dissipation",
-            "Translate the Langevin invariant-measure and generator-dissipation statements into explicit weak-generator, integration-by-parts, and regularity contracts.",
-        ),
-        (
-            "PATH/GAUSS path-space change of measure",
-            "Extend the compiled finite-dimensional Gaussian/Girsanov cylinder leaves toward Brownian path-space RN derivatives only through explicit source contracts.",
-        ),
-        (
-            "DISC consumer pressure test",
-            "Use LMC/proximal/MALA only to identify missing shared roots. Do not formalize an algorithm theorem before its analytic leaves compile locally.",
-        ),
-    ]
-    title, body = priorities[(max(cycle, 1) - 1) % len(priorities)]
-    return f"Log-concave sampling foundation cycle: {title}. {body}"
+    frontier = harness.reconcile_frontier(ROOT)
+    selected = frontier.get("selected_ready_leaf")
+    if not selected:
+        return (
+            "Log-concave sampling foundation: no dependency-ready red leaf was found. "
+            "Reviewer must reconcile the current Lean inventory before assigning proof search."
+        )
+    dependencies = ", ".join(selected["dependencies"]) or "none"
+    missing = ", ".join(selected["missing_declarations"])
+    return (
+        f"Log-concave sampling source-derived frontier for cycle {cycle}: "
+        f"`{selected['node_id']}` ({selected['label']}). Dependencies already compiled: "
+        f"{dependencies}. Missing local declaration(s): {missing}. Upper must provide the exact "
+        "mathematical/source contract; middle must map it to current ASTIS/Mathlib APIs; lower may "
+        "attempt only one smaller dependency-ready declaration; reviewer must reject a contract-only "
+        "or external result presented as a local proof. Independent optional leaves may run only when "
+        "they cannot edit the same module and are explicitly marked non-blocking."
+    )
 
 
 def task_cycle_focus(task_id: str, cycle: int) -> str:
@@ -6492,6 +6490,8 @@ def role_prompt(
 ) -> str:
     task_contract = compact_task_context(task_id, title, task_text, cycle)
     displayed_role = role_name or role
+    role_contract = harness.ROLE_CONTRACTS[role]
+    typed_artifact = run_dir / "artifacts" / role / f"{displayed_role}.json"
     shared = f"""Task: {task_id} - {title}
 Cycle: {cycle}
 Role: {displayed_role}
@@ -6523,6 +6523,21 @@ Recent trial memory:
 ```
 
 Compact context pack: `{rel(run_dir / "05_context_pack.md")}`
+Deterministic harness capsule: `{rel(run_dir / "06_harness_capsule.json")}`
+
+Typed role artifact: `{rel(typed_artifact)}`
+
+- Artifact type: `{role_contract['artifact']}`
+- JSON fields: {", ".join(harness.ROLE_ARTIFACT_FIELDS[role])}
+- Required fields: {"; ".join(role_contract['must_supply'])}
+- Tool snapshot: {", ".join(role_contract['tools'])}
+
+Read the deterministic capsule before historical notes. If they disagree,
+the current Lean inventory and capsule frontier win. Publish only your role's
+typed artifact; do not overwrite another role's packet. Keep assumptions,
+measure, codomain, source anchor, statement-header hash, and verifier status
+explicit. A proof failure is not retryable unless its error is a transient
+provider/network failure.
 
 ```text
 {context_pack}
@@ -6807,6 +6822,20 @@ def prompt_role(path: Path) -> str:
     return "lower"
 
 
+def validate_prompt_artifact(run_dir: Path, prompt: Path) -> tuple[Path, list[str]]:
+    role = prompt_role(prompt)
+    path = run_dir / "artifacts" / role / f"{prompt_role_label(prompt)}.json"
+    if not path.exists():
+        return path, ["typed role artifact was not published"]
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return path, [f"invalid typed role artifact JSON: {exc}"]
+    if not isinstance(value, dict):
+        return path, ["typed role artifact must be a JSON object"]
+    return path, harness.validate_role_artifact(role, value)
+
+
 def create_run_cycle(
     task_id: str,
     cycle: int,
@@ -6823,6 +6852,7 @@ def create_run_cycle(
     run_dir = make_run_dir(task_id, cycle, run_id)
     run_dir.mkdir(parents=True, exist_ok=False)
     context_pack = build_context_pack(task_id, title, task_text, cycle)
+    capsule = harness.deterministic_capsule(ROOT)
     context = (
         "# Context\n\n"
         f"Task: `{task_id}`\n"
@@ -6831,11 +6861,14 @@ def create_run_cycle(
         f"Focus: {task_cycle_focus(task_id, cycle)}\n"
         f"Compact context pack: `{rel(run_dir / '05_context_pack.md')}`\n"
     )
-    (run_dir / "00_context.md").write_text(context, encoding="utf-8")
-    (run_dir / "05_context_pack.md").write_text(context_pack, encoding="utf-8")
-    (run_dir / "dialogue.md").write_text(
+    harness.atomic_write_text(run_dir / "00_context.md", context)
+    harness.atomic_write_text(run_dir / "05_context_pack.md", context_pack)
+    harness.atomic_write_text(
+        run_dir / "06_harness_capsule.json",
+        json.dumps(capsule, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+    )
+    harness.atomic_write_text(run_dir / "dialogue.md",
         f"# Dialogue: {task_id} cycle {cycle}\n\nAppend short role-tagged handoffs here.\n",
-        encoding="utf-8",
     )
     roles = [
         UPPER_DIRECTOR_ROLE,
@@ -6848,6 +6881,7 @@ def create_run_cycle(
     prompt_paths = []
     for role_name in roles:
         role = base_agent_role(role_name)
+        (run_dir / "artifacts" / role).mkdir(parents=True, exist_ok=True)
         if role == "upper":
             if role_name == UPPER_DIRECTOR_ROLE:
                 prefix = "10_upper_director"
@@ -6872,12 +6906,11 @@ def create_run_cycle(
             else:
                 prefix = f"49_{role_name}"
         prompt_path = run_dir / f"{prefix}.md"
-        prompt_path.write_text(
+        harness.atomic_write_text(prompt_path,
             role_prompt(role, task_id, title, task_text, cycle, run_dir, context_pack, role_name=role_name, lower_count=lower_count),
-            encoding="utf-8",
         )
         prompt_paths.append(prompt_path)
-    (run_dir / "90_handoff.md").write_text(
+    harness.atomic_write_text(run_dir / "90_handoff.md",
         f"""# Handoff
 
 Task id: `{task_id}`
@@ -6893,8 +6926,16 @@ Cycle: `{cycle}`
 
 ## Next Cycle Objective
 """,
-        encoding="utf-8",
     )
+    append_jsonl(run_dir / "harness-events.jsonl", {
+        "schema_version": harness.HARNESS_SCHEMA_VERSION,
+        "event": "cycle_created",
+        "timestamp": harness.utc_stamp(),
+        "task_id": task_id,
+        "cycle": cycle,
+        "selected_ready_leaf": capsule.get("selected_ready_leaf"),
+        "prompt_order": [path.name for path in prompt_paths],
+    })
     append_jsonl(TRIAL_LOG, {
         "timestamp": now_stamp(),
         "trial_id": f"{run_dir.name}-prompt-deck",
@@ -7052,6 +7093,10 @@ def latest_cycle_number(task_id: str) -> int:
 def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> int:
     final_code = 0
     active_agent_seconds = 0.0
+    event_log = run_dir / "harness-events.jsonl"
+    interrupted = harness.recover_run_events(event_log)
+    if interrupted:
+        print(f"recovered {len(interrupted)} interrupted role execution(s)")
     prompts = cycle_prompt_paths(
         run_dir,
         args.skip_reviewer,
@@ -7066,12 +7111,39 @@ def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> 
             while index < len(prompts) and prompt_role(prompts[index]) == "lower":
                 lower_prompts.append(prompts[index])
                 index += 1
+            for lower_prompt in lower_prompts:
+                append_jsonl(event_log, {
+                    "schema_version": harness.HARNESS_SCHEMA_VERSION,
+                    "event": "role_started",
+                    "timestamp": harness.utc_stamp(),
+                    "execution_id": f"{run_dir.name}-{lower_prompt.stem}",
+                    "task_id": args.task,
+                    "cycle": cycle,
+                    "role": prompt_role_label(lower_prompt),
+                    "prompt": rel(lower_prompt),
+                })
             results = run_agent_commands_parallel(args.agent_cmd, lower_prompts, run_dir, args.task, cycle)
             for result in results:
                 elapsed = float(result["elapsed"])
                 code = int(result["code"])
+                artifact_path, artifact_errors = validate_prompt_artifact(run_dir, result["prompt"])
+                if code == 0 and artifact_errors:
+                    code = 2
                 active_agent_seconds += elapsed
                 status = "accepted" if code == 0 else "failed"
+                append_jsonl(event_log, {
+                    "schema_version": harness.HARNESS_SCHEMA_VERSION,
+                    "event": "role_completed" if code == 0 else "role_failed",
+                    "timestamp": harness.utc_stamp(),
+                    "execution_id": f"{run_dir.name}-{result['prompt'].stem}",
+                    "task_id": args.task,
+                    "cycle": cycle,
+                    "role": prompt_role_label(result["prompt"]),
+                    "exit_code": code,
+                    "active_agent_seconds": elapsed,
+                    "typed_artifact": rel(artifact_path),
+                    "artifact_errors": artifact_errors,
+                })
                 append_jsonl(TRIAL_LOG, {
                     "timestamp": now_stamp(),
                     "trial_id": f"{run_dir.name}-{result['prompt'].stem}",
@@ -7085,7 +7157,8 @@ def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> 
                     "notes": (
                         f"Parallel external agent command exit code {code}. "
                         f"active_agent_seconds={elapsed:.1f}. "
-                        f"log={rel(result['log_path'])}."
+                        f"log={rel(result['log_path'])}. "
+                        f"typed_artifact_errors={artifact_errors}."
                     ),
                 })
                 write_trial_summary(load_jsonl(TRIAL_LOG))
@@ -7094,11 +7167,37 @@ def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> 
             if final_code != 0:
                 break
             continue
+        append_jsonl(event_log, {
+            "schema_version": harness.HARNESS_SCHEMA_VERSION,
+            "event": "role_started",
+            "timestamp": harness.utc_stamp(),
+            "execution_id": f"{run_dir.name}-{prompt.stem}",
+            "task_id": args.task,
+            "cycle": cycle,
+            "role": prompt_role_label(prompt),
+            "prompt": rel(prompt),
+        })
         started = time.monotonic()
         code = run_agent_command(args.agent_cmd, prompt, run_dir, args.task, cycle)
         elapsed = time.monotonic() - started
+        artifact_path, artifact_errors = validate_prompt_artifact(run_dir, prompt)
+        if code == 0 and artifact_errors:
+            code = 2
         active_agent_seconds += elapsed
         status = "accepted" if code == 0 else "failed"
+        append_jsonl(event_log, {
+            "schema_version": harness.HARNESS_SCHEMA_VERSION,
+            "event": "role_completed" if code == 0 else "role_failed",
+            "timestamp": harness.utc_stamp(),
+            "execution_id": f"{run_dir.name}-{prompt.stem}",
+            "task_id": args.task,
+            "cycle": cycle,
+            "role": prompt_role_label(prompt),
+            "exit_code": code,
+            "active_agent_seconds": elapsed,
+            "typed_artifact": rel(artifact_path),
+            "artifact_errors": artifact_errors,
+        })
         append_jsonl(TRIAL_LOG, {
             "timestamp": now_stamp(),
             "trial_id": f"{run_dir.name}-{prompt.stem}",
@@ -7109,7 +7208,10 @@ def execute_prompt_deck(args: argparse.Namespace, run_dir: Path, cycle: int) -> 
             "lean_gate": "not-run",
             "artifact": rel(prompt),
             "changed_files": git_changed_files(),
-            "notes": f"External agent command exit code {code}. active_agent_seconds={elapsed:.1f}.",
+            "notes": (
+                f"External agent command exit code {code}. active_agent_seconds={elapsed:.1f}. "
+                f"typed_artifact_errors={artifact_errors}."
+            ),
         })
         write_trial_summary(load_jsonl(TRIAL_LOG))
         if code != 0:
@@ -9984,8 +10086,8 @@ def is_git_worktree() -> bool:
 
 
 def write_trial_summary(records: list[dict]) -> None:
-    TRIAL_SUMMARY.parent.mkdir(parents=True, exist_ok=True)
-    with TRIAL_SUMMARY.open("w", newline="", encoding="utf-8") as handle:
+    handle = io.StringIO(newline="")
+    try:
         fieldnames = [
             "index",
             "timestamp",
@@ -10038,6 +10140,30 @@ def write_trial_summary(records: list[dict]) -> None:
                 "next_route": feedback.get("next_route", ""),
                 "notes": record.get("notes", ""),
             })
+        harness.atomic_write_text(TRIAL_SUMMARY, handle.getvalue())
+    finally:
+        handle.close()
+
+
+def cmd_route_attempt(args: argparse.Namespace) -> int:
+    fingerprint = harness.route_fingerprint(
+        target_statement=args.target_statement,
+        missing_property=args.missing_property,
+        assumptions=args.assumption,
+        mathlib_candidates=args.mathlib_candidate,
+        compiler_error_class=args.compiler_error_class,
+    )
+    record = harness.record_route_attempt(
+        STATE_DIR / "route-attempts.jsonl",
+        task_id=args.task,
+        leaf_id=args.leaf,
+        fingerprint=fingerprint,
+        candidate=args.candidate,
+        exact_subgoal=args.exact_subgoal,
+        compiled_declarations=args.compiled_declaration,
+    )
+    print(json.dumps(record, indent=2, ensure_ascii=False))
+    return 2 if record["decision"] == "freeze_for_review" else 0
 
 
 def cmd_trial_log(args: argparse.Namespace) -> int:
@@ -10092,6 +10218,63 @@ def cmd_status(_: argparse.Namespace) -> int:
     return run(["git", "status", "--short"])
 
 
+def cmd_harness_reconcile(args: argparse.Namespace) -> int:
+    frontier = harness.reconcile_frontier(ROOT)
+    if args.write_state:
+        state = load_state()
+        state["version"] = 2
+        state["active_task"] = frontier["active_program"]
+        state["task_relationship"] = frontier["task_relationship"]
+        state["frontier"] = {
+            "reconciled_at": frontier["generated_at"],
+            "selected_ready_leaf": (
+                frontier["selected_ready_leaf"]["node_id"]
+                if frontier["selected_ready_leaf"] else None
+            ),
+            "status": {
+                node["node_id"]: node["local_status"] for node in frontier["nodes"]
+            },
+        }
+        save_state(state)
+    if args.output:
+        output = Path(args.output)
+        if not output.is_absolute():
+            output = ROOT / output
+        harness.atomic_write_text(
+            output,
+            json.dumps(frontier, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+        )
+    if args.json:
+        print(json.dumps(frontier, indent=2, ensure_ascii=False))
+    else:
+        print(f"active program: {frontier['active_program']}")
+        for node in frontier["nodes"]:
+            print(f"{node['local_status']:8s} {node['node_id']}: {node['label']}")
+        selected = frontier["selected_ready_leaf"]
+        print("selected ready leaf: " + (selected["node_id"] if selected else "none"))
+    return 0
+
+
+def cmd_harness_recover(args: argparse.Namespace) -> int:
+    path = Path(args.path)
+    if not path.is_absolute():
+        path = ROOT / path
+    if args.run_events:
+        interrupted = harness.recover_run_events(path)
+        print(f"closed interrupted executions: {len(interrupted)}")
+        for execution_id in interrupted:
+            print(f"- {execution_id}")
+    else:
+        records, recovered = harness.recover_jsonl(path)
+        print(f"records: {len(records)}")
+        print(f"truncated interrupted tail: {str(recovered).lower()}")
+    return 0
+
+
+def cmd_harness_test(_: argparse.Namespace) -> int:
+    return run([sys.executable, "-m", "unittest", "discover", "-s", "tools/tests", "-v"])
+
+
 def cmd_proof_diagnostics(_: argparse.Namespace) -> int:
     print(json.dumps(lean_diagnostics(), indent=2, sort_keys=True))
     return 0
@@ -10142,6 +10325,32 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("list-literature").set_defaults(func=cmd_list_literature)
     sub.add_parser("list-tasks").set_defaults(func=cmd_list_tasks)
     sub.add_parser("next-task").set_defaults(func=cmd_next_task)
+
+    harness_reconcile = sub.add_parser("harness-reconcile")
+    harness_reconcile.add_argument("--json", action="store_true")
+    harness_reconcile.add_argument("--output", default="")
+    harness_reconcile.add_argument("--write-state", action="store_true")
+    harness_reconcile.set_defaults(func=cmd_harness_reconcile)
+
+    harness_recover = sub.add_parser("harness-recover")
+    harness_recover.add_argument("path")
+    harness_recover.add_argument("--run-events", action="store_true")
+    harness_recover.set_defaults(func=cmd_harness_recover)
+
+    sub.add_parser("harness-test").set_defaults(func=cmd_harness_test)
+
+    route_attempt = sub.add_parser("route-attempt")
+    route_attempt.add_argument("--task", required=True)
+    route_attempt.add_argument("--leaf", required=True)
+    route_attempt.add_argument("--target-statement", required=True)
+    route_attempt.add_argument("--missing-property", required=True)
+    route_attempt.add_argument("--assumption", action="append", default=[])
+    route_attempt.add_argument("--mathlib-candidate", action="append", default=[])
+    route_attempt.add_argument("--compiler-error-class", required=True)
+    route_attempt.add_argument("--candidate", required=True)
+    route_attempt.add_argument("--exact-subgoal", required=True)
+    route_attempt.add_argument("--compiled-declaration", action="append", default=[])
+    route_attempt.set_defaults(func=cmd_route_attempt)
 
     context_pack = sub.add_parser("write-context-pack")
     context_pack.add_argument("task")

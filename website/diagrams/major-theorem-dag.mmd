@@ -5,12 +5,18 @@ flowchart TD
   GibbsLC["logConcaveOn_normalized_gibbsDensity..."]:::compiled
   Generator["finiteEuclidean_langevinGenerator_coordinateDisplay"]:::compiled
   Cutoff["radialSmoothCutoff_tendsto_one"]:::compiled
-  FiniteIBP["finite-box divergence + cutoff limits"]:::partial
-  Tails["concrete Gibbs tails / integrability"]:::blocked
-  WholeIBP["whole-space weighted integration by parts"]:::blocked
-  Domains["generator and semigroup domains"]:::blocked
+  FiniteIBP["finite-box divergence + cutoff limits"]:::compiled
+  Tails["concrete Gibbs tails / integrability"]:::compiled
+  WholeIBP["whole-space weighted integration by parts"]:::compiled
+  CoreInvariant["C_c² core annihilation + conditional invariance"]:::compiled
+  Semigroup["concrete Langevin semigroup"]:::blocked
+  Domains["semigroup-stable domain extension"]:::blocked
   Invariant["Gibbs invariant law"]:::blocked
-  FI["PI / LSI theorem packages"]:::partial
+  PI["Poincare typed interface"]:::compiled
+  BE["Bakry--Emery PI criterion"]:::blocked
+  Loc["localization theorem"]:::blocked
+  Iso["sharp log-concave isoperimetry"]:::blocked
+  FI["LSI / transport theorem packages"]:::partial
   Mixing["continuous-time mixing"]:::planned
   LMC["LMC discretization and rate"]:::planned
 
@@ -21,9 +27,16 @@ flowchart TD
   Cutoff --> FiniteIBP
   FiniteIBP --> WholeIBP
   Tails --> WholeIBP
-  WholeIBP --> Invariant
+  WholeIBP --> CoreInvariant
+  CoreInvariant --> Semigroup
+  Semigroup --> Domains
   Domains --> Invariant
   Normalize --> Invariant
+  PI --> BE
+  PI --> Loc --> Iso
+  Semigroup --> BE
+  BE --> FI
+  Iso --> FI
   Invariant --> Mixing
   FI --> Mixing
   Mixing --> LMC
