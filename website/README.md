@@ -1,33 +1,27 @@
-# ASTIS literate formalization website
+# Samplinglib website
 
-This directory contains the maintainable sources for the generated
-Auto-Sampling-Theory-In-Sleep website. The site follows the actual ASTIS
-sampling/SDE modules and the twelve-chapter *Log-Concave Sampling* route.
-Generated output is written to the ignored `_site/` directory.
+Samplinglib is the public formal library, learning environment, and
+verification surface maintained by Auto-Sampling-Theory-In-Sleep (ASTIS).
+This directory contains the maintainable website source. Generated output is
+written to the ignored `_site/` directory.
 
 ## Source of truth
 
-The Python standard-library generator combines:
+`tools/astis_site.py` deterministically combines:
 
-- every project Lean module, import, named declaration, source line, docstring,
-  and placeholder signal;
-- `AutoSamplingTheory/TechnicalLemmas/Registry.lean` for selected reusable
-  leaf provenance and Registry cards;
-- `Tests/Basic.lean` for the Registry baseline;
-- `content/chapters.json` for the textbook chapter route;
-- `content/source_correspondence.json` for exact Chewi source anchors;
-- `content/teaching_declarations.json` for the small set of manually reviewed
-  teaching declarations;
-- `content/milestones.json` for mathematical-route status;
-- editable Mermaid sources under `diagrams/`;
-- a source-bound Lean gate record under ignored
-  `.astis/site-lean-gate.json`.
+- all project Lean modules, imports, declarations, source lines, docstrings,
+  and placeholder signals;
+- `AutoSamplingTheory/TechnicalLemmas/Registry.lean` and `Tests/Basic.lean`;
+- chapter, source-correspondence, milestone, and reviewed teaching metadata in
+  `website/content/`;
+- editable Mermaid sources in `website/diagrams/`;
+- source-bound Lean gate evidence in ignored `.astis/site-lean-gate.json`.
 
-Local declaration status and mathematical route status are independent.
-Compiling a helper declaration never marks an incomplete textbook theorem as
-formalized.
+Local declaration status and mathematical-route status remain independent.
+Task cards, prose, metadata, and a well-typed proposition do not count as a
+proof.
 
-## Rebuild
+## Build
 
 From the repository root:
 
@@ -37,121 +31,94 @@ python3 website/scripts/build_site.py
 python3 website/scripts/check_site.py
 ```
 
-`lean_gate.py` runs the canonical `python3 tools/astis.py check` gate, which
-builds the Lean library and `Tests` and scans for fake proof closures. It writes
-gate evidence only after success. The site refuses to display “Lean gate
-passed” when that evidence is absent or does not match the current commit and
-Lean-source digest.
+The generated site includes the overview, twelve-chapter learning path,
+implementation map, exhaustive declaration and module catalogs, reviewed
+teaching pages, roadmap, ASTIS workflow, attribution, and Live Formalization
+workspace. Search, source anchors, status, diagrams, and source links are all
+checked before publication.
 
-The established commands remain available:
+## Live Formalization
+
+Static GitHub Pages supports LaTeX rendering, reviewed mappings, library
+navigation, dependency inspection, and ASTIS packet export. It cannot execute
+Lean or call a formalizer.
+
+Local verified mode adds a deterministic ASTIS formalization adapter and the
+pinned Lean compiler:
 
 ```bash
-python3 tools/astis.py site-build
-python3 tools/astis.py site-check
+python3 website/scripts/build_site.py
+python3 website/scripts/ide_server.py
+# http://127.0.0.1:8088/live/
 ```
 
-## Generated pages
+The server is deliberately loopback-only. It limits request size and runtime,
+serializes compiler work, uses a temporary directory, does not alter repository
+source, and does not log submitted source bodies. It is a development service,
+not a public execution sandbox.
 
-- Overview;
-- Sampling/SDE Implementation Map;
-- Guided Learning Path and twelve textbook chapters;
-- exhaustive Declaration Catalog and search index;
-- one page for every Lean module and stable declaration anchors;
-- reviewed declaration explanations and Registry leaf cards;
-- Progress and Roadmap;
-- ASTIS Automation Workflow;
-- Attribution and build metadata.
+The workspace never merges these states:
 
-All named declarations enter the catalog. Only selected interfaces receive
-long mathematical explanations; internal helper lemmas receive source,
-status, module, and exact-line metadata without generated mathematical prose.
+- candidate translation;
+- Lean elaboration or compilation;
+- semantic review;
+- proof status;
+- reviewer acceptance.
 
-## Status rules
+Unsupported formulas remain unresolved and can be exported with
+`analytic_contract`, `formalization_map`, `proof_attempt`, and `review`
+boundaries for ASTIS decomposition. No provider credentials are sent to the
+browser.
 
-Local status:
+## Authenticated private preview
 
-- `Compiled`: accepted by gate evidence for the exact Lean source digest;
-- `Partial`: real local source, but the current generated build has no matching
-  gate evidence or the object is only part of a larger interface;
-- `Stated/incomplete`: `sorry`, `admit`, `axiom`, or an explicitly incomplete
-  contract boundary;
-- `External/upstream dependency`: not an ASTIS-owned local certificate.
-
-Route status:
-
-- `Compiled`, `Partial`, `Planned`, or `Blocked`, as recorded in reviewed
-  milestone metadata;
-- external source and port dependencies remain explicit.
-
-Task cards, natural-language theorem cards, proof obligations, and compiled
-metadata structures do not count as theorem proofs.
-
-## Source links
-
-The build inspects the current Git commit, ref, origin, remote refs, and dirty
-files. By default, source links point to checked site-local module anchors and
-are labeled `local preview source`; this avoids public 404s for a private
-repository. After verifying that the remote is public, set
-`ASTIS_PUBLIC_SOURCE_LINKS=1`. Clean Lean files at a remote-published commit
-then link to that exact SHA, while modified or untracked files remain local.
-The generator never assumes checkout content already exists on `main`.
-
-## Private preview
-
-Credentials must come from environment variables:
+Set both credentials in the remote shell before starting local verified mode:
 
 ```bash
 export ASTIS_PREVIEW_USER='reviewer'
 export ASTIS_PREVIEW_PASSWORD='generate-a-secret-outside-git'
-python3 website/scripts/serve_preview.py
+python3 website/scripts/ide_server.py --port 8087
 ```
 
-The default address is `http://127.0.0.1:8765/`. Neither credential is written
-to generated output or committed files.
-
-When `cloudflared` is installed, a temporary authenticated review tunnel can
-be opened with:
+The same process then protects both static pages and `/api/*` with Basic Auth.
+Forward it from a local computer:
 
 ```bash
-python3 website/scripts/quick_tunnel.py
+ssh -N -o ExitOnForwardFailure=yes \
+  -L 127.0.0.1:18087:127.0.0.1:8087 USER@SERVER
+curl -I http://127.0.0.1:18087/  # 401 Unauthorized
+cloudflared tunnel --url http://127.0.0.1:18087
 ```
 
-A Cloudflare Quick Tunnel is temporary and has no uptime, hostname, or
-production-security guarantee. It is not the formal deployment.
+Keep the preview server, SSH forward, and `cloudflared` process running. A
+`trycloudflare.com` URL is temporary and is not a production deployment.
+Credentials must never be committed.
+
+For a static-only authenticated preview, `website/scripts/serve_preview.py`
+remains available with the same environment variables.
+
+## Source links and gate rules
+
+The build checks the current commit, ref, remotes, and dirty files. Source
+links use site-local declaration anchors by default. Set
+`ASTIS_PUBLIC_SOURCE_LINKS=1` only after confirming the remote is public; clean
+files then link to the exact published commit SHA, never assumed `main`.
+
+`lean_gate.py` writes evidence only after the canonical ASTIS check succeeds.
+The site refuses to show “Lean gate passed” when the evidence does not match
+the current commit and Lean-source digest.
+
+`check_site.py` rejects stale gate claims, Registry/test drift, unknown
+metadata declarations, incomplete inventories, missing anchors, broken links,
+unpinned source links, missing formulas/diagrams/assets, leaked paths, and
+missing public/system identity markers.
 
 ## CI and Pages
 
-`.github/workflows/blueprint-site.yml` installs the pinned Lean toolchain,
-runs the canonical Lean/Tests/consistency gate, compiles the Python tools,
-builds and validates the site, uploads the Pages artifact, and deploys it on
-non-PR runs. GitHub Pages must still be enabled for Actions in the repository
-settings; the workflow does not invent a successful URL before deployment.
+`.github/workflows/blueprint-site.yml` runs Python and JavaScript contract
+checks, harness tests, the Lean gate, site generation, site validation, and
+Pages artifact creation. Pages receives only `_site/`; the loopback compiler
+server is never deployed.
 
-The same checked `_site/` tree can be packaged for the private Sites project:
-
-```bash
-python3 website/scripts/build_sites_bundle.py \
-  --archive /tmp/astis-sites.tar.gz
-```
-
-This creates an ignored `.open-next/` directory containing the static assets
-and a minimal asset-serving Worker. It does not regenerate mathematical
-content or replace the GitHub Pages artifact. The archive must be created
-after the exact source commit has passed the Lean gate.
-
-## Validation
-
-`check_site.py` rejects:
-
-- stale or fabricated Lean gate claims;
-- Registry/test count drift;
-- unknown declarations in teaching, milestone, or source metadata;
-- an incomplete declaration/module/search inventory;
-- missing stable anchors or broken internal links/fragments;
-- source links pinned to `main` or to the wrong commit;
-- missing formulas, Lean code, Mermaid sources, static assets, or attribution;
-- leaked absolute Windows paths.
-
-Website prose must remain original ASTIS writing. The public Chewi draft is
-summarized and linked by precise source correspondence; long source passages
-must not be copied into metadata.
+Website prose is original Samplinglib/ASTIS exposition. Chewi's public draft
+is summarized with source correspondence rather than copied at length.

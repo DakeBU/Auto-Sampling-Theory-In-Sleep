@@ -1,652 +1,185 @@
+<div align="center">
+
 # Auto-Sampling-Theory-In-Sleep
 
-Auto-Sampling-Theory-In-Sleep (ASTIS) is a Lean reconstruction of
-[`Log-Concave Sampling`](https://chewisinho.github.io/main.pdf).
-The public target is this textbook route: chapter order, theorem statements,
-constants, cited background, and the regularity assumptions that the prose
-leaves implicit.
+### A Hierarchical Automated Theorem Proving System for Sampling Theory
 
-Other papers and external Lean repositories are reference material.  They are
-used only to clarify a cited background result, borrow a proof pattern, or
-identify a Mathlib-ready leaf.  A fact becomes blue only when this repository
-owns a compiled Lean declaration and records it in the registry.
 
-## News
+[![Samplinglib](https://img.shields.io/badge/Samplinglib-verified_sampling_theory-155EEF?style=flat-square)](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
+[![Lean 4](https://img.shields.io/badge/Lean-4-6B4FBB?style=flat-square)](https://lean-lang.org/)
+[![Mathlib](https://img.shields.io/badge/Mathlib-pinned_revision-008F78?style=flat-square)](https://mathlib.org/)
+[![Samplinglib site](https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/actions/workflows/blueprint-site.yml/badge.svg)](https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/actions/workflows/blueprint-site.yml)
 
-**Blueprint-style textbook and formalization site.** ASTIS now includes a
-generated static site that organizes Sinho Chewi's *Log-Concave Sampling* as
-three linked reading depths:
+[**Samplinglib**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
+· [**Lean Registry**](AutoSamplingTheory/TechnicalLemmas/Registry.lean)
+· [**System Architecture**](docs/multi_agent_orchestration.md)
 
-- **Calculation Route** for the textbook's concepts, formulas, and proof
-  calculations;
-- **Rigorous Details** for measurability, integrability, approximation,
-  boundary, representative, regularity, and operator-domain conditions
-  suppressed by concise prose;
-- **Lean Foundations** for exact declarations, statements, source lines,
-  dependencies, consumers, Registry records, and tests.
+</div>
 
-The site also provides a twelve-chapter spine, source correspondence,
-implementation map, split dependency graphs, current formalization progress,
-and source-derived Chapter 1–2 frontiers. Status is generated from the Registry,
-Lean source, and tests rather than copied into HTML. No public deployment URL
-is claimed until GitHub Pages or the review deployment has actually completed.
+ASTIS represents mathematical proofs as source-backed, reusable dependency
+DAGs. Specialized agents coordinate mathematical planning, formal
+decomposition, Lean implementation, and independent verification. The first
+major program reconstructs Sinho Chewi's
+[*Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) while building
+reusable formal memory for future sampling-theory problems.
 
-[Website sources and maintenance guide](website/README.md)
+---
 
-| Item | Current status |
-|---|---|
-| primary source | `https://chewisinho.github.io/main.pdf` |
-| local source copy | `outer_papers/sampling_theory_sde/Chewi-Log-Concave-Sampling/main.pdf` |
-| compiled local technical leaves | 286 |
-| active frontier | Chapter 1 analytic/cutoff branches are blue through radial `O(R^-2)` bounds; Chapter 2 now has a typed Poincaré interface with explicit test and integrability domains |
-| newest closed edge | Poincaré variance/energy, explicit probability and integrability domain, inequality elimination, and constant/test-class monotonicity leaves |
-| next red edge | concrete Langevin semigroup/domain construction for the Bakry–Émery route, or an independently sourced localization theorem |
+## News 🔥
 
-## Visual Index
+- **July 2026** — Released the first user-facing version of
+  [**Samplinglib**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/),
+  connecting the textbook route, rigorous analytic details, Lean declarations,
+  and source-backed verification.
+- **June 2026** — Completed the first version of
+  **Auto-Sampling-Theory-In-Sleep (ASTIS)**, the hierarchical automated theorem
+  proving system for sampling theory.
 
-Start with the diagrams, then open the exact Lean file or registry row.
+---
 
-| Need | Diagram/table | Source of truth |
-|---|---|---|
-| whole project shape | [One-screen map](#one-screen-map) | this README |
-| chapter coverage | [Chapter spine](#chapter-spine), [Chapter dashboard](#chapter-dashboard) | roadmap plus lemma DAG |
-| reusable Lean roots | [Shared root graph](#shared-root-graph), [Root matrix](#root-matrix) | module cards and imports |
-| current proof frontier | [Chapter 1 proof chain](#chapter-1-proof-chain), [Chapter 2 subtree](#other-theorem-subtrees) | `StochasticProcesses.LangevinGenerator`, `FunctionalInequalities.Poincare` |
-| exact next tasks | [Current red queue](#current-red-queue) | README, DAG, run packet |
-| compiled declarations | [File map](#file-map) | `AutoSamplingTheory/TechnicalLemmas/Registry.lean` |
-| student textbook site | [Website build and maintenance](#blueprint-style-textbook-site) | Registry, Lean source, Tests, `website/content/` |
+## Core Contributions ◆
 
-Color rule:
+### 1. Hierarchical Automated Theorem Proving Harness
 
-| Color | Meaning | Gate |
-|---|---|---|
-| blue | compiled local declaration or compiled local module family | `lake build Tests`, registry |
-| red | named missing proof obligation | DAG/README until compiled locally |
-| yellow | theorem package or downstream consumer | navigation only |
-| gray | source/citation contract | textbook and cited sources |
+ASTIS is not a single model writing tactics. It maintains a typed proof state
+across four cooperating levels:
 
-Rendered snapshots:
+- **Upper** audits sources, assumptions, state spaces, measures, regularity,
+  boundaries, failed routes, and the shared proof DAG.
+- **Middle** is the natural-mathematics ↔ Lean boundary. It fixes statements,
+  hypotheses, source anchors, local lemmas, Mathlib candidates, rejected API
+  matches, and a ready Lean leaf DAG.
+- **Lower** separates proof-route scouting, Lean implementation, and focused
+  local/Mathlib retrieval for one leaf at a time.
+- **Reviewers** independently check source fidelity, hidden assumptions,
+  statement drift, fake closure, Lean evidence, and repeated low-value work.
 
-![Textbook-to-Lean foundation](docs/assets/log_concave_sampling_foundation.svg)
+The deterministic harness preserves typed artifacts, immutable proof branches,
+cross-process locks, exact-field memory, interrupted-run recovery, route
+fingerprints, and compiler feedback.
 
-![Blue/red status](docs/assets/log_concave_sampling_status.svg)
+### 2. Samplinglib: Verified Memory for Sampling Theory
 
-![Lean module ownership](docs/assets/astis_lean_arsenal_module_graph.svg)
+**Samplinglib** is the public Lean library, learning environment, and
+verification surface produced and maintained by ASTIS. It begins with a
+formal reconstruction of *Log-Concave Sampling*, but organizes the resulting
+measure theory, probability, functional inequalities, stochastic processes,
+SDE, Langevin, and sampler interfaces for reuse beyond one textbook.
 
-## One-Screen Map
+---
+
+## System Architecture ◇
 
 ```mermaid
-flowchart LR
-  PDF[primary textbook<br/>chapters + citations]:::gray
-  Contract[formal contract<br/>statement + hidden hypotheses]:::contract
-  Root[shared Lean root<br/>MEAS / DENS / CONV / CALC / SDE]:::root
-  Leaf[small Lean leaf<br/>one reusable declaration]:::blue
-  Registry[registry + tests<br/>blue gate]:::blue
-  Theorem[textbook theorem<br/>consumer package]:::consumer
-  Red[missing hypothesis<br/>next red leaf]:::red
+flowchart TB
+  Source["Paper · textbook · research problem<br/>LaTeX and natural-language mathematics"]:::source
 
-  PDF --> Contract --> Root --> Leaf --> Registry --> Theorem
-  Contract --> Red
-  Red -. narrowed in next cycle .-> Contract
+  subgraph Upper["UPPER · mathematical planning"]
+    UM["source and assumptions"]
+    UD["proof DAG"]
+    UX["process and failure memory"]
+    UO["upper director"]
+    UM --> UO
+    UD --> UO
+    UX --> UO
+  end
 
-  classDef gray fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
-  classDef contract fill:#fff7ed,stroke:#f97316,color:#431407,stroke-width:2px;
-  classDef root fill:#e0f2fe,stroke:#0284c7,color:#0f172a,stroke-width:2px;
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef consumer fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
+  AC["analytic_contract"]:::artifact
+
+  subgraph Middle["MIDDLE · formal decomposition"]
+    MS["source correspondence"]
+    MR["Samplinglib / Mathlib retrieval"]
+    MF["middle formalizer"]
+    MS --> MF
+    MR --> MF
+  end
+
+  FM["formalization_map"]:::artifact
+  Queue["Lean leaf DAG · ready queue"]:::queue
+
+  subgraph Lower["LOWER · one formal leaf"]
+    L1["proof scout"]
+    L2["Lean worker"]
+    L3["API / lemma scout"]
+  end
+
+  PA["proof_attempt"]:::artifact
+  Lean["Pinned Lean compiler"]:::lean
+
+  subgraph Review["INDEPENDENT REVIEW"]
+    RG["source · assumptions · Lean gate"]
+    RW["route · duplication · waste audit"]
+  end
+
+  RV["review"]:::artifact
+  Registry["Samplinglib Registry<br/>verified reusable formal memory"]:::registry
+
+  Source --> Upper --> AC --> Middle --> FM --> Queue --> Lower --> PA --> Lean --> Review --> RV
+  RV -->|accepted| Registry
+  RV -->|exact subgoal / API failure| Middle
+  RV -->|statement / route failure| Upper
+  Registry -. reusable lemmas .-> Middle
+
+  classDef source fill:#172033,stroke:#172033,color:#fff,stroke-width:2px;
+  classDef artifact fill:#ECE6FF,stroke:#6938EF,color:#172033,stroke-width:1.5px;
+  classDef queue fill:#DCEBFF,stroke:#155EEF,color:#172033,stroke-width:1.5px;
+  classDef lean fill:#DCFAE6,stroke:#087443,color:#172033,stroke-width:1.5px;
+  classDef registry fill:#DCEBFF,stroke:#155EEF,color:#172033,stroke-width:2px;
 ```
 
-## Chapter Spine
+The conversion window is bidirectional:
 
-The textbook is reconstructed chapter by chapter.  Later sampler chapters are
-kept as consumers until the shared roots they need are blue.
-
-```mermaid
-flowchart TD
-  Book[Log-Concave Sampling]:::book
-
-  C1[1 Langevin diffusion<br/>active finite-box IBP route]:::active
-  C2[2 Functional inequalities<br/>PI LSI TI concentration]:::mixed
-  C3[3 Stochastic analysis<br/>Girsanov Doob Follmer bridges]:::mixed
-  C4[4 Langevin Monte Carlo<br/>first sampler consumer]:::mixed
-  C5[5 Faster low-accuracy samplers<br/>midpoint HMC underdamped]:::todo
-  C6[6 Renyi convergence<br/>density algebra + path route]:::mixed
-  C7[7 High-accuracy samplers<br/>MH MALA warm starts]:::todo
-  C8[8 Proximal sampler<br/>RGO + time reversal]:::mixed
-  C9[9 Lower bounds<br/>oracle/query models]:::todo
-  C10[10 Structured sampling<br/>SG coordinate mirror]:::todo
-  C11[11 Non-log-concave sampling<br/>FI stationarity]:::todo
-  C12[12 Diffusion generative models<br/>score + discretization]:::todo
-
-  Book --> C1
-  Book --> C2
-  Book --> C3
-  C1 --> C4
-  C2 --> C4
-  C3 --> C4
-  C4 --> C5
-  C4 --> C6
-  C4 --> C7
-  C2 --> C8
-  C3 --> C8
-  C5 --> C9
-  C6 --> C9
-  C7 --> C9
-  C2 --> C10
-  C3 --> C11
-  C3 --> C12
-
-  classDef book fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
-  classDef active fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:3px;
-  classDef mixed fill:#e0f2fe,stroke:#0284c7,color:#0f172a,stroke-width:2px;
-  classDef todo fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:1.5px;
+```text
+natural mathematics  ⇄  typed formalization state  ⇄  verified Lean
 ```
 
-## Chapter Dashboard
+Compiled declarations, exact residual obligations, and reviewer verdicts flow
+back into source correspondence, the proof DAG, run capsules, and human-facing
+status. Lean compilation never substitutes for semantic review.
 
-| Chapter | Main mathematical package | Blue foundation | Red boundary |
-|---|---|---|---|
-| 1 Langevin diffusion | Gibbs density, generator display, finite-box IBP, invariant law | Gibbs wrappers, generator algebra, finite-box and whole-space divergence, weighted IBP, explicit `C_c^2` core/domain agreement contract, normalized-Gibbs core annihilation, abstract semigroup/domain-to-invariance bridge | concrete Langevin semigroup contract, semigroup-stable domain extension, invariant law |
-| 2 Functional inequalities | PI, LSI, TI, isoperimetry, preservation | log-concavity algebra, level sets, products, powers, pullbacks, LSI bookkeeping | Prekopa-Leindler, Brunn-Minkowski, PI/TI/isoperimetry, preservation theorems |
-| 3 Stochastic analysis | Girsanov, Doob, Follmer, Schrodinger bridge | finite Gaussian shifts, finite-cylinder Girsanov, RN/withDensity handoffs | Brownian path-space packaging and bridge transforms |
-| 4 LMC | coupling, interpolation, convex-optimization, Girsanov routes | law-map, weak-generator, conditional-kernel, Gaussian transition, KL/FI algebra leaves | theorem-level convergence packages |
-| 5-8 algorithms | midpoint, HMC, underdamped, Renyi, MALA, proximal | Renyi algebra, two-point Gaussian/proximal geometry | sampler kernels, detailed balance, rate theorems |
-| 9-12 extensions | lower bounds, structure, non-log-concavity, diffusion models | deferred consumers | add source-specific leaves only after shared roots are reusable |
+---
 
-## Shared Root Graph
+## Samplinglib Learning Surface 📚
 
-The same roots are reused across chapters.  `REG` is the recurring audit layer:
-measurability, integrability, smoothness, positivity, domains, boundary terms,
-and domination.
+<p align="center">
+  <img src="website/static/samplinglib-architecture.svg" alt="Samplinglib architecture from mathematical sources through ASTIS and formal memory to learning and verification surfaces" width="920">
+</p>
 
-```mermaid
-flowchart TD
-  MEAS[MEAS<br/>measures maps RN]:::root
-  KERN[KERN<br/>kernels conditionals]:::root
-  DENS[DENS<br/>densities KL Renyi]:::root
-  CONV[CONV<br/>convex log-concave PL BM]:::root
-  GEOM[GEOM<br/>finite coordinates]:::root
-  CALC[CALC<br/>gradient laplacian divergence]:::root
-  GAUSS[GAUSS<br/>Gaussian laws shifts]:::root
-  FI[FI<br/>PI LSI transport]:::root
-  SDE[SDE<br/>generators Langevin weak FP]:::root
-  PATH[PATH<br/>Girsanov Doob bridges]:::root
-  DISC[DISC<br/>sampler kernels rates]:::consumer
-  REG[REG<br/>hidden assumptions]:::red
+Readers can move through the library at three linked depths:
 
-  MEAS --> KERN
-  MEAS --> DENS
-  CONV --> DENS
-  GEOM --> CALC
-  GEOM --> GAUSS
-  DENS --> FI
-  CONV --> FI
-  FI --> SDE
-  CALC --> SDE
-  GAUSS --> PATH
-  SDE --> DISC
-  PATH --> DISC
-  FI --> DISC
-  REG -. audits .-> MEAS
-  REG -. audits .-> DENS
-  REG -. audits .-> CALC
-  REG -. audits .-> SDE
-  REG -. audits .-> PATH
-  REG -. audits .-> DISC
+1. **Calculation Route** — formulas, intuition, and the textbook proof route.
+2. **Rigorous Details** — measurability, integrability, representatives,
+   approximation, limits, boundaries, regularity, and operator domains.
+3. **Lean Foundations** — exact declarations, imports, dependencies, source
+   lines, Registry evidence, tests, and the current Lean gate.
 
-  classDef root fill:#e0f2fe,stroke:#0284c7,color:#0f172a,stroke-width:2px;
-  classDef consumer fill:#fef3c7,stroke:#d97706,color:#422006,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
+The [Live Formalization workspace](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/live/)
+adds reviewed examples, LaTeX rendering, Samplinglib/Mathlib retrieval, local
+Lean diagnostics, and export to ASTIS typed packets. Candidate translation,
+compilation, semantic review, proof, and reviewer acceptance remain separate
+states.
+
+---
+
+## Organizers ✦
+
+**Dake Bu, Ji Cheng, Atsushi Nitanda, Hau-San Wong, and Qingfu Zhang**
+
+## Citation 📝
+
+```bibtex
+@misc{bu2026astis,
+  title        = {Auto-Sampling-Theory-In-Sleep: A Hierarchical Automated
+                  Theorem Proving System for Sampling Theory},
+  author       = {Dake Bu and Ji Cheng and Atsushi Nitanda and
+                  Hau-San Wong and Qingfu Zhang},
+  year         = {2026},
+  howpublished = {GitHub repository and Samplinglib formalization website},
+  url          = {https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep}
+}
 ```
 
-## Root Matrix
-
-| Chapter | MEAS | KERN | DENS | CONV | CALC | GAUSS | FI | SDE | PATH | DISC | REG |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 Langevin diffusion | Y |  | Y | Y | Y | Y | Y | Y |  |  | Y |
-| 2 Functional inequalities | Y |  | Y | Y |  |  | Y | Y |  |  | Y |
-| 3 Stochastic analysis | Y |  | Y |  |  | Y |  | Y | Y |  | Y |
-| 4 LMC | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y |
-| 5 Faster low-accuracy | Y | Y |  |  | Y | Y |  | Y | Y | Y | Y |
-| 6 Renyi convergence | Y | Y | Y |  |  | Y | Y | Y | Y | Y | Y |
-| 7 High-accuracy | Y | Y | Y | Y |  | Y |  |  |  | Y | Y |
-| 8 Proximal sampler | Y | Y | Y | Y |  | Y | Y | Y | Y | Y | Y |
-| 9 Lower bounds | Y |  | Y | Y |  | Y |  |  |  | Y | Y |
-| 10 Structured sampling | Y | Y | Y | Y | Y |  |  | Y |  | Y | Y |
-| 11 Non-log-concave | Y |  | Y |  | Y |  | Y | Y |  | Y | Y |
-| 12 Diffusion models | Y | Y | Y |  | Y | Y | Y | Y | Y | Y | Y |
-
-## Theorem-To-Leaf Pipeline
-
-```mermaid
-flowchart TD
-  T[textbook theorem<br/>or displayed identity]:::gray
-  C[cited theorem<br/>or standard phrase]:::gray
-  H[hidden hypotheses<br/>measurable integrable smooth<br/>positive finite boundary domain]:::red
-  S[small contract<br/>one reusable statement]:::contract
-  Search[Mathlib + local search<br/>external Lean audit if useful]:::audit
-  L[local Lean declaration]:::blue
-  R[registry row<br/>smoke test]:::blue
-  O[smaller red obligation<br/>if proof does not close]:::red
-
-  T --> C --> H --> S --> Search
-  Search --> L --> R
-  Search --> O
-  O -. next cycle .-> S
-
-  classDef gray fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
-  classDef contract fill:#fff7ed,stroke:#f97316,color:#431407,stroke-width:2px;
-  classDef audit fill:#fef3c7,stroke:#d97706,color:#422006,stroke-width:2px;
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-Blue requires all three gates:
-
-| Gate | Requirement |
-|---|---|
-| compile | `lake build Tests` succeeds |
-| discover | declaration is recorded in `AutoSamplingTheory/TechnicalLemmas/Registry.lean` |
-| explain | assumptions and exclusions are recorded in the DAG/README/JSONL memory |
-
-## Chapter 1 Proof Chain
-
-The active chain is the continuous-time Langevin route toward the Gibbs
-invariant law.  The finite-dimensional whole-space analytic core, explicit
-`C_c^2` domain contract, normalized Gibbs core annihilation, and conditional
-semigroup-to-core-invariance composition are blue.  Constructing the concrete
-Langevin semigroup, extending to a semigroup-stable domain, proving a full
-invariant law, and reversibility remain separate boundaries.
-
-| Textbook anchor | Textbook step | Lean status |
-|---|---|---|
-| Example 1.2.8 | compute the Langevin adjoint; the second equality is attributed to integration by parts | whole-space identity is blue for `C_c^2` tests and `C^1` potentials |
-| Corollary 1.2.9 | conclude that the stationary density is proportional to `exp(-V)` | conditional core-invariance bridge is blue; concrete semigroup and domain extension remain red |
-| Section 1.2 warning | generator domains and symmetric/self-adjoint operator distinctions are deliberately brushed over | tracked as separate red contracts, not hidden inside the IBP theorem |
-
-The source and background-textbook audit is recorded in
-`research-wiki/cited-results/log_concave_sampling_chapter1_background.md`.
-
-```mermaid
-flowchart TD
-  Gibbs[Gibbs target<br/>pi(dx) proportional to exp(-V) dx]:::goal
-  Norm[normalization / withDensity<br/>probability wrappers]:::blue
-  Gen[pointwise generator display<br/>Lf = Delta f - <grad V, grad f>]:::blue
-  Weight[weighted algebra<br/>exp(-V) Lf]:::blue
-  Div[coordinate divergence<br/>trace convention]:::blue
-  Box[finite-box divergence theorem<br/>with signed face terms]:::blue
-  Cut[local smooth cutoff<br/>support handoffs]:::blue
-  Exact[exact open-box support<br/>and positivity]:::blue
-  Plateau[compact-in-open / Pi-box<br/>plateau = 1]:::blue
-  Radial[radial cutoff family<br/>compact support + pointwise limit]:::blue
-  Zero[zero-face wrappers<br/>support or boundary cancellation]:::blue
-  Deriv1[scale-uniform cutoff fderiv<br/>O(R^-1)]:::blue
-  DZero[closed outer region<br/>totalized fderiv = 0]:::blue
-  PiBridge[PiLp cutoff derivative<br/>and smulRight trace]:::blue
-  Unit2[unit cutoff second derivative<br/>continuous + compact + bounded]:::blue
-  Deriv2[radial second derivative/Laplacian cutoff<br/>O(R^-2)]:::blue
-  Tail[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
-  SourceInt[Gibbs source-field<br/>integrability]:::blue
-  MainConv[generic main-term<br/>dominated convergence]:::blue
-  MainInt[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
-  GibbsTail[Gibbs-tail passage]:::blue
-  IBP[weighted IBP<br/>integral Lf d pi = 0]:::blue
-  Core[explicit C_c^2 generator core<br/>and normalized mean-zero]:::blue
-  CondInv[conditional semigroup<br/>core invariance]:::blue
-  Semigroup[concrete Langevin semigroup<br/>external/upstream dependency]:::red
-  Domain[semigroup-stable<br/>domain extension]:::red
-  Inv[invariant Gibbs law]:::red
-  Rev[reversibility<br/>KL/FI dissipation]:::red
-
-  Gibbs --> Norm --> Inv
-  Gen --> Weight --> Div --> Box --> Zero --> IBP --> Inv --> Rev
-  Cut --> Zero
-  Exact --> Zero
-  Exact --> Plateau
-  Radial --> Deriv1 --> PiBridge --> Tail --> IBP
-  SourceInt --> IBP
-  MainConv --> MainInt --> IBP
-  GibbsTail --> IBP
-  Radial --> DZero
-  Radial --> Unit2 --> Deriv2
-  IBP --> Core --> CondInv
-  Semigroup --> Domain --> Inv
-  CondInv --> Semigroup
-
-  classDef goal fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-### Finite-Box Zoom
-
-```mermaid
-flowchart LR
-  Field[vector field F]:::gray
-  Deriv[HasFDerivAt off<br/>countable bad set]:::blue
-  Trace[trace IntegrableOn<br/>closed box]:::blue
-  DivThm[coordinate-divergence<br/>finite-box theorem]:::blue
-  Faces[signed lower/upper<br/>face terms]:::blue
-  Vanish[face terms vanish]:::blue
-  BoxZero[box integral = 0]:::blue
-  Whole[whole-space IBP]:::blue
-
-  Field --> Deriv --> DivThm
-  Field --> Trace --> DivThm
-  DivThm --> Faces --> Vanish --> BoxZero --> Whole
-
-  classDef gray fill:#f1f5f9,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-### Cutoff-Smul Zoom
-
-```mermaid
-flowchart TD
-  Local[pointwise smooth cutoff<br/>tsupport inside open box]:::blue
-  Supp[Function.support<br/>inside open box]:::blue
-  Exact[exact Function.support<br/>= open box]:::blue
-  Pos[strict positivity<br/>on open box]:::blue
-  Plateau[compact/open plateau<br/>Pi-box specialization]:::blue
-  Radial[radial family<br/>tsupport in closed ball<br/>pointwise tends to 1]:::blue
-  Smul[cutoff-smul support<br/>field vanishes on faces]:::blue
-  Reg[cutoff-smul regularity<br/>ContinuousOn + fderiv off countable]:::blue
-  Trace[cutoff-smul trace<br/>ContinuousOn + IntegrableOn]:::blue
-  Zero[finite-box divergence<br/>integral = 0]:::blue
-  Deriv1[radial cutoff fderiv<br/>O(R^-1)]:::blue
-  DZero[closed outer region<br/>totalized fderiv = 0]:::blue
-  PiBridge[PiLp derivative +<br/>smulRight trace]:::blue
-  Deriv2[Hessian/Laplacian cutoff<br/>O(R^-2)]:::blue
-  Tail[generic L1 cutoff-gradient limit<br/>from Integrable field]:::blue
-  SourceInt[Gibbs source-field<br/>integrability]:::blue
-  MainConv[generic main-term<br/>dominated convergence]:::blue
-  MainInt[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
-  GibbsTail[Gibbs-tail passage]:::blue
-  IBP[weighted Gibbs IBP]:::blue
-
-  Local --> Supp --> Smul --> Zero
-  Exact --> Pos
-  Exact --> Plateau
-  Exact --> Smul
-  Plateau --> Smul
-  Radial --> Deriv1 --> PiBridge
-  Radial --> DZero
-  Radial --> Deriv2
-  Reg --> Zero
-  Trace --> Zero
-  Deriv1 --> Reg
-  PiBridge --> Tail
-  Zero --> IBP
-  Tail --> IBP
-  SourceInt --> IBP
-  MainConv --> MainInt --> IBP
-  GibbsTail --> IBP
-
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-### Chapter 1 Leaf Groups
-
-| Group | Owner module | Blue examples | Red exclusion |
-|---|---|---|---|
-| generator display | `StochasticProcesses.Langevin` | finite Euclidean/Pi displays of `Delta f - <grad V, grad f>` | no semigroup-generator semantics |
-| Gibbs density | `Measure.Gibbs`, `Measure.GibbsIntegral`, `Measure.GibbsLogConcavity` | normalized withDensity wrappers, real-density bridges | no invariant-law statement |
-| regularity | `Analysis.Calculus.*`, `StochasticProcesses.Langevin` | gradient continuity, Laplacian continuity, canonical `fderiv` trace handoffs | no whole-space domination |
-| finite boxes | `Analysis.Calculus.Divergence` | trace-to-coordinate transfer, a.e. bridge, signed face terms | no whole-space limit |
-| reusable smooth cutoffs | `Analysis.Calculus.Cutoff`, `Analysis.Calculus.Laplacian` | unit/radial cutoffs, compact support, pointwise exhaustion, `O(R^-1)` first-derivative control, and `O(R^-2)` second-derivative/Laplacian control | no cutoff limit is silently promoted to a semigroup-domain theorem |
-| finite-box cutoffs | `Analysis.Calculus.Divergence` | local Pi-open-box cutoffs, exact plain support and positivity, one compactly supported cutoff equal to `1` on an entire inner closed Pi-box | no derivative-controlled box exhaustion or whole-space limit |
-| whole-space IBP | `Analysis.Calculus.Divergence`, `StochasticProcesses.Langevin` | compact-support whole-space divergence and `integral exp(-V) Lf = 0` for `C_c^2` tests | no generator-domain or semigroup semantics |
-
-## Other Theorem Subtrees
-
-Every major theorem should get a smaller tree like the Ch.1 tree, while
-reusing the same root labels.
-
-```mermaid
-flowchart TD
-  C2[Ch.2 functional inequalities]:::chapter
-  PIDef[PI variance + energy<br/>admissibility + test class]:::blue
-  LSIdef[LSI / TI full interfaces]:::red
-  Conv[log-concavity algebra]:::blue
-  PL[Prekopa-Leindler<br/>Brunn-Minkowski]:::red
-  Pres[preservation<br/>products maps marginals]:::red
-  LSI[LSI to KL/FI<br/>bookkeeping]:::blue
-  Sem[concrete semigroup<br/>Bakry-Emery route]:::red
-  Loc[localization<br/>one-dimensional reduction]:::red
-  Sharp[sharp log-concave<br/>isoperimetry]:::red
-
-  C2 --> PIDef
-  C2 --> LSIdef --> LSI
-  C2 --> Conv --> PL --> Pres
-  PIDef --> Sem
-  PIDef --> Loc --> Sharp
-  Sem --> LSI
-
-  classDef chapter fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-```mermaid
-flowchart TD
-  C3[Ch.3 stochastic analysis]:::chapter
-  Gauss[finite Gaussian shifts]:::blue
-  Cyl[finite-cylinder Girsanov]:::blue
-  Path[path-space RN derivative]:::red
-  Doob[Doob transform]:::red
-  Foll[Follmer drift]:::red
-  Bridge[Schrodinger bridge]:::red
-
-  C3 --> Gauss --> Cyl --> Path
-  Path --> Doob
-  Path --> Foll
-  Path --> Bridge
-
-  classDef chapter fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-```mermaid
-flowchart TD
-  C4[Ch.4 LMC]:::chapter
-  Law[law-map weak-test derivative]:::blue
-  Kern[conditional kernel interfaces]:::blue
-  WFP[weak-FP bridge]:::blue
-  KL[KL/FI derivative algebra]:::blue
-  Gir[Girsanov proof route]:::red
-  Rate[LMC convergence theorem]:::red
-
-  C4 --> Law --> WFP --> KL --> Rate
-  C4 --> Kern --> WFP
-  C4 --> Gir --> Rate
-
-  classDef chapter fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-```mermaid
-flowchart TD
-  C8[Ch.8 proximal sampler]:::chapter
-  G2[two-point Gaussian<br/>geometry]:::blue
-  LC[log-concave restriction<br/>and superlevel leaves]:::blue
-  RGO[restricted Gaussian oracle<br/>conditional law]:::red
-  TR[time reversal package]:::red
-  Rate[proximal convergence theorem]:::red
-
-  C8 --> G2 --> RGO --> Rate
-  C8 --> LC --> RGO
-  C8 --> TR --> Rate
-
-  classDef chapter fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:2px;
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-## Current Frontier Queue
-
-```mermaid
-flowchart TD
-  R1[generic L1 cutoff-gradient limit<br/>Integrable G + C/R]:::blue
-  R2[Hessian/Laplacian cutoff bound<br/>uniform O(R^-2)]:::blue
-  R3[source-field integrability<br/>for chosen V and f]:::blue
-  R4[generic main-term<br/>dominated convergence]:::blue
-  R4A[concrete generator-display<br/>integrability for C_c^2 tests]:::blue
-  R4B[Gibbs-tail passage]:::blue
-  R5[weighted IBP<br/>for Gibbs density]:::blue
-  R6[generator and semigroup<br/>domain contracts]:::red
-  R7[invariant Gibbs law<br/>then reversibility]:::red
-  R8[Prekopa-Leindler / Brunn-Minkowski<br/>functional-inequality preservation]:::red
-  R9[Brownian path-space<br/>Girsanov and bridges]:::red
-  R10[sampler consumers<br/>LMC HMC MALA proximal]:::red
-  R11[typed Poincare interface<br/>explicit tests + integrability]:::blue
-  R12[Bakry-Emery or localization<br/>Poincare theorem]:::red
-
-  R1 --> R4
-  R3 --> R4
-  R4 --> R4A --> R5
-  R4B --> R5
-  R5 --> R7
-  R6 --> R7
-  R8 --> R10
-  R9 --> R10
-  R11 --> R12 --> R8
-
-  classDef blue fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  R7 --> R10
-
-  classDef red fill:#fee2e2,stroke:#dc2626,color:#450a0a,stroke-width:2px;
-```
-
-`R11` is the newest compiled blue edge.  It is an interface, not a proof that
-any particular measure satisfies Poincaré.  The next mathematical package must
-either construct the concrete semigroup/domain needed by Bakry–Émery or source
-and decompose the localization route; neither is currently a lower-ready leaf.
-
-## Blueprint-Style Textbook Site
-
-Build and validate the static site from the repository root:
-
-```bash
-python3 website/scripts/lean_gate.py
-python3 website/scripts/build_site.py
-python3 website/scripts/check_site.py
-```
-
-For a Basic Auth foreground preview, supply credentials through the
-environment:
-
-```bash
-export ASTIS_PREVIEW_USER='reviewer'
-export ASTIS_PREVIEW_PASSWORD='generate-a-secret-outside-git'
-python3 website/scripts/serve_preview.py
-```
-
-`python3 website/scripts/quick_tunnel.py` can place this authenticated local
-server behind a temporary Cloudflare Quick Tunnel when `cloudflared` is
-installed. Quick Tunnel is a review convenience, not a production deployment.
-The generated `_site/` directory and `.astis/site-lean-gate.json` are
-disposable.
-
-Deployment is defined by
-`.github/workflows/blueprint-site.yml`: it runs the Lean and `Tests` gate,
-builds and validates the complete source inventory, and publishes the artifact
-through GitHub Pages when Pages is enabled. The generator uses only the Python
-standard library.
-
-The checked output can also be packaged for the owner-only Sites deployment:
-
-```bash
-python3 website/scripts/build_sites_bundle.py \
-  --archive /tmp/astis-sites.tar.gz
-```
-
-The ignored `.open-next/` output is only a static asset adapter around the
-same `_site/` tree. It does not maintain a second copy of the formalization.
-
-Maintenance follows one-source-of-truth rules:
-
-1. Add a declaration normally in Lean and compile it. It enters the exhaustive
-   catalog automatically; add a Registry entry only when it is a selected
-   reusable leaf.
-2. Add a Chewi mapping to
-   `website/content/source_correspondence.json`, including page/section,
-   wording status, source assumptions, formal assumptions, and exact
-   declaration names.
-3. Put reviewed route state in `website/content/milestones.json` and long
-   declaration explanations in `website/content/teaching_declarations.json`.
-4. Update chapter exposition and editable Mermaid diagrams.
-5. Run the Lean gate, site build/check, and `git diff --check`.
-
-The checker validates the exhaustive module/declaration/search inventory,
-dual-layer status, gate evidence, precise Git source links, internal
-links/fragments, formulas, diagrams, assets, and attribution. The full schema
-and contributor workflow are documented in
-[`website/README.md`](website/README.md).
-
-## File Map
-
-| Need | File |
-|---|---|
-| chapter-to-Lean route | `research-wiki/sampling-sde-library/roadmap/log_concave_sampling_to_lean_tree.md` |
-| master blue/red DAG | `research-wiki/lemma-dags/log_concave_sampling_foundation.md` |
-| Lean module atlas | `research-wiki/sampling-sde-library/README.md` |
-| generated module graph | `research-wiki/sampling-sde-library/lean-leaf-module-graph.md` |
-| one-card-per-module summaries | `research-wiki/sampling-sde-library/cards/` |
-| compiled declarations | `AutoSamplingTheory/TechnicalLemmas/Registry.lean` |
-| smoke count | `Tests/Basic.lean` |
-| external Lean references | `research-wiki/external-lean-libraries/` |
-| source/citation obligations | `research-wiki/source-index/`, `research-wiki/cited-results/` |
-| next six-hour run packet | `agent-briefs/log_concave_sampling_6h_execution_pack.md` |
-| website content and source correspondence | `website/content/` |
-| website generator core | `tools/astis_site.py` |
-| website build/check/gate/preview entry points | `website/scripts/` |
-| teaching and milestone metadata | `website/content/teaching_declarations.json`, `website/content/milestones.json` |
-| maintainable website diagrams | `website/diagrams/` |
-
-## ASTIS Run Loop
-
-```mermaid
-flowchart LR
-  Upper[upper<br/>choose chapter/root frontier]:::role
-  Middle[middle<br/>make theorem packet]:::role
-  Source[lower source scout<br/>source route + assumptions]:::role
-  Lean[lower Lean worker<br/>compile leaf or isolate API gap]:::role
-  Review[reviewer<br/>reject overclaim]:::review
-  Sync[registry DAG README<br/>blue-red sync]:::artifact
-
-  Upper --> Middle
-  Middle --> Source
-  Middle --> Lean
-  Source --> Review
-  Lean --> Review
-  Review --> Sync
-  Sync --> Upper
-
-  classDef role fill:#e0f2fe,stroke:#0284c7,color:#0f172a,stroke-width:2px;
-  classDef review fill:#fef3c7,stroke:#d97706,color:#422006,stroke-width:2px;
-  classDef artifact fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-```
-
-Manual cycle gate:
-
-```bash
-lake build Tests
-python3 tools/astis.py check
-python3 tools/astis.py module-graph-refresh
-python3 tools/astis.py lemma-dag-refresh
-python3 tools/astis.py blueprint-refresh ASTIS-CHEWI-001
-python3 tools/astis.py memory-refresh ASTIS-CHEWI-001 --cycle <n> --run-id <run-dir>
-```
-
-Six-hour console run:
-
-```bash
-python3 tools/astis.py launch-log-concave-6h --hours 6 --wall-hours 24 --lower-count 3
-```
-
-The diagrams are navigation.  Lean, tests, and the registry decide blue status.
+ASTIS is the research system and proving harness. Samplinglib is its public
+Lean library and learning interface. External libraries, textbooks, papers,
+and repositories are cited as mathematical or design provenance and do not
+imply endorsement.

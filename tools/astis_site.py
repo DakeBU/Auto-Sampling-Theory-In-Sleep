@@ -183,7 +183,11 @@ def git_context() -> GitContext:
         web_root = f"https://github.com/{match.group(1)}"
     published_refs = git("branch", "-r", "--contains", commit).splitlines() if commit else []
     dirty_files: set[str] = set()
-    for line in git("status", "--porcelain=v1", "--untracked-files=all").splitlines():
+    status_result = run_command(
+        ["git", "status", "--porcelain=v1", "--untracked-files=all"],
+        check=False,
+    )
+    for line in status_result.stdout.splitlines():
         path = line[3:]
         if " -> " in path:
             path = path.split(" -> ", 1)[1]
@@ -587,7 +591,7 @@ def status_class(entry: RegistryEntry) -> str:
 
 def status_label(entry: RegistryEntry) -> str:
     if entry.is_blue:
-        return "compiled ASTIS leaf"
+        return "compiled Samplinglib leaf"
     return {
         "portCandidate": "external port candidate",
         "sourceGap": "typed source gap",
@@ -611,16 +615,33 @@ def code_html(code: str, language: str = "lean") -> str:
     return f'<pre class="code-block"><code class="language-{esc(language)}">{esc(code)}</code></pre>'
 
 
-NAV = [
-    ("Overview", "index.html"),
-    ("Textbook", "textbook/index.html"),
-    ("Implementation", "implementation-map/index.html"),
-    ("Learning path", "learning-path/index.html"),
-    ("Declarations", "declarations/index.html"),
-    ("Modules", "modules/index.html"),
-    ("Roadmap", "roadmap/index.html"),
-    ("Workflow", "workflow/index.html"),
-]
+SIDEBAR_GROUPS = (
+    ("Start", (
+        ("Overview", "index.html", "Overview"),
+        ("What is Samplinglib?", "index.html#samplinglib", "Overview"),
+    )),
+    ("Learn", (
+        ("Log-Concave Sampling", "textbook/index.html", "Textbook"),
+        ("Book Map", "learning-path/index.html", "Learning path"),
+    )),
+    ("Formal Library", (
+        ("Implementation Map", "implementation-map/index.html", "Implementation"),
+        ("Lean Declarations", "declarations/index.html", "Declarations"),
+        ("Technical Lemmas", "lean-foundations.html", "Lean Foundations"),
+        ("Source Correspondence", "source-correspondence.html", "Source Correspondence"),
+    )),
+    ("Build & Verify", (
+        ("Live Formalization", "live/index.html", "Live Formalization"),
+        ("ASTIS Harness", "workflow/index.html", "Workflow"),
+        ("Verification Workflow", "maintenance.html", "Maintenance"),
+    )),
+    ("Community", (
+        ("Organizers", "attribution/index.html#organizers", "Attribution"),
+        ("Contribute", "maintenance.html#contribute", "Maintenance"),
+        ("Roadmap", "roadmap/index.html", "Roadmap"),
+        ("Attribution", "attribution/index.html", "Attribution"),
+    )),
+)
 
 _ACTIVE_GATE: GateEvidence | None = None
 _ACTIVE_GIT: GitContext | None = None
@@ -677,22 +698,57 @@ def relative_prefix(rel_path: str) -> str:
     return "../" * (len(Path(rel_path).parts) - 1)
 
 
+def sidebar_html(prefix: str, active: str) -> str:
+    groups = []
+    for heading, links in SIDEBAR_GROUPS:
+        rows = "".join(
+            f'<a href="{prefix}{href}"{f" aria-current=\"page\"" if marker == active else ""}>{esc(label)}</a>'
+            for label, href, marker in links
+        )
+        groups.append(
+            f'<section class="sidebar-group"><h2>{esc(heading)}</h2><nav>{rows}</nav></section>'
+        )
+    chapters = "".join(
+        f'<a href="{prefix}textbook/chapter-{number:02d}.html">'
+        f'<span>{number:02d}</span>{esc(title)}</a>'
+        for number, title in (
+            (1, "Langevin Diffusion"),
+            (2, "Functional Inequalities"),
+            (3, "Stochastic Analysis"),
+            (4, "Langevin Monte Carlo"),
+            (5, "Faster Low-Accuracy Samplers"),
+            (6, "Renyi Convergence"),
+            (7, "High-Accuracy Samplers"),
+            (8, "Proximal Sampler"),
+            (9, "Lower Bounds"),
+            (10, "Structured Sampling"),
+            (11, "Non-Log-Concave Sampling"),
+            (12, "Diffusion Generative Models"),
+        )
+    )
+    groups.insert(
+        2,
+        f'<details class="chapter-nav"{" open" if active == "Textbook" else ""}>'
+        f'<summary>Chapters 1–12</summary><nav>{chapters}</nav></details>',
+    )
+    return "".join(groups)
+
+
 def page(
     title: str,
     rel_path: str,
     body: str,
     *,
-    description: str = "ASTIS textbook and Lean formalization",
+    description: str = "Samplinglib: verified sampling theory in Lean",
     active: str = "",
     extra_head: str = "",
+    extra_scripts: tuple[str, ...] = (),
 ) -> str:
     prefix = relative_prefix(rel_path)
     gate = _ACTIVE_GATE or load_gate_evidence()
     git = _ACTIVE_GIT or git_context()
-    nav = "".join(
-        f'<a href="{prefix}{href}"{" aria-current=\"page\"" if label == active else ""}>{esc(label)}</a>'
-        for label, href in NAV
-    )
+    sidebar = sidebar_html(prefix, active)
+    scripts = "".join(f'<script src="{prefix}{esc(path)}"></script>' for path in extra_scripts)
     gate_class = "verified" if gate.passed else "unverified"
     gate_label = "Lean gate passed" if gate.passed else "Lean gate not recorded for this source state"
     gate_detail = (
@@ -706,11 +762,12 @@ def page(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{esc(description)}">
-  <meta property="og:title" content="{esc(title)} · ASTIS">
+  <meta property="og:title" content="{esc(title)} · Samplinglib">
   <meta property="og:description" content="{esc(description)}">
   <link rel="icon" href="data:,">
-  <meta property="og:image" content="{prefix}assets/astis-blueprint-og.png">
-  <title>{esc(title)} · Auto-Sampling-Theory-In-Sleep</title>
+  <meta property="og:image" content="{prefix}assets/samplinglib-og.png">
+  <meta property="og:site_name" content="Samplinglib">
+  <title>{esc(title)} · Samplinglib</title>
   <link rel="stylesheet" href="{prefix}assets/site.css">
   <script>
     window.MathJax = {{
@@ -723,39 +780,44 @@ def page(
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <header class="site-header">
-    <a class="brand" href="{prefix}index.html">
-      <span class="brand-mark">A</span>
-      <span><strong>ASTIS</strong><small>Log-Concave Sampling blueprint</small></span>
-    </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
-    <nav id="site-nav" class="site-nav" aria-label="Primary">{nav}</nav>
-    <div class="search-shell">
-      <label class="sr-only" for="global-search">Search declarations and modules</label>
-      <input id="global-search" data-global-search data-search-root="{prefix}" type="search" placeholder="Search Lean declarations">
-      <ul class="search-results" data-global-results hidden></ul>
-    </div>
-    <div class="display-controls">
-      <label>Theme
-        <select id="theme-select">
-          <option value="blueprint">Blueprint</option>
-          <option value="modern">Modern</option>
-          <option value="bold">Bold</option>
-        </select>
-      </label>
-      <button id="scheme-toggle" title="Toggle light and dark color scheme">◐</button>
-    </div>
+  <header class="mobile-bar">
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-sidebar">Contents</button>
+    <a href="{prefix}index.html"><strong>Samplinglib</strong></a>
+    <button id="scheme-toggle-mobile" class="scheme-toggle" title="Toggle color scheme" aria-label="Toggle color scheme">◐</button>
   </header>
-  <div class="verification-strip {gate_class}">
-    <span><strong>{esc(gate_label)}</strong></span>
-    <span>{esc(gate_detail)}</span>
+  <div class="site-shell">
+    <aside id="site-sidebar" class="site-sidebar" aria-label="Samplinglib contents">
+      <a class="brand" href="{prefix}index.html">
+        <span class="brand-mark">S</span>
+        <span><strong>Samplinglib</strong><small>Verified Sampling Theory in Lean</small></span>
+      </a>
+      <div class="search-shell">
+        <label class="sr-only" for="global-search">Search declarations and modules</label>
+        <input id="global-search" data-global-search data-search-root="{prefix}" type="search" placeholder="Search the library">
+        <ul class="search-results" data-global-results hidden></ul>
+      </div>
+      <div class="sidebar-contents">{sidebar}</div>
+      <div class="sidebar-utility">
+        <a href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep">GitHub <span aria-hidden="true">↗</span></a>
+        <button id="scheme-toggle" class="scheme-toggle" title="Toggle color scheme" aria-label="Toggle color scheme">◐</button>
+      </div>
+    </aside>
+    <button class="sidebar-scrim" type="button" data-sidebar-scrim aria-label="Close contents"></button>
+    <div class="site-stage">
+      <div class="verification-strip {gate_class}">
+        <span><strong>{esc(gate_label)}</strong></span>
+        <span>{esc(gate_detail)}</span>
+      </div>
+      <main id="content">{body}</main>
+      <footer>
+        <p><strong>Samplinglib</strong> is the public formal library and learning interface of Auto-Sampling-Theory-In-Sleep (ASTIS).</p>
+        <p>Organized by Dake Bu, Ji Cheng, Atsushi Nitanda, Hau-San Wong, and Qingfu Zhang.</p>
+        <p><a href="{prefix}attribution/index.html">Attribution</a> · <a href="{prefix}maintenance.html">Build and maintenance</a> · generated from Lean source, route metadata, and gate evidence.</p>
+      </footer>
+    </div>
   </div>
-  <main id="content">{body}</main>
-  <footer>
-    <p><strong>Auto-Sampling-Theory-In-Sleep</strong> · a faithful, dependency-aware reconstruction of Sinho Chewi's <em>Log-Concave Sampling</em>.</p>
-    <p><a href="{prefix}attribution/index.html">Attribution</a> · <a href="{prefix}maintenance.html">Build and maintenance</a> · generated from Lean source, route metadata, and gate evidence.</p>
-  </footer>
   <script src="{prefix}assets/site.js"></script>
+  {scripts}
 </body>
 </html>
 """
@@ -1572,10 +1634,10 @@ def render_maintenance(count: int) -> str:
 <section class="two-column">
   <div><h2>Build and certify</h2>{code_html("python3 website/scripts/lean_gate.py\npython3 website/scripts/build_site.py\npython3 website/scripts/check_site.py", "shell")}
   <p>The ignored gate record is valid only for the exact commit and Lean-source digest that passed the canonical ASTIS check.</p></div>
-  <div><h2>Private preview</h2>{code_html("export ASTIS_PREVIEW_USER='reviewer'\nexport ASTIS_PREVIEW_PASSWORD='generated-outside-git'\npython3 website/scripts/serve_preview.py", "shell")}
-  <p>Credentials come only from environment variables. <code>quick_tunnel.py</code> can open a temporary Cloudflare review tunnel; it is not a production deployment.</p></div>
+  <div><h2>Private preview</h2>{code_html("export ASTIS_PREVIEW_USER='reviewer'\nexport ASTIS_PREVIEW_PASSWORD='generated-outside-git'\npython3 website/scripts/ide_server.py --port 8087", "shell")}
+  <p>Credentials come only from environment variables. Forward the loopback port over SSH before opening a local Cloudflare Quick Tunnel; it is not a production deployment.</p></div>
 </section>
-<section><h2>Add or update content</h2>
+<section id="contribute"><h2>Add or update content</h2>
 <ol><li>Add a Lean declaration normally. It enters the exhaustive catalog automatically; add a Registry entry only for a selected reusable leaf.</li>
 <li>Add or edit a source anchor in <code>website/content/source_correspondence.json</code>. Use a precise page/section/theorem/equation reference and an honest wording label.</li>
 <li>Edit chapter exposition, reviewed teaching declarations, and route milestones in <code>website/content/</code>.</li>
@@ -1654,53 +1716,74 @@ def render_overview(
     blocked = sum(str(item["route_status"]) == "Blocked" for item in milestones)
     body = f"""
 <section class="hero overview-hero">
-  <span class="eyebrow">Literate Lean formalization</span>
-  <h1>Log-concave sampling, from measure foundations to sampler proofs.</h1>
-  <p class="lede">ASTIS reconstructs Sinho Chewi's <em>Log-Concave Sampling</em> in Lean: the textbook theorem route, cited background, hidden measurability and integrability conditions, reusable proof leaves, and the remaining mathematical frontier.</p>
+  <span class="eyebrow">Verified sampling theory in Lean</span>
+  <h1>Samplinglib</h1>
+  <p class="lede">From textbook foundations to AI-assisted formalization: learn the mathematics, inspect its hidden analytic conditions, and follow every verified result to its exact Lean declaration.</p>
   <div class="hero-actions">
-    <a class="button primary" href="learning-path/index.html">Follow the learning path</a>
-    <a class="button" href="implementation-map/index.html">Inspect the implementation map</a>
+    <a class="button primary" href="textbook/index.html">Read Log-Concave Sampling</a>
+    <a class="button" href="live/index.html">Open Live Formalization</a>
+    <a class="button" href="declarations/index.html">Browse Lean Library</a>
+    <a class="button quiet" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep">GitHub ↗</a>
   </div>
   <div class="metric-row">
-    <div><strong>{len(production_modules)}</strong><span>source and root modules</span></div>
-    <div><strong>{len(declarations)}</strong><span>named Lean declarations indexed</span></div>
-    <div><strong>{len(teaching)}</strong><span>reviewed teaching declarations</span></div>
-    <div><strong>{blocked}</strong><span>blocked mathematical milestones</span></div>
+    <div><strong>{len(production_modules)}</strong><span>Lean modules</span></div>
+    <div><strong>{len(declarations)}</strong><span>declarations indexed</span></div>
+    <div><strong>{len(teaching)}</strong><span>reviewed explanations</span></div>
+    <div><strong>{blocked}</strong><span>named blocked routes</span></div>
   </div>
 </section>
-<section id="scope">
-  <div class="section-heading"><span>Formalization scope</span><h2>What ASTIS is trying to prove</h2></div>
-  <div class="card-grid four">
-    <article class="info-card"><h3>Probability foundations</h3><p>Measures, random variables as measurable maps, pushforward laws, densities, moments, kernels, conditional expectation, and almost-everywhere representatives.</p></article>
-    <article class="info-card"><h3>Continuous sampling processes</h3><p>Langevin dynamics, weak generators, Fokker-Planck identities, functional inequalities, change of measure, and entropy dissipation.</p></article>
-    <article class="info-card"><h3>Discrete samplers</h3><p>Markov kernels and numerical schemes that approximate a continuous process, together with bias, stability, convergence, and complexity bounds.</p></article>
-    <article class="info-card"><h3>Textbook reconstruction</h3><p>Each theorem is decomposed into source assumptions, reusable Lean leaves, a theorem-level DAG, and an honest route status.</p></article>
+<section id="samplinglib" class="overview-band">
+  <div class="section-heading"><span>Formalized library</span><h2>A reusable foundation, not a one-off book port</h2></div>
+  <div class="prose-columns">
+    <p>Samplinglib currently follows Sinho Chewi's <em>Log-Concave Sampling</em> as its first complete pedagogical spine. The implementation is organized into reusable measure, probability, functional-inequality, stochastic-process, Langevin, and sampling modules rather than chapter-specific monoliths.</p>
+    <p>Every public status is source-synchronized. Lean declarations, Registry records, tests, source correspondence, route milestones, and the current gate digest remain distinct, so a compiled helper cannot silently mark an unfinished theorem complete.</p>
+  </div>
+  <p><a class="text-link" href="implementation-map/index.html">Inspect the implementation map →</a></p>
+</section>
+<section id="architecture" class="architecture-section">
+  <div class="section-heading"><span>System and library architecture</span><h2>Formal memory connects research problems to reusable proof leaves</h2></div>
+  <figure class="architecture-figure">
+    <img src="assets/samplinglib-architecture.svg" alt="Samplinglib architecture from mathematical sources through ASTIS and formal memory to learning and verification surfaces">
+    <figcaption>ASTIS turns source mathematics into reviewed Lean certificates; Samplinglib makes the accepted memory reusable for learning and future formalization.</figcaption>
+  </figure>
+</section>
+<section id="three-levels">
+  <div class="section-heading"><span>Learn at three levels</span><h2>Move between exposition and formal foundations</h2></div>
+  <div class="depth-grid">
+    <article class="depth-card calculation"><div class="depth-number">01</div><h3>Calculation Route</h3><p>Follow the formulas and proof strategy with minimal interruption.</p><a href="calculation-route.html">Read the route →</a></article>
+    <article class="depth-card rigorous"><div class="depth-number">02</div><h3>Rigorous Details</h3><p>Audit measurability, integrability, limits, representatives, boundaries, and domains.</p><a href="rigorous-details.html">Open the details →</a></article>
+    <article class="depth-card lean"><div class="depth-number">03</div><h3>Lean Foundations</h3><p>Inspect exact statements, dependencies, source lines, Registry evidence, and tests.</p><a href="lean-foundations.html">Browse Lean →</a></article>
   </div>
 </section>
-<section id="probability-stack">
-  <div class="section-heading"><span>Mathematical interfaces</span><h2>Probability spaces, kernels, and processes</h2></div>
-  <p class="section-intro">A random variable is a measurable map out of a probability space. Its law is a pushforward measure. A probability kernel assigns a measure to each input state, while conditional expectation and conditional distribution are version-dependent objects represented only almost everywhere. A stochastic process is a time-indexed family of random variables; filtrations and adaptedness constrain which information its dynamics may use.</p>
-  {diagram_block("measure-kernel-conditional", "The dependency order used by the real ASTIS probability and conditional-kernel modules.")}
+<section id="book-map">
+  <div class="section-heading"><span>Book map</span><h2>Twelve connected chapters</h2></div>
+  {diagram_block("chapter-spine", "The chapter map is a learning and dependency route, not a claim that every theorem is complete.")}
+  <p><a class="text-link" href="learning-path/index.html">Open the guided book map →</a></p>
 </section>
-<section id="continuous-discrete">
-  <div class="section-heading"><span>Sampler semantics</span><h2>From a target law to an algorithm</h2></div>
-  <p class="section-intro">The target distribution is first defined as a normalized measure. A continuous Langevin process is intended to preserve or converge to that law. A discrete sampler supplies a computable transition kernel that approximates the process. Correctness therefore needs both a continuous-time theorem and a discretization/error theorem; an SDE contract or a formal generator display is not a sampler convergence certificate.</p>
-  {diagram_block("probability-sampling-sde", "Shared foundations feed the continuous process; discretization and algorithmic kernels remain separate proof layers.")}
+<section id="live-formalization" class="split live-intro">
+  <div>
+    <div class="section-heading"><span>Live Formalization</span><h2>Bring a mathematical statement into the verification loop</h2></div>
+    <p>Render new LaTeX, retrieve related Samplinglib and Mathlib interfaces, inspect an explicit candidate Lean statement, compile it with the local pinned toolchain, and export unresolved work as an ASTIS-compatible packet.</p>
+    <p class="muted">Candidate translation, Lean compilation, semantic review, proof, and reviewer acceptance are separate states.</p>
+    <a class="button primary" href="live/index.html">Open the workspace</a>
+  </div>
+  <pre class="pipeline-code"><code>LaTeX
+  ↓ semantic/source contract
+Lean candidate + retrieval
+  ↓ local compilation
+diagnostics / proof obligation
+  ↓ reviewer
+Samplinglib Registry</code></pre>
 </section>
-<section id="automation">
-  <div class="section-heading"><span>Certificate boundary</span><h2>Automation proposes; Lean certifies</h2></div>
-  <p class="section-intro">ASTIS agents select a source-backed leaf, search Mathlib and audited repositories, produce a small Lean patch or a narrower obligation, and pass it to an independent reviewer. Task cards, natural-language derivations, and compiled data structures can organize the route, but only a checked theorem declaration is a local proof certificate.</p>
-  {diagram_block("harness-workflow", "The upper, middle, lower, and reviewer roles recorded in AGENTS.md and AutoSamplingTheory.Automation.")}
+<section id="powered-by-astis" class="overview-band compact-band">
+  <div class="section-heading"><span>Powered by ASTIS</span><h2>A hierarchical proof system maintains the library</h2></div>
+  <p>Upper agents audit mathematics and proof structure; middle agents translate the route into typed Lean leaves; lower agents prove one leaf; reviewers enforce source correspondence and the Lean certificate boundary.</p>
+  {diagram_block("harness-workflow", "ASTIS maintains Samplinglib through typed artifacts, feedback, and independent gates.")}
+  <p><a class="text-link" href="workflow/index.html">Read the ASTIS harness architecture →</a></p>
 </section>
-<section id="reading-order">
-  <div class="section-heading"><span>Recommended order</span><h2>Read the mathematics and the code together</h2></div>
-  {diagram_block("learning-path", "The guided path starts with measure transport and ends at the still-open sampler theorem packages.")}
-  <ol class="reading-list">
-    <li>Read the <a href="learning-path/index.html">guided learning path</a> and Chapters 1-3.</li>
-    <li>Use the <a href="implementation-map/index.html">implementation map</a> to separate local declarations from textbook milestones.</li>
-    <li>Search the <a href="declarations/index.html">exhaustive declaration catalog</a>, then inspect the owning module.</li>
-    <li>Read the <a href="roadmap/index.html">roadmap</a> before interpreting any partial or blocked theorem route.</li>
-  </ol>
+<section id="organizers" class="organizer-strip">
+  <div><span class="eyebrow">Organizers</span><h2>Dake Bu · Ji Cheng · Atsushi Nitanda · Hau-San Wong · Qingfu Zhang</h2></div>
+  <a class="text-link" href="attribution/index.html#citation">Citation and attribution →</a>
 </section>
 <section class="note"><h2>Build interpretation</h2><p>{esc(gate.note)} The current generated view classifies {local_compiled} production declarations as compiled only when gate evidence matches this Lean source digest. Registry count ({len(entries)}) and textbook completion are separate quantities.</p></section>
 """
@@ -1999,7 +2082,10 @@ def render_workflow(gate: GateEvidence) -> str:
     body = f"""
 <section class="page-hero compact"><div class="eyebrow">ASTIS Automation Workflow</div>
 <h1>Source-backed leaves, independent review, Lean certificates.</h1><p class="lede">The hierarchical loop coordinates mathematical source audit and Lean implementation. It does not convert an agent report, task card, or theorem-shaped data record into a proof.</p></section>
-<section><h2>Hierarchical loop</h2>{diagram_block("automation-workflow", "The real upper, middle, lower, and reviewer responsibilities from AGENTS.md.")}</section>
+<section><div class="section-heading"><span>System architecture</span><h2>Four proving layers feed reusable formal memory</h2></div>
+  <figure class="architecture-figure"><img src="../assets/samplinglib-architecture.svg" alt="ASTIS hierarchy and Samplinglib formal memory"><figcaption>Typed artifacts cross every layer; accepted certificates enter Samplinglib, while unresolved leaves return to planning.</figcaption></figure>
+</section>
+<section><h2>Agent execution detail</h2>{diagram_block("automation-workflow", "The concrete upper, middle, lower, and reviewer responsibilities from the current harness.")}</section>
 <section class="card-grid four">
   <article class="info-card"><h3>Upper</h3><p>Audits the source theorem and shared-root DAG, selects one active leaf, and retires stale routes.</p></article>
   <article class="info-card"><h3>Middle</h3><p>Searches existing ASTIS/Mathlib interfaces, fixes the exact theorem boundary, and writes a lower-ready packet.</p></article>
@@ -2020,16 +2106,156 @@ def render_workflow(gate: GateEvidence) -> str:
     return page("ASTIS Automation Workflow", "workflow/index.html", body, active="Workflow")
 
 
+def build_live_mappings(
+    teaching: list[dict[str, object]],
+    declarations_by_name: dict[str, SourceDeclaration],
+) -> list[dict[str, object]]:
+    """Build reviewed, source-resolved examples for the static workspace.
+
+    These records are examples of the mathematical-to-Lean interface, not
+    claims that merely checking a declaration proves a newly submitted formula.
+    """
+    mappings: list[dict[str, object]] = []
+    for item in teaching:
+        declaration = declarations_by_name[str(item["declaration"])]
+        statement = declaration.source_text.strip()
+        assumptions = [str(value) for value in item.get("assumptions", [])]
+        proof_route = [str(value) for value in item.get("proof_route", [])]
+        lean_notes = [str(value) for value in item.get("lean_notes", [])]
+        mappings.append(
+            {
+                "name": declaration.full_name,
+                "latex": str(item.get("mathematical_statement", "")),
+                "plain_language_interpretation": str(item.get("plain_english", "")),
+                "source_anchor": (
+                    f"modules/{slugify(declaration.module)}.html#{declaration.anchor}"
+                ),
+                "imports": [declaration.module],
+                "lean_statement": statement,
+                "lean_source": f"import {declaration.module}\n\n#check {declaration.full_name}\n",
+                "assumptions": assumptions,
+                "local_candidates": [declaration.full_name],
+                "mathlib_candidates": [],
+                "rejected_candidates": [],
+                "semantic_notes": lean_notes + [
+                    "This mapping was checked against the declaration metadata and source location.",
+                    "The generated #check snippet checks the existing interface; it does not prove a new instance of it.",
+                ],
+                "remaining_proof_obligations": proof_route,
+                "statement_hash": hashlib.sha256(statement.encode("utf-8")).hexdigest(),
+                "status": "candidate",
+                "translation_status": "reviewed_mapping",
+                "semantic_review_status": "reviewed_mapping",
+                "proof_status": "existing_declaration",
+                "reviewer_status": "metadata_reviewed",
+            }
+        )
+    return mappings
+
+
+def render_live_formalization(mapping_count: int) -> str:
+    body = f"""
+<section class="page-hero compact live-hero"><div class="eyebrow">Mathematics to a typed proof obligation</div>
+<h1>Live Formalization</h1>
+<p class="lede">Render a sampling-theory statement, inspect a reviewed or deterministic Lean candidate, run the pinned compiler locally, and export unresolved work into the ASTIS hierarchy.</p></section>
+<section data-live-app data-live-data="../data/live-mappings.json" class="live-workspace">
+  <div data-live-mode class="live-mode-banner">
+    <div><strong data-live-mode-title>Checking execution mode</strong><span data-live-mode-detail>The workspace is testing for the loopback-only Lean service.</span></div>
+    <a href="#capabilities">Capability boundary</a>
+  </div>
+  <div class="live-status-rail" aria-label="Formalization status">
+    <div><span>Translation</span><strong data-status-translation class="status status-gray">Unresolved</strong></div>
+    <div><span>Lean</span><strong data-status-lean class="status status-gray">Not compiled</strong></div>
+    <div><span>Proof</span><strong data-status-proof class="status status-orange">Unproved</strong></div>
+    <div><span>Review</span><strong data-status-review class="status status-gray">Not reviewed</strong></div>
+  </div>
+  <div class="live-toolbar">
+    <label>Reviewed mapping<select data-live-mapping aria-label="Reviewed mapping"></select></label>
+    <button type="button" data-live-load>Load</button>
+    <button type="button" class="primary-action" data-live-formalize disabled>Generate candidate</button>
+    <button type="button" data-live-compile disabled>Compile with Lean</button>
+    <span class="toolbar-spacer"></span>
+    <button type="button" data-live-export-json>Export JSON</button>
+    <button type="button" data-live-export-markdown>Export Markdown</button>
+  </div>
+  <div class="live-grid">
+    <section class="live-pane math-pane">
+      <header><div><span class="pane-kicker">Source mathematics</span><h2>Statement and context</h2></div></header>
+      <label>LaTeX statement<textarea data-live-latex rows="8" spellcheck="false"></textarea></label>
+      <div class="latex-preview" data-live-preview aria-live="polite"></div>
+      <label>Plain-language interpretation<textarea data-live-context rows="5"></textarea></label>
+      <div class="field-pair">
+        <label>Source anchor<input data-live-source-anchor type="text"></label>
+        <label>Preferred module<input data-live-preferred-module type="text"></label>
+      </div>
+    </section>
+    <section class="live-pane lean-pane">
+      <header><div><span class="pane-kicker">Formal candidate</span><h2>Lean source</h2></div></header>
+      <textarea data-live-lean class="lean-editor" rows="24" spellcheck="false" aria-label="Candidate Lean source"></textarea>
+      <p class="muted">A successful compile checks this exact snippet. It does not establish source equivalence or prove an unfilled theorem.</p>
+    </section>
+  </div>
+  <div class="live-output-grid">
+    <section class="live-pane diagnostics-pane"><header><h2>Lean diagnostics <small data-live-duration></small></h2></header><pre data-live-diagnostics>Load a reviewed mapping or enter a new statement.</pre></section>
+    <section class="live-pane retrieval-pane"><header><h2>Retrieval and obligations</h2></header>
+      <div class="retrieval-columns">
+        <div><h3>Samplinglib</h3><ul data-live-local></ul></div>
+        <div><h3>Mathlib</h3><ul data-live-mathlib></ul></div>
+        <div><h3>Assumptions</h3><ul data-live-assumptions></ul></div>
+        <div><h3>Open obligations</h3><ul data-live-obligations></ul></div>
+      </div>
+      <div><h3>Semantic notes</h3><ul data-live-semantic-notes></ul></div>
+    </section>
+  </div>
+</section>
+<section id="capabilities">
+  <div class="section-heading"><span>Execution boundary</span><h2>Static reading and local verification are different products</h2></div>
+  <div class="table-wrap"><table class="capability-table"><thead><tr><th>Capability</th><th>Static Pages</th><th>Local verified mode</th></tr></thead><tbody>
+    <tr><td>Render LaTeX and load {mapping_count} reviewed mappings</td><td>Available</td><td>Available</td></tr>
+    <tr><td>Browse declaration dependencies and exact source anchors</td><td>Available</td><td>Available</td></tr>
+    <tr><td>Export ASTIS typed-artifact packets</td><td>Available</td><td>Available</td></tr>
+    <tr><td>Generate a deterministic candidate for supported templates</td><td>Unavailable</td><td>Available through <code>/api/formalize</code></td></tr>
+    <tr><td>Execute the pinned Lean compiler</td><td>Unavailable</td><td>Available through <code>/api/compile</code></td></tr>
+    <tr><td>General semantic translation or autonomous proof acceptance</td><td>Not claimed</td><td>Not claimed</td></tr>
+  </tbody></table></div>
+</section>
+<section class="note security-note"><h2>Local execution policy</h2><p>The compiler service binds only to loopback, serializes compilation, limits request size and time, writes snippets only to a system temporary directory, and never modifies repository source. It is a developer tool, not a hardened public code-execution sandbox. Keep it behind the documented private preview path.</p></section>
+<section><h2>Packet handoff</h2>{diagram_block("source-to-lean", "Exports preserve the analytic_contract, formalization_map, proof_attempt, and review boundaries consumed by ASTIS.")}</section>
+"""
+    return page(
+        "Live Formalization",
+        "live/index.html",
+        body,
+        active="Live Formalization",
+        description="Samplinglib Live Formalization workspace for sampling-theory Lean candidates",
+        extra_scripts=("assets/ide.js",),
+    )
+
+
 def render_attribution_index(git: GitContext) -> str:
+    citation = """@misc{bu2026astis,
+  title        = {Auto-Sampling-Theory-In-Sleep: A Hierarchical Automated
+                  Theorem Proving System for Sampling Theory},
+  author       = {Dake Bu and Ji Cheng and Atsushi Nitanda and
+                  Hau-San Wong and Qingfu Zhang},
+  year         = {2026},
+  howpublished = {GitHub repository and Samplinglib formalization website},
+  url          = {https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep}
+}"""
     body = f"""
 <section class="page-hero compact"><div class="eyebrow">Provenance and ownership</div>
 <h1>Attribution</h1><p class="lede">ASTIS separates the textbook route, Mathlib facts, external proof references, ASTIS-owned Lean declarations, and generated exposition.</p></section>
+<section id="organizers" class="organizers-panel">
+  <div class="section-heading"><span>Organizers</span><h2>The research and formalization team</h2></div>
+  <p class="organizer-names">Dake Bu · Ji Cheng · Atsushi Nitanda · Hau-San Wong · Qingfu Zhang</p>
+</section>
 <section class="attribution-grid">
   <article><h2>Primary mathematical source</h2><p>Sinho Chewi's <a href="{CHEWI_URL}"><em>Log-Concave Sampling</em></a> determines the chapter route. ASTIS uses original summaries, exact source correspondence, and supplemental regularity details; it does not imply author endorsement.</p></article>
   <article><h2>Lean and Mathlib</h2><p>Lean checks the local declarations. Mathlib supplies the measure, probability, analysis, convexity, kernel, and calculus APIs. A Mathlib theorem is labeled external until ASTIS owns the local declaration that consumes it.</p></article>
   <article><h2>External papers and repositories</h2><p>Cited textbooks, papers, <a href="https://github.com/YuanheZ/lean-stat-learning-theory">lean-stat-learning-theory</a>, and <a href="https://github.com/junwei-lu/Lean-Asymptotic-Statistical-Theory">Lean-Asymptotic-Statistical-Theory</a> are audited references or port sources. Their licenses and theorem hypotheses remain controlling.</p></article>
   <article><h2>Formalization-site lineage</h2><p>The implementation-map and literate formalization pattern is informed by Lean-Ridgelet and the ABRL review deployment supplied for this work. ASTIS uses an independent Python generator and sampling/SDE-specific content; no bandit or quantum chapters are copied.</p></article>
 </section>
+<section id="citation"><div class="section-heading"><span>Citation</span><h2>Cite ASTIS and Samplinglib</h2></div>{code_html(citation, "bibtex")}</section>
 <section><h2>Source state</h2><dl><dt>Git ref</dt><dd><code>{esc(git.ref)}</code></dd><dt>Commit</dt><dd><code>{esc(git.commit)}</code></dd><dt>Remote</dt><dd><code>{esc(git.remote_url)}</code></dd><dt>Published commit</dt><dd>{"yes" if git.commit_published else "not found on a configured remote ref"}</dd><dt>Public source links</dt><dd>{"enabled" if git.public_source_links else "disabled; using site-local anchors"}</dd></dl></section>
 <section class="note"><h2>Source-link rule</h2><p>By default every declaration links to the generated module anchor, so private or unpublished repositories cannot create public 404s. Set <code>ASTIS_PUBLIC_SOURCE_LINKS=1</code> only after verifying that the remote is public; clean files at a remote-published commit then link to that exact SHA. Modified or untracked files always remain labeled “local preview source”. The generator never assumes that checkout content already exists on <code>main</code>.</p></section>
 """
@@ -2105,6 +2331,14 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
         shutil.rmtree(output)
     output.mkdir(parents=True)
     copy_assets(output)
+    live_mappings = build_live_mappings(teaching, declarations_by_name)
+    data_dir = output / "data"
+    data_dir.mkdir()
+    (data_dir / "live-mappings.json").write_text(
+        json.dumps({"reviewed_mappings": live_mappings}, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
     write_page(
         output,
@@ -2143,6 +2377,7 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     )
     write_page(output, "modules/index.html", render_module_index(modules))
     write_page(output, "roadmap/index.html", render_roadmap(milestones))
+    write_page(output, "live/index.html", render_live_formalization(len(live_mappings)))
     write_page(output, "workflow/index.html", render_workflow(_ACTIVE_GATE))
     write_page(output, "attribution/index.html", render_attribution_index(_ACTIVE_GIT))
     write_page(output, "dependency-explorer.html", render_dependency_explorer(entries))
@@ -2193,6 +2428,15 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     site_data = {
         "project": "Auto-Sampling-Theory-In-Sleep",
         "short_name": "ASTIS",
+        "public_library": "Samplinglib",
+        "tagline": "Verified sampling theory in Lean, from textbook foundations to AI-assisted formalization.",
+        "organizers": [
+            "Dake Bu",
+            "Ji Cheng",
+            "Atsushi Nitanda",
+            "Hau-San Wong",
+            "Qingfu Zhang",
+        ],
         "source_book": {
             "author": "Sinho Chewi",
             "title": "Log-Concave Sampling",
@@ -2215,6 +2459,7 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
                 for declaration in declarations
             ),
             "teaching_declarations": len(teaching),
+            "live_reviewed_mappings": len(live_mappings),
             "placeholder_declarations": sum(
                 declaration.has_placeholder for declaration in declarations
             ),
@@ -2269,8 +2514,6 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
             for entry in entries
         ],
     }
-    data_dir = output / "data"
-    data_dir.mkdir()
     (data_dir / "site-data.json").write_text(
         json.dumps(site_data, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -2355,15 +2598,19 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "declarations/index.html",
         "modules/index.html",
         "roadmap/index.html",
+        "live/index.html",
         "workflow/index.html",
         "attribution/index.html",
         "maintenance.html",
         "data/site-data.json",
         "data/build-metadata.json",
+        "data/live-mappings.json",
         "search-index.json",
         "assets/site.css",
         "assets/site.js",
-        "assets/astis-blueprint-og.png",
+        "assets/ide.js",
+        "assets/samplinglib-og.png",
+        "assets/samplinglib-architecture.svg",
     ]
     for rel in required:
         if not (output / rel).exists():
@@ -2560,6 +2807,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "module-family-map",
         "source-to-lean",
         "chapter-02-dag",
+        "samplinglib-architecture",
     }
     for name in required_diagrams:
         source = DIAGRAMS / f"{name}.mmd"
@@ -2576,11 +2824,21 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         for path in output.rglob("*")
         if path.is_file() and path.suffix.lower() in {".html", ".json", ".css", ".js", ".mmd"}
     )
-    if re.search(r"[A-Za-z]:\\", generated_text):
+    if re.search(
+        r"\b[A-Za-z]:\\(?:Users|Program Files|Windows|Temp|home)\\",
+        generated_text,
+        flags=re.IGNORECASE,
+    ):
         errors.append("absolute Windows path leaked into generated website")
-    for token in ('value="blueprint"', 'value="modern"', 'value="bold"'):
-        if token not in generated_text:
-            errors.append(f"missing theme option: {token}")
+    if "Samplinglib" not in generated_text:
+        errors.append("Samplinglib public-library identity missing")
+    if "Auto-Sampling-Theory-In-Sleep" not in generated_text:
+        errors.append("ASTIS system identity missing")
+    for organizer in site_data.get("organizers", []):
+        if str(organizer) not in generated_text:
+            errors.append(f"organizer missing from generated website: {organizer}")
+    if "data-live-app" not in generated_text or "/api/compile" not in generated_text:
+        errors.append("Live Formalization workspace or compiler boundary missing")
     if "MathJax" not in generated_text:
         errors.append("MathJax configuration missing")
     if "language-lean" not in generated_text:

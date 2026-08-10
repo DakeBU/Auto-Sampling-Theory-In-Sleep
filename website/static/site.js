@@ -2,38 +2,42 @@
   "use strict";
 
   const root = document.documentElement;
-  const themeSelect = document.getElementById("theme-select");
-  const schemeToggle = document.getElementById("scheme-toggle");
+  const schemeToggles = document.querySelectorAll(".scheme-toggle");
   const navToggle = document.querySelector(".nav-toggle");
-  const nav = document.getElementById("site-nav");
+  const sidebar = document.getElementById("site-sidebar");
+  const sidebarScrim = document.querySelector("[data-sidebar-scrim]");
 
-  const savedTheme = localStorage.getItem("astis-theme");
-  const savedScheme = localStorage.getItem("astis-color-scheme");
-  if (savedTheme && ["blueprint", "modern", "bold"].includes(savedTheme)) {
-    root.dataset.theme = savedTheme;
-  }
+  const savedScheme = localStorage.getItem("samplinglib-color-scheme");
   if (savedScheme && ["light", "dark"].includes(savedScheme)) {
     root.dataset.colorScheme = savedScheme;
   } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
     root.dataset.colorScheme = "dark";
   }
-  if (themeSelect) {
-    themeSelect.value = root.dataset.theme;
-    themeSelect.addEventListener("change", () => {
-      root.dataset.theme = themeSelect.value;
-      localStorage.setItem("astis-theme", themeSelect.value);
-    });
-  }
-  if (schemeToggle) {
-    schemeToggle.addEventListener("click", () => {
+  schemeToggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
       root.dataset.colorScheme = root.dataset.colorScheme === "dark" ? "light" : "dark";
-      localStorage.setItem("astis-color-scheme", root.dataset.colorScheme);
+      localStorage.setItem("samplinglib-color-scheme", root.dataset.colorScheme);
     });
-  }
-  if (navToggle && nav) {
+  });
+
+  const closeSidebar = () => {
+    sidebar?.classList.remove("open");
+    document.body.classList.remove("sidebar-open");
+    navToggle?.setAttribute("aria-expanded", "false");
+  };
+  if (navToggle && sidebar) {
     navToggle.addEventListener("click", () => {
-      const open = nav.classList.toggle("open");
+      const open = sidebar.classList.toggle("open");
+      document.body.classList.toggle("sidebar-open", open);
       navToggle.setAttribute("aria-expanded", String(open));
+    });
+    sidebarScrim?.addEventListener("click", closeSidebar);
+    sidebar.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeSidebar));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && sidebar.classList.contains("open")) {
+        closeSidebar();
+        navToggle.focus();
+      }
     });
   }
 

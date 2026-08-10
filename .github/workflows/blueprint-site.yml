@@ -1,4 +1,4 @@
-name: ASTIS literate formalization site
+name: Samplinglib site
 
 on:
   push:
@@ -13,7 +13,10 @@ on:
       - "lean-toolchain"
       - "lake-manifest.json"
       - "tools/astis.py"
+      - "tools/astis_harness.py"
+      - "tools/astis_formalizer.py"
       - "tools/astis_site.py"
+      - "README.md"
       - ".github/workflows/blueprint-site.yml"
   pull_request:
     paths:
@@ -26,7 +29,10 @@ on:
       - "lean-toolchain"
       - "lake-manifest.json"
       - "tools/astis.py"
+      - "tools/astis_harness.py"
+      - "tools/astis_formalizer.py"
       - "tools/astis_site.py"
+      - "README.md"
       - ".github/workflows/blueprint-site.yml"
   workflow_dispatch:
 
@@ -34,6 +40,9 @@ permissions:
   contents: read
   pages: write
   id-token: write
+
+env:
+  ASTIS_PUBLIC_SOURCE_LINKS: "1"
 
 concurrency:
   group: blueprint-pages-${{ github.ref }}
@@ -63,12 +72,24 @@ jobs:
         run: |
           python3 -m py_compile \
             tools/astis_site.py \
+            tools/astis_harness.py \
+            tools/astis_formalizer.py \
             website/scripts/build_site.py \
             website/scripts/check_site.py \
             website/scripts/build_sites_bundle.py \
             website/scripts/lean_gate.py \
+            website/scripts/ide_server.py \
             website/scripts/serve_preview.py \
             website/scripts/quick_tunnel.py
+
+      - name: Test formalization and harness contracts
+        run: |
+          python3 -m unittest \
+            tools.tests.test_astis_formalizer \
+            tools.tests.test_astis_ide_server
+          python3 tools/astis.py harness-test
+          node --check website/static/site.js
+          node --check website/static/ide.js
 
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py
@@ -82,7 +103,7 @@ jobs:
       - name: Build deployable static worker bundle
         run: |
           python3 website/scripts/build_sites_bundle.py
-          node --check .open-next/worker.js
+          node --input-type=module --check < .open-next/worker.js
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
