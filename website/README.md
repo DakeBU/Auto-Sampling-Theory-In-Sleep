@@ -33,9 +33,9 @@ python3 website/scripts/check_site.py
 
 The generated site includes the overview, twelve-chapter learning path,
 implementation map, exhaustive declaration and module catalogs, reviewed
-teaching pages, roadmap, ASTIS workflow, attribution, and Live Formalization
-workspace. Search, source anchors, status, diagrams, and source links are all
-checked before publication.
+teaching pages, roadmap, ASTIS workflow, the four-stage contributor guide,
+attribution, and Live Formalization workspace. Search, source anchors, status,
+diagrams, and source links are all checked before publication.
 
 ## Live Formalization
 

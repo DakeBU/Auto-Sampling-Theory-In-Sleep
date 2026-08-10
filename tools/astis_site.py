@@ -637,7 +637,7 @@ SIDEBAR_GROUPS = (
     )),
     ("Community", (
         ("Organizers", "attribution/index.html#organizers", "Attribution"),
-        ("Contribute", "maintenance.html#contribute", "Maintenance"),
+        ("Contribute", "contribute/index.html", "Contribute"),
         ("Roadmap", "roadmap/index.html", "Roadmap"),
         ("Attribution", "attribution/index.html", "Attribution"),
     )),
@@ -812,7 +812,7 @@ def page(
       <footer>
         <p><strong>Samplinglib</strong> is the public formal library and learning interface of Auto-Sampling-Theory-In-Sleep (ASTIS).</p>
         <p>Organized by Dake Bu, Ji Cheng, Atsushi Nitanda, Hau-San Wong, and Qingfu Zhang.</p>
-        <p><a href="{prefix}attribution/index.html">Attribution</a> · <a href="{prefix}maintenance.html">Build and maintenance</a> · generated from Lean source, route metadata, and gate evidence.</p>
+        <p><a href="{prefix}contribute/index.html">Contribute</a> · <a href="{prefix}attribution/index.html">Attribution</a> · <a href="{prefix}maintenance.html">Build and maintenance</a> · generated from Lean source, route metadata, and gate evidence.</p>
       </footer>
     </div>
   </div>
@@ -1637,12 +1637,7 @@ def render_maintenance(count: int) -> str:
   <div><h2>Private preview</h2>{code_html("export ASTIS_PREVIEW_USER='reviewer'\nexport ASTIS_PREVIEW_PASSWORD='generated-outside-git'\npython3 website/scripts/ide_server.py --port 8087", "shell")}
   <p>Credentials come only from environment variables. Forward the loopback port over SSH before opening a local Cloudflare Quick Tunnel; it is not a production deployment.</p></div>
 </section>
-<section id="contribute"><h2>Add or update content</h2>
-<ol><li>Add a Lean declaration normally. It enters the exhaustive catalog automatically; add a Registry entry only for a selected reusable leaf.</li>
-<li>Add or edit a source anchor in <code>website/content/source_correspondence.json</code>. Use a precise page/section/theorem/equation reference and an honest wording label.</li>
-<li>Edit chapter exposition, reviewed teaching declarations, and route milestones in <code>website/content/</code>.</li>
-<li>Edit maintainable diagrams in <code>website/diagrams/*.mmd</code>; do not hand-maintain generated HTML status.</li>
-<li>Run the Lean gate, site build, and site check.</li></ol></section>
+<section id="contribute"><h2>Contributing</h2><p>This page documents site operations. The full contribution route covers mathematical scope, module ownership, source correspondence, Lean acceptance, review, and credit.</p><p><a class="button primary" href="contribute/index.html">Open the contributor guide</a></p></section>
 <section><h2>Consistency checks</h2>{list_html([
   f"Registry formalizedLocal count equals the Tests baseline ({count} at this build).",
   "Every named Lean declaration and module appears in the inventory and search index.",
@@ -1654,6 +1649,43 @@ def render_maintenance(count: int) -> str:
 <section><h2>Deployment</h2><p><code>.github/workflows/blueprint-site.yml</code> runs Lean and Tests before producing the Pages artifact. GitHub Pages must be enabled for Actions; a workflow file alone does not make a 404 deployment live.</p></section>
 """
     return page("Build and Maintenance", "maintenance.html", body)
+
+
+def render_contribute(count: int) -> str:
+    body = f"""
+<section class="page-hero compact contribution-hero"><div class="eyebrow">Samplinglib contributor guide</div>
+<h1>Move a Mathematical Result into Verified Memory</h1>
+<p class="lede">Contribute a focused correction, reusable Lean leaf, textbook reconstruction, proof-route packet, diagram, or teaching improvement without blurring source mathematics, local proof evidence, and route completion.</p>
+<div class="hero-actions"><a class="button primary" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/issues/new">Discuss a large change ↗</a><a class="button" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep">Repository source ↗</a></div></section>
+<nav class="contribution-jump" aria-label="Contributor steps"><a href="#discuss"><strong>01</strong><span>Discuss</span></a><a href="#develop"><strong>02</strong><span>Develop</span></a><a href="#verify"><strong>03</strong><span>Verify</span></a><a href="#submit"><strong>04</strong><span>Submit</span></a></nav>
+<section><div class="section-heading"><span>Acceptance route</span><h2>One result, explicit ownership, independent review</h2></div>{diagram_block("contribution-route", "Accepted certificates enter Samplinglib; rejected or incomplete work returns with an exact owning layer and blocker.")}</section>
+<section id="discuss" class="contribution-step"><div class="step-index">01</div><div class="step-body"><span class="eyebrow">Discuss</span><h2>Fix the scope before a large development</h2><p>Focused corrections, documentation repairs, and narrow API improvements can remain small. Open an issue before adding a theorem route, module or namespace, changing mathematical assumptions, porting a large external development, or changing the ASTIS gate.</p>
+<div class="decision-band"><div><h3>Focused change</h3><p>Keep the pull request narrow and name the declaration or page being corrected.</p></div><div><h3>New route or boundary</h3><p>State the result, exact source, owner module, dependencies, and whether it is a reusable leaf or a book/paper consumer.</p></div></div></div></section>
+<section id="develop" class="contribution-step"><div class="step-index">02</div><div class="step-body"><span class="eyebrow">Develop</span><h2>Search first, then work in the owning layer</h2><p>Search the <a href="../declarations/index.html">declaration catalog</a>, <a href="../implementation-map/index.html">implementation map</a>, local source, and Mathlib before creating an API. A nearby statement is reusable only when its hypotheses and semantics genuinely match.</p>
+<div class="table-wrap"><table><thead><tr><th>Contribution</th><th>Canonical owner</th><th>Admission rule</th></tr></thead><tbody>
+<tr><td>Reusable mathematical leaf</td><td><code>TechnicalLemmas/</code> subject module</td><td>Complete local proof; Registry only when selected for shared memory</td></tr>
+<tr><td>Textbook or paper result</td><td>Consumer theorem plus exact source correspondence</td><td>Source statement, assumptions, constants, and proof boundary preserved</td></tr>
+<tr><td>Open proof work</td><td>Typed ASTIS packet or paper-contribution memory</td><td>Remains Partial, Planned, Blocked, or External; never promoted by prose</td></tr>
+<tr><td>Teaching or roadmap content</td><td><code>website/content/</code></td><td>May reference only real declarations; route and local status stay separate</td></tr>
+<tr><td>Diagram</td><td><code>website/diagrams/*.mmd</code></td><td>Editable source, real modules/declarations, checked generated rendering</td></tr>
+</tbody></table></div>
+<p class="status-boundary"><strong>Two independent reports are mandatory:</strong> Local declaration status records what this checkout proves; Mathematical route/paper-reproduction status records how far the source theorem route has actually been reconstructed.</p>
+<div class="contribution-rules"><p><strong>Reuse before extension.</strong> Prefer an existing Samplinglib or Mathlib declaration when it is an exact fit.</p><p><strong>Complete proof boundary.</strong> Do not use <code>sorry</code>, <code>admit</code>, hidden axioms, constants, postulates, or fake trivial closure.</p><p><strong>Preserve provenance.</strong> Keep original copyright and author notices for adapted code and record the exact source and substantive changes.</p></div></div></section>
+<section id="verify" class="contribution-step"><div class="step-index">03</div><div class="step-body"><span class="eyebrow">Verify</span><h2>Run the library, harness, and website gates</h2><p>Use the Lean and Mathlib revisions pinned by this checkout. From the repository root:</p>{code_html("lake exe cache get\nLEAN_NUM_THREADS=$(nproc) lake build\npython3 tools/astis.py check\npython3 tools/astis.py harness-test\npython3 website/scripts/lean_gate.py\npython3 website/scripts/build_site.py\npython3 website/scripts/check_site.py", "shell")}
+<ul class="verification-checklist"><li>The whole Lean build succeeds.</li><li>No forbidden proof placeholder or fake closure was introduced.</li><li>Imports preserve subject ownership and avoid cycles.</li><li>Sources, assumptions, constants, and endpoints are exact.</li><li>Local proof status and route status are reported independently.</li><li>New reusable leaves have focused evidence and warranted Registry metadata.</li><li>Website metadata names only declarations in this checkout.</li><li>Generated <code>_site/</code> output remains uncommitted.</li></ul>
+<p class="note">This build currently records {count} compiled Registry leaves. That count is a consistency baseline, not a claim that the Log-Concave Sampling route is complete.</p></div></section>
+<section id="submit" class="contribution-step"><div class="step-index">04</div><div class="step-body"><span class="eyebrow">Submit</span><h2>Make the mathematical and formal evidence reviewable</h2><p>Use the repository pull request template. Record the result and source anchor, owning module, API decisions, exact commands run, adapted-code provenance, both status layers, and every remaining obligation.</p>
+<div class="review-route"><div><h3>Reviewer checks</h3><ul><li>source fidelity and hidden hypotheses;</li><li>statement or constant drift;</li><li>module ownership and duplicate APIs;</li><li>proof completeness and current gate evidence;</li><li>honest remaining mathematical frontier.</li></ul></div><div><h3>Credit</h3><p>Accepted contributions are credited in Git history and relevant source-file author headers. Co-written commits should include one <code>Co-authored-by</code> trailer per additional author.</p>{code_html("Co-authored-by: Full Name <email@example.com>", "text")}</div></div>
+<div class="hero-actions"><a class="button primary" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/compare">Open a pull request ↗</a><a class="button" href="../roadmap/index.html">Inspect open milestones</a></div></div></section>
+<section class="note"><h2>Design source</h2><p>This staged workflow learns from <a href="https://statsmllib.github.io/contribute.html">StatsMLlib's contributor guide</a>, then adds ASTIS-specific source correspondence, dual status, hierarchical task packets, independent reviewer gates, and Samplinglib memory admission.</p></section>
+"""
+    return page(
+        "Contribute",
+        "contribute/index.html",
+        body,
+        active="Contribute",
+        description="Contribute source-backed Lean formalizations and teaching material to ASTIS and Samplinglib",
+    )
 
 
 def teaching_card_path(declaration: SourceDeclaration) -> str:
@@ -1783,7 +1815,7 @@ Samplinglib Registry</code></pre>
 </section>
 <section id="organizers" class="organizer-strip">
   <div><span class="eyebrow">Organizers</span><h2>Dake Bu · Ji Cheng · Atsushi Nitanda · Hau-San Wong · Qingfu Zhang</h2></div>
-  <a class="text-link" href="attribution/index.html#citation">Citation and attribution →</a>
+  <div class="organizer-links"><a class="text-link" href="contribute/index.html">Become a contributor →</a><a class="text-link" href="attribution/index.html#citation">Citation and attribution →</a></div>
 </section>
 <section class="note"><h2>Build interpretation</h2><p>{esc(gate.note)} The current generated view classifies {local_compiled} production declarations as compiled only when gate evidence matches this Lean source digest. Registry count ({len(entries)}) and textbook completion are separate quantities.</p></section>
 """
@@ -2253,7 +2285,7 @@ def render_attribution_index(git: GitContext) -> str:
   <article><h2>Primary mathematical source</h2><p>Sinho Chewi's <a href="{CHEWI_URL}"><em>Log-Concave Sampling</em></a> determines the chapter route. ASTIS uses original summaries, exact source correspondence, and supplemental regularity details; it does not imply author endorsement.</p></article>
   <article><h2>Lean and Mathlib</h2><p>Lean checks the local declarations. Mathlib supplies the measure, probability, analysis, convexity, kernel, and calculus APIs. A Mathlib theorem is labeled external until ASTIS owns the local declaration that consumes it.</p></article>
   <article><h2>External papers and repositories</h2><p>Cited textbooks, papers, <a href="https://github.com/YuanheZ/lean-stat-learning-theory">lean-stat-learning-theory</a>, and <a href="https://github.com/junwei-lu/Lean-Asymptotic-Statistical-Theory">Lean-Asymptotic-Statistical-Theory</a> are audited references or port sources. Their licenses and theorem hypotheses remain controlling.</p></article>
-  <article><h2>Formalization-site lineage</h2><p>The implementation-map and literate formalization pattern is informed by Lean-Ridgelet and the ABRL review deployment supplied for this work. ASTIS uses an independent Python generator and sampling/SDE-specific content; no bandit or quantum chapters are copied.</p></article>
+  <article><h2>Formalization-site lineage</h2><p>The implementation-map and literate formalization pattern is informed by Lean-Ridgelet and the ABRL review deployment supplied for this work. The staged contributor route learns from <a href="https://statsmllib.github.io/contribute.html">StatsMLlib</a>. ASTIS uses an independent Python generator and sampling/SDE-specific content; no bandit or quantum chapters are copied.</p></article>
 </section>
 <section id="citation"><div class="section-heading"><span>Citation</span><h2>Cite ASTIS and Samplinglib</h2></div>{code_html(citation, "bibtex")}</section>
 <section><h2>Source state</h2><dl><dt>Git ref</dt><dd><code>{esc(git.ref)}</code></dd><dt>Commit</dt><dd><code>{esc(git.commit)}</code></dd><dt>Remote</dt><dd><code>{esc(git.remote_url)}</code></dd><dt>Published commit</dt><dd>{"yes" if git.commit_published else "not found on a configured remote ref"}</dd><dt>Public source links</dt><dd>{"enabled" if git.public_source_links else "disabled; using site-local anchors"}</dd></dl></section>
@@ -2380,6 +2412,7 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     write_page(output, "live/index.html", render_live_formalization(len(live_mappings)))
     write_page(output, "workflow/index.html", render_workflow(_ACTIVE_GATE))
     write_page(output, "attribution/index.html", render_attribution_index(_ACTIVE_GIT))
+    write_page(output, "contribute/index.html", render_contribute(sum(entry.is_blue for entry in entries)))
     write_page(output, "dependency-explorer.html", render_dependency_explorer(entries))
     write_page(output, "progress.html", render_progress(chapters, entries, source_entries))
     write_page(output, "frontier.html", render_frontier(entries_by_short))
@@ -2601,6 +2634,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "live/index.html",
         "workflow/index.html",
         "attribution/index.html",
+        "contribute/index.html",
         "maintenance.html",
         "data/site-data.json",
         "data/build-metadata.json",
@@ -2808,6 +2842,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "source-to-lean",
         "chapter-02-dag",
         "samplinglib-architecture",
+        "contribution-route",
     }
     for name in required_diagrams:
         source = DIAGRAMS / f"{name}.mmd"
@@ -2839,6 +2874,20 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
             errors.append(f"organizer missing from generated website: {organizer}")
     if "data-live-app" not in generated_text or "/api/compile" not in generated_text:
         errors.append("Live Formalization workspace or compiler boundary missing")
+    contributor_text = (output / "contribute" / "index.html").read_text(
+        encoding="utf-8", errors="ignore"
+    )
+    for marker in (
+        "Discuss",
+        "Develop",
+        "Verify",
+        "Submit",
+        "Local declaration status",
+        "Mathematical route/paper-reproduction status",
+        "StatsMLlib",
+    ):
+        if marker not in contributor_text:
+            errors.append(f"contributor workflow marker missing: {marker}")
     if "MathJax" not in generated_text:
         errors.append("MathJax configuration missing")
     if "language-lean" not in generated_text:

@@ -165,6 +165,25 @@ states.
 
 **Dake Bu, Ji Cheng, Atsushi Nitanda, Hau-San Wong, and Qingfu Zhang**
 
+Contributions are welcome through the [four-stage contributor
+guide](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/contribute/) and
+the repository's [submission checklist](CONTRIBUTING.md). Focused corrections
+can go directly to a pull request; new theorem routes or module boundaries
+should be coordinated in an issue first.
+
+## Related Systems ⟡
+
+| System | What informs ASTIS | ASTIS boundary |
+|---|---|---|
+| [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Role-separated iteration, durable trial memory, summaries, and rejected-route records. | ASTIS maps these ideas to upper planning, middle formalization, lower Lean work, and independent proof review; compiler and source-correlation gates remain authoritative. |
+| [EoH](https://github.com/FeiLiu36/EoH) | Population initialization, variation, selection, and archive pressure for competing solution routes. | Population search is allowed only for fixed Lean-checkable targets in `exploratoryProof`; `faithfulPaper` cannot mutate the source theorem, assumptions, or constants. |
+| [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Long-running research loops, plain-file handoffs, and separate reviewer passes. | ASTIS specializes the loop for Lean proof states, exact source anchors, analytic obligations, and reusable sampling-theory memory. |
+| [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) | Blueprint-driven target selection, dynamic proof-DAG leaves, bounded workers, and deterministic gates. | ASTIS keeps a local, source-backed harness and a separate Samplinglib memory layer instead of requiring a GitHub/PR/Slurm execution substrate. |
+| [StatsMLlib](https://github.com/Lean-MoDS/StatsMLlib) | Subject-owned Lean modules, reuse-first development, complete proofs, source attribution, and a staged contributor workflow. | Samplinglib adds textbook-route correspondence, dual local/route status, ASTIS task packets, and reviewer-controlled admission to formal memory. |
+
+The complete design and mathematical provenance ledger is maintained in
+[Attribution and Design Lineage](docs/attribution.md).
+
 ## Citation 📝
 
 ```bibtex
