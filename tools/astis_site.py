@@ -638,6 +638,7 @@ SIDEBAR_GROUPS = (
     ("Community", (
         ("Organizers", "attribution/index.html#organizers", "Attribution"),
         ("Contribute", "contribute/index.html", "Contribute"),
+        ("Related Systems", "related-systems/index.html", "Related Systems"),
         ("Roadmap", "roadmap/index.html", "Roadmap"),
         ("Attribution", "attribution/index.html", "Attribution"),
     )),
@@ -1610,10 +1611,9 @@ def render_attribution() -> str:
   <p>ASTIS is reconstructing Sinho Chewi's <a href="{CHEWI_URL}"><em>Log-Concave Sampling</em></a>. The book is the organizing mathematical source.</p>
   <p>The public draft and author page expose no explicit license permitting wholesale republication. The site therefore uses original faithful paraphrase, precise chapter/section/page correspondence, supplemental derivations, and only necessary short quotations.</p>
   <p>Chewi does not participate in, endorse, or maintain ASTIS.</p></article>
-  <article><h2>Sho Sonoda</h2>
-  <p>The Blueprint-style organization and implementation-map idea are inspired by Sho Sonoda's <a href="https://github.com/shosonoda/lean-ridgelet">Lean-Ridgelet repository</a> and <a href="https://shosonoda.github.io/lean-ridgelet/blueprint/html-multi/overview/#Lean-Ridgelet-Blueprint--L2-theory___-arXiv___2106___04770v2-implementation-map">Blueprint site</a>.</p>
-  <p>Lean-Ridgelet is Apache-2.0. ASTIS copied no Lean-Ridgelet code, template, or styling; it uses an independently implemented static generator.</p>
-  <p>Sho Sonoda does not participate in, endorse, or maintain ASTIS.</p></article>
+  <article><h2>Design provenance</h2>
+  <p>Automation and formalization-site influences are documented in one place so that teaching, contribution, and theorem pages can focus on ASTIS itself.</p>
+  <p><a href="related-systems/index.html">Open Related Systems</a> for the complete comparison and design boundaries.</p></article>
   <article><h2>Lean and Mathlib</h2>
   <p>Formal proofs use <a href="https://lean-lang.org/">Lean</a> and <a href="https://mathlib.org/">Mathlib</a>. The theorem cards identify Mathlib-facing source declarations when the ASTIS Registry records them.</p>
   <p>Mathlib declarations remain external until an ASTIS-owned declaration compiles locally; external availability alone never earns blue status.</p></article>
@@ -1677,7 +1677,7 @@ def render_contribute(count: int) -> str:
 <section id="submit" class="contribution-step"><div class="step-index">04</div><div class="step-body"><span class="eyebrow">Submit</span><h2>Make the mathematical and formal evidence reviewable</h2><p>Use the repository pull request template. Record the result and source anchor, owning module, API decisions, exact commands run, adapted-code provenance, both status layers, and every remaining obligation.</p>
 <div class="review-route"><div><h3>Reviewer checks</h3><ul><li>source fidelity and hidden hypotheses;</li><li>statement or constant drift;</li><li>module ownership and duplicate APIs;</li><li>proof completeness and current gate evidence;</li><li>honest remaining mathematical frontier.</li></ul></div><div><h3>Credit</h3><p>Accepted contributions are credited in Git history and relevant source-file author headers. Co-written commits should include one <code>Co-authored-by</code> trailer per additional author.</p>{code_html("Co-authored-by: Full Name <email@example.com>", "text")}</div></div>
 <div class="hero-actions"><a class="button primary" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/compare">Open a pull request ↗</a><a class="button" href="../roadmap/index.html">Inspect open milestones</a></div></div></section>
-<section class="note"><h2>Design source</h2><p>This staged workflow learns from <a href="https://statsmllib.github.io/contribute.html">StatsMLlib's contributor guide</a>, then adds ASTIS-specific source correspondence, dual status, hierarchical task packets, independent reviewer gates, and Samplinglib memory admission.</p></section>
+<section class="note"><h2>Acceptance principle</h2><p>Discussion and implementation can remain flexible, but admission to Samplinglib requires explicit mathematical ownership, source provenance, current Lean evidence, and an independent reviewer decision.</p></section>
 """
     return page(
         "Contribute",
@@ -1685,6 +1685,71 @@ def render_contribute(count: int) -> str:
         body,
         active="Contribute",
         description="Contribute source-backed Lean formalizations and teaching material to ASTIS and Samplinglib",
+    )
+
+
+def render_related_systems() -> str:
+    rows = (
+        (
+            "Learning Beyond Gradients",
+            "https://github.com/Trinkle23897/learning-beyond-gradients",
+            "Role-separated iteration, durable trial memory, summaries, and rejected-route records.",
+            "ASTIS maps these ideas to upper planning, middle formalization, lower Lean work, and independent proof review; source correspondence and the compiler gate remain authoritative.",
+        ),
+        (
+            "EoH",
+            "https://github.com/FeiLiu36/EoH",
+            "Population initialization, variation, selection, and archive pressure for competing routes.",
+            "Population search is allowed only for fixed Lean-checkable targets in exploratoryProof; faithfulPaper cannot mutate the source theorem, assumptions, or constants.",
+        ),
+        (
+            "ARIS",
+            "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+            "Long-running research loops, plain-file handoffs, and separate reviewer passes.",
+            "ASTIS specializes the loop for Lean proof states, exact source anchors, analytic obligations, and reusable sampling-theory memory.",
+        ),
+        (
+            "LeanMarathon",
+            "https://github.com/YuanheZ/LeanMarathon",
+            "Blueprint-driven target selection, dynamic proof-DAG leaves, bounded workers, and deterministic gates.",
+            "ASTIS keeps a local source-backed harness and a separate Samplinglib memory layer instead of requiring a GitHub/PR/Slurm execution substrate.",
+        ),
+        (
+            "MathCode",
+            "https://github.com/math-ai-org/mathcode",
+            "Lean diagnostics, theorem reuse, and explicit subgoal planning.",
+            "Diagnostics and retrieval remain advisory; only ASTIS-owned source correspondence, local compilation, tests, and reviewer evidence can accept a result.",
+        ),
+        (
+            "Sho Sonoda / Lean-Ridgelet",
+            "https://github.com/shosonoda/lean-ridgelet",
+            "Blueprint-style organization and an implementation map connecting mathematics to Lean declarations.",
+            "Samplinglib uses an independently implemented generator, a full textbook route, dual status, hidden-condition packets, and sampling/SDE-specific theorem DAGs.",
+        ),
+        (
+            "StatsMLlib",
+            "https://github.com/Lean-MoDS/StatsMLlib",
+            "Subject-owned Lean modules, reuse-first development, complete proofs, source attribution, and staged contribution review.",
+            "Samplinglib adds textbook-route correspondence, dual local/route status, typed ASTIS packets, and reviewer-controlled admission to formal memory.",
+        ),
+    )
+    table_rows = "".join(
+        f'<tr><td><a href="{esc(url)}"><strong>{esc(name)}</strong> ↗</a></td><td>{esc(influence)}</td><td>{esc(boundary)}</td></tr>'
+        for name, url, influence, boundary in rows
+    )
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Design context</div>
+<h1>Related Systems</h1><p class="lede">ASTIS combines long-horizon research control, Lean formalization, and a sampling-theory memory library. This is the sole website page that compares those design choices with adjacent systems.</p></section>
+<section><div class="section-heading"><span>Comparison boundary</span><h2>What is reused, and what remains ASTIS-specific</h2></div>
+<div class="table-wrap"><table class="systems-table"><thead><tr><th>System</th><th>What informs ASTIS</th><th>ASTIS boundary</th></tr></thead><tbody>{table_rows}</tbody></table></div></section>
+<section class="note"><h2>Interpretation</h2><p>These links record design provenance. They do not imply code identity, theorem equivalence, endorsement, or local Lean proof ownership. Mathematical sources and software dependencies are documented separately under Attribution.</p></section>
+"""
+    return page(
+        "Related Systems",
+        "related-systems/index.html",
+        body,
+        active="Related Systems",
+        description="Related automation and formalization systems informing ASTIS design",
     )
 
 
@@ -2285,7 +2350,7 @@ def render_attribution_index(git: GitContext) -> str:
   <article><h2>Primary mathematical source</h2><p>Sinho Chewi's <a href="{CHEWI_URL}"><em>Log-Concave Sampling</em></a> determines the chapter route. ASTIS uses original summaries, exact source correspondence, and supplemental regularity details; it does not imply author endorsement.</p></article>
   <article><h2>Lean and Mathlib</h2><p>Lean checks the local declarations. Mathlib supplies the measure, probability, analysis, convexity, kernel, and calculus APIs. A Mathlib theorem is labeled external until ASTIS owns the local declaration that consumes it.</p></article>
   <article><h2>External papers and repositories</h2><p>Cited textbooks, papers, <a href="https://github.com/YuanheZ/lean-stat-learning-theory">lean-stat-learning-theory</a>, and <a href="https://github.com/junwei-lu/Lean-Asymptotic-Statistical-Theory">Lean-Asymptotic-Statistical-Theory</a> are audited references or port sources. Their licenses and theorem hypotheses remain controlling.</p></article>
-  <article><h2>Formalization-site lineage</h2><p>The implementation-map and literate formalization pattern is informed by Lean-Ridgelet and the ABRL review deployment supplied for this work. The staged contributor route learns from <a href="https://statsmllib.github.io/contribute.html">StatsMLlib</a>. ASTIS uses an independent Python generator and sampling/SDE-specific content; no bandit or quantum chapters are copied.</p></article>
+  <article><h2>Design provenance</h2><p>Comparisons with adjacent automation and formalization systems are centralized on the <a href="../related-systems/index.html">Related Systems</a> page. This attribution page records ownership, mathematical sources, and software dependencies.</p></article>
 </section>
 <section id="citation"><div class="section-heading"><span>Citation</span><h2>Cite ASTIS and Samplinglib</h2></div>{code_html(citation, "bibtex")}</section>
 <section><h2>Source state</h2><dl><dt>Git ref</dt><dd><code>{esc(git.ref)}</code></dd><dt>Commit</dt><dd><code>{esc(git.commit)}</code></dd><dt>Remote</dt><dd><code>{esc(git.remote_url)}</code></dd><dt>Published commit</dt><dd>{"yes" if git.commit_published else "not found on a configured remote ref"}</dd><dt>Public source links</dt><dd>{"enabled" if git.public_source_links else "disabled; using site-local anchors"}</dd></dl></section>
@@ -2413,6 +2478,7 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     write_page(output, "workflow/index.html", render_workflow(_ACTIVE_GATE))
     write_page(output, "attribution/index.html", render_attribution_index(_ACTIVE_GIT))
     write_page(output, "contribute/index.html", render_contribute(sum(entry.is_blue for entry in entries)))
+    write_page(output, "related-systems/index.html", render_related_systems())
     write_page(output, "dependency-explorer.html", render_dependency_explorer(entries))
     write_page(output, "progress.html", render_progress(chapters, entries, source_entries))
     write_page(output, "frontier.html", render_frontier(entries_by_short))
@@ -2635,6 +2701,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "workflow/index.html",
         "attribution/index.html",
         "contribute/index.html",
+        "related-systems/index.html",
         "maintenance.html",
         "data/site-data.json",
         "data/build-metadata.json",
@@ -2884,7 +2951,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "Submit",
         "Local declaration status",
         "Mathematical route/paper-reproduction status",
-        "StatsMLlib",
+        "Acceptance principle",
     ):
         if marker not in contributor_text:
             errors.append(f"contributor workflow marker missing: {marker}")
