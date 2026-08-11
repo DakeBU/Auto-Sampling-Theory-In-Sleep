@@ -10315,6 +10315,13 @@ def cmd_site_check(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_chewi_source_check(args: argparse.Namespace) -> int:
+    """Validate the canonical Chewi edition, TOC, and semantic source anchors."""
+    import astis_source
+
+    return astis_source.command_check(args)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="ASTIS workflow helper")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -10388,6 +10395,11 @@ def build_parser() -> argparse.ArgumentParser:
     site_check.add_argument("--output", default="")
     site_check.add_argument("--rebuild", action="store_true")
     site_check.set_defaults(func=cmd_site_check)
+
+    chewi_source_check = sub.add_parser("chewi-source-check")
+    chewi_source_check.add_argument("--pdf", default="")
+    chewi_source_check.add_argument("--require-pdf", action="store_true")
+    chewi_source_check.set_defaults(func=cmd_chewi_source_check)
 
     zh_summary = sub.add_parser("cycle-zh-summary")
     zh_summary.add_argument("task")

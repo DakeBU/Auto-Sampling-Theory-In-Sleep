@@ -26,6 +26,8 @@ from pathlib import Path
 from typing import Iterable
 from urllib.parse import urlparse
 
+import astis_source
+
 
 ROOT = Path(__file__).resolve().parents[1]
 WEBSITE = ROOT / "website"
@@ -648,6 +650,7 @@ _ACTIVE_GATE: GateEvidence | None = None
 _ACTIVE_GIT: GitContext | None = None
 _SOURCE_BY_NAME: dict[str, SourceDeclaration] = {}
 _TEACHING_BY_NAME: dict[str, dict[str, object]] = {}
+_SOURCE_EDITION: dict[str, object] = {}
 
 
 def route_badge(status: str) -> str:
@@ -699,38 +702,47 @@ def relative_prefix(rel_path: str) -> str:
     return "../" * (len(Path(rel_path).parts) - 1)
 
 
+def textbook_section_path(chapter_number: int, section_id: str) -> str:
+    return f"textbook/chapter-{chapter_number:02d}/section-{slugify(section_id)}.html"
+
+
 def sidebar_html(prefix: str, active: str) -> str:
     groups = []
     for heading, links in SIDEBAR_GROUPS:
         rows = "".join(
-            f'<a href="{prefix}{href}"{f" aria-current=\"page\"" if marker == active else ""}>{esc(label)}</a>'
+            f'<a href="{prefix}{href}"{f" aria-current=\"page\"" if marker == active or (marker == "Textbook" and active.startswith("Textbook:")) else ""}>{esc(label)}</a>'
             for label, href, marker in links
         )
         groups.append(
             f'<section class="sidebar-group"><h2>{esc(heading)}</h2><nav>{rows}</nav></section>'
         )
-    chapters = "".join(
-        f'<a href="{prefix}textbook/chapter-{number:02d}.html">'
-        f'<span>{number:02d}</span>{esc(title)}</a>'
-        for number, title in (
-            (1, "Langevin Diffusion"),
-            (2, "Functional Inequalities"),
-            (3, "Stochastic Analysis"),
-            (4, "Langevin Monte Carlo"),
-            (5, "Faster Low-Accuracy Samplers"),
-            (6, "Renyi Convergence"),
-            (7, "High-Accuracy Samplers"),
-            (8, "Proximal Sampler"),
-            (9, "Lower Bounds"),
-            (10, "Structured Sampling"),
-            (11, "Non-Log-Concave Sampling"),
-            (12, "Diffusion Generative Models"),
+    chapter_rows = []
+    for raw_chapter in _SOURCE_EDITION.get("chapters", []):
+        chapter = dict(raw_chapter)
+        number = int(chapter["number"])
+        chapter_marker = f"Textbook:{number}"
+        section_rows = []
+        for raw_section in chapter["sections"]:
+            section = dict(raw_section)
+            section_id = str(section["id"])
+            section_marker = f"Textbook:{section_id}"
+            section_rows.append(
+                f'<a href="{prefix}{textbook_section_path(number, section_id)}"'
+                f'{" aria-current=\"page\"" if active == section_marker else ""}>'
+                f'<span>{esc(section_id)}</span>{esc(section["title"])}</a>'
+            )
+        chapter_rows.append(
+            f'<details class="toc-chapter"{" open" if active == chapter_marker or active.startswith(f"Textbook:{number}.") else ""}>'
+            f'<summary><span>{number:02d}</span>{esc(chapter["title"])}</summary>'
+            f'<a class="chapter-overview-link" href="{prefix}textbook/chapter-{number:02d}.html"'
+            f'{" aria-current=\"page\"" if active == chapter_marker else ""}>Chapter overview</a>'
+            f'<nav>{"".join(section_rows)}</nav></details>'
         )
-    )
+    chapters = "".join(chapter_rows)
     groups.insert(
         2,
-        f'<details class="chapter-nav"{" open" if active == "Textbook" else ""}>'
-        f'<summary>Chapters 1–12</summary><nav>{chapters}</nav></details>',
+        f'<details class="chapter-nav"{" open" if active == "Textbook" or active.startswith("Textbook:") else ""}>'
+        f'<summary>Canonical book contents</summary><div class="book-toc">{chapters}</div></details>',
     )
     return "".join(groups)
 
@@ -935,8 +947,8 @@ def render_textbook_index(chapters: list[dict[str, object]]) -> str:
 <section class="page-hero compact">
   <div class="eyebrow">Textbook spine</div>
   <h1>A reconstructed learning route through <em>Log-Concave Sampling</em></h1>
-  <p class="lede">Each chapter can be read at calculation, rigorous-detail,
-  or Lean-foundation depth. Page references point to the June 12, 2026 book draft.</p>
+  <p class="lede">Read the canonical August 9, 2026 edition section by section,
+  with rigorous analytic contracts and Lean evidence available on demand.</p>
 </section>
 {diagram_block("chapter-spine", "Logical chapter dependencies and recommended route.")}
 <section class="chapter-list">{''.join(cards)}</section>
@@ -1049,6 +1061,164 @@ def render_chapter(
         body,
         active="Textbook",
         description=str(chapter["goal"]),
+    )
+
+
+def render_textbook_chapter(
+    chapter: dict[str, object],
+    edition_chapter: dict[str, object],
+    source_entries: list[dict[str, object]],
+    entries_by_decl: dict[str, RegistryEntry],
+) -> str:
+    number = int(chapter["number"])
+    sections = [dict(section) for section in edition_chapter["sections"]]
+    first = sections[0]
+    section_rows = "".join(
+        f"""<li><a href="chapter-{number:02d}/section-{slugify(str(section['id']))}.html">
+  <span>{esc(section['id'])}</span><strong>{esc(section['title'])}</strong><small>Book p. {section['book_page']}</small>
+</a></li>"""
+        for section in sections
+    )
+    mapped = chapter_source_entries(number, source_entries)
+    formalization_rows = []
+    for source in mapped:
+        links = []
+        for declaration in source["lean_declarations"]:
+            entry = entries_by_decl.get(str(declaration))
+            if entry:
+                links.append(f'<a class="decl-link" href="../theorems/{entry.slug}.html">{esc(entry.short_name)}</a>')
+        formalization_rows.append(
+            f'<article><strong>{esc(source["source_kind"])}</strong><p>{esc(source["source_summary"])}</p>'
+            f'<div class="decl-links">{"".join(links) if links else "No local declaration is mapped yet."}</div></article>'
+        )
+    body = f"""
+<article class="textbook-reader chapter-opening">
+  <header class="reader-header">
+    <div class="reader-kicker">Chapter {number} · Book pp. {esc(chapter['source_pages'])} · August 9, 2026 edition</div>
+    <h1>{esc(chapter['title'])}</h1>
+    <p class="reader-lede">{esc(chapter['goal'])}</p>
+    <a class="button primary" href="chapter-{number:02d}/section-{slugify(str(first['id']))}.html">Begin with {esc(first['id'])}</a>
+  </header>
+  <section id="calculation" class="reader-prose">
+    <h2>Chapter route</h2>
+    <p>This chapter develops {esc(', '.join(str(item) for item in chapter['concepts'][:4]))}. Its main destination is to connect the definitions below to the results that later chapters consume.</p>
+    <div class="reader-columns"><div><h3>Core definitions</h3>{list_html(chapter['core_definitions'])}</div>
+    <div><h3>Main results</h3>{list_html(chapter['major_results'])}</div></div>
+    <h2>Contents</h2>
+    <ol class="section-contents">{section_rows}</ol>
+  </section>
+  <details id="details" class="reader-disclosure rigor-disclosure"><summary>Why is this chapter route valid?</summary>
+    <div class="disclosure-body"><h3>Analytic contracts</h3>{list_html(chapter['rigorous_details'])}<h3>Open boundaries</h3>{list_html(chapter['blockers'])}</div>
+  </details>
+  <details id="lean" class="reader-disclosure lean-disclosure"><summary>View Lean formalization</summary>
+    <div class="disclosure-body"><p>These mappings are evidence links, not a claim that the entire chapter is formalized.</p>{''.join(formalization_rows) if formalization_rows else '<p>No declaration-level source block is mapped for this chapter yet.</p>'}</div>
+  </details>
+</article>
+"""
+    return page(
+        f"Chapter {number}: {chapter['title']}",
+        f"textbook/chapter-{number:02d}.html",
+        body,
+        active=f"Textbook:{number}",
+        description=str(chapter["goal"]),
+    )
+
+
+def render_textbook_section(
+    chapter: dict[str, object],
+    section: dict[str, object],
+    guide: str,
+    source_entries: list[dict[str, object]],
+    entries_by_decl: dict[str, RegistryEntry],
+    previous: dict[str, object] | None,
+    following: dict[str, object] | None,
+) -> str:
+    number = int(chapter["number"])
+    section_id = str(section["id"])
+    rel_path = textbook_section_path(number, section_id)
+    prefix = relative_prefix(rel_path)
+    pdf_page = int(section["book_page"]) + int(_SOURCE_EDITION["body_pdf_page_offset"])
+    source_url = f'{_SOURCE_EDITION["canonical_url"]}#page={pdf_page}'
+    mapped = [row for row in source_entries if str(row["section"]) == section_id]
+    kind = str(section.get("kind", "section"))
+    if not guide:
+        if kind == "notes":
+            guide = "The bibliographical notes identify the papers and books behind this chapter's arguments and indicate where stronger or more technical versions can be found."
+        elif kind == "exercises":
+            guide = "The exercises test the chapter's definitions, proof calculations, edge cases, and extensions without changing the chapter's formalization status."
+        else:
+            guide = f"This section advances the chapter goal: {chapter['goal']}"
+
+    math_blocks = []
+    rigor_blocks = []
+    lean_blocks = []
+    for source in mapped:
+        math_blocks.append(
+            f'<section class="source-passage"><div class="passage-label">{esc(source["source_kind"])}</div>'
+            f'<h2>{esc(source["source_summary"])}</h2><p>{esc(source["mathematical_exposition"])}</p></section>'
+        )
+        rigor_blocks.append(
+            f'<article><h3>{esc(source["source_kind"])}</h3><p>{esc(source["rigorous_packet"])}</p>'
+            f'<h4>Source assumptions</h4>{list_html(source["source_assumptions"])}'
+            f'<h4>Formal assumptions</h4>{list_html(source["formal_assumptions"])}</article>'
+        )
+        declaration_links = []
+        for declaration in source["lean_declarations"]:
+            entry = entries_by_decl.get(str(declaration))
+            if entry:
+                declaration_links.append(
+                    f'<a class="decl-link" href="{prefix}theorems/{entry.slug}.html">{esc(entry.short_name)}</a>'
+                )
+            else:
+                declaration_links.append(f'<span class="status status-orange">unresolved metadata: {esc(declaration)}</span>')
+        lean_blocks.append(
+            f'<article><div class="card-meta">{esc(source["status"])} · {esc(source["wording_status"])}</div>'
+            f'<h3>{esc(source["source_kind"])}</h3><p>{esc(source["astis_exposition"])}</p><div class="decl-links">'
+            f'{"".join(declaration_links) if declaration_links else "No ASTIS-owned declaration is mapped yet."}</div>'
+            f'<h4>Downstream consumers</h4>{list_html(source["downstream_consumers"])}</article>'
+        )
+    if not math_blocks:
+        math_blocks.append(
+            '<section class="source-passage"><h2>Place in the proof route</h2>'
+            f'<p>The chapter uses this material in the route toward {esc(str(chapter["major_results"][0]))} '
+            'The declaration-level source map is intentionally left inside the formalization layer until exact theorem anchors have been audited.</p></section>'
+        )
+    if not rigor_blocks:
+        rigor_blocks.append(
+            f'<article><h3>Chapter-level validity conditions</h3>{list_html(chapter["rigorous_details"])}</article>'
+        )
+    if not lean_blocks:
+        lean_blocks.append(
+            '<p>No declaration-level mapping has been accepted for this section. This is a route status, not a failed Lean declaration.</p>'
+        )
+
+    def nav_link(item: dict[str, object] | None, direction: str) -> str:
+        if item is None:
+            return '<span></span>'
+        label = f"{item['id']} {item['title']}"
+        return f'<a class="reader-{direction}" href="{prefix}{item["path"]}"><span>{direction.title()}</span><strong>{esc(label)}</strong></a>'
+
+    body = f"""
+<article class="textbook-reader section-reading">
+  <nav class="reader-breadcrumb" aria-label="Breadcrumb"><a href="{prefix}textbook/index.html">Log-Concave Sampling</a><span>/</span><a href="../chapter-{number:02d}.html">Chapter {number}</a></nav>
+  <header class="reader-header">
+    <div class="reader-kicker">{esc(section_id)} · Book p. {section['book_page']} · PDF p. {pdf_page}</div>
+    <h1>{esc(section['title'])}</h1>
+    <p class="reader-lede">{esc(guide)}</p>
+    <a class="source-anchor" href="{esc(source_url)}">Open this section in the canonical August 9 source ↗</a>
+  </header>
+  <div class="reader-prose">{''.join(math_blocks)}</div>
+  <details class="reader-disclosure rigor-disclosure"><summary>Why is this valid?</summary><div class="disclosure-body">{''.join(rigor_blocks)}</div></details>
+  <details class="reader-disclosure lean-disclosure"><summary>View Lean formalization</summary><div class="disclosure-body">{''.join(lean_blocks)}</div></details>
+  <nav class="reader-pagination" aria-label="Adjacent sections">{nav_link(previous, 'previous')}{nav_link(following, 'next')}</nav>
+</article>
+"""
+    return page(
+        f"{section_id} {section['title']}",
+        rel_path,
+        body,
+        active=f"Textbook:{section_id}",
+        description=guide,
     )
 
 
@@ -2386,13 +2556,20 @@ def copy_assets(output: Path) -> None:
 
 
 def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
-    global _ACTIVE_GATE, _ACTIVE_GIT, _SOURCE_BY_NAME, _TEACHING_BY_NAME, _ALL_MODULES
+    global _ACTIVE_GATE, _ACTIVE_GIT, _SOURCE_BY_NAME, _TEACHING_BY_NAME, _ALL_MODULES, _SOURCE_EDITION
+    source_errors, _ = astis_source.validate_source_contract()
+    if source_errors:
+        raise RuntimeError("canonical Chewi source check failed: " + "; ".join(source_errors))
     chapters = load_json(CONTENT / "chapters.json")
     source_entries = load_json(CONTENT / "source_correspondence.json")
+    source_edition = load_json(CONTENT / "source_edition.json")
+    section_guides = load_json(CONTENT / "section_guides.json")
     milestones = load_json(CONTENT / "milestones.json")
     teaching = load_json(CONTENT / "teaching_declarations.json")
     assert isinstance(chapters, list)
     assert isinstance(source_entries, list)
+    assert isinstance(source_edition, dict)
+    assert isinstance(section_guides, dict)
     assert isinstance(milestones, list)
     assert isinstance(teaching, list)
     entries, module_files = enrich_entries(parse_registry())
@@ -2423,6 +2600,7 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     _SOURCE_BY_NAME = declarations_by_name
     _TEACHING_BY_NAME = {str(item["declaration"]): item for item in teaching}
     _ALL_MODULES = modules
+    _SOURCE_EDITION = source_edition
 
     if output.exists():
         shutil.rmtree(output)
@@ -2443,11 +2621,45 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
         render_overview(chapters, modules, declarations, entries, milestones, teaching),
     )
     write_page(output, "textbook/index.html", render_textbook_index(chapters))
+    edition_by_number = {
+        int(item["number"]): dict(item) for item in source_edition["chapters"]
+    }
     for chapter in chapters:
         write_page(
             output,
             f"textbook/{chapter['id']}.html",
-            render_chapter(chapter, source_entries, entries_by_decl),
+            render_textbook_chapter(
+                chapter,
+                edition_by_number[int(chapter["number"])],
+                source_entries,
+                entries_by_decl,
+            ),
+        )
+    flat_sections: list[dict[str, object]] = []
+    chapter_by_number = {int(chapter["number"]): chapter for chapter in chapters}
+    for edition_chapter in source_edition["chapters"]:
+        number = int(edition_chapter["number"])
+        for raw_section in edition_chapter["sections"]:
+            section = dict(raw_section)
+            flat_sections.append({
+                **section,
+                "chapter": number,
+                "path": textbook_section_path(number, str(section["id"])),
+            })
+    for index, section in enumerate(flat_sections):
+        number = int(section["chapter"])
+        write_page(
+            output,
+            str(section["path"]),
+            render_textbook_section(
+                chapter_by_number[number],
+                section,
+                str(section_guides.get(str(section["id"]), "")),
+                source_entries,
+                entries_by_decl,
+                flat_sections[index - 1] if index else None,
+                flat_sections[index + 1] if index + 1 < len(flat_sections) else None,
+            ),
         )
     write_page(output, "calculation-route.html", render_calculation_route(chapters))
     write_page(output, "rigorous-details.html", render_rigorous_details(chapters))
@@ -2537,9 +2749,12 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
             "Qingfu Zhang",
         ],
         "source_book": {
-            "author": "Sinho Chewi",
-            "title": "Log-Concave Sampling",
-            "url": CHEWI_URL,
+            "author": source_edition["author"],
+            "title": source_edition["title"],
+            "url": source_edition["canonical_url"],
+            "edition": source_edition["edition"],
+            "pdf_sha256": source_edition["pdf_sha256"],
+            "body_pdf_page_offset": source_edition["body_pdf_page_offset"],
             "wording_policy": "faithful paraphrase unless a verified license permits more",
         },
         "registry": {
@@ -2567,6 +2782,8 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
         "milestones": milestones,
         "teaching_declarations": teaching,
         "source_correspondence": source_entries,
+        "source_edition": source_edition,
+        "textbook_sections": flat_sections,
         "modules": [
             {
                 "name": module.name,
@@ -2648,6 +2865,18 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
             "url": f"modules/{slugify(module.name)}.html",
         }
         for module in modules
+    )
+    search_index.extend(
+        {
+            "name": f"{section['id']} {section['title']}",
+            "kind": "textbook section",
+            "module": "Log-Concave Sampling",
+            "chapter": section["chapter"],
+            "local_status": "N/A",
+            "route_status": chapter_by_number[int(section["chapter"])]["status"],
+            "url": section["path"],
+        }
+        for section in flat_sections
     )
     (output / "search-index.json").write_text(
         json.dumps(search_index, indent=2, ensure_ascii=False) + "\n",
@@ -2847,8 +3076,12 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
                 )
 
     search_index = json.loads((output / "search-index.json").read_text(encoding="utf-8"))
-    if len(search_index) != len(declarations) + len(modules):
-        errors.append("search index does not contain every declaration and module")
+    expected_search_count = len(declarations) + len(modules) + len(site_data.get("textbook_sections", []))
+    if len(search_index) != expected_search_count:
+        errors.append("search index does not contain every declaration, module, and textbook section")
+    for section in site_data.get("textbook_sections", []):
+        if not (output / str(section["path"])).exists():
+            errors.append(f"missing generated textbook section page: {section['id']}")
     catalog_text = (output / "declarations" / "index.html").read_text(
         encoding="utf-8", errors="ignore"
     )

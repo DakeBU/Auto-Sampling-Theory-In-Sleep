@@ -16,6 +16,7 @@ on:
       - "tools/astis_harness.py"
       - "tools/astis_formalizer.py"
       - "tools/astis_site.py"
+      - "tools/astis_source.py"
       - "README.md"
       - ".github/workflows/blueprint-site.yml"
   pull_request:
@@ -32,6 +33,7 @@ on:
       - "tools/astis_harness.py"
       - "tools/astis_formalizer.py"
       - "tools/astis_site.py"
+      - "tools/astis_source.py"
       - "README.md"
       - ".github/workflows/blueprint-site.yml"
   workflow_dispatch:
@@ -72,6 +74,7 @@ jobs:
         run: |
           python3 -m py_compile \
             tools/astis_site.py \
+            tools/astis_source.py \
             tools/astis_harness.py \
             tools/astis_formalizer.py \
             website/scripts/build_site.py \
@@ -90,6 +93,9 @@ jobs:
           python3 tools/astis.py harness-test
           node --check website/static/site.js
           node --check website/static/ide.js
+
+      - name: Validate canonical Chewi source edition
+        run: python3 tools/astis.py chewi-source-check
 
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py

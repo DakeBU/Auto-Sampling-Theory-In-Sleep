@@ -14,6 +14,9 @@ written to the ignored `_site/` directory.
 - `AutoSamplingTheory/TechnicalLemmas/Registry.lean` and `Tests/Basic.lean`;
 - chapter, source-correspondence, milestone, and reviewed teaching metadata in
   `website/content/`;
+- the canonical August 9, 2026 edition contract in
+  `website/content/source_edition.json` and section guides generated against
+  that exact table of contents;
 - editable Mermaid sources in `website/diagrams/`;
 - source-bound Lean gate evidence in ignored `.astis/site-lean-gate.json`.
 
@@ -26,6 +29,7 @@ proof.
 From the repository root:
 
 ```bash
+python3 tools/astis.py chewi-source-check
 python3 website/scripts/lean_gate.py
 python3 website/scripts/build_site.py
 python3 website/scripts/check_site.py

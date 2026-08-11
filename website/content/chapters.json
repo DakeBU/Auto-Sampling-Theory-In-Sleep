@@ -89,14 +89,14 @@
     "id": "chapter-02",
     "number": 2,
     "title": "Functional Inequalities",
-    "source_pages": "48–94",
+    "source_pages": "48–95",
     "source_sections": [
       "2.1 Overview of the Inequalities (p. 48)",
       "2.2 Proofs via Markov Semigroup Theory (p. 50)",
       "2.3 Operations Preserving Functional Inequalities (p. 60)",
-      "2.4 Concentration of Measure and Isoperimetry (p. 67)",
+      "2.4 Concentration of Measure and Isoperimetry (p. 68)",
       "2.5 Riemannian Manifolds (p. 77)",
-      "2.6 Discrete Space and Time (p. 83)"
+      "2.6 Discrete Space and Time (p. 84)"
     ],
     "goal": "Develop Poincaré, log-Sobolev, transport, and isoperimetric tools, including semigroup proofs and preservation operations.",
     "prerequisites": [
@@ -167,13 +167,13 @@
     "id": "chapter-03",
     "number": 3,
     "title": "Additional Topics in Stochastic Analysis",
-    "source_pages": "95–118",
+    "source_pages": "96–120",
     "source_sections": [
-      "3.1 Quadratic Variation (p. 95)",
-      "3.2 Change of Measure in Path Space (p. 99)",
-      "3.3 Doob's Transform (p. 103)",
-      "3.4 Föllmer Drift (p. 107)",
-      "3.5 Schrödinger Bridge (p. 109)"
+      "3.1 Quadratic Variation (p. 96)",
+      "3.2 Change of Measure in Path Space (p. 100)",
+      "3.3 Doob's Transform (p. 104)",
+      "3.4 Föllmer Drift (p. 108)",
+      "3.5 Schrödinger Bridge (p. 110)"
     ],
     "goal": "Build the stochastic-analysis tools used later for path-space comparison, conditioned diffusions, and bridge constructions.",
     "prerequisites": [
@@ -242,12 +242,12 @@
     "id": "chapter-04",
     "number": 4,
     "title": "Analysis of Langevin Monte Carlo",
-    "source_pages": "121–138",
+    "source_pages": "123–140",
     "source_sections": [
-      "4.1 Coupling (p. 122)",
-      "4.2 Interpolation (p. 125)",
-      "4.3 Connections to convex optimization (p. 129)",
-      "4.4 Girsanov comparison (p. 133)"
+      "4.1 Proof via Wasserstein Coupling (p. 124)",
+      "4.2 Proof via Interpolation Argument (p. 127)",
+      "4.3 Proof via Convex Optimization (p. 131)",
+      "4.4 Proof via Girsanov's Theorem (p. 134)"
     ],
     "goal": "Derive Langevin Monte Carlo guarantees through Wasserstein coupling, interpolation, convex optimization, and Girsanov comparison.",
     "prerequisites": [
@@ -313,11 +313,11 @@
     "id": "chapter-05",
     "number": 5,
     "title": "Faster Low-Accuracy Samplers",
-    "source_pages": "139–165",
+    "source_pages": "141–173",
     "source_sections": [
-      "5.1 Midpoint ideas and acceleration (p. 139)",
-      "5.2 Hamiltonian Monte Carlo (p. 143)",
-      "5.3 Underdamped Langevin dynamics (p. 147)"
+      "5.1 Randomized Midpoint Discretization (p. 141)",
+      "5.2 Hamiltonian Monte Carlo (p. 145)",
+      "5.3 The Underdamped Langevin Diffusion (p. 149)"
     ],
     "goal": "Study randomized midpoint, Hamiltonian, and underdamped methods that improve low-accuracy complexity.",
     "prerequisites": [
@@ -379,11 +379,11 @@
     "id": "chapter-06",
     "number": 6,
     "title": "Convergence in Rényi Divergence",
-    "source_pages": "166–182",
+    "source_pages": "174–188",
     "source_sections": [
-      "6.1 LMC interpolation analysis (p. 166)",
-      "6.2 LMC through Girsanov (p. 170)",
-      "6.3 ULMC through Girsanov (p. 175)"
+      "6.1 Analysis of LMC via Interpolation Argument (p. 174)",
+      "6.2 Analysis of LMC via Girsanov's Theorem (p. 178)",
+      "6.3 Analysis of ULMC via Girsanov's Theorem (p. 183)"
     ],
     "goal": "Analyze LMC and ULMC in Rényi divergence using interpolation and Girsanov arguments.",
     "prerequisites": [
@@ -450,14 +450,14 @@
     "id": "chapter-07",
     "number": 7,
     "title": "High-Accuracy Samplers",
-    "source_pages": "183–208",
+    "source_pages": "189–213",
     "source_sections": [
-      "7.1 Rejection sampling (p. 183)",
-      "7.2 Metropolis–Hastings (p. 185)",
-      "7.3 Proof overview (p. 187)",
-      "7.4 Discrete-chain tools (p. 191)",
-      "7.5 MALA from a cold start (p. 197)",
-      "7.6 MALA from a warm start (p. 200)"
+      "7.1 Rejection Sampling (p. 189)",
+      "7.2 The Metropolis-Hastings Filter (p. 191)",
+      "7.3 An Overview of High-Accuracy Samplers (p. 193)",
+      "7.4 Markov Chains in Discrete Time (p. 197)",
+      "7.5 Analysis of MALA for a Cold Start (p. 203)",
+      "7.6 Analysis of MALA for a Warm Start (p. 206)"
     ],
     "goal": "Use accept/reject correction and conductance tools to obtain exact-target chains.",
     "prerequisites": [
@@ -525,14 +525,14 @@
     "id": "chapter-08",
     "number": 8,
     "title": "The Proximal Sampler",
-    "source_pages": "209–227",
+    "source_pages": "214–232",
     "source_sections": [
-      "8.1 Introduction to the Proximal Sampler (p. 210)",
-      "8.2 Convergence under Strong Log-Concavity (p. 211)",
-      "8.3 Simultaneous Flow and Time Reversal (p. 213)",
-      "8.4 Convergence under Log-Concavity (p. 216)",
-      "8.5 Convergence under Functional Inequalities (p. 217)",
-      "8.6 Implementations of the RGO and Applications (p. 218)"
+      "8.1 Introduction to the Proximal Sampler (p. 215)",
+      "8.2 Convergence under Strong Log-Concavity (p. 216)",
+      "8.3 Simultaneous Flow and Time Reversal (p. 218)",
+      "8.4 Convergence under Log-Concavity (p. 221)",
+      "8.5 Convergence under Functional Inequalities (p. 222)",
+      "8.6 Implementations of the RGO and Applications (p. 223)"
     ],
     "goal": "Study an augmented-variable sampler that isolates difficult geometry in a proximal subproblem.",
     "prerequisites": [
@@ -594,12 +594,12 @@
     "id": "chapter-09",
     "number": 9,
     "title": "Lower Bounds for Sampling",
-    "source_pages": "228–243",
+    "source_pages": "233–248",
     "source_sections": [
-      "9.1 A Brief Discussion of Query Complexity (p. 228)",
-      "9.2 Query Complexity in One Dimension (p. 229)",
-      "9.3 Query Complexity in Constant Dimension (p. 236)",
-      "9.4 Query Complexity for Gaussians (p. 238)"
+      "9.1 A Brief Discussion of Query Complexity (p. 233)",
+      "9.2 Query Complexity in One Dimension (p. 234)",
+      "9.3 Query Complexity in Constant Dimension (p. 241)",
+      "9.4 Query Complexity for Gaussians (p. 243)"
     ],
     "goal": "Identify which dimension, smoothness, condition-number, and accuracy dependences are unavoidable.",
     "prerequisites": [
@@ -658,12 +658,12 @@
   {
     "id": "chapter-10",
     "number": 10,
-    "title": "Structured sampling",
-    "source_pages": "244–266",
+    "title": "Structured Sampling",
+    "source_pages": "249–271",
     "source_sections": [
-      "10.1 Stochastic Gradients (p. 244)",
-      "10.2 Coordinate Methods (p. 247)",
-      "10.3 Mirror Langevin (p. 252)"
+      "10.1 Stochastic Gradients (p. 249)",
+      "10.2 Coordinate Methods (p. 252)",
+      "10.3 Mirror Langevin (p. 257)"
     ],
     "goal": "Adapt Langevin analysis to stochastic gradients, coordinate updates, and mirror geometry.",
     "prerequisites": [
@@ -738,12 +738,12 @@
     "id": "chapter-11",
     "number": 11,
     "title": "Non-Log-Concave Sampling",
-    "source_pages": "267–277",
+    "source_pages": "272–282",
     "source_sections": [
-      "11.1 Approximate First-Order Stationarity via Fisher Information (p. 267)",
-      "11.2 Fisher Information Bounds (p. 269)",
-      "11.3 Applications of Fisher Information Bounds (p. 271)",
-      "11.4 Lower Bounds (p. 274)"
+      "11.1 Approximate First-Order Stationarity via Fisher Information (p. 272)",
+      "11.2 Fisher Information Bounds (p. 274)",
+      "11.3 Applications of Fisher Information Bounds (p. 276)",
+      "11.4 Lower Bounds (p. 279)"
     ],
     "goal": "Use Fisher information to formulate and analyze approximate stationarity for non-log-concave targets, then compare upper and lower bounds.",
     "prerequisites": [
@@ -819,11 +819,11 @@
     "id": "chapter-12",
     "number": 12,
     "title": "Diffusion Generative Models",
-    "source_pages": "278–290",
+    "source_pages": "283–296",
     "source_sections": [
-      "12.1 Introduction (p. 278)",
-      "12.2 Score Matching and Variants (p. 279)",
-      "12.3 Discretization Analysis (p. 283)"
+      "12.1 Introduction (p. 283)",
+      "12.2 Score Matching and Variants (p. 284)",
+      "12.3 Discretization Analysis (p. 288)"
     ],
     "goal": "Connect sampling analysis to score-based reverse diffusions and generative modeling.",
     "prerequisites": [

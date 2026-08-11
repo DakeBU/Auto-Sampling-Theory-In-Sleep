@@ -23,6 +23,10 @@ major program reconstructs Sinho Chewi's
 [*Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) while building
 reusable formal memory for future sampling-theory problems.
 
+Samplinglib source correspondence is pinned to the canonical **August 9,
+2026** edition. The checked table of contents, book/PDF page offset, semantic
+anchors, and edition checksum are validated before every site build.
+
 ---
 
 ## News 🔥
