@@ -1344,6 +1344,22 @@ footer p {
   margin-top: 0.35rem;
 }
 
+.toc-part {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.65rem 0.35rem 0.3rem;
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.toc-part span {
+  color: var(--accent);
+  font: 600 0.62rem var(--font-code);
+  text-transform: uppercase;
+}
+
 .toc-chapter {
   border-top: 1px solid var(--line);
 }
@@ -1435,6 +1451,10 @@ footer p {
   font-family: var(--font-body);
 }
 
+.reader-header .source-anchor {
+  display: block;
+}
+
 .reader-breadcrumb {
   display: flex;
   gap: 0.55rem;
@@ -1505,6 +1525,30 @@ footer p {
 
 .source-passage {
   margin: 0 0 2.4rem;
+}
+
+.textbook-block {
+  margin-bottom: 3.2rem;
+}
+
+.textbook-block .source-passage {
+  margin-bottom: 1.2rem;
+}
+
+.source-formula {
+  overflow-x: auto;
+  padding: 0.65rem 0;
+}
+
+.inline-lean {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.inline-lean h4,
+.inline-lean h5 {
+  margin: 0.8rem 0 0.35rem;
 }
 
 .passage-label {

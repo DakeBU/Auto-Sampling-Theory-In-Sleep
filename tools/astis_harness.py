@@ -525,6 +525,7 @@ class FrontierNode:
     dependencies: tuple[str, ...]
     priority: int
     route_status: str = "partial"
+    source_id: str = ""
 
 
 FRONTIER_NODES: tuple[FrontierNode, ...] = (
@@ -609,6 +610,38 @@ FRONTIER_NODES: tuple[FrontierNode, ...] = (
 )
 
 
+def source_frontier_nodes(root: Path = ROOT) -> tuple[FrontierNode, ...]:
+    """Load optional proof leaves from the shared textbook correspondence.
+
+    A source block enters the deterministic frontier only when it has an
+    explicit ``proof_leaves`` list. This keeps the book spine, website, and
+    harness synchronized without turning every not-yet-audited section into a
+    fabricated theorem task.
+    """
+
+    path = root / "website" / "content" / "source_correspondence.json"
+    if not path.exists():
+        return ()
+    rows = json.loads(path.read_text(encoding="utf-8"))
+    nodes: list[FrontierNode] = []
+    for row in rows:
+        for leaf in row.get("proof_leaves", []):
+            declarations = tuple(leaf.get("declarations", ()))
+            if not declarations:
+                raise ValueError(f"frontier leaf has no declarations: {row.get('id', '<unknown>')}")
+            nodes.append(FrontierNode(
+                node_id=str(leaf["node_id"]),
+                chapter=str(row["chapter"]),
+                label=str(leaf["label"]),
+                declarations=declarations,
+                dependencies=tuple(leaf.get("dependencies", ())),
+                priority=int(leaf["priority"]),
+                route_status=str(leaf.get("route_status", row.get("status", "partial"))),
+                source_id=str(row["id"]),
+            ))
+    return tuple(nodes)
+
+
 DECLARATION_RE = re.compile(
     r"^\s*(?:@\[[^\]]*\]\s*)*(?:(?:private|protected|noncomputable|local|unsafe)\s+)*"
     r"(?:theorem|lemma|def|instance|structure|class|inductive)\s+([A-Za-z0-9_.'-]+)",
@@ -628,9 +661,14 @@ def lean_declaration_inventory(root: Path = ROOT) -> dict[str, list[str]]:
 
 def reconcile_frontier(root: Path = ROOT) -> dict[str, Any]:
     inventory = lean_declaration_inventory(root)
+    nodes = FRONTIER_NODES + source_frontier_nodes(root)
+    node_ids = [node.node_id for node in nodes]
+    duplicates = sorted({node_id for node_id in node_ids if node_ids.count(node_id) > 1})
+    if duplicates:
+        raise ValueError(f"duplicate frontier node ids: {duplicates}")
     compiled: set[str] = set()
     rows: list[dict[str, Any]] = []
-    for node in FRONTIER_NODES:
+    for node in nodes:
         present = [name for name in node.declarations if name in inventory]
         dependencies_compiled = all(item in compiled for item in node.dependencies)
         if len(present) == len(node.declarations):
@@ -661,7 +699,10 @@ def reconcile_frontier(root: Path = ROOT) -> dict[str, Any]:
             "ASTIS-SALD-001": "downstream faithful-paper consumer of shared sampling/SDE leaves",
             "ASTIS-RMFLD-001": "planned downstream exploratory consumer",
         },
-        "source_of_truth": "current Lean declaration inventory plus explicit dependency nodes",
+        "source_of_truth": (
+            "current Lean declaration inventory plus static foundation nodes and "
+            "source_correspondence proof leaves"
+        ),
         "lean_declaration_count": sum(len(paths) for paths in inventory.values()),
         "nodes": rows,
         "selected_ready_leaf": ready[0] if ready else None,

@@ -44,7 +44,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 286 := by native_decide
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 288 := by native_decide
 
 example (x : ℝ) :
     TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x =
@@ -2774,3 +2774,15 @@ example :
 example :
     @TechnicalLemmas.Analysis.Calculus.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm =
       @TechnicalLemmas.Taylor.iteratedFDerivTwoOpNormOfFDerivFDerivOpNorm := rfl
+
+example {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
+    (μ : Measure α) (ν : Measure β) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν] :
+    TechnicalLemmas.Measure.Transport.IsCoupling (μ.prod ν) μ ν :=
+  TechnicalLemmas.Measure.Transport.isCoupling_prod μ ν
+
+example {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
+    {γ : Measure (α × β)} {μ : Measure α} {ν : Measure β}
+    [IsProbabilityMeasure μ]
+    (hγ : TechnicalLemmas.Measure.Transport.IsCoupling γ μ ν) :
+    IsProbabilityMeasure γ :=
+  TechnicalLemmas.Measure.Transport.isProbabilityMeasure_of_isCoupling_left hγ

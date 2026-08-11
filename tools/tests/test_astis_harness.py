@@ -285,6 +285,7 @@ class FrontierReplayTests(unittest.TestCase):
             "conditional_langevin_core_invariance",
             "unit_cutoff_second_derivative_bound",
             "second_order_cutoff_scaling",
+            "chapter1_product_coupling",
         ]:
             self.assertEqual(statuses[node], "compiled")
         self.assertEqual(statuses["concrete_langevin_semigroup"], "external_dependency")

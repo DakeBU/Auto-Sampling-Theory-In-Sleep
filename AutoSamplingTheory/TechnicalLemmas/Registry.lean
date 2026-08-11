@@ -19,6 +19,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity
 import AutoSamplingTheory.TechnicalLemmas.Measure.Product
 import AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
+import AutoSamplingTheory.TechnicalLemmas.Measure.Transport
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
@@ -1516,6 +1517,26 @@ def calculusMemory : List LemmaMemoryEntry := [
 ]
 
 def measureMemory : List LemmaMemoryEntry := [
+  {
+    key := "measure.transport.coupling-probability",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.isProbabilityMeasure_of_isCoupling_left",
+    upstreamDecl := "Measure.fst_univ",
+    upstreamFile := "Mathlib.MeasureTheory.Measure.Prod",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "coupling", "probability-measure", "marginal", "optimal-transport"],
+    saldUse := "Chewi Definition 1.3.1: recover the joint probability-measure interface from a prescribed probability marginal",
+    note := "The first marginal suffices because its mass on the whole space equals the joint measure's total mass; the symmetric result follows from Measure.snd_univ if needed."
+  },
+  {
+    key := "measure.transport.product-coupling",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.isCoupling_prod",
+    upstreamDecl := "Measure.fst_prod / Measure.snd_prod",
+    upstreamFile := "Mathlib.MeasureTheory.Measure.Prod",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "coupling", "optimal-transport", "product-measure", "Wasserstein"],
+    saldUse := "Chewi Definition 1.3.1 and Chapters 1/4: named coupling contract with a canonical independent-product witness",
+    note := "Defines the reusable marginal contract and proves nonemptiness for probability marginals; it does not define transport cost, prove existence of an optimal plan, or establish Wasserstein metric properties."
+  },
   {
     key := "measure.law-map.integral",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Probability.LawMap.lawMapIntegral",

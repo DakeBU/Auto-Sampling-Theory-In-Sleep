@@ -720,6 +720,11 @@ def sidebar_html(prefix: str, active: str) -> str:
     for raw_chapter in _SOURCE_EDITION.get("chapters", []):
         chapter = dict(raw_chapter)
         number = int(chapter["number"])
+        if number in {1, 4}:
+            part = dict(_SOURCE_EDITION["parts"][0 if number == 1 else 1])
+            chapter_rows.append(
+                f'<div class="toc-part"><span>Part {part["number"]}</span>{esc(part["title"])}</div>'
+            )
         chapter_marker = f"Textbook:{number}"
         section_rows = []
         for raw_section in chapter["sections"]:
@@ -1073,6 +1078,8 @@ def render_textbook_chapter(
     number = int(chapter["number"])
     sections = [dict(section) for section in edition_chapter["sections"]]
     first = sections[0]
+    chapter_pdf_page = int(edition_chapter["book_page"]) + int(_SOURCE_EDITION["body_pdf_page_offset"])
+    chapter_source_url = f'{_SOURCE_EDITION["canonical_url"]}#page={chapter_pdf_page}'
     section_rows = "".join(
         f"""<li><a href="chapter-{number:02d}/section-{slugify(str(section['id']))}.html">
   <span>{esc(section['id'])}</span><strong>{esc(section['title'])}</strong><small>Book p. {section['book_page']}</small>
@@ -1080,6 +1087,18 @@ def render_textbook_chapter(
         for section in sections
     )
     mapped = chapter_source_entries(number, source_entries)
+    canonical_chapters = [dict(item) for item in _SOURCE_EDITION["chapters"]]
+    previous_chapter = canonical_chapters[number - 2] if number > 1 else None
+    next_chapter = canonical_chapters[number] if number < len(canonical_chapters) else None
+
+    def chapter_nav(item: dict[str, object] | None, direction: str) -> str:
+        if item is None:
+            return '<span></span>'
+        target_number = int(item["number"])
+        return (
+            f'<a class="reader-{direction}" href="chapter-{target_number:02d}.html">'
+            f'<span>{direction.title()} chapter</span><strong>{target_number}. {esc(item["title"])}</strong></a>'
+        )
     formalization_rows = []
     for source in mapped:
         links = []
@@ -1098,6 +1117,7 @@ def render_textbook_chapter(
     <h1>{esc(chapter['title'])}</h1>
     <p class="reader-lede">{esc(chapter['goal'])}</p>
     <a class="button primary" href="chapter-{number:02d}/section-{slugify(str(first['id']))}.html">Begin with {esc(first['id'])}</a>
+    <a class="source-anchor" href="{esc(chapter_source_url)}">Open this chapter in the canonical August 9 source ↗</a>
   </header>
   <section id="calculation" class="reader-prose">
     <h2>Chapter route</h2>
@@ -1113,6 +1133,7 @@ def render_textbook_chapter(
   <details id="lean" class="reader-disclosure lean-disclosure"><summary>View Lean formalization</summary>
     <div class="disclosure-body"><p>These mappings are evidence links, not a claim that the entire chapter is formalized.</p>{''.join(formalization_rows) if formalization_rows else '<p>No declaration-level source block is mapped for this chapter yet.</p>'}</div>
   </details>
+  <nav class="reader-pagination" aria-label="Adjacent chapters">{chapter_nav(previous_chapter, 'previous')}{chapter_nav(next_chapter, 'next')}</nav>
 </article>
 """
     return page(
@@ -1149,47 +1170,58 @@ def render_textbook_section(
         else:
             guide = f"This section advances the chapter goal: {chapter['goal']}"
 
-    math_blocks = []
-    rigor_blocks = []
-    lean_blocks = []
+    rendered_blocks = []
     for source in mapped:
-        math_blocks.append(
-            f'<section class="source-passage"><div class="passage-label">{esc(source["source_kind"])}</div>'
-            f'<h2>{esc(source["source_summary"])}</h2><p>{esc(source["mathematical_exposition"])}</p></section>'
+        formula = (
+            f'<div class="formula source-formula">\\[{esc(source["latex_statement"])}\\]</div>'
+            if source.get("latex_statement") else ""
         )
-        rigor_blocks.append(
-            f'<article><h3>{esc(source["source_kind"])}</h3><p>{esc(source["rigorous_packet"])}</p>'
+        rigor = (
+            f'<article><p>{esc(source["rigorous_packet"])}</p>'
             f'<h4>Source assumptions</h4>{list_html(source["source_assumptions"])}'
             f'<h4>Formal assumptions</h4>{list_html(source["formal_assumptions"])}</article>'
         )
-        declaration_links = []
+        declaration_details = []
         for declaration in source["lean_declarations"]:
             entry = entries_by_decl.get(str(declaration))
             if entry:
-                declaration_links.append(
-                    f'<a class="decl-link" href="{prefix}theorems/{entry.slug}.html">{esc(entry.short_name)}</a>'
+                source_declaration = _SOURCE_BY_NAME.get(entry.local_decl)
+                source_module = next(
+                    (module for module in _ALL_MODULES if source_declaration and module.name == source_declaration.module),
+                    None,
+                )
+                dependencies = [
+                    f'<a href="{prefix}theorems/{entries_by_decl[name].slug}.html"><code>{esc(entries_by_decl[name].short_name)}</code></a>'
+                    for name in entry.dependencies if name in entries_by_decl
+                ]
+                declaration_details.append(
+                    f'<article class="inline-lean"><h4><a href="{prefix}theorems/{entry.slug}.html"><code>{esc(entry.local_decl)}</code></a></h4>'
+                    f'<div class="card-meta">{esc(status_label(entry))} · {esc(entry.source_file)}:{entry.source_line}</div>'
+                    f'{code_html(entry.source_text)}<h5>Imports</h5>'
+                    f'{list_html(source_module.imports if source_module else [], empty="No project import metadata resolved.")}'
+                    f'<h5>Local dependencies</h5><div class="decl-links">{"".join(dependencies) if dependencies else "No Registry dependency inferred."}</div></article>'
                 )
             else:
-                declaration_links.append(f'<span class="status status-orange">unresolved metadata: {esc(declaration)}</span>')
-        lean_blocks.append(
+                declaration_details.append(f'<span class="status status-orange">unresolved metadata: {esc(declaration)}</span>')
+        lean = (
             f'<article><div class="card-meta">{esc(source["status"])} · {esc(source["wording_status"])}</div>'
-            f'<h3>{esc(source["source_kind"])}</h3><p>{esc(source["astis_exposition"])}</p><div class="decl-links">'
-            f'{"".join(declaration_links) if declaration_links else "No ASTIS-owned declaration is mapped yet."}</div>'
+            f'<p>{esc(source["astis_exposition"])}</p>'
+            f'{"".join(declaration_details) if declaration_details else "<p>No ASTIS-owned declaration is mapped yet.</p>"}'
             f'<h4>Downstream consumers</h4>{list_html(source["downstream_consumers"])}</article>'
         )
-    if not math_blocks:
-        math_blocks.append(
-            '<section class="source-passage"><h2>Place in the proof route</h2>'
+        rendered_blocks.append(
+            f'<article class="textbook-block"><section class="source-passage"><div class="passage-label">{esc(source["source_kind"])}</div>'
+            f'<h2>{esc(source["source_summary"])}</h2><p>{esc(source["mathematical_exposition"])}</p>{formula}</section>'
+            f'<details class="reader-disclosure rigor-disclosure"><summary>Why is this valid?</summary><div class="disclosure-body">{rigor}</div></details>'
+            f'<details class="reader-disclosure lean-disclosure"><summary>View Lean formalization</summary><div class="disclosure-body">{lean}</div></details></article>'
+        )
+    if not rendered_blocks:
+        rendered_blocks.append(
+            '<article class="textbook-block"><section class="source-passage"><h2>Place in the proof route</h2>'
             f'<p>The chapter uses this material in the route toward {esc(str(chapter["major_results"][0]))} '
             'The declaration-level source map is intentionally left inside the formalization layer until exact theorem anchors have been audited.</p></section>'
-        )
-    if not rigor_blocks:
-        rigor_blocks.append(
-            f'<article><h3>Chapter-level validity conditions</h3>{list_html(chapter["rigorous_details"])}</article>'
-        )
-    if not lean_blocks:
-        lean_blocks.append(
-            '<p>No declaration-level mapping has been accepted for this section. This is a route status, not a failed Lean declaration.</p>'
+            f'<details class="reader-disclosure rigor-disclosure"><summary>Why is this valid?</summary><div class="disclosure-body"><h3>Chapter-level validity conditions</h3>{list_html(chapter["rigorous_details"])}</div></details>'
+            '<details class="reader-disclosure lean-disclosure"><summary>View Lean formalization</summary><div class="disclosure-body"><p>No declaration-level mapping has been accepted for this section. This is a route status, not a failed Lean declaration.</p></div></details></article>'
         )
 
     def nav_link(item: dict[str, object] | None, direction: str) -> str:
@@ -1207,9 +1239,7 @@ def render_textbook_section(
     <p class="reader-lede">{esc(guide)}</p>
     <a class="source-anchor" href="{esc(source_url)}">Open this section in the canonical August 9 source ↗</a>
   </header>
-  <div class="reader-prose">{''.join(math_blocks)}</div>
-  <details class="reader-disclosure rigor-disclosure"><summary>Why is this valid?</summary><div class="disclosure-body">{''.join(rigor_blocks)}</div></details>
-  <details class="reader-disclosure lean-disclosure"><summary>View Lean formalization</summary><div class="disclosure-body">{''.join(lean_blocks)}</div></details>
+  <div class="reader-prose">{''.join(rendered_blocks)}</div>
   <nav class="reader-pagination" aria-label="Adjacent sections">{nav_link(previous, 'previous')}{nav_link(following, 'next')}</nav>
 </article>
 """

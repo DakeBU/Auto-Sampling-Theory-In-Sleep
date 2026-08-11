@@ -64,6 +64,7 @@
     ],
     "lean_modules": [
       "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "AutoSamplingTheory.TechnicalLemmas.Measure.Transport",
       "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities"
     ],
