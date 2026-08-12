@@ -3,7 +3,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup
 namespace AutoSamplingTheory.Tests.MarkovSemigroup
 
 open ProbabilityTheory
-open scoped ProbabilityTheory ENNReal
+open scoped ProbabilityTheory ENNReal NNReal
 
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup
 
