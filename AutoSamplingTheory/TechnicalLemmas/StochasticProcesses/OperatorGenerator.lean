@@ -86,10 +86,14 @@ theorem HasRightGeneratorAt.map
     {S : ContinuousLinearSemigroup M} {f g : M}
     (hfg : HasRightGeneratorAt S f g) (t : ℝ≥0) :
     HasRightGeneratorAt S (S.op t f) (S.op t g) := by
+  unfold HasRightGeneratorAt at hfg ⊢
+  have hop :
+      Tendsto (S.op t) (𝓝 g) (𝓝 (S.op t g)) :=
+    (S.op t).continuous.continuousAt
   have hmapped :
       Tendsto (fun h : ℝ≥0 => S.op t (rightDifferenceQuotient S h f))
         (nhdsWithin 0 (Ioi 0)) (𝓝 (S.op t g)) :=
-    (S.op t).continuous.continuousAt.comp hfg
+    hop.comp hfg
   simpa only [rightDifferenceQuotient_map] using hmapped
 
 /-- In particular, the right-generator domain is preserved by the semigroup. -/
