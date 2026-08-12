@@ -22,7 +22,7 @@ namespace StochasticProcesses
 namespace MarkovSemigroup
 
 open MeasureTheory ProbabilityTheory
-open scoped ENNReal ProbabilityTheory
+open scoped ENNReal NNReal ProbabilityTheory
 
 noncomputable section
 
