@@ -1902,6 +1902,86 @@ def measureMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "markov-semigroup.chewi-lemma-1-2-2",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.chewi_lemma_1_2_2",
+    upstreamDecl := "Kernel.lintegral_id' / Kernel.lintegral_comp",
+    upstreamFile := "Mathlib.Probability.Kernel.Basic; Mathlib.Probability.Kernel.Composition.Comp; Chewi Lemma 1.2.2",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Markov-semigroup", "transition-kernel", "Chapman-Kolmogorov"],
+    saldUse := "Chewi Chapter 1.2 root: derive the observable semigroup laws from identity and Chapman-Kolmogorov transition kernels",
+    note := "Compiled kernel-to-operator theorem. It does not construct a concrete diffusion kernel or prove time continuity."
+  },
+  {
+    key := "markov-semigroup.constant-preservation",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator_const",
+    upstreamDecl := "lintegral_const with probability-kernel mass one",
+    upstreamFile := "Mathlib.Probability.Kernel.Basic; Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Markov-operator", "constant-preservation", "probability-kernel"],
+    saldUse := "Record the conservative Markov-operator law P_t 1 = 1",
+    note := "The ENNReal observable type encodes nonnegativity; the Markov instance supplies total mass one."
+  },
+  {
+    key := "markov-semigroup.monotonicity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator_apply_mono",
+    upstreamDecl := "lintegral_mono",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Markov-operator", "monotonicity", "lintegral"],
+    saldUse := "Order-preserving interface for semigroup comparison and contraction arguments",
+    note := "Pointwise monotonicity on measurable ENNReal-valued observables."
+  },
+  {
+    key := "feller-semigroup.kernel-operator-contraction",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.norm_fellerOperator_apply_le",
+    upstreamDecl := "norm_integral_le_of_norm_le_const",
+    upstreamFile := "Mathlib.MeasureTheory.Integral.Bochner.Basic; Mathlib.Topology.ContinuousMap.Bounded.Normed",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Feller", "Markov-operator", "contraction", "sup-norm"],
+    saldUse := "Place transition-kernel operators on the bounded-continuous sup-norm space",
+    note := "The norm bound is derived from probability-kernel integration, not postulated as an operator contract."
+  },
+  {
+    key := "feller-semigroup.operator-semigroup-law",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.fellerOperator_add",
+    upstreamDecl := "Kernel.integral_comp",
+    upstreamFile := "Mathlib.Probability.Kernel.Composition.IntegralCompProd",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Feller", "continuous-linear-map", "Chapman-Kolmogorov", "semigroup"],
+    saldUse := "Convert Chapman-Kolmogorov into composition of bounded continuous linear operators",
+    note := "This is the concrete kernel-to-operator bridge needed before the norm-topology generator layer."
+  },
+  {
+    key := "feller-semigroup.continuous-linear-semigroup",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.continuousLinearSemigroupOfFeller",
+    upstreamDecl := "fellerOperator_zero / fellerOperator_add",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Feller", "continuous-linear-semigroup", "generator-boundary"],
+    saldUse := "Supply the exact ContinuousLinearSemigroup consumed by the right-generator definitions",
+    note := "Strong continuity in time and concrete diffusion construction remain explicit downstream obligations."
+  },
+  {
+    key := "operator-generator.domain-invariance",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.generatorDomain_map",
+    upstreamDecl := "ContinuousLinearMap.continuous / Tendsto.comp / semigroup commutation",
+    upstreamFile := "Mathlib.Analysis.Normed.Operator.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "generator", "domain", "semigroup", "Tendsto"],
+    saldUse := "Chewi Definition 1.2.3 root: preserve the right-generator domain under P_t",
+    note := "Abstract norm-topology generator theorem; no closed differential Langevin operator is identified."
+  },
+  {
+    key := "operator-generator.kolmogorov-backward-right",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.kolmogorov_backward_right",
+    upstreamDecl := "rightDifferenceQuotient_map / Tendsto.comp",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator; Mathlib.Analysis.Normed.Operator.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Kolmogorov-backward", "right-derivative", "generator", "semigroup"],
+    saldUse := "Chewi Proposition 1.2.5 root: prove the right orbit quotient tends to P_t Lf",
+    note := "Actual one-sided Tendsto theorem; the forward equation and concrete Langevin generator remain downstream."
+  },
+  {
     key := "weak-generator.sample-to-law-derivative",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
     upstreamDecl := "law-map integral rewrite plus supplied Ito-generator derivative",

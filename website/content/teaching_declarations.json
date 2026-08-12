@@ -493,5 +493,113 @@
       "klDiv is ENNReal and is converted to Real only under the stated finite representation.",
       "This result must not be labeled as the full Donsker-Varadhan variational formula."
     ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.chewi_lemma_1_2_2",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "Identity and Chapman--Kolmogorov transition-kernel laws induce the zero-time and composition laws for Markov operators.",
+    "mathematical_statement": "For measurable nonnegative observables, P_0 = id and P_s P_t = P_t P_s = P_{s+t}.",
+    "intuition": "Integrating first over one transition and then the next is exactly kernel composition; time homogeneity makes the total elapsed time the only parameter.",
+    "assumptions": [
+      "measurable state space",
+      "a Markov transition kernel for every nonnegative time",
+      "identity kernel at time zero",
+      "Chapman--Kolmogorov composition"
+    ],
+    "why_assumptions": [
+      "measurability makes kernel integration an observable",
+      "Markov kernels preserve constants",
+      "the two kernel identities are the process-level content of the semigroup law"
+    ],
+    "proof_route": [
+      "define P_t by lintegration against K_t",
+      "use Kernel.lintegral_id' at zero",
+      "use Kernel.lintegral_comp after Chapman--Kolmogorov",
+      "use commutativity of nonnegative-time addition"
+    ],
+    "lean_notes": [
+      "the operator law is proved from kernels rather than stored as a field",
+      "concrete process construction and time continuity remain separate"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.continuousLinearSemigroupOfFeller",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "A Feller transition-kernel semigroup acts as a contraction semigroup of continuous linear operators on bounded continuous real observables.",
+    "mathematical_statement": "If K_t maps bounded continuous functions continuously in the starting state, then f maps to integral f dK_t is linear, sup-norm contractive, has P_0 = id, and satisfies P_{s+t} = P_s P_t.",
+    "intuition": "Probability integration is linear and cannot increase the sup norm; Chapman--Kolmogorov turns iterated integration into operator composition.",
+    "assumptions": [
+      "topological measurable state space with its Borel structure",
+      "transition-kernel Markov semigroup laws",
+      "Feller continuity for every bounded continuous observable"
+    ],
+    "why_assumptions": [
+      "the Borel interface makes continuous observables measurable",
+      "Feller continuity keeps the operator inside the bounded-continuous space",
+      "the Markov property gives the contraction bound"
+    ],
+    "proof_route": [
+      "derive boundedness from the Bochner integral norm estimate",
+      "prove linearity using integral_add and integral_smul",
+      "build a ContinuousLinearMap with norm at most one",
+      "prove identity by the Dirac integral and composition by Kernel.integral_comp"
+    ],
+    "lean_notes": [
+      "this is the missing kernel-to-normed-operator bridge",
+      "strong continuity in time is not inferred from the Feller mapping property"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.generatorDomain_map",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "The right-generator domain is preserved by every operator in a continuous-linear semigroup.",
+    "mathematical_statement": "If the right difference quotient of f converges to g, then the quotient of P_t f converges to P_t g.",
+    "intuition": "The semigroup operators commute, and continuous linear maps preserve limits.",
+    "assumptions": [
+      "a real normed observable space",
+      "a continuous-linear semigroup",
+      "existence of the right generator limit for f"
+    ],
+    "why_assumptions": [
+      "the norm topology fixes the meaning of the generator",
+      "continuity permits passing P_t through the limit"
+    ],
+    "proof_route": [
+      "commute P_t with the right difference quotient",
+      "compose the original Tendsto theorem with continuity of P_t",
+      "use P_t g as the generator witness"
+    ],
+    "lean_notes": [
+      "the domain is defined by an actual nhdsWithin Tendsto statement",
+      "no concrete differential operator is identified"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.kolmogorov_backward_right",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "The forward right time increment of a semigroup orbit converges to the semigroup applied to the generator value.",
+    "mathematical_statement": "If Lf = g in the right-generator sense, then [P_{t+h}f - P_t f]/h tends to P_t g as h decreases to zero through positive times.",
+    "intuition": "The semigroup law rewrites the orbit increment as the generator quotient of P_t f.",
+    "assumptions": [
+      "a continuous-linear semigroup on a real normed space",
+      "the right generator limit of f exists"
+    ],
+    "why_assumptions": [
+      "the semigroup law factors the time increment",
+      "the one-sided filter encodes nonnegative time"
+    ],
+    "proof_route": [
+      "transport the generator graph through P_t",
+      "rewrite P_{t+h} using the semigroup law",
+      "reuse the transported Tendsto theorem"
+    ],
+    "lean_notes": [
+      "this is an actual one-sided Tendsto theorem",
+      "it is not the forward equation and does not construct a Langevin process"
+    ]
   }
 ]

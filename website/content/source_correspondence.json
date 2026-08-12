@@ -16,7 +16,13 @@
     "rigorous_packet": "The eventual packet must fix the measurable state space, the observable space, positivity and constant preservation, the semigroup law, and the continuity notion used to recover a generator.",
     "lean_declarations": [
       "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.IntegratedSemigroupGeneratorContract",
-      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.isInvariantOn_of_integral_generator_eq_zero"
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.isInvariantOn_of_integral_generator_eq_zero",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.chewi_lemma_1_2_2",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator_const",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator_apply_mono",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.norm_fellerOperator_apply_le",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.fellerOperator_add",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.continuousLinearSemigroupOfFeller"
     ],
     "source_assumptions": [
       "Markov evolution",
@@ -32,7 +38,52 @@
       "stationarity",
       "mixing estimates"
     ],
-    "status": "partial"
+    "status": "partial",
+    "route_status": "partial",
+    "local_status": "compiled",
+    "semantic_status": "compiled transition-kernel algebra and Feller kernel-to-continuous-linear-operator bridge; concrete diffusion kernel construction and strong continuity remain open",
+    "remaining_obligations": [
+      "construct transition kernels from the intended concrete Markov or Langevin process",
+      "prove the Feller mapping property for the concrete process",
+      "prove strong continuity in time on the selected observable space"
+    ],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1_transition_kernel_semigroup",
+        "label": "Transition-kernel Markov semigroup laws",
+        "declarations": [
+          "TransitionKernelContract",
+          "markovOperator_zero",
+          "markovOperator_comp",
+          "markovOperator_comm",
+          "chewi_lemma_1_2_2"
+        ],
+        "dependencies": [
+          "Kernel.lintegral_id'",
+          "Kernel.lintegral_comp"
+        ],
+        "priority": 100,
+        "route_status": "partial"
+      },
+      {
+        "node_id": "chapter1_feller_continuous_linear_semigroup",
+        "label": "Feller kernels as contraction continuous-linear semigroup",
+        "declarations": [
+          "FellerTransitionKernelContract",
+          "fellerOperator",
+          "norm_fellerOperator_apply_le",
+          "fellerOperator_zero",
+          "fellerOperator_add",
+          "continuousLinearSemigroupOfFeller"
+        ],
+        "dependencies": [
+          "Kernel.integral_comp",
+          "norm_integral_le_of_norm_le_const"
+        ],
+        "priority": 95,
+        "route_status": "partial"
+      }
+    ]
   },
   {
     "id": "chewi-1-2-generator",
@@ -50,7 +101,10 @@
     "astis_exposition": "The formal differential expression and the closed infinitesimal generator are different objects. ASTIS keeps the analytic domain as an explicit red node.",
     "rigorous_packet": "Specify the Banach or Hilbert space, the strong limit defining the generator, its domain, and the relation between that closed operator and any smooth-core differential expression.",
     "lean_declarations": [
-      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative"
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.continuousLinearSemigroupOfFeller",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.generatorDomain_map",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.kolmogorov_backward_right"
     ],
     "source_assumptions": [
       "existence of the derivative of the semigroup"
@@ -63,7 +117,35 @@
       "generator/semigroup domain packet",
       "invariant Gibbs law"
     ],
-    "status": "partial"
+    "status": "partial",
+    "route_status": "partial",
+    "local_status": "compiled",
+    "semantic_status": "compiled norm-topology right-generator domain, domain invariance, and right backward equation; concrete differential-generator identification remains open",
+    "remaining_obligations": [
+      "identify the closed semigroup generator with the differential Langevin expression on a concrete core",
+      "prove the core/domain closure theorem for the concrete process",
+      "derive the concrete forward equation and connect it to Gibbs invariance"
+    ],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1_right_generator_domain",
+        "label": "Right generator domain and backward equation",
+        "declarations": [
+          "ContinuousLinearSemigroup",
+          "HasRightGeneratorAt",
+          "generatorDomain",
+          "generatorDomain_map",
+          "kolmogorov_backward_right"
+        ],
+        "dependencies": [
+          "continuousLinearSemigroupOfFeller",
+          "ContinuousLinearMap.continuous",
+          "Tendsto.comp"
+        ],
+        "priority": 90,
+        "route_status": "partial"
+      }
+    ]
   },
   {
     "id": "chewi-1-2-langevin-generator",

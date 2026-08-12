@@ -1,0 +1,174 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator
+import Mathlib.Probability.Kernel.Composition.IntegralCompProd
+import Mathlib.Topology.ContinuousMap.Bounded.Normed
+
+/-!
+# Feller transition kernels as continuous-linear semigroups
+
+This file closes the interface gap between the kernel-level Markov semigroup
+and the normed operator-level generator development.
+
+Starting from a transition-kernel family with the identity and
+Chapman--Kolmogorov laws, plus the genuine Feller mapping property on bounded
+continuous real observables, it constructs the induced bounded linear
+operators. Linearity, the contraction bound, the identity operator, and the
+operator semigroup law are proved from integration and kernel composition.
+
+The file does not construct a Feller kernel family for a concrete diffusion,
+and it does not assert strong continuity in time or identify a differential
+generator.
+-/
+
+namespace AutoSamplingTheory
+namespace TechnicalLemmas
+namespace StochasticProcesses
+namespace FellerSemigroup
+
+open MeasureTheory ProbabilityTheory
+open scoped NNReal ProbabilityTheory BoundedContinuousFunction
+
+noncomputable section
+
+open MarkovSemigroup OperatorGenerator
+
+variable {E : Type*} [TopologicalSpace E] [MeasurableSpace E] [BorelSpace E]
+
+/-- A transition-kernel Markov semigroup which maps bounded continuous real
+observables to continuous observables. Boundedness of the image is derived
+from the Markov property rather than included as a field. -/
+structure FellerTransitionKernelContract (K : ℝ≥0 → Kernel E E) : Prop
+    extends TransitionKernelContract K where
+  mapsContinuous : ∀ t (f : E →ᵇ ℝ),
+    Continuous fun x => ∫ y, f y ∂K t x
+
+private theorem integrable_boundedContinuousFunction
+    (f : E →ᵇ ℝ) (μ : Measure E) [IsFiniteMeasure μ] :
+    Integrable (fun x => f x) μ := by
+  refine Integrable.of_bound f.continuous.aestronglyMeasurable ‖f‖ ?_
+  exact ae_of_all _ fun x => f.norm_coe_le_norm x
+
+private theorem norm_kernelIntegral_le
+    {K : ℝ≥0 → Kernel E E} (hK : FellerTransitionKernelContract K)
+    (t : ℝ≥0) (f : E →ᵇ ℝ) (x : E) :
+    ‖∫ y, f y ∂K t x‖ ≤ ‖f‖ := by
+  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  simpa using
+    (norm_integral_le_of_norm_le_const (μ := K t x)
+      (ae_of_all _ fun y => f.norm_coe_le_norm y))
+
+/-- The bounded continuous observable obtained by integrating against the
+transition kernel at time `t`. -/
+def fellerOperatorValue {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
+    (f : E →ᵇ ℝ) : E →ᵇ ℝ :=
+  BoundedContinuousFunction.ofNormedAddCommGroup
+    (fun x => ∫ y, f y ∂K t x)
+    (hK.mapsContinuous t f) ‖f‖
+    (norm_kernelIntegral_le hK t f)
+
+@[simp]
+theorem fellerOperatorValue_apply {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
+    (f : E →ᵇ ℝ) (x : E) :
+    fellerOperatorValue hK t f x = ∫ y, f y ∂K t x := rfl
+
+private theorem fellerOperatorValue_add {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
+    (f g : E →ᵇ ℝ) :
+    fellerOperatorValue hK t (f + g) =
+      fellerOperatorValue hK t f + fellerOperatorValue hK t g := by
+  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  ext x
+  change (∫ y, f y + g y ∂K t x) =
+    (∫ y, f y ∂K t x) + ∫ y, g y ∂K t x
+  exact integral_add
+    (integrable_boundedContinuousFunction f (K t x))
+    (integrable_boundedContinuousFunction g (K t x))
+
+private theorem fellerOperatorValue_smul {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
+    (c : ℝ) (f : E →ᵇ ℝ) :
+    fellerOperatorValue hK t (c • f) =
+      c • fellerOperatorValue hK t f := by
+  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  ext x
+  change (∫ y, c • f y ∂K t x) = c • ∫ y, f y ∂K t x
+  rw [integral_smul]
+
+/-- The Feller Markov operator as a continuous linear map on bounded
+continuous real observables. Its operator norm is at most one. -/
+def fellerOperator {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0) :
+    (E →ᵇ ℝ) →L[ℝ] (E →ᵇ ℝ) :=
+  LinearMap.mkContinuous
+    { toFun := fellerOperatorValue hK t
+      map_add' := fellerOperatorValue_add hK t
+      map_smul' := fellerOperatorValue_smul hK t }
+    1 fun f => by
+      simpa using
+        BoundedContinuousFunction.norm_ofNormedAddCommGroup_le
+          (hK.mapsContinuous t f) (norm_nonneg f)
+          (norm_kernelIntegral_le hK t f)
+
+@[simp]
+theorem fellerOperator_apply {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
+    (f : E →ᵇ ℝ) (x : E) :
+    fellerOperator hK t f x = ∫ y, f y ∂K t x := rfl
+
+/-- The pointwise contraction estimate inherited from integration against a
+probability kernel. -/
+theorem norm_fellerOperator_apply_le {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
+    (f : E →ᵇ ℝ) :
+    ‖fellerOperator hK t f‖ ≤ ‖f‖ := by
+  exact BoundedContinuousFunction.norm_ofNormedAddCommGroup_le
+    (hK.mapsContinuous t f) (norm_nonneg f)
+    (norm_kernelIntegral_le hK t f)
+
+/-- The zero-time Feller operator is the identity continuous linear map. -/
+theorem fellerOperator_zero {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) :
+    fellerOperator hK 0 = ContinuousLinearMap.id ℝ (E →ᵇ ℝ) := by
+  ext f x
+  change (∫ y, f y ∂K 0 x) = f x
+  rw [hK.toTransitionKernelContract.initial, Kernel.id_apply]
+  exact integral_dirac' f x f.continuous.stronglyMeasurable
+
+/-- Chapman--Kolmogorov yields the continuous-linear operator semigroup law. -/
+theorem fellerOperator_add {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (s t : ℝ≥0) :
+    fellerOperator hK (s + t) =
+      (fellerOperator hK s).comp (fellerOperator hK t) := by
+  letI : IsMarkovKernel (K s) := hK.toTransitionKernelContract.isMarkov s
+  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  ext f x
+  change (∫ z, f z ∂K (s + t) x) =
+    ∫ y, (∫ z, f z ∂K t y) ∂K s x
+  rw [hK.toTransitionKernelContract.chapmanKolmogorov s t]
+  exact Kernel.integral_comp
+    (integrable_boundedContinuousFunction f ((K t ∘ₖ K s) x))
+
+/-- A Feller transition-kernel contract therefore supplies the exact
+continuous-linear semigroup consumed by the right-generator development. -/
+def continuousLinearSemigroupOfFeller {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) :
+    ContinuousLinearSemigroup (E →ᵇ ℝ) where
+  op := fellerOperator hK
+  op_zero := fellerOperator_zero hK
+  op_add := fellerOperator_add hK
+
+@[simp]
+theorem continuousLinearSemigroupOfFeller_op_apply
+    {K : ℝ≥0 → Kernel E E} (hK : FellerTransitionKernelContract K)
+    (t : ℝ≥0) (f : E →ᵇ ℝ) (x : E) :
+    (continuousLinearSemigroupOfFeller hK).op t f x =
+      ∫ y, f y ∂K t x := rfl
+
+end
+
+end FellerSemigroup
+end StochasticProcesses
+end TechnicalLemmas
+end AutoSamplingTheory
