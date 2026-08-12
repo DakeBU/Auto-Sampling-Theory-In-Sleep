@@ -22,6 +22,20 @@ example {E : Type*} [MeasurableSpace E] :
     simp
 
 example {E : Type*} [MeasurableSpace E]
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (t : ℝ≥0) (c : ℝ≥0∞) :
+    markovOperator hK t (MeasurableENNReal.const c) =
+      MeasurableENNReal.const c :=
+  markovOperator_const hK t c
+
+example {E : Type*} [MeasurableSpace E]
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (t : ℝ≥0) {f g : MeasurableENNReal E}
+    (hfg : ∀ y, f y ≤ g y) (x : E) :
+    markovOperator hK t f x ≤ markovOperator hK t g x :=
+  markovOperator_apply_mono hK t hfg x
+
+example {E : Type*} [MeasurableSpace E]
     {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K) :
     markovOperator hK 0 = id :=
   markovOperator_zero hK
