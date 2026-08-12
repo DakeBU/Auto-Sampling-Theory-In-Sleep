@@ -1,0 +1,117 @@
+import Mathlib.Probability.Kernel.Composition.Comp
+
+/-!
+# Markov-kernel semigroup leaves
+
+This file formalizes the algebraic part of Chewi's *Log-Concave Sampling*,
+Lemma 1.2.2.  The source defines
+
+`P_t f x = E[f(X_t) | X_0 = x]`
+
+and obtains `P₀ = id` and `P_s P_t = P_t P_s = P_{s+t}` from the Markov
+property and iterated conditioning.  We isolate the transition-kernel boundary:
+the zero-time kernel is the identity kernel and the Chapman--Kolmogorov law
+holds at nonnegative times.  Continuity, generator domains, Kolmogorov
+equations, and construction of a concrete Langevin semigroup are deliberately
+separate downstream obligations.
+-/
+
+namespace AutoSamplingTheory
+namespace TechnicalLemmas
+namespace StochasticProcesses
+namespace MarkovSemigroup
+
+open MeasureTheory ProbabilityTheory
+open scoped ENNReal ProbabilityTheory
+
+noncomputable section
+
+variable {E : Type*} [MeasurableSpace E]
+
+/-- A time-homogeneous Markov transition-kernel contract at nonnegative times.
+
+`chapmanKolmogorov` is oriented so that first evolving for time `s` and then
+for time `t` is the kernel composition `K t ∘ₖ K s`.  The contract is the
+kernel-level consequence of the Markov property used by Chewi's Lemma 1.2.2;
+it does not assume any continuity or generator-domain statement. -/
+structure TransitionKernelContract (K : ℝ≥0 → Kernel E E) : Prop where
+  isMarkov : ∀ t, IsMarkovKernel (K t)
+  initial : K 0 = Kernel.id
+  chapmanKolmogorov : ∀ s t, K (s + t) = K t ∘ₖ K s
+
+/-- The measurable nonnegative observables on a measurable state space. -/
+def MeasurableENNReal (E : Type*) [MeasurableSpace E] :=
+  {f : E → ℝ≥0∞ // Measurable f}
+
+instance : CoeFun (MeasurableENNReal E) (fun _ => E → ℝ≥0∞) :=
+  ⟨fun f => f.1⟩
+
+/-- The Markov operator induced by a transition-kernel contract. -/
+def markovOperator {K : ℝ≥0 → Kernel E E}
+    (hK : TransitionKernelContract K) (t : ℝ≥0) :
+    MeasurableENNReal E → MeasurableENNReal E :=
+  fun f => by
+    letI : IsMarkovKernel (K t) := hK.isMarkov t
+    exact ⟨fun x => ∫⁻ y, f y ∂K t x, f.2.lintegral_kernel⟩
+
+/-- At time zero, the transition-kernel Markov operator is the identity. -/
+theorem markovOperator_zero {K : ℝ≥0 → Kernel E E}
+    (hK : TransitionKernelContract K) :
+    markovOperator hK 0 = id := by
+  funext f
+  apply Subtype.ext
+  funext x
+  change (∫⁻ y, f y ∂K 0 x) = f x
+  rw [hK.initial]
+  exact Kernel.lintegral_id' f.2 x
+
+/-- Chapman--Kolmogorov becomes composition of Markov operators. -/
+theorem markovOperator_comp {K : ℝ≥0 → Kernel E E}
+    (hK : TransitionKernelContract K) (s t : ℝ≥0) :
+    markovOperator hK s ∘ markovOperator hK t =
+      markovOperator hK (s + t) := by
+  funext f
+  apply Subtype.ext
+  funext x
+  change
+    (∫⁻ y, (∫⁻ z, f z ∂K t y) ∂K s x) =
+      ∫⁻ z, f z ∂K (s + t) x
+  rw [hK.chapmanKolmogorov s t]
+  exact (Kernel.lintegral_comp (K t) (K s) x f.2).symm
+
+/-- Time-homogeneous Markov operators commute because nonnegative-time
+addition is commutative. -/
+theorem markovOperator_comm {K : ℝ≥0 → Kernel E E}
+    (hK : TransitionKernelContract K) (s t : ℝ≥0) :
+    markovOperator hK s ∘ markovOperator hK t =
+      markovOperator hK t ∘ markovOperator hK s := by
+  calc
+    markovOperator hK s ∘ markovOperator hK t =
+        markovOperator hK (s + t) := markovOperator_comp hK s t
+    _ = markovOperator hK (t + s) := by rw [add_comm]
+    _ = markovOperator hK t ∘ markovOperator hK s :=
+      (markovOperator_comp hK t s).symm
+
+/-- Chewi, Lemma 1.2.2: the zero-time and two-time Markov-operator laws,
+under the explicit transition-kernel contract. -/
+theorem chewi_lemma_1_2_2 {K : ℝ≥0 → Kernel E E}
+    (hK : TransitionKernelContract K) :
+    markovOperator hK 0 = id ∧
+      ∀ s t : ℝ≥0,
+        markovOperator hK s ∘ markovOperator hK t =
+            markovOperator hK (s + t) ∧
+          markovOperator hK t ∘ markovOperator hK s =
+            markovOperator hK (s + t) := by
+  constructor
+  · exact markovOperator_zero hK
+  · intro s t
+    constructor
+    · exact markovOperator_comp hK s t
+    · simpa [add_comm] using markovOperator_comp hK t s
+
+end
+
+end MarkovSemigroup
+end StochasticProcesses
+end TechnicalLemmas
+end AutoSamplingTheory
