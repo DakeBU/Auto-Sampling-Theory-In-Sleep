@@ -46,6 +46,10 @@ def MeasurableENNReal (E : Type*) [MeasurableSpace E] :=
 instance : CoeFun (MeasurableENNReal E) (fun _ => E → ℝ≥0∞) :=
   ⟨fun f => f.1⟩
 
+/-- A constant measurable nonnegative observable. -/
+def MeasurableENNReal.const (c : ℝ≥0∞) : MeasurableENNReal E :=
+  ⟨fun _ => c, measurable_const⟩
+
 /-- The Markov operator induced by a transition-kernel contract. -/
 def markovOperator {K : ℝ≥0 → Kernel E E}
     (hK : TransitionKernelContract K) (t : ℝ≥0) :
@@ -53,6 +57,25 @@ def markovOperator {K : ℝ≥0 → Kernel E E}
   fun f => by
     letI : IsMarkovKernel (K t) := hK.isMarkov t
     exact ⟨fun x => ∫⁻ y, f y ∂K t x, f.2.lintegral_kernel⟩
+
+/-- A Markov operator preserves constant nonnegative observables. -/
+theorem markovOperator_const {K : ℝ≥0 → Kernel E E}
+    (hK : TransitionKernelContract K) (t : ℝ≥0) (c : ℝ≥0∞) :
+    markovOperator hK t (MeasurableENNReal.const c) =
+      MeasurableENNReal.const c := by
+  apply Subtype.ext
+  funext x
+  change (∫⁻ _y, c ∂K t x) = c
+  letI : IsMarkovKernel (K t) := hK.isMarkov t
+  simp
+
+/-- Markov integration is monotone in the observable. -/
+theorem markovOperator_apply_mono {K : ℝ≥0 → Kernel E E}
+    (hK : TransitionKernelContract K) (t : ℝ≥0)
+    {f g : MeasurableENNReal E} (hfg : ∀ y, f y ≤ g y) (x : E) :
+    markovOperator hK t f x ≤ markovOperator hK t g x := by
+  change (∫⁻ y, f y ∂K t x) ≤ ∫⁻ y, g y ∂K t x
+  exact lintegral_mono hfg
 
 /-- At time zero, the transition-kernel Markov operator is the identity. -/
 theorem markovOperator_zero {K : ℝ≥0 → Kernel E E}
