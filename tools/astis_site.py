@@ -523,7 +523,8 @@ def source_index() -> tuple[dict[str, dict[str, object]], dict[str, str]]:
 
 def enrich_entries(entries: list[RegistryEntry]) -> tuple[list[RegistryEntry], dict[str, str]]:
     indexed, module_files = source_index()
-    tests_text = TESTS.read_text(encoding="utf-8")
+    test_paths = [ROOT / "Tests.lean", *sorted((ROOT / "Tests").rglob("*.lean"))]
+    tests_text = "\n".join(path.read_text(encoding="utf-8") for path in test_paths if path.exists())
     by_short: dict[str, list[dict[str, object]]] = defaultdict(list)
     for record in indexed.values():
         by_short[str(record["short_name"])].append(record)
@@ -564,6 +565,71 @@ def enrich_entries(entries: list[RegistryEntry]) -> tuple[list[RegistryEntry], d
     for entry in entries:
         entry.consumers = sorted(set(entry.consumers))
     return entries, module_files
+
+
+def validate_chapter_1_closure(
+    site_data: dict[str, object],
+    entries: list[RegistryEntry],
+    declarations_by_name: dict[str, SourceDeclaration],
+) -> list[str]:
+    """Validate a source-complete Chapter 1 certificate, not a progress dashboard."""
+    errors: list[str] = []
+    matrix = list(site_data.get("chapter_1_completion_matrix", []))
+    source_rows = list(site_data.get("source_correspondence", []))
+    source_by_id = {str(row.get("id", "")): row for row in source_rows}
+    registry_by_decl = {entry.local_decl: entry for entry in entries if entry.local_decl}
+    mapping_counts = Counter(str(item.get("source_mapping_id", "")) for item in matrix)
+
+    if len(matrix) != 125:
+        errors.append(f"Chapter 1 closure requires 125 audited source items, found {len(matrix)}")
+    for source_id, count in sorted(mapping_counts.items()):
+        if source_id and count != 1:
+            errors.append(
+                f"Chapter 1 closure requires one source row per item: {source_id} is reused {count} times"
+            )
+
+    for item in matrix:
+        item_id = str(item.get("id", ""))
+        source_id = str(item.get("source_mapping_id", ""))
+        if not source_id:
+            errors.append(f"{item_id}: no exact source correspondence row")
+            continue
+        source = source_by_id.get(source_id)
+        if source is None:
+            errors.append(f"{item_id}: unknown source correspondence row {source_id}")
+            continue
+        for field in ("source_kind", "book_page", "pdf_page", "page", "source_url"):
+            if source.get(field) != item.get(field):
+                errors.append(
+                    f"{item_id}: {field} differs between matrix and {source_id} "
+                    f"({item.get(field)!r} != {source.get(field)!r})"
+                )
+        if str(item.get("local_status")) != "Compiled":
+            errors.append(f"{item_id}: local status is {item.get('local_status')}, expected Compiled")
+        if str(item.get("route_status")) != "Compiled":
+            errors.append(f"{item_id}: route status is {item.get('route_status')}, expected Compiled")
+        for field in ("status", "local_status", "route_status"):
+            if str(source.get(field, "")).lower() != "compiled":
+                errors.append(f"{item_id}: {source_id}.{field} is not compiled")
+        evidence = [str(name) for name in source.get("lean_declarations", [])]
+        if not evidence:
+            errors.append(f"{item_id}: {source_id} has no Lean evidence declaration")
+            continue
+        for name in evidence:
+            entry = registry_by_decl.get(name)
+            if entry is None:
+                errors.append(f"{item_id}: evidence is absent from Registry: {name}")
+                continue
+            if not entry.is_blue:
+                errors.append(f"{item_id}: Registry evidence is not formalizedLocal: {name}")
+            if not entry.explicit_test:
+                errors.append(f"{item_id}: Registry evidence lacks an explicit test reference: {name}")
+            declaration = declarations_by_name.get(name)
+            if declaration is None:
+                errors.append(f"{item_id}: evidence declaration cannot be resolved: {name}")
+            elif declaration.has_placeholder:
+                errors.append(f"{item_id}: evidence declaration contains a placeholder: {name}")
+    return errors
 
 
 def test_registry_count() -> int | None:
@@ -3105,7 +3171,11 @@ def iter_local_links(html_path: Path, output: Path) -> Iterable[tuple[str, Path,
         yield value, target, parsed.fragment
 
 
-def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
+def validate_site(
+    output: Path = DEFAULT_OUTPUT,
+    *,
+    require_chapter_1_closure: bool = False,
+) -> list[str]:
     errors: list[str] = []
     required = [
         "index.html",
@@ -3220,6 +3290,8 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         declaration.has_placeholder for declaration in declarations
     ):
         errors.append("placeholder declaration count does not match source scan")
+    if require_chapter_1_closure:
+        errors.extend(validate_chapter_1_closure(site_data, entries, declarations_by_name))
 
     for entry in entries:
         if entry.status == "formalizedLocal" and not entry.source_file:
@@ -3467,7 +3539,10 @@ def command_check(args: argparse.Namespace) -> int:
     output = Path(args.output).resolve() if args.output else DEFAULT_OUTPUT
     if not output.exists() or args.rebuild:
         build_site(output)
-    errors = validate_site(output)
+    errors = validate_site(
+        output,
+        require_chapter_1_closure=args.require_chapter_1_closure,
+    )
     if errors:
         print("ASTIS site check failed:", file=sys.stderr)
         for error in errors:
@@ -3492,6 +3567,11 @@ def parser() -> argparse.ArgumentParser:
     check = sub.add_parser("check", help="validate generated status, declarations, and links")
     check.add_argument("--output", help="output directory (default: repository _site)")
     check.add_argument("--rebuild", action="store_true", help="rebuild before checking")
+    check.add_argument(
+        "--require-chapter-1-closure",
+        action="store_true",
+        help="require all 125 Chapter 1 source items to have exact compiled and explicitly tested evidence",
+    )
     check.set_defaults(func=command_check)
     return result
 

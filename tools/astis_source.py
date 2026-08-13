@@ -99,7 +99,9 @@ def _source_page_bounds(edition: dict[str, object]) -> dict[str, tuple[int, int]
         for index, raw_section in enumerate(sections):
             section = dict(raw_section)
             start = int(section["book_page"])
-            end = int(dict(sections[index + 1])["book_page"]) - 1 if index + 1 < len(sections) else chapter_end
+            # A section heading can begin below the preceding section's final
+            # theorem on the same printed page, so boundary pages overlap.
+            end = int(dict(sections[index + 1])["book_page"]) if index + 1 < len(sections) else chapter_end
             bounds[str(section["id"])] = (start, end)
     return bounds
 
