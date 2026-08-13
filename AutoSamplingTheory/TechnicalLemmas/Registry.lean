@@ -1519,6 +1519,16 @@ def calculusMemory : List LemmaMemoryEntry := [
 
 def measureMemory : List LemmaMemoryEntry := [
   {
+    key := "measure.wasserstein.chewi-definition-1-3-12",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.IsAbsolutelyContinuousFiniteSecondMoment",
+    upstreamDecl := "Chewi Definition 1.3.12",
+    upstreamFile := "Log-Concave Sampling, book page 25 / PDF page 37",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Wasserstein", "P2ac", "absolute-continuity", "second-moment", "Lebesgue"],
+    saldUse := "Chewi Definition 1.3.12 root: package probability normalization, finite second moment, and Lebesgue absolute continuity",
+    note := "Exact measure-class definition; no Wasserstein metric, optimal map, or gradient-flow theorem is asserted."
+  },
+  {
     key := "measure.transport.chewi-definition-1-3-1",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost",
     upstreamDecl := "Chewi Definition 1.3.1",

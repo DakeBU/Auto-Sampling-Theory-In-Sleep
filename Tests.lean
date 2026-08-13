@@ -7,6 +7,7 @@ import Tests.OperatorGeneratorDomain
 import Tests.Reversibility
 import Tests.SemigroupDecay
 import Tests.Transport
+import Tests.WassersteinSpace
 
 /-!
 Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,

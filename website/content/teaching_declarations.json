@@ -813,6 +813,33 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.IsAbsolutelyContinuousFiniteSecondMoment",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "P2,ac is the class of probability laws with a finite squared-distance moment and a Lebesgue density.",
+    "mathematical_statement": "mu is a probability measure, mu is absolutely continuous with respect to volume, and integral ||x||^2 dmu is finite.",
+    "intuition": "The second-moment condition places the law in quadratic Wasserstein space; absolute continuity is the regularity used later for Brenier maps and Wasserstein calculus.",
+    "assumptions": [
+      "a finite-dimensional real inner-product space",
+      "the Borel measurable structure and Lebesgue volume",
+      "probability normalization, absolute continuity, and squared-norm integrability"
+    ],
+    "why_assumptions": [
+      "finite second moment is the domain condition for W2",
+      "absolute continuity is needed for source results that use almost-everywhere gradients of convex potentials",
+      "neither condition alone provides an optimal map"
+    ],
+    "proof_route": [
+      "package the three source conditions as a reusable predicate",
+      "expose an iff expansion for downstream elaboration"
+    ],
+    "lean_notes": [
+      "volume is Mathlib's finite-dimensional Lebesgue measure",
+      "Integrable of the nonnegative real squared norm expresses a finite second moment",
+      "the probability assertion remains explicit inside the predicate"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost",
     "chapter": 1,
     "route_status": "Compiled",
