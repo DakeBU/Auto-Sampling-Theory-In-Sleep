@@ -22,7 +22,7 @@ def identityStronglyContinuousSemigroup : StronglyContinuousSemigroup M where
     rfl
   stronglyContinuousAtZero := by
     intro f
-    simpa using (tendsto_const_nhds : Tendsto (fun _ : ℝ≥0 => f) (𝓝 0) (𝓝 f))
+    exact tendsto_const_nhds
 
 example (t : ℝ≥0) (f : M) :
     Tendsto
@@ -48,7 +48,7 @@ example (S : ContinuousLinearSemigroup M) :
     generatorDomainSubmodule S →ₗ[ℝ] M :=
   rightGenerator S
 
-example (f : M) :
+private theorem identity_mem_generatorDomain (f : M) :
     f ∈ generatorDomainSubmodule
       (identityStronglyContinuousSemigroup.toContinuousLinearSemigroup) := by
   exact ⟨0, by
@@ -58,9 +58,7 @@ example (f : M) :
 example (f : M) :
     let S := identityStronglyContinuousSemigroup.toContinuousLinearSemigroup
     let fd : generatorDomainSubmodule S :=
-      ⟨f, ⟨0, by
-        simp [HasRightGeneratorAt, rightDifferenceQuotient,
-          identityStronglyContinuousSemigroup]⟩⟩
+      ⟨f, identity_mem_generatorDomain f⟩
     rightGenerator S fd = 0 := by
   dsimp
   apply hasRightGeneratorAt_unique

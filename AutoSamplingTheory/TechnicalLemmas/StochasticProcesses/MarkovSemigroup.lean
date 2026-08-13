@@ -52,10 +52,9 @@ def MeasurableENNReal.const (c : ℝ≥0∞) : MeasurableENNReal E :=
 
 /-- The Markov operator induced by a transition-kernel contract. -/
 def markovOperator {K : ℝ≥0 → Kernel E E}
-    (hK : TransitionKernelContract K) (t : ℝ≥0) :
+    (_hK : TransitionKernelContract K) (t : ℝ≥0) :
     MeasurableENNReal E → MeasurableENNReal E :=
   fun f => by
-    letI : IsMarkovKernel (K t) := hK.isMarkov t
     exact ⟨fun x => ∫⁻ y, f y ∂K t x, f.2.lintegral_kernel⟩
 
 /-- A Markov operator preserves constant nonnegative observables. -/

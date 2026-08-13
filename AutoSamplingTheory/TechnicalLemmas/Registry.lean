@@ -2077,6 +2077,66 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Actual one-sided Tendsto theorem; the forward equation and concrete Langevin generator remain downstream."
   },
   {
+    key := "operator-generator.strong-continuity-right-orbit",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.StronglyContinuousSemigroup.tendsto_op_add",
+    upstreamDecl := "ContinuousLinearSemigroup.op_add_apply / ContinuousLinearMap.continuous",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain; Mathlib.Analysis.Normed.Operator.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "strong-continuity", "semigroup", "right-orbit", "Tendsto"],
+    saldUse := "Chewi Definition 1.2.1 topology leaf: propagate strong continuity at zero to every right-shifted orbit",
+    note := "Abstract orbit-continuity theorem. It does not prove that a concrete Langevin or general Feller semigroup is strongly continuous on a selected observable space."
+  },
+  {
+    key := "operator-generator.right-limit-unique",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.hasRightGeneratorAt_unique",
+    upstreamDecl := "tendsto_nhds_unique",
+    upstreamFile := "Mathlib.Topology.Sequences; Mathlib.Topology.Order.DenselyOrdered",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "generator", "right-derivative", "uniqueness", "Tendsto"],
+    saldUse := "Chewi Definition 1.2.3 root: make the norm-topology right-generator relation single-valued",
+    note := "Uniqueness uses the nontrivial positive-time filter at zero; generator existence remains encoded by domain membership."
+  },
+  {
+    key := "operator-generator.domain-submodule",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.generatorDomainSubmodule",
+    upstreamDecl := "hasRightGeneratorAt_zero / hasRightGeneratorAt_add / hasRightGeneratorAt_smul",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "generator", "domain", "submodule", "linearity"],
+    saldUse := "Package the right-generator domain as a real submodule before constructing the infinitesimal operator",
+    note := "This is an algebraic domain theorem for an abstract continuous-linear semigroup, not a closedness or smooth-core theorem."
+  },
+  {
+    key := "operator-generator.linear-map",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.rightGenerator",
+    upstreamDecl := "hasRightGeneratorAt_unique / generatorDomainSubmodule",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "generator", "linear-map", "domain", "right-derivative"],
+    saldUse := "Chewi Definition 1.2.3 root: bundle the unique infinitesimal generator value as a linear map on its domain",
+    note := "The codomain is the ambient normed space. Continuity, closedness, and equality with the Langevin differential expression are not asserted."
+  },
+  {
+    key := "operator-generator.bundled-domain-commutation",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.rightGenerator_map",
+    upstreamDecl := "generatorDomain_map / hasRightGeneratorAt_unique",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "generator", "semigroup", "commutation", "invariant-domain"],
+    saldUse := "Chewi Proposition 1.2.5 root: state L(P_t f)=P_t(Lf) using the canonical bundled generator",
+    note := "The theorem applies on the abstract right-generator domain preserved by the semigroup."
+  },
+  {
+    key := "operator-generator.kolmogorov-backward-bundled",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.kolmogorov_backward_right_generator",
+    upstreamDecl := "kolmogorov_backward_right / rightGeneratorValue_spec",
+    upstreamFile := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain; AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Kolmogorov-backward", "generator", "right-derivative", "bundled-domain"],
+    saldUse := "Chewi Proposition 1.2.5 root: expose the right backward equation without an existential generator witness",
+    note := "Actual one-sided norm-limit theorem on the bundled domain; it does not identify a concrete Langevin generator or prove a forward equation."
+  },
+  {
     key := "weak-generator.sample-to-law-derivative",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator.weakGeneratorFromSampleDerivative",
     upstreamDecl := "law-map integral rewrite plus supplied Ito-generator derivative",

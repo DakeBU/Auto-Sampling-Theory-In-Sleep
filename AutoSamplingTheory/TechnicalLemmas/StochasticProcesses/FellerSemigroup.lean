@@ -48,6 +48,7 @@ private theorem integrable_boundedContinuousFunction
   refine Integrable.of_bound f.continuous.aestronglyMeasurable ‖f‖ ?_
   exact ae_of_all _ fun x => f.norm_coe_le_norm x
 
+omit [BorelSpace E] in
 private theorem norm_kernelIntegral_le
     {K : ℝ≥0 → Kernel E E} (hK : FellerTransitionKernelContract K)
     (t : ℝ≥0) (f : E →ᵇ ℝ) (x : E) :
@@ -67,6 +68,7 @@ def fellerOperatorValue {K : ℝ≥0 → Kernel E E}
     (hK.mapsContinuous t f) ‖f‖
     (norm_kernelIntegral_le hK t f)
 
+omit [BorelSpace E] in
 @[simp]
 theorem fellerOperatorValue_apply {K : ℝ≥0 → Kernel E E}
     (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
@@ -86,6 +88,7 @@ private theorem fellerOperatorValue_add {K : ℝ≥0 → Kernel E E}
     (integrable_boundedContinuousFunction f (K t x))
     (integrable_boundedContinuousFunction g (K t x))
 
+omit [BorelSpace E] in
 private theorem fellerOperatorValue_smul {K : ℝ≥0 → Kernel E E}
     (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
     (c : ℝ) (f : E →ᵇ ℝ) :

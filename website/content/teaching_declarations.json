@@ -604,7 +604,7 @@
   },
   {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation",
-    "chapter": 2,
+    "chapter": 1,
     "route_status": "Partial",
     "plain_english": "An exact energy-dissipation identity plus a coercive functional inequality forces exponential decay of the energy.",
     "mathematical_statement": "If E'(t)=-aD(t) and rE(t)≤aD(t), then E(t)≤E(0)exp(-rt) for t≥0.",
@@ -709,7 +709,7 @@
   },
   {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.scaled_dissipation_of_exponential_decay",
-    "chapter": 2,
+    "chapter": 1,
     "route_status": "Partial",
     "plain_english": "Exponential decay after every starting time forces the instantaneous coercivity inequality at each starting point.",
     "mathematical_statement": "If E(s+t)≤E(s)exp(-rt) for every s and t≥0, and E'(s)=-aD(s), then rE(s)≤aD(s).",
@@ -810,6 +810,110 @@
     "lean_notes": [
       "this is a full scalar iff but not yet a theorem about a particular Langevin density",
       "density regularity, FI identification, and domain closure remain recorded obligations"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.StronglyContinuousSemigroup.tendsto_op_add",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "For an abstract semigroup that is strongly continuous at zero, every orbit is right-continuous after any fixed starting time.",
+    "mathematical_statement": "If P_h f tends to f as h tends to zero, then P_(t+h) f tends to P_t f for every nonnegative t.",
+    "intuition": "The semigroup identity rewrites P_(t+h)f as P_t(P_h f), and the bounded linear operator P_t preserves the limit.",
+    "assumptions": [
+      "a continuous-linear semigroup on a real normed space",
+      "strong continuity at zero for every observable"
+    ],
+    "why_assumptions": [
+      "the semigroup law transports the zero-time limit to time t",
+      "continuity of P_t is needed to pass the limit through the operator",
+      "the theorem does not prove strong continuity for a concrete Langevin process"
+    ],
+    "proof_route": [
+      "apply strong continuity at zero to P_h f",
+      "compose this convergence with the continuous linear map P_t",
+      "rewrite P_t(P_h f) as P_(t+h)f"
+    ],
+    "lean_notes": [
+      "the time type is the nonnegative reals",
+      "strong continuity is a field of StronglyContinuousSemigroup and remains a concrete analytic obligation"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.generatorDomainSubmodule",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "The observables that possess a right-generator limit form a real vector subspace.",
+    "mathematical_statement": "D(L) is closed under zero, addition, and real scalar multiplication.",
+    "intuition": "Difference quotients are linear in the observable, so their norm limits are linear as well.",
+    "assumptions": [
+      "a continuous-linear semigroup on a real normed space",
+      "right-generator limits are taken in the ambient norm topology"
+    ],
+    "why_assumptions": [
+      "linearity of each semigroup operator gives linearity of each quotient",
+      "this algebraic domain statement does not imply that the generator is closed"
+    ],
+    "proof_route": [
+      "show the zero quotient converges to zero",
+      "add two convergent generator quotients",
+      "scale a convergent quotient by a real scalar",
+      "package the three closure laws as a Submodule"
+    ],
+    "lean_notes": [
+      "membership retains an existential generator value",
+      "uniqueness is proved separately by tendsto_nhds_unique"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.rightGenerator",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "The unique right-generator value defines a genuine linear map on the generator domain.",
+    "mathematical_statement": "L : D(L) -> M is linear and its value Lf is the norm limit of (P_h f - f)/h as h decreases to zero.",
+    "intuition": "Existence comes from domain membership, uniqueness removes the arbitrary witness, and quotient linearity makes the resulting operator linear.",
+    "assumptions": [
+      "a continuous-linear semigroup",
+      "the observable belongs to the right-generator domain"
+    ],
+    "why_assumptions": [
+      "outside D(L) the defining difference quotient need not converge",
+      "the result does not claim continuity, closedness, or equality with a differential expression"
+    ],
+    "proof_route": [
+      "choose the generator limit carried by domain membership",
+      "prove the chosen value is independent of the witness",
+      "derive additivity and scalar compatibility from quotient limits",
+      "bundle the result as a LinearMap"
+    ],
+    "lean_notes": [
+      "the domain is generatorDomainSubmodule S",
+      "the map is noncomputable because the limit witness is selected classically"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.kolmogorov_backward_right_generator",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "On the bundled generator domain, the right derivative of the semigroup orbit at time t is P_t applied to the generator.",
+    "mathematical_statement": "For f in D(L), [P_(t+h)f - P_t f]/h tends to P_t(Lf) as h decreases to zero through positive times.",
+    "intuition": "The semigroup law turns the orbit increment at t into P_t applied to the generator quotient at zero.",
+    "assumptions": [
+      "a continuous-linear semigroup on a real normed space",
+      "membership of f in its right-generator domain"
+    ],
+    "why_assumptions": [
+      "domain membership supplies the generator limit",
+      "bounded linearity of P_t transports that limit",
+      "this is a backward right-derivative theorem, not a forward Fokker-Planck equation"
+    ],
+    "proof_route": [
+      "obtain the canonical right-generator limit of f",
+      "apply the existing unbundled backward-equation equivalence",
+      "select its Tendsto direction"
+    ],
+    "lean_notes": [
+      "nhdsWithin 0 (Ioi 0) records the one-sided positive-time limit",
+      "the concrete Langevin generator and its closed core remain outside this theorem"
     ]
   }
 ]

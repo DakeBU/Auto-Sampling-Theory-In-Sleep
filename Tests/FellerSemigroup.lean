@@ -26,7 +26,6 @@ def identityFellerContract :
     simp
   mapsContinuous := by
     intro t f
-    change Continuous (fun x => ∫ y, f y ∂(Kernel.id : Kernel E E) x)
     have hfun :
         (fun x => ∫ y, f y ∂(Kernel.id : Kernel E E) x) =
           fun x => f x := by

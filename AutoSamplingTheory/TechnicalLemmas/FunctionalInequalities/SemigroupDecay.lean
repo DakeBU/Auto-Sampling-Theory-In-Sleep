@@ -126,14 +126,15 @@ theorem scaled_dissipation_of_exponential_decay
           curve.energy s * Real.exp (-rate * (s - s)) := by simp
   have hinner :
       HasDerivAt (fun x : ℝ => -rate * (x - s)) (-rate) s := by
-    convert ((hasDerivAt_id s).sub_const s).const_mul (-rate) using 1 <;> ring
+    convert ((hasDerivAt_id s).sub_const s).const_mul (-rate) using 1
+    ring
   have hexponential :
       HasDerivAt
         (fun x : ℝ =>
           curve.energy s * Real.exp (-rate * (x - s)))
         (-rate * curve.energy s) s := by
-    convert hinner.exp.const_mul (curve.energy s) using 1 <;>
-      simp [mul_comm]
+    convert hinner.exp.const_mul (curve.energy s) using 1
+    simp [mul_comm]
   have hderiv :
       HasDerivWithinAt comparison
         ((-scale * curve.dissipation s) -
