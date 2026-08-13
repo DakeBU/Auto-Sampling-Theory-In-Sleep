@@ -1,5 +1,29 @@
 [
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "Stationarity and reversibility identify the negative-generator pairing with integrated carré du champ.",
+    "mathematical_statement": "integral f(-L)g dmu = integral (-L)f g dmu = integral Gamma(f,g) dmu.",
+    "intuition": "Stationarity kills L(fg), while reversibility makes the two cross terms in Gamma equal.",
+    "assumptions": ["integrability of every expanded term", "stationarity on f*g", "generator symmetry for f and g"],
+    "why_assumptions": ["Bochner integrals are totalized outside their domain", "the algebra alone cannot create stationarity or reversibility"],
+    "proof_route": ["expand Gamma", "integrate subtraction term by term", "use stationarity", "use symmetry", "finish scalar algebra"],
+    "lean_notes": ["uses Generator.dirichletForm", "all source-domain conditions are explicit theorem arguments"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.negativeGenerator_quadratic_nonneg",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "If carré du champ is nonnegative, then the negative generator has nonnegative quadratic energy.",
+    "mathematical_statement": "Gamma(f,f)>=0 implies integral f(-L)f dmu>=0 under stationarity and integrability.",
+    "intuition": "The integration-by-parts identity turns generator energy into an integral of a pointwise nonnegative field.",
+    "assumptions": ["stationarity", "integrability", "pointwise Gamma nonnegativity"],
+    "why_assumptions": ["Gamma positivity is the Markov-semigroup input from Lemma 1.2.13", "stationarity connects local generator algebra to the reference law"],
+    "proof_route": ["specialize fundamental integration by parts to g=f", "apply integral_nonneg_of_ae"],
+    "lean_notes": ["does not assume the target quadratic inequality", "Lemma 1.2.13 remains an independent source item"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue",
     "chapter": 1,
     "route_status": "Compiled",

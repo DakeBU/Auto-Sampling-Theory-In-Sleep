@@ -2179,6 +2179,26 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Exact algebraic source definition for a real linear generator; positivity and diffusion identities are separate theorems."
   },
   {
+    key := "carre-du-champ.chewi-theorem-1-2-14",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts",
+    upstreamDecl := "Chewi Theorem 1.2.14",
+    upstreamFile := "Log-Concave Sampling, book page 14 / PDF page 26",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "carre-du-champ", "integration-by-parts", "stationarity", "reversibility"],
+    saldUse := "Chewi Theorem 1.2.14: derive symmetry of the Dirichlet form and its integrated-Gamma representation from stationary and symmetric generator identities",
+    note := "All three expanded Gamma terms carry explicit integrability hypotheses; the concrete semigroup supplies stationarity and symmetry separately."
+  },
+  {
+    key := "carre-du-champ.chewi-corollary-1-2-15",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.negativeGenerator_quadratic_nonneg",
+    upstreamDecl := "Chewi Corollary 1.2.15",
+    upstreamFile := "Log-Concave Sampling, book page 14 / PDF page 26",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "generator", "nonnegative", "Dirichlet-form", "carre-du-champ"],
+    saldUse := "Chewi Corollary 1.2.15: turn pointwise Gamma nonnegativity and stationary integration by parts into nonnegativity of the negative-generator quadratic form",
+    note := "Consumes the exact Theorem 1.2.14 leaf; proving Gamma nonnegative from Markov Jensen is Lemma 1.2.13 and remains separate."
+  },
+  {
     key := "carre-du-champ.chewi-definition-1-2-28",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp",
     upstreamDecl := "Chewi Definition 1.2.28",

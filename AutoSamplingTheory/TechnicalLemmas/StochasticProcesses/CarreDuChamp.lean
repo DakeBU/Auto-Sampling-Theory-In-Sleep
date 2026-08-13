@@ -1,6 +1,8 @@
 import Mathlib.Algebra.Module.LinearMap.Basic
 import Mathlib.Data.Real.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import Mathlib.Tactic.Ring
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator
 
 noncomputable section
 
@@ -21,6 +23,8 @@ namespace AutoSamplingTheory
 namespace TechnicalLemmas
 namespace StochasticProcesses
 namespace CarreDuChamp
+
+open MeasureTheory
 
 variable {X : Type*}
 
@@ -70,6 +74,65 @@ def SatisfiesBakryEmery
   0 < alpha ∧ ∀ (f : X → ℝ) (x : X),
     alpha * carreDuChamp generator f f x ≤
       iteratedCarreDuChamp generator f f x
+
+/-- Chewi Theorem 1.2.14: stationarity and generator symmetry imply the
+fundamental integration-by-parts identity between the Dirichlet form and the
+integrated carre du champ.
+
+The three integrability hypotheses are the exact terms expanded from Gamma;
+they prevent the totalized Bochner integral from hiding a domain failure. -/
+theorem fundamental_integration_by_parts
+    [MeasurableSpace X]
+    (mu : Measure X) (generator : (X → ℝ) →ₗ[ℝ] (X → ℝ))
+    (f g : X → ℝ)
+    (hLfg : Integrable (generator (f * g)) mu)
+    (hfLg : Integrable (fun x => f x * generator g x) mu)
+    (hgLf : Integrable (fun x => g x * generator f x) mu)
+    (hstationary : (∫ x, generator (f * g) x ∂mu) = 0)
+    (hsymmetric :
+      (∫ x, f x * generator g x ∂mu) =
+        ∫ x, g x * generator f x ∂mu) :
+    FunctionalInequalities.Generator.dirichletForm mu generator f g =
+        FunctionalInequalities.Generator.dirichletForm mu generator g f ∧
+      FunctionalInequalities.Generator.dirichletForm mu generator f g =
+        ∫ x, carreDuChamp generator f g x ∂mu := by
+  have hsub : Integrable
+      (fun x => generator (f * g) x - f x * generator g x) mu :=
+    hLfg.sub hfLg
+  have hgammaIntegral :
+      (∫ x, carreDuChamp generator f g x ∂mu) =
+        (2 : ℝ)⁻¹ *
+          ((∫ x, generator (f * g) x ∂mu) -
+            (∫ x, f x * generator g x ∂mu) -
+            ∫ x, g x * generator f x ∂mu) := by
+    change
+      (∫ x, (2 : ℝ)⁻¹ *
+        (generator (f * g) x - f x * generator g x -
+          g x * generator f x) ∂mu) = _
+    rw [integral_const_mul,
+      integral_sub hsub hgLf, integral_sub hLfg hfLg]
+  constructor
+  · simp only [FunctionalInequalities.Generator.dirichletForm]
+    rw [hsymmetric]
+  · simp only [FunctionalInequalities.Generator.dirichletForm]
+    rw [hgammaIntegral, hstationary, hsymmetric]
+    ring
+
+/-- Chewi Corollary 1.2.15: the negative reversible generator has a
+nonnegative quadratic form once Gamma is pointwise nonnegative. -/
+theorem negativeGenerator_quadratic_nonneg
+    [MeasurableSpace X]
+    (mu : Measure X) (generator : (X → ℝ) →ₗ[ℝ] (X → ℝ))
+    (f : X → ℝ)
+    (hLf2 : Integrable (generator (f * f)) mu)
+    (hfLf : Integrable (fun x => f x * generator f x) mu)
+    (hstationary : (∫ x, generator (f * f) x ∂mu) = 0)
+    (hgamma : ∀ x, 0 ≤ carreDuChamp generator f f x) :
+    0 ≤ FunctionalInequalities.Generator.dirichletForm mu generator f f := by
+  have hibp := fundamental_integration_by_parts mu generator f f
+    hLf2 hfLf hfLf hstationary rfl
+  rw [hibp.2]
+  exact integral_nonneg_of_ae (Filter.Eventually.of_forall hgamma)
 
 end CarreDuChamp
 end StochasticProcesses
