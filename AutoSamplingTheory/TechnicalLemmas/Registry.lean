@@ -7,6 +7,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay
 import AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
 import AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
@@ -1900,6 +1901,50 @@ def measureMemory : List LemmaMemoryEntry := [
 ]
 
 
+
+def functionalInequalityMemory : List LemmaMemoryEntry := [
+  {
+    key := "semigroup-decay.scaled-dissipation",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation",
+    upstreamDecl := "le_gronwallBound_of_liminf_deriv_right_le / gronwallBound_ε0",
+    upstreamFile := "Mathlib.Analysis.ODE.Gronwall",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "functional-inequality", "semigroup", "dissipation", "Gronwall", "exponential-decay"],
+    saldUse := "generic scalar bridge from a coercive energy-dissipation inequality to exponential semigroup decay",
+    note := "Uses an exact one-sided HasDerivWithinAt identity and Mathlib Gronwall; it does not construct the concrete variance, KL, or Fisher-information curve."
+  },
+  {
+    key := "semigroup-decay.chewi-theorem-1-2-21-forward",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_21_forward",
+    upstreamDecl := "Chewi Theorem 1.2.21, forward implication",
+    upstreamFile := "Log-Concave Sampling, book page 16 / PDF page 28",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Poincare", "variance", "semigroup", "exponential-decay", "forward"],
+    saldUse := "derive variance-style decay at rate 2/C from Poincare coercivity and the -2 Dirichlet-energy dissipation identity",
+    note := "Source-faithful forward direction only; the converse and the concrete reversible-semigroup identification remain obligations."
+  },
+  {
+    key := "semigroup-decay.chewi-theorem-1-2-22-forward",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_22_forward",
+    upstreamDecl := "Chewi Theorem 1.2.22, forward implication",
+    upstreamFile := "Log-Concave Sampling, book page 17 / PDF page 29",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Poincare", "chi-square", "semigroup", "exponential-decay", "forward"],
+    saldUse := "derive chi-square-style decay at rate 2/C from Poincare coercivity and the -2 energy dissipation identity",
+    note := "The theorem deliberately reuses the scalar PI decay mechanism and does not assert a concrete density evolution."
+  },
+  {
+    key := "semigroup-decay.chewi-theorem-1-2-26-forward",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_26_forward",
+    upstreamDecl := "Chewi Theorem 1.2.26, forward implication",
+    upstreamFile := "Log-Concave Sampling, book page 18 / PDF page 30",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-Sobolev", "KL", "Fisher-information", "semigroup", "exponential-decay", "forward"],
+    saldUse := "derive KL-style decay at rate 2/C from LSI coercivity and the entropy-dissipation identity KL'=-FI",
+    note := "Source-faithful forward direction only; density regularity, concrete entropy dissipation, and the converse remain explicit."
+  }
+]
+
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
     key := "markov-semigroup.chewi-lemma-1-2-2",
@@ -3082,7 +3127,7 @@ def portQueueMemory : List LemmaMemoryEntry := [
 ]
 
 def technicalLemmaMemory : List LemmaMemoryEntry :=
-  analysisMemory ++ gaussianMemory ++ taylorMemory ++ calculusMemory ++ measureMemory ++ stochasticProcessMemory ++
+  analysisMemory ++ gaussianMemory ++ taylorMemory ++ calculusMemory ++ measureMemory ++ functionalInequalityMemory ++ stochasticProcessMemory ++
     klDensityMemory ++ renyiDensityMemory ++ variationalMemory ++ geometryMemory ++
     saldExtractedMemory ++ portQueueMemory
 

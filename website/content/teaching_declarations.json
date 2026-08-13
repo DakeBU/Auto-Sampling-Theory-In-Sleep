@@ -601,5 +601,110 @@
       "this is an actual one-sided Tendsto theorem",
       "it is not the forward equation and does not construct a Langevin process"
     ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation",
+    "chapter": 2,
+    "route_status": "Partial",
+    "plain_english": "An exact energy-dissipation identity plus a coercive functional inequality forces exponential decay of the energy.",
+    "mathematical_statement": "If E'(t)=-aD(t) and rE(t)≤aD(t), then E(t)≤E(0)exp(-rt) for t≥0.",
+    "intuition": "The coercive inequality converts dissipation into a negative multiple of the current energy, and one-sided Gronwall propagates that local differential inequality globally in time.",
+    "assumptions": [
+      "the scalar energy curve is continuous",
+      "the right derivative exists at every time",
+      "the exact derivative is minus the scaled dissipation",
+      "coercivity holds along the entire curve"
+    ],
+    "why_assumptions": [
+      "right derivatives match semigroups defined for nonnegative time increments",
+      "the exact dissipation identity is what links the analytic functional inequality to time evolution",
+      "coercivity supplies the decay rate"
+    ],
+    "proof_route": [
+      "negate the coercive inequality to bound the energy derivative",
+      "apply Mathlib's one-sided Gronwall theorem on [0,t]",
+      "rewrite the zero-forcing Gronwall bound as an exponential"
+    ],
+    "lean_notes": [
+      "HasDerivWithinAt uses the set Ici t to encode a right derivative",
+      "the theorem is scalar and does not guess what E or D mean in a concrete process"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_21_forward",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "Poincare coercivity turns the variance dissipation identity into exponential variance decay.",
+    "mathematical_statement": "If V'(t)=-2D(t) and V(t)≤CD(t), then V(t)≤V(0)exp(-2t/C).",
+    "intuition": "Poincare says the current variance cannot be large unless the Dirichlet energy is large; the semigroup immediately dissipates at twice that energy.",
+    "assumptions": [
+      "C is positive",
+      "the curve has derivative -2 times its dissipation",
+      "the Poincare inequality holds at every time"
+    ],
+    "why_assumptions": [
+      "positivity of C is needed to divide by C",
+      "the source's concrete variance derivative must be supplied separately"
+    ],
+    "proof_route": [
+      "multiply V≤CD by the nonnegative factor 2/C",
+      "obtain (2/C)V≤2D",
+      "invoke the generic scaled-dissipation decay theorem"
+    ],
+    "lean_notes": [
+      "the suffix forward is intentional because the source states an equivalence",
+      "the concrete reversible semigroup and converse direction are not hidden in the theorem"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_22_forward",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "The same Poincare energy argument yields exponential chi-square decay once its density evolution supplies the required dissipation curve.",
+    "mathematical_statement": "If χ²'(t)=-2D(t) and χ²(t)≤CD(t), then χ²(t)≤χ²(0)exp(-2t/C).",
+    "intuition": "At the scalar level, variance and chi-square use the same coercivity-and-dissipation calculation; their distinction belongs to the concrete density representation.",
+    "assumptions": [
+      "C is positive",
+      "the chi-square curve has the exact -2 dissipation derivative",
+      "Poincare coercivity is available along the curve"
+    ],
+    "why_assumptions": [
+      "the scalar theorem cannot manufacture the Radon-Nikodym density or its evolution",
+      "the exact rate depends on the factor 2 in the dissipation identity"
+    ],
+    "proof_route": [
+      "reuse the variance-style Poincare decay theorem",
+      "leave density identification to the downstream semigroup layer"
+    ],
+    "lean_notes": [
+      "this is not yet a theorem about a particular pair of measures",
+      "the name records the exact source theorem and direction"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_26_forward",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "Log-Sobolev coercivity turns entropy dissipation into exponential KL decay.",
+    "mathematical_statement": "If KL'(t)=-FI(t) and KL(t)≤(C/2)FI(t), then KL(t)≤KL(0)exp(-2t/C).",
+    "intuition": "LSI lower-bounds the available Fisher dissipation by a multiple of the current KL divergence, so entropy cannot decay slower than the corresponding exponential curve.",
+    "assumptions": [
+      "C is positive",
+      "the entropy curve has derivative minus Fisher information",
+      "the LSI bound holds along the curve"
+    ],
+    "why_assumptions": [
+      "density regularity and entropy differentiation are genuine analytic obligations",
+      "the factor C/2 determines the rate 2/C"
+    ],
+    "proof_route": [
+      "multiply KL≤(C/2)FI by 2/C",
+      "obtain (2/C)KL≤FI",
+      "invoke the generic scaled-dissipation decay theorem"
+    ],
+    "lean_notes": [
+      "the existing KL/FI scalar bookkeeping can later instantiate this curve",
+      "the converse LSI criterion remains a separate theorem"
+    ]
   }
 ]

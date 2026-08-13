@@ -44,7 +44,7 @@ example : openProblemCount = 1 := rfl
 
 example : forbiddenProofPatterns.length = 5 := rfl
 
-example : TechnicalLemmas.formalizedTechnicalLemmaCount = 296 := by native_decide
+example : TechnicalLemmas.formalizedTechnicalLemmaCount = 300 := by native_decide
 
 example (x : ℝ) :
     TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff x =
