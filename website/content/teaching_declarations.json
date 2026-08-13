@@ -1,5 +1,29 @@
 [
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalizingSequence",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A localizing sequence stops an integrand where it is square-integrable and exhausts the requested time interval almost surely.",
+    "mathematical_statement": "tau_n are increasing stopping times, E integral_0^T |eta_t 1_{t<=tau_n}|^2 dt is finite, and tau_n tends to T almost surely.",
+    "intuition": "Each stopped problem lies in the global L2 theory; the almost-sure limit recovers the original finite interval.",
+    "assumptions": ["progressive measurability", "stopping-time measurability", "monotonicity", "finite stopped L2 norms", "a.s. convergence"],
+    "why_assumptions": ["progressiveness makes the stochastic integrand admissible", "the L2 condition permits the existing Ito integral", "the limit ensures the stops exhaust the target interval"],
+    "proof_route": ["this is the exact source definition", "the canonical sequence is proved separately"],
+    "lean_notes": ["the L2 quantity is an ENNReal iterated lintegral", "NNReal time uses the pullback of real Lebesgue measure"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalMartingale",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A process is a local martingale when it becomes a centered martingale before every stop in an exhausting sequence.",
+    "mathematical_statement": "M is adapted and there are increasing stopping times tau_n tending a.s. to infinity such that M_{t wedge tau_n}-M_0 is a martingale.",
+    "intuition": "Localization removes global integrability while retaining martingale structure on every bounded stochastic window.",
+    "assumptions": ["adaptedness", "increasing stopping times", "a.s. divergence", "ordinary martingale behavior after stopping"],
+    "why_assumptions": ["adaptedness prevents future information", "a.s. divergence ensures every finite sample-path time is eventually covered"],
+    "proof_route": ["this is the exact source definition", "localized Ito integrals are handled by Proposition 1.1.16"],
+    "lean_notes": ["uses Mathlib stoppedProcess", "the centered stopped process is passed to Mathlib Martingale"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator",
     "chapter": 1,
     "route_status": "Compiled",

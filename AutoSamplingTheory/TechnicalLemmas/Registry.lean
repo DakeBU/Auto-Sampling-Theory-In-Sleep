@@ -2087,6 +2087,26 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Exact continuous nonnegative-time predicate with possible infinity; localization and stopped Ito integrals remain downstream."
   },
   {
+    key := "localization.chewi-definition-1-1-12",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalizingSequence",
+    upstreamDecl := "MeasureTheory.ProgMeasurable / MeasureTheory.IsStoppingTime / Chewi Definition 1.1.12",
+    upstreamFile := "Mathlib.Probability.Process.Adapted; Mathlib.Probability.Process.Stopping; Log-Concave Sampling, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "localizing-sequence", "stopping-time", "progressive", "L2", "almost-sure"],
+    saldUse := "Chewi Definition 1.1.12 root: expose progressive measurability, stopped L2 finiteness, monotone stopping times, and the almost-sure terminal-time limit",
+    note := "Exact definition over nonnegative time. Construction of the canonical hitting-time sequence is Proposition 1.1.13 and remains separate."
+  },
+  {
+    key := "localization.chewi-definition-1-1-15",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalMartingale",
+    upstreamDecl := "MeasureTheory.Adapted / MeasureTheory.stoppedProcess / MeasureTheory.Martingale / Chewi Definition 1.1.15",
+    upstreamFile := "Mathlib.Probability.Martingale.Basic; Mathlib.Probability.Process.Stopping; Log-Concave Sampling, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "local-martingale", "stopping-time", "stopped-process", "adapted"],
+    saldUse := "Chewi Definition 1.1.15 root: define local martingales through an increasing a.s.-divergent stopping sequence and centered stopped martingales",
+    note := "Exact definition; continuity and the theorem that localized Ito integrals satisfy it remain separate properties."
+  },
+  {
     key := "reversibility.chewi-definition-1-2-10",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility.IsReversible",
     upstreamDecl := "Chewi Definition 1.2.10",

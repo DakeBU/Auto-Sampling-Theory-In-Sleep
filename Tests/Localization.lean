@@ -1,0 +1,9 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization
+
+namespace AutoSamplingTheory.Tests.Localization
+
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.stoppedIntegrand
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalizingSequence
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalMartingale
+
+end AutoSamplingTheory.Tests.Localization

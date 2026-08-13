@@ -1,6 +1,7 @@
 import Tests.Basic
 import Tests.CarreDuChamp
 import Tests.FellerSemigroup
+import Tests.Localization
 import Tests.MarkovSemigroup
 import Tests.Martingale
 import Tests.OperatorGenerator
