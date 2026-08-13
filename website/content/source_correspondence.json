@@ -284,7 +284,10 @@
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.dirichletEnergy_nonneg",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_constant",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.variance_le",
-      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_tests"
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_tests",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_21_forward",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_22_forward"
     ],
     "source_assumptions": [
       "sufficiently regular functions"
@@ -299,7 +302,44 @@
       "variance decay",
       "spectral-gap estimates"
     ],
-    "status": "partial"
+    "status": "partial",
+    "route_status": "partial",
+    "local_status": "compiled",
+    "semantic_status": "compiled forward PI-to-variance and PI-to-chi-square exponential-decay mechanism from an explicit right-derivative dissipation curve; concrete reversible-semigroup construction and converse implications remain open",
+    "remaining_obligations": [
+      "construct the concrete reversible Markov/Langevin curve whose energy is variance or chi-square and whose derivative is minus twice the Dirichlet energy",
+      "prove the converse implication from semigroup decay back to the Poincare inequality",
+      "extend the source theorem from the smooth/core curve to the intended L2 function space"
+    ],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-poincare-variance-decay-forward",
+        "label": "Poincare coercivity implies variance-style exponential decay",
+        "declarations": [
+          "exponential_decay_of_scaled_dissipation",
+          "chewi_theorem_1_2_21_forward"
+        ],
+        "dependencies": [
+          "le_gronwallBound_of_liminf_deriv_right_le",
+          "gronwallBound_ε0"
+        ],
+        "priority": 92,
+        "route_status": "partial"
+      },
+      {
+        "node_id": "chapter1-poincare-chi-square-decay-forward",
+        "label": "Poincare coercivity implies chi-square-style exponential decay",
+        "declarations": [
+          "exponential_decay_of_scaled_dissipation",
+          "chewi_theorem_1_2_22_forward"
+        ],
+        "dependencies": [
+          "chewi_theorem_1_2_21_forward"
+        ],
+        "priority": 90,
+        "route_status": "partial"
+      }
+    ]
   },
   {
     "id": "chewi-1-3-log-sobolev",
@@ -320,7 +360,9 @@
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_constant",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_tests",
-      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_26_forward"
     ],
     "source_assumptions": [
       "density relative to the reference measure",
@@ -335,7 +377,31 @@
       "entropy decay",
       "Langevin mixing in KL"
     ],
-    "status": "partial"
+    "status": "partial",
+    "route_status": "partial",
+    "local_status": "compiled",
+    "semantic_status": "compiled forward LSI-to-KL exponential-decay mechanism from an explicit right-derivative entropy/Fisher-information curve; concrete density evolution and the converse implication remain open",
+    "remaining_obligations": [
+      "construct the concrete KL/Fisher-information curve for the Langevin or reversible Markov semigroup",
+      "justify the entropy dissipation identity under explicit density, domain, and integrability hypotheses",
+      "prove the converse implication from KL decay back to the log-Sobolev inequality"
+    ],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-lsi-kl-decay-forward",
+        "label": "Log-Sobolev coercivity implies KL exponential decay",
+        "declarations": [
+          "exponential_decay_of_scaled_dissipation",
+          "chewi_theorem_1_2_26_forward"
+        ],
+        "dependencies": [
+          "le_gronwallBound_of_liminf_deriv_right_le",
+          "gronwallBound_ε0"
+        ],
+        "priority": 94,
+        "route_status": "partial"
+      }
+    ]
   },
   {
     "id": "chewi-1-3-coupling",
@@ -414,7 +480,11 @@
     "astis_exposition": "ASTIS separates the probability-law and density prerequisites from the analytic inequality and its semigroup consumers.",
     "rigorous_packet": "Each inequality needs an explicit function class and finite terms; extension beyond a smooth compactly supported core requires a closure or density argument.",
     "lean_declarations": [
-      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_21_forward",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_22_forward",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_26_forward"
     ],
     "source_assumptions": [
       "probability reference law",
@@ -430,7 +500,32 @@
       "semigroup convergence",
       "sampling complexity"
     ],
-    "status": "partial"
+    "status": "partial",
+    "route_status": "partial",
+    "local_status": "compiled",
+    "semantic_status": "compiled common energy-dissipation-to-exponential-decay layer shared by the Poincare and log-Sobolev routes; tensorization, perturbation, concentration, transport, and converse criteria remain open",
+    "remaining_obligations": [
+      "formalize tensorization and perturbation principles for Poincare and log-Sobolev inequalities",
+      "formalize the transport and concentration implications developed later in Chapter 2",
+      "connect the scalar decay layer to concrete semigroup observables and density flows"
+    ],
+    "proof_leaves": [
+      {
+        "node_id": "chapter2-common-functional-inequality-decay",
+        "label": "Common coercivity and dissipation exponential-decay engine",
+        "declarations": [
+          "exponential_decay_of_scaled_dissipation",
+          "chewi_theorem_1_2_21_forward",
+          "chewi_theorem_1_2_22_forward",
+          "chewi_theorem_1_2_26_forward"
+        ],
+        "dependencies": [
+          "Mathlib.Analysis.ODE.Gronwall"
+        ],
+        "priority": 88,
+        "route_status": "partial"
+      }
+    ]
   },
   {
     "id": "chewi-3-girsanov",
