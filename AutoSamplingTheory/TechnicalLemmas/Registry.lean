@@ -1553,6 +1553,36 @@ def measureMemory : List LemmaMemoryEntry := [
     note := "Exact measure-class definition; no Wasserstein metric, optimal map, or gradient-flow theorem is asserted."
   },
   {
+    key := "measure.wasserstein.quadratic-optimal-coupling",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation.IsQuadraticOptimalCoupling",
+    upstreamDecl := "Chewi Definition 1.3.25 / quadratic Kantorovich attainment",
+    upstreamFile := "Log-Concave Sampling, book page 30 / PDF page 42",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Wasserstein", "optimal-coupling", "quadratic-cost", "attainment"],
+    saldUse := "state that a prescribed coupling actually attains the quadratic Kantorovich infimum before constructing displacement interpolation",
+    note := "This predicate does not prove that an optimizer exists; it records marginal feasibility and exact attainment."
+  },
+  {
+    key := "measure.wasserstein.displacement-interpolation",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation.displacementInterpolation",
+    upstreamDecl := "Chewi Definition 1.3.25 / law of (1-t)X0+tX1",
+    upstreamFile := "Log-Concave Sampling, book page 30 / PDF page 42",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Wasserstein", "measure-map", "affine-interpolation", "McCann"],
+    saldUse := "build the time-t law as the pushforward of a coupling by the affine endpoint map",
+    note := "The endpoint identities are proved separately; constant speed and uniqueness remain Theorem 1.3.23."
+  },
+  {
+    key := "measure.wasserstein.chewi-definition-1-3-25",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation.IsWassersteinGeodesic",
+    upstreamDecl := "Chewi Definition 1.3.25",
+    upstreamFile := "Log-Concave Sampling, book page 30 / PDF page 42",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Wasserstein", "geodesic", "displacement-interpolation", "P2ac"],
+    saldUse := "Chewi Definition 1.3.25 root: package P2ac endpoints, an optimal quadratic coupling, and its affine-law curve on [0,1]",
+    note := "Source-faithful definition only; optimal-plan existence, metric constant speed, and uniqueness are not inferred."
+  },
+  {
     key := "measure.transport.chewi-definition-1-3-1",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost",
     upstreamDecl := "Chewi Definition 1.3.1",

@@ -1,0 +1,15 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation
+
+namespace AutoSamplingTheory.Tests.DisplacementInterpolation
+
+open AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation
+
+#check IsQuadraticOptimalCoupling
+#check displacementInterpolation
+#check displacementInterpolation_zero
+#check displacementInterpolation_one
+#check IsWassersteinGeodesic
+#check isWassersteinGeodesic_displacementInterpolation
+#check endpoints_of_isWassersteinGeodesic
+
+end AutoSamplingTheory.Tests.DisplacementInterpolation

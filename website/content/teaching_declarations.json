@@ -1035,6 +1035,35 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation.IsWassersteinGeodesic",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A displacement interpolation is the curve obtained by linearly interpolating an optimally coupled endpoint pair and taking its law at each time.",
+    "mathematical_statement": "For an optimal coupling gamma of mu0 and mu1, mu_t is the pushforward of gamma by (x0,x1) mapped to (1-t)x0+t x1 on [0,1].",
+    "intuition": "The same optimally paired particles move along straight lines at constant individual velocity; their time-t distribution is the interpolation curve.",
+    "assumptions": [
+      "mu0 and mu1 belong to P2,ac",
+      "gamma has these two marginals and attains the quadratic transport cost",
+      "time lies in the unit interval"
+    ],
+    "why_assumptions": [
+      "P2,ac is the source domain for the surrounding Wasserstein calculus",
+      "optimality distinguishes displacement interpolation from an arbitrary coupling interpolation",
+      "the endpoint weights have the intended geodesic meaning on [0,1]"
+    ],
+    "proof_route": [
+      "define the affine endpoint map",
+      "push the coupling measure forward by that measurable map",
+      "package the optimal coupling and curve identity",
+      "verify that times zero and one recover the two marginals"
+    ],
+    "lean_notes": [
+      "Measure.map represents the law of the interpolated endpoint pair",
+      "IsQuadraticOptimalCoupling separates attainment from existence",
+      "the constant-speed and uniqueness theorem is intentionally not part of this definition"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost",
     "chapter": 1,
     "route_status": "Compiled",
