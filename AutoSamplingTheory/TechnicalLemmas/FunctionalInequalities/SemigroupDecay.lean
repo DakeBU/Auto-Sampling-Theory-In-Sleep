@@ -1,20 +1,22 @@
+import Mathlib.Analysis.Calculus.LocalExtr.Basic
 import Mathlib.Analysis.ODE.Gronwall
 
 /-!
-# Functional inequalities imply semigroup decay
+# Functional inequalities and semigroup decay
 
-This file isolates the scalar analytic mechanism behind the forward directions
-of Chewi's Theorems 1.2.21, 1.2.22, and 1.2.26.
+This file isolates the scalar analytic mechanism behind Chewi's Theorems
+1.2.21, 1.2.22, and 1.2.26.
 
-A nonnegative-time energy curve is supplied together with its exact
-right-derivative dissipation identity.  A coercive functional inequality then
-turns the identity into a differential inequality, and Mathlib's one-sided
-Grönwall theorem yields exponential decay.
+A scalar energy curve is supplied together with its exact right-derivative
+dissipation identity. A coercive functional inequality yields exponential
+decay by one-sided Grönwall. Conversely, exponential decay from every starting
+time forces the corresponding instantaneous coercivity by differentiating the
+comparison at that starting time.
 
-The declarations here do not construct a concrete Markov semigroup, identify
-its variance, chi-square divergence, KL divergence, or Fisher information, or
-prove any converse implication.  Those interfaces remain explicit downstream
-obligations.
+The declarations do not construct a concrete Markov semigroup, identify its
+variance, chi-square divergence, KL divergence, Dirichlet energy, or Fisher
+information, or extend identities from a smooth core to a closed generator
+domain. Those remain explicit downstream obligations.
 -/
 
 namespace AutoSamplingTheory
@@ -30,9 +32,8 @@ noncomputable section
 /-- A scalar energy/dissipation curve with an exact right-derivative identity.
 
 `scale` records the coefficient in
-`d/dt energy(t) = -scale * dissipation(t)`.  The derivative is taken within
-`[t, ∞)`, so the contract is compatible with semigroups defined only at
-nonnegative time increments. -/
+`d/dt energy(t) = -scale * dissipation(t)`. The derivative is taken within
+`[t, ∞)`, matching semigroups defined by nonnegative time increments. -/
 structure DissipationCurve (scale : ℝ) where
   energy : ℝ → ℝ
   dissipation : ℝ → ℝ
@@ -41,25 +42,16 @@ structure DissipationCurve (scale : ℝ) where
     ∀ t : ℝ,
       HasDerivWithinAt energy (-scale * dissipation t) (Ici t) t
 
-/-- A coercive inequality along a dissipation curve implies exponential decay.
-
-If
-
-`rate * energy(t) ≤ scale * dissipation(t)`
-
-and the energy derivative is `-scale * dissipation(t)`, then
-
-`energy(t) ≤ energy(0) * exp(-rate * t)`
-
-for every nonnegative time.  No sign assumption on the energy is needed for
-this scalar Grönwall step. -/
-theorem exponential_decay_of_scaled_dissipation
+/-- Coercivity plus exact dissipation gives exponential decay between any two
+times `s ≤ t`. -/
+theorem exponential_decay_of_scaled_dissipation_from
     {scale rate : ℝ} (curve : DissipationCurve scale)
-    (hcoercive : ∀ s : ℝ,
-      rate * curve.energy s ≤ scale * curve.dissipation s)
-    {t : ℝ} (ht : 0 ≤ t) :
-    curve.energy t ≤ curve.energy 0 * Real.exp (-rate * t) := by
-  have hbound : ∀ x ∈ Ico (0 : ℝ) t,
+    (hcoercive : ∀ u : ℝ,
+      rate * curve.energy u ≤ scale * curve.dissipation u)
+    {s t : ℝ} (hst : s ≤ t) :
+    curve.energy t ≤
+      curve.energy s * Real.exp (-rate * (t - s)) := by
+  have hbound : ∀ x ∈ Ico s t,
       -scale * curve.dissipation x ≤
         (-rate) * curve.energy x + 0 := by
     intro x hx
@@ -69,10 +61,10 @@ theorem exponential_decay_of_scaled_dissipation
     le_gronwallBound_of_liminf_deriv_right_le
       (f := curve.energy)
       (f' := fun x => -scale * curve.dissipation x)
-      (δ := curve.energy 0)
+      (δ := curve.energy s)
       (K := -rate)
       (ε := 0)
-      (a := 0)
+      (a := s)
       (b := t)
       curve.energy_continuous.continuousOn
       (fun x hx r hr => by
@@ -81,14 +73,111 @@ theorem exponential_decay_of_scaled_dissipation
       le_rfl
       hbound
       t
-      ⟨ht, le_rfl⟩
+      ⟨hst, le_rfl⟩
   rw [gronwallBound_ε0] at hgronwall
-  simpa [sub_zero] using hgronwall
+  exact hgronwall
 
-/-- Forward direction of Chewi, Theorem 1.2.21.
+/-- A coercive inequality along a dissipation curve implies exponential decay
+from time zero. -/
+theorem exponential_decay_of_scaled_dissipation
+    {scale rate : ℝ} (curve : DissipationCurve scale)
+    (hcoercive : ∀ s : ℝ,
+      rate * curve.energy s ≤ scale * curve.dissipation s)
+    {t : ℝ} (ht : 0 ≤ t) :
+    curve.energy t ≤ curve.energy 0 * Real.exp (-rate * t) := by
+  simpa [sub_zero] using
+    exponential_decay_of_scaled_dissipation_from
+      curve hcoercive ht
 
-Under the variance dissipation identity `V'(t) = -2 E(t)`, a Poincaré-type
-coercivity estimate `V(t) ≤ C E(t)` implies decay at rate `2 / C`. -/
+/-- Exponential decay from every starting time forces the instantaneous
+coercivity inequality.
+
+The proof compares the energy with its exponential envelope on `[s, ∞)`. Their
+difference has a local maximum at `s`; the one-sided Fermat inequality then
+compares the two right derivatives. -/
+theorem scaled_dissipation_of_exponential_decay
+    {scale rate : ℝ} (curve : DissipationCurve scale)
+    (hdecay : ∀ s t : ℝ, 0 ≤ t →
+      curve.energy (s + t) ≤
+        curve.energy s * Real.exp (-rate * t)) :
+    ∀ s : ℝ,
+      rate * curve.energy s ≤ scale * curve.dissipation s := by
+  intro s
+  let comparison : ℝ → ℝ := fun x =>
+    curve.energy x -
+      curve.energy s * Real.exp (-rate * (x - s))
+  have hmax : IsLocalMaxOn comparison (Ici s) s := by
+    filter_upwards [self_mem_nhdsWithin] with x hx
+    have hdecay_x :
+        curve.energy x ≤
+          curve.energy s * Real.exp (-rate * (x - s)) := by
+      have h := hdecay s (x - s) (sub_nonneg.mpr hx)
+      calc
+        curve.energy x = curve.energy (s + (x - s)) := by
+          congr 1
+          ring
+        _ ≤ curve.energy s * Real.exp (-rate * (x - s)) := h
+    dsimp [comparison]
+    calc
+      curve.energy x -
+          curve.energy s * Real.exp (-rate * (x - s)) ≤ 0 :=
+        sub_nonpos.mpr hdecay_x
+      _ = curve.energy s -
+          curve.energy s * Real.exp (-rate * (s - s)) := by simp
+  have hinner :
+      HasDerivAt (fun x : ℝ => -rate * (x - s)) (-rate) s := by
+    convert ((hasDerivAt_id s).sub_const s).const_mul (-rate) using 1 <;> ring
+  have hexponential :
+      HasDerivAt
+        (fun x : ℝ =>
+          curve.energy s * Real.exp (-rate * (x - s)))
+        (-rate * curve.energy s) s := by
+    convert hinner.exp.const_mul (curve.energy s) using 1 <;>
+      simp [mul_comm]
+  have hderiv :
+      HasDerivWithinAt comparison
+        ((-scale * curve.dissipation s) -
+          (-rate * curve.energy s))
+        (Ici s) s := by
+    simpa [comparison] using
+      (curve.energy_hasDerivWithinAt s).sub
+        hexponential.hasDerivWithinAt
+  have hone : (1 : ℝ) ∈ posTangentConeAt (Ici s) s := by
+    rw [one_mem_posTangentConeAt_iff_frequently]
+    have hev : ∀ᶠ x in 𝓝[>] s, x ∈ Ici s := by
+      filter_upwards [self_mem_nhdsWithin] with x hx
+      have hsx : s < x := by
+        simpa only [mem_Ioi] using hx
+      exact hsx.le
+    exact hev.frequently
+  have hnonpos :=
+    hmax.hasFDerivWithinAt_nonpos hderiv.hasFDerivWithinAt hone
+  have hscalar :
+      ((-scale * curve.dissipation s) -
+        (-rate * curve.energy s)) ≤ 0 := by
+    simpa using hnonpos
+  linarith
+
+/-- Forward direction of Chewi, Theorem 1.2.21, between arbitrary times. -/
+theorem chewi_theorem_1_2_21_forward_from
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 2)
+    (hPI : ∀ s : ℝ,
+      curve.energy s ≤ C * curve.dissipation s)
+    {s t : ℝ} (hst : s ≤ t) :
+    curve.energy t ≤
+      curve.energy s * Real.exp (-(2 / C) * (t - s)) := by
+  apply exponential_decay_of_scaled_dissipation_from
+    (curve := curve) (rate := 2 / C) ?_ hst
+  intro u
+  have hfactor : 0 ≤ (2 : ℝ) / C := by positivity
+  calc
+    (2 / C) * curve.energy u ≤
+        (2 / C) * (C * curve.dissipation u) :=
+      mul_le_mul_of_nonneg_left (hPI u) hfactor
+    _ = 2 * curve.dissipation u := by
+      field_simp [hC.ne']
+
+/-- Forward direction of Chewi, Theorem 1.2.21, from time zero. -/
 theorem chewi_theorem_1_2_21_forward
     {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 2)
     (hPI : ∀ s : ℝ,
@@ -96,21 +185,56 @@ theorem chewi_theorem_1_2_21_forward
     {t : ℝ} (ht : 0 ≤ t) :
     curve.energy t ≤
       curve.energy 0 * Real.exp (-(2 / C) * t) := by
-  apply exponential_decay_of_scaled_dissipation
-    (curve := curve) (rate := 2 / C) ?_ ht
+  simpa [sub_zero] using
+    chewi_theorem_1_2_21_forward_from hC curve hPI ht
+
+/-- Backward scalar direction of Chewi, Theorem 1.2.21. -/
+theorem chewi_theorem_1_2_21_backward
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 2)
+    (hdecay : ∀ s t : ℝ, 0 ≤ t →
+      curve.energy (s + t) ≤
+        curve.energy s * Real.exp (-(2 / C) * t)) :
+    ∀ s : ℝ,
+      curve.energy s ≤ C * curve.dissipation s := by
+  have hscaled :=
+    scaled_dissipation_of_exponential_decay
+      (curve := curve) (rate := 2 / C) hdecay
   intro s
-  have hfactor : 0 ≤ (2 : ℝ) / C := by positivity
+  have hfactor : 0 ≤ C / 2 := by positivity
   calc
-    (2 / C) * curve.energy s ≤
-        (2 / C) * (C * curve.dissipation s) :=
-      mul_le_mul_of_nonneg_left (hPI s) hfactor
-    _ = 2 * curve.dissipation s := by
+    curve.energy s =
+        (C / 2) * ((2 / C) * curve.energy s) := by
       field_simp [hC.ne']
+    _ ≤ (C / 2) * (2 * curve.dissipation s) :=
+      mul_le_mul_of_nonneg_left (hscaled s) hfactor
+    _ = C * curve.dissipation s := by ring
 
-/-- Forward direction of Chewi, Theorem 1.2.22.
+/-- Scalar equivalence behind Chewi, Theorem 1.2.21. -/
+theorem chewi_theorem_1_2_21_scalar_equivalence
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 2) :
+    (∀ s : ℝ,
+      curve.energy s ≤ C * curve.dissipation s) ↔
+    (∀ s t : ℝ, 0 ≤ t →
+      curve.energy (s + t) ≤
+        curve.energy s * Real.exp (-(2 / C) * t)) := by
+  constructor
+  · intro hPI s t ht
+    have h := chewi_theorem_1_2_21_forward_from
+      hC curve hPI (show s ≤ s + t by linarith)
+    simpa using h
+  · exact chewi_theorem_1_2_21_backward hC curve
 
-The same scalar mechanism gives chi-square decay once the concrete semigroup
-supplies the derivative identity and the Poincaré coercivity estimate. -/
+/-- Forward direction of Chewi, Theorem 1.2.22, between arbitrary times. -/
+theorem chewi_theorem_1_2_22_forward_from
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 2)
+    (hPI : ∀ s : ℝ,
+      curve.energy s ≤ C * curve.dissipation s)
+    {s t : ℝ} (hst : s ≤ t) :
+    curve.energy t ≤
+      curve.energy s * Real.exp (-(2 / C) * (t - s)) :=
+  chewi_theorem_1_2_21_forward_from hC curve hPI hst
+
+/-- Forward direction of Chewi, Theorem 1.2.22, from time zero. -/
 theorem chewi_theorem_1_2_22_forward
     {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 2)
     (hPI : ∀ s : ℝ,
@@ -120,10 +244,46 @@ theorem chewi_theorem_1_2_22_forward
       curve.energy 0 * Real.exp (-(2 / C) * t) :=
   chewi_theorem_1_2_21_forward hC curve hPI ht
 
-/-- Forward direction of Chewi, Theorem 1.2.26.
+/-- Backward scalar direction of Chewi, Theorem 1.2.22. -/
+theorem chewi_theorem_1_2_22_backward
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 2)
+    (hdecay : ∀ s t : ℝ, 0 ≤ t →
+      curve.energy (s + t) ≤
+        curve.energy s * Real.exp (-(2 / C) * t)) :
+    ∀ s : ℝ,
+      curve.energy s ≤ C * curve.dissipation s :=
+  chewi_theorem_1_2_21_backward hC curve hdecay
 
-Under the entropy dissipation identity `KL'(t) = -FI(t)`, an LSI written as
-`KL(t) ≤ (C / 2) FI(t)` implies KL decay at rate `2 / C`. -/
+/-- Scalar equivalence behind Chewi, Theorem 1.2.22. -/
+theorem chewi_theorem_1_2_22_scalar_equivalence
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 2) :
+    (∀ s : ℝ,
+      curve.energy s ≤ C * curve.dissipation s) ↔
+    (∀ s t : ℝ, 0 ≤ t →
+      curve.energy (s + t) ≤
+        curve.energy s * Real.exp (-(2 / C) * t)) :=
+  chewi_theorem_1_2_21_scalar_equivalence hC curve
+
+/-- Forward direction of Chewi, Theorem 1.2.26, between arbitrary times. -/
+theorem chewi_theorem_1_2_26_forward_from
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 1)
+    (hLSI : ∀ s : ℝ,
+      curve.energy s ≤ (C / 2) * curve.dissipation s)
+    {s t : ℝ} (hst : s ≤ t) :
+    curve.energy t ≤
+      curve.energy s * Real.exp (-(2 / C) * (t - s)) := by
+  apply exponential_decay_of_scaled_dissipation_from
+    (curve := curve) (rate := 2 / C) ?_ hst
+  intro u
+  have hfactor : 0 ≤ (2 : ℝ) / C := by positivity
+  calc
+    (2 / C) * curve.energy u ≤
+        (2 / C) * ((C / 2) * curve.dissipation u) :=
+      mul_le_mul_of_nonneg_left (hLSI u) hfactor
+    _ = 1 * curve.dissipation u := by
+      field_simp [hC.ne']
+
+/-- Forward direction of Chewi, Theorem 1.2.26, from time zero. -/
 theorem chewi_theorem_1_2_26_forward
     {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 1)
     (hLSI : ∀ s : ℝ,
@@ -131,16 +291,44 @@ theorem chewi_theorem_1_2_26_forward
     {t : ℝ} (ht : 0 ≤ t) :
     curve.energy t ≤
       curve.energy 0 * Real.exp (-(2 / C) * t) := by
-  apply exponential_decay_of_scaled_dissipation
-    (curve := curve) (rate := 2 / C) ?_ ht
+  simpa [sub_zero] using
+    chewi_theorem_1_2_26_forward_from hC curve hLSI ht
+
+/-- Backward scalar direction of Chewi, Theorem 1.2.26. -/
+theorem chewi_theorem_1_2_26_backward
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 1)
+    (hdecay : ∀ s t : ℝ, 0 ≤ t →
+      curve.energy (s + t) ≤
+        curve.energy s * Real.exp (-(2 / C) * t)) :
+    ∀ s : ℝ,
+      curve.energy s ≤ (C / 2) * curve.dissipation s := by
+  have hscaled :=
+    scaled_dissipation_of_exponential_decay
+      (curve := curve) (rate := 2 / C) hdecay
   intro s
-  have hfactor : 0 ≤ (2 : ℝ) / C := by positivity
+  have hfactor : 0 ≤ C / 2 := by positivity
   calc
-    (2 / C) * curve.energy s ≤
-        (2 / C) * ((C / 2) * curve.dissipation s) :=
-      mul_le_mul_of_nonneg_left (hLSI s) hfactor
-    _ = 1 * curve.dissipation s := by
+    curve.energy s =
+        (C / 2) * ((2 / C) * curve.energy s) := by
       field_simp [hC.ne']
+    _ ≤ (C / 2) * (1 * curve.dissipation s) :=
+      mul_le_mul_of_nonneg_left (hscaled s) hfactor
+    _ = (C / 2) * curve.dissipation s := by ring
+
+/-- Scalar equivalence behind Chewi, Theorem 1.2.26. -/
+theorem chewi_theorem_1_2_26_scalar_equivalence
+    {C : ℝ} (hC : 0 < C) (curve : DissipationCurve 1) :
+    (∀ s : ℝ,
+      curve.energy s ≤ (C / 2) * curve.dissipation s) ↔
+    (∀ s t : ℝ, 0 ≤ t →
+      curve.energy (s + t) ≤
+        curve.energy s * Real.exp (-(2 / C) * t)) := by
+  constructor
+  · intro hLSI s t ht
+    have h := chewi_theorem_1_2_26_forward_from
+      hC curve hLSI (show s ≤ s + t by linarith)
+    simpa using h
+  · exact chewi_theorem_1_2_26_backward hC curve
 
 end
 

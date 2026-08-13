@@ -706,5 +706,110 @@
       "the existing KL/FI scalar bookkeeping can later instantiate this curve",
       "the converse LSI criterion remains a separate theorem"
     ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.scaled_dissipation_of_exponential_decay",
+    "chapter": 2,
+    "route_status": "Partial",
+    "plain_english": "Exponential decay after every starting time forces the instantaneous coercivity inequality at each starting point.",
+    "mathematical_statement": "If E(s+t)≤E(s)exp(-rt) for every s and t≥0, and E'(s)=-aD(s), then rE(s)≤aD(s).",
+    "intuition": "At time s, the true energy curve lies below its tangent exponential envelope and touches it. Their difference has a one-sided local maximum, so its right derivative cannot be positive.",
+    "assumptions": [
+      "the exact right derivative E'(s)=-aD(s) exists",
+      "the decay estimate is valid after every starting time, not only from time zero",
+      "the comparison exponential uses the same rate r"
+    ],
+    "why_assumptions": [
+      "decay only from time zero does not determine the derivative at a later arbitrary time",
+      "the one-sided derivative and positive tangent direction match nonnegative semigroup time"
+    ],
+    "proof_route": [
+      "subtract the shifted exponential envelope from the energy",
+      "show the difference has a local maximum at the starting time on [s,∞)",
+      "apply one-sided Fermat in the positive tangent direction",
+      "rewrite the derivative inequality as coercivity"
+    ],
+    "lean_notes": [
+      "the positive direction 1 is proved to lie in the tangent cone using the nhdsGT filter",
+      "the theorem is scalar and does not infer a density or generator domain"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_21_scalar_equivalence",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "Under the exact variance dissipation identity, Poincare coercivity is equivalent to shifted exponential variance decay.",
+    "mathematical_statement": "V(s)≤CD(s) for every s iff V(s+t)≤V(s)exp(-2t/C) for every s and t≥0, assuming V'=-2D.",
+    "intuition": "The forward direction is Gronwall; the backward direction differentiates the decay estimate at each starting time.",
+    "assumptions": [
+      "C>0",
+      "a continuous right-differentiable energy curve",
+      "the exact derivative is minus twice the dissipation"
+    ],
+    "why_assumptions": [
+      "the factor two fixes the source rate 2/C",
+      "a concrete variance semigroup must separately provide this derivative identity"
+    ],
+    "proof_route": [
+      "derive shifted decay from Poincare by one-sided Gronwall",
+      "derive scaled coercivity from shifted decay by one-sided Fermat",
+      "rescale by C/2"
+    ],
+    "lean_notes": [
+      "this closes the scalar equivalence, not yet the full reversible-semigroup theorem",
+      "the route remains Partial until the concrete variance curve and domain bridge are formalized"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_22_scalar_equivalence",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "Under its exact dissipation identity, Poincare coercivity is equivalent to shifted exponential chi-square decay.",
+    "mathematical_statement": "χ²(s)≤CD(s) for every s iff χ²(s+t)≤χ²(s)exp(-2t/C), assuming (χ²)'=-2D.",
+    "intuition": "The scalar differential argument is identical to variance decay; the distinction is in how the concrete density curve and dissipation are constructed.",
+    "assumptions": [
+      "C>0",
+      "the chi-square curve has exact right derivative -2D",
+      "shifted decay or coercivity holds at every time"
+    ],
+    "why_assumptions": [
+      "the scalar layer cannot manufacture the Radon-Nikodym density",
+      "the converse needs decay after arbitrary restarts"
+    ],
+    "proof_route": [
+      "reuse the generic shifted Gronwall theorem",
+      "reuse the generic one-sided converse",
+      "package the two implications as an iff"
+    ],
+    "lean_notes": [
+      "the source-facing name preserves the distinction from the variance theorem",
+      "concrete chi-square evolution remains an explicit downstream node"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_26_scalar_equivalence",
+    "chapter": 1,
+    "route_status": "Partial",
+    "plain_english": "Under the entropy-dissipation identity, the log-Sobolev inequality is equivalent to shifted exponential KL decay.",
+    "mathematical_statement": "KL(s)≤(C/2)FI(s) for every s iff KL(s+t)≤KL(s)exp(-2t/C), assuming KL'=-FI.",
+    "intuition": "LSI converts Fisher information into an entropy decay rate; conversely, differentiating shifted KL decay recovers the same Fisher-information lower bound.",
+    "assumptions": [
+      "C>0",
+      "KL has exact right derivative -FI",
+      "the decay estimate is valid after every starting time"
+    ],
+    "why_assumptions": [
+      "entropy differentiation requires a concrete regular density flow",
+      "the factor C/2 determines rate 2/C"
+    ],
+    "proof_route": [
+      "apply shifted Gronwall to LSI coercivity",
+      "apply one-sided Fermat to shifted KL decay",
+      "rescale the recovered inequality by C/2"
+    ],
+    "lean_notes": [
+      "this is a full scalar iff but not yet a theorem about a particular Langevin density",
+      "density regularity, FI identification, and domain closure remain recorded obligations"
+    ]
   }
 ]
