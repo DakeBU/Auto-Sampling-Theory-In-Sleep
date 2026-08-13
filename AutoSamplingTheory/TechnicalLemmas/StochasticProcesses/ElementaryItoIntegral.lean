@@ -1,4 +1,6 @@
+import Mathlib.MeasureTheory.Measure.Prod
 import Mathlib.Probability.Process.Adapted
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.TimeMeasure
 
 /-!
 # Elementary Ito integrals
@@ -14,8 +16,8 @@ namespace TechnicalLemmas
 namespace StochasticProcesses
 namespace ElementaryItoIntegral
 
-open MeasureTheory
-open scoped BigOperators NNReal
+open MeasureTheory Set
+open scoped BigOperators ENNReal NNReal
 
 /-- The data and regularity conditions of the elementary adapted process in
 Chewi display (1.1.2). There are `n` half-open time intervals and `n + 1`
@@ -72,6 +74,33 @@ theorem chewi_display_1_1_3
         (B (min (eta.times i.succ) T) omega -
           B (min (eta.times i.castSucc) T) omega) :=
   rfl
+
+/-- Product measure `P tensor m|[0,T]` used for the square-integrability
+condition in Chewi display (1.1.7). -/
+noncomputable def processTimeMeasure
+    {Omega : Type*} [MeasurableSpace Omega]
+    (mu : Measure Omega) (T : ℝ≥0) : Measure (Omega × ℝ≥0) :=
+  mu.prod (TimeMeasure.upTo T)
+
+/-- Squared `L2(P tensor m|[0,T])` energy of a real process, in `ENNReal` so
+finiteness is not hidden by totalized real integration. -/
+noncomputable def processL2Energy
+    {Omega : Type*} [MeasurableSpace Omega]
+    (eta : ℝ≥0 → Omega → ℝ) (mu : Measure Omega) (T : ℝ≥0) : ℝ≥0∞ :=
+  ∫⁻ z, ENNReal.ofReal ((eta z.2 z.1) ^ 2) ∂processTimeMeasure mu T
+
+/-- Chewi display (1.1.7): Tonelli identifies the product-space squared `L2`
+energy with the expected time integral over `[0,T]`. -/
+theorem chewi_display_1_1_7
+    {Omega : Type*} [MeasurableSpace Omega]
+    (eta : ℝ≥0 → Omega → ℝ) (mu : Measure Omega) (T : ℝ≥0)
+    (hη : AEMeasurable
+      (fun z : Omega × ℝ≥0 => ENNReal.ofReal ((eta z.2 z.1) ^ 2))
+      (processTimeMeasure mu T)) :
+    processL2Energy eta mu T =
+      ∫⁻ omega, ∫⁻ t, ENNReal.ofReal ((eta t omega) ^ 2)
+        ∂(TimeMeasure.upTo T) ∂mu :=
+  lintegral_prod _ hη
 
 end ElementaryItoIntegral
 end StochasticProcesses

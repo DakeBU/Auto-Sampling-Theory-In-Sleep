@@ -2161,6 +2161,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "This is the exact stopped Brownian-increment sum for an elementary process; the isometry and L2 extension remain downstream."
   },
   {
+    key := "ito-elementary.chewi-display-1-1-7",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_7",
+    upstreamDecl := "Chewi display (1.1.7)",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "L2", "product-measure", "Tonelli"],
+    saldUse := "canonical product-space energy for square-integrable stochastic integrands",
+    note := "Uses ENNReal and Tonelli under explicit joint a.e. measurability; finiteness remains a visible inequality rather than a totalized integral."
+  },
+  {
     key := "markov-semigroup.chewi-definition-1-2-1",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator",
     upstreamDecl := "Chewi Definition 1.2.1",

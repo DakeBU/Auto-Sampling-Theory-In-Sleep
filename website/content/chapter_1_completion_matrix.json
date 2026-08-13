@@ -2661,27 +2661,33 @@
       "pdf_page": 17,
       "coverage_kind": "derived_identity",
       "source_route_id": "chewi-chapter1-displayed-identity-1-1-7",
-      "source_correspondence_id": "",
-      "required_declarations": [],
-      "focused_tests": [],
-      "registry_keys": [],
-      "coverage_status": "planned",
-      "residual_blockers": [
-        "formalize or port the required filtered-space stochastic integral, localization, and Ito-calculus interface"
+      "source_correspondence_id": "chewi-1-1-display-1-1-7",
+      "required_declarations": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_7"
       ],
+      "focused_tests": [
+        "Tests/ElementaryItoIntegral.lean"
+      ],
+      "registry_keys": [
+        "ito-elementary.chewi-display-1-1-7"
+      ],
+      "coverage_status": "complete",
+      "residual_blockers": [],
       "source_assumptions": [
-        "a complete right-continuous filtered probability space",
-        "progressive or adapted processes",
-        "the integrability stated at the source item"
+        "a probability measure and finite terminal time",
+        "a jointly measurable real process",
+        "finite product-space squared L2 energy"
       ],
       "formal_assumptions": [
-        "explicit filtration and adaptedness",
-        "joint/progressive measurability",
-        "Bochner or stochastic integrability",
-        "almost-everywhere representatives",
-        "stopping-time measurability where localization is used"
+        "finite pulled-back Lebesgue measure on NNReal time up to T",
+        "AEMeasurable squared process on the product measure",
+        "ENNReal product and iterated lintegrals so finiteness remains explicit"
       ],
-      "downstream_consumers": []
+      "downstream_consumers": [
+        "elementary Ito isometry",
+        "L2 completion of the stochastic integral",
+        "local square integrability"
+      ]
     },
     {
       "number": "1.1.9",

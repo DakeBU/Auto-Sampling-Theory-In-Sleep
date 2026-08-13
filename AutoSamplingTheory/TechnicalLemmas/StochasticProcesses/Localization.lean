@@ -3,6 +3,7 @@ import Mathlib.MeasureTheory.Measure.Comap
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.Probability.Martingale.Basic
 import Mathlib.Probability.Process.Stopping
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.TimeMeasure
 
 /-!
 # Localization for continuous-time stochastic processes
@@ -26,11 +27,8 @@ open scoped ENNReal NNReal Topology
 
 noncomputable section
 
-/-- Lebesgue measure on nonnegative real time, obtained by pulling real
-Lebesgue measure back along the canonical embedding. -/
-def nnrealLebesgue : Measure ℝ≥0 :=
-  Measure.comap ((↑) : ℝ≥0 → ℝ)
-    (@MeasureSpace.volume ℝ inferInstance)
+abbrev nnrealLebesgue : Measure ℝ≥0 :=
+  TimeMeasure.nnrealLebesgue
 
 /-- The stopped real integrand used in the local square-integrability
 condition. -/

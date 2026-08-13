@@ -1532,5 +1532,17 @@
     "why_assumptions": ["the elementary structure carries adaptedness", "stopping at T handles grid intervals crossing the terminal time"],
     "proof_route": ["define elementaryItoIntegral by the source finite sum", "retain every stopped endpoint explicitly", "unfold the definition"],
     "lean_notes": ["this declaration does not assert Brownian laws", "orthogonality, isometry, and L2 completion remain downstream theorems"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_7",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The squared process norm on probability times time equals the expectation of the squared time integral.",
+    "mathematical_statement": "Integral eta(t,omega)^2 d(P tensor m_[0,T]) equals integral over omega of the integral over t of eta(t,omega)^2.",
+    "intuition": "Tonelli is the rigorous bridge between the product-space L2 norm and the expected accumulated energy used by the Ito isometry.",
+    "assumptions": ["finite terminal-time measure", "joint a.e. measurability of the squared process"],
+    "why_assumptions": ["finiteness of the time measure supplies the product-measure API", "measurability is required by Tonelli", "ENNReal avoids hiding an infinite energy"],
+    "proof_route": ["construct the finite NNReal time measure", "form the probability-time product measure", "apply Mathlib lintegral_prod"],
+    "lean_notes": ["processL2Energy is ENNReal-valued", "the theorem does not claim the Ito isometry or L2 completion"]
   }
 ]

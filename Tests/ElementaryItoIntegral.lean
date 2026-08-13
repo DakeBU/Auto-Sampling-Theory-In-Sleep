@@ -11,6 +11,9 @@ open scoped BigOperators NNReal
 #check chewi_display_1_1_2
 #check elementaryItoIntegral
 #check chewi_display_1_1_3
+#check processTimeMeasure
+#check processL2Energy
+#check chewi_display_1_1_7
 
 example {Omega : Type*} {m : MeasurableSpace Omega}
     {filtration : Filtration ℝ≥0 m} {n : ℕ}

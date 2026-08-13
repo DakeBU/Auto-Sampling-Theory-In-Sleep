@@ -14,6 +14,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.TimeMeasure
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 
 /-!

@@ -1,5 +1,54 @@
 [
   {
+    "id": "chewi-1-1-display-1-1-7",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 5,
+    "pdf_page": 17,
+    "page": "book 5 / PDF 17",
+    "source_kind": "Displayed identity (1.1.7)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=17",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The squared L2 norm of an integrand on the product probability-time space is the expectation of its squared time integral, and admissible integrands have finite value.",
+    "mathematical_exposition": "Tonelli identifies the product integral of eta squared under P tensor m restricted to [0,T] with the iterated expectation and time integral.",
+    "astis_exposition": "ASTIS uses ENNReal for the energy so the finiteness condition is visible and proves the product-to-iterated identity with Mathlib Tonelli.",
+    "rigorous_packet": "The finite nonnegative-time measure, product measure, joint a.e. measurability, nonnegative integral, and separate finiteness condition are explicit.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_7"
+    ],
+    "source_assumptions": [
+      "a probability measure",
+      "a finite terminal time",
+      "a jointly measurable squared process"
+    ],
+    "formal_assumptions": [
+      "TimeMeasure.upTo T",
+      "AEMeasurable squared process on processTimeMeasure",
+      "ENNReal lintegrals"
+    ],
+    "downstream_consumers": [
+      "Theorem 1.1.8",
+      "display (1.1.9)",
+      "Definition 1.1.12"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "product-space L2 energy and Tonelli identity compiled; Ito isometry and stochastic-integral completion remain separate routes",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-process-l2-energy",
+        "label": "Product-space process L2 energy",
+        "declarations": ["chewi_display_1_1_7"],
+        "dependencies": ["TimeMeasure.upTo", "Measure.prod", "lintegral_prod"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-1-display-1-1-2",
     "chapter": 1,
     "section": "1.1",
