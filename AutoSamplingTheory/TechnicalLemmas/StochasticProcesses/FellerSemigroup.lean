@@ -55,7 +55,7 @@ private theorem norm_kernelIntegral_le
     {K : ℝ≥0 → Kernel E E} (hK : FellerTransitionKernelContract K)
     (t : ℝ≥0) (f : E →ᵇ ℝ) (x : E) :
     ‖∫ y, f y ∂K t x‖ ≤ ‖f‖ := by
-  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  let : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
   simpa using
     (norm_integral_le_of_norm_le_const (μ := K t x)
       (ae_of_all _ fun y => f.norm_coe_le_norm y))
@@ -82,7 +82,7 @@ private theorem fellerOperatorValue_add {K : ℝ≥0 → Kernel E E}
     (f g : E →ᵇ ℝ) :
     fellerOperatorValue hK t (f + g) =
       fellerOperatorValue hK t f + fellerOperatorValue hK t g := by
-  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  let : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
   ext x
   change (∫ y, f y + g y ∂K t x) =
     (∫ y, f y ∂K t x) + ∫ y, g y ∂K t x
@@ -96,25 +96,30 @@ private theorem fellerOperatorValue_smul {K : ℝ≥0 → Kernel E E}
     (c : ℝ) (f : E →ᵇ ℝ) :
     fellerOperatorValue hK t (c • f) =
       c • fellerOperatorValue hK t f := by
-  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  let : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
   ext x
   change (∫ y, c • f y ∂K t x) = c • ∫ y, f y ∂K t x
   rw [integral_smul]
+
+private def fellerLinearMap {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0) :
+    (E →ᵇ ℝ) →ₗ[ℝ] (E →ᵇ ℝ) :=
+  { toFun := fellerOperatorValue hK t
+    map_add' := fellerOperatorValue_add hK t
+    map_smul' := fellerOperatorValue_smul hK t }
 
 /-- The Feller Markov operator as a continuous linear map on bounded
 continuous real observables. Its operator norm is at most one. -/
 def fellerOperator {K : ℝ≥0 → Kernel E E}
     (hK : FellerTransitionKernelContract K) (t : ℝ≥0) :
     (E →ᵇ ℝ) →L[ℝ] (E →ᵇ ℝ) :=
-  LinearMap.mkContinuous
-    { toFun := fellerOperatorValue hK t
-      map_add' := fellerOperatorValue_add hK t
-      map_smul' := fellerOperatorValue_smul hK t }
-    1 fun f => by
-      simpa using
-        BoundedContinuousFunction.norm_ofNormedAddCommGroup_le
-          (hK.mapsContinuous t f) (norm_nonneg f)
-          (norm_kernelIntegral_le hK t f)
+  LinearMap.mkContinuous (fellerLinearMap hK t) 1 fun f => by
+    change ‖fellerOperatorValue hK t f‖ ≤ 1 * ‖f‖
+    rw [one_mul]
+    unfold fellerOperatorValue
+    exact BoundedContinuousFunction.norm_ofNormedAddCommGroup_le
+      (hK.mapsContinuous t f) (norm_nonneg f)
+      (norm_kernelIntegral_le hK t f)
 
 @[simp]
 theorem fellerOperator_apply {K : ℝ≥0 → Kernel E E}
@@ -140,7 +145,7 @@ theorem sq_fellerOperator_apply_le {K : ℝ≥0 → Kernel E E}
     (f : E →ᵇ ℝ) (x : E) :
     (fellerOperator hK t f x) ^ 2 ≤
       fellerOperator hK t (f * f) x := by
-  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  let : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
   have hsquare : Integrable ((fun r : ℝ => r ^ 2) ∘ fun y => f y) (K t x) := by
     simpa [Function.comp_def, pow_two] using
       (integrable_boundedContinuousFunction (f * f) (K t x))
@@ -166,8 +171,8 @@ theorem fellerOperator_add {K : ℝ≥0 → Kernel E E}
     (hK : FellerTransitionKernelContract K) (s t : ℝ≥0) :
     fellerOperator hK (s + t) =
       (fellerOperator hK s).comp (fellerOperator hK t) := by
-  letI : IsMarkovKernel (K s) := hK.toTransitionKernelContract.isMarkov s
-  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  let : IsMarkovKernel (K s) := hK.toTransitionKernelContract.isMarkov s
+  let : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
   ext f x
   change (∫ z, f z ∂K (s + t) x) =
     ∫ y, (∫ z, f z ∂K t y) ∂K s x

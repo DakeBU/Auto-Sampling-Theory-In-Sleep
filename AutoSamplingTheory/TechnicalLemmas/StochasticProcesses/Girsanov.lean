@@ -97,7 +97,8 @@ theorem finiteGaussianGirsanovCylinderMeasure_eq_withDensity
   calc
     finiteShiftedGaussianPathMeasure h
         = (μ0.withDensity coordDensity).map e := by
-          simpa [finiteShiftedGaussianPathMeasure, e, μ0] using congrArg (fun ν => ν.map e) hProduct
+          simpa [finiteShiftedGaussianPathMeasure, e, μ0,
+            MeasurableEquiv.coe_toLp] using congrArg (fun ν => ν.map e) hProduct
     _ = (μ0.map e).withDensity (fun z => coordDensity (e.symm z)) := hMapDensity
     _ = (stdGaussian (EuclideanSpace ℝ ι)).withDensity
           (fun z => ENNReal.ofReal (finiteGaussianGirsanovWeight h z)) := by

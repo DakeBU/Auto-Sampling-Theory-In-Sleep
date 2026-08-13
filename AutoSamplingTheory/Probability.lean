@@ -1,6 +1,6 @@
 import Mathlib.Data.Real.Basic
-import Mathlib.Data.Real.Archimedean
-import Mathlib.Data.Real.Sqrt
+import Mathlib.Algebra.Order.Archimedean.Real.Basic
+import Mathlib.Analysis.Real.Sqrt
 import Mathlib.Analysis.Calculus.ParametricIntegral
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.InformationTheory.KullbackLeibler.Basic
@@ -936,7 +936,7 @@ theorem dvVariationalOneSidedOfTiltedRight {α : Type*} [MeasurableSpace α]
     (hllr : Integrable (llr nu mu) nu) :
     (∫ x, Z x ∂nu) - Real.log (∫ x, Real.exp (Z x) ∂mu) ≤
       (klDiv nu mu).toReal := by
-  letI : IsProbabilityMeasure (mu.tilted Z) := isProbabilityMeasure_tilted hexp_mu
+  let : IsProbabilityMeasure (mu.tilted Z) := isProbabilityMeasure_tilted hexp_mu
   have hmu_tilted : mu ≪ mu.tilted Z := absolutelyContinuous_tilted hexp_mu
   have hnu_tilted : nu ≪ mu.tilted Z := hnu_mu.trans hmu_tilted
   have hllr_tilted : Integrable (llr nu (mu.tilted Z)) nu :=

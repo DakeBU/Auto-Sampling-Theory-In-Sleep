@@ -2722,11 +2722,11 @@ example {n : ℕ}
         EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
     (hV : ContDiff ℝ 1 V)
     (hcore : TechnicalLemmas.StochasticProcesses.LangevinGenerator.CoreContract
-      V A (setOf TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2))
+      V A (Set.ofPred TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2))
     (hsemigroup :
       TechnicalLemmas.StochasticProcesses.WeakGenerator.IntegratedSemigroupGeneratorContract
         P A
-        (setOf TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2)
+        (Set.ofPred TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2)
         (MeasureTheory.volume.withDensity
           (fun x =>
             (∫⁻ y, TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V y
@@ -2738,7 +2738,7 @@ example {n : ℕ}
           (∫⁻ y, TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V y
             ∂MeasureTheory.volume)⁻¹ *
             TechnicalLemmas.Measure.Gibbs.gibbsDensityENNReal V x))
-      (setOf TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2) :=
+      (Set.ofPred TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2) :=
   TechnicalLemmas.StochasticProcesses.LangevinGenerator.isInvariantOn_normalizedGibbs_on_compactlySupportedC2
     hV hcore hsemigroup
 

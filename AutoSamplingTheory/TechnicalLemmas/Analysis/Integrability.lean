@@ -47,7 +47,9 @@ theorem integrable_exp_neg_mul_norm_sq {a : ℝ} (ha : 0 < a) :
       (b := (a : ℂ)) (w := (0 : E)) (c := 0) (by simpa using ha)
   have hre : Integrable
       (fun x : E => (cexp (-(a : ℂ) * (‖x‖ : ℂ) ^ 2)).re) volume := by
-    simpa only [zero_mul, add_zero] using hcx.re
+    have hre' := hcx.re
+    rw [RCLike.re_eq_complex_re] at hre'
+    simpa only [zero_mul, add_zero] using hre'
   refine hre.congr ?_
   filter_upwards with x
   have harg :

@@ -37,9 +37,14 @@ theorem hasGradientAt_expNegPotential_of_hasGradientAt
       (-(Real.exp (-V x)) • gradV)
       x := by
   rw [hasGradientAt_iff_hasFDerivAt]
-  convert hV.hasFDerivAt.neg.exp using 1
-  ext y
-  simp [InnerProductSpace.toDual_apply_apply]
+  have hmap :
+      Real.exp (-V x) • -(InnerProductSpace.toDual ℝ F gradV) =
+        InnerProductSpace.toDual ℝ F (-(Real.exp (-V x)) • gradV) := by
+    apply ContinuousLinearMap.ext
+    intro y
+    simp [InnerProductSpace.toDual_apply_apply]
+  rw [← hmap]
+  exact hV.hasFDerivAt.neg.exp
 
 /-- Mathlib-gradient form of the Gibbs weight chain rule from a supplied
 potential gradient.
@@ -178,17 +183,19 @@ theorem hasGradientAt_coordinateUnit_hasLineDerivAt
     (hf : HasGradientAt f grad x) (i : ι) :
     HasLineDerivAt ℝ f (grad i) x
       (WithLp.toLp 2 (Pi.single i (1 : ℝ)) : EuclideanSpace ℝ ι) := by
-  convert hf.hasFDerivAt.hasLineDerivAt
-    (WithLp.toLp 2 (Pi.single i (1 : ℝ)) : EuclideanSpace ℝ ι) using 1
-  rw [InnerProductSpace.toDual_apply_apply]
-  rw [
-    _root_.AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates.euclideanSpace_inner_eq_sum_mul]
-  rw [Finset.sum_eq_single i]
-  · simp
-  · intro j _ hj
-    simp [Pi.single_eq_of_ne hj]
-  · intro hi
-    exact False.elim (hi (Finset.mem_univ i))
+  let direction : EuclideanSpace ℝ ι := WithLp.toLp 2 (Pi.single i (1 : ℝ))
+  have hvalue : (InnerProductSpace.toDual ℝ _ grad) direction = grad i := by
+    rw [InnerProductSpace.toDual_apply_apply]
+    rw [
+      _root_.AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates.euclideanSpace_inner_eq_sum_mul]
+    rw [Finset.sum_eq_single i]
+    · simp [direction]
+    · intro j _ hj
+      simp [direction, Pi.single_eq_of_ne hj]
+    · intro hi
+      exact False.elim (hi (Finset.mem_univ i))
+  rw [← hvalue]
+  exact hf.hasFDerivAt.hasLineDerivAt direction
 
 end Gradient
 end Calculus

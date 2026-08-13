@@ -28,6 +28,7 @@ section PiWithDensity
 
 variable {ι : Type*} [Fintype ι]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- ENNReal Fubini for products of per-coordinate functions over `Fin n`. -/
 theorem lintegral_fin_nat_prod_eq_prod {n : ℕ} {E : Fin n → Type*}
     {mE : ∀ i, MeasurableSpace (E i)} {μ : (i : Fin n) → Measure (E i)}
@@ -62,7 +63,6 @@ theorem lintegral_fin_nat_prod_eq_prod {n : ℕ} {E : Fin n → Type*}
               simp_rw [MeasurableEquiv.piFinSuccAbove_symm_apply, Fin.insertNthEquiv,
                 Fin.prod_univ_succ, Fin.insertNth_zero, Equiv.coe_fn_mk, Fin.cons_succ,
                 Fin.zero_succAbove, cast_eq, Fin.cons_zero]
-              rfl
         _ = (∫⁻ x, f 0 x ∂μ 0) *
               ∫⁻ y : (i : Fin n) → E i.succ, ∏ i, f i.succ (y i)
                 ∂Measure.pi (fun i : Fin n => μ i.succ) :=

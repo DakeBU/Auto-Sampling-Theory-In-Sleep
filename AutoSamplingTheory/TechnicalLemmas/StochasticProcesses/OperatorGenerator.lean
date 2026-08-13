@@ -132,7 +132,7 @@ theorem kolmogorov_backward_right
   have hmap := hfg.map t
   constructor
   · exact hmap
-  · simpa only [rightOrbitDifferenceQuotient_eq] using hmap
+  · simpa only [HasRightGeneratorAt, rightOrbitDifferenceQuotient_eq] using hmap
 
 end
 

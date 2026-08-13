@@ -55,15 +55,16 @@ theorem measurable_renyiIntegrand {a : ℝ} {p q : α → ℝ}
     (Real.continuous_rpow_const ha0).measurable.comp hp
   have hqPow : Measurable fun x => q x ^ (1 - a) :=
     (Real.continuous_rpow_const (sub_nonneg.mpr ha1)).measurable.comp hq
-  simpa [renyiIntegrand] using hpPow.mul hqPow
+  change Measurable ((fun x => p x ^ a) * fun x => q x ^ (1 - a))
+  exact hpPow.mul hqPow
 
 /-- Measurability of the `ℝ≥0∞` Renyi integrand used in lintegrals. -/
 theorem measurable_renyiIntegrandENNReal {a : ℝ} {p q : α → ℝ}
     (ha0 : 0 ≤ a) (ha1 : a ≤ 1)
     (hp : Measurable p) (hq : Measurable q) :
     Measurable (renyiIntegrandENNReal a p q) := by
-  simpa [renyiIntegrandENNReal] using
-    (measurable_renyiIntegrand (α := α) ha0 ha1 hp hq).ennreal_ofReal
+  change Measurable (fun x => ENNReal.ofReal (renyiIntegrand a (p x) (q x)))
+  exact (measurable_renyiIntegrand (α := α) ha0 ha1 hp hq).ennreal_ofReal
 
 /-- A finite envelope gives a finite Renyi lintegral. -/
 theorem lintegral_renyiIntegrandENNReal_ne_top_of_ae_le
@@ -89,8 +90,12 @@ theorem hasDerivAt_renyiIntegrand {a : ℝ} {p q : ℝ → ℝ} {t pdot qdot : �
       HasDerivAt (fun s => q s ^ (1 - a))
         (qdot * (1 - a) * (q t) ^ ((1 - a) - 1)) t :=
     hq.rpow_const (p := 1 - a) (Or.inl hq0)
-  simpa [renyiIntegrand] using
-    hpPow.mul hqPow
+  change HasDerivAt ((fun s => p s ^ a) * fun s => q s ^ (1 - a))
+    ((pdot * a * (p t) ^ (a - 1)) * (q t) ^ (1 - a) +
+      (p t) ^ a * (qdot * (1 - a) * (q t) ^ (-a))) t
+  have hexponent : (1 - a) - 1 = -a := by ring
+  rw [hexponent] at hqPow
+  exact hpPow.mul hqPow
 
 end Renyi
 end InformationTheory

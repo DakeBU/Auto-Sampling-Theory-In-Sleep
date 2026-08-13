@@ -24,6 +24,7 @@ namespace LineDeriv
 
 open scoped RealInnerProductSpace
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Product rule for algebra-valued line derivatives.
 
 This is a direct wrapper around Mathlib's `HasDerivAt.mul` applied to the
@@ -42,7 +43,8 @@ theorem hasLineDerivAt_mul
     (hg : HasLineDerivAt 𝕜 g g' x v) :
     HasLineDerivAt 𝕜 (fun y : E => f y * g y)
       (f' * g x + f x * g') x v := by
-  simpa [HasLineDerivAt] using hf.mul hg
+  unfold HasLineDerivAt at hf hg ⊢
+  simpa only [Pi.mul_apply, zero_smul, add_zero] using! hf.mul hg
 
 /-- Real-valued `rho * g` specialization of `hasLineDerivAt_mul`, in the
 summand order used by finite-coordinate weighted-divergence algebra. -/
@@ -251,9 +253,16 @@ theorem lineDeriv_expNegPotential_mul_fderiv_coordinate_eq
         (A := fderiv ℝ
           (fun y : EuclideanSpace ℝ ι => fderiv ℝ f y) x)
         hf.hasFDerivAt
-    convert hraw using 1
-    rw [iteratedFDeriv_two_apply]
-    simp
+    let direction : EuclideanSpace ℝ ι :=
+      WithLp.toLp 2 (Pi.single i (1 : ℝ))
+    have hvalue :
+        (fderiv ℝ (fun y : EuclideanSpace ℝ ι => fderiv ℝ f y) x)
+            direction direction =
+          iteratedFDeriv ℝ 2 f x ![direction, direction] := by
+      rw [iteratedFDeriv_two_apply]
+      simp
+    rw [← hvalue]
+    exact hraw
   exact lineDeriv_expNegPotential_mul_eq_of_differentiableAt
     (V := V)
     (g := fun y : EuclideanSpace ℝ ι =>

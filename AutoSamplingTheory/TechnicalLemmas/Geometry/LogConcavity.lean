@@ -158,8 +158,9 @@ theorem LogConcaveOn.mul {E : Type*} [AddCommMonoid E] [Module ℝ E]
     (hf : LogConcaveOn s f) (hg : LogConcaveOn s g) :
     LogConcaveOn s (fun x => f x * g x) := by
   refine ⟨fun x hx => mul_pos (hf.pos (x := x) hx) (hg.pos (x := x) hx), ?_⟩
-  have hsum : ConcaveOn ℝ s (fun x => Real.log (f x) + Real.log (g x)) := by
-    simpa only [Pi.add_apply] using hf.concaveOn_log.add hg.concaveOn_log
+  have hsum :
+      ConcaveOn ℝ s ((fun x => Real.log (f x)) + fun x => Real.log (g x)) :=
+    hf.concaveOn_log.add hg.concaveOn_log
   refine hsum.congr ?_
   intro x hx
   simpa using (Real.log_mul (hf.pos (x := x) hx).ne' (hg.pos (x := x) hx).ne').symm
@@ -213,8 +214,9 @@ theorem LogConcaveOn.const_mul {E : Type*} [AddCommMonoid E] [Module ℝ E]
   refine ⟨fun x hx => mul_pos hc (hf.pos (x := x) hx), ?_⟩
   have hconst : ConcaveOn ℝ s (fun _ : E => Real.log c) :=
     concaveOn_const (Real.log c) hf.convex_domain
-  have hsum : ConcaveOn ℝ s (fun x => Real.log c + Real.log (f x)) := by
-    simpa only [Pi.add_apply] using hconst.add hf.concaveOn_log
+  have hsum :
+      ConcaveOn ℝ s ((fun _ : E => Real.log c) + fun x => Real.log (f x)) :=
+    hconst.add hf.concaveOn_log
   refine hsum.congr ?_
   intro x hx
   simpa using (Real.log_mul hc.ne' (hf.pos (x := x) hx).ne').symm
@@ -246,13 +248,15 @@ theorem logConcaveOn_const_mul_exp_neg_of_convexOn {E : Type*}
 /-- The absolute value is convex on the real line. -/
 theorem convexOn_univ_abs :
     ConvexOn ℝ (Set.univ : Set ℝ) (fun x : ℝ => |x|) := by
-  simpa [Real.norm_eq_abs] using (convexOn_univ_norm (E := ℝ))
+  change ConvexOn ℝ Set.univ (norm : ℝ → ℝ)
+  exact convexOn_univ_norm
 
 /-- Nonnegative absolute-linear real potentials are convex. -/
 theorem convexOn_univ_const_mul_abs_add {a b : ℝ} (ha : 0 ≤ a) :
     ConvexOn ℝ (Set.univ : Set ℝ) (fun x : ℝ => a * |x| + b) := by
   have h := convexOn_univ_abs.smul ha
-  simpa [smul_eq_mul] using h.add_const b
+  change ConvexOn ℝ Set.univ ((fun x : ℝ => a * |x|) + fun _ => b)
+  simpa only [smul_eq_mul] using h.add_const b
 
 /-- The Gibbs shape of a nonnegative absolute-linear real potential is
 log-concave. -/
@@ -312,7 +316,8 @@ theorem convexOn_univ_const_mul_norm_sq_add
     {a b : ℝ} (ha : 0 ≤ a) :
     ConvexOn ℝ (Set.univ : Set E) (fun x : E => a * ‖x‖ ^ 2 + b) := by
   have h := (convexOn_univ_norm_sq (E := E)).smul ha
-  simpa [smul_eq_mul] using h.add_const b
+  change ConvexOn ℝ Set.univ ((fun x : E => a * ‖x‖ ^ 2) + fun _ => b)
+  simpa only [smul_eq_mul] using h.add_const b
 
 /-- The Gibbs shape of a nonnegative quadratic norm potential is log-concave. -/
 theorem logConcaveOn_exp_neg_quadratic_norm
@@ -358,7 +363,9 @@ theorem convexOn_univ_const_mul_norm_sub_sq_add
   have h :=
     (convexOn_univ_const_mul_norm_sq_add (E := E) (a := a) (b := b) ha).comp_affineMap
       shift
-  simpa [shift] using h
+  change ConvexOn ℝ Set.univ
+    ((fun x : E => a * ‖x‖ ^ 2 + b) ∘ shift)
+  exact h
 
 /-- The Gibbs shape of a shifted nonnegative quadratic norm potential is log-concave. -/
 theorem logConcaveOn_exp_neg_shifted_quadratic_norm
@@ -401,7 +408,9 @@ theorem convexOn_univ_const_mul_norm_fst_sub_snd_sq_add
   have h :=
     (convexOn_univ_const_mul_norm_sq_add (E := E) (a := a) (b := b) ha).comp_linearMap
       diff
-  simpa [diff] using h
+  change ConvexOn ℝ Set.univ
+    ((fun x : E => a * ‖x‖ ^ 2 + b) ∘ diff)
+  exact h
 
 /-- The two-point quadratic Gibbs kernel shape `(x, y) ↦ exp (-(a‖x-y‖^2+b))`
 is log-concave on the product space. -/

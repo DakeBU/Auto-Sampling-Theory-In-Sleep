@@ -158,23 +158,30 @@ theorem scaled_dissipation_of_exponential_decay
           curve.energy s * Real.exp (-rate * (s - s)) := by simp
   have hinner :
       HasDerivAt (fun x : ℝ => -rate * (x - s)) (-rate) s := by
-    convert ((hasDerivAt_id s).sub_const s).const_mul (-rate) using 1
-    ring
+    change HasDerivAt (fun y : ℝ => -rate * (id y - s)) (-rate) s
+    have hraw := ((hasDerivAt_id s).sub_const s).const_mul (-rate)
+    exact hraw.congr_deriv (by ring)
   have hexponential :
       HasDerivAt
         (fun x : ℝ =>
           curve.energy s * Real.exp (-rate * (x - s)))
         (-rate * curve.energy s) s := by
-    convert hinner.exp.const_mul (curve.energy s) using 1
-    simp [mul_comm]
+    have hraw := hinner.exp.const_mul (curve.energy s)
+    apply hraw.congr_deriv
+    rw [sub_self, mul_zero, Real.exp_zero]
+    ring
   have hderiv :
       HasDerivWithinAt comparison
         ((-scale * curve.dissipation s) -
           (-rate * curve.energy s))
         (Ici s) s := by
-    simpa [comparison] using
-      (curve.energy_hasDerivWithinAt s).sub
-        hexponential.hasDerivWithinAt
+    change HasDerivWithinAt
+      (curve.energy - fun x : ℝ =>
+        curve.energy s * Real.exp (-rate * (x - s)))
+      ((-scale * curve.dissipation s) - (-rate * curve.energy s))
+      (Ici s) s
+    exact (curve.energy_hasDerivWithinAt s).sub
+      hexponential.hasDerivWithinAt
   have hone : (1 : ℝ) ∈ posTangentConeAt (Ici s) s := by
     rw [one_mem_posTangentConeAt_iff_frequently]
     have hev : ∀ᶠ x in 𝓝[>] s, x ∈ Ici s := by

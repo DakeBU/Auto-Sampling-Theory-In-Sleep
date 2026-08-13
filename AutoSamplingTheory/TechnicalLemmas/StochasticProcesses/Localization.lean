@@ -51,7 +51,7 @@ def IsLocalizingSequence
     (eta : ℝ≥0 → Omega → ℝ) (filtration : Filtration ℝ≥0 m)
     (mu : Measure Omega) (T : ℝ≥0)
     (tau : ℕ → Omega → WithTop ℝ≥0) : Prop :=
-  ProgMeasurable filtration eta ∧
+  IsStronglyProgressive filtration eta ∧
     (∀ n, IsStoppingTime filtration (tau n)) ∧
     Monotone tau ∧
     (∀ n,

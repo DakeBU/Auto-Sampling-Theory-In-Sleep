@@ -360,14 +360,14 @@ theorem radialSmoothCutoff_iteratedFDeriv_two_bound
   have hL_norm : ‖L‖ ≤ 1 / R := by
     refine L.opNorm_le_bound (by positivity) ?_
     intro y
-    simp only [L, ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply]
+    simp only [L, smul_apply, ContinuousLinearMap.id_apply]
     rw [norm_smul, Real.norm_eq_abs, abs_inv, abs_of_pos hR]
     simp [one_div]
   have hfun : (radialSmoothCutoff R : E → ℝ) =
       (radialSmoothCutoff 1 : E → ℝ) ∘ L := by
     funext y
     simp only [radialSmoothCutoff, Function.comp_apply, L,
-      ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply, div_one]
+      smul_apply, ContinuousLinearMap.id_apply, div_one]
     rw [norm_smul, Real.norm_eq_abs, abs_inv, abs_of_pos hR]
     ring_nf
   rw [hfun]

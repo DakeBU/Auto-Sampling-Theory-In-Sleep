@@ -14,7 +14,7 @@ noncomputable section
 variable {E : Type*} [TopologicalSpace E] [MeasurableSpace E] [BorelSpace E]
 
 /-- The identity transition kernel is the basic Feller semigroup. -/
-def identityFellerContract :
+theorem identityFellerContract :
     FellerTransitionKernelContract
       (fun _ : ℝ≥0 => (Kernel.id : Kernel E E)) where
   isMarkov := by

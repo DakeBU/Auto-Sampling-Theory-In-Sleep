@@ -65,7 +65,7 @@ theorem markovOperator_const {K : ℝ≥0 → Kernel E E}
   apply Subtype.ext
   funext x
   change (∫⁻ _y, c ∂K t x) = c
-  letI : IsMarkovKernel (K t) := hK.isMarkov t
+  let : IsMarkovKernel (K t) := hK.isMarkov t
   simp
 
 /-- Markov integration is monotone in the observable. -/

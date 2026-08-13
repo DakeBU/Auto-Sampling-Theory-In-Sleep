@@ -455,7 +455,8 @@ theorem gronwallIntegratingFactorProductDerivative
     (hK : HasDerivAt K (k' t) t) :
     HasDerivAt (fun x => Real.exp (A x) * K x)
       (a t * Real.exp (A t) * K t + Real.exp (A t) * k' t) t := by
-  convert ((Real.hasDerivAt_exp (A t)).comp t hA).mul hK using 1
+  have hraw := ((Real.hasDerivAt_exp (A t)).comp t hA).mul hK
+  apply hraw.congr_deriv
   simp only [Function.comp_apply]
   ring
 
@@ -16632,8 +16633,8 @@ theorem gaussianRealSelectedTestLineSecondOrderNormalizedRemainderEventuallyAESt
   have hfCont : Continuous f := by
     rw [continuous_iff_continuousAt]
     intro r
-    simpa [ContinuousOn, ContinuousWithinAt, nhdsWithin_univ] using
-      hfContOn r (Set.mem_univ r)
+    change Filter.Tendsto f (𝓝 r) (𝓝 (f r))
+    exact (continuousWithinAt_univ f r).mp (hfContOn r (Set.mem_univ r))
   have hz : MeasureTheory.AEStronglyMeasurable (fun z : Real => h * z) μ := by
     exact (continuous_const.mul continuous_id).aestronglyMeasurable
   have hSource :
@@ -16657,7 +16658,11 @@ theorem gaussianRealSelectedTestLineSecondOrderNormalizedRemainderEventuallyAESt
   have hZsq :
       MeasureTheory.AEStronglyMeasurable (fun z : Real => z ^ 2) μ := by
     exact (continuous_id.aestronglyMeasurable (μ := μ)).pow 2
-  simpa [f] using ((hSource.sub hTaylor).div₀ hDenom).mul hZsq
+  change MeasureTheory.AEStronglyMeasurable
+    ((((fun z : Real => sourceTest (x + (h * z) • e)) -
+      fun z => taylorWithinEval f 2 Set.univ 0 (h * z)) /
+      fun z => (h * z) ^ 2) * fun z => z ^ 2) μ
+  exact ((hSource.sub hTaylor).div₀ hDenom).mul hZsq
 
 /-- Split the selected scalar second-order Taylor quotient bound.
 
@@ -17161,7 +17166,8 @@ theorem gaussianRealSelectedTestLineFirstOrderQuadraticRemainderBoundOfGlobalLin
   have hNegGlobal :
       ContDiffOn Real 2 (fun q : Real => sourceTest (x + q • (-e))) Set.univ := by
     have hReflect : ContDiff Real 2 (fun q : Real => f (-q)) := by
-      simpa using hLineGlobal.comp (contDiff_neg.comp contDiff_id)
+      change ContDiff Real 2 (f ∘ fun q : Real => -q)
+      exact hLineGlobal.comp (contDiff_neg.comp contDiff_id)
     simpa [f] using contDiffOn_univ.2 hReflect
   have hNonnegBaseDiff :
       DifferentiableAt Real (fun q : Real => sourceTest (x + q • e)) 0 := by
@@ -19817,7 +19823,9 @@ theorem generalMovingTargetDiscreteHatRhoBarBWeightedFieldHasFDerivAt
     HasFDerivAt
       (fun y => hatRhoDensity y • barB y)
       (hatRhoDensity x • barBDeriv + hatRhoDeriv.smulRight (barB x)) x := by
-  simpa only [Pi.smul_apply] using hrhoDeriv.smul hbarBDeriv
+  change HasFDerivAt (hatRhoDensity • barB)
+    (hatRhoDensity x • barBDeriv + hatRhoDeriv.smulRight (barB x)) x
+  exact hrhoDeriv.smul hbarBDeriv
 
 /-- Off-countable derivative of the concrete product flux from separate
 density and drift derivative exception sets.

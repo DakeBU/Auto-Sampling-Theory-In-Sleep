@@ -52,9 +52,9 @@ theorem hasDerivAt_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d
       ((-V') * Real.exp (-V x)) x := by
     simpa [mul_comm] using hnegV.exp
   have hmul := hexp.mul hf'
-  convert hmul using 1
-  rw [hf.deriv]
-  ring
+  simpa only [Pi.mul_apply] using! hmul.congr_deriv (by
+    rw [hf.deriv]
+    ring)
 
 /-- Derivative-form version of
 `hasDerivAt_gibbsWeight_mul_testDeriv_eq_langevinGenerator_1d`. -/
@@ -490,7 +490,7 @@ theorem finiteEuclidean_expNeg_lineDeriv_fderiv_coordinateSum_langevinGenerator_
           ![(EuclideanSpace.single i (1 : ℝ)), (EuclideanSpace.single i (1 : ℝ))] -
         Real.exp (-V x) * (gradient V x) i *
           fderiv ℝ f x (EuclideanSpace.single i (1 : ℝ)) := by
-        simpa only [] using hline
+        simpa only [EuclideanSpace.single, PiLp.single] using hline
       _ = Real.exp (-V x) * iteratedFDeriv ℝ 2 f x
           ![(EuclideanSpace.single i (1 : ℝ)), (EuclideanSpace.single i (1 : ℝ))] +
         (gradient (fun y : EuclideanSpace ℝ ι => Real.exp (-V y)) x) i *
@@ -1292,7 +1292,7 @@ theorem integrable_expNeg_fderivCoordinateField_of_lintegral_expNeg_ne_top_of_fd
       _ ≤ C := hf_bound _
   have hproduct := hweight.smul_bdd C hD_continuous.aestronglyMeasurable
     (Filter.Eventually.of_forall hD_bound)
-  simpa [D, Pi.smul_apply, smul_eq_mul] using hproduct
+  simpa [D, Pi.smul_apply, smul_eq_mul] using! hproduct
 
 end Langevin
 end StochasticProcesses

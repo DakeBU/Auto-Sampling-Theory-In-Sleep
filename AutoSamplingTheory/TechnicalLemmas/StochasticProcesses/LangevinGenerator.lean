@@ -97,9 +97,9 @@ theorem isInvariantOn_normalizedGibbs_on_compactlySupportedC2
       (EuclideanSpace ℝ (Fin (n + 1)) → ℝ) →
         EuclideanSpace ℝ (Fin (n + 1)) → ℝ}
     (hV : ContDiff ℝ 1 V)
-    (hcore : CoreContract V generator (setOf CompactlySupportedC2))
+    (hcore : CoreContract V generator (Set.ofPred CompactlySupportedC2))
     (hsemigroup : WeakGenerator.IntegratedSemigroupGeneratorContract
-      P generator (setOf CompactlySupportedC2)
+      P generator (Set.ofPred CompactlySupportedC2)
       (volume.withDensity
         (fun x =>
           (∫⁻ y, Measure.Gibbs.gibbsDensityENNReal V y ∂volume)⁻¹ *
@@ -109,7 +109,7 @@ theorem isInvariantOn_normalizedGibbs_on_compactlySupportedC2
         (fun x =>
           (∫⁻ y, Measure.Gibbs.gibbsDensityENNReal V y ∂volume)⁻¹ *
             Measure.Gibbs.gibbsDensityENNReal V x))
-      (setOf CompactlySupportedC2) := by
+      (Set.ofPred CompactlySupportedC2) := by
   refine WeakGenerator.isInvariantOn_of_integral_generator_eq_zero hsemigroup ?_
   intro f hf
   rw [hcore.generator_eq_operator_on_core f hf]

@@ -116,7 +116,7 @@ theorem integrable_linearForm_stdGaussianPi {n : ℕ} (c : Fin n → ℝ) :
       (stdGaussianPi n) := by
   classical
   simpa using
-    (MeasureTheory.integrable_finset_sum (μ := stdGaussianPi n) (s := Finset.univ)
+    (MeasureTheory.integrable_finsetSum (μ := stdGaussianPi n) (s := Finset.univ)
       (f := fun i w => c i * w i)
       (fun i _ => integrable_const_mul_eval_stdGaussianPi i (c i)))
 
@@ -201,7 +201,7 @@ theorem integral_linearForm_stdGaussianPi {n : ℕ} (c : Fin n → ℝ) :
     ∫ w : Fin n → ℝ, (∑ i : Fin n, c i * w i) ∂(stdGaussianPi n)
         = ∑ i : Fin n, ∫ w : Fin n → ℝ, c i * w i ∂(stdGaussianPi n) := by
           simpa using
-            (MeasureTheory.integral_finset_sum (μ := stdGaussianPi n) (s := Finset.univ)
+            (MeasureTheory.integral_finsetSum (μ := stdGaussianPi n) (s := Finset.univ)
               (f := fun i w => c i * w i)
               (fun i _ => integrable_const_mul_eval_stdGaussianPi i (c i)))
     _ = 0 := by
@@ -284,7 +284,7 @@ theorem pi_gaussianReal_withDensity_exp_shift
           (fun x : ℝ => ENNReal.ofReal (Real.exp (h i * x - (h i) ^ 2 / 2))) =
         gaussianReal (h i) (1 : NNReal) :=
     fun i => gaussianReal_withDensity_exp_shift (h i)
-  haveI : ∀ i,
+  have : ∀ i,
       IsProbabilityMeasure
         ((gaussianReal 0 (1 : NNReal)).withDensity
           (fun x : ℝ => ENNReal.ofReal (Real.exp (h i * x - (h i) ^ 2 / 2)))) := by

@@ -387,7 +387,7 @@ theorem tendsto_setIntegral_norm_norm_ge_comp_toLp
     · intro x hx
       have hx' := Set.mem_iInter.mp hx
         (‖(WithLp.toLp 2 x : EuclideanSpace ℝ (Fin (n + 1)))‖ + 1)
-      simp only [s, Set.mem_setOf_eq] at hx'
+      simp only [s, Set.mem_ofPred_eq] at hx'
       linarith
     · exact Set.empty_subset _
   have htail := tendsto_setIntegral_of_antitone
@@ -1138,14 +1138,14 @@ theorem continuousOn_smul_vectorField_trace_of_component_continuousOn
       (fun x => ∑ i, ((χ x • G' x + (χ' x).smulRight (G x))
         (Pi.single i (1 : ℝ))) i)
       (Set.Icc a b) := by
-  refine continuousOn_finset_sum Finset.univ ?_
+  refine continuousOn_finsetSum Finset.univ ?_
   intro i _hi
   have hscalar : ContinuousOn
       (fun x => χ x * ((G' x (Pi.single i (1 : ℝ))) i) +
         (χ' x (Pi.single i (1 : ℝ))) * G x i)
       (Set.Icc a b) :=
     (hχ.mul (hG' i)).add ((hχ' i).mul (hG i))
-  simpa [ContinuousLinearMap.add_apply, ContinuousLinearMap.smulRight_apply, Pi.smul_apply,
+  simpa [add_apply, ContinuousLinearMap.smulRight_apply, Pi.smul_apply,
     smul_eq_mul] using hscalar
 
 /-- Closed-box continuity of the cutoff-smul product-rule trace from component
@@ -1837,7 +1837,7 @@ theorem integral_coordinateDivergence_wrapped_eq_zero_of_contDiff_of_hasCompactS
   have htrace_cont : Continuous
       (fun x : Fin (n + 1) → ℝ =>
         ∑ i, fderiv ℝ F x (Pi.single i (1 : ℝ)) i) := by
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro i _hi
     exact (continuous_apply i).comp
       (hF.continuous_fderiv one_ne_zero |>.clm_apply continuous_const)

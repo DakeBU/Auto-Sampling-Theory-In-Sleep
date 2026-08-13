@@ -52,7 +52,7 @@ theorem laplacian_mul
     rw [fderiv_add ((hf1.smul hDg) x) ((hg1.smul hDf) x)]
     rw [fderiv_smul (hf1 x) (hDg x)]
     rw [fderiv_smul (hg1 x) (hDf x)]
-    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+    simp only [add_apply, smul_apply,
       ContinuousLinearMap.smulRight_apply, smul_eq_mul]
     have hsecondf :
         ((fderiv ℝ (fun y => fderiv ℝ f y) x) v) v =

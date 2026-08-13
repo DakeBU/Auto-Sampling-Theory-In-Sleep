@@ -41,7 +41,8 @@ variable [MeasurableSpace α]
 theorem measurable_gibbsDensityENNReal {V : α → ℝ}
     (hV : Measurable V) :
     Measurable (gibbsDensityENNReal V) := by
-  simpa [gibbsDensityENNReal] using hV.neg.exp.ennreal_ofReal
+  unfold gibbsDensityENNReal
+  exact hV.neg.exp.ennreal_ofReal
 
 /-- An a.e.-measurable potential gives an a.e.-measurable `ℝ≥0∞` Gibbs
 density. -/
@@ -51,7 +52,8 @@ theorem aemeasurable_gibbsDensityENNReal
     AEMeasurable (gibbsDensityENNReal V) μ := by
   have hExp : AEMeasurable (fun x => Real.exp (-V x)) μ :=
     Real.measurable_exp.comp_aemeasurable hV.neg
-  simpa [gibbsDensityENNReal] using hExp.ennreal_ofReal
+  unfold gibbsDensityENNReal
+  exact hExp.ennreal_ofReal
 
 /-- Over a nonzero measure, an a.e.-measurable Gibbs density has nonzero
 lintegral because it is pointwise positive. -/

@@ -67,7 +67,7 @@ theorem continuous_laplacian_of_contDiff_two
     {f : E → ℝ} (hf : ContDiff ℝ 2 f) :
     Continuous (fun x : E => Laplacian.laplacian f x) := by
   rw [InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis f]
-  refine continuous_finset_sum _ ?_
+  refine continuous_finsetSum _ ?_
   intro i _
   let v : Fin 2 → E := ![(stdOrthonormalBasis ℝ E) i, (stdOrthonormalBasis ℝ E) i]
   have h2 : Continuous (fun x : E => iteratedFDeriv ℝ 2 f x) := by
