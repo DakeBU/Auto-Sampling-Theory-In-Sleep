@@ -1245,6 +1245,35 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinCarreDuChamp.langevinCarreDuChamp_eq_inner",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "For Langevin diffusion, the generator product defect is exactly the inner product of the two gradients.",
+    "mathematical_statement": "Gamma_L(f,g)(x) = inner(gradient f(x), gradient g(x)); hence Gamma_L(f,f)(x) = norm(gradient f(x)) squared.",
+    "intuition": "The Laplacian contributes two cross derivatives, while every potential-drift product term cancels. The remaining local energy is the gradient pairing.",
+    "assumptions": [
+      "a finite-dimensional Euclidean state space",
+      "both observables are globally C2",
+      "L is the displayed Laplacian-minus-gradient-drift operator"
+    ],
+    "why_assumptions": [
+      "C2 regularity justifies the second-order product rule",
+      "finite dimension supports the orthonormal-basis trace defining the Laplacian",
+      "the displayed operator is distinct from its later closed semigroup-generator realization"
+    ],
+    "proof_route": [
+      "differentiate the first product derivative to obtain the diagonal second derivative formula",
+      "sum over a standard orthonormal basis to prove the Laplacian product rule",
+      "rewrite the gradient of a product",
+      "expand the three Langevin operator terms and cancel the drift"
+    ],
+    "lean_notes": [
+      "iteratedFDeriv_two_apply exposes the second Frechet derivative",
+      "OrthonormalBasis.sum_inner_mul_inner identifies the cross-term sum",
+      "the proof does not assume the desired Gamma identity or a generator domain"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp",
     "chapter": 1,
     "route_status": "Compiled",

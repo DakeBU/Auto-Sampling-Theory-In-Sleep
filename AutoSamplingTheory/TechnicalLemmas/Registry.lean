@@ -2751,6 +2751,36 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Compiled analytic core identity. Compact test support removes the boundary without a finite Gibbs-mass hypothesis. Closed-generator domains, semigroup differentiation, invariant probability law, reversibility, and KL/FI dissipation remain separate."
   },
   {
+    key := "analysis.calculus.laplacian-product-rule",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinCarreDuChamp.laplacian_mul",
+    upstreamDecl := "fderiv_mul / iteratedFDeriv_two_apply / OrthonormalBasis.sum_inner_mul_inner",
+    upstreamFile := "Mathlib.Analysis.Calculus.FDeriv.Mul; Mathlib.Analysis.InnerProductSpace.Laplacian",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Laplacian", "product-rule", "gradient", "C2"],
+    saldUse := "Chewi Example 1.2.17 root: expand Delta(fg) with the two cross-gradient terms",
+    note := "Generic finite-dimensional C2 product rule; no Langevin potential or measure is required."
+  },
+  {
+    key := "analysis.calculus.gradient-product-rule",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinCarreDuChamp.gradient_mul",
+    upstreamDecl := "fderiv_mul / InnerProductSpace.gradient",
+    upstreamFile := "Mathlib.Analysis.Calculus.FDeriv.Mul; Mathlib.Analysis.Calculus.Gradient.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "gradient", "product-rule", "differentiable"],
+    saldUse := "Chewi Example 1.2.17 root: expand the drift action on a product before cancellation",
+    note := "Generic differentiable product rule expressed in Mathlib's gradient API."
+  },
+  {
+    key := "langevin.chewi-example-1-2-17",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinCarreDuChamp.langevinCarreDuChamp_eq_inner",
+    upstreamDecl := "Chewi Example 1.2.17",
+    upstreamFile := "Log-Concave Sampling, book page 15 / PDF page 27",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Langevin", "carre-du-champ", "gradient", "Dirichlet-form"],
+    saldUse := "Chewi Example 1.2.17: identify the formal Langevin carre du champ with the gradient inner product",
+    note := "Actual C2 product-rule proof for the displayed differential operator; closed semigroup-generator identification remains separate."
+  },
+  {
     key := "langevin-generator.compactly-supported-c2-core",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator.CompactlySupportedC2",
     upstreamDecl := "ContDiff and HasCompactSupport",

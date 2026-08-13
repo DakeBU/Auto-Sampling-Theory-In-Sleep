@@ -942,6 +942,53 @@
     ]
   },
   {
+    "id": "chewi-1-2-example-1-2-17",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 15,
+    "pdf_page": 27,
+    "page": "book 15 / PDF 27",
+    "source_kind": "Example 1.2.17",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=27",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "For the Langevin differential operator, the carre du champ is the gradient inner product, and on the diagonal it is the squared gradient norm.",
+    "mathematical_exposition": "The product identities for the Laplacian and gradient expand L(fg). The potential-gradient drift terms cancel against f Lg and g Lf, leaving twice the gradient inner product before the factor one half.",
+    "astis_exposition": "ASTIS proves the missing Laplacian product rule from second Frechet derivatives and an orthonormal-basis expansion, then performs the concrete Langevin cancellation.",
+    "rigorous_packet": "The observables are globally C2 on finite-dimensional Euclidean space. The potential enters only through the displayed Langevin differential expression; no semigroup-domain identification is needed for this pointwise calculation.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinCarreDuChamp.langevinCarreDuChamp_eq_inner"
+    ],
+    "source_assumptions": [
+      "twice differentiable observables",
+      "the displayed Langevin differential operator"
+    ],
+    "formal_assumptions": [
+      "finite-dimensional real Euclidean state space",
+      "global ContDiff R 2 hypotheses for both observables"
+    ],
+    "downstream_consumers": [
+      "Langevin Dirichlet form",
+      "Poincare and log-Sobolev specializations",
+      "Bakry-Emery calculations"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact pointwise Langevin carre-du-champ calculation compiled; closed generator and semigroup realization remain separate source routes",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-langevin-carre-du-champ",
+        "label": "Langevin Gamma equals gradient inner product",
+        "declarations": ["langevinCarreDuChamp_eq_inner"],
+        "dependencies": ["laplacian_mul", "gradient_mul", "LangevinGenerator.operator"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-2-definition-1-2-28",
     "chapter": 1,
     "section": "1.2",
