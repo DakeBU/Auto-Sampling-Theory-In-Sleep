@@ -2971,7 +2971,7 @@ def variationalMemory : List LemmaMemoryEntry := [
   },
   {
     key := "lsi.sqrt-density.fisher-chain",
-    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+    localDecl := "AutoSamplingTheory.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
     upstreamDecl := "LSI density and Fisher-information bookkeeping",
     upstreamFile := "Mathlib/SLT-inspired entropy and LSI proof shape",
     status := LemmaMemoryStatus.formalizedLocal,

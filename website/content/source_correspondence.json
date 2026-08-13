@@ -1459,7 +1459,7 @@
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Satisfies",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_constant",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.mono_tests",
-      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
+      "AutoSamplingTheory.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_26_forward",
       "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation_from",
@@ -1786,7 +1786,7 @@
     "astis_exposition": "ASTIS separates the probability-law and density prerequisites from the analytic inequality and its semigroup consumers.",
     "rigorous_packet": "Each inequality needs an explicit function class and finite terms; extension beyond a smooth compactly supported core requires a closure or density argument.",
     "lean_declarations": [
-      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+      "AutoSamplingTheory.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
     ],
     "source_assumptions": [
       "probability reference law",
@@ -1947,7 +1947,7 @@
     "astis_exposition": "ASTIS exposes the density, score-representative, absolute-continuity, entropy-dissipation, and randomized-time interfaces separately.",
     "rigorous_packet": "Define the relative score almost everywhere, prove Fisher-information measurability and finiteness where used, justify entropy dissipation on a stated domain, then add discretization and oracle errors.",
     "lean_declarations": [
-      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+      "AutoSamplingTheory.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
     ],
     "source_assumptions": [
       "absolutely continuous time marginals",
@@ -1981,7 +1981,7 @@
     "astis_exposition": "ASTIS exposes Fisher-information roots but does not yet claim a reverse-time SDE theorem.",
     "rigorous_packet": "Choose a density representative, establish spatial and temporal regularity, state the time-reversal theorem, and only then analyze learned-score and discretization errors.",
     "lean_declarations": [
-      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
+      "AutoSamplingTheory.lsiKlFiSqrtDensityFisherChainIntegralHandoffScalar"
     ],
     "source_assumptions": [
       "regular time marginals",

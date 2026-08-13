@@ -145,12 +145,15 @@ def validate_source_contract(*, pdf_path: Path | None = None, require_pdf: bool 
         errors.append("Chapter 1 completion matrix has the wrong source edition")
     if chapter_1_matrix.get("canonical_url") != CANONICAL_URL:
         errors.append("Chapter 1 completion matrix has the wrong canonical URL")
-    statements = list(chapter_1_matrix.get("statements", []))
-    displays = list(chapter_1_matrix.get("displayed_identities", []))
-    exercises = list(chapter_1_matrix.get("exercises", []))
-    statement_numbers = {str(row[0]) for row in statements if isinstance(row, list) and row}
-    display_numbers = {str(row[0]) for row in displays if isinstance(row, list) and row}
-    exercise_numbers = {str(row[0]) for row in exercises if isinstance(row, list) and row}
+    if chapter_1_matrix.get("schema_version") != 2:
+        errors.append("Chapter 1 completion matrix must use schema version 2")
+    items = list(chapter_1_matrix.get("items", []))
+    statements = [row for row in items if isinstance(row, dict) and row.get("category") == "statement"]
+    displays = [row for row in items if isinstance(row, dict) and row.get("category") == "displayed_identity"]
+    exercises = [row for row in items if isinstance(row, dict) and row.get("category") == "exercise"]
+    statement_numbers = {str(row.get("number", "")) for row in statements}
+    display_numbers = {str(row.get("number", "")) for row in displays}
+    exercise_numbers = {str(row.get("number", "")) for row in exercises}
     if statement_numbers != EXPECTED_CHAPTER_1_STATEMENTS or len(statements) != len(statement_numbers):
         errors.append("Chapter 1 statement inventory differs from the audited 67-item source list")
     if display_numbers != EXPECTED_CHAPTER_1_DISPLAYS or len(displays) != len(display_numbers):
@@ -158,22 +161,27 @@ def validate_source_contract(*, pdf_path: Path | None = None, require_pdf: bool 
     expected_exercises = {f"1.{index}" for index in range(1, 22)}
     if exercise_numbers != expected_exercises or len(exercises) != len(exercise_numbers):
         errors.append("Chapter 1 exercise inventory differs from Exercises 1.1-1.21")
-    for category, rows, width in (
-        ("statement", statements, 5),
-        ("displayed identity", displays, 4),
-        ("exercise", exercises, 4),
+    for category, rows in (
+        ("statement", statements),
+        ("displayed identity", displays),
+        ("exercise", exercises),
     ):
         for row in rows:
-            if not isinstance(row, list) or len(row) != width:
+            if not isinstance(row, dict):
                 errors.append(f"Chapter 1 {category} row has invalid shape: {row!r}")
                 continue
-            book_page, pdf_page = int(row[-2]), int(row[-1])
+            book_page, pdf_page = int(row.get("book_page", -1)), int(row.get("pdf_page", -1))
             if not 3 <= book_page <= 47 or pdf_page != book_page + PDF_OFFSET:
-                errors.append(f"Chapter 1 {category} {row[0]} has invalid page mapping")
+                errors.append(f"Chapter 1 {category} {row.get('number')} has invalid page mapping")
     correspondence_ids = {str(row.get("id", "")) for row in correspondence}
-    for number, source_id in dict(chapter_1_matrix.get("route_overrides", {})).items():
-        if str(source_id) not in correspondence_ids:
-            errors.append(f"Chapter 1 matrix route {number} references unknown source row {source_id}")
+    for row in items:
+        if not isinstance(row, dict):
+            continue
+        source_id = str(row.get("source_correspondence_id", ""))
+        if source_id and source_id not in correspondence_ids:
+            errors.append(
+                f"Chapter 1 matrix route {row.get('number')} references unknown source row {source_id}"
+            )
 
     expected = expected_chapters()
     for key, value in {

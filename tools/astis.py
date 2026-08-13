@@ -10322,6 +10322,59 @@ def cmd_chewi_source_check(args: argparse.Namespace) -> int:
     return astis_source.command_check(args)
 
 
+def cmd_chapter_1_check(args: argparse.Namespace) -> int:
+    """Validate item-level Chapter 1 source, Lean, test, and Registry evidence."""
+    import astis_site
+    import astis_source
+
+    matrix_raw = astis_site.load_json(astis_site.CONTENT / "chapter_1_completion_matrix.json")
+    source_entries = astis_site.load_json(astis_site.CONTENT / "source_correspondence.json")
+    if not isinstance(matrix_raw, dict) or not isinstance(source_entries, list):
+        print("Chapter 1 evidence check failed: invalid content schema", file=sys.stderr)
+        return 1
+
+    matrix = astis_site.expand_chapter_1_matrix(matrix_raw, source_entries)
+    entries, _ = astis_site.enrich_entries(astis_site.parse_registry())
+    _, declarations = astis_site.scan_project_sources()
+    declarations_by_name = {
+        declaration.full_name: declaration for declaration in declarations
+    }
+    errors = astis_site.validate_chapter_1_evidence(
+        {
+            "chapter_1_completion_matrix": matrix,
+            "source_correspondence": source_entries,
+        },
+        entries,
+        declarations_by_name,
+        require_complete=args.require_complete,
+    )
+    source_errors, _ = astis_source.validate_source_contract()
+    errors.extend(source_errors)
+    registry_count = sum(entry.is_blue for entry in entries)
+    tests_baseline = astis_site.test_registry_count()
+    if tests_baseline is None:
+        errors.append("Tests/Basic.lean has no compiled Registry-count baseline")
+    elif registry_count != tests_baseline:
+        errors.append(
+            f"compiled Registry count {registry_count} != Tests baseline {tests_baseline}"
+        )
+    report = astis_site.chapter_1_completion_report(matrix)
+    print(
+        "Chapter 1 evidence: "
+        f"{report['complete']} complete, {report['partial']} partial, "
+        f"{report['planned']} planned, {report['blocked']} blocked, "
+        f"{report['external']} external / {report['total']} total"
+    )
+    if errors:
+        print("Chapter 1 evidence check failed:", file=sys.stderr)
+        for error in errors:
+            print(f"- {error}", file=sys.stderr)
+        return 1
+    mode = "strict closure" if args.require_complete else "item-level integrity"
+    print(f"Chapter 1 {mode} check passed")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="ASTIS workflow helper")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -10400,6 +10453,10 @@ def build_parser() -> argparse.ArgumentParser:
     chewi_source_check.add_argument("--pdf", default="")
     chewi_source_check.add_argument("--require-pdf", action="store_true")
     chewi_source_check.set_defaults(func=cmd_chewi_source_check)
+
+    chapter_1_check = sub.add_parser("chapter-1-check")
+    chapter_1_check.add_argument("--require-complete", action="store_true")
+    chapter_1_check.set_defaults(func=cmd_chapter_1_check)
 
     zh_summary = sub.add_parser("cycle-zh-summary")
     zh_summary.add_argument("task")

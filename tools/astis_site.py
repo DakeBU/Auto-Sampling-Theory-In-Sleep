@@ -567,69 +567,190 @@ def enrich_entries(entries: list[RegistryEntry]) -> tuple[list[RegistryEntry], d
     return entries, module_files
 
 
-def validate_chapter_1_closure(
+CHAPTER_1_COVERAGE_KINDS = {
+    "owned_definition",
+    "proved_theorem",
+    "derived_identity",
+    "solved_exercise",
+    "complete_expository_remark",
+}
+CHAPTER_1_COVERAGE_STATUSES = {"complete", "partial", "planned", "blocked", "external"}
+CHAPTER_1_DECLARATION_KINDS = {
+    "owned_definition": {"def", "abbrev", "structure", "class", "inductive"},
+    "proved_theorem": {"theorem", "lemma"},
+    "derived_identity": {"theorem", "lemma"},
+    "solved_exercise": {"theorem", "lemma"},
+}
+
+
+def validate_chapter_1_evidence(
     site_data: dict[str, object],
     entries: list[RegistryEntry],
     declarations_by_name: dict[str, SourceDeclaration],
+    *,
+    require_complete: bool = False,
 ) -> list[str]:
-    """Validate a source-complete Chapter 1 certificate, not a progress dashboard."""
+    """Validate item-level evidence without inferring closure from nearby metadata."""
     errors: list[str] = []
     matrix = list(site_data.get("chapter_1_completion_matrix", []))
     source_rows = list(site_data.get("source_correspondence", []))
     source_by_id = {str(row.get("id", "")): row for row in source_rows}
     registry_by_decl = {entry.local_decl: entry for entry in entries if entry.local_decl}
-    mapping_counts = Counter(str(item.get("source_mapping_id", "")) for item in matrix)
+    registry_by_key = {entry.key: entry for entry in entries}
+    route_counts = Counter(str(item.get("source_route_id", "")) for item in matrix)
 
     if len(matrix) != 125:
-        errors.append(f"Chapter 1 closure requires 125 audited source items, found {len(matrix)}")
-    for source_id, count in sorted(mapping_counts.items()):
-        if source_id and count != 1:
-            errors.append(
-                f"Chapter 1 closure requires one source row per item: {source_id} is reused {count} times"
-            )
+        errors.append(f"Chapter 1 evidence requires 125 audited source items, found {len(matrix)}")
+    for route_id, count in sorted(route_counts.items()):
+        if route_id and count != 1:
+            errors.append(f"Chapter 1 source route is reused {count} times: {route_id}")
 
     for item in matrix:
         item_id = str(item.get("id", ""))
-        source_id = str(item.get("source_mapping_id", ""))
-        if not source_id:
-            errors.append(f"{item_id}: no exact source correspondence row")
-            continue
-        source = source_by_id.get(source_id)
-        if source is None:
+        route_id = str(item.get("source_route_id", ""))
+        source_id = str(item.get("source_correspondence_id", ""))
+        coverage_kind = str(item.get("coverage_kind", ""))
+        coverage_status = str(item.get("coverage_status", ""))
+        declarations = [str(name) for name in item.get("required_declarations", [])]
+        test_paths = [str(path) for path in item.get("focused_tests", [])]
+        registry_keys = [str(key) for key in item.get("registry_keys", [])]
+        blockers = [str(value) for value in item.get("residual_blockers", []) if str(value).strip()]
+
+        if not route_id:
+            errors.append(f"{item_id}: missing source_route_id")
+        if coverage_kind not in CHAPTER_1_COVERAGE_KINDS:
+            errors.append(f"{item_id}: invalid coverage_kind {coverage_kind!r}")
+        if coverage_status not in CHAPTER_1_COVERAGE_STATUSES:
+            errors.append(f"{item_id}: invalid coverage_status {coverage_status!r}")
+        source = source_by_id.get(source_id) if source_id else None
+        if source_id and source is None:
             errors.append(f"{item_id}: unknown source correspondence row {source_id}")
-            continue
-        for field in ("source_kind", "book_page", "pdf_page", "page", "source_url"):
-            if source.get(field) != item.get(field):
-                errors.append(
-                    f"{item_id}: {field} differs between matrix and {source_id} "
-                    f"({item.get(field)!r} != {source.get(field)!r})"
-                )
-        if str(item.get("local_status")) != "Compiled":
-            errors.append(f"{item_id}: local status is {item.get('local_status')}, expected Compiled")
-        if str(item.get("route_status")) != "Compiled":
-            errors.append(f"{item_id}: route status is {item.get('route_status')}, expected Compiled")
-        for field in ("status", "local_status", "route_status"):
-            if str(source.get(field, "")).lower() != "compiled":
-                errors.append(f"{item_id}: {source_id}.{field} is not compiled")
-        evidence = [str(name) for name in source.get("lean_declarations", [])]
-        if not evidence:
-            errors.append(f"{item_id}: {source_id} has no Lean evidence declaration")
-            continue
-        for name in evidence:
-            entry = registry_by_decl.get(name)
-            if entry is None:
-                errors.append(f"{item_id}: evidence is absent from Registry: {name}")
-                continue
-            if not entry.is_blue:
-                errors.append(f"{item_id}: Registry evidence is not formalizedLocal: {name}")
-            if not entry.explicit_test:
-                errors.append(f"{item_id}: Registry evidence lacks an explicit test reference: {name}")
+        if source is not None and coverage_status == "complete":
+            for field in ("source_kind", "book_page", "pdf_page", "page", "source_url"):
+                if source.get(field) != item.get(field):
+                    errors.append(
+                        f"{item_id}: {field} differs between matrix and {source_id} "
+                        f"({item.get(field)!r} != {source.get(field)!r})"
+                    )
+            for field in ("status", "local_status", "route_status"):
+                if str(source.get(field, "")).lower() != "compiled":
+                    errors.append(f"{item_id}: {source_id}.{field} is not compiled")
+            source_declarations = [str(name) for name in source.get("lean_declarations", [])]
+            for name in declarations:
+                if name not in source_declarations:
+                    errors.append(
+                        f"{item_id}: {source_id} does not cite required declaration {name}"
+                    )
+            for name in source_declarations:
+                source_declaration = declarations_by_name.get(name)
+                if source_declaration is None:
+                    errors.append(
+                        f"{item_id}: source correspondence declaration cannot be resolved: {name}"
+                    )
+                elif source_declaration.has_placeholder:
+                    errors.append(
+                        f"{item_id}: source correspondence declaration contains a placeholder: {name}"
+                    )
+
+        if coverage_status == "complete" and coverage_kind != "complete_expository_remark":
+            if not declarations:
+                errors.append(f"{item_id}: complete item has no required declaration")
+            if not test_paths:
+                errors.append(f"{item_id}: complete item has no focused test")
+            if not registry_keys:
+                errors.append(f"{item_id}: complete item has no Registry key")
+        if coverage_status == "complete" and blockers:
+            errors.append(f"{item_id}: complete item retains residual blockers")
+
+        test_contents: dict[str, str] = {}
+        for test_path in test_paths:
+            path = ROOT / test_path
+            if not path.is_file() or path.suffix != ".lean":
+                errors.append(f"{item_id}: focused test does not exist: {test_path}")
+            else:
+                test_contents[test_path] = path.read_text(encoding="utf-8")
+        for name in declarations:
             declaration = declarations_by_name.get(name)
             if declaration is None:
-                errors.append(f"{item_id}: evidence declaration cannot be resolved: {name}")
-            elif declaration.has_placeholder:
-                errors.append(f"{item_id}: evidence declaration contains a placeholder: {name}")
+                errors.append(f"{item_id}: required declaration cannot be resolved: {name}")
+                continue
+            if declaration.has_placeholder:
+                errors.append(f"{item_id}: required declaration contains a placeholder: {name}")
+            allowed_kinds = CHAPTER_1_DECLARATION_KINDS.get(coverage_kind)
+            if coverage_status == "complete" and allowed_kinds and declaration.kind not in allowed_kinds:
+                errors.append(
+                    f"{item_id}: {coverage_kind} cannot be certified by "
+                    f"{declaration.kind} declaration {name}"
+                )
+            if coverage_status == "complete" and coverage_kind == "owned_definition":
+                clean_source = sanitize_lean(declaration.source_text)
+                if re.search(r":\s*Prop\s*:=\s*(?:by\s+)?(?:True|trivial)\b", clean_source):
+                    errors.append(f"{item_id}: owned definition is an empty Prop shell: {name}")
+            if coverage_status == "complete" and coverage_kind == "derived_identity":
+                clean_source = sanitize_lean(declaration.source_text)
+                if not any(token in clean_source for token in ("=", "Tendsto", "∫", "integral", "lintegral")):
+                    errors.append(f"{item_id}: derived identity has no equality, limit, or integral: {name}")
+            if coverage_status == "complete" and test_contents and not any(
+                name in text or declaration.short_name in text for text in test_contents.values()
+            ):
+                errors.append(f"{item_id}: focused tests do not reference {name}")
+            entry = registry_by_decl.get(name)
+            if coverage_status == "complete" and (entry is None or not entry.is_blue):
+                errors.append(f"{item_id}: required declaration is not compiled in Registry: {name}")
+        for key in registry_keys:
+            entry = registry_by_key.get(key)
+            if entry is None:
+                errors.append(f"{item_id}: unknown Registry key: {key}")
+            elif entry.local_decl not in declarations:
+                errors.append(
+                    f"{item_id}: Registry key {key} does not certify a required declaration"
+                )
+        if require_complete:
+            if coverage_status != "complete":
+                errors.append(f"{item_id}: coverage status is {coverage_status}, expected complete")
+            if blockers:
+                errors.append(f"{item_id}: residual blockers remain")
+            if source is None:
+                errors.append(f"{item_id}: no exact source correspondence row")
     return errors
+
+
+def validate_chapter_1_closure(
+    site_data: dict[str, object],
+    entries: list[RegistryEntry],
+    declarations_by_name: dict[str, SourceDeclaration],
+) -> list[str]:
+    """Compatibility wrapper for the strict Chapter 1 completion gate."""
+    return validate_chapter_1_evidence(
+        site_data, entries, declarations_by_name, require_complete=True
+    )
+
+
+def chapter_1_completion_report(items: list[dict[str, object]]) -> dict[str, object]:
+    statuses = Counter(str(item.get("coverage_status", "")) for item in items)
+    missing_declarations = sum(
+        not item.get("required_declarations")
+        and item.get("coverage_kind") != "complete_expository_remark"
+        for item in items
+    )
+    missing_tests = sum(
+        not item.get("focused_tests")
+        and item.get("coverage_kind") != "complete_expository_remark"
+        for item in items
+    )
+    return {
+        "schema_version": 2,
+        "total": len(items),
+        "complete": statuses["complete"],
+        "partial": statuses["partial"],
+        "planned": statuses["planned"],
+        "blocked": statuses["blocked"],
+        "external": statuses["external"],
+        "missing_route": sum(not str(item.get("source_route_id", "")).strip() for item in items),
+        "missing_declaration": missing_declarations,
+        "missing_test": missing_tests,
+        "residual_blockers": sum(bool(item.get("residual_blockers")) for item in items),
+    }
 
 
 def test_registry_count() -> int | None:
@@ -1437,101 +1558,46 @@ def expand_chapter_1_matrix(
     raw: dict[str, object],
     source_entries: list[dict[str, object]],
 ) -> list[dict[str, object]]:
-    """Expand the compact audited inventory using the existing source-status system."""
-    profiles = dict(raw["assumption_profiles"])
+    """Enrich schema-v2 item evidence for the generated reader."""
     source_by_id = {str(row["id"]): row for row in source_entries}
-    route_overrides = dict(raw["route_overrides"])
     items: list[dict[str, object]] = []
-
-    def add_item(
-        *,
-        category: str,
-        number: str,
-        kind: str,
-        summary: str,
-        book_page: int,
-        pdf_page: int,
-        profile_id: str,
-    ) -> None:
-        profile = dict(profiles[profile_id])
-        source_id = str(route_overrides.get(number, ""))
-        source = source_by_id.get(source_id)
-        declarations = list(source.get("lean_declarations", [])) if source else []
-        local_status = "Compiled" if declarations else "Planned"
-        raw_route = str(source.get("route_status", source.get("status", "planned"))) if source else "planned"
-        route_status = {
-            "compiled": "Compiled",
-            "partial": "Partial",
-            "todo": "Planned",
-            "planned": "Planned",
-            "blocked": "Blocked",
-        }.get(raw_route.lower(), "Planned")
-        if route_status == "Compiled":
-            blocker: list[object] = []
-            residual_blocker = "None for this source item; downstream consumers retain their own route obligations."
-        else:
-            blocker = (
-                list(source.get("remaining_obligations", []))
-                if source and source.get("remaining_obligations")
-                else [str(profile["default_blocker"])]
-            )
-            residual_blocker = "; ".join(str(value) for value in blocker)
-        source_kind = f"{kind} {number}" if category == "statement" else (
-            f"Displayed identity ({number})" if category == "displayed_identity" else f"Exercise {number}"
-        )
+    status_labels = {
+        "complete": "Compiled",
+        "partial": "Partial",
+        "planned": "Planned",
+        "blocked": "Blocked",
+        "external": "External",
+    }
+    for raw_item in raw.get("items", []):
+        item = dict(raw_item)
+        source_id = str(item.get("source_correspondence_id", ""))
+        source = source_by_id.get(source_id, {})
+        declarations = list(item.get("required_declarations", []))
+        blockers = list(item.get("residual_blockers", []))
+        status = str(item.get("coverage_status", "planned"))
+        book_page = int(item["book_page"])
+        pdf_page = int(item["pdf_page"])
+        category = str(item["category"])
+        number = str(item["number"])
         items.append({
+            **item,
             "id": f"chapter1-{category}-{slugify(number)}",
-            "category": category,
-            "number": number,
-            "section": profile_id,
-            "source_kind": source_kind,
-            "book_page": book_page,
-            "pdf_page": pdf_page,
             "page": f"book {book_page} / PDF {pdf_page}",
             "source_url": f"{raw['canonical_url']}#page={pdf_page}",
-            "source_summary": summary,
-            "source_assumptions": list(source.get("source_assumptions", profile["source_assumptions"])) if source else list(profile["source_assumptions"]),
-            "formal_assumptions": list(source.get("formal_assumptions", profile["formal_assumptions"])) if source else list(profile["formal_assumptions"]),
+            "source_summary": str(item["title"]),
             "local_declarations": declarations,
-            "missing_dependency_ready_leaves": blocker,
-            "downstream_consumers": list(source.get("downstream_consumers", [])) if source else [],
-            "local_status": local_status,
-            "route_status": route_status,
-            "exact_residual_blocker": residual_blocker,
+            "missing_dependency_ready_leaves": blockers,
+            "local_status": "Compiled" if declarations else "Planned",
+            "route_status": status_labels.get(status, "Planned"),
+            "exact_residual_blocker": (
+                "; ".join(str(value) for value in blockers)
+                if blockers else "None for this source item."
+            ),
             "source_mapping_id": source_id,
+            "downstream_consumers": list(item.get(
+                "downstream_consumers", source.get("downstream_consumers", [])
+            )),
         })
-
-    for number, kind, summary, book_page, pdf_page in raw["statements"]:
-        add_item(
-            category="statement",
-            number=str(number),
-            kind=str(kind),
-            summary=str(summary),
-            book_page=int(book_page),
-            pdf_page=int(pdf_page),
-            profile_id=".".join(str(number).split(".")[:2]),
-        )
-    for number, summary, book_page, pdf_page in raw["displayed_identities"]:
-        section = ".".join(str(number).split(".")[:2])
-        add_item(
-            category="displayed_identity",
-            number=str(number),
-            kind="Displayed identity",
-            summary=str(summary),
-            book_page=int(book_page),
-            pdf_page=int(pdf_page),
-            profile_id=section,
-        )
-    for number, summary, book_page, pdf_page in raw["exercises"]:
-        add_item(
-            category="exercise",
-            number=str(number),
-            kind="Exercise",
-            summary=str(summary),
-            book_page=int(book_page),
-            pdf_page=int(pdf_page),
-            profile_id="1.ex",
-        )
     return items
 
 
@@ -2810,6 +2876,7 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     assert isinstance(teaching, list)
     assert isinstance(chapter_1_matrix_raw, dict)
     chapter_1_matrix = expand_chapter_1_matrix(chapter_1_matrix_raw, source_entries)
+    completion_report = chapter_1_completion_report(chapter_1_matrix)
     entries, module_files = enrich_entries(parse_registry())
     entries_by_decl = {entry.local_decl: entry for entry in entries if entry.local_decl}
     entries_by_short = {entry.short_name: entry for entry in entries if entry.local_decl}
@@ -2849,6 +2916,11 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     data_dir.mkdir()
     (data_dir / "live-mappings.json").write_text(
         json.dumps({"reviewed_mappings": live_mappings}, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    (data_dir / "chapter-1-completion-report.json").write_text(
+        json.dumps(completion_report, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
         newline="\n",
     )
@@ -3026,6 +3098,7 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
         "teaching_declarations": teaching,
         "source_correspondence": source_entries,
         "chapter_1_completion_matrix": chapter_1_matrix,
+        "chapter_1_completion_report": completion_report,
         "source_edition": source_edition,
         "textbook_sections": flat_sections,
         "modules": [
@@ -3196,6 +3269,7 @@ def validate_site(
         "data/site-data.json",
         "data/build-metadata.json",
         "data/live-mappings.json",
+        "data/chapter-1-completion-report.json",
         "search-index.json",
         "assets/site.css",
         "assets/site.js",
@@ -3234,6 +3308,7 @@ def validate_site(
                 errors.append(f"{chapter.get('id', 'chapter')} has empty required field: {field}")
 
     chapter_1_matrix = site_data.get("chapter_1_completion_matrix", [])
+    completion_report = site_data.get("chapter_1_completion_report", {})
     matrix_counts = Counter(str(item.get("category", "")) for item in chapter_1_matrix)
     expected_matrix_counts = {
         "statement": 67,
@@ -3244,6 +3319,12 @@ def validate_site(
         errors.append(
             f"Chapter 1 matrix counts {dict(matrix_counts)} != {expected_matrix_counts}"
         )
+    generated_report = json.loads(
+        (output / "data" / "chapter-1-completion-report.json").read_text(encoding="utf-8")
+    )
+    expected_report = chapter_1_completion_report(chapter_1_matrix)
+    if completion_report != expected_report or generated_report != expected_report:
+        errors.append("Chapter 1 completion report does not match item-level evidence")
     matrix_ids: set[str] = set()
     matrix_numbers: set[tuple[str, str]] = set()
     matrix_fields = {
@@ -3252,6 +3333,9 @@ def validate_site(
         "formal_assumptions", "local_declarations", "missing_dependency_ready_leaves",
         "downstream_consumers", "local_status", "route_status",
         "exact_residual_blocker", "source_mapping_id",
+        "title", "coverage_kind", "source_route_id", "source_correspondence_id",
+        "required_declarations", "focused_tests", "registry_keys", "coverage_status",
+        "residual_blockers",
     }
     for item in chapter_1_matrix:
         item_id = str(item.get("id", ""))
@@ -3290,8 +3374,12 @@ def validate_site(
         declaration.has_placeholder for declaration in declarations
     ):
         errors.append("placeholder declaration count does not match source scan")
-    if require_chapter_1_closure:
-        errors.extend(validate_chapter_1_closure(site_data, entries, declarations_by_name))
+    errors.extend(validate_chapter_1_evidence(
+        site_data,
+        entries,
+        declarations_by_name,
+        require_complete=require_chapter_1_closure,
+    ))
 
     for entry in entries:
         if entry.status == "formalizedLocal" and not entry.source_file:
