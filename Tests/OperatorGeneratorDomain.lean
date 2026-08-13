@@ -38,7 +38,7 @@ example (f g₁ g₂ : M)
     (h₁ : HasRightGeneratorAt S f g₁)
     (h₂ : HasRightGeneratorAt S f g₂) :
     g₁ = g₂ :=
-  HasRightGeneratorAt.unique h₁ h₂
+  hasRightGeneratorAt_unique h₁ h₂
 
 example (S : ContinuousLinearSemigroup M) :
     Submodule ℝ M :=
@@ -63,7 +63,7 @@ example (f : M) :
           identityStronglyContinuousSemigroup]⟩⟩
     rightGenerator S fd = 0 := by
   dsimp
-  apply HasRightGeneratorAt.unique
+  apply hasRightGeneratorAt_unique
   · exact rightGeneratorValue_spec _ _
   · simp [HasRightGeneratorAt, rightDifferenceQuotient,
       identityStronglyContinuousSemigroup]
