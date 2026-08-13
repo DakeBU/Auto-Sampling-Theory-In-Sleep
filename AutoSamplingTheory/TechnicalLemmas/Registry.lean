@@ -2037,6 +2037,26 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "martingale.chewi-definition-1-1-4",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Martingale.IsChewiMartingale",
+    upstreamDecl := "MeasureTheory.Martingale / Chewi Definition 1.1.4",
+    upstreamFile := "Mathlib.Probability.Martingale.Basic; Log-Concave Sampling, book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "martingale", "filtration", "conditional-expectation", "adapted"],
+    saldUse := "Chewi Definition 1.1.4 root: connect the source adapted conditional-expectation law to Mathlib Martingale",
+    note := "Exact real continuous-time predicate; continuity of sample paths and local martingale localization are separate properties."
+  },
+  {
+    key := "stopping-time.chewi-definition-1-1-11",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime.IsChewiStoppingTime",
+    upstreamDecl := "MeasureTheory.IsStoppingTime / Chewi Definition 1.1.11",
+    upstreamFile := "Mathlib.Probability.Process.Stopping; Log-Concave Sampling, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "stopping-time", "filtration", "measurability", "continuous-time"],
+    saldUse := "Chewi Definition 1.1.11 root: connect the source event measurability condition to Mathlib's stopping-time API",
+    note := "Exact continuous nonnegative-time predicate with possible infinity; localization and stopped Ito integrals remain downstream."
+  },
+  {
     key := "reversibility.chewi-definition-1-2-10",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility.IsReversible",
     upstreamDecl := "Chewi Definition 1.2.10",

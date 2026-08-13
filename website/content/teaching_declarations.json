@@ -888,6 +888,60 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Martingale.IsChewiMartingale",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A martingale has no predictable change: conditioned on current information, every future value has the current value as its expectation.",
+    "mathematical_statement": "For s <= t, E[M_t | F_s] = M_s almost everywhere, with M adapted to F.",
+    "intuition": "The filtration represents available information; the conditional expectation identity says that information cannot reveal a systematic future drift.",
+    "assumptions": [
+      "a measured sample space and filtration",
+      "a real process indexed by nonnegative time",
+      "strong adaptedness and the conditional-expectation equality"
+    ],
+    "why_assumptions": [
+      "adaptedness prevents future-dependent process values",
+      "almost-everywhere equality is the correct measure-theoretic equality for conditional expectation",
+      "integrability is recovered by Mathlib from the martingale identity"
+    ],
+    "proof_route": [
+      "reuse Mathlib.Martingale at NNReal time",
+      "test the interface on constant processes under a finite measure"
+    ],
+    "lean_notes": [
+      "the process codomain is Real",
+      "Mathlib uses StronglyAdapted and AE conditional-expectation equality",
+      "sample-path continuity is an additional property, not part of martingalehood"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime.IsChewiStoppingTime",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "At time t, a stopping rule may only use information already present in the filtration at t.",
+    "mathematical_statement": "For every t >= 0, the event {tau <= t} is F_t-measurable.",
+    "intuition": "The rule cannot look into the future to decide whether it has already stopped.",
+    "assumptions": [
+      "a measurable sample space",
+      "a filtration indexed by nonnegative real time",
+      "an extended nonnegative random time"
+    ],
+    "why_assumptions": [
+      "the filtration records the information available at each time",
+      "WithTop permits a path that never reaches the stopping condition",
+      "event measurability is stronger and more operational than ambient measurability of tau alone"
+    ],
+    "proof_route": [
+      "reuse Mathlib's IsStoppingTime predicate exactly",
+      "verify constant stopping times through Mathlib.isStoppingTime_const"
+    ],
+    "lean_notes": [
+      "NNReal is used for the nonnegative continuous-time index",
+      "the wrapper retains compatibility with Mathlib's stoppedProcess theorems",
+      "no localization convergence theorem is bundled into this definition"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility.IsReversible",
     "chapter": 1,
     "route_status": "Compiled",

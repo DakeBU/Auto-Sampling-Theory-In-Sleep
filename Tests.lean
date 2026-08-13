@@ -2,10 +2,12 @@ import Tests.Basic
 import Tests.CarreDuChamp
 import Tests.FellerSemigroup
 import Tests.MarkovSemigroup
+import Tests.Martingale
 import Tests.OperatorGenerator
 import Tests.OperatorGeneratorDomain
 import Tests.Reversibility
 import Tests.SemigroupDecay
+import Tests.StoppingTime
 import Tests.Transport
 import Tests.WassersteinSpace
 
