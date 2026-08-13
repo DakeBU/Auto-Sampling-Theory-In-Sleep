@@ -18,6 +18,7 @@ CONTENT = ROOT / "website" / "content"
 EDITION_PATH = CONTENT / "source_edition.json"
 CHAPTERS_PATH = CONTENT / "chapters.json"
 CORRESPONDENCE_PATH = CONTENT / "source_correspondence.json"
+CHAPTER_1_MATRIX_PATH = CONTENT / "chapter_1_completion_matrix.json"
 CANONICAL_URL = "https://chewisinho.github.io/main.pdf"
 CANONICAL_EDITION = "2026-08-09"
 PDF_OFFSET = 12
@@ -29,6 +30,22 @@ DEFAULT_LOCAL_PDF = (
     / "Chewi-Log-Concave-Sampling"
     / "main.pdf"
 )
+
+EXPECTED_CHAPTER_1_STATEMENTS = set("""
+1.1.1 1.1.4 1.1.8 1.1.11 1.1.12 1.1.13 1.1.15 1.1.16 1.1.17 1.1.19 1.1.22
+1.2.1 1.2.2 1.2.3 1.2.4 1.2.5 1.2.6 1.2.7 1.2.8 1.2.9 1.2.10 1.2.12 1.2.13
+1.2.14 1.2.15 1.2.17 1.2.19 1.2.20 1.2.21 1.2.22 1.2.23 1.2.25 1.2.26 1.2.27
+1.2.28 1.2.29 1.2.30 1.2.31
+1.3.1 1.3.3 1.3.4 1.3.6 1.3.8 1.3.12 1.3.13 1.3.14 1.3.15 1.3.16 1.3.17 1.3.19
+1.3.20 1.3.23 1.3.25 1.3.26
+1.4.1 1.4.2 1.4.5 1.4.6 1.4.12
+1.5.1 1.5.2 1.5.3 1.5.4 1.5.5 1.5.6 1.5.7 1.5.8
+""".split())
+EXPECTED_CHAPTER_1_DISPLAYS = set("""
+1.0.1 1.1.2 1.1.3 1.1.5 1.1.6 1.1.7 1.1.9 1.1.10 1.1.14 1.1.18 1.1.20 1.1.21
+1.2.11 1.2.16 1.2.18 1.2.24 1.3.2 1.3.5 1.3.7 1.3.9 1.3.10 1.3.11 1.3.18 1.3.21
+1.3.22 1.3.24 1.4.3 1.4.4 1.4.7 1.4.8 1.4.9 1.4.10 1.4.11 1.4.13 1.4.14 1.4.15 1.4.16
+""".split())
 
 # This table is deliberately independent from website metadata. A mistaken edit
 # cannot make the source contract and its checker drift together.
@@ -118,8 +135,43 @@ def validate_source_contract(*, pdf_path: Path | None = None, require_pdf: bool 
     edition = load_json(EDITION_PATH)
     chapters = load_json(CHAPTERS_PATH)
     correspondence = load_json(CORRESPONDENCE_PATH)
-    if not isinstance(edition, dict) or not isinstance(chapters, list) or not isinstance(correspondence, list):
+    chapter_1_matrix = load_json(CHAPTER_1_MATRIX_PATH)
+    if not isinstance(edition, dict) or not isinstance(chapters, list) or not isinstance(correspondence, list) or not isinstance(chapter_1_matrix, dict):
         return ["source metadata has an invalid top-level shape"], {}
+
+    if chapter_1_matrix.get("edition") != CANONICAL_EDITION:
+        errors.append("Chapter 1 completion matrix has the wrong source edition")
+    if chapter_1_matrix.get("canonical_url") != CANONICAL_URL:
+        errors.append("Chapter 1 completion matrix has the wrong canonical URL")
+    statements = list(chapter_1_matrix.get("statements", []))
+    displays = list(chapter_1_matrix.get("displayed_identities", []))
+    exercises = list(chapter_1_matrix.get("exercises", []))
+    statement_numbers = {str(row[0]) for row in statements if isinstance(row, list) and row}
+    display_numbers = {str(row[0]) for row in displays if isinstance(row, list) and row}
+    exercise_numbers = {str(row[0]) for row in exercises if isinstance(row, list) and row}
+    if statement_numbers != EXPECTED_CHAPTER_1_STATEMENTS or len(statements) != len(statement_numbers):
+        errors.append("Chapter 1 statement inventory differs from the audited 67-item source list")
+    if display_numbers != EXPECTED_CHAPTER_1_DISPLAYS or len(displays) != len(display_numbers):
+        errors.append("Chapter 1 displayed-identity inventory differs from the audited 37-item source list")
+    expected_exercises = {f"1.{index}" for index in range(1, 22)}
+    if exercise_numbers != expected_exercises or len(exercises) != len(exercise_numbers):
+        errors.append("Chapter 1 exercise inventory differs from Exercises 1.1-1.21")
+    for category, rows, width in (
+        ("statement", statements, 5),
+        ("displayed identity", displays, 4),
+        ("exercise", exercises, 4),
+    ):
+        for row in rows:
+            if not isinstance(row, list) or len(row) != width:
+                errors.append(f"Chapter 1 {category} row has invalid shape: {row!r}")
+                continue
+            book_page, pdf_page = int(row[-2]), int(row[-1])
+            if not 3 <= book_page <= 47 or pdf_page != book_page + PDF_OFFSET:
+                errors.append(f"Chapter 1 {category} {row[0]} has invalid page mapping")
+    correspondence_ids = {str(row.get("id", "")) for row in correspondence}
+    for number, source_id in dict(chapter_1_matrix.get("route_overrides", {})).items():
+        if str(source_id) not in correspondence_ids:
+            errors.append(f"Chapter 1 matrix route {number} references unknown source row {source_id}")
 
     expected = expected_chapters()
     for key, value in {

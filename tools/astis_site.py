@@ -625,6 +625,7 @@ SIDEBAR_GROUPS = (
     ("Learn", (
         ("Log-Concave Sampling", "textbook/index.html", "Textbook"),
         ("Book Map", "learning-path/index.html", "Learning path"),
+        ("Chapter 1 Matrix", "textbook/chapter-01-matrix.html", "Chapter 1 Matrix"),
     )),
     ("Formal Library", (
         ("Implementation Map", "implementation-map/index.html", "Implementation"),
@@ -1364,6 +1365,139 @@ def source_status_badge(status: str) -> str:
     if status == "partial":
         return badge("partial mapping", "yellow")
     return badge("red source edge", "red")
+
+
+def expand_chapter_1_matrix(
+    raw: dict[str, object],
+    source_entries: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    """Expand the compact audited inventory using the existing source-status system."""
+    profiles = dict(raw["assumption_profiles"])
+    source_by_id = {str(row["id"]): row for row in source_entries}
+    route_overrides = dict(raw["route_overrides"])
+    items: list[dict[str, object]] = []
+
+    def add_item(
+        *,
+        category: str,
+        number: str,
+        kind: str,
+        summary: str,
+        book_page: int,
+        pdf_page: int,
+        profile_id: str,
+    ) -> None:
+        profile = dict(profiles[profile_id])
+        source_id = str(route_overrides.get(number, ""))
+        source = source_by_id.get(source_id)
+        declarations = list(source.get("lean_declarations", [])) if source else []
+        local_status = "Compiled" if declarations else "Planned"
+        raw_route = str(source.get("route_status", source.get("status", "planned"))) if source else "planned"
+        route_status = {
+            "compiled": "Compiled",
+            "partial": "Partial",
+            "todo": "Planned",
+            "planned": "Planned",
+            "blocked": "Blocked",
+        }.get(raw_route.lower(), "Planned")
+        blocker = (
+            list(source.get("remaining_obligations", []))
+            if source and source.get("remaining_obligations")
+            else [str(profile["default_blocker"])]
+        )
+        source_kind = f"{kind} {number}" if category == "statement" else (
+            f"Displayed identity ({number})" if category == "displayed_identity" else f"Exercise {number}"
+        )
+        items.append({
+            "id": f"chapter1-{category}-{slugify(number)}",
+            "category": category,
+            "number": number,
+            "section": profile_id,
+            "source_kind": source_kind,
+            "book_page": book_page,
+            "pdf_page": pdf_page,
+            "page": f"book {book_page} / PDF {pdf_page}",
+            "source_url": f"{raw['canonical_url']}#page={pdf_page}",
+            "source_summary": summary,
+            "source_assumptions": list(source.get("source_assumptions", profile["source_assumptions"])) if source else list(profile["source_assumptions"]),
+            "formal_assumptions": list(source.get("formal_assumptions", profile["formal_assumptions"])) if source else list(profile["formal_assumptions"]),
+            "local_declarations": declarations,
+            "missing_dependency_ready_leaves": blocker,
+            "downstream_consumers": list(source.get("downstream_consumers", [])) if source else [],
+            "local_status": local_status,
+            "route_status": route_status,
+            "exact_residual_blocker": "; ".join(str(value) for value in blocker),
+            "source_mapping_id": source_id,
+        })
+
+    for number, kind, summary, book_page, pdf_page in raw["statements"]:
+        add_item(
+            category="statement",
+            number=str(number),
+            kind=str(kind),
+            summary=str(summary),
+            book_page=int(book_page),
+            pdf_page=int(pdf_page),
+            profile_id=".".join(str(number).split(".")[:2]),
+        )
+    for number, summary, book_page, pdf_page in raw["displayed_identities"]:
+        section = ".".join(str(number).split(".")[:2])
+        add_item(
+            category="displayed_identity",
+            number=str(number),
+            kind="Displayed identity",
+            summary=str(summary),
+            book_page=int(book_page),
+            pdf_page=int(pdf_page),
+            profile_id=section,
+        )
+    for number, summary, book_page, pdf_page in raw["exercises"]:
+        add_item(
+            category="exercise",
+            number=str(number),
+            kind="Exercise",
+            summary=str(summary),
+            book_page=int(book_page),
+            pdf_page=int(pdf_page),
+            profile_id="1.ex",
+        )
+    return items
+
+
+def render_chapter_1_matrix(items: list[dict[str, object]]) -> str:
+    counts = Counter(str(item["category"]) for item in items)
+    local_counts = Counter(str(item["local_status"]) for item in items)
+    rows = []
+    for item in items:
+        declarations = item["local_declarations"]
+        declaration_html = (
+            f"<strong>{len(declarations)}</strong> Registry declarations"
+            if declarations else '<span class="muted">No exact local mapping yet</span>'
+        )
+        rows.append(f"""<tr id="{esc(item['id'])}" data-search="{esc(' '.join([str(item['number']), str(item['source_kind']), str(item['source_summary'])]).lower())}" data-status="{esc(item['category'])}">
+  <td><a href="{esc(item['source_url'])}"><strong>{esc(item['source_kind'])}</strong></a><small>{esc(item['page'])}</small></td>
+  <td>{esc(item['source_summary'])}</td>
+  <td>{route_badge(str(item['local_status']))}<br>{declaration_html}</td>
+  <td>{route_badge(str(item['route_status']))}</td>
+  <td><details><summary>Exact blocker</summary><p>{esc(item['exact_residual_blocker'])}</p><h4>Formal assumptions</h4>{list_html(item['formal_assumptions'])}</details></td>
+</tr>""")
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Chapter 1 · source-complete audit</div>
+<h1>Chapter 1 Completion Matrix</h1><p class="lede">Every numbered statement, numbered displayed identity, and exercise in the August 9, 2026 source edition. Local compilation and full mathematical-route completion are tracked separately.</p></section>
+<section class="metric-row standalone">
+  <div><strong>{counts['statement']}</strong><span>numbered statements</span></div>
+  <div><strong>{counts['displayed_identity']}</strong><span>displayed identities</span></div>
+  <div><strong>{counts['exercise']}</strong><span>exercises</span></div>
+  <div><strong>{local_counts['Compiled']}</strong><span>items with compiled local evidence</span></div>
+</section>
+<section class="callout"><strong>Status rule.</strong> A blue local declaration does not turn a theorem route blue. Concrete process construction, topology, domains, regularity, or source-level consumers remain visible in the blocker column.</section>
+<section class="toolbar table-toolbar">
+  <label>Search <input id="implementation-search" type="search" placeholder="Ito formula, 1.2.21, Wasserstein…"></label>
+  <label>Category <select id="implementation-status"><option value="">All</option><option value="statement">Statements</option><option value="displayed_identity">Displayed identities</option><option value="exercise">Exercises</option></select></label>
+</section>
+<div class="table-wrap"><table id="implementation-table"><thead><tr><th>Source</th><th>Faithful summary</th><th>Local status</th><th>Route status</th><th>Rigor boundary</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
+"""
+    return page("Chapter 1 Completion Matrix", "textbook/chapter-01-matrix.html", body, active="Chapter 1 Matrix")
 
 
 def render_source_correspondence(
@@ -2596,12 +2730,15 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     section_guides = load_json(CONTENT / "section_guides.json")
     milestones = load_json(CONTENT / "milestones.json")
     teaching = load_json(CONTENT / "teaching_declarations.json")
+    chapter_1_matrix_raw = load_json(CONTENT / "chapter_1_completion_matrix.json")
     assert isinstance(chapters, list)
     assert isinstance(source_entries, list)
     assert isinstance(source_edition, dict)
     assert isinstance(section_guides, dict)
     assert isinstance(milestones, list)
     assert isinstance(teaching, list)
+    assert isinstance(chapter_1_matrix_raw, dict)
+    chapter_1_matrix = expand_chapter_1_matrix(chapter_1_matrix_raw, source_entries)
     entries, module_files = enrich_entries(parse_registry())
     entries_by_decl = {entry.local_decl: entry for entry in entries if entry.local_decl}
     entries_by_short = {entry.short_name: entry for entry in entries if entry.local_decl}
@@ -2651,6 +2788,11 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
         render_overview(chapters, modules, declarations, entries, milestones, teaching),
     )
     write_page(output, "textbook/index.html", render_textbook_index(chapters))
+    write_page(
+        output,
+        "textbook/chapter-01-matrix.html",
+        render_chapter_1_matrix(chapter_1_matrix),
+    )
     edition_by_number = {
         int(item["number"]): dict(item) for item in source_edition["chapters"]
     }
@@ -2812,6 +2954,7 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
         "milestones": milestones,
         "teaching_declarations": teaching,
         "source_correspondence": source_entries,
+        "chapter_1_completion_matrix": chapter_1_matrix,
         "source_edition": source_edition,
         "textbook_sections": flat_sections,
         "modules": [
@@ -2908,6 +3051,18 @@ def build_site(output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
         }
         for section in flat_sections
     )
+    search_index.extend(
+        {
+            "name": f"{item['source_kind']}: {item['source_summary']}",
+            "kind": item["category"],
+            "module": "Log-Concave Sampling Chapter 1",
+            "chapter": 1,
+            "local_status": item["local_status"],
+            "route_status": item["route_status"],
+            "url": f"textbook/chapter-01-matrix.html#{item['id']}",
+        }
+        for item in chapter_1_matrix
+    )
     (output / "search-index.json").write_text(
         json.dumps(search_index, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -2951,6 +3106,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         "index.html",
         "textbook/index.html",
         "textbook/chapter-01.html",
+        "textbook/chapter-01-matrix.html",
         "implementation-map/index.html",
         "learning-path/index.html",
         "declarations/index.html",
@@ -3001,6 +3157,47 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         ):
             if not chapter.get(field):
                 errors.append(f"{chapter.get('id', 'chapter')} has empty required field: {field}")
+
+    chapter_1_matrix = site_data.get("chapter_1_completion_matrix", [])
+    matrix_counts = Counter(str(item.get("category", "")) for item in chapter_1_matrix)
+    expected_matrix_counts = {
+        "statement": 67,
+        "displayed_identity": 37,
+        "exercise": 21,
+    }
+    if matrix_counts != expected_matrix_counts:
+        errors.append(
+            f"Chapter 1 matrix counts {dict(matrix_counts)} != {expected_matrix_counts}"
+        )
+    matrix_ids: set[str] = set()
+    matrix_numbers: set[tuple[str, str]] = set()
+    matrix_fields = {
+        "id", "category", "number", "section", "source_kind", "book_page",
+        "pdf_page", "page", "source_url", "source_summary", "source_assumptions",
+        "formal_assumptions", "local_declarations", "missing_dependency_ready_leaves",
+        "downstream_consumers", "local_status", "route_status",
+        "exact_residual_blocker", "source_mapping_id",
+    }
+    for item in chapter_1_matrix:
+        item_id = str(item.get("id", ""))
+        key = (str(item.get("category", "")), str(item.get("number", "")))
+        missing = matrix_fields - set(item)
+        if missing:
+            errors.append(f"Chapter 1 matrix item {item_id} missing fields: {sorted(missing)}")
+        if item_id in matrix_ids or key in matrix_numbers:
+            errors.append(f"duplicate Chapter 1 matrix item: {key}")
+        matrix_ids.add(item_id)
+        matrix_numbers.add(key)
+        if int(item.get("pdf_page", -1)) != int(item.get("book_page", -20)) + 12:
+            errors.append(f"Chapter 1 matrix page offset mismatch: {item_id}")
+        if not str(item.get("source_summary", "")).strip():
+            errors.append(f"Chapter 1 matrix item lacks a source summary: {item_id}")
+        if not item.get("source_assumptions") or not item.get("formal_assumptions"):
+            errors.append(f"Chapter 1 matrix item lacks assumption audit: {item_id}")
+        if not str(item.get("exact_residual_blocker", "")).strip():
+            errors.append(f"Chapter 1 matrix item lacks a residual blocker: {item_id}")
+        if item.get("local_status") == "Compiled" and not item.get("local_declarations"):
+            errors.append(f"Chapter 1 matrix item has unsupported Compiled status: {item_id}")
 
     entries, _ = enrich_entries(parse_registry())
     modules, declarations = scan_project_sources()
@@ -3106,9 +3303,17 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
                 )
 
     search_index = json.loads((output / "search-index.json").read_text(encoding="utf-8"))
-    expected_search_count = len(declarations) + len(modules) + len(site_data.get("textbook_sections", []))
+    expected_search_count = (
+        len(declarations)
+        + len(modules)
+        + len(site_data.get("textbook_sections", []))
+        + len(site_data.get("chapter_1_completion_matrix", []))
+    )
     if len(search_index) != expected_search_count:
-        errors.append("search index does not contain every declaration, module, and textbook section")
+        errors.append(
+            "search index does not contain every declaration, module, textbook section, "
+            "and Chapter 1 matrix item"
+        )
     for section in site_data.get("textbook_sections", []):
         if not (output / str(section["path"])).exists():
             errors.append(f"missing generated textbook section page: {section['id']}")
