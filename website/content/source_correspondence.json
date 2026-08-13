@@ -1,5 +1,103 @@
 [
   {
+    "id": "chewi-1-1-display-1-1-2",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 4,
+    "pdf_page": 16,
+    "page": "book 4 / PDF 16",
+    "source_kind": "Displayed identity (1.1.2)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=16",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "An elementary adapted process is a finite sum of bounded left-endpoint measurable coefficients on half-open time intervals.",
+    "mathematical_exposition": "For a strict grid t_0 < ... < t_n, eta_t is the sum of H_i times the indicator of t in (t_i,t_{i+1}].",
+    "astis_exposition": "The Lean structure keeps the strict grid, filtration measurability, and coefficient bounds as data rather than erasing the source regularity.",
+    "rigorous_packet": "Finite indexing, strict endpoint order, left-endpoint strong measurability, boundedness, and the half-open interval convention are explicit.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_2"
+    ],
+    "source_assumptions": [
+      "a filtered measurable sample space",
+      "a finite strict time grid",
+      "bounded left-endpoint measurable coefficients"
+    ],
+    "formal_assumptions": [
+      "Mathlib Filtration at NNReal time",
+      "StrictMono grid on Fin (n + 1)",
+      "StronglyMeasurable coefficients",
+      "pointwise coefficient bounds"
+    ],
+    "downstream_consumers": [
+      "display (1.1.3)",
+      "elementary Ito isometry"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact finite elementary-process identity compiled with source regularity stored in the structure",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-elementary-adapted-process",
+        "label": "Elementary adapted process finite sum",
+        "declarations": ["chewi_display_1_1_2"],
+        "dependencies": ["Filtration", "StronglyMeasurable", "StrictMono", "Finset.sum"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-1-display-1-1-3",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 5,
+    "pdf_page": 17,
+    "page": "book 5 / PDF 17",
+    "source_kind": "Displayed identity (1.1.3)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=17",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The Ito integral of an elementary process is defined by the finite sum of its adapted coefficients times Brownian increments stopped at the terminal time.",
+    "mathematical_exposition": "I_[0,T](eta) is the sum of H_i times B_(t_(i+1) min T) minus B_(t_i min T).",
+    "astis_exposition": "This declaration is only the finite elementary integral; it does not claim the isometry, completion, or general stochastic integral.",
+    "rigorous_packet": "The elementary-process contract supplies adapted bounded coefficients, and every Brownian increment is stopped by the same terminal time.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_3"
+    ],
+    "source_assumptions": [
+      "an elementary adapted process",
+      "a scalar Brownian path",
+      "a nonnegative terminal time"
+    ],
+    "formal_assumptions": [
+      "the display (1.1.2) elementary-process structure",
+      "finite Fin-indexed summation",
+      "NNReal stopping by minimum"
+    ],
+    "downstream_consumers": [
+      "display (1.1.5)",
+      "display (1.1.6)",
+      "Theorem 1.1.8"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact finite Brownian-increment definition compiled; isometry and L2 completion remain separate routes",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-elementary-ito-integral",
+        "label": "Elementary Ito integral finite sum",
+        "declarations": ["chewi_display_1_1_3"],
+        "dependencies": ["chewi_display_1_1_2", "Finset.sum", "min"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-3-definition-1-3-16",
     "chapter": 1,
     "section": "1.3",

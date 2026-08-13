@@ -2141,6 +2141,26 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "The vector Gaussian law is stated through every continuous-linear projection, matching Mathlib's coordinate-free Gaussian interface. Existence and construction remain separate theorems."
   },
   {
+    key := "ito-elementary.chewi-display-1-1-2",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_2",
+    upstreamDecl := "Chewi display (1.1.2)",
+    upstreamFile := "Log-Concave Sampling, book page 4 / PDF page 16",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "adapted", "finite-sum"],
+    saldUse := "source-faithful elementary adapted-process root for the Ito construction",
+    note := "The structure records a strict grid, left-endpoint filtration measurability, and bounded coefficients; no L2 completion is claimed."
+  },
+  {
+    key := "ito-elementary.chewi-display-1-1-3",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_3",
+    upstreamDecl := "Chewi display (1.1.3)",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "Brownian-increment", "elementary-process", "finite-sum"],
+    saldUse := "finite-sum definition used before proving orthogonality and the elementary Ito isometry",
+    note := "This is the exact stopped Brownian-increment sum for an elementary process; the isometry and L2 extension remain downstream."
+  },
+  {
     key := "markov-semigroup.chewi-definition-1-2-1",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator",
     upstreamDecl := "Chewi Definition 1.2.1",

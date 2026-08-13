@@ -1508,5 +1508,29 @@
       "le_of_tendsto_of_tendsto preserves the eventual inequality",
       "gradientPairing is semantic data, not a supplied copy of the conclusion"
     ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_2",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "An elementary adapted process is a finite step process whose coefficient on each interval is already known at that interval's left endpoint.",
+    "mathematical_statement": "eta_t = sum_i H_i 1_{t in (t_i,t_(i+1)]} for a strict finite grid and bounded F_(t_i)-measurable H_i.",
+    "intuition": "The left-endpoint measurability prevents a coefficient from using future Brownian information.",
+    "assumptions": ["strict finite time grid", "left-endpoint filtration measurability", "bounded coefficients"],
+    "why_assumptions": ["strictness identifies non-overlapping steps", "adaptedness is needed for later martingale orthogonality", "boundedness gives the initial integrability class"],
+    "proof_route": ["store the source regularity in ElementaryAdaptedProcess", "define value by a Fin sum over half-open intervals", "unfold the definition"],
+    "lean_notes": ["Fin (n + 1) indexes endpoints", "Fin n indexes coefficients", "StronglyMeasurable is relative to filtration (times i.castSucc)"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_3",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "At terminal time T, the elementary stochastic integral sums each known coefficient times its Brownian increment, with both endpoints stopped at T.",
+    "mathematical_statement": "I_[0,T](eta) = sum_i H_i (B_(t_(i+1) min T) - B_(t_i min T)).",
+    "intuition": "This is the only pathwise finite-sum definition needed before extending by the Ito isometry.",
+    "assumptions": ["an elementary adapted process", "a scalar Brownian path", "a terminal time"],
+    "why_assumptions": ["the elementary structure carries adaptedness", "stopping at T handles grid intervals crossing the terminal time"],
+    "proof_route": ["define elementaryItoIntegral by the source finite sum", "retain every stopped endpoint explicitly", "unfold the definition"],
+    "lean_notes": ["this declaration does not assert Brownian laws", "orthogonality, isometry, and L2 completion remain downstream theorems"]
   }
 ]

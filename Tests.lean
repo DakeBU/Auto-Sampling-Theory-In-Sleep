@@ -2,6 +2,7 @@ import Tests.Basic
 import Tests.BrownianMotion
 import Tests.CarreDuChamp
 import Tests.DisplacementInterpolation
+import Tests.ElementaryItoIntegral
 import Tests.FellerSemigroup
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
