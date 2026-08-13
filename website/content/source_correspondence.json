@@ -1,5 +1,79 @@
 [
   {
+    "id": "chewi-1-1-display-1-1-5",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 5,
+    "pdf_page": 17,
+    "page": "book 5 / PDF 17",
+    "source_kind": "Displayed identity (1.1.5)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=17",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The expected square of an elementary stochastic integral expands to the sum of its diagonal increment terms because distinct adapted Brownian increments are orthogonal.",
+    "mathematical_exposition": "For I_T(eta) = sum_i H_i Delta B_i, the expectation of I_T(eta)^2 equals the sum over i of the expectations of (H_i Delta B_i)^2.",
+    "astis_exposition": "ASTIS proves the expectation identity after deriving L2 integrability and cross-term orthogonality from filtration-relative Brownian independence.",
+    "rigorous_packet": "The filtration, left-endpoint measurability, Brownian future-increment independence, centered increment law, and product integrability are explicit.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_5"
+    ],
+    "source_assumptions": ["an elementary adapted process", "a Brownian motion relative to the filtration", "a finite terminal time"],
+    "formal_assumptions": ["ElementaryAdaptedProcess", "IsBrownianMotionWithFiltration", "MemLp two for weighted increments"],
+    "downstream_consumers": ["display (1.1.6)", "Theorem 1.1.8", "display (1.1.9)"],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "finite elementary stochastic-integral square expansion compiled with probabilistic cross-term orthogonality",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-elementary-ito-orthogonality",
+        "label": "Orthogonal adapted weighted increments",
+        "declarations": ["chewi_display_1_1_5"],
+        "dependencies": ["IsBrownianMotionWithFiltration", "integral_weightedIncrement_mul_eq_zero", "integral_finsetSum"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-1-display-1-1-6",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 5,
+    "pdf_page": 17,
+    "page": "book 5 / PDF 17",
+    "source_kind": "Displayed identity (1.1.6)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=17",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The second moment of the elementary Ito integral equals the expected time integral of the squared elementary integrand.",
+    "mathematical_exposition": "The diagonal expansion is sum_i E[H_i^2] times ((t_(i+1) min T) - (t_i min T)), which is exactly the product-space L2 energy of eta on [0,T].",
+    "astis_exposition": "ASTIS connects Brownian increment second moments to an exact evaluation of processL2Energy under the stopped nonnegative-time Lebesgue measure.",
+    "rigorous_packet": "Coefficient integrability, clipped interval mass, time-cell disjointness, joint measurability, Tonelli, and the ENNReal energy representation are explicit.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_6"
+    ],
+    "source_assumptions": ["an elementary adapted process", "a Brownian motion relative to the filtration", "a finite terminal time"],
+    "formal_assumptions": ["IsBrownianMotionWithFiltration", "TimeMeasure.upTo", "processTimeMeasure", "processL2Energy"],
+    "downstream_consumers": ["Theorem 1.1.8", "display (1.1.9)", "general Ito integral by L2 completion"],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "elementary-process Ito isometry compiled in the repository's nonnegative product-space energy representation",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-elementary-ito-isometry",
+        "label": "Elementary Ito isometry",
+        "declarations": ["chewi_display_1_1_6"],
+        "dependencies": ["chewi_display_1_1_5", "integral_weightedIncrement_sq", "processL2Energy_value", "TimeMeasure.upTo_Ioc"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-1-display-1-1-10",
     "chapter": 1,
     "section": "1.1",

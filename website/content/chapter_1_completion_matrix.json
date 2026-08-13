@@ -2597,27 +2597,34 @@
       "pdf_page": 17,
       "coverage_kind": "derived_identity",
       "source_route_id": "chewi-chapter1-displayed-identity-1-1-5",
-      "source_correspondence_id": "",
-      "required_declarations": [],
-      "focused_tests": [],
-      "registry_keys": [],
-      "coverage_status": "planned",
-      "residual_blockers": [
-        "formalize or port the required filtered-space stochastic integral, localization, and Ito-calculus interface"
+      "source_correspondence_id": "chewi-1-1-display-1-1-5",
+      "required_declarations": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_5"
       ],
+      "focused_tests": [
+        "Tests/ElementaryItoIsometry.lean"
+      ],
+      "registry_keys": [
+        "ito-elementary.chewi-display-1-1-5"
+      ],
+      "coverage_status": "complete",
+      "residual_blockers": [],
       "source_assumptions": [
         "a complete right-continuous filtered probability space",
-        "progressive or adapted processes",
-        "the integrability stated at the source item"
+        "an elementary adapted process",
+        "Brownian increments independent of the past filtration"
       ],
       "formal_assumptions": [
-        "explicit filtration and adaptedness",
-        "joint/progressive measurability",
-        "Bochner or stochastic integrability",
-        "almost-everywhere representatives",
-        "stopping-time measurability where localization is used"
+        "IsBrownianMotionWithFiltration",
+        "bounded left-endpoint strongly measurable coefficients",
+        "MemLp two for every weighted increment",
+        "filtration-level independence and centered future increments"
       ],
-      "downstream_consumers": []
+      "downstream_consumers": [
+        "display (1.1.6)",
+        "Theorem 1.1.8",
+        "display (1.1.9)"
+      ]
     },
     {
       "number": "1.1.6",
@@ -2629,27 +2636,34 @@
       "pdf_page": 17,
       "coverage_kind": "derived_identity",
       "source_route_id": "chewi-chapter1-displayed-identity-1-1-6",
-      "source_correspondence_id": "",
-      "required_declarations": [],
-      "focused_tests": [],
-      "registry_keys": [],
-      "coverage_status": "planned",
-      "residual_blockers": [
-        "formalize or port the required filtered-space stochastic integral, localization, and Ito-calculus interface"
+      "source_correspondence_id": "chewi-1-1-display-1-1-6",
+      "required_declarations": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_6"
       ],
+      "focused_tests": [
+        "Tests/ElementaryItoIsometry.lean"
+      ],
+      "registry_keys": [
+        "ito-elementary.chewi-display-1-1-6"
+      ],
+      "coverage_status": "complete",
+      "residual_blockers": [],
       "source_assumptions": [
         "a complete right-continuous filtered probability space",
-        "progressive or adapted processes",
-        "the integrability stated at the source item"
+        "an elementary adapted process",
+        "finite expected squared coefficients"
       ],
       "formal_assumptions": [
-        "explicit filtration and adaptedness",
-        "joint/progressive measurability",
-        "Bochner or stochastic integrability",
-        "almost-everywhere representatives",
-        "stopping-time measurability where localization is used"
+        "IsBrownianMotionWithFiltration",
+        "bounded left-endpoint strongly measurable coefficients",
+        "the stopped NNReal time measure",
+        "product-space processL2Energy in ENNReal"
       ],
-      "downstream_consumers": []
+      "downstream_consumers": [
+        "Theorem 1.1.8",
+        "display (1.1.9)",
+        "L2 completion of stochastic integration"
+      ]
     },
     {
       "number": "1.1.7",

@@ -2141,6 +2141,46 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "The vector Gaussian law is stated through every continuous-linear projection, matching Mathlib's coordinate-free Gaussian interface. Existence and construction remain separate theorems."
   },
   {
+    key := "brownian-motion.filtration-contract",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
+    upstreamDecl := "Brownian motion relative to a filtration",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17; Mathlib.Probability.BrownianMotion.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Brownian-motion", "filtration", "adapted", "independent-increments"],
+    saldUse := "ensure future Brownian increments are independent of the whole past sigma-algebra used by adapted coefficients",
+    note := "This strengthens bare independent increments by making the filtration explicit; it does not claim existence for an arbitrary enlarged filtration."
+  },
+  {
+    key := "brownian-motion.conditional-increment-mean-zero",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration.condExp_increment_eq_zero",
+    upstreamDecl := "Conditional mean-zero Brownian increment",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17; Mathlib.Probability.ConditionalExpectation",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Brownian-motion", "conditional-expectation", "filtration", "martingale-increment"],
+    saldUse := "remove future increments after conditioning on the left-endpoint filtration",
+    note := "Derived from filtration-level independence and the centered Brownian law under an explicit probability-measure instance."
+  },
+  {
+    key := "brownian-motion.increment-second-moment",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration.integral_increment_sq",
+    upstreamDecl := "Brownian increment second moment",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17; Mathlib.Probability.BrownianMotion.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Brownian-motion", "second-moment", "variance", "Ito"],
+    saldUse := "replace an increment-square expectation by its elapsed time",
+    note := "Uses Mathlib's Brownian covariance formula and keeps the ordered nonnegative-time subtraction explicit."
+  },
+  {
+    key := "brownian-motion.conditional-increment-second-moment",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration.condExp_increment_sq",
+    upstreamDecl := "Conditional Brownian increment second moment",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17; Mathlib.Probability.ConditionalExpectation",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Brownian-motion", "conditional-expectation", "second-moment", "filtration", "Ito"],
+    saldUse := "evaluate the conditional variance of a future Brownian increment at the left endpoint",
+    note := "The square-increment sigma-algebra is explicitly shown to be below the increment sigma-algebra before applying conditional-expectation independence."
+  },
+  {
     key := "ito-elementary.chewi-display-1-1-2",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_2",
     upstreamDecl := "Chewi display (1.1.2)",
@@ -2159,6 +2199,56 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Ito", "Brownian-increment", "elementary-process", "finite-sum"],
     saldUse := "finite-sum definition used before proving orthogonality and the elementary Ito isometry",
     note := "This is the exact stopped Brownian-increment sum for an elementary process; the isometry and L2 extension remain downstream."
+  },
+  {
+    key := "ito-elementary.weighted-increment-second-moment",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.integral_weightedIncrement_sq",
+    upstreamDecl := "Adapted weighted Brownian-increment diagonal term",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "adapted", "Brownian-increment", "second-moment"],
+    saldUse := "factor each diagonal Ito-isometry term into coefficient energy and clipped interval length",
+    note := "The coefficient is left-endpoint measurable and independent of the future increment; both factors are proved integrable."
+  },
+  {
+    key := "ito-elementary.weighted-increment-orthogonality",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.integral_weightedIncrement_mul_eq_zero",
+    upstreamDecl := "Orthogonality of distinct adapted weighted Brownian increments",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "adapted", "orthogonality", "filtration"],
+    saldUse := "eliminate cross terms in finite elementary stochastic-integral squares",
+    note := "The proof orders the intervals, proves the earlier weighted term is measurable at the later left endpoint, and factors against the centered future increment."
+  },
+  {
+    key := "ito-elementary.chewi-display-1-1-5",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_5",
+    upstreamDecl := "Chewi display (1.1.5)",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "orthogonality", "finite-sum"],
+    saldUse := "expand the square of an elementary stochastic integral and retain only diagonal terms",
+    note := "This is an expectation identity, not merely a finite-sum algebra lemma; integrability and cross-term orthogonality are proved."
+  },
+  {
+    key := "ito-elementary.process-l2-energy-value",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.processL2Energy_value",
+    upstreamDecl := "Elementary-process product-space L2 energy",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "L2", "product-measure", "time-measure"],
+    saldUse := "evaluate elementary-process energy as the sum of coefficient energies times clipped cell lengths",
+    note := "Disjoint time cells are integrated against the stopped NNReal Lebesgue measure and then Tonelli identifies the product-space energy."
+  },
+  {
+    key := "ito-elementary.chewi-display-1-1-6",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_6",
+    upstreamDecl := "Chewi display (1.1.6)",
+    upstreamFile := "Log-Concave Sampling, book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "isometry", "elementary-process", "L2"],
+    saldUse := "identify the second moment of the elementary Ito integral with its product-space integrand energy",
+    note := "The equality is stated in ENNReal to match the repository's nonnegative process-energy interface; general L2 completion remains downstream."
   },
   {
     key := "ito-elementary.chewi-display-1-1-7",

@@ -1510,6 +1510,30 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_5",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "When an elementary stochastic integral is squared and averaged, every cross term between distinct time cells vanishes.",
+    "mathematical_statement": "E[(sum_i H_i Delta B_i)^2] = sum_i E[(H_i Delta B_i)^2].",
+    "intuition": "At the later interval's left endpoint, the earlier weighted increment and the later coefficient are already known, while the later Brownian increment is centered and independent of that past.",
+    "assumptions": ["bounded left-endpoint measurable coefficients", "Brownian motion relative to the same filtration", "a finite time grid and terminal time"],
+    "why_assumptions": ["adaptedness prevents coefficients from seeing future increments", "filtration-level independence is stronger than bare pairwise increment independence", "L2 bounds justify integrating the finite square expansion"],
+    "proof_route": ["prove each weighted increment is in L2", "order two distinct grid cells", "factor the cross expectation using filtration independence", "use the centered future increment", "integrate the finite double-sum expansion"],
+    "lean_notes": ["IsBrownianMotionWithFiltration records independence from the whole past sigma-algebra", "MemLp.integrable_mul justifies every cross-term integral", "integral_weightedIncrement_mul_eq_zero is the reusable orthogonality leaf"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_6",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The expected squared elementary Ito integral is exactly the probability-time L2 energy of its integrand.",
+    "mathematical_statement": "E[|I_[0,T](eta)|^2] = E[integral_0^T |eta_t|^2 dt].",
+    "intuition": "Each Brownian increment contributes its elapsed time as variance, so the diagonal sum is the integral of the step process's squared coefficients over its clipped time cells.",
+    "assumptions": ["an elementary adapted process", "Brownian motion relative to the filtration", "the stopped nonnegative-time Lebesgue measure"],
+    "why_assumptions": ["the Brownian law supplies increment variance", "adaptedness supplies coefficient-increment independence", "the time measure turns each half-open cell into its clipped length", "measurability permits Tonelli on probability times time"],
+    "proof_route": ["apply the orthogonal expansion in display (1.1.5)", "evaluate every diagonal term", "evaluate the process L2 energy cell by cell", "identify the two finite sums"],
+    "lean_notes": ["the left side is converted with ENNReal.ofReal", "processL2Energy uses the product of mu and TimeMeasure.upTo T", "this theorem covers elementary processes; L2 completion for the general Ito integral remains open"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_2",
     "chapter": 1,
     "route_status": "Compiled",
