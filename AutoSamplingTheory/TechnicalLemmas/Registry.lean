@@ -2181,6 +2181,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Exact algebraic source definition for a real linear generator; positivity and diffusion identities are separate theorems."
   },
   {
+    key := "carre-du-champ.chewi-lemma-1-2-13",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp_nonneg_of_markov_jensen_rightGenerator",
+    upstreamDecl := "Chewi Lemma 1.2.13",
+    upstreamFile := "Log-Concave Sampling, book page 14 / PDF page 26",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "carre-du-champ", "Markov-Jensen", "right-generator", "nonnegative"],
+    saldUse := "Chewi Lemma 1.2.13: derive pointwise Gamma nonnegativity from the Markov Jensen inequality and the actual right-generator limits",
+    note := "The proof takes the nonnegative Jensen-gap quotient to its right limit; it requires separate generator limits for f and f squared and right continuity of the orbit."
+  },
+  {
     key := "carre-du-champ.chewi-theorem-1-2-14",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts",
     upstreamDecl := "Chewi Theorem 1.2.14",

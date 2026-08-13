@@ -1187,6 +1187,35 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp_nonneg_of_markov_jensen_rightGenerator",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The diagonal carre du champ is nonnegative because it is the infinitesimal limit of a nonnegative Markov Jensen gap.",
+    "mathematical_statement": "If (P_h f(x)) squared is at most P_h(f squared)(x), and the right generator exists on f and f squared, then Gamma(f,f)(x) is nonnegative.",
+    "intuition": "A Markov operator cannot increase the square of an average beyond the average square. The infinitesimal version of that variance gap is Gamma.",
+    "assumptions": [
+      "the pointwise Jensen inequality holds for every positive h",
+      "the right generator limits exist for f and f squared",
+      "P_h f(x) converges to f(x) from the right"
+    ],
+    "why_assumptions": [
+      "Jensen supplies finite-time nonnegativity",
+      "both generator limits identify the derivative of the gap",
+      "orbit continuity turns the difference-of-squares factor into twice f(x)"
+    ],
+    "proof_route": [
+      "form the nonnegative Jensen-gap quotient",
+      "rewrite it as a combination of two right difference quotients",
+      "take the product and linear-combination limits",
+      "use closedness of the nonnegative half-line"
+    ],
+    "lean_notes": [
+      "time is NNReal and the limit filter is nhdsWithin 0 (Ioi 0)",
+      "the proof uses Tendsto arithmetic and isClosed_Ici.mem_of_tendsto",
+      "Gamma positivity is concluded rather than passed as an assumption"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp",
     "chapter": 1,
     "route_status": "Compiled",

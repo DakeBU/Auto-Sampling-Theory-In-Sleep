@@ -1,6 +1,7 @@
 import Mathlib.Algebra.Module.LinearMap.Basic
 import Mathlib.Data.Real.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Topology.Instances.NNReal.Lemmas
 import Mathlib.Tactic.Ring
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator
 
@@ -25,6 +26,8 @@ namespace StochasticProcesses
 namespace CarreDuChamp
 
 open MeasureTheory
+open Filter Set
+open scoped NNReal Topology
 
 variable {X : Type*}
 
@@ -74,6 +77,72 @@ def SatisfiesBakryEmery
   0 < alpha ∧ ∀ (f : X → ℝ) (x : X),
     alpha * carreDuChamp generator f f x ≤
       iteratedCarreDuChamp generator f f x
+
+/-- Chewi Lemma 1.2.13: the Markov-semigroup Jensen inequality implies
+nonnegativity of the carre du champ after taking the right-generator limit.
+
+The theorem is pointwise.  `hf` and `hf2` are the actual right difference-
+quotient limits for `f` and `f²`; `hcontinuous` is strong/right continuity of
+the orbit at the selected state. -/
+theorem carreDuChamp_nonneg_of_markov_jensen_rightGenerator
+    (P : ℝ≥0 → (X → ℝ) → X → ℝ)
+    (generator : (X → ℝ) →ₗ[ℝ] (X → ℝ))
+    (f : X → ℝ) (x : X)
+    (hjensen : ∀ h : ℝ≥0, 0 < h → (P h f x) ^ 2 ≤ P h (f * f) x)
+    (hf : Tendsto
+      (fun h : ℝ≥0 => (P h f x - f x) / (h : ℝ))
+      (𝓝[>] 0) (𝓝 (generator f x)))
+    (hf2 : Tendsto
+      (fun h : ℝ≥0 => (P h (f * f) x - (f x) ^ 2) / (h : ℝ))
+      (𝓝[>] 0) (𝓝 (generator (f * f) x)))
+    (hcontinuous : Tendsto (fun h : ℝ≥0 => P h f x)
+      (𝓝[>] 0) (𝓝 (f x))) :
+    0 ≤ carreDuChamp generator f f x := by
+  let gap : ℝ≥0 → ℝ := fun h =>
+    (P h (f * f) x - (P h f x) ^ 2) / (2 * (h : ℝ))
+  have hgap_nonneg : ∀ᶠ h in 𝓝[>] (0 : ℝ≥0), 0 ≤ gap h := by
+    filter_upwards [self_mem_nhdsWithin] with h hh
+    have hh0 : 0 < h := by simpa only [mem_Ioi] using hh
+    exact div_nonneg (sub_nonneg.mpr (hjensen h hh0)) (by positivity)
+  have hrewrite : ∀ᶠ h in 𝓝[>] (0 : ℝ≥0),
+      gap h =
+        (2 : ℝ)⁻¹ * ((P h (f * f) x - (f x) ^ 2) / (h : ℝ)) -
+        (2 : ℝ)⁻¹ * (((P h f x - f x) / (h : ℝ)) *
+          (P h f x + f x)) := by
+    filter_upwards [self_mem_nhdsWithin] with h hh
+    have hh0 : (h : ℝ) ≠ 0 := by
+      have : 0 < h := by simpa only [mem_Ioi] using hh
+      exact_mod_cast this.ne'
+    dsimp [gap]
+    field_simp
+    ring
+  have hlimit : Tendsto gap (𝓝[>] (0 : ℝ≥0))
+      (𝓝 (carreDuChamp generator f f x)) := by
+    have hconst : Tendsto (fun _ : ℝ≥0 => f x)
+        (nhdsWithin 0 (Set.Ioi 0)) (nhds (f x)) :=
+      tendsto_const_nhds
+    have hsum : Tendsto (fun h : ℝ≥0 => P h f x + f x)
+        (nhdsWithin 0 (Set.Ioi 0)) (nhds (f x + f x)) :=
+      hcontinuous.add hconst
+    have hprod := hf.mul hsum
+    have hcombined := (hf2.const_mul (2 : ℝ)⁻¹).sub
+      (hprod.const_mul (2 : ℝ)⁻¹)
+    have hvalue :
+        (2 : ℝ)⁻¹ * generator (f * f) x -
+            (2 : ℝ)⁻¹ * (generator f x * (f x + f x)) =
+          carreDuChamp generator f f x := by
+      simp only [carreDuChamp]
+      ring
+    have htarget : Tendsto
+        (fun h : ℝ≥0 =>
+          (2 : ℝ)⁻¹ * ((P h (f * f) x - (f x) ^ 2) / (h : ℝ)) -
+          (2 : ℝ)⁻¹ * (((P h f x - f x) / (h : ℝ)) *
+            (P h f x + f x)))
+        (𝓝[>] 0) (𝓝 (carreDuChamp generator f f x)) := by
+      rw [← hvalue]
+      exact hcombined
+    exact htarget.congr' (hrewrite.mono fun h hh => hh.symm)
+  exact isClosed_Ici.mem_of_tendsto hlimit hgap_nonneg
 
 /-- Chewi Theorem 1.2.14: stationarity and generator symmetry imply the
 fundamental integration-by-parts identity between the Dirichlet form and the

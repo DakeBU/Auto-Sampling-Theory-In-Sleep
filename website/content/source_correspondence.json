@@ -895,6 +895,53 @@
     ]
   },
   {
+    "id": "chewi-1-2-lemma-1-2-13",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 14,
+    "pdf_page": 26,
+    "page": "book 14 / PDF 26",
+    "source_kind": "Lemma 1.2.13",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=26",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The carre du champ of a Markov generator is pointwise nonnegative on the diagonal.",
+    "mathematical_exposition": "Jensen's inequality makes the finite-time gap P_h(f squared) minus (P_h f) squared nonnegative. Dividing by 2h and taking the right-generator limit yields Gamma(f,f) at the selected state.",
+    "astis_exposition": "ASTIS proves the limiting argument explicitly: the Jensen-gap quotient is rewritten into the two generator difference quotients and the orbit-continuity factor before closedness of the nonnegative half-line is applied.",
+    "rigorous_packet": "The theorem assumes the pointwise Markov Jensen inequality for every positive time, the actual right difference-quotient limits for f and f squared, and right continuity of P_h f at zero. No Gamma positivity premise is supplied.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp_nonneg_of_markov_jensen_rightGenerator"
+    ],
+    "source_assumptions": [
+      "a Markov semigroup satisfying Jensen's inequality",
+      "f and f squared belong to the right-generator domain"
+    ],
+    "formal_assumptions": [
+      "the pointwise Jensen inequality at every positive nonnegative-real time",
+      "right difference-quotient convergence for f and f squared",
+      "right continuity of the observable orbit at zero"
+    ],
+    "downstream_consumers": [
+      "non-negativity of the reversible generator",
+      "Dirichlet-form and functional-inequality arguments"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact Jensen-to-right-generator proof compiled; concrete semigroup construction and domain membership remain separate routes",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-carre-du-champ-nonnegative",
+        "label": "Markov Jensen gap converges to Gamma",
+        "declarations": ["carreDuChamp_nonneg_of_markov_jensen_rightGenerator"],
+        "dependencies": ["carreDuChamp", "Tendsto", "isClosed_Ici"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-2-definition-1-2-28",
     "chapter": 1,
     "section": "1.2",
