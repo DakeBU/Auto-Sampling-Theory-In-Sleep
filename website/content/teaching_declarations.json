@@ -813,6 +813,35 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_lemma_1_2_20",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A differentiable scalar quantity whose growth rate never exceeds c times its current value stays below the matching exponential curve.",
+    "mathematical_statement": "If g'(t) <= c g(t) on [0,T], then g(t) <= g(0) exp(ct) for every t in [0,T].",
+    "intuition": "Multiplying by exp(-ct) removes the allowed exponential growth, leaving a nonincreasing comparison quantity.",
+    "assumptions": [
+      "T is positive",
+      "g is differentiable",
+      "the differential inequality holds at every point of the closed interval",
+      "the evaluation time belongs to the interval"
+    ],
+    "why_assumptions": [
+      "differentiability supplies the one-sided slope required by the rigorous comparison theorem",
+      "the interval hypotheses delimit exactly where the differential inequality is known",
+      "positivity of T matches the source statement although the proof also handles degenerate intervals"
+    ],
+    "proof_route": [
+      "turn ordinary differentiability into Mathlib's right-slope hypothesis",
+      "apply the one-sided Gronwall bound with zero forcing and initial value g(0)",
+      "simplify the closed-form Gronwall solution and the time shift from zero"
+    ],
+    "lean_notes": [
+      "Icc 0 T represents the source interval",
+      "the proof reuses le_gronwallBound_of_liminf_deriv_right_le rather than reproving the comparison argument",
+      "this isolated source route is compiled even though its semigroup consumers remain partial"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain.StronglyContinuousSemigroup.tendsto_op_add",
     "chapter": 1,
     "route_status": "Partial",

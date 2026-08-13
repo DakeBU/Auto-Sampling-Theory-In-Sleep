@@ -1400,11 +1400,16 @@ def expand_chapter_1_matrix(
             "planned": "Planned",
             "blocked": "Blocked",
         }.get(raw_route.lower(), "Planned")
-        blocker = (
-            list(source.get("remaining_obligations", []))
-            if source and source.get("remaining_obligations")
-            else [str(profile["default_blocker"])]
-        )
+        if route_status == "Compiled":
+            blocker: list[object] = []
+            residual_blocker = "None for this source item; downstream consumers retain their own route obligations."
+        else:
+            blocker = (
+                list(source.get("remaining_obligations", []))
+                if source and source.get("remaining_obligations")
+                else [str(profile["default_blocker"])]
+            )
+            residual_blocker = "; ".join(str(value) for value in blocker)
         source_kind = f"{kind} {number}" if category == "statement" else (
             f"Displayed identity ({number})" if category == "displayed_identity" else f"Exercise {number}"
         )
@@ -1426,7 +1431,7 @@ def expand_chapter_1_matrix(
             "downstream_consumers": list(source.get("downstream_consumers", [])) if source else [],
             "local_status": local_status,
             "route_status": route_status,
-            "exact_residual_blocker": "; ".join(str(value) for value in blocker),
+            "exact_residual_blocker": residual_blocker,
             "source_mapping_id": source_id,
         })
 

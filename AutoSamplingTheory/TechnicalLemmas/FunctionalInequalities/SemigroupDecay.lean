@@ -29,6 +29,38 @@ open scoped Topology
 
 noncomputable section
 
+/-- Chewi's differential Gronwall lemma on `[0, T]`.
+
+The source assumes a differentiable scalar function satisfying
+`g' t ≤ c * g t`. Mathlib's one-sided Gronwall theorem accepts the weaker
+right-slope formulation; ordinary differentiability supplies that hypothesis.
+-/
+theorem chewi_lemma_1_2_20
+    {T c : ℝ} (_hT : 0 < T) (g : ℝ → ℝ)
+    (hg : Differentiable ℝ g)
+    (hbound : ∀ t ∈ Icc (0 : ℝ) T, deriv g t ≤ c * g t)
+    {t : ℝ} (ht : t ∈ Icc (0 : ℝ) T) :
+    g t ≤ g 0 * Real.exp (c * t) := by
+  have hgronwall :=
+    le_gronwallBound_of_liminf_deriv_right_le
+      (f := g)
+      (f' := deriv g)
+      (δ := g 0)
+      (K := c)
+      (ε := 0)
+      (a := 0)
+      (b := T)
+      hg.continuous.continuousOn
+      (fun x _ r hr =>
+        (hg x).hasDerivAt.hasDerivWithinAt.liminf_right_slope_le hr)
+      le_rfl
+      (fun x hx => by
+        simpa using hbound x ⟨hx.1, le_of_lt hx.2⟩)
+      t
+      ht
+  rw [gronwallBound_ε0, sub_zero] at hgronwall
+  exact hgronwall
+
 /-- A scalar energy/dissipation curve with an exact right-derivative identity.
 
 `scale` records the coefficient in

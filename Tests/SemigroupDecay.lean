@@ -8,6 +8,13 @@ open AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay
 
 noncomputable section
 
+example {T c t : ℝ} (hT : 0 < T) (ht : t ∈ Icc (0 : ℝ) T) :
+    (0 : ℝ) ≤ 0 * Real.exp (c * t) := by
+  apply chewi_lemma_1_2_20 hT (fun _ : ℝ => 0) (differentiable_const (0 : ℝ))
+  · intro s hs
+    simp
+  · exact ht
+
 /-- The identically zero curve exercises every interface without adding an
 analytic assumption hidden inside the tests. -/
 def zeroDissipationCurve (scale : ℝ) : DissipationCurve scale where

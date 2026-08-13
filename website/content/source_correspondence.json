@@ -174,6 +174,61 @@
     ]
   },
   {
+    "id": "chewi-1-2-gronwall",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 16,
+    "pdf_page": 28,
+    "page": "book 16 / PDF 28",
+    "source_kind": "Lemma 1.2.20",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=28",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "A differentiable scalar curve satisfying g'(t) at most c times g(t) is bounded by g(0) exp(ct) on the same finite interval.",
+    "mathematical_exposition": "Differentiating the integrating-factor curve exp(-ct)g(t) makes its derivative nonpositive. Equivalently, Mathlib's one-sided Gronwall comparison bounds g by the exact zero-forcing exponential solution.",
+    "astis_exposition": "ASTIS derives the exact textbook statement from Mathlib's more general right-slope Gronwall theorem, preserving the source interval, differentiability, constant, and exponential factor.",
+    "rigorous_packet": "The Lean theorem uses a real-valued function differentiable on the ambient line, the pointwise derivative inequality on [0,T], and an explicit membership proof for the evaluation time.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_lemma_1_2_20"
+    ],
+    "source_assumptions": [
+      "T is positive",
+      "g is differentiable",
+      "g'(t) is at most c times g(t) throughout [0,T]"
+    ],
+    "formal_assumptions": [
+      "g is differentiable as a real function",
+      "the derivative inequality is supplied at every point of Icc 0 T",
+      "the requested time belongs to Icc 0 T"
+    ],
+    "downstream_consumers": [
+      "Poincare variance and chi-squared decay",
+      "log-Sobolev KL decay",
+      "gradient-flow convergence inequalities"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "source-faithful differential Gronwall lemma compiled from Mathlib's one-sided comparison theorem",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-differential-gronwall",
+        "label": "Differential Gronwall on a finite interval",
+        "declarations": [
+          "chewi_lemma_1_2_20"
+        ],
+        "dependencies": [
+          "le_gronwallBound_of_liminf_deriv_right_le",
+          "gronwallBound_ε0",
+          "DifferentiableAt.hasDerivAt"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-2-langevin-generator",
     "chapter": 1,
     "section": "1.2",

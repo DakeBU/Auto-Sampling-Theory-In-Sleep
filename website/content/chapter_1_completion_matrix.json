@@ -52,6 +52,7 @@
     "1.2.8": "chewi-1-2-weighted-ibp",
     "1.2.9": "chewi-1-2-stationarity",
     "1.2.19": "chewi-1-3-poincare",
+    "1.2.20": "chewi-1-2-gronwall",
     "1.2.21": "chewi-1-3-poincare",
     "1.2.22": "chewi-1-3-poincare",
     "1.2.25": "chewi-1-3-log-sobolev",

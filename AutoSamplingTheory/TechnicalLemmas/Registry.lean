@@ -1904,6 +1904,16 @@ def measureMemory : List LemmaMemoryEntry := [
 
 def functionalInequalityMemory : List LemmaMemoryEntry := [
   {
+    key := "gronwall.chewi-lemma-1-2-20",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_lemma_1_2_20",
+    upstreamDecl := "le_gronwallBound_of_liminf_deriv_right_le / gronwallBound_ε0",
+    upstreamFile := "Mathlib.Analysis.ODE.Gronwall; Log-Concave Sampling, book page 16 / PDF page 28",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Gronwall", "differential-inequality", "exponential-bound", "Chapter-1"],
+    saldUse := "Chewi Lemma 1.2.20: turn g'(t) ≤ c g(t) on [0,T] into g(t) ≤ g(0) exp(ct)",
+    note := "Source-faithful differentiable scalar specialization of Mathlib's more general one-sided-slope Gronwall theorem."
+  },
+  {
     key := "semigroup-decay.from-arbitrary-time",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation_from",
     upstreamDecl := "le_gronwallBound_of_liminf_deriv_right_le / time translation",
