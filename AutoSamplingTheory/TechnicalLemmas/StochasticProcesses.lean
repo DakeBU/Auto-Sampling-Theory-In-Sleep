@@ -1,3 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FokkerPlanckAlgebra
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov

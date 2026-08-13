@@ -174,6 +174,143 @@
     ]
   },
   {
+    "id": "chewi-1-2-definition-1-2-12",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 14,
+    "pdf_page": 26,
+    "page": "book 14 / PDF 26",
+    "source_kind": "Definition 1.2.12",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=26",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The carre du champ is the bilinear defect between applying the generator after multiplication and multiplying after applying the generator.",
+    "mathematical_exposition": "For a linear generator L, Gamma(f,g) = (L(fg) - f Lg - g Lf)/2. This definition is algebraic; non-negativity and identification with a gradient form require additional Markov and diffusion hypotheses.",
+    "astis_exposition": "ASTIS records the exact generator formula without building positivity, reversibility, or a concrete Langevin process into the definition.",
+    "rigorous_packet": "The generator is a real linear map on real observables. The definition is pointwise and leaves domain closure and analytic regularity to downstream interfaces.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp"
+    ],
+    "source_assumptions": [
+      "a linear Markov generator acting on products in its algebraic domain"
+    ],
+    "formal_assumptions": [
+      "a real linear map on real-valued observables",
+      "pointwise multiplication of observables"
+    ],
+    "downstream_consumers": [
+      "carre-du-champ non-negativity",
+      "reversible integration by parts",
+      "iterated carre du champ"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact source definition compiled; positivity and concrete diffusion identification remain separate source items",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-carre-du-champ-definition",
+        "label": "Carre du champ definition",
+        "declarations": ["carreDuChamp"],
+        "dependencies": ["LinearMap", "pointwise multiplication"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-definition-1-2-28",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 18,
+    "pdf_page": 30,
+    "page": "book 18 / PDF 30",
+    "source_kind": "Definition 1.2.28",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=30",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The iterated carre du champ applies the generator to Gamma and subtracts the two mixed generator terms.",
+    "mathematical_exposition": "Gamma_2(f,g) = (L Gamma(f,g) - Gamma(f,Lg) - Gamma(g,Lf))/2. It measures the second-order evolution of the energy form.",
+    "astis_exposition": "The definition reuses the same generator and the compiled Gamma interface, exposing a shared node for curvature and functional-inequality routes.",
+    "rigorous_packet": "The pointwise algebraic definition is compiled independently of the diffusion chain rule or any Hessian representation.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp"
+    ],
+    "source_assumptions": [
+      "the generator and carre du champ expressions are defined on the required observables"
+    ],
+    "formal_assumptions": [
+      "a real linear generator on real-valued observables",
+      "the compiled carreDuChamp definition"
+    ],
+    "downstream_consumers": [
+      "Bakry-Emery curvature-dimension condition",
+      "Langevin curvature calculation"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact source definition compiled; no curvature inequality is inferred",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-iterated-carre-du-champ-definition",
+        "label": "Iterated carre du champ definition",
+        "declarations": ["iteratedCarreDuChamp"],
+        "dependencies": ["carreDuChamp", "LinearMap"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-definition-1-2-29",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 19,
+    "pdf_page": 31,
+    "page": "book 19 / PDF 31",
+    "source_kind": "Definition 1.2.29",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=31",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The Bakry-Emery curvature-dimension condition requires positive alpha and the pointwise inequality Gamma_2(f) at least alpha Gamma(f).",
+    "mathematical_exposition": "CD(alpha,infinity) holds when alpha > 0 and alpha Gamma(f,f)(x) <= Gamma_2(f,f)(x) for every observable and state.",
+    "astis_exposition": "ASTIS keeps positivity of alpha inside the predicate and does not identify the condition with strong convexity until a separate Langevin theorem proves it.",
+    "rigorous_packet": "The predicate quantifies over every real observable and state for the selected linear generator; domain restrictions for unbounded generators remain a downstream refinement.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.SatisfiesBakryEmery"
+    ],
+    "source_assumptions": [
+      "a positive curvature constant",
+      "the pointwise Gamma_2 lower bound"
+    ],
+    "formal_assumptions": [
+      "0 < alpha",
+      "the inequality holds for every observable and state"
+    ],
+    "downstream_consumers": [
+      "Bakry-Emery criterion for Poincare and log-Sobolev inequalities",
+      "strongly convex Langevin potentials"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact source predicate compiled; the criterion and concrete Langevin verification remain separate theorem routes",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-bakry-emery-definition",
+        "label": "Bakry-Emery CD(alpha,infinity) predicate",
+        "declarations": ["SatisfiesBakryEmery"],
+        "dependencies": ["carreDuChamp", "iteratedCarreDuChamp"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-2-gronwall",
     "chapter": 1,
     "section": "1.2",

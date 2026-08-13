@@ -813,6 +813,80 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The carre du champ measures the part of the generator applied to a product that is not explained by the ordinary product rule.",
+    "mathematical_statement": "Gamma(f,g) = (L(fg) - f Lg - g Lf)/2.",
+    "intuition": "For a diffusion generator, the defect isolates the quadratic gradient term. The abstract definition itself does not assert that this term is nonnegative.",
+    "assumptions": [
+      "L is a real linear map on real-valued observables",
+      "products of the selected observables are available in the ambient function space"
+    ],
+    "why_assumptions": [
+      "linearity is the generator structure used by later semigroup arguments",
+      "positivity requires Markov or diffusion structure and therefore cannot be hidden in this definition"
+    ],
+    "proof_route": [
+      "define the expression pointwise",
+      "derive symmetry separately from commutativity of multiplication"
+    ],
+    "lean_notes": [
+      "the generator is represented by LinearMap",
+      "function multiplication is pointwise",
+      "the factor one half is represented in the real scalar field"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The iterated carre du champ records how the first carré-du-champ energy changes under the generator.",
+    "mathematical_statement": "Gamma_2(f,g) = (L Gamma(f,g) - Gamma(f,Lg) - Gamma(g,Lf))/2.",
+    "intuition": "Gamma_2 is the curvature-sensitive second energy expression used by the Bakry-Emery method.",
+    "assumptions": [
+      "the same real linear generator acts on Gamma(f,g)",
+      "all displayed pointwise expressions lie in the selected algebraic domain"
+    ],
+    "why_assumptions": [
+      "an unbounded closed generator generally has a proper domain",
+      "this algebraic interface intentionally postpones that domain theorem"
+    ],
+    "proof_route": [
+      "reuse the compiled carreDuChamp definition",
+      "define the three generator and mixed terms pointwise",
+      "prove symmetry from symmetry of Gamma"
+    ],
+    "lean_notes": [
+      "this declaration is an exact definition, not the Bakry-Emery theorem",
+      "concrete Hessian formulas remain downstream"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.SatisfiesBakryEmery",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A generator satisfies the positive Bakry-Emery curvature condition when Gamma_2 dominates alpha times Gamma everywhere.",
+    "mathematical_statement": "CD(alpha,infinity) means alpha > 0 and alpha Gamma(f,f)(x) <= Gamma_2(f,f)(x) for every f and x.",
+    "intuition": "The inequality is the generator analogue of a uniform lower curvature bound. For Langevin diffusion it is later connected to strong convexity of the potential.",
+    "assumptions": [
+      "alpha is strictly positive",
+      "the pointwise inequality holds for every observable and state"
+    ],
+    "why_assumptions": [
+      "strict positivity is part of the source definition and determines a nontrivial convergence rate",
+      "the abstract predicate alone does not prove Poincare or log-Sobolev inequalities"
+    ],
+    "proof_route": [
+      "package positivity and the universal Gamma_2 inequality as one predicate",
+      "leave the functional-inequality implication and Langevin verification to their own source routes"
+    ],
+    "lean_notes": [
+      "the universal quantifiers are explicit",
+      "no typeclass or axiom supplies the inequality automatically"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_lemma_1_2_20",
     "chapter": 1,
     "route_status": "Compiled",

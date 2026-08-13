@@ -2007,6 +2007,36 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "carre-du-champ.chewi-definition-1-2-12",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
+    upstreamDecl := "Chewi Definition 1.2.12",
+    upstreamFile := "Log-Concave Sampling, book page 14 / PDF page 26",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "carre-du-champ", "generator", "Dirichlet-form"],
+    saldUse := "Chewi Definition 1.2.12 root: expose the bilinear generator expression used by reversibility and functional-inequality arguments",
+    note := "Exact algebraic source definition for a real linear generator; positivity and diffusion identities are separate theorems."
+  },
+  {
+    key := "carre-du-champ.chewi-definition-1-2-28",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp",
+    upstreamDecl := "Chewi Definition 1.2.28",
+    upstreamFile := "Log-Concave Sampling, book page 18 / PDF page 30",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "carre-du-champ", "Gamma2", "generator"],
+    saldUse := "Chewi Definition 1.2.28 root: define the iterated carre du champ consumed by the Bakry-Emery criterion",
+    note := "Exact algebraic source definition; concrete Langevin Hessian identification remains downstream."
+  },
+  {
+    key := "carre-du-champ.chewi-definition-1-2-29",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.SatisfiesBakryEmery",
+    upstreamDecl := "Chewi Definition 1.2.29",
+    upstreamFile := "Log-Concave Sampling, book page 19 / PDF page 31",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Bakry-Emery", "curvature-dimension", "Gamma2"],
+    saldUse := "Chewi Definition 1.2.29 root: state CD(alpha,infinity) with the source positivity requirement on alpha",
+    note := "Exact predicate only; the Bakry-Emery implication and concrete Langevin curvature calculation are separate theorem routes."
+  },
+  {
     key := "markov-semigroup.chewi-lemma-1-2-2",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.chewi_lemma_1_2_2",
     upstreamDecl := "Kernel.lintegral_id' / Kernel.lintegral_comp",
