@@ -1,0 +1,8 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion
+
+namespace AutoSamplingTheory.Tests.BrownianMotion
+
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.projectedIncrementVariance
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotion
+
+end AutoSamplingTheory.Tests.BrownianMotion

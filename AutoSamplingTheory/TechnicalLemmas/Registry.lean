@@ -2057,6 +2057,16 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "brownian-motion.chewi-definition-1-1-1",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotion",
+    upstreamDecl := "ProbabilityTheory.HasLaw / ProbabilityTheory.iIndepFun / ProbabilityTheory.gaussianReal / Chewi Definition 1.1.1",
+    upstreamFile := "Mathlib.Probability.Distributions.Gaussian.Basic; Mathlib.Probability.Independence.Basic; Log-Concave Sampling, book page 4 / PDF page 16",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Brownian-motion", "Gaussian", "independent-increments", "continuous-paths"],
+    saldUse := "Chewi Definition 1.1.1 root: expose zero start, independent increments, centered isotropic Gaussian increment laws, and almost-sure path continuity",
+    note := "The vector Gaussian law is stated through every continuous-linear projection, matching Mathlib's coordinate-free Gaussian interface. Existence and construction remain separate theorems."
+  },
+  {
     key := "markov-semigroup.chewi-definition-1-2-1",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator",
     upstreamDecl := "Chewi Definition 1.2.1",

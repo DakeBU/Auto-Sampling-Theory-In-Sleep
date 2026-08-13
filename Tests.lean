@@ -1,4 +1,5 @@
 import Tests.Basic
+import Tests.BrownianMotion
 import Tests.CarreDuChamp
 import Tests.FellerSemigroup
 import Tests.Localization

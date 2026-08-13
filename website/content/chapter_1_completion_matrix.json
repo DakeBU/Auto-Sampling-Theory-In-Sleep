@@ -44,6 +44,7 @@
     }
   },
   "route_overrides": {
+    "1.1.1": "chewi-1-1-definition-1-1-1",
     "1.1.4": "chewi-1-1-definition-1-1-4",
     "1.1.11": "chewi-1-1-definition-1-1-11",
     "1.1.12": "chewi-1-1-definition-1-1-12",

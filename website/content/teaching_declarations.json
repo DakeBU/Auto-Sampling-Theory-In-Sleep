@@ -1,5 +1,17 @@
 [
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotion",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A standard Brownian motion starts at zero, has independent isotropic Gaussian increments, and has continuous sample paths almost surely.",
+    "mathematical_statement": "B_0=0; disjoint increments are independent; B_t-B_s has law N(0,(t-s)I); and t maps to B_t is a.s. continuous.",
+    "intuition": "Elapsed time controls increment covariance while disjoint time intervals contribute independent noise.",
+    "assumptions": ["a measurable sample space", "a real Hilbert state space", "a probability measure"],
+    "why_assumptions": ["Gaussian laws and independence are measure-relative", "continuous linear projections determine the centered isotropic vector Gaussian law"],
+    "proof_route": ["this is the exact source definition", "project vector increments through every StrongDual functional", "use iIndepFun for finite disjoint interval families"],
+    "lean_notes": ["projected variance is (t-s)*norm(ell)^2", "path continuity is an ae property", "the definition does not assert process existence"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalizingSequence",
     "chapter": 1,
     "route_status": "Compiled",
