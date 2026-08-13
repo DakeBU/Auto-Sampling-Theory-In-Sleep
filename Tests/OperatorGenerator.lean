@@ -9,6 +9,9 @@ open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator
 
 noncomputable section
 
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.HasRightGeneratorAt
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.kolmogorov_backward_right
+
 variable {M : Type*} [NormedAddCommGroup M] [NormedSpace ℝ M]
 
 /-- The constant identity family is the simplest continuous-linear semigroup. -/

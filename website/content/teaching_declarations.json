@@ -497,7 +497,7 @@
   {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.chewi_lemma_1_2_2",
     "chapter": 1,
-    "route_status": "Partial",
+    "route_status": "Compiled",
     "plain_english": "Identity and Chapman--Kolmogorov transition-kernel laws induce the zero-time and composition laws for Markov operators.",
     "mathematical_statement": "For measurable nonnegative observables, P_0 = id and P_s P_t = P_t P_s = P_{s+t}.",
     "intuition": "Integrating first over one transition and then the next is exactly kernel composition; time homogeneity makes the total elapsed time the only parameter.",
@@ -552,6 +552,33 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.HasRightGeneratorAt",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A vector g is the right-generator value of f when the semigroup difference quotient converges to g through positive times.",
+    "mathematical_statement": "(P_h f - f)/h tends to g as h decreases to zero with h > 0.",
+    "intuition": "The generator is the instantaneous velocity of the semigroup orbit at time zero, defined only where this limit exists.",
+    "assumptions": [
+      "a real normed observable space",
+      "a continuous-linear semigroup",
+      "convergence in the norm topology along positive nonnegative times"
+    ],
+    "why_assumptions": [
+      "the topology determines what generator convergence means",
+      "the one-sided filter respects the nonnegative time domain",
+      "domain membership is existence of a generator value, not an implicit global assumption"
+    ],
+    "proof_route": [
+      "define the right difference quotient",
+      "express convergence with Tendsto and nhdsWithin 0 (Ioi 0)"
+    ],
+    "lean_notes": [
+      "the time index is NNReal but the quotient scalar is coerced to Real",
+      "the declaration is a relation so existence and uniqueness are proved separately",
+      "no totalized differential operator is used"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.generatorDomain_map",
     "chapter": 1,
     "route_status": "Partial",
@@ -580,7 +607,7 @@
   {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.kolmogorov_backward_right",
     "chapter": 1,
-    "route_status": "Partial",
+    "route_status": "Compiled",
     "plain_english": "The forward right time increment of a semigroup orbit converges to the semigroup applied to the generator value.",
     "mathematical_statement": "If Lf = g in the right-generator sense, then [P_{t+h}f - P_t f]/h tends to P_t g as h decreases to zero through positive times.",
     "intuition": "The semigroup law rewrites the orbit increment as the generator quotient of P_t f.",

@@ -9,6 +9,8 @@ open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup
 
 noncomputable section
 
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.chewi_lemma_1_2_2
+
 example {E : Type*} [MeasurableSpace E] :
     TransitionKernelContract
       (fun _ : ℝ≥0 => (Kernel.id : Kernel E E)) := by

@@ -102,7 +102,55 @@
     ]
   },
   {
-    "id": "chewi-1-2-generator",
+    "id": "chewi-1-2-lemma-1-2-2",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 10,
+    "pdf_page": 22,
+    "page": "book 10 / PDF 22",
+    "source_kind": "Lemma 1.2.2",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=22",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Identity and Chapman-Kolmogorov transition-kernel laws induce the zero-time, composition, and commutation laws of Markov operators.",
+    "mathematical_exposition": "For measurable nonnegative observables, P_0 is the identity and P_s P_t = P_t P_s = P_{s+t}. The proof is iterated kernel integration plus commutativity of elapsed-time addition.",
+    "astis_exposition": "ASTIS derives the operator identities from transition kernels instead of storing the desired semigroup conclusion as an operator assumption.",
+    "rigorous_packet": "Each K_t is a Markov kernel, K_0 is the identity kernel, and K_{s+t} is the Chapman-Kolmogorov composition. Observables are measurable and ENNReal-valued.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.chewi_lemma_1_2_2"
+    ],
+    "source_assumptions": [
+      "a time-homogeneous Markov process",
+      "the Markov property and iterated conditioning"
+    ],
+    "formal_assumptions": [
+      "Markov transition kernels at NNReal times",
+      "identity at zero",
+      "Chapman-Kolmogorov kernel composition"
+    ],
+    "downstream_consumers": [
+      "Feller operator semigroup",
+      "infinitesimal generator",
+      "Kolmogorov equations"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "source semigroup law compiled from kernel integration",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-semigroup-property",
+        "label": "Markov semigroup property",
+        "declarations": ["chewi_lemma_1_2_2"],
+        "dependencies": ["Kernel.lintegral_id'", "Kernel.lintegral_comp", "TransitionKernelContract"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-definition-1-2-3",
     "chapter": 1,
     "section": "1.2",
     "edition": "2026-08-09",
@@ -110,6 +158,102 @@
     "pdf_page": 23,
     "page": "book 11 / PDF 23",
     "source_kind": "Definition 1.2.3",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=23",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The infinitesimal generator is the right derivative at zero of the semigroup orbit on its convergence domain.",
+    "mathematical_exposition": "Lf = g means that (P_h f - f)/h converges to g as h decreases to zero through positive times. The generator domain consists exactly of observables for which such a g exists.",
+    "astis_exposition": "ASTIS resolves the source's stated technical ambiguity by fixing a real normed observable space, norm convergence, and the one-sided positive-time filter.",
+    "rigorous_packet": "A continuous-linear semigroup acts on a real normed space; the right difference quotient uses NNReal time coerced to Real scalars and converges in the ambient norm topology.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.HasRightGeneratorAt"
+    ],
+    "source_assumptions": [
+      "a Markov semigroup",
+      "existence of the right derivative for the selected observable"
+    ],
+    "formal_assumptions": [
+      "a real normed observable space",
+      "a continuous-linear semigroup",
+      "Tendsto through nhdsWithin 0 (Ioi 0)"
+    ],
+    "downstream_consumers": [
+      "generator domain",
+      "Kolmogorov backward equation",
+      "concrete Langevin generator identification"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact right-generator definition compiled in an explicit norm topology",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-generator-definition",
+        "label": "Norm-topology right generator",
+        "declarations": ["HasRightGeneratorAt"],
+        "dependencies": ["rightDifferenceQuotient", "Tendsto", "ContinuousLinearSemigroup"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-proposition-1-2-5",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 12,
+    "pdf_page": 24,
+    "page": "book 12 / PDF 24",
+    "source_kind": "Proposition 1.2.5",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=24",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The right derivative of P_t f is P_t Lf, and P_t f remains in the generator domain with generator P_t Lf.",
+    "mathematical_exposition": "For f in the generator domain, the forward right orbit quotient at t converges to P_t Lf and L(P_t f) = P_t Lf. This is the one-sided rigorous form of the backward equation.",
+    "astis_exposition": "The proof uses semigroup commutation and continuity of each P_t to transport the generator limit; no formal differentiation symbol is left uninterpreted.",
+    "rigorous_packet": "The observable has an actual right-generator witness, and all limits are taken in the selected norm topology through positive time increments.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.kolmogorov_backward_right"
+    ],
+    "source_assumptions": [
+      "f lies in the generator domain",
+      "the Markov semigroup acts on the selected observable space"
+    ],
+    "formal_assumptions": [
+      "ContinuousLinearSemigroup",
+      "HasRightGeneratorAt S f g",
+      "NNReal evaluation time"
+    ],
+    "downstream_consumers": [
+      "semigroup energy dissipation",
+      "Poincare and log-Sobolev decay",
+      "concrete Langevin backward equation"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "source backward equation compiled as a one-sided norm-limit theorem on the explicit generator domain",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-kolmogorov-backward",
+        "label": "Kolmogorov backward right derivative",
+        "declarations": ["kolmogorov_backward_right"],
+        "dependencies": ["HasRightGeneratorAt.map", "rightOrbitDifferenceQuotient_eq"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-generator",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 11,
+    "pdf_page": 23,
+    "page": "book 11 / PDF 23",
+    "source_kind": "Supporting generator and concrete-domain route",
     "source_url": "https://chewisinho.github.io/main.pdf#page=23",
     "wording_status": "faithful paraphrase",
     "source_summary": "The generator is the derivative at time zero of the Markov semigroup.",

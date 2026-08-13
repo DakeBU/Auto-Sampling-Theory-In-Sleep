@@ -2157,6 +2157,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Strong continuity in time and concrete diffusion construction remain explicit downstream obligations."
   },
   {
+    key := "operator-generator.chewi-definition-1-2-3",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.HasRightGeneratorAt",
+    upstreamDecl := "Chewi Definition 1.2.3",
+    upstreamFile := "Log-Concave Sampling, book page 11 / PDF page 23",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "generator", "right-derivative", "Tendsto", "domain"],
+    saldUse := "Chewi Definition 1.2.3 root: state the infinitesimal generator as an actual right difference-quotient limit",
+    note := "Exact norm-topology relation on the explicit generator domain; concrete differential-operator identification remains separate."
+  },
+  {
     key := "operator-generator.domain-invariance",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator.generatorDomain_map",
     upstreamDecl := "ContinuousLinearMap.continuous / Tendsto.comp / semigroup commutation",
