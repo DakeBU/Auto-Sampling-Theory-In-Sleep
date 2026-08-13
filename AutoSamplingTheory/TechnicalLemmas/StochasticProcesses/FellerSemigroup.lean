@@ -1,5 +1,7 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator
+import Mathlib.Analysis.Convex.Integral
+import Mathlib.Analysis.Convex.Mul
 import Mathlib.Probability.Kernel.Composition.IntegralCompProd
 import Mathlib.Topology.ContinuousMap.Bounded.Normed
 
@@ -129,6 +131,26 @@ theorem norm_fellerOperator_apply_le {K : ℝ≥0 → Kernel E E}
   exact BoundedContinuousFunction.norm_ofNormedAddCommGroup_le
     (hK.mapsContinuous t f) (norm_nonneg f)
     (norm_kernelIntegral_le hK t f)
+
+/-- Jensen's inequality for the square under a Feller Markov operator:
+`(P_t f x)^2 ≤ P_t(f^2)(x)`. This is equation (1.2.11) in Chewi's
+2026-08-09 edition. -/
+theorem sq_fellerOperator_apply_le {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
+    (f : E →ᵇ ℝ) (x : E) :
+    (fellerOperator hK t f x) ^ 2 ≤
+      fellerOperator hK t (f * f) x := by
+  letI : IsMarkovKernel (K t) := hK.toTransitionKernelContract.isMarkov t
+  have hsquare : Integrable ((fun r : ℝ => r ^ 2) ∘ fun y => f y) (K t x) := by
+    simpa [Function.comp_def, pow_two] using
+      (integrable_boundedContinuousFunction (f * f) (K t x))
+  have hJensen :=
+    (even_two.convexOn_pow : ConvexOn ℝ Set.univ fun r : ℝ => r ^ 2).map_integral_le
+      (continuousOn_pow 2) isClosed_univ
+      (ae_of_all _ fun y => Set.mem_univ (f y))
+      (integrable_boundedContinuousFunction f (K t x))
+      hsquare
+  simpa [Function.comp_def, pow_two] using hJensen
 
 /-- The zero-time Feller operator is the identity continuous linear map. -/
 theorem fellerOperator_zero {K : ℝ≥0 → Kernel E E}

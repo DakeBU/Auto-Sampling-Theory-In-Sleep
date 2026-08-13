@@ -849,6 +849,52 @@
     ]
   },
   {
+    "id": "chewi-1-2-display-1-2-11",
+    "chapter": 1,
+    "section": "1.2",
+    "edition": "2026-08-09",
+    "book_page": 13,
+    "pdf_page": 25,
+    "page": "book 13 / PDF 25",
+    "source_kind": "Displayed identity (1.2.11)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=25",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "A Markov semigroup satisfies the pointwise Jensen inequality: the square of P_t f is bounded by P_t applied to the square of f.",
+    "mathematical_exposition": "For each starting point x, the transition law K_t(x,dy) is a probability measure. Convexity of the square gives (integral f dK_t(x)) squared at most integral f squared dK_t(x).",
+    "astis_exposition": "ASTIS applies Mathlib's integral Jensen theorem to the actual probability transition kernel underlying the Feller operator. The inequality is derived rather than added to an operator contract.",
+    "rigorous_packet": "The observable is bounded and continuous, hence both it and its square are Bochner integrable under every transition probability. The Feller contract supplies the Markov-kernel instance.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.sq_fellerOperator_apply_le"
+    ],
+    "source_assumptions": [
+      "a Markov transition semigroup",
+      "a real observable for which the two expectations exist"
+    ],
+    "formal_assumptions": [
+      "a Feller transition-kernel contract",
+      "a bounded continuous real observable"
+    ],
+    "downstream_consumers": [
+      "carre-du-champ non-negativity",
+      "Markov variance contraction"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact source Jensen display compiled for the kernel-induced Feller operator; concrete diffusion construction remains separate",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-markov-jensen-square",
+        "label": "Probability-kernel Jensen inequality for the square",
+        "declarations": ["sq_fellerOperator_apply_le"],
+        "dependencies": ["FellerTransitionKernelContract", "ConvexOn.map_integral_le", "Even.convexOn_pow"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-2-definition-1-2-12",
     "chapter": 1,
     "section": "1.2",

@@ -2301,6 +2301,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "The norm bound is derived from probability-kernel integration, not postulated as an operator contract."
   },
   {
+    key := "feller-semigroup.chewi-display-1-2-11",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.sq_fellerOperator_apply_le",
+    upstreamDecl := "ConvexOn.map_integral_le / Even.convexOn_pow",
+    upstreamFile := "Mathlib.Analysis.Convex.Integral; Mathlib.Analysis.Convex.Mul; Chewi display (1.2.11)",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Feller", "Markov-operator", "Jensen", "carre-du-champ"],
+    saldUse := "Supply the finite-time Jensen gap used to prove non-negativity of the carre du champ",
+    note := "The square inequality is proved by Jensen integration under the probability transition kernel; it is not stored as a semigroup-contract assumption."
+  },
+  {
     key := "feller-semigroup.operator-semigroup-law",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.fellerOperator_add",
     upstreamDecl := "Kernel.integral_comp",

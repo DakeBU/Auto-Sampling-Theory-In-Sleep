@@ -692,6 +692,32 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.sq_fellerOperator_apply_le",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A Markov transition operator cannot make the square of an average larger than the average of the square.",
+    "mathematical_statement": "For every bounded continuous f, time t, and state x, (P_t f(x))^2 <= P_t(f^2)(x).",
+    "intuition": "At a fixed starting state, P_t is expectation under a probability law, so this is Jensen's inequality for the convex square function.",
+    "assumptions": [
+      "a Feller family of probability transition kernels",
+      "a bounded continuous real observable"
+    ],
+    "why_assumptions": [
+      "probability normalization is the normalization needed by Jensen",
+      "bounded continuity gives measurability and integrability of f and f squared"
+    ],
+    "proof_route": [
+      "view K_t(x,dy) as a probability measure",
+      "prove integrability of f and f squared from the sup-norm bound",
+      "apply ConvexOn.map_integral_le to the even convex power r maps to r squared",
+      "identify the two integrals with the Feller operators"
+    ],
+    "lean_notes": [
+      "IsMarkovKernel installs IsProbabilityMeasure for K_t x",
+      "the theorem derives equation (1.2.11) from kernels instead of assuming it"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FellerSemigroup.continuousLinearSemigroupOfFeller",
     "chapter": 1,
     "route_status": "Partial",

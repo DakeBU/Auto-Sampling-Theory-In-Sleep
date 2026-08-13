@@ -48,6 +48,13 @@ example {K : ℝ≥0 → Kernel E E}
   norm_fellerOperator_apply_le hK t f
 
 example {K : ℝ≥0 → Kernel E E}
+    (hK : FellerTransitionKernelContract K) (t : ℝ≥0)
+    (f : E →ᵇ ℝ) (x : E) :
+    (fellerOperator hK t f x) ^ 2 ≤
+      fellerOperator hK t (f * f) x :=
+  sq_fellerOperator_apply_le hK t f x
+
+example {K : ℝ≥0 → Kernel E E}
     (hK : FellerTransitionKernelContract K) :
     fellerOperator hK 0 = ContinuousLinearMap.id ℝ (E →ᵇ ℝ) :=
   fellerOperator_zero hK
@@ -71,6 +78,14 @@ example (t : ℝ≥0) (f : E →ᵇ ℝ) :
   change (∫ y, f y ∂(Kernel.id : Kernel E E) x) = f x
   rw [Kernel.id_apply]
   exact integral_dirac' f x f.continuous.stronglyMeasurable
+
+example (t : ℝ≥0) (f : E →ᵇ ℝ) (x : E) :
+    (fellerOperator identityFellerContract t f x) ^ 2 =
+      fellerOperator identityFellerContract t (f * f) x := by
+  simp only [fellerOperator_apply, Kernel.id_apply]
+  rw [integral_dirac' f x f.continuous.stronglyMeasurable]
+  rw [integral_dirac' (f * f) x (f * f).continuous.stronglyMeasurable]
+  simp [pow_two]
 
 end
 
