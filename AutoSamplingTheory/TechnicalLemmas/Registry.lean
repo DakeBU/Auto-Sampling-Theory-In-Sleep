@@ -1904,6 +1904,56 @@ def measureMemory : List LemmaMemoryEntry := [
 
 def functionalInequalityMemory : List LemmaMemoryEntry := [
   {
+    key := "semigroup-decay.from-arbitrary-time",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation_from",
+    upstreamDecl := "le_gronwallBound_of_liminf_deriv_right_le / time translation",
+    upstreamFile := "Mathlib.Analysis.ODE.Gronwall",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "functional-inequality", "semigroup", "dissipation", "shifted-time", "exponential-decay"],
+    saldUse := "propagate a coercive energy-dissipation inequality exponentially between arbitrary starting and terminal times",
+    note := "Shifted-time strengthening of the zero-time Gronwall leaf; the concrete energy and dissipation remain explicit inputs."
+  },
+  {
+    key := "semigroup-decay.converse-from-shifted-exponential",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.scaled_dissipation_of_exponential_decay",
+    upstreamDecl := "IsLocalMaxOn.hasFDerivWithinAt_nonpos / one_mem_posTangentConeAt_iff_frequently",
+    upstreamFile := "Mathlib.Analysis.Calculus.LocalExtr.Basic",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "functional-inequality", "semigroup", "converse", "right-derivative", "Fermat"],
+    saldUse := "recover instantaneous coercivity from exponential decay valid after every starting time",
+    note := "Uses a one-sided local-maximum comparison with the exponential envelope; this is the scalar converse mechanism, not a concrete semigroup construction."
+  },
+  {
+    key := "semigroup-decay.chewi-theorem-1-2-21-scalar-equivalence",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_21_scalar_equivalence",
+    upstreamDecl := "Chewi Theorem 1.2.21, scalar energy-dissipation equivalence",
+    upstreamFile := "Log-Concave Sampling, book page 16 / PDF page 28",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Poincare", "variance", "semigroup", "equivalence", "exponential-decay"],
+    saldUse := "equate Poincare-style coercivity with shifted variance-style exponential decay under the exact -2 dissipation identity",
+    note := "Full scalar equivalence. Instantiating variance for a reversible Markov semigroup and extending from a smooth core remain downstream."
+  },
+  {
+    key := "semigroup-decay.chewi-theorem-1-2-22-scalar-equivalence",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_22_scalar_equivalence",
+    upstreamDecl := "Chewi Theorem 1.2.22, scalar energy-dissipation equivalence",
+    upstreamFile := "Log-Concave Sampling, book page 17 / PDF page 29",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Poincare", "chi-square", "semigroup", "equivalence", "exponential-decay"],
+    saldUse := "equate Poincare-style coercivity with shifted chi-square-style exponential decay under the exact -2 dissipation identity",
+    note := "The density/Radon-Nikodym realization of chi-square is not hidden in this scalar theorem."
+  },
+  {
+    key := "semigroup-decay.chewi-theorem-1-2-26-scalar-equivalence",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_theorem_1_2_26_scalar_equivalence",
+    upstreamDecl := "Chewi Theorem 1.2.26, scalar entropy-dissipation equivalence",
+    upstreamFile := "Log-Concave Sampling, book page 18 / PDF page 30",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-Sobolev", "KL", "Fisher-information", "equivalence", "exponential-decay"],
+    saldUse := "equate LSI-style coercivity with shifted KL exponential decay under the exact entropy-dissipation identity",
+    note := "Full scalar equivalence. Concrete density regularity, KL/FI differentiation, and domain closure remain downstream."
+  },
+  {
     key := "semigroup-decay.scaled-dissipation",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.exponential_decay_of_scaled_dissipation",
     upstreamDecl := "le_gronwallBound_of_liminf_deriv_right_le / gronwallBound_ε0",
