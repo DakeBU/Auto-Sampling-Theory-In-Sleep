@@ -102,6 +102,24 @@ theorem chewi_display_1_1_7
         ∂(TimeMeasure.upTo T) ∂mu :=
   lintegral_prod _ hη
 
+/-- Almost-sure local square integrability on `[0,T]`, the weaker condition
+used when Chewi extends stochastic integration by localization. -/
+def IsLocallySquareIntegrableOn
+    {Omega : Type*} [MeasurableSpace Omega]
+    (eta : ℝ≥0 → Omega → ℝ) (mu : Measure Omega) (T : ℝ≥0) : Prop :=
+  ∀ᵐ omega ∂mu,
+    (∫⁻ t, ENNReal.ofReal ((eta t omega) ^ 2) ∂(TimeMeasure.upTo T)) < ∞
+
+/-- Chewi display (1.1.10): local square integrability is precisely almost-
+sure finiteness of the accumulated squared integrand on `[0,T]`. -/
+theorem chewi_display_1_1_10
+    {Omega : Type*} [MeasurableSpace Omega]
+    (eta : ℝ≥0 → Omega → ℝ) (mu : Measure Omega) (T : ℝ≥0) :
+    IsLocallySquareIntegrableOn eta mu T ↔
+      ∀ᵐ omega ∂mu,
+        (∫⁻ t, ENNReal.ofReal ((eta t omega) ^ 2) ∂(TimeMeasure.upTo T)) < ∞ :=
+  Iff.rfl
+
 end ElementaryItoIntegral
 end StochasticProcesses
 end TechnicalLemmas

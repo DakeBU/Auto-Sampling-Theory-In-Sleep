@@ -1544,5 +1544,17 @@
     "why_assumptions": ["finiteness of the time measure supplies the product-measure API", "measurability is required by Tonelli", "ENNReal avoids hiding an infinite energy"],
     "proof_route": ["construct the finite NNReal time measure", "form the probability-time product measure", "apply Mathlib lintegral_prod"],
     "lean_notes": ["processL2Energy is ENNReal-valued", "the theorem does not claim the Ito isometry or L2 completion"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_10",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "Local square integrability asks for finite accumulated squared energy on almost every path, not finite expected energy.",
+    "mathematical_statement": "For P-almost every omega, the integral from 0 to T of eta(t,omega)^2 dt is finite.",
+    "intuition": "Stopping paths before their energy becomes large converts this weaker condition into the global L2 condition used by the elementary integral.",
+    "assumptions": ["finite terminal time", "a probability-space representative of the process"],
+    "why_assumptions": ["the condition is pathwise and therefore uses an almost-everywhere representative", "ENNReal keeps divergence visible"],
+    "proof_route": ["define IsLocallySquareIntegrableOn by a pathwise lintegral", "expose the definition as the source equivalence"],
+    "lean_notes": ["this is weaker than processL2Energy < infinity", "no stopping time or Ito integral is constructed by this declaration"]
   }
 ]

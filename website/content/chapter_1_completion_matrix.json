@@ -2731,27 +2731,33 @@
       "pdf_page": 18,
       "coverage_kind": "derived_identity",
       "source_route_id": "chewi-chapter1-displayed-identity-1-1-10",
-      "source_correspondence_id": "",
-      "required_declarations": [],
-      "focused_tests": [],
-      "registry_keys": [],
-      "coverage_status": "planned",
-      "residual_blockers": [
-        "formalize or port the required filtered-space stochastic integral, localization, and Ito-calculus interface"
+      "source_correspondence_id": "chewi-1-1-display-1-1-10",
+      "required_declarations": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_10"
       ],
+      "focused_tests": [
+        "Tests/ElementaryItoIntegral.lean"
+      ],
+      "registry_keys": [
+        "ito-local.chewi-display-1-1-10"
+      ],
+      "coverage_status": "complete",
+      "residual_blockers": [],
       "source_assumptions": [
-        "a complete right-continuous filtered probability space",
-        "progressive or adapted processes",
-        "the integrability stated at the source item"
+        "a real stochastic integrand",
+        "a probability measure and finite terminal time",
+        "almost-sure finiteness of accumulated squared energy"
       ],
       "formal_assumptions": [
-        "explicit filtration and adaptedness",
-        "joint/progressive measurability",
-        "Bochner or stochastic integrability",
-        "almost-everywhere representatives",
-        "stopping-time measurability where localization is used"
+        "TimeMeasure.upTo T",
+        "ENNReal time lintegral",
+        "MeasureTheory almost-everywhere quantification"
       ],
-      "downstream_consumers": []
+      "downstream_consumers": [
+        "canonical localizing sequence",
+        "localized Ito integral",
+        "continuous local martingale theorem"
+      ]
     },
     {
       "number": "1.1.14",

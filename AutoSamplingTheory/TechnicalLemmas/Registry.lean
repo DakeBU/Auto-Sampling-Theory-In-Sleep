@@ -2171,6 +2171,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Uses ENNReal and Tonelli under explicit joint a.e. measurability; finiteness remains a visible inequality rather than a totalized integral."
   },
   {
+    key := "ito-local.chewi-display-1-1-10",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_10",
+    upstreamDecl := "Chewi display (1.1.10)",
+    upstreamFile := "Log-Concave Sampling, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "L2", "almost-sure"],
+    saldUse := "local square-integrability premise for canonical stopping and localized stochastic integration",
+    note := "Exact ENNReal almost-sure finiteness condition; construction of the canonical localizing sequence and localized Ito integral remain downstream."
+  },
+  {
     key := "markov-semigroup.chewi-definition-1-2-1",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator",
     upstreamDecl := "Chewi Definition 1.2.1",

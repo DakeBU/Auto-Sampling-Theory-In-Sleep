@@ -1,5 +1,42 @@
 [
   {
+    "id": "chewi-1-1-display-1-1-10",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 6,
+    "pdf_page": 18,
+    "page": "book 6 / PDF 18",
+    "source_kind": "Displayed identity (1.1.10)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=18",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Localization permits progressive integrands whose squared time integral is finite almost surely, without requiring its expectation to be finite.",
+    "mathematical_exposition": "For almost every sample path, the integral from zero to T of eta squared is finite.",
+    "astis_exposition": "The condition is ENNReal-valued and pathwise almost everywhere, so it is visibly weaker than finite expected process energy.",
+    "rigorous_packet": "The finite time measure, nonnegative path energy, strict comparison with infinity, and probability almost-everywhere quantifier are explicit.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_10"
+    ],
+    "source_assumptions": ["a real stochastic integrand", "a finite terminal time", "a probability measure"],
+    "formal_assumptions": ["TimeMeasure.upTo T", "ENNReal lintegral", "Filter.Eventually under mu"],
+    "downstream_consumers": ["Proposition 1.1.13", "display (1.1.14)", "Proposition 1.1.16"],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact almost-sure local square-integrability condition compiled; stopping-time construction remains separate",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-local-square-integrability",
+        "label": "Almost-sure finite path energy",
+        "declarations": ["chewi_display_1_1_10"],
+        "dependencies": ["TimeMeasure.upTo", "lintegral", "Eventually"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-1-display-1-1-7",
     "chapter": 1,
     "section": "1.1",
