@@ -8,6 +8,7 @@ import Tests.KantorovichDual
 import Tests.Localization
 import Tests.MarkovSemigroup
 import Tests.Martingale
+import Tests.MetricCurve
 import Tests.OperatorGenerator
 import Tests.OperatorGeneratorDomain
 import Tests.Reversibility

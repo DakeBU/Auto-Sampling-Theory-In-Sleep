@@ -1,5 +1,17 @@
 [
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve.IsAbsolutelyContinuousMetricCurve",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A metric curve has finite instantaneous speed at almost every time.",
+    "mathematical_statement": "for almost every t there is speed>=0 such that dist(mu_s,mu_t)/abs(s-t) tends to speed as s tends to t with s not equal to t.",
+    "intuition": "Distance quotients retain the magnitude of velocity even when the ambient space has no vector subtraction.",
+    "assumptions": ["a pseudometric state space", "real time", "Lebesgue almost-everywhere existence of the limit"],
+    "why_assumptions": ["puncturing removes division by zero", "the a.e. condition matches the source definition"],
+    "proof_route": ["define HasMetricDerivativeAt", "quantify its finite real witness almost everywhere"],
+    "lean_notes": ["uses nhdsWithin t {t} complement through nhdsNE", "this is the source's informal criterion, not the upper-gradient refinement"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.IsAlphaGeodesicallyConvex",
     "chapter": 1,
     "route_status": "Compiled",

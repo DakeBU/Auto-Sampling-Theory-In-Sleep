@@ -12,6 +12,7 @@ import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay
 import AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates
 import AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
+import AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve
 import AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity
@@ -3000,6 +3001,16 @@ def geometryMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "geodesic-convexity", "metric-space", "interpolation", "definition"],
     saldUse := "Chewi Definition 1.3.26 root: state alpha-geodesic convexity through the endpoint interpolation inequality along every selected geodesic",
     note := "The geodesic predicate remains an explicit parameter so Riemannian and Wasserstein realizations can supply their own constant-speed/domain conditions."
+  },
+  {
+    key := "geometry.chewi-definition-1-3-16",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve.IsAbsolutelyContinuousMetricCurve",
+    upstreamDecl := "Chewi Definition 1.3.16 (informal)",
+    upstreamFile := "Log-Concave Sampling, book page 26 / PDF page 38",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "metric-derivative", "absolutely-continuous-curve", "Wasserstein", "definition"],
+    saldUse := "Chewi Definition 1.3.16 root: require a finite nonnegative punctured-neighborhood metric derivative at almost every time",
+    note := "Matches the source's explicitly informal definition. The standard upper-gradient characterization and Wasserstein specialization remain theorem routes."
   },
   {
     key := "geometry.euclidean-space.inner-toLp-toLp-sum",
