@@ -80,7 +80,8 @@
     "1.3.12": "chewi-1-3-definition-1-3-12",
     "1.3.16": "chewi-1-3-definition-1-3-16",
     "1.3.25": "chewi-1-3-definition-1-3-25",
-    "1.3.26": "chewi-1-3-definition-1-3-26"
+    "1.3.26": "chewi-1-3-definition-1-3-26",
+    "1.4.7": "chewi-1-4-display-1-4-7"
   },
   "statements": [
     ["1.1.1", "Definition", "Standard Brownian motion", 4, 16],

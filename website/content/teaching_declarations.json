@@ -1480,5 +1480,33 @@
       "nhdsWithin 0 (Ioi 0) records the one-sided positive-time limit",
       "the concrete Langevin generator and its closed core remain outside this theorem"
     ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.firstOrder_geodesicConvexity",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The endpoint chord inequality for a geodesically convex functional yields its first-order supporting inequality at the initial endpoint.",
+    "mathematical_statement": "F(path(1)) >= F(path(0)) + d/dt|0 F(path(t)) + alpha*d(path(0),path(1))^2/2.",
+    "intuition": "Divide the chord inequality by a small positive interpolation time. The resulting secant slope converges to the directional derivative, while the curvature correction converges to its endpoint value.",
+    "assumptions": [
+      "the selected path is a geodesic covered by IsAlphaGeodesicallyConvex",
+      "F composed with the path has a real derivative at time zero"
+    ],
+    "why_assumptions": [
+      "the chord inequality supplies the finite-time comparison",
+      "the derivative identifies the limiting secant slope",
+      "a concrete Wasserstein use must separately identify this derivative with the gradient pairing"
+    ],
+    "proof_route": [
+      "specialize alpha-geodesic convexity at positive t less than one",
+      "rearrange it as an upper bound on the secant slope",
+      "take the positive-time limit of both sides",
+      "use closedness of the real order and rearrange the result"
+    ],
+    "lean_notes": [
+      "HasDerivAt.tendsto_slope supplies the punctured slope limit",
+      "le_of_tendsto_of_tendsto preserves the eventual inequality",
+      "gradientPairing is semantic data, not a supplied copy of the conclusion"
+    ]
   }
 ]

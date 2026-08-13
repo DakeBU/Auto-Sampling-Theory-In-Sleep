@@ -52,6 +52,53 @@
     "proof_leaves": [{"node_id": "chapter1-alpha-geodesic-convexity", "label": "Alpha-geodesic convexity predicate", "declarations": ["IsAlphaGeodesicallyConvex"], "dependencies": ["MetricSpace.dist", "Set.Icc"], "priority": 100, "route_status": "compiled"}]
   },
   {
+    "id": "chewi-1-4-display-1-4-7",
+    "chapter": 1,
+    "section": "1.4",
+    "edition": "2026-08-09",
+    "book_page": 34,
+    "pdf_page": 46,
+    "page": "book 34 / PDF 46",
+    "source_kind": "Displayed identity (1.4.7)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=46",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Geodesic alpha-convexity implies the first-order lower bound at the initial endpoint, with the derivative pairing and alpha times squared distance correction.",
+    "mathematical_exposition": "Apply the chord inequality at a positive interpolation time t, subtract the initial value, and divide by t. As t decreases to zero, the secant slope converges to the derivative along the geodesic and the correction converges to alpha times the squared endpoint distance divided by two.",
+    "astis_exposition": "ASTIS formalizes the positive-time secant limit with HasDerivAt.tendsto_slope and transports the eventual inequality through both limits using the closed order on the reals.",
+    "rigorous_packet": "A selected geodesic must satisfy the compiled chord formulation, and the path composition t maps to F(path t) must have derivative gradientPairing at zero. In a Wasserstein application, the separate geometric identification sets this scalar to the source inner product with the optimal displacement.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.firstOrder_geodesicConvexity"
+    ],
+    "source_assumptions": [
+      "an alpha-geodesically convex smooth functional",
+      "a constant-speed geodesic from mu to nu",
+      "the Riemannian derivative-gradient pairing"
+    ],
+    "formal_assumptions": [
+      "the compiled endpoint chord inequality on every selected geodesic",
+      "HasDerivAt of the functional along the selected path at zero"
+    ],
+    "downstream_consumers": [
+      "gradient-flow contraction",
+      "Polyak-Lojasiewicz and quadratic-growth consequences"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "exact first-order convexity limit compiled; the concrete Wasserstein gradient-pairing identification remains an explicit upstream geometric interface",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-first-order-geodesic-convexity",
+        "label": "Chord alpha-convexity implies the first-order inequality",
+        "declarations": ["firstOrder_geodesicConvexity"],
+        "dependencies": ["IsAlphaGeodesicallyConvex", "HasDerivAt.tendsto_slope", "le_of_tendsto_of_tendsto"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-2-theorem-1-2-14",
     "chapter": 1,
     "section": "1.2",

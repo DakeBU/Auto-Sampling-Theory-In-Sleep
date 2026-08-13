@@ -3083,6 +3083,16 @@ def geometryMemory : List LemmaMemoryEntry := [
     note := "The geodesic predicate remains an explicit parameter so Riemannian and Wasserstein realizations can supply their own constant-speed/domain conditions."
   },
   {
+    key := "geometry.chewi-display-1-4-7",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.firstOrder_geodesicConvexity",
+    upstreamDecl := "HasDerivAt.tendsto_slope / le_of_tendsto_of_tendsto",
+    upstreamFile := "Mathlib.Analysis.Calculus.Deriv.Slope; Chewi display (1.4.7)",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "geodesic-convexity", "first-order-condition", "derivative", "Wasserstein"],
+    saldUse := "Derive the first-order alpha-convexity inequality from the endpoint chord condition along a differentiable geodesic",
+    note := "The proof takes the positive-time secant-slope limit. Concrete Riemannian or Wasserstein geometry must identify the path derivative with its gradient pairing."
+  },
+  {
     key := "geometry.chewi-definition-1-3-16",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve.IsAbsolutelyContinuousMetricCurve",
     upstreamDecl := "Chewi Definition 1.3.16 (informal)",
