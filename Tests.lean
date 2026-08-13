@@ -2,6 +2,7 @@ import Tests.Basic
 import Tests.BrownianMotion
 import Tests.CarreDuChamp
 import Tests.FellerSemigroup
+import Tests.GeneratorFunctionalInequalities
 import Tests.Localization
 import Tests.MarkovSemigroup
 import Tests.Martingale

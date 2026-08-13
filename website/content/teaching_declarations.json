@@ -1,5 +1,29 @@
 [
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A generator Poincare inequality controls every observable's variance by its Dirichlet energy.",
+    "mathematical_statement": "Var_mu(f) <= C integral f(-L)f dmu for every admissible f.",
+    "intuition": "The inequality is the inverse spectral-gap bound on the nonconstant part of an observable.",
+    "assumptions": ["mu is a probability measure", "C is positive", "mean, variance, and generator energy are finite"],
+    "why_assumptions": ["probability normalization identifies centering", "finite form-domain data prevents totalized integrals from asserting a false comparison"],
+    "proof_route": ["this is the exact source definition", "variance decay is a separate semigroup theorem"],
+    "lean_notes": ["dirichletForm is minus integral f*L g", "the gradient specialization is not built into this predicate"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesLogSobolev",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A generator log-Sobolev inequality controls density entropy by entropy production.",
+    "mathematical_statement": "KL(rho mu || mu) <= (C/2) E(rho,log rho) for every admissible density rho.",
+    "intuition": "Entropy production rules out densities that retain large information while dissipating too slowly.",
+    "assumptions": ["mu is a probability measure", "rho is nonnegative with unit mass", "entropy and generator energy are integrable", "C is positive"],
+    "why_assumptions": ["unit mass makes rho a probability density", "finite integrals give mathematical meaning to both sides"],
+    "proof_route": ["this is the exact source definition", "KL decay and the Langevin Fisher-information form are separate routes"],
+    "lean_notes": ["Real.log is totalized and rho*log(rho) implements the zero-density convention", "all density conditions are bundled in LogSobolevAdmissible"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotion",
     "chapter": 1,
     "route_status": "Compiled",

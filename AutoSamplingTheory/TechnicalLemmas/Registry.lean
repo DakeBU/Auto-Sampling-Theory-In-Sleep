@@ -5,6 +5,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay
@@ -1953,6 +1954,26 @@ def measureMemory : List LemmaMemoryEntry := [
 
 
 def functionalInequalityMemory : List LemmaMemoryEntry := [
+  {
+    key := "functional-inequality.chewi-definition-1-2-19",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare",
+    upstreamDecl := "Chewi Definition 1.2.19",
+    upstreamFile := "Log-Concave Sampling, book page 16 / PDF page 28",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Poincare", "generator", "Dirichlet-form", "variance", "definition"],
+    saldUse := "Chewi Definition 1.2.19 root: state the general generator Poincare inequality on every finite-integral observable",
+    note := "Exact reversible-generator formulation. The gradient-energy specialization and PI-to-decay equivalence are separate theorem routes."
+  },
+  {
+    key := "functional-inequality.chewi-definition-1-2-25",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesLogSobolev",
+    upstreamDecl := "Chewi Definition 1.2.25",
+    upstreamFile := "Log-Concave Sampling, book page 18 / PDF page 30",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "log-Sobolev", "generator", "Dirichlet-form", "density", "definition"],
+    saldUse := "Chewi Definition 1.2.25 root: state KL(rho mu || mu) <= (C/2) E(rho,log rho) for every admissible normalized density",
+    note := "Exact density-generator formulation with positivity, normalization, and finite entropy/energy conditions explicit. KL decay is a separate theorem route."
+  },
   {
     key := "gronwall.chewi-lemma-1-2-20",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay.chewi_lemma_1_2_20",
