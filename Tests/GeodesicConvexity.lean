@@ -1,0 +1,7 @@
+import AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity
+
+namespace AutoSamplingTheory.Tests.GeodesicConvexity
+
+#check AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.IsAlphaGeodesicallyConvex
+
+end AutoSamplingTheory.Tests.GeodesicConvexity

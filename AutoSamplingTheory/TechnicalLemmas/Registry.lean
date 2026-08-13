@@ -10,6 +10,7 @@ import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay
 import AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates
+import AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
 import AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
@@ -2990,6 +2991,16 @@ def variationalMemory : List LemmaMemoryEntry := [
 ]
 
 def geometryMemory : List LemmaMemoryEntry := [
+  {
+    key := "geometry.chewi-definition-1-3-26",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.IsAlphaGeodesicallyConvex",
+    upstreamDecl := "Chewi Definition 1.3.26, condition 1",
+    upstreamFile := "Log-Concave Sampling, book page 31 / PDF page 43",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "geodesic-convexity", "metric-space", "interpolation", "definition"],
+    saldUse := "Chewi Definition 1.3.26 root: state alpha-geodesic convexity through the endpoint interpolation inequality along every selected geodesic",
+    note := "The geodesic predicate remains an explicit parameter so Riemannian and Wasserstein realizations can supply their own constant-speed/domain conditions."
+  },
   {
     key := "geometry.euclidean-space.inner-toLp-toLp-sum",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates.euclideanSpace_inner_toLp_toLp_eq_sum_mul",

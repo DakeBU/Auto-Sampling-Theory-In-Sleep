@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.Geometry.EuclideanSpaceCoordinates
+import AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
 import AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
 

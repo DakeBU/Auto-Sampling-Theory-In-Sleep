@@ -1,5 +1,17 @@
 [
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.IsAlphaGeodesicallyConvex",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A functional is geodesically convex when it obeys the strong-convexity interpolation inequality along every geodesic.",
+    "mathematical_statement": "F(p_t)<=(1-t)F(p_0)+tF(p_1)-(alpha/2)t(1-t)d(p_0,p_1)^2.",
+    "intuition": "Straight lines are replaced by shortest paths, while the alpha correction measures curvature of the functional along them.",
+    "assumptions": ["a metric space", "an explicit predicate selecting geodesics", "t in [0,1]"],
+    "why_assumptions": ["different spaces use different geodesic regularity interfaces", "the interval restriction fixes endpoint interpolation"],
+    "proof_route": ["this is condition 1 of the source definition", "gradient and Hessian equivalences are separate theorems"],
+    "lean_notes": ["isGeodesic is deliberately explicit", "the coefficient matches alpha*t*(1-t)/2"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts",
     "chapter": 1,
     "route_status": "Compiled",

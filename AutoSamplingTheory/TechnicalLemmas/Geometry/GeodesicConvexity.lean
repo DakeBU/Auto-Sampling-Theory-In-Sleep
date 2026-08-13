@@ -1,0 +1,33 @@
+import Mathlib.Topology.MetricSpace.Basic
+
+/-!
+# Geodesic convexity
+
+The definition is parameterized by the predicate selecting geodesic curves.
+This keeps it reusable for Riemannian and Wasserstein spaces while those
+spaces retain their own regularity and constant-speed requirements.
+-/
+
+namespace AutoSamplingTheory
+namespace TechnicalLemmas
+namespace Geometry
+namespace GeodesicConvexity
+
+open Set
+
+/-- Chewi Definition 1.3.26, condition 1: `F` is alpha-geodesically convex
+along every selected geodesic, with the source normalization
+`alpha * t * (1-t) / 2`. -/
+def IsAlphaGeodesicallyConvex
+    {M : Type*} [MetricSpace M]
+    (isGeodesic : (ℝ → M) → Prop) (F : M → ℝ) (alpha : ℝ) : Prop :=
+  ∀ path : ℝ → M, isGeodesic path →
+    ∀ t : ℝ, t ∈ Icc (0 : ℝ) 1 →
+      F (path t) ≤
+        (1 - t) * F (path 0) + t * F (path 1) -
+          (alpha * t * (1 - t) / 2) * dist (path 0) (path 1) ^ 2
+
+end GeodesicConvexity
+end Geometry
+end TechnicalLemmas
+end AutoSamplingTheory

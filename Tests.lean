@@ -3,6 +3,7 @@ import Tests.BrownianMotion
 import Tests.CarreDuChamp
 import Tests.FellerSemigroup
 import Tests.GeneratorFunctionalInequalities
+import Tests.GeodesicConvexity
 import Tests.KantorovichDual
 import Tests.Localization
 import Tests.MarkovSemigroup
