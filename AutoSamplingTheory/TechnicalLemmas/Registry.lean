@@ -1519,6 +1519,26 @@ def calculusMemory : List LemmaMemoryEntry := [
 
 def measureMemory : List LemmaMemoryEntry := [
   {
+    key := "measure.transport.chewi-definition-1-3-1",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost",
+    upstreamDecl := "Chewi Definition 1.3.1",
+    upstreamFile := "Log-Concave Sampling, book page 20 / PDF page 32",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Kantorovich", "optimal-transport", "coupling", "sInf", "ENNReal"],
+    saldUse := "Chewi Definition 1.3.1 root: define the extended nonnegative Kantorovich transport cost over all couplings",
+    note := "Exact optimization value; lower semicontinuity and existence of an optimal plan are separate theorem routes."
+  },
+  {
+    key := "measure.transport.chewi-display-1-3-2",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost_eq_sInf",
+    upstreamDecl := "Chewi display (1.3.2)",
+    upstreamFile := "Log-Concave Sampling, book page 20 / PDF page 32",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Kantorovich", "optimal-transport", "coupling", "source-display"],
+    saldUse := "Chewi display (1.3.2): expose the exact infimum over coupling costs",
+    note := "Definitional source equality; no minimizer is claimed."
+  },
+  {
     key := "measure.transport.coupling-probability",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.isProbabilityMeasure_of_isCoupling_left",
     upstreamDecl := "Measure.fst_univ",

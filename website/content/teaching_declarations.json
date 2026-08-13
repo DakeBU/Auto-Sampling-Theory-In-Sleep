@@ -813,6 +813,54 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The Kantorovich cost is the smallest extended expected cost among all couplings of two measures.",
+    "mathematical_statement": "T_c(mu,nu) = inf_{gamma in C(mu,nu)} integral c(x,y) dgamma(x,y).",
+    "intuition": "A coupling chooses how mass from the first law is paired with mass from the second; the infimum selects the cheapest such joint law.",
+    "assumptions": [
+      "two measurable state spaces and measures",
+      "an ENNReal-valued cost",
+      "the feasible set consists of measures with the prescribed marginals"
+    ],
+    "why_assumptions": [
+      "ENNReal preserves the possibility of infinite cost",
+      "lower semicontinuity is not needed for the value definition but is needed to prove a minimizer exists"
+    ],
+    "proof_route": [
+      "define the coupling set through first and second marginals",
+      "take sInf of all coupling lintegral values",
+      "use the product measure to verify nonemptiness for probability marginals"
+    ],
+    "lean_notes": [
+      "lintegral is used because the cost is ENNReal-valued",
+      "sInf is noncomputable and represents the extended-real infimum",
+      "no optimal transport plan is constructed here"
+    ]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost_eq_sInf",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The source display is the direct expansion of the Kantorovich transport-cost definition.",
+    "mathematical_statement": "T_c(mu,nu) equals the sInf of integral c dgamma over gamma in the coupling set.",
+    "intuition": "This theorem provides a stable source-facing rewrite while keeping existence of a minimizer separate.",
+    "assumptions": [
+      "the same measurable spaces, measures, and ENNReal cost as transportCost"
+    ],
+    "why_assumptions": [
+      "the theorem is definitional and therefore introduces no hidden regularity or attainment hypothesis"
+    ],
+    "proof_route": [
+      "unfold transportCost"
+    ],
+    "lean_notes": [
+      "the proof is rfl",
+      "definitional equality does not imply the infimum is attained"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility.IsReversible",
     "chapter": 1,
     "route_status": "Compiled",

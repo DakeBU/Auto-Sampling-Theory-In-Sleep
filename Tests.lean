@@ -6,6 +6,7 @@ import Tests.OperatorGenerator
 import Tests.OperatorGeneratorDomain
 import Tests.Reversibility
 import Tests.SemigroupDecay
+import Tests.Transport
 
 /-!
 Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,
