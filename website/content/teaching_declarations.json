@@ -1,5 +1,29 @@
 [
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The Kantorovich dual maximizes the total value of two potentials constrained by the transport cost.",
+    "mathematical_statement": "sup over f,g of integral f dmu + integral g dnu subject to f(x)+g(y)<=c(x,y) almost everywhere.",
+    "intuition": "Feasible potentials assign origin and destination prices that never overestimate the cost of pairing mass.",
+    "assumptions": ["integrable potentials", "a real transport cost", "the product-measure a.e. constraint"],
+    "why_assumptions": ["integrability makes the objective finite", "the a.e. condition is the source feasible-set convention"],
+    "proof_route": ["define DualFeasible", "take the supremum of all feasible objective values"],
+    "lean_notes": ["the value uses real sSup", "boundedness and strong duality are not bundled"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue_eq_sSup",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The dual value unfolds to the exact feasible-potential supremum in the textbook display.",
+    "mathematical_statement": "dualTransportValue(c,mu,nu)=sup{integral f dmu+integral g dnu : (f,g) feasible}.",
+    "intuition": "This named theorem is the stable source-facing expansion consumed by later duality proofs.",
+    "assumptions": ["the dual transport definition"],
+    "why_assumptions": ["no optimizer or primal equality is needed for this expansion"],
+    "proof_route": ["unfold dualTransportValue"],
+    "lean_notes": ["the proof is rfl", "strong duality remains Theorem 1.3.8"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare",
     "chapter": 1,
     "route_status": "Compiled",

@@ -18,6 +18,7 @@ import AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi
 import AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs
 import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral
 import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity
+import AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual
 import AutoSamplingTheory.TechnicalLemmas.Measure.Product
 import AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
@@ -1568,6 +1569,26 @@ def measureMemory : List LemmaMemoryEntry := [
     tags := ["Chewi", "Kantorovich", "optimal-transport", "coupling", "source-display"],
     saldUse := "Chewi display (1.3.2): expose the exact infimum over coupling costs",
     note := "Definitional source equality; no minimizer is claimed."
+  },
+  {
+    key := "measure.transport.chewi-definition-1-3-6",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue",
+    upstreamDecl := "Chewi Definition 1.3.6",
+    upstreamFile := "Log-Concave Sampling, book page 21 / PDF page 33",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "optimal-transport", "Kantorovich-dual", "potentials", "definition"],
+    saldUse := "Chewi Definition 1.3.6 root: define the supremum of integrable dual-potential objectives under the product-a.e. cost constraint",
+    note := "Strong duality, boundedness, and attainment are separate theorems; the source P2 quadratic setting supplies their analytic hypotheses."
+  },
+  {
+    key := "measure.transport.chewi-display-1-3-7",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue_eq_sSup",
+    upstreamDecl := "Chewi display (1.3.7)",
+    upstreamFile := "Log-Concave Sampling, book page 21 / PDF page 33",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "optimal-transport", "Kantorovich-dual", "sSup", "display"],
+    saldUse := "Chewi display (1.3.7): expand the dual transport value into its exact feasible-potential supremum",
+    note := "Definitional equality; no primal-dual equality or optimizer is asserted."
   },
   {
     key := "measure.transport.coupling-probability",
