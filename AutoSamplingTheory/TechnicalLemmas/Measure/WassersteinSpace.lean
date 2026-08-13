@@ -1,3 +1,5 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.Transport
+import Mathlib.Analysis.SpecialFunctions.Pow.NNReal
 import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
@@ -15,6 +17,29 @@ namespace Measure
 namespace WassersteinSpace
 
 open MeasureTheory
+open scoped ENNReal
+
+/-- Squared Euclidean transport cost as an extended nonnegative function. -/
+def quadraticCost
+    {E : Type*} [NormedAddCommGroup E] : E × E → ℝ≥0∞ :=
+  fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ 2)
+
+/-- Chewi Definition 1.3.4: the 2-Wasserstein distance is the positive
+square root of the quadratic Kantorovich transport cost. -/
+noncomputable def wassersteinDistance
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
+    (μ ν : Measure E) : ℝ≥0∞ :=
+  (Transport.transportCost (quadraticCost (E := E)) μ ν) ^ (1 / 2 : ℝ)
+
+/-- Chewi display (1.3.5): the square of `W₂` is the infimum of the
+quadratic costs over all couplings. -/
+theorem wassersteinDistance_sq
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
+    (μ ν : Measure E) :
+    wassersteinDistance μ ν ^ 2 =
+      Transport.transportCost (quadraticCost (E := E)) μ ν := by
+  rw [wassersteinDistance, ← ENNReal.rpow_two, ← ENNReal.rpow_mul]
+  norm_num
 
 /-- Chewi Definition 1.3.12: a probability measure in `P₂,ac` has finite
 second moment and is absolutely continuous with respect to Lebesgue volume.

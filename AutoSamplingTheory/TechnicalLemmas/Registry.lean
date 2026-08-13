@@ -1519,6 +1519,26 @@ def calculusMemory : List LemmaMemoryEntry := [
 
 def measureMemory : List LemmaMemoryEntry := [
   {
+    key := "measure.wasserstein.chewi-definition-1-3-4",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance",
+    upstreamDecl := "Chewi Definition 1.3.4",
+    upstreamFile := "Log-Concave Sampling, book page 20 / PDF page 32",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Wasserstein", "W2", "quadratic-cost", "coupling", "ENNReal"],
+    saldUse := "Chewi Definition 1.3.4 root: define W2 as the positive square root of quadratic Kantorovich cost",
+    note := "Exact extended-real value definition; metric properties and finite-second-moment finiteness are separate theorems."
+  },
+  {
+    key := "measure.wasserstein.chewi-display-1-3-5",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq",
+    upstreamDecl := "Chewi display (1.3.5)",
+    upstreamFile := "Log-Concave Sampling, book page 20 / PDF page 32",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Wasserstein", "W2", "quadratic-cost", "source-display"],
+    saldUse := "Chewi display (1.3.5): rewrite W2 squared as the quadratic coupling infimum",
+    note := "Actual ENNReal rpow calculation; no optimal coupling is assumed."
+  },
+  {
     key := "measure.wasserstein.chewi-definition-1-3-12",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.IsAbsolutelyContinuousFiniteSecondMoment",
     upstreamDecl := "Chewi Definition 1.3.12",
@@ -2036,6 +2056,16 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 ]
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
+  {
+    key := "markov-semigroup.chewi-definition-1-2-1",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator",
+    upstreamDecl := "Chewi Definition 1.2.1",
+    upstreamFile := "Log-Concave Sampling, book page 10 / PDF page 22",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Markov-semigroup", "transition-kernel", "conditional-expectation", "definition"],
+    saldUse := "Chewi Definition 1.2.1 root: define P_t f(x) by integration against the conditional transition kernel",
+    note := "Exact kernel conditional-law operator; constructing kernels from a concrete SDE remains separate."
+  },
   {
     key := "martingale.chewi-definition-1-1-4",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Martingale.IsChewiMartingale",

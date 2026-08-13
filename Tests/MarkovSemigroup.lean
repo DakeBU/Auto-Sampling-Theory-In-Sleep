@@ -10,6 +10,7 @@ open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup
 noncomputable section
 
 #check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.chewi_lemma_1_2_2
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator
 
 example {E : Type*} [MeasurableSpace E] :
     TransitionKernelContract

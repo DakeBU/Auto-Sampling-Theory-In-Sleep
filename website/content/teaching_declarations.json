@@ -1,5 +1,41 @@
 [
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A Markov operator averages an observable against the conditional transition law from the current state.",
+    "mathematical_statement": "P_t f(x) = integral f(y) K_t(x,dy).",
+    "intuition": "The transition kernel is the conditional law of the future state, so integration is conditional expectation.",
+    "assumptions": ["a measurable state space", "Markov transition kernels", "a measurable ENNReal observable"],
+    "why_assumptions": ["kernel integration needs measurability", "ENNReal permits nonnegative unbounded observables without hidden integrability"],
+    "proof_route": ["lintegrate the observable against K_t(x,dy)", "use lintegral_kernel to retain measurability in x"],
+    "lean_notes": ["the result is a subtype of measurable observables", "real bounded-continuous operators are constructed later by the Feller bridge"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "W2 is the positive square root of the cheapest expected squared distance among couplings.",
+    "mathematical_statement": "W2(mu,nu) = (inf_gamma integral ||x-y||^2 dgamma)^(1/2).",
+    "intuition": "Couplings pair mass from the two laws; the quadratic cost measures how far paired mass moves.",
+    "assumptions": ["a measurable real normed additive state space", "two measures", "the compiled coupling transport cost"],
+    "why_assumptions": ["ENNReal retains infinite transport values", "finite-second-moment hypotheses are needed later to prove finiteness and metric structure"],
+    "proof_route": ["specialize transportCost to squared norm", "apply ENNReal rpow one half"],
+    "lean_notes": ["quadraticCost uses ENNReal.ofReal", "no optimal plan or metric theorem is bundled"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "Squaring the extended W2 value recovers the quadratic Kantorovich cost.",
+    "mathematical_statement": "W2(mu,nu)^2 = transportCost((x,y) maps to ||x-y||^2,mu,nu).",
+    "intuition": "This is the source display that relates distance notation to the coupling optimization problem.",
+    "assumptions": ["the ENNReal W2 definition"],
+    "why_assumptions": ["extended-real algebra keeps the equality valid even when the transport cost is infinite"],
+    "proof_route": ["rewrite natural square as real rpow two", "combine rpow exponents one half and two"],
+    "lean_notes": ["the proof uses ENNReal.rpow_two and ENNReal.rpow_mul", "attainment is not used"]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn",
     "chapter": 1,
     "route_status": "Partial",
