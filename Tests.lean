@@ -4,6 +4,7 @@ import Tests.FellerSemigroup
 import Tests.MarkovSemigroup
 import Tests.OperatorGenerator
 import Tests.OperatorGeneratorDomain
+import Tests.Reversibility
 import Tests.SemigroupDecay
 
 /-!

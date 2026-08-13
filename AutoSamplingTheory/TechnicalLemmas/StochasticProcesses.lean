@@ -7,6 +7,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinGenerator
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGenerator
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 
 /-!

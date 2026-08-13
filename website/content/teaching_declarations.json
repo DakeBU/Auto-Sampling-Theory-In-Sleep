@@ -813,6 +813,31 @@
     ]
   },
   {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility.IsReversible",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A semigroup is reversible when evolving either argument gives the same Hilbert-space pairing.",
+    "mathematical_statement": "For every t, f, and g, inner(P_t f,g) = inner(f,P_t g).",
+    "intuition": "Each time operator behaves like a self-adjoint operator. In the textbook the Hilbert space is L2(pi), so the inner product is integration against the stationary law.",
+    "assumptions": [
+      "a real inner-product space",
+      "a continuous-linear semigroup indexed by nonnegative time"
+    ],
+    "why_assumptions": [
+      "the inner product represents the L2(pi) pairing in the intended application",
+      "constructing a concrete Langevin semigroup on L2(pi) is a separate analytic theorem"
+    ],
+    "proof_route": [
+      "quantify the symmetry equality over all times and observables",
+      "verify the predicate on the identity semigroup as a behavior test"
+    ],
+    "lean_notes": [
+      "ContinuousLinearSemigroup supplies P_t and the semigroup laws",
+      "the definition is generic in the Hilbert space so it can later be instantiated by Mathlib Lp",
+      "no invariant measure is inferred by this declaration alone"
+    ]
+  },
+  {
     "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
     "chapter": 1,
     "route_status": "Compiled",

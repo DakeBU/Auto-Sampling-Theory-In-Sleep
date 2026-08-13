@@ -2007,6 +2007,16 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "reversibility.chewi-definition-1-2-10",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility.IsReversible",
+    upstreamDecl := "Chewi Definition 1.2.10",
+    upstreamFile := "Log-Concave Sampling, book page 13 / PDF page 25",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "reversibility", "Hilbert-space", "self-adjoint", "semigroup"],
+    saldUse := "Chewi Definition 1.2.10 root: state semigroup reversibility as symmetry on the L2(pi) Hilbert space",
+    note := "Exact Hilbert-space predicate; constructing the concrete L2(pi) semigroup and invariant law remains downstream."
+  },
+  {
     key := "carre-du-champ.chewi-definition-1-2-12",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
     upstreamDecl := "Chewi Definition 1.2.12",
