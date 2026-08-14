@@ -3,6 +3,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FiniteTimeGrid
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.TimeMeasureRealBridge
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoEmbedding
 import Mathlib.MeasureTheory.Constructions.Polish.StronglyMeasurable
+import Mathlib.MeasureTheory.Integral.DominatedConvergence
 
 /-!
 # Convergence of lagged dyadic approximations
@@ -22,7 +23,7 @@ open scoped NNReal Topology Interval
 
 open Analysis.LeftLebesgueAverage ElementaryItoIntegral FiniteTimeGrid
   ElementaryItoEmbedding LaggedDyadicApproximation ProgressiveL2 ProgressiveL2Truncation
-  SampledElementaryApproximation TimeMeasureRealBridge
+  SampledElementaryApproximation TimeMeasureRealBridge ElementaryItoL2
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
@@ -255,6 +256,151 @@ theorem laggedDyadicApprox_tendsto_ae
   change Tendsto (fun level ↦ approx level z) atTop _
   rw [← clippedHorizonFunction_eq eta M hzt.2]
   exact hz
+
+/-- The value of a lagged dyadic approximation inherits the coefficient bound;
+there is no factor equal to the number of cells because active cells are
+unique. -/
+theorem laggedDyadicApprox_abs_le
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (M level : ℕ) (t : ℝ≥0) (omega : Omega) :
+    |(laggedDyadicApprox eta hT level M).value t omega| ≤ (M : ℝ) := by
+  by_cases ht : 0 < t
+  · by_cases htT : t ≤ T
+    · obtain ⟨i, hi, _⟩ := dyadic_activeCell hT level ht htT
+      rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_coeff_of_mem_cell
+        (laggedDyadicApprox eta hT level M) (by
+          simpa only [laggedDyadicApprox_times] using hi)]
+      exact laggedDyadicCoeff_abs_le eta hT level M i omega
+    · have hlast :
+          (laggedDyadicApprox eta hT level M).times (Fin.last (2 ^ level)) < t := by
+        rw [laggedDyadicApprox_last_time eta hT level M]
+        exact lt_of_not_ge htT
+      rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_zero_of_last_lt
+        (laggedDyadicApprox eta hT level M) hlast omega, abs_zero]
+      positivity
+  · have ht0 : t = 0 := nonpos_iff_eq_zero.mp (not_lt.mp ht)
+    have hfirst :
+        t ≤ (laggedDyadicApprox eta hT level M).times 0 := by
+      subst t
+      simp [laggedDyadicApprox_times, regularGridTimes]
+    rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_zero_of_le_first
+      (laggedDyadicApprox eta hT level M) hfirst omega, abs_zero]
+    positivity
+
+/-- Uniform pointwise error bound at a fixed clipping level. -/
+theorem abs_laggedDyadic_error_le_two_mul
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (M level : ℕ) (t : ℝ≥0) (omega : Omega) :
+    |(laggedDyadicApprox eta hT level M).value t omega -
+        (clipped eta M).process t omega| ≤ 2 * (M : ℝ) := by
+  calc
+    |(laggedDyadicApprox eta hT level M).value t omega -
+        (clipped eta M).process t omega| ≤
+      |(laggedDyadicApprox eta hT level M).value t omega| +
+        |(clipped eta M).process t omega| := abs_sub _ _
+    _ ≤ (M : ℝ) + (M : ℝ) := add_le_add
+      (laggedDyadicApprox_abs_le eta hT M level t omega)
+      (clipped_abs_le eta M t omega)
+    _ = 2 * (M : ℝ) := by ring
+
+/-- Dominated convergence for the squared fixed-clipping error. -/
+theorem tendsto_integral_sq_laggedDyadicApprox_sub
+    [IsFiniteMeasure mu]
+    (eta : ProgressiveL2Integrand filtration mu T)
+    (hT : 0 < T) (M : ℕ) :
+    Tendsto
+      (fun level ↦
+        ∫ z, ((laggedDyadicApprox eta hT level M).value z.2 z.1 -
+          (clipped eta M).process z.2 z.1) ^ 2
+          ∂processTimeMeasure mu T)
+      atTop (𝓝 0) := by
+  let _ : IsFiniteMeasure (processTimeMeasure mu T) := by
+    unfold processTimeMeasure
+    infer_instance
+  let error : ℕ → Omega × ℝ≥0 → ℝ := fun level z ↦
+    (laggedDyadicApprox eta hT level M).value z.2 z.1 -
+      (clipped eta M).process z.2 z.1
+  have herrorMem : ∀ level, MemLp (error level) 2 (processTimeMeasure mu T) :=
+    fun level ↦ (toProgressiveL2
+      (laggedDyadicApprox eta hT level M) mu T).memLp.sub (clipped eta M).memLp
+  have hmeas : ∀ level,
+      AEStronglyMeasurable (fun z ↦ (error level z) ^ 2)
+        (processTimeMeasure mu T) := fun level ↦
+    (herrorMem level).integrable_sq.aestronglyMeasurable
+  have hboundIntegrable :
+      Integrable (fun _ : Omega × ℝ≥0 ↦ 4 * (M : ℝ) ^ 2)
+        (processTimeMeasure mu T) :=
+    MeasureTheory.integrable_const (μ := processTimeMeasure mu T) (4 * (M : ℝ) ^ 2)
+  have hbound : ∀ level, ∀ᵐ z ∂processTimeMeasure mu T,
+      ‖(error level z) ^ 2‖ ≤ 4 * (M : ℝ) ^ 2 := by
+    intro level
+    filter_upwards [] with z
+    have herr := abs_laggedDyadic_error_le_two_mul eta hT M level z.2 z.1
+    change |error level z| ≤ 2 * (M : ℝ) at herr
+    calc
+      ‖(error level z) ^ 2‖ = |error level z| ^ 2 := by
+        rw [Real.norm_eq_abs, abs_sq, sq_abs]
+      _ ≤ (2 * (M : ℝ)) ^ 2 :=
+        (sq_le_sq₀ (abs_nonneg _) (by positivity)).mpr herr
+      _ = 4 * (M : ℝ) ^ 2 := by ring
+  have hlim : ∀ᵐ z ∂processTimeMeasure mu T,
+      Tendsto (fun level ↦ (error level z) ^ 2) atTop (𝓝 0) := by
+    filter_upwards [laggedDyadicApprox_tendsto_ae eta hT M] with z hz
+    have hzsub : Tendsto (fun level ↦ error level z) atTop (𝓝 0) :=
+      tendsto_sub_nhds_zero_iff.mpr hz
+    simpa only [zero_pow (by norm_num : (2 : ℕ) ≠ 0)] using hzsub.pow 2
+  simpa only [error, integral_zero] using
+    tendsto_integral_of_dominated_convergence
+      (fun _ : Omega × ℝ≥0 ↦ 4 * (M : ℝ) ^ 2)
+      hmeas hboundIntegrable hbound hlim
+
+/-- Fixed-clipping convergence in the actual product-space `L2` object. -/
+theorem tendsto_laggedDyadicApprox_toLp_clipped
+    [IsFiniteMeasure mu]
+    (eta : ProgressiveL2Integrand filtration mu T)
+    (hT : 0 < T) (M : ℕ) :
+    Tendsto
+      (fun level ↦
+        (toProgressiveL2 (laggedDyadicApprox eta hT level M) mu T).toLp)
+      atTop (𝓝 (clipped eta M).toLp) := by
+  let _ : IsFiniteMeasure (processTimeMeasure mu T) := by
+    unfold processTimeMeasure
+    infer_instance
+  let approximation : ℕ → ProgressiveL2Integrand filtration mu T := fun level ↦
+    toProgressiveL2 (laggedDyadicApprox eta hT level M) mu T
+  have hnormSq (level : ℕ) :
+      ‖(approximation level).toLp - (clipped eta M).toLp‖ ^ 2 =
+        ∫ z, ((laggedDyadicApprox eta hT level M).value z.2 z.1 -
+          (clipped eta M).process z.2 z.1) ^ 2
+          ∂processTimeMeasure mu T := by
+    have h := ElementaryItoL2.norm_sq_toLp_eq_integral_sq
+      ((approximation level).memLp.sub (clipped eta M).memLp)
+    rw [MemLp.toLp_sub] at h
+    change
+      ‖(approximation level).toLp - (clipped eta M).toLp‖ ^ 2 =
+        ∫ z, ((approximation level).process z.2 z.1 -
+          (clipped eta M).process z.2 z.1) ^ 2
+          ∂processTimeMeasure mu T at h
+    simpa only [approximation, toProgressiveL2_process] using h
+  have hsquares :
+      Tendsto
+        (fun level ↦ ‖(approximation level).toLp - (clipped eta M).toLp‖ ^ 2)
+        atTop (𝓝 0) := by
+    refine Filter.tendsto_congr'
+      (Filter.Eventually.of_forall fun level ↦ hnormSq level) |>.mpr ?_
+    exact tendsto_integral_sq_laggedDyadicApprox_sub eta hT M
+  have hnorms :
+      Tendsto
+        (fun level ↦ ‖(approximation level).toLp - (clipped eta M).toLp‖)
+        atTop (𝓝 0) := by
+    have hsqrt := Real.continuous_sqrt.continuousAt.tendsto.comp hsquares
+    change Tendsto
+      (fun level ↦ √(‖(approximation level).toLp - (clipped eta M).toLp‖ ^ 2))
+      atTop (𝓝 (√(0 : ℝ))) at hsqrt
+    simpa only [Real.sqrt_sq (norm_nonneg _), Real.sqrt_zero] using hsqrt
+  change Tendsto (fun level ↦ (approximation level).toLp) atTop
+    (𝓝 (clipped eta M).toLp)
+  exact tendsto_iff_norm_sub_tendsto_zero.mpr hnorms
 
 end LaggedDyadicConvergence
 end StochasticProcesses
