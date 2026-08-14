@@ -1,0 +1,16 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2
+
+namespace AutoSamplingTheory.Tests.ProgressiveL2
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2
+
+#check SatisfiesUsualConditions
+#check processFunction
+#check ProgressiveL2Integrand
+#check ProgressiveL2Integrand.toLp
+#check ProgressiveL2Integrand.restrictAt
+#check ProgressiveL2Integrand.restrictAt_zero_process
+#check ProgressiveL2Integrand.restrictAt_nested_process
+#check ProgressiveL2Integrand.norm_restrictAt_le
+
+end AutoSamplingTheory.Tests.ProgressiveL2

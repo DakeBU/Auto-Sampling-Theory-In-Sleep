@@ -15,6 +15,7 @@ import Tests.Martingale
 import Tests.MetricCurve
 import Tests.OperatorGenerator
 import Tests.OperatorGeneratorDomain
+import Tests.ProgressiveL2
 import Tests.Reversibility
 import Tests.SemigroupDecay
 import Tests.StoppingTime

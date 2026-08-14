@@ -2141,6 +2141,36 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "The vector Gaussian law is stated through every continuous-linear projection, matching Mathlib's coordinate-free Gaussian interface. Existence and construction remain separate theorems."
   },
   {
+    key := "ito-integral.usual-filtration-conditions",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2.SatisfiesUsualConditions",
+    upstreamDecl := "Complete right-continuous filtered probability space",
+    upstreamFile := "Log-Concave Sampling, book page 4 / PDF page 16; Mathlib.Probability.Process.Filtration",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "filtration", "complete", "right-continuous"],
+    saldUse := "package the usual filtration conditions required by continuous-time stochastic calculus",
+    note := "Completeness is stated as inclusion of every ambient measure-null set at every time; right continuity reuses Mathlib's right-continuation interface."
+  },
+  {
+    key := "ito-integral.progressive-l2-domain",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2.ProgressiveL2Integrand",
+    upstreamDecl := "Progressive globally square-integrable stochastic integrand",
+    upstreamFile := "Log-Concave Sampling, Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "progressive", "L2", "product-measure"],
+    saldUse := "retain filtration information together with the probability-time L2 representative used by Ito completion",
+    note := "This is the source domain, not an Ito-integral existence theorem; adapted elementary density and continuous martingale construction remain downstream."
+  },
+  {
+    key := "ito-integral.progressive-l2-restriction",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2.ProgressiveL2Integrand.norm_restrictAt_le",
+    upstreamDecl := "L2 contraction under terminal-time restriction",
+    upstreamFile := "Log-Concave Sampling, Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "progressive", "restriction", "L2-contraction"],
+    saldUse := "define time-indexed terminal Ito maps without increasing integrand energy",
+    note := "Restriction uses a strict endpoint representative, equivalent to the closed interval convention under Lebesgue time measure."
+  },
+  {
     key := "brownian-motion.filtration-contract",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
     upstreamDecl := "Brownian motion relative to a filtration",
