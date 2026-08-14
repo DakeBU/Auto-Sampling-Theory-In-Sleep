@@ -15,7 +15,7 @@ namespace StochasticProcesses
 namespace CanonicalLocalizationTheorem
 
 open Filter MeasureTheory
-open scoped NNReal
+open scoped NNReal Topology
 
 open ProgressiveL2 LocalProgressiveL2 CanonicalEnergyLocalizer
   CanonicalEnergyStoppingTime EnergyStoppedIntegrand EnergyStoppedProgressiveL2
