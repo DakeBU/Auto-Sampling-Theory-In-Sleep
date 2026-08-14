@@ -12,6 +12,7 @@ noncomputable section
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
+  [SFinite mu]
 
 example (eta : ProgressiveL2Integrand filtration mu T) :
     IsLocallySquareIntegrableOn eta.process mu T :=
