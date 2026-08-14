@@ -382,6 +382,24 @@ theorem commonRefinement_times_eq
       (commonRefinementRight eta xi).process.times := by
   rfl
 
+/-- Left common refinement with the shared cell count exposed in its type. -/
+noncomputable def commonRefinementLeftProcess
+    (eta xi : DyadicElementaryProcess filtration T) :
+    ElementaryAdaptedProcess filtration (2 ^ commonDyadicLevel eta xi) :=
+  (refineDyadic eta (commonDyadicLevel eta xi) (le_max_left _ _)).process
+
+/-- Right common refinement with the shared cell count exposed in its type. -/
+noncomputable def commonRefinementRightProcess
+    (eta xi : DyadicElementaryProcess filtration T) :
+    ElementaryAdaptedProcess filtration (2 ^ commonDyadicLevel eta xi) :=
+  (refineDyadic xi (commonDyadicLevel eta xi) (le_max_right _ _)).process
+
+theorem commonRefinementProcess_times_eq
+    (eta xi : DyadicElementaryProcess filtration T) :
+    (commonRefinementLeftProcess eta xi).times =
+      (commonRefinementRightProcess eta xi).times := by
+  rfl
+
 theorem commonRefinementLeft_toLp_eq [IsFiniteMeasure mu]
     (eta xi : DyadicElementaryProcess filtration T) :
     (commonRefinementLeft eta xi).toLp mu = eta.toLp mu :=

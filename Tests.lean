@@ -4,6 +4,7 @@ import Tests.CarreDuChamp
 import Tests.CoefficientTruncation
 import Tests.DisplacementInterpolation
 import Tests.DiscreteDoobL2
+import Tests.ContinuousDoobL2
 import Tests.DyadicElementaryRefinement
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
