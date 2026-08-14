@@ -9,6 +9,7 @@ import Tests.ElementaryItoEmbedding
 import Tests.ElementaryItoIsometry
 import Tests.ElementaryItoL2
 import Tests.FellerSemigroup
+import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
 import Tests.KantorovichDual
