@@ -2131,6 +2131,16 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "localization.accumulated-energy-monotonicity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.AccumulatedEnergy.accumulatedEnergy_mono",
+    upstreamDecl := "Monotonicity of accumulated pathwise square energy",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "energy", "stopping-time"],
+    saldUse := "supply the monotone nonnegative path-energy process used by the canonical localizing sequence",
+    note := "This is an exact ENNReal integral leaf. Fixed-time filtration measurability, path continuity on the finite-energy set, and the first-hitting stopping time remain downstream."
+  },
+  {
     key := "brownian-motion.chewi-definition-1-1-1",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotion",
     upstreamDecl := "ProbabilityTheory.HasLaw / ProbabilityTheory.iIndepFun / ProbabilityTheory.gaussianReal / Chewi Definition 1.1.1",
