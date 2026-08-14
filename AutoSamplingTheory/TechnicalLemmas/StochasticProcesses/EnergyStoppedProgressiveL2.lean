@@ -46,7 +46,8 @@ theorem stoppedExtension_stronglyMeasurable
       MeasurableEmbedding.id).stronglyMeasurable_extend
     · exact energyStoppedIntegrand_stronglyProgressive hUsual eta level T
     · exact stronglyMeasurable_const
-  exact hrel.mono (prod_mono le_rfl (filtration.le T))
+  apply hrel.mono
+  exact MeasurableSpace.prod_mono le_rfl (filtration.le T)
 
 @[simp] theorem stoppedExtension_apply_of_le
     (hUsual : SatisfiesUsualConditions filtration mu)
@@ -76,11 +77,16 @@ theorem processFunction_aestronglyMeasurable
       (measurable_snd.prodMk measurable_fst)
   refine hext.aestronglyMeasurable.congr ?_
   have hprod : ∀ᵐ z ∂processTimeMeasure mu T, z.2 ≤ T := by
-    apply ae_prod_mk
-    filter_upwards [] with omega
-    exact TimeMeasure.ae_le_terminal T
+    rw [ae_iff]
+    have hset : {z : Omega × ℝ≥0 | ¬z.2 ≤ T} =
+        Set.univ ×ˢ Set.Ioi T := by
+      ext z
+      simp only [Set.mem_setOf_eq, Set.mem_prod, Set.mem_univ, true_and,
+        Set.mem_Ioi, not_le]
+    rw [hset]
+    simp [processTimeMeasure, TimeMeasure.upTo_Ioi_terminal]
   filter_upwards [hprod] with z hz
-  exact (stoppedExtension_apply_of_le hUsual eta level hz z.1).symm
+  exact stoppedExtension_apply_of_le hUsual eta level hz z.1
 
 /-- The square of the stopped product-space process is integrable whenever the
 level is nonnegative and the sample measure is a probability measure. -/
@@ -98,16 +104,20 @@ theorem processFunction_sq_integrable
   have hmeas : AEStronglyMeasurable F (processTimeMeasure mu T) :=
     (processFunction_aestronglyMeasurable hUsual eta level).pow 2
   refine ⟨hmeas, ?_⟩
-  unfold HasFiniteIntegral
+  rw [hasFiniteIntegral_iff_enorm]
   have hnonneg : ∀ z, 0 ≤ F z := fun z => sq_nonneg _
-  change (∫⁻ z, ‖F z‖₊ ∂(processTimeMeasure mu T)) < ∞
-  have hnorm : (fun z => (‖F z‖₊ : ℝ≥0∞)) =
-      fun z => ENNReal.ofReal (F z) := by
+  have hnorm : (fun z => ‖F z‖ₑ) = fun z => ENNReal.ofReal (F z) := by
     funext z
-    simp [F, Real.toNNReal_of_nonneg (hnonneg z)]
-  rw [hnorm, chewi_display_1_1_7
-    (energyStoppedIntegrand hUsual eta level) mu T
-    ((processFunction_aestronglyMeasurable hUsual eta level).pow 2 |>.ennreal_ofReal)]
+    exact Real.enorm_eq_ofReal (hnonneg z)
+  rw [hnorm]
+  have hENN : AEMeasurable (fun z => ENNReal.ofReal (F z))
+      (processTimeMeasure mu T) :=
+    hmeas.aemeasurable.ennreal_ofReal
+  change (∫⁻ z, ENNReal.ofReal
+      ((processFunction (energyStoppedIntegrand hUsual eta level) z) ^ 2)
+      ∂(processTimeMeasure mu T)) < ∞
+  rw [chewi_display_1_1_7
+    (energyStoppedIntegrand hUsual eta level) mu T hENN]
   calc
     (∫⁻ omega, ∫⁻ t,
         ENNReal.ofReal
@@ -134,7 +144,8 @@ noncomputable def stoppedProgressiveL2
     ProgressiveL2Integrand filtration mu T where
   process := energyStoppedIntegrand hUsual eta level
   progressive := energyStoppedIntegrand_stronglyProgressive hUsual eta level
-  memLp := (memLp_two_iff_integrable_sq).2
+  memLp := (memLp_two_iff_integrable_sq
+      (processFunction_aestronglyMeasurable hUsual eta level)).2
     (processFunction_sq_integrable hUsual eta hlevel)
 
 @[simp] theorem stoppedProgressiveL2_process
