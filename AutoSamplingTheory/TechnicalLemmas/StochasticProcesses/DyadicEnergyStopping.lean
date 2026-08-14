@@ -138,16 +138,20 @@ theorem dyadicGridTime_le_terminal
     {T : ℝ≥0} (hT : 0 < T) (level : ℕ)
     (i : Fin (2 ^ level + 1)) :
     dyadicGridTime T level i ≤ T := by
-  exact (dyadicGridTime_strictMono hT level).monotone (Fin.le_last i) |>.trans_eq
-    (dyadicGridTime_last hT level)
+  have hle : dyadicGridTime T level i ≤
+      dyadicGridTime T level (Fin.last (2 ^ level)) :=
+    (dyadicGridTime_strictMono hT level).monotone (Fin.le_last i)
+  exact hle.trans_eq (dyadicGridTime_last hT level)
 
-/-- The original filtration restricted to the finite dyadic grid. -/
+/-- The original filtration restricted to a positive-horizon finite dyadic
+ grid.  The positivity proof is part of the construction because the grid is
+ not strict when `T = 0`. -/
 def dyadicFiltration
-    (filtration : Filtration ℝ≥0 m) (T : ℝ≥0) (level : ℕ) :
-    Filtration (Fin (2 ^ level + 1)) m where
+    (filtration : Filtration ℝ≥0 m) (T : ℝ≥0) (hT : 0 < T)
+    (level : ℕ) : Filtration (Fin (2 ^ level + 1)) m where
   seq i := filtration (dyadicGridTime T level i)
   mono' _ _ hij := filtration.mono
-    ((dyadicGridTime_strictMono (T := T) (by positivity) level).monotone hij)
+    ((dyadicGridTime_strictMono hT level).monotone hij)
   le' i := filtration.le _
 
 /-- Completed accumulated energy sampled on a finite dyadic grid. -/
@@ -162,7 +166,7 @@ theorem dyadicEnergyProcess_adapted
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocallySquareIntegrableProgressive filtration mu T)
     (hT : 0 < T) (level : ℕ) :
-    Adapted (dyadicFiltration filtration T level)
+    Adapted (dyadicFiltration filtration T hT level)
       (dyadicEnergyProcess hUsual eta level) := by
   intro i
   have hmeas := localAccumulatedEnergy_measurable_min
@@ -183,7 +187,7 @@ theorem dyadicEnergyHitIndex_isStoppingTime
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocallySquareIntegrableProgressive filtration mu T)
     (hT : 0 < T) (level threshold : ℕ) :
-    IsStoppingTime (dyadicFiltration filtration T level)
+    IsStoppingTime (dyadicFiltration filtration T hT level)
       (fun omega =>
         (dyadicEnergyHitIndex hUsual eta level threshold omega :
           WithTop (Fin (2 ^ level + 1)))) := by
@@ -237,9 +241,10 @@ theorem dyadicEnergyHitTime_isStoppingTime
   by_cases htime : times i ≤ t
   · simp only [htime, if_true]
     have hi := hindex i
-    change MeasurableSet[(dyadicFiltration filtration T level) i]
+    change MeasurableSet[(dyadicFiltration filtration T hT level) i]
       {omega | (hit omega : WithTop (Fin (2 ^ level + 1))) ≤ i} at hi
-    exact (filtration.mono htime) _ (by simpa [dyadicFiltration, times, hit] using hi)
+    exact (filtration.mono htime) _
+      (by simpa [dyadicFiltration, times, hit] using hi)
   · simp [htime]
 
 end DyadicEnergyStopping
