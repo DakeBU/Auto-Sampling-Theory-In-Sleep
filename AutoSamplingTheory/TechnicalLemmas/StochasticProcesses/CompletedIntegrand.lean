@@ -3,7 +3,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedEnergy
 /-!
 # Completion of locally square-integrable progressive integrands
 
-The source local-`L2` condition only holds almost surely.  Under the usual
+The source local-`L2` condition only holds almost surely. Under the usual
 completeness condition, replacing the null set of bad sample paths by the zero
 path preserves progressiveness and gives an everywhere time-integrable
 representative whose prefix energy is the completed energy process.
@@ -26,7 +26,7 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
 /-- The original progressive integrand with every nonintegrable sample path
 replaced by zero. -/
 noncomputable def completedIntegrand
-    (hUsual : SatisfiesUsualConditions filtration mu)
+    (_hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocalProgressiveL2Integrand filtration mu T)
     (t : ℝ≥0) : Omega → ℝ := by
   classical
@@ -43,10 +43,11 @@ theorem completedIntegrand_stronglyProgressive
       (Subtype.instMeasurableSpace.prod (filtration terminal))
       {p | p.2 ∈ badEnergySet eta} :=
     (measurableSet_badEnergySet hUsual eta terminal).preimage measurable_snd
-  change StronglyMeasurable
-    (fun p : Set.Iic terminal × Omega =>
-      if p.2 ∈ badEnergySet eta then 0 else eta.process p.1 p.2)
-  exact StronglyMeasurable.ite hbad stronglyMeasurable_const (eta.progressive terminal)
+  have hite : @StronglyMeasurable (Set.Iic terminal × Omega) ℝ inferInstance
+      (Subtype.instMeasurableSpace.prod (filtration terminal))
+      (fun p => if p.2 ∈ badEnergySet eta then 0 else eta.process p.1 p.2) :=
+    StronglyMeasurable.ite hbad stronglyMeasurable_const (eta.progressive terminal)
+  simpa only [completedIntegrand] using hite
 
 /-- Every completed sample path has an integrable square on the finite time
 horizon. -/
@@ -64,7 +65,7 @@ theorem sectionSquare_integrable
       funext s
       simp [completedIntegrand, hbad]
     rw [hzero]
-    exact integrable_zero
+    simpa using (integrable_zero ℝ≥0 ℝ (TimeMeasure.upTo T))
   · have homega : Integrable (fun s => (eta.process s omega) ^ 2)
         (TimeMeasure.upTo T) := by
       change ¬ ¬Integrable (fun s => (eta.process s omega) ^ 2)
