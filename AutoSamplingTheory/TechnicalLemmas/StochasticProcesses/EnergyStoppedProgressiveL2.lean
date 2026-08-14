@@ -47,7 +47,12 @@ theorem stoppedExtension_stronglyMeasurable
     · exact energyStoppedIntegrand_stronglyProgressive hUsual eta level T
     · exact stronglyMeasurable_const
   apply hrel.mono
-  exact MeasurableSpace.prod_mono le_rfl (filtration.le T)
+  change
+    ((inferInstance : MeasurableSpace ℝ≥0).comap Prod.fst ⊔
+        (filtration T).comap Prod.snd) ≤
+      ((inferInstance : MeasurableSpace ℝ≥0).comap Prod.fst ⊔
+        m.comap Prod.snd)
+  exact sup_le_sup le_rfl (MeasurableSpace.comap_mono (filtration.le T))
 
 @[simp] theorem stoppedExtension_apply_of_le
     (hUsual : SatisfiesUsualConditions filtration mu)
@@ -81,7 +86,7 @@ theorem processFunction_aestronglyMeasurable
     have hset : {z : Omega × ℝ≥0 | ¬z.2 ≤ T} =
         Set.univ ×ˢ Set.Ioi T := by
       ext z
-      simp only [Set.mem_setOf_eq, Set.mem_prod, Set.mem_univ, true_and,
+      simp only [Set.mem_ofPred_eq, Set.mem_prod, Set.mem_univ, true_and,
         Set.mem_Ioi, not_le]
     rw [hset]
     simp [processTimeMeasure, TimeMeasure.upTo_Ioi_terminal]
@@ -110,12 +115,15 @@ theorem processFunction_sq_integrable
     funext z
     exact Real.enorm_eq_ofReal (hnonneg z)
   rw [hnorm]
-  have hENN : AEMeasurable (fun z => ENNReal.ofReal (F z))
-      (processTimeMeasure mu T) :=
-    hmeas.aemeasurable.ennreal_ofReal
-  change (∫⁻ z, ENNReal.ofReal
-      ((processFunction (energyStoppedIntegrand hUsual eta level) z) ^ 2)
-      ∂(processTimeMeasure mu T)) < ∞
+  have hENN : AEMeasurable
+      (fun z : Omega × ℝ≥0 =>
+        ENNReal.ofReal
+          ((energyStoppedIntegrand hUsual eta level z.2 z.1) ^ 2))
+      (processTimeMeasure mu T) := by
+    simpa only [F, processFunction] using
+      hmeas.aemeasurable.ennreal_ofReal
+  change processL2Energy
+    (energyStoppedIntegrand hUsual eta level) mu T < ∞
   rw [chewi_display_1_1_7
     (energyStoppedIntegrand hUsual eta level) mu T hENN]
   calc
