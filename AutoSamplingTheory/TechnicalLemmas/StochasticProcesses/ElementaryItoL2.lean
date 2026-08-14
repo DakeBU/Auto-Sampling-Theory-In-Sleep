@@ -105,6 +105,60 @@ theorem norm_elementaryItoTerminalToLp
   nlinarith [norm_nonneg (elementaryItoTerminalToLp eta hB T),
     norm_nonneg (elementaryProcessToLp eta hB T)]
 
+/-- On a fixed grid, the terminal `L2` representative respects addition. -/
+theorem elementaryItoTerminalToLp_add
+    (eta xi : ElementaryAdaptedProcess filtration n)
+    (hgrid : eta.times = xi.times)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (T : ℝ≥0) :
+    elementaryItoTerminalToLp (add eta xi hgrid) hB T =
+      elementaryItoTerminalToLp eta hB T + elementaryItoTerminalToLp xi hB T := by
+  apply Lp.ext
+  simp only [elementaryItoTerminalToLp]
+  filter_upwards [
+    (elementaryItoIntegral_memLp_two (add eta xi hgrid) hB T).coeFn_toLp,
+    Lp.coeFn_add
+      ((elementaryItoIntegral_memLp_two eta hB T).toLp
+        (elementaryItoIntegral eta B T))
+      ((elementaryItoIntegral_memLp_two xi hB T).toLp
+        (elementaryItoIntegral xi B T)),
+    (elementaryItoIntegral_memLp_two eta hB T).coeFn_toLp,
+    (elementaryItoIntegral_memLp_two xi hB T).coeFn_toLp] with omega hsum hadd heta hxi
+  rw [hsum, hadd]
+  simp only [Pi.add_apply]
+  rw [heta, hxi]
+  exact elementaryItoIntegral_add eta xi hgrid B T omega
+
+/-- The Brownian-environment product-space representatives respect same-grid
+addition. -/
+theorem elementaryProcessToLp_add
+    (eta xi : ElementaryAdaptedProcess filtration n)
+    (hgrid : eta.times = xi.times)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (T : ℝ≥0) :
+    elementaryProcessToLp (add eta xi hgrid) hB T =
+      elementaryProcessToLp eta hB T + elementaryProcessToLp xi hB T := by
+  let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
+  unfold elementaryProcessToLp
+  dsimp only
+  exact toLp_add eta xi hgrid mu T
+
+/-- On a common grid, the elementary terminal map preserves the real Hilbert
+inner product, not only norms. -/
+theorem inner_elementaryItoTerminalToLp
+    (eta xi : ElementaryAdaptedProcess filtration n)
+    (hgrid : eta.times = xi.times)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (T : ℝ≥0) :
+    ⟪elementaryItoTerminalToLp eta hB T,
+        elementaryItoTerminalToLp xi hB T⟫_ℝ =
+      ⟪elementaryProcessToLp eta hB T,
+        elementaryProcessToLp xi hB T⟫_ℝ := by
+  rw [real_inner_eq_norm_add_mul_self_sub_norm_mul_self_sub_norm_mul_self_div_two,
+    real_inner_eq_norm_add_mul_self_sub_norm_mul_self_sub_norm_mul_self_div_two,
+    ← elementaryItoTerminalToLp_add eta xi hgrid hB T,
+    ← elementaryProcessToLp_add eta xi hgrid hB T,
+    norm_elementaryItoTerminalToLp (add eta xi hgrid) hB T,
+    norm_elementaryItoTerminalToLp eta hB T,
+    norm_elementaryItoTerminalToLp xi hB T]
+
 /-- On a fixed grid, the terminal `L2` representative respects subtraction. -/
 theorem elementaryItoTerminalToLp_sub
     (eta xi : ElementaryAdaptedProcess filtration n)

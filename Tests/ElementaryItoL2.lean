@@ -11,6 +11,9 @@ open ElementaryItoL2
 #check elementaryProcessToLp
 #check norm_sq_elementaryItoTerminalToLp
 #check norm_elementaryItoTerminalToLp
+#check elementaryItoTerminalToLp_add
+#check elementaryProcessToLp_add
+#check inner_elementaryItoTerminalToLp
 #check elementaryItoTerminalToLp_sub
 #check elementaryProcessToLp_sub
 #check norm_elementaryItoTerminalToLp_sub

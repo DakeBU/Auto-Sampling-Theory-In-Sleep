@@ -2211,6 +2211,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Both sides are actual Lp elements and their norms are proved equal from the expectation-level isometry. Adapted density, common refinement, and completion remain downstream."
   },
   {
+    key := "ito-elementary.terminal-l2-inner-isometry",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoL2.inner_elementaryItoTerminalToLp",
+    upstreamDecl := "Elementary Ito inner-product isometry on a common grid",
+    upstreamFile := "Log-Concave Sampling, displays (1.1.5)--(1.1.9), book pages 5--6 / PDF pages 17--18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "L2", "inner-product", "isometry"],
+    saldUse := "transport Hilbert-space Cauchy and orthogonality arguments from elementary integrands to terminal stochastic integrals",
+    note := "Derived by polarization from the actual norm isometry after proving same-grid addition on both Lp sides. Different-grid refinement and general completion remain open."
+  },
+  {
     key := "ito-integral.coefficient-l2-truncation",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CoefficientTruncation.tendsto_clipNat_toLp",
     upstreamDecl := "Bounded truncation approximation in L2",
