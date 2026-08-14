@@ -26,6 +26,7 @@ import Tests.LangevinCarreDuChamp
 import Tests.LaggedDyadicApproximation
 import Tests.LaggedDyadicConvergence
 import Tests.LeftLebesgueAverage
+import Tests.LocalSquareIntegrable
 import Tests.Localization
 import Tests.MarkovSemigroup
 import Tests.Martingale
