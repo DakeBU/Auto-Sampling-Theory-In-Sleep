@@ -97,7 +97,7 @@ produces an equality-level time no later than `t`. -/
 theorem exists_level_time_of_le
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocalProgressiveL2Integrand filtration mu T)
-    {level : ℝ} (hlevel : 0 ≤ level) {t : ℝ≥0} (htT : t ≤ T)
+    {level : ℝ} (hlevel : 0 ≤ level) {t : ℝ≥0} (_htT : t ≤ T)
     (hcross : level ≤ completedEnergy hUsual eta t omega) :
     ∃ s ∈ Icc (0 : ℝ≥0) t,
       completedEnergy hUsual eta s omega = level := by
@@ -159,7 +159,7 @@ theorem measurableSet_canonicalEnergyLocalizer_le
   · have heq :
         {omega | canonicalEnergyLocalizer hUsual eta level omega ≤ t} = Set.univ := by
       ext omega
-      simp only [Set.mem_setOf_eq, Set.mem_univ, iff_true]
+      simp only [Set.mem_ofPred_eq, Set.mem_univ, iff_true]
       exact (canonicalEnergyLocalizer_le_terminal hUsual eta level omega).trans hTt
     rw [heq]
     exact MeasurableSet.univ
@@ -167,7 +167,7 @@ theorem measurableSet_canonicalEnergyLocalizer_le
         {omega | canonicalEnergyLocalizer hUsual eta level omega ≤ t} =
           {omega | level ≤ completedEnergy hUsual eta t omega} := by
       ext omega
-      rw [Set.mem_setOf_eq, Set.mem_setOf_eq,
+      rw [Set.mem_ofPred_eq, Set.mem_ofPred_eq,
         canonicalEnergyLocalizer_le_iff hUsual eta hlevel omega t]
       simp only [hTt, false_or]
     rw [heq]
@@ -264,10 +264,16 @@ theorem canonicalLocalizingTime_eventually_eq_terminal
     exact hN.trans_le (hNn.trans (by norm_num))
   have hempty :
       ¬(energyLevelSet hUsual eta (n + 1 : ℝ) omega).Nonempty := by
-    rintro ⟨t, ⟨ht0, htT⟩, hvalue⟩
-    have hmono := monotone_completedEnergy hUsual eta omega htT
-    rw [hvalue] at hmono
-    exact (not_le_of_gt hlevel) hmono
+    rintro ⟨t, ⟨_ht0, htT⟩, hvalue⟩
+    have hmono : completedEnergy hUsual eta t omega ≤
+        completedEnergy hUsual eta T omega :=
+      monotone_completedEnergy hUsual eta omega htT
+    have hlevel_le_terminal : (n + 1 : ℝ) ≤
+        completedEnergy hUsual eta T omega := by
+      calc
+        (n + 1 : ℝ) = completedEnergy hUsual eta t omega := hvalue.symm
+        _ ≤ completedEnergy hUsual eta T omega := hmono
+    exact (not_le_of_gt hlevel) hlevel_le_terminal
   rw [canonicalLocalizingTime, canonicalEnergyLocalizer, dif_neg hempty]
 
 /-- Canonical localizing times converge pointwise to the terminal horizon. -/
