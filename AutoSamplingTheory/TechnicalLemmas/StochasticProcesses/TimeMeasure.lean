@@ -114,6 +114,19 @@ theorem restrict_upTo_Ioc_zero (T : ℝ≥0) :
 
 /-- The finite time measure is supported on `[0,T]`. -/
 theorem upTo_Ioi_terminal (T : ℝ≥0) : upTo T (Ioi T) = 0 := by
+  have himage : NNReal.toReal '' Ioi T = Ioi (T : ℝ) := by
+    ext r
+    constructor
+    · rintro ⟨s, hs, rfl⟩
+      exact_mod_cast hs
+    · intro hr
+      have hr0 : 0 ≤ r := T.property.trans hr.le
+      refine ⟨⟨r, hr0⟩, ?_, rfl⟩
+      exact_mod_cast hr
+  have hinter : Ioi (T : ℝ) ∩ Icc 0 (T : ℝ) = ∅ := by
+    apply Set.eq_empty_iff_forall_notMem.mpr
+    intro r hr
+    exact (not_lt_of_ge hr.2.2) hr.1
   calc
     upTo T (Ioi T) =
         (volume.restrict (Icc 0 (T : ℝ))) (NNReal.toReal '' Ioi T) := by
@@ -123,16 +136,12 @@ theorem upTo_Ioi_terminal (T : ℝ≥0) : upTo T (Ioi T) = 0 := by
           (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).measurableSet_image' hs)
         _ (measurableSet_Ioi : MeasurableSet (Ioi T))
     _ = 0 := by
-      rw [Measure.restrict_apply]
-      · simp
-      · exact (MeasurableEmbedding.subtype_coe
-          (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).measurableSet_image'
-            measurableSet_Ioi
+      rw [himage, Measure.restrict_apply measurableSet_Ioi, hinter, measure_empty]
 
 /-- Almost every time under `upTo T` lies below the terminal horizon. -/
 theorem ae_le_terminal (T : ℝ≥0) : ∀ᵐ s ∂upTo T, s ≤ T := by
-  rw [ae_iff]
-  simpa only [Set.compl_setOf, not_le] using upTo_Ioi_terminal T
+  filter_upwards [ae_mem_Ioc_zero_upTo T] with s hs
+  exact hs.2
 
 end TimeMeasure
 end StochasticProcesses
