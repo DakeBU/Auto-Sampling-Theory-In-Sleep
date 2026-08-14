@@ -32,6 +32,30 @@ noncomputable instance (T : ℝ≥0) : IsFiniteMeasure (upTo T) := by
   unfold upTo
   infer_instance
 
+/-- The total mass of nonnegative time stopped at `T` is `T`. -/
+theorem upTo_univ (T : ℝ≥0) : upTo T Set.univ = T := by
+  have himage : NNReal.toReal '' (Set.univ : Set ℝ≥0) = Ici (0 : ℝ) := by
+    ext r
+    constructor
+    · rintro ⟨s, _, rfl⟩
+      exact s.property
+    · intro hr
+      exact ⟨⟨r, hr⟩, Set.mem_univ _, rfl⟩
+  have hinter : Ici (0 : ℝ) ∩ Icc 0 (T : ℝ) = Icc 0 (T : ℝ) := by
+    exact inter_eq_right.mpr fun r hr ↦ hr.1
+  calc
+    upTo T Set.univ =
+        (volume.restrict (Icc 0 (T : ℝ)))
+          (NNReal.toReal '' (Set.univ : Set ℝ≥0)) := by
+      unfold upTo
+      exact Measure.comap_apply NNReal.toReal NNReal.coe_injective
+        (fun _ hs => (MeasurableEmbedding.subtype_coe
+          (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).measurableSet_image' hs)
+        _ MeasurableSet.univ
+    _ = T := by
+      rw [himage, Measure.restrict_apply measurableSet_Ici, hinter, Real.volume_Icc]
+      simp
+
 /-- The mass of `(a, b]` under time measure stopped at `T` is the length of
 the clipped interval. -/
 theorem upTo_Ioc (T a b : ℝ≥0) (hab : a ≤ b) :
@@ -61,6 +85,19 @@ theorem upTo_Ioc (T a b : ℝ≥0) (hab : a ≤ b) :
       rw [hinter, Real.volume_Ioc]
       rw [← NNReal.coe_sub (min_le_min hab le_rfl)]
       simp
+
+/-- Stopped nonnegative Lebesgue time lies in `(0,T]` almost everywhere;
+the omitted initial endpoint is null. -/
+theorem ae_mem_Ioc_zero_upTo (T : ℝ≥0) :
+    ∀ᵐ t ∂upTo T, t ∈ Ioc 0 T := by
+  apply (ae_mem_iff_measure_eq measurableSet_Ioc.nullMeasurableSet).2
+  rw [upTo_Ioc T 0 T (by simp), upTo_univ]
+  simp
+
+/-- Restricting stopped time to `(0,T]` leaves the measure unchanged. -/
+theorem restrict_upTo_Ioc_zero (T : ℝ≥0) :
+    (upTo T).restrict (Ioc 0 T) = upTo T :=
+  Measure.restrict_eq_self_of_ae_mem (ae_mem_Ioc_zero_upTo T)
 
 end TimeMeasure
 end StochasticProcesses

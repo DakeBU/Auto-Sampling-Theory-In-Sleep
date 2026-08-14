@@ -97,6 +97,81 @@ theorem ae_tendsto_leftAverageError_two_mul
   change Tendsto (fun n ↦ leftAverageError f t (widths n)) atTop (𝓝 0)
   exact ht.comp hwidths
 
+/-- A normalized average on a subinterval of the left neighborhood has error
+at most twice the full-neighborhood average when its mass is half the mass of
+the neighborhood.  This is the deterministic estimate behind one-cell-lagged
+dyadic convergence. -/
+theorem abs_normalized_setIntegral_sub_le_two_mul_leftAverageError
+    {f : ℝ → ℝ} (hf : LocallyIntegrable f volume)
+    {a b t delta : ℝ} (hdelta : 0 < delta)
+    (hab : b - a = delta)
+    (hsubset : Ioc a b ⊆ Icc (t - 2 * delta) t) :
+    |delta⁻¹ * ∫ s in Ioc a b, f s ∂volume - f t| ≤
+      2 * ⨍ s in Icc (t - 2 * delta) t, |f s - f t| ∂volume := by
+  have hab_le : a ≤ b := sub_nonneg.mp (hab.symm ▸ hdelta.le)
+  have hbig_le : t - 2 * delta ≤ t := sub_le_self _ (by positivity)
+  have hf_big : IntegrableOn f (Icc (t - 2 * delta) t) volume :=
+    hf.integrableOn_isCompact isCompact_Icc
+  have hconst_big : IntegrableOn (fun _ : ℝ ↦ f t)
+      (Icc (t - 2 * delta) t) volume :=
+    continuous_const.integrableOn_Icc
+  have herror_big : IntegrableOn (fun s ↦ |f s - f t|)
+      (Icc (t - 2 * delta) t) volume :=
+    (hf_big.sub hconst_big).abs
+  have hf_small : IntegrableOn f (Ioc a b) volume :=
+    hf_big.mono_set hsubset
+  have hconst_small : IntegrableOn (fun _ : ℝ ↦ f t) (Ioc a b) volume :=
+    continuous_const.integrableOn_Ioc
+  have hmass_small : volume.real (Ioc a b) = delta := by
+    rw [Real.volume_real_Ioc_of_le hab_le, hab]
+  have hmass_big : volume.real (Icc (t - 2 * delta) t) = 2 * delta := by
+    rw [Real.volume_real_Icc_of_le hbig_le]
+    ring
+  have hconst_average :
+      delta⁻¹ * ∫ _s in Ioc a b, f t ∂volume = f t := by
+    rw [integral_const, measureReal_restrict_apply_univ, hmass_small]
+    simp only [smul_eq_mul]
+    field_simp
+  have hrewrite :
+      delta⁻¹ * ∫ s in Ioc a b, f s ∂volume - f t =
+        delta⁻¹ * ∫ s in Ioc a b, (f s - f t) ∂volume := by
+    have hisub :
+        ∫ s in Ioc a b, (f s - f t) ∂volume =
+          (∫ s in Ioc a b, f s ∂volume) -
+            ∫ _s in Ioc a b, f t ∂volume :=
+      integral_sub hf_small hconst_small
+    calc
+      delta⁻¹ * ∫ s in Ioc a b, f s ∂volume - f t =
+          delta⁻¹ * ∫ s in Ioc a b, f s ∂volume -
+            delta⁻¹ * ∫ _s in Ioc a b, f t ∂volume :=
+        congrArg (fun x ↦ delta⁻¹ * ∫ s in Ioc a b, f s ∂volume - x)
+          hconst_average.symm
+      _ = delta⁻¹ * ((∫ s in Ioc a b, f s ∂volume) -
+            ∫ _s in Ioc a b, f t ∂volume) := by ring
+      _ = delta⁻¹ * ∫ s in Ioc a b, (f s - f t) ∂volume := by rw [hisub]
+  rw [hrewrite, abs_mul, abs_inv, abs_of_pos hdelta]
+  have habs :
+      |∫ s in Ioc a b, (f s - f t) ∂volume| ≤
+        ∫ s in Ioc a b, |f s - f t| ∂volume :=
+    abs_integral_le_integral_abs
+  have hmono :
+      ∫ s in Ioc a b, |f s - f t| ∂volume ≤
+        ∫ s in Icc (t - 2 * delta) t, |f s - f t| ∂volume := by
+    apply setIntegral_mono_set herror_big
+    · filter_upwards [] with s
+      exact abs_nonneg _
+    · exact Filter.Eventually.of_forall hsubset
+  calc
+    delta⁻¹ * |∫ s in Ioc a b, (f s - f t) ∂volume| ≤
+        delta⁻¹ * ∫ s in Ioc a b, |f s - f t| ∂volume :=
+      mul_le_mul_of_nonneg_left habs (inv_nonneg.mpr hdelta.le)
+    _ ≤ delta⁻¹ * ∫ s in Icc (t - 2 * delta) t, |f s - f t| ∂volume :=
+      mul_le_mul_of_nonneg_left hmono (inv_nonneg.mpr hdelta.le)
+    _ = 2 * ⨍ s in Icc (t - 2 * delta) t, |f s - f t| ∂volume := by
+      rw [setAverage_eq, hmass_big]
+      simp only [smul_eq_mul]
+      field_simp
+
 end LeftLebesgueAverage
 end Analysis
 end TechnicalLemmas

@@ -19,6 +19,9 @@ open scoped NNReal Interval
 #check TimeMeasureRealBridge.realClippedSection_abs_le
 #check TimeMeasureRealBridge.realClippedSection_stronglyMeasurable
 #check TimeMeasureRealBridge.realClippedSection_locallyIntegrable
+#check TimeMeasure.upTo_univ
+#check TimeMeasure.ae_mem_Ioc_zero_upTo
+#check TimeMeasure.restrict_upTo_Ioc_zero
 
 example :
     ∫ _s, (1 : ℝ) ∂((TimeMeasure.upTo 3).restrict (Ioc 1 2)) = 1 := by

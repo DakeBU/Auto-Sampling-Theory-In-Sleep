@@ -15,6 +15,7 @@ import Tests.GeodesicConvexity
 import Tests.KantorovichDual
 import Tests.LangevinCarreDuChamp
 import Tests.LaggedDyadicApproximation
+import Tests.LaggedDyadicConvergence
 import Tests.LeftLebesgueAverage
 import Tests.Localization
 import Tests.MarkovSemigroup

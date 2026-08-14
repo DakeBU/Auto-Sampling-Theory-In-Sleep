@@ -1,0 +1,7 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LaggedDyadicConvergence
+
+open AutoSamplingTheory TechnicalLemmas StochasticProcesses
+
+#check LaggedDyadicConvergence.abs_laggedDyadicApprox_sub_le
+#check LaggedDyadicConvergence.clippedHorizonFunction
+#check LaggedDyadicConvergence.laggedDyadicApprox_tendsto_ae

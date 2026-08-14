@@ -160,7 +160,7 @@ noncomputable def laggedDyadicCoeff
       (dyadicLeftTime T level i.val - dyadicMesh T level)
       (dyadicLeftTime T level i.val) omega
 
-private theorem dyadicMesh_le_leftTime_of_ne_zero
+theorem dyadicMesh_le_leftTime_of_ne_zero
     {T : ℝ≥0} (level : ℕ) {i : ℕ} (hi : i ≠ 0) :
     dyadicMesh T level ≤ dyadicLeftTime T level i := by
   have hiOne : 1 ≤ i := Nat.one_le_iff_ne_zero.mpr hi

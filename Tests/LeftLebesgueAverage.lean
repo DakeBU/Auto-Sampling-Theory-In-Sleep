@@ -6,6 +6,7 @@ open scoped NNReal Topology
 #check LeftLebesgueAverage.leftAverageError
 #check LeftLebesgueAverage.ae_tendsto_leftAverageError
 #check LeftLebesgueAverage.ae_tendsto_leftAverageError_two_mul
+#check LeftLebesgueAverage.abs_normalized_setIntegral_sub_le_two_mul_leftAverageError
 
 example :
     ∀ᵐ t ∂volume,
