@@ -29,6 +29,14 @@ noncomputable def prefixIntegral
     prefixIntegral f T 0 = 0 := by
   simp [prefixIntegral]
 
+/-- The moving-prefix integrand is the indicator of an initial interval. -/
+private theorem prefixIntegrand_eq_indicator
+    (f : ℝ≥0 → ℝ) (T t : ℝ≥0) :
+    (fun s => if s < min t T then f s else 0) =
+      (Iio (min t T)).indicator f := by
+  funext s
+  simp only [Set.indicator, Set.mem_Iio]
+
 /-- The prefix integral is continuous in its upper time argument. -/
 theorem continuous_prefixIntegral
     {f : ℝ≥0 → ℝ} {T : ℝ≥0}
@@ -38,13 +46,19 @@ theorem continuous_prefixIntegral
   intro t0
   let g : ℝ≥0 → ℝ≥0 → ℝ := fun t s =>
     if s < min t T then f s else 0
-  have hmeas : ∀ t, AEStronglyMeasurable (g t) (TimeMeasure.upTo T) := by
-    intro t
-    exact AEStronglyMeasurable.ite measurableSet_Iio hf.1 aestronglyMeasurable_const
-  have hbound : ∀ t, ∀ᵐ s ∂(TimeMeasure.upTo T), ‖g t s‖ ≤ ‖f s‖ := by
-    intro t
+  have hmeas : ∀ᶠ t in 𝓝 t0,
+      AEStronglyMeasurable (g t) (TimeMeasure.upTo T) := by
+    filter_upwards [] with t
+    have hind := hf.1.indicator
+      (measurableSet_Iio : MeasurableSet (Iio (min t T)))
+    simpa only [g, prefixIntegrand_eq_indicator] using hind
+  have hbound : ∀ᶠ t in 𝓝 t0,
+      ∀ᵐ s ∂(TimeMeasure.upTo T), ‖g t s‖ ≤ ‖f s‖ := by
+    filter_upwards [] with t
     filter_upwards [] with s
-    by_cases hs : s < min t T <;> simp [g, hs]
+    by_cases hs : s < min t T
+    · simp only [g, if_pos hs]
+    · simp only [g, if_neg hs, norm_zero, norm_nonneg]
   have hneq : ∀ᵐ s ∂(TimeMeasure.upTo T), s ≠ min t0 T := by
     rw [ae_iff]
     simpa using TimeMeasure.upTo_singleton T (min t0 T)
@@ -56,7 +70,8 @@ theorem continuous_prefixIntegral
     by_cases hslt : s < min t0 T
     · have hev : ∀ᶠ t in 𝓝 t0, s < min t T :=
         (tendsto_order.1 hb).1 s hslt
-      apply tendsto_congr' (hev.mono fun t ht => by simp [g, ht, hslt]) |>.2
+      apply tendsto_congr' (hev.mono fun t ht => by
+        simp only [g, if_pos ht, if_pos hslt]) |>.2
       exact tendsto_const_nhds
     · have hle : min t0 T ≤ s := le_of_not_gt hslt
       have hlt : min t0 T < s := lt_of_le_of_ne hle hs.symm
@@ -64,12 +79,12 @@ theorem continuous_prefixIntegral
         (tendsto_order.1 hb).2 s hlt
       apply tendsto_congr' (hev.mono fun t ht => by
         have hnot : ¬s < min t T := not_lt_of_ge ht.le
-        simp [g, hnot, hslt]) |>.2
+        simp only [g, if_neg hnot, if_neg hslt]) |>.2
       exact tendsto_const_nhds
   change Tendsto (fun t => ∫ s, g t s ∂(TimeMeasure.upTo T))
     (𝓝 t0) (𝓝 (∫ s, g t0 s ∂(TimeMeasure.upTo T)))
-  exact tendsto_integral_of_dominated_convergence
-    (fun s => ‖f s‖) hmeas hf.norm hbound hpoint
+  exact tendsto_integral_filter_of_dominated_convergence
+    (fun s => ‖f s‖) hmeas hbound hf.norm hpoint
 
 /-- Prefix integration is monotone in time for pointwise nonnegative
 integrands. -/
@@ -81,27 +96,29 @@ theorem prefixIntegral_mono
   unfold prefixIntegral
   have hs : Integrable (fun u => if u < min s T then f u else 0)
       (TimeMeasure.upTo T) := by
-    simpa [Set.indicator] using hf.indicator (measurableSet_Iio : MeasurableSet (Iio (min s T)))
+    rw [prefixIntegrand_eq_indicator]
+    exact hf.indicator measurableSet_Iio
   have ht : Integrable (fun u => if u < min t T then f u else 0)
       (TimeMeasure.upTo T) := by
-    simpa [Set.indicator] using hf.indicator (measurableSet_Iio : MeasurableSet (Iio (min t T)))
+    rw [prefixIntegrand_eq_indicator]
+    exact hf.indicator measurableSet_Iio
   apply integral_mono hs ht
   intro u
+  have hmin : min s T ≤ min t T := min_le_min hst le_rfl
   by_cases hu : u < min s T
-  · have hus : u < s := (lt_min_iff.mp hu).1
-    have huT : u < T := (lt_min_iff.mp hu).2
-    have hut : u < min t T := lt_min (hus.trans_le hst) huT
-    simp [hu, hut]
+  · have hut : u < min t T := hu.trans_le hmin
+    simp only [if_pos hu, if_pos hut]
   · by_cases hut : u < min t T
-    · simp [hu, hut, hnonneg u]
-    · simp [hu, hut]
+    · simp only [if_neg hu, if_pos hut, zero_le]
+      exact hnonneg u
+    · simp only [if_neg hu, if_neg hut]
 
 /-- Prefix integration stabilizes once the observation time passes the
 terminal horizon. -/
 theorem prefixIntegral_eq_terminal_of_le
     (f : ℝ≥0 → ℝ) (T t : ℝ≥0) (hTt : T ≤ t) :
     prefixIntegral f T t = prefixIntegral f T T := by
-  simp [prefixIntegral, min_eq_right hTt]
+  simp only [prefixIntegral, min_eq_right hTt, min_self]
 
 end PrefixIntegral
 end Analysis
