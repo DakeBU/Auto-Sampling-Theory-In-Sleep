@@ -16,7 +16,7 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
 example (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocallySquareIntegrableProgressive filtration mu T)
     (hT : 0 < T) (level : ℕ) :
-    Adapted (dyadicFiltration filtration T level)
+    Adapted (dyadicFiltration filtration T hT level)
       (dyadicEnergyProcess hUsual eta level) :=
   dyadicEnergyProcess_adapted hUsual eta hT level
 
