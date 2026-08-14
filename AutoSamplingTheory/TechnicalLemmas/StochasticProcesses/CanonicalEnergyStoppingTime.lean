@@ -1,0 +1,35 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime
+
+/-!
+# Stopping-time status of canonical energy localizers
+-/
+
+namespace AutoSamplingTheory
+namespace TechnicalLemmas
+namespace StochasticProcesses
+namespace CanonicalEnergyStoppingTime
+
+open MeasureTheory
+open ProgressiveL2 LocalProgressiveL2 CanonicalEnergyLocalizer
+open StoppingTime
+
+variable {Omega : Type*} {m : MeasurableSpace Omega}
+  {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
+
+/-- Each canonical integer energy localizer is a stopping time. -/
+theorem canonicalLocalizingTime_isChewiStoppingTime
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    (eta : LocalProgressiveL2Integrand filtration mu T)
+    (n : ℕ) :
+    IsChewiStoppingTime filtration
+      (fun omega => (canonicalLocalizingTime hUsual eta n omega : WithTop ℝ≥0)) := by
+  intro t
+  change MeasurableSet[filtration t]
+    {omega | canonicalLocalizingTime hUsual eta n omega ≤ t}
+  exact measurableSet_canonicalEnergyLocalizer_le hUsual eta (by positivity) t
+
+end CanonicalEnergyStoppingTime
+end StochasticProcesses
+end TechnicalLemmas
+end AutoSamplingTheory
