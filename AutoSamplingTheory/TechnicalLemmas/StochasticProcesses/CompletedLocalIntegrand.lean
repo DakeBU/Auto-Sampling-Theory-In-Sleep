@@ -53,16 +53,19 @@ theorem goodEnergySet_measurable
       (badEnergySet_null eta)).compl
 
 /-- Replace the process by zero on the null exceptional set. -/
-def completedProcess
+noncomputable def completedProcess
     (eta : LocallySquareIntegrableProgressive filtration mu T) :
-    ℝ≥0 → Omega → ℝ :=
-  fun t omega => if omega ∈ goodEnergySet eta then eta.process t omega else 0
+    ℝ≥0 → Omega → ℝ := by
+  classical
+  exact fun t omega =>
+    if omega ∈ goodEnergySet eta then eta.process t omega else 0
 
 /-- Completion on the null exceptional set preserves strong progressiveness. -/
 theorem completedProcess_progressive
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocallySquareIntegrableProgressive filtration mu T) :
     IsStronglyProgressive filtration (completedProcess eta) := by
+  classical
   intro t
   have hset : @MeasurableSet (Set.Iic t × Omega)
       (Subtype.instMeasurableSpace.prod (filtration t))
@@ -77,6 +80,7 @@ theorem completedProcess_ae_eq
     (eta : LocallySquareIntegrableProgressive filtration mu T)
     (t : ℝ≥0) :
     completedProcess eta t =ᵐ[mu] eta.process t := by
+  classical
   filter_upwards [eta.locallySquareIntegrable] with omega homega
   have hgood : omega ∈ goodEnergySet eta := homega
   simp [completedProcess, hgood]
@@ -87,6 +91,7 @@ theorem completedProcess_energy_lt_top
     (omega : Omega) :
     (∫⁻ t, ENNReal.ofReal ((completedProcess eta t omega) ^ 2)
       ∂(TimeMeasure.upTo T)) < ∞ := by
+  classical
   by_cases hgood : omega ∈ goodEnergySet eta
   · have hfinite :
         (∫⁻ t, ENNReal.ofReal ((eta.process t omega) ^ 2)
@@ -96,7 +101,7 @@ theorem completedProcess_energy_lt_top
 
 /-- The completed representative, packaged again as a progressive local
 integrand. -/
-def completed
+noncomputable def completed
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocallySquareIntegrableProgressive filtration mu T) :
     LocallySquareIntegrableProgressive filtration mu T where
@@ -110,6 +115,8 @@ def completed
     (eta : LocallySquareIntegrableProgressive filtration mu T) :
     (completed hUsual eta).process = completedProcess eta :=
   rfl
+
+end
 
 end CompletedLocalIntegrand
 end StochasticProcesses
