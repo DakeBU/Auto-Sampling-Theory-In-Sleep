@@ -26,9 +26,9 @@ theorem canonicalLocalizingTime_isChewiStoppingTime
     IsChewiStoppingTime filtration
       (fun omega => (canonicalLocalizingTime hUsual eta n omega : WithTop ℝ≥0)) := by
   intro t
-  change MeasurableSet[filtration t]
-    {omega | canonicalLocalizingTime hUsual eta n omega ≤ t}
-  exact measurableSet_canonicalEnergyLocalizer_le hUsual eta (by positivity) t
+  simpa only [WithTop.coe_le_coe] using
+    (measurableSet_canonicalEnergyLocalizer_le hUsual eta
+      (show 0 ≤ (n + 1 : ℝ) by positivity) t)
 
 /-- The same statement at Mathlib's native stopping-time interface. -/
 theorem canonicalLocalizingTime_isStoppingTime
