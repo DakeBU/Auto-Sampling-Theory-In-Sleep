@@ -2131,6 +2131,36 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "localization.completed-integrand-progressive",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedIntegrand.completedIntegrand_stronglyProgressive",
+    upstreamDecl := "Progressiveness after completing the null bad-path set",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "completion", "progressive"],
+    saldUse := "replace nonintegrable sample paths by zero while preserving the progressive sigma-algebra",
+    note := "The source local-L2 domain assumes only almost-sure finite path energy. Usual-condition completeness makes the null replacement measurable at every filtration time."
+  },
+  {
+    key := "localization.energy-stopped-path-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedIntegrand.integral_energyStoppedIntegrand_sq_le",
+    upstreamDecl := "Pathwise square-energy bound after canonical stopping",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "stopped-integrand", "energy-bound"],
+    saldUse := "bound each stopped path by its canonical energy level before taking expectation",
+    note := "The threshold representation is proved equivalent almost everywhere in time to stopping before the equality-level localizer. No expected-energy hypothesis is used."
+  },
+  {
+    key := "localization.stopped-progressive-l2",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedProgressiveL2.stoppedProgressiveL2",
+    upstreamDecl := "Global progressive product-L2 membership after energy stopping",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "progressive-L2", "Tonelli"],
+    saldUse := "feed each canonical stopped integrand into the global Ito integral constructed in Theorem 1.1.8",
+    note := "Tonelli integrates the pathwise level bound over the probability measure. The stopped-integral identity and local-martingale consistency remain downstream."
+  },
+  {
     key := "localization.completed-energy-process",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedEnergy.continuous_completedEnergy",
     upstreamDecl := "Everywhere-continuous completed accumulated energy",
