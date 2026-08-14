@@ -3,6 +3,7 @@ import Tests.BrownianMotion
 import Tests.CarreDuChamp
 import Tests.CoefficientTruncation
 import Tests.DisplacementInterpolation
+import Tests.DyadicElementaryRefinement
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
 import Tests.ElementaryItoEmbedding
