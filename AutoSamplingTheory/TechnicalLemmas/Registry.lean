@@ -2131,6 +2131,26 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.prefix-integral-continuity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral.continuous_prefixIntegral",
+    upstreamDecl := "Continuity of finite-horizon moving prefix integrals",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "analysis", "Bochner-integral", "continuity", "localization"],
+    saldUse := "supply the analytic continuity theorem for accumulated square energy",
+    note := "The proof uses dominated convergence on the repository's finite NNReal time measure and treats the moving endpoint singleton as a null set."
+  },
+  {
+    key := "localization.energy-path-continuity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyPathContinuity.continuous_accumulatedEnergyReal_ae",
+    upstreamDecl := "Almost-sure continuity of accumulated progressive square energy",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "energy", "continuity"],
+    saldUse := "justify the first-hitting canonical localizer by a continuous monotone energy path",
+    note := "The theorem starts from progressive measurability and almost-sure finite path energy; the stopping-time and stopped-integrand theorems remain downstream."
+  },
+  {
     key := "localization.fixed-time-energy-measurability",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LocalProgressiveL2.accumulatedEnergyReal_stronglyMeasurable",
     upstreamDecl := "Fixed-time filtration measurability of accumulated square energy",

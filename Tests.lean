@@ -44,6 +44,8 @@ import Tests.Transport
 import Tests.WassersteinSpace
 import Tests.AccumulatedEnergy
 import Tests.LocalProgressiveL2
+import Tests.PrefixIntegral
+import Tests.EnergyPathContinuity
 
 /-!
 Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,

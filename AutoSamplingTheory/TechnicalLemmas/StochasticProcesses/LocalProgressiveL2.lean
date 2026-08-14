@@ -61,6 +61,18 @@ theorem squaredExtensionAt_stronglyMeasurable
     MeasurableEmbedding.id).injective.extend_apply
       (fun q : Set.Iic b × Omega => (eta.process q.1 q.2) ^ 2) 0 p
 
+@[simp] theorem squaredExtensionAt_apply_of_not_le
+    (eta : LocalProgressiveL2Integrand filtration mu T)
+    {s b : ℝ≥0} (hsb : ¬s ≤ b) (omega : Omega) :
+    squaredExtensionAt eta b (s, omega) = 0 := by
+  rw [squaredExtensionAt, Function.extend_apply']
+  · rintro ⟨u, hu⟩
+    apply hsb
+    have hsu := congrArg Prod.fst hu
+    change (u.1 : ℝ≥0) = s at hsu
+    have hub : (u.1 : ℝ≥0) ≤ b := u.1.property
+    rwa [hsu] at hub
+
 /-- Real-valued accumulated energy.  On the almost-sure finite-energy set it
 agrees with the exact `ENNReal` accumulated energy and is continuous in time;
 those comparison and continuity statements are proved downstream. -/
@@ -68,7 +80,7 @@ noncomputable def accumulatedEnergyReal
     (eta : LocalProgressiveL2Integrand filtration mu T)
     (t : ℝ≥0) (omega : Omega) : ℝ :=
   ∫ s, squaredExtensionAt eta (min t T) (s, omega)
-    ∂(TimeMeasure.upTo (min t T))
+    ∂(TimeMeasure.upTo T)
 
 /-- At each fixed time the real energy is measurable with respect to the
 filtration at the stopped time `min t T`. -/
@@ -79,7 +91,7 @@ theorem accumulatedEnergyReal_stronglyMeasurable
       (accumulatedEnergyReal eta t) := by
   exact @StronglyMeasurable.integral_prod_left'
     ℝ≥0 Omega ℝ inferInstance (filtration (min t T))
-    (TimeMeasure.upTo (min t T)) inferInstance inferInstance inferInstance
+    (TimeMeasure.upTo T) inferInstance inferInstance inferInstance
     (squaredExtensionAt eta (min t T))
     (squaredExtensionAt_stronglyMeasurable eta (min t T))
 

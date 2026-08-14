@@ -40,6 +40,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.TimeMeasureRealBri
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.AccumulatedEnergy
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LocalProgressiveL2
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyPathContinuity
 
 /-!
 # Stochastic-process technical lemma arsenal

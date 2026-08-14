@@ -112,6 +112,28 @@ theorem restrict_upTo_Ioc_zero (T : ℝ≥0) :
     (upTo T).restrict (Ioc 0 T) = upTo T :=
   Measure.restrict_eq_self_of_ae_mem (ae_mem_Ioc_zero_upTo T)
 
+/-- The finite time measure is supported on `[0,T]`. -/
+theorem upTo_Ioi_terminal (T : ℝ≥0) : upTo T (Ioi T) = 0 := by
+  calc
+    upTo T (Ioi T) =
+        (volume.restrict (Icc 0 (T : ℝ))) (NNReal.toReal '' Ioi T) := by
+      unfold upTo
+      exact Measure.comap_apply NNReal.toReal NNReal.coe_injective
+        (fun _ hs => (MeasurableEmbedding.subtype_coe
+          (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).measurableSet_image' hs)
+        _ (measurableSet_Ioi : MeasurableSet (Ioi T))
+    _ = 0 := by
+      rw [Measure.restrict_apply]
+      · simp
+      · exact (MeasurableEmbedding.subtype_coe
+          (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).measurableSet_image'
+            measurableSet_Ioi
+
+/-- Almost every time under `upTo T` lies below the terminal horizon. -/
+theorem ae_le_terminal (T : ℝ≥0) : ∀ᵐ s ∂upTo T, s ≤ T := by
+  rw [ae_iff]
+  simpa only [Set.compl_setOf, not_le] using upTo_Ioi_terminal T
+
 end TimeMeasure
 end StochasticProcesses
 end TechnicalLemmas
