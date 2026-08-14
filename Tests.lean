@@ -13,6 +13,7 @@ import Tests.FellerSemigroup
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
+import Tests.ItoTerminalCompletion
 import Tests.KantorovichDual
 import Tests.LangevinCarreDuChamp
 import Tests.LaggedDyadicApproximation
