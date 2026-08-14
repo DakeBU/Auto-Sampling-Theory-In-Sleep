@@ -2161,6 +2161,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "This is the source domain, not an Ito-integral existence theorem; adapted elementary density and continuous martingale construction remain downstream."
   },
   {
+    key := "ito-integral.progressive-l2-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra.toLp_smul",
+    upstreamDecl := "Real vector-space closure of progressive L2 integrands",
+    upstreamFile := "Log-Concave Sampling, construction in Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "progressive", "L2", "linearity"],
+    saldUse := "assemble linear combinations of progressive square-integrable integrands while preserving their canonical product-space Lp representatives",
+    note := "Zero, addition, negation, subtraction, and real scalar multiplication are constructed with exact toLp compatibility. This does not provide elementary density or the Ito extension."
+  },
+  {
     key := "ito-integral.progressive-l2-restriction",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2.ProgressiveL2Integrand.norm_restrictAt_le",
     upstreamDecl := "L2 contraction under terminal-time restriction",
