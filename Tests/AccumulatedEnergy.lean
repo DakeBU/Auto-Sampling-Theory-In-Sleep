@@ -3,7 +3,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.AccumulatedEnergy
 namespace AutoSamplingTheory.Tests.AccumulatedEnergy
 
 open MeasureTheory
-open scoped NNReal
+open scoped ENNReal NNReal
 
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
 open ProgressiveL2 AccumulatedEnergy
