@@ -1,0 +1,15 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalStoppedItoIntegral
+
+namespace AutoSamplingTheory.Tests.CanonicalStoppedItoIntegral
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
+open CanonicalStoppedItoIntegral
+
+#check canonicalStoppedItoProcess
+#check canonicalStoppedItoProcess_stronglyAdapted
+#check canonicalStoppedItoProcess_martingale
+#check canonicalStoppedItoProcess_continuousOn
+#check canonicalStoppedItoProcess_at_eq_terminal
+#check chewi_display_1_1_14
+
+end AutoSamplingTheory.Tests.CanonicalStoppedItoIntegral
