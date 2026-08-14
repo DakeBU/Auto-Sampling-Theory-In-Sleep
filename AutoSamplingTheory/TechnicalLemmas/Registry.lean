@@ -2131,6 +2131,46 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "localization.completed-energy-process",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedEnergy.continuous_completedEnergy",
+    upstreamDecl := "Everywhere-continuous completed accumulated energy",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "completion", "continuous-path"],
+    saldUse := "replace the null set of nonintegrable paths without losing filtration measurability",
+    note := "Usual-condition completeness makes the null bad set measurable at every time; all completed paths are continuous, monotone, and nonnegative."
+  },
+  {
+    key := "localization.canonical-energy-stopping-time",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyStoppingTime.canonicalLocalizingTime_isChewiStoppingTime",
+    upstreamDecl := "Stopping-time property of the canonical integer energy localizer",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "stopping-time", "first-hit"],
+    saldUse := "supply the stopping-time component of Chewi's canonical localizing sequence",
+    note := "The first equality-level time is characterized by a fixed-time completed-energy threshold event; the proof uses continuity and the intermediate value theorem."
+  },
+  {
+    key := "localization.canonical-localizer-monotone-terminal",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.tendsto_canonicalLocalizingTime",
+    upstreamDecl := "Monotone canonical localizers eventually equal the terminal horizon",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "monotone", "Tendsto"],
+    saldUse := "establish pathwise monotonicity and terminal convergence of the canonical localizing sequence",
+    note := "Once the integer level exceeds finite terminal completed energy, its equality-level set is empty and the localizer equals T. Stopped-integrand global L2 and the stopped-integral identity remain downstream."
+  },
+  {
+    key := "localization.canonical-stopped-energy-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.completedEnergy_at_canonicalLocalizingTime_le",
+    upstreamDecl := "Canonical localizer bounds stopped completed energy by n+1",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "energy-bound", "stopped-integrand"],
+    saldUse := "provide the deterministic energy bound needed to place every stopped integrand in global product L2",
+    note := "The bound is exact on reached levels and uses terminal fallback when the level is not reached. Progressive stopped-integrand measurability remains downstream."
+  },
+  {
     key := "analysis.prefix-integral-continuity",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral.continuous_prefixIntegral",
     upstreamDecl := "Continuity of finite-horizon moving prefix integrals",

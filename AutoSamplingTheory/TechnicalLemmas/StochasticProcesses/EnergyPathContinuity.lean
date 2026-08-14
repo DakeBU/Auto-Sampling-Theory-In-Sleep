@@ -94,6 +94,45 @@ theorem continuous_accumulatedEnergyReal_ae
   filter_upwards [sectionSquare_integrable_ae eta] with omega homega
   exact continuous_accumulatedEnergyReal_of_integrable eta omega homega
 
+@[simp] theorem accumulatedEnergyReal_zero
+    (eta : LocalProgressiveL2Integrand filtration mu T) (omega : Omega) :
+    accumulatedEnergyReal eta 0 omega = 0 := by
+  rw [accumulatedEnergyReal_eq_prefixIntegral]
+  exact prefixIntegral_zero _ _
+
+/-- On every finite-energy path, accumulated energy is monotone. -/
+theorem accumulatedEnergyReal_mono_of_integrable
+    (eta : LocalProgressiveL2Integrand filtration mu T)
+    (omega : Omega)
+    (homega : Integrable (fun u => (eta.process u omega) ^ 2)
+      (TimeMeasure.upTo T)) {s t : ℝ≥0} (hst : s ≤ t) :
+    accumulatedEnergyReal eta s omega ≤ accumulatedEnergyReal eta t omega := by
+  rw [accumulatedEnergyReal_eq_prefixIntegral, accumulatedEnergyReal_eq_prefixIntegral]
+  exact prefixIntegral_mono homega (fun u => sq_nonneg _) hst
+
+/-- Accumulated energy stabilizes at the terminal horizon. -/
+theorem accumulatedEnergyReal_eq_terminal_of_le
+    (eta : LocalProgressiveL2Integrand filtration mu T)
+    (omega : Omega) {t : ℝ≥0} (hTt : T ≤ t) :
+    accumulatedEnergyReal eta t omega = accumulatedEnergyReal eta T omega := by
+  rw [accumulatedEnergyReal_eq_prefixIntegral, accumulatedEnergyReal_eq_prefixIntegral]
+  exact prefixIntegral_eq_terminal_of_le _ _ _ hTt
+
+/-- Threshold events for fixed-time accumulated energy are measurable at that
+time. -/
+theorem measurableSet_accumulatedEnergyReal_ge
+    (eta : LocalProgressiveL2Integrand filtration mu T)
+    (c : ℝ) (t : ℝ≥0) :
+    MeasurableSet[filtration t]
+      {omega | c ≤ accumulatedEnergyReal eta t omega} := by
+  have hmeas : Measurable[filtration (min t T)]
+      (accumulatedEnergyReal eta t) :=
+    (accumulatedEnergyReal_stronglyMeasurable eta t).measurable
+  have hset : MeasurableSet[filtration (min t T)]
+      {omega | c ≤ accumulatedEnergyReal eta t omega} :=
+    measurableSet_Ici.preimage hmeas
+  exact hset.mono (filtration.mono (min_le_left t T))
+
 end EnergyPathContinuity
 end StochasticProcesses
 end TechnicalLemmas

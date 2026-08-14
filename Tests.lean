@@ -46,6 +46,9 @@ import Tests.AccumulatedEnergy
 import Tests.LocalProgressiveL2
 import Tests.PrefixIntegral
 import Tests.EnergyPathContinuity
+import Tests.CompletedEnergy
+import Tests.CanonicalEnergyLocalizer
+import Tests.CanonicalEnergyStoppingTime
 
 /-!
 Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,

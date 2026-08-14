@@ -71,6 +71,38 @@ theorem continuous_prefixIntegral
   exact tendsto_integral_of_dominated_convergence
     (fun s => ‖f s‖) hmeas hf.norm hbound hpoint
 
+/-- Prefix integration is monotone in time for pointwise nonnegative
+integrands. -/
+theorem prefixIntegral_mono
+    {f : ℝ≥0 → ℝ} {T s t : ℝ≥0}
+    (hf : Integrable f (TimeMeasure.upTo T))
+    (hnonneg : ∀ u, 0 ≤ f u) (hst : s ≤ t) :
+    prefixIntegral f T s ≤ prefixIntegral f T t := by
+  unfold prefixIntegral
+  have hs : Integrable (fun u => if u < min s T then f u else 0)
+      (TimeMeasure.upTo T) := by
+    simpa [Set.indicator] using hf.indicator (measurableSet_Iio : MeasurableSet (Iio (min s T)))
+  have ht : Integrable (fun u => if u < min t T then f u else 0)
+      (TimeMeasure.upTo T) := by
+    simpa [Set.indicator] using hf.indicator (measurableSet_Iio : MeasurableSet (Iio (min t T)))
+  apply integral_mono hs ht
+  intro u
+  by_cases hu : u < min s T
+  · have hus : u < s := (lt_min_iff.mp hu).1
+    have huT : u < T := (lt_min_iff.mp hu).2
+    have hut : u < min t T := lt_min (hus.trans_le hst) huT
+    simp [hu, hut]
+  · by_cases hut : u < min t T
+    · simp [hu, hut, hnonneg u]
+    · simp [hu, hut]
+
+/-- Prefix integration stabilizes once the observation time passes the
+terminal horizon. -/
+theorem prefixIntegral_eq_terminal_of_le
+    (f : ℝ≥0 → ℝ) (T t : ℝ≥0) (hTt : T ≤ t) :
+    prefixIntegral f T t = prefixIntegral f T T := by
+  simp [prefixIntegral, min_eq_right hTt]
+
 end PrefixIntegral
 end Analysis
 end TechnicalLemmas
