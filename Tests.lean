@@ -3,6 +3,7 @@ import Tests.Basic
 import Tests.BrownianMotion
 import Tests.CarreDuChamp
 import Tests.CoefficientTruncation
+import Tests.CompletedLocalIntegrand
 import Tests.DisplacementInterpolation
 import Tests.DiscreteDoobL2
 import Tests.ContinuousDoobL2
