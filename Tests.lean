@@ -1,6 +1,7 @@
 import Tests.Basic
 import Tests.BrownianMotion
 import Tests.CarreDuChamp
+import Tests.CoefficientTruncation
 import Tests.DisplacementInterpolation
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra

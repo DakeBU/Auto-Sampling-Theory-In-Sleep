@@ -1,0 +1,16 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CoefficientTruncation
+
+namespace AutoSamplingTheory.Tests.CoefficientTruncation
+
+open TechnicalLemmas.StochasticProcesses.CoefficientTruncation
+
+#check clip
+#check clipNat
+#check stronglyMeasurable_clipNat
+#check aestronglyMeasurable_clipNat
+#check abs_clipNat_le_abs
+#check clipNat_eventually_eq
+#check clipNat_memLp
+#check tendsto_clipNat_toLp
+
+end AutoSamplingTheory.Tests.CoefficientTruncation

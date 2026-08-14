@@ -2201,6 +2201,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Both sides are actual Lp elements and their norms are proved equal from the expectation-level isometry. Adapted density, common refinement, and completion remain downstream."
   },
   {
+    key := "ito-integral.coefficient-l2-truncation",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CoefficientTruncation.tendsto_clipNat_toLp",
+    upstreamDecl := "Bounded truncation approximation in L2",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "L2", "truncation", "dominated-convergence"],
+    saldUse := "replace square-integrable real coefficients by bounded measurable coefficients without changing their L2 limit",
+    note := "The clipping map is proved measurable, norm dominated, eventually pointwise equal, and convergent in the actual Lp space. Adapted elementary density still requires time discretization and filtration-aware approximation."
+  },
+  {
     key := "brownian-motion.filtration-contract",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
     upstreamDecl := "Brownian motion relative to a filtration",
