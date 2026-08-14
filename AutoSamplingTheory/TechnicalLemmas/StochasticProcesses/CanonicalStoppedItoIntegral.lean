@@ -5,9 +5,9 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess
 # Canonical stopped Itô martingales
 
 Chewi display (1.1.14) applies the global `L2` Itô construction to every
-canonical energy-stopped integrand.  Proposition 1.1.13 supplies the genuine
+canonical energy-stopped integrand. Proposition 1.1.13 supplies the genuine
 progressive `L2` integrand, and the process-level construction from Theorem
-1.1.8 then gives an adapted continuous martingale.  No second stochastic
+1.1.8 then gives an adapted continuous martingale. No second stochastic
 integral is introduced here.
 -/
 
@@ -26,7 +26,7 @@ open BrownianMotion ProgressiveL2 LocalProgressiveL2
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
   {B : ℝ≥0 → Omega → ℝ}
-variable [IsFiniteMeasure mu]
+variable [IsProbabilityMeasure mu]
 
 /-- The `n`-th globally square-integrable stopped Itô martingale. -/
 noncomputable def canonicalStoppedItoProcess
