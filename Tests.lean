@@ -52,6 +52,7 @@ import Tests.CanonicalEnergyStoppingTime
 import Tests.CompletedIntegrand
 import Tests.EnergyStoppedIntegrand
 import Tests.EnergyStoppedProgressiveL2
+import Tests.CanonicalLocalizationTheorem
 
 /-!
 Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,

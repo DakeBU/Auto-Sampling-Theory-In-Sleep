@@ -2131,6 +2131,16 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "localization.chewi-proposition-1-1-13",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalLocalizationTheorem.chewi_proposition_1_1_13",
+    upstreamDecl := "Chewi Proposition 1.1.13",
+    upstreamFile := "Log-Concave Sampling, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "stopping-time", "progressive-L2"],
+    saldUse := "package the canonical energy first-hitting times, terminal convergence, and stopped global-L2 bound into the exact Chapter 1 source result",
+    note := "The stopped-integral identity (display 1.1.14) and the continuous local-martingale theorem (Proposition 1.1.16) remain separate downstream routes."
+  },
+  {
     key := "localization.completed-integrand-progressive",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedIntegrand.completedIntegrand_stronglyProgressive",
     upstreamDecl := "Progressiveness after completing the null bad-path set",

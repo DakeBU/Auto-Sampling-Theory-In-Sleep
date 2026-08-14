@@ -47,6 +47,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergySto
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedIntegrand
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedIntegrand
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedProgressiveL2
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalLocalizationTheorem
 
 /-!
 # Stochastic-process technical lemma arsenal
