@@ -1,0 +1,21 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer
+
+namespace AutoSamplingTheory.Tests.CanonicalEnergyLocalizer
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer
+
+#check energyLevelSet
+#check isClosed_energyLevelSet
+#check canonicalEnergyLocalizer
+#check canonicalEnergyLocalizer_mem
+#check canonicalEnergyLocalizer_le_iff
+#check measurableSet_canonicalEnergyLocalizer_le
+#check completedEnergy_at_canonical_le
+#check canonicalEnergyLocalizer_mono_level
+#check canonicalLocalizingTime
+#check canonicalLocalizingTime_mono
+#check canonicalLocalizingTime_eventually_eq_terminal
+#check tendsto_canonicalLocalizingTime
+#check completedEnergy_at_canonicalLocalizingTime_le
+
+end AutoSamplingTheory.Tests.CanonicalEnergyLocalizer
