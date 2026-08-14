@@ -1,0 +1,8 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoDoobL2
+
+open AutoSamplingTheory TechnicalLemmas StochasticProcesses
+
+#check ElementaryItoDoobL2.dyadicObservationTime
+#check ElementaryItoDoobL2.dyadicObservationTime_monotone
+#check ElementaryItoDoobL2.dyadicObservationTime_terminal
+#check ElementaryItoDoobL2.doobL2_elementaryItoProcess

@@ -3,10 +3,12 @@ import Tests.BrownianMotion
 import Tests.CarreDuChamp
 import Tests.CoefficientTruncation
 import Tests.DisplacementInterpolation
+import Tests.DiscreteDoobL2
 import Tests.DyadicElementaryRefinement
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
 import Tests.ElementaryItoEmbedding
+import Tests.ElementaryItoDoobL2
 import Tests.ElementaryItoIsometry
 import Tests.ElementaryItoL2
 import Tests.ElementaryItoProcess
