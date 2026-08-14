@@ -1,0 +1,15 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LocalProgressiveL2
+
+namespace AutoSamplingTheory.Tests.LocalProgressiveL2
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LocalProgressiveL2
+
+#check LocalProgressiveL2Integrand
+#check squaredExtensionAt
+#check squaredExtensionAt_stronglyMeasurable
+#check squaredExtensionAt_apply_of_le
+#check accumulatedEnergyReal
+#check accumulatedEnergyReal_stronglyMeasurable
+#check accumulatedEnergyReal_stronglyMeasurable_ambient
+
+end AutoSamplingTheory.Tests.LocalProgressiveL2
