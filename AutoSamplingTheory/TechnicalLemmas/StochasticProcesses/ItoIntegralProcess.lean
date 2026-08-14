@@ -1,0 +1,774 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ContinuousDoobL2
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoTerminalCompletion
+import Mathlib.MeasureTheory.Constructions.Polish.StronglyMeasurable
+import Mathlib.MeasureTheory.Function.ConvergenceInMeasure
+import Mathlib.MeasureTheory.Function.LpSpace.Complete
+import Mathlib.MeasureTheory.OuterMeasure.BorelCantelli
+
+/-!
+# The continuous Ito martingale
+
+This module constructs the process-level Ito integral from the canonical fast
+dyadic elementary approximants.  The first stage records the measurable
+maximal events and their summable probability bounds; the eventual uniform
+limit is then patched on the resulting null set.
+-/
+
+namespace AutoSamplingTheory
+namespace TechnicalLemmas
+namespace StochasticProcesses
+namespace ItoIntegralProcess
+
+open Filter MeasureTheory Set
+open scoped ENNReal NNReal Topology
+
+open BrownianMotion ContinuousDoobL2 ElementaryItoDoobL2 ElementaryItoIntegral
+  DyadicElementaryRefinement ElementaryItoL2 ElementaryItoProcess ItoTerminalCompletion ProgressiveL2
+  ProgressiveL2Density
+
+variable {Omega : Type*} {m : MeasurableSpace Omega}
+  {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
+  {B : ℝ≥0 → Omega → ℝ}
+variable [IsFiniteMeasure mu]
+
+/-- The `n`-th canonical elementary Ito martingale. -/
+noncomputable def canonicalItoProcess
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) (n : ℕ) : ℝ≥0 → Omega → ℝ :=
+  elementaryItoProcess (canonicalElementaryApprox eta hT n).process B T
+
+/-- The common-grid elementary martingale representing the difference of two
+successive canonical approximants. -/
+noncomputable def canonicalIncrement
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) (n : ℕ) : ℝ≥0 → Omega → ℝ :=
+  elementaryItoProcess
+    (commonDifference
+      (canonicalElementaryApprox eta hT (n + 1))
+      (canonicalElementaryApprox eta hT n)) B T
+
+theorem canonicalIncrement_eq_sub
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) (n : ℕ) :
+    canonicalIncrement eta hT B n =
+      canonicalItoProcess eta hT B (n + 1) - canonicalItoProcess eta hT B n := by
+  funext t omega
+  exact elementaryItoProcess_commonDifference
+    (canonicalElementaryApprox eta hT (n + 1))
+    (canonicalElementaryApprox eta hT n) B T t omega
+
+theorem canonicalItoProcess_martingale
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (n : ℕ) :
+    Martingale (canonicalItoProcess eta hT B n) filtration mu :=
+  by
+    simpa only [canonicalItoProcess] using
+      elementaryItoProcess_martingale (canonicalElementaryApprox eta hT n).process hB T
+
+theorem canonicalIncrement_martingale
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (n : ℕ) :
+    Martingale (canonicalIncrement eta hT B n) filtration mu :=
+  by
+    simpa only [canonicalIncrement] using elementaryItoProcess_martingale
+      (commonDifference
+        (canonicalElementaryApprox eta hT (n + 1))
+        (canonicalElementaryApprox eta hT n)) hB T
+
+theorem canonicalItoProcess_continuous_ae
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (n : ℕ) :
+    ∀ᵐ omega ∂mu, Continuous (fun t => canonicalItoProcess eta hT B n t omega) :=
+  by
+    simpa only [canonicalItoProcess] using elementaryItoProcess_continuous_ae
+      (canonicalElementaryApprox eta hT n).process hB T
+
+/-- Geometric uniform threshold used in the Borel--Cantelli argument. -/
+noncomputable def uniformThreshold (n : ℕ) : ℝ := ((2 : ℝ) ^ n)⁻¹
+
+theorem uniformThreshold_pos (n : ℕ) : 0 < uniformThreshold n := by
+  simp [uniformThreshold]
+
+theorem summable_uniformThreshold : Summable uniformThreshold := by
+  change Summable (fun n : ℕ => ((2 : ℝ) ^ n)⁻¹)
+  simpa only [inv_pow] using
+    (summable_geometric_of_lt_one (by positivity : 0 ≤ (2 : ℝ)⁻¹) (by norm_num))
+
+theorem fastTolerance_succ_le (n : ℕ) : fastTolerance (n + 1) ≤ fastTolerance n := by
+  have heq : fastTolerance (n + 1) = fastTolerance n / 16 := by
+    simp only [fastTolerance, Nat.mul_add, pow_add, pow_mul]
+    norm_num
+    ring
+  rw [heq]
+  exact div_le_self (fastTolerance_pos n).le (by norm_num)
+
+/-- Explicit `L2` estimate for successive canonical integrands. -/
+theorem norm_canonical_process_consecutive_lt
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (n : ℕ) :
+    ‖processToLp (canonicalElementaryApprox eta hT (n + 1)) hB -
+        processToLp (canonicalElementaryApprox eta hT n) hB‖ <
+      4 * fastTolerance n := by
+  let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
+  have hn1 := norm_canonicalElementaryApprox_sub_lt eta hT (n + 1)
+  have hn := norm_canonicalElementaryApprox_sub_lt eta hT n
+  have htriangle :
+      ‖(canonicalElementaryApprox eta hT (n + 1)).toLp mu -
+          (canonicalElementaryApprox eta hT n).toLp mu‖ ≤
+        ‖(canonicalElementaryApprox eta hT (n + 1)).toLp mu - eta.toLp‖ +
+          ‖eta.toLp - (canonicalElementaryApprox eta hT n).toLp mu‖ :=
+    norm_sub_le_norm_sub_add_norm_sub _ _ _
+  change ‖(canonicalElementaryApprox eta hT (n + 1)).toLp mu -
+      (canonicalElementaryApprox eta hT n).toLp mu‖ < _
+  calc
+    ‖(canonicalElementaryApprox eta hT (n + 1)).toLp mu -
+        (canonicalElementaryApprox eta hT n).toLp mu‖ ≤
+        ‖(canonicalElementaryApprox eta hT (n + 1)).toLp mu - eta.toLp‖ +
+          ‖eta.toLp - (canonicalElementaryApprox eta hT n).toLp mu‖ := htriangle
+    _ < 2 * fastTolerance (n + 1) + 2 * fastTolerance n := by
+      have hnrev : ‖eta.toLp -
+          (canonicalElementaryApprox eta hT n).toLp mu‖ <
+          2 * fastTolerance n := by
+        simpa only [norm_sub_rev] using hn
+      exact add_lt_add hn1 hnrev
+    _ ≤ 4 * fastTolerance n := by
+      nlinarith [fastTolerance_succ_le n]
+
+/-- Measurable event on which the `n`-th process increment exceeds its
+uniform threshold on some dyadic observation grid. -/
+noncomputable def uniformBadEvent
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) (n : ℕ) : Set Omega :=
+  dyadicMaxEventAll (canonicalIncrement eta hT B n) T (uniformThreshold n)
+
+theorem measurableSet_uniformBadEvent
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (n : ℕ) :
+    MeasurableSet (uniformBadEvent eta hT B n) :=
+  measurableSet_dyadicMaxEventAll
+    (canonicalIncrement_martingale eta hT hB n).stronglyAdapted T _
+
+/-- Explicit probability majorant supplied by Doob and the fast diagonal
+approximation rate. -/
+noncomputable def badEventMajorant (n : ℕ) : ℝ≥0∞ :=
+  (ENNReal.ofReal (uniformThreshold n) ^ (2 : ℝ))⁻¹ *
+    (4 * ENNReal.ofReal (4 * fastTolerance n) ^ (2 : ℝ))
+
+theorem measure_uniformBadEvent_le
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (n : ℕ) :
+    mu (uniformBadEvent eta hT B n) ≤ badEventMajorant n := by
+  have hdoob := measure_dyadicMaxEventAll_le
+    (canonicalIncrement_martingale eta hT hB n) T (uniformThreshold_pos n)
+  have henorm :
+      eLpNorm
+          (elementaryItoIntegral
+            (commonDifference
+              (canonicalElementaryApprox eta hT (n + 1))
+              (canonicalElementaryApprox eta hT n)) B T) 2 mu ≤
+        ENNReal.ofReal (4 * fastTolerance n) := by
+    rw [eLpNorm_commonDifference_terminal _ _ hB]
+    rw [← ofReal_norm]
+    exact ENNReal.ofReal_le_ofReal
+      (norm_canonical_process_consecutive_lt eta hT hB n).le
+  change mu (dyadicMaxEventAll (canonicalIncrement eta hT B n) T
+      (uniformThreshold n)) ≤ _
+  calc
+    mu (dyadicMaxEventAll (canonicalIncrement eta hT B n) T
+        (uniformThreshold n)) ≤
+        (ENNReal.ofReal (uniformThreshold n) ^ (2 : ℝ))⁻¹ *
+          (4 * eLpNorm (canonicalIncrement eta hT B n T) 2 mu ^ (2 : ℝ)) := hdoob
+    _ = (ENNReal.ofReal (uniformThreshold n) ^ (2 : ℝ))⁻¹ *
+          (4 * eLpNorm
+            (elementaryItoIntegral
+              (commonDifference
+                (canonicalElementaryApprox eta hT (n + 1))
+                (canonicalElementaryApprox eta hT n)) B T) 2 mu ^ (2 : ℝ)) := by
+      unfold canonicalIncrement
+      rw [elementaryItoProcess_terminal]
+    _ ≤ badEventMajorant n := by
+      unfold badEventMajorant
+      gcongr
+
+theorem badEventMajorant_eq (n : ℕ) :
+    badEventMajorant n =
+      ENNReal.ofReal (((2 : ℝ) ^ (6 * n + 18))⁻¹) := by
+  unfold badEventMajorant uniformThreshold fastTolerance
+  rw [ENNReal.ofReal_inv_of_pos (by positivity)]
+  rw [ENNReal.ofReal_mul (by positivity : (0 : ℝ) ≤ 4)]
+  norm_num [ENNReal.rpow_two]
+  apply (ENNReal.toReal_eq_toReal_iff'
+    (by
+      apply ENNReal.mul_ne_top
+      · simp
+      · apply ENNReal.mul_ne_top
+        · norm_num
+        · apply ENNReal.pow_ne_top
+          apply ENNReal.mul_ne_top
+          · norm_num
+          · exact ENNReal.inv_ne_top.2 (pow_ne_zero _ (by norm_num)))
+    (by simp)).mp
+  simp only [ENNReal.toReal_mul, ENNReal.toReal_inv, ENNReal.toReal_pow,
+    ENNReal.toReal_ofNat]
+  field_simp
+  ring
+
+theorem tsum_badEventMajorant_ne_top : (∑' n, badEventMajorant n) ≠ ∞ := by
+  rw [show (fun n => badEventMajorant n) =
+      fun n => ENNReal.ofReal (((2 : ℝ) ^ (6 * n + 18))⁻¹) by
+        funext n
+        exact badEventMajorant_eq n]
+  apply Summable.tsum_ofReal_ne_top
+  have hgeom : Summable (fun n : ℕ => (((2 : ℝ) ^ 6)⁻¹) ^ n) :=
+    summable_geometric_of_lt_one (by positivity) (by norm_num)
+  have hscaled := hgeom.mul_left (((2 : ℝ) ^ 18)⁻¹)
+  refine hscaled.congr fun n => ?_
+  rw [pow_add, pow_mul, mul_inv_rev, inv_pow]
+
+theorem tsum_measure_uniformBadEvent_ne_top
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    (∑' n, mu (uniformBadEvent eta hT B n)) ≠ ∞ := by
+  apply ne_top_of_le_ne_top tsum_badEventMajorant_ne_top
+  exact ENNReal.summable.tsum_le_tsum
+    (fun n => measure_uniformBadEvent_le eta hT hB n) ENNReal.summable
+
+theorem eventually_not_uniformBadEvent_ae
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    ∀ᵐ omega ∂mu, ∀ᶠ n in atTop, omega ∉ uniformBadEvent eta hT B n :=
+  ae_eventually_notMem (tsum_measure_uniformBadEvent_ne_top eta hT hB)
+
+theorem canonicalItoProcess_continuous_all_ae
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    ∀ᵐ omega ∂mu, ∀ n, Continuous (fun t => canonicalItoProcess eta hT B n t omega) := by
+  exact ae_all_iff.2 fun n => canonicalItoProcess_continuous_ae eta hT hB n
+
+/-- Full-measure event on which all elementary paths are continuous and only
+finitely many maximal increment events occur. -/
+noncomputable def uniformCauchyEvent
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) : Set Omega :=
+  {omega | (∀ᶠ n in atTop, omega ∉ uniformBadEvent eta hT B n) ∧
+    ∀ n, Continuous (fun t => canonicalItoProcess eta hT B n t omega)}
+
+theorem uniformCauchyEvent_ae
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    ∀ᵐ omega ∂mu, omega ∈ uniformCauchyEvent eta hT B := by
+  filter_upwards [eventually_not_uniformBadEvent_ae eta hT hB,
+    canonicalItoProcess_continuous_all_ae eta hT hB] with omega hevent hcont
+  exact ⟨hevent, hcont⟩
+
+/-! ## Pathwise uniform Cauchy control -/
+
+/-- Outside the `n`-th bad event, continuity upgrades the dyadic maximal
+bound to the whole compact time interval. -/
+theorem canonicalIncrement_abs_le_of_not_mem_bad
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) {omega : Omega}
+    (hcont : ∀ n, Continuous (fun t => canonicalItoProcess eta hT B n t omega))
+    {n : ℕ} (hnot : omega ∉ uniformBadEvent eta hT B n)
+    {t : ℝ≥0} (ht : t ∈ Icc (0 : ℝ≥0) T) :
+    |canonicalIncrement eta hT B n t omega| ≤ uniformThreshold n := by
+  apply le_of_not_gt
+  intro hgt
+  apply hnot
+  have hcontIncrement :
+      Continuous (fun s => canonicalIncrement eta hT B n s omega) := by
+    rw [canonicalIncrement_eq_sub]
+    exact (hcont (n + 1)).sub (hcont n)
+  exact continuousOn_mem_dyadicMaxEventAll hT hcontIncrement.continuousOn ht hgt
+
+/-- Successive canonical increments telescope between any two approximation
+levels. -/
+theorem sum_canonicalIncrement_Ico
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) (p q : ℕ) (hpq : p ≤ q)
+    (t : ℝ≥0) (omega : Omega) :
+    ∑ n ∈ Finset.Ico p q, canonicalIncrement eta hT B n t omega =
+      canonicalItoProcess eta hT B q t omega -
+        canonicalItoProcess eta hT B p t omega := by
+  rw [Finset.sum_Ico_eq_sub _ hpq]
+  have hsum (r : ℕ) :
+      ∑ n ∈ Finset.range r, canonicalIncrement eta hT B n t omega =
+        canonicalItoProcess eta hT B r t omega -
+          canonicalItoProcess eta hT B 0 t omega := by
+    rw [show (fun n => canonicalIncrement eta hT B n t omega) =
+        fun n => canonicalItoProcess eta hT B (n + 1) t omega -
+          canonicalItoProcess eta hT B n t omega by
+      funext n
+      exact congrFun (congrFun (canonicalIncrement_eq_sub eta hT B n) t) omega]
+    simpa only using (Finset.sum_range_sub
+      (fun n : ℕ => canonicalItoProcess eta hT B n t omega) r)
+  rw [hsum q, hsum p]
+  ring
+
+/-- If all bad events after `N` are absent, differences between canonical
+processes are bounded by the corresponding geometric tail. -/
+theorem canonicalItoProcess_sub_abs_le_sum_threshold
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) {omega : Omega}
+    (hcont : ∀ n, Continuous (fun t => canonicalItoProcess eta hT B n t omega))
+    {N p q : ℕ} (hbad : ∀ n ≥ N, omega ∉ uniformBadEvent eta hT B n)
+    (hp : N ≤ p) (hpq : p ≤ q) {t : ℝ≥0} (ht : t ∈ Icc (0 : ℝ≥0) T) :
+    |canonicalItoProcess eta hT B q t omega -
+        canonicalItoProcess eta hT B p t omega| ≤
+      ∑ n ∈ Finset.Ico p q, uniformThreshold n := by
+  rw [← sum_canonicalIncrement_Ico eta hT B p q hpq t omega]
+  calc
+    |∑ n ∈ Finset.Ico p q, canonicalIncrement eta hT B n t omega| ≤
+        ∑ n ∈ Finset.Ico p q, |canonicalIncrement eta hT B n t omega| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ n ∈ Finset.Ico p q, uniformThreshold n := by
+      apply Finset.sum_le_sum
+      intro n hn
+      exact canonicalIncrement_abs_le_of_not_mem_bad eta hT B hcont
+        (hbad n (hp.trans (Finset.mem_Ico.1 hn).1)) ht
+
+/-- On the full-measure good event, the canonical elementary Ito processes
+are uniformly Cauchy on `[0,T]`. -/
+theorem canonicalItoProcess_uniformCauchyOn
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) {omega : Omega}
+    (homega : omega ∈ uniformCauchyEvent eta hT B) :
+    UniformCauchySeqOn
+      (fun n t => canonicalItoProcess eta hT B n t omega)
+      atTop (Icc (0 : ℝ≥0) T) := by
+  rw [Metric.uniformCauchySeqOn_iff]
+  intro epsilon hepsilon
+  obtain ⟨Nbad, hbad⟩ := Filter.eventually_atTop.1 homega.1
+  have hpartial : CauchySeq
+      (fun n => ∑ k ∈ Finset.range n, uniformThreshold k) :=
+    (summable_uniformThreshold.hasSum.tendsto_sum_nat).cauchySeq
+  obtain ⟨Nsum, hsum⟩ := (Metric.cauchySeq_iff.1 hpartial) epsilon hepsilon
+  refine ⟨max Nbad Nsum, fun p hp q hq t ht => ?_⟩
+  have hpbad : Nbad ≤ p := (le_max_left _ _).trans hp
+  have hqbad : Nbad ≤ q := (le_max_left _ _).trans hq
+  have hpsum : Nsum ≤ p := (le_max_right _ _).trans hp
+  have hqsum : Nsum ≤ q := (le_max_right _ _).trans hq
+  rcases le_total p q with hpq | hqp
+  · have hpath := canonicalItoProcess_sub_abs_le_sum_threshold eta hT B homega.2
+      hbad hpbad hpq ht
+    have htail : ∑ n ∈ Finset.Ico p q, uniformThreshold n < epsilon := by
+      have hdist := hsum p hpsum q hqsum
+      rw [Real.dist_eq] at hdist
+      have htailEq := Finset.sum_Ico_eq_sub uniformThreshold hpq
+      have hnonneg : 0 ≤ ∑ n ∈ Finset.Ico p q, uniformThreshold n :=
+        Finset.sum_nonneg fun n _ => (uniformThreshold_pos n).le
+      rw [htailEq] at hnonneg ⊢
+      rw [abs_of_nonpos (sub_nonpos.mpr (sub_nonneg.mp hnonneg))] at hdist
+      simpa only [neg_sub] using hdist
+    rw [Real.dist_eq, abs_sub_comm]
+    exact hpath.trans_lt htail
+  · have hpath := canonicalItoProcess_sub_abs_le_sum_threshold eta hT B homega.2
+      hbad hqbad hqp ht
+    have htail : ∑ n ∈ Finset.Ico q p, uniformThreshold n < epsilon := by
+      have hdist := hsum q hqsum p hpsum
+      rw [Real.dist_eq] at hdist
+      have htailEq := Finset.sum_Ico_eq_sub uniformThreshold hqp
+      have hnonneg : 0 ≤ ∑ n ∈ Finset.Ico q p, uniformThreshold n :=
+        Finset.sum_nonneg fun n _ => (uniformThreshold_pos n).le
+      rw [htailEq] at hnonneg ⊢
+      rw [abs_of_nonpos (sub_nonpos.mpr (sub_nonneg.mp hnonneg))] at hdist
+      simpa only [neg_sub] using hdist
+    rw [Real.dist_eq]
+    exact hpath.trans_lt htail
+
+/-- Null exceptional set used to define an everywhere continuous patched
+version of the limit process. -/
+noncomputable def uniformBadSet
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) : Set Omega :=
+  (uniformCauchyEvent eta hT B)ᶜ
+
+theorem measure_uniformBadSet_zero
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    mu (uniformBadSet eta hT B) = 0 := by
+  exact ae_iff.1 (uniformCauchyEvent_ae eta hT hB)
+
+theorem measurableSet_uniformBadSet_at
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) (t : ℝ≥0) :
+    MeasurableSet[filtration t] (uniformBadSet eta hT B) :=
+  hUsual.completeAt t _ (measure_uniformBadSet_zero eta hT hB)
+
+/-! ## The continuous pathwise limit -/
+
+/-- Pointwise complete-space limit of the canonical elementary Ito processes.
+On the good event the convergence is uniform on `[0,T]`. -/
+noncomputable def canonicalPathLimit
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) (t : ℝ≥0) (omega : Omega) : ℝ :=
+  atTop.limUnder (fun n => canonicalItoProcess eta hT B n t omega)
+
+theorem tendsto_canonicalItoProcess_canonicalPathLimit
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) {omega : Omega}
+    (homega : omega ∈ uniformCauchyEvent eta hT B)
+    {t : ℝ≥0} (ht : t ∈ Icc (0 : ℝ≥0) T) :
+    Tendsto (fun n => canonicalItoProcess eta hT B n t omega) atTop
+      (𝓝 (canonicalPathLimit eta hT B t omega)) := by
+  exact ((canonicalItoProcess_uniformCauchyOn eta hT B homega).cauchySeq ht).tendsto_limUnder
+
+theorem tendstoUniformlyOn_canonicalPathLimit
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) {omega : Omega}
+    (homega : omega ∈ uniformCauchyEvent eta hT B) :
+    TendstoUniformlyOn
+      (fun n t => canonicalItoProcess eta hT B n t omega)
+      (fun t => canonicalPathLimit eta hT B t omega)
+      atTop (Icc (0 : ℝ≥0) T) :=
+  (canonicalItoProcess_uniformCauchyOn eta hT B homega).tendstoUniformlyOn_of_tendsto
+    (fun _ ht => tendsto_canonicalItoProcess_canonicalPathLimit eta hT B homega ht)
+
+theorem canonicalPathLimit_continuousOn
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) {omega : Omega}
+    (homega : omega ∈ uniformCauchyEvent eta hT B) :
+    ContinuousOn (fun t => canonicalPathLimit eta hT B t omega)
+      (Icc (0 : ℝ≥0) T) := by
+  apply (tendstoUniformlyOn_canonicalPathLimit eta hT B homega).continuousOn
+  exact Frequently.of_forall fun n => (homega.2 n).continuousOn
+
+/-- The actual process-level Ito integral: use the uniform path limit off the
+completed null exceptional set and patch by zero on that set. -/
+noncomputable def itoIntegralProcess
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (_hB : IsBrownianMotionWithFiltration B filtration mu)
+    (_hUsual : SatisfiesUsualConditions filtration mu) : ℝ≥0 → Omega → ℝ := by
+  classical
+  exact fun t omega =>
+    if omega ∈ uniformBadSet eta hT B then 0
+    else canonicalPathLimit eta hT B t omega
+
+theorem itoIntegralProcess_continuousOn
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) (omega : Omega) :
+    ContinuousOn (fun t => itoIntegralProcess eta hT hB hUsual t omega)
+      (Icc (0 : ℝ≥0) T) := by
+  classical
+  by_cases hbad : omega ∈ uniformBadSet eta hT B
+  · simp only [itoIntegralProcess, hbad, if_pos]
+    exact continuousOn_const
+  · have hgood : omega ∈ uniformCauchyEvent eta hT B := by
+      simpa only [uniformBadSet, mem_compl_iff, not_not] using hbad
+    simp only [itoIntegralProcess, hbad, if_false]
+    exact canonicalPathLimit_continuousOn eta hT B hgood
+
+theorem itoIntegralProcess_continuous_ae
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) :
+    ∀ᵐ omega ∂mu,
+      ContinuousOn (fun t => itoIntegralProcess eta hT hB hUsual t omega)
+        (Icc (0 : ℝ≥0) T) :=
+  Filter.Eventually.of_forall (itoIntegralProcess_continuousOn eta hT hB hUsual)
+
+theorem canonicalPathLimit_stronglyMeasurable
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (t : ℝ≥0) :
+    StronglyMeasurable[filtration t]
+      (fun omega => canonicalPathLimit eta hT B t omega) := by
+  let _ : MeasurableSpace Omega := filtration t
+  exact StronglyMeasurable.limUnder fun n =>
+    (canonicalItoProcess_martingale eta hT hB n).stronglyMeasurable t
+
+theorem itoIntegralProcess_stronglyAdapted
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) :
+    StronglyAdapted filtration (itoIntegralProcess eta hT hB hUsual) := by
+  intro t
+  classical
+  exact StronglyMeasurable.ite
+    (measurableSet_uniformBadSet_at eta hT hB hUsual t)
+    stronglyMeasurable_const
+    (canonicalPathLimit_stronglyMeasurable eta hT hB t)
+
+theorem tendsto_canonicalItoProcess_itoIntegralProcess_ae
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    {t : ℝ≥0} (ht : t ≤ T) :
+    ∀ᵐ omega ∂mu,
+      Tendsto (fun n => canonicalItoProcess eta hT B n t omega) atTop
+        (𝓝 (itoIntegralProcess eta hT hB hUsual t omega)) := by
+  filter_upwards [uniformCauchyEvent_ae eta hT hB] with omega homega
+  have hnot : omega ∉ uniformBadSet eta hT B := by
+    simpa only [uniformBadSet, mem_compl_iff, not_not] using homega
+  simpa only [itoIntegralProcess, hnot, if_false] using
+    tendsto_canonicalItoProcess_canonicalPathLimit eta hT B homega ⟨bot_le, ht⟩
+
+/-! ## Identification with the terminal-completion martingale -/
+
+/-- A concrete representative of the terminal `L2` completion. -/
+noncomputable def terminalRepresentative
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) : Omega → ℝ :=
+  fun omega => itoIntegralTerminal eta hT hB omega
+
+omit [IsFiniteMeasure mu] in
+theorem terminalRepresentative_memLp
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    MemLp (terminalRepresentative eta hT hB) 2 mu := by
+  exact Lp.memLp (itoIntegralTerminal eta hT hB)
+
+theorem terminalRepresentative_integrable
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    Integrable (terminalRepresentative eta hT hB) mu :=
+  (terminalRepresentative_memLp eta hT hB).integrable one_le_two
+
+/-- The canonical martingale obtained by conditioning the completed terminal
+integral on each filtration level. -/
+noncomputable def terminalConditionalProcess
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) : ℝ≥0 → Omega → ℝ :=
+  fun t => mu[terminalRepresentative eta hT hB | filtration t]
+
+theorem terminalConditionalProcess_martingale
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    Martingale (terminalConditionalProcess eta hT hB) filtration mu := by
+  exact martingale_condExp (terminalRepresentative eta hT hB) filtration mu
+
+/-- The raw terminal value of a canonical elementary martingale represents
+the corresponding `terminalApprox` element of `L2`. -/
+theorem terminalApprox_ae_eq_canonicalItoProcess_terminal
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (n : ℕ) :
+    (fun omega => terminalApprox eta hT hB n omega) =ᵐ[mu]
+      canonicalItoProcess eta hT B n T := by
+  simpa only [terminalApprox, terminalToLp, canonicalItoProcess,
+    elementaryItoProcess_terminal, elementaryItoTerminalToLp] using
+      (elementaryItoIntegral_memLp_two
+        (canonicalElementaryApprox eta hT n).process hB T).coeFn_toLp
+
+omit [IsFiniteMeasure mu] in
+theorem tendsto_eLpNorm_terminalApprox_sub_representative
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    Tendsto
+      (fun n => eLpNorm
+        ((fun omega => terminalApprox eta hT hB n omega) -
+          terminalRepresentative eta hT hB) 2 mu)
+      atTop (𝓝 0) := by
+  exact (Lp.tendsto_Lp_iff_tendsto_eLpNorm'
+    (terminalApprox eta hT hB) (itoIntegralTerminal eta hT hB)).1
+      (tendsto_terminalApprox eta hT hB)
+
+theorem tendsto_eLpNorm_terminalCondApprox_sub
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (t : ℝ≥0) :
+    Tendsto
+      (fun n => eLpNorm
+        (mu[(fun omega => terminalApprox eta hT hB n omega) | filtration t] -
+          terminalConditionalProcess eta hT hB t) 2 mu)
+      atTop (𝓝 0) := by
+  apply tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds
+    (tendsto_eLpNorm_terminalApprox_sub_representative eta hT hB)
+  · exact fun _ => bot_le
+  · intro n
+    change eLpNorm
+      (mu[(fun omega => terminalApprox eta hT hB n omega) | filtration t] -
+        terminalConditionalProcess eta hT hB t) 2 mu ≤
+      eLpNorm ((fun omega => terminalApprox eta hT hB n omega) -
+        terminalRepresentative eta hT hB) 2 mu
+    rw [show terminalConditionalProcess eta hT hB t =
+        mu[terminalRepresentative eta hT hB | filtration t] by rfl]
+    have hcond :
+        mu[(fun omega => terminalApprox eta hT hB n omega) | filtration t] -
+            mu[terminalRepresentative eta hT hB | filtration t] =ᵐ[mu]
+          mu[((fun omega => terminalApprox eta hT hB n omega) -
+            terminalRepresentative eta hT hB) | filtration t] :=
+      (condExp_sub
+        (Lp.memLp (terminalApprox eta hT hB n) |>.integrable one_le_two)
+        (terminalRepresentative_integrable eta hT hB) (filtration t)).symm
+    rw [eLpNorm_congr_ae hcond]
+    exact eLpNorm_condExp_le_eLpNorm _ one_le_two
+
+theorem tendstoInMeasure_terminalCondApprox
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (t : ℝ≥0) :
+    TendstoInMeasure mu
+      (fun n => mu[(fun omega => terminalApprox eta hT hB n omega) | filtration t])
+      atTop (terminalConditionalProcess eta hT hB t) := by
+  apply tendstoInMeasure_of_tendsto_eLpNorm (p := (2 : ℝ≥0∞)) (by norm_num)
+  · intro n
+    exact ((stronglyMeasurable_condExp (μ := mu) (m := filtration t)
+      (f := fun omega => terminalApprox eta hT hB n omega)).mono
+        (filtration.le t)).aestronglyMeasurable
+  · exact ((stronglyMeasurable_condExp (μ := mu) (m := filtration t)
+      (f := terminalRepresentative eta hT hB)).mono
+        (filtration.le t)).aestronglyMeasurable
+  · exact tendsto_eLpNorm_terminalCondApprox_sub eta hT hB t
+
+theorem terminalCondApprox_ae_eq_canonicalItoProcess
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    {t : ℝ≥0} (ht : t ≤ T) (n : ℕ) :
+    mu[(fun omega => terminalApprox eta hT hB n omega) | filtration t] =ᵐ[mu]
+      canonicalItoProcess eta hT B n t := by
+  calc
+    mu[(fun omega => terminalApprox eta hT hB n omega) | filtration t] =ᵐ[mu]
+        mu[canonicalItoProcess eta hT B n T | filtration t] :=
+      condExp_congr_ae (terminalApprox_ae_eq_canonicalItoProcess_terminal eta hT hB n)
+    _ =ᵐ[mu] canonicalItoProcess eta hT B n t :=
+      (canonicalItoProcess_martingale eta hT hB n).condExp_ae_eq ht
+
+theorem tendstoInMeasure_canonicalItoProcess_terminalConditional
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    {t : ℝ≥0} (ht : t ≤ T) :
+    TendstoInMeasure mu (fun n => canonicalItoProcess eta hT B n t) atTop
+      (terminalConditionalProcess eta hT hB t) := by
+  exact (tendstoInMeasure_terminalCondApprox eta hT hB t).congr
+    (fun n => terminalCondApprox_ae_eq_canonicalItoProcess eta hT hB ht n)
+    Filter.EventuallyEq.rfl
+
+theorem tendstoInMeasure_canonicalItoProcess_actual
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    {t : ℝ≥0} (ht : t ≤ T) :
+    TendstoInMeasure mu (fun n => canonicalItoProcess eta hT B n t) atTop
+      (itoIntegralProcess eta hT hB hUsual t) := by
+  apply tendstoInMeasure_of_tendsto_ae
+  · intro n
+    exact ((canonicalItoProcess_martingale eta hT hB n).stronglyMeasurable t).mono
+      (filtration.le t) |>.aestronglyMeasurable
+  · exact tendsto_canonicalItoProcess_itoIntegralProcess_ae eta hT hB hUsual ht
+
+theorem terminalConditionalProcess_ae_eq_actual_of_le
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    {t : ℝ≥0} (ht : t ≤ T) :
+    terminalConditionalProcess eta hT hB t =ᵐ[mu]
+      itoIntegralProcess eta hT hB hUsual t :=
+  tendstoInMeasure_ae_unique
+    (tendstoInMeasure_canonicalItoProcess_terminalConditional eta hT hB ht)
+    (tendstoInMeasure_canonicalItoProcess_actual eta hT hB hUsual ht)
+
+omit [IsFiniteMeasure mu] in
+theorem tendstoInMeasure_terminalApprox_representative
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    TendstoInMeasure mu (fun n omega => terminalApprox eta hT hB n omega) atTop
+      (terminalRepresentative eta hT hB) := by
+  apply tendstoInMeasure_of_tendsto_eLpNorm (p := (2 : ℝ≥0∞)) (by norm_num)
+  · intro n
+    exact (Lp.memLp (terminalApprox eta hT hB n)).1
+  · exact (terminalRepresentative_memLp eta hT hB).1
+  · exact tendsto_eLpNorm_terminalApprox_sub_representative eta hT hB
+
+theorem tendstoInMeasure_canonicalItoProcess_terminal
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    TendstoInMeasure mu (fun n => canonicalItoProcess eta hT B n T) atTop
+      (terminalRepresentative eta hT hB) := by
+  exact (tendstoInMeasure_terminalApprox_representative eta hT hB).congr
+    (fun n => terminalApprox_ae_eq_canonicalItoProcess_terminal eta hT hB n)
+    Filter.EventuallyEq.rfl
+
+theorem terminalRepresentative_ae_eq_actual
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) :
+    terminalRepresentative eta hT hB =ᵐ[mu]
+      itoIntegralProcess eta hT hB hUsual T :=
+  tendstoInMeasure_ae_unique
+    (tendstoInMeasure_canonicalItoProcess_terminal eta hT hB)
+    (tendstoInMeasure_canonicalItoProcess_actual eta hT hB hUsual le_rfl)
+
+theorem canonicalItoProcess_eq_terminal_of_horizon_le
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) (n : ℕ) {t : ℝ≥0} (ht : T ≤ t) :
+    canonicalItoProcess eta hT B n t = canonicalItoProcess eta hT B n T := by
+  funext omega
+  simp only [canonicalItoProcess, elementaryItoProcess, min_eq_right ht, min_self]
+
+theorem canonicalPathLimit_eq_terminal_of_horizon_le
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (B : ℝ≥0 → Omega → ℝ) {t : ℝ≥0} (ht : T ≤ t) (omega : Omega) :
+    canonicalPathLimit eta hT B t omega = canonicalPathLimit eta hT B T omega := by
+  unfold canonicalPathLimit
+  congr 1
+  funext n
+  exact congrFun (canonicalItoProcess_eq_terminal_of_horizon_le eta hT B n ht) omega
+
+theorem itoIntegralProcess_eq_terminal_of_horizon_le
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    {t : ℝ≥0} (ht : T ≤ t) :
+    itoIntegralProcess eta hT hB hUsual t =
+      itoIntegralProcess eta hT hB hUsual T := by
+  funext omega
+  classical
+  by_cases hbad : omega ∈ uniformBadSet eta hT B
+  · simp [itoIntegralProcess, hbad]
+  · simp [itoIntegralProcess, hbad,
+      canonicalPathLimit_eq_terminal_of_horizon_le eta hT B ht omega]
+
+theorem terminalConditionalProcess_ae_eq_actual_of_horizon_le
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    {t : ℝ≥0} (ht : T ≤ t) :
+    terminalConditionalProcess eta hT hB t =ᵐ[mu]
+      itoIntegralProcess eta hT hB hUsual t := by
+  have hterminal := terminalRepresentative_ae_eq_actual eta hT hB hUsual
+  have hactualMeas : StronglyMeasurable[filtration t]
+      (itoIntegralProcess eta hT hB hUsual T) :=
+    (itoIntegralProcess_stronglyAdapted eta hT hB hUsual T).mono
+      (filtration.mono ht)
+  have hactualInt : Integrable (itoIntegralProcess eta hT hB hUsual T) mu :=
+    (terminalRepresentative_integrable eta hT hB).congr hterminal
+  calc
+    terminalConditionalProcess eta hT hB t =ᵐ[mu]
+        mu[itoIntegralProcess eta hT hB hUsual T | filtration t] :=
+      condExp_congr_ae hterminal
+    _ =ᵐ[mu] itoIntegralProcess eta hT hB hUsual T :=
+      Filter.EventuallyEq.of_eq
+        (condExp_of_stronglyMeasurable (filtration.le t) hactualMeas hactualInt)
+    _ =ᵐ[mu] itoIntegralProcess eta hT hB hUsual t :=
+      Filter.EventuallyEq.of_eq
+        (itoIntegralProcess_eq_terminal_of_horizon_le eta hT hB hUsual ht).symm
+
+theorem terminalConditionalProcess_ae_eq_actual
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) (t : ℝ≥0) :
+    terminalConditionalProcess eta hT hB t =ᵐ[mu]
+      itoIntegralProcess eta hT hB hUsual t := by
+  rcases le_total t T with ht | ht
+  · exact terminalConditionalProcess_ae_eq_actual_of_le eta hT hB hUsual ht
+  · exact terminalConditionalProcess_ae_eq_actual_of_horizon_le eta hT hB hUsual ht
+
+theorem itoIntegralProcess_martingale
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) :
+    Martingale (itoIntegralProcess eta hT hB hUsual) filtration mu :=
+  (terminalConditionalProcess_martingale eta hT hB).congr
+    (itoIntegralProcess_stronglyAdapted eta hT hB hUsual)
+    (terminalConditionalProcess_ae_eq_actual eta hT hB hUsual)
+
+theorem itoIntegralProcess_integrable
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) (t : ℝ≥0) :
+    Integrable (itoIntegralProcess eta hT hB hUsual t) mu :=
+  (itoIntegralProcess_martingale eta hT hB hUsual).integrable t
+
+end ItoIntegralProcess
+end StochasticProcesses
+end TechnicalLemmas
+end AutoSamplingTheory

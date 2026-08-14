@@ -10,3 +10,4 @@ open AutoSamplingTheory TechnicalLemmas StochasticProcesses
 #check ElementaryItoDoobL2.commonDifference
 #check ElementaryItoDoobL2.doobL2_elementaryItoProcess
 #check ElementaryItoDoobL2.doobL2_elementaryItoProcess_sub
+#check ElementaryItoDoobL2.eLpNorm_commonDifference_terminal

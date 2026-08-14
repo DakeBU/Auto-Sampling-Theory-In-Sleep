@@ -112,6 +112,28 @@ theorem pow_mul_measure_dyadicMaxEventAll_le
   rw [ENNReal.mul_iSup]
   exact iSup_le fun level => pow_mul_measure_dyadicMaxEvent_le hM T a level
 
+/-- Divided form of the all-dyadic-grid estimate for a positive threshold. -/
+theorem measure_dyadicMaxEventAll_le
+    [IsFiniteMeasure mu] {filtration : Filtration ℝ≥0 m}
+    {M : ℝ≥0 → Omega → ℝ} (hM : Martingale M filtration mu)
+    (T : ℝ≥0) {a : ℝ} (ha : 0 < a) :
+    mu (dyadicMaxEventAll M T a) ≤
+      (ENNReal.ofReal a ^ (2 : ℝ))⁻¹ *
+        (4 * eLpNorm (M T) 2 mu ^ (2 : ℝ)) := by
+  have hpow0 : ENNReal.ofReal a ^ (2 : ℝ) ≠ 0 := by
+    exact (ENNReal.rpow_pos (ENNReal.ofReal_pos.2 ha) (by simp)).ne'
+  have hpowTop : ENNReal.ofReal a ^ (2 : ℝ) ≠ ∞ := by finiteness
+  have hdiv : mu (dyadicMaxEventAll M T a) ≤
+      (4 * eLpNorm (M T) 2 mu ^ (2 : ℝ)) /
+        (ENNReal.ofReal a ^ (2 : ℝ)) := by
+    apply (ENNReal.le_div_iff_mul_le
+      (a := mu (dyadicMaxEventAll M T a))
+      (b := ENNReal.ofReal a ^ (2 : ℝ))
+      (c := 4 * eLpNorm (M T) 2 mu ^ (2 : ℝ))
+      (Or.inl hpow0) (Or.inl hpowTop)).2
+    simpa only [mul_comm] using pow_mul_measure_dyadicMaxEventAll_le hM T a
+  simpa only [div_eq_mul_inv, mul_comm] using hdiv
+
 /-! ## Continuous paths are detected by the dyadic grids -/
 
 /-- The dyadic cell containing a positive time `t`. -/

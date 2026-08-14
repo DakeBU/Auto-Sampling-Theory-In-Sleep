@@ -22,7 +22,7 @@ open MeasureTheory
 open scoped ENNReal NNReal
 
 open BrownianMotion DiscreteDoobL2 DyadicElementaryRefinement ElementaryItoAlgebra
-  ElementaryItoIntegral ElementaryItoProcess ProgressiveL2Density
+  ElementaryItoIntegral ElementaryItoL2 ElementaryItoProcess ProgressiveL2Density
   SampledElementaryApproximation
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
@@ -133,6 +133,37 @@ theorem elementaryItoIntegral_commonDifference
         elementaryItoIntegral xi.process B S omega := by
   simpa only [elementaryItoProcess, min_self] using
     elementaryItoProcess_commonDifference eta xi B S S omega
+
+/-- The terminal `eLpNorm` of the common-grid difference is exactly the
+product-space `L2` distance of the two integrands. -/
+theorem eLpNorm_commonDifference_terminal
+    (eta xi : DyadicElementaryProcess filtration T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) :
+    eLpNorm (elementaryItoIntegral (commonDifference eta xi) B T) 2 mu =
+      ‖processToLp eta hB - processToLp xi hB‖ₑ := by
+  let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
+  have hterminal : elementaryItoTerminalToLp (commonDifference eta xi) hB T =
+      terminalToLp eta hB - terminalToLp xi hB := by
+    change elementaryItoTerminalToLp
+      (sub (commonRefinementLeftProcess eta xi)
+        (commonRefinementRightProcess eta xi)
+        (commonRefinementProcess_times_eq eta xi)) hB T = _
+    rw [elementaryItoTerminalToLp_sub]
+    rw [show elementaryItoTerminalToLp (commonRefinementLeftProcess eta xi) hB T =
+        terminalToLp eta hB by
+          exact refineDyadic_terminalToLp_eq eta _ _ hB T]
+    rw [show elementaryItoTerminalToLp (commonRefinementRightProcess eta xi) hB T =
+        terminalToLp xi hB by
+          exact refineDyadic_terminalToLp_eq xi _ _ hB T]
+  calc
+    eLpNorm (elementaryItoIntegral (commonDifference eta xi) B T) 2 mu =
+        ‖elementaryItoTerminalToLp (commonDifference eta xi) hB T‖ₑ :=
+      (Lp.enorm_toLp
+        (elementaryItoIntegral_memLp_two (commonDifference eta xi) hB T)).symm
+    _ = ‖terminalToLp eta hB - terminalToLp xi hB‖ₑ := by rw [hterminal]
+    _ = ‖processToLp eta hB - processToLp xi hB‖ₑ := by
+      rw [← ofReal_norm, ← ofReal_norm]
+      exact congrArg ENNReal.ofReal (norm_terminal_sub_eq_process_sub eta xi hB)
 
 /-- Finite-grid Doob control for an elementary Ito martingale. -/
 theorem doobL2_elementaryItoProcess

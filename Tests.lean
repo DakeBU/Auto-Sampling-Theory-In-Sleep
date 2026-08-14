@@ -18,6 +18,7 @@ import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
 import Tests.ItoTerminalCompletion
+import Tests.ItoIntegralProcess
 import Tests.KantorovichDual
 import Tests.LangevinCarreDuChamp
 import Tests.LaggedDyadicApproximation

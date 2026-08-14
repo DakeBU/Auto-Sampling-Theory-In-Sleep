@@ -1,0 +1,13 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
+
+#check ItoIntegralProcess.measure_uniformBadEvent_le
+#check ItoIntegralProcess.tsum_measure_uniformBadEvent_ne_top
+#check ItoIntegralProcess.canonicalItoProcess_uniformCauchyOn
+#check ItoIntegralProcess.tendstoUniformlyOn_canonicalPathLimit
+#check ItoIntegralProcess.itoIntegralProcess_continuous_ae
+#check ItoIntegralProcess.itoIntegralProcess_stronglyAdapted
+#check ItoIntegralProcess.terminalRepresentative_ae_eq_actual
+#check ItoIntegralProcess.itoIntegralProcess_martingale
+#check ItoIntegralProcess.itoIntegralProcess_integrable
