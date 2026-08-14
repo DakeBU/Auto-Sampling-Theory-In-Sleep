@@ -20,6 +20,8 @@ open scoped ENNReal NNReal
 
 open ElementaryItoIntegral ProgressiveL2 LocalSquareIntegrable
 
+noncomputable section
+
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
 
@@ -37,7 +39,7 @@ theorem badEnergySet_null
     mu (goodEnergySet eta)ᶜ = 0 := by
   rw [measure_eq_zero_iff_ae_notMem]
   filter_upwards [eta.locallySquareIntegrable] with omega homega
-  simpa [goodEnergySet] using homega
+  exact fun hbad => hbad homega
 
 /-- Under the usual completeness assumption, the good path set is measurable
 in every filtration sigma-algebra. -/
@@ -46,8 +48,9 @@ theorem goodEnergySet_measurable
     (eta : LocallySquareIntegrableProgressive filtration mu T)
     (t : ℝ≥0) :
     MeasurableSet[filtration t] (goodEnergySet eta) := by
-  exact (hUsual.completeAt t (goodEnergySet eta)ᶜ
-    (badEnergySet_null eta)).compl
+  simpa only [compl_compl] using
+    (hUsual.completeAt t (goodEnergySet eta)ᶜ
+      (badEnergySet_null eta)).compl
 
 /-- Replace the process by zero on the null exceptional set. -/
 def completedProcess
@@ -65,7 +68,8 @@ theorem completedProcess_progressive
       (Subtype.instMeasurableSpace.prod (filtration t))
       {p | p.2 ∈ goodEnergySet eta} :=
     (goodEnergySet_measurable hUsual eta t).preimage measurable_snd
-  exact StronglyMeasurable.ite hset (eta.progressive t) stronglyMeasurable_const
+  simpa only [completedProcess] using
+    (StronglyMeasurable.ite hset (eta.progressive t) stronglyMeasurable_const)
 
 /-- The completed representative agrees almost surely with the original
 process at every time. -/
@@ -74,7 +78,8 @@ theorem completedProcess_ae_eq
     (t : ℝ≥0) :
     completedProcess eta t =ᵐ[mu] eta.process t := by
   filter_upwards [eta.locallySquareIntegrable] with omega homega
-  simp [completedProcess, goodEnergySet, homega]
+  have hgood : omega ∈ goodEnergySet eta := homega
+  simp [completedProcess, hgood]
 
 /-- Every completed sample path has finite terminal squared energy. -/
 theorem completedProcess_energy_lt_top
@@ -83,7 +88,10 @@ theorem completedProcess_energy_lt_top
     (∫⁻ t, ENNReal.ofReal ((completedProcess eta t omega) ^ 2)
       ∂(TimeMeasure.upTo T)) < ∞ := by
   by_cases hgood : omega ∈ goodEnergySet eta
-  · simpa [completedProcess, hgood] using hgood
+  · have hfinite :
+        (∫⁻ t, ENNReal.ofReal ((eta.process t omega) ^ 2)
+          ∂(TimeMeasure.upTo T)) < ∞ := hgood
+    simpa only [completedProcess, if_pos hgood] using hfinite
   · simp [completedProcess, hgood]
 
 /-- The completed representative, packaged again as a progressive local
