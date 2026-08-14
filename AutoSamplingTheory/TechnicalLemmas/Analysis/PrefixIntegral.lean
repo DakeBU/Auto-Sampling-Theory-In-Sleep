@@ -58,7 +58,9 @@ theorem continuous_prefixIntegral
     filter_upwards [] with s
     by_cases hs : s < min t T
     · simp only [g, if_pos hs]
-    · simp only [g, if_neg hs, norm_zero, norm_nonneg]
+      exact le_rfl
+    · simp only [g, if_neg hs, norm_zero]
+      exact norm_nonneg _
   have hneq : ∀ᵐ s ∂(TimeMeasure.upTo T), s ≠ min t0 T := by
     rw [ae_iff]
     simpa using TimeMeasure.upTo_singleton T (min t0 T)
@@ -70,17 +72,23 @@ theorem continuous_prefixIntegral
     by_cases hslt : s < min t0 T
     · have hev : ∀ᶠ t in 𝓝 t0, s < min t T :=
         (tendsto_order.1 hb).1 s hslt
-      apply tendsto_congr' (hev.mono fun t ht => by
-        simp only [g, if_pos ht, if_pos hslt]) |>.2
-      exact tendsto_const_nhds
+      have heq : (fun t => g t s) =ᶠ[𝓝 t0]
+          (fun _ : ℝ≥0 => f s) := by
+        filter_upwards [hev] with t ht
+        simp only [g, if_pos ht]
+      rw [show g t0 s = f s by simp only [g, if_pos hslt]]
+      exact (tendsto_congr' heq).2 tendsto_const_nhds
     · have hle : min t0 T ≤ s := le_of_not_gt hslt
       have hlt : min t0 T < s := lt_of_le_of_ne hle hs.symm
       have hev : ∀ᶠ t in 𝓝 t0, min t T < s :=
         (tendsto_order.1 hb).2 s hlt
-      apply tendsto_congr' (hev.mono fun t ht => by
+      have heq : (fun t => g t s) =ᶠ[𝓝 t0]
+          (fun _ : ℝ≥0 => 0) := by
+        filter_upwards [hev] with t ht
         have hnot : ¬s < min t T := not_lt_of_ge ht.le
-        simp only [g, if_neg hnot, if_neg hslt]) |>.2
-      exact tendsto_const_nhds
+        simp only [g, if_neg hnot]
+      rw [show g t0 s = 0 by simp only [g, if_neg hslt]]
+      exact (tendsto_congr' heq).2 tendsto_const_nhds
   change Tendsto (fun t => ∫ s, g t s ∂(TimeMeasure.upTo T))
     (𝓝 t0) (𝓝 (∫ s, g t0 s ∂(TimeMeasure.upTo T)))
   exact tendsto_integral_filter_of_dominated_convergence
@@ -108,10 +116,12 @@ theorem prefixIntegral_mono
   by_cases hu : u < min s T
   · have hut : u < min t T := hu.trans_le hmin
     simp only [if_pos hu, if_pos hut]
+    exact le_rfl
   · by_cases hut : u < min t T
-    · simp only [if_neg hu, if_pos hut, zero_le]
+    · simp only [if_neg hu, if_pos hut]
       exact hnonneg u
     · simp only [if_neg hu, if_neg hut]
+      exact le_rfl
 
 /-- Prefix integration stabilizes once the observation time passes the
 terminal horizon. -/
