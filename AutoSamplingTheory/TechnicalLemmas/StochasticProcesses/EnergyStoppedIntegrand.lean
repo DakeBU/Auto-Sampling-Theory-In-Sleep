@@ -5,9 +5,9 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedIntegrand
 # Energy-stopped progressive integrands
 
 A completed integrand is stopped by the progressive threshold
-`completedEnergy t < level`.  Continuity and monotonicity identify this
+`completedEnergy t < level`. Continuity and monotonicity identify this
 threshold, away from the null terminal endpoint, with stopping before the
-canonical equality-level localizer.  This yields the exact pathwise energy
+canonical equality-level localizer. This yields the exact pathwise energy
 bound needed for global `L2` stochastic integration.
 -/
 
@@ -71,8 +71,12 @@ theorem completedEnergy_lt_iff_lt_canonicalEnergyLocalizer
     by_cases hne : (energyLevelSet hUsual eta level omega).Nonempty
     · have hmem := canonicalEnergyLocalizer_mem hUsual eta level omega hne
       have hmono := monotone_completedEnergy hUsual eta omega hstop
-      rw [hmem.2] at hmono
-      exact (not_le_of_gt hbelow) hmono
+      have hlevel_le_s : level ≤ completedEnergy hUsual eta s omega := by
+        calc
+          level = completedEnergy hUsual eta
+              (canonicalEnergyLocalizer hUsual eta level omega) omega := hmem.2.symm
+          _ ≤ completedEnergy hUsual eta s omega := hmono
+      exact (not_le_of_gt hbelow) hlevel_le_s
     · have heq : canonicalEnergyLocalizer hUsual eta level omega = T := by
         simp [canonicalEnergyLocalizer, hne]
       rw [heq] at hstop
@@ -97,14 +101,28 @@ theorem sectionSquare_integrable
     Integrable
       (fun s => (energyStoppedIntegrand hUsual eta level s omega) ^ 2)
       (TimeMeasure.upTo T) := by
-  exact (CompletedIntegrand.sectionSquare_integrable hUsual eta omega).mono'
-    (((energyStoppedIntegrand_stronglyProgressive hUsual eta level T).mono
-      prod_le_borel_prod le_rfl).comp_measurable
-        (measurable_id.prodMk measurable_const) |>.pow 2 |>.aestronglyMeasurable)
-    (ae_of_all _ fun s => by
-      by_cases hs : completedEnergy hUsual eta s omega < level
-      · simp [energyStoppedIntegrand, hs]
-      · simp [energyStoppedIntegrand, hs])
+  have hbase := CompletedIntegrand.sectionSquare_integrable hUsual eta omega
+  have hset : MeasurableSet
+      {s : ℝ≥0 | completedEnergy hUsual eta s omega < level} :=
+    measurableSet_Iio.preimage
+      (continuous_completedEnergy hUsual eta omega).measurable
+  have hmeas : AEStronglyMeasurable
+      (fun s => (energyStoppedIntegrand hUsual eta level s omega) ^ 2)
+      (TimeMeasure.upTo T) := by
+    have hind : AEStronglyMeasurable
+        ({s : ℝ≥0 | completedEnergy hUsual eta s omega < level}.indicator
+          (fun s => (completedIntegrand hUsual eta s omega) ^ 2))
+        (TimeMeasure.upTo T) :=
+      hbase.1.indicator hset
+    refine hind.congr (ae_of_all _ fun s => ?_)
+    by_cases hs : completedEnergy hUsual eta s omega < level
+    · simp [energyStoppedIntegrand, Set.indicator, hs]
+    · simp [energyStoppedIntegrand, Set.indicator, hs]
+  exact hbase.mono' hmeas (ae_of_all _ fun s => by
+    by_cases hs : completedEnergy hUsual eta s omega < level
+    · simp [energyStoppedIntegrand, hs]
+    · simp only [energyStoppedIntegrand, if_neg hs, zero_pow, norm_zero]
+      exact sq_nonneg (completedIntegrand hUsual eta s omega))
 
 /-- The real time integral of the stopped square is the completed energy at
 its canonical localizer. -/
