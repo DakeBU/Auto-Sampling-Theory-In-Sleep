@@ -768,6 +768,74 @@ theorem itoIntegralProcess_integrable
     Integrable (itoIntegralProcess eta hT hB hUsual t) mu :=
   (itoIntegralProcess_martingale eta hT hB hUsual).integrable t
 
+/-! ## Source-facing terminal theorem and isometry -/
+
+/-- The continuous process agrees at the horizon with the `L2` terminal
+completion used to construct it. -/
+theorem itoIntegralProcess_terminal_eq
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) :
+    itoIntegralProcess eta hT hB hUsual T =ᵐ[mu]
+      terminalRepresentative eta hT hB :=
+  (terminalRepresentative_ae_eq_actual eta hT hB hUsual).symm
+
+/-- Chewi's Ito isometry for a progressive globally square-integrable
+integrand, stated at the fixed horizon used by the construction. -/
+theorem chewi_display_1_1_9
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) :
+    ∫ omega, (itoIntegralProcess eta hT hB hUsual T omega) ^ 2 ∂mu =
+      ∫ z, (processFunction eta.process z) ^ 2
+        ∂(ElementaryItoIntegral.processTimeMeasure mu T) := by
+  let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
+  calc
+    ∫ omega, (itoIntegralProcess eta hT hB hUsual T omega) ^ 2 ∂mu =
+        ∫ omega, (terminalRepresentative eta hT hB omega) ^ 2 ∂mu := by
+      apply integral_congr_ae
+      filter_upwards [itoIntegralProcess_terminal_eq eta hT hB hUsual]
+        with omega homega
+      rw [homega]
+    _ = ‖itoIntegralTerminal eta hT hB‖ ^ 2 :=
+      by
+        have hnorm := (norm_sq_toLp_eq_integral_sq
+          (terminalRepresentative_memLp eta hT hB)).symm
+        have hto :
+            (terminalRepresentative_memLp eta hT hB).toLp
+                (terminalRepresentative eta hT hB) =
+              itoIntegralTerminal eta hT hB := by
+          exact Lp.toLp_coeFn (itoIntegralTerminal eta hT hB)
+            (terminalRepresentative_memLp eta hT hB)
+        rwa [hto] at hnorm
+    _ = ‖integrandToLp eta hB‖ ^ 2 := by
+      rw [itoIntegralTerminal_norm]
+    _ = ∫ z, (processFunction eta.process z) ^ 2
+          ∂(ElementaryItoIntegral.processTimeMeasure mu T) := by
+      exact norm_sq_toLp_eq_integral_sq eta.memLp
+
+/-- Process-level existence theorem behind Chewi Theorem 1.1.8.  It packages
+the constructed adapted continuous martingale, its terminal completion, and
+the terminal Ito isometry; no stochastic-integral contract is assumed. -/
+theorem chewi_theorem_1_1_8
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) :
+    ∃ I : ℝ≥0 → Omega → ℝ,
+      StronglyAdapted filtration I ∧
+      Martingale I filtration mu ∧
+      (∀ᵐ omega ∂mu, ContinuousOn (fun t => I t omega) (Icc (0 : ℝ≥0) T)) ∧
+      I T =ᵐ[mu] terminalRepresentative eta hT hB ∧
+      (∫ omega, (I T omega) ^ 2 ∂mu =
+        ∫ z, (processFunction eta.process z) ^ 2
+          ∂(ElementaryItoIntegral.processTimeMeasure mu T)) := by
+  exact ⟨itoIntegralProcess eta hT hB hUsual,
+    itoIntegralProcess_stronglyAdapted eta hT hB hUsual,
+    itoIntegralProcess_martingale eta hT hB hUsual,
+    itoIntegralProcess_continuous_ae eta hT hB hUsual,
+    itoIntegralProcess_terminal_eq eta hT hB hUsual,
+    chewi_display_1_1_9 eta hT hB hUsual⟩
+
 end ItoIntegralProcess
 end StochasticProcesses
 end TechnicalLemmas

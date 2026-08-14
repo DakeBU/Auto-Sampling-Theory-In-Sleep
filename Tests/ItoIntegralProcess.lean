@@ -11,3 +11,6 @@ open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
 #check ItoIntegralProcess.terminalRepresentative_ae_eq_actual
 #check ItoIntegralProcess.itoIntegralProcess_martingale
 #check ItoIntegralProcess.itoIntegralProcess_integrable
+#check ItoIntegralProcess.itoIntegralProcess_terminal_eq
+#check ItoIntegralProcess.chewi_display_1_1_9
+#check ItoIntegralProcess.chewi_theorem_1_1_8
