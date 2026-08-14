@@ -1,0 +1,12 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
+
+namespace AutoSamplingTheory.Tests.PrefixIntegral
+
+open MeasureTheory
+open AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
+
+#check prefixIntegral
+#check prefixIntegral_zero
+#check continuous_prefixIntegral
+
+end AutoSamplingTheory.Tests.PrefixIntegral
