@@ -50,8 +50,10 @@ theorem measurableSet_badEnergySet
 noncomputable def completedEnergy
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocalProgressiveL2Integrand filtration mu T)
-    (t : ℝ≥0) (omega : Omega) : ℝ :=
-  if omega ∈ badEnergySet eta then 0 else accumulatedEnergyReal eta t omega
+    (t : ℝ≥0) : Omega → ℝ := by
+  classical
+  exact fun omega =>
+    if omega ∈ badEnergySet eta then 0 else accumulatedEnergyReal eta t omega
 
 /-- Fixed-time completed energy is strongly measurable at the observation
 time. -/
@@ -59,10 +61,14 @@ theorem completedEnergy_stronglyMeasurable
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocalProgressiveL2Integrand filtration mu T) (t : ℝ≥0) :
     StronglyMeasurable[filtration t] (completedEnergy hUsual eta t) := by
+  classical
   have henergy : StronglyMeasurable[filtration t]
       (accumulatedEnergyReal eta t) :=
     (accumulatedEnergyReal_stronglyMeasurable eta t).mono
       (filtration.mono (min_le_left t T))
+  change StronglyMeasurable[filtration t]
+    (fun omega =>
+      if omega ∈ badEnergySet eta then 0 else accumulatedEnergyReal eta t omega)
   exact StronglyMeasurable.ite
     (measurableSet_badEnergySet hUsual eta t)
     stronglyMeasurable_const henergy
@@ -73,14 +79,25 @@ theorem continuous_completedEnergy
     (eta : LocalProgressiveL2Integrand filtration mu T)
     (omega : Omega) :
     Continuous (fun t => completedEnergy hUsual eta t omega) := by
+  classical
   by_cases hbad : omega ∈ badEnergySet eta
-  · simpa [completedEnergy, hbad] using
-      (continuous_const : Continuous (fun _ : ℝ≥0 => (0 : ℝ)))
+  · have hzero :
+        (fun t => completedEnergy hUsual eta t omega) =
+          fun _ : ℝ≥0 => (0 : ℝ) := by
+      funext t
+      simp [completedEnergy, hbad]
+    rw [hzero]
+    exact continuous_const
   · have homega : Integrable (fun s => (eta.process s omega) ^ 2)
         (TimeMeasure.upTo T) := by
-      simpa [badEnergySet] using hbad
-    simpa [completedEnergy, hbad] using
+      change ¬ ¬Integrable (fun s => (eta.process s omega) ^ 2)
+        (TimeMeasure.upTo T) at hbad
+      exact Classical.not_not.mp hbad
+    have hcontinuous :=
       continuous_accumulatedEnergyReal_of_integrable eta omega homega
+    convert hcontinuous using 1
+    funext t
+    simp [completedEnergy, hbad]
 
 /-- Every completed energy path is monotone. -/
 theorem monotone_completedEnergy
@@ -88,13 +105,16 @@ theorem monotone_completedEnergy
     (eta : LocalProgressiveL2Integrand filtration mu T)
     (omega : Omega) :
     Monotone (fun t => completedEnergy hUsual eta t omega) := by
+  classical
   intro s t hst
   by_cases hbad : omega ∈ badEnergySet eta
   · simp [completedEnergy, hbad]
   · have homega : Integrable (fun u => (eta.process u omega) ^ 2)
         (TimeMeasure.upTo T) := by
-      simpa [badEnergySet] using hbad
-    simpa [completedEnergy, hbad] using
+      change ¬ ¬Integrable (fun u => (eta.process u omega) ^ 2)
+        (TimeMeasure.upTo T) at hbad
+      exact Classical.not_not.mp hbad
+    simpa only [completedEnergy, if_neg hbad] using
       accumulatedEnergyReal_mono_of_integrable eta omega homega hst
 
 @[simp] theorem completedEnergy_zero
@@ -102,6 +122,7 @@ theorem monotone_completedEnergy
     (eta : LocalProgressiveL2Integrand filtration mu T)
     (omega : Omega) :
     completedEnergy hUsual eta 0 omega = 0 := by
+  classical
   by_cases hbad : omega ∈ badEnergySet eta
   · simp [completedEnergy, hbad]
   · simp [completedEnergy, hbad, accumulatedEnergyReal_zero]
@@ -113,7 +134,7 @@ theorem completedEnergy_nonneg
     (t : ℝ≥0) (omega : Omega) :
     0 ≤ completedEnergy hUsual eta t omega := by
   rw [← completedEnergy_zero hUsual eta omega]
-  exact monotone_completedEnergy hUsual eta omega (zero_le t)
+  exact monotone_completedEnergy hUsual eta omega zero_le
 
 /-- Completed energy stabilizes after the terminal horizon. -/
 theorem completedEnergy_eq_terminal_of_le
@@ -122,9 +143,10 @@ theorem completedEnergy_eq_terminal_of_le
     (omega : Omega) {t : ℝ≥0} (hTt : T ≤ t) :
     completedEnergy hUsual eta t omega =
       completedEnergy hUsual eta T omega := by
+  classical
   by_cases hbad : omega ∈ badEnergySet eta
   · simp [completedEnergy, hbad]
-  · simpa [completedEnergy, hbad] using
+  · simpa only [completedEnergy, if_neg hbad] using
       accumulatedEnergyReal_eq_terminal_of_le eta omega hTt
 
 /-- Fixed-time threshold events for completed energy are measurable at the
