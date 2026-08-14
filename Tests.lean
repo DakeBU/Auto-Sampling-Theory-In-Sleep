@@ -4,6 +4,7 @@ import Tests.CarreDuChamp
 import Tests.DisplacementInterpolation
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
+import Tests.ElementaryItoEmbedding
 import Tests.ElementaryItoIsometry
 import Tests.FellerSemigroup
 import Tests.GeneratorFunctionalInequalities

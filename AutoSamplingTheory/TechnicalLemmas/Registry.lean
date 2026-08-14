@@ -2181,6 +2181,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Zero, negation, scalar multiplication, addition, and subtraction are constructed with pointwise and finite-integral linearity. Common-grid refinement and density remain downstream obligations."
   },
   {
+    key := "ito-elementary.progressive-l2-embedding",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoEmbedding.toProgressiveL2",
+    upstreamDecl := "Elementary adapted processes lie in the progressive L2 integrand domain",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "progressive", "L2"],
+    saldUse := "compare elementary approximants and general progressive integrands in one product-space L2 domain",
+    note := "Joint strong measurability, strong progressiveness, a finite coefficient bound, and product-space MemLp are proved before constructing the canonical embedding. Density remains open."
+  },
+  {
     key := "brownian-motion.filtration-contract",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
     upstreamDecl := "Brownian motion relative to a filtration",
