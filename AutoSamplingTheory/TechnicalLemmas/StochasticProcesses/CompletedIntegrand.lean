@@ -28,19 +28,24 @@ replaced by zero. -/
 noncomputable def completedIntegrand
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocalProgressiveL2Integrand filtration mu T)
-    (t : ℝ≥0) (omega : Omega) : ℝ :=
-  if omega ∈ badEnergySet eta then 0 else eta.process t omega
+    (t : ℝ≥0) : Omega → ℝ := by
+  classical
+  exact fun omega => if omega ∈ badEnergySet eta then 0 else eta.process t omega
 
 /-- Completion preserves strong progressiveness. -/
 theorem completedIntegrand_stronglyProgressive
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocalProgressiveL2Integrand filtration mu T) :
     IsStronglyProgressive filtration (completedIntegrand hUsual eta) := by
+  classical
   intro terminal
   have hbad : @MeasurableSet (Set.Iic terminal × Omega)
       (Subtype.instMeasurableSpace.prod (filtration terminal))
       {p | p.2 ∈ badEnergySet eta} :=
     (measurableSet_badEnergySet hUsual eta terminal).preimage measurable_snd
+  change StronglyMeasurable
+    (fun p : Set.Iic terminal × Omega =>
+      if p.2 ∈ badEnergySet eta then 0 else eta.process p.1 p.2)
   exact StronglyMeasurable.ite hbad stronglyMeasurable_const (eta.progressive terminal)
 
 /-- Every completed sample path has an integrable square on the finite time
@@ -51,12 +56,26 @@ theorem sectionSquare_integrable
     (omega : Omega) :
     Integrable (fun s => (completedIntegrand hUsual eta s omega) ^ 2)
       (TimeMeasure.upTo T) := by
+  classical
   by_cases hbad : omega ∈ badEnergySet eta
-  · simp [completedIntegrand, hbad]
+  · have hzero :
+        (fun s => (completedIntegrand hUsual eta s omega) ^ 2) =
+          fun _ : ℝ≥0 => (0 : ℝ) := by
+      funext s
+      simp [completedIntegrand, hbad]
+    rw [hzero]
+    exact integrable_zero
   · have homega : Integrable (fun s => (eta.process s omega) ^ 2)
         (TimeMeasure.upTo T) := by
-      simpa [badEnergySet] using hbad
-    simpa [completedIntegrand, hbad] using homega
+      change ¬ ¬Integrable (fun s => (eta.process s omega) ^ 2)
+        (TimeMeasure.upTo T) at hbad
+      exact Classical.not_not.mp hbad
+    have heq :
+        (fun s => (completedIntegrand hUsual eta s omega) ^ 2) =
+          fun s => (eta.process s omega) ^ 2 := by
+      funext s
+      simp [completedIntegrand, hbad]
+    rwa [heq]
 
 /-- Prefix energy of the completed integrand is exactly the completed energy
 process. -/
@@ -67,10 +86,26 @@ theorem completedEnergy_eq_prefixIntegral
     completedEnergy hUsual eta t omega =
       prefixIntegral
         (fun s => (completedIntegrand hUsual eta s omega) ^ 2) T t := by
+  classical
   by_cases hbad : omega ∈ badEnergySet eta
-  · simp [completedEnergy, completedIntegrand, prefixIntegral, hbad]
-  · simpa [completedEnergy, completedIntegrand, hbad] using
-      (accumulatedEnergyReal_eq_prefixIntegral eta t omega).symm
+  · have hleft : completedEnergy hUsual eta t omega = 0 := by
+      simp [completedEnergy, hbad]
+    have hfun :
+        (fun s => (completedIntegrand hUsual eta s omega) ^ 2) =
+          fun _ : ℝ≥0 => (0 : ℝ) := by
+      funext s
+      simp [completedIntegrand, hbad]
+    rw [hleft, hfun]
+    simp [prefixIntegral]
+  · have hfun :
+        (fun s => (completedIntegrand hUsual eta s omega) ^ 2) =
+          fun s => (eta.process s omega) ^ 2 := by
+      funext s
+      simp [completedIntegrand, hbad]
+    rw [show completedEnergy hUsual eta t omega =
+        accumulatedEnergyReal eta t omega by
+      simp [completedEnergy, hbad], hfun]
+    exact accumulatedEnergyReal_eq_prefixIntegral eta t omega
 
 /-- The completed energy process is strongly progressive. -/
 theorem completedEnergy_stronglyProgressive
