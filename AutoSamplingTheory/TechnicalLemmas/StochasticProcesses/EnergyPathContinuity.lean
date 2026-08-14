@@ -25,6 +25,10 @@ open TechnicalLemmas.Analysis.PrefixIntegral
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
 
+private theorem enorm_sq_eq_ofReal_sq (x : ℝ) :
+    ‖x ^ 2‖ₑ = ENNReal.ofReal (x ^ 2) :=
+  Real.enorm_eq_ofReal (sq_nonneg x)
+
 /-- The measurable fixed-time representative agrees with the ordinary prefix
 integral; the only pointwise discrepancy is the null upper endpoint. -/
 theorem accumulatedEnergyReal_eq_prefixIntegral
@@ -72,9 +76,14 @@ theorem sectionSquare_integrable_ae
       Integrable (fun s => (eta.process s omega) ^ 2) (TimeMeasure.upTo T) := by
   filter_upwards [eta.finiteEnergy] with omega hfinite
   refine ⟨sectionSquare_aestronglyMeasurable eta omega, ?_⟩
-  change (∫⁻ s, ‖(eta.process s omega) ^ 2‖ₑ
-    ∂(TimeMeasure.upTo T)) < ∞
-  simpa [Real.enorm_eq_ofReal_abs, abs_of_nonneg (sq_nonneg _)] using hfinite
+  rw [hasFiniteIntegral_iff_enorm]
+  have heq :
+      (fun s : ℝ≥0 => ‖(eta.process s omega) ^ 2‖ₑ) =
+        fun s => ENNReal.ofReal ((eta.process s omega) ^ 2) := by
+    funext s
+    exact enorm_sq_eq_ofReal_sq (eta.process s omega)
+  rw [heq]
+  exact hfinite
 
 /-- Every finite-energy sample path has continuous accumulated energy. -/
 theorem continuous_accumulatedEnergyReal_of_integrable
@@ -131,7 +140,7 @@ theorem measurableSet_accumulatedEnergyReal_ge
   have hset : MeasurableSet[filtration (min t T)]
       {omega | c ≤ accumulatedEnergyReal eta t omega} :=
     measurableSet_Ici.preimage hmeas
-  exact hset.mono (filtration.mono (min_le_left t T))
+  exact (filtration.mono (min_le_left t T)) _ hset
 
 end EnergyPathContinuity
 end StochasticProcesses
