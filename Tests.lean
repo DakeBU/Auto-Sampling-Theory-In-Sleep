@@ -9,6 +9,7 @@ import Tests.ElementaryItoAlgebra
 import Tests.ElementaryItoEmbedding
 import Tests.ElementaryItoIsometry
 import Tests.ElementaryItoL2
+import Tests.ElementaryItoProcess
 import Tests.FellerSemigroup
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities

@@ -1,0 +1,11 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoProcess
+
+open AutoSamplingTheory TechnicalLemmas StochasticProcesses
+
+#check ElementaryItoProcess.elementaryItoProcess
+#check ElementaryItoProcess.elementaryItoProcess_zero
+#check ElementaryItoProcess.elementaryItoProcess_stronglyAdapted
+#check ElementaryItoProcess.elementaryItoProcess_integrable
+#check ElementaryItoProcess.elementaryItoProcess_martingale
+#check ElementaryItoProcess.elementaryItoProcess_continuous_ae
+#check ElementaryItoProcess.elementaryItoProcess_terminal
