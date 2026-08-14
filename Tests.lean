@@ -1,3 +1,4 @@
+import Tests.AccumulatedEnergy
 import Tests.Basic
 import Tests.BrownianMotion
 import Tests.CarreDuChamp
@@ -44,8 +45,8 @@ import Tests.Transport
 import Tests.WassersteinSpace
 
 /-!
-Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,
-shifted Poincare/chi-square equivalence, and shifted log-Sobolev/KL equivalence
-tests are part of the root target together with the compiled Registry count,
-Registry-backed source correspondence, and Samplinglib declaration inventory.
+Focused Chapter 1 stochastic-calculus, Markov/Feller, carré-du-champ,
+strong-continuity, bundled generator-domain, shifted Poincare/chi-square, and
+shifted log-Sobolev/KL tests are part of the root target together with the
+compiled Registry count, source correspondence, and Samplinglib inventory.
 -/
