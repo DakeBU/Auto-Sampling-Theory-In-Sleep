@@ -1,3 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.AccumulatedEnergy
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CoefficientTruncation
@@ -42,7 +43,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 /-!
 # Stochastic-process technical lemma arsenal
 
-Parent import surface for Markov and Feller semigroups, strong-continuity and
-operator-generator domains, weak generators, weak Fokker--Planck, and
-Euler--Maruyama/SDE reusable leaves.
+Parent import surface for stochastic integration and localization, Markov and
+Feller semigroups, strong-continuity and operator-generator domains, weak
+generators, weak Fokker--Planck, and Euler--Maruyama/SDE reusable leaves.
 -/
