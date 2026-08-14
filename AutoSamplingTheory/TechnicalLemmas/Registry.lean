@@ -2261,6 +2261,96 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Parameterized Bochner measurability is proved from progressive measurability after an explicit zero extension, and every coefficient is bounded by the clipping level. L2 convergence of the lagged averages remains open."
   },
   {
+    key := "ito-integral.lagged-dyadic-l2-convergence",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LaggedDyadicConvergence.tendsto_laggedDyadicApprox_toLp_clipped",
+    upstreamDecl := "Lagged dyadic adapted averages converge in product-space L2",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "dyadic", "adapted", "L2-convergence"],
+    saldUse := "replace a bounded progressive integrand by causal elementary adapted processes in the actual product L2 space",
+    note := "Lebesgue differentiation, active-cell geometry, product-a.e. transfer, and dominated convergence are all explicit."
+  },
+  {
+    key := "ito-integral.progressive-elementary-density",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Density.progressiveL2_elementary_dense",
+    upstreamDecl := "Bounded dyadic elementary adapted processes are dense in progressive L2",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "density", "progressive", "fast-diagonal"],
+    saldUse := "supply fast nested-grid elementary approximants for terminal completion and pathwise Borel-Cantelli control",
+    note := "The noncomputable diagonal chooses increasing truncation and dyadic levels with summable quantitative errors."
+  },
+  {
+    key := "ito-integral.dyadic-refinement",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DyadicElementaryRefinement.norm_terminal_sub_eq_process_sub",
+    upstreamDecl := "Common dyadic refinement preserves elementary processes and Ito terminal sums",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "dyadic", "refinement", "isometry"],
+    saldUse := "compare heterogeneous elementary approximants on a shared grid without changing either L2 representative",
+    note := "Coefficient replication, filtration monotonicity, finite Brownian-increment telescoping, and the distance isometry are proved."
+  },
+  {
+    key := "ito-integral.terminal-isometry",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoTerminalCompletion.itoIntegralTerminal_norm",
+    upstreamDecl := "General terminal Ito integral by L2 completion",
+    upstreamFile := "Log-Concave Sampling, Theorem 1.1.8 and display (1.1.9), book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "L2-completion", "terminal-map", "isometry"],
+    saldUse := "extend elementary stochastic integration uniquely and linearly to every progressive globally square-integrable integrand",
+    note := "The definition uses completeness of Lp; the universal approximation theorem removes dependence on the canonical choice sequence."
+  },
+  {
+    key := "ito-integral.elementary-martingale",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoProcess.elementaryItoProcess_martingale",
+    upstreamDecl := "Elementary Ito integral process is a continuous martingale",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "martingale", "continuous-paths"],
+    saldUse := "lift terminal elementary sums to adapted time-indexed martingales before taking the uniform path limit",
+    note := "Conditional mean-zero future increments prove the martingale identity; Brownian path continuity proves a.e. continuity."
+  },
+  {
+    key := "ito-integral.doob-l2",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ContinuousDoobL2.doobL2_continuous",
+    upstreamDecl := "Doob L2 maximal control for continuous martingales",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "Doob", "maximal-inequality", "continuous-martingale"],
+    saldUse := "turn summable terminal L2 approximation errors into summable uniform path-deviation events",
+    note := "The finite discrete inequality is proved first and then extended to continuous paths through nested dyadic observation grids."
+  },
+  {
+    key := "ito-integral.continuous-martingale",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess.itoIntegralProcess_martingale",
+    upstreamDecl := "Continuous adapted general Ito integral process",
+    upstreamFile := "Log-Concave Sampling, Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "Borel-Cantelli", "continuous-martingale", "restriction"],
+    saldUse := "construct the actual continuous martingale version and identify every fixed time with the restricted terminal completion",
+    note := "A summable Doob-Borel-Cantelli argument gives a uniform path limit; usual-condition completeness makes the null-set patch adapted."
+  },
+  {
+    key := "ito-integral.chewi-theorem-1-1-8",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess.chewi_theorem_1_1_8",
+    upstreamDecl := "Chewi Theorem 1.1.8",
+    upstreamFile := "Log-Concave Sampling, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "progressive", "martingale", "uniqueness"],
+    saldUse := "provide the source-facing existence, adaptedness, martingale, continuity, fixed-time compatibility, isometry, and indistinguishability interface",
+    note := "This theorem packages constructed objects and proved properties; it assumes no abstract stochastic-integral contract."
+  },
+  {
+    key := "ito-integral.chewi-display-1-1-9",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess.chewi_display_1_1_9",
+    upstreamDecl := "Chewi display (1.1.9)",
+    upstreamFile := "Log-Concave Sampling, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "isometry", "fixed-time", "L2"],
+    saldUse := "rewrite every fixed-time stochastic-integral second moment as the product-space energy of the time-restricted integrand",
+    note := "The strict endpoint convention differs from the closed interval only on a null singleton and is the exact Lean representative used by restrictAt."
+  },
+  {
     key := "brownian-motion.filtration-contract",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
     upstreamDecl := "Brownian motion relative to a filtration",

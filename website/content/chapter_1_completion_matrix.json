@@ -185,27 +185,35 @@
       "pdf_page": 18,
       "coverage_kind": "proved_theorem",
       "source_route_id": "chewi-chapter1-statement-1-1-8",
-      "source_correspondence_id": "",
-      "required_declarations": [],
-      "focused_tests": [],
-      "registry_keys": [],
-      "coverage_status": "planned",
-      "residual_blockers": [
-        "formalize or port the required filtered-space stochastic integral, localization, and Ito-calculus interface"
+      "source_correspondence_id": "chewi-1-1-theorem-1-1-8",
+      "required_declarations": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess.chewi_theorem_1_1_8"
       ],
+      "focused_tests": [
+        "Tests/ItoIntegralProcess.lean"
+      ],
+      "registry_keys": [
+        "ito-integral.chewi-theorem-1-1-8"
+      ],
+      "coverage_status": "complete",
+      "residual_blockers": [],
       "source_assumptions": [
         "a complete right-continuous filtered probability space",
         "progressive or adapted processes",
         "the integrability stated at the source item"
       ],
       "formal_assumptions": [
-        "explicit filtration and adaptedness",
-        "joint/progressive measurability",
-        "Bochner or stochastic integrability",
-        "almost-everywhere representatives",
-        "stopping-time measurability where localization is used"
+        "SatisfiesUsualConditions filtration mu",
+        "IsBrownianMotionWithFiltration B filtration mu",
+        "ProgressiveL2Integrand filtration mu T",
+        "positive finite construction horizon",
+        "almost-everywhere representatives and path continuity"
       ],
-      "downstream_consumers": []
+      "downstream_consumers": [
+        "display (1.1.9)",
+        "localized Ito integration",
+        "Ito formula and SDE arguments"
+      ]
     },
     {
       "number": "1.1.11",
@@ -2713,27 +2721,35 @@
       "pdf_page": 18,
       "coverage_kind": "derived_identity",
       "source_route_id": "chewi-chapter1-displayed-identity-1-1-9",
-      "source_correspondence_id": "",
-      "required_declarations": [],
-      "focused_tests": [],
-      "registry_keys": [],
-      "coverage_status": "planned",
-      "residual_blockers": [
-        "formalize or port the required filtered-space stochastic integral, localization, and Ito-calculus interface"
+      "source_correspondence_id": "chewi-1-1-display-1-1-9",
+      "required_declarations": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess.chewi_display_1_1_9"
       ],
+      "focused_tests": [
+        "Tests/ItoIntegralProcess.lean"
+      ],
+      "registry_keys": [
+        "ito-integral.chewi-display-1-1-9"
+      ],
+      "coverage_status": "complete",
+      "residual_blockers": [],
       "source_assumptions": [
         "a complete right-continuous filtered probability space",
         "progressive or adapted processes",
         "the integrability stated at the source item"
       ],
       "formal_assumptions": [
-        "explicit filtration and adaptedness",
-        "joint/progressive measurability",
-        "Bochner or stochastic integrability",
-        "almost-everywhere representatives",
-        "stopping-time measurability where localization is used"
+        "SatisfiesUsualConditions filtration mu",
+        "IsBrownianMotionWithFiltration B filtration mu",
+        "ProgressiveL2Integrand filtration mu T",
+        "deterministic time t <= T",
+        "strict time restriction as an endpoint-null representative of the integral over [0,t]"
       ],
-      "downstream_consumers": []
+      "downstream_consumers": [
+        "localized stochastic integration",
+        "Ito formula energy estimates",
+        "SDE stability bounds"
+      ]
     },
     {
       "number": "1.1.10",

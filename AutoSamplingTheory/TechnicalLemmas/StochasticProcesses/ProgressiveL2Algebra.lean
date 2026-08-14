@@ -92,6 +92,58 @@ theorem toLp_smul (c : ℝ) (eta : ProgressiveL2Integrand filtration mu T) :
     (smul c eta).toLp = c • eta.toLp :=
   rfl
 
+/-- Restriction commutes with subtraction in product-space `L2`. -/
+theorem toLp_restrictAt_sub (eta xi : ProgressiveL2Integrand filtration mu T)
+    (t : ℝ≥0) :
+    ((sub eta xi).restrictAt t).toLp =
+      (eta.restrictAt t).toLp - (xi.restrictAt t).toLp := by
+  simp only [ProgressiveL2Integrand.toLp]
+  rw [← MemLp.toLp_sub]
+  apply MemLp.toLp_congr
+  filter_upwards [] with z
+  by_cases hzt : z.2 < t
+  · simp [processFunction, ProgressiveL2Integrand.restrictProcess, hzt, sub]
+  · simp [processFunction, ProgressiveL2Integrand.restrictProcess, hzt, sub]
+
+theorem toLp_restrictAt_add (eta xi : ProgressiveL2Integrand filtration mu T)
+    (t : ℝ≥0) :
+    ((add eta xi).restrictAt t).toLp =
+      (eta.restrictAt t).toLp + (xi.restrictAt t).toLp := by
+  simp only [ProgressiveL2Integrand.toLp]
+  rw [← MemLp.toLp_add]
+  apply MemLp.toLp_congr
+  filter_upwards [] with z
+  by_cases hzt : z.2 < t
+  · simp [processFunction, ProgressiveL2Integrand.restrictProcess, hzt, add]
+  · simp [processFunction, ProgressiveL2Integrand.restrictProcess, hzt, add]
+
+theorem toLp_restrictAt_smul (c : ℝ)
+    (eta : ProgressiveL2Integrand filtration mu T) (t : ℝ≥0) :
+    ((smul c eta).restrictAt t).toLp = c • (eta.restrictAt t).toLp := by
+  simp only [ProgressiveL2Integrand.toLp]
+  rw [← MemLp.toLp_const_smul]
+  apply MemLp.toLp_congr
+  filter_upwards [] with z
+  by_cases hzt : z.2 < t
+  · simp [processFunction, ProgressiveL2Integrand.restrictProcess, hzt, smul]
+  · simp [processFunction, ProgressiveL2Integrand.restrictProcess, hzt, smul]
+
+@[simp] theorem toLp_restrictAt_zero (t : ℝ≥0) :
+    ((zero : ProgressiveL2Integrand filtration mu T).restrictAt t).toLp = 0 := by
+  apply norm_eq_zero.mp
+  have h :=
+    (zero : ProgressiveL2Integrand filtration mu T).norm_restrictAt_le t
+  exact le_antisymm (by simpa only [toLp_zero, norm_zero] using h) (norm_nonneg _)
+
+/-- Restricting both integrands cannot increase their product-space `L2`
+distance. -/
+theorem norm_restrictAt_sub_le
+    (eta xi : ProgressiveL2Integrand filtration mu T) (t : ℝ≥0) :
+    ‖(eta.restrictAt t).toLp - (xi.restrictAt t).toLp‖ ≤
+      ‖eta.toLp - xi.toLp‖ := by
+  rw [← toLp_restrictAt_sub, ← toLp_sub]
+  exact (sub eta xi).norm_restrictAt_le t
+
 end ProgressiveL2Algebra
 end StochasticProcesses
 end TechnicalLemmas

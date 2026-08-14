@@ -20,6 +20,7 @@ open scoped NNReal Interval
 #check TimeMeasureRealBridge.realClippedSection_stronglyMeasurable
 #check TimeMeasureRealBridge.realClippedSection_locallyIntegrable
 #check TimeMeasure.upTo_univ
+#check TimeMeasure.upTo_singleton
 #check TimeMeasure.ae_mem_Ioc_zero_upTo
 #check TimeMeasure.restrict_upTo_Ioc_zero
 

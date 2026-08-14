@@ -6,6 +6,7 @@ import Tests.DisplacementInterpolation
 import Tests.DiscreteDoobL2
 import Tests.ContinuousDoobL2
 import Tests.DyadicElementaryRefinement
+import Tests.DyadicElementaryStopping
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
 import Tests.ElementaryItoEmbedding

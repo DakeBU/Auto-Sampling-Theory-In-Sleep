@@ -123,6 +123,12 @@ theorem restrictAt_zero_process
     (eta.restrictAt 0).process = 0 :=
   restrictProcess_zero eta.process
 
+@[simp] theorem restrictAt_zero_toLp
+    (eta : ProgressiveL2Integrand filtration mu T) :
+    (eta.restrictAt 0).toLp = 0 := by
+  simp only [toLp, restrictAt_zero_process]
+  exact MemLp.toLp_zero _
+
 theorem restrictAt_nested_process
     (eta : ProgressiveL2Integrand filtration mu T) {s t : ℝ≥0} (hst : s ≤ t) :
     ((eta.restrictAt t).restrictAt s).process = (eta.restrictAt s).process :=

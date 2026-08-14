@@ -56,6 +56,19 @@ theorem upTo_univ (T : ℝ≥0) : upTo T Set.univ = T := by
       rw [himage, Measure.restrict_apply measurableSet_Ici, hinter, Real.volume_Icc]
       simp
 
+/-- Stopped Lebesgue time has no atoms. -/
+@[simp] theorem upTo_singleton (T t : ℝ≥0) : upTo T {t} = 0 := by
+  calc
+    upTo T {t} =
+        (volume.restrict (Icc 0 (T : ℝ)))
+          (NNReal.toReal '' ({t} : Set ℝ≥0)) := by
+      unfold upTo
+      exact Measure.comap_apply NNReal.toReal NNReal.coe_injective
+        (fun _ hs => (MeasurableEmbedding.subtype_coe
+          (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).measurableSet_image' hs)
+        _ (measurableSet_singleton t)
+    _ = 0 := by simp
+
 /-- The mass of `(a, b]` under time measure stopped at `T` is the length of
 the clipped interval. -/
 theorem upTo_Ioc (T a b : ℝ≥0) (hab : a ≤ b) :

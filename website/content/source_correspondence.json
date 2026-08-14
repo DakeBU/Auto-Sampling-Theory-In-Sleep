@@ -1,5 +1,130 @@
 [
   {
+    "id": "chewi-1-1-theorem-1-1-8",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 6,
+    "pdf_page": 18,
+    "page": "book 6 / PDF 18",
+    "source_kind": "Theorem 1.1.8",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=18",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Every progressive process with finite probability-time L2 energy has an Ito integral that is an adapted continuous martingale, is characterized at each deterministic time by the restricted terminal L2 completion, and satisfies the Ito isometry.",
+    "mathematical_exposition": "For a progressive square-integrable integrand eta, the elementary adapted stochastic integrals extend by L2 completion to a continuous martingale I. For every t in [0,T], I_t represents the completed integral of eta restricted to (0,t), and any other continuous adapted version with these fixed-time representatives is indistinguishable from I.",
+    "astis_exposition": "ASTIS constructs causal lagged-dyadic approximants, refines their grids, completes the terminal integral in L2, proves elementary martingale and Doob bounds, obtains a uniformly convergent continuous version by Borel-Cantelli, and identifies its value at every time through right-dyadic stopping.",
+    "rigorous_packet": "The filtration usual conditions, progressive measurability, global product-space L2 integrability, Brownian motion relative to that filtration, almost-everywhere path continuity, fixed-time L2 representatives, and indistinguishability criterion are all explicit.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess.chewi_theorem_1_1_8"
+    ],
+    "source_assumptions": [
+      "a complete right-continuous filtered probability space",
+      "a Brownian motion relative to the filtration",
+      "a progressive globally square-integrable integrand"
+    ],
+    "formal_assumptions": [
+      "SatisfiesUsualConditions filtration mu",
+      "IsBrownianMotionWithFiltration B filtration mu",
+      "ProgressiveL2Integrand filtration mu T",
+      "positive finite construction horizon"
+    ],
+    "downstream_consumers": [
+      "display (1.1.9)",
+      "localized Ito integration",
+      "Ito formula and SDE arguments"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "constructed adapted continuous Ito martingale with all-time restriction compatibility, isometry, linearity interfaces, and uniqueness up to indistinguishability",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-ito-progressive-density",
+        "label": "Causal elementary density in progressive L2",
+        "declarations": ["progressiveL2_elementary_dense"],
+        "dependencies": ["tendsto_laggedDyadicApprox_toLp_clipped", "tendsto_clipped_toLp"],
+        "priority": 100,
+        "route_status": "compiled"
+      },
+      {
+        "node_id": "chapter1-ito-terminal-completion",
+        "label": "Grid-independent terminal L2 completion",
+        "declarations": ["itoIntegralTerminal_norm"],
+        "dependencies": ["norm_terminal_sub_eq_process_sub", "tendsto_terminal_of_tendsto_elementary"],
+        "priority": 100,
+        "route_status": "compiled"
+      },
+      {
+        "node_id": "chapter1-ito-continuous-martingale",
+        "label": "Continuous martingale limit",
+        "declarations": ["itoIntegralProcess_martingale", "itoIntegralProcess_continuous_ae"],
+        "dependencies": ["elementaryItoProcess_martingale", "doobL2_continuous", "uniformBadSet_null"],
+        "priority": 100,
+        "route_status": "compiled"
+      },
+      {
+        "node_id": "chapter1-ito-fixed-time-uniqueness",
+        "label": "Fixed-time identification and indistinguishability",
+        "declarations": ["itoIntegralProcess_at_eq_terminal", "itoIntegralProcess_unique", "chewi_theorem_1_1_8"],
+        "dependencies": ["tendsto_stopAtRightApprox_toLp", "itoIntegralProcess_continuous_ae"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-1-display-1-1-9",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 6,
+    "pdf_page": 18,
+    "page": "book 6 / PDF 18",
+    "source_kind": "Displayed identity (1.1.9)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=18",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "At every deterministic time, the second moment of the Ito integral equals the probability-time L2 energy accumulated by the integrand up to that time.",
+    "mathematical_exposition": "For t in [0,T], E[I_t(eta)^2] equals E[integral_0^t eta_s^2 ds]. ASTIS represents the right side by restricting eta to the strict interval (0,t) inside the fixed product horizon; changing either endpoint does not affect the integral because singleton times are null.",
+    "astis_exposition": "The fixed-time process is first identified almost everywhere with the L2 terminal completion of the restricted integrand. The terminal norm isometry and the product-space norm formula then give the displayed equality.",
+    "rigorous_packet": "The theorem exposes the deterministic-time bound t <= T, the exact strict restriction representative, the fixed probability-time product measure, and the almost-everywhere identification needed to replace the process by its L2 class.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess.chewi_display_1_1_9"
+    ],
+    "source_assumptions": [
+      "a complete right-continuous filtered probability space",
+      "a Brownian motion relative to the filtration",
+      "a progressive globally square-integrable integrand",
+      "a deterministic time in the construction horizon"
+    ],
+    "formal_assumptions": [
+      "SatisfiesUsualConditions filtration mu",
+      "IsBrownianMotionWithFiltration B filtration mu",
+      "ProgressiveL2Integrand filtration mu T",
+      "t <= T"
+    ],
+    "downstream_consumers": [
+      "localized stochastic integration",
+      "Ito formula energy estimates",
+      "SDE stability bounds"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "all-time Ito isometry compiled using the exact restricted product-space L2 representative",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-ito-restriction-isometry",
+        "label": "Restricted terminal identification and norm isometry",
+        "declarations": ["chewi_display_1_1_9"],
+        "dependencies": ["itoIntegralProcess_at_eq_terminal", "itoIntegralTerminal_norm", "norm_sq_toLp_eq_integral_sq"],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
+  },
+  {
     "id": "chewi-1-1-display-1-1-5",
     "chapter": 1,
     "section": "1.1",

@@ -1591,6 +1591,78 @@
     "assumptions": ["a progressive product-space L2 integrand", "positive terminal time", "a natural clipping level", "the finite nonnegative-time Lebesgue measure"],
     "why_assumptions": ["progressiveness supplies joint measurability with the left-endpoint filtration", "clipping supplies a uniform coefficient bound", "positive terminal time gives a strict dyadic grid", "the lag prevents use of future values"],
     "proof_route": ["clip the progressive process", "zero-extend its restriction from the past time rectangle", "apply parameterized Bochner integral measurability", "restrict the integral to the preceding dyadic cell", "bound the normalized integral by the cell mass", "assemble the strict-grid elementary adapted process"],
-    "lean_notes": ["StronglyMeasurable.integral_prod_left' performs the parameterized Bochner step", "TimeMeasure.upTo_Ioc computes the exact cell mass", "the theorem constructs the adapted approximants but does not yet prove their L2 convergence"]
+    "lean_notes": ["StronglyMeasurable.integral_prod_left' performs the parameterized Bochner step", "TimeMeasure.upTo_Ioc computes the exact cell mass", "L2 convergence is certified separately by tendsto_laggedDyadicApprox_toLp_clipped"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Truncation.clipped",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A progressive square-integrable process can be clipped at a deterministic level without losing progressiveness or product-space L2 control.",
+    "mathematical_statement": "eta^M(t,omega) = max(-M,min(M,eta(t,omega))) and eta^M converges to eta in L2 as M tends to infinity.",
+    "intuition": "Clipping isolates a bounded approximation problem while dominated convergence later removes the artificial bound.",
+    "assumptions": ["a progressive process", "finite probability-time L2 energy", "a finite construction horizon"],
+    "why_assumptions": ["progressiveness must survive scalar clipping", "L2 integrability provides the dominating function", "the finite horizon fixes the product measure"],
+    "proof_route": ["apply the measurable scalar clipping map", "prove the pointwise bound", "retain the original square-integrable process as a dominator", "pass to the product-space L2 class"],
+    "lean_notes": ["the clipped process remains a ProgressiveL2Integrand", "tendsto_clipped_toLp proves removal of the truncation"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Density.progressiveL2_elementary_dense",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "Every progressive product-space L2 integrand admits a sequence of bounded causal elementary adapted approximations on increasingly fine dyadic grids.",
+    "mathematical_statement": "There are elementary adapted eta_n with strictly increasing dyadic levels and ||eta_n-eta||_L2 tending to zero.",
+    "intuition": "Truncation handles large values, lagged averaging preserves causality, and a fast diagonal choice makes both errors vanish together.",
+    "assumptions": ["finite probability measure", "positive terminal time", "progressive product-space L2 integrand"],
+    "why_assumptions": ["finite product measure supports dominated convergence", "positive time gives strict dyadic cells", "progressiveness is what makes lagged coefficients adapted"],
+    "proof_route": ["clip at increasing levels", "average each clipped process over preceding dyadic cells", "use Lebesgue differentiation and dominated convergence", "choose a fast diagonal with increasing levels"],
+    "lean_notes": ["the witness is a heterogeneous DyadicElementaryProcess sequence", "the theorem records StrictMono grid levels and actual Lp convergence"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DyadicElementaryRefinement.norm_terminal_sub_eq_process_sub",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "Two elementary Ito integrals built on different dyadic grids have exactly the same L2 distance as their integrands.",
+    "mathematical_statement": "||I_T(eta)-I_T(xi)||_2 = ||eta-xi||_L2 for heterogeneous dyadic elementary processes.",
+    "intuition": "Both grids are refined to one common level; coefficient replication leaves the step process unchanged and Brownian increments telescope inside every coarse block.",
+    "assumptions": ["two dyadic elementary adapted processes", "Brownian motion relative to their filtration", "a common terminal horizon"],
+    "why_assumptions": ["dyadic nesting supplies an exact common grid", "filtration monotonicity preserves adapted coefficients", "the Brownian isometry controls the terminal sums"],
+    "proof_route": ["refine both grids to their maximum level", "prove pointwise process preservation", "telescope each block of Brownian increments", "apply the same-grid distance isometry"],
+    "lean_notes": ["refinement changes neither processToLp nor terminalToLp", "this theorem makes terminal completion independent of heterogeneous approximation grids"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoTerminalCompletion.itoIntegralTerminal_norm",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "The terminal Ito integral is the unique L2 completion of elementary terminal sums and preserves the integrand norm.",
+    "mathematical_statement": "||I_T(eta)||_L2(P) = ||eta||_L2(P times dt).",
+    "intuition": "The elementary isometry turns every Cauchy sequence of integrands into a Cauchy sequence of terminal random variables, so completeness supplies the general integral.",
+    "assumptions": ["positive terminal time", "progressive product-space L2 integrand", "filtration-relative Brownian motion"],
+    "why_assumptions": ["positive time is used by the canonical dyadic density sequence", "the L2 assumption supplies convergence", "the Brownian law proves the elementary isometry"],
+    "proof_route": ["choose canonical elementary approximants", "transfer Cauchy control through the heterogeneous-grid isometry", "take the Lp limit", "prove universality against any convergent elementary sequence"],
+    "lean_notes": ["itoIntegralTerminal is an actual Lp element", "linearity is proved through universal approximation rather than compatibility of choice functions"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ContinuousDoobL2.doobL2_continuous",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A continuous square-integrable martingale is controlled uniformly in time by four times its terminal second moment.",
+    "mathematical_statement": "E[sup_(0<=t<=T) |M_t|^2] <= 4 E[|M_T|^2].",
+    "intuition": "Finite Doob control is applied on nested dyadic observation grids; path continuity turns the increasing grid maxima into the full time supremum.",
+    "assumptions": ["a martingale on the filtration", "almost-everywhere continuous paths", "terminal L2 integrability", "finite horizon"],
+    "why_assumptions": ["martingality drives the maximal inequality", "continuity makes dyadic observations exhaustive", "terminal L2 integrability makes the bound finite"],
+    "proof_route": ["prove the finite discrete Doob inequality", "sample on each dyadic grid", "show grid maxima increase to the continuous supremum", "pass to the limit by monotone convergence"],
+    "lean_notes": ["the constant four is derived rather than assumed", "the theorem feeds the uniform Borel-Cantelli construction"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcess.chewi_theorem_1_1_8",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A progressive globally square-integrable integrand has a constructed adapted continuous Ito martingale, characterized at every time by terminal integration of the restricted integrand.",
+    "mathematical_statement": "There is a continuous martingale I with I_t = integral_0^t eta_s dB_s, the fixed-time Ito isometry, and uniqueness up to indistinguishability on [0,T].",
+    "intuition": "Fast elementary approximants converge uniformly outside one null set. Fixed-time L2 completion identifies the limit, while continuity promotes equality on dense dyadic times to equality at every time.",
+    "assumptions": ["usual conditions on the filtration", "filtration-relative Brownian motion", "positive horizon", "progressive global product-space L2 integrability"],
+    "why_assumptions": ["completion of the filtration makes the null-set patch adapted", "Brownian structure proves elementary martingales and isometry", "global L2 energy supports terminal and maximal convergence"],
+    "proof_route": ["construct a fast elementary density sequence", "complete terminal stochastic integrals in L2", "apply Doob and Borel-Cantelli to get uniform path convergence", "prove adaptedness and martingality by limits", "identify all restricted terminal values", "derive indistinguishability uniqueness from dyadic times and continuity"],
+    "lean_notes": ["the theorem packages an explicitly constructed itoIntegralProcess", "no abstract ItoIntegralContract or supplied process conclusion is assumed"]
   }
 ]
