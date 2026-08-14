@@ -18,7 +18,7 @@ namespace ElementaryItoL2
 open MeasureTheory
 open scoped BigOperators ENNReal NNReal InnerProductSpace
 
-open BrownianMotion ElementaryItoIntegral ElementaryItoEmbedding
+open BrownianMotion ElementaryItoIntegral ElementaryItoAlgebra ElementaryItoEmbedding
   ElementaryItoIsometry ProgressiveL2
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
@@ -104,6 +104,54 @@ theorem norm_elementaryItoTerminalToLp
       (hterminal.trans hprocess.symm)
   nlinarith [norm_nonneg (elementaryItoTerminalToLp eta hB T),
     norm_nonneg (elementaryProcessToLp eta hB T)]
+
+/-- On a fixed grid, the terminal `L2` representative respects subtraction. -/
+theorem elementaryItoTerminalToLp_sub
+    (eta xi : ElementaryAdaptedProcess filtration n)
+    (hgrid : eta.times = xi.times)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (T : ℝ≥0) :
+    elementaryItoTerminalToLp (sub eta xi hgrid) hB T =
+      elementaryItoTerminalToLp eta hB T - elementaryItoTerminalToLp xi hB T := by
+  apply Lp.ext
+  simp only [elementaryItoTerminalToLp]
+  filter_upwards [
+    (elementaryItoIntegral_memLp_two (sub eta xi hgrid) hB T).coeFn_toLp,
+    Lp.coeFn_sub
+      ((elementaryItoIntegral_memLp_two eta hB T).toLp
+        (elementaryItoIntegral eta B T))
+      ((elementaryItoIntegral_memLp_two xi hB T).toLp
+        (elementaryItoIntegral xi B T)),
+    (elementaryItoIntegral_memLp_two eta hB T).coeFn_toLp,
+    (elementaryItoIntegral_memLp_two xi hB T).coeFn_toLp] with omega hsub hdiff heta hxi
+  rw [hsub, hdiff]
+  simp only [Pi.sub_apply]
+  rw [heta, hxi]
+  exact elementaryItoIntegral_sub eta xi hgrid B T omega
+
+/-- The Brownian-environment product-space representatives respect same-grid
+subtraction. -/
+theorem elementaryProcessToLp_sub
+    (eta xi : ElementaryAdaptedProcess filtration n)
+    (hgrid : eta.times = xi.times)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (T : ℝ≥0) :
+    elementaryProcessToLp (sub eta xi hgrid) hB T =
+      elementaryProcessToLp eta hB T - elementaryProcessToLp xi hB T := by
+  let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
+  unfold elementaryProcessToLp
+  dsimp only
+  exact toLp_sub eta xi hgrid mu T
+
+/-- Same-grid differences satisfy the exact distance form of the elementary
+Ito isometry. -/
+theorem norm_elementaryItoTerminalToLp_sub
+    (eta xi : ElementaryAdaptedProcess filtration n)
+    (hgrid : eta.times = xi.times)
+    (hB : IsBrownianMotionWithFiltration B filtration mu) (T : ℝ≥0) :
+    ‖elementaryItoTerminalToLp eta hB T - elementaryItoTerminalToLp xi hB T‖ =
+      ‖elementaryProcessToLp eta hB T - elementaryProcessToLp xi hB T‖ := by
+  rw [← elementaryItoTerminalToLp_sub eta xi hgrid hB T,
+    ← elementaryProcessToLp_sub eta xi hgrid hB T]
+  exact norm_elementaryItoTerminalToLp (sub eta xi hgrid) hB T
 
 end ElementaryItoL2
 end StochasticProcesses
