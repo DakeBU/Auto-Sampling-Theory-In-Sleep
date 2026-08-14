@@ -84,13 +84,13 @@ theorem accumulatedEnergy_measurable_min
   have hreal :=
     (progressiveExtensionAt_stronglyMeasurable eta (min t T)).measurable
   have hsquare :
-      @Measurable (ℝ≥0 × Omega) ℝ inferInstance
-        (MeasurableSpace.prod inferInstance (filtration (min t T)))
+      @Measurable (ℝ≥0 × Omega) ℝ
+        (MeasurableSpace.prod inferInstance (filtration (min t T))) inferInstance
         (fun z => (progressiveExtensionAt eta (min t T) z) ^ 2) :=
     hreal.pow_const 2
   have hnonnegative :
-      @Measurable (ℝ≥0 × Omega) ℝ≥0∞ inferInstance
-        (MeasurableSpace.prod inferInstance (filtration (min t T)))
+      @Measurable (ℝ≥0 × Omega) ℝ≥0∞
+        (MeasurableSpace.prod inferInstance (filtration (min t T))) inferInstance
         (fun z => ENNReal.ofReal
           ((progressiveExtensionAt eta (min t T) z) ^ 2)) :=
     ENNReal.measurable_ofReal.comp hsquare
