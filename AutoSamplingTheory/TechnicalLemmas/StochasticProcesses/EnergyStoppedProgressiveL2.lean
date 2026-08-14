@@ -134,6 +134,10 @@ theorem processFunction_sq_integrable
         ∫⁻ _omega, ENNReal.ofReal level ∂mu := by
       apply lintegral_mono
       intro omega
+      change
+        (∫⁻ t, ENNReal.ofReal
+          ((energyStoppedIntegrand hUsual eta level t omega) ^ 2)
+          ∂(TimeMeasure.upTo T)) ≤ ENNReal.ofReal level
       rw [← ofReal_integral_eq_lintegral_ofReal
         (EnergyStoppedIntegrand.sectionSquare_integrable hUsual eta level omega)
         (ae_of_all _ fun _ => sq_nonneg _)]
