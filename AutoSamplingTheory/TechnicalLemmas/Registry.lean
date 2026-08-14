@@ -2171,6 +2171,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Restriction uses a strict endpoint representative, equivalent to the closed interval convention under Lebesgue time measure."
   },
   {
+    key := "ito-elementary.same-grid-algebra",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoAlgebra.elementaryItoIntegral_sub",
+    upstreamDecl := "Linearity of elementary Ito integration on a fixed adapted time grid",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "linearity", "common-grid"],
+    saldUse := "keep differences of same-grid elementary approximants inside the elementary Ito domain",
+    note := "Zero, negation, scalar multiplication, addition, and subtraction are constructed with pointwise and finite-integral linearity. Common-grid refinement and density remain downstream obligations."
+  },
+  {
     key := "brownian-motion.filtration-contract",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
     upstreamDecl := "Brownian motion relative to a filtration",
