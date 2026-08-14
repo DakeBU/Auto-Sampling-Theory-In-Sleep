@@ -2211,6 +2211,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "The clipping map is proved measurable, norm dominated, eventually pointwise equal, and convergent in the actual Lp space. Adapted elementary density still requires time discretization and filtration-aware approximation."
   },
   {
+    key := "ito-integral.progressive-l2-truncation",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Truncation.tendsto_clipped_toLp",
+    upstreamDecl := "Bounded progressive truncation in product-space L2",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "progressive", "L2", "truncation", "product-measure"],
+    saldUse := "reduce a progressive square-integrable process to uniformly bounded progressive processes in product-space L2",
+    note := "Clipping is lifted to the full ProgressiveL2Integrand structure and convergence is proved in its actual Lp representative. Causal time regularization and elementary density remain open."
+  },
+  {
     key := "ito-integral.dyadic-clipped-elementary-construction",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.SampledElementaryApproximation.sampledClippedDyadic",
     upstreamDecl := "Dyadic bounded adapted left-step approximation object",

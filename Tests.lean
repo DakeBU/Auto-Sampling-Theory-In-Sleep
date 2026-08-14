@@ -20,6 +20,7 @@ import Tests.MetricCurve
 import Tests.OperatorGenerator
 import Tests.OperatorGeneratorDomain
 import Tests.ProgressiveL2
+import Tests.ProgressiveL2Truncation
 import Tests.Reversibility
 import Tests.SampledElementaryApproximation
 import Tests.SemigroupDecay
