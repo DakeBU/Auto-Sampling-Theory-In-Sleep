@@ -94,7 +94,11 @@ theorem accumulatedEnergy_measurable_min
         (fun z => ENNReal.ofReal
           ((progressiveExtensionAt eta (min t T) z) ^ 2)) :=
     ENNReal.measurable_ofReal.comp hsquare
-  exact hnonnegative.lintegral_prod_left'
+  exact @Measurable.lintegral_prod_left'
+    ℝ≥0 Omega inferInstance (filtration (min t T))
+    (TimeMeasure.upTo T) inferInstance
+    (fun z => ENNReal.ofReal
+      ((progressiveExtensionAt eta (min t T) z) ^ 2)) hnonnegative
 
 private theorem extension_sq_mono
     (eta : ProgressiveL2Integrand filtration mu T)
