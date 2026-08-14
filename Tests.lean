@@ -6,6 +6,7 @@ import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
 import Tests.ElementaryItoEmbedding
 import Tests.ElementaryItoIsometry
+import Tests.ElementaryItoL2
 import Tests.FellerSemigroup
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity

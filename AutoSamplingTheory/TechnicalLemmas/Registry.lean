@@ -2191,6 +2191,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "Joint strong measurability, strong progressiveness, a finite coefficient bound, and product-space MemLp are proved before constructing the canonical embedding. Density remains open."
   },
   {
+    key := "ito-elementary.terminal-l2-isometry",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoL2.norm_elementaryItoTerminalToLp",
+    upstreamDecl := "Elementary terminal Ito map is an L2 isometry",
+    upstreamFile := "Log-Concave Sampling, displays (1.1.5)--(1.1.6), book page 5 / PDF page 17",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "L2", "linear-isometry"],
+    saldUse := "transfer Cauchy control from same-grid elementary integrands to terminal stochastic sums",
+    note := "Both sides are actual Lp elements and their norms are proved equal from the expectation-level isometry. Adapted density, common refinement, and completion remain downstream."
+  },
+  {
     key := "brownian-motion.filtration-contract",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
     upstreamDecl := "Brownian motion relative to a filtration",
