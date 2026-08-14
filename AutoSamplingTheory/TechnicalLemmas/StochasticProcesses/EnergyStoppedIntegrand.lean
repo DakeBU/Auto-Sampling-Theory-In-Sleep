@@ -121,8 +121,10 @@ theorem sectionSquare_integrable
   exact hbase.mono' hmeas (ae_of_all _ fun s => by
     by_cases hs : completedEnergy hUsual eta s omega < level
     · simp [energyStoppedIntegrand, hs]
-    · simp only [energyStoppedIntegrand, if_neg hs, zero_pow, norm_zero]
-      exact sq_nonneg (completedIntegrand hUsual eta s omega))
+    · have hsq : 0 ≤ (completedIntegrand hUsual eta s omega) ^ 2 :=
+        sq_nonneg _
+      simpa [energyStoppedIntegrand, hs, Real.norm_eq_abs,
+        abs_of_nonneg hsq] using hsq)
 
 /-- The real time integral of the stopped square is the completed energy at
 its canonical localizer. -/
