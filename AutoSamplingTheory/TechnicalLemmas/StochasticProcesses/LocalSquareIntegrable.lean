@@ -34,8 +34,8 @@ structure LocallySquareIntegrableProgressive
 namespace LocallySquareIntegrableProgressive
 
 private theorem enorm_sq_value_eq_ofReal_sq (x : ℝ) :
-    ‖x ^ 2‖ₑ = ENNReal.ofReal (x ^ 2) := by
-  rw [Real.enorm_eq_ofReal]
+    ‖x ^ 2‖ₑ = ENNReal.ofReal (x ^ 2) :=
+  Real.enorm_eq_ofReal (sq_nonneg x)
 
 /-- Global product-space `L2` integrability implies the pathwise local
 square-integrability required for localization. -/
