@@ -9,6 +9,7 @@ open TechnicalLemmas.StochasticProcesses.CoefficientTruncation
 #check stronglyMeasurable_clipNat
 #check aestronglyMeasurable_clipNat
 #check abs_clipNat_le_abs
+#check abs_clipNat_le
 #check clipNat_eventually_eq
 #check clipNat_memLp
 #check tendsto_clipNat_toLp

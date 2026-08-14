@@ -2211,6 +2211,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "The clipping map is proved measurable, norm dominated, eventually pointwise equal, and convergent in the actual Lp space. Adapted elementary density still requires time discretization and filtration-aware approximation."
   },
   {
+    key := "ito-integral.dyadic-clipped-elementary-construction",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.SampledElementaryApproximation.sampledClippedDyadic",
+    upstreamDecl := "Dyadic bounded adapted left-step approximation object",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "dyadic-grid", "adapted", "truncation"],
+    saldUse := "construct genuine bounded elementary adapted processes from deterministic left-endpoint samples of a progressive L2 process",
+    note := "The strict grid, left-endpoint filtration measurability, coefficient bound, and terminal endpoint are proved. L2 time-regularization, convergence, and the diagonal density theorem remain open."
+  },
+  {
     key := "brownian-motion.filtration-contract",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
     upstreamDecl := "Brownian motion relative to a filtration",

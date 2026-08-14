@@ -49,9 +49,18 @@ theorem abs_clip_le_abs {M x : ℝ} (hM : 0 ≤ M) :
     · have hxM : x ≤ M := le_of_not_gt hhigh
       rw [clip, min_eq_left hxM, max_eq_right hMx]
 
+theorem abs_clip_le {M x : ℝ} (hM : 0 ≤ M) :
+    |clip M x| ≤ M := by
+  rw [abs_le]
+  exact ⟨le_max_left _ _, max_le (neg_le_self hM) (min_le_right _ _)⟩
+
 theorem abs_clipNat_le_abs (n : ℕ) (x : ℝ) :
     |clipNat n x| ≤ |x| :=
   abs_clip_le_abs (Nat.cast_nonneg n)
+
+theorem abs_clipNat_le (n : ℕ) (x : ℝ) :
+    |clipNat n x| ≤ (n : ℝ) :=
+  abs_clip_le (Nat.cast_nonneg n)
 
 theorem clipNat_eventually_eq (x : ℝ) :
     ∀ᶠ n in atTop, clipNat n x = x := by
