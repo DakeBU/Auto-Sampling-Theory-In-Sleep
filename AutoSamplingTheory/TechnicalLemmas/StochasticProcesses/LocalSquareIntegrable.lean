@@ -33,9 +33,16 @@ structure LocallySquareIntegrableProgressive
 
 namespace LocallySquareIntegrableProgressive
 
+private theorem enorm_sq_eq_ofReal_sq (x : ℝ) :
+    ‖x‖ₑ ^ 2 = ENNReal.ofReal (x ^ 2) := by
+  rw [Real.enorm_eq_ofReal]
+  rw [← ENNReal.ofReal_pow]
+  congr 1
+  exact sq_abs x
+
 /-- Global product-space `L2` integrability implies the pathwise local
 square-integrability required for localization. -/
-theorem progressiveL2_isLocallySquareIntegrableOn
+theorem progressiveL2_isLocallySquareIntegrableOn [SFinite mu]
     (eta : ProgressiveL2Integrand filtration mu T) :
     IsLocallySquareIntegrableOn eta.process mu T := by
   have hprod : Integrable
@@ -48,18 +55,24 @@ theorem progressiveL2_isLocallySquareIntegrableOn
     simpa [processTimeMeasure, processFunction] using hprod.prod_right_ae
   filter_upwards [hsections] with omega homega
   have hfinite := homega.hasFiniteIntegral
-  simpa [hasFiniteIntegral_iff_enorm, enorm_eq_ofReal, sq_nonneg] using hfinite
+  have heq :
+      (fun t : ℝ≥0 => ‖eta.process t omega‖ₑ ^ 2) =
+        fun t => ENNReal.ofReal ((eta.process t omega) ^ 2) := by
+    funext t
+    exact enorm_sq_eq_ofReal_sq (eta.process t omega)
+  rw [hasFiniteIntegral_iff_enorm, heq] at hfinite
+  exact hfinite
 
 /-- Canonical inclusion of the global progressive `L2` domain into the local
 one. -/
-def ofProgressiveL2
+def ofProgressiveL2 [SFinite mu]
     (eta : ProgressiveL2Integrand filtration mu T) :
     LocallySquareIntegrableProgressive filtration mu T where
   process := eta.process
   progressive := eta.progressive
   locallySquareIntegrable := progressiveL2_isLocallySquareIntegrableOn eta
 
-@[simp] theorem ofProgressiveL2_process
+@[simp] theorem ofProgressiveL2_process [SFinite mu]
     (eta : ProgressiveL2Integrand filtration mu T) :
     (ofProgressiveL2 eta).process = eta.process :=
   rfl
