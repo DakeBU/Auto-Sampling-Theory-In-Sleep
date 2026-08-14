@@ -26,6 +26,7 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Reversibility
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.SampledElementaryApproximation
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.TimeMeasure
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.TimeMeasureRealBridge
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakGenerator
 
 /-!

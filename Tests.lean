@@ -28,6 +28,7 @@ import Tests.Reversibility
 import Tests.SampledElementaryApproximation
 import Tests.SemigroupDecay
 import Tests.StoppingTime
+import Tests.TimeMeasureRealBridge
 import Tests.Transport
 import Tests.WassersteinSpace
 
