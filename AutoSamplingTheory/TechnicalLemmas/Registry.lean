@@ -2251,6 +2251,16 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     note := "The strict grid, left-endpoint filtration measurability, coefficient bound, and terminal endpoint are proved. L2 time-regularization, convergence, and the diagonal density theorem remain open."
   },
   {
+    key := "ito-integral.lagged-dyadic-adapted-average",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LaggedDyadicApproximation.laggedDyadicApprox_isElementaryAdapted",
+    upstreamDecl := "Lagged dyadic cell-average approximation by bounded adapted elementary processes",
+    upstreamFile := "Log-Concave Sampling, proof of Theorem 1.1.8, book page 6 / PDF page 18; Mathlib.MeasureTheory.Integral.Prod",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "elementary-process", "dyadic-grid", "adapted", "Bochner-integral"],
+    saldUse := "regularize progressive L2 integrands causally: average a clipped process over the preceding cell and use that coefficient on the next cell",
+    note := "Parameterized Bochner measurability is proved from progressive measurability after an explicit zero extension, and every coefficient is bounded by the clipping level. L2 convergence of the lagged averages remains open."
+  },
+  {
     key := "brownian-motion.filtration-contract",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsBrownianMotionWithFiltration",
     upstreamDecl := "Brownian motion relative to a filtration",

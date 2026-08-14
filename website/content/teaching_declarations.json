@@ -1580,5 +1580,17 @@
     "why_assumptions": ["the condition is pathwise and therefore uses an almost-everywhere representative", "ENNReal keeps divergence visible"],
     "proof_route": ["define IsLocallySquareIntegrableOn by a pathwise lintegral", "expose the definition as the source equivalence"],
     "lean_notes": ["this is weaker than processL2Energy < infinity", "no stopping time or Ito integral is constructed by this declaration"]
+  },
+  {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LaggedDyadicApproximation.laggedDyadicApprox_isElementaryAdapted",
+    "chapter": 1,
+    "route_status": "Compiled",
+    "plain_english": "A clipped progressive process can be replaced on a dyadic grid by bounded elementary coefficients obtained from the preceding time cell, so every coefficient is known before the cell on which it is used.",
+    "mathematical_statement": "For dyadic mesh delta and i > 0, H_i = delta^(-1) integral_(t_(i-1),t_i] clip_M(eta_s) ds is F_(t_i)-measurable and |H_i| <= M; H_0 = 0.",
+    "intuition": "A one-cell delay makes time averaging causal. Progressive measurability on the past rectangle survives integration over time and leaves a random variable measurable at the next cell's left endpoint.",
+    "assumptions": ["a progressive product-space L2 integrand", "positive terminal time", "a natural clipping level", "the finite nonnegative-time Lebesgue measure"],
+    "why_assumptions": ["progressiveness supplies joint measurability with the left-endpoint filtration", "clipping supplies a uniform coefficient bound", "positive terminal time gives a strict dyadic grid", "the lag prevents use of future values"],
+    "proof_route": ["clip the progressive process", "zero-extend its restriction from the past time rectangle", "apply parameterized Bochner integral measurability", "restrict the integral to the preceding dyadic cell", "bound the normalized integral by the cell mass", "assemble the strict-grid elementary adapted process"],
+    "lean_notes": ["StronglyMeasurable.integral_prod_left' performs the parameterized Bochner step", "TimeMeasure.upTo_Ioc computes the exact cell mass", "the theorem constructs the adapted approximants but does not yet prove their L2 convergence"]
   }
 ]
