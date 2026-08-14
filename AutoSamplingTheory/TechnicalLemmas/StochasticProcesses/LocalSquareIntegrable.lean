@@ -33,12 +33,9 @@ structure LocallySquareIntegrableProgressive
 
 namespace LocallySquareIntegrableProgressive
 
-private theorem enorm_sq_eq_ofReal_sq (x : ℝ) :
-    ‖x‖ₑ ^ 2 = ENNReal.ofReal (x ^ 2) := by
-  rw [Real.enorm_eq_ofReal]
-  rw [← ENNReal.ofReal_pow]
-  congr 1
-  exact sq_abs x
+private theorem enorm_sq_value_eq_ofReal_sq (x : ℝ) :
+    ‖x ^ 2‖ₑ = ENNReal.ofReal (x ^ 2) := by
+  rw [Real.enorm_eq_ofReal, abs_of_nonneg (sq_nonneg x)]
 
 /-- Global product-space `L2` integrability implies the pathwise local
 square-integrability required for localization. -/
@@ -56,10 +53,10 @@ theorem progressiveL2_isLocallySquareIntegrableOn [SFinite mu]
   filter_upwards [hsections] with omega homega
   have hfinite := homega.hasFiniteIntegral
   have heq :
-      (fun t : ℝ≥0 => ‖eta.process t omega‖ₑ ^ 2) =
+      (fun t : ℝ≥0 => ‖(eta.process t omega) ^ 2‖ₑ) =
         fun t => ENNReal.ofReal ((eta.process t omega) ^ 2) := by
     funext t
-    exact enorm_sq_eq_ofReal_sq (eta.process t omega)
+    exact enorm_sq_value_eq_ofReal_sq (eta.process t omega)
   rw [hasFiniteIntegral_iff_enorm, heq] at hfinite
   exact hfinite
 
