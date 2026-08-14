@@ -2131,6 +2131,16 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "localization.fixed-time-energy-measurability",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LocalProgressiveL2.accumulatedEnergyReal_stronglyMeasurable",
+    upstreamDecl := "Fixed-time filtration measurability of accumulated square energy",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "progressive", "filtration", "energy"],
+    saldUse := "make canonical energy-hitting events measurable at each observation time",
+    note := "The source domain assumes only almost-sure finite path energy, not finite expected energy. Continuity and the first-hitting stopping-time theorem remain downstream."
+  },
+  {
     key := "localization.accumulated-energy-monotonicity",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.AccumulatedEnergy.accumulatedEnergy_mono",
     upstreamDecl := "Monotonicity of accumulated pathwise square energy",

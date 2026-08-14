@@ -43,6 +43,7 @@ import Tests.TimeMeasureRealBridge
 import Tests.Transport
 import Tests.WassersteinSpace
 import Tests.AccumulatedEnergy
+import Tests.LocalProgressiveL2
 
 /-!
 Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,
