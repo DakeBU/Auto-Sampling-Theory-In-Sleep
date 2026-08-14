@@ -7,7 +7,7 @@ import Mathlib.Topology.Order.IntermediateValue
 
 For a completed continuous monotone energy path, the canonical localizer at
 level `c` is the first time at which the path equals `c`, with terminal time
-`T` as fallback.  Equality level sets, rather than strict crossings, make the
+`T` as fallback. Equality level sets, rather than strict crossings, make the
 stopped-energy bound exact and expose the intermediate-value argument used by
 Chewi's Proposition 1.1.13.
 -/
@@ -42,18 +42,19 @@ theorem isClosed_energyLevelSet
   have heq : IsClosed
       {t | completedEnergy hUsual eta t omega = level} :=
     isClosed_eq (continuous_completedEnergy hUsual eta omega) continuous_const
-  have hinter := isClosed_Icc.inter heq
-  simpa [energyLevelSet, Set.ext_iff] using hinter
+  change IsClosed (Icc (0 : ℝ≥0) T ∩
+    {t | completedEnergy hUsual eta t omega = level})
+  exact isClosed_Icc.inter heq
 
 /-- First equality-level time, or `T` if the level is not reached. -/
 noncomputable def canonicalEnergyLocalizer
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocalProgressiveL2Integrand filtration mu T)
-    (level : ℝ) (omega : Omega) : ℝ≥0 :=
-  if h : (energyLevelSet hUsual eta level omega).Nonempty then
+    (level : ℝ) (omega : Omega) : ℝ≥0 := by
+  classical
+  exact if h : (energyLevelSet hUsual eta level omega).Nonempty then
     sInf (energyLevelSet hUsual eta level omega)
-  else
-    T
+  else T
 
 /-- If the level set is nonempty, the canonical localizer belongs to it. -/
 theorem canonicalEnergyLocalizer_mem
@@ -63,9 +64,10 @@ theorem canonicalEnergyLocalizer_mem
     (hne : (energyLevelSet hUsual eta level omega).Nonempty) :
     canonicalEnergyLocalizer hUsual eta level omega ∈
       energyLevelSet hUsual eta level omega := by
+  classical
   rw [canonicalEnergyLocalizer, dif_pos hne]
-  have hclosed := isClosed_energyLevelSet hUsual eta level omega
-  exact hclosed.csInf_mem hne ⟨0, fun x hx => zero_le x⟩
+  exact (isClosed_energyLevelSet hUsual eta level omega).csInf_mem hne
+    ⟨0, fun x _ => zero_le⟩
 
 /-- The canonical localizer is no later than any member of its level set. -/
 theorem canonicalEnergyLocalizer_le_of_mem
@@ -74,9 +76,10 @@ theorem canonicalEnergyLocalizer_le_of_mem
     (level : ℝ) (omega : Omega) {s : ℝ≥0}
     (hs : s ∈ energyLevelSet hUsual eta level omega) :
     canonicalEnergyLocalizer hUsual eta level omega ≤ s := by
+  classical
   have hne : (energyLevelSet hUsual eta level omega).Nonempty := ⟨s, hs⟩
   rw [canonicalEnergyLocalizer, dif_pos hne]
-  exact csInf_le ⟨0, fun y hy => zero_le y⟩ hs
+  exact csInf_le ⟨0, fun y _ => zero_le⟩ hs
 
 /-- Every canonical localizer is capped by the terminal horizon. -/
 theorem canonicalEnergyLocalizer_le_terminal
@@ -84,9 +87,10 @@ theorem canonicalEnergyLocalizer_le_terminal
     (eta : LocalProgressiveL2Integrand filtration mu T)
     (level : ℝ) (omega : Omega) :
     canonicalEnergyLocalizer hUsual eta level omega ≤ T := by
+  classical
   by_cases hne : (energyLevelSet hUsual eta level omega).Nonempty
   · exact (canonicalEnergyLocalizer_mem hUsual eta level omega hne).1.2
-  · simp [canonicalEnergyLocalizer, hne]
+  · rw [canonicalEnergyLocalizer, dif_neg hne]
 
 /-- If completed energy at time `t` dominates a nonnegative level, continuity
 produces an equality-level time no later than `t`. -/
@@ -97,12 +101,17 @@ theorem exists_level_time_of_le
     (hcross : level ≤ completedEnergy hUsual eta t omega) :
     ∃ s ∈ Icc (0 : ℝ≥0) t,
       completedEnergy hUsual eta s omega = level := by
-  have hcont := continuous_completedEnergy hUsual eta omega
-  have hzero : completedEnergy hUsual eta 0 omega = 0 :=
-    completedEnergy_zero hUsual eta omega
-  rw [← hzero] at hlevel
-  have himage := intermediate_value_Icc (zero_le t) hcont.continuousOn
-  exact himage ⟨hlevel, hcross⟩
+  have hmem : level ∈ Icc
+      (completedEnergy hUsual eta 0 omega)
+      (completedEnergy hUsual eta t omega) := by
+    constructor
+    · simpa only [completedEnergy_zero] using hlevel
+    · exact hcross
+  have himage :=
+    (intermediate_value_Icc (zero_le : (0 : ℝ≥0) ≤ t)
+      (continuous_completedEnergy hUsual eta omega).continuousOn) hmem
+  rcases himage with ⟨s, hs, hvalue⟩
+  exact ⟨s, hs, hvalue⟩
 
 /-- Fixed-time characterization of the canonical localizer. -/
 theorem canonicalEnergyLocalizer_le_iff
@@ -111,6 +120,7 @@ theorem canonicalEnergyLocalizer_le_iff
     {level : ℝ} (hlevel : 0 ≤ level) (omega : Omega) (t : ℝ≥0) :
     canonicalEnergyLocalizer hUsual eta level omega ≤ t ↔
       T ≤ t ∨ level ≤ completedEnergy hUsual eta t omega := by
+  classical
   constructor
   · intro hstop
     by_cases hTt : T ≤ t
@@ -119,11 +129,14 @@ theorem canonicalEnergyLocalizer_le_iff
       have hne : (energyLevelSet hUsual eta level omega).Nonempty := by
         by_contra hempty
         have hterminal : canonicalEnergyLocalizer hUsual eta level omega = T := by
-          simp [canonicalEnergyLocalizer, hempty]
+          rw [canonicalEnergyLocalizer, dif_neg hempty]
         exact hTt (hterminal ▸ hstop)
       have hmem := canonicalEnergyLocalizer_mem hUsual eta level omega hne
       have hmono := monotone_completedEnergy hUsual eta omega hstop
-      exact hmem.2.trans_le hmono
+      calc
+        level = completedEnergy hUsual eta
+            (canonicalEnergyLocalizer hUsual eta level omega) omega := hmem.2.symm
+        _ ≤ completedEnergy hUsual eta t omega := hmono
   · rintro (hTt | hcross)
     · exact (canonicalEnergyLocalizer_le_terminal hUsual eta level omega).trans hTt
     · by_cases htT : t ≤ T
@@ -133,7 +146,7 @@ theorem canonicalEnergyLocalizer_le_iff
           ⟨⟨hs.1, hs.2.trans htT⟩, hvalue⟩
         exact (canonicalEnergyLocalizer_le_of_mem hUsual eta level omega hmem).trans hs.2
       · exact (canonicalEnergyLocalizer_le_terminal hUsual eta level omega).trans
-          (le_of_not_ge htT)
+          (lt_of_not_ge htT).le
 
 /-- Canonical-localizer events are measurable at the observation time. -/
 theorem measurableSet_canonicalEnergyLocalizer_le
@@ -142,13 +155,23 @@ theorem measurableSet_canonicalEnergyLocalizer_le
     {level : ℝ} (hlevel : 0 ≤ level) (t : ℝ≥0) :
     MeasurableSet[filtration t]
       {omega | canonicalEnergyLocalizer hUsual eta level omega ≤ t} := by
-  rw [show {omega | canonicalEnergyLocalizer hUsual eta level omega ≤ t} =
-      {omega | T ≤ t} ∪
-        {omega | level ≤ completedEnergy hUsual eta t omega} by
-    ext omega
-    simp [canonicalEnergyLocalizer_le_iff hUsual eta hlevel omega t]]
-  exact MeasurableSet.union measurableSet_const
-    (measurableSet_completedEnergy_ge hUsual eta level t)
+  by_cases hTt : T ≤ t
+  · have heq :
+        {omega | canonicalEnergyLocalizer hUsual eta level omega ≤ t} = Set.univ := by
+      ext omega
+      simp only [Set.mem_setOf_eq, Set.mem_univ, iff_true]
+      exact (canonicalEnergyLocalizer_le_terminal hUsual eta level omega).trans hTt
+    rw [heq]
+    exact MeasurableSet.univ
+  · have heq :
+        {omega | canonicalEnergyLocalizer hUsual eta level omega ≤ t} =
+          {omega | level ≤ completedEnergy hUsual eta t omega} := by
+      ext omega
+      rw [Set.mem_setOf_eq, Set.mem_setOf_eq,
+        canonicalEnergyLocalizer_le_iff hUsual eta hlevel omega t]
+      simp only [hTt, false_or]
+    rw [heq]
+    exact measurableSet_completedEnergy_ge hUsual eta level t
 
 /-- On a reached level, completed energy at the canonical localizer equals the
 level exactly. -/
@@ -169,14 +192,15 @@ theorem completedEnergy_at_canonical_le
     {level : ℝ} (hlevel : 0 ≤ level) (omega : Omega) :
     completedEnergy hUsual eta
       (canonicalEnergyLocalizer hUsual eta level omega) omega ≤ level := by
+  classical
   by_cases hne : (energyLevelSet hUsual eta level omega).Nonempty
   · rw [completedEnergy_at_canonical_eq_of_nonempty hUsual eta level omega hne]
   · have hstop : canonicalEnergyLocalizer hUsual eta level omega = T := by
-      simp [canonicalEnergyLocalizer, hne]
+      rw [canonicalEnergyLocalizer, dif_neg hne]
     rw [hstop]
     by_contra hnot
     have hcross : level ≤ completedEnergy hUsual eta T omega :=
-      le_of_not_ge hnot
+      (lt_of_not_ge hnot).le
     rcases exists_level_time_of_le hUsual eta hlevel le_rfl hcross with
       ⟨s, hs, hvalue⟩
     apply hne
@@ -189,6 +213,7 @@ theorem canonicalEnergyLocalizer_mono_level
     {c d : ℝ} (hc : 0 ≤ c) (hcd : c ≤ d) (omega : Omega) :
     canonicalEnergyLocalizer hUsual eta c omega ≤
       canonicalEnergyLocalizer hUsual eta d omega := by
+  classical
   by_cases hne : (energyLevelSet hUsual eta d omega).Nonempty
   · have hdmem := canonicalEnergyLocalizer_mem hUsual eta d omega hne
     have hcross : c ≤ completedEnergy hUsual eta
@@ -201,7 +226,7 @@ theorem canonicalEnergyLocalizer_mono_level
       ⟨⟨hs.1, hs.2.trans hdmem.1.2⟩, hvalue⟩
     exact (canonicalEnergyLocalizer_le_of_mem hUsual eta c omega hcmem).trans hs.2
   · have hd : canonicalEnergyLocalizer hUsual eta d omega = T := by
-      simp [canonicalEnergyLocalizer, hne]
+      rw [canonicalEnergyLocalizer, dif_neg hne]
     rw [hd]
     exact canonicalEnergyLocalizer_le_terminal hUsual eta c omega
 
@@ -230,6 +255,7 @@ theorem canonicalLocalizingTime_eventually_eq_terminal
     (omega : Omega) :
     ∀ᶠ n in Filter.atTop,
       canonicalLocalizingTime hUsual eta n omega = T := by
+  classical
   obtain ⟨N, hN⟩ := exists_nat_gt
     (completedEnergy hUsual eta T omega)
   filter_upwards [Filter.eventually_ge_atTop N] with n hn
@@ -238,11 +264,11 @@ theorem canonicalLocalizingTime_eventually_eq_terminal
     exact hN.trans_le (hNn.trans (by norm_num))
   have hempty :
       ¬(energyLevelSet hUsual eta (n + 1 : ℝ) omega).Nonempty := by
-    rintro ⟨t, ht, hvalue⟩
-    have hmono := monotone_completedEnergy hUsual eta omega ht.1.2
+    rintro ⟨t, ⟨ht0, htT⟩, hvalue⟩
+    have hmono := monotone_completedEnergy hUsual eta omega htT
     rw [hvalue] at hmono
     exact (not_le_of_gt hlevel) hmono
-  simp [canonicalLocalizingTime, canonicalEnergyLocalizer, hempty]
+  rw [canonicalLocalizingTime, canonicalEnergyLocalizer, dif_neg hempty]
 
 /-- Canonical localizing times converge pointwise to the terminal horizon. -/
 theorem tendsto_canonicalLocalizingTime
@@ -251,9 +277,9 @@ theorem tendsto_canonicalLocalizingTime
     (omega : Omega) :
     Filter.Tendsto (fun n => canonicalLocalizingTime hUsual eta n omega)
       Filter.atTop (𝓝 T) := by
-  apply Filter.tendsto_congr'
-      (canonicalLocalizingTime_eventually_eq_terminal hUsual eta omega) |>.2
-  exact Filter.tendsto_const_nhds
+  exact (Filter.tendsto_congr'
+    (canonicalLocalizingTime_eventually_eq_terminal hUsual eta omega)).2
+    tendsto_const_nhds
 
 /-- The stopped completed energy at the `n`-th localizer is bounded by `n+1`. -/
 theorem completedEnergy_at_canonicalLocalizingTime_le
