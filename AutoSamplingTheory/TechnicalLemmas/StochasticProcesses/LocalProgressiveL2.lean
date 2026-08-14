@@ -66,6 +66,7 @@ theorem squaredExtensionAt_stronglyMeasurable
     {s b : ℝ≥0} (hsb : ¬s ≤ b) (omega : Omega) :
     squaredExtensionAt eta b (s, omega) = 0 := by
   rw [squaredExtensionAt, Function.extend_apply']
+  · rfl
   · rintro ⟨u, hu⟩
     apply hsb
     have hsu := congrArg Prod.fst hu
