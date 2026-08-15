@@ -6,11 +6,12 @@ import Mathlib.Probability.Process.Stopping
 This file gives Chewi's Definition 1.1.11 an ASTIS-owned entry point while
 retaining Mathlib's filtration and stopping-time APIs.
 
-For the localized Ito route we also record the two elementary stopping-time
-algebra facts used repeatedly below: minima of stopping times are stopping
-times, and hence truncation by a deterministic horizon preserves the stopping
-time property.  These are thin source-facing wrappers around Mathlib and do
-not assert any stochastic-integral stopping identity.
+For the localized Ito route we also record the elementary stopping-time and
+stopped-process algebra used repeatedly below: minima of stopping times are
+stopping times, deterministic truncation preserves stopping times, and stopping
+a process twice is the same as stopping once at the pointwise minimum. These
+are thin source-facing wrappers around Mathlib and do not assert any
+stochastic-integral stopping identity.
 -/
 
 namespace AutoSamplingTheory
@@ -36,7 +37,7 @@ theorem isChewiStoppingTime_const
   MeasureTheory.isStoppingTime_const filtration t
 
 /-- The pointwise minimum of two Chewi stopping times is again a stopping
-time.  This is the stopping-time algebra needed for repeated stopping. -/
+time. This is the stopping-time algebra needed for repeated stopping. -/
 theorem IsChewiStoppingTime.min
     {Ω : Type*} {m : MeasurableSpace Ω}
     {filtration : Filtration ℝ≥0 m} {τ σ : Ω → WithTop ℝ≥0}
@@ -54,6 +55,23 @@ theorem IsChewiStoppingTime.min_const
     IsChewiStoppingTime filtration
       (fun ω => min (τ ω) (T : WithTop ℝ≥0)) :=
   hτ.min (isChewiStoppingTime_const filtration T)
+
+/-- Repeated stopping is exactly stopping at the pointwise minimum. This is a
+pure process identity; no stopping-time or martingale hypotheses are needed. -/
+theorem stoppedProcess_stoppedProcess_min
+    {Ω β : Type*} (u : ℝ≥0 → Ω → β)
+    (τ σ : Ω → WithTop ℝ≥0) :
+    stoppedProcess (stoppedProcess u τ) σ =
+      stoppedProcess u (fun ω => min (σ ω) (τ ω)) := by
+  exact MeasureTheory.stoppedProcess_stoppedProcess'
+
+/-- If the second stopping time occurs no later than the first, stopping twice
+reduces to the earlier stop. -/
+theorem stoppedProcess_stoppedProcess_of_le
+    {Ω β : Type*} (u : ℝ≥0 → Ω → β)
+    {τ σ : Ω → WithTop ℝ≥0} (hστ : σ ≤ τ) :
+    stoppedProcess (stoppedProcess u τ) σ = stoppedProcess u σ := by
+  exact MeasureTheory.stoppedProcess_stoppedProcess_of_le_right hστ
 
 end StoppingTime
 end StochasticProcesses
