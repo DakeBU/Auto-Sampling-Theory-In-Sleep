@@ -1,6 +1,15 @@
 (function () {
   "use strict";
 
+  const scriptUrl = document.currentScript?.src || "";
+  if (scriptUrl && !document.querySelector('link[data-module-lean-tutor-style]')) {
+    const style = document.createElement("link");
+    style.rel = "stylesheet";
+    style.href = new URL("module-lean-tutor.css", scriptUrl).href;
+    style.dataset.moduleLeanTutorStyle = "true";
+    document.head.appendChild(style);
+  }
+
   const declarations = [...document.querySelectorAll("details.declaration")];
   if (!declarations.length) return;
 
