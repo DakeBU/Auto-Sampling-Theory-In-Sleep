@@ -227,14 +227,14 @@ theorem stopRefined_elementaryItoIntegral_eq_zero_of_stoppingValue_eq_zero
   unfold elementaryItoIntegral
   apply Finset.sum_eq_zero
   intro j _hj
-  rw [stopElementary_coeff]
-  have hnot :
-      ¬ (((refineDyadic eta (stoppingLevel eta n)
-          (level_le_stoppingLevel eta n)).process.times j.castSucc : ℝ≥0) :
-            WithTop ℝ≥0) < (tau omega : WithTop ℝ≥0) := by
-    rw [homega]
-    exact not_lt_of_ge bot_le
-  simp [hnot]
+  have hcoeff :
+      (stopElementary
+          (refineDyadic eta (stoppingLevel eta n)
+            (level_le_stoppingLevel eta n)).process
+          (fun w => (tau w : WithTop ℝ≥0)) htau).coeff j omega = 0 := by
+    rw [stopElementary_coeff, homega]
+    simp
+  rw [hcoeff, zero_mul]
 
 /-- Pointwise stopped-Itô convergence for an elementary integrand and an
 arbitrary bounded nonnegative stopping value.  At positive stopping values the
