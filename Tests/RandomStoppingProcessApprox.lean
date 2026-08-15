@@ -4,7 +4,7 @@ namespace AutoSamplingTheory.Tests.RandomStoppingProcessApprox
 
 open MeasureTheory
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
-open ContinuousDoobL2 DyadicElementaryStopping ElementaryStoppingTime ProgressiveL2Density
+open ContinuousDoobL2 DyadicElementaryRefinement DyadicElementaryStopping ElementaryStoppingTime ProgressiveL2Density
   RandomStoppingProcessApprox StoppingTime
 open scoped NNReal
 
