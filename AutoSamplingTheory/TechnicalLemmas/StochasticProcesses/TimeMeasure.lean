@@ -60,8 +60,10 @@ theorem upTo_eq_restrict_nnrealLebesgue (T : ℝ≥0) :
       (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict
         ((Subtype.val : ℝ≥0 → ℝ) ⁻¹' Icc 0 (T : ℝ)) :=
       hcoe.comap_restrict volume (Icc 0 (T : ℝ))
-    _ = (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict (Icc 0 T) := by
-      rw [hpre]
+    _ = (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict (Icc 0 T) :=
+      congrArg
+        (fun s : Set ℝ≥0 => (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict s)
+        hpre
 
 /-- The total mass of nonnegative time stopped at `T` is `T`. -/
 theorem upTo_univ (T : ℝ≥0) : upTo T Set.univ = T := by
