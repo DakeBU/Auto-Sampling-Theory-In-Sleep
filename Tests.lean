@@ -47,6 +47,7 @@ import Tests.RandomStoppingProgressiveL2
 import Tests.RandomStoppingL2Convergence
 import Tests.RandomStoppingItoTerminal
 import Tests.RandomStoppingL2Contraction
+import Tests.RandomStoppingGeneralIto
 import Tests.Reversibility
 import Tests.SampledElementaryApproximation
 import Tests.SemigroupDecay
