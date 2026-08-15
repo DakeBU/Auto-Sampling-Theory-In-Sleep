@@ -54,7 +54,16 @@ theorem stopElementary_coeff_eq_gridCutoff
       if j.castSucc < cutoff omega then eta.process.coeff j omega else 0 := by
   rw [stopElementary_coeff, hgrid omega]
   simp only [WithTop.coe_lt_coe]
-  rw [eta.process.times_strictMono.lt_iff_lt]
+  by_cases hj : j.castSucc < cutoff omega
+  · have htime :
+        eta.process.times j.castSucc < eta.process.times (cutoff omega) :=
+      eta.process.times_strictMono hj
+    simp [hj, htime]
+  · have htime :
+        ¬ eta.process.times j.castSucc < eta.process.times (cutoff omega) := by
+      intro hlt
+      exact hj ((eta.process.times_strictMono.lt_iff_lt).mp hlt)
+    simp [hj, htime]
 
 /-- Exact finite-sum stopped-Itô identity for a dyadic grid-valued stopping
 time.  This is pointwise in `omega`: no expectation, completion, or limiting
