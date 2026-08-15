@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "website" / "scripts"))
 import astis_site  # noqa: E402
 import astis_source  # noqa: E402
 import implicit_prerequisites  # noqa: E402
+import lean_tutor  # noqa: E402
 
 
 def main() -> int:
@@ -44,6 +45,12 @@ def main() -> int:
     if implicit_errors:
         print("Implicit prerequisite site check failed:", file=sys.stderr)
         for error in implicit_errors:
+            print(f"- {error}", file=sys.stderr)
+        return 1
+    tutor_errors = lean_tutor.validate_site(output)
+    if tutor_errors:
+        print("Lean learning studio site check failed:", file=sys.stderr)
+        for error in tutor_errors:
             print(f"- {error}", file=sys.stderr)
         return 1
     return 0
