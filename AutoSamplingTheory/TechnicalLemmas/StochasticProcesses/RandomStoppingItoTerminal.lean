@@ -122,7 +122,10 @@ theorem itoIntegralTerminal_stopped_elementary_ae [IsFiniteMeasure mu]
         simp only [elementaryItoProcess, min_eq_left ht.2]
     have hraw := tendsto_stopRefined_elementaryItoIntegral
       eta tau htau htauT B omega hcont
-    simpa only [rawSum, stopped, stopRefinedDyadic_process] using hraw
+    refine hraw.congr' ?_
+    filter_upwards [] with n
+    dsimp only [rawSum, stopped]
+    rw [stopRefinedDyadic_process]
   have hpathMeasure : TendstoInMeasure mu
       rawSum atTop
       (fun omega => elementaryItoIntegral eta.process B (tau omega) omega) := by
