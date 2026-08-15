@@ -1,0 +1,14 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedProgressiveL2
+
+namespace AutoSamplingTheory.Tests.EnergyStoppedProgressiveL2
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedProgressiveL2
+
+#check stoppedExtension
+#check stoppedExtension_stronglyMeasurable
+#check processFunction_aestronglyMeasurable
+#check processFunction_sq_integrable
+#check stoppedProgressiveL2
+#check stoppedProgressiveL2_process
+
+end AutoSamplingTheory.Tests.EnergyStoppedProgressiveL2

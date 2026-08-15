@@ -6,6 +6,10 @@
   const navToggle = document.querySelector(".nav-toggle");
   const sidebar = document.getElementById("site-sidebar");
   const sidebarScrim = document.querySelector("[data-sidebar-scrim]");
+  const siteScriptUrl = document.currentScript?.src || "";
+  const assetsRoot = siteScriptUrl
+    ? new URL(".", siteScriptUrl)
+    : new URL("../assets/", window.location.href);
 
   const savedScheme = localStorage.getItem("samplinglib-color-scheme");
   if (savedScheme && ["light", "dark"].includes(savedScheme)) {
@@ -83,6 +87,179 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  function slugify(value) {
+    const slug = String(value)
+      .replace(/[^a-zA-Z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .toLowerCase();
+    return slug || "entry";
+  }
+
+  function currentPageSlug() {
+    const name = decodeURIComponent(window.location.pathname.split("/").pop() || "");
+    return name.replace(/\.html$/i, "");
+  }
+
+  function matchingEntries(entries, pageSlug) {
+    return entries.filter((entry) =>
+      Array.isArray(entry.declarations)
+      && entry.declarations.some((declaration) => slugify(declaration) === pageSlug)
+    );
+  }
+
+  async function renderRigorousLessonSupplement() {
+    const article = document.querySelector(".theorem-layout > article");
+    if (!article) return;
+    const pageSlug = currentPageSlug();
+    if (!pageSlug) return;
+
+    try {
+      const response = await fetch(new URL("rigorous-lessons.json", assetsRoot));
+      if (!response.ok) throw new Error(`rigorous lessons: ${response.status}`);
+      const data = await response.json();
+      const entries = Array.isArray(data.entries) ? data.entries : [];
+      const matches = matchingEntries(entries, pageSlug);
+      if (!matches.length) return;
+
+      const panel = document.createElement("section");
+      panel.className = "rigorous-lesson-panel";
+      panel.dataset.rigorousLesson = "true";
+      panel.innerHTML = matches.map((entry) => {
+        const formulas = Array.isArray(entry.formula_latex) ? entry.formula_latex : [];
+        const steps = Array.isArray(entry.proof_steps) ? entry.proof_steps : [];
+        const subtlePoints = Array.isArray(entry.subtle_points) ? entry.subtle_points : [];
+        return `
+          <div class="rigorous-lesson-group">
+            <div class="eyebrow">ASTIS rigorous expansion · source ${escapeHtml(entry.source_item || "")}</div>
+            <h2>${escapeHtml(entry.title || "Rigorous derivation")}</h2>
+            <div class="note"><strong>Scope guard.</strong> ${escapeHtml(entry.scope_note || "")}</div>
+            <h3>Exact formulas</h3>
+            <div class="rigorous-formulas">${formulas.map((formula) => `<div class="math-statement">${escapeHtml(formula)}</div>`).join("")}</div>
+            <h3>Proof, step by step</h3>
+            <div class="proof-steps">
+              ${steps.map((step) => {
+                const nodes = Array.isArray(step.lean_nodes) ? step.lean_nodes : [];
+                const stepFormula = step.formula_latex
+                  ? `<div class="math-statement">${escapeHtml(step.formula_latex)}</div>`
+                  : "";
+                return `
+                  <article class="proof-step">
+                    <h4>${escapeHtml(step.title || "Proof step")}</h4>
+                    <p>${escapeHtml(step.body || "")}</p>
+                    ${stepFormula}
+                    ${nodes.length ? `
+                      <details class="lean-node-list">
+                        <summary><strong>Lean nodes for this step</strong><span class="search-kind">These are the compiled leaves that make the paper proof explicit.</span></summary>
+                        <ul>${nodes.map((node) => `<li><code>${escapeHtml(node)}</code></li>`).join("")}</ul>
+                      </details>
+                    ` : ""}
+                  </article>
+                `;
+              }).join("")}
+            </div>
+            ${subtlePoints.length ? `
+              <details class="rigor-details">
+                <summary><strong>Subtle points the short textbook proof can hide</strong></summary>
+                <ul>${subtlePoints.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul>
+              </details>
+            ` : ""}
+          </div>
+        `;
+      }).join("");
+
+      const conditionsHeading = [...article.children]
+        .find((node) => node.tagName === "H2" && node.textContent.trim() === "Conditions");
+      if (conditionsHeading) article.insertBefore(panel, conditionsHeading);
+      else {
+        const formalizationLens = [...article.children]
+          .find((node) => node.matches?.("details.formalization-lens"));
+        if (formalizationLens) article.insertBefore(panel, formalizationLens);
+        else article.appendChild(panel);
+      }
+
+      if (window.MathJax?.typesetPromise) {
+        window.MathJax.typesetPromise([panel]).catch(() => {});
+      }
+    } catch (error) {
+      console.warn("Samplinglib rigorous lesson was not loaded:", error);
+    }
+  }
+
+  async function renderRigorousReferences() {
+    const article = document.querySelector(".theorem-layout > article");
+    if (!article) return;
+    const pageSlug = currentPageSlug();
+    if (!pageSlug) return;
+
+    try {
+      const response = await fetch(new URL("rigorous-references.json", assetsRoot));
+      if (!response.ok) throw new Error(`rigorous references: ${response.status}`);
+      const data = await response.json();
+      const entries = Array.isArray(data.entries) ? data.entries : [];
+      const matches = matchingEntries(entries, pageSlug);
+      if (!matches.length) return;
+
+      const panel = document.createElement("section");
+      panel.className = "rigorous-reference-panel";
+      panel.dataset.rigorousReferences = "true";
+      panel.innerHTML = matches.map((entry) => {
+        const additions = Array.isArray(entry.astis_additions) ? entry.astis_additions : [];
+        const references = Array.isArray(entry.references) ? entry.references : [];
+        return `
+          <div class="rigorous-reference-group">
+            <h2>${escapeHtml(entry.heading || "Rigorous references")}</h2>
+            <div class="note"><strong>Provenance boundary.</strong> Chewi supplies the source-facing statement. The bullets below record ASTIS-added rigorous detail; the linked papers, textbooks, and formal libraries are external references, not text attributed to Chewi.</div>
+            <h3>What ASTIS makes explicit</h3>
+            <ul>${additions.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            <h3>Original and rigorous sources</h3>
+            <div class="reference-list">
+              ${references.map((reference) => `
+                <article class="reference-card">
+                  <div class="card-meta"><span class="mini-tag">${escapeHtml(reference.kind || "reference")}</span></div>
+                  <h4><a href="${escapeHtml(reference.url || "#")}" target="_blank" rel="noopener noreferrer">${escapeHtml(reference.label || reference.url || "Reference")}</a></h4>
+                  <p>${escapeHtml(reference.note || "")}</p>
+                </article>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const formalizationLens = [...article.children]
+        .find((node) => node.matches?.("details.formalization-lens"));
+      if (formalizationLens) article.insertBefore(panel, formalizationLens);
+      else article.appendChild(panel);
+
+      if (window.MathJax?.typesetPromise) {
+        window.MathJax.typesetPromise([panel]).catch(() => {});
+      }
+    } catch (error) {
+      console.warn("Samplinglib rigorous references were not loaded:", error);
+    }
+  }
+
+  function foldLeanFormalizationLens() {
+    const article = document.querySelector(".theorem-layout > article");
+    if (!article) return;
+    const leanHeading = [...article.children]
+      .find((node) => node.tagName === "H2" && node.textContent.trim() === "Lean statement");
+    if (!leanHeading) return;
+
+    const details = document.createElement("details");
+    details.className = "formalization-lens";
+    const summary = document.createElement("summary");
+    summary.innerHTML = '<strong>Formalization lens · Lean proof and interface</strong><span class="search-kind">Optional: inspect the exact Lean statement, interface notes, and proof-engineering choices.</span>';
+    leanHeading.before(details);
+    details.appendChild(summary);
+
+    let cursor = leanHeading;
+    while (cursor) {
+      const next = cursor.nextSibling;
+      details.appendChild(cursor);
+      cursor = next;
+    }
   }
 
   function globalSearch() {
@@ -235,5 +412,8 @@
   filterCatalog();
   filterGenericTables();
   highlightLean();
+  foldLeanFormalizationLens();
+  renderRigorousLessonSupplement();
+  renderRigorousReferences();
   loadMermaid();
 })();

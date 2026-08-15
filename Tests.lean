@@ -42,6 +42,20 @@ import Tests.StoppingTime
 import Tests.TimeMeasureRealBridge
 import Tests.Transport
 import Tests.WassersteinSpace
+import Tests.AccumulatedEnergy
+import Tests.LocalProgressiveL2
+import Tests.PrefixIntegral
+import Tests.EnergyPathContinuity
+import Tests.CompletedEnergy
+import Tests.CanonicalEnergyLocalizer
+import Tests.CanonicalEnergyStoppingTime
+import Tests.CanonicalRawLocalization
+import Tests.CanonicalRawLocalizationL2
+import Tests.CompletedIntegrand
+import Tests.EnergyStoppedIntegrand
+import Tests.EnergyStoppedProgressiveL2
+import Tests.CanonicalLocalizationTheorem
+import Tests.CanonicalStoppedItoIntegral
 
 /-!
 Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,

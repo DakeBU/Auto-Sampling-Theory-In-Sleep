@@ -32,6 +32,39 @@ noncomputable instance (T : ℝ≥0) : IsFiniteMeasure (upTo T) := by
   unfold upTo
   infer_instance
 
+/-- The stopped time measure is literally nonnegative Lebesgue measure
+restricted to `[0,T]`.  This bridge lets source statements written with a
+restricted Lebesgue integral reuse the finite `upTo T` measure used by the
+Itô construction. -/
+theorem upTo_eq_restrict_nnrealLebesgue (T : ℝ≥0) :
+    upTo T = nnrealLebesgue.restrict (Icc 0 T) := by
+  unfold upTo nnrealLebesgue
+  change
+    Measure.comap (Subtype.val : ℝ≥0 → ℝ)
+        (volume.restrict (Icc 0 (T : ℝ))) =
+      (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict (Icc 0 T)
+  have hcoe : MeasurableEmbedding (Subtype.val : ℝ≥0 → ℝ) :=
+    MeasurableEmbedding.subtype_coe
+      (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))
+  have hpre :
+      (Subtype.val : ℝ≥0 → ℝ) ⁻¹' Icc 0 (T : ℝ) = Icc 0 T := by
+    ext t
+    constructor
+    · intro ht
+      exact ⟨zero_le, by exact_mod_cast ht.2⟩
+    · intro ht
+      exact ⟨t.property, by exact_mod_cast ht.2⟩
+  calc
+    Measure.comap (Subtype.val : ℝ≥0 → ℝ)
+        (volume.restrict (Icc 0 (T : ℝ))) =
+      (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict
+        ((Subtype.val : ℝ≥0 → ℝ) ⁻¹' Icc 0 (T : ℝ)) :=
+      hcoe.comap_restrict volume (Icc 0 (T : ℝ))
+    _ = (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict (Icc 0 T) :=
+      congrArg
+        (fun s : Set ℝ≥0 => (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict s)
+        hpre
+
 /-- The total mass of nonnegative time stopped at `T` is `T`. -/
 theorem upTo_univ (T : ℝ≥0) : upTo T Set.univ = T := by
   have himage : NNReal.toReal '' (Set.univ : Set ℝ≥0) = Ici (0 : ℝ) := by
@@ -111,6 +144,37 @@ theorem ae_mem_Ioc_zero_upTo (T : ℝ≥0) :
 theorem restrict_upTo_Ioc_zero (T : ℝ≥0) :
     (upTo T).restrict (Ioc 0 T) = upTo T :=
   Measure.restrict_eq_self_of_ae_mem (ae_mem_Ioc_zero_upTo T)
+
+/-- The finite time measure is supported on `[0,T]`. -/
+theorem upTo_Ioi_terminal (T : ℝ≥0) : upTo T (Ioi T) = 0 := by
+  have himage : NNReal.toReal '' Ioi T = Ioi (T : ℝ) := by
+    ext r
+    constructor
+    · rintro ⟨s, hs, rfl⟩
+      exact_mod_cast hs
+    · intro hr
+      have hr0 : 0 ≤ r := T.property.trans hr.le
+      refine ⟨⟨r, hr0⟩, ?_, rfl⟩
+      exact_mod_cast hr
+  have hinter : Ioi (T : ℝ) ∩ Icc 0 (T : ℝ) = ∅ := by
+    apply Set.eq_empty_iff_forall_notMem.mpr
+    intro r hr
+    exact (not_lt_of_ge hr.2.2) hr.1
+  calc
+    upTo T (Ioi T) =
+        (volume.restrict (Icc 0 (T : ℝ))) (NNReal.toReal '' Ioi T) := by
+      unfold upTo
+      exact Measure.comap_apply NNReal.toReal NNReal.coe_injective
+        (fun _ hs => (MeasurableEmbedding.subtype_coe
+          (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).measurableSet_image' hs)
+        _ (measurableSet_Ioi : MeasurableSet (Ioi T))
+    _ = 0 := by
+      rw [himage, Measure.restrict_apply measurableSet_Ioi, hinter, measure_empty]
+
+/-- Almost every time under `upTo T` lies below the terminal horizon. -/
+theorem ae_le_terminal (T : ℝ≥0) : ∀ᵐ s ∂upTo T, s ≤ T := by
+  filter_upwards [ae_mem_Ioc_zero_upTo T] with s hs
+  exact hs.2
 
 end TimeMeasure
 end StochasticProcesses

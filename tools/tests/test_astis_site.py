@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -14,6 +15,9 @@ from astis_site import (
 
 
 DECLARATION_NAME = "AutoSamplingTheory.Example.proved"
+ROOT = Path(__file__).resolve().parents[2]
+RIGOROUS_REFERENCES = ROOT / "website" / "static" / "rigorous-references.json"
+RIGOROUS_LESSONS = ROOT / "website" / "static" / "rigorous-lessons.json"
 
 
 def planned_item(index: int) -> dict[str, object]:
@@ -153,6 +157,101 @@ class ChapterOneEvidenceTests(unittest.TestCase):
         self.assertTrue(any("no required declaration" in error for error in errors))
         self.assertTrue(any("no focused test" in error for error in errors))
         self.assertTrue(any("no Registry key" in error for error in errors))
+
+
+class RigorousReferenceTests(unittest.TestCase):
+    def test_rigorous_reference_asset_has_auditable_structure(self) -> None:
+        data = json.loads(RIGOROUS_REFERENCES.read_text(encoding="utf-8"))
+        self.assertEqual(data.get("schema_version"), 1)
+        entries = data.get("entries")
+        self.assertIsInstance(entries, list)
+        self.assertGreater(len(entries), 0)
+
+        ids: set[str] = set()
+        for entry in entries:
+            self.assertIsInstance(entry, dict)
+            entry_id = str(entry.get("id", ""))
+            self.assertTrue(entry_id)
+            self.assertNotIn(entry_id, ids)
+            ids.add(entry_id)
+
+            source_items = entry.get("source_items")
+            declarations = entry.get("declarations")
+            additions = entry.get("astis_additions")
+            references = entry.get("references")
+            self.assertIsInstance(source_items, list)
+            self.assertGreater(len(source_items), 0)
+            self.assertIsInstance(declarations, list)
+            self.assertGreater(len(declarations), 0)
+            self.assertIsInstance(additions, list)
+            self.assertGreater(len(additions), 0)
+            self.assertIsInstance(references, list)
+            self.assertGreater(len(references), 0)
+
+            urls: set[str] = set()
+            for reference in references:
+                self.assertIsInstance(reference, dict)
+                for field in ("kind", "label", "url", "note"):
+                    self.assertTrue(str(reference.get(field, "")).strip())
+                url = str(reference["url"])
+                self.assertTrue(url.startswith("https://"))
+                self.assertNotIn(url, urls)
+                urls.add(url)
+
+    def test_stochastic_localization_points_to_original_and_formal_sources(self) -> None:
+        data = json.loads(RIGOROUS_REFERENCES.read_text(encoding="utf-8"))
+        entries = {entry["id"]: entry for entry in data["entries"]}
+        ito = entries["chapter-1-ito-integral-localization"]
+        kinds = {reference["kind"] for reference in ito["references"]}
+        labels = " ".join(reference["label"] for reference in ito["references"])
+        self.assertIn("original paper", kinds)
+        self.assertIn("classic textbook", kinds)
+        self.assertIn("formal library", kinds)
+        self.assertIn("Kiyosi Itô", labels)
+        self.assertIn("Mathlib", labels)
+
+
+class RigorousLessonTests(unittest.TestCase):
+    def test_rigorous_lessons_contain_formulas_proof_steps_and_lean_nodes(self) -> None:
+        data = json.loads(RIGOROUS_LESSONS.read_text(encoding="utf-8"))
+        self.assertEqual(data.get("schema_version"), 1)
+        entries = data.get("entries")
+        self.assertIsInstance(entries, list)
+        self.assertGreaterEqual(len(entries), 2)
+
+        ids: set[str] = set()
+        for entry in entries:
+            self.assertIsInstance(entry, dict)
+            entry_id = str(entry.get("id", ""))
+            self.assertTrue(entry_id)
+            self.assertNotIn(entry_id, ids)
+            ids.add(entry_id)
+            self.assertTrue(str(entry.get("source_item", "")))
+            self.assertTrue(str(entry.get("scope_note", "")))
+            declarations = entry.get("declarations")
+            formulas = entry.get("formula_latex")
+            steps = entry.get("proof_steps")
+            self.assertIsInstance(declarations, list)
+            self.assertGreater(len(declarations), 0)
+            self.assertIsInstance(formulas, list)
+            self.assertGreater(len(formulas), 0)
+            self.assertTrue(all("\\[" in formula and "\\]" in formula for formula in formulas))
+            self.assertIsInstance(steps, list)
+            self.assertGreater(len(steps), 0)
+            for step in steps:
+                self.assertTrue(str(step.get("title", "")).strip())
+                self.assertTrue(str(step.get("body", "")).strip())
+                nodes = step.get("lean_nodes")
+                self.assertIsInstance(nodes, list)
+                self.assertGreater(len(nodes), 0)
+                self.assertTrue(all(str(node).startswith("AutoSamplingTheory.") for node in nodes))
+
+    def test_localization_lesson_preserves_open_1_1_16_boundary(self) -> None:
+        data = json.loads(RIGOROUS_LESSONS.read_text(encoding="utf-8"))
+        text = json.dumps(data, ensure_ascii=False)
+        self.assertIn("does not by itself close Proposition 1.1.16", text)
+        self.assertIn("does not yet prove that stochastic integration commutes", text)
+        self.assertIn("grid-valued stopping", text)
 
 
 if __name__ == "__main__":

@@ -7,10 +7,39 @@ open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime
 open scoped NNReal
 
 #check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime.IsChewiStoppingTime
+#check IsChewiStoppingTime.min
+#check IsChewiStoppingTime.min_const
+#check stoppedProcess_stoppedProcess_inf
+#check stoppedProcess_stoppedProcess_of_le
 
 example {Ω : Type*} {m : MeasurableSpace Ω}
     (filtration : Filtration ℝ≥0 m) (t : ℝ≥0) :
     IsChewiStoppingTime filtration (fun _ : Ω => (t : WithTop ℝ≥0)) :=
   isChewiStoppingTime_const filtration t
+
+example {Ω : Type*} {m : MeasurableSpace Ω}
+    {filtration : Filtration ℝ≥0 m} {τ σ : Ω → WithTop ℝ≥0}
+    (hτ : IsChewiStoppingTime filtration τ)
+    (hσ : IsChewiStoppingTime filtration σ) :
+    IsChewiStoppingTime filtration (τ ⊓ σ) :=
+  hτ.min hσ
+
+example {Ω : Type*} {m : MeasurableSpace Ω}
+    {filtration : Filtration ℝ≥0 m} {τ : Ω → WithTop ℝ≥0}
+    (hτ : IsChewiStoppingTime filtration τ) (T : ℝ≥0) :
+    IsChewiStoppingTime filtration
+      (τ ⊓ fun _ => (T : WithTop ℝ≥0)) :=
+  hτ.min_const T
+
+example {Ω β : Type*} (u : ℝ≥0 → Ω → β)
+    (τ σ : Ω → WithTop ℝ≥0) :
+    stoppedProcess (stoppedProcess u τ) σ =
+      stoppedProcess u (σ ⊓ τ) :=
+  stoppedProcess_stoppedProcess_inf u τ σ
+
+example {Ω β : Type*} (u : ℝ≥0 → Ω → β)
+    {τ σ : Ω → WithTop ℝ≥0} (hστ : σ ≤ τ) :
+    stoppedProcess (stoppedProcess u τ) σ = stoppedProcess u σ :=
+  stoppedProcess_stoppedProcess_of_le u hστ
 
 end AutoSamplingTheory.Tests.StoppingTime

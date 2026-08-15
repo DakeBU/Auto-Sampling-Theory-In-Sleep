@@ -80,6 +80,9 @@ jobs:
             tools/astis_formalizer.py \
             website/scripts/build_site.py \
             website/scripts/check_site.py \
+            website/scripts/implicit_prerequisites.py \
+            website/scripts/lean_tutor.py \
+            website/scripts/undergrad_guides.py \
             website/scripts/build_sites_bundle.py \
             website/scripts/lean_gate.py \
             website/scripts/ide_server.py \
@@ -92,10 +95,14 @@ jobs:
             tools.tests.test_astis_formalizer \
             tools.tests.test_astis_site \
             tools.tests.test_astis_source \
-            tools.tests.test_astis_ide_server
+            tools.tests.test_astis_ide_server \
+            tools.tests.test_lean_tutor \
+            tools.tests.test_undergrad_guides
           python3 tools/astis.py harness-test
           node --check website/static/site.js
           node --check website/static/ide.js
+          node --check website/static/lean-tutor.js
+          node --check website/static/module-lean-tutor.js
 
       - name: Validate canonical Chewi source edition
         run: python3 tools/astis.py chewi-source-check

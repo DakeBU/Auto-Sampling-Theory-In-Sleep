@@ -1,0 +1,13 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedIntegrand
+
+namespace AutoSamplingTheory.Tests.CompletedIntegrand
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedIntegrand
+
+#check completedIntegrand
+#check completedIntegrand_stronglyProgressive
+#check sectionSquare_integrable
+#check completedEnergy_eq_prefixIntegral
+#check completedEnergy_stronglyProgressive
+
+end AutoSamplingTheory.Tests.CompletedIntegrand

@@ -1,0 +1,9 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyStoppingTime
+
+namespace AutoSamplingTheory.Tests.CanonicalEnergyStoppingTime
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyStoppingTime
+
+#check canonicalLocalizingTime_isChewiStoppingTime
+
+end AutoSamplingTheory.Tests.CanonicalEnergyStoppingTime

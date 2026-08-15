@@ -2131,6 +2131,126 @@ def functionalInequalityMemory : List LemmaMemoryEntry := [
 
 def stochasticProcessMemory : List LemmaMemoryEntry := [
   {
+    key := "localization.chewi-proposition-1-1-13",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalLocalizationTheorem.chewi_proposition_1_1_13",
+    upstreamDecl := "Chewi Proposition 1.1.13",
+    upstreamFile := "Log-Concave Sampling, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "stopping-time", "progressive-L2"],
+    saldUse := "package the canonical energy first-hitting times, terminal convergence, and stopped global-L2 bound into the exact Chapter 1 source result",
+    note := "The stopped-integral identity (display 1.1.14) and the continuous local-martingale theorem (Proposition 1.1.16) remain separate downstream routes."
+  },
+  {
+    key := "localization.completed-integrand-progressive",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedIntegrand.completedIntegrand_stronglyProgressive",
+    upstreamDecl := "Progressiveness after completing the null bad-path set",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "completion", "progressive"],
+    saldUse := "replace nonintegrable sample paths by zero while preserving the progressive sigma-algebra",
+    note := "The source local-L2 domain assumes only almost-sure finite path energy. Usual-condition completeness makes the null replacement measurable at every filtration time."
+  },
+  {
+    key := "localization.energy-stopped-path-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedIntegrand.integral_energyStoppedIntegrand_sq_le",
+    upstreamDecl := "Pathwise square-energy bound after canonical stopping",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "stopped-integrand", "energy-bound"],
+    saldUse := "bound each stopped path by its canonical energy level before taking expectation",
+    note := "The threshold representation is proved equivalent almost everywhere in time to stopping before the equality-level localizer. No expected-energy hypothesis is used."
+  },
+  {
+    key := "localization.stopped-progressive-l2",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedProgressiveL2.stoppedProgressiveL2",
+    upstreamDecl := "Global progressive product-L2 membership after energy stopping",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "progressive-L2", "Tonelli"],
+    saldUse := "feed each canonical stopped integrand into the global Ito integral constructed in Theorem 1.1.8",
+    note := "Tonelli integrates the pathwise level bound over the probability measure. The stopped-integral identity and local-martingale consistency remain downstream."
+  },
+  {
+    key := "localization.completed-energy-process",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedEnergy.continuous_completedEnergy",
+    upstreamDecl := "Everywhere-continuous completed accumulated energy",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "completion", "continuous-path"],
+    saldUse := "replace the null set of nonintegrable paths without losing filtration measurability",
+    note := "Usual-condition completeness makes the null bad set measurable at every time; all completed paths are continuous, monotone, and nonnegative."
+  },
+  {
+    key := "localization.canonical-energy-stopping-time",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyStoppingTime.canonicalLocalizingTime_isChewiStoppingTime",
+    upstreamDecl := "Stopping-time property of the canonical integer energy localizer",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "stopping-time", "first-hit"],
+    saldUse := "supply the stopping-time component of Chewi's canonical localizing sequence",
+    note := "The first equality-level time is characterized by a fixed-time completed-energy threshold event; the proof uses continuity and the intermediate value theorem."
+  },
+  {
+    key := "localization.canonical-localizer-monotone-terminal",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.tendsto_canonicalLocalizingTime",
+    upstreamDecl := "Monotone canonical localizers eventually equal the terminal horizon",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "monotone", "Tendsto"],
+    saldUse := "establish pathwise monotonicity and terminal convergence of the canonical localizing sequence",
+    note := "Once the integer level exceeds finite terminal completed energy, its equality-level set is empty and the localizer equals T. Stopped-integrand global L2 and the stopped-integral identity remain downstream."
+  },
+  {
+    key := "localization.canonical-stopped-energy-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.completedEnergy_at_canonicalLocalizingTime_le",
+    upstreamDecl := "Canonical localizer bounds stopped completed energy by n+1",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "energy-bound", "stopped-integrand"],
+    saldUse := "provide the deterministic energy bound needed to place every stopped integrand in global product L2",
+    note := "The bound is exact on reached levels and uses terminal fallback when the level is not reached. Progressive stopped-integrand measurability remains downstream."
+  },
+  {
+    key := "analysis.prefix-integral-continuity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral.continuous_prefixIntegral",
+    upstreamDecl := "Continuity of finite-horizon moving prefix integrals",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "analysis", "Bochner-integral", "continuity", "localization"],
+    saldUse := "supply the analytic continuity theorem for accumulated square energy",
+    note := "The proof uses dominated convergence on the repository's finite NNReal time measure and treats the moving endpoint singleton as a null set."
+  },
+  {
+    key := "localization.energy-path-continuity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyPathContinuity.continuous_accumulatedEnergyReal_ae",
+    upstreamDecl := "Almost-sure continuity of accumulated progressive square energy",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "energy", "continuity"],
+    saldUse := "justify the first-hitting canonical localizer by a continuous monotone energy path",
+    note := "The theorem starts from progressive measurability and almost-sure finite path energy; the stopping-time and stopped-integrand theorems remain downstream."
+  },
+  {
+    key := "localization.fixed-time-energy-measurability",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LocalProgressiveL2.accumulatedEnergyReal_stronglyMeasurable",
+    upstreamDecl := "Fixed-time filtration measurability of accumulated square energy",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "progressive", "filtration", "energy"],
+    saldUse := "make canonical energy-hitting events measurable at each observation time",
+    note := "The source domain assumes only almost-sure finite path energy, not finite expected energy. Continuity and the first-hitting stopping-time theorem remain downstream."
+  },
+  {
+    key := "localization.accumulated-energy-monotonicity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.AccumulatedEnergy.accumulatedEnergy_mono",
+    upstreamDecl := "Monotonicity of accumulated pathwise square energy",
+    upstreamFile := "Log-Concave Sampling, Proposition 1.1.13, book page 7 / PDF page 19",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["Chewi", "Ito", "localization", "energy", "stopping-time"],
+    saldUse := "supply the monotone nonnegative path-energy process used by the canonical localizing sequence",
+    note := "This is an exact ENNReal integral leaf. Fixed-time filtration measurability, path continuity on the finite-energy set, and the first-hitting stopping time remain downstream."
+  },
+  {
     key := "brownian-motion.chewi-definition-1-1-1",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotion",
     upstreamDecl := "ProbabilityTheory.HasLaw / ProbabilityTheory.iIndepFun / ProbabilityTheory.gaussianReal / Chewi Definition 1.1.1",

@@ -1,0 +1,17 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalRawLocalization
+
+namespace AutoSamplingTheory.Tests.CanonicalRawLocalization
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalRawLocalization
+
+#check canonicalRawLocalizingTime
+#check canonicalRawLocalizingTime_of_bad
+#check canonicalRawLocalizingTime_of_good
+#check canonicalRawLocalizingTime_mono
+#check measurableSet_canonicalRawLocalizingTime_le
+#check canonicalRawLocalizingTime_isChewiStoppingTime
+#check canonicalRawLocalizingTime_isStoppingTime
+#check canonicalRawLocalizingTime_eventually_eq_terminal_of_good
+#check canonicalRawLocalizingTime_tendsto_terminal_ae
+
+end AutoSamplingTheory.Tests.CanonicalRawLocalization
