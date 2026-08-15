@@ -125,7 +125,8 @@ theorem itoIntegralTerminal_stopped_elementary_ae [IsFiniteMeasure mu]
     refine hraw.congr' ?_
     filter_upwards [] with n
     dsimp only [rawSum, stopped]
-    rw [stopRefinedDyadic_process]
+    exact congrArg (fun p => elementaryItoIntegral p B T omega)
+      (stopRefinedDyadic_process eta tau htau n).symm
   have hpathMeasure : TendstoInMeasure mu
       rawSum atTop
       (fun omega => elementaryItoIntegral eta.process B (tau omega) omega) := by
