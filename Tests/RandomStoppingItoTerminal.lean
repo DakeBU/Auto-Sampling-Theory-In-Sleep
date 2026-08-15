@@ -16,7 +16,7 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
 #check tendsto_stopRefinedDyadic_terminalToLp
 #check itoIntegralTerminal_stopped_elementary_ae
 
-example
+example [IsFiniteMeasure mu]
     (eta : DyadicElementaryProcess filtration T)
     (tau : Omega → ℝ≥0)
     (htau : IsChewiStoppingTime filtration
