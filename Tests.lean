@@ -50,6 +50,7 @@ import Tests.CompletedEnergy
 import Tests.CanonicalEnergyLocalizer
 import Tests.CanonicalEnergyStoppingTime
 import Tests.CanonicalRawLocalization
+import Tests.CanonicalRawLocalizationL2
 import Tests.CompletedIntegrand
 import Tests.EnergyStoppedIntegrand
 import Tests.EnergyStoppedProgressiveL2
