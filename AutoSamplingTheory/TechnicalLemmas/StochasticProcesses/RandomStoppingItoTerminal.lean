@@ -89,12 +89,7 @@ theorem itoIntegralTerminal_stopped_elementary_ae [IsFiniteMeasure mu]
   let stopped : ℕ → DyadicElementaryProcess filtration T := fun n =>
     stopRefinedDyadic eta tau htau n
   let rawSum : ℕ → Omega → ℝ := fun n =>
-    elementaryItoIntegral
-      (stopElementary
-        (refineDyadic eta (stoppingLevel eta n)
-          (level_le_stoppingLevel eta n)).process
-        (fun w => (tau w : WithTop ℝ≥0)) htau)
-      B T
+    elementaryItoIntegral (stopped n).process B T
   have hterminal :
       Tendsto (fun n => terminalToLp (stopped n) hB) atTop
         (𝓝 (itoIntegralTerminal target hT hB)) := by
@@ -110,8 +105,7 @@ theorem itoIntegralTerminal_stopped_elementary_ae [IsFiniteMeasure mu]
     have hcoe :=
       (elementaryItoIntegral_memLp_two (stopped n).process hB T).coeFn_toLp
     filter_upwards [hcoe] with omega homega
-    simpa only [stopped, rawSum, terminalToLp,
-      ElementaryItoL2.elementaryItoTerminalToLp, stopRefinedDyadic_process] using homega
+    exact homega
   have hcompletionMeasure' : TendstoInMeasure mu
       rawSum atTop (fun omega => itoIntegralTerminal target hT hB omega) :=
     hcompletionMeasure.congr hterminalEq Filter.EventuallyEq.rfl
@@ -126,21 +120,16 @@ theorem itoIntegralTerminal_stopped_elementary_ae [IsFiniteMeasure mu]
         (Icc (0 : ℝ≥0) T) := by
       exact hcontinuous.continuousOn.congr fun t ht => by
         simp only [elementaryItoProcess, min_eq_left ht.2]
-    simpa only [rawSum] using
-      tendsto_stopRefined_elementaryItoIntegral
-        eta tau htau htauT B omega hcont
+    have hraw := tendsto_stopRefined_elementaryItoIntegral
+      eta tau htau htauT B omega hcont
+    simpa only [rawSum, stopped, stopRefinedDyadic_process] using hraw
   have hpathMeasure : TendstoInMeasure mu
       rawSum atTop
       (fun omega => elementaryItoIntegral eta.process B (tau omega) omega) := by
     apply tendstoInMeasure_of_tendsto_ae
     · intro n
-      have hmem := elementaryItoIntegral_memLp_two
-        (stopElementary
-          (refineDyadic eta (stoppingLevel eta n)
-            (level_le_stoppingLevel eta n)).process
-          (fun w => (tau w : WithTop ℝ≥0)) htau)
-        hB T
-      simpa only [rawSum] using hmem.1
+      simpa only [rawSum] using
+        (elementaryItoIntegral_memLp_two (stopped n).process hB T).1
     · exact haetendsto
   simpa only [target] using
     tendstoInMeasure_ae_unique hcompletionMeasure' hpathMeasure
