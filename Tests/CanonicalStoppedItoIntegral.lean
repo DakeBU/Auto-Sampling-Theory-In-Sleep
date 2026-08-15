@@ -4,7 +4,7 @@ namespace AutoSamplingTheory.Tests.CanonicalStoppedItoIntegral
 
 open MeasureTheory Set
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
-open BrownianMotion LocalProgressiveL2 CanonicalStoppedItoIntegral
+open ProgressiveL2 BrownianMotion LocalProgressiveL2 CanonicalStoppedItoIntegral
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
