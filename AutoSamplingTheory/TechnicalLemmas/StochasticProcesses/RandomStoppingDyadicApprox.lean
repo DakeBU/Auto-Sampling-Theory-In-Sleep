@@ -13,7 +13,9 @@ original stopping time.
 
 The comparison is first proved coefficientwise, then lifted to the exact
 finite Itô sum.  The selected right endpoints converge to the stopping value.
-The later L²/continuous-path passage remains downstream.
+The convergence is also packaged inside the construction interval so that a
+continuous sample path can be evaluated along the same right endpoints.  The
+later L² passage remains downstream.
 -/
 
 namespace AutoSamplingTheory
@@ -21,7 +23,7 @@ namespace TechnicalLemmas
 namespace StochasticProcesses
 namespace RandomStoppingDyadicApprox
 
-open Filter MeasureTheory
+open Filter MeasureTheory Set
 open scoped BigOperators NNReal Topology
 
 open ContinuousDoobL2 DyadicElementaryRefinement DyadicElementaryStopping
@@ -164,6 +166,45 @@ theorem tendsto_rightApproxTime_stoppingValue
       atTop (𝓝 (tau omega)) :=
   tendsto_rightApproxTime_stoppingLevel eta
     (DyadicElementaryProcess.horizon_pos eta) homega (htauT omega)
+
+/-- The same convergence, recorded in the subspace topology of the construction
+interval.  This is the exact interface needed to compose with a path that is
+known to be continuous only on `[0,T]`. -/
+theorem tendsto_rightApproxTime_stoppingValue_nhdsWithin
+    (eta : DyadicElementaryProcess filtration T)
+    (tau : Omega → ℝ≥0) (htauT : ∀ omega, tau omega ≤ T)
+    (omega : Omega) (homega : 0 < tau omega) :
+    Tendsto
+      (fun n => rightApproxTime (DyadicElementaryProcess.horizon_pos eta)
+        homega (htauT omega) (stoppingLevel eta n))
+      atTop (nhdsWithin (tau omega) (Icc (0 : ℝ≥0) T)) := by
+  apply tendsto_nhdsWithin_iff.2
+  refine ⟨tendsto_rightApproxTime_stoppingValue eta tau htauT omega homega, ?_⟩
+  exact Filter.Eventually.of_forall fun n =>
+    rightApproxTime_mem_Icc (DyadicElementaryProcess.horizon_pos eta)
+      homega (htauT omega) (stoppingLevel eta n)
+
+/-- Continuous paths may be evaluated along the dyadic right approximations:
+if the path is continuous on the construction interval, its values at the
+selected right endpoints converge to its value at the original stopping time.
+This isolates the only topological limit needed after the exact finite-sum
+identity above. -/
+theorem tendsto_continuousOn_rightApproxTime_stoppingValue
+    (eta : DyadicElementaryProcess filtration T)
+    (tau : Omega → ℝ≥0) (htauT : ∀ omega, tau omega ≤ T)
+    (M : ℝ≥0 → Omega → ℝ)
+    (omega : Omega) (homega : 0 < tau omega)
+    (hcont : ContinuousOn (fun t => M t omega) (Icc (0 : ℝ≥0) T)) :
+    Tendsto
+      (fun n => M
+        (rightApproxTime (DyadicElementaryProcess.horizon_pos eta)
+          homega (htauT omega) (stoppingLevel eta n)) omega)
+      atTop (𝓝 (M (tau omega) omega)) := by
+  have htauIcc : tau omega ∈ Icc (0 : ℝ≥0) T :=
+    ⟨bot_le, htauT omega⟩
+  exact (hcont (tau omega) htauIcc).tendsto.comp
+    (tendsto_rightApproxTime_stoppingValue_nhdsWithin
+      eta tau htauT omega homega)
 
 end RandomStoppingDyadicApprox
 end StochasticProcesses
