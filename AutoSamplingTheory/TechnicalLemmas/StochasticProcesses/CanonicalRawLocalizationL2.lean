@@ -109,7 +109,7 @@ theorem canonicalRaw_isLocalizingSequence
   · intro n
     exact canonicalRawLocalizingTime_isStoppingTime hUsual eta n
   · intro n k hnk omega
-    exact_mod_cast
+    simpa only [WithTop.coe_le_coe] using
       ((canonicalRawLocalizingTime_mono hUsual eta) hnk omega)
   · intro n
     exact rawStoppedProductEnergy_lt_top hUsual eta n
