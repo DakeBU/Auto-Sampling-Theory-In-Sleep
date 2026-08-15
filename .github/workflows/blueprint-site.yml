@@ -94,7 +94,8 @@ jobs:
             tools.tests.test_astis_formalizer \
             tools.tests.test_astis_site \
             tools.tests.test_astis_source \
-            tools.tests.test_astis_ide_server
+            tools.tests.test_astis_ide_server \
+            tools.tests.test_lean_tutor
           python3 tools/astis.py harness-test
           node --check website/static/site.js
           node --check website/static/ide.js
