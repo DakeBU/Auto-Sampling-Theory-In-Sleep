@@ -6,6 +6,10 @@
   const navToggle = document.querySelector(".nav-toggle");
   const sidebar = document.getElementById("site-sidebar");
   const sidebarScrim = document.querySelector("[data-sidebar-scrim]");
+  const siteScriptUrl = document.currentScript?.src || "";
+  const assetsRoot = siteScriptUrl
+    ? new URL(".", siteScriptUrl)
+    : new URL("../assets/", window.location.href);
 
   const savedScheme = localStorage.getItem("samplinglib-color-scheme");
   if (savedScheme && ["light", "dark"].includes(savedScheme)) {
@@ -83,6 +87,104 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  function slugify(value) {
+    const slug = String(value)
+      .replace(/[^a-zA-Z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .toLowerCase();
+    return slug || "entry";
+  }
+
+  function currentPageSlug() {
+    const name = decodeURIComponent(window.location.pathname.split("/").pop() || "");
+    return name.replace(/\.html$/i, "");
+  }
+
+  async function renderRigorousReferences() {
+    const article = document.querySelector(".theorem-layout > article");
+    if (!article) return;
+    const pageSlug = currentPageSlug();
+    if (!pageSlug) return;
+
+    try {
+      const response = await fetch(new URL("rigorous-references.json", assetsRoot));
+      if (!response.ok) throw new Error(`rigorous references: ${response.status}`);
+      const data = await response.json();
+      const entries = Array.isArray(data.entries) ? data.entries : [];
+      const matches = entries.filter((entry) =>
+        Array.isArray(entry.declarations)
+        && entry.declarations.some((declaration) => slugify(declaration) === pageSlug)
+      );
+      if (!matches.length) return;
+
+      const panel = document.createElement("section");
+      panel.className = "rigorous-reference-panel";
+      panel.dataset.rigorousReferences = "true";
+      panel.innerHTML = matches.map((entry) => {
+        const additions = Array.isArray(entry.astis_additions) ? entry.astis_additions : [];
+        const references = Array.isArray(entry.references) ? entry.references : [];
+        return `
+          <div class="rigorous-reference-group">
+            <h2>${escapeHtml(entry.heading || "Rigorous references")}</h2>
+            <div class="note"><strong>Provenance boundary.</strong> Chewi supplies the source-facing statement. The bullets below record ASTIS-added rigorous detail; the linked papers, textbooks, and formal libraries are external references, not text attributed to Chewi.</div>
+            <h3>What ASTIS makes explicit</h3>
+            <ul>${additions.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            <h3>Original and rigorous sources</h3>
+            <div class="reference-list">
+              ${references.map((reference) => `
+                <article class="reference-card">
+                  <div class="card-meta"><span class="mini-tag">${escapeHtml(reference.kind || "reference")}</span></div>
+                  <h4><a href="${escapeHtml(reference.url || "#")}" target="_blank" rel="noopener noreferrer">${escapeHtml(reference.label || reference.url || "Reference")}</a></h4>
+                  <p>${escapeHtml(reference.note || "")}</p>
+                </article>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const leanHeading = [...article.querySelectorAll("h2")]
+        .find((heading) => heading.textContent.trim() === "Lean statement");
+      if (leanHeading) article.insertBefore(panel, leanHeading);
+      else article.appendChild(panel);
+
+      if (window.MathJax?.typesetPromise) {
+        window.MathJax.typesetPromise([panel]).catch(() => {});
+      }
+    } catch (error) {
+      console.warn("Samplinglib rigorous references were not loaded:", error);
+    }
+  }
+
+  function foldLeanFormalizationLens() {
+    const article = document.querySelector(".theorem-layout > article");
+    if (!article) return;
+    const targetTitles = new Set(["Lean statement", "Lean interface notes"]);
+    const headings = [...article.children]
+      .filter((node) => node.tagName === "H2" && targetTitles.has(node.textContent.trim()))
+      .reverse();
+
+    headings.forEach((heading) => {
+      const title = heading.textContent.trim();
+      const nodes = [heading];
+      let cursor = heading.nextSibling;
+      while (cursor) {
+        if (cursor.nodeType === Node.ELEMENT_NODE && cursor.tagName === "H2") break;
+        const next = cursor.nextSibling;
+        nodes.push(cursor);
+        cursor = next;
+      }
+
+      const details = document.createElement("details");
+      details.className = "formalization-lens";
+      const summary = document.createElement("summary");
+      summary.innerHTML = `<strong>Formalization lens · ${escapeHtml(title)}</strong><span class="search-kind">Optional: inspect the Lean interface and learn why the proof is encoded this way.</span>`;
+      heading.before(details);
+      details.appendChild(summary);
+      nodes.forEach((node) => details.appendChild(node));
+    });
   }
 
   function globalSearch() {
@@ -235,5 +337,7 @@
   filterCatalog();
   filterGenericTables();
   highlightLean();
+  foldLeanFormalizationLens();
+  renderRigorousReferences();
   loadMermaid();
 })();
