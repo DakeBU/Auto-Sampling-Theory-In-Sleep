@@ -42,7 +42,14 @@ theorem stopRefined_coeff_eq_zero_of_stoppingValue_eq_zero
         (refineDyadic eta (stoppingLevel eta n)
           (level_le_stoppingLevel eta n)).process
         (fun w => (tau w : WithTop ℝ≥0)) htau).coeff j omega = 0 := by
-  rw [stopElementary_coeff, homega]
+  let fine : ElementaryAdaptedProcess filtration (2 ^ stoppingLevel eta n) :=
+    (refineDyadic eta (stoppingLevel eta n)
+      (level_le_stoppingLevel eta n)).process
+  change
+    (stopElementary fine (fun w => (tau w : WithTop ℝ≥0)) htau).coeff j omega = 0
+  have hstop := stopElementary_coeff
+    fine (fun w => (tau w : WithTop ℝ≥0)) htau j omega
+  rw [hstop, homega]
   split
   · rename_i hlt
     exact False.elim ((not_lt_of_ge bot_le) hlt)
