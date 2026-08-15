@@ -24,8 +24,9 @@ namespace RandomStoppingL2Contraction
 open Filter MeasureTheory Set
 open scoped NNReal Topology
 
-open ElementaryItoEmbedding ElementaryItoIntegral Localization ProgressiveL2
+open ElementaryItoEmbedding ElementaryItoIntegral ProgressiveL2
   ProgressiveL2Algebra ProgressiveL2Density RandomStoppingProgressiveL2
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
@@ -42,8 +43,14 @@ theorem processFunction_stoppedIntegrand_eq_indicator
       (stoppingSet tau).indicator (processFunction eta) := by
   funext z
   by_cases h : (z.2 : WithTop ℝ≥0) ≤ tau z.1
-  · simp [processFunction, stoppedIntegrand, stoppingSet, h]
-  · simp [processFunction, stoppedIntegrand, stoppingSet, h]
+  · have hz : z ∈ stoppingSet tau := by
+      simpa only [stoppingSet, Set.mem_setOf_eq] using h
+    rw [Set.indicator_of_mem hz]
+    simp only [processFunction, stoppedIntegrand, if_pos h]
+  · have hz : z ∉ stoppingSet tau := by
+      simpa only [stoppingSet, Set.mem_setOf_eq] using h
+    rw [Set.indicator_of_not_mem hz]
+    simp only [processFunction, stoppedIntegrand, if_neg h]
 
 /-- **Stopping contraction.**  Any two already-constructed closed stopped
 representatives are no farther apart in product-space `L²` than their original
@@ -69,13 +76,18 @@ theorem norm_stopped_sub_le
         stoppedIntegrand eta.process tau z.2 z.1 := heta
     have hxi' : xiStop.process z.2 z.1 =
         stoppedIntegrand xi.process tau z.2 z.1 := hxi
+    simp only [sub_process, Pi.sub_apply, processFunction]
+    rw [heta', hxi']
     by_cases hactive : (z.2 : WithTop ℝ≥0) ≤ tau z.1
-    · simp only [sub_process, Pi.sub_apply, processFunction]
-      rw [heta', hxi']
-      simp [stoppedIntegrand, stoppingSet, hactive]
-    · simp only [sub_process, Pi.sub_apply, processFunction]
-      rw [heta', hxi']
-      simp [stoppedIntegrand, stoppingSet, hactive]
+    · have hz : z ∈ stoppingSet tau := by
+        simpa only [stoppingSet, Set.mem_setOf_eq] using hactive
+      rw [Set.indicator_of_mem hz]
+      simp only [stoppedIntegrand, if_pos hactive, processFunction,
+        sub_process, Pi.sub_apply]
+    · have hz : z ∉ stoppingSet tau := by
+        simpa only [stoppingSet, Set.mem_setOf_eq] using hactive
+      rw [Set.indicator_of_not_mem hz]
+      simp only [stoppedIntegrand, if_neg hactive, sub_zero]
   rw [eLpNorm_congr_ae hEq]
   exact eLpNorm_indicator_le _
 
