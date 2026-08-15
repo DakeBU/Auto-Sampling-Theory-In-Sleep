@@ -54,44 +54,48 @@ theorem stopRefined_coeff_eq_rightCutoff
         (fun w => (tau w : WithTop ℝ≥0)) htau).coeff j omega =
       (stopAtRightApprox eta (DyadicElementaryProcess.horizon_pos eta)
         homega (htauT omega) n).process.coeff j omega := by
-  let level := stoppingLevel eta n
-  let grid := regularGridTimes (dyadicMesh T level) (2 ^ level)
+  let fine : ElementaryAdaptedProcess filtration (2 ^ stoppingLevel eta n) :=
+    (refineDyadic eta (stoppingLevel eta n)
+      (level_le_stoppingLevel eta n)).process
+  let grid : Fin (2 ^ stoppingLevel eta n + 1) → ℝ≥0 :=
+    regularGridTimes (dyadicMesh T (stoppingLevel eta n))
+      (2 ^ stoppingLevel eta n)
   let i := activeCellIndex (DyadicElementaryProcess.horizon_pos eta)
-    homega (htauT omega) level
+    homega (htauT omega) (stoppingLevel eta n)
+  have hfineTimes : fine.times = grid := by
+    rfl
   have hi : grid i.castSucc < tau omega ∧ tau omega ≤ grid i.succ := by
     simpa only [grid, i] using
       activeCellIndex_spec (DyadicElementaryProcess.horizon_pos eta)
-        homega (htauT omega) level
+        homega (htauT omega) (stoppingLevel eta n)
   have hmono : StrictMono grid :=
     regularGridTimes_strictMono
-      (dyadicMesh_pos (DyadicElementaryProcess.horizon_pos eta) level) _
-  rw [stopElementary_coeff]
-  simp only [refineDyadic_times, WithTop.coe_lt_coe]
-  rw [show (stopAtRightApprox eta (DyadicElementaryProcess.horizon_pos eta)
-      homega (htauT omega) n).process.coeff j omega =
-      if j.castSucc < rightCutoffIndex eta
-          (DyadicElementaryProcess.horizon_pos eta) homega (htauT omega) n
-        then (refineDyadic eta (stoppingLevel eta n)
-          (level_le_stoppingLevel eta n)).process.coeff j omega
-        else 0 by rfl]
-  have hcutoff : rightCutoffIndex eta
-      (DyadicElementaryProcess.horizon_pos eta) homega (htauT omega) n = i.succ :=
-    rfl
-  rw [hcutoff]
+      (dyadicMesh_pos (DyadicElementaryProcess.horizon_pos eta)
+        (stoppingLevel eta n)) _
+  change
+    (stopElementary fine (fun w => (tau w : WithTop ℝ≥0)) htau).coeff j omega = _
+  have hstop := stopElementary_coeff
+    fine (fun w => (tau w : WithTop ℝ≥0)) htau j omega
+  rw [hstop]
+  change
+    (if (fine.times j.castSucc : WithTop ℝ≥0) < (tau omega : WithTop ℝ≥0)
+      then fine.coeff j omega else 0) =
+      if j.castSucc < i.succ then fine.coeff j omega else 0
+  rw [hfineTimes]
+  simp only [WithTop.coe_lt_coe]
   by_cases hj : j.castSucc < i.succ
-  · have hji : j ≤ i := by
-      exact (Fin.castSucc_lt_succ_iff).mp hj
+  · have hji : j ≤ i := (Fin.castSucc_lt_succ_iff).mp hj
     have hidx : j.castSucc ≤ i.castSucc := by
       exact_mod_cast hji
     have htime : grid j.castSucc < tau omega :=
       (hmono.monotone hidx).trans_lt hi.1
-    simpa only [level, grid, if_pos hj, if_pos htime]
+    simp [hj, htime]
   · have hij : i.succ ≤ j.castSucc := le_of_not_gt hj
     have htimeLe : tau omega ≤ grid j.castSucc :=
       hi.2.trans (hmono.monotone hij)
     have htime : ¬ grid j.castSucc < tau omega :=
       not_lt_of_ge htimeLe
-    simpa only [level, grid, if_neg hj, if_neg htime]
+    simp [hj, htime]
 
 /-- At a positive sample value of the bounded stopping time, the *whole*
 finite Itô sum of the refined process stopped by the original random time is
