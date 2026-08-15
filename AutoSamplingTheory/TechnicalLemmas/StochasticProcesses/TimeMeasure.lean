@@ -46,12 +46,22 @@ theorem upTo_eq_restrict_nnrealLebesgue (T : ℝ≥0) :
   have hcoe : MeasurableEmbedding (Subtype.val : ℝ≥0 → ℝ) :=
     MeasurableEmbedding.subtype_coe
       (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))
-  rw [hcoe.comap_restrict]
   have hpre :
       (Subtype.val : ℝ≥0 → ℝ) ⁻¹' Icc 0 (T : ℝ) = Icc 0 T := by
     ext t
-    simp
-  rw [hpre]
+    constructor
+    · intro ht
+      exact ⟨zero_le, by exact_mod_cast ht.2⟩
+    · intro ht
+      exact ⟨t.property, by exact_mod_cast ht.2⟩
+  calc
+    Measure.comap (Subtype.val : ℝ≥0 → ℝ)
+        (volume.restrict (Icc 0 (T : ℝ))) =
+      (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict
+        ((Subtype.val : ℝ≥0 → ℝ) ⁻¹' Icc 0 (T : ℝ)) :=
+      hcoe.comap_restrict volume (Icc 0 (T : ℝ))
+    _ = (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict (Icc 0 T) := by
+      rw [hpre]
 
 /-- The total mass of nonnegative time stopped at `T` is `T`. -/
 theorem upTo_univ (T : ℝ≥0) : upTo T Set.univ = T := by
