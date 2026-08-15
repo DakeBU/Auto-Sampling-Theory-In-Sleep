@@ -81,8 +81,7 @@ theorem stopRefined_coeff_eq_rightCutoff
     (if (fine.times j.castSucc : WithTop ℝ≥0) < (tau omega : WithTop ℝ≥0)
       then fine.coeff j omega else 0) =
       if j.castSucc < i.succ then fine.coeff j omega else 0
-  rw [hfineTimes]
-  simp only [WithTop.coe_lt_coe]
+  simp only [hfineTimes, WithTop.coe_lt_coe]
   by_cases hj : j.castSucc < i.succ
   · have hji : j ≤ i := (Fin.castSucc_lt_succ_iff).mp hj
     have hidx : j.castSucc ≤ i.castSucc := by
