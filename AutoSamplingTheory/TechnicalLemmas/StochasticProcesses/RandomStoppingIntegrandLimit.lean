@@ -99,7 +99,7 @@ theorem tendsto_stopRefinedDyadic_value_stoppedIntegrand
             eta.process.value s omega := by
         have hcoe :
             (s : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0) := by
-          exact_mod_cast hst
+          simpa only [WithTop.coe_le_coe] using hst
         simp [Localization.stoppedIntegrand, hcoe]
       rw [htarget]
       simp only [stopAtRightApprox_value_eq, if_pos (hsright _)]
@@ -117,7 +117,7 @@ theorem tendsto_stopRefinedDyadic_value_stoppedIntegrand
             (fun w => (tau w : WithTop ℝ≥0)) s omega = 0 := by
         have hnot :
             ¬ ((s : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0)) := by
-          exact_mod_cast hst
+          simpa only [WithTop.coe_le_coe] using hst
         simp [Localization.stoppedIntegrand, hnot]
       rw [htarget]
       apply (Filter.tendsto_congr' ?_).mpr tendsto_const_nhds
