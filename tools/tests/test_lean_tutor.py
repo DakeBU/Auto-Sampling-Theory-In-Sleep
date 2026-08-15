@@ -21,6 +21,7 @@ class LeanTutorPostBuildTests(unittest.TestCase):
         (assets / "lean-tutor.css").write_text(".lean-learning-studio{}\n", encoding="utf-8")
         (assets / "lean-tutor.js").write_text("(() => {})();\n", encoding="utf-8")
         (assets / "module-lean-tutor.js").write_text("(() => {})();\n", encoding="utf-8")
+        (assets / "module-lean-tutor.css").write_text(".module-lean-tutor-panel{}\n", encoding="utf-8")
 
         theorem_dir = output / "theorems"
         theorem_dir.mkdir()
