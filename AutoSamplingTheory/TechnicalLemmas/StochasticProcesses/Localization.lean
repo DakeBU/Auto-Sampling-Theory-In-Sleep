@@ -59,7 +59,13 @@ def IsLocalizingSequence
 
 /-- Chewi Definition 1.1.15: an adapted process is a local martingale when a
 monotone sequence of stopping times tends to infinity almost surely and every
-stopped, initially centered process is a martingale. -/
+stopped, initially centered process is a martingale.
+
+The limit is the *topological* neighborhood of `⊤` in `WithTop ℝ≥0`.  Using
+the order filter `atTop` as the codomain would be too strong here because
+`WithTop ℝ≥0` has a greatest element: that filter would force the stopping
+times to be eventually equal to `⊤`, rather than allowing finite stopping
+times to diverge to infinity as in Chewi's definition. -/
 def IsLocalMartingale
     {Omega : Type*} {m : MeasurableSpace Omega}
     (process : ℝ≥0 → Omega → ℝ) (filtration : Filtration ℝ≥0 m)
@@ -68,7 +74,7 @@ def IsLocalMartingale
     ∃ tau : ℕ → Omega → WithTop ℝ≥0,
       (∀ n, IsStoppingTime filtration (tau n)) ∧
       Monotone tau ∧
-      (∀ᵐ omega ∂mu, Tendsto (fun n => tau n omega) atTop atTop) ∧
+      (∀ᵐ omega ∂mu, Tendsto (fun n => tau n omega) atTop (𝓝 (⊤ : WithTop ℝ≥0))) ∧
       ∀ n, Martingale
         (fun t omega => stoppedProcess process (tau n) t omega - process 0 omega)
         filtration mu
