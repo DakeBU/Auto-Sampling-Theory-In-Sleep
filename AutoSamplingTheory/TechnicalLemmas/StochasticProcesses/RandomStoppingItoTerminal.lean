@@ -107,9 +107,11 @@ theorem itoIntegralTerminal_stopped_elementary_ae [IsFiniteMeasure mu]
   have hterminalEq (n : ℕ) :
       (fun omega => terminalToLp (stopped n) hB omega) =ᵐ[mu]
         rawSum n := by
-    simpa only [stopped, rawSum, terminalToLp,
-      ElementaryItoL2.elementaryItoTerminalToLp, stopRefinedDyadic_process] using
+    have hcoe :=
       (elementaryItoIntegral_memLp_two (stopped n).process hB T).coeFn_toLp
+    filter_upwards [hcoe] with omega homega
+    simpa only [stopped, rawSum, terminalToLp,
+      ElementaryItoL2.elementaryItoTerminalToLp, stopRefinedDyadic_process] using homega
   have hcompletionMeasure' : TendstoInMeasure mu
       rawSum atTop (fun omega => itoIntegralTerminal target hT hB omega) :=
     hcompletionMeasure.congr hterminalEq Filter.EventuallyEq.rfl
