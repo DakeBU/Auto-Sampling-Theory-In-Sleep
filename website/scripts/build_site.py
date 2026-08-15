@@ -10,8 +10,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
+import implicit_prerequisites  # noqa: E402
 
 
 def main() -> int:
@@ -19,9 +21,14 @@ def main() -> int:
     parser.add_argument("--output", default="", help="output directory (default: _site)")
     args = parser.parse_args()
     argv = ["build"]
+    output = Path(args.output).resolve() if args.output else ROOT / "_site"
     if args.output:
         argv.extend(["--output", args.output])
-    return astis_site.main(argv)
+    result = astis_site.main(argv)
+    if result != 0:
+        return result
+    implicit_prerequisites.enrich_site(output)
+    return 0
 
 
 if __name__ == "__main__":
