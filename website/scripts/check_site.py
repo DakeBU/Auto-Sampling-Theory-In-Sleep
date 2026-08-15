@@ -16,6 +16,7 @@ import astis_site  # noqa: E402
 import astis_source  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import lean_tutor  # noqa: E402
+import undergrad_guides  # noqa: E402
 
 
 def main() -> int:
@@ -41,6 +42,12 @@ def main() -> int:
     result = astis_site.main(argv)
     if result != 0:
         return result
+    guide_errors = undergrad_guides.validate_site(output)
+    if guide_errors:
+        print("Undergraduate guide site check failed:", file=sys.stderr)
+        for error in guide_errors:
+            print(f"- {error}", file=sys.stderr)
+        return 1
     implicit_errors = implicit_prerequisites.validate_site(output)
     if implicit_errors:
         print("Implicit prerequisite site check failed:", file=sys.stderr)
