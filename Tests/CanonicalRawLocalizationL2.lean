@@ -1,0 +1,11 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalRawLocalizationL2
+
+namespace AutoSamplingTheory.Tests.CanonicalRawLocalizationL2
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalRawLocalizationL2
+
+#check rawStoppedTimeLintegral_le
+#check rawStoppedProductEnergy_lt_top
+#check canonicalRaw_isLocalizingSequence
+
+end AutoSamplingTheory.Tests.CanonicalRawLocalizationL2
