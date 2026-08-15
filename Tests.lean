@@ -14,6 +14,7 @@ import Tests.ElementaryItoDoobL2
 import Tests.ElementaryItoIsometry
 import Tests.ElementaryItoL2
 import Tests.ElementaryItoProcess
+import Tests.ElementaryStoppingTime
 import Tests.FellerSemigroup
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
@@ -58,8 +59,7 @@ import Tests.CanonicalLocalizationTheorem
 import Tests.CanonicalStoppedItoIntegral
 
 /-!
-Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,
-shifted Poincare/chi-square equivalence, and shifted log-Sobolev/KL equivalence
-tests are part of the root target together with the compiled Registry count,
+Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are
+part of the root target together with the compiled Registry count,
 Registry-backed source correspondence, and Samplinglib declaration inventory.
 -/
