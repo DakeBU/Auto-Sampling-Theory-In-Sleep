@@ -4,8 +4,9 @@ namespace AutoSamplingTheory.Tests.RandomStoppingDyadicApprox
 
 open MeasureTheory
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
-open RandomStoppingDyadicApprox DyadicElementaryRefinement DyadicElementaryStopping
-  ElementaryItoIntegral ElementaryStoppingTime ProgressiveL2Density StoppingTime
+open RandomStoppingDyadicApprox ContinuousDoobL2 DyadicElementaryRefinement
+  DyadicElementaryStopping ElementaryItoIntegral ElementaryStoppingTime ProgressiveL2Density
+  StoppingTime
 open scoped NNReal
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
