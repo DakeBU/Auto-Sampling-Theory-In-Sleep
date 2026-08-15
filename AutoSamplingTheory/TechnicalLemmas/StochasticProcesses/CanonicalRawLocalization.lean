@@ -182,10 +182,12 @@ theorem stoppedIntegrand_ae_eq_energyStoppedIntegrand
       intro h
       have ht0 : t ≤ (0 : ℝ≥0) := by exact_mod_cast h
       exact (not_le_of_gt htIoc.1) ht0
-    rw [show canonicalRawLocalizingTime hUsual eta n omega = 0 by
-      exact canonicalRawLocalizingTime_of_bad hUsual eta n hbad]
-    rw [Localization.stoppedIntegrand]
-    rw [if_neg hnotle]
+    change
+      (if (t : WithTop ℝ≥0) ≤
+          (canonicalRawLocalizingTime hUsual eta n omega : WithTop ℝ≥0)
+        then eta.process t omega else 0) =
+        energyStoppedIntegrand hUsual eta (n + 1 : ℝ) t omega
+    rw [canonicalRawLocalizingTime_of_bad hUsual eta n hbad, if_neg hnotle]
     simp [energyStoppedIntegrand, completedEnergy, completedIntegrand, hbad]
   · have hraw : canonicalRawLocalizingTime hUsual eta n omega =
         canonicalLocalizingTime hUsual eta n omega :=
@@ -201,9 +203,12 @@ theorem stoppedIntegrand_ae_eq_energyStoppedIntegrand
           (canonicalLocalizingTime hUsual eta n omega : WithTop ℝ≥0) := by
         rw [canonicalLocalizingTime]
         exact_mod_cast hbefore.le
-      rw [hraw]
-      rw [Localization.stoppedIntegrand]
-      rw [if_pos hleCanonical]
+      change
+        (if (t : WithTop ℝ≥0) ≤
+            (canonicalRawLocalizingTime hUsual eta n omega : WithTop ℝ≥0)
+          then eta.process t omega else 0) =
+          energyStoppedIntegrand hUsual eta (n + 1 : ℝ) t omega
+      rw [hraw, if_pos hleCanonical]
       simp [energyStoppedIntegrand, hbelow, completedIntegrand, hbad]
     · have hafter : canonicalEnergyLocalizer hUsual eta (n + 1 : ℝ) omega < t :=
         lt_of_le_of_ne (le_of_not_gt hbefore) (Ne.symm htstop)
@@ -214,9 +219,12 @@ theorem stoppedIntegrand_ae_eq_energyStoppedIntegrand
       have hnotbelow : ¬completedEnergy hUsual eta t omega < (n + 1 : ℝ) := by
         intro hbelow
         exact hbefore (hiff.mp hbelow)
-      rw [hraw]
-      rw [Localization.stoppedIntegrand]
-      rw [if_neg hnotleCanonical]
+      change
+        (if (t : WithTop ℝ≥0) ≤
+            (canonicalRawLocalizingTime hUsual eta n omega : WithTop ℝ≥0)
+          then eta.process t omega else 0) =
+          energyStoppedIntegrand hUsual eta (n + 1 : ℝ) t omega
+      rw [hraw, if_neg hnotleCanonical]
       simp [energyStoppedIntegrand, hnotbelow]
 
 end CanonicalRawLocalization
