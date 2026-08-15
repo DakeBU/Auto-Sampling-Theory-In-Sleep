@@ -66,13 +66,14 @@ theorem tendsto_stopRefinedDyadic_value_stoppedIntegrand
         have hvalue0 : eta.process.value 0 omega = 0 :=
           ElementaryAdaptedProcess.value_eq_zero_of_le_first
             eta.process bot_le omega
-        simp [Localization.stoppedIntegrand, hzero, hvalue0]
+        rw [Localization.stoppedIntegrand, hzero]
+        simp [hvalue0]
       · have hspos : 0 < s := lt_of_le_of_ne bot_le (Ne.symm hs0)
         have hnot :
             ¬ ((s : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0)) := by
           rw [hzero]
           simpa only [WithTop.coe_le_coe] using (not_le_of_gt hspos)
-        simp [Localization.stoppedIntegrand, hnot]
+        rw [Localization.stoppedIntegrand, if_neg hnot]
     rw [hseq, htarget]
     exact tendsto_const_nhds
   · have homega : 0 < tau omega :=
@@ -100,7 +101,7 @@ theorem tendsto_stopRefinedDyadic_value_stoppedIntegrand
         have hcoe :
             (s : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0) := by
           simpa only [WithTop.coe_le_coe] using hst
-        simp [Localization.stoppedIntegrand, hcoe]
+        rw [Localization.stoppedIntegrand, if_pos hcoe]
       rw [htarget]
       simp only [stopAtRightApprox_value_eq, if_pos (hsright _)]
       exact tendsto_const_nhds
@@ -118,7 +119,7 @@ theorem tendsto_stopRefinedDyadic_value_stoppedIntegrand
         have hnot :
             ¬ ((s : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0)) := by
           simpa only [WithTop.coe_le_coe] using hst
-        simp [Localization.stoppedIntegrand, hnot]
+        rw [Localization.stoppedIntegrand, if_neg hnot]
       rw [htarget]
       apply (Filter.tendsto_congr' ?_).mpr tendsto_const_nhds
       filter_upwards [hevent] with n hn
