@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
 import implicit_prerequisites  # noqa: E402
+import lean_tutor  # noqa: E402
 
 
 def main() -> int:
@@ -28,6 +29,7 @@ def main() -> int:
     if result != 0:
         return result
     implicit_prerequisites.enrich_site(output)
+    lean_tutor.enrich_site(output)
     return 0
 
 
