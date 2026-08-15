@@ -178,9 +178,15 @@ theorem stoppedIntegrand_ae_eq_energyStoppedIntegrand
       t htIoc htTne htstop
   have htT : t < T := lt_of_le_of_ne htIoc.2 htTne
   by_cases hbad : omega ∈ badEnergySet eta
-  · have ht0 : ¬t ≤ (0 : ℝ≥0) := not_le_of_gt htIoc.1
-    simp [Localization.stoppedIntegrand, canonicalRawLocalizingTime, hbad,
-      completedEnergy, completedIntegrand, energyStoppedIntegrand, ht0]
+  · have hnotle : ¬(t : WithTop ℝ≥0) ≤ (0 : ℝ≥0) := by
+      intro h
+      have ht0 : t ≤ (0 : ℝ≥0) := by exact_mod_cast h
+      exact (not_le_of_gt htIoc.1) ht0
+    rw [show canonicalRawLocalizingTime hUsual eta n omega = 0 by
+      exact canonicalRawLocalizingTime_of_bad hUsual eta n hbad]
+    rw [Localization.stoppedIntegrand]
+    rw [if_neg hnotle]
+    simp [energyStoppedIntegrand, completedEnergy, completedIntegrand, hbad]
   · have hraw : canonicalRawLocalizingTime hUsual eta n omega =
         canonicalLocalizingTime hUsual eta n omega :=
       canonicalRawLocalizingTime_of_good hUsual eta n hbad
@@ -191,23 +197,27 @@ theorem stoppedIntegrand_ae_eq_energyStoppedIntegrand
     by_cases hbefore : t < canonicalEnergyLocalizer hUsual eta (n + 1 : ℝ) omega
     · have hbelow : completedEnergy hUsual eta t omega < (n + 1 : ℝ) :=
         hiff.mpr hbefore
-      have hle : (t : WithTop ℝ≥0) ≤
-          (canonicalRawLocalizingTime hUsual eta n omega : WithTop ℝ≥0) := by
-        rw [hraw, canonicalLocalizingTime]
+      have hleCanonical : (t : WithTop ℝ≥0) ≤
+          (canonicalLocalizingTime hUsual eta n omega : WithTop ℝ≥0) := by
+        rw [canonicalLocalizingTime]
         exact_mod_cast hbefore.le
-      simp [Localization.stoppedIntegrand, hle, energyStoppedIntegrand,
-        hbelow, completedIntegrand, hbad]
+      rw [hraw]
+      rw [Localization.stoppedIntegrand]
+      rw [if_pos hleCanonical]
+      simp [energyStoppedIntegrand, hbelow, completedIntegrand, hbad]
     · have hafter : canonicalEnergyLocalizer hUsual eta (n + 1 : ℝ) omega < t :=
         lt_of_le_of_ne (le_of_not_gt hbefore) (Ne.symm htstop)
-      have hnotle : ¬(t : WithTop ℝ≥0) ≤
-          (canonicalRawLocalizingTime hUsual eta n omega : WithTop ℝ≥0) := by
-        rw [hraw, canonicalLocalizingTime]
+      have hnotleCanonical : ¬(t : WithTop ℝ≥0) ≤
+          (canonicalLocalizingTime hUsual eta n omega : WithTop ℝ≥0) := by
+        rw [canonicalLocalizingTime]
         exact_mod_cast not_le_of_gt hafter
       have hnotbelow : ¬completedEnergy hUsual eta t omega < (n + 1 : ℝ) := by
         intro hbelow
         exact hbefore (hiff.mp hbelow)
-      simp [Localization.stoppedIntegrand, hnotle, energyStoppedIntegrand,
-        hnotbelow]
+      rw [hraw]
+      rw [Localization.stoppedIntegrand]
+      rw [if_neg hnotleCanonical]
+      simp [energyStoppedIntegrand, hnotbelow]
 
 end CanonicalRawLocalization
 end StochasticProcesses
