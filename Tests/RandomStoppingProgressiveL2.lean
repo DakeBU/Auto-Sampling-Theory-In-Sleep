@@ -7,6 +7,8 @@ open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
 open ProgressiveL2Density RandomStoppingProgressiveL2 StoppingTime
 open scoped NNReal
 
+noncomputable section
+
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
 
