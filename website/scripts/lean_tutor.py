@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
-"""Inject a beginner-facing Lean learning studio into generated declaration pages.
+"""Inject beginner-facing Lean learning tools into generated declaration pages.
 
 This layer is deliberately pedagogical. It never changes theorem status,
 Registry ownership, source correspondence, or Chapter 1 completion evidence.
-It only makes already-generated Lean declarations easier to read by adding:
+It makes already-generated Lean declarations easier to read at two levels:
 
-* Beginner / Rigorous / Lean learner reading depths;
-* a selectable proof tree / local dependency network;
-* line-by-line natural-language Lean explanations;
-* a syntax glossary generated from the exact declaration shown on the page.
-
-The graph itself is rendered client-side from ``data/site-data.json``, whose
-edges come from ASTIS's conservative declaration dependency scan.
+* dedicated theorem/declaration cards receive reading-depth controls, a source-
+  derived proof tree/network, line-by-line explanations, and a syntax glossary;
+* bottom-level declarations that only live at module anchors receive a compact
+  on-demand Lean tutor. If no Registry graph evidence exists, no graph edge is
+  invented merely for presentation.
 """
 
 from __future__ import annotations
@@ -105,7 +103,7 @@ def strip_existing(text: str) -> str:
     return pattern.sub("", text)
 
 
-def candidate_pages(output: Path) -> list[Path]:
+def dedicated_pages(output: Path) -> list[Path]:
     pages = sorted((output / "theorems").glob("*.html"))
     pages.extend(
         path
@@ -115,62 +113,72 @@ def candidate_pages(output: Path) -> list[Path]:
     return pages
 
 
-def enrich_page(path: Path, output: Path) -> bool:
+def module_pages(output: Path) -> list[Path]:
+    return sorted((output / "modules").glob("*.html"))
+
+
+def remove_asset(text: str, filename: str, tag: str) -> str:
+    if tag == "link":
+        pattern = rf'\n?\s*<link rel="stylesheet" href="[^"]*{re.escape(filename)}">'
+    else:
+        pattern = rf'\n?\s*<script defer src="[^"]*{re.escape(filename)}"></script>'
+    return re.sub(pattern, "", text)
+
+
+def inject_assets(text: str, path: Path, output: Path, *, script: str) -> str:
+    css = rel_asset(path, output, "lean-tutor.css")
+    js = rel_asset(path, output, script)
+    text = remove_asset(text, "lean-tutor.css", "link")
+    text = remove_asset(text, script, "script")
+    text = text.replace("</head>", f'  <link rel="stylesheet" href="{css}">\n</head>', 1)
+    text = text.replace("</body>", f'  <script defer src="{js}"></script>\n</body>', 1)
+    return text
+
+
+def enrich_dedicated_page(path: Path, output: Path) -> bool:
     text = strip_existing(path.read_text(encoding="utf-8"))
     if "<h2>Lean statement</h2>" not in text:
         return False
-    css = rel_asset(path, output, "lean-tutor.css")
-    js = rel_asset(path, output, "lean-tutor.js")
-
-    # Idempotently add the tutor assets even when the site is rebuilt in-place.
-    text = re.sub(
-        r"\n?\s*<link rel=\"stylesheet\" href=\"[^\"]*lean-tutor\.css\">",
-        "",
-        text,
-    )
-    text = re.sub(
-        r"\n?\s*<script defer src=\"[^\"]*lean-tutor\.js\"></script>",
-        "",
-        text,
-    )
-    text = text.replace(
-        "</head>",
-        f'  <link rel="stylesheet" href="{css}">\n</head>',
-        1,
-    )
+    text = inject_assets(text, path, output, script="lean-tutor.js")
     text = text.replace(
         "<h2>Lean statement</h2>",
         studio_html() + "\n    <h2>Lean statement</h2>",
-        1,
-    )
-    text = text.replace(
-        "</body>",
-        f'  <script defer src="{js}"></script>\n</body>',
         1,
     )
     path.write_text(text, encoding="utf-8")
     return True
 
 
+def enrich_module_page(path: Path, output: Path) -> bool:
+    text = path.read_text(encoding="utf-8")
+    if 'class="declaration"' not in text:
+        return False
+    text = inject_assets(text, path, output, script="module-lean-tutor.js")
+    path.write_text(text, encoding="utf-8")
+    return True
+
+
 def enrich_site(output: Path = DEFAULT_OUTPUT) -> int:
-    css = output / "assets" / "lean-tutor.css"
-    js = output / "assets" / "lean-tutor.js"
-    if not css.exists() or not js.exists():
-        raise RuntimeError("Lean tutor assets must be copied before post-build enrichment")
+    required = ("lean-tutor.css", "lean-tutor.js", "module-lean-tutor.js")
+    for asset in required:
+        if not (output / "assets" / asset).exists():
+            raise RuntimeError(f"Lean tutor asset must be copied before enrichment: {asset}")
     changed = 0
-    for path in candidate_pages(output):
-        changed += int(enrich_page(path, output))
+    for path in dedicated_pages(output):
+        changed += int(enrich_dedicated_page(path, output))
+    for path in module_pages(output):
+        changed += int(enrich_module_page(path, output))
     return changed
 
 
 def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
     errors: list[str] = []
-    for asset in ("lean-tutor.css", "lean-tutor.js"):
+    for asset in ("lean-tutor.css", "lean-tutor.js", "module-lean-tutor.js"):
         if not (output / "assets" / asset).exists():
             errors.append(f"generated assets/{asset} is missing")
-    pages = candidate_pages(output)
+
     eligible = 0
-    for path in pages:
+    for path in dedicated_pages(output):
         text = path.read_text(encoding="utf-8")
         if "<h2>Lean statement</h2>" not in text:
             continue
@@ -192,6 +200,19 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
                 errors.append(f"{path}: missing {label}")
     if not eligible:
         errors.append("no theorem/declaration page with a Lean statement was enriched")
+
+    module_eligible = 0
+    for path in module_pages(output):
+        text = path.read_text(encoding="utf-8")
+        if 'class="declaration"' not in text:
+            continue
+        module_eligible += 1
+        if "lean-tutor.css" not in text:
+            errors.append(f"{path}: module declaration page missing Lean tutor stylesheet")
+        if "module-lean-tutor.js" not in text:
+            errors.append(f"{path}: module declaration page missing compact Lean tutor script")
+    if not module_eligible:
+        errors.append("no module declaration page was enriched with compact Lean tutoring")
     return errors
 
 
@@ -207,7 +228,7 @@ def main() -> int:
             print(f"ERROR: {error}")
         return 1 if errors else 0
     changed = enrich_site(output)
-    print(f"Injected Lean learning studio into {changed} declaration page(s).")
+    print(f"Injected Lean learning tools into {changed} declaration/module page(s).")
     return 0
 
 
