@@ -159,7 +159,12 @@ def enrich_module_page(path: Path, output: Path) -> bool:
 
 
 def enrich_site(output: Path = DEFAULT_OUTPUT) -> int:
-    required = ("lean-tutor.css", "lean-tutor.js", "module-lean-tutor.js")
+    required = (
+        "lean-tutor.css",
+        "lean-tutor.js",
+        "module-lean-tutor.js",
+        "module-lean-tutor.css",
+    )
     for asset in required:
         if not (output / "assets" / asset).exists():
             raise RuntimeError(f"Lean tutor asset must be copied before enrichment: {asset}")
@@ -173,7 +178,12 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> int:
 
 def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
     errors: list[str] = []
-    for asset in ("lean-tutor.css", "lean-tutor.js", "module-lean-tutor.js"):
+    for asset in (
+        "lean-tutor.css",
+        "lean-tutor.js",
+        "module-lean-tutor.js",
+        "module-lean-tutor.css",
+    ):
         if not (output / "assets" / asset).exists():
             errors.append(f"generated assets/{asset} is missing")
 
