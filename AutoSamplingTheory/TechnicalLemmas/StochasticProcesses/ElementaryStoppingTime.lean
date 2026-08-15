@@ -81,9 +81,15 @@ noncomputable def stopElementary
       if (eta.times i.castSucc : WithTop ℝ≥0) < tau omega
       then eta.coeff i omega else 0 := by
   classical
-  by_cases h : (eta.times i.castSucc : WithTop ℝ≥0) < tau omega
-  · simp [stopElementary, activeBefore, h]
-  · simp [stopElementary, activeBefore, h]
+  change (activeBefore tau (eta.times i.castSucc)).indicator (eta.coeff i) omega = _
+  by_cases hmem : omega ∈ activeBefore tau (eta.times i.castSucc)
+  · have hlt : (eta.times i.castSucc : WithTop ℝ≥0) < tau omega := by
+      simpa [activeBefore] using hmem
+    rw [Set.indicator_of_mem hmem, if_pos hlt]
+  · have hnlt : ¬(eta.times i.castSucc : WithTop ℝ≥0) < tau omega := by
+      intro hlt
+      exact hmem (by simpa [activeBefore] using hlt)
+    rw [Set.indicator_of_notMem hmem, if_neg hnlt]
 
 end ElementaryStoppingTime
 end StochasticProcesses
