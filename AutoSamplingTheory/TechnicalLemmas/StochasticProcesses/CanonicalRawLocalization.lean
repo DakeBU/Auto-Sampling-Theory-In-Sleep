@@ -1,17 +1,18 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyStoppingTime
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedIntegrand
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization
 
 /-!
 # Source-facing canonical localizers for the raw integrand
 
 The completed energy construction replaces the null set of non-integrable
-sample paths by the zero path.  Its hitting times are therefore ideal for
+sample paths by the zero path. Its hitting times are therefore ideal for
 constructing globally square-integrable completed stopped integrands, but on a
 bad raw path they eventually equal the terminal horizon `T`.
 
-Chewi's Definition 1.1.12 is stated for the original integrand.  For that
+Chewi's Definition 1.1.12 is stated for the original integrand. For that
 source-facing predicate we therefore use the same energy hitting time on good
-paths and stop immediately at zero on the null bad-energy set.  This makes the
+paths and stop immediately at zero on the null bad-energy set. This makes the
 raw stopped energy harmless on exceptional paths, while convergence to `T` is
 still required only almost surely.
 -/
@@ -22,10 +23,11 @@ namespace StochasticProcesses
 namespace CanonicalRawLocalization
 
 open Filter MeasureTheory Set
-open scoped NNReal Topology
+open scoped ENNReal NNReal Topology
 
-open ProgressiveL2 LocalProgressiveL2 CompletedEnergy
-  CanonicalEnergyLocalizer CanonicalEnergyStoppingTime StoppingTime
+open ProgressiveL2 LocalProgressiveL2 CompletedEnergy CompletedIntegrand
+  CanonicalEnergyLocalizer CanonicalEnergyStoppingTime EnergyStoppedIntegrand
+  StoppingTime
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
@@ -149,6 +151,63 @@ theorem canonicalRawLocalizingTime_tendsto_terminal_ae
         hUsual eta homega] with n hn
     exact congrArg (fun s : ℝ≥0 => (s : WithTop ℝ≥0)) hn
   exact (tendsto_congr' hev).2 tendsto_const_nhds
+
+/-- For each sample path, the source-facing stopped raw integrand and the
+completed energy-stopped representative agree almost everywhere in time. The
+only possible pointwise discrepancy on a good path is the single hitting time;
+terminal-time and initial-time endpoint conventions are also null. -/
+theorem stoppedIntegrand_ae_eq_energyStoppedIntegrand
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    (eta : LocalProgressiveL2Integrand filtration mu T)
+    (n : ℕ) (omega : Omega) :
+    (fun t => Localization.stoppedIntegrand eta.process
+        (fun w =>
+          (canonicalRawLocalizingTime hUsual eta n w : WithTop ℝ≥0))
+        t omega) =ᵐ[TimeMeasure.upTo T]
+      (fun t => energyStoppedIntegrand hUsual eta (n + 1 : ℝ) t omega) := by
+  classical
+  have hterminal : ∀ᵐ t ∂TimeMeasure.upTo T, t ≠ T := by
+    rw [ae_iff]
+    simpa using TimeMeasure.upTo_singleton T T
+  have hstop : ∀ᵐ t ∂TimeMeasure.upTo T,
+      t ≠ canonicalRawLocalizingTime hUsual eta n omega := by
+    rw [ae_iff]
+    simpa using TimeMeasure.upTo_singleton T
+      (canonicalRawLocalizingTime hUsual eta n omega)
+  filter_upwards [TimeMeasure.ae_mem_Ioc_zero_upTo T, hterminal, hstop] with
+      t htIoc htTne htstop
+  have htT : t < T := lt_of_le_of_ne htIoc.2 htTne
+  by_cases hbad : omega ∈ badEnergySet eta
+  · have ht0 : ¬t ≤ (0 : ℝ≥0) := not_le_of_gt htIoc.1
+    simp [Localization.stoppedIntegrand, canonicalRawLocalizingTime, hbad,
+      completedEnergy, completedIntegrand, energyStoppedIntegrand, ht0]
+  · have hraw : canonicalRawLocalizingTime hUsual eta n omega =
+        canonicalLocalizingTime hUsual eta n omega :=
+      canonicalRawLocalizingTime_of_good hUsual eta n hbad
+    have hiff := completedEnergy_lt_iff_lt_canonicalEnergyLocalizer
+      hUsual eta (show 0 ≤ (n + 1 : ℝ) by positivity) omega htT
+    rw [hraw] at htstop
+    rw [canonicalLocalizingTime] at htstop
+    by_cases hbefore : t < canonicalEnergyLocalizer hUsual eta (n + 1 : ℝ) omega
+    · have hbelow : completedEnergy hUsual eta t omega < (n + 1 : ℝ) :=
+        hiff.mpr hbefore
+      have hle : (t : WithTop ℝ≥0) ≤
+          (canonicalRawLocalizingTime hUsual eta n omega : WithTop ℝ≥0) := by
+        rw [hraw, canonicalLocalizingTime]
+        exact_mod_cast hbefore.le
+      simp [Localization.stoppedIntegrand, hle, energyStoppedIntegrand,
+        hbelow, completedIntegrand, hbad]
+    · have hafter : canonicalEnergyLocalizer hUsual eta (n + 1 : ℝ) omega < t :=
+        lt_of_le_of_ne (le_of_not_gt hbefore) (Ne.symm htstop)
+      have hnotle : ¬(t : WithTop ℝ≥0) ≤
+          (canonicalRawLocalizingTime hUsual eta n omega : WithTop ℝ≥0) := by
+        rw [hraw, canonicalLocalizingTime]
+        exact_mod_cast not_le_of_gt hafter
+      have hnotbelow : ¬completedEnergy hUsual eta t omega < (n + 1 : ℝ) := by
+        intro hbelow
+        exact hbefore (hiff.mp hbelow)
+      simp [Localization.stoppedIntegrand, hnotle, energyStoppedIntegrand,
+        hnotbelow]
 
 end CanonicalRawLocalization
 end StochasticProcesses
