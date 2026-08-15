@@ -2,12 +2,12 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.RandomStoppingDyad
 
 namespace AutoSamplingTheory.Tests.RandomStoppingDyadicApprox
 
-open MeasureTheory
+open Filter MeasureTheory
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
 open RandomStoppingDyadicApprox ContinuousDoobL2 DyadicElementaryRefinement
   DyadicElementaryStopping ElementaryItoIntegral ElementaryStoppingTime ProgressiveL2Density
   StoppingTime
-open scoped NNReal
+open scoped NNReal Topology
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {T : ℝ≥0}
@@ -16,6 +16,8 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
 #check stopRefined_coeff_eq_rightCutoff
 #check stopRefined_elementaryItoIntegral_eq_rightApprox
 #check tendsto_rightApproxTime_stoppingValue
+#check tendsto_rightApproxTime_stoppingValue_nhdsWithin
+#check tendsto_continuousOn_rightApproxTime_stoppingValue
 
 example
     (eta : DyadicElementaryProcess filtration T)
@@ -52,5 +54,20 @@ example
           homega (htauT omega) (stoppingLevel eta n)) omega :=
   stopRefined_elementaryItoIntegral_eq_rightApprox
     eta tau htau htauT n B omega homega
+
+example
+    (eta : DyadicElementaryProcess filtration T)
+    (tau : Omega → ℝ≥0)
+    (htauT : ∀ omega, tau omega ≤ T)
+    (M : ℝ≥0 → Omega → ℝ)
+    (omega : Omega) (homega : 0 < tau omega)
+    (hcont : ContinuousOn (fun t => M t omega) (Set.Icc (0 : ℝ≥0) T)) :
+    Tendsto
+      (fun n => M
+        (rightApproxTime (DyadicElementaryProcess.horizon_pos eta)
+          homega (htauT omega) (stoppingLevel eta n)) omega)
+      atTop (𝓝 (M (tau omega) omega)) :=
+  tendsto_continuousOn_rightApproxTime_stoppingValue
+    eta tau htauT M omega homega hcont
 
 end AutoSamplingTheory.Tests.RandomStoppingDyadicApprox
