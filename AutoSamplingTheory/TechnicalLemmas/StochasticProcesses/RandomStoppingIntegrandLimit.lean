@@ -25,7 +25,7 @@ namespace RandomStoppingIntegrandLimit
 open Filter MeasureTheory Set
 open scoped NNReal Topology
 
-open ContinuousDoobL2 DyadicElementaryStopping FiniteTimeGrid
+open ContinuousDoobL2 DyadicElementaryRefinement DyadicElementaryStopping FiniteTimeGrid
   ProgressiveL2Density RandomStoppingBoundary RandomStoppingDyadicApprox
   RandomStoppingProcessApprox StoppingTime
 
