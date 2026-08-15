@@ -12,7 +12,7 @@ open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.AccumulatedEnergy
 #check accumulatedEnergy_nonneg
 
 example {Omega : Type*} [MeasurableSpace Omega]
-    (eta : ℝ≥0 → Omega → ℝ) (T : ℝ≥0) (omega : Omega) :
+    (eta : NNReal → Omega → ℝ) (T : NNReal) (omega : Omega) :
     accumulatedEnergy eta T 0 omega = 0 :=
   accumulatedEnergy_zero eta T omega
 
