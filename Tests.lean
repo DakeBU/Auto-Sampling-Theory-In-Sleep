@@ -37,6 +37,7 @@ import Tests.ProgressiveL2
 import Tests.ProgressiveL2Density
 import Tests.ProgressiveL2Algebra
 import Tests.ProgressiveL2Truncation
+import Tests.ProgressiveL2Stopping
 import Tests.RandomStoppingDyadicApprox
 import Tests.RandomStoppingBoundary
 import Tests.RandomStoppingProcessApprox
