@@ -4,7 +4,7 @@ namespace AutoSamplingTheory.Tests.CanonicalRawLocalizationL2
 
 open MeasureTheory
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
-open CanonicalRawLocalization CanonicalRawLocalizationL2 LocalProgressiveL2
+open ProgressiveL2 CanonicalRawLocalization CanonicalRawLocalizationL2 LocalProgressiveL2
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
@@ -13,7 +13,7 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
 #check rawStoppedProductEnergy_lt_top
 #check canonicalRaw_isLocalizingSequence
 
-/-- Focused source-contract smoke test for Chewi Proposition 1.1.13.  This is
+/-- Focused source-contract smoke test for Chewi Proposition 1.1.13. This is
 an actual theorem application, not merely a name lookup: the result must
 elaborate to the literal `Localization.IsLocalizingSequence` predicate for the
 raw integrand. -/
