@@ -102,6 +102,91 @@
     return name.replace(/\.html$/i, "");
   }
 
+  function matchingEntries(entries, pageSlug) {
+    return entries.filter((entry) =>
+      Array.isArray(entry.declarations)
+      && entry.declarations.some((declaration) => slugify(declaration) === pageSlug)
+    );
+  }
+
+  async function renderRigorousLessonSupplement() {
+    const article = document.querySelector(".theorem-layout > article");
+    if (!article) return;
+    const pageSlug = currentPageSlug();
+    if (!pageSlug) return;
+
+    try {
+      const response = await fetch(new URL("rigorous-lessons.json", assetsRoot));
+      if (!response.ok) throw new Error(`rigorous lessons: ${response.status}`);
+      const data = await response.json();
+      const entries = Array.isArray(data.entries) ? data.entries : [];
+      const matches = matchingEntries(entries, pageSlug);
+      if (!matches.length) return;
+
+      const panel = document.createElement("section");
+      panel.className = "rigorous-lesson-panel";
+      panel.dataset.rigorousLesson = "true";
+      panel.innerHTML = matches.map((entry) => {
+        const formulas = Array.isArray(entry.formula_latex) ? entry.formula_latex : [];
+        const steps = Array.isArray(entry.proof_steps) ? entry.proof_steps : [];
+        const subtlePoints = Array.isArray(entry.subtle_points) ? entry.subtle_points : [];
+        return `
+          <div class="rigorous-lesson-group">
+            <div class="eyebrow">ASTIS rigorous expansion · source ${escapeHtml(entry.source_item || "")}</div>
+            <h2>${escapeHtml(entry.title || "Rigorous derivation")}</h2>
+            <div class="note"><strong>Scope guard.</strong> ${escapeHtml(entry.scope_note || "")}</div>
+            <h3>Exact formulas</h3>
+            <div class="rigorous-formulas">${formulas.map((formula) => `<div class="math-statement">${escapeHtml(formula)}</div>`).join("")}</div>
+            <h3>Proof, step by step</h3>
+            <div class="proof-steps">
+              ${steps.map((step) => {
+                const nodes = Array.isArray(step.lean_nodes) ? step.lean_nodes : [];
+                const stepFormula = step.formula_latex
+                  ? `<div class="math-statement">${escapeHtml(step.formula_latex)}</div>`
+                  : "";
+                return `
+                  <article class="proof-step">
+                    <h4>${escapeHtml(step.title || "Proof step")}</h4>
+                    <p>${escapeHtml(step.body || "")}</p>
+                    ${stepFormula}
+                    ${nodes.length ? `
+                      <details class="lean-node-list">
+                        <summary><strong>Lean nodes for this step</strong><span class="search-kind">These are the compiled leaves that make the paper proof explicit.</span></summary>
+                        <ul>${nodes.map((node) => `<li><code>${escapeHtml(node)}</code></li>`).join("")}</ul>
+                      </details>
+                    ` : ""}
+                  </article>
+                `;
+              }).join("")}
+            </div>
+            ${subtlePoints.length ? `
+              <details class="rigor-details">
+                <summary><strong>Subtle points the short textbook proof can hide</strong></summary>
+                <ul>${subtlePoints.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul>
+              </details>
+            ` : ""}
+          </div>
+        `;
+      }).join("");
+
+      const conditionsHeading = [...article.children]
+        .find((node) => node.tagName === "H2" && node.textContent.trim() === "Conditions");
+      if (conditionsHeading) article.insertBefore(panel, conditionsHeading);
+      else {
+        const formalizationLens = [...article.children]
+          .find((node) => node.matches?.("details.formalization-lens"));
+        if (formalizationLens) article.insertBefore(panel, formalizationLens);
+        else article.appendChild(panel);
+      }
+
+      if (window.MathJax?.typesetPromise) {
+        window.MathJax.typesetPromise([panel]).catch(() => {});
+      }
+    } catch (error) {
+      console.warn("Samplinglib rigorous lesson was not loaded:", error);
+    }
+  }
+
   async function renderRigorousReferences() {
     const article = document.querySelector(".theorem-layout > article");
     if (!article) return;
@@ -113,10 +198,7 @@
       if (!response.ok) throw new Error(`rigorous references: ${response.status}`);
       const data = await response.json();
       const entries = Array.isArray(data.entries) ? data.entries : [];
-      const matches = entries.filter((entry) =>
-        Array.isArray(entry.declarations)
-        && entry.declarations.some((declaration) => slugify(declaration) === pageSlug)
-      );
+      const matches = matchingEntries(entries, pageSlug);
       if (!matches.length) return;
 
       const panel = document.createElement("section");
@@ -331,6 +413,7 @@
   filterGenericTables();
   highlightLean();
   foldLeanFormalizationLens();
+  renderRigorousLessonSupplement();
   renderRigorousReferences();
   loadMermaid();
 })();
