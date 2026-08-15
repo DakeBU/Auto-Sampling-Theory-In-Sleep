@@ -3,26 +3,29 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalRawLocali
 namespace AutoSamplingTheory.Tests.CanonicalRawLocalizationL2
 
 open MeasureTheory
-open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
-open ProgressiveL2 CanonicalRawLocalization CanonicalRawLocalizationL2 LocalProgressiveL2
+
+namespace SP := AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
-  {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
+  {filtration : MeasureTheory.Filtration NNReal m}
+  {mu : Measure Omega} {T : NNReal}
 
-#check rawStoppedTimeLintegral_le
-#check rawStoppedProductEnergy_lt_top
-#check canonicalRaw_isLocalizingSequence
+#check SP.CanonicalRawLocalizationL2.rawStoppedTimeLintegral_le
+#check SP.CanonicalRawLocalizationL2.rawStoppedProductEnergy_lt_top
+#check SP.CanonicalRawLocalizationL2.canonicalRaw_isLocalizingSequence
 
-/-- Focused source-contract smoke test for Chewi Proposition 1.1.13. This is
-an actual theorem application, not merely a name lookup: the result must
-elaborate to the literal `Localization.IsLocalizingSequence` predicate for the
-raw integrand. -/
+/-- Focused source-contract smoke test for Chewi Proposition 1.1.13.
+
+Unlike a bare `#check`, this applies the production theorem to the literal
+localizing-sequence predicate.  All ambient stochastic-process types are kept
+fully qualified here so this test also documents the exact interface used by
+the formalization. -/
 example [IsProbabilityMeasure mu]
-    (hUsual : SatisfiesUsualConditions filtration mu)
-    (eta : LocalProgressiveL2Integrand filtration mu T) :
-    Localization.IsLocalizingSequence eta.process filtration mu T
+    (hUsual : SP.ProgressiveL2.SatisfiesUsualConditions filtration mu)
+    (eta : SP.LocalProgressiveL2.LocalProgressiveL2Integrand filtration mu T) :
+    SP.Localization.IsLocalizingSequence eta.process filtration mu T
       (fun n omega =>
-        (canonicalRawLocalizingTime hUsual eta n omega : WithTop ℝ≥0)) :=
-  canonicalRaw_isLocalizingSequence hUsual eta
+        (SP.CanonicalRawLocalization.canonicalRawLocalizingTime hUsual eta n omega : WithTop NNReal)) :=
+  SP.CanonicalRawLocalizationL2.canonicalRaw_isLocalizingSequence hUsual eta
 
 end AutoSamplingTheory.Tests.CanonicalRawLocalizationL2
