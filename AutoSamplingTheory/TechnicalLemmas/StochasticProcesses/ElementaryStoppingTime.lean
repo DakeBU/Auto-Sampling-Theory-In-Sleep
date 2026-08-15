@@ -5,9 +5,9 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime
 # Elementary integrands stopped by a stopping time
 
 This file begins the stopped-Ito consistency route needed for Chewi
-Proposition 1.1.16.  For an elementary adapted integrand on cells
+Proposition 1.1.16. For an elementary adapted integrand on cells
 `(t_i,t_{i+1}]`, stopping at `tau` keeps the coefficient on cell `i` precisely
-on the event `t_i < tau`.  The stopping-time property makes that event
+on the event `t_i < tau`. The stopping-time property makes that event
 measurable at the left endpoint, so the stopped coefficients remain adapted.
 
 No stochastic-integral stopping identity is asserted here; this file only
@@ -42,7 +42,7 @@ theorem measurableSet_activeBefore
     MeasurableSet[filtration t] (activeBefore tau t) := by
   exact htau.measurableSet_gt t
 
-/-- Stop an elementary adapted integrand by a stopping time.  On cell `i`, its
+/-- Stop an elementary adapted integrand by a stopping time. On cell `i`, its
 left-endpoint coefficient is retained exactly when the stopping time is still
 strictly after that left endpoint. -/
 noncomputable def stopElementary
@@ -82,14 +82,8 @@ noncomputable def stopElementary
       then eta.coeff i omega else 0 := by
   classical
   by_cases h : (eta.times i.castSucc : WithTop ℝ≥0) < tau omega
-  · have hmem : omega ∈ activeBefore tau (eta.times i.castSucc) := by
-      simpa [activeBefore] using h
-    rw [Set.indicator_of_mem hmem]
-    simp [stopElementary, h]
-  · have hmem : omega ∉ activeBefore tau (eta.times i.castSucc) := by
-      simpa [activeBefore] using h
-    rw [Set.indicator_of_notMem hmem]
-    simp [stopElementary, h]
+  · simp [stopElementary, activeBefore, h]
+  · simp [stopElementary, activeBefore, h]
 
 end ElementaryStoppingTime
 end StochasticProcesses
