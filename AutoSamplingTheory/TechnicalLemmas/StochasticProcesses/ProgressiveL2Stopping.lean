@@ -40,7 +40,7 @@ theorem measurableSet_stoppingSet
   have htau' : MeasureTheory.IsStoppingTime filtration tau := htau
   have hτ : Measurable (fun z : Omega × ℝ≥0 => tau z.1) :=
     htau'.measurable'.comp measurable_fst
-  simpa only [stoppingSet, Set.setOf_mem_eq] using measurableSet_le ht hτ
+  simpa only [stoppingSet] using measurableSet_le ht hτ
 
 /-- Chewi's closed stopping convention preserves strong progressiveness. -/
 theorem stoppedIntegrand_stronglyProgressive
@@ -51,15 +51,16 @@ theorem stoppedIntegrand_stronglyProgressive
   have htau' : MeasureTheory.IsStoppingTime filtration tau := htau
   intro i
   have hmin := MeasureTheory.isStronglyProgressive_min_stopping_time htau' i
-  have htime : StronglyMeasurable[MeasurableSpace.Subtype (Set.Iic i) ×ˢ filtration i]
+  have htime : Measurable[Subtype.instMeasurableSpace.prod (filtration i)]
       (fun p : Set.Iic i × Omega => (p.1 : ℝ≥0)) :=
-    ((measurable_subtype_coe.comp measurable_fst).stronglyMeasurable)
-  have heq : MeasurableSet[MeasurableSpace.Subtype (Set.Iic i) ×ˢ filtration i]
-      {p : Set.Iic i × Omega |
-        (min ((p.1 : ℝ≥0) : WithTop ℝ≥0) (tau p.2)).untopA = (p.1 : ℝ≥0)} :=
-    measurableSet_eq hmin.measurable htime.measurable
-  have hset : MeasurableSet[MeasurableSpace.Subtype (Set.Iic i) ×ˢ filtration i]
-      {p : Set.Iic i × Omega | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2} := by
+    measurable_subtype_coe.comp measurable_fst
+  have heq : @MeasurableSet (Set.Iic i × Omega)
+      (Subtype.instMeasurableSpace.prod (filtration i))
+      {p | (min ((p.1 : ℝ≥0) : WithTop ℝ≥0) (tau p.2)).untopA = (p.1 : ℝ≥0)} :=
+    measurableSet_eq hmin.measurable htime
+  have hset : @MeasurableSet (Set.Iic i × Omega)
+      (Subtype.instMeasurableSpace.prod (filtration i))
+      {p | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2} := by
     convert heq using 1
     ext p
     simp only [Set.mem_setOf_eq]
