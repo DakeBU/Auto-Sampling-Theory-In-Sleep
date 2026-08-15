@@ -9,6 +9,8 @@ open scoped NNReal
 #check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime.IsChewiStoppingTime
 #check IsChewiStoppingTime.min
 #check IsChewiStoppingTime.min_const
+#check stoppedProcess_stoppedProcess_min
+#check stoppedProcess_stoppedProcess_of_le
 
 example {Ω : Type*} {m : MeasurableSpace Ω}
     (filtration : Filtration ℝ≥0 m) (t : ℝ≥0) :
@@ -28,5 +30,16 @@ example {Ω : Type*} {m : MeasurableSpace Ω}
     IsChewiStoppingTime filtration
       (fun ω => min (τ ω) (T : WithTop ℝ≥0)) :=
   hτ.min_const T
+
+example {Ω β : Type*} (u : ℝ≥0 → Ω → β)
+    (τ σ : Ω → WithTop ℝ≥0) :
+    stoppedProcess (stoppedProcess u τ) σ =
+      stoppedProcess u (fun ω => min (σ ω) (τ ω)) :=
+  stoppedProcess_stoppedProcess_min u τ σ
+
+example {Ω β : Type*} (u : ℝ≥0 → Ω → β)
+    {τ σ : Ω → WithTop ℝ≥0} (hστ : σ ≤ τ) :
+    stoppedProcess (stoppedProcess u τ) σ = stoppedProcess u σ :=
+  stoppedProcess_stoppedProcess_of_le u hστ
 
 end AutoSamplingTheory.Tests.StoppingTime
