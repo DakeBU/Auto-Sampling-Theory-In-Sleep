@@ -102,6 +102,7 @@ jobs:
           node --check website/static/site.js
           node --check website/static/ide.js
           node --check website/static/lean-tutor.js
+          node --check website/static/module-lean-tutor.js
 
       - name: Validate canonical Chewi source edition
         run: python3 tools/astis.py chewi-source-check
