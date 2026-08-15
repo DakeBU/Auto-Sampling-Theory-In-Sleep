@@ -20,6 +20,7 @@ import json
 import re
 from collections import defaultdict
 from pathlib import Path
+from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -100,21 +101,57 @@ def list_html(values: object) -> str:
     return "<ul>" + "".join(f"<li>{esc(value)}</li>" for value in list(values)) + "</ul>"
 
 
-def lean_links(item: dict[str, object]) -> str:
+def declaration_url_map(output: Path) -> dict[str, str]:
+    """Resolve every scanned Lean declaration to the page generated for it.
+
+    Registry declarations usually point to ``theorems/*.html`` while ordinary
+    scanned declarations point to stable-hash ``declarations/*.html`` cards.
+    The search index is generated from the same source scan as those pages, so
+    using it avoids guessing a theorem-card slug for a declaration that is not
+    in Registry.
+    """
+
+    path = output / "search-index.json"
+    if not path.exists():
+        raise RuntimeError("generated search-index.json is missing before prerequisite enrichment")
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        raise RuntimeError("generated search-index.json must contain a list")
+    resolved: dict[str, str] = {}
+    for row in raw:
+        if not isinstance(row, dict):
+            continue
+        name = str(row.get("name", "")).strip()
+        url = str(row.get("url", "")).strip()
+        if name and url and (url.startswith("theorems/") or url.startswith("declarations/")):
+            resolved[name] = url
+    return resolved
+
+
+def lean_links(item: dict[str, object], output: Path) -> str:
     declarations = [str(value) for value in item["lean_declarations"]]
     if not declarations:
         return '<p class="muted">Lean frontier: no completed ASTIS declaration is claimed yet.</p>'
+    url_map = declaration_url_map(output)
     links = []
     for declaration in declarations:
-        slug = slugify(declaration)
         short = declaration.rsplit(".", 1)[-1]
-        links.append(
-            f'<a href="../../theorems/{slug}.html"><code>{esc(short)}</code></a>'
-        )
-    return '<div class="decl-links">' + "".join(links) + "</div>"
+        url = url_map.get(declaration)
+        if url:
+            links.append(
+                f'<a href="../../{esc(url)}" data-lean-declaration="{esc(declaration)}">'
+                f'<code>{esc(short)}</code><span>open exact Lean card →</span></a>'
+            )
+        else:
+            links.append(
+                f'<a href="../../declarations/index.html?search={quote(declaration)}" '
+                f'data-lean-declaration="{esc(declaration)}" data-unresolved-card="true">'
+                f'<code>{esc(short)}</code><span>find in declaration catalog →</span></a>'
+            )
+    return '<div class="decl-links prerequisite-decl-links">' + "".join(links) + "</div>"
 
 
-def render_card(item: dict[str, object]) -> str:
+def render_card(item: dict[str, object], output: Path) -> str:
     status = str(item["lean_status"])
     status_html = (
         '<span class="status status-green">compiled Lean support</span>'
@@ -141,16 +178,16 @@ def render_card(item: dict[str, object]) -> str:
   <details class="reader-disclosure lean-disclosure">
     <summary>View Lean formalization</summary>
     <div class="disclosure-body">
-      <p>This is ASTIS supplemental infrastructure. Its Lean status does not alter the completion status of a Chewi source item.</p>
-      {lean_links(item)}
+      <p>This is ASTIS supplemental infrastructure. Its Lean status does not alter the completion status of a Chewi source item. Each compiled link below resolves through the generated declaration catalog rather than guessing a Registry theorem URL.</p>
+      {lean_links(item, output)}
     </div>
   </details>
 </article>"""
 
 
-def render_section(items: list[dict[str, object]]) -> str:
+def render_section(items: list[dict[str, object]], output: Path) -> str:
     compiled = sum(str(item["lean_status"]) == "compiled" for item in items)
-    cards = "".join(render_card(item) for item in items)
+    cards = "".join(render_card(item, output) for item in items)
     return f"""{START}
 <section class="implicit-prerequisites" id="implicit-prerequisites">
   <div class="section-heading">
@@ -173,6 +210,8 @@ def strip_existing(text: str) -> str:
 
 def enrich_site(output: Path = DEFAULT_OUTPUT) -> int:
     items = load_items()
+    # Fail early if the generated declaration index is missing or malformed.
+    declaration_url_map(output)
     grouped: dict[str, list[dict[str, object]]] = defaultdict(list)
     for item in items:
         grouped[str(item["section"])].append(item)
@@ -186,7 +225,7 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> int:
         marker = '<nav class="reader-pagination"'
         if marker not in text:
             raise RuntimeError(f"reader pagination marker missing in {path}")
-        block = render_section(section_items)
+        block = render_section(section_items, output)
         text = text.replace(marker, block + "\n" + marker, 1)
         path.write_text(text, encoding="utf-8")
         changed += 1
@@ -203,6 +242,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
     errors: list[str] = []
     try:
         items = load_items()
+        url_map = declaration_url_map(output)
     except Exception as exc:  # validation should report rather than crash
         return [str(exc)]
     grouped: dict[str, list[dict[str, object]]] = defaultdict(list)
@@ -228,6 +268,16 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
             ):
                 if required_text not in text:
                     errors.append(f"{path}: {item_id} missing {label}")
+            if str(item["lean_status"]) == "compiled":
+                for declaration in [str(value) for value in item["lean_declarations"]]:
+                    if declaration not in url_map:
+                        errors.append(
+                            f"{path}: {item_id} compiled declaration has no generated card: {declaration}"
+                        )
+                    elif f'data-lean-declaration="{esc(declaration)}"' not in text:
+                        errors.append(
+                            f"{path}: {item_id} missing resolved Lean link for {declaration}"
+                        )
     data_path = output / "data" / "implicit-prerequisites.json"
     if not data_path.exists():
         errors.append("generated data/implicit-prerequisites.json is missing")
