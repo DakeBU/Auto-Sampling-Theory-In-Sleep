@@ -18,23 +18,23 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
 #check chewi_display_1_1_14
 
 /-- Focused smoke test for Chewi display (1.1.14): the source-facing theorem
-must actually produce a strongly adapted continuous martingale for each
-canonical stopped integrand. -/
+must actually elaborate to strong adaptedness, the martingale property, and
+sample-path continuity for the canonical stopped Ito process. -/
 example [IsProbabilityMeasure mu]
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : LocalProgressiveL2Integrand filtration mu T)
     (hT : 0 < T)
     (hB : IsBrownianMotionWithFiltration B filtration mu)
     (n : ℕ) :
-    ∃ M : ℝ≥0 → Omega → ℝ,
-      M = canonicalStoppedItoProcess hUsual eta hT hB n ∧
-      StronglyAdapted filtration M ∧
-      Martingale M filtration mu ∧
+    StronglyAdapted filtration
+        (canonicalStoppedItoProcess hUsual eta hT hB n) ∧
+      Martingale
+        (canonicalStoppedItoProcess hUsual eta hT hB n) filtration mu ∧
       (∀ omega,
-        ContinuousOn (fun t => M t omega) (Icc (0 : ℝ≥0) T)) := by
-  let hdisplay := chewi_display_1_1_14 hUsual eta hT hB n
-  refine ⟨canonicalStoppedItoProcess hUsual eta hT hB n, rfl,
-    hdisplay.1, hdisplay.2.1, ?_⟩
-  exact hdisplay.2.2.1
+        ContinuousOn
+          (fun t => canonicalStoppedItoProcess hUsual eta hT hB n t omega)
+          (Icc (0 : ℝ≥0) T)) := by
+  have hdisplay := chewi_display_1_1_14 hUsual eta hT hB n
+  exact ⟨hdisplay.1, hdisplay.2.1, hdisplay.2.2.1⟩
 
 end AutoSamplingTheory.Tests.CanonicalStoppedItoIntegral
