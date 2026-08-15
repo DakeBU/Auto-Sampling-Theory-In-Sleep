@@ -104,11 +104,11 @@ def list_html(values: object) -> str:
 def declaration_url_map(output: Path) -> dict[str, str]:
     """Resolve every scanned Lean declaration to the page generated for it.
 
-    Registry declarations usually point to ``theorems/*.html`` while ordinary
-    scanned declarations point to stable-hash ``declarations/*.html`` cards.
-    The search index is generated from the same source scan as those pages, so
-    using it avoids guessing a theorem-card slug for a declaration that is not
-    in Registry.
+    Registry declarations point to ``theorems/*.html``. Reviewed teaching
+    declarations may point to stable-hash ``declarations/*.html`` cards. The
+    remaining scanned leaves live at stable anchors on ``modules/*.html``.
+    The generated search index is built from the exact same source scan, so it
+    is the authority for choosing among those three destinations.
     """
 
     path = output / "search-index.json"
@@ -118,12 +118,13 @@ def declaration_url_map(output: Path) -> dict[str, str]:
     if not isinstance(raw, list):
         raise RuntimeError("generated search-index.json must contain a list")
     resolved: dict[str, str] = {}
+    allowed_prefixes = ("theorems/", "declarations/", "modules/")
     for row in raw:
         if not isinstance(row, dict):
             continue
         name = str(row.get("name", "")).strip()
         url = str(row.get("url", "")).strip()
-        if name and url and (url.startswith("theorems/") or url.startswith("declarations/")):
+        if name and url and url.startswith(allowed_prefixes):
             resolved[name] = url
     return resolved
 
@@ -140,7 +141,7 @@ def lean_links(item: dict[str, object], output: Path) -> str:
         if url:
             links.append(
                 f'<a href="../../{esc(url)}" data-lean-declaration="{esc(declaration)}">'
-                f'<code>{esc(short)}</code><span>open exact Lean card →</span></a>'
+                f'<code>{esc(short)}</code><span>open exact Lean declaration →</span></a>'
             )
         else:
             links.append(
@@ -178,7 +179,7 @@ def render_card(item: dict[str, object], output: Path) -> str:
   <details class="reader-disclosure lean-disclosure">
     <summary>View Lean formalization</summary>
     <div class="disclosure-body">
-      <p>This is ASTIS supplemental infrastructure. Its Lean status does not alter the completion status of a Chewi source item. Each compiled link below resolves through the generated declaration catalog rather than guessing a Registry theorem URL.</p>
+      <p>This is ASTIS supplemental infrastructure. Its Lean status does not alter the completion status of a Chewi source item. Each compiled link below resolves through the generated source catalog: Registry theorem card, reviewed declaration card, or exact module anchor.</p>
       {lean_links(item, output)}
     </div>
   </details>
@@ -272,7 +273,7 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
                 for declaration in [str(value) for value in item["lean_declarations"]]:
                     if declaration not in url_map:
                         errors.append(
-                            f"{path}: {item_id} compiled declaration has no generated card: {declaration}"
+                            f"{path}: {item_id} compiled declaration has no generated destination: {declaration}"
                         )
                     elif f'data-lean-declaration="{esc(declaration)}"' not in text:
                         errors.append(
