@@ -18,8 +18,6 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
 #check tendsto_rightApproxTime_stoppingValue
 #check tendsto_rightApproxTime_stoppingValue_nhdsWithin
 #check tendsto_continuousOn_rightApproxTime_stoppingValue
-#check stopRefined_elementaryItoIntegral_eq_zero_of_stoppingValue_eq_zero
-#check tendsto_stopRefined_elementaryItoIntegral
 
 example
     (eta : DyadicElementaryProcess filtration T)
@@ -71,27 +69,5 @@ example
       atTop (𝓝 (M (tau omega) omega)) :=
   tendsto_continuousOn_rightApproxTime_stoppingValue
     eta tau htauT M omega homega hcont
-
-example
-    (eta : DyadicElementaryProcess filtration T)
-    (tau : Omega → ℝ≥0)
-    (htau : IsChewiStoppingTime filtration
-      (fun omega => (tau omega : WithTop ℝ≥0)))
-    (htauT : ∀ omega, tau omega ≤ T)
-    (B : ℝ≥0 → Omega → ℝ) (omega : Omega)
-    (hcont : ContinuousOn
-      (fun t => elementaryItoIntegral eta.process B t omega)
-      (Set.Icc (0 : ℝ≥0) T)) :
-    Tendsto
-      (fun n =>
-        elementaryItoIntegral
-          (stopElementary
-            (refineDyadic eta (stoppingLevel eta n)
-              (level_le_stoppingLevel eta n)).process
-            (fun w => (tau w : WithTop ℝ≥0)) htau)
-          B T omega)
-      atTop (𝓝 (elementaryItoIntegral eta.process B (tau omega) omega)) :=
-  tendsto_stopRefined_elementaryItoIntegral
-    eta tau htau htauT B omega hcont
 
 end AutoSamplingTheory.Tests.RandomStoppingDyadicApprox

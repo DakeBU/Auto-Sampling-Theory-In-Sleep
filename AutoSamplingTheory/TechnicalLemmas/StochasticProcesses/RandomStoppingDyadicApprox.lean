@@ -15,9 +15,7 @@ The comparison is first proved coefficientwise, then lifted to the exact
 finite Itô sum.  The selected right endpoints converge to the stopping value.
 The convergence is also packaged inside the construction interval so that a
 continuous sample path can be evaluated along the same right endpoints.  The
-zero stopping value is handled separately, yielding a pointwise convergence
-theorem for every bounded nonnegative stopping value.  The later L² passage
-remains downstream.
+later L² passage remains downstream.
 -/
 
 namespace AutoSamplingTheory
@@ -207,96 +205,6 @@ theorem tendsto_continuousOn_rightApproxTime_stoppingValue
   exact (hcont (tau omega) htauIcc).tendsto.comp
     (tendsto_rightApproxTime_stoppingValue_nhdsWithin
       eta tau htauT omega homega)
-
-/-- If the stopping value at the chosen sample point is zero, every refined
-stopped elementary Itô sum is exactly zero.  This is the boundary case omitted
-by the positive-time active-cell construction. -/
-theorem stopRefined_elementaryItoIntegral_eq_zero_of_stoppingValue_eq_zero
-    (eta : DyadicElementaryProcess filtration T)
-    (tau : Omega → ℝ≥0)
-    (htau : IsChewiStoppingTime filtration
-      (fun omega => (tau omega : WithTop ℝ≥0)))
-    (n : ℕ) (B : ℝ≥0 → Omega → ℝ)
-    (omega : Omega) (homega : tau omega = 0) :
-    elementaryItoIntegral
-        (stopElementary
-          (refineDyadic eta (stoppingLevel eta n)
-            (level_le_stoppingLevel eta n)).process
-          (fun w => (tau w : WithTop ℝ≥0)) htau)
-        B T omega = 0 := by
-  unfold elementaryItoIntegral
-  apply Finset.sum_eq_zero
-  intro j _hj
-  have hcoeff :
-      (stopElementary
-          (refineDyadic eta (stoppingLevel eta n)
-            (level_le_stoppingLevel eta n)).process
-          (fun w => (tau w : WithTop ℝ≥0)) htau).coeff j omega = 0 := by
-    rw [stopElementary_coeff, homega]
-    simp
-  rw [hcoeff, zero_mul]
-
-/-- Pointwise stopped-Itô convergence for an elementary integrand and an
-arbitrary bounded nonnegative stopping value.  At positive stopping values the
-finite stopped sum is exactly evaluation at the dyadic right endpoint and path
-continuity supplies the limit; at zero every stopped sum vanishes exactly. -/
-theorem tendsto_stopRefined_elementaryItoIntegral
-    (eta : DyadicElementaryProcess filtration T)
-    (tau : Omega → ℝ≥0)
-    (htau : IsChewiStoppingTime filtration
-      (fun omega => (tau omega : WithTop ℝ≥0)))
-    (htauT : ∀ omega, tau omega ≤ T)
-    (B : ℝ≥0 → Omega → ℝ) (omega : Omega)
-    (hcont : ContinuousOn
-      (fun t => elementaryItoIntegral eta.process B t omega)
-      (Icc (0 : ℝ≥0) T)) :
-    Tendsto
-      (fun n =>
-        elementaryItoIntegral
-          (stopElementary
-            (refineDyadic eta (stoppingLevel eta n)
-              (level_le_stoppingLevel eta n)).process
-            (fun w => (tau w : WithTop ℝ≥0)) htau)
-          B T omega)
-      atTop (𝓝 (elementaryItoIntegral eta.process B (tau omega) omega)) := by
-  by_cases hzero : tau omega = 0
-  · have hseq :
-        (fun n =>
-          elementaryItoIntegral
-            (stopElementary
-              (refineDyadic eta (stoppingLevel eta n)
-                (level_le_stoppingLevel eta n)).process
-              (fun w => (tau w : WithTop ℝ≥0)) htau)
-            B T omega) = (fun _ : ℕ => (0 : ℝ)) := by
-        funext n
-        exact stopRefined_elementaryItoIntegral_eq_zero_of_stoppingValue_eq_zero
-          eta tau htau n B omega hzero
-    have htarget : elementaryItoIntegral eta.process B (tau omega) omega = 0 := by
-      rw [hzero]
-      simp [elementaryItoIntegral]
-    rw [hseq, htarget]
-    exact tendsto_const_nhds
-  · have homega : 0 < tau omega :=
-      lt_of_le_of_ne bot_le (Ne.symm hzero)
-    have hseq :
-        (fun n =>
-          elementaryItoIntegral
-            (stopElementary
-              (refineDyadic eta (stoppingLevel eta n)
-                (level_le_stoppingLevel eta n)).process
-              (fun w => (tau w : WithTop ℝ≥0)) htau)
-            B T omega) =
-          (fun n => elementaryItoIntegral eta.process B
-            (rightApproxTime (DyadicElementaryProcess.horizon_pos eta)
-              homega (htauT omega) (stoppingLevel eta n)) omega) := by
-      funext n
-      exact stopRefined_elementaryItoIntegral_eq_rightApprox
-        eta tau htau htauT n B omega homega
-    rw [hseq]
-    exact tendsto_continuousOn_rightApproxTime_stoppingValue
-      eta tau htauT
-        (fun t w => elementaryItoIntegral eta.process B t w)
-        omega homega hcont
 
 end RandomStoppingDyadicApprox
 end StochasticProcesses
