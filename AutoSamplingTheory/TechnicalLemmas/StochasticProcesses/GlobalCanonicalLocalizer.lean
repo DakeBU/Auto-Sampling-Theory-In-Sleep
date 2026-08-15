@@ -1,5 +1,6 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalLocalProgressiveL2
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer
+import AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
 
 /-!
 # Global canonical energy localizers
@@ -23,8 +24,9 @@ namespace GlobalCanonicalLocalizer
 open MeasureTheory Set
 open scoped NNReal Topology
 
-open CanonicalEnergyLocalizer CompletedEnergy GlobalLocalProgressiveL2
-  LocalProgressiveL2 ProgressiveL2 StoppingTime
+open CanonicalEnergyLocalizer CompletedEnergy EnergyPathContinuity
+  GlobalLocalProgressiveL2 LocalProgressiveL2 ProgressiveL2 StoppingTime
+open AutoSamplingTheory.TechnicalLemmas.Analysis
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega}
@@ -38,6 +40,11 @@ def integerHorizon (n : ℕ) : ℝ≥0 := (n + 1 : ℕ)
 @[simp] theorem integerHorizon_succ (n : ℕ) :
     integerHorizon (n + 1) = integerHorizon n + 1 := by
   simp [integerHorizon]
+
+/-- Integer horizons are monotone. -/
+theorem integerHorizon_mono {n m : ℕ} (hnm : n ≤ m) :
+    integerHorizon n ≤ integerHorizon m := by
+  exact_mod_cast Nat.add_le_add_right hnm 1
 
 /-- The countable exceptional set where local square integrability fails on at
 least one positive integer horizon. -/
@@ -69,6 +76,25 @@ theorem not_bad_on_integerHorizon
   intro hbad
   apply homega
   exact Set.mem_iUnion.mpr ⟨n, hbad⟩
+
+/-- On a globally good path, completed accumulated energy before the smaller
+horizon is independent of which larger integer horizon is used. -/
+theorem completedEnergy_eq_of_le_horizons
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    (eta : GlobalLocalProgressiveL2Integrand filtration mu)
+    {n m : ℕ} (hnm : n ≤ m) {t : ℝ≥0}
+    (ht : t ≤ integerHorizon n) {omega : Omega}
+    (homega : omega ∉ globalBadSet eta) :
+    completedEnergy hUsual (eta.onHorizon (integerHorizon n)) t omega =
+      completedEnergy hUsual (eta.onHorizon (integerHorizon m)) t omega := by
+  have hbadn := not_bad_on_integerHorizon eta homega n
+  have hbadm := not_bad_on_integerHorizon eta homega m
+  simp only [CompletedEnergy.completedEnergy, if_neg hbadn, if_neg hbadm]
+  rw [accumulatedEnergyReal_eq_prefixIntegral,
+    accumulatedEnergyReal_eq_prefixIntegral]
+  simpa only [GlobalLocalProgressiveL2Integrand.onHorizon_process] using
+    PrefixIntegral.prefixIntegral_eq_of_le_horizons
+      (fun s => eta.process s omega ^ 2) ht (integerHorizon_mono hnm)
 
 /-- Global canonical localizer: zero on the shared null set; otherwise use the
 usual finite-horizon energy hitting time at matching level and horizon. -/
@@ -136,6 +162,47 @@ theorem globalLocalizingTime_isChewiStoppingTime
     · simp [globalLocalizingTime, homega]
   rw [heq]
   exact hbad.union (hbad.compl.inter hcan)
+
+/-- The global localizing times are pointwise increasing.  The proof uses both
+increasing energy thresholds and the fact that accumulated energy before an
+earlier time is independent of the larger ambient horizon. -/
+theorem globalLocalizingTime_mono
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    (eta : GlobalLocalProgressiveL2Integrand filtration mu) :
+    Monotone (fun n => globalLocalizingTime hUsual eta n) := by
+  intro n m hnm omega
+  by_cases homega : omega ∈ globalBadSet eta
+  · simp [globalLocalizingTime, homega]
+  · rw [globalLocalizingTime_of_good hUsual eta n homega,
+      globalLocalizingTime_of_good hUsual eta m homega]
+    let tm := canonicalEnergyLocalizer hUsual
+      (eta.onHorizon (integerHorizon m)) (m + 1 : ℝ) omega
+    by_cases hHn : integerHorizon n ≤ tm
+    · exact (canonicalEnergyLocalizer_le_terminal hUsual
+        (eta.onHorizon (integerHorizon n)) (n + 1 : ℝ) omega).trans hHn
+    · have htmHn : tm < integerHorizon n := lt_of_not_ge hHn
+      have hHnHm : integerHorizon n ≤ integerHorizon m := integerHorizon_mono hnm
+      have hnotHm : ¬ integerHorizon m ≤ tm :=
+        not_le_of_gt (htmHn.trans_le hHnHm)
+      have hcrossm : (m + 1 : ℝ) ≤
+          completedEnergy hUsual (eta.onHorizon (integerHorizon m)) tm omega := by
+        have hself := (canonicalEnergyLocalizer_le_iff hUsual
+          (eta.onHorizon (integerHorizon m))
+          (by positivity : (0 : ℝ) ≤ m + 1) omega tm).1 (le_refl tm)
+        exact hself.resolve_left hnotHm
+      change canonicalEnergyLocalizer hUsual
+          (eta.onHorizon (integerHorizon n)) (n + 1 : ℝ) omega ≤ tm
+      apply (canonicalEnergyLocalizer_le_iff hUsual
+        (eta.onHorizon (integerHorizon n))
+        (by positivity : (0 : ℝ) ≤ n + 1) omega tm).2
+      right
+      calc
+        (n + 1 : ℝ) ≤ (m + 1 : ℝ) := by exact_mod_cast Nat.add_le_add_right hnm 1
+        _ ≤ completedEnergy hUsual
+            (eta.onHorizon (integerHorizon m)) tm omega := hcrossm
+        _ = completedEnergy hUsual
+            (eta.onHorizon (integerHorizon n)) tm omega :=
+          (completedEnergy_eq_of_le_horizons hUsual eta hnm htmHn.le homega).symm
 
 end GlobalCanonicalLocalizer
 end StochasticProcesses
