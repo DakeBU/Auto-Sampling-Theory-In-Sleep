@@ -68,20 +68,6 @@ noncomputable def stopRefinedDyadic
         (fun w => (tau w : WithTop ℝ≥0)) htau :=
   rfl
 
-private theorem value_eq_of_times_eq_coeff_eq
-    {n : ℕ}
-    (p q : ElementaryAdaptedProcess filtration n)
-    (htimes : p.times = q.times)
-    (omega : Omega)
-    (hcoeff : ∀ j, p.coeff j omega = q.coeff j omega)
-    (s : ℝ≥0) :
-    p.value s omega = q.value s omega := by
-  unfold ElementaryAdaptedProcess.value
-  rw [htimes]
-  apply Finset.sum_congr rfl
-  intro j _hj
-  rw [hcoeff j]
-
 /-- At a positive stopping value, not only the coefficients and terminal Ito
 sum but the whole stopped refined time process agrees exactly with the
 process cut off at the deterministic right endpoint of the fine cell
@@ -97,26 +83,18 @@ theorem stopRefinedDyadic_value_eq_rightApprox
     (stopRefinedDyadic eta tau htau n).process.value s omega =
       (stopAtRightApprox eta (DyadicElementaryProcess.horizon_pos eta)
         homega (htauT omega) n).process.value s omega := by
-  let fine : ElementaryAdaptedProcess filtration (2 ^ stoppingLevel eta n) :=
-    (refineDyadic eta (stoppingLevel eta n)
-      (level_le_stoppingLevel eta n)).process
-  let stopped : ElementaryAdaptedProcess filtration (2 ^ stoppingLevel eta n) :=
-    stopElementary fine (fun w => (tau w : WithTop ℝ≥0)) htau
-  let right : ElementaryAdaptedProcess filtration (2 ^ stoppingLevel eta n) :=
-    (stopAtRightApprox eta (DyadicElementaryProcess.horizon_pos eta)
-      homega (htauT omega) n).process
-  change stopped.value s omega = right.value s omega
-  apply value_eq_of_times_eq_coeff_eq stopped right rfl omega
-  intro j
   change
     (stopElementary
         (refineDyadic eta (stoppingLevel eta n)
           (level_le_stoppingLevel eta n)).process
-        (fun w => (tau w : WithTop ℝ≥0)) htau).coeff j omega =
+        (fun w => (tau w : WithTop ℝ≥0)) htau).value s omega =
       (stopAtRightApprox eta (DyadicElementaryProcess.horizon_pos eta)
-        homega (htauT omega) n).process.coeff j omega
-  exact stopRefined_coeff_eq_rightCutoff
-    eta tau htau htauT n omega homega j
+        homega (htauT omega) n).process.value s omega
+  unfold ElementaryAdaptedProcess.value
+  apply Finset.sum_congr rfl
+  intro j _hj
+  rw [stopRefined_coeff_eq_rightCutoff eta tau htau htauT n omega homega j]
+  rfl
 
 /-- At a zero stopping value, the whole stopped refined time process vanishes,
 not merely its terminal finite Ito sum. -/
@@ -128,18 +106,20 @@ theorem stopRefinedDyadic_value_eq_zero_of_stoppingValue_eq_zero
     (n : ℕ) (omega : Omega) (homega : tau omega = 0)
     (s : ℝ≥0) :
     (stopRefinedDyadic eta tau htau n).process.value s omega = 0 := by
+  change
+    (stopElementary
+        (refineDyadic eta (stoppingLevel eta n)
+          (level_le_stoppingLevel eta n)).process
+        (fun w => (tau w : WithTop ℝ≥0)) htau).value s omega = 0
   unfold ElementaryAdaptedProcess.value
   apply Finset.sum_eq_zero
   intro j _hj
   by_cases hcell :
-      (stopRefinedDyadic eta tau htau n).process.times j.castSucc < s ∧
-        s ≤ (stopRefinedDyadic eta tau htau n).process.times j.succ
+      (refineDyadic eta (stoppingLevel eta n)
+          (level_le_stoppingLevel eta n)).process.times j.castSucc < s ∧
+        s ≤ (refineDyadic eta (stoppingLevel eta n)
+          (level_le_stoppingLevel eta n)).process.times j.succ
   · rw [if_pos hcell]
-    change
-      (stopElementary
-          (refineDyadic eta (stoppingLevel eta n)
-            (level_le_stoppingLevel eta n)).process
-          (fun w => (tau w : WithTop ℝ≥0)) htau).coeff j omega = 0
     exact stopRefined_coeff_eq_zero_of_stoppingValue_eq_zero
       eta tau htau n omega homega j
   · rw [if_neg hcell]
