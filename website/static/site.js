@@ -145,9 +145,9 @@
         `;
       }).join("");
 
-      const leanHeading = [...article.querySelectorAll("h2")]
-        .find((heading) => heading.textContent.trim() === "Lean statement");
-      if (leanHeading) article.insertBefore(panel, leanHeading);
+      const formalizationLens = [...article.children]
+        .find((node) => node.matches?.("details.formalization-lens"));
+      if (formalizationLens) article.insertBefore(panel, formalizationLens);
       else article.appendChild(panel);
 
       if (window.MathJax?.typesetPromise) {
@@ -161,30 +161,23 @@
   function foldLeanFormalizationLens() {
     const article = document.querySelector(".theorem-layout > article");
     if (!article) return;
-    const targetTitles = new Set(["Lean statement", "Lean interface notes"]);
-    const headings = [...article.children]
-      .filter((node) => node.tagName === "H2" && targetTitles.has(node.textContent.trim()))
-      .reverse();
+    const leanHeading = [...article.children]
+      .find((node) => node.tagName === "H2" && node.textContent.trim() === "Lean statement");
+    if (!leanHeading) return;
 
-    headings.forEach((heading) => {
-      const title = heading.textContent.trim();
-      const nodes = [heading];
-      let cursor = heading.nextSibling;
-      while (cursor) {
-        if (cursor.nodeType === Node.ELEMENT_NODE && cursor.tagName === "H2") break;
-        const next = cursor.nextSibling;
-        nodes.push(cursor);
-        cursor = next;
-      }
+    const details = document.createElement("details");
+    details.className = "formalization-lens";
+    const summary = document.createElement("summary");
+    summary.innerHTML = '<strong>Formalization lens · Lean proof and interface</strong><span class="search-kind">Optional: inspect the exact Lean statement, interface notes, and proof-engineering choices.</span>';
+    leanHeading.before(details);
+    details.appendChild(summary);
 
-      const details = document.createElement("details");
-      details.className = "formalization-lens";
-      const summary = document.createElement("summary");
-      summary.innerHTML = `<strong>Formalization lens · ${escapeHtml(title)}</strong><span class="search-kind">Optional: inspect the Lean interface and learn why the proof is encoded this way.</span>`;
-      heading.before(details);
-      details.appendChild(summary);
-      nodes.forEach((node) => details.appendChild(node));
-    });
+    let cursor = leanHeading;
+    while (cursor) {
+      const next = cursor.nextSibling;
+      details.appendChild(cursor);
+      cursor = next;
+    }
   }
 
   function globalSearch() {
