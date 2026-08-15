@@ -11,9 +11,9 @@ introducing a second approximating stopping-time theory merely for
 measurability: `stopElementary` already inherits measurability from the
 original stopping time.
 
-This file proves only the coefficient comparison and convergence of the
-selected right endpoints.  The finite Itô-sum identity and its L² extension
-are downstream.
+The comparison is first proved coefficientwise, then lifted to the exact
+finite Itô sum.  The selected right endpoints converge to the stopping value.
+The later L²/continuous-path passage remains downstream.
 -/
 
 namespace AutoSamplingTheory
@@ -22,10 +22,10 @@ namespace StochasticProcesses
 namespace RandomStoppingDyadicApprox
 
 open Filter MeasureTheory
-open scoped NNReal Topology
+open scoped BigOperators NNReal Topology
 
 open ContinuousDoobL2 DyadicElementaryRefinement DyadicElementaryStopping
-  ElementaryStoppingTime FiniteTimeGrid ProgressiveL2Density
+  ElementaryItoIntegral ElementaryStoppingTime FiniteTimeGrid ProgressiveL2Density
   SampledElementaryApproximation StoppingTime
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
@@ -92,6 +92,61 @@ theorem stopRefined_coeff_eq_rightCutoff
     have htime : ¬ grid j.castSucc < tau omega :=
       not_lt_of_ge htimeLe
     simpa only [level, grid, if_neg hj, if_neg htime]
+
+/-- At a positive sample value of the bounded stopping time, the *whole*
+finite Itô sum of the refined process stopped by the original random time is
+exactly the original elementary Itô sum evaluated at the deterministic right
+endpoint of the fine cell containing that sample value.  Thus no Brownian
+increment beyond that right endpoint is hidden in the comparison. -/
+theorem stopRefined_elementaryItoIntegral_eq_rightApprox
+    (eta : DyadicElementaryProcess filtration T)
+    (tau : Omega → ℝ≥0)
+    (htau : IsChewiStoppingTime filtration
+      (fun omega => (tau omega : WithTop ℝ≥0)))
+    (htauT : ∀ omega, tau omega ≤ T)
+    (n : ℕ) (B : ℝ≥0 → Omega → ℝ)
+    (omega : Omega) (homega : 0 < tau omega) :
+    elementaryItoIntegral
+        (stopElementary
+          (refineDyadic eta (stoppingLevel eta n)
+            (level_le_stoppingLevel eta n)).process
+          (fun w => (tau w : WithTop ℝ≥0)) htau)
+        B T omega =
+      elementaryItoIntegral eta.process B
+        (rightApproxTime (DyadicElementaryProcess.horizon_pos eta)
+          homega (htauT omega) (stoppingLevel eta n)) omega := by
+  calc
+    elementaryItoIntegral
+        (stopElementary
+          (refineDyadic eta (stoppingLevel eta n)
+            (level_le_stoppingLevel eta n)).process
+          (fun w => (tau w : WithTop ℝ≥0)) htau)
+        B T omega =
+      elementaryItoIntegral
+        (stopAtRightApprox eta (DyadicElementaryProcess.horizon_pos eta)
+          homega (htauT omega) n).process B T omega := by
+      unfold elementaryItoIntegral
+      apply Finset.sum_congr rfl
+      intro j _hj
+      rw [stopRefined_coeff_eq_rightCutoff eta tau htau htauT n omega homega j]
+      rfl
+    _ = elementaryItoIntegral eta.process B
+        (cutoffTime (T := T) (stoppingLevel eta n)
+          (rightCutoffIndex eta (DyadicElementaryProcess.horizon_pos eta)
+            homega (htauT omega) n)) omega := by
+      change elementaryItoIntegral
+        (stopDyadicAtGridIndex eta (stoppingLevel eta n)
+          (level_le_stoppingLevel eta n)
+          (rightCutoffIndex eta (DyadicElementaryProcess.horizon_pos eta)
+            homega (htauT omega) n)).process B T omega = _
+      exact stopDyadicAtGridIndex_elementaryItoIntegral
+        eta (stoppingLevel eta n) (level_le_stoppingLevel eta n)
+          (rightCutoffIndex eta (DyadicElementaryProcess.horizon_pos eta)
+            homega (htauT omega) n) B omega
+    _ = elementaryItoIntegral eta.process B
+        (rightApproxTime (DyadicElementaryProcess.horizon_pos eta)
+          homega (htauT omega) (stoppingLevel eta n)) omega := by
+      rw [cutoffTime_rightCutoffIndex]
 
 /-- For every positive sample value of the bounded stopping time, the right
 endpoints chosen on successively finer dyadic refinements converge to that
