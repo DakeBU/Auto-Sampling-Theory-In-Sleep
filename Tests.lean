@@ -39,6 +39,7 @@ import Tests.ProgressiveL2Algebra
 import Tests.ProgressiveL2Truncation
 import Tests.RandomStoppingDyadicApprox
 import Tests.RandomStoppingBoundary
+import Tests.RandomStoppingProcessApprox
 import Tests.Reversibility
 import Tests.SampledElementaryApproximation
 import Tests.SemigroupDecay
