@@ -39,8 +39,14 @@ Itô construction. -/
 theorem upTo_eq_restrict_nnrealLebesgue (T : ℝ≥0) :
     upTo T = nnrealLebesgue.restrict (Icc 0 T) := by
   unfold upTo nnrealLebesgue
-  rw [(MeasurableEmbedding.subtype_coe
-    (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).comap_restrict]
+  change
+    Measure.comap (Subtype.val : ℝ≥0 → ℝ)
+        (volume.restrict (Icc 0 (T : ℝ))) =
+      (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict (Icc 0 T)
+  have hcoe : MeasurableEmbedding (Subtype.val : ℝ≥0 → ℝ) :=
+    MeasurableEmbedding.subtype_coe
+      (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))
+  rw [hcoe.comap_restrict]
   congr 1
   ext t
   simp
