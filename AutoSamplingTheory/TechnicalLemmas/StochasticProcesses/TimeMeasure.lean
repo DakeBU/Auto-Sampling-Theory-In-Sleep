@@ -32,6 +32,19 @@ noncomputable instance (T : ℝ≥0) : IsFiniteMeasure (upTo T) := by
   unfold upTo
   infer_instance
 
+/-- The stopped time measure is literally nonnegative Lebesgue measure
+restricted to `[0,T]`.  This bridge lets source statements written with a
+restricted Lebesgue integral reuse the finite `upTo T` measure used by the
+Itô construction. -/
+theorem upTo_eq_restrict_nnrealLebesgue (T : ℝ≥0) :
+    upTo T = nnrealLebesgue.restrict (Icc 0 T) := by
+  unfold upTo nnrealLebesgue
+  rw [(MeasurableEmbedding.subtype_coe
+    (measurableSet_Ici : MeasurableSet (Ici (0 : ℝ)))).comap_restrict]
+  congr 1
+  ext t
+  simp
+
 /-- The total mass of nonnegative time stopped at `T` is `T`. -/
 theorem upTo_univ (T : ℝ≥0) : upTo T Set.univ = T := by
   have himage : NNReal.toReal '' (Set.univ : Set ℝ≥0) = Ici (0 : ℝ) := by
