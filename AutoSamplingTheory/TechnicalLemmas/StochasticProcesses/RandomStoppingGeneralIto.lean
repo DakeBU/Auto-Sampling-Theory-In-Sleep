@@ -120,9 +120,17 @@ theorem itoIntegralTerminal_stop_ae [IsFiniteMeasure mu]
         (fun n => elementaryItoIntegral (q n).process B (tau omega) omega)
         atTop
         (𝓝 (itoIntegralProcess eta hT hB hUsual (tau omega) omega)) := by
-    filter_upwards [tendsto_canonicalItoProcess_itoIntegralProcess_ae
-      eta hT hB hUsual (show ∀ omega, tau omega ≤ T from htauT)] with omega homega
-    refine homega.congr' ?_
+    filter_upwards [uniformCauchyEvent_ae eta hT hB] with omega homega
+    have hnot : omega ∉ uniformBadSet eta hT B := by
+      simpa only [uniformBadSet, Set.mem_compl_iff, not_not] using homega
+    have hconv := tendsto_canonicalItoProcess_canonicalPathLimit
+      eta hT B homega (show tau omega ∈ Icc (0 : ℝ≥0) T from ⟨bot_le, htauT omega⟩)
+    have hconv' : Tendsto
+        (fun n => canonicalItoProcess eta hT B n (tau omega) omega)
+        atTop
+        (𝓝 (itoIntegralProcess eta hT hB hUsual (tau omega) omega)) := by
+      simpa only [itoIntegralProcess, hnot, if_false] using hconv
+    refine hconv'.congr' ?_
     filter_upwards [] with n
     simp only [q, canonicalItoProcess, elementaryItoProcess,
       min_eq_left (htauT omega)]
@@ -131,8 +139,10 @@ theorem itoIntegralTerminal_stop_ae [IsFiniteMeasure mu]
       atTop (fun omega => itoIntegralProcess eta hT hB hUsual (tau omega) omega) := by
     apply tendstoInMeasure_of_tendsto_ae
     · intro n
-      exact (elementaryItoIntegral_memLp_two (q n).process hB T).1
-        |>.comp_aemeasurable ?_ -- placeholder eliminated below
+      have hmem : MemLp
+          (fun omega => itoIntegralTerminal (stoppedQ n) hT hB omega) 2 mu :=
+        Lp.memLp (itoIntegralTerminal (stoppedQ n) hT hB)
+      exact ((memLp_congr_ae (hElem n)).1 hmem).1
     · exact haetendsto
   simpa only [target] using tendstoInMeasure_ae_unique hcompletion' hpath
 
