@@ -115,10 +115,14 @@ theorem stopRefinedDyadic_value_eq_zero_of_stoppingValue_eq_zero
   apply Finset.sum_eq_zero
   intro j _hj
   by_cases hcell :
-      (refineDyadic eta (stoppingLevel eta n)
-          (level_le_stoppingLevel eta n)).process.times j.castSucc < s ∧
-        s ≤ (refineDyadic eta (stoppingLevel eta n)
-          (level_le_stoppingLevel eta n)).process.times j.succ
+      (stopElementary
+          (refineDyadic eta (stoppingLevel eta n)
+            (level_le_stoppingLevel eta n)).process
+          (fun w => (tau w : WithTop ℝ≥0)) htau).times j.castSucc < s ∧
+        s ≤ (stopElementary
+          (refineDyadic eta (stoppingLevel eta n)
+            (level_le_stoppingLevel eta n)).process
+          (fun w => (tau w : WithTop ℝ≥0)) htau).times j.succ
   · rw [if_pos hcell]
     exact stopRefined_coeff_eq_zero_of_stoppingValue_eq_zero
       eta tau htau n omega homega j
