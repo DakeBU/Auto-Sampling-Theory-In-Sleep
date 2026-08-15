@@ -9,7 +9,7 @@ retaining Mathlib's filtration and stopping-time APIs.
 For the localized Ito route we also record the elementary stopping-time and
 stopped-process algebra used repeatedly below: minima of stopping times are
 stopping times, deterministic truncation preserves stopping times, and stopping
-a process twice is the same as stopping once at the pointwise minimum. These
+a process twice is the same as stopping once at the pointwise infimum. These
 are thin source-facing wrappers around Mathlib and do not assert any
 stochastic-integral stopping identity.
 -/
@@ -43,7 +43,7 @@ theorem IsChewiStoppingTime.min
     {filtration : Filtration ℝ≥0 m} {τ σ : Ω → WithTop ℝ≥0}
     (hτ : IsChewiStoppingTime filtration τ)
     (hσ : IsChewiStoppingTime filtration σ) :
-    IsChewiStoppingTime filtration (fun ω => min (τ ω) (σ ω)) := by
+    IsChewiStoppingTime filtration (τ ⊓ σ) := by
   exact MeasureTheory.IsStoppingTime.min hτ hσ
 
 /-- Truncating a stopping time by a deterministic nonnegative horizon preserves
@@ -53,17 +53,17 @@ theorem IsChewiStoppingTime.min_const
     {filtration : Filtration ℝ≥0 m} {τ : Ω → WithTop ℝ≥0}
     (hτ : IsChewiStoppingTime filtration τ) (T : ℝ≥0) :
     IsChewiStoppingTime filtration
-      (fun ω => min (τ ω) (T : WithTop ℝ≥0)) :=
+      (τ ⊓ fun _ => (T : WithTop ℝ≥0)) :=
   hτ.min (isChewiStoppingTime_const filtration T)
 
-/-- Repeated stopping is exactly stopping at the pointwise minimum. This is a
+/-- Repeated stopping is exactly stopping at the pointwise infimum. This is a
 pure process identity; no stopping-time or martingale hypotheses are needed. -/
-theorem stoppedProcess_stoppedProcess_min
+theorem stoppedProcess_stoppedProcess_inf
     {Ω β : Type*} (u : ℝ≥0 → Ω → β)
     (τ σ : Ω → WithTop ℝ≥0) :
     stoppedProcess (stoppedProcess u τ) σ =
-      stoppedProcess u (fun ω => min (σ ω) (τ ω)) := by
-  exact MeasureTheory.stoppedProcess_stoppedProcess'
+      stoppedProcess u (σ ⊓ τ) := by
+  exact MeasureTheory.stoppedProcess_stoppedProcess
 
 /-- If the second stopping time occurs no later than the first, stopping twice
 reduces to the earlier stop. -/
