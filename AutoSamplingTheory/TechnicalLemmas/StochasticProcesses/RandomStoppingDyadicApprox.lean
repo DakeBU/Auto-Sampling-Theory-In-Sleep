@@ -25,7 +25,8 @@ open Filter MeasureTheory
 open scoped NNReal Topology
 
 open ContinuousDoobL2 DyadicElementaryRefinement DyadicElementaryStopping
-  ElementaryStoppingTime FiniteTimeGrid ProgressiveL2Density StoppingTime
+  ElementaryStoppingTime FiniteTimeGrid ProgressiveL2Density
+  SampledElementaryApproximation StoppingTime
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {T : ℝ≥0}
