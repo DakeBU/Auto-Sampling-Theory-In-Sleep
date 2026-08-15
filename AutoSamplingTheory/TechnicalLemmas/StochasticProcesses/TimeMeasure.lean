@@ -65,6 +65,26 @@ theorem upTo_eq_restrict_nnrealLebesgue (T : ℝ≥0) :
         (fun s : Set ℝ≥0 => (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict s)
         hpre
 
+/-- Restricting two larger finite horizons to the same earlier prefix gives
+exactly the same time measure.  This is the cross-horizon consistency used by
+global localization. -/
+theorem restrict_upTo_Iio_eq_of_le {t T₁ T₂ : ℝ≥0}
+    (ht : t ≤ T₁) (hT : T₁ ≤ T₂) :
+    (upTo T₁).restrict (Iio t) = (upTo T₂).restrict (Iio t) := by
+  rw [upTo_eq_restrict_nnrealLebesgue, upTo_eq_restrict_nnrealLebesgue]
+  ext s hs
+  rw [Measure.restrict_apply hs, Measure.restrict_apply hs]
+  have hsi : MeasurableSet (s ∩ Iio t) := hs.inter measurableSet_Iio
+  rw [Measure.restrict_apply hsi, Measure.restrict_apply hsi]
+  congr 1
+  ext x
+  simp only [mem_inter_iff, mem_Iio, mem_Icc]
+  constructor
+  · rintro ⟨⟨hsx, hxt⟩, hx0, _hxT₁⟩
+    exact ⟨⟨hsx, hxt⟩, hx0, hxt.le.trans ht |>.trans hT⟩
+  · rintro ⟨⟨hsx, hxt⟩, hx0, _hxT₂⟩
+    exact ⟨⟨hsx, hxt⟩, hx0, hxt.le.trans ht⟩
+
 /-- The total mass of nonnegative time stopped at `T` is `T`. -/
 theorem upTo_univ (T : ℝ≥0) : upTo T Set.univ = T := by
   have himage : NNReal.toReal '' (Set.univ : Set ℝ≥0) = Ici (0 : ℝ) := by
