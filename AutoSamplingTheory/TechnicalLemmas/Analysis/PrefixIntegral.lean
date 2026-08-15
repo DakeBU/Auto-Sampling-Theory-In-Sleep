@@ -37,6 +37,29 @@ private theorem prefixIntegrand_eq_indicator
   funext s
   simp only [Set.indicator, Set.mem_Iio]
 
+/-- Prefix integration is an ordinary set integral over the active initial
+interval.  This representation exposes the exact measure restriction needed
+for cross-horizon consistency. -/
+theorem prefixIntegral_eq_setIntegral
+    (f : ℝ≥0 → ℝ) (T t : ℝ≥0) :
+    prefixIntegral f T t =
+      ∫ s in Iio (min t T), f s ∂(TimeMeasure.upTo T) := by
+  rw [prefixIntegral, prefixIntegrand_eq_indicator]
+  exact integral_indicator measurableSet_Iio
+
+/-- An earlier prefix integral is independent of which larger finite horizon is
+used as the ambient truncation container. -/
+theorem prefixIntegral_eq_of_le_horizons
+    (f : ℝ≥0 → ℝ) {t T₁ T₂ : ℝ≥0}
+    (ht : t ≤ T₁) (hT : T₁ ≤ T₂) :
+    prefixIntegral f T₁ t = prefixIntegral f T₂ t := by
+  rw [prefixIntegral_eq_setIntegral, prefixIntegral_eq_setIntegral,
+    min_eq_left ht, min_eq_left (ht.trans hT)]
+  change
+    ∫ s, f s ∂((TimeMeasure.upTo T₁).restrict (Iio t)) =
+      ∫ s, f s ∂((TimeMeasure.upTo T₂).restrict (Iio t))
+  rw [TimeMeasure.restrict_upTo_Iio_eq_of_le ht hT]
+
 /-- The prefix integral is continuous in its upper time argument. -/
 theorem continuous_prefixIntegral
     {f : ℝ≥0 → ℝ} {T : ℝ≥0}
