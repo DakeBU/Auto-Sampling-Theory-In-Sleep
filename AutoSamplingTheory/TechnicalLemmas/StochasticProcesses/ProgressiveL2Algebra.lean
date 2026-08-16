@@ -144,6 +144,23 @@ theorem norm_restrictAt_sub_le
   rw [← toLp_restrictAt_sub, ← toLp_sub]
   exact (sub eta xi).norm_restrictAt_le t
 
+/-- Equality in product-space `L2` is preserved by every deterministic time
+restriction.  This is the congruence principle used to turn completed
+integrand identities into process-level Itô identities. -/
+theorem restrictAt_toLp_eq_of_toLp_eq
+    (eta xi : ProgressiveL2Integrand filtration mu T)
+    (hEq : eta.toLp = xi.toLp) (t : ℝ≥0) :
+    (eta.restrictAt t).toLp = (xi.restrictAt t).toLp := by
+  have hle := norm_restrictAt_sub_le eta xi t
+  have hzero : ‖eta.toLp - xi.toLp‖ = 0 := by
+    rw [hEq]
+    simp
+  have hnorm : ‖(eta.restrictAt t).toLp - (xi.restrictAt t).toLp‖ = 0 := by
+    apply le_antisymm
+    · simpa only [hzero] using hle
+    · exact norm_nonneg _
+  exact sub_eq_zero.mp (norm_eq_zero.mp hnorm)
+
 end ProgressiveL2Algebra
 end StochasticProcesses
 end TechnicalLemmas
