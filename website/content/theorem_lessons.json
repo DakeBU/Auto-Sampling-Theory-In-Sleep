@@ -1,0 +1,257 @@
+[
+  {
+    "id": "chewi-proposition-1-1-13-lesson",
+    "section": "1.1",
+    "number": "1.1.13",
+    "source_kind": "Proposition 1.1.13",
+    "title": "Canonical localization by accumulated energy",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=19",
+    "source_page": "book p. 7 / PDF p. 19",
+    "statement_label": "Source-faithful statement · notation normalized",
+    "source_statement": "Let eta be a progressive integrand on a finite horizon [0,T] whose pathwise quadratic energy is finite almost surely. Stop the path when its accumulated energy reaches the integer level n+1, using T if that level is never reached. These canonical stopping times form a localizing sequence, and the corresponding stopped integrands are globally square-integrable.",
+    "why_it_matters": "The general Ito integral from Theorem 1.1.8 requires a global L2 bound. Proposition 1.1.13 is the bridge from Chewi's weaker pathwise local-square-integrability assumption to that global theory: each random energy stop creates an integrand to which the already constructed Ito integral legally applies.",
+    "intuition": "Think of A_t = integral_0^t eta_s^2 ds as an energy meter. The n-th localizer turns the integrand off as soon as the meter reaches n+1. Before that stop, no sample path can have spent more than n+1 units of energy. As n grows, the safety threshold rises, so the stops move later and eventually stop doing anything on every finite-energy path.",
+    "formula": "A_t(omega)=\\int_0^t eta_s(omega)^2\\,ds,\\qquad tau_n(omega)=\\inf\\{t\\le T:A_t(omega)=n+1\\}\\;\\text{with fallback }T.",
+    "source_assumptions": [
+      "a complete right-continuous filtered probability space",
+      "a progressive real integrand eta on [0,T]",
+      "pathwise finite quadratic energy on [0,T], almost surely"
+    ],
+    "formal_contracts": [
+      "SatisfiesUsualConditions filtration mu, so the accumulated-energy path has the completed adapted regularity needed by the hitting-time proof",
+      "IsProbabilityMeasure mu, needed when a pathwise energy bound is integrated over omega to obtain global product-space L2",
+      "LocalProgressiveL2Integrand filtration mu T, which packages the progressive representative and almost-sure local L2 hypothesis without pretending it is globally L2"
+    ],
+    "proof_steps": [
+      {
+        "title": "1. Turn the raw energy integral into a usable process",
+        "text": "For each sample omega, A_t is nonnegative and nondecreasing. ASTIS constructs the completed accumulated-energy process so that t -> A_t(omega) is continuous and the fixed-time field omega -> A_t(omega) is measurable at time t. This is the regularity Chewi's short argument relies on when it speaks about the first energy-hitting time."
+      },
+      {
+        "title": "2. Prove the first energy hit is a stopping time",
+        "text": "Continuity gives the key fixed-time identity: tau_c <= t exactly when either the terminal horizon has already been passed or A_t >= c. Indeed, if A_t has crossed a nonnegative level c, the intermediate value theorem produces an earlier time s <= t with A_s=c. Therefore {tau_c <= t} is measurable using only information available at time t. Specializing c=n+1 proves every tau_n is a stopping time."
+      },
+      {
+        "title": "3. Higher thresholds give later stops",
+        "text": "If c <= d, a path cannot hit the higher energy level d before it has hit c. The equality-level construction plus continuity makes this order argument exact, so tau_n <= tau_{n+1} pathwise."
+      },
+      {
+        "title": "4. Stopping really bounds the quadratic energy",
+        "text": "If level n+1 is reached, continuity gives A_{tau_n}=n+1. If it is never reached before T, the fallback is tau_n=T and necessarily A_T<n+1; otherwise continuity would have produced a hit. Hence in all cases the stopped path has energy at most n+1. The endpoint convention eta_s 1_{s<=tau_n} is harmless for time integration because a singleton time has zero Lebesgue mass."
+      },
+      {
+        "title": "5. Upgrade the pathwise bound to global L2",
+        "text": "The stopped integrand remains progressive. Its squared time integral is bounded by n+1 for every path, so integrating over the probability measure gives finite expected product-space energy. Thus the stopped integrand is a genuine ProgressiveL2Integrand and Theorem 1.1.8 applies to it."
+      },
+      {
+        "title": "6. Show the localizers exhaust the horizon",
+        "text": "On any path with finite terminal energy A_T, choose an integer N>A_T. For every n>=N, level n+1 is unreachable, so tau_n=T. Thus tau_n is eventually exactly T on every good path, hence tau_n -> T almost surely. The four properties together are precisely the canonical localizing-sequence conclusion."
+      }
+    ],
+    "hidden_details": [
+      "A first hitting time is not automatically a stopping time. The proof needs adapted fixed-time energy fields plus path continuity to rewrite the event {tau<=t} in terms of A_t.",
+      "Using the equality level A_t=c, rather than silently using an overshooting time, exposes the intermediate-value theorem and makes the stopped-energy bound exact.",
+      "The source assumption is pathwise local L2, whereas Theorem 1.1.8 needs expected product-space L2. Probability normalization is used only after stopping, when the deterministic n+1 energy bound is integrated over omega.",
+      "Changing 1_{s<tau} to 1_{s<=tau} does not follow by pointwise equality. It is an equality in the time-integral/L2 sense because the stopping graph contributes zero time mass.",
+      "The exceptional set where terminal energy is not finite must be kept separate from the pathwise construction; almost-sure exhaustion follows on the full-measure finite-energy set."
+    ],
+    "foundation_sources": [
+      {
+        "name": "Karatzas--Shreve, Brownian Motion and Stochastic Calculus",
+        "url": "https://link.springer.com/book/10.1007/978-1-4612-0949-2",
+        "scope": "Filtered probability spaces, stopping times, progressively measurable integrands, and the rigorous stochastic-integral domain behind the localization argument."
+      },
+      {
+        "name": "Protter, Stochastic Integration and Differential Equations",
+        "url": "https://link.springer.com/book/10.1007/978-3-662-10061-5",
+        "scope": "Primary supplementary reference for localization and stopping as process-level stochastic-integration machinery."
+      },
+      {
+        "name": "Revuz--Yor, Continuous Martingales and Brownian Motion",
+        "url": "https://link.springer.com/book/10.1007/978-3-662-06400-9",
+        "scope": "Continuous-process hitting times and local-martingale localization viewpoint."
+      },
+      {
+        "name": "Shreve, Stochastic Calculus for Finance II",
+        "url": "https://link.springer.com/book/9780387401010",
+        "scope": "Pedagogical companion for stopping-time intuition and why an energy cutoff converts a local condition into a globally integrable problem."
+      }
+    ],
+    "lean_layers": [
+      {
+        "title": "Energy path regularity",
+        "role": "Make the accumulated energy continuous, monotone, and measurable at deterministic times.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedEnergy.continuous_completedEnergy",
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedEnergy.monotone_completedEnergy"
+        ]
+      },
+      {
+        "title": "Stopping-time construction",
+        "role": "Characterize first hits and prove the canonical integer cutoffs are legal stopping times.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.canonicalEnergyLocalizer_le_iff",
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyStoppingTime.canonicalLocalizingTime_isChewiStoppingTime"
+        ]
+      },
+      {
+        "title": "Energy and exhaustion",
+        "role": "Prove monotonicity, stopped-energy control, and convergence of the cutoff sequence.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.canonicalLocalizingTime_mono",
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.completedEnergy_at_canonicalLocalizingTime_le",
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.tendsto_canonicalLocalizingTime"
+        ]
+      },
+      {
+        "title": "Global L2 packaging",
+        "role": "Convert the stopped pathwise energy bound into the exact L2 type consumed by the Ito integral.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyStoppedProgressiveL2.stoppedProgressiveL2"
+        ]
+      },
+      {
+        "title": "Chewi Proposition 1.1.13",
+        "role": "Assemble the four independent obligations into the source-facing theorem.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalLocalizationTheorem.chewi_proposition_1_1_13"
+        ]
+      }
+    ],
+    "focused_test": "Tests/CanonicalLocalizationTheorem.lean"
+  },
+  {
+    "id": "chewi-proposition-1-1-16-lesson",
+    "section": "1.1",
+    "number": "1.1.16",
+    "source_kind": "Proposition 1.1.16",
+    "title": "The local Ito integral is a continuous local martingale",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=19",
+    "source_page": "book p. 7 / PDF p. 19",
+    "statement_label": "Source-faithful statement · notation normalized",
+    "source_statement": "For a progressive integrand that is locally square-integrable, its Ito integral, defined by localization, is a continuous local martingale.",
+    "why_it_matters": "This proposition is the point where Chewi's local stochastic integral becomes a process with the martingale structure needed by Ito calculus and SDE arguments. It is not enough to know the integral exists separately on bounded deterministic horizons: the localized pieces must be compatible at random stopping times and must glue into one adapted continuous process.",
+    "intuition": "Proposition 1.1.13 gives a sequence of random safety windows on which eta has finite L2 energy. On every such window Theorem 1.1.8 gives an ordinary continuous martingale. Proposition 1.1.16 proves that these martingales are not unrelated copies: whenever two windows overlap, they describe the same stochastic integral path. We can therefore glue them into one continuous process, and the same safety windows certify that this global process is a local martingale.",
+    "formula": "M_t=\\int_0^t eta_s\\,dB_s,\\qquad M_{t\\wedge tau_n}=\\int_0^t eta_s\\mathbf 1_{\\{s\\le tau_n\\}}\\,dB_s.",
+    "source_assumptions": [
+      "a complete right-continuous filtered probability space",
+      "Brownian motion relative to that filtration",
+      "a progressive integrand with finite quadratic energy on every finite horizon almost surely"
+    ],
+    "formal_contracts": [
+      "SatisfiesUsualConditions filtration mu and IsProbabilityMeasure mu",
+      "IsBrownianMotionWithFiltration B filtration mu, not merely a process with the right one-time Gaussian marginals",
+      "GlobalLocalProgressiveL2Integrand filtration mu, which records local square-integrability on a cofinal family of finite horizons",
+      "a chosen global version is constructed only after cross-horizon and stopped-process compatibility are proved"
+    ],
+    "proof_steps": [
+      {
+        "title": "1. Localize eta into the global L2 theory",
+        "text": "For each canonical energy localizer tau_k on a finite dyadic horizon, the stopped integrand eta^k_s=eta_s 1_{s<=tau_k} is progressive and globally L2. Theorem 1.1.8 therefore produces a continuous martingale I^k_t=integral_0^t eta^k_s dB_s."
+      },
+      {
+        "title": "2. Prove stochastic integration commutes with a bounded random stop",
+        "text": "This is the central hidden step. At the elementary level, stopping on a grid is exact finite-sum algebra: the coefficient of each Brownian increment is multiplied by the event that the interval starts before tau. For a general bounded stopping time, approximate tau from the right by dyadic grid times. The whole elementary Ito sum equals evaluation at that right endpoint, and continuity lets the endpoint tend to tau. In parallel, the stopped integrands converge in product-space L2; the Ito isometry transfers that convergence to stochastic integrals. This yields I(eta 1_{s<=tau})_t = I(eta)_{t wedge tau}, first almost everywhere at fixed times and then on one full-measure set for all times by continuity."
+      },
+      {
+        "title": "3. Explain why the endpoint s=tau causes no L2 ambiguity",
+        "text": "The finite-grid algebra naturally produces strict-before-stop coefficients, while Chewi writes a closed stopped integrand. Their difference lives on the stopping graph {(s,omega):s=tau(omega)}. Each time section is a singleton and therefore has zero Lebesgue mass; after proving the graph is measurable, Tonelli gives product-measure zero. Thus the two representatives define the same L2 integrand without claiming literal pointwise equality."
+      },
+      {
+        "title": "4. Make different deterministic horizons compatible",
+        "text": "A global local integrand is assembled from finite-horizon data, so we must also know that integrating on horizon 2^k agrees with integrating on a larger horizon 2^ell when we look only at the earlier stopped window. ASTIS extends the smaller L2 integrand by zero, proves exact L2 overlap, and uses Ito-process congruence/isometry to identify the corresponding stochastic integrals."
+      },
+      {
+        "title": "5. Obtain coherent localized martingales",
+        "text": "For k<=ell, the ell-th continuous martingale stopped at the k-th canonical localizer agrees pathwise almost surely with the k-th martingale throughout the earlier horizon. A countable intersection over k,ell keeps one full-measure event on which every required overlap identity holds simultaneously."
+      },
+      {
+        "title": "6. Glue the pieces into one continuous adapted process",
+        "text": "On the common good set, define M_t by taking any sufficiently large dyadic-horizon localized martingale; overlap consistency makes the choice irrelevant. On the exceptional null set choose a harmless default. The construction proves strong adaptedness and path continuity of the chosen global version rather than assuming that separately defined L2 representatives already form a process."
+      },
+      {
+        "title": "7. Verify the local-martingale definition",
+        "text": "The global canonical localizers increase to infinity almost surely. Stopping M at the k-th localizer recovers the k-th globally square-integrable Ito martingale, so every localization is a genuine martingale. Together with adaptedness and exhaustion, this is exactly Chewi's local-martingale condition; continuity was supplied by the gluing step."
+      }
+    ],
+    "hidden_details": [
+      "A deterministic-time equality I_t(eta^tau)=I_{t wedge tau}(eta) is not enough by itself: a local martingale is a process-level object, so one needs a common full-measure event carrying compatible identities across all times used in the gluing argument.",
+      "Random stopping cannot be justified by treating tau(omega) as a deterministic time inside Theorem 1.1.8. The proof must first establish a stopping theorem for the stochastic integral.",
+      "The strict-versus-closed stopped-integrand convention differs on the stopping graph. Product-measure nullity, not informal endpoint intuition, is what makes the L2 representatives equal.",
+      "L2 limits provide equivalence classes, whereas the proposition claims a continuous local martingale process. Continuous versions and indistinguishability are therefore a separate layer from terminal L2 completion.",
+      "Local constructions on horizons 1,2,4,... do not automatically define one global process. Cross-horizon extension, overlap, and a countable gluing event are required.",
+      "Brownian motion must be Brownian relative to the chosen filtration so future increments have the independence needed by the Ito-isometry and martingale proofs."
+    ],
+    "foundation_sources": [
+      {
+        "name": "Karatzas--Shreve, Brownian Motion and Stochastic Calculus",
+        "url": "https://link.springer.com/book/10.1007/978-1-4612-0949-2",
+        "scope": "Rigorous filtered-space Ito integration, stopping, continuous modifications, and local-martingale background."
+      },
+      {
+        "name": "Protter, Stochastic Integration and Differential Equations",
+        "url": "https://link.springer.com/book/10.1007/978-3-662-10061-5",
+        "scope": "Primary supplementary source for stochastic integration under stopping, localization, and process-level consistency."
+      },
+      {
+        "name": "Revuz--Yor, Continuous Martingales and Brownian Motion",
+        "url": "https://link.springer.com/book/10.1007/978-3-662-06400-9",
+        "scope": "Continuous local martingales, versions/indistinguishability, stopping, and pathwise localization."
+      },
+      {
+        "name": "Shreve, Stochastic Calculus for Finance II",
+        "url": "https://link.springer.com/book/9780387401010",
+        "scope": "Pedagogical companion for seeing a stopped Ito integral as an ordinary martingale before passing back to the local object."
+      }
+    ],
+    "lean_layers": [
+      {
+        "title": "Finite stopping algebra",
+        "role": "Establish exact stopping identities before any limiting argument.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DyadicGridStoppingIto.gridStoppedItoIntegral_eq"
+        ]
+      },
+      {
+        "title": "Random-stop completion",
+        "role": "Pass from dyadic right approximations to arbitrary bounded stopping times in L2 and then at process level.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.RandomStoppingProcessConsistency.itoIntegralProcess_stop_eq_stoppedProcess_pathwise_ae"
+        ]
+      },
+      {
+        "title": "Cross-horizon L2 overlap",
+        "role": "Show smaller stopped integrands are exactly the zero-extended restrictions of larger-horizon ones.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalStoppedL2Overlap.stop_globalStopped_toLp_eq_extendByZero"
+        ]
+      },
+      {
+        "title": "Localized martingales",
+        "role": "Build continuous martingales on each canonical stop and prove their pathwise overlap.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalStoppedItoMartingale.globalStoppedItoProcess_martingale",
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalStoppedItoMartingale.globalStoppedItoProcess_overlap_pathwise_ae"
+        ]
+      },
+      {
+        "title": "Global gluing",
+        "role": "Choose one adapted continuous global version and certify its local-martingale structure.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalItoProcessGluing.globalItoProcess_continuous",
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalItoProcessGluing.globalItoProcess_isLocalMartingale"
+        ]
+      },
+      {
+        "title": "Chewi Proposition 1.1.16",
+        "role": "Expose the source-facing theorem and the stopped-integral representation/localizers used to prove it.",
+        "declarations": [
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiProposition1_1_16.chewi_proposition_1_1_16",
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiProposition1_1_16.chewi_proposition_1_1_16_stopped_integral_representation",
+          "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiProposition1_1_16.chewi_proposition_1_1_16_localizers"
+        ]
+      }
+    ],
+    "focused_test": "Tests/ChewiProposition1_1_16.lean"
+  }
+]
