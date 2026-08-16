@@ -85,7 +85,7 @@ theorem tendsto_globalLocalizingTime_top_of_good
   intro r
   filter_upwards [eventually_lt_globalLocalizingTime_of_good hUsual eta homega r]
     with n hn
-  simpa using hn
+  exact WithTop.coe_lt_coe.mpr hn
 
 /-- The global canonical localizing sequence tends to infinity almost surely.
 This is the exact limiting clause required by `Localization.IsLocalMartingale`. -/
