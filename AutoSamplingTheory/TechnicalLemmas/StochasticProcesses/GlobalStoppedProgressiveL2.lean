@@ -32,9 +32,9 @@ namespace GlobalStoppedProgressiveL2
 open Filter MeasureTheory Set WithTop
 open scoped ENNReal NNReal Topology
 
-open CanonicalRawLocalization CanonicalRawLocalizationL2 CompletedEnergy
-  DyadicGlobalHorizon ElementaryItoIntegral GlobalCanonicalLocalizer
-  GlobalLocalProgressiveL2 ProgressiveL2 StoppingTime
+open CanonicalEnergyLocalizer CanonicalRawLocalization CanonicalRawLocalizationL2
+  CompletedEnergy DyadicGlobalHorizon ElementaryItoIntegral
+  GlobalCanonicalLocalizer GlobalLocalProgressiveL2 ProgressiveL2 StoppingTime
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
@@ -118,12 +118,16 @@ theorem dyadicGlobalLocalizingTime_eq_canonicalRaw_of_good
       omega ∉ badEnergySet
         (eta.onHorizon (integerHorizon (dyadicGlobalIndex k))) :=
     not_bad_on_integerHorizon eta homega (dyadicGlobalIndex k)
+  have hlocal' :
+      omega ∉ badEnergySet (eta.onHorizon (dyadicHorizon k)) := by
+    rw [← integerHorizon_dyadicGlobalIndex k]
+    exact hlocal
   unfold dyadicGlobalLocalizingTime
   rw [globalLocalizingTime_of_good hUsual eta (dyadicGlobalIndex k) homega]
   rw [canonicalRawLocalizingTime_of_good hUsual
     (eta.onHorizon (dyadicHorizon k)) (dyadicGlobalIndex k)]
   · simp only [integerHorizon_dyadicGlobalIndex, canonicalLocalizingTime]
-  · simpa only [integerHorizon_dyadicGlobalIndex] using hlocal
+  · exact hlocal'
 
 /-- Pathwise stopped energy is bounded by the matching finite canonical level.
 The statement uses exactly the stopped time measure `upTo H_k` used by the
