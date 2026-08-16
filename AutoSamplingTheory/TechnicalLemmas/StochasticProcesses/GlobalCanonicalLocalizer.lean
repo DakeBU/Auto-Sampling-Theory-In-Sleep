@@ -161,7 +161,9 @@ theorem globalLocalizingTime_isChewiStoppingTime
     ext omega
     by_cases homega : omega ∈ globalBadSet eta
     · simp [globalLocalizingTime, homega]
+      exact_mod_cast t.property
     · simp [globalLocalizingTime, homega]
+      norm_cast
   rw [heq]
   exact hbad.union (hbad.compl.inter hcan)
 
