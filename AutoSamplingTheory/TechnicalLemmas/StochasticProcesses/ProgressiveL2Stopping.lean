@@ -69,7 +69,12 @@ theorem stoppedIntegrand_stronglyProgressive
       {p | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2} := by
     convert hsetMin using 1
     ext p
-    simp [p.1.property]
+    constructor
+    · intro hptau
+      apply le_min hptau
+      exact_mod_cast p.1.property
+    · intro hpmin
+      exact hpmin.trans (min_le_left _ _)
   exact StronglyMeasurable.ite hset (eta.progressive i) stronglyMeasurable_const
 
 /-- The closed stopped integrand remains in product-space `L²`. -/
