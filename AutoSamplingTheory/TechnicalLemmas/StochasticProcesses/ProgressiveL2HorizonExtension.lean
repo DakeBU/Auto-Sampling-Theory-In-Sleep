@@ -85,11 +85,8 @@ theorem norm_extendByZero_eq [SFinite mu]
     ‖(extendByZero eta hT).toLp‖ = ‖eta.toLp‖ := by
   rw [ProgressiveL2Integrand.toLp, ProgressiveL2Integrand.toLp,
     Lp.norm_toLp, Lp.norm_toLp]
-  change eLpNorm
-      (processFunction (ProgressiveL2Integrand.restrictProcess T₁ eta.process))
-      2 (processTimeMeasure mu T₂) =
-    eLpNorm (processFunction eta.process) 2 (processTimeMeasure mu T₁)
-  rw [processFunction_restrictProcess_eq_indicator,
+  rw [extendByZero_process,
+    processFunction_restrictProcess_eq_indicator,
     eLpNorm_indicator_eq_eLpNorm_restrict
       (measurableSet_horizonPrefix (Omega := Omega) T₁),
     restrict_processTimeMeasure_horizonPrefix (mu := mu) hT]
