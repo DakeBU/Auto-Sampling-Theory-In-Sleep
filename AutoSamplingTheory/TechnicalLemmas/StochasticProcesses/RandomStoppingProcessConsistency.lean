@@ -207,24 +207,23 @@ theorem itoIntegralProcess_stop_eq_stoppedProcess_ae [IsFiniteMeasure mu]
     rw [min_eq_left h', min_eq_right hTop]
     rfl
 
-/-- Finite-valued stopped processes can be evaluated without `untopA`: they
-are ordinary composition with `t ↦ min t (tau omega)`. -/
+/-- Finite-valued stopped processes can be evaluated without exposing
+`WithTop.untopA`: split at the stopping time and use Mathlib's stopped-process
+API directly. -/
 theorem stoppedProcess_coe_apply
     (u : ℝ≥0 → Omega → ℝ) (tau : Omega → ℝ≥0)
     (t : ℝ≥0) (omega : Omega) :
     stoppedProcess u (fun w => (tau w : WithTop ℝ≥0)) t omega =
       u (min t (tau omega)) omega := by
-  unfold stoppedProcess
   by_cases h : t ≤ tau omega
   · have hTop : (t : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0) :=
       coe_le_coe.mpr h
-    rw [min_eq_left hTop, untopA_coe]
-    exact congrArg (fun s => u s omega) (min_eq_left h).symm
+    rw [stoppedProcess_eq_of_le hTop, min_eq_left h]
   · have h' : tau omega ≤ t := le_of_not_ge h
     have hTop : (tau omega : WithTop ℝ≥0) ≤ (t : WithTop ℝ≥0) :=
       coe_le_coe.mpr h'
-    rw [min_eq_right hTop, untopA_coe]
-    exact congrArg (fun s => u s omega) (min_eq_right h').symm
+    rw [stoppedProcess_eq_of_ge hTop, min_eq_right h']
+    rfl
 
 /-- **Pathwise bounded random-stopping identity.**
 
@@ -267,8 +266,8 @@ theorem itoIntegralProcess_stop_eq_stoppedProcess_pathwise_ae
     apply hcomp.continuousOn.congr
     intro t _
     simpa only [J] using
-      (stoppedProcess_coe_apply
-        (itoIntegralProcess eta hT hB hUsual) tau t omega).symm
+      stoppedProcess_coe_apply
+        (itoIntegralProcess eta hT hB hUsual) tau t omega
   have hJterminal : ∀ t ≤ T,
       J t =ᵐ[mu] fun omega =>
         itoIntegralTerminal (stoppedEta.restrictAt t) hT hB omega := by
@@ -279,9 +278,12 @@ theorem itoIntegralProcess_stop_eq_stoppedProcess_pathwise_ae
     have hterminal :=
       itoIntegralProcess_at_eq_terminal stoppedEta hT hB hUsual ht
     exact hstop.symm.trans hterminal
-  simpa only [stoppedEta, J] using
+  have huniq :=
     itoIntegralProcess_unique stoppedEta hT hB hUsual
       J hJadapted hJcontinuous hJterminal
+  filter_upwards [huniq] with omega homega
+  intro t ht
+  simpa only [stoppedEta, J] using (homega t ht).symm
 
 end RandomStoppingProcessConsistency
 end StochasticProcesses
