@@ -160,10 +160,29 @@ theorem globalLocalizingTime_isChewiStoppingTime
                 (eta.onHorizon (integerHorizon n)) (n + 1 : ℝ) omega ≤ t}) := by
     ext omega
     by_cases homega : omega ∈ globalBadSet eta
-    · simp [globalLocalizingTime, homega]
-      exact_mod_cast t.property
-    · simp [globalLocalizingTime, homega]
-      norm_cast
+    · constructor
+      · intro _
+        exact Or.inl homega
+      · intro _
+        rw [globalLocalizingTime_of_bad hUsual eta n homega]
+        exact bot_le
+    · constructor
+      · intro hleft
+        rw [globalLocalizingTime_of_good hUsual eta n homega] at hleft
+        have hfinite :
+            canonicalEnergyLocalizer hUsual
+              (eta.onHorizon (integerHorizon n)) (n + 1 : ℝ) omega ≤ t :=
+          WithTop.coe_le_coe.mp hleft
+        exact Or.inr ⟨homega, hfinite⟩
+      · intro hright
+        have hfinite :
+            canonicalEnergyLocalizer hUsual
+              (eta.onHorizon (integerHorizon n)) (n + 1 : ℝ) omega ≤ t := by
+          rcases hright with hbad' | ⟨_, hcan'⟩
+          · exact False.elim (homega hbad')
+          · exact hcan'
+        rw [globalLocalizingTime_of_good hUsual eta n homega]
+        exact WithTop.coe_le_coe.mpr hfinite
   rw [heq]
   exact hbad.union (hbad.compl.inter hcan)
 
