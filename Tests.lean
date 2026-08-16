@@ -52,6 +52,8 @@ import Tests.DyadicGlobalHorizon
 import Tests.GlobalStoppedProgressiveL2
 import Tests.GlobalStoppedL2Overlap
 import Tests.GlobalStoppedItoMartingale
+import Tests.GlobalItoProcessGluing
+import Tests.ChewiProposition1_1_16
 import Tests.RandomStoppingDyadicApprox
 import Tests.RandomStoppingBoundary
 import Tests.RandomStoppingProcessApprox
