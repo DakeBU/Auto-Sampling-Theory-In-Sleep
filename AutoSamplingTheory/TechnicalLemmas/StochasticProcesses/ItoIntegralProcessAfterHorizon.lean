@@ -87,8 +87,12 @@ theorem itoIntegralProcess_continuous
     exact le_total t T
   rw [huniv]
   apply ContinuousOn.union_of_isClosed
-  · simpa only [Set.Icc_bot] using
-      itoIntegralProcess_continuousOn eta hT hB hUsual omega
+  · have hleft := itoIntegralProcess_continuousOn eta hT hB hUsual omega
+    have hset : Set.Icc (0 : ℝ≥0) T = Set.Iic T := by
+      ext t
+      simp
+    rw [hset] at hleft
+    exact hleft
   · have hconst : ContinuousOn
         (fun _ : ℝ≥0 => itoIntegralProcess eta hT hB hUsual T omega)
         (Set.Ici T) := continuousOn_const
