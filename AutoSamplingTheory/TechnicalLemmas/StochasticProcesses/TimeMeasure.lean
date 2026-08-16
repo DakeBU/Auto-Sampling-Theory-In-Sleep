@@ -196,6 +196,20 @@ theorem ae_le_terminal (T : ℝ≥0) : ∀ᵐ s ∂upTo T, s ≤ T := by
   filter_upwards [ae_mem_Ioc_zero_upTo T] with s hs
   exact hs.2
 
+/-- The terminal endpoint itself is null, so almost every stopped time is
+strictly before `T`. -/
+theorem ae_lt_terminal (T : ℝ≥0) : ∀ᵐ s ∂upTo T, s < T := by
+  have hne : ∀ᵐ s ∂upTo T, s ∉ ({T} : Set ℝ≥0) :=
+    measure_eq_zero_iff_ae_notMem.mp (upTo_singleton T T)
+  filter_upwards [ae_le_terminal T, hne] with s hs hsne
+  exact lt_of_le_of_ne hs (by simpa only [mem_singleton_iff] using hsne)
+
+/-- Restricting `[0,T]` to the open terminal prefix `[0,T)` changes nothing,
+because the omitted endpoint has zero Lebesgue mass. -/
+theorem restrict_upTo_Iio_terminal (T : ℝ≥0) :
+    (upTo T).restrict (Iio T) = upTo T :=
+  Measure.restrict_eq_self_of_ae_mem (ae_lt_terminal T)
+
 end TimeMeasure
 end StochasticProcesses
 end TechnicalLemmas
