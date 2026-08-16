@@ -57,7 +57,8 @@ theorem minStoppingValue_isChewiStoppingTime
     (t : ℝ≥0) :
     IsChewiStoppingTime filtration
       (fun omega => (min (tau omega) t : WithTop ℝ≥0)) := by
-  simpa only [Pi.inf_apply, coe_min] using htau.min_const t
+  intro s
+  simpa only [Pi.inf_apply, coe_min] using (htau.min_const t) s
 
 /-- Restricting a closed stopped integrand at deterministic time `t` is the
 same element of product-space `L²` as stopping the original integrand at
@@ -92,8 +93,9 @@ theorem restrictAt_stop_toLp_eq_stop_min
           (z.2 : WithTop ℝ≥0) ≤
             min (tau z.1 : WithTop ℝ≥0) (t : WithTop ℝ≥0) :=
         le_min htauTop htTop
-      simp [ProgressiveL2Integrand.restrictProcess, stoppedIntegrand,
-        hst, htauTop, hminTop]
+      simp only [ProgressiveL2Integrand.restrictProcess, if_pos hst,
+        stoppedIntegrand]
+      rw [if_pos htauTop, if_pos hminTop]
     · have hnotTauTop :
           ¬ (z.2 : WithTop ℝ≥0) ≤ (tau z.1 : WithTop ℝ≥0) := by
         simpa only [coe_le_coe] using hstau
@@ -102,8 +104,9 @@ theorem restrictAt_stop_toLp_eq_stop_min
             min (tau z.1 : WithTop ℝ≥0) (t : WithTop ℝ≥0) := by
         intro hmin
         exact hnotTauTop (hmin.trans (min_le_left _ _))
-      simp [ProgressiveL2Integrand.restrictProcess, stoppedIntegrand,
-        hst, hnotTauTop, hnotMinTop]
+      simp only [ProgressiveL2Integrand.restrictProcess, if_pos hst,
+        stoppedIntegrand]
+      rw [if_neg hnotTauTop, if_neg hnotMinTop]
   · have hts : t < z.2 :=
       lt_of_le_of_ne (le_of_not_gt hst) (Ne.symm hzne)
     have hnotTTop :
@@ -114,8 +117,9 @@ theorem restrictAt_stop_toLp_eq_stop_min
           min (tau z.1 : WithTop ℝ≥0) (t : WithTop ℝ≥0) := by
       intro hmin
       exact hnotTTop (hmin.trans (min_le_right _ _))
-    simp [ProgressiveL2Integrand.restrictProcess, stoppedIntegrand,
-      hst, hnotMinTop]
+    simp only [ProgressiveL2Integrand.restrictProcess, if_neg hst,
+      stoppedIntegrand]
+    rw [if_neg hnotMinTop]
 
 /-- **Process-level bounded random-stopping identity.**
 
@@ -193,12 +197,12 @@ theorem itoIntegralProcess_stop_eq_stoppedProcess_ae [IsFiniteMeasure mu]
   · have hTop : (t : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0) :=
       coe_le_coe.mpr h
     rw [min_eq_right h, min_eq_left hTop]
-    simp
+    rfl
   · have h' : tau omega ≤ t := le_of_not_ge h
     have hTop : (tau omega : WithTop ℝ≥0) ≤ (t : WithTop ℝ≥0) :=
       coe_le_coe.mpr h'
     rw [min_eq_left h', min_eq_right hTop]
-    simp
+    rfl
 
 end RandomStoppingProcessConsistency
 end StochasticProcesses
