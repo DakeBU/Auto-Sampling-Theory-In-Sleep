@@ -37,7 +37,7 @@ theorem measurableSet_horizonPrefix (T : ℝ≥0) :
 /-- Restricting the larger process-time measure to the strict smaller prefix
 recovers the smaller process-time measure exactly.  The only omitted point is
 the terminal slice, which is time-null. -/
-theorem restrict_processTimeMeasure_horizonPrefix
+theorem restrict_processTimeMeasure_horizonPrefix [SFinite mu]
     (hT : T₁ ≤ T₂) :
     (processTimeMeasure mu T₂).restrict (horizonPrefix (Omega := Omega) T₁) =
       processTimeMeasure mu T₁ := by
@@ -61,7 +61,7 @@ theorem processFunction_restrictProcess_eq_indicator
 
 /-- Extend a progressive `L²` integrand from `T₁` to `T₂ ≥ T₁` by zero after
 `T₁`. -/
-noncomputable def extendByZero
+noncomputable def extendByZero [SFinite mu]
     (eta : ProgressiveL2Integrand filtration mu T₁) (hT : T₁ ≤ T₂) :
     ProgressiveL2Integrand filtration mu T₂ where
   process := ProgressiveL2Integrand.restrictProcess T₁ eta.process
@@ -73,26 +73,29 @@ noncomputable def extendByZero
     rw [restrict_processTimeMeasure_horizonPrefix (mu := mu) hT]
     exact eta.memLp
 
-@[simp] theorem extendByZero_process
+@[simp] theorem extendByZero_process [SFinite mu]
     (eta : ProgressiveL2Integrand filtration mu T₁) (hT : T₁ ≤ T₂) :
     (extendByZero eta hT).process =
       ProgressiveL2Integrand.restrictProcess T₁ eta.process :=
   rfl
 
 /-- Zero extension preserves the product-space `L²` norm exactly. -/
-theorem norm_extendByZero_eq
+theorem norm_extendByZero_eq [SFinite mu]
     (eta : ProgressiveL2Integrand filtration mu T₁) (hT : T₁ ≤ T₂) :
     ‖(extendByZero eta hT).toLp‖ = ‖eta.toLp‖ := by
   rw [ProgressiveL2Integrand.toLp, ProgressiveL2Integrand.toLp,
     Lp.norm_toLp, Lp.norm_toLp]
-  congr 1
+  change eLpNorm
+      (processFunction (ProgressiveL2Integrand.restrictProcess T₁ eta.process))
+      2 (processTimeMeasure mu T₂) =
+    eLpNorm (processFunction eta.process) 2 (processTimeMeasure mu T₁)
   rw [processFunction_restrictProcess_eq_indicator,
     eLpNorm_indicator_eq_eLpNorm_restrict
       (measurableSet_horizonPrefix (Omega := Omega) T₁),
     restrict_processTimeMeasure_horizonPrefix (mu := mu) hT]
 
 /-- Zero extension commutes with subtraction in `L²`. -/
-theorem extendByZero_sub_toLp
+theorem extendByZero_sub_toLp [SFinite mu]
     (eta xi : ProgressiveL2Integrand filtration mu T₁) (hT : T₁ ≤ T₂) :
     (extendByZero (sub eta xi) hT).toLp =
       (sub (extendByZero eta hT) (extendByZero xi hT)).toLp := by
@@ -106,7 +109,7 @@ theorem extendByZero_sub_toLp
       sub, processFunction, hz]
 
 /-- Zero extension is an isometry for the product-space `L²` distance. -/
-theorem norm_extendByZero_sub_extendByZero_eq
+theorem norm_extendByZero_sub_extendByZero_eq [SFinite mu]
     (eta xi : ProgressiveL2Integrand filtration mu T₁) (hT : T₁ ≤ T₂) :
     ‖(extendByZero eta hT).toLp - (extendByZero xi hT).toLp‖ =
       ‖eta.toLp - xi.toLp‖ := by
