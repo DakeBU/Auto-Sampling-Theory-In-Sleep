@@ -21,6 +21,7 @@ open scoped BigOperators NNReal
 
 open BrownianMotion DyadicElementaryRefinement DyadicGlobalHorizon
   DyadicHorizonExtension ElementaryItoIntegral ProgressiveL2Density
+  SampledElementaryApproximation
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega}
@@ -69,6 +70,7 @@ theorem old_time_le_horizon
     exact regularDyadic_last_time _ _
   exact (q.process.times_strictMono.monotone (Fin.le_last i)).trans_eq hlast
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Left endpoint of an old cell is unchanged in the enlarged grid. -/
 theorem extend_time_castSucc_eq
     {a b : ℕ} (hab : a ≤ b)
@@ -82,6 +84,7 @@ theorem extend_time_castSucc_eq
   simp only [regularGridTimes, Fin.val_castSucc, prefixIndex_val]
   rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Right endpoint of an old cell is unchanged in the enlarged grid. -/
 theorem extend_time_succ_eq
     {a b : ℕ} (hab : a ≤ b)
