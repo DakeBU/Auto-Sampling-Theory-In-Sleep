@@ -1,16 +1,19 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.RandomStoppingGeneralIto
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoIntegralProcessAfterHorizon
 
 /-!
 # Process-level random stopping consistency
 
 The terminal random-stopping identity is not yet enough for localization: a
 local martingale is defined by stopping the whole process.  This module upgrades
-the completed terminal theorem to the deterministic-time process identity
+the completed terminal theorem to the process identity
 
-`I(eta stopped at tau)_t = I(eta)_{t ∧ tau}`
+`I(eta stopped at tau)_t = I(eta)_{t ∧ tau}`.
 
-almost surely for every `t ≤ T`.
+We first prove it almost surely at every deterministic `t ≤ T`, and then use
+the already-constructed continuous versions to obtain one full-measure event
+on which the identity holds simultaneously for every `t ∈ [0,T]`.
 
 The only extra analytic point is the harmless deterministic boundary at time
 `t`: `ProgressiveL2Integrand.restrictAt` uses the strict convention `s < t`,
@@ -27,9 +30,9 @@ namespace RandomStoppingProcessConsistency
 open Filter MeasureTheory Set WithTop
 open scoped NNReal Topology
 
-open BrownianMotion ElementaryItoIntegral ItoIntegralProcess ItoTerminalCompletion
-  ProgressiveL2 ProgressiveL2Algebra ProgressiveL2Stopping
-  RandomStoppingGeneralIto StoppingTime
+open BrownianMotion ElementaryItoIntegral ItoIntegralProcess
+  ItoIntegralProcessAfterHorizon ItoTerminalCompletion ProgressiveL2
+  ProgressiveL2Algebra ProgressiveL2Stopping RandomStoppingGeneralIto StoppingTime
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
@@ -203,6 +206,82 @@ theorem itoIntegralProcess_stop_eq_stoppedProcess_ae [IsFiniteMeasure mu]
       coe_le_coe.mpr h'
     rw [min_eq_left h', min_eq_right hTop]
     rfl
+
+/-- Finite-valued stopped processes can be evaluated without `untopA`: they
+are ordinary composition with `t ↦ min t (tau omega)`. -/
+theorem stoppedProcess_coe_apply
+    (u : ℝ≥0 → Omega → ℝ) (tau : Omega → ℝ≥0)
+    (t : ℝ≥0) (omega : Omega) :
+    stoppedProcess u (fun w => (tau w : WithTop ℝ≥0)) t omega =
+      u (min t (tau omega)) omega := by
+  unfold stoppedProcess
+  by_cases h : t ≤ tau omega
+  · have hTop : (t : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0) :=
+      coe_le_coe.mpr h
+    rw [min_eq_left hTop, untopA_coe]
+    exact congrArg (fun s => u s omega) (min_eq_left h).symm
+  · have h' : tau omega ≤ t := le_of_not_ge h
+    have hTop : (tau omega : WithTop ℝ≥0) ≤ (t : WithTop ℝ≥0) :=
+      coe_le_coe.mpr h'
+    rw [min_eq_right hTop, untopA_coe]
+    exact congrArg (fun s => u s omega) (min_eq_right h').symm
+
+/-- **Pathwise bounded random-stopping identity.**
+
+On one full-measure event, the completed Itô process of the stopped integrand
+and the stopped continuous Itô process agree simultaneously at every time in
+`[0,T]`. -/
+theorem itoIntegralProcess_stop_eq_stoppedProcess_pathwise_ae
+    [IsFiniteMeasure mu]
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (tau : Omega → ℝ≥0)
+    (htau : IsChewiStoppingTime filtration
+      (fun omega => (tau omega : WithTop ℝ≥0)))
+    (htauT : ∀ omega, tau omega ≤ T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu) :
+    ∀ᵐ omega ∂mu, ∀ t ∈ Icc (0 : ℝ≥0) T,
+      itoIntegralProcess
+          (stop eta (fun omega => (tau omega : WithTop ℝ≥0)) htau)
+          hT hB hUsual t omega =
+        stoppedProcess (itoIntegralProcess eta hT hB hUsual)
+          (fun omega => (tau omega : WithTop ℝ≥0)) t omega := by
+  let stoppedEta := stop eta (fun omega => (tau omega : WithTop ℝ≥0)) htau
+  let J : ℝ≥0 → Omega → ℝ :=
+    stoppedProcess (itoIntegralProcess eta hT hB hUsual)
+      (fun omega => (tau omega : WithTop ℝ≥0))
+  have hBaseAdapted : StronglyAdapted filtration
+      (itoIntegralProcess eta hT hB hUsual) :=
+    itoIntegralProcess_stronglyAdapted eta hT hB hUsual
+  have hBaseContinuous : ∀ omega,
+      Continuous (fun t => itoIntegralProcess eta hT hB hUsual t omega) :=
+    itoIntegralProcess_continuous eta hT hB hUsual
+  have hJadapted : StronglyAdapted filtration J := by
+    simpa only [J] using hBaseAdapted.stoppedProcess hBaseContinuous htau
+  have hJcontinuous : ∀ᵐ omega ∂mu,
+      ContinuousOn (fun t => J t omega) (Icc (0 : ℝ≥0) T) := by
+    filter_upwards [] with omega
+    have hmin : Continuous (fun t : ℝ≥0 => min t (tau omega)) :=
+      continuous_id.min continuous_const
+    have hcomp := (hBaseContinuous omega).comp hmin
+    apply hcomp.continuousOn.congr
+    intro t _
+    simpa only [J] using
+      (stoppedProcess_coe_apply
+        (itoIntegralProcess eta hT hB hUsual) tau t omega).symm
+  have hJterminal : ∀ t ≤ T,
+      J t =ᵐ[mu] fun omega =>
+        itoIntegralTerminal (stoppedEta.restrictAt t) hT hB omega := by
+    intro t ht
+    have hstop :=
+      itoIntegralProcess_stop_eq_stoppedProcess_ae
+        eta hT tau htau htauT hB hUsual ht
+    have hterminal :=
+      itoIntegralProcess_at_eq_terminal stoppedEta hT hB hUsual ht
+    exact hstop.symm.trans hterminal
+  simpa only [stoppedEta, J] using
+    itoIntegralProcess_unique stoppedEta hT hB hUsual
+      J hJadapted hJcontinuous hJterminal
 
 end RandomStoppingProcessConsistency
 end StochasticProcesses
