@@ -26,6 +26,7 @@ import Tests.ItoTerminalCompletion
 import Tests.ItoHorizonConsistency
 import Tests.ItoHorizonProcessConsistency
 import Tests.ItoIntegralProcess
+import Tests.ItoIntegralProcessAfterHorizon
 import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
 import Tests.LangevinCarreDuChamp
