@@ -262,7 +262,6 @@ theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
             ((2 ^ q.level : ℕ) : ℝ≥0) *
               dyadicMesh (dyadicHorizon a) q.level := by
                 gcongr
-                exact_mod_cast hjSucc
         _ = dyadicHorizon a := by
               rw [dyadicMesh]
               have hden : ((2 ^ q.level : ℕ) : ℝ≥0) ≠ 0 := by positivity
