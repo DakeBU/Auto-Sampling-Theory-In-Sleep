@@ -126,7 +126,8 @@ theorem dyadicGlobalLocalizingTime_eq_canonicalRaw_of_good
   rw [globalLocalizingTime_of_good hUsual eta (dyadicGlobalIndex k) homega]
   rw [canonicalRawLocalizingTime_of_good hUsual
     (eta.onHorizon (dyadicHorizon k)) (dyadicGlobalIndex k)]
-  · simp only [integerHorizon_dyadicGlobalIndex, canonicalLocalizingTime]
+  · simp only [canonicalLocalizingTime]
+    rw [integerHorizon_dyadicGlobalIndex k]
   · exact hlocal'
 
 /-- Pathwise stopped energy is bounded by the matching finite canonical level.
