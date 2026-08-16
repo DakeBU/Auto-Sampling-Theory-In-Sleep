@@ -78,7 +78,10 @@ theorem extend_time_castSucc_eq
         (prefixIndex hab q i).castSucc =
       q.process.times i.castSucc := by
   rw [extendDyadicHorizon_times]
-  simpa [prefixIndex] using (prefix_time_eq hab q i.castSucc).symm
+  have hp := (prefix_time_eq hab q i.castSucc).symm
+  convert hp using 1
+  apply Fin.ext
+  rfl
 
 /-- Right endpoint of an old cell is unchanged in the enlarged grid. -/
 theorem extend_time_succ_eq
@@ -89,7 +92,10 @@ theorem extend_time_succ_eq
         (prefixIndex hab q i).succ =
       q.process.times i.succ := by
   rw [extendDyadicHorizon_times]
-  simpa [prefixIndex] using (prefix_time_eq hab q i.succ).symm
+  have hp := (prefix_time_eq hab q i.succ).symm
+  convert hp using 1
+  apply Fin.ext
+  rfl
 
 /-- **Exact finite-sum cross-horizon identity.**  Extending a dyadic elementary
 integrand from `2^a` to `2^b` by zero leaves its terminal Itô integral
@@ -115,26 +121,28 @@ theorem extendDyadicHorizon_elementaryItoIntegral_eq
           B (min (q.process.times i.castSucc) (dyadicHorizon a)) omega)
   apply fin_sum_eq_sum_prefix_of_tail_zero hNM
   · intro i
+    have hidx : i.castLE hNM = prefixIndex hab q i := by
+      apply Fin.ext
+      rfl
+    rw [hidx]
+    have hprefixLt : (prefixIndex hab q i).val < 2 ^ q.level := by
+      simpa using i.isLt
     have hcoeff :
-        (extendDyadicHorizon hab q).process.coeff (i.castLE hNM) omega =
+        (extendDyadicHorizon hab q).process.coeff (prefixIndex hab q i) omega =
           q.process.coeff i omega := by
-      have hp := extendDyadicHorizon_coeff_prefix hab q (i.castLE hNM)
-        (by simpa using i.isLt) omega
-      simpa using hp
+      have hp := extendDyadicHorizon_coeff_prefix hab q (prefixIndex hab q i)
+        hprefixLt omega
+      convert hp using 1
+      apply congrArg (fun j : Fin (2 ^ q.level) => q.process.coeff j omega)
+      apply Fin.ext
+      rfl
     have hleft := extend_time_castSucc_eq hab q i
     have hright := extend_time_succ_eq hab q i
     have hleftOld := old_time_le_horizon q i.castSucc
     have hrightOld := old_time_le_horizon q i.succ
     have hleftBig := hleftOld.trans (dyadicHorizon_mono hab)
     have hrightBig := hrightOld.trans (dyadicHorizon_mono hab)
-    rw [hcoeff]
-    change
-      q.process.coeff i omega *
-          (B (min ((extendDyadicHorizon hab q).process.times
-                    (prefixIndex hab q i).succ) (dyadicHorizon b)) omega -
-            B (min ((extendDyadicHorizon hab q).process.times
-                    (prefixIndex hab q i).castSucc) (dyadicHorizon b)) omega) = _
-    rw [hright, hleft, min_eq_left hrightBig, min_eq_left hleftBig,
+    rw [hcoeff, hright, hleft, min_eq_left hrightBig, min_eq_left hleftBig,
       min_eq_left hrightOld, min_eq_left hleftOld]
   · intro j hj
     rw [extendDyadicHorizon_coeff_tail hab q j hj omega]
