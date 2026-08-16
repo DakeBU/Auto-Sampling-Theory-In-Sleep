@@ -129,13 +129,15 @@ theorem chewi_definition_1_1_17_coordinate_display
 `Fin d` and Brownian coordinates `Fin N`. -/
 abbrev ChewiItoData (d N : ℕ)
     (filtration : Filtration ℝ≥0 m) (mu : Measure Omega) :=
-  CoordinateItoData (Omega := Omega) filtration mu (Fin d) (Fin N)
+  CoordinateItoData (Omega := Omega) (filtration := filtration) (mu := mu)
+    (Fin d) (Fin N)
 
 /-- Integration-facing Brownian-coordinate contract for the literal `N`
 coordinates in Chewi Definition 1.1.17. -/
 abbrev ChewiBrownianCoordinates (N : ℕ)
     (filtration : Filtration ℝ≥0 m) (mu : Measure Omega) :=
-  CoordinateBrownianFamilyWithFiltration (Omega := Omega) filtration mu (Fin N)
+  CoordinateBrownianFamilyWithFiltration (Omega := Omega)
+    (filtration := filtration) (mu := mu) (Fin N)
 
 end FiniteDimensionalItoProcess
 end StochasticProcesses
