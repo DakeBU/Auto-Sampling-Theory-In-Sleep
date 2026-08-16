@@ -9,6 +9,7 @@ import Tests.DyadicElementaryRefinement
 import Tests.DyadicElementaryStopping
 import Tests.DyadicGridStoppingIto
 import Tests.DyadicHorizonExtension
+import Tests.DyadicHorizonIto
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
 import Tests.ElementaryItoEmbedding
