@@ -29,7 +29,9 @@ example [IsProbabilityMeasure mu]
       (dyadicGlobalLocalizingTime_isChewiStoppingTime hUsual eta k)).toLp =
       (ProgressiveL2HorizonExtension.extendByZero
         (globalStoppedProgressiveL2 hUsual eta k)
-        (DyadicHorizonExtension.dyadicHorizon_mono hkell)).toLp :=
+        (by
+          unfold dyadicHorizon
+          exact_mod_cast Nat.pow_le_pow_right (by decide : 0 < (2 : ℕ)) hkell)).toLp :=
   stop_globalStopped_toLp_eq_extendByZero hUsual eta hkell
 
 end AutoSamplingTheory.Tests.GlobalStoppedL2Overlap
