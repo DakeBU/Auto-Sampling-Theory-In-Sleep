@@ -67,6 +67,7 @@ import Tests.CanonicalRawLocalization
 import Tests.CanonicalRawLocalizationL2
 import Tests.CompletedIntegrand
 import Tests.EnergyStoppedIntegrand
+import Tests.EnergyStoppingBoundaryBridge
 import Tests.EnergyStoppedProgressiveL2
 import Tests.CanonicalLocalizationTheorem
 import Tests.CanonicalStoppedItoIntegral
