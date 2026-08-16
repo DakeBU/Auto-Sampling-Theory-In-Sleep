@@ -39,6 +39,7 @@ import Tests.ProgressiveL2Algebra
 import Tests.ProgressiveL2Truncation
 import Tests.ProgressiveL2Stopping
 import Tests.GlobalLocalProgressiveL2
+import Tests.GlobalCanonicalLocalizerLimit
 import Tests.RandomStoppingDyadicApprox
 import Tests.RandomStoppingBoundary
 import Tests.RandomStoppingProcessApprox
