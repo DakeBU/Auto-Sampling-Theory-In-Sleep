@@ -40,7 +40,7 @@ namespace FiniteDimensionalItoProcess
 open MeasureTheory
 open scoped BigOperators NNReal
 
-open BrownianMotion GlobalItoProcessGluing GlobalLocalProgressiveL2
+open BrownianMotion GlobalItoProcessGluing GlobalLocalProgressiveL2 ProgressiveL2
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega}
