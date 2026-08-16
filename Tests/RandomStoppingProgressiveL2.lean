@@ -40,4 +40,4 @@ example [IsFiniteMeasure mu]
         (fun w => (tau w : WithTop ℝ≥0)) :=
   stoppedProgressiveL2_process eta tau htau htauT
 
-end AutoSamplingTheory.Tests.RandomStoppingProgressiveL2
+end

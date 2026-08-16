@@ -33,4 +33,4 @@ example [IsFiniteMeasure mu]
   itoIntegralTerminal_stopped_elementary_ae
     eta tau htau htauT hT hB
 
-end AutoSamplingTheory.Tests.RandomStoppingItoTerminal
+end

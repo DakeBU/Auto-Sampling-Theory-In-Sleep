@@ -30,4 +30,4 @@ example
     ‖etaStop.toLp - xiStop.toLp‖ ≤ ‖eta.toLp - xi.toLp‖ :=
   norm_stopped_sub_le eta xi etaStop xiStop tau hetaStop hxiStop
 
-end AutoSamplingTheory.Tests.RandomStoppingL2Contraction
+end

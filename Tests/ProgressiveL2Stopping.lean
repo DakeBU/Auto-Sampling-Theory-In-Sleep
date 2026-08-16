@@ -34,4 +34,4 @@ example
       ‖eta.toLp - xi.toLp‖ :=
   norm_stop_sub_stop_le eta xi tau htau
 
-end AutoSamplingTheory.Tests.ProgressiveL2Stopping
+end

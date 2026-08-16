@@ -72,7 +72,8 @@ theorem tendsto_stoppedCanonical_terminal [IsFiniteMeasure mu]
   apply tendsto_iff_norm_sub_tendsto_zero.mpr
   have hstop := tendsto_stoppedCanonical_toLp eta hT tau htau htauT
   have hnorm := tendsto_iff_norm_sub_tendsto_zero.mp hstop
-  simpa only [itoIntegralTerminal_isometry_sub] using hnorm
+  let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
+  simpa only [itoIntegralTerminal_isometry_sub, integrandToLp] using hnorm
 
 /-- **General bounded random-stopping identity.**
 
