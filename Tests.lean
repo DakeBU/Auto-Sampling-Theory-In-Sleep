@@ -8,6 +8,7 @@ import Tests.ContinuousDoobL2
 import Tests.DyadicElementaryRefinement
 import Tests.DyadicElementaryStopping
 import Tests.DyadicGridStoppingIto
+import Tests.DyadicHorizonExtension
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
 import Tests.ElementaryItoEmbedding
