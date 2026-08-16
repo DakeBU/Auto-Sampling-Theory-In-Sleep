@@ -9,10 +9,10 @@ this object is legitimate by approximation.  For the completed theory it is
 useful to package the operation directly on `ProgressiveL2Integrand`.
 
 The only nontrivial measurability point is progressiveness of the event
-`{(t, omega) | t <= tau(omega)}`.  On every bounded progressive rectangle this
-is the equality event between the time coordinate and the progressive process
-`t ↦ min(t,tau)`.  Mathlib already proves the latter process strongly
-progressive for every stopping time.
+`{(t, omega) | t <= tau(omega)}`.  On a bounded progressive rectangle
+`[0,i] × Omega`, this event is the inequality between the time coordinate and
+the bounded stopping time `tau ∧ i`.  Mathlib makes `tau ∧ i` measurable at
+time `i`, so no pathwise encoding of `WithTop.untopA` is needed.
 -/
 
 namespace AutoSamplingTheory
@@ -50,23 +50,26 @@ theorem stoppedIntegrand_stronglyProgressive
     IsStronglyProgressive filtration (stoppedIntegrand eta.process tau) := by
   have htau' : MeasureTheory.IsStoppingTime filtration tau := htau
   intro i
-  have hmin := MeasureTheory.isStronglyProgressive_min_stopping_time htau' i
+  have hτmin : Measurable[filtration i]
+      (fun omega => min (tau omega) (i : WithTop ℝ≥0)) :=
+    (htau'.min_const i).measurable_of_le (fun omega => min_le_right _ _)
   have htime : Measurable[Subtype.instMeasurableSpace.prod (filtration i)]
-      (fun p : Set.Iic i × Omega => (p.1 : ℝ≥0)) :=
-    measurable_subtype_coe.comp measurable_fst
-  have heq : @MeasurableSet (Set.Iic i × Omega)
+      (fun p : Set.Iic i × Omega => ((p.1 : ℝ≥0) : WithTop ℝ≥0)) :=
+    (measurable_subtype_coe.comp measurable_fst).withTop_coe
+  have hτprod : Measurable[Subtype.instMeasurableSpace.prod (filtration i)]
+      (fun p : Set.Iic i × Omega => min (tau p.2) (i : WithTop ℝ≥0)) :=
+    hτmin.comp measurable_snd
+  have hsetMin : @MeasurableSet (Set.Iic i × Omega)
       (Subtype.instMeasurableSpace.prod (filtration i))
-      {p | (min ((p.1 : ℝ≥0) : WithTop ℝ≥0) (tau p.2)).untopA = (p.1 : ℝ≥0)} :=
-    measurableSet_eq hmin.measurable htime
+      {p | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤
+        min (tau p.2) (i : WithTop ℝ≥0)} :=
+    measurableSet_le htime hτprod
   have hset : @MeasurableSet (Set.Iic i × Omega)
       (Subtype.instMeasurableSpace.prod (filtration i))
       {p | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2} := by
-    convert heq using 1
+    convert hsetMin using 1
     ext p
-    simp only [Set.mem_setOf_eq]
-    cases hτp : tau p.2 with
-    | top => simp [hτp]
-    | coe r => simp [hτp]
+    simp [p.1.property]
   exact StronglyMeasurable.ite hset (eta.progressive i) stronglyMeasurable_const
 
 /-- The closed stopped integrand remains in product-space `L²`. -/
