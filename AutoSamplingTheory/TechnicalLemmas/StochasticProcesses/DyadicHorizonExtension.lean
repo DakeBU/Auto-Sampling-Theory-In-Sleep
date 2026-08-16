@@ -134,9 +134,7 @@ noncomputable def extendDyadicHorizon {a b : ℕ} (hab : a ≤ b)
               rfl
             have hp := prefix_time_eq hab q iEnd
             rw [hiEnd] at hp
-            convert hp using 1
-            apply Fin.ext
-            rfl
+            simpa only [regularGridTimes, Fin.val_castSucc] using hp
           rw [htime] at hq
           simpa [hj] using hq
         · simp only [hj, dite_false]
@@ -218,7 +216,7 @@ theorem extendDyadicHorizon_value_eq_of_le {a b : ℕ} (hab : a ≤ b)
           t ≤ regularGridTimes
               (dyadicMesh (dyadicHorizon b) (extensionLevel q b))
               (2 ^ extensionLevel q b) j.succ
-      simpa [j, prefixIndex, regularGridTimes,
+      simpa [j, prefixIndex, regularGridTimes, extensionLevel,
         dyadicMesh_dyadicHorizon_align q.level a b hab] using hi
     rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_coeff_of_mem_cell
       (extendDyadicHorizon hab q).process hjcell]
@@ -248,6 +246,7 @@ theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
         regularGridTimes
             (dyadicMesh (dyadicHorizon b) (extensionLevel q b))
             (2 ^ extensionLevel q b) j.succ ≤ dyadicHorizon a
+      simp only [extensionLevel]
       rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
       simp only [regularGridTimes, Fin.val_succ, Nat.cast_add, Nat.cast_one]
       have hjSucc : j.val + 1 ≤ 2 ^ q.level := Nat.succ_le_iff.2 hjlt
@@ -266,9 +265,13 @@ theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
           (Fin.last (2 ^ extensionLevel q b)) = dyadicHorizon b := by
       simpa only [extendDyadicHorizon_times] using
         regularDyadic_last_time (dyadicHorizon b) (extensionLevel q b)
+    have hlast' :
+        (extendDyadicHorizon hab q).process.times
+          (Fin.last (2 ^ (extendDyadicHorizon hab q).level)) = dyadicHorizon b := by
+      simpa only [extendDyadicHorizon_level] using hlast
     exact FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_zero_of_last_lt
       (extendDyadicHorizon hab q).process
-      (by rw [hlast]; exact lt_of_not_ge htb) omega
+      (by rw [hlast']; exact lt_of_not_ge htb) omega
 
 /-- Away from the old terminal slice, the enlarged elementary process is
 pointwise the strict zero extension used by `ProgressiveL2Integrand.restrictProcess`. -/
