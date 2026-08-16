@@ -1,0 +1,44 @@
+name: One-shot Registry baseline sync
+
+on:
+  push:
+    branches:
+      - chapter-1-stopped-ito-consistency
+    paths:
+      - .github/workflows/one-shot-registry-baseline.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chapter-1-stopped-ito-consistency
+          fetch-depth: 0
+      - name: Synchronize compiled Registry test baseline
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('Tests/Basic.lean')
+          text = path.read_text(encoding='utf-8')
+          old = 'example : TechnicalLemmas.formalizedTechnicalLemmaCount = 391 := by native_decide'
+          new = 'example : TechnicalLemmas.formalizedTechnicalLemmaCount = 393 := by native_decide'
+          if old not in text:
+              raise SystemExit('expected Registry baseline 391 not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+          grep -q 'formalizedTechnicalLemmaCount = 393' Tests/Basic.lean
+      - name: Commit baseline and remove helper
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/one-shot-registry-baseline.yml
+          git add Tests/Basic.lean
+          git commit -m 'Sync Registry count after Chapter 1 evidence promotion'
+          git push origin HEAD:chapter-1-stopped-ito-consistency
