@@ -70,6 +70,7 @@ import Tests.CompletedIntegrand
 import Tests.EnergyStoppedIntegrand
 import Tests.EnergyStoppingBoundaryBridge
 import Tests.EnergyStoppedProgressiveL2
+import Tests.EnergyStoppingL2Bridge
 import Tests.CanonicalLocalizationTheorem
 import Tests.CanonicalStoppedItoIntegral
 
