@@ -42,32 +42,56 @@
       {
         "node_id": "chapter1-ito-progressive-density",
         "label": "Causal elementary density in progressive L2",
-        "declarations": ["progressiveL2_elementary_dense"],
-        "dependencies": ["tendsto_laggedDyadicApprox_toLp_clipped", "tendsto_clipped_toLp"],
+        "declarations": [
+          "progressiveL2_elementary_dense"
+        ],
+        "dependencies": [
+          "tendsto_laggedDyadicApprox_toLp_clipped",
+          "tendsto_clipped_toLp"
+        ],
         "priority": 100,
         "route_status": "compiled"
       },
       {
         "node_id": "chapter1-ito-terminal-completion",
         "label": "Grid-independent terminal L2 completion",
-        "declarations": ["itoIntegralTerminal_norm"],
-        "dependencies": ["norm_terminal_sub_eq_process_sub", "tendsto_terminal_of_tendsto_elementary"],
+        "declarations": [
+          "itoIntegralTerminal_norm"
+        ],
+        "dependencies": [
+          "norm_terminal_sub_eq_process_sub",
+          "tendsto_terminal_of_tendsto_elementary"
+        ],
         "priority": 100,
         "route_status": "compiled"
       },
       {
         "node_id": "chapter1-ito-continuous-martingale",
         "label": "Continuous martingale limit",
-        "declarations": ["itoIntegralProcess_martingale", "itoIntegralProcess_continuous_ae"],
-        "dependencies": ["elementaryItoProcess_martingale", "doobL2_continuous", "uniformBadSet_null"],
+        "declarations": [
+          "itoIntegralProcess_martingale",
+          "itoIntegralProcess_continuous_ae"
+        ],
+        "dependencies": [
+          "elementaryItoProcess_martingale",
+          "doobL2_continuous",
+          "uniformBadSet_null"
+        ],
         "priority": 100,
         "route_status": "compiled"
       },
       {
         "node_id": "chapter1-ito-fixed-time-uniqueness",
         "label": "Fixed-time identification and indistinguishability",
-        "declarations": ["itoIntegralProcess_at_eq_terminal", "itoIntegralProcess_unique", "chewi_theorem_1_1_8"],
-        "dependencies": ["tendsto_stopAtRightApprox_toLp", "itoIntegralProcess_continuous_ae"],
+        "declarations": [
+          "itoIntegralProcess_at_eq_terminal",
+          "itoIntegralProcess_unique",
+          "chewi_theorem_1_1_8"
+        ],
+        "dependencies": [
+          "tendsto_stopAtRightApprox_toLp",
+          "itoIntegralProcess_continuous_ae"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -117,8 +141,14 @@
       {
         "node_id": "chapter1-ito-restriction-isometry",
         "label": "Restricted terminal identification and norm isometry",
-        "declarations": ["chewi_display_1_1_9"],
-        "dependencies": ["itoIntegralProcess_at_eq_terminal", "itoIntegralTerminal_norm", "norm_sq_toLp_eq_integral_sq"],
+        "declarations": [
+          "chewi_display_1_1_9"
+        ],
+        "dependencies": [
+          "itoIntegralProcess_at_eq_terminal",
+          "itoIntegralTerminal_norm",
+          "norm_sq_toLp_eq_integral_sq"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -142,9 +172,21 @@
     "lean_declarations": [
       "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_5"
     ],
-    "source_assumptions": ["an elementary adapted process", "a Brownian motion relative to the filtration", "a finite terminal time"],
-    "formal_assumptions": ["ElementaryAdaptedProcess", "IsBrownianMotionWithFiltration", "MemLp two for weighted increments"],
-    "downstream_consumers": ["display (1.1.6)", "Theorem 1.1.8", "display (1.1.9)"],
+    "source_assumptions": [
+      "an elementary adapted process",
+      "a Brownian motion relative to the filtration",
+      "a finite terminal time"
+    ],
+    "formal_assumptions": [
+      "ElementaryAdaptedProcess",
+      "IsBrownianMotionWithFiltration",
+      "MemLp two for weighted increments"
+    ],
+    "downstream_consumers": [
+      "display (1.1.6)",
+      "Theorem 1.1.8",
+      "display (1.1.9)"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
@@ -154,8 +196,14 @@
       {
         "node_id": "chapter1-elementary-ito-orthogonality",
         "label": "Orthogonal adapted weighted increments",
-        "declarations": ["chewi_display_1_1_5"],
-        "dependencies": ["IsBrownianMotionWithFiltration", "integral_weightedIncrement_mul_eq_zero", "integral_finsetSum"],
+        "declarations": [
+          "chewi_display_1_1_5"
+        ],
+        "dependencies": [
+          "IsBrownianMotionWithFiltration",
+          "integral_weightedIncrement_mul_eq_zero",
+          "integral_finsetSum"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -179,9 +227,22 @@
     "lean_declarations": [
       "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry.chewi_display_1_1_6"
     ],
-    "source_assumptions": ["an elementary adapted process", "a Brownian motion relative to the filtration", "a finite terminal time"],
-    "formal_assumptions": ["IsBrownianMotionWithFiltration", "TimeMeasure.upTo", "processTimeMeasure", "processL2Energy"],
-    "downstream_consumers": ["Theorem 1.1.8", "display (1.1.9)", "general Ito integral by L2 completion"],
+    "source_assumptions": [
+      "an elementary adapted process",
+      "a Brownian motion relative to the filtration",
+      "a finite terminal time"
+    ],
+    "formal_assumptions": [
+      "IsBrownianMotionWithFiltration",
+      "TimeMeasure.upTo",
+      "processTimeMeasure",
+      "processL2Energy"
+    ],
+    "downstream_consumers": [
+      "Theorem 1.1.8",
+      "display (1.1.9)",
+      "general Ito integral by L2 completion"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
@@ -191,8 +252,15 @@
       {
         "node_id": "chapter1-elementary-ito-isometry",
         "label": "Elementary Ito isometry",
-        "declarations": ["chewi_display_1_1_6"],
-        "dependencies": ["chewi_display_1_1_5", "integral_weightedIncrement_sq", "processL2Energy_value", "TimeMeasure.upTo_Ioc"],
+        "declarations": [
+          "chewi_display_1_1_6"
+        ],
+        "dependencies": [
+          "chewi_display_1_1_5",
+          "integral_weightedIncrement_sq",
+          "processL2Energy_value",
+          "TimeMeasure.upTo_Ioc"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -216,9 +284,21 @@
     "lean_declarations": [
       "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIntegral.chewi_display_1_1_10"
     ],
-    "source_assumptions": ["a real stochastic integrand", "a finite terminal time", "a probability measure"],
-    "formal_assumptions": ["TimeMeasure.upTo T", "ENNReal lintegral", "Filter.Eventually under mu"],
-    "downstream_consumers": ["Proposition 1.1.13", "display (1.1.14)", "Proposition 1.1.16"],
+    "source_assumptions": [
+      "a real stochastic integrand",
+      "a finite terminal time",
+      "a probability measure"
+    ],
+    "formal_assumptions": [
+      "TimeMeasure.upTo T",
+      "ENNReal lintegral",
+      "Filter.Eventually under mu"
+    ],
+    "downstream_consumers": [
+      "Proposition 1.1.13",
+      "display (1.1.14)",
+      "Proposition 1.1.16"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
@@ -228,8 +308,14 @@
       {
         "node_id": "chapter1-local-square-integrability",
         "label": "Almost-sure finite path energy",
-        "declarations": ["chewi_display_1_1_10"],
-        "dependencies": ["TimeMeasure.upTo", "lintegral", "Eventually"],
+        "declarations": [
+          "chewi_display_1_1_10"
+        ],
+        "dependencies": [
+          "TimeMeasure.upTo",
+          "lintegral",
+          "Eventually"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -277,8 +363,14 @@
       {
         "node_id": "chapter1-process-l2-energy",
         "label": "Product-space process L2 energy",
-        "declarations": ["chewi_display_1_1_7"],
-        "dependencies": ["TimeMeasure.upTo", "Measure.prod", "lintegral_prod"],
+        "declarations": [
+          "chewi_display_1_1_7"
+        ],
+        "dependencies": [
+          "TimeMeasure.upTo",
+          "Measure.prod",
+          "lintegral_prod"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -326,8 +418,15 @@
       {
         "node_id": "chapter1-elementary-adapted-process",
         "label": "Elementary adapted process finite sum",
-        "declarations": ["chewi_display_1_1_2"],
-        "dependencies": ["Filtration", "StronglyMeasurable", "StrictMono", "Finset.sum"],
+        "declarations": [
+          "chewi_display_1_1_2"
+        ],
+        "dependencies": [
+          "Filtration",
+          "StronglyMeasurable",
+          "StrictMono",
+          "Finset.sum"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -375,8 +474,14 @@
       {
         "node_id": "chapter1-elementary-ito-integral",
         "label": "Elementary Ito integral finite sum",
-        "declarations": ["chewi_display_1_1_3"],
-        "dependencies": ["chewi_display_1_1_2", "Finset.sum", "min"],
+        "declarations": [
+          "chewi_display_1_1_3"
+        ],
+        "dependencies": [
+          "chewi_display_1_1_2",
+          "Finset.sum",
+          "min"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -397,16 +502,44 @@
     "mathematical_exposition": "The metric derivative is the punctured-time limit of distance(curve(s),curve(t))/abs(s-t).",
     "astis_exposition": "ASTIS formalizes exactly the source's informal criterion on a generic pseudometric space without introducing a tangent vector.",
     "rigorous_packet": "The a.e. time quantifier, punctured neighborhood, nonnegative finite speed, and real Lebesgue measure are explicit.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve.IsAbsolutelyContinuousMetricCurve"],
-    "source_assumptions": ["a curve in Wasserstein P2ac", "the informal metric derivative criterion"],
-    "formal_assumptions": ["a PseudoMetricSpace", "a real-time curve", "a.e. existence of HasMetricDerivativeAt"],
-    "downstream_consumers": ["continuity equation", "kinetic action", "Wasserstein geodesics"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve.IsAbsolutelyContinuousMetricCurve"
+    ],
+    "source_assumptions": [
+      "a curve in Wasserstein P2ac",
+      "the informal metric derivative criterion"
+    ],
+    "formal_assumptions": [
+      "a PseudoMetricSpace",
+      "a real-time curve",
+      "a.e. existence of HasMetricDerivativeAt"
+    ],
+    "downstream_consumers": [
+      "continuity equation",
+      "kinetic action",
+      "Wasserstein geodesics"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "the source's informal predicate is compiled; stronger AGS absolute continuity remains separate",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-metric-curve-absolute-continuity", "label": "Almost-everywhere finite metric derivative", "declarations": ["IsAbsolutelyContinuousMetricCurve"], "dependencies": ["HasMetricDerivativeAt", "Tendsto", "MeasureTheory.ae"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-metric-curve-absolute-continuity",
+        "label": "Almost-everywhere finite metric derivative",
+        "declarations": [
+          "IsAbsolutelyContinuousMetricCurve"
+        ],
+        "dependencies": [
+          "HasMetricDerivativeAt",
+          "Tendsto",
+          "MeasureTheory.ae"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-3-definition-1-3-26",
@@ -423,16 +556,43 @@
     "mathematical_exposition": "For t in [0,1], F(p_t) is at most (1-t)F(p_0)+tF(p_1)-alpha t(1-t)d(p_0,p_1)^2/2.",
     "astis_exposition": "ASTIS chooses the first of the source's equivalent conditions and parameterizes the predicate selecting geodesics.",
     "rigorous_packet": "The ambient metric, complete path, geodesic selection, interval membership, coefficient normalization, and endpoint distance are explicit.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.IsAlphaGeodesicallyConvex"],
-    "source_assumptions": ["a Riemannian manifold", "smooth functional", "all geodesics"],
-    "formal_assumptions": ["a MetricSpace", "an explicit geodesic predicate", "real-valued functional"],
-    "downstream_consumers": ["Wasserstein KL convexity", "gradient-flow convergence"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.IsAlphaGeodesicallyConvex"
+    ],
+    "source_assumptions": [
+      "a Riemannian manifold",
+      "smooth functional",
+      "all geodesics"
+    ],
+    "formal_assumptions": [
+      "a MetricSpace",
+      "an explicit geodesic predicate",
+      "real-valued functional"
+    ],
+    "downstream_consumers": [
+      "Wasserstein KL convexity",
+      "gradient-flow convergence"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "source condition 1 compiled exactly; equivalence to gradient and Hessian forms remains separate",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-alpha-geodesic-convexity", "label": "Alpha-geodesic convexity predicate", "declarations": ["IsAlphaGeodesicallyConvex"], "dependencies": ["MetricSpace.dist", "Set.Icc"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-alpha-geodesic-convexity",
+        "label": "Alpha-geodesic convexity predicate",
+        "declarations": [
+          "IsAlphaGeodesicallyConvex"
+        ],
+        "dependencies": [
+          "MetricSpace.dist",
+          "Set.Icc"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-4-display-1-4-7",
@@ -474,8 +634,14 @@
       {
         "node_id": "chapter1-first-order-geodesic-convexity",
         "label": "Chord alpha-convexity implies the first-order inequality",
-        "declarations": ["firstOrder_geodesicConvexity"],
-        "dependencies": ["IsAlphaGeodesicallyConvex", "HasDerivAt.tendsto_slope", "le_of_tendsto_of_tendsto"],
+        "declarations": [
+          "firstOrder_geodesicConvexity"
+        ],
+        "dependencies": [
+          "IsAlphaGeodesicallyConvex",
+          "HasDerivAt.tendsto_slope",
+          "le_of_tendsto_of_tendsto"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -496,16 +662,46 @@
     "mathematical_exposition": "Integrating the definition of Gamma removes the L(fg) term by stationarity and identifies the remaining two terms by generator symmetry.",
     "astis_exposition": "ASTIS performs this integral algebra and exposes integrability for L(fg), f Lg, and g Lf separately.",
     "rigorous_packet": "Stationarity and symmetry are concrete hypotheses produced by the semigroup route; they are not inferred from an algebraic generator display.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts"],
-    "source_assumptions": ["stationary law", "reversible generator", "functions in the generator form domain"],
-    "formal_assumptions": ["three explicit Integrable terms", "zero integral of L(fg)", "symmetric generator pairing"],
-    "downstream_consumers": ["negative generator", "Poincare inequality", "Langevin Dirichlet form"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts"
+    ],
+    "source_assumptions": [
+      "stationary law",
+      "reversible generator",
+      "functions in the generator form domain"
+    ],
+    "formal_assumptions": [
+      "three explicit Integrable terms",
+      "zero integral of L(fg)",
+      "symmetric generator pairing"
+    ],
+    "downstream_consumers": [
+      "negative generator",
+      "Poincare inequality",
+      "Langevin Dirichlet form"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "source integral identity compiled from explicit stationarity and symmetry premises",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-fundamental-generator-ibp", "label": "Fundamental generator integration by parts", "declarations": ["fundamental_integration_by_parts"], "dependencies": ["carreDuChamp", "dirichletForm", "integral_sub", "integral_const_mul"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-fundamental-generator-ibp",
+        "label": "Fundamental generator integration by parts",
+        "declarations": [
+          "fundamental_integration_by_parts"
+        ],
+        "dependencies": [
+          "carreDuChamp",
+          "dirichletForm",
+          "integral_sub",
+          "integral_const_mul"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-2-corollary-1-2-15",
@@ -522,16 +718,42 @@
     "mathematical_exposition": "The quadratic pairing integral f(-L)f equals integral Gamma(f,f), which is nonnegative.",
     "astis_exposition": "ASTIS invokes the compiled integration-by-parts theorem and Mathlib integral nonnegativity.",
     "rigorous_packet": "The theorem consumes pointwise Gamma nonnegativity and the stationary generator identity instead of assuming the desired quadratic conclusion.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.negativeGenerator_quadratic_nonneg"],
-    "source_assumptions": ["the assumptions of Theorem 1.2.14", "Gamma(f,f) is nonnegative"],
-    "formal_assumptions": ["integrability of L(f squared) and f Lf", "stationarity", "pointwise Gamma nonnegativity"],
-    "downstream_consumers": ["spectral gap", "Poincare inequality"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.negativeGenerator_quadratic_nonneg"
+    ],
+    "source_assumptions": [
+      "the assumptions of Theorem 1.2.14",
+      "Gamma(f,f) is nonnegative"
+    ],
+    "formal_assumptions": [
+      "integrability of L(f squared) and f Lf",
+      "stationarity",
+      "pointwise Gamma nonnegativity"
+    ],
+    "downstream_consumers": [
+      "spectral gap",
+      "Poincare inequality"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "source quadratic-form conclusion compiled; Lemma 1.2.13 supplies Gamma positivity separately",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-negative-generator-nonnegative", "label": "Negative generator quadratic nonnegativity", "declarations": ["negativeGenerator_quadratic_nonneg"], "dependencies": ["fundamental_integration_by_parts", "integral_nonneg_of_ae"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-negative-generator-nonnegative",
+        "label": "Negative generator quadratic nonnegativity",
+        "declarations": [
+          "negativeGenerator_quadratic_nonneg"
+        ],
+        "dependencies": [
+          "fundamental_integration_by_parts",
+          "integral_nonneg_of_ae"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-3-definition-1-3-6",
@@ -548,16 +770,44 @@
     "mathematical_exposition": "Dual feasibility requires f(x)+g(y) to be at most the transport cost for mu-times-nu almost every pair.",
     "astis_exposition": "ASTIS keeps both integrability requirements and the product-measure a.e. constraint in the feasible predicate.",
     "rigorous_packet": "The generic real-cost definition does not silently assume strong duality, boundedness, or attainment.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue"],
-    "source_assumptions": ["finite-second-moment probability marginals", "quadratic cost"],
-    "formal_assumptions": ["measurable spaces and measures", "integrable real potentials", "product-a.e. dual constraint"],
-    "downstream_consumers": ["Kantorovich strong duality", "optimal maps"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue"
+    ],
+    "source_assumptions": [
+      "finite-second-moment probability marginals",
+      "quadratic cost"
+    ],
+    "formal_assumptions": [
+      "measurable spaces and measures",
+      "integrable real potentials",
+      "product-a.e. dual constraint"
+    ],
+    "downstream_consumers": [
+      "Kantorovich strong duality",
+      "optimal maps"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "exact dual optimization definition compiled; source-setting boundedness remains a theorem",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-kantorovich-dual-definition", "label": "Kantorovich dual value", "declarations": ["dualTransportValue"], "dependencies": ["DualFeasible", "Integrable", "Measure.prod", "sSup"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-kantorovich-dual-definition",
+        "label": "Kantorovich dual value",
+        "declarations": [
+          "dualTransportValue"
+        ],
+        "dependencies": [
+          "DualFeasible",
+          "Integrable",
+          "Measure.prod",
+          "sSup"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-3-display-1-3-7",
@@ -574,16 +824,38 @@
     "mathematical_exposition": "This display expands the optimization objective and feasible set used by Definition 1.3.6.",
     "astis_exposition": "The source display is a proved definitional expansion rather than an assumed primal-dual theorem.",
     "rigorous_packet": "Only the dual value is expanded; equality to one half W2 squared is not claimed here.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue_eq_sSup"],
-    "source_assumptions": ["Definition 1.3.6"],
-    "formal_assumptions": ["dualTransportValue and DualFeasible"],
-    "downstream_consumers": ["weak duality", "strong duality"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue_eq_sSup"
+    ],
+    "source_assumptions": [
+      "Definition 1.3.6"
+    ],
+    "formal_assumptions": [
+      "dualTransportValue and DualFeasible"
+    ],
+    "downstream_consumers": [
+      "weak duality",
+      "strong duality"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "exact source display compiled by definitional equality",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-kantorovich-dual-display", "label": "Dual feasible-potential supremum", "declarations": ["dualTransportValue_eq_sSup"], "dependencies": ["dualTransportValue"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-kantorovich-dual-display",
+        "label": "Dual feasible-potential supremum",
+        "declarations": [
+          "dualTransportValue_eq_sSup"
+        ],
+        "dependencies": [
+          "dualTransportValue"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-2-definition-1-2-19",
@@ -600,16 +872,44 @@
     "mathematical_exposition": "For every observable in the generator form domain, Var_mu(f) is at most C times integral f(-L)f dmu.",
     "astis_exposition": "ASTIS separates this general generator definition from the gradient-energy identity special to Langevin diffusion.",
     "rigorous_packet": "Probability normalization, positivity of C, finite mean/variance, and integrability of f Lf are explicit.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare"],
-    "source_assumptions": ["a stationary reversible Markov generator", "observables in its form domain"],
-    "formal_assumptions": ["a probability measure", "a real generator action", "PoincareAdmissible finite integrals"],
-    "downstream_consumers": ["variance decay", "chi-squared decay", "spectral gap"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare"
+    ],
+    "source_assumptions": [
+      "a stationary reversible Markov generator",
+      "observables in its form domain"
+    ],
+    "formal_assumptions": [
+      "a probability measure",
+      "a real generator action",
+      "PoincareAdmissible finite integrals"
+    ],
+    "downstream_consumers": [
+      "variance decay",
+      "chi-squared decay",
+      "spectral gap"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "exact source predicate compiled; concrete semigroup instantiation and decay remain separate",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-generator-poincare-definition", "label": "Generator Poincare predicate", "declarations": ["SatisfiesPoincare"], "dependencies": ["variance", "dirichletForm", "PoincareAdmissible"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-generator-poincare-definition",
+        "label": "Generator Poincare predicate",
+        "declarations": [
+          "SatisfiesPoincare"
+        ],
+        "dependencies": [
+          "variance",
+          "dirichletForm",
+          "PoincareAdmissible"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-2-definition-1-2-25",
@@ -626,16 +926,43 @@
     "mathematical_exposition": "For every density rho with respect to mu, KL(rho mu || mu) is at most (C/2) E(rho,log rho).",
     "astis_exposition": "ASTIS exposes positivity, unit mass, entropy integrability, and generator-energy integrability instead of relying on totalized integrals.",
     "rigorous_packet": "The zero-density log convention, normalization, probability reference law, positive constant, and both finite integrals are explicit.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesLogSobolev"],
-    "source_assumptions": ["a stationary reversible Markov generator", "a density with respect to its invariant law"],
-    "formal_assumptions": ["a probability measure", "LogSobolevAdmissible density", "generator Dirichlet form"],
-    "downstream_consumers": ["KL decay", "Fisher-information specialization"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesLogSobolev"
+    ],
+    "source_assumptions": [
+      "a stationary reversible Markov generator",
+      "a density with respect to its invariant law"
+    ],
+    "formal_assumptions": [
+      "a probability measure",
+      "LogSobolevAdmissible density",
+      "generator Dirichlet form"
+    ],
+    "downstream_consumers": [
+      "KL decay",
+      "Fisher-information specialization"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "exact source predicate compiled; entropy dissipation and KL decay remain separate",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-generator-lsi-definition", "label": "Generator log-Sobolev predicate", "declarations": ["SatisfiesLogSobolev"], "dependencies": ["densityEntropy", "dirichletForm", "LogSobolevAdmissible"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-generator-lsi-definition",
+        "label": "Generator log-Sobolev predicate",
+        "declarations": [
+          "SatisfiesLogSobolev"
+        ],
+        "dependencies": [
+          "densityEntropy",
+          "dirichletForm",
+          "LogSobolevAdmissible"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-1-definition-1-1-1",
@@ -652,16 +979,46 @@
     "mathematical_exposition": "For every s<t, B_t-B_s is centered Gaussian with covariance (t-s)I; increments over disjoint intervals are jointly independent.",
     "astis_exposition": "ASTIS expresses the vector Gaussian law by every continuous-linear projection, matching Mathlib's coordinate-free Gaussian API.",
     "rigorous_packet": "Zero start, finite-family independent increments, all projected Gaussian laws, and a.e. path continuity are separate conjuncts.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotion"],
-    "source_assumptions": ["a probability space", "a finite-dimensional Euclidean state space"],
-    "formal_assumptions": ["Borel measurable real Hilbert state space", "HasLaw for every StrongDual projection", "iIndepFun on disjoint intervals", "a.e. Continuous paths"],
-    "downstream_consumers": ["Ito integration", "Ito processes", "Langevin SDE"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotion"
+    ],
+    "source_assumptions": [
+      "a probability space",
+      "a finite-dimensional Euclidean state space"
+    ],
+    "formal_assumptions": [
+      "Borel measurable real Hilbert state space",
+      "HasLaw for every StrongDual projection",
+      "iIndepFun on disjoint intervals",
+      "a.e. Continuous paths"
+    ],
+    "downstream_consumers": [
+      "Ito integration",
+      "Ito processes",
+      "Langevin SDE"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "exact source predicate compiled; existence of a process satisfying it is not claimed",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-standard-brownian-definition", "label": "Standard Brownian motion predicate", "declarations": ["IsStandardBrownianMotion"], "dependencies": ["HasLaw", "gaussianReal", "iIndepFun", "Continuous"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-standard-brownian-definition",
+        "label": "Standard Brownian motion predicate",
+        "declarations": [
+          "IsStandardBrownianMotion"
+        ],
+        "dependencies": [
+          "HasLaw",
+          "gaussianReal",
+          "iIndepFun",
+          "Continuous"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-1-definition-1-1-12",
@@ -678,16 +1035,45 @@
     "mathematical_exposition": "Each stop makes the progressive integrand square-integrable on the finite time interval; monotone stops then exhaust that interval almost surely.",
     "astis_exposition": "ASTIS records the iterated nonnegative integral before finiteness, so no totalized real integral hides the L2 side condition.",
     "rigorous_packet": "Progressive measurability, stopping-time measurability, monotonicity, finite expected time integral, and the almost-sure limit are separate conjuncts.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalizingSequence"],
-    "source_assumptions": ["a progressive process on a filtered probability space", "a finite terminal time"],
-    "formal_assumptions": ["Mathlib ProgMeasurable", "Mathlib IsStoppingTime", "nonnegative-time Lebesgue measure", "a.e. filter limit"],
-    "downstream_consumers": ["localized Ito integral", "local martingales"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalizingSequence"
+    ],
+    "source_assumptions": [
+      "a progressive process on a filtered probability space",
+      "a finite terminal time"
+    ],
+    "formal_assumptions": [
+      "Mathlib ProgMeasurable",
+      "Mathlib IsStoppingTime",
+      "nonnegative-time Lebesgue measure",
+      "a.e. filter limit"
+    ],
+    "downstream_consumers": [
+      "localized Ito integral",
+      "local martingales"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "exact source predicate compiled; canonical hitting-time construction remains Proposition 1.1.13",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-localizing-sequence-definition", "label": "Localizing sequence predicate", "declarations": ["IsLocalizingSequence"], "dependencies": ["ProgMeasurable", "IsStoppingTime", "lintegral", "Tendsto"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-localizing-sequence-definition",
+        "label": "Localizing sequence predicate",
+        "declarations": [
+          "IsLocalizingSequence"
+        ],
+        "dependencies": [
+          "ProgMeasurable",
+          "IsStoppingTime",
+          "lintegral",
+          "Tendsto"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-1-definition-1-1-15",
@@ -704,16 +1090,45 @@
     "mathematical_exposition": "Localization replaces global integrability by ordinary martingale behavior before each stop.",
     "astis_exposition": "ASTIS reuses Mathlib's stoppedProcess and Martingale predicates and leaves every quantifier visible.",
     "rigorous_packet": "Adaptedness, stopping-time measurability, monotonicity, a.s. divergence, initial centering, and the martingale property are all required.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalMartingale"],
-    "source_assumptions": ["a filtered probability space", "a real adapted process"],
-    "formal_assumptions": ["Mathlib Adapted", "Mathlib stoppedProcess", "Mathlib Martingale", "a.e. atTop convergence"],
-    "downstream_consumers": ["localized Ito integral theorem", "Ito processes"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalMartingale"
+    ],
+    "source_assumptions": [
+      "a filtered probability space",
+      "a real adapted process"
+    ],
+    "formal_assumptions": [
+      "Mathlib Adapted",
+      "Mathlib stoppedProcess",
+      "Mathlib Martingale",
+      "a.e. atTop convergence"
+    ],
+    "downstream_consumers": [
+      "localized Ito integral theorem",
+      "Ito processes"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "exact source predicate compiled; continuity and Ito-integral localization remain theorem routes",
     "remaining_obligations": [],
-    "proof_leaves": [{"node_id": "chapter1-local-martingale-definition", "label": "Local martingale predicate", "declarations": ["IsLocalMartingale"], "dependencies": ["Adapted", "IsStoppingTime", "stoppedProcess", "Martingale"], "priority": 100, "route_status": "compiled"}]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-local-martingale-definition",
+        "label": "Local martingale predicate",
+        "declarations": [
+          "IsLocalMartingale"
+        ],
+        "dependencies": [
+          "Adapted",
+          "IsStoppingTime",
+          "stoppedProcess",
+          "Martingale"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-2-definition-1-2-1",
@@ -733,22 +1148,38 @@
     "lean_declarations": [
       "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator"
     ],
-    "source_assumptions": ["a time-homogeneous Markov process and its conditional transition laws"],
-    "formal_assumptions": ["a transition-kernel contract", "measurable ENNReal observables"],
-    "downstream_consumers": ["semigroup property", "Feller operators", "generator theory"],
+    "source_assumptions": [
+      "a time-homogeneous Markov process and its conditional transition laws"
+    ],
+    "formal_assumptions": [
+      "a transition-kernel contract",
+      "measurable ENNReal observables"
+    ],
+    "downstream_consumers": [
+      "semigroup property",
+      "Feller operators",
+      "generator theory"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "source conditional-law operator compiled at the transition-kernel level",
     "remaining_obligations": [],
-    "proof_leaves": [{
-      "node_id": "chapter1-markov-operator-definition",
-      "label": "Markov conditional-expectation operator",
-      "declarations": ["markovOperator"],
-      "dependencies": ["Kernel", "lintegral_kernel"],
-      "priority": 100,
-      "route_status": "compiled"
-    }]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-markov-operator-definition",
+        "label": "Markov conditional-expectation operator",
+        "declarations": [
+          "markovOperator"
+        ],
+        "dependencies": [
+          "Kernel",
+          "lintegral_kernel"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-3-definition-1-3-4",
@@ -765,23 +1196,43 @@
     "mathematical_exposition": "W2(mu,nu) is the square root of the infimum over couplings of the integral of the squared Euclidean distance.",
     "astis_exposition": "ASTIS specializes the compiled Kantorovich value to an ENNReal squared-norm cost and takes its positive ENNReal rpow one half.",
     "rigorous_packet": "The state space is a measurable real normed additive group, the cost is ENNReal.ofReal of squared norm, and infinite values remain representable.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance"],
-    "source_assumptions": ["probability measures on Euclidean space", "quadratic transport cost"],
-    "formal_assumptions": ["measurable normed additive state space", "compiled Kantorovich transportCost"],
-    "downstream_consumers": ["Wasserstein metric", "geodesics", "Langevin coupling"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance"
+    ],
+    "source_assumptions": [
+      "probability measures on Euclidean space",
+      "quadratic transport cost"
+    ],
+    "formal_assumptions": [
+      "measurable normed additive state space",
+      "compiled Kantorovich transportCost"
+    ],
+    "downstream_consumers": [
+      "Wasserstein metric",
+      "geodesics",
+      "Langevin coupling"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "exact extended-real W2 value definition compiled; metric properties remain separate",
     "remaining_obligations": [],
-    "proof_leaves": [{
-      "node_id": "chapter1-wasserstein-distance-definition",
-      "label": "2-Wasserstein value",
-      "declarations": ["wassersteinDistance"],
-      "dependencies": ["transportCost", "quadraticCost", "ENNReal.rpow"],
-      "priority": 100,
-      "route_status": "compiled"
-    }]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-wasserstein-distance-definition",
+        "label": "2-Wasserstein value",
+        "declarations": [
+          "wassersteinDistance"
+        ],
+        "dependencies": [
+          "transportCost",
+          "quadraticCost",
+          "ENNReal.rpow"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-3-display-1-3-5",
@@ -798,23 +1249,39 @@
     "mathematical_exposition": "W2(mu,nu)^2 equals the quadratic Kantorovich transport cost.",
     "astis_exposition": "The equality is proved by ENNReal rpow multiplication, not stored as an axiom.",
     "rigorous_packet": "The theorem remains valid at infinite transport cost and does not require an optimal coupling witness.",
-    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq"],
-    "source_assumptions": ["the W2 and quadratic cost of Definition 1.3.4"],
-    "formal_assumptions": ["ENNReal rpow algebra"],
-    "downstream_consumers": ["Wasserstein estimates", "metric-space route"],
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq"
+    ],
+    "source_assumptions": [
+      "the W2 and quadratic cost of Definition 1.3.4"
+    ],
+    "formal_assumptions": [
+      "ENNReal rpow algebra"
+    ],
+    "downstream_consumers": [
+      "Wasserstein estimates",
+      "metric-space route"
+    ],
     "status": "compiled",
     "route_status": "compiled",
     "local_status": "compiled",
     "semantic_status": "source square identity compiled without an attainment assumption",
     "remaining_obligations": [],
-    "proof_leaves": [{
-      "node_id": "chapter1-wasserstein-square-display",
-      "label": "W2 squared coupling infimum",
-      "declarations": ["wassersteinDistance_sq"],
-      "dependencies": ["ENNReal.rpow_two", "ENNReal.rpow_mul"],
-      "priority": 100,
-      "route_status": "compiled"
-    }]
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-wasserstein-square-display",
+        "label": "W2 squared coupling infimum",
+        "declarations": [
+          "wassersteinDistance_sq"
+        ],
+        "dependencies": [
+          "ENNReal.rpow_two",
+          "ENNReal.rpow_mul"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   },
   {
     "id": "chewi-1-2-semigroup",
@@ -959,8 +1426,14 @@
       {
         "node_id": "chapter1-semigroup-property",
         "label": "Markov semigroup property",
-        "declarations": ["chewi_lemma_1_2_2"],
-        "dependencies": ["Kernel.lintegral_id'", "Kernel.lintegral_comp", "TransitionKernelContract"],
+        "declarations": [
+          "chewi_lemma_1_2_2"
+        ],
+        "dependencies": [
+          "Kernel.lintegral_id'",
+          "Kernel.lintegral_comp",
+          "TransitionKernelContract"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1007,8 +1480,14 @@
       {
         "node_id": "chapter1-generator-definition",
         "label": "Norm-topology right generator",
-        "declarations": ["HasRightGeneratorAt"],
-        "dependencies": ["rightDifferenceQuotient", "Tendsto", "ContinuousLinearSemigroup"],
+        "declarations": [
+          "HasRightGeneratorAt"
+        ],
+        "dependencies": [
+          "rightDifferenceQuotient",
+          "Tendsto",
+          "ContinuousLinearSemigroup"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1055,8 +1534,13 @@
       {
         "node_id": "chapter1-kolmogorov-backward",
         "label": "Kolmogorov backward right derivative",
-        "declarations": ["kolmogorov_backward_right"],
-        "dependencies": ["HasRightGeneratorAt.map", "rightOrbitDifferenceQuotient_eq"],
+        "declarations": [
+          "kolmogorov_backward_right"
+        ],
+        "dependencies": [
+          "HasRightGeneratorAt.map",
+          "rightOrbitDifferenceQuotient_eq"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1175,8 +1659,14 @@
       {
         "node_id": "chapter1-martingale-definition",
         "label": "Continuous-time real martingale",
-        "declarations": ["IsChewiMartingale"],
-        "dependencies": ["MeasureTheory.Martingale", "MeasureTheory.Filtration", "condExp"],
+        "declarations": [
+          "IsChewiMartingale"
+        ],
+        "dependencies": [
+          "MeasureTheory.Martingale",
+          "MeasureTheory.Filtration",
+          "condExp"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1223,8 +1713,13 @@
       {
         "node_id": "chapter1-stopping-time-definition",
         "label": "Continuous-time stopping time",
-        "declarations": ["IsChewiStoppingTime"],
-        "dependencies": ["MeasureTheory.Filtration", "MeasureTheory.IsStoppingTime"],
+        "declarations": [
+          "IsChewiStoppingTime"
+        ],
+        "dependencies": [
+          "MeasureTheory.Filtration",
+          "MeasureTheory.IsStoppingTime"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1271,8 +1766,13 @@
       {
         "node_id": "chapter1-reversibility-definition",
         "label": "Reversible semigroup predicate",
-        "declarations": ["IsReversible"],
-        "dependencies": ["ContinuousLinearSemigroup", "InnerProductSpace"],
+        "declarations": [
+          "IsReversible"
+        ],
+        "dependencies": [
+          "ContinuousLinearSemigroup",
+          "InnerProductSpace"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1317,8 +1817,14 @@
       {
         "node_id": "chapter1-markov-jensen-square",
         "label": "Probability-kernel Jensen inequality for the square",
-        "declarations": ["sq_fellerOperator_apply_le"],
-        "dependencies": ["FellerTransitionKernelContract", "ConvexOn.map_integral_le", "Even.convexOn_pow"],
+        "declarations": [
+          "sq_fellerOperator_apply_le"
+        ],
+        "dependencies": [
+          "FellerTransitionKernelContract",
+          "ConvexOn.map_integral_le",
+          "Even.convexOn_pow"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1363,8 +1869,13 @@
       {
         "node_id": "chapter1-carre-du-champ-definition",
         "label": "Carre du champ definition",
-        "declarations": ["carreDuChamp"],
-        "dependencies": ["LinearMap", "pointwise multiplication"],
+        "declarations": [
+          "carreDuChamp"
+        ],
+        "dependencies": [
+          "LinearMap",
+          "pointwise multiplication"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1410,8 +1921,14 @@
       {
         "node_id": "chapter1-carre-du-champ-nonnegative",
         "label": "Markov Jensen gap converges to Gamma",
-        "declarations": ["carreDuChamp_nonneg_of_markov_jensen_rightGenerator"],
-        "dependencies": ["carreDuChamp", "Tendsto", "isClosed_Ici"],
+        "declarations": [
+          "carreDuChamp_nonneg_of_markov_jensen_rightGenerator"
+        ],
+        "dependencies": [
+          "carreDuChamp",
+          "Tendsto",
+          "isClosed_Ici"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1457,8 +1974,14 @@
       {
         "node_id": "chapter1-langevin-carre-du-champ",
         "label": "Langevin Gamma equals gradient inner product",
-        "declarations": ["langevinCarreDuChamp_eq_inner"],
-        "dependencies": ["laplacian_mul", "gradient_mul", "LangevinGenerator.operator"],
+        "declarations": [
+          "langevinCarreDuChamp_eq_inner"
+        ],
+        "dependencies": [
+          "laplacian_mul",
+          "gradient_mul",
+          "LangevinGenerator.operator"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1502,8 +2025,13 @@
       {
         "node_id": "chapter1-iterated-carre-du-champ-definition",
         "label": "Iterated carre du champ definition",
-        "declarations": ["iteratedCarreDuChamp"],
-        "dependencies": ["carreDuChamp", "LinearMap"],
+        "declarations": [
+          "iteratedCarreDuChamp"
+        ],
+        "dependencies": [
+          "carreDuChamp",
+          "LinearMap"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1548,8 +2076,13 @@
       {
         "node_id": "chapter1-bakry-emery-definition",
         "label": "Bakry-Emery CD(alpha,infinity) predicate",
-        "declarations": ["SatisfiesBakryEmery"],
-        "dependencies": ["carreDuChamp", "iteratedCarreDuChamp"],
+        "declarations": [
+          "SatisfiesBakryEmery"
+        ],
+        "dependencies": [
+          "carreDuChamp",
+          "iteratedCarreDuChamp"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1944,8 +2477,15 @@
       {
         "node_id": "chapter1-p2ac-definition",
         "label": "Absolutely continuous finite-second-moment laws",
-        "declarations": ["IsAbsolutelyContinuousFiniteSecondMoment"],
-        "dependencies": ["IsProbabilityMeasure", "Measure.AbsolutelyContinuous", "Integrable", "volume"],
+        "declarations": [
+          "IsAbsolutelyContinuousFiniteSecondMoment"
+        ],
+        "dependencies": [
+          "IsProbabilityMeasure",
+          "Measure.AbsolutelyContinuous",
+          "Integrable",
+          "volume"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -1993,8 +2533,14 @@
       {
         "node_id": "chapter1-displacement-interpolation-definition",
         "label": "Optimal-coupling affine law curve",
-        "declarations": ["IsWassersteinGeodesic"],
-        "dependencies": ["IsAbsolutelyContinuousFiniteSecondMoment", "IsQuadraticOptimalCoupling", "Measure.map"],
+        "declarations": [
+          "IsWassersteinGeodesic"
+        ],
+        "dependencies": [
+          "IsAbsolutelyContinuousFiniteSecondMoment",
+          "IsQuadraticOptimalCoupling",
+          "Measure.map"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -2041,8 +2587,14 @@
       {
         "node_id": "chapter1-kantorovich-cost-definition",
         "label": "Kantorovich transport cost",
-        "declarations": ["transportCost"],
-        "dependencies": ["IsCoupling", "lintegral", "sInf"],
+        "declarations": [
+          "transportCost"
+        ],
+        "dependencies": [
+          "IsCoupling",
+          "lintegral",
+          "sInf"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -2085,8 +2637,12 @@
       {
         "node_id": "chapter1-kantorovich-cost-display",
         "label": "Kantorovich infimum display",
-        "declarations": ["transportCost_eq_sInf"],
-        "dependencies": ["transportCost"],
+        "declarations": [
+          "transportCost_eq_sInf"
+        ],
+        "dependencies": [
+          "transportCost"
+        ],
         "priority": 100,
         "route_status": "compiled"
       }
@@ -2379,5 +2935,175 @@
       "diffusion generative models"
     ],
     "status": "partial"
+  },
+  {
+    "id": "chewi-proposition-1-1-13",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 7,
+    "pdf_page": 19,
+    "page": "book 7 / PDF 19",
+    "source_kind": "Proposition 1.1.13",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=19",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The pathwise local-square-integrability condition admits an increasing canonical sequence of stopping times approaching the horizon such that each stopped integrand has finite global L2 energy.",
+    "mathematical_exposition": "Complete the null exceptional set, form the continuous accumulated-energy path, stop at equality level n+1, use continuity to rule out overshoot, characterize the threshold event to prove the stopping-time property, and use finite terminal energy to show the localizers exhaust the horizon.",
+    "astis_exposition": "ASTIS compiles exceptional-set completion, equality-level first hitting, the intermediate-value step, stopping-time measurability, exact stopped-energy control, monotonicity, and terminal exhaustion rather than treating localization as a black box.",
+    "rigorous_packet": "Usual filtration conditions, completion of null sets, progressive measurability, pathwise energy continuity, stopping-time measurability, no overshoot, and the probability-space product-L2 consequence are explicit.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalLocalizationTheorem.chewi_proposition_1_1_13"
+    ],
+    "source_assumptions": [
+      "a complete right-continuous filtered probability space",
+      "a progressive integrand whose squared time integral is finite almost surely on the finite horizon"
+    ],
+    "formal_assumptions": [
+      "SatisfiesUsualConditions filtration mu",
+      "IsProbabilityMeasure mu",
+      "LocalProgressiveL2Integrand filtration mu T"
+    ],
+    "downstream_consumers": [
+      "display (1.1.14)",
+      "Proposition 1.1.16"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "source-facing canonical localization theorem compiled with stopping-time, monotonicity, horizon exhaustion, and stopped-energy bound",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-source-1-1-13",
+        "label": "Chewi Proposition 1.1.13",
+        "declarations": [
+          "chewi_proposition_1_1_13"
+        ],
+        "dependencies": [
+          "continuous_completedEnergy",
+          "canonicalEnergyLocalizer_le_iff",
+          "canonicalLocalizingTime_isChewiStoppingTime",
+          "integral_energyStoppedIntegrand_sq_le"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ],
+    "source_mapping_id": "chewi-chapter1-statement-1-1-13"
+  },
+  {
+    "id": "chewi-1-1-display-1-1-14",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 7,
+    "pdf_page": 19,
+    "page": "book 7 / PDF 19",
+    "source_kind": "Displayed identity (1.1.14)",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=19",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "Each canonical energy truncation is globally square-integrable, so its Ito integral is an adapted continuous martingale with the deterministic-time restriction representation used in the localization proof.",
+    "mathematical_exposition": "Proposition 1.1.13 turns the locally square-integrable integrand into a globally L2 stopped integrand. Applying the existing global Ito map gives a continuous martingale, and each deterministic-time value agrees almost surely with the terminal completed Ito integral of the stopped integrand restricted up to that time.",
+    "astis_exposition": "ASTIS reuses the global Ito map from Theorem 1.1.8 and proves adaptedness, martingality, continuity, and deterministic-time restriction compatibility in one source-facing display theorem. Random-time stopping is deliberately discharged later in Proposition 1.1.16.",
+    "rigorous_packet": "The stopped-integrand L2 bound, Brownian/filtration contract, positive horizon, continuous process representative, and distinction between deterministic restriction and random stopping are explicit.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalStoppedItoIntegral.chewi_display_1_1_14"
+    ],
+    "source_assumptions": [
+      "the canonical localizing sequence of Proposition 1.1.13",
+      "a Brownian motion relative to the filtration",
+      "a positive finite horizon"
+    ],
+    "formal_assumptions": [
+      "SatisfiesUsualConditions filtration mu",
+      "IsProbabilityMeasure mu",
+      "LocalProgressiveL2Integrand filtration mu T",
+      "0 < T",
+      "IsBrownianMotionWithFiltration B filtration mu"
+    ],
+    "downstream_consumers": [
+      "Proposition 1.1.16"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "source-facing stopped-Ito display compiled as a continuous martingale with deterministic-time restriction compatibility",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-source-1-1-14",
+        "label": "Chewi Displayed identity (1.1.14)",
+        "declarations": [
+          "chewi_display_1_1_14"
+        ],
+        "dependencies": [
+          "chewi_proposition_1_1_13",
+          "canonicalStoppedProgressiveL2",
+          "itoIntegralProcess_martingale",
+          "itoIntegralProcess_continuous_ae"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ],
+    "source_mapping_id": "chewi-chapter1-displayed-identity-1-1-14"
+  },
+  {
+    "id": "chewi-proposition-1-1-16",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 7,
+    "pdf_page": 19,
+    "page": "book 7 / PDF 19",
+    "source_kind": "Proposition 1.1.16",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=19",
+    "wording_status": "faithful paraphrase",
+    "source_summary": "The Ito integral of a progressive locally square-integrable integrand has a continuous version that is a local martingale.",
+    "mathematical_exposition": "Use canonical energy localizers to obtain globally L2 stopped integrands. Prove stochastic integration commutes with those random stops first on grid-valued stopping times, pass by dyadic approximation in L2 and along continuous paths, prove cross-horizon consistency, glue the finite-horizon processes pathwise, and use localizers tending to infinity almost surely.",
+    "astis_exposition": "ASTIS compiles the coefficient-level stopping identity, the entire elementary-Ito finite-sum identity, right-dyadic random-time convergence, stopped-integrand L2 contraction, stopping-graph nullity, horizon overlap, localized martingale coherence, and final pathwise gluing into the source-facing proposition.",
+    "rigorous_packet": "Strict-versus-closed stopping differs only on a product-measure-zero stopping graph; finite-horizon Ito versions are proved compatible before gluing; and the localizers are proved monotone and tending to infinity almost surely.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiProposition1_1_16.chewi_proposition_1_1_16"
+    ],
+    "source_assumptions": [
+      "a complete right-continuous filtered probability space",
+      "a Brownian motion relative to the filtration",
+      "a progressive integrand with almost-sure locally finite squared energy"
+    ],
+    "formal_assumptions": [
+      "SatisfiesUsualConditions filtration mu",
+      "IsProbabilityMeasure mu",
+      "GlobalLocalProgressiveL2Integrand filtration mu",
+      "IsBrownianMotionWithFiltration B filtration mu"
+    ],
+    "downstream_consumers": [
+      "Definition 1.1.17 (Ito process)",
+      "Ito formula and SDE localization"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "source-facing local-Ito continuous-local-martingale theorem compiled with random-stopping and cross-horizon gluing",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-source-1-1-16",
+        "label": "Chewi Proposition 1.1.16",
+        "declarations": [
+          "chewi_proposition_1_1_16"
+        ],
+        "dependencies": [
+          "elementaryItoIntegral_stop_gridValued",
+          "tendsto_rightApproxTime_stoppingValue",
+          "processTimeMeasure_stoppingGraph_zero",
+          "globalStoppedItoProcess_overlap_pathwise_ae",
+          "globalItoProcess_isLocalMartingale"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ],
+    "source_mapping_id": "chewi-chapter1-statement-1-1-16"
   }
 ]
