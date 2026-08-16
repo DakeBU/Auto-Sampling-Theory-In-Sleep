@@ -7,9 +7,10 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.StoppingTime
 All finite-horizon Itô processes in ASTIS are indexed by every nonnegative
 time, but the elementary construction is explicitly clamped by `min t T`.
 Consequently the completed continuous version is exactly constant after its
-construction horizon.  We record that fact, together with the corresponding
-pure stopped-process identity, so later local-martingale congruence theorems can
-be stated for every time rather than repeatedly splitting at the horizon.
+construction horizon.  We record that fact, global path continuity, and the
+corresponding pure stopped-process identity, so later local-martingale
+congruence theorems can be stated for every time rather than repeatedly
+splitting at the horizon.
 -/
 
 namespace AutoSamplingTheory
@@ -17,7 +18,7 @@ namespace TechnicalLemmas
 namespace StochasticProcesses
 namespace ItoIntegralProcessAfterHorizon
 
-open MeasureTheory
+open MeasureTheory Set
 open scoped NNReal
 
 open BrownianMotion ElementaryItoProcess ItoIntegralProcess ProgressiveL2
@@ -68,6 +69,33 @@ theorem itoIntegralProcess_eq_terminal_of_le
   · simp [itoIntegralProcess, hbad]
   · simp only [itoIntegralProcess, hbad, if_false]
     exact canonicalPathLimit_eq_terminal_of_le eta hT B omega hTt
+
+/-- A finite-horizon completed Itô version is in fact continuous on the whole
+nonnegative time axis: it is continuous on `[0,T]` and exactly constant on
+`[T,∞)`. -/
+theorem itoIntegralProcess_continuous
+    [IsFiniteMeasure mu]
+    (eta : ProgressiveL2Integrand filtration mu T) (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    (omega : Omega) :
+    Continuous (fun t => itoIntegralProcess eta hT hB hUsual t omega) := by
+  rw [← continuousOn_univ]
+  have huniv : (Set.univ : Set ℝ≥0) = Set.Iic T ∪ Set.Ici T := by
+    ext t
+    simp only [Set.mem_univ, Set.mem_union, Set.mem_Iic, Set.mem_Ici, true_iff]
+    exact le_total t T
+  rw [huniv]
+  apply ContinuousOn.union
+  · simpa only [Set.Icc_bot] using
+      itoIntegralProcess_continuousOn eta hT hB hUsual omega
+  · have hconst : ContinuousOn
+        (fun _ : ℝ≥0 => itoIntegralProcess eta hT hB hUsual T omega)
+        (Set.Ici T) := continuousOn_const
+    apply hconst.congr
+    intro t ht
+    exact congrFun
+      (itoIntegralProcess_eq_terminal_of_le eta hT hB hUsual ht) omega
 
 /-- If a stopping time is pointwise bounded by `T`, its stopped process is
 exactly constant after `T`, independently of any stochastic assumptions. -/
