@@ -23,4 +23,4 @@ example (tau : Omega → WithTop ℝ≥0)
     ElementaryItoIntegral.processTimeMeasure mu T (stoppingGraph tau) = 0 :=
   processTimeMeasure_stoppingGraph_zero tau htau T
 
-end
+end AutoSamplingTheory.Tests.StoppingGraphNull
