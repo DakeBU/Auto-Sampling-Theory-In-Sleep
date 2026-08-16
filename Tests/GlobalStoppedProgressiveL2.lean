@@ -31,4 +31,6 @@ example [IsProbabilityMeasure mu]
     ProgressiveL2Integrand filtration mu (dyadicHorizon k) :=
   globalStoppedProgressiveL2 hUsual eta k
 
+end
+
 end AutoSamplingTheory.Tests.GlobalStoppedProgressiveL2
