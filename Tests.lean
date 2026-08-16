@@ -19,6 +19,7 @@ import Tests.ElementaryItoL2
 import Tests.ElementaryItoProcess
 import Tests.ElementaryStoppingTime
 import Tests.FellerSemigroup
+import Tests.FiniteDimensionalItoProcess
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
