@@ -16,6 +16,7 @@ import astis_site  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import lean_tutor  # noqa: E402
 import source_foundations  # noqa: E402
+import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
 
 
@@ -31,6 +32,7 @@ def main() -> int:
     if result != 0:
         return result
     undergrad_guides.enrich_site(output)
+    theorem_lessons.enrich_site(output)
     source_foundations.enrich_site(output)
     implicit_prerequisites.enrich_site(output)
     lean_tutor.enrich_site(output)
