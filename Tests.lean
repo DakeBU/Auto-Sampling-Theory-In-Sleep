@@ -24,6 +24,7 @@ import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
 import Tests.ItoTerminalCompletion
 import Tests.ItoHorizonConsistency
+import Tests.ItoHorizonProcessConsistency
 import Tests.ItoIntegralProcess
 import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
