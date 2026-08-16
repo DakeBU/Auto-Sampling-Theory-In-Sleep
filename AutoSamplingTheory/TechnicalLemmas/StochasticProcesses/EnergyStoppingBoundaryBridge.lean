@@ -24,7 +24,8 @@ open MeasureTheory Set
 open scoped NNReal
 
 open CanonicalEnergyLocalizer CompletedEnergy EnergyStoppedIntegrand
-  LocalProgressiveL2 Localization ProgressiveL2
+  LocalProgressiveL2 ProgressiveL2
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization
 
 variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega} {T : ℝ≥0}
@@ -53,7 +54,8 @@ theorem energyStoppedIntegrand_eq_closedStop_larger_of_ne_boundary
         (s : WithTop ℝ≥0) ≤
           (canonicalEnergyLocalizer hUsual eta c omega : WithTop ℝ≥0) := by
       exact_mod_cast hsτ.le
-    simp [energyStoppedIntegrand, stoppedIntegrand, hEc, hEd, hsle]
+    simp [energyStoppedIntegrand, stoppedIntegrand, hEc, hEd]
+    rw [if_pos hsle]
   · have hEc : ¬ completedEnergy hUsual eta s omega < c := by
       intro hbelow
       exact hsτ (hiff.mp hbelow)
@@ -63,7 +65,8 @@ theorem energyStoppedIntegrand_eq_closedStop_larger_of_ne_boundary
         ¬ (s : WithTop ℝ≥0) ≤
           (canonicalEnergyLocalizer hUsual eta c omega : WithTop ℝ≥0) := by
       exact_mod_cast (not_le_of_gt hτs)
-    simp [energyStoppedIntegrand, stoppedIntegrand, hEc, hnle]
+    simp [energyStoppedIntegrand, stoppedIntegrand, hEc]
+    rw [if_neg hnle]
 
 /-- For every fixed sample path, the strict canonical truncation and the closed
 stopping of any larger truncation agree for almost every time in `[0,T]`.
