@@ -22,7 +22,7 @@ Brownian projection bridge and Hilbert--Schmidt norm bridge remain explicit
 next dependencies. -/
 example {iota kappa : Type*} [Fintype kappa]
     [IsProbabilityMeasure mu]
-    (hUsual : SatisfiesUsualConditions filtration mu)
+    (hUsual : TechnicalLemmas.StochasticProcesses.ProgressiveL2.SatisfiesUsualConditions filtration mu)
     (data : CoordinateItoData (filtration := filtration) (mu := mu) iota kappa)
     (brownian : CoordinateBrownianFamilyWithFiltration
       (filtration := filtration) (mu := mu) kappa)
