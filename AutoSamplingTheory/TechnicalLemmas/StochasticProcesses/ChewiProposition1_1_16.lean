@@ -30,7 +30,7 @@ namespace StochasticProcesses
 namespace ChewiProposition1_1_16
 
 open MeasureTheory Set
-open scoped NNReal
+open scoped NNReal Topology
 
 open BrownianMotion GlobalItoProcessGluing GlobalLocalProgressiveL2 ProgressiveL2
 
