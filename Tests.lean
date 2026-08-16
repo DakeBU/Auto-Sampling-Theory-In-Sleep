@@ -42,6 +42,7 @@ import Tests.ProgressiveL2Stopping
 import Tests.StoppingGraphNull
 import Tests.GlobalLocalProgressiveL2
 import Tests.GlobalCanonicalLocalizerLimit
+import Tests.DyadicGlobalHorizon
 import Tests.RandomStoppingDyadicApprox
 import Tests.RandomStoppingBoundary
 import Tests.RandomStoppingProcessApprox
