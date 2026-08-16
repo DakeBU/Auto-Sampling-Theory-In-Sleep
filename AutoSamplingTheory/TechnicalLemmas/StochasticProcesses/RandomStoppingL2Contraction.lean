@@ -88,7 +88,7 @@ theorem norm_stopped_sub_le
     · have hz : z ∉ stoppingSet tau := by
         simpa only [stoppingSet, Set.mem_ofPred_eq] using hactive
       rw [show (stoppingSet tau).indicator
-          (processFunction (sub eta xi).process) z = 0 by
+          (processFunction (eta.process - xi.process)) z = 0 by
         simp [Set.indicator, hz]]
       change
         (if (z.2 : WithTop ℝ≥0) ≤ tau z.1 then eta.process z.2 z.1 else 0) -
