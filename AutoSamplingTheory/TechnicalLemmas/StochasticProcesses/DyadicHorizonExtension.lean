@@ -1,6 +1,7 @@
 import Mathlib.Tactic
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DyadicElementaryRefinement
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DyadicGlobalHorizon
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FiniteTimeGrid
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2HorizonExtension
 
 /-!
@@ -42,7 +43,9 @@ def extensionLevel {a : ℕ}
 /-- Dyadic horizons are monotone in their exponent. -/
 theorem dyadicHorizon_mono {a b : ℕ} (hab : a ≤ b) :
     dyadicHorizon a ≤ dyadicHorizon b := by
-  exact_mod_cast Nat.pow_le_pow_right (by decide) hab
+  have hnat : (2 : ℕ) ^ a ≤ (2 : ℕ) ^ b :=
+    Nat.pow_le_pow_right (by decide : 0 < (2 : ℕ)) hab
+  exact_mod_cast hnat
 
 /-- Exact mesh alignment under the level shift `L ↦ L + (b-a)`. -/
 theorem dyadicMesh_dyadicHorizon_align
@@ -93,7 +96,7 @@ theorem prefix_time_eq {a b : ℕ} (hab : a ≤ b)
           lt_of_lt_of_le i.isLt
             (Nat.add_le_add_right (oldCellCount_le_extension hab q) 1)⟩ := by
   rw [congrFun q.times_eq i]
-  simp only [regularGridTimes]
+  simp only [regularGridTimes, extensionLevel]
   rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
 
 /-- Dyadic zero extension from `H_a` to `H_b`. -/
@@ -122,13 +125,13 @@ noncomputable def extendDyadicHorizon {a b : ℕ} (hab : a ≤ b)
                 regularGridTimes
                   (dyadicMesh (dyadicHorizon b) (extensionLevel q b))
                   (2 ^ extensionLevel q b) j.castSucc := by
-            rw [congrFun q.times_eq
-              (⟨j.val, Nat.lt.step hj⟩ : Fin (2 ^ q.level + 1))]
-            simp only [regularGridTimes, Fin.val_castSucc]
-            rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
+            simpa only [Fin.val_castSucc] using
+              prefix_time_eq hab q
+                (⟨j.val, Nat.lt.step hj⟩ : Fin (2 ^ q.level + 1))
           rw [htime] at hq
           simpa [hj] using hq
-        · simp [hj]
+        · simp only [hj, dite_false]
+          exact stronglyMeasurable_const
       coeff_bounded := fun j => by
         classical
         by_cases hj : j.val < 2 ^ q.level
