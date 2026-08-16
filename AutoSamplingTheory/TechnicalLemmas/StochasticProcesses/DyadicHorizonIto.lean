@@ -82,6 +82,8 @@ theorem extend_time_castSucc_eq
   rw [congrFun (extendDyadicHorizon hab q).times_eq (prefixIndex hab q i).castSucc,
     congrFun q.times_eq i.castSucc]
   simp only [regularGridTimes, Fin.val_castSucc, prefixIndex_val]
+  rw [extendDyadicHorizon_level]
+  unfold extensionLevel
   rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
 
 set_option backward.isDefEq.respectTransparency false in
@@ -96,6 +98,8 @@ theorem extend_time_succ_eq
   rw [congrFun (extendDyadicHorizon hab q).times_eq (prefixIndex hab q i).succ,
     congrFun q.times_eq i.succ]
   simp only [regularGridTimes, Fin.val_succ, prefixIndex_val]
+  rw [extendDyadicHorizon_level]
+  unfold extensionLevel
   rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
 
 set_option backward.isDefEq.respectTransparency false in
