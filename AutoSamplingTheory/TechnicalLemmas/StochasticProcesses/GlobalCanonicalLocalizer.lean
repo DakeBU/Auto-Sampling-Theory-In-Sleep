@@ -164,10 +164,14 @@ theorem globalLocalizingTime_isChewiStoppingTime
       · intro _
         exact Or.inl homega
       · intro _
+        change (globalLocalizingTime hUsual eta n omega : WithTop ℝ≥0) ≤
+          (t : WithTop ℝ≥0)
         rw [globalLocalizingTime_of_bad hUsual eta n homega]
         exact bot_le
     · constructor
       · intro hleft
+        change (globalLocalizingTime hUsual eta n omega : WithTop ℝ≥0) ≤
+          (t : WithTop ℝ≥0) at hleft
         rw [globalLocalizingTime_of_good hUsual eta n homega] at hleft
         have hfinite :
             canonicalEnergyLocalizer hUsual
@@ -181,6 +185,8 @@ theorem globalLocalizingTime_isChewiStoppingTime
           rcases hright with hbad' | ⟨_, hcan'⟩
           · exact False.elim (homega hbad')
           · exact hcan'
+        change (globalLocalizingTime hUsual eta n omega : WithTop ℝ≥0) ≤
+          (t : WithTop ℝ≥0)
         rw [globalLocalizingTime_of_good hUsual eta n homega]
         exact WithTop.coe_le_coe.mpr hfinite
   rw [heq]
