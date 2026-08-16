@@ -32,4 +32,4 @@ example [IsFiniteMeasure mu]
         ItoIntegralProcess.itoIntegralProcess eta hT hB hUsual (tau omega) omega) :=
   itoIntegralTerminal_stop_ae eta hT tau htau htauT hB hUsual
 
-end AutoSamplingTheory.Tests.RandomStoppingGeneralIto
+end
