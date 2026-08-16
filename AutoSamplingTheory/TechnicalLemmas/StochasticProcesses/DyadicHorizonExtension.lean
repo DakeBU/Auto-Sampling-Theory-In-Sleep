@@ -218,7 +218,8 @@ theorem extendDyadicHorizon_value_eq_of_le {a b : ℕ} (hab : a ≤ b)
           t ≤ regularGridTimes
               (dyadicMesh (dyadicHorizon b) (extensionLevel q b))
               (2 ^ extensionLevel q b) j.succ
-      simp only [regularGridTimes, Fin.val_castSucc, Fin.val_succ, hjval]
+      simp only [regularGridTimes, Fin.val_castSucc, Fin.val_succ, hjval,
+        extensionLevel]
       rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
       exact hi
     rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_coeff_of_mem_cell
@@ -263,7 +264,14 @@ theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
                 gcongr
                 exact_mod_cast hjSucc
         _ = dyadicHorizon a := by
-              rw [dyadicMesh, mul_comm, div_mul_cancel₀]
+              rw [dyadicMesh]
+              have hden : ((2 ^ q.level : ℕ) : ℝ≥0) ≠ 0 := by positivity
+              calc
+                ((2 ^ q.level : ℕ) : ℝ≥0) *
+                    (dyadicHorizon a / ((2 ^ q.level : ℕ) : ℝ≥0)) =
+                    (dyadicHorizon a / ((2 ^ q.level : ℕ) : ℝ≥0)) *
+                      ((2 ^ q.level : ℕ) : ℝ≥0) := mul_comm _ _
+                _ = dyadicHorizon a := div_mul_cancel₀ _ hden
     exact (not_lt_of_ge (hj.2.trans hrightOld)) ht
   · have hlast :
         (extendDyadicHorizon hab q).process.times
