@@ -54,8 +54,13 @@ theorem energyStoppedIntegrand_eq_closedStop_larger_of_ne_boundary
         (s : WithTop ℝ≥0) ≤
           (canonicalEnergyLocalizer hUsual eta c omega : WithTop ℝ≥0) := by
       exact_mod_cast hsτ.le
-    simp [energyStoppedIntegrand, stoppedIntegrand, hEc, hEd]
-    rw [if_pos hsle]
+    rw [energyStoppedIntegrand, if_pos hEc]
+    change CompletedIntegrand.completedIntegrand hUsual eta s omega =
+      if (s : WithTop ℝ≥0) ≤
+          (canonicalEnergyLocalizer hUsual eta c omega : WithTop ℝ≥0) then
+        energyStoppedIntegrand hUsual eta d s omega
+      else 0
+    rw [if_pos hsle, energyStoppedIntegrand, if_pos hEd]
   · have hEc : ¬ completedEnergy hUsual eta s omega < c := by
       intro hbelow
       exact hsτ (hiff.mp hbelow)
@@ -65,7 +70,12 @@ theorem energyStoppedIntegrand_eq_closedStop_larger_of_ne_boundary
         ¬ (s : WithTop ℝ≥0) ≤
           (canonicalEnergyLocalizer hUsual eta c omega : WithTop ℝ≥0) := by
       exact_mod_cast (not_le_of_gt hτs)
-    simp [energyStoppedIntegrand, stoppedIntegrand, hEc]
+    rw [energyStoppedIntegrand, if_neg hEc]
+    change 0 =
+      if (s : WithTop ℝ≥0) ≤
+          (canonicalEnergyLocalizer hUsual eta c omega : WithTop ℝ≥0) then
+        energyStoppedIntegrand hUsual eta d s omega
+      else 0
     rw [if_neg hnle]
 
 /-- For every fixed sample path, the strict canonical truncation and the closed
