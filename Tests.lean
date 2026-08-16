@@ -51,6 +51,7 @@ import Tests.GlobalCanonicalLocalizerLimit
 import Tests.DyadicGlobalHorizon
 import Tests.GlobalStoppedProgressiveL2
 import Tests.GlobalStoppedL2Overlap
+import Tests.GlobalStoppedItoMartingale
 import Tests.RandomStoppingDyadicApprox
 import Tests.RandomStoppingBoundary
 import Tests.RandomStoppingProcessApprox
