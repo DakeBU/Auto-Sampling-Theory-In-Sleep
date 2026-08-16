@@ -233,7 +233,7 @@ theorem globalItoProcess_continuousAt_of_good
       (t0 : WithTop ℝ≥0) <
         (dyadicGlobalLocalizingTime hUsual eta k omega : WithTop ℝ≥0) := by
     exact homega.1.eventually_mem
-      (Ioi_mem_nhds (show (t0 : WithTop ℝ≥0) < ⊤ by simp))
+      (Ioi_mem_nhds (WithTop.coe_lt_top t0))
   obtain ⟨k, hk⟩ := eventually_atTop.1 hev
   have hltTop := hk k le_rfl
   have hlt : t0 < dyadicGlobalLocalizingTime hUsual eta k omega :=
