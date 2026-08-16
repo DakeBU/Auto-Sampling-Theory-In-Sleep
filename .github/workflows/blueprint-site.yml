@@ -83,6 +83,7 @@ jobs:
             website/scripts/implicit_prerequisites.py \
             website/scripts/lean_tutor.py \
             website/scripts/source_foundations.py \
+            website/scripts/theorem_lessons.py \
             website/scripts/undergrad_guides.py \
             website/scripts/build_sites_bundle.py \
             website/scripts/lean_gate.py \
@@ -185,7 +186,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - chapter-1-foundation
-      - chapter-1-closure
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
