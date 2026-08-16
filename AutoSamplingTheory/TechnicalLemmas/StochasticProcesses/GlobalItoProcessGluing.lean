@@ -149,7 +149,7 @@ theorem tendsto_globalStoppedItoProcess_of_good_of_le_localizer
       (𝓝 (globalStoppedItoProcess hUsual eta hB k t omega)) := by
   refine tendsto_const_nhds.congr' ?_
   filter_upwards [eventually_ge_atTop k] with ell hell
-  exact (homega.2 k ell hell t ht).symm
+  exact homega.2 k ell hell t ht
 
 /-- Identification of the raw `limUnder` with any localized martingale before
 its localizer fires. -/
@@ -231,8 +231,9 @@ theorem globalItoProcess_continuousAt_of_good
     ContinuousAt (fun t => globalItoProcess hUsual eta hB t omega) t0 := by
   have hev : ∀ᶠ k : ℕ in atTop,
       (t0 : WithTop ℝ≥0) <
-        (dyadicGlobalLocalizingTime hUsual eta k omega : WithTop ℝ≥0) :=
-    (WithTop.tendsto_nhds_top_iff.mp homega.1) t0
+        (dyadicGlobalLocalizingTime hUsual eta k omega : WithTop ℝ≥0) := by
+    exact homega.1.eventually_mem
+      (Ioi_mem_nhds (show (t0 : WithTop ℝ≥0) < ⊤ by simp))
   obtain ⟨k, hk⟩ := eventually_atTop.1 hev
   have hltTop := hk k le_rfl
   have hlt : t0 < dyadicGlobalLocalizingTime hUsual eta k omega :=
@@ -243,8 +244,11 @@ theorem globalItoProcess_continuousAt_of_good
     filter_upwards [Iio_mem_nhds hlt] with t ht
     exact globalItoProcess_eq_globalStopped_of_good_of_le_localizer
       hUsual eta hB homega ht.le
-  exact (globalStoppedItoProcess_continuous hUsual eta hB k omega).continuousAt
-    .congr_of_eventuallyEq heq
+  have hcont :
+      ContinuousAt
+        (fun t => globalStoppedItoProcess hUsual eta hB k t omega) t0 :=
+    (globalStoppedItoProcess_continuous hUsual eta hB k omega).continuousAt
+  exact hcont.congr heq.symm
 
 /-- The patched global Itô process has continuous paths for every sample point,
 including the exceptional null set where it is identically zero. -/
@@ -346,7 +350,7 @@ theorem globalItoProcess_isLocalMartingale
       ((dyadicGlobalLocalizingTime_mono hUsual eta) hkell omega)
   · exact dyadicGlobalLocalizingTime_tendsto_top_ae hUsual eta
   · intro k
-    simpa only [globalItoProcess_zero, sub_zero] using
+    simpa [globalItoProcess_zero] using
       stopped_globalItoProcess_martingale hUsual eta hB k
 
 end GlobalItoProcessGluing
