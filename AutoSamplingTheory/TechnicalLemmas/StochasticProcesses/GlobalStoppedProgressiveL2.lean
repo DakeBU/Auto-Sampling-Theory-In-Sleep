@@ -32,7 +32,7 @@ namespace GlobalStoppedProgressiveL2
 open Filter MeasureTheory Set WithTop
 open scoped ENNReal NNReal Topology
 
-open CanonicalRawLocalization CanonicalRawLocalizationL2
+open CanonicalRawLocalization CanonicalRawLocalizationL2 CompletedEnergy
   DyadicGlobalHorizon ElementaryItoIntegral GlobalCanonicalLocalizer
   GlobalLocalProgressiveL2 ProgressiveL2 StoppingTime
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization
@@ -87,9 +87,14 @@ theorem globalStoppedIntegrand_stronglyProgressive
         ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤
           min (tau p.2) (i : WithTop ℝ≥0)} := by
     ext p
+    change
+      (((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2) ↔
+        (((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤
+          min (tau p.2) (i : WithTop ℝ≥0))
     constructor
     · intro hp
-      exact le_min hp (by exact_mod_cast p.1.property)
+      have hpi : (p.1 : ℝ≥0) ≤ i := p.1.property
+      exact le_min hp (WithTop.coe_le_coe.mpr hpi)
     · intro hp
       exact hp.trans (min_le_left _ _)
   have hset : @MeasurableSet (Set.Iic i × Omega)
@@ -97,11 +102,8 @@ theorem globalStoppedIntegrand_stronglyProgressive
       {p | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2} := by
     rw [heq]
     exact hsetMin
-  change StronglyMeasurable
-    (fun p : Set.Iic i × Omega =>
-      if ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2 then
-        eta.process p.1 p.2 else 0)
-  exact StronglyMeasurable.ite hset (eta.progressive i) stronglyMeasurable_const
+  simpa only [globalStoppedIntegrand, stoppedIntegrand, tau] using
+    (StronglyMeasurable.ite hset (eta.progressive i) stronglyMeasurable_const)
 
 /-- On a globally good sample path, the dyadic global time is literally the
 finite-horizon canonical raw localizer at the matching index. -/
@@ -145,9 +147,14 @@ theorem globalStoppedTimeLintegral_le
           (fun _ => 0) := by
       filter_upwards [TimeMeasure.ae_mem_Ioc_zero_upTo (dyadicHorizon k)]
         with t ht
-      have hnot : ¬ (t : WithTop ℝ≥0) ≤ (0 : ℝ≥0) := by
-        exact not_le.mpr (WithTop.coe_lt_coe.mpr ht.1)
-      simp [globalStoppedIntegrand, stoppedIntegrand, hτ0, hnot]
+      have hnot : ¬ (t : WithTop ℝ≥0) ≤ (0 : ℝ≥0) :=
+        not_le.mpr (WithTop.coe_lt_coe.mpr ht.1)
+      change ENNReal.ofReal
+          ((if (t : WithTop ℝ≥0) ≤
+              (dyadicGlobalLocalizingTime hUsual eta k omega : WithTop ℝ≥0)
+            then eta.process t omega else 0) ^ 2) = 0
+      rw [hτ0, if_neg hnot]
+      simp
     rw [lintegral_congr_ae hae]
     simp
   · have hτ := dyadicGlobalLocalizingTime_eq_canonicalRaw_of_good
@@ -163,8 +170,9 @@ theorem globalStoppedTimeLintegral_le
             t omega) ^ 2)
           ∂TimeMeasure.upTo (dyadicHorizon k)) ≤
         ENNReal.ofReal (dyadicGlobalIndex k + 1 : ℝ)
-    rw [← TimeMeasure.upTo_eq_restrict_nnrealLebesgue (dyadicHorizon k)]
-    simpa only [GlobalLocalProgressiveL2Integrand.onHorizon_process, hτ] using hlocal
+    rw [TimeMeasure.upTo_eq_restrict_nnrealLebesgue (dyadicHorizon k)]
+    simpa only [GlobalLocalProgressiveL2Integrand.onHorizon_process,
+      stoppedIntegrand, hτ] using hlocal
 
 /-- A strongly measurable ambient extension of the stopped source process from
 `[0,H_k] × Omega`. -/
