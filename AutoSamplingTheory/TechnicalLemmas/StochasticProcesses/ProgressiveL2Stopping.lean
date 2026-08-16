@@ -64,10 +64,12 @@ theorem stoppedIntegrand_stronglyProgressive
       {p | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤
         min (tau p.2) (i : WithTop ℝ≥0)} :=
     measurableSet_le htime hτprod
-  have hset : @MeasurableSet (Set.Iic i × Omega)
-      (Subtype.instMeasurableSpace.prod (filtration i))
-      {p | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2} := by
-    convert hsetMin using 1
+  have heq :
+      {p : Set.Iic i × Omega |
+        ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2} =
+      {p : Set.Iic i × Omega |
+        ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤
+          min (tau p.2) (i : WithTop ℝ≥0)} := by
     ext p
     constructor
     · intro hptau
@@ -75,6 +77,11 @@ theorem stoppedIntegrand_stronglyProgressive
       exact_mod_cast p.1.property
     · intro hpmin
       exact hpmin.trans (min_le_left _ _)
+  have hset : @MeasurableSet (Set.Iic i × Omega)
+      (Subtype.instMeasurableSpace.prod (filtration i))
+      {p | ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2} := by
+    rw [heq]
+    exact hsetMin
   exact StronglyMeasurable.ite hset (eta.progressive i) stronglyMeasurable_const
 
 /-- The closed stopped integrand remains in product-space `L²`. -/
