@@ -22,6 +22,7 @@ import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
 import Tests.ItoTerminalCompletion
 import Tests.ItoIntegralProcess
+import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
 import Tests.LangevinCarreDuChamp
 import Tests.LaggedDyadicApproximation
@@ -74,6 +75,7 @@ import Tests.EnergyStoppedProgressiveL2
 import Tests.EnergyStoppingL2Bridge
 import Tests.CanonicalLocalizationTheorem
 import Tests.CanonicalStoppedItoIntegral
+import Tests.EnergyStoppedItoOverlap
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are
