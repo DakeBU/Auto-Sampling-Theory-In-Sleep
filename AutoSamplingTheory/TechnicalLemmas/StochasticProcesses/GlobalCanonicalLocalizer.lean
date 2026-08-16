@@ -44,6 +44,7 @@ def integerHorizon (n : ℕ) : ℝ≥0 := (n + 1 : ℕ)
 /-- Integer horizons are monotone. -/
 theorem integerHorizon_mono {n m : ℕ} (hnm : n ≤ m) :
     integerHorizon n ≤ integerHorizon m := by
+  change ((n + 1 : ℕ) : ℝ≥0) ≤ ((m + 1 : ℕ) : ℝ≥0)
   exact_mod_cast Nat.add_le_add_right hnm 1
 
 /-- The countable exceptional set where local square integrability fails on at
@@ -101,8 +102,9 @@ usual finite-horizon energy hitting time at matching level and horizon. -/
 noncomputable def globalLocalizingTime
     (hUsual : SatisfiesUsualConditions filtration mu)
     (eta : GlobalLocalProgressiveL2Integrand filtration mu)
-    (n : ℕ) (omega : Omega) : ℝ≥0 :=
-  if omega ∈ globalBadSet eta then 0 else
+    (n : ℕ) (omega : Omega) : ℝ≥0 := by
+  classical
+  exact if omega ∈ globalBadSet eta then 0 else
     canonicalEnergyLocalizer hUsual
       (eta.onHorizon (integerHorizon n)) (n + 1 : ℝ) omega
 
@@ -171,6 +173,8 @@ theorem globalLocalizingTime_mono
     (eta : GlobalLocalProgressiveL2Integrand filtration mu) :
     Monotone (fun n => globalLocalizingTime hUsual eta n) := by
   intro n m hnm omega
+  change globalLocalizingTime hUsual eta n omega ≤
+    globalLocalizingTime hUsual eta m omega
   by_cases homega : omega ∈ globalBadSet eta
   · simp [globalLocalizingTime, homega]
   · rw [globalLocalizingTime_of_good hUsual eta n homega,
