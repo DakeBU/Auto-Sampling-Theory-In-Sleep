@@ -207,22 +207,25 @@ theorem itoIntegralProcess_stop_eq_stoppedProcess_ae [IsFiniteMeasure mu]
     rw [min_eq_left h', min_eq_right hTop]
     rfl
 
-/-- Finite-valued stopped processes can be evaluated without exposing
-`WithTop.untopA`: split at the stopping time and use Mathlib's stopped-process
-API directly. -/
+/-- Finite-valued stopped processes are ordinary composition with
+`t ↦ min t (tau omega)`.  We unfold Mathlib's definition so the finite
+`WithTop` value reduces definitionally, avoiding any theorem that expects the
+stopping time in a different partially-applied shape. -/
 theorem stoppedProcess_coe_apply
     (u : ℝ≥0 → Omega → ℝ) (tau : Omega → ℝ≥0)
     (t : ℝ≥0) (omega : Omega) :
     stoppedProcess u (fun w => (tau w : WithTop ℝ≥0)) t omega =
       u (min t (tau omega)) omega := by
+  unfold stoppedProcess
   by_cases h : t ≤ tau omega
   · have hTop : (t : WithTop ℝ≥0) ≤ (tau omega : WithTop ℝ≥0) :=
       coe_le_coe.mpr h
-    rw [stoppedProcess_eq_of_le hTop, min_eq_left h]
+    rw [min_eq_left hTop, min_eq_left h]
+    rfl
   · have h' : tau omega ≤ t := le_of_not_ge h
     have hTop : (tau omega : WithTop ℝ≥0) ≤ (t : WithTop ℝ≥0) :=
       coe_le_coe.mpr h'
-    rw [stoppedProcess_eq_of_ge hTop, min_eq_right h']
+    rw [min_eq_right hTop, min_eq_right h']
     rfl
 
 /-- **Pathwise bounded random-stopping identity.**
@@ -265,6 +268,9 @@ theorem itoIntegralProcess_stop_eq_stoppedProcess_pathwise_ae
     have hcomp := (hBaseContinuous omega).comp hmin
     apply hcomp.continuousOn.congr
     intro t _
+    change
+      J t omega =
+        itoIntegralProcess eta hT hB hUsual (min t (tau omega)) omega
     simpa only [J] using
       stoppedProcess_coe_apply
         (itoIntegralProcess eta hT hB hUsual) tau t omega
