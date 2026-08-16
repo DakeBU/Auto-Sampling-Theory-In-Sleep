@@ -2,6 +2,8 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalStoppedProgr
 
 namespace AutoSamplingTheory.Tests.GlobalStoppedProgressiveL2
 
+noncomputable section
+
 open MeasureTheory
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DyadicGlobalHorizon
