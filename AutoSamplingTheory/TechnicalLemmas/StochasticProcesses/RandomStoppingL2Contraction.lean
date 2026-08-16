@@ -49,7 +49,10 @@ theorem processFunction_stoppedIntegrand_eq_indicator
     simp only [processFunction, stoppedIntegrand, if_pos h]
   · have hz : z ∉ stoppingSet tau := by
       simpa only [stoppingSet, Set.mem_ofPred_eq] using h
-    simp [Set.indicator, hz, processFunction, stoppedIntegrand, h]
+    rw [show (stoppingSet tau).indicator (processFunction eta) z = 0 by
+      simp [Set.indicator, hz]]
+    change (if (z.2 : WithTop ℝ≥0) ≤ tau z.1 then eta z.2 z.1 else 0) = 0
+    rw [if_neg h]
 
 /-- **Stopping contraction.**  Any two already-constructed closed stopped
 representatives are no farther apart in product-space `L²` than their original
@@ -84,7 +87,14 @@ theorem norm_stopped_sub_le
       simp only [stoppedIntegrand, if_pos hactive, processFunction, Pi.sub_apply]
     · have hz : z ∉ stoppingSet tau := by
         simpa only [stoppingSet, Set.mem_ofPred_eq] using hactive
-      simp [Set.indicator, hz, stoppedIntegrand, hactive, processFunction]
+      rw [show (stoppingSet tau).indicator
+          (processFunction (sub eta xi).process) z = 0 by
+        simp [Set.indicator, hz]]
+      change
+        (if (z.2 : WithTop ℝ≥0) ≤ tau z.1 then eta.process z.2 z.1 else 0) -
+            (if (z.2 : WithTop ℝ≥0) ≤ tau z.1 then xi.process z.2 z.1 else 0) = 0
+      rw [if_neg hactive, if_neg hactive]
+      exact sub_self 0
   rw [eLpNorm_congr_ae hEq]
   exact eLpNorm_indicator_le _
 
