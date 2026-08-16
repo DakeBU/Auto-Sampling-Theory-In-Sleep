@@ -59,8 +59,10 @@ theorem stopped_globalStoppedIntegrand_eq
   by_cases htk : (t : WithTop ℝ≥0) ≤
       (dyadicGlobalLocalizingTime hUsual eta k omega : WithTop ℝ≥0)
   · have htell := htk.trans hτ
-    simp [globalStoppedIntegrand, stoppedIntegrand, htk, htell]
-  · simp [globalStoppedIntegrand, stoppedIntegrand, htk]
+    simp only [globalStoppedIntegrand, stoppedIntegrand]
+    rw [if_pos htk, if_pos htell, if_pos htk]
+  · simp only [globalStoppedIntegrand, stoppedIntegrand]
+    rw [if_neg htk, if_neg htk]
 
 /-- The direct progressive-`L²` stop of the larger finite-horizon package has
 exactly the smaller raw stopped process as its process field. -/
@@ -93,7 +95,9 @@ theorem stop_globalStopped_toLp_eq_extendByZero
       (dyadicGlobalLocalizingTime_isChewiStoppingTime hUsual eta k)).toLp =
       (extendByZero
         (globalStoppedProgressiveL2 hUsual eta k)
-        (DyadicHorizonExtension.dyadicHorizon_mono hkell)).toLp := by
+        (by
+          unfold dyadicHorizon
+          exact_mod_cast Nat.pow_le_pow_right (by decide : 0 < (2 : ℕ)) hkell)).toLp := by
   unfold ProgressiveL2Integrand.toLp
   apply MemLp.toLp_congr
   filter_upwards [
@@ -106,7 +110,7 @@ theorem stop_globalStopped_toLp_eq_extendByZero
       (globalStoppedProgressiveL2 hUsual eta k).process z.2 z.1
   rw [globalStoppedProgressiveL2_process]
   by_cases hzt : z.2 < dyadicHorizon k
-  · simp [ProgressiveL2Integrand.restrictProcess, hzt]
+  · rw [ProgressiveL2Integrand.restrictProcess, if_pos hzt]
   · have htkz : dyadicHorizon k < z.2 :=
       lt_of_le_of_ne (le_of_not_gt hzt) (Ne.symm hz)
     have hτk :
@@ -120,8 +124,9 @@ theorem stop_globalStopped_toLp_eq_extendByZero
       have : (z.2 : WithTop ℝ≥0) ≤ (dyadicHorizon k : WithTop ℝ≥0) :=
         hle.trans hτk
       exact (not_le.mpr (WithTop.coe_lt_coe.mpr htkz)) this
-    simp [ProgressiveL2Integrand.restrictProcess, hzt,
-      globalStoppedIntegrand, stoppedIntegrand, hnot]
+    rw [ProgressiveL2Integrand.restrictProcess, if_neg hzt]
+    simp only [globalStoppedIntegrand, stoppedIntegrand]
+    rw [if_neg hnot]
 
 end GlobalStoppedL2Overlap
 end StochasticProcesses
