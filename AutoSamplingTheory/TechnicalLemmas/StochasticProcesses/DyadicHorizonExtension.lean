@@ -45,6 +45,7 @@ theorem dyadicHorizon_mono {a b : ℕ} (hab : a ≤ b) :
     dyadicHorizon a ≤ dyadicHorizon b := by
   have hnat : (2 : ℕ) ^ a ≤ (2 : ℕ) ^ b :=
     Nat.pow_le_pow_right (by decide : 0 < (2 : ℕ)) hab
+  unfold dyadicHorizon
   exact_mod_cast hnat
 
 /-- Exact mesh alignment under the level shift `L ↦ L + (b-a)`. -/
@@ -125,9 +126,17 @@ noncomputable def extendDyadicHorizon {a b : ℕ} (hab : a ≤ b)
                 regularGridTimes
                   (dyadicMesh (dyadicHorizon b) (extensionLevel q b))
                   (2 ^ extensionLevel q b) j.castSucc := by
-            simpa only [Fin.val_castSucc] using
-              prefix_time_eq hab q
-                (⟨j.val, Nat.lt.step hj⟩ : Fin (2 ^ q.level + 1))
+            let iEnd : Fin (2 ^ q.level + 1) :=
+              ⟨j.val, Nat.lt_succ_of_lt hj⟩
+            have hiEnd :
+                iEnd = (⟨j.val, hj⟩ : Fin (2 ^ q.level)).castSucc := by
+              apply Fin.ext
+              rfl
+            have hp := prefix_time_eq hab q iEnd
+            rw [hiEnd] at hp
+            convert hp using 1
+            apply Fin.ext
+            rfl
           rw [htime] at hq
           simpa [hj] using hq
         · simp only [hj, dite_false]
@@ -185,9 +194,10 @@ theorem extendDyadicHorizon_value_eq_of_le {a b : ℕ} (hab : a ≤ b)
       simp [regularGridTimes]
     have he0 : (extendDyadicHorizon hab q).process.times 0 = 0 := by
       simp [extendDyadicHorizon, regularGridTimes]
-    rw [q.process.value_eq_zero_of_le_first (by simp [hq0]) omega,
-      (extendDyadicHorizon hab q).process.value_eq_zero_of_le_first
-        (by simp [he0]) omega]
+    rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_zero_of_le_first
+        q.process (by simp [hq0]) omega,
+      FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_zero_of_le_first
+        (extendDyadicHorizon hab q).process (by simp [he0]) omega]
   · have htpos : 0 < t := pos_of_ne_zero ht0
     obtain ⟨i, hi, _⟩ :=
       dyadic_activeCell (DyadicElementaryProcess.horizon_pos q) q.level htpos ht
@@ -195,7 +205,8 @@ theorem extendDyadicHorizon_value_eq_of_le {a b : ℕ} (hab : a ≤ b)
         q.process.times i.castSucc < t ∧ t ≤ q.process.times i.succ := by
       rw [congrFun q.times_eq i.castSucc, congrFun q.times_eq i.succ]
       exact hi
-    rw [q.process.value_eq_coeff_of_mem_cell hqcell]
+    rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_coeff_of_mem_cell
+      q.process hqcell]
     let j : Fin (2 ^ extensionLevel q b) := prefixIndex hab q i
     have hjcell :
         (extendDyadicHorizon hab q).process.times j.castSucc < t ∧
@@ -209,7 +220,8 @@ theorem extendDyadicHorizon_value_eq_of_le {a b : ℕ} (hab : a ≤ b)
               (2 ^ extensionLevel q b) j.succ
       simpa [j, prefixIndex, regularGridTimes,
         dyadicMesh_dyadicHorizon_align q.level a b hab] using hi
-    rw [(extendDyadicHorizon hab q).process.value_eq_coeff_of_mem_cell hjcell]
+    rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_coeff_of_mem_cell
+      (extendDyadicHorizon hab q).process hjcell]
     exact extendDyadicHorizon_coeff_prefix hab q j i.isLt omega
 
 /-- The enlarged process is zero strictly after the old horizon. -/
@@ -225,7 +237,8 @@ theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
         (extendDyadicHorizon hab q).process.times j.castSucc < t ∧
           t ≤ (extendDyadicHorizon hab q).process.times j.succ := by
       simpa only [extendDyadicHorizon_times] using hj
-    rw [(extendDyadicHorizon hab q).process.value_eq_coeff_of_mem_cell hjcell]
+    rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_coeff_of_mem_cell
+      (extendDyadicHorizon hab q).process hjcell]
     apply extendDyadicHorizon_coeff_tail hab q j
     by_contra htail
     have hjlt : j.val < 2 ^ q.level := Nat.lt_of_not_ge htail
@@ -253,7 +266,8 @@ theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
           (Fin.last (2 ^ extensionLevel q b)) = dyadicHorizon b := by
       simpa only [extendDyadicHorizon_times] using
         regularDyadic_last_time (dyadicHorizon b) (extensionLevel q b)
-    exact (extendDyadicHorizon hab q).process.value_eq_zero_of_last_lt
+    exact FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_zero_of_last_lt
+      (extendDyadicHorizon hab q).process
       (by rw [hlast]; exact lt_of_not_ge htb) omega
 
 /-- Away from the old terminal slice, the enlarged elementary process is
