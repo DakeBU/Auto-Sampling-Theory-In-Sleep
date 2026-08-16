@@ -206,6 +206,8 @@ theorem extendDyadicHorizon_value_eq_of_le {a b : ℕ} (hab : a ≤ b)
     rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_coeff_of_mem_cell
       q.process hqcell]
     let j : Fin (2 ^ extensionLevel q b) := prefixIndex hab q i
+    have hjval : j.val = i.val := by
+      simpa only [j] using prefixIndex_val hab q i
     have hjcell :
         (extendDyadicHorizon hab q).process.times j.castSucc < t ∧
           t ≤ (extendDyadicHorizon hab q).process.times j.succ := by
@@ -216,11 +218,15 @@ theorem extendDyadicHorizon_value_eq_of_le {a b : ℕ} (hab : a ≤ b)
           t ≤ regularGridTimes
               (dyadicMesh (dyadicHorizon b) (extensionLevel q b))
               (2 ^ extensionLevel q b) j.succ
-      simpa [j, prefixIndex, regularGridTimes, extensionLevel,
-        dyadicMesh_dyadicHorizon_align q.level a b hab] using hi
+      simp only [regularGridTimes, Fin.val_castSucc, Fin.val_succ, hjval]
+      rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
+      exact hi
     rw [FiniteTimeGrid.ElementaryAdaptedProcess.value_eq_coeff_of_mem_cell
       (extendDyadicHorizon hab q).process hjcell]
-    exact extendDyadicHorizon_coeff_prefix hab q j i.isLt omega
+    have hjlt : j.val < 2 ^ q.level := by
+      rw [hjval]
+      exact i.isLt
+    exact extendDyadicHorizon_coeff_prefix hab q j hjlt omega
 
 /-- The enlarged process is zero strictly after the old horizon. -/
 theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
@@ -248,7 +254,7 @@ theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
             (2 ^ extensionLevel q b) j.succ ≤ dyadicHorizon a
       simp only [extensionLevel]
       rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
-      simp only [regularGridTimes, Fin.val_succ, Nat.cast_add, Nat.cast_one]
+      simp only [regularGridTimes]
       have hjSucc : j.val + 1 ≤ 2 ^ q.level := Nat.succ_le_iff.2 hjlt
       calc
         ((j.val + 1 : ℕ) : ℝ≥0) * dyadicMesh (dyadicHorizon a) q.level ≤
@@ -258,7 +264,6 @@ theorem extendDyadicHorizon_value_eq_zero_of_old_lt {a b : ℕ} (hab : a ≤ b)
                 exact_mod_cast hjSucc
         _ = dyadicHorizon a := by
               rw [dyadicMesh, mul_comm, div_mul_cancel₀]
-              positivity
     exact (not_lt_of_ge (hj.2.trans hrightOld)) ht
   · have hlast :
         (extendDyadicHorizon hab q).process.times
