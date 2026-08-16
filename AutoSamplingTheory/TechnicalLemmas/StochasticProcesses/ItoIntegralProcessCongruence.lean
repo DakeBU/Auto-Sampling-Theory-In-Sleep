@@ -6,8 +6,8 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algeb
 
 The completed Itô process is represented by a particular pathwise-continuous
 version, but its stochastic content depends only on the product-space `L²`
-class of the integrand.  This module records the deterministic-time congruence
-principle needed for localization and gluing.
+class of the integrand.  This module records both deterministic-time and
+compact-path congruence principles needed for localization and gluing.
 -/
 
 namespace AutoSamplingTheory
@@ -15,7 +15,7 @@ namespace TechnicalLemmas
 namespace StochasticProcesses
 namespace ItoIntegralProcessCongruence
 
-open Filter MeasureTheory
+open Filter MeasureTheory Set
 open scoped NNReal
 
 open BrownianMotion ItoIntegralProcess ItoTerminalCompletion ProgressiveL2
@@ -47,6 +47,48 @@ theorem itoIntegralProcess_congr_toLp_ae [IsFiniteMeasure mu]
   have hxi := itoIntegralProcess_at_eq_terminal xi hT hB hUsual htT
   filter_upwards [heta, hxi] with omega hetaOmega hxiOmega
   rw [hetaOmega, hxiOmega, hterminal]
+
+/-- Equal product-space `L²` integrands determine the same continuous Itô
+version simultaneously at every time of the finite construction horizon, on
+one full-measure event.
+
+This avoids intersecting an uncountable family of fixed-time almost-sure
+identities: the continuous-version uniqueness theorem performs the upgrade. -/
+theorem itoIntegralProcess_congr_toLp_pathwise_ae [IsFiniteMeasure mu]
+    (eta xi : ProgressiveL2Integrand filtration mu T)
+    (hT : 0 < T)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    (hEq : eta.toLp = xi.toLp) :
+    ∀ᵐ omega ∂mu, ∀ t ∈ Icc (0 : ℝ≥0) T,
+      itoIntegralProcess eta hT hB hUsual t omega =
+        itoIntegralProcess xi hT hB hUsual t omega := by
+  let J : ℝ≥0 → Omega → ℝ := itoIntegralProcess eta hT hB hUsual
+  have hJadapted : StronglyAdapted filtration J := by
+    simpa only [J] using
+      itoIntegralProcess_stronglyAdapted eta hT hB hUsual
+  have hJcontinuous : ∀ᵐ omega ∂mu,
+      ContinuousOn (fun t => J t omega) (Icc (0 : ℝ≥0) T) := by
+    filter_upwards [] with omega
+    simpa only [J] using
+      itoIntegralProcess_continuousOn eta hT hB hUsual omega
+  have hJterminal : ∀ t ≤ T,
+      J t =ᵐ[mu] fun omega =>
+        itoIntegralTerminal (xi.restrictAt t) hT hB omega := by
+    intro t ht
+    have heta := itoIntegralProcess_at_eq_terminal eta hT hB hUsual ht
+    have hrestrict : (eta.restrictAt t).toLp = (xi.restrictAt t).toLp :=
+      restrictAt_toLp_eq_of_toLp_eq eta xi hEq t
+    have hterminal :
+        itoIntegralTerminal (eta.restrictAt t) hT hB =
+          itoIntegralTerminal (xi.restrictAt t) hT hB := by
+      apply itoIntegralTerminal_congr_toLp
+      simpa only [integrandToLp] using hrestrict
+    rw [hterminal] at heta
+    simpa only [J] using heta
+  simpa only [J] using
+    itoIntegralProcess_unique xi hT hB hUsual
+      J hJadapted hJcontinuous hJterminal
 
 end ItoIntegralProcessCongruence
 end StochasticProcesses
