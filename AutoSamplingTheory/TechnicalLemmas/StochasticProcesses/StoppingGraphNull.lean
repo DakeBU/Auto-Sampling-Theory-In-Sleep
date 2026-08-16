@@ -43,7 +43,20 @@ theorem measurableSet_stoppingGraph
   have htau' : MeasureTheory.IsStoppingTime filtration tau := htau
   have hτ : Measurable (fun z : Omega × ℝ≥0 => tau z.1) :=
     htau'.measurable'.comp measurable_fst
-  simpa only [stoppingGraph] using measurableSet_eq ht hτ
+  have heq :
+      stoppingGraph tau =
+        {z : Omega × ℝ≥0 | (z.2 : WithTop ℝ≥0) ≤ tau z.1} ∩
+          {z : Omega × ℝ≥0 | tau z.1 ≤ (z.2 : WithTop ℝ≥0)} := by
+    ext z
+    constructor
+    · intro hz
+      change (z.2 : WithTop ℝ≥0) = tau z.1 at hz
+      exact ⟨hz.le, hz.ge⟩
+    · rintro ⟨hz₁, hz₂⟩
+      change (z.2 : WithTop ℝ≥0) = tau z.1
+      exact le_antisymm hz₁ hz₂
+  rw [heq]
+  exact (measurableSet_le ht hτ).inter (measurableSet_le hτ ht)
 
 /-- Every fixed-sample-path section of the stopping graph has zero stopped
 Lebesgue-time measure.  The proof avoids choosing an `untop`: if a finite
