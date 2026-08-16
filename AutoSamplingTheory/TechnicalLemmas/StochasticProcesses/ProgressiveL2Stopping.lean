@@ -71,6 +71,10 @@ theorem stoppedIntegrand_stronglyProgressive
         ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤
           min (tau p.2) (i : WithTop ℝ≥0)} := by
     ext p
+    change
+      (((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤ tau p.2) ↔
+        ((p.1 : ℝ≥0) : WithTop ℝ≥0) ≤
+          min (tau p.2) (i : WithTop ℝ≥0)
     constructor
     · intro hptau
       apply le_min hptau
