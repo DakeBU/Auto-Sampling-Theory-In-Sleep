@@ -86,7 +86,7 @@ theorem itoIntegralProcess_continuous
     simp only [Set.mem_univ, Set.mem_union, Set.mem_Iic, Set.mem_Ici, true_iff]
     exact le_total t T
   rw [huniv]
-  apply ContinuousOn.union
+  apply ContinuousOn.union_of_isClosed
   · simpa only [Set.Icc_bot] using
       itoIntegralProcess_continuousOn eta hT hB hUsual omega
   · have hconst : ContinuousOn
@@ -96,6 +96,8 @@ theorem itoIntegralProcess_continuous
     intro t ht
     exact congrFun
       (itoIntegralProcess_eq_terminal_of_le eta hT hB hUsual ht) omega
+  · exact isClosed_Iic
+  · exact isClosed_Ici
 
 /-- If a stopping time is pointwise bounded by `T`, its stopped process is
 exactly constant after `T`, independently of any stochastic assumptions. -/
