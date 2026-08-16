@@ -21,7 +21,8 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
 #check extendByZero_sub_toLp
 #check norm_extendByZero_sub_extendByZero_eq
 
-example (eta xi : ProgressiveL2Integrand filtration mu T₁)
+example [SFinite mu]
+    (eta xi : ProgressiveL2Integrand filtration mu T₁)
     (hT : T₁ ≤ T₂) :
     ‖(extendByZero eta hT).toLp - (extendByZero xi hT).toLp‖ =
       ‖eta.toLp - xi.toLp‖ :=
