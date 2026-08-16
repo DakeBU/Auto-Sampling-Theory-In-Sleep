@@ -29,7 +29,7 @@ namespace TechnicalLemmas
 namespace StochasticProcesses
 namespace ChewiProposition1_1_16
 
-open MeasureTheory
+open MeasureTheory Set
 open scoped NNReal
 
 open BrownianMotion GlobalItoProcessGluing GlobalLocalProgressiveL2 ProgressiveL2
@@ -60,6 +60,46 @@ theorem chewi_proposition_1_1_16
   exact ⟨globalItoProcess_stronglyAdapted hUsual eta hB,
     globalItoProcess_continuous hUsual eta hB,
     globalItoProcess_isLocalMartingale hUsual eta hB⟩
+
+/-- **Localized Itô representation for Proposition 1.1.16.**
+
+For every canonical dyadic localizer `tau_k`, stopping the globally glued local
+Itô process at `tau_k` recovers, almost surely and at every deterministic time
+inside the matching horizon, the completed Itô process of the literal source
+integrand `eta_s * 1_{s ≤ tau_k}`.  This is the formal certificate that the
+process in `chewi_proposition_1_1_16` is Chewi's local stochastic integral, not
+an unrelated local martingale with the same localization sequence. -/
+theorem chewi_proposition_1_1_16_stopped_integral_representation
+    [IsProbabilityMeasure mu]
+    (hUsual : SatisfiesUsualConditions filtration mu)
+    (eta : GlobalLocalProgressiveL2Integrand filtration mu)
+    (hB : IsBrownianMotionWithFiltration B filtration mu)
+    (k : ℕ) {t : ℝ≥0}
+    (ht : t ≤ DyadicGlobalHorizon.dyadicHorizon k) :
+    stoppedProcess (globalItoProcess hUsual eta hB)
+        (fun omega =>
+          (DyadicGlobalHorizon.dyadicGlobalLocalizingTime hUsual eta k omega :
+            WithTop ℝ≥0)) t =ᵐ[mu]
+      ItoIntegralProcess.itoIntegralProcess
+        (GlobalStoppedProgressiveL2.globalStoppedProgressiveL2 hUsual eta k)
+        (DyadicGlobalHorizon.dyadicHorizon_pos k) hB hUsual t := by
+  have hglobal :=
+    stopped_globalItoProcess_eq_stopped_globalStopped_ae
+      hUsual eta hB k t
+  have hself :=
+    GlobalStoppedItoMartingale.globalStoppedItoProcess_overlap_pathwise_ae
+      hUsual eta hB (k := k) (ell := k) le_rfl
+  filter_upwards [hglobal, hself] with omega hglobalOmega hselfOmega
+  have hselfAt := hselfOmega t ⟨bot_le, ht⟩
+  have hcombined :
+      stoppedProcess (globalItoProcess hUsual eta hB)
+          (fun w =>
+            (DyadicGlobalHorizon.dyadicGlobalLocalizingTime hUsual eta k w :
+              WithTop ℝ≥0)) t omega =
+        GlobalStoppedItoMartingale.globalStoppedItoProcess
+          hUsual eta hB k t omega :=
+    hglobalOmega.trans hselfAt.symm
+  simpa only [GlobalStoppedItoMartingale.globalStoppedItoProcess] using hcombined
 
 /-- Source-facing localization certificate accompanying Proposition 1.1.16:
 the cofinal dyadic energy localizers are the concrete witness used by the
