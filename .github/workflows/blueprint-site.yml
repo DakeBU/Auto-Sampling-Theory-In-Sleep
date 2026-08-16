@@ -82,6 +82,7 @@ jobs:
             website/scripts/check_site.py \
             website/scripts/implicit_prerequisites.py \
             website/scripts/lean_tutor.py \
+            website/scripts/source_foundations.py \
             website/scripts/undergrad_guides.py \
             website/scripts/build_sites_bundle.py \
             website/scripts/lean_gate.py \
