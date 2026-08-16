@@ -23,6 +23,7 @@ import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
 import Tests.ItoTerminalCompletion
+import Tests.ItoHorizonConsistency
 import Tests.ItoIntegralProcess
 import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
