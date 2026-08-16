@@ -77,11 +77,10 @@ theorem extend_time_castSucc_eq
     (extendDyadicHorizon hab q).process.times
         (prefixIndex hab q i).castSucc =
       q.process.times i.castSucc := by
-  rw [extendDyadicHorizon_times]
-  have hp := (prefix_time_eq hab q i.castSucc).symm
-  convert hp using 1
-  apply Fin.ext
-  rfl
+  rw [congrFun (extendDyadicHorizon hab q).times_eq (prefixIndex hab q i).castSucc,
+    congrFun q.times_eq i.castSucc]
+  simp only [regularGridTimes, Fin.val_castSucc, prefixIndex_val]
+  rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
 
 /-- Right endpoint of an old cell is unchanged in the enlarged grid. -/
 theorem extend_time_succ_eq
@@ -91,12 +90,12 @@ theorem extend_time_succ_eq
     (extendDyadicHorizon hab q).process.times
         (prefixIndex hab q i).succ =
       q.process.times i.succ := by
-  rw [extendDyadicHorizon_times]
-  have hp := (prefix_time_eq hab q i.succ).symm
-  convert hp using 1
-  apply Fin.ext
-  rfl
+  rw [congrFun (extendDyadicHorizon hab q).times_eq (prefixIndex hab q i).succ,
+    congrFun q.times_eq i.succ]
+  simp only [regularGridTimes, Fin.val_succ, prefixIndex_val]
+  rw [← dyadicMesh_dyadicHorizon_align q.level a b hab]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **Exact finite-sum cross-horizon identity.**  Extending a dyadic elementary
 integrand from `2^a` to `2^b` by zero leaves its terminal Itô integral
 unchanged for every sample point. -/
@@ -124,20 +123,26 @@ theorem extendDyadicHorizon_elementaryItoIntegral_eq
     have hidx : i.castLE hNM = prefixIndex hab q i := by
       apply Fin.ext
       rfl
-    rw [hidx]
-    have hprefixLt : (prefixIndex hab q i).val < 2 ^ q.level := by
-      simpa using i.isLt
     have hcoeff :
-        (extendDyadicHorizon hab q).process.coeff (prefixIndex hab q i) omega =
+        (extendDyadicHorizon hab q).process.coeff (i.castLE hNM) omega =
           q.process.coeff i omega := by
       have hp := extendDyadicHorizon_coeff_prefix hab q (prefixIndex hab q i)
-        hprefixLt omega
+        (by simpa using i.isLt) omega
+      rw [hidx]
       convert hp using 1
       apply congrArg (fun j : Fin (2 ^ q.level) => q.process.coeff j omega)
       apply Fin.ext
       rfl
-    have hleft := extend_time_castSucc_eq hab q i
-    have hright := extend_time_succ_eq hab q i
+    have hleft :
+        (extendDyadicHorizon hab q).process.times (i.castLE hNM).castSucc =
+          q.process.times i.castSucc := by
+      rw [hidx]
+      exact extend_time_castSucc_eq hab q i
+    have hright :
+        (extendDyadicHorizon hab q).process.times (i.castLE hNM).succ =
+          q.process.times i.succ := by
+      rw [hidx]
+      exact extend_time_succ_eq hab q i
     have hleftOld := old_time_le_horizon q i.castSucc
     have hrightOld := old_time_le_horizon q i.succ
     have hleftBig := hleftOld.trans (dyadicHorizon_mono hab)
