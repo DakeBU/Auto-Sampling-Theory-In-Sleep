@@ -1,0 +1,81 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorDomain
+
+/-!
+# Invariant linear functionals and infinitesimal stationarity
+
+This file isolates the operator-theoretic implication
+
+`ℓ (P_t f) = ℓ f  for every t  ==>  ℓ (A f) = 0`
+
+on the right-generator domain of a continuous-linear semigroup. In the
+Chapter 1.2 application, `ℓ` is the expectation functional on `L²(π)` and the
+premise comes from stationarity of `π`.
+
+No stochastic-calculus result from Section 1.1 is used here. In particular,
+this theorem does not construct a concrete Langevin transition semigroup or
+identify its generator with a differential operator.
+-/
+
+namespace AutoSamplingTheory
+namespace TechnicalLemmas
+namespace StochasticProcesses
+namespace GeneratorStationarity
+
+open Filter Set
+open scoped NNReal Topology
+
+open OperatorGenerator
+open OperatorGeneratorDomain
+
+noncomputable section
+
+variable {M : Type*} [NormedAddCommGroup M] [NormedSpace ℝ M]
+
+/-- An invariant continuous linear functional annihilates every right-generator
+value.
+
+This is the abstract infinitesimal-stationarity argument: apply the functional
+to the semigroup difference quotient. Invariance makes every quotient equal
+to zero, while continuity of the functional transports the generator limit. -/
+theorem invariantFunctional_generator_eq_zero
+    (S : ContinuousLinearSemigroup M)
+    (ell : M →L[ℝ] ℝ)
+    (hinv : ∀ (t : ℝ≥0) (f : M), ell (S.op t f) = ell f)
+    {f Af : M}
+    (hf : HasRightGeneratorAt S f Af) :
+    ell Af = 0 := by
+  have hmap :
+      Tendsto
+        (fun h : ℝ≥0 => ell (rightDifferenceQuotient S h f))
+        (nhdsWithin 0 (Ioi 0)) (𝓝 (ell Af)) :=
+    ell.continuous.continuousAt.comp hf
+  have hzero : ∀ h : ℝ≥0,
+      ell (rightDifferenceQuotient S h f) = 0 := by
+    intro h
+    simp [rightDifferenceQuotient, hinv h f]
+  have hzeroLimit :
+      Tendsto
+        (fun h : ℝ≥0 => ell (rightDifferenceQuotient S h f))
+        (nhdsWithin 0 (Ioi 0)) (𝓝 (0 : ℝ)) := by
+    simpa only [hzero] using
+      (tendsto_const_nhds :
+        Tendsto (fun _ : ℝ≥0 => (0 : ℝ))
+          (nhdsWithin 0 (Ioi 0)) (𝓝 0))
+  exact tendsto_nhds_unique hmap hzeroLimit
+
+/-- Bundled generator-domain form of infinitesimal stationarity. -/
+theorem invariantFunctional_rightGenerator_eq_zero
+    (S : ContinuousLinearSemigroup M)
+    (ell : M →L[ℝ] ℝ)
+    (hinv : ∀ (t : ℝ≥0) (f : M), ell (S.op t f) = ell f)
+    (f : generatorDomainSubmodule S) :
+    ell (rightGenerator S f) = 0 :=
+  invariantFunctional_generator_eq_zero S ell hinv
+    (rightGeneratorValue_spec S f)
+
+end
+
+end GeneratorStationarity
+end StochasticProcesses
+end TechnicalLemmas
+end AutoSamplingTheory
