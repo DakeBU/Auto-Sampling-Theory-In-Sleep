@@ -21,8 +21,8 @@ def github_command_escape(text: str) -> str:
     return text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
 
 
-def diagnostic_tail(text: str, *, lines: int = 36) -> str:
-    """Keep the failure annotation useful without flooding the check UI."""
+def diagnostic_tail(text: str, *, lines: int = 180) -> str:
+    """Keep enough failing Lean context for CI-only debugging without dumping the full build."""
     rows = [row for row in text.splitlines() if row.strip()]
     return "\n".join(rows[-lines:])
 
