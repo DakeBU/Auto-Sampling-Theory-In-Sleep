@@ -71,6 +71,7 @@ import Tests.RandomStoppingProcessConsistency
 import Tests.Reversibility
 import Tests.SampledElementaryApproximation
 import Tests.SemigroupDecay
+import Tests.SemigroupDissipation
 import Tests.StoppingTime
 import Tests.TimeMeasureRealBridge
 import Tests.Transport
