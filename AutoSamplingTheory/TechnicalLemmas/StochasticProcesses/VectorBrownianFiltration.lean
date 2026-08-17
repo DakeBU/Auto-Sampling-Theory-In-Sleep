@@ -41,11 +41,24 @@ theorem IsStandardBrownianMotion.hasIndepIncrements
       (fun i : Fin n => t i.castSucc)
       (fun i : Fin n => t i.succ)
   · intro i
-    exact ht (by omega)
+    apply ht
+    apply Fin.le_iff_val_le_val.mpr
+    simp only [Fin.val_castSucc, Fin.val_succ]
+    omega
   · intro i j hij
     rcases lt_or_gt_of_ne hij with hijlt | hjilt
-    · exact Set.Ioc_disjoint_Ioc_of_le (ht (by omega))
-    · exact (Set.Ioc_disjoint_Ioc_of_le (ht (by omega))).symm
+    · apply Set.Ioc_disjoint_Ioc_of_le
+      apply ht
+      apply Fin.le_iff_val_le_val.mpr
+      simp only [Fin.val_succ, Fin.val_castSucc]
+      have hijval : i.val < j.val := hijlt
+      omega
+    · apply (Set.Ioc_disjoint_Ioc_of_le ?_).symm
+      apply ht
+      apply Fin.le_iff_val_le_val.mpr
+      simp only [Fin.val_succ, Fin.val_castSucc]
+      have hjival : j.val < i.val := hjilt
+      omega
 
 /-- Every continuous linear projection of a Chewi-standard vector Brownian
 motion has Mathlib independent increments.  All projections still come from
