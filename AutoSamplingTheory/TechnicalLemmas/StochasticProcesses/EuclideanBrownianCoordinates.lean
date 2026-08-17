@@ -40,7 +40,7 @@ noncomputable def coordinateDual (j : kappa) :
 theorem coordinateDual_apply (j : kappa) (x : EuclideanSpace ℝ kappa) :
     coordinateDual j x = x j := by
   change inner ℝ (EuclideanSpace.basisFun kappa ℝ j) x = x j
-  exact EuclideanSpace.basisFun_inner x j
+  exact EuclideanSpace.basisFun_inner (𝕜 := ℝ) (ι := kappa) x j
 
 @[simp]
 theorem norm_coordinateDual (j : kappa) :
