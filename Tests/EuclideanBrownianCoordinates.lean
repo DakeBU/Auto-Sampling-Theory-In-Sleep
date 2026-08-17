@@ -37,7 +37,7 @@ example (hB : IsStandardBrownianMotionWithFiltration B filtration mu)
       (fun t omega => B t omega j) filtration mu :=
   IsStandardBrownianMotionWithFiltration.coordinate hB j
 
-example (hB : IsStandardBrownianMotionWithFiltration B filtration mu) :
+noncomputable example (hB : IsStandardBrownianMotionWithFiltration B filtration mu) :
     CoordinateBrownianFamilyWithFiltration
       (Omega := Omega) (filtration := filtration) (mu := mu) kappa :=
   coordinateFamily hB
