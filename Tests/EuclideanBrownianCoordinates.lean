@@ -25,7 +25,7 @@ example (j : kappa) : ‖coordinateDual j‖ = 1 :=
 example {B : ℝ≥0 → Omega → EuclideanSpace ℝ kappa} {mu : Measure Omega}
     (hB : IsStandardBrownianMotion B mu) (j : kappa) :
     IsBrownianReal (fun t omega => B t omega j) mu :=
-  coordinate_isBrownianReal hB j
+  IsStandardBrownianMotion.coordinate_isBrownianReal hB j
 
 variable {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega}
@@ -35,7 +35,7 @@ example (hB : IsStandardBrownianMotionWithFiltration B filtration mu)
     (j : kappa) :
     IsBrownianMotionWithFiltration
       (fun t omega => B t omega j) filtration mu :=
-  coordinate hB j
+  IsStandardBrownianMotionWithFiltration.coordinate hB j
 
 example (hB : IsStandardBrownianMotionWithFiltration B filtration mu) :
     CoordinateBrownianFamilyWithFiltration
