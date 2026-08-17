@@ -28,6 +28,46 @@ def esc(value: object) -> str:
     return html.escape(str(value), quote=True)
 
 
+
+MATH_SPAN_RE = re.compile(r"\\\((?:.|\n)*?\\\)|\\\[(?:.|\n)*?\\\]", re.DOTALL)
+RAW_MATH_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("subscripted stochastic symbol", re.compile(r"\b(?:B|F|P|X|H|A|I|eta|rho|tau|sigma|pi|Gamma)_[A-Za-z0-9{]")),
+    ("plain L2/W2 notation", re.compile(r"\b(?:L2|W2)\b")),
+    ("ASCII sqrt", re.compile(r"\bsqrt\s*\(")),
+    ("ASCII integral", re.compile(r"\bint_[0-9A-Za-z]")),
+    ("ASCII inequality", re.compile(r"(?:<=|>=)")),
+    ("plain power notation", re.compile(r"\b(?:eta|rho|phi|B|c|x|f)\^[A-Za-z0-9{]")),
+    ("double-bar norm notation", re.compile(r"\|\|[^|\n]+\|\|")),
+    ("differential subscript notation", re.compile(r"\bd[A-Z][A-Za-z]*_t\b")),
+)
+
+
+def strip_math_spans(value: object) -> str:
+    return MATH_SPAN_RE.sub("", str(value))
+
+
+def find_unwrapped_math(value: object) -> list[str]:
+    residual = strip_math_spans(value)
+    return [label for label, pattern in RAW_MATH_PATTERNS if pattern.search(residual)]
+
+
+def guide_strings(guide: dict[str, object]) -> list[tuple[str, str]]:
+    rows: list[tuple[str, str]] = []
+    for key in ("audience", "question", "promise"):
+        rows.append((key, str(guide[key])))
+    for index, value in enumerate(list(guide["before_you_start"]), 1):
+        rows.append((f"before_you_start[{index}]", str(value)))
+    for index, raw in enumerate(list(guide["story"]), 1):
+        item = normalize_story(raw, index)
+        for key in ("title", "intuition", "tiny_example", "remember"):
+            if item[key]:
+                rows.append((f"story[{index}].{key}", item[key]))
+    for index, raw in enumerate(list(guide["vocabulary"]), 1):
+        term, plain = normalize_vocab(raw)
+        rows.append((f"vocabulary[{index}].term", term))
+        rows.append((f"vocabulary[{index}].plain", plain))
+    return rows
+
 def slugify(value: str) -> str:
     value = re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
     return value or "entry"
@@ -57,7 +97,14 @@ def load_guides() -> dict[str, dict[str, object]]:
             raise RuntimeError(f"guide {section} has an empty story")
         if not list(candidate["vocabulary"]):
             raise RuntimeError(f"guide {section} has an empty vocabulary")
-        guides[str(section)] = dict(candidate)
+        guide = dict(candidate)
+        for field, value in guide_strings(guide):
+            issues = find_unwrapped_math(value)
+            if issues:
+                raise RuntimeError(
+                    f"guide {section} {field} contains unwrapped math ({', '.join(issues)}): {value}"
+                )
+        guides[str(section)] = guide
     return guides
 
 

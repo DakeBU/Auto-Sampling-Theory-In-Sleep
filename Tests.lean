@@ -1,5 +1,6 @@
 import Tests.Basic
 import Tests.BrownianMotion
+import Tests.VectorBrownianFiltration
 import Tests.CarreDuChamp
 import Tests.CoefficientTruncation
 import Tests.DisplacementInterpolation
@@ -19,6 +20,7 @@ import Tests.ElementaryItoL2
 import Tests.ElementaryItoProcess
 import Tests.ElementaryStoppingTime
 import Tests.FellerSemigroup
+import Tests.FiniteDimensionalNormBridge
 import Tests.FiniteDimensionalItoProcess
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
