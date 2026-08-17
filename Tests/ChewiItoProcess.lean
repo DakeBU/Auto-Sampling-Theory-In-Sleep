@@ -7,6 +7,7 @@ namespace ChewiItoProcess
 open MeasureTheory
 open TechnicalLemmas.StochasticProcesses
 open TechnicalLemmas.StochasticProcesses.ChewiItoProcess
+open TechnicalLemmas.StochasticProcesses.ProgressiveL2
 
 #check SourceData.initial_coordinate_stronglyMeasurable
 #check SourceData.drift_coordinate_progressive
@@ -26,8 +27,8 @@ example {Omega : Type*} [MeasurableSpace Omega]
     {filtration : Filtration ℝ≥0 m} {mu : Measure Omega}
     [IsProbabilityMeasure mu]
     (hUsual : SatisfiesUsualConditions filtration mu)
-    (data : SourceData (Omega := Omega) (filtration := filtration) (mu := mu)
-      iota kappa)
+    (data : SourceData (Omega := Omega) (iota := iota) (kappa := kappa)
+      (filtration := filtration) (mu := mu))
     {B : ℝ≥0 → Omega → EuclideanSpace ℝ kappa}
     (hB : TechnicalLemmas.StochasticProcesses.BrownianMotion.IsStandardBrownianMotionWithFiltration
       B filtration mu) :
