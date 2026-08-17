@@ -39,7 +39,7 @@ theorem evolve_add (mu : Measure E) (s t : ℝ≥0) :
     P.kernel t ∘ₘ (P.kernel s ∘ₘ mu)
   rw [P.kernel_add s t]
   exact (Measure.comp_assoc
-    (mu := mu) (κ := P.kernel s) (η := P.kernel t)).symm
+    (μ := mu) (κ := P.kernel s) (η := P.kernel t)).symm
 
 /-- Markov evolution preserves probability normalization. -/
 theorem isProbabilityMeasure_evolve
