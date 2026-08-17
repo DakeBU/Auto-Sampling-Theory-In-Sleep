@@ -3,16 +3,19 @@ import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.OperatorGeneratorD
 /-!
 # Invariant linear functionals and infinitesimal stationarity
 
-This file isolates the operator-theoretic implication
+This file isolates two operator-theoretic facts used throughout Chewi Section
+1.2:
 
-`ℓ (P_t f) = ℓ f  for every t  ==>  ℓ (A f) = 0`
+* a vector fixed by every semigroup operator belongs to the right-generator
+  domain with generator value zero;
+* `ℓ (P_t f) = ℓ f` for every `t` implies `ℓ (A f) = 0` on the generator
+  domain.
 
-on the right-generator domain of a continuous-linear semigroup. In the
-Chapter 1.2 application, `ℓ` is the expectation functional on `L²(π)` and the
-premise comes from stationarity of `π`.
+In the Chapter 1.2 application, fixed vectors are constants and `ℓ` is the
+expectation functional on `L²(π)`.
 
 No stochastic-calculus result from Section 1.1 is used here. In particular,
-this theorem does not construct a concrete Langevin transition semigroup or
+these theorems do not construct a concrete Langevin transition semigroup or
 identify its generator with a differential operator.
 -/
 
@@ -30,6 +33,23 @@ open OperatorGeneratorDomain
 noncomputable section
 
 variable {M : Type*} [NormedAddCommGroup M] [NormedSpace ℝ M]
+
+/-- A vector fixed by the entire semigroup has right-generator value zero. -/
+theorem hasRightGeneratorAt_zero_of_fixed
+    (S : ContinuousLinearSemigroup M)
+    {f : M}
+    (hfix : ∀ t : ℝ≥0, S.op t f = f) :
+    HasRightGeneratorAt S f 0 := by
+  unfold HasRightGeneratorAt rightDifferenceQuotient
+  simp [hfix]
+
+/-- Consequently a fixed vector belongs to the canonical generator domain. -/
+theorem mem_generatorDomainSubmodule_of_fixed
+    (S : ContinuousLinearSemigroup M)
+    {f : M}
+    (hfix : ∀ t : ℝ≥0, S.op t f = f) :
+    f ∈ generatorDomainSubmodule S :=
+  ⟨0, hasRightGeneratorAt_zero_of_fixed S hfix⟩
 
 /-- An invariant continuous linear functional annihilates every right-generator
 value.
