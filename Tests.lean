@@ -38,6 +38,7 @@ import Tests.LaggedDyadicConvergence
 import Tests.LeftLebesgueAverage
 import Tests.Localization
 import Tests.MarkovSemigroup
+import Tests.MarkovMeasureEvolution
 import Tests.Martingale
 import Tests.MetricCurve
 import Tests.OperatorGenerator
