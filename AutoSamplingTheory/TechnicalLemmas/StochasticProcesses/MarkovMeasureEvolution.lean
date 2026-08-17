@@ -54,6 +54,20 @@ theorem isProbabilityMeasure_evolveMeasure
   dsimp [evolveMeasure]
   infer_instance
 
+/-- Integrating a Markov observable against the input law is the same as
+integrating the original observable against the evolved law.
+
+This is the measure/operator compatibility identity behind the usual formula
+`∫ P_t f dμ = ∫ f d(μ P_t)`. -/
+theorem lintegral_markovOperator_eq_lintegral_evolveMeasure
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (mu : Measure E) (t : ℝ≥0) (f : MeasurableENNReal E) :
+    (∫⁻ x, markovOperator hK t f x ∂mu) =
+      ∫⁻ y, f y ∂evolveMeasure hK t mu := by
+  change (∫⁻ x, (∫⁻ y, f y ∂K t x) ∂mu) =
+    ∫⁻ y, f y ∂(mu.bind (K t))
+  rw [Measure.lintegral_bind (K t).aemeasurable f.2.aemeasurable]
+
 /-- A measure is stationary for a transition-kernel semigroup when it is fixed
 by every nonnegative-time law evolution.
 
@@ -99,6 +113,47 @@ theorem isStationary_of_kernel_reversible
   intro t
   letI : IsMarkovKernel (K t) := hK.isMarkov t
   exact (hrev t).invariant
+
+/-- Stationarity implies invariance of every measurable nonnegative expectation
+under the Markov operator. -/
+theorem IsStationary.lintegral_markovOperator_eq
+    {K : ℝ≥0 → Kernel E E} {hK : TransitionKernelContract K}
+    {pi : Measure E} (hpi : IsStationary hK pi)
+    (t : ℝ≥0) (f : MeasurableENNReal E) :
+    (∫⁻ x, markovOperator hK t f x ∂pi) = ∫⁻ x, f x ∂pi := by
+  rw [lintegral_markovOperator_eq_lintegral_evolveMeasure hK pi t f, hpi t]
+
+/-- Conversely, invariance of all measurable nonnegative expectations under
+every Markov operator determines the stationary measure.
+
+Indicator observables recover equality on all measurable sets, so this theorem
+does not require any density or integrability assumption. -/
+theorem isStationary_of_lintegral_markovOperator_eq
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (pi : Measure E)
+    (hinv : ∀ (t : ℝ≥0) (f : MeasurableENNReal E),
+      (∫⁻ x, markovOperator hK t f x ∂pi) = ∫⁻ x, f x ∂pi) :
+    IsStationary hK pi := by
+  intro t
+  ext s hs
+  let f : MeasurableENNReal E :=
+    ⟨s.indicator (fun _ => (1 : ℝ≥0∞)), measurable_const.indicator hs⟩
+  have h := hinv t f
+  rw [lintegral_markovOperator_eq_lintegral_evolveMeasure hK pi t f] at h
+  simpa [f, hs] using h
+
+/-- Measure stationarity is equivalent to expectation invariance for all
+measurable nonnegative observables. -/
+theorem isStationary_iff_lintegral_markovOperator_eq
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (pi : Measure E) :
+    IsStationary hK pi ↔
+      ∀ (t : ℝ≥0) (f : MeasurableENNReal E),
+        (∫⁻ x, markovOperator hK t f x ∂pi) = ∫⁻ x, f x ∂pi := by
+  constructor
+  · intro hpi t f
+    exact hpi.lintegral_markovOperator_eq t f
+  · exact isStationary_of_lintegral_markovOperator_eq hK pi
 
 /-- A stationary law remains unchanged at every named time. -/
 theorem IsStationary.evolveMeasure_eq
