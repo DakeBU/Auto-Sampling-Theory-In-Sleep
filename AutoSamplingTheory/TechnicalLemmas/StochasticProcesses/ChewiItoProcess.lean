@@ -34,6 +34,7 @@ open BrownianMotion
 open EuclideanBrownianCoordinates
 open FiniteDimensionalItoProcess
 open FiniteDimensionalNormBridge
+open ProgressiveL2
 
 variable {Omega iota kappa : Type*} [MeasurableSpace Omega]
   [Fintype iota] [DecidableEq iota]
@@ -66,8 +67,8 @@ structure SourceData where
 /-- Initial-value measurability descends from the Euclidean vector to each
 coordinate by the norm-one continuous coordinate functional. -/
 theorem SourceData.initial_coordinate_stronglyMeasurable
-    (data : SourceData (filtration := filtration) (mu := mu)
-      (Omega := Omega) iota kappa)
+    (data : SourceData (Omega := Omega) (iota := iota) (kappa := kappa)
+      (filtration := filtration) (mu := mu))
     (i : iota) :
     StronglyMeasurable[filtration 0] (fun omega => data.initial omega i) := by
   simpa only [coordinateDual_apply] using
@@ -77,8 +78,8 @@ theorem SourceData.initial_coordinate_stronglyMeasurable
 /-- Progressive measurability of the vector drift descends to each scalar
 coordinate. -/
 theorem SourceData.drift_coordinate_progressive
-    (data : SourceData (filtration := filtration) (mu := mu)
-      (Omega := Omega) iota kappa)
+    (data : SourceData (Omega := Omega) (iota := iota) (kappa := kappa)
+      (filtration := filtration) (mu := mu))
     (i : iota) :
     IsStronglyProgressive filtration (fun t omega => data.drift t omega i) := by
   intro T
@@ -90,8 +91,8 @@ theorem SourceData.drift_coordinate_progressive
 of every scalar coordinate. This is a continuous-linear-map consequence, not
 an additional coordinatewise assumption. -/
 theorem SourceData.drift_coordinate_integrable
-    (data : SourceData (filtration := filtration) (mu := mu)
-      (Omega := Omega) iota kappa)
+    (data : SourceData (Omega := Omega) (iota := iota) (kappa := kappa)
+      (filtration := filtration) (mu := mu))
     (i : iota) (T : ℝ≥0) :
     ∀ᵐ omega ∂mu,
       Integrable (fun t => data.drift t omega i) (TimeMeasure.upTo T) := by
@@ -102,8 +103,8 @@ theorem SourceData.drift_coordinate_integrable
 /-- Progressive measurability of the flattened matrix process descends to each
 matrix entry. -/
 theorem SourceData.diffusion_entry_progressive
-    (data : SourceData (filtration := filtration) (mu := mu)
-      (Omega := Omega) iota kappa)
+    (data : SourceData (Omega := Omega) (iota := iota) (kappa := kappa)
+      (filtration := filtration) (mu := mu))
     (i : iota) (j : kappa) :
     IsStronglyProgressive filtration
       (fun t omega => data.diffusion t omega i j) := by
@@ -116,8 +117,8 @@ theorem SourceData.diffusion_entry_progressive
 /-- Compile Chewi's vector/matrix source coefficients into the scalar
 coordinate ABI used by the Chapter 1 Itô integral. -/
 noncomputable def SourceData.toCoordinateItoData
-    (data : SourceData (filtration := filtration) (mu := mu)
-      (Omega := Omega) iota kappa) :
+    (data : SourceData (Omega := Omega) (iota := iota) (kappa := kappa)
+      (filtration := filtration) (mu := mu)) :
     CoordinateItoData (filtration := filtration) (mu := mu) iota kappa where
   initial omega i := data.initial omega i
   initialStronglyMeasurable i := data.initial_coordinate_stronglyMeasurable i
@@ -135,8 +136,8 @@ the scalar global Itô integral, then repackaged as one Euclidean vector. -/
 noncomputable def process
     [IsProbabilityMeasure mu]
     (hUsual : SatisfiesUsualConditions filtration mu)
-    (data : SourceData (filtration := filtration) (mu := mu)
-      (Omega := Omega) iota kappa)
+    (data : SourceData (Omega := Omega) (iota := iota) (kappa := kappa)
+      (filtration := filtration) (mu := mu))
     {B : ℝ≥0 → Omega → EuclideanSpace ℝ kappa}
     (hB : IsStandardBrownianMotionWithFiltration B filtration mu) :
     ℝ≥0 → Omega → EuclideanSpace ℝ iota :=
@@ -151,8 +152,8 @@ The stochastic term is a finite sum over coordinates of the same
 theorem definition_1_1_17_coordinate_display
     [IsProbabilityMeasure mu]
     (hUsual : SatisfiesUsualConditions filtration mu)
-    (data : SourceData (filtration := filtration) (mu := mu)
-      (Omega := Omega) iota kappa)
+    (data : SourceData (Omega := Omega) (iota := iota) (kappa := kappa)
+      (filtration := filtration) (mu := mu))
     {B : ℝ≥0 → Omega → EuclideanSpace ℝ kappa}
     (hB : IsStandardBrownianMotionWithFiltration B filtration mu)
     (t : ℝ≥0) (omega : Omega) (i : iota) :
@@ -168,8 +169,8 @@ theorem definition_1_1_17_coordinate_display
 /-- Literal textbook dimensions: state space `R^d` and Brownian space `R^N`. -/
 abbrev ChewiSourceData (d N : ℕ)
     (filtration : Filtration ℝ≥0 m) (mu : Measure Omega) :=
-  SourceData (Omega := Omega) (filtration := filtration) (mu := mu)
-    (Fin d) (Fin N)
+  SourceData (Omega := Omega) (iota := Fin d) (kappa := Fin N)
+    (filtration := filtration) (mu := mu)
 
 end ChewiItoProcess
 end StochasticProcesses
