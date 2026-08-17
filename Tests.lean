@@ -78,6 +78,7 @@ import Tests.StoppingTime
 import Tests.TimeMeasureRealBridge
 import Tests.Transport
 import Tests.WassersteinSpace
+import Tests.WeakForwardEquation
 import Tests.AccumulatedEnergy
 import Tests.LocalProgressiveL2
 import Tests.PrefixIntegral
