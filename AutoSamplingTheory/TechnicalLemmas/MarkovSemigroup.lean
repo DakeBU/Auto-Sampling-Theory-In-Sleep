@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.MarkovSemigroup.KernelSemigroup
+import AutoSamplingTheory.TechnicalLemmas.MarkovSemigroup.MeasureEvolution
 
 /-!
 # Markov semigroup technical lemmas
