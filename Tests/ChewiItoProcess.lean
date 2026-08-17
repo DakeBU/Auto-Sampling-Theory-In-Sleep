@@ -5,6 +5,8 @@ namespace Tests
 namespace ChewiItoProcess
 
 open MeasureTheory
+open scoped NNReal RealInnerProductSpace
+
 open TechnicalLemmas.StochasticProcesses
 open TechnicalLemmas.StochasticProcesses.ChewiItoProcess
 open TechnicalLemmas.StochasticProcesses.ProgressiveL2
