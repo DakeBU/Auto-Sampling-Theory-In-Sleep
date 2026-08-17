@@ -161,7 +161,18 @@ theorem tendsto_rightNormSqDifferenceQuotient
         (nhdsWithin 0 (Ioi 0))
         (𝓝 (S.op t (f : H) + S.op t (f : H))) :=
     horbit.add hconst
-  have hinner := hquot.inner hsum
+  have hinner :
+      Tendsto
+        (fun h : ℝ≥0 =>
+          inner ℝ
+            (rightOrbitDifferenceQuotient
+              S.toContinuousLinearSemigroup t h (f : H))
+            (S.op (t + h) (f : H) + S.op t (f : H)))
+        (nhdsWithin 0 (Ioi 0))
+        (𝓝 (inner ℝ
+          (S.op t (rightGenerator S.toContinuousLinearSemigroup f))
+          (S.op t (f : H) + S.op t (f : H)))) :=
+    hquot.inner hsum
   have hnorm :
       Tendsto
         (fun h : ℝ≥0 =>
@@ -202,7 +213,12 @@ theorem tendsto_rightNormSqDifferenceQuotient_eq_neg_two_dirichlet
           (S.op t (rightGenerator S.toContinuousLinearSemigroup f)) =
         -2 * generatorDirichlet S.toContinuousLinearSemigroup
           (orbitDomainPoint S.toContinuousLinearSemigroup t f) := by
-    simp only [generatorDirichlet, rightGenerator_orbitDomainPoint]
+    rw [generatorDirichlet, rightGenerator_orbitDomainPoint]
+    change
+      2 * inner ℝ (S.op t (f : H))
+          (S.op t (rightGenerator S.toContinuousLinearSemigroup f)) =
+        -2 * (-inner ℝ (S.op t (f : H))
+          (S.op t (rightGenerator S.toContinuousLinearSemigroup f)))
     ring
   rwa [htarget] at h
 
