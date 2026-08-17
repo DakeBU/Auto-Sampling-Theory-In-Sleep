@@ -31,7 +31,7 @@ namespace FiniteDimensionalNormBridge
 open MeasureTheory
 open scoped BigOperators ENNReal NNReal RealInnerProductSpace
 
-open ElementaryItoIntegral
+open ElementaryItoIntegral GlobalLocalProgressiveL2
 
 /-- Sum of squares of all entries of a finite real matrix, written as a
 curried function so it can be used without committing the stochastic layer to
@@ -157,9 +157,9 @@ used by the Itô integral, from finite-dimensional source assumptions.
 Progressive measurability is supplied componentwise here; the coordinate
 measurability bridge is kept logically separate from this norm argument. -/
 noncomputable def entryGlobalLocalProgressiveL2
-    {Omega : Type*} [MeasurableSpace Omega]
+    {Omega : Type*} [m : MeasurableSpace Omega]
     {ι κ : Type*} [Fintype ι] [Fintype κ]
-    {filtration : Filtration ℝ≥0 (MeasurableSpace Omega)}
+    {filtration : Filtration ℝ≥0 m}
     {sigma : ℝ≥0 → Omega → ι → κ → ℝ}
     {mu : Measure Omega}
     (hProgressive : ∀ i j,
