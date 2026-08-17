@@ -158,10 +158,11 @@ theorem IsStandardBrownianMotionWithFiltration.coordinate
     (j : kappa) :
     IsBrownianMotionWithFiltration
       (fun t omega => B t omega j) filtration mu where
-  isBrownian := coordinate_isBrownianReal hB.isStandard j
-  stronglyAdapted := coordinate_stronglyAdapted hB j
+  isBrownian := IsStandardBrownianMotion.coordinate_isBrownianReal hB.isStandard j
+  stronglyAdapted :=
+    IsStandardBrownianMotionWithFiltration.coordinate_stronglyAdapted hB j
   incrementIndependent := fun s t hst =>
-    coordinate_incrementIndependent hB j hst
+    IsStandardBrownianMotionWithFiltration.coordinate_incrementIndependent hB j hst
 
 /-- Package all coordinates as the integration-facing family used by the
 finite-dimensional Itô-process ABI.  Every member comes from the same vector
@@ -171,7 +172,7 @@ noncomputable def coordinateFamily
     CoordinateBrownianFamilyWithFiltration
       (Omega := Omega) (filtration := filtration) (mu := mu) kappa where
   process j t omega := B t omega j
-  isBrownian j := coordinate hB j
+  isBrownian j := IsStandardBrownianMotionWithFiltration.coordinate hB j
 
 end EuclideanBrownianCoordinates
 end StochasticProcesses
