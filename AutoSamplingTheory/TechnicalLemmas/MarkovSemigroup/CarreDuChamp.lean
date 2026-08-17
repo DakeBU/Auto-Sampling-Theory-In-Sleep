@@ -38,12 +38,12 @@ theorem carreDuChamp_symm
     (generator : (E → ℝ) → E → ℝ)
     (f g : E → ℝ) (x : E) :
     carreDuChamp generator f g x = carreDuChamp generator g f x := by
-  simp only [carreDuChamp]
-  congr 1
-  · congr 2
+  unfold carreDuChamp
+  have hfg : (fun y => f y * g y) = (fun y => g y * f y) := by
     funext y
     exact mul_comm (f y) (g y)
-  · ring
+  rw [hfg]
+  ring
 
 /-- Diagonal notation for the carré du champ. -/
 noncomputable def carreDuChampSelf
