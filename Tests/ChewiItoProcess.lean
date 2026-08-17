@@ -22,7 +22,7 @@ open TechnicalLemmas.StochasticProcesses.ProgressiveL2
 
 /-! Regression guard: the public source layer takes one Euclidean Brownian
 motion; it is not parameterized by an arbitrary scalar Brownian family. -/
-example {Omega : Type*} [MeasurableSpace Omega]
+noncomputable example {Omega : Type*} [MeasurableSpace Omega]
     {iota kappa : Type*} [Fintype iota] [DecidableEq iota]
     [Fintype kappa] [DecidableEq kappa]
     {m : MeasurableSpace Omega}
