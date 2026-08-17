@@ -23,6 +23,7 @@ import Tests.ElementaryStoppingTime
 import Tests.FellerSemigroup
 import Tests.FiniteDimensionalNormBridge
 import Tests.FiniteDimensionalItoProcess
+import Tests.ProgressiveDriftIntegral
 import Tests.ChewiItoProcess
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
