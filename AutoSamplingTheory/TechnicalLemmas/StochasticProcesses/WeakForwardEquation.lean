@@ -62,7 +62,6 @@ theorem dualAction_add
   ext f
   simp only [dualAction_apply]
   rw [S.op_add_apply]
-  rfl
 
 /-- Right difference quotient of the weak pairing
 `⟨f, Pₜ* ell⟩ = ell (Pₜ f)`. -/
@@ -101,14 +100,18 @@ theorem kolmogorov_forward_weak_right
         rightDualPairingDifferenceQuotient S ell t h (f : M))
       (nhdsWithin 0 (Ioi 0))
       (𝓝 (dualAction S t ell (rightGenerator S f))) := by
+  have hell :
+      Tendsto ell
+        (𝓝 (S.op t (rightGenerator S f)))
+        (𝓝 (ell (S.op t (rightGenerator S f)))) :=
+    ell.continuous.continuousAt
   have hmap :
       Tendsto
         (fun h : ℝ≥0 =>
           ell (rightOrbitDifferenceQuotient S t h (f : M)))
         (nhdsWithin 0 (Ioi 0))
         (𝓝 (ell (S.op t (rightGenerator S f)))) :=
-    ell.continuous.continuousAt.comp
-      (kolmogorov_backward_right_generator S f t)
+    hell.comp (kolmogorov_backward_right_generator S f t)
   simpa only [rightDualPairingDifferenceQuotient_eq, dualAction_apply] using hmap
 
 end

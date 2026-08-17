@@ -64,11 +64,13 @@ theorem invariantFunctional_generator_eq_zero
     {f Af : M}
     (hf : HasRightGeneratorAt S f Af) :
     ell Af = 0 := by
+  have hell : Tendsto ell (𝓝 Af) (𝓝 (ell Af)) :=
+    ell.continuous.continuousAt
   have hmap :
       Tendsto
         (fun h : ℝ≥0 => ell (rightDifferenceQuotient S h f))
         (nhdsWithin 0 (Ioi 0)) (𝓝 (ell Af)) :=
-    ell.continuous.continuousAt.comp hf
+    hell.comp hf
   have hzero : ∀ h : ℝ≥0,
       ell (rightDifferenceQuotient S h f) = 0 := by
     intro h
