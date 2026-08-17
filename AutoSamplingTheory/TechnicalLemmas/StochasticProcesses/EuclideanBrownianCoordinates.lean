@@ -39,7 +39,8 @@ noncomputable def coordinateDual (j : kappa) :
 @[simp]
 theorem coordinateDual_apply (j : kappa) (x : EuclideanSpace ℝ kappa) :
     coordinateDual j x = x j := by
-  simp [coordinateDual]
+  change inner ℝ (EuclideanSpace.basisFun kappa ℝ j) x = x j
+  exact EuclideanSpace.basisFun_inner x j
 
 @[simp]
 theorem norm_coordinateDual (j : kappa) :
@@ -75,7 +76,7 @@ theorem coordinate_eval_hasLaw
       HasLaw (fun omega => B 1 omega j - B 0 omega j)
         (gaussianReal 0 (1 - 0 : ℝ≥0)) mu :=
     coordinate_increment_hasLaw hB j (by norm_num)
-  letI : IsProbabilityMeasure mu := hOne.isProbabilityMeasure
+  let _ : IsProbabilityMeasure mu := hOne.isProbabilityMeasure
   by_cases ht : t = 0
   · subst t
     have hzero :
@@ -84,10 +85,11 @@ theorem coordinate_eval_hasLaw
         simp [hB.1 omega]
     simpa using (hasLaw_dirac_of_ae_eq hzero :
       HasLaw (fun omega => B 0 omega j) (Measure.dirac 0) mu)
-  · have h0t : 0 < t := lt_of_le_of_ne zero_le' (Ne.symm ht)
+  · have h0t : 0 < t := pos_iff_ne_zero.mpr ht
     have h := coordinate_increment_hasLaw hB j h0t
-    simpa only [hB.1, Pi.zero_apply, sub_zero, zero_le, NNReal.zero_le,
-      tsub_zero] using h
+    have hzero : ∀ omega, B 0 omega j = 0 := fun omega => by
+      simp [hB.1 omega]
+    simpa only [hzero, sub_zero, tsub_zero] using h
 
 /-- The `j`-th coordinate of a Chewi-standard Euclidean Brownian motion is a
 Mathlib real Brownian motion. -/
@@ -103,7 +105,7 @@ theorem IsStandardBrownianMotion.coordinate_isBrownianReal
     simpa only [coordinateDual_apply] using
       hB.projected_hasIndepIncrements (coordinateDual j)
   · filter_upwards [hB.2.2.2] with omega hcont
-    simpa only [coordinateDual_apply] using
+    simpa only [Function.comp_apply, coordinateDual_apply] using
       (coordinateDual j).continuous.comp hcont
 
 variable {m : MeasurableSpace Omega}
@@ -140,7 +142,7 @@ theorem IsStandardBrownianMotionWithFiltration.coordinate_incrementIndependent
         (borel ℝ) scalarIncrement := by
     have hcomp := (coordinateDual j).measurable.comp
       (comap_measurable vectorIncrement)
-    simpa [vectorIncrement, scalarIncrement, coordinateDual] using hcomp
+    simpa [vectorIncrement, scalarIncrement, Function.comp_apply, map_sub] using hcomp
   have hle :
       MeasurableSpace.comap scalarIncrement (borel ℝ) ≤
         MeasurableSpace.comap vectorIncrement
@@ -156,10 +158,10 @@ theorem IsStandardBrownianMotionWithFiltration.coordinate
     (j : kappa) :
     IsBrownianMotionWithFiltration
       (fun t omega => B t omega j) filtration mu where
-  isBrownian := hB.isStandard.coordinate_isBrownianReal j
-  stronglyAdapted := hB.coordinate_stronglyAdapted j
+  isBrownian := coordinate_isBrownianReal hB.isStandard j
+  stronglyAdapted := coordinate_stronglyAdapted hB j
   incrementIndependent := fun s t hst =>
-    hB.coordinate_incrementIndependent j hst
+    coordinate_incrementIndependent hB j hst
 
 /-- Package all coordinates as the integration-facing family used by the
 finite-dimensional Itô-process ABI.  Every member comes from the same vector
@@ -169,7 +171,7 @@ noncomputable def coordinateFamily
     CoordinateBrownianFamilyWithFiltration
       (Omega := Omega) (filtration := filtration) (mu := mu) kappa where
   process j t omega := B t omega j
-  isBrownian j := hB.coordinate j
+  isBrownian j := coordinate hB j
 
 end EuclideanBrownianCoordinates
 end StochasticProcesses
