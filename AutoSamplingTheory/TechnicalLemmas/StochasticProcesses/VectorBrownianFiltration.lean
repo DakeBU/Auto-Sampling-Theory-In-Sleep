@@ -37,9 +37,9 @@ theorem IsStandardBrownianMotion.hasIndepIncrements
     (hB : IsStandardBrownianMotion B mu) :
     HasIndepIncrements B mu := by
   intro n t ht
-  apply hB.2.1 (n + 1)
-      (fun i : Fin (n + 1) => t i.castSucc)
-      (fun i : Fin (n + 1) => t i.succ)
+  apply hB.2.1 n
+      (fun i : Fin n => t i.castSucc)
+      (fun i : Fin n => t i.succ)
   · intro i
     exact ht (by omega)
   · intro i j hij
