@@ -2138,8 +2138,28 @@ def stochasticProcessMemory : List LemmaMemoryEntry := [
     status := LemmaMemoryStatus.formalizedLocal,
     tags := ["Chewi", "Ito", "localization", "stopping-time", "progressive-L2"],
     saldUse := "package the canonical energy first-hitting times, terminal convergence, and stopped global-L2 bound into the exact Chapter 1 source result",
-    note := "The stopped-integral identity (display 1.1.14) and the continuous local-martingale theorem (Proposition 1.1.16) remain separate downstream routes."
+    note := "Display (1.1.14) and Proposition 1.1.16 remain separate theorem routes; both are now compiled, so this entry records only the canonical localization component."
   },
+  {
+  key := "localization.chewi-display-1-1-14",
+  localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalStoppedItoIntegral.chewi_display_1_1_14",
+  upstreamDecl := "Chewi display (1.1.14)",
+  upstreamFile := "Log-Concave Sampling, book page 7 / PDF page 19",
+  status := LemmaMemoryStatus.formalizedLocal,
+  tags := ["Chewi", "Ito", "localization", "stopped-integral", "continuous-martingale"],
+  saldUse := "package each canonical energy truncation as a globally L2 Ito integrand whose Ito process is adapted, continuous, martingale, and compatible with deterministic-time restriction",
+  note := "This compiles the intermediate stopped-global-Ito display. Arbitrary random-stopping consistency and cross-horizon gluing are discharged separately by Proposition 1.1.16."
+},
+{
+  key := "localization.chewi-proposition-1-1-16",
+  localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiProposition1_1_16.chewi_proposition_1_1_16",
+  upstreamDecl := "Chewi Proposition 1.1.16",
+  upstreamFile := "Log-Concave Sampling, book page 7 / PDF page 19",
+  status := LemmaMemoryStatus.formalizedLocal,
+  tags := ["Chewi", "Ito", "local-martingale", "localization", "random-stopping", "continuous-paths"],
+  saldUse := "package random-stopping consistency, cross-horizon overlap, localized martingale coherence, and pathwise gluing into the source local-Ito continuous-local-martingale result",
+  note := "Uses the canonical localizers from Proposition 1.1.13; stopped-integral compatibility, stopping-graph nullity, and cross-horizon gluing are all compiled."
+},
   {
     key := "localization.completed-integrand-progressive",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CompletedIntegrand.completedIntegrand_stronglyProgressive",

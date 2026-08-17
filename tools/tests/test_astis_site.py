@@ -246,13 +246,15 @@ class RigorousLessonTests(unittest.TestCase):
                 self.assertGreater(len(nodes), 0)
                 self.assertTrue(all(str(node).startswith("AutoSamplingTheory.") for node in nodes))
 
-    def test_localization_lesson_preserves_open_1_1_16_boundary(self) -> None:
+    def test_localization_lesson_explains_closed_1_1_16_bridge(self) -> None:
         data = json.loads(RIGOROUS_LESSONS.read_text(encoding="utf-8"))
         text = json.dumps(data, ensure_ascii=False)
-        self.assertIn("does not by itself close Proposition 1.1.16", text)
-        self.assertIn("does not yet prove that stochastic integration commutes", text)
+        self.assertIn("Proposition 1.1.16 additionally needs random-stopping consistency", text)
+        self.assertIn("is now compiled separately", text)
         self.assertIn("grid-valued stopping", text)
-
+        self.assertIn("stopping-graph nullity", text)
+        self.assertIn("assembled in Proposition 1.1.16", text)
+        self.assertNotIn("keeps Proposition 1.1.16 partial", text)
 
 if __name__ == "__main__":
     unittest.main()

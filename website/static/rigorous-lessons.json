@@ -11,7 +11,7 @@
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyLocalizer.canonicalEnergyLocalizer",
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Localization.IsLocalizingSequence"
       ],
-      "scope_note": "This is an ASTIS rigorous expansion of Chewi's localization argument. It explains the already compiled local construction; it is not a quotation from the book and it does not by itself close Proposition 1.1.16.",
+      "scope_note": "This is an ASTIS rigorous expansion of Chewi's localization argument. It proves the localization component itself; Proposition 1.1.16 additionally needs random-stopping consistency and cross-horizon gluing, which are now compiled in a separate source-facing route.",
       "formula_latex": [
         "\\[A_t(\\omega)=\\int_0^{t\\wedge T}|\\eta_s(\\omega)|^2\\,ds.\\]",
         "\\[N=\\left\\{\\omega:\\int_0^T|\\eta_s(\\omega)|^2\\,ds=\\infty\\right\\},\\qquad \\mu(N)=0.\\]",
@@ -104,7 +104,7 @@
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalStoppedItoIntegral.chewi_display_1_1_14",
         "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalStoppedItoIntegral.canonicalStoppedItoProcess"
       ],
-      "scope_note": "This display applies the already-constructed global L2 Itô integral to the canonical energy truncation. It does not yet prove that stochastic integration commutes with an arbitrary random stopping time; that remaining consistency theorem belongs to Proposition 1.1.16.",
+      "scope_note": "This display applies the already-constructed global L2 Ito integral to the canonical energy truncation. The display itself gives deterministic-time restriction compatibility, not arbitrary random-stopping consistency; that extra bridge belongs to Proposition 1.1.16 and is now compiled separately.",
       "formula_latex": [
         "\\[\\eta_s^{(n)}:=\\widehat\\eta_s\\,\\mathbf 1_{\\{\\widehat A_s<n+1\\}},\\qquad \\int_0^T|\\eta_s^{(n)}|^2ds\\le n+1.\\]",
         "\\[M_t^{(n)}:=\\int_0^t\\eta_s^{(n)}\\,dB_s.\\]",
@@ -142,7 +142,7 @@
       "subtle_points": [
         "An energy-truncated integrand being globally L2 is enough to construct M^(n), but it is not yet the statement M_{t wedge tau_n}=M_t^(n).",
         "For a random tau inside an elementary grid cell, the final Brownian increment must be cut at tau; multiplying the whole cell coefficient by 1_{t_i<tau} alone does not prove the stochastic-integral stopping identity.",
-        "ASTIS therefore keeps Proposition 1.1.16 partial until grid-valued stopping, approximation, L2/continuous-path passage, and overlap consistency are all compiled."
+        "The required grid-valued stopping, dyadic approximation, L2/continuous-path passage, stopping-graph nullity, cross-horizon overlap, and pathwise gluing steps are now compiled and assembled in Proposition 1.1.16."
       ]
     }
   ]

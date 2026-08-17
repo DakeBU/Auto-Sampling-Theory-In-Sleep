@@ -6,7 +6,8 @@ The main site generator renders the source route.  This post-build layer adds
 only results that are *not* stated as standalone results in the textbook but
 are genuinely consumed by its calculation rules.  Every card therefore shows
 an ASTIS provenance label, a LaTeX statement, all explicit assumptions, a
-mathematical proof, downstream source consumers, and optional Lean links.
+mathematical proof, downstream source consumers, supplementary foundation
+references, and optional Lean links.
 
 The script is deliberately presentation-only: it never changes Registry,
 source-correspondence, completion-matrix, or Lean status.
@@ -37,6 +38,36 @@ def esc(value: object) -> str:
 def slugify(value: str) -> str:
     value = re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
     return value or "entry"
+
+
+def foundation_sources(item: dict[str, object]) -> list[dict[str, str]]:
+    raw = item.get("foundation_sources", [])
+    if not isinstance(raw, list):
+        raise RuntimeError(f"{item.get('id', 'entry')}: foundation_sources must be a list")
+    normalized: list[dict[str, str]] = []
+    for index, candidate in enumerate(raw):
+        if not isinstance(candidate, dict):
+            raise RuntimeError(
+                f"{item.get('id', 'entry')}: foundation source #{index} is not an object"
+            )
+        missing = sorted({"name", "scope", "url"}.difference(candidate))
+        if missing:
+            raise RuntimeError(
+                f"{item.get('id', 'entry')}: foundation source #{index} is missing {missing}"
+            )
+        name = str(candidate["name"]).strip()
+        scope = str(candidate["scope"]).strip()
+        url = str(candidate["url"]).strip()
+        if not name or not scope:
+            raise RuntimeError(
+                f"{item.get('id', 'entry')}: foundation source #{index} has empty name/scope"
+            )
+        if not url.startswith("https://"):
+            raise RuntimeError(
+                f"{item.get('id', 'entry')}: foundation source URL must use https: {url}"
+            )
+        normalized.append({"name": name, "scope": scope, "url": url})
+    return normalized
 
 
 def load_items() -> list[dict[str, object]]:
@@ -85,6 +116,7 @@ def load_items() -> list[dict[str, object]]:
             raise RuntimeError(f"{item_id}: missing explicit assumptions")
         if not list(candidate["used_for"]):
             raise RuntimeError(f"{item_id}: missing source consumers")
+        foundation_sources(candidate)
         items.append(dict(candidate))
     return items
 
@@ -99,6 +131,25 @@ def section_path(output: Path, section: str) -> Path:
 
 def list_html(values: object) -> str:
     return "<ul>" + "".join(f"<li>{esc(value)}</li>" for value in list(values)) + "</ul>"
+
+
+def foundation_sources_html(item: dict[str, object]) -> str:
+    sources = foundation_sources(item)
+    if not sources:
+        return (
+            '<p class="muted">No external foundation source is attached to this card yet. '
+            'The ASTIS mathematical statement and Lean status remain authoritative.</p>'
+        )
+    rows = []
+    for source in sources:
+        rows.append(
+            '<li class="foundation-reference">'
+            f'<a href="{esc(source["url"])}" target="_blank" rel="noreferrer">'
+            f'{esc(source["name"])}</a>'
+            f'<span> — {esc(source["scope"])}</span>'
+            "</li>"
+        )
+    return '<ul class="foundation-reference-list">' + "".join(rows) + "</ul>"
 
 
 def declaration_url_map(output: Path) -> dict[str, str]:
@@ -174,6 +225,9 @@ def render_card(item: dict[str, object], output: Path) -> str:
       <h3>Assumptions</h3>{list_html(item['assumptions'])}
       <h3>Proof</h3><p>{esc(item['proof'])}</p>
       <h3>Where Chewi uses it implicitly</h3>{list_html(item['used_for'])}
+      <h3>Foundation references</h3>
+      <p class="muted">These sources explain the omitted background; they do not replace the Chewi source statement or the ASTIS proof obligation.</p>
+      {foundation_sources_html(item)}
     </div>
   </details>
   <details class="reader-disclosure lean-disclosure">
@@ -196,7 +250,7 @@ def render_section(items: list[dict[str, object]], output: Path) -> str:
     <h2>Implicit prerequisite theorems and proofs</h2>
   </div>
   <div class="note">
-    <strong>Provenance rule.</strong> These are not additional claims attributed to Chewi. They are the measure-theoretic, stochastic-process, and functional-analytic facts that the textbook calculation uses without promoting each one to a numbered standalone result. ASTIS states their assumptions and proofs explicitly; Lean details remain optional.
+    <strong>Provenance rule.</strong> These are not additional claims attributed to Chewi. They are the measure-theoretic, stochastic-process, and functional-analytic facts that the textbook calculation uses without promoting each one to a numbered standalone result. ASTIS states their assumptions and proofs explicitly, records the classical sources that explain the omitted infrastructure, and keeps Lean details optional.
   </div>
   <p class="card-meta">{compiled}/{len(items)} prerequisite cards currently have compiled Lean support. A frontier card remains mathematically documented without being promoted to a compiled source result.</p>
   {cards}
@@ -265,10 +319,20 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
                 ("Full theorem and mathematical proof", "proof disclosure"),
                 (esc(item["latex_statement"]), "LaTeX statement"),
                 (esc(item["proof"]), "proof text"),
+                ("Foundation references", "foundation references"),
                 ("View Lean formalization", "Lean disclosure"),
             ):
                 if required_text not in text:
                     errors.append(f"{path}: {item_id} missing {label}")
+            for source in foundation_sources(item):
+                if f'href="{esc(source["url"])}"' not in text:
+                    errors.append(
+                        f"{path}: {item_id} missing foundation link for {source['name']}"
+                    )
+                if esc(source["scope"]) not in text:
+                    errors.append(
+                        f"{path}: {item_id} missing foundation scope for {source['name']}"
+                    )
             if str(item["lean_status"]) == "compiled":
                 for declaration in [str(value) for value in item["lean_declarations"]]:
                     if declaration not in url_map:

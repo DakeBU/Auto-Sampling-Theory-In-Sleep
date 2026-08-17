@@ -4,6 +4,7 @@ namespace AutoSamplingTheory.Tests.CanonicalEnergyStoppingTime
 
 open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CanonicalEnergyStoppingTime
 
+#check canonicalEnergyLocalizer_isChewiStoppingTime
 #check canonicalLocalizingTime_isChewiStoppingTime
 
 end AutoSamplingTheory.Tests.CanonicalEnergyStoppingTime

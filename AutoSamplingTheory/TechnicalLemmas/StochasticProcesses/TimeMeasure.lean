@@ -65,6 +65,26 @@ theorem upTo_eq_restrict_nnrealLebesgue (T : ℝ≥0) :
         (fun s : Set ℝ≥0 => (Measure.comap (Subtype.val : ℝ≥0 → ℝ) volume).restrict s)
         hpre
 
+/-- Restricting two larger finite horizons to the same earlier prefix gives
+exactly the same time measure.  This is the cross-horizon consistency used by
+global localization. -/
+theorem restrict_upTo_Iio_eq_of_le {t T₁ T₂ : ℝ≥0}
+    (ht : t ≤ T₁) (hT : T₁ ≤ T₂) :
+    (upTo T₁).restrict (Iio t) = (upTo T₂).restrict (Iio t) := by
+  rw [upTo_eq_restrict_nnrealLebesgue, upTo_eq_restrict_nnrealLebesgue]
+  ext s hs
+  rw [Measure.restrict_apply hs, Measure.restrict_apply hs]
+  have hsi : MeasurableSet (s ∩ Iio t) := hs.inter measurableSet_Iio
+  rw [Measure.restrict_apply hsi, Measure.restrict_apply hsi]
+  congr 1
+  ext x
+  simp only [mem_inter_iff, mem_Iio, mem_Icc]
+  constructor
+  · rintro ⟨⟨hsx, hxt⟩, hx0, _hxT₁⟩
+    exact ⟨⟨hsx, hxt⟩, hx0, hxt.le.trans ht |>.trans hT⟩
+  · rintro ⟨⟨hsx, hxt⟩, hx0, _hxT₂⟩
+    exact ⟨⟨hsx, hxt⟩, hx0, hxt.le.trans ht⟩
+
 /-- The total mass of nonnegative time stopped at `T` is `T`. -/
 theorem upTo_univ (T : ℝ≥0) : upTo T Set.univ = T := by
   have himage : NNReal.toReal '' (Set.univ : Set ℝ≥0) = Ici (0 : ℝ) := by
@@ -175,6 +195,20 @@ theorem upTo_Ioi_terminal (T : ℝ≥0) : upTo T (Ioi T) = 0 := by
 theorem ae_le_terminal (T : ℝ≥0) : ∀ᵐ s ∂upTo T, s ≤ T := by
   filter_upwards [ae_mem_Ioc_zero_upTo T] with s hs
   exact hs.2
+
+/-- The terminal endpoint itself is null, so almost every stopped time is
+strictly before `T`. -/
+theorem ae_lt_terminal (T : ℝ≥0) : ∀ᵐ s ∂upTo T, s < T := by
+  have hne : ∀ᵐ s ∂upTo T, s ∉ ({T} : Set ℝ≥0) :=
+    measure_eq_zero_iff_ae_notMem.mp (upTo_singleton T T)
+  filter_upwards [ae_le_terminal T, hne] with s hs hsne
+  exact lt_of_le_of_ne hs (by simpa only [mem_singleton_iff] using hsne)
+
+/-- Restricting `[0,T]` to the open terminal prefix `[0,T)` changes nothing,
+because the omitted endpoint has zero Lebesgue mass. -/
+theorem restrict_upTo_Iio_terminal (T : ℝ≥0) :
+    (upTo T).restrict (Iio T) = upTo T :=
+  Measure.restrict_eq_self_of_ae_mem (ae_lt_terminal T)
 
 end TimeMeasure
 end StochasticProcesses

@@ -16,10 +16,39 @@ sys.path.insert(0, str(ROOT / "tools"))
 import astis_site  # noqa: E402
 
 
+def github_command_escape(text: str) -> str:
+    """Escape a short diagnostic for the GitHub Actions workflow-command syntax."""
+    return text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+
+
+def diagnostic_tail(text: str, *, lines: int = 36) -> str:
+    """Keep the failure annotation useful without flooding the check UI."""
+    rows = [row for row in text.splitlines() if row.strip()]
+    return "\n".join(rows[-lines:])
+
+
 def main() -> int:
     command = [sys.executable, "tools/astis.py", "check"]
-    result = subprocess.run(command, cwd=ROOT, check=False)
+    result = subprocess.run(
+        command,
+        cwd=ROOT,
+        check=False,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    output = result.stdout or ""
+    if output:
+        print(output, end="" if output.endswith("\n") else "\n")
     if result.returncode != 0:
+        tail = diagnostic_tail(output)
+        if tail:
+            print(
+                "::error title=ASTIS Lean gate failed::"
+                + github_command_escape(tail)
+            )
+        else:
+            print("::error title=ASTIS Lean gate failed::tools/astis.py check exited nonzero with no captured output")
         print("Lean gate failed; no site evidence was written.", file=sys.stderr)
         return result.returncode
 
@@ -42,9 +71,7 @@ def main() -> int:
     target.parent.mkdir(parents=True, exist_ok=True)
     temporary = target.with_suffix(".tmp")
     temporary.write_text(
-        json.dumps(evidence, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-        newline="\n",
+        json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n"
     )
     temporary.replace(target)
     print(f"Recorded current Lean gate evidence at {target.relative_to(ROOT)}")

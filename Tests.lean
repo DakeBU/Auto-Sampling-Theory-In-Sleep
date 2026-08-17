@@ -7,6 +7,9 @@ import Tests.DiscreteDoobL2
 import Tests.ContinuousDoobL2
 import Tests.DyadicElementaryRefinement
 import Tests.DyadicElementaryStopping
+import Tests.DyadicGridStoppingIto
+import Tests.DyadicHorizonExtension
+import Tests.DyadicHorizonIto
 import Tests.ElementaryItoIntegral
 import Tests.ElementaryItoAlgebra
 import Tests.ElementaryItoEmbedding
@@ -14,12 +17,18 @@ import Tests.ElementaryItoDoobL2
 import Tests.ElementaryItoIsometry
 import Tests.ElementaryItoL2
 import Tests.ElementaryItoProcess
+import Tests.ElementaryStoppingTime
 import Tests.FellerSemigroup
+import Tests.FiniteDimensionalItoProcess
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
 import Tests.ItoTerminalCompletion
+import Tests.ItoHorizonConsistency
+import Tests.ItoHorizonProcessConsistency
 import Tests.ItoIntegralProcess
+import Tests.ItoIntegralProcessAfterHorizon
+import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
 import Tests.LangevinCarreDuChamp
 import Tests.LaggedDyadicApproximation
@@ -34,7 +43,28 @@ import Tests.OperatorGeneratorDomain
 import Tests.ProgressiveL2
 import Tests.ProgressiveL2Density
 import Tests.ProgressiveL2Algebra
+import Tests.ProgressiveL2HorizonExtension
 import Tests.ProgressiveL2Truncation
+import Tests.ProgressiveL2Stopping
+import Tests.StoppingGraphNull
+import Tests.GlobalLocalProgressiveL2
+import Tests.GlobalCanonicalLocalizerLimit
+import Tests.DyadicGlobalHorizon
+import Tests.GlobalStoppedProgressiveL2
+import Tests.GlobalStoppedL2Overlap
+import Tests.GlobalStoppedItoMartingale
+import Tests.GlobalItoProcessGluing
+import Tests.ChewiProposition1_1_16
+import Tests.RandomStoppingDyadicApprox
+import Tests.RandomStoppingBoundary
+import Tests.RandomStoppingProcessApprox
+import Tests.RandomStoppingIntegrandLimit
+import Tests.RandomStoppingProgressiveL2
+import Tests.RandomStoppingL2Convergence
+import Tests.RandomStoppingItoTerminal
+import Tests.RandomStoppingL2Contraction
+import Tests.RandomStoppingGeneralIto
+import Tests.RandomStoppingProcessConsistency
 import Tests.Reversibility
 import Tests.SampledElementaryApproximation
 import Tests.SemigroupDecay
@@ -53,13 +83,15 @@ import Tests.CanonicalRawLocalization
 import Tests.CanonicalRawLocalizationL2
 import Tests.CompletedIntegrand
 import Tests.EnergyStoppedIntegrand
+import Tests.EnergyStoppingBoundaryBridge
 import Tests.EnergyStoppedProgressiveL2
+import Tests.EnergyStoppingL2Bridge
 import Tests.CanonicalLocalizationTheorem
 import Tests.CanonicalStoppedItoIntegral
+import Tests.EnergyStoppedItoOverlap
 
 /-!
-Focused Chapter 1.2 Markov, Feller, carré-du-champ, strong-continuity, bundled generator-domain,
-shifted Poincare/chi-square equivalence, and shifted log-Sobolev/KL equivalence
-tests are part of the root target together with the compiled Registry count,
+Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are
+part of the root target together with the compiled Registry count,
 Registry-backed source correspondence, and Samplinglib declaration inventory.
 -/
