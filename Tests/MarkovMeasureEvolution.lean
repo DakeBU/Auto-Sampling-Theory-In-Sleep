@@ -12,9 +12,13 @@ noncomputable section
 #check evolveMeasure
 #check evolveMeasure_add
 #check isProbabilityMeasure_evolveMeasure
+#check lintegral_markovOperator_eq_lintegral_evolveMeasure
 #check IsStationary
 #check isStationary_iff_kernel_invariant
 #check isStationary_of_kernel_reversible
+#check IsStationary.lintegral_markovOperator_eq
+#check isStationary_of_lintegral_markovOperator_eq
+#check isStationary_iff_lintegral_markovOperator_eq
 #check IsStationary.evolveMeasure_eq
 #check IsStationary.after
 
@@ -24,6 +28,13 @@ example {E : Type*} [MeasurableSpace E]
     evolveMeasure hK (s + t) mu =
       evolveMeasure hK t (evolveMeasure hK s mu) :=
   evolveMeasure_add hK mu s t
+
+example {E : Type*} [MeasurableSpace E]
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (mu : Measure E) (t : ℝ≥0) (f : MeasurableENNReal E) :
+    (∫⁻ x, markovOperator hK t f x ∂mu) =
+      ∫⁻ y, f y ∂evolveMeasure hK t mu :=
+  lintegral_markovOperator_eq_lintegral_evolveMeasure hK mu t f
 
 example {E : Type*} [MeasurableSpace E]
     {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
@@ -37,6 +48,14 @@ example {E : Type*} [MeasurableSpace E]
     (hrev : ∀ t : ℝ≥0, Kernel.IsReversible (K t) pi) :
     IsStationary hK pi :=
   isStationary_of_kernel_reversible hK pi hrev
+
+example {E : Type*} [MeasurableSpace E]
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (pi : Measure E) :
+    IsStationary hK pi ↔
+      ∀ (t : ℝ≥0) (f : MeasurableENNReal E),
+        (∫⁻ x, markovOperator hK t f x ∂pi) = ∫⁻ x, f x ∂pi :=
+  isStationary_iff_lintegral_markovOperator_eq hK pi
 
 example {E : Type*} [MeasurableSpace E]
     {K : ℝ≥0 → Kernel E E} {hK : TransitionKernelContract K}
