@@ -1,3 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.MarkovSemigroup.CarreDuChamp
 import AutoSamplingTheory.TechnicalLemmas.MarkovSemigroup.KernelSemigroup
 import AutoSamplingTheory.TechnicalLemmas.MarkovSemigroup.MeasureEvolution
 
