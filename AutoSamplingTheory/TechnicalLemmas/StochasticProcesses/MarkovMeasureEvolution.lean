@@ -1,5 +1,6 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup
 import Mathlib.Probability.Kernel.Composition.MeasureComp
+import Mathlib.Probability.Kernel.Invariance
 
 /-!
 # Measure evolution for the canonical Markov-kernel contract
@@ -70,6 +71,34 @@ theorem isStationary_iff
     (pi : Measure E) :
     IsStationary hK pi ↔ ∀ t : ℝ≥0, evolveMeasure hK t pi = pi :=
   Iff.rfl
+
+/-- ASTIS semigroup stationarity is exactly Mathlib kernel invariance at every
+time.  This keeps the Chapter 1.2 measure-level API connected to Mathlib rather
+than introducing a competing notion of invariant measure. -/
+theorem isStationary_iff_kernel_invariant
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (pi : Measure E) :
+    IsStationary hK pi ↔ ∀ t : ℝ≥0, Kernel.Invariant (K t) pi := by
+  constructor
+  · intro hpi t
+    change K t ∘ₘ pi = pi
+    exact hpi t
+  · intro hpi t
+    change K t ∘ₘ pi = pi
+    exact (hpi t).def
+
+/-- Detailed balance for every transition kernel implies stationarity of the
+whole semigroup.  This is a measure-level reversibility-to-stationarity bridge;
+it does not identify a concrete SDE transition kernel. -/
+theorem isStationary_of_kernel_reversible
+    {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
+    (pi : Measure E)
+    (hrev : ∀ t : ℝ≥0, Kernel.IsReversible (K t) pi) :
+    IsStationary hK pi := by
+  rw [isStationary_iff_kernel_invariant]
+  intro t
+  letI : IsMarkovKernel (K t) := hK.isMarkov t
+  exact (hrev t).invariant
 
 /-- A stationary law remains unchanged at every named time. -/
 theorem IsStationary.evolveMeasure_eq
