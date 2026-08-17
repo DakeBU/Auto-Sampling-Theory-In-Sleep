@@ -3,6 +3,7 @@ import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities
 import AutoSamplingTheory.TechnicalLemmas.Gaussian
 import AutoSamplingTheory.TechnicalLemmas.Geometry
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory
+import AutoSamplingTheory.TechnicalLemmas.MarkovSemigroup
 import AutoSamplingTheory.TechnicalLemmas.Measure
 import AutoSamplingTheory.TechnicalLemmas.Probability
 import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions
