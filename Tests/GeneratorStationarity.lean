@@ -13,8 +13,15 @@ noncomputable section
 
 variable {M : Type*} [NormedAddCommGroup M] [NormedSpace ℝ M]
 
+#check hasRightGeneratorAt_zero_of_fixed
+#check mem_generatorDomainSubmodule_of_fixed
 #check invariantFunctional_generator_eq_zero
 #check invariantFunctional_rightGenerator_eq_zero
+
+example (S : ContinuousLinearSemigroup M)
+    {f : M} (hfix : ∀ t : ℝ≥0, S.op t f = f) :
+    HasRightGeneratorAt S f 0 :=
+  hasRightGeneratorAt_zero_of_fixed S hfix
 
 example (S : ContinuousLinearSemigroup M)
     (ell : M →L[ℝ] ℝ)
