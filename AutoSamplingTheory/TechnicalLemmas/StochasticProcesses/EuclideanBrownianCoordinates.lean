@@ -112,7 +112,7 @@ theorem IsStandardBrownianMotion.coordinate_isBrownianReal
         (fun t => B t omega j) =
           (coordinateDual j) ∘ (fun t => B t omega) := by
       funext t
-      simp [Function.comp_def]
+      simp
     rw [hfun]
     exact hprojected
 
@@ -144,12 +144,27 @@ theorem IsStandardBrownianMotionWithFiltration.coordinate_incrementIndependent
     fun omega => B t omega - B s omega
   let scalarIncrement : Omega → ℝ :=
     fun omega => B t omega j - B s omega j
+  have hBorelE :
+      (inferInstance : MeasurableSpace (EuclideanSpace ℝ kappa)) =
+        borel (EuclideanSpace ℝ kappa) :=
+    BorelSpace.measurable_eq
+  have hBorelR :
+      (inferInstance : MeasurableSpace ℝ) = borel ℝ :=
+    BorelSpace.measurable_eq
+  have hcompInst :
+      @Measurable Omega ℝ
+        (MeasurableSpace.comap vectorIncrement
+          (inferInstance : MeasurableSpace (EuclideanSpace ℝ kappa)))
+        (inferInstance : MeasurableSpace ℝ)
+        ((coordinateDual j) ∘ vectorIncrement) :=
+    (coordinateDual j).measurable.comp (comap_measurable vectorIncrement)
   have hcomp :
       @Measurable Omega ℝ
         (MeasurableSpace.comap vectorIncrement (borel (EuclideanSpace ℝ kappa)))
         (borel ℝ)
-        ((coordinateDual j) ∘ vectorIncrement) :=
-    (coordinateDual j).measurable.comp (comap_measurable vectorIncrement)
+        ((coordinateDual j) ∘ vectorIncrement) := by
+    rw [← hBorelE, ← hBorelR]
+    exact hcompInst
   have hfun : scalarIncrement = (coordinateDual j) ∘ vectorIncrement := by
     funext omega
     simp [scalarIncrement, vectorIncrement, Function.comp_def, map_sub]
