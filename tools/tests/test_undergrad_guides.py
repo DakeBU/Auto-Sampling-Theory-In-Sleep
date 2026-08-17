@@ -31,6 +31,12 @@ class UndergradGuideTests(unittest.TestCase):
         self.assertIn("vocabulary-grid", html)
         self.assertIn("Three-layer rule", html)
 
+    def test_unwrapped_math_detection(self) -> None:
+        self.assertTrue(undergrad_guides.find_unwrapped_math("At time B_t"))
+        self.assertTrue(undergrad_guides.find_unwrapped_math("Use the L2 norm"))
+        self.assertEqual(undergrad_guides.find_unwrapped_math(r"At time \(B_t\)"), [])
+        self.assertEqual(undergrad_guides.find_unwrapped_math(r"Use the \(L^2\) norm"), [])
+
     def test_site_injection_is_idempotent(self) -> None:
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)

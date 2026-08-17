@@ -11,7 +11,7 @@
     "source_url": "https://chewisinho.github.io/main.pdf#page=18",
     "wording_status": "faithful paraphrase",
     "source_summary": "Every progressive process with finite probability-time L2 energy has an Ito integral that is an adapted continuous martingale, is characterized at each deterministic time by the restricted terminal L2 completion, and satisfies the Ito isometry.",
-    "mathematical_exposition": "For a progressive square-integrable integrand eta, the elementary adapted stochastic integrals extend by L2 completion to a continuous martingale I. For every t in [0,T], I_t represents the completed integral of eta restricted to (0,t), and any other continuous adapted version with these fixed-time representatives is indistinguishable from I.",
+    "mathematical_exposition": "For a progressive square-integrable integrand \\(\\eta\\), elementary adapted stochastic integrals extend by \\(L^2\\) completion to a continuous martingale \\(I\\). At every \\(t\\in[0,T]\\), \\(I_t\\) is the completed integral of \\(\\eta\\) restricted to \\((0,t)\\), and any other continuous adapted version with these fixed-time representatives is indistinguishable from \\(I\\).",
     "astis_exposition": "ASTIS constructs causal lagged-dyadic approximants, refines their grids, completes the terminal integral in L2, proves elementary martingale and Doob bounds, obtains a uniformly convergent continuous version by Borel-Cantelli, and identifies its value at every time through right-dyadic stopping.",
     "rigorous_packet": "The filtration usual conditions, progressive measurability, global product-space L2 integrability, Brownian motion relative to that filtration, almost-everywhere path continuity, fixed-time L2 representatives, and indistinguishability criterion are all explicit.",
     "lean_declarations": [
@@ -95,7 +95,8 @@
         "priority": 100,
         "route_status": "compiled"
       }
-    ]
+    ],
+    "latex_statement": "I_t(\\eta)=\\int_0^t \\eta_s\\,dB_s,\\qquad \\mathbb E[I_t(\\eta)^2]=\\mathbb E\\!\\left[\\int_0^t \\eta_s^2\\,ds\\right]"
   },
   {
     "id": "chewi-1-1-display-1-1-9",
@@ -109,7 +110,7 @@
     "source_url": "https://chewisinho.github.io/main.pdf#page=18",
     "wording_status": "faithful paraphrase",
     "source_summary": "At every deterministic time, the second moment of the Ito integral equals the probability-time L2 energy accumulated by the integrand up to that time.",
-    "mathematical_exposition": "For t in [0,T], E[I_t(eta)^2] equals E[integral_0^t eta_s^2 ds]. ASTIS represents the right side by restricting eta to the strict interval (0,t) inside the fixed product horizon; changing either endpoint does not affect the integral because singleton times are null.",
+    "mathematical_exposition": "For \\(t\\in[0,T]\\), the second moment \\(\\mathbb E[I_t(\\eta)^2]\\) equals \\(\\mathbb E[\\int_0^t\\eta_s^2\\,ds]\\). ASTIS represents the right side by restricting \\(\\eta\\) to \\((0,t)\\); changing an endpoint does not change the integral because singleton times are null.",
     "astis_exposition": "The fixed-time process is first identified almost everywhere with the L2 terminal completion of the restricted integrand. The terminal norm isometry and the product-space norm formula then give the displayed equality.",
     "rigorous_packet": "The theorem exposes the deterministic-time bound t <= T, the exact strict restriction representative, the fixed probability-time product measure, and the almost-everywhere identification needed to replace the process by its L2 class.",
     "lean_declarations": [
@@ -152,7 +153,8 @@
         "priority": 100,
         "route_status": "compiled"
       }
-    ]
+    ],
+    "latex_statement": "\\mathbb E[I_t(\\eta)^2]=\\mathbb E\\!\\left[\\int_0^t \\eta_s^2\\,ds\\right]"
   },
   {
     "id": "chewi-1-1-display-1-1-5",
@@ -166,7 +168,7 @@
     "source_url": "https://chewisinho.github.io/main.pdf#page=17",
     "wording_status": "faithful paraphrase",
     "source_summary": "The expected square of an elementary stochastic integral expands to the sum of its diagonal increment terms because distinct adapted Brownian increments are orthogonal.",
-    "mathematical_exposition": "For I_T(eta) = sum_i H_i Delta B_i, the expectation of I_T(eta)^2 equals the sum over i of the expectations of (H_i Delta B_i)^2.",
+    "mathematical_exposition": "Write \\(I_T(\\eta)=\\sum_i H_i\\Delta B_i\\). Expanding the square produces diagonal and cross terms; adaptedness and Brownian increment orthogonality make every cross term vanish in expectation.",
     "astis_exposition": "ASTIS proves the expectation identity after deriving L2 integrability and cross-term orthogonality from filtration-relative Brownian independence.",
     "rigorous_packet": "The filtration, left-endpoint measurability, Brownian future-increment independence, centered increment law, and product integrability are explicit.",
     "lean_declarations": [
@@ -207,7 +209,8 @@
         "priority": 100,
         "route_status": "compiled"
       }
-    ]
+    ],
+    "latex_statement": "\\mathbb E\\!\\left[\\left(\\sum_i H_i\\Delta B_i\\right)^2\\right]=\\sum_i \\mathbb E[(H_i\\Delta B_i)^2]"
   },
   {
     "id": "chewi-1-1-display-1-1-6",
@@ -221,7 +224,7 @@
     "source_url": "https://chewisinho.github.io/main.pdf#page=17",
     "wording_status": "faithful paraphrase",
     "source_summary": "The second moment of the elementary Ito integral equals the expected time integral of the squared elementary integrand.",
-    "mathematical_exposition": "The diagonal expansion is sum_i E[H_i^2] times ((t_(i+1) min T) - (t_i min T)), which is exactly the product-space L2 energy of eta on [0,T].",
+    "mathematical_exposition": "The diagonal expansion is \\(\\sum_i\\mathbb E[H_i^2]\\,((t_{i+1}\\wedge T)-(t_i\\wedge T))\\), exactly the probability-time \\(L^2\\) energy of \\(\\eta\\) on \\([0,T]\\).",
     "astis_exposition": "ASTIS connects Brownian increment second moments to an exact evaluation of processL2Energy under the stopped nonnegative-time Lebesgue measure.",
     "rigorous_packet": "Coefficient integrability, clipped interval mass, time-cell disjointness, joint measurability, Tonelli, and the ENNReal energy representation are explicit.",
     "lean_declarations": [
@@ -264,7 +267,8 @@
         "priority": 100,
         "route_status": "compiled"
       }
-    ]
+    ],
+    "latex_statement": "\\mathbb E\\!\\left[\\left(\\int_0^T \\eta_s\\,dB_s\\right)^2\\right]=\\mathbb E\\!\\left[\\int_0^T \\eta_s^2\\,ds\\right]"
   },
   {
     "id": "chewi-1-1-display-1-1-10",
@@ -278,7 +282,7 @@
     "source_url": "https://chewisinho.github.io/main.pdf#page=18",
     "wording_status": "faithful paraphrase",
     "source_summary": "Localization permits progressive integrands whose squared time integral is finite almost surely, without requiring its expectation to be finite.",
-    "mathematical_exposition": "For almost every sample path, the integral from zero to T of eta squared is finite.",
+    "mathematical_exposition": "For almost every sample path \\(\\omega\\), the quadratic energy \\(\\int_0^T\\eta_s(\\omega)^2\\,ds\\) is finite. This is weaker than assuming finite expected energy.",
     "astis_exposition": "The condition is ENNReal-valued and pathwise almost everywhere, so it is visibly weaker than finite expected process energy.",
     "rigorous_packet": "The finite time measure, nonnegative path energy, strict comparison with infinity, and probability almost-everywhere quantifier are explicit.",
     "lean_declarations": [
@@ -319,7 +323,8 @@
         "priority": 100,
         "route_status": "compiled"
       }
-    ]
+    ],
+    "latex_statement": "\\int_0^T \\eta_s(\\omega)^2\\,ds<\\infty\\quad\\text{for a.e. }\\omega"
   },
   {
     "id": "chewi-1-1-display-1-1-7",
@@ -2989,7 +2994,8 @@
         "route_status": "compiled"
       }
     ],
-    "source_mapping_id": "chewi-chapter1-statement-1-1-13"
+    "source_mapping_id": "chewi-chapter1-statement-1-1-13",
+    "latex_statement": "\\tau_n:=\\inf\\{t\\le T:A_t=n+1\\}\\ \\text{(fallback }T\\text{)},\\qquad \\tau_n\\uparrow T"
   },
   {
     "id": "chewi-1-1-display-1-1-14",
@@ -3104,6 +3110,7 @@
         "route_status": "compiled"
       }
     ],
-    "source_mapping_id": "chewi-chapter1-statement-1-1-16"
+    "source_mapping_id": "chewi-chapter1-statement-1-1-16",
+    "latex_statement": "M_t=\\int_0^t \\eta_s\\,dB_s,\\qquad M_{t\\wedge\\tau_n}=\\int_0^t \\eta_s\\mathbf 1_{\\{s\\le\\tau_n\\}}\\,dB_s"
   }
 ]
