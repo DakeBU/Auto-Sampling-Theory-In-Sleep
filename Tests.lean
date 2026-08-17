@@ -24,6 +24,7 @@ import Tests.FiniteDimensionalNormBridge
 import Tests.FiniteDimensionalItoProcess
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
+import Tests.GeneratorStationarity
 import Tests.GeodesicConvexity
 import Tests.ItoTerminalCompletion
 import Tests.ItoHorizonConsistency
