@@ -6,11 +6,20 @@ open Set
 open AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
 
 #check deriv2_nonneg_of_convexOn_univ
+#check strongConvexOn_affineLine
 
 example {f : ℝ → ℝ}
     (hf : ConvexOn ℝ (Set.univ : Set ℝ) f)
     (hfd : Differentiable ℝ f) (x : ℝ) :
     0 ≤ (deriv^[2] f) x :=
   deriv2_nonneg_of_convexOn_univ hf hfd x
+
+example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {V : E → ℝ} {k : ℝ}
+    (hV : StrongConvexOn (Set.univ : Set E) k V)
+    (x v : E) :
+    StrongConvexOn (Set.univ : Set ℝ) (k * ‖v‖ ^ 2)
+      (fun t : ℝ => V (x + t • v)) :=
+  strongConvexOn_affineLine hV x v
 
 end AutoSamplingTheory.Tests.StrongConvexity
