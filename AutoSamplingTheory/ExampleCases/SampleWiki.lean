@@ -1,3 +1,5 @@
+import AutoSamplingTheory.ExampleCases.SampleWiki.Cases.IdealProximalChain
+
 /-!
 # SampleWiki example-case lane
 
@@ -5,16 +7,17 @@ This module owns the formal intake contract for mathematical cases discovered at
 `https://samplewiki.morning-recipe-422a.workers.dev/`.
 
 A source page is **not** a proved ASTIS result merely because it was crawled,
-parsed, translated into a theorem-shaped statement, or compiled as a type.  A
+parsed, translated into a theorem-shaped statement, or compiled as a type. A
 mathematical case enters the reusable ASTIS Lean graph only after its source
 identity is pinned, its ASTIS restatement is reviewed against that source, its
 Lean proof compiles, and the case has been explicitly assimilated into the
 shared dependency DAG.
 
-Individual mathematical cases will live below
-`AutoSamplingTheory.ExampleCases.SampleWiki.Cases` as the source watcher
-identifies and pins them.  This file deliberately does not invent statements
-for source material that has not yet been retrieved.
+Individual mathematical cases live below
+`AutoSamplingTheory.ExampleCases.SampleWiki.Cases`. A case module may contain a
+fully verified source theorem or a precisely delimited proof segment. Partial
+formalizations must expose their remaining analytic interface as hypotheses and
+must not be marked `sourceReviewed` or `assimilated` prematurely.
 -/
 
 namespace AutoSamplingTheory
@@ -22,7 +25,7 @@ namespace ExampleCases
 namespace SampleWiki
 
 /-- Stable source identity attached to a SampleWiki case before mathematical
-formalization begins.  The hashes are supplied by the source watcher rather
+formalization begins. The hashes are supplied by the source watcher rather
 than trusted as mathematical evidence by themselves. -/
 structure SourceIdentity where
   stableId : String
@@ -32,7 +35,7 @@ structure SourceIdentity where
   deriving Repr, DecidableEq
 
 /-- Verification stages are intentionally finer than a Boolean `verified`
-flag.  In particular, successful Lean elaboration precedes semantic source
+flag. In particular, successful Lean elaboration precedes semantic source
 review and graph assimilation. -/
 inductive VerificationStage where
   | discovered
@@ -45,7 +48,7 @@ inductive VerificationStage where
   deriving Repr, DecidableEq
 
 /-- Only a source-reviewed or already assimilated case is eligible to feed the
-scientific theorem graph.  A merely compiled theorem-shaped declaration is not
+scientific theorem graph. A merely compiled theorem-shaped declaration is not
 enough. -/
 def admissibleForScientificGraph : VerificationStage → Prop
   | .sourceReviewed => True
