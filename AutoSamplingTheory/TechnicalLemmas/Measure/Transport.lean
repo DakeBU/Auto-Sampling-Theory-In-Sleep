@@ -1,3 +1,4 @@
+import Mathlib.MeasureTheory.Integral.Lebesgue.Map
 import Mathlib.MeasureTheory.Measure.Prod
 
 /-!
@@ -32,7 +33,7 @@ def couplingSet {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
 transport cost for an extended nonnegative cost function.
 
 Measurability and lower semicontinuity of `c` are not needed to state the
-extended-real infimum.  They enter the later existence theorem. -/
+extended-real infimum. They enter the later existence theorem. -/
 noncomputable def transportCost {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
     (c : α × β → ℝ≥0∞) (μ : Measure α) (ν : Measure β) : ℝ≥0∞ :=
   sInf {r : ℝ≥0∞ | ∃ γ ∈ couplingSet μ ν, r = ∫⁻ z, c z ∂γ}
@@ -71,6 +72,43 @@ theorem couplingSet_nonempty
     (μ : Measure α) (ν : Measure β) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν] :
     (couplingSet μ ν).Nonempty :=
   ⟨μ.prod ν, isCoupling_prod μ ν⟩
+
+/-- The diagonal pushforward of a measure. Unlike the independent product,
+this construction is available without probability assumptions and is the
+canonical zero-cost self-coupling for metric transport costs. -/
+noncomputable def diagonalCoupling
+    {α : Type*} [MeasurableSpace α] (μ : Measure α) : Measure (α × α) :=
+  Measure.map (fun x => (x, x)) μ
+
+/-- The diagonal pushforward has both marginals equal to the original measure. -/
+theorem isCoupling_diagonal
+    {α : Type*} [MeasurableSpace α] (μ : Measure α) :
+    IsCoupling (diagonalCoupling μ) μ μ := by
+  have hdiag : Measurable (fun x : α => (x, x)) :=
+    measurable_id.prodMk measurable_id
+  constructor
+  · rw [diagonalCoupling, Measure.fst,
+      Measure.map_map measurable_fst hdiag]
+    simp
+  · rw [diagonalCoupling, Measure.snd,
+      Measure.map_map measurable_snd hdiag]
+    simp
+
+/-- Any measurable nonnegative cost that vanishes on the diagonal has zero
+self-transport cost. This isolates the order/measure argument used by the
+Wasserstein reflexivity theorem from the special quadratic formula. -/
+theorem transportCost_self_eq_zero_of_diagonal
+    {α : Type*} [MeasurableSpace α]
+    (c : α × α → ℝ≥0∞) (hc : Measurable c)
+    (hdiag : ∀ x, c (x, x) = 0) (μ : Measure α) :
+    transportCost c μ μ = 0 := by
+  apply le_antisymm
+  · rw [transportCost_eq_sInf]
+    refine sInf_le ?_
+    refine ⟨diagonalCoupling μ, isCoupling_diagonal μ, ?_⟩
+    rw [diagonalCoupling, lintegral_map hc (measurable_id.prodMk measurable_id)]
+    simp [hdiag]
+  · exact bot_le
 
 end Transport
 end Measure
