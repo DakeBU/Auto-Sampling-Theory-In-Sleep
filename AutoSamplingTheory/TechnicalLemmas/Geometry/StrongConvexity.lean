@@ -108,54 +108,50 @@ theorem strongConvexOn_affineLine
 (totalized) derivative at least `k` everywhere.
 
 The proof uses Mathlib's exact strong-convexity normalization:
-`f - k/2 * ‖·‖²` is convex.  Instead of expanding two-fold iterated derivatives
-through a large simplifier call, it identifies the corrected first derivative
-pointwise as `deriv f y - k*y`, proves that function is monotone, and then uses
-`Monotone.deriv_nonneg`.  This keeps the proof deterministic under the
-repository's normal heartbeat budget. -/
+`f - k/2 * ‖·‖²` is convex.  The quadratic correction and its linear first
+derivative are named functions, so all derivative identities use the bundled
+function-subtraction API directly; this avoids both expensive iterated-
+derivative normalization and fragile lambda/function definitional equality. -/
 theorem deriv2_ge_of_strongConvexOn_univ
     {f : ℝ → ℝ} {k : ℝ}
     (hf : StrongConvexOn (Set.univ : Set ℝ) k f)
     (hreg : ContDiff ℝ 2 f) (x : ℝ) :
     k ≤ (deriv^[2] f) x := by
+  let q : ℝ → ℝ := fun y => k / 2 * y ^ 2
+  let ell : ℝ → ℝ := fun y => k * y
   have hconvNorm :
       ConvexOn ℝ (Set.univ : Set ℝ)
         (fun y : ℝ => f y - k / 2 * ‖y‖ ^ 2) :=
     (strongConvexOn_iff_convex).mp hf
-  have hconv :
-      ConvexOn ℝ (Set.univ : Set ℝ)
-        (fun y : ℝ => f y - k / 2 * y ^ 2) := by
-    simpa only [Real.norm_eq_abs, sq_abs] using hconvNorm
+  have hconv : ConvexOn ℝ (Set.univ : Set ℝ) (f - q) := by
+    simpa only [Pi.sub_apply, q, Real.norm_eq_abs, sq_abs] using hconvNorm
   have hfDiff : Differentiable ℝ f := hreg.differentiable (by norm_num)
-  have hquadDeriv (y : ℝ) :
-      HasDerivAt (fun z : ℝ => k / 2 * z ^ 2) (k * y) y := by
-    convert (hasDerivAt_pow 2 y).const_mul (k / 2) using 1 <;> ring
-  have hquadDiff : Differentiable ℝ (fun z : ℝ => k / 2 * z ^ 2) :=
-    fun y => (hquadDeriv y).differentiableAt
-  have hcorrectedDiff :
-      Differentiable ℝ (fun y : ℝ => f y - k / 2 * y ^ 2) :=
-    hfDiff.sub hquadDiff
-  have hmonoCorrected :
-      Monotone (deriv (fun y : ℝ => f y - k / 2 * y ^ 2)) := by
+  have hqDeriv (y : ℝ) : HasDerivAt q (ell y) y := by
+    have hpow : HasDerivAt (fun z : ℝ => z ^ 2) (2 * y) y := by
+      simpa using (hasDerivAt_pow 2 y)
+    have hscaled :
+        HasDerivAt (fun z : ℝ => k / 2 * z ^ 2) ((k / 2) * (2 * y)) y :=
+      hpow.const_mul (k / 2)
+    have hcoef : (k / 2) * (2 * y) = k * y := by ring
+    simpa only [q, ell, hcoef] using hscaled
+  have hqDiff : Differentiable ℝ q := fun y => (hqDeriv y).differentiableAt
+  have hcorrectedDiff : Differentiable ℝ (f - q) := hfDiff.sub hqDiff
+  have hmonoCorrected : Monotone (deriv (f - q)) := by
     rw [← monotoneOn_univ]
     exact hconv.monotoneOn_deriv (fun y _ => hcorrectedDiff y)
-  have hderivCorrected :
-      deriv (fun y : ℝ => f y - k / 2 * y ^ 2) =
-        fun y : ℝ => deriv f y - k * y := by
+  have hderivCorrected : deriv (f - q) = deriv f - ell := by
     funext y
-    simpa only using ((hfDiff y).hasDerivAt.sub (hquadDeriv y)).deriv
+    exact ((hfDiff y).hasDerivAt.sub (hqDeriv y)).deriv
   rw [hderivCorrected] at hmonoCorrected
-  have hnonneg :
-      0 ≤ deriv (fun y : ℝ => deriv f y - k * y) x :=
+  have hnonneg : 0 ≤ deriv (deriv f - ell) x :=
     hmonoCorrected.deriv_nonneg
-  have hdfDiff : Differentiable ℝ (deriv f) :=
-    hreg.differentiable_deriv_two
-  have hlinear : HasDerivAt (fun y : ℝ => k * y) k x :=
-    hasDerivAt_const_mul (x := x) k
+  have hdfDiff : Differentiable ℝ (deriv f) := hreg.differentiable_deriv_two
+  have hellDeriv (y : ℝ) : HasDerivAt ell k y := by
+    dsimp [ell]
+    exact hasDerivAt_const_mul (x := y) k
   have htarget :
-      deriv (fun y : ℝ => deriv f y - k * y) x =
-        deriv (deriv f) x - k := by
-    simpa only using ((hdfDiff x).hasDerivAt.sub hlinear).deriv
+      deriv (deriv f - ell) x = deriv (deriv f) x - k :=
+    ((hdfDiff x).hasDerivAt.sub (hellDeriv x)).deriv
   rw [htarget] at hnonneg
   change k ≤ deriv (deriv f) x
   exact sub_nonneg.mp hnonneg
