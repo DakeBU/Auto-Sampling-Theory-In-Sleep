@@ -89,10 +89,12 @@ theorem isCoupling_diagonal
   constructor
   · rw [diagonalCoupling, Measure.fst,
       Measure.map_map measurable_fst hdiag]
-    simp
+    change Measure.map id μ = μ
+    exact Measure.map_id
   · rw [diagonalCoupling, Measure.snd,
       Measure.map_map measurable_snd hdiag]
-    simp
+    change Measure.map id μ = μ
+    exact Measure.map_id
 
 /-- Any measurable nonnegative cost that vanishes on the diagonal has zero
 self-transport cost. This isolates the order/measure argument used by the
@@ -102,12 +104,17 @@ theorem transportCost_self_eq_zero_of_diagonal
     (c : α × α → ℝ≥0∞) (hc : Measurable c)
     (hdiag : ∀ x, c (x, x) = 0) (μ : Measure α) :
     transportCost c μ μ = 0 := by
+  have hdiagMeas : Measurable (fun x : α => (x, x)) :=
+    measurable_id.prodMk measurable_id
   apply le_antisymm
   · rw [transportCost_eq_sInf]
     refine sInf_le ?_
     refine ⟨diagonalCoupling μ, isCoupling_diagonal μ, ?_⟩
-    rw [diagonalCoupling, lintegral_map hc (measurable_id.prodMk measurable_id)]
-    simp [hdiag]
+    rw [diagonalCoupling]
+    calc
+      0 = ∫⁻ x, c (x, x) ∂μ := by simp [hdiag]
+      _ = ∫⁻ z, c z ∂Measure.map (fun x : α => (x, x)) μ := by
+        exact (lintegral_map hc hdiagMeas).symm
   · exact bot_le
 
 end Transport
