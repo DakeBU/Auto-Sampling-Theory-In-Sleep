@@ -124,7 +124,8 @@ theorem deriv2_ge_of_strongConvexOn_univ
         (fun y : ℝ => f y - k / 2 * ‖y‖ ^ 2) :=
     (strongConvexOn_iff_convex).mp hf
   have hconv : ConvexOn ℝ (Set.univ : Set ℝ) (f - q) := by
-    simpa only [Pi.sub_apply, q, Real.norm_eq_abs, sq_abs] using hconvNorm
+    change ConvexOn ℝ (Set.univ : Set ℝ) (fun y : ℝ => f y - q y)
+    simpa only [q, Real.norm_eq_abs, sq_abs] using hconvNorm
   have hfDiff : Differentiable ℝ f := hreg.differentiable (by norm_num)
   have hqDeriv (y : ℝ) : HasDerivAt q (ell y) y := by
     have hpow : HasDerivAt (fun z : ℝ => z ^ 2) (2 * y) y := by
