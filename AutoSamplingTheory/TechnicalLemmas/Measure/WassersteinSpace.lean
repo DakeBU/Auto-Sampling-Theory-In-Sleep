@@ -25,15 +25,18 @@ def quadraticCost
     {E : Type*} [NormedAddCommGroup E] : E × E → ℝ≥0∞ :=
   fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ 2)
 
-/-- The quadratic cost is Borel measurable on a normed space.  Keeping this as
-an explicit lemma makes the measure-theoretic hypotheses used by transport
-pushforwards visible instead of relying on tactic-side inference. -/
+/-- The quadratic cost is measurable on a second-countable Borel normed space.
+The second-countability hypothesis is the honest regularity needed to identify
+the Borel structure on the product with the product measurable structure used
+by couplings. It is automatic in Chewi's finite-dimensional Euclidean setting. -/
 theorem quadraticCost_measurable
-    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E] :
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E]
+    [SecondCountableTopology E] :
     Measurable (quadraticCost (E := E)) := by
-  exact
-    (ENNReal.continuous_ofReal.comp
-      (((continuous_fst.sub continuous_snd).norm).pow 2)).measurable
+  have hdist : Measurable (fun z : E × E => dist z.1 z.2) := measurable_dist
+  have hsq : Measurable (fun z : E × E => (dist z.1 z.2) ^ (2 : ℕ)) :=
+    hdist.pow_const 2
+  simpa [quadraticCost, dist_eq_norm] using hsq.ennreal_ofReal
 
 /-- The quadratic transport cost vanishes on the diagonal. -/
 @[simp]
@@ -64,7 +67,7 @@ piece of the eventual `W₂` metric structure and does not require existence of
 an optimal coupling. -/
 theorem wassersteinDistance_self
     {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E]
-    (μ : Measure E) :
+    [SecondCountableTopology E] (μ : Measure E) :
     wassersteinDistance μ μ = 0 := by
   rw [wassersteinDistance,
     Transport.transportCost_self_eq_zero_of_diagonal
