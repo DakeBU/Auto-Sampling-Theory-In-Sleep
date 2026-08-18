@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
+import Mathlib.Analysis.Convex.Deriv
 import Mathlib.Analysis.Convex.Strong
 
 /-!
@@ -26,6 +27,26 @@ theorem convexOn_of_strongConvexOn_nonneg
     (hV : StrongConvexOn s k V) (hk : 0 ≤ k) :
     ConvexOn ℝ s V := by
   simpa using (StrongConvexOn.mono (s := s) (f := V) hk hV)
+
+/-- A differentiable convex function on the real line has nonnegative second
+(totalized) derivative everywhere.
+
+Mathlib already supplies both hard one-dimensional ingredients:
+`ConvexOn.monotoneOn_deriv` makes the first derivative monotone, and
+`Monotone.deriv_nonneg` makes the derivative of that monotone function
+nonnegative.  Keeping this composition as a named leaf lets the later
+strong-convexity/Hessian bridge reuse the locked Mathlib calculus without
+reproving a mean-value theorem. -/
+theorem deriv2_nonneg_of_convexOn_univ
+    {f : ℝ → ℝ}
+    (hf : ConvexOn ℝ (Set.univ : Set ℝ) f)
+    (hfd : Differentiable ℝ f) (x : ℝ) :
+    0 ≤ (deriv^[2] f) x := by
+  have hmono : Monotone (deriv f) := by
+    rw [← monotoneOn_univ]
+    exact hf.monotoneOn_deriv (fun y _ => hfd y)
+  change 0 ≤ deriv (deriv f) x
+  exact hmono.deriv_nonneg
 
 /-- A strongly convex potential with nonnegative modulus gives a log-concave
 unnormalized Gibbs density shape. -/
