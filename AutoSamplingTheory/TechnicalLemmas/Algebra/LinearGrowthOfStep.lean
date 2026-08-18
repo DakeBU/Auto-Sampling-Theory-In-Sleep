@@ -27,7 +27,8 @@ theorem linear_growth_of_step_growth
             (r 0 + (n : ℝ) * delta) + delta := by
               simp [Nat.cast_add]
               ring
-        _ ≤ r n + delta := add_le_add_right ih delta
+        _ ≤ r n + delta := by
+          linarith [ih]
         _ ≤ r (n + 1) := hstep n
 
 end Algebra
