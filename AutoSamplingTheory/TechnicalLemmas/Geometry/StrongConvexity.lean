@@ -1,6 +1,7 @@
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
 import Mathlib.Analysis.Convex.Deriv
 import Mathlib.Analysis.Convex.Strong
+import Mathlib.Tactic.Module
 
 /-!
 # Strong convexity leaves
@@ -47,6 +48,58 @@ theorem deriv2_nonneg_of_convexOn_univ
     exact hf.monotoneOn_deriv (fun y _ => hfd y)
   change 0 ≤ deriv (deriv f) x
   exact hmono.deriv_nonneg
+
+/-- Restricting a strongly convex function to the affine line `x + t • v`
+preserves strong convexity, with modulus scaled by `‖v‖²`.
+
+This is a purely convex-algebraic leaf: no differentiability or Hessian is
+used.  It is the canonical reduction from the finite-dimensional
+strong-convexity assumption in Chewi's Bakry--Émery discussion to a
+one-dimensional strong-convexity statement along an arbitrary direction. -/
+theorem strongConvexOn_affineLine
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {V : E → ℝ} {k : ℝ}
+    (hV : StrongConvexOn (Set.univ : Set E) k V)
+    (x v : E) :
+    StrongConvexOn (Set.univ : Set ℝ) (k * ‖v‖ ^ 2)
+      (fun t : ℝ => V (x + t • v)) := by
+  constructor
+  · exact convex_univ
+  · intro s _ t _ a b ha hb hab
+    have hbase :=
+      hV.2
+        (by simp : x + s • v ∈ (Set.univ : Set E))
+        (by simp : x + t • v ∈ (Set.univ : Set E))
+        ha hb hab
+    have harg :
+        a • (x + s • v) + b • (x + t • v) =
+          x + (a • s + b • t) • v := by
+      calc
+        a • (x + s • v) + b • (x + t • v) =
+            (a + b) • x + (a * s + b * t) • v := by
+              module
+        _ = x + (a * s + b * t) • v := by
+              rw [hab, one_smul]
+        _ = x + (a • s + b • t) • v := by
+              simp [smul_eq_mul]
+    have hdiffVec :
+        (x + s • v) - (x + t • v) = (s - t) • v := by
+      module
+    have hdiff :
+        ‖(x + s • v) - (x + t • v)‖ ^ 2 =
+          ‖v‖ ^ 2 * ‖s - t‖ ^ 2 := by
+      rw [hdiffVec, norm_smul]
+      ring
+    calc
+      V (x + (a • s + b • t) • v) =
+          V (a • (x + s • v) + b • (x + t • v)) := by
+            rw [harg]
+      _ ≤ a • V (x + s • v) + b • V (x + t • v) -
+          a * b * (k / 2 * ‖(x + s • v) - (x + t • v)‖ ^ 2) := hbase
+      _ = a • V (x + s • v) + b • V (x + t • v) -
+          a * b * ((k * ‖v‖ ^ 2) / 2 * ‖s - t‖ ^ 2) := by
+            rw [hdiff]
+            ring
 
 /-- A strongly convex potential with nonnegative modulus gives a log-concave
 unnormalized Gibbs density shape. -/
