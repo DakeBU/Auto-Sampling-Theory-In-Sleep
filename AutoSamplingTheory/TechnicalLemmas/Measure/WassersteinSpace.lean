@@ -2,6 +2,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.Transport
 import Mathlib.Analysis.SpecialFunctions.Pow.NNReal
 import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Topology.Instances.ENNReal.Lemmas
 
 /-!
 # Measure classes for Wasserstein space
@@ -24,6 +25,23 @@ def quadraticCost
     {E : Type*} [NormedAddCommGroup E] : E × E → ℝ≥0∞ :=
   fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ 2)
 
+/-- The quadratic cost is Borel measurable on a normed space.  Keeping this as
+an explicit lemma makes the measure-theoretic hypotheses used by transport
+pushforwards visible instead of relying on tactic-side inference. -/
+theorem quadraticCost_measurable
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E] :
+    Measurable (quadraticCost (E := E)) := by
+  exact
+    (ENNReal.continuous_ofReal.comp
+      (((continuous_fst.sub continuous_snd).norm).pow 2)).measurable
+
+/-- The quadratic transport cost vanishes on the diagonal. -/
+@[simp]
+theorem quadraticCost_diag
+    {E : Type*} [NormedAddCommGroup E] (x : E) :
+    quadraticCost (x, x) = 0 := by
+  simp [quadraticCost]
+
 /-- Chewi Definition 1.3.4: the 2-Wasserstein distance is the positive
 square root of the quadratic Kantorovich transport cost. -/
 noncomputable def wassersteinDistance
@@ -40,6 +58,18 @@ theorem wassersteinDistance_sq
       Transport.transportCost (quadraticCost (E := E)) μ ν := by
   rw [wassersteinDistance, ← ENNReal.rpow_two, ← ENNReal.rpow_mul]
   norm_num
+
+/-- The diagonal coupling gives zero self-distance.  This is the reflexivity
+piece of the eventual `W₂` metric structure and does not require existence of
+an optimal coupling. -/
+theorem wassersteinDistance_self
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E]
+    (μ : Measure E) :
+    wassersteinDistance μ μ = 0 := by
+  rw [wassersteinDistance,
+    Transport.transportCost_self_eq_zero_of_diagonal
+      (quadraticCost (E := E)) quadraticCost_measurable quadraticCost_diag μ]
+  exact ENNReal.zero_rpow_of_pos (by norm_num)
 
 /-- Chewi Definition 1.3.12: a probability measure in `P₂,ac` has finite
 second moment and is absolutely continuous with respect to Lebesgue volume.
