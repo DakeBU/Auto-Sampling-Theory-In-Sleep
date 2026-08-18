@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 from collections import OrderedDict
+from html import escape
 from pathlib import Path
 from typing import Any
 
@@ -52,9 +53,9 @@ def shelf_html() -> str:
     for source in audited_sources():
         cards.append(
             '<article>'
-            f'<h3><a href="{source["url"]}">{source["name"]} ↗</a></h3>'
-            f'<p>{source["scope"]}</p>'
-            f'<small>Used by {source["uses"]} audited Chapter 1 foundation packet(s).</small>'
+            f'<h3><a href="{escape(str(source["url"]), quote=True)}">{escape(str(source["name"]))} ↗</a></h3>'
+            f'<p>{escape(str(source["scope"]))}</p>'
+            f'<small>Used by {int(source["uses"])} audited Chapter 1 foundation packet(s).</small>'
             '</article>'
         )
     return f"""
