@@ -1,0 +1,111 @@
+name: SampleWiki source watch
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/samplewiki-sync.yml"
+      - "tools/samplewiki_sync.py"
+      - "research-wiki/source-index/SampleWiki.md"
+      - "research-wiki/source-index/SampleWiki_manifest.json"
+      - "website/content/samplewiki_example_cases.json"
+      - "website/scripts/samplewiki_examples.py"
+      - "website/scripts/build_site.py"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: samplewiki-source-watch
+  cancel-in-progress: false
+
+jobs:
+  source-contract:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile watcher
+        run: python3 -m py_compile tools/samplewiki_sync.py
+      - name: Probe live source without mutating the repository
+        continue-on-error: true
+        run: python3 tools/samplewiki_sync.py --max-pages 50 --delay 0.02
+
+  sync:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refresh deterministic source manifest
+        run: python3 tools/samplewiki_sync.py --write
+
+      - name: Detect source changes
+        id: diff
+        shell: bash
+        run: |
+          if [[ -n "$(git status --porcelain -- research-wiki/source-index/SampleWiki_manifest.json)" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish source-update branch
+        if: steps.diff.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH="automation/samplewiki-sync"
+          git config user.name "astis-source-watcher[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$BRANCH"
+          git add research-wiki/source-index/SampleWiki_manifest.json
+          git commit -m "chore(samplewiki): refresh live source fingerprint"
+          git push --force origin "HEAD:$BRANCH"
+
+      - name: Open or refresh source-update PR
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH="automation/samplewiki-sync"
+          PR_NUMBER="$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --head "$BRANCH" --json number --jq '.[0].number // empty')"
+          BODY=$(cat <<'EOF'
+          Automated SampleWiki source-fingerprint refresh.
+
+          This PR is **provenance evidence, not a mathematical verification claim**.
+          Triage the manifest diff into navigation/prose changes versus statement,
+          hypothesis, proof, new-case, or removed-case changes. Any affected
+          mathematical case must pass ASTIS source review again before its
+          `sourceReviewed` / `assimilated` status is restored.
+
+          The watcher stores structural metadata and hashes rather than a wholesale
+          copy of upstream prose.
+          EOF
+          )
+          if [[ -z "$PR_NUMBER" ]]; then
+            if ! gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base main \
+              --head "$BRANCH" \
+              --title "chore(samplewiki): refresh live source fingerprint" \
+              --body "$BODY"; then
+              echo "::warning::The repository token pushed the source branch but could not create a PR. Check the repository setting that allows GitHub Actions to create pull requests."
+            fi
+          else
+            gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+          fi
