@@ -1,3 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.AffineLineSecondDerivative
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
 import Mathlib.Analysis.Calculus.ContDiff.Deriv
 import Mathlib.Analysis.Calculus.Deriv.Mul
@@ -156,6 +157,29 @@ theorem deriv2_ge_of_strongConvexOn_univ
   rw [htarget] at hnonneg
   change k ≤ deriv (deriv f) x
   exact sub_nonneg.mp hnonneg
+
+/-- A globally `C²`, `k`-strongly convex function has directional Hessian
+quadratic form at least `k ‖v‖²` in every direction.
+
+The proof is deliberately a composition of the three preceding canonical
+leaves: restrict strong convexity to the affine line, use the one-dimensional
+second-derivative bound, and identify that affine-line second derivative with
+`iteratedFDeriv`.  No matrix-valued Hessian abstraction is introduced. -/
+theorem iteratedFDeriv_two_ge_of_strongConvexOn_univ
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {V : E → ℝ} {k : ℝ}
+    (hV : StrongConvexOn (Set.univ : Set E) k V)
+    (hreg : ContDiff ℝ 2 V) (x v : E) :
+    k * ‖v‖ ^ 2 ≤ iteratedFDeriv ℝ 2 V x ![v, v] := by
+  have hlineStrong := strongConvexOn_affineLine hV x v
+  have hpathReg : ContDiff ℝ 2 (fun t : ℝ => x + t • v) :=
+    contDiff_const.add (contDiff_id.smul_const v)
+  have hlineReg : ContDiff ℝ 2 (fun t : ℝ => V (x + t • v)) :=
+    hreg.fun_comp hpathReg
+  have h1d := deriv2_ge_of_strongConvexOn_univ hlineStrong hlineReg 0
+  rw [AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv.deriv2_affineLine_eq_iteratedFDeriv_two
+    hreg] at h1d
+  exact h1d
 
 /-- A strongly convex potential with nonnegative modulus gives a log-concave
 unnormalized Gibbs density shape. -/
