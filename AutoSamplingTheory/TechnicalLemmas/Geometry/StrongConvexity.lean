@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
+import Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas
 import Mathlib.Analysis.Convex.Deriv
 import Mathlib.Analysis.Convex.Strong
 import Mathlib.Tactic.Module
@@ -100,6 +101,46 @@ theorem strongConvexOn_affineLine
           a * b * ((k * ‖v‖ ^ 2) / 2 * ‖s - t‖ ^ 2) := by
             rw [hdiff]
             ring
+
+/-- On the real line, a `C²` `k`-strongly convex function has second
+(totalized) derivative at least `k` everywhere.
+
+The proof uses Mathlib's exact strong-convexity normalization:
+`f - k/2 * ‖·‖²` is convex.  On `ℝ`, `‖x‖² = x²`; the previous convex leaf
+then makes the second derivative of the corrected function nonnegative, and
+Mathlib's iterated-derivative algebra computes the quadratic correction as
+exactly `k`. -/
+theorem deriv2_ge_of_strongConvexOn_univ
+    {f : ℝ → ℝ} {k : ℝ}
+    (hf : StrongConvexOn (Set.univ : Set ℝ) k f)
+    (hreg : ContDiff ℝ 2 f) (x : ℝ) :
+    k ≤ (deriv^[2] f) x := by
+  have hconvNorm :
+      ConvexOn ℝ (Set.univ : Set ℝ)
+        (fun y : ℝ => f y - k / 2 * ‖y‖ ^ 2) :=
+    (strongConvexOn_iff_convex).mp hf
+  have hconv :
+      ConvexOn ℝ (Set.univ : Set ℝ)
+        (fun y : ℝ => f y - k / 2 * y ^ 2) := by
+    simpa only [Real.norm_eq_abs, sq_abs] using hconvNorm
+  have hquadReg : ContDiff ℝ 2 (fun y : ℝ => k / 2 * y ^ 2) :=
+    contDiff_const.mul (contDiff_id.pow 2)
+  have hcorrectedDiff :
+      Differentiable ℝ (fun y : ℝ => f y - k / 2 * y ^ 2) :=
+    (hreg.differentiable (by norm_num)).sub
+      (hquadReg.differentiable (by norm_num))
+  have hnonneg := deriv2_nonneg_of_convexOn_univ hconv hcorrectedDiff x
+  rw [← iteratedDeriv_eq_iterate] at hnonneg ⊢
+  have hquad2 :
+      iteratedDeriv 2 (fun y : ℝ => k / 2 * y ^ 2) x = k := by
+    simp [iteratedDeriv_const_mul_field, iteratedDeriv_pow]
+  have hsub :
+      iteratedDeriv 2 (fun y : ℝ => f y - k / 2 * y ^ 2) x =
+        iteratedDeriv 2 f x - k := by
+    change iteratedDeriv 2 (f - fun y : ℝ => k / 2 * y ^ 2) x = _
+    rw [iteratedDeriv_sub hreg.contDiffAt hquadReg.contDiffAt, hquad2]
+  rw [hsub] at hnonneg
+  exact sub_nonneg.mp hnonneg
 
 /-- A strongly convex potential with nonnegative modulus gives a log-concave
 unnormalized Gibbs density shape. -/
