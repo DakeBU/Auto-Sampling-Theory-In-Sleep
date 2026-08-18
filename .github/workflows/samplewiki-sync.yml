@@ -8,8 +8,10 @@ on:
     paths:
       - ".github/workflows/samplewiki-sync.yml"
       - "tools/samplewiki_sync.py"
+      - "tools/samplewiki_cases.py"
       - "research-wiki/source-index/SampleWiki.md"
       - "research-wiki/source-index/SampleWiki_manifest.json"
+      - "research-wiki/source-index/SampleWiki_cases.json"
       - "website/content/samplewiki_example_cases.json"
       - "website/scripts/samplewiki_examples.py"
       - "website/scripts/build_site.py"
@@ -31,9 +33,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Compile watcher
-        run: python3 -m py_compile tools/samplewiki_sync.py
-      - name: Probe live source into an ephemeral manifest
+      - name: Compile source tools
+        run: python3 -m py_compile tools/samplewiki_sync.py tools/samplewiki_cases.py
+      - name: Probe live source into ephemeral manifests
         id: probe
         continue-on-error: true
         run: |
@@ -43,81 +45,46 @@ jobs:
             --output .astis/SampleWiki_probe_manifest.json \
             --max-pages 50 \
             --delay 0.02
-      - name: Print bounded source catalog for parser review
+          python3 tools/samplewiki_cases.py \
+            --write \
+            --output .astis/SampleWiki_cases_probe.json
+      - name: Print bounded source and case catalogs
         if: steps.probe.outcome == 'success'
         run: |
           python3 - <<'PY'
           import json
           from pathlib import Path
 
-          path = Path('.astis/SampleWiki_probe_manifest.json')
-          data = json.loads(path.read_text(encoding='utf-8'))
+          source = json.loads(Path('.astis/SampleWiki_probe_manifest.json').read_text(encoding='utf-8'))
+          cases = json.loads(Path('.astis/SampleWiki_cases_probe.json').read_text(encoding='utf-8'))
           print('=== SampleWiki bounded page catalog ===')
-          for index, page in enumerate(data.get('pages', []), 1):
+          for index, page in enumerate(source.get('pages', []), 1):
               headings = ' | '.join(
                   f"{item.get('level', '')}:{item.get('text', '')}"
                   for item in page.get('headings', [])[:12]
               )
               print(
                   f"PAGE {index:03d} url={page.get('url', '')} "
-                  f"title={page.get('title', '')!r} "
-                  f"kinds={page.get('candidate_kinds', [])!r} "
-                  f"headings={headings!r}"
+                  f"title={page.get('title', '')!r} headings={headings!r}"
+              )
+          print('=== SampleWiki row-level case candidates ===')
+          for case in cases.get('cases', []):
+              print(
+                  f"CASE {case.get('id')} "
+                  f"class={case.get('result_class')!r} "
+                  f"model={case.get('algorithm_or_model')!r} "
+                  f"review={case.get('review_state')!r} "
+                  f"row={str(case.get('row_sha256', ''))[:12]}"
               )
           PY
-      - name: Inspect bounded comparison-table rows
-        if: steps.probe.outcome == 'success'
-        run: |
-          python3 - <<'PY'
-          import html
-          import re
-          import urllib.request
-
-          ROOT = 'https://samplewiki.morning-recipe-422a.workers.dev'
-          SLUGS = [
-              'setting-convex-body-membership',
-              'setting-functional-inequality-smooth',
-              'setting-holder-smooth-log-concave',
-              'setting-log-concave-smooth',
-              'setting-nonlogconcave-fisher',
-              'setting-stochastic-finite-sum',
-              'setting-strongly-log-concave-smooth',
-          ]
-          TAG_RE = re.compile(r'<[^>]+>')
-          ROW_RE = re.compile(r'<tr\b[^>]*>(.*?)</tr>', re.I | re.S)
-          CELL_RE = re.compile(r'<t[hd]\b[^>]*>(.*?)</t[hd]>', re.I | re.S)
-          SPACE_RE = re.compile(r'\s+')
-
-          def text(fragment):
-              fragment = re.sub(r'<(br|p|div|li)\b[^>]*>', ' ', fragment, flags=re.I)
-              fragment = TAG_RE.sub(' ', fragment)
-              return SPACE_RE.sub(' ', html.unescape(fragment)).strip()
-
-          print('=== SampleWiki comparison rows ===')
-          for slug in SLUGS:
-              url = f'{ROOT}/wiki/{slug}'
-              request = urllib.request.Request(
-                  url,
-                  headers={'User-Agent': 'ASTIS-SampleWiki-Parser-Probe/1.0'},
-              )
-              with urllib.request.urlopen(request, timeout=20) as response:
-                  source = response.read(6_000_000).decode('utf-8', errors='replace')
-              rows = []
-              for row_html in ROW_RE.findall(source):
-                  cells = [text(value) for value in CELL_RE.findall(row_html)]
-                  if cells:
-                      rows.append(cells)
-              print(f'SETTING {slug} rows={len(rows)}')
-              for index, cells in enumerate(rows[:30], 1):
-                  bounded = [value[:700] + ('…' if len(value) > 700 else '') for value in cells[:12]]
-                  print(f'ROW {index:02d} {bounded!r}')
-          PY
-      - name: Upload source probe manifest
+      - name: Upload source probe manifests
         if: steps.probe.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: samplewiki-probe-${{ github.run_id }}
-          path: .astis/SampleWiki_probe_manifest.json
+          path: |
+            .astis/SampleWiki_probe_manifest.json
+            .astis/SampleWiki_cases_probe.json
           if-no-files-found: error
           retention-days: 7
 
@@ -133,14 +100,18 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Refresh deterministic source manifest
-        run: python3 tools/samplewiki_sync.py --write
+      - name: Refresh deterministic source manifests
+        run: |
+          python3 tools/samplewiki_sync.py --write
+          python3 tools/samplewiki_cases.py --write
 
       - name: Detect source changes
         id: diff
         shell: bash
         run: |
-          if [[ -n "$(git status --porcelain -- research-wiki/source-index/SampleWiki_manifest.json)" ]]; then
+          if [[ -n "$(git status --porcelain -- \
+            research-wiki/source-index/SampleWiki_manifest.json \
+            research-wiki/source-index/SampleWiki_cases.json)" ]]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -155,8 +126,10 @@ jobs:
           git config user.name "astis-source-watcher[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$BRANCH"
-          git add research-wiki/source-index/SampleWiki_manifest.json
-          git commit -m "chore(samplewiki): refresh live source fingerprint"
+          git add \
+            research-wiki/source-index/SampleWiki_manifest.json \
+            research-wiki/source-index/SampleWiki_cases.json
+          git commit -m "chore(samplewiki): refresh live source fingerprints"
           git push --force origin "HEAD:$BRANCH"
 
       - name: Open or refresh source-update PR
@@ -169,16 +142,17 @@ jobs:
           BRANCH="automation/samplewiki-sync"
           PR_NUMBER="$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --head "$BRANCH" --json number --jq '.[0].number // empty')"
           BODY=$(cat <<'EOF'
-          Automated SampleWiki source-fingerprint refresh.
+          Automated SampleWiki source-fingerprint and row-level case refresh.
 
           This PR is **provenance evidence, not a mathematical verification claim**.
           Triage the manifest diff into navigation/prose changes versus statement,
-          hypothesis, proof, new-case, or removed-case changes. Any affected
-          mathematical case must pass ASTIS source review again before its
-          `sourceReviewed` / `assimilated` status is restored.
+          hypothesis, guarantee, complexity, proof/source, new-case, or removed-case
+          changes. Any affected mathematical case must pass ASTIS source review again
+          before its `sourceReviewed` / `assimilated` status is restored.
 
-          The watcher stores structural metadata and hashes rather than a wholesale
-          copy of upstream prose.
+          `SampleWiki_cases.json` treats one comparison-table result row as one
+          source-pinned case candidate. Long explanatory source prose is represented
+          by fingerprints and must be rewritten as an original ASTIS source card.
           EOF
           )
           if [[ -z "$PR_NUMBER" ]]; then
@@ -186,7 +160,7 @@ jobs:
               --repo "$GITHUB_REPOSITORY" \
               --base main \
               --head "$BRANCH" \
-              --title "chore(samplewiki): refresh live source fingerprint" \
+              --title "chore(samplewiki): refresh live source fingerprints" \
               --body "$BODY"; then
               echo "::warning::The repository token pushed the source branch but could not create a PR. Check the repository setting that allows GitHub Actions to create pull requests."
             fi
