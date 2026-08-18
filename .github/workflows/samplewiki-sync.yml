@@ -33,9 +33,46 @@ jobs:
           python-version: "3.12"
       - name: Compile watcher
         run: python3 -m py_compile tools/samplewiki_sync.py
-      - name: Probe live source without mutating the repository
+      - name: Probe live source into an ephemeral manifest
+        id: probe
         continue-on-error: true
-        run: python3 tools/samplewiki_sync.py --max-pages 50 --delay 0.02
+        run: |
+          mkdir -p .astis
+          python3 tools/samplewiki_sync.py \
+            --write \
+            --output .astis/SampleWiki_probe_manifest.json \
+            --max-pages 50 \
+            --delay 0.02
+      - name: Print bounded source catalog for parser review
+        if: steps.probe.outcome == 'success'
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path('.astis/SampleWiki_probe_manifest.json')
+          data = json.loads(path.read_text(encoding='utf-8'))
+          print('=== SampleWiki bounded page catalog ===')
+          for index, page in enumerate(data.get('pages', []), 1):
+              headings = ' | '.join(
+                  f"{item.get('level', '')}:{item.get('text', '')}"
+                  for item in page.get('headings', [])[:12]
+              )
+              print(
+                  f"PAGE {index:03d} url={page.get('url', '')} "
+                  f"title={page.get('title', '')!r} "
+                  f"kinds={page.get('candidate_kinds', [])!r} "
+                  f"headings={headings!r}"
+              )
+          PY
+      - name: Upload source probe manifest
+        if: steps.probe.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: samplewiki-probe-${{ github.run_id }}
+          path: .astis/SampleWiki_probe_manifest.json
+          if-no-files-found: error
+          retention-days: 7
 
   sync:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
