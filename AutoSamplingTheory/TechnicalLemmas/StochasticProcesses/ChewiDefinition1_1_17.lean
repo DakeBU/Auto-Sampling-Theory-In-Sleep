@@ -133,8 +133,8 @@ theorem chewi_definition_1_1_17
           data.initial omega +
             (∫ s, data.drift s omega ∂(TimeMeasure.upTo t)) +
             stochasticIntegral hUsual data hB t omega := by
-  exact ⟨ChewiItoProcessProgressive.source_process_stronglyProgressive
-      data hUsual hB,
+  exact ⟨ChewiItoProcessProgressive.process_stronglyProgressive
+      hUsual data hB,
     fun t => definition_1_1_17_vector_display hUsual data hB t⟩
 
 end ChewiDefinition1_1_17
