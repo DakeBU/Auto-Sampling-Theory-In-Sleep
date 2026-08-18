@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "website" / "scripts"))
 import astis_site  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import lean_tutor  # noqa: E402
+import samplewiki_examples  # noqa: E402
 import source_foundations  # noqa: E402
 import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
@@ -36,6 +37,7 @@ def main() -> int:
     source_foundations.enrich_site(output)
     implicit_prerequisites.enrich_site(output)
     lean_tutor.enrich_site(output)
+    samplewiki_examples.enrich_site(output)
     return 0
 
 
