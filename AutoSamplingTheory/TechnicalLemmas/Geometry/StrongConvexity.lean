@@ -1,5 +1,7 @@
 import AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity
-import Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas
+import Mathlib.Analysis.Calculus.ContDiff.Deriv
+import Mathlib.Analysis.Calculus.Deriv.Mul
+import Mathlib.Analysis.Calculus.Deriv.Pow
 import Mathlib.Analysis.Convex.Deriv
 import Mathlib.Analysis.Convex.Strong
 import Mathlib.Tactic.Module
@@ -106,10 +108,11 @@ theorem strongConvexOn_affineLine
 (totalized) derivative at least `k` everywhere.
 
 The proof uses Mathlib's exact strong-convexity normalization:
-`f - k/2 * ‖·‖²` is convex.  On `ℝ`, `‖x‖² = x²`; the previous convex leaf
-then makes the second derivative of the corrected function nonnegative, and
-Mathlib's iterated-derivative algebra computes the quadratic correction as
-exactly `k`. -/
+`f - k/2 * ‖·‖²` is convex.  Instead of expanding two-fold iterated derivatives
+through a large simplifier call, it identifies the corrected first derivative
+pointwise as `deriv f y - k*y`, proves that function is monotone, and then uses
+`Monotone.deriv_nonneg`.  This keeps the proof deterministic under the
+repository's normal heartbeat budget. -/
 theorem deriv2_ge_of_strongConvexOn_univ
     {f : ℝ → ℝ} {k : ℝ}
     (hf : StrongConvexOn (Set.univ : Set ℝ) k f)
@@ -123,23 +126,38 @@ theorem deriv2_ge_of_strongConvexOn_univ
       ConvexOn ℝ (Set.univ : Set ℝ)
         (fun y : ℝ => f y - k / 2 * y ^ 2) := by
     simpa only [Real.norm_eq_abs, sq_abs] using hconvNorm
-  have hquadReg : ContDiff ℝ 2 (fun y : ℝ => k / 2 * y ^ 2) :=
-    contDiff_const.mul (contDiff_id.pow 2)
+  have hfDiff : Differentiable ℝ f := hreg.differentiable (by norm_num)
+  have hquadDeriv (y : ℝ) :
+      HasDerivAt (fun z : ℝ => k / 2 * z ^ 2) (k * y) y := by
+    convert (hasDerivAt_pow 2 y).const_mul (k / 2) using 1 <;> ring
+  have hquadDiff : Differentiable ℝ (fun z : ℝ => k / 2 * z ^ 2) :=
+    fun y => (hquadDeriv y).differentiableAt
   have hcorrectedDiff :
       Differentiable ℝ (fun y : ℝ => f y - k / 2 * y ^ 2) :=
-    (hreg.differentiable (by norm_num)).sub
-      (hquadReg.differentiable (by norm_num))
-  have hnonneg := deriv2_nonneg_of_convexOn_univ hconv hcorrectedDiff x
-  rw [← iteratedDeriv_eq_iterate] at hnonneg ⊢
-  have hquad2 :
-      iteratedDeriv 2 (fun y : ℝ => k / 2 * y ^ 2) x = k := by
-    simp [iteratedDeriv_const_mul_field, iteratedDeriv_pow]
-  have hsub :
-      iteratedDeriv 2 (fun y : ℝ => f y - k / 2 * y ^ 2) x =
-        iteratedDeriv 2 f x - k := by
-    change iteratedDeriv 2 (f - fun y : ℝ => k / 2 * y ^ 2) x = _
-    rw [iteratedDeriv_sub hreg.contDiffAt hquadReg.contDiffAt, hquad2]
-  rw [hsub] at hnonneg
+    hfDiff.sub hquadDiff
+  have hmonoCorrected :
+      Monotone (deriv (fun y : ℝ => f y - k / 2 * y ^ 2)) := by
+    rw [← monotoneOn_univ]
+    exact hconv.monotoneOn_deriv (fun y _ => hcorrectedDiff y)
+  have hderivCorrected :
+      deriv (fun y : ℝ => f y - k / 2 * y ^ 2) =
+        fun y : ℝ => deriv f y - k * y := by
+    funext y
+    simpa only using ((hfDiff y).hasDerivAt.sub (hquadDeriv y)).deriv
+  rw [hderivCorrected] at hmonoCorrected
+  have hnonneg :
+      0 ≤ deriv (fun y : ℝ => deriv f y - k * y) x :=
+    hmonoCorrected.deriv_nonneg
+  have hdfDiff : Differentiable ℝ (deriv f) :=
+    hreg.differentiable_deriv_two
+  have hlinear : HasDerivAt (fun y : ℝ => k * y) k x :=
+    hasDerivAt_const_mul (x := x) k
+  have htarget :
+      deriv (fun y : ℝ => deriv f y - k * y) x =
+        deriv (deriv f) x - k := by
+    simpa only using ((hdfDiff x).hasDerivAt.sub hlinear).deriv
+  rw [htarget] at hnonneg
+  change k ≤ deriv (deriv f) x
   exact sub_nonneg.mp hnonneg
 
 /-- A strongly convex potential with nonnegative modulus gives a log-concave
