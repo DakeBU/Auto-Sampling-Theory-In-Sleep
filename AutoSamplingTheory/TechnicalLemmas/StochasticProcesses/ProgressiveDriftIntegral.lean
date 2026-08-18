@@ -72,11 +72,15 @@ theorem prefixIntegralProcess_stronglyProgressive
       ((Subtype.instMeasurableSpace.prod (filtration T)).prod inferInstance)
       inferInstance (fun z => min z.2 T) :=
     measurable_snd.min measurable_const
+  have hclip : ∀ z : ((Set.Iic T × Omega) × ℝ≥0), min z.2 T ∈ Set.Iic T := by
+    intro z
+    show min z.2 T ≤ T
+    exact min_le_right _ _
   have htimeSubtype : @Measurable ((Set.Iic T × Omega) × ℝ≥0) (Set.Iic T)
       ((Subtype.instMeasurableSpace.prod (filtration T)).prod inferInstance)
       Subtype.instMeasurableSpace
-      (fun z => ⟨min z.2 T, min_le_right _ _⟩) :=
-    htime.subtype_mk _
+      (fun z => ⟨min z.2 T, hclip z⟩) := by
+    exact htime.subtype_mk (h := hclip)
   have homega : @Measurable ((Set.Iic T × Omega) × ℝ≥0) Omega
       ((Subtype.instMeasurableSpace.prod (filtration T)).prod inferInstance)
       (filtration T) (fun z => z.1.2) :=
@@ -84,7 +88,7 @@ theorem prefixIntegralProcess_stronglyProgressive
   have hmap : @Measurable ((Set.Iic T × Omega) × ℝ≥0) (Set.Iic T × Omega)
       ((Subtype.instMeasurableSpace.prod (filtration T)).prod inferInstance)
       (Subtype.instMeasurableSpace.prod (filtration T))
-      (fun z => (⟨min z.2 T, min_le_right _ _⟩, z.1.2)) :=
+      (fun z => (⟨min z.2 T, hclip z⟩, z.1.2)) :=
     htimeSubtype.prodMk homega
   have hvalue : @StronglyMeasurable ((Set.Iic T × Omega) × ℝ≥0) E
       inferInstance ((Subtype.instMeasurableSpace.prod (filtration T)).prod inferInstance)
