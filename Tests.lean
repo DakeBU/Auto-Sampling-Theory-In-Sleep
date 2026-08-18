@@ -76,6 +76,7 @@ import Tests.SemigroupDecay
 import Tests.SemigroupDissipation
 import Tests.StoppingTime
 import Tests.StrongConvexity
+import Tests.AffineLineSecondDerivative
 import Tests.TimeMeasureRealBridge
 import Tests.Transport
 import Tests.WassersteinSpace
