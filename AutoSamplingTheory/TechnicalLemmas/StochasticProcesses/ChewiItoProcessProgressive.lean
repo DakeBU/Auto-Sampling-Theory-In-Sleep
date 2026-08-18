@@ -41,6 +41,12 @@ theorem process_stronglyProgressive
     (hB : IsStandardBrownianMotionWithFiltration B filtration mu) :
     IsStronglyProgressive filtration (process hUsual data hB) := by
   intro T
+  -- Progressiveness on the horizon `T` is measurability for the restricted
+  -- sigma-algebra `filtration T`.  Keep that same sigma-algebra as the local
+  -- instance while assembling scalar coordinates into `EuclideanSpace`;
+  -- otherwise Lean can infer the ambient `m` for one product and
+  -- `filtration T` for another, although the mathematical map is identical.
+  letI : MeasurableSpace Omega := filtration T
   let coordData := data.toCoordinateItoData
   let brownian := coordinateFamily hB
   have hcoord : ∀ i : iota,
