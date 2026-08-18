@@ -7,6 +7,7 @@ open AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity
 
 #check deriv2_nonneg_of_convexOn_univ
 #check strongConvexOn_affineLine
+#check deriv2_ge_of_strongConvexOn_univ
 
 example {f : ℝ → ℝ}
     (hf : ConvexOn ℝ (Set.univ : Set ℝ) f)
@@ -21,5 +22,11 @@ example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
     StrongConvexOn (Set.univ : Set ℝ) (k * ‖v‖ ^ 2)
       (fun t : ℝ => V (x + t • v)) :=
   strongConvexOn_affineLine hV x v
+
+example {f : ℝ → ℝ} {k : ℝ}
+    (hf : StrongConvexOn (Set.univ : Set ℝ) k f)
+    (hreg : ContDiff ℝ 2 f) (x : ℝ) :
+    k ≤ (deriv^[2] f) x :=
+  deriv2_ge_of_strongConvexOn_univ hf hreg x
 
 end AutoSamplingTheory.Tests.StrongConvexity
