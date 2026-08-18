@@ -13,7 +13,9 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
+import chapter1_reference_shelf  # noqa: E402
 import implicit_prerequisites  # noqa: E402
+import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
 import samplewiki_examples  # noqa: E402
 import source_foundations  # noqa: E402
@@ -38,6 +40,12 @@ def main() -> int:
     implicit_prerequisites.enrich_site(output)
     lean_tutor.enrich_site(output)
     samplewiki_examples.enrich_site(output)
+    # Information architecture runs after content enrichers so one layer owns
+    # hierarchy, navigation, concise landings, and responsive overflow rules.
+    information_architecture.enrich_site(output)
+    # The reference shelf consumes the already-audited source-foundation data
+    # and attaches it to the companion produced by the IA layer.
+    chapter1_reference_shelf.enrich_site(output)
     return 0
 
 
