@@ -79,6 +79,7 @@ jobs:
             tools/astis_harness.py \
             tools/astis_formalizer.py \
             website/scripts/build_site.py \
+            website/scripts/chapter1_reference_shelf.py \
             website/scripts/check_site.py \
             website/scripts/implicit_prerequisites.py \
             website/scripts/information_architecture.py \
