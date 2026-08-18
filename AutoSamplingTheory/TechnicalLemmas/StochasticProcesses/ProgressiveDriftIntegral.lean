@@ -63,6 +63,11 @@ theorem prefixIntegralProcess_stronglyProgressive
     (hb : IsStronglyProgressive filtration b) :
     IsStronglyProgressive filtration (prefixIntegralProcess b) := by
   intro T
+  -- From this point on every measurable map involving `Omega` must use the
+  -- horizon sigma-algebra `filtration T`, not the ambient measurable space
+  -- `m`.  Making that instance local keeps the product measurable spaces
+  -- definitionally aligned with the one appearing in `hb T`.
+  letI : MeasurableSpace Omega := filtration T
   have hactive : @MeasurableSet ((Set.Iic T × Omega) × ℝ≥0)
       ((Subtype.instMeasurableSpace.prod (filtration T)).prod inferInstance)
       {z | z.2 < (z.1.1 : ℝ≥0)} := by
