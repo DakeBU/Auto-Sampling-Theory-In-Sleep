@@ -36,7 +36,8 @@ theorem quadraticCost_measurable
   have hdist : Measurable (fun z : E × E => dist z.1 z.2) := measurable_dist
   have hsq : Measurable (fun z : E × E => (dist z.1 z.2) ^ (2 : ℕ)) :=
     hdist.pow_const 2
-  simpa only [quadraticCost, dist_eq_norm] using hsq.ennreal_ofReal
+  change Measurable (fun z : E × E => ENNReal.ofReal (‖z.1 - z.2‖ ^ 2))
+  simpa only [dist_eq_norm] using hsq.ennreal_ofReal
 
 /-- The quadratic transport cost vanishes on the diagonal. -/
 @[simp]
