@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.FiniteDimensionalNormBridge
+import Mathlib.Analysis.Normed.Operator.NNNorm
 
 namespace AutoSamplingTheory
 namespace Tests
@@ -23,6 +24,11 @@ example {Omega : Type*} [MeasurableSpace Omega]
     (i : ι) (j : κ) :
     IsLocallySquareIntegrableOn (fun t omega => sigma t omega i j) mu T :=
   hSigma.entry i j
+
+/-! Pin the exact operator-`NNNorm` API used by the source-facing coefficient bridge.
+These declarations are provided by the repository's locked Mathlib v4.33.0 revision. -/
+#check ContinuousLinearMap.le_opNNNorm
+#check ContinuousLinearMap.opNNNorm_le_iff
 
 #check matrixSquareEnergy_nonneg
 #check norm_sq_matrixAsEuclidean
