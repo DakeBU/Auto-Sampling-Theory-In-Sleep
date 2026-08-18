@@ -38,14 +38,33 @@ jobs:
       - name: Probe live source into ephemeral manifests
         id: probe
         continue-on-error: true
+        shell: bash
         run: |
+          set -euo pipefail
           mkdir -p .astis
-          python3 tools/samplewiki_sync.py \
+
+          retry() {
+            local attempt=1
+            local max_attempts=4
+            local delay=2
+            until "$@"; do
+              if (( attempt >= max_attempts )); then
+                echo "::error::SampleWiki probe failed after ${max_attempts} attempts: $*"
+                return 1
+              fi
+              echo "::warning::SampleWiki probe attempt ${attempt}/${max_attempts} failed; retrying in ${delay}s: $*"
+              sleep "$delay"
+              attempt=$((attempt + 1))
+              delay=$((delay * 2))
+            done
+          }
+
+          retry python3 tools/samplewiki_sync.py \
             --write \
             --output .astis/SampleWiki_probe_manifest.json \
             --max-pages 50 \
             --delay 0.02
-          python3 tools/samplewiki_cases.py \
+          retry python3 tools/samplewiki_cases.py \
             --write \
             --output .astis/SampleWiki_cases_probe.json
       - name: Print bounded source and case catalogs
@@ -101,9 +120,28 @@ jobs:
           python-version: "3.12"
 
       - name: Refresh deterministic source manifests
+        shell: bash
         run: |
-          python3 tools/samplewiki_sync.py --write
-          python3 tools/samplewiki_cases.py --write
+          set -euo pipefail
+
+          retry() {
+            local attempt=1
+            local max_attempts=4
+            local delay=2
+            until "$@"; do
+              if (( attempt >= max_attempts )); then
+                echo "::error::SampleWiki sync failed after ${max_attempts} attempts: $*"
+                return 1
+              fi
+              echo "::warning::SampleWiki sync attempt ${attempt}/${max_attempts} failed; retrying in ${delay}s: $*"
+              sleep "$delay"
+              attempt=$((attempt + 1))
+              delay=$((delay * 2))
+            done
+          }
+
+          retry python3 tools/samplewiki_sync.py --write
+          retry python3 tools/samplewiki_cases.py --write
 
       - name: Detect source changes
         id: diff
@@ -153,6 +191,10 @@ jobs:
           `SampleWiki_cases.json` treats one comparison-table result row as one
           source-pinned case candidate. Long explanatory source prose is represented
           by fingerprints and must be rewritten as an original ASTIS source card.
+
+          Transient upstream failures are retried finitely. If all attempts fail, the
+          workflow fails without replacing the last committed snapshot with a partial
+          crawl.
           EOF
           )
           if [[ -z "$PR_NUMBER" ]]; then
