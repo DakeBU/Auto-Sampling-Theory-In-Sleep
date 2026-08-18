@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
 import implicit_prerequisites  # noqa: E402
+import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
 import samplewiki_examples  # noqa: E402
 import source_foundations  # noqa: E402
@@ -38,6 +39,10 @@ def main() -> int:
     implicit_prerequisites.enrich_site(output)
     lean_tutor.enrich_site(output)
     samplewiki_examples.enrich_site(output)
+    # Information architecture runs last so source/teaching enrichers can stay
+    # focused on content while one final layer owns reader hierarchy, navigation,
+    # concise landing pages, and responsive overflow contracts.
+    information_architecture.enrich_site(output)
     return 0
 
 
