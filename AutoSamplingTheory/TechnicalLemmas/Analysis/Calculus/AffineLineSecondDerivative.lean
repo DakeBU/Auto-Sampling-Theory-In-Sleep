@@ -39,7 +39,7 @@ theorem deriv2_affineLine_eq_iteratedFDeriv_two
         simpa using (hasDerivAt_id' (x := t)).smul_const v
       simpa using hsmul.const_add x
     have hcomp :=
-      (hf1 (x + t • v)).hasFDerivAt.comp_hasDerivAt hpath
+      (hf1 (x + t • v)).hasFDerivAt.comp_hasDerivAt t hpath
     simpa [Function.comp_def] using hcomp.deriv
   change deriv (deriv (fun t : ℝ => f (x + t • v))) 0 = _
   rw [hfirst]
