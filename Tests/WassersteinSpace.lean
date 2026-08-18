@@ -29,7 +29,7 @@ example {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
   wassersteinDistance_sq μ ν
 
 example {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E]
-    (μ : Measure E) :
+    [SecondCountableTopology E] (μ : Measure E) :
     wassersteinDistance μ μ = 0 :=
   wassersteinDistance_self μ
 
