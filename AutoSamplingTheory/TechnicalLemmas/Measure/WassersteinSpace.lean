@@ -46,6 +46,13 @@ theorem quadraticCost_diag
     quadraticCost (x, x) = 0 := by
   simp [quadraticCost]
 
+/-- The quadratic transport cost is symmetric in its two coordinates. -/
+theorem quadraticCost_comm
+    {E : Type*} [NormedAddCommGroup E] (x y : E) :
+    quadraticCost (x, y) = quadraticCost (y, x) := by
+  simp only [quadraticCost]
+  rw [norm_sub_rev]
+
 /-- Chewi Definition 1.3.4: the 2-Wasserstein distance is the positive
 square root of the quadratic Kantorovich transport cost. -/
 noncomputable def wassersteinDistance
@@ -74,6 +81,16 @@ theorem wassersteinDistance_self
     Transport.transportCost_self_eq_zero_of_diagonal
       (quadraticCost (E := E)) quadraticCost_measurable quadraticCost_diag μ]
   exact ENNReal.zero_rpow_of_pos (by norm_num)
+
+/-- The 2-Wasserstein extended distance is symmetric.  This uses only swapped
+couplings and symmetry of the quadratic cost; no optimal coupling is assumed. -/
+theorem wassersteinDistance_comm
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E]
+    [SecondCountableTopology E] (μ ν : Measure E) :
+    wassersteinDistance μ ν = wassersteinDistance ν μ := by
+  unfold wassersteinDistance
+  rw [Transport.transportCost_comm_of_symmetric
+    (quadraticCost (E := E)) quadraticCost_measurable quadraticCost_comm μ ν]
 
 /-- Chewi Definition 1.3.12: a probability measure in `P₂,ac` has finite
 second moment and is absolutely continuous with respect to Lebesgue volume.
