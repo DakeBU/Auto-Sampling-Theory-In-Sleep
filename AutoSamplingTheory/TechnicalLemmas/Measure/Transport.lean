@@ -117,6 +117,61 @@ theorem transportCost_self_eq_zero_of_diagonal
         exact (lintegral_map hc hdiagMeas).symm
   · exact bot_le
 
+/-- Swapping the two coordinates of a coupling swaps its marginals. -/
+theorem isCoupling_map_swap
+    {α : Type*} [MeasurableSpace α]
+    {γ : Measure (α × α)} {μ ν : Measure α}
+    (hγ : IsCoupling γ μ ν) :
+    IsCoupling (Measure.map Prod.swap γ) ν μ := by
+  constructor
+  · rw [Measure.fst_map_swap]
+    exact hγ.2
+  · rw [Measure.snd_map_swap]
+    exact hγ.1
+
+/-- A measurable symmetric cost has the same integral after swapping a joint
+measure's coordinates. -/
+theorem lintegral_map_swap_eq_of_symmetric
+    {α : Type*} [MeasurableSpace α]
+    (c : α × α → ℝ≥0∞) (hc : Measurable c)
+    (hsymm : ∀ x y, c (x, y) = c (y, x))
+    (γ : Measure (α × α)) :
+    (∫⁻ z, c z ∂Measure.map Prod.swap γ) = ∫⁻ z, c z ∂γ := by
+  rw [lintegral_map hc measurable_swap]
+  apply lintegral_congr
+  rintro ⟨x, y⟩
+  exact (hsymm x y).symm
+
+/-- Symmetric measurable costs have symmetric Kantorovich transport values.
+The proof swaps every feasible coupling, so it does not assume existence of an
+optimal coupling. -/
+theorem transportCost_comm_of_symmetric
+    {α : Type*} [MeasurableSpace α]
+    (c : α × α → ℝ≥0∞) (hc : Measurable c)
+    (hsymm : ∀ x y, c (x, y) = c (y, x))
+    (μ ν : Measure α) :
+    transportCost c μ ν = transportCost c ν μ := by
+  have hvalues :
+      {r : ℝ≥0∞ | ∃ γ ∈ couplingSet μ ν, r = ∫⁻ z, c z ∂γ} =
+        {r : ℝ≥0∞ | ∃ γ ∈ couplingSet ν μ, r = ∫⁻ z, c z ∂γ} := by
+    ext r
+    constructor
+    · rintro ⟨γ, hγ, hr⟩
+      change IsCoupling γ μ ν at hγ
+      refine ⟨Measure.map Prod.swap γ, isCoupling_map_swap hγ, ?_⟩
+      calc
+        r = ∫⁻ z, c z ∂γ := hr
+        _ = ∫⁻ z, c z ∂Measure.map Prod.swap γ :=
+          (lintegral_map_swap_eq_of_symmetric c hc hsymm γ).symm
+    · rintro ⟨γ, hγ, hr⟩
+      change IsCoupling γ ν μ at hγ
+      refine ⟨Measure.map Prod.swap γ, isCoupling_map_swap hγ, ?_⟩
+      calc
+        r = ∫⁻ z, c z ∂γ := hr
+        _ = ∫⁻ z, c z ∂Measure.map Prod.swap γ :=
+          (lintegral_map_swap_eq_of_symmetric c hc hsymm γ).symm
+  rw [transportCost_eq_sInf, transportCost_eq_sInf, hvalues]
+
 end Transport
 end Measure
 end TechnicalLemmas
