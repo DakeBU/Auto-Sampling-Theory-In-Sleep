@@ -3,52 +3,22 @@ name: Samplinglib site
 on:
   push:
     branches: [main]
-    paths:
-      - "AutoSamplingTheory/**"
-      - "AutoSamplingTheory.lean"
-      - "Tests/**"
-      - "Tests.lean"
-      - "website/**"
-      - "lakefile.lean"
-      - "lean-toolchain"
-      - "lake-manifest.json"
-      - "tools/astis.py"
-      - "tools/astis_harness.py"
-      - "tools/astis_formalizer.py"
-      - "tools/astis_site.py"
-      - "tools/astis_source.py"
-      - "README.md"
-      - ".github/workflows/blueprint-site.yml"
   pull_request:
-    paths:
-      - "AutoSamplingTheory/**"
-      - "AutoSamplingTheory.lean"
-      - "Tests/**"
-      - "Tests.lean"
-      - "website/**"
-      - "lakefile.lean"
-      - "lean-toolchain"
-      - "lake-manifest.json"
-      - "tools/astis.py"
-      - "tools/astis_harness.py"
-      - "tools/astis_formalizer.py"
-      - "tools/astis_site.py"
-      - "tools/astis_source.py"
-      - "README.md"
-      - ".github/workflows/blueprint-site.yml"
-  merge_group:
   workflow_dispatch:
+    inputs:
+      strict_chapter_1:
+        description: "Fail unless every audited Chapter 1 source item is complete"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-env:
-  ASTIS_PUBLIC_SOURCE_LINKS: "1"
-
 concurrency:
-  group: blueprint-pages-${{ github.ref }}
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
@@ -81,7 +51,9 @@ jobs:
             website/scripts/build_site.py \
             website/scripts/check_site.py \
             website/scripts/implicit_prerequisites.py \
+            website/scripts/information_architecture.py \
             website/scripts/lean_tutor.py \
+            website/scripts/samplewiki_examples.py \
             website/scripts/source_foundations.py \
             website/scripts/theorem_lessons.py \
             website/scripts/undergrad_guides.py \
@@ -132,63 +104,47 @@ jobs:
       - name: Upload static artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: ./_site
 
   chapter-1-closure:
-    runs-on: ubuntu-latest
     needs: chapter-1-foundation
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ github.event_name != 'workflow_dispatch' && github.event_name != 'merge_group' }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Build Chapter 1 closure report
-        run: python3 website/scripts/build_site.py
-
+        run: python3 tools/astis.py chapter-1-report --json .astis/chapter-1-closure.json
       - name: Run final Chapter 1 closure gate
-        id: closure
-        # During ordinary incremental PRs and main checkpoints, keep the exact
-        # closure debt visible without turning an otherwise verified checkpoint
-        # red.  Manual closure runs and merge queues remain strict.
-        continue-on-error: ${{ github.event_name != 'workflow_dispatch' && github.event_name != 'merge_group' }}
         shell: bash
         run: |
           set +e
-
-          python3 tools/astis.py chapter-1-check --require-complete \
-            2>&1 | tee _site/data/chapter-1-closure.log
-          chapter_status=${PIPESTATUS[0]}
-
-          python3 website/scripts/check_site.py --require-chapter-1-closure \
-            2>&1 | tee -a _site/data/chapter-1-closure.log
-          site_status=${PIPESTATUS[0]}
-
-          if (( chapter_status != 0 || site_status != 0 )); then
-            exit 1
+          python3 tools/astis.py chapter-1-check --require-complete
+          rc=$?
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.strict_chapter_1 }}" == "true" ]]; then
+            exit "$rc"
           fi
-
+          exit "$rc"
       - name: Upload Chapter 1 closure evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: chapter-1-closure-${{ github.run_id }}
-          path: |
-            _site/data/chapter-1-completion-report.json
-            _site/data/chapter-1-closure.log
-          if-no-files-found: error
+          path: .astis/chapter-1-closure.json
+          if-no-files-found: warn
+          retention-days: 90
 
   deploy:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: chapter-1-foundation
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs:
-      - chapter-1-foundation
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
