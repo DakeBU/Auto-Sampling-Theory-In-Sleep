@@ -37,8 +37,11 @@ theorem integral_increment_pow_four_nndist
       3 * ((nndist (t : ℝ) (s : ℝ) : ℝ) ^ 2) := by
   have hpre := hB.isBrownian.toIsPreBrownianReal
   have hlaw := hpre.hasLaw_sub t s
-  rw [hlaw.integral_eq]
-  exact integral_pow_four_gaussianReal_zero (nndist (t : ℝ) (s : ℝ))
+  have hpush := hlaw.integral_comp
+    (f := fun x : ℝ => x ^ 4)
+    (by fun_prop)
+  simpa [Function.comp_def, Pi.sub_apply] using
+    hpush.trans (integral_pow_four_gaussianReal_zero (nndist (t : ℝ) (s : ℝ)))
 
 /-- Under `s ≤ t`, the fourth moment has the familiar Brownian form
 `E[(B_t-B_s)^4] = 3 (t-s)^2`. -/
@@ -48,27 +51,29 @@ theorem integral_increment_pow_four
     ∫ omega, (B t omega - B s omega) ^ 4 ∂mu =
       3 * (((t - s : ℝ≥0) : ℝ) ^ 2) := by
   rw [integral_increment_pow_four_nndist hB s t]
-  congr 1
-  rw [show nndist (t : ℝ) (s : ℝ) = (t - s : ℝ≥0) by
-    apply NNReal.eq
-    simp [Real.nndist_eq, abs_of_nonneg (sub_nonneg.mpr (show (s : ℝ) ≤ t by exact_mod_cast hst))]]
+  have hstR : (s : ℝ) ≤ (t : ℝ) := by exact_mod_cast hst
+  have hdist : (nndist (t : ℝ) (s : ℝ) : ℝ) = ((t - s : ℝ≥0) : ℝ) := by
+    rw [Real.coe_nndist, Real.dist_eq]
+    simp [abs_of_nonneg (sub_nonneg.mpr hstR), NNReal.coe_sub hst]
+  rw [hdist]
 
 /-- The compensated square of one Brownian increment is in `L2`. -/
 theorem centered_increment_sq_memLp_two
     (hB : IsBrownianMotionWithFiltration B filtration mu)
-    {s t : ℝ≥0} (hst : s ≤ t) :
+    {s t : ℝ≥0} (_hst : s ≤ t) :
     MemLp
       (fun omega =>
         (B t omega - B s omega) ^ 2 - ((t - s : ℝ≥0) : ℝ))
       2 mu := by
   have hpre := hB.isBrownian.toIsPreBrownianReal
-  have h4 : MemLp (fun omega => (B t omega - B s omega) ^ 2) 2 mu := by
-    have hsub : MemLp (fun omega => B t omega - B s omega) 4 mu :=
-      (hpre.isGaussianProcess.hasGaussianLaw_eval t).memLp 4 |>.sub
-        ((hpre.isGaussianProcess.hasGaussianLaw_eval s).memLp 4)
-    simpa [← pow_mul] using hsub.pow 2
+  have hsub : MemLp (fun omega => B t omega - B s omega) 4 mu := by
+    simpa [Pi.sub_apply] using
+      (hpre.isGaussianProcess.hasGaussianLaw_sub.memLp (by norm_num) :
+        MemLp (B t - B s) 4 mu)
+  have hsq : MemLp (fun omega => (B t omega - B s omega) ^ 2) 2 mu := by
+    simpa [pow_mul] using hsub.pow 2
   let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
-  exact h4.sub (memLp_const ((t - s : ℝ≥0) : ℝ))
+  exact hsq.sub (memLp_const ((t - s : ℝ≥0) : ℝ))
 
 /-- One-cell variance identity behind quadratic variation:
 
@@ -82,10 +87,15 @@ theorem integral_centered_increment_sq_sq
   let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
   have h4 := integral_increment_pow_four hB hst
   have h2 := hB.integral_increment_sq hst
+  have hpre := hB.isBrownian.toIsPreBrownianReal
+  have hsub : MemLp (fun omega => B t omega - B s omega) 4 mu := by
+    simpa [Pi.sub_apply] using
+      (hpre.isGaussianProcess.hasGaussianLaw_sub.memLp (by norm_num) :
+        MemLp (B t - B s) 4 mu)
+  have hsq : MemLp (fun omega => (B t omega - B s omega) ^ 2) 2 mu := by
+    simpa [pow_mul] using hsub.pow 2
   have hInt4 : Integrable (fun omega => (B t omega - B s omega) ^ 4) mu := by
-    have hpre := hB.isBrownian.toIsPreBrownianReal
-    exact (hpre.isGaussianProcess.hasGaussianLaw_eval t).integrable_pow 4 |>.sub
-      ((hpre.isGaussianProcess.hasGaussianLaw_eval s).integrable_pow 4)
+    simpa [pow_mul] using hsq.integrable_sq
   have hInt2 := increment_sq_integrable hB s t
   calc
     ∫ omega,
