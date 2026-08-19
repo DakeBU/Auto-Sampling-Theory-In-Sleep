@@ -72,6 +72,13 @@ def math_fragment(value: str) -> str:
     operator_suffixes = (
         "\\le", "\\ge", "=", "<", ">", "+", "-", "\\sim", "\\to", "\\asymp"
     )
+    argument_commands = {
+        "\\widetilde",
+        "\\mathcal",
+        "\\mathrm",
+        "\\mathbf",
+        "\\sqrt",
+    }
     while index < len(value):
         char = value[index]
         if char == "\\":
@@ -94,7 +101,7 @@ def math_fragment(value: str) -> str:
             while cursor < len(value) and value[cursor].isspace():
                 cursor += 1
             current = value[start:index].strip()
-            if current == "\\widetilde" and cursor < len(value):
+            if current in argument_commands and cursor < len(value):
                 index = cursor
                 continue
             if current.endswith(operator_suffixes) and cursor < len(value):
@@ -132,6 +139,8 @@ def render_match(match: re.Match[str]) -> str:
     latex = math_fragment(raw)
     if not latex:
         return match.group(0)
+    if latex in {"\\mathcal", "\\widetilde", "\\mathrm", "\\mathbf", "\\sqrt"}:
+        raise RuntimeError(f"incomplete SampleWiki TeX fragment: {latex!r} from {raw!r}")
 
     prefix, suffix = qualifier_fragments(raw)
     prefix_html = (
@@ -248,6 +257,11 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
     for marker in visible_qualifier_markers:
         if marker not in corpus:
             errors.append(f"SampleWiki visible material qualifier missing: {marker}")
+
+    # Bare font/style commands are never complete row formulas.
+    for command in (r"\\mathcal", r"\\widetilde", r"\\mathrm", r"\\mathbf", r"\\sqrt"):
+        if f'\\[{command}\\]' in corpus:
+            errors.append(f"SampleWiki bare TeX command leaked as formula: {command}")
 
     if errors:
         raise RuntimeError("SampleWiki presentation finalization failed:\n- " + "\n- ".join(errors))
