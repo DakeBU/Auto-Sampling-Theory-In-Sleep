@@ -31,6 +31,7 @@ theorem integral_pow_four_gaussianReal_zero (v : ℝ≥0) :
     _ = 3 * (v : ℝ) ^ 2 := by
       rw [mgf_fun_id_gaussianReal, iteratedDeriv_succ, iteratedDeriv_succ,
         iteratedDeriv_succ, iteratedDeriv_one]
+      simp only [zero_mul, zero_add]
       have h1 :
           deriv (fun t : ℝ => rexp (v * t ^ 2 / 2)) =
             fun t => v * t * rexp (v * t ^ 2 / 2) := by
@@ -61,8 +62,7 @@ theorem integral_pow_four_gaussianReal_zero (v : ℝ≥0) :
           _root_.deriv_exp (by fun_prop)]
         simp only [deriv_div_const, differentiableAt_const, differentiableAt_fun_id,
           Nat.cast_ofNat, DifferentiableAt.fun_pow, deriv_fun_mul, deriv_const', zero_mul,
-          deriv_fun_pow, Nat.add_one_sub_one, pow_one, deriv_id'', mul_one, zero_add,
-          deriv_fun_add]
+          deriv_fun_pow, Nat.add_one_sub_one, pow_one, deriv_id'', mul_one, zero_add]
         ring
       rw [h1, h2, h3]
       rw [deriv_fun_mul (by fun_prop) (by fun_prop),
