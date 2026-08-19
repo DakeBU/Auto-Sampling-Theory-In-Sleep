@@ -82,6 +82,7 @@ import Tests.StrongConvexity
 import Tests.AffineLineSecondDerivative
 import Tests.TimeMeasureRealBridge
 import Tests.Transport
+import Tests.TransportGluing
 import Tests.WassersteinSpace
 import Tests.WeakForwardEquation
 import Tests.AccumulatedEnergy
