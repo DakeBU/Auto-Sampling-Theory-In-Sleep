@@ -21,6 +21,12 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT = ROOT / "_site"
 SOURCE_CSS = ROOT / "website" / "static" / "reader-contract-final.css"
 STYLE_NAME = "reader-contract-final.css"
+DIAGNOSTIC = ROOT / ".astis" / "reader-contract-errors.txt"
+
+
+def _write_diagnostic(message: str) -> None:
+    DIAGNOSTIC.parent.mkdir(parents=True, exist_ok=True)
+    DIAGNOSTIC.write_text(message.rstrip() + "\n", encoding="utf-8")
 
 
 def validate_page(path: Path, text: str) -> list[str]:
@@ -97,47 +103,57 @@ def _inject_style(text: str, rel: Path) -> str:
 
 
 def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
-    _patch_base_gate()
-    # Undergrad guides are useful companion data, but not the canonical book
-    # surface. Remove them from every Chapter 1 section before the base reader
-    # validates the final canonical contract.
-    _remove_undergrad_ladders(output)
-    base.enrich_site(output)
+    if DIAGNOSTIC.exists():
+        DIAGNOSTIC.unlink()
+    try:
+        _patch_base_gate()
+        # Undergrad guides are useful companion data, but not the canonical book
+        # surface. Remove them from every Chapter 1 section before the base reader
+        # validates the final canonical contract.
+        _remove_undergrad_ladders(output)
+        base.enrich_site(output)
 
-    asset_dir = output / "assets"
-    asset_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(SOURCE_CSS, asset_dir / STYLE_NAME)
+        asset_dir = output / "assets"
+        asset_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(SOURCE_CSS, asset_dir / STYLE_NAME)
 
-    for path in sorted(output.rglob("*.html")):
-        rel = path.relative_to(output)
-        text = path.read_text(encoding="utf-8")
-        text = _collapse_supplemental_details(text)
-        text = _repair_exact_public_leaks(text)
-        text = _inject_style(text, rel)
-        path.write_text(text, encoding="utf-8", newline="\n")
+        for path in sorted(output.rglob("*.html")):
+            rel = path.relative_to(output)
+            text = path.read_text(encoding="utf-8")
+            text = _collapse_supplemental_details(text)
+            text = _repair_exact_public_leaks(text)
+            text = _inject_style(text, rel)
+            path.write_text(text, encoding="utf-8", newline="\n")
 
-    validate(output)
+        validate(output)
+    except Exception as exc:
+        _write_diagnostic(f"{type(exc).__name__}: {exc}")
+        raise
 
 
 def validate(output: Path = DEFAULT_OUTPUT) -> None:
     _patch_base_gate()
-    base.validate(output)
+    try:
+        base.validate(output)
 
-    errors: list[str] = []
-    css = output / "assets" / STYLE_NAME
-    if not css.exists():
-        errors.append(f"missing assets/{STYLE_NAME}")
+        errors: list[str] = []
+        css = output / "assets" / STYLE_NAME
+        if not css.exists():
+            errors.append(f"missing assets/{STYLE_NAME}")
 
-    for path in output.rglob("*.html"):
-        rel = path.relative_to(output)
-        text = path.read_text(encoding="utf-8")
-        errors.extend(validate_page(rel, text))
-        prefix = "../" * len(rel.parent.parts)
-        if f"{prefix}assets/{STYLE_NAME}" not in text:
-            errors.append(f"{rel}: final reader stylesheet missing")
+        for path in output.rglob("*.html"):
+            rel = path.relative_to(output)
+            text = path.read_text(encoding="utf-8")
+            errors.extend(validate_page(rel, text))
+            prefix = "../" * len(rel.parent.parts)
+            if f"{prefix}assets/{STYLE_NAME}" not in text:
+                errors.append(f"{rel}: final reader stylesheet missing")
 
-    if errors:
-        raise RuntimeError("final reader contract failed:\n- " + "\n- ".join(errors))
+        if errors:
+            raise RuntimeError("final reader contract failed:\n- " + "\n- ".join(errors))
+    except Exception as exc:
+        _write_diagnostic(f"{type(exc).__name__}: {exc}")
+        raise
 
 
 if __name__ == "__main__":
