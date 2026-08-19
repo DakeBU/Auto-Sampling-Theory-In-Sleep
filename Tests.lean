@@ -25,6 +25,7 @@ import Tests.FiniteDimensionalNormBridge
 import Tests.FiniteDimensionalItoProcess
 import Tests.ProgressiveDriftIntegral
 import Tests.ChewiItoProcess
+import Tests.ChewiItoFormula
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
