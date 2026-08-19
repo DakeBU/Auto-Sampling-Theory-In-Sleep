@@ -1,0 +1,226 @@
+name: Chapter 1.1 evidence patch
+
+on:
+  push:
+    branches: [chapter-1-1-final-closure]
+    paths:
+      - ".github/workflows/chapter-1-1-evidence-patch.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chapter-1-1-final-closure
+          fetch-depth: 0
+
+      - name: Promote verified Chewi Definition 1.1.17
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          FINAL = "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDefinition1_1_17.chewi_definition_1_1_17"
+          VECTOR = "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDefinition1_1_17.definition_1_1_17_vector_display"
+          PROGRESSIVE = "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiItoProcessProgressive.process_stronglyProgressive"
+          SOURCE_ID = "chewi-1-1-definition-1-1-17"
+          REGISTRY_KEY = "ito-process.chewi-definition-1-1-17"
+
+          # Registry: one source-complete entry. The source theorem itself already
+          # contains both vector progressiveness and the a.s. vector integral equation.
+          registry = Path("AutoSamplingTheory/TechnicalLemmas/Registry.lean")
+          text = registry.read_text(encoding="utf-8")
+          assert REGISTRY_KEY not in text
+          marker = "def technicalLemmaMemory : List LemmaMemoryEntry :=\n"
+          assert marker in text
+          entry = '''def chapter1ClosureMemory : List LemmaMemoryEntry := [
+            {
+              key := "ito-process.chewi-definition-1-1-17"
+              localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDefinition1_1_17.chewi_definition_1_1_17"
+              upstreamDecl := "Chewi Definition 1.1.17"
+              upstreamFile := "Log-Concave Sampling, Definition 1.1.17"
+              status := LemmaMemoryStatus.formalizedLocal
+              tags := ["Chewi", "Chapter-1.1", "Ito-process", "progressive", "finite-dimensional"]
+              saldUse := "Finite-dimensional Ito-process source theorem: progressive vector process plus the vector integral equation"
+              note := "Uses one Euclidean Brownian driver; local drift and Hilbert--Schmidt assumptions are not strengthened coordinatewise."
+            }
+          ]
+
+          '''
+          text = text.replace(marker, entry + marker, 1)
+          old = "functionalInequalityMemory ++ stochasticProcessMemory ++\n    klDensityMemory"
+          new = "functionalInequalityMemory ++ stochasticProcessMemory ++ chapter1ClosureMemory ++\n    klDensityMemory"
+          assert old in text
+          registry.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
+
+          basic = Path("Tests/Basic.lean")
+          basic_text = basic.read_text(encoding="utf-8")
+          assert "formalizedTechnicalLemmaCount = 393" in basic_text
+          basic.write_text(
+              basic_text.replace("formalizedTechnicalLemmaCount = 393", "formalizedTechnicalLemmaCount = 394", 1),
+              encoding="utf-8", newline="\n")
+
+          matrix_path = Path("website/content/chapter_1_completion_matrix.json")
+          matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
+          item = next(x for x in matrix["items"] if x.get("number") == "1.1.17" and x.get("category") == "statement")
+          item.update({
+              "source_correspondence_id": SOURCE_ID,
+              "required_declarations": [FINAL],
+              "focused_tests": ["Tests/ChewiDefinition1_1_17.lean"],
+              "registry_keys": [REGISTRY_KEY],
+              "coverage_status": "complete",
+              "residual_blockers": [],
+              "downstream_consumers": [
+                  "Theorem 1.1.19 (Ito formula)",
+                  "SDE display (1.1.21)",
+                  "Theorem 1.1.22 (strong solution and Markov property)",
+              ],
+          })
+          matrix_path.write_text(json.dumps(matrix, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+          correspondence_path = Path("website/content/source_correspondence.json")
+          correspondence = json.loads(correspondence_path.read_text(encoding="utf-8"))
+          assert not any(x.get("id") == SOURCE_ID for x in correspondence)
+          correspondence.append({
+              "id": SOURCE_ID,
+              "chapter": 1,
+              "section": "1.1",
+              "edition": "2026-08-09",
+              "book_page": 8,
+              "pdf_page": 20,
+              "page": "book 8 / PDF 20",
+              "source_kind": "Definition 1.1.17",
+              "source_url": "https://chewisinho.github.io/main.pdf#page=20",
+              "wording_status": "source-faithful mathematical restatement",
+              "source_summary": "Finite-dimensional Ito process",
+              "mathematical_exposition": "\\(X_t=X_0+\\int_0^t b_s\\,ds+\\int_0^t\\sigma_s\\,dB_s\\), with progressive coefficients and the stated local \\(L^1/L^2_{\\rm HS}\\) conditions.",
+              "astis_exposition": "Coordinate reduction is used only to construct the integral; the source theorem is the reassembled Euclidean-vector statement.",
+              "rigorous_packet": "One filtration, one Euclidean Brownian driver, and almost-sure local coefficient integrability are retained exactly.",
+              "lean_declarations": [FINAL, VECTOR, PROGRESSIVE],
+              "source_assumptions": [
+                  "X_0 is F_0-measurable",
+                  "b is progressive and locally pathwise L1 almost surely",
+                  "sigma is progressive and locally Hilbert--Schmidt L2 almost surely",
+                  "B is one finite-dimensional Brownian motion for the same filtration"
+              ],
+              "formal_assumptions": [
+                  "SatisfiesUsualConditions filtration mu",
+                  "IsProbabilityMeasure mu",
+                  "SourceData filtration mu with Euclidean drift and matrix diffusion",
+                  "IsStandardBrownianMotionWithFiltration B filtration mu"
+              ],
+              "downstream_consumers": [
+                  "display (1.1.18)",
+                  "Theorem 1.1.19",
+                  "SDE display (1.1.21)",
+                  "Theorem 1.1.22"
+              ],
+              "status": "compiled",
+              "route_status": "compiled",
+              "local_status": "compiled",
+              "semantic_status": "progressive Euclidean Ito process with the source vector integral equation",
+              "remaining_obligations": [],
+              "proof_leaves": [
+                  {
+                      "node_id": "chapter1-ito-process-coordinate-regularity",
+                      "label": "coordinate regularity",
+                      "declarations": ["driftCoordinate_integrable_ae", "diffusionEntryGlobalLocalProgressiveL2"],
+                      "dependencies": ["entry_sq_le_matrixEnergy", "matrixEnergy_eq_norm_sq"],
+                      "priority": 100,
+                      "route_status": "compiled"
+                  },
+                  {
+                      "node_id": "chapter1-ito-process-common-brownian-driver",
+                      "label": "one Brownian driver, scalar coordinates",
+                      "declarations": ["coordinateFamily"],
+                      "dependencies": ["coordinate_isBrownianMotionWithFiltration"],
+                      "priority": 100,
+                      "route_status": "compiled"
+                  },
+                  {
+                      "node_id": "chapter1-ito-process-vector-display",
+                      "label": "vector integral equation",
+                      "declarations": ["definition_1_1_17_vector_display"],
+                      "dependencies": ["drift_integral_coordinate", "stochasticIntegral_coordinate"],
+                      "priority": 100,
+                      "route_status": "compiled"
+                  },
+                  {
+                      "node_id": "chapter1-ito-process-progressive",
+                      "label": "vector progressiveness",
+                      "declarations": ["chewi_definition_1_1_17"],
+                      "dependencies": ["process_stronglyProgressive", "definition_1_1_17_vector_display"],
+                      "priority": 100,
+                      "route_status": "compiled"
+                  }
+              ]
+          })
+          correspondence_path.write_text(json.dumps(correspondence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+          formula_path = Path("website/content/chapter1_formula_supplements.json")
+          formula_text = formula_path.read_text(encoding="utf-8")
+          assert SOURCE_ID not in formula_text
+          formula_obj = {
+              "id": SOURCE_ID,
+              "formula": "X_t=X_0+\\int_0^t b_s\\,ds+\\int_0^t\\sigma_s\\,dB_s,\\qquad X_t\\in\\mathbb R^d,\\quad B_t\\in\\mathbb R^N,\\qquad \\int_0^T\\|b_s\\|\\,ds<\\infty,\\quad\\int_0^T\\|\\sigma_s\\|_{\\mathrm{HS}}^2\\,ds<\\infty\\ \\text{a.s.}"
+          }
+          stripped = formula_text.rstrip()
+          assert stripped.endswith("]")
+          prefix = stripped[:-1].rstrip()
+          if not prefix.endswith("["):
+              prefix += ","
+          compact = json.dumps(formula_obj, ensure_ascii=False, separators=(",", ":"))
+          formula_path.write_text(prefix + "\n  " + compact + "\n]\n", encoding="utf-8")
+
+          proof_path = Path("website/content/chapter1_proof_supplements.json")
+          proof_text = proof_path.read_text(encoding="utf-8")
+          assert SOURCE_ID not in proof_text
+          proof_obj = {
+              "id": SOURCE_ID,
+              "steps": [
+                  {
+                      "formula": "|b_s^i|\\le\\|b_s\\|,\\qquad |\\sigma_s^{ij}|^2\\le\\|\\sigma_s\\|_{\\mathrm{HS}}^2",
+                      "lean": ["driftCoordinate_integrable_ae", "diffusionEntryGlobalLocalProgressiveL2"]
+                  },
+                  {
+                      "formula": "B_t^j=e_j^*(B_t),\\qquad B^j\\text{ is Brownian for the same filtration}",
+                      "lean": ["coordinateFamily"]
+                  },
+                  {
+                      "formula": "X_t^i=X_0^i+\\int_0^t b_s^i\\,ds+\\sum_j\\int_0^t\\sigma_s^{ij}\\,dB_s^j",
+                      "lean": ["definition_1_1_17_coordinate_display"]
+                  },
+                  {
+                      "formula": "X_t=X_0+\\int_0^t b_s\\,ds+\\int_0^t\\sigma_s\\,dB_s,\\qquad X\\text{ progressive}",
+                      "lean": ["definition_1_1_17_vector_display", "chewi_definition_1_1_17"]
+                  }
+              ]
+          }
+          stripped = proof_text.rstrip()
+          assert stripped.endswith("]")
+          prefix = stripped[:-1].rstrip()
+          if not prefix.endswith("["):
+              prefix += ","
+          pretty = json.dumps(proof_obj, indent=2, ensure_ascii=False)
+          indented = "\n".join("  " + line for line in pretty.splitlines())
+          proof_path.write_text(prefix + "\n" + indented + "\n]\n", encoding="utf-8")
+
+          Path(".github/workflows/chapter-1-1-evidence-patch.yml").unlink()
+          PY
+
+          git config user.name "ASTIS evidence bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add AutoSamplingTheory/TechnicalLemmas/Registry.lean \
+                  Tests/Basic.lean \
+                  website/content/chapter_1_completion_matrix.json \
+                  website/content/source_correspondence.json \
+                  website/content/chapter1_formula_supplements.json \
+                  website/content/chapter1_proof_supplements.json \
+                  .github/workflows/chapter-1-1-evidence-patch.yml
+          git commit -m "Close Chewi Definition 1.1.17 on math-first reader"
+          git push origin HEAD:chapter-1-1-final-closure
