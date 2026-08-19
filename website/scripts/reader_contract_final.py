@@ -4,13 +4,12 @@
 This wrapper deliberately separates presentation cleanup from source evidence.
 It reuses ``math_first_reader`` for the theorem/equation layout, but narrows the
 final regression gate to genuinely broken public rendering: visible CJK,
-leaked Markdown, and raw conditional-expectation notation.  Audited source
+leaked Markdown, and raw conditional-expectation notation. Audited source
 metadata is never rewritten merely because it contains ASCII notation.
 """
 
 from __future__ import annotations
 
-import html
 import re
 import shutil
 from pathlib import Path
@@ -48,8 +47,16 @@ def _patch_base_gate() -> None:
     base.validate_page = validate_page
 
 
+def _remove_undergrad_ladders(output: Path) -> None:
+    chapter = output / "textbook" / "chapter-01"
+    for path in chapter.glob("section-*.html"):
+        text = path.read_text(encoding="utf-8")
+        text = base.strip_between(text, base.UNDERGRAD_START, base.UNDERGRAD_END)
+        path.write_text(text, encoding="utf-8", newline="\n")
+
+
 def _collapse_supplemental_details(text: str) -> str:
-    # Canonical theorem statements/proofs stay visible.  The large background
+    # Canonical theorem statements/proofs stay visible. The large background
     # packets remain available on demand instead of dominating the page.
     return text.replace(
         '<details class="reader-disclosure rigor-disclosure" open>',
@@ -91,6 +98,10 @@ def _inject_style(text: str, rel: Path) -> str:
 
 def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
     _patch_base_gate()
+    # Undergrad guides are useful companion data, but not the canonical book
+    # surface. Remove them from every Chapter 1 section before the base reader
+    # validates the final canonical contract.
+    _remove_undergrad_ladders(output)
     base.enrich_site(output)
 
     asset_dir = output / "assets"
