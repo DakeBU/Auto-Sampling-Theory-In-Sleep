@@ -3,13 +3,39 @@
    infrastructure remain secondary to the mathematical statement and proof. */
 
 .math-first-display mjx-container[display="true"],
-.math-first-theorem mjx-container[display="true"] {
+.math-first-theorem mjx-container[display="true"],
+.source-passage mjx-container[display="true"] {
   text-align: center !important;
   margin: 0.65rem auto !important;
 }
 
-.math-first-display {
+.math-first-display,
+.source-formula {
   text-align: center;
+}
+
+/* Canonical source cards read as: numbered source result -> mathematical
+   headline -> displayed statement -> one short explanation. */
+.source-passage > h2 {
+  margin-bottom: 0.35rem;
+}
+
+.source-passage > .source-formula {
+  margin: 0.5rem auto 0.45rem;
+}
+
+.source-passage > p {
+  max-width: 68ch;
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.formula-supplement {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.15rem 0;
 }
 
 .math-theorem-statement > p {
