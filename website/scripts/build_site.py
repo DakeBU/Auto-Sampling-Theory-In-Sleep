@@ -43,8 +43,11 @@ def main() -> int:
     implicit_prerequisites.enrich_site(output)
     lean_tutor.enrich_site(output)
     samplewiki_examples.enrich_site(output)
-    samplewiki_math_render.enrich_site(output)
     information_architecture.enrich_site(output)
+    # SampleWiki row TeX and its source-specific reading directory are finalized
+    # after the global IA pass so the directory is not overwritten by sidebar
+    # replacement.
+    samplewiki_math_render.enrich_site(output)
     chapter1_reference_shelf.enrich_site(output)
     visual_polish.enrich_site(output)
     # Final public-reader contract.  It replaces the prose-heavy intermediate
