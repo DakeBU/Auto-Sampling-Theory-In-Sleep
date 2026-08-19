@@ -21,6 +21,7 @@ import samplewiki_examples  # noqa: E402
 import source_foundations  # noqa: E402
 import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
+import visual_polish  # noqa: E402
 
 
 def main() -> int:
@@ -46,6 +47,10 @@ def main() -> int:
     # The reference shelf consumes the already-audited source-foundation data
     # and attaches it to the companion produced by the IA layer.
     chapter1_reference_shelf.enrich_site(output)
+    # Visual polish is deliberately last: it owns only the Samplinglib masthead,
+    # typography, spacing, and presentation tokens and never changes source or
+    # Lean verification semantics.
+    visual_polish.enrich_site(output)
     return 0
 
 
