@@ -18,6 +18,7 @@ import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
 import math_first_reader  # noqa: E402
+import reader_ascii_fix  # noqa: E402
 import samplewiki_examples  # noqa: E402
 import source_foundations  # noqa: E402
 import theorem_lessons  # noqa: E402
@@ -45,6 +46,7 @@ def main() -> int:
     information_architecture.enrich_site(output)
     chapter1_reference_shelf.enrich_site(output)
     visual_polish.enrich_site(output)
+    reader_ascii_fix.enrich_site(output)
     # Final public-reader contract: canonical textbook pages are English-only,
     # source/math first, formula-rich, and free of leaked Markdown/raw formulas.
     math_first_reader.enrich_site(output)
