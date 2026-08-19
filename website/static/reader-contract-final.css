@@ -1,0 +1,58 @@
+/* Final canonical-reader refinements.
+   Equations use textbook-style centered display; supporting prose and formal
+   infrastructure remain secondary to the mathematical statement and proof. */
+
+.math-first-display mjx-container[display="true"],
+.math-first-theorem mjx-container[display="true"] {
+  text-align: center !important;
+  margin: 0.65rem auto !important;
+}
+
+.math-first-display {
+  text-align: center;
+}
+
+.math-theorem-statement > p {
+  max-width: 70ch;
+  margin-bottom: 0.55rem;
+}
+
+.math-theorem-proof {
+  margin-top: 1.5rem;
+}
+
+.math-proof-step p {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* Standard infrastructure should be available but not visually compete with
+   Chewi's numbered result. */
+.foundation-disclosure,
+.math-lean-correspondence,
+.implicit-prerequisite-card > details,
+.source-passage + .reader-disclosure {
+  box-shadow: none !important;
+}
+
+.math-lean-correspondence .table-wrap {
+  margin-top: 0.4rem;
+}
+
+.math-lean-correspondence th,
+.math-lean-correspondence td {
+  padding: 0.55rem 0.65rem;
+}
+
+.math-first-theorem .source-anchor {
+  color: var(--muted);
+}
+
+/* Avoid chat/tutorial language receiving editorial weight if older enrichers
+   produce it elsewhere on the page. */
+.tiny-example,
+.remember-box,
+.mode-explanation,
+.lean-studio-intro {
+  font-size: 0.86rem;
+}
