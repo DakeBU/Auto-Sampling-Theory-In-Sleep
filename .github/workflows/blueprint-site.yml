@@ -87,6 +87,7 @@ jobs:
             website/scripts/math_first_reader.py \
             website/scripts/reader_contract_final.py \
             website/scripts/samplewiki_examples.py \
+            website/scripts/samplewiki_math_render.py \
             website/scripts/source_foundations.py \
             website/scripts/theorem_lessons.py \
             website/scripts/undergrad_guides.py \
