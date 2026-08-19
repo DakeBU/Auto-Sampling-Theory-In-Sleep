@@ -16,7 +16,7 @@ import astis_site  # noqa: E402
 import astis_source  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import lean_tutor  # noqa: E402
-import math_first_reader  # noqa: E402
+import reader_contract_final  # noqa: E402
 import source_foundations  # noqa: E402
 
 
@@ -44,16 +44,16 @@ def main() -> int:
     if result != 0:
         return result
 
-    # The undergraduate story ladder and the old prose-heavy theorem-lesson
-    # renderer are intermediate enrichers only.  The final public surface is
-    # owned by math_first_reader, which deliberately removes/replaces them.
     try:
-        math_first_reader.validate(output)
+        reader_contract_final.validate(output)
     except Exception as exc:
-        print("Math-first reader site check failed:", file=sys.stderr)
+        print("Final math-first reader site check failed:", file=sys.stderr)
         print(f"- {exc}", file=sys.stderr)
         return 1
 
+    # These remain independent evidence checks.  The final reader may change
+    # presentation, but it may not erase or rewrite the audited source and
+    # prerequisite packets beneath that presentation.
     foundation_errors = source_foundations.validate_site(output)
     if foundation_errors:
         print("Source foundation site check failed:", file=sys.stderr)
