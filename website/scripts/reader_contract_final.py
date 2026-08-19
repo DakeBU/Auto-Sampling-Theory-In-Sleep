@@ -46,11 +46,26 @@ def validate_page(path: Path, text: str) -> list[str]:
     return errors
 
 
+def _safe_replace_lesson_block(text: str, rendered: str) -> str:
+    """Replace generated lesson HTML without interpreting LaTeX backslashes."""
+    pattern = re.compile(
+        re.escape(base.LESSON_START) + r".*?" + re.escape(base.LESSON_END),
+        re.S,
+    )
+    if pattern.search(text):
+        return pattern.sub(lambda _match: rendered, text, count=1)
+    marker = '<nav class="reader-pagination"'
+    if marker not in text:
+        raise RuntimeError("reader pagination marker missing while inserting theorem lessons")
+    return text.replace(marker, rendered + "\n" + marker, 1)
+
+
 def _patch_base_gate() -> None:
-    # ``base.validate`` calls this function by global lookup, so replacing it
-    # here preserves all theorem/formula checks while removing the obsolete
-    # broad ASCII-inequality heuristic.
+    # ``base.validate`` and ``base.enrich_site`` resolve these helpers by global
+    # lookup. Patch only the presentation hooks: retain every theorem/formula
+    # assertion while avoiding regex replacement parsing of LaTeX backslashes.
     base.validate_page = validate_page
+    base.replace_lesson_block = _safe_replace_lesson_block
 
 
 def _remove_undergrad_ladders(output: Path) -> None:
