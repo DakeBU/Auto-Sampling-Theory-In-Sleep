@@ -38,6 +38,7 @@ import Tests.ItoIntegralProcessAfterHorizon
 import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
 import Tests.LangevinCarreDuChamp
+import Tests.LangevinGammaTwo
 import Tests.LaggedDyadicApproximation
 import Tests.LaggedDyadicConvergence
 import Tests.LeftLebesgueAverage
