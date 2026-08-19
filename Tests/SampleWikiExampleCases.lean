@@ -1,4 +1,5 @@
 import AutoSamplingTheory.ExampleCases.SampleWiki
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.FisherTransport
 
 namespace AutoSamplingTheory
 namespace Tests
@@ -19,6 +20,9 @@ example : ¬ admissibleForScientificGraph VerificationStage.discovered :=
 #check VerificationStage
 #check TechnicalLemmas.Algebra.linear_growth_of_step_growth
 #check TechnicalLemmas.Algebra.reciprocal_growth_implies_inverse_time_bound
+#check TechnicalLemmas.InformationTheory.FisherTransport.sq_div_le_fisher_of_sq_le_mul
+#check TechnicalLemmas.InformationTheory.FisherTransport.neg_half_fisher_le_neg_half_sq_div
+#check TechnicalLemmas.InformationTheory.FisherTransport.kl_derivative_upper_bound_of_fisher_transport
 #check ExampleCases.SampleWiki.Cases.IdealProximalChain.kl_rate_from_reciprocal_step
 
 end SampleWikiExampleCases

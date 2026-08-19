@@ -6,7 +6,7 @@ import Mathlib.Probability.Kernel.Invariance
 # Measure evolution for the canonical Markov-kernel contract
 
 This file extends the already-established `MarkovSemigroup.TransitionKernelContract`
-with its induced action on probability laws.  It is deliberately independent
+with its induced action on probability laws. It is deliberately independent
 of any concrete stochastic process: constructing `K t x` as the conditional
 law of an SDE solution is a downstream bridge and may consume the Section 1.1
 Markov/SDE work once that work lands.
@@ -71,7 +71,7 @@ theorem lintegral_markovOperator_eq_lintegral_evolveMeasure
 /-- A measure is stationary for a transition-kernel semigroup when it is fixed
 by every nonnegative-time law evolution.
 
-This is the direct measure-level notion used in Chewi Proposition 1.2.7.  The
+This is the direct measure-level notion used in Chewi Proposition 1.2.7. The
 generator characterization `∫ L f dπ = 0` needs a semigroup-stable generator
 domain and is intentionally a separate theorem. -/
 def IsStationary
@@ -87,8 +87,7 @@ theorem isStationary_iff
   Iff.rfl
 
 /-- ASTIS semigroup stationarity is exactly Mathlib kernel invariance at every
-time.  This keeps the Chapter 1.2 measure-level API connected to Mathlib rather
-than introducing a competing notion of invariant measure. -/
+time. -/
 theorem isStationary_iff_kernel_invariant
     {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
     (pi : Measure E) :
@@ -102,8 +101,7 @@ theorem isStationary_iff_kernel_invariant
     exact (hpi t).def
 
 /-- Detailed balance for every transition kernel implies stationarity of the
-whole semigroup.  This is a measure-level reversibility-to-stationarity bridge;
-it does not identify a concrete SDE transition kernel. -/
+whole semigroup. -/
 theorem isStationary_of_kernel_reversible
     {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
     (pi : Measure E)
@@ -124,10 +122,7 @@ theorem IsStationary.lintegral_markovOperator_eq
   rw [lintegral_markovOperator_eq_lintegral_evolveMeasure hK pi t f, hpi t]
 
 /-- Conversely, invariance of all measurable nonnegative expectations under
-every Markov operator determines the stationary measure.
-
-Indicator observables recover equality on all measurable sets, so this theorem
-does not require any density or integrability assumption. -/
+every Markov operator determines the stationary measure. -/
 theorem isStationary_of_lintegral_markovOperator_eq
     {K : ℝ≥0 → Kernel E E} (hK : TransitionKernelContract K)
     (pi : Measure E)
@@ -162,9 +157,7 @@ theorem IsStationary.evolveMeasure_eq
     evolveMeasure hK t pi = pi :=
   hpi t
 
-/-- Stationarity is preserved after any elapsed time.  This apparently simple
-fact is useful when later dissipation arguments restart the semigroup at an
-intermediate time. -/
+/-- Stationarity is preserved after any elapsed time. -/
 theorem IsStationary.after
     {K : ℝ≥0 → Kernel E E} {hK : TransitionKernelContract K}
     {pi : Measure E} (hpi : IsStationary hK pi) (s : ℝ≥0) :

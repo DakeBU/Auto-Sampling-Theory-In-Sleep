@@ -1,0 +1,18 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDisplay1_1_18
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoFormulaAlgebra
+
+/-!
+Focused ABI checks for the first two leaves after Chewi Definition 1.1.17:
+display (1.1.18) is tied to the compiled vector integral equation, and the
+first/second derivative contractions used by Theorem 1.1.19 are available
+without adding stochastic assumptions.
+-/
+
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDisplay1_1_18.chewi_display_1_1_18_integral_meaning
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoFormulaAlgebra.diffusionColumn
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoFormulaAlgebra.driftGradientTerm_eq_fderiv
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoFormulaAlgebra.diffusionGradientCoefficient_eq_fderiv
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoFormulaAlgebra.driftGradientTerm_eq_sum
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoFormulaAlgebra.diffusionGradientCoefficient_eq_sum
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoFormulaAlgebra.secondDerivativeQuadraticForm_eq_of_hasFDerivAt
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ItoFormulaAlgebra.diffusionHessianContraction_eq_of_hasFDerivAt

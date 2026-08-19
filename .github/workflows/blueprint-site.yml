@@ -87,9 +87,14 @@ jobs:
             website/scripts/math_first_reader.py \
             website/scripts/reader_contract_final.py \
             website/scripts/samplewiki_examples.py \
+            website/scripts/samplewiki_math_render.py \
             website/scripts/source_foundations.py \
             website/scripts/theorem_lessons.py \
             website/scripts/undergrad_guides.py \
+            website/scripts/underlying_lean_graph.py \
+            website/scripts/underlying_lean_graph_model.py \
+            website/scripts/underlying_lean_graph_textbook.py \
+            website/scripts/underlying_lean_graph_frontier.py \
             website/scripts/visual_polish.py \
             website/scripts/build_sites_bundle.py \
             website/scripts/lean_gate.py \
@@ -111,6 +116,7 @@ jobs:
           node --check website/static/ide.js
           node --check website/static/lean-tutor.js
           node --check website/static/module-lean-tutor.js
+          node --check website/static/underlying-lean-graph.js
 
       - name: Validate canonical Chewi source edition
         run: python3 tools/astis.py chewi-source-check

@@ -1,307 +1,759 @@
 #!/usr/bin/env python3
-"""Add the live SampleWiki Example Cases chapter to the generated ASTIS site."""
+"""Build the reader-facing SampleWiki library from pinned source manifests.
+
+The source watcher owns provenance.  This layer owns reading order only:
+settings, row-level frontier statements, proof availability, and exact ASTIS
+formalization status.  It never promotes a source-pinned row to a proved result.
+"""
 
 from __future__ import annotations
 
 import json
+import posixpath
+import re
+import shutil
+from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
 import astis_site
 
+
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_PATH = ROOT / "website" / "content" / "samplewiki_example_cases.json"
+READER_PATH = ROOT / "website" / "content" / "samplewiki_reader.json"
 MANIFEST_PATH = ROOT / "research-wiki" / "source-index" / "SampleWiki_manifest.json"
 CASES_PATH = ROOT / "research-wiki" / "source-index" / "SampleWiki_cases.json"
+SOURCE_STYLE = ROOT / "website" / "static" / "samplewiki-reader.css"
+STYLE_NAME = "samplewiki-reader.css"
+
+OVERVIEW = "example-cases/samplewiki.html"
+PROGRESS = "example-cases/samplewiki/progress.html"
+FRONTIER = "example-cases/samplewiki/frontier.html"
 
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def object_state(path: Path) -> dict[str, Any] | None:
-    if not path.exists():
-        return None
+def load_object(path: Path) -> dict[str, Any]:
     raw = load_json(path)
-    return raw if isinstance(raw, dict) else None
+    if not isinstance(raw, dict):
+        raise RuntimeError(f"expected JSON object: {path}")
+    return raw
 
 
-def lifecycle_html(stages: list[str]) -> str:
-    rows = []
-    explanations = {
-        "discovered": "The watcher found a page or result row.",
-        "sourcePinned": "URL and cryptographic source fingerprints are fixed.",
-        "normalized": "ASTIS writes an original mathematical restatement and assumption audit.",
-        "leanTarget": "The exact Lean proposition and reusable leaf boundary are chosen.",
-        "compiled": "The pinned Lean toolchain accepts the proof.",
-        "sourceReviewed": "A reviewer checks theorem meaning against the pinned source.",
-        "assimilated": "The theorem and proof-technique leaves enter the reusable ASTIS graph.",
-    }
-    for index, stage in enumerate(stages, start=1):
+def slugify(value: str) -> str:
+    return re.sub(r"[^A-Za-z0-9]+", "-", value).strip("-").lower() or "case"
+
+
+def case_slug(case_id: str) -> str:
+    value = case_id
+    prefix = "ASTIS-SW-"
+    if value.startswith(prefix):
+        value = value[len(prefix):]
+    return slugify(value)
+
+
+def setting_path(setting_slug: str) -> str:
+    return f"example-cases/samplewiki/settings/{slugify(setting_slug)}.html"
+
+
+def case_path(case_id: str) -> str:
+    return f"example-cases/samplewiki/cases/{case_slug(case_id)}.html"
+
+
+def href_from(current: str, target: str) -> str:
+    start = posixpath.dirname(current) or "."
+    return posixpath.relpath(target, start=start)
+
+
+def esc(value: object) -> str:
+    return astis_site.esc(value)
+
+
+def source_refs(case: dict[str, Any]) -> list[dict[str, str]]:
+    refs: list[dict[str, str]] = []
+    for raw in case.get("source_refs", []):
+        if isinstance(raw, dict) and raw.get("url"):
+            refs.append(
+                {
+                    "label": str(raw.get("label") or raw.get("url")),
+                    "url": str(raw.get("url")),
+                }
+            )
+    return refs
+
+
+def literature_open(case: dict[str, Any]) -> bool:
+    return str(case.get("result_class", "")).strip().lower() == "lower unknown"
+
+
+def source_review_label(case: dict[str, Any]) -> str:
+    value = str(case.get("review_state", "")).strip()
+    return value or "Unmarked"
+
+
+def source_stage(case: dict[str, Any]) -> str:
+    return str(case.get("verification_stage", "sourcePinned")) or "sourcePinned"
+
+
+def claim_sentence(case: dict[str, Any]) -> str:
+    setting = str(case.get("setting_title", "this setting"))
+    model = str(case.get("algorithm_or_model", "the recorded method"))
+    if literature_open(case):
+        return (
+            f"Open frontier under {setting}: SampleWiki records the matching lower-bound "
+            f"problem for {model} as unknown."
+        )
+    return (
+        f"Under {setting}, SampleWiki records the following comparison-row claim for "
+        f"{model}."
+    )
+
+
+def expression_html(label: str, raw: object) -> str:
+    value = str(raw or "").strip()
+    if not value:
+        value = "Not specified in the pinned row."
+    if value.lower() == "unknown":
+        return (
+            '<div class="sw-expression sw-expression-open">'
+            f"<span>{esc(label)}</span><strong>Unknown</strong></div>"
+        )
+    return (
+        '<div class="sw-expression">'
+        f"<span>{esc(label)}</span><div>{esc(value)}</div></div>"
+    )
+
+
+def compact_status(case: dict[str, Any], reader: dict[str, Any]) -> str:
+    case_id = str(case.get("id", ""))
+    if case_id == str(reader.get("active_case_id", "")):
+        return "partial Lean proof"
+    if literature_open(case):
+        return "literature-open"
+    return source_stage(case)
+
+
+def proof_availability(case: dict[str, Any], reader: dict[str, Any]) -> str:
+    if str(case.get("id", "")) == str(reader.get("active_case_id", "")):
+        return "ASTIS proof segment available"
+    if source_refs(case):
+        return "source reference pinned"
+    return "no primary proof source pinned"
+
+
+def badges(case: dict[str, Any], reader: dict[str, Any]) -> str:
+    bits = [
+        f'<span class="sw-badge">{esc(str(case.get("result_class", "result")))}</span>',
+        f'<span class="sw-badge sw-badge-muted">{esc(source_review_label(case))}</span>',
+        f'<span class="sw-badge sw-badge-stage">{esc(compact_status(case, reader))}</span>',
+    ]
+    return '<div class="sw-badges">' + "".join(bits) + "</div>"
+
+
+def source_links_html(case: dict[str, Any]) -> str:
+    refs = source_refs(case)
+    links = [
+        f'<a href="{esc(str(case.get("source_page", "")))}">SampleWiki setting ↗</a>'
+    ]
+    links.extend(f'<a href="{esc(ref["url"])}">{esc(ref["label"])} ↗</a>' for ref in refs)
+    return '<div class="sw-source-links">' + "".join(links) + "</div>"
+
+
+def render_lifecycle(stages: list[str]) -> str:
+    return (
+        '<div class="sw-lifecycle">'
+        + "".join(f"<span><code>{esc(stage)}</code></span>" for stage in stages)
+        + "</div>"
+    )
+
+
+def setting_cards(
+    current: str,
+    pages: list[dict[str, Any]],
+    cases_by_setting: dict[str, list[dict[str, Any]]],
+    reader: dict[str, Any],
+) -> str:
+    cards: list[str] = []
+    for page in pages:
+        slug = str(page.get("setting_slug", ""))
+        cases = cases_by_setting.get(slug, [])
+        known = sum(not literature_open(case) for case in cases)
+        open_count = sum(literature_open(case) for case in cases)
+        partial = sum(compact_status(case, reader) == "partial Lean proof" for case in cases)
+        cards.append(
+            '<a class="sw-setting-card" href="'
+            + esc(href_from(current, setting_path(slug)))
+            + '">'
+            + f'<span class="sw-setting-index">{len(cards)+1:02d}</span>'
+            + f'<h2>{esc(page.get("setting_title", slug))}</h2>'
+            + '<div class="sw-setting-counts">'
+            + f"<span>{len(cases)} rows</span><span>{known} known/cited</span>"
+            + (f"<span>{open_count} literature-open</span>" if open_count else "")
+            + (f"<span>{partial} partial Lean proof</span>" if partial else "")
+            + "</div></a>"
+        )
+    return '<div class="sw-setting-grid">' + "".join(cards) + "</div>"
+
+
+def active_case_block(
+    current: str,
+    cases: list[dict[str, Any]],
+    reader: dict[str, Any],
+) -> str:
+    active_id = str(reader.get("active_case_id", ""))
+    case = next((item for item in cases if str(item.get("id", "")) == active_id), None)
+    meta = reader.get("active_case", {})
+    if not case or not isinstance(meta, dict):
+        return '<p class="muted">No active formalization focus is registered.</p>'
+    compiled = meta.get("compiled_segment", {})
+    if not isinstance(compiled, dict):
+        compiled = {}
+    return f"""
+<article class="sw-focus-card">
+  <div class="sw-kicker">Current formalization focus</div>
+  <h2>{esc(case.get("algorithm_or_model", "Active SampleWiki case"))}</h2>
+  {badges(case, reader)}
+  <div class="formula sw-display">\\[{esc(meta.get("statement_latex", ""))}\\]</div>
+  <p>{esc(meta.get("statement_note", ""))}</p>
+  <div class="sw-focus-row">
+    <span><strong>{esc(compiled.get("status", "partial"))}</strong> {esc(compiled.get("title", ""))}</span>
+    <span><strong>{len(meta.get("open_interfaces", []))}</strong> analytic interfaces remain</span>
+  </div>
+  <a class="text-link" href="{esc(href_from(current, case_path(active_id)))}">Read the theorem and proof frontier →</a>
+</article>
+"""
+
+
+def overview_body(
+    manifest: dict[str, Any],
+    cases_manifest: dict[str, Any],
+    config: dict[str, Any],
+    reader: dict[str, Any],
+) -> str:
+    cases = [dict(x) for x in cases_manifest.get("cases", []) if isinstance(x, dict)]
+    pages = [dict(x) for x in cases_manifest.get("pages", []) if isinstance(x, dict)]
+    cases_by_setting: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for case in cases:
+        cases_by_setting[str(case.get("setting_slug", ""))].append(case)
+    open_count = sum(literature_open(case) for case in cases)
+    referenced = sum(bool(source_refs(case)) for case in cases)
+    stage_counts = Counter(source_stage(case) for case in cases)
+    return f"""
+<section class="page-hero compact sw-hero">
+  <div class="eyebrow">SampleWiki · live sampling frontier</div>
+  <h1>SampleWiki</h1>
+  <p class="lede">Read the sampling frontier by assumptions. Every comparison-row claim has its own statement, provenance, proof availability, and ASTIS formalization status.</p>
+  <div class="hero-actions">
+    <a class="button primary" href="{esc(config.get("source_url", ""))}">Open SampleWiki ↗</a>
+    <a class="button" href="{esc(href_from(OVERVIEW, PROGRESS))}">Current progress</a>
+    <a class="button" href="{esc(href_from(OVERVIEW, FRONTIER))}">Open frontier</a>
+  </div>
+</section>
+<section class="sw-metrics" aria-label="SampleWiki snapshot">
+  <div><strong>{int(cases_manifest.get("setting_count", len(pages)))}</strong><span>settings</span></div>
+  <div><strong>{int(cases_manifest.get("case_count", len(cases)))}</strong><span>source rows</span></div>
+  <div><strong>{referenced}</strong><span>rows with references</span></div>
+  <div><strong>{open_count}</strong><span>literature-open rows</span></div>
+</section>
+<section>
+  <div class="section-heading"><span>Reading directory</span><h2>Choose the assumptions first.</h2></div>
+  {setting_cards(OVERVIEW, pages, cases_by_setting, reader)}
+</section>
+<section>
+  <div class="section-heading"><span>Lean frontier</span><h2>Current formalization focus</h2></div>
+  {active_case_block(OVERVIEW, cases, reader)}
+</section>
+<section class="sw-two-column">
+  <div>
+    <div class="section-heading"><span>Source snapshot</span><h2>Pinned, not silently copied.</h2></div>
+    <dl class="sw-facts">
+      <div><dt>Pages</dt><dd>{int(manifest.get("page_count", 0))}</dd></div>
+      <div><dt>Source tree</dt><dd><code>{esc(str(manifest.get("tree_sha256", ""))[:16])}</code></dd></div>
+      <div><dt>Case tree</dt><dd><code>{esc(str(cases_manifest.get("case_tree_sha256", ""))[:16])}</code></dd></div>
+      <div><dt>Row stage</dt><dd>{esc(", ".join(f"{k}: {v}" for k, v in sorted(stage_counts.items())))}</dd></div>
+    </dl>
+  </div>
+  <div>
+    <div class="section-heading"><span>Truth boundary</span><h2>Source status ≠ proof status.</h2></div>
+    <p>A checked or cited paper is source evidence. A <code>sourcePinned</code> row is a reproducible claim. A compiled Lean segment proves only that segment. Scientific assimilation requires semantic source review.</p>
+    {render_lifecycle([str(x) for x in config.get("lifecycle", [])])}
+  </div>
+</section>
+"""
+
+
+def progress_body(
+    manifest: dict[str, Any],
+    cases_manifest: dict[str, Any],
+    reader: dict[str, Any],
+) -> str:
+    cases = [dict(x) for x in cases_manifest.get("cases", []) if isinstance(x, dict)]
+    active_id = str(reader.get("active_case_id", ""))
+    rows: list[str] = []
+    for case in cases:
+        cid = str(case.get("id", ""))
         rows.append(
-            f"""<article class="info-card">
-  <div class="depth-number">{index:02d}</div>
-  <h3><code>{astis_site.esc(stage)}</code></h3>
-  <p>{astis_site.esc(explanations.get(stage, ""))}</p>
+            "<tr>"
+            f'<td><a href="{esc(href_from(PROGRESS, case_path(cid)))}">{esc(case.get("algorithm_or_model", ""))}</a></td>'
+            f"<td>{esc(case.get('setting_title', ''))}</td>"
+            f"<td>{esc(case.get('result_class', ''))}</td>"
+            f"<td>{esc(source_review_label(case))}</td>"
+            f"<td><code>{esc(source_stage(case))}</code></td>"
+            f"<td>{esc(compact_status(case, reader))}</td>"
+            "</tr>"
+        )
+    active_case = next((c for c in cases if str(c.get("id", "")) == active_id), None)
+    return f"""
+<section class="page-hero compact sw-hero">
+  <div class="eyebrow">SampleWiki · status</div>
+  <h1>Current progress</h1>
+  <p class="lede">The source frontier and the Lean frontier are tracked separately.</p>
+  <p><a class="text-link" href="{esc(href_from(PROGRESS, OVERVIEW))}">← SampleWiki directory</a></p>
+</section>
+<section class="sw-metrics">
+  <div><strong>{int(manifest.get("page_count", 0))}</strong><span>pinned pages</span></div>
+  <div><strong>{int(cases_manifest.get("case_count", len(cases)))}</strong><span>row-level claims</span></div>
+  <div><strong>{sum(literature_open(c) for c in cases)}</strong><span>literature-open</span></div>
+  <div><strong>{1 if active_case else 0}</strong><span>cases with compiled proof segment</span></div>
+</section>
+<section>
+  <div class="section-heading"><span>Formal proof frontier</span><h2>What is actually compiled?</h2></div>
+  {active_case_block(PROGRESS, cases, reader)}
+</section>
+<section>
+  <div class="section-heading"><span>All rows</span><h2>34 source claims, exact status</h2></div>
+  <div class="table-wrap sw-progress-table"><table>
+    <thead><tr><th>Claim</th><th>Setting</th><th>Class</th><th>Source review</th><th>Source stage</th><th>ASTIS proof status</th></tr></thead>
+    <tbody>{''.join(rows)}</tbody>
+  </table></div>
+</section>
+<section class="note">
+  <h2>Snapshot identity</h2>
+  <p><code>{esc(str(manifest.get("tree_sha256", "")))}</code><br><code>{esc(str(cases_manifest.get("case_tree_sha256", "")))}</code></p>
+</section>
+"""
+
+
+def frontier_body(
+    cases_manifest: dict[str, Any],
+    reader: dict[str, Any],
+) -> str:
+    cases = [dict(x) for x in cases_manifest.get("cases", []) if isinstance(x, dict)]
+    open_cases = [case for case in cases if literature_open(case)]
+    active = reader.get("active_case", {})
+    if not isinstance(active, dict):
+        active = {}
+    open_cards = []
+    for case in open_cases:
+        cid = str(case.get("id", ""))
+        open_cards.append(
+            f"""
+<article class="sw-frontier-card">
+  <div class="sw-kicker">{esc(case.get("setting_title", ""))}</div>
+  <h2>{esc(case.get("algorithm_or_model", "Open lower bound"))}</h2>
+  {expression_html("Target", case.get("guarantee"))}
+  <p>No matching lower bound is pinned by SampleWiki. ASTIS preserves this row as <strong>literature-open</strong>; it is not replaced by a synthetic bound.</p>
+  <a class="text-link" href="{esc(href_from(FRONTIER, case_path(cid)))}">Read the exact frontier row →</a>
 </article>"""
         )
-    return "".join(rows)
-
-
-def page_rows(manifest: dict[str, Any]) -> str:
-    pages = [page for page in manifest.get("pages", []) if isinstance(page, dict)]
-    if not pages:
-        return '<p class="muted">No source pages are present in the committed snapshot.</p>'
-    rows = []
-    for page in pages[:80]:
-        title = str(page.get("title") or page.get("url") or "Untitled page")
-        url = str(page.get("url", ""))
-        headings = page.get("headings", [])
-        heading_text = " · ".join(
-            str(item.get("text", ""))
-            for item in headings[:4]
-            if isinstance(item, dict) and item.get("text")
-        )
-        rows.append(
-            "<tr>"
-            f'<td><a href="{astis_site.esc(url)}">{astis_site.esc(title)}</a></td>'
-            f"<td>{astis_site.esc(heading_text or '—')}</td>"
-            f"<td><code>{astis_site.esc(str(page.get('visible_text_sha256', ''))[:12])}</code></td>"
-            "</tr>"
-        )
-    return (
-        '<div class="table-wrap"><table><thead><tr>'
-        "<th>Source page</th><th>Headings</th><th>Text fingerprint</th>"
-        "</tr></thead><tbody>"
-        + "".join(rows)
-        + "</tbody></table></div>"
+    interfaces = "".join(
+        f"<li>{esc(item)}</li>" for item in active.get("open_interfaces", [])
     )
+    return f"""
+<section class="page-hero compact sw-hero">
+  <div class="eyebrow">SampleWiki · open problems</div>
+  <h1>Open frontier</h1>
+  <p class="lede">Separate literature-open mathematical questions from ASTIS formalization gaps.</p>
+  <p><a class="text-link" href="{esc(href_from(FRONTIER, OVERVIEW))}">← SampleWiki directory</a></p>
+</section>
+<section>
+  <div class="section-heading"><span>Literature frontier</span><h2>{len(open_cases)} matching lower bounds remain unknown.</h2></div>
+  <div class="sw-frontier-grid">{''.join(open_cards)}</div>
+</section>
+<section>
+  <div class="section-heading"><span>Formalization frontier</span><h2>Ideal proximal chain: analytic bridge still open.</h2></div>
+  <div class="formula sw-display">\\[{esc(active.get("statement_latex", ""))}\\]</div>
+  <ul class="sw-open-interfaces">{interfaces}</ul>
+  <p>The reciprocal-KL telescoping tail is compiled; these analytic interfaces are the remaining route to the full source theorem.</p>
+  <a class="text-link" href="{esc(href_from(FRONTIER, case_path(str(reader.get("active_case_id", "")))))}">Open the active proof frontier →</a>
+</section>
+"""
 
 
-def case_rows(cases_manifest: dict[str, Any]) -> str:
-    cases = [case for case in cases_manifest.get("cases", []) if isinstance(case, dict)]
-    if not cases:
-        return '<p class="muted">No row-level cases are present in the committed case manifest.</p>'
-    rows = []
-    for case in cases[:100]:
-        url = str(case.get("source_page", ""))
-        case_id = str(case.get("id", ""))
-        model = str(case.get("algorithm_or_model", ""))
-        setting = str(case.get("setting_title", case.get("setting_slug", "")))
-        result_class = str(case.get("result_class", ""))
-        review = str(case.get("review_state", ""))
-        stage = str(case.get("verification_stage", "sourcePinned"))
-        row_hash = str(case.get("row_sha256", ""))[:12]
-        rows.append(
-            "<tr>"
-            f'<td><a href="{astis_site.esc(url)}"><code>{astis_site.esc(case_id)}</code></a></td>'
-            f"<td>{astis_site.esc(setting)}</td>"
-            f"<td>{astis_site.esc(result_class)}</td>"
-            f"<td>{astis_site.esc(model)}</td>"
-            f"<td>{astis_site.esc(review)}</td>"
-            f"<td><code>{astis_site.esc(stage)}</code></td>"
-            f"<td><code>{astis_site.esc(row_hash)}</code></td>"
-            "</tr>"
-        )
-    return (
-        '<div class="table-wrap"><table><thead><tr>'
-        "<th>Case ID</th><th>Setting</th><th>Class</th><th>Algorithm / model</th>"
-        "<th>Upstream review mark</th><th>ASTIS stage</th><th>Row fingerprint</th>"
-        "</tr></thead><tbody>"
-        + "".join(rows)
-        + "</tbody></table></div>"
-    )
-
-
-def render_chapter(
-    config: dict[str, Any],
-    manifest: dict[str, Any] | None,
-    cases_manifest: dict[str, Any] | None,
+def case_card(
+    current: str,
+    case: dict[str, Any],
+    reader: dict[str, Any],
 ) -> str:
-    page_count = 0 if manifest is None else int(manifest.get("page_count", 0))
-    case_count = 0 if cases_manifest is None else int(cases_manifest.get("case_count", 0))
-    tree_hash = "" if cases_manifest is None else str(cases_manifest.get("case_tree_sha256", ""))
-
-    if manifest is None and cases_manifest is None:
-        source_state = """
-<section class="note">
-  <h2>Bootstrap source state</h2>
-  <p>No committed SampleWiki source manifests exist yet. This means the watcher
-  has not produced its first accepted snapshot on this branch; it is not a
-  claim that SampleWiki is empty or offline. ASTIS therefore makes no
-  mathematical claim about current SampleWiki cases on this page.</p>
-</section>
-"""
-    else:
-        source_state = """
-<section class="note">
-  <h2>Committed source state</h2>
-  <p>The inventories below come from deterministic SampleWiki watchers. They are
-  provenance metadata, not proof certificates. A changed result-row fingerprint
-  reopens ASTIS triage and semantic review even when an older Lean declaration
-  still compiles.</p>
-</section>
-"""
-
-    metrics = f"""
-<div class="metric-row">
-  <div><strong>{page_count if manifest is not None else '—'}</strong><span>pinned pages</span></div>
-  <div><strong>{case_count if cases_manifest is not None else '—'}</strong><span>row-level cases</span></div>
-  <div><strong>{7 if cases_manifest is not None else '—'}</strong><span>tracked settings</span></div>
-  <div><strong><code>{astis_site.esc(tree_hash[:12]) if tree_hash else 'pending'}</code></strong><span>case-tree fingerprint</span></div>
-</div>
-"""
-
-    if cases_manifest is None:
-        case_inventory = (
-            '<p class="muted">The row-level case inventory appears after the first '
-            "committed SampleWiki case snapshot. The source watcher still keeps "
-            "crawl provenance separate from mathematical verification.</p>"
-        )
-    else:
-        case_inventory = case_rows(cases_manifest)
-
-    if manifest is None:
-        page_inventory = (
-            '<p class="muted">The source-page inventory appears after the first '
-            "committed crawl snapshot.</p>"
-        )
-    else:
-        page_inventory = page_rows(manifest)
-
-    body = f"""
-<section class="page-hero compact">
-  <div class="eyebrow">Parallel chapter · live external examples · source-to-Lean</div>
-  <h1>{astis_site.esc(config["title"])}</h1>
-  <p class="lede">{astis_site.esc(config["goal"])}</p>
-  <p><a class="button primary" href="{astis_site.esc(config["source_url"])}">Open SampleWiki ↗</a></p>
-  {metrics}
-</section>
-{source_state}
-<section>
-  <div class="section-heading"><span>Truth boundary</span><h2>Seven gates, not one “verified” badge</h2></div>
-  <p>{astis_site.esc(config["admission_rule"])}</p>
-  <div class="card-grid four">{lifecycle_html(list(config["lifecycle"]))}</div>
-</section>
-<section>
-  <div class="section-heading"><span>Live result frontier</span><h2>One comparison-table row = one ASTIS source case</h2></div>
-  <p>SampleWiki is organized by sampling assumptions and comparison tables. The
-  case watcher therefore pins each result row separately: its setting, result
-  class, algorithm/model, source review mark, source links, and row fingerprint.
-  A source-pinned row is still not a Lean theorem until the later gates pass.</p>
-  {case_inventory}
-</section>
-<section>
-  <div class="section-heading"><span>Source graph</span><h2>Same-origin pages behind the cases</h2></div>
-  <p>The crawler separately records bounded page structure and cryptographic
-  fingerprints. This lets ASTIS distinguish a navigation/prose edit from a
-  changed mathematical row instead of treating the whole website as one blob.</p>
-  {page_inventory}
-</section>
-<section class="two-column">
-  <div>
-    <h2>How one case becomes Lean</h2>
-    {astis_site.list_html([
-        "Pin the exact comparison-table result row and its source references.",
-        "Write an original ASTIS mathematical restatement.",
-        "Audit visible and hidden assumptions.",
-        "Search Mathlib and Samplinglib before adding a leaf.",
-        "Formalize missing reusable leaves bottom-up.",
-        "Compile a thin source-facing assembly theorem.",
-        "Review semantic fidelity against the pinned source.",
-        "Assimilate theorem and proof-technique nodes into the shared DAG.",
-    ])}
+    cid = str(case.get("id", ""))
+    return f"""
+<article class="sw-case-card">
+  <div class="sw-case-head">
+    <div><div class="sw-kicker">{esc(case.get("result_class", ""))} · row {esc(case.get("source_row", ""))}</div>
+    <h2>{esc(case.get("algorithm_or_model", ""))}</h2></div>
+    {badges(case, reader)}
   </div>
-  <div>
-    <h2>Parallel-lane rule</h2>
-    <p>{astis_site.esc(config["parallel_policy"])}</p>
-    <p>The Example Cases lane may therefore keep advancing on source cases that
-    depend only on stable <code>main</code> declarations while Chapter 1.1 and
-    Chapter 1.2–1.3 continue independently.</p>
+  <p class="sw-claim">{esc(claim_sentence(case))}</p>
+  <div class="sw-expression-grid">
+    {expression_html("Complexity / rate", case.get("complexity"))}
+    {expression_html("Guarantee / target", case.get("guarantee"))}
+  </div>
+  <div class="sw-case-footer"><span>{esc(proof_availability(case, reader))}</span>
+  <a href="{esc(href_from(current, case_path(cid)))}">Read statement and proof status →</a></div>
+</article>
+"""
+
+
+def setting_body(
+    rel_path: str,
+    setting: dict[str, Any],
+    cases: list[dict[str, Any]],
+    reader: dict[str, Any],
+) -> str:
+    open_count = sum(literature_open(case) for case in cases)
+    return f"""
+<section class="page-hero compact sw-hero">
+  <div class="eyebrow">SampleWiki · setting</div>
+  <h1>{esc(setting.get("setting_title", ""))}</h1>
+  <p class="lede">{len(cases)} comparison-row claims under one assumption regime.</p>
+  <div class="hero-actions">
+    <a class="button primary" href="{esc(setting.get("source_page", ""))}">Open source setting ↗</a>
+    <a class="button" href="{esc(href_from(rel_path, OVERVIEW))}">SampleWiki directory</a>
   </div>
 </section>
+<section class="sw-metrics">
+  <div><strong>{len(cases)}</strong><span>rows</span></div>
+  <div><strong>{sum(not literature_open(c) for c in cases)}</strong><span>known/cited rows</span></div>
+  <div><strong>{open_count}</strong><span>literature-open rows</span></div>
+  <div><strong>{sum(compact_status(c, reader) == "partial Lean proof" for c in cases)}</strong><span>partial Lean proofs</span></div>
+</section>
+<section>
+  <div class="section-heading"><span>Frontier statements</span><h2>Results in source-table order</h2></div>
+  <div class="sw-case-list">{''.join(case_card(rel_path, case, reader) for case in cases)}</div>
+</section>
 <section class="note">
-  <h2>What counts as progress?</h2>
-  <p>A new source row is discovery progress. A source-pinned ASTIS restatement
-  is specification progress. A compiled Lean theorem is formal proof progress.
-  Semantic source review is fidelity progress. Only assimilation makes the
-  theorem and its proof technique part of the reusable Samplinglib scientific
-  graph. These states remain visible separately.</p>
+  <h2>Setting provenance</h2>
+  <p>Table fingerprint <code>{esc(str(setting.get("table_sha256", "")))}</code>. A changed fingerprint reopens source triage; it does not invalidate already-correct local Lean lemmas.</p>
 </section>
 """
-    return astis_site.page(
-        str(config["title"]),
-        "example-cases/samplewiki.html",
+
+
+def active_proof_html(reader: dict[str, Any]) -> str:
+    active = reader.get("active_case", {})
+    if not isinstance(active, dict):
+        return ""
+    compiled = active.get("compiled_segment", {})
+    if not isinstance(compiled, dict):
+        compiled = {}
+    route = "".join(
+        f"<li>{esc(step)}</li>" for step in active.get("source_proof_route", [])
+    )
+    proof_steps = []
+    for index, raw in enumerate(compiled.get("proof_steps", []), start=1):
+        if not isinstance(raw, dict):
+            continue
+        proof_steps.append(
+            '<div class="sw-proof-step">'
+            f'<span>{index:02d}</span><div class="formula sw-display">\\[{esc(raw.get("latex", ""))}\\]</div>'
+            f'<code>{esc(raw.get("lean", ""))}</code></div>'
+        )
+    interfaces = "".join(
+        f"<li>{esc(item)}</li>" for item in active.get("open_interfaces", [])
+    )
+    return f"""
+<section>
+  <div class="section-heading"><span>Available natural-language proof</span><h2>Source proof route</h2></div>
+  <ol class="sw-proof-route">{route}</ol>
+</section>
+<section>
+  <div class="section-heading"><span>Compiled segment</span><h2>{esc(compiled.get("title", ""))}</h2></div>
+  <p>Assume the analytic part has established the one-step inequality</p>
+  <div class="formula sw-display">\\[{esc(compiled.get("hypothesis_latex", ""))}\\]</div>
+  <div class="sw-proof-steps">{''.join(proof_steps)}</div>
+  <p>Hence</p>
+  <div class="formula sw-display sw-conclusion">\\[{esc(compiled.get("conclusion_latex", ""))}\\]</div>
+  <p class="sw-lean-assembly">Lean assembly: <code>{esc(compiled.get("assembly_lean", ""))}</code></p>
+</section>
+<section>
+  <div class="section-heading"><span>Remaining proof obligations</span><h2>Analytic interface</h2></div>
+  <ul class="sw-open-interfaces">{interfaces}</ul>
+</section>
+"""
+
+
+def generic_proof_html(case: dict[str, Any]) -> str:
+    refs = source_refs(case)
+    if refs:
+        note = (
+            "A source reference is pinned, but ASTIS has not yet normalized a natural-language "
+            "proof skeleton for this row."
+        )
+    else:
+        note = (
+            "No primary proof source is pinned for this row. ASTIS therefore publishes no "
+            "proof reconstruction."
+        )
+    return f"""
+<section>
+  <div class="section-heading"><span>Proof availability</span><h2>Not yet normalized in ASTIS</h2></div>
+  <p>{esc(note)}</p>
+</section>
+<section>
+  <div class="section-heading"><span>Lean status</span><h2>No source-facing proof yet</h2></div>
+  <p><code>{esc(source_stage(case))}</code> · dependency status <code>{esc(case.get("dependency_status", "untriaged"))}</code>.</p>
+</section>
+"""
+
+
+def case_body(
+    rel_path: str,
+    case: dict[str, Any],
+    reader: dict[str, Any],
+) -> str:
+    cid = str(case.get("id", ""))
+    active = cid == str(reader.get("active_case_id", ""))
+    active_meta = reader.get("active_case", {}) if active else {}
+    if not isinstance(active_meta, dict):
+        active_meta = {}
+    refs = source_refs(case)
+    ref_rows = "".join(
+        f'<li><a href="{esc(ref["url"])}">{esc(ref["label"])}</a></li>' for ref in refs
+    ) or "<li>No primary reference pinned in this row.</li>"
+    statement_formula = ""
+    if active and active_meta.get("statement_latex"):
+        statement_formula = (
+            f'<div class="formula sw-display">\\[{esc(active_meta.get("statement_latex", ""))}\\]</div>'
+        )
+    open_label = (
+        '<div class="sw-open-label">Literature-open: matching bound unknown</div>'
+        if literature_open(case)
+        else ""
+    )
+    proof = active_proof_html(reader) if active else generic_proof_html(case)
+    return f"""
+<section class="page-hero compact sw-hero">
+  <div class="eyebrow">SampleWiki · {esc(case.get("setting_title", ""))}</div>
+  <h1>{esc(case.get("algorithm_or_model", ""))}</h1>
+  {badges(case, reader)}
+  <p><a class="text-link" href="{esc(href_from(rel_path, setting_path(str(case.get("setting_slug", "")))))}">← {esc(case.get("setting_title", ""))}</a></p>
+</section>
+<section class="sw-statement">
+  <div class="section-heading"><span>Source-pinned claim</span><h2>Statement</h2></div>
+  {open_label}
+  <p>{esc(claim_sentence(case))}</p>
+  {statement_formula}
+  <div class="sw-expression-grid">
+    {expression_html("Complexity / rate", case.get("complexity"))}
+    {expression_html("Guarantee / target", case.get("guarantee"))}
+  </div>
+  <p class="sw-truth-note">This is a reproducible SampleWiki row. Until semantic normalization is complete, ASTIS does not silently strengthen it into a reviewed theorem statement.</p>
+</section>
+{proof}
+<section class="sw-two-column">
+  <div>
+    <div class="section-heading"><span>References</span><h2>Source trail</h2></div>
+    <ul>{ref_rows}</ul>
+    {source_links_html(case)}
+  </div>
+  <div>
+    <div class="section-heading"><span>Provenance</span><h2>Exact row identity</h2></div>
+    <dl class="sw-facts">
+      <div><dt>Case ID</dt><dd><code>{esc(cid)}</code></dd></div>
+      <div><dt>Row</dt><dd>{esc(case.get("source_row", ""))}</dd></div>
+      <div><dt>Row SHA</dt><dd><code>{esc(str(case.get("row_sha256", ""))[:16])}</code></dd></div>
+      <div><dt>ASTIS stage</dt><dd><code>{esc(source_stage(case))}</code></dd></div>
+    </dl>
+  </div>
+</section>
+"""
+
+
+def add_style(text: str, rel_path: str) -> str:
+    href = href_from(rel_path, f"assets/{STYLE_NAME}")
+    if href in text:
+        return text
+    if "</head>" not in text:
+        raise RuntimeError(f"cannot add SampleWiki reader stylesheet to {rel_path}")
+    return text.replace(
+        "</head>",
+        f'  <link rel="stylesheet" href="{esc(href)}">\n</head>',
+        1,
+    )
+
+
+def write_reader_page(
+    output: Path,
+    rel_path: str,
+    title: str,
+    body: str,
+    description: str,
+) -> None:
+    text = astis_site.page(
+        title,
+        rel_path,
         body,
-        description=(
-            "Live SampleWiki result-to-Lean formalization lane for ASTIS and Samplinglib"
-        ),
+        description=description,
         active="Textbook",
     )
+    astis_site.write_page(output, rel_path, add_style(text, rel_path))
 
 
-def inject_chapter_link(path: Path, href: str) -> None:
-    if not path.exists():
-        return
-    text = path.read_text(encoding="utf-8")
-    if 'data-samplewiki-example-cases="true"' in text:
-        return
-    block = f"""
-<section data-samplewiki-example-cases="true" class="note">
-  <div class="section-heading"><span>Parallel Example Cases</span><h2>SampleWiki → reviewed Lean cases</h2></div>
-  <p>Track the live comparison frontier without collapsing source discovery,
-  Lean compilation, semantic review, and DAG assimilation.</p>
-  <p><a class="text-link" href="{astis_site.esc(href)}">Open the SampleWiki Example Cases chapter →</a></p>
-</section>
-"""
-    marker = "</main>"
-    if marker not in text:
-        raise RuntimeError(f"cannot inject SampleWiki chapter link into {path}")
-    path.write_text(text.replace(marker, block + marker, 1), encoding="utf-8", newline="\n")
+def validate_site(
+    output: Path,
+    cases_manifest: dict[str, Any],
+    reader: dict[str, Any],
+) -> None:
+    errors: list[str] = []
+    cases = [dict(x) for x in cases_manifest.get("cases", []) if isinstance(x, dict)]
+    pages = [dict(x) for x in cases_manifest.get("pages", []) if isinstance(x, dict)]
+    expected = [OVERVIEW, PROGRESS, FRONTIER]
+    expected.extend(setting_path(str(page.get("setting_slug", ""))) for page in pages)
+    expected.extend(case_path(str(case.get("id", ""))) for case in cases)
+
+    for rel_path in expected:
+        path = output / rel_path
+        if not path.exists():
+            errors.append(f"missing SampleWiki reader page: {rel_path}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        if STYLE_NAME not in text:
+            errors.append(f"{rel_path}: SampleWiki stylesheet missing")
+        if "**" in text:
+            errors.append(f"{rel_path}: leaked Markdown marker")
+
+    overview = output / OVERVIEW
+    if overview.exists():
+        text = overview.read_text(encoding="utf-8")
+        for marker in ("Choose the assumptions first.", "Current formalization focus", "Source status ≠ proof status."):
+            if marker not in text:
+                errors.append(f"{OVERVIEW}: missing reader marker {marker!r}")
+
+    progress = output / PROGRESS
+    if progress.exists() and progress.read_text(encoding="utf-8").count("<tr>") < len(cases):
+        errors.append(f"{PROGRESS}: not all row-level cases appear in progress table")
+
+    open_cases = [case for case in cases if literature_open(case)]
+    frontier = output / FRONTIER
+    if frontier.exists():
+        text = frontier.read_text(encoding="utf-8")
+        for case in open_cases:
+            if str(case.get("algorithm_or_model", "")) not in text:
+                errors.append(f"{FRONTIER}: literature-open case missing: {case.get('id')}")
+
+    active_id = str(reader.get("active_case_id", ""))
+    active_page = output / case_path(active_id)
+    if active_page.exists():
+        text = active_page.read_text(encoding="utf-8")
+        for marker in (
+            "Source proof route",
+            "Reciprocal-KL telescoping tail",
+            "linear_growth_of_step_growth",
+            "reciprocal_growth_implies_inverse_time_bound",
+            "IdealProximalChain.kl_rate_from_reciprocal_step",
+            "Remaining proof obligations",
+        ):
+            if marker not in text:
+                errors.append(f"{active_page.relative_to(output)}: missing active proof marker {marker!r}")
+
+    if len(open_cases) != 4:
+        errors.append(
+            f"SampleWiki lower-unknown contract changed: expected 4 literature-open rows, found {len(open_cases)}"
+        )
+    if int(cases_manifest.get("case_count", len(cases))) != len(cases):
+        errors.append("SampleWiki case_count does not match row inventory")
+    if int(cases_manifest.get("setting_count", len(pages))) != len(pages):
+        errors.append("SampleWiki setting_count does not match setting inventory")
+
+    if errors:
+        raise RuntimeError("SampleWiki reader validation failed:\n- " + "\n- ".join(errors))
 
 
 def enrich_site(output: Path) -> None:
-    config_raw = load_json(CONFIG_PATH)
-    if not isinstance(config_raw, dict):
-        raise RuntimeError("samplewiki_example_cases.json must be an object")
-    config: dict[str, Any] = config_raw
-    manifest = object_state(MANIFEST_PATH)
-    cases_manifest = object_state(CASES_PATH)
+    config = load_object(CONFIG_PATH)
+    reader = load_object(READER_PATH)
+    manifest = load_object(MANIFEST_PATH)
+    cases_manifest = load_object(CASES_PATH)
 
-    astis_site.write_page(
+    cases = [dict(x) for x in cases_manifest.get("cases", []) if isinstance(x, dict)]
+    pages = [dict(x) for x in cases_manifest.get("pages", []) if isinstance(x, dict)]
+    cases_by_setting: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for case in cases:
+        cases_by_setting[str(case.get("setting_slug", ""))].append(case)
+
+    asset_dir = output / "assets"
+    asset_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(SOURCE_STYLE, asset_dir / STYLE_NAME)
+
+    write_reader_page(
         output,
-        "example-cases/samplewiki.html",
-        render_chapter(config, manifest, cases_manifest),
+        OVERVIEW,
+        "SampleWiki",
+        overview_body(manifest, cases_manifest, config, reader),
+        "SampleWiki sampling frontier: settings, theorem claims, proof availability, and ASTIS Lean formalization status.",
     )
-    inject_chapter_link(output / "index.html", "example-cases/samplewiki.html")
-    inject_chapter_link(
-        output / "textbook" / "index.html",
-        "../example-cases/samplewiki.html",
+    write_reader_page(
+        output,
+        PROGRESS,
+        "SampleWiki — Current progress",
+        progress_body(manifest, cases_manifest, reader),
+        "Current SampleWiki source snapshot and exact ASTIS formalization progress.",
     )
-    inject_chapter_link(
-        output / "learning-path" / "index.html",
-        "../example-cases/samplewiki.html",
+    write_reader_page(
+        output,
+        FRONTIER,
+        "SampleWiki — Open frontier",
+        frontier_body(cases_manifest, reader),
+        "Literature-open SampleWiki questions and current ASTIS formalization gaps.",
     )
+
+    for page in pages:
+        setting_slug = str(page.get("setting_slug", ""))
+        rel_path = setting_path(setting_slug)
+        write_reader_page(
+            output,
+            rel_path,
+            str(page.get("setting_title", setting_slug)),
+            setting_body(rel_path, page, cases_by_setting.get(setting_slug, []), reader),
+            f"SampleWiki setting: {page.get('setting_title', setting_slug)}.",
+        )
+
+    for case in cases:
+        cid = str(case.get("id", ""))
+        rel_path = case_path(cid)
+        write_reader_page(
+            output,
+            rel_path,
+            str(case.get("algorithm_or_model", cid)),
+            case_body(rel_path, case, reader),
+            f"SampleWiki source-pinned claim and ASTIS formalization status for {case.get('algorithm_or_model', cid)}.",
+        )
 
     site_data_path = output / "data" / "site-data.json"
-    site_data = load_json(site_data_path)
-    if not isinstance(site_data, dict):
-        raise RuntimeError("generated site-data.json must be an object")
+    site_data = load_object(site_data_path)
     site_data["samplewiki_example_cases"] = {
-        "id": config["id"],
-        "source_url": config["source_url"],
-        "lane_status": config["lane_status"],
-        "source_manifest_present": manifest is not None,
-        "case_manifest_present": cases_manifest is not None,
-        "source_tree_sha256": "" if manifest is None else manifest.get("tree_sha256", ""),
-        "case_tree_sha256": "" if cases_manifest is None else cases_manifest.get("case_tree_sha256", ""),
-        "page_count": 0 if manifest is None else manifest.get("page_count", 0),
-        "case_count": 0 if cases_manifest is None else cases_manifest.get("case_count", 0),
-        "setting_count": 0 if cases_manifest is None else cases_manifest.get("setting_count", 0),
-        "page": "example-cases/samplewiki.html",
+        "id": config.get("id", "samplewiki-example-cases"),
+        "source_url": config.get("source_url", ""),
+        "lane_status": config.get("lane_status", ""),
+        "source_tree_sha256": manifest.get("tree_sha256", ""),
+        "case_tree_sha256": cases_manifest.get("case_tree_sha256", ""),
+        "page_count": manifest.get("page_count", 0),
+        "case_count": cases_manifest.get("case_count", len(cases)),
+        "setting_count": cases_manifest.get("setting_count", len(pages)),
+        "literature_open_count": sum(literature_open(case) for case in cases),
+        "active_case_id": reader.get("active_case_id", ""),
+        "reader_pages": {
+            "overview": OVERVIEW,
+            "progress": PROGRESS,
+            "frontier": FRONTIER,
+        },
     }
     site_data_path.write_text(
         json.dumps(site_data, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
         newline="\n",
     )
+
+    validate_site(output, cases_manifest, reader)
