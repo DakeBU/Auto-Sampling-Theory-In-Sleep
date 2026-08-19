@@ -81,11 +81,12 @@ theorem edgeLength13_le_add
     _ = ENNReal.ofReal ‖p.1.1 - p.1.2‖ + ENNReal.ofReal ‖p.1.2 - p.2‖ :=
       ENNReal.ofReal_add (norm_nonneg _) (norm_nonneg _)
 
-/-- The ENNReal `L2` seminorm used by the transport proof. -/
+/-- The ENNReal `L2` seminorm used by the transport proof.  The exponent is
+written as a real `rpow`, matching Mathlib's Minkowski theorem exactly. -/
 noncomputable def l2Seminorm
     {Ω : Type*} [MeasurableSpace Ω]
     (μ : Measure Ω) (f : Ω → ℝ≥0∞) : ℝ≥0∞ :=
-  (∫⁻ x, f x ^ 2 ∂μ) ^ (1 / 2 : ℝ)
+  (∫⁻ x, f x ^ (2 : ℝ) ∂μ) ^ (1 / (2 : ℝ))
 
 /-- Monotonicity of the ENNReal `L2` seminorm. -/
 theorem l2Seminorm_mono
@@ -94,7 +95,6 @@ theorem l2Seminorm_mono
     l2Seminorm μ f ≤ l2Seminorm μ g := by
   unfold l2Seminorm
   gcongr with x
-  exact pow_le_pow_left' (hfg x) 2
 
 /-- Minkowski's inequality in the exact `p=2` form used below. -/
 theorem l2Seminorm_add_le
@@ -103,7 +103,7 @@ theorem l2Seminorm_add_le
     (hf : AEMeasurable f μ) (hg : AEMeasurable g μ) :
     l2Seminorm μ (f + g) ≤ l2Seminorm μ f + l2Seminorm μ g := by
   unfold l2Seminorm
-  simpa only [Pi.add_apply, ENNReal.rpow_two] using
+  simpa only [Pi.add_apply] using
     (ENNReal.lintegral_Lp_add_le (μ := μ) (p := (2 : ℝ)) hf hg (by norm_num))
 
 /-- The `L2` endpoint displacement of any triple joint law is bounded by the
