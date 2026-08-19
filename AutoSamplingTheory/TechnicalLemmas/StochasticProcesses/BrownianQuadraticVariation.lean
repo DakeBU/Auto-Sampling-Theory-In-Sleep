@@ -46,12 +46,12 @@ theorem increment_sq_integrable
       ((fun omega => B t omega - B s omega) *
         (fun omega => B t omega - B s omega)) mu :=
     hmem.integrable_mul hmem
-  simpa [pow_two] using hmul
+  exact hmul.congr (ae_of_all mu fun omega => by simp [pow_two])
 
 /-- The compensated square of one future Brownian increment is integrable. -/
 theorem centered_increment_sq_integrable
     (hB : IsBrownianMotionWithFiltration B filtration mu)
-    {s t : ℝ≥0} (hst : s ≤ t) :
+    {s t : ℝ≥0} (_hst : s ≤ t) :
     Integrable
       (fun omega =>
         (B t omega - B s omega) ^ 2 - ((t - s : ℝ≥0) : ℝ)) mu := by
@@ -102,8 +102,11 @@ theorem centeredSquaredIncrement_integrable
     {n : ℕ} {times : Fin (n + 1) → ℝ≥0}
     (hmono : Monotone times) (i : Fin n) :
     Integrable (centeredSquaredIncrement B times i) mu := by
-  simpa [centeredSquaredIncrement] using
-    centered_increment_sq_integrable hB (grid_cell_le hmono i)
+  change Integrable
+    (fun omega =>
+      (B (times i.succ) omega - B (times i.castSucc) omega) ^ 2 -
+        ((times i.succ - times i.castSucc : ℝ≥0) : ℝ)) mu
+  exact centered_increment_sq_integrable hB (grid_cell_le hmono i)
 
 /-- Every deterministic finite partition has zero-mean compensated quadratic
 variation error.  This is the finite-sum identity that precedes the mesh-limit
@@ -117,14 +120,20 @@ theorem integral_quadraticVariationError_eq_zero
   calc
     ∫ omega, quadraticVariationError B times omega ∂mu =
         ∑ i : Fin n, ∫ omega, centeredSquaredIncrement B times i omega ∂mu := by
-          rw [quadraticVariationError, integral_finsetSum]
+          change
+            (∫ omega, ∑ i : Fin n, centeredSquaredIncrement B times i omega ∂mu) =
+              ∑ i : Fin n, ∫ omega, centeredSquaredIncrement B times i omega ∂mu
+          rw [integral_finsetSum]
           intro i _
           exact centeredSquaredIncrement_integrable hB hmono i
     _ = 0 := by
       apply Finset.sum_eq_zero
       intro i _
-      simpa [centeredSquaredIncrement] using
-        integral_centered_increment_sq_eq_zero hB (grid_cell_le hmono i)
+      change
+        (∫ omega,
+          ((B (times i.succ) omega - B (times i.castSucc) omega) ^ 2 -
+            ((times i.succ - times i.castSucc : ℝ≥0) : ℝ)) ∂mu) = 0
+      exact integral_centered_increment_sq_eq_zero hB (grid_cell_le hmono i)
 
 /-- Expected quadratic variation on a finite deterministic grid is exactly the
 sum of the cell lengths. -/
@@ -140,7 +149,14 @@ theorem integral_quadraticVariationSum_eq_sum_cellLengths
         ∑ i : Fin n,
           ∫ omega,
             (B (times i.succ) omega - B (times i.castSucc) omega) ^ 2 ∂mu := by
-          rw [quadraticVariationSum, integral_finsetSum]
+          change
+            (∫ omega,
+              ∑ i : Fin n,
+                (B (times i.succ) omega - B (times i.castSucc) omega) ^ 2 ∂mu) =
+              ∑ i : Fin n,
+                ∫ omega,
+                  (B (times i.succ) omega - B (times i.castSucc) omega) ^ 2 ∂mu
+          rw [integral_finsetSum]
           intro i _
           exact increment_sq_integrable hB _ _
     _ = ∑ i : Fin n,
