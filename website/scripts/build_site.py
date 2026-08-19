@@ -19,6 +19,7 @@ import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
 import reader_contract_final  # noqa: E402
 import samplewiki_examples  # noqa: E402
+import samplewiki_frontier_audit  # noqa: E402
 import samplewiki_math_render  # noqa: E402
 import source_foundations  # noqa: E402
 import theorem_lessons  # noqa: E402
@@ -48,6 +49,10 @@ def main() -> int:
     # after the global IA pass so the directory is not overwritten by sidebar
     # replacement.
     samplewiki_math_render.enrich_site(output)
+    # Primary-paper theorem/proof audits are stronger than row provenance.  Keep
+    # them in a separate overlay so an unaudited row can never inherit a theorem
+    # number or proof route merely from the crawler.
+    samplewiki_frontier_audit.enrich_site(output)
     chapter1_reference_shelf.enrich_site(output)
     visual_polish.enrich_site(output)
     # Final public-reader contract.  It replaces the prose-heavy intermediate
