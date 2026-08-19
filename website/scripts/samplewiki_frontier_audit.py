@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Overlay primary-paper theorem/proof audits on generated SampleWiki reader pages.
 
-The row manifest remains the provenance source of truth.  This layer records a
+The row manifest remains the provenance source of truth. This layer records a
 strictly stronger reading state: a primary theorem/corollary and its proof route
-have actually been audited.  Missing audits remain visibly pending.
+have actually been audited. Every row receives an explicit audit state so
+"not yet audited" cannot be confused with "no proof exists".
 """
 
 from __future__ import annotations
@@ -43,6 +44,20 @@ def case_path(case_id: str) -> str:
     return f"example-cases/samplewiki/cases/{slugify(value)}.html"
 
 
+def literature_open(case: dict[str, Any]) -> bool:
+    return str(case.get("result_class", "")).strip().lower() == "lower unknown"
+
+
+def source_ref_labels(case: dict[str, Any]) -> list[str]:
+    labels: list[str] = []
+    for raw in case.get("source_refs", []):
+        if isinstance(raw, dict):
+            label = str(raw.get("label", "")).strip()
+            if label:
+                labels.append(label)
+    return labels
+
+
 def proof_equations_html(audit: dict[str, Any]) -> str:
     rows: list[str] = []
     for index, raw in enumerate(audit.get("proof_equations", []), start=1):
@@ -65,7 +80,7 @@ def audit_block(case_id: str, audit: dict[str, Any]) -> str:
         f"<li>{esc(item)}</li>" for item in audit.get("prerequisites", [])
     )
     return f"""
-<section class="sw-source-theorem-audit" data-source-theorem-audit="{esc(case_id)}">
+<section class="sw-source-theorem-audit" data-source-theorem-audit-state="audited" data-source-theorem-audit="{esc(case_id)}">
   <div class="section-heading"><span>Primary-source audit</span><h2>{esc(audit.get("theorem_label", "Source theorem"))}</h2></div>
   <dl class="sw-facts">
     <div><dt>Paper / book</dt><dd>{esc(audit.get("source_title", ""))}</dd></div>
@@ -83,6 +98,30 @@ def audit_block(case_id: str, audit: dict[str, Any]) -> str:
     <div><h3>Prerequisites before Lean assembly</h3><ul class="sw-open-interfaces">{prerequisites}</ul></div>
     <div><h3>Next Lean target</h3><p>{esc(audit.get("lean_target", ""))}</p></div>
   </div>
+</section>
+"""
+
+
+def pending_block(case: dict[str, Any]) -> str:
+    case_id = str(case.get("id", ""))
+    labels = source_ref_labels(case)
+    refs = " · ".join(labels) if labels else "No primary theorem is pinned."
+    if literature_open(case):
+        return f"""
+<section class="sw-source-theorem-audit sw-source-theorem-pending" data-source-theorem-audit-state="literature-open" data-source-theorem-audit="{esc(case_id)}">
+  <div class="section-heading"><span>Primary-source audit</span><h2>Literature-open — no theorem to formalize</h2></div>
+  <p>SampleWiki records this matching lower bound as unknown. ASTIS keeps the absence of a theorem as scientific information and will not synthesize a source statement or proof.</p>
+  <p class="sw-truth-note">Pinned trail: {esc(refs)}</p>
+</section>
+"""
+    return f"""
+<section class="sw-source-theorem-audit sw-source-theorem-pending" data-source-theorem-audit-state="pending" data-source-theorem-audit="{esc(case_id)}">
+  <div class="section-heading"><span>Primary-source audit</span><h2>Exact theorem audit pending</h2></div>
+  <p>The comparison-row bound is pinned, but ASTIS has not yet checked the exact primary theorem/corollary statement and equation-level proof route. Lean work on this source-facing case waits for that audit.</p>
+  <dl class="sw-facts">
+    <div><dt>Pinned reference</dt><dd>{esc(refs)}</dd></div>
+    <div><dt>Next source task</dt><dd>Locate the exact theorem/corollary, transcribe assumptions and displayed bound, then record the proof equations and inherited dependencies.</dd></div>
+  </dl>
 </section>
 """
 
@@ -135,28 +174,33 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
         raise RuntimeError("samplewiki_frontier_audit.case_audits must be an object")
 
     errors: list[str] = []
-    rendered = 0
-    for case_id, raw in audits.items():
-        if not isinstance(raw, dict):
-            errors.append(f"{case_id}: audit must be an object")
-            continue
-        if case_id not in known_ids:
-            errors.append(f"{case_id}: audited case is not in the pinned 34-row manifest")
-            continue
-        for field in ("theorem_label", "source_title", "source_url", "statement_latex", "audit_status", "source_proof_status", "lean_target", "phase"):
-            if not str(raw.get(field, "")).strip():
-                errors.append(f"{case_id}: missing audit field {field}")
+    rendered_audits = 0
+    rendered_states = 0
+    for case in cases:
+        case_id = str(case.get("id", ""))
         path = output / case_path(case_id)
         if not path.exists():
             errors.append(f"{case_id}: generated case page missing")
             continue
         text = path.read_text(encoding="utf-8")
-        block = audit_block(case_id, raw)
-        text, replaced = replace_generic_proof(text, block)
-        if not replaced:
-            text = inject_after_statement(text, block)
+        raw = audits.get(case_id)
+        if isinstance(raw, dict):
+            for field in ("theorem_label", "source_title", "source_url", "statement_latex", "audit_status", "source_proof_status", "lean_target", "phase"):
+                if not str(raw.get(field, "")).strip():
+                    errors.append(f"{case_id}: missing audit field {field}")
+            block = audit_block(case_id, raw)
+            text, replaced = replace_generic_proof(text, block)
+            if not replaced:
+                text = inject_after_statement(text, block)
+            rendered_audits += 1
+        else:
+            text = inject_after_statement(text, pending_block(case))
         path.write_text(text, encoding="utf-8", newline="\n")
-        rendered += 1
+        rendered_states += 1
+
+    for case_id in audits:
+        if case_id not in known_ids:
+            errors.append(f"{case_id}: audited case is not in the pinned 34-row manifest")
 
     progress = output / PROGRESS
     if not progress.exists():
@@ -170,29 +214,50 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
             text = text.replace(marker, phase_plan_html(registry) + marker, 1)
             progress.write_text(text, encoding="utf-8", newline="\n")
 
-    # Reader-level truth contract for this first source-audit packet.
-    if rendered < 6:
-        errors.append(f"expected at least 6 audited frontier cases in the first packet, rendered {rendered}")
+    if rendered_audits < 6:
+        errors.append(f"expected at least 6 audited frontier cases in the first packet, rendered {rendered_audits}")
+    if rendered_states != len(cases):
+        errors.append(f"source-theorem audit state rendered for {rendered_states}/{len(cases)} cases")
     if progress.exists():
         progress_text = progress.read_text(encoding="utf-8")
         for phase in "ABCDEFGHI":
             if f"Phase {phase}" not in progress_text:
                 errors.append(f"SampleWiki dependency roadmap missing Phase {phase}")
 
-    for case_id, raw in audits.items():
+    audited_count = pending_count = open_count = 0
+    for case in cases:
+        case_id = str(case.get("id", ""))
         path = output / case_path(case_id)
         if not path.exists():
             continue
         text = path.read_text(encoding="utf-8")
-        for marker in (
-            f'data-source-theorem-audit="{case_id}"',
-            str(raw.get("theorem_label", "")),
-            str(raw.get("source_proof_status", "")),
-            "Source theorem statement",
-            "Next Lean target",
-        ):
-            if marker not in text:
-                errors.append(f"{case_id}: generated source audit missing {marker!r}")
+        if 'data-source-theorem-audit-state="audited"' in text:
+            audited_count += 1
+        elif 'data-source-theorem-audit-state="literature-open"' in text:
+            open_count += 1
+        elif 'data-source-theorem-audit-state="pending"' in text:
+            pending_count += 1
+        else:
+            errors.append(f"{case_id}: no visible source-theorem audit state")
+
+        raw = audits.get(case_id)
+        if isinstance(raw, dict):
+            for marker in (
+                f'data-source-theorem-audit="{case_id}"',
+                str(raw.get("theorem_label", "")),
+                str(raw.get("source_proof_status", "")),
+                "Source theorem statement",
+                "Next Lean target",
+            ):
+                if marker not in text:
+                    errors.append(f"{case_id}: generated source audit missing {marker!r}")
+
+    if audited_count != rendered_audits:
+        errors.append(f"audited state mismatch: {audited_count} pages vs {rendered_audits} registry entries")
+    if open_count != 4:
+        errors.append(f"expected 4 literature-open source-audit states, found {open_count}")
+    if audited_count + pending_count + open_count != len(cases):
+        errors.append("34-row source-audit partition is incomplete")
 
     omitted_id = "ASTIS-SW-SETTING-HOLDER-SMOOTH-LOG-CONCAVE-BEST-UPPER-FORS-PROXIMAL-SAMPLER"
     omitted_path = output / case_path(omitted_id)
