@@ -1,6 +1,7 @@
 import Tests.Basic
 import Tests.BrownianMotion
 import Tests.BrownianQuadraticVariation
+import Tests.GaussianFourthMoment
 import Tests.VectorBrownianFiltration
 import Tests.EuclideanBrownianCoordinates
 import Tests.CarreDuChamp
