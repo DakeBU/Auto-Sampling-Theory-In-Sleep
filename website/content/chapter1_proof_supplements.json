@@ -65,11 +65,11 @@
     "steps": [
       {
         "formula": "\\Delta(fg)=f\\Delta g+g\\Delta f+2\\langle\\nabla f,\\nabla g\\rangle",
-        "lean": ["langevinCarreDuChamp_eq_inner"]
+        "lean": ["laplacian_mul"]
       },
       {
-        "formula": "\\langle\\nabla V,\\nabla(fg)\\rangle=f\\langle\\nabla V,\\nabla g\\rangle+g\\langle\\nabla V,\\nabla f\\rangle",
-        "lean": ["langevinCarreDuChamp_eq_inner"]
+        "formula": "\\nabla(fg)=f\\nabla g+g\\nabla f",
+        "lean": ["gradient_mul"]
       },
       {
         "formula": "\\Gamma(f,g)=\\frac12\\bigl(L(fg)-fLg-gLf\\bigr)=\\langle\\nabla f,\\nabla g\\rangle",
@@ -94,12 +94,12 @@
     "id": "chewi-1-2-langevin-generator",
     "steps": [
       {
-        "formula": "df(X_t)=\\langle\\nabla f(X_t),dX_t\\rangle+\\frac12\\,d\\langle X\\rangle_t:\\nabla^2f(X_t)",
-        "lean": ["finiteEuclidean_langevinGenerator_coordinateDisplay"]
+        "formula": "b(x)=-\\nabla V(x),\\qquad \\sigma=\\sqrt2\\,I,\\qquad \\frac12\\sigma\\sigma^{\\mathsf T}=I",
+        "lean": ["finiteEuclidean_langevinGenerator_basisDisplay"]
       },
       {
-        "formula": "dX_t=-\\nabla V(X_t)dt+\\sqrt2\\,dB_t\\quad\\Longrightarrow\\quad Lf=\\Delta f-\\langle\\nabla V,\\nabla f\\rangle",
-        "lean": ["finiteEuclidean_langevinGenerator_basisDisplay", "finiteEuclidean_langevinGenerator_coordinateDisplay"]
+        "formula": "Lf=\\langle b,\\nabla f\\rangle+\\frac12\\operatorname{Tr}(\\sigma\\sigma^{\\mathsf T}\\nabla^2f)=\\Delta f-\\langle\\nabla V,\\nabla f\\rangle",
+        "lean": ["finiteEuclidean_langevinGenerator_coordinateDisplay"]
       }
     ]
   },
@@ -120,8 +120,8 @@
     "id": "chewi-1-2-stationarity",
     "steps": [
       {
-        "formula": "\\frac{d}{dt}\\int P_tf\\,d\\pi=\\int LP_tf\\,d\\pi=0",
-        "lean": ["isInvariantOn_normalizedGibbs_on_compactlySupportedC2"]
+        "formula": "\\int Lf\\,d\\pi=0",
+        "lean": ["integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2"]
       },
       {
         "formula": "\\int P_tf\\,d\\pi=\\int f\\,d\\pi",
@@ -133,11 +133,11 @@
     "id": "chewi-1-3-poincare",
     "steps": [
       {
-        "formula": "\\frac{d}{dt}\\operatorname{Var}_\\pi(P_tf)=-2\\int\\Gamma(P_tf,P_tf)\\,d\\pi\\le-\\frac{2}{C_{\\mathrm P}}\\operatorname{Var}_\\pi(P_tf)",
-        "lean": ["exponential_decay_of_scaled_dissipation", "chewi_theorem_1_2_21_forward"]
+        "formula": "V'(t)\\le-\\frac{2}{C_{\\mathrm P}}V(t),\\qquad V(t):=\\operatorname{Var}_\\pi(P_tf)",
+        "lean": ["exponential_decay_of_scaled_dissipation"]
       },
       {
-        "formula": "\\operatorname{Var}_\\pi(P_tf)\\le e^{-2t/C_{\\mathrm P}}\\operatorname{Var}_\\pi(f)",
+        "formula": "V(t)\\le e^{-2t/C_{\\mathrm P}}V(0)",
         "lean": ["chewi_theorem_1_2_21_forward"]
       }
     ]
@@ -146,11 +146,11 @@
     "id": "chewi-1-3-log-sobolev",
     "steps": [
       {
-        "formula": "\\frac{d}{dt}\\operatorname{Ent}_\\pi(P_tf)=-\\int\\Gamma(P_tf,\\log P_tf)\\,d\\pi\\le-\\frac{2}{C_{\\mathrm{LSI}}}\\operatorname{Ent}_\\pi(P_tf)",
-        "lean": ["exponential_decay_of_scaled_dissipation", "chewi_theorem_1_2_26_forward"]
+        "formula": "H'(t)\\le-\\frac{2}{C_{\\mathrm{LSI}}}H(t),\\qquad H(t):=\\operatorname{Ent}_\\pi(P_tf)",
+        "lean": ["exponential_decay_of_scaled_dissipation"]
       },
       {
-        "formula": "\\operatorname{Ent}_\\pi(P_tf)\\le e^{-2t/C_{\\mathrm{LSI}}}\\operatorname{Ent}_\\pi(f)",
+        "formula": "H(t)\\le e^{-2t/C_{\\mathrm{LSI}}}H(0)",
         "lean": ["chewi_theorem_1_2_26_forward"]
       }
     ]
