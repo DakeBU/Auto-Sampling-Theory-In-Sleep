@@ -22,6 +22,8 @@ namespace ChewiDisplay1_1_18
 open MeasureTheory
 open scoped NNReal RealInnerProductSpace
 
+open ProgressiveL2
+
 variable {Omega iota kappa : Type*} [MeasurableSpace Omega]
   [Fintype iota] [DecidableEq iota]
   [Fintype kappa] [DecidableEq kappa]
