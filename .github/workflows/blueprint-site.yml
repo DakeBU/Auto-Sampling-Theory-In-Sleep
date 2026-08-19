@@ -88,6 +88,7 @@ jobs:
             website/scripts/source_foundations.py \
             website/scripts/theorem_lessons.py \
             website/scripts/undergrad_guides.py \
+            website/scripts/visual_polish.py \
             website/scripts/build_sites_bundle.py \
             website/scripts/lean_gate.py \
             website/scripts/ide_server.py \
