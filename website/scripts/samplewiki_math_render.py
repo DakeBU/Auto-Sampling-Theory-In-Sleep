@@ -120,7 +120,7 @@ def qualifier_fragments(raw: str) -> tuple[str, str]:
     if "in the same model" in lowered:
         suffixes.append("in the same model")
     if "\\varepsilon^2=\\beta d" in raw:
-        suffixes.append(r"at \\(\varepsilon^2=\beta d\\)")
+        suffixes.append("at ε² = β d")
 
     return prefix, "; ".join(suffixes)
 
@@ -140,7 +140,7 @@ def render_match(match: re.Match[str]) -> str:
         else ""
     )
     suffix_html = (
-        f'<div class="sw-row-context sw-row-suffix">{suffix}</div>'
+        f'<div class="sw-row-context sw-row-suffix">{html.escape(suffix)}</div>'
         if suffix
         else ""
     )
@@ -221,9 +221,12 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
         )
 
     errors: list[str] = []
+    rendered_pages: list[str] = []
     for path in sorted((output / "example-cases").rglob("*.html")):
         rel_path = path.relative_to(output).as_posix()
         text = path.read_text(encoding="utf-8")
+        if is_samplewiki_page(rel_path):
+            rendered_pages.append(text)
         for match in EXPRESSION_RE.finditer(text):
             raw = html.unescape(match.group("raw"))
             if "\\" in raw:
@@ -233,14 +236,18 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
             errors.append(f"{rel_path}: SampleWiki sidebar directory missing")
 
     # These qualifiers materially narrow the source claim and therefore must
-    # remain visible after formula recovery rather than living only in audit text.
-    corpus = "\n".join(
-        path.read_text(encoding="utf-8")
-        for path in sorted((output / "example-cases" / "samplewiki").rglob("*.html"))
+    # remain in visible context nodes, not merely in the raw audit disclosure.
+    corpus = "\n".join(rendered_pages)
+    visible_qualifier_markers = (
+        '>under LSI</div>',
+        '>on average</div>',
+        '>in the same model</div>',
+        '>TV accuracy proportional to</div>',
+        '>at ε² = β d</div>',
     )
-    for marker in ("under LSI", "on average", "in the same model", "TV accuracy proportional to", r"\varepsilon^2=\beta d"):
+    for marker in visible_qualifier_markers:
         if marker not in corpus:
-            errors.append(f"SampleWiki material qualifier missing from public reader: {marker}")
+            errors.append(f"SampleWiki visible material qualifier missing: {marker}")
 
     if errors:
         raise RuntimeError("SampleWiki presentation finalization failed:\n- " + "\n- ".join(errors))
