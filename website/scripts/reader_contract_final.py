@@ -2,10 +2,10 @@
 """Final public-reader contract for Samplinglib.
 
 This wrapper deliberately separates presentation cleanup from source evidence.
-It reuses ``math_first_reader`` for theorem/equation layout, then applies an
-ASTIS-owned formula layer to canonical Chapter 1 source cards. Audited source
-metadata is never rewritten: formula supplements are presentation restatements
-keyed by stable source-correspondence ids.
+It reuses ``math_first_reader`` for theorem/equation layout, then applies
+ASTIS-owned statement/proof equation layers to canonical Chapter 1 source
+cards. Audited source metadata is never rewritten: supplements are
+presentation restatements keyed by stable source-correspondence ids.
 """
 
 from __future__ import annotations
@@ -25,6 +25,7 @@ SOURCE_CSS = ROOT / "website" / "static" / "reader-contract-final.css"
 STYLE_NAME = "reader-contract-final.css"
 DIAGNOSTIC = ROOT / ".astis" / "reader-contract-errors.txt"
 FORMULA_SUPPLEMENTS = ROOT / "website" / "content" / "chapter1_formula_supplements.json"
+PROOF_SUPPLEMENTS = ROOT / "website" / "content" / "chapter1_proof_supplements.json"
 SOURCE_CORRESPONDENCE = ROOT / "website" / "content" / "source_correspondence.json"
 FORMULA_FIRST_SECTIONS = ("1.1", "1.2", "1.3", "1.4")
 
@@ -48,6 +49,11 @@ def _source_entries() -> dict[str, dict[str, Any]]:
 
 def _formula_supplements() -> dict[str, dict[str, Any]]:
     entries = _load_list(FORMULA_SUPPLEMENTS)
+    return {str(item.get("id", "")): item for item in entries if item.get("id")}
+
+
+def _proof_supplements() -> dict[str, dict[str, Any]]:
+    entries = _load_list(PROOF_SUPPLEMENTS)
     return {str(item.get("id", "")): item for item in entries if item.get("id")}
 
 
@@ -83,8 +89,6 @@ def _safe_replace_lesson_block(text: str, rendered: str) -> str:
 
 
 def _patch_base_gate() -> None:
-    # ``base.validate`` and ``base.enrich_site`` resolve these helpers by global
-    # lookup. Patch only presentation hooks; source and Lean evidence stay intact.
     base.validate_page = validate_page
     base.replace_lesson_block = _safe_replace_lesson_block
 
@@ -105,7 +109,49 @@ def _source_anchor(source: dict[str, Any]) -> str:
     )
 
 
-def _render_formula_supplement(source_id: str, supplement: dict[str, Any]) -> str:
+def _render_proof_supplement(source_id: str, proof: dict[str, Any] | None) -> str:
+    if not proof:
+        return ""
+    steps = proof.get("steps", [])
+    if not isinstance(steps, list) or not steps:
+        return ""
+    rendered: list[str] = []
+    for index, raw in enumerate(steps, 1):
+        if not isinstance(raw, dict):
+            continue
+        latex = str(raw.get("formula", "")).strip()
+        if not latex:
+            continue
+        lean_names = [str(name) for name in raw.get("lean", []) if str(name).strip()]
+        lean_html = ""
+        if lean_names:
+            lean_html = (
+                '<div class="source-proof-lean"><span>Lean</span> '
+                + " · ".join(f'<code>{base.esc(name)}</code>' for name in lean_names)
+                + "</div>"
+            )
+        rendered.append(
+            '<div class="source-proof-step">'
+            f'<div class="source-proof-index">{index}</div>'
+            '<div class="source-proof-equation">'
+            f'<div class="formula source-proof-formula">\\[{base.esc(latex)}\\]</div>'
+            f'{lean_html}</div></div>'
+        )
+    if not rendered:
+        return ""
+    return (
+        f'<div class="source-equation-proof" data-source-proof="{base.esc(source_id)}">'
+        '<div class="source-proof-label">Proof</div>'
+        + "".join(rendered)
+        + "</div>"
+    )
+
+
+def _render_formula_supplement(
+    source_id: str,
+    supplement: dict[str, Any],
+    proof: dict[str, Any] | None,
+) -> str:
     latex = str(supplement.get("formula", "")).strip()
     if not latex:
         raise RuntimeError(f"formula supplement {source_id} has an empty formula")
@@ -113,13 +159,19 @@ def _render_formula_supplement(source_id: str, supplement: dict[str, Any]) -> st
         f'<div class="formula source-formula formula-supplement" '
         f'data-source-formula="{base.esc(source_id)}">'
         f'\\[{base.esc(latex)}\\]</div>'
+        + _render_proof_supplement(source_id, proof)
     )
 
 
 def _inject_formula_supplements(output: Path) -> None:
     sources = _source_entries()
     supplements = _formula_supplements()
+    proofs = _proof_supplements()
     errors: list[str] = []
+
+    unknown_proofs = sorted(set(proofs) - set(sources))
+    if unknown_proofs:
+        errors.extend(f"proof supplement has no source-correspondence item: {item}" for item in unknown_proofs)
 
     for source_id, supplement in supplements.items():
         source = sources.get(source_id)
@@ -153,18 +205,27 @@ def _inject_formula_supplements(output: Path) -> None:
             f'data-source-id="{base.esc(source_id)}">'
             f'<div class="passage-label">{base.esc(source.get("source_kind", ""))}</div>'
             f'<h2>{base.esc(source.get("source_summary", ""))}</h2>'
-            + _render_formula_supplement(source_id, supplement)
+            + _render_formula_supplement(source_id, supplement, proofs.get(source_id))
         )
         text = text.replace(anchor, replacement, 1)
         path.write_text(text, encoding="utf-8", newline="\n")
 
+    # Proof supplements are intentionally attached only to source items whose
+    # public formula is supplied by this ASTIS layer in this pass.
+    unattached_proofs = sorted(
+        source_id
+        for source_id in proofs
+        if source_id in sources
+        and not str(sources[source_id].get("latex_statement", "")).strip()
+        and source_id not in supplements
+    )
+    errors.extend(f"proof supplement has no formula supplement: {item}" for item in unattached_proofs)
+
     if errors:
-        raise RuntimeError("formula supplement injection failed:\n- " + "\n- ".join(errors))
+        raise RuntimeError("formula/proof supplement injection failed:\n- " + "\n- ".join(errors))
 
 
 def _move_existing_source_formulas_before_prose(output: Path) -> None:
-    # The base generator historically emitted h2 -> prose -> formula. Canonical
-    # mathematical reading is h2 -> formula -> one concise explanation.
     pattern = re.compile(
         r'(<section class="source-passage(?: [^"]*)?"[^>]*>'
         r'.*?<div class="passage-label">.*?</div><h2>.*?</h2>)'
@@ -255,6 +316,28 @@ def _formula_coverage_errors(output: Path) -> list[str]:
     return errors
 
 
+def _proof_coverage_errors(output: Path) -> list[str]:
+    errors: list[str] = []
+    sources = _source_entries()
+    proofs = _proof_supplements()
+    for source_id, proof in proofs.items():
+        source = sources.get(source_id)
+        if source is None:
+            continue
+        section = str(source.get("section", ""))
+        path = base.section_path(output, section)
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        marker = f'data-source-proof="{base.esc(source_id)}"'
+        if marker not in text:
+            errors.append(f"{path.relative_to(output)}: missing equation proof {source_id}")
+        expected_steps = len([step for step in proof.get("steps", []) if isinstance(step, dict) and step.get("formula")])
+        if expected_steps and text.count(marker) != 1:
+            errors.append(f"{path.relative_to(output)}: duplicate or missing proof marker {source_id}")
+    return errors
+
+
 def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
     if DIAGNOSTIC.exists():
         DIAGNOSTIC.unlink()
@@ -263,8 +346,6 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
         _remove_undergrad_ladders(output)
         base.enrich_site(output)
 
-        # Complete the source-statement layer only after audited source cards
-        # exist; the supplement registry never changes source provenance.
         _inject_formula_supplements(output)
         _move_existing_source_formulas_before_prose(output)
 
@@ -297,6 +378,7 @@ def validate(output: Path = DEFAULT_OUTPUT) -> None:
             errors.append(f"missing assets/{STYLE_NAME}")
 
         errors.extend(_formula_coverage_errors(output))
+        errors.extend(_proof_coverage_errors(output))
 
         for path in output.rglob("*.html"):
             rel = path.relative_to(output)
