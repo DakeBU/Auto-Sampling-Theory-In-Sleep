@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "active_case_id": "ASTIS-SW-SETTING-LOG-CONCAVE-SMOOTH-UPPER-IDEAL-PROXIMAL-CHAIN",
+  "active_case": {
+    "source_theorem": "Chewi, Theorem 8.4.1",
+    "source_theorem_url": "https://chewisinho.github.io/main.pdf#page=234",
+    "statement_latex": "\\operatorname{KL}(\\mu_n\\Vert\\pi)\\le \\frac{R_0^2}{nh}",
+    "statement_note": "Ideal proximal chain under the log-concave, log-smooth setting recorded by SampleWiki.",
+    "source_proof_route": [
+      "Run the forward and backward heat-flow interpolation associated with one ideal proximal step.",
+      "Use KL/Fisher dissipation along the simultaneous heat flows.",
+      "Use displacement convexity of KL and the slope/transport inequality to control the Fisher term by Wasserstein distance.",
+      "Use Cauchy--Schwarz and Wasserstein contraction to obtain one-step reciprocal-KL growth.",
+      "Telescope the reciprocal inequality over n ideal steps and invert it."
+    ],
+    "compiled_segment": {
+      "title": "Reciprocal-KL telescoping tail",
+      "status": "compiled proof segment",
+      "hypothesis_latex": "\\frac{1}{K_j}+\\frac{h}{R_0^2}\\le\\frac{1}{K_{j+1}}\\qquad(j\\ge0)",
+      "conclusion_latex": "K_n\\le\\frac{R_0^2}{nh}",
+      "proof_steps": [
+        {
+          "latex": "\\frac{1}{K_0}+n\\frac{h}{R_0^2}\\le\\frac{1}{K_n}",
+          "lean": "linear_growth_of_step_growth"
+        },
+        {
+          "latex": "\\frac{1}{K_0}+\\frac{nh}{R_0^2}\\le\\frac{1}{K_n}",
+          "lean": "ring normalization"
+        },
+        {
+          "latex": "K_n\\le\\frac{R_0^2}{nh}",
+          "lean": "reciprocal_growth_implies_inverse_time_bound"
+        }
+      ],
+      "assembly_lean": "IdealProximalChain.kl_rate_from_reciprocal_step"
+    },
+    "open_interfaces": [
+      "Relative Fisher-information interface for the forward/backward heat flows.",
+      "Simultaneous heat-flow KL/Fisher dissipation.",
+      "KL displacement-convexity slope / transport bridge.",
+      "Wasserstein contraction and time-reversal glue needed to discharge the one-step reciprocal inequality."
+    ]
+  }
+}
