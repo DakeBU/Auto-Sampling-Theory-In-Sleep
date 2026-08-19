@@ -1,0 +1,175 @@
+[
+  {
+    "id": "chewi-1-2-lemma-1-2-2",
+    "steps": [
+      {
+        "formula": "(P_sP_tf)(x)=\\int_E\\!\\int_E f(z)\\,K_t(y,dz)\\,K_s(x,dy)",
+        "lean": ["chewi_lemma_1_2_2"]
+      },
+      {
+        "formula": "\\int_E\\!\\int_E f(z)\\,K_t(y,dz)\\,K_s(x,dy)=\\int_E f(z)\\,K_{s+t}(x,dz)=(P_{s+t}f)(x)",
+        "lean": ["chewi_lemma_1_2_2"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-proposition-1-2-5",
+    "steps": [
+      {
+        "formula": "\\frac{P_{t+h}f-P_tf}{h}=P_t\\!\\left(\\frac{P_hf-f}{h}\\right)\\xrightarrow[h\\downarrow0]{}P_tLf",
+        "lean": ["kolmogorov_backward_right"]
+      },
+      {
+        "formula": "\\frac{d}{dt}P_tf=P_tLf=LP_tf",
+        "lean": ["kolmogorov_backward_right"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-lemma-1-2-13",
+    "steps": [
+      {
+        "formula": "(P_hf)^2\\le P_h(f^2)\\quad(h>0)",
+        "lean": ["carreDuChamp_nonneg_of_markov_jensen_rightGenerator"]
+      },
+      {
+        "formula": "0\\le\\lim_{h\\downarrow0}\\frac{P_h(f^2)-(P_hf)^2}{2h}=\\frac12\\bigl(L(f^2)-2fLf\\bigr)=\\Gamma(f,f)",
+        "lean": ["carreDuChamp_nonneg_of_markov_jensen_rightGenerator"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-theorem-1-2-14",
+    "steps": [
+      {
+        "formula": "0=\\int L(fg)\\,d\\pi=\\int fLg\\,d\\pi+\\int gLf\\,d\\pi+2\\int\\Gamma(f,g)\\,d\\pi",
+        "lean": ["fundamental_integration_by_parts"]
+      },
+      {
+        "formula": "\\int fLg\\,d\\pi=\\int gLf\\,d\\pi\\quad\\Longrightarrow\\quad-\\int fLg\\,d\\pi=\\int\\Gamma(f,g)\\,d\\pi",
+        "lean": ["fundamental_integration_by_parts"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-corollary-1-2-15",
+    "steps": [
+      {
+        "formula": "-\\langle f,Lf\\rangle_{L^2(\\pi)}=\\int\\Gamma(f,f)\\,d\\pi\\ge0",
+        "lean": ["negativeGenerator_quadratic_nonneg"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-example-1-2-17",
+    "steps": [
+      {
+        "formula": "\\Delta(fg)=f\\Delta g+g\\Delta f+2\\langle\\nabla f,\\nabla g\\rangle",
+        "lean": ["laplacian_mul"]
+      },
+      {
+        "formula": "\\nabla(fg)=f\\nabla g+g\\nabla f",
+        "lean": ["gradient_mul"]
+      },
+      {
+        "formula": "\\Gamma(f,g)=\\frac12\\bigl(L(fg)-fLg-gLf\\bigr)=\\langle\\nabla f,\\nabla g\\rangle",
+        "lean": ["langevinCarreDuChamp_eq_inner"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-gronwall",
+    "steps": [
+      {
+        "formula": "\\frac{d}{dt}\\bigl(e^{-ct}g(t)\\bigr)=e^{-ct}\\bigl(g'(t)-cg(t)\\bigr)\\le0",
+        "lean": ["chewi_lemma_1_2_20"]
+      },
+      {
+        "formula": "g(t)\\le e^{ct}g(0)",
+        "lean": ["chewi_lemma_1_2_20"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-langevin-generator",
+    "steps": [
+      {
+        "formula": "b(x)=-\\nabla V(x),\\qquad \\sigma=\\sqrt2\\,I,\\qquad \\frac12\\sigma\\sigma^{\\mathsf T}=I",
+        "lean": ["finiteEuclidean_langevinGenerator_basisDisplay"]
+      },
+      {
+        "formula": "Lf=\\langle b,\\nabla f\\rangle+\\frac12\\operatorname{Tr}(\\sigma\\sigma^{\\mathsf T}\\nabla^2f)=\\Delta f-\\langle\\nabla V,\\nabla f\\rangle",
+        "lean": ["finiteEuclidean_langevinGenerator_coordinateDisplay"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-weighted-ibp",
+    "steps": [
+      {
+        "formula": "\\nabla(e^{-V})=-e^{-V}\\nabla V",
+        "lean": ["weightedDivergence_gibbsWeight_langevinGenerator_algebra"]
+      },
+      {
+        "formula": "\\int f(\\Delta g-\\langle\\nabla V,\\nabla g\\rangle)e^{-V}dx=-\\int\\langle\\nabla f,\\nabla g\\rangle e^{-V}dx",
+        "lean": ["integral_expNeg_langevinGenerator_rhs_eq_zero_of_contDiff_of_hasCompactSupport"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-2-stationarity",
+    "steps": [
+      {
+        "formula": "\\int Lf\\,d\\pi=0",
+        "lean": ["integral_operator_normalizedGibbs_eq_zero_on_compactlySupportedC2"]
+      },
+      {
+        "formula": "\\int P_tf\\,d\\pi=\\int f\\,d\\pi",
+        "lean": ["isInvariantOn_normalizedGibbs_on_compactlySupportedC2"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-3-poincare",
+    "steps": [
+      {
+        "formula": "V'(t)\\le-\\frac{2}{C_{\\mathrm P}}V(t),\\qquad V(t):=\\operatorname{Var}_\\pi(P_tf)",
+        "lean": ["exponential_decay_of_scaled_dissipation"]
+      },
+      {
+        "formula": "V(t)\\le e^{-2t/C_{\\mathrm P}}V(0)",
+        "lean": ["chewi_theorem_1_2_21_forward"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-3-log-sobolev",
+    "steps": [
+      {
+        "formula": "H'(t)\\le-\\frac{2}{C_{\\mathrm{LSI}}}H(t),\\qquad H(t):=\\operatorname{Ent}_\\pi(P_tf)",
+        "lean": ["exponential_decay_of_scaled_dissipation"]
+      },
+      {
+        "formula": "H(t)\\le e^{-2t/C_{\\mathrm{LSI}}}H(0)",
+        "lean": ["chewi_theorem_1_2_26_forward"]
+      }
+    ]
+  },
+  {
+    "id": "chewi-1-4-display-1-4-7",
+    "steps": [
+      {
+        "formula": "\\mathcal F(\\mu_t)\\le(1-t)\\mathcal F(\\mu)+t\\mathcal F(\\nu)-\\frac{\\alpha}{2}t(1-t)W_2^2(\\mu,\\nu)",
+        "lean": ["firstOrder_geodesicConvexity"]
+      },
+      {
+        "formula": "\\frac{\\mathcal F(\\mu_t)-\\mathcal F(\\mu)}{t}\\le\\mathcal F(\\nu)-\\mathcal F(\\mu)-\\frac{\\alpha}{2}(1-t)W_2^2(\\mu,\\nu)",
+        "lean": ["firstOrder_geodesicConvexity"]
+      },
+      {
+        "formula": "t\\downarrow0\\quad\\Longrightarrow\\quad\\mathcal F(\\nu)\\ge\\mathcal F(\\mu)+\\left.\\frac{d}{dt}\\mathcal F(\\mu_t)\\right|_{0^+}+\\frac{\\alpha}{2}W_2^2(\\mu,\\nu)",
+        "lean": ["firstOrder_geodesicConvexity"]
+      }
+    ]
+  }
+]
