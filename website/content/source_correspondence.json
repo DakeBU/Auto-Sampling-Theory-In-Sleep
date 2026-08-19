@@ -3112,5 +3112,103 @@
     ],
     "source_mapping_id": "chewi-chapter1-statement-1-1-16",
     "latex_statement": "M_t=\\int_0^t \\eta_s\\,dB_s,\\qquad M_{t\\wedge\\tau_n}=\\int_0^t \\eta_s\\mathbf 1_{\\{s\\le\\tau_n\\}}\\,dB_s"
+  },
+  {
+    "id": "chewi-1-1-definition-1-1-17",
+    "chapter": 1,
+    "section": "1.1",
+    "edition": "2026-08-09",
+    "book_page": 8,
+    "pdf_page": 20,
+    "page": "book 8 / PDF 20",
+    "source_kind": "Definition 1.1.17",
+    "source_url": "https://chewisinho.github.io/main.pdf#page=20",
+    "wording_status": "source-faithful mathematical restatement",
+    "source_summary": "Finite-dimensional Ito process",
+    "mathematical_exposition": "\\(X_t=X_0+\\int_0^t b_s\\,ds+\\int_0^t\\sigma_s\\,dB_s\\), with progressive coefficients and the stated local \\(L^1/L^2_{\\rm HS}\\) conditions.",
+    "astis_exposition": "Coordinate reduction is used only to construct the integral; the source theorem is the reassembled Euclidean-vector statement.",
+    "rigorous_packet": "One filtration, one Euclidean Brownian driver, and almost-sure local coefficient integrability are retained exactly.",
+    "lean_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDefinition1_1_17.chewi_definition_1_1_17",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDefinition1_1_17.definition_1_1_17_vector_display",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiItoProcessProgressive.process_stronglyProgressive"
+    ],
+    "source_assumptions": [
+      "X_0 is F_0-measurable",
+      "b is progressive and locally pathwise L1 almost surely",
+      "sigma is progressive and locally Hilbert--Schmidt L2 almost surely",
+      "B is one finite-dimensional Brownian motion for the same filtration"
+    ],
+    "formal_assumptions": [
+      "SatisfiesUsualConditions filtration mu",
+      "IsProbabilityMeasure mu",
+      "SourceData filtration mu with Euclidean drift and matrix diffusion",
+      "IsStandardBrownianMotionWithFiltration B filtration mu"
+    ],
+    "downstream_consumers": [
+      "display (1.1.18)",
+      "Theorem 1.1.19",
+      "SDE display (1.1.21)",
+      "Theorem 1.1.22"
+    ],
+    "status": "compiled",
+    "route_status": "compiled",
+    "local_status": "compiled",
+    "semantic_status": "progressive Euclidean Ito process with the source vector integral equation",
+    "remaining_obligations": [],
+    "proof_leaves": [
+      {
+        "node_id": "chapter1-ito-process-coordinate-regularity",
+        "label": "coordinate regularity",
+        "declarations": [
+          "driftCoordinate_integrable_ae",
+          "diffusionEntryGlobalLocalProgressiveL2"
+        ],
+        "dependencies": [
+          "entry_sq_le_matrixEnergy",
+          "matrixEnergy_eq_norm_sq"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      },
+      {
+        "node_id": "chapter1-ito-process-common-brownian-driver",
+        "label": "one Brownian driver, scalar coordinates",
+        "declarations": [
+          "coordinateFamily"
+        ],
+        "dependencies": [
+          "coordinate_isBrownianMotionWithFiltration"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      },
+      {
+        "node_id": "chapter1-ito-process-vector-display",
+        "label": "vector integral equation",
+        "declarations": [
+          "definition_1_1_17_vector_display"
+        ],
+        "dependencies": [
+          "drift_integral_coordinate",
+          "stochasticIntegral_coordinate"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      },
+      {
+        "node_id": "chapter1-ito-process-progressive",
+        "label": "vector progressiveness",
+        "declarations": [
+          "chewi_definition_1_1_17"
+        ],
+        "dependencies": [
+          "process_stronglyProgressive",
+          "definition_1_1_17_vector_display"
+        ],
+        "priority": 100,
+        "route_status": "compiled"
+      }
+    ]
   }
 ]

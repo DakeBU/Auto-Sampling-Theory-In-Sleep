@@ -410,14 +410,18 @@
       "pdf_page": 20,
       "coverage_kind": "owned_definition",
       "source_route_id": "chewi-chapter1-statement-1-1-17",
-      "source_correspondence_id": "",
-      "required_declarations": [],
-      "focused_tests": [],
-      "registry_keys": [],
-      "coverage_status": "planned",
-      "residual_blockers": [
-        "formalize or port the required filtered-space stochastic integral, localization, and Ito-calculus interface"
+      "source_correspondence_id": "chewi-1-1-definition-1-1-17",
+      "required_declarations": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDefinition1_1_17.chewi_definition_1_1_17"
       ],
+      "focused_tests": [
+        "Tests/ChewiDefinition1_1_17.lean"
+      ],
+      "registry_keys": [
+        "ito-process.chewi-definition-1-1-17"
+      ],
+      "coverage_status": "complete",
+      "residual_blockers": [],
       "source_assumptions": [
         "a complete right-continuous filtered probability space",
         "progressive or adapted processes",
@@ -430,7 +434,11 @@
         "almost-everywhere representatives",
         "stopping-time measurability where localization is used"
       ],
-      "downstream_consumers": []
+      "downstream_consumers": [
+        "Theorem 1.1.19 (Ito formula)",
+        "SDE display (1.1.21)",
+        "Theorem 1.1.22 (strong solution and Markov property)"
+      ]
     },
     {
       "number": "1.1.19",

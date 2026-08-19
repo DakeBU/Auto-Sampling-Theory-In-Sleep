@@ -4060,8 +4060,21 @@ def portQueueMemory : List LemmaMemoryEntry := [
   }
 ]
 
+def chapter1ClosureMemory : List LemmaMemoryEntry := [
+  {
+    key := "ito-process.chewi-definition-1-1-17"
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ChewiDefinition1_1_17.chewi_definition_1_1_17"
+    upstreamDecl := "Chewi Definition 1.1.17"
+    upstreamFile := "Log-Concave Sampling, Definition 1.1.17"
+    status := LemmaMemoryStatus.formalizedLocal
+    tags := ["Chewi", "Chapter-1.1", "Ito-process", "progressive", "finite-dimensional"]
+    saldUse := "Finite-dimensional Ito-process source theorem: progressive vector process plus the vector integral equation"
+    note := "Uses one Euclidean Brownian driver; local drift and Hilbert--Schmidt assumptions are not strengthened coordinatewise."
+  }
+]
+
 def technicalLemmaMemory : List LemmaMemoryEntry :=
-  analysisMemory ++ gaussianMemory ++ taylorMemory ++ calculusMemory ++ measureMemory ++ functionalInequalityMemory ++ stochasticProcessMemory ++
+  analysisMemory ++ gaussianMemory ++ taylorMemory ++ calculusMemory ++ measureMemory ++ functionalInequalityMemory ++ stochasticProcessMemory ++ chapter1ClosureMemory ++
     klDensityMemory ++ renyiDensityMemory ++ variationalMemory ++ geometryMemory ++
     saldExtractedMemory ++ portQueueMemory
 
