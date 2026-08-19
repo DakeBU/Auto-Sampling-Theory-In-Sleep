@@ -5,8 +5,8 @@ Canonical textbook pages should read like mathematics, not like a tutorial
 chat transcript.  This final post-build layer therefore:
 
 * removes the long undergraduate story ladder from canonical section pages;
-* rewrites completed Chewi theorem lessons as statement -> displayed equations
-  -> compact mathematical proof -> Lean correspondence;
+* rewrites completed Chewi lessons as source statement -> displayed equations
+  -> source proof status -> ASTIS formal expansion -> Lean correspondence;
 * removes user-facing Chinese controls and forces the Lean tutor to English;
 * repairs leaked Markdown bold markers and a small set of raw ASCII formulas;
 * fails the build on visible CJK text or leaked Markdown in generated HTML.
@@ -51,6 +51,20 @@ STATEMENT_OVERRIDES: dict[str, list[str]] = {
         r"\tau_n\uparrow\infty\ \text{a.s.}\quad\Longrightarrow\quad "
         r"M\in\mathcal M_{\mathrm{loc}}\ \text{and }M\text{ has continuous paths.}",
     ],
+}
+
+
+# Keep the source's level of detail explicit.  These cards have compiled ASTIS
+# proofs, but Chewi does not supply those expanded proofs in Section 1.1.
+SOURCE_PROOF_STATUS: dict[str, str] = {
+    "chewi-proposition-1-1-13-lesson": (
+        "Chewi explicitly says that this proposition barely needs a proof and omits it. "
+        "The expansion below is the ASTIS formal proof, not a reconstruction attributed to the book."
+    ),
+    "chewi-proposition-1-1-16-lesson": (
+        "Chewi defines the localized Itô integral through the stopped processes in (1.1.14) and says "
+        "that the technical details are omitted.  The expansion below records the ASTIS proof obligations."
+    ),
 }
 
 
@@ -233,6 +247,25 @@ def render_lesson(item: dict[str, Any]) -> str:
     if not formulas:
         formulas = [str(item.get("formula", ""))]
     statement_math = "".join(display_math(value) for value in formulas if value)
+    proof_status = SOURCE_PROOF_STATUS.get(item_id)
+    if proof_status:
+        proof_section = (
+            '<section class="math-theorem-proof math-source-proof-status">'
+            '<h3>Chewi proof status</h3>'
+            f'<p>{esc(proof_status)}</p>'
+            '<details class="reader-disclosure math-astis-proof">'
+            '<summary>ASTIS formal expansion</summary><div class="disclosure-body">'
+            f'{render_proof(item)}'
+            '</div></details>'
+            '</section>'
+        )
+    else:
+        proof_section = (
+            '<section class="math-theorem-proof">'
+            '<h3>Proof</h3>'
+            f'{render_proof(item)}'
+            '</section>'
+        )
     return f"""
 <article class="textbook-block theorem-lesson-card math-first-theorem" id="{esc(item_id)}" data-chewi-theorem="{esc(item.get('number', ''))}">
   <header class="math-theorem-header">
@@ -240,15 +273,12 @@ def render_lesson(item: dict[str, Any]) -> str:
     <h2>{esc(item.get('title', ''))}</h2>
   </header>
   <section class="math-theorem-statement">
-    <h3>Statement</h3>
-    <p>{esc(item.get('source_statement', ''))}</p>
+    <h3>Chewi statement</h3>
     {statement_math}
+    <p class="math-source-summary">{esc(item.get('source_statement', ''))}</p>
     <details class="math-assumption-disclosure"><summary>Assumptions</summary>{render_assumptions(item)}</details>
   </section>
-  <section class="math-theorem-proof">
-    <h3>Proof</h3>
-    {render_proof(item)}
-  </section>
+  {proof_section}
   {render_lean_correspondence(item)}
   {source_link(item)}
 </article>"""
@@ -258,8 +288,8 @@ def render_lesson_section(items: list[dict[str, Any]]) -> str:
     return (
         LESSON_START
         + '\n<section class="source-theorem-lessons math-first-lessons" id="source-theorem-lessons">'
-        + '<div class="section-heading"><span>Chewi results with compiled proofs</span>'
-        + '<h2>Statements and proofs</h2></div>'
+        + '<div class="section-heading"><span>Chewi results with compiled ASTIS proofs</span>'
+        + '<h2>Source statements and formal expansions</h2></div>'
         + "".join(render_lesson(item) for item in items)
         + '</section>\n'
         + LESSON_END
@@ -373,6 +403,9 @@ def validate(output: Path) -> None:
             anchor = f'id="{theorem_id}"'
             if anchor not in text:
                 errors.append(f"section-1-1.html: missing math-first theorem card {theorem_id}")
+        for theorem_id, status in SOURCE_PROOF_STATUS.items():
+            if f'id="{theorem_id}"' in text and esc(status) not in text:
+                errors.append(f"section-1-1.html: missing source proof-status note for {theorem_id}")
         for latex in (
             r"\mathbb E\!\left[M_{t\wedge\tau_n}\mid\mathcal F_s\right]",
             r"\int_0^T\eta_s^2\mathbf 1_{\{s\le\tau_n\}}",
