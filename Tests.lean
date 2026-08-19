@@ -86,6 +86,7 @@ import Tests.TimeMeasureRealBridge
 import Tests.Transport
 import Tests.TransportGluing
 import Tests.WassersteinSpace
+import Tests.WassersteinTriangle
 import Tests.WeakForwardEquation
 import Tests.AccumulatedEnergy
 import Tests.LocalProgressiveL2
