@@ -25,6 +25,7 @@ import samplewiki_math_render  # noqa: E402
 import source_foundations  # noqa: E402
 import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
+import underlying_lean_graph  # noqa: E402
 import visual_polish  # noqa: E402
 
 
@@ -62,6 +63,9 @@ def main() -> int:
     # Final public-reader contract.  It replaces the prose-heavy intermediate
     # theorem/tutorial surface without mutating audited source metadata.
     reader_contract_final.enrich_site(output)
+    # The graph is the final site overlay: it consumes the finished reader pages,
+    # exact source-audit cards, generated Lean inventory, and all final sidebars.
+    underlying_lean_graph.enrich_site(output)
     return 0
 
 
