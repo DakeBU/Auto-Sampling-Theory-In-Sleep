@@ -3,9 +3,9 @@
 
 The pinned case manifest stores browser-visible comparison-row text. KaTeX
 extraction leaves a human rendering, the embedded TeX source, then another
-human rendering. This pass recovers the TeX for MathJax and, after the global
-information-architecture pass, inserts a persistent SampleWiki directory into
-SampleWiki sidebars.
+human rendering. This pass recovers the TeX for MathJax, preserves mathematical
+qualifiers such as ``under LSI`` beside the formula, and inserts a persistent
+SampleWiki directory after the global information-architecture pass.
 """
 
 from __future__ import annotations
@@ -105,6 +105,26 @@ def math_fragment(value: str) -> str:
     return value[start:].strip()
 
 
+def qualifier_fragments(raw: str) -> tuple[str, str]:
+    """Keep source-row qualifiers that change the mathematical claim visible."""
+    prefix = ""
+    suffixes: list[str] = []
+    lowered = raw.lower()
+
+    if "tv accuracy proportional to" in lowered:
+        prefix = "TV accuracy proportional to"
+    if "under lsi" in lowered:
+        suffixes.append("under LSI")
+    if "on average" in lowered:
+        suffixes.append("on average")
+    if "in the same model" in lowered:
+        suffixes.append("in the same model")
+    if "\\varepsilon^2=\\beta d" in raw:
+        suffixes.append(r"at \\(\varepsilon^2=\beta d\\)")
+
+    return prefix, "; ".join(suffixes)
+
+
 def render_match(match: re.Match[str]) -> str:
     label = match.group("label")
     raw_html = match.group("raw")
@@ -112,10 +132,24 @@ def render_match(match: re.Match[str]) -> str:
     latex = math_fragment(raw)
     if not latex:
         return match.group(0)
+
+    prefix, suffix = qualifier_fragments(raw)
+    prefix_html = (
+        f'<div class="sw-row-context sw-row-prefix">{html.escape(prefix)}</div>'
+        if prefix
+        else ""
+    )
+    suffix_html = (
+        f'<div class="sw-row-context sw-row-suffix">{suffix}</div>'
+        if suffix
+        else ""
+    )
     return (
         '<div class="sw-expression">'
         f'<span>{label}</span>'
+        f'{prefix_html}'
         f'<div class="formula sw-row-formula">\\[{html.escape(latex, quote=True)}\\]</div>'
+        f'{suffix_html}'
         '<details class="sw-raw-row"><summary>Raw pinned row text</summary>'
         f'<div>{html.escape(raw, quote=True)}</div></details></div>'
     )
@@ -197,6 +231,17 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
                 break
         if is_samplewiki_page(rel_path) and 'data-samplewiki-directory="true"' not in text:
             errors.append(f"{rel_path}: SampleWiki sidebar directory missing")
+
+    # These qualifiers materially narrow the source claim and therefore must
+    # remain visible after formula recovery rather than living only in audit text.
+    corpus = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in sorted((output / "example-cases" / "samplewiki").rglob("*.html"))
+    )
+    for marker in ("under LSI", "on average", "in the same model", "TV accuracy proportional to", r"\varepsilon^2=\beta d"):
+        if marker not in corpus:
+            errors.append(f"SampleWiki material qualifier missing from public reader: {marker}")
+
     if errors:
         raise RuntimeError("SampleWiki presentation finalization failed:\n- " + "\n- ".join(errors))
 
