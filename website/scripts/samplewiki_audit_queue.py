@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the 34-row primary-source audit queue on SampleWiki progress."""
+"""Render the 34-row primary-source audit queue and Chewi prerequisite spine."""
 
 from __future__ import annotations
 
@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT = ROOT / "_site"
 CASES_PATH = ROOT / "research-wiki" / "source-index" / "SampleWiki_cases.json"
 AUDIT_PATH = ROOT / "website" / "content" / "samplewiki_frontier_audit.json"
+CHEWI_SPINE_PATH = ROOT / "website" / "content" / "samplewiki_chewi_spine.json"
 PROGRESS = "example-cases/samplewiki/progress.html"
 
 
@@ -99,9 +100,30 @@ def queue_html(cases: list[dict[str, Any]], audits: dict[str, Any]) -> str:
 """
 
 
+def chewi_spine_html(spine: dict[str, Any]) -> str:
+    rows: list[str] = []
+    for raw in spine.get("nodes", []):
+        if not isinstance(raw, dict):
+            continue
+        rows.append(
+            '<article class="sw-frontier-card sw-chewi-spine-node">'
+            f'<div class="sw-kicker">{esc(raw.get("id", ""))} · {esc(raw.get("status", ""))}</div>'
+            f'<h2>{esc(raw.get("title", ""))}</h2>'
+            f'<div class="formula sw-display">\\[{esc(raw.get("formula", ""))}\\]</div>'
+            '</article>'
+        )
+    return f"""
+<section class="sw-chewi-prerequisite-spine" data-samplewiki-chewi-spine="true">
+  <div class="section-heading"><span>Textbook prerequisites</span><h2>Chewi first; frontier papers second.</h2></div>
+  <div class="sw-frontier-grid">{''.join(rows)}</div>
+</section>
+"""
+
+
 def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
     cases_manifest = load_object(CASES_PATH)
     registry = load_object(AUDIT_PATH)
+    spine = load_object(CHEWI_SPINE_PATH)
     cases = [dict(item) for item in cases_manifest.get("cases", []) if isinstance(item, dict)]
     audits = registry.get("case_audits", {})
     if not isinstance(audits, dict):
@@ -111,12 +133,17 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
     if not path.exists():
         raise RuntimeError("generated SampleWiki progress page is missing")
     text = path.read_text(encoding="utf-8")
+    marker = '<section class="sw-formalization-roadmap"'
+    position = text.find(marker)
+    if position < 0:
+        raise RuntimeError("SampleWiki dependency roadmap marker missing")
+    additions = ""
     if 'data-samplewiki-audit-queue="true"' not in text:
-        marker = '<section class="sw-formalization-roadmap"'
-        position = text.find(marker)
-        if position < 0:
-            raise RuntimeError("SampleWiki dependency roadmap marker missing")
-        text = text[:position] + queue_html(cases, audits) + text[position:]
+        additions += queue_html(cases, audits)
+    if 'data-samplewiki-chewi-spine="true"' not in text:
+        additions += chewi_spine_html(spine)
+    if additions:
+        text = text[:position] + additions + text[position:]
         path.write_text(text, encoding="utf-8", newline="\n")
 
     final = path.read_text(encoding="utf-8")
@@ -126,13 +153,21 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
     expected_audited = sum(isinstance(audits.get(str(case.get("id", ""))), dict) for case in cases)
     expected_open = sum(literature_open(case) for case in cases)
     expected_pending = len(cases) - expected_audited - expected_open
-    for marker in (
+    for marker_text in (
         f'<strong>{expected_audited}</strong><span>theorem/proof audited</span>',
         f'<strong>{expected_pending}</strong><span>exact theorem audit pending</span>',
         f'<strong>{expected_open}</strong><span>literature-open</span>',
     ):
-        if marker not in final:
-            errors.append(f"SampleWiki audit queue missing coverage marker: {marker}")
+        if marker_text not in final:
+            errors.append(f"SampleWiki audit queue missing coverage marker: {marker_text}")
+
+    nodes = [dict(item) for item in spine.get("nodes", []) if isinstance(item, dict)]
+    if final.count('class="sw-frontier-card sw-chewi-spine-node"') != len(nodes):
+        errors.append("Chewi prerequisite spine node count does not match registry")
+    for raw in nodes:
+        for marker_text in (str(raw.get("id", "")), str(raw.get("title", "")), str(raw.get("formula", ""))):
+            if marker_text and marker_text not in final:
+                errors.append(f"Chewi prerequisite spine missing marker: {marker_text}")
     if errors:
         raise RuntimeError("SampleWiki primary-source audit queue failed:\n- " + "\n- ".join(errors))
 
