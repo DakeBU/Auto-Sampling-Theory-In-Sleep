@@ -23,6 +23,7 @@ import samplewiki_examples  # noqa: E402
 import samplewiki_frontier_audit  # noqa: E402
 import samplewiki_math_render  # noqa: E402
 import source_foundations  # noqa: E402
+import textbook_math_contract  # noqa: E402
 import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
 import underlying_lean_graph  # noqa: E402
@@ -60,9 +61,15 @@ def main() -> int:
     samplewiki_audit_queue.enrich_site(output)
     chapter1_reference_shelf.enrich_site(output)
     visual_polish.enrich_site(output)
-    # Final public-reader contract.  It replaces the prose-heavy intermediate
-    # theorem/tutorial surface without mutating audited source metadata.
+
+    # Patch the final reader before it runs so proof supplements are attached to
+    # audited latex-statement cards as well as formula-supplement cards.  This is
+    # what makes the canonical page a self-contained mathematical textbook when
+    # Lean and infrastructure disclosures are collapsed.
+    textbook_math_contract.patch_reader_contract(reader_contract_final)
     reader_contract_final.enrich_site(output)
+    textbook_math_contract.enrich_site(output, reader_contract_final)
+
     # The graph is the final site overlay: it consumes the finished reader pages,
     # exact source-audit cards, generated Lean inventory, and all final sidebars.
     underlying_lean_graph.enrich_site(output)
