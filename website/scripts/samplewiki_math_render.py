@@ -1,22 +1,28 @@
 #!/usr/bin/env python3
-"""Recover readable MathJax expressions from SampleWiki row text.
+"""Finalize the reader-facing SampleWiki presentation.
 
-The pinned case manifest stores browser-visible comparison-row text.  KaTeX
+The pinned case manifest stores browser-visible comparison-row text. KaTeX
 extraction leaves a human rendering, the embedded TeX source, then another
-human rendering.  This presentation-only pass extracts the embedded TeX for
-reading while keeping the exact raw pinned row text in a disclosure.
+human rendering. This pass recovers the TeX for MathJax and, after the global
+information-architecture pass, inserts a persistent SampleWiki directory into
+SampleWiki sidebars.
 """
 
 from __future__ import annotations
 
 import html
+import json
+import posixpath
 import re
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT = ROOT / "_site"
-SAMPLEWIKI_ROOT = Path("example-cases")
+CASES_PATH = ROOT / "research-wiki" / "source-index" / "SampleWiki_cases.json"
+OVERVIEW = "example-cases/samplewiki.html"
+PROGRESS = "example-cases/samplewiki/progress.html"
+FRONTIER = "example-cases/samplewiki/frontier.html"
 
 EXPRESSION_RE = re.compile(
     r'<div class="sw-expression">'
@@ -24,6 +30,30 @@ EXPRESSION_RE = re.compile(
     r'<div>(?P<raw>.*?)</div></div>',
     flags=re.S,
 )
+
+
+def load_cases() -> dict[str, object]:
+    raw = json.loads(CASES_PATH.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        raise RuntimeError("SampleWiki_cases.json must contain an object")
+    return raw
+
+
+def href_from(current: str, target: str) -> str:
+    start = posixpath.dirname(current) or "."
+    return posixpath.relpath(target, start=start)
+
+
+def slugify(value: str) -> str:
+    return re.sub(r"[^A-Za-z0-9]+", "-", value).strip("-").lower() or "setting"
+
+
+def setting_path(setting_slug: str) -> str:
+    return f"example-cases/samplewiki/settings/{slugify(setting_slug)}.html"
+
+
+def is_samplewiki_page(rel_path: str) -> bool:
+    return rel_path == OVERVIEW or rel_path.startswith("example-cases/samplewiki/")
 
 
 def math_fragment(value: str) -> str:
@@ -91,33 +121,84 @@ def render_match(match: re.Match[str]) -> str:
     )
 
 
+def current_attr(current: str, target: str) -> str:
+    return ' aria-current="page"' if current == target else ""
+
+
+def sidebar_directory(rel_path: str, pages: list[dict[str, object]]) -> str:
+    setting_links = []
+    for page in pages:
+        setting_slug = str(page.get("setting_slug", ""))
+        target = setting_path(setting_slug)
+        setting_links.append(
+            f'<a href="{html.escape(href_from(rel_path, target), quote=True)}"'
+            f'{current_attr(rel_path, target)}>{html.escape(str(page.get("setting_title", setting_slug)))}</a>'
+        )
+    return f"""
+<section class="sidebar-group sw-sidebar-directory" data-samplewiki-directory="true">
+  <h2>SampleWiki contents</h2>
+  <nav>
+    <a href="{html.escape(href_from(rel_path, OVERVIEW), quote=True)}"{current_attr(rel_path, OVERVIEW)}>Overview</a>
+    <a href="{html.escape(href_from(rel_path, PROGRESS), quote=True)}"{current_attr(rel_path, PROGRESS)}>Current progress</a>
+    <a href="{html.escape(href_from(rel_path, FRONTIER), quote=True)}"{current_attr(rel_path, FRONTIER)}>Open frontier</a>
+  </nav>
+  <details class="sw-sidebar-settings" open>
+    <summary>Settings</summary>
+    <nav>{''.join(setting_links)}</nav>
+  </details>
+</section>
+"""
+
+
+def inject_directory(text: str, rel_path: str, pages: list[dict[str, object]]) -> str:
+    if not is_samplewiki_page(rel_path):
+        return text
+    if 'data-samplewiki-directory="true"' in text:
+        return text
+    marker = '<details class="book-nav"'
+    position = text.find(marker)
+    if position < 0:
+        raise RuntimeError(f"{rel_path}: global sidebar book marker missing")
+    return text[:position] + sidebar_directory(rel_path, pages) + text[position:]
+
+
 def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
-    root = output / SAMPLEWIKI_ROOT
-    if not root.exists():
-        raise RuntimeError("generated SampleWiki reader root is missing")
+    cases = load_cases()
+    pages = [dict(item) for item in cases.get("pages", []) if isinstance(item, dict)]
 
     converted = 0
-    for path in sorted(root.rglob("*.html")):
+    touched = 0
+    for path in sorted((output / "example-cases").rglob("*.html")):
+        rel_path = path.relative_to(output).as_posix()
         text = path.read_text(encoding="utf-8")
         text, count = EXPRESSION_RE.subn(render_match, text)
         converted += count
+        if is_samplewiki_page(rel_path):
+            text = inject_directory(text, rel_path, pages)
+            touched += 1
         path.write_text(text, encoding="utf-8", newline="\n")
 
     if converted == 0:
         raise RuntimeError("SampleWiki math renderer found no row expressions")
+    if touched != 3 + len(pages) + int(cases.get("case_count", 0)):
+        raise RuntimeError(
+            f"SampleWiki directory touched {touched} pages; expected "
+            f"{3 + len(pages) + int(cases.get('case_count', 0))}"
+        )
 
     errors: list[str] = []
-    for path in sorted(root.rglob("*.html")):
+    for path in sorted((output / "example-cases").rglob("*.html")):
+        rel_path = path.relative_to(output).as_posix()
         text = path.read_text(encoding="utf-8")
         for match in EXPRESSION_RE.finditer(text):
             raw = html.unescape(match.group("raw"))
             if "\\" in raw:
-                errors.append(
-                    f"{path.relative_to(output)}: TeX-bearing row expression was not converted"
-                )
+                errors.append(f"{rel_path}: TeX-bearing row expression was not converted")
                 break
+        if is_samplewiki_page(rel_path) and 'data-samplewiki-directory="true"' not in text:
+            errors.append(f"{rel_path}: SampleWiki sidebar directory missing")
     if errors:
-        raise RuntimeError("SampleWiki math rendering failed:\n- " + "\n- ".join(errors))
+        raise RuntimeError("SampleWiki presentation finalization failed:\n- " + "\n- ".join(errors))
 
 
 if __name__ == "__main__":
