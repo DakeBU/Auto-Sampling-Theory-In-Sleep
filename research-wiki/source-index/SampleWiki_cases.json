@@ -1,0 +1,990 @@
+{
+  "schema_version": 1,
+  "source_id": "SAMPLEWIKI",
+  "root_url": "https://samplewiki.morning-recipe-422a.workers.dev/",
+  "case_unit": "comparison-table row",
+  "truth_boundary": "sourcePinned candidates are not Lean-verified or semantically reviewed",
+  "setting_count": 7,
+  "case_count": 34,
+  "pages": [
+    {
+      "setting_slug": "setting-convex-body-membership",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-convex-body-membership",
+      "setting_title": "Convex body + membership oracle",
+      "row_count": 4,
+      "table_sha256": "c35ff8da88aac315d07a42ddcbd4bedf8e67fe5df7ff914da8c5b9c3f0931de4"
+    },
+    {
+      "setting_slug": "setting-functional-inequality-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-functional-inequality-smooth",
+      "setting_title": "Log-smooth + PI or LSI",
+      "row_count": 5,
+      "table_sha256": "c24e0f4f1d29cfd0940e4d5b0e0bd66ca89ff68719d7a8faf1b6394079d510d6"
+    },
+    {
+      "setting_slug": "setting-holder-smooth-log-concave",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-holder-smooth-log-concave",
+      "setting_title": "Weakly smooth log-concave",
+      "row_count": 4,
+      "table_sha256": "cbfde62d895da57cdabbb2074a8afae26c79490eb0214d9891440ebc97e415cc"
+    },
+    {
+      "setting_slug": "setting-log-concave-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-log-concave-smooth",
+      "setting_title": "Log-concave + log-smooth",
+      "row_count": 5,
+      "table_sha256": "898ac3fe0623ecf7e52dd1dce202bc62515e4118212f5c6f187845f6103d370d"
+    },
+    {
+      "setting_slug": "setting-nonlogconcave-fisher",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-nonlogconcave-fisher",
+      "setting_title": "Smooth non-log-concave + Fisher accuracy",
+      "row_count": 5,
+      "table_sha256": "0e7c7f0391888ce3776b11fec525464784215e6c4c3cdb897dcf70760d4272ed"
+    },
+    {
+      "setting_slug": "setting-stochastic-finite-sum",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-stochastic-finite-sum",
+      "setting_title": "Stochastic and finite-sum oracles",
+      "row_count": 5,
+      "table_sha256": "bf5dabb6ed541acf7ec0d0f0de875fcdb227258a8f8d6d16dcf1dfa1912cf60c"
+    },
+    {
+      "setting_slug": "setting-strongly-log-concave-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-strongly-log-concave-smooth",
+      "setting_title": "Strongly log-concave + log-smooth",
+      "row_count": 6,
+      "table_sha256": "3edbeb83a9ffdd05b240f904029d4c5e9d5a445bdfbe3b41f2cd5336dce42101"
+    }
+  ],
+  "cases": [
+    {
+      "id": "ASTIS-SW-SETTING-CONVEX-BODY-MEMBERSHIP-BEST-UPPER-PROXIMAL-IN-AND-OUT-WITH-RESTART",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-convex-body-membership",
+      "setting_title": "Convex body + membership oracle",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-convex-body-membership",
+      "source_row": 1,
+      "result_class": "best upper",
+      "algorithm_or_model": "Proximal / In-and-Out with restart",
+      "complexity": "O ~ ( q d 2 Λ log ⁡ 6 ( 1 / ε ) ) \\widetilde O(qd^2\\Lambda\\log^6(1/\\varepsilon)) O ( q d 2 Λ lo g 6 ( 1/ ε ))",
+      "guarantee": "R q ≤ ε \\mathcal R_q\\le\\varepsilon R q ​ ≤ ε",
+      "review_state": "Cited preprint",
+      "source_refs": [
+        {
+          "label": "Kook–Vempala (2026), Theorem 1.1, v2",
+          "url": "https://arxiv.org/abs/2507.18021"
+        }
+      ],
+      "oracle_start_sha256": "d5b4c3c12294900f7affc58823824dfa023c1d197207c40cba8a47fecfee0741",
+      "assumptions_notes_sha256": "95cc38abe34ad119f675024451de183f122ceabb0f1c72ecaba20f1a4e1be34b",
+      "row_sha256": "4ed82a9e159febc08a75b959579b12b7e9d19119315694041f591656846892d5",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-CONVEX-BODY-MEMBERSHIP-LOWER-UNKNOWN-GENERAL-SAMPLING-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-convex-body-membership",
+      "setting_title": "Convex body + membership oracle",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-convex-body-membership",
+      "source_row": 2,
+      "result_class": "lower unknown",
+      "algorithm_or_model": "General sampling lower bound",
+      "complexity": "Unknown",
+      "guarantee": "Membership-query sampling in matching divergence",
+      "review_state": "Unverified no primary source",
+      "source_refs": [
+        {
+          "label": "Kook–Vempala (2026), Gaussian-annealing obstruction",
+          "url": "https://arxiv.org/abs/2507.18021"
+        }
+      ],
+      "oracle_start_sha256": "267b80e8ac12cfa9b465a662c12e62d8577c7f11ccfd4ec7d5a5f12cd08eba13",
+      "assumptions_notes_sha256": "37186b83ce2fa6ef6cf71d5a6a77b06afb3b94c48ec3d96da6c0d686dae4df7a",
+      "row_sha256": "c6e6860a0fdc6297f2740c00995461bcb841a339b9f042e9785464370436be96",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-CONVEX-BODY-MEMBERSHIP-UPPER-R-NYI-PRESERVING-ANNEALING",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-convex-body-membership",
+      "setting_title": "Convex body + membership oracle",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-convex-body-membership",
+      "source_row": 3,
+      "result_class": "upper",
+      "algorithm_or_model": "Rényi-preserving annealing",
+      "complexity": "O ~ ( q d 2 R 3 / 2 Λ 1 / 4 + q d 2 Λ log ⁡ 7 ( 1 / ε ) ) \\widetilde O(qd^2R^{3/2}\\Lambda^{1/4}+qd^2\\Lambda\\log^7(1/\\varepsilon)) O ( q d 2 R 3/2 Λ 1/4 + q d 2 Λ lo g 7 ( 1/ ε ))",
+      "guarantee": "R q ≤ ε \\mathcal R_q\\le\\varepsilon R q ​ ≤ ε",
+      "review_state": "Cited preprint",
+      "source_refs": [
+        {
+          "label": "Kook–Vempala (2026), Corollary 1.6, v2",
+          "url": "https://arxiv.org/abs/2507.18021"
+        }
+      ],
+      "oracle_start_sha256": "96e3232cf58ec2b339ffd145762b8e5d26cf897f5c5e74d8b8fbb0ea373f53d6",
+      "assumptions_notes_sha256": "82ef16613eea19360a77d5644201d1042a50ed594ecbe48d7f7aef6281fe4209",
+      "row_sha256": "2d7d9bcc05adedf1eaf8de17904d9dd1d439eaf336033a90a621d387a8972ae3",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-CONVEX-BODY-MEMBERSHIP-UPPER-CONSTRAINED-PROXIMAL-SAMPLER",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-convex-body-membership",
+      "setting_title": "Convex body + membership oracle",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-convex-body-membership",
+      "source_row": 4,
+      "result_class": "upper",
+      "algorithm_or_model": "Constrained proximal sampler",
+      "complexity": "O ~ ( d 3 polylog ⁡ ( 1 / ε ) ) \\widetilde O(d^3\\,\\operatorname{polylog}(1/\\varepsilon)) O ( d 3 polylog ( 1/ ε ))",
+      "guarantee": "R ∞ ≤ ε \\mathcal R_\\infty\\le\\varepsilon R ∞ ​ ≤ ε",
+      "review_state": "Checked published",
+      "source_refs": [
+        {
+          "label": "Kook–Zhang (SODA 2025)",
+          "url": "https://arxiv.org/abs/2407.12967"
+        }
+      ],
+      "oracle_start_sha256": "416b7e82c4051fe413a810be3cffa6db444fce7e66a1ff31e62033c07b34370a",
+      "assumptions_notes_sha256": "6be528dfb985f361e531378fd756d4ba7721bc5ee60ca0721a31decc81f666f7",
+      "row_sha256": "f1655943a18e3e043a7258cfcbe0fb1ef05f751c08eda8ece17ad9f25eae9560",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-FUNCTIONAL-INEQUALITY-SMOOTH-BEST-UPPER-IMPLEMENTED-PROXIMAL-SAMPLER",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-functional-inequality-smooth",
+      "setting_title": "Log-smooth + PI or LSI",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-functional-inequality-smooth",
+      "source_row": 1,
+      "result_class": "best upper",
+      "algorithm_or_model": "Implemented proximal sampler",
+      "complexity": "O ~ ( κ d polylog ⁡ ( KL ⁡ 0 / ε 2 ) ) \\widetilde O(\\kappa\\sqrt d\\,\\operatorname{polylog}(\\sqrt{\\operatorname{KL}_0}/\\varepsilon^2)) O ( κ d ​ polylog ( KL 0 ​ ​ / ε 2 ))",
+      "guarantee": "∥ μ N − π ∥ T V ≤ ε \\lVert\\mu_N-\\pi\\rVert_{\\rm TV}\\le\\varepsilon ∥ μ N ​ − π ∥ TV ​ ≤ ε under LSI",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Corollary 8.6.3",
+          "url": "https://chewisinho.github.io/main.pdf#page=238"
+        }
+      ],
+      "oracle_start_sha256": "7783fb5729d6ed0cd743803fc7ef2c66a74b70837cc82b4722f1b354b304de11",
+      "assumptions_notes_sha256": "5eb9451d0eeb5e70095787faff9438fd927ebb305227a9263030c2f9a4d36a75",
+      "row_sha256": "c9e8f2e80e43d4161d4e079ed9b7bee8c9d3d1e1216de644be4cf766b97a30b8",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-FUNCTIONAL-INEQUALITY-SMOOTH-LOWER-UNKNOWN-MATCHING-PI-LSI-ORACLE-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-functional-inequality-smooth",
+      "setting_title": "Log-smooth + PI or LSI",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-functional-inequality-smooth",
+      "source_row": 2,
+      "result_class": "lower unknown",
+      "algorithm_or_model": "Matching PI/LSI oracle lower bound",
+      "complexity": "Unknown",
+      "guarantee": "Same functional-inequality class",
+      "review_state": "Unverified no primary source",
+      "source_refs": [],
+      "oracle_start_sha256": "e7422ff8dd6825fb4b2bc8899ef5ec0e753d447b3aed3dea63d21555b404f292",
+      "assumptions_notes_sha256": "1e85ce9b9125a25b9fb96625800bf76011e29564b9a276d0f864bb2a0250b006",
+      "row_sha256": "9b29d80a3e134347905e4b360732e03a8fa324ed565b030943d94991439af74b",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-FUNCTIONAL-INEQUALITY-SMOOTH-UPPER-LMC",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-functional-inequality-smooth",
+      "setting_title": "Log-smooth + PI or LSI",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-functional-inequality-smooth",
+      "source_row": 3,
+      "result_class": "upper",
+      "algorithm_or_model": "LMC",
+      "complexity": "O ~ ( κ 2 d / ε 2 ) \\widetilde O(\\kappa^2d/\\varepsilon^2) O ( κ 2 d / ε 2 )",
+      "guarantee": "KL ⁡ ≤ ε \\sqrt{\\operatorname{KL}}\\le\\varepsilon KL ​ ≤ ε under LSI",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 4.2.7",
+          "url": "https://chewisinho.github.io/main.pdf#page=142"
+        }
+      ],
+      "oracle_start_sha256": "6d314d04855d3e2b8530fca5b8c27c750b32304001d233edd28e7ca1f3a76e6f",
+      "assumptions_notes_sha256": "562f916226be68656f4fe20f9110a929a48769163673bab6d09770c2992bb83c",
+      "row_sha256": "9d98df6c5e8496bb8077d7779ef3a2a99874beb82628c32c6464a122e1e390f1",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-FUNCTIONAL-INEQUALITY-SMOOTH-UPPER-LMC-R-NYI-INTERPOLATION",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-functional-inequality-smooth",
+      "setting_title": "Log-smooth + PI or LSI",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-functional-inequality-smooth",
+      "source_row": 4,
+      "result_class": "upper",
+      "algorithm_or_model": "LMC Rényi interpolation",
+      "complexity": "O ~ ( κ 2 d q ε − 2 log ⁡ R 2 ( μ 0 ∥ π ) ) \\widetilde O(\\kappa^2dq\\,\\varepsilon^{-2}\\log\\mathcal R_2(\\mu_0\\Vert\\pi)) O ( κ 2 d q ε − 2 lo g R 2 ​ ( μ 0 ​ ∥ π ))",
+      "guarantee": "R q ≤ ε \\sqrt{\\mathcal R_q}\\le\\varepsilon R q ​ ​ ≤ ε under LSI",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 6.1.2",
+          "url": "https://chewisinho.github.io/main.pdf#page=187"
+        }
+      ],
+      "oracle_start_sha256": "166c455daee2c55fd6165440e4609f6f1b2dee9db12e64fc4cd5718d248b7976",
+      "assumptions_notes_sha256": "e4b2d8498d4c595949bd238527aa14a06ff538b9f2c3b4d1af1183f3d77f9107",
+      "row_sha256": "0273c4725e5e6b436c19805741b910b01a8595f8e260b0a490d50c9eb0242e19",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-FUNCTIONAL-INEQUALITY-SMOOTH-UPPER-ULMC-WARM-START-CONSTRUCTION",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-functional-inequality-smooth",
+      "setting_title": "Log-smooth + PI or LSI",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-functional-inequality-smooth",
+      "source_row": 5,
+      "result_class": "upper",
+      "algorithm_or_model": "ULMC warm-start construction",
+      "complexity": "O ~ ( κ 3 / 2 d / ε ) \\widetilde O(\\kappa^{3/2}\\sqrt d/\\varepsilon) O ( κ 3/2 d ​ / ε )",
+      "guarantee": "∥ μ N − π ∥ T V ≤ ε \\lVert\\mu_N-\\pi\\rVert_{\\rm TV}\\le\\varepsilon ∥ μ N ​ − π ∥ TV ​ ≤ ε under LSI",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Corollary 6.3.2",
+          "url": "https://chewisinho.github.io/main.pdf#page=196"
+        }
+      ],
+      "oracle_start_sha256": "ddfa4b6ae21a357e590536c2961285590d26209abde6e26b1868be02d9011017",
+      "assumptions_notes_sha256": "b6570b9c560bd705828e3f694d83d17b10b3421b280dae877e53f2d5251451e8",
+      "row_sha256": "24cf96a6b73ad86f107571ce4972c5e1feafbfe6f2bf4ee82a67addcd3595931",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-HOLDER-SMOOTH-LOG-CONCAVE-BEST-UPPER-FORS-PROXIMAL-SAMPLER",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-holder-smooth-log-concave",
+      "setting_title": "Weakly smooth log-concave",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-holder-smooth-log-concave",
+      "source_row": 1,
+      "result_class": "best upper",
+      "algorithm_or_model": "FORS + proximal sampler",
+      "complexity": "O ~ ( β s 2 / ( 1 + s ) d s / ( 1 + s ) R 0 2 / ε 2 ) \\widetilde O(\\beta_s^{2/(1+s)}d^{s/(1+s)}R_0^2/\\varepsilon^2) O ( β s 2/ ( 1 + s ) ​ d s / ( 1 + s ) R 0 2 ​ / ε 2 )",
+      "guarantee": "KL ⁡ ≤ ε 2 \\operatorname{KL}\\le\\varepsilon^2 KL ≤ ε 2",
+      "review_state": "Cited preprint",
+      "source_refs": [
+        {
+          "label": "Chen et al. (2026), Theorem G.1(3)",
+          "url": "https://arxiv.org/abs/2602.01338"
+        }
+      ],
+      "oracle_start_sha256": "72abeefd4d2cb4ae969a1f058e161ca9cdd5407ad86fb58ff25f60f0129d3fff",
+      "assumptions_notes_sha256": "3d66bec6b33e8450397b5e0df40aebfc1ac8fa421cdcb9894250e68ba98d800a",
+      "row_sha256": "edb3cd2cfcacb3555b04989548b1be060c65e0d0ff55a50a5ce39cf3f69f44cd",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-HOLDER-SMOOTH-LOG-CONCAVE-LOWER-UNKNOWN-MATCHING-H-LDER-MODEL-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-holder-smooth-log-concave",
+      "setting_title": "Weakly smooth log-concave",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-holder-smooth-log-concave",
+      "source_row": 2,
+      "result_class": "lower unknown",
+      "algorithm_or_model": "Matching Hölder-model lower bound",
+      "complexity": "Unknown",
+      "guarantee": "Same KL and first-order model",
+      "review_state": "Unverified no primary source",
+      "source_refs": [],
+      "oracle_start_sha256": "bfcde35623657486a636f54d28d301567a11c2bd4a101a3bd659501c5cb33c3a",
+      "assumptions_notes_sha256": "1e85ce9b9125a25b9fb96625800bf76011e29564b9a276d0f864bb2a0250b006",
+      "row_sha256": "26432c8ed091c5d9c5365411f7244ff838e581ce2b0da9652f3cb592b33f0814",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-HOLDER-SMOOTH-LOG-CONCAVE-UPPER-AVERAGED-LMC",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-holder-smooth-log-concave",
+      "setting_title": "Weakly smooth log-concave",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-holder-smooth-log-concave",
+      "source_row": 3,
+      "result_class": "upper",
+      "algorithm_or_model": "Averaged LMC",
+      "complexity": "O ( L 2 R 0 2 / ε 4 ) O(L^2R_0^2/\\varepsilon^4) O ( L 2 R 0 2 ​ / ε 4 )",
+      "guarantee": "KL ⁡ ≤ ε \\sqrt{\\operatorname{KL}}\\le\\varepsilon KL ​ ≤ ε",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 4.3.11",
+          "url": "https://chewisinho.github.io/main.pdf#page=146"
+        }
+      ],
+      "oracle_start_sha256": "9b112676d5202a5ea463a31bee41e9ec4977d47ab96487b80c8a9a93e5c1afe7",
+      "assumptions_notes_sha256": "fa94c6fafb5d354fc278d0dc4bb3fda7fe3f2b3a0eb77beb662a01c6df8c872c",
+      "row_sha256": "babd7760e8082ef4701bcacc082f013fc0db9d325a0c5240a00b022cbf7c4bf6",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-HOLDER-SMOOTH-LOG-CONCAVE-UPPER-NONSMOOTH-MIRROR-LANGEVIN",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-holder-smooth-log-concave",
+      "setting_title": "Weakly smooth log-concave",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-holder-smooth-log-concave",
+      "source_row": 4,
+      "result_class": "upper",
+      "algorithm_or_model": "Nonsmooth mirror-Langevin",
+      "complexity": "O ( L 2 D ϕ ( π , μ 0 + ) / ε 4 ) O(L^2D_\\phi(\\pi,\\mu_{0+})/\\varepsilon^4) O ( L 2 D ϕ ​ ( π , μ 0 + ​ ) / ε 4 )",
+      "guarantee": "KL ⁡ ≤ ε \\sqrt{\\operatorname{KL}}\\le\\varepsilon KL ​ ≤ ε",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 10.3.28",
+          "url": "https://chewisinho.github.io/main.pdf#page=280"
+        }
+      ],
+      "oracle_start_sha256": "04bda1718453f3ee5ebe88eb24bafddf0d417c720e40c55ffedb0d2a1c075b06",
+      "assumptions_notes_sha256": "2e1f0c21cd0b6329537ce933fa656db17ee5604ec98a61274ba2650a9fe2e87a",
+      "row_sha256": "ba44eaedc763f364b7d21c2bb0532ab8bc5262e5326cd7504efea02d60092a3a",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-LOG-CONCAVE-SMOOTH-BEST-UPPER-IMPLEMENTED-PROXIMAL-SAMPLER",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-log-concave-smooth",
+      "setting_title": "Log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-log-concave-smooth",
+      "source_row": 1,
+      "result_class": "best upper",
+      "algorithm_or_model": "Implemented proximal sampler",
+      "complexity": "O ~ ( β d R 0 2 / ε 2 ) \\widetilde O(\\beta\\sqrt d\\,R_0^2/\\varepsilon^2) O ( β d ​ R 0 2 ​ / ε 2 )",
+      "guarantee": "∥ μ N − π ∥ T V ≤ ε \\lVert\\mu_N-\\pi\\rVert_{\\rm TV}\\le\\varepsilon ∥ μ N ​ − π ∥ TV ​ ≤ ε",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Corollary 8.6.3",
+          "url": "https://chewisinho.github.io/main.pdf#page=238"
+        }
+      ],
+      "oracle_start_sha256": "60e8b595d3917408d1f94cc0d72b5613166a6f3a13511b63cb71d526beaf1a16",
+      "assumptions_notes_sha256": "08d0b77c73ae03a4409987c9d498e17c467e9daab91f6500d59d697c246e633b",
+      "row_sha256": "0c93b235281ec46cfe975a86c2a2bb042d51d97e0215ba4ee83555f6453be43d",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-LOG-CONCAVE-SMOOTH-LOWER-UNKNOWN-MATCHING-FIRST-ORDER-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-log-concave-smooth",
+      "setting_title": "Log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-log-concave-smooth",
+      "source_row": 2,
+      "result_class": "lower unknown",
+      "algorithm_or_model": "Matching first-order lower bound",
+      "complexity": "Unknown",
+      "guarantee": "KL ⁡ ≤ ε 2 \\operatorname{KL}\\le\\varepsilon^2 KL ≤ ε 2 in the same model",
+      "review_state": "Unverified no primary source",
+      "source_refs": [],
+      "oracle_start_sha256": "ddbc1f03fc13b51d8a2104d90b713225205b92348e0fb7961a7d18f1f0ca2db0",
+      "assumptions_notes_sha256": "130104c7599afb5b3f3fd677e79fe3c758d8b9380dd009cf38995d104f602d01",
+      "row_sha256": "da4f4a11041c4e2e6e00e634e4768284e6476248b9f757a70e157a4cfed39c87",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-LOG-CONCAVE-SMOOTH-UPPER-FORS-IMPLEMENTED-PROXIMAL-SAMPLER",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-log-concave-smooth",
+      "setting_title": "Log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-log-concave-smooth",
+      "source_row": 3,
+      "result_class": "upper",
+      "algorithm_or_model": "FORS-implemented proximal sampler",
+      "complexity": "O ~ ( β d R 0 2 / ε 2 ) \\widetilde O(\\beta\\sqrt d\\,R_0^2/\\varepsilon^2) O ( β d ​ R 0 2 ​ / ε 2 )",
+      "guarantee": "KL ⁡ ≤ ε 2 \\operatorname{KL}\\le\\varepsilon^2 KL ≤ ε 2",
+      "review_state": "Cited preprint",
+      "source_refs": [
+        {
+          "label": "Chen et al. (2026), Theorem G.1(3)",
+          "url": "https://arxiv.org/abs/2602.01338"
+        }
+      ],
+      "oracle_start_sha256": "efd750606238200d30aa9e0643a37a3e632ed6a37ed9c9615bb1c581cd66722c",
+      "assumptions_notes_sha256": "6c11e6b34943a60c26f5e9ee6a38bf3417a4df72f9f80b74fa5672eae3ff5e71",
+      "row_sha256": "b280bbe6689edc536b715e0411729f9dfa41e8f420930939d66fad2d23880fb9",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-LOG-CONCAVE-SMOOTH-UPPER-AVERAGED-LMC",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-log-concave-smooth",
+      "setting_title": "Log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-log-concave-smooth",
+      "source_row": 4,
+      "result_class": "upper",
+      "algorithm_or_model": "Averaged LMC",
+      "complexity": "O ( β d R 0 2 / ε 4 ) O(\\beta dR_0^2/\\varepsilon^4) O ( β d R 0 2 ​ / ε 4 )",
+      "guarantee": "KL ⁡ ≤ ε \\sqrt{\\operatorname{KL}}\\le\\varepsilon KL ​ ≤ ε",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 4.3.6",
+          "url": "https://chewisinho.github.io/main.pdf#page=144"
+        }
+      ],
+      "oracle_start_sha256": "c5546e3c33672f494a3061a02a6336298d23d5ae3e706511896ce2f4abc38beb",
+      "assumptions_notes_sha256": "639d2b562bbd680ea4049588231b78df8ccaa90a58ab98a63211a464c67dec26",
+      "row_sha256": "7a02639c1661b25f9dddca670bce07bd8cd85ceea49229196514cd3e699be62c",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-LOG-CONCAVE-SMOOTH-UPPER-IDEAL-PROXIMAL-CHAIN",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-log-concave-smooth",
+      "setting_title": "Log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-log-concave-smooth",
+      "source_row": 5,
+      "result_class": "upper",
+      "algorithm_or_model": "Ideal proximal chain",
+      "complexity": "KL ⁡ ( μ n ∥ π ) ≤ R 0 2 / ( n h ) \\operatorname{KL}(\\mu_n\\Vert\\pi)\\le R_0^2/(nh) KL ( μ n ​ ∥ π ) ≤ R 0 2 ​ / ( nh )",
+      "guarantee": "KL convergence per ideal step",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 8.4.1",
+          "url": "https://chewisinho.github.io/main.pdf#page=234"
+        }
+      ],
+      "oracle_start_sha256": "e01e2306cc7f51921465440effa204bd2a494b05e4141630ce280e187a69e159",
+      "assumptions_notes_sha256": "66851e6c494cdc61eb32f95cb337c12574d81ce8348a1faa1f0aeb1b7fa3393e",
+      "row_sha256": "57687ebfab7f7301253f3da76f5d445b8d1e482c51d62134cd719a5853e2b909",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-NONLOGCONCAVE-FISHER-BEST-UPPER-EXACT-ULD-FORS",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-nonlogconcave-fisher",
+      "setting_title": "Smooth non-log-concave + Fisher accuracy",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-nonlogconcave-fisher",
+      "source_row": 1,
+      "result_class": "best upper",
+      "algorithm_or_model": "Exact ULD / FORS",
+      "complexity": "O ~ ( β d 1 / 3 K 0 / ε 2 ) \\widetilde O(\\beta d^{1/3} K_0/\\varepsilon^2) O ( β d 1/3 K 0 ​ / ε 2 )",
+      "guarantee": "FI ⁡ ≤ ε 2 \\operatorname{FI}\\le\\varepsilon^2 FI ≤ ε 2",
+      "review_state": "Checked preprint",
+      "source_refs": [
+        {
+          "label": "Chen–Chewi–Rakhlin–Zhang (2026), §1.2 and §6",
+          "url": "https://arxiv.org/abs/2608.05022"
+        },
+        {
+          "label": "Chewi–Wibisono (2026)",
+          "url": "https://arxiv.org/abs/2605.15859"
+        }
+      ],
+      "oracle_start_sha256": "150a1ae67d71365e30e2e60b895d9aa00c194800aa59532bb550c54b540541f3",
+      "assumptions_notes_sha256": "c6659c1258aee72f6e2f319d62daaa1081e4da7bd61c51d02dc3af5ea0458630",
+      "row_sha256": "979f9c367b59f295609e3bc854074f98141f3c114c8936d595f4333f498b1697",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-NONLOGCONCAVE-FISHER-BEST-LOWER-GENERAL-FIRST-ORDER-FISHER-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-nonlogconcave-fisher",
+      "setting_title": "Smooth non-log-concave + Fisher accuracy",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-nonlogconcave-fisher",
+      "source_row": 2,
+      "result_class": "best lower",
+      "algorithm_or_model": "General first-order Fisher lower bound",
+      "complexity": "ε − 2 + o ( 1 ) \\varepsilon^{-2+o(1)} ε − 2 + o ( 1 )",
+      "guarantee": "FI ⁡ ≤ ε 2 \\operatorname{FI}\\le\\varepsilon^2 FI ≤ ε 2",
+      "review_state": "Checked published",
+      "source_refs": [
+        {
+          "label": "Chewi–Gerber–Lee–Lu (ALT 2023)",
+          "url": "https://proceedings.mlr.press/v201/chewi23b.html"
+        },
+        {
+          "label": "Chewi (2026), Theorem 11.4.4",
+          "url": "https://chewisinho.github.io/main.pdf#page=293"
+        }
+      ],
+      "oracle_start_sha256": "05fdc8b17fee8582599c5dbffde290fa7704539a0e41a9f00447184999b868bd",
+      "assumptions_notes_sha256": "dab211619c2f6690424d93632608b20cef913a2e195566ad5e06b4e777d68d3a",
+      "row_sha256": "f0b372fb2da1e3a67c05f4e954ff5995cb3cba7221ce28e5864e952240bdf521",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-NONLOGCONCAVE-FISHER-UPPER-LOWER-AVERAGED-LMC",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-nonlogconcave-fisher",
+      "setting_title": "Smooth non-log-concave + Fisher accuracy",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-nonlogconcave-fisher",
+      "source_row": 3,
+      "result_class": "upper/lower",
+      "algorithm_or_model": "Averaged LMC",
+      "complexity": "Θ ( β 2 d K 0 / ε 4 ) \\Theta(\\beta^2 d K_0/\\varepsilon^4) Θ ( β 2 d K 0 ​ / ε 4 )",
+      "guarantee": "FI ⁡ ≤ ε 2 \\operatorname{FI}\\le\\varepsilon^2 FI ≤ ε 2 on average",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 11.2.1",
+          "url": "https://chewisinho.github.io/main.pdf#page=287"
+        },
+        {
+          "label": "Balasubramanian–Chewi–Erdogdu–Salim–Zhang (COLT 2022)",
+          "url": "https://proceedings.mlr.press/v178/balasubramanian22a.html"
+        },
+        {
+          "label": "Averaged LMC FI lower bound (AI note, Aug. 10, 2026)",
+          "url": "https://samplewiki.morning-recipe-422a.workers.dev/evidence/averaged_lmc_fisher_sharpness.pdf"
+        }
+      ],
+      "oracle_start_sha256": "57c30c4544d39aad7621ffc0fc38a16f6258794e9011767e77e9e48b3a24803a",
+      "assumptions_notes_sha256": "d78e864200f8a080b06f1ae4be7d25a82c462919a9ba82aa289c13548fc710f2",
+      "row_sha256": "e5f29efb15b8ac6c5768b3b0ea341da7e7cc9808d3909544bf4ecb708f297175",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-NONLOGCONCAVE-FISHER-LOWER-ONE-DIMENSIONAL-FIRST-ORDER-FISHER-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-nonlogconcave-fisher",
+      "setting_title": "Smooth non-log-concave + Fisher accuracy",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-nonlogconcave-fisher",
+      "source_row": 4,
+      "result_class": "lower",
+      "algorithm_or_model": "One-dimensional first-order Fisher lower bound",
+      "complexity": "Ω ( ε − 1 log ⁡ ( 1 / ε ) ) \\Omega\\bigl(\\varepsilon^{-1}\\sqrt{\\log(1/\\varepsilon)}\\bigr) Ω ( ε − 1 lo g ( 1/ ε ) ​ )",
+      "guarantee": "FI ⁡ ≤ ε 2 \\operatorname{FI}\\le\\varepsilon^2 FI ≤ ε 2",
+      "review_state": "Checked published",
+      "source_refs": [
+        {
+          "label": "Chewi–Gerber–Lee–Lu (ALT 2023)",
+          "url": "https://proceedings.mlr.press/v201/chewi23b.html"
+        },
+        {
+          "label": "Chewi (2026), Theorem 11.4.4",
+          "url": "https://chewisinho.github.io/main.pdf#page=293"
+        }
+      ],
+      "oracle_start_sha256": "05fdc8b17fee8582599c5dbffde290fa7704539a0e41a9f00447184999b868bd",
+      "assumptions_notes_sha256": "49640156e8f93462874730a5a46d6aeccaab6de80efcbe785916d15f7ac37586",
+      "row_sha256": "c14844a53695d606c505d271ae0b9598fc432464dc2d0cd06a99f9a00a401bfc",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-NONLOGCONCAVE-FISHER-LOWER-LARGE-INITIAL-GAP-QUERY-COMPLEXITY",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-nonlogconcave-fisher",
+      "setting_title": "Smooth non-log-concave + Fisher accuracy",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-nonlogconcave-fisher",
+      "source_row": 5,
+      "result_class": "lower",
+      "algorithm_or_model": "Large-initial-gap query complexity",
+      "complexity": "Θ ( β K 0 / ε 2 ) \\Theta(\\beta K_0/\\varepsilon^2) Θ ( β K 0 ​ / ε 2 )",
+      "guarantee": "FI ⁡ ≤ ε 2 \\operatorname{FI}\\le\\varepsilon^2 FI ≤ ε 2 at ε 2 = β d \\varepsilon^2=\\beta d ε 2 = β d",
+      "review_state": "Checked published",
+      "source_refs": [
+        {
+          "label": "Chewi–Gerber–Lee–Lu (ALT 2023)",
+          "url": "https://proceedings.mlr.press/v201/chewi23b.html"
+        },
+        {
+          "label": "Chewi (2026), Theorem 11.4.3",
+          "url": "https://chewisinho.github.io/main.pdf#page=293"
+        }
+      ],
+      "oracle_start_sha256": "77e856eb1a52aaa8d0c6c68af93849e9ed88704639b5c6e1dad3180c9ce69cc4",
+      "assumptions_notes_sha256": "39e7cef9ee4b30025da3a7dc143ab747d21920e6a635b52d2f13d92ba3e4375c",
+      "row_sha256": "12e7c0835d5d651a46bc516820476ee5c611bcf4defc4a460b8fedae207cae59",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STOCHASTIC-FINITE-SUM-BEST-UPPER-HIGH-ACCURACY-STOCHASTIC-GRADIENT-SAMPLER",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-stochastic-finite-sum",
+      "setting_title": "Stochastic and finite-sum oracles",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-stochastic-finite-sum",
+      "source_row": 1,
+      "result_class": "best upper",
+      "algorithm_or_model": "High-accuracy stochastic-gradient sampler",
+      "complexity": "O ~ ( ( κ d + σ ψ 2 / α ) polylog ⁡ ( 1 / ε ) ) \\widetilde O((\\kappa\\sqrt d+\\sigma_\\psi^2/\\alpha)\\operatorname{polylog}(1/\\varepsilon)) O (( κ d ​ + σ ψ 2 ​ / α ) polylog ( 1/ ε ))",
+      "guarantee": "∥ μ N − π ∥ T V ≤ ε \\lVert\\mu_N-\\pi\\rVert_{\\rm TV}\\le\\varepsilon ∥ μ N ​ − π ∥ TV ​ ≤ ε",
+      "review_state": "Checked published",
+      "source_refs": [
+        {
+          "label": "Chen et al. (COLT 2026); Chewi Theorem 10.1.3",
+          "url": "https://proceedings.mlr.press/v336/chen26g.html"
+        }
+      ],
+      "oracle_start_sha256": "756498cf70caf9a7d20d27af1c774c594c459192c2107ff5a4779385d41b8306",
+      "assumptions_notes_sha256": "aa3211ab85224621a80476724b0c1a226aac16952f4a24dfe15b0df673e25ece",
+      "row_sha256": "a409105a2ae07ed52680bef6fa9e8898bc3af0d026544f7170e8373ba292f6a2",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STOCHASTIC-FINITE-SUM-BEST-LOWER-BOUNDED-VARIANCE-STOCHASTIC-GRADIENT-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-stochastic-finite-sum",
+      "setting_title": "Stochastic and finite-sum oracles",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-stochastic-finite-sum",
+      "source_row": 2,
+      "result_class": "best lower",
+      "algorithm_or_model": "Bounded-variance stochastic-gradient lower bound",
+      "complexity": "Ω ( σ 2 / ( α ε ) ) \\Omega(\\sigma^2/(\\alpha\\varepsilon)) Ω ( σ 2 / ( α ε ))",
+      "guarantee": "TV accuracy proportional to ε \\varepsilon ε",
+      "review_state": "Checked published",
+      "source_refs": [
+        {
+          "label": "Chen et al. (COLT 2026); Chewi Theorem 10.1.2",
+          "url": "https://proceedings.mlr.press/v336/chen26g.html"
+        }
+      ],
+      "oracle_start_sha256": "ae03d024939228923daae84281b54866a483ec494caa118e91c61126e496bf07",
+      "assumptions_notes_sha256": "6521feea507193eacd7562f741fe7e29f1d386d49f4a882ea6a1d629f2649f8c",
+      "row_sha256": "bacb310edd2d0773f3442844dfa33763aacdef02dce9026e095197ab6ac3d66a",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STOCHASTIC-FINITE-SUM-UPPER-VARIANCE-REDUCED-HIGH-ACCURACY-SAMPLER",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-stochastic-finite-sum",
+      "setting_title": "Stochastic and finite-sum oracles",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-stochastic-finite-sum",
+      "source_row": 3,
+      "result_class": "upper",
+      "algorithm_or_model": "Variance-reduced high-accuracy sampler",
+      "complexity": "O ~ ( ( m + κ d m ) polylog ⁡ ( 1 / ε ) ) \\widetilde O((m+\\kappa\\sqrt{dm})\\operatorname{polylog}(1/\\varepsilon)) O (( m + κ d m ​ ) polylog ( 1/ ε ))",
+      "guarantee": "High-accuracy sampling",
+      "review_state": "Checked published",
+      "source_refs": [
+        {
+          "label": "Chen et al. (COLT 2026); Chewi §10.1.2",
+          "url": "https://proceedings.mlr.press/v336/chen26g.html"
+        }
+      ],
+      "oracle_start_sha256": "2845a575354b446e1b2a991e1005a35fdb92af92a588858043df929d26403fad",
+      "assumptions_notes_sha256": "47fa2c2a3de6fad58298520a0ff1b0cfba1cfa54dcf8d2c57601b631b5410417",
+      "row_sha256": "8a30ba8b762946bd908b981a7db35268a1acb3c1eece363ce9e14b0a3254f830",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STOCHASTIC-FINITE-SUM-UPPER-FINITE-SUM-RM-ULMC",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-stochastic-finite-sum",
+      "setting_title": "Stochastic and finite-sum oracles",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-stochastic-finite-sum",
+      "source_row": 4,
+      "result_class": "upper",
+      "algorithm_or_model": "Finite-sum RM-ULMC",
+      "complexity": "O ~ ( m + κ 2 + κ 4 / 3 d 1 / 3 m 2 / 3 / ε 2 / 3 ) \\widetilde O(m+\\kappa^2+\\kappa^{4/3}d^{1/3}m^{2/3}/\\varepsilon^{2/3}) O ( m + κ 2 + κ 4/3 d 1/3 m 2/3 / ε 2/3 )",
+      "guarantee": "Low-accuracy sampling",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), §10.1.2",
+          "url": "https://chewisinho.github.io/main.pdf#page=265"
+        }
+      ],
+      "oracle_start_sha256": "38837afcb24809776fa47e705b51036d7e20608a2f9290ba7fdde001f4a94f92",
+      "assumptions_notes_sha256": "131d81d2f3214c31a23bd276ef670fc54466e60dbe46991ade5b48a5f748c8bc",
+      "row_sha256": "40e4d538a2228b5536644526c55b77595b6af2b77a04f52d00260843ec1bcf94",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STOCHASTIC-FINITE-SUM-LOWER-FINITE-SUM-ZEROTH-ORDER-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-stochastic-finite-sum",
+      "setting_title": "Stochastic and finite-sum oracles",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-stochastic-finite-sum",
+      "source_row": 5,
+      "result_class": "lower",
+      "algorithm_or_model": "Finite-sum zeroth-order lower bound",
+      "complexity": "Θ ~ ( L 2 / α ) \\widetilde\\Theta(L^2/\\alpha) Θ ( L 2 / α )",
+      "guarantee": "Constant sampling accuracy",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Chapter 9 bibliographical notes",
+          "url": "https://chewisinho.github.io/main.pdf#page=259"
+        }
+      ],
+      "oracle_start_sha256": "a0651c8f46e3dddd434eb8800475f17764600b6a21bd5d57be2f3a7fd2c4612c",
+      "assumptions_notes_sha256": "35453fcdce168123dfcfbaf269d31b07bf1d1190286d1a3489b104d144398c62",
+      "row_sha256": "5e45cd49aab8b8815fca80c7986c778318098f2dbfce414be5306aa342670d8d",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STRONGLY-LOG-CONCAVE-SMOOTH-BEST-UPPER-EXACT-ULD-FORS",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-strongly-log-concave-smooth",
+      "setting_title": "Strongly log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-strongly-log-concave-smooth",
+      "source_row": 1,
+      "result_class": "best upper",
+      "algorithm_or_model": "Exact ULD / FORS",
+      "complexity": "O ~ ( κ 2 / 3 d 1 / 3 polylog ⁡ ( 1 / ε ) ) \\widetilde O(\\kappa^{2/3}d^{1/3}\\,\\operatorname{polylog}(1/\\varepsilon)) O ( κ 2/3 d 1/3 polylog ( 1/ ε ))",
+      "guarantee": "R q ≤ ε 2 \\mathcal R_q\\le\\varepsilon^2 R q ​ ≤ ε 2",
+      "review_state": "Cited preprint",
+      "source_refs": [
+        {
+          "label": "Chen–Chewi–Rakhlin–Zhang (2026), Theorem 3.2",
+          "url": "https://arxiv.org/abs/2608.05022"
+        }
+      ],
+      "oracle_start_sha256": "fa2f2ec6d91956c47f107f62c8a206d1d4bc32f13adc7785363be59de62ae406",
+      "assumptions_notes_sha256": "31e7e12cf0d373fa028b79261e93b05080a44a4593777fa30ffba2ee117c95d7",
+      "row_sha256": "2de79774ed385e9095b8b1a7e5adbd78cfb66c7a570114ef2c7482cc75e9d82c",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STRONGLY-LOG-CONCAVE-SMOOTH-BEST-LOWER-GENERAL-FIRST-ORDER-ORACLE-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-strongly-log-concave-smooth",
+      "setting_title": "Strongly log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-strongly-log-concave-smooth",
+      "source_row": 2,
+      "result_class": "best lower",
+      "algorithm_or_model": "General first-order oracle lower bound",
+      "complexity": "Ω ~ ( min ⁡ { κ log ⁡ d , d } ) \\widetilde\\Omega(\\min\\{\\sqrt\\kappa\\log d,d\\}) Ω ( min { κ ​ lo g d , d })",
+      "guarantee": "Constant total-variation accuracy",
+      "review_state": "Checked published",
+      "source_refs": [
+        {
+          "label": "Chewi et al. (2023), query lower bounds",
+          "url": "https://arxiv.org/abs/2304.02599"
+        }
+      ],
+      "oracle_start_sha256": "aa4957483ba67a4cca2808d862bd85777cb05a1085c5357218fea76cf4f2ad38",
+      "assumptions_notes_sha256": "9ecebf7325d7b89ba0558c11249e394dadc65d2663efa2c63269aed257b34ac4",
+      "row_sha256": "f6b7a4718591927ff5afbecba804eaa44f7d2f2da45461f8a7c1b2f40f1717f9",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STRONGLY-LOG-CONCAVE-SMOOTH-UPPER-MALA",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-strongly-log-concave-smooth",
+      "setting_title": "Strongly log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-strongly-log-concave-smooth",
+      "source_row": 3,
+      "result_class": "upper",
+      "algorithm_or_model": "MALA",
+      "complexity": "O ~ ( κ d polylog ⁡ ( 1 / ε ) ) \\widetilde O(\\kappa\\sqrt d\\,\\operatorname{polylog}(1/\\varepsilon)) O ( κ d ​ polylog ( 1/ ε ))",
+      "guarantee": "∥ μ N − π ∥ T V ≤ ε \\lVert\\mu_N-\\pi\\rVert_{\\rm TV}\\le\\varepsilon ∥ μ N ​ − π ∥ TV ​ ≤ ε",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 7.3.5",
+          "url": "https://chewisinho.github.io/main.pdf#page=208"
+        }
+      ],
+      "oracle_start_sha256": "2ed4360ba7fd03a0d621b3d32d1fcf1ac07661d8c688b357a64c2017457a52e0",
+      "assumptions_notes_sha256": "6dd2f0c959edb0f43de74f3d631f8f60e22c79e6efefe44969030b668c3a2167",
+      "row_sha256": "3b4c095bd509b9acd3f6d821b01eb004b2f5f85d88c3533b906296de0ec4456b",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STRONGLY-LOG-CONCAVE-SMOOTH-UPPER-RANDOMIZED-MIDPOINT-ULMC",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-strongly-log-concave-smooth",
+      "setting_title": "Strongly log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-strongly-log-concave-smooth",
+      "source_row": 4,
+      "result_class": "upper",
+      "algorithm_or_model": "Randomized-midpoint ULMC",
+      "complexity": "O ~ ( κ 5 / 6 d 1 / 3 / ε 2 / 3 ) \\widetilde O(\\kappa^{5/6}d^{1/3}/\\varepsilon^{2/3}) O ( κ 5/6 d 1/3 / ε 2/3 )",
+      "guarantee": "∥ μ N − π ∥ T V ≤ ε \\lVert\\mu_N-\\pi\\rVert_{\\rm TV}\\le\\varepsilon ∥ μ N ​ − π ∥ TV ​ ≤ ε",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 5.3.17",
+          "url": "https://chewisinho.github.io/main.pdf#page=171"
+        }
+      ],
+      "oracle_start_sha256": "197f18129a8e77a555af3ee72b9bb85510e500820557704bcaa1622cc5ab24bf",
+      "assumptions_notes_sha256": "be3cea0ce69ec7cd6dd06ef6e5f5fd814a7e638f1ac57d7cc4bc54c6ce6da3ed",
+      "row_sha256": "057445807a89ac31a04780d7ee1e5909d2d40975babccc8fd1b45bc11da23353",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STRONGLY-LOG-CONCAVE-SMOOTH-UPPER-BLOCK-KRYLOV-GAUSSIAN-SAMPLER",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-strongly-log-concave-smooth",
+      "setting_title": "Strongly log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-strongly-log-concave-smooth",
+      "source_row": 5,
+      "result_class": "upper",
+      "algorithm_or_model": "Block-Krylov Gaussian sampler",
+      "complexity": "O ( ( d ∧ κ ) log ⁡ ( d / ε 2 ) ) O((d\\wedge\\sqrt\\kappa)\\log(d/\\varepsilon^2)) O (( d ∧ κ ​ ) lo g ( d / ε 2 ))",
+      "guarantee": "KL ⁡ ≤ ε \\sqrt{\\operatorname{KL}}\\le\\varepsilon KL ​ ≤ ε",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 9.4.1",
+          "url": "https://chewisinho.github.io/main.pdf#page=257"
+        }
+      ],
+      "oracle_start_sha256": "d28c5dbf5ef15dafe73f74dde45d52bb705769d54ae713139fb8dc59b7bcfb5d",
+      "assumptions_notes_sha256": "f1678cff39d48d6ad7dca0ec0b0c61674a488d517245830158f5950679c682ee",
+      "row_sha256": "3c28169d5e86845cf214aa7106b849077533d895a51a8431da174434fe8a552d",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    },
+    {
+      "id": "ASTIS-SW-SETTING-STRONGLY-LOG-CONCAVE-SMOOTH-LOWER-MALA-LOWER-BOUND",
+      "source_id": "SAMPLEWIKI",
+      "setting_slug": "setting-strongly-log-concave-smooth",
+      "setting_title": "Strongly log-concave + log-smooth",
+      "source_page": "https://samplewiki.morning-recipe-422a.workers.dev/wiki/setting-strongly-log-concave-smooth",
+      "source_row": 6,
+      "result_class": "lower",
+      "algorithm_or_model": "MALA lower bound",
+      "complexity": "Ω ~ ( κ d log ⁡ ( 1 / ε ) ) \\widetilde\\Omega(\\kappa\\sqrt d\\log(1/\\varepsilon)) Ω ( κ d ​ lo g ( 1/ ε ))",
+      "guarantee": "Constant warm start; TV accuracy",
+      "review_state": "Checked monograph",
+      "source_refs": [
+        {
+          "label": "Chewi (2026), Theorem 7.6.5",
+          "url": "https://chewisinho.github.io/main.pdf#page=222"
+        }
+      ],
+      "oracle_start_sha256": "1271210b8cad6ebeb42c3a00d66ac6859a70d7e3f4099a4793df8f4905f6bb5c",
+      "assumptions_notes_sha256": "db8597ce4feffe77d40ee37a8fa62d2ba85cdfd94ff322ecd3eda27e9b299f04",
+      "row_sha256": "032fb49df87757f66839b9e0ea36f5584290c09dd3a45e74d84495e641d34b02",
+      "verification_stage": "sourcePinned",
+      "astis_restatement": null,
+      "lean_declarations": [],
+      "proof_techniques": [],
+      "dependency_status": "untriaged"
+    }
+  ],
+  "case_tree_sha256": "6c4a330582f6525ea3bede37fdeb9f60a40b0196c9876cd8e33c47d94aab8e02"
+}
