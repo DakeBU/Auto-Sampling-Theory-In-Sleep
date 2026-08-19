@@ -16,9 +16,8 @@ import astis_site  # noqa: E402
 import astis_source  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import lean_tutor  # noqa: E402
+import math_first_reader  # noqa: E402
 import source_foundations  # noqa: E402
-import theorem_lessons  # noqa: E402
-import undergrad_guides  # noqa: E402
 
 
 def main() -> int:
@@ -44,18 +43,17 @@ def main() -> int:
     result = astis_site.main(argv)
     if result != 0:
         return result
-    guide_errors = undergrad_guides.validate_site(output)
-    if guide_errors:
-        print("Undergraduate guide site check failed:", file=sys.stderr)
-        for error in guide_errors:
-            print(f"- {error}", file=sys.stderr)
+
+    # The undergraduate story ladder and the old prose-heavy theorem-lesson
+    # renderer are intermediate enrichers only.  The final public surface is
+    # owned by math_first_reader, which deliberately removes/replaces them.
+    try:
+        math_first_reader.validate(output)
+    except Exception as exc:
+        print("Math-first reader site check failed:", file=sys.stderr)
+        print(f"- {exc}", file=sys.stderr)
         return 1
-    lesson_errors = theorem_lessons.validate_site(output)
-    if lesson_errors:
-        print("Source theorem lesson site check failed:", file=sys.stderr)
-        for error in lesson_errors:
-            print(f"- {error}", file=sys.stderr)
-        return 1
+
     foundation_errors = source_foundations.validate_site(output)
     if foundation_errors:
         print("Source foundation site check failed:", file=sys.stderr)
