@@ -210,8 +210,6 @@ def _inject_formula_supplements(output: Path) -> None:
         text = text.replace(anchor, replacement, 1)
         path.write_text(text, encoding="utf-8", newline="\n")
 
-    # Proof supplements are intentionally attached only to source items whose
-    # public formula is supplied by this ASTIS layer in this pass.
     unattached_proofs = sorted(
         source_id
         for source_id in proofs
@@ -223,6 +221,44 @@ def _inject_formula_supplements(output: Path) -> None:
 
     if errors:
         raise RuntimeError("formula/proof supplement injection failed:\n- " + "\n- ".join(errors))
+
+
+def _tag_all_source_cards(output: Path) -> None:
+    """Attach the stable source-correspondence id to every canonical source card.
+
+    Formula-supplement cards are already tagged during insertion. Cards whose
+    formula came from audited ``latex_statement`` fields are tagged here. This
+    makes coverage validation source-id based instead of relying on CSS-class
+    counts, which can be confused by presentation wrappers.
+    """
+    errors: list[str] = []
+    for source_id, source in _source_entries().items():
+        section = str(source.get("section", ""))
+        if section not in FORMULA_FIRST_SECTIONS:
+            continue
+        path = base.section_path(output, section)
+        if not path.exists():
+            errors.append(f"missing generated section while tagging {source_id}: {path}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        marker = f'data-source-id="{base.esc(source_id)}"'
+        if marker in text:
+            continue
+        anchor = _source_anchor(source)
+        if anchor not in text:
+            errors.append(
+                f"{path.relative_to(output)}: cannot locate source card while tagging {source_id}"
+            )
+            continue
+        replacement = (
+            f'<section class="source-passage" data-source-id="{base.esc(source_id)}">'
+            f'<div class="passage-label">{base.esc(source.get("source_kind", ""))}</div>'
+            f'<h2>{base.esc(source.get("source_summary", ""))}</h2>'
+        )
+        text = text.replace(anchor, replacement, 1)
+        path.write_text(text, encoding="utf-8", newline="\n")
+    if errors:
+        raise RuntimeError("source-card tagging failed:\n- " + "\n- ".join(errors))
 
 
 def _move_existing_source_formulas_before_prose(output: Path) -> None:
@@ -285,34 +321,45 @@ def _inject_style(text: str, rel: Path) -> str:
     )
 
 
-def _formula_coverage_errors(output: Path) -> list[str]:
-    errors: list[str] = []
-    sources = _source_entries()
-    expected_by_section = {
-        section: sum(1 for item in sources.values() if str(item.get("section", "")) == section)
-        for section in FORMULA_FIRST_SECTIONS
-    }
-    card_pattern = re.compile(
-        r'<section class="[^"]*\bsource-passage\b[^"]*"[^>]*>.*?</section>',
+def _source_card_for_id(text: str, source_id: str) -> str | None:
+    escaped_id = re.escape(base.esc(source_id))
+    pattern = re.compile(
+        rf'<section class="[^"]*\bsource-passage\b[^"]*"[^>]*'
+        rf'data-source-id="{escaped_id}"[^>]*>.*?</section>',
         flags=re.S,
     )
-    for section in FORMULA_FIRST_SECTIONS:
-        path = base.section_path(output, section)
-        if not path.exists():
-            errors.append(f"missing canonical formula-first section {section}")
+    match = pattern.search(text)
+    return match.group(0) if match else None
+
+
+def _formula_coverage_errors(output: Path) -> list[str]:
+    """Require one displayed mathematical statement for every stable source id."""
+    errors: list[str] = []
+    sources = _source_entries()
+    page_cache: dict[str, tuple[Path, str]] = {}
+
+    for source_id, source in sources.items():
+        section = str(source.get("section", ""))
+        if section not in FORMULA_FIRST_SECTIONS:
             continue
-        text = path.read_text(encoding="utf-8")
-        cards = card_pattern.findall(text)
-        expected = expected_by_section[section]
-        if len(cards) != expected:
+        if section not in page_cache:
+            path = base.section_path(output, section)
+            if not path.exists():
+                errors.append(f"missing canonical formula-first section {section}")
+                continue
+            page_cache[section] = (path, path.read_text(encoding="utf-8"))
+        path, text = page_cache[section]
+        card = _source_card_for_id(text, source_id)
+        if card is None:
             errors.append(
-                f"{path.relative_to(output)}: expected {expected} source cards, found {len(cards)}"
+                f"{path.relative_to(output)}: missing stable source card {source_id}"
             )
-        missing = [index + 1 for index, card in enumerate(cards) if "source-formula" not in card]
-        if missing:
+            continue
+        if "source-formula" not in card:
             errors.append(
-                f"{path.relative_to(output)}: source cards without a displayed formula: {missing}"
+                f"{path.relative_to(output)}: source card {source_id} has no displayed formula"
             )
+
     return errors
 
 
@@ -332,7 +379,13 @@ def _proof_coverage_errors(output: Path) -> list[str]:
         marker = f'data-source-proof="{base.esc(source_id)}"'
         if marker not in text:
             errors.append(f"{path.relative_to(output)}: missing equation proof {source_id}")
-        expected_steps = len([step for step in proof.get("steps", []) if isinstance(step, dict) and step.get("formula")])
+        expected_steps = len(
+            [
+                step
+                for step in proof.get("steps", [])
+                if isinstance(step, dict) and step.get("formula")
+            ]
+        )
         if expected_steps and text.count(marker) != 1:
             errors.append(f"{path.relative_to(output)}: duplicate or missing proof marker {source_id}")
     return errors
@@ -347,6 +400,7 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
         base.enrich_site(output)
 
         _inject_formula_supplements(output)
+        _tag_all_source_cards(output)
         _move_existing_source_formulas_before_prose(output)
 
         asset_dir = output / "assets"
