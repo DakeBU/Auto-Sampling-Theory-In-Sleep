@@ -16,7 +16,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_CSS = ROOT / "website" / "static" / "quantumcomputinglib-polish.css"
-STYLE_NAME = "quantumcomputinglib-polish.css"
+DETAIL_CSS = ROOT / "website" / "static" / "quantumcomputinglib-detail-polish.css"
+STYLE_NAMES = ("quantumcomputinglib-polish.css", "quantumcomputinglib-detail-polish.css")
 HOME = Path("index.html")
 
 
@@ -41,14 +42,18 @@ def rewrite_home(text: str) -> str:
     return text
 
 
-def inject_style(text: str, rel_path: Path) -> str:
-    href = f"{prefix_for(rel_path)}assets/{STYLE_NAME}"
-    if href in text:
-        return text
+def inject_styles(text: str, rel_path: Path) -> str:
     marker = "</head>"
     if marker not in text:
-        raise RuntimeError(f"cannot inject visual stylesheet into {rel_path.as_posix()}")
-    return text.replace(marker, f'  <link rel="stylesheet" href="{href}">\n{marker}', 1)
+        raise RuntimeError(f"cannot inject visual stylesheets into {rel_path.as_posix()}")
+    links: list[str] = []
+    for name in STYLE_NAMES:
+        href = f"{prefix_for(rel_path)}assets/{name}"
+        if href not in text:
+            links.append(f'  <link rel="stylesheet" href="{href}">')
+    if not links:
+        return text
+    return text.replace(marker, "\n".join(links) + "\n" + marker, 1)
 
 
 def validate(output: Path) -> None:
@@ -61,11 +66,12 @@ def validate(output: Path) -> None:
     if "Verified sampling theory in Lean" not in home:
         errors.append("Samplinglib purpose kicker is missing")
 
-    css_path = output / "assets" / STYLE_NAME
-    if not css_path.exists():
-        errors.append(f"missing generated stylesheet: assets/{STYLE_NAME}")
+    primary_css = output / "assets" / STYLE_NAMES[0]
+    detail_css = output / "assets" / STYLE_NAMES[1]
+    if not primary_css.exists():
+        errors.append(f"missing generated stylesheet: assets/{STYLE_NAMES[0]}")
     else:
-        css = css_path.read_text(encoding="utf-8")
+        css = primary_css.read_text(encoding="utf-8")
         for marker in (
             'Charter, "Bitstream Charter"',
             "--academic-page-width: 1260px",
@@ -75,13 +81,18 @@ def validate(output: Path) -> None:
         ):
             if marker not in css:
                 errors.append(f"visual stylesheet missing contract: {marker}")
+    if not detail_css.exists():
+        errors.append(f"missing generated stylesheet: assets/{STYLE_NAMES[1]}")
+    elif ".atlas-layer" not in detail_css.read_text(encoding="utf-8"):
+        errors.append("detail polish does not cover Proof Atlas")
 
     for path in output.rglob("*.html"):
         rel = path.relative_to(output)
         text = path.read_text(encoding="utf-8")
-        expected = f"{prefix_for(rel)}assets/{STYLE_NAME}"
-        if expected not in text:
-            errors.append(f"{rel.as_posix()}: final visual stylesheet missing")
+        for name in STYLE_NAMES:
+            expected = f"{prefix_for(rel)}assets/{name}"
+            if expected not in text:
+                errors.append(f"{rel.as_posix()}: final visual stylesheet missing: {name}")
 
     if errors:
         raise RuntimeError("visual polish validation failed:\n- " + "\n- ".join(errors))
@@ -90,14 +101,15 @@ def validate(output: Path) -> None:
 def enrich_site(output: Path) -> None:
     asset_dir = output / "assets"
     asset_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(SOURCE_CSS, asset_dir / STYLE_NAME)
+    shutil.copyfile(SOURCE_CSS, asset_dir / STYLE_NAMES[0])
+    shutil.copyfile(DETAIL_CSS, asset_dir / STYLE_NAMES[1])
 
     for path in sorted(output.rglob("*.html")):
         rel = path.relative_to(output)
         text = path.read_text(encoding="utf-8")
         if rel == HOME:
             text = rewrite_home(text)
-        text = inject_style(text, rel)
+        text = inject_styles(text, rel)
         path.write_text(text, encoding="utf-8", newline="\n")
 
     validate(output)
