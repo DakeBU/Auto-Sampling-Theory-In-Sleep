@@ -1,5 +1,6 @@
 import AutoSamplingTheory.Automation
 import AutoSamplingTheory.Core
+import AutoSamplingTheory.ExampleCases
 import AutoSamplingTheory.Literature
 import AutoSamplingTheory.OpenProblems
 import AutoSamplingTheory.Probability

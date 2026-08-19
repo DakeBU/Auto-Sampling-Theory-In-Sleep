@@ -79,12 +79,18 @@ jobs:
             tools/astis_harness.py \
             tools/astis_formalizer.py \
             website/scripts/build_site.py \
+            website/scripts/chapter1_reference_shelf.py \
             website/scripts/check_site.py \
             website/scripts/implicit_prerequisites.py \
+            website/scripts/information_architecture.py \
             website/scripts/lean_tutor.py \
+            website/scripts/math_first_reader.py \
+            website/scripts/reader_contract_final.py \
+            website/scripts/samplewiki_examples.py \
             website/scripts/source_foundations.py \
             website/scripts/theorem_lessons.py \
             website/scripts/undergrad_guides.py \
+            website/scripts/visual_polish.py \
             website/scripts/build_sites_bundle.py \
             website/scripts/lean_gate.py \
             website/scripts/ide_server.py \
@@ -116,7 +122,21 @@ jobs:
         run: python3 website/scripts/lean_gate.py
 
       - name: Build source-derived site
-        run: python3 website/scripts/build_site.py
+        shell: bash
+        run: |
+          mkdir -p .astis
+          set -o pipefail
+          python3 website/scripts/build_site.py 2>&1 | tee .astis/site-build.log
+
+      - name: Upload site-build diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build-diagnostics-${{ github.run_id }}
+          path: |
+            .astis/site-build.log
+            .astis/reader-contract-errors.txt
+          if-no-files-found: warn
 
       - name: Validate inventory, status, links, formulas, diagrams, and assets
         run: python3 website/scripts/check_site.py

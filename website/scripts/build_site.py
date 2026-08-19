@@ -13,11 +13,16 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
+import chapter1_reference_shelf  # noqa: E402
 import implicit_prerequisites  # noqa: E402
+import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
+import reader_contract_final  # noqa: E402
+import samplewiki_examples  # noqa: E402
 import source_foundations  # noqa: E402
 import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
+import visual_polish  # noqa: E402
 
 
 def main() -> int:
@@ -36,6 +41,13 @@ def main() -> int:
     source_foundations.enrich_site(output)
     implicit_prerequisites.enrich_site(output)
     lean_tutor.enrich_site(output)
+    samplewiki_examples.enrich_site(output)
+    information_architecture.enrich_site(output)
+    chapter1_reference_shelf.enrich_site(output)
+    visual_polish.enrich_site(output)
+    # Final public-reader contract.  It replaces the prose-heavy intermediate
+    # theorem/tutorial surface without mutating audited source metadata.
+    reader_contract_final.enrich_site(output)
     return 0
 
 
