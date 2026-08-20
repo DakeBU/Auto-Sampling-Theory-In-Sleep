@@ -17,6 +17,7 @@ import chapter1_reference_shelf  # noqa: E402
 import chewi_source_audit_guard  # noqa: E402
 import chewi_source_first_contract  # noqa: E402
 import chewi_source_first_refinement  # noqa: E402
+import chewi_source_first_scope  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
@@ -84,12 +85,12 @@ def main() -> int:
     # audit pipeline.
     chewi_source_audit_guard.enrich_site(output)
 
-    # The permanent public order is:
-    # Chewi statement -> Chewi proof/status -> source/implicit assumptions ->
-    # folded ASTIS LaTeX -> folded Lean. Before rendering, refine assumption
-    # prose so small mathematical clauses use MathJax and internal audit prose
-    # is not copied into the textbook.
+    # The textbook reader owns the strict source-first mathematics contract.
+    # SampleWiki is still pre-finalization at this point and is validated later by
+    # its own 34-case contract, so the textbook linter must not inspect crawler or
+    # generated declaration/module pages before their final reader passes.
     chewi_source_first_refinement.patch(chewi_source_first_contract)
+    chewi_source_first_scope.patch(chewi_source_first_contract)
     chewi_source_first_contract.enrich_site(output)
 
     # SampleWiki uses the same truth boundary as the textbook, but the public
