@@ -9,6 +9,7 @@ explicit MathJax rather than ASCII.
 from __future__ import annotations
 
 import re
+from pathlib import Path
 from typing import Any
 
 
@@ -21,6 +22,12 @@ INLINE_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\[0,T\]"), r"\([0,T]\)"),
 )
 
+FORBIDDEN_READER_HEADINGS: tuple[str, ...] = (
+    "<h3>Chewi statement</h3>",
+    "<h3>Chewi proof / derivation</h3>",
+    "<h3>Chewi proof status</h3>",
+)
+
 
 def mathify(value: object) -> str:
     text = str(value)
@@ -29,8 +36,28 @@ def mathify(value: object) -> str:
     return text
 
 
+def neutralize_reader_headings(text: str) -> str:
+    return (
+        text
+        .replace("<h3>Chewi statement</h3>", "<h3>Statement</h3>")
+        .replace(
+            "<h3>Chewi proof / derivation</h3>",
+            "<h3>Proof / derivation</h3>",
+        )
+        .replace(
+            "<h3>Chewi proof status</h3>",
+            "<h3>Proof / derivation status</h3>",
+        )
+    )
+
+
 def patch(contract: Any) -> None:
+    if getattr(contract, "_neutral_heading_refinement_applied", False):
+        return
+
     original_render_source_card = contract._render_source_card
+    original_inject_style = contract._inject_style
+    original_validate = contract.validate
 
     def render_mixed_list(values: list[str], css_class: str = "") -> str:
         cls = f' class="{css_class}"' if css_class else ""
@@ -159,20 +186,31 @@ def patch(contract: Any) -> None:
         rendered = original_render_source_card(
             source_id, source, supplements, proofs, url_map
         )
-        return (
-            rendered
-            .replace('<h3>Chewi statement</h3>', '<h3>Statement</h3>')
-            .replace(
-                '<h3>Chewi proof / derivation</h3>',
-                '<h3>Proof / derivation</h3>',
+        return neutralize_reader_headings(rendered)
+
+    def inject_style(text: str, rel: Path) -> str:
+        return neutralize_reader_headings(original_inject_style(text, rel))
+
+    def validate(output: Path = contract.DEFAULT_OUTPUT) -> None:
+        original_validate(output)
+        errors: list[str] = []
+        for path in output.rglob("*.html"):
+            text = path.read_text(encoding="utf-8")
+            for heading in FORBIDDEN_READER_HEADINGS:
+                if heading in text:
+                    errors.append(
+                        f"{path.relative_to(output)}: author-prefixed reader heading remains: {heading}"
+                    )
+        if errors:
+            raise RuntimeError(
+                "neutral textbook heading contract failed:\n- "
+                + "\n- ".join(errors)
             )
-            .replace(
-                '<h3>Chewi proof status</h3>',
-                '<h3>Proof / derivation status</h3>',
-            )
-        )
 
     contract._render_hidden_assumptions = render_hidden_assumptions
     contract._render_astis_latex = render_astis_latex
     contract._render_implicit_card = render_implicit_card
     contract._render_source_card = render_source_card
+    contract._inject_style = inject_style
+    contract.validate = validate
+    contract._neutral_heading_refinement_applied = True
