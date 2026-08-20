@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
 import chapter1_reference_shelf  # noqa: E402
+import chewi_source_audit_guard  # noqa: E402
 import chewi_source_first_contract  # noqa: E402
 import chewi_source_first_refinement  # noqa: E402
 import implicit_prerequisites  # noqa: E402
@@ -72,6 +73,12 @@ def main() -> int:
     textbook_math_contract.patch_reader_contract(reader_contract_final)
     reader_contract_final.enrich_site(output)
     textbook_math_contract.enrich_site(output, reader_contract_final)
+
+    # Later-chapter source-correspondence metadata is allowed to precede exact
+    # theorem transcription, but an unaudited row is not allowed to appear as a
+    # theorem card. Replace only already-visible formula-less rows by an honest
+    # source-audit placeholder before the strict source-first renderer runs.
+    chewi_source_audit_guard.enrich_site(output)
 
     # The permanent public order is:
     # Chewi statement -> Chewi proof/status -> source/implicit assumptions ->
