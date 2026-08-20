@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Refine the source-first reader before its final rendering pass.
 
-This keeps audit metadata out of prose and makes the small amount of mathematics
-that belongs inside assumption sentences explicit MathJax rather than ASCII.
+This keeps audit metadata out of prose, uses neutral textbook headings, and
+makes the small amount of mathematics that belongs inside assumption sentences
+explicit MathJax rather than ASCII.
 """
 
 from __future__ import annotations
@@ -12,12 +13,12 @@ from typing import Any
 
 
 INLINE_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
-    (re.compile(r"\btau_m\s*<=\s*tau_n\b"), r"\\(\\tau_m\\le\\tau_n\\)"),
-    (re.compile(r"\bt\s*->\s*A_t\b"), r"\\(t\\mapsto A_t\\)"),
-    (re.compile(r"\bc\s*>=\s*0\b"), r"\\(c\\ge 0\\)"),
-    (re.compile(r"\bL2\(Omega\)\b"), r"\\(L^2(\\Omega)\\)"),
-    (re.compile(r"\bL2\b"), r"\\(L^2\\)"),
-    (re.compile(r"\[0,T\]"), r"\\([0,T]\\)"),
+    (re.compile(r"\btau_m\s*<=\s*tau_n\b"), r"\(\tau_m\le\tau_n\)"),
+    (re.compile(r"\bt\s*->\s*A_t\b"), r"\(t\mapsto A_t\)"),
+    (re.compile(r"\bc\s*>=\s*0\b"), r"\(c\ge 0\)"),
+    (re.compile(r"\bL2\(Omega\)\b"), r"\(L^2(\Omega)\)"),
+    (re.compile(r"\bL2\b"), r"\(L^2\)"),
+    (re.compile(r"\[0,T\]"), r"\([0,T]\)"),
 )
 
 
@@ -29,6 +30,8 @@ def mathify(value: object) -> str:
 
 
 def patch(contract: Any) -> None:
+    original_render_source_card = contract._render_source_card
+
     def render_mixed_list(values: list[str], css_class: str = "") -> str:
         cls = f' class="{css_class}"' if css_class else ""
         return (
@@ -129,7 +132,7 @@ def patch(contract: Any) -> None:
             f'id="{contract.esc(item_id)}" '
             'data-provenance="astis-implicit-prerequisite">'
             '<div class="passage-label">ASTIS implicit prerequisite · not a '
-            'standalone Chewi result</div>'
+            'standalone source result</div>'
             f'<h2>{contract.esc(item.get("title", ""))}</h2>'
             '<p><strong>Why it is needed.</strong> '
             f'{contract.esc(mathify(item.get("why_needed", "")))}</p>'
@@ -146,6 +149,30 @@ def patch(contract: Any) -> None:
             '</article>'
         )
 
+    def render_source_card(
+        source_id: str,
+        source: dict[str, Any],
+        supplements: dict[str, dict[str, Any]],
+        proofs: dict[str, dict[str, Any]],
+        url_map: dict[str, str],
+    ) -> str:
+        rendered = original_render_source_card(
+            source_id, source, supplements, proofs, url_map
+        )
+        return (
+            rendered
+            .replace('<h3>Chewi statement</h3>', '<h3>Statement</h3>')
+            .replace(
+                '<h3>Chewi proof / derivation</h3>',
+                '<h3>Proof / derivation</h3>',
+            )
+            .replace(
+                '<h3>Chewi proof status</h3>',
+                '<h3>Proof / derivation status</h3>',
+            )
+        )
+
     contract._render_hidden_assumptions = render_hidden_assumptions
     contract._render_astis_latex = render_astis_latex
     contract._render_implicit_card = render_implicit_card
+    contract._render_source_card = render_source_card
