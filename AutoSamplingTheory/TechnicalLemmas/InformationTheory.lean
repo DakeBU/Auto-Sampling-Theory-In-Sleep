@@ -1,6 +1,7 @@
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.FisherTransport
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi
 
