@@ -84,7 +84,7 @@ class SampleWikiReaderTruthBoundaryTests(unittest.TestCase):
     def test_pending_case_has_useful_reader_derivation_map(self) -> None:
         html = contract.case_main("example-cases/samplewiki/cases/x.html", self.pending, None, None)
         self.assertIn("Reader derivation map", html)
-        self.assertIn("not a transcription of the paper&#x27;s proof", html)
+        self.assertIn("not a transcription of the paper's proof", html)
         self.assertIn("Langevin", html)
         self.assertIn(contract.esc(self.pending["guarantee"]), html)
         self.assertIn(contract.esc(self.pending["complexity"]), html)
