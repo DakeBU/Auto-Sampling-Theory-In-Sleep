@@ -22,6 +22,7 @@ import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
 import reader_contract_final  # noqa: E402
 import samplewiki_audit_queue  # noqa: E402
+import samplewiki_casebook_assets  # noqa: E402
 import samplewiki_casebook_polish  # noqa: E402
 import samplewiki_examples  # noqa: E402
 import samplewiki_frontier_audit  # noqa: E402
@@ -96,6 +97,7 @@ def main() -> int:
     # source-facing declaration actually exists.
     samplewiki_casebook_polish.patch(samplewiki_reader_contract)
     samplewiki_reader_contract.enrich_site(output)
+    samplewiki_casebook_assets.enrich_site(output)
 
     # The graph is the final site overlay: it consumes the finished reader pages,
     # exact source-audit cards, generated Lean inventory, and all final sidebars.
