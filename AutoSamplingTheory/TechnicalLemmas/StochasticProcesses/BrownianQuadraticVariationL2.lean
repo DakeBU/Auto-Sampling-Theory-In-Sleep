@@ -53,7 +53,7 @@ theorem integral_increment_pow_four
   rw [integral_increment_pow_four_nndist hB s t]
   have hstR : (s : ℝ) ≤ (t : ℝ) := by exact_mod_cast hst
   have hdist : (nndist (t : ℝ) (s : ℝ) : ℝ) = ((t - s : ℝ≥0) : ℝ) := by
-    rw [Real.coe_nndist, Real.dist_eq]
+    rw [coe_nndist, Real.dist_eq]
     simp [abs_of_nonneg (sub_nonneg.mpr hstR), NNReal.coe_sub hst]
   rw [hdist]
 
@@ -66,12 +66,10 @@ theorem centered_increment_sq_memLp_two
         (B t omega - B s omega) ^ 2 - ((t - s : ℝ≥0) : ℝ))
       2 mu := by
   have hpre := hB.isBrownian.toIsPreBrownianReal
-  have hsub : MemLp (fun omega => B t omega - B s omega) 4 mu := by
-    simpa [Pi.sub_apply] using
-      (hpre.isGaussianProcess.hasGaussianLaw_sub.memLp (by norm_num) :
-        MemLp (B t - B s) 4 mu)
+  have hsub : MemLp (B t - B s) 4 mu :=
+    hpre.isGaussianProcess.hasGaussianLaw_sub.memLp (by norm_num)
   have hsq : MemLp (fun omega => (B t omega - B s omega) ^ 2) 2 mu := by
-    simpa [pow_mul] using hsub.pow 2
+    simpa only [Pi.sub_apply, pow_two] using hsub.mul' hsub
   let _ : IsProbabilityMeasure mu := hB.isProbabilityMeasure
   exact hsq.sub (memLp_const ((t - s : ℝ≥0) : ℝ))
 
@@ -88,14 +86,18 @@ theorem integral_centered_increment_sq_sq
   have h4 := integral_increment_pow_four hB hst
   have h2 := hB.integral_increment_sq hst
   have hpre := hB.isBrownian.toIsPreBrownianReal
-  have hsub : MemLp (fun omega => B t omega - B s omega) 4 mu := by
-    simpa [Pi.sub_apply] using
-      (hpre.isGaussianProcess.hasGaussianLaw_sub.memLp (by norm_num) :
-        MemLp (B t - B s) 4 mu)
+  have hsub : MemLp (B t - B s) 4 mu :=
+    hpre.isGaussianProcess.hasGaussianLaw_sub.memLp (by norm_num)
   have hsq : MemLp (fun omega => (B t omega - B s omega) ^ 2) 2 mu := by
-    simpa [pow_mul] using hsub.pow 2
+    simpa only [Pi.sub_apply, pow_two] using hsub.mul' hsub
   have hInt4 : Integrable (fun omega => (B t omega - B s omega) ^ 4) mu := by
-    simpa [pow_mul] using hsq.integrable_sq
+    have hfun :
+        (fun omega => (B t omega - B s omega) ^ 4) =
+          (fun omega => ((B t omega - B s omega) ^ 2) ^ 2) := by
+      funext omega
+      ring
+    rw [hfun]
+    exact hsq.integrable_sq
   have hInt2 := increment_sq_integrable hB s t
   calc
     ∫ omega,
