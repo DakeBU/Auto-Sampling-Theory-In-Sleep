@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
 import chapter1_reference_shelf  # noqa: E402
+import chewi_source_first_contract  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
@@ -69,6 +70,13 @@ def main() -> int:
     textbook_math_contract.patch_reader_contract(reader_contract_final)
     reader_contract_final.enrich_site(output)
     textbook_math_contract.enrich_site(output, reader_contract_final)
+
+    # Rebuild every audited source card into the permanent reader order:
+    # Chewi statement -> Chewi proof/status -> hidden assumptions -> folded
+    # ASTIS LaTeX -> folded Lean.  This pass also rejects raw ASCII mathematics
+    # in ordinary prose and rewrites supplemental prerequisite cards so internal
+    # audit notation can never leak to the public reader.
+    chewi_source_first_contract.enrich_site(output)
 
     # The graph is the final site overlay: it consumes the finished reader pages,
     # exact source-audit cards, generated Lean inventory, and all final sidebars.
