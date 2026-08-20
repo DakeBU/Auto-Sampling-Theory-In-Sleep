@@ -22,6 +22,7 @@ import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
 import reader_contract_final  # noqa: E402
 import samplewiki_audit_queue  # noqa: E402
+import samplewiki_casebook_polish  # noqa: E402
 import samplewiki_examples  # noqa: E402
 import samplewiki_frontier_audit  # noqa: E402
 import samplewiki_math_render  # noqa: E402
@@ -76,8 +77,9 @@ def main() -> int:
 
     # Later-chapter source-correspondence metadata is allowed to precede exact
     # theorem transcription, but an unaudited row is not allowed to appear as a
-    # theorem card. Replace only already-visible formula-less rows by an honest
-    # source-audit placeholder before the strict source-first renderer runs.
+    # theorem card. Remove visible formula-less rows before the strict
+    # source-first renderer runs; the metadata stays available to the graph and
+    # audit pipeline.
     chewi_source_audit_guard.enrich_site(output)
 
     # The permanent public order is:
@@ -88,11 +90,11 @@ def main() -> int:
     chewi_source_first_refinement.patch(chewi_source_first_contract)
     chewi_source_first_contract.enrich_site(output)
 
-    # SampleWiki uses the same reader contract as the textbook.  The crawler
-    # rows remain provenance only; every public case is rebuilt as statement ->
-    # proof/derivation -> assumptions -> folded rigorous LaTeX -> folded Lean.
-    # Run this after every older SampleWiki overlay and visual pass so the final
-    # HTML cannot re-expose raw pinned-row text or database-like lifecycle UI.
+    # SampleWiki uses the same truth boundary as the textbook, but the public
+    # presentation is deliberately paper-first. Pending theorem audits still get
+    # a useful reader derivation map; Lean stays folded and quiet until a
+    # source-facing declaration actually exists.
+    samplewiki_casebook_polish.patch(samplewiki_reader_contract)
     samplewiki_reader_contract.enrich_site(output)
 
     # The graph is the final site overlay: it consumes the finished reader pages,
