@@ -3,6 +3,7 @@ import Tests.BrownianMotion
 import Tests.BrownianQuadraticVariation
 import Tests.GaussianFourthMoment
 import Tests.BrownianQuadraticVariationL2
+import Tests.BrownianQuadraticVariationGridL2
 import Tests.VectorBrownianFiltration
 import Tests.EuclideanBrownianCoordinates
 import Tests.CarreDuChamp
