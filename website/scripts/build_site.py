@@ -24,6 +24,7 @@ import samplewiki_audit_queue  # noqa: E402
 import samplewiki_examples  # noqa: E402
 import samplewiki_frontier_audit  # noqa: E402
 import samplewiki_math_render  # noqa: E402
+import samplewiki_reader_contract  # noqa: E402
 import source_foundations  # noqa: E402
 import textbook_math_contract  # noqa: E402
 import theorem_lessons  # noqa: E402
@@ -79,6 +80,13 @@ def main() -> int:
     # is not copied into the textbook.
     chewi_source_first_refinement.patch(chewi_source_first_contract)
     chewi_source_first_contract.enrich_site(output)
+
+    # SampleWiki uses the same reader contract as the textbook.  The crawler
+    # rows remain provenance only; every public case is rebuilt as statement ->
+    # proof/derivation -> assumptions -> folded rigorous LaTeX -> folded Lean.
+    # Run this after every older SampleWiki overlay and visual pass so the final
+    # HTML cannot re-expose raw pinned-row text or database-like lifecycle UI.
+    samplewiki_reader_contract.enrich_site(output)
 
     # The graph is the final site overlay: it consumes the finished reader pages,
     # exact source-audit cards, generated Lean inventory, and all final sidebars.
