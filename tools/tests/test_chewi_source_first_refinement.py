@@ -59,8 +59,32 @@ class InlineMathRefinementTests(unittest.TestCase):
         card = contract._render_implicit_card(item, {})
         self.assertIn(r"\(t\mapsto A_t\)", card)
         self.assertIn(r"\(c\ge 0\)", card)
-        visible = contract._non_math_visible_text(card)
-        self.assertEqual(contract._raw_math_errors(visible), [])
+        self.assertEqual(refinement._scan_visible_math(contract, card), [])
+
+
+class BlockAwareMathLintTests(unittest.TestCase):
+    def test_reports_nearest_source_id_for_raw_math(self) -> None:
+        html = (
+            '<section class="source-contract-card" data-source-id="definition-1-1-4">'
+            '<p>For s <= t, M_t is adapted to F_t.</p>'
+            '</section>'
+        )
+        issues = refinement._scan_visible_math(contract, html)
+        self.assertTrue(issues)
+        self.assertTrue(all("[definition-1-1-4]" in issue for issue in issues))
+        self.assertTrue(any("ASCII relation/operator" in issue for issue in issues))
+        self.assertTrue(any("raw subscript notation" in issue for issue in issues))
+
+    def test_mathjax_and_code_are_not_reported_as_raw_math(self) -> None:
+        html = (
+            '<article id="clean-card">'
+            r'<p>For \(0\le s\le t\), the defining identity is '
+            r'\(\mathbb E[M_t\mid\mathcal F_s]=M_s\).</p>'
+            '<code>M_t <= F_t</code>'
+            r'<div class="formula">\[X_t=X_0+B_t\]</div>'
+            '</article>'
+        )
+        self.assertEqual(refinement._scan_visible_math(contract, html), [])
 
 
 if __name__ == "__main__":
