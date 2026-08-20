@@ -9,6 +9,9 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import chewi_source_first_contract as contract
+import chewi_source_first_refinement as refinement
+
+refinement.patch(contract)
 
 
 class RawMathGateTests(unittest.TestCase):
@@ -77,7 +80,10 @@ class SourceCardContractTests(unittest.TestCase):
         self.assertLess(astis_at, lean_at)
         self.assertNotIn('source-contract-astis-latex" open', card)
         self.assertNotIn('source-contract-lean" open', card)
-        self.assertIn("Chewi proof / derivation", card)
+        self.assertIn("<h3>Statement</h3>", card)
+        self.assertIn("<h3>Proof / derivation</h3>", card)
+        self.assertNotIn("<h3>Chewi statement</h3>", card)
+        self.assertNotIn("<h3>Chewi proof / derivation</h3>", card)
         self.assertIn("ASTIS rigorous LaTeX formalization", card)
         self.assertIn("Lean formalization", card)
 
