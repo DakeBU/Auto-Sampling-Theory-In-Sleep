@@ -28,6 +28,12 @@ variable {Omega : Type*} {m : MeasurableSpace Omega}
   {filtration : Filtration ℝ≥0 m} {mu : Measure Omega}
   {B : ℝ≥0 → Omega → ℝ}
 
+/-- Hölder exponents for the square map `L4 × L4 → L2`.
+Mathlib intentionally does not install every numerical Hölder triple as a
+global instance, so we make the exponent identity used by this file explicit. -/
+local instance holderTriple_four_four_two : ENNReal.HolderTriple 4 4 2 where
+  inv_add_inv_eq_inv := by norm_num
+
 /-- Fourth moment of one Brownian increment, in the metric form supplied
 naturally by Mathlib's `IsPreBrownianReal.hasLaw_sub`. -/
 theorem integral_increment_pow_four_nndist
