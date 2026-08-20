@@ -66,7 +66,7 @@ class BlockAwareMathLintTests(unittest.TestCase):
     def test_reports_nearest_source_id_for_raw_math(self) -> None:
         html = (
             '<section class="source-contract-card" data-source-id="definition-1-1-4">'
-            '<p>For s <= t, M_t is adapted to F_t.</p>'
+            '<p>For s &lt;= t, M_t is adapted to F_t.</p>'
             '</section>'
         )
         issues = refinement._scan_visible_math(contract, html)
@@ -80,7 +80,7 @@ class BlockAwareMathLintTests(unittest.TestCase):
             '<article id="clean-card">'
             r'<p>For \(0\le s\le t\), the defining identity is '
             r'\(\mathbb E[M_t\mid\mathcal F_s]=M_s\).</p>'
-            '<code>M_t <= F_t</code>'
+            '<code>M_t &lt;= F_t</code>'
             r'<div class="formula">\[X_t=X_0+B_t\]</div>'
             '</article>'
         )
