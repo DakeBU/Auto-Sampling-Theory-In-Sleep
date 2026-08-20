@@ -27,6 +27,7 @@ import samplewiki_casebook_polish  # noqa: E402
 import samplewiki_examples  # noqa: E402
 import samplewiki_frontier_audit  # noqa: E402
 import samplewiki_math_render  # noqa: E402
+import samplewiki_primary_audit_additions  # noqa: E402
 import samplewiki_reader_contract  # noqa: E402
 import source_foundations  # noqa: E402
 import textbook_math_contract  # noqa: E402
@@ -94,8 +95,10 @@ def main() -> int:
     # SampleWiki uses the same truth boundary as the textbook, but the public
     # presentation is deliberately paper-first. Pending theorem audits still get
     # a useful reader derivation map; Lean stays folded and quiet until a
-    # source-facing declaration actually exists.
+    # source-facing declaration actually exists. Incremental primary-source
+    # audits can therefore improve the public mathematics independently of Lean.
     samplewiki_casebook_polish.patch(samplewiki_reader_contract)
+    samplewiki_primary_audit_additions.patch(samplewiki_reader_contract)
     samplewiki_reader_contract.enrich_site(output)
     samplewiki_casebook_assets.enrich_site(output)
 
