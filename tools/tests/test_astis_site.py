@@ -7,11 +7,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import astis_site
 from astis_site import (
     RegistryEntry,
     SourceDeclaration,
     validate_chapter_1_evidence,
 )
+from astis_site_source_index import source_index_from_project_scan
 
 
 DECLARATION_NAME = "AutoSamplingTheory.Example.proved"
@@ -72,6 +74,15 @@ def registry_entry() -> RegistryEntry:
         source_file="AutoSamplingTheory/Example.lean",
         explicit_test=False,
     )
+
+
+class SourceIndexTests(unittest.TestCase):
+    def test_dotted_local_name_keeps_enclosing_namespace(self) -> None:
+        indexed, _ = source_index_from_project_scan(astis_site)
+        self.assertIn(
+            "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity.LogConcaveOn.mul",
+            indexed,
+        )
 
 
 class ChapterOneEvidenceTests(unittest.TestCase):

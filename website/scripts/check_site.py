@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
+import astis_site_source_index  # noqa: E402
 import astis_source  # noqa: E402
 import chewi_source_first_contract  # noqa: E402
 import chewi_source_first_refinement  # noqa: E402
@@ -23,6 +24,12 @@ import implicit_prerequisites  # noqa: E402
 import lean_tutor  # noqa: E402
 import reader_contract_final  # noqa: E402
 import source_foundations  # noqa: E402
+
+
+# Validation must resolve Registry entries with the same declaration parser used
+# to build the public source inventory. Dotted local names still inherit their
+# surrounding namespace.
+astis_site_source_index.install(astis_site)
 
 
 def source_first_proof_coverage_errors(output: Path) -> list[str]:

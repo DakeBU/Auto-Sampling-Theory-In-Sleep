@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
+import astis_site_source_index  # noqa: E402
 import chapter1_reference_shelf  # noqa: E402
 import chewi_source_audit_guard  # noqa: E402
 import chewi_source_first_contract  # noqa: E402
@@ -37,6 +38,12 @@ import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
 import underlying_lean_graph  # noqa: E402
 import visual_polish  # noqa: E402
+
+
+# Registry enrichment and the public declaration inventory must use the same
+# declaration parser. In particular, dotted local names such as
+# `LogConcaveOn.mul` still live inside their enclosing namespaces.
+astis_site_source_index.install(astis_site)
 
 
 def repair_final_content_anchors(output: Path) -> None:
