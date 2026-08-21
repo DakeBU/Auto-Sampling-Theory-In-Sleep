@@ -32,14 +32,19 @@ SKIP_BLOCK_RE = re.compile(
 def _normalize_legacy_visible_math(text: str) -> str:
     """Turn known legacy ASCII relations into reader-facing MathJax.
 
-    The replacement is intentionally narrow. It changes only ordinary visible
-    HTML segments and never touches Lean/code blocks. The strict validator still
-    runs afterwards and therefore remains the authority on whether any raw
-    mathematical notation leaked into the textbook.
+    Generated reader prose has already passed through HTML escaping, so the
+    same visible relation may occur as either ``<=`` or ``&lt;=`` in the raw
+    document.  Normalize both encodings, only in ordinary visible HTML segments.
+    Lean/code blocks remain byte-for-byte untouched.  The unchanged strict
+    validator runs afterwards and remains the authority on raw-math leakage.
     """
 
     parts = SKIP_BLOCK_RE.split(text)
     replacements = (
+        ("{tau &lt;= t}", r"\(\{\tau\le t\}\)"),
+        ("tau &lt;= t", r"\(\tau\le t\)"),
+        ("s &lt;= t", r"\(s\le t\)"),
+        ("t &lt;= T", r"\(t\le T\)"),
         ("{tau <= t}", r"\(\{\tau\le t\}\)"),
         ("tau <= t", r"\(\tau\le t\)"),
         ("s <= t", r"\(s\le t\)"),
