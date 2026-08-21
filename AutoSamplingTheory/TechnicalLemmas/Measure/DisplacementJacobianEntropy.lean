@@ -1,4 +1,5 @@
 import Mathlib.Analysis.Convex.SpecificFunctions.Basic
+import Mathlib.Analysis.Matrix.PosDef
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import Mathlib.Tactic
 
@@ -20,16 +21,17 @@ This file isolates the eigenvalue-coordinate convexity behind that step.  If
 `log ((1-t) + t lambda_i) >= t log lambda_i`
 
 for `0 <= t <= 1`.  Summing over the finite spectrum gives the corresponding
-log-determinant inequality, and an integral wrapper keeps the same inequality
-under explicit Bochner-integrability hypotheses.
+log-determinant inequality.  For a real positive-definite matrix, Mathlib's
+spectral determinant theorem and positivity of every eigenvalue then identify
+this finite-spectrum sum with the literal `Real.log (Matrix.det A)`.
 
 This is deliberately not yet a Brenier/change-of-variables theorem.  The
 following remain separate obligations:
 
 * identify the derivative of the optimal transport map as a symmetric
   positive-(semi)definite Jacobian;
-* connect its determinant to the product of the positive eigenvalues;
-* prove the density change-of-variables identity;
+* transport the spectrum through the affine matrix `(1-t) I + t A`;
+* prove the density change-of-variables identity for the displacement map;
 * assemble the resulting entropy inequality with `DisplacementPotentialEnergy`.
 -/
 
@@ -68,11 +70,30 @@ theorem log_affineIdentity_ge
     (sub_nonneg.mpr ht1) ht0 (by ring : (1 - t) + t = (1 : ℝ))
   simpa [smul_eq_mul] using hconc
 
-/-- Sum of logarithms of a finite positive spectrum.  Once a Jacobian matrix is
-connected to its eigenvalues, this is exactly its `log det` representation. -/
+/-- Sum of logarithms of a finite positive spectrum. -/
 noncomputable def spectrumLogDet
     {ι : Type*} [Fintype ι] (lambda : ι → ℝ) : ℝ :=
   ∑ i, Real.log (lambda i)
+
+/-- For a real positive-definite matrix, the abstract finite-spectrum log-det
+is exactly the logarithm of the literal matrix determinant.
+
+This is the matrix bridge needed before the Jacobian entropy leaf can consume
+an actual `fderiv` matrix rather than an externally supplied positive spectrum. -/
+theorem spectrumLogDet_eigenvalues_eq_log_det
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A : Matrix ι ι ℝ) (hA : A.PosDef) :
+    spectrumLogDet hA.isHermitian.eigenvalues = Real.log A.det := by
+  unfold spectrumLogDet
+  rw [hA.isHermitian.det_eq_prod_eigenvalues]
+  exact (Real.log_prod (fun i _ => (hA.eigenvalues_pos i).ne')).symm
+
+/-- The same SPD determinant bridge in the entropy-sign orientation. -/
+theorem neg_spectrumLogDet_eigenvalues_eq_neg_log_det
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A : Matrix ι ι ℝ) (hA : A.PosDef) :
+    -spectrumLogDet hA.isHermitian.eigenvalues = -Real.log A.det := by
+  rw [spectrumLogDet_eigenvalues_eq_log_det A hA]
 
 /-- Spectrum of the affine Jacobian `(1-t) I + t A` when `lambda` is the
 spectrum of `A`. -/
