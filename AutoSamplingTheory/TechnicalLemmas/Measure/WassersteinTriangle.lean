@@ -58,9 +58,11 @@ theorem wassersteinDistance_lt_add_of_lt
     ⟨γ₁₂₃, hfst, hmap₂₃⟩
 
   have hmap₁₂ : Measure.map (pair12 (E := E)) γ₁₂₃ = γ₁₂ := by
-    simpa [pair12, Measure.fst] using hfst
+    change Measure.map Prod.fst γ₁₂₃ = γ₁₂
+    exact hfst
   have hmap₂₃' : Measure.map (pair23 (E := E)) γ₁₂₃ = γ₂₃ := by
-    simpa [pair23] using hmap₂₃
+    change Measure.map (fun p : ((E × E) × E) => (p.1.2, p.2)) γ₁₂₃ = γ₂₃
+    exact hmap₂₃
 
   have hpair₁₂ :
       Transport.IsCoupling (Measure.map (pair12 (E := E)) γ₁₂₃) μ₁ μ₂ := by
@@ -106,7 +108,7 @@ theorem wassersteinDistance_lt_add_of_lt
           (1 / (2 : ℝ)) +
         (∫⁻ z, WassersteinSpace.quadraticCost (E := E) z ∂γ₂₃) ^
           (1 / (2 : ℝ)) := by rw [hedge₁₂, hedge₂₃]
-    _ < r₁₂ + r₂₃ := add_lt_add hcost₁₂ hcost₂₃
+    _ < r₁₂ + r₂₃ := ENNReal.add_lt_add hcost₁₂ hcost₂₃
 
 end
 
