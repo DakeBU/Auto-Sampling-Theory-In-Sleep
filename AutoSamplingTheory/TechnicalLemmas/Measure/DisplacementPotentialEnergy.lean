@@ -38,8 +38,10 @@ theorem potential_pointMap_le
     V (pointMap (E := E) t z) ≤
       (1 - t) * V z.1 + t * V z.2 -
         (alpha * t * (1 - t) / 2) * ‖z.1 - z.2‖ ^ 2 := by
-  rw [StrongConvexOn, UniformConvexOn] at hV
-  have h := hV.2
+  change UniformConvexOn (Set.univ : Set E)
+    (fun r : ℝ => alpha / 2 * r ^ 2) V at hV
+  rcases hV with ⟨_, hVineq⟩
+  have h := hVineq
     (x := z.1) (by simp)
     (y := z.2) (by simp)
     (a := 1 - t) (b := t)
