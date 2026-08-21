@@ -14,14 +14,22 @@ sys.path.insert(0, str(ROOT / "website" / "scripts"))
 
 import astis_site  # noqa: E402
 import chapter1_reference_shelf  # noqa: E402
+import chewi_source_audit_guard  # noqa: E402
+import chewi_source_first_contract  # noqa: E402
+import chewi_source_first_refinement  # noqa: E402
+import chewi_source_first_scope  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
 import reader_contract_final  # noqa: E402
 import samplewiki_audit_queue  # noqa: E402
+import samplewiki_casebook_assets  # noqa: E402
+import samplewiki_casebook_polish  # noqa: E402
 import samplewiki_examples  # noqa: E402
 import samplewiki_frontier_audit  # noqa: E402
 import samplewiki_math_render  # noqa: E402
+import samplewiki_primary_audit_additions  # noqa: E402
+import samplewiki_reader_contract  # noqa: E402
 import source_foundations  # noqa: E402
 import textbook_math_contract  # noqa: E402
 import theorem_lessons  # noqa: E402
@@ -56,19 +64,44 @@ def main() -> int:
     # them in a separate overlay so an unaudited row can never inherit a theorem
     # number or proof route merely from the crawler.
     samplewiki_frontier_audit.enrich_site(output)
-    # The progress page exposes all 34 literature-audit states at once; this is
+    # The progress page exposes all literature-audit states at once; this is
     # deliberately separate from the Lean lifecycle/status table.
     samplewiki_audit_queue.enrich_site(output)
     chapter1_reference_shelf.enrich_site(output)
     visual_polish.enrich_site(output)
 
     # Patch the final reader before it runs so proof supplements are attached to
-    # audited latex-statement cards as well as formula-supplement cards.  This is
+    # audited latex-statement cards as well as formula-supplement cards. This is
     # what makes the canonical page a self-contained mathematical textbook when
     # Lean and infrastructure disclosures are collapsed.
     textbook_math_contract.patch_reader_contract(reader_contract_final)
     reader_contract_final.enrich_site(output)
     textbook_math_contract.enrich_site(output, reader_contract_final)
+
+    # Later-chapter source-correspondence metadata is allowed to precede exact
+    # theorem transcription, but an unaudited row is not allowed to appear as a
+    # theorem card. Remove visible formula-less rows before the strict
+    # source-first renderer runs; the metadata stays available to the graph and
+    # audit pipeline.
+    chewi_source_audit_guard.enrich_site(output)
+
+    # The textbook reader owns the strict source-first mathematics contract.
+    # SampleWiki is still pre-finalization at this point and is validated later by
+    # its own 34-case contract, so the textbook linter must not inspect crawler or
+    # generated declaration/module pages before their final reader passes.
+    chewi_source_first_refinement.patch(chewi_source_first_contract)
+    chewi_source_first_scope.patch(chewi_source_first_contract)
+    chewi_source_first_contract.enrich_site(output)
+
+    # SampleWiki uses the same truth boundary as the textbook, but the public
+    # presentation is deliberately paper-first. Pending theorem audits still get
+    # a useful reader derivation map; Lean stays folded and quiet until a
+    # source-facing declaration actually exists. Incremental primary-source
+    # audits can therefore improve the public mathematics independently of Lean.
+    samplewiki_casebook_polish.patch(samplewiki_reader_contract)
+    samplewiki_primary_audit_additions.patch(samplewiki_reader_contract)
+    samplewiki_reader_contract.enrich_site(output)
+    samplewiki_casebook_assets.enrich_site(output)
 
     # The graph is the final site overlay: it consumes the finished reader pages,
     # exact source-audit cards, generated Lean inventory, and all final sidebars.
