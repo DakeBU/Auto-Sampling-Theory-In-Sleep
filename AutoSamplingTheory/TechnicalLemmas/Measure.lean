@@ -16,6 +16,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangleCore
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangleMarginals
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangle
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangleExact
+import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinFiniteSecondMoment
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 
