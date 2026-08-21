@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinKLDissipation
+
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinKLDissipation.kl_hasDerivAt_eq_neg_information
