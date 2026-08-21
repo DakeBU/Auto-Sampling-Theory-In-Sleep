@@ -129,6 +129,36 @@ theorem l2Seminorm_edge13_eq_pairCost
   intro p
   exact edgeLength13_rpow_two_eq_quadraticCost_pair13 p
 
+/-- If the `(x,y)` and `(y,z)` pair marginals of a triple law are couplings of
+`μ₁,μ₂` and `μ₂,μ₃`, then its `(x,z)` pair marginal couples `μ₁,μ₃`.
+
+This is the marginal bookkeeping edge needed after transport-plan gluing. -/
+theorem isCoupling_map_pair13_of_pair12_pair23
+    (gamma : Measure ((E × E) × E))
+    {μ₁ μ₂ μ₃ : Measure E}
+    (h12 : Transport.IsCoupling (Measure.map (pair12 (E := E)) gamma) μ₁ μ₂)
+    (h23 : Transport.IsCoupling (Measure.map (pair23 (E := E)) gamma) μ₂ μ₃) :
+    Transport.IsCoupling (Measure.map (pair13 (E := E)) gamma) μ₁ μ₃ := by
+  constructor
+  · calc
+      (Measure.map (pair13 (E := E)) gamma).fst =
+          (Measure.map (pair12 (E := E)) gamma).fst := by
+        rw [Measure.fst,
+          Measure.map_map measurable_fst measurable_pair13,
+          Measure.fst,
+          Measure.map_map measurable_fst measurable_pair12]
+        rfl
+      _ = μ₁ := h12.1
+  · calc
+      (Measure.map (pair13 (E := E)) gamma).snd =
+          (Measure.map (pair23 (E := E)) gamma).snd := by
+        rw [Measure.snd,
+          Measure.map_map measurable_snd measurable_pair13,
+          Measure.snd,
+          Measure.map_map measurable_snd measurable_pair23]
+        rfl
+      _ = μ₃ := h23.2
+
 end
 
 end WassersteinTriangleMarginals
