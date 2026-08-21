@@ -63,8 +63,8 @@ theorem log_affineIdentity_ge
   have hlog : ConcaveOn ℝ (Ioi (0 : ℝ)) Real.log :=
     (strictConcaveOn_log_Ioi : StrictConcaveOn ℝ (Ioi (0 : ℝ)) Real.log).concaveOn
   have hconc := hlog.2
-    (show (1 : ℝ) ∈ Ioi 0 by exact zero_lt_one)
-    (show a ∈ Ioi 0 by exact ha)
+    (show (1 : ℝ) ∈ Ioi (0 : ℝ) by norm_num)
+    (show a ∈ Ioi (0 : ℝ) by exact ha)
     (sub_nonneg.mpr ht1) ht0 (by ring : (1 - t) + t = (1 : ℝ))
   simpa [smul_eq_mul] using hconc
 
