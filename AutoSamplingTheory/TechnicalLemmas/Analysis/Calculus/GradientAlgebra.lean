@@ -1,4 +1,6 @@
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient
+import Mathlib.Analysis.Calculus.FDeriv.Comp
+import Mathlib.Analysis.Calculus.FDeriv.Mul
 import Mathlib.Tactic
 
 /-!
@@ -34,7 +36,7 @@ theorem HasGradientAt.mul
     HasGradientAt (fun y => f y * g y)
       (f x • gradG + g x • gradF) x := by
   rw [hasGradientAt_iff_hasFDerivAt]
-  have hmul := hf.hasFDerivAt.mul x hg.hasFDerivAt
+  have hmul := hf.hasFDerivAt.mul hg.hasFDerivAt
   convert hmul using 1
   ext v
   simp [InnerProductSpace.toDual_apply_apply, mul_comm, mul_left_comm, mul_assoc]
