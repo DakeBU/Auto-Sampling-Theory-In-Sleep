@@ -1,3 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.DonskerVaradhan
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.FisherTransport
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity
