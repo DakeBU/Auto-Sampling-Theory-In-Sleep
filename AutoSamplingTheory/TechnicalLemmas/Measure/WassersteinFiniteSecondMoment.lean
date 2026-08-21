@@ -24,16 +24,6 @@ noncomputable section
 variable {E : Type*} [NormedAddCommGroup E]
   [MeasurableSpace E] [BorelSpace E] [SecondCountableTopology E]
 
-/-- The independent product of two probability laws is a coupling. -/
-theorem isCoupling_prod
-    (μ ν : Measure E) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν] :
-    Transport.IsCoupling (μ.prod ν) μ ν := by
-  constructor
-  · simpa [Measure.fst] using
-      (measurePreserving_fst (μ := μ) (ν := ν)).map_eq
-  · simpa [Measure.snd] using
-      (measurePreserving_snd (μ := μ) (ν := ν)).map_eq
-
 /-- A finite second moment in the first coordinate remains integrable under the
 independent product law. -/
 theorem integrable_norm_sq_fst_prod
@@ -95,7 +85,7 @@ theorem wassersteinDistance_lt_top_of_integrable_norm_sq
     (hμ : Integrable (fun x : E => ‖x‖ ^ 2) μ)
     (hν : Integrable (fun y : E => ‖y‖ ^ 2) ν) :
     WassersteinSpace.wassersteinDistance μ ν < ∞ := by
-  have hcoupling := isCoupling_prod μ ν
+  have hcoupling := Transport.isCoupling_prod μ ν
   have hbound :=
     WassersteinSpace.wassersteinDistance_le_sqrt_lintegral_of_isCoupling
       μ ν (μ.prod ν) hcoupling
@@ -109,6 +99,7 @@ theorem wassersteinDistance_lt_top_of_integrable_norm_sq
 /-- In particular, the `P₂,ac` predicate used by the source has finite
 Wasserstein distance between any two of its elements. -/
 theorem wassersteinDistance_lt_top_of_p2ac
+    [InnerProductSpace ℝ E] [FiniteDimensional ℝ E]
     (μ ν : Measure E)
     (hμ : WassersteinSpace.IsAbsolutelyContinuousFiniteSecondMoment μ)
     (hν : WassersteinSpace.IsAbsolutelyContinuousFiniteSecondMoment ν) :
