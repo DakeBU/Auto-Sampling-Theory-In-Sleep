@@ -60,7 +60,9 @@ Jacobian determinant calculation. -/
 theorem log_affineIdentity_ge
     {a t : ℝ} (ha : 0 < a) (ht0 : 0 ≤ t) (ht1 : t ≤ 1) :
     t * Real.log a ≤ Real.log ((1 - t) + t * a) := by
-  have hconc := strictConcaveOn_log_Ioi.concaveOn.2
+  have hlog : ConcaveOn ℝ (Ioi (0 : ℝ)) Real.log :=
+    (strictConcaveOn_log_Ioi : StrictConcaveOn ℝ (Ioi (0 : ℝ)) Real.log).concaveOn
+  have hconc := hlog.2
     (show (1 : ℝ) ∈ Ioi 0 by exact zero_lt_one)
     (show a ∈ Ioi 0 by exact ha)
     (sub_nonneg.mpr ht1) ht0 (by ring : (1 - t) + t = (1 : ℝ))
