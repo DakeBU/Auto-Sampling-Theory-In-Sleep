@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -36,6 +37,34 @@ import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
 import underlying_lean_graph  # noqa: E402
 import visual_polish  # noqa: E402
+
+
+def repair_final_content_anchors(output: Path) -> None:
+    """Keep the global skip-link target valid after all reader overlays.
+
+    The base page shell always emits ``href="#content"`` and a matching main
+    element. Some late presentation overlays can reconstruct a textbook body
+    and accidentally drop the main element's id while leaving the skip link in
+    place. Repair only that structural accessibility invariant at the very end;
+    if no main element exists, fail rather than hiding malformed HTML.
+    """
+
+    for path in sorted(output.rglob("*.html")):
+        text = path.read_text(encoding="utf-8")
+        if 'href="#content"' not in text or 'id="content"' in text:
+            continue
+        repaired, count = re.subn(
+            r"<main(?![^>]*\bid=)([^>]*)>",
+            r'<main id="content"\1>',
+            text,
+            count=1,
+            flags=re.I,
+        )
+        if count != 1:
+            raise RuntimeError(
+                f"{path.relative_to(output)}: skip link targets #content but no repairable <main> exists"
+            )
+        path.write_text(repaired, encoding="utf-8", newline="\n")
 
 
 def main() -> int:
@@ -106,6 +135,11 @@ def main() -> int:
     # The graph is the final site overlay: it consumes the finished reader pages,
     # exact source-audit cards, generated Lean inventory, and all final sidebars.
     underlying_lean_graph.enrich_site(output)
+
+    # Presentation overlays must never leave the global skip link pointing at a
+    # missing anchor. This repair runs after every reader/graph overlay and before
+    # check_site.py validates the deployable tree.
+    repair_final_content_anchors(output)
     return 0
 
 
