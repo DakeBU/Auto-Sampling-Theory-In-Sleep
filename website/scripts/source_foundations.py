@@ -35,6 +35,29 @@ def esc(value: object) -> str:
     return html.escape(str(value), quote=True)
 
 
+def final_reader_detail_html(value: object) -> str:
+    """Return the detail text after the final reader's visible-math cleanup.
+
+    Foundation packets are inserted before the source-first reader normalizes
+    legacy ASCII inequalities into MathJax. Validation runs after that final
+    reader pass, so it must recognize the mathematically identical rendered
+    form rather than requiring stale ``&lt;=`` text to survive in public HTML.
+    This helper mirrors only the narrow relation rewrites used by the final
+    reader; it does not weaken presence checks for the surrounding prose.
+    """
+
+    rendered = esc(value)
+    replacements = (
+        ("{tau &lt;= t}", r"\(\{\tau\le t\}\)"),
+        ("tau &lt;= t", r"\(\tau\le t\)"),
+        ("s &lt;= t", r"\(s\le t\)"),
+        ("t &lt;= T", r"\(t\le T\)"),
+    )
+    for old, new in replacements:
+        rendered = rendered.replace(old, new)
+    return rendered
+
+
 def slugify(value: str) -> str:
     value = re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
     return value or "entry"
@@ -209,7 +232,8 @@ def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
         if text.count(f'data-source-foundation="{esc(source_id)}"') != 1:
             errors.append(f"{path}: missing or duplicated foundation disclosure for {source_id}")
         for detail in item["hidden_details"]:
-            if esc(detail) not in text:
+            candidates = (esc(detail), final_reader_detail_html(detail))
+            if not any(candidate in text for candidate in candidates):
                 errors.append(f"{path}: {source_id} missing hidden detail: {detail}")
         for source_ref in item["sources"]:
             if f'href="{esc(source_ref["url"])}"' not in text:

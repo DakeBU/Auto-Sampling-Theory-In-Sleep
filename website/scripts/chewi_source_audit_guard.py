@@ -23,7 +23,15 @@ DEFAULT_OUTPUT = ROOT / "_site"
 
 
 def _legacy_card_bounds(text: str, source: dict[str, Any]) -> tuple[int, int] | None:
-    """Locate an older untagged source card by its exact canonical source anchor."""
+    """Locate an older untagged source card by its exact canonical source anchor.
+
+    ``reader._source_anchor`` starts at the source card's own ``<section>``.
+    The previous implementation searched strictly *before* that position for a
+    ``<section>`` start. On a first card this could jump all the way back into a
+    sidebar section and delete the page shell, including ``<main id="content">``.
+    Start at the exact anchor instead so this guard can only remove the source
+    passage it owns.
+    """
 
     try:
         anchor = contract.reader._source_anchor(source)
@@ -34,9 +42,9 @@ def _legacy_card_bounds(text: str, source: dict[str, Any]) -> tuple[int, int] | 
     anchor_at = text.find(anchor)
     if anchor_at < 0:
         return None
-    section_start = text.rfind("<section", 0, anchor_at)
-    section_close = text.find("</section>", anchor_at)
-    if section_start < 0 or section_close < 0:
+    section_start = anchor_at
+    section_close = text.find("</section>", anchor_at + len(anchor))
+    if section_close < 0:
         return None
     return section_start, section_close + len("</section>")
 
@@ -82,9 +90,8 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
                 continue
 
             # Older reader passes may omit data-source-id but still emit the
-            # canonical source anchor. Remove the whole enclosing source section
-            # so the strict source-first renderer cannot later mistake roadmap
-            # metadata for a theorem awaiting reconstruction.
+            # canonical source anchor. Remove exactly that enclosing source
+            # section; never search backward into the surrounding page shell.
             legacy = _legacy_card_bounds(text, source)
             if legacy is None:
                 continue
