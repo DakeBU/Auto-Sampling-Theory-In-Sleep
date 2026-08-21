@@ -65,7 +65,7 @@ theorem quadraticCost_pairPointMap_eq
   congr 1
   rw [WassersteinSpace.quadraticCost]
   congr 1
-  exact norm_sub_rev z.2 z.1
+  exact congrArg (fun r : ℝ => r ^ 2) (norm_sub_rev z.2 z.1)
 
 /-- The exact quadratic cost of the canonical two-time interpolation coupling
 is `|s-t|^2` times the original endpoint-plan cost. -/
