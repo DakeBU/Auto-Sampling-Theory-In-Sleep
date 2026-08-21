@@ -1,5 +1,6 @@
 import AutoSamplingTheory.Probability
 import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation
+import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolationCoupling
 import AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs
 import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral
 import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity
