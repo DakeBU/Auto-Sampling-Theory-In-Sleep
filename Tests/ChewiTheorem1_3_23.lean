@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.ChewiTheorem1_3_23
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.ChewiTheorem1_3_23.wassersteinDistance_displacementInterpolation_eq_abs
+#check AutoSamplingTheory.TechnicalLemmas.Measure.ChewiTheorem1_3_23.chewi_theorem_1_3_23_constant_speed
