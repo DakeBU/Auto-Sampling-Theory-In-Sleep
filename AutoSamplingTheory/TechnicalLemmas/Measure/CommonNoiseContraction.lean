@@ -76,6 +76,8 @@ theorem map_pairLeft_prod_eq
     Measure.map (pairLeft (E := E)) (γ.prod κ) = μ.prod κ := by
   letI : IsProbabilityMeasure γ :=
     Transport.isProbabilityMeasure_of_isCoupling_left hγ
+  have hfst : Measure.map Prod.fst γ = μ := by
+    simpa [Measure.fst] using hγ.1
   calc
     Measure.map (pairLeft (E := E)) (γ.prod κ) =
         Measure.map (Prod.map Prod.fst id) (γ.prod κ) := by rfl
@@ -83,7 +85,7 @@ theorem map_pairLeft_prod_eq
       symm
       exact Measure.map_prod_map γ κ measurable_fst measurable_id
     _ = μ.prod κ := by
-      rw [hγ.1]
+      rw [hfst]
       simp
 
 /-- The `(right endpoint, noise)` marginal is `ν ⊗ κ`. -/
@@ -94,6 +96,8 @@ theorem map_pairRight_prod_eq
     Measure.map (pairRight (E := E)) (γ.prod κ) = ν.prod κ := by
   letI : IsProbabilityMeasure γ :=
     Transport.isProbabilityMeasure_of_isCoupling_left hγ
+  have hsnd : Measure.map Prod.snd γ = ν := by
+    simpa [Measure.snd] using hγ.2
   calc
     Measure.map (pairRight (E := E)) (γ.prod κ) =
         Measure.map (Prod.map Prod.snd id) (γ.prod κ) := by rfl
@@ -101,7 +105,7 @@ theorem map_pairRight_prod_eq
       symm
       exact Measure.map_prod_map γ κ measurable_snd measurable_id
     _ = ν.prod κ := by
-      rw [hγ.2]
+      rw [hsnd]
       simp
 
 /-- Synchronous common noise sends a coupling of `μ,ν` to a coupling of their
