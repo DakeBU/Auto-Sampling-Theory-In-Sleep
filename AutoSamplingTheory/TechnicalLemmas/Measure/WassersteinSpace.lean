@@ -41,6 +41,21 @@ theorem wassersteinDistance_sq
   rw [wassersteinDistance, ← ENNReal.rpow_two, ← ENNReal.rpow_mul]
   norm_num
 
+/-- Every concrete coupling bounds the squared Wasserstein distance from
+above by its quadratic transport cost.
+
+This is the source-facing bridge used before proving optimal-plan existence or
+constant-speed displacement geodesics. -/
+theorem wassersteinDistance_sq_le_lintegral_of_isCoupling
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
+    (μ ν : Measure E) (γ : Measure (E × E))
+    (hγ : Transport.IsCoupling γ μ ν) :
+    wassersteinDistance μ ν ^ 2 ≤
+      ∫⁻ z, quadraticCost (E := E) z ∂γ := by
+  rw [wassersteinDistance_sq]
+  exact Transport.transportCost_le_lintegral_of_isCoupling
+    (quadraticCost (E := E)) μ ν γ hγ
+
 /-- Chewi Definition 1.3.12: a probability measure in `P₂,ac` has finite
 second moment and is absolutely continuous with respect to Lebesgue volume.
 
