@@ -79,7 +79,8 @@ theorem exp_logRatio_ae_eq_density_of_absolutelyContinuous
     [Measure.HaveLebesgueDecomposition mu pi]
     (hmuPi : mu ≪ pi) :
     (fun x => Real.exp (logRatio mu pi x)) =ᵐ[mu] density mu pi := by
-  simpa [logRatio, density] using MeasureTheory.exp_llr_of_ac mu pi hmuPi
+  filter_upwards [MeasureTheory.exp_llr_of_ac mu pi hmuPi] with x hx
+  simpa [logRatio, density] using hx
 
 /-- The canonical density of a measure relative to itself is one a.e. -/
 theorem density_self_ae (mu : Measure α) [SigmaFinite mu] :
@@ -91,7 +92,8 @@ theorem density_self_ae (mu : Measure α) [SigmaFinite mu] :
 a.e. -/
 theorem logRatio_self_ae (mu : Measure α) [SigmaFinite mu] :
     logRatio mu mu =ᵐ[mu] fun _ => 0 := by
-  simpa [logRatio] using MeasureTheory.llr_self mu
+  filter_upwards [MeasureTheory.llr_self mu] with x hx
+  simpa [logRatio] using hx
 
 /-- For probability measures, finite KL has the source-facing integral form
 
@@ -102,10 +104,10 @@ measure divergence; this theorem is the bridge used by calculus arguments. -/
 theorem toReal_klDiv_eq_integral_logRatio_of_probability
     (mu pi : Measure α) [IsProbabilityMeasure mu] [IsProbabilityMeasure pi]
     (hmuPi : mu ≪ pi) :
-    (Mathlib.InformationTheory.klDiv mu pi).toReal =
+    (_root_.InformationTheory.klDiv mu pi).toReal =
       ∫ x, logRatio mu pi x ∂mu := by
   simpa [logRatio] using
-    (Mathlib.InformationTheory.toReal_klDiv_of_measure_eq
+    (_root_.InformationTheory.toReal_klDiv_of_measure_eq
       (mu := mu) (nu := pi) hmuPi (by simp))
 
 end
