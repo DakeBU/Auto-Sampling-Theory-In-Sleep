@@ -14,6 +14,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.TransportGluing
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangleCore
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangleMarginals
+import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangle
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 

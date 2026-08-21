@@ -56,6 +56,20 @@ theorem wassersteinDistance_sq_le_lintegral_of_isCoupling
   exact Transport.transportCost_le_lintegral_of_isCoupling
     (quadraticCost (E := E)) μ ν γ hγ
 
+/-- Every concrete coupling also bounds the Wasserstein distance directly by
+the square root of its quadratic cost. -/
+theorem wassersteinDistance_le_sqrt_lintegral_of_isCoupling
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
+    (μ ν : Measure E) (γ : Measure (E × E))
+    (hγ : Transport.IsCoupling γ μ ν) :
+    wassersteinDistance μ ν ≤
+      (∫⁻ z, quadraticCost (E := E) z ∂γ) ^ (1 / (2 : ℝ)) := by
+  unfold wassersteinDistance
+  exact ENNReal.rpow_le_rpow
+    (Transport.transportCost_le_lintegral_of_isCoupling
+      (quadraticCost (E := E)) μ ν γ hγ)
+    (by norm_num)
+
 /-- Strictly above the Wasserstein distance, one can choose an actual coupling
 whose quadratic `L²` cost has square root below the same threshold.
 
