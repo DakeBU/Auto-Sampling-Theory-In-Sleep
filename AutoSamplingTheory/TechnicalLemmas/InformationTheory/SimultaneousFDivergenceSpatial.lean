@@ -45,7 +45,8 @@ theorem HasGradientAt.factorizedNumerator
     HasGradientAt (fun y => q y * rho y)
       (rho x • gradQ + q x • gradRho) x := by
   simpa [add_comm] using
-    GradientAlgebra.HasGradientAt.mul hq hrho
+    AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.mul
+      hq hrho
 
 /-- Chain rule for the spatial gradient of `f' ∘ rho`. -/
 theorem HasGradientAt.fPrime_comp
@@ -55,7 +56,8 @@ theorem HasGradientAt.fPrime_comp
     (hrho : HasGradientAt rho gradRho x)
     (hfPrime : HasDerivAt fPrime fpp (rho x)) :
     HasGradientAt (fun y => fPrime (rho y)) (fpp • gradRho) x :=
-  GradientAlgebra.HasGradientAt.comp_real hrho hfPrime
+  AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real
+    hrho hfPrime
 
 /-- One-dimensional derivative identity behind
 `grad(f(rho) - rho f'(rho))`.
@@ -67,8 +69,14 @@ theorem hasDerivAt_f_sub_id_mul_fPrime
     (hf : HasDerivAt f (fPrime r) r)
     (hfPrime : HasDerivAt fPrime fpp r) :
     HasDerivAt (fun u => f u - u * fPrime u) (-r * fpp) r := by
-  have h := hf.sub ((hasDerivAt_id r).mul hfPrime)
-  convert h using 1 <;> simp <;> ring
+  have hmul : HasDerivAt (fun u : ℝ => u * fPrime u)
+      (fPrime r + r * fpp) r := by
+    simpa using (hasDerivAt_id r).mul hfPrime
+  have hsub : HasDerivAt (fun u : ℝ => f u - u * fPrime u)
+      (fPrime r - (fPrime r + r * fpp)) r :=
+    hf.sub hmul
+  convert hsub using 1
+  ring
 
 /-- Chain rule for the companion spatial gradient
 `grad(f(rho) - rho f'(rho))`. -/
@@ -82,8 +90,9 @@ theorem HasGradientAt.f_sub_mul_fPrime_comp
     HasGradientAt
       (fun y => f (rho y) - rho y * fPrime (rho y))
       ((-rho x * fpp) • gradRho) x := by
-  exact GradientAlgebra.HasGradientAt.comp_real hrho
-    (hasDerivAt_f_sub_id_mul_fPrime hf hfPrime)
+  exact
+    AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real
+      hrho (hasDerivAt_f_sub_id_mul_fPrime hf hfPrime)
 
 /-- Source-shaped pointwise spatial cancellation for Chewi Theorem 8.3.1.
 
@@ -107,9 +116,9 @@ theorem common_diffusion_pairing_source
         (gradient q x) =
       q x * fpp * ‖gradRho‖ ^ 2 := by
   rw [
-    (fPrime_comp hrho hfPrime).gradient,
-    (factorizedNumerator hq hrho).gradient,
-    (f_sub_mul_fPrime_comp hrho hf hfPrime).gradient,
+    (HasGradientAt.fPrime_comp hrho hfPrime).gradient,
+    (HasGradientAt.factorizedNumerator hq hrho).gradient,
+    (HasGradientAt.f_sub_mul_fPrime_comp hrho hf hfPrime).gradient,
     hq.gradient
   ]
   exact SimultaneousFDivergenceGradient.common_diffusion_pairing_eq
