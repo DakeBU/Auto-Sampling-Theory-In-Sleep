@@ -1,0 +1,6 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.mul
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.gradient_mul_eq_of_differentiableAt
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.gradient_comp_real_eq_of_differentiableAt
