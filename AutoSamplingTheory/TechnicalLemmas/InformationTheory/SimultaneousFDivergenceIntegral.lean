@@ -28,7 +28,7 @@ open MeasureTheory Filter Set Topology
 
 /-- The pointwise time-derivative expression supplied by the simultaneous
 weighted-quotient chain rule. -/
-def derivativeIntegrand
+noncomputable def derivativeIntegrand
     {α : Type*}
     (p q pDot qDot : ℝ → α → ℝ) (f fPrime : ℝ → ℝ)
     (s : ℝ) (x : α) : ℝ :=
