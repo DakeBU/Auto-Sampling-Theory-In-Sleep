@@ -14,6 +14,8 @@ on:
       - "tools/astis.py"
       - "tools/astis_harness.py"
       - "tools/astis_formalizer.py"
+      - "tools/astis_site_source_index.py"
+      - "tools/chapter_1_evidence.py"
       - "website/scripts/lean_gate.py"
       - ".github/workflows/formalization-gate.yml"
   pull_request:
@@ -28,6 +30,8 @@ on:
       - "tools/astis.py"
       - "tools/astis_harness.py"
       - "tools/astis_formalizer.py"
+      - "tools/astis_site_source_index.py"
+      - "tools/chapter_1_evidence.py"
       - "website/scripts/lean_gate.py"
       - ".github/workflows/formalization-gate.yml"
   merge_group:
@@ -75,4 +79,4 @@ jobs:
         run: python3 website/scripts/lean_gate.py
 
       - name: Validate Chapter 1 item-level evidence
-        run: python3 tools/astis.py chapter-1-check
+        run: python3 tools/chapter_1_evidence.py
