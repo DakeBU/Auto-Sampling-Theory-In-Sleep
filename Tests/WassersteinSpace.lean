@@ -8,6 +8,7 @@ open AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace
 #check AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.IsAbsolutelyContinuousFiniteSecondMoment
 #check AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance
 #check AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq
+#check AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq_le_lintegral_of_isCoupling
 
 example {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
     [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
@@ -24,5 +25,12 @@ example {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
       AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost
         (quadraticCost (E := E)) μ ν :=
   wassersteinDistance_sq μ ν
+
+example {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
+    (μ ν : Measure E) (γ : Measure (E × E))
+    (hγ : AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling γ μ ν) :
+    wassersteinDistance μ ν ^ 2 ≤
+      ∫⁻ z, quadraticCost (E := E) z ∂γ :=
+  wassersteinDistance_sq_le_lintegral_of_isCoupling μ ν γ hγ
 
 end AutoSamplingTheory.Tests.WassersteinSpace

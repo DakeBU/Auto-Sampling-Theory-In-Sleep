@@ -45,6 +45,19 @@ theorem transportCost_eq_sInf
       sInf {r : ℝ≥0∞ | ∃ γ ∈ couplingSet μ ν, r = ∫⁻ z, c z ∂γ} :=
   rfl
 
+/-- Every feasible coupling gives an upper bound on the Kantorovich optimum.
+
+This is the basic `sInf <= candidate` edge used repeatedly when a concrete
+coupling is constructed (for example from a displacement interpolation or a
+Markovian coupling).  It does not require existence of an optimizer. -/
+theorem transportCost_le_lintegral_of_isCoupling
+    {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
+    (c : α × β → ℝ≥0∞) (μ : Measure α) (ν : Measure β)
+    (γ : Measure (α × β)) (hγ : IsCoupling γ μ ν) :
+    transportCost c μ ν ≤ ∫⁻ z, c z ∂γ := by
+  rw [transportCost_eq_sInf]
+  exact sInf_le ⟨γ, hγ, rfl⟩
+
 /-- A prescribed probability marginal forces the joint coupling measure to
 have total mass one. This recovers the probability-measure interface required
 by expectations and transport costs from the marginal contract. -/
