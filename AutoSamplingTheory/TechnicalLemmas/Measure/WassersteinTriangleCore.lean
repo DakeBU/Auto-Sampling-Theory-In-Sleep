@@ -49,7 +49,8 @@ theorem edgeLength12_measurable
     (measurable_fst.comp measurable_fst).prodMk (measurable_snd.comp measurable_fst)
   have hdist : Measurable (fun p : ((E × E) × E) => dist p.1.1 p.1.2) :=
     measurable_dist.comp hpair
-  simpa only [edgeLength12, dist_eq_norm] using hdist.ennreal_ofReal
+  change Measurable (fun p : ((E × E) × E) => ENNReal.ofReal ‖p.1.1 - p.1.2‖)
+  simpa only [dist_eq_norm] using hdist.ennreal_ofReal
 
 /-- Measurability of the middle-to-last edge. -/
 theorem edgeLength23_measurable
@@ -60,7 +61,8 @@ theorem edgeLength23_measurable
     (measurable_snd.comp measurable_fst).prodMk measurable_snd
   have hdist : Measurable (fun p : ((E × E) × E) => dist p.1.2 p.2) :=
     measurable_dist.comp hpair
-  simpa only [edgeLength23, dist_eq_norm] using hdist.ennreal_ofReal
+  change Measurable (fun p : ((E × E) × E) => ENNReal.ofReal ‖p.1.2 - p.2‖)
+  simpa only [dist_eq_norm] using hdist.ennreal_ofReal
 
 /-- Measurability of the endpoint edge. -/
 theorem edgeLength13_measurable
@@ -71,7 +73,8 @@ theorem edgeLength13_measurable
     (measurable_fst.comp measurable_fst).prodMk measurable_snd
   have hdist : Measurable (fun p : ((E × E) × E) => dist p.1.1 p.2) :=
     measurable_dist.comp hpair
-  simpa only [edgeLength13, dist_eq_norm] using hdist.ennreal_ofReal
+  change Measurable (fun p : ((E × E) × E) => ENNReal.ofReal ‖p.1.1 - p.2‖)
+  simpa only [dist_eq_norm] using hdist.ennreal_ofReal
 
 /-- Pointwise triangle inequality for the three edge lengths. -/
 theorem edgeLength13_le_add
@@ -100,6 +103,7 @@ theorem l2Seminorm_mono
     l2Seminorm μ f ≤ l2Seminorm μ g := by
   unfold l2Seminorm
   gcongr with x
+  exact hfg x
 
 /-- Minkowski's inequality in the exact `p=2` form used below. -/
 theorem l2Seminorm_add_le
