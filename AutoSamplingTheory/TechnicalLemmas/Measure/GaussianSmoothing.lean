@@ -67,13 +67,13 @@ covariance `t I`.
 
 This is the measure/convolution side of the heat semigroup convention used in
 Chewi Chapter 8.  No PDE statement is bundled into the definition. -/
-noncomputable def heatSmoothing (mu : Measure E) (t : ℝ≥0) : Measure E :=
+noncomputable def heatSmoothing (mu : Measure E) (t : NNReal) : Measure E :=
   gaussianSmoothing mu (Real.sqrt (t : ℝ))
 
 /-- Unfold the source normalization from heat time to Gaussian standard
 deviation. -/
 theorem heatSmoothing_eq_gaussianSmoothing_sqrt
-    (mu : Measure E) (t : ℝ≥0) :
+    (mu : Measure E) (t : NNReal) :
     heatSmoothing mu t = gaussianSmoothing mu (Real.sqrt (t : ℝ)) := rfl
 
 /-- Simultaneous heat smoothing is `W₂`-contractive.
@@ -82,7 +82,7 @@ The proof is purely the common-noise coupling theorem at Gaussian scale
 `sqrt t`; it does not use or assert the heat PDE. -/
 theorem wassersteinDistance_heatSmoothing_le
     (mu nu : Measure E) [IsProbabilityMeasure mu] [IsProbabilityMeasure nu]
-    (t : ℝ≥0) :
+    (t : NNReal) :
     WassersteinSpace.wassersteinDistance
         (heatSmoothing mu t) (heatSmoothing nu t) ≤
       WassersteinSpace.wassersteinDistance mu nu := by
