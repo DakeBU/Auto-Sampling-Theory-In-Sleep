@@ -56,6 +56,41 @@ theorem wassersteinDistance_sq_le_lintegral_of_isCoupling
   exact Transport.transportCost_le_lintegral_of_isCoupling
     (quadraticCost (E := E)) μ ν γ hγ
 
+/-- Strictly above the Wasserstein distance, one can choose an actual coupling
+whose quadratic `L²` cost has square root below the same threshold.
+
+This is the distance-level form of `Transport`'s strict `sInf` selection
+lemma.  No optimal coupling existence is asserted. -/
+theorem exists_isCoupling_sqrt_lintegral_lt_of_wassersteinDistance_lt
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
+    (μ ν : Measure E) {r : ℝ≥0∞}
+    (h : wassersteinDistance μ ν < r) :
+    ∃ γ : Measure (E × E),
+      Transport.IsCoupling γ μ ν ∧
+        (∫⁻ z, quadraticCost (E := E) z ∂γ) ^ (1 / (2 : ℝ)) < r := by
+  let C : ℝ≥0∞ :=
+    Transport.transportCost (quadraticCost (E := E)) μ ν
+  have hsqrt_sq : (C ^ (1 / (2 : ℝ))) ^ (2 : ℝ) = C := by
+    rw [← ENNReal.rpow_mul]
+    norm_num
+  have hcost : C < r ^ (2 : ℝ) := by
+    have hsquare := ENNReal.rpow_lt_rpow h (z := (2 : ℝ)) (by norm_num)
+    change (C ^ (1 / (2 : ℝ))) ^ (2 : ℝ) < r ^ (2 : ℝ) at hsquare
+    rw [hsqrt_sq] at hsquare
+    exact hsquare
+  rcases
+      Transport.exists_isCoupling_lintegral_lt_of_transportCost_lt
+        (quadraticCost (E := E)) μ ν hcost with
+    ⟨γ, hγ, hγcost⟩
+  refine ⟨γ, hγ, ?_⟩
+  have hsqrt :=
+    ENNReal.rpow_lt_rpow hγcost (z := (1 / (2 : ℝ))) (by norm_num)
+  have hr_sq_sqrt : (r ^ (2 : ℝ)) ^ (1 / (2 : ℝ)) = r := by
+    rw [← ENNReal.rpow_mul]
+    norm_num
+  rw [hr_sq_sqrt] at hsqrt
+  exact hsqrt
+
 /-- Chewi Definition 1.3.12: a probability measure in `P₂,ac` has finite
 second moment and is absolutely continuous with respect to Lebesgue volume.
 
