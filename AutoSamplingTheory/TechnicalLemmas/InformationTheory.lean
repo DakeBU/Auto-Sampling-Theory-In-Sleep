@@ -10,6 +10,7 @@ import AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergence
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceGradient
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceIntegral
 
 /-!
 # Information-theoretic technical lemma arsenal
