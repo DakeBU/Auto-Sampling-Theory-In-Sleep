@@ -123,8 +123,8 @@ theorem hasCanonicalFisherGamma
       [carreDuChamp_density_logRatio_eq_inner_ae V mu pi generator h,
         h.score_chain_ae] with x hgamma hchain
   rw [hgamma, hchain]
-  simp [InformationTheory.CanonicalRelativeFisher.scoreSq,
-    real_inner_self_eq_norm_sq, real_inner_smul_left]
+  unfold InformationTheory.CanonicalRelativeFisher.scoreSq
+  rw [real_inner_smul_left, real_inner_self_eq_norm_sq]
 
 /-- Concrete Langevin specialization of the canonical Dirichlet--Fisher edge.
 All remaining obligations are now visibly split between the smooth local
