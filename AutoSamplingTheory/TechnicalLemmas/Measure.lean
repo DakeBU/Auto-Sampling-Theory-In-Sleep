@@ -15,6 +15,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangleCore
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangleMarginals
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangle
+import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinTriangleExact
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 
@@ -29,7 +30,7 @@ invent new interfaces.
 New code should prefer the focused modules under `TechnicalLemmas.Measure` and
 `TechnicalLemmas.Probability`. In particular, the transport/Wasserstein spine is
 now exposed through displacement interpolation, gluing, Wasserstein-space, and
-triangle-core modules rather than hidden behind branch-local imports.
+triangle modules rather than hidden behind branch-local imports.
 This file remains as a compatibility aggregator.
 -/
 
