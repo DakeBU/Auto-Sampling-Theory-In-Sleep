@@ -1,0 +1,78 @@
+name: ASTIS formalization gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "AutoSamplingTheory/**"
+      - "AutoSamplingTheory.lean"
+      - "Tests/**"
+      - "Tests.lean"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
+      - "tools/astis.py"
+      - "tools/astis_harness.py"
+      - "tools/astis_formalizer.py"
+      - "website/scripts/lean_gate.py"
+      - ".github/workflows/formalization-gate.yml"
+  pull_request:
+    paths:
+      - "AutoSamplingTheory/**"
+      - "AutoSamplingTheory.lean"
+      - "Tests/**"
+      - "Tests.lean"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
+      - "tools/astis.py"
+      - "tools/astis_harness.py"
+      - "tools/astis_formalizer.py"
+      - "website/scripts/lean_gate.py"
+      - ".github/workflows/formalization-gate.yml"
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astis-formalization-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lean-formalization:
+    name: Lean / Mathlib formalization
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+
+      - name: Test formalization and harness contracts
+        run: |
+          python3 -m unittest \
+            tools.tests.test_astis_formalizer \
+            tools.tests.test_astis_source
+          python3 tools/astis.py harness-test
+
+      - name: Validate canonical Chewi source edition
+        run: python3 tools/astis.py chewi-source-check
+
+      - name: Validate Chapter 1 item-level evidence
+        run: python3 tools/astis.py chapter-1-check
+
+      - name: Run Lean, Tests, and ASTIS consistency gate
+        run: python3 website/scripts/lean_gate.py
