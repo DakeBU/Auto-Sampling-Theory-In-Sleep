@@ -27,6 +27,7 @@ SKIP_BLOCK_RE = re.compile(
     r"(<(?:pre|code|script|style)\b[^>]*>.*?</(?:pre|code|script|style)>)",
     flags=re.S | re.I,
 )
+DEPLOY_MARKER = "<!-- ASTIS_READER_DEPLOY:website-first-2026-08-21 -->"
 
 
 def _normalize_legacy_visible_math(text: str) -> str:
@@ -34,9 +35,13 @@ def _normalize_legacy_visible_math(text: str) -> str:
 
     Generated reader prose has already passed through HTML escaping, so the
     same visible relation may occur as either ``<=`` or ``&lt;=`` in the raw
-    document.  Normalize both encodings, only in ordinary visible HTML segments.
-    Lean/code blocks remain byte-for-byte untouched.  The unchanged strict
+    document. Normalize both encodings, only in ordinary visible HTML segments.
+    Lean/code blocks remain byte-for-byte untouched. The unchanged strict
     validator runs afterwards and remains the authority on raw-math leakage.
+
+    The invisible deployment marker is inserted into the generated textbook
+    HTML so Pages can be distinguished from an older cached reader without
+    adding any reader-facing UI clutter.
     """
 
     parts = SKIP_BLOCK_RE.split(text)
@@ -55,7 +60,13 @@ def _normalize_legacy_visible_math(text: str) -> str:
         for old, new in replacements:
             segment = segment.replace(old, new)
         parts[index] = segment
-    return "".join(parts)
+    normalized = "".join(parts)
+    if DEPLOY_MARKER not in normalized:
+        if "</head>" in normalized:
+            normalized = normalized.replace("</head>", f"  {DEPLOY_MARKER}\n</head>", 1)
+        else:
+            normalized = DEPLOY_MARKER + "\n" + normalized
+    return normalized
 
 
 def patch(contract: Any) -> None:
