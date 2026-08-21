@@ -1,0 +1,8 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianEntropy
+
+-- Focused API smoke checks for the entropy/Jacobian half of Chewi Theorem 1.4.5.
+#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianEntropy.affineIdentityEigenvalue_pos
+#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianEntropy.log_affineIdentity_ge
+#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianEntropy.spectrumLogDet_affineIdentity_ge
+#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianEntropy.neg_spectrumLogDet_affineIdentity_le
+#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianEntropy.integral_neg_spectrumLogDet_affineIdentity_le
