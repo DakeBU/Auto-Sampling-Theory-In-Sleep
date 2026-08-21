@@ -108,7 +108,7 @@ theorem toReal_klDiv_eq_integral_logRatio_of_probability
       ∫ x, logRatio mu pi x ∂mu := by
   simpa [logRatio] using
     (_root_.InformationTheory.toReal_klDiv_of_measure_eq
-      (mu := mu) (nu := pi) hmuPi (by simp))
+      (μ := mu) (ν := pi) hmuPi (by simp))
 
 end
 
