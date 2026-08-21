@@ -116,6 +116,31 @@ jobs:
         with:
           path: _site
 
+      - name: Verify production Pages theorem-first reader
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/textbook/chapter-01/section-1-2.html'
+          for attempt in 1 2 3 4 5; do
+            if curl -fsSL --connect-timeout 10 --max-time 20 "$url" -o /tmp/astis-live.html; then
+              if grep -Fq 'ASTIS_READER_DEPLOY:website-first-2026-08-21' /tmp/astis-live.html \
+                && grep -Fq 'source-contract-chewi-statement' /tmp/astis-live.html \
+                && grep -Fq 'source-contract-astis-latex' /tmp/astis-live.html; then
+                echo 'LIVE_PAGES_THEOREM_FIRST_OK'
+                grep -o 'ASTIS_READER_DEPLOY:[^ ]*' /tmp/astis-live.html | head -1 || true
+                exit 0
+              fi
+              echo "attempt ${attempt}: live page reachable but deployment marker/new reader DOM not present"
+            else
+              echo "attempt ${attempt}: live page not reachable yet"
+            fi
+            sleep 4
+          done
+          echo 'Live Pages verification failed; showing current reader fingerprints:'
+          grep -Eo 'ASTIS_READER_DEPLOY:[^ ]*|source-contract-[A-Za-z0-9_-]+' /tmp/astis-live.html 2>/dev/null | sort -u | head -40 || true
+          exit 1
+
   deploy:
     name: deploy website
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
