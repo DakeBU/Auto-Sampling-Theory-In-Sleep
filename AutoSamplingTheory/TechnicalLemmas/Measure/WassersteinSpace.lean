@@ -68,11 +68,16 @@ theorem exists_isCoupling_sqrt_lintegral_lt_of_wassersteinDistance_lt
     ∃ γ : Measure (E × E),
       Transport.IsCoupling γ μ ν ∧
         (∫⁻ z, quadraticCost (E := E) z ∂γ) ^ (1 / (2 : ℝ)) < r := by
-  have hcost :
-      Transport.transportCost (quadraticCost (E := E)) μ ν < r ^ (2 : ℝ) := by
+  let C : ℝ≥0∞ :=
+    Transport.transportCost (quadraticCost (E := E)) μ ν
+  have hsqrt_sq : (C ^ (1 / (2 : ℝ))) ^ (2 : ℝ) = C := by
+    rw [← ENNReal.rpow_mul]
+    norm_num
+  have hcost : C < r ^ (2 : ℝ) := by
     have hsquare := ENNReal.rpow_lt_rpow h (z := (2 : ℝ)) (by norm_num)
-    rw [wassersteinDistance] at hsquare
-    simpa [← ENNReal.rpow_mul] using hsquare
+    change (C ^ (1 / (2 : ℝ))) ^ (2 : ℝ) < r ^ (2 : ℝ) at hsquare
+    rw [hsqrt_sq] at hsquare
+    exact hsquare
   rcases
       Transport.exists_isCoupling_lintegral_lt_of_transportCost_lt
         (quadraticCost (E := E)) μ ν hcost with
@@ -80,7 +85,11 @@ theorem exists_isCoupling_sqrt_lintegral_lt_of_wassersteinDistance_lt
   refine ⟨γ, hγ, ?_⟩
   have hsqrt :=
     ENNReal.rpow_lt_rpow hγcost (z := (1 / (2 : ℝ))) (by norm_num)
-  simpa [← ENNReal.rpow_mul] using hsqrt
+  have hr_sq_sqrt : (r ^ (2 : ℝ)) ^ (1 / (2 : ℝ)) = r := by
+    rw [← ENNReal.rpow_mul]
+    norm_num
+  rw [hr_sq_sqrt] at hsqrt
+  exact hsqrt
 
 /-- Chewi Definition 1.3.12: a probability measure in `P₂,ac` has finite
 second moment and is absolutely continuous with respect to Lebesgue volume.
