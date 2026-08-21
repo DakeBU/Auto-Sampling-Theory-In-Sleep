@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import json
+import re
 import sys
 from pathlib import Path
 
@@ -74,6 +76,117 @@ def source_first_proof_coverage_errors(output: Path) -> list[str]:
     return errors
 
 
+def source_first_implicit_prerequisite_errors(output: Path) -> list[str]:
+    """Validate implicit prerequisites in their final source-first form.
+
+    The early prerequisite renderer includes a large foundation/reference panel
+    and ``data-lean-declaration`` attributes. The final source-first pass
+    intentionally condenses the public card to mathematical statement,
+    assumptions, proof, and folded Lean links. We therefore validate those
+    reader-facing invariants on the final card while separately requiring the
+    generated data packet to retain ``used_for`` and foundation metadata.
+    """
+
+    errors: list[str] = []
+    try:
+        items = implicit_prerequisites.load_items()
+        url_map = implicit_prerequisites.declaration_url_map(output)
+    except Exception as exc:
+        return [str(exc)]
+
+    data_path = output / "data" / "implicit-prerequisites.json"
+    if not data_path.exists():
+        errors.append("generated data/implicit-prerequisites.json is missing")
+        generated_by_id: dict[str, dict[str, object]] = {}
+    else:
+        try:
+            raw = json.loads(data_path.read_text(encoding="utf-8"))
+            generated_by_id = {
+                str(item.get("id", "")): dict(item)
+                for item in raw
+                if isinstance(item, dict) and item.get("id")
+            } if isinstance(raw, list) else {}
+        except Exception as exc:
+            errors.append(f"generated data/implicit-prerequisites.json is unreadable: {exc}")
+            generated_by_id = {}
+
+    for item in items:
+        item_id = str(item["id"])
+        section = str(item["section"])
+        path = implicit_prerequisites.section_path(output, section)
+        if not path.exists():
+            errors.append(f"missing generated section for implicit prerequisite {item_id}: {path}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        pattern = re.compile(
+            rf'<article class="[^"]*\bsource-contract-implicit\b[^"]*"[^>]*'
+            rf'id="{re.escape(chewi_source_first_contract.esc(item_id))}"[^>]*>.*?</article>',
+            flags=re.S,
+        )
+        match = pattern.search(text)
+        if not match:
+            errors.append(f"{path}: {item_id} is not rendered as a final implicit-prerequisite card")
+            continue
+        card = match.group(0)
+
+        required = (
+            ('data-provenance="astis-implicit-prerequisite"', "ASTIS provenance"),
+            (chewi_source_first_contract.esc(item["latex_statement"]), "LaTeX statement"),
+            ("source-contract-implicit-proof", "mathematical proof disclosure"),
+            ("<summary>Mathematical proof</summary>", "mathematical proof label"),
+            ("source-contract-lean", "folded Lean disclosure"),
+            ("<summary>Lean formalization</summary>", "Lean disclosure label"),
+        )
+        for needle, label in required:
+            if needle not in card:
+                errors.append(f"{path}: {item_id} missing {label}")
+
+        expected_proof = chewi_source_first_contract.IMPLICIT_PROOF_OVERRIDES.get(
+            item_id, str(item["proof"])
+        )
+        proof_html = chewi_source_first_contract.esc(
+            chewi_source_first_refinement.mathify(expected_proof)
+        )
+        if proof_html not in card:
+            errors.append(f"{path}: {item_id} missing final mathematical proof text")
+
+        why_html = chewi_source_first_contract.esc(
+            chewi_source_first_refinement.mathify(item["why_needed"])
+        )
+        if why_html not in card:
+            errors.append(f"{path}: {item_id} missing why-needed context")
+
+        for assumption in item["assumptions"]:
+            assumption_html = chewi_source_first_contract.esc(
+                chewi_source_first_refinement.mathify(assumption)
+            )
+            if assumption_html not in card:
+                errors.append(f"{path}: {item_id} missing explicit assumption: {assumption}")
+
+        for declaration in [str(value) for value in item["lean_declarations"]]:
+            url = url_map.get(declaration)
+            if str(item["lean_status"]) == "compiled" and not url:
+                errors.append(
+                    f"{path}: {item_id} compiled declaration has no generated destination: {declaration}"
+                )
+                continue
+            if chewi_source_first_contract.esc(declaration) not in card:
+                errors.append(f"{path}: {item_id} missing Lean declaration: {declaration}")
+            if url and f'href="../../{chewi_source_first_contract.esc(url)}"' not in card:
+                errors.append(f"{path}: {item_id} missing resolved Lean destination for {declaration}")
+
+        generated = generated_by_id.get(item_id)
+        if generated is None:
+            errors.append(f"generated prerequisite data is missing {item_id}")
+        else:
+            if generated.get("used_for") != item.get("used_for"):
+                errors.append(f"generated prerequisite data lost used_for metadata for {item_id}")
+            if generated.get("foundation_sources", []) != item.get("foundation_sources", []):
+                errors.append(f"generated prerequisite data lost foundation metadata for {item_id}")
+
+    return errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", default="", help="output directory (default: _site)")
@@ -123,20 +236,22 @@ def main() -> int:
         return 1
 
     # These remain independent evidence checks. The final reader may change
-    # presentation, but it may not erase or rewrite the audited source and
-    # prerequisite packets beneath that presentation.
+    # presentation, but it may not erase or rewrite audited source/foundation
+    # data beneath that presentation.
     foundation_errors = source_foundations.validate_site(output)
     if foundation_errors:
         print("Source foundation site check failed:", file=sys.stderr)
         for error in foundation_errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    implicit_errors = implicit_prerequisites.validate_site(output)
+
+    implicit_errors = source_first_implicit_prerequisite_errors(output)
     if implicit_errors:
-        print("Implicit prerequisite site check failed:", file=sys.stderr)
+        print("Final implicit prerequisite site check failed:", file=sys.stderr)
         for error in implicit_errors:
             print(f"- {error}", file=sys.stderr)
         return 1
+
     tutor_errors = lean_tutor.validate_site(output)
     if tutor_errors:
         print("Lean learning studio site check failed:", file=sys.stderr)
