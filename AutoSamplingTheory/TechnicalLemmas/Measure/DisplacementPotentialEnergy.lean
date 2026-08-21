@@ -38,17 +38,17 @@ theorem potential_pointMap_le
     V (pointMap (E := E) t z) ≤
       (1 - t) * V z.1 + t * V z.2 -
         (alpha * t * (1 - t) / 2) * ‖z.1 - z.2‖ ^ 2 := by
-  have h := hV.2
+  have hV' :
+      UniformConvexOn (Set.univ : Set E)
+        (fun r : ℝ => alpha / 2 * r ^ 2) V := by
+    exact hV
+  have h := hV'.2
     (x := z.1) (by simp)
     (y := z.2) (by simp)
     (a := 1 - t) (b := t)
     (sub_nonneg.mpr ht.2) ht.1 (by ring)
   unfold pointMap
-  simpa [smul_eq_mul] using (show
-    V ((1 - t) • z.1 + t • z.2) ≤
-      (1 - t) * V z.1 + t * V z.2 -
-        (alpha * t * (1 - t) / 2) * ‖z.1 - z.2‖ ^ 2 by
-    convert h using 1 <;> ring)
+  convert h using 1 <;> simp [smul_eq_mul] <;> ring
 
 /-- Integrating the pointwise strong-convexity estimate preserves the same
 upper bound when both real-valued sides are explicitly integrable. -/
