@@ -59,6 +59,12 @@ example {E : Type*} [MeasurableSpace E]
 
 example {E : Type*} [MeasurableSpace E]
     {K : ℝ≥0 → Kernel E E} {hK : TransitionKernelContract K}
+    {pi : Measure E} (hpi : IsStationary hK pi) (t : ℝ≥0) :
+    evolveMeasure hK t pi = pi :=
+  IsStationary.evolveMeasure_eq hpi t
+
+example {E : Type*} [MeasurableSpace E]
+    {K : ℝ≥0 → Kernel E E} {hK : TransitionKernelContract K}
     {pi : Measure E} (hpi : IsStationary hK pi) (s : ℝ≥0) :
     IsStationary hK (evolveMeasure hK s pi) :=
   IsStationary.after hpi s

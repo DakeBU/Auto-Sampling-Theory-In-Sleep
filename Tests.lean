@@ -23,6 +23,7 @@ import Tests.ElementaryItoL2
 import Tests.ElementaryItoProcess
 import Tests.ElementaryStoppingTime
 import Tests.FellerSemigroup
+import Tests.FellerGeneratorBridge
 import Tests.FiniteDimensionalNormBridge
 import Tests.FiniteDimensionalItoProcess
 import Tests.ProgressiveDriftIntegral
@@ -30,6 +31,7 @@ import Tests.ChewiItoProcess
 import Tests.ChewiItoFormula
 import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
+import Tests.GeneratorStationarity
 import Tests.GeodesicConvexity
 import Tests.ItoTerminalCompletion
 import Tests.ItoHorizonConsistency
@@ -39,6 +41,7 @@ import Tests.ItoIntegralProcessAfterHorizon
 import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
 import Tests.LangevinCarreDuChamp
+import Tests.LangevinGammaTwo
 import Tests.LaggedDyadicApproximation
 import Tests.LaggedDyadicConvergence
 import Tests.LeftLebesgueAverage
@@ -78,10 +81,17 @@ import Tests.RandomStoppingProcessConsistency
 import Tests.Reversibility
 import Tests.SampledElementaryApproximation
 import Tests.SemigroupDecay
+import Tests.SemigroupDissipation
+import Tests.StationarityEquivalence
 import Tests.StoppingTime
+import Tests.StrongConvexity
+import Tests.AffineLineSecondDerivative
 import Tests.TimeMeasureRealBridge
 import Tests.Transport
+import Tests.TransportGluing
 import Tests.WassersteinSpace
+import Tests.WassersteinTriangle
+import Tests.WeakForwardEquation
 import Tests.AccumulatedEnergy
 import Tests.LocalProgressiveL2
 import Tests.PrefixIntegral

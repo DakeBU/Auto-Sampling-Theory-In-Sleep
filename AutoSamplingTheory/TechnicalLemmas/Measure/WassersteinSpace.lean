@@ -2,6 +2,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.Transport
 import Mathlib.Analysis.SpecialFunctions.Pow.NNReal
 import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Topology.Instances.ENNReal.Lemmas
 
 /-!
 # Measure classes for Wasserstein space
@@ -24,6 +25,34 @@ def quadraticCost
     {E : Type*} [NormedAddCommGroup E] : E × E → ℝ≥0∞ :=
   fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ 2)
 
+/-- The quadratic cost is measurable on a second-countable Borel normed space.
+The second-countability hypothesis is the honest regularity needed to identify
+the Borel structure on the product with the product measurable structure used
+by couplings. It is automatic in Chewi's finite-dimensional Euclidean setting. -/
+theorem quadraticCost_measurable
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E]
+    [SecondCountableTopology E] :
+    Measurable (quadraticCost (E := E)) := by
+  have hdist : Measurable (fun z : E × E => dist z.1 z.2) := measurable_dist
+  have hsq : Measurable (fun z : E × E => (dist z.1 z.2) ^ (2 : ℕ)) :=
+    hdist.pow_const 2
+  change Measurable (fun z : E × E => ENNReal.ofReal (‖z.1 - z.2‖ ^ 2))
+  simpa only [dist_eq_norm] using hsq.ennreal_ofReal
+
+/-- The quadratic transport cost vanishes on the diagonal. -/
+@[simp]
+theorem quadraticCost_diag
+    {E : Type*} [NormedAddCommGroup E] (x : E) :
+    quadraticCost (x, x) = 0 := by
+  simp [quadraticCost]
+
+/-- The quadratic transport cost is symmetric in its two coordinates. -/
+theorem quadraticCost_comm
+    {E : Type*} [NormedAddCommGroup E] (x y : E) :
+    quadraticCost (x, y) = quadraticCost (y, x) := by
+  simp only [quadraticCost]
+  rw [norm_sub_rev]
+
 /-- Chewi Definition 1.3.4: the 2-Wasserstein distance is the positive
 square root of the quadratic Kantorovich transport cost. -/
 noncomputable def wassersteinDistance
@@ -40,6 +69,28 @@ theorem wassersteinDistance_sq
       Transport.transportCost (quadraticCost (E := E)) μ ν := by
   rw [wassersteinDistance, ← ENNReal.rpow_two, ← ENNReal.rpow_mul]
   norm_num
+
+/-- The diagonal coupling gives zero self-distance.  This is the reflexivity
+piece of the eventual `W₂` metric structure and does not require existence of
+an optimal coupling. -/
+theorem wassersteinDistance_self
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E]
+    [SecondCountableTopology E] (μ : Measure E) :
+    wassersteinDistance μ μ = 0 := by
+  rw [wassersteinDistance,
+    Transport.transportCost_self_eq_zero_of_diagonal
+      (quadraticCost (E := E)) quadraticCost_measurable quadraticCost_diag μ]
+  exact ENNReal.zero_rpow_of_pos (by norm_num)
+
+/-- The 2-Wasserstein extended distance is symmetric.  This uses only swapped
+couplings and symmetry of the quadratic cost; no optimal coupling is assumed. -/
+theorem wassersteinDistance_comm
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E] [BorelSpace E]
+    [SecondCountableTopology E] (μ ν : Measure E) :
+    wassersteinDistance μ ν = wassersteinDistance ν μ := by
+  unfold wassersteinDistance
+  rw [Transport.transportCost_comm_of_symmetric
+    (quadraticCost (E := E)) quadraticCost_measurable quadraticCost_comm μ ν]
 
 /-- Chewi Definition 1.3.12: a probability measure in `P₂,ac` has finite
 second moment and is absolutely continuous with respect to Lebesgue volume.

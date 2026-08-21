@@ -7,6 +7,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual
 import AutoSamplingTheory.TechnicalLemmas.Measure.Product
 import AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym
 import AutoSamplingTheory.TechnicalLemmas.Measure.Transport
+import AutoSamplingTheory.TechnicalLemmas.Measure.TransportGluing
 import AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
