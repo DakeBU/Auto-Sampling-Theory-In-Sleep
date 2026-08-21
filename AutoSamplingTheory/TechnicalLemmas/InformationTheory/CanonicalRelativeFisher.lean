@@ -103,7 +103,7 @@ theorem information_eq_integral_density_mul_scoreSq
       ∫ x, RNLogRatio.density mu pi x * scoreSq mu pi x ∂pi := by
   rw [information_eq_integral_scoreSq mu pi h]
   simpa [RNLogRatio.density] using
-    (Measure.integral_toReal_rnDeriv_mul
+    (MeasureTheory.integral_toReal_rnDeriv_mul
       (f := scoreSq mu pi) h.absolutelyContinuous).symm
 
 /-- The squared score is integrable by the domain contract, rather than by an
