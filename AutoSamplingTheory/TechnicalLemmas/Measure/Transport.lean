@@ -58,6 +58,23 @@ theorem transportCost_le_lintegral_of_isCoupling
   rw [transportCost_eq_sInf]
   exact sInf_le ⟨γ, hγ, rfl⟩
 
+/-- Strictly above the Kantorovich infimum, one can select an actual feasible
+coupling whose cost is already below that threshold.
+
+This is the reusable `sInf` near-optimal-selection edge.  It makes no optimizer
+existence claim: the threshold must be strictly larger than the infimum. -/
+theorem exists_isCoupling_lintegral_lt_of_transportCost_lt
+    {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
+    (c : α × β → ℝ≥0∞) (μ : Measure α) (ν : Measure β)
+    {r : ℝ≥0∞}
+    (h : transportCost c μ ν < r) :
+    ∃ γ : Measure (α × β),
+      IsCoupling γ μ ν ∧ (∫⁻ z, c z ∂γ) < r := by
+  rw [transportCost_eq_sInf, sInf_lt_iff] at h
+  rcases h with ⟨q, ⟨γ, hγ, hq⟩, hqr⟩
+  subst q
+  exact ⟨γ, hγ, hqr⟩
+
 /-- A prescribed probability marginal forces the joint coupling measure to
 have total mass one. This recovers the probability-measure interface required
 by expectations and transport costs from the marginal contract. -/
