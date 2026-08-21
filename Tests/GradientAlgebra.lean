@@ -1,5 +1,6 @@
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra
 
+-- Focused API smoke checks for the reusable Chapter 8 gradient rules.
 #check AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.mul
 #check AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real
 #check AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.gradient_mul_eq_of_differentiableAt
