@@ -81,8 +81,6 @@ theorem interpolation_coefficients_sum_one
   rw [← ENNReal.ofReal_add hs0 hts0]
   rw [← ENNReal.ofReal_add (add_nonneg hs0 hts0) h1t0]
   norm_num
-  congr 1
-  ring
 
 /-- Chewi's constant-speed identity for ordered interpolation times.
 
@@ -146,8 +144,8 @@ theorem wassersteinDistance_interpolation_eq_of_le
             WassersteinSpace.wassersteinDistance μs μ₁ := htri_left
       _ ≤ WassersteinSpace.wassersteinDistance μ₀ μs +
             (WassersteinSpace.wassersteinDistance μs μt +
-              WassersteinSpace.wassersteinDistance μt μ₁) :=
-        add_le_add_left htri_right _
+              WassersteinSpace.wassersteinDistance μt μ₁) := by
+        exact add_le_add le_rfl htri_right
       _ = WassersteinSpace.wassersteinDistance μ₀ μs +
             WassersteinSpace.wassersteinDistance μs μt +
               WassersteinSpace.wassersteinDistance μt μ₁ := by
