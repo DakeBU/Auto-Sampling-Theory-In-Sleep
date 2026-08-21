@@ -36,10 +36,9 @@ theorem HasGradientAt.mul
     HasGradientAt (fun y => f y * g y)
       (f x • gradG + g x • gradF) x := by
   rw [hasGradientAt_iff_hasFDerivAt]
-  have hmul := hf.hasFDerivAt.mul hg.hasFDerivAt
-  convert hmul using 1
-  ext v
-  simp [InnerProductSpace.toDual_apply_apply, mul_comm, mul_left_comm, mul_assoc]
+  change HasFDerivAt (f * g)
+    ((toDual ℝ E) (f x • gradG + g x • gradF)) x
+  simpa only [map_add, map_smul] using hf.hasFDerivAt.mul hg.hasFDerivAt
 
 /-- Scalar outer-function chain rule for gradients. -/
 theorem HasGradientAt.comp_real
@@ -49,10 +48,14 @@ theorem HasGradientAt.comp_real
     (hphi : HasDerivAt phi phi' (f x)) :
     HasGradientAt (fun y => phi (f y)) (phi' • gradF) x := by
   rw [hasGradientAt_iff_hasFDerivAt]
-  have hcomp := hphi.hasFDerivAt.comp x hf.hasFDerivAt
-  convert hcomp using 1
-  ext v
-  simp [InnerProductSpace.toDual_apply_apply, mul_comm]
+  change HasFDerivAt (phi ∘ f) ((toDual ℝ E) (phi' • gradF)) x
+  have hmap :
+      (toDual ℝ E) (phi' • gradF) =
+        (ContinuousLinearMap.toSpanSingleton ℝ phi').comp ((toDual ℝ E) gradF) := by
+    ext v
+    simp [InnerProductSpace.toDual_apply_apply, mul_comm]
+  rw [hmap]
+  exact hphi.hasFDerivAt.comp x hf.hasFDerivAt
 
 /-- Total-gradient form of the product rule under pointwise differentiability. -/
 theorem gradient_mul_eq_of_differentiableAt
