@@ -88,13 +88,13 @@ theorem information_eq_integral_scoreSq
   simp [information, RelativeFisher.information, RelativeFisher.densityEnergy, scoreSq]
 
 /-- The same canonical Fisher information rewritten against the reference
-measure using Mathlib's Radon--Nikodym reconstruction:
+measure using Mathlib's Radon--Nikodym integral formula:
 
 `FI(mu || pi) = integral density(mu|pi) * scoreSq(mu|pi) dpi`.
 
-This is the measure-change edge needed by the generator/Dirichlet-form route to
-KL dissipation.  It uses the canonical RN density from `RNLogRatio`; no second
-density representative is introduced. -/
+Crucially, this changes only the integration measure.  The integrand keeps the
+original `mu` parameter; rewriting `mu` itself as a `withDensity` measure would
+incorrectly rewrite the score object as well. -/
 theorem information_eq_integral_density_mul_scoreSq
     (mu pi : Measure (State (ι := ι)))
     [SigmaFinite mu] [Measure.HaveLebesgueDecomposition mu pi]
@@ -102,12 +102,9 @@ theorem information_eq_integral_density_mul_scoreSq
     information mu pi h =
       ∫ x, RNLogRatio.density mu pi x * scoreSq mu pi x ∂pi := by
   rw [information_eq_integral_scoreSq mu pi h]
-  rw [← _root_.AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.withDensity_rnDeriv_eq_of_absolutelyContinuous
-    mu pi h.absolutelyContinuous]
-  rw [integral_withDensity_eq_integral_toReal_smul₀
-    (Measure.measurable_rnDeriv mu pi).aemeasurable
-    (Measure.rnDeriv_lt_top mu pi)]
-  simp [RNLogRatio.density, smul_eq_mul]
+  simpa [RNLogRatio.density] using
+    (Measure.integral_toReal_rnDeriv_mul
+      (f := scoreSq mu pi) h.absolutelyContinuous).symm
 
 /-- The squared score is integrable by the domain contract, rather than by an
 implicit convention of the total integral. -/
