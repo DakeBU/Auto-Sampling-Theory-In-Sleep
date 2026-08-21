@@ -32,8 +32,9 @@ theorem common_diffusion_pairing_eq
     inner ℝ (fpp • gradRho) (rho • gradQ + q • gradRho) +
         inner ℝ ((-rho * fpp) • gradRho) gradQ =
       q * fpp * ‖gradRho‖ ^ 2 := by
-  rw [inner_add_right, real_inner_smul_left, inner_smul_right,
-    real_inner_smul_left, real_inner_smul_left, real_inner_self_eq_norm_sq]
+  rw [inner_add_right, real_inner_smul_left, real_inner_smul_right,
+    real_inner_smul_left, real_inner_smul_right,
+    real_inner_smul_left, real_inner_self_eq_norm_sq]
   ring
 
 /-- Source-shaped variant where the three gradient expressions have already
