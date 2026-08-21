@@ -71,8 +71,8 @@ jobs:
       - name: Validate canonical Chewi source edition
         run: python3 tools/astis.py chewi-source-check
 
-      - name: Validate Chapter 1 item-level evidence
-        run: python3 tools/astis.py chapter-1-check
-
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py
+
+      - name: Validate Chapter 1 item-level evidence
+        run: python3 tools/astis.py chapter-1-check
