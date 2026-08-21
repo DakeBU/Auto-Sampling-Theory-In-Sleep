@@ -46,9 +46,15 @@ theorem hasDerivAt_weighted_f_divergence_integrand
         (fprime * ((pdot * q t - p t * qdot) / (q t) ^ 2)) t :=
     hf.comp t hratio
   have hprod := hqderiv.mul hcomp
-  convert hprod using 1
-  field_simp [hq]
-  ring
+  have hcoeff :
+      qdot * f (p t / q t) +
+          q t * (fprime * ((pdot * q t - p t * qdot) / (q t) ^ 2)) =
+        fprime * pdot +
+          (f (p t / q t) - (p t / q t) * fprime) * qdot := by
+    field_simp [hq]
+    ring
+  rw [hcoeff] at hprod
+  exact hprod
 
 /-- The same identity with the ratio named explicitly. -/
 theorem hasDerivAt_weighted_f_divergence_integrand_of_ratio
