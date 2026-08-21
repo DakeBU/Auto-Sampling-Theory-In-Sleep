@@ -71,7 +71,9 @@ theorem hasDerivAt_f_sub_id_mul_fPrime
     HasDerivAt (fun u => f u - u * fPrime u) (-r * fpp) r := by
   have hmul : HasDerivAt (fun u : ℝ => u * fPrime u)
       (fPrime r + r * fpp) r := by
-    simpa using (hasDerivAt_id r).mul hfPrime
+    convert (hasDerivAt_id r).mul hfPrime using 1
+    ext u
+    rfl
   have hsub : HasDerivAt (fun u : ℝ => f u - u * fPrime u)
       (fPrime r - (fPrime r + r * fpp)) r :=
     hf.sub hmul
