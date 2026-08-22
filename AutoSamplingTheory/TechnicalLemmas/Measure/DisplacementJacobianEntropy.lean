@@ -1,3 +1,4 @@
+import Mathlib.Algebra.Order.Star.Real
 import Mathlib.Analysis.Convex.SpecificFunctions.Basic
 import Mathlib.Analysis.Matrix.PosDef
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
