@@ -25,6 +25,11 @@ log-determinant inequality.  For a real positive-definite matrix, Mathlib's
 spectral determinant theorem and positivity of every eigenvalue then identify
 this finite-spectrum sum with the literal `Real.log (Matrix.det A)`.
 
+The literal affine matrix `(1-t) I + t A` is also proved positive definite for
+`0 <= t <= 1` whenever `A` is positive definite.  This keeps the matrix-domain
+regularity needed by `log det` explicit before the later spectral and
+change-of-variables bridges.
+
 This is deliberately not yet a Brenier/change-of-variables theorem.  The
 following remain separate obligations:
 
@@ -94,6 +99,26 @@ theorem neg_spectrumLogDet_eigenvalues_eq_neg_log_det
     (A : Matrix ι ι ℝ) (hA : A.PosDef) :
     -spectrumLogDet hA.isHermitian.eigenvalues = -Real.log A.det := by
   rw [spectrumLogDet_eigenvalues_eq_log_det A hA]
+
+/-- The literal affine Jacobian `(1-t) I + t A` stays positive definite along
+`0 <= t <= 1` whenever `A` is positive definite.
+
+For `t < 1`, the identity contribution has a strictly positive coefficient and
+is positive definite, while the `t A` contribution is positive semidefinite.
+The endpoint `t = 1` reduces exactly to `A`. -/
+theorem affineIdentityMatrix_posDef
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A : Matrix ι ι ℝ) (hA : A.PosDef) (t : ℝ)
+    (ht0 : 0 ≤ t) (ht1 : t ≤ 1) :
+    ((1 - t) • (1 : Matrix ι ι ℝ) + t • A).PosDef := by
+  rcases lt_or_eq_of_le ht1 with ht1' | rfl
+  · have hI : (1 : Matrix ι ι ℝ).PosDef := Matrix.PosDef.one
+    have hleft : ((1 - t) • (1 : Matrix ι ι ℝ)).PosDef :=
+      hI.smul (sub_pos.mpr ht1')
+    have hright : (t • A).PosSemidef :=
+      hA.posSemidef.smul ht0
+    exact hleft.add_posSemidef hright
+  · simpa using hA
 
 /-- Spectrum of the affine Jacobian `(1-t) I + t A` when `lambda` is the
 spectrum of `A`. -/
