@@ -47,7 +47,7 @@ The endpoint derivative may be only positive semidefinite.  The strict
 definite, which is exactly enough to rewrite Mathlib's `|det DS_t|` as the
 positive determinant appearing below. -/
 theorem integral_image_affineDisplacementMap_eq_integral_det_smul
-    (μ : Measure E) [IsAddHaarMeasure μ]
+    (μ : Measure E) [MeasureTheory.Measure.IsAddHaarMeasure μ]
     (b : Module.Basis ι ℝ E)
     {s : Set E} {T : E → E} {T' : E → E →L[ℝ] E}
     (hs : MeasurableSet s)
