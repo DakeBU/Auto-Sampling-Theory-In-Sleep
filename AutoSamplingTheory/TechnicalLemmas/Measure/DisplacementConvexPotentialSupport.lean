@@ -54,6 +54,7 @@ theorem isSupportingField_of_convexOn_univ_hasFDerivAt_inner
       ⟪T x, y - x⟫ 0
     simpa using
       (hderiv x).comp_hasDerivAt_of_eq
+        (0 : ℝ)
         (AffineMap.hasDerivAt_lineMap (a := x) (b := y) (x := (0 : ℝ)))
         (by simp)
   have hslope := hgconv.deriv_le_slope
