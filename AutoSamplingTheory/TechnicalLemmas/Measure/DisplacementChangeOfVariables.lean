@@ -81,6 +81,13 @@ theorem integral_image_affineDisplacementMap_eq_integral_det_smul
           g (affineDisplacementMap T t x) ∂μ := by
       apply MeasureTheory.setIntegral_congr_fun hs
       intro x hx
+      change
+        |LinearMap.det
+            (affineDisplacementDerivative (T' x) t).toLinearMap| •
+              g (affineDisplacementMap T t x) =
+          LinearMap.det
+              (affineDisplacementDerivative (T' x) t).toLinearMap •
+            g (affineDisplacementMap T t x)
       rw [abs_det_affineDisplacementDerivative_eq_of_posSemidef
         b (T' x) (hpsd x hx) t ht0 ht1]
 
