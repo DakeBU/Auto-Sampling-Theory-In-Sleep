@@ -16,31 +16,35 @@ change-of-variables identity
 
 and convexity of `-log det` on positive Jacobians.
 
-This file isolates the eigenvalue-coordinate convexity behind that step.  If
+This file isolates the finite-dimensional matrix leaves behind that step.  If
 `lambda_i > 0` are the eigenvalues of a positive-definite Jacobian, then
 
 `log ((1-t) + t lambda_i) >= t log lambda_i`
 
 for `0 <= t <= 1`.  Summing over the finite spectrum gives the corresponding
 log-determinant inequality.  For a real positive-definite matrix, Mathlib's
-spectral determinant theorem and positivity of every eigenvalue then identify
-this finite-spectrum sum with the literal `Real.log (Matrix.det A)`.
+spectral determinant theorem and positivity of every eigenvalue identify this
+finite-spectrum sum with the literal `Real.log (Matrix.det A)`.
 
-The literal affine matrix `(1-t) I + t A` is also proved positive definite for
-`0 <= t <= 1` whenever `A` is positive definite.  More importantly for the
-future Brenier bridge, if `A` is only positive semidefinite then the affine
-matrix is still positive definite at every interior time `0 <= t < 1` because
-of the strictly positive identity contribution.  This keeps the matrix-domain
-regularity needed by `log det` explicit without silently strengthening a
-Brenier Jacobian from semidefinite to definite.
+The literal affine matrix `(1-t) I + t A` is positive definite for `0 <= t <= 1`
+whenever `A` is positive definite.  More importantly for the future Brenier
+bridge, if `A` is only positive semidefinite then the affine matrix is still
+positive definite at every interior time `0 <= t < 1` because of the strictly
+positive identity contribution.
+
+For the determinant bridge, we deliberately avoid asserting pointwise equality
+of arbitrarily enumerated eigenvalue functions.  Instead, determinant is proved
+invariant under unitary star-conjugation, and the affine combination with a
+diagonal matrix is computed literally entry-by-entry.  These leaves are meant
+to compose with Mathlib's Hermitian spectral theorem in the next graph edge.
 
 This is deliberately not yet a Brenier/change-of-variables theorem.  The
 following remain separate obligations:
 
 * identify the derivative of the optimal transport map as a symmetric
   positive-semidefinite Jacobian almost everywhere under the source hypotheses;
-* connect the determinant of `(1-t) I + t A` to the affine transform of the
-  spectrum without depending on an arbitrary eigenvalue enumeration;
+* assemble the unitary diagonalization leaves into the literal determinant
+  identity for `(1-t) I + t A`;
 * prove the density change-of-variables identity for the displacement map;
 * assemble the resulting entropy inequality with `DisplacementPotentialEnergy`.
 -/
@@ -142,11 +146,55 @@ theorem affineIdentityMatrix_posDef_of_posSemidef
     hA.smul ht0
   exact hleft.add_posSemidef hright
 
+/-- Determinant is invariant under the star-conjugation by a unitary matrix.
+
+This is the determinant-only quotient of a unitary change of basis.  Keeping it
+separate avoids encoding any choice of eigenvalue enumeration into later
+Jacobian formulas. -/
+theorem det_conjStarAlgAut_eq
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (U : unitary (Matrix ι ι ℝ)) (B : Matrix ι ι ℝ) :
+    Matrix.det (Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) U B) = Matrix.det B := by
+  rw [Unitary.conjStarAlgAut_apply, Matrix.det_mul, Matrix.det_mul]
+  have hunit :
+      Matrix.det (U : Matrix ι ι ℝ) *
+          Matrix.det (star U : Matrix ι ι ℝ) = 1 := by
+    rw [← Matrix.det_mul]
+    simpa using congrArg Matrix.det (Unitary.coe_mul_star_self U)
+  calc
+    Matrix.det (U : Matrix ι ι ℝ) * Matrix.det B *
+        Matrix.det (star U : Matrix ι ι ℝ) =
+        Matrix.det B *
+          (Matrix.det (U : Matrix ι ι ℝ) *
+            Matrix.det (star U : Matrix ι ι ℝ)) := by ring
+    _ = Matrix.det B := by rw [hunit, mul_one]
+
 /-- Spectrum of the affine Jacobian `(1-t) I + t A` when `lambda` is the
 spectrum of `A`. -/
 noncomputable def affineIdentitySpectrum
     {ι : Type*} (t : ℝ) (lambda : ι → ℝ) : ι → ℝ :=
   fun i => (1 - t) + t * lambda i
+
+/-- Affine interpolation commutes literally with formation of a diagonal
+matrix.  This is the basis-level calculation used after spectral
+diagonalization. -/
+theorem affineIdentityMatrix_diagonal
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (lambda : ι → ℝ) (t : ℝ) :
+    (1 - t) • (1 : Matrix ι ι ℝ) + t • Matrix.diagonal lambda =
+      Matrix.diagonal (affineIdentitySpectrum t lambda) := by
+  ext i j
+  by_cases hij : i = j <;>
+    simp [affineIdentitySpectrum, Matrix.diagonal, hij]
+
+/-- Determinant of the affine identity segment against a diagonal matrix. -/
+theorem det_affineIdentity_diagonal
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (lambda : ι → ℝ) (t : ℝ) :
+    Matrix.det ((1 - t) • (1 : Matrix ι ι ℝ) + t • Matrix.diagonal lambda) =
+      ∏ i, ((1 - t) + t * lambda i) := by
+  rw [affineIdentityMatrix_diagonal]
+  simp [affineIdentitySpectrum]
 
 /-- Eigenvalue-coordinate form of the log-determinant concavity used in the
 entropy half of Chewi Theorem 1.4.5. -/
