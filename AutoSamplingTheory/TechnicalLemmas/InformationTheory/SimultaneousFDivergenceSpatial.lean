@@ -14,7 +14,7 @@ pointwise gradient identities.  Writing `rho = p / q`, these are
 
 `grad (q rho) = rho grad q + q grad rho`,
 `grad (f' ∘ rho) = f''(rho) grad rho`,
-`grad (f(rho) - rho f'(rho)) = -rho f''(rho) grad rho`.
+`grad(f(rho) - rho f'(rho)) = -rho f''(rho) grad rho`.
 
 This file proves those identities from the reusable gradient product/chain
 rules and assembles the exact pointwise pairing that remains after spatial
@@ -71,9 +71,8 @@ theorem hasDerivAt_f_sub_id_mul_fPrime
     HasDerivAt (fun u => f u - u * fPrime u) (-r * fpp) r := by
   have hmul : HasDerivAt (fun u : ℝ => u * fPrime u)
       (fPrime r + r * fpp) r := by
-    convert (hasDerivAt_id r).mul hfPrime using 1
-    ext u
-    rfl
+    simpa only [Pi.mul_apply, id_eq, one_mul] using
+      (hasDerivAt_id r).mul hfPrime
   have hsub : HasDerivAt (fun u : ℝ => f u - u * fPrime u)
       (fPrime r - (fPrime r + r * fpp)) r :=
     hf.sub hmul
