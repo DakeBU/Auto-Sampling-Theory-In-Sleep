@@ -31,11 +31,11 @@ open scoped RealInnerProductSpace
 
 noncomputable section
 
-variable {E ι : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
-  [Fintype ι] [DecidableEq ι]
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
 
 /-- At every point where the gradient vector field of a globally convex
-potential is Frechet differentiable, its derivative is a positive operator. -/
+potential is Frechet differentiable, its derivative is a positive operator.
+This statement is dimension-free. -/
 theorem isPositive_fderiv_of_convex_gradient_field
     {phi : E → ℝ} {T : E → E} {A : E →L[ℝ] E} {x : E}
     (hconv : ConvexOn ℝ Set.univ phi)
@@ -51,6 +51,10 @@ theorem isPositive_fderiv_of_convex_gradient_field
   exact
     DisplacementMonotoneDerivative.isPositive_fderiv_of_monotone_of_isSymmetric
       hmono hT hsymm
+
+section FiniteDimensional
+
+variable {ι : Type*} [FiniteDimensional ℝ E] [Fintype ι] [DecidableEq ι]
 
 /-- In an orthonormal basis, the same local derivative therefore has a PSD
 matrix representation.  The basis is only a coordinate witness; positivity is
@@ -78,6 +82,8 @@ theorem det_affineDisplacementDerivative_pos_of_convex_gradient_field
       (DisplacementMapDerivative.affineDisplacementDerivative A t).toLinearMap :=
   DisplacementPositiveOperator.det_affineDisplacementDerivative_pos_of_isPositive
     b A (isPositive_fderiv_of_convex_gradient_field hconv hphi hT) t ht0 ht1
+
+end FiniteDimensional
 
 end
 
