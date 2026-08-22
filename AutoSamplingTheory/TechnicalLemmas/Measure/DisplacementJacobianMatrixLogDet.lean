@@ -61,7 +61,7 @@ theorem det_affineIdentityMatrix_eq_prod_eigenvalues
       _ = φ ((1 - t) • (1 : Matrix ι ι ℝ)) + φ (t • A) :=
         φ.map_add _ _
       _ = (1 - t) • φ (1 : Matrix ι ι ℝ) + t • φ A := by
-        rw [φ.map_smul, φ.map_smul]
+        rw [map_smul φ, map_smul φ]
   have hone : φ (1 : Matrix ι ι ℝ) = 1 := φ.map_one
   have hA_diag : φ A = Matrix.diagonal hA.isHermitian.eigenvalues := by
     dsimp [φ, U]
