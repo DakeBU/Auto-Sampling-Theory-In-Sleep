@@ -45,7 +45,7 @@ theorem toMatrix_posSemidef_of_isPositive
     (b : OrthonormalBasis ι ℝ E) (A : E →L[ℝ] E)
     (hA : A.IsPositive) :
     (LinearMap.toMatrix b.toBasis b.toBasis A.toLinearMap).PosSemidef := by
-  exact (posSemidef_toMatrix_iff b).2 hA.toLinearMap
+  exact (LinearMap.posSemidef_toMatrix_iff b).2 hA.toLinearMap
 
 /-- Positive endpoint operator implies strict positivity of the interior
 Jacobian determinant of the displacement derivative. -/
