@@ -69,13 +69,12 @@ theorem hasDerivAt_f_sub_id_mul_fPrime
     (hf : HasDerivAt f (fPrime r) r)
     (hfPrime : HasDerivAt fPrime fpp r) :
     HasDerivAt (fun u => f u - u * fPrime u) (-r * fpp) r := by
-  have hmul : HasDerivAt (fun u : ℝ => u * fPrime u)
-      (fPrime r + r * fpp) r := by
-    simpa only [Pi.mul_apply, id_eq, one_mul] using
-      (hasDerivAt_id r).mul hfPrime
-  have hsub : HasDerivAt (fun u : ℝ => f u - u * fPrime u)
-      (fPrime r - (fPrime r + r * fpp)) r :=
-    hf.sub hmul
+  have hfun :
+      (fun u : ℝ => f u - u * fPrime u) = f - id * fPrime := by
+    funext u
+    rfl
+  rw [hfun]
+  have hsub := hf.sub ((hasDerivAt_id r).mul hfPrime)
   convert hsub using 1
   ring
 
