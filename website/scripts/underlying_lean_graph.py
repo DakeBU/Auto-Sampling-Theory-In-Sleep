@@ -45,7 +45,7 @@ def main_html(counts: dict[str, Any]) -> str:
     <div><h1>{LABEL}</h1><p>Chewi's twelve-chapter theorem order, the compiled Samplinglib branches beneath it, and the SampleWiki frontier are one navigable proof graph.</p></div>
     <dl><div><dt>{counts.get('chapters', 0)}</dt><dd>book chapters</dd></div><div><dt>{counts.get('source_claims', 0)}</dt><dd>source claims</dd></div><div><dt>{counts.get('lean_modules', 0)}</dt><dd>Lean modules</dd></div><div><dt>{counts.get('samplewiki_cases', 0)}</dt><dd>frontier results</dd></div></dl>
   </div>
-  <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite → consumer. A new paper may reuse a branch, close a missing leaf, or establish a genuinely new cross-branch composition edge.</p>
+  <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite → consumer. <strong>Solid edges</strong> are compiler-backed Lean/module/declaration structure; <strong>dashed edges</strong> are curated textbook, source-audit, proof-route, or SampleWiki overlays. A new paper may reuse a branch, close a missing leaf, or establish a genuinely new cross-branch composition edge.</p>
 </section>
 <section class="ulg-shell">
   <div class="ulg-toolbar">
@@ -53,8 +53,8 @@ def main_html(counts: dict[str, Any]) -> str:
     <label class="ulg-search"><span>Search theorem, paper, module, declaration, or technique</span><input type="search" data-graph-search placeholder="e.g. Theorem 8.4.1, Fisher, Girsanov"></label>
     <div class="ulg-actions"><button data-graph-fit>Fit</button><button data-graph-reset>Reset</button><span data-graph-count></span></div>
   </div>
-  <div class="ulg-stage"><div class="ulg-canvas" data-graph-canvas tabindex="0"><svg data-graph-svg role="img" aria-label="Interactive Lean dependency graph"></svg><p data-graph-empty hidden>No matching branch.</p><small>Drag to pan · wheel to zoom · click a node to reveal its immediate prerequisites and consumers.</small></div><aside class="ulg-detail" data-graph-detail aria-live="polite"><div class="ulg-placeholder"><span>Branch inspector</span><h2>Select a node.</h2><p>Source statement, proof equations, exact Lean leaves, prerequisites, consumers, and reader links appear here.</p></div></aside></div>
-  <div class="ulg-legend"><span><i data-status="compiled"></i>compiled</span><span><i data-status="partial"></i>partial</span><span><i data-status="audited"></i>source audited</span><span><i data-status="planned"></i>planned / blocked</span><span><i data-status="literature-open"></i>literature-open</span><span><i data-status="shared"></i>shared root</span></div>
+  <div class="ulg-stage"><div class="ulg-canvas" data-graph-canvas tabindex="0"><svg data-graph-svg role="img" aria-label="Interactive Lean dependency graph"></svg><p data-graph-empty hidden>No matching branch.</p><small>Drag to pan · wheel to zoom · click a node to highlight its immediate prerequisites/consumers while retaining surrounding context · Esc clears focus.</small></div><aside class="ulg-detail" data-graph-detail aria-live="polite"><div class="ulg-placeholder"><span>Branch inspector</span><h2>Select a node.</h2><p>Source statement, proof equations, exact Lean leaves, prerequisites, consumers, and reader links appear here.</p></div></aside></div>
+  <div class="ulg-legend"><span><i data-status="compiled"></i>compiled</span><span><i data-status="partial"></i>partial</span><span><i data-status="audited"></i>source audited</span><span><i data-status="planned"></i>planned / blocked</span><span><i data-status="literature-open"></i>literature-open</span><span><i data-status="shared"></i>shared root</span><span class="edge-semantics"><b class="ulg-line-key formal"></b>Lean structural edge</span><span><b class="ulg-line-key overlay"></b>curated overlay edge</span></div>
 </section>
 <section class="ulg-semantics"><div class="section-heading"><span>Topology semantics</span><h2>What a contribution changes in the graph.</h2></div><div><article><b>01</b><h3>Reuse a branch</h3><p>A thin assembly adds a consumer edge, not a duplicate proof.</p></article><article><b>02</b><h3>Close a leaf</h3><p>A new analytic lemma discharges an open interface.</p></article><article><b>03</b><h3>Add topology</h3><p>A proof connects branches that were previously formalized only in isolation.</p></article><article><b>04</b><h3>Expose a gap</h3><p>An unknown matching theorem stays visible; ASTIS never invents a source statement.</p></article></div></section>
 <noscript><p>The interactive graph requires JavaScript. Exact declarations remain in the <a href="declarations/index.html">declaration index</a>.</p></noscript>
@@ -132,7 +132,7 @@ def validate(output: Path, graph: dict[str, Any]) -> None:
         if not counts.get(key):
             errors.append(f"{key} is empty")
     page = (output / PAGE).read_text(encoding="utf-8")
-    for marker in (LABEL, "data-underlying-lean-graph", DATA, CSS.name, JS.name, "data-graph-detail"):
+    for marker in (LABEL, "data-underlying-lean-graph", DATA, CSS.name, JS.name, "data-graph-detail", "ulg-line-key formal", "ulg-line-key overlay"):
         if marker not in page:
             errors.append(f"graph page missing {marker}")
     failures = 0
