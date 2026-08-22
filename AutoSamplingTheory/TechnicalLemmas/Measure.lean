@@ -1,5 +1,6 @@
 import AutoSamplingTheory.Probability
 import AutoSamplingTheory.TechnicalLemmas.Measure.CommonNoiseContraction
+import AutoSamplingTheory.TechnicalLemmas.Measure.CouplingGraph
 import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation
 import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolationCoupling
 import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolationCost
