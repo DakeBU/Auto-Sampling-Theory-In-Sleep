@@ -56,8 +56,10 @@ theorem det_affineIdentityMatrix_eq_prod_eigenvalues
       Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) U B =
         (1 - t) • (1 : Matrix ι ι ℝ) +
           t • Matrix.diagonal hA.isHermitian.eigenvalues := by
-    dsimp [B, U]
-    simp [hA.isHermitian.conjStarAlgAut_star_eigenvectorUnitary]
+    dsimp [B]
+    rw [map_add, map_smul, map_smul, map_one]
+    dsimp [U]
+    rw [hA.isHermitian.conjStarAlgAut_star_eigenvectorUnitary]
   calc
     Matrix.det B =
         Matrix.det (Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) U B) :=
