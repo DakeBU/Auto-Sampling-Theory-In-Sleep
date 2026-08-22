@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementDerivativeMatrix
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementDerivativeMatrix.toMatrix_affineDisplacementDerivative
+#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementDerivativeMatrix.det_affineDisplacementDerivative_eq_matrix_det
