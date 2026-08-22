@@ -26,16 +26,17 @@ noncomputable section
 
 variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
   [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
+  {m : Measure E} [Measure.IsAddHaarMeasure m]
 
 /-- A finite-valued globally convex potential on a finite-dimensional real
-normed space is Frechet differentiable almost everywhere with respect to
-Lebesgue volume. -/
+normed space is Frechet differentiable almost everywhere with respect to any
+additive Haar measure. -/
 theorem ae_differentiableAt_of_convexOn_univ
     {phi : E → ℝ} (hconv : ConvexOn ℝ Set.univ phi) :
-    ∀ᵐ x ∂(volume : Measure E), DifferentiableAt ℝ phi x := by
+    ∀ᵐ x ∂m, DifferentiableAt ℝ phi x := by
   have hlocal : LocallyLipschitzOn (Set.univ : Set E) phi :=
     hconv.locallyLipschitzOn isOpen_univ
-  have hball : ∀ n : ℕ, ∀ᵐ x ∂(volume : Measure E),
+  have hball : ∀ n : ℕ, ∀ᵐ x ∂m,
       x ∈ ball (0 : E) (n : ℝ) → DifferentiableAt ℝ phi x := by
     intro n
     have hlocalClosed : LocallyLipschitzOn (closedBall (0 : E) (n : ℝ)) phi :=
@@ -44,8 +45,7 @@ theorem ae_differentiableAt_of_convexOn_univ
       hlocalClosed.exists_lipschitzOnWith_of_compact isCompact_closedBall
     have hKball : LipschitzOnWith K phi (ball (0 : E) (n : ℝ)) :=
       hK.mono ball_subset_closedBall
-    filter_upwards [hKball.ae_differentiableWithinAt_of_mem
-      (μ := (volume : Measure E))] with x hx
+    filter_upwards [hKball.ae_differentiableWithinAt_of_mem (μ := m)] with x hx
     intro hxball
     rcases hx hxball with ⟨A, hA⟩
     exact ⟨A, (hasFDerivWithinAt_of_isOpen isOpen_ball hxball).mp hA⟩
