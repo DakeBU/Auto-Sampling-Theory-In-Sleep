@@ -33,7 +33,7 @@ variable {E ι : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
 /-- In any finite basis, the matrix of the displacement derivative is the
 literal affine matrix `(1-t) I + t A`, where `A` is the matrix of `T'`. -/
 theorem toMatrix_affineDisplacementDerivative
-    (b : Basis ι ℝ E) (T' : E →L[ℝ] E) (t : ℝ) :
+    (b : Module.Basis ι ℝ E) (T' : E →L[ℝ] E) (t : ℝ) :
     LinearMap.toMatrix b b (affineDisplacementDerivative T' t).toLinearMap =
       (1 - t) • (1 : Matrix ι ι ℝ) +
         t • LinearMap.toMatrix b b T'.toLinearMap := by
@@ -43,7 +43,7 @@ theorem toMatrix_affineDisplacementDerivative
 /-- The determinant used by the Fréchet/change-of-variables layer is exactly
 the determinant of the affine matrix in any finite basis. -/
 theorem det_affineDisplacementDerivative_eq_matrix_det
-    (b : Basis ι ℝ E) (T' : E →L[ℝ] E) (t : ℝ) :
+    (b : Module.Basis ι ℝ E) (T' : E →L[ℝ] E) (t : ℝ) :
     LinearMap.det (affineDisplacementDerivative T' t).toLinearMap =
       Matrix.det
         ((1 - t) • (1 : Matrix ι ι ℝ) +
