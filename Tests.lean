@@ -57,6 +57,7 @@ import Tests.ProgressiveL2HorizonExtension
 import Tests.ProgressiveL2Truncation
 import Tests.ProgressiveL2Stopping
 import Tests.RelativeFisher
+import Tests.SimultaneousFDivergenceSpatial
 import Tests.StoppingGraphNull
 import Tests.GlobalLocalProgressiveL2
 import Tests.GlobalCanonicalLocalizerLimit
