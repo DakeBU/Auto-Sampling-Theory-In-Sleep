@@ -38,7 +38,8 @@ theorem toMatrix_affineDisplacementDerivative
       (1 - t) • (1 : Matrix ι ι ℝ) +
         t • LinearMap.toMatrix b b T'.toLinearMap := by
   ext i j
-  simp [affineDisplacementDerivative, LinearMap.toMatrix_apply, Matrix.one_apply]
+  by_cases hij : i = j <;>
+    simp [affineDisplacementDerivative, LinearMap.toMatrix_apply, Matrix.one_apply, hij]
 
 /-- The determinant used by the Fréchet/change-of-variables layer is exactly
 the determinant of the affine matrix in any finite basis. -/
