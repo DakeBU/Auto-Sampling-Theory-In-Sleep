@@ -12,6 +12,7 @@ import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDiverge
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceGradient
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceIntegral
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceSpatial
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceDissipation
 
 /-!
 # Information-theoretic technical lemma arsenal
