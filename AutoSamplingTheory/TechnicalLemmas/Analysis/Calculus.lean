@@ -5,6 +5,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Laplacian
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.LineDeriv
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.WholeSpaceDivergence
 
 /-!
 # Calculus technical lemma arsenal
