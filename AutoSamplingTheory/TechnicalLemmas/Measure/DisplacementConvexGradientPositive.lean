@@ -54,7 +54,10 @@ theorem isPositive_fderiv_of_convex_gradient_field
 
 section FiniteDimensional
 
-variable {ι : Type*} [FiniteDimensional ℝ E] [Fintype ι] [DecidableEq ι]
+variable {ι : Type*}
+  [FiniteDimensional ℝ E]
+  [MeasurableSpace E] [BorelSpace E]
+  [Fintype ι] [DecidableEq ι]
 
 /-- In an orthonormal basis, the same local derivative therefore has a PSD
 matrix representation.  The basis is only a coordinate witness; positivity is
