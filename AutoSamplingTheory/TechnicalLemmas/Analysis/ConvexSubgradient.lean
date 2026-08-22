@@ -37,7 +37,7 @@ variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
 required to be concentrated on this graph without first choosing a transport
 map. -/
 def SupportsAt (phi : E → ℝ) (x y : E) : Prop :=
-  ∀ z, phi x + ⟪y, z - x⟫ ≤ phi z
+  ∀ z, phi x + (innerSL ℝ y) (z - x) ≤ phi z
 
 /-- At a Frechet differentiability point, a supporting vector is the unique
 Riesz representative of the derivative. -/
@@ -46,17 +46,14 @@ theorem eq_gradient_of_supportsAt_of_hasFDerivAt
     (hsupport : SupportsAt phi x y)
     (hderiv : HasFDerivAt phi (innerSL ℝ g) x) :
     y = g := by
-  let psi : E → ℝ := fun z => phi z - ⟪y, z⟫
-  have hmin : IsLocalMin psi x := by
+  have hmin : IsLocalMin (phi - fun z => (innerSL ℝ y) z) x := by
     filter_upwards with z
     have hz := hsupport z
-    rw [inner_sub_right] at hz
-    dsimp [psi]
+    rw [map_sub] at hz
+    dsimp
     linarith
-  have hpsi : HasFDerivAt psi (innerSL ℝ g - innerSL ℝ y) x := by
-    simpa [psi] using hderiv.sub (innerSL ℝ y).hasFDerivAt
-  have hzero : innerSL ℝ g - innerSL ℝ y = 0 :=
-    hmin.hasFDerivAt_eq_zero hpsi
+  have hpsi := hderiv.sub (innerSL ℝ y).hasFDerivAt
+  have hzero := hmin.hasFDerivAt_eq_zero hpsi
   have heq : innerSL ℝ g = innerSL ℝ y := sub_eq_zero.mp hzero
   exact (innerSL_inj.mp heq).symm
 
