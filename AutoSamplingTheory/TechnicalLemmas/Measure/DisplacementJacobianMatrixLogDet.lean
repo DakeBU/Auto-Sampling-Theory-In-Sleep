@@ -52,18 +52,29 @@ theorem det_affineIdentityMatrix_eq_prod_eigenvalues
       ∏ i, ((1 - t) + t * hA.isHermitian.eigenvalues i) := by
   let B : Matrix ι ι ℝ := (1 - t) • (1 : Matrix ι ι ℝ) + t • A
   let U : unitary (Matrix ι ι ℝ) := star hA.isHermitian.eigenvectorUnitary
+  let φ : Matrix ι ι ℝ ≃⋆ₐ[ℝ] Matrix ι ι ℝ :=
+    Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) U
+  have hmap :
+      φ B = (1 - t) • φ (1 : Matrix ι ι ℝ) + t • φ A := by
+    calc
+      φ B = φ ((1 - t) • (1 : Matrix ι ι ℝ) + t • A) := rfl
+      _ = φ ((1 - t) • (1 : Matrix ι ι ℝ)) + φ (t • A) :=
+        φ.map_add _ _
+      _ = (1 - t) • φ (1 : Matrix ι ι ℝ) + t • φ A := by
+        rw [φ.map_smul, φ.map_smul]
+  have hone : φ (1 : Matrix ι ι ℝ) = 1 := φ.map_one
+  have hA_diag : φ A = Matrix.diagonal hA.isHermitian.eigenvalues := by
+    dsimp [φ, U]
+    exact hA.isHermitian.conjStarAlgAut_star_eigenvectorUnitary
   have hdiag :
-      Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) U B =
-        (1 - t) • (1 : Matrix ι ι ℝ) +
-          t • Matrix.diagonal hA.isHermitian.eigenvalues := by
-    dsimp [B]
-    rw [map_add, map_smul, map_smul, map_one]
-    dsimp [U]
-    rw [hA.isHermitian.conjStarAlgAut_star_eigenvectorUnitary]
+      φ B = (1 - t) • (1 : Matrix ι ι ℝ) +
+        t • Matrix.diagonal hA.isHermitian.eigenvalues := by
+    rw [hmap, hone, hA_diag]
+  have hdetφ : Matrix.det (φ B) = Matrix.det B := by
+    dsimp [φ]
+    exact det_conjStarAlgAut_eq U B
   calc
-    Matrix.det B =
-        Matrix.det (Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) U B) :=
-      (det_conjStarAlgAut_eq U B).symm
+    Matrix.det B = Matrix.det (φ B) := hdetφ.symm
     _ = Matrix.det
         ((1 - t) • (1 : Matrix ι ι ℝ) +
           t • Matrix.diagonal hA.isHermitian.eigenvalues) := by
