@@ -5,6 +5,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.LeftLebesgueAverage
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCyclicMonotonicity
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
 import AutoSamplingTheory.TechnicalLemmas.Analysis.RockafellarFiniteChain
+import AutoSamplingTheory.TechnicalLemmas.Analysis.RockafellarRootProper
 
 /-!
 # Analysis technical lemma arsenal
