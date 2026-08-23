@@ -34,7 +34,7 @@ namespace Analysis
 namespace PairingCycleNeighborhood
 
 open Filter Set
-open scoped BigOperators
+open scoped BigOperators Topology
 
 noncomputable section
 
