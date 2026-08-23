@@ -42,7 +42,8 @@ theorem ae_differentiableAt_of_convexOn_univ
     have hlocalClosed : LocallyLipschitzOn (closedBall (0 : E) (n : ℝ)) phi :=
       hlocal.mono (subset_univ _)
     obtain ⟨K, hK⟩ :=
-      hlocalClosed.exists_lipschitzOnWith_of_compact isCompact_closedBall
+      hlocalClosed.exists_lipschitzOnWith_of_compact
+        (isCompact_closedBall (0 : E) (n : ℝ))
     have hKball : LipschitzOnWith K phi (ball (0 : E) (n : ℝ)) :=
       hK.mono ball_subset_closedBall
     filter_upwards [hKball.ae_differentiableWithinAt_of_mem (μ := m)] with x hx
