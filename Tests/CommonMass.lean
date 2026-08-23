@@ -1,0 +1,8 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass.mass_smul_nnreal
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass.commonMassProduct
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass.commonMassProduct_mass
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass.commonMassProduct_map_fst
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass.commonMassProduct_map_snd
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass.exists_joint_of_eq_positive_mass
