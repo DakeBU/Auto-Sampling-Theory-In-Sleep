@@ -1,0 +1,6 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.RockafellarFiniteChain
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.RockafellarFiniteChain.finiteChainValue
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.RockafellarFiniteChain.closedCycleValue_eq_cycle_sum
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.RockafellarFiniteChain.RootedFiniteChain.value_at_root_nonpos
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.RockafellarFiniteChain.properRockafellarPotential
