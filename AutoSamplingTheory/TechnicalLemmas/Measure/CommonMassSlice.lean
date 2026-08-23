@@ -41,7 +41,7 @@ theorem commonMassSlice_mass (t : ℝ≥0) (mu : FiniteMeasure X)
     (commonMassSlice t mu).mass = t := by
   have hne : mu.mass ≠ 0 := ne_of_gt hpos
   rw [commonMassSlice, mass_smul_nnreal]
-  simp [div_eq_mul_inv, hne, mul_assoc]
+  simp [div_eq_mul_inv, hne]
 
 /-- If the target mass is no larger than the ambient mass, the canonical slice
 is dominated by the original measure.  The domination is stated for the
@@ -50,7 +50,7 @@ subtraction. -/
 theorem commonMassSlice_toMeasure_le (t : ℝ≥0) (mu : FiniteMeasure X)
     (hpos : 0 < mu.mass) (ht : t ≤ mu.mass) :
     ((commonMassSlice t mu : FiniteMeasure X) : Measure X) ≤ (mu : Measure X) := by
-  have hscale : t / mu.mass ≤ 1 := (div_le_one hpos.le).2 ht
+  have hscale : t / mu.mass ≤ 1 := (div_le_one hpos).2 ht
   rw [Measure.le_iff]
   intro s hs
   change ((t / mu.mass : ℝ≥0) : ℝ≥0∞) * (mu : Measure X) s ≤ (mu : Measure X) s
