@@ -50,8 +50,11 @@ theorem eq_gradient_of_supportsAt_of_hasFDerivAt
     filter_upwards with z
     have hz := hsupport z
     rw [map_sub] at hz
-    dsimp
-    linarith
+    change phi x - (innerSL ℝ y) x ≤ phi z - (innerSL ℝ y) z
+    calc
+      phi x - (innerSL ℝ y) x =
+          (phi x + ((innerSL ℝ y) z - (innerSL ℝ y) x)) - (innerSL ℝ y) z := by ring
+      _ ≤ phi z - (innerSL ℝ y) z := sub_le_sub_right hz _
   have hpsi := hderiv.sub (innerSL ℝ y).hasFDerivAt
   have hzero := hmin.hasFDerivAt_eq_zero hpsi
   have heq : innerSL ℝ g = innerSL ℝ y := sub_eq_zero.mp hzero
