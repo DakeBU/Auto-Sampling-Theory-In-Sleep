@@ -1,5 +1,6 @@
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexAEDifferentiable
+import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSubgradient
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability
 import AutoSamplingTheory.TechnicalLemmas.Analysis.LeftLebesgueAverage
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
