@@ -57,7 +57,7 @@ theorem commonMassSlice_toMeasure_le (t : ℝ≥0) (mu : FiniteMeasure X)
   calc
     ((t / mu.mass : ℝ≥0) : ℝ≥0∞) * (mu : Measure X) s
         ≤ 1 * (mu : Measure X) s :=
-      mul_le_mul_right' (ENNReal.coe_le_coe.mpr hscale) _
+      mul_le_mul_left (ENNReal.coe_le_coe.mpr hscale) _
     _ = (mu : Measure X) s := one_mul _
 
 end
