@@ -23,6 +23,7 @@ namespace CommonMassSlice
 
 open MeasureTheory
 open CommonMass
+open scoped NNReal ENNReal
 
 noncomputable section
 
