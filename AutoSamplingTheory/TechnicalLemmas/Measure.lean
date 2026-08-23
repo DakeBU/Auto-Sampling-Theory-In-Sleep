@@ -1,6 +1,7 @@
 import AutoSamplingTheory.Probability
 import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass
 import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassSlice
+import AutoSamplingTheory.TechnicalLemmas.Measure.PermutedMarginalReplacement
 import AutoSamplingTheory.TechnicalLemmas.Measure.CommonRemovableMass
 import AutoSamplingTheory.TechnicalLemmas.Measure.CommonNoiseContraction
 import AutoSamplingTheory.TechnicalLemmas.Measure.CouplingGraph
