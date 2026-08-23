@@ -22,6 +22,7 @@ namespace Measure
 namespace CommonRemovableMass
 
 open MeasureTheory
+open scoped NNReal
 
 noncomputable section
 
