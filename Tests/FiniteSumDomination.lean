@@ -1,0 +1,5 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.FiniteSumDomination
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.FiniteSumDomination.toMeasure_finsetSum_le
+#check AutoSamplingTheory.TechnicalLemmas.Measure.FiniteSumDomination.toMeasure_fintypeSum_le
+#check AutoSamplingTheory.TechnicalLemmas.Measure.FiniteSumDomination.toMeasure_fintypeSum_le_ambient
