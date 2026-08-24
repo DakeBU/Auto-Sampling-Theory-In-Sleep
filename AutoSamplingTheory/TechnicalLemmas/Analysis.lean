@@ -5,6 +5,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability
 import AutoSamplingTheory.TechnicalLemmas.Analysis.LeftLebesgueAverage
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCyclicMonotonicity
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCycleNeighborhood
+import AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedQuadraticCost
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
 
 /-!
