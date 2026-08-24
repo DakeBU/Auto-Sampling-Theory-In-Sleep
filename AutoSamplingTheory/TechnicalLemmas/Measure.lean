@@ -35,6 +35,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsIntegral
 import AutoSamplingTheory.TechnicalLemmas.Measure.GibbsLogConcavity
 import AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual
 import AutoSamplingTheory.TechnicalLemmas.Measure.L2Expectation
+import AutoSamplingTheory.TechnicalLemmas.Measure.PermutedMarginalReplacement
 import AutoSamplingTheory.TechnicalLemmas.Measure.Product
 import AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym
 import AutoSamplingTheory.TechnicalLemmas.Measure.Transport
