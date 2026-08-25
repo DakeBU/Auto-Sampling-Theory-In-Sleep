@@ -1,4 +1,5 @@
 import AutoSamplingTheory.Probability
+import AutoSamplingTheory.TechnicalLemmas.Measure.CanonicalGlobalCompetitor
 import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMass
 import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassSlice
 import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassSliceFamily
