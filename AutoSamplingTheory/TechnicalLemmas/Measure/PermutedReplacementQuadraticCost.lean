@@ -1,0 +1,258 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.DiagonalProductCostIntegral
+import AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedProductCostIntegral
+import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassNormalizedProduct
+import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassProductMap
+import AutoSamplingTheory.TechnicalLemmas.Measure.PermutedMarginalReplacement
+import AutoSamplingTheory.TechnicalLemmas.Probability.NormalizedFiniteMeasureIntegral
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+
+/-!
+# Finite quadratic costs of equal-mass permutation replacements
+
+This module is the cost-identification join between the normalized finite-product
+expectation layer and the actual finite measures used by the Brenier competitor.
+
+For a finite family of equal positive-mass joint measures `rho i`, the diagonal
+product-law expectation scales to the quadratic cost of `sum_i rho i`.  For a
+fixed-point-free permutation `sigma`, the permuted product-law expectation
+scales to the quadratic cost of `permutedMarginalReplacement rho sigma.symm`.
+Hence a strict normalized product-law cost gap gives a strict finite-measure
+replacement cost gap.
+-/
+
+namespace AutoSamplingTheory
+namespace TechnicalLemmas
+namespace Measure
+namespace PermutedReplacementQuadraticCost
+
+open MeasureTheory
+open AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedQuadraticCost
+open AutoSamplingTheory.TechnicalLemmas.Analysis.DiagonalProductCostIntegral
+open AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedProductCostIntegral
+open AutoSamplingTheory.TechnicalLemmas.Probability.NormalizedFiniteMeasureIntegral
+open CommonMass CommonMassNormalizedProduct CommonMassProductMap
+open PermutedMarginalReplacement
+open scoped BigOperators NNReal
+
+noncomputable section
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [MeasurableSpace E] [BorelSpace E] [SecondCountableTopology E]
+
+private def pairCost (z : E × E) : ℝ :=
+  ‖z.1 - z.2‖ ^ 2
+
+private def crossCost (z : (E × E) × (E × E)) : ℝ :=
+  ‖z.1.1 - z.2.2‖ ^ 2
+
+private theorem pairCost_stronglyMeasurable :
+    StronglyMeasurable (pairCost (E := E)) := by
+  apply Measurable.stronglyMeasurable
+  fun_prop
+
+/-- Mapping a common-mass product of two joint blocks by `(fst,snd)` produces
+exactly the common-mass product of the source marginal of the first block and
+the target marginal of the second block. -/
+theorem measurePreserving_commonMassProduct_source_target
+    (rhoA rhoB : FiniteMeasure (E × E)) :
+    MeasurePreserving (Prod.map Prod.fst Prod.snd)
+      (commonMassProduct rhoA rhoB : Measure ((E × E) × (E × E)))
+      (commonMassProduct (sourceMarginal rhoA) (targetMarginal rhoB) : Measure (E × E)) := by
+  refine ⟨measurable_fst.prodMap measurable_snd, ?_⟩
+  have h := commonMassProduct_map_prodMap
+    rhoA rhoB Prod.fst Prod.snd measurable_fst measurable_snd
+  have h' := congrArg
+    (fun eta : FiniteMeasure (E × E) => (eta : Measure (E × E))) h
+  simpa [sourceMarginal, targetMarginal] using h'
+
+/-- One source-target replacement block has cost equal to the common mass times
+the cross-cost expectation under the product of the two normalized joint laws. -/
+theorem integral_marginal_commonMassProduct_eq_mass_mul_normalized_cross
+    (rhoA rhoB : FiniteMeasure (E × E))
+    (hmass : rhoA.mass = rhoB.mass) (hpos : 0 < rhoA.mass) :
+    (∫ z : E × E, pairCost z
+        ∂(commonMassProduct (sourceMarginal rhoA) (targetMarginal rhoB) : Measure (E × E))) =
+      (rhoA.mass : ℝ) *
+        ∫ z : (E × E) × (E × E), crossCost z
+          ∂((rhoA.normalize : Measure (E × E)).prod
+            (rhoB.normalize : Measure (E × E))) := by
+  have hmp := measurePreserving_commonMassProduct_source_target rhoA rhoB
+  calc
+    (∫ z : E × E, pairCost z
+        ∂(commonMassProduct (sourceMarginal rhoA) (targetMarginal rhoB) : Measure (E × E))) =
+        ∫ z : (E × E) × (E × E),
+          pairCost (Prod.map Prod.fst Prod.snd z)
+          ∂(commonMassProduct rhoA rhoB : Measure ((E × E) × (E × E))) := by
+      rw [← hmp.map_eq]
+      exact integral_map_of_stronglyMeasurable hmp.measurable pairCost_stronglyMeasurable
+    _ = ∫ z : (E × E) × (E × E), crossCost z
+          ∂(commonMassProduct rhoA rhoB : Measure ((E × E) × (E × E))) := by
+      rfl
+    _ = (rhoA.mass : ℝ) *
+        ∫ z : (E × E) × (E × E), crossCost z
+          ∂((rhoA.normalize : Measure (E × E)).prod
+            (rhoB.normalize : Measure (E × E))) := by
+      rw [commonMassProduct_toMeasure_eq_mass_smul_normalized_prod rhoA rhoB hmass hpos,
+        integral_smul_nnreal_measure]
+      rfl
+
+private theorem integrable_pairCost_of_normalize
+    (rho : FiniteMeasure (E × E))
+    (h : Integrable pairCost (rho.normalize : Measure (E × E))) :
+    Integrable pairCost (rho : Measure (E × E)) := by
+  have hmeasure :
+      (rho : Measure (E × E)) =
+        (rho.mass : ℝ≥0) • (rho.normalize : Measure (E × E)) := by
+    have h' := congrArg
+      (fun eta : FiniteMeasure (E × E) => (eta : Measure (E × E)))
+      rho.self_eq_mass_smul_normalize
+    simpa using h'
+  rw [hmeasure]
+  exact h.smul_measure_nnreal
+
+private theorem integrable_marginal_commonMassProduct_of_normalized_cross
+    (rhoA rhoB : FiniteMeasure (E × E))
+    (hmass : rhoA.mass = rhoB.mass) (hpos : 0 < rhoA.mass)
+    (hcross : Integrable crossCost
+      ((rhoA.normalize : Measure (E × E)).prod
+        (rhoB.normalize : Measure (E × E)))) :
+    Integrable pairCost
+      (commonMassProduct (sourceMarginal rhoA) (targetMarginal rhoB) : Measure (E × E)) := by
+  have hsource : Integrable crossCost
+      (commonMassProduct rhoA rhoB : Measure ((E × E) × (E × E))) := by
+    rw [commonMassProduct_toMeasure_eq_mass_smul_normalized_prod rhoA rhoB hmass hpos]
+    exact hcross.smul_measure_nnreal
+  have hmp := measurePreserving_commonMassProduct_source_target rhoA rhoB
+  apply (hmp.integrable_comp pairCost_stronglyMeasurable.aestronglyMeasurable).mp
+  simpa [Function.comp_def, pairCost, crossCost] using hsource
+
+/-- The quadratic cost of a finite sum of equal-mass joint blocks is the common
+mass times the diagonal quadratic-cost expectation under the product of their
+normalized laws. -/
+theorem integral_sum_eq_mass_mul_diagonalProduct
+    {n : ℕ} (rho : Fin (n + 1) → FiniteMeasure (E × E))
+    (m : ℝ≥0) (hmass : ∀ i, (rho i).mass = m)
+    (hnorm : ∀ i, Integrable pairCost (rho i).normalize) :
+    (∫ z : E × E, pairCost z
+        ∂((∑ i, rho i : FiniteMeasure (E × E)) : Measure (E × E))) =
+      (m : ℝ) *
+        ∫ q : Fin (n + 1) → E × E, diagonalQuadraticCost q
+          ∂Measure.pi (fun i => ((rho i).normalize : Measure (E × E))) := by
+  classical
+  have hactual : ∀ i, Integrable pairCost (rho i : Measure (E × E)) :=
+    fun i => integrable_pairCost_of_normalize (rho i) (hnorm i)
+  calc
+    (∫ z : E × E, pairCost z
+        ∂((∑ i, rho i : FiniteMeasure (E × E)) : Measure (E × E))) =
+        ∑ i, ∫ z : E × E, pairCost z ∂(rho i : Measure (E × E)) := by
+      simpa using
+        (integral_finsetSum_measure
+          (s := Finset.univ) (μ := fun i => (rho i : Measure (E × E)))
+          (f := pairCost) (fun i _hi => hactual i))
+    _ = ∑ i, (m : ℝ) *
+        ∫ z : E × E, pairCost z ∂((rho i).normalize : Measure (E × E)) := by
+      apply Finset.sum_congr rfl
+      intro i _hi
+      simpa [hmass i] using
+        (integral_eq_mass_mul_integral_normalize (rho i) pairCost)
+    _ = (m : ℝ) * ∑ i,
+        ∫ z : E × E, pairCost z ∂((rho i).normalize : Measure (E × E)) := by
+      rw [Finset.mul_sum]
+    _ = (m : ℝ) *
+        ∫ q : Fin (n + 1) → E × E, diagonalQuadraticCost q
+          ∂Measure.pi (fun i => ((rho i).normalize : Measure (E × E))) := by
+      rw [integral_diagonalQuadraticCost_eq_sum
+        (fun i => (rho i).normalize) hnorm]
+
+/-- For a fixed-point-free permutation `sigma`, the true finite cost of the
+`σ⁻¹` marginal replacement is the common mass times the normalized permuted
+product-law expectation. -/
+theorem integral_permutedReplacement_symm_eq_mass_mul_permutedProduct
+    {n : ℕ} (rho : Fin (n + 1) → FiniteMeasure (E × E))
+    (σ : Equiv.Perm (Fin (n + 1)))
+    (m : ℝ≥0) (hmass : ∀ i, (rho i).mass = m) (hpos : 0 < m)
+    (hσ : ∀ i, σ i ≠ i)
+    (hcross : ∀ i, Integrable crossCost
+      (((rho (σ i)).normalize : Measure (E × E)).prod
+        ((rho i).normalize : Measure (E × E)))) :
+    (∫ z : E × E, pairCost z
+        ∂(permutedMarginalReplacement rho σ.symm : Measure (E × E))) =
+      (m : ℝ) *
+        ∫ q : Fin (n + 1) → E × E, permutedQuadraticCost q σ
+          ∂Measure.pi (fun i => ((rho i).normalize : Measure (E × E))) := by
+  classical
+  let F : Fin (n + 1) → ℝ := fun i =>
+    ∫ z : (E × E) × (E × E), crossCost z
+      ∂(((rho (σ i)).normalize : Measure (E × E)).prod
+        ((rho i).normalize : Measure (E × E)))
+  have hblock : ∀ j, Integrable pairCost
+      (permutedMarginalJoint rho σ.symm j : Measure (E × E)) := by
+    intro j
+    unfold permutedMarginalJoint
+    apply integrable_marginal_commonMassProduct_of_normalized_cross
+      (rho j) (rho (σ.symm j))
+    · rw [hmass j, hmass (σ.symm j)]
+    · simpa [hmass j] using hpos
+    · simpa [F, Equiv.apply_symm_apply] using hcross (σ.symm j)
+  calc
+    (∫ z : E × E, pairCost z
+        ∂(permutedMarginalReplacement rho σ.symm : Measure (E × E))) =
+        ∑ j, ∫ z : E × E, pairCost z
+          ∂(permutedMarginalJoint rho σ.symm j : Measure (E × E)) := by
+      simpa [permutedMarginalReplacement] using
+        (integral_finsetSum_measure
+          (s := Finset.univ)
+          (μ := fun j => (permutedMarginalJoint rho σ.symm j : Measure (E × E)))
+          (f := pairCost) (fun j _hj => hblock j))
+    _ = ∑ j, (m : ℝ) * F (σ.symm j) := by
+      apply Finset.sum_congr rfl
+      intro j _hj
+      unfold permutedMarginalJoint
+      simpa [F, hmass j, Equiv.apply_symm_apply] using
+        (integral_marginal_commonMassProduct_eq_mass_mul_normalized_cross
+          (rho j) (rho (σ.symm j))
+          (by rw [hmass j, hmass (σ.symm j)])
+          (by simpa [hmass j] using hpos))
+    _ = (m : ℝ) * ∑ j, F (σ.symm j) := by
+      rw [Finset.mul_sum]
+    _ = (m : ℝ) * ∑ i, F i := by
+      rw [Equiv.sum_comp σ.symm F]
+    _ = (m : ℝ) *
+        ∫ q : Fin (n + 1) → E × E, permutedQuadraticCost q σ
+          ∂Measure.pi (fun i => ((rho i).normalize : Measure (E × E))) := by
+      rw [integral_permutedQuadraticCost_eq_sum
+        (fun i => (rho i).normalize) σ hσ hcross]
+
+/-- Any strict normalized product-law cost improvement transfers to a strict
+finite-measure improvement of the corresponding marginal replacement. -/
+theorem integral_permutedReplacement_symm_lt_sum_of_productGap
+    {n : ℕ} (rho : Fin (n + 1) → FiniteMeasure (E × E))
+    (σ : Equiv.Perm (Fin (n + 1)))
+    (m : ℝ≥0) (hmass : ∀ i, (rho i).mass = m) (hpos : 0 < m)
+    (hσ : ∀ i, σ i ≠ i)
+    (hnorm : ∀ i, Integrable pairCost (rho i).normalize)
+    (hcross : ∀ i, Integrable crossCost
+      (((rho (σ i)).normalize : Measure (E × E)).prod
+        ((rho i).normalize : Measure (E × E))))
+    (hgap :
+      (∫ q : Fin (n + 1) → E × E, permutedQuadraticCost q σ
+          ∂Measure.pi (fun i => ((rho i).normalize : Measure (E × E)))) <
+        ∫ q : Fin (n + 1) → E × E, diagonalQuadraticCost q
+          ∂Measure.pi (fun i => ((rho i).normalize : Measure (E × E)))) :
+    (∫ z : E × E, pairCost z
+        ∂(permutedMarginalReplacement rho σ.symm : Measure (E × E))) <
+      ∫ z : E × E, pairCost z
+        ∂((∑ i, rho i : FiniteMeasure (E × E)) : Measure (E × E)) := by
+  rw [integral_permutedReplacement_symm_eq_mass_mul_permutedProduct
+      rho σ m hmass hpos hσ hcross,
+    integral_sum_eq_mass_mul_diagonalProduct rho m hmass hnorm]
+  have hm : (0 : ℝ) < (m : ℝ) := by
+    exact_mod_cast hpos
+  nlinarith
+
+end
+
+end PermutedReplacementQuadraticCost
+end Measure
+end TechnicalLemmas
+end AutoSamplingTheory
