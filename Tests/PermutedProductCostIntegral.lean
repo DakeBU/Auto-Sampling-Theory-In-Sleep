@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedProductCostIntegral
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedProductCostIntegral.measurePreserving_pair_eval
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedProductCostIntegral.integral_permutedQuadraticCost_eq_sum
