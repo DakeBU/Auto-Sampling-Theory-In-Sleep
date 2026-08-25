@@ -1,0 +1,7 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.FiniteRemainder
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.FiniteRemainder.finiteRemainder
+#check AutoSamplingTheory.TechnicalLemmas.Measure.FiniteRemainder.finiteRemainder_toMeasure
+#check AutoSamplingTheory.TechnicalLemmas.Measure.FiniteRemainder.finiteRemainder_add_removed_eq
+#check AutoSamplingTheory.TechnicalLemmas.Measure.FiniteRemainder.ambient_eq_finiteRemainder_add_removed
+#check AutoSamplingTheory.TechnicalLemmas.Measure.FiniteRemainder.exists_finiteRemainder_of_le
