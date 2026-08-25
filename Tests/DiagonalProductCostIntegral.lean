@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.DiagonalProductCostIntegral
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.DiagonalProductCostIntegral.integral_diagonalQuadraticCost_eq_sum
