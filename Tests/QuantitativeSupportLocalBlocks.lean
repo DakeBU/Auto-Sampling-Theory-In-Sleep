@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.QuantitativeSupportLocalBlocks
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuantitativeSupportLocalBlocks.exists_quantitative_positive_local_blocks_of_cycleValue_pos
