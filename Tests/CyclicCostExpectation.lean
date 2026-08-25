@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.CyclicCostExpectation
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.CyclicCostExpectation.integral_cyclicCost_lt_diagonal_of_uniform_cycleValue
