@@ -20,6 +20,7 @@ import chewi_source_audit_guard  # noqa: E402
 import chewi_source_first_contract  # noqa: E402
 import chewi_source_first_refinement  # noqa: E402
 import chewi_source_first_scope  # noqa: E402
+import harness_vnext  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
@@ -139,9 +140,18 @@ def main() -> int:
     samplewiki_reader_contract.enrich_site(output)
     samplewiki_casebook_assets.enrich_site(output)
 
-    # The graph is the final site overlay: it consumes the finished reader pages,
-    # exact source-audit cards, generated Lean inventory, and all final sidebars.
+    # The graph is the final theorem-evidence overlay: it consumes the finished
+    # reader pages, exact source-audit cards, generated Lean inventory, and all
+    # final sidebars.
     underlying_lean_graph.enrich_site(output)
+
+    # Harness vNext is intentionally later than the generic information-
+    # architecture pass. It only rewrites the public control-plane description;
+    # textbook, SampleWiki, theorem evidence, and declaration pages are left
+    # intact. Validation fails closed if the workflow page still advertises the
+    # old fixed role scheduler.
+    harness_vnext.enrich_site(output)
+    harness_vnext.validate_site(output)
 
     # Presentation overlays must never leave the global skip link pointing at a
     # missing anchor. This repair runs after every reader/graph overlay and before
