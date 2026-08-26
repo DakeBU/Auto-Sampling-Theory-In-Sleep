@@ -99,7 +99,7 @@ ALLOWED_DISCOVERY_TRANSITIONS: dict[str, frozenset[str]] = {
     "merged": frozenset(),
     "rejected": frozenset(),
 }
-ACTIVE_DISCOVERY_STATUSES = frozenset({"raw", "validated", "scheduled"})
+DUPLICATE_DISCOVERY_STATUSES = frozenset({"raw", "validated", "scheduled", "merged"})
 
 NO_PROGRESS_FREEZE_AT = 3
 
@@ -437,6 +437,18 @@ def transition_advance(
         _validate_transition_evidence(to_state, evidence, schema_version=schema_version)
         _assert_worker_lane_owner(item, current=current, to_state=to_state, worker_id=worker_id)
 
+        if schema_version >= 2 and current == "BLOCKED" and to_state == "EXPLORING":
+            raise HarnessError(
+                "a BLOCKED v2 advance must be re-CLAIMED before EXPLORING"
+            )
+
+        if schema_version >= 2 and current == "VERIFIED" and to_state == "EXPLORING":
+            owner_id = str(item.get("owner_id", ""))
+            if owner_id and worker_id != owner_id:
+                raise HarnessError(
+                    "a VERIFIED advance may return to EXPLORING only through its owning Worker"
+                )
+
         if to_state == "VERIFIED" and schema_version >= 2:
             verifier_id = str(evidence.get("verifier_id", ""))
             if verifier_id != worker_id:
@@ -444,6 +456,15 @@ def transition_advance(
             owner_id = str(item.get("owner_id", ""))
             if owner_id and verifier_id == owner_id:
                 raise HarnessError("VERIFIED must be published by an independent verifier")
+
+        if schema_version >= 2 and current == "STABILIZING" and to_state == "MERGED":
+            integration_owner = str(
+                item.get("latest_evidence", {}).get("integration_owner", "")
+            )
+            if integration_owner and worker_id != integration_owner:
+                raise HarnessError(
+                    "MERGED must be published by the current stabilization owner"
+                )
 
         if to_state == "STABILIZING":
             stabilizing = [
@@ -590,7 +611,7 @@ def publish_discovery(discovery: Discovery, path: Path = DEFAULT_DISCOVERY_LEDGE
             raise HarnessError(f"duplicate discovery id: {discovery.discovery_id}")
         for item in state.values():
             if (
-                item.get("status") in ACTIVE_DISCOVERY_STATUSES
+                item.get("status") in DUPLICATE_DISCOVERY_STATUSES
                 and item.get("fingerprint") == event["fingerprint"]
             ):
                 raise HarnessError(

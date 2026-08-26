@@ -184,6 +184,77 @@ class SubstantiveAdvanceHarnessTest(unittest.TestCase):
             path=self.advance_ledger,
         )
 
+    def test_blocked_advance_must_be_reclaimed_before_reentry(self) -> None:
+        advance.propose_advance(self.proposal(), self.advance_ledger)
+        self.claim_and_explore()
+        advance.transition_advance(
+            "A1", "BLOCKED", worker_id="worker-a",
+            evidence={
+                "blocker_class": "mathlib-api",
+                "blocker": "missing finite-measure integral rewrite",
+                "strict_reduction": "isolated one exact API bridge",
+                "next_smaller_delta": "prove integral_smul_normalize",
+            },
+            path=self.advance_ledger,
+        )
+        with self.assertRaisesRegex(advance.HarnessError, "re-CLAIMED"):
+            advance.transition_advance(
+                "A1", "EXPLORING", worker_id="worker-b", path=self.advance_ledger,
+            )
+        advance.transition_advance(
+            "A1", "CLAIMED", worker_id="worker-b", path=self.advance_ledger,
+        )
+        advance.transition_advance(
+            "A1", "EXPLORING", worker_id="worker-b", path=self.advance_ledger,
+        )
+        self.assertEqual(
+            advance.current_advances(self.advance_ledger)["A1"]["owner_id"], "worker-b"
+        )
+
+    def test_verified_reentry_returns_to_original_worker(self) -> None:
+        advance.propose_advance(self.proposal(), self.advance_ledger)
+        self.claim_and_explore()
+        advance.transition_advance(
+            "A1", "PROVED_LOCAL", worker_id="worker-a",
+            evidence=self.proved_evidence(), path=self.advance_ledger,
+        )
+        advance.transition_advance(
+            "A1", "VERIFIED", worker_id="verifier-a",
+            evidence=self.verified_evidence(), path=self.advance_ledger,
+        )
+        with self.assertRaisesRegex(advance.HarnessError, "owning Worker"):
+            advance.transition_advance(
+                "A1", "EXPLORING", worker_id="verifier-a", path=self.advance_ledger,
+            )
+        advance.transition_advance(
+            "A1", "EXPLORING", worker_id="worker-a", path=self.advance_ledger,
+        )
+
+    def test_only_stabilization_owner_can_publish_merged(self) -> None:
+        advance.propose_advance(self.proposal(), self.advance_ledger)
+        self.claim_and_explore()
+        advance.transition_advance(
+            "A1", "PROVED_LOCAL", worker_id="worker-a",
+            evidence=self.proved_evidence(), path=self.advance_ledger,
+        )
+        advance.transition_advance(
+            "A1", "VERIFIED", worker_id="verifier-a",
+            evidence=self.verified_evidence(), path=self.advance_ledger,
+        )
+        advance.transition_advance(
+            "A1", "STABILIZING", worker_id="stabilizer",
+            evidence={
+                "canonical_branch": "harness/test-cost-join",
+                "integration_owner": "stabilizer",
+            },
+            path=self.advance_ledger,
+        )
+        with self.assertRaisesRegex(advance.HarnessError, "stabilization owner"):
+            advance.transition_advance(
+                "A1", "MERGED", worker_id="coordinator",
+                evidence={"pr": 999, "commit": "abc123"}, path=self.advance_ledger,
+            )
+
     def test_no_progress_guard_freezes_fourth_unchanged_checkpoint(self) -> None:
         advance.propose_advance(self.proposal(), self.advance_ledger)
         self.claim_and_explore()
@@ -231,6 +302,18 @@ class SubstantiveAdvanceHarnessTest(unittest.TestCase):
             note="cell graph delta and referenced declarations checked",
             path=self.discovery_ledger,
         )
+        advance.transition_discovery(
+            "D1", "merged", actor="stabilizer",
+            note="canonical synthesis entered graph memory",
+            path=self.discovery_ledger,
+        )
+        with self.assertRaisesRegex(advance.HarnessError, "duplicate active discovery"):
+            advance.publish_discovery(
+                advance.Discovery(
+                    **{**synthesis.__dict__, "discovery_id": "D3", "created_by": "worker-c"}
+                ),
+                self.discovery_ledger,
+            )
         capsule = advance.coordinator_capsule(
             self.advance_ledger, self.discovery_ledger,
             max_advances=4, max_discoveries=4, max_cells=4,
