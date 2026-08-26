@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """Substantive-advance coordination for ASTIS Harness vNext.
 
-The legacy ASTIS harness deliberately remains available: its typed source,
-formalization, proof-attempt, and review artifacts are useful durable memory.
-This module changes the *unit of active work*.  A worker now owns one
-mathematically substantive theorem-DAG advance end to end instead of stopping
-at an Upper/Middle/Lower role boundary.
+The legacy ASTIS harness remains available as durable typed memory.  This
+module makes a mathematically substantive theorem-DAG delta the active unit of
+work.  A generalist worker owns that delta end to end; specialties are temporary
+modes rather than role boundaries.
 
-The deterministic control plane is intentionally small:
+Harness vNext.1 additionally keeps the global coordinator thin:
 
-* an append-only substantive-advance ledger;
-* semantic duplicate suppression while an advance is active;
-* a strict state machine with evidence requirements at `PROVED_LOCAL`;
-* one repository-wide stabilization lane for shared imports/Registry/site work;
-* a separate discovery ledger so reusable insights survive worker completion;
-* bounded coordinator capsules rather than transcript replay.
+* advances are partitioned into explicit frontier cells;
+* any generalist worker may publish a cell-level synthesis discovery;
+* the coordinator capsule is synthesis-first and never embeds raw transcripts;
+* unchanged route/progress checkpoints trigger a deterministic no-progress
+  diagnosis instead of indefinite retries;
+* exploration stays parallel while shared repository stabilization is single
+  owner.
 
 All durable I/O reuses ``tools.astis_harness``: canonical-path locks, fsync,
 atomic JSONL appends, and interrupted-tail recovery therefore stay compatible
@@ -31,14 +31,14 @@ from typing import Any, Iterable, Sequence
 
 try:  # package import under unit tests
     from tools import astis_harness as durable
-except ImportError:  # direct `python3 tools/astis_advance.py ...`
+except ImportError:  # direct ``python3 tools/astis_advance.py ...``
     import astis_harness as durable  # type: ignore
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ADVANCE_LEDGER = ROOT / "runs" / "substantive_advances.jsonl"
 DEFAULT_DISCOVERY_LEDGER = ROOT / "runs" / "substantive_discoveries.jsonl"
-ADVANCE_SCHEMA_VERSION = 1
+ADVANCE_SCHEMA_VERSION = 2
 
 
 class HarnessError(RuntimeError):
@@ -61,6 +61,11 @@ ACTIVE_ADVANCE_STATES = frozenset(
     {"PROPOSED", "CLAIMED", "EXPLORING", "PROVED_LOCAL", "VERIFIED", "STABILIZING"}
 )
 TERMINAL_ADVANCE_STATES = frozenset({"MERGED", "QUARANTINED"})
+WORKER_LANE_STATES = frozenset({"CLAIMED", "EXPLORING", "PROVED_LOCAL"})
+WORKER_LANE_TARGETS = frozenset({"EXPLORING", "PROVED_LOCAL", "BLOCKED"})
+SUBSTANTIVE_RESULT_KINDS = frozenset(
+    {"theorem-edge", "reusable-interface", "integration-node"}
+)
 
 ALLOWED_ADVANCE_TRANSITIONS: dict[str, frozenset[str]] = {
     "PROPOSED": frozenset({"CLAIMED", "BLOCKED", "QUARANTINED"}),
@@ -75,7 +80,16 @@ ALLOWED_ADVANCE_TRANSITIONS: dict[str, frozenset[str]] = {
 }
 
 DISCOVERY_KINDS = frozenset(
-    {"lemma", "interface", "counterexample", "source-gap", "refactor", "conjecture", "process"}
+    {
+        "lemma",
+        "interface",
+        "counterexample",
+        "source-gap",
+        "refactor",
+        "conjecture",
+        "process",
+        "synthesis",
+    }
 )
 DISCOVERY_STATUSES = frozenset({"raw", "validated", "scheduled", "merged", "rejected"})
 ALLOWED_DISCOVERY_TRANSITIONS: dict[str, frozenset[str]] = {
@@ -85,6 +99,9 @@ ALLOWED_DISCOVERY_TRANSITIONS: dict[str, frozenset[str]] = {
     "merged": frozenset(),
     "rejected": frozenset(),
 }
+ACTIVE_DISCOVERY_STATUSES = frozenset({"raw", "validated", "scheduled"})
+
+NO_PROGRESS_FREEZE_AT = 3
 
 
 def _require_text(name: str, value: str) -> None:
@@ -94,6 +111,24 @@ def _require_text(name: str, value: str) -> None:
 
 def _as_list(values: Sequence[str] | None) -> list[str]:
     return list(values or ())
+
+
+def _meaningful(value: Any) -> bool:
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, (list, tuple, set, dict)):
+        return bool(value)
+    return value is not None and value is not False
+
+
+def _semantic_text(value: str) -> str:
+    """Normalize harmless presentation differences without pretending semantic equivalence."""
+
+    return " ".join(value.split()).casefold()
+
+
+def _semantic_list(values: Sequence[str]) -> list[str]:
+    return sorted(_semantic_text(value) for value in values if value.strip())
 
 
 @dataclasses.dataclass(frozen=True)
@@ -110,6 +145,8 @@ class AdvanceProposal:
     focused_checks: tuple[str, ...] = ()
     modes: tuple[str, ...] = ()
     priority: int = 50
+    frontier_cell: str = "global"
+    target_declarations: tuple[str, ...] = ()
     created_at: str = dataclasses.field(default_factory=durable.utc_stamp)
 
     def validate(self) -> None:
@@ -121,6 +158,7 @@ class AdvanceProposal:
             "theorem_delta",
             "truth_boundary",
             "created_by",
+            "frontier_cell",
         ):
             _require_text(name, getattr(self, name))
         if not isinstance(self.priority, int) or not 0 <= self.priority <= 100:
@@ -131,15 +169,16 @@ class AdvanceProposal:
             raise HarnessError("a substantive advance must name at least one focused check")
 
     def semantic_fingerprint(self) -> str:
-        """Fingerprint the mathematical advance, intentionally excluding its id/owner."""
+        """Fingerprint the mathematical target, intentionally excluding ids and owners."""
 
         payload = {
-            "task_id": self.task_id,
-            "goal": self.goal,
-            "source_anchor": self.source_anchor,
-            "theorem_delta": self.theorem_delta,
-            "truth_boundary": self.truth_boundary,
-            "dag_inputs": list(self.dag_inputs),
+            "task_id": _semantic_text(self.task_id),
+            "source_anchor": _semantic_text(self.source_anchor),
+            "goal": _semantic_text(self.goal),
+            "theorem_delta": _semantic_text(self.theorem_delta),
+            "truth_boundary": _semantic_text(self.truth_boundary),
+            "dag_inputs": _semantic_list(self.dag_inputs),
+            "target_declarations": _semantic_list(self.target_declarations),
         }
         return durable.digest(payload)
 
@@ -154,7 +193,13 @@ class AdvanceProposal:
                 "fingerprint": self.semantic_fingerprint(),
             }
         )
-        for key in ("dag_inputs", "proposed_files", "focused_checks", "modes"):
+        for key in (
+            "dag_inputs",
+            "proposed_files",
+            "focused_checks",
+            "modes",
+            "target_declarations",
+        ):
             value[key] = list(value[key])
         return value
 
@@ -169,6 +214,7 @@ class Discovery:
     where_it_matters: str
     provenance: str
     created_by: str
+    frontier_cell: str = "global"
     created_at: str = dataclasses.field(default_factory=durable.utc_stamp)
 
     def validate(self) -> None:
@@ -181,10 +227,21 @@ class Discovery:
             "where_it_matters",
             "provenance",
             "created_by",
+            "frontier_cell",
         ):
             _require_text(name, getattr(self, name))
         if self.kind not in DISCOVERY_KINDS:
             raise HarnessError(f"unsupported discovery kind: {self.kind}")
+
+    def semantic_fingerprint(self) -> str:
+        return durable.digest(
+            {
+                "kind": self.kind,
+                "statement": _semantic_text(self.statement),
+                "where_it_matters": _semantic_text(self.where_it_matters),
+                "frontier_cell": _semantic_text(self.frontier_cell),
+            }
+        )
 
     def as_event(self) -> dict[str, Any]:
         self.validate()
@@ -193,6 +250,7 @@ class Discovery:
             "schema_version": ADVANCE_SCHEMA_VERSION,
             "event": "discovery",
             "status": "raw",
+            "fingerprint": self.semantic_fingerprint(),
         }
 
 
@@ -213,21 +271,46 @@ def _replay_advances(records: Iterable[dict[str, Any]]) -> dict[str, dict[str, A
         if not isinstance(advance_id, str) or not advance_id:
             continue
         if event == "proposal":
-            state[advance_id] = dict(record)
+            item = dict(record)
+            item.setdefault("frontier_cell", "global")
+            item.setdefault("target_declarations", [])
+            item.setdefault("checkpoint_count", 0)
+            item.setdefault("no_progress_streak", 0)
+            item.setdefault("needs_diagnosis", False)
+            state[advance_id] = item
             continue
-        if event == "transition" and advance_id in state:
-            current = state[advance_id]
-            current["state"] = record.get("to_state", current.get("state"))
-            current["worker_id"] = record.get("worker_id", current.get("worker_id", ""))
+        if advance_id not in state:
+            continue
+        current = state[advance_id]
+        if event == "transition":
+            to_state = record.get("to_state", current.get("state"))
+            current["state"] = to_state
+            current["last_actor"] = record.get("worker_id", current.get("last_actor", ""))
+            if to_state == "CLAIMED":
+                current["owner_id"] = record.get("worker_id", "")
+                current["no_progress_streak"] = 0
+                current["needs_diagnosis"] = False
             current["modes"] = list(record.get("modes") or current.get("modes") or [])
             if record.get("evidence"):
                 current["latest_evidence"] = record["evidence"]
+            current["updated_at"] = record.get("created_at", current.get("updated_at"))
+        elif event == "checkpoint":
+            previous = current.get("latest_checkpoint") or {}
+            same_signature = (
+                previous.get("route_fingerprint") == record.get("route_fingerprint")
+                and previous.get("progress_signature") == record.get("progress_signature")
+            )
+            streak = int(current.get("no_progress_streak", 0)) + 1 if same_signature else 1
+            current["checkpoint_count"] = int(current.get("checkpoint_count", 0)) + 1
+            current["no_progress_streak"] = streak
+            current["needs_diagnosis"] = streak >= NO_PROGRESS_FREEZE_AT
+            current["latest_checkpoint"] = dict(record)
             current["updated_at"] = record.get("created_at", current.get("updated_at"))
     return state
 
 
 def current_advances(path: Path = DEFAULT_ADVANCE_LEDGER) -> dict[str, dict[str, Any]]:
-    """Recover an interrupted tail and replay the current substantive-advance state."""
+    """Recover an interrupted tail and replay current substantive-advance state."""
 
     return _replay_advances(durable.load_jsonl(path))
 
@@ -252,40 +335,77 @@ def propose_advance(proposal: AdvanceProposal, path: Path = DEFAULT_ADVANCE_LEDG
         _append_unlocked(path, event)
 
 
-def _validate_transition_evidence(to_state: str, evidence: dict[str, Any]) -> None:
+def _validate_transition_evidence(
+    to_state: str, evidence: dict[str, Any], *, schema_version: int
+) -> None:
     if to_state == "PROVED_LOCAL":
         required = ("theorem_delta", "lean_files", "focused_checks", "truth_boundary")
-        missing = []
-        for key in required:
-            value = evidence.get(key)
-            if isinstance(value, str):
-                ok = bool(value.strip())
-            elif isinstance(value, (list, tuple)):
-                ok = bool(value)
-            else:
-                ok = value is not None
-            if not ok:
-                missing.append(key)
+        if schema_version >= 2:
+            required += ("result_kind", "lean_declarations")
+        missing = [key for key in required if not _meaningful(evidence.get(key))]
         if missing:
+            raise HarnessError("PROVED_LOCAL lacks evidence: " + ", ".join(missing))
+        if schema_version >= 2 and evidence.get("result_kind") not in SUBSTANTIVE_RESULT_KINDS:
             raise HarnessError(
-                "PROVED_LOCAL lacks evidence: " + ", ".join(missing)
+                "PROVED_LOCAL result_kind must be one of: "
+                + ", ".join(sorted(SUBSTANTIVE_RESULT_KINDS))
             )
     elif to_state == "VERIFIED":
-        if not evidence.get("gate"):
-            raise HarnessError("VERIFIED lacks evidence: gate")
-    elif to_state == "STABILIZING":
-        if not str(evidence.get("canonical_branch", "")).strip() or not str(
-            evidence.get("integration_owner", "")
-        ).strip():
-            raise HarnessError(
-                "STABILIZING lacks evidence: canonical_branch, integration_owner"
+        required = ("gate",)
+        if schema_version >= 2:
+            required += (
+                "verifier_id",
+                "verified_commit",
+                "source_audit",
+                "fake_closure_scan",
             )
+        missing = [key for key in required if not _meaningful(evidence.get(key))]
+        if missing:
+            raise HarnessError("VERIFIED lacks evidence: " + ", ".join(missing))
+    elif to_state == "STABILIZING":
+        required = ("canonical_branch", "integration_owner")
+        missing = [key for key in required if not _meaningful(evidence.get(key))]
+        if missing:
+            raise HarnessError("STABILIZING lacks evidence: " + ", ".join(missing))
     elif to_state == "MERGED":
         if evidence.get("pr") in (None, "") or not str(evidence.get("commit", "")).strip():
             raise HarnessError("MERGED lacks evidence: pr, commit")
-    elif to_state in {"BLOCKED", "QUARANTINED"}:
-        if not evidence or not any(bool(value) for value in evidence.values()):
-            raise HarnessError(f"{to_state} requires an exact blocker or reason")
+    elif to_state == "BLOCKED":
+        if schema_version < 2:
+            if not evidence or not any(_meaningful(value) for value in evidence.values()):
+                raise HarnessError("BLOCKED requires an exact blocker or reason")
+            return
+        required = ("blocker_class", "blocker", "strict_reduction")
+        missing = [key for key in required if not _meaningful(evidence.get(key))]
+        alternatives = (
+            "next_smaller_delta",
+            "retired_route",
+            "counterexample",
+            "minimal_reproducer",
+        )
+        if not any(_meaningful(evidence.get(key)) for key in alternatives):
+            missing.append("one of next_smaller_delta/retired_route/counterexample/minimal_reproducer")
+        if missing:
+            raise HarnessError("BLOCKED lacks substantive evidence: " + ", ".join(missing))
+    elif to_state == "QUARANTINED":
+        if not evidence or not any(_meaningful(value) for value in evidence.values()):
+            raise HarnessError("QUARANTINED requires an exact reason")
+
+
+def _assert_worker_lane_owner(
+    item: dict[str, Any], *, current: str, to_state: str, worker_id: str
+) -> None:
+    owner_id = str(item.get("owner_id", ""))
+    if (
+        owner_id
+        and current in WORKER_LANE_STATES
+        and to_state in WORKER_LANE_TARGETS
+        and worker_id != owner_id
+    ):
+        raise HarnessError(
+            f"advance {item.get('advance_id')} is owned by {owner_id}; "
+            f"{worker_id} cannot mutate the worker lane"
+        )
 
 
 def transition_advance(
@@ -309,19 +429,32 @@ def transition_advance(
         state = _replay_advances(records)
         if advance_id not in state:
             raise HarnessError(f"unknown substantive advance: {advance_id}")
-        current = str(state[advance_id].get("state", ""))
+        item = state[advance_id]
+        current = str(item.get("state", ""))
         if to_state not in ALLOWED_ADVANCE_TRANSITIONS.get(current, frozenset()):
             raise HarnessError(f"illegal substantive-advance transition: {current} -> {to_state}")
-        _validate_transition_evidence(to_state, evidence)
+        schema_version = int(item.get("schema_version", 1))
+        _validate_transition_evidence(to_state, evidence, schema_version=schema_version)
+        _assert_worker_lane_owner(item, current=current, to_state=to_state, worker_id=worker_id)
+
+        if to_state == "VERIFIED" and schema_version >= 2:
+            verifier_id = str(evidence.get("verifier_id", ""))
+            if verifier_id != worker_id:
+                raise HarnessError("VERIFIED worker_id must equal evidence.verifier_id")
+            owner_id = str(item.get("owner_id", ""))
+            if owner_id and verifier_id == owner_id:
+                raise HarnessError("VERIFIED must be published by an independent verifier")
 
         if to_state == "STABILIZING":
             stabilizing = [
-                item
-                for other_id, item in state.items()
-                if other_id != advance_id and item.get("state") == "STABILIZING"
+                other
+                for other_id, other in state.items()
+                if other_id != advance_id and other.get("state") == "STABILIZING"
             ]
             if stabilizing:
-                owner = stabilizing[0].get("latest_evidence", {}).get("integration_owner", "unknown")
+                owner = stabilizing[0].get("latest_evidence", {}).get(
+                    "integration_owner", "unknown"
+                )
                 raise HarnessError(
                     "single stabilization lane already occupied "
                     f"by {stabilizing[0].get('advance_id')} ({owner})"
@@ -348,6 +481,79 @@ def transition_advance(
         )
 
 
+def checkpoint_advance(
+    advance_id: str,
+    *,
+    worker_id: str,
+    route_fingerprint: str,
+    progress_signature: str,
+    mathematical_delta: str,
+    exact_residual: str,
+    context_characters: int = 0,
+    path: Path = DEFAULT_ADVANCE_LEDGER,
+) -> dict[str, Any]:
+    """Record bounded worker progress and freeze a repeatedly unchanged route.
+
+    The third identical ``(route_fingerprint, progress_signature)`` occurrence
+    is recorded and flagged for diagnosis.  A fourth identical checkpoint is
+    rejected until the worker changes route or produces a new progress
+    signature.
+    """
+
+    for name, value in (
+        ("advance_id", advance_id),
+        ("worker_id", worker_id),
+        ("route_fingerprint", route_fingerprint),
+        ("progress_signature", progress_signature),
+        ("mathematical_delta", mathematical_delta),
+        ("exact_residual", exact_residual),
+    ):
+        _require_text(name, value)
+    if not isinstance(context_characters, int) or context_characters < 0:
+        raise HarnessError("context_characters must be a nonnegative integer")
+
+    path = path.resolve()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with durable.file_lock(path):
+        records = _recover_unlocked(path)
+        state = _replay_advances(records)
+        if advance_id not in state:
+            raise HarnessError(f"unknown substantive advance: {advance_id}")
+        item = state[advance_id]
+        if item.get("state") not in {"CLAIMED", "EXPLORING"}:
+            raise HarnessError("checkpoints are allowed only in CLAIMED or EXPLORING")
+        owner_id = str(item.get("owner_id", ""))
+        if owner_id and owner_id != worker_id:
+            raise HarnessError(f"advance {advance_id} is owned by {owner_id}")
+        previous = item.get("latest_checkpoint") or {}
+        unchanged = (
+            previous.get("route_fingerprint") == route_fingerprint
+            and previous.get("progress_signature") == progress_signature
+        )
+        if unchanged and bool(item.get("needs_diagnosis")):
+            raise HarnessError(
+                "route frozen after two unchanged repeats; publish a diagnosis, "
+                "strict blocker, or changed route fingerprint"
+            )
+        streak = int(item.get("no_progress_streak", 0)) + 1 if unchanged else 1
+        record = {
+            "schema_version": ADVANCE_SCHEMA_VERSION,
+            "event": "checkpoint",
+            "advance_id": advance_id,
+            "worker_id": worker_id,
+            "route_fingerprint": route_fingerprint,
+            "progress_signature": progress_signature,
+            "mathematical_delta": mathematical_delta,
+            "exact_residual": exact_residual,
+            "context_characters": context_characters,
+            "no_progress_streak": streak,
+            "needs_diagnosis": streak >= NO_PROGRESS_FREEZE_AT,
+            "created_at": durable.utc_stamp(),
+        }
+        _append_unlocked(path, record)
+        return record
+
+
 def _replay_discoveries(records: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     state: dict[str, dict[str, Any]] = {}
     for record in records:
@@ -355,7 +561,9 @@ def _replay_discoveries(records: Iterable[dict[str, Any]]) -> dict[str, dict[str
         if not isinstance(discovery_id, str) or not discovery_id:
             continue
         if record.get("event") == "discovery":
-            state[discovery_id] = dict(record)
+            item = dict(record)
+            item.setdefault("frontier_cell", "global")
+            state[discovery_id] = item
         elif record.get("event") == "discovery_transition" and discovery_id in state:
             current = state[discovery_id]
             current["status"] = record.get("to_status", current.get("status"))
@@ -380,6 +588,15 @@ def publish_discovery(discovery: Discovery, path: Path = DEFAULT_DISCOVERY_LEDGE
         state = _replay_discoveries(records)
         if discovery.discovery_id in state:
             raise HarnessError(f"duplicate discovery id: {discovery.discovery_id}")
+        for item in state.values():
+            if (
+                item.get("status") in ACTIVE_DISCOVERY_STATUSES
+                and item.get("fingerprint") == event["fingerprint"]
+            ):
+                raise HarnessError(
+                    "duplicate active discovery: "
+                    f"{discovery.discovery_id} duplicates {item.get('discovery_id')}"
+                )
         _append_unlocked(path, event)
 
 
@@ -421,20 +638,95 @@ def transition_discovery(
         )
 
 
+def _frontier_cell_summaries(
+    advances: Sequence[dict[str, Any]],
+    discoveries: Sequence[dict[str, Any]],
+    *,
+    max_cells: int,
+) -> tuple[list[dict[str, Any]], int]:
+    cells: dict[str, dict[str, Any]] = {}
+
+    def cell(name: str) -> dict[str, Any]:
+        return cells.setdefault(
+            name,
+            {
+                "frontier_cell": name,
+                "active_advances": [],
+                "verified_advances": [],
+                "blocked_advances": [],
+                "needs_diagnosis": [],
+                "validated_syntheses": [],
+                "top_priority": 0,
+            },
+        )
+
+    for item in advances:
+        name = str(item.get("frontier_cell") or "global")
+        summary = cell(name)
+        advance_id = str(item.get("advance_id", ""))
+        state = str(item.get("state", ""))
+        summary["top_priority"] = max(summary["top_priority"], int(item.get("priority", 0)))
+        if state in ACTIVE_ADVANCE_STATES:
+            summary["active_advances"].append(advance_id)
+        if state == "VERIFIED":
+            summary["verified_advances"].append(advance_id)
+        if state == "BLOCKED":
+            summary["blocked_advances"].append(advance_id)
+        if item.get("needs_diagnosis"):
+            summary["needs_diagnosis"].append(advance_id)
+
+    for item in discoveries:
+        if item.get("kind") != "synthesis" or item.get("status") not in {
+            "validated",
+            "scheduled",
+            "merged",
+        }:
+            continue
+        name = str(item.get("frontier_cell") or "global")
+        cell(name)["validated_syntheses"].append(str(item.get("discovery_id", "")))
+
+    summaries = list(cells.values())
+    for summary in summaries:
+        summary["requires_local_synthesis"] = bool(summary["needs_diagnosis"]) or (
+            len(summary["active_advances"]) > 1 and not summary["validated_syntheses"]
+        )
+        for key in (
+            "active_advances",
+            "verified_advances",
+            "blocked_advances",
+            "needs_diagnosis",
+            "validated_syntheses",
+        ):
+            summary[key] = summary[key][:8]
+    summaries.sort(
+        key=lambda item: (
+            bool(item["requires_local_synthesis"]),
+            bool(item["verified_advances"]),
+            int(item["top_priority"]),
+            item["frontier_cell"],
+        ),
+        reverse=True,
+    )
+    selected = summaries[: max(0, max_cells)]
+    return selected, max(0, len(summaries) - len(selected))
+
+
 def coordinator_capsule(
     advance_path: Path = DEFAULT_ADVANCE_LEDGER,
     discovery_path: Path = DEFAULT_DISCOVERY_LEDGER,
     *,
     max_advances: int = 8,
     max_discoveries: int = 12,
+    max_cells: int = 8,
 ) -> dict[str, Any]:
-    """Return a bounded state capsule; never include raw worker transcripts."""
+    """Return bounded synthesis-first state; never include raw worker transcripts."""
 
     advances = list(current_advances(advance_path).values())
     advances.sort(
         key=lambda item: (
             item.get("state") == "STABILIZING",
             item.get("state") in ACTIVE_ADVANCE_STATES,
+            bool(item.get("needs_diagnosis")),
             int(item.get("priority", 0)),
             str(item.get("updated_at") or item.get("created_at") or ""),
         ),
@@ -444,6 +736,7 @@ def coordinator_capsule(
     discovery_rank = {"validated": 4, "scheduled": 3, "raw": 2, "merged": 1, "rejected": 0}
     discoveries.sort(
         key=lambda item: (
+            item.get("kind") == "synthesis",
             discovery_rank.get(str(item.get("status")), -1),
             str(item.get("updated_at") or item.get("created_at") or ""),
         ),
@@ -451,20 +744,33 @@ def coordinator_capsule(
     )
     selected_advances = advances[: max(0, max_advances)]
     selected_discoveries = discoveries[: max(0, max_discoveries)]
+    frontier_cells, omitted_cell_count = _frontier_cell_summaries(
+        advances, discoveries, max_cells=max_cells
+    )
     capsule: dict[str, Any] = {
         "schema_version": ADVANCE_SCHEMA_VERSION,
         "generated_at": durable.utc_stamp(),
-        "control_model": "substantive-advance-vnext",
+        "control_model": "substantive-advance-frontier-mesh-vnext.1",
+        "coordinator_policy": "cell-synthesis-first; raw transcripts forbidden",
+        "frontier_cells": frontier_cells,
         "advances": selected_advances,
         "discoveries": selected_discoveries,
+        "omitted_cell_count": omitted_cell_count,
         "omitted_advance_count": max(0, len(advances) - len(selected_advances)),
         "omitted_discovery_count": max(0, len(discoveries) - len(selected_discoveries)),
         "single_stabilization_lane": [
-            item.get("advance_id")
-            for item in advances
-            if item.get("state") == "STABILIZING"
+            item.get("advance_id") for item in advances if item.get("state") == "STABILIZING"
         ],
+        "no_progress_advances": [
+            item.get("advance_id") for item in advances if item.get("needs_diagnosis")
+        ][:8],
+        "raw_worker_transcripts_included": False,
     }
+    capsule["arbiter_queue"] = [
+        item["frontier_cell"]
+        for item in frontier_cells
+        if item["requires_local_synthesis"] or item["verified_advances"]
+    ][:8]
     capsule["serialized_characters"] = len(durable.canonical_json(capsule))
     return capsule
 
@@ -485,6 +791,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     p_capsule.add_argument("--discovery-ledger", type=Path, default=DEFAULT_DISCOVERY_LEDGER)
     p_capsule.add_argument("--max-advances", type=int, default=8)
     p_capsule.add_argument("--max-discoveries", type=int, default=12)
+    p_capsule.add_argument("--max-cells", type=int, default=8)
 
     args = parser.parse_args(argv)
     if args.command == "state":
@@ -497,6 +804,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.discovery_ledger,
                 max_advances=args.max_advances,
                 max_discoveries=args.max_discoveries,
+                max_cells=args.max_cells,
             )
         )
         return 0
