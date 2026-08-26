@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexOpenAEDifferentiable
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexOpenAEDifferentiable.ae_differentiableAt_of_convexOn_isOpen
