@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Substantive-advance coordination for ASTIS Harness vNext.
+"""Substantive-advance coordination for the ASTIS Harness.
 
-The legacy ASTIS harness remains available as durable typed memory.  This
-module makes a mathematically substantive theorem-DAG delta the active unit of
-work.  A generalist worker owns that delta end to end; specialties are temporary
-modes rather than role boundaries.
+The legacy ASTIS harness remains available as durable typed memory. This module
+makes a mathematically substantive theorem-DAG delta the active unit of work. A
+generalist Worker owns that delta end to end; specialties are temporary modes
+rather than role boundaries.
 
-Harness vNext.1 additionally keeps the global coordinator thin:
+The current Harness keeps the global coordinator thin:
 
 * advances are partitioned into explicit frontier cells;
-* any generalist worker may publish a cell-level synthesis discovery;
+* any generalist Worker may publish a cell-level synthesis discovery;
 * the coordinator capsule is synthesis-first and never embeds raw transcripts;
 * unchanged route/progress checkpoints trigger a deterministic no-progress
   diagnosis instead of indefinite retries;
@@ -42,7 +42,7 @@ ADVANCE_SCHEMA_VERSION = 2
 
 
 class HarnessError(RuntimeError):
-    """A deterministic Harness-vNext contract was violated."""
+    """A deterministic ASTIS Harness contract was violated."""
 
 
 ADVANCE_STATES = (
@@ -516,7 +516,7 @@ def checkpoint_advance(
     """Record bounded worker progress and freeze a repeatedly unchanged route.
 
     The third identical ``(route_fingerprint, progress_signature)`` occurrence
-    is recorded and flagged for diagnosis.  A fourth identical checkpoint is
+    is recorded and flagged for diagnosis. A fourth identical checkpoint is
     rejected until the worker changes route or produces a new progress
     signature.
     """
@@ -771,7 +771,7 @@ def coordinator_capsule(
     capsule: dict[str, Any] = {
         "schema_version": ADVANCE_SCHEMA_VERSION,
         "generated_at": durable.utc_stamp(),
-        "control_model": "substantive-advance-frontier-mesh-vnext.1",
+        "control_model": "substantive-advance-frontier-mesh",
         "coordinator_policy": "cell-synthesis-first; raw transcripts forbidden",
         "frontier_cells": frontier_cells,
         "advances": selected_advances,
