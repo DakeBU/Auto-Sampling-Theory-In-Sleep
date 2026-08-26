@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 610" role="img" aria-labelledby="title desc">
   <title id="title">From AI proof text to verified graph contribution</title>
   <desc id="desc">Plain AI proof generation produces fluent proof text without a Lean certificate or reusable formal interface. ASTIS turns source-backed reasoning into checked Lean declarations and places them in the Underlying Lean Graph, where new work can be understood as a leaf, bridge, shortcut, reusable hub, or structural reorganization.</desc>
   <defs>
@@ -9,65 +9,89 @@
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#718096"/></marker>
   </defs>
 
-  <rect class="bg" width="1400" height="560" rx="12"/>
-  <text class="title" x="700" y="38" text-anchor="middle">Why a verified formal graph changes the research object</text>
+  <rect class="bg" width="1440" height="610" rx="12"/>
+  <text class="title" x="720" y="38" text-anchor="middle">Why a verified formal graph changes the research object</text>
 
-  <rect class="panel" x="30" y="70" width="400" height="458" rx="12"/>
+  <rect class="panel" x="30" y="70" width="400" height="505" rx="12"/>
   <text class="panel-title" x="230" y="105" text-anchor="middle">Plain AI proof generation</text>
-  <rect class="bad" x="85" y="142" width="290" height="70" rx="9"/>
+  <rect class="bad" x="75" y="142" width="310" height="76" rx="9"/>
   <text class="node-title" x="230" y="171" text-anchor="middle">Paper / problem → fluent proof prose</text>
-  <text class="copy" x="230" y="194" text-anchor="middle">useful ideas, but no mechanical certificate</text>
-  <path class="arrow" d="M230 212V246"/>
-  <rect class="bad" x="85" y="246" width="290" height="180" rx="9"/>
-  <text class="node-title" x="230" y="278" text-anchor="middle">What remains uncertain</text>
-  <text class="copy" x="230" y="309" text-anchor="middle">hidden assumptions</text>
-  <text class="copy" x="230" y="336" text-anchor="middle">type / boundary mismatches</text>
-  <text class="copy" x="230" y="363" text-anchor="middle">statement drift</text>
-  <text class="copy" x="230" y="390" text-anchor="middle">no callable verified interface</text>
-  <text class="small" x="230" y="414" text-anchor="middle">the next proof may rediscover the same idea from scratch</text>
-  <text class="small" x="230" y="476" text-anchor="middle">Result = isolated proof text</text>
+  <text class="copy" x="230" y="196" text-anchor="middle">useful ideas, but no mechanical certificate</text>
+  <path class="arrow" d="M230 218V250"/>
+  <rect class="bad" x="75" y="250" width="310" height="205" rx="9"/>
+  <text class="node-title" x="230" y="282" text-anchor="middle">What remains uncertain</text>
+  <text class="copy" x="230" y="315" text-anchor="middle">hidden assumptions</text>
+  <text class="copy" x="230" y="343" text-anchor="middle">type / boundary mismatches</text>
+  <text class="copy" x="230" y="371" text-anchor="middle">statement drift</text>
+  <text class="copy" x="230" y="399" text-anchor="middle">no callable verified interface</text>
+  <text class="small" x="230" y="427" text-anchor="middle">
+    <tspan x="230" dy="0">later proofs may rediscover</tspan>
+    <tspan x="230" dy="17">the same idea from scratch</tspan>
+  </text>
+  <text class="small" x="230" y="510" text-anchor="middle">Result = isolated proof text</text>
 
-  <rect class="panel" x="455" y="70" width="400" height="458" rx="12"/>
+  <rect class="panel" x="455" y="70" width="400" height="505" rx="12"/>
   <text class="panel-title" x="655" y="105" text-anchor="middle">ASTIS</text>
-  <rect class="good" x="510" y="138" width="290" height="62" rx="9"/>
+  <rect class="good" x="510" y="138" width="290" height="66" rx="9"/>
   <text class="node-title" x="655" y="165" text-anchor="middle">Source-backed mathematical advance</text>
-  <text class="copy" x="655" y="186" text-anchor="middle">exact theorem delta + truth boundary</text>
-  <path class="arrow" d="M655 200V230"/>
-  <rect class="lean" x="510" y="230" width="290" height="76" rx="9"/>
-  <text class="node-title" x="655" y="258" text-anchor="middle">Lean-checked declaration</text>
-  <text class="copy" x="655" y="281" text-anchor="middle">exact hypotheses · types · proof term</text>
-  <path class="arrow" d="M655 306V336"/>
-  <rect class="graph" x="510" y="336" width="290" height="100" rx="9"/>
-  <text class="node-title" x="655" y="365" text-anchor="middle">Reusable formal memory</text>
-  <text class="copy" x="655" y="389" text-anchor="middle">named parents + consumers</text>
-  <text class="copy" x="655" y="412" text-anchor="middle">retrievable by later human / AI proofs</text>
-  <text class="small" x="655" y="476" text-anchor="middle">Result = checked node or connection in the field graph</text>
+  <text class="copy" x="655" y="189" text-anchor="middle">exact theorem delta + truth boundary</text>
+  <path class="arrow" d="M655 204V234"/>
+  <rect class="lean" x="510" y="234" width="290" height="80" rx="9"/>
+  <text class="node-title" x="655" y="263" text-anchor="middle">Lean-checked declaration</text>
+  <text class="copy" x="655" y="288" text-anchor="middle">exact hypotheses · types · proof term</text>
+  <path class="arrow" d="M655 314V344"/>
+  <rect class="graph" x="510" y="344" width="290" height="106" rx="9"/>
+  <text class="node-title" x="655" y="374" text-anchor="middle">Reusable formal memory</text>
+  <text class="copy" x="655" y="400" text-anchor="middle">named parents + consumers</text>
+  <text class="copy" x="655" y="425" text-anchor="middle">retrievable by later human / AI proofs</text>
+  <text class="small" x="655" y="505" text-anchor="middle">
+    <tspan x="655" dy="0">Result = checked node or connection</tspan>
+    <tspan x="655" dy="17">in the field graph</tspan>
+  </text>
 
-  <rect class="panel" x="880" y="70" width="490" height="458" rx="12"/>
-  <text class="panel-title" x="1125" y="105" text-anchor="middle">How to read a new mathematical contribution</text>
-  <text class="small" x="1125" y="130" text-anchor="middle">not only “is the theorem new?” — ask what topology it adds</text>
+  <rect class="panel" x="880" y="70" width="530" height="505" rx="12"/>
+  <text class="panel-title" x="1145" y="103" text-anchor="middle">
+    <tspan x="1145" dy="0">What does new work add</tspan>
+    <tspan x="1145" dy="22">to the formal graph?</tspan>
+  </text>
+  <text class="small" x="1145" y="148" text-anchor="middle">read contribution as a graph change, not only a new statement</text>
 
-  <text class="node-title" x="955" y="177">Leaf</text>
-  <path class="edge" d="M1040 172H1100"/><circle class="node" cx="1040" cy="172" r="11"/><circle class="newnode" cx="1112" cy="172" r="13"/>
-  <text class="small" x="1160" y="177">one more terminal consequence</text>
+  <text class="node-title" x="925" y="200">Leaf</text>
+  <path class="edge" d="M1020 195H1080"/><circle class="node" cx="1020" cy="195" r="11"/><circle class="newnode" cx="1092" cy="195" r="13"/>
+  <text class="small" x="1160" y="188">
+    <tspan x="1160" dy="0">adds a terminal</tspan>
+    <tspan x="1160" dy="17">consequence</tspan>
+  </text>
 
-  <text class="node-title" x="955" y="242">Bridge</text>
-  <circle class="node" cx="1040" cy="232" r="11"/><circle class="node" cx="1110" cy="252" r="11"/><circle class="node" cx="1180" cy="232" r="11"/>
-  <path class="edge" d="M1051 235L1099 249M1121 249L1169 235"/><circle class="newnode" cx="1110" cy="252" r="13"/>
-  <text class="small" x="1220" y="246">joins previously separate branches</text>
+  <text class="node-title" x="925" y="275">Bridge</text>
+  <circle class="node" cx="1020" cy="263" r="11"/><circle class="newnode" cx="1090" cy="283" r="13"/><circle class="node" cx="1160" cy="263" r="11"/>
+  <path class="edge" d="M1031 266L1079 280M1101 280L1149 266"/>
+  <text class="small" x="1210" y="258">
+    <tspan x="1210" dy="0">joins separate</tspan>
+    <tspan x="1210" dy="17">branches</tspan>
+  </text>
 
-  <text class="node-title" x="955" y="318">Shortcut</text>
-  <circle class="node" cx="1040" cy="307" r="10"/><circle class="node" cx="1100" cy="307" r="10"/><circle class="node" cx="1160" cy="307" r="10"/>
-  <path class="edge" d="M1050 307H1090M1110 307H1150"/><path d="M1045 292Q1100 258 1155 292" stroke="#087443" stroke-width="3" fill="none"/>
-  <text class="small" x="1220" y="312">shortens an important proof route</text>
+  <text class="node-title" x="925" y="350">Shortcut</text>
+  <circle class="node" cx="1020" cy="338" r="10"/><circle class="node" cx="1080" cy="338" r="10"/><circle class="node" cx="1140" cy="338" r="10"/>
+  <path class="edge" d="M1030 338H1070M1090 338H1130"/><path d="M1025 323Q1080 289 1135 323" stroke="#087443" stroke-width="3" fill="none"/>
+  <text class="small" x="1210" y="333">
+    <tspan x="1210" dy="0">shortens an</tspan>
+    <tspan x="1210" dy="17">important route</tspan>
+  </text>
 
-  <text class="node-title" x="955" y="394">Reusable hub</text>
-  <circle class="newnode" cx="1110" cy="385" r="15"/><circle class="node" cx="1045" cy="360" r="9"/><circle class="node" cx="1045" cy="410" r="9"/><circle class="node" cx="1175" cy="360" r="9"/><circle class="node" cx="1175" cy="410" r="9"/>
-  <path class="edge" d="M1054 363L1095 380M1054 407L1095 390M1125 380L1166 363M1125 390L1166 407"/>
-  <text class="small" x="1220" y="390">new interface reused by many results</text>
+  <text class="node-title" x="925" y="425">Reusable hub</text>
+  <circle class="newnode" cx="1090" cy="413" r="15"/><circle class="node" cx="1025" cy="388" r="9"/><circle class="node" cx="1025" cy="438" r="9"/><circle class="node" cx="1155" cy="388" r="9"/><circle class="node" cx="1155" cy="438" r="9"/>
+  <path class="edge" d="M1034 391L1075 408M1034 435L1075 418M1105 408L1146 391M1105 418L1146 435"/>
+  <text class="small" x="1210" y="408">
+    <tspan x="1210" dy="0">interface reused</tspan>
+    <tspan x="1210" dy="17">by many results</tspan>
+  </text>
 
-  <text class="node-title" x="955" y="470">Reorganization</text>
-  <text class="small" x="1070" y="470">changes the structural spine of the graph</text>
-  <path d="M1030 491H1205" stroke="#7f56d9" stroke-width="2"/>
-  <circle class="node" cx="1050" cy="491" r="8"/><circle class="newnode" cx="1110" cy="491" r="11"/><circle class="node" cx="1170" cy="491" r="8"/>
+  <text class="node-title" x="925" y="505">Reorganization</text>
+  <path d="M1035 525H1190" stroke="#7f56d9" stroke-width="2"/>
+  <circle class="node" cx="1055" cy="525" r="8"/><circle class="newnode" cx="1115" cy="525" r="11"/><circle class="node" cx="1175" cy="525" r="8"/>
+  <text class="small" x="1210" y="493">
+    <tspan x="1210" dy="0">changes the graph's</tspan>
+    <tspan x="1210" dy="17">structural spine</tspan>
+  </text>
 </svg>
