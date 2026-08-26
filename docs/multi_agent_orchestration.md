@@ -1,130 +1,275 @@
-# ASTIS Multi-Agent Orchestration Audit
+# ASTIS Harness vNext: Substantive-Advance Orchestration
 
-This note records the orchestration audit and the deterministic recovery layer
-added after replaying the CHEWI cycles 26--28 and the older SALD loops.
+ASTIS formalizes sampling theory as a source-backed Lean dependency graph. The
+control plane must therefore optimize **mathematical graph progress**, not the
+number of agent handoffs, prompts, files, or locally green wrappers.
 
-## Current Control Plane
+The active unit of work is now a **Substantive Advance Unit (SAU)**: one bounded
+mathematical delta in the live theorem DAG, owned end to end by one generalist
+worker. The earlier Upper/Middle/Lower/Reviewer artifacts remain readable and
+useful as durable memory, but they are no longer the scheduler's organizational
+skeleton.
 
-Prompt prose is not the frontier authority.  Before creating a deck,
-`tools/astis_harness.py` scans the current Lean tree and emits a bounded
-`06_harness_capsule.json`.  It currently identifies `ASTIS-CHEWI-001` as the
-primary log-concave-sampling foundation and SALD/RMFLD as downstream
-consumers.  This prevents a stale SALD state or an old reviewer paragraph from
-reopening already compiled generator-integrability, Gibbs-tail, IBP, or
-generator-core leaves.
+## 1. Why the fixed role ladder was changed
 
-The durable coordination rules are:
+The earlier harness successfully added several pieces of infrastructure that we
+keep: exact source contracts, immutable proof branches, typed memory, route
+fingerprints, file locks, interrupted-run recovery, and deterministic Lean
+checks. Its weakness was the **unit of delegation**.
 
-- append-only JSONL uses a canonical-path `flock`, `fsync`, and interrupted
-  tail recovery;
-- complete snapshots use a temporary file plus atomic replacement;
-- role outputs are typed and stored separately;
-- typed-memory validation and append happen under one cross-process lock;
-- every analytic route is an immutable branch record with exact assumptions,
-  measure, spaces, regularity, domination, domains, citations, and siblings;
-- bounded prompt capsules retain exact structured fields and report omitted
-  record and serialized-character counts rather than using prose compaction;
-- a route key includes target statement, missing property, assumptions,
-  Mathlib candidates, and compiler-error class;
-- a changed candidate, subgoal, or compiled declaration counts as progress;
-- after two unchanged repeats beyond the first attempt, the route freezes for
-  reviewer diagnosis;
-- steering events precede followups, with FIFO order inside each class;
-- only transient provider/network failures are retried;
-- a started role without a terminal event is closed as interrupted before a
-  resumed deck proceeds.
+A theorem obligation could move from source auditor to formalizer to Lean
+worker to reviewer while remaining mathematically unchanged. That creates four
+failure modes:
 
-These policies are tested with faux providers, four-process JSONL writers,
-truncated records, and a shadow replay of the stale cycle-28 frontier:
+1. **Handoff tax.** Every boundary repeats assumptions, notation, failed API
+   candidates, and local proof state.
+2. **Local optimum bias.** A role can produce a correct artifact without asking
+   whether the global theorem graph actually advanced.
+3. **Duplicate frontier work.** Two agents can attack differently named packets
+   that represent the same mathematical delta.
+4. **Integration contention.** Independently useful branches can all edit root
+   imports, Registry metadata, tests, and site evidence at once.
 
-```bash
-python3 tools/astis.py harness-test
-python3 tools/astis.py harness-reconcile
+Harness vNext separates *parallel mathematical exploration* from *serialized
+repository stabilization*.
+
+## 2. Canonical architecture
+
+```mermaid
+flowchart LR
+  DAG["Live source / theorem / Lean DAG"] --> C["Thin Coordinator"]
+  C --> B["Substantive Advance Board"]
+  B --> W1["Generalist Worker A"]
+  B --> W2["Generalist Worker B"]
+  B --> WN["Generalist Worker N"]
+  W1 -. reusable insight .-> D["Discovery Ledger"]
+  W2 -. reusable insight .-> D
+  WN -. reusable insight .-> D
+  W1 --> V["Independent verification"]
+  W2 --> V
+  WN --> V
+  V --> S["Single stabilization lane"]
+  S --> G["Lean + source + fake-closure + site gates"]
+  G --> R["Samplinglib Registry / graph / theorem memory"]
+  R -. reusable parents .-> DAG
+  D --> C
 ```
 
-## Diagnosis
+The corresponding checked-in diagrams are:
 
-The old prompt deck had one upper agent, one middle agent, several lower
-agents, and one reviewer.  Recent cycle logs show that this was too weak for
-long Sampling/SDE formalization runs.
+- `docs/assets/substantive-advance-architecture.mmd`;
+- `docs/assets/substantive-advance-lifecycle.mmd`;
+- `docs/assets/samplinglib-vnext-architecture.mmd`.
 
-- The upper agent often acted as a dispatcher.  It translated the latest
-  reviewer blocker into the next lower packet, but did not consistently ask
-  whether that packet was still the best global target.
-- The middle agent was overloaded.  It had to maintain source-line mapping,
-  theorem boundaries, technical lemma lookup, Lean/Markdown/LaTeX conversion,
-  and report writing.  In practice this encouraged ledger copying.
-- Lower agents were already partially specialized, but the harness collapsed
-  `lower_1` and `lower_2` into the generic role `lower` in trial memory.
-  That made collaboration harder to audit.
-- The reviewer enforced the Lean gate, but it did not separately audit
-  opportunity cost, repeated wrapper churn, or whether agents replayed old
-  context instead of closing the active leaf.
-- The 6h Chinese report contained the needed evidence, but the order was hard
-  for humans: details and handoff text appeared before a clean answer to
-  "what changed, what is still blocked, and why?"
+## 3. Thin Coordinator
 
-## New Prompt Deck
+The coordinator is deliberately small. It does not reproduce the mathematical
+proof. It reads the live theorem DAG plus a bounded state capsule and decides
+**which independent theorem deltas are worth owning next**.
 
-Inner proof-search cycles use a lightweight deck; final audit cycles use
-bounded panels.
+A proposal records:
 
-| Role | Job |
-|---|---|
-| `11_upper_source_math` | Source, assumptions, regularity, boundary conditions, conditional-law choices. |
-| `12_upper_proof_dag` | Root theorem, dependency path, active leaf, stale leaf retirement. |
-| `13_upper_process_memory` | Repeated failures, stale memory, report usability, wasted routes. |
-| `10_upper_director` | Synthesis into one executable decision. |
-| `21_middle_source_correspondence` | Exact source-line to Lean-boundary mapping. |
-| `22_middle_technical_lemma` | Technical lemma memory, Mathlib/SLT provenance, port status. |
-| `23_middle_report_export` | Chinese report, Markdown/LaTeX status, technical report snippets. |
-| `20_middle_formalizer` | Synthesis into lower packets. |
-| `lower_1` | Natural-language proof route and dependency analysis. |
-| `lower_2` | Lean implementation of one theorem or one smaller boundary. |
-| `lower_3` | Technical-lemma/API scout for the smallest background fact needed by the active leaf. |
-| `lower_4` | Optional refiner after a concrete Lean failure; not enabled by default. |
-| `reviewer_gate` | Deterministic Lean/source/fake-closure gate. |
-| `reviewer_waste` | Audits wasted time, duplicate wrappers, and low-value targets. |
+- `advance_id` and task id;
+- exact goal and source anchor;
+- explicit theorem delta;
+- current truth boundary;
+- DAG parents/inputs;
+- proposed owned files;
+- focused acceptance checks;
+- temporary worker modes;
+- priority.
 
-The specialized role name is now preserved in `agent-note`, `trial-log`, and
-the CSV trial summary.
+The semantic fingerprint excludes the worker/id and fingerprints the
+mathematical content. While a matching advance is active, a second proposal is
+rejected as a duplicate even if it has another branch name or agent label.
 
-The default 6h cadence mirrors ABEIS only at the harness level:
+The coordinator capsule is bounded structured state, not a transcript summary.
+It contains the most relevant advances and validated discoveries together with
+explicit omission counts and serialized size.
 
-- inner cycles keep panels off and run proof work with three lower roles;
-- final audit runs upper and middle panels plus `reviewer_waste`;
-- inner panels are enabled only when source correspondence, proof-DAG focus,
-  technical-lemma memory, or human reports drift.
+## 4. Generalist Substantive-Advance Worker
 
-ASTIS-specific difference: the middle panel is not about finite-matrix
-verification.  It is about analysis proof boundaries: laws, kernels,
-conditional representatives, measurability, integrability, Fokker--Planck,
-Ito/Taylor, KL/FI/LSI/PI, and boundary terms.
+One worker owns one theorem delta **end to end**. The canonical worker packet is
+`.agents/skills/astis-substantive-advance/SKILL.md`.
 
-## Reporting Rule
+The worker may switch among temporary modes such as:
 
-The 6h Chinese report should be an executive report first and a proof ledger
-second:
+- source audit;
+- mathematical proof design;
+- Samplinglib/Mathlib retrieval;
+- counterexample search;
+- Lean implementation;
+- focused compiler diagnosis;
+- local proof review.
 
-1. completion status;
-2. real progress in this window;
-3. current exact blocker;
-4. whether the run wasted effort;
-5. next high-level decision for the human;
-6. source-line and technical-lemma tables as evidence.
+These are capabilities, not handoff boundaries. The worker should stop only
+when the proposed theorem edge is locally proved or when the remaining blocker
+has been strictly reduced and evidenced.
 
-Per-cycle memory refreshes remain useful for the harness, but the human-facing
-Chinese summary is generated once at the final 6h closeout.
+A `PROVED_LOCAL` result must name:
 
-## Success Criteria For The Next 6h Run
+1. the theorem delta actually obtained;
+2. the Lean files containing it;
+3. focused checks that exercised it;
+4. the remaining truth boundary.
 
-The new orchestration is useful only if the final dialogue shows:
+A green helper that merely restates a supplied assumption is not a substantive
+advance.
 
-- `upper_source_math`, `upper_proof_dag`, and `upper_process_memory` produced
-  distinct final-audit signals;
-- `upper_director` chose a single source-line leaf rather than a broad area;
-- `middle_source_correspondence`, `middle_technical_lemma`, and
-  `middle_report_export` produced different information;
-- lower work either compiled one theorem or strictly narrowed one boundary;
-- `reviewer_waste` recorded whether any time was spent on wrapper churn,
-  context replay, or non-active targets.
+### File ownership
+
+Parallel workers own isolated theorem modules and focused tests. They do **not**
+edit shared aggregation surfaces during exploration, including the root
+`Analysis.lean`, `Measure.lean`, `Tests.lean`, Registry tables, source/status
+matrices, or public site evidence. This sharply reduces branch conflicts.
+
+## 5. State machine
+
+```text
+PROPOSED
+  -> CLAIMED
+  -> EXPLORING
+  -> PROVED_LOCAL
+  -> VERIFIED
+  -> STABILIZING
+  -> MERGED
+```
+
+Two non-success states preserve honest boundaries:
+
+- `BLOCKED`: the route is still potentially useful, but an exact mathematical,
+  source, or API blocker remains;
+- `QUARANTINED`: the route should not currently influence scheduling or library
+  truth.
+
+`PROVED_LOCAL` is intentionally weaker than `VERIFIED`; `VERIFIED` is weaker
+than `MERGED`. This prevents branch-local compilation from becoming public
+truth by vocabulary drift.
+
+The deterministic implementation is `tools/astis_advance.py`.
+
+## 6. Discovery Ledger
+
+Workers often discover something valuable that is not the theorem they were
+assigned: a reusable measure interface, a missing Mathlib bridge, a
+counterexample to an overstrong conjecture, a source ambiguity, or a graph
+refactor. These facts should not disappear when the worker terminates, and they
+should not silently become verified library facts either.
+
+The Discovery Ledger is a separate append-only bus with explicit provenance.
+Supported discovery kinds include:
+
+- lemma;
+- interface;
+- counterexample;
+- source gap;
+- refactor;
+- conjecture;
+- process improvement.
+
+Its lifecycle is `raw -> validated -> scheduled -> merged` (or `rejected`). A
+validated discovery can inform future coordinator choices without reopening the
+original worker transcript.
+
+## 7. Single stabilization lane
+
+Mathematical work can be parallel; **shared repository stabilization is
+serialized**. Exactly one integration owner may occupy `STABILIZING` at a time.
+That owner may:
+
+- clean-port a verified theorem onto current `main`;
+- resolve theorem-name or import collisions;
+- update parent imports and root tests;
+- update Samplinglib Registry entries;
+- update source correspondence and completion matrices;
+- update Underlying Lean Graph evidence;
+- update public site status.
+
+This is the key distinction between *proof concurrency* and *repository
+concurrency*. It lets workers be aggressive without turning shared files into a
+merge-conflict queue.
+
+## 8. Deterministic gates and truth boundary
+
+Harness vNext does not weaken the existing ASTIS truth contract. Admission to
+Samplinglib still requires the relevant combination of:
+
+- pinned Lean/Mathlib compilation;
+- focused theorem tests;
+- no `sorry`, `admit`, new axiom, or fake `True` closure;
+- source statement and assumption audit;
+- explicit integrability/measurability/domain obligations where applicable;
+- current-main compatibility;
+- public-site evidence only after the formal/source route is actually closed.
+
+The worker packet therefore carries `truth_boundary` as a first-class field.
+When the source omits a proof, ASTIS records it as omitted/inherited; it does not
+invent prose and present it as source text.
+
+## 9. Compatibility with the original typed harness
+
+`tools/astis_harness.py` remains the durable low-level substrate and legacy
+memory reader. In particular, vNext reuses its:
+
+- canonical-path `flock`;
+- `fsync`-backed append-only JSONL;
+- interrupted-tail recovery;
+- canonical JSON and hashes;
+- typed historical role artifacts;
+- immutable proof-branch and route memory.
+
+No migration is required to read prior cycles. The conceptual change is that
+those artifacts are now **evidence available to an SAU worker**, not mandatory
+stages through which every new theorem must travel.
+
+## 10. Relation to other agent systems
+
+General agent-team systems demonstrate that a thin coordinator, bounded
+parallel workers, task boards, resumable state, and explicit report collection
+can outperform a single monolithic loop on long-horizon work. ASTIS adopts that
+control-plane lesson but its unit of truth is different: a source-backed theorem
+DAG edge with Lean evidence.
+
+Accordingly:
+
+- worker success is theorem progress, not a plausible report;
+- side discoveries have mathematical provenance and validation states;
+- the coordinator schedules DAG deltas, not arbitrary file tasks;
+- one stabilization lane owns public library truth;
+- source/Lean/fake-closure gates remain authoritative.
+
+This is why the system is not simply a generic agent team wrapped around Lean.
+The formal graph is both the work queue and the accumulating scientific memory.
+
+## 11. Operational checks
+
+Harness vNext contracts are exercised directly by CI:
+
+```bash
+python3 -m unittest tools.tests.test_astis_advance
+python3 -m unittest tools.tests.test_harness_vnext
+python3 tools/astis_advance.py capsule
+```
+
+The tests cover semantic duplicate suppression, state transitions,
+`PROVED_LOCAL` evidence, single stabilization ownership, discovery persistence,
+and interrupted JSONL recovery. The website test additionally fails if the
+public workflow still exposes the old fixed-role scheduler tokens.
+
+## 12. Success criterion
+
+A successful ASTIS run should be explainable as a sequence of verified graph
+changes:
+
+```text
+existing verified parents
+    -> one substantive theorem delta
+    -> focused evidence
+    -> independent verification
+    -> current-main stabilization
+    -> reusable Samplinglib node
+```
+
+That sequence is the object we later want to compress and visualize. It is also
+the right granularity for deciding whether a new result adds a marginal leaf or
+creates a genuinely new formal-graph connection and mathematical technique.

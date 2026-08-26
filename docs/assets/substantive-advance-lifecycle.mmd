@@ -1,0 +1,37 @@
+flowchart TB
+  Human["Human objective<br/>faithful source or explicit research target"]:::human
+  DAG["Live source / theorem / Lean DAG"]:::dag
+  Coordinator["Thin Coordinator<br/>select independent SAUs · suppress duplicates"]:::coordinator
+  Proposed["PROPOSED"]:::state
+  Claimed["CLAIMED"]:::state
+  Exploring["EXPLORING<br/>Generalist Worker<br/>temporary specialist modes"]:::worker
+  Proved["PROVED_LOCAL<br/>theorem delta · files · checks · truth boundary"]:::proved
+  Verified["VERIFIED<br/>independent evidence"]:::verified
+  Stable["STABILIZING<br/>single current-main lane"]:::stable
+  Merged["MERGED<br/>canonical PR + commit"]:::merged
+  Blocked["BLOCKED / QUARANTINED<br/>exact smaller boundary or reason"]:::blocked
+  Discovery["Discovery Ledger<br/>raw → validated → scheduled → merged"]:::ledger
+  Memory["Samplinglib Registry · graph · theorem memory"]:::memory
+
+  Human --> DAG --> Coordinator --> Proposed --> Claimed --> Exploring --> Proved --> Verified --> Stable --> Merged --> Memory
+  Exploring -->|cross-layer idea| Discovery
+  Discovery -->|validated| Coordinator
+  Claimed --> Blocked
+  Exploring --> Blocked
+  Proved --> Blocked
+  Stable --> Blocked
+  Blocked -->|new owner / revised route| Claimed
+  Memory -. reusable result .-> DAG
+
+  classDef human fill:#172033,stroke:#172033,color:#ffffff,stroke-width:2px;
+  classDef dag fill:#ece6ff,stroke:#6938ef,color:#172033,stroke-width:1.5px;
+  classDef coordinator fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2px;
+  classDef state fill:#ffffff,stroke:#7b8ba1,color:#172033,stroke-width:1.3px;
+  classDef worker fill:#dcfae6,stroke:#087443,color:#172033,stroke-width:1.8px;
+  classDef proved fill:#e7f8ef,stroke:#087443,color:#172033,stroke-width:1.8px;
+  classDef verified fill:#fff2c7,stroke:#9a6700,color:#172033,stroke-width:1.8px;
+  classDef stable fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2px;
+  classDef merged fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2.2px;
+  classDef blocked fill:#ffe5e5,stroke:#c92a2a,color:#172033,stroke-width:2px;
+  classDef ledger fill:#f4ebff,stroke:#7f56d9,color:#172033,stroke-width:1.5px;
+  classDef memory fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2px;
