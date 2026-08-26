@@ -12,7 +12,7 @@ python3 tools/astis.py check
 
 The gate runs the Lake build and scans for fake proof closures.
 
-## Canonical Operating Model: Harness vNext.1
+## Canonical Operating Model: ASTIS Harness
 
 The active unit of work is a **Substantive Advance Unit (SAU)**: one bounded,
 source-backed mathematical delta in the live theorem/Lean DAG. One generalist
@@ -31,7 +31,7 @@ The current state is inspected with:
 python3 tools/astis_advance.py capsule
 ```
 
-`tools/astis_advance.py` is the active vNext control plane.
+`tools/astis_advance.py` is the active Harness control plane.
 `tools/astis_harness.py` remains the durable compatibility substrate for old
 Upper/Middle/Lower/Reviewer artifacts, locks, append-only JSONL, interrupted-tail
 recovery, exact-field memory, and old run replay. Legacy role names are execution
@@ -113,7 +113,7 @@ and graph provenance.
 
 ## Substantive Evidence Contracts
 
-A vNext `PROVED_LOCAL` packet must contain:
+A `PROVED_LOCAL` packet must contain:
 
 - `result_kind`: `theorem-edge`, `reusable-interface`, or `integration-node`;
 - the exact theorem delta and Lean declaration names;
@@ -121,7 +121,7 @@ A vNext `PROVED_LOCAL` packet must contain:
 - the remaining truth boundary;
 - useful discoveries and downstream integration notes.
 
-A vNext `BLOCKED` packet must contain:
+A `BLOCKED` packet must contain:
 
 - a typed blocker class and exact residual problem;
 - the strict reduction achieved relative to the assigned SAU;
