@@ -10,20 +10,19 @@ from pathlib import Path
 HOME_SECTION = """<section id="powered-by-astis" class="astis-harness-card">
 <h2>From proofs to verified mathematical structure</h2>
 <p>ASTIS turns source-backed mathematics into Lean-checked reusable graph memory.</p>
-<figure style="margin:1rem 0 0"><img src="static/astis-formal-graph-value.svg" alt="From AI proof text to Lean-verified graph contributions" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px"></figure>
+<figure style="margin:1rem 0 0"><img src="assets/astis-formal-graph-value.svg" alt="From AI proof text to Lean-verified graph contributions" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px"></figure>
 </section>"""
 
 WORKFLOW_MAIN = """<main id="content"><article class="reader-article astis-harness-workflow">
 <header><p class="eyebrow">ASTIS Harness</p><h1>Verified mathematical advances on a reusable Lean graph</h1>
-<p>The diagrams below are the public overview; the detailed execution contract stays in the repository documentation.</p></header>
+<p>The diagrams below are the public overview; detailed execution contracts live in the repository documentation.</p></header>
 
 <section id="harness-architecture"><h2>Harness architecture</h2>
-<figure style="margin:1rem 0 2rem"><img src="../static/astis-harness-evolution.svg" alt="Earlier role-ladder Harness and current Universal Worker, Frontier Cell, Thin Master Harness" loading="eager" style="display:block;width:100%;height:auto;border-radius:12px"></figure>
+<figure style="margin:1rem 0 2rem"><img src="../assets/astis-harness-evolution.svg" alt="Earlier role-ladder Harness and current Universal Worker, Frontier Cell, Thin Master Harness" loading="eager" style="display:block;width:100%;height:auto;border-radius:12px"></figure>
 </section>
 
 <section id="formal-graph-value"><h2>Why the formal graph matters</h2>
-<figure style="margin:1rem 0 2rem"><img src="../static/astis-formal-graph-value.svg" alt="Plain AI proof generation compared with Lean-verified graph memory and graph-level mathematical contributions" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px"></figure>
-<p><a href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/blob/main/docs/multi_agent_orchestration.md">Technical Harness contract →</a></p>
+<figure style="margin:1rem 0 2rem"><img src="../assets/astis-formal-graph-value.svg" alt="Plain AI proof generation compared with Lean-verified graph memory and graph-level mathematical contributions" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px"></figure>
 </section>
 </article></main>"""
 
