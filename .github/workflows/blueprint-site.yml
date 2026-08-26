@@ -13,9 +13,14 @@ on:
       - "lean-toolchain"
       - "lake-manifest.json"
       - "tools/astis.py"
+      - "tools/astis_advance.py"
       - "tools/astis_site.py"
       - "tools/astis_source.py"
+      - "tools/tests/test_astis_advance.py"
+      - "tools/tests/test_harness_vnext.py"
       - "README.md"
+      - "docs/**"
+      - ".agents/skills/astis-substantive-advance/**"
       - ".github/workflows/blueprint-site.yml"
   pull_request:
     paths:
@@ -28,9 +33,14 @@ on:
       - "lean-toolchain"
       - "lake-manifest.json"
       - "tools/astis.py"
+      - "tools/astis_advance.py"
       - "tools/astis_site.py"
       - "tools/astis_source.py"
+      - "tools/tests/test_astis_advance.py"
+      - "tools/tests/test_harness_vnext.py"
       - "README.md"
+      - "docs/**"
+      - ".agents/skills/astis-substantive-advance/**"
       - ".github/workflows/blueprint-site.yml"
   merge_group:
   workflow_dispatch:
@@ -64,11 +74,13 @@ jobs:
         run: |
           python3 -m compileall -q tools website/scripts
 
-      - name: Test website and source-reader contracts
+      - name: Test website, Harness vNext, and source-reader contracts
         run: |
           python3 -m unittest \
             tools.tests.test_astis_site \
             tools.tests.test_astis_source \
+            tools.tests.test_astis_advance \
+            tools.tests.test_harness_vnext \
             tools.tests.test_lean_tutor \
             tools.tests.test_undergrad_guides \
             tools.tests.test_chewi_source_first_contract \
