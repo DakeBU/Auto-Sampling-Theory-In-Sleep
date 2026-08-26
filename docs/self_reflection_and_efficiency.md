@@ -1,7 +1,7 @@
 # Self-Reflection and Efficiency Rules
 
 ASTIS should spend long autonomous runs on source-backed theorem progress, not
-on replaying history or manufacturing role-local artifacts. Harness vNext.1
+on replaying history or manufacturing role-local artifacts. The current Harness
 measures progress at the level of the formal graph and treats context as a
 finite research resource.
 
@@ -36,13 +36,13 @@ independent DAG deltas with explicit truth boundaries. This supports the
 Universal Worker model.
 
 The next bottleneck is global synthesis. A single Master should not read every
-transcript and reproduce every local proof relation. Harness vNext.1 therefore
-uses connected frontier cells, ephemeral local synthesis by Universal Workers,
-and a bounded synthesis-first global capsule.
+transcript and reproduce every local proof relation. The current Harness
+therefore uses connected Frontier Cells, ephemeral local synthesis by Universal
+Workers, and bounded frontier evidence for the Thin Master.
 
-ASTIS has not yet measured a 30× gain. External informal reports motivate the
-redesign, but any ASTIS speedup claim must be backed by comparable theorem-DAG,
-token, and active-agent-hour measurements.
+ASTIS has not yet established a universal numerical speedup. External informal
+reports motivate the design, but any ASTIS speedup claim must be backed by
+comparable theorem-DAG, token, and active-agent-hour measurements.
 
 ## 2. What counts as progress
 
@@ -78,7 +78,7 @@ A Worker receives a bounded local packet:
 
 - exact source anchor and source mode;
 - theorem delta, target declaration names, and truth boundary;
-- the connected DAG parents and consumers for one frontier cell;
+- the connected DAG parents and consumers for one Frontier Cell;
 - owned and forbidden shared files;
 - exact current interfaces or compiler residuals;
 - relevant validated discoveries and the latest cell synthesis;
@@ -89,8 +89,8 @@ The Worker does not replay raw project history. It retrieves deeper evidence
 only for a named uncertainty. Former Upper/Middle/Lower role artifacts may be
 consulted as memory but are never mandatory stages.
 
-For old SALD cycles, `tools/astis.py` still generates `05_context_pack.md`. New
-vNext scheduling should additionally consume:
+For old SALD cycles, `tools/astis.py` still generates `05_context_pack.md`.
+Current scheduling should additionally consume:
 
 ```bash
 python3 tools/astis_advance.py capsule
@@ -98,7 +98,7 @@ python3 tools/astis_advance.py capsule
 
 The capsule is structured state, not a transcript summary.
 
-## 4. NoProgressGuard
+## 4. No-progress control
 
 A bounded checkpoint records:
 
@@ -122,13 +122,13 @@ produce a theorem/interface delta. Network/provider failures are retried
 separately and do not count as mathematical repeats.
 
 At the global level, the same principle applies to scheduling. If the same
-frontier-cell snapshot produces the same Master decision twice without an SAU,
+Frontier Cell snapshot produces the same Master decision twice without an SAU,
 discovery, verification, or stabilization delta, stop spawning. Request local
 synthesis, resolve a named conflict, or choose another cell.
 
-## 5. Frontier-cell synthesis
+## 5. Frontier Cell synthesis
 
-A frontier cell is a connected local subgraph of active advances. When a cell
+A Frontier Cell is a connected local subgraph of active advances. When a cell
 contains multiple SAUs or a no-progress signal, any Universal Worker may
 temporarily synthesize it.
 
@@ -143,12 +143,12 @@ A useful synthesis states:
 - the next independent SAUs;
 - whether the cell is ready for global verification or stabilization.
 
-The synthesis is stored as a `synthesis` discovery and independently validated.
-This is not a permanent Middle role. The synthesizing agent remains free to
-notice and act on mathematical facts outside a narrow responsibility box.
+Semantic synthesis is independently validated. This is not a permanent Middle
+role. The synthesizing agent remains free to notice and act on mathematical
+facts outside a narrow responsibility box.
 
-The global arbiter reads validated cell syntheses first. It opens raw Worker
-evidence only for a named cross-cell conflict or admission decision.
+The Thin Master reads compact cell evidence first. It opens raw Worker evidence
+only for a named cross-frontier conflict or admission decision.
 
 ## 6. Prompt and memory compression
 
@@ -195,7 +195,7 @@ A long-run report should record both mathematical output and coordination cost.
 ### Context and control cost
 
 - Worker input/output characters or tokens;
-- global-arbiter capsule characters or tokens;
+- Thin-Master capsule characters or tokens;
 - cell-synthesis input/output characters;
 - omitted record counts;
 - duplicate proposal/discovery rejections;
@@ -212,7 +212,7 @@ theorem-DAG deltas / million tokens
 
 theorem-DAG deltas / active-agent hour
 
-global-arbiter context / total Worker context
+Thin-Master context / total Worker context
 
 validated discoveries reused / validated discoveries published
 
@@ -228,7 +228,7 @@ The legacy command remains useful for old logs:
 python3 tools/astis.py efficiency-report --log runs/logs/<log>.log
 ```
 
-Future reports should add the vNext ledger metrics above.
+Future reports should add the substantive-advance ledger metrics above.
 
 ## 8. Technical Lemma Memory Protocol
 

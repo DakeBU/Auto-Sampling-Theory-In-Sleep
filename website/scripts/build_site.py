@@ -20,7 +20,7 @@ import chewi_source_audit_guard  # noqa: E402
 import chewi_source_first_contract  # noqa: E402
 import chewi_source_first_refinement  # noqa: E402
 import chewi_source_first_scope  # noqa: E402
-import harness_vnext  # noqa: E402
+import harness  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
@@ -145,13 +145,13 @@ def main() -> int:
     # final sidebars.
     underlying_lean_graph.enrich_site(output)
 
-    # Harness vNext is intentionally later than the generic information-
-    # architecture pass. It only rewrites the public control-plane description;
-    # textbook, SampleWiki, theorem evidence, and declaration pages are left
-    # intact. Validation fails closed if the workflow page still advertises the
-    # old fixed role scheduler.
-    harness_vnext.enrich_site(output)
-    harness_vnext.validate_site(output)
+    # The Harness overlay runs after generic information architecture. It only
+    # rewrites the public control-plane description; textbook, SampleWiki,
+    # theorem evidence, and declaration pages remain intact. Validation requires
+    # both the earlier role-ladder architecture and the current Harness to stay
+    # visible, and rejects release-version branding on public Harness surfaces.
+    harness.enrich_site(output)
+    harness.validate_site(output)
 
     # Presentation overlays must never leave the global skip link pointing at a
     # missing anchor. This repair runs after every reader/graph overlay and before

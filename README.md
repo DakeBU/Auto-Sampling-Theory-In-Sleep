@@ -11,7 +11,7 @@
 
 [**Samplinglib**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
 · [**Lean Registry**](AutoSamplingTheory/TechnicalLemmas/Registry.lean)
-· [**Harness vNext.1**](docs/multi_agent_orchestration.md)
+· [**Harness**](docs/multi_agent_orchestration.md)
 
 </div>
 
@@ -21,20 +21,28 @@ one bounded mathematical DAG delta, owned end to end by a Universal Worker and
 admitted to Samplinglib only after independent Lean/source verification and a
 serialized stabilization pass.
 
-Harness vNext.1 keeps Workers mathematically generalist and removes the next
-coordination bottleneck. Nearby advances are grouped into dynamic **frontier
-cells**; any Worker may temporarily synthesize one cell; and a thin global
-arbiter reads bounded cell summaries rather than replaying every Worker
-transcript. Deterministic code owns state, duplicate suppression, route
-no-progress guards, and the single stabilization lock.
+Nearby advances are grouped into dynamic **frontier cells**. Any Worker may
+temporarily synthesize one cell, while deterministic reducers compact structured
+evidence before a thin global arbiter sees it. The arbiter handles only genuine
+cross-frontier priority, conflict, route-reset, and stabilization decisions;
+it does not replay every Worker transcript or re-prove every local theorem.
 
 The first major program reconstructs Sinho Chewi's
 [*Log-Concave Sampling*](https://chewisinho.github.io/main.pdf), while the
 SampleWiki lane tracks frontier sampling results against the same reusable
-formal graph. The long-term goal is not only theorem verification: once the
-graph is sufficiently mature, ASTIS can expose which new work adds a marginal
-leaf, which work creates a new formal connection, and which proof techniques
-actually reorganize the field.
+formal graph.
+
+**Samplinglib is the verified library; the larger purpose of ASTIS is to help us
+see the mathematics of sampling theory as a structure.** The formal graph makes
+shared proof mechanisms, hidden regularity assumptions, backbone lemmas, and
+dependencies inspectable. For a new result, it gives a sharper question than
+“is this theorem new?”: does it add a terminal leaf, build a bridge between
+previously separate branches, shorten an important route, create a reusable
+interface, or reorganize a substantial part of the proof graph? This is meant
+to help beginners find the conceptual spine and help experts distinguish
+marginal extensions from genuinely new mechanisms. As the graph matures, its
+compression may also suggest cleaner natural-language proofs and more structural
+or algebraic formulations.
 
 Samplinglib source correspondence is pinned to the canonical **August 9,
 2026** edition. The checked table of contents, book/PDF page offset, semantic
@@ -44,25 +52,22 @@ anchors, and edition checksum are validated before every site build.
 
 ## News 🔥
 
-- **August 2026** — Upgraded to **Harness vNext.1**, adding frontier-cell
-  synthesis, Worker-lane ownership, strict obstruction evidence, independent
-  verification evidence, discovery deduplication, and a deterministic
-  NoProgressGuard while retaining the single stabilization lane.
-- **August 2026** — Introduced **Harness vNext**, replacing fixed role handoffs
-  with theorem-sized substantive advances, Universal Workers, a durable
-  Discovery Ledger, and one stabilization lane for shared library truth.
-- **July 2026** — Released the first user-facing version of
+- **August 2026** — Reworked the ASTIS Harness around theorem-sized substantive
+  advances, Universal Workers, Frontier Cells, a durable Discovery Ledger,
+  independent verification, deterministic no-progress control, and one
+  stabilization lane for shared library truth.
+- **July 2026** — Released the first user-facing
   [**Samplinglib**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/),
   connecting the textbook route, rigorous analytic details, Lean declarations,
   and source-backed verification.
-- **June 2026** — Completed the first version of
-  **Auto-Sampling-Theory-In-Sleep (ASTIS)** for sampling-theory formalization.
+- **June 2026** — Completed the first end-to-end ASTIS formalization workflow
+  for sampling theory.
 
 ---
 
 ## Core Contributions ◆
 
-### 1. Harness vNext.1: Universal Workers on a Frontier Mesh
+### 1. ASTIS Harness: Universal Workers on a Frontier Mesh
 
 ASTIS does not score progress by how many agents wrote artifacts. It asks
 whether the verified theorem graph changed in a mathematically useful way.
@@ -99,25 +104,24 @@ files, focused checks, and remaining truth boundary. `VERIFIED` must be
 published by an independent verifier with the checked commit, source audit, and
 fake-closure scan.
 
-#### Frontier cells instead of an overloaded Master
+#### Frontier Cells instead of an overloaded Master
 
 Several SAUs that share DAG parents, source statements, interfaces, or a later
-join form a dynamic **frontier cell**. Any Universal Worker may temporarily
-publish a cell-level `synthesis` discovery containing the graph delta, conflicts,
-retired routes, reusable findings, and next independent SAUs. This is an
-ephemeral action, not a fixed managerial role.
+join form a dynamic **Frontier Cell**. Any Universal Worker may temporarily
+publish a cell-level synthesis containing the graph delta, conflicts, retired
+routes, reusable findings, and next independent SAUs. This is an ephemeral
+action, not a fixed managerial role.
 
-The global arbiter consumes validated cell syntheses first and opens raw evidence
-only for a named cross-cell conflict or stabilization decision. It handles
-priority, ownership conflicts, cross-cell joins, and the verified integration
-queue; it does not reproduce local proofs.
+The Thin Master consumes compact cell evidence first and opens deeper evidence
+only for a named cross-frontier conflict or stabilization decision. It handles
+priority, ownership conflicts, cross-frontier joins, frozen-route resets, and
+the verified integration queue; it does not reproduce local proofs.
 
 #### No-progress and truth controls
 
 A bounded Worker checkpoint records a route fingerprint, progress signature,
-mathematical delta, exact residual, and context size. After the first occurrence
-and two unchanged repeats, the route is frozen for diagnosis; another identical
-attempt is rejected until the route changes or a strict blocker is published.
+mathematical delta, exact residual, and context size. Repeated unchanged routes
+are frozen for diagnosis rather than allowed to consume indefinite context.
 
 A separate **Discovery Ledger** preserves useful lemmas, interfaces,
 counterexamples, source gaps, refactors, conjectures, process improvements, and
@@ -131,9 +135,24 @@ imports, root tests, Registry evidence, source correspondence, graph metadata,
 and site status together.
 
 The earlier Upper/Middle/Lower/Reviewer artifacts remain readable as historical
-and compatibility memory. Old profile keys may still name execution slots, but
-they no longer limit what an agent is allowed to think about or require every
-theorem to traverse a fixed ladder.
+and compatibility memory. Their useful guarantees—source fidelity, explicit
+evidence, typed failure memory, and independent review—remain. What is no longer
+required is that every theorem traverse a fixed role ladder or that an agent stop
+when a role-local responsibility ends.
+
+#### Why not simply use AI to write proofs?
+
+AI-generated proof prose can be a valuable research aid, but prose alone is not
+a mechanically checked theorem. Hidden assumptions, type mismatches, invalid
+boundary steps, or a subtly different statement can survive a fluent answer.
+It also does not automatically become a named, verified interface that later AI
+or human proofs can safely retrieve and reuse.
+
+ASTIS adds three things: **Lean verification of exact declarations**, **reusable
+checked formal memory**, and **placement in the existing dependency graph**.
+That last layer matters for understanding new mathematics: a result can be
+examined as a new leaf, bridge, shortcut, reusable node, or structural
+reorganization of the graph, rather than only as another isolated proof text.
 
 ### 2. Samplinglib: Verified Memory for Sampling Theory
 
@@ -147,8 +166,8 @@ textbook.
 The intended object is a graph rather than a pile of isolated formal files:
 textbook results, SampleWiki frontier theorems, and reusable technical lemmas
 share explicit Lean parents and consumers. The public **Underlying Lean Graph**
-lets readers inspect those dependencies and eventually provides the substrate
-for graph compression and mathematical purification.
+lets readers inspect those dependencies and provides the substrate for later
+graph compression and mathematical purification.
 
 ---
 
@@ -158,10 +177,10 @@ for graph compression and mathematical purification.
 flowchart TB
   Source["Textbook · paper · SampleWiki problem<br/>LaTeX and mathematical prose"]:::source
   DAG["Live source / theorem / Lean DAG"]:::dag
-  Control["Deterministic control plane<br/>state · ownership · duplicates · NoProgressGuard"]:::coord
+  Control["Deterministic control plane<br/>state · ownership · duplicates · no-progress guard"]:::coord
   Board["Substantive Advance Board<br/>theorem delta · truth boundary · frontier cell"]:::board
 
-  subgraph CellA["Frontier cell A"]
+  subgraph CellA["Frontier Cell A"]
     W1["Universal Worker A<br/>source · proof · retrieval · Lean · check"]:::worker
     W2["Universal Worker B<br/>source · proof · retrieval · Lean · check"]:::worker
     S1["Ephemeral local synthesis"]:::synthesis
@@ -169,7 +188,7 @@ flowchart TB
     W2 --> S1
   end
 
-  subgraph CellB["Frontier cell B"]
+  subgraph CellB["Frontier Cell B"]
     W3["Universal Worker C<br/>source · proof · retrieval · Lean · check"]:::worker
     W4["Universal Worker D<br/>source · proof · retrieval · Lean · check"]:::worker
     S2["Ephemeral local synthesis"]:::synthesis
@@ -178,7 +197,7 @@ flowchart TB
   end
 
   Discovery["Discovery / synthesis ledger<br/>lemmas · interfaces · counterexamples · source gaps"]:::discovery
-  Arbiter["Thin global arbiter<br/>cross-cell priority · conflict · joins"]:::coord
+  Master["Thin Master<br/>cross-frontier priority · conflict · joins"]:::coord
   Verify["Independent verification<br/>Lean · source · checked commit · fake closure"]:::verify
   Stabilize["Single stabilization lane<br/>current-main clean port · shared imports · Registry/site"]:::stable
   Registry["Samplinglib Registry · Underlying Lean Graph<br/>verified reusable formal memory"]:::registry
@@ -194,9 +213,9 @@ flowchart TB
   W4 -. insight .-> Discovery
   Discovery --> S1
   Discovery --> S2
-  S1 --> Arbiter
-  S2 --> Arbiter
-  Arbiter --> Verify --> Stabilize --> Registry
+  S1 --> Master
+  S2 --> Master
+  Master --> Verify --> Stabilize --> Registry
   Registry -. reusable parents .-> DAG
 
   classDef source fill:#172033,stroke:#172033,color:#fff,stroke-width:2px;
@@ -232,7 +251,7 @@ theorem-DAG deltas / million tokens
 
 theorem-DAG deltas / active-agent hour
 
-global-arbiter context / total Worker context
+Thin-Master context / total Worker context
 
 validated discoveries reused / validated discoveries published
 
@@ -240,8 +259,8 @@ stabilization wait / total wall time
 ```
 
 ASTIS does not assume speedups reported by another harness automatically transfer
-to sampling-theory formalization. The frontier-mesh redesign will be judged by
-these metrics together with source fidelity and independent verification.
+to sampling-theory formalization. The architecture is judged by these metrics
+together with source fidelity and independent verification.
 
 ---
 
@@ -283,7 +302,7 @@ should be coordinated against the live proof graph first.
 | System | What informs ASTIS | ASTIS boundary |
 |---|---|---|
 | [FrontierAgent](https://github.com/ApodexAI/FrontierAgent) | Bounded task boards, parallel generalist sub-agents, structured report collection, checkpoint/resume, fanout guards, and coordinator no-progress detection. | ASTIS schedules source-backed theorem-DAG advances; local synthesis is ephemeral, and Lean evidence, truth boundaries, discovery provenance, independent verification, and the single stabilization lane are authoritative. |
-| [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Durable trial memory, rejected-route records, and role-separated exploration informed the earlier harness. | vNext.1 retains durable memory while removing mandatory role boundaries and measuring theorem-level output. |
+| [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Durable trial memory, rejected-route records, and role-separated exploration informed the earlier harness. | ASTIS retains durable memory while removing mandatory role boundaries and measuring theorem-level output. |
 | [EoH](https://github.com/FeiLiu36/EoH) | Population initialization, variation, selection, and archive pressure for competing solution routes. | Population search is allowed only for fixed Lean-checkable targets in exploratory modes; source theorems and assumptions cannot mutate to make a proof easier. |
 | [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Long-running research loops, plain-file recovery, and separate reviewer passes. | ASTIS specializes the loop for formal theorem state, exact source anchors, analytic obligations, and reusable Samplinglib memory. |
 | [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) | Blueprint-driven target selection, proof-DAG leaves, bounded workers, and deterministic gates. | ASTIS keeps a local source-backed harness and makes theorem-graph memory, strict obstructions, and reader-facing source correspondence first-class outputs. |
@@ -306,7 +325,7 @@ The complete design and mathematical provenance ledger is maintained in
 }
 ```
 
-ASTIS is the research system and proving harness. Samplinglib is its public Lean
+ASTIS is the research system and proving Harness. Samplinglib is its public Lean
 library and learning interface. External libraries, textbooks, papers, and
 repositories are cited as mathematical or design provenance and do not imply
 endorsement.
