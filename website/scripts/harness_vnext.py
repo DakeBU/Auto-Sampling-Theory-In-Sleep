@@ -190,6 +190,10 @@ def _update_related_systems(path: Path) -> None:
 def _update_live(path: Path) -> None:
     text = _read(path)
     text = text.replace(
+        "export unresolved work into the ASTIS hierarchy",
+        "export unresolved work into the ASTIS Substantive Advance frontier mesh",
+    )
+    text = text.replace(
         "export into the ASTIS hierarchy",
         "export into the ASTIS Substantive Advance frontier mesh",
     )
@@ -201,7 +205,7 @@ def _update_live(path: Path) -> None:
         "export to ASTIS typed packets",
         "export to ASTIS substantive-advance packets",
     )
-    if "Substantive Advance" not in text and "substantive-advance" not in text:
+    if 'id="astis-substantive-advance-export"' not in text:
         if "</body>" not in text:
             raise RuntimeError("live workspace has no body closing tag for Harness vNext note")
         text = text.replace("</body>", LIVE_NOTE + "\n</body>", 1)
@@ -213,6 +217,12 @@ def _update_attribution(path: Path) -> None:
     text = text.replace(
         "A Hierarchical Automated Theorem Proving System for Sampling Theory",
         "A Substantive-Advance Automated Theorem Proving System for Sampling Theory",
+    )
+    # The generated BibTeX title can wrap after ``Automated``.  Replace the
+    # stable prefix as well so line wrapping cannot preserve the legacy title.
+    text = text.replace(
+        "A Hierarchical Automated",
+        "A Substantive-Advance Automated",
     )
     _write_if_changed(path, text)
 
@@ -246,6 +256,7 @@ def validate_site(output: Path) -> None:
     workflow = _read(output / "workflow" / "index.html")
     related = _read(output / "related-systems" / "index.html")
     live = _read(output / "live" / "index.html")
+    attribution = _read(output / "attribution" / "index.html")
     if "Substantive Advance Frontier Mesh" not in home:
         raise RuntimeError("home page does not expose the Substantive Advance Frontier Mesh")
     for required in ("Universal", "frontier cell", "NoProgressGuard", "single stabilization lane"):
@@ -260,6 +271,14 @@ def validate_site(output: Path) -> None:
         raise RuntimeError("related-systems page is missing the FrontierAgent architecture boundary")
     if "Substantive Advance" not in live and "substantive-advance" not in live:
         raise RuntimeError("live workspace still describes only the legacy ASTIS hierarchy")
+    if "ASTIS hierarchy" in live:
+        raise RuntimeError("live workspace still exposes the legacy ASTIS hierarchy wording")
+    if 'id="astis-substantive-advance-export"' not in live:
+        raise RuntimeError("live workspace is missing the substantive-advance export contract")
+    if "A Hierarchical Automated" in attribution:
+        raise RuntimeError("attribution page still exposes the legacy hierarchical title")
+    if "A Substantive-Advance Automated" not in attribution:
+        raise RuntimeError("attribution page is missing the vNext.1 system title")
 
 
 __all__ = ["enrich_site", "validate_site"]

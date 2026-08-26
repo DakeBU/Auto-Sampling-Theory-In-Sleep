@@ -28,10 +28,12 @@ class HarnessVNextSiteTest(unittest.TestCase):
                 encoding="utf-8",
             )
             (output / "live" / "index.html").write_text(
-                '<html><body>export into the ASTIS hierarchy</body></html>', encoding="utf-8"
+                '<html><body><p>export unresolved work into the ASTIS hierarchy</p></body></html>',
+                encoding="utf-8",
             )
             (output / "attribution" / "index.html").write_text(
-                '<html><body>A Hierarchical Automated Theorem Proving System for Sampling Theory</body></html>',
+                '<html><body><pre>title = {Auto-Sampling-Theory-In-Sleep: A Hierarchical Automated\n'
+                'Theorem Proving System for Sampling Theory}</pre></body></html>',
                 encoding="utf-8",
             )
 
@@ -41,6 +43,8 @@ class HarnessVNextSiteTest(unittest.TestCase):
             home = (output / "index.html").read_text(encoding="utf-8")
             workflow = (output / "workflow" / "index.html").read_text(encoding="utf-8")
             related = (output / "related-systems" / "index.html").read_text(encoding="utf-8")
+            live = (output / "live" / "index.html").read_text(encoding="utf-8")
+            attribution = (output / "attribution" / "index.html").read_text(encoding="utf-8")
             self.assertIn("Substantive Advance Frontier Mesh", home)
             self.assertIn("Universal", workflow)
             self.assertIn("frontier cell", workflow)
@@ -48,6 +52,11 @@ class HarnessVNextSiteTest(unittest.TestCase):
             self.assertIn("single stabilization lane", workflow)
             self.assertIn("FrontierAgent", related)
             self.assertNotIn("upper_source_math", workflow)
+            self.assertIn('id="astis-substantive-advance-export"', live)
+            self.assertIn("ASTIS Substantive Advance frontier mesh", live)
+            self.assertNotIn("ASTIS hierarchy", live)
+            self.assertIn("A Substantive-Advance Automated", attribution)
+            self.assertNotIn("A Hierarchical Automated", attribution)
 
     def test_existing_frontieragent_row_is_upgraded(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -75,6 +84,7 @@ class HarnessVNextSiteTest(unittest.TestCase):
             )
 
             harness_vnext.enrich_site(output)
+            harness_vnext.validate_site(output)
             related = (output / "related-systems" / "index.html").read_text(encoding="utf-8")
             self.assertIn("coordinator no-progress detection", related)
             self.assertNotIn("old boundary", related)
