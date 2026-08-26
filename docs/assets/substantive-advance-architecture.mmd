@@ -1,0 +1,40 @@
+flowchart LR
+  DAG["Global theorem / Lean DAG<br/>dependency-ready substantive edges"]:::dag
+  C["Thin Coordinator<br/>priority · ownership · duplicate suppression<br/>bounded state capsule"]:::coordinator
+  B["Substantive Advance Board<br/>explicit theorem delta + truth boundary"]:::board
+
+  subgraph Parallel["Parallel Generalist Workers"]
+    direction TB
+    W1["Generalist Worker A<br/>source · proof · Lean · focused check"]:::worker
+    W2["Generalist Worker B<br/>source · proof · Lean · focused check"]:::worker
+    W3["Generalist Worker C<br/>source · proof · Lean · focused check"]:::worker
+  end
+
+  L["Discovery Ledger<br/>lemma · interface · counterexample<br/>source gap · refactor · conjecture"]:::ledger
+  S["Single Stabilization Lane<br/>current-main clean port · shared imports<br/>Registry / site / canonical PR"]:::stable
+  G["Lean + source + fake-closure + site gates"]:::gate
+  R["Samplinglib Registry · graph · theorem memory"]:::registry
+
+  DAG --> C --> B
+  B --> W1
+  B --> W2
+  B --> W3
+  W1 -->|theorem delta| B
+  W2 -->|theorem delta| B
+  W3 -->|theorem delta| B
+  W1 -. cross-boundary insight .-> L
+  W2 -. cross-boundary insight .-> L
+  W3 -. cross-boundary insight .-> L
+  L -->|validated / scheduled| C
+  B -->|VERIFIED| S --> G -->|accepted| R
+  G -->|exact blocker| B
+  R -. reusable parents .-> DAG
+
+  classDef dag fill:#ece6ff,stroke:#6938ef,color:#172033,stroke-width:1.5px;
+  classDef coordinator fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2px;
+  classDef board fill:#fff3d6,stroke:#b54708,color:#172033,stroke-width:1.5px;
+  classDef worker fill:#dcfae6,stroke:#087443,color:#172033,stroke-width:1.5px;
+  classDef ledger fill:#f4ebff,stroke:#7f56d9,color:#172033,stroke-width:1.5px;
+  classDef stable fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:1.8px;
+  classDef gate fill:#fff2c7,stroke:#9a6700,color:#172033,stroke-width:1.8px;
+  classDef registry fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2px;
