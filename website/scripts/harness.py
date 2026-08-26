@@ -117,19 +117,27 @@ def validate_site(output: Path) -> None:
         "live": _read(output / "live" / "index.html"),
     }
     workflow = pages["workflow"]
+    match = re.search(
+        r"<main\b[^>]*\bid=[\"']content[\"'][^>]*>.*?</main>",
+        workflow,
+        flags=re.I | re.S,
+    )
+    if match is None:
+        raise RuntimeError("workflow page is missing <main id=content>")
+    workflow_main = match.group(0)
     for required in (
         "astis-harness-evolution.svg",
         "astis-formal-graph-value.svg",
         "Harness architecture",
         "Why the formal graph matters",
     ):
-        if required not in workflow:
+        if required not in workflow_main:
             raise RuntimeError(f"workflow page is missing visual Harness concept: {required}")
-    if workflow.count("<img ") < 2:
+    if workflow_main.count("<img ") < 2:
         raise RuntimeError("workflow page must be diagram-first")
-    if "<pre" in workflow:
+    if "<pre" in workflow_main:
         raise RuntimeError("workflow page must not fall back to text diagrams")
-    if workflow.count("<p>") > 3:
+    if workflow_main.count("<p>") > 3:
         raise RuntimeError("workflow page has regressed into a prose-heavy Harness page")
     if "astis-formal-graph-value.svg" not in pages["home"]:
         raise RuntimeError("home page is missing the visual project-purpose summary")
