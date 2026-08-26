@@ -1,193 +1,318 @@
-# Self-Reflection And Efficiency Rules
+# Self-Reflection and Efficiency Rules
 
-ASTIS should spend long autonomous runs on proof progress, not on replaying
-history.  The post-cycle-98 SALD state showed the main waste pattern:
-upper/middle/lower/reviewer prompts repeatedly carried broad task contracts,
-long trial memory, and broad theorem-route reminders even when the current
-blocker was already narrow.
+ASTIS should spend long autonomous runs on source-backed theorem progress, not
+on replaying history or manufacturing role-local artifacts. Harness vNext.1
+measures progress at the level of the formal graph and treats context as a
+finite research resource.
 
-## Progress Metric
+## 1. Evidence from ASTIS's own logs
 
-Every cycle must classify its main proof packet as exactly one of:
+### Post-cycle-98 SALD waste pattern
 
-- `discharges-supplied-hypothesis`: a compiled local theorem removes an older
-  supplied hypothesis.
-- `narrows-source-cited-boundary`: the remaining theorem boundary is smaller,
-  source-cited, and has explicit imports/hypotheses.
-- `rejected-wrapper-churn`: the proposed work only restates an existing wrapper,
-  broad ledger, broad route audit, or project-article task.
+The earlier SALD audit found that Upper, Middle, Lower, and Reviewer prompts
+repeatedly ingested broad source contracts, long trial memory, theorem-route
+reminders, and the same current blocker. Once the residual theorem became
+narrow, most of that context was no longer decision-relevant. The system could
+remain active while the mathematical boundary stayed unchanged.
 
-Reviewer treats unclassified cycles as inefficient even if `lake build` passes.
-Build success is necessary; it is not a sufficient progress signal.
+The key failure was delegation granularity. A role-local action was often
+smaller than a substantive mathematical advance, so each handoff paid context
+again while preventing one agent from carrying a useful insight through source,
+proof design, Lean implementation, and focused diagnosis.
 
-## Prompt Compression
+### Brenier/Rockafellar integration pattern
 
-For SALD cycles after cycle 84, `tools/astis.py` generates
-`05_context_pack.md` in each run directory.  Agent prompts must use that compact
-pack instead of replaying the full task file and raw trial history.
+The Brenier branch produced many correct leaves, but the global operator had to
+continually reconstruct the join across local geometry, common-mass slicing,
+product laws, integrability, finite cost, optimality, closed-chain algebra, and
+the Rockafellar potential. Many theorem branches also needed separate
+smoke-check and clean-port steps. The output was mathematically valuable; the
+coordination and integration overhead was high.
 
-The compact pack contains:
+After substantive advances became canonical, the proper Rockafellar root,
+relation-point support, effective-domain convexity, open-domain a.e.
+differentiability, and marginal a.e. pullback were naturally expressed as
+independent DAG deltas with explicit truth boundaries. This supports the
+Universal Worker model.
 
-- the fixed faithful-paper contract;
-- the current reviewer blocker;
-- recent high-signal handoffs only;
-- task-local paper contribution memory and unfinished source-line coverage;
-- local ASTIS technical lemma memory and Mathlib reference targets;
-- the LeanMarathon-inspired blueprint control state;
-- retained LBG/EoH/ARIS memory boundaries: trial logs, negative cache,
-  candidate populations for exploratory mode, and reviewer-agent handoffs;
-- the self-reflection guard that every agent handoff must answer.
+The next bottleneck is global synthesis. A single Master should not read every
+transcript and reproduce every local proof relation. Harness vNext.1 therefore
+uses connected frontier cells, ephemeral local synthesis by Universal Workers,
+and a bounded synthesis-first global capsule.
 
-Use:
+ASTIS has not yet measured a 30× gain. External informal reports motivate the
+redesign, but any ASTIS speedup claim must be backed by comparable theorem-DAG,
+token, and active-agent-hour measurements.
+
+## 2. What counts as progress
+
+Every SAU return has exactly one primary classification:
+
+- `theorem-edge`: a named source-backed theorem edge compiles;
+- `reusable-interface`: a named compiled interface removes duplicated future
+  proof work;
+- `integration-node`: several verified parents are joined into a higher graph
+  node;
+- `strict-obstruction`: a counterexample, retired route, or strictly smaller
+  evidenced blocker changes the proof plan;
+- `rejected-activity`: wrappers, reports, broad audits, repeated attempts, or
+  tests that do not change the mathematical boundary.
+
+The first three correspond to `PROVED_LOCAL`. A strict obstruction corresponds
+to a fully evidenced `BLOCKED` return. `rejected-activity` never becomes a
+success state even when a branch exists or a broad build is green.
+
+Examples that do **not** count by themselves:
+
+- a branch, commit, PR, or new file;
+- a smoke test disconnected from a named theorem delta;
+- a helper that simply restates an assumed hypothesis;
+- renaming or moving the same proof obligation;
+- repeating the same Lean error with more prose;
+- producing a human report while the theorem boundary is unchanged;
+- scheduling more agents without a new independent SAU.
+
+## 3. Universal Worker context policy
+
+A Worker receives a bounded local packet:
+
+- exact source anchor and source mode;
+- theorem delta, target declaration names, and truth boundary;
+- the connected DAG parents and consumers for one frontier cell;
+- owned and forbidden shared files;
+- exact current interfaces or compiler residuals;
+- relevant validated discoveries and the latest cell synthesis;
+- focused acceptance checks;
+- explicit omission counts and context budget.
+
+The Worker does not replay raw project history. It retrieves deeper evidence
+only for a named uncertainty. Former Upper/Middle/Lower role artifacts may be
+consulted as memory but are never mandatory stages.
+
+For old SALD cycles, `tools/astis.py` still generates `05_context_pack.md`. New
+vNext scheduling should additionally consume:
+
+```bash
+python3 tools/astis_advance.py capsule
+```
+
+The capsule is structured state, not a transcript summary.
+
+## 4. NoProgressGuard
+
+A bounded checkpoint records:
+
+```text
+route_fingerprint
+progress_signature
+mathematical_delta
+exact_residual
+context_characters
+```
+
+Let `(r, p)` be the route fingerprint and progress signature.
+
+- first occurrence: continue normally;
+- first unchanged repeat: warning;
+- second unchanged repeat: mark the SAU as requiring diagnosis;
+- any further identical checkpoint: reject and freeze the route.
+
+The Worker must then change route, publish a strict blocker/counterexample, or
+produce a theorem/interface delta. Network/provider failures are retried
+separately and do not count as mathematical repeats.
+
+At the global level, the same principle applies to scheduling. If the same
+frontier-cell snapshot produces the same Master decision twice without an SAU,
+discovery, verification, or stabilization delta, stop spawning. Request local
+synthesis, resolve a named conflict, or choose another cell.
+
+## 5. Frontier-cell synthesis
+
+A frontier cell is a connected local subgraph of active advances. When a cell
+contains multiple SAUs or a no-progress signal, any Universal Worker may
+temporarily synthesize it.
+
+A useful synthesis states:
+
+- which theorem edges actually changed;
+- which exact truth boundaries remain;
+- shared parents and downstream joins;
+- duplicate or conflicting routes;
+- discoveries that should become reusable nodes;
+- routes retired and why;
+- the next independent SAUs;
+- whether the cell is ready for global verification or stabilization.
+
+The synthesis is stored as a `synthesis` discovery and independently validated.
+This is not a permanent Middle role. The synthesizing agent remains free to
+notice and act on mathematical facts outside a narrow responsibility box.
+
+The global arbiter reads validated cell syntheses first. It opens raw Worker
+evidence only for a named cross-cell conflict or admission decision.
+
+## 6. Prompt and memory compression
+
+The compact state should preserve exact fields and omit replayable prose.
+Compaction may not paraphrase away:
+
+- theorem statements and target declarations;
+- assumptions, measures, spaces, domains, and representatives;
+- source anchors and edition information;
+- current Lean errors and checked commits;
+- truth boundaries;
+- route fingerprints and no-progress status;
+- discovery provenance and validation status.
+
+Old records remain in append-only memory. The active packet contains only the
+latest relevant entries plus explicit omission counts.
+
+Useful entry points:
 
 ```bash
 python3 tools/astis.py write-context-pack ASTIS-SALD-001 --cycle 99
-```
-
-before a manual run, and inspect the generated file if the next target is
-unclear.
-
-## LeanMarathon-Inspired Blueprint Control
-
-ASTIS attributes and borrows LeanMarathon's Lean-specific control design:
-
-- GitHub: https://github.com/YuanheZ/LeanMarathon
-- arXiv: https://arxiv.org/abs/2606.05400
-
-The adopted idea is not to turn ASTIS into a GitHub/Slurm PR system.  Instead,
-ASTIS keeps the local sleep-run loop and adds a compact proof blueprint plus a
-machine-readable control summary:
-
-```bash
 python3 tools/astis.py blueprint-refresh ASTIS-SALD-001
+python3 tools/astis_advance.py capsule
 ```
 
-The generated `research-wiki/blueprints/ASTIS-SALD-001.md` plays the local
-role of a LeanMarathon blueprint system-of-record snapshot.  The companion
-`ASTIS-SALD-001-blueprint-status.md` and `.json` record the current dynamic
-leaf candidate, the connected illness area if the blocker is a multi-node
-defect, the latest reviewer blocker, recent packet classifications, and the
-deterministic gate.
+The proof blueprint remains the system-of-record snapshot for the source-backed
+DAG. The substantive-advance ledger is the system of record for active theorem
+deltas and ownership.
 
-Cycle handoffs must now answer one additional question: is this a
-dynamic-leaf worker packet or an illness-area refiner packet?  A worker packet
-must stay inside the assigned local target/refinement region.  A refiner packet
-must repair only the connected affected region and must classify the issue as
-source drift or a genuine source gap.
+## 7. Efficiency audit metrics
 
-## Retained Search And Agent Frame
+A long-run report should record both mathematical output and coordination cost.
 
-LeanMarathon controls the proof blueprint, but ASTIS still relies on the older
-automation frame:
+### Mathematical output
 
-- Learning Beyond Gradients style layered iteration keeps upper/middle/lower
-  plus reviewer roles, `runs/trials.jsonl`, `runs/trials_summary.csv`,
-  efficiency reports, negative caches, and rejected proof routes compact enough
-  for later agents.
-- EoH style population search is allowed only for `exploratoryProof` candidate
-  routes under `candidate-populations/`; it is not allowed to mutate a
-  `faithfulPaper` theorem.
-- ARIS/QBE style upper/middle/lower/reviewer cycles remain the operational
-  harness.  Reviewer is an independent role, not a decoration on the lower
-  proof attempt.
+- number of merged theorem edges;
+- number of merged reusable interfaces;
+- number of merged integration nodes;
+- number of strict obstructions and retired routes;
+- number of validated discoveries later consumed by another SAU;
+- graph depth/connection changes at the active frontier;
+- source statements whose truth boundary was genuinely closed.
 
-## Efficiency Audit
+### Context and control cost
 
-Use:
+- Worker input/output characters or tokens;
+- global-arbiter capsule characters or tokens;
+- cell-synthesis input/output characters;
+- omitted record counts;
+- duplicate proposal/discovery rejections;
+- checkpoint count and no-progress freezes;
+- repeated global decisions;
+- active Worker fanout and idle time;
+- stabilization queue wait and shared-file conflicts;
+- clean-port/rebase work caused by stale branches.
+
+### Derived metrics
+
+```text
+theorem-DAG deltas / million tokens
+
+theorem-DAG deltas / active-agent hour
+
+global-arbiter context / total Worker context
+
+validated discoveries reused / validated discoveries published
+
+stabilization wait / total wall time
+```
+
+A lower Master-context ratio is desirable only when theorem progress, source
+fidelity, and verification quality stay stable or improve.
+
+The legacy command remains useful for old logs:
 
 ```bash
 python3 tools/astis.py efficiency-report --log runs/logs/<log>.log
 ```
 
-or omit `--log` to inspect the latest SALD 6-hour log.  The report records:
+Future reports should add the vNext ledger metrics above.
 
-- log size;
-- detected cycles;
-- token events and per-role token totals;
-- packet classification counts;
-- warnings for broad context replay and missing progress classification;
-- the latest reviewer blocker.
-
-The next 6-hour launch also writes the next-cycle compact context pack before
-starting the background process and refreshes the proof blueprint plus its
-control-state summary.
-
-## Technical Lemma Memory Protocol
+## 8. Technical Lemma Memory Protocol
 
 ASTIS uses compiled local technical lemmas as the callable memory layer for
-SDE/Sampling proof work.  External repositories such as
-`/home/nitanda_sub/mark/repos/outer_repos/sampling_theory_sde/lean-stat-learning-theory`
-are only source material for local ports and provenance records, not runtime
-dependencies.
+SDE/Sampling work. External repositories are sources for theorem shapes,
+proof idioms, and provenance—not runtime dependencies or automatic proof
+claims.
 
-Before inventing a new measure/probability interface, middle and lower should
-consult:
+Before inventing a measure/probability interface, a Worker should consult:
 
 - `AutoSamplingTheory/TechnicalLemmas/Gaussian.lean` and
   `AutoSamplingTheory/TechnicalLemmas/Taylor.lean` for compiled local lemmas;
 - `AutoSamplingTheory/TechnicalLemmas/Registry.lean` and
   `research-wiki/technical-lemma-memory/technical_lemma_registry.jsonl` for
-  local lemma names, tags, and SALD uses;
-- `research-wiki/technical-lemma-memory/SALD_remaining_map.md` for the current
+  names, tags, and consumers;
+- `research-wiki/technical-lemma-memory/SALD_remaining_map.md` for current
   SALD leaf-to-lemma mapping;
 - `research-wiki/technical-lemma-memory/SLT_port_queue.jsonl` for upstream
-  theorem shapes that still require local ASTIS ports;
-- `/home/nitanda_sub/mark/repos/outer_papers/sampling_theory_sde/Statistical Learning Theory in Lean 4 Empirical Processes from Scratch`
-  for the article-level methodology:
-  state analytic hypotheses explicitly, separate background facts from local
-  proof targets, and avoid overclaiming formalization status.
+  theorem shapes still requiring local ASTIS ports;
+- the local SLT article/repository for source-level methodology.
 
-The correct borrowing pattern is:
+The borrowing pattern is:
 
-1. search existing ASTIS declarations, technical lemma memory, and ledgers;
-2. inspect the local SLT file only for a proof idiom or theorem shape if no
-   ASTIS lemma exists;
-3. port a small local statement into `AutoSamplingTheory/TechnicalLemmas` if
-   it compiles under ASTIS's toolchain;
-4. otherwise record a source-cited `ProofObligation` with the exact missing
-   theorem boundary.
+1. search existing ASTIS declarations, technical-lemma memory, and discoveries;
+2. inspect external code only for a proof idiom or theorem shape if no local
+   declaration exists;
+3. port one small source-backed statement into
+   `AutoSamplingTheory/TechnicalLemmas` and compile it;
+4. otherwise publish a source-cited strict blocker or ProofObligation with the
+   exact missing theorem boundary.
 
-## Paper Contribution Memory Protocol
+## 9. Paper Contribution Memory Protocol
 
-Faithful-paper proof state must live separately from reusable technical lemma
-memory.  For `ASTIS-SALD-001`, the task-local paper memory is:
+Faithful-paper state remains separate from reusable technical-lemma memory. For
+`ASTIS-SALD-001`, the canonical task-local memory is:
 
 ```text
-research-wiki/paper-memory/ASTIS-SALD-001/
+research-wiki/paper-contributions/SALD/
 ```
 
 The key file is:
 
 ```text
-research-wiki/paper-memory/ASTIS-SALD-001/unfinished_source_map.md
+research-wiki/paper-contributions/SALD/unfinished_source_map.md
 ```
 
-It records the SALD-specific source line range, Lean boundary, status, and
-next action for each unfinished paper contribution leaf.  Middle must consult
-this file before assigning lower work.  Lower must name either one source-line
-leaf from this file or one compiled technical lemma registry entry.  Reviewer
-rejects a cycle if it claims completion while an active paper leaf is marked
-`line-range-missing`.
+It records the source line range, Lean boundary, status, and next action for each
+unfinished paper contribution. An SAU must name either one source-backed delta
+from this map or one reusable compiled library delta. Verification rejects a
+completion claim when an active paper leaf is still `line-range-missing`.
 
-At the end of a long run, the finalizer refreshes the paper memory, TODO,
-Chinese summary, and technical-report snippets together.  This prevents a
-cycle from looking successful in Lean while leaving humans unable to see which
-SALD LaTeX lines remain unfinished.
+At the end of a long run, refresh paper memory, TODO state, Chinese summary, and
+technical-report snippets together. Human-facing summaries are finalization
+outputs, not per-step substitutes for theorem progress.
 
-## Current SALD Negative Cache
+## 10. Retained search methods without fixed roles
+
+ASTIS retains useful ideas from earlier systems without retaining their role
+boxes:
+
+- LeanMarathon-style blueprints and dynamic DAG leaves;
+- LBG-style durable trial and negative-route memory;
+- EoH-style competing candidate routes in `exploratoryProof` mode;
+- ARIS/QBE-style independent verification and long-run recovery;
+- FrontierAgent-style bounded task boards, parallel workers, structured reports,
+  checkpoint/resume, and coordinator no-progress protection.
+
+These are capabilities and control mechanisms. They do not imply that one agent
+may only read sources, another may only design Lean, or a third may only review.
+
+## 11. Current SALD negative cache
 
 Do not spend another cycle on broad LSI/DV/Gronwall backfill unless the active
-Euler--Maruyama backend is blocked by a named Mathlib/theory gap.  The current
-high-priority blocker is:
+Euler--Maruyama backend is blocked by a named Mathlib or theory gap. The current
+high-priority blockers are:
 
 - prove the concrete contraction bound;
 - align `weakGradPairing` and `driftDiv` with the `hatRhoS` law integral;
 - prove the no-boundary integration-by-parts theorem for `hatRhoS * barB`.
 
-Broad source-index rebaseline, broad theorem-route audits, article export, and
+Broad source-index rebaselines, broad theorem-route audits, article export, and
 new wrappers around the same assumptions are rejected unless they directly
-close one of these items.
+close one of these items or return a strict obstruction.
 
-The current LeanMarathon-style dynamic leaf after the latest completed run is
-read from `blueprint-refresh`; if it differs from this negative cache, the
-generated proof blueprint takes precedence.
+The current dynamic leaf is read from `blueprint-refresh`. If it differs from
+this prose cache, the generated source-backed blueprint and current
+substantive-advance capsule take precedence.
