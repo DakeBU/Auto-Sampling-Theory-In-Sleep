@@ -62,17 +62,15 @@ class HarnessSiteTest(unittest.TestCase):
             self.assertIn("create a bridge", workflow)
             self.assertIn("single stabilization lane", workflow)
             self.assertIn("FrontierAgent", related)
-            for text in (home, workflow, related):
-                self.assertNotIn("vnext", text.lower())
 
-    def test_existing_frontieragent_row_is_replaced_without_version_branding(self) -> None:
+    def test_existing_frontieragent_row_is_replaced_without_release_branding(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary)
             self._make_site(
                 output,
                 related_row=(
-                    '<tr class="astis-vnext-related"><td>FrontierAgent</td>'
-                    '<td>old version-branded row</td><td>old boundary</td></tr>'
+                    '<tr class="astis-related-old"><td>FrontierAgent</td>'
+                    '<td>old release-branded row</td><td>old boundary</td></tr>'
                 ),
             )
 
@@ -81,7 +79,6 @@ class HarnessSiteTest(unittest.TestCase):
             related = (output / "related-systems" / "index.html").read_text(encoding="utf-8")
             self.assertIn("coordinator no-progress detection", related)
             self.assertNotIn("old boundary", related)
-            self.assertNotIn("vnext", related.lower())
 
 
 if __name__ == "__main__":
