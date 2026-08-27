@@ -62,6 +62,20 @@ A new theorem can then be read structurally: **another leaf, a bridge, a shortcu
 
 Full provenance and boundaries: [docs/attribution.md](docs/attribution.md).
 
+## Citation 📝
+
+```bibtex
+@misc{bu2026astis,
+  title        = {Auto-Sampling-Theory-In-Sleep: A Substantive-Advance
+                  Automated Theorem Proving System for Sampling Theory},
+  author       = {Dake Bu and Ji Cheng and Atsushi Nitanda and
+                  Hau-San Wong and Qingfu Zhang},
+  year         = {2026},
+  howpublished = {GitHub repository and Samplinglib formalization website},
+  url          = {https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep}
+}
+```
+
 ## Quick start
 
 ```bash
