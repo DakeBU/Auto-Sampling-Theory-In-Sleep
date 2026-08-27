@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.CouplingAEMarginals
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CouplingAEMarginals.ae_fst_of_isCoupling
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CouplingAEMarginals.ae_snd_of_isCoupling
