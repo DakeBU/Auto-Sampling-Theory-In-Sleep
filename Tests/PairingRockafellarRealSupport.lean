@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarRealSupport
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarRealSupport.finitePart_support_on_effectiveDomain
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarRealSupport.finitePart_support_on_effectiveDomain_of_mem
