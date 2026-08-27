@@ -1,0 +1,5 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarRealDomain
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarRealDomain.finitePart
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarRealDomain.coe_finitePart_of_lt_top
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarRealDomain.convexOn_finitePart_effectiveDomain
