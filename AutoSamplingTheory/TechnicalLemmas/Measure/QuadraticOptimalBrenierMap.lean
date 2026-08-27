@@ -39,6 +39,7 @@ open MeasureTheory Set
 open scoped RealInnerProductSpace Gradient
 
 open AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCyclicMonotonicity
+open AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChain
 open AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChainMonotonicity
 open AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarPotential
 open AutoSamplingTheory.TechnicalLemmas.Analysis.PairingRockafellarSubgradient
@@ -73,7 +74,7 @@ theorem ae_snd_eq_gradient_of_quadraticOptimal_of_base
   have hmono : PairingDistinctCycleMonotone gamma.support :=
     pairingDistinctCycleMonotone_support_of_quadraticOptimal
       hopt hmu0 hmu1
-  have hclosed : PairingClosedChain.PairingClosedChainMonotone gamma.support :=
+  have hclosed : PairingClosedChainMonotone gamma.support :=
     pairingClosedChainMonotone_of_distinct hmono
   have hdomain :
       Convex ℝ
