@@ -2,7 +2,7 @@
 
 # Auto-Sampling-Theory-In-Sleep
 
-### A theorem-proving Harness + Samplinglib for verified, structural sampling theory
+### A Hierarchical Automated Theorem Proving System for Sampling Theory
 
 [![Samplinglib](https://img.shields.io/badge/Samplinglib-verified_sampling_theory-155EEF?style=flat-square)](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
 [![Lean 4](https://img.shields.io/badge/Lean-4-6B4FBB?style=flat-square)](https://lean-lang.org/)
@@ -66,8 +66,8 @@ Full provenance and boundaries: [docs/attribution.md](docs/attribution.md).
 
 ```bibtex
 @misc{bu2026astis,
-  title        = {Auto-Sampling-Theory-In-Sleep: A Substantive-Advance
-                  Automated Theorem Proving System for Sampling Theory},
+  title        = {Auto-Sampling-Theory-In-Sleep: A Hierarchical Automated
+                  Theorem Proving System for Sampling Theory},
   author       = {Dake Bu and Ji Cheng and Atsushi Nitanda and
                   Hau-San Wong and Qingfu Zhang},
   year         = {2026},
