@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalUniqueness
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalUniqueness.eq_of_quadraticOptimal
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalUniqueness.eq_of_quadraticOptimal_p2ac_source
