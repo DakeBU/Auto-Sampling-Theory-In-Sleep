@@ -1,0 +1,5 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMidpoint
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMidpoint.isCoupling_midpoint
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMidpoint.lintegral_midpoint
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMidpoint.isQuadraticOptimalCoupling_midpoint
