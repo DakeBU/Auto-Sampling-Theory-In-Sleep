@@ -1,0 +1,7 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMap
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMap.graphCoupling
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMap.isCoupling_graphCoupling
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMap.ae_eq_of_graphCoupling_eq
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMap.IsQuadraticOptimalMap
+#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalMap.isQuadraticOptimalMap_of_eq_graphCoupling
