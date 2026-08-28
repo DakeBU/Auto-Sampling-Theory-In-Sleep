@@ -50,8 +50,7 @@ theorem isCoupling_graphCoupling
 the prescribed target and whose induced graph coupling attains the quadratic
 Kantorovich optimum. -/
 def IsQuadraticOptimalMap
-    {E : Type*} [NormedAddCommGroup E]
-    [MeasurableSpace E]
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
     (T : E → E) (mu nu : Measure E) : Prop :=
   Measurable T ∧
     Measure.map T mu = nu ∧
@@ -59,8 +58,7 @@ def IsQuadraticOptimalMap
 
 /-- Expansion of the optimal-map interface. -/
 theorem isQuadraticOptimalMap_iff
-    {E : Type*} [NormedAddCommGroup E]
-    [MeasurableSpace E]
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
     (T : E → E) (mu nu : Measure E) :
     IsQuadraticOptimalMap T mu nu ↔
       Measurable T ∧
@@ -71,8 +69,7 @@ theorem isQuadraticOptimalMap_iff
 /-- Package a measurable pushforward map as optimal once its graph coupling is
 identified with an already optimal coupling. -/
 theorem isQuadraticOptimalMap_of_eq_graphCoupling
-    {E : Type*} [NormedAddCommGroup E]
-    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
     {T : E → E} {mu nu : Measure E} {gamma : Measure (E × E)}
     (hT : Measurable T)
     (hmap : Measure.map T mu = nu)
@@ -85,8 +82,7 @@ theorem isQuadraticOptimalMap_of_eq_graphCoupling
 
 /-- Forgetting the map packaging recovers the optimality of its graph coupling. -/
 theorem isQuadraticOptimalCoupling_graphCoupling
-    {E : Type*} [NormedAddCommGroup E]
-    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
+    {E : Type*} [NormedAddCommGroup E] [MeasurableSpace E]
     {T : E → E} {mu nu : Measure E}
     (hT : IsQuadraticOptimalMap T mu nu) :
     IsQuadraticOptimalCoupling (graphCoupling T mu) mu nu :=
