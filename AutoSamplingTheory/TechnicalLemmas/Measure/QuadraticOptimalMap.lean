@@ -46,6 +46,34 @@ theorem isCoupling_graphCoupling
   · rw [Measure.snd, graphCoupling, Measure.map_map hGraph measurable_snd]
     simpa [Function.comp_def] using hmap
 
+/-- Equality of two measurable graph couplings determines the underlying maps
+almost everywhere with respect to their common first marginal. -/
+theorem ae_eq_of_graphCoupling_eq
+    {E F : Type*} [MeasurableSpace E] [MeasurableSpace F] [MeasurableEq F]
+    {T S : E → F} {mu : Measure E}
+    (hT : Measurable T) (hS : Measurable S)
+    (hEq : graphCoupling T mu = graphCoupling S mu) :
+    T =ᵐ[mu] S := by
+  have hGraphT : Measurable (fun x : E => (x, T x)) :=
+    measurable_id.prod_mk hT
+  have hGraphS : Measurable (fun x : E => (x, S x)) :=
+    measurable_id.prod_mk hS
+  have hGraphSet : MeasurableSet {z : E × F | z.2 = T z.1} :=
+    measurableSet_eq_fun measurable_snd (hT.comp measurable_fst)
+  have hOnT : ∀ᵐ z ∂graphCoupling T mu, z.2 = T z.1 := by
+    change ∀ᵐ z ∂Measure.map (fun x : E => (x, T x)) mu, z.2 = T z.1
+    exact (ae_map_iff hGraphT.aemeasurable hGraphSet).2 <| by
+      filter_upwards with x
+      rfl
+  have hOnS : ∀ᵐ z ∂graphCoupling S mu, z.2 = T z.1 := by
+    rw [← hEq]
+    exact hOnT
+  have hPull : ∀ᵐ x ∂mu, S x = T x := by
+    have := ae_of_ae_map hGraphS.aemeasurable (by
+      simpa [graphCoupling] using hOnS)
+    simpa using this
+  exact hPull.mono fun _ hx => hx.symm
+
 /-- A quadratic-optimal transport map is a measurable map whose pushforward is
 the prescribed target and whose induced graph coupling attains the quadratic
 Kantorovich optimum. -/
