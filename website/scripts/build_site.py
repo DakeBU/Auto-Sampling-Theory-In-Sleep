@@ -24,6 +24,7 @@ import harness  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
+import library_shelves  # noqa: E402
 import reader_contract_final  # noqa: E402
 import samplewiki_audit_queue  # noqa: E402
 import samplewiki_casebook_assets  # noqa: E402
@@ -152,6 +153,10 @@ def main() -> int:
     # visible, and rejects release-version branding on public Harness surfaces.
     harness.enrich_site(output)
     harness.validate_site(output)
+
+    # Add peer-level textbook shelves only after all source readers, graph views,
+    # and Harness pages have reached their final public form.
+    library_shelves.enrich_site(output)
 
     # Presentation overlays must never leave the global skip link pointing at a
     # missing anchor. This repair runs after every reader/graph overlay and before
