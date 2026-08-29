@@ -56,6 +56,7 @@ import Tests.ProgressiveL2Algebra
 import Tests.ProgressiveL2HorizonExtension
 import Tests.ProgressiveL2Truncation
 import Tests.ProgressiveL2Stopping
+import Tests.QuadraticOptimalMapUniqueness
 import Tests.RelativeFisher
 import Tests.StoppingGraphNull
 import Tests.GlobalLocalProgressiveL2
