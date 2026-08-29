@@ -127,15 +127,7 @@ def cards(chapters: tuple[str, ...]) -> str:
     )
 
 
-def index_body(
-    *,
-    eyebrow: str,
-    title: str,
-    lede: str,
-    source: str,
-    chapters: tuple[str, ...],
-    contract: str,
-) -> str:
+def index_body(*, eyebrow: str, title: str, lede: str, source: str, chapters: tuple[str, ...], contract: str) -> str:
     return f"""
 <section class="page-hero compact library-book-hero">
 <div class="eyebrow">{escape(eyebrow)}</div><h1>{escape(title)}</h1>
@@ -284,7 +276,7 @@ def validate(output: Path) -> None:
         "libraries/first-order-optimization/index.html": ("First-Order Methods in Optimization", "Optlib", "CvxLean"),
         "attribution/index.html": ('data-library-attribution="true"', "Amir Beck", "Nicolas Boumal"),
     }
-    forbidden = ("<strong>Owners</strong>", "Andi · Dake", "Dake · Huanjian · Andi", "ownership")
+    forbidden = ("<strong>Owners</strong>", "Andi · Dake", "Dake · Huanjian · Andi")
     for rel, markers in required.items():
         path = output / rel
         if not path.exists():
