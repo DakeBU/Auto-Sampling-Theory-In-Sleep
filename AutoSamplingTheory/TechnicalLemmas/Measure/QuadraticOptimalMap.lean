@@ -3,7 +3,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolation
 /-!
 # Quadratic optimal transport maps
 
-This module makes the Monge object explicit.  A measurable map `T` induces the
+This module makes the Monge object explicit. A measurable map `T` induces the
 joint law `(id, T) # mu`; when that graph coupling is quadratic-optimal and its
 second marginal is `nu`, we call `T` a quadratic-optimal transport map.
 
@@ -39,11 +39,11 @@ theorem isCoupling_graphCoupling
     (hT : Measurable T) (hmap : Measure.map T mu = nu) :
     IsCoupling (graphCoupling T mu) mu nu := by
   have hGraph : Measurable (fun x : E => (x, T x)) :=
-    measurable_id.prod_mk hT
+    measurable_id.prodMk hT
   constructor
-  · rw [Measure.fst, graphCoupling, Measure.map_map hGraph measurable_fst]
+  · rw [Measure.fst, graphCoupling, Measure.map_map measurable_fst hGraph]
     simpa [Function.comp_def]
-  · rw [Measure.snd, graphCoupling, Measure.map_map hGraph measurable_snd]
+  · rw [Measure.snd, graphCoupling, Measure.map_map measurable_snd hGraph]
     simpa [Function.comp_def] using hmap
 
 /-- Equality of two measurable graph couplings determines the underlying maps
@@ -55,9 +55,9 @@ theorem ae_eq_of_graphCoupling_eq
     (hEq : graphCoupling T mu = graphCoupling S mu) :
     T =ᵐ[mu] S := by
   have hGraphT : Measurable (fun x : E => (x, T x)) :=
-    measurable_id.prod_mk hT
+    measurable_id.prodMk hT
   have hGraphS : Measurable (fun x : E => (x, S x)) :=
-    measurable_id.prod_mk hS
+    measurable_id.prodMk hS
   have hGraphSet : MeasurableSet {z : E × F | z.2 = T z.1} :=
     measurableSet_eq_fun measurable_snd (hT.comp measurable_fst)
   have hOnT : ∀ᵐ z ∂graphCoupling T mu, z.2 = T z.1 := by
