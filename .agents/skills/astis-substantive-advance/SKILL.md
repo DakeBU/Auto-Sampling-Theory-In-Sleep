@@ -2,7 +2,7 @@
 
 Use this packet for one Universal Worker and one source-backed theorem-DAG
 advance. Delete fields that truly do not apply, but never hide a truth boundary,
-source gap, compiler failure, or unchanged route.
+source gap, compiler failure, unchanged route, or source-to-Lean semantic delta.
 
 A Worker is not a narrow proof-script executor. It may cross source reading,
 mathematical derivation, library retrieval, counterexample search, Lean editing,
@@ -18,6 +18,7 @@ mode: faithfulPaper | exploratoryProof
 frontier_cell:
 goal:
 source_anchor:
+semantic_roundtrip_required: true | false
 active_dag_slice:
   parents: []
   consumers: []
@@ -91,6 +92,12 @@ focused_checks:
   - command:
     result:
 source_fidelity:
+semantic_roundtrip:
+  required:
+  audit_id:
+  state: not-applicable | draft | blind-reconstructed | semantic-diffed | source-reviewed | accepted | rejected
+  verdict:
+  remaining_semantic_delta:
 truth_boundary:
 route_fingerprint:
 progress_signature:
@@ -128,6 +135,32 @@ For `BLOCKED`, use `result_kind: strict-obstruction` and provide a typed blocker
 strict reduction, plus at least one smaller next delta, retired route,
 counterexample, or minimal reproducer.
 
+## Source-facing semantic addendum
+
+A source-facing theorem is not assimilated merely because its Lean declaration
+compiles. When `semantic_roundtrip_required: true`, open or update an audit in
+`research-wiki/semantic-roundtrip/registry.json` and follow
+`.agents/skills/astis-semantic-roundtrip/SKILL.md`.
+
+The formalizer may prepare the draft audit, but cannot serve as the blind
+decoder or source reviewer. Export the anonymous decoder packet and the later
+anti-anchored review packet through:
+
+```bash
+python3 tools/astis_semantic_roundtrip.py decoder-packet \
+  --audit-id ASTIS-RT-... \
+  --output runs/semantic-roundtrip/ASTIS-RT-....decoder.json
+python3 tools/astis_semantic_roundtrip.py reviewer-packet \
+  --audit-id ASTIS-RT-... \
+  --output runs/semantic-roundtrip/ASTIS-RT-....review.json
+python3 tools/astis_semantic_roundtrip.py check
+```
+
+A repair proposal is evidence about a source gap; it is not permission to mutate
+`faithfulPaper`. Until independent source review accepts it, keep the pinned
+source theorem, Lean target, semantic delta, and proposed repair separately
+visible.
+
 ## Independent verification addendum
 
 The proving Worker cannot publish `VERIFIED`. An independent verifier records:
@@ -137,11 +170,13 @@ verifier_id:
 verified_commit:
 gate:
 source_audit:
+semantic_roundtrip_audit:
 fake_closure_scan:
 ```
 
-A green local helper is not enough if it only restates a supplied assumption or
-does not exercise the named declaration.
+A green local helper is not enough if it only restates a supplied assumption,
+does not exercise the named declaration, or proves a Lean proposition whose
+fidelity to the source remains unaudited.
 
 ## Stabilization addendum
 
@@ -150,5 +185,5 @@ Only the designated stabilization owner may:
 - clean-port onto current `main`;
 - edit shared aggregators and root tests;
 - resolve duplicate theorem names;
-- update Registry, graph, source, and site surfaces;
+- update Registry, graph, source, semantic-roundtrip, and site surfaces;
 - declare `STABILIZING` or `MERGED` with gate evidence.

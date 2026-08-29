@@ -14,13 +14,18 @@ on:
       - "lake-manifest.json"
       - "tools/astis.py"
       - "tools/astis_advance.py"
+      - "tools/astis_semantic_roundtrip.py"
       - "tools/astis_site.py"
       - "tools/astis_source.py"
       - "tools/tests/test_astis_advance.py"
+      - "tools/tests/test_astis_semantic_roundtrip.py"
+      - "tools/tests/test_underlying_lean_graph.py"
       - "tools/tests/test_harness_site.py"
+      - "research-wiki/semantic-roundtrip/**"
       - "README.md"
       - "docs/**"
       - ".agents/skills/astis-substantive-advance/**"
+      - ".agents/skills/astis-semantic-roundtrip/**"
       - ".github/workflows/blueprint-site.yml"
   pull_request:
     paths:
@@ -34,13 +39,18 @@ on:
       - "lake-manifest.json"
       - "tools/astis.py"
       - "tools/astis_advance.py"
+      - "tools/astis_semantic_roundtrip.py"
       - "tools/astis_site.py"
       - "tools/astis_source.py"
       - "tools/tests/test_astis_advance.py"
+      - "tools/tests/test_astis_semantic_roundtrip.py"
+      - "tools/tests/test_underlying_lean_graph.py"
       - "tools/tests/test_harness_site.py"
+      - "research-wiki/semantic-roundtrip/**"
       - "README.md"
       - "docs/**"
       - ".agents/skills/astis-substantive-advance/**"
+      - ".agents/skills/astis-semantic-roundtrip/**"
       - ".github/workflows/blueprint-site.yml"
   merge_group:
   workflow_dispatch:
@@ -74,18 +84,20 @@ jobs:
         run: |
           python3 -m compileall -q tools website/scripts
 
-      - name: Test website, Harness, and source-reader contracts
+      - name: Test website, Harness, source-reader, and semantic contracts
         run: |
           python3 -m unittest \
             tools.tests.test_astis_site \
             tools.tests.test_astis_source \
             tools.tests.test_astis_advance \
+            tools.tests.test_astis_semantic_roundtrip \
             tools.tests.test_harness_site \
             tools.tests.test_lean_tutor \
             tools.tests.test_undergrad_guides \
             tools.tests.test_chewi_source_first_contract \
             tools.tests.test_chewi_source_first_refinement \
-            tools.tests.test_samplewiki_reader_contract
+            tools.tests.test_samplewiki_reader_contract \
+            tools.tests.test_underlying_lean_graph
           node --check website/static/site.js
           node --check website/static/ide.js
           node --check website/static/lean-tutor.js
@@ -94,6 +106,9 @@ jobs:
 
       - name: Validate canonical Chewi source edition
         run: python3 tools/astis.py chewi-source-check
+
+      - name: Validate source-to-Lean semantic round trips
+        run: python3 tools/astis_semantic_roundtrip.py check
 
       - name: Build source-derived site
         shell: bash
