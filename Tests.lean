@@ -6,6 +6,7 @@ import Tests.VectorBrownianFiltration
 import Tests.EuclideanBrownianCoordinates
 import Tests.CarreDuChamp
 import Tests.CoefficientTruncation
+import Tests.ContinuousCostWeakLowerSemicontinuity
 import Tests.DisplacementInterpolation
 import Tests.DisplacementJacobianEntropy
 import Tests.DiscreteDoobL2
