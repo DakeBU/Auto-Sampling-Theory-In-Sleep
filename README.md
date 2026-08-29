@@ -2,7 +2,7 @@
 
 # Auto-Sampling-Theory-In-Sleep
 
-### A Hierarchical Automated Theorem Proving and Semantic Auditing System for Sampling Theory
+### A Lean Formal Knowledge Graph and Theorem-Driven Workflow for Sampling Theory
 
 [![Samplinglib](https://img.shields.io/badge/Samplinglib-verified_sampling_theory-155EEF?style=flat-square)](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
 [![Lean 4](https://img.shields.io/badge/Lean-4-6B4FBB?style=flat-square)](https://lean-lang.org/)
@@ -12,105 +12,74 @@
 [**Samplinglib**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
 · [**Textbook**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/textbook/chapter-01/section-1-2.html)
 · [**Underlying Lean Graph**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/underlying-lean-graph/)
-· [**Semantic Fidelity & Repair**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/lean-foundations.html?view=semantic)
+· [**Theorem Fidelity**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/lean-foundations.html?view=semantic)
 · [**Harness**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/workflow/)
 
 </div>
 
-ASTIS turns sampling-theory mathematics into **source-backed Lean declarations, reusable formal memory, an inspectable theorem graph, and auditable source↔Lean semantic contracts**. We want both beginners and experts to see not only whether a Lean proposition is correct, but whether it is still the theorem the source intended, where it sits in the field, and what mathematical structure a new result actually adds.
+ASTIS builds **Samplinglib**: a source-backed Lean library and reader-facing formal graph for sampling theory. The goal is not only to make individual proofs compile. We want the mathematical dependencies of the field to become explicit enough that beginners can follow them, experts can inspect them, and new results can be understood by what they actually add to the existing structure.
 
-## Four contributions
+## Three contributions
 
-### 1. ASTIS Harness — theorem-sized AI research with Lean truth
+### 1. Samplinglib — verified memory and a structural map of sampling theory
 
-Universal Workers own a mathematical advance end to end; dynamic Frontier Cells parallelize nearby proof work; a Thin Master handles only cross-frontier joins and conflicts. Independent Lean/source verification and a single stabilization lane prevent fluent AI reasoning from being mistaken for shared mathematical truth.
-
-<p align="center">
-  <img src="website/static/astis-harness-evolution.svg" alt="Earlier and current ASTIS Harness architectures" width="940">
-</p>
-
-### 2. Samplinglib — verified memory and a structural map of sampling theory
-
-Samplinglib aligns **natural-language mathematics ↔ Lean declarations ↔ dependency graph**. Its first program follows Sinho Chewi's *Log-Concave Sampling*, while the SampleWiki lane attaches frontier results to the same reusable graph; readers can inspect calculation routes, hidden analytic assumptions, exact Lean foundations, and the Underlying Lean Graph.
+Samplinglib aligns **natural-language mathematics ↔ Lean declarations ↔ theorem dependencies**. Its first large program follows Sinho Chewi's *Log-Concave Sampling*; the SampleWiki lane attaches frontier sampling results to the same reusable library. Readers can move between the source exposition, the formal statement, its prerequisites, and the later results that reuse it.
 
 <p align="center">
   <img src="website/static/samplinglib-architecture.svg" alt="Samplinglib architecture" width="940">
 </p>
 
-### 3. Theorem Fidelity Checker — did Lean prove the theorem we meant?
+The formal graph is part of the product, not a visualization added afterward. A theorem is a node; the facts it genuinely uses form incoming edges; reusable consequences form outgoing edges. This gives us a concrete way to **digest new results**. Instead of reading a new paper only as an isolated theorem and proof, we can ask where its mathematics attaches to the existing graph and what topology it changes.
 
-Lean compilation establishes that the formal proposition is proved; it does **not** establish that the proposition faithfully represents its source. ASTIS therefore audits the round trip
+A new result might add another leaf on a known branch, create a bridge between previously separate branches, replace a long route by a shorter reusable argument, weaken an assumption so that many downstream results become available, or introduce a new hub that reorganizes a whole part of the proof spine. Those are very different mathematical contributions even when their paper-level theorem statements look superficially similar. The graph is not meant to produce an automatic ranking of papers; it is an auditable substrate for seeing **what new mathematical mechanism was actually added**.
 
-```text
-original theorem (text)
-  -> compiled Lean statement
-  -> blind reconstructed theorem (text)
-  -> seven-slot semantic diff
-  -> independent source review
-```
-
-The Lean-to-text decoder receives an anonymous packet: no original theorem, source identity, theorem number, audit ID, Lean file/declaration identity, prior semantic audit, or repair proposal. ASTIS then compares mathematical objects, domains, quantifiers, assumptions, conclusion, scopes/senses of equality, and constant dependencies. Verdicts distinguish exact equivalence from explicit elaboration, strengthened Lean assumptions, weakened conclusions, domain or quantifier mismatch, source underspecification, and possible source error. Text similarity is never treated as theorem equivalence.
-
-### 4. Lean Theorem Denoiser — expose hidden assumptions without rewriting history
-
-Formalization can reveal omitted measurability, integrability, smoothness, positivity, boundary, representative, or constant-dependence conditions. ASTIS converts such discrepancies into **minimal repair proposals** with a reconstructed statement, justification, minimality evidence, and reference or counterexample. A proposal remains separate from the pinned source theorem and becomes accepted only after independent source review; a condition introduced merely because one Lean proof route needed it is marked as a formalization-artifact risk and cannot silently mutate a faithful source statement.
-
-The machine-readable contract lives in [`research-wiki/semantic-roundtrip/registry.json`](research-wiki/semantic-roundtrip/registry.json), the protocol is documented in [`research-wiki/semantic-roundtrip/README.md`](research-wiki/semantic-roundtrip/README.md), and the same evidence appears as a dedicated **Semantic fidelity & repair** view in the Underlying Lean Graph.
-
-## Semantic round-trip gate
-
-```bash
-# Reject source-visible decoders, incomplete semantic slots,
-# self-approved reviews, and unsupported accepted repairs.
-python3 tools/astis_semantic_roundtrip.py check
-
-# Inspect fidelity and repair counts.
-python3 tools/astis_semantic_roundtrip.py summary
-
-# Export an anonymous decoder packet that contains the Lean proposition but no
-# source/audit/declaration identity.
-python3 tools/astis_semantic_roundtrip.py decoder-packet \
-  --audit-id ASTIS-RT-... \
-  --output runs/semantic-roundtrip/ASTIS-RT-....decoder.json
-
-# After blind reconstruction, export an anti-anchored independent-review packet.
-python3 tools/astis_semantic_roundtrip.py reviewer-packet \
-  --audit-id ASTIS-RT-... \
-  --output runs/semantic-roundtrip/ASTIS-RT-....review.json
-```
-
-The canonical lifecycle is therefore:
-
-```text
-discovered -> sourcePinned -> normalized -> leanTarget -> compiled
-           -> blindReconstructed -> semanticDiffed -> sourceReviewed -> assimilated
-```
-
-`compiled` is not synonymous with `sourceReviewed`, and a proposed denoising repair is not synonymous with a corrected source theorem.
-
-## Why a formal graph?
+We also expect the library itself to be periodically **re-organized and compressed**: duplicated local lemmas can be factored into common interfaces, unnecessarily long dependency paths can be shortened, and a collection of theorem branches can be exposed as one cleaner reusable spine. We treat this graph compression as re-organization of existing formal knowledge, distinct from claiming that it is new mathematics.
 
 <p align="center">
-  <img src="website/static/astis-formal-graph-value.svg" alt="From AI proof text to Lean-verified graph contributions" width="940">
+  <img src="website/static/astis-formal-graph-value.svg" alt="How new mathematics changes the formal theorem graph" width="940">
 </p>
 
-A new theorem can then be read structurally: **another leaf, a bridge, a shortcut, a reusable hub, or a reorganization of the field's proof spine**. Its source-facing declaration can additionally be inspected for semantic fidelity, hidden assumptions, and reviewed repairs. This gives a sharper lens on mathematical contribution than isolated theorem/proof text or a green Lean build alone.
+### 2. ASTIS Harness — how theorem-sized advances enter the shared graph
+
+The Harness is the workflow used to turn an open mathematical dependency into a stable Samplinglib node. The unit of work is a **Frontier Cell**: one theorem-sized advance with an exact target statement, known parent nodes, a clear truth boundary, and a focused test. One **Universal Worker** owns that cell end to end. It may read the source, search Mathlib and Samplinglib, try proofs, repair an interface, construct a counterexample, or split the problem further; those are activities inside one mathematical task rather than fixed roles that work must be handed through.
+
+Independent Frontier Cells can move in parallel. If a proof hits a real blocker, the worker isolates a **strictly smaller child cell**—for example a missing analytic lemma or API bridge—and returns to the original theorem once that child has been verified. Useful lemmas, failed routes, blocker boundaries, and dependency discoveries are written to shared graph memory so that another worker does not have to rediscover them. The **Thin Master** only chooses frontiers, resolves cross-cell conflicts and joins, and controls publication order.
+
+<p align="center">
+  <img src="website/static/astis-harness-current.svg" alt="Current ASTIS Harness theorem-driven workflow" width="980">
+</p>
+
+Before a result becomes shared library truth, it goes through independent theorem review and then a **single stabilization lane**. The exact reviewed head must still compile through its focused test and the repository root build, and the public imports and graph/index views are regenerated from that same result. This is intentionally serialized: mathematical exploration can be parallel, but there should be one unambiguous version of what Samplinglib currently claims.
+
+In short, the state transition we care about is
+
+```text
+claimed -> proved locally -> independently verified -> stabilized -> merged
+                   \
+                    -> blocked -> smaller child theorem -> verified -> re-entry
+```
+
+The important invariant is not how many agents are running. It is that every published node has an explicit statement, dependencies, evidence, ownership, and a stable place in the graph.
+
+### 3. Theorem fidelity and denoising
+
+Lean can correctly prove the wrong formalization of a source theorem, so source-facing nodes receive a separate statement review: do the mathematical objects, domains, quantifiers, assumptions and conclusion still express what we meant to formalize? The same review also exposes assumptions or statement clutter introduced only by a particular Lean proof route. We call that second task **denoising**. It can motivate a cleaner reusable interface or an explicit follow-up theorem, but it does not silently rewrite the pinned source or the history of an already verified result. The detailed evidence is available in the reader's [**Theorem Fidelity**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/lean-foundations.html?view=semantic) view when it is useful.
 
 ## Attribution & design lineage
 
 | Source | What ASTIS learns from it | ASTIS-specific boundary |
 |---|---|---|
 | [Sinho Chewi, *Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) | Textbook order, theorem route, calculations, background results | Faithful ASTIS paraphrase + exact source anchors + ASTIS-owned Lean declarations; no endorsement implied |
-| [Lean-Ridgelet](https://github.com/shosonoda/lean-ridgelet) | Blueprint / implementation-map presentation | Extended from one formalization map to a sampling-theory textbook, frontier results, reusable theorem graph, and source↔Lean semantic audits |
+| [Lean-Ridgelet](https://github.com/shosonoda/lean-ridgelet) | Blueprint / implementation-map presentation | Extended from one formalization map to a sampling-theory textbook, frontier results, reusable theorem graph, and source-aware statement review |
 | [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Long-running research, recovery, separate review | The durable state is source-backed Lean theorem progress rather than plausible research narrative |
 | [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Durable failures, rejected routes, system self-improvement | Keeps negative memory without permanent intellectual role boundaries |
 | [EoH](https://github.com/FeiLiu36/EoH) | Competing candidate routes | Search is allowed only around fixed Lean-checkable targets; faithful source statements do not mutate |
-| [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) | Blueprint, proof-DAG leaves, bounded workers, deterministic gates | ASTIS makes source contracts, theorem-graph memory, semantic round trips, and sampling-analysis obligations first-class |
-| [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics and theorem-reuse ideas | Diagnostics are advisory; ASTIS's pinned Lean/source/semantic gates are authoritative |
+| [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) | Blueprint, proof-DAG leaves, bounded workers, deterministic gates | ASTIS makes theorem-graph memory, source correspondence, statement fidelity, and sampling-analysis obligations first-class |
+| [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics and theorem-reuse ideas | Diagnostics are advisory; ASTIS's pinned Lean/source checks and independent verification are authoritative |
 | [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) | Mathlib probability / concentration / functional-inequality proof idioms | External declarations become ASTIS truth only after a local audited port compiles |
-| [StatsMLlib](https://github.com/Lean-MoDS/StatsMLlib) | Subject-owned modules, reuse-first formalization | Samplinglib adds textbook correspondence, SampleWiki ingestion, semantic fidelity, and graph-level contribution views |
+| [StatsMLlib](https://github.com/Lean-MoDS/StatsMLlib) | Subject-owned modules, reuse-first formalization | Samplinglib adds textbook correspondence, SampleWiki ingestion, statement fidelity, and graph-level contribution views |
 | [FrontierAgent](https://github.com/ApodexAI/FrontierAgent) | Parallel generalist agents, bounded task boards, no-progress control | ASTIS schedules theorem-DAG advances with Lean evidence, truth boundaries, independent verification, and serialized stabilization |
-| [Quantum-Computing-Block-Encoding](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | Earlier Upper/Middle/Lower/Reviewer Harness lineage | ASTIS specializes the machinery for sampling/SDE mathematics and now uses Universal Workers + Frontier Cells |
+| [Quantum-Computing-Block-Encoding](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | Experience building automated formalization workflows | ASTIS specializes the machinery for sampling/SDE mathematics with theorem-sized Universal Workers and Frontier Cells |
 
 Full provenance and boundaries: [docs/attribution.md](docs/attribution.md).
 
@@ -118,8 +87,8 @@ Full provenance and boundaries: [docs/attribution.md](docs/attribution.md).
 
 ```bibtex
 @misc{bu2026astis,
-  title        = {Auto-Sampling-Theory-In-Sleep: A Hierarchical Automated
-                  Theorem Proving System for Sampling Theory},
+  title        = {Auto-Sampling-Theory-In-Sleep: A Lean Formal Knowledge Graph
+                  and Theorem-Driven System for Sampling Theory},
   author       = {Dake Bu and Ji Cheng and Atsushi Nitanda and
                   Hau-San Wong and Qingfu Zhang},
   year         = {2026},
@@ -134,7 +103,6 @@ Full provenance and boundaries: [docs/attribution.md](docs/attribution.md).
 git clone https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep.git
 cd Auto-Sampling-Theory-In-Sleep
 python3 tools/astis.py check
-python3 tools/astis_semantic_roundtrip.py check
 ```
 
 **Organizers:** Dake Bu, Ji Cheng, Atsushi Nitanda, Hau-San Wong, Qingfu Zhang
