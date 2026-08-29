@@ -4,7 +4,11 @@
     "name": "ASTIS Semantic Round-Trip",
     "status": "active",
     "decoder_blindness": "required",
+    "decoder_context_content_scan": "required",
     "independent_source_review": "required",
+    "source_review_packet_binding": "required",
+    "independent_repair_review": "required",
+    "repair_review_packet_binding": "required",
     "decoder_allowed_inputs": [
       "lean-statement",
       "approved-definition-context"
@@ -30,7 +34,7 @@
       "source-underspecified",
       "possible-source-error"
     ],
-    "repair_policy": "A repair is a separately reviewed proposal. It never overwrites or silently weakens the pinned source theorem, and formalization artifacts may not be accepted as source corrections."
+    "repair_policy": "A repair is a separately reviewed proposal. It never overwrites or silently weakens the pinned source theorem, and formalization artifacts may not be accepted as source corrections. Every reviewed repair is bound to its exact proposal payload and an independent repair-review packet."
   },
   "audits": []
 }
