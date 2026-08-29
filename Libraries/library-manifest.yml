@@ -1,9 +1,10 @@
-schema_version: 1
+schema_version: 2
 libraries:
   - id: log-concave-sampling
     title: Log-Concave Sampling
     kind: textbook
     source: https://chewisinho.github.io/main.pdf
+    official_supplement: https://chewisinho.github.io/supp.pdf
     priority: active
     site: /textbook/
   - id: samplewiki
@@ -19,10 +20,11 @@ libraries:
     priority: scaffold
     chapters: 11
     site: /libraries/riemannian-optimization/
-  - id: first-order-optimization
-    title: First-Order Optimization
-    kind: textbook-plus-upstreams
-    source: https://epubs.siam.org/doi/book/10.1137/1.9781611974997
+  - id: optimisation
+    title: Optimisation
+    kind: public-lecture-notes-plus-upstreams
+    source: https://arxiv.org/pdf/2605.07006
     priority: scaffold
-    chapters: 15
-    site: /libraries/first-order-optimization/
+    chapters: 13
+    appendices: 1
+    site: /libraries/optimisation/

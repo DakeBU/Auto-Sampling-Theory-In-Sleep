@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Add peer-level Boumal and Beck textbook shelves to Samplinglib."""
+"""Add peer-level Boumal and Chewi optimisation shelves to Samplinglib.
+
+The generated library pages deliberately inherit the same presentation stack as
+Log-Concave Sampling.  They are not a second mini-site with their own theme.
+"""
 
 from __future__ import annotations
 
@@ -16,6 +20,7 @@ SOURCE_CSS = ROOT / "website" / "static" / "library-shelves.css"
 STYLE_NAME = "library-shelves.css"
 
 BOUMAL_URL = "https://www.nicolasboumal.net/book/"
+CHEWI_OPT_URL = "https://arxiv.org/pdf/2605.07006"
 BECK_URL = "https://epubs.siam.org/doi/book/10.1137/1.9781611974997"
 OPTLIB_URL = "https://github.com/optsuite/optlib"
 CVXLEAN_URL = "https://github.com/verified-optimization/CvxLean"
@@ -34,23 +39,24 @@ BOUMAL = (
     "Geodesic convexity",
 )
 
-BECK = (
-    "Vector spaces",
-    "Extended real-valued functions",
-    "Subgradients",
-    "Conjugate functions",
-    "Smoothness and strong convexity",
-    "The proximal operator",
-    "Spectral functions",
-    "Primal and dual projected subgradient methods",
-    "Mirror descent",
-    "The proximal gradient method",
-    "The block proximal gradient method",
-    "Dual-based proximal gradient methods",
-    "The generalized conditional gradient method",
-    "Alternating minimization",
-    "ADMM",
+OPTIMISATION = (
+    ("01", "Introduction and basics of convex functions", "§1", 3),
+    ("02", "Gradient flow", "§2", 12),
+    ("03", "Gradient descent: smooth case", "§3", 18),
+    ("04", "Lower bounds for smooth optimization", "§4", 24),
+    ("05", "Acceleration", "§5", 29),
+    ("06", "Non-smooth convex optimization", "§6", 39),
+    ("07", "Frank-Wolfe", "§7", 57),
+    ("08", "Proximal methods", "§8", 61),
+    ("09", "Fenchel duality", "§9", 67),
+    ("10", "Mirror methods", "§10", 76),
+    ("11", "Alternating minimization", "§11", 90),
+    ("12", "Stochastic optimization", "§12", 104),
+    ("13", "Interior point methods", "§13", 127),
+    ("A", "Background on symmetric matrices", "Appendix A", 140),
 )
+
+CANONICAL_THEME_PAGE = "textbook/index.html"
 
 
 def prefix(rel: str) -> str:
@@ -69,7 +75,7 @@ def libraries_sidebar(rel: str) -> str:
     <a class="source-hub" href="{p}textbook/index.html"{current(rel, "textbook/")}><span class="source-hub-title">Log-Concave Sampling</span><small>Chewi · textbook graph</small></a>
     <a class="source-hub" href="{p}example-cases/samplewiki.html"{current(rel, "example-cases/samplewiki")}><span class="source-hub-title">SampleWiki</span><small>sampling frontier cases</small></a>
     <a class="source-hub" href="{p}libraries/riemannian-optimization/index.html"{current(rel, "libraries/riemannian-optimization/")}><span class="source-hub-title">Riemannian Optimization</span><small>Boumal · 11 chapters</small></a>
-    <a class="source-hub" href="{p}libraries/first-order-optimization/index.html"{current(rel, "libraries/first-order-optimization/")}><span class="source-hub-title">First-Order Optimization</span><small>Beck · Optlib · CvxLean</small></a>
+    <a class="source-hub" href="{p}libraries/optimisation/index.html"{current(rel, "libraries/optimisation/")}><span class="source-hub-title">Optimisation</span><small>Chewi · arXiv:2605.07006</small></a>
   </nav>
 </section>"""
 
@@ -85,7 +91,7 @@ def replace_sidebar(text: str, rel: str) -> str:
     if start < 0 or end < 0:
         raise RuntimeError(f"{rel}: sidebar not found")
     p = prefix(rel)
-    fallback = f"""<div class="sidebar-contents" data-library-shelves="1">
+    fallback = f"""<div class="sidebar-contents" data-ia-version="2" data-library-shelves="1">
 {libraries_sidebar(rel)}
 <section class="sidebar-group"><h2>Proof graph</h2><nav>
 <a href="{p}lean-foundations.html">Proof Atlas</a>
@@ -100,6 +106,39 @@ def replace_sidebar(text: str, rel: str) -> str:
 </div>
 """
     return text[:start] + fallback + text[end:]
+
+
+def stylesheet_names(text: str) -> list[str]:
+    return [
+        Path(value).name
+        for value in re.findall(r'<link\s+rel="stylesheet"\s+href="([^"]+)"', text)
+    ]
+
+
+def canonical_theme_styles(output: Path) -> list[str]:
+    canonical = output / CANONICAL_THEME_PAGE
+    if not canonical.exists():
+        raise RuntimeError(f"canonical Samplinglib theme page missing: {CANONICAL_THEME_PAGE}")
+    names = stylesheet_names(canonical.read_text(encoding="utf-8"))
+    if "site.css" not in names or "information-architecture.css" not in names:
+        raise RuntimeError("canonical Samplinglib theme stack is incomplete")
+    return names
+
+
+def inherit_canonical_theme(text: str, rel: str, output: Path) -> str:
+    """Give generated library pages exactly the Chewi reader presentation stack."""
+    existing = set(stylesheet_names(text))
+    additions = []
+    for name in canonical_theme_styles(output):
+        if name in existing:
+            continue
+        additions.append(f'  <link rel="stylesheet" href="{prefix(rel)}assets/{escape(name)}">')
+        existing.add(name)
+    if additions:
+        if "</head>" not in text:
+            raise RuntimeError(f"{rel}: missing </head> while inheriting canonical theme")
+        text = text.replace("</head>", "\n".join(additions) + "\n</head>", 1)
+    return text
 
 
 def add_style(text: str, rel: str) -> str:
@@ -127,6 +166,21 @@ def cards(chapters: tuple[str, ...]) -> str:
     )
 
 
+def optimisation_cards() -> str:
+    rows = []
+    for chapter_id, title, source_section, _ in OPTIMISATION:
+        href = "appendix-a.html" if chapter_id == "A" else f"chapter-{chapter_id}.html"
+        rows.append(
+            f"""<article class="library-chapter-card">
+<div class="library-chapter-number">{escape(chapter_id)}</div>
+<div><div class="card-meta">{badge("scaffold")}</div>
+<h2><a href="{href}">{escape(title)}</a></h2>
+<p>{escape(source_section)} of Chewi's public lecture notes · source map and Lean correspondence pending.</p></div>
+</article>"""
+        )
+    return "".join(rows)
+
+
 def index_body(*, eyebrow: str, title: str, lede: str, source: str, chapters: tuple[str, ...], contract: str) -> str:
     return f"""
 <section class="page-hero compact library-book-hero">
@@ -145,12 +199,12 @@ def index_body(*, eyebrow: str, title: str, lede: str, source: str, chapters: tu
 """
 
 
-def chapter_body(library: str, number: int, title: str, source: str, upstream: str) -> str:
+def chapter_body(library: str, number: str, title: str, source: str, upstream: str, source_label: str = "Primary source") -> str:
     return f"""
 <section class="page-hero compact library-chapter-hero">
-<div class="eyebrow">{escape(library)} · Chapter {number:02d}</div>
+<div class="eyebrow">{escape(library)} · {escape(number)}</div>
 <h1>{escape(title)}</h1>
-<p class="lede">Stable source-facing chapter environment for the shared Samplinglib graph.</p>
+<p class="lede">Stable source-facing chapter environment inside the shared Samplinglib reader.</p>
 <div class="tag-row">{badge("scaffold")}<span>source map</span><span>Lean graph pending</span></div>
 </section>
 <section class="library-chapter-contract">
@@ -159,25 +213,37 @@ def chapter_body(library: str, number: int, title: str, source: str, upstream: s
 <article><span>01</span><h3>Source audit</h3><p>Definitions, theorems, assumptions, proof route, and exact anchors.</p></article>
 <article><span>02</span><h3>Upstream alignment</h3><p>{escape(upstream)}</p></article>
 <article><span>03</span><h3>Frontier Cells</h3><p>Only genuinely missing mathematical edges become theorem-sized tasks.</p></article>
-<article><span>04</span><h3>Graph placement</h3><p>Dependencies, consumers, cross-library bridges, and compression candidates.</p></article>
-</div><p><a href="{escape(source)}">Primary source ↗</a></p>
+<article><span>04</span><h3>Graph placement</h3><p>Dependencies, consumers, cross-library bridges, and reusable shared interfaces.</p></article>
+</div><p><a href="{escape(source)}">{escape(source_label)} ↗</a></p>
 </section>
 <section class="ia-project-note">This page establishes a stable source route and truth boundary; it does not claim a completed formalization.</section>
 """
+
+
+def write_redirect(output: Path, rel: str, target: str, title: str) -> None:
+    p = prefix(rel)
+    body = f"""
+<section class="page-hero compact"><div class="eyebrow">Samplinglib · moved</div>
+<h1>{escape(title)}</h1><p class="lede">This historical route now points to the public Optimisation formalization based on Sinho Chewi's lecture notes.</p>
+<p><a class="button primary" href="{escape(target)}">Open Optimisation</a></p></section>
+"""
+    text = astis_site.page(title, rel, body, active="Libraries")
+    text = text.replace("</head>", f'  <meta http-equiv="refresh" content="0; url={escape(target)}">\n</head>', 1)
+    astis_site.write_page(output, rel, text)
 
 
 def write_pages(output: Path) -> None:
     home = """
 <section class="page-hero compact library-index-hero">
 <div class="eyebrow">Samplinglib · four first-class libraries</div>
-<h1>One formal graph across sampling and optimization.</h1>
-<p class="lede">Textbooks provide stable coordinate systems; SampleWiki inserts frontier results into the same reusable theorem graph.</p>
+<h1>One formal graph across sampling and optimisation.</h1>
+<p class="lede">Public mathematical sources provide stable coordinate systems; SampleWiki inserts frontier results into the same reusable theorem graph.</p>
 </section>
 <section class="library-index-grid">
-<article class="library-index-card library-active"><div class="portal-kicker">Textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph.</p><a class="button primary" href="../textbook/index.html">Open textbook</a></article>
+<article class="library-index-card library-active"><div class="portal-kicker">Textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph, including the official Chapter 2 supplement.</p><a class="button primary" href="../textbook/index.html">Open textbook</a></article>
 <article class="library-index-card library-active"><div class="portal-kicker">Research frontier</div><h2>SampleWiki</h2><p>Source-pinned frontier results inserted into the reusable graph.</p><a class="button primary" href="../example-cases/samplewiki.html">Open SampleWiki</a></article>
 <article class="library-index-card"><div class="portal-kicker">Chapter scaffold</div><h2>Riemannian Optimization</h2><p>Boumal's eleven-chapter geometry and optimization route.</p><a class="button" href="riemannian-optimization/index.html">Open library</a></article>
-<article class="library-index-card"><div class="portal-kicker">Scaffold + upstream reuse</div><h2>First-Order Optimization</h2><p>Beck aligned with Optlib and CvxLean.</p><a class="button" href="first-order-optimization/index.html">Open library</a></article>
+<article class="library-index-card"><div class="portal-kicker">Public arXiv notes + upstream reuse</div><h2>Optimisation</h2><p>Formalising Sinho Chewi's <em>Lectures on Optimization</em>, with Mathlib, Optlib and CvxLean searched before new proofs.</p><a class="button" href="optimisation/index.html">Open library</a></article>
 </section>
 <section class="ia-project-note"><strong>Truth boundary.</strong> Scaffold means public chapter routes and source boundaries, not completed Lean proofs.</section>
 """
@@ -194,59 +260,76 @@ def write_pages(output: Path) -> None:
     astis_site.write_page(output, "libraries/riemannian-optimization/index.html", astis_site.page("Riemannian Optimization", "libraries/riemannian-optimization/index.html", boumal, active="Libraries"))
     for i, title in enumerate(BOUMAL, 1):
         path = f"libraries/riemannian-optimization/chapter-{i:02d}.html"
-        body = chapter_body("Riemannian Optimization", i, title, BOUMAL_URL, "Search Mathlib and local geometry interfaces; adapt only real statement or convention differences.")
+        body = chapter_body("Riemannian Optimization", f"Chapter {i:02d}", title, BOUMAL_URL, "Search Mathlib and local geometry interfaces; adapt only real statement or convention differences.")
         astis_site.write_page(output, path, astis_site.page(f"Riemannian Optimization {i}: {title}", path, body, active="Libraries"))
 
-    beck = index_body(
-        eyebrow="First-Order Optimization Library · Beck",
-        title="First-Order Methods in Optimization",
-        lede="A convex-analysis and algorithm graph connected to Optlib theorem nodes and CvxLean problem transformations.",
-        source=BECK_URL,
-        chapters=BECK,
-        contract="Classify every source node as reuse, adapt, missing, or out of scope. Keep upstream provenance and toolchain adapters explicit.",
-    ) + f"""
-<section><div class="section-heading"><span>Formal upstreams</span><h2>Audited sources, not opaque copies.</h2></div>
+    optimisation = f"""
+<section class="page-hero compact library-book-hero">
+<div class="eyebrow">Optimisation Library · Sinho Chewi</div><h1>Lectures on Optimization</h1>
+<p class="lede">A public theorem-proof formalization route following arXiv:2605.07006 section by section.</p>
+<div class="library-meta-row"><span><strong>Status</strong>chapter environment established</span><a href="{CHEWI_OPT_URL}">Primary arXiv source ↗</a></div>
+</section>
+<section class="library-integration-note">
+<div class="section-heading"><span>Source hierarchy</span><h2>Chewi is the formalization target; Beck is background.</h2></div>
+<p>Chewi's notes are the controlling public source. The notes themselves state that they are primarily based on Bubeck (2015), Beck (2017), and Nesterov (2018). Those works remain attributed background and cross-check references. Mathlib, Optlib, and CvxLean are searched before new Lean declarations are introduced.</p>
+<div class="library-status-key">{badge("reuse", "blue")}{badge("adapt", "yellow")}{badge("missing", "orange")}{badge("out of scope")}</div>
+</section>
+<section><div class="section-heading"><span>Lecture-note contents</span><h2>13 chapters + Appendix A</h2></div><div class="library-chapter-list">{optimisation_cards()}</div></section>
+<section><div class="section-heading"><span>Formal upstreams</span><h2>Reuse checked formal mathematics before reproving it.</h2></div>
 <div class="upstream-library-grid">
 <article><h3>Optlib</h3><p>Convex analysis, proximal maps, first-order algorithms, acceleration, block methods, and ADMM.</p><a href="{OPTLIB_URL}">Open Optlib ↗</a></article>
 <article><h3>CvxLean</h3><p>Formal optimization problems, equivalence, reduction, relaxation, and verified transformations.</p><a href="{CVXLEAN_URL}">Open CvxLean ↗</a></article>
 </div></section>
 """
-    astis_site.write_page(output, "libraries/first-order-optimization/index.html", astis_site.page("First-Order Optimization", "libraries/first-order-optimization/index.html", beck, active="Libraries"))
-    for i, title in enumerate(BECK, 1):
-        path = f"libraries/first-order-optimization/chapter-{i:02d}.html"
-        body = chapter_body("First-Order Optimization", i, title, BECK_URL, "Search Mathlib, Optlib, and CvxLean; record exact matches, adapters, and missing nodes.")
-        astis_site.write_page(output, path, astis_site.page(f"First-Order Optimization {i}: {title}", path, body, active="Libraries"))
+    astis_site.write_page(output, "libraries/optimisation/index.html", astis_site.page("Optimisation", "libraries/optimisation/index.html", optimisation, active="Libraries"))
+    for chapter_id, title, source_section, page in OPTIMISATION:
+        path = "libraries/optimisation/appendix-a.html" if chapter_id == "A" else f"libraries/optimisation/chapter-{chapter_id}.html"
+        source = f"{CHEWI_OPT_URL}#page={page}"
+        number = f"{source_section} · source p. {page}"
+        body = chapter_body("Optimisation", number, title, source, "Search Mathlib, Optlib, CvxLean, and shared Samplinglib interfaces; preserve the exact Chewi statement and use a small adapter when conventions differ.", source_label="Open exact Chewi source")
+        astis_site.write_page(output, path, astis_site.page(f"Optimisation {source_section}: {title}", path, body, active="Libraries"))
+
+    write_redirect(output, "libraries/first-order-optimization/index.html", "../optimisation/index.html", "First-Order Optimization moved to Optimisation")
+    for i in range(1, 16):
+        write_redirect(output, f"libraries/first-order-optimization/chapter-{i:02d}.html", "../optimisation/index.html", "First-Order Optimization moved to Optimisation")
 
 
 def four_portals() -> str:
     return """
 <section class="source-portal-grid source-portal-grid-four" aria-label="Primary mathematical libraries">
-<article class="source-portal source-portal-book"><div class="portal-kicker">Textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph.</p><div class="portal-actions"><a class="button primary" href="textbook/index.html">Read the book</a></div></article>
+<article class="source-portal source-portal-book"><div class="portal-kicker">Textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph plus official supplement.</p><div class="portal-actions"><a class="button primary" href="textbook/index.html">Read the book</a></div></article>
 <article class="source-portal source-portal-wiki"><div class="portal-kicker">Research frontier</div><h2>SampleWiki</h2><p>Source-pinned frontier results and theorem-sized graph insertions.</p><div class="portal-actions"><a class="button primary" href="example-cases/samplewiki.html">Explore SampleWiki</a></div></article>
 <article class="source-portal source-portal-riemannian"><div class="portal-kicker">Chapter scaffold</div><h2>Riemannian Optimization</h2><p>Boumal's eleven chapters on geometry and manifold algorithms.</p><div class="portal-actions"><a class="button" href="libraries/riemannian-optimization/index.html">Open library</a></div></article>
-<article class="source-portal source-portal-optimization"><div class="portal-kicker">Scaffold + upstreams</div><h2>First-Order Optimization</h2><p>Beck's fifteen chapters aligned with Optlib and CvxLean.</p><div class="portal-actions"><a class="button" href="libraries/first-order-optimization/index.html">Open library</a></div></article>
+<article class="source-portal source-portal-optimization"><div class="portal-kicker">Public arXiv formalization</div><h2>Optimisation</h2><p>Sinho Chewi's <em>Lectures on Optimization</em> with formal-upstream reuse.</p><div class="portal-actions"><a class="button" href="libraries/optimisation/index.html">Open library</a></div></article>
 </section>
 """
 
 
+def patch_public_optimisation_names(text: str) -> str:
+    text = text.replace("libraries/first-order-optimization/index.html", "libraries/optimisation/index.html")
+    text = text.replace("First-Order Optimization", "Optimisation")
+    text = text.replace("Beck · Optlib · CvxLean", "Chewi · Optlib · CvxLean")
+    return text
+
+
 def patch_special(text: str, rel: str) -> str:
+    text = patch_public_optimisation_names(text)
     if rel == "index.html":
         text, count = re.subn(r'<section class="source-portal-grid".*?</section>', four_portals(), text, count=1, flags=re.S)
         if count != 1:
             raise RuntimeError("index.html: library portal grid not found")
         text = text.replace("Two mathematical sources feed one reusable Lean proof graph.", "Four mathematical libraries feed one reusable Lean proof graph.")
     elif rel == "lean-foundations.html":
-        text = text.replace(
-            '<div class="atlas-source-grid"><a href="textbook/index.html">Log-Concave Sampling</a><a href="example-cases/samplewiki.html">SampleWiki</a></div>',
-            '<div class="atlas-source-grid atlas-source-grid-four"><a href="textbook/index.html">Log-Concave Sampling</a><a href="example-cases/samplewiki.html">SampleWiki</a><a href="libraries/riemannian-optimization/index.html">Riemannian Optimization</a><a href="libraries/first-order-optimization/index.html">First-Order Optimization</a></div>',
-        )
+        old = '<div class="atlas-source-grid"><a href="textbook/index.html">Log-Concave Sampling</a><a href="example-cases/samplewiki.html">SampleWiki</a></div>'
+        new = '<div class="atlas-source-grid atlas-source-grid-four"><a href="textbook/index.html">Log-Concave Sampling</a><a href="example-cases/samplewiki.html">SampleWiki</a><a href="libraries/riemannian-optimization/index.html">Riemannian Optimization</a><a href="libraries/optimisation/index.html">Optimisation</a></div>'
+        text = text.replace(old, new)
     elif rel == "attribution/index.html" and 'data-library-attribution="true"' not in text:
         block = f"""
 <section class="library-attribution" data-library-attribution="true">
 <div class="section-heading"><span>Textbooks and formal upstreams</span><h2>Additional Samplinglib library sources</h2></div>
 <div class="upstream-library-grid">
 <article><h3>Nicolas Boumal</h3><p><em>An Introduction to Optimization on Smooth Manifolds</em> supplies the Riemannian route.</p><a href="{BOUMAL_URL}">Book site ↗</a></article>
-<article><h3>Amir Beck</h3><p><em>First-Order Methods in Optimization</em> supplies the first-order route.</p><a href="{BECK_URL}">SIAM page ↗</a></article>
+<article><h3>Sinho Chewi</h3><p><em>Lectures on Optimization</em> (arXiv:2605.07006) supplies the public Optimisation formalization route.</p><a href="{CHEWI_OPT_URL}">arXiv PDF ↗</a></article>
 <article><h3>Optlib</h3><p>Audited convex-analysis and algorithm theorem source.</p><a href="{OPTLIB_URL}">Repository ↗</a></article>
 <article><h3>CvxLean</h3><p>Audited optimization-problem and transformation source.</p><a href="{CVXLEAN_URL}">Repository ↗</a></article>
 </div></section>
@@ -258,11 +341,17 @@ def patch_special(text: str, rel: str) -> str:
     return text
 
 
+def is_new_library_page(rel: str) -> bool:
+    return rel == "libraries/index.html" or rel.startswith("libraries/riemannian-optimization/") or rel.startswith("libraries/optimisation/")
+
+
 def transform(output: Path) -> None:
     for path in sorted(output.rglob("*.html")):
         rel = path.relative_to(output).as_posix()
         text = patch_special(path.read_text(encoding="utf-8"), rel)
         text = replace_sidebar(text, rel)
+        if is_new_library_page(rel):
+            text = inherit_canonical_theme(text, rel, output)
         text = add_style(text, rel)
         path.write_text(text, encoding="utf-8", newline="\n")
 
@@ -270,13 +359,16 @@ def transform(output: Path) -> None:
 def validate(output: Path) -> None:
     errors: list[str] = []
     required = {
-        "index.html": ("source-portal-grid-four", "Riemannian Optimization", "First-Order Optimization"),
-        "libraries/index.html": ("four first-class libraries",),
+        "index.html": ("source-portal-grid-four", "Riemannian Optimization", "Optimisation"),
+        "libraries/index.html": ("four first-class libraries", "Optimisation"),
         "libraries/riemannian-optimization/index.html": ("An Introduction to Optimization on Smooth Manifolds", "chapter environment established"),
-        "libraries/first-order-optimization/index.html": ("First-Order Methods in Optimization", "Optlib", "CvxLean"),
-        "attribution/index.html": ('data-library-attribution="true"', "Amir Beck", "Nicolas Boumal"),
+        "libraries/optimisation/index.html": ("Lectures on Optimization", "arXiv:2605.07006", "Optlib", "CvxLean"),
+        "attribution/index.html": ('data-library-attribution="true"', "Sinho Chewi", "Nicolas Boumal"),
     }
     forbidden = ("<strong>Owners</strong>", "Andi · Dake", "Dake · Huanjian · Andi")
+    canonical_styles = set(canonical_theme_styles(output))
+    canonical_html = re.search(r"<html[^>]*>", (output / CANONICAL_THEME_PAGE).read_text(encoding="utf-8"))
+    canonical_tag = canonical_html.group(0) if canonical_html else ""
     for rel, markers in required.items():
         path = output / rel
         if not path.exists():
@@ -289,18 +381,32 @@ def validate(output: Path) -> None:
         for marker in forbidden:
             if marker in text:
                 errors.append(f"{rel}: leaked internal assignment marker {marker!r}")
+        if is_new_library_page(rel):
+            styles = set(stylesheet_names(text))
+            missing = canonical_styles - styles
+            if missing:
+                errors.append(f"{rel}: does not inherit canonical Samplinglib theme styles: {sorted(missing)}")
+            tag = re.search(r"<html[^>]*>", text)
+            if canonical_tag and (not tag or tag.group(0) != canonical_tag):
+                errors.append(f"{rel}: html theme attributes differ from Log-Concave Sampling")
+            if '<span class="brand-mark">S</span>' not in text or '<strong>Samplinglib</strong>' not in text:
+                errors.append(f"{rel}: Samplinglib brand shell differs from canonical reader")
     for i in range(1, len(BOUMAL) + 1):
         if not (output / f"libraries/riemannian-optimization/chapter-{i:02d}.html").exists():
             errors.append(f"missing Boumal chapter {i}")
-    for i in range(1, len(BECK) + 1):
-        if not (output / f"libraries/first-order-optimization/chapter-{i:02d}.html").exists():
-            errors.append(f"missing Beck chapter {i}")
+    for chapter_id, _, _, _ in OPTIMISATION:
+        rel = "libraries/optimisation/appendix-a.html" if chapter_id == "A" else f"libraries/optimisation/chapter-{chapter_id}.html"
+        if not (output / rel).exists():
+            errors.append(f"missing Optimisation source chapter {chapter_id}")
+    old = output / "libraries/first-order-optimization/index.html"
+    if not old.exists() or "../optimisation/index.html" not in old.read_text(encoding="utf-8"):
+        errors.append("historical First-Order Optimization route does not redirect to Optimisation")
     for path in output.rglob("*.html"):
         text = path.read_text(encoding="utf-8")
         start = text.find('<section class="sidebar-group sidebar-libraries"')
         stop = text.find("</section>", start)
         side = text[start:stop] if start >= 0 and stop >= 0 else ""
-        if not all(name in side for name in ("Log-Concave Sampling", "SampleWiki", "Riemannian Optimization", "First-Order Optimization")):
+        if not all(name in side for name in ("Log-Concave Sampling", "SampleWiki", "Riemannian Optimization", "Optimisation")):
             errors.append(f"{path.relative_to(output)}: incomplete Libraries sidebar")
             break
     if not (output / "assets" / STYLE_NAME).exists():

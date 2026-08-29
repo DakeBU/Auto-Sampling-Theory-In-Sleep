@@ -1,25 +1,61 @@
 # Attribution and Design Lineage
 
-ASTIS is not a copy of any single automation system. It is a Lean-first
-SDE/Sampling proof system whose design is shaped by source fidelity, hidden
-regularity, conditional laws, weak generators, KL/FI/LSI chains,
-Euler--Maruyama discretization, and the need to preserve reusable formal
-mathematical memory.
+Samplinglib distinguishes **mathematical source provenance** from **system-design lineage**. A primary mathematical source controls a source-facing theorem; an official supplement adds source material; a background textbook can recover omitted standard details or cross-check conventions; a formal upstream can be reused after compatibility is audited. None of these roles is silently substituted for another.
+
+## Mathematical source hierarchy
+
+### Log-Concave Sampling
+
+- **Primary source:** Sinho Chewi, [*Log-Concave Sampling*](https://chewisinho.github.io/main.pdf). This controls the textbook order, source-facing statements, assumptions, calculations, and source anchors.
+- **Official source supplement:** Sinho Chewi, [*Supplement to Log-Concave Sampling*](https://chewisinho.github.io/supp.pdf), dated November 2, 2024. The supplement states that it contains material omitted from the book for space. Its current contents are entirely a **Supplement to Chapter 2**: Marton's tensorization, concentration of measure, tensorization and Gozlan's theorem, metric-measure spaces and synthetic Ricci curvature, exercises, and references. Samplinglib maps all of these sections after Chapter 2.
+- **Background and rigorous-completion references:** when the book intentionally sketches standard details, ASTIS makes the hidden hypotheses explicit and cross-checks them against standard sources. Current references include Karatzas--Shreve, *Brownian Motion and Stochastic Calculus*; Protter, *Stochastic Integration and Differential Equations*; Revuz--Yor, *Continuous Martingales and Brownian Motion*; Shreve, *Stochastic Calculus for Finance II*; Steele, *Stochastic Calculus and Financial Applications*; Pavliotis, *Stochastic Processes and Applications*; Le Gall, *Brownian Motion, Martingales, and Stochastic Calculus*; Bakry--Gentil--Ledoux, *Analysis and Geometry of Markov Diffusion Operators*; van Handel, *Probability in High Dimension*; Ledoux, *The Concentration of Measure Phenomenon*; Boucheron--Lugosi--Massart, *Concentration Inequalities*; Vershynin, *High-Dimensional Probability*; Villani, *Topics in Optimal Transportation* and *Optimal Transport: Old and New*; Ambrosio--Gigli--Savaré, *Gradient Flows in Metric Spaces and in the Space of Probability Measures*; and Santambrogio, *Optimal Transport for Applied Mathematicians*.
+
+These background references do **not** replace Chewi's theorem. They are used to justify or reconstruct standard prerequisites that a compact source proof may leave implicit. Per-lemma provenance is also recorded in `website/content/implicit_prerequisites.json`.
+
+### Riemannian Optimization
+
+- **Primary source:** Nicolas Boumal, [*An Introduction to Optimization on Smooth Manifolds*](https://www.nicolasboumal.net/book/).
+- **Formal/background layer:** Mathlib and compatible Samplinglib geometry interfaces are searched before new lower-level definitions or lemmas are introduced.
+
+Boumal remains the source-facing chapter authority. A shared Lean lemma is reused across Chewi/Boumal only after the objects, hypotheses, conventions, and conclusion have been checked for semantic compatibility.
+
+### Optimisation
+
+- **Primary public source:** Sinho Chewi, [*Lectures on Optimization*](https://arxiv.org/pdf/2605.07006), May 11, 2026. This 149-page public theorem--proof document is the chapter spine that Samplinglib formalizes.
+- **Background lineage explicitly named by Chewi:** Sébastien Bubeck, *Convex Optimization: Algorithms and Complexity* (2015); Amir Beck, [*First-Order Methods in Optimization*](https://epubs.siam.org/doi/book/10.1137/1.9781611974997) (2017); and Yurii Nesterov, *Lectures on Convex Optimization* (2018). Chewi states that his notes are primarily based on these sources.
+- **Formal upstreams:** [Optlib](https://github.com/optsuite/optlib) and [CvxLean](https://github.com/verified-optimization/CvxLean), together with Mathlib.
+
+Beck is therefore an important background and theorem cross-check, but it is **not** the public formalization spine of the Optimisation website. The public route follows Chewi's arXiv notes section by section.
+
+### Source/copyright boundary
+
+The public reader distinguishes:
+
+- a primary or official source, cited with exact anchors;
+- a necessary short quotation when appropriate;
+- a faithful ASTIS paraphrase;
+- an ASTIS supplemental derivation or hidden-assumption packet;
+- an ASTIS-owned Lean formalization.
+
+A public source is not wholesale republished merely because it is used as a formalization target. The reader summarizes, anchors, and formalizes the mathematics while retaining source provenance.
+
+## System-design lineage
+
+ASTIS is not a copy of any single automation system. It is a Lean-first sampling/SDE proof system whose design is shaped by source fidelity, hidden regularity, conditional laws, weak generators, KL/FI/LSI chains, discretization, reusable formal memory, and independent verification.
 
 | Source | Design idea absorbed by ASTIS | ASTIS-specific boundary | Why it matters here |
 |---|---|---|---|
-| [Sinho Chewi, *Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) | Primary textbook order, theorem route, calculations, constants, and cited mathematical background. | The public draft exposes no explicit wholesale-republication license. ASTIS uses faithful original paraphrase, precise source anchors, separate supplemental derivations, and ASTIS-owned Lean declarations. Chewi does not participate in, endorse, or maintain ASTIS. | Readers can follow the textbook route while opening rigorous conditions and formal dependencies that compact prose often suppresses. |
-| Sho Sonoda's [Lean-Ridgelet](https://github.com/shosonoda/lean-ridgelet) and [Blueprint site](https://shosonoda.github.io/lean-ridgelet/blueprint/html-multi/overview/#Lean-Ridgelet-Blueprint--L2-theory___-arXiv___2106___04770v2-implementation-map) | Blueprint-style organization and an implementation map linking informal mathematics to Lean declarations. | Lean-Ridgelet is Apache-2.0. ASTIS independently implements its website and formal graph, copying no Lean-Ridgelet code or template. Sho Sonoda does not participate in, endorse, or maintain ASTIS. | The implementation-map idea is extended to a whole sampling-theory textbook, hidden-assumption packets, theorem DAGs, frontier results, and reusable formal memory. |
+| Sho Sonoda's [Lean-Ridgelet](https://github.com/shosonoda/lean-ridgelet) and [Blueprint site](https://shosonoda.github.io/lean-ridgelet/blueprint/html-multi/overview/#Lean-Ridgelet-Blueprint--L2-theory___-arXiv___2106___04770v2-implementation-map) | Blueprint-style organization and an implementation map linking informal mathematics to Lean declarations. | Lean-Ridgelet is Apache-2.0. ASTIS independently implements its website and formal graph, copying no Lean-Ridgelet code or template. | The implementation-map idea is extended to textbooks, hidden-assumption packets, theorem DAGs, frontier results, and reusable formal memory. |
 | [ARIS / Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Long-window autonomous research, durable artifacts, recovery, and separate review. | ASTIS makes source-backed Lean theorem state and exact proof obligations the primary object rather than experiments or paper drafting alone. | Long runs remain recoverable without treating a plausible narrative as mathematical truth. |
-| [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Durable trial memory, rejected routes, iterative improvement, and the idea that the maintained reasoning system itself can be optimized. | ASTIS's earlier Harness used explicit Upper/Middle/Lower/Reviewer handoffs; the current Harness keeps the durable evidence and negative memory but no longer treats those roles as intellectual boundaries. | Failed proof routes remain reusable negative knowledge while one capable Worker can carry a mathematical insight through source, proof design, Lean, and diagnosis. |
+| [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Durable trial memory, rejected routes, iterative improvement, and system self-improvement. | The current Harness keeps durable evidence and negative memory without treating fixed roles as intellectual boundaries. | Failed proof routes remain reusable negative knowledge. |
 | [EoH](https://github.com/FeiLiu36/EoH) | Population-style competing solution routes. | Candidate variation is permitted only after a Lean-checkable target is fixed; `faithfulPaper` mode may not mutate the source theorem or assumptions to make proof easier. | Alternative proof mechanisms can be explored without weakening source fidelity. |
 | [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) and [arXiv:2606.05400](https://arxiv.org/abs/2606.05400) | Blueprint as system of record, dynamic proof-DAG leaves, bounded workers, connected-problem refinement, and deterministic gates. | ASTIS keeps a local source-backed blueprint and theorem graph rather than requiring GitHub/PR/Slurm as its execution substrate. | The active target is selected from the dependency graph instead of from a flat task list. |
-| [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics, theorem-reuse memory, hidden-placeholder scans, and subgoal planning. | Diagnostics are advisory; ASTIS acceptance still requires its pinned Lean gate plus explicit source correspondence. | Search and diagnosis can accelerate proof work without becoming a substitute for formal verification. |
-| [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) and [arXiv:2602.02285](https://arxiv.org/abs/2602.02285) | Mathlib proof idioms for probability, concentration, entropy duality, functional inequalities, and discretization. | Toolchain differences mean external declarations are audited reference/port memory until ASTIS-owned local declarations compile. | Later Workers can borrow verified local theorem shapes rather than repeatedly reconstruct informal analogies. |
-| [StatsMLlib](https://github.com/Lean-MoDS/StatsMLlib) and its [contributor guide](https://statsmllib.github.io/contribute.html) | Subject-owned module placement, reuse-first development, complete-proof policy, source attribution, whole-library verification, and staged contribution. | Samplinglib adds textbook/paper correspondence, SampleWiki frontier ingestion, theorem-DAG placement, strict obstructions, and source-aware admission. | The library is organized as reusable subject knowledge rather than a collection of one-off proof scripts. |
+| [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics, theorem-reuse memory, hidden-placeholder scans, and subgoal planning. | Diagnostics are advisory; ASTIS acceptance still requires its pinned Lean gate plus explicit source correspondence. | Search and diagnosis accelerate proof work without becoming a substitute for formal verification. |
+| [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) and [arXiv:2602.02285](https://arxiv.org/abs/2602.02285) | Mathlib proof idioms for probability, concentration, entropy duality, functional inequalities, and discretization. | Toolchain differences mean external declarations are audited reference/port memory until compatible local declarations compile. | Later Workers can borrow verified theorem shapes rather than repeatedly reconstruct informal analogies. |
+| [StatsMLlib](https://github.com/Lean-MoDS/StatsMLlib) and its [contributor guide](https://statsmllib.github.io/contribute.html) | Subject-owned module placement, reuse-first development, complete-proof policy, source attribution, whole-library verification, and staged contribution. | Samplinglib adds textbook/paper correspondence, SampleWiki ingestion, theorem-DAG placement, strict obstructions, and source-aware admission. | The library is organized as reusable subject knowledge rather than one-off proof scripts. |
 | [FrontierAgent](https://github.com/ApodexAI/FrontierAgent) | Bounded task boards, parallel generalist sub-agents, structured reports, checkpoint/resume, fanout guards, and coordinator no-progress protection. | ASTIS replaces generic file tasks with source-backed theorem-DAG advances and requires Lean evidence, truth boundaries, independent verification, graph placement, and serialized stabilization. | It supports broad Worker capability and bounded global coordination without allowing generic task completion to masquerade as theorem progress. |
-| [Quantum-Computing-Block-Encoding](https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201) | The earlier concrete Upper/Middle/Lower/Reviewer Harness, conversion windows, proof obligations, and proof-blueprint discipline. | ASTIS replaces quantum-specific contracts with sampling/SDE objects and has since moved from permanent role boundaries to theorem-sized Universal Worker ownership and dynamic Frontier Cells. | The earlier hierarchy supplied useful source and review discipline; the current Harness keeps those invariants while reducing context handoff. |
-| ABEIS-style internal harness naming | Compatible names for proof blueprints, agent briefs, verifier feedback, retrieval indexes, paper contribution memory, and technical-lemma memory. | ASTIS feedback is typed for Sampling/SDE proof work: source-line coverage, Lean build, Mathlib API, measure theory, regularity assumptions, technical lemmas, and theorem status. | Shared vocabulary reduces engineering overhead without importing another domain's mathematical semantics. |
+| [Quantum-Computing-Block-Encoding](https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201) | The earlier concrete Upper/Middle/Lower/Reviewer Harness, conversion windows, proof obligations, and proof-blueprint discipline. | ASTIS replaces quantum-specific contracts with sampling/SDE objects and has since moved from permanent role boundaries to theorem-sized Universal Workers and dynamic Frontier Cells. | The earlier hierarchy supplied useful source and review discipline; the current Harness keeps those invariants while reducing context handoff. |
+| ABEIS-style internal harness naming | Compatible names for proof blueprints, agent briefs, verifier feedback, retrieval indexes, paper contribution memory, and technical-lemma memory. | ASTIS feedback is typed for sampling/SDE proof work: source-line coverage, Lean build, Mathlib API, measure theory, regularity assumptions, technical lemmas, and theorem status. | Shared vocabulary reduces engineering overhead without importing another domain's mathematical semantics. |
 
 ## Earlier and current Harness architecture
 
@@ -47,10 +83,7 @@ That architecture established several invariants that remain important:
 - verification should be independent of the proving attempt;
 - failed routes should be remembered rather than rediscovered.
 
-The current Harness changes the **unit of delegation**, not those invariants. A
-Universal Worker owns one Substantive Advance Unit end to end. Nearby advances
-form dynamic Frontier Cells, ordinary code reduces their structured state, and
-a Thin Master handles only cross-frontier decisions. The current structure is:
+The current Harness changes the **unit of delegation**, not those invariants. A Universal Worker handles one Substantive Advance Unit end to end. Nearby advances form dynamic Frontier Cells, ordinary code reduces their structured state, and a Thin Master handles only cross-frontier decisions.
 
 ```text
 source + verified Lean graph
@@ -71,59 +104,21 @@ Single stabilization lane
 Samplinglib + Underlying Lean Graph
 ```
 
-Historical `upper`, `middle`, `lower_*`, and `reviewer` names remain valid when
-reading old logs or selecting execution profiles. They no longer define what an
-agent is permitted to notice, prove, refactor, test, or explain.
+Historical `upper`, `middle`, `lower_*`, and `reviewer` names remain valid when reading old logs or selecting execution profiles. They no longer define what an agent is permitted to notice, prove, refactor, test, or explain.
 
 ## Why the formal graph is a scientific output
 
-Samplinglib is the verified library, but ASTIS is also intended as an instrument
-for understanding sampling theory. A prose proof—even a good AI-generated
-one—does not by itself tell us exactly which assumptions were required, which
-lemmas are safely reusable, or how the result attaches to the accumulated body
-of checked mathematics.
+Samplinglib is the verified library, but ASTIS is also intended as an instrument for understanding sampling theory. A prose proof does not by itself tell us exactly which assumptions were required, which lemmas are safely reusable, or how a result attaches to the accumulated body of checked mathematics.
 
-Lean verification turns a result into an exact callable declaration. The
-Underlying Lean Graph then records its parents and consumers. This lets a reader
-ask whether new work:
+Lean verification turns a result into an exact callable declaration. The Underlying Lean Graph records its parents and consumers. This lets a reader ask whether new work adds a terminal leaf, bridges previously separate branches, shortens an important dependency route, creates a reusable interface, exposes a hidden regularity assumption, or reorganizes a substantial part of the proof structure.
 
-- adds a terminal leaf;
-- bridges previously separate branches;
-- shortens an important dependency route;
-- creates a reusable interface used by many later results;
-- exposes a hidden regularity assumption or missing abstraction;
-- reorganizes a substantial part of the proof structure.
-
-This graph-level view is not itself a theorem about scientific importance, but
-it is a sharper structural lens than counting isolated new statements. The
-project aims to make the conceptual spine of sampling theory easier for
-beginners to learn and easier for experts to inspect, compare, compress, and
-potentially rewrite in cleaner natural-language or more algebraic form.
+This graph-level view is not itself a theorem about scientific importance. It is a structural lens for making the conceptual spine of a field easier to learn, inspect, and compare.
 
 ## Mode boundary
 
-The EoH-style population element remains separated from faithful paper
-reproduction.
+The EoH-style population element remains separated from faithful paper reproduction.
 
-- In `faithfulPaper`, ASTIS may keep several proof routes for a fixed lemma, but
-  it may not change the source theorem, assumptions, constants, or proof target.
-- In `exploratoryProof`, ASTIS may compare theoretical variants once the
-  acceptance predicate is explicit and Lean-checkable.
+- In `faithfulPaper`, ASTIS may keep several proof routes for a fixed lemma, but it may not change the source theorem, assumptions, constants, or proof target.
+- In `exploratoryProof`, ASTIS may compare theoretical variants once the acceptance predicate is explicit and Lean-checkable.
 
-The acceptance rule is stricter than every search heuristic: a mathematical
-claim is admitted only through compiled Lean plus explicit source correspondence
-and independent verification, or it remains a named proof obligation,
-discovery, blocker, or quarantined claim.
-
-## Textbook website copyright boundary
-
-The ASTIS website distinguishes five content classes:
-
-- a licensed original, only when a source license has been verified;
-- a necessary short quotation with direct attribution;
-- a faithful ASTIS paraphrase with an exact source anchor;
-- an ASTIS supplemental derivation or hidden-assumption packet;
-- an ASTIS-owned Lean formalization.
-
-The current Chewi book entries use faithful paraphrase. A license attached to a
-different work by the same author does not grant rights to this book draft.
+The acceptance rule is stricter than every search heuristic: a mathematical claim is admitted only through compiled Lean plus explicit source correspondence and independent verification, or it remains a named proof obligation, discovery, blocker, or quarantined claim.

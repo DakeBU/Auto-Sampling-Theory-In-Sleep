@@ -1,27 +1,42 @@
-schema_version: 1
+schema_version: 2
+library_title: Optimisation
 source:
-  author: Amir Beck
-  title: First-Order Methods in Optimization
-  year: 2017
-  publisher: SIAM
-  url: https://epubs.siam.org/doi/book/10.1137/1.9781611974997
-  doi: 10.1137/1.9781611974997
-owners: [Dake, Huanjian, Andi]
+  author: Sinho Chewi
+  title: Lectures on Optimization
+  year: 2026
+  kind: public_arxiv_lecture_notes
+  url: https://arxiv.org/pdf/2605.07006
+  arxiv: 2605.07006
+source_lineage:
+  - role: background
+    author: Sébastien Bubeck
+    title: Convex Optimization: Algorithms and Complexity
+    year: 2015
+  - role: background
+    author: Amir Beck
+    title: First-Order Methods in Optimization
+    year: 2017
+    url: https://epubs.siam.org/doi/book/10.1137/1.9781611974997
+  - role: background
+    author: Yurii Nesterov
+    title: Lectures on Convex Optimization
+    year: 2018
 chapters:
-  1: Vector spaces
-  2: Extended real-valued functions
-  3: Subgradients
-  4: Conjugate functions
-  5: Smoothness and strong convexity
-  6: The proximal operator
-  7: Spectral functions
-  8: Primal and dual projected subgradient methods
-  9: Mirror descent
-  10: The proximal gradient method
-  11: The block proximal gradient method
-  12: Dual-based proximal gradient methods
-  13: The generalized conditional gradient method
-  14: Alternating minimization
-  15: ADMM
+  1: Introduction and basics of convex functions
+  2: Gradient flow
+  3: "Gradient descent: smooth case"
+  4: Lower bounds for smooth optimization
+  5: Acceleration
+  6: Non-smooth convex optimization
+  7: Frank-Wolfe
+  8: Proximal methods
+  9: Fenchel duality
+  10: Mirror methods
+  11: Alternating minimization
+  12: Stochastic optimization
+  13: Interior point methods
+appendices:
+  A: Background on symmetric matrices
+formal_upstreams: [Mathlib, Optlib, CvxLean]
 status_policy: [reuse, adapt, missing, out_of_scope]
 truth_boundary: chapter_scaffold_only

@@ -1,15 +1,21 @@
 # ASTIS Cross-Library Coordination
 
-Use this skill whenever a theorem-sized task in the SampleWiki, Riemannian Optimization, or First-Order Optimization route may touch mathematics that another route could also need.
+Use this skill whenever a theorem-sized task in the SampleWiki, Riemannian Optimization, or Optimisation route may touch mathematics that another route could also need.
 
 ## Goal
 
 Let the routes advance independently without creating duplicate or incompatible lower-level Lean declarations. Source-facing theorems remain attached to their own source; only genuinely shared mathematical foundations are shared.
 
+## Source authority
+
+- **Log-Concave Sampling:** Sinho Chewi's `main.pdf` is primary; `supp.pdf` is an official Chapter 2 source layer. Background textbooks may recover omitted standard details but do not replace Chewi's theorem.
+- **Riemannian Optimization:** Nicolas Boumal is the source-facing route; Mathlib/shared geometry interfaces are searched first.
+- **Optimisation:** Sinho Chewi's *Lectures on Optimization* (arXiv:2605.07006) is the public source-facing spine. Bubeck, Beck, and Nesterov are background/cross-check references named by Chewi; Optlib and CvxLean are formal upstreams.
+
 ## Before creating a declaration
 
 1. Recover the exact target statement, assumptions, domains, conclusion, and source convention.
-2. Search Samplinglib and Mathlib first. For optimization work, also search the pinned Optlib and CvxLean upstream surfaces before inventing a new API.
+2. Search Samplinglib and Mathlib first. For optimisation work, also search the pinned Optlib and CvxLean upstream surfaces before inventing a new API.
 3. Compare semantic theorem fingerprints, not names alone: mathematical objects, quantifiers, assumptions, conclusion, normalization, and intended reuse.
 4. Classify the candidate as `reuse`, `adapt`, `missing`, or `out_of_scope`.
 
@@ -35,9 +41,9 @@ A local proof is not a published route milestone until the exact reviewed result
 
 Treat these as intersection checkpoints, not automatic equivalences:
 
-- Chewi §2.5 Riemannian Manifolds ↔ Boumal geometry foundations.
-- Chewi §4.3 convex-optimization proof route ↔ Beck/Optlib convex analysis.
-- Chewi Chapter 8 proximal sampler ↔ Beck proximal/composite interfaces and relevant frontier sampling results.
-- Chewi Chapter 10 structured sampling ↔ stochastic gradients, coordinate methods, mirror geometry, and corresponding Beck/Optlib/CvxLean interfaces.
+- Chewi sampling §2.5 Riemannian Manifolds ↔ Boumal geometry foundations.
+- Chewi sampling §4.3 convex-optimization proof route ↔ Chewi Optimisation §§1-3 and §9 + compatible Optlib convex analysis.
+- Chewi sampling Chapter 8 proximal sampler ↔ Chewi Optimisation §8 Proximal methods + relevant frontier sampling results.
+- Chewi sampling Chapter 10 structured sampling ↔ Chewi Optimisation §10 Mirror methods and §12 Stochastic optimization + corresponding Optlib/CvxLean interfaces.
 
 At every checkpoint, prove compatibility before reuse. If hypotheses or conventions differ, keep the difference explicit in an adapter.

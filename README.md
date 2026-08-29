@@ -16,7 +16,7 @@
 
 </div>
 
-ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean declarations, and theorem dependencies in one inspectable graph. Textbooks provide stable coordinate systems; frontier papers are inserted into the same graph so that their actual mathematical contribution can be compared, verified, and reused.
+ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean declarations, and theorem dependencies in one inspectable graph. Primary sources, official supplements, background textbooks, and formal upstream libraries have different roles and are recorded separately; frontier papers are inserted into the same graph so that their actual mathematical contribution can be compared, verified, and reused.
 
 ## Research aim
 
@@ -50,9 +50,12 @@ Lean compilation does not by itself guarantee source fidelity. Source-facing nod
 
 | Source | What Samplinglib / ASTIS learns from it | ASTIS-specific boundary |
 |---|---|---|
-| [Sinho Chewi, *Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) | Sampling textbook order, theorem route, calculations, and background results | Faithful ASTIS paraphrase + exact source anchors + ASTIS-owned Lean declarations; no endorsement implied |
+| [Sinho Chewi, *Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) | Primary sampling textbook order, theorem route, calculations, and source-facing statements | Faithful ASTIS paraphrase + exact source anchors + ASTIS-owned Lean declarations; no endorsement implied |
+| [Sinho Chewi, *Supplement to Log-Concave Sampling*](https://chewisinho.github.io/supp.pdf) | Official material omitted from the book for space; currently the complete supplement to Chapter 2 | Treated as an additional primary-source layer and mapped after Chapter 2; summarized and formalized rather than republished wholesale |
+| Sampling background / rigor references | Karatzas–Shreve, Protter, Revuz–Yor, Shreve, Bakry–Gentil–Ledoux, van Handel, Ledoux, Boucheron–Lugosi–Massart, Villani, Ambrosio–Gigli–Savaré, Santambrogio, Vershynin, and other references explicitly used or recommended around the source | Used to recover standard omitted hypotheses/proof details and cross-check conventions; they never silently replace Chewi's pinned theorem |
 | [Nicolas Boumal, *An Introduction to Optimization on Smooth Manifolds*](https://www.nicolasboumal.net/book/) | Riemannian geometry and optimization spine | Chapter/source correspondence; no wholesale republication |
-| [Amir Beck, *First-Order Methods in Optimization*](https://epubs.siam.org/doi/book/10.1137/1.9781611974997) | Convex analysis and first-order-method spine | Chapter/source correspondence; no wholesale republication |
+| [Sinho Chewi, *Lectures on Optimization*](https://arxiv.org/pdf/2605.07006) | Public theorem-proof source and chapter spine for the **Optimisation** Library | Formalized section by section from the public arXiv notes; source-facing statements remain pinned to Chewi |
+| Bubeck (2015), [Beck (2017)](https://epubs.siam.org/doi/book/10.1137/1.9781611974997), Nesterov (2018) | Principal background sources named by Chewi for the optimization lectures | Background/theorem cross-checks rather than the public formalization spine |
 | [Optlib](https://github.com/optsuite/optlib) | Existing convex-analysis, proximal, and optimization-algorithm theorem nodes | Provenance, compatibility, and adapters remain explicit; no silent duplication |
 | [CvxLean](https://github.com/verified-optimization/CvxLean) | Formal optimization problems, equivalence, reduction, relaxation, and verified transformations | Reference/integration layer until compatibility is locally audited |
 | [Lean-Ridgelet](https://github.com/shosonoda/lean-ridgelet) | Blueprint / implementation-map presentation | Extended from one formalization map to textbooks, frontier results, reusable theorem graphs, and source-aware statement review |
@@ -66,7 +69,7 @@ Lean compilation does not by itself guarantee source fidelity. Source-facing nod
 | [FrontierAgent](https://github.com/ApodexAI/FrontierAgent) | Parallel generalist agents, bounded task boards, checkpointing, and no-progress control | ASTIS schedules theorem-DAG advances with Lean evidence, truth boundaries, independent verification, and serialized stabilization |
 | [Quantum-Computing-Block-Encoding](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | Experience building automated formalization workflows | ASTIS specializes the machinery for sampling/SDE mathematics and theorem-sized Frontier Cells |
 
-Full provenance: [docs/attribution.md](docs/attribution.md).
+Full mathematical provenance and design lineage: [docs/attribution.md](docs/attribution.md).
 
 ## Quick start
 

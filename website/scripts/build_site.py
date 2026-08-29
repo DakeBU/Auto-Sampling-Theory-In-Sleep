@@ -36,6 +36,7 @@ import samplewiki_math_render  # noqa: E402
 import samplewiki_primary_audit_additions  # noqa: E402
 import samplewiki_reader_contract  # noqa: E402
 import source_foundations  # noqa: E402
+import source_lineage  # noqa: E402
 import textbook_math_contract  # noqa: E402
 import theorem_lessons  # noqa: E402
 import undergrad_guides  # noqa: E402
@@ -216,6 +217,13 @@ def main() -> int:
     # injects the shared verification/coordination contract after all source
     # readers and library sidebars are final.
     formalization_progress.enrich_site(output)
+
+    # Mathematical provenance is a final public contract. It attaches Chewi's
+    # official Chapter 2 supplement, aggregates the background textbooks used to
+    # recover omitted rigorous details, retargets the public Optimisation route to
+    # Chewi's arXiv notes, and normalizes the late-created library/progress pages
+    # to the same visual theme as the Log-Concave Sampling reader.
+    source_lineage.enrich_site(output)
     inherit_final_reader_contract(output)
 
     # Presentation overlays must never leave the global skip link pointing at a
