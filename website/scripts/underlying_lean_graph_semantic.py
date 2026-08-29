@@ -91,7 +91,10 @@ def audit_status(audit: dict[str, Any]) -> str:
 def add_semantic(builder: GraphBuilder, registry: dict[str, Any]) -> dict[str, int]:
     add, edge = builder.add, builder.edge
     protocol = registry.get("protocol", {}) if isinstance(registry.get("protocol"), dict) else {}
-    docs_url = "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/blob/main/research-wiki/semantic-roundtrip/README.md"
+    # Keep public graph links deployable from the current commit. Linking a new
+    # repository file through blob/main would falsely claim that the file has
+    # already landed on main and is rejected by the site source-link gate.
+    docs_url = "lean-foundations.html?view=semantic"
 
     for key, label, subtitle, summary, column in STAGES:
         add(
