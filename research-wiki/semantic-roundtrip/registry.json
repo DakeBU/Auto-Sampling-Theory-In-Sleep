@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "protocol": {
+    "name": "ASTIS Semantic Round-Trip",
+    "status": "active",
+    "decoder_blindness": "required",
+    "independent_source_review": "required",
+    "decoder_allowed_inputs": [
+      "lean-statement",
+      "approved-definition-context"
+    ],
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "verdicts": [
+      "pending",
+      "exact",
+      "equivalent-after-elaboration",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "domain-mismatch",
+      "quantifier-mismatch",
+      "source-underspecified",
+      "possible-source-error"
+    ],
+    "repair_policy": "A repair is a separately reviewed proposal. It never overwrites or silently weakens the pinned source theorem, and formalization artifacts may not be accepted as source corrections."
+  },
+  "audits": []
+}

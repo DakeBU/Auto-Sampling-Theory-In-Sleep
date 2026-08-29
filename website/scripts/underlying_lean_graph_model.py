@@ -11,7 +11,9 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT = ROOT / "_site"
 CASES = ROOT / "research-wiki/source-index/SampleWiki_cases.json"
 AUDITS = ROOT / "website/content/samplewiki_frontier_audit.json"
+SEMANTIC_REGISTRY = ROOT / "research-wiki/semantic-roundtrip/registry.json"
 CSS = ROOT / "website/static/underlying-lean-graph.css"
+SEMANTIC_CSS = ROOT / "website/static/semantic-roundtrip-graph.css"
 JS = ROOT / "website/static/underlying-lean-graph.js"
 PAGE = "lean-foundations.html"
 DATA = "data/underlying-lean-graph.json"
@@ -94,9 +96,29 @@ class GraphBuilder:
 
     def add(self, node_id: str, kind: str, label: object, **extra: Any) -> str:
         node = {"id": node_id, "kind": kind, "label": short(label, 180), **extra}
-        tags = [node_id, kind, node.get("label", ""), node.get("subtitle", ""), node.get("summary", "")]
+        tags: list[object] = [
+            node_id,
+            kind,
+            node.get("label", ""),
+            node.get("subtitle", ""),
+            node.get("summary", ""),
+            node.get("fidelity_verdict", ""),
+            node.get("blindness", ""),
+            node.get("original_theorem", ""),
+            node.get("reconstructed_theorem", ""),
+            node.get("repaired_theorem", ""),
+        ]
         tags.extend(row.get("value", "") for row in node.get("details", []) if isinstance(row, dict))
-        node["search"] = short(" ".join(map(str, tags)), 5000).lower()
+        for row in node.get("semantic_slots", []):
+            if isinstance(row, dict):
+                tags.extend(row.get(key, "") for key in ("slot", "original", "reconstructed", "relation", "evidence"))
+        for row in node.get("semantic_deltas", []):
+            if isinstance(row, dict):
+                tags.extend(row.get(key, "") for key in ("slot", "severity", "description", "evidence"))
+        for row in node.get("repair_proposals", []):
+            if isinstance(row, dict):
+                tags.extend(row.get(key, "") for key in ("id", "class", "status", "necessity", "proposed_change", "justification"))
+        node["search"] = short(" ".join(map(str, tags)), 12000).lower()
         self.nodes[node_id] = node
         return node_id
 
@@ -106,8 +128,8 @@ class GraphBuilder:
 
     def export(self) -> dict[str, Any]:
         return {
-            "schema_version": 1,
-            "generated_from": "site-data.json + pinned SampleWiki manifests",
+            "schema_version": 2,
+            "generated_from": "site-data.json + pinned SampleWiki manifests + semantic round-trip registry",
             "nodes": list(self.nodes.values()),
             "edges": list(self.edges.values()),
         }

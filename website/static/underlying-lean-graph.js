@@ -11,13 +11,14 @@
   const buttons = [...document.querySelectorAll("[data-view]")];
   const NS = "http://www.w3.org/2000/svg";
   const state = {view: "overview", query: "", focus: "", expanded: new Set(), scale: 0.82, x: 32, y: 36, drag: null};
-  const kindOrder = {library: 0, "proof-root": 1, chapter: 2, setting: 2, phase: 2, "source-claim": 3, "frontier-case": 3, module: 3, "proof-leaf": 4, declaration: 4};
-  const kindLabel = {library: "library", "proof-root": "shared root", chapter: "book chapter", setting: "SampleWiki setting", phase: "formalization phase", "source-claim": "source theorem", "frontier-case": "frontier theorem", module: "Lean module", "proof-leaf": "proof leaf", declaration: "Lean declaration"};
+  const kindOrder = {library: 0, "proof-root": 1, chapter: 2, setting: 2, phase: 2, "semantic-stage": 2, "source-claim": 3, "frontier-case": 3, module: 3, "semantic-audit": 4, "proof-leaf": 4, declaration: 4, "repair-proposal": 5};
+  const kindLabel = {library: "library", "proof-root": "shared root", chapter: "book chapter", setting: "SampleWiki setting", phase: "formalization phase", "source-claim": "source theorem", "frontier-case": "frontier theorem", module: "Lean module", "proof-leaf": "proof leaf", declaration: "Lean declaration", "semantic-stage": "semantic protocol", "semantic-audit": "fidelity audit", "repair-proposal": "theorem repair proposal"};
   const viewKinds = {
-    overview: new Set(["library", "proof-root", "chapter", "setting", "phase", "frontier-case"]),
+    overview: new Set(["library", "proof-root", "chapter", "setting", "phase", "frontier-case", "semantic-stage"]),
     textbook: new Set(["library", "proof-root", "chapter", "source-claim", "proof-leaf"]),
     frontier: new Set(["library", "proof-root", "chapter", "setting", "phase", "frontier-case"]),
     lean: new Set(["library", "proof-root", "module", "declaration", "proof-leaf", "source-claim"]),
+    semantic: new Set(["library", "semantic-stage", "semantic-audit", "repair-proposal"]),
   };
   // Only relations extracted from Lean/module/declaration structure are drawn as
   // solid edges. Everything else is an audited/curated reader overlay and stays
@@ -38,9 +39,10 @@
 
   function viewIds(all) {
     const selected = new Set(all.filter(n => viewKinds[state.view].has(n.kind)).map(n => n.id));
-    if (state.view === "overview") [...selected].forEach(id => { const n = nodes.get(id); if (n?.kind === "frontier-case" && !["audited","literature-open"].includes(n.status)) selected.delete(id); });
+    if (state.view === "overview") [...selected].forEach(id => { const n = nodes.get(id); if (n?.kind === "frontier-case" && !["audited","literature-open"].includes(n.status)) selected.delete(id); if (n?.kind === "semantic-stage" && !["semantic:fidelity-checker","semantic:theorem-denoiser"].includes(id)) selected.delete(id); });
     if (state.view === "textbook") [...selected].forEach(id => { const n = nodes.get(id); if (n?.kind === "library" && n.id === "library:samplewiki") selected.delete(id); });
     if (state.view === "frontier") [...selected].forEach(id => { const n = nodes.get(id); if (n?.kind === "library" && n.id === "library:chewi") selected.delete(id); });
+    if (state.view === "semantic") [...selected].forEach(id => { const n = nodes.get(id); if (n?.kind === "library" && n.id !== "library:samplinglib") selected.delete(id); });
     return selected;
   }
 
@@ -55,9 +57,10 @@
     }
 
     // Focus is a visual overlay, not a graph filter. Keep the current textbook /
-    // frontier / Lean context visible, then force the selected branch and its
-    // immediate neighborhood into the canvas. This mirrors the QuantumComputinglib
-    // interaction and makes highlighted versus muted edges visually meaningful.
+    // frontier / Lean / semantic context visible, then force the selected branch
+    // and its immediate neighborhood into the canvas. This mirrors the
+    // QuantumComputinglib interaction and makes highlighted versus muted edges
+    // visually meaningful.
     const priority = new Set();
     if (state.focus) {
       priority.add(state.focus); selected.add(state.focus);
@@ -81,13 +84,14 @@
   }
 
   function layout(ids) {
-    const columns = new Map(); [...ids].forEach(id => { const n=nodes.get(id); const key=kindOrder[n.kind] ?? 3; if (!columns.has(key)) columns.set(key, []); columns.get(key).push(n); });
+    const columns = new Map(); let maxColumn = 0;
+    [...ids].forEach(id => { const n=nodes.get(id); const explicit=Number(n.column); const key=Number.isFinite(explicit) ? explicit : (kindOrder[n.kind] ?? 3); maxColumn=Math.max(maxColumn,key); if (!columns.has(key)) columns.set(key, []); columns.get(key).push(n); });
     const positions = new Map(); let maxRows = 1;
     [...columns.entries()].sort((a,b)=>a[0]-b[0]).forEach(([column, list]) => {
       list.sort((a,b) => (a.kind.localeCompare(b.kind)) || a.label.localeCompare(b.label)); maxRows = Math.max(maxRows, list.length);
       const gap = list.length > 38 ? 64 : 82; list.forEach((n,i) => positions.set(n.id, {x: 62 + column * 310, y: 58 + i * gap}));
     });
-    return {positions, width: 1560, height: Math.max(700, 130 + maxRows * (maxRows > 38 ? 64 : 82))};
+    return {positions, width: Math.max(1560, 360 + maxColumn * 310), height: Math.max(700, 130 + maxRows * (maxRows > 38 ? 64 : 82))};
   }
 
   function applyTransform() { const viewport = svg.querySelector(".ulg-viewport"); if (viewport) viewport.setAttribute("transform", `translate(${state.x} ${state.y}) scale(${state.scale})`); }
@@ -116,9 +120,9 @@
         "data-evidence":relationEvidence(e.relation),
         "marker-end":related ? "url(#ulg-arrow-focus)" : "url(#ulg-arrow)"
       });
-      const title=svgEl("title"); title.textContent=`${e.relation} · ${relationEvidence(e.relation) === "formal" ? "Lean structural edge" : "curated overlay"}`; path.append(title); edgeLayer.append(path);
+      const title=svgEl("title"); title.textContent=`${e.relation} · ${relationEvidence(e.relation) === "formal" ? "Lean structural edge" : "curated evidence overlay"}`; path.append(title); edgeLayer.append(path);
     });
-    [...ids].map(id=>nodes.get(id)).sort((a,b)=>(kindOrder[a.kind]-kindOrder[b.kind])||a.label.localeCompare(b.label)).forEach(n => {
+    [...ids].map(id=>nodes.get(id)).sort((a,b)=>((Number(a.column)||kindOrder[a.kind])-(Number(b.column)||kindOrder[b.kind]))||a.label.localeCompare(b.label)).forEach(n => {
       const p=positions.get(n.id); const classes=["ulg-node"];
       if (state.focus === n.id) classes.push("selected");
       else if (state.focus && focusNeighbors.has(n.id)) classes.push("related");
@@ -138,9 +142,21 @@
     state.focus="";
     state.expanded.clear();
     try { const url=new URL(location.href); url.searchParams.delete("focus"); url.searchParams.set("view",state.view); history.replaceState(null,"",url); } catch (_) {}
-    detail.innerHTML='<div class="ulg-placeholder"><span>Branch inspector</span><h2>Select a node.</h2><p>Source statement, proof equations, exact Lean leaves, prerequisites, consumers, and reader links appear here.</p></div>';
+    detail.innerHTML='<div class="ulg-placeholder"><span>Branch inspector</span><h2>Select a node.</h2><p>Source statement, blind reconstruction, semantic deltas, repair proposals, exact Lean leaves, prerequisites, consumers, and reader links appear here.</p></div>';
     render();
   }
+
+  function semanticSections(n) {
+    const verdict=n.fidelity_verdict?`<section class="ulg-semantic-verdict"><h3>Fidelity verdict</h3><div class="ulg-verdict"><strong>${esc(n.fidelity_verdict)}</strong><span>${esc(n.blindness||"")}</span></div></section>`:"";
+    const original=n.original_theorem?`<section><h3>Original theorem contract</h3><blockquote class="ulg-theorem-text">${esc(n.original_theorem)}</blockquote></section>`:"";
+    const reconstructed=n.reconstructed_theorem?`<section><h3>Blind reconstructed theorem</h3><div class="ulg-blind-badge">Source text hidden from decoder</div><blockquote class="ulg-theorem-text">${esc(n.reconstructed_theorem)}</blockquote></section>`:"";
+    const repaired=n.repaired_theorem?`<section><h3>Proposed reconstructed theorem</h3><blockquote class="ulg-theorem-text repair">${esc(n.repaired_theorem)}</blockquote><p class="ulg-warning">This proposal remains separate from the pinned source theorem until independent source review accepts it.</p></section>`:"";
+    const slots=(n.semantic_slots||[]).length?`<section><h3>Seven-slot semantic diff</h3><div class="ulg-semantic-table-wrap"><table class="ulg-semantic-table"><thead><tr><th>Slot</th><th>Original</th><th>Reconstructed</th><th>Relation</th></tr></thead><tbody>${n.semantic_slots.map(row=>`<tr><th>${esc(row.slot)}</th><td>${esc(row.original)}</td><td>${esc(row.reconstructed)}</td><td><b data-relation="${esc(row.relation)}">${esc(row.relation)}</b>${row.evidence?`<small>${esc(row.evidence)}</small>`:""}</td></tr>`).join("")}</tbody></table></div></section>`:"";
+    const deltas=(n.semantic_deltas||[]).length?`<section><h3>Semantic deltas</h3><ol class="ulg-deltas">${n.semantic_deltas.map(row=>`<li data-severity="${esc(row.severity||"review")}"><span>${esc(row.slot||"semantic contract")} · ${esc(row.severity||"review")}</span><strong>${esc(row.description||"")}</strong><p>${esc(row.evidence||"")}</p></li>`).join("")}</ol></section>`:"";
+    const repairs=(n.repair_proposals||[]).length?`<section><h3>Lean theorem denoising proposals</h3><div class="ulg-repairs">${n.repair_proposals.map(row=>`<article><header><span>${esc(row.class||"repair")}</span><b>${esc(row.status||"proposed")}</b></header><strong>${esc(row.proposed_change||"")}</strong><p>${esc(row.justification||"")}</p><dl><div><dt>Necessity</dt><dd>${esc(row.necessity||"uncertain")}</dd></div><div><dt>Minimality</dt><dd>${esc(row.minimality_evidence||"not established")}</dd></div></dl><small>Never mutates the source theorem automatically.</small></article>`).join("")}</div></section>`:"";
+    return verdict+original+reconstructed+repaired+slots+deltas+repairs;
+  }
+
   function selectNode(id, expand=false) {
     if (!nodes.has(id)) return; state.focus=id; if(expand) state.expanded.add(id); const n=nodes.get(id);
     try { const url=new URL(location.href); url.searchParams.set("focus",id); url.searchParams.set("view",state.view); history.replaceState(null,"",url); } catch (_) {}
@@ -149,7 +165,7 @@
     const equations=(n.proof_equations||[]).length?`<section><h3>Key proof equations</h3><ol class="ulg-equations">${n.proof_equations.map(row=>`<li><div>\\[${esc(row.formula)}\\]</div><p>${esc(row.meaning)}</p></li>`).join("")}</ol></section>`:"";
     const rows=(n.details||[]).filter(row=>row.value).map(row=>`<div><dt>${esc(row.label)}</dt><dd>${esc(row.value)}</dd></div>`).join("");
     const branch=(title,list)=>list.length?`<section><h3>${title}</h3><div class="ulg-neighbors">${list.slice(0,24).map(item=>`<button data-jump="${esc(item.id)}"><span>${esc(kindLabel[item.kind]||item.kind)}</span>${esc(item.label)}</button>`).join("")}</div></section>`:"";
-    detail.innerHTML=`<header><span>${esc(kindLabel[n.kind]||n.kind)}</span><i class="${esc(n.status||"planned")}">${esc(n.status||"planned")}</i><h2>${esc(n.label)}</h2><p>${esc(n.subtitle||n.summary||"")}</p></header>${n.theorem?`<section><h3>Primary source theorem</h3><strong>${esc(n.theorem)}</strong>${formula}<p>${esc(n.source_proof||"")}</p></section>`:formula}${equations}${rows?`<dl class="ulg-details">${rows}</dl>`:""}<div class="ulg-links">${linkButton(n.url,"Open reader / Lean card",true)}${linkButton(n.source_url,"Open primary source")}</div>${branch("Immediate prerequisites",incoming)}${branch("Immediate consumers",outgoing)}`;
+    detail.innerHTML=`<header><span>${esc(kindLabel[n.kind]||n.kind)}</span><i class="${esc(n.status||"planned")}">${esc(n.status||"planned")}</i><h2>${esc(n.label)}</h2><p>${esc(n.subtitle||n.summary||"")}</p></header>${n.theorem?`<section><h3>Primary source theorem</h3><strong>${esc(n.theorem)}</strong>${formula}<p>${esc(n.source_proof||"")}</p></section>`:formula}${semanticSections(n)}${equations}${rows?`<dl class="ulg-details">${rows}</dl>`:""}<div class="ulg-links">${linkButton(n.url,"Open reader / evidence card",true)}${linkButton(n.source_url,"Open primary source")}</div>${branch("Immediate prerequisites",incoming)}${branch("Immediate consumers",outgoing)}`;
     detail.querySelectorAll("[data-jump]").forEach(button=>button.addEventListener("click",()=>selectNode(button.dataset.jump,true)));
     if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([detail]).catch(()=>{}); render();
   }
