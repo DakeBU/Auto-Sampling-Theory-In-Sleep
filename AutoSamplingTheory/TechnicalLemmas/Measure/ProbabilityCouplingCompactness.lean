@@ -5,7 +5,7 @@ import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
 /-!
 # Weak compactness of couplings with fixed marginals
 
-Chewi's optimal-plan existence theorem is a direct-method argument.  This file
+Chewi's optimal-plan existence theorem is a direct-method argument. This file
 isolates its feasible-set half: probability couplings with two fixed marginals
 form a compact set for the weak topology on probability measures.
 
@@ -19,6 +19,11 @@ Prokhorov compactness locally:
   families to tightness of the joint family;
 * Prokhorov gives compact closure, and closedness removes the closure.
 
+The second-countability assumptions below are topology/measurability glue for
+the product weak topology. They ensure the product measurable space agrees with
+the Borel structure needed by `ProbabilityMeasure`; they are not transport-cost
+or moment assumptions.
+
 No transport cost enters this module.
 -/
 
@@ -31,7 +36,7 @@ open MeasureTheory Set Topology
 
 noncomputable section
 
-/-- Probability-measure version of the fixed-marginal coupling predicate.  It
+/-- Probability-measure version of the fixed-marginal coupling predicate. It
 is definitionally adapted to the weak topology, whose continuous maps are the
 `ProbabilityMeasure.map` operations. -/
 def IsProbabilityCoupling
@@ -75,8 +80,8 @@ theorem isProbabilityCoupling_iff_isCoupling_toMeasure
 section Closed
 
 variable {X Y : Type*}
-  [MeasurableSpace X] [TopologicalSpace X] [BorelSpace X]
-  [MeasurableSpace Y] [TopologicalSpace Y] [BorelSpace Y]
+  [MeasurableSpace X] [TopologicalSpace X] [SecondCountableTopology X] [BorelSpace X]
+  [MeasurableSpace Y] [TopologicalSpace Y] [SecondCountableTopology Y] [BorelSpace Y]
 
 /-- Fixed marginal constraints are closed in the weak topology on probability
 measures. -/
