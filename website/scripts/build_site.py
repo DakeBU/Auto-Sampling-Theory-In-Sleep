@@ -105,6 +105,27 @@ def write_underlying_graph_alias(output: Path) -> None:
     astis_site.write_page(output, rel_path, text)
 
 
+def inherit_final_reader_contract(output: Path) -> None:
+    """Attach the final reader stylesheet to pages added after its render pass."""
+
+    style_name = reader_contract_final.STYLE_NAME
+    for path in sorted(output.rglob("*.html")):
+        rel = path.relative_to(output)
+        prefix = "../" * len(rel.parent.parts)
+        href = f"{prefix}assets/{style_name}"
+        text = path.read_text(encoding="utf-8")
+        if href in text:
+            continue
+        if "</head>" not in text:
+            raise RuntimeError(f"{rel}: missing </head> while inheriting final reader contract")
+        text = text.replace(
+            "</head>",
+            f'  <link rel="stylesheet" href="{href}">\n</head>',
+            1,
+        )
+        path.write_text(text, encoding="utf-8", newline="\n")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", default="", help="output directory (default: _site)")
@@ -188,6 +209,8 @@ def main() -> int:
     # have reached their final public form.
     write_underlying_graph_alias(output)
     library_shelves.enrich_site(output)
+    inherit_final_reader_contract(output)
+    reader_contract_final.validate(output)
 
     # Presentation overlays must never leave the global skip link pointing at a
     # missing anchor. This repair runs after every reader/graph overlay and before
