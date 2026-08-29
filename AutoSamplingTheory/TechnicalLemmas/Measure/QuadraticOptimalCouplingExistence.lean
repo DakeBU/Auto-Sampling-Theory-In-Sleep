@@ -80,7 +80,8 @@ theorem exists_isMinOn_quadraticObjective
     simpa [quadraticObjective] using
       (lowerSemicontinuous_quadraticCostFunctional (E := E))
   exact LowerSemicontinuousOn.exists_isMinOn
-    hnonempty hcompact (hlsc.lowerSemicontinuousOn _)
+    hnonempty hcompact
+    (hlsc.lowerSemicontinuousOn (probabilityCouplingSet mu nu))
 
 /-- Probability-measure form of quadratic Kantorovich optimizer existence. -/
 theorem exists_quadraticOptimalCoupling_probabilityMeasure
