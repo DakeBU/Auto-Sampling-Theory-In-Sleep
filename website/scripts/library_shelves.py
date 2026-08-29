@@ -75,10 +75,7 @@ def libraries_sidebar(rel: str) -> str:
 
 
 def replace_sidebar(text: str, rel: str) -> str:
-    pattern = re.compile(
-        r'<section class="sidebar-group sidebar-libraries".*?</section>',
-        re.S,
-    )
+    pattern = re.compile(r'<section class="sidebar-group sidebar-libraries".*?</section>', re.S)
     changed, count = pattern.subn(libraries_sidebar(rel), text, count=1)
     if count:
         return changed
@@ -130,22 +127,12 @@ def cards(chapters: tuple[str, ...]) -> str:
     )
 
 
-def index_body(
-    *,
-    eyebrow: str,
-    title: str,
-    lede: str,
-    owners: str,
-    source: str,
-    chapters: tuple[str, ...],
-    contract: str,
-) -> str:
+def index_body(*, eyebrow: str, title: str, lede: str, source: str, chapters: tuple[str, ...], contract: str) -> str:
     return f"""
 <section class="page-hero compact library-book-hero">
 <div class="eyebrow">{escape(eyebrow)}</div><h1>{escape(title)}</h1>
 <p class="lede">{escape(lede)}</p>
-<div class="library-meta-row"><span><strong>Owners</strong>{escape(owners)}</span>
-<span><strong>Status</strong>chapter environment established</span>
+<div class="library-meta-row"><span><strong>Status</strong>chapter environment established</span>
 <a href="{escape(source)}">Primary source ↗</a></div>
 </section>
 <section class="library-integration-note">
@@ -175,7 +162,7 @@ def chapter_body(library: str, number: int, title: str, source: str, upstream: s
 <article><span>04</span><h3>Graph placement</h3><p>Dependencies, consumers, cross-library bridges, and compression candidates.</p></article>
 </div><p><a href="{escape(source)}">Primary source ↗</a></p>
 </section>
-<section class="ia-project-note">This page establishes the URL, ownership, and truth boundary; it does not claim a completed formalization.</section>
+<section class="ia-project-note">This page establishes a stable source route and truth boundary; it does not claim a completed formalization.</section>
 """
 
 
@@ -184,52 +171,36 @@ def write_pages(output: Path) -> None:
 <section class="page-hero compact library-index-hero">
 <div class="eyebrow">Samplinglib · four first-class libraries</div>
 <h1>One formal graph across sampling and optimization.</h1>
-<p class="lede">Textbooks provide stable coordinate systems; SampleWiki inserts frontier results. Current priority remains Log-Concave Sampling and SampleWiki.</p>
+<p class="lede">Textbooks provide stable coordinate systems; SampleWiki inserts frontier results into the same reusable theorem graph.</p>
 </section>
 <section class="library-index-grid">
-<article class="library-index-card library-active"><div class="portal-kicker">Active textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph.</p><a class="button primary" href="../textbook/index.html">Open textbook</a></article>
-<article class="library-index-card library-active"><div class="portal-kicker">Active frontier</div><h2>SampleWiki</h2><p>Source-pinned frontier results inserted into the reusable graph.</p><a class="button primary" href="../example-cases/samplewiki.html">Open SampleWiki</a></article>
+<article class="library-index-card library-active"><div class="portal-kicker">Textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph.</p><a class="button primary" href="../textbook/index.html">Open textbook</a></article>
+<article class="library-index-card library-active"><div class="portal-kicker">Research frontier</div><h2>SampleWiki</h2><p>Source-pinned frontier results inserted into the reusable graph.</p><a class="button primary" href="../example-cases/samplewiki.html">Open SampleWiki</a></article>
 <article class="library-index-card"><div class="portal-kicker">Chapter scaffold</div><h2>Riemannian Optimization</h2><p>Boumal's eleven-chapter geometry and optimization route.</p><a class="button" href="riemannian-optimization/index.html">Open library</a></article>
 <article class="library-index-card"><div class="portal-kicker">Scaffold + upstream reuse</div><h2>First-Order Optimization</h2><p>Beck aligned with Optlib and CvxLean.</p><a class="button" href="first-order-optimization/index.html">Open library</a></article>
 </section>
-<section class="ia-project-note"><strong>Truth boundary.</strong> Scaffold means public chapter routes and ownership, not completed Lean proofs.</section>
+<section class="ia-project-note"><strong>Truth boundary.</strong> Scaffold means public chapter routes and source boundaries, not completed Lean proofs.</section>
 """
-    astis_site.write_page(
-        output,
-        "libraries/index.html",
-        astis_site.page("Libraries", "libraries/index.html", home, active="Libraries"),
-    )
+    astis_site.write_page(output, "libraries/index.html", astis_site.page("Libraries", "libraries/index.html", home, active="Libraries"))
 
     boumal = index_body(
         eyebrow="Riemannian Optimization Library · Boumal",
         title="An Introduction to Optimization on Smooth Manifolds",
         lede="A chapter-by-chapter graph for smooth-manifold geometry, Riemannian algorithms, and Euclidean-to-manifold transfer.",
-        owners="Andi · Dake",
         source=BOUMAL_URL,
         chapters=BOUMAL,
         contract="Search Mathlib and Samplinglib geometry interfaces before opening new proofs; make every convention bridge explicit.",
     )
-    astis_site.write_page(
-        output,
-        "libraries/riemannian-optimization/index.html",
-        astis_site.page("Riemannian Optimization", "libraries/riemannian-optimization/index.html", boumal, active="Libraries"),
-    )
+    astis_site.write_page(output, "libraries/riemannian-optimization/index.html", astis_site.page("Riemannian Optimization", "libraries/riemannian-optimization/index.html", boumal, active="Libraries"))
     for i, title in enumerate(BOUMAL, 1):
         path = f"libraries/riemannian-optimization/chapter-{i:02d}.html"
-        body = chapter_body(
-            "Riemannian Optimization",
-            i,
-            title,
-            BOUMAL_URL,
-            "Search Mathlib and local geometry interfaces; adapt only real statement or convention differences.",
-        )
+        body = chapter_body("Riemannian Optimization", i, title, BOUMAL_URL, "Search Mathlib and local geometry interfaces; adapt only real statement or convention differences.")
         astis_site.write_page(output, path, astis_site.page(f"Riemannian Optimization {i}: {title}", path, body, active="Libraries"))
 
     beck = index_body(
         eyebrow="First-Order Optimization Library · Beck",
         title="First-Order Methods in Optimization",
         lede="A convex-analysis and algorithm graph connected to Optlib theorem nodes and CvxLean problem transformations.",
-        owners="Dake · Huanjian · Andi",
         source=BECK_URL,
         chapters=BECK,
         contract="Classify every source node as reuse, adapt, missing, or out of scope. Keep upstream provenance and toolchain adapters explicit.",
@@ -240,28 +211,18 @@ def write_pages(output: Path) -> None:
 <article><h3>CvxLean</h3><p>Formal optimization problems, equivalence, reduction, relaxation, and verified transformations.</p><a href="{CVXLEAN_URL}">Open CvxLean ↗</a></article>
 </div></section>
 """
-    astis_site.write_page(
-        output,
-        "libraries/first-order-optimization/index.html",
-        astis_site.page("First-Order Optimization", "libraries/first-order-optimization/index.html", beck, active="Libraries"),
-    )
+    astis_site.write_page(output, "libraries/first-order-optimization/index.html", astis_site.page("First-Order Optimization", "libraries/first-order-optimization/index.html", beck, active="Libraries"))
     for i, title in enumerate(BECK, 1):
         path = f"libraries/first-order-optimization/chapter-{i:02d}.html"
-        body = chapter_body(
-            "First-Order Optimization",
-            i,
-            title,
-            BECK_URL,
-            "Search Mathlib, Optlib, and CvxLean; record exact matches, adapters, and missing nodes.",
-        )
+        body = chapter_body("First-Order Optimization", i, title, BECK_URL, "Search Mathlib, Optlib, and CvxLean; record exact matches, adapters, and missing nodes.")
         astis_site.write_page(output, path, astis_site.page(f"First-Order Optimization {i}: {title}", path, body, active="Libraries"))
 
 
 def four_portals() -> str:
     return """
 <section class="source-portal-grid source-portal-grid-four" aria-label="Primary mathematical libraries">
-<article class="source-portal source-portal-book"><div class="portal-kicker">Active textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph.</p><div class="portal-actions"><a class="button primary" href="textbook/index.html">Read the book</a></div></article>
-<article class="source-portal source-portal-wiki"><div class="portal-kicker">Active frontier</div><h2>SampleWiki</h2><p>Source-pinned frontier results and theorem-sized graph insertions.</p><div class="portal-actions"><a class="button primary" href="example-cases/samplewiki.html">Explore SampleWiki</a></div></article>
+<article class="source-portal source-portal-book"><div class="portal-kicker">Textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph.</p><div class="portal-actions"><a class="button primary" href="textbook/index.html">Read the book</a></div></article>
+<article class="source-portal source-portal-wiki"><div class="portal-kicker">Research frontier</div><h2>SampleWiki</h2><p>Source-pinned frontier results and theorem-sized graph insertions.</p><div class="portal-actions"><a class="button primary" href="example-cases/samplewiki.html">Explore SampleWiki</a></div></article>
 <article class="source-portal source-portal-riemannian"><div class="portal-kicker">Chapter scaffold</div><h2>Riemannian Optimization</h2><p>Boumal's eleven chapters on geometry and manifold algorithms.</p><div class="portal-actions"><a class="button" href="libraries/riemannian-optimization/index.html">Open library</a></div></article>
 <article class="source-portal source-portal-optimization"><div class="portal-kicker">Scaffold + upstreams</div><h2>First-Order Optimization</h2><p>Beck's fifteen chapters aligned with Optlib and CvxLean.</p><div class="portal-actions"><a class="button" href="libraries/first-order-optimization/index.html">Open library</a></div></article>
 </section>
@@ -270,19 +231,10 @@ def four_portals() -> str:
 
 def patch_special(text: str, rel: str) -> str:
     if rel == "index.html":
-        text, count = re.subn(
-            r'<section class="source-portal-grid".*?</section>',
-            four_portals(),
-            text,
-            count=1,
-            flags=re.S,
-        )
+        text, count = re.subn(r'<section class="source-portal-grid".*?</section>', four_portals(), text, count=1, flags=re.S)
         if count != 1:
             raise RuntimeError("index.html: library portal grid not found")
-        text = text.replace(
-            "Two mathematical sources feed one reusable Lean proof graph.",
-            "Four mathematical libraries feed one reusable Lean proof graph.",
-        )
+        text = text.replace("Two mathematical sources feed one reusable Lean proof graph.", "Four mathematical libraries feed one reusable Lean proof graph.")
     elif rel == "lean-foundations.html":
         text = text.replace(
             '<div class="atlas-source-grid"><a href="textbook/index.html">Log-Concave Sampling</a><a href="example-cases/samplewiki.html">SampleWiki</a></div>',
@@ -320,10 +272,11 @@ def validate(output: Path) -> None:
     required = {
         "index.html": ("source-portal-grid-four", "Riemannian Optimization", "First-Order Optimization"),
         "libraries/index.html": ("four first-class libraries",),
-        "libraries/riemannian-optimization/index.html": ("Andi", "11 chapters"),
-        "libraries/first-order-optimization/index.html": ("Huanjian", "Optlib", "CvxLean"),
+        "libraries/riemannian-optimization/index.html": ("An Introduction to Optimization on Smooth Manifolds", "chapter environment established"),
+        "libraries/first-order-optimization/index.html": ("First-Order Methods in Optimization", "Optlib", "CvxLean"),
         "attribution/index.html": ('data-library-attribution="true"', "Amir Beck", "Nicolas Boumal"),
     }
+    forbidden = ("<strong>Owners</strong>", "Andi · Dake", "Dake · Huanjian · Andi")
     for rel, markers in required.items():
         path = output / rel
         if not path.exists():
@@ -333,6 +286,9 @@ def validate(output: Path) -> None:
         for marker in markers:
             if marker not in text:
                 errors.append(f"{rel}: missing {marker}")
+        for marker in forbidden:
+            if marker in text:
+                errors.append(f"{rel}: leaked internal assignment marker {marker!r}")
     for i in range(1, len(BOUMAL) + 1):
         if not (output / f"libraries/riemannian-optimization/chapter-{i:02d}.html").exists():
             errors.append(f"missing Boumal chapter {i}")

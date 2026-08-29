@@ -1,7 +1,6 @@
 # Riemannian Optimization Library
 
 **Primary source:** Nicolas Boumal, *An Introduction to Optimization on Smooth Manifolds*  
-**Owners:** Andi, Dake  
 **Website:** `/libraries/riemannian-optimization/`
 
 The eleven chapter directories are represented first as a source map and stable website scaffold. Formalization proceeds by:
