@@ -10,18 +10,18 @@
 
 [**Home**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
 · [**Libraries**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/libraries/)
-· [**SampleWiki progress**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/progress.html)
+· [**Current Progress**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/)
 · [**Underlying Lean Graph**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/underlying-lean-graph/)
 · [**Harness**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/workflow/)
 
 </div>
 
-ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean declarations, and theorem dependencies in one inspectable graph. Textbooks provide stable coordinate systems; frontier papers are inserted into the same graph so that their actual mathematical contribution can be compared, reused, and reorganized.
+ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean declarations, and theorem dependencies in one inspectable graph. Textbooks provide stable coordinate systems; frontier papers are inserted into the same graph so that their actual mathematical contribution can be compared, verified, and reused.
 
 ## Research aim
 
 ```text
-formalize → compare graph structure → compress → abstract / transfer → re-formalize
+formalize → verify → connect → reuse
 ```
 
 A paper may add a **LEAF**, **BRIDGE**, **SHORTCUT**, **HUB**, or **RE-ORGANIZATION**; these are overlapping structural signatures, not an automatic paper ranking. “A+B” is not inherently marginal: a reusable bridge that transports many later results can be major. A shallow A+B result instead leaves A and B as independent black boxes, joins them only in a terminal application, and creates little reusable transport, shortening, assumption relief, or downstream reach.
@@ -30,11 +30,13 @@ A paper may add a **LEAF**, **BRIDGE**, **SHORTCUT**, **HUB**, or **RE-ORGANIZAT
   <img src="website/static/astis-formal-graph-value.svg" alt="How new mathematics changes the formal theorem graph" width="940">
 </p>
 
-Graph compression first removes Lean refactoring artifacts, then studies repeated proof supports and cross-field mechanisms. ZDD-style representations target families of alternative minimal supports; categorical or functor-like models test whether repeated subgraphs express a structure-preserving mathematical translation.
+## ASTIS Harness
 
-## Verification workflow
+The three formalization routes use the same theorem-driven verification workflow. A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. Parallel work may discover shared foundations, but shared declarations are reused or coordinated before publication; independent review and a single stabilization lane decide what becomes Samplinglib truth.
 
-A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. A Universal Worker owns that cell end to end; independent review and one stabilization lane decide what becomes shared library truth.
+<p align="center">
+  <img src="website/static/astis-harness-current.svg" alt="ASTIS Harness theorem-driven verification workflow" width="980">
+</p>
 
 ```text
 claimed → proved locally → independently verified → stabilized → merged

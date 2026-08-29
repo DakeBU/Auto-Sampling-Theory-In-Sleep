@@ -22,12 +22,9 @@
   min-height: 300px;
 }
 
-.source-portal-riemannian {
-  border-top: 4px solid #7b61a8;
-}
-
+.source-portal-riemannian,
 .source-portal-optimization {
-  border-top: 4px solid #a36f27;
+  border-top: 4px solid var(--accent);
 }
 
 .library-index-hero h1,

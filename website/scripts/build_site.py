@@ -20,6 +20,7 @@ import chewi_source_audit_guard  # noqa: E402
 import chewi_source_first_contract  # noqa: E402
 import chewi_source_first_refinement  # noqa: E402
 import chewi_source_first_scope  # noqa: E402
+import formalization_progress  # noqa: E402
 import harness  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
@@ -209,6 +210,12 @@ def main() -> int:
     # have reached their final public form.
     write_underlying_graph_alias(output)
     library_shelves.enrich_site(output)
+
+    # Current Progress is project-level rather than a SampleWiki child. It lifts
+    # the existing detailed SampleWiki route, adds the two textbook routes, and
+    # injects the shared verification/coordination contract after all source
+    # readers and library sidebars are final.
+    formalization_progress.enrich_site(output)
     inherit_final_reader_contract(output)
 
     # Presentation overlays must never leave the global skip link pointing at a

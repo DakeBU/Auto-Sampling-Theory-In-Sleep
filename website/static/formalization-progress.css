@@ -1,0 +1,199 @@
+/* Project-level formalization progress. Keep every route inside the shared
+   Samplinglib palette: route identity is expressed by labels and structure,
+   never by a private per-library color scheme. */
+
+.progress-route-grid,
+.progress-overlap-grid,
+.home-progress-grid,
+.progress-milestones {
+  display: grid;
+  gap: 1rem;
+}
+
+.progress-route-grid,
+.progress-overlap-grid,
+.home-progress-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.progress-route-card,
+.progress-overlap-grid article,
+.progress-milestones article,
+.progress-shared-policy,
+.progress-workflow,
+.home-progress,
+.home-harness {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.progress-route-card {
+  display: flex;
+  min-height: 280px;
+  flex-direction: column;
+  padding: 1.45rem;
+  border-top: 4px solid var(--accent);
+}
+
+.progress-route-card h2,
+.progress-overlap-grid h3,
+.progress-milestones h3,
+.progress-shared-policy h2 {
+  color: var(--ink);
+}
+
+.progress-route-card p,
+.progress-overlap-grid p,
+.progress-milestones p,
+.progress-shared-policy p,
+.progress-workflow p,
+.home-progress span,
+.home-harness p {
+  color: var(--muted);
+}
+
+.progress-route-card .button {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.progress-overlap-grid article,
+.progress-shared-policy,
+.progress-workflow {
+  padding: 1.35rem;
+}
+
+.progress-overlap-grid article > span,
+.progress-milestone-head span {
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.progress-milestones {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.progress-milestones article {
+  padding: 1.25rem;
+}
+
+.progress-milestone-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.progress-milestone-head b {
+  color: var(--muted);
+  font: 500 0.72rem var(--font-code);
+}
+
+.progress-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 1rem 0 1.2rem;
+}
+
+.progress-flow span {
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  border-radius: 7px;
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.progress-flow b {
+  color: var(--accent);
+}
+
+.sidebar-progress h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.progress-route-nav {
+  display: grid;
+  gap: 0.08rem;
+}
+
+.progress-route-nav a {
+  padding: 0.38rem 0.55rem;
+  color: var(--muted);
+  border-radius: 6px;
+  font-size: 0.69rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.progress-route-nav a:hover,
+.progress-route-nav a[aria-current="page"] {
+  color: var(--ink);
+  background: var(--surface-2);
+}
+
+.home-progress,
+.home-harness {
+  padding: clamp(1.4rem, 3vw, 2rem);
+}
+
+.home-progress-grid a {
+  display: grid;
+  gap: 0.25rem;
+  min-height: 112px;
+  padding: 1rem;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+.home-progress-grid a:hover {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  background: var(--accent-soft);
+}
+
+.home-progress-grid span {
+  font-size: 0.78rem;
+}
+
+.home-harness figure {
+  margin: 1.5rem 0;
+  padding: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: var(--radius);
+}
+
+.home-harness img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.progress-samplewiki-banner {
+  margin-bottom: 2.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (max-width: 900px) {
+  .progress-route-grid,
+  .progress-overlap-grid,
+  .home-progress-grid,
+  .progress-milestones {
+    grid-template-columns: 1fr;
+  }
+}
