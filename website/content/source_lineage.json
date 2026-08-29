@@ -12,28 +12,26 @@
       "date": "November 2, 2024",
       "url": "https://chewisinho.github.io/supp.pdf",
       "chapter": 2,
-      "role": "Official material omitted from the book for space; treated as source material for Chapter 2, not as an ASTIS invention.",
+      "role": "Official material omitted from the book for space. Samplinglib treats it as source material attached to Chapter 2, not as an ASTIS derivation.",
       "sections": [
         {
           "id": "S2.1",
           "title": "Proof of Marton's tensorization",
           "source_section": "1.1",
           "pages": "2-4",
-          "summary": "Marton's product-space tensorization of transport inequalities, proved by induction using conditional couplings and the KL chain rule.",
-          "items": ["Theorem 1.1: Marton's tensorization"]
+          "summary": "Marton's product-space tensorization of transport inequalities, including the conditional-coupling induction and KL chain rule.",
+          "items": ["Theorem 1.1: Marton's tensorization", "Example 1.1: tensorization of T1"]
         },
         {
           "id": "S2.2",
           "title": "Concentration of measure",
           "source_section": "1.2",
           "pages": "4-9",
-          "summary": "Concentration around means and medians, the Herbst entropy-to-mgf argument, and transport-inequality characterizations of concentration.",
+          "summary": "Mean/median equivalence, Orlicz norms, the Herbst argument, and transport-inequality characterizations of concentration.",
           "items": [
-            "1.2.1 Equivalence between the mean and the median",
-            "Lemma 1.2: Herbst argument",
-            "Theorem 1.2: concentration from Poincare and log-Sobolev inequalities",
-            "Theorem 1.3: Bobkov-Gotze equivalence between T1 and sub-Gaussian concentration",
-            "Theorem 1.4: T1 is equivalent to Gaussian integrability of a distance function"
+            "§1.2.1 Equivalence between the mean and the median",
+            "§1.2.2 The Herbst argument",
+            "§1.2.3 Transport inequalities and concentration"
           ]
         },
         {
@@ -41,52 +39,35 @@
           "title": "Tensorization and Gozlan's theorem",
           "source_section": "1.3",
           "pages": "9-11",
-          "summary": "Explains how tensorization creates dimension-free concentration and proves the converse route from product-space concentration to the T2 transport inequality.",
-          "items": [
-            "Lemma 1.3: empirical-measure Wasserstein Lipschitz bound and Wasserstein law of large numbers",
-            "Theorem 1.5: Sanov's theorem, used as a black box",
-            "Theorem 1.6: Gozlan's equivalence between T2 and dimension-free sub-Gaussian concentration"
-          ]
+          "summary": "Dimension-free concentration through tensorization and the converse route from product-space concentration to T2.",
+          "items": ["Empirical-measure Wasserstein estimate", "Sanov theorem input", "Gozlan's equivalence for T2"]
         },
         {
           "id": "S2.4",
           "title": "Metric measure spaces",
           "source_section": "1.4",
           "pages": "11-17",
-          "summary": "Extends the Chapter 2 curvature discussion from smooth manifolds to metric-measure geometry and compares the optimal-transport and Bakry-Emery viewpoints.",
-          "items": [
-            "1.4.1 Metric geometry: length, geodesic spaces, model spaces, and Alexandrov curvature",
-            "1.4.2 Lott-Sturm-Villani synthetic Ricci curvature and displacement convexity of entropy",
-            "Definition 1.7: measured Gromov-Hausdorff convergence",
-            "Theorem 1.7: stability of synthetic Ricci curvature bounds",
-            "1.4.3 Discussion: scope of the results and the relation between Bakry-Emery and optimal-transport curvature"
-          ]
+          "summary": "Metric geometry, Alexandrov curvature, Lott-Sturm-Villani synthetic Ricci curvature, measured Gromov-Hausdorff stability, and comparison with the Bakry-Emery viewpoint.",
+          "items": ["§1.4.1 Metric geometry", "§1.4.2 Lott-Sturm-Villani synthetic Ricci curvature", "§1.4.3 Discussion"]
         },
         {
           "id": "S2.5",
           "title": "Exercises",
           "source_section": "1.5",
           "pages": "17-19",
-          "summary": "Exercises complete several proof details and connect the supplement to classical concentration inequalities.",
-          "items": [
-            "Exercise 1.1: Herbst argument and the Poincare concentration case",
-            "Exercise 1.2: Hoeffding's lemma and Pinsker's inequality",
-            "Exercise 1.3: bounded differences / Azuma-Hoeffding",
-            "Exercise 1.4: empirical Wasserstein Lipschitz bound used in Gozlan's theorem",
-            "Exercise 1.5: Poincare and T1 are incomparable"
-          ]
+          "summary": "Exercises fill additional proof details and connect the supplement to standard concentration inequalities.",
+          "items": ["Exercises 1.1-1.5"]
         },
         {
           "id": "S2.6",
-          "title": "Supplement references",
+          "title": "References",
           "source_section": "References",
           "pages": "19-20",
-          "summary": "The official supplement points readers to the primary literature and standard geometry/optimal-transport references used in these omitted details.",
+          "summary": "Primary literature and standard geometry/optimal-transport references supporting the omitted Chapter 2 material.",
           "items": [
             "Ambrosio-Gigli-Savare, Gradient Flows in Metric Spaces and in the Space of Probability Measures",
             "Burago-Burago-Ivanov, A Course in Metric Geometry",
             "Bobkov-Gotze on transport and logarithmic Sobolev inequalities",
-            "Bolley-Villani on transportation inequalities",
             "Lott-Villani and Sturm on synthetic Ricci curvature",
             "Marton on transport tensorization",
             "Villani, Optimal Transport: Old and New"
@@ -97,7 +78,7 @@
     "background_reference_groups": [
       {
         "title": "Rigorous stochastic-calculus cross-checks used by ASTIS",
-        "role": "Used when Chewi intentionally sketches standard stochastic-calculus details and ASTIS must expose the hidden measurability, stopping, completion, or martingale hypotheses before formalization.",
+        "role": "Used when Chewi sketches standard stochastic-calculus details and formalization requires the hidden measurability, stopping, completion, or martingale hypotheses to be made explicit.",
         "references": [
           {"name": "Karatzas-Shreve, Brownian Motion and Stochastic Calculus", "url": "https://link.springer.com/book/10.1007/978-1-4612-0949-2"},
           {"name": "Protter, Stochastic Integration and Differential Equations", "url": "https://link.springer.com/book/10.1007/978-3-662-10061-5"},
@@ -106,9 +87,8 @@
         ]
       },
       {
-        "title": "Background references explicitly recommended in Chewi's book",
-        "role": "These are background/rigor references, not replacements for Chewi's source theorem. Chapter 1 bibliographical notes explicitly point to them for topics whose proofs are only sketched in the book.",
-        "source_anchor": "https://chewisinho.github.io/main.pdf#page=52",
+        "title": "Stochastic analysis and optimal-transport background recommended by Chewi",
+        "role": "Chewi's bibliographical notes point readers to standard books when the main text omits routine or technical proofs. Samplinglib uses these as background/rigor references, never as silent replacements for the pinned Chewi theorem.",
         "references": [
           {"name": "Steele, Stochastic Calculus and Financial Applications"},
           {"name": "Pavliotis, Stochastic Processes and Applications"},
@@ -123,8 +103,7 @@
       },
       {
         "title": "Concentration and functional-inequality background",
-        "role": "Chewi's Chapter 2 bibliographical notes explicitly recommend these monographs/notes for concentration, isoperimetry, and functional inequalities.",
-        "source_anchor": "https://chewisinho.github.io/main.pdf#page=98",
+        "role": "Used to expand concentration, isoperimetry, and functional-inequality arguments around Chapter 2 when the source presentation is intentionally compact.",
         "references": [
           {"name": "Ledoux, The Concentration of Measure Phenomenon"},
           {"name": "Boucheron-Lugosi-Massart, Concentration Inequalities"},
@@ -135,36 +114,48 @@
       }
     ]
   },
-  "first_order_optimization": {
+  "optimisation": {
     "primary": {
-      "title": "First-Order Methods in Optimization",
-      "author": "Amir Beck",
-      "url": "https://epubs.siam.org/doi/book/10.1137/1.9781611974997",
-      "role": "Primary chapter spine for the First-Order Optimization Library."
-    },
-    "supplement": {
       "title": "Lectures on Optimization",
       "author": "Sinho Chewi",
       "date": "May 11, 2026",
       "url": "https://arxiv.org/pdf/2605.07006",
-      "role": "Supplementary theorem-proof exposition and cross-check for Beck; it does not replace Beck as the primary source. Chewi states that these notes are primarily based on Bubeck (2015), Beck (2017), and Nesterov (2018)."
+      "role": "Public theorem-proof source and controlling chapter spine for the Optimisation Library."
     },
-    "chapter_map": {
-      "1": {"chewi": "§1 and Appendix A", "note": "Convexity/smoothness preliminaries and symmetric-matrix background."},
-      "2": {"chewi": "§6.1 and §9", "note": "Extended-valued convex analysis and Fenchel duality provide the closest supplementary treatment."},
-      "3": {"chewi": "§6.1-6.2", "note": "Subgradients and projected subgradient methods."},
-      "4": {"chewi": "§9", "note": "Fenchel conjugacy and duality correspondences."},
-      "5": {"chewi": "§1.2, §§2-5, §9.2", "note": "Smoothness, strong convexity, gradient flow/descent, acceleration, and convexity-smoothness duality."},
-      "6": {"chewi": "§8", "note": "Proximal methods and convergence analysis."},
-      "7": {"chewi": "Appendix A (partial)", "note": "Symmetric-matrix background is relevant; Beck remains the primary treatment of spectral functions."},
-      "8": {"chewi": "§6.2", "note": "Projected subgradient methods."},
-      "9": {"chewi": "§10", "note": "Bregman divergences, relative convexity/smoothness, mirror methods, and online algorithms."},
-      "10": {"chewi": "§8 and §12.1", "note": "Proximal methods plus the unified stochastic mirror proximal-gradient theorem."},
-      "11": {"chewi": "§11 (related)", "note": "Alternating minimization is related to block methods, but this is not treated as an exact chapter equivalence."},
-      "12": {"chewi": "§8 and §9", "note": "Proximal structure together with Fenchel duality."},
-      "13": {"chewi": "§7", "note": "Frank-Wolfe / conditional-gradient methods."},
-      "14": {"chewi": "§11", "note": "Alternating projections, convergence of alternating minimization, and entropic OT case study."},
-      "15": {"chewi": "No dedicated section", "note": "Beck remains the primary source for ADMM; Chewi's notes are not presented as a substitute."}
-    }
+    "chapters": [
+      {"id": "01", "title": "Introduction and basics of convex functions", "source": "§1", "page": 3},
+      {"id": "02", "title": "Gradient flow", "source": "§2", "page": 12},
+      {"id": "03", "title": "Gradient descent: smooth case", "source": "§3", "page": 18},
+      {"id": "04", "title": "Lower bounds for smooth optimization", "source": "§4", "page": 24},
+      {"id": "05", "title": "Acceleration", "source": "§5", "page": 29},
+      {"id": "06", "title": "Non-smooth convex optimization", "source": "§6", "page": 39},
+      {"id": "07", "title": "Frank-Wolfe", "source": "§7", "page": 57},
+      {"id": "08", "title": "Proximal methods", "source": "§8", "page": 61},
+      {"id": "09", "title": "Fenchel duality", "source": "§9", "page": 67},
+      {"id": "10", "title": "Mirror methods", "source": "§10", "page": 76},
+      {"id": "11", "title": "Alternating minimization", "source": "§11", "page": 90},
+      {"id": "12", "title": "Stochastic optimization", "source": "§12", "page": 104},
+      {"id": "13", "title": "Interior point methods", "source": "§13", "page": 127},
+      {"id": "A", "title": "Background on symmetric matrices", "source": "Appendix A", "page": 140}
+    ],
+    "background_references": [
+      {
+        "name": "Sébastien Bubeck, Convex Optimization: Algorithms and Complexity (2015)",
+        "role": "Named by Chewi as one of the principal sources underlying the lecture notes."
+      },
+      {
+        "name": "Amir Beck, First-Order Methods in Optimization (2017)",
+        "url": "https://epubs.siam.org/doi/book/10.1137/1.9781611974997",
+        "role": "Named by Chewi as one of the principal sources underlying the lecture notes; used for cross-checking and additional detail, but not as the public formalization spine."
+      },
+      {
+        "name": "Yurii Nesterov, Lectures on Convex Optimization (2018)",
+        "role": "Named by Chewi as one of the principal sources underlying the lecture notes."
+      }
+    ],
+    "formal_upstreams": [
+      {"name": "Optlib", "url": "https://github.com/optsuite/optlib"},
+      {"name": "CvxLean", "url": "https://github.com/verified-optimization/CvxLean"}
+    ]
   }
 }
