@@ -5,13 +5,26 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalUniqueness
 # Almost-everywhere uniqueness of quadratic optimal maps
 
 Once the quadratic optimal plan is unique, uniqueness of an optimal transport
-map is a graph-law statement.  Two optimal maps induce two optimal graph
+map is a graph-law statement. Two optimal maps induce two optimal graph
 couplings; plan uniqueness identifies those joint laws, and equality of graph
 laws identifies the maps almost everywhere under the common source marginal.
 
-This is deliberately separate from optimizer existence.  It proves the
-uniqueness clause of Brenier's theorem conditional only on the two maps already
-being optimal.
+## Source boundary
+
+This module is a reusable technical edge for the uniqueness part of Chewi,
+*Log-Concave Sampling*, Theorem 1.3.8(4) (Brenier's theorem). It is **not** the
+source theorem itself. The source theorem also asserts existence and uniqueness
+of the optimal plan and identifies the optimal map as the `mu`-a.s. unique
+gradient of a proper convex lower-semicontinuous potential pushing `mu` to
+`nu`. Here we prove only the conditional implication
+
+`two already-quadratic-optimal maps -> mu-a.e. equality`.
+
+Accordingly this theorem-edge must not be labeled source-reviewed or an exact
+formalization of Theorem 1.3.8(4). The later source-facing Brenier assembly must
+carry the full source statement through the ASTIS semantic round-trip gate.
+Only the source marginal is assumed absolutely continuous; no absolute
+continuity assumption is imposed on the target.
 -/
 
 namespace AutoSamplingTheory
