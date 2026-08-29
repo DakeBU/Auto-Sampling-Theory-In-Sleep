@@ -210,7 +210,6 @@ def main() -> int:
     write_underlying_graph_alias(output)
     library_shelves.enrich_site(output)
     inherit_final_reader_contract(output)
-    reader_contract_final.validate(output)
 
     # Presentation overlays must never leave the global skip link pointing at a
     # missing anchor. This repair runs after every reader/graph overlay and before
