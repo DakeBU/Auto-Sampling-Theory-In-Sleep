@@ -76,6 +76,35 @@ def repair_final_content_anchors(output: Path) -> None:
         path.write_text(repaired, encoding="utf-8", newline="\n")
 
 
+def write_underlying_graph_alias(output: Path) -> None:
+    """Keep the public /underlying-lean-graph/ route as a stable alias."""
+
+    rel_path = "underlying-lean-graph/index.html"
+    body = """
+<section class="page-hero compact">
+  <div class="eyebrow">Samplinglib · formal graph</div>
+  <h1>Underlying Lean Graph of Libraries</h1>
+  <p class="lede">This stable route forwards to the interactive Proof Atlas and underlying Lean graph.</p>
+  <p><a class="button primary" href="../lean-foundations.html">Open the graph</a></p>
+</section>
+"""
+    text = astis_site.page(
+        "Underlying Lean Graph of Libraries",
+        rel_path,
+        body,
+        active="Lean Foundations",
+        description="Stable route to the Samplinglib Underlying Lean Graph of Libraries.",
+    )
+    text = text.replace(
+        "</head>",
+        '  <link rel="canonical" href="../lean-foundations.html">\n'
+        '  <meta http-equiv="refresh" content="0; url=../lean-foundations.html">\n'
+        "</head>",
+        1,
+    )
+    astis_site.write_page(output, rel_path, text)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", default="", help="output directory (default: _site)")
@@ -154,8 +183,10 @@ def main() -> int:
     harness.enrich_site(output)
     harness.validate_site(output)
 
-    # Add peer-level textbook shelves only after all source readers, graph views,
-    # and Harness pages have reached their final public form.
+    # Keep the historical public graph route stable, then add peer-level
+    # textbook shelves after all source readers, graph views, and Harness pages
+    # have reached their final public form.
+    write_underlying_graph_alias(output)
     library_shelves.enrich_site(output)
 
     # Presentation overlays must never leave the global skip link pointing at a
