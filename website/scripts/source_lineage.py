@@ -60,6 +60,11 @@ def canonical_shell(text: str, rel: str, output: Path) -> str:
     text = library_shelves.replace_sidebar(text, rel)
     text = formalization_progress.insert_progress_sidebar(text, rel)
     text = formalization_progress.patch_site_nav(text, rel)
+    # formalization_progress is intentionally backwards-compatible with the old
+    # route name, so normalize the public route atomically after reusing it.
+    text = text.replace("progress/first-order-optimization.html", "progress/optimisation.html")
+    text = text.replace("first-order-optimization.html", "optimisation.html")
+    text = text.replace("First-Order Optimization", "Optimisation")
     text = library_shelves.inherit_canonical_theme(text, rel, output)
     text = add_style(text, rel)
     # Late astis_site.page calls still contain an obsolete root anchor that the
