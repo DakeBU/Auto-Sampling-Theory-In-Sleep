@@ -2,7 +2,7 @@
 """Project-level formalization progress for the three Samplinglib routes.
 
 The detailed SampleWiki progress view is produced by the SampleWiki reader
-pipeline.  This final overlay lifts that page out of the SampleWiki subtree,
+pipeline. This final overlay lifts that page out of the SampleWiki subtree,
 adds the two textbook routes, exposes the small shared Lean floor between
 routes, and keeps every route behind the same ASTIS verification workflow.
 """
@@ -37,6 +37,7 @@ PRIVATE_PUBLIC_MARKERS = (
     "ZDD-style",
     "categorical or functor-like",
     "alternative minimal supports",
+    "compression candidates",
 )
 
 
@@ -313,6 +314,10 @@ def transform_site(output: Path) -> None:
         text = insert_progress_sidebar(text, rel)
         text = patch_site_nav(text, rel)
         text = retarget_legacy_progress_links(text, rel)
+        text = text.replace(
+            "cross-library bridges, and compression candidates.",
+            "cross-library bridges, and shared-interface candidates.",
+        )
         text = add_style(text, rel, STYLE_NAME)
         if rel == "index.html":
             text = patch_home(text)
