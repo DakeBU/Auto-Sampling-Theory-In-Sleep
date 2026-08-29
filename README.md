@@ -55,11 +55,11 @@ In short, the state transition we care about is
 
 ```text
 claimed -> proved locally -> independently verified -> stabilized -> merged
-                   \
-                    -> blocked -> smaller child theorem -> verified -> re-entry
+              |
+              +--> blocked -> smaller child theorem -> verified -> re-entry
 ```
 
-The important invariant is not how many agents are running. It is that every published node has an explicit statement, dependencies, evidence, ownership, and a stable place in the graph.
+The important invariant is not concurrency itself. Every published node should have an explicit statement, dependencies, evidence, ownership, and a stable place in the graph.
 
 ### 3. Theorem fidelity and denoising
 
