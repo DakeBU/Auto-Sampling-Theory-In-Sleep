@@ -51,6 +51,7 @@ import Tests.Martingale
 import Tests.MetricCurve
 import Tests.OperatorGenerator
 import Tests.OperatorGeneratorDomain
+import Tests.ProbabilityCouplingCompactness
 import Tests.ProgressiveL2
 import Tests.ProgressiveL2Density
 import Tests.ProgressiveL2Algebra
