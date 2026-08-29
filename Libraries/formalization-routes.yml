@@ -1,0 +1,33 @@
+schema_version: 1
+verification: astis-harness
+routes:
+  - id: samplewiki-route
+    title: SampleWiki Route
+    source: https://samplewiki.morning-recipe-422a.workers.dev/
+    progress: /progress/samplewiki-route.html
+    mode: dependency-first
+    status: active
+  - id: riemannian-optimization
+    title: Riemannian Optimization
+    source: https://www.nicolasboumal.net/book/
+    progress: /progress/riemannian-optimization.html
+    mode: textbook
+    status: scaffold
+  - id: first-order-optimization
+    title: First-Order Optimization
+    source: https://epubs.siam.org/doi/book/10.1137/1.9781611974997
+    progress: /progress/first-order-optimization.html
+    mode: textbook-plus-upstreams
+    status: scaffold
+shared_floor:
+  classification: [reuse, adapt, missing, out_of_scope]
+  collision_rule: one canonical shared theorem when statements coincide; explicit adapters when conventions differ
+  checkpoints:
+    - chewi: "2.5 Riemannian Manifolds"
+      route: riemannian-optimization
+    - chewi: "4.3 Proof via Convex Optimization"
+      route: first-order-optimization
+    - chewi: "Chapter 8 The Proximal Sampler"
+      route: first-order-optimization
+    - chewi: "Chapter 10 Structured Sampling"
+      route: first-order-optimization
