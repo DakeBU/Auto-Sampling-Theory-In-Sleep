@@ -67,7 +67,7 @@ theorem iSup_coe_min_nat_eq (r : ℝ≥0) :
       (r : ℝ≥0∞) = ((min r (n : ℝ≥0) : ℝ≥0) : ℝ≥0∞) := by
         rw [min_eq_left hn]
       _ ≤ ⨆ m : ℕ, ((min r (m : ℝ≥0) : ℝ≥0) : ℝ≥0∞) :=
-        le_iSup (fun m : ℕ => ((min r (m : ℝ≥0) : ℝ≥0∞))) n
+        le_iSup (fun m : ℕ => ((min r (m : ℝ≥0) : ℝ≥0) : ℝ≥0∞)) n
 
 /-- Monotone convergence expresses an unbounded continuous nonnegative
 integral as the supremum of its bounded continuous truncations. -/
