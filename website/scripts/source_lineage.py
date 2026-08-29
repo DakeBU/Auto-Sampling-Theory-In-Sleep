@@ -12,13 +12,13 @@ This layer makes mathematical provenance explicit:
 from __future__ import annotations
 
 import json
-import re
 import shutil
 from html import escape
 from pathlib import Path
 from typing import Any
 
 import astis_site
+import formalization_progress
 import library_shelves
 
 
@@ -53,6 +53,19 @@ def add_style(text: str, rel: str) -> str:
     if "</head>" not in text:
         raise RuntimeError(f"{rel}: missing </head>")
     return text.replace("</head>", f'  <link rel="stylesheet" href="{href}">\n</head>', 1)
+
+
+def canonical_shell(text: str, rel: str, output: Path) -> str:
+    """Apply the same final reader shell used by the established Samplinglib pages."""
+    text = library_shelves.replace_sidebar(text, rel)
+    text = formalization_progress.insert_progress_sidebar(text, rel)
+    text = formalization_progress.patch_site_nav(text, rel)
+    text = library_shelves.inherit_canonical_theme(text, rel, output)
+    text = add_style(text, rel)
+    # Late astis_site.page calls still contain an obsolete root anchor that the
+    # final information-architecture overlay removes from established pages.
+    text = text.replace(f'{prefix(rel)}index.html#samplinglib', f'{prefix(rel)}index.html')
+    return text
 
 
 def append_main(output: Path, rel: str, html: str, marker: str) -> None:
@@ -185,7 +198,7 @@ def attribution_html(data: dict[str, Any]) -> str:
 
 
 def optimisation_progress_body() -> str:
-    return f"""
+    return """
 <section class="page-hero compact progress-hero" data-current-progress="optimisation">
   <div class="eyebrow">Current Progress · Optimisation Route</div><h1>Optimisation</h1>
   <p class="lede">The route formalises Sinho Chewi's public <em>Lectures on Optimization</em> (arXiv:2605.07006) section by section. Mathlib, Optlib and CvxLean are searched first; Bubeck, Beck and Nesterov remain attributed background references.</p>
@@ -204,15 +217,26 @@ def optimisation_progress_body() -> str:
 
 
 def write_optimisation_progress(output: Path) -> None:
-    text = astis_site.page("Optimisation · Current Progress", OPT_PROGRESS, optimisation_progress_body(), active="Progress", description="Current formalization route for Sinho Chewi's Lectures on Optimization.")
-    text = library_shelves.inherit_canonical_theme(text, OPT_PROGRESS, output)
-    text = add_style(text, OPT_PROGRESS)
+    text = astis_site.page(
+        "Optimisation · Current Progress",
+        OPT_PROGRESS,
+        optimisation_progress_body(),
+        active="Progress",
+        description="Current formalization route for Sinho Chewi's Lectures on Optimization.",
+    )
+    text = canonical_shell(text, OPT_PROGRESS, output)
     astis_site.write_page(output, OPT_PROGRESS, text)
 
     old = output / OLD_OPT_PROGRESS
     if old.exists():
-        redirect = astis_site.page("Optimisation · Current Progress", OLD_OPT_PROGRESS, '<section class="page-hero compact"><div class="eyebrow">Samplinglib · moved</div><h1>Optimisation</h1><p>This route now formalises Sinho Chewi\'s public lecture notes.</p><a class="button primary" href="optimisation.html">Open Optimisation</a></section>', active="Progress")
+        redirect = astis_site.page(
+            "Optimisation · Current Progress",
+            OLD_OPT_PROGRESS,
+            '<section class="page-hero compact"><div class="eyebrow">Samplinglib · moved</div><h1>Optimisation</h1><p>This route now formalises Sinho Chewi\'s public lecture notes.</p><a class="button primary" href="optimisation.html">Open Optimisation</a></section>',
+            active="Progress",
+        )
         redirect = redirect.replace("</head>", '  <meta http-equiv="refresh" content="0; url=optimisation.html">\n</head>', 1)
+        redirect = canonical_shell(redirect, OLD_OPT_PROGRESS, output)
         astis_site.write_page(output, OLD_OPT_PROGRESS, redirect)
 
 
@@ -232,11 +256,11 @@ def patch_public_names(output: Path) -> None:
 def validate(output: Path, data: dict[str, Any]) -> None:
     errors: list[str] = []
     required = {
-        TEXTBOOK_INDEX: ("data-chewi-source-stack=\"true\"", "supp.pdf", "Karatzas-Shreve", "Villani"),
-        CHEWI_CHAPTER_2: ("data-chewi-official-supplement=\"chapter-2\"", "S2.1", "S2.6", "Metric measure spaces", "Exercises"),
-        ATTRIBUTION: ("data-source-lineage-attribution=\"true\"", "Bubeck", "Amir Beck", "Nesterov", "Protter", "Revuz-Yor"),
+        TEXTBOOK_INDEX: ('data-chewi-source-stack="true"', "supp.pdf", "Karatzas-Shreve", "Villani"),
+        CHEWI_CHAPTER_2: ('data-chewi-official-supplement="chapter-2"', "S2.1", "S2.6", "Metric measure spaces", "Exercises"),
+        ATTRIBUTION: ('data-source-lineage-attribution="true"', "Bubeck", "Amir Beck", "Nesterov", "Protter", "Revuz-Yor"),
         "libraries/optimisation/index.html": ("Lectures on Optimization", "arXiv:2605.07006"),
-        OPT_PROGRESS: ("Current Progress · Optimisation Route", "arXiv:2605.07006"),
+        OPT_PROGRESS: ("Current Progress · Optimisation Route", "arXiv:2605.07006", 'data-ia-version="2"'),
     }
     for rel, markers in required.items():
         path = output / rel
@@ -259,10 +283,13 @@ def validate(output: Path, data: dict[str, Any]) -> None:
         path = output / rel
         if not path.exists():
             continue
-        styles = set(library_shelves.stylesheet_names(path.read_text(encoding="utf-8")))
+        text = path.read_text(encoding="utf-8")
+        styles = set(library_shelves.stylesheet_names(text))
         missing = canonical_styles - styles
         if missing:
             errors.append(f"{rel}: theme differs from Log-Concave Sampling; missing {sorted(missing)}")
+        if "index.html#samplinglib" in text:
+            errors.append(f"{rel}: obsolete pre-IA Samplinglib anchor remains")
 
     for path in output.rglob("*.html"):
         rel = path.relative_to(output).as_posix()
@@ -293,9 +320,7 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
     for rel in ("libraries/riemannian-optimization/index.html", "libraries/optimisation/index.html"):
         path = output / rel
         if path.exists():
-            text = path.read_text(encoding="utf-8")
-            text = library_shelves.inherit_canonical_theme(text, rel, output)
-            text = add_style(text, rel)
+            text = canonical_shell(path.read_text(encoding="utf-8"), rel, output)
             path.write_text(text, encoding="utf-8", newline="\n")
 
     validate(output, data)
