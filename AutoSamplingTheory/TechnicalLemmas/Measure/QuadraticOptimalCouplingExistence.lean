@@ -38,6 +38,7 @@ open MeasureTheory Set Topology
 open ContinuousCostWeakLowerSemicontinuity
 open DisplacementInterpolation ProbabilityCouplingCompactness
 open Transport WassersteinSpace
+open scoped ENNReal
 
 noncomputable section
 
@@ -101,6 +102,7 @@ theorem exists_quadraticOptimalCoupling_probabilityMeasure
     apply le_sInf
     intro r hr
     rcases hr with ⟨rho, hrho, rfl⟩
+    change IsCoupling rho (mu : Measure E) (nu : Measure E) at hrho
     let rhoP : ProbabilityMeasure (E × E) :=
       ⟨rho, isProbabilityMeasure_of_isCoupling_left hrho⟩
     have hrhoP_mem : rhoP ∈ probabilityCouplingSet mu nu := by
