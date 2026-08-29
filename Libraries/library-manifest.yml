@@ -1,0 +1,32 @@
+schema_version: 1
+libraries:
+  - id: log-concave-sampling
+    title: Log-Concave Sampling
+    kind: textbook
+    source: https://chewisinho.github.io/main.pdf
+    owners: [Dake, Ji]
+    priority: active
+    site: /textbook/
+  - id: samplewiki
+    title: SampleWiki
+    kind: frontier
+    source: https://samplewiki.morning-recipe-422a.workers.dev/
+    owners: [Dake, Ji]
+    priority: active
+    site: /example-cases/samplewiki.html
+  - id: riemannian-optimization
+    title: Riemannian Optimization
+    kind: textbook
+    source: https://www.nicolasboumal.net/book/
+    owners: [Andi, Dake]
+    priority: scaffold
+    chapters: 11
+    site: /libraries/riemannian-optimization/
+  - id: first-order-optimization
+    title: First-Order Optimization
+    kind: textbook-plus-upstreams
+    source: https://epubs.siam.org/doi/book/10.1137/1.9781611974997
+    owners: [Dake, Huanjian, Andi]
+    priority: scaffold
+    chapters: 15
+    site: /libraries/first-order-optimization/
