@@ -1,0 +1,27 @@
+schema_version: 1
+source:
+  author: Amir Beck
+  title: First-Order Methods in Optimization
+  year: 2017
+  publisher: SIAM
+  url: https://epubs.siam.org/doi/book/10.1137/1.9781611974997
+  doi: 10.1137/1.9781611974997
+owners: [Dake, Huanjian, Andi]
+chapters:
+  1: Vector spaces
+  2: Extended real-valued functions
+  3: Subgradients
+  4: Conjugate functions
+  5: Smoothness and strong convexity
+  6: The proximal operator
+  7: Spectral functions
+  8: Primal and dual projected subgradient methods
+  9: Mirror descent
+  10: The proximal gradient method
+  11: The block proximal gradient method
+  12: Dual-based proximal gradient methods
+  13: The generalized conditional gradient method
+  14: Alternating minimization
+  15: ADMM
+status_policy: [reuse, adapt, missing, out_of_scope]
+truth_boundary: chapter_scaffold_only

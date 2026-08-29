@@ -24,6 +24,7 @@ import harness  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
+import library_shelves  # noqa: E402
 import reader_contract_final  # noqa: E402
 import samplewiki_audit_queue  # noqa: E402
 import samplewiki_casebook_assets  # noqa: E402
@@ -73,6 +74,56 @@ def repair_final_content_anchors(output: Path) -> None:
                 f"{path.relative_to(output)}: skip link targets #content but no repairable <main> exists"
             )
         path.write_text(repaired, encoding="utf-8", newline="\n")
+
+
+def write_underlying_graph_alias(output: Path) -> None:
+    """Keep the public /underlying-lean-graph/ route as a stable alias."""
+
+    rel_path = "underlying-lean-graph/index.html"
+    body = """
+<section class="page-hero compact">
+  <div class="eyebrow">Samplinglib · formal graph</div>
+  <h1>Underlying Lean Graph of Libraries</h1>
+  <p class="lede">This stable route forwards to the interactive Proof Atlas and underlying Lean graph.</p>
+  <p><a class="button primary" href="../lean-foundations.html">Open the graph</a></p>
+</section>
+"""
+    text = astis_site.page(
+        "Underlying Lean Graph of Libraries",
+        rel_path,
+        body,
+        active="Lean Foundations",
+        description="Stable route to the Samplinglib Underlying Lean Graph of Libraries.",
+    )
+    text = text.replace(
+        "</head>",
+        '  <link rel="canonical" href="../lean-foundations.html">\n'
+        '  <meta http-equiv="refresh" content="0; url=../lean-foundations.html">\n'
+        "</head>",
+        1,
+    )
+    astis_site.write_page(output, rel_path, text)
+
+
+def inherit_final_reader_contract(output: Path) -> None:
+    """Attach the final reader stylesheet to pages added after its render pass."""
+
+    style_name = reader_contract_final.STYLE_NAME
+    for path in sorted(output.rglob("*.html")):
+        rel = path.relative_to(output)
+        prefix = "../" * len(rel.parent.parts)
+        href = f"{prefix}assets/{style_name}"
+        text = path.read_text(encoding="utf-8")
+        if href in text:
+            continue
+        if "</head>" not in text:
+            raise RuntimeError(f"{rel}: missing </head> while inheriting final reader contract")
+        text = text.replace(
+            "</head>",
+            f'  <link rel="stylesheet" href="{href}">\n</head>',
+            1,
+        )
+        path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def main() -> int:
@@ -152,6 +203,13 @@ def main() -> int:
     # visible, and rejects release-version branding on public Harness surfaces.
     harness.enrich_site(output)
     harness.validate_site(output)
+
+    # Keep the historical public graph route stable, then add peer-level
+    # textbook shelves after all source readers, graph views, and Harness pages
+    # have reached their final public form.
+    write_underlying_graph_alias(output)
+    library_shelves.enrich_site(output)
+    inherit_final_reader_contract(output)
 
     # Presentation overlays must never leave the global skip link pointing at a
     # missing anchor. This repair runs after every reader/graph overlay and before
