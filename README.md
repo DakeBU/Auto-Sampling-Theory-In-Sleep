@@ -16,36 +16,25 @@
 
 </div>
 
-ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean declarations, and theorem dependencies in one inspectable graph. Textbooks provide stable coordinate systems; frontier papers are inserted into the same graph so that their actual mathematical contribution can be compared and reused.
-
-## Libraries
-
-| Library | Mathematical source | Current role | Owners |
-|---|---|---|---|
-| [Log-Concave Sampling](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/textbook/) | Sinho Chewi, *Log-Concave Sampling* | Active textbook formalization | Dake, Ji |
-| [SampleWiki](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki.html) | Source-pinned frontier sampling results | Active frontier ingestion; [progress](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/progress.html) | Dake, Ji |
-| [Riemannian Optimization](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/libraries/riemannian-optimization/) | Nicolas Boumal, *An Introduction to Optimization on Smooth Manifolds* | Eleven-chapter scaffold; Euclidean → Riemannian transfer | Andi, Dake |
-| [First-Order Optimization](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/libraries/first-order-optimization/) | Amir Beck, *First-Order Methods in Optimization* | Fifteen-chapter scaffold aligned with Optlib and CvxLean | Dake, Huanjian, Andi |
-
-The immediate execution order remains **Chewi + SampleWiki first**, followed by the Boumal and Beck lanes. Each optimization theorem is classified as `reuse`, `adapt`, `missing`, or `out of scope`; existing formal work is connected rather than silently duplicated. Chapter-sized or theorem-sized volunteers are welcome.
+ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean declarations, and theorem dependencies in one inspectable graph. Textbooks provide stable coordinate systems; frontier papers are inserted into the same graph so that their actual mathematical contribution can be compared, reused, and reorganized.
 
 ## Research aim
 
 ```text
-formalize → compare graph structure → compress → abstract/transfer → re-formalize
+formalize → compare graph structure → compress → abstract / transfer → re-formalize
 ```
 
-A paper may add a **LEAF**, **BRIDGE**, **SHORTCUT**, **HUB**, or **RE-ORGANIZATION**; these are overlapping structural signatures, not an automatic paper ranking. “A+B” is not inherently marginal: a reusable bridge that transports many later results can be major. A shallow A+B result instead leaves A and B as independent black boxes, joins them only in one terminal application, and creates little reusable transport, shortening, or downstream reach.
+A paper may add a **LEAF**, **BRIDGE**, **SHORTCUT**, **HUB**, or **RE-ORGANIZATION**; these are overlapping structural signatures, not an automatic paper ranking. “A+B” is not inherently marginal: a reusable bridge that transports many later results can be major. A shallow A+B result instead leaves A and B as independent black boxes, joins them only in a terminal application, and creates little reusable transport, shortening, assumption relief, or downstream reach.
 
 <p align="center">
   <img src="website/static/astis-formal-graph-value.svg" alt="How new mathematics changes the formal theorem graph" width="940">
 </p>
 
-Graph compression first removes Lean refactoring artifacts, then studies repeated proof supports and cross-field mechanisms. ZDD-style representations target families of alternative minimal supports; categorical or functor-like models test whether repeated subgraphs express a composition-preserving mathematical translation.
+Graph compression first removes Lean refactoring artifacts, then studies repeated proof supports and cross-field mechanisms. ZDD-style representations target families of alternative minimal supports; categorical or functor-like models test whether repeated subgraphs express a structure-preserving mathematical translation.
 
 ## Verification workflow
 
-A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. A Universal Worker owns it end to end; independent review and one stabilization lane decide what becomes shared library truth.
+A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. A Universal Worker owns that cell end to end; independent review and one stabilization lane decide what becomes shared library truth.
 
 ```text
 claimed → proved locally → independently verified → stabilized → merged
@@ -57,17 +46,25 @@ Lean compilation does not by itself guarantee source fidelity. Source-facing nod
 
 ## Attribution & design lineage
 
-| Source | Samplinglib use | Boundary |
+| Source | What Samplinglib / ASTIS learns from it | ASTIS-specific boundary |
 |---|---|---|
-| [Sinho Chewi, *Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) | Sampling textbook order and theorem route | Original paraphrase, exact anchors, ASTIS-owned Lean |
-| [Nicolas Boumal, *An Introduction to Optimization on Smooth Manifolds*](https://www.nicolasboumal.net/book/) | Riemannian geometry and optimization spine | Chapter scaffold and source correspondence; no wholesale republication |
-| [Amir Beck, *First-Order Methods in Optimization*](https://epubs.siam.org/doi/book/10.1137/1.9781611974997) | Convex analysis and first-order-method spine | Chapter scaffold and source correspondence; no wholesale republication |
-| [Optlib](https://github.com/optsuite/optlib) | Audited convex-analysis and algorithm theorem nodes | Provenance and version adapters stay explicit |
-| [CvxLean](https://github.com/verified-optimization/CvxLean) | Formal optimization problems, reductions, relaxations, and transformations | Reference/integration layer until compatibility is locally verified |
-| [Lean-Ridgelet](https://github.com/shosonoda/lean-ridgelet) | Blueprint and implementation-map presentation | Extended to textbooks, frontier insertion, fidelity, and graph comparison |
-| [LeanMarathon](https://github.com/YuanheZ/LeanMarathon), [StatsMLlib](https://github.com/Lean-MoDS/StatsMLlib), [FrontierAgent](https://github.com/ApodexAI/FrontierAgent) | Proof-DAG scheduling, subject-library organization, bounded generalist workers | ASTIS requires source-backed theorem state, independent verification, and serialized stabilization |
+| [Sinho Chewi, *Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) | Sampling textbook order, theorem route, calculations, and background results | Faithful ASTIS paraphrase + exact source anchors + ASTIS-owned Lean declarations; no endorsement implied |
+| [Nicolas Boumal, *An Introduction to Optimization on Smooth Manifolds*](https://www.nicolasboumal.net/book/) | Riemannian geometry and optimization spine | Chapter/source correspondence; no wholesale republication |
+| [Amir Beck, *First-Order Methods in Optimization*](https://epubs.siam.org/doi/book/10.1137/1.9781611974997) | Convex analysis and first-order-method spine | Chapter/source correspondence; no wholesale republication |
+| [Optlib](https://github.com/optsuite/optlib) | Existing convex-analysis, proximal, and optimization-algorithm theorem nodes | Provenance, compatibility, and adapters remain explicit; no silent duplication |
+| [CvxLean](https://github.com/verified-optimization/CvxLean) | Formal optimization problems, equivalence, reduction, relaxation, and verified transformations | Reference/integration layer until compatibility is locally audited |
+| [Lean-Ridgelet](https://github.com/shosonoda/lean-ridgelet) | Blueprint / implementation-map presentation | Extended from one formalization map to textbooks, frontier results, reusable theorem graphs, and source-aware statement review |
+| [ARIS / Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Long-running research, durable artifacts, recovery, and separate review | Durable state is source-backed Lean theorem progress rather than plausible research narrative |
+| [Learning Beyond Gradients](https://github.com/Trinkle23897/learning-beyond-gradients) | Durable failures, rejected routes, iterative improvement, and system self-improvement | Keeps negative memory without permanent intellectual role boundaries |
+| [EoH](https://github.com/FeiLiu36/EoH) | Competing candidate routes | Search is allowed only around fixed Lean-checkable targets; faithful source statements do not mutate |
+| [LeanMarathon](https://github.com/YuanheZ/LeanMarathon) | Blueprint, proof-DAG leaves, bounded workers, and deterministic gates | Samplinglib makes theorem-graph memory, source correspondence, statement fidelity, and sampling-analysis obligations first-class |
+| [MathCode](https://github.com/math-ai-org/mathcode) | Lean diagnostics and theorem-reuse ideas | Diagnostics are advisory; pinned Lean/source checks and independent verification are authoritative |
+| [lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory) | Mathlib probability, concentration, entropy, and functional-inequality proof idioms | External declarations become local truth only after an audited compatible port compiles |
+| [StatsMLlib](https://github.com/Lean-MoDS/StatsMLlib) | Subject-owned modules, reuse-first formalization, and staged contribution | Samplinglib adds textbook correspondence, SampleWiki ingestion, statement fidelity, and graph-level contribution views |
+| [FrontierAgent](https://github.com/ApodexAI/FrontierAgent) | Parallel generalist agents, bounded task boards, checkpointing, and no-progress control | ASTIS schedules theorem-DAG advances with Lean evidence, truth boundaries, independent verification, and serialized stabilization |
+| [Quantum-Computing-Block-Encoding](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | Experience building automated formalization workflows | ASTIS specializes the machinery for sampling/SDE mathematics and theorem-sized Frontier Cells |
 
-Full provenance: [docs/attribution.md](docs/attribution.md). Library manifests and upstream pins: [Libraries/](Libraries/).
+Full provenance: [docs/attribution.md](docs/attribution.md).
 
 ## Quick start
 
