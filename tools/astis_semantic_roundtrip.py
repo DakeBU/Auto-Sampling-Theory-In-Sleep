@@ -8,13 +8,13 @@ The gate separates four claims that are easy to conflate:
    Lean statement.
 3. An independent reviewer compared the original and reconstruction across a
    fixed semantic contract.
-4. A proposed theorem repair is mathematically justified and source-reviewed,
-   rather than merely convenient for one formalization route.
+4. A proposed theorem repair is mathematically justified and independently
+   source-reviewed, rather than merely convenient for one formalization route.
 
 No model is trusted merely because it generated fluent source or Lean text.
-The durable object is a structured, hash-pinned audit whose blindness and
-review independence are machine-checkable and whose mathematical verdict stays
-reviewer-owned.
+The durable object is a structured, hash-pinned audit whose blindness, packet
+provenance, review independence, and repair decisions are machine-checkable
+while the mathematical verdict itself stays reviewer-owned.
 """
 
 from __future__ import annotations
@@ -91,6 +91,17 @@ DECODER_INPUT_ARTIFACTS = (
     "lean-statement",
     "approved-definition-context",
 )
+REPAIR_PAYLOAD_FIELDS = (
+    "id",
+    "class",
+    "necessity",
+    "proposed_change",
+    "reconstructed_statement",
+    "statement_sha256",
+    "justification",
+    "minimality_evidence",
+    "reference_or_counterexample",
+)
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 PLACEHOLDER_REFERENCES = {"", "none", "n/a", "na", "unknown", "pending", "tbd"}
 
@@ -125,6 +136,69 @@ def _at(audit_id: str, message: str) -> str:
 
 def _meaningful_reference(value: object) -> bool:
     return isinstance(value, str) and value.strip().lower() not in PLACEHOLDER_REFERENCES
+
+
+def _normalized(value: object) -> str:
+    return re.sub(r"\s+", " ", str(value or "")).strip().casefold()
+
+
+def _decoder_context_violations(audit: dict[str, Any]) -> list[str]:
+    """Detect exact identity/source leakage through approved definition context.
+
+    Semantic paraphrase leakage cannot be decided mechanically, but the packet
+    generator can and should reject every exact secret already known to the
+    registry. Context entries are deliberately restricted to non-empty strings
+    so arbitrary structured metadata cannot become an unscanned side channel.
+    """
+
+    source = audit.get("source", {}) if isinstance(audit.get("source"), dict) else {}
+    lean = audit.get("lean", {}) if isinstance(audit.get("lean"), dict) else {}
+    context = lean.get("decoder_context", [])
+    if not isinstance(context, list):
+        return ["lean.decoder_context must be a list"]
+
+    secrets: list[tuple[str, object]] = [
+        ("audit id", audit.get("id")),
+        ("graph/source node", audit.get("graph_node")),
+        ("source id", source.get("source_id")),
+        ("source anchor", source.get("anchor")),
+        ("original theorem", source.get("original_text")),
+        ("source theorem hash", source.get("text_sha256")),
+        ("Lean declaration identity", lean.get("declaration")),
+        ("Lean file identity", lean.get("file")),
+    ]
+    for repair in audit.get("repairs", []) if isinstance(audit.get("repairs"), list) else []:
+        if not isinstance(repair, dict):
+            continue
+        for field in ("id", "proposed_change", "reconstructed_statement", "justification"):
+            secrets.append((f"repair {field}", repair.get(field)))
+
+    normalized_secrets = [
+        (label, token)
+        for label, raw in secrets
+        if (token := _normalized(raw))
+    ]
+    violations: list[str] = []
+    for index, item in enumerate(context):
+        if not _nonempty(item):
+            violations.append(f"lean.decoder_context[{index}] must be a non-empty string")
+            continue
+        text = _normalized(item)
+        for label, token in normalized_secrets:
+            leaked = text == token if len(token) < 6 else token in text
+            if leaked:
+                violations.append(f"lean.decoder_context[{index}] leaks {label}")
+    return violations
+
+
+def _repair_payload(repair: dict[str, Any]) -> dict[str, Any]:
+    return {field: repair.get(field, "") for field in REPAIR_PAYLOAD_FIELDS}
+
+
+def repair_proposal_sha256(repair: dict[str, Any]) -> str:
+    """Hash every source-facing field a repair reviewer is asked to approve."""
+
+    return sha256_json(_repair_payload(repair))
 
 
 def decoder_packet(audit: dict[str, Any]) -> dict[str, Any]:
@@ -264,6 +338,80 @@ def semantic_reviewer_packet(audit: dict[str, Any]) -> dict[str, Any]:
             "independent_from_formalizer": True,
             "independent_from_decoder": True,
             "review_evidence": "",
+            "review_run_sha256": "",
+            "reviewer_packet_sha256": "",
+        },
+    }
+    return {**core, "packet_sha256": sha256_json(core)}
+
+
+def repair_reviewer_packet(audit: dict[str, Any], repair: dict[str, Any]) -> dict[str, Any]:
+    """Create a fresh packet for deciding whether a repair is source-correct.
+
+    The reviewer necessarily sees the proposal being judged, but not any prior
+    fidelity verdict, semantic delta classification, source-review decision, or
+    earlier repair-review decision. The decision is bound to the complete repair
+    payload by `proposal_sha256`.
+    """
+
+    source = audit.get("source", {}) if isinstance(audit.get("source"), dict) else {}
+    lean = audit.get("lean", {}) if isinstance(audit.get("lean"), dict) else {}
+    reconstruction = audit.get("reconstruction", {}) if isinstance(audit.get("reconstruction"), dict) else {}
+    payload = _repair_payload(repair)
+    proposal_hash = repair_proposal_sha256(repair)
+    identity_material = {
+        "source_text_sha256": source.get("text_sha256", ""),
+        "lean_statement_sha256": lean.get("statement_sha256", ""),
+        "reconstructed_text_sha256": reconstruction.get("text_sha256", ""),
+        "proposal_sha256": proposal_hash,
+    }
+    core = {
+        "schema_version": 1,
+        "task": "independent-theorem-repair-review",
+        "packet_id": "ASTIS-REPAIR-REVIEW-" + sha256_json(identity_material)[:16],
+        "anti_anchoring": {
+            "prior_fidelity_verdict_included": False,
+            "prior_semantic_deltas_included": False,
+            "prior_source_review_included": False,
+            "prior_repair_review_included": False,
+        },
+        "roles": {
+            "formalizer": lean.get("formalizer", ""),
+            "blind_decoder": reconstruction.get("decoder", ""),
+            "reviewer_must_differ_from_both": True,
+        },
+        "source": {
+            "source_id": source.get("source_id", ""),
+            "anchor": source.get("anchor", ""),
+            "original_text": source.get("original_text", ""),
+            "text_sha256": source.get("text_sha256", ""),
+        },
+        "lean": {
+            "statement": lean.get("statement", ""),
+            "statement_sha256": lean.get("statement_sha256", ""),
+            "compiled": lean.get("compiled", False),
+        },
+        "blind_reconstruction": {
+            "text": reconstruction.get("text", ""),
+            "text_sha256": reconstruction.get("text_sha256", ""),
+            "decoder": reconstruction.get("decoder", ""),
+            "decoder_packet_sha256": reconstruction.get("decoder_packet_sha256", ""),
+            "decoder_run_sha256": reconstruction.get("decoder_run_sha256", ""),
+        },
+        "proposal": {**payload, "proposal_sha256": proposal_hash},
+        "review_contract": {
+            "rule": "Decide whether this exact minimal change is source-correct, not merely helpful to the current Lean proof route.",
+            "allowed_states": ["accepted", "needs-revision", "rejected"],
+        },
+        "output_contract": {
+            "state": "",
+            "reviewer": "",
+            "independent_from_formalizer": True,
+            "independent_from_decoder": True,
+            "evidence": "",
+            "review_run_sha256": "",
+            "reviewer_packet_sha256": "",
+            "proposal_sha256": proposal_hash,
         },
     }
     return {**core, "packet_sha256": sha256_json(core)}
@@ -282,8 +430,16 @@ def validate_registry(registry: dict[str, Any]) -> list[str]:
         protocol = {}
     if protocol.get("decoder_blindness") != "required":
         errors.append("protocol.decoder_blindness must be 'required'")
+    if protocol.get("decoder_context_content_scan") != "required":
+        errors.append("protocol.decoder_context_content_scan must be 'required'")
     if protocol.get("independent_source_review") != "required":
         errors.append("protocol.independent_source_review must be 'required'")
+    if protocol.get("source_review_packet_binding") != "required":
+        errors.append("protocol.source_review_packet_binding must be 'required'")
+    if protocol.get("independent_repair_review") != "required":
+        errors.append("protocol.independent_repair_review must be 'required'")
+    if protocol.get("repair_review_packet_binding") != "required":
+        errors.append("protocol.repair_review_packet_binding must be 'required'")
     slots = protocol.get("semantic_slots")
     if not isinstance(slots, list) or set(slots) != set(SEMANTIC_SLOTS):
         errors.append("protocol.semantic_slots must contain the seven canonical slots exactly once")
@@ -341,8 +497,12 @@ def validate_registry(registry: dict[str, Any]) -> list[str]:
             errors.append(_at(audit_id, "lean.statement_sha256 must be a lowercase SHA-256"))
         elif _nonempty(lean.get("statement")) and lean["statement_sha256"] != sha256_text(lean["statement"]):
             errors.append(_at(audit_id, "lean.statement_sha256 does not match lean.statement"))
-        if not isinstance(lean.get("decoder_context", []), list):
+        context = lean.get("decoder_context", [])
+        if not isinstance(context, list):
             errors.append(_at(audit_id, "lean.decoder_context must be a list"))
+        else:
+            for violation in _decoder_context_violations(audit):
+                errors.append(_at(audit_id, violation))
 
         reconstruction = audit.get("reconstruction")
         if state != "draft" and not isinstance(reconstruction, dict):
@@ -455,6 +615,11 @@ def validate_registry(registry: dict[str, Any]) -> list[str]:
                 errors.append(_at(audit_id, "source reviewer identity must differ from formalizer and decoder"))
             if not _nonempty(review.get("evidence")):
                 errors.append(_at(audit_id, "reviewed audit needs source_review.evidence"))
+            if not _hash(review.get("review_run_sha256")):
+                errors.append(_at(audit_id, "reviewed audit needs source_review.review_run_sha256"))
+            expected_review_packet = semantic_reviewer_packet(audit).get("packet_sha256")
+            if review.get("reviewer_packet_sha256") != expected_review_packet:
+                errors.append(_at(audit_id, "source_review.reviewer_packet_sha256 does not match the canonical reviewer packet"))
         if state in {"source-reviewed", "accepted"} and review_state != "accepted":
             errors.append(_at(audit_id, f"state={state} requires an accepted independent source review"))
         if state == "rejected" and review_state not in {"rejected", "needs-revision"}:
@@ -489,9 +654,36 @@ def validate_registry(registry: dict[str, Any]) -> list[str]:
                 errors.append(_at(audit_id, f"{repair_id}: statement_sha256 must pin the repaired statement"))
             elif _nonempty(repair.get("reconstructed_statement")) and repair["statement_sha256"] != sha256_text(repair["reconstructed_statement"]):
                 errors.append(_at(audit_id, f"{repair_id}: statement_sha256 does not match reconstructed_statement"))
+
+            repair_review = repair.get("review")
+            if repair_status in {"source-reviewed", "accepted", "rejected"}:
+                if not isinstance(repair_review, dict):
+                    errors.append(_at(audit_id, f"{repair_id}: reviewed/rejected repair needs its own review object"))
+                    repair_review = {}
+                expected_state = {"accepted"} if repair_status in {"source-reviewed", "accepted"} else {"rejected", "needs-revision"}
+                if repair_review.get("state") not in expected_state:
+                    errors.append(_at(audit_id, f"{repair_id}: repair review state does not match repair status"))
+                repair_reviewer = repair_review.get("reviewer")
+                if not _nonempty(repair_reviewer):
+                    errors.append(_at(audit_id, f"{repair_id}: repair review needs reviewer"))
+                if repair_review.get("independent_from_formalizer") is not True:
+                    errors.append(_at(audit_id, f"{repair_id}: repair reviewer must be independent from the formalizer"))
+                if repair_review.get("independent_from_decoder") is not True:
+                    errors.append(_at(audit_id, f"{repair_id}: repair reviewer must be independent from the blind decoder"))
+                if repair_reviewer in {lean.get("formalizer"), reconstruction.get("decoder")}:
+                    errors.append(_at(audit_id, f"{repair_id}: repair reviewer identity must differ from formalizer and decoder"))
+                if not _nonempty(repair_review.get("evidence")):
+                    errors.append(_at(audit_id, f"{repair_id}: repair review needs evidence"))
+                if not _hash(repair_review.get("review_run_sha256")):
+                    errors.append(_at(audit_id, f"{repair_id}: repair review needs review_run_sha256"))
+                expected_proposal_hash = repair_proposal_sha256(repair)
+                if repair_review.get("proposal_sha256") != expected_proposal_hash:
+                    errors.append(_at(audit_id, f"{repair_id}: repair review is not bound to the exact proposal payload"))
+                expected_repair_packet = repair_reviewer_packet(audit, repair).get("packet_sha256")
+                if repair_review.get("reviewer_packet_sha256") != expected_repair_packet:
+                    errors.append(_at(audit_id, f"{repair_id}: repair review is not bound to the canonical reviewer packet"))
+
             if repair_status in {"source-reviewed", "accepted"}:
-                if review_state != "accepted":
-                    errors.append(_at(audit_id, f"{repair_id}: reviewed/accepted repair needs accepted source review"))
                 if necessity == "formalization-artifact-risk":
                     errors.append(_at(audit_id, f"{repair_id}: formalization-artifact-risk cannot be accepted as source repair"))
                 if not _meaningful_reference(repair.get("reference_or_counterexample")):
@@ -499,6 +691,8 @@ def validate_registry(registry: dict[str, Any]) -> list[str]:
             if repair_status == "accepted":
                 if state != "accepted":
                     errors.append(_at(audit_id, f"{repair_id}: accepted repair requires state=accepted"))
+                if review_state != "accepted":
+                    errors.append(_at(audit_id, f"{repair_id}: accepted repair requires accepted theorem source review"))
                 if necessity not in {"mathematically-necessary", "source-implicit"}:
                     errors.append(_at(audit_id, f"{repair_id}: accepted repair must be mathematically necessary or source implicit"))
 
@@ -527,6 +721,13 @@ def _audit_by_id(registry: dict[str, Any], audit_id: str) -> dict[str, Any]:
     raise KeyError(f"unknown audit id: {audit_id}")
 
 
+def _repair_by_id(audit: dict[str, Any], repair_id: str) -> dict[str, Any]:
+    for repair in audit.get("repairs", []):
+        if isinstance(repair, dict) and repair.get("id") == repair_id:
+            return repair
+    raise KeyError(f"unknown repair id: {repair_id}")
+
+
 def _write_packet(value: dict[str, Any], output_path: str) -> None:
     output = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
     if output_path:
@@ -536,6 +737,21 @@ def _write_packet(value: dict[str, Any], output_path: str) -> None:
         print(path)
     else:
         print(output, end="")
+
+
+def _blind_reconstruction_ready(audit: dict[str, Any]) -> tuple[bool, str]:
+    leaks = _decoder_context_violations(audit)
+    if leaks:
+        return False, "approved decoder context leaks forbidden source/identity information: " + "; ".join(leaks)
+    reconstruction = audit.get("reconstruction", {}) if isinstance(audit.get("reconstruction"), dict) else {}
+    expected = decoder_packet(audit)
+    if reconstruction.get("source_text_visible") is not False:
+        return False, "source-blind reconstruction is not established"
+    if reconstruction.get("decoder_packet_sha256") != expected.get("packet_sha256"):
+        return False, "reconstruction does not pin the canonical decoder packet"
+    if not _nonempty(reconstruction.get("text")) or not _hash(reconstruction.get("text_sha256")):
+        return False, "reconstruction text and hash are incomplete"
+    return True, ""
 
 
 def command_check(args: argparse.Namespace) -> int:
@@ -575,6 +791,10 @@ def command_decoder_packet(args: argparse.Namespace) -> int:
     if not _nonempty(lean.get("statement")) or not _hash(lean.get("statement_sha256")):
         print("decoder packet refused: Lean statement and hash are incomplete", file=sys.stderr)
         return 1
+    leaks = _decoder_context_violations(audit)
+    if leaks:
+        print("decoder packet refused: " + "; ".join(leaks), file=sys.stderr)
+        return 1
     _write_packet(decoder_packet(audit), args.output)
     return 0
 
@@ -582,18 +802,26 @@ def command_decoder_packet(args: argparse.Namespace) -> int:
 def command_reviewer_packet(args: argparse.Namespace) -> int:
     registry = load_registry(Path(args.registry))
     audit = _audit_by_id(registry, args.audit_id)
-    reconstruction = audit.get("reconstruction", {}) if isinstance(audit.get("reconstruction"), dict) else {}
-    expected = decoder_packet(audit)
-    if reconstruction.get("source_text_visible") is not False:
-        print("reviewer packet refused: source-blind reconstruction is not established", file=sys.stderr)
-        return 1
-    if reconstruction.get("decoder_packet_sha256") != expected.get("packet_sha256"):
-        print("reviewer packet refused: reconstruction does not pin the canonical decoder packet", file=sys.stderr)
-        return 1
-    if not _nonempty(reconstruction.get("text")) or not _hash(reconstruction.get("text_sha256")):
-        print("reviewer packet refused: reconstruction text and hash are incomplete", file=sys.stderr)
+    ready, reason = _blind_reconstruction_ready(audit)
+    if not ready:
+        print("reviewer packet refused: " + reason, file=sys.stderr)
         return 1
     _write_packet(semantic_reviewer_packet(audit), args.output)
+    return 0
+
+
+def command_repair_reviewer_packet(args: argparse.Namespace) -> int:
+    registry = load_registry(Path(args.registry))
+    audit = _audit_by_id(registry, args.audit_id)
+    repair = _repair_by_id(audit, args.repair_id)
+    ready, reason = _blind_reconstruction_ready(audit)
+    if not ready:
+        print("repair reviewer packet refused: " + reason, file=sys.stderr)
+        return 1
+    if not _nonempty(repair.get("reconstructed_statement")) or not _hash(repair.get("statement_sha256")):
+        print("repair reviewer packet refused: repair statement and hash are incomplete", file=sys.stderr)
+        return 1
+    _write_packet(repair_reviewer_packet(audit, repair), args.output)
     return 0
 
 
@@ -618,6 +846,12 @@ def parser() -> argparse.ArgumentParser:
     review.add_argument("--audit-id", required=True)
     review.add_argument("--output", default="")
     review.set_defaults(func=command_reviewer_packet)
+
+    repair_review = commands.add_parser("repair-reviewer-packet", help="export an independent exact-proposal theorem-repair review packet")
+    repair_review.add_argument("--audit-id", required=True)
+    repair_review.add_argument("--repair-id", required=True)
+    repair_review.add_argument("--output", default="")
+    repair_review.set_defaults(func=command_repair_reviewer_packet)
     return root
 
 
