@@ -19,10 +19,11 @@ Prokhorov compactness locally:
   families to tightness of the joint family;
 * Prokhorov gives compact closure, and closedness removes the closure.
 
-The second-countability assumptions below are topology/measurability glue for
-the product weak topology. They ensure the product measurable space agrees with
-the Borel structure needed by `ProbabilityMeasure`; they are not transport-cost
-or moment assumptions.
+The metric and second-countability assumptions below are topology/measurability
+glue for the weak topology. Metrizability gives Mathlib's
+`HasOuterApproxClosed`, hence Hausdorff weak probability-measure spaces;
+second countability supplies the product-Borel identification. These are not
+transport-cost or moment assumptions.
 
 No transport cost enters this module.
 -/
@@ -80,8 +81,8 @@ theorem isProbabilityCoupling_iff_isCoupling_toMeasure
 section Closed
 
 variable {X Y : Type*}
-  [MeasurableSpace X] [TopologicalSpace X] [SecondCountableTopology X] [BorelSpace X]
-  [MeasurableSpace Y] [TopologicalSpace Y] [SecondCountableTopology Y] [BorelSpace Y]
+  [MeasurableSpace X] [MetricSpace X] [SecondCountableTopology X] [BorelSpace X]
+  [MeasurableSpace Y] [MetricSpace Y] [SecondCountableTopology Y] [BorelSpace Y]
 
 /-- Fixed marginal constraints are closed in the weak topology on probability
 measures. -/
