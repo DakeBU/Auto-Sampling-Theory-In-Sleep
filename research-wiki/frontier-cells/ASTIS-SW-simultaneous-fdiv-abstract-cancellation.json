@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-simultaneous-fdiv-abstract-cancellation",
+  "route": "samplewiki-route",
+  "title": "Abstract pointwise cancellation for simultaneous f-divergence",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Theorem 8.3.1 proof, printed p. 219 / PDF p. 230: after the adjoint rewrite, expand L_t(f'(rho) rho) with the definition of Gamma_t, use the generator diffusion chain rule on L_t f(rho), and finally use Gamma_t(f'(rho),rho)=f''(rho) Gamma_t(rho) to obtain the negative dissipation integrand.",
+  "target_statement": "Formalize only the source-shaped pointwise algebraic cancellation after the adjoint rewrite: for generator L, density ratio rho, numerator density mu and reference density nu with mu=rho*nu at the selected point, consume the corrected Gamma-chain specialization directly, keep the exact #220 product-reconstruction specialization and #221 generator-chain specialization as explicit parent contracts while those branches remain unintegrated, and show that the adjoint integrand collapses to -f''(rho) Gamma(rho,rho) nu. Keep Exercise 2.8 equivalence, time differentiation, adjoint evolution, and integration outside this cell.",
+  "status": "proved_locally",
+  "parents": [
+    "ASTIS-SW-diffusion-carre-chain-rule",
+    "ASTIS-SW-carre-generator-product-rule",
+    "ASTIS-SW-generator-diffusion-chain-rule"
+  ],
+  "consumers": [
+    "Chewi Theorem 8.3.1 abstract simultaneous-flow integral identity",
+    "SampleWiki Chapter 8 forward/backward diffusion analysis"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib main and active PRs: existing simultaneous-f-divergence scalar, integral, gradient, spatial, and Euclidean weak-FP modules",
+      "Current parent PR #219: exact-source carré-du-champ scalar-composition chain rule",
+      "Current parent PR #220: canonical generator product reconstruction from the carré du champ",
+      "Current PR #221: corrected generator-form Eq. (2.2.15) interface, with Exercise 2.8 equivalence still separate",
+      "PR #223 / ASTIS-SW-simultaneous-fdiv-generator-cancellation: opened independently with the same semantic target, then closed unmerged after collision audit because #222 is the stronger canonical route that consumes the actual #219 Gamma-chain interface instead of taking Gamma-chain as a fresh hypothesis",
+      "Historical simultaneous-f-divergence branches: no stronger abstract generator/Gamma pointwise cancellation artifact found",
+      "Pinned Mathlib v4.33.0: no carré-du-champ-specific simultaneous-flow cancellation API"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceAbstract.source_pointwise_cancellation",
+    "canonical_shared_cell": "",
+    "notes": "This cell deliberately stops before the analytic theorem. The corrected #219 Gamma-chain rule is consumed directly. A previous draft redeclared the product reconstruction locally, but collision review found that this duplicates canonical Frontier Cell #220, so the duplicate declaration was removed. Because #219/#220/#221 are currently parallel unmerged branches, the revised theorem takes the exact #220 and #221 specializations as explicit parent contracts; stabilization can discharge them from canonical declarations once the parents share an integration branch. PR #223 independently discovered the same cancellation but was closed under the deduplication rule because #222 has the stronger parent reuse structure. A proof-script-only failure (`simp made no progress`) was removed without changing the theorem statement; the resulting exact theorem head passed focused and root gates. Convexity of f and f(1)=0 are not used by this local algebraic cancellation and remain reserved for the final source-facing theorem."
+  },
+  "evidence": {
+    "focused_checks": [
+      "GitHub Actions run 33321239792 on theorem head f93f0ea60e4a9db7fa75b8449b4bf284a014ce9c: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceAbstract — success",
+      "GitHub Actions run 33321239792 on theorem head f93f0ea60e4a9db7fa75b8449b4bf284a014ce9c: lake build Tests.SimultaneousFDivergenceAbstract — success"
+    ],
+    "independent_verification": "",
+    "root_build": "GitHub Actions run 33321239792 on theorem head f93f0ea60e4a9db7fa75b8449b4bf284a014ce9c: standard ASTIS Lean/Tests/consistency gate and Chapter 1 evidence gate — success. Samplinglib site run 33321239831 also succeeded for the same proof revision line.",
+    "graph_regeneration": "",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/222"
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
