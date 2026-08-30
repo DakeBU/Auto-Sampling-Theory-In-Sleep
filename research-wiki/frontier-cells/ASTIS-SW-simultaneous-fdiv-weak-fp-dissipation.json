@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-simultaneous-fdiv-weak-fp-dissipation",
+  "route": "samplewiki-route",
+  "title": "Recover the Euclidean weak-FP simultaneous f-divergence dissipation join",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Theorem 8.3.1 proof on PDF p. 219 (PDF page 230): after differentiating D_f(mu_t||nu_t), the adjoint evolution is moved onto observables and the diffusion/carre-du-champ chain rule yields the dissipation. This cell is the Euclidean/common-diffusion weak-FP realization of that mechanism, not the full abstract theorem statement.",
+  "target_statement": "Clean-port the historical SimultaneousFDivergenceDissipation artifact onto the current Chapter 8 route. Assuming a dominated time derivative and explicit weak common-diffusion Fokker--Planck integration-by-parts identities for the p- and q-terms, combine the canonical spatial cancellation to prove D_f' = -diffusionScale * integral q f''(p/q) ||grad(p/q)||^2.",
+  "status": "proved_locally",
+  "parents": [
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceIntegral.hasDerivAt_integral_weighted_f_divergence_of_dominated",
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceSpatial.common_diffusion_pairing_source"
+  ],
+  "consumers": [
+    "Euclidean/common-diffusion realization of Chewi Theorem 8.3.1",
+    "SampleWiki simultaneous-flow analytic spine"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib main: SimultaneousFDivergenceIntegral.lean",
+      "Stacked parent #216: SimultaneousFDivergenceSpatial.lean",
+      "Samplinglib main: StochasticProcesses/CarreDuChamp.lean and WeakGenerator.lean, confirming that the full abstract diffusion-chain-rule theorem remains a separate source-facing cell",
+      "Historical branch simultaneous-f-divergence-weak-fp-dissipation, head 825d2ec05b8a316a18cf89c9448d207aad1f383e",
+      "Historical failed ASTIS run 32555932420, whose reported theorem failure was in the old SimultaneousFDivergenceSpatial parent",
+      "Libraries/shared-foundations.yml and active route:shared Frontier Cells"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceDissipation.hasDerivAt_eq_neg_diffusionScale_mul_dissipation",
+    "canonical_shared_cell": "",
+    "notes": "The historical dissipation join is a stronger existing repository artifact and is recovered rather than regenerated. Its old full gate was blocked upstream by the then-broken spatial-gradient parent. On current Lean 4.33, the recovered standalone spatial-pairing and dissipation-integrand definitions additionally needed CompleteSpace E because Mathlib's total gradient uses the Riesz representation; this is an interface repair at the definitions that actually use gradient, not a new source assumption on the final theorem. The full Chewi 8.3.1 statement is abstract in L_t, L_t^*, and Gamma_t and remains a later cell; this Euclidean weak-FP realization must not be presented as that full theorem."
+  },
+  "evidence": {
+    "focused_checks": [
+      "GitHub Actions run 33315018964 on PR #218 / theorem head f7142f86670c2db9e1f4616343bfdd4931807edc: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceDissipation — success",
+      "GitHub Actions run 33315018964 on PR #218 / theorem head f7142f86670c2db9e1f4616343bfdd4931807edc: lake build Tests.SimultaneousFDivergenceDissipation — success"
+    ],
+    "independent_verification": "",
+    "root_build": "GitHub Actions run 33315018964: standard ASTIS Lean/Tests/consistency gate and Chapter 1 evidence checks both succeeded after the focused theorem/test builds. A separate reviewer is still required for independently_verified.",
+    "graph_regeneration": "",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/218"
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
