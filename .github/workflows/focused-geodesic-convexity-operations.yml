@@ -25,6 +25,6 @@ jobs:
           test: false
           use-mathlib-cache: true
       - name: Compile theorem module
-        run: lake env lean AutoSamplingTheory/TechnicalLemmas/Geometry/GeodesicConvexityOperations.lean
+        run: lake build AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexityOperations
       - name: Compile focused checks
-        run: lake env lean Tests/GeodesicConvexityOperations.lean
+        run: lake build Tests.GeodesicConvexityOperations
