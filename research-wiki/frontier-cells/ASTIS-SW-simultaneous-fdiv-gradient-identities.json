@@ -37,7 +37,7 @@
       "GitHub Actions run 33313499999 on PR #216 / head b2ed414d83b31ff6f5de1855b6333e85f9cb51b8: lake build Tests.SimultaneousFDivergenceSpatial — success"
     ],
     "independent_verification": "Historical branch 6745865c5053946e7fd33985e95fc6395aefb003 passed ASTIS formalization gate run 32557133246, but this current-main port is only proved_locally until a separate reviewer verifies the exact PR commit.",
-    "root_build": "",
+    "root_build": "GitHub Actions run 33313659531 on exact theorem head fb34a66817aa9fc8c5de9354b6b1ba88cc294d56: ASTIS formalization gate — success. Companion Samplinglib site run 33313659552 — success.",
     "graph_regeneration": "",
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/216"
   },
