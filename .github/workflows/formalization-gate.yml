@@ -92,12 +92,6 @@ jobs:
       - name: Validate source-to-Lean semantic round trips
         run: python3 tools/astis_semantic_roundtrip.py check
 
-      - name: Focus compile simultaneous f-divergence weak-adjoint rewrite module
-        run: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceWeakAdjoint
-
-      - name: Focus compile simultaneous f-divergence weak-adjoint rewrite checks
-        run: lake build Tests.SimultaneousFDivergenceWeakAdjoint
-
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py
 
