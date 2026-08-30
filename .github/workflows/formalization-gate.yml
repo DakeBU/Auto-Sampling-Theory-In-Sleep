@@ -92,12 +92,6 @@ jobs:
       - name: Validate source-to-Lean semantic round trips
         run: python3 tools/astis_semantic_roundtrip.py check
 
-      - name: Focus compile recovered simultaneous f-divergence spatial theorem module
-        run: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceSpatial
-
-      - name: Focus compile recovered simultaneous f-divergence spatial checks
-        run: lake build Tests.SimultaneousFDivergenceSpatial
-
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py
 
