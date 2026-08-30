@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Sinho Chewi, Log-Concave Sampling, Theorem 8.3.1 proof: after differentiating q f(p/q), write rho=p/q and use grad p = rho grad q + q grad rho, grad(f'(rho)) = f''(rho) grad rho, and grad(f(rho)-rho f'(rho)) = -rho f''(rho) grad rho before the common-diffusion cancellation.",
   "target_statement": "Clean-port the already verified ASTIS spatial-calculus artifact from branch simultaneous-f-divergence-spatial-gradients onto current main: derive the three source-shaped pointwise gradient identities and assemble them with the existing common-diffusion Hilbert-space cancellation.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.mul",
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real",
@@ -29,11 +29,14 @@
     "decision": "adapt_existing",
     "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceSpatial.common_diffusion_pairing_source",
     "canonical_shared_cell": "",
-    "notes": "A collision audit after the initial local attempt found a stronger, already verified repository artifact on branch simultaneous-f-divergence-spatial-gradients. The duplicate SimultaneousFDivergenceGradientIdentities implementation was retired. This cell now clean-ports the historical canonical API onto current main and revalidates it against the current Lean/Mathlib state. The general product/chain calculus remains shared infrastructure; the Chewi 8.3.1 spatial adapter remains route-local."
+    "notes": "A collision audit after the initial local attempt found a stronger, already verified repository artifact on branch simultaneous-f-divergence-spatial-gradients. The duplicate SimultaneousFDivergenceGradientIdentities implementation was retired. This cell clean-ports the historical canonical API onto current main and revalidates it against the current Lean/Mathlib state. The general product/chain calculus remains shared infrastructure; the Chewi 8.3.1 spatial adapter remains route-local."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "Historical branch 6745865c5053946e7fd33985e95fc6395aefb003 passed ASTIS formalization gate run 32557133246, but current-main clean-port still requires fresh local proof evidence and a separate current PR reviewer before independently_verified.",
+    "focused_checks": [
+      "GitHub Actions run 33313499999 on PR #216 / head b2ed414d83b31ff6f5de1855b6333e85f9cb51b8: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceSpatial — success",
+      "GitHub Actions run 33313499999 on PR #216 / head b2ed414d83b31ff6f5de1855b6333e85f9cb51b8: lake build Tests.SimultaneousFDivergenceSpatial — success"
+    ],
+    "independent_verification": "Historical branch 6745865c5053946e7fd33985e95fc6395aefb003 passed ASTIS formalization gate run 32557133246, but this current-main port is only proved_locally until a separate reviewer verifies the exact PR commit.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/216"
