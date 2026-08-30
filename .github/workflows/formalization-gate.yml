@@ -92,6 +92,12 @@ jobs:
       - name: Validate source-to-Lean semantic round trips
         run: python3 tools/astis_semantic_roundtrip.py check
 
+      - name: Focus compile simultaneous f-divergence generator cancellation module
+        run: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceGeneratorCancellation
+
+      - name: Focus compile simultaneous f-divergence generator cancellation checks
+        run: lake build Tests.SimultaneousFDivergenceGeneratorCancellation
+
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py
 
