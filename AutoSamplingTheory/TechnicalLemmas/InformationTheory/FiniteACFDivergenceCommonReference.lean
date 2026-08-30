@@ -50,7 +50,7 @@ theorem value_withDensity_eq_integral_mul_of_density_ae
     (rho : X → ℝ)
     (hrho : RNLogRatio.density mu (m.withDensity q) =ᵐ[m.withDensity q] rho) :
     FiniteACFDivergence.value mu (m.withDensity q) f h =
-      ∫ x, q x |>.toReal * f (rho x) ∂m := by
+      ∫ x, (q x).toReal * f (rho x) ∂m := by
   rw [FiniteACFDivergence.value_eq_integral_of_density_ae
     mu (m.withDensity q) f h rho hrho]
   rw [integral_withDensity_eq_integral_toReal_smul₀ hq hq_lt_top]
