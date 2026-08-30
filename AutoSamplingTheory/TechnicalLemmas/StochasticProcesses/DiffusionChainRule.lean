@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp
+import Mathlib.Analysis.Calculus.ContDiff.Basic
 import Mathlib.Analysis.Calculus.Deriv.Basic
 
 /-!
@@ -7,13 +8,15 @@ import Mathlib.Analysis.Calculus.Deriv.Basic
 Chewi Definition 2.2.13 characterizes diffusion semigroups by the scalar
 functional-calculus identity
 
-`Γ(φ ∘ f, g) = φ'(f) Γ(f,g)`.
+`Γ(φ ∘ f, g) = φ'(f) Γ(f,g)`
+
+for observables in the carré-du-champ domain and a smooth scalar function `φ`.
 
 Samplinglib's `CarreDuChamp.carreDuChamp` is intentionally a total algebraic
 function, whereas the source statement is made on the domain of `Γ`.  This
-module therefore keeps an explicit observable domain and records the closure
-under scalar composition that is implicit in reading the source identity on
-that domain.
+module therefore keeps an explicit observable domain and records scalar
+functional-calculus closure instead of silently treating every function as an
+admissible observable.
 
 The generator-form identity
 
@@ -37,41 +40,41 @@ noncomputable section
 /-- Source-normalized form of Chewi Definition 2.2.13 / Eq. (2.2.14).
 
 `domain` is the declared domain on which the carré-du-champ calculus is meant
-to be used.  A globally differentiable scalar map is represented by an
-explicit derivative function `phiPrime`; the property both keeps the composed
-observable in the domain and supplies the carré-du-champ chain rule.
+to be used.  The scalar map is quantified with the source's smoothness
+hypothesis, represented by `ContDiff ℝ ⊤ phi`.  The derivative appearing in the
+formula is Mathlib's `deriv phi`.
 
-The condition is deliberately only first-order.  It does not assume the
-second-derivative generator formulation from Eq. (2.2.15). -/
+The property also records that scalar composition stays in the declared
+observable domain.  This makes explicit the functional-calculus closure that
+is implicit when the source writes `Γ(phi ∘ f,g)` for `f,g` in the Γ-domain.
+
+No second-derivative generator identity is assumed here. -/
 structure DiffusionChainRuleOn
     {X : Type*}
     (generator : (X → ℝ) →ₗ[ℝ] (X → ℝ))
     (domain : Set (X → ℝ)) : Prop where
   comp_mem :
     ∀ {f : X → ℝ}, f ∈ domain →
-      ∀ {phi phiPrime : ℝ → ℝ},
-        (∀ r : ℝ, HasDerivAt phi (phiPrime r) r) →
+      ∀ {phi : ℝ → ℝ}, ContDiff ℝ (⊤ : ℕ∞) phi →
         (phi ∘ f) ∈ domain
   chain_rule :
     ∀ {f : X → ℝ}, f ∈ domain →
       ∀ {g : X → ℝ}, g ∈ domain →
-        ∀ {phi phiPrime : ℝ → ℝ},
-          (∀ r : ℝ, HasDerivAt phi (phiPrime r) r) →
+        ∀ {phi : ℝ → ℝ}, ContDiff ℝ (⊤ : ℕ∞) phi →
           CarreDuChamp.carreDuChamp generator (phi ∘ f) g =
             fun x =>
-              phiPrime (f x) *
+              deriv phi (f x) *
                 CarreDuChamp.carreDuChamp generator f g x
 
-/-- Scalar functional calculus stays inside the declared carré-du-champ
-domain. -/
+/-- Smooth scalar functional calculus stays inside the declared
+carré-du-champ domain. -/
 theorem comp_mem
     {X : Type*}
     {generator : (X → ℝ) →ₗ[ℝ] (X → ℝ)}
     {domain : Set (X → ℝ)}
     (h : DiffusionChainRuleOn generator domain)
     {f : X → ℝ} (hf : f ∈ domain)
-    {phi phiPrime : ℝ → ℝ}
-    (hphi : ∀ r : ℝ, HasDerivAt phi (phiPrime r) r) :
+    {phi : ℝ → ℝ} (hphi : ContDiff ℝ (⊤ : ℕ∞) phi) :
     (phi ∘ f) ∈ domain :=
   h.comp_mem hf hphi
 
@@ -83,11 +86,10 @@ theorem carreDuChamp_comp_left
     {domain : Set (X → ℝ)}
     (h : DiffusionChainRuleOn generator domain)
     {f g : X → ℝ} (hf : f ∈ domain) (hg : g ∈ domain)
-    {phi phiPrime : ℝ → ℝ}
-    (hphi : ∀ r : ℝ, HasDerivAt phi (phiPrime r) r) :
+    {phi : ℝ → ℝ} (hphi : ContDiff ℝ (⊤ : ℕ∞) phi) :
     CarreDuChamp.carreDuChamp generator (phi ∘ f) g =
       fun x =>
-        phiPrime (f x) * CarreDuChamp.carreDuChamp generator f g x :=
+        deriv phi (f x) * CarreDuChamp.carreDuChamp generator f g x :=
   h.chain_rule hf hg hphi
 
 /-- Pointwise extraction of the diffusion chain rule. -/
@@ -97,11 +99,10 @@ theorem carreDuChamp_comp_left_apply
     {domain : Set (X → ℝ)}
     (h : DiffusionChainRuleOn generator domain)
     {f g : X → ℝ} (hf : f ∈ domain) (hg : g ∈ domain)
-    {phi phiPrime : ℝ → ℝ}
-    (hphi : ∀ r : ℝ, HasDerivAt phi (phiPrime r) r)
+    {phi : ℝ → ℝ} (hphi : ContDiff ℝ (⊤ : ℕ∞) phi)
     (x : X) :
     CarreDuChamp.carreDuChamp generator (phi ∘ f) g x =
-      phiPrime (f x) * CarreDuChamp.carreDuChamp generator f g x := by
+      deriv phi (f x) * CarreDuChamp.carreDuChamp generator f g x := by
   exact congrFun (carreDuChamp_comp_left h hf hg hphi) x
 
 /-- Self-pairing specialization `Γ(φ ∘ f,f) = φ'(f) Γ(f,f)`. -/
@@ -111,21 +112,21 @@ theorem carreDuChamp_comp_self
     {domain : Set (X → ℝ)}
     (h : DiffusionChainRuleOn generator domain)
     {f : X → ℝ} (hf : f ∈ domain)
-    {phi phiPrime : ℝ → ℝ}
-    (hphi : ∀ r : ℝ, HasDerivAt phi (phiPrime r) r) :
+    {phi : ℝ → ℝ} (hphi : ContDiff ℝ (⊤ : ℕ∞) phi) :
     CarreDuChamp.carreDuChamp generator (phi ∘ f) f =
       fun x =>
-        phiPrime (f x) * CarreDuChamp.carreDuChamp generator f f x :=
+        deriv phi (f x) * CarreDuChamp.carreDuChamp generator f f x :=
   carreDuChamp_comp_left h hf hf hphi
 
-/-- The exact scalar-composition specialization consumed in the proof of
-Chewi Theorem 8.3.1:
+/-- The scalar-composition specialization later consumed in the abstract proof
+of Chewi Theorem 8.3.1:
 
 `Γ(f' ∘ ρ, ρ) = f''(ρ) Γ(ρ,ρ)`.
 
-Here `fPrime` and `fSecond` are explicit first- and second-derivative fields;
-this theorem only uses the fact that `fSecond` is the derivative of `fPrime`.
-It does not assume or prove the generator-form diffusion identity. -/
+This theorem remains inside the smooth-scalar scope of Definition 2.2.13.  The
+explicit `HasDerivAt` family only identifies Mathlib's `deriv fPrime` with the
+named second derivative `fSecond`; it does not replace the source smoothness
+hypothesis or assume the generator-form diffusion identity. -/
 theorem carreDuChamp_fPrime_comp_self_apply
     {X : Type*}
     {generator : (X → ℝ) →ₗ[ℝ] (X → ℝ)}
@@ -133,12 +134,20 @@ theorem carreDuChamp_fPrime_comp_self_apply
     (h : DiffusionChainRuleOn generator domain)
     {rho : X → ℝ} (hrho : rho ∈ domain)
     {fPrime fSecond : ℝ → ℝ}
-    (hfPrime : ∀ r : ℝ, HasDerivAt fPrime (fSecond r) r)
+    (hfPrimeSmooth : ContDiff ℝ (⊤ : ℕ∞) fPrime)
+    (hfPrimeDeriv : ∀ r : ℝ, HasDerivAt fPrime (fSecond r) r)
     (x : X) :
     CarreDuChamp.carreDuChamp generator (fPrime ∘ rho) rho x =
       fSecond (rho x) *
         CarreDuChamp.carreDuChamp generator rho rho x := by
-  exact carreDuChamp_comp_left_apply h hrho hrho hfPrime x
+  calc
+    CarreDuChamp.carreDuChamp generator (fPrime ∘ rho) rho x =
+        deriv fPrime (rho x) *
+          CarreDuChamp.carreDuChamp generator rho rho x :=
+      carreDuChamp_comp_left_apply h hrho hrho hfPrimeSmooth x
+    _ = fSecond (rho x) *
+          CarreDuChamp.carreDuChamp generator rho rho x := by
+      rw [(hfPrimeDeriv (rho x)).deriv]
 
 end
 
