@@ -5,8 +5,8 @@
   "title": "Diffusion chain rule for the carré du champ",
   "mode": "faithfulPaper",
   "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Definition 2.2.13 and Eq. (2.2.14), printed p. 54 / PDF p. 65: a diffusion semigroup satisfies Gamma(phi∘f,g)=phi'(f) Gamma(f,g) for observables in the Gamma domain and smooth scalar phi. Theorem 8.3.1 later consumes exactly this mechanism.",
-  "target_statement": "Introduce an explicit-domain Samplinglib interface for Chewi's carré-du-champ diffusion chain rule, including closure of the declared Gamma domain under scalar composition and a direct specialization Gamma(f'∘rho,rho)=f''(rho) Gamma(rho,rho). Do not fold the generator-form equivalence Eq. (2.2.15) into this cell.",
-  "status": "claimed",
+  "target_statement": "Introduce an explicit-domain Samplinglib interface for Chewi's carré-du-champ diffusion chain rule, including closure of the declared Gamma domain under smooth scalar composition and a direct specialization Gamma(f'∘rho,rho)=f''(rho) Gamma(rho,rho). Do not fold the generator-form equivalence Eq. (2.2.15) into this cell.",
+  "status": "proved_locally",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp"
   ],
@@ -24,16 +24,19 @@
     ],
     "classification": "missing",
     "decision": "new_route_local",
-    "canonical_declaration": "",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DiffusionChainRule.DiffusionChainRuleOn",
     "canonical_shared_cell": "",
-    "notes": "The mechanism is general stochastic-process mathematics and belongs under StochasticProcesses rather than a Chewi-specific namespace, but current cross-route evidence does not justify declaring a route:shared cell. The source speaks about the Gamma domain; Samplinglib's carreDuChamp function itself is total, so the new interface keeps an explicit observable domain and records scalar-composition closure instead of silently treating every function as admissible. The generator equivalent form in Eq. (2.2.15) is left for a separate theorem because Chewi marks its equivalence as Exercise 2.8 and it may require additional domain closure assumptions."
+    "notes": "The mechanism is general stochastic-process mathematics and belongs under StochasticProcesses rather than a Chewi-specific namespace, but current cross-route evidence does not justify declaring a route:shared cell. The source speaks about the Gamma domain; Samplinglib's carreDuChamp function itself is total, so the new interface keeps an explicit observable domain and records scalar-composition closure instead of silently treating every function as admissible. During source-fidelity review the first draft's everywhere-differentiable scalar quantifier was rejected as stronger than Chewi's smooth-phi wording; the compiled interface now requires ContDiff R top phi and uses Mathlib's deriv phi in the formula. The generator equivalent form in Eq. (2.2.15) is left for a separate theorem because Chewi marks its equivalence as Exercise 2.8 and it may require additional domain closure assumptions."
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      "GitHub Actions run 33316110372 on theorem head 4670834de84f7e04fd496212c5147a4389954569: lake build AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DiffusionChainRule — success",
+      "GitHub Actions run 33316110372 on theorem head 4670834de84f7e04fd496212c5147a4389954569: lake build Tests.DiffusionChainRule — success"
+    ],
     "independent_verification": "",
-    "root_build": "",
+    "root_build": "GitHub Actions run 33316110372 on theorem head 4670834de84f7e04fd496212c5147a4389954569: standard ASTIS Lean/Tests/consistency gate and Chapter 1 evidence gate both succeeded after the focused module/test checks.",
     "graph_regeneration": "",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/219"
   },
   "blocked": {
     "reason": "",
