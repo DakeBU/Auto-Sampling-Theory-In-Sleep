@@ -1,5 +1,4 @@
 import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp
-import Mathlib.Analysis.Calculus.ContDiff.Basic
 import Mathlib.Analysis.Calculus.Deriv.Basic
 
 /-!
@@ -8,10 +7,13 @@ import Mathlib.Analysis.Calculus.Deriv.Basic
 Immediately after Chewi Definition 2.2.13, Eq. (2.2.15) gives the equivalent
 source formulation
 
-`L (φ ∘ f) = φ'(f) L f + φ''(f) Γ(f,f)`
+`L (φ ∘ f) = φ'(f) L f + φ''(f) Γ(f,f)`.
 
-for observables in the relevant generator / carré-du-champ domain and a smooth
-scalar function `φ`.
+The source definition quantifies over scalar maps `φ : ℝ → ℝ` and writes the
+first and second derivatives directly; it does not explicitly add a global
+`ContDiff` hypothesis there.  Lean cannot use paper derivative notation without
+data, so this module keeps `φ` arbitrary and makes the named derivative fields
+explicit through pointwise `HasDerivAt` witnesses for `φ` and `φ'`.
 
 Chewi leaves the equivalence between this identity and the carré-du-champ
 composition rule Eq. (2.2.14) to Exercise 2.8.  This module therefore records
@@ -34,57 +36,66 @@ noncomputable section
 
 /-- Source-normalized generator form of Chewi Eq. (2.2.15).
 
-For every observable `f` in `domain` and every smooth scalar map `phi`, scalar
-functional calculus remains in `domain` and the generator satisfies
+For every observable `f` in `domain`, scalar map `phi`, and explicit first and
+second derivative fields `phiPrime` and `phiSecond`, scalar functional calculus
+stays in the domain and
 
-`L(phi ∘ f) = phi'(f) Lf + phi''(f) Gamma(f,f)`.
+`L(phi ∘ f) = phiPrime(f) Lf + phiSecond(f) Gamma(f,f)`.
 
-The first and second derivatives are represented by Mathlib's total `deriv`;
-the source smoothness hypothesis is retained explicitly by
-`ContDiff ℝ ⊤ phi`. -/
+The two pointwise derivative families are the Lean representation of the
+paper's `phi'` and `phi''` notation; no stronger global smoothness class is
+silently added. -/
 structure GeneratorDiffusionChainRuleOn
     {X : Type*}
     (generator : (X → ℝ) →ₗ[ℝ] (X → ℝ))
     (domain : Set (X → ℝ)) : Prop where
   comp_mem :
     ∀ {f : X → ℝ}, f ∈ domain →
-      ∀ {phi : ℝ → ℝ}, ContDiff ℝ (⊤ : ℕ∞) phi →
+      ∀ {phi phiPrime phiSecond : ℝ → ℝ},
+        (∀ r : ℝ, HasDerivAt phi (phiPrime r) r) →
+        (∀ r : ℝ, HasDerivAt phiPrime (phiSecond r) r) →
         (phi ∘ f) ∈ domain
   chain_rule :
     ∀ {f : X → ℝ}, f ∈ domain →
-      ∀ {phi : ℝ → ℝ}, ContDiff ℝ (⊤ : ℕ∞) phi →
+      ∀ {phi phiPrime phiSecond : ℝ → ℝ},
+        (∀ r : ℝ, HasDerivAt phi (phiPrime r) r) →
+        (∀ r : ℝ, HasDerivAt phiPrime (phiSecond r) r) →
         generator (phi ∘ f) =
           fun x =>
-            deriv phi (f x) * generator f x +
-              deriv (deriv phi) (f x) *
+            phiPrime (f x) * generator f x +
+              phiSecond (f x) *
                 CarreDuChamp.carreDuChamp generator f f x
 
-/-- Smooth scalar functional calculus stays inside the declared generator
-observable domain. -/
+/-- Scalar functional calculus stays inside the declared generator domain when
+the first and second derivative fields appearing in the source formula exist. -/
 theorem comp_mem
     {X : Type*}
     {generator : (X → ℝ) →ₗ[ℝ] (X → ℝ)}
     {domain : Set (X → ℝ)}
     (h : GeneratorDiffusionChainRuleOn generator domain)
     {f : X → ℝ} (hf : f ∈ domain)
-    {phi : ℝ → ℝ} (hphi : ContDiff ℝ (⊤ : ℕ∞) phi) :
+    {phi phiPrime phiSecond : ℝ → ℝ}
+    (hphiPrime : ∀ r : ℝ, HasDerivAt phi (phiPrime r) r)
+    (hphiSecond : ∀ r : ℝ, HasDerivAt phiPrime (phiSecond r) r) :
     (phi ∘ f) ∈ domain :=
-  h.comp_mem hf hphi
+  h.comp_mem hf hphiPrime hphiSecond
 
-/-- Function-valued generator chain rule from Chewi Eq. (2.2.15). -/
+/-- Function-valued generator diffusion chain rule from Chewi Eq. (2.2.15). -/
 theorem generator_comp_eq
     {X : Type*}
     {generator : (X → ℝ) →ₗ[ℝ] (X → ℝ)}
     {domain : Set (X → ℝ)}
     (h : GeneratorDiffusionChainRuleOn generator domain)
     {f : X → ℝ} (hf : f ∈ domain)
-    {phi : ℝ → ℝ} (hphi : ContDiff ℝ (⊤ : ℕ∞) phi) :
+    {phi phiPrime phiSecond : ℝ → ℝ}
+    (hphiPrime : ∀ r : ℝ, HasDerivAt phi (phiPrime r) r)
+    (hphiSecond : ∀ r : ℝ, HasDerivAt phiPrime (phiSecond r) r) :
     generator (phi ∘ f) =
       fun x =>
-        deriv phi (f x) * generator f x +
-          deriv (deriv phi) (f x) *
+        phiPrime (f x) * generator f x +
+          phiSecond (f x) *
             CarreDuChamp.carreDuChamp generator f f x :=
-  h.chain_rule hf hphi
+  h.chain_rule hf hphiPrime hphiSecond
 
 /-- Pointwise extraction of the generator diffusion chain rule. -/
 theorem generator_comp_apply_eq
@@ -93,28 +104,7 @@ theorem generator_comp_apply_eq
     {domain : Set (X → ℝ)}
     (h : GeneratorDiffusionChainRuleOn generator domain)
     {f : X → ℝ} (hf : f ∈ domain)
-    {phi : ℝ → ℝ} (hphi : ContDiff ℝ (⊤ : ℕ∞) phi)
-    (x : X) :
-    generator (phi ∘ f) x =
-      deriv phi (f x) * generator f x +
-        deriv (deriv phi) (f x) *
-          CarreDuChamp.carreDuChamp generator f f x := by
-  exact congrFun (generator_comp_eq h hf hphi) x
-
-/-- Source-shaped pointwise version with named derivative fields.
-
-`phiPrime` and `phiSecond` are not additional smoothness assumptions: the two
-`HasDerivAt` families only identify the total functions `deriv phi` and
-`deriv phiPrime` with the derivative names used in paper mathematics.  The
-source's smooth scalar hypothesis remains `hphiSmooth`. -/
-theorem generator_comp_apply_eq_of_named_derivatives
-    {X : Type*}
-    {generator : (X → ℝ) →ₗ[ℝ] (X → ℝ)}
-    {domain : Set (X → ℝ)}
-    (h : GeneratorDiffusionChainRuleOn generator domain)
-    {f : X → ℝ} (hf : f ∈ domain)
     {phi phiPrime phiSecond : ℝ → ℝ}
-    (hphiSmooth : ContDiff ℝ (⊤ : ℕ∞) phi)
     (hphiPrime : ∀ r : ℝ, HasDerivAt phi (phiPrime r) r)
     (hphiSecond : ∀ r : ℝ, HasDerivAt phiPrime (phiSecond r) r)
     (x : X) :
@@ -122,23 +112,25 @@ theorem generator_comp_apply_eq_of_named_derivatives
       phiPrime (f x) * generator f x +
         phiSecond (f x) *
           CarreDuChamp.carreDuChamp generator f f x := by
-  have hderiv : deriv phi = phiPrime := by
-    funext r
-    exact (hphiPrime r).deriv
-  calc
+  exact congrFun (generator_comp_eq h hf hphiPrime hphiSecond) x
+
+/-- Paper-shaped alias emphasizing that `phiPrime` and `phiSecond` are the
+named derivative fields appearing in Eq. (2.2.15). -/
+theorem generator_comp_apply_eq_of_named_derivatives
+    {X : Type*}
+    {generator : (X → ℝ) →ₗ[ℝ] (X → ℝ)}
+    {domain : Set (X → ℝ)}
+    (h : GeneratorDiffusionChainRuleOn generator domain)
+    {f : X → ℝ} (hf : f ∈ domain)
+    {phi phiPrime phiSecond : ℝ → ℝ}
+    (hphiPrime : ∀ r : ℝ, HasDerivAt phi (phiPrime r) r)
+    (hphiSecond : ∀ r : ℝ, HasDerivAt phiPrime (phiSecond r) r)
+    (x : X) :
     generator (phi ∘ f) x =
-        deriv phi (f x) * generator f x +
-          deriv (deriv phi) (f x) *
-            CarreDuChamp.carreDuChamp generator f f x :=
-      generator_comp_apply_eq h hf hphiSmooth x
-    _ = phiPrime (f x) * generator f x +
-          deriv phiPrime (f x) *
-            CarreDuChamp.carreDuChamp generator f f x := by
-      rw [(hphiPrime (f x)).deriv, hderiv]
-    _ = phiPrime (f x) * generator f x +
-          phiSecond (f x) *
-            CarreDuChamp.carreDuChamp generator f f x := by
-      rw [(hphiSecond (f x)).deriv]
+      phiPrime (f x) * generator f x +
+        phiSecond (f x) *
+          CarreDuChamp.carreDuChamp generator f f x :=
+  generator_comp_apply_eq h hf hphiPrime hphiSecond x
 
 end
 
