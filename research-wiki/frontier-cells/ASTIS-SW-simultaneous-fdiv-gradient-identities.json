@@ -2,15 +2,15 @@
   "schema_version": 1,
   "cell_id": "ASTIS-SW-simultaneous-fdiv-gradient-identities",
   "route": "samplewiki-route",
-  "title": "Gradient identities in simultaneous f-divergence dissipation",
+  "title": "Recover simultaneous f-divergence spatial identities onto current main",
   "mode": "faithfulPaper",
   "source_anchor": "Sinho Chewi, Log-Concave Sampling, Theorem 8.3.1 proof: after differentiating q f(p/q), write rho=p/q and use grad p = rho grad q + q grad rho, grad(f'(rho)) = f''(rho) grad rho, and grad(f(rho)-rho f'(rho)) = -rho f''(rho) grad rho before the common-diffusion cancellation.",
-  "target_statement": "Derive the three pointwise gradient identities used in Chewi Theorem 8.3.1 from Samplinglib's route-neutral HasGradientAt product and scalar-chain rules, including the scalar derivative identity d/dr[f(r)-r f'(r)] = -r f''(r).",
+  "target_statement": "Clean-port the already verified ASTIS spatial-calculus artifact from branch simultaneous-f-divergence-spatial-gradients onto current main: derive the three source-shaped pointwise gradient identities and assemble them with the existing common-diffusion Hilbert-space cancellation.",
   "status": "claimed",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.mul",
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real",
-    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceGradient.common_diffusion_pairing_eq_of_gradients"
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceGradient.common_diffusion_pairing_eq"
   ],
   "consumers": [
     "Chewi Theorem 8.3.1 simultaneous f-divergence dissipation",
@@ -18,24 +18,25 @@
   ],
   "shared_floor_audit": {
     "searched": [
-      "Samplinglib: AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/GradientAlgebra.lean",
-      "Samplinglib: AutoSamplingTheory/TechnicalLemmas/InformationTheory/SimultaneousFDivergenceGradient.lean",
-      "Samplinglib: AutoSamplingTheory/TechnicalLemmas/InformationTheory/SimultaneousFDivergence.lean",
+      "Samplinglib main: AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/GradientAlgebra.lean",
+      "Samplinglib main: AutoSamplingTheory/TechnicalLemmas/InformationTheory/SimultaneousFDivergenceGradient.lean",
+      "Historical branch simultaneous-f-divergence-spatial-gradients, head 6745865c5053946e7fd33985e95fc6395aefb003",
+      "Historical ASTIS formalization gate run 32557133246 and Samplinglib site run 32557133336, both success on that head",
       "Mathlib HasDerivAt product/subtraction/chain APIs",
       "Libraries/shared-foundations.yml and active route:shared Frontier Cells"
     ],
     "classification": "adapt",
     "decision": "adapt_existing",
-    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceSpatial.common_diffusion_pairing_source",
     "canonical_shared_cell": "",
-    "notes": "The general product/chain/quotient calculus is already canonical shared Samplinglib infrastructure and must be reused rather than duplicated. What is missing is the source-shaped adapter for Chewi 8.3.1, especially the complementary scalar derivative f-r f'. No current Riemannian/Optimisation consumer needs this exact f-divergence adapter, so the adapter remains route-local while its calculus parents stay shared."
+    "notes": "A collision audit after the initial local attempt found a stronger, already verified repository artifact on branch simultaneous-f-divergence-spatial-gradients. The duplicate SimultaneousFDivergenceGradientIdentities implementation was retired. This cell now clean-ports the historical canonical API onto current main and revalidates it against the current Lean/Mathlib state. The general product/chain calculus remains shared infrastructure; the Chewi 8.3.1 spatial adapter remains route-local."
   },
   "evidence": {
     "focused_checks": [],
-    "independent_verification": "",
+    "independent_verification": "Historical branch 6745865c5053946e7fd33985e95fc6395aefb003 passed ASTIS formalization gate run 32557133246, but current-main clean-port still requires fresh local proof evidence and a separate current PR reviewer before independently_verified.",
     "root_build": "",
     "graph_regeneration": "",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/216"
   },
   "blocked": {
     "reason": "",
