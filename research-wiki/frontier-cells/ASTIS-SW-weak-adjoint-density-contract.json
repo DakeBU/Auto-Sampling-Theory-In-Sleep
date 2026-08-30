@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Sinho Chewi, Log-Concave Sampling: Proposition 1.2.6 gives the forward law equation in adjoint form, and Theorem 8.3.1 uses the time-dependent identities partial_t mu_t = L_t^* mu_t and partial_t nu_t = L_t^* nu_t by testing them against frozen observables. In a fixed common-reference density presentation this is the selected-time pairing integral phi * densityDot dxi = integral (L_t phi) * density dxi.",
   "target_statement": "Introduce a reusable selected-time weak-density contract on an explicit test domain: for every admissible phi, both phi*densityDot and (L phi)*density are integrable against the common reference measure and their integrals agree. Do not claim that densityDot is the time derivative of a path, construct an adjoint operator, or specialize to a fixed semigroup.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakForwardEquation.kolmogorov_forward_weak_right (reuse reference for the fixed-semigroup semantic pattern)",
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.evolveMeasure (measure/operator evolution reference)"
@@ -29,12 +29,15 @@
     "decision": "new_route_local",
     "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakAdjointDensity.WeakAdjointDensityEquationAt",
     "canonical_shared_cell": "",
-    "notes": "This adapts the semantic content of Samplinglib's fixed-semigroup WeakForwardEquation to the selected-time density form actually consumed by Chewi 8.3.1. It deliberately records both pairing integrabilities: equality of totalized Bochner integrals alone is not evidence that either integrand is analytically admissible. The contract is selected-time so an arbitrary time-dependent generator family can supply one instance at each time without pretending it is a homogeneous semigroup."
+    "notes": "This adapts the semantic content of Samplinglib's fixed-semigroup WeakForwardEquation to the selected-time density form actually consumed by Chewi 8.3.1. It deliberately records both pairing integrabilities: equality of totalized Bochner integrals alone is not evidence that either integrand is analytically admissible. The contract is selected-time so an arbitrary time-dependent generator family can supply one instance at each time without pretending it is a homogeneous semigroup. The exact theorem head compiled in both focused targets and then passed the full ASTIS root gate without statement repair."
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      "GitHub Actions run 33322148696 on theorem head f522ecb3178818c4bdcabae7a85ffdb7c0c4cf7d: lake build AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakAdjointDensity — success",
+      "GitHub Actions run 33322148696 on theorem head f522ecb3178818c4bdcabae7a85ffdb7c0c4cf7d: lake build Tests.WeakAdjointDensity — success"
+    ],
     "independent_verification": "",
-    "root_build": "",
+    "root_build": "GitHub Actions run 33322148696 on theorem head f522ecb3178818c4bdcabae7a85ffdb7c0c4cf7d: standard ASTIS Lean/Tests/consistency gate and Chapter 1 evidence gate — success. Samplinglib site run 33322148673 also succeeded on the same head.",
     "graph_regeneration": "",
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/226"
   },
