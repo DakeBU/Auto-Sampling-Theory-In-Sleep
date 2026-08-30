@@ -41,7 +41,7 @@
     "independent_verification": "",
     "root_build": "",
     "graph_regeneration": "",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/235"
   },
   "blocked": {
     "reason": "The finite/common-reference proof spine is close to closure, but a source-faithful Theorem 8.3.1 node still requires (i) the full Definition 1.5.5 singular/extended-value semantics or an independently reviewed source restriction, (ii) the single-assumption diffusion-chain equivalence from Exercise 2.8 or an equivalent canonical diffusion operator, and (iii) an explicit fidelity/denoising decision for the source's implicit f'' regularity.",
