@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-ROUTE-short-name",
+  "route": "riemannian-optimization",
+  "title": "One theorem-sized mathematical advance",
+  "mode": "faithfulPaper",
+  "source_anchor": "exact book/paper section, theorem, equation, or URL anchor",
+  "target_statement": "Exact mathematical target to formalize without silent strengthening or weakening.",
+  "status": "claimed",
+  "parents": [],
+  "consumers": [],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib",
+      "Mathlib",
+      "Libraries/shared-foundations.yml"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "",
+    "canonical_shared_cell": "",
+    "notes": "Explain why this is route-local or which existing/shared node is reused."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
