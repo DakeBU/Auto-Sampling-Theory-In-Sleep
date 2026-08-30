@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-fdivergence-common-reference-presentation",
+  "route": "samplewiki-route",
+  "title": "Common-reference presentation of finite AC f-divergence",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Theorem 8.3.1 proof, printed p. 219 / PDF p. 230: identify nu with a density q relative to a common reference measure m, then write the f-divergence integral as integral q f(rho) dm, with rho representing dmu/dnu.",
+  "target_statement": "For the finite absolutely-continuous f-divergence child and a denominator law nu=m.withDensity q, rewrite its measure-facing integral as integral q.toReal * f(rho) dm whenever rho agrees nu-a.e. with Samplinglib's canonical real RN density. Reuse Mathlib integral_withDensity_eq_integral_toReal_smul₀; do not reprove integration against withDensity or the RN quotient identity.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-fdivergence-finite-ac-realization",
+    "Mathlib integral_withDensity_eq_integral_toReal_smul₀",
+    "ASTIS-SW-common-reference-rn-real-density (later discharges the rho parent contract for two common-reference laws)"
+  ],
+  "consumers": [
+    "Chewi Theorem 8.3.1 finite/common-reference source-facing wrapper",
+    "ASTIS-SW-simultaneous-fdiv-abstract-dissipation-derivative"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Pinned Mathlib v4.33.0: MeasureTheory.integral_withDensity_eq_integral_toReal_smul₀ exactly rewrites Bochner integration against an ENNReal density to integration of its real scalar multiple",
+      "Samplinglib finite AC f-divergence child #231 provides the measure-facing value and density-representative invariance",
+      "Samplinglib common-reference RN real-density child #229 provides the canonical p/q realization when both laws are withDensity measures",
+      "No Samplinglib theorem already joins these three interfaces"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergenceCommonReference.value_withDensity_eq_integral_mul_of_density_ae",
+    "canonical_shared_cell": "",
+    "notes": "This is intentionally a representation adapter. It takes the RN-density equality as a parent contract rather than importing/reproving #229 on this parallel branch. The only new source-shaped statement is that the finite measure-level divergence equals the weighted common-reference integral used by Theorem 8.3.1. Density measurability and a.e. finiteness are exactly the hypotheses of the reused pinned-Mathlib withDensity integral theorem."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
