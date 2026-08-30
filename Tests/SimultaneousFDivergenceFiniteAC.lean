@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceFiniteAC
+
+#check AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceFiniteAC.valueCurve
+#check AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceFiniteAC.hasDerivAt_valueCurve_of_commonReference
