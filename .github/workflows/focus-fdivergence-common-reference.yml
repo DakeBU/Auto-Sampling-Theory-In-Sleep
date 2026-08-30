@@ -1,0 +1,25 @@
+name: ASTIS focused common-reference f-divergence
+
+on:
+  pull_request:
+    paths:
+      - "AutoSamplingTheory/TechnicalLemmas/InformationTheory/FiniteACFDivergenceCommonReference.lean"
+      - "Tests/FiniteACFDivergenceCommonReference.lean"
+      - ".github/workflows/focus-fdivergence-common-reference.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  focused-fdivergence-common-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+      - run: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergenceCommonReference
+      - run: lake build Tests.FiniteACFDivergenceCommonReference
