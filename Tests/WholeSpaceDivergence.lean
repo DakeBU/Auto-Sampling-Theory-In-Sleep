@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.WholeSpaceDivergence
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.WholeSpaceDivergence.tendsto_integral_fderiv_radialSmoothCutoff_comp_toLp_apply
