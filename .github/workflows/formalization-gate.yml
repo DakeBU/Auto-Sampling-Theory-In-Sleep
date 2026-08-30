@@ -92,14 +92,14 @@ jobs:
       - name: Validate source-to-Lean semantic round trips
         run: python3 tools/astis_semantic_roundtrip.py check
 
-      - name: Run Lean, Tests, and ASTIS consistency gate
-        run: python3 website/scripts/lean_gate.py
-
       - name: Focus compile simultaneous f-divergence gradient theorem module
         run: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceGradientIdentities
 
       - name: Focus compile simultaneous f-divergence gradient checks
         run: lake build Tests.SimultaneousFDivergenceGradientIdentities
+
+      - name: Run Lean, Tests, and ASTIS consistency gate
+        run: python3 website/scripts/lean_gate.py
 
       - name: Validate Chapter 1 item-level evidence
         run: python3 tools/chapter_1_evidence.py
