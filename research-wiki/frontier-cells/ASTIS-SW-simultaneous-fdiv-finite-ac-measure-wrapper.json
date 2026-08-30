@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-simultaneous-fdiv-finite-ac-measure-wrapper",
+  "route": "samplewiki-route",
+  "title": "Finite-AC measure-facing wrapper for Chewi simultaneous f-divergence dissipation",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Theorem 8.3.1, printed p. 219 / PDF p. 230: the theorem differentiates the measure-level f-divergence D_f(mu_t||nu_t), while the proof passes to common-reference densities and differentiates integral q_t f(p_t/q_t) dm.",
+  "target_statement": "Define the time-indexed finite-AC measure-level f-divergence curve using explicit probability/domain witnesses, and prove that a timewise equality with the common-reference weighted integral transports the already-proved HasDerivAt statement from the density curve to the measure-facing curve. Do not reprove the common-reference representation or generator dissipation in this cell.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-fdivergence-finite-ac-realization",
+    "ASTIS-SW-fdivergence-common-reference-presentation",
+    "ASTIS-SW-common-reference-rn-real-density",
+    "ASTIS-SW-simultaneous-fdiv-abstract-dissipation-derivative"
+  ],
+  "consumers": [
+    "Chewi Theorem 8.3.1 finite-AC source-facing theorem node",
+    "ASTIS theorem-fidelity / denoising round trip for Theorem 8.3.1"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib finite AC f-divergence #231 provides the proof-relevant measure value",
+      "Samplinglib common-reference presentation #232 provides the measure-value to weighted-integral equality shape",
+      "Samplinglib RN lane #228/#229 provides the canonical common-reference density equality",
+      "Samplinglib abstract derivative #227 provides the weighted-integral HasDerivAt result",
+      "Mathlib HasDerivAt: ordinary rewriting along extensional equality suffices for the final curve transport"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceFiniteAC.hasDerivAt_valueCurve_of_commonReference",
+    "canonical_shared_cell": "",
+    "notes": "This cell is deliberately only the measure/density curve wrapper. Its hRepresentation contract is intended to be discharged by #232 plus #229 after branch integration, while hCommonDerivative is intended to be discharged by #227. The full source Definition 1.5.5 singular extension remains blocked in #230. In addition, #227 currently exposes the generator-chain specialization separately because Chewi Exercise 2.8 (#233) is not yet formalized. Therefore this finite-AC wrapper is not yet a source-minimal completion of Theorem 8.3.1, and the semantic-fidelity layer must keep those differences visible."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
