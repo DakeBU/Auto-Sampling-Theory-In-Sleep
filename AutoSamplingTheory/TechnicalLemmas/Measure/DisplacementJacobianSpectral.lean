@@ -52,17 +52,37 @@ theorem det_affineIdentity_eq_prod_eigenvalues
       A = Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
         (Matrix.diagonal hA.eigenvalues) := by
     simpa using hA.spectral_theorem
-  rw [hspectral]
-  have hmap :
-      (1 - t) • (1 : Matrix ι ι ℝ) +
-          t • Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
-            (Matrix.diagonal hA.eigenvalues) =
+  have haffine0 := congrArg
+    (fun B : Matrix ι ι ℝ =>
+      (1 - t) • (1 : Matrix ι ι ℝ) + t • B)
+    hspectral
+  have haffine :
+      (1 - t) • (1 : Matrix ι ι ℝ) + t • A =
         Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
           ((1 - t) • (1 : Matrix ι ι ℝ) +
             t • Matrix.diagonal hA.eigenvalues) := by
-    simp
-  rw [hmap, det_conjStarAlgAut_eq]
-  exact det_affineIdentity_diagonal hA.eigenvalues t
+    calc
+      (1 - t) • (1 : Matrix ι ι ℝ) + t • A =
+          (1 - t) • (1 : Matrix ι ι ℝ) +
+            t • Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
+              (Matrix.diagonal hA.eigenvalues) := haffine0
+      _ = Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
+          ((1 - t) • (1 : Matrix ι ι ℝ) +
+            t • Matrix.diagonal hA.eigenvalues) := by
+        simp
+  calc
+    Matrix.det ((1 - t) • (1 : Matrix ι ι ℝ) + t • A) =
+        Matrix.det
+          (Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
+            ((1 - t) • (1 : Matrix ι ι ℝ) +
+              t • Matrix.diagonal hA.eigenvalues)) :=
+      congrArg Matrix.det haffine
+    _ = Matrix.det
+        ((1 - t) • (1 : Matrix ι ι ℝ) +
+          t • Matrix.diagonal hA.eigenvalues) :=
+      det_conjStarAlgAut_eq hA.eigenvectorUnitary _
+    _ = ∏ i, ((1 - t) + t * hA.eigenvalues i) :=
+      det_affineIdentity_diagonal hA.eigenvalues t
 
 /-- For a positive-definite matrix, the spectrum-level affine log determinant
 is exactly the logarithm of the literal affine matrix determinant. -/
