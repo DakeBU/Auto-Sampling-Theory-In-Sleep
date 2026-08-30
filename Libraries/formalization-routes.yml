@@ -1,27 +1,40 @@
-schema_version: 2
+schema_version: 3
 verification: astis-harness
+progress_dashboard: /progress/
+frontier_cell_registry: /research-wiki/frontier-cells/
+protocol: /docs/formalization-protocol.md
 routes:
   - id: samplewiki-route
     title: SampleWiki Route
     source: https://samplewiki.morning-recipe-422a.workers.dev/
-    progress: /progress/samplewiki-route.html
+    progress: /progress/#samplewiki
+    detail: /progress/samplewiki-detail.html
     mode: dependency-first
     status: active
   - id: riemannian-optimization
     title: Riemannian Optimization
     source: https://www.nicolasboumal.net/book/
-    progress: /progress/riemannian-optimization.html
+    progress: /progress/#riemannian
     mode: textbook
     status: scaffold
   - id: optimisation
     title: Optimisation
     source: https://arxiv.org/pdf/2605.07006
-    progress: /progress/optimisation.html
+    progress: /progress/#optimisation
     mode: public-lecture-notes-plus-upstreams
     status: scaffold
+state_machine:
+  forward: [claimed, proved_locally, independently_verified, stabilized, merged]
+  blocked: blocked
+  quarantine: quarantined
+  blocked_rule: blocked cells must name a strictly smaller child Frontier Cell before re-entry
 shared_floor:
+  registry: /Libraries/shared-foundations.yml
   classification: [reuse, adapt, missing, out_of_scope]
+  decisions: [reuse_existing, adapt_existing, new_route_local, new_canonical_shared, out_of_scope]
   collision_rule: one canonical shared theorem when statements coincide; explicit adapters when conventions differ
+  implementation_rule: a route-local cell that discovers a new shared foundation cannot advance beyond claimed until one canonical route=shared Frontier Cell exists
+  stabilization_rule: changes to shared aggregators and canonical interfaces are serialized through one stabilization lane
   checkpoints:
     - chewi_sampling: "2.5 Riemannian Manifolds"
       route: riemannian-optimization

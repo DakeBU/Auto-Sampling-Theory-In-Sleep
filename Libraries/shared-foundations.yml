@@ -1,0 +1,43 @@
+schema_version: 1
+purpose: canonical registry for lower-level mathematics reused by two or more formalization routes
+policy:
+  exact_match: reuse one canonical Lean declaration
+  near_match: factor one common core and keep explicit route adapters
+  missing_shared_fact: open one route=shared Frontier Cell before route-local implementation continues
+  different_statement: keep separate declarations
+  stabilization: shared files and aggregators are integrated through one stabilization lane
+search_order:
+  - Samplinglib
+  - Mathlib
+  - active shared Frontier Cells
+  - Optlib and CvxLean for optimisation-relevant work
+checkpoints:
+  - id: manifold-foundations
+    routes: [samplewiki-route, riemannian-optimization]
+    source_links:
+      - "Chewi Log-Concave Sampling §2.5 Riemannian Manifolds"
+      - "Boumal geometry foundations"
+    status: candidate
+    note: tangent-space, differential, gradient, metric, and manifold interfaces are shared only after convention compatibility is proved
+  - id: convex-analysis-foundations
+    routes: [samplewiki-route, optimisation]
+    source_links:
+      - "Chewi Log-Concave Sampling §4.3"
+      - "Chewi Lectures on Optimization §§1-3 and §9"
+    status: candidate
+    note: convexity, smoothness, duality, and related inequalities may admit canonical shared declarations
+  - id: proximal-foundations
+    routes: [samplewiki-route, optimisation]
+    source_links:
+      - "Chewi Log-Concave Sampling Chapter 8"
+      - "Chewi Lectures on Optimization §8"
+    status: candidate
+    note: proximal energies and supporting convex-analysis lemmas should be shared when statements coincide; sampler-specific kernels remain route-specific
+  - id: mirror-stochastic-foundations
+    routes: [samplewiki-route, optimisation]
+    source_links:
+      - "Chewi Log-Concave Sampling Chapter 10"
+      - "Chewi Lectures on Optimization §§10 and 12"
+    status: candidate
+    note: geometry or stochastic-gradient primitives may be shared; sampling-specific invariant-law arguments remain separate
+canonical_declarations: []

@@ -9,11 +9,15 @@ on:
       - "Tests/**"
       - "Tests.lean"
       - "website/**"
+      - "Libraries/**"
+      - "research-wiki/frontier-cells/**"
+      - "research-wiki/semantic-roundtrip/**"
       - "lakefile.lean"
       - "lean-toolchain"
       - "lake-manifest.json"
       - "tools/astis.py"
       - "tools/astis_advance.py"
+      - "tools/astis_frontier_cells.py"
       - "tools/astis_semantic_roundtrip.py"
       - "tools/astis_site.py"
       - "tools/astis_source.py"
@@ -21,11 +25,13 @@ on:
       - "tools/tests/test_astis_semantic_roundtrip.py"
       - "tools/tests/test_underlying_lean_graph.py"
       - "tools/tests/test_harness_site.py"
-      - "research-wiki/semantic-roundtrip/**"
       - "README.md"
       - "docs/**"
       - ".agents/skills/astis-substantive-advance/**"
+      - ".agents/skills/astis-cross-library-coordination/**"
       - ".agents/skills/astis-semantic-roundtrip/**"
+      - ".github/pull_request_template.md"
+      - ".github/ISSUE_TEMPLATE/**"
       - ".github/workflows/blueprint-site.yml"
   pull_request:
     paths:
@@ -34,11 +40,15 @@ on:
       - "Tests/**"
       - "Tests.lean"
       - "website/**"
+      - "Libraries/**"
+      - "research-wiki/frontier-cells/**"
+      - "research-wiki/semantic-roundtrip/**"
       - "lakefile.lean"
       - "lean-toolchain"
       - "lake-manifest.json"
       - "tools/astis.py"
       - "tools/astis_advance.py"
+      - "tools/astis_frontier_cells.py"
       - "tools/astis_semantic_roundtrip.py"
       - "tools/astis_site.py"
       - "tools/astis_source.py"
@@ -46,11 +56,13 @@ on:
       - "tools/tests/test_astis_semantic_roundtrip.py"
       - "tools/tests/test_underlying_lean_graph.py"
       - "tools/tests/test_harness_site.py"
-      - "research-wiki/semantic-roundtrip/**"
       - "README.md"
       - "docs/**"
       - ".agents/skills/astis-substantive-advance/**"
+      - ".agents/skills/astis-cross-library-coordination/**"
       - ".agents/skills/astis-semantic-roundtrip/**"
+      - ".github/pull_request_template.md"
+      - ".github/ISSUE_TEMPLATE/**"
       - ".github/workflows/blueprint-site.yml"
   merge_group:
   workflow_dispatch:
@@ -103,6 +115,9 @@ jobs:
           node --check website/static/lean-tutor.js
           node --check website/static/module-lean-tutor.js
           node --check website/static/underlying-lean-graph.js
+
+      - name: Validate collaborative Frontier Cell protocol
+        run: python3 tools/astis_frontier_cells.py check
 
       - name: Validate canonical Chewi source edition
         run: python3 tools/astis.py chewi-source-check
