@@ -92,6 +92,12 @@ jobs:
       - name: Validate source-to-Lean semantic round trips
         run: python3 tools/astis_semantic_roundtrip.py check
 
+      - name: Focus compile generator diffusion chain-rule theorem module
+        run: lake build AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GeneratorDiffusionChainRule
+
+      - name: Focus compile generator diffusion chain-rule checks
+        run: lake build Tests.GeneratorDiffusionChainRule
+
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py
 
