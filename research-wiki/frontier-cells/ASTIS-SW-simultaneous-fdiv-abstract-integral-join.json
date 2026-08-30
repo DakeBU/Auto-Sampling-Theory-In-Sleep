@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-simultaneous-fdiv-abstract-integral-join",
+  "route": "samplewiki-route",
+  "title": "Integrate the abstract simultaneous f-divergence cancellation",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Theorem 8.3.1 proof, printed p. 219 / PDF p. 230: after the two weak-adjoint generator pairings are obtained, combine them pointwise, apply the diffusion product/chain identities, and integrate the resulting -f''(rho) Gamma(rho) density against the reference law.",
+  "target_statement": "Given the #222 pointwise source cancellation almost everywhere and explicit integrability of the numerator and reference generator-pairing terms, prove that the sum of their Bochner integrals equals the integral of -fSecond(rho) Gamma(rho,rho) nu. Keep the #224 weak-adjoint rewrite, time differentiation, RN-density construction, and final source theorem outside this cell.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-simultaneous-fdiv-abstract-cancellation",
+    "ASTIS-SW-simultaneous-fdiv-weak-adjoint-rewrite"
+  ],
+  "consumers": [
+    "Chewi Theorem 8.3.1 abstract simultaneous f-divergence dissipation assembly",
+    "SampleWiki Chapter 8 diffusion/generator spine"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib main: SimultaneousFDivergenceIntegral.lean for dominated time differentiation",
+      "Active #224: weak-adjoint rewrite to the two generator pairings",
+      "Active #222: canonical pointwise abstract generator/carre-du-champ cancellation",
+      "Mathlib Bochner integral API: integral_add requires explicit integrability; integral_congr_ae transports the a.e. cancellation",
+      "Existing Euclidean weak-FP route #218: concrete gradient realization, not this abstract generator integral join",
+      "Libraries/shared-foundations.yml: no current Riemannian/Optimisation consumer of this exact Chapter 8 join"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceAbstractIntegral.generator_pairing_integrals_eq_dissipation",
+    "canonical_shared_cell": "",
+    "notes": "This cell exists to keep an important analytic truth boundary visible. Mathlib's Bochner integral is totalized, so rewriting a sum of integrals as the integral of a sum is only justified here under explicit Integrable hypotheses for the two generator-pairing terms. The theorem consumes #222's pointwise cancellation shape and is designed for #224 to discharge the upstream pairing equality after stabilization. It does not duplicate either parent."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
