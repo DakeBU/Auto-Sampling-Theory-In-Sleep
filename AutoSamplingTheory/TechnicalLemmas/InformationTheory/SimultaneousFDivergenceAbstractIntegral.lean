@@ -15,6 +15,12 @@ This module performs only the next measure-theoretic join: under explicit
 integrability of the two generator-pairing terms, combine their integrals and
 transport the pointwise cancellation through the integral.
 
+The public pairing order is chosen to match the upstream weak-adjoint adapter:
+the reference term contains `rho * (f' ∘ rho)`.  The downstream pointwise
+cancellation branch currently uses the commuted product `(f' ∘ rho) * rho`, so
+that harmless commutativity rewrite stays internal to the proof rather than
+becoming another graph/API edge.
+
 The integrability hypotheses are intentionally visible.  Mathlib's Bochner
 integral is totalized, so omitting them from the step that rewrites a sum of
 integrals as the integral of a sum would silently hide a genuine analytic
@@ -42,14 +48,15 @@ def numeratorGeneratorPairing
   fun x => generator (fPrime ∘ rho) x * mu x
 
 /-- The reference-density generator pairing after expanding
-`L(f(rho) - rho f'(rho))` by linearity. -/
+`L(f(rho) - rho f'(rho))` by linearity.  The product order deliberately matches
+`SimultaneousFDivergenceWeakAdjoint.referenceObservable`. -/
 def referenceGeneratorPairing
     {X : Type*}
     (generator : (X → ℝ) →ₗ[ℝ] (X → ℝ))
     (rho nu : X → ℝ) (f fPrime : ℝ → ℝ) : X → ℝ :=
   fun x =>
     (generator (f ∘ rho) x -
-      generator ((fPrime ∘ rho) * rho) x) * nu x
+      generator (rho * (fPrime ∘ rho)) x) * nu x
 
 /-- The source dissipation integrand after the diffusion cancellation. -/
 def abstractDissipationIntegrand
@@ -89,6 +96,9 @@ theorem source_generator_integrand_ae_eq_dissipation
         numeratorGeneratorPairing generator mu rho fPrime x +
           referenceGeneratorPairing generator rho nu f fPrime x) =ᵐ[base]
       abstractDissipationIntegrand generator rho nu fSecond := by
+  have hmul : rho * (fPrime ∘ rho) = (fPrime ∘ rho) * rho := by
+    funext y
+    simp [mul_comm]
   filter_upwards [hmu, hProduct, hGeneratorChain] with x hmu_x hprod_x hchain_x
   have hcancel :=
     SimultaneousFDivergenceAbstract.source_pointwise_cancellation
@@ -96,6 +106,7 @@ theorem source_generator_integrand_ae_eq_dissipation
       hmu_x hprod_x hchain_x
   dsimp [numeratorGeneratorPairing, referenceGeneratorPairing,
     abstractDissipationIntegrand]
+  rw [hmul]
   calc
     generator (fPrime ∘ rho) x * mu x +
         (generator (f ∘ rho) x -
