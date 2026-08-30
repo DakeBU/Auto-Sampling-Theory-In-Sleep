@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-common-reference-rn-real-density",
+  "route": "samplewiki-route",
+  "title": "Expose the common-reference quotient as Samplinglib's canonical real RN density",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Theorem 8.3.1 proof: after writing both laws relative to one reference measure, the proof uses the real density ratio rho = p/q; Samplinglib's canonical real RN representative is RNLogRatio.density = (rnDeriv).toReal.",
+  "target_statement": "From ASTIS-SW-common-reference-rn-quotient, prove that RNLogRatio.density (m.withDensity p) (m.withDensity q) equals p.toReal / q.toReal almost everywhere with respect to m.withDensity q. Reuse ENNReal.toReal_div and introduce no additional analytic hypotheses.",
+  "status": "proved_locally",
+  "parents": [
+    "ASTIS-SW-common-reference-rn-quotient",
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density",
+    "Mathlib ENNReal.toReal_div"
+  ],
+  "consumers": [
+    "Chewi Theorem 8.3.1 source-facing RN-density wrapper",
+    "ASTIS theorem-fidelity round trip for the simultaneous f-divergence theorem"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib main: RNLogRatio.density is already the canonical real RN representative",
+      "Parent #228: canonical ENNReal common-reference RN quotient",
+      "Pinned Mathlib Data/ENNReal/Inv.lean: [simp] ENNReal.toReal_div is unconditional",
+      "Samplinglib branches/Frontier Cells: no existing adapter from #228-style quotient to RNLogRatio.density"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CommonReferenceRNRealDensity.density_withDensity_eq_toReal_div",
+    "canonical_shared_cell": "",
+    "notes": "This cell contains no new measure theory. It only transports the already-canonical ENNReal RN identity through Samplinglib's chosen real representative. Keeping it named makes the source proof's p/q notation and the theorem statement's dmu/dnu notation one explicit graph edge rather than an informal identification. The exact child theorem and focused check passed immediately; the same head also passed the full ASTIS gate and site build."
+  },
+  "evidence": {
+    "focused_checks": [
+      "GitHub Actions run 33323133312 on theorem/evidence head 1d6c413e8f355b92fd21d7a506b78f136fe5612e: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.CommonReferenceRNRealDensity — success",
+      "GitHub Actions run 33323133312 on theorem/evidence head 1d6c413e8f355b92fd21d7a506b78f136fe5612e: lake build Tests.CommonReferenceRNRealDensity — success"
+    ],
+    "independent_verification": "",
+    "root_build": "GitHub Actions run 33323133098 on theorem/evidence head 1d6c413e8f355b92fd21d7a506b78f136fe5612e: standard ASTIS Lean/Tests/consistency gate and Chapter 1 evidence gate — success. Samplinglib site run 33323133125 also succeeded on the same head.",
+    "graph_regeneration": "",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/229"
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
