@@ -50,7 +50,10 @@ theorem hasDerivAt_f_sub_mul_fPrime
         (1 * fPrime r + r * fpp) r :=
     (hasDerivAt_id r).mul hfPrime
   have hsub := hf.sub hmul
-  convert hsub using 1 <;> ring
+  have hcoeff :
+      fPrime r - (1 * fPrime r + r * fpp) = -r * fpp := by
+    ring
+  simpa only [hcoeff] using hsub
 
 /-- Product identity for `p = rho * q` in Mathlib's gradient API. -/
 theorem hasGradientAt_density_product
