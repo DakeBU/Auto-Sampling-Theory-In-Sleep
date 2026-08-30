@@ -28,14 +28,14 @@
     "decision": "new_route_local",
     "canonical_declaration": "",
     "canonical_shared_cell": "",
-    "notes": "The source definition is strictly broader than the absolutely-continuous real integral used in the proof of Theorem 8.3.1. In the singular case it requires both the asymptotic slope f'(infinity) and a singular-mass correction, and its value may be infinite. Defining it prematurely as an ordinary real Bochner integral would silently map non-integrable cases through Mathlib totalization and lose the source semantics. The blocked parent is therefore split into a finite absolutely-continuous realization used by the active 8.3.1 route and a separate singular/extended-value child."
+    "notes": "The source definition is strictly broader than the absolutely-continuous real integral used in the proof of Theorem 8.3.1. In the singular case it requires both the asymptotic slope f'(infinity) and a singular-mass correction, and its value may be infinite. Defining it prematurely as an ordinary real Bochner integral would silently map non-integrable cases through Mathlib totalization and lose the source semantics. The finite absolutely-continuous child #231 is now proved locally and feeds the active Theorem 8.3.1 route; that progress does not discharge the remaining singular/extended-value child."
   },
   "evidence": {
     "focused_checks": [],
     "independent_verification": "",
     "root_build": "",
     "graph_regeneration": "",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/230"
   },
   "blocked": {
     "reason": "Definition 1.5.5 has a potentially infinite singular correction, while the current Samplinglib route only has real-valued totalized Bochner integration. A source-faithful codomain/integration design for the singular branch must be isolated instead of silently coercing it to a finite real value.",
