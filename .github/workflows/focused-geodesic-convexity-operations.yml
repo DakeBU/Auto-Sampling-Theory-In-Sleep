@@ -1,0 +1,30 @@
+name: Focused geodesic convexity operations
+
+on:
+  pull_request:
+    paths:
+      - "AutoSamplingTheory/TechnicalLemmas/Geometry/GeodesicConvexityOperations.lean"
+      - "Tests/GeodesicConvexityOperations.lean"
+      - ".github/workflows/focused-geodesic-convexity-operations.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  focused-lean:
+    name: Compile shared geodesic-convexity cell
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+      - name: Compile theorem module
+        run: lake env lean AutoSamplingTheory/TechnicalLemmas/Geometry/GeodesicConvexityOperations.lean
+      - name: Compile focused checks
+        run: lake env lean Tests/GeodesicConvexityOperations.lean
