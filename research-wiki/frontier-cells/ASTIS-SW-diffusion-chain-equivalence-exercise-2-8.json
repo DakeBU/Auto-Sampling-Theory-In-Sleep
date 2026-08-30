@@ -36,7 +36,7 @@
     "independent_verification": "",
     "root_build": "",
     "graph_regeneration": "",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/233"
   },
   "blocked": {
     "reason": "The current #219/#221 abstractions sit over a bare LinearMap plus observable-domain closure. A faithful equivalence proof needs an additional scalar functional-calculus / perturbation regularity contract (or a stronger canonical diffusion-operator object) before the textbook Exercise 2.8 argument can be represented without circularly assuming the target identity.",
