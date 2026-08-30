@@ -276,5 +276,36 @@
         "lean": ["firstOrder_geodesicConvexity"]
       }
     ]
+  },
+  {
+    "id": "chewi-1-1-definition-1-1-17",
+    "steps": [
+      {
+        "formula": "|b_s^i|\\le\\|b_s\\|,\\qquad |\\sigma_s^{ij}|^2\\le\\|\\sigma_s\\|_{\\mathrm{HS}}^2",
+        "lean": [
+          "driftCoordinate_integrable_ae",
+          "diffusionEntryGlobalLocalProgressiveL2"
+        ]
+      },
+      {
+        "formula": "B_t^j=e_j^*(B_t),\\qquad B^j\\text{ is Brownian for the same filtration}",
+        "lean": [
+          "coordinateFamily"
+        ]
+      },
+      {
+        "formula": "X_t^i=X_0^i+\\int_0^t b_s^i\\,ds+\\sum_j\\int_0^t\\sigma_s^{ij}\\,dB_s^j",
+        "lean": [
+          "definition_1_1_17_coordinate_display"
+        ]
+      },
+      {
+        "formula": "X_t=X_0+\\int_0^t b_s\\,ds+\\int_0^t\\sigma_s\\,dB_s,\\qquad X\\text{ progressive}",
+        "lean": [
+          "definition_1_1_17_vector_display",
+          "chewi_definition_1_1_17"
+        ]
+      }
+    ]
   }
 ]
