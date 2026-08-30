@@ -92,6 +92,12 @@ jobs:
       - name: Validate source-to-Lean semantic round trips
         run: python3 tools/astis_semantic_roundtrip.py check
 
+      - name: Focus compile abstract simultaneous f-divergence integral join module
+        run: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceAbstractIntegral
+
+      - name: Focus compile abstract simultaneous f-divergence integral join checks
+        run: lake build Tests.SimultaneousFDivergenceAbstractIntegral
+
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py
 
