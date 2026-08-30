@@ -54,9 +54,9 @@ theorem rnDeriv_withDensity_div
   letI : SigmaFinite (m.withDensity q) :=
     SigmaFinite.withDensity_of_ne_top hq_ne_top
   have hq_ac : m.withDensity q ≪ m :=
-    Measure.withDensity_absolutelyContinuous m q
+    withDensity_absolutelyContinuous m q
   have hp_den : AEMeasurable p (m.withDensity q) :=
-    hp.mono_measure hq_ac
+    hp.mono_ac hq_ac
   have hleft :=
     Measure.rnDeriv_withDensity_left
       (μ := m) (ν := m.withDensity q) (f := p) hp_den hp_ne_top
@@ -66,7 +66,7 @@ theorem rnDeriv_withDensity_div
     m.rnDeriv_self
   filter_upwards [hleft, hq_ac.ae_le hright, hq_ac.ae_le hself] with x hxLeft hxRight hxSelf
   rw [hxLeft, hxRight, hxSelf]
-  simp [div_eq_mul_inv, mul_assoc]
+  simp [div_eq_mul_inv]
 
 end
 
