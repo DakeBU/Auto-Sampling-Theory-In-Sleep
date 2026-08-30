@@ -265,11 +265,11 @@ def workflow_block(shared_cells: list[dict[str, object]]) -> str:
   </div>
   <div class="progress-protocol-grid">
     <article><span>Before proving</span><h3>Search and classify</h3><p>Search Samplinglib, Mathlib, active shared cells, and relevant formal upstreams. Record <code>reuse</code>, <code>adapt</code>, <code>missing</code>, or <code>out_of_scope</code> before adding a declaration.</p></article>
-    <article><span>Shared lemma collision</span><h3>One canonical shared cell</h3><p>If two routes need the same missing lower-level theorem, the route-local cell stops at <code>claimed</code> and opens/depends on one <code>route: shared</code> Frontier Cell. Parallel duplicate implementations are rejected by the protocol validator.</p></article>
+    <article><span>Shared lemma collision</span><h3>One canonical shared cell</h3><p>If two routes need the same missing lower-level theorem, record <code>decision: new_canonical_shared</code>, keep the route-local cell at <code>claimed</code>, and open/depend on one <code>route: shared</code> Frontier Cell. Parallel duplicate implementations are rejected by the protocol validator.</p></article>
     <article><span>Integration</span><h3>Single stabilization lane</h3><p>Shared aggregators, root registries, duplicate API resolution, graph regeneration, and final root builds are serialized after independent verification.</p></article>
   </div>
   <div class="progress-shared-cells"><h3>Shared-foundation Frontier Cells</h3>{cells_html(shared_cells, empty_copy="No shared Frontier Cell is currently registered. Candidate cross-route checkpoints are tracked in Libraries/shared-foundations.yml.")}</div>
-  <p class="progress-protocol-actions"><a class="button primary" href="../workflow/index.html">Open ASTIS Harness</a> <a class="button" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/blob/main/docs/formalization-protocol.md">Formalization protocol ↗</a> <a class="button" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/issues/new?template=frontier-cell.yml">Claim a Frontier Cell ↗</a></p>
+  <p class="progress-protocol-actions"><a class="button primary" href="../workflow/index.html">Open ASTIS Harness</a> <a class="button" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/tree/main/docs">Protocol docs ↗</a> <a class="button" href="https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/issues/new?template=frontier-cell.yml">Claim a Frontier Cell ↗</a></p>
 </section>
 """
 
