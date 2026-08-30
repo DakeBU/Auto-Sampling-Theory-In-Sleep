@@ -2,7 +2,7 @@
 
 # Auto-Sampling-Theory-In-Sleep
 
-### Samplinglib: a source-backed Lean graph for sampling and optimization
+### Samplinglib: a source-backed Lean graph for sampling and optimisation
 
 [![Samplinglib](https://img.shields.io/badge/Samplinglib-formal_knowledge_graph-155EEF?style=flat-square)](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
 [![Lean 4](https://img.shields.io/badge/Lean-4-6B4FBB?style=flat-square)](https://lean-lang.org/)
@@ -40,11 +40,27 @@ The three formalization routes use the same theorem-driven verification workflow
 
 ```text
 claimed → proved locally → independently verified → stabilized → merged
-              │
-              └→ blocked → smaller child theorem → verified → re-entry
+    │
+    └→ blocked → smaller child theorem → verified → re-entry
 ```
 
 Lean compilation does not by itself guarantee source fidelity. Source-facing nodes separately audit objects, domains, quantifiers, assumptions, and conclusions; denoising proposals remain explicit rather than silently changing the pinned theorem.
+
+### Collaborative route protocol
+
+[Current Progress](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/) is one dashboard containing **SampleWiki Route**, **Riemannian Optimization**, and **Optimisation**. Collaborators can advance different theorem-sized Frontier Cells while seeing the other routes and the shared Lean floor on the same page.
+
+Persistent cells live under [`research-wiki/frontier-cells/`](research-wiki/frontier-cells/). Their status is evidence-backed and CI-checked by:
+
+```bash
+python3 tools/astis_frontier_cells.py check
+```
+
+Before creating a Lean declaration, a Worker must search Samplinglib, Mathlib, active shared Frontier Cells, and relevant formal upstreams. The candidate is classified as `reuse`, `adapt`, `missing`, or `out_of_scope`.
+
+If a missing lower-level theorem is needed by two or more routes, **do not create parallel route-local copies**. Open one `route: shared` Frontier Cell, stabilize one canonical declaration, and let route-specific theorems depend on it. Near-equivalent statements use a shared mathematical core plus explicit adapters; genuinely different theorems remain separate. Shared aggregators, root registries, API collision resolution, and graph/index updates are serialized through one stabilization lane.
+
+Full protocol: [docs/formalization-protocol.md](docs/formalization-protocol.md). Cross-route candidates and canonical shared declarations are recorded in [Libraries/shared-foundations.yml](Libraries/shared-foundations.yml).
 
 ## Attribution & design lineage
 
@@ -77,6 +93,7 @@ Full mathematical provenance and design lineage: [docs/attribution.md](docs/attr
 git clone https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep.git
 cd Auto-Sampling-Theory-In-Sleep
 python3 tools/astis.py check
+python3 tools/astis_frontier_cells.py check
 ```
 
 ```bibtex
