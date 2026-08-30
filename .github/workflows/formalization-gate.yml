@@ -92,6 +92,12 @@ jobs:
       - name: Validate source-to-Lean semantic round trips
         run: python3 tools/astis_semantic_roundtrip.py check
 
+      - name: Focus compile carre-du-champ product-rule theorem module
+        run: lake build AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChampAlgebra
+
+      - name: Focus compile carre-du-champ product-rule checks
+        run: lake build Tests.CarreDuChampAlgebra
+
       - name: Run Lean, Tests, and ASTIS consistency gate
         run: python3 website/scripts/lean_gate.py
 
