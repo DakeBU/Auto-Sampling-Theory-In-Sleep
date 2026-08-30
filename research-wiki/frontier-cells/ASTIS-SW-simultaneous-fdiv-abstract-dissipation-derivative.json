@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-simultaneous-fdiv-abstract-dissipation-derivative",
+  "route": "samplewiki-route",
+  "title": "Join the abstract simultaneous f-divergence dissipation derivative",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Theorem 8.3.1 proof, printed p. 219 / PDF p. 230: combine differentiation of the density representation, the two weak-adjoint generator pairings, and the diffusion/carre-du-champ cancellation to obtain the time derivative of the f-divergence as the negative dissipation integral.",
+  "target_statement": "Compose three already-separated parent edges: a HasDerivAt statement whose derivative is the integral of SimultaneousFDivergenceIntegral.derivativeIntegrand, the #224 weak-adjoint equality from that integral to the two generator pairings, and the #225 integral cancellation to the negative fSecond(rho) Gamma(rho,rho) nu integrand. Do not manufacture any parent assumption or claim the RN/source-facing wrapper.",
+  "status": "proved_locally",
+  "parents": [
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceIntegral.hasDerivAt_integral_weighted_f_divergence_of_dominated",
+    "ASTIS-SW-simultaneous-fdiv-weak-adjoint-rewrite",
+    "ASTIS-SW-simultaneous-fdiv-abstract-integral-join"
+  ],
+  "consumers": [
+    "Chewi Theorem 8.3.1 source-facing Radon-Nikodym/common-reference assembly",
+    "SampleWiki Chapter 8 diffusion/generator spine"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib main: SimultaneousFDivergenceIntegral.lean already proves dominated differentiation",
+      "Active #224: canonical weak-adjoint rewrite to the two generator pairings",
+      "Active #225: canonical integral cancellation under explicit generator-pairing integrability",
+      "Existing Euclidean weak-FP route #218: concrete common-diffusion realization rather than this abstract generator join",
+      "Pinned Mathlib: no project-specific theorem can already compose these three ASTIS parent contracts"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceAbstractDissipation.hasDerivAt_eq_abstract_dissipation",
+    "canonical_shared_cell": "",
+    "notes": "This is intentionally a thin theorem-DAG join. It takes the exact derivative value, weak-adjoint pairing equality, and all #225 analytic/algebraic obligations as explicit inputs and only rewrites the derivative value. The first focused attempt exposed that the child had relied on a nonexistent transitive visibility of SimultaneousFDivergenceIntegral.derivativeIntegrand. Adding the dominated-differentiation module as an explicit direct import repaired the module without changing the theorem statement. A later topology audit found that the branch history lagged two #225 cleanup commits and therefore displayed a fake formalization-workflow diff even though the file content matched. The theorem/test/cell were clean-replayed onto the current #225 tip; the current PR now contains exactly those three files, and the clean replay head passed the full ASTIS root gate and site build."
+  },
+  "evidence": {
+    "focused_checks": [
+      "GitHub Actions run 33323050357 on corrected theorem head 63fbff30faffce01859b41843e5763451c129dd1: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceAbstractDissipation — success",
+      "GitHub Actions run 33323050357 on corrected theorem head 63fbff30faffce01859b41843e5763451c129dd1: lake build Tests.SimultaneousFDivergenceAbstractDissipation — success"
+    ],
+    "independent_verification": "",
+    "root_build": "Clean replay head 1e16543901c17cf3a41e33f3bd27642725189784, based on the current #225 tip, passed GitHub Actions ASTIS formalization gate 33328571419 and Samplinglib site run 33328571312. The theorem content on this replay is identical to the focused-compiled corrected statement from run 33323050357; only branch topology/history was cleaned.",
+    "graph_regeneration": "",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/227"
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}

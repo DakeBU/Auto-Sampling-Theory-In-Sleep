@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceAbstractDissipation
+
+-- Focused API surface for the theorem-sized derivative join.
+#check AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceAbstractDissipation.hasDerivAt_eq_abstract_dissipation
