@@ -56,20 +56,20 @@ theorem det_affineIdentity_eq_prod_eigenvalues
     (fun B : Matrix ι ι ℝ =>
       (1 - t) • (1 : Matrix ι ι ℝ) + t • B)
     hspectral
+  have hmap :
+      (1 - t) • (1 : Matrix ι ι ℝ) +
+          t • Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
+            (Matrix.diagonal hA.eigenvalues) =
+        Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
+          ((1 - t) • (1 : Matrix ι ι ℝ) +
+            t • Matrix.diagonal hA.eigenvalues) := by
+    rw [map_add, map_smul, map_smul, map_one]
   have haffine :
       (1 - t) • (1 : Matrix ι ι ℝ) + t • A =
         Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
           ((1 - t) • (1 : Matrix ι ι ℝ) +
-            t • Matrix.diagonal hA.eigenvalues) := by
-    calc
-      (1 - t) • (1 : Matrix ι ι ℝ) + t • A =
-          (1 - t) • (1 : Matrix ι ι ℝ) +
-            t • Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
-              (Matrix.diagonal hA.eigenvalues) := haffine0
-      _ = Unitary.conjStarAlgAut ℝ (Matrix ι ι ℝ) hA.eigenvectorUnitary
-          ((1 - t) • (1 : Matrix ι ι ℝ) +
-            t • Matrix.diagonal hA.eigenvalues) := by
-        simp
+            t • Matrix.diagonal hA.eigenvalues) :=
+    haffine0.trans hmap
   calc
     Matrix.det ((1 - t) • (1 : Matrix ι ι ℝ) + t • A) =
         Matrix.det
