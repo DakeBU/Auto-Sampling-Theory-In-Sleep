@@ -2,7 +2,9 @@
 
 # Auto-Sampling-Theory-In-Sleep
 
-### Samplinglib: a source-backed Lean graph for sampling and optimisation
+### An Automated Theorem Proving System and Visualized Lean Library for Sampling Theory
+
+**Samplinglib:** a source-backed Lean graph for sampling and optimisation
 
 [![Samplinglib](https://img.shields.io/badge/Samplinglib-formal_knowledge_graph-155EEF?style=flat-square)](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
 [![Lean 4](https://img.shields.io/badge/Lean-4-6B4FBB?style=flat-square)](https://lean-lang.org/)
@@ -46,7 +48,8 @@ claimed → proved locally → independently verified → stabilized → merged
 
 Lean compilation does not by itself guarantee source fidelity. Source-facing nodes separately audit objects, domains, quantifiers, assumptions, and conclusions; denoising proposals remain explicit rather than silently changing the pinned theorem.
 
-### Collaborative route protocol
+<details>
+<summary><strong>Collaborative route protocol</strong></summary>
 
 [Current Progress](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/) is one dashboard containing **SampleWiki Route**, **Riemannian Optimization**, and **Optimisation**. Collaborators can advance different theorem-sized Frontier Cells while seeing the other routes and the shared Lean floor on the same page.
 
@@ -61,6 +64,8 @@ Before creating a Lean declaration, a Worker must search Samplinglib, Mathlib, a
 If a missing lower-level theorem is needed by two or more routes, **do not create parallel route-local copies**. Open one `route: shared` Frontier Cell, stabilize one canonical declaration, and let route-specific theorems depend on it. Near-equivalent statements use a shared mathematical core plus explicit adapters; genuinely different theorems remain separate. Shared aggregators, root registries, API collision resolution, and graph/index updates are serialized through one stabilization lane.
 
 Full protocol: [docs/formalization-protocol.md](docs/formalization-protocol.md). Cross-route candidates and canonical shared declarations are recorded in [Libraries/shared-foundations.yml](Libraries/shared-foundations.yml).
+
+</details>
 
 ## Attribution & design lineage
 
@@ -98,13 +103,14 @@ python3 tools/astis_frontier_cells.py check
 
 ```bibtex
 @misc{bu2026astis,
-  title  = {Auto-Sampling-Theory-In-Sleep: A Lean Formal Knowledge Graph
-            and Theorem-Driven System for Sampling Theory},
-  author = {Dake Bu and Ji Cheng and Atsushi Nitanda and
-            Hau-San Wong and Qingfu Zhang},
+  title  = {Auto-Sampling-Theory-In-Sleep: An Automated Theorem Proving System
+            and Visualized Lean Library for Sampling Theory},
+  author = {Dake Bu and Ji Cheng and Huanjian Zhou and Andi Han and
+            Sinho Chewi and Matthew S. Zhang and Hau-San Wong and
+            Qingfu Zhang and Atsushi Nitanda},
   year   = {2026},
   url    = {https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep}
 }
 ```
 
-**Organizers:** Dake Bu, Ji Cheng, Atsushi Nitanda, Hau-San Wong, Qingfu Zhang
+**Project contributors:** Dake Bu, Ji Cheng, Huanjian Zhou, Andi Han, Sinho Chewi, Matthew S. Zhang, Hau-San Wong, Qingfu Zhang, Atsushi Nitanda.
