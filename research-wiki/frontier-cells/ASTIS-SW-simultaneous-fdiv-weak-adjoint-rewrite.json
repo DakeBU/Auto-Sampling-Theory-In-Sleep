@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-simultaneous-fdiv-weak-adjoint-rewrite",
+  "route": "samplewiki-route",
+  "title": "Weak-adjoint rewrite of the simultaneous f-divergence derivative",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Theorem 8.3.1 proof, printed p. 219 / PDF p. 230: after differentiating the simultaneous f-divergence, use ∂t mu_t = L_t^* mu_t and ∂t nu_t = L_t^* nu_t to move each density time derivative onto the generator acting on the corresponding frozen observable.",
+  "target_statement": "In the fixed dominating-measure density presentation already used by SimultaneousFDivergenceIntegral, assume the two selected-time weak adjoint pairing identities for u=f'∘rho and v=f∘rho-rho*(f'∘rho). Rewrite the integral of derivativeIntegrand as the sum of the two generator pairings. Also expose the linear-map rewrite L(v)=L(f∘rho)-L(rho*(f'∘rho)). Do not construct L*, prove a Fokker--Planck PDE, or claim the full Theorem 8.3.1.",
+  "status": "proved_locally",
+  "parents": [
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceIntegral.derivativeIntegrand",
+    "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.WeakForwardEquation.kolmogorov_forward_weak_right (semantic/operator-level reuse reference)"
+  ],
+  "consumers": [
+    "Chewi Theorem 8.3.1 common-reference-density assembly",
+    "ASTIS-SW-simultaneous-fdiv-abstract-integral-join"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib main: SimultaneousFDivergenceIntegral.lean already provides dominated differentiation and the derivativeIntegrand split",
+      "Samplinglib main: WeakForwardEquation.lean proves the weak dual pairing derivative for a continuous linear semigroup, but only for a fixed semigroup generator and continuous-linear-functional dual action",
+      "Samplinglib main: MarkovMeasureEvolution.lean provides kernel measure evolution and observable/measure pairing compatibility, but not a time-dependent selected-time density-adjoint identity",
+      "Samplinglib main: WeakGenerator.lean provides law-level weak-generator derivative rewrites from sample processes, but not this fixed-base density adapter",
+      "Samplinglib branches/Frontier Cells: no weak-adjoint density rewrite for simultaneous f-divergence found"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceWeakAdjoint.integral_derivativeIntegrand_eq_generator_pairings",
+    "canonical_shared_cell": "",
+    "notes": "The source's measure equation is more general than a fixed semigroup and more abstract than a common-reference density path. This cell deliberately does not redefine the adjoint generator. It accepts exactly the two weak pairing identities needed at the selected time and joins them to the already-formalized density derivative. A later bridge may derive these identities from a time-dependent weak-adjoint evolution contract; the existing WeakForwardEquation is evidence for the semantic pattern but is not silently treated as proving the general L_t case. The theorem module and focused API compiled without statement repair, and the exact theorem head subsequently passed the full ASTIS root gate."
+  },
+  "evidence": {
+    "focused_checks": [
+      "GitHub Actions run 33321682702 on theorem head 36db63075af917b30814822e9644bbe97a1b9cd7: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceWeakAdjoint — success",
+      "GitHub Actions run 33321682702 on theorem head 36db63075af917b30814822e9644bbe97a1b9cd7: lake build Tests.SimultaneousFDivergenceWeakAdjoint — success"
+    ],
+    "independent_verification": "",
+    "root_build": "GitHub Actions run 33321682702 on theorem head 36db63075af917b30814822e9644bbe97a1b9cd7: standard ASTIS Lean/Tests/consistency gate and Chapter 1 evidence gate — success. Samplinglib site run 33321682698 also succeeded on the same head.",
+    "graph_regeneration": "",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/224"
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
