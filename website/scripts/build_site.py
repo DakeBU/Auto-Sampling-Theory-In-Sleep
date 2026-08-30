@@ -47,6 +47,17 @@ import visual_polish  # noqa: E402
 astis_site_source_index.install(astis_site)
 
 
+LEGACY_ORGANIZER_FOOTER = (
+    "<p>Organized by Dake Bu, Ji Cheng, Atsushi Nitanda, Hau-San Wong, "
+    "and Qingfu Zhang.</p>"
+)
+CANONICAL_ORGANIZER_FOOTER = (
+    "<p><strong>Organizer (Authors):</strong> Dake Bu, Ji Cheng, Huanjian Zhou, "
+    "Andi Han, Sinho Chewi, Matthew S. Zhang, Hau-San Wong, Qingfu Zhang, "
+    "and Atsushi Nitanda.</p>"
+)
+
+
 def repair_final_content_anchors(output: Path) -> None:
     """Keep the global skip-link target valid after all reader overlays."""
     for path in sorted(output.rglob("*.html")):
@@ -65,6 +76,33 @@ def repair_final_content_anchors(output: Path) -> None:
                 f"{path.relative_to(output)}: skip link targets #content but no repairable <main> exists"
             )
         path.write_text(repaired, encoding="utf-8", newline="\n")
+
+
+def repair_project_author_footer(output: Path) -> None:
+    """Keep every generated page aligned with the canonical ASTIS author list.
+
+    `tools/astis_site.py` historically carried an older five-person footer.
+    The public README now owns the canonical Organizer (Authors) order, so this
+    final build pass removes that stale generated copy until the legacy page
+    template is retired.  Late overlays and redirect pages are covered because
+    this runs after all page generators.
+    """
+    for path in sorted(output.rglob("*.html")):
+        text = path.read_text(encoding="utf-8")
+        if LEGACY_ORGANIZER_FOOTER in text:
+            text = text.replace(
+                LEGACY_ORGANIZER_FOOTER,
+                CANONICAL_ORGANIZER_FOOTER,
+            )
+            path.write_text(text, encoding="utf-8", newline="\n")
+        if (
+            "Samplinglib</strong> is the public formal library and learning interface"
+            in text
+            and CANONICAL_ORGANIZER_FOOTER not in text
+        ):
+            raise RuntimeError(
+                f"{path.relative_to(output)}: Samplinglib footer is missing the canonical Organizer (Authors) list"
+            )
 
 
 def write_underlying_graph_alias(output: Path) -> None:
@@ -176,6 +214,7 @@ def main() -> int:
     formalization_progress.enrich_site(output)
 
     inherit_final_reader_contract(output)
+    repair_project_author_footer(output)
     repair_final_content_anchors(output)
     return 0
 
