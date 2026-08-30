@@ -27,6 +27,7 @@ namespace InformationTheory
 namespace FiniteACFDivergenceCommonReference
 
 open MeasureTheory
+open scoped ENNReal NNReal
 
 noncomputable section
 
