@@ -34,9 +34,6 @@ open scoped RealInnerProductSpace
 
 noncomputable section
 
-private alias GA :=
-  AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra
-
 /-- Scalar derivative behind the complementary gradient term in Chewi 8.3.1:
 
 `d/dr [f(r) - r f'(r)] = -r f''(r)`.
@@ -63,7 +60,9 @@ theorem hasGradientAt_density_product
     (hQ : HasGradientAt q gradQ x) :
     HasGradientAt (fun y => rho y * q y)
       (rho x • gradQ + q x • gradRho) x := by
-  exact GA.HasGradientAt.mul hRho hQ
+  exact
+    _root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.mul
+      hRho hQ
 
 /-- Chain-rule identity for the gradient of `f'(rho)`. -/
 theorem hasGradientAt_fPrime_comp
@@ -74,7 +73,9 @@ theorem hasGradientAt_fPrime_comp
     (hfPrime : HasDerivAt fPrime fpp (rho x)) :
     HasGradientAt (fun y => fPrime (rho y))
       (fpp • gradRho) x := by
-  exact GA.HasGradientAt.comp_real hRho hfPrime
+  exact
+    _root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real
+      hRho hfPrime
 
 /-- Chain-rule identity for the complementary scalar coefficient
 `f(rho) - rho * f'(rho)` used by the `q`-equation. -/
@@ -92,7 +93,9 @@ theorem hasGradientAt_f_sub_rho_mul_fPrime
       HasDerivAt (fun r => f r - r * fPrime r)
         (-rho x * fpp) (rho x) :=
     hasDerivAt_f_sub_mul_fPrime hf hfPrime
-  exact GA.HasGradientAt.comp_real hRho houter
+  exact
+    _root_.AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.GradientAlgebra.HasGradientAt.comp_real
+      hRho houter
 
 /-- The three source-shaped gradient identities packaged together for a single
 point `x`.  This is convenient for downstream assembly with
