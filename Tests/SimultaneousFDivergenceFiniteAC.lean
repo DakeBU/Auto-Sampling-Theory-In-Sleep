@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceFiniteAC
 
+-- Focused API surface for the finite-AC measure/density curve wrapper.
 #check AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceFiniteAC.valueCurve
 #check AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceFiniteAC.hasDerivAt_valueCurve_of_commonReference
