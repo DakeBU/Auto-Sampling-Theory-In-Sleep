@@ -1,0 +1,25 @@
+name: ASTIS focused finite-AC simultaneous f-divergence
+
+on:
+  pull_request:
+    paths:
+      - "AutoSamplingTheory/TechnicalLemmas/InformationTheory/SimultaneousFDivergenceFiniteAC.lean"
+      - "Tests/SimultaneousFDivergenceFiniteAC.lean"
+      - ".github/workflows/focus-simultaneous-fdiv-finite-ac.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  focused-finite-ac-wrapper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+      - run: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceFiniteAC
+      - run: lake build Tests.SimultaneousFDivergenceFiniteAC
