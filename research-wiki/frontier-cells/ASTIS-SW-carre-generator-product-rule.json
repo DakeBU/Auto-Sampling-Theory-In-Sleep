@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Definition 1.2.12: Gamma(f,g)=1/2 (L(fg)-f Lg-g Lf). The proof of Theorem 8.3.1 later uses the equivalent rearrangement L(fg)=f Lg+g Lf+2 Gamma(f,g).",
   "target_statement": "For Samplinglib's canonical CarreDuChamp.carreDuChamp of a linear generator, algebraically recover the function-valued and pointwise product expansion L(fg)=f Lg+g Lf+2 Gamma(f,g). No diffusion, positivity, stationarity, or domain hypothesis is introduced.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp"
   ],
@@ -24,16 +24,19 @@
     ],
     "classification": "missing",
     "decision": "new_route_local",
-    "canonical_declaration": "",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChampAlgebra.generator_mul_eq",
     "canonical_shared_cell": "",
     "notes": "This is an algebraic rearrangement of the already canonical source definition, not a new diffusion assumption. It belongs in a general CarreDuChamp sibling module so later generator arguments reuse one named edge. Although mathematically general, current cross-route evidence does not justify a route:shared Frontier Cell."
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      "GitHub Actions run 33316786915 on theorem head c4b0519198940ecd8af8b1aec676ef350b9144d3: lake build AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChampAlgebra — success",
+      "GitHub Actions run 33316786915 on theorem head c4b0519198940ecd8af8b1aec676ef350b9144d3: lake build Tests.CarreDuChampAlgebra — success"
+    ],
     "independent_verification": "",
-    "root_build": "",
+    "root_build": "GitHub Actions run 33316786915 on theorem head c4b0519198940ecd8af8b1aec676ef350b9144d3: standard ASTIS Lean/Tests/consistency gate and Chapter 1 evidence gate both succeeded after the focused module/test checks.",
     "graph_regeneration": "",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/220"
   },
   "blocked": {
     "reason": "",
