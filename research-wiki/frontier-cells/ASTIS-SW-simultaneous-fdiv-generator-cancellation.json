@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-simultaneous-fdiv-generator-cancellation",
+  "route": "samplewiki-route",
+  "title": "Pointwise generator cancellation for simultaneous f-divergence",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling, Theorem 8.3.1 proof: after applying the two adjoint equations, the proof combines the product reconstruction from Definition 1.2.12 with the diffusion generator chain rule Eq. (2.2.15), then uses the carré-du-champ chain rule Eq. (2.2.14) to reduce rho L(f'∘rho) - L((f'∘rho)rho) + L(f∘rho) to -f''(rho) Gamma(rho).",
+  "target_statement": "Formalize only the pointwise algebraic cancellation rho L(f'∘rho) - L((f'∘rho)rho) + L(f∘rho) = -f''(rho) Gamma(rho,rho), with the product reconstruction, generator scalar chain rule, and carré-du-champ scalar chain rule exposed as separate parent hypotheses. Do not assume adjoint evolution, differentiation under the integral, density regularity, or the final dissipation theorem.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-carre-generator-product-rule",
+    "ASTIS-SW-diffusion-carre-chain-rule",
+    "Chewi Eq. (2.2.15) generator scalar chain-rule bridge (separate Frontier Cell)"
+  ],
+  "consumers": [
+    "Chewi Theorem 8.3.1 abstract simultaneous f-divergence dissipation",
+    "SampleWiki Chapter 8 diffusion/generator spine"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib main: SimultaneousFDivergence.lean and SimultaneousFDivergenceIntegral.lean provide the time quotient/dominated-integral lane but not the abstract generator cancellation",
+      "Samplinglib main: CarreDuChamp.lean provides the canonical Gamma definition but not this three-parent source-proof join",
+      "Samplinglib active Frontier Cells: ASTIS-SW-diffusion-carre-chain-rule and ASTIS-SW-carre-generator-product-rule provide two intended parents; the generator-form Eq. (2.2.15) bridge remains separate",
+      "Pinned Mathlib v4.33.0: no Chewi-specific simultaneous f-divergence generator cancellation theorem found",
+      "Libraries/shared-foundations.yml: no currently evidenced Riemannian/Optimisation consumer of this exact Chapter 8 source-proof join"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.SimultaneousFDivergenceGeneratorCancellation.generator_terms_eq_neg_fSecond_mul_carreDuChamp",
+    "canonical_shared_cell": "",
+    "notes": "This cell is deliberately an algebraic join rather than a new generator axiom. It can compile independently by taking the three source identities as hypotheses, while later source-facing assembly must discharge those hypotheses from the canonical product, Eq. (2.2.15), and Gamma-chain nodes. Keeping the join separate prevents the final dissipation formula from being smuggled in as an assumption and prevents adjoint/integrability assumptions from contaminating the reusable algebraic node."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
