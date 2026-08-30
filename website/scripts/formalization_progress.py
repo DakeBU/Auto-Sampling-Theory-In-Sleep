@@ -3,7 +3,7 @@
 
 The three public formalization routes live on one page so collaborators can
 track their own theorem-sized Frontier Cells while seeing the other routes and
-the shared Lean floor.  Historical route URLs remain stable aliases.
+the shared Lean floor. Historical route URLs remain stable aliases.
 """
 
 from __future__ import annotations
@@ -14,7 +14,7 @@ import shutil
 import sys
 from html import escape
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -105,20 +105,21 @@ def insert_progress_sidebar(text: str, rel: str) -> str:
 
 def patch_site_nav(text: str, rel: str) -> str:
     href = dashboard_href(rel)
+    active = ' aria-current="page"' if rel.startswith("progress/") else ""
+    link = f'<a href="{href}"{active}>Current Progress</a>'
     pattern = re.compile(r'(<nav class="site-nav"[^>]*>)(.*?)(</nav>)', re.S)
     match = pattern.search(text)
     if not match:
         return text
     body = match.group(2)
-    # Normalize an existing Current Progress link as well as insert a missing one.
-    body = re.sub(
+    body, count = re.subn(
         r'<a href="[^"]*progress/index\.html"(?: aria-current="page")?>Current Progress</a>',
-        f'<a href="{href}"{' aria-current="page"' if rel.startswith("progress/") else ""}>Current Progress</a>',
+        link,
         body,
         count=1,
     )
-    if "Current Progress</a>" not in body:
-        body += f'<a href="{href}"{' aria-current="page"' if rel.startswith("progress/") else ""}>Current Progress</a>'
+    if count == 0 and "Current Progress</a>" not in body:
+        body += link
     replacement = match.group(1) + body + match.group(3)
     return text[: match.start()] + replacement + text[match.end() :]
 
@@ -133,7 +134,9 @@ def _rewrite_one_url(url: str, old_rel: str, new_rel: str) -> str:
     target = posixpath.normpath(posixpath.join(old_parent, parsed.path))
     new_parent = posixpath.dirname(new_rel) or "."
     rebased = posixpath.relpath(target, start=new_parent)
-    return urlunsplit(("", "", rebased, parsed.query, parsed.fragment))
+    suffix = f"?{parsed.query}" if parsed.query else ""
+    fragment = f"#{parsed.fragment}" if parsed.fragment else ""
+    return f"{rebased}{suffix}{fragment}"
 
 
 def rebase_local_urls(text: str, old_rel: str, new_rel: str) -> str:
@@ -147,7 +150,6 @@ def rebase_local_urls(text: str, old_rel: str, new_rel: str) -> str:
 
 
 def retarget_progress_links(text: str, rel: str) -> str:
-    """Point historical route links at the single dashboard and correct anchor."""
     targets = {
         OLD_SAMPLEWIKI_PROGRESS: "samplewiki",
         SAMPLEWIKI_ROUTE: "samplewiki",
@@ -182,7 +184,7 @@ def frontier_cells_by_route() -> dict[str, list[dict[str, object]]]:
     errors = astis_frontier_cells.validate_cells(cells)
     if errors:
         raise RuntimeError("Frontier Cell protocol invalid before dashboard render:\n- " + "\n- ".join(errors))
-    grouped = {route: [] for route in (*ROUTE_ANCHORS.keys(), "shared")}
+    grouped: dict[str, list[dict[str, object]]] = {route: [] for route in (*ROUTE_ANCHORS.keys(), "shared")}
     for cell in cells:
         route = str(cell.get("route", ""))
         if route in grouped:
@@ -292,6 +294,9 @@ def overview_body() -> str:
         ("planned", "Non-smooth, Frank-Wolfe, proximal, duality", "Formalize §§6–9 and expose exact shared foundations with sampling when statements coincide."),
         ("planned", "Mirror, alternating, stochastic, interior-point", "Formalize §§10–13 and audit sampling intersections around mirror/proximal/stochastic structure."),
     ]
+    samplewiki_actions = '<p><a class="button" href="samplewiki-detail.html">Detailed dependency/audit view</a></p>'
+    riemannian_actions = '<p><a class="button" href="../libraries/riemannian-optimization/index.html">Open Boumal source route</a></p>'
+    optimisation_actions = '<p><a class="button" href="../libraries/optimisation/index.html">Open Chewi Optimisation route</a></p>'
     return f"""
 <section class="page-hero compact progress-hero" data-current-progress="overview">
   <div class="eyebrow">Samplinglib · Current Progress</div>
@@ -300,9 +305,9 @@ def overview_body() -> str:
   <nav class="progress-dashboard-nav" aria-label="Current Progress routes"><a href="#samplewiki">SampleWiki Route</a><a href="#riemannian">Riemannian Optimization</a><a href="#optimisation">Optimisation</a><a href="#protocol">Harness protocol</a></nav>
 </section>
 <div class="progress-dashboard" data-unified-progress-dashboard="true">
-{route_panel(route_id="samplewiki-route", anchor="samplewiki", title="SampleWiki Route", eyebrow="Dependency-first frontier route", status="active", source_label="Open SampleWiki", source_url="../example-cases/samplewiki.html", lede="Immediate priority: extend the verified Chewi spine until useful frontier sampling results can enter the same theorem graph with exact source fidelity.", items=samplewiki_items, cells=grouped["samplewiki-route"], actions='<p><a class="button" href="samplewiki-detail.html">Detailed dependency/audit view</a></p>')}
-{route_panel(route_id="riemannian-optimization", anchor="riemannian", title="Riemannian Optimization", eyebrow="Boumal route", status="scaffold", source_label="Open library", source_url="../libraries/riemannian-optimization/index.html", lede="Formalize Boumal while sharing only mathematically identical geometry foundations with the sampling route. Convention differences stay explicit in adapters.", items=riemannian_items, cells=grouped["riemannian-optimization"], actions='<p><a class="button" href="../libraries/riemannian-optimization/index.html">Open Boumal source route</a></p>')}
-{route_panel(route_id="optimisation", anchor="optimisation", title="Optimisation", eyebrow="Sinho Chewi · arXiv:2605.07006", status="scaffold", source_label="Open library", source_url="../libraries/optimisation/index.html", lede="Formalize Chewi’s public optimization notes section by section, reusing Mathlib/Optlib/CvxLean and exposing exact shared convex/proximal/mirror foundations with sampling.", items=optimisation_items, cells=grouped["optimisation"], actions='<p><a class="button" href="../libraries/optimisation/index.html">Open Chewi Optimisation route</a></p>')}
+{route_panel(route_id="samplewiki-route", anchor="samplewiki", title="SampleWiki Route", eyebrow="Dependency-first frontier route", status="active", source_label="Open SampleWiki", source_url="../example-cases/samplewiki.html", lede="Immediate priority: extend the verified Chewi spine until useful frontier sampling results can enter the same theorem graph with exact source fidelity.", items=samplewiki_items, cells=grouped["samplewiki-route"], actions=samplewiki_actions)}
+{route_panel(route_id="riemannian-optimization", anchor="riemannian", title="Riemannian Optimization", eyebrow="Boumal route", status="scaffold", source_label="Open library", source_url="../libraries/riemannian-optimization/index.html", lede="Formalize Boumal while sharing only mathematically identical geometry foundations with the sampling route. Convention differences stay explicit in adapters.", items=riemannian_items, cells=grouped["riemannian-optimization"], actions=riemannian_actions)}
+{route_panel(route_id="optimisation", anchor="optimisation", title="Optimisation", eyebrow="Sinho Chewi · arXiv:2605.07006", status="scaffold", source_label="Open library", source_url="../libraries/optimisation/index.html", lede="Formalize Chewi's public optimization notes section by section, reusing Mathlib/Optlib/CvxLean and exposing exact shared convex/proximal/mirror foundations with sampling.", items=optimisation_items, cells=grouped["optimisation"], actions=optimisation_actions)}
 </div>
 <section class="progress-intersections">
   <div class="section-heading"><span>Shared Lean floor</span><h2>Parallel above; canonical below.</h2></div>
@@ -343,7 +348,7 @@ def lift_samplewiki_detail(output: Path) -> None:
     text = rebase_local_urls(text, OLD_SAMPLEWIKI_PROGRESS, SAMPLEWIKI_DETAIL)
     text = re.sub(r"<title>.*?</title>", "<title>SampleWiki Detailed Progress · Samplinglib</title>", text, count=1, flags=re.S)
     text = text.replace("<h1>Source audit and Lean progress</h1>", "<h2>Source audit and Lean progress</h2>", 1)
-    banner = f"""
+    banner = """
 <section class="page-hero compact progress-hero progress-samplewiki-banner" data-current-progress="samplewiki-detail">
   <div class="eyebrow">Current Progress · SampleWiki detailed view</div>
   <h1>SampleWiki dependency and audit detail</h1>
@@ -359,7 +364,6 @@ def lift_samplewiki_detail(output: Path) -> None:
     new_path.parent.mkdir(parents=True, exist_ok=True)
     new_path.write_text(text, encoding="utf-8", newline="\n")
 
-    # Historical SampleWiki child route now lands on the shared dashboard.
     alias_body = """
 <section class="page-hero compact"><div class="eyebrow">Current Progress</div><h1>SampleWiki Route</h1><p class="lede">This route now lives on the unified collaboration dashboard.</p><p><a class="button primary" href="../../progress/index.html#samplewiki">Open SampleWiki Route</a></p></section>
 """
@@ -466,8 +470,7 @@ def validate(output: Path) -> None:
         errors.append("legacy SampleWiki progress route is not a dashboard alias")
 
     cells = astis_frontier_cells.load_cells()
-    cell_errors = astis_frontier_cells.validate_cells(cells)
-    errors.extend(f"Frontier Cell protocol: {error}" for error in cell_errors)
+    errors.extend(f"Frontier Cell protocol: {error}" for error in astis_frontier_cells.validate_cells(cells))
 
     canonical = output / library_shelves.CANONICAL_THEME_PAGE
     canonical_text = canonical.read_text(encoding="utf-8") if canonical.exists() else ""
