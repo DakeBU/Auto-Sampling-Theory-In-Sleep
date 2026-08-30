@@ -1,0 +1,25 @@
+name: ASTIS focused finite AC f-divergence
+
+on:
+  pull_request:
+    paths:
+      - "AutoSamplingTheory/TechnicalLemmas/InformationTheory/FiniteACFDivergence.lean"
+      - "Tests/FiniteACFDivergence.lean"
+      - ".github/workflows/focus-fdivergence-finite-ac.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  focused-fdivergence-ac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+      - run: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergence
+      - run: lake build Tests.FiniteACFDivergence
