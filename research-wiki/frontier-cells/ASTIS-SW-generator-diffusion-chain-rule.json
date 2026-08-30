@@ -4,8 +4,8 @@
   "route": "samplewiki-route",
   "title": "Generator form of the diffusion chain rule",
   "mode": "faithfulPaper",
-  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Eq. (2.2.15) immediately after Definition 2.2.13: equivalently, a diffusion generator satisfies L(phi∘f)=phi'(f)Lf+phi''(f)Gamma(f) for observables in the generator/Gamma domain and smooth scalar phi. Chewi leaves the equivalence with Eq. (2.2.14) to Exercise 2.8.",
-  "target_statement": "Introduce an explicit-domain generator-form diffusion chain-rule interface for smooth scalar phi: closure of the observable domain under phi∘f and L(phi∘f)=phi'(f)Lf+phi''(f)Gamma(f,f), together with a named-derivative pointwise specialization. Do not claim or prove equivalence with the Gamma-chain-rule interface from PR #219 in this cell.",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Eq. (2.2.15) immediately after Definition 2.2.13: equivalently, the diffusion chain rule can be stated as L(phi∘f)=phi'(f)Lf+phi''(f)Gamma(f) on the relevant operator/Gamma domain. Definition 2.2.13 quantifies over all scalar maps phi : R -> R and does not explicitly impose a global ContDiff hypothesis; the paper derivative notation is made explicit in Lean by named first/second derivative fields with pointwise HasDerivAt witnesses. Chewi leaves the equivalence with Eq. (2.2.14) to Exercise 2.8.",
+  "target_statement": "Introduce an explicit-domain generator-form diffusion chain-rule interface with arbitrary scalar phi and explicit derivative fields phiPrime, phiSecond: closure under phi∘f and L(phi∘f)=phiPrime(f)Lf+phiSecond(f)Gamma(f,f), under pointwise HasDerivAt witnesses for phi and phiPrime. Do not claim or prove equivalence with the Gamma-chain-rule interface from PR #219 in this cell.",
   "status": "claimed",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp"
@@ -24,16 +24,16 @@
     ],
     "classification": "missing",
     "decision": "new_route_local",
-    "canonical_declaration": "",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GeneratorDiffusionChainRule.GeneratorDiffusionChainRuleOn",
     "canonical_shared_cell": "",
-    "notes": "Chewi presents Eq. (2.2.15) as equivalent to the Gamma scalar-composition chain rule but leaves that equivalence to Exercise 2.8. To preserve the source truth boundary, this cell formalizes Eq. (2.2.15) as its own explicit property rather than deriving it from PR #219. The observable domain and smooth scalar quantifier are explicit for the same totalization reason as in the Gamma-chain-rule cell."
+    "notes": "Chewi presents Eq. (2.2.15) as equivalent to the Gamma scalar-composition chain rule but leaves that equivalence to Exercise 2.8. This cell therefore formalizes Eq. (2.2.15) as its own explicit property rather than deriving it from PR #219. A previous draft silently strengthened the source to ContDiff R top phi. Re-reading Definition 2.2.13 shows that the definition instead quantifies over all phi : R -> R and writes phi' / phi'' directly, so the current interface mirrors #219 and represents those derivative fields with pointwise HasDerivAt witnesses. Any earlier focused evidence for the superseded ContDiff statement is not evidence for this corrected theorem head."
   },
   "evidence": {
     "focused_checks": [],
     "independent_verification": "",
     "root_build": "",
     "graph_regeneration": "",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/221"
   },
   "blocked": {
     "reason": "",
