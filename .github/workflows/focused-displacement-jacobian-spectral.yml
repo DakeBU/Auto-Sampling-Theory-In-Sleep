@@ -1,0 +1,30 @@
+name: Focused displacement Jacobian spectral
+
+on:
+  pull_request:
+    paths:
+      - "AutoSamplingTheory/TechnicalLemmas/Measure/DisplacementJacobianSpectral.lean"
+      - "Tests/DisplacementJacobianSpectral.lean"
+      - ".github/workflows/focused-displacement-jacobian-spectral.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  focused-lean:
+    name: Compile displacement Jacobian spectral cell
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+      - name: Compile theorem module
+        run: lake build AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianSpectral
+      - name: Compile focused checks
+        run: lake build Tests.DisplacementJacobianSpectral
