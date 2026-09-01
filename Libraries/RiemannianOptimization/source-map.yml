@@ -20,3 +20,8 @@ chapters:
   11: Geodesic convexity
 status_policy: [reuse, adapt, missing, out_of_scope]
 truth_boundary: chapter_scaffold_only
+formal_upstreams:
+  - id: atlas-v1
+    role: external declaration and proof-pattern memory
+    relevant_books: [DifferentialGeometry, GeometryOfManifolds, DifferentialAnalysis, IntroductionToFunctionalAnalysis]
+    status: reference_only_until_local_adapter_compiles

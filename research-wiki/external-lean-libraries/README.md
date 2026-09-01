@@ -14,3 +14,4 @@ declaration for it.
 | `YuanheZ/lean-stat-learning-theory` | `lean-stat-learning-theory.md` | probability/statistics porting style and reusable proof patterns |
 | `auto-res/lean-rademacher` | `lean-rademacher.md` | Rademacher and empirical-process reference patterns |
 | `junwei-lu/Lean-Asymptotic-Statistical-Theory` | `lean-asymptotic-statistical-theory.md` | hypothesis audit, dependency graph, Gaussian/Prekopa-style `ForMathlib` reference |
+| `facebookresearch/atlas-lean` v1 | `atlas-v1.md` | pinned external declaration memory across 26 textbooks; route candidate search and port provenance |

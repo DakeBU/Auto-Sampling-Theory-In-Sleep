@@ -37,6 +37,6 @@ chapters:
   13: Interior point methods
 appendices:
   A: Background on symmetric matrices
-formal_upstreams: [Mathlib, Optlib, CvxLean]
+formal_upstreams: [Mathlib, Optlib, CvxLean, ATLAS-v1]
 status_policy: [reuse, adapt, missing, out_of_scope]
 truth_boundary: chapter_scaffold_only

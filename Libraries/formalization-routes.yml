@@ -11,18 +11,21 @@ routes:
     detail: /progress/samplewiki-detail.html
     mode: dependency-first
     status: active
+    external_memory: [atlas-v1]
   - id: riemannian-optimization
     title: Riemannian Optimization
     source: https://www.nicolasboumal.net/book/
     progress: /progress/#riemannian
     mode: textbook
     status: scaffold
+    external_memory: [atlas-v1]
   - id: optimisation
     title: Optimisation
     source: https://arxiv.org/pdf/2605.07006
     progress: /progress/#optimisation
     mode: public-lecture-notes-plus-upstreams
     status: scaffold
+    external_memory: [atlas-v1, optlib, cvxlean]
 state_machine:
   forward: [claimed, proved_locally, independently_verified, stabilized, merged]
   blocked: blocked

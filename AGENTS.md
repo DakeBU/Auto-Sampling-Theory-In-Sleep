@@ -208,6 +208,23 @@ card and reuse `Probability.lean`, `SDE.lean`, and
 `AutoSamplingTheory/TechnicalLemmas/`. SALD/RMFLD files are consumers, not the
 home of reusable background mathematics.
 
+ATLAS v1 is searchable external memory, not a local proof certificate. Search
+its pinned 26-book declaration inventory with:
+
+```bash
+python3 tools/atlas_memory.py search markov kernel --route samplewiki-route
+python3 tools/atlas_memory.py search riemannian --route riemannian-optimization
+python3 tools/atlas_memory.py search convex --route optimisation
+```
+
+Every returned item remains `external-reference`. Inspect its pinned source,
+license, hypotheses, direct placeholders, and upstream evaluation before
+porting. Do not use the source or index for commercial activity or to train,
+fine-tune, distill, evaluate, or otherwise develop ML models.
+Before using a candidate, port only the minimal needed statement. It becomes
+callable Lean truth only after an ASTIS-owned declaration compiles, is tested,
+and enters the Registry.
+
 ## Canonical Memory Protocol
 
 | Function | Canonical path | Legacy mirror |

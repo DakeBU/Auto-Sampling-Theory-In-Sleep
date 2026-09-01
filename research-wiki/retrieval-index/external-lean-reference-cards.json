@@ -1,6 +1,10 @@
 {
-  "generated": "2026-08-02 02:28:31",
+  "generated": "2026-09-01 14:01:57",
   "references": [
+    {
+      "id": "atlas-v1",
+      "path": "research-wiki/external-lean-libraries/atlas-v1.md"
+    },
     {
       "id": "lean-asymptotic-statistical-theory",
       "path": "research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md"

@@ -75,6 +75,22 @@ def normalized(text: str) -> str:
     return re.sub(r"\s+", " ", ascii_text).strip().lower()
 
 
+def _semantic_source_label_present(page_text: str, source_kind: str, section: str) -> bool:
+    label_match = re.match(
+        r"^(Definition|Example|Corollary|Theorem|Lemma|Proposition|Remark|Optimization Box)\s+(.+)$",
+        source_kind,
+    )
+    if not label_match:
+        return normalized(section) in page_text
+    exact = normalized(source_kind)
+    if exact in page_text:
+        return True
+    kind = normalized(label_match.group(1))
+    number = normalized(label_match.group(2))
+    split_label = rf"\b{re.escape(kind)}\b.{{0,160}}{re.escape(number)}\b"
+    return re.search(split_label, page_text) is not None
+
+
 def expected_chapters() -> list[dict[str, object]]:
     return [
         {
@@ -125,9 +141,9 @@ def _validate_local_pdf(path: Path, correspondence: list[dict[str, object]]) -> 
         )
         page_text = normalized(result.stdout)
         source_kind = str(row["source_kind"])
-        label_match = re.match(r"^(Definition|Example|Corollary|Theorem|Lemma|Proposition|Remark|Optimization Box)\s+(.+)$", source_kind)
-        needle = normalized(source_kind if label_match else str(row["section"]))
-        if result.returncode != 0 or needle not in page_text:
+        if result.returncode != 0 or not _semantic_source_label_present(
+            page_text, source_kind, str(row["section"])
+        ):
             errors.append(f"semantic source label not found on PDF page {page}: {row['id']} ({source_kind})")
     return errors
 

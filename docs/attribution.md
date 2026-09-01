@@ -27,6 +27,15 @@ Boumal remains the source-facing chapter authority. A shared Lean lemma is reuse
 
 Beck is therefore an important background and theorem cross-check, but it is **not** the public formalization spine of the Optimisation website. The public route follows Chewi's arXiv notes section by section.
 
+### ATLAS v1 external memory
+
+- **Source:** [facebookresearch/atlas-lean v1](https://github.com/facebookresearch/atlas-lean/tree/e8b31c5cb0bec89b487ce33fe525a2c0b0f8b9c6/v1), pinned at `e8b31c5cb0bec89b487ce33fe525a2c0b0f8b9c6`.
+- **License boundary:** v1 is limited to academic/research use under CC BY-NC 4.0. Its rider prohibits commercial use and use to train, fine-tune, distill, evaluate, or otherwise develop ML models. The root Apache-2.0 license does not relicense `v1/`.
+- **ASTIS use:** a deterministic metadata index covers all 36,469 named source declarations and records exact file/line anchors, direct placeholders, upstream target evaluations, topics, and conservative route candidates. The external source stays in a separate checkout.
+- **Truth boundary:** an ATLAS record is never blue or locally callable. It must be statement-audited, minimally ported or reproved under the ASTIS toolchain, tested, registered, source-mapped, and independently reviewed.
+
+The relevant surfaces are probability/stochastic analysis for the SampleWiki and sampling floor, differential/manifold geometry for Riemannian Optimization, and convexity/duality/algorithmic material for Optimisation. These are retrieval candidates, not claims of theorem equivalence with Chewi or Boumal.
+
 ### Source/copyright boundary
 
 The public reader distinguishes:
