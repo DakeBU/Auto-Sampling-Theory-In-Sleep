@@ -1,0 +1,5 @@
+import AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergence
+
+#check AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergence.Domain
+#check AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergence.value
+#check AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergence.value_eq_integral_of_density_ae

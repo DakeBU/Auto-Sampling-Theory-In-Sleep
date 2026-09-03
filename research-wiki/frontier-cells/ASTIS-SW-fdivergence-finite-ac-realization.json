@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "cell_id": "ASTIS-SW-fdivergence-finite-ac-realization",
+  "route": "samplewiki-route",
+  "title": "Finite absolutely-continuous realization of Chewi f-divergence",
+  "mode": "faithfulPaper",
+  "source_anchor": "Sinho Chewi, Log-Concave Sampling (2026-08-09), Definition 1.5.5, printed p. 39 / PDF p. 51: in the absolutely-continuous case mu << nu, D_f(mu||nu)=integral f(dmu/dnu) dnu for convex f on R_+ with f(1)=0. This child formalizes only the finite real-valued AC branch and does not claim the general singular extension.",
+  "target_statement": "Introduce an explicit finite-AC domain for probability measures mu,nu and scalar f: require mu << nu, convexity on the nonnegative half-line, f(1)=0, and integrability of f applied to Samplinglib's canonical real RN density. Define the finite real value only on that domain, and prove that any nu-a.e. equal density representative yields the same integral. Do not identify this child with the full Definition 1.5.5 singular extension.",
+  "status": "proved_locally",
+  "parents": [
+    "ASTIS-SW-fdivergence-definition-1-5-5",
+    "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density"
+  ],
+  "consumers": [
+    "ASTIS-SW-fdivergence-common-reference-presentation",
+    "Chewi Theorem 8.3.1 finite/common-reference source-facing wrapper",
+    "ASTIS-SW-common-reference-rn-real-density",
+    "SampleWiki finite-divergence calculus nodes"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib main: no general f-divergence object; RNLogRatio.density is the canonical real RN representative",
+      "Pinned Mathlib: no Csiszar/fDivergence declaration found",
+      "Pinned Mathlib Bochner integral: usable for the finite integrable AC branch but totalized outside it",
+      "Chewi Definition 1.5.5: the AC clause is exactly the integral formalized here, while the singular correction remains in the blocked parent"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergence.Domain",
+    "canonical_shared_cell": "",
+    "notes": "The key design choice is to put integrability in the domain contract and pass a domain witness to the value definition. This prevents Mathlib's totalized real integral from being advertised as a source-faithful divergence value when the source quantity should be infinite or undefined in the finite-real sense. Convexity is required only on Ici 0 because RNLogRatio.density is nonnegative. The full singular/extended-value Definition 1.5.5 remains the separate blocked parent #230. The theorem module and focused API checks compiled without any statement repair; the same exact head passed the full ASTIS root gate and site build."
+  },
+  "evidence": {
+    "focused_checks": [
+      "GitHub Actions run 33328862516 on theorem head cf868d7bb371900821f47d0424b9bb5ede37118a: lake build AutoSamplingTheory.TechnicalLemmas.InformationTheory.FiniteACFDivergence — success",
+      "GitHub Actions run 33328862516 on theorem head cf868d7bb371900821f47d0424b9bb5ede37118a: lake build Tests.FiniteACFDivergence — success"
+    ],
+    "independent_verification": "",
+    "root_build": "GitHub Actions run 33328862445 on theorem head cf868d7bb371900821f47d0424b9bb5ede37118a: standard ASTIS Lean/Tests/consistency gate and Chapter 1 evidence gate — success. Samplinglib site run 33328862448 also succeeded on the same head.",
+    "graph_regeneration": "",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/231"
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  }
+}
