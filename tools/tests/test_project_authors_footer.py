@@ -11,6 +11,7 @@ CANONICAL_NAMES = [
     "Ji Cheng",
     "Huanjian Zhou",
     "Andi Han",
+    "Zonghao Chen",
     "Sinho Chewi",
     "Matthew S. Zhang",
     "Hau-San Wong",
