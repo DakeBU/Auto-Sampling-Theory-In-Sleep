@@ -13,7 +13,7 @@ import re
 import shutil
 import threading
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -68,10 +68,18 @@ def main() -> None:
                 assert page.locator('h1').count()==1
                 if name=='functor':
                     page.wait_for_selector('.ulg-node')
-                    page.locator('[data-view="functor"]').click()
+                    # The canvas also records data-view; select the actual toolbar button.
+                    if not args.offline_dom:
+                        page.wait_for_function('Boolean(window.MathJax?.startup?.promise)')
+                        page.evaluate('() => MathJax.startup.promise')
+                    page.locator('button[data-view="functor"]').click()
                     page.locator('[data-functor-jump="transport:gibbs-prox"]').click()
                     assert 'ALL inputs:' in page.locator('[data-graph-detail]').inner_text()
                     assert 'not-Lean-certified' in page.locator('[data-graph-detail]').inner_text()
+                    if not args.offline_dom:
+                        page.wait_for_selector('[data-graph-detail] .ulg-formula mjx-container')
+                        assert page.locator('[data-graph-detail] mjx-merror').count()==0
+                        report['graph_mathjax_rendered']=True
                     page.locator('[data-graph-canvas]').scroll_into_view_if_needed()
                     # All conceptual incidence edges remain overlays, not formal.
                     assert page.locator('.ulg-edge[data-relation="joint conceptual input"][data-evidence="formal"]').count()==0
@@ -81,7 +89,9 @@ def main() -> None:
                 report['pages'].append({'page':rel,'libraries':5,'routes':5,'horizontal_overflow':overflow})
             if not args.offline_dom:
                 goto('underlying-lean-graph/index.html?view=functor&focus=transport:dirac')
-                page.wait_for_url('**/lean-foundations.html?view=functor&focus=transport:dirac')
+                page.wait_for_url(lambda url: urlsplit(url).path.endswith('/lean-foundations.html')
+                                  and parse_qs(urlsplit(url).query).get('view')==['functor']
+                                  and parse_qs(urlsplit(url).query).get('focus')==['transport:dirac'])
                 page.wait_for_selector('.ulg-node')
                 page.wait_for_function('document.querySelector("[data-graph-detail]").textContent.includes("Deterministic maps")')
                 report['query_preserving_alias']=True
@@ -96,6 +106,9 @@ def main() -> None:
             report['mobile_ot_overflow']=False
             assert not report['runtime_errors'],report['runtime_errors']
             browser.close()
+    except Exception as error:
+        report['failure']=repr(error)
+        raise
     finally:
         if server: server.shutdown()
         (evidence/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
