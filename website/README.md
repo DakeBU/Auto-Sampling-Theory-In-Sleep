@@ -126,3 +126,8 @@ server is never deployed.
 
 Website prose is original Samplinglib/ASTIS exposition. Chewi's public draft
 is summarized with source correspondence rather than copied at length.
+
+
+## Cross-domain extension
+
+`library_shelves.py` renders five peer libraries in the same reader; `cross_domain.py` adds the eight-chapter/two-appendix OT source map, coordinated shared prerequisite order, and higher-order sampling research contract. `formalization_progress.py` owns all five public routes. `underlying_lean_graph.py` exports schema-3 graph data with first-class conceptual `hyperedges` as well as incidence edges; the new Functor Hypergraph view never upgrades source correspondence to a Lean certificate. See `docs/cross-domain-program.md` for schema semantics and source/fallback rules.

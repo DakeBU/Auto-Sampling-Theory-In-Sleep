@@ -1,4 +1,4 @@
-schema_version: 3
+schema_version: 4
 verification: astis-harness
 progress_dashboard: /progress/
 frontier_cell_registry: /research-wiki/frontier-cells/
@@ -26,6 +26,20 @@ routes:
     mode: public-lecture-notes-plus-upstreams
     status: scaffold
     external_memory: [atlas-v1, optlib, cvxlean]
+  - id: statistical-optimal-transport
+    title: Statistical Optimal Transport Route
+    source: https://chewisinho.github.io/st_flour.pdf
+    progress: /progress/#optimal-transport
+    mode: textbook
+    status: scaffold
+  - id: higher-order-sampling
+    title: Higher-Order Smoothness × Sampling
+    source: /progress/higher-order-sampling-detail.html
+    progress: /progress/#higher-order-sampling
+    mode: exploratoryProof
+    status: research-plan
+shared_dependency_plan: /Libraries/cross-domain-program.json
+conceptual_transport_graph: /website/content/functor_hypergraph.json
 state_machine:
   forward: [claimed, proved_locally, independently_verified, stabilized, merged]
   blocked: blocked

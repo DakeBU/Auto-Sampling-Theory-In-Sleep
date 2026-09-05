@@ -35,3 +35,13 @@
 @media(max-width:1180px){.ulg-stage{grid-template-columns:minmax(0,1fr) 340px}.ulg-toolbar{grid-template-columns:1fr 1fr}.ulg-actions{grid-column:1/-1;justify-content:flex-end}}
 @media(max-width:900px){.ulg-hero-grid{grid-template-columns:1fr}.ulg-stage{grid-template-columns:1fr}.ulg-canvas{border-right:0;border-bottom:1px solid var(--line)}.ulg-detail{max-height:none}.ulg-semantics>div:last-child{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:650px){.ulg-hero{padding:26px 20px;border-radius:14px}.ulg-hero h1{font-size:36px}.ulg-hero dl{grid-template-columns:1fr 1fr}.ulg-toolbar{grid-template-columns:1fr}.ulg-actions{grid-column:auto;justify-content:flex-start}.ulg-stage,.ulg-canvas{min-height:620px}.ulg-canvas svg{height:620px}.ulg-links,.ulg-semantics>div:last-child{grid-template-columns:1fr}.ulg-detail{padding:18px}.ulg-toolbar button{font-size:11px}}
+/* Conceptual transport cards retain the shared reader palette. */
+.ulg-functor-links { display:flex; flex-wrap:wrap; gap:.5rem; margin:1rem 0; }
+.ulg-functor-links button { font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:.65rem .8rem; cursor:pointer; }
+.ulg-functor-links button:focus-visible { outline:2px solid var(--accent); }
+.ulg-hyperedge small { display:block; margin:.3rem 0; }
+
+/* Larger labels for the compact conceptual atlas; the proof views are unchanged. */
+.ulg-canvas[data-view="functor"] .ulg-node .label { font-size:20px; }
+.ulg-canvas[data-view="functor"] .ulg-node .kind { font-size:11px; }
+.ulg-canvas[data-view="functor"] .ulg-node.muted { opacity:.48; }

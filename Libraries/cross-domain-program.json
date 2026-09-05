@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "status": "research and reuse plan, not Lean completion",
+  "priority_rule": "Select a dependency-ready theorem delta with the largest audited downstream reuse per realistic proof cost; do not force one universal abstraction.",
+  "stages": [
+    {
+      "id": "contracts",
+      "title": "Fix statements and oracle contracts",
+      "parents": [],
+      "consumers": [
+        "all"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Pin measures, spaces, constants, metrics, input access, randomness, output error and source editions before comparing routes.",
+      "search": "Samplinglib Registry; active Frontier Cells; source maps"
+    },
+    {
+      "id": "convex",
+      "title": "Convexity, duality and quadratic energies",
+      "parents": [
+        "contracts"
+      ],
+      "consumers": [
+        "optimisation",
+        "statistical-optimal-transport",
+        "samplewiki-route"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "One convex/subgradient/conjugacy core; typed adapters for extended values, Euclidean and measure-valued energies.",
+      "search": "TechnicalLemmas/Analysis/ConvexSubgradient.lean; Geometry/StrongConvexity.lean; Mathlib convex APIs; Optlib; CvxLean"
+    },
+    {
+      "id": "measure",
+      "title": "Measures, couplings and probability kernels",
+      "parents": [
+        "contracts"
+      ],
+      "consumers": [
+        "statistical-optimal-transport",
+        "samplewiki-route",
+        "higher-order-sampling"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Pushforwards, couplings, marginal transfer and finite moments; distinguish deterministic maps from stochastic kernels.",
+      "search": "TechnicalLemmas/Measure/{CouplingGraph,TransportGluing,CouplingQuadraticIntegrability}.lean; Mathlib kernels and measure maps"
+    },
+    {
+      "id": "calculus",
+      "title": "Differentiation, Taylor remainder and geometry",
+      "parents": [
+        "contracts"
+      ],
+      "consumers": [
+        "optimisation",
+        "riemannian-optimization",
+        "higher-order-sampling"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Reusable normed-space Taylor bounds, chain rules and gradients; manifold adapters separately account for retractions and curvature.",
+      "search": "TechnicalLemmas/Analysis/Calculus/Taylor.lean; TechnicalLemmas/Taylor.lean; Geometry/GeodesicConvexity.lean; Mathlib calculus"
+    },
+    {
+      "id": "transport",
+      "title": "Transport existence, duality and displacement",
+      "parents": [
+        "convex",
+        "measure"
+      ],
+      "consumers": [
+        "statistical-optimal-transport",
+        "samplewiki-route"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "OT Chapter 1 with Appendix A/B as needed; no duplicate coupling or convex-potential infrastructure.",
+      "search": "TechnicalLemmas/Measure/{ProbabilityCouplingCompactness,DisplacementInterpolationCoupling}.lean; pinned Mathlib Wasserstein audit"
+    },
+    {
+      "id": "entropy",
+      "title": "Gibbs variational principle, KL and dissipation",
+      "parents": [
+        "convex",
+        "measure"
+      ],
+      "consumers": [
+        "samplewiki-route",
+        "statistical-optimal-transport"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Common entropy/convex core supports OT Chapter 4 and proximal/MFLD routes; sampler invariance remains separate.",
+      "search": "TechnicalLemmas/InformationTheory; existing Fisher/entropy APIs; primary proofs"
+    },
+    {
+      "id": "flow",
+      "title": "Geometry-to-flow interfaces",
+      "parents": [
+        "transport",
+        "calculus",
+        "entropy"
+      ],
+      "consumers": [
+        "riemannian-optimization",
+        "statistical-optimal-transport",
+        "samplewiki-route"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "OT Chapters 5–6, Boumal and sampling share tested tangent/weak-continuity/energy-dissipation interfaces where types really agree.",
+      "search": "Existing weak FP and FisherTransport APIs; AGS metric gradient-flow contracts"
+    },
+    {
+      "id": "statistics",
+      "title": "Statistical estimation and metric geometry",
+      "parents": [
+        "transport"
+      ],
+      "consumers": [
+        "statistical-optimal-transport"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Parallel branches: OT Chapters 2–3 + empirical-process leaves; Chapters 7→8 + metric curvature/barycenters. Entropic rates additionally consume entropy.",
+      "search": "Mathlib probability and concentration; source Chapter 2–4 assumptions; statistical rather than computational n"
+    },
+    {
+      "id": "upper",
+      "title": "Higher-smoothness upper bounds",
+      "parents": [
+        "calculus",
+        "measure"
+      ],
+      "consumers": [
+        "higher-order-sampling"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Fix one potential class and oracle, prove local remainder/moment bounds and invariant target, then combine with existing mixing or contraction. Do not wait for all OT flow theory.",
+      "search": "Nesterov high-order Taylor models; Mou et al.; Shen–Lee; pinned sampling contraction leaves"
+    },
+    {
+      "id": "lower",
+      "title": "Sampling oracle lower bounds",
+      "parents": [
+        "contracts",
+        "measure"
+      ],
+      "consumers": [
+        "samplewiki-route"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Separate hard-instance and information-transcript lane. Additional convexity or statistical-testing ingredients are task-specific, not every upper-bound lemma.",
+      "search": "SampleWiki exact lower-bound papers; oracle transcript kernels; testing/data-processing APIs"
+    },
+    {
+      "id": "compare",
+      "title": "Compare matched upper and lower contracts",
+      "parents": [
+        "upper",
+        "lower"
+      ],
+      "consumers": [
+        "all"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Only compare identical potential classes, derivative access, error metrics, starts and cost conventions. A cross-domain lower bound requires an explicit reduction.",
+      "search": "Common contract schema; no theorem equivalence inferred from a shared label"
+    }
+  ]
+}

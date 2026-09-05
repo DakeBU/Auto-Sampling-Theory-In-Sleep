@@ -12,6 +12,8 @@ body:
         - SampleWiki Route
         - Riemannian Optimization
         - Optimisation
+        - Statistical Optimal Transport Route
+        - Higher-Order Smoothness × Sampling
         - Shared Foundation
     validations:
       required: true
