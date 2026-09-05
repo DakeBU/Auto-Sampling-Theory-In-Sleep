@@ -77,9 +77,20 @@ def main() -> None:
                     assert 'ALL inputs:' in page.locator('[data-graph-detail]').inner_text()
                     assert 'not-Lean-certified' in page.locator('[data-graph-detail]').inner_text()
                     if not args.offline_dom:
-                        page.wait_for_selector('[data-graph-detail] .ulg-formula mjx-container')
-                        assert page.locator('[data-graph-detail] mjx-merror').count()==0
+                        # Inspect every transport, not only the initially selected one.
+                        jump_ids=page.locator('[data-functor-jump]').evaluate_all(
+                            '(nodes) => nodes.map(n => n.dataset.functorJump)')
+                        assert len(jump_ids)==9
+                        for jump_id in jump_ids:
+                            page.locator(f'[data-functor-jump="{jump_id}"]').click()
+                            page.wait_for_selector('[data-graph-detail] .ulg-formula mjx-container')
+                            assert page.locator('[data-graph-detail] mjx-merror').count()==0, jump_id
+                            assert not page.locator('[data-graph-detail] .ulg-formula').evaluate(
+                                '(node) => node.scrollWidth > node.clientWidth + 1'), jump_id
                         report['graph_mathjax_rendered']=True
+                        report['graph_formulas_checked']=len(jump_ids)
+                        page.locator('[data-functor-jump="transport:gibbs-prox"]').click()
+                        page.wait_for_selector('[data-graph-detail] .ulg-formula mjx-container')
                     page.locator('[data-graph-canvas]').scroll_into_view_if_needed()
                     # All conceptual incidence edges remain overlays, not formal.
                     assert page.locator('.ulg-edge[data-relation="joint conceptual input"][data-evidence="formal"]').count()==0
