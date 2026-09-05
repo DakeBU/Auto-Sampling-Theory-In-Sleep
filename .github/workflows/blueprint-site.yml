@@ -24,6 +24,8 @@ on:
       - "tools/tests/test_astis_advance.py"
       - "tools/tests/test_astis_semantic_roundtrip.py"
       - "tools/tests/test_underlying_lean_graph.py"
+      - "tools/tests/test_cross_domain_program.py"
+      - "tools/tests/test_project_authors_footer.py"
       - "tools/tests/test_harness_site.py"
       - "README.md"
       - "docs/**"
@@ -55,6 +57,8 @@ on:
       - "tools/tests/test_astis_advance.py"
       - "tools/tests/test_astis_semantic_roundtrip.py"
       - "tools/tests/test_underlying_lean_graph.py"
+      - "tools/tests/test_cross_domain_program.py"
+      - "tools/tests/test_project_authors_footer.py"
       - "tools/tests/test_harness_site.py"
       - "README.md"
       - "docs/**"
@@ -109,12 +113,15 @@ jobs:
             tools.tests.test_chewi_source_first_contract \
             tools.tests.test_chewi_source_first_refinement \
             tools.tests.test_samplewiki_reader_contract \
-            tools.tests.test_underlying_lean_graph
+            tools.tests.test_underlying_lean_graph \
+            tools.tests.test_cross_domain_program \
+            tools.tests.test_project_authors_footer
           node --check website/static/site.js
           node --check website/static/ide.js
           node --check website/static/lean-tutor.js
           node --check website/static/module-lean-tutor.js
           node --check website/static/underlying-lean-graph.js
+          node --check website/static/graph-alias.js
 
       - name: Validate collaborative Frontier Cell protocol
         run: python3 tools/astis_frontier_cells.py check
@@ -157,6 +164,23 @@ jobs:
             .astis/site-check.log
             _site
           if-no-files-found: warn
+
+      - name: Install browser smoke-test dependencies
+        run: |
+          python3 -m pip install playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+
+      - name: Check peer readers, math, graph interaction, and mobile layout
+        run: python3 website/scripts/check_cross_domain_browser.py
+
+      - name: Upload browser validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cross-domain-browser-${{ github.run_id }}
+          path: _browser-evidence
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Build deployable static worker bundle
         run: |
