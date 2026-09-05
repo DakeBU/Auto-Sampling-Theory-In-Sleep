@@ -1,4 +1,4 @@
-schema_version: 4
+schema_version: 5
 verification: astis-harness
 progress_dashboard: /progress/
 frontier_cell_registry: /research-wiki/frontier-cells/
@@ -38,7 +38,24 @@ routes:
     progress: /progress/#higher-order-sampling
     mode: exploratoryProof
     status: research-plan
+
+canonical_textbook_spines:
+  - id: log-concave-sampling
+    title: Log-Concave Sampling
+    source: https://chewisinho.github.io/main.pdf
+    reader: /textbook/
+    role: canonical textbook dependency spine
+    public_progress_card: false
+    note: This spine is distinct from SampleWiki. Shared textbook foundations can originate here without being attributed to the SampleWiki frontier route.
+  - id: optimisation
+    source: https://arxiv.org/pdf/2605.07006
+  - id: riemannian-optimization
+    source: https://www.nicolasboumal.net/book/
+  - id: statistical-optimal-transport
+    source: https://chewisinho.github.io/st_flour.pdf
+
 shared_dependency_plan: /Libraries/cross-domain-program.json
+frontloaded_shared_spine: /Libraries/frontloaded-shared-spine.json
 conceptual_transport_graph: /website/content/functor_hypergraph.json
 state_machine:
   forward: [claimed, proved_locally, independently_verified, stabilized, merged]
@@ -51,16 +68,32 @@ shared_floor:
   decisions: [reuse_existing, adapt_existing, new_route_local, new_canonical_shared, out_of_scope]
   collision_rule: one canonical shared theorem when statements coincide; explicit adapters when conventions differ
   implementation_rule: a route-local cell that discovers a new shared foundation cannot advance beyond claimed until one canonical route=shared Frontier Cell exists
+  dependency_order_rule: source chapter order does not override the cross-textbook Lean DAG; a later source chapter may be pulled forward for one shared prerequisite without chapter-completion credit
   stabilization_rule: changes to shared aggregators and canonical interfaces are serialized through one stabilization lane
-  checkpoints:
-    - chewi_sampling: "2.5 Riemannian Manifolds"
-      route: riemannian-optimization
-    - chewi_sampling: "4.3 Proof via Convex Optimization"
-      route: optimisation
-      chewi_optimisation: "§§1-3 and §9"
+  frontloaded_checkpoints:
+    - shared: "Euclidean / inner-product / matrix floor"
+      consumers: [log-concave-sampling, optimisation, riemannian-optimization, statistical-optimal-transport]
+    - shared: "Convexity / strong convexity / subgradient core"
+      producer_windows: ["Optimization Chapter 1", "Sampling Chapter 2"]
+      consumers: [log-concave-sampling, optimisation, statistical-optimal-transport]
+    - shared: "Coupling / Wasserstein metric core"
+      producer_windows: ["Statistical OT Chapter 1"]
+      consumers: [statistical-optimal-transport, log-concave-sampling]
+      sampling_anchor: "Sampling §1.3"
+    - shared: "Convex conjugacy / duality core"
+      producer_windows: ["Optimization Chapter 9 pulled forward", "Statistical OT §1.5"]
+      consumers: [optimisation, statistical-optimal-transport]
+    - shared: "First-order manifold adapter"
+      producer_windows: ["Boumal Chapter 3 pulled forward"]
+      consumers: [riemannian-optimization, log-concave-sampling]
+      sampling_anchor: "Sampling §2.5"
+    - shared: "Empirical measure / concentration floor"
+      producer_windows: ["Sampling §2.4", "Statistical OT Chapter 2"]
+      consumers: [log-concave-sampling, statistical-optimal-transport]
+  later_checkpoints:
     - chewi_sampling: "Chapter 8 The Proximal Sampler"
       route: optimisation
-      chewi_optimisation: "§8 Proximal methods"
+      chewi_optimisation: "Chapter 8 Proximal methods"
     - chewi_sampling: "Chapter 10 Structured Sampling"
       route: optimisation
-      chewi_optimisation: "§10 Mirror methods and §12 Stochastic optimization"
+      chewi_optimisation: "Chapter 10 Mirror methods and Chapter 12 Stochastic optimization"

@@ -20,6 +20,7 @@ Before starting, read:
 `docs/formalization-protocol.md`  
 `.agents/skills/astis-substantive-advance/SKILL.md`  
 `.agents/skills/astis-cross-library-coordination/SKILL.md`  
+`Libraries/frontloaded-shared-spine.json`  
 `Libraries/shared-foundations.yml`  
 `Libraries/FirstOrderOptimization/upstreams.yml`  
 `research-wiki/frontier-cells/README.md`
@@ -29,6 +30,14 @@ Then inspect:
 `/progress/#optimisation`
 
 Use the current graph/progress state rather than a stale chapter schedule.
+
+## Front-loaded shared-spine rule
+
+Optimization Chapters 1-2 are not merely route-local chapters. They are expected producers of canonical Euclidean foundations used immediately by Log-Concave Sampling Chapters 1-2 and Statistical OT Chapter 1. Before proving a chapter-local version of convexity, strong convexity, subgradient, differential/gradient, quadratic-energy, chain-rule, energy-dissipation, or Grönwall facts, inspect the matching `sf-*` node in `Libraries/frontloaded-shared-spine.json`.
+
+Book order is not Lean dependency order. If Statistical OT §1.5 needs an exact Fenchel/conjugacy lemma from Optimization Chapter 9, it is legitimate to extract that theorem early into the shared spine after auditing its own source prerequisites. **Do not** mark Chapter 9 complete, and do not drag the whole Chapter 9 API forward.
+
+Conversely, Optimization Chapter 2 should share scalar chain-rule/energy-dissipation/contraction lemmas with later sampling/Riemannian consumers, but it must not invent a universal `GradientFlow` abstraction that identifies Euclidean ODE, Riemannian flow, and Wasserstein flow definitionally.
 
 Advance **one theorem-sized Frontier Cell at a time**. Choose the smallest currently reachable theorem/interface that materially advances Chewi's notes and has useful downstream leverage.
 
@@ -48,15 +57,17 @@ and
 
 Important sampling intersections include:
 
-Chewi Sampling §4.3 ↔ Optimisation §§1–3 and §9  
-Chewi Sampling Chapter 8 ↔ Optimisation §8 Proximal methods  
-Chewi Sampling Chapter 10 ↔ Optimisation §10 Mirror methods and §12 Stochastic optimization
+Optimization Chapter 1 → Sampling Chapter 2 strong-convexity/log-concavity prerequisites  
+Optimization Chapter 2 → Sampling §§1.4-1.5 scalar energy-dissipation/contraction ingredients  
+Optimization Chapter 9 ↔ Statistical OT §§1.5-1.6, pulled forward only at the exact shared-duality lemma level  
+Chewi Sampling Chapter 8 ↔ Optimisation Chapter 8 Proximal methods  
+Chewi Sampling Chapter 10 ↔ Optimisation Chapter 10 Mirror methods and Chapter 12 Stochastic optimization
 
 These are **candidate intersections, not assumed equivalences**.
 
-For example, a convexity/proximal/mirror lemma that is mathematically identical across the two fields should become one canonical shared Lean node. A sampling-specific Markov kernel, invariant-law argument, RGO construction, or stochastic correction remains route-specific.
+For example, a convexity/proximal/mirror lemma that is mathematically identical across fields should become one canonical shared Lean node. A sampling-specific Markov kernel, invariant-law argument, RGO construction, stochastic correction, transport optimizer, or manifold adapter remains route-specific unless its exact semantics match.
 
-If you discover a missing theorem needed by both Optimisation and Sampling, **do not implement a private Optimisation version**. Record `decision: new_canonical_shared`, open/reference one `route: shared` Frontier Cell, and make the current cell depend on it.
+If you discover a missing theorem needed by another textbook/research lane, **do not implement a private Optimisation version**. Record `decision: new_canonical_shared`, open/reference one `route: shared` Frontier Cell, and make the current cell depend on it.
 
 Register/update the Frontier Cell JSON before substantial implementation.
 
@@ -76,4 +87,4 @@ Prefer focused compilation/tests during exploration. Do not independently edit r
 
 The proving worker may establish `proved_locally`, but **cannot self-assign `independently_verified`**.
 
-Start now by inspecting the latest `main`, current Optimisation dashboard, Chewi's next reachable theorem(s), Mathlib/Optlib/CvxLean matches, and existing shared cells. Select the next substantive Frontier Cell, perform the complete reuse audit, register it, and then push the formalization forward as far as real evidence allows.
+Start now by inspecting the latest `main`, the front-loaded shared spine, current Optimisation dashboard, Chewi's next reachable theorem(s), Mathlib/Optlib/CvxLean matches, and existing shared cells. Select the next substantive Frontier Cell, perform the complete reuse audit, register it, and then push the formalization forward as far as real evidence allows.

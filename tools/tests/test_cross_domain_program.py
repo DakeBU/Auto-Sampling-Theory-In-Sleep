@@ -11,6 +11,8 @@ sys.path.insert(0,str(ROOT/'tools'))
 import cross_domain
 import astis_frontier_cells
 
+SPINE_PATH = ROOT/'Libraries/frontloaded-shared-spine.json'
+
 class CrossDomainProgramTests(unittest.TestCase):
     def test_valid_data(self):
         cross_domain.validate_data()
@@ -52,6 +54,42 @@ class CrossDomainProgramTests(unittest.TestCase):
         self.assertNotIn('upper',lookup['lower']['parents'])
         self.assertNotIn('lower',lookup['upper']['parents'])
         self.assertEqual(lookup['compare']['parents'],['upper','lower'])
+
+    def test_frontloaded_spine_is_acyclic_and_distinct_from_samplewiki(self):
+        spine=json.loads(SPINE_PATH.read_text())
+        self.assertEqual([x['id'] for x in spine['textbook_windows']],[
+            'log-concave-sampling','optimisation','riemannian-optimization','statistical-optimal-transport'])
+        self.assertNotIn('samplewiki-route',[x['id'] for x in spine['textbook_windows']])
+        seen=set()
+        for node in spine['nodes']:
+            self.assertNotIn(node['id'],seen)
+            self.assertTrue(set(node['parents']) <= seen)
+            seen.add(node['id'])
+        for gate in spine['integration_gates']:
+            self.assertTrue(set(gate['requires']) <= seen)
+
+    def test_frontloaded_spine_encodes_early_cross_textbook_gates(self):
+        spine=json.loads(SPINE_PATH.read_text())
+        gates={g['id']:g for g in spine['integration_gates']}
+        self.assertIn('sf-coupling-wasserstein',gates['gate-sampling-1-3']['requires'])
+        self.assertIn('sf-manifold-first-order',gates['gate-sampling-2']['requires'])
+        self.assertIn('sf-empirical-concentration',gates['gate-sampling-2']['requires'])
+        self.assertIn('sf-convex-duality',gates['gate-ot-1']['requires'])
+        self.assertIn('sf-scalar-energy-dissipation',gates['gate-optimisation-1-2']['requires'])
+
+    def test_pull_forward_has_no_chapter_completion_credit(self):
+        spine=json.loads(SPINE_PATH.read_text())
+        rules={r['from']:r for r in spine['pull_forward_rules']}
+        opt=rules['Optimization Chapter 9 Fenchel duality']
+        self.assertIn('No Optimization Chapter 9 completion credit',opt['status_effect'])
+        boumal=rules['Boumal Chapter 3 first-order embedded geometry']
+        self.assertIn('Sampling §2.5',boumal['unlocks'])
+
+    def test_coarse_plan_includes_frontloaded_shared_stages(self):
+        plan=cross_domain.load(cross_domain.PLAN_PATH)
+        ids={s['id'] for s in plan['stages']}
+        self.assertTrue({'linear-algebra','coupling-wasserstein','duality','semigroup','manifold','concentration'} <= ids)
+        self.assertEqual(plan['frontloaded_spine'],'/Libraries/frontloaded-shared-spine.json')
 
     def cell(self):
         return json.loads((ROOT/'research-wiki/frontier-cells/_example.json').read_text())
