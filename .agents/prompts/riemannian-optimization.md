@@ -15,6 +15,7 @@ Before doing any work, read:
 `docs/formalization-protocol.md`  
 `.agents/skills/astis-substantive-advance/SKILL.md`  
 `.agents/skills/astis-cross-library-coordination/SKILL.md`  
+`Libraries/frontloaded-shared-spine.json`  
 `Libraries/shared-foundations.yml`  
 `research-wiki/frontier-cells/README.md`
 
@@ -24,13 +25,21 @@ Then inspect the latest collaboration dashboard:
 
 Do not work from a stale chapter plan. Use the current repository graph and progress state.
 
+## Front-loaded shared-spine rule
+
+Boumal Chapters 1-2 mainly introduce problem classes and examples; their Euclidean, matrix and differential prerequisites should come from the common `sf-euclidean-linear-algebra` and `sf-calculus-gradient` floor rather than a Riemannian-only copy.
+
+The first mathematically important cross-textbook export is **Boumal Chapter 3, Embedded geometry: first order**, because Chewi Sampling §2.5 needs tangent spaces, differentials, Riemannian metrics and gradients. It is allowed to formalize the exact Chapter-3 prerequisite lemma before exhaustively closing every Chapter-1/2 exercise when the source dependency is genuinely ready. This is a dependency-order optimization, **not** Chapter-3 completion credit.
+
+The shared object should be the minimal convention-compatible first-order manifold adapter. Do not pull retractions, Hessians, geodesic convexity or global manifold machinery into the shared floor unless a current theorem actually needs them. Euclidean gradient and Riemannian gradient remain distinct and are connected by an explicit metric/tangent-space adapter.
+
 Work on **one theorem-sized Frontier Cell at a time**. Choose a currently reachable Boumal theorem, definition/interface, or prerequisite that materially advances the route. Prefer foundational nodes with several downstream consumers over isolated terminal lemmas when the graph makes that useful.
 
-Before introducing any Lean declaration, search Samplinglib and Mathlib, then inspect active shared Frontier Cells and `Libraries/shared-foundations.yml`.
+Before introducing any Lean declaration, search Samplinglib and Mathlib, then inspect active shared Frontier Cells, `Libraries/frontloaded-shared-spine.json`, and `Libraries/shared-foundations.yml`.
 
 The first major cross-route checkpoint is:
 
-Chewi sampling §2.5 Riemannian Manifolds ↔ Boumal's geometric foundations.
+Chewi Sampling §2.5 Riemannian Manifolds ↔ Boumal Chapter 3 first-order embedded geometry.
 
 Therefore be especially careful around manifolds, tangent spaces, differentials, Riemannian metrics, gradients, Hessians, exponential/retraction interfaces, and general analytic lemmas.
 
@@ -48,7 +57,7 @@ For an exact common theorem, reuse one canonical declaration.
 
 For a near-equivalent theorem, factor the genuinely shared mathematical core and keep a small explicit Boumal/Chewi convention adapter.
 
-If a missing lower-level theorem will be needed by another route, **do not prove a Riemannian-local copy**. Record `decision: new_canonical_shared`, create/reference one `route: shared` Frontier Cell, and make the Riemannian cell depend on it.
+If a missing lower-level theorem will be needed by another textbook/research lane, **do not prove a Riemannian-local copy**. Record `decision: new_canonical_shared`, create/reference one `route: shared` Frontier Cell, and make the Riemannian cell depend on it.
 
 Register the cell under `research-wiki/frontier-cells/` before substantial implementation.
 
@@ -66,4 +75,4 @@ Keep source-facing Boumal statements pinned to Boumal. Shared lower-level abstra
 
 During exploration, work in isolated theorem modules with focused checks. Do not independently rewrite stable shared APIs, root registries, or common aggregators. Shared integration and API collision resolution belong to the single stabilization lane.
 
-Start by reading the current `main`, the Riemannian dashboard state, Boumal's next reachable source nodes, existing Samplinglib/Mathlib geometry, and active shared cells. Select the next substantive Frontier Cell, perform the reuse audit first, and then implement the maximum legitimate mathematical advance under the ASTIS protocol.
+Start by reading the current `main`, the front-loaded shared spine, the Riemannian dashboard state, Boumal's next reachable source nodes, existing Samplinglib/Mathlib geometry, and active shared cells. Select the next substantive Frontier Cell, perform the reuse audit first, and then implement the maximum legitimate mathematical advance under the ASTIS protocol.
