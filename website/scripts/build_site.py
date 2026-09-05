@@ -53,8 +53,8 @@ LEGACY_ORGANIZER_FOOTER = (
 )
 CANONICAL_ORGANIZER_FOOTER = (
     "<p><strong>Organizer (Authors):</strong> Dake Bu, Ji Cheng, Huanjian Zhou, "
-    "Andi Han, Sinho Chewi, Matthew S. Zhang, Hau-San Wong, Qingfu Zhang, "
-    "and Atsushi Nitanda.</p>"
+    "Andi Han, Zonghao Chen, Sinho Chewi, Matthew S. Zhang, Hau-San Wong, "
+    "Qingfu Zhang, and Atsushi Nitanda.</p>"
 )
 
 
