@@ -28,3 +28,13 @@ libraries:
     chapters: 13
     appendices: 1
     site: /libraries/optimisation/
+  - id: statistical-optimal-transport
+    title: Statistical Optimal Transport
+    kind: textbook
+    authors: [Sinho Chewi, Jonathan Niles-Weed, Philippe Rigollet]
+    source: https://chewisinho.github.io/st_flour.pdf
+    priority: scaffold
+    chapters: 8
+    appendices: 2
+    source_map: /Libraries/StatisticalOptimalTransport/source-map.json
+    site: /libraries/statistical-optimal-transport/

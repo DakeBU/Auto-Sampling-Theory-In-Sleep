@@ -126,7 +126,8 @@ def write_underlying_graph_alias(output: Path) -> None:
     text = text.replace(
         "</head>",
         '  <link rel="canonical" href="../lean-foundations.html">\n'
-        '  <meta http-equiv="refresh" content="0; url=../lean-foundations.html">\n'
+        '  <meta http-equiv="refresh" content="2; url=../lean-foundations.html">\n'
+        '  <script src="../assets/graph-alias.js"></script>\n'
         "</head>",
         1,
     )

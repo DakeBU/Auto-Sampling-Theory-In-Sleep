@@ -1,6 +1,6 @@
 # ASTIS Collaborative Formalization Protocol
 
-This protocol governs collaborative formalization across the public **SampleWiki Route**, **Riemannian Optimization**, and **Optimisation** routes. It converts the ASTIS Harness into a GitHub-visible workflow and prevents independent collaborators from rebuilding the same lower-level mathematics in parallel.
+This protocol governs collaborative formalization across the public **SampleWiki Route**, **Riemannian Optimization**, **Optimisation**, **Statistical Optimal Transport**, and **Higher-Order Smoothness × Sampling** routes. It converts the ASTIS Harness into a GitHub-visible workflow and prevents independent collaborators from rebuilding the same lower-level mathematics in parallel.
 
 ## 1. Unit of work: one Frontier Cell
 
@@ -155,3 +155,12 @@ python3 website/scripts/check_site.py
 ```
 
 The exact focused Lean command for the cell must also be recorded in its `evidence.focused_checks` field before `proved_locally`.
+
+
+## 8. Cross-domain sources, omitted details and conceptual transports
+
+This protocol also governs **Statistical Optimal Transport Route** and **Higher-Order Smoothness × Sampling**. All five routes share the [dependency partial order](../Libraries/cross-domain-program.json); a research route uses `exploratoryProof` without changing any `faithfulPaper` target.
+
+New Frontier Cells use schema version 2 and record `source_detail_audit`: primary edition/anchor, whether detail is sufficient/omitted/cites_external, the exact gap, consulted background theorem/page and convention/assumption adapter. Omitted or externally delegated proofs require an actual consulted source, not a generic bibliography. Every new cell records Samplinglib and Mathlib searches. The higher-order route also records its comparison contract (potential class, p/q/k/r, metric, start and cost model).
+
+When formal reuse fails, consult targeted authoritative background texts as described in [the source hierarchy](cross-domain-program.md). Keep the primary theorem fixed; missing assumptions become explicit semantic-repair proposals. A text-to-text correspondence is not a formal dependency edge. Functor candidates additionally require object/morphism maps and identity/composition proofs before any certification. No automatic compression may erase assumptions or primitive proof support.

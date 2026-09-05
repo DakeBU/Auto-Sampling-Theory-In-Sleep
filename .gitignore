@@ -14,3 +14,5 @@
 *.log
 __pycache__/
 /.DS_Store
+
+/_browser-evidence/

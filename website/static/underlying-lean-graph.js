@@ -11,10 +11,11 @@
   const buttons = [...document.querySelectorAll("[data-view]")];
   const NS = "http://www.w3.org/2000/svg";
   const state = {view: "overview", query: "", focus: "", expanded: new Set(), scale: 0.82, x: 32, y: 36, drag: null};
-  const kindOrder = {library: 0, "proof-root": 1, chapter: 2, setting: 2, phase: 2, "semantic-stage": 2, "source-claim": 3, "frontier-case": 3, module: 3, "semantic-audit": 4, "proof-leaf": 4, declaration: 4, "repair-proposal": 5};
-  const kindLabel = {library: "library", "proof-root": "shared root", chapter: "book chapter", setting: "SampleWiki setting", phase: "formalization phase", "source-claim": "source theorem", "frontier-case": "frontier theorem", module: "Lean module", "proof-leaf": "proof leaf", declaration: "Lean declaration", "semantic-stage": "semantic protocol", "semantic-audit": "fidelity audit", "repair-proposal": "theorem repair proposal"};
+  const kindOrder = {"concept-domain": 0, "concept-bridge": 1, "library-chapter": 2, library: 0, "proof-root": 1, chapter: 2, setting: 2, phase: 2, "semantic-stage": 2, "source-claim": 3, "frontier-case": 3, module: 3, "semantic-audit": 4, "proof-leaf": 4, declaration: 4, "repair-proposal": 5};
+  const kindLabel = {"concept-domain": "domain", "concept-bridge": "transport contract", "library-chapter": "peer book chapter", library: "library", "proof-root": "shared root", chapter: "book chapter", setting: "SampleWiki setting", phase: "formalization phase", "source-claim": "source theorem", "frontier-case": "frontier theorem", module: "Lean module", "proof-leaf": "proof leaf", declaration: "Lean declaration", "semantic-stage": "semantic protocol", "semantic-audit": "fidelity audit", "repair-proposal": "theorem repair proposal"};
   const viewKinds = {
-    overview: new Set(["library", "proof-root", "chapter", "setting", "phase", "frontier-case", "semantic-stage"]),
+    functor: new Set(["concept-domain", "concept-bridge"]),
+    overview: new Set(["library-chapter","library", "proof-root", "chapter", "setting", "phase", "frontier-case", "semantic-stage"]),
     textbook: new Set(["library", "proof-root", "chapter", "source-claim", "proof-leaf"]),
     frontier: new Set(["library", "proof-root", "chapter", "setting", "phase", "frontier-case"]),
     lean: new Set(["library", "proof-root", "module", "declaration", "proof-leaf", "source-claim"]),
@@ -32,9 +33,23 @@
   const edgeSetFor = ids => graph.edges.filter(e => ids.has(e.source) && ids.has(e.target));
   const relationEvidence = relation => FORMAL_RELATIONS.has(String(relation || "")) ? "formal" : "overlay";
   const wrap = (value, width = 24, lines = 2) => {
-    const words = String(value || "").split(/\s+/); const out = []; let line = "";
-    for (const word of words) { const next = line ? `${line} ${word}` : word; if (next.length > width && line) { out.push(line); line = word; if (out.length === lines - 1) break; } else line = next; }
-    if (line && out.length < lines) out.push(line); const used = out.join(" ").length; if (used < String(value || "").length && out.length) out[out.length - 1] = out[out.length - 1].replace(/[. ]+$/, "") + "…"; return out;
+    const text=String(value || ""); const out=[]; let rest=text;
+    while (rest && out.length < lines) {
+      if (rest.length <= width) { out.push(rest); rest=""; break; }
+      let at=rest.lastIndexOf(" ",width); if (at<width/2) at=width;
+      out.push(rest.slice(0,at)); rest=rest.slice(at).trimStart();
+    }
+    if (rest && out.length) out[out.length-1]=out[out.length-1].slice(0,width-1)+"…";
+    return out;
+  };
+  const atlasLabels = {
+    "concept:optimization":"Optimisation", "concept:riemannian":"Riemannian optimisation",
+    "concept:transport":"Optimal transport", "concept:sampling":"Sampling / MFLD", "concept:lower":"Lower bounds / SampleWiki",
+    "transport:metric-lift":"Change the metric", "transport:gibbs-prox":"Minimizer / Gibbs law",
+    "transport:dirac":"Maps to Markov kernels", "transport:wasserstein-flow":"Energy to Wasserstein flow",
+    "transport:entropy-sandwich":"KL gap / PL / growth", "transport:duality":"Convex duality",
+    "transport:high-order":"Smoothness to accuracy?", "transport:oracle-reduction":"Oracle reduction",
+    "transport:statistical-loss":"Data, loss and risk"
   };
 
   function viewIds(all) {
@@ -64,11 +79,11 @@
     const priority = new Set();
     if (state.focus) {
       priority.add(state.focus); selected.add(state.focus);
-      neighbors(state.focus).forEach(id => { priority.add(id); selected.add(id); });
+      neighbors(state.focus).forEach(id => { if(state.view !== "functor" || viewKinds.functor.has(nodes.get(id)?.kind)) { priority.add(id); selected.add(id); } });
     }
     state.expanded.forEach(id => {
       selected.add(id); priority.add(id);
-      neighbors(id).forEach(n => selected.add(n));
+      neighbors(id).forEach(n => { if(state.view !== "functor" || viewKinds.functor.has(nodes.get(n)?.kind)) selected.add(n); });
     });
 
     if (selected.size > 190) {
@@ -84,6 +99,21 @@
   }
 
   function layout(ids) {
+    if (state.view === "functor" && !state.query) {
+      // Optimization-centered conceptual atlas, not a topological proof layout.
+      const anchors = {
+        "concept:optimization":[335,350], "concept:riemannian":[670,0],
+        "concept:transport":[670,700], "concept:sampling":[0,700], "concept:lower":[0,0],
+        "transport:metric-lift":[670,175], "transport:gibbs-prox":[0,525],
+        "transport:dirac":[0,350], "transport:wasserstein-flow":[670,525],
+        "transport:entropy-sandwich":[335,700], "transport:duality":[670,350],
+        "transport:high-order":[0,875], "transport:oracle-reduction":[335,175],
+        "transport:statistical-loss":[670,875]
+      };
+      const positions = new Map(); let extra = 0;
+      [...ids].forEach(id => { const a=anchors[id] || [335,1050+extra++*140]; positions.set(id,{x:a[0]+20,y:a[1]+20}); });
+      return {positions,width:1000,height:1000+extra*140};
+    }
     const columns = new Map(); let maxColumn = 0;
     [...ids].forEach(id => { const n=nodes.get(id); const explicit=Number(n.column); const key=Number.isFinite(explicit) ? explicit : (kindOrder[n.kind] ?? 3); maxColumn=Math.max(maxColumn,key); if (!columns.has(key)) columns.set(key, []); columns.get(key).push(n); });
     const positions = new Map(); let maxRows = 1;
@@ -98,10 +128,11 @@
   function fit() { const box = svg.getBoundingClientRect(); const width = Number(svg.dataset.worldWidth || 1500), height = Number(svg.dataset.worldHeight || 700); state.scale = Math.max(.2, Math.min(1.05, Math.min((box.width-40)/width, (box.height-40)/height))); state.x = Math.max(18, (box.width-width*state.scale)/2); state.y = 22; applyTransform(); }
 
   function render() {
+    canvas.dataset.view=state.view;
     const ids = visibleIds(); const edges = edgeSetFor(ids); const {positions,width,height} = layout(ids);
     const focusNeighbors = new Set(state.focus ? neighbors(state.focus) : []);
     const directEdges = state.focus ? (incident.get(state.focus) || []).filter(e => ids.has(e.source) && ids.has(e.target)) : [];
-    svg.replaceChildren(); svg.dataset.worldWidth=width; svg.dataset.worldHeight=height; svg.setAttribute("viewBox", `0 0 ${Math.max(900, svg.clientWidth || 900)} ${Math.max(650, svg.clientHeight || 650)}`);
+    svg.replaceChildren(); svg.dataset.worldWidth=width; svg.dataset.worldHeight=height; svg.setAttribute("viewBox", `0 0 ${Math.max(1, svg.clientWidth || 900)} ${Math.max(1, svg.clientHeight || 650)}`);
     const defs = svgEl("defs");
     const marker=svgEl("marker", {id:"ulg-arrow", class:"ulg-arrow-marker", viewBox:"0 0 10 10", refX:"9", refY:"5", markerWidth:"6", markerHeight:"6", orient:"auto-start-reverse"}); marker.append(svgEl("path", {d:"M 0 0 L 10 5 L 0 10 z"})); defs.append(marker);
     const focusMarker=svgEl("marker", {id:"ulg-arrow-focus", class:"ulg-arrow-marker focus", viewBox:"0 0 10 10", refX:"9", refY:"5", markerWidth:"6", markerHeight:"6", orient:"auto-start-reverse"}); focusMarker.append(svgEl("path", {d:"M 0 0 L 10 5 L 0 10 z"})); defs.append(focusMarker);
@@ -113,8 +144,11 @@
       const classes = ["ulg-edge", `${relationEvidence(e.relation)}-edge`];
       if (state.focus) classes.push(related ? "related" : "muted");
       if (related) classes.push(e.target === state.focus ? "incoming" : "outgoing");
+      const w=state.view === "functor" ? 300 : 220, cy=state.view === "functor" ? 50 : 31;
+      const forward=b.x >= a.x;
+      const startX=a.x+(forward?w:0), endX=b.x+(forward?0:w), bend=forward?50:-50;
       const path=svgEl("path", {
-        d:`M ${a.x+220} ${a.y+31} C ${a.x+265} ${a.y+31}, ${b.x-45} ${b.y+31}, ${b.x} ${b.y+31}`,
+        d:`M ${startX} ${a.y+cy} C ${startX+bend} ${a.y+cy}, ${endX-bend} ${b.y+cy}, ${endX} ${b.y+cy}`,
         class: classes.join(" "),
         "data-relation":e.relation,
         "data-evidence":relationEvidence(e.relation),
@@ -128,9 +162,10 @@
       else if (state.focus && focusNeighbors.has(n.id)) classes.push("related");
       else if (state.focus) classes.push("muted");
       const group=svgEl("g", {class:classes.join(" "), transform:`translate(${p.x} ${p.y})`, tabindex:"0", role:"button", "data-id":n.id});
-      group.append(svgEl("rect", {width:"220",height:"62",rx:"12"}), svgEl("circle", {cx:"17",cy:"17",r:"5",class:`status ${n.status||"planned"}`}));
+      const conceptual=state.view === "functor";
+      group.append(svgEl("rect", {width:conceptual?"300":"220",height:conceptual?"100":"62",rx:"12"}), svgEl("circle", {cx:"17",cy:"17",r:"5",class:`status ${n.status||"planned"}`}));
       const kind=svgEl("text", {x:"30",y:"20",class:"kind"}); kind.textContent=kindLabel[n.kind]||n.kind; group.append(kind);
-      const label=svgEl("text", {x:"14",y:"40",class:"label"}); wrap(n.label).forEach((line,i)=>{ const t=svgEl("tspan",{x:"14",dy:i?"15":"0"}); t.textContent=line; label.append(t); }); group.append(label);
+      const label=svgEl("text", {x:"14",y:conceptual?"52":"40",class:"label"}); wrap(conceptual?(atlasLabels[n.id]||n.label):n.label,conceptual?24:24).forEach((line,i)=>{ const t=svgEl("tspan",{x:"14",dy:i?(conceptual?"26":"15"):"0"}); t.textContent=line; label.append(t); }); group.append(label);
       const title=svgEl("title"); title.textContent=`${n.label}\n${n.subtitle||""}`; group.append(title);
       const choose=()=>selectNode(n.id,true); group.addEventListener("pointerdown",ev=>ev.stopPropagation()); group.addEventListener("click",choose); group.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();choose();}}); nodeLayer.append(group);
     });
@@ -157,21 +192,30 @@
     return verdict+original+reconstructed+repaired+slots+deltas+repairs;
   }
 
+  function functorSections(n) {
+    if (!n.hyperedge) return "";
+    const h=n.hyperedge;
+    const names=ids=>ids.map(id=>nodes.get(id)?.label||id).join(" + ");
+    const sources=(n.sources||[]).map(s=>`<p>${linkButton(s.url,s.title)}<small>${esc(s.anchor)}</small></p>`).join("");
+    return `<section class="ulg-hyperedge"><h3>Joint-input hyperedge</h3><p><strong>ALL inputs:</strong> ${esc(names(h.tails))}</p><p><strong>Conditional outputs:</strong> ${esc(names(h.heads))}</p><p><strong>Type:</strong> ${esc(h.relation_kind)}</p><p class="ulg-warning">${esc(h.status)}. These incidence lines are not separate logical implications; candidate Lean substrates are search locations, not transport certificates.</p><h3>Primary source evidence</h3>${sources}</section>`;
+  }
+
   function selectNode(id, expand=false) {
-    if (!nodes.has(id)) return; state.focus=id; if(expand) state.expanded.add(id); const n=nodes.get(id);
+    if (!nodes.has(id)) return; if(state.view === "functor" && !viewKinds.functor.has(nodes.get(id).kind)) setView("lean"); state.focus=id; if(expand) state.expanded.add(id); const n=nodes.get(id);
     try { const url=new URL(location.href); url.searchParams.set("focus",id); url.searchParams.set("view",state.view); history.replaceState(null,"",url); } catch (_) {}
     const incoming=(incident.get(id)||[]).filter(e=>e.target===id).map(e=>nodes.get(e.source)).filter(Boolean); const outgoing=(incident.get(id)||[]).filter(e=>e.source===id).map(e=>nodes.get(e.target)).filter(Boolean);
     const formula=n.formula?`<div class="ulg-formula">\\[${esc(n.formula)}\\]</div>`:"";
     const equations=(n.proof_equations||[]).length?`<section><h3>Key proof equations</h3><ol class="ulg-equations">${n.proof_equations.map(row=>`<li><div>\\[${esc(row.formula)}\\]</div><p>${esc(row.meaning)}</p></li>`).join("")}</ol></section>`:"";
     const rows=(n.details||[]).filter(row=>row.value).map(row=>`<div><dt>${esc(row.label)}</dt><dd>${esc(row.value)}</dd></div>`).join("");
     const branch=(title,list)=>list.length?`<section><h3>${title}</h3><div class="ulg-neighbors">${list.slice(0,24).map(item=>`<button data-jump="${esc(item.id)}"><span>${esc(kindLabel[item.kind]||item.kind)}</span>${esc(item.label)}</button>`).join("")}</div></section>`:"";
-    detail.innerHTML=`<header><span>${esc(kindLabel[n.kind]||n.kind)}</span><i class="${esc(n.status||"planned")}">${esc(n.status||"planned")}</i><h2>${esc(n.label)}</h2><p>${esc(n.subtitle||n.summary||"")}</p></header>${n.theorem?`<section><h3>Primary source theorem</h3><strong>${esc(n.theorem)}</strong>${formula}<p>${esc(n.source_proof||"")}</p></section>`:formula}${semanticSections(n)}${equations}${rows?`<dl class="ulg-details">${rows}</dl>`:""}<div class="ulg-links">${linkButton(n.url,"Open reader / evidence card",true)}${linkButton(n.source_url,"Open primary source")}</div>${branch("Immediate prerequisites",incoming)}${branch("Immediate consumers",outgoing)}`;
+    detail.innerHTML=`<header><span>${esc(kindLabel[n.kind]||n.kind)}</span><i class="${esc(n.status||"planned")}">${esc(n.status||"planned")}</i><h2>${esc(n.label)}</h2><p>${esc(n.subtitle||n.summary||"")}</p></header>${n.theorem?`<section><h3>Primary source theorem</h3><strong>${esc(n.theorem)}</strong>${formula}<p>${esc(n.source_proof||"")}</p></section>`:formula}${semanticSections(n)}${functorSections(n)}${equations}${rows?`<dl class="ulg-details">${rows}</dl>`:""}<div class="ulg-links">${linkButton(n.url,"Open reader / evidence card",true)}${linkButton(n.source_url,"Open primary source")}</div>${branch(n.hyperedge?"Joint inputs / candidate substrates":"Immediate prerequisites",incoming)}${branch(n.hyperedge?"Conditional outputs":"Immediate consumers",outgoing)}`;
     detail.querySelectorAll("[data-jump]").forEach(button=>button.addEventListener("click",()=>selectNode(button.dataset.jump,true)));
     if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([detail]).catch(()=>{}); render();
   }
 
-  function setView(view) { state.view=view; state.focus=""; state.expanded.clear(); buttons.forEach(b=>b.classList.toggle("active",b.dataset.view===view)); render(); requestAnimationFrame(fit); }
+  function setView(view) { try { const url=new URL(location.href); url.searchParams.set("view",view); url.searchParams.delete("focus"); history.replaceState(null,"",url); } catch (_) {} state.view=view; state.focus=""; state.expanded.clear(); buttons.forEach(b=>b.classList.toggle("active",b.dataset.view===view)); render(); requestAnimationFrame(fit); }
   buttons.forEach(button=>button.addEventListener("click",()=>setView(button.dataset.view)));
+  document.querySelectorAll("[data-functor-jump]").forEach(button=>button.addEventListener("click",()=>{if(!nodes)return; setView("functor"); selectNode(button.dataset.functorJump,true); requestAnimationFrame(fit);}));
   search.addEventListener("input",()=>{state.query=search.value.trim(); state.focus=""; state.expanded.clear(); render(); requestAnimationFrame(fit);});
   document.querySelector("[data-graph-fit]").addEventListener("click",fit);
   document.querySelector("[data-graph-reset]").addEventListener("click",()=>{search.value="";state.query="";state.focus="";state.expanded.clear();setView("overview");});

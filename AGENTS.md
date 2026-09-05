@@ -282,3 +282,8 @@ Reject:
 - local Workers editing shared aggregation/site truth outside stabilization;
 - a global coordinator that re-reads all transcripts instead of using bounded
   frontier-cell syntheses.
+
+
+## Cross-domain routes and source detail audit
+
+Statistical Optimal Transport and Higher-Order Smoothness × Sampling are coordinated with the existing routes. Read `docs/cross-domain-program.md`; use `Libraries/cross-domain-program.json` for dependency-ready shared work. New Frontier Cells use schema 2 with `source_detail_audit`. Search formal libraries first; when textbook detail is omitted, consult exact background theorems and record hypotheses/conventions instead of silently changing the target. Conceptual transport hyperedges are not Lean dependencies or certified functors. Upper-bound integrator and lower-bound oracle-hardness lanes remain independent until their comparison contracts match.

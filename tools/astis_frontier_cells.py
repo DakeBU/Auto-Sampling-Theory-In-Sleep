@@ -19,7 +19,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CELL_ROOT = ROOT / "research-wiki" / "frontier-cells"
 
-ROUTES = {"samplewiki-route", "riemannian-optimization", "optimisation", "shared"}
+ROUTES = {"samplewiki-route", "riemannian-optimization", "optimisation", "statistical-optimal-transport", "higher-order-sampling", "shared"}
 MODES = {"faithfulPaper", "exploratoryProof"}
 STATUSES = {
     "claimed",
@@ -158,6 +158,43 @@ def validate_cells(cells: list[dict[str, Any]]) -> list[str]:
                 errors.append(
                     f"{path}: route-local cell may not implement a new shared foundation; open/use the shared cell first"
                 )
+
+        if route in {"statistical-optimal-transport", "higher-order-sampling"} and cell.get("schema_version") != 2:
+            errors.append(f"{path}: new cross-domain routes require schema_version 2")
+        if cell.get("schema_version") not in {1, 2}:
+            errors.append(f"{path}: unsupported schema_version")
+        if cell.get("schema_version") == 2:
+            searches = " ".join(map(str, searched or [])).lower()
+            for library in ("samplinglib", "mathlib"):
+                if library not in searches:
+                    errors.append(f"{path}: schema-2 cells must search {library}")
+            detail = cell.get("source_detail_audit")
+            if not isinstance(detail, dict):
+                errors.append(f"{path}: schema-2 cells require source_detail_audit")
+                detail = {}
+            for key in ("primary_edition", "primary_anchor", "fidelity_boundary"):
+                if not _nonempty(detail.get(key)):
+                    errors.append(f"{path}: source_detail_audit.{key} must be explicit")
+            detail_status = detail.get("detail_status")
+            if detail_status not in {"sufficient", "omitted", "cites_external"}:
+                errors.append(f"{path}: invalid source detail status")
+            if detail_status in {"omitted", "cites_external"}:
+                if not _nonempty(detail.get("gap")):
+                    errors.append(f"{path}: omitted source detail requires an exact gap")
+                consulted = detail.get("consulted")
+                if not isinstance(consulted, list) or not consulted:
+                    errors.append(f"{path}: omitted source detail requires a consulted background theorem")
+                else:
+                    for reference in consulted:
+                        if not isinstance(reference, dict) or any(not _nonempty(reference.get(k)) for k in ("source", "anchor", "hypothesis_adapter")):
+                            errors.append(f"{path}: background reference needs source, anchor, hypothesis_adapter")
+            if route == "higher-order-sampling":
+                comparison = cell.get("comparison_contract", {})
+                if not isinstance(comparison, dict):
+                    comparison = {}
+                for key in ("potential_class", "smoothness_p", "oracle_q", "dynamics_k", "accuracy_r", "metric", "start", "cost"):
+                    if not _nonempty(comparison.get(key)):
+                        errors.append(f"{path}: higher-order sampling needs comparison_contract.{key}")
 
         evidence = cell.get("evidence")
         if not isinstance(evidence, dict):

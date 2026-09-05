@@ -24,6 +24,7 @@ import implicit_prerequisites  # noqa: E402
 import lean_tutor  # noqa: E402
 import reader_contract_final  # noqa: E402
 import source_foundations  # noqa: E402
+import cross_domain  # noqa: E402
 
 
 # Validation must resolve Registry entries with the same declaration parser used
@@ -257,6 +258,12 @@ def main() -> int:
         print("Final implicit prerequisite site check failed:", file=sys.stderr)
         for error in implicit_errors:
             print(f"- {error}", file=sys.stderr)
+        return 1
+
+    try:
+        cross_domain.validate_site(output)
+    except Exception as exc:
+        print(f"Cross-domain source/route/hypergraph check failed: {exc}", file=sys.stderr)
         return 1
 
     tutor_errors = lean_tutor.validate_site(output)

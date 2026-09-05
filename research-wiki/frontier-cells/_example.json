@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "cell_id": "ASTIS-ROUTE-short-name",
   "route": "riemannian-optimization",
   "title": "One theorem-sized mathematical advance",
@@ -31,5 +31,13 @@
   "blocked": {
     "reason": "",
     "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "Exact version/date/hash for the controlling source",
+    "primary_anchor": "Exact theorem/page/lines",
+    "detail_status": "sufficient",
+    "gap": "",
+    "consulted": [],
+    "fidelity_boundary": "Original statement unchanged; any proposed repair is separately reviewed."
   }
 }

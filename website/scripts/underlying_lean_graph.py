@@ -28,6 +28,7 @@ from underlying_lean_graph_model import (
 )
 from underlying_lean_graph_semantic import add_semantic
 from underlying_lean_graph_textbook import add_textbook
+import cross_domain
 
 
 def build_graph(output: Path) -> dict[str, Any]:
@@ -39,8 +40,15 @@ def build_graph(output: Path) -> dict[str, Any]:
     textbook = add_textbook(builder, site)
     setting_ids = add_frontier(builder, manifest, audit_registry, textbook["chapter_ids"])
     semantic = add_semantic(builder, semantic_registry)
+    functor = cross_domain.add_to_graph(builder)
     graph = builder.export()
+    graph["schema_version"] = 3
+    graph["hyperedges"] = functor["hyperedges"]
+    graph["conceptual_transport_contract"] = functor["certification_policy"]
     graph["counts"] = {
+        "conceptual_domains": len(functor["objects"]),
+        "conceptual_hyperedges": len(functor["hyperedges"]),
+        "peer_library_chapter_scaffolds": sum(n["kind"] == "library-chapter" for n in builder.nodes.values()),
         "chapters": len(textbook["chapter_ids"]),
         "samplewiki_settings": len(setting_ids),
         "samplewiki_cases": len(manifest.get("cases", [])),
@@ -64,13 +72,13 @@ def main_html(counts: dict[str, Any]) -> str:
   <div class="eyebrow">Samplinglib · formal topology · semantic fidelity</div>
   <div class="ulg-hero-grid">
     <div><h1>{LABEL}</h1><p>Chewi's twelve-chapter theorem order, the compiled Samplinglib branches beneath it, the SampleWiki frontier, and ASTIS's source-text ↔ Lean semantic round trip are one navigable evidence graph.</p></div>
-    <dl><div><dt>{counts.get('chapters', 0)}</dt><dd>book chapters</dd></div><div><dt>{counts.get('source_claims', 0)}</dt><dd>source claims</dd></div><div><dt>{counts.get('lean_modules', 0)}</dt><dd>Lean modules</dd></div><div><dt>{counts.get('samplewiki_cases', 0)}</dt><dd>frontier results</dd></div><div><dt>{counts.get('semantic_audits', 0)}</dt><dd>round-trip audits</dd></div><div><dt>{counts.get('repair_proposals', 0)}</dt><dd>repair proposals</dd></div></dl>
+    <dl><div><dt>{counts.get('chapters', 0)}</dt><dd>sampling chapters</dd></div><div><dt>{counts.get('source_claims', 0)}</dt><dd>source claims</dd></div><div><dt>{counts.get('lean_modules', 0)}</dt><dd>Lean modules</dd></div><div><dt>{counts.get('samplewiki_cases', 0)}</dt><dd>frontier results</dd></div><div><dt>{counts.get('semantic_audits', 0)}</dt><dd>round-trip audits</dd></div><div><dt>{counts.get('repair_proposals', 0)}</dt><dd>repair proposals</dd></div></dl>
   </div>
   <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite → consumer. <strong>Solid edges</strong> are compiler-backed Lean/module/declaration structure; <strong>dashed edges</strong> are curated textbook, source-audit, proof-route, SampleWiki, or semantic-review overlays. <strong>Compilation proves the Lean proposition only:</strong> source fidelity additionally requires a blind Lean-to-text reconstruction, seven-slot semantic diff, and independent source review. Repair proposals never overwrite a pinned source theorem.</p>
 </section>
 <section class="ulg-shell">
   <div class="ulg-toolbar">
-    <div class="ulg-presets" role="group" aria-label="Graph view"><button class="active" data-view="overview">Library overview</button><button data-view="textbook">Textbook · 12 chapters</button><button data-view="frontier">SampleWiki frontier</button><button data-view="lean">Lean branches</button><button data-view="semantic">Semantic fidelity & repair</button></div>
+    <div class="ulg-presets" role="group" aria-label="Graph view"><button class="active" data-view="overview">Library overview</button><button data-view="textbook">Textbook · 12 chapters</button><button data-view="frontier">SampleWiki frontier</button><button data-view="lean">Lean branches</button><button data-view="semantic">Semantic fidelity & repair</button><button data-view="functor">Functor Hypergraph</button></div>
     <label class="ulg-search"><span>Search theorem, paper, module, declaration, semantic delta, or repair</span><input type="search" data-graph-search placeholder="e.g. Theorem 8.4.1, Fisher, hidden assumption, quantifier mismatch"></label>
     <div class="ulg-actions"><button data-graph-fit>Fit</button><button data-graph-reset>Reset</button><span data-graph-count></span></div>
   </div>
@@ -78,6 +86,7 @@ def main_html(counts: dict[str, Any]) -> str:
   <div class="ulg-legend"><span><i data-status="compiled"></i>compiled</span><span><i data-status="partial"></i>partial</span><span><i data-status="audited"></i>source audited</span><span><i data-status="planned"></i>planned / blocked</span><span><i data-status="literature-open"></i>literature-open</span><span><i data-status="shared"></i>shared protocol/root</span><span><i data-status="fidelity-exact"></i>fidelity exact</span><span><i data-status="review-required"></i>semantic review required</span><span><i data-status="fidelity-mismatch"></i>semantic mismatch</span><span><i data-status="fidelity-repaired"></i>reviewed repair</span><span><i data-status="proposal"></i>repair proposal</span><span class="edge-semantics"><b class="ulg-line-key formal"></b>Lean structural edge</span><span><b class="ulg-line-key overlay"></b>curated evidence edge</span></div>
 </section>
 <section class="ulg-semantics"><div class="section-heading"><span>Topology and semantic-contract semantics</span><h2>What a contribution changes—and what it preserves.</h2></div><div><article><b>01</b><h3>Reuse a branch</h3><p>A thin assembly adds a consumer edge, not a duplicate proof.</p></article><article><b>02</b><h3>Close a leaf</h3><p>A new analytic lemma discharges an open interface.</p></article><article><b>03</b><h3>Add topology</h3><p>A proof connects branches that were previously formalized only in isolation.</p></article><article><b>04</b><h3>Expose a gap</h3><p>An unknown matching theorem stays visible; ASTIS never invents a source statement.</p></article><article><b>05</b><h3>Theorem Fidelity Checker</h3><p>Original theorem → Lean → blind reconstructed theorem is compared slot by slot, not by wording.</p></article><article><b>06</b><h3>Lean Theorem Denoiser</h3><p>Lean-exposed hidden conditions become minimal, independently reviewed repair proposals—not silent source edits.</p></article></div></section>
+{cross_domain.graph_guide_html()}
 <noscript><p>The interactive graph requires JavaScript. Exact declarations remain in the <a href="declarations/index.html">declaration index</a>.</p></noscript>
 '''
 

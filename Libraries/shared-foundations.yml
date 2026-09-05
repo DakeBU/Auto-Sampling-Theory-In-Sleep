@@ -40,4 +40,23 @@ checkpoints:
       - "Chewi Lectures on Optimization §§10 and 12"
     status: candidate
     note: geometry or stochastic-gradient primitives may be shared; sampling-specific invariant-law arguments remain separate
+  - id: transport-coupling-foundations
+    routes: [statistical-optimal-transport, samplewiki-route]
+    source_links: ["Statistical Optimal Transport Chapter 1 and Appendix B", "Samplinglib Measure interfaces"]
+    status: candidate
+  - id: gibbs-entropy-foundations
+    routes: [statistical-optimal-transport, optimisation, samplewiki-route]
+    source_links: ["Statistical Optimal Transport Chapter 4", "Proximal sampling", "MFLD entropy sandwich"]
+    status: candidate
+  - id: taylor-local-error-foundations
+    routes: [higher-order-sampling, optimisation, riemannian-optimization]
+    source_links: ["High-order optimization Taylor models", "High-order sampling local-error estimates"]
+    status: candidate
+  - id: information-oracle-contracts
+    routes: [samplewiki-route, higher-order-sampling, statistical-optimal-transport]
+    status: candidate
+    note: share discrepancy or testing interfaces only after distinguishing statistical observations from sampling queries
+
 canonical_declarations: []
+shared_dependency_plan: /Libraries/cross-domain-program.json
+transport_policy: conceptual correspondence never identifies Lean declarations without a compatibility proof

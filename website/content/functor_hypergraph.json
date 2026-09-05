@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "center": "concept:optimization",
+  "title": "Functor Hypergraph",
+  "semantics": "Typed conceptual transport hypergraph. Each bridge retains its whole tail set (AND), hypotheses, conclusion map and evidence. Incidence edges are not independent implications.",
+  "certification_policy": "No record is a Lean-certified functor. Promotion requires typed categories/object and morphism maps, identity/composition certificates, a current Lean gate, exact source fidelity and independent review. A span or analogy must never be relabeled automatically.",
+  "objects": [
+    {
+      "id": "concept:optimization",
+      "label": "Optimisation",
+      "space": "Finite-dimensional vector/Hilbert spaces; later explicit generalizations",
+      "energy": "Objective f, norm or Bregman geometry; minimizer or small optimality gap",
+      "assumptions": "Convexity, smoothness, strong convexity or PL are distinct hypotheses",
+      "url": "libraries/optimisation/index.html"
+    },
+    {
+      "id": "concept:riemannian",
+      "label": "Riemannian Optimisation",
+      "space": "Smooth manifolds with specified metric, tangent spaces and retractions",
+      "energy": "Objective on a manifold; Riemannian gradient and stationarity",
+      "assumptions": "Geodesic convexity is not Euclidean convexity; curvature and retraction errors are explicit",
+      "url": "libraries/riemannian-optimization/index.html"
+    },
+    {
+      "id": "concept:sampling",
+      "label": "Sampling / MFLD",
+      "space": "Probability laws and Markov evolution on a state space",
+      "energy": "Gibbs/free-energy target; KL, Fisher information or Wasserstein error",
+      "assumptions": "Normalizability, regularity, ergodicity and LSI/PI conditions are separate from potential smoothness",
+      "url": "textbook/index.html"
+    },
+    {
+      "id": "concept:transport",
+      "label": "Statistical Optimal Transport",
+      "space": "Couplings, probability laws with finite moments, metric geometry",
+      "energy": "Transport cost, semidual, entropy regularization or barycenter objective",
+      "assumptions": "Absolute continuity, dual attainment, curvature and statistical identifiability are not automatic",
+      "url": "libraries/statistical-optimal-transport/index.html"
+    },
+    {
+      "id": "concept:lower",
+      "label": "Lower bounds / SampleWiki",
+      "space": "Admissible algorithms, oracle transcripts and hard distributions",
+      "energy": "Information budget versus guaranteed error; not a new geometric state space",
+      "assumptions": "Specify oracle, adaptivity, randomness, starts, query cost and loss; reductions carry overhead",
+      "url": "example-cases/samplewiki.html"
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "transport:metric-lift",
+      "label": "Change the metric, change the gradient",
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:riemannian"
+      ],
+      "relation_kind": "source-backed correspondence",
+      "status": "not-Lean-certified",
+      "formula": "df_x[\\xi]=\\langle\\operatorname{grad}f(x),\\xi\\rangle_x",
+      "mechanism": "A differential is a covector; a Riemannian metric converts it to a tangent gradient. Euclidean geometry is one instance.",
+      "hypothesis_map": "Replace the ambient inner product by a metric. Distinguish pullback smoothness, geodesic convexity and a retraction-based local model.",
+      "conclusion_map": "Descent and stationarity arguments transport only after bounding metric/retraction effects.",
+      "failure_boundary": "A Euclidean Hessian lower bound in arbitrary coordinates does not imply geodesic strong convexity.",
+      "source_ids": [
+        "opt",
+        "boumal"
+      ],
+      "shared_stages": [
+        "calculus"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "(space, metric, f, regularity) ↦ (manifold, metric, f, regularity).",
+        "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
+        "identity": "Not established; not asserted to be a functor.",
+        "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    },
+    {
+      "id": "transport:gibbs-prox",
+      "label": "One energy: minimizer or Gibbs law",
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "shared-energy span",
+      "status": "not-Lean-certified",
+      "formula": "E_{y,h}(x)=g(x)+\\frac{\\|x-y\\|^2}{2h},\\quad\\operatorname{prox}_{hg}(y)\\in\\arg\\min E_{y,h},\\quad Q_{y,h}(dx)\\propto e^{-E_{y,h}(x)}dx",
+      "mechanism": "Optimization selects a minimum; an RGO draws from a normalized exponential of the same energy. This is a span through a common energy, not an equivalence of outputs.",
+      "hypothesis_map": "Require existence (and, when claimed, uniqueness) of the minimizer; separately require 0 < partition function < infinity. Fix temperature and quadratic scaling.",
+      "conclusion_map": "Quadratic regularization, convexity and some perturbation lemmas are shared; kernel simulation and target invariance are extra.",
+      "failure_boundary": "An RGO is not itself the full proximal sampler, not automatically a JKO step, and not an exact deterministic proximal map.",
+      "source_ids": [
+        "prox",
+        "opt"
+      ],
+      "shared_stages": [
+        "convex",
+        "entropy"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "Typed problem presentations, not field names.",
+        "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
+        "identity": "Not established; not asserted to be a functor.",
+        "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    },
+    {
+      "id": "transport:dirac",
+      "label": "Deterministic maps inside kernels",
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "functor candidate",
+      "status": "not-Lean-certified",
+      "formula": "K_T(x,\\cdot)=\\delta_{T(x)},\\quad K_{S\\circ T}=K_T K_S",
+      "mechanism": "Embed a measurable update map as a deterministic probability kernel. The product denotes first T, then S.",
+      "hypothesis_map": "Updates must be measurable; pin kernel composition orientation and the measurable-space contracts.",
+      "conclusion_map": "Transport deterministic iteration into a special case of Markov evolution; this does not manufacture Gibbs invariance.",
+      "failure_boundary": "Continuity is not a substitute for checking the actual measurable structures. Stochastic kernels are not generally deterministic maps.",
+      "source_ids": [
+        "kernel"
+      ],
+      "shared_stages": [
+        "measure"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "Measurable spaces ↦ the same spaces.",
+        "morphisms": "Measurable T ↦ the Dirac kernel K_T.",
+        "identity": "Target: K_id is the identity kernel; no local certificate yet.",
+        "composition": "Target: K_(S∘T) = K_T K_S with the stated convention; no local certificate yet."
+      }
+    },
+    {
+      "id": "transport:wasserstein-flow",
+      "label": "Energy descent on probability laws",
+      "tails": [
+        "concept:optimization",
+        "concept:transport"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "source-backed correspondence",
+      "status": "not-Lean-certified",
+      "formula": "\\partial_t\\rho=\\nabla\\!\\cdot(\\rho\\nabla V)+\\lambda\\Delta\\rho,\\quad\\mathcal F(\\rho)=\\int V\\rho+\\lambda\\int\\rho\\log\\rho",
+      "mechanism": "A free energy on probability laws generates Fokker–Planck through the Wasserstein gradient-flow interpretation.",
+      "hypothesis_map": "Fix Euclidean base, positive temperature, finite moments/entropy and weak solution or EDI/EVI hypotheses. Nonlinear first variations require additional contracts.",
+      "conclusion_map": "Energy-dissipation proofs connect sampling evolution with optimization over measures.",
+      "failure_boundary": "Formal Otto notation alone is not a proof of existence, uniqueness, SDE-law correspondence or EVI; W2 is not globally a classical smooth manifold.",
+      "source_ids": [
+        "ot"
+      ],
+      "shared_stages": [
+        "transport",
+        "entropy",
+        "flow"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "Typed problem presentations, not field names.",
+        "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
+        "identity": "Not established; not asserted to be a functor.",
+        "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    },
+    {
+      "id": "transport:entropy-sandwich",
+      "label": "MFLD: entropy sandwich and PL controls",
+      "tails": [
+        "concept:optimization",
+        "concept:sampling"
+      ],
+      "heads": [
+        "concept:transport"
+      ],
+      "relation_kind": "source-backed correspondence",
+      "status": "not-Lean-certified",
+      "formula": "\\lambda\\mathrm{KL}(\\mu\\Vert\\mu_*)\\leq\\mathcal L(\\mu)-\\mathcal L(\\mu_*)\\leq\\lambda\\mathrm{KL}(\\mu\\Vert q_\\mu)",
+      "mechanism": "For a differentiable mixture-convex F, set L=F+λ Ent and q_μ proportional to exp(−δF(μ)/λ). Gibbs variational inequalities sandwich the gap.",
+      "hypothesis_map": "Require a minimizer, normalizable q_μ, and the source differentiability/integrability contracts. Uniform LSI for q_μ is an EXTRA hypothesis, not a consequence of mixture convexity.",
+      "conclusion_map": "LSI KL≤I/(2ρ) and dL/dt=−λ²I give a PL-type dissipation control. The lower sandwich is a KL-growth control; W2 quadratic growth additionally needs a transport-entropy inequality for μ*.",
+      "failure_boundary": "Mixture convexity ≠ displacement convexity. Neither LSI nor W2 quadratic growth follows merely from an entropy term. This connects proof mechanisms, not identical geometries.",
+      "source_ids": [
+        "mfld",
+        "ot"
+      ],
+      "shared_stages": [
+        "convex",
+        "entropy",
+        "flow"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "Typed problem presentations, not field names.",
+        "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
+        "identity": "Not established; not asserted to be a functor.",
+        "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    },
+    {
+      "id": "transport:duality",
+      "label": "Convex duality to transport duality",
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:transport"
+      ],
+      "relation_kind": "source-backed correspondence",
+      "status": "not-Lean-certified",
+      "formula": "\\inf_{\\gamma\\in\\Pi(\\mu,\\nu)}\\int c\\,d\\gamma\\quad\\longleftrightarrow\\quad\\sup_{u(x)+v(y)\\leq c(x,y)}\\left(\\int u\\,d\\mu+\\int v\\,d\\nu\\right)",
+      "mechanism": "Coupling optimization and Kantorovich potentials reuse convex duality, with feasibility and topology specific to transport.",
+      "hypothesis_map": "Retain the exact source hypotheses for no duality gap and attainment; noncompact spaces need extra care.",
+      "conclusion_map": "Convex conjugacy and variational inequalities feed transport-map stability and entropic duals.",
+      "failure_boundary": "Equality of optimal values does not by itself give optimizers, smooth potentials, a Monge map or statistical rates.",
+      "source_ids": [
+        "ot",
+        "opt"
+      ],
+      "shared_stages": [
+        "convex",
+        "transport"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "Typed problem presentations, not field names.",
+        "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
+        "identity": "Not established; not asserted to be a functor.",
+        "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    },
+    {
+      "id": "transport:high-order",
+      "label": "Taylor structure to sampling accuracy",
+      "tails": [
+        "concept:optimization",
+        "concept:sampling"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "research target",
+      "status": "not-Lean-certified",
+      "formula": "\\|D^pV(x)-D^pV(y)\\|_{\\mathrm{op}}\\leq L_p\\|x-y\\|",
+      "mechanism": "Borrow high-order remainder tools from optimization; close stochastic local error, stability and invariant-target obligations separately.",
+      "hypothesis_map": "Keep p (potential regularity), q (oracle derivative access), k (dynamical order) and r (discretization accuracy) independent; specify operator norm and all constants.",
+      "conclusion_map": "Target a cost-aware upper bound under a fixed oracle, then isolate which improvement really comes from additional smoothness.",
+      "failure_boundary": "Better discretization can already occur under Lipschitz gradients; high-order dynamics does not automatically mean high-order derivative queries.",
+      "source_ids": [
+        "mou",
+        "midpoint",
+        "dang",
+        "opt"
+      ],
+      "shared_stages": [
+        "calculus",
+        "upper"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "Typed problem presentations, not field names.",
+        "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
+        "identity": "Not established; not asserted to be a functor.",
+        "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    },
+    {
+      "id": "transport:oracle-reduction",
+      "label": "Reduction transports hardness, not analogy",
+      "tails": [
+        "concept:optimization",
+        "concept:lower"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "conditional reduction template",
+      "status": "not-Lean-certified",
+      "formula": "Q_A(\\varepsilon)\\leq c\\,Q_B(\\psi(\\varepsilon))+b",
+      "mechanism": "If an algorithm for B solves hard task A through a valid simulation, hardness of A lower-bounds cost for B with explicit overhead.",
+      "hypothesis_map": "Prove preservation of the hard-instance class, permitted oracle answers, adaptivity/randomness and the error conversion ψ; state start and failure probabilities.",
+      "conclusion_map": "Only a certified reduction allows an optimization or statistical lower bound to transfer to sampling.",
+      "failure_boundary": "A common convexity lemma or similar rate exponent is not a reduction. Smoothness upper-bound lemmas are not prerequisites of a hard-instance proof.",
+      "source_ids": [
+        "lower",
+        "opt"
+      ],
+      "shared_stages": [
+        "lower",
+        "compare"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "Typed problem presentations, not field names.",
+        "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
+        "identity": "Not established; not asserted to be a functor.",
+        "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    },
+    {
+      "id": "transport:statistical-loss",
+      "label": "OT estimation and sampling: distinct budgets",
+      "tails": [
+        "concept:transport",
+        "concept:lower"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "comparison contract",
+      "status": "not-Lean-certified",
+      "formula": "n_{\\mathrm{data}}\\neq Q_{\\mathrm{oracle}}",
+      "mechanism": "OT statistical estimation controls uncertainty from observed samples; computational sampling controls the cost of generating approximate draws.",
+      "hypothesis_map": "Record data access versus potential/gradient access, population class, dimension, metric and any reduction between experiments.",
+      "conclusion_map": "Common discrepancy/testing lemmas may be reused while the two notions of sample complexity stay distinct.",
+      "failure_boundary": "No minimax statistical rate becomes a sampling query lower bound without a source-backed, cost-preserving reduction.",
+      "source_ids": [
+        "ot",
+        "lower"
+      ],
+      "shared_stages": [
+        "statistics",
+        "lower",
+        "compare"
+      ],
+      "formal_refs": [],
+      "category_contract": {
+        "objects": "Typed problem presentations, not field names.",
+        "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
+        "identity": "Not established; not asserted to be a functor.",
+        "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    }
+  ],
+  "sources": {
+    "ot": {
+      "title": "Chewi–Niles-Weed–Rigollet, Statistical Optimal Transport",
+      "url": "https://chewisinho.github.io/st_flour.pdf",
+      "anchor": "Chapters 1, 4–8; Appendix A"
+    },
+    "opt": {
+      "title": "Chewi, Lectures on Optimization",
+      "url": "https://arxiv.org/abs/2605.07006",
+      "anchor": "Gradient flow; proximal and mirror methods; convex duality"
+    },
+    "boumal": {
+      "title": "Boumal, An Introduction to Optimization on Smooth Manifolds",
+      "url": "https://www.nicolasboumal.net/book/",
+      "anchor": "First/second-order geometry and geodesic convexity"
+    },
+    "prox": {
+      "title": "Liu–Chewi, A proximal gradient algorithm for composite log-concave sampling",
+      "url": "https://arxiv.org/abs/2605.12461v1",
+      "anchor": "Composite target and restricted Gaussian oracle"
+    },
+    "mfld": {
+      "title": "Nitanda–Wu–Suzuki, Convex Analysis of the Mean Field Langevin Dynamics",
+      "url": "https://proceedings.mlr.press/v151/nitanda22a.html",
+      "anchor": "Entropy sandwich and proximal Gibbs distribution"
+    },
+    "mou": {
+      "title": "Mou et al., High-Order Langevin Diffusion Yields an Accelerated MCMC Algorithm",
+      "url": "https://jmlr.org/papers/v22/20-576.html",
+      "anchor": "JMLR 22(42), 2021; high-order diffusion and smoothness-dependent guarantees"
+    },
+    "midpoint": {
+      "title": "Shen–Lee, The Randomized Midpoint Method for Log-Concave Sampling",
+      "url": "https://arxiv.org/abs/1909.05503v1",
+      "anchor": "Strong convexity and Lipschitz gradient; randomized discretization"
+    },
+    "dang": {
+      "title": "Dang et al., High-Order Langevin Monte Carlo Algorithms",
+      "url": "https://arxiv.org/abs/2508.17545v1",
+      "anchor": "Higher-order dynamics; splitting and accurate integration"
+    },
+    "lower": {
+      "title": "Chatterji et al., Oracle Lower Bounds for Stochastic Gradient Sampling Algorithms",
+      "url": "https://arxiv.org/abs/2002.00291",
+      "anchor": "Oracle-information model and sampling lower bounds"
+    },
+    "kernel": {
+      "title": "Mathlib pinned source: probability kernels",
+      "url": "https://github.com/leanprover-community/mathlib4/tree/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Probability/Kernel",
+      "anchor": "Reuse-search location, not a certified match to the proposed transport"
+    }
+  }
+}
