@@ -9,13 +9,15 @@ jobs:
   source:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Bundle tracked source for offline validation
-        run: git archive --format=tar.gz HEAD -o /tmp/astis-source.tar.gz
+      - name: Fetch and fingerprint public textbook
+        run: |
+          mkdir -p /tmp/ot-source
+          curl --fail --location --retry 2 --max-time 120 https://chewisinho.github.io/st_flour.pdf -o /tmp/ot-source/st_flour.pdf
+          cd /tmp/ot-source
+          sha256sum st_flour.pdf > source-sha256.txt
+          date -u +%FT%TZ > retrieved-at.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: astis-source-workspace
-          path: /tmp/astis-source.tar.gz
+          name: ot-source-audit
+          path: /tmp/ot-source
           retention-days: 1
