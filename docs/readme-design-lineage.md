@@ -2,8 +2,6 @@
 
 Historical extended project overview, retained for attribution and protocol context. The current source/route list is in the root README.
 
-
-
 | Source | What Samplinglib / ASTIS learns from it | ASTIS-specific boundary |
 |---|---|---|
 | [Sinho Chewi, *Log-Concave Sampling*](https://chewisinho.github.io/main.pdf) | Primary sampling textbook order, theorem route, calculations, and source-facing statements | Faithful ASTIS paraphrase + exact source anchors + ASTIS-owned Lean declarations; no endorsement implied |
@@ -26,5 +24,4 @@ Historical extended project overview, retained for attribution and protocol cont
 | [FrontierAgent](https://github.com/ApodexAI/FrontierAgent) | Parallel generalist agents, bounded task boards, checkpointing, and no-progress control | ASTIS schedules theorem-DAG advances with Lean evidence, truth boundaries, independent verification, and serialized stabilization |
 | [Quantum-Computing-Block-Encoding](https://github.com/DakeBU/Quantum-Computing-Block-Encoding) | Experience building automated formalization workflows | ASTIS specializes the machinery for sampling/SDE mathematics and theorem-sized Frontier Cells |
 
-Full mathematical provenance and design lineage: [docs/attribution.md](docs/attribution.md).
-
+Full mathematical provenance and design lineage: [attribution.md](attribution.md).
