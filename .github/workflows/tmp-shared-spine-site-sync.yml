@@ -1,0 +1,75 @@
+name: Temporary shared spine site sync
+on:
+  push:
+    branches: [feat/frontloaded-shared-spine-20260905]
+    paths: [.github/workflows/tmp-shared-spine-site-sync.yml]
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/frontloaded-shared-spine-20260905
+      - name: Synchronize dashboard and cross-domain documentation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p=Path('website/scripts/formalization_progress.py')
+          text=p.read_text()
+          replacements={
+            '("active", "Dependency-first Chewi spine", "Continue the shortest prerequisite route through the Chewi textbook graph toward useful SampleWiki results."),':
+            '("active", "Frontier path over canonical sampling spine", "Reuse the Log-Concave Sampling/shared textbook spine first; only frontier-specific theorem deltas count as SampleWiki progress."),',
+            '("planned", "Shared geometry floor", "Audit Mathlib and Samplinglib first; Chewi sampling §2.5 is the first explicit cross-route checkpoint."),':
+            '("planned", "Front-loaded first-order geometry", "Reuse the Euclidean/calculus floor and pull only the needed Boumal Chapter 3 first-order manifold adapter forward for Sampling §2.5."),',
+            '("planned", "Convexity, flow, descent, acceleration", "Formalize §§1–5 while reusing compatible Mathlib/Optlib declarations."),':
+            '("planned", "Convexity and gradient-flow producers", "Chapters 1–2 should export canonical convex/calculus/energy-dissipation leaves used immediately by Sampling and OT; do not keep route-local duplicates."),',
+            'Immediate priority: extend the verified Chewi spine until useful frontier sampling results can enter the same theorem graph with exact source fidelity.':
+            'Immediate priority: consume the canonical Log-Concave Sampling/shared spine, then formalize only the frontier-specific mathematical delta with exact source fidelity.',
+            'Formalize Boumal while sharing only mathematically identical geometry foundations with the sampling route. Convention differences stay explicit in adapters.':
+            'Formalize Boumal on the cross-textbook critical path: shared Euclidean/matrix foundations first, then the minimal Chapter-3 first-order manifold adapter needed by Sampling §2.5. Convention differences stay explicit.',
+            "Formalize Chewi's public optimization notes section by section, reusing Mathlib/Optlib/CvxLean and exposing exact shared convex/proximal/mirror foundations with sampling.":
+            "Formalize Chewi's notes while treating Chapters 1–2 as shared convex/flow producers; pull only exact Chapter-9 duality prerequisites forward when OT Chapter 1 requires them."
+          }
+          for old,new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'missing dashboard replacement: {old[:80]}')
+              text=text.replace(old,new,1)
+
+          old='''<section class="progress-intersections">
+  <div class="section-heading"><span>Shared Lean floor</span><h2>Parallel above; canonical below.</h2></div>
+  <div class="progress-overlap-grid">
+    <article><span>Geometry checkpoint</span><h3>Chewi sampling §2.5 ↔ Boumal</h3><p>Riemannian manifolds, tangent-space/differential interfaces, gradients, metrics, and related analysis are candidates for one canonical shared foundation after convention compatibility is proved.</p></article>
+    <article><span>Optimisation checkpoints</span><h3>Chewi sampling §4.3 / Ch. 8 / Ch. 10 ↔ Chewi Optimisation</h3><p>Convex analysis, proximal structure, mirror geometry, and stochastic-gradient primitives may be shared. Sampler kernels, invariant-law arguments, and route-specific source theorems remain separate.</p></article>
+    <article><span>Collision rule</span><h3>Reuse → adapt → shared cell</h3><p>Exact match → reuse. Near match → canonical core plus explicit adapter. Missing theorem needed by multiple routes → one shared Frontier Cell. Different theorem → keep separate.</p></article>
+  </div>
+</section>'''
+          new='''<section class="progress-intersections">
+  <div class="section-heading"><span>Front-loaded textbook spine</span><h2>Book order is not Lean dependency order.</h2></div>
+  <div class="progress-overlap-grid">
+    <article><span>Transport critical path</span><h3>Statistical OT Ch. 1 → Sampling §1.3</h3><p>Couplings, marginals, finite moments and the minimal Wasserstein metric API are one canonical shared foundation. Sampling consumes them; it does not build a second transport mini-library.</p></article>
+    <article><span>Convex + geometry critical path</span><h3>Optimization Ch. 1 → Sampling Ch. 2 · Boumal Ch. 3 → Sampling §2.5</h3><p>Strong-convexity/subgradient leaves come from the shared Euclidean convex core. The minimal tangent/differential/metric/gradient adapter may be pulled from Boumal Chapter 3 before exhaustive Chapter-1/2 closure.</p></article>
+    <article><span>Selective pull-forward</span><h3>Optimization Ch. 9 → OT §§1.5–1.6</h3><p>Pull forward only exact Fenchel/conjugacy prerequisites needed by Kantorovich duality. This gives no Chapter-9 completion credit and never merges Fenchel and Kantorovich duality without a proof adapter.</p></article>
+  </div>
+</section>'''
+          if old not in text:
+              raise SystemExit('missing old shared floor block')
+          p.write_text(text.replace(old,new,1))
+
+          p=Path('docs/cross-domain-program.md')
+          text=p.read_text()
+          marker='## Recover omitted mathematics without changing the target\n'
+          insert='''## Front-loaded four-textbook spine\n\nThe beginning of the project is scheduled by a **cross-textbook theorem DAG**, not by finishing each book cover-to-cover. The detailed machine-readable contract is `Libraries/frontloaded-shared-spine.json`. Log-Concave Sampling is a canonical textbook spine distinct from SampleWiki frontier work.\n\nThe first critical edges are: Statistical OT Chapter 1 supplies the coupling/Wasserstein floor consumed by Sampling §1.3; Optimization Chapter 1 supplies the Euclidean convex/strong-convex/subgradient floor consumed by Sampling Chapter 2 and OT Brenier prerequisites; Boumal Chapter 3 may be mined early for the minimal tangent/differential/metric/gradient adapter needed by Sampling §2.5; and the exact Fenchel/conjugacy lemmas needed by OT §§1.5–1.6 may be pulled from Optimization Chapter 9 before that chapter is otherwise reached. Pull-forward never gives source-chapter completion credit.\n\nThis scheduling deliberately avoids a universal abstraction that erases semantics. Euclidean, Riemannian and Wasserstein gradients/flows are joined only by proved adapters; Euclidean, geodesic, mixture and displacement convexity remain distinct predicates. Exact matches become one canonical Lean node, near matches share only their genuine common core, and false friends stay separate.\n\nSampling Chapters 1–2 therefore become integration points rather than owners of every prerequisite: Sampling-owned stochastic calculus/semigroup/functional-inequality leaves join shared transport, convex, manifold and concentration foundations. Statistical OT Chapter 2 may share empirical-measure/basic concentration leaves with Sampling §2.4, while chaining/minimax-statistical and isoperimetric arguments remain source-specific unless an exact theorem match is audited.\n\n'''
+          if marker not in text:
+              raise SystemExit('missing documentation insertion marker')
+          p.write_text(text.replace(marker,insert+marker,1))
+          PY
+          python3 -m unittest tools.tests.test_cross_domain_program
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add website/scripts/formalization_progress.py docs/cross-domain-program.md
+          git commit -m 'docs: expose front-loaded textbook critical path on Current Progress'
+          git push origin HEAD:refs/heads/feat/frontloaded-shared-spine-20260905
