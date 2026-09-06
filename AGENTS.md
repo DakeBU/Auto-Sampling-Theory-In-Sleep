@@ -66,25 +66,96 @@ merely to manufacture handoff artifacts.
    - a typed obstruction that retires a route or strictly shrinks the remaining
      theorem boundary.
 6. Publish cross-boundary ideas to the Discovery Ledger. Lemmas, interfaces,
-   counterexamples, source gaps, refactors, conjectures, and process insights
-   must survive Worker termination without silently becoming formal truth.
-7. When several advances occupy the same connected frontier cell, any
+   counterexamples, source gaps, refactors, conjectures, process insights, and
+   conceptual mirrors must survive Worker termination without silently becoming
+   formal truth.
+7. **Run the conceptual-mirror audit before `PROVED_LOCAL`.** For every new
+   schema-v3 SAU, explicitly return `conceptual_mirror_audit.status = none-found`
+   or publish one or more typed `conceptual-mirror` discoveries and list their
+   ids. A discovered recurring mechanism is not allowed to disappear in a local
+   transcript merely because it is not needed to close the current theorem.
+8. When several advances occupy the same connected frontier cell, any
    generalist Worker may temporarily perform **local frontier synthesis** and
    publish a `synthesis` discovery. This is an ephemeral mode, not a new fixed
-   role. The global arbiter consumes validated cell syntheses before raw advance
-   records.
-8. Verify independently. The verifier must name the checked commit, Lean/source
+   role. The global arbiter consumes validated cell syntheses and conceptual
+   mirrors before raw advance records.
+9. Verify independently. The verifier must name the checked commit, Lean/source
    gate, source audit, and fake-closure scan. The proving Worker cannot publish
-   its own `VERIFIED` transition.
-9. Serialize repository integration. Exactly one stabilization owner may
+   its own `VERIFIED` transition. A conceptual mirror likewise cannot be
+   validated by its creator.
+10. Serialize repository integration. Exactly one stabilization owner may
    clean-port onto current `main`, modify shared imports/root tests, update the
    Registry/source correspondence/Underlying Lean Graph/site, and publish the
-   canonical PR or merge commit.
-10. Run the gate and refresh compact memory/TODO state.
+   canonical PR or merge commit. Validated conceptual mirrors are stabilized in
+   Graph Memory + Functor Hypergraph, not promoted into Lean dependencies.
+11. Run the gate and refresh compact memory/TODO state.
 
 Branches, commits, files, prompt count, longer logs, isolated smoke tests,
 wrapper lemmas that restate assumptions, and repeated unchanged attempts are
 observability data. They are not mathematical progress.
+
+## Conceptual Mirror / Functor Hypergraph Protocol
+
+ASTIS intentionally preserves mathematical correspondences that are weaker than
+Lean theorem implication. Read these files before reconstructing such structure
+from scratch:
+
+```text
+Libraries/conceptual-mirror-protocol.json
+website/content/graph_memory_index.json
+website/content/functor_hypergraph.json
+Libraries/frontloaded-shared-spine.json
+```
+
+The three principal graph views have different truth contracts:
+
+- **Overview Graph** answers where source libraries, shared stages, and frontier
+  families live. It is project/source topology, not proof implication.
+- **Lean Branches Graph** answers what compiled modules/declarations actually
+  depend on. Conceptual mirrors may never be rendered as solid formal edges.
+- **Functor Hypergraph** answers what mathematical mechanism recurs after
+  changing the space, metric, energy, oracle, or discrepancy. Every bridge must
+  keep source ids, a formula, mechanism, hypothesis map, conclusion map, and a
+  failure boundary.
+
+Use stable identities across agent memory and the reader:
+`concept:<slug>` for domains, `family:<slug>` for compressed mathematical
+families, `transport:<slug>` for typed conceptual bridges, and exact emitted
+module/declaration ids for Lean nodes.
+
+A `Discovery(kind="conceptual-mirror")` must carry metadata:
+
+```text
+bridge_id, family_id, domains, formula, mechanism,
+hypothesis_map, conclusion_map, failure_boundary, source_ids, graph_views
+```
+
+Its validation is source/mathematical review only. It does not make a Lean edge,
+a theorem equivalence, or a certified functor. The creator cannot validate it.
+During stabilization, retain a validated mirror in
+`website/content/graph_memory_index.json` and
+`website/content/functor_hypergraph.json`; connect only source-present Lean
+**candidate substrates** unless exact compiled dependencies or transport
+certificates exist.
+
+Seed families currently include:
+
+- `family:metric-gradient-flow`: metric gradient → energy dissipation → a
+  PL-shaped coercivity bound → scalar Grönwall/exponential decay;
+- `family:curvature-growth`: strong/geodesic/other source-specific curvature
+  controls → quadratic growth or PL/functional-inequality controls;
+- `family:gap-gradient`: Euclidean/Riemannian/Wasserstein PL and the LSI/KL
+  dissipation mirror, with exact metrics and normalizations kept distinct;
+- `family:l2-coercivity`: Poincaré/Dirichlet coercivity → chi-square exponential
+  decay for the reversible semigroup;
+- `family:proximal-energy`: one quadratic-regularized energy, consumed as a
+  proximal minimizer or a Gibbs/RGO draw.
+
+Do not conflate Euclidean strong convexity, geodesic strong convexity,
+displacement convexity, Bakry–Émery curvature, PL, Poincaré, and LSI merely
+because some of them imply exponential convergence. The purpose of the family
+layer is to show the reusable proof skeleton **and** exactly where its adapters
+and hypotheses differ.
 
 ## Frontier Cells and the Master Bottleneck
 
@@ -119,6 +190,8 @@ A `PROVED_LOCAL` packet must contain:
 - the exact theorem delta and Lean declaration names;
 - the Lean files and focused checks that exercise those declarations;
 - the remaining truth boundary;
+- `conceptual_mirror_audit` for schema-v3 advances: either an explicit
+  `none-found`, or `candidates-published` with Discovery Ledger ids;
 - useful discoveries and downstream integration notes.
 
 A `BLOCKED` packet must contain:
@@ -236,7 +309,9 @@ and enters the Registry.
 | Typed verifier feedback | `verifier-feedback/` and trial-log feedback JSON | none |
 | Agent briefs | `agent-briefs/` | none |
 | Substantive-advance ledger | `runs/substantive_advances.jsonl` | old role artifacts remain readable |
-| Discovery/synthesis ledger | `runs/substantive_discoveries.jsonl` | none |
+| Discovery/synthesis/mirror ledger | `runs/substantive_discoveries.jsonl` | none |
+| Conceptual mirror policy | `Libraries/conceptual-mirror-protocol.json` | none |
+| Compact graph-family memory | `website/content/graph_memory_index.json` | none |
 
 At the end of a completed proof cycle, refresh compact memory and TODO state.
 Human-facing Chinese summaries are written once at the final long-run closeout,
@@ -277,13 +352,16 @@ Reject:
   ranges;
 - packets that cite a technical lemma before it exists as a compiled local
   declaration;
-- self-verification by the SAU owner;
+- schema-v3 `PROVED_LOCAL` packets that omit the conceptual-mirror audit;
+- self-verification by the SAU owner or self-validation of a conceptual mirror;
+- conceptual similarity rendered as a formal Lean dependency, theorem
+  equivalence, or certified functor without certificates;
 - vague BLOCKED returns or unchanged retry loops;
 - local Workers editing shared aggregation/site truth outside stabilization;
 - a global coordinator that re-reads all transcripts instead of using bounded
-  frontier-cell syntheses.
+  frontier-cell syntheses and compact graph-family memory.
 
 
 ## Cross-domain routes and source detail audit
 
-Statistical Optimal Transport and Higher-Order Smoothness × Sampling are coordinated with the existing routes. Read `docs/cross-domain-program.md`; use `Libraries/cross-domain-program.json` for dependency-ready shared work. New Frontier Cells use schema 2 with `source_detail_audit`. Search formal libraries first; when textbook detail is omitted, consult exact background theorems and record hypotheses/conventions instead of silently changing the target. Conceptual transport hyperedges are not Lean dependencies or certified functors. Upper-bound integrator and lower-bound oracle-hardness lanes remain independent until their comparison contracts match.
+Statistical Optimal Transport and Higher-Order Smoothness × Sampling are coordinated with the existing routes. Read `docs/cross-domain-program.md` and `docs/conceptual-mirror-protocol.md`; use `Libraries/cross-domain-program.json` for dependency-ready shared work and `website/content/graph_memory_index.json` for compact conceptual families. New Frontier Cells use schema 2 with `source_detail_audit`; new substantive advances use schema 3 and require `conceptual_mirror_audit` before `PROVED_LOCAL`. Search formal libraries first; when textbook detail is omitted, consult exact background theorems and record hypotheses/conventions instead of silently changing the target. Conceptual transport hyperedges are not Lean dependencies or certified functors. Upper-bound integrator and lower-bound oracle-hardness lanes remain independent until their comparison contracts match.
