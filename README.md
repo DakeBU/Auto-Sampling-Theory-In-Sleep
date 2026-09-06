@@ -27,6 +27,7 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 | Riemannian Optimisation | Nicolas Boumal, *An Introduction to Optimization on Smooth Manifolds* |
 | Optimisation | Sinho Chewi, *Lectures on Optimization* |
 | Statistical Optimal Transport | Sinho Chewi, Jonathan Niles-Weed, Philippe Rigollet |
+| Discrete Sampling | Zongchen Chen, Daniel Štefankovič, Eric Vigoda, *Spectral Independence and Local-to-Global Techniques for Optimal Mixing of Markov Chains* (arXiv:2307.13826v4) |
 
 ## Research aim
 

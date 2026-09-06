@@ -14,6 +14,7 @@ body:
         - Optimisation
         - Statistical Optimal Transport Route
         - Higher-Order Smoothness × Sampling
+        - Discrete Sampling Route
         - Shared Foundation
     validations:
       required: true
@@ -56,3 +57,9 @@ body:
           required: true
         - label: If the missing lemma is shared by multiple routes, I will open/use one canonical Shared Foundation cell rather than implement a route-local duplicate.
           required: true
+
+  - type: textarea
+    id: discrete-contract
+    attributes:
+      label: Finite-state contract (Discrete Sampling or shared discrete consumer)
+      description: State support, target, operator, time_model, clock, reversibility, all feasible pinnings, regime, metric, cost, source_proof_status; discrete-time claims also require aperiodicity_or_absolute_gap. See docs/discrete-sampling-protocol.md. Not required for unrelated routes.

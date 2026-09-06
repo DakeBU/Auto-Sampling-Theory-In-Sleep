@@ -97,3 +97,14 @@ Treat these as intersection checkpoints, not automatic equivalences:
 - Chewi sampling Chapter 10 structured sampling ↔ Chewi Optimisation §10 Mirror methods and §12 Stochastic optimization + corresponding Optlib/CvxLean interfaces.
 
 At every checkpoint, prove compatibility before reuse. If hypotheses or conventions differ, keep the difference explicit in an adapter.
+
+
+## Discrete Sampling peer route
+
+Use `discrete-sampling` for finite-state Ising/Glauber, hard-core and matroid work,
+not continuous-state time discretization. Read `docs/discrete-sampling-protocol.md`,
+`Libraries/DiscreteSampling/source-map.json` and `.agents/prompts/discrete-sampling.md`.
+Pull §3 foundations forward; use shared kernel/scalar/entropy cores without waiting
+for SDEs. Every discrete route or shared discrete-consumer cell must carry
+`discrete_state_contract`. The existing schema-v3 conceptual-mirror audit and independent
+verification gates apply unchanged. Candidate bridge display is not validated admission.

@@ -36,12 +36,14 @@
         "concept:optimization",
         "concept:riemannian",
         "concept:transport",
-        "concept:sampling"
+        "concept:sampling",
+        "concept:discrete-sampling"
       ],
       "functor_edges": [
         "transport:metric-lift",
         "transport:wasserstein-flow",
-        "transport:metric-pl"
+        "transport:metric-pl",
+        "transport:discrete-transport"
       ],
       "formal_search_nodes": [
         "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity",
@@ -80,7 +82,9 @@
       "compiled_substrate_bindings": [
         {
           "node": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder",
-          "edges": ["transport:curvature-growth"],
+          "edges": [
+            "transport:curvature-growth"
+          ],
           "role": "Compiled Euclidean first-order quadratic lower model produced by strong convexity.",
           "truth_boundary": "This module is a substrate for the Euclidean curvature-to-growth pattern only. It does not certify Riemannian, Wasserstein, Bakry-Emery, PL, Poincare, or LSI arrows."
         }
@@ -100,12 +104,14 @@
       "domains": [
         "concept:optimization",
         "concept:transport",
-        "concept:sampling"
+        "concept:sampling",
+        "concept:discrete-sampling"
       ],
       "functor_edges": [
         "transport:metric-pl",
         "transport:pl-lsi",
-        "transport:entropy-sandwich"
+        "transport:entropy-sandwich",
+        "transport:discrete-mlsi"
       ],
       "formal_search_nodes": [
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
@@ -127,11 +133,13 @@
       "plain_language": "For density ratio rho, chi-square is the squared L2 distance of rho from 1. Poincare controls this quadratic gap by Dirichlet energy, and reversible semigroup dissipation then gives exponential chi-square decay.",
       "domains": [
         "concept:optimization",
-        "concept:sampling"
+        "concept:sampling",
+        "concept:discrete-sampling"
       ],
       "functor_edges": [
         "transport:pi-chi2",
-        "transport:metric-pl"
+        "transport:metric-pl",
+        "transport:discrete-pi"
       ],
       "formal_search_nodes": [
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare",
@@ -170,6 +178,31 @@
         "separate existence, normalization, and invariance obligations"
       ],
       "do_not_conflate": "Sharing an energy does not make the proximal map and restricted Gaussian oracle equivalent outputs."
+    },
+    {
+      "id": "family:conditional-dependence",
+      "label": "Conditional influence and local-to-global mixing",
+      "plain_language": "Control dependence under all feasible pinnings, then lift local spectral or factorization bounds to a global sampler. Reuse matrix/probability algebra without identifying this condition with strong convexity.",
+      "domains": [
+        "concept:optimization",
+        "concept:discrete-sampling"
+      ],
+      "functor_edges": [
+        "transport:discrete-influence"
+      ],
+      "formal_search_nodes": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare"
+      ],
+      "compiled_substrate_bindings": [],
+      "reading_order": [
+        "finite support and positive conditioning events",
+        "influence/covariance conventions",
+        "uniformity over pinnings",
+        "source-specific local-to-global theorem",
+        "mixing with its exact clock"
+      ],
+      "do_not_conflate": "One covariance matrix is not spectral independence; neither is Euclidean strong convexity or generating-polynomial log-concavity without a proved bridge."
     }
   ]
 }

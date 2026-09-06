@@ -39,6 +39,14 @@ routes:
     mode: exploratoryProof
     status: research-plan
 
+  - id: discrete-sampling
+    title: Discrete Sampling Route
+    source: https://arxiv.org/pdf/2307.13826v4
+    progress: /progress/#discrete-sampling
+    mode: textbook
+    status: scaffold
+    contract: /docs/discrete-sampling-protocol.md
+
 canonical_textbook_spines:
   - id: log-concave-sampling
     title: Log-Concave Sampling
@@ -53,6 +61,11 @@ canonical_textbook_spines:
     source: https://www.nicolasboumal.net/book/
   - id: statistical-optimal-transport
     source: https://chewisinho.github.io/st_flour.pdf
+
+  - id: discrete-sampling
+    source: https://arxiv.org/pdf/2307.13826v4
+    source_map: /Libraries/DiscreteSampling/source-map.json
+    reader: /libraries/discrete-sampling/
 
 shared_dependency_plan: /Libraries/cross-domain-program.json
 frontloaded_shared_spine: /Libraries/frontloaded-shared-spine.json

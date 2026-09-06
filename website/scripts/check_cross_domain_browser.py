@@ -60,11 +60,11 @@ def main() -> None:
                     graph=json.loads((site/'data/underlying-lean-graph.json').read_text())
                     page.evaluate('g => { window.fetch = async () => ({ok:true,json:async()=>g}); }',graph)
                     page.add_script_tag(content=(site/'assets/underlying-lean-graph.js').read_text())
-            for rel,name in [('index.html','home'),('libraries/statistical-optimal-transport/index.html','ot'),('progress/index.html#optimal-transport','progress'),('lean-foundations.html?view=functor','functor')]:
+            for rel,name in [('index.html','home'),('libraries/statistical-optimal-transport/index.html','ot'),('libraries/discrete-sampling/index.html','discrete'),('progress/index.html#optimal-transport','progress'),('lean-foundations.html?view=functor','functor')]:
                 goto(rel)
                 page.wait_for_timeout(250)
-                assert page.locator('.library-source-hubs > a').count()==5
-                assert page.locator('.progress-route-nav > a').count()==5
+                assert page.locator('.library-source-hubs > a').count()==6
+                assert page.locator('.progress-route-nav > a').count()==6
                 assert page.locator('h1').count()==1
                 if name=='functor':
                     page.wait_for_selector('.ulg-node')
@@ -101,7 +101,7 @@ def main() -> None:
                 page.screenshot(path=str(evidence/(name+'.png')))
                 overflow=page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
                 assert not overflow, f'Horizontal overflow: {rel}'
-                report['pages'].append({'page':rel,'libraries':5,'routes':5,'horizontal_overflow':overflow})
+                report['pages'].append({'page':rel,'libraries':6,'routes':6,'horizontal_overflow':overflow})
             if not args.offline_dom:
                 goto('underlying-lean-graph/index.html?view=functor&focus=transport:dirac')
                 page.wait_for_url(lambda url: urlsplit(url).path.endswith('/lean-foundations.html')
@@ -119,6 +119,23 @@ def main() -> None:
             page.screenshot(path=str(evidence/'ot-mobile.png'))
             assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'), 'Mobile OT overflow'
             report['mobile_ot_overflow']=False
+            report['discrete_chapters_checked']=0
+            for i in range(1,13):
+                goto(f'libraries/discrete-sampling/chapter-{i:02d}.html')
+                assert page.locator('h1').count()==1
+                assert page.locator('.library-source-hubs > a').count()==6
+                assert page.locator('.progress-route-nav > a').count()==6
+                if not args.offline_dom:
+                    page.wait_for_selector('mjx-container',timeout=30000)
+                    assert page.locator('mjx-merror').count()==0
+                assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'), f'Discrete chapter {i} mobile overflow'
+                report['discrete_chapters_checked']+=1
+            page.screenshot(path=str(evidence/'discrete-ising-mobile.png'))
+            goto('libraries/discrete-sampling/index.html')
+            assert page.locator('.library-chapter-card').count()==12
+            assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'), 'Discrete contents mobile overflow'
+            page.screenshot(path=str(evidence/'discrete-mobile.png'))
+            report['discrete_mobile_overflow']=False
             assert not report['runtime_errors'],report['runtime_errors']
             browser.close()
     except Exception as error:

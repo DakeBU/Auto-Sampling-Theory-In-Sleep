@@ -1,0 +1,753 @@
+{
+  "schema_version": 1,
+  "library_id": "discrete-sampling",
+  "title": "Discrete Sampling",
+  "primary_title": "Spectral Independence and Local-to-Global Techniques for Optimal Mixing of Markov Chains",
+  "authors": [
+    "Zongchen Chen",
+    "Daniel Štefankovič",
+    "Eric Vigoda"
+  ],
+  "arxiv_id": "2307.13826v4",
+  "source_url": "https://arxiv.org/pdf/2307.13826v4",
+  "html_url": "https://arxiv.org/html/2307.13826v4",
+  "version_date": "2025-09-16",
+  "pdf_title_date": "2025-09-18",
+  "edition_note": "arXiv submission v4 is dated September 16; downloaded PDF title page reads September 18, 2025. Use the version and byte fingerprint, not date alone.",
+  "sha256": "3cc2f911b33bb5538157ef8a70f0c7e0f3c812ecd06dc9c1d5ea0bfdae11a52a",
+  "pdf_pages": 100,
+  "source_audit_date": "2026-09-07",
+  "pin_status": "version-and-sha256-pinned",
+  "scope": "Finite/discrete state-space sampling, not numerical discretization of continuous-state Langevin dynamics.",
+  "formalization_status": "scaffold; no discrete Lean theorem closure asserted",
+  "chapters": [
+    {
+      "id": "01",
+      "title": "Introduction",
+      "printed_page": 4,
+      "pdf_page": 4,
+      "path": "chapter-01.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "1.1",
+          "title": "Setting",
+          "printed_page": 4,
+          "pdf_page": 4
+        },
+        {
+          "id": "1.2",
+          "title": "Running example: Hard-core Model",
+          "printed_page": 4,
+          "pdf_page": 4
+        },
+        {
+          "id": "1.3",
+          "title": "Glauber dynamics/Gibbs sampler",
+          "printed_page": 5,
+          "pdf_page": 5
+        },
+        {
+          "id": "1.4",
+          "title": "Key Definitions: Spectral Independence and the Influence Matrix",
+          "printed_page": 7,
+          "pdf_page": 7
+        },
+        {
+          "id": "1.5",
+          "title": "Main Results: Fast Mixing via Spectral Independence",
+          "printed_page": 9,
+          "pdf_page": 9
+        },
+        {
+          "id": "1.6",
+          "title": "Application: Hard-core Model",
+          "printed_page": 11,
+          "pdf_page": 11
+        },
+        {
+          "id": "1.7",
+          "title": "Methods for Establishing Spectral Independence",
+          "printed_page": 13,
+          "pdf_page": 13
+        },
+        {
+          "id": "1.8",
+          "title": "Matroids and Trickle-Down Theorem",
+          "printed_page": 13,
+          "pdf_page": 13
+        }
+      ],
+      "formula": "\\pi(\\sigma)=Z^{-1}w(\\sigma),\\qquad Z=\\sum_{\\tau\\in\\Omega}w(\\tau)",
+      "guide": "Start with finite support and normalization, then audit the single-site conditional update. One update chooses one site; stationarity alone is not a mixing theorem. The binary hard-core example is not all spin systems.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "02",
+      "title": "Properties of the Influence Matrix",
+      "printed_page": 14,
+      "pdf_page": 14,
+      "path": "chapter-02.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "2.1",
+          "title": "Nonnegative eigenvalues",
+          "printed_page": 14,
+          "pdf_page": 14
+        },
+        {
+          "id": "2.2",
+          "title": "Bounding Spectral Radius of Influence Matrix",
+          "printed_page": 15,
+          "pdf_page": 15
+        },
+        {
+          "id": "2.3",
+          "title": "Correlation Matrix",
+          "printed_page": 16,
+          "pdf_page": 16
+        },
+        {
+          "id": "2.4",
+          "title": "Semidefinite Ordering",
+          "printed_page": 17,
+          "pdf_page": 17
+        },
+        {
+          "id": "2.5",
+          "title": "Modified Influence Matrix",
+          "printed_page": 18,
+          "pdf_page": 18
+        }
+      ],
+      "formula": "\\Psi_\\mu(i,j)=\\mu(\\sigma_j=1\\mid\\sigma_i=1)-\\mu(\\sigma_j=1\\mid\\sigma_i=0)\\quad(i\\ne j)",
+      "guide": "Reuse covariance, symmetric matrix and weighted-inner-product algebra. The displayed off-diagonal binary influence assumes both conditional events are feasible; frozen sites need removal or an explicit convention.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "03",
+      "title": "Markov Chain Fundamentals",
+      "printed_page": 18,
+      "pdf_page": 18,
+      "path": "chapter-03.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "3.1",
+          "title": "Mixing Time and Total Variation Distance",
+          "printed_page": 19,
+          "pdf_page": 19
+        },
+        {
+          "id": "3.2",
+          "title": "Reversibility",
+          "printed_page": 20,
+          "pdf_page": 20
+        },
+        {
+          "id": "3.3",
+          "title": "Dirichlet Form and Variance",
+          "printed_page": 20,
+          "pdf_page": 20
+        },
+        {
+          "id": "3.4",
+          "title": "Spectral Gap",
+          "printed_page": 21,
+          "pdf_page": 21
+        },
+        {
+          "id": "3.5",
+          "title": "Approximate Tensorization of Variance",
+          "printed_page": 22,
+          "pdf_page": 22
+        },
+        {
+          "id": "3.6",
+          "title": "Preliminaries",
+          "printed_page": 23,
+          "pdf_page": 23
+        },
+        {
+          "id": "3.7",
+          "title": "Mixing Time Bounds via Spectral Gap",
+          "printed_page": 24,
+          "pdf_page": 24
+        }
+      ],
+      "formula": "\\mathcal E_P(f,g)=\\frac12\\sum_{x,y}\\pi(x)P(x,y)(f(y)-f(x))(g(y)-g(x))",
+      "guide": "Pull this foundation forward before advanced spectral-independence proofs. Fix reversibility and whether the result concerns P^k or exp(t(P-I)); a positive relaxation gap is not an absolute-gap guarantee for a periodic discrete-time chain.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "04",
+      "title": "Rapid Mixing from Spectral Independence",
+      "printed_page": 26,
+      "pdf_page": 26,
+      "path": "chapter-04.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "4.1",
+          "title": "Pinnings",
+          "printed_page": 26,
+          "pdf_page": 26
+        },
+        {
+          "id": "4.2",
+          "title": "Rapid Mixing Theorem",
+          "printed_page": 27,
+          "pdf_page": 27
+        },
+        {
+          "id": "4.3",
+          "title": "Local to Global: Random Walk Theorem of Alev-Lau",
+          "printed_page": 27,
+          "pdf_page": 27
+        },
+        {
+          "id": "4.4",
+          "title": "Local Walk Connection to Influence Matrix",
+          "printed_page": 28,
+          "pdf_page": 28
+        },
+        {
+          "id": "4.5",
+          "title": "Proof of Rapid Mixing (Theorem 1.4)",
+          "printed_page": 29,
+          "pdf_page": 29
+        }
+      ],
+      "formula": "\\mu^\\tau(\\sigma)=\\mu(\\sigma\\mid\\sigma_S=\\tau),\\qquad \\mu(\\sigma_S=\\tau)>0",
+      "guide": "Uniform control must cover every feasible pinning required by the theorem, not just the unconditional law. Separate conditional support bookkeeping from spectral estimates.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "05",
+      "title": "Random Walk Theorem: Proof of Local-to-Global",
+      "printed_page": 30,
+      "pdf_page": 30,
+      "path": "chapter-05.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "5.1",
+          "title": "Up and Down Walks",
+          "printed_page": 30,
+          "pdf_page": 30
+        },
+        {
+          "id": "5.2",
+          "title": "Spectrum of Up-Down Chains",
+          "printed_page": 33,
+          "pdf_page": 33
+        },
+        {
+          "id": "5.3",
+          "title": "Proof Setup",
+          "printed_page": 33,
+          "pdf_page": 33
+        },
+        {
+          "id": "5.4",
+          "title": "Key Technical Lemma",
+          "printed_page": 34,
+          "pdf_page": 34
+        },
+        {
+          "id": "5.5",
+          "title": "Inductive Proof of Random Walk Theorem: Proof of Theorem 4.1",
+          "printed_page": 36,
+          "pdf_page": 36
+        }
+      ],
+      "formula": "\\operatorname{gap}(P)=\\inf_{\\operatorname{Var}_\\pi(f)>0}\\frac{\\mathcal E_P(f,f)}{\\operatorname{Var}_\\pi(f)}",
+      "guide": "Use one canonical variance/Dirichlet/Rayleigh-quotient API and explicit up/down-walk adapters. The displayed variational formula assumes a finite reversible nontrivial chain.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "06",
+      "title": "Optimal Mixing Time for Glauber from Spectral Independence",
+      "printed_page": 37,
+      "pdf_page": 37,
+      "path": "chapter-06.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "6.1",
+          "title": "Uniform Block Dynamics",
+          "printed_page": 37,
+          "pdf_page": 37
+        },
+        {
+          "id": "6.2",
+          "title": "Improved Random Walk Theorem",
+          "printed_page": 37,
+          "pdf_page": 37
+        },
+        {
+          "id": "6.3",
+          "title": "Fast Mixing of Uniform Block Dynamics",
+          "printed_page": 38,
+          "pdf_page": 38
+        },
+        {
+          "id": "6.4",
+          "title": "Shattering",
+          "printed_page": 38,
+          "pdf_page": 38
+        },
+        {
+          "id": "6.5",
+          "title": "Optimal Relaxation Time of Glauber: Proof of Theorem 1.5",
+          "printed_page": 39,
+          "pdf_page": 39
+        },
+        {
+          "id": "6.6",
+          "title": "Improved Random Walk Theorem: Proof of Theorem 6.1",
+          "printed_page": 41,
+          "pdf_page": 41
+        },
+        {
+          "id": "6.7",
+          "title": "Proofs of Basic Facts for Dirichlet Form and Variance",
+          "printed_page": 43,
+          "pdf_page": 43
+        },
+        {
+          "id": "6.8",
+          "title": "Optimal Mixing Time via Entropy Decay",
+          "printed_page": 45,
+          "pdf_page": 45
+        }
+      ],
+      "formula": "\\operatorname{Ent}_\\pi(r)=\\sum_x\\pi(x)r(x)\\log r(x),\\qquad \\sum_x\\pi(x)r(x)=1",
+      "guide": "Distinguish variance factorization, entropy factorization, log-Sobolev and modified log-Sobolev inequalities. The reference measure and clock determine constants; converting a relaxation bound into mixing needs its own theorem.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "07",
+      "title": "Matroids",
+      "printed_page": 47,
+      "pdf_page": 47,
+      "path": "chapter-07.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "7.1",
+          "title": "Matroids: Definitions",
+          "printed_page": 47,
+          "pdf_page": 47
+        },
+        {
+          "id": "7.2",
+          "title": "Matroids: Examples",
+          "printed_page": 48,
+          "pdf_page": 48
+        },
+        {
+          "id": "7.3",
+          "title": "Bases-exchange Walk",
+          "printed_page": 49,
+          "pdf_page": 49
+        },
+        {
+          "id": "7.4",
+          "title": "Main Theorem: Fast Mixing of Bases-Exchange Walk",
+          "printed_page": 49,
+          "pdf_page": 49
+        },
+        {
+          "id": "7.5",
+          "title": "Application: Reliability",
+          "printed_page": 49,
+          "pdf_page": 49
+        }
+      ],
+      "formula": "\\pi(B)=\\frac{1}{|\\mathcal B|},\\qquad B\\in\\mathcal B",
+      "guide": "Use Mathlib matroid and finite-set primitives before defining a bases-exchange walk. The formula is the uniform target on a nonempty finite set of bases, not a mixing assertion.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "08",
+      "title": "Trickle-Down Theorem",
+      "printed_page": 50,
+      "pdf_page": 50,
+      "path": "chapter-08.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "8.1",
+          "title": "Simplical Complexes",
+          "printed_page": 50,
+          "pdf_page": 50
+        },
+        {
+          "id": "8.2",
+          "title": "Trickle-Down Statement",
+          "printed_page": 50,
+          "pdf_page": 50
+        },
+        {
+          "id": "8.3",
+          "title": "Rapid Mixing of Bases-Exchange Walk: Proof of Theorem 1.15",
+          "printed_page": 51,
+          "pdf_page": 51
+        },
+        {
+          "id": "8.4",
+          "title": "Connections to Spectral Independence and Log-Concavity",
+          "printed_page": 52,
+          "pdf_page": 52
+        },
+        {
+          "id": "8.5",
+          "title": "Proof of the Trickle-Down Theorem: Proof of Theorem 8.1",
+          "printed_page": 53,
+          "pdf_page": 53
+        },
+        {
+          "id": "8.6",
+          "title": "Proofs of Technical Lemmas",
+          "printed_page": 55,
+          "pdf_page": 55
+        }
+      ],
+      "formula": "\\text{local spectral control}\\ \\rightsquigarrow\\ \\text{global walk gap}",
+      "guide": "Track links, local walks and pinning operators. Log-concavity of a generating polynomial is not the same predicate as log-concavity of a Euclidean density. The display is a proof-program orientation, not a theorem.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "09",
+      "title": "Methods for Establishing Spectral Independence",
+      "printed_page": 57,
+      "pdf_page": 57,
+      "path": "chapter-09.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "9.1",
+          "title": "Preliminaries",
+          "printed_page": 57,
+          "pdf_page": 57
+        },
+        {
+          "id": "9.1.1",
+          "title": "Hard-core model",
+          "printed_page": 57,
+          "pdf_page": 57
+        },
+        {
+          "id": "9.1.2",
+          "title": "Tree-uniqueness threshold",
+          "printed_page": 57,
+          "pdf_page": 57
+        },
+        {
+          "id": "9.1.3",
+          "title": "Spectral independence",
+          "printed_page": 58,
+          "pdf_page": 58
+        },
+        {
+          "id": "9.1.4",
+          "title": "Relating influences and occupancy ratios",
+          "printed_page": 59,
+          "pdf_page": 59
+        },
+        {
+          "id": "9.2",
+          "title": "Spectral Independence via Correlation Decay",
+          "printed_page": 60,
+          "pdf_page": 60
+        },
+        {
+          "id": "9.2.1",
+          "title": "Proof approach",
+          "printed_page": 60,
+          "pdf_page": 60
+        },
+        {
+          "id": "9.2.2",
+          "title": "Self-avoiding walk tree",
+          "printed_page": 61,
+          "pdf_page": 61
+        },
+        {
+          "id": "9.2.3",
+          "title": "Bounding influences on trees",
+          "printed_page": 64,
+          "pdf_page": 64
+        },
+        {
+          "id": "9.3",
+          "title": "Spectral Independence via Zero-Freeness",
+          "printed_page": 69,
+          "pdf_page": 69
+        },
+        {
+          "id": "9.3.1",
+          "title": "Some preliminaries",
+          "printed_page": 69,
+          "pdf_page": 69
+        },
+        {
+          "id": "9.3.2",
+          "title": "Proof approach",
+          "printed_page": 70,
+          "pdf_page": 70
+        },
+        {
+          "id": "9.3.3",
+          "title": "Proofs",
+          "printed_page": 70,
+          "pdf_page": 70
+        },
+        {
+          "id": "9.4",
+          "title": "Spectral Independence via Coupling Independence",
+          "printed_page": 72,
+          "pdf_page": 72
+        },
+        {
+          "id": "9.5",
+          "title": "Optimal relaxation time implies SI",
+          "printed_page": 76,
+          "pdf_page": 76
+        },
+        {
+          "id": "9.5.1",
+          "title": "Contractive coupling implies relaxation time",
+          "printed_page": 77,
+          "pdf_page": 77
+        }
+      ],
+      "formula": "\\sup_{\\tau\\text{ feasible}}\\lambda_{\\max}(\\Psi_{\\mu^\\tau})\\leq\\eta",
+      "guide": "Treat correlation decay, zero-freeness, coupling independence and relaxation-time methods as different sufficient routes. Specify model, degree, boundary conditions and all pinnings; one covariance calculation is insufficient.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "10",
+      "title": "Critical Point Analysis using the Field Dynamics",
+      "printed_page": 78,
+      "pdf_page": 78,
+      "path": "chapter-10.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "10.1",
+          "title": "Field Dynamics",
+          "printed_page": 80,
+          "pdf_page": 80
+        },
+        {
+          "id": "10.2",
+          "title": "SI implies Fast Mixing of Field Dynamics",
+          "printed_page": 82,
+          "pdf_page": 82
+        },
+        {
+          "id": "10.3",
+          "title": "Fast Mixing of Glauber Dynamics from Field Dynamics",
+          "printed_page": 84,
+          "pdf_page": 84
+        }
+      ],
+      "formula": "\\mu_{\\boldsymbol\\lambda}(\\sigma)\\propto\\mu(\\sigma)\\prod_{v\\in V}\\lambda_v^{\\sigma_v}",
+      "guide": "A field tilt changes the distribution. Record stationary laws and the comparison theorem separately; transporting a gap requires quantitative bounds, not a change of notation.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "11",
+      "title": "Random Regular Graphs via Field Dynamics",
+      "printed_page": 85,
+      "pdf_page": 85,
+      "path": "chapter-11.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "11.1",
+          "title": "Proof Overview",
+          "printed_page": 85,
+          "pdf_page": 85
+        },
+        {
+          "id": "11.2",
+          "title": "Proof of the trickle-down for the field dynamics",
+          "printed_page": 88,
+          "pdf_page": 88
+        }
+      ],
+      "formula": "\\text{random graph assumptions}\\ +\\ \\text{field dynamics}\\ \\rightsquigarrow\\ \\text{mixing bound}",
+      "guide": "Random-regular-graph results have a probability-over-graphs contract. Keep that probability separate from sampler success and Markov-chain randomness; no worst-case general-graph claim follows.",
+      "source_detail_status": "theorem-level-audit-required"
+    },
+    {
+      "id": "12",
+      "title": "Extensions to Other Spin Systems: Ising Model and Colorings",
+      "printed_page": 90,
+      "pdf_page": 90,
+      "path": "chapter-12.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "12.1",
+          "title": "Ising Model",
+          "printed_page": 90,
+          "pdf_page": 90
+        },
+        {
+          "id": "12.2",
+          "title": "Multispin Systems: Colorings and Edge Colorings",
+          "printed_page": 91,
+          "pdf_page": 91
+        }
+      ],
+      "formula": "\\pi_\\beta(\\sigma)=Z_\\beta^{-1}\\exp\\!\\left(\\beta\\sum_{\\{u,v\\}\\in E}\\sigma_u\\sigma_v\\right),\\quad\\sigma\\in\\{-1,+1\\}^{V}",
+      "guide": "The display is the finite, zero-field Ising target in the monograph convention. The factor exp(beta|E|) cancels on normalization. Section 12 states results without proofs: follow the cited original papers before claiming closure. Temperature, sign, degree, fields and boundary conditions cannot be dropped.",
+      "source_detail_status": "cites_external"
+    }
+  ],
+  "dependency_semantics": "ASTIS planned prerequisite windows, not a dependency figure asserted by the source; chapter reading order is unchanged. Only theorem-level audited dependencies enter Lean Branches.",
+  "planned_prerequisites": [
+    [
+      "01",
+      "03"
+    ],
+    [
+      "01",
+      "02"
+    ],
+    [
+      "02",
+      "04"
+    ],
+    [
+      "03",
+      "04"
+    ],
+    [
+      "03",
+      "05"
+    ],
+    [
+      "04",
+      "06"
+    ],
+    [
+      "05",
+      "06"
+    ],
+    [
+      "03",
+      "07"
+    ],
+    [
+      "07",
+      "08"
+    ],
+    [
+      "05",
+      "08"
+    ],
+    [
+      "02",
+      "09"
+    ],
+    [
+      "06",
+      "10"
+    ],
+    [
+      "09",
+      "10"
+    ],
+    [
+      "10",
+      "11"
+    ],
+    [
+      "06",
+      "12"
+    ],
+    [
+      "09",
+      "12"
+    ]
+  ],
+  "entry_windows": [
+    {
+      "source": "§§1.1–1.3 + §3",
+      "purpose": "shared finite probability, conditional kernels, reversibility, variance and gap before advanced SI"
+    },
+    {
+      "source": "§12.1 definitions only",
+      "purpose": "early Ising target and clock conventions; defer cited mixing theorems to exact external proofs"
+    },
+    {
+      "source": "§2 + §4.1",
+      "purpose": "conditional influence matrices with feasible pinnings"
+    },
+    {
+      "source": "§6.8",
+      "purpose": "entropy factorization and mLSI after the shared entropy floor"
+    }
+  ],
+  "source_issues": [
+    {
+      "id": "discrete-glauber-copy-index",
+      "anchor": "§1.3, PDF p.5, general update step 2",
+      "observation": "The PDF prints X_(t+1)(w)=X_t(v) for w != v, while its following prose says the other spins stay fixed.",
+      "proposed_repair": "Keep X_(t+1)(w)=X_t(w) for w != v.",
+      "status": "repair-candidate; independent semantic review required",
+      "rule": "Do not silently edit a faithful source statement. Audit the corrected conditional-update contract and record source/Lean/reconstructed-text differences."
+    },
+    {
+      "id": "discrete-ising-proof-gap",
+      "anchor": "§12 opening, PDF p.90",
+      "observation": "The monograph explicitly states that the results in this section are not proved here.",
+      "status": "external-proof-required",
+      "rule": "Pin each cited original result and exact hypothesis adapter before any corresponding formalization claim."
+    }
+  ],
+  "supporting_sources": [
+    {
+      "id": "lpw",
+      "title": "Levin–Peres, with contributions by Wilmer: Markov Chains and Mixing Times, 2nd ed. (2017)",
+      "url": "https://pages.uoregon.edu/dlevin/MARKOV/",
+      "role": "background textbook",
+      "use": "Basic finite chains, coupling, spectral analysis and mixing-time lower bounds; not claimed to have an arXiv edition."
+    },
+    {
+      "id": "ising-lectures",
+      "title": "Hugo Duminil-Copin: Lectures on the Ising and Potts models on the hypercubic lattice",
+      "url": "https://arxiv.org/abs/1707.00520",
+      "arxiv_id": "1707.00520v1",
+      "role": "model-background lecture notes",
+      "use": "Ising/Potts equilibrium, finite/infinite volume and phase transitions. Not a replacement for a rapid-mixing proof."
+    },
+    {
+      "id": "blanca-coupling",
+      "title": "Blanca et al.: On Mixing of Markov Chains: Coupling, Spectral Independence, and Entropy Factorization",
+      "url": "https://arxiv.org/abs/2103.07459",
+      "role": "primary proof supplement",
+      "use": "Pin theorem/version for coupling-to-SI and entropy-factorization adapters; preserve all assumptions."
+    },
+    {
+      "id": "clv-entropy",
+      "title": "Chen–Liu–Vigoda: Optimal Mixing of Glauber Dynamics: Entropy Factorization via High-Dimensional Expansion",
+      "url": "https://arxiv.org/abs/2011.02075",
+      "role": "primary proof supplement",
+      "use": "Source-specific entropy factorization and spin-system mixing proofs; audit cited statement, not just title."
+    },
+    {
+      "id": "maas",
+      "title": "Jan Maas: Gradient flows of the entropy for finite Markov chains",
+      "url": "https://arxiv.org/abs/1102.5238",
+      "role": "conceptual transport source",
+      "use": "Finite reversible irreducible chains and a chain-dependent logarithmic-mean transport metric; not ordinary W2 on a finite set."
+    }
+  ]
+}

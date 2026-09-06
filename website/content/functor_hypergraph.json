@@ -44,15 +44,30 @@
       "energy": "Information budget versus guaranteed error; not a new geometric state space",
       "assumptions": "Specify oracle, adaptivity, randomness, starts, query cost and loss; reductions carry overhead",
       "url": "example-cases/samplewiki.html"
+    },
+    {
+      "id": "concept:discrete-sampling",
+      "label": "Discrete Sampling",
+      "space": "Finite configurations: Ising spins, independent sets, colourings and matroid bases; discrete state space, either discrete or continuous time",
+      "energy": "Finite Gibbs law; variance/chi-square or KL with a specified Markov kernel/generator",
+      "assumptions": "Support, feasible pinnings, reversibility, clock normalization and graph/temperature regime; no Euler discretization interpretation",
+      "url": "libraries/discrete-sampling/index.html"
     }
   ],
   "hyperedges": [
     {
       "id": "transport:metric-lift",
       "label": "Change the metric, change the gradient",
-      "family_ids": ["family:metric-gradient-flow", "family:curvature-growth"],
-      "tails": ["concept:optimization"],
-      "heads": ["concept:riemannian"],
+      "family_ids": [
+        "family:metric-gradient-flow",
+        "family:curvature-growth"
+      ],
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:riemannian"
+      ],
       "relation_kind": "source-backed correspondence",
       "status": "not-Lean-certified",
       "formula": "df_x[\\xi]=\\langle\\operatorname{grad}f(x),\\xi\\rangle_x",
@@ -60,8 +75,14 @@
       "hypothesis_map": "Replace the ambient inner product by a metric. Distinguish pullback smoothness, geodesic convexity and a retraction-based local model.",
       "conclusion_map": "Descent, PL and stationarity arguments transport only after the metric gradient and metric/retraction effects are identified.",
       "failure_boundary": "A Euclidean Hessian lower bound in arbitrary coordinates does not imply geodesic strong convexity.",
-      "source_ids": ["opt", "boumal"],
-      "shared_stages": ["calculus", "manifold"],
+      "source_ids": [
+        "opt",
+        "boumal"
+      ],
+      "shared_stages": [
+        "calculus",
+        "manifold"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "(space, metric, f, regularity) ↦ (manifold, metric, f, regularity).",
@@ -73,9 +94,15 @@
     {
       "id": "transport:gibbs-prox",
       "label": "One energy: minimizer or Gibbs law",
-      "family_ids": ["family:proximal-energy"],
-      "tails": ["concept:optimization"],
-      "heads": ["concept:sampling"],
+      "family_ids": [
+        "family:proximal-energy"
+      ],
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "shared-energy span",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}E_{y,h}(x)=g(x)+\\frac{\\|x-y\\|^2}{2h}\\\\\\operatorname{prox}_{hg}(y)\\in\\arg\\min E_{y,h}\\\\Q_{y,h}(dx)\\propto e^{-E_{y,h}(x)}dx\\end{gathered}",
@@ -83,8 +110,14 @@
       "hypothesis_map": "Require existence (and, when claimed, uniqueness) of the minimizer; separately require 0 < partition function < infinity. Fix temperature and quadratic scaling.",
       "conclusion_map": "Quadratic regularization, convexity and some perturbation lemmas are shared; kernel simulation and target invariance are extra.",
       "failure_boundary": "An RGO is not itself the full proximal sampler, not automatically a JKO step, and not an exact deterministic proximal map.",
-      "source_ids": ["prox", "opt"],
-      "shared_stages": ["convex", "entropy"],
+      "source_ids": [
+        "prox",
+        "opt"
+      ],
+      "shared_stages": [
+        "convex",
+        "entropy"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Typed problem presentations, not field names.",
@@ -97,8 +130,12 @@
       "id": "transport:dirac",
       "label": "Deterministic maps inside kernels",
       "family_ids": [],
-      "tails": ["concept:optimization"],
-      "heads": ["concept:sampling"],
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "functor candidate",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}K_T(x,\\cdot)=\\delta_{T(x)}\\\\K_{S\\circ T}=K_T K_S\\end{gathered}",
@@ -106,8 +143,12 @@
       "hypothesis_map": "Updates must be measurable; pin kernel composition orientation and the measurable-space contracts.",
       "conclusion_map": "Transport deterministic iteration into a special case of Markov evolution; this does not manufacture Gibbs invariance.",
       "failure_boundary": "Continuity is not a substitute for checking the actual measurable structures. Stochastic kernels are not generally deterministic maps.",
-      "source_ids": ["kernel"],
-      "shared_stages": ["measure"],
+      "source_ids": [
+        "kernel"
+      ],
+      "shared_stages": [
+        "measure"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Measurable spaces ↦ the same spaces.",
@@ -119,9 +160,16 @@
     {
       "id": "transport:wasserstein-flow",
       "label": "Energy descent on probability laws",
-      "family_ids": ["family:metric-gradient-flow"],
-      "tails": ["concept:optimization", "concept:transport"],
-      "heads": ["concept:sampling"],
+      "family_ids": [
+        "family:metric-gradient-flow"
+      ],
+      "tails": [
+        "concept:optimization",
+        "concept:transport"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "source-backed correspondence",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}\\partial_t\\rho=\\nabla\\!\\cdot(\\rho\\nabla V)+\\lambda\\Delta\\rho\\\\\\mathcal F(\\rho)=\\int V\\rho+\\lambda\\int\\rho\\log\\rho\\end{gathered}",
@@ -129,8 +177,15 @@
       "hypothesis_map": "Fix Euclidean base, positive temperature, finite moments/entropy and weak solution or EDI/EVI hypotheses. Nonlinear first variations require additional contracts.",
       "conclusion_map": "Energy-dissipation proofs connect sampling evolution with optimization over measures.",
       "failure_boundary": "Formal Otto notation alone is not a proof of existence, uniqueness, SDE-law correspondence or EVI; W2 is not globally a classical smooth manifold.",
-      "source_ids": ["ot", "sampling"],
-      "shared_stages": ["transport", "entropy", "flow"],
+      "source_ids": [
+        "ot",
+        "sampling"
+      ],
+      "shared_stages": [
+        "transport",
+        "entropy",
+        "flow"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Typed probability-law energies equipped with an explicit transport metric structure.",
@@ -142,9 +197,18 @@
     {
       "id": "transport:metric-pl",
       "label": "Metric gradient flow: PL controls dissipation",
-      "family_ids": ["family:metric-gradient-flow", "family:gap-gradient"],
-      "tails": ["concept:optimization", "concept:riemannian", "concept:transport"],
-      "heads": ["concept:sampling"],
+      "family_ids": [
+        "family:metric-gradient-flow",
+        "family:gap-gradient"
+      ],
+      "tails": [
+        "concept:optimization",
+        "concept:riemannian",
+        "concept:transport"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "shared dissipation template",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}\\dot z_t=-\\operatorname{grad}_g\\mathcal E(z_t)\\\\\\frac{d}{dt}(\\mathcal E(z_t)-\\mathcal E_*)=-\\|\\operatorname{grad}_g\\mathcal E(z_t)\\|_g^2\\\\\\|\\operatorname{grad}_g\\mathcal E(z)\\|_g^2\\ge 2\\alpha(\\mathcal E(z)-\\mathcal E_*)\\end{gathered}",
@@ -152,8 +216,18 @@
       "hypothesis_map": "Identify the actual metric gradient, a valid chain rule/energy-dissipation identity, a lower energy level E_*, and flow existence. Discrete algorithms need an additional descent/local-error argument.",
       "conclusion_map": "The final Gronwall step is shared across Euclidean PL, Riemannian PL and Wasserstein PL; only the metric, energy and proof of the coercivity premise change.",
       "failure_boundary": "This template does not identify the underlying spaces or prove that a formal Wasserstein gradient exists. W2/Otto geometry requires rigorous first-variation and EDI/EVI hypotheses in infinite-dimensional settings.",
-      "source_ids": ["opt", "boumal", "ot", "sampling"],
-      "shared_stages": ["calculus", "manifold", "transport", "flow"],
+      "source_ids": [
+        "opt",
+        "boumal",
+        "ot",
+        "sampling"
+      ],
+      "shared_stages": [
+        "calculus",
+        "manifold",
+        "transport",
+        "flow"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Metric energy problems (X,g,E,E_*) carrying a justified gradient-flow/dissipation structure.",
@@ -165,9 +239,17 @@
     {
       "id": "transport:curvature-growth",
       "label": "Second-order curvature → growth / PL controls",
-      "family_ids": ["family:curvature-growth"],
-      "tails": ["concept:optimization", "concept:riemannian"],
-      "heads": ["concept:transport", "concept:sampling"],
+      "family_ids": [
+        "family:curvature-growth"
+      ],
+      "tails": [
+        "concept:optimization",
+        "concept:riemannian"
+      ],
+      "heads": [
+        "concept:transport",
+        "concept:sampling"
+      ],
       "relation_kind": "curvature-to-coercivity pattern",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}f(y)\\ge f(x)+\\langle\\operatorname{grad}f(x),\\log_x y\\rangle+\\frac{\\alpha}{2}d(x,y)^2\\\\\\alpha\\text{-geodesic convexity}\\Rightarrow\\text{metric PL in its valid setting}\\\\CD(\\alpha,\\infty)\\Rightarrow C_{\\mathrm{LSI}}\\le\\alpha^{-1}\\end{gathered}",
@@ -175,8 +257,19 @@
       "hypothesis_map": "Translate the notion of curvature before translating the conclusion: Euclidean strong convexity, geodesic strong convexity, displacement/geodesic convexity on P2, and Bakry–Émery CD are different hypotheses with different regularity domains.",
       "conclusion_map": "Reuse the proof pattern 'curvature → growth/coercivity → dissipation rate', while preserving the exact source theorem at each arrow. The current strong-convex first-order SAU is a Euclidean substrate, not a proof of the other arrows.",
       "failure_boundary": "Euclidean Hessian lower bounds, Riemannian geodesic convexity, displacement convexity and Bakry–Émery curvature are not interchangeable. Strong convexity is sufficient for several PL-style controls but PL need not imply strong convexity.",
-      "source_ids": ["opt", "boumal", "ot", "sampling"],
-      "shared_stages": ["convex", "manifold", "transport", "entropy", "flow"],
+      "source_ids": [
+        "opt",
+        "boumal",
+        "ot",
+        "sampling"
+      ],
+      "shared_stages": [
+        "convex",
+        "manifold",
+        "transport",
+        "entropy",
+        "flow"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "A problem plus its explicit curvature notion, metric, domain and regularity.",
@@ -188,9 +281,16 @@
     {
       "id": "transport:pl-lsi",
       "label": "PL ↔ LSI mirror: gap vs metric gradient",
-      "family_ids": ["family:gap-gradient"],
-      "tails": ["concept:optimization", "concept:transport"],
-      "heads": ["concept:sampling"],
+      "family_ids": [
+        "family:gap-gradient"
+      ],
+      "tails": [
+        "concept:optimization",
+        "concept:transport"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "functional-inequality mirror",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}f(x)-f_*\\le\\frac{C_{\\mathrm{PL}}}{2}\\|\\nabla f(x)\\|^2\\\\\\mathrm{KL}(\\mu\\Vert\\pi)\\le\\frac{C_{\\mathrm{LSI}}}{2}\\,\\mathrm{FI}(\\mu\\Vert\\pi)\\end{gathered}",
@@ -198,8 +298,15 @@
       "hypothesis_map": "For the sampling side require the source density/absolute-continuity, finite entropy/Fisher information, reversible Langevin/semigroup calculus and normalization conventions. For the optimization side retain the exact PL constant and chosen metric.",
       "conclusion_map": "The conceptual mirror is the coercivity slot in the metric-gradient template: Euclidean/Riemannian objective gap ↔ KL gap; squared gradient norm ↔ Fisher dissipation. The scalar Gronwall conclusion is shared after each premise is separately proved.",
       "failure_boundary": "LSI is not literally the Euclidean PL theorem and need not follow from smoothness alone. Constants and factors of two depend on conventions; formal Fisher = Wasserstein-gradient-norm statements require their own analytic hypotheses.",
-      "source_ids": ["sampling", "opt", "ot"],
-      "shared_stages": ["entropy", "flow"],
+      "source_ids": [
+        "sampling",
+        "opt",
+        "ot"
+      ],
+      "shared_stages": [
+        "entropy",
+        "flow"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Optimization or probability-law energies with a named gap and a named dissipation functional.",
@@ -211,9 +318,15 @@
     {
       "id": "transport:pi-chi2",
       "label": "Poincaré ↔ χ²: L² PL-shaped coercivity",
-      "family_ids": ["family:l2-coercivity"],
-      "tails": ["concept:optimization"],
-      "heads": ["concept:sampling"],
+      "family_ids": [
+        "family:l2-coercivity"
+      ],
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "functional-inequality mirror",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}\\chi^2(\\mu\\Vert\\pi)=\\|\\rho-1\\|_{L^2(\\pi)}^2\\\\\\operatorname{Var}_\\pi(f)\\le C_{\\mathrm{PI}}\\mathcal E(f,f)\\\\\\chi^2(\\pi_t\\Vert\\pi)\\le e^{-2t/C_{\\mathrm{PI}}}\\chi^2(\\pi_0\\Vert\\pi)\\end{gathered}",
@@ -221,8 +334,14 @@
       "hypothesis_map": "Use the exact reversible Markov-semigroup/Dirichlet-form domain and density hypotheses from the sampling source. On the optimization side the analogy is to a quadratic gap controlled by its gradient/dissipation, not an identification of objectives.",
       "conclusion_map": "Poincaré occupies the PL-shaped coercivity slot for the chi-square/L2 gap, while LSI occupies it for KL. This gives a clean family-level comparison of convergence mechanisms.",
       "failure_boundary": "Poincaré and LSI are different functional inequalities; chi-square and KL are different gaps. PI is generally weaker than LSI, and the reversible/domain hypotheses cannot be erased by the analogy.",
-      "source_ids": ["sampling", "opt"],
-      "shared_stages": ["semigroup", "flow"],
+      "source_ids": [
+        "sampling",
+        "opt"
+      ],
+      "shared_stages": [
+        "semigroup",
+        "flow"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "A reversible semigroup together with its invariant measure, density gap and Dirichlet dissipation.",
@@ -234,9 +353,16 @@
     {
       "id": "transport:entropy-sandwich",
       "label": "MFLD: entropy sandwich and PL controls",
-      "family_ids": ["family:gap-gradient"],
-      "tails": ["concept:optimization", "concept:sampling"],
-      "heads": ["concept:transport"],
+      "family_ids": [
+        "family:gap-gradient"
+      ],
+      "tails": [
+        "concept:optimization",
+        "concept:sampling"
+      ],
+      "heads": [
+        "concept:transport"
+      ],
       "relation_kind": "source-backed correspondence",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}\\lambda\\mathrm{KL}(\\mu\\Vert\\mu_*)\\leq\\mathcal L(\\mu)-\\mathcal L(\\mu_*)\\\\\\mathcal L(\\mu)-\\mathcal L(\\mu_*)\\leq\\lambda\\mathrm{KL}(\\mu\\Vert q_\\mu)\\end{gathered}",
@@ -244,8 +370,15 @@
       "hypothesis_map": "Require a minimizer, normalizable q_μ, and the source differentiability/integrability contracts. Uniform LSI for q_μ is an EXTRA hypothesis, not a consequence of mixture convexity.",
       "conclusion_map": "LSI KL≤I/(2ρ) and dL/dt=−λ²I give a PL-type dissipation control. The lower sandwich is a KL-growth control; W2 quadratic growth additionally needs a transport-entropy inequality for μ*.",
       "failure_boundary": "Mixture convexity ≠ displacement convexity. Neither LSI nor W2 quadratic growth follows merely from an entropy term. This connects proof mechanisms, not identical geometries.",
-      "source_ids": ["mfld", "ot"],
-      "shared_stages": ["convex", "entropy", "flow"],
+      "source_ids": [
+        "mfld",
+        "ot"
+      ],
+      "shared_stages": [
+        "convex",
+        "entropy",
+        "flow"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Typed problem presentations, not field names.",
@@ -258,8 +391,12 @@
       "id": "transport:duality",
       "label": "Convex duality to transport duality",
       "family_ids": [],
-      "tails": ["concept:optimization"],
-      "heads": ["concept:transport"],
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:transport"
+      ],
       "relation_kind": "source-backed correspondence",
       "status": "not-Lean-certified",
       "formula": "\\begin{gathered}\\inf_{\\gamma\\in\\Pi(\\mu,\\nu)}\\int c\\,d\\gamma\\\\\\longleftrightarrow\\\\\\sup_{u(x)+v(y)\\leq c(x,y)}\\left(\\int u\\,d\\mu+\\int v\\,d\\nu\\right)\\end{gathered}",
@@ -267,8 +404,14 @@
       "hypothesis_map": "Retain the exact source hypotheses for no duality gap and attainment; noncompact spaces need extra care.",
       "conclusion_map": "Convex conjugacy and variational inequalities feed transport-map stability and entropic duals.",
       "failure_boundary": "Equality of optimal values does not by itself give optimizers, smooth potentials, a Monge map or statistical rates.",
-      "source_ids": ["ot", "opt"],
-      "shared_stages": ["convex", "transport"],
+      "source_ids": [
+        "ot",
+        "opt"
+      ],
+      "shared_stages": [
+        "convex",
+        "transport"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Typed problem presentations, not field names.",
@@ -281,8 +424,13 @@
       "id": "transport:high-order",
       "label": "Taylor structure to sampling accuracy",
       "family_ids": [],
-      "tails": ["concept:optimization", "concept:sampling"],
-      "heads": ["concept:sampling"],
+      "tails": [
+        "concept:optimization",
+        "concept:sampling"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "research target",
       "status": "not-Lean-certified",
       "formula": "\\|D^pV(x)-D^pV(y)\\|_{\\mathrm{op}}\\leq L_p\\|x-y\\|",
@@ -290,8 +438,16 @@
       "hypothesis_map": "Keep p (potential regularity), q (oracle derivative access), k (dynamical order) and r (discretization accuracy) independent; specify operator norm and all constants.",
       "conclusion_map": "Target a cost-aware upper bound under a fixed oracle, then isolate which improvement really comes from additional smoothness.",
       "failure_boundary": "Better discretization can already occur under Lipschitz gradients; high-order dynamics does not automatically mean high-order derivative queries.",
-      "source_ids": ["mou", "midpoint", "dang", "opt"],
-      "shared_stages": ["calculus", "upper"],
+      "source_ids": [
+        "mou",
+        "midpoint",
+        "dang",
+        "opt"
+      ],
+      "shared_stages": [
+        "calculus",
+        "upper"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Typed problem presentations, not field names.",
@@ -304,8 +460,13 @@
       "id": "transport:oracle-reduction",
       "label": "Reduction transports hardness, not analogy",
       "family_ids": [],
-      "tails": ["concept:optimization", "concept:lower"],
-      "heads": ["concept:sampling"],
+      "tails": [
+        "concept:optimization",
+        "concept:lower"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "conditional reduction template",
       "status": "not-Lean-certified",
       "formula": "Q_A(\\varepsilon)\\leq c\\,Q_B(\\psi(\\varepsilon))+b",
@@ -313,8 +474,14 @@
       "hypothesis_map": "Prove preservation of the hard-instance class, permitted oracle answers, adaptivity/randomness and the error conversion ψ; state start and failure probabilities.",
       "conclusion_map": "Only a certified reduction allows an optimization or statistical lower bound to transfer to sampling.",
       "failure_boundary": "A common convexity lemma or similar rate exponent is not a reduction. Smoothness upper-bound lemmas are not prerequisites of a hard-instance proof.",
-      "source_ids": ["lower", "opt"],
-      "shared_stages": ["lower", "compare"],
+      "source_ids": [
+        "lower",
+        "opt"
+      ],
+      "shared_stages": [
+        "lower",
+        "compare"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Typed problem presentations, not field names.",
@@ -327,8 +494,13 @@
       "id": "transport:statistical-loss",
       "label": "OT estimation and sampling: distinct budgets",
       "family_ids": [],
-      "tails": ["concept:transport", "concept:lower"],
-      "heads": ["concept:sampling"],
+      "tails": [
+        "concept:transport",
+        "concept:lower"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
       "relation_kind": "comparison contract",
       "status": "not-Lean-certified",
       "formula": "n_{\\mathrm{data}}\\neq Q_{\\mathrm{oracle}}",
@@ -336,14 +508,187 @@
       "hypothesis_map": "Record data access versus potential/gradient access, population class, dimension, metric and any reduction between experiments.",
       "conclusion_map": "Common discrepancy/testing lemmas may be reused while the two notions of sample complexity stay distinct.",
       "failure_boundary": "No minimax statistical rate becomes a sampling query lower bound without a source-backed, cost-preserving reduction.",
-      "source_ids": ["ot", "lower"],
-      "shared_stages": ["statistics", "lower", "compare"],
+      "source_ids": [
+        "ot",
+        "lower"
+      ],
+      "shared_stages": [
+        "statistics",
+        "lower",
+        "compare"
+      ],
       "formal_refs": [],
       "category_contract": {
         "objects": "Typed problem presentations, not field names.",
         "morphisms": "A specified solution/certificate transport; no total morphism map is claimed.",
         "identity": "Not established; not asserted to be a functor.",
         "composition": "Not established; side conditions of consecutive transports must be checked."
+      }
+    },
+    {
+      "id": "transport:discrete-pi",
+      "label": "One L2 mechanism: finite chains and diffusions",
+      "family_ids": [
+        "family:l2-coercivity"
+      ],
+      "tails": [
+        "concept:sampling"
+      ],
+      "heads": [
+        "concept:discrete-sampling"
+      ],
+      "relation_kind": "conceptual mirror candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "\\begin{gathered}r_t=d\\nu_t/d\\pi,\\quad L=P-I\\\\ \\partial_t\\chi^2(\\nu_t\\Vert\\pi)=-2\\mathcal E_P(r_t,r_t)\\\\ \\operatorname{Var}_\\pi(f)\\leq C_P\\mathcal E_P(f,f)\\\\ \\Longrightarrow\\ \\chi^2_t\\leq e^{-2t/C_P}\\chi^2_0\\end{gathered}",
+      "mechanism": "Replace diffusion integration by parts with finite summation and detailed balance; retain the same scalar gap-dissipation comparison.",
+      "hypothesis_map": "Finite support, pi>0, pi-reversible stochastic P; continuous-time Poissonization L=P-I at total rate one; positive Poincare constant. For P^k instead, check absolute spectrum/laziness and aperiodicity separately.",
+      "conclusion_map": "Reuse quadratic-gap algebra and scalar exponential decay after proving the finite-generator identity. The rate is normalized by the chosen generator.",
+      "failure_boundary": "Spectral gap alone need not mix a periodic discrete-time chain. Per-site rate one scales L by n relative to total rate one. No finite-to-diffusion limit theorem is asserted.",
+      "source_ids": [
+        "discrete-primary",
+        "discrete-lpw"
+      ],
+      "shared_stages": [
+        "finite-dirichlet",
+        "scalar-decay"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-discrete-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "Typed (state space, probability law, operator, discrepancy, metric, clock) presentations.",
+        "morphisms": "Only the explicitly scoped mechanism/adapter; no total morphism map constructed.",
+        "identity": "Unproved; no certified functor claim.",
+        "composition": "Unproved; composed transfers need fresh hypothesis and normalization checks."
+      }
+    },
+    {
+      "id": "transport:discrete-mlsi",
+      "label": "Modified LSI: KL controlled by finite-jump dissipation",
+      "family_ids": [
+        "family:gap-gradient"
+      ],
+      "tails": [
+        "concept:sampling",
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:discrete-sampling"
+      ],
+      "relation_kind": "conceptual mirror candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "\\begin{gathered}\\partial_t\\operatorname{KL}(\\nu_t\\Vert\\pi)=-\\mathcal E_P(r_t,\\log r_t)\\\\ \\operatorname{Ent}_\\pi(r)\\leq C_M\\mathcal E_P(r,\\log r)\\\\ \\Longrightarrow\\ \\operatorname{KL}_t\\leq e^{-t/C_M}\\operatorname{KL}_0\\end{gathered}",
+      "mechanism": "A PL-shaped energy-dissipation inequality gives entropy decay. Finite jumps use the logarithmic difference rather than the diffusion spatial-gradient chain rule.",
+      "hypothesis_map": "Finite pi-reversible chain, positive density r of mean one, L=P-I; specify extension to densities with zeros. The displayed C_M convention has no hidden factor two. Entropy factorization requires its own pinning/marginal hypotheses.",
+      "conclusion_map": "Transport the scalar decay proof, not the diffusion Fisher-information formula. Establish the finite entropy derivative and modified LSI separately.",
+      "failure_boundary": "Ordinary LSI with E(sqrt(r),sqrt(r)), modified LSI with E(r,log r), and Poincare are different inequalities. Continuous-time entropy decay does not automatically certify discrete-time KL contraction.",
+      "source_ids": [
+        "discrete-primary",
+        "discrete-coupling"
+      ],
+      "shared_stages": [
+        "finite-dirichlet",
+        "entropy",
+        "scalar-decay"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-discrete-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "Typed (state space, probability law, operator, discrepancy, metric, clock) presentations.",
+        "morphisms": "Only the explicitly scoped mechanism/adapter; no total morphism map constructed.",
+        "identity": "Unproved; no certified functor claim.",
+        "composition": "Unproved; composed transfers need fresh hypothesis and normalization checks."
+      }
+    },
+    {
+      "id": "transport:discrete-transport",
+      "label": "Finite-chain entropy flow needs a chain-dependent metric",
+      "family_ids": [
+        "family:metric-gradient-flow"
+      ],
+      "tails": [
+        "concept:transport",
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:discrete-sampling"
+      ],
+      "relation_kind": "conceptual mirror candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "\\partial_t r=(P-I)r=-\\operatorname{grad}_{\\mathcal W_P}\\operatorname{Ent}_\\pi(r)",
+      "mechanism": "For a finite irreducible reversible chain, a logarithmic-mean transport metric identifies the Markov heat equation as entropy gradient flow; the chain defines the geometry.",
+      "hypothesis_map": "Fix P, positive stationary pi, irreducibility, reversibility, tangent/mobility construction and its boundary extension. Use the precise Maas metric W_P, not a metric inferred from the set alone.",
+      "conclusion_map": "Share the metric-flow/energy-dissipation template after a separate finite transport adapter; coordinate gradient and continuous W2 instances remain distinct.",
+      "failure_boundary": "Ordinary W2 on a discrete metric space is not this logarithmic-mean metric. Neither an LSI nor geodesic curvature is supplied just by drawing this bridge.",
+      "source_ids": [
+        "discrete-maas"
+      ],
+      "shared_stages": [
+        "finite-dirichlet",
+        "entropy"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-discrete-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "Typed (state space, probability law, operator, discrepancy, metric, clock) presentations.",
+        "morphisms": "Only the explicitly scoped mechanism/adapter; no total morphism map constructed.",
+        "identity": "Unproved; no certified functor claim.",
+        "composition": "Unproved; composed transfers need fresh hypothesis and normalization checks."
+      }
+    },
+    {
+      "id": "transport:discrete-influence",
+      "label": "Conditional covariance control versus curvature language",
+      "family_ids": [
+        "family:conditional-dependence"
+      ],
+      "tails": [
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:discrete-sampling"
+      ],
+      "relation_kind": "conceptual mirror candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "\\begin{gathered}\\Psi_\\mu(i,j)=\\frac{\\operatorname{Cov}_\\mu(\\sigma_i,\\sigma_j)}{\\operatorname{Var}_\\mu(\\sigma_i)}\\quad(i\\ne j)\\\\ \\sup_{\\tau\\text{ feasible}}\\lambda_{\\max}(\\Psi_{\\mu^\\tau})\\leq\\eta\\end{gathered}",
+      "mechanism": "Matrix and covariance inequalities recur, but the useful discrete property is uniform spectral control of conditional influences. This is a structural comparison, not strong convexity on a spin cube.",
+      "hypothesis_map": "Binary spins with nonzero conditional single-site variances; off-diagonal convention, diagonal and frozen-site handling explicit. Normalize/symmetrize in the correct weighted inner product and check every required pinning.",
+      "conclusion_map": "Reuse covariance/PSD algebra. A model-specific pinning bound then feeds a separately proved local-to-global mixing theorem.",
+      "failure_boundary": "An unconditional covariance bound is not uniform spectral independence. Generating-polynomial log-concavity is not density log-concavity; no Euclidean Hessian lower bound or universal rapid mixing follows.",
+      "source_ids": [
+        "discrete-primary",
+        "discrete-coupling"
+      ],
+      "shared_stages": [
+        "conditional-influence",
+        "linear-algebra"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-discrete-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "Typed (state space, probability law, operator, discrepancy, metric, clock) presentations.",
+        "morphisms": "Only the explicitly scoped mechanism/adapter; no total morphism map constructed.",
+        "identity": "Unproved; no certified functor claim.",
+        "composition": "Unproved; composed transfers need fresh hypothesis and normalization checks."
       }
     }
   ],
@@ -402,6 +747,26 @@
       "title": "Mathlib pinned source: probability kernels",
       "url": "https://github.com/leanprover-community/mathlib4/tree/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Probability/Kernel",
       "anchor": "Reuse-search location, not a certified match to the proposed transport"
+    },
+    "discrete-primary": {
+      "title": "Chen–Štefankovič–Vigoda: Spectral Independence and Local-to-Global Techniques for Optimal Mixing of Markov Chains",
+      "url": "https://arxiv.org/pdf/2307.13826v4",
+      "anchor": "§3 variance/gap; §6.8 entropy; §§2,4.1 influence/pinning; §12 Ising (proofs external)"
+    },
+    "discrete-maas": {
+      "title": "Maas: Gradient flows of the entropy for finite Markov chains",
+      "url": "https://arxiv.org/abs/1102.5238",
+      "anchor": "Finite irreducible reversible chains; logarithmic-mean transport metric and heat flow"
+    },
+    "discrete-coupling": {
+      "title": "Blanca et al.: Coupling, Spectral Independence, and Entropy Factorization",
+      "url": "https://arxiv.org/abs/2103.07459",
+      "anchor": "Coupling, spectral independence and entropy-factorization implications under explicit model assumptions"
+    },
+    "discrete-lpw": {
+      "title": "Levin–Peres (with Wilmer): Markov Chains and Mixing Times, 2nd ed.",
+      "url": "https://pages.uoregon.edu/dlevin/MARKOV/",
+      "anchor": "Reversibility, spectral gaps, coupling and mixing; discrete/continuous-time conventions"
     }
   }
 }

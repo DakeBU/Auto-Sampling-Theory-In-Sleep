@@ -120,7 +120,8 @@ def validate_data(ot=None, plan=None, model=None, memory=None, mirror_policy=Non
     require(set(memory.get('views', {})) == {'overview', 'lean', 'functor'}, 'Graph memory must document exactly the three main graph truth views')
 
     ids = {o['id'] for o in model['objects']}
-    require(len(ids) == len(model['objects']) == 5, 'Cross-domain contract invariant failed')
+    require(len(ids) == len(model['objects']) and len(ids) >= 6, 'Unique peer conceptual domains required')
+    require('concept:discrete-sampling' in ids, 'Discrete Sampling conceptual domain missing')
     require(model['center'] in ids, 'Cross-domain contract invariant failed')
     edge_ids = set()
     for edge in model['hyperedges']:
@@ -162,6 +163,8 @@ def validate_data(ot=None, plan=None, model=None, memory=None, mirror_policy=Non
             require(isinstance(binding.get('truth_boundary'), str) and binding['truth_boundary'].strip(), f"Graph memory family {family['id']} compiled binding lacks truth boundary")
         for slot in ('plain_language', 'reading_order', 'do_not_conflate'):
             require(family.get(slot), f"Graph memory family {family['id']} lacks {slot}")
+    import discrete_sampling
+    discrete_sampling.validate_data(model=model)
 
 
 def write_ot_pages(output: Path, shelves) -> None:
@@ -240,6 +243,8 @@ def add_to_graph(builder) -> dict[str, Any]:
         builder.edge('library-chapter:optimal-transport:'+a,'library-chapter:optimal-transport:'+b,'source prerequisite')
     for a,b in ot['chapter_reference_edges']:
         builder.edge('library-chapter:optimal-transport:'+a,'library-chapter:optimal-transport:'+b,'source cross-reference')
+    import discrete_sampling
+    discrete_sampling.add_to_graph(builder)
     for obj in model['objects']:
         builder.add(obj['id'],'concept-domain',obj['label'],status='shared',subtitle=obj['space'],url=obj['url'],details=[{'label':k.title(),'value':obj[k]} for k in ['space','energy','assumptions']])
 
@@ -248,6 +253,8 @@ def add_to_graph(builder) -> dict[str, Any]:
     # dashed and never become compiler dependencies or transport certificates.
     for edge in model['hyperedges']:
         details = [{'label':'Evidence boundary','value':'Literature/structural correspondence; no Lean-certified functor or theorem transfer.'}]
+        if edge.get('review'):
+            details += [{'label':'Review status','value':edge['review']['status']}, {'label':'Review boundary','value':'A candidate awaits independent source review. Source review does not certify a Lean transport.'}]
         if edge.get('family_ids'):
             details += [{'label':'Conceptual families','value':', '.join(edge['family_ids'])}]
         details += [{'label':k.replace('_',' ').title(),'value':edge[k]} for k in ['mechanism','hypothesis_map','conclusion_map','failure_boundary']]
@@ -293,6 +300,8 @@ def graph_guide_html() -> str:
 def validate_site(output: Path) -> None:
     validate_data()
     import library_shelves
+    import discrete_sampling
+    discrete_sampling.validate_site(output)
     ot = load(OT_PATH)
     memory = load(GRAPH_MEMORY_PATH)
     canonical = set(library_shelves.canonical_theme_styles(output))
@@ -304,7 +313,7 @@ def validate_site(output: Path) -> None:
         require('Statistical Optimal Transport' in text and 'Higher-Order Smoothness' in text, f'Navigation mismatch {rel}')
     graph = load(output/'data/underlying-lean-graph.json')
     require(len(graph['hyperedges']) == len(load(FUNCTOR_PATH)['hyperedges']), 'Cross-domain contract invariant failed')
-    require(graph['counts']['conceptual_domains'] == 5, 'Cross-domain contract invariant failed')
+    require(graph['counts']['conceptual_domains'] == len(load(FUNCTOR_PATH)['objects']), 'Conceptual domain count drift')
     lookup = {n['id']: n for n in graph['nodes']}
     present = set(lookup)
     for edge in graph['hyperedges']:
