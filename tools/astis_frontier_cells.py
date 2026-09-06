@@ -19,7 +19,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CELL_ROOT = ROOT / "research-wiki" / "frontier-cells"
 
-ROUTES = {"samplewiki-route", "riemannian-optimization", "optimisation", "statistical-optimal-transport", "higher-order-sampling", "shared"}
+ROUTES = {"samplewiki-route", "riemannian-optimization", "optimisation", "statistical-optimal-transport", "higher-order-sampling", "discrete-sampling", "shared"}
 MODES = {"faithfulPaper", "exploratoryProof"}
 STATUSES = {
     "claimed",
@@ -159,7 +159,7 @@ def validate_cells(cells: list[dict[str, Any]]) -> list[str]:
                     f"{path}: route-local cell may not implement a new shared foundation; open/use the shared cell first"
                 )
 
-        if route in {"statistical-optimal-transport", "higher-order-sampling"} and cell.get("schema_version") != 2:
+        if route in {"statistical-optimal-transport", "higher-order-sampling", "discrete-sampling"} and cell.get("schema_version") != 2:
             errors.append(f"{path}: new cross-domain routes require schema_version 2")
         if cell.get("schema_version") not in {1, 2}:
             errors.append(f"{path}: unsupported schema_version")
@@ -195,6 +195,21 @@ def validate_cells(cells: list[dict[str, Any]]) -> list[str]:
                 for key in ("potential_class", "smoothness_p", "oracle_q", "dynamics_k", "accuracy_r", "metric", "start", "cost"):
                     if not _nonempty(comparison.get(key)):
                         errors.append(f"{path}: higher-order sampling needs comparison_contract.{key}")
+
+        if route == "discrete-sampling" or "discrete-sampling" in _list(cell.get("consumers")):
+            contract = cell.get("discrete_state_contract")
+            if not isinstance(contract, dict):
+                errors.append(f"{path}: discrete consumers require discrete_state_contract")
+                contract = {}
+            for key in ("state_space", "support", "target", "operator", "time_model", "clock", "reversibility", "pinning", "regime", "metric", "cost", "source_proof_status"):
+                if not _nonempty(contract.get(key)):
+                    errors.append(f"{path}: discrete_state_contract.{key} must be explicit")
+            if contract.get("time_model") not in {"discrete-time", "continuous-time", "static"}:
+                errors.append(f"{path}: discrete time_model must be discrete-time, continuous-time or static")
+            if contract.get("time_model") == "discrete-time" and not _nonempty(contract.get("aperiodicity_or_absolute_gap")):
+                errors.append(f"{path}: discrete-time claims require aperiodicity_or_absolute_gap (or explicit not-applicable reason)")
+            # Static/shared algebra may say why a field is not applicable, but
+            # cannot silently omit the finite-state consumer's contract.
 
         evidence = cell.get("evidence")
         if not isinstance(evidence, dict):

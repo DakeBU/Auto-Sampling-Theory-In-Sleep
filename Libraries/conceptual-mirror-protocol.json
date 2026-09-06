@@ -108,5 +108,11 @@
       "name": "One regularized energy, optimization or sampling output",
       "core": "A common quadratic-regularized energy can be minimized by a proximal operator or exponentiated and normalized by a restricted Gaussian oracle."
     }
-  ]
+  ],
+  "candidate_visibility": {
+    "policy": "A source-anchored seed may be shown as candidate in the Functor review catalogue, never as a validated Discovery or compiled edge.",
+    "gate": "Independent reviewer differs from proposer and supplies source-review evidence; then normal stabilization applies.",
+    "scope": "Discrete Sampling seed bridges expose review.status, proposed_by, independent_reviewer and evidence.",
+    "certification": "Source review never grants Lean certification."
+  }
 }

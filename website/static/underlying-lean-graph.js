@@ -51,7 +51,12 @@
     "transport:pl-lsi":"PL ↔ LSI / KL", "transport:pi-chi2":"Poincaré ↔ χ²",
     "transport:entropy-sandwich":"KL gap / PL / growth", "transport:duality":"Convex duality",
     "transport:high-order":"Smoothness to accuracy?", "transport:oracle-reduction":"Oracle reduction",
-    "transport:statistical-loss":"Data, loss and risk"
+    "transport:statistical-loss":"Data, loss and risk",
+    "concept:discrete-sampling":"Discrete Sampling",
+    "transport:discrete-pi":"Finite Poincaré / χ²",
+    "transport:discrete-mlsi":"Modified LSI / KL",
+    "transport:discrete-transport":"Chain-dependent transport",
+    "transport:discrete-influence":"Conditional influence"
   };
 
   function viewIds(all) {
@@ -112,11 +117,14 @@
         "transport:gibbs-prox":[0,510], "transport:metric-pl":[340,510], "transport:wasserstein-flow":[680,510],
         "transport:pi-chi2":[0,680], "transport:pl-lsi":[340,680],
         "concept:sampling":[0,850], "transport:entropy-sandwich":[340,850], "concept:transport":[680,850],
-        "transport:high-order":[0,1020], "transport:statistical-loss":[680,1020]
+        "transport:high-order":[0,1020], "transport:statistical-loss":[680,1020],
+        "transport:discrete-influence":[1020,170], "concept:discrete-sampling":[1020,510],
+        "transport:discrete-mlsi":[1020,680], "transport:discrete-pi":[1020,850],
+        "transport:discrete-transport":[1020,1020]
       };
       const positions = new Map(); let extra = 0;
       [...ids].forEach(id => { const a=anchors[id] || [340,1190+extra++*140]; positions.set(id,{x:a[0]+20,y:a[1]+20}); });
-      return {positions,width:1020,height:1180+extra*140};
+      return {positions,width:1360,height:1180+extra*140};
     }
     const columns = new Map(); let maxColumn = 0;
     [...ids].forEach(id => { const n=nodes.get(id); const explicit=Number(n.column); const key=Number.isFinite(explicit) ? explicit : (kindOrder[n.kind] ?? 3); maxColumn=Math.max(maxColumn,key); if (!columns.has(key)) columns.set(key, []); columns.get(key).push(n); });

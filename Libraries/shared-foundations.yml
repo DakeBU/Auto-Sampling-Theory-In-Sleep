@@ -24,7 +24,16 @@ source_spines:
     source: Nicolas Boumal, An Introduction to Optimization on Smooth Manifolds
   statistical-optimal-transport:
     source: Chewi, Niles-Weed, Rigollet, Statistical Optimal Transport
+  discrete-sampling:
+    source: Chen, Štefankovič, Vigoda, arXiv:2307.13826v4
+    role: finite-state source spine; not SDE time discretization
 checkpoints:
+  - id: finite-reversible-dirichlet-entropy
+    consumers: [discrete-sampling, log-concave-sampling, statistical-optimal-transport]
+    source_links: ["Discrete Sampling §§3.2-3.7 and §6.8", "Sampling Chapter 2", "Maas arXiv:1102.5238"]
+    status: candidate
+    note: share kernels, L2/entropy algebra and scalar decay; separate finite-jump and diffusion dissipation identities, clock rates and transport metrics
+
   - id: euclidean-linear-algebra-foundations
     consumers: [log-concave-sampling, optimisation, riemannian-optimization, statistical-optimal-transport]
     source_links:

@@ -132,7 +132,7 @@ class CrossDomainProgramTests(unittest.TestCase):
     def test_frontloaded_spine_is_acyclic_and_distinct_from_samplewiki(self):
         spine=json.loads(SPINE_PATH.read_text())
         self.assertEqual([x['id'] for x in spine['textbook_windows']],[
-            'log-concave-sampling','optimisation','riemannian-optimization','statistical-optimal-transport'])
+            'log-concave-sampling','optimisation','riemannian-optimization','statistical-optimal-transport','discrete-sampling'])
         self.assertNotIn('samplewiki-route',[x['id'] for x in spine['textbook_windows']])
         seen=set()
         for node in spine['nodes']:

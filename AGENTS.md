@@ -365,3 +365,14 @@ Reject:
 ## Cross-domain routes and source detail audit
 
 Statistical Optimal Transport and Higher-Order Smoothness × Sampling are coordinated with the existing routes. Read `docs/cross-domain-program.md` and `docs/conceptual-mirror-protocol.md`; use `Libraries/cross-domain-program.json` for dependency-ready shared work and `website/content/graph_memory_index.json` for compact conceptual families. New Frontier Cells use schema 2 with `source_detail_audit`; new substantive advances use schema 3 and require `conceptual_mirror_audit` before `PROVED_LOCAL`. Search formal libraries first; when textbook detail is omitted, consult exact background theorems and record hypotheses/conventions instead of silently changing the target. Conceptual transport hyperedges are not Lean dependencies or certified functors. Upper-bound integrator and lower-bound oracle-hardness lanes remain independent until their comparison contracts match.
+
+
+## Discrete Sampling peer route
+
+Use `discrete-sampling` for finite-state Ising/Glauber, hard-core and matroid work,
+not continuous-state time discretization. Read `docs/discrete-sampling-protocol.md`,
+`Libraries/DiscreteSampling/source-map.json` and `.agents/prompts/discrete-sampling.md`.
+Pull §3 foundations forward; use shared kernel/scalar/entropy cores without waiting
+for SDEs. Every discrete route or shared discrete-consumer cell must carry
+`discrete_state_contract`. The existing schema-v3 conceptual-mirror audit and independent
+verification gates apply unchanged. Candidate bridge display is not validated admission.

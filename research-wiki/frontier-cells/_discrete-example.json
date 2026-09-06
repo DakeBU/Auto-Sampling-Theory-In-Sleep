@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "cell_id": "EXAMPLE-DISCRETE-NOT-A-CLAIM",
+  "route": "discrete-sampling",
+  "title": "Template: finite conditional resampling preserves its target",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2307.13826v4 §1.3; template only, repair audit required",
+  "target_statement": "Replace with one source-pinned finite-kernel theorem and exact support hypotheses.",
+  "status": "claimed",
+  "parents": [],
+  "consumers": [],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib",
+      "Mathlib",
+      "Libraries/shared-foundations.yml"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "",
+    "canonical_shared_cell": "",
+    "notes": "Explain why this is route-local or which existing/shared node is reused."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "Exact version/date/hash for the controlling source",
+    "primary_anchor": "Exact theorem/page/lines",
+    "detail_status": "sufficient",
+    "gap": "",
+    "consulted": [],
+    "fidelity_boundary": "Original statement unchanged; any proposed repair is separately reviewed."
+  },
+  "discrete_state_contract": {
+    "state_space": "finite spin configurations",
+    "support": "positive pi on the admissible support Omega",
+    "target": "source-specific Gibbs law, beta/field/graph conventions explicit",
+    "operator": "source conditional-update Markov kernel P",
+    "time_model": "static",
+    "clock": "not applicable to this one-step stationary-law identity; record rates for any mixing claim",
+    "reversibility": "prove detailed balance only if required by the selected exact statement",
+    "pinning": "conditioning event has positive pi mass; identify frozen sites",
+    "regime": "finite graph; exact target and parameters must replace this example",
+    "metric": "not applicable to a static invariance identity",
+    "cost": "one kernel application; no complexity theorem claimed",
+    "source_proof_status": "replace by exact sufficient/omitted/external source-proof audit"
+  }
+}

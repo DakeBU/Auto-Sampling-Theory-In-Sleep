@@ -38,3 +38,15 @@ libraries:
     appendices: 2
     source_map: /Libraries/StatisticalOptimalTransport/source-map.json
     site: /libraries/statistical-optimal-transport/
+
+  - id: discrete-sampling
+    title: Discrete Sampling
+    source: https://arxiv.org/pdf/2307.13826v4
+    source_map: /Libraries/DiscreteSampling/source-map.json
+    kind: textbook
+    priority: scaffold
+    authors: [Zongchen Chen, Daniel Štefankovič, Eric Vigoda]
+    chapters: 12
+    site: /libraries/discrete-sampling/
+    state_space: finite-discrete
+    protocol: /docs/discrete-sampling-protocol.md

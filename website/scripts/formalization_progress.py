@@ -24,6 +24,7 @@ import astis_frontier_cells  # noqa: E402
 import astis_site  # noqa: E402
 import library_shelves  # noqa: E402
 import cross_domain  # noqa: E402
+import discrete_sampling  # noqa: E402
 
 
 DEFAULT_OUTPUT = ROOT / "_site"
@@ -46,6 +47,7 @@ ROUTE_ANCHORS = {
     "optimisation": "optimisation",
     "statistical-optimal-transport": "optimal-transport",
     "higher-order-sampling": "higher-order-sampling",
+    "discrete-sampling": "discrete-sampling",
 }
 
 PRIVATE_PUBLIC_MARKERS = (
@@ -88,6 +90,7 @@ def progress_sidebar(rel: str) -> str:
     <a href="{dashboard_href(rel, 'optimisation')}">Optimisation</a>
     <a href="{dashboard_href(rel, 'optimal-transport')}">Statistical Optimal Transport Route</a>
     <a href="{dashboard_href(rel, 'higher-order-sampling')}">Higher-Order Smoothness × Sampling</a>
+    <a href="{dashboard_href(rel, 'discrete-sampling')}">Discrete Sampling Route</a>
   </nav>
 </section>"""
 
@@ -305,15 +308,16 @@ def overview_body() -> str:
     return f"""
 <section class="page-hero compact progress-hero" data-current-progress="overview">
   <div class="eyebrow">Samplinglib · Current Progress</div>
-  <h1>Five routes, one collaboration board.</h1>
-  <p class="lede">SampleWiki, Riemannian Optimization, Optimisation, Statistical Optimal Transport, and higher-order sampling advance in parallel on one page. Each theorem-sized task is a Frontier Cell; lower-level mathematics is shared only after a reuse/compatibility audit, so collaborators can move independently without rebuilding the same Lean foundation.</p>
-  <nav class="progress-dashboard-nav" aria-label="Current Progress routes"><a href="#samplewiki">SampleWiki Route</a><a href="#riemannian">Riemannian Optimization</a><a href="#optimisation">Optimisation</a><a href="#optimal-transport">Statistical Optimal Transport Route</a><a href="#higher-order-sampling">Higher-Order Smoothness × Sampling</a><a href="#shared-order">Shared order</a><a href="#protocol">Harness protocol</a></nav>
+  <h1>Six routes, one collaboration board.</h1>
+  <p class="lede">SampleWiki, Riemannian Optimization, Optimisation, Statistical Optimal Transport, Discrete Sampling, and higher-order sampling advance in parallel on one page. Each theorem-sized task is a Frontier Cell; lower-level mathematics is shared only after a reuse/compatibility audit, so collaborators can move independently without rebuilding the same Lean foundation.</p>
+  <nav class="progress-dashboard-nav" aria-label="Current Progress routes"><a href="#samplewiki">SampleWiki Route</a><a href="#riemannian">Riemannian Optimization</a><a href="#optimisation">Optimisation</a><a href="#optimal-transport">Statistical Optimal Transport Route</a><a href="#higher-order-sampling">Higher-Order Smoothness × Sampling</a><a href="#discrete-sampling">Discrete Sampling Route</a><a href="#shared-order">Shared order</a><a href="#protocol">Harness protocol</a></nav>
 </section>
 <div class="progress-dashboard" data-unified-progress-dashboard="true">
 {route_panel(route_id="samplewiki-route", anchor="samplewiki", title="SampleWiki Route", eyebrow="Dependency-first frontier route", status="active", source_label="Open SampleWiki", source_url="../example-cases/samplewiki.html", lede="Immediate priority: extend the verified Chewi spine until useful frontier sampling results can enter the same theorem graph with exact source fidelity.", items=samplewiki_items, cells=grouped["samplewiki-route"], actions=samplewiki_actions)}
 {route_panel(route_id="riemannian-optimization", anchor="riemannian", title="Riemannian Optimization", eyebrow="Boumal route", status="scaffold", source_label="Open library", source_url="../libraries/riemannian-optimization/index.html", lede="Formalize Boumal while sharing only mathematically identical geometry foundations with the sampling route. Convention differences stay explicit in adapters.", items=riemannian_items, cells=grouped["riemannian-optimization"], actions=riemannian_actions)}
 {route_panel(route_id="optimisation", anchor="optimisation", title="Optimisation", eyebrow="Sinho Chewi · arXiv:2605.07006", status="scaffold", source_label="Open library", source_url="../libraries/optimisation/index.html", lede="Formalize Chewi's public optimization notes section by section, reusing Mathlib/Optlib/CvxLean and exposing exact shared convex/proximal/mirror foundations with sampling.", items=optimisation_items, cells=grouped["optimisation"], actions=optimisation_actions)}
 {cross_domain.extra_route_panels(grouped, route_panel)}
+{discrete_sampling.route_panel(grouped, route_panel)}
 </div>
 {cross_domain.shared_plan_html()}
 <section class="progress-intersections">
@@ -336,7 +340,7 @@ def write_page(output: Path, rel: str, title: str, body: str, description: str) 
 def write_alias(output: Path, rel: str, title: str, anchor: str) -> None:
     target = f"index.html#{anchor}"
     body = f"""
-<section class="page-hero compact"><div class="eyebrow">Samplinglib · Current Progress</div><h1>{escape(title)}</h1><p class="lede">Current Progress is now one collaboration dashboard so all five formalization and research routes and their shared lower-level foundations stay visible together.</p><p><a class="button primary" href="{target}">Open {escape(title)} on the dashboard</a></p></section>
+<section class="page-hero compact"><div class="eyebrow">Samplinglib · Current Progress</div><h1>{escape(title)}</h1><p class="lede">Current Progress is now one collaboration dashboard so all six formalization and research routes and their shared lower-level foundations stay visible together.</p><p><a class="button primary" href="{target}">Open {escape(title)} on the dashboard</a></p></section>
 """
     text = astis_site.page(f"{title} — Current Progress", rel, body, active="Progress")
     text = text.replace(
@@ -386,13 +390,14 @@ def lift_samplewiki_detail(output: Path) -> None:
 def home_blocks() -> str:
     return """
 <section class="home-progress" data-formalization-progress-home="true">
-  <div class="section-heading"><span>Current Progress</span><h2>One collaboration dashboard for all five routes.</h2></div>
+  <div class="section-heading"><span>Current Progress</span><h2>One collaboration dashboard for all six routes.</h2></div>
   <div class="home-progress-grid">
     <a class="home-route-samplewiki" href="progress/index.html#samplewiki"><strong>SampleWiki Route</strong><span>dependency-first path to frontier results</span></a>
     <a class="home-route-riemannian" href="progress/index.html#riemannian"><strong>Riemannian Optimization</strong><span>Boumal source route</span></a>
     <a class="home-route-optimisation" href="progress/index.html#optimisation"><strong>Optimisation</strong><span>Sinho Chewi · arXiv:2605.07006</span></a>
     <a href="progress/index.html#optimal-transport"><strong>Statistical Optimal Transport Route</strong><span>transport, geometry and statistics</span></a>
     <a href="progress/index.html#higher-order-sampling"><strong>Higher-Order Smoothness × Sampling</strong><span>fixed-oracle, cost-aware research</span></a>
+    <a href="progress/index.html#discrete-sampling"><strong>Discrete Sampling Route</strong><span>Ising / Glauber and finite-state mixing</span></a>
   </div>
   <p><a class="button" href="progress/index.html">Open unified Current Progress</a></p>
 </section>
@@ -408,9 +413,9 @@ def home_blocks() -> str:
 def patch_home(text: str) -> str:
     if 'data-formalization-progress-home="true"' in text:
         return text
-    pattern = re.compile(r'(<section class="source-portal-grid source-portal-grid-five".*?</section>)', re.S)
+    pattern = re.compile(r'(<section class="source-portal-grid source-portal-grid-six".*?</section>)', re.S)
     if not pattern.search(text):
-        raise RuntimeError("homepage five-library portal section missing")
+        raise RuntimeError("homepage six-library portal section missing")
     return pattern.sub(lambda match: match.group(1) + home_blocks(), text, count=1)
 
 
@@ -539,6 +544,7 @@ def enrich_site(output: Path = DEFAULT_OUTPUT) -> None:
     write_alias(output, OLD_FIRST_ORDER_ROUTE, "Optimisation", "optimisation")
     write_alias(output, "progress/statistical-optimal-transport.html", "Statistical Optimal Transport Route", "optimal-transport")
     write_alias(output, "progress/higher-order-sampling.html", "Higher-Order Smoothness × Sampling", "higher-order-sampling")
+    write_alias(output, "progress/discrete-sampling.html", "Discrete Sampling Route", "discrete-sampling")
     cross_domain.write_research_page(output)
     transform_site(output)
     validate(output)
