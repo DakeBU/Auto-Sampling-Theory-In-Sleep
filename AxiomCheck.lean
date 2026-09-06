@@ -1,0 +1,2 @@
+import ReviewLibrary.TechnicalLemmas.Analysis.StrongConvexFirstOrder
+#print axioms ReviewLibrary.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn

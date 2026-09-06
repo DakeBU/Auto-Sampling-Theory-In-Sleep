@@ -1,4 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Probability.UniformExpectationGap
-
-#check AutoSamplingTheory.TechnicalLemmas.Probability.UniformExpectationGap.integral_lt_integral_of_ae_add_le
-#check AutoSamplingTheory.TechnicalLemmas.Probability.UniformExpectationGap.integral_lt_integral_of_ae_gap

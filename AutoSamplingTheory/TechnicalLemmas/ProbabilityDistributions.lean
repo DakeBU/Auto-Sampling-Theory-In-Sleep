@@ -1,8 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian
-
-/-!
-# Probability-distribution technical lemma arsenal
-
-Parent import surface for reusable distribution-specific leaves.
--/
-

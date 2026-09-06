@@ -1,8 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChain
-
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChain.chainValue
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChain.PairingClosedChainMonotone
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChain.chainValue_append_cons
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChain.exists_split_of_mem
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChain.exists_duplicate_split
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingClosedChain.chainValue_duplicate_split

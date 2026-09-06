@@ -1,4 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementMonotoneDerivative
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementMonotoneDerivative.inner_fderiv_nonneg_of_monotone
-#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementMonotoneDerivative.isPositive_fderiv_of_monotone_of_isSymmetric

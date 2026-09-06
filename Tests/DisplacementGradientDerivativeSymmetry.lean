@@ -1,3 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementGradientDerivativeSymmetry
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementGradientDerivativeSymmetry.isSymmetric_fderiv_of_gradient_field

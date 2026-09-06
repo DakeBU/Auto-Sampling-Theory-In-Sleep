@@ -1,8 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve
-
-namespace AutoSamplingTheory.Tests.MetricCurve
-
-#check AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve.HasMetricDerivativeAt
-#check AutoSamplingTheory.TechnicalLemmas.Geometry.MetricCurve.IsAbsolutelyContinuousMetricCurve
-
-end AutoSamplingTheory.Tests.MetricCurve

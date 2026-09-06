@@ -1,4 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductPairMarginal
-
-#check AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductPairMarginal.map_pair_eval_eq_prod
-#check AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductPairMarginal.integral_comp_pair_eval

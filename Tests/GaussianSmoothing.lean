@@ -1,5 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.scaledStdGaussian
-#check AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing
-#check AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.wassersteinDistance_gaussianSmoothing_le

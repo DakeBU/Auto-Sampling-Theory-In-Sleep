@@ -1,4 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementDerivativeLogDet
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementDerivativeLogDet.neg_log_det_affineDisplacementDerivative_le
-#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementDerivativeLogDet.hasFDerivAt_affineDisplacementMap_and_neg_log_det

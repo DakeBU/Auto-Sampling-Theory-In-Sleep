@@ -1,6 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.ReplacementCompetitor
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.ReplacementCompetitor.replacementCompetitor
-#check AutoSamplingTheory.TechnicalLemmas.Measure.ReplacementCompetitor.replacementCompetitor_map_fst
-#check AutoSamplingTheory.TechnicalLemmas.Measure.ReplacementCompetitor.replacementCompetitor_map_snd
-#check AutoSamplingTheory.TechnicalLemmas.Measure.ReplacementCompetitor.replacementCompetitor_preserves_marginals

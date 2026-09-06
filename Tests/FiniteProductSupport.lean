@@ -1,4 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductSupport
-
-#check AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductSupport.pi_box_apply_eq_one
-#check AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductSupport.ae_mem_pi_box

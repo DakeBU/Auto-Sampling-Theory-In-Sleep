@@ -1,3 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Analysis.MeasurableGradient
-
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.MeasurableGradient.measurable_gradient

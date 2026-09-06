@@ -1,9 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator
-
-namespace AutoSamplingTheory.Tests.GeneratorFunctionalInequalities
-
-#check AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm
-#check AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare
-#check AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesLogSobolev
-
-end AutoSamplingTheory.Tests.GeneratorFunctionalInequalities

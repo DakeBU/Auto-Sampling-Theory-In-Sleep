@@ -1,3 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianAffineSpectrum
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementJacobianAffineSpectrum.affineIdentityMatrix_mulVec_eigenvectorBasis

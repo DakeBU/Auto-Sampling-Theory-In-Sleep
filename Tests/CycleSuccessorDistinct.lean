@@ -1,4 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Analysis.CycleSuccessorDistinct
-
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.CycleSuccessorDistinct.cycleLength_pos_of_cycleValue_pos
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.CycleSuccessorDistinct.cycleSuccessorPerm_ne_self_of_pos

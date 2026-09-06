@@ -1,6 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalItoProcessProgressive
-
-open MeasureTheory
-open scoped NNReal
-
-#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.GlobalItoProcessProgressive.globalItoProcess_stronglyProgressive

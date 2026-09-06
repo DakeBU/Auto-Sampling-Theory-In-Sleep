@@ -1,5 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSubgradient
-
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSubgradient.SupportsAt
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSubgradient.eq_gradient_of_supportsAt_of_hasFDerivAt
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSubgradient.supportsAt_unique_of_hasFDerivAt

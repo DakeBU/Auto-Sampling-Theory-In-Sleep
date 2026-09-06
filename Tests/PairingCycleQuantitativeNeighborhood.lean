@@ -1,3 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCycleQuantitativeNeighborhood
-
-#check AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCycleQuantitativeNeighborhood.exists_pairwiseDisjoint_bounded_open_rectangles_of_cycleValue_pos

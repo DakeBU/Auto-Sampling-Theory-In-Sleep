@@ -1,3 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.ConvexInteriorAE
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.ConvexInteriorAE.ae_mem_interior_of_convex_of_absolutelyContinuous

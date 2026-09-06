@@ -1,3 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalRealMinimality
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.QuadraticOptimalRealMinimality.integral_norm_sq_le_of_quadraticOptimal

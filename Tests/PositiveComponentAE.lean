@@ -1,5 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.PositiveComponentAE
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.PositiveComponentAE.absolutelyContinuous_smul_add_left
-#check AutoSamplingTheory.TechnicalLemmas.Measure.PositiveComponentAE.ae_of_ae_smul_add_left
-#check AutoSamplingTheory.TechnicalLemmas.Measure.PositiveComponentAE.ae_of_ae_add_smul_right

@@ -1,3 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassNormalizedProduct
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassNormalizedProduct.commonMassProduct_toMeasure_eq_mass_smul_normalized_prod

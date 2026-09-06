@@ -1,3 +1,0 @@
-import AutoSamplingTheory.TechnicalLemmas.Measure.StrictCycleCheaperLocalReplacement
-
-#check AutoSamplingTheory.TechnicalLemmas.Measure.StrictCycleCheaperLocalReplacement.exists_localBlocks_cyclicReplacement_lt_of_cycleValue_pos
