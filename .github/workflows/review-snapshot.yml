@@ -1,0 +1,27 @@
+name: Frozen review artifact
+on:
+  push:
+    branches: [review/mathai-2026-frozen]
+    paths: [.github/workflows/review-snapshot.yml]
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: review/mathai-2026-frozen
+          persist-credentials: false
+      - name: Author-only preparation bundle
+        run: |
+          mkdir -p /tmp/review-preparation
+          git archive --format=tar.gz 458d3c9f8d2f7286030c2ccb2893f8a685c38101 -o /tmp/review-preparation/frozen-source.tar.gz
+          curl --fail --location --retry 2 --max-time 90 https://mathai-2026.github.io/files/mathai_neurips2026_template.zip -o /tmp/review-preparation/official-template.zip
+          cd /tmp/review-preparation
+          sha256sum *.zip *.tar.gz > SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: author-only-review-preparation
+          path: /tmp/review-preparation
+          retention-days: 7
