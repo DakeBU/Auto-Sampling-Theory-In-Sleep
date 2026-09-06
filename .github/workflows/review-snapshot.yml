@@ -2,34 +2,96 @@ name: Frozen review artifact
 on:
   push:
     branches: [review/mathai-2026-frozen]
-    paths: [.github/workflows/review-snapshot.yml]
+    paths:
+      - .github/workflows/review-snapshot.yml
+      - review/**
+  workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: frozen-mathai-review
+  cancel-in-progress: false
 jobs:
-  theorem-audit:
+  export:
+    if: github.ref == 'refs/heads/review/mathai-2026-frozen'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 458d3c9f8d2f7286030c2ccb2893f8a685c38101
           persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: 458d3c9f8d2f7286030c2ccb2893f8a685c38101
+          path: frozen-source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - uses: leanprover/lean-action@v1
         with:
           auto-config: false
           build: false
           test: false
           use-mathlib-cache: true
-      - name: Compile the exact named case-study modules
+      - name: Build only the pinned source reader and validate protocol suites
+        working-directory: frozen-source
+        run: |
+          python3 -m pip install beautifulsoup4==4.13.4 playwright==1.57.0
+          python3 -m unittest tools.tests.test_astis_advance tools.tests.test_astis_semantic_roundtrip tools.tests.test_cross_domain_program
+          python3 website/scripts/build_site.py
+      - name: Export selected anonymous review content
+        run: python3 review/export_reader.py --root frozen-source --output /tmp/anonymous-review
+      - name: Recompile the anonymized Lean fixture
         shell: bash
+        working-directory: /tmp/anonymous-review/LeanCase
         run: |
           set -o pipefail
-          mkdir -p /tmp/review-audit
-          lake build AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder Tests.Shared.StrongConvexFirstOrder 2>&1 | tee /tmp/review-audit/focused-lean.log
-          printf 'import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\n#print axioms AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n' > /tmp/ReviewAxioms.lean
-          lake env lean /tmp/ReviewAxioms.lean 2>&1 | tee /tmp/review-audit/axioms.log
-      - uses: actions/upload-artifact@v4
-        if: always()
+          lake update
+          lake exe cache get
+          lake build ReviewLibrary ReviewTest 2>&1 | tee /tmp/review-fixture-build.log
+          lake env lean AxiomCheck.lean 2>&1 | tee /tmp/review-fixture-axioms.log
+      - name: Browser rendering and interaction
+        run: |
+          python3 -m playwright install --with-deps chromium
+          python3 review/check_reader.py /tmp/anonymous-review --evidence /tmp/review-browser
+      - name: Finalize evidence and remove build caches before packaging
+        run: |
+          python3 - <<'PY'
+          import hashlib, html, importlib.util, json, pathlib, shutil
+          from urllib.parse import unquote
+          root=pathlib.Path('/tmp/anonymous-review')
+          axioms=pathlib.Path('/tmp/review-fixture-axioms.log').read_text()
+          for name in ('propext','Classical.choice','Quot.sound'):
+              assert name in axioms, name
+          assert 'sorryAx' not in axioms and 'error:' not in axioms
+          report=json.loads((root/'verification-report.json').read_text())
+          report['anonymous_fixture'].update(status='passed',axioms=['propext','Classical.choice','Quot.sound'])
+          report['browser']=json.loads(pathlib.Path('/tmp/review-browser/browser-report.json').read_text())
+          assert report['browser']['status']=='passed' and report['browser']['formulas_checked']==13
+          (root/'verification-report.json').write_text(json.dumps(report,indent=2)+'\n')
+          shutil.rmtree(root/'LeanCase/.lake')
+          spec=importlib.util.spec_from_file_location('review_export','review/export_reader.py')
+          mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+          for path in root.rglob('*'):
+              assert not path.is_symlink()
+              if path.is_file():
+                  assert path.suffix.lower() not in {'.woff','.woff2','.ttf','.otf','.log','.olean'}
+                  assert not mod.DENY.search(html.unescape(unquote(path.read_text()))), path
+          data={str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(root.rglob('*')) if p.is_file() and p.name!='integrity.json'}
+          (root/'integrity.json').write_text(json.dumps(data,indent=2)+'\n')
+          PY
+          python3 /tmp/anonymous-review/validate_snapshot.py
+      - name: Archive reviewer-safe files only
+        uses: actions/upload-artifact@v4
         with:
-          name: author-only-focused-lean-audit
-          path: /tmp/review-audit
-          retention-days: 7
+          name: anonymous-review-snapshot
+          path: /tmp/anonymous-review
+          retention-days: 90
+      - name: Archive author-side visual verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: author-only-review-browser
+          path: /tmp/review-browser
+          if-no-files-found: ignore
+          retention-days: 14
