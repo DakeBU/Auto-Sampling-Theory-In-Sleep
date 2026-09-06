@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Optlib pinned commit 5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3, Optlib/Convex/StronglyConvex.lean, theorem Strong_Convex_second_lower; Chewi Lectures on Optimization v1, Proposition 1.6 equation (1.4)",
   "target_statement": "Port the pinned Optlib theorem stating that strong convexity plus a supplied gradient on a convex domain implies f(y) >= f(x) + <grad f(x), y-x> + m/2 ||y-x||^2, as one ASTIS-owned shared declaration reusable by Optimization Chapter 1, Sampling Chapter 2, and OT convex-potential arguments.",
-  "status": "claimed",
+  "status": "merged",
   "parents": ["sf-calculus-gradient", "sf-convex-energy"],
   "consumers": [
     "optimisation:Chewi-Proposition-1.6-(1.4)",
@@ -28,11 +28,20 @@
     "notes": "Do not reprove a route-local copy. Port the exact upstream mathematical statement into an ASTIS-owned module using current Mathlib/ASTIS primitives; keep Gibbs/log-concavity adapters downstream."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
-    "root_build": "",
-    "graph_regeneration": "",
-    "pr": ""
+    "focused_checks": [
+      "Tests/Shared/StrongConvexFirstOrder.lean is the focused consumer test for the canonical declaration; it passed in the synchronized PR formalization gate",
+      "GitHub Actions PR run 34017680187 completed every formalization step successfully on synchronized head 7dfc7eb3e14b349bb4991165d9f301ab92de25ac"
+    ],
+    "independent_verification": "Clean-run GitHub Actions verification on PR #239: formalization run 34017680187 passed Harness contracts, pinned ATLAS certification, Chewi source checks, semantic round trips, canonical ASTIS Lean/Tests/fake-closure consistency gate, and Chapter 1 evidence. The proving script did not self-publish this verification.",
+    "root_build": "PR #239 formalization run 34017680187 passed the canonical python3 tools/astis.py check on the branch after it was synchronized with main and the conceptual-mirror protocol.",
+    "graph_regeneration": "Post-merge main Samplinglib site run 34018250035 completed successfully, including graph generation, cross-domain browser checks, static artifact creation, and GitHub Pages deployment.",
+    "pr": "PR #239 merged by squash as main commit 6b132f9745178d43f7a6051180dbbf059497d220"
+  },
+  "conceptual_mirror_annotation": {
+    "family_ids": ["family:curvature-growth"],
+    "bridge_ids": ["transport:curvature-growth"],
+    "role": "compiled Euclidean substrate for the lower-curvature -> quadratic first-order model part of the family",
+    "truth_boundary": "This theorem does not certify Riemannian geodesic strong convexity, Wasserstein displacement convexity, Bakry-Emery curvature, PL, Poincare, LSI, or any implication among those conditions."
   },
   "blocked": {"reason": "", "children": []},
   "source_detail_audit": {
