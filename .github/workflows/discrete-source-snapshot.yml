@@ -1,0 +1,22 @@
+name: Discrete library source snapshot
+on:
+  push:
+    branches: [feat/discrete-sampling-library-20260907]
+    paths: [.github/workflows/discrete-source-snapshot.yml]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 458d3c9f8d2f7286030c2ccb2893f8a685c38101
+          persist-credentials: false
+      - name: Archive tracked source only
+        run: git archive --format=tar.gz -o /tmp/astis-source.tar.gz HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: discrete-library-source
+          path: /tmp/astis-source.tar.gz
+          retention-days: 2
