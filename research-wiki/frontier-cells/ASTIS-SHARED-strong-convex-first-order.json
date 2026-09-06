@@ -33,7 +33,7 @@
       "GitHub Actions PR run 34017680187 completed every formalization step successfully on synchronized head 7dfc7eb3e14b349bb4991165d9f301ab92de25ac"
     ],
     "independent_verification": "Clean-run GitHub Actions verification on PR #239: formalization run 34017680187 passed Harness contracts, pinned ATLAS certification, Chewi source checks, semantic round trips, canonical ASTIS Lean/Tests/fake-closure consistency gate, and Chapter 1 evidence. The proving script did not self-publish this verification.",
-    "root_build": "PR #239 formalization run 34017680187 passed the canonical python3 tools/astis.py check on the branch after it was synchronized with main and the conceptual-mirror protocol.",
+    "root_build": "Post-merge main formalization run 34018250087 passed every step on squash commit 6b132f9745178d43f7a6051180dbbf059497d220, including the canonical python3 tools/astis.py check and Chapter 1 evidence validation.",
     "graph_regeneration": "Post-merge main Samplinglib site run 34018250035 completed successfully, including graph generation, cross-domain browser checks, static artifact creation, and GitHub Pages deployment.",
     "pr": "PR #239 merged by squash as main commit 6b132f9745178d43f7a6051180dbbf059497d220"
   },
