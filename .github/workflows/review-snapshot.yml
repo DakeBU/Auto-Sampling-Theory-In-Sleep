@@ -6,22 +6,30 @@ on:
 permissions:
   contents: read
 jobs:
-  export:
+  theorem-audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: 458d3c9f8d2f7286030c2ccb2893f8a685c38101
           persist-credentials: false
-      - name: Author-only preparation bundle
-        run: |
-          mkdir -p /tmp/review-preparation
-          git archive --format=tar.gz HEAD -o /tmp/review-preparation/frozen-source.tar.gz
-          curl --fail --location --retry 2 --max-time 90 https://mathai-2026.github.io/files/mathai_neurips2026_template.zip -o /tmp/review-preparation/official-template.zip
-          cd /tmp/review-preparation
-          sha256sum *.zip *.tar.gz > SHA256SUMS
-      - uses: actions/upload-artifact@v4
+      - uses: leanprover/lean-action@v1
         with:
-          name: author-only-review-preparation
-          path: /tmp/review-preparation
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+      - name: Compile the exact named case-study modules
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p /tmp/review-audit
+          lake build AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder Tests.Shared.StrongConvexFirstOrder 2>&1 | tee /tmp/review-audit/focused-lean.log
+          printf 'import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\n#print axioms AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n' > /tmp/ReviewAxioms.lean
+          lake env lean /tmp/ReviewAxioms.lean 2>&1 | tee /tmp/review-audit/axioms.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: author-only-focused-lean-audit
+          path: /tmp/review-audit
           retention-days: 7
