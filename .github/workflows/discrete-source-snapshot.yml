@@ -9,13 +9,14 @@ jobs:
   snapshot:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Export tracked source only
-        run: git archive --format=tar HEAD > /tmp/astis-source.tar
+      - name: Download version-pinned public source for audit
+        run: |
+          mkdir -p /tmp/discrete-source
+          curl --fail --location --retry 3 https://arxiv.org/pdf/2307.13826v4 -o /tmp/discrete-source/2307.13826v4.pdf
+          curl --fail --location --retry 3 https://arxiv.org/html/2307.13826v4 -o /tmp/discrete-source/2307.13826v4.html
+          sha256sum /tmp/discrete-source/* > /tmp/discrete-source/SHA256SUMS
       - uses: actions/upload-artifact@v4
         with:
-          name: astis-discrete-source
-          path: /tmp/astis-source.tar
+          name: discrete-primary-source-audit
+          path: /tmp/discrete-source
           retention-days: 1
