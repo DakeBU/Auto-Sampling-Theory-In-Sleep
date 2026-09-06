@@ -10,7 +10,7 @@ permissions:
   contents: read
 concurrency:
   group: frozen-mathai-review
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   export:
     if: github.ref == 'refs/heads/review/mathai-2026-frozen'
@@ -40,7 +40,9 @@ jobs:
           python3 -m unittest tools.tests.test_astis_advance tools.tests.test_astis_semantic_roundtrip tools.tests.test_cross_domain_program
           python3 website/scripts/build_site.py
       - name: Export selected anonymous review content
-        run: python3 review/export_reader.py --root frozen-source --output /tmp/anonymous-review
+        run: |
+          python3 review/export_reader.py --root frozen-source --output /tmp/anonymous-review
+          python3 review/refine_snapshot.py /tmp/anonymous-review frozen-source
       - name: Recompile the anonymized Lean fixture
         shell: bash
         working-directory: /tmp/anonymous-review/LeanCase
