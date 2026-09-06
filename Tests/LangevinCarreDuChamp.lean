@@ -1,0 +1,12 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinCarreDuChamp
+
+namespace AutoSamplingTheory.Tests.LangevinCarreDuChamp
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinCarreDuChamp
+
+#check laplacian_mul
+#check gradient_mul
+#check langevinCarreDuChamp_eq_inner
+#check langevinCarreDuChamp_self_eq_norm_sq
+
+end AutoSamplingTheory.Tests.LangevinCarreDuChamp

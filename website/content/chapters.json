@@ -1,0 +1,893 @@
+[
+  {
+    "id": "chapter-01",
+    "number": 1,
+    "title": "The Langevin Diffusion in Continuous Time",
+    "source_pages": "3–47",
+    "source_sections": [
+      "1.1 A Primer on Stochastic Calculus (p. 3)",
+      "1.2 Markov Semigroup Theory (p. 10)",
+      "1.3 The Geometry of Optimal Transport (p. 19)",
+      "1.4 The Langevin SDE as a Wasserstein Gradient Flow (p. 31)",
+      "1.5 Overview of the Convergence Results (p. 36)"
+    ],
+    "goal": "Build the analytic language that turns Langevin dynamics into quantitative convergence estimates.",
+    "prerequisites": [
+      "Euclidean calculus and multivariable differentiation",
+      "Lebesgue integration and probability measures",
+      "Conditional expectation and elementary Markov-process notation"
+    ],
+    "concepts": [
+      "Markov semigroup",
+      "infinitesimal generator",
+      "Dirichlet form",
+      "Poincaré and log-Sobolev inequalities",
+      "Langevin diffusion",
+      "Gibbs measure",
+      "cutoff approximation"
+    ],
+    "core_definitions": [
+      "A Markov semigroup evolves observables by conditional expectation.",
+      "The infinitesimal generator is a time-zero semigroup derivative on its stated domain.",
+      "The overdamped Langevin SDE has drift minus the potential gradient and isotropic Brownian noise.",
+      "The Wasserstein gradient-flow viewpoint identifies the Fokker-Planck evolution with entropy dissipation."
+    ],
+    "major_results": [
+      "Itô's formula yields the formal Langevin generator.",
+      "The weighted integration-by-parts calculation predicts the Gibbs stationary density.",
+      "Poincaré and log-Sobolev inequalities turn dissipation identities into exponential convergence.",
+      "Strong convexity supplies the condition-number-dependent convergence scale summarized at the end of the chapter."
+    ],
+    "calculation_route": [
+      {
+        "title": "From the SDE to a formal generator",
+        "formula": "dX_t=-\\nabla V(X_t)\\,dt+\\sqrt{2}\\,dB_t \\quad\\Longrightarrow\\quad Lf=\\Delta f-\\langle\\nabla V,\\nabla f\\rangle.",
+        "explanation": "Itô's formula identifies the first-order change of expectations. The displayed operator is only a formal generator until a function domain is fixed."
+      },
+      {
+        "title": "From the generator to dissipation",
+        "formula": "\\int f\\,Lg\\,d\\pi=-\\int\\langle\\nabla f,\\nabla g\\rangle\\,d\\pi,\\qquad d\\pi\\propto e^{-V}dx.",
+        "explanation": "The cancellation explains symmetry and entropy/variance dissipation. ASTIS treats the integration-by-parts passage as a theorem chain, not as notation."
+      },
+      {
+        "title": "From a functional inequality to convergence",
+        "formula": "\\operatorname{Var}_\\pi(P_t f)\\le e^{-2t/C_{\\rm PI}}\\operatorname{Var}_\\pi(f).",
+        "explanation": "Differentiate the variance along the semigroup, insert the Poincaré inequality, and solve the scalar differential inequality."
+      }
+    ],
+    "rigorous_details": [
+      "The weighted integration-by-parts identity first needs compactly supported test functions or a justified cutoff limit.",
+      "Pointwise exhaustion of a cutoff does not imply convergence of its gradient term under an integral.",
+      "A totalized Fréchet derivative equal to zero outside a support set does not assert differentiability there.",
+      "The score-weighted source field must be integrable before dominated convergence can be applied.",
+      "Formal symmetry, a closed generator on a stated domain, stationarity, and invariance are separate claims."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence",
+      "AutoSamplingTheory.TechnicalLemmas.Measure.Transport",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Langevin",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities"
+    ],
+    "blockers": [
+      "Concrete Langevin Markov semigroup construction (external/upstream dependency)",
+      "Semigroup-stable generator-domain extension beyond the compiled C_c^2 core",
+      "Full invariant Gibbs law and measure-determining extension"
+    ],
+    "consumers": [
+      "Mixing estimates throughout Chapters 2–8",
+      "Discretization analyses for LMC and ULMC",
+      "Non-log-concave perturbation arguments"
+    ],
+    "recommended_order": [
+      "Read the three calculation steps",
+      "Open the cutoff and integrability detail packets",
+      "Inspect the radial-cutoff Lean declarations",
+      "Return to the semigroup-domain blockers"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "chapter-02",
+    "number": 2,
+    "title": "Functional Inequalities",
+    "source_pages": "48–95",
+    "source_sections": [
+      "2.1 Overview of the Inequalities (p. 48)",
+      "2.2 Proofs via Markov Semigroup Theory (p. 50)",
+      "2.3 Operations Preserving Functional Inequalities (p. 60)",
+      "2.4 Concentration of Measure and Isoperimetry (p. 68)",
+      "2.5 Riemannian Manifolds (p. 77)",
+      "2.6 Discrete Space and Time (p. 84)"
+    ],
+    "goal": "Develop Poincaré, log-Sobolev, transport, and isoperimetric tools, including semigroup proofs and preservation operations.",
+    "prerequisites": [
+      "Convex functions and convex sets",
+      "Chapter 1 functional-inequality vocabulary"
+    ],
+    "concepts": [
+      "Poincaré inequality",
+      "log-Sobolev inequality",
+      "transport inequalities",
+      "Cheeger inequality",
+      "Poincaré constant",
+      "log-Sobolev constant"
+    ],
+    "core_definitions": [
+      "Poincaré inequality: variance is controlled by Dirichlet energy; the compiled local interface records probability normalization, its test class, and all three integrability requirements explicitly.",
+      "Log-Sobolev inequality: relative entropy is controlled by Fisher information.",
+      "Talagrand transport inequalities compare relative entropy with Wasserstein distance.",
+      "Isoperimetric and concentration profiles quantify boundary expansion and tail decay."
+    ],
+    "major_results": [
+      "Markov-semigroup interpolation proves functional inequalities from curvature and dissipation.",
+      "Tensorization, bounded perturbation, Lipschitz pushforward, and other operations preserve selected inequalities with tracked constants.",
+      "Functional inequalities imply concentration and isoperimetric estimates.",
+      "The framework extends, with changed analytic interfaces, to manifolds and discrete chains."
+    ],
+    "calculation_route": [
+      {
+        "title": "Curvature gives a coercive scale",
+        "formula": "\\nabla^2V\\succeq mI \\quad\\Longrightarrow\\quad C_{\\rm PI}\\lesssim m^{-1}.",
+        "explanation": "Strong convexity supplies the characteristic length and time scales used by Langevin algorithms."
+      },
+      {
+        "title": "Boundary expansion controls variance",
+        "formula": "\\pi^+(A)\\ge h\\min\\{\\pi(A),1-\\pi(A)\\}\\quad\\Longrightarrow\\quad C_{\\rm PI}\\lesssim h^{-2}.",
+        "explanation": "An isoperimetric lower bound is converted into a functional inequality."
+      }
+    ],
+    "rigorous_details": [
+      "State whether Hessian inequalities hold everywhere, almost everywhere, or in a weak convex-analytic sense.",
+      "Track normalization and absolute continuity whenever a potential is used to define a probability law.",
+      "Keep localization inputs separate from the one-dimensional inequality they reduce to."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
+      "AutoSamplingTheory.TechnicalLemmas.Geometry.LogConcavity",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare"
+    ],
+    "blockers": [
+      "Bakry–Émery Poincaré criterion, pending a concrete semigroup/generator domain",
+      "Full localization theorem",
+      "Dimension-sharp log-concave isoperimetry",
+      "Complete perturbation hierarchy"
+    ],
+    "consumers": [
+      "Condition-number dependent mixing",
+      "Warm-start and rejection-based algorithms"
+    ],
+    "recommended_order": [
+      "Start with strong convexity",
+      "Then compare isoperimetry and Poincaré",
+      "Defer localization internals until needed"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chapter-03",
+    "number": 3,
+    "title": "Additional Topics in Stochastic Analysis",
+    "source_pages": "96–120",
+    "source_sections": [
+      "3.1 Quadratic Variation (p. 96)",
+      "3.2 Change of Measure in Path Space (p. 100)",
+      "3.3 Doob's Transform (p. 104)",
+      "3.4 Föllmer Drift (p. 108)",
+      "3.5 Schrödinger Bridge (p. 110)"
+    ],
+    "goal": "Build the stochastic-analysis tools used later for path-space comparison, conditioned diffusions, and bridge constructions.",
+    "prerequisites": [
+      "Measure-theoretic probability",
+      "Radon–Nikodym derivatives",
+      "Basic stochastic calculus for the Girsanov route"
+    ],
+    "concepts": [
+      "quadratic variation",
+      "change of measure",
+      "Girsanov theorem",
+      "Doob transform",
+      "Föllmer drift",
+      "Schrödinger bridge"
+    ],
+    "core_definitions": [
+      "Quadratic variation records the second-order accumulation of path increments.",
+      "The stochastic exponential is the path likelihood used for drift changes.",
+      "A Doob transform conditions or tilts a Markov evolution through a positive space-time function.",
+      "Föllmer drift and the Schrödinger bridge formulate entropy-minimizing path-space transports."
+    ],
+    "major_results": [
+      "Brownian quadratic variation produces the correction in Itô calculus.",
+      "Girsanov's theorem identifies the law of a process after an adapted drift change.",
+      "Doob's transform gives a conditioned generator and semigroup.",
+      "Föllmer and Schrödinger constructions connect relative entropy, optimal drift control, and endpoint constraints."
+    ],
+    "calculation_route": [
+      {
+        "title": "Identify stochastic quadratic variation",
+        "formula": "[X]_t=\\lim_{|\\Pi|\\to0}\\sum_k (X_{t_{k+1}}-X_{t_k})^2.",
+        "explanation": "Quadratic variation is the correction term that distinguishes stochastic calculus from ordinary calculus."
+      },
+      {
+        "title": "Change a drift by a path likelihood",
+        "formula": "\\frac{d\\mathbb P^u}{d\\mathbb P}=\\exp\\!\\left(\\int_0^T\\langle u_t,dB_t\\rangle-\\frac12\\int_0^T\\|u_t\\|^2dt\\right).",
+        "explanation": "Girsanov's theorem turns drift control into an absolute-continuity statement on path space; Doob and Föllmer transforms specialize this idea."
+      }
+    ],
+    "rigorous_details": [
+      "Quadratic-variation limits require an explicit convergence mode and partition scheme.",
+      "A stochastic exponential needs measurability and integrability conditions before it defines a change of law.",
+      "Finite-dimensional cylinder identities are not automatically path-space Girsanov theorems."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi",
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov"
+    ],
+    "blockers": [
+      "Full path-space Girsanov package",
+      "General transportation-entropy equivalences"
+    ],
+    "consumers": [
+      "Girsanov analyses in Chapters 4 and 6",
+      "Warm-start and generative-model comparisons"
+    ],
+    "recommended_order": [
+      "Learn the conversion graph",
+      "Study absolute continuity",
+      "Then inspect the Girsanov packets"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chapter-04",
+    "number": 4,
+    "title": "Analysis of Langevin Monte Carlo",
+    "source_pages": "123–140",
+    "source_sections": [
+      "4.1 Proof via Wasserstein Coupling (p. 124)",
+      "4.2 Proof via Interpolation Argument (p. 127)",
+      "4.3 Proof via Convex Optimization (p. 131)",
+      "4.4 Proof via Girsanov's Theorem (p. 134)"
+    ],
+    "goal": "Derive Langevin Monte Carlo guarantees through Wasserstein coupling, interpolation, convex optimization, and Girsanov comparison.",
+    "prerequisites": [
+      "Chapters 1 and 3",
+      "Couplings and stochastic differential equations"
+    ],
+    "concepts": [
+      "synchronous coupling",
+      "reflection coupling",
+      "interpolation",
+      "gradient flow",
+      "change of drift"
+    ],
+    "core_definitions": [
+      "Langevin Monte Carlo is the Euler discretization of overdamped Langevin diffusion.",
+      "A synchronous coupling shares Brownian noise between two trajectories.",
+      "A continuous interpolation embeds the discrete chain into an SDE with frozen drift.",
+      "Girsanov comparison measures the interpolation error at the path-law level."
+    ],
+    "major_results": [
+      "Wasserstein coupling yields contraction plus a one-step discretization bias.",
+      "Interpolation arguments control terminal error through a differential inequality.",
+      "A convex-optimization analogy recovers a sampling convergence estimate.",
+      "Girsanov's theorem converts integrated drift mismatch into a divergence bound for LMC."
+    ],
+    "calculation_route": [
+      {
+        "title": "Couple two trajectories",
+        "formula": "\\frac{d}{dt}\\mathbb E\\|X_t-Y_t\\|^2\\le-2m\\mathbb E\\|X_t-Y_t\\|^2.",
+        "explanation": "Strong monotonicity of the drift produces contractivity."
+      },
+      {
+        "title": "Compare drifts by path likelihood",
+        "formula": "\\mathrm{KL}(P\\|Q)\\sim\\tfrac14\\mathbb E\\int_0^T\\|b_t-\\widetilde b_t\\|^2dt.",
+        "explanation": "The drift mismatch becomes a time-integrated quadratic cost."
+      }
+    ],
+    "rigorous_details": [
+      "The coupled processes must be constructed on one filtered probability space.",
+      "Path-space laws and filtration-adapted drift differences must be explicit.",
+      "Optimization analogies do not replace stochastic existence or integrability assumptions."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.SDE",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov"
+    ],
+    "blockers": [
+      "Reflection coupling construction",
+      "Full path-law comparison"
+    ],
+    "consumers": [
+      "LMC and ULMC discretization",
+      "Nonconvex perturbation bounds"
+    ],
+    "recommended_order": [
+      "Use synchronous coupling first",
+      "Then compare with interpolation",
+      "Reserve Girsanov for law-level error"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chapter-05",
+    "number": 5,
+    "title": "Faster Low-Accuracy Samplers",
+    "source_pages": "141–173",
+    "source_sections": [
+      "5.1 Randomized Midpoint Discretization (p. 141)",
+      "5.2 Hamiltonian Monte Carlo (p. 145)",
+      "5.3 The Underdamped Langevin Diffusion (p. 149)"
+    ],
+    "goal": "Study randomized midpoint, Hamiltonian, and underdamped methods that improve low-accuracy complexity.",
+    "prerequisites": [
+      "Hamiltonian mechanics",
+      "Hypoelliptic SDE notation",
+      "Continuous-time tools from Chapter 4"
+    ],
+    "concepts": [
+      "Hamiltonian flow",
+      "momentum refreshment",
+      "underdamped Langevin",
+      "hypocoercivity",
+      "acceleration"
+    ],
+    "core_definitions": [
+      "Randomized midpoint uses an internal random evaluation time to reduce discretization bias.",
+      "Hamiltonian Monte Carlo alternates approximate Hamiltonian flow with momentum refreshment.",
+      "Underdamped Langevin evolves position and momentum with friction and noise.",
+      "Hypocoercive metrics couple position and momentum errors."
+    ],
+    "major_results": [
+      "Randomized midpoint improves the low-accuracy dimension dependence over basic Euler discretization.",
+      "Hamiltonian trajectories exploit second-order phase-space motion before refreshment.",
+      "Underdamped Langevin contracts in a suitable mixed metric under strong log-concavity.",
+      "Discretized accelerated dynamics produce faster low-accuracy sampling guarantees under stated smoothness and step-size regimes."
+    ],
+    "calculation_route": [
+      {
+        "title": "Lift position into phase space",
+        "formula": "dX_t=V_tdt,\\qquad dV_t=-\\gamma V_tdt-\\nabla U(X_t)dt+\\sqrt{2\\gamma}\\,dB_t.",
+        "explanation": "The auxiliary velocity changes contraction and discretization behavior while preserving the desired position marginal."
+      }
+    ],
+    "rigorous_details": [
+      "Invariant phase-space laws require both position and momentum normalization.",
+      "Hypocoercive estimates mix position and velocity norms; coercivity is not pointwise in the position coordinate alone.",
+      "Exact Hamiltonian flow and numerical integrators must not be conflated."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.SDE"
+    ],
+    "blockers": [
+      "Phase-space invariant-law theorem",
+      "Hypocoercive convergence packet",
+      "HMC flow and refreshment kernel"
+    ],
+    "consumers": [
+      "ULMC algorithms",
+      "Accelerated sampling complexity"
+    ],
+    "recommended_order": [
+      "Understand the phase-space law",
+      "Then study contraction metrics",
+      "Finally add numerical integration"
+    ],
+    "status": "planned"
+  },
+  {
+    "id": "chapter-06",
+    "number": 6,
+    "title": "Convergence in Rényi Divergence",
+    "source_pages": "174–188",
+    "source_sections": [
+      "6.1 Analysis of LMC via Interpolation Argument (p. 174)",
+      "6.2 Analysis of LMC via Girsanov's Theorem (p. 178)",
+      "6.3 Analysis of ULMC via Girsanov's Theorem (p. 183)"
+    ],
+    "goal": "Analyze LMC and ULMC in Rényi divergence using interpolation and Girsanov arguments.",
+    "prerequisites": [
+      "Euler discretization",
+      "Chapters 3–5"
+    ],
+    "concepts": [
+      "Rényi divergence",
+      "Langevin Monte Carlo",
+      "underdamped LMC",
+      "continuous interpolation",
+      "local truncation error",
+      "path-law comparison"
+    ],
+    "core_definitions": [
+      "Rényi divergence is the logarithmic power integral of a density ratio at a chosen order.",
+      "LMC and ULMC interpolations are continuous processes agreeing with the discrete algorithms at grid times.",
+      "Local drift error is the squared discrepancy between the true and frozen or discretized drift."
+    ],
+    "major_results": [
+      "LMC admits a Rényi-divergence analysis through interpolation.",
+      "A Girsanov route controls LMC by an integrated drift mismatch.",
+      "The underdamped analogue requires phase-space moment and drift-error bounds.",
+      "The final complexity estimates balance continuous convergence, divergence order, and step size."
+    ],
+    "calculation_route": [
+      {
+        "title": "Balance mixing and discretization",
+        "formula": "\\text{total error}\\le\\text{continuous mixing error}+\\text{time-discretization error}.",
+        "explanation": "Choose the horizon for mixing and the step size for approximation, then optimize both."
+      },
+      {
+        "title": "Measure the frozen-drift error",
+        "formula": "\\int_0^T\\mathbb E\\|\\nabla V(X_t)-\\nabla V(X_{\\lfloor t/h\\rfloor h})\\|^2dt.",
+        "explanation": "Smoothness converts increments of the process into a Girsanov cost."
+      }
+    ],
+    "rigorous_details": [
+      "The interpolated chain must be adapted and have the same diffusion coefficient as the comparison process.",
+      "Moment estimates must be established before integrating local drift error.",
+      "Step-size restrictions and all dimension/condition-number constants must be retained."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.SDE",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.Girsanov"
+    ],
+    "blockers": [
+      "Full LMC strong/weak interpolation chain",
+      "ULMC path-space comparison",
+      "Optimized complexity corollaries"
+    ],
+    "consumers": [
+      "Algorithmic sampling guarantees",
+      "Metropolized correction comparisons"
+    ],
+    "recommended_order": [
+      "Prove moment bounds",
+      "Bound local error",
+      "Convert path divergence to terminal error"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chapter-07",
+    "number": 7,
+    "title": "High-Accuracy Samplers",
+    "source_pages": "189–213",
+    "source_sections": [
+      "7.1 Rejection Sampling (p. 189)",
+      "7.2 The Metropolis-Hastings Filter (p. 191)",
+      "7.3 An Overview of High-Accuracy Samplers (p. 193)",
+      "7.4 Markov Chains in Discrete Time (p. 197)",
+      "7.5 Analysis of MALA for a Cold Start (p. 203)",
+      "7.6 Analysis of MALA for a Warm Start (p. 206)"
+    ],
+    "goal": "Use accept/reject correction and conductance tools to obtain exact-target chains.",
+    "prerequisites": [
+      "Markov kernels",
+      "Detailed balance",
+      "Warmness and conductance"
+    ],
+    "concepts": [
+      "proposal kernel",
+      "acceptance ratio",
+      "detailed balance",
+      "conductance",
+      "warm start",
+      "MALA"
+    ],
+    "core_definitions": [
+      "A rejection sampler accepts a proposal using a density-envelope ratio.",
+      "The Metropolis-Hastings filter corrects a proposal kernel through a reversible acceptance ratio.",
+      "Conductance measures the one-step flow across measurable cuts.",
+      "A warm start bounds the initial density ratio relative to stationarity."
+    ],
+    "major_results": [
+      "The Metropolis-Hastings correction preserves the target through detailed balance.",
+      "Conductance and warmness convert local proposal quality into global mixing.",
+      "MALA obtains high-accuracy guarantees from both cold and warm initializations under different smoothing arguments.",
+      "Acceptance estimates determine the stable step-size and complexity regimes."
+    ],
+    "calculation_route": [
+      {
+        "title": "Correct a proposal",
+        "formula": "\\alpha(x,y)=1\\wedge\\frac{\\pi(y)q(y,x)}{\\pi(x)q(x,y)}.",
+        "explanation": "The acceptance ratio restores detailed balance with the target."
+      },
+      {
+        "title": "Turn local movement into mixing",
+        "formula": "t_{\\rm mix}\\lesssim \\Phi^{-2}\\log(\\beta/\\varepsilon).",
+        "explanation": "Conductance and warmness control the global number of steps."
+      }
+    ],
+    "rigorous_details": [
+      "Kernel measurability and exceptional zero-density cases must be defined.",
+      "Detailed balance is a measure identity, not merely a pointwise density calculation.",
+      "Cold-start arguments require smoothing or explicit initialization bounds."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel"
+    ],
+    "blockers": [
+      "General accept/reject kernel",
+      "Conductance-to-mixing theorem",
+      "Cold-start MALA chain"
+    ],
+    "consumers": [
+      "Exact-target samplers",
+      "Proximal and composite kernels"
+    ],
+    "recommended_order": [
+      "Formalize the kernel",
+      "Prove reversibility",
+      "Then add conductance and initialization"
+    ],
+    "status": "planned"
+  },
+  {
+    "id": "chapter-08",
+    "number": 8,
+    "title": "The Proximal Sampler",
+    "source_pages": "214–232",
+    "source_sections": [
+      "8.1 Introduction to the Proximal Sampler (p. 215)",
+      "8.2 Convergence under Strong Log-Concavity (p. 216)",
+      "8.3 Simultaneous Flow and Time Reversal (p. 218)",
+      "8.4 Convergence under Log-Concavity (p. 221)",
+      "8.5 Convergence under Functional Inequalities (p. 222)",
+      "8.6 Implementations of the RGO and Applications (p. 223)"
+    ],
+    "goal": "Study an augmented-variable sampler that isolates difficult geometry in a proximal subproblem.",
+    "prerequisites": [
+      "Conditional distributions",
+      "Gaussian kernels",
+      "Markov-chain contraction"
+    ],
+    "concepts": [
+      "proximal distribution",
+      "restricted Gaussian oracle",
+      "data augmentation",
+      "conditional Gibbs update"
+    ],
+    "core_definitions": [
+      "The proximal sampler alternates two conditionals of a Gaussian-augmented joint law.",
+      "A restricted Gaussian oracle samples a potential tilted by a local quadratic.",
+      "Simultaneous flow couples the target and auxiliary conditional evolutions.",
+      "Time reversal provides a second route to contraction and comparison."
+    ],
+    "major_results": [
+      "The augmentation preserves the desired target as a marginal.",
+      "The proximal chain contracts under strong log-concavity.",
+      "Simultaneous flow and time reversal extend the analysis to general log-concavity.",
+      "Functional inequalities and implementable RGO constructions yield further convergence and application results."
+    ],
+    "calculation_route": [
+      {
+        "title": "Introduce a Gaussian bridge",
+        "formula": "\\pi(x)\\exp\\!\\left(-\\frac{\\|x-y\\|^2}{2\\eta}\\right).",
+        "explanation": "Alternating the two conditional distributions creates a kernel with the desired marginal."
+      }
+    ],
+    "rigorous_details": [
+      "Both conditional distributions require finite, measurable normalizing constants.",
+      "Marginal preservation follows from Tonelli/Fubini only after nonnegativity and measurability are established.",
+      "An oracle specification must state whether samples are exact or approximate."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+      "AutoSamplingTheory.TechnicalLemmas.Measure.Product"
+    ],
+    "blockers": [
+      "Restricted Gaussian conditional kernel",
+      "Marginal invariance",
+      "Oracle-error propagation"
+    ],
+    "consumers": [
+      "Composite and constrained sampling",
+      "Structured targets in Chapter 10"
+    ],
+    "recommended_order": [
+      "Normalize the joint law",
+      "Build both kernels",
+      "Prove the marginal identity"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chapter-09",
+    "number": 9,
+    "title": "Lower Bounds for Sampling",
+    "source_pages": "233–248",
+    "source_sections": [
+      "9.1 A Brief Discussion of Query Complexity (p. 233)",
+      "9.2 Query Complexity in One Dimension (p. 234)",
+      "9.3 Query Complexity in Constant Dimension (p. 241)",
+      "9.4 Query Complexity for Gaussians (p. 243)"
+    ],
+    "goal": "Identify which dimension, smoothness, condition-number, and accuracy dependences are unavoidable.",
+    "prerequisites": [
+      "Statistical decision theory",
+      "Information divergences",
+      "Oracle complexity"
+    ],
+    "concepts": [
+      "minimax risk",
+      "packing",
+      "testing reduction",
+      "oracle lower bound",
+      "hard family"
+    ],
+    "core_definitions": [
+      "Query complexity counts oracle evaluations rather than bit-level computation.",
+      "A hard family is a collection of target potentials that agree on much of the oracle transcript.",
+      "A testing reduction turns an accurate sampler into an estimator of the hidden hard-instance index."
+    ],
+    "major_results": [
+      "One-dimensional constructions yield nontrivial smooth log-concave sampling lower bounds.",
+      "Constant-dimensional packings show additional accuracy and query barriers.",
+      "Gaussian families isolate dimension-dependent lower bounds in a tractable subclass.",
+      "The lower bounds calibrate which upper-bound dependences are algorithmic losses and which are intrinsic."
+    ],
+    "calculation_route": [
+      {
+        "title": "Encode a testing problem",
+        "formula": "\\text{sampling accuracy}\\Longrightarrow\\text{ability to distinguish a packed family}.",
+        "explanation": "A sampler that is too fast would solve a statistically impossible identification problem."
+      }
+    ],
+    "rigorous_details": [
+      "The oracle transcript and algorithmic randomization must be represented explicitly.",
+      "Pairwise divergence bounds need the exact observation law.",
+      "The hard family must remain inside the stated target class."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory"
+    ],
+    "blockers": [
+      "Oracle-transcript framework",
+      "Packing and testing reductions",
+      "Book-specific hard instances"
+    ],
+    "consumers": [
+      "Optimality comparisons for Chapters 6–8"
+    ],
+    "recommended_order": [
+      "Fix the oracle model",
+      "Build a finite hard family",
+      "Apply a testing lower bound"
+    ],
+    "status": "planned"
+  },
+  {
+    "id": "chapter-10",
+    "number": 10,
+    "title": "Structured Sampling",
+    "source_pages": "249–271",
+    "source_sections": [
+      "10.1 Stochastic Gradients (p. 249)",
+      "10.2 Coordinate Methods (p. 252)",
+      "10.3 Mirror Langevin (p. 257)"
+    ],
+    "goal": "Adapt Langevin analysis to stochastic gradients, coordinate updates, and mirror geometry.",
+    "prerequisites": [
+      "Convex analysis",
+      "Langevin Monte Carlo",
+      "Stochastic-gradient and coordinate-oracle notation"
+    ],
+    "concepts": [
+      "stochastic gradient",
+      "coordinate method",
+      "mirror map",
+      "relative smoothness",
+      "non-Euclidean diffusion"
+    ],
+    "core_definitions": [
+      "A stochastic-gradient oracle returns an unbiased or controlled-bias gradient estimate with a variance contract.",
+      "Coordinate methods update selected components according to a sampling schedule.",
+      "Mirror Langevin replaces Euclidean geometry by a convex mirror map and its dual coordinates."
+    ],
+    "major_results": [
+      "Stochastic-gradient Langevin bounds separate oracle noise from discretization and mixing error.",
+      "Coordinate samplers exploit anisotropic smoothness through nonuniform update frequencies.",
+      "Mirror Langevin transfers continuous and discrete analysis to non-Euclidean geometry.",
+      "Each structured method exposes an oracle- or geometry-specific complexity bound."
+    ],
+    "calculation_route": [
+      {
+        "title": "Separate stochastic-gradient noise",
+        "formula": "\\widehat\\nabla V(x)=\\nabla V(x)+\\xi(x),\\qquad \\mathbb E[\\xi(x)\\mid x]=0.",
+        "explanation": "Conditional centering removes the first-order bias, while the conditional second moment contributes a distinct error term."
+      },
+      {
+        "title": "Exploit coordinate smoothness",
+        "formula": "x_{k+1}=x_k-h_i\\,\\partial_iV(x_k)e_i+\\sqrt{2h_i}\\,\\xi_ke_i.",
+        "explanation": "Sampling the coordinate and tuning its step size to coordinate-wise smoothness can avoid a worst-direction global step size."
+      },
+      {
+        "title": "Move to mirror coordinates",
+        "formula": "y=\\nabla\\phi(x),\\qquad x=\\nabla\\phi^*(y).",
+        "explanation": "The mirror map transfers the dynamics to dual coordinates where the target geometry may be better conditioned."
+      }
+    ],
+    "rigorous_details": [
+      "Stochastic-gradient unbiasedness and variance bounds are conditional statements with a specified filtration or kernel.",
+      "Coordinate schedules, coordinate-dependent step sizes, and anisotropic norms must be measurable and retained in constants.",
+      "Mirror maps need an open effective domain, invertible gradient map, and boundary/nonexplosion control for the transformed diffusion.",
+      "Oracle error, discretization error, and continuous-time convergence remain separate terms."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability",
+      "AutoSamplingTheory.TechnicalLemmas.Geometry"
+    ],
+    "blockers": [
+      "Stochastic-gradient kernel and conditional-moment packet",
+      "Coordinate-update kernel and anisotropic smoothness chain",
+      "Mirror-map domain and transformed-SDE regularity"
+    ],
+    "consumers": [
+      "Large-data Bayesian sampling",
+      "Anisotropic targets",
+      "Non-Euclidean sampling domains"
+    ],
+    "recommended_order": [
+      "Fix the oracle or coordinate schedule",
+      "Prove its conditional moment and measurability contracts",
+      "Track continuous, oracle, and discretization errors separately",
+      "Study mirror geometry only after the Euclidean interfaces are clear"
+    ],
+    "status": "planned"
+  },
+  {
+    "id": "chapter-11",
+    "number": 11,
+    "title": "Non-Log-Concave Sampling",
+    "source_pages": "272–282",
+    "source_sections": [
+      "11.1 Approximate First-Order Stationarity via Fisher Information (p. 272)",
+      "11.2 Fisher Information Bounds (p. 274)",
+      "11.3 Applications of Fisher Information Bounds (p. 276)",
+      "11.4 Lower Bounds (p. 279)"
+    ],
+    "goal": "Use Fisher information to formulate and analyze approximate stationarity for non-log-concave targets, then compare upper and lower bounds.",
+    "prerequisites": [
+      "Relative entropy and Fisher information",
+      "Langevin interpolation and Girsanov estimates",
+      "Nonconvex smoothness and moment control"
+    ],
+    "concepts": [
+      "Fisher information",
+      "first-order stationarity",
+      "nonconvex Langevin dynamics",
+      "dissipativity",
+      "lower bounds"
+    ],
+    "core_definitions": [
+      "Relative Fisher information measures the squared score mismatch against the target.",
+      "Approximate first-order stationarity is formulated through small Fisher information rather than small sampling distance.",
+      "Dissipativity controls the drift outside a bounded region without global convexity."
+    ],
+    "major_results": [
+      "Small Fisher information provides a meaningful stationarity certificate for non-log-concave targets.",
+      "Langevin and related algorithms admit finite-time Fisher-information bounds under stated regularity and moment assumptions.",
+      "Fisher-information control yields consequences for optimization and sampling observables.",
+      "Lower bounds delimit the attainable stationarity rates."
+    ],
+    "calculation_route": [
+      {
+        "title": "Use entropy dissipation as an averaged stationarity bound",
+        "formula": "\\frac{d}{dt}\\mathrm{KL}(\\mu_t\\|\\pi)=-\\mathrm{FI}(\\mu_t\\|\\pi)\\quad\\Longrightarrow\\quad \\frac1T\\int_0^T\\mathrm{FI}(\\mu_t\\|\\pi)dt\\le\\frac{\\mathrm{KL}(\\mu_0\\|\\pi)}T.",
+        "explanation": "Even without log-concavity, integrated Fisher information can decay because relative entropy is nonnegative."
+      },
+      {
+        "title": "Randomize an output time",
+        "formula": "\\tau\\sim\\mathrm{Unif}[0,T]\\quad\\Longrightarrow\\quad \\mathbb E\\,\\mathrm{FI}(\\mu_\\tau\\|\\pi)=\\frac1T\\int_0^T\\mathrm{FI}(\\mu_t\\|\\pi)dt.",
+        "explanation": "A randomized iterate turns the time average into a stationarity guarantee."
+      },
+      {
+        "title": "Add algorithmic error",
+        "formula": "\\text{FI bound}=\\text{continuous dissipation}+\\text{score/oracle error}+\\text{discretization error}.",
+        "explanation": "Each additional term needs its own moment, regularity, and law-comparison estimate."
+      }
+    ],
+    "rigorous_details": [
+      "Relative Fisher information needs an absolutely continuous law and a chosen score representative.",
+      "Entropy dissipation must be justified for the actual process and function domain, not only calculated formally.",
+      "Randomized-time output requires measurability of the time-indexed law and Fisher-information integrand.",
+      "Finite-time discretization and score-error bounds must specify the law under which every squared error is integrated.",
+      "Small Fisher information is a stationarity certificate, not automatically small total variation or rapid multimodal mixing."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities",
+      "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity"
+    ],
+    "blockers": [
+      "Relative-score representative and Fisher-information API",
+      "Rigorous entropy-dissipation/domain packet",
+      "Langevin discretization-to-Fisher-information chain",
+      "Book-specific applications and lower bounds"
+    ],
+    "consumers": [
+      "Nonconvex Langevin analyses",
+      "Generative-model potentials"
+    ],
+    "recommended_order": [
+      "Define relative Fisher information and its representatives",
+      "Prove the continuous-time averaged bound",
+      "Add algorithmic approximation terms",
+      "Keep stationarity guarantees separate from global mixing claims"
+    ],
+    "status": "partial"
+  },
+  {
+    "id": "chapter-12",
+    "number": 12,
+    "title": "Diffusion Generative Models",
+    "source_pages": "283–296",
+    "source_sections": [
+      "12.1 Introduction (p. 283)",
+      "12.2 Score Matching and Variants (p. 284)",
+      "12.3 Discretization Analysis (p. 288)"
+    ],
+    "goal": "Connect sampling analysis to score-based reverse diffusions and generative modeling.",
+    "prerequisites": [
+      "Time-inhomogeneous SDEs",
+      "Change of measure",
+      "Fisher information and score functions"
+    ],
+    "concepts": [
+      "forward diffusion",
+      "score",
+      "time reversal",
+      "denoising",
+      "score error",
+      "reverse SDE"
+    ],
+    "core_definitions": [
+      "The forward diffusion progressively smooths the data law into a tractable reference law.",
+      "The score is the spatial gradient of a chosen log-density representative.",
+      "The reverse-time SDE uses the marginal score to transport noise back toward data.",
+      "Score matching rewrites inaccessible score regression as an estimable objective."
+    ],
+    "major_results": [
+      "Time reversal identifies the exact reverse drift under regular marginal densities.",
+      "Implicit and denoising score-matching objectives recover the score in population form.",
+      "Generation error decomposes into initialization, score approximation, and time-discretization terms.",
+      "Discretization analysis converts integrated score error into terminal distribution error under explicit law and regularity assumptions."
+    ],
+    "calculation_route": [
+      {
+        "title": "Noise forward, transport backward",
+        "formula": "dX_t=b_t(X_t)dt+\\sigma_t dB_t\\quad\\leadsto\\quad d\\bar X_t=\\bar b_t(\\bar X_t)dt+\\sigma_{T-t}d\\bar B_t.",
+        "explanation": "The reverse drift contains the score of the time marginal; approximation quality becomes a drift-error problem."
+      },
+      {
+        "title": "Decompose generation error",
+        "formula": "\\text{terminal error}\\le\\text{initialization}+\\text{score error}+\\text{discretization}.",
+        "explanation": "Each term has different regularity and data requirements."
+      }
+    ],
+    "rigorous_details": [
+      "A score is defined only with respect to a chosen density and representative.",
+      "Reverse-time formulas require time-marginal regularity and a precise filtration statement.",
+      "An L2 score approximation under one law cannot silently be used under another law."
+    ],
+    "lean_modules": [
+      "AutoSamplingTheory.SDE",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev",
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.KLDensity"
+    ],
+    "blockers": [
+      "Time-reversal theorem",
+      "Score-field representative and integrability",
+      "End-to-end reverse-discretization bound"
+    ],
+    "consumers": [
+      "Score-based generative modeling",
+      "Future diffusion-model formalizations"
+    ],
+    "recommended_order": [
+      "Fix the forward process and its marginals",
+      "Define the score carefully",
+      "Then separate reversal, score, and numerical errors"
+    ],
+    "status": "partial"
+  }
+]

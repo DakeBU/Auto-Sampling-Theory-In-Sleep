@@ -1,0 +1,9 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual
+
+namespace AutoSamplingTheory.Tests.KantorovichDual
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.DualFeasible
+#check AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue
+#check AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual.dualTransportValue_eq_sSup
+
+end AutoSamplingTheory.Tests.KantorovichDual

@@ -1,0 +1,9 @@
+{
+  "name": "astis-literate-formalization-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Deployment adapter for the source-generated ASTIS formalization website.",
+  "scripts": {
+    "build": "python3 website/scripts/build_site.py && python3 website/scripts/check_site.py && python3 website/scripts/build_sites_bundle.py"
+  }
+}

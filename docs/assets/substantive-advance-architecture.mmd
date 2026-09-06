@@ -1,0 +1,56 @@
+flowchart LR
+  DAG["Global source / theorem / Lean DAG<br/>dependency-ready substantive edges"]:::dag
+  CP["Deterministic control plane<br/>state · ownership · duplicate suppression<br/>NoProgressGuard · bounded capsules"]:::coordinator
+  B["Substantive Advance Board<br/>theorem delta · truth boundary · frontier cell"]:::board
+
+  subgraph CellA["Frontier cell A"]
+    direction TB
+    W1["Universal Worker A<br/>source · proof · retrieval · Lean · check"]:::worker
+    W2["Universal Worker B<br/>source · proof · retrieval · Lean · check"]:::worker
+    LS1["Ephemeral cell synthesis<br/>graph delta · conflicts · next SAUs"]:::synthesis
+    W1 --> LS1
+    W2 --> LS1
+  end
+
+  subgraph CellB["Frontier cell B"]
+    direction TB
+    W3["Universal Worker C<br/>source · proof · retrieval · Lean · check"]:::worker
+    W4["Universal Worker D<br/>source · proof · retrieval · Lean · check"]:::worker
+    LS2["Ephemeral cell synthesis<br/>graph delta · conflicts · next SAUs"]:::synthesis
+    W3 --> LS2
+    W4 --> LS2
+  end
+
+  L["Discovery / Synthesis Ledger<br/>lemma · interface · counterexample · source gap<br/>refactor · conjecture · process · synthesis"]:::ledger
+  A["Thin Global Arbiter<br/>cross-cell priority · conflict · join<br/>stabilization queue only"]:::arbiter
+  V["Independent verification<br/>commit · Lean · source · fake closure"]:::gate
+  S["Single Stabilization Lane<br/>current-main clean port · shared imports<br/>Registry / graph / site / canonical PR"]:::stable
+  R["Samplinglib Registry · Underlying Lean Graph<br/>verified reusable formal memory"]:::registry
+
+  DAG --> CP --> B
+  B --> W1
+  B --> W2
+  B --> W3
+  B --> W4
+  W1 -. discovery .-> L
+  W2 -. discovery .-> L
+  W3 -. discovery .-> L
+  W4 -. discovery .-> L
+  L --> LS1
+  L --> LS2
+  LS1 --> A
+  LS2 --> A
+  A --> V --> S --> R
+  V -->|strict blocker| B
+  R -. reusable parents .-> DAG
+
+  classDef dag fill:#ece6ff,stroke:#6938ef,color:#172033,stroke-width:1.5px;
+  classDef coordinator fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2px;
+  classDef board fill:#fff3d6,stroke:#b54708,color:#172033,stroke-width:1.5px;
+  classDef worker fill:#dcfae6,stroke:#087443,color:#172033,stroke-width:1.5px;
+  classDef synthesis fill:#f4ebff,stroke:#7f56d9,color:#172033,stroke-width:1.5px;
+  classDef ledger fill:#f4ebff,stroke:#7f56d9,color:#172033,stroke-width:1.5px;
+  classDef arbiter fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2px;
+  classDef stable fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:1.8px;
+  classDef gate fill:#fff2c7,stroke:#9a6700,color:#172033,stroke-width:1.8px;
+  classDef registry fill:#dcecff,stroke:#155eef,color:#172033,stroke-width:2px;

@@ -1,0 +1,19 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveDriftIntegral
+
+namespace AutoSamplingTheory
+namespace Tests
+namespace ProgressiveDriftIntegral
+
+open MeasureTheory
+open scoped NNReal
+
+open TechnicalLemmas.StochasticProcesses
+open TechnicalLemmas.StochasticProcesses.ProgressiveDriftIntegral
+
+#check prefixIntegralProcess
+#check prefixIntegralProcess_eq_fixedHorizon
+#check prefixIntegralProcess_stronglyProgressive
+
+end ProgressiveDriftIntegral
+end Tests
+end AutoSamplingTheory

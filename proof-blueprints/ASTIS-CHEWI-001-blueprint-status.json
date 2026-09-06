@@ -1,0 +1,69 @@
+{
+  "astis_kept_advantages": [
+    "EoH-style candidate populations for exploratoryProof mode after a Lean-checkable target is fixed",
+    "Learning-beyond-gradients style trial memory through logs, summaries, rejected directions, and negative cache",
+    "upper/middle/lower/reviewer agent stack inherited from the ARIS/LBG/QBE automation lineage",
+    "auto-research-in-sleep long-window self-loop with graceful final-cycle completion",
+    "plain-file reproducibility without requiring GitHub PR or Slurm for local research iteration",
+    "sampling/SDE-specific source anchors, proof obligations, technical lemma memory, and SLT port audit"
+  ],
+  "dynamic_leaf_candidate": "No reviewer blocker recorded yet; use source index and proof-obligation ledger.",
+  "generated": "2026-07-13 18:13:10",
+  "illness_area_candidate": "No reviewer blocker recorded yet; use source index and proof-obligation ledger.",
+  "latest_blocker": "No reviewer blocker recorded yet; use source index and proof-obligation ledger.",
+  "latest_cycle": 23,
+  "leanmarathon_controls_absorbed": [
+    "blueprint/system-of-record control state",
+    "target-review no-more/no-less discipline",
+    "dynamic-leaf proof discharge instead of broad route replay",
+    "illness-area refiner rule for connected blocker regions",
+    "deterministic CI gate as the only progress authority",
+    "local refinement region before asking for upstream changes"
+  ],
+  "proof_status_counts": {
+    "blocked": 0,
+    "contractOnly": 34,
+    "formalized": 286,
+    "obligation": 1175,
+    "planned": 9,
+    "sourceCited": 16
+  },
+  "recent_cycles": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "references": {
+    "Auto-research-in-sleep": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+    "EoH": "https://github.com/FeiLiu36/EoH",
+    "LeanMarathon": "https://github.com/YuanheZ/LeanMarathon",
+    "LeanMarathon paper": "https://arxiv.org/abs/2606.05400",
+    "Learning beyond gradients": "https://github.com/Trinkle23897/learning-beyond-gradients",
+    "local LeanMarathon pdf": "/home/nitanda_sub/mark/repos/outer_papers/automation_systems/LeanMarathon-2606.05400.pdf",
+    "local LeanMarathon repo": "/home/nitanda_sub/mark/repos/outer_repos/automation_systems/LeanMarathon"
+  },
+  "stage": "Log-concave sampling foundation Stage-1: chapter map, shared-root DAG, and Mathlib-ready leaf growth",
+  "system_of_record": [
+    "tasks/ASTIS-CHEWI-001.md",
+    "proof-blueprints/ASTIS-CHEWI-001.md",
+    "research-wiki/sampling-sde-library/log_concave_sampling_overview.md",
+    "research-wiki/lemma-dags/log_concave_sampling_foundation.md",
+    "research-wiki/sampling-sde-library/roadmap/log_concave_sampling_to_lean_tree.md",
+    "research-wiki/sampling-sde-library/lean-leaf-module-graph.md",
+    "research-wiki/retrieval-index/ASTIS-CHEWI-001.json",
+    "research-wiki/external-lean-libraries/log-concave-sampling-notes.md",
+    "research-wiki/external-lean-libraries/lean-asymptotic-statistical-theory.md",
+    "agent-briefs/log_concave_sampling_6h_execution_pack.md",
+    "AutoSamplingTheory/TechnicalLemmas/Registry.lean",
+    "runs/trials.jsonl"
+  ],
+  "task_id": "ASTIS-CHEWI-001",
+  "trial_classifications_recent": {
+    "discharges-supplied-hypothesis": 0,
+    "narrows-source-cited-boundary": 0,
+    "rejected-wrapper-churn": 0
+  }
+}

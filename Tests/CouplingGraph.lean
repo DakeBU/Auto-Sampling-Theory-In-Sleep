@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.CouplingGraph
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CouplingGraph.map_eq_of_isCoupling_of_ae_snd_eq

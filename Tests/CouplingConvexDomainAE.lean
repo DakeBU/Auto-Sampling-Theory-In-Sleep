@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.CouplingConvexDomainAE
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CouplingConvexDomainAE.ae_fst_mem_interior_and_differentiableAt

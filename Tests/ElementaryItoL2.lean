@@ -1,0 +1,21 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoL2
+
+namespace AutoSamplingTheory.Tests.ElementaryItoL2
+
+open TechnicalLemmas.StochasticProcesses
+open ElementaryItoL2
+
+#check norm_sq_toLp_eq_integral_sq
+#check elementaryItoIntegral_memLp_two
+#check elementaryItoTerminalToLp
+#check elementaryProcessToLp
+#check norm_sq_elementaryItoTerminalToLp
+#check norm_elementaryItoTerminalToLp
+#check elementaryItoTerminalToLp_add
+#check elementaryProcessToLp_add
+#check inner_elementaryItoTerminalToLp
+#check elementaryItoTerminalToLp_sub
+#check elementaryProcessToLp_sub
+#check norm_elementaryItoTerminalToLp_sub
+
+end AutoSamplingTheory.Tests.ElementaryItoL2

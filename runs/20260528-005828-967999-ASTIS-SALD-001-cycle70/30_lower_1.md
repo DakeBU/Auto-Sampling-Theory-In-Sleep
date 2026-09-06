@@ -1,0 +1,148 @@
+Task: ASTIS-SALD-001 - Faithfully reproduce the original VA-SALD paper proofs
+Cycle: 70
+Role: lower
+Run directory: runs/20260528-005828-967999-ASTIS-SALD-001-cycle70
+
+Mandatory gate:
+
+```bash
+python3 tools/astis.py check
+```
+
+Task contract:
+
+```text
+# Faithfully reproduce the original VA-SALD paper proofs
+
+Task id: `ASTIS-SALD-001`
+Kind: `paperReproduction`
+Mode: `faithfulPaper`
+Status: `active`
+
+## Goal
+
+Reproduce the proof structure of `/home/nitanda_sub/mark/repos/sald/paper` in
+Lean-facing contracts and, incrementally, Lean proofs.  The source file
+`sald_version_2.tex` is explicitly out of scope.
+
+## First Proof DAG
+
+- `lem:gronwall`
+- `lem:dv_variation`
+- LSI/KL/FI definitions
+- `thm:forward-KL`
+- `thm:forward-KL-discrete`
+- `prop:guided_path_residual`
+- `thm:general-moving-target-SALD`
+- `thm:unified-forward-KL`
+- `thm:general-moving-target-SALD-discrete`
+
+## Current 6h Priority: Single-Backend Backfill
+
+The theorem-skeleton route is now stable enough to stop rotating broadly
+through all theorem statements.  The next batch should backfill exactly one
+shared analytic backend: the Euler--Maruyama interpolation conditional-law /
+weak Fokker--Planck interface, especially
+`sald.general_moving_target_discrete.em_interpolation_fp` over
+`appendix.tex:1358-1387`.
+
+This backend has the highest leverage because it supports both
+`thm:forward-KL-discrete` and
+`thm:general-moving-target-SALD-discrete`.  Upper and middle agents should
+avoid assigning lower work on unrelated theorem-route audits, display algebra,
+or broad reusable APIs while this backend remains open.
+
+The required source-cited analytic interfaces are:
+
+1. `lem:gronwall`, with endpoint-safe differentiability/FTC assumptions.
+2. `lem:dv_variation`, with common-space, absolute-continuity, finite-KL, and
+   finite-log-mgf assumptions.
+3. `eq:LSI-KL-FI`, with density, zero-set convention, admissible test,
+   entropy identity, and Fisher chain-rule assumptions.
+4. The continuous forward-KL Fokker--Planck/KL derivative identity.
+5. The Euler--Maruyama interpolation Fokker--Planck endpoint/conditional-law
+   backend.
+
+After those interfaces are explicit, close the faithful theorem skeletons in
+this order without changing the paper statements, constants, or source labels:
+
+1. `thm:forward-KL`
+2. `thm:forward-KL-discrete`
+3. `prop:guided_path_residual`
+4. `thm:general-moving-target-SALD`
+5. `thm:unified-forward-KL`
+6. `thm:general-moving-target-SALD-discrete`
+
+These theorem skeletons may remain `contractOnly` or depend on
+`sourceCited`/`obligation` analytic interfaces; they must not be marked
+`formalized` unless every analytic dependency is compiled locally.  The point
+of this six-hour run is to finish the SALD paper proof translation route, not
+to solve all background analysis from scratch.
+
+Use `/home/nitanda_sub/mark/repos/RMFLD/lean-stat-learning-theory` as a
+reference for Mathlib measure/probability style when useful, especially
+`SLT/MeasureInfrastructure.lean`, `SLT/GaussianMeasure.lean`, and any reusable
+integral/measure-map patterns.  Do not add it as a Lake dependency and do not
+claim an SLT theorem is formalized unless the corresponding local ASTIS
+declaration compiles under this project's toolchain.
+
+## Upper-Level Phase Judgment
+
+At the start of every upper-agent cycle, explicitly write a short global
+judgment with three decisions:
+
+1. whether the previous cycle failed and must be recovered before new work;
+2. whether Phase 1 theorem-skeleton translation is stable enough to begin
+   cited-theory backfill;
+3. which single lower packet best reduces the largest remaining proof risk.
+
+For the next run, cycle 56 recovery is already complete.  Start at cycle 70
+with the EM conditional-law/Fokker--Planck backend.  The preferred lower
+packets, in order, are:
+
+1. conditional-law/measurability and named conditional drift interfaces;
+2. endpoint-law-to-conditional-law compatibility;
+3. weak conditional Fokker--Planck source-sign statement;
+4. KL-derivative handoff from the weak FP identity;
+5. only if blocked, a narrowly cited interface recording the missing Mathlib
+   measure theorem.
+
+## Acceptance Gate
+
+```bash
+python3 tools/astis.py source-index ASTIS-SALD-001
+python3 tools/astis.py check
+```
+```
+
+Cycle focus:
+
+```text
+Backend backfill 1: EM conditional-law interface: Focus only on `sald.general_moving_target_discrete.em_interpolation_fp` over `appendix.tex:1358-1387`: conditional-law/measurability and named conditional drift interfaces. Use local `lean-stat-learning-theory` only as a Mathlib style reference; do not add it as a dependency.
+```
+
+Recent trial memory:
+
+```text
+2026-05-27 05:41:03 lower/handoff queued gate=not-run :: Cycle 69 lower compiled SALD.generalMovingTargetDiscreteConditionalFpSourceSignsHandoff and recorded SALD.cycle69GeneralMovingTargetDiscreteEmFpSourceSignsLowerObligation for the selected sald.general_moving_target_discrete.em_interpolation_fp packet; ledgers synchronized; source-index and mandatory check passed; analytic EM conditional-law/FP backend and theorem statuses remain below formalized.
+2026-05-27 05:41:30 lower/attempt accepted gate=not-run :: External agent command exit code 0.
+2026-05-27 05:43:43 reviewer/handoff queued gate=not-run :: Reviewer accepted cycle 69: source-index and mandatory ASTIS check passed; proof-DAG wiring, theorem contract statuses, source correspondence, fake-proof discipline, proof-obligation ledger, and SLT reuse audit checked. Only SALD.generalMovingTargetDiscreteConditionalFpSourceSignsHandoff was compiled as a local sign/coefficient wrapper; no slow analytic backend or theorem status was promoted.
+2026-05-27 05:44:08 reviewer/attempt accepted gate=not-run :: External agent command exit code 0.
+2026-05-27 05:44:17 reviewer/build compiled gate=pass :: Cycle build gate.
+2026-05-27 05:44:17 upper/compression accepted gate=not-run :: Graceful sleep window completed 14 cycle(s); final cycle was not interrupted.
+2026-05-28 00:58:00 upper/plan queued gate=not-run :: Created prompt deck with 1 lower agent(s).
+2026-05-28 00:58:00 upper/compression accepted gate=not-run :: Graceful sleep window completed 1 cycle(s); final cycle was not interrupted.
+```
+
+Shared dialogue board: `runs/20260528-005828-967999-ASTIS-SALD-001-cycle70/dialogue.md`
+
+When finished, append a handoff:
+
+```bash
+python3 tools/astis.py agent-note 20260528-005828-967999-ASTIS-SALD-001-cycle70 --role lower --message "..."
+python3 tools/astis.py trial-log --task ASTIS-SALD-001 --role lower --kind handoff --status queued --artifact runs/20260528-005828-967999-ASTIS-SALD-001-cycle70 --notes "..."
+```
+
+## Role Instructions
+
+Attempt one narrow proof-producing Lean task for the assigned active backend before creating more ledger-only obligations. Do not change the theorem target. Do not work on unrelated display algebra, route audits, or general API cleanup unless the upper/middle packet explicitly assigns it. Do not add fake proof closures; if the analysis fact is not formalized, add a precise source-cited interface or refine a ProofObligation and keep the build green. In Phase 1 faithfulPaper mode, do not introduce broad library reorganizations or educational APIs unless upper/middle explicitly assign them.

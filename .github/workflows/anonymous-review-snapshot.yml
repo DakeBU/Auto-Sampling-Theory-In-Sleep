@@ -1,0 +1,156 @@
+name: Anonymous frozen review snapshot
+
+on:
+  push:
+    branches: [review/mathai-2026-anonymous]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: anonymous-mathai-review
+  cancel-in-progress: true
+
+env:
+  ASTIS_PUBLIC_SOURCE_LINKS: "1"
+
+jobs:
+  verify-and-export:
+    if: github.ref == 'refs/heads/review/mathai-2026-anonymous'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Check out pinned ATLAS v1 retrieval source
+        uses: actions/checkout@v4
+        with:
+          repository: facebookresearch/atlas-lean
+          ref: e8b31c5cb0bec89b487ce33fe525a2c0b0f8b9c6
+          path: .atlas-upstream
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+
+      - name: Compile Python and JavaScript tooling
+        run: |
+          python3 -m compileall -q tools website/scripts review
+          node --check website/static/site.js
+          node --check website/static/ide.js
+          node --check website/static/lean-tutor.js
+          node --check website/static/module-lean-tutor.js
+          node --check website/static/underlying-lean-graph.js
+          node --check website/static/graph-alias.js
+
+      - name: Test Harness, source, semantic, and graph contracts
+        run: |
+          python3 -m unittest \
+            tools.tests.test_astis_formalizer \
+            tools.tests.test_astis_source \
+            tools.tests.test_astis_advance \
+            tools.tests.test_astis_semantic_roundtrip \
+            tools.tests.test_atlas_memory \
+            tools.tests.test_astis_site \
+            tools.tests.test_harness_site \
+            tools.tests.test_underlying_lean_graph \
+            tools.tests.test_cross_domain_program
+          python3 tools/astis.py harness-test
+
+      - name: Validate pinned external retrieval memory
+        run: python3 tools/atlas_memory.py check --source .atlas-upstream/v1 --require-source
+
+      - name: Validate source and collaborative-state contracts
+        run: |
+          python3 tools/astis.py chewi-source-check
+          python3 tools/astis_semantic_roundtrip.py check
+          python3 tools/astis_frontier_cells.py check
+
+      - name: Run canonical Lean, Tests, and consistency gate
+        run: python3 website/scripts/lean_gate.py
+
+      - name: Validate Chapter 1 evidence
+        run: python3 tools/chapter_1_evidence.py
+
+      - name: Build complete source-derived reader
+        shell: bash
+        run: |
+          mkdir -p .astis
+          set -o pipefail
+          python3 website/scripts/build_site.py 2>&1 | tee .astis/review-site-build.log
+          python3 website/scripts/check_site.py 2>&1 | tee .astis/review-site-check-before-anonymization.log
+
+      - name: Install browser verification dependencies
+        run: |
+          python3 -m pip install playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+
+      - name: Verify complete reader before anonymization
+        run: python3 website/scripts/check_cross_domain_browser.py
+
+      - name: Remove reviewer-facing identity surfaces only
+        run: python3 review/anonymize_full_site.py _site
+
+      - name: Recheck graphs, formulas, interaction, and mobile layout after anonymization
+        run: python3 website/scripts/check_cross_domain_browser.py
+
+      - name: Record frozen-review verification metadata
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          out = {
+              "review_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+              "frozen_development_revision": "458d3c9f8d2f7286030c2ccb2893f8a685c38101",
+              "lean_gate": "passed",
+              "source_contracts": "passed",
+              "semantic_roundtrip_contract": "passed",
+              "frontier_cells": "passed",
+              "full_site_build": "passed",
+              "browser_before_anonymization": "passed",
+              "identity_postprocess": "passed",
+              "browser_after_anonymization": "passed",
+              "note": "Formal/source evidence is preserved; project authorship is withheld only in reviewer-facing surfaces."
+          }
+          Path("_site/review-verification.json").write_text(json.dumps(out, indent=2) + "\n")
+          PY
+          (cd _site && zip -qr ../anonymous-samplinglib-full-site.zip .)
+
+      - name: Upload deployable full anonymous Samplinglib
+        uses: actions/upload-artifact@v4
+        with:
+          name: anonymous-samplinglib-full-site
+          path: anonymous-samplinglib-full-site.zip
+          retention-days: 90
+
+      - name: Upload author-side browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: anonymous-review-browser-evidence
+          path: _browser-evidence
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: anonymous-review-diagnostics
+          path: |
+            .astis
+            _site
+          if-no-files-found: ignore
+          retention-days: 14

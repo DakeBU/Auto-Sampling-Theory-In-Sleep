@@ -1,0 +1,24 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra
+
+namespace AutoSamplingTheory.Tests.ProgressiveL2
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
+
+#check SatisfiesUsualConditions
+#check processFunction
+#check ProgressiveL2Integrand
+#check ProgressiveL2Integrand.toLp
+#check ProgressiveL2Integrand.restrictAt
+#check ProgressiveL2Integrand.restrictAt_zero_process
+#check ProgressiveL2Integrand.restrictAt_zero_toLp
+#check ProgressiveL2Integrand.restrictAt_nested_process
+#check ProgressiveL2Integrand.norm_restrictAt_le
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra.toLp_restrictAt_sub
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra.toLp_restrictAt_add
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra.toLp_restrictAt_smul
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra.toLp_restrictAt_zero
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra.norm_restrictAt_sub_le
+#check AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ProgressiveL2Algebra.restrictAt_toLp_eq_of_toLp_eq
+
+end AutoSamplingTheory.Tests.ProgressiveL2

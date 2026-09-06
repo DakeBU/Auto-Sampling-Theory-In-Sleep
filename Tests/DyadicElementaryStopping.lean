@@ -1,0 +1,15 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.DyadicElementaryStopping
+
+namespace AutoSamplingTheory.Tests.DyadicElementaryStopping
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
+
+#check DyadicElementaryStopping.stopDyadicAtGridIndex
+#check DyadicElementaryStopping.stopDyadicAtGridIndex_elementaryItoIntegral
+#check DyadicElementaryStopping.stopDyadicAtGridIndex_terminalToLp
+#check DyadicElementaryStopping.stopDyadicAtGridIndex_value_eq
+#check DyadicElementaryStopping.stopAtRightApprox
+#check DyadicElementaryStopping.stopAtRightApprox_terminalToLp
+#check DyadicElementaryStopping.stopAtRightApprox_value_eq
+
+end AutoSamplingTheory.Tests.DyadicElementaryStopping

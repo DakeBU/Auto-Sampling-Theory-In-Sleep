@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassProductMap
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassProductMap.mass_map_eq
+#check AutoSamplingTheory.TechnicalLemmas.Measure.CommonMassProductMap.commonMassProduct_map_prodMap

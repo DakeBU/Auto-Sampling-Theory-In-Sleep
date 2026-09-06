@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementChangeOfVariables
+
+#check AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementChangeOfVariables.integral_image_affineDisplacementMap_eq_integral_det_smul

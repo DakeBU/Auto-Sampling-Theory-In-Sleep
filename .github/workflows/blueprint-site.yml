@@ -1,0 +1,209 @@
+name: Samplinglib site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "AutoSamplingTheory/**"
+      - "AutoSamplingTheory.lean"
+      - "Tests/**"
+      - "Tests.lean"
+      - "website/**"
+      - "Libraries/**"
+      - "research-wiki/frontier-cells/**"
+      - "research-wiki/semantic-roundtrip/**"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
+      - "tools/astis.py"
+      - "tools/astis_advance.py"
+      - "tools/astis_frontier_cells.py"
+      - "tools/astis_semantic_roundtrip.py"
+      - "tools/astis_site.py"
+      - "tools/astis_source.py"
+      - "tools/tests/test_astis_advance.py"
+      - "tools/tests/test_astis_semantic_roundtrip.py"
+      - "tools/tests/test_underlying_lean_graph.py"
+      - "tools/tests/test_cross_domain_program.py"
+      - "tools/tests/test_project_authors_footer.py"
+      - "tools/tests/test_harness_site.py"
+      - "README.md"
+      - "docs/**"
+      - ".agents/skills/astis-substantive-advance/**"
+      - ".agents/skills/astis-cross-library-coordination/**"
+      - ".agents/skills/astis-semantic-roundtrip/**"
+      - ".github/pull_request_template.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/blueprint-site.yml"
+  pull_request:
+    paths:
+      - "AutoSamplingTheory/**"
+      - "AutoSamplingTheory.lean"
+      - "Tests/**"
+      - "Tests.lean"
+      - "website/**"
+      - "Libraries/**"
+      - "research-wiki/frontier-cells/**"
+      - "research-wiki/semantic-roundtrip/**"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
+      - "tools/astis.py"
+      - "tools/astis_advance.py"
+      - "tools/astis_frontier_cells.py"
+      - "tools/astis_semantic_roundtrip.py"
+      - "tools/astis_site.py"
+      - "tools/astis_source.py"
+      - "tools/tests/test_astis_advance.py"
+      - "tools/tests/test_astis_semantic_roundtrip.py"
+      - "tools/tests/test_underlying_lean_graph.py"
+      - "tools/tests/test_cross_domain_program.py"
+      - "tools/tests/test_project_authors_footer.py"
+      - "tools/tests/test_harness_site.py"
+      - "README.md"
+      - "docs/**"
+      - ".agents/skills/astis-substantive-advance/**"
+      - ".agents/skills/astis-cross-library-coordination/**"
+      - ".agents/skills/astis-semantic-roundtrip/**"
+      - ".github/pull_request_template.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/blueprint-site.yml"
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  ASTIS_PUBLIC_SOURCE_LINKS: "1"
+
+concurrency:
+  group: blueprint-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  website:
+    name: website-first reader build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile website generators
+        run: |
+          python3 -m compileall -q tools website/scripts
+
+      - name: Test website, Harness, source-reader, and semantic contracts
+        run: |
+          python3 -m unittest \
+            tools.tests.test_astis_site \
+            tools.tests.test_astis_source \
+            tools.tests.test_astis_advance \
+            tools.tests.test_astis_semantic_roundtrip \
+            tools.tests.test_harness_site \
+            tools.tests.test_lean_tutor \
+            tools.tests.test_undergrad_guides \
+            tools.tests.test_chewi_source_first_contract \
+            tools.tests.test_chewi_source_first_refinement \
+            tools.tests.test_samplewiki_reader_contract \
+            tools.tests.test_underlying_lean_graph \
+            tools.tests.test_cross_domain_program \
+            tools.tests.test_project_authors_footer
+          node --check website/static/site.js
+          node --check website/static/ide.js
+          node --check website/static/lean-tutor.js
+          node --check website/static/module-lean-tutor.js
+          node --check website/static/underlying-lean-graph.js
+          node --check website/static/graph-alias.js
+
+      - name: Validate collaborative Frontier Cell protocol
+        run: python3 tools/astis_frontier_cells.py check
+
+      - name: Validate canonical Chewi source edition
+        run: python3 tools/astis.py chewi-source-check
+
+      - name: Validate source-to-Lean semantic round trips
+        run: python3 tools/astis_semantic_roundtrip.py check
+
+      - name: Build source-derived site
+        shell: bash
+        run: |
+          mkdir -p .astis
+          set -o pipefail
+          python3 website/scripts/build_site.py 2>&1 | tee .astis/site-build.log
+
+      - name: Upload site-build diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build-diagnostics-${{ github.run_id }}
+          path: |
+            .astis/site-build.log
+            .astis/reader-contract-errors.txt
+          if-no-files-found: warn
+
+      - name: Validate inventory, links, formulas, diagrams, and assets
+        shell: bash
+        run: |
+          set -o pipefail
+          python3 website/scripts/check_site.py 2>&1 | tee .astis/site-check.log
+
+      - name: Upload final-site validation diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-site-diagnostics-${{ github.run_id }}
+          path: |
+            .astis/site-check.log
+            _site
+          if-no-files-found: warn
+
+      - name: Install browser smoke-test dependencies
+        run: |
+          python3 -m pip install playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+
+      - name: Check peer readers, math, graph interaction, and mobile layout
+        run: python3 website/scripts/check_cross_domain_browser.py
+
+      - name: Upload browser validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cross-domain-browser-${{ github.run_id }}
+          path: _browser-evidence
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Build deployable static worker bundle
+        run: |
+          python3 website/scripts/build_sites_bundle.py
+          node --input-type=module --check < .open-next/worker.js
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: deploy website
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: website
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

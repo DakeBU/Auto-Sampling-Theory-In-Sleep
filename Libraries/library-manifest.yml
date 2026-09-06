@@ -1,0 +1,40 @@
+schema_version: 2
+libraries:
+  - id: log-concave-sampling
+    title: Log-Concave Sampling
+    kind: textbook
+    source: https://chewisinho.github.io/main.pdf
+    official_supplement: https://chewisinho.github.io/supp.pdf
+    priority: active
+    site: /textbook/
+  - id: samplewiki
+    title: SampleWiki
+    kind: frontier
+    source: https://samplewiki.morning-recipe-422a.workers.dev/
+    priority: active
+    site: /example-cases/samplewiki.html
+  - id: riemannian-optimization
+    title: Riemannian Optimization
+    kind: textbook
+    source: https://www.nicolasboumal.net/book/
+    priority: scaffold
+    chapters: 11
+    site: /libraries/riemannian-optimization/
+  - id: optimisation
+    title: Optimisation
+    kind: public-lecture-notes-plus-upstreams
+    source: https://arxiv.org/pdf/2605.07006
+    priority: scaffold
+    chapters: 13
+    appendices: 1
+    site: /libraries/optimisation/
+  - id: statistical-optimal-transport
+    title: Statistical Optimal Transport
+    kind: textbook
+    authors: [Sinho Chewi, Jonathan Niles-Weed, Philippe Rigollet]
+    source: https://chewisinho.github.io/st_flour.pdf
+    priority: scaffold
+    chapters: 8
+    appendices: 2
+    source_map: /Libraries/StatisticalOptimalTransport/source-map.json
+    site: /libraries/statistical-optimal-transport/

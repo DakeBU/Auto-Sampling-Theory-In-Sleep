@@ -1,8 +1,13 @@
 import Lake
 open Lake DSL
-package reviewCase
-require mathlib from git "https://github.com/leanprover-community/mathlib4.git" @ "v4.33.0"
+
+package auto_sampling_theory where
+  version := v!"0.1.0"
+
+require mathlib from git
+  "https://github.com/leanprover-community/mathlib4.git" @ "v4.33.0"
+
 @[default_target]
-lean_lib ReviewLibrary
-@[default_target]
-lean_lib ReviewTest
+lean_lib AutoSamplingTheory
+
+lean_lib Tests

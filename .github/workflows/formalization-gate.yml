@@ -1,0 +1,126 @@
+name: ASTIS formalization gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "AutoSamplingTheory/**"
+      - "AutoSamplingTheory.lean"
+      - "Tests/**"
+      - "Tests.lean"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
+      - "tools/astis.py"
+      - "tools/astis_harness.py"
+      - "tools/astis_advance.py"
+      - "tools/astis_formalizer.py"
+      - "tools/astis_semantic_roundtrip.py"
+      - "tools/astis_site_source_index.py"
+      - "tools/chapter_1_evidence.py"
+      - "tools/astis_source.py"
+      - "tools/tests/test_astis_source.py"
+      - "tools/atlas_memory.py"
+      - "tools/tests/test_atlas_memory.py"
+      - "Libraries/upstreams/atlas-v1.json"
+      - "research-wiki/external-lean-libraries/atlas-v1.md"
+      - "research-wiki/retrieval-index/atlas-v1/**"
+      - "research-wiki/retrieval-index/atlas-v1-*.json"
+      - "tools/tests/test_astis_advance.py"
+      - "tools/tests/test_astis_semantic_roundtrip.py"
+      - "research-wiki/semantic-roundtrip/**"
+      - ".agents/skills/astis-semantic-roundtrip/**"
+      - "website/scripts/lean_gate.py"
+      - ".github/workflows/formalization-gate.yml"
+  pull_request:
+    paths:
+      - "AutoSamplingTheory/**"
+      - "AutoSamplingTheory.lean"
+      - "Tests/**"
+      - "Tests.lean"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
+      - "tools/astis.py"
+      - "tools/astis_harness.py"
+      - "tools/astis_advance.py"
+      - "tools/astis_formalizer.py"
+      - "tools/astis_semantic_roundtrip.py"
+      - "tools/astis_site_source_index.py"
+      - "tools/chapter_1_evidence.py"
+      - "tools/astis_source.py"
+      - "tools/tests/test_astis_source.py"
+      - "tools/atlas_memory.py"
+      - "tools/tests/test_atlas_memory.py"
+      - "Libraries/upstreams/atlas-v1.json"
+      - "research-wiki/external-lean-libraries/atlas-v1.md"
+      - "research-wiki/retrieval-index/atlas-v1/**"
+      - "research-wiki/retrieval-index/atlas-v1-*.json"
+      - "tools/tests/test_astis_advance.py"
+      - "tools/tests/test_astis_semantic_roundtrip.py"
+      - "research-wiki/semantic-roundtrip/**"
+      - ".agents/skills/astis-semantic-roundtrip/**"
+      - "website/scripts/lean_gate.py"
+      - ".github/workflows/formalization-gate.yml"
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astis-formalization-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lean-formalization:
+    name: Lean / Mathlib formalization
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check out pinned ATLAS v1 source
+        uses: actions/checkout@v4
+        with:
+          repository: facebookresearch/atlas-lean
+          ref: e8b31c5cb0bec89b487ce33fe525a2c0b0f8b9c6
+          path: .atlas-upstream
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          use-mathlib-cache: true
+
+      - name: Test formalization and harness contracts
+        run: |
+          python3 -m unittest \
+            tools.tests.test_astis_formalizer \
+            tools.tests.test_astis_source \
+            tools.tests.test_astis_advance \
+            tools.tests.test_astis_semantic_roundtrip \
+            tools.tests.test_atlas_memory
+          python3 tools/astis.py harness-test
+
+      - name: Validate pinned ATLAS memory snapshot and certification
+        run: python3 tools/atlas_memory.py check --source .atlas-upstream/v1 --require-source
+
+      - name: Validate canonical Chewi source edition
+        run: python3 tools/astis.py chewi-source-check
+
+      - name: Validate source-to-Lean semantic round trips
+        run: python3 tools/astis_semantic_roundtrip.py check
+
+      - name: Run Lean, Tests, and ASTIS consistency gate
+        run: python3 website/scripts/lean_gate.py
+
+      - name: Validate Chapter 1 item-level evidence
+        run: python3 tools/chapter_1_evidence.py

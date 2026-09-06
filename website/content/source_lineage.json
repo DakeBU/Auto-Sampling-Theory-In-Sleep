@@ -1,0 +1,161 @@
+{
+  "chewi_log_concave_sampling": {
+    "primary": {
+      "title": "Log-Concave Sampling",
+      "author": "Sinho Chewi",
+      "url": "https://chewisinho.github.io/main.pdf",
+      "role": "Primary theorem order and source-facing statement authority."
+    },
+    "official_supplement": {
+      "title": "Supplement to Log-Concave Sampling",
+      "author": "Sinho Chewi",
+      "date": "November 2, 2024",
+      "url": "https://chewisinho.github.io/supp.pdf",
+      "chapter": 2,
+      "role": "Official material omitted from the book for space. Samplinglib treats it as source material attached to Chapter 2, not as an ASTIS derivation.",
+      "sections": [
+        {
+          "id": "S2.1",
+          "title": "Proof of Marton's tensorization",
+          "source_section": "1.1",
+          "pages": "2-4",
+          "summary": "Marton's product-space tensorization of transport inequalities, including the conditional-coupling induction and KL chain rule.",
+          "items": ["Theorem 1.1: Marton's tensorization", "Example 1.1: tensorization of T1"]
+        },
+        {
+          "id": "S2.2",
+          "title": "Concentration of measure",
+          "source_section": "1.2",
+          "pages": "4-9",
+          "summary": "Mean/median equivalence, Orlicz norms, the Herbst argument, and transport-inequality characterizations of concentration.",
+          "items": [
+            "§1.2.1 Equivalence between the mean and the median",
+            "§1.2.2 The Herbst argument",
+            "§1.2.3 Transport inequalities and concentration"
+          ]
+        },
+        {
+          "id": "S2.3",
+          "title": "Tensorization and Gozlan's theorem",
+          "source_section": "1.3",
+          "pages": "9-11",
+          "summary": "Dimension-free concentration through tensorization and the converse route from product-space concentration to T2.",
+          "items": ["Empirical-measure Wasserstein estimate", "Sanov theorem input", "Gozlan's equivalence for T2"]
+        },
+        {
+          "id": "S2.4",
+          "title": "Metric measure spaces",
+          "source_section": "1.4",
+          "pages": "11-17",
+          "summary": "Metric geometry, Alexandrov curvature, Lott-Sturm-Villani synthetic Ricci curvature, measured Gromov-Hausdorff stability, and comparison with the Bakry-Emery viewpoint.",
+          "items": ["§1.4.1 Metric geometry", "§1.4.2 Lott-Sturm-Villani synthetic Ricci curvature", "§1.4.3 Discussion"]
+        },
+        {
+          "id": "S2.5",
+          "title": "Exercises",
+          "source_section": "1.5",
+          "pages": "17-19",
+          "summary": "Exercises fill additional proof details and connect the supplement to standard concentration inequalities.",
+          "items": ["Exercises 1.1-1.5"]
+        },
+        {
+          "id": "S2.6",
+          "title": "References",
+          "source_section": "References",
+          "pages": "19-20",
+          "summary": "Primary literature and standard geometry/optimal-transport references supporting the omitted Chapter 2 material.",
+          "items": [
+            "Ambrosio-Gigli-Savare, Gradient Flows in Metric Spaces and in the Space of Probability Measures",
+            "Burago-Burago-Ivanov, A Course in Metric Geometry",
+            "Bobkov-Gotze on transport and logarithmic Sobolev inequalities",
+            "Lott-Villani and Sturm on synthetic Ricci curvature",
+            "Marton on transport tensorization",
+            "Villani, Optimal Transport: Old and New"
+          ]
+        }
+      ]
+    },
+    "background_reference_groups": [
+      {
+        "title": "Rigorous stochastic-calculus cross-checks used by ASTIS",
+        "role": "Used when Chewi sketches standard stochastic-calculus details and formalization requires the hidden measurability, stopping, completion, or martingale hypotheses to be made explicit.",
+        "references": [
+          {"name": "Karatzas-Shreve, Brownian Motion and Stochastic Calculus", "url": "https://link.springer.com/book/10.1007/978-1-4612-0949-2"},
+          {"name": "Protter, Stochastic Integration and Differential Equations", "url": "https://link.springer.com/book/10.1007/978-3-662-10061-5"},
+          {"name": "Revuz-Yor, Continuous Martingales and Brownian Motion", "url": "https://link.springer.com/book/10.1007/978-3-662-06400-9"},
+          {"name": "Shreve, Stochastic Calculus for Finance II", "url": "https://link.springer.com/book/9780387401010"}
+        ]
+      },
+      {
+        "title": "Stochastic analysis and optimal-transport background recommended by Chewi",
+        "role": "Chewi's bibliographical notes point readers to standard books when the main text omits routine or technical proofs. Samplinglib uses these as background/rigor references, never as silent replacements for the pinned Chewi theorem.",
+        "references": [
+          {"name": "Steele, Stochastic Calculus and Financial Applications"},
+          {"name": "Pavliotis, Stochastic Processes and Applications"},
+          {"name": "Le Gall, Brownian Motion, Martingales, and Stochastic Calculus"},
+          {"name": "Bakry-Gentil-Ledoux, Analysis and Geometry of Markov Diffusion Operators"},
+          {"name": "van Handel, Probability in High Dimension"},
+          {"name": "Villani, Topics in Optimal Transportation"},
+          {"name": "Ambrosio-Gigli-Savare, Gradient Flows in Metric Spaces and in the Space of Probability Measures"},
+          {"name": "Santambrogio, Optimal Transport for Applied Mathematicians"},
+          {"name": "Villani, Optimal Transport: Old and New"}
+        ]
+      },
+      {
+        "title": "Concentration and functional-inequality background",
+        "role": "Used to expand concentration, isoperimetry, and functional-inequality arguments around Chapter 2 when the source presentation is intentionally compact.",
+        "references": [
+          {"name": "Ledoux, The Concentration of Measure Phenomenon"},
+          {"name": "Boucheron-Lugosi-Massart, Concentration Inequalities"},
+          {"name": "Bakry-Gentil-Ledoux, Analysis and Geometry of Markov Diffusion Operators"},
+          {"name": "van Handel, Probability in High Dimension"},
+          {"name": "Vershynin, High-Dimensional Probability"}
+        ]
+      }
+    ]
+  },
+  "optimisation": {
+    "primary": {
+      "title": "Lectures on Optimization",
+      "author": "Sinho Chewi",
+      "date": "May 11, 2026",
+      "url": "https://arxiv.org/pdf/2605.07006",
+      "role": "Public theorem-proof source and controlling chapter spine for the Optimisation Library."
+    },
+    "chapters": [
+      {"id": "01", "title": "Introduction and basics of convex functions", "source": "§1", "page": 3},
+      {"id": "02", "title": "Gradient flow", "source": "§2", "page": 12},
+      {"id": "03", "title": "Gradient descent: smooth case", "source": "§3", "page": 18},
+      {"id": "04", "title": "Lower bounds for smooth optimization", "source": "§4", "page": 24},
+      {"id": "05", "title": "Acceleration", "source": "§5", "page": 29},
+      {"id": "06", "title": "Non-smooth convex optimization", "source": "§6", "page": 39},
+      {"id": "07", "title": "Frank-Wolfe", "source": "§7", "page": 57},
+      {"id": "08", "title": "Proximal methods", "source": "§8", "page": 61},
+      {"id": "09", "title": "Fenchel duality", "source": "§9", "page": 67},
+      {"id": "10", "title": "Mirror methods", "source": "§10", "page": 76},
+      {"id": "11", "title": "Alternating minimization", "source": "§11", "page": 90},
+      {"id": "12", "title": "Stochastic optimization", "source": "§12", "page": 104},
+      {"id": "13", "title": "Interior point methods", "source": "§13", "page": 127},
+      {"id": "A", "title": "Background on symmetric matrices", "source": "Appendix A", "page": 140}
+    ],
+    "background_references": [
+      {
+        "name": "Sébastien Bubeck, Convex Optimization: Algorithms and Complexity (2015)",
+        "role": "Named by Chewi as one of the principal sources underlying the lecture notes."
+      },
+      {
+        "name": "Amir Beck, First-Order Methods in Optimization (2017)",
+        "url": "https://epubs.siam.org/doi/book/10.1137/1.9781611974997",
+        "role": "Named by Chewi as one of the principal sources underlying the lecture notes; used for cross-checking and additional detail, but not as the public formalization spine."
+      },
+      {
+        "name": "Yurii Nesterov, Lectures on Convex Optimization (2018)",
+        "role": "Named by Chewi as one of the principal sources underlying the lecture notes."
+      }
+    ],
+    "formal_upstreams": [
+      {"name": "Optlib", "url": "https://github.com/optsuite/optlib"},
+      {"name": "CvxLean", "url": "https://github.com/verified-optimization/CvxLean"}
+    ]
+  }
+}

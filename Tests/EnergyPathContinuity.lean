@@ -1,0 +1,13 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyPathContinuity
+
+namespace AutoSamplingTheory.Tests.EnergyPathContinuity
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.EnergyPathContinuity
+
+#check accumulatedEnergyReal_eq_prefixIntegral
+#check sectionSquare_aestronglyMeasurable
+#check sectionSquare_integrable_ae
+#check continuous_accumulatedEnergyReal_of_integrable
+#check continuous_accumulatedEnergyReal_ae
+
+end AutoSamplingTheory.Tests.EnergyPathContinuity

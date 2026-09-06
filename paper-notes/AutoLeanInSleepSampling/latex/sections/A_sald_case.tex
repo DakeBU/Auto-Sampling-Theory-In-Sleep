@@ -1,0 +1,50 @@
+\section{VA-SALD Faithful-Reproduction Case}
+
+The first case study is \Lean{ASTIS-SALD-001}: faithful reproduction of the
+public VA-SALD paper proofs.  The first proof DAG tracks
+\[
+\texttt{lem:gronwall},\quad
+\texttt{lem:dv\_variation},\quad
+\texttt{eq:LSI-KL-FI},\quad
+\texttt{thm:forward-KL},\quad
+\texttt{thm:forward-KL-discrete},
+\]
+followed by guided-path residual and general moving-target VA-SALD results.
+
+At the end of the first long run, cycle 15 was closed rather than interrupted.
+The accepted lower slice for \Lean{thm:forward-KL-discrete} is
+\[
+  \text{\Lean{sald.discrete_forward_kl.conditional_drift_density}}.
+\]
+It corresponds to the source proof step defining
+\[
+  \bar b_{k,s}(x)
+  = \mathbb{E}\!\left[\nabla \log \pi_{t_k}(X_k^\eta)
+      \mid \widehat X_s=x\right],
+\]
+and records the regular conditional law, density, measurability, and
+integrability interfaces needed before the conditional-drift Fokker--Planck
+equation can be formalized.  It is intentionally an obligation, not a proved
+Fokker--Planck theorem.
+
+\begin{longtable}{p{0.24\textwidth}p{0.34\textwidth}p{0.32\textwidth}}
+\toprule
+Source step & Lean-facing item & Status \\
+\midrule
+Continuous and discrete KL/FI/LSI vocabulary &
+\Lean{Probability.lean}, \Lean{SALD.lean} contracts &
+contracts plus obligations \\
+Continuous forward-KL proof route &
+\Lean{SALD.forwardKlProofDag} &
+source-to-Lean map and obligations \\
+Discrete EM interpolation spine &
+\Lean{SALD.cycle15DiscreteForwardKlMiddleContract} &
+obligation map \\
+Conditional drift density &
+\Lean{SALD.cycle15DiscreteForwardKlConditionalDriftDensityContract} &
+obligation; no fake closure \\
+Conditional Fokker--Planck and Laplacian split &
+\Lean{sald.discrete_forward_kl.em_conditional_fokker_planck} &
+remaining obligation \\
+\bottomrule
+\end{longtable}

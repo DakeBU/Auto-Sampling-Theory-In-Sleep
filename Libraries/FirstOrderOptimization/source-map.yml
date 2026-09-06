@@ -1,0 +1,42 @@
+schema_version: 2
+library_title: Optimisation
+source:
+  author: Sinho Chewi
+  title: Lectures on Optimization
+  year: 2026
+  kind: public_arxiv_lecture_notes
+  url: https://arxiv.org/pdf/2605.07006
+  arxiv: 2605.07006
+source_lineage:
+  - role: background
+    author: Sébastien Bubeck
+    title: Convex Optimization: Algorithms and Complexity
+    year: 2015
+  - role: background
+    author: Amir Beck
+    title: First-Order Methods in Optimization
+    year: 2017
+    url: https://epubs.siam.org/doi/book/10.1137/1.9781611974997
+  - role: background
+    author: Yurii Nesterov
+    title: Lectures on Convex Optimization
+    year: 2018
+chapters:
+  1: Introduction and basics of convex functions
+  2: Gradient flow
+  3: "Gradient descent: smooth case"
+  4: Lower bounds for smooth optimization
+  5: Acceleration
+  6: Non-smooth convex optimization
+  7: Frank-Wolfe
+  8: Proximal methods
+  9: Fenchel duality
+  10: Mirror methods
+  11: Alternating minimization
+  12: Stochastic optimization
+  13: Interior point methods
+appendices:
+  A: Background on symmetric matrices
+formal_upstreams: [Mathlib, Optlib, CvxLean, ATLAS-v1]
+status_policy: [reuse, adapt, missing, out_of_scope]
+truth_boundary: chapter_scaffold_only

@@ -1,0 +1,16 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.SampledElementaryApproximation
+
+namespace AutoSamplingTheory.Tests.SampledElementaryApproximation
+
+open TechnicalLemmas.StochasticProcesses.SampledElementaryApproximation
+
+#check regularGridTimes
+#check regularGridTimes_strictMono
+#check sampledClipped
+#check sampledClipped_coeff_abs_le
+#check dyadicMesh
+#check dyadicMesh_pos
+#check sampledClippedDyadic
+#check sampledClippedDyadic_last_time
+
+end AutoSamplingTheory.Tests.SampledElementaryApproximation

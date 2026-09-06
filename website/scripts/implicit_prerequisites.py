@@ -1,0 +1,369 @@
+#!/usr/bin/env python3
+"""Render ASTIS-owned implicit prerequisite theorems into textbook pages.
+
+Chewi source blocks and ASTIS supplemental results have different provenance.
+The main site generator renders the source route.  This post-build layer adds
+only results that are *not* stated as standalone results in the textbook but
+are genuinely consumed by its calculation rules.  Every card therefore shows
+an ASTIS provenance label, a LaTeX statement, all explicit assumptions, a
+mathematical proof, downstream source consumers, supplementary foundation
+references, and optional Lean links.
+
+The script is deliberately presentation-only: it never changes Registry,
+source-correspondence, completion-matrix, or Lean status.
+"""
+
+from __future__ import annotations
+
+import argparse
+import html
+import json
+import re
+from collections import defaultdict
+from pathlib import Path
+from urllib.parse import quote
+
+
+ROOT = Path(__file__).resolve().parents[2]
+CONTENT = ROOT / "website" / "content"
+DEFAULT_OUTPUT = ROOT / "_site"
+START = "<!-- ASTIS_IMPLICIT_PREREQUISITES_START -->"
+END = "<!-- ASTIS_IMPLICIT_PREREQUISITES_END -->"
+
+
+def esc(value: object) -> str:
+    return html.escape(str(value), quote=True)
+
+
+def slugify(value: str) -> str:
+    value = re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
+    return value or "entry"
+
+
+def foundation_sources(item: dict[str, object]) -> list[dict[str, str]]:
+    raw = item.get("foundation_sources", [])
+    if not isinstance(raw, list):
+        raise RuntimeError(f"{item.get('id', 'entry')}: foundation_sources must be a list")
+    normalized: list[dict[str, str]] = []
+    for index, candidate in enumerate(raw):
+        if not isinstance(candidate, dict):
+            raise RuntimeError(
+                f"{item.get('id', 'entry')}: foundation source #{index} is not an object"
+            )
+        missing = sorted({"name", "scope", "url"}.difference(candidate))
+        if missing:
+            raise RuntimeError(
+                f"{item.get('id', 'entry')}: foundation source #{index} is missing {missing}"
+            )
+        name = str(candidate["name"]).strip()
+        scope = str(candidate["scope"]).strip()
+        url = str(candidate["url"]).strip()
+        if not name or not scope:
+            raise RuntimeError(
+                f"{item.get('id', 'entry')}: foundation source #{index} has empty name/scope"
+            )
+        if not url.startswith("https://"):
+            raise RuntimeError(
+                f"{item.get('id', 'entry')}: foundation source URL must use https: {url}"
+            )
+        normalized.append({"name": name, "scope": scope, "url": url})
+    return normalized
+
+
+def load_items() -> list[dict[str, object]]:
+    path = CONTENT / "implicit_prerequisites.json"
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        raise RuntimeError("implicit_prerequisites.json must contain a list")
+    required = {
+        "id",
+        "section",
+        "title",
+        "provenance",
+        "why_needed",
+        "latex_statement",
+        "assumptions",
+        "proof",
+        "used_for",
+        "lean_declarations",
+        "lean_status",
+    }
+    seen: set[str] = set()
+    items: list[dict[str, object]] = []
+    for index, candidate in enumerate(raw):
+        if not isinstance(candidate, dict):
+            raise RuntimeError(f"implicit prerequisite #{index} is not an object")
+        missing = sorted(required.difference(candidate))
+        if missing:
+            raise RuntimeError(
+                f"implicit prerequisite {candidate.get('id', index)!r} is missing {missing}"
+            )
+        item_id = str(candidate["id"])
+        if item_id in seen:
+            raise RuntimeError(f"duplicate implicit prerequisite id: {item_id}")
+        seen.add(item_id)
+        if str(candidate["provenance"]) != "ASTIS implicit prerequisite":
+            raise RuntimeError(
+                f"{item_id}: supplemental theorem must be labeled 'ASTIS implicit prerequisite'"
+            )
+        if str(candidate["lean_status"]) not in {"compiled", "frontier"}:
+            raise RuntimeError(f"{item_id}: invalid lean_status")
+        if not str(candidate["latex_statement"]).strip():
+            raise RuntimeError(f"{item_id}: missing LaTeX statement")
+        if not str(candidate["proof"]).strip():
+            raise RuntimeError(f"{item_id}: missing mathematical proof")
+        if not list(candidate["assumptions"]):
+            raise RuntimeError(f"{item_id}: missing explicit assumptions")
+        if not list(candidate["used_for"]):
+            raise RuntimeError(f"{item_id}: missing source consumers")
+        foundation_sources(candidate)
+        items.append(dict(candidate))
+    return items
+
+
+def section_path(output: Path, section: str) -> Path:
+    try:
+        chapter = int(section.split(".", 1)[0])
+    except ValueError as exc:
+        raise RuntimeError(f"invalid section id: {section}") from exc
+    return output / "textbook" / f"chapter-{chapter:02d}" / f"section-{slugify(section)}.html"
+
+
+def list_html(values: object) -> str:
+    return "<ul>" + "".join(f"<li>{esc(value)}</li>" for value in list(values)) + "</ul>"
+
+
+def foundation_sources_html(item: dict[str, object]) -> str:
+    sources = foundation_sources(item)
+    if not sources:
+        return (
+            '<p class="muted">No external foundation source is attached to this card yet. '
+            'The ASTIS mathematical statement and Lean status remain authoritative.</p>'
+        )
+    rows = []
+    for source in sources:
+        rows.append(
+            '<li class="foundation-reference">'
+            f'<a href="{esc(source["url"])}" target="_blank" rel="noreferrer">'
+            f'{esc(source["name"])}</a>'
+            f'<span> — {esc(source["scope"])}</span>'
+            "</li>"
+        )
+    return '<ul class="foundation-reference-list">' + "".join(rows) + "</ul>"
+
+
+def declaration_url_map(output: Path) -> dict[str, str]:
+    """Resolve every scanned Lean declaration to the page generated for it.
+
+    Registry declarations point to ``theorems/*.html``. Reviewed teaching
+    declarations may point to stable-hash ``declarations/*.html`` cards. The
+    remaining scanned leaves live at stable anchors on ``modules/*.html``.
+    The generated search index is built from the exact same source scan, so it
+    is the authority for choosing among those three destinations.
+    """
+
+    path = output / "search-index.json"
+    if not path.exists():
+        raise RuntimeError("generated search-index.json is missing before prerequisite enrichment")
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        raise RuntimeError("generated search-index.json must contain a list")
+    resolved: dict[str, str] = {}
+    allowed_prefixes = ("theorems/", "declarations/", "modules/")
+    for row in raw:
+        if not isinstance(row, dict):
+            continue
+        name = str(row.get("name", "")).strip()
+        url = str(row.get("url", "")).strip()
+        if name and url and url.startswith(allowed_prefixes):
+            resolved[name] = url
+    return resolved
+
+
+def lean_links(item: dict[str, object], output: Path) -> str:
+    declarations = [str(value) for value in item["lean_declarations"]]
+    if not declarations:
+        return '<p class="muted">Lean frontier: no completed ASTIS declaration is claimed yet.</p>'
+    url_map = declaration_url_map(output)
+    links = []
+    for declaration in declarations:
+        short = declaration.rsplit(".", 1)[-1]
+        url = url_map.get(declaration)
+        if url:
+            links.append(
+                f'<a href="../../{esc(url)}" data-lean-declaration="{esc(declaration)}">'
+                f'<code>{esc(short)}</code><span>open exact Lean declaration →</span></a>'
+            )
+        else:
+            links.append(
+                f'<a href="../../declarations/index.html?search={quote(declaration)}" '
+                f'data-lean-declaration="{esc(declaration)}" data-unresolved-card="true">'
+                f'<code>{esc(short)}</code><span>find in declaration catalog →</span></a>'
+            )
+    return '<div class="decl-links prerequisite-decl-links">' + "".join(links) + "</div>"
+
+
+def render_card(item: dict[str, object], output: Path) -> str:
+    status = str(item["lean_status"])
+    status_html = (
+        '<span class="status status-green">compiled Lean support</span>'
+        if status == "compiled"
+        else '<span class="status status-orange">Lean frontier</span>'
+    )
+    return f"""
+<article class="textbook-block implicit-prerequisite-card" id="{esc(item['id'])}" data-provenance="astis-implicit-prerequisite">
+  <section class="source-passage supplemental-passage">
+    <div class="passage-label">ASTIS implicit prerequisite · not a standalone Chewi result</div>
+    <h2>{esc(item['title'])}</h2>
+    <p><strong>Why the textbook calculation needs this.</strong> {esc(item['why_needed'])}</p>
+    <div class="formula source-formula">\\[{esc(item['latex_statement'])}\\]</div>
+    <div>{status_html}</div>
+  </section>
+  <details class="reader-disclosure rigor-disclosure" open>
+    <summary>Full theorem and mathematical proof</summary>
+    <div class="disclosure-body">
+      <h3>Assumptions</h3>{list_html(item['assumptions'])}
+      <h3>Proof</h3><p>{esc(item['proof'])}</p>
+      <h3>Where Chewi uses it implicitly</h3>{list_html(item['used_for'])}
+      <h3>Foundation references</h3>
+      <p class="muted">These sources explain the omitted background; they do not replace the Chewi source statement or the ASTIS proof obligation.</p>
+      {foundation_sources_html(item)}
+    </div>
+  </details>
+  <details class="reader-disclosure lean-disclosure">
+    <summary>View Lean formalization</summary>
+    <div class="disclosure-body">
+      <p>This is ASTIS supplemental infrastructure. Its Lean status does not alter the completion status of a Chewi source item. Each compiled link below resolves through the generated source catalog: Registry theorem card, reviewed declaration card, or exact module anchor.</p>
+      {lean_links(item, output)}
+    </div>
+  </details>
+</article>"""
+
+
+def render_section(items: list[dict[str, object]], output: Path) -> str:
+    compiled = sum(str(item["lean_status"]) == "compiled" for item in items)
+    cards = "".join(render_card(item, output) for item in items)
+    return f"""{START}
+<section class="implicit-prerequisites" id="implicit-prerequisites">
+  <div class="section-heading">
+    <span>ASTIS makes the calculation rules explicit</span>
+    <h2>Implicit prerequisite theorems and proofs</h2>
+  </div>
+  <div class="note">
+    <strong>Provenance rule.</strong> These are not additional claims attributed to Chewi. They are the measure-theoretic, stochastic-process, and functional-analytic facts that the textbook calculation uses without promoting each one to a numbered standalone result. ASTIS states their assumptions and proofs explicitly, records the classical sources that explain the omitted infrastructure, and keeps Lean details optional.
+  </div>
+  <p class="card-meta">{compiled}/{len(items)} prerequisite cards currently have compiled Lean support. A frontier card remains mathematically documented without being promoted to a compiled source result.</p>
+  {cards}
+</section>
+{END}"""
+
+
+def strip_existing(text: str) -> str:
+    pattern = re.compile(re.escape(START) + r".*?" + re.escape(END), re.DOTALL)
+    return pattern.sub("", text)
+
+
+def enrich_site(output: Path = DEFAULT_OUTPUT) -> int:
+    items = load_items()
+    # Fail early if the generated declaration index is missing or malformed.
+    declaration_url_map(output)
+    grouped: dict[str, list[dict[str, object]]] = defaultdict(list)
+    for item in items:
+        grouped[str(item["section"])].append(item)
+
+    changed = 0
+    for section, section_items in grouped.items():
+        path = section_path(output, section)
+        if not path.exists():
+            raise RuntimeError(f"generated textbook page does not exist: {path}")
+        text = strip_existing(path.read_text(encoding="utf-8"))
+        marker = '<nav class="reader-pagination"'
+        if marker not in text:
+            raise RuntimeError(f"reader pagination marker missing in {path}")
+        block = render_section(section_items, output)
+        text = text.replace(marker, block + "\n" + marker, 1)
+        path.write_text(text, encoding="utf-8")
+        changed += 1
+
+    data_dir = output / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "implicit-prerequisites.json").write_text(
+        json.dumps(items, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return changed
+
+
+def validate_site(output: Path = DEFAULT_OUTPUT) -> list[str]:
+    errors: list[str] = []
+    try:
+        items = load_items()
+        url_map = declaration_url_map(output)
+    except Exception as exc:  # validation should report rather than crash
+        return [str(exc)]
+    grouped: dict[str, list[dict[str, object]]] = defaultdict(list)
+    for item in items:
+        grouped[str(item["section"])].append(item)
+    for section, section_items in grouped.items():
+        path = section_path(output, section)
+        if not path.exists():
+            errors.append(f"missing generated section for implicit prerequisites: {path}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        if text.count(START) != 1 or text.count(END) != 1:
+            errors.append(f"{path}: implicit-prerequisite block is missing or duplicated")
+        for item in section_items:
+            item_id = str(item["id"])
+            for required_text, label in (
+                (f'id="{item_id}"', "card anchor"),
+                ("ASTIS implicit prerequisite", "provenance"),
+                ("Full theorem and mathematical proof", "proof disclosure"),
+                (esc(item["latex_statement"]), "LaTeX statement"),
+                (esc(item["proof"]), "proof text"),
+                ("Foundation references", "foundation references"),
+                ("View Lean formalization", "Lean disclosure"),
+            ):
+                if required_text not in text:
+                    errors.append(f"{path}: {item_id} missing {label}")
+            for source in foundation_sources(item):
+                if f'href="{esc(source["url"])}"' not in text:
+                    errors.append(
+                        f"{path}: {item_id} missing foundation link for {source['name']}"
+                    )
+                if esc(source["scope"]) not in text:
+                    errors.append(
+                        f"{path}: {item_id} missing foundation scope for {source['name']}"
+                    )
+            if str(item["lean_status"]) == "compiled":
+                for declaration in [str(value) for value in item["lean_declarations"]]:
+                    if declaration not in url_map:
+                        errors.append(
+                            f"{path}: {item_id} compiled declaration has no generated destination: {declaration}"
+                        )
+                    elif f'data-lean-declaration="{esc(declaration)}"' not in text:
+                        errors.append(
+                            f"{path}: {item_id} missing resolved Lean link for {declaration}"
+                        )
+    data_path = output / "data" / "implicit-prerequisites.json"
+    if not data_path.exists():
+        errors.append("generated data/implicit-prerequisites.json is missing")
+    return errors
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", default=str(DEFAULT_OUTPUT))
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    output = Path(args.output).resolve()
+    if args.check:
+        errors = validate_site(output)
+        for error in errors:
+            print(f"ERROR: {error}")
+        return 1 if errors else 0
+    changed = enrich_site(output)
+    print(f"Rendered implicit prerequisite proofs into {changed} textbook section(s).")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

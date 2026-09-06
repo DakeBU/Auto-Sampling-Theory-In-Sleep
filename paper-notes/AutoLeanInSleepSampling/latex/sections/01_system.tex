@@ -1,0 +1,23 @@
+\section{System Design}
+
+The source of truth is Lean plus explicit ledgers.  A mathematical ingredient
+is never treated as proved merely because it is plausible in prose.  If it is
+not a compiled Lean declaration, it must be a \ProofObligation{} or a cited
+result with a recorded Lean status.
+
+The workflow has two public modes.  In \Lean{faithfulPaper} mode, the theorem,
+assumptions, constants, and proof target are fixed by the source paper.  In
+\Lean{exploratoryProof} mode, the system tracks proof routes for active
+research drafts, such as RMFLD, without promoting candidate assumptions to
+facts.
+
+The project-paper framing follows the automation emphasis of
+\url{https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep}, the search-memory perspective of \url{https://github.com/Trinkle23897/learning-beyond-gradients}, the
+population-and-archive idea of \url{https://github.com/FeiLiu36/EoH}, the Lean-specific blueprint
+control loop of \url{https://github.com/YuanheZ/LeanMarathon}, and the Lean proof-diagnostics
+workflow exemplified by \url{https://github.com/math-ai-org/mathcode}.  The acceptance condition is
+stricter than search success: every cycle must leave a buildable repository or
+an explicit blocked status, and post-blueprint cycles must identify the
+dynamic leaf or illness area they changed.
+
+\input{figures/agent_stack}

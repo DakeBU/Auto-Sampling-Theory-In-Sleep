@@ -1,0 +1,1 @@
+"""ASTIS harness tests."""

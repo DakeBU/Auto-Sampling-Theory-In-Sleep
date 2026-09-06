@@ -1,0 +1,3 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexDomainACAEDifferentiable
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexDomainACAEDifferentiable.ae_differentiableAt_of_convexOn_of_absolutelyContinuous

@@ -1,0 +1,27 @@
+schema_version: 1
+source:
+  author: Nicolas Boumal
+  title: An Introduction to Optimization on Smooth Manifolds
+  year: 2023
+  url: https://www.nicolasboumal.net/book/
+  doi: 10.1017/9781009166164
+owners: [Andi, Dake]
+chapters:
+  1: Introduction
+  2: Simple examples
+  3: "Embedded geometry: first order"
+  4: First-order optimization algorithms
+  5: "Embedded geometry: second order"
+  6: Second-order optimization algorithms
+  7: "Embedded submanifolds: examples"
+  8: General manifolds
+  9: Quotient manifolds
+  10: Additional tools
+  11: Geodesic convexity
+status_policy: [reuse, adapt, missing, out_of_scope]
+truth_boundary: chapter_scaffold_only
+formal_upstreams:
+  - id: atlas-v1
+    role: external declaration and proof-pattern memory
+    relevant_books: [DifferentialGeometry, GeometryOfManifolds, DifferentialAnalysis, IntroductionToFunctionalAnalysis]
+    status: reference_only_until_local_adapter_compiles

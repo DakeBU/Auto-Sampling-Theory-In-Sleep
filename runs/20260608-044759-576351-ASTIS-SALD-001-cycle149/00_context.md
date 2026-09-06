@@ -1,0 +1,7 @@
+# Context
+
+Task: `ASTIS-SALD-001`
+Cycle: `149`
+Created: `2026-06-08 04:48:00`
+Focus: Blueprint-guided dynamic leaf: use `python3 tools/astis.py blueprint-refresh ASTIS-SALD-001` and target the refreshed dynamic leaf / illness area rather than the old rotating focus. Current blocker: narrows-source-cited-boundary reviewer acceptance after mandatory gate. Accepted cycle-148 lower_2 dynamic-leaf packet narrowing hemGeneratorLaplacianTotalEventIntegral to hemGeneratorSourceActionDef plus hsourceLaplacianFunctional plus existing hemGeneratorLaplacianEventFieldEqLaplacian through compiled SALD.generalMovingTargetDiscreteEmGeneratorLaplacianTotalEventIntegralOfSourceFunctional. Gate passed: python3 tools/astis.py check. Remaining boundaries: hemGeneratorSourceActionDef, hemGeneratorLaplacianEventFieldEqLaplacian, htraceFieldEqLaplacian, hemGeneratorLaplacianStateEventEqLaplacian when not supplied by pointwise rewrite, and sibling EM/weak-FP leaves. No SLT import or port claim, sald_version_2 use, non-EM fallback, wrapper churn, theorem-status/Lake/toolchain change, broad audit, or fake closure.. For the current SALD state this means stay on the EM conditional-drift/state-event set-integral boundary unless reviewer records a named Mathlib/theory gap; do not take a non-EM fallback merely because the old cycle schedule rotates there.
+Compact context pack: `runs/20260608-044759-576351-ASTIS-SALD-001-cycle149/05_context_pack.md`

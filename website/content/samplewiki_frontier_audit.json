@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "policy": "A SampleWiki row receives an audited theorem card only after the primary theorem/corollary and its proof route have been checked. Missing proof text is recorded as omitted/inherited, never reconstructed as if it appeared in the source.",
+  "formalization_phases": [
+    {
+      "id": "A",
+      "title": "Common Chewi Chapter 1 interfaces",
+      "status": "active in parallel",
+      "items": [
+        "Finish the Chapter 1.1 Ito/SDE/Markov-process route already owned by the existing Chapter 1 branches.",
+        "Reuse the Chapter 1.2-1.3 semigroup, carre-du-champ, transport, and Wasserstein roots from the existing foundation lane.",
+        "Add a regularity-aware relative-Fisher interface and KL/Fisher dissipation.",
+        "Close Chewi Theorem 1.4.5 and its Fisher-Wasserstein first-order consequence."
+      ]
+    },
+    {
+      "id": "B",
+      "title": "Proximal-sampler analytic spine",
+      "status": "next shared spine",
+      "items": [
+        "Chewi Theorem 8.3.1 simultaneous f-divergence flow.",
+        "Forward/backward heat-flow specializations and W2 contraction/time reversal.",
+        "Chewi Theorem 8.4.1 ideal proximal sampler under log-concavity.",
+        "Chewi Theorems 8.5.1/8.5.2 and Corollary 8.6.3."
+      ]
+    },
+    {
+      "id": "C",
+      "title": "Classical LMC / ULD / MALA roots",
+      "status": "after shared Chapter 1 roots",
+      "items": [
+        "Chewi 4.2.7, 4.3.6, 4.3.11.",
+        "Chewi 5.3.17, 6.1.2, 6.3.2.",
+        "Chewi 7.3.5 and 7.6.5."
+      ]
+    },
+    {
+      "id": "D",
+      "title": "Frontier proximal/FORS implementation",
+      "status": "blocked by B",
+      "items": [
+        "Chen-Chewi-Daskalakis-Rakhlin Theorem G.1, with inherited RGO-error tracking made explicit."
+      ]
+    },
+    {
+      "id": "E",
+      "title": "Exact ULD / FORS",
+      "status": "blocked by A/C plus path-law interfaces",
+      "items": [
+        "Girsanov path density and FORS estimator.",
+        "Single-step Renyi error and error composition.",
+        "Chen-Chewi-Rakhlin-Zhang Theorem 3.2."
+      ]
+    },
+    {
+      "id": "F",
+      "title": "Non-log-concave Fisher frontier",
+      "status": "blocked by A/E",
+      "items": [
+        "Chewi Theorem 11.2.1 and Fisher convexity/averaging.",
+        "High-accuracy RGO reduction (Theorem 6.1 in the FORS paper).",
+        "Chen-Chewi-Rakhlin-Zhang Theorem 6.2.",
+        "Chewi 11.4.3/11.4.4 lower bounds after an oracle-complexity interface exists."
+      ]
+    },
+    {
+      "id": "G",
+      "title": "Stochastic and finite-sum oracle results",
+      "status": "later shared oracle lane",
+      "items": [
+        "Formalize the stochastic-gradient/finite-sum oracle model first.",
+        "Then Chewi 10.1.2/10.1.3 and the COLT 2026 upper/lower bounds."
+      ]
+    },
+    {
+      "id": "H",
+      "title": "Weak-smooth and mirror geometry",
+      "status": "later geometry lane",
+      "items": [
+        "Formalize Bregman/mirror geometry and reuse the Chapter 1 Ito formula.",
+        "Then Chewi 10.3.28 and the weak-smooth frontier cases."
+      ]
+    },
+    {
+      "id": "I",
+      "title": "Convex-body membership-oracle branch",
+      "status": "later oracle/geometry lane",
+      "items": [
+        "Build convex-body and membership-query interfaces.",
+        "Then Kook-Zhang and Kook-Vempala warm-start/annealing results."
+      ]
+    }
+  ],
+  "case_audits": {
+    "ASTIS-SW-SETTING-LOG-CONCAVE-SMOOTH-UPPER-IDEAL-PROXIMAL-CHAIN": {
+      "audit_status": "primary theorem and proof route audited",
+      "source_title": "Sinho Chewi, Log-Concave Sampling",
+      "source_version": "2026-08-09 book edition",
+      "theorem_label": "Theorem 8.4.1 (Proximal sampler under log-concavity)",
+      "source_url": "https://chewisinho.github.io/main.pdf#page=234",
+      "statement_latex": "\\operatorname{KL}(\\mu_n^X\\Vert\\pi^X)\\le \\frac{W_2^2(\\mu_0^X,\\pi^X)}{nh}",
+      "source_proof_status": "proof given in source",
+      "proof_equations": [
+        {
+          "latex": "\\partial_t K_t=-\\tfrac12 I_t",
+          "meaning": "Theorem 8.3.1 specialized to the simultaneous heat flow."
+        },
+        {
+          "latex": "K_t^2\\le I_t W_t^2",
+          "meaning": "Theorem 1.4.5 plus the Wasserstein first variation and Cauchy-Schwarz."
+        },
+        {
+          "latex": "W_t^2\\le W_0^2\\quad\\Longrightarrow\\quad K_t'\\le-\\frac{K_t^2}{2W_0^2}",
+          "meaning": "Simultaneous heat-flow contraction."
+        },
+        {
+          "latex": "\\frac1{K_h}\\ge\\frac1{K_0}+\\frac{h}{2W_0^2}",
+          "meaning": "Solve the forward half-step differential inequality; the backward half-step gives the same increment."
+        },
+        {
+          "latex": "\\frac1{K_{j+1}}\\ge\\frac1{K_j}+\\frac{h}{W_0^2}\\quad\\Longrightarrow\\quad K_n\\le\\frac{W_0^2}{nh}",
+          "meaning": "Full-step reciprocal growth followed by the already compiled telescoping tail."
+        }
+      ],
+      "prerequisites": [
+        "Chewi §1.2 regularity-aware relative Fisher information",
+        "Chewi Theorem 1.4.5 and the Fisher-Wasserstein first-order bridge",
+        "Chewi Theorem 8.3.1 simultaneous f-divergence flow",
+        "forward/backward heat-flow W2 contraction and time reversal"
+      ],
+      "lean_target": "Discharge IdealProximalChain.kl_rate_from_reciprocal_step's hstep from the analytic spine.",
+      "phase": "B"
+    },
+    "ASTIS-SW-SETTING-HOLDER-SMOOTH-LOG-CONCAVE-BEST-UPPER-FORS-PROXIMAL-SAMPLER": {
+      "audit_status": "primary theorem audited; source proof explicitly omitted",
+      "source_title": "Chen, Chewi, Daskalakis, Rakhlin, High-accuracy sampling for diffusion models and log-concave distributions",
+      "source_version": "arXiv:2602.01338v2 (2026-04-27)",
+      "theorem_label": "Theorem G.1(3)",
+      "source_url": "https://arxiv.org/html/2602.01338#Sx16.Thmtheorem1",
+      "statement_latex": "D_{\\mathsf{KL}}(\\widehat\\mu\\Vert\\mu)\\le\\varepsilon^2,\\qquad N=\\widetilde O\\!\\left(\\beta_s^{2/(1+s)}d^{s/(1+s)}\\frac{W_2^2(\\mu_0,\\mu)}{\\varepsilon^2}\\right)",
+      "source_proof_status": "proof omitted; source says it follows the RGO implementation error tracking of Altschuler-Chewi",
+      "proof_equations": [
+        {
+          "latex": "\\eta^{-1}=C\\left(\\beta_s^2d^s\\log(1/\\varepsilon)+\\beta_s^2d^{-(1-s)}\\log^2(1/\\varepsilon)\\right)^{1/(1+s)}",
+          "meaning": "Choose the RGO scale required by Theorem G.1."
+        },
+        {
+          "latex": "D_{\\mathsf{KL}}(\\widehat\\mu\\Vert\\mu)\\le\\varepsilon^2",
+          "meaning": "Assemble ideal proximal convergence with per-RGO implementation error; the paper omits the repeated derivation."
+        }
+      ],
+      "prerequisites": [
+        "Chewi Theorem 8.4.1",
+        "proximal-sampler inexact-RGO error accumulation",
+        "FORS Gaussian-tilt/RGO implementation theorem"
+      ],
+      "lean_target": "Formalize the inherited RGO-error composition theorem before creating the thin G.1(3) source assembly.",
+      "phase": "D"
+    },
+    "ASTIS-SW-SETTING-LOG-CONCAVE-SMOOTH-UPPER-FORS-IMPLEMENTED-PROXIMAL-SAMPLER": {
+      "audit_status": "primary theorem audited; source proof explicitly omitted",
+      "source_title": "Chen, Chewi, Daskalakis, Rakhlin, High-accuracy sampling for diffusion models and log-concave distributions",
+      "source_version": "arXiv:2602.01338v2 (2026-04-27)",
+      "theorem_label": "Theorem G.1(3), specialized to s=1",
+      "source_url": "https://arxiv.org/html/2602.01338#Sx16.Thmtheorem1",
+      "statement_latex": "D_{\\mathsf{KL}}(\\widehat\\mu\\Vert\\mu)\\le\\varepsilon^2,\\qquad N=\\widetilde O\\!\\left(\\beta\\sqrt d\\frac{W_2^2(\\mu_0,\\mu)}{\\varepsilon^2}\\right)",
+      "source_proof_status": "proof omitted; inherited proximal/RGO error tracking",
+      "proof_equations": [],
+      "prerequisites": [
+        "same shared prerequisites as the weak-smooth G.1(3) case",
+        "smooth specialization s=1"
+      ],
+      "lean_target": "Reuse the generic G.1(3) assembly; do not formalize a second smooth-only proof.",
+      "phase": "D"
+    },
+    "ASTIS-SW-SETTING-STRONGLY-LOG-CONCAVE-SMOOTH-BEST-UPPER-EXACT-ULD-FORS": {
+      "audit_status": "primary theorem and proof route audited",
+      "source_title": "Chen, Chewi, Rakhlin, Zhang, Exact simulation of diffusions and improved algorithms for log-concave sampling",
+      "source_version": "arXiv:2608.05022v1 (2026-08-05)",
+      "theorem_label": "Theorem 3.2(ii) (High-accuracy simulation of ULD)",
+      "source_url": "https://arxiv.org/html/2608.05022#S3.Thmtheorem2",
+      "statement_latex": "\\mathsf R_q(\\widehat\\nu\\Vert\\pi)\\le\\delta",
+      "source_proof_status": "proof in Appendix C",
+      "proof_equations": [
+        {
+          "latex": "\\mathsf R_{2q}(\\widehat\\nu\\Vert\\nu_K)\\le\\delta/3",
+          "meaning": "FORS simulation error (Lemma C.3)."
+        },
+        {
+          "latex": "\\mathsf R_{2q}(\\nu_K\\Vert\\pi)\\le\\delta/2",
+          "meaning": "Continuous ULD contraction under LSI."
+        },
+        {
+          "latex": "\\mathsf R_q(\\widehat\\nu\\Vert\\pi)\\le\\tfrac32\\mathsf R_{2q}(\\widehat\\nu\\Vert\\nu_K)+\\mathsf R_{2q}(\\nu_K\\Vert\\pi)\\le\\delta",
+          "meaning": "Rényi composition/interpolation (Lemma C.4)."
+        }
+      ],
+      "prerequisites": [
+        "continuous ULD contraction in Rényi divergence",
+        "Girsanov path-density interface",
+        "FORS unbiased log-density-ratio estimator",
+        "single-step/path-to-terminal Rényi simulation error",
+        "Rényi composition/interpolation"
+      ],
+      "lean_target": "Build reusable FORS/Rényi composition leaves, then assemble Theorem 3.2(ii).",
+      "phase": "E"
+    },
+    "ASTIS-SW-SETTING-NONLOGCONCAVE-FISHER-BEST-UPPER-EXACT-ULD-FORS": {
+      "audit_status": "primary theorem and proof route audited",
+      "source_title": "Chen, Chewi, Rakhlin, Zhang, Exact simulation of diffusions and improved algorithms for log-concave sampling",
+      "source_version": "arXiv:2608.05022v1 (2026-08-05)",
+      "theorem_label": "Theorem 6.2, using Theorem 6.1 and Theorem 3.2(ii)",
+      "source_url": "https://arxiv.org/html/2608.05022#S6.Thmtheorem2",
+      "statement_latex": "\\mathsf{FI}(\\widehat\\pi\\Vert\\pi)\\le\\varepsilon^2,\\qquad \\widetilde O\\!\\left(M(d^{1/3}+\\log(M/p))\\right),\\quad M=O\\!\\left(1+\\frac{\\beta\\mathsf{KL}_0}{\\varepsilon^2}\\right)",
+      "source_proof_status": "proof in Appendix F",
+      "proof_equations": [
+        {
+          "latex": "U(0)+\\tfrac12\\|x\\|^2\\le U(x)\\le U(0)+\\tfrac32\\|x\\|^2",
+          "meaning": "Quadratic sandwich for each strongly-log-concave RGO subproblem."
+        },
+        {
+          "latex": "\\mathsf R_\\infty(\\nu_0\\Vert\\varpi\\otimes N(0,I))\\le\\tfrac d2\\log 3",
+          "meaning": "Warm-start bound for the auxiliary ULD sampler."
+        },
+        {
+          "latex": "\\mathsf R_3(\\widehat\\nu\\Vert\\varpi\\otimes N(0,I))\\le\\delta_{\\rm RGO}^2",
+          "meaning": "Theorem 3.2(ii), q=3."
+        },
+        {
+          "latex": "\\text{data processing}\\;\\Longrightarrow\\;\\mathtt{Alg}\\text{ satisfies Theorem 6.1's RGO assumption}",
+          "meaning": "Project phase-space output to position."
+        },
+        {
+          "latex": "M=O(1+\\beta\\mathsf{KL}_0/\\varepsilon^2)\\quad\\Longrightarrow\\quad \\widetilde O(M(d^{1/3}+\\log(M/p)))",
+          "meaning": "Union bound and summation over the M approximate RGO calls."
+        }
+      ],
+      "prerequisites": [
+        "regularity-aware relative Fisher information",
+        "high-accuracy RGO reduction (Theorem 6.1 / Chewi-Wibisono reduction)",
+        "Theorem 3.2(ii) exact ULD/FORS block",
+        "Rényi data processing and Gaussian warm-start bounds"
+      ],
+      "lean_target": "Formalize Theorem 6.1 reduction interface only after the Fisher and proximal shared roots; then plug in Theorem 3.2(ii).",
+      "phase": "F"
+    },
+    "ASTIS-SW-SETTING-NONLOGCONCAVE-FISHER-UPPER-LOWER-AVERAGED-LMC": {
+      "audit_status": "Chewi source theorem and proof route audited",
+      "source_title": "Sinho Chewi, Log-Concave Sampling; theorem attributed to Balasubramanian et al. (2022)",
+      "source_version": "2026-08-09 book edition",
+      "theorem_label": "Theorem 11.2.1",
+      "source_url": "https://chewisinho.github.io/main.pdf#page=287",
+      "statement_latex": "\\frac1{Nh}\\int_0^{Nh}\\mathrm{FI}(\\widehat\\mu_t\\Vert\\pi)\\,dt\\le\\frac{2\\mathrm{KL}(\\widehat\\mu_0\\Vert\\pi)}{Nh}+6\\beta^2dh",
+      "source_proof_status": "proof given in Chewi",
+      "proof_equations": [
+        {
+          "latex": "\\partial_t\\mathrm{KL}(\\widehat\\mu_t\\Vert\\pi)\\le-\\tfrac12\\mathrm{FI}(\\widehat\\mu_t\\Vert\\pi)+6\\beta^2d(t-nh)",
+          "meaning": "Reuse the LMC interpolation estimate from the proof of Theorem 4.2.7."
+        },
+        {
+          "latex": "\\mathrm{KL}_{n+1}-\\mathrm{KL}_n\\le-\\tfrac12\\int_{nh}^{(n+1)h}\\mathrm{FI}_t\\,dt+3\\beta^2dh^2",
+          "meaning": "Integrate over one LMC step."
+        },
+        {
+          "latex": "\\frac1{Nh}\\int_0^{Nh}\\mathrm{FI}_t\\,dt\\le\\frac{2\\mathrm{KL}_0}{Nh}+6\\beta^2dh",
+          "meaning": "Telescope over n=0,...,N-1."
+        }
+      ],
+      "prerequisites": [
+        "relative Fisher information",
+        "Chewi Theorem 4.2.7 interpolation/dissipation estimate",
+        "finite telescoping and integration"
+      ],
+      "lean_target": "After the analytic one-step LMC inequality is available, formalize the telescoping/averaging theorem as a shared Fisher leaf.",
+      "phase": "F"
+    }
+  }
+}

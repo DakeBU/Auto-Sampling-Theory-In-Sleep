@@ -1,0 +1,17 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ElementaryItoIsometry
+
+namespace AutoSamplingTheory.Tests.ElementaryItoIsometry
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
+open ElementaryItoIsometry
+
+#check TimeMeasure.upTo_Ioc
+#check brownianIncrement
+#check weightedIncrement
+#check integral_weightedIncrement_sq
+#check integral_weightedIncrement_mul_eq_zero
+#check chewi_display_1_1_5
+#check processL2Energy_value
+#check chewi_display_1_1_6
+
+end AutoSamplingTheory.Tests.ElementaryItoIsometry

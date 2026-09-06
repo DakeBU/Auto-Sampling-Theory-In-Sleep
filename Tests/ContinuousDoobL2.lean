@@ -1,0 +1,14 @@
+import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ContinuousDoobL2
+
+open AutoSamplingTheory.TechnicalLemmas.StochasticProcesses
+
+#check ContinuousDoobL2.dyadicMaxEvent
+#check ContinuousDoobL2.dyadicMaxEventAll
+#check ContinuousDoobL2.measurableSet_dyadicMaxEventAll
+#check ContinuousDoobL2.monotone_dyadicMaxEvent
+#check ContinuousDoobL2.pow_mul_measure_dyadicMaxEventAll_le
+#check ContinuousDoobL2.measure_dyadicMaxEventAll_le
+#check ContinuousDoobL2.activeCellIndex
+#check ContinuousDoobL2.tendsto_rightApproxTime
+#check ContinuousDoobL2.continuousOn_mem_dyadicMaxEventAll
+#check ContinuousDoobL2.doobL2_continuous
