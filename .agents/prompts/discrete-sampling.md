@@ -3,6 +3,8 @@
 Read AGENTS.md, .agents/skills/astis-substantive-advance/SKILL.md,
 docs/discrete-sampling-protocol.md, Libraries/DiscreteSampling/source-map.json,
 Libraries/frontloaded-shared-spine.json and Libraries/shared-foundations.yml.
+Read Libraries/DiscreteSampling/reuse-audit.json before selecting kernel or entropy adapters;
+in particular, totalized log at zero is not standard jump entropy dissipation.
 Read graph_memory_index.json families before expanding Functor bridges or Lean leaves.
 Use route `discrete-sampling`, faithfulPaper for primary source work, one bounded SAU.
 
