@@ -44,6 +44,7 @@ class SubstantiveAdvanceHarnessTest(unittest.TestCase):
             "lean_files": ["AutoSamplingTheory/TechnicalLemmas/Measure/CostJoin.lean"],
             "focused_checks": ["lake env lean Tests/CostJoin.lean"],
             "truth_boundary": "global optimality contradiction remains downstream",
+            "conceptual_mirror_audit": {"status": "none-found", "discovery_ids": []},
         }
 
     @staticmethod
@@ -54,6 +55,21 @@ class SubstantiveAdvanceHarnessTest(unittest.TestCase):
             "verified_commit": "deadbeef",
             "source_audit": "source statement and assumptions match",
             "fake_closure_scan": "clean",
+        }
+
+    @staticmethod
+    def mirror_metadata() -> dict:
+        return {
+            "bridge_id": "transport:metric-pl",
+            "family_id": "family:metric-gradient-flow",
+            "domains": ["concept:optimization", "concept:transport", "concept:sampling"],
+            "formula": "dE/dt = -||grad_g E||^2 and metric PL closes the gap",
+            "mechanism": "energy dissipation plus a gap-versus-gradient coercivity inequality",
+            "hypothesis_map": "identify the metric gradient, chain rule, flow existence, and PL constant",
+            "conclusion_map": "the scalar Gronwall step gives exponential energy-gap decay",
+            "failure_boundary": "the spaces and metrics are not identified and no Lean implication is asserted",
+            "source_ids": ["opt", "ot", "sampling"],
+            "graph_views": ["overview", "lean", "functor"],
         }
 
     def claim_and_explore(self, advance_id: str = "A1", worker: str = "worker-a") -> None:
@@ -163,6 +179,80 @@ class SubstantiveAdvanceHarnessTest(unittest.TestCase):
             advance.transition_advance(
                 "A1", "PROVED_LOCAL", worker_id="worker-a",
                 evidence={"lean_files": ["OnlyFile.lean"]}, path=self.advance_ledger,
+            )
+
+    def test_proved_local_requires_conceptual_mirror_audit(self) -> None:
+        advance.propose_advance(self.proposal(), self.advance_ledger)
+        self.claim_and_explore()
+        evidence = self.proved_evidence()
+        evidence.pop("conceptual_mirror_audit")
+        with self.assertRaisesRegex(advance.HarnessError, "conceptual_mirror_audit"):
+            advance.transition_advance(
+                "A1", "PROVED_LOCAL", worker_id="worker-a",
+                evidence=evidence, path=self.advance_ledger,
+            )
+
+    def test_conceptual_mirror_discovery_is_typed_linked_and_independently_validated(self) -> None:
+        advance.propose_advance(self.proposal(), self.advance_ledger)
+        self.claim_and_explore()
+        with self.assertRaisesRegex(advance.HarnessError, "conceptual-mirror metadata lacks"):
+            advance.publish_discovery(
+                advance.Discovery(
+                    discovery_id="M0", advance_id="A1", kind="conceptual-mirror",
+                    statement="a vague analogy", evidence="source read",
+                    where_it_matters="Functor Hypergraph", provenance="worker observation",
+                    created_by="worker-a", frontier_cell="brenier-cost",
+                ),
+                self.discovery_ledger,
+            )
+        mirror = advance.Discovery(
+            discovery_id="M1", advance_id="A1", kind="conceptual-mirror",
+            statement="metric PL closes an energy-dissipation identity in several geometries",
+            evidence="source equations and hypothesis maps checked by the proving worker",
+            where_it_matters="family:metric-gradient-flow and transport:metric-pl",
+            provenance="worker-a reuse audit", created_by="worker-a",
+            frontier_cell="brenier-cost", metadata=self.mirror_metadata(),
+        )
+        advance.publish_discovery(mirror, self.discovery_ledger)
+        with self.assertRaisesRegex(advance.HarnessError, "independent"):
+            advance.transition_discovery(
+                "M1", "validated", actor="worker-a", note="self review",
+                path=self.discovery_ledger,
+            )
+        advance.transition_discovery(
+            "M1", "validated", actor="verifier-c",
+            note="source evidence, hypothesis/conclusion map and failure boundary checked",
+            path=self.discovery_ledger,
+        )
+        evidence = self.proved_evidence()
+        evidence["conceptual_mirror_audit"] = {
+            "status": "candidates-published",
+            "discovery_ids": ["M1"],
+        }
+        advance.transition_advance(
+            "A1", "PROVED_LOCAL", worker_id="worker-a", evidence=evidence,
+            path=self.advance_ledger, discovery_path=self.discovery_ledger,
+        )
+        capsule = advance.coordinator_capsule(
+            self.advance_ledger, self.discovery_ledger,
+            max_advances=4, max_discoveries=4, max_cells=4,
+        )
+        self.assertEqual(capsule["validated_conceptual_mirrors"][0]["discovery_id"], "M1")
+        self.assertEqual(capsule["validated_conceptual_mirrors"][0]["bridge_id"], "transport:metric-pl")
+        self.assertIn("M1", capsule["frontier_cells"][0]["validated_conceptual_mirrors"])
+
+    def test_conceptual_mirror_audit_rejects_unknown_discovery(self) -> None:
+        advance.propose_advance(self.proposal(), self.advance_ledger)
+        self.claim_and_explore()
+        evidence = self.proved_evidence()
+        evidence["conceptual_mirror_audit"] = {
+            "status": "candidates-published",
+            "discovery_ids": ["MISSING"],
+        }
+        with self.assertRaisesRegex(advance.HarnessError, "unknown discovery"):
+            advance.transition_advance(
+                "A1", "PROVED_LOCAL", worker_id="worker-a", evidence=evidence,
+                path=self.advance_ledger, discovery_path=self.discovery_ledger,
             )
 
     def test_blocked_requires_a_strictly_smaller_boundary(self) -> None:
