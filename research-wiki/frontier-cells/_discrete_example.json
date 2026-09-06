@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-DS-example",
+  "route": "discrete-sampling",
+  "title": "Finite heat-bath detailed-balance target (template)",
+  "mode": "faithfulPaper",
+  "source_anchor": "CSV arXiv:2307.13826v4 §1.3 / §3.2, exact theorem or equation to be selected",
+  "target_statement": "Template only: replace with a precisely quantified finite heat-bath detailed-balance statement.",
+  "status": "claimed",
+  "parents": [],
+  "consumers": [],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib",
+      "Mathlib",
+      "Libraries/shared-foundations.yml"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "",
+    "canonical_shared_cell": "",
+    "notes": "Explain why this is route-local or which existing/shared node is reused."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2307.13826v4; SHA256 3cc2f911b33bb5538157ef8a70f0c7e0f3c812ecd06dc9c1d5ea0bfdae11a52a",
+    "primary_anchor": "§1.3 p.5 and §3.2 p.20; select an exact statement before claiming",
+    "detail_status": "sufficient",
+    "gap": "",
+    "consulted": [],
+    "fidelity_boundary": "Original statement unchanged; any proposed repair is separately reviewed."
+  },
+  "discrete_sampling_contract": {
+    "state_space": "finite-state",
+    "target_law": "Specify exact target law",
+    "support_and_pinning": "Specify exact support and pinning",
+    "clock": "discrete-time",
+    "update_unit": "one uniformly selected site per step",
+    "kernel_or_generator": "Specify exact kernel or generator",
+    "irreducibility": "Specify exact irreducibility",
+    "aperiodicity_or_laziness": "Specify exact aperiodicity or laziness",
+    "parameter_regime": "Specify exact parameter regime",
+    "error_metric": "Specify exact error metric",
+    "initialization": "Specify exact initialization",
+    "cost_model": "Specify exact cost model"
+  }
+}

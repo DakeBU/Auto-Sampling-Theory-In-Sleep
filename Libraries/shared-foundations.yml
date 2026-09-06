@@ -24,6 +24,9 @@ source_spines:
     source: Nicolas Boumal, An Introduction to Optimization on Smooth Manifolds
   statistical-optimal-transport:
     source: Chewi, Niles-Weed, Rigollet, Statistical Optimal Transport
+  discrete-sampling:
+    source: Chen, Štefankovič, Vigoda, arXiv:2307.13826v4
+    role: finite-state probability/kernel producer; shared reversible form and scalar-decay consumer
 checkpoints:
   - id: euclidean-linear-algebra-foundations
     consumers: [log-concave-sampling, optimisation, riemannian-optimization, statistical-optimal-transport]
@@ -139,6 +142,17 @@ checkpoints:
     consumers: [samplewiki-route, higher-order-sampling, statistical-optimal-transport]
     status: candidate
     note: share discrepancy or testing interfaces only after distinguishing statistical observations from sampling queries
+
+  - id: finite-kernel-pinning-foundations
+    consumers: [discrete-sampling, log-concave-sampling, samplewiki-route]
+    source_links: ["CSV §§1.3, 3.2, 4.1", "Sampling Markov-kernel algebra"]
+    status: candidate
+    note: one kernel and support-positive conditioning core; no SDE or diffusion-calculus prerequisite
+  - id: reversible-form-scalar-decay-foundations
+    consumers: [discrete-sampling, log-concave-sampling, optimisation]
+    source_links: ["CSV §§3.3–3.7, 6.8", "Generator-form Poincare / entropy", "PL scalar decay"]
+    status: candidate
+    note: finite sums and diffusion integrals instantiate a shared form only after exact domain/clock adapters; jump MLSI is not ordinary LSI
 
 canonical_declarations: []
 shared_dependency_plan: /Libraries/cross-domain-program.json

@@ -1,10 +1,10 @@
 # ASTIS Cross-Library Coordination
 
-Use this skill whenever a theorem-sized task in the SampleWiki, Riemannian Optimization, or Optimisation route may touch mathematics that another route could also need.
+Use this skill whenever a theorem-sized task in any source, frontier or research route may touch mathematics that another route could also need.
 
 ## Goal
 
-Let the three routes advance independently without creating duplicate or incompatible lower-level Lean declarations. Source-facing theorems remain attached to their own sources; only genuinely shared mathematical foundations are shared.
+Let the routes advance independently without creating duplicate or incompatible lower-level Lean declarations. Source-facing theorems remain attached to their own sources; only genuinely shared mathematical foundations are shared.
 
 The public coordination surface is `/progress/`. The persistent unit of work is one JSON Frontier Cell under `research-wiki/frontier-cells/`. The machine check is:
 
@@ -17,6 +17,9 @@ python3 tools/astis_frontier_cells.py check
 - **Log-Concave Sampling / SampleWiki:** Sinho Chewi's `main.pdf` is primary for the textbook; `supp.pdf` is an official Chapter 2 source layer; SampleWiki cases remain pinned to their primary papers.
 - **Riemannian Optimization:** Nicolas Boumal is the source-facing route; Mathlib/shared geometry interfaces are searched first.
 - **Optimisation:** Sinho Chewi's *Lectures on Optimization* (arXiv:2605.07006) is the public source-facing spine. Bubeck, Beck, and Nesterov are background/cross-check references; Optlib and CvxLean are formal upstreams.
+
+- **Statistical Optimal Transport:** Chewi–Niles-Weed–Rigollet; version/hash and page map live in `Libraries/StatisticalOptimalTransport/source-map.json`.
+- **Discrete Sampling:** CSV arXiv:2307.13826v4; Pal–Mesikepp arXiv:2510.14165v1 is introductory background. Read `Libraries/DiscreteSampling/route-plan.json`. State space is finite; clock is separately discrete or continuous. §12 Ising/coloring rate statements are unproved surveys: retrieve the cited original proof.
 
 ## Mandatory pre-declaration audit
 

@@ -11,7 +11,7 @@ For collaborative route work, every substantive advance must also have a persist
 ```yaml
 advance_id:
 task_id:
-route: samplewiki-route | riemannian-optimization | optimisation | shared
+route: samplewiki-route | riemannian-optimization | optimisation | statistical-optimal-transport | higher-order-sampling | discrete-sampling | shared
 mode: faithfulPaper | exploratoryProof
 frontier_cell:
 frontier_cell_record:

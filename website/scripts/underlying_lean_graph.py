@@ -86,6 +86,7 @@ def main_html(counts: dict[str, Any]) -> str:
 <section class="ulg-shell">
   <div class="ulg-toolbar">
     <div class="ulg-presets" role="group" aria-label="Graph view"><button class="active" data-view="overview">Overview Graph</button><button data-view="textbook">Textbook · 12 chapters</button><button data-view="frontier">SampleWiki frontier</button><button data-view="lean">Lean Branches Graph</button><button data-view="semantic">Semantic fidelity & repair</button><button data-view="functor">Functor Hypergraph</button></div>
+    <label><input type="checkbox" data-graph-proposals> Show pending conceptual proposals (not independently accepted)</label>
     <label class="ulg-search"><span>Search theorem, family, bridge, paper, module, declaration, semantic delta, or repair</span><input type="search" data-graph-search placeholder="e.g. metric-gradient-flow, PL, LSI, Fisher, Theorem 8.4.1"></label>
     <div class="ulg-actions"><button data-graph-fit>Fit</button><button data-graph-reset>Reset</button><span data-graph-count></span></div>
   </div>

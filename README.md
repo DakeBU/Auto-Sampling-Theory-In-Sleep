@@ -27,6 +27,7 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 | Riemannian Optimisation | Nicolas Boumal, *An Introduction to Optimization on Smooth Manifolds* |
 | Optimisation | Sinho Chewi, *Lectures on Optimization* |
 | Statistical Optimal Transport | Sinho Chewi, Jonathan Niles-Weed, Philippe Rigollet |
+| Discrete Sampling | Zongchen Chen, Daniel Štefankovič, Eric Vigoda, *Spectral Independence and Local-to-Global Techniques for Optimal Mixing of Markov Chains* ([arXiv:2307.13826v4](https://arxiv.org/abs/2307.13826v4)) |
 
 ## Research aim
 
@@ -42,7 +43,7 @@ A paper may add a **LEAF**, **BRIDGE**, **SHORTCUT**, **HUB**, or **RE-ORGANIZAT
 
 ## ASTIS Harness
 
-The three formalization routes use the same theorem-driven verification workflow. A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. Parallel work may discover shared foundations, but shared declarations are reused or coordinated before publication; independent review and a single stabilization lane decide what becomes Samplinglib truth.
+The formalization routes use the same theorem-driven verification workflow. A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. Parallel work may discover shared foundations, but shared declarations are reused or coordinated before publication; independent review and a single stabilization lane decide what becomes Samplinglib truth.
 
 <p align="center">
   <img src="website/static/astis-harness-current.svg" alt="ASTIS Harness theorem-driven verification workflow" width="980">
@@ -59,7 +60,7 @@ Lean compilation does not by itself guarantee source fidelity. Source-facing nod
 <details>
 <summary><strong>Collaborative route protocol</strong></summary>
 
-[Current Progress](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/) is one dashboard containing **SampleWiki Route**, **Riemannian Optimization**, and **Optimisation**. Collaborators can advance different theorem-sized Frontier Cells while seeing the other routes and the shared Lean floor on the same page.
+[Current Progress](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/) is one dashboard containing **SampleWiki Route**, **Riemannian Optimization**, **Optimisation**, **Statistical Optimal Transport**, **Higher-Order Smoothness × Sampling**, and **Discrete Sampling**. Collaborators can advance different theorem-sized Frontier Cells while seeing the other routes and the shared Lean floor on the same page.
 
 Persistent cells live under [`research-wiki/frontier-cells/`](research-wiki/frontier-cells/). Their status is evidence-backed and CI-checked by:
 

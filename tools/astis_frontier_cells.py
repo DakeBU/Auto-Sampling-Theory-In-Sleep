@@ -19,7 +19,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CELL_ROOT = ROOT / "research-wiki" / "frontier-cells"
 
-ROUTES = {"samplewiki-route", "riemannian-optimization", "optimisation", "statistical-optimal-transport", "higher-order-sampling", "shared"}
+ROUTES = {"samplewiki-route", "riemannian-optimization", "optimisation", "statistical-optimal-transport", "higher-order-sampling", "discrete-sampling", "shared"}
 MODES = {"faithfulPaper", "exploratoryProof"}
 STATUSES = {
     "claimed",
@@ -159,7 +159,7 @@ def validate_cells(cells: list[dict[str, Any]]) -> list[str]:
                     f"{path}: route-local cell may not implement a new shared foundation; open/use the shared cell first"
                 )
 
-        if route in {"statistical-optimal-transport", "higher-order-sampling"} and cell.get("schema_version") != 2:
+        if route in {"statistical-optimal-transport", "higher-order-sampling", "discrete-sampling"} and cell.get("schema_version") != 2:
             errors.append(f"{path}: new cross-domain routes require schema_version 2")
         if cell.get("schema_version") not in {1, 2}:
             errors.append(f"{path}: unsupported schema_version")
@@ -195,6 +195,18 @@ def validate_cells(cells: list[dict[str, Any]]) -> list[str]:
                 for key in ("potential_class", "smoothness_p", "oracle_q", "dynamics_k", "accuracy_r", "metric", "start", "cost"):
                     if not _nonempty(comparison.get(key)):
                         errors.append(f"{path}: higher-order sampling needs comparison_contract.{key}")
+
+        if route == "discrete-sampling":
+            contract = cell.get("discrete_sampling_contract", {})
+            if not isinstance(contract, dict):
+                contract = {}
+            for key in ("state_space", "target_law", "support_and_pinning", "clock", "update_unit", "kernel_or_generator", "irreducibility", "aperiodicity_or_laziness", "parameter_regime", "error_metric", "initialization", "cost_model"):
+                if not _nonempty(contract.get(key)):
+                    errors.append(f"{path}: discrete sampling needs discrete_sampling_contract.{key}")
+            if contract.get("state_space") != "finite-state":
+                errors.append(f"{path}: this discrete route initially requires finite-state; continuous-state Euler work belongs elsewhere")
+            if contract.get("clock") not in {"discrete-time", "continuous-time"}:
+                errors.append(f"{path}: discrete sampling clock must be discrete-time or continuous-time")
 
         evidence = cell.get("evidence")
         if not isinstance(evidence, dict):

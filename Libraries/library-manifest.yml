@@ -38,3 +38,12 @@ libraries:
     appendices: 2
     source_map: /Libraries/StatisticalOptimalTransport/source-map.json
     site: /libraries/statistical-optimal-transport/
+  - id: discrete-sampling
+    title: Discrete Sampling
+    kind: arxiv-monograph
+    authors: [Zongchen Chen, Daniel Štefankovič, Eric Vigoda]
+    source: https://arxiv.org/pdf/2307.13826v4
+    priority: scaffold
+    chapters: 12
+    source_map: /Libraries/DiscreteSampling/source-map.json
+    site: /libraries/discrete-sampling/

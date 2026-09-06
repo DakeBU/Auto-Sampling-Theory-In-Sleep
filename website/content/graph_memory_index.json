@@ -36,12 +36,14 @@
         "concept:optimization",
         "concept:riemannian",
         "concept:transport",
-        "concept:sampling"
+        "concept:sampling",
+        "concept:discrete"
       ],
       "functor_edges": [
         "transport:metric-lift",
         "transport:wasserstein-flow",
-        "transport:metric-pl"
+        "transport:metric-pl",
+        "transport:discrete-transport"
       ],
       "formal_search_nodes": [
         "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity",
@@ -65,12 +67,14 @@
         "concept:optimization",
         "concept:riemannian",
         "concept:transport",
-        "concept:sampling"
+        "concept:sampling",
+        "concept:discrete"
       ],
       "functor_edges": [
         "transport:metric-lift",
         "transport:curvature-growth",
-        "transport:pl-lsi"
+        "transport:pl-lsi",
+        "transport:discrete-transport"
       ],
       "formal_search_nodes": [
         "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
@@ -80,7 +84,9 @@
       "compiled_substrate_bindings": [
         {
           "node": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder",
-          "edges": ["transport:curvature-growth"],
+          "edges": [
+            "transport:curvature-growth"
+          ],
           "role": "Compiled Euclidean first-order quadratic lower model produced by strong convexity.",
           "truth_boundary": "This module is a substrate for the Euclidean curvature-to-growth pattern only. It does not certify Riemannian, Wasserstein, Bakry-Emery, PL, Poincare, or LSI arrows."
         }
@@ -100,12 +106,14 @@
       "domains": [
         "concept:optimization",
         "concept:transport",
-        "concept:sampling"
+        "concept:sampling",
+        "concept:discrete"
       ],
       "functor_edges": [
         "transport:metric-pl",
         "transport:pl-lsi",
-        "transport:entropy-sandwich"
+        "transport:entropy-sandwich",
+        "transport:discrete-entropy"
       ],
       "formal_search_nodes": [
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
@@ -127,11 +135,13 @@
       "plain_language": "For density ratio rho, chi-square is the squared L2 distance of rho from 1. Poincare controls this quadratic gap by Dirichlet energy, and reversible semigroup dissipation then gives exponential chi-square decay.",
       "domains": [
         "concept:optimization",
-        "concept:sampling"
+        "concept:sampling",
+        "concept:discrete"
       ],
       "functor_edges": [
         "transport:pi-chi2",
-        "transport:metric-pl"
+        "transport:metric-pl",
+        "transport:discrete-dirichlet"
       ],
       "formal_search_nodes": [
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare",
@@ -170,6 +180,61 @@
         "separate existence, normalization, and invariance obligations"
       ],
       "do_not_conflate": "Sharing an energy does not make the proximal map and restricted Gaussian oracle equivalent outputs."
+    },
+    {
+      "id": "family:conditional-influence",
+      "label": "Conditional covariance and local-to-global mixing",
+      "plain_language": "Finite log-partition curvature helps interpret normalized influences; control under all feasible pinnings is used by local-to-global mixing theorems.",
+      "domains": [
+        "concept:optimization",
+        "concept:discrete"
+      ],
+      "functor_edges": [
+        "transport:influence-hessian"
+      ],
+      "formal_search_nodes": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity"
+      ],
+      "compiled_substrate_bindings": [],
+      "reading_order": [
+        "Read the exact state and normalization contract",
+        "Audit existing local and Mathlib declarations",
+        "Inspect source-backed bridge and failure boundary",
+        "Prove or reject the domain adapter before any transport claim"
+      ],
+      "do_not_conflate": "Upper covariance control is not lower strong-convexity control. Spectral independence quantifies over pinnings."
+    },
+    {
+      "id": "family:coupling-contraction",
+      "label": "Coupling construction → metric contraction",
+      "plain_language": "One coupling/marginal/composition core; each dynamics supplies its own valid kernel coupling and metric.",
+      "domains": [
+        "concept:transport",
+        "concept:sampling",
+        "concept:discrete"
+      ],
+      "functor_edges": [
+        "transport:discrete-coupling"
+      ],
+      "formal_search_nodes": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.CouplingGraph",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel"
+      ],
+      "compiled_substrate_bindings": [],
+      "reading_order": [
+        "Read the exact state and normalization contract",
+        "Audit existing local and Mathlib declarations",
+        "Inspect source-backed bridge and failure boundary",
+        "Prove or reject the domain adapter before any transport claim"
+      ],
+      "do_not_conflate": "Hamming/W1, W2 and chain-dependent Maas transport are distinct metrics; support connectivity and time units matter."
     }
-  ]
+  ],
+  "discrete_route": {
+    "source": "Libraries/DiscreteSampling/source-map.json",
+    "plan": "Libraries/DiscreteSampling/route-plan.json",
+    "entry": "concept:discrete",
+    "review_boundary": "New discrete bridges are candidates pending independent source/mathematical review, not certified theorem transfers."
+  }
 }

@@ -108,5 +108,10 @@
       "name": "One regularized energy, optimization or sampling output",
       "core": "A common quadratic-regularized energy can be minimized by a proximal operator or exponentiated and normalized by a restricted Gaussian oracle."
     }
-  ]
+  ],
+  "candidate_preview_policy": {
+    "default_atlas": "New records with review.state=candidate are excluded from the default graph. The explicit pending-proposals toggle or an explicit proposal-inspector click can preview them.",
+    "admission": "Independent actor and source-review evidence are required for review.state=validated. Existing fail-closed Lean certification checks still apply.",
+    "truth_boundary": "Preview, metadata validation, browser tests and source-present modules do not constitute independent mathematical acceptance or a Lean transport certificate."
+  }
 }

@@ -60,11 +60,11 @@ def main() -> None:
                     graph=json.loads((site/'data/underlying-lean-graph.json').read_text())
                     page.evaluate('g => { window.fetch = async () => ({ok:true,json:async()=>g}); }',graph)
                     page.add_script_tag(content=(site/'assets/underlying-lean-graph.js').read_text())
-            for rel,name in [('index.html','home'),('libraries/statistical-optimal-transport/index.html','ot'),('progress/index.html#optimal-transport','progress'),('lean-foundations.html?view=functor','functor')]:
+            for rel,name in [('index.html','home'),('libraries/statistical-optimal-transport/index.html','ot'),('libraries/discrete-sampling/index.html','discrete'),('libraries/discrete-sampling/route.html','discrete-route'),('progress/index.html#optimal-transport','progress'),('lean-foundations.html?view=functor','functor')]:
                 goto(rel)
                 page.wait_for_timeout(250)
-                assert page.locator('.library-source-hubs > a').count()==5
-                assert page.locator('.progress-route-nav > a').count()==5
+                assert page.locator('.library-source-hubs > a').count()==6
+                assert page.locator('.progress-route-nav > a').count()==6
                 assert page.locator('h1').count()==1
                 if name=='functor':
                     page.wait_for_selector('.ulg-node')
@@ -73,6 +73,11 @@ def main() -> None:
                         page.wait_for_function('Boolean(window.MathJax?.startup?.promise)')
                         page.evaluate('() => MathJax.startup.promise')
                     page.locator('button[data-view="functor"]').click()
+                    assert page.locator('.ulg-node[data-id="transport:discrete-entropy"]').count()==0
+                    page.locator('[data-graph-proposals]').check()
+                    assert page.locator('.ulg-node[data-id="transport:discrete-entropy"]').count()==1
+                    assert 'pending' in page.locator('[data-graph-proposals]').locator('..').inner_text().lower()
+
                     page.locator('[data-functor-jump="transport:gibbs-prox"]').first.click()
                     assert 'ALL inputs:' in page.locator('[data-graph-detail]').inner_text()
                     assert 'not-Lean-certified' in page.locator('[data-graph-detail]').inner_text()
@@ -101,7 +106,7 @@ def main() -> None:
                 page.screenshot(path=str(evidence/(name+'.png')))
                 overflow=page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
                 assert not overflow, f'Horizontal overflow: {rel}'
-                report['pages'].append({'page':rel,'libraries':5,'routes':5,'horizontal_overflow':overflow})
+                report['pages'].append({'page':rel,'libraries':6,'routes':6,'horizontal_overflow':overflow})
             if not args.offline_dom:
                 goto('underlying-lean-graph/index.html?view=functor&focus=transport:dirac')
                 page.wait_for_url(lambda url: urlsplit(url).path.endswith('/lean-foundations.html')
@@ -119,6 +124,22 @@ def main() -> None:
             page.screenshot(path=str(evidence/'ot-mobile.png'))
             assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'), 'Mobile OT overflow'
             report['mobile_ot_overflow']=False
+            page.set_viewport_size({'width':1600,'height':1050})
+            discrete=json.loads((ROOT/'Libraries/DiscreteSampling/source-map.json').read_text())
+            for row in discrete['chapters']:
+                goto('libraries/discrete-sampling/'+row['path'])
+                if not args.offline_dom:
+                    page.wait_for_selector('mjx-container',timeout=30000)
+                    assert page.locator('mjx-merror').count()==0,row['id']
+                assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'), row['id']
+            report['discrete_chapters_checked']=len(discrete['chapters'])
+            goto('libraries/discrete-sampling/chapter-12.html#section-12-1')
+            assert page.locator('#section-12-1').count()==1
+            assert 'without proving' in page.locator('main').inner_text()
+            page.set_viewport_size({'width':412,'height':915})
+            page.screenshot(path=str(evidence/'discrete-mobile.png'))
+            assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'), 'Mobile discrete overflow'
+            report['mobile_discrete_overflow']=False
             assert not report['runtime_errors'],report['runtime_errors']
             browser.close()
     except Exception as error:

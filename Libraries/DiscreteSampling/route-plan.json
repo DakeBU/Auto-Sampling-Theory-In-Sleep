@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "route": "discrete-sampling",
+  "scope": "finite-state",
+  "source_id": "2307.13826v4",
+  "status": "planned-reuse-audit",
+  "source_map": "Libraries/DiscreteSampling/source-map.json",
+  "spine": "Libraries/frontloaded-shared-spine.json",
+  "mirror_protocol": "Libraries/conceptual-mirror-protocol.json",
+  "progress_is_not_proof": true,
+  "steps": [
+    {
+      "id": "DS0",
+      "parents": [],
+      "label": "Reuse and convention audit",
+      "anchors": [
+        "§§1.1–1.3, 3.1–3.2"
+      ],
+      "shared_nodes": [
+        "sf-kernel-invariance"
+      ],
+      "target": "Inspect exact Samplinglib/Mathlib declarations; pin source, support, normalization and clock before opening a theorem."
+    },
+    {
+      "id": "DS1",
+      "parents": [
+        "DS0"
+      ],
+      "label": "Finite Gibbs / Ising and conditional resampling",
+      "anchors": [
+        "§§1.2–1.3, 4.1, 12.1"
+      ],
+      "shared_nodes": [
+        "sf-finite-gibbs"
+      ],
+      "target": "Finite normalization and reversible heat-bath kernel. Ising zero-field model is pulled forward; boundary and field generalizations are explicit."
+    },
+    {
+      "id": "DS2",
+      "parents": [
+        "DS1"
+      ],
+      "label": "Reversible form and variance / chi-square decay",
+      "anchors": [
+        "§§3.2–3.7"
+      ],
+      "shared_nodes": [
+        "sf-reversible-dirichlet",
+        "sf-scalar-decay"
+      ],
+      "target": "Derive the finite weighted L2 identity; instantiate only type-compatible existing forms and scalar decay."
+    },
+    {
+      "id": "DS3",
+      "parents": [
+        "DS1"
+      ],
+      "label": "Pinning and spectral independence",
+      "anchors": [
+        "§§1.4, 2, 4.1"
+      ],
+      "shared_nodes": [
+        "sf-pinning-influence"
+      ],
+      "target": "Every feasible conditioning, source influence convention and covariance similarity; do not assume the desired mixing theorem."
+    },
+    {
+      "id": "DS4",
+      "parents": [
+        "DS2",
+        "DS3"
+      ],
+      "label": "Local-to-global and entropy branch",
+      "anchors": [
+        "§§4–6, especially 6.8"
+      ],
+      "shared_nodes": [
+        "sf-reversible-dirichlet",
+        "sf-scalar-decay"
+      ],
+      "target": "Variance/entropy tensorization, relaxation and mixing with exact marginal, degree and clock factors."
+    },
+    {
+      "id": "DS5",
+      "parents": [
+        "DS4"
+      ],
+      "label": "Model-specific regimes and independent extensions",
+      "anchors": [
+        "§§7–11, 12.1–12.2"
+      ],
+      "shared_nodes": [
+        "sf-pinning-influence"
+      ],
+      "target": "Hard-core, matroids, Ising/colorings and field dynamics keep separate model hypotheses. §12 proofs must be sourced externally."
+    }
+  ],
+  "reuse_audit": {
+    "status": "source-present candidates; no type compatibility or new compiled theorem claimed",
+    "local_modules": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+      "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ReversibleGenerator",
+      "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.L2GeneratorIdentities",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare",
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay",
+      "AutoSamplingTheory.TechnicalLemmas.Measure.CouplingGraph"
+    ],
+    "upstream_search": [
+      "Mathlib ProbabilityTheory.PMF",
+      "Mathlib ProbabilityTheory.Kernel",
+      "Mathlib Finset / SimpleGraph / Matroid",
+      "Mathlib covariance / symmetric matrices"
+    ],
+    "rule": "Inspect types and transitive imports at the pinned toolchain. Reuse exact matches; adapt near matches; missing multi-consumer result becomes one route=shared Frontier Cell. No second graph/PMF library.",
+    "exact_local_candidates": [
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.TransitionKernelContract",
+        "role": "State-neutral Markov kernel algebra; continuity, concrete process construction and generator domain are not assumed."
+      },
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm",
+        "role": "Generic -integral f Lg. A reversible finite-sum identity is the adapter to prove, not a new definition."
+      },
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare",
+        "role": "Var <= C E convention; discrete spectral-gap lambda adapter uses C=1/lambda."
+      },
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesLogSobolev",
+        "role": "Density entropy <= (C/2) E(r,log r); jump MLSI alpha convention corresponds to alpha=2/C after admissibility/clock alignment. Do not rename or duplicate on terminology alone."
+      }
+    ]
+  },
+  "required_contract_fields": [
+    "state_space",
+    "target_law",
+    "support_and_pinning",
+    "clock",
+    "update_unit",
+    "kernel_or_generator",
+    "irreducibility",
+    "aperiodicity_or_laziness",
+    "parameter_regime",
+    "error_metric",
+    "initialization",
+    "cost_model"
+  ],
+  "mirror_bridges": [
+    "transport:discrete-dirichlet",
+    "transport:discrete-entropy",
+    "transport:discrete-transport",
+    "transport:influence-hessian",
+    "transport:discrete-coupling"
+  ],
+  "separations": [
+    "Discrete state space does not mean discrete time. Poissonization is not Euler discretization.",
+    "One update, one sweep, L=P-I, and n(P-I) change rate constants.",
+    "PI, ordinary LSI, modified LSI, and one-step entropy contraction are different claims.",
+    "Spectral independence is uniform over feasible pinnings, not merely an unconditioned Hessian bound.",
+    "A bottleneck for a specified Glauber kernel is not a SampleWiki all-oracle lower bound.",
+    "Discrete Maas transport is not standard W2 on a finite metric space."
+  ]
+}

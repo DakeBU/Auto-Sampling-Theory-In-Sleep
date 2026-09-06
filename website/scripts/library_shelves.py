@@ -14,6 +14,7 @@ from pathlib import Path
 
 import astis_site
 import cross_domain
+import discrete_sampling
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -78,6 +79,7 @@ def libraries_sidebar(rel: str) -> str:
     <a class="source-hub" href="{p}libraries/riemannian-optimization/index.html"{current(rel, "libraries/riemannian-optimization/")}><span class="source-hub-title">Riemannian Optimization</span><small>Boumal · 11 chapters</small></a>
     <a class="source-hub" href="{p}libraries/optimisation/index.html"{current(rel, "libraries/optimisation/")}><span class="source-hub-title">Optimisation</span><small>Chewi · arXiv:2605.07006</small></a>
     <a class="source-hub" href="{p}libraries/statistical-optimal-transport/index.html"{current(rel, "libraries/statistical-optimal-transport/")}><span class="source-hub-title">Statistical Optimal Transport</span><small>Chewi · Niles-Weed · Rigollet</small></a>
+    <a class="source-hub" href="{p}libraries/discrete-sampling/index.html"{current(rel, "libraries/discrete-sampling/")}><span class="source-hub-title">Discrete Sampling</span><small>Chen · Štefankovič · Vigoda</small></a>
   </nav>
 </section>"""
 
@@ -237,7 +239,7 @@ def write_redirect(output: Path, rel: str, target: str, title: str) -> None:
 def write_pages(output: Path) -> None:
     home = """
 <section class="page-hero compact library-index-hero">
-<div class="eyebrow">Samplinglib · five first-class libraries</div>
+<div class="eyebrow">Samplinglib · six first-class libraries</div>
 <h1>One formal graph across sampling and optimisation.</h1>
 <p class="lede">Public mathematical sources provide stable coordinate systems; SampleWiki inserts frontier results into the same reusable theorem graph.</p>
 </section>
@@ -247,6 +249,7 @@ def write_pages(output: Path) -> None:
 <article class="library-index-card"><div class="portal-kicker">Chapter scaffold</div><h2>Riemannian Optimization</h2><p>Boumal's eleven-chapter geometry and optimization route.</p><a class="button" href="riemannian-optimization/index.html">Open library</a></article>
 <article class="library-index-card"><div class="portal-kicker">Public arXiv notes + upstream reuse</div><h2>Optimisation</h2><p>Formalising Sinho Chewi's <em>Lectures on Optimization</em>, with Mathlib, Optlib and CvxLean searched before new proofs.</p><a class="button" href="optimisation/index.html">Open library</a></article>
 <article class="library-index-card"><div class="portal-kicker">Chapter scaffold</div><h2>Statistical Optimal Transport</h2><p>Chewi, Niles-Weed and Rigollet: eight chapters and two appendices, with shared transport, convexity and probability foundations.</p><a class="button" href="statistical-optimal-transport/index.html">Open library</a></article>
+<article class="library-index-card"><div class="portal-kicker">Pinned arXiv monograph</div><h2>Discrete Sampling</h2><p>Finite-state Gibbs and Glauber dynamics, Ising, hard-core and matroid sampling with shared kernel, spectral and entropy foundations.</p><a class="button" href="discrete-sampling/index.html">Open library</a></article>
 </section>
 <section class="ia-project-note"><strong>Truth boundary.</strong> Scaffold means public chapter routes and source boundaries, not completed Lean proofs.</section>
 """
@@ -280,6 +283,7 @@ def write_pages(output: Path) -> None:
 <section><div class="section-heading"><span>Lecture-note contents</span><h2>13 chapters + Appendix A</h2></div><div class="library-chapter-list">{optimisation_cards()}</div></section>
 <section><div class="section-heading"><span>Formal upstreams</span><h2>Reuse checked formal mathematics before reproving it.</h2></div>
 <div class="upstream-library-grid">
+<article><h3>Chen · Štefankovič · Vigoda</h3><p>The Discrete Sampling source is <em>Spectral Independence and Local-to-Global Techniques for Optimal Mixing of Markov Chains</em>, arXiv:2307.13826v4. Pal–Mesikepp arXiv:2510.14165v1 is a beginner companion. The Ising survey in §12 requires its cited original proofs.</p><a href="https://arxiv.org/abs/2307.13826v4">Pinned monograph ↗</a></article>
 <article><h3>Optlib</h3><p>Convex analysis, proximal maps, first-order algorithms, acceleration, block methods, and ADMM.</p><a href="{OPTLIB_URL}">Open Optlib ↗</a></article>
 <article><h3>CvxLean</h3><p>Formal optimization problems, equivalence, reduction, relaxation, and verified transformations.</p><a href="{CVXLEAN_URL}">Open CvxLean ↗</a></article>
 </div></section>
@@ -293,20 +297,22 @@ def write_pages(output: Path) -> None:
         astis_site.write_page(output, path, astis_site.page(f"Optimisation {source_section}: {title}", path, body, active="Libraries"))
 
     cross_domain.write_ot_pages(output, __import__(__name__))
+    discrete_sampling.write_pages(output, __import__(__name__))
 
     write_redirect(output, "libraries/first-order-optimization/index.html", "../optimisation/index.html", "First-Order Optimization moved to Optimisation")
     for i in range(1, 16):
         write_redirect(output, f"libraries/first-order-optimization/chapter-{i:02d}.html", "../optimisation/index.html", "First-Order Optimization moved to Optimisation")
 
 
-def five_portals() -> str:
+def six_portals() -> str:
     return """
-<section class="source-portal-grid source-portal-grid-five" aria-label="Primary mathematical libraries">
+<section class="source-portal-grid source-portal-grid-six" aria-label="Primary mathematical libraries">
 <article class="source-portal source-portal-book"><div class="portal-kicker">Textbook</div><h2>Log-Concave Sampling</h2><p>Chewi's source-aligned textbook graph plus official supplement.</p><div class="portal-actions"><a class="button primary" href="textbook/index.html">Read the book</a></div></article>
 <article class="source-portal source-portal-wiki"><div class="portal-kicker">Research frontier</div><h2>SampleWiki</h2><p>Source-pinned frontier results and theorem-sized graph insertions.</p><div class="portal-actions"><a class="button primary" href="example-cases/samplewiki.html">Explore SampleWiki</a></div></article>
 <article class="source-portal source-portal-riemannian"><div class="portal-kicker">Chapter scaffold</div><h2>Riemannian Optimization</h2><p>Boumal's eleven chapters on geometry and manifold algorithms.</p><div class="portal-actions"><a class="button" href="libraries/riemannian-optimization/index.html">Open library</a></div></article>
 <article class="source-portal source-portal-optimization"><div class="portal-kicker">Public arXiv formalization</div><h2>Optimisation</h2><p>Sinho Chewi's <em>Lectures on Optimization</em> with formal-upstream reuse.</p><div class="portal-actions"><a class="button" href="libraries/optimisation/index.html">Open library</a></div></article>
 <article class="source-portal source-portal-transport"><div class="portal-kicker">Chapter scaffold</div><h2>Statistical Optimal Transport</h2><p>Chewi · Niles-Weed · Rigollet. Eight chapters and two appendices in the shared reader.</p><div class="portal-actions"><a class="button" href="libraries/statistical-optimal-transport/index.html">Open library</a></div></article>
+<article class="source-portal source-portal-discrete"><div class="portal-kicker">Pinned arXiv monograph</div><h2>Discrete Sampling</h2><p>Chen · Štefankovič · Vigoda. Ising and finite-state Gibbs samplers; spectral independence and shared functional inequalities.</p><div class="portal-actions"><a class="button" href="libraries/discrete-sampling/index.html">Open library</a></div></article>
 </section>
 """
 
@@ -321,13 +327,13 @@ def patch_public_optimisation_names(text: str) -> str:
 def patch_special(text: str, rel: str) -> str:
     text = patch_public_optimisation_names(text)
     if rel == "index.html":
-        text, count = re.subn(r'<section class="source-portal-grid".*?</section>', five_portals(), text, count=1, flags=re.S)
+        text, count = re.subn(r'<section class="source-portal-grid".*?</section>', six_portals(), text, count=1, flags=re.S)
         if count != 1:
             raise RuntimeError("index.html: library portal grid not found")
-        text = text.replace("Two mathematical sources feed one reusable Lean proof graph.", "Five mathematical libraries feed one reusable Lean proof graph.")
+        text = text.replace("Two mathematical sources feed one reusable Lean proof graph.", "Six mathematical libraries feed one reusable Lean proof graph.")
     elif rel == "lean-foundations.html":
         old = '<div class="atlas-source-grid"><a href="textbook/index.html">Log-Concave Sampling</a><a href="example-cases/samplewiki.html">SampleWiki</a></div>'
-        new = '<div class="atlas-source-grid atlas-source-grid-five"><a href="textbook/index.html">Log-Concave Sampling</a><a href="example-cases/samplewiki.html">SampleWiki</a><a href="libraries/riemannian-optimization/index.html">Riemannian Optimization</a><a href="libraries/optimisation/index.html">Optimisation</a></div>'
+        new = '<div class="atlas-source-grid atlas-source-grid-six"><a href="textbook/index.html">Log-Concave Sampling</a><a href="example-cases/samplewiki.html">SampleWiki</a><a href="libraries/riemannian-optimization/index.html">Riemannian Optimization</a><a href="libraries/optimisation/index.html">Optimisation</a><a href="libraries/statistical-optimal-transport/index.html">Statistical Optimal Transport</a><a href="libraries/discrete-sampling/index.html">Discrete Sampling</a></div>'
         text = text.replace(old, new)
     elif rel == "attribution/index.html" and 'data-library-attribution="true"' not in text:
         block = f"""
@@ -337,6 +343,7 @@ def patch_special(text: str, rel: str) -> str:
 <article><h3>Nicolas Boumal</h3><p><em>An Introduction to Optimization on Smooth Manifolds</em> supplies the Riemannian route.</p><a href="{BOUMAL_URL}">Book site ↗</a></article>
 <article><h3>Sinho Chewi</h3><p><em>Lectures on Optimization</em> (arXiv:2605.07006) supplies the public Optimisation formalization route.</p><a href="{CHEWI_OPT_URL}">arXiv PDF ↗</a></article>
 <article><h3>Chewi · Niles-Weed · Rigollet</h3><p><em>Statistical Optimal Transport</em> supplies the OT source route. Villani, Santambrogio and Ambrosio–Gigli–Savaré provide targeted background for omitted details, not replacement source theorems.</p><a href="https://chewisinho.github.io/st_flour.pdf">Public textbook ↗</a></article>
+<article><h3>Chen · Štefankovič · Vigoda</h3><p>The Discrete Sampling source is <em>Spectral Independence and Local-to-Global Techniques for Optimal Mixing of Markov Chains</em>, arXiv:2307.13826v4. Pal–Mesikepp arXiv:2510.14165v1 is a beginner companion. The Ising survey in §12 requires its cited original proofs.</p><a href="https://arxiv.org/abs/2307.13826v4">Pinned monograph ↗</a></article>
 <article><h3>Optlib</h3><p>Audited convex-analysis and algorithm theorem source.</p><a href="{OPTLIB_URL}">Repository ↗</a></article>
 <article><h3>CvxLean</h3><p>Audited optimization-problem and transformation source.</p><a href="{CVXLEAN_URL}">Repository ↗</a></article>
 </div></section>
@@ -349,7 +356,7 @@ def patch_special(text: str, rel: str) -> str:
 
 
 def is_new_library_page(rel: str) -> bool:
-    return rel == "libraries/index.html" or rel.startswith("libraries/riemannian-optimization/") or rel.startswith("libraries/optimisation/") or rel.startswith("libraries/statistical-optimal-transport/")
+    return rel == "libraries/index.html" or rel.startswith("libraries/riemannian-optimization/") or rel.startswith("libraries/optimisation/") or rel.startswith("libraries/statistical-optimal-transport/") or rel.startswith("libraries/discrete-sampling/")
 
 
 def transform(output: Path) -> None:
@@ -366,11 +373,12 @@ def transform(output: Path) -> None:
 def validate(output: Path) -> None:
     errors: list[str] = []
     required = {
-        "index.html": ("source-portal-grid-five", "Riemannian Optimization", "Optimisation"),
-        "libraries/index.html": ("five first-class libraries", "Optimisation"),
+        "index.html": ("source-portal-grid-six", "Riemannian Optimization", "Optimisation"),
+        "libraries/index.html": ("six first-class libraries", "Optimisation"),
         "libraries/riemannian-optimization/index.html": ("An Introduction to Optimization on Smooth Manifolds", "chapter environment established"),
         "libraries/optimisation/index.html": ("Lectures on Optimization", "arXiv:2605.07006", "Optlib", "CvxLean"),
         "libraries/statistical-optimal-transport/index.html": ("Statistical Optimal Transport", "Jonathan Niles-Weed", "Philippe Rigollet", "chapter environment established"),
+        "libraries/discrete-sampling/index.html": ("Discrete Sampling", "Chen", "chapter environment established"),
         "attribution/index.html": ('data-library-attribution="true"', "Sinho Chewi", "Nicolas Boumal"),
     }
     forbidden = ("<strong>Owners</strong>", "Andi · Dake", "Dake · Huanjian · Andi")
@@ -414,7 +422,7 @@ def validate(output: Path) -> None:
         start = text.find('<section class="sidebar-group sidebar-libraries"')
         stop = text.find("</section>", start)
         side = text[start:stop] if start >= 0 and stop >= 0 else ""
-        if not all(name in side for name in ("Log-Concave Sampling", "SampleWiki", "Riemannian Optimization", "Optimisation", "Statistical Optimal Transport")):
+        if not all(name in side for name in ("Log-Concave Sampling", "SampleWiki", "Riemannian Optimization", "Optimisation", "Statistical Optimal Transport", "Discrete Sampling")):
             errors.append(f"{path.relative_to(output)}: incomplete Libraries sidebar")
             break
     if not (output / "assets" / STYLE_NAME).exists():

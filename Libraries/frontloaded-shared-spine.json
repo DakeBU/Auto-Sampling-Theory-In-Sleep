@@ -1,12 +1,13 @@
 {
   "schema_version": 1,
   "status": "dependency plan only; no Lean completion is inferred",
-  "goal": "Schedule the beginning of the four textbook libraries by mathematical dependency rather than cover-to-cover order, so genuinely identical lower-level Lean lemmas are proved once and reused with explicit adapters.",
+  "goal": "Schedule the beginning of the five textbook libraries by mathematical dependency rather than cover-to-cover order, so genuinely identical lower-level Lean lemmas are proved once and reused with explicit adapters.",
   "scope": [
     "Log-Concave Sampling Chapters 1-2",
     "Lectures on Optimization Chapters 1-2, with Chapter 9 duality pulled forward when OT Chapter 1 needs it",
     "Boumal Chapters 1-3 minimal first-order geometry, because Sampling Chapter 2.5 depends on it",
-    "Statistical Optimal Transport Chapters 1-2"
+    "Statistical Optimal Transport Chapters 1-2",
+    "Discrete Sampling §§1.1–1.4, 2–3 and the §12.1 Ising model definition pulled forward; full §12 mixing results require original cited proofs."
   ],
   "policies": {
     "dependency_over_book_order": "A later source chapter may be mined early for one shared prerequisite when another textbook needs it. This never marks that later chapter complete.",
@@ -49,6 +50,15 @@
         "Chapter 1 §§1.1-1.6: transport, Wasserstein, one-dimensional transport, Brenier, duality",
         "Chapter 2 §§2.1-2.8: empirical convergence, chaining, regularization"
       ]
+    },
+    {
+      "id": "discrete-sampling",
+      "role": "finite-state producer and shared form/entropy consumer",
+      "anchors": [
+        "CSV §§1.1–1.4 and §3 pulled forward: Gibbs updates and Markov foundations",
+        "CSV §2 and §§4–6: feasible pinnings, influence, local-to-global, entropy",
+        "CSV §12.1: Ising definition pulled forward; mixing results are cited without proof"
+      ]
     }
   ],
   "nodes": [
@@ -56,101 +66,351 @@
       "id": "sf-euclidean-linear-algebra",
       "title": "Euclidean, inner-product and matrix floor",
       "parents": [],
-      "consumers": ["log-concave-sampling", "optimisation", "riemannian-optimization", "statistical-optimal-transport"],
-      "source_anchors": ["Optimization Ch.1 + App.A", "Boumal Chs.1-2", "Sampling Chs.1-2", "OT Ch.1 quadratic-cost examples"],
+      "consumers": [
+        "log-concave-sampling",
+        "optimisation",
+        "riemannian-optimization",
+        "statistical-optimal-transport"
+      ],
+      "source_anchors": [
+        "Optimization Ch.1 + App.A",
+        "Boumal Chs.1-2",
+        "Sampling Chs.1-2",
+        "OT Ch.1 quadratic-cost examples"
+      ],
       "target": "Coordinates, norms, inner products, symmetric/PSD matrix facts and quadratic energies with conventions fixed once.",
-      "search": ["Mathlib inner-product/matrix APIs", "TechnicalLemmas/Geometry/EuclideanSpaceCoordinates.lean"],
+      "search": [
+        "Mathlib inner-product/matrix APIs",
+        "TechnicalLemmas/Geometry/EuclideanSpaceCoordinates.lean"
+      ],
       "boundary": "Do not package manifold tangent geometry into this node."
     },
     {
       "id": "sf-calculus-gradient",
       "title": "Differential, gradient, chain-rule and Hessian floor",
-      "parents": ["sf-euclidean-linear-algebra"],
-      "consumers": ["log-concave-sampling", "optimisation", "riemannian-optimization", "statistical-optimal-transport"],
-      "source_anchors": ["Sampling §1.1", "Optimization Chs.1-2", "Boumal Ch.3", "OT §1.4 Brenier maps"],
+      "parents": [
+        "sf-euclidean-linear-algebra"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "optimisation",
+        "riemannian-optimization",
+        "statistical-optimal-transport"
+      ],
+      "source_anchors": [
+        "Sampling §1.1",
+        "Optimization Chs.1-2",
+        "Boumal Ch.3",
+        "OT §1.4 Brenier maps"
+      ],
       "target": "Source-neutral Fréchet derivative/gradient/chain-rule interfaces; Hessian inequalities retain their exact ambient spaces.",
-      "search": ["Mathlib calculus", "TechnicalLemmas/Analysis/Calculus", "TechnicalLemmas/Analysis/Calculus/Taylor.lean"],
+      "search": [
+        "Mathlib calculus",
+        "TechnicalLemmas/Analysis/Calculus",
+        "TechnicalLemmas/Analysis/Calculus/Taylor.lean"
+      ],
       "boundary": "Riemannian gradients are adapters through a metric, not aliases for Euclidean gradients."
     },
     {
       "id": "sf-convex-energy",
       "title": "Convexity, strong convexity, subgradients and log-concavity",
-      "parents": ["sf-euclidean-linear-algebra"],
-      "consumers": ["log-concave-sampling", "optimisation", "statistical-optimal-transport", "riemannian-optimization"],
-      "source_anchors": ["Optimization Ch.1", "Sampling Ch.2", "OT §§1.4-1.5", "Boumal Euclidean/local models"],
+      "parents": [
+        "sf-euclidean-linear-algebra"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "optimisation",
+        "statistical-optimal-transport",
+        "riemannian-optimization"
+      ],
+      "source_anchors": [
+        "Optimization Ch.1",
+        "Sampling Ch.2",
+        "OT §§1.4-1.5",
+        "Boumal Euclidean/local models"
+      ],
       "target": "One canonical Euclidean convex core: convexity inequalities, strong convexity, subgradients and quadratic-growth consequences; log-concavity is an explicit density/potential adapter.",
-      "search": ["TechnicalLemmas/Analysis/ConvexSubgradient.lean", "TechnicalLemmas/Geometry/StrongConvexity.lean", "TechnicalLemmas/Geometry/LogConcavity.lean", "Mathlib", "Optlib", "CvxLean"],
+      "search": [
+        "TechnicalLemmas/Analysis/ConvexSubgradient.lean",
+        "TechnicalLemmas/Geometry/StrongConvexity.lean",
+        "TechnicalLemmas/Geometry/LogConcavity.lean",
+        "Mathlib",
+        "Optlib",
+        "CvxLean"
+      ],
       "boundary": "Mixture convexity, geodesic convexity and displacement convexity remain different predicates."
     },
     {
       "id": "sf-measure-map-integral",
       "title": "Measures, integration, maps and finite-moment floor",
       "parents": [],
-      "consumers": ["log-concave-sampling", "statistical-optimal-transport"],
-      "source_anchors": ["Sampling §§1.2-1.4", "OT §§1.1-1.3 and Ch.2"],
+      "consumers": [
+        "log-concave-sampling",
+        "statistical-optimal-transport"
+      ],
+      "source_anchors": [
+        "Sampling §§1.2-1.4",
+        "OT §§1.1-1.3 and Ch.2"
+      ],
       "target": "Probability normalization, map/pushforward, product measures, marginals, integrability and moment bookkeeping.",
-      "search": ["Mathlib MeasureTheory", "TechnicalLemmas/Measure", "TechnicalLemmas/Analysis/BoundedQuadraticCostIntegrability.lean"],
+      "search": [
+        "Mathlib MeasureTheory",
+        "TechnicalLemmas/Measure",
+        "TechnicalLemmas/Analysis/BoundedQuadraticCostIntegrability.lean"
+      ],
       "boundary": "Markov kernels and couplings get their own layers; a measurable map is not a stochastic kernel."
     },
     {
       "id": "sf-coupling-wasserstein",
       "title": "Couplings, marginal constraints and Wasserstein metric core",
-      "parents": ["sf-euclidean-linear-algebra", "sf-measure-map-integral"],
-      "consumers": ["statistical-optimal-transport", "log-concave-sampling"],
-      "source_anchors": ["OT §§1.1-1.3", "Sampling §1.3 and input to §1.4"],
+      "parents": [
+        "sf-euclidean-linear-algebra",
+        "sf-measure-map-integral"
+      ],
+      "consumers": [
+        "statistical-optimal-transport",
+        "log-concave-sampling"
+      ],
+      "source_anchors": [
+        "OT §§1.1-1.3",
+        "Sampling §1.3 and input to §1.4"
+      ],
       "target": "Coupling membership, marginal transfer, finite p-moment cost, Wasserstein symmetry/triangle and deterministic pushforward couplings before either textbook builds local copies.",
-      "search": ["TechnicalLemmas/Measure/ProbabilityCouplingCompactness.lean", "TechnicalLemmas/Measure/TransportGluing.lean", "TechnicalLemmas/Measure/DisplacementInterpolationCoupling.lean", "Mathlib Wasserstein/coupling APIs"],
+      "search": [
+        "TechnicalLemmas/Measure/ProbabilityCouplingCompactness.lean",
+        "TechnicalLemmas/Measure/TransportGluing.lean",
+        "TechnicalLemmas/Measure/DisplacementInterpolationCoupling.lean",
+        "Mathlib Wasserstein/coupling APIs"
+      ],
       "boundary": "Optimal-coupling existence, Brenier maps and displacement geodesics are downstream theorems, not part of the minimal metric API."
     },
     {
       "id": "sf-convex-duality",
       "title": "Convex conjugacy and duality pulled forward for transport",
-      "parents": ["sf-convex-energy", "sf-measure-map-integral"],
-      "consumers": ["statistical-optimal-transport", "optimisation"],
-      "source_anchors": ["OT §§1.5-1.6", "Optimization Ch.9 Fenchel duality"],
+      "parents": [
+        "sf-convex-energy",
+        "sf-measure-map-integral"
+      ],
+      "consumers": [
+        "statistical-optimal-transport",
+        "optimisation"
+      ],
+      "source_anchors": [
+        "OT §§1.5-1.6",
+        "Optimization Ch.9 Fenchel duality"
+      ],
       "target": "Conjugacy, Fenchel inequalities and the exact no-gap/attainment interfaces needed by Kantorovich duality.",
-      "search": ["Mathlib convex conjugate/duality APIs", "Optlib", "CvxLean", "TechnicalLemmas convex files"],
+      "search": [
+        "Mathlib convex conjugate/duality APIs",
+        "Optlib",
+        "CvxLean",
+        "TechnicalLemmas convex files"
+      ],
       "boundary": "Pulling this core forward does not claim Optimization Chapter 9 is formalized and does not identify Fenchel and Kantorovich duality without an adapter."
     },
     {
       "id": "sf-scalar-energy-dissipation",
       "title": "Gradient-flow energy dissipation and scalar contraction lemmas",
-      "parents": ["sf-calculus-gradient", "sf-convex-energy"],
-      "consumers": ["optimisation", "log-concave-sampling", "riemannian-optimization"],
-      "source_anchors": ["Optimization Ch.2 Gradient flow", "Sampling §§1.4-1.5", "later Boumal first-order descent"],
+      "parents": [
+        "sf-calculus-gradient",
+        "sf-convex-energy"
+      ],
+      "consumers": [
+        "optimisation",
+        "log-concave-sampling",
+        "riemannian-optimization"
+      ],
+      "source_anchors": [
+        "Optimization Ch.2 Gradient flow",
+        "Sampling §§1.4-1.5",
+        "later Boumal first-order descent"
+      ],
       "target": "Chain rule along curves, energy derivative identities, Grönwall-type decay and strong-convexity contraction in the exact ambient setting.",
-      "search": ["TechnicalLemmas differential-inequality/Gronwall interfaces", "Mathlib ODE/calculus"],
+      "search": [
+        "TechnicalLemmas differential-inequality/Gronwall interfaces",
+        "Mathlib ODE/calculus"
+      ],
       "boundary": "Do not create a universal GradientFlow class that pretends Euclidean ODE, Riemannian flow and Wasserstein flow are definitionally the same."
     },
     {
       "id": "sf-markov-semigroup",
       "title": "Markov kernels, semigroups, generators and Dirichlet forms",
-      "parents": ["sf-measure-map-integral", "sf-calculus-gradient"],
-      "consumers": ["log-concave-sampling"],
-      "source_anchors": ["Sampling §§1.1-1.2 and Chapter 2 semigroup proofs"],
+      "parents": [
+        "sf-measure-map-integral",
+        "sf-calculus-gradient"
+      ],
+      "consumers": [
+        "log-concave-sampling"
+      ],
+      "source_anchors": [
+        "Sampling §§1.1-1.2 and Chapter 2 semigroup proofs"
+      ],
       "target": "Kernel composition, semigroup laws, generator-domain contracts and integration-by-parts/Dirichlet interfaces reusable by later sampling/frontier work.",
-      "search": ["Mathlib Probability.Kernel", "TechnicalLemmas/StochasticProcesses", "TechnicalLemmas/FunctionalInequalities"],
+      "search": [
+        "Mathlib Probability.Kernel",
+        "TechnicalLemmas/StochasticProcesses",
+        "TechnicalLemmas/FunctionalInequalities"
+      ],
       "boundary": "This lane is sampling-owned on the front-loaded critical path; OT Chapter 1 and Optimization Chapter 1 must not wait for it."
     },
     {
       "id": "sf-manifold-first-order",
       "title": "Minimal manifold first-order adapter",
-      "parents": ["sf-euclidean-linear-algebra", "sf-calculus-gradient"],
-      "consumers": ["riemannian-optimization", "log-concave-sampling"],
-      "source_anchors": ["Boumal Ch.3 Embedded geometry: first order", "Sampling §2.5 Riemannian Manifolds"],
+      "parents": [
+        "sf-euclidean-linear-algebra",
+        "sf-calculus-gradient"
+      ],
+      "consumers": [
+        "riemannian-optimization",
+        "log-concave-sampling"
+      ],
+      "source_anchors": [
+        "Boumal Ch.3 Embedded geometry: first order",
+        "Sampling §2.5 Riemannian Manifolds"
+      ],
       "target": "Tangent spaces, differential, Riemannian metric and gradient interfaces with one explicit Euclidean/embedded adapter.",
-      "search": ["Mathlib manifold APIs", "TechnicalLemmas/Geometry/GeodesicConvexity.lean", "ATLAS geometry memory"],
+      "search": [
+        "Mathlib manifold APIs",
+        "TechnicalLemmas/Geometry/GeodesicConvexity.lean",
+        "ATLAS geometry memory"
+      ],
       "boundary": "Retractions, Hessians, geodesic convexity and global manifold results remain later layers unless a source theorem needs them."
     },
     {
       "id": "sf-empirical-concentration",
       "title": "Empirical measures, Lipschitz observables and concentration floor",
-      "parents": ["sf-measure-map-integral", "sf-convex-energy"],
-      "consumers": ["statistical-optimal-transport", "log-concave-sampling"],
-      "source_anchors": ["OT Ch.2 empirical convergence", "Sampling §2.4 Concentration of Measure and Isoperimetry"],
+      "parents": [
+        "sf-measure-map-integral",
+        "sf-convex-energy"
+      ],
+      "consumers": [
+        "statistical-optimal-transport",
+        "log-concave-sampling"
+      ],
+      "source_anchors": [
+        "OT Ch.2 empirical convergence",
+        "Sampling §2.4 Concentration of Measure and Isoperimetry"
+      ],
       "target": "Empirical-measure bookkeeping, expectation/probability bounds and reusable Lipschitz concentration interfaces; OT-specific chaining and sampling-specific isoperimetry stay separate.",
-      "search": ["Mathlib probability/concentration", "TechnicalLemmas/FunctionalInequalities", "lean-stat-learning-theory when license/type-compatible"],
+      "search": [
+        "Mathlib probability/concentration",
+        "TechnicalLemmas/FunctionalInequalities",
+        "lean-stat-learning-theory when license/type-compatible"
+      ],
       "boundary": "The observation count n in OT statistics is not a sampler oracle-query count."
+    },
+    {
+      "id": "sf-kernel-invariance",
+      "title": "State-neutral kernel and invariant-law core",
+      "parents": [
+        "sf-measure-map-integral"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "discrete-sampling",
+        "samplewiki-route"
+      ],
+      "source_anchors": [
+        "CSV §§1.3, 3.2",
+        "Sampling semigroup interfaces"
+      ],
+      "target": "Compose kernels, preserve probability and invariant laws; identify finite matrix/PMF adapters.",
+      "search": [
+        "Samplinglib TechnicalLemmas/Probability/ConditionalKernel.lean",
+        "Samplinglib TechnicalLemmas/FunctionalInequalities",
+        "Mathlib PMF / Probability.Kernel / matrix APIs"
+      ],
+      "boundary": "No diffusion calculus or continuity-domain assumption is required for the finite-state interface."
+    },
+    {
+      "id": "sf-scalar-decay",
+      "title": "Scalar recurrence / differential decay core",
+      "parents": [],
+      "consumers": [
+        "optimisation",
+        "riemannian-optimization",
+        "log-concave-sampling",
+        "discrete-sampling"
+      ],
+      "source_anchors": [
+        "CSV §§3.7, 6.8",
+        "Optimization gradient flow",
+        "Sampling functional inequalities"
+      ],
+      "target": "One scalar decay theorem, consumed after each domain proves a correctly normalized dissipation inequality.",
+      "search": [
+        "Samplinglib TechnicalLemmas/Probability/ConditionalKernel.lean",
+        "Samplinglib TechnicalLemmas/FunctionalInequalities",
+        "Mathlib PMF / Probability.Kernel / matrix APIs"
+      ],
+      "boundary": "Continuous-time Grönwall and discrete-time recurrences are separate adapters."
+    },
+    {
+      "id": "sf-finite-gibbs",
+      "title": "Finite Gibbs normalization and feasible conditional updates",
+      "parents": [
+        "sf-kernel-invariance"
+      ],
+      "consumers": [
+        "discrete-sampling",
+        "samplewiki-route"
+      ],
+      "source_anchors": [
+        "CSV §§1.1–1.3, 4.1, 12.1"
+      ],
+      "target": "Normalize finite weights, pin only positive-probability events, build heat-bath updates and show detailed balance.",
+      "search": [
+        "Samplinglib TechnicalLemmas/Probability/ConditionalKernel.lean",
+        "Samplinglib TechnicalLemmas/FunctionalInequalities",
+        "Mathlib PMF / Probability.Kernel / matrix APIs"
+      ],
+      "boundary": "Ising full support, hard-core constrained support and matroid bases are not identical state spaces."
+    },
+    {
+      "id": "sf-reversible-dirichlet",
+      "title": "Reversible Dirichlet / L2 core",
+      "parents": [
+        "sf-kernel-invariance",
+        "sf-euclidean-linear-algebra",
+        "sf-scalar-decay"
+      ],
+      "consumers": [
+        "discrete-sampling",
+        "log-concave-sampling"
+      ],
+      "source_anchors": [
+        "CSV §§3.2–3.7",
+        "Sampling Poincare and semigroup decay"
+      ],
+      "target": "Relate detailed balance, bilinear energy, variance and coercivity with explicit clock and generator.",
+      "search": [
+        "Samplinglib TechnicalLemmas/Probability/ConditionalKernel.lean",
+        "Samplinglib TechnicalLemmas/FunctionalInequalities",
+        "Mathlib PMF / Probability.Kernel / matrix APIs"
+      ],
+      "boundary": "Finite sums can instantiate a generic form only after signatures match; do not add Ito prerequisites."
+    },
+    {
+      "id": "sf-pinning-influence",
+      "title": "Conditional influence and covariance matrices",
+      "parents": [
+        "sf-finite-gibbs",
+        "sf-euclidean-linear-algebra"
+      ],
+      "consumers": [
+        "discrete-sampling",
+        "optimisation"
+      ],
+      "source_anchors": [
+        "CSV §§1.4, 2, 4.1"
+      ],
+      "target": "Audit influence conventions, variance scaling and all feasible pinnings before the local-to-global theorem.",
+      "search": [
+        "Samplinglib TechnicalLemmas/Probability/ConditionalKernel.lean",
+        "Samplinglib TechnicalLemmas/FunctionalInequalities",
+        "Mathlib PMF / Probability.Kernel / matrix APIs"
+      ],
+      "boundary": "A covariance upper bound is not a Hessian lower bound; unpinned control is not spectral independence."
     }
   ],
   "pull_forward_rules": [
@@ -177,58 +437,126 @@
       "to": "sf-convex-energy",
       "unlocks": "Sampling Chapter 2 strong-convexity/log-concavity arguments and OT Brenier prerequisites",
       "status_effect": "Route wrappers retain each textbook's exact definitions and constants."
+    },
+    {
+      "from": "CSV §3 Markov foundations and §12.1 Ising model definition",
+      "extract": "Only the finite-state definition, conditioning and reversible-kernel prerequisites needed by the current SAU.",
+      "unlocks": "Discrete Sampling §§1–3 shared kernel / form / influence spine",
+      "status_effect": "No §12 completion credit; its mixing results are unproved surveys and require exact original references."
     }
   ],
   "integration_gates": [
     {
       "id": "gate-sampling-1-3",
       "source": "Log-Concave Sampling §1.3 The Geometry of Optimal Transport",
-      "requires": ["sf-measure-map-integral", "sf-coupling-wasserstein"],
+      "requires": [
+        "sf-measure-map-integral",
+        "sf-coupling-wasserstein"
+      ],
       "rule": "No route-local coupling/Wasserstein definitions if an exact or adaptable canonical node exists."
     },
     {
       "id": "gate-sampling-1-4",
       "source": "Log-Concave Sampling §1.4 Langevin as Wasserstein gradient flow",
-      "requires": ["sf-calculus-gradient", "sf-coupling-wasserstein", "sf-scalar-energy-dissipation", "sf-markov-semigroup"],
+      "requires": [
+        "sf-calculus-gradient",
+        "sf-coupling-wasserstein",
+        "sf-scalar-energy-dissipation",
+        "sf-markov-semigroup"
+      ],
       "rule": "Join already-audited cores; do not collapse Euclidean, stochastic and Wasserstein flow notions into one type."
     },
     {
       "id": "gate-sampling-2",
       "source": "Log-Concave Sampling Chapter 2",
-      "requires": ["sf-convex-energy", "sf-markov-semigroup", "sf-manifold-first-order", "sf-empirical-concentration"],
+      "requires": [
+        "sf-convex-energy",
+        "sf-markov-semigroup",
+        "sf-manifold-first-order",
+        "sf-empirical-concentration"
+      ],
       "rule": "Functional-inequality theorems stay source-facing, while convex/manifold/concentration prerequisites are canonical shared nodes."
     },
     {
       "id": "gate-ot-1",
       "source": "Statistical Optimal Transport Chapter 1",
-      "requires": ["sf-coupling-wasserstein", "sf-convex-energy", "sf-convex-duality"],
+      "requires": [
+        "sf-coupling-wasserstein",
+        "sf-convex-energy",
+        "sf-convex-duality"
+      ],
       "rule": "Build Chapter 1 from shared coupling and convex cores; Brenier/duality theorem hypotheses remain OT-specific wrappers."
     },
     {
       "id": "gate-ot-2",
       "source": "Statistical Optimal Transport Chapter 2",
-      "requires": ["sf-coupling-wasserstein", "sf-empirical-concentration"],
+      "requires": [
+        "sf-coupling-wasserstein",
+        "sf-empirical-concentration"
+      ],
       "rule": "Share probability/concentration leaves, but keep dyadic/chaining and minimax statistical arguments route-local unless exact matches are found."
     },
     {
       "id": "gate-optimisation-1-2",
       "source": "Lectures on Optimization Chapters 1-2",
-      "requires": ["sf-calculus-gradient", "sf-convex-energy", "sf-scalar-energy-dissipation"],
+      "requires": [
+        "sf-calculus-gradient",
+        "sf-convex-energy",
+        "sf-scalar-energy-dissipation"
+      ],
       "rule": "These chapters should produce canonical Euclidean foundations for later consumers instead of private Optimization-only APIs."
     },
     {
       "id": "gate-riemannian-1-3",
       "source": "Boumal Chapters 1-3",
-      "requires": ["sf-euclidean-linear-algebra", "sf-calculus-gradient", "sf-manifold-first-order"],
+      "requires": [
+        "sf-euclidean-linear-algebra",
+        "sf-calculus-gradient",
+        "sf-manifold-first-order"
+      ],
       "rule": "Examples reuse Euclidean/matrix foundations; Chapter 3 exports the minimal manifold adapter used by Sampling §2.5."
+    },
+    {
+      "id": "discrete-early",
+      "source_window": "CSV §§1–3 and §12.1 model definition",
+      "requires": [
+        "sf-kernel-invariance",
+        "sf-finite-gibbs",
+        "sf-reversible-dirichlet",
+        "sf-pinning-influence"
+      ],
+      "boundary": "Model setup is dependency-ready without waiting for all earlier book sections. §12 rate claims still need their cited original proof."
     }
   ],
   "recommended_wave_order": [
-    ["sf-euclidean-linear-algebra", "sf-measure-map-integral"],
-    ["sf-calculus-gradient", "sf-convex-energy"],
-    ["sf-coupling-wasserstein", "sf-scalar-energy-dissipation", "sf-markov-semigroup", "sf-manifold-first-order", "sf-empirical-concentration"],
-    ["sf-convex-duality"],
-    ["gate-sampling-1-3", "gate-ot-1", "gate-optimisation-1-2", "gate-riemannian-1-3"],
-    ["gate-sampling-1-4", "gate-sampling-2", "gate-ot-2"]
+    [
+      "sf-euclidean-linear-algebra",
+      "sf-measure-map-integral"
+    ],
+    [
+      "sf-calculus-gradient",
+      "sf-convex-energy"
+    ],
+    [
+      "sf-coupling-wasserstein",
+      "sf-scalar-energy-dissipation",
+      "sf-markov-semigroup",
+      "sf-manifold-first-order",
+      "sf-empirical-concentration"
+    ],
+    [
+      "sf-convex-duality"
+    ],
+    [
+      "gate-sampling-1-3",
+      "gate-ot-1",
+      "gate-optimisation-1-2",
+      "gate-riemannian-1-3"
+    ],
+    [
+      "gate-sampling-1-4",
+      "gate-sampling-2",
+      "gate-ot-2"
+    ]
   ]
 }

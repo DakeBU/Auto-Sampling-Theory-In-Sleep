@@ -8,16 +8,43 @@
       "id": "contracts",
       "title": "Fix statements, spaces and access contracts",
       "parents": [],
-      "consumers": ["all"],
+      "consumers": [
+        "all",
+        "discrete-sampling"
+      ],
       "status": "planned-reuse-audit",
       "target": "Pin measures, spaces, norms, constants, metrics, input access, randomness, output error and source editions before comparing or sharing routes.",
       "search": "Samplinglib Registry; active Frontier Cells; source maps; frontloaded-shared-spine.json"
     },
     {
+      "id": "scalar-decay",
+      "title": "Scalar coercivity-to-decay core",
+      "parents": [
+        "contracts"
+      ],
+      "consumers": [
+        "optimisation",
+        "riemannian-optimization",
+        "log-concave-sampling",
+        "discrete-sampling"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Share a scalar recurrence or differential-inequality theorem after each domain proves its dissipation identity. No geometry is smuggled into the core.",
+      "search": "Mathlib real calculus and sequences; local SemigroupDecay; existing Grönwall interfaces"
+    },
+    {
       "id": "linear-algebra",
       "title": "Euclidean, inner-product and matrix floor",
-      "parents": ["contracts"],
-      "consumers": ["log-concave-sampling", "optimisation", "riemannian-optimization", "statistical-optimal-transport"],
+      "parents": [
+        "contracts"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "optimisation",
+        "riemannian-optimization",
+        "statistical-optimal-transport",
+        "discrete-sampling"
+      ],
       "status": "planned-reuse-audit",
       "target": "Coordinates, inner products, norms, symmetric/PSD matrices and quadratic-energy conventions used repeatedly in the first textbook window.",
       "search": "Mathlib inner-product/matrix APIs; TechnicalLemmas/Geometry/EuclideanSpaceCoordinates.lean"
@@ -25,26 +52,114 @@
     {
       "id": "measure",
       "title": "Measures, integration, maps and kernels floor",
-      "parents": ["contracts"],
-      "consumers": ["log-concave-sampling", "statistical-optimal-transport", "samplewiki-route", "higher-order-sampling"],
+      "parents": [
+        "contracts"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "statistical-optimal-transport",
+        "samplewiki-route",
+        "higher-order-sampling",
+        "discrete-sampling"
+      ],
       "status": "planned-reuse-audit",
       "target": "Probability normalization, pushforwards, products, marginal transfer, finite moments and deterministic-map versus kernel interfaces.",
       "search": "TechnicalLemmas/Measure; Mathlib MeasureTheory and Probability.Kernel"
     },
     {
+      "id": "kernel",
+      "title": "Markov kernels and invariant laws (state-space neutral)",
+      "parents": [
+        "measure"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "discrete-sampling",
+        "samplewiki-route"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "One kernel/measure interface for composition, stationarity and conditional resampling. Keep finite matrices as adapters; no SDE prerequisites.",
+      "search": "Mathlib Probability.Kernel and PMF; local ConditionalKernel and MarkovSemigroup"
+    },
+    {
+      "id": "finite-gibbs",
+      "title": "Finite Gibbs laws, feasible pinning and heat-bath kernels",
+      "parents": [
+        "kernel"
+      ],
+      "consumers": [
+        "discrete-sampling",
+        "samplewiki-route"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Finite normalization, support-positive conditioning and single/block-site updates. Ising/hard-core/matroid support adapters remain explicit.",
+      "search": "Mathlib PMF, Finset, SimpleGraph; local Gibbs, ConditionalKernel; audit rather than copy"
+    },
+    {
       "id": "calculus",
       "title": "Differentiation, gradients, chain rules and Taylor bounds",
-      "parents": ["contracts", "linear-algebra"],
-      "consumers": ["log-concave-sampling", "optimisation", "riemannian-optimization", "statistical-optimal-transport", "higher-order-sampling"],
+      "parents": [
+        "contracts",
+        "linear-algebra"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "optimisation",
+        "riemannian-optimization",
+        "statistical-optimal-transport",
+        "higher-order-sampling"
+      ],
       "status": "planned-reuse-audit",
       "target": "Source-neutral normed-space derivative/gradient/chain-rule interfaces; manifold and stochastic adapters remain explicit.",
       "search": "TechnicalLemmas/Analysis/Calculus; TechnicalLemmas/Analysis/Calculus/Taylor.lean; Mathlib calculus"
     },
     {
+      "id": "reversible-forms",
+      "title": "Reversibility, weighted L2 and Dirichlet forms",
+      "parents": [
+        "kernel",
+        "linear-algebra",
+        "scalar-decay"
+      ],
+      "consumers": [
+        "discrete-sampling",
+        "log-concave-sampling"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Finite-sum and diffusion realizations of coercive reversible forms; identify generator domain and clock. Spectral gap gives continuous-time L2 decay; discrete steps need absolute-gap/laziness control.",
+      "search": "Local Generator, ReversibleGenerator, L2GeneratorIdentities, Poincare and SemigroupDecay"
+    },
+    {
+      "id": "influence",
+      "title": "Conditional covariance, spectral independence and local-to-global",
+      "parents": [
+        "finite-gibbs",
+        "linear-algebra",
+        "reversible-forms"
+      ],
+      "consumers": [
+        "discrete-sampling",
+        "optimisation",
+        "samplewiki-route"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Uniform feasible-pinning influence bounds, variance/entropy tensorization and graph-regime-specific mixing. Covariance upper control is not strong convexity.",
+      "search": "Mathlib matrices, covariance, matroids; monograph §§2–6, 9 and references for §12"
+    },
+    {
       "id": "convex",
       "title": "Convexity, strong convexity, subgradients and log-concavity adapters",
-      "parents": ["contracts", "linear-algebra"],
-      "consumers": ["log-concave-sampling", "optimisation", "statistical-optimal-transport", "riemannian-optimization", "samplewiki-route"],
+      "parents": [
+        "contracts",
+        "linear-algebra"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "optimisation",
+        "statistical-optimal-transport",
+        "riemannian-optimization",
+        "samplewiki-route"
+      ],
       "status": "planned-reuse-audit",
       "target": "One Euclidean convex/subgradient/strong-convexity core; log-concavity, geodesic convexity, mixture convexity and displacement convexity are typed adapters or separate statements.",
       "search": "TechnicalLemmas/Analysis/ConvexSubgradient.lean; Geometry/{StrongConvexity,LogConcavity}.lean; Mathlib; Optlib; CvxLean"
@@ -52,8 +167,15 @@
     {
       "id": "coupling-wasserstein",
       "title": "Couplings and minimal Wasserstein metric core",
-      "parents": ["linear-algebra", "measure"],
-      "consumers": ["log-concave-sampling", "statistical-optimal-transport"],
+      "parents": [
+        "linear-algebra",
+        "measure"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "statistical-optimal-transport",
+        "discrete-sampling"
+      ],
       "status": "planned-reuse-audit",
       "target": "Shared coupling membership, marginal bookkeeping, p-moment costs, deterministic couplings and metric identities needed by OT Chapter 1 and Sampling §1.3 before route-local transport code is written.",
       "search": "TechnicalLemmas/Measure/{ProbabilityCouplingCompactness,TransportGluing,DisplacementInterpolationCoupling}.lean; pinned Mathlib Wasserstein audit"
@@ -61,8 +183,14 @@
     {
       "id": "duality",
       "title": "Convex conjugacy and duality pulled forward",
-      "parents": ["measure", "convex"],
-      "consumers": ["statistical-optimal-transport", "optimisation"],
+      "parents": [
+        "measure",
+        "convex"
+      ],
+      "consumers": [
+        "statistical-optimal-transport",
+        "optimisation"
+      ],
       "status": "planned-reuse-audit",
       "target": "Extract only the Fenchel/conjugacy core needed by OT §§1.5-1.6 from Optimization Chapter 9 without pretending Chapter 9 is complete.",
       "search": "Mathlib convex conjugacy; Optlib/CvxLean; Chewi Optimization Ch.9; OT Ch.1 exact hypotheses"
@@ -70,8 +198,14 @@
     {
       "id": "semigroup",
       "title": "Markov semigroup and generator foundations",
-      "parents": ["measure", "calculus"],
-      "consumers": ["log-concave-sampling", "samplewiki-route"],
+      "parents": [
+        "measure",
+        "calculus"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "samplewiki-route"
+      ],
       "status": "planned-reuse-audit",
       "target": "Kernel/semigroup laws, generator domains, Dirichlet forms and integration-by-parts interfaces for Sampling Chapters 1-2; this must not block unrelated OT/Optimization work.",
       "search": "Mathlib Probability.Kernel; TechnicalLemmas/StochasticProcesses; FunctionalInequalities"
@@ -79,8 +213,14 @@
     {
       "id": "manifold",
       "title": "Minimal first-order manifold adapter",
-      "parents": ["linear-algebra", "calculus"],
-      "consumers": ["log-concave-sampling", "riemannian-optimization"],
+      "parents": [
+        "linear-algebra",
+        "calculus"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "riemannian-optimization"
+      ],
       "status": "planned-reuse-audit",
       "target": "Tangent spaces, differential, Riemannian metric and gradient interfaces. Boumal Chapter 3 may be pulled forward to unblock Sampling §2.5, with exact source dependencies retained.",
       "search": "Mathlib manifold APIs; TechnicalLemmas/Geometry/GeodesicConvexity.lean; ATLAS geometry memory"
@@ -88,8 +228,15 @@
     {
       "id": "concentration",
       "title": "Empirical measures and concentration floor",
-      "parents": ["measure", "convex"],
-      "consumers": ["log-concave-sampling", "statistical-optimal-transport"],
+      "parents": [
+        "measure",
+        "convex"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "statistical-optimal-transport",
+        "discrete-sampling"
+      ],
       "status": "planned-reuse-audit",
       "target": "Share empirical-measure bookkeeping, Lipschitz-observable and basic concentration interfaces between Sampling §2.4 and OT Chapter 2; keep chaining, isoperimetry and minimax lower bounds separate unless statements exactly match.",
       "search": "Mathlib probability/concentration; FunctionalInequalities; compatible lean-stat-learning-theory leaves"
@@ -97,8 +244,16 @@
     {
       "id": "transport",
       "title": "Transport existence, Brenier/duality wrappers and displacement",
-      "parents": ["convex", "coupling-wasserstein", "duality"],
-      "consumers": ["log-concave-sampling", "statistical-optimal-transport", "samplewiki-route"],
+      "parents": [
+        "convex",
+        "coupling-wasserstein",
+        "duality"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "statistical-optimal-transport",
+        "samplewiki-route"
+      ],
       "status": "planned-reuse-audit",
       "target": "Build source-facing OT theorems on the shared metric/convex floor. Sampling §1.3 consumes the canonical transport core rather than creating a second mini-library.",
       "search": "TechnicalLemmas/Measure transport files; OT Chapter 1; Sampling §1.3; source-specific Brenier/Kantorovich hypotheses"
@@ -106,17 +261,52 @@
     {
       "id": "entropy",
       "title": "Gibbs variational principle, KL and functional-inequality energy",
-      "parents": ["measure", "convex"],
-      "consumers": ["log-concave-sampling", "samplewiki-route", "statistical-optimal-transport"],
+      "parents": [
+        "measure",
+        "convex"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "samplewiki-route",
+        "statistical-optimal-transport",
+        "discrete-sampling"
+      ],
       "status": "planned-reuse-audit",
       "target": "Common entropy/KL/convex core supports Sampling Chapter 2, OT Chapter 4 and proximal/MFLD routes; invariant-law and semigroup claims remain separate.",
       "search": "TechnicalLemmas/InformationTheory; FunctionalInequalities; existing Fisher/entropy APIs; primary proofs"
     },
     {
+      "id": "discrete-entropy",
+      "title": "Jump entropy dissipation and modified log-Sobolev inequalities",
+      "parents": [
+        "reversible-forms",
+        "entropy"
+      ],
+      "consumers": [
+        "discrete-sampling",
+        "log-concave-sampling",
+        "statistical-optimal-transport"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "E(r, log r) controls entropy for a jump chain. Do not copy the diffusion chain-rule identity or confuse MLSI with one-step entropy contraction.",
+      "search": "Local InformationTheory and FunctionalInequalities; Maas/Erbar–Maas explicit metric adapters"
+    },
+    {
       "id": "flow",
       "title": "Energy-dissipation and geometry-to-flow interfaces",
-      "parents": ["calculus", "convex", "transport", "entropy"],
-      "consumers": ["log-concave-sampling", "optimisation", "riemannian-optimization", "statistical-optimal-transport", "samplewiki-route"],
+      "parents": [
+        "calculus",
+        "convex",
+        "transport",
+        "entropy"
+      ],
+      "consumers": [
+        "log-concave-sampling",
+        "optimisation",
+        "riemannian-optimization",
+        "statistical-optimal-transport",
+        "samplewiki-route"
+      ],
       "status": "planned-reuse-audit",
       "target": "Share scalar energy-dissipation/Gronwall patterns first; connect Euclidean, Riemannian and Wasserstein flows only through explicit adapters whose hypotheses are proved.",
       "search": "Optimization Ch.2; Sampling §§1.4-1.5; existing weak FP/FisherTransport APIs; AGS metric gradient-flow contracts"
@@ -124,8 +314,13 @@
     {
       "id": "statistics",
       "title": "Statistical OT and metric-geometry branches",
-      "parents": ["transport", "concentration"],
-      "consumers": ["statistical-optimal-transport"],
+      "parents": [
+        "transport",
+        "concentration"
+      ],
+      "consumers": [
+        "statistical-optimal-transport"
+      ],
       "status": "planned-reuse-audit",
       "target": "OT Chapters 2-3 empirical/statistical leaves and 7-8 metric geometry branch. Statistical observation count n is never identified with sampling oracle cost.",
       "search": "OT Chapter 2-3 assumptions; Mathlib probability; concentration sources; statistical rather than computational n"
@@ -133,8 +328,14 @@
     {
       "id": "upper",
       "title": "Higher-smoothness sampling upper bounds",
-      "parents": ["measure", "calculus", "convex"],
-      "consumers": ["higher-order-sampling"],
+      "parents": [
+        "measure",
+        "calculus",
+        "convex"
+      ],
+      "consumers": [
+        "higher-order-sampling"
+      ],
       "status": "planned-reuse-audit",
       "target": "Fix one potential class and oracle, prove local remainder/moment bounds and invariant target, then combine with an existing compatible contraction theorem.",
       "search": "Nesterov high-order Taylor models; Mou et al.; Shen-Lee; pinned sampling contraction leaves"
@@ -142,8 +343,13 @@
     {
       "id": "lower",
       "title": "Sampling oracle lower bounds",
-      "parents": ["contracts", "measure"],
-      "consumers": ["samplewiki-route"],
+      "parents": [
+        "contracts",
+        "measure"
+      ],
+      "consumers": [
+        "samplewiki-route"
+      ],
       "status": "planned-reuse-audit",
       "target": "Separate hard-instance and information-transcript lane. Additional convexity or statistical-testing ingredients are task-specific, not every upper-bound lemma.",
       "search": "SampleWiki exact lower-bound papers; oracle transcript kernels; testing/data-processing APIs"
@@ -151,11 +357,17 @@
     {
       "id": "compare",
       "title": "Compare matched upper and lower contracts",
-      "parents": ["upper", "lower"],
-      "consumers": ["all"],
+      "parents": [
+        "upper",
+        "lower"
+      ],
+      "consumers": [
+        "all"
+      ],
       "status": "planned-reuse-audit",
       "target": "Only compare identical potential classes, derivative access, error metrics, starts and cost conventions. A cross-domain lower bound requires an explicit reduction.",
       "search": "Common contract schema; no theorem equivalence inferred from a shared label"
     }
-  ]
+  ],
+  "discrete_boundary": "Discrete state space is independent of discrete/continuous time. Finite kernel and Gibbs work do not wait for Langevin, Ito, Riemannian or Brenier proofs."
 }

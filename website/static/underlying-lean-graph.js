@@ -10,7 +10,7 @@
   const empty = document.querySelector("[data-graph-empty]");
   const buttons = [...document.querySelectorAll("[data-view]")];
   const NS = "http://www.w3.org/2000/svg";
-  const state = {view: "overview", query: "", focus: "", expanded: new Set(), scale: 0.82, x: 32, y: 36, drag: null};
+  const state = {showProposals: false, view: "overview", query: "", focus: "", expanded: new Set(), scale: 0.82, x: 32, y: 36, drag: null};
   const kindOrder = {"concept-domain": 0, "concept-bridge": 1, "library-chapter": 2, library: 0, "proof-root": 1, chapter: 2, setting: 2, phase: 2, "semantic-stage": 2, "source-claim": 3, "frontier-case": 3, module: 3, "semantic-audit": 4, "proof-leaf": 4, declaration: 4, "repair-proposal": 5};
   const kindLabel = {"concept-domain": "domain", "concept-bridge": "transport contract", "library-chapter": "peer book chapter", library: "library", "proof-root": "shared root", chapter: "book chapter", setting: "SampleWiki setting", phase: "formalization phase", "source-claim": "source theorem", "frontier-case": "frontier theorem", module: "Lean module", "proof-leaf": "proof leaf", declaration: "Lean declaration", "semantic-stage": "semantic protocol", "semantic-audit": "fidelity audit", "repair-proposal": "theorem repair proposal"};
   const viewKinds = {
@@ -51,7 +51,13 @@
     "transport:pl-lsi":"PL ↔ LSI / KL", "transport:pi-chi2":"Poincaré ↔ χ²",
     "transport:entropy-sandwich":"KL gap / PL / growth", "transport:duality":"Convex duality",
     "transport:high-order":"Smoothness to accuracy?", "transport:oracle-reduction":"Oracle reduction",
-    "transport:statistical-loss":"Data, loss and risk"
+    "transport:statistical-loss":"Data, loss and risk",
+    "concept:discrete":"Discrete sampling",
+    "transport:discrete-dirichlet":"Finite PI / chi-square",
+    "transport:discrete-entropy":"Jump entropy / MLSI",
+    "transport:discrete-transport":"Discrete entropy geometry",
+    "transport:influence-hessian":"Covariance / influence",
+    "transport:discrete-coupling":"Coupling / Hamming W1"
   };
 
   function viewIds(all) {
@@ -88,6 +94,11 @@
       neighbors(id).forEach(n => { if(state.view !== "functor" || viewKinds.functor.has(nodes.get(n)?.kind)) selected.add(n); });
     });
 
+    // Pending mirrors are not admitted to the default atlas by a source scan.
+    // An explicit review action can reveal them, without changing their status.
+    if (!state.showProposals) [...selected].forEach(id => {
+      if (nodes.get(id)?.hyperedge?.review?.state === "candidate") selected.delete(id);
+    });
     if (selected.size > 190) {
       const forced = [...priority].filter(id => selected.has(id));
       const forcedSet = new Set(forced);
@@ -112,11 +123,14 @@
         "transport:gibbs-prox":[0,510], "transport:metric-pl":[340,510], "transport:wasserstein-flow":[680,510],
         "transport:pi-chi2":[0,680], "transport:pl-lsi":[340,680],
         "concept:sampling":[0,850], "transport:entropy-sandwich":[340,850], "concept:transport":[680,850],
-        "transport:high-order":[0,1020], "transport:statistical-loss":[680,1020]
+        "transport:high-order":[0,1020], "transport:statistical-loss":[680,1020],
+        "transport:influence-hessian":[1020,0], "transport:discrete-transport":[1020,170],
+        "concept:discrete":[1020,340], "transport:discrete-entropy":[1020,510],
+        "transport:discrete-dirichlet":[1020,680], "transport:discrete-coupling":[1020,850]
       };
       const positions = new Map(); let extra = 0;
       [...ids].forEach(id => { const a=anchors[id] || [340,1190+extra++*140]; positions.set(id,{x:a[0]+20,y:a[1]+20}); });
-      return {positions,width:1020,height:1180+extra*140};
+      return {positions,width:1360,height:1180+extra*140};
     }
     const columns = new Map(); let maxColumn = 0;
     [...ids].forEach(id => { const n=nodes.get(id); const explicit=Number(n.column); const key=Number.isFinite(explicit) ? explicit : (kindOrder[n.kind] ?? 3); maxColumn=Math.max(maxColumn,key); if (!columns.has(key)) columns.set(key, []); columns.get(key).push(n); });
@@ -206,6 +220,12 @@
   }
 
   function selectNode(id, expand=false) {
+    if (nodes.get(id)?.hyperedge?.review?.state === "candidate") {
+      state.showProposals = true;
+      const control = document.querySelector("[data-graph-proposals]");
+      if (control) control.checked = true;
+    }
+
     if (!nodes.has(id)) return; if(state.view === "functor" && !viewKinds.functor.has(nodes.get(id).kind)) setView("lean"); state.focus=id; if(expand) state.expanded.add(id); const n=nodes.get(id);
     try { const url=new URL(location.href); url.searchParams.set("focus",id); url.searchParams.set("view",state.view); history.replaceState(null,"",url); } catch (_) {}
     const incoming=(incident.get(id)||[]).filter(e=>e.target===id).map(e=>nodes.get(e.source)).filter(Boolean); const outgoing=(incident.get(id)||[]).filter(e=>e.source===id).map(e=>nodes.get(e.target)).filter(Boolean);
@@ -222,6 +242,11 @@
   buttons.forEach(button=>button.addEventListener("click",()=>setView(button.dataset.view)));
   document.querySelectorAll("[data-functor-jump]").forEach(button=>button.addEventListener("click",()=>{if(!nodes)return; setView("functor"); selectNode(button.dataset.functorJump,true); requestAnimationFrame(fit);}));
   search.addEventListener("input",()=>{state.query=search.value.trim(); state.focus=""; state.expanded.clear(); render(); requestAnimationFrame(fit);});
+  document.querySelector("[data-graph-proposals]")?.addEventListener("change", event => {
+    state.showProposals = event.target.checked;
+    if (!state.showProposals && nodes.get(state.focus)?.hyperedge?.review?.state === "candidate") state.focus = "";
+    render();
+  });
   document.querySelector("[data-graph-fit]").addEventListener("click",fit);
   document.querySelector("[data-graph-reset]").addEventListener("click",()=>{search.value="";state.query="";state.focus="";state.expanded.clear();setView("overview");});
   canvas.addEventListener("keydown",ev=>{if(ev.key==="Escape"&&state.focus){ev.preventDefault();clearFocus();}});
