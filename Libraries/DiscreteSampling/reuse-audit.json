@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "library_id": "discrete-sampling",
+  "audited_commit": "4424c0d76926b943e8f55fbd5e2bf52fa3cda3f4",
+  "status": "source-audit-only; no new Lean certificate",
+  "reader": "reuse-audit.md",
+  "canonical_protocol": "docs/discrete-sampling-protocol.md",
+  "mandatory_before_reuse": "Inspect the current pinned types, prove the minimal adapter, and carry the discrete-state contract even in a shared cell. These entries are search leads, not proof dependencies or accepted conceptual transfers.",
+  "entries": [
+    {
+      "id": "discrete-kernel-algebra-reuse",
+      "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/MarkovSemigroup.lean",
+      "declarations": ["AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.TransitionKernelContract", "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.MarkovSemigroup.markovOperator_comp"],
+      "status": "source-present; adapter unproved",
+      "boundary": "State-neutral measurable kernels, but the contract is indexed by nonnegative real time. Matrix/kernel conversion and finite continuous-time semigroup construction remain obligations. It is not automatically the discrete-time P^k contract, nor analytic generator-domain evidence."
+    },
+    {
+      "id": "discrete-generator-form-reuse",
+      "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "declarations": ["AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare"],
+      "status": "source-present; adapter unproved",
+      "boundary": "Prove the finite weighted-integral/pair-sum identity for a positive invariant probability and reversible kernel, with L=P-I and the exact time normalization. The existing Poincare convention Var <= C E has gap lambda=1/C. Do not recreate a second generic form in an Ising namespace."
+    },
+    {
+      "id": "discrete-entropy-zero-density-obstruction",
+      "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "source_blob_sha": "6e1cdbcf015f96eede938aee521128a1e8183306",
+      "declarations": ["AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.densityEntropy", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.LogSobolevAdmissible", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesLogSobolev"],
+      "status": "blocked-for-direct-standard-MLSI-equivalence; formal/source review required",
+      "positive_density_candidate": "For strictly positive normalized densities, the displayed inequality Ent <= (C/2) E(r,log r) has MLSI constant alpha=2/C. This algebraic convention match does not establish equivalence of quantified domains.",
+      "boundary": "The existing admissibility permits zeros and uses totalized Real.log. The correct zero convention for r*log r does not justify applying totalized log pointwise inside a jump generator. Prove a positive-domain interface or a justified limiting/extended dissipation construction before reusing it as standard finite-chain MLSI. Do not silently strengthen a source assumption or rewrite the existing definition.",
+      "witness": {
+        "status": "natural-language/rational-algebra audit witness, not Lean verified",
+        "stationary_law": ["1/3", "1/3", "1/3"],
+        "kernel_rows": [["1/2", "1/2", "0"], ["1/2", "49/100", "1/100"], ["0", "1/100", "99/100"]],
+        "density": ["0", "1/2", "5/2"],
+        "totalized_log_pair_form": "-log(2)/12 + log(5)/150 < 0",
+        "density_entropy": "(5*log(5)-6*log(2))/6 > 0"
+      }
+    }
+  ],
+  "supplementary_beginner_source": {
+    "title": "Finite Markov chains and Monte-Carlo Methods: An Undergraduate Introduction",
+    "authors": ["Soumik Pal", "Tim Mesikepp"],
+    "arxiv_id": "2510.14165v1",
+    "url": "https://arxiv.org/abs/2510.14165v1",
+    "pdf_url": "https://arxiv.org/pdf/2510.14165v1",
+    "pdf_pages": 246,
+    "sha256": "d1dd58d663cd6cb8dff0eaa535ff8aba9cafb684a7876f21e024c92dcf4c6dc9",
+    "role": "Optional source-detail companion for elementary finite chains and Monte Carlo, not a seventh Library, not replacement of CSV arXiv:2307.13826v4, and not an asserted proof source for a particular unreviewed theorem."
+  }
+}
