@@ -72,6 +72,7 @@
         "transport:pl-lsi"
       ],
       "formal_search_nodes": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder",
         "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
         "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"
