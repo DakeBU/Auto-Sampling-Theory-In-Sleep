@@ -34,15 +34,18 @@ jobs:
           PY
           git apply --check --unidiff-zero /tmp/discrete-integration.patch
           git apply --unidiff-zero /tmp/discrete-integration.patch
-          rm .github/workflows/discrete-source-snapshot.yml
-      - name: Check exact integrated source
+          # GITHUB_TOKEN publishes only ordinary source files. Workflow changes
+          # and removal of this temporary helper use the authorized connector.
+          git restore --source=HEAD -- .github/workflows
+      - name: Check integrated source
         run: |
           python3 -m compileall -q tools website/scripts
           python3 -m unittest tools.tests.test_discrete_sampling tools.tests.test_cross_domain_program tools.tests.test_harness_site tools.tests.test_underlying_lean_graph
           python3 tools/astis_frontier_cells.py check
           node --check website/static/underlying-lean-graph.js
           git diff --check
-      - name: Commit integration without temporary workflow
+          git diff --exit-code HEAD -- .github/workflows
+      - name: Commit ordinary source integration
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
