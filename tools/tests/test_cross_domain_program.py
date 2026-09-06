@@ -29,6 +29,49 @@ class CrossDomainProgramTests(unittest.TestCase):
         self.assertEqual(e['tails'],['concept:optimization','concept:transport'])
         self.assertEqual(e['status'],'not-Lean-certified')
 
+    def test_metric_pl_lsi_and_chi2_mirrors_are_explicit_and_distinct(self):
+        model=cross_domain.load(cross_domain.FUNCTOR_PATH)
+        edges={e['id']:e for e in model['hyperedges']}
+        self.assertTrue({
+            'transport:metric-pl','transport:curvature-growth','transport:pl-lsi','transport:pi-chi2'
+        } <= set(edges))
+        metric=edges['transport:metric-pl']
+        self.assertEqual(metric['tails'],['concept:optimization','concept:riemannian','concept:transport'])
+        self.assertEqual(metric['heads'],['concept:sampling'])
+        self.assertIn('family:metric-gradient-flow',metric['family_ids'])
+        lsi=edges['transport:pl-lsi']
+        self.assertIn('FI',lsi['formula'])
+        self.assertEqual(lsi['relation_kind'],'functional-inequality mirror')
+        pi=edges['transport:pi-chi2']
+        self.assertIn('chi-square',pi['mechanism'])
+        self.assertEqual(pi['family_ids'],['family:l2-coercivity'])
+        curvature=edges['transport:curvature-growth']
+        self.assertIn('current strong-convex first-order SAU',curvature['conclusion_map'])
+        for edge in (metric,lsi,pi,curvature):
+            self.assertEqual(edge['status'],'not-Lean-certified')
+            self.assertEqual(edge['formal_refs'],[])
+
+    def test_graph_memory_is_stable_family_index_for_three_truth_views(self):
+        memory=cross_domain.load(cross_domain.GRAPH_MEMORY_PATH)
+        policy=cross_domain.load(cross_domain.MIRROR_POLICY_PATH)
+        self.assertEqual(set(memory['views']),{'overview','lean','functor'})
+        self.assertEqual(policy['mandatory_sau_audit']['applies_from_advance_schema'],3)
+        families={row['id']:row for row in memory['families']}
+        self.assertTrue({
+            'family:metric-gradient-flow','family:curvature-growth','family:gap-gradient',
+            'family:l2-coercivity','family:proximal-energy'
+        } <= set(families))
+        self.assertIn('transport:pl-lsi',families['family:gap-gradient']['functor_edges'])
+        self.assertIn('transport:pi-chi2',families['family:l2-coercivity']['functor_edges'])
+        self.assertTrue(families['family:gap-gradient']['do_not_conflate'])
+        self.assertTrue(families['family:metric-gradient-flow']['formal_search_nodes'])
+
+    def test_unknown_conceptual_family_is_rejected(self):
+        model=cross_domain.load(cross_domain.FUNCTOR_PATH)
+        model['hyperedges'][0]['family_ids']=['family:invented']
+        with self.assertRaises(ValueError):
+            cross_domain.validate_data(model=model)
+
     def test_false_certification_rejected(self):
         model=cross_domain.load(cross_domain.FUNCTOR_PATH)
         model['hyperedges'][0]['status']='Lean-certified'
@@ -124,6 +167,8 @@ class CrossDomainProgramTests(unittest.TestCase):
         js=(ROOT/'website/static/underlying-lean-graph.js').read_text()
         self.assertIn('functor: new Set(["concept-domain", "concept-bridge"])',js)
         self.assertIn('ALL inputs:',js)
+        self.assertIn('Conceptual families:',js)
+        self.assertIn('transport:pl-lsi',js)
         self.assertIn('window.location.search',(ROOT/'website/static/graph-alias.js').read_text())
 
 if __name__=='__main__':

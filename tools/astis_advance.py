@@ -10,6 +10,7 @@ The current Harness keeps the global coordinator thin:
 
 * advances are partitioned into explicit frontier cells;
 * any generalist Worker may publish a cell-level synthesis discovery;
+* cross-domain proof mechanisms are retained as typed conceptual-mirror discoveries;
 * the coordinator capsule is synthesis-first and never embeds raw transcripts;
 * unchanged route/progress checkpoints trigger a deterministic no-progress
   diagnosis instead of indefinite retries;
@@ -38,7 +39,7 @@ except ImportError:  # direct ``python3 tools/astis_advance.py ...``
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ADVANCE_LEDGER = ROOT / "runs" / "substantive_advances.jsonl"
 DEFAULT_DISCOVERY_LEDGER = ROOT / "runs" / "substantive_discoveries.jsonl"
-ADVANCE_SCHEMA_VERSION = 2
+ADVANCE_SCHEMA_VERSION = 3
 
 
 class HarnessError(RuntimeError):
@@ -89,6 +90,7 @@ DISCOVERY_KINDS = frozenset(
         "conjecture",
         "process",
         "synthesis",
+        "conceptual-mirror",
     }
 )
 DISCOVERY_STATUSES = frozenset({"raw", "validated", "scheduled", "merged", "rejected"})
@@ -100,6 +102,22 @@ ALLOWED_DISCOVERY_TRANSITIONS: dict[str, frozenset[str]] = {
     "rejected": frozenset(),
 }
 DUPLICATE_DISCOVERY_STATUSES = frozenset({"raw", "validated", "scheduled", "merged"})
+
+CONCEPTUAL_MIRROR_KIND = "conceptual-mirror"
+CONCEPTUAL_MIRROR_REQUIRED_METADATA = (
+    "bridge_id",
+    "family_id",
+    "domains",
+    "formula",
+    "mechanism",
+    "hypothesis_map",
+    "conclusion_map",
+    "failure_boundary",
+    "source_ids",
+    "graph_views",
+)
+CONCEPTUAL_MIRROR_AUDIT_STATUSES = frozenset({"none-found", "candidates-published"})
+GRAPH_VIEWS = frozenset({"overview", "lean", "functor"})
 
 NO_PROGRESS_FREEZE_AT = 3
 
@@ -129,6 +147,56 @@ def _semantic_text(value: str) -> str:
 
 def _semantic_list(values: Sequence[str]) -> list[str]:
     return sorted(_semantic_text(value) for value in values if value.strip())
+
+
+def _validate_conceptual_mirror_metadata(metadata: dict[str, Any]) -> None:
+    if not isinstance(metadata, dict):
+        raise HarnessError("conceptual-mirror metadata must be an object")
+    missing = [key for key in CONCEPTUAL_MIRROR_REQUIRED_METADATA if not _meaningful(metadata.get(key))]
+    if missing:
+        raise HarnessError("conceptual-mirror metadata lacks: " + ", ".join(missing))
+    bridge_id = str(metadata["bridge_id"])
+    family_id = str(metadata["family_id"])
+    if not bridge_id.startswith("transport:"):
+        raise HarnessError("conceptual-mirror bridge_id must use stable transport:<slug> identity")
+    if not family_id.startswith("family:"):
+        raise HarnessError("conceptual-mirror family_id must use stable family:<slug> identity")
+    domains = metadata["domains"]
+    if not isinstance(domains, (list, tuple)) or not domains or any(
+        not isinstance(item, str) or not item.startswith("concept:") for item in domains
+    ):
+        raise HarnessError("conceptual-mirror domains must be nonempty concept:<slug> identities")
+    source_ids = metadata["source_ids"]
+    if not isinstance(source_ids, (list, tuple)) or not source_ids or any(
+        not isinstance(item, str) or not item.strip() for item in source_ids
+    ):
+        raise HarnessError("conceptual-mirror source_ids must be a nonempty source-id list")
+    graph_views = metadata["graph_views"]
+    if not isinstance(graph_views, (list, tuple)) or not graph_views:
+        raise HarnessError("conceptual-mirror graph_views must be nonempty")
+    if not set(graph_views) <= GRAPH_VIEWS:
+        raise HarnessError("conceptual-mirror graph_views contain an unknown graph view")
+    if "functor" not in graph_views:
+        raise HarnessError("conceptual-mirror graph_views must include functor")
+    for key in ("formula", "mechanism", "hypothesis_map", "conclusion_map", "failure_boundary"):
+        _require_text(f"conceptual-mirror metadata.{key}", str(metadata[key]))
+
+
+def _validate_conceptual_mirror_audit(audit: Any) -> None:
+    if not isinstance(audit, dict):
+        raise HarnessError("conceptual_mirror_audit must be an object")
+    status = audit.get("status")
+    if status not in CONCEPTUAL_MIRROR_AUDIT_STATUSES:
+        raise HarnessError(
+            "conceptual_mirror_audit.status must be none-found or candidates-published"
+        )
+    ids = audit.get("discovery_ids")
+    if not isinstance(ids, list) or any(not isinstance(item, str) or not item.strip() for item in ids):
+        raise HarnessError("conceptual_mirror_audit.discovery_ids must be a list of nonempty ids")
+    if status == "none-found" and ids:
+        raise HarnessError("none-found conceptual_mirror_audit cannot list discovery ids")
+    if status == "candidates-published" and not ids:
+        raise HarnessError("candidates-published conceptual_mirror_audit requires discovery ids")
 
 
 @dataclasses.dataclass(frozen=True)
@@ -215,6 +283,7 @@ class Discovery:
     provenance: str
     created_by: str
     frontier_cell: str = "global"
+    metadata: dict[str, Any] = dataclasses.field(default_factory=dict)
     created_at: str = dataclasses.field(default_factory=durable.utc_stamp)
 
     def validate(self) -> None:
@@ -232,16 +301,25 @@ class Discovery:
             _require_text(name, getattr(self, name))
         if self.kind not in DISCOVERY_KINDS:
             raise HarnessError(f"unsupported discovery kind: {self.kind}")
+        if self.kind == CONCEPTUAL_MIRROR_KIND:
+            _validate_conceptual_mirror_metadata(self.metadata)
 
     def semantic_fingerprint(self) -> str:
-        return durable.digest(
-            {
-                "kind": self.kind,
-                "statement": _semantic_text(self.statement),
-                "where_it_matters": _semantic_text(self.where_it_matters),
-                "frontier_cell": _semantic_text(self.frontier_cell),
-            }
-        )
+        payload: dict[str, Any] = {
+            "kind": self.kind,
+            "statement": _semantic_text(self.statement),
+            "where_it_matters": _semantic_text(self.where_it_matters),
+            "frontier_cell": _semantic_text(self.frontier_cell),
+        }
+        if self.kind == CONCEPTUAL_MIRROR_KIND:
+            payload.update(
+                {
+                    "bridge_id": _semantic_text(str(self.metadata.get("bridge_id", ""))),
+                    "family_id": _semantic_text(str(self.metadata.get("family_id", ""))),
+                    "domains": _semantic_list([str(x) for x in self.metadata.get("domains", [])]),
+                }
+            )
+        return durable.digest(payload)
 
     def as_event(self) -> dict[str, Any]:
         self.validate()
@@ -342,6 +420,8 @@ def _validate_transition_evidence(
         required = ("theorem_delta", "lean_files", "focused_checks", "truth_boundary")
         if schema_version >= 2:
             required += ("result_kind", "lean_declarations")
+        if schema_version >= 3:
+            required += ("conceptual_mirror_audit",)
         missing = [key for key in required if not _meaningful(evidence.get(key))]
         if missing:
             raise HarnessError("PROVED_LOCAL lacks evidence: " + ", ".join(missing))
@@ -350,6 +430,8 @@ def _validate_transition_evidence(
                 "PROVED_LOCAL result_kind must be one of: "
                 + ", ".join(sorted(SUBSTANTIVE_RESULT_KINDS))
             )
+        if schema_version >= 3:
+            _validate_conceptual_mirror_audit(evidence.get("conceptual_mirror_audit"))
     elif to_state == "VERIFIED":
         required = ("gate",)
         if schema_version >= 2:
@@ -408,6 +490,30 @@ def _assert_worker_lane_owner(
         )
 
 
+def _validate_conceptual_mirror_audit_links(
+    advance_id: str,
+    audit: dict[str, Any],
+    discovery_path: Path,
+) -> None:
+    if audit.get("status") != "candidates-published":
+        return
+    state = current_discoveries(discovery_path)
+    for discovery_id in audit.get("discovery_ids", []):
+        item = state.get(discovery_id)
+        if item is None:
+            raise HarnessError(
+                f"conceptual_mirror_audit references unknown discovery: {discovery_id}"
+            )
+        if item.get("advance_id") != advance_id:
+            raise HarnessError(
+                f"conceptual_mirror_audit discovery {discovery_id} belongs to another advance"
+            )
+        if item.get("kind") != CONCEPTUAL_MIRROR_KIND:
+            raise HarnessError(
+                f"conceptual_mirror_audit discovery {discovery_id} is not conceptual-mirror"
+            )
+
+
 def transition_advance(
     advance_id: str,
     to_state: str,
@@ -416,6 +522,7 @@ def transition_advance(
     modes: Sequence[str] = (),
     evidence: dict[str, Any] | None = None,
     path: Path = DEFAULT_ADVANCE_LEDGER,
+    discovery_path: Path = DEFAULT_DISCOVERY_LEDGER,
 ) -> None:
     _require_text("advance_id", advance_id)
     _require_text("worker_id", worker_id)
@@ -435,11 +542,17 @@ def transition_advance(
             raise HarnessError(f"illegal substantive-advance transition: {current} -> {to_state}")
         schema_version = int(item.get("schema_version", 1))
         _validate_transition_evidence(to_state, evidence, schema_version=schema_version)
+        if to_state == "PROVED_LOCAL" and schema_version >= 3:
+            _validate_conceptual_mirror_audit_links(
+                advance_id,
+                evidence["conceptual_mirror_audit"],
+                discovery_path,
+            )
         _assert_worker_lane_owner(item, current=current, to_state=to_state, worker_id=worker_id)
 
         if schema_version >= 2 and current == "BLOCKED" and to_state == "EXPLORING":
             raise HarnessError(
-                "a BLOCKED v2 advance must be re-CLAIMED before EXPLORING"
+                "a BLOCKED v2+ advance must be re-CLAIMED before EXPLORING"
             )
 
         if schema_version >= 2 and current == "VERIFIED" and to_state == "EXPLORING":
@@ -584,6 +697,7 @@ def _replay_discoveries(records: Iterable[dict[str, Any]]) -> dict[str, dict[str
         if record.get("event") == "discovery":
             item = dict(record)
             item.setdefault("frontier_cell", "global")
+            item.setdefault("metadata", {})
             state[discovery_id] = item
         elif record.get("event") == "discovery_transition" and discovery_id in state:
             current = state[discovery_id]
@@ -641,9 +755,14 @@ def transition_discovery(
         state = _replay_discoveries(records)
         if discovery_id not in state:
             raise HarnessError(f"unknown discovery: {discovery_id}")
-        current = str(state[discovery_id].get("status", "raw"))
+        item = state[discovery_id]
+        current = str(item.get("status", "raw"))
         if to_status not in ALLOWED_DISCOVERY_TRANSITIONS.get(current, frozenset()):
             raise HarnessError(f"illegal discovery transition: {current} -> {to_status}")
+        if item.get("kind") == CONCEPTUAL_MIRROR_KIND and to_status == "validated":
+            if actor == item.get("created_by"):
+                raise HarnessError("conceptual-mirror validation must be independent of its creator")
+            _validate_conceptual_mirror_metadata(dict(item.get("metadata") or {}))
         _append_unlocked(
             path,
             {
@@ -677,6 +796,7 @@ def _frontier_cell_summaries(
                 "blocked_advances": [],
                 "needs_diagnosis": [],
                 "validated_syntheses": [],
+                "validated_conceptual_mirrors": [],
                 "top_priority": 0,
             },
         )
@@ -697,14 +817,15 @@ def _frontier_cell_summaries(
             summary["needs_diagnosis"].append(advance_id)
 
     for item in discoveries:
-        if item.get("kind") != "synthesis" or item.get("status") not in {
-            "validated",
-            "scheduled",
-            "merged",
-        }:
+        if item.get("status") not in {"validated", "scheduled", "merged"}:
             continue
         name = str(item.get("frontier_cell") or "global")
-        cell(name)["validated_syntheses"].append(str(item.get("discovery_id", "")))
+        if item.get("kind") == "synthesis":
+            cell(name)["validated_syntheses"].append(str(item.get("discovery_id", "")))
+        elif item.get("kind") == CONCEPTUAL_MIRROR_KIND:
+            cell(name)["validated_conceptual_mirrors"].append(
+                str(item.get("discovery_id", ""))
+            )
 
     summaries = list(cells.values())
     for summary in summaries:
@@ -717,6 +838,7 @@ def _frontier_cell_summaries(
             "blocked_advances",
             "needs_diagnosis",
             "validated_syntheses",
+            "validated_conceptual_mirrors",
         ):
             summary[key] = summary[key][:8]
     summaries.sort(
@@ -755,9 +877,10 @@ def coordinator_capsule(
     )
     discoveries = list(current_discoveries(discovery_path).values())
     discovery_rank = {"validated": 4, "scheduled": 3, "raw": 2, "merged": 1, "rejected": 0}
+    kind_rank = {"synthesis": 2, CONCEPTUAL_MIRROR_KIND: 1}
     discoveries.sort(
         key=lambda item: (
-            item.get("kind") == "synthesis",
+            kind_rank.get(str(item.get("kind")), 0),
             discovery_rank.get(str(item.get("status")), -1),
             str(item.get("updated_at") or item.get("created_at") or ""),
         ),
@@ -768,14 +891,31 @@ def coordinator_capsule(
     frontier_cells, omitted_cell_count = _frontier_cell_summaries(
         advances, discoveries, max_cells=max_cells
     )
+    validated_conceptual_mirrors = [
+        {
+            "discovery_id": item.get("discovery_id"),
+            "advance_id": item.get("advance_id"),
+            "frontier_cell": item.get("frontier_cell"),
+            "bridge_id": (item.get("metadata") or {}).get("bridge_id"),
+            "family_id": (item.get("metadata") or {}).get("family_id"),
+            "domains": (item.get("metadata") or {}).get("domains", []),
+            "status": item.get("status"),
+        }
+        for item in discoveries
+        if item.get("kind") == CONCEPTUAL_MIRROR_KIND
+        and item.get("status") in {"validated", "scheduled", "merged"}
+    ][:12]
     capsule: dict[str, Any] = {
         "schema_version": ADVANCE_SCHEMA_VERSION,
         "generated_at": durable.utc_stamp(),
         "control_model": "substantive-advance-frontier-mesh",
-        "coordinator_policy": "cell-synthesis-first; raw transcripts forbidden",
+        "coordinator_policy": "cell-synthesis-first; conceptual-mirror-aware; raw transcripts forbidden",
+        "conceptual_mirror_protocol": "Libraries/conceptual-mirror-protocol.json",
+        "graph_memory_index": "website/content/graph_memory_index.json",
         "frontier_cells": frontier_cells,
         "advances": selected_advances,
         "discoveries": selected_discoveries,
+        "validated_conceptual_mirrors": validated_conceptual_mirrors,
         "omitted_cell_count": omitted_cell_count,
         "omitted_advance_count": max(0, len(advances) - len(selected_advances)),
         "omitted_discovery_count": max(0, len(discoveries) - len(selected_discoveries)),

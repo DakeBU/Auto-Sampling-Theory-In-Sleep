@@ -13,7 +13,9 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 OT_PATH = ROOT / 'Libraries/StatisticalOptimalTransport/source-map.json'
 PLAN_PATH = ROOT / 'Libraries/cross-domain-program.json'
+MIRROR_POLICY_PATH = ROOT / 'Libraries/conceptual-mirror-protocol.json'
 FUNCTOR_PATH = ROOT / 'website/content/functor_hypergraph.json'
+GRAPH_MEMORY_PATH = ROOT / 'website/content/graph_memory_index.json'
 OT_BASE = 'libraries/statistical-optimal-transport/'
 RESEARCH_PAGE = 'progress/higher-order-sampling-detail.html'
 
@@ -27,10 +29,12 @@ def require(condition: bool, message: str) -> None:
         raise ValueError(message)
 
 
-def validate_data(ot=None, plan=None, model=None) -> None:
+def validate_data(ot=None, plan=None, model=None, memory=None, mirror_policy=None) -> None:
     ot = load(OT_PATH) if ot is None else ot
     plan = load(PLAN_PATH) if plan is None else plan
     model = load(FUNCTOR_PATH) if model is None else model
+    memory = load(GRAPH_MEMORY_PATH) if memory is None else memory
+    mirror_policy = load(MIRROR_POLICY_PATH) if mirror_policy is None else mirror_policy
     require(isinstance(ot.get('sha256'), str) and len(ot['sha256']) == 64 and all(c in '0123456789abcdef' for c in ot['sha256']), 'OT source must be byte-pinned')
     rows = ot['chapters']
     require([r['id'] for r in rows] == ['01', '02', '03', '04', '05', '06', '07', '08', 'A', 'B'], 'OT contents drift')
@@ -48,6 +52,18 @@ def validate_data(ot=None, plan=None, model=None) -> None:
         seen.add(row['id'])
     require('lower' not in next(s for s in stages if s['id'] == 'upper')['parents'], 'Cross-domain contract invariant failed')
     require('upper' not in next(s for s in stages if s['id'] == 'lower')['parents'], 'Cross-domain contract invariant failed')
+
+    require(mirror_policy.get('policy_id') == 'ASTIS-CONCEPTUAL-MIRROR-v1', 'Conceptual mirror policy drift')
+    require(mirror_policy.get('mandatory_sau_audit', {}).get('applies_from_advance_schema') == 3, 'Conceptual mirror SAU gate drift')
+    require(set(mirror_policy.get('graph_view_contracts', {})) == {'overview', 'lean', 'functor'}, 'Graph view truth contracts drift')
+    family_rows = memory.get('families', [])
+    family_ids = {row['id'] for row in family_rows}
+    require(len(family_ids) == len(family_rows) and family_ids, 'Graph memory family identities must be unique and nonempty')
+    require(all(fid.startswith('family:') for fid in family_ids), 'Graph memory family ids must be stable family:<slug> identities')
+    seed_ids = {row['id'] for row in mirror_policy.get('seed_families', [])}
+    require(seed_ids <= family_ids, 'Every seed conceptual family must exist in graph memory')
+    require(set(memory.get('views', {})) == {'overview', 'lean', 'functor'}, 'Graph memory must document exactly the three main graph truth views')
+
     ids = {o['id'] for o in model['objects']}
     require(len(ids) == len(model['objects']) == 5, 'Cross-domain contract invariant failed')
     require(model['center'] in ids, 'Cross-domain contract invariant failed')
@@ -61,6 +77,7 @@ def validate_data(ot=None, plan=None, model=None) -> None:
         require(len(set(edge['heads'])) == len(edge['heads']), 'Cross-domain contract invariant failed')
         require(set(edge['shared_stages']) <= seen, 'Cross-domain contract invariant failed')
         require(edge['source_ids'] and set(edge['source_ids']) <= set(model['sources']), 'Cross-domain contract invariant failed')
+        require(isinstance(edge.get('family_ids'), list) and set(edge['family_ids']) <= family_ids, 'Functor edge has an unknown conceptual family')
         for slot in ('mechanism', 'hypothesis_map', 'conclusion_map', 'failure_boundary', 'relation_kind'):
             require(edge[slot].strip(), f'Missing transport slot: {slot}')
         require(set(edge['category_contract']) == {'objects', 'morphisms', 'identity', 'composition'}, 'Cross-domain contract invariant failed')
@@ -68,6 +85,12 @@ def validate_data(ot=None, plan=None, model=None) -> None:
         # accepting a status string as evidence of a Lean-certified functor.
         require(edge['status'] == 'not-Lean-certified', 'Certification needs a real independent certificate gate')
         require(edge['formal_refs'] == [], 'Do not fabricate formal transport witnesses')
+    for family in family_rows:
+        require(set(family.get('domains', [])) <= ids, f"Graph memory family {family['id']} has an unknown domain")
+        require(set(family.get('functor_edges', [])) <= edge_ids, f"Graph memory family {family['id']} has an unknown Functor edge")
+        require(family.get('formal_search_nodes'), f"Graph memory family {family['id']} needs formal search nodes")
+        for slot in ('plain_language', 'reading_order', 'do_not_conflate'):
+            require(family.get(slot), f"Graph memory family {family['id']} lacks {slot}")
 
 
 def write_ot_pages(output: Path, shelves) -> None:
@@ -150,9 +173,22 @@ def add_to_graph(builder) -> dict[str, Any]:
         builder.add(obj['id'],'concept-domain',obj['label'],status='shared',subtitle=obj['space'],url=obj['url'],details=[{'label':k.title(),'value':obj[k]} for k in ['space','energy','assumptions']])
     # Candidate substrates link to source-present modules, never to a fabricated
     # formal theorem. These edges stay dashed and carry no proof assertion.
-    substrates = {'metric-lift':['Geometry.GeodesicConvexity'], 'gibbs-prox':['Geometry.StrongConvexity'], 'duality':['Analysis.ConvexSubgradient'], 'wasserstein-flow':['Measure.DisplacementInterpolationCoupling','InformationTheory.FisherTransport'], 'high-order':['Analysis.Calculus.Taylor','Taylor'], 'statistical-loss':['Measure.CouplingQuadraticIntegrability']}
+    substrates = {
+        'metric-lift':['Geometry.GeodesicConvexity'],
+        'gibbs-prox':['Geometry.StrongConvexity','Measure.Gibbs'],
+        'duality':['Analysis.ConvexSubgradient'],
+        'wasserstein-flow':['Measure.DisplacementInterpolationCoupling','InformationTheory.FisherTransport'],
+        'metric-pl':['Geometry.GeodesicConvexity','InformationTheory.FisherTransport','FunctionalInequalities.SemigroupDecay'],
+        'curvature-growth':['Geometry.StrongConvexity','Geometry.GeodesicConvexity','FunctionalInequalities.LogSobolev'],
+        'pl-lsi':['InformationTheory.RelativeFisher','InformationTheory.FisherTransport','FunctionalInequalities.LogSobolev'],
+        'pi-chi2':['FunctionalInequalities.Poincare','FunctionalInequalities.Generator','FunctionalInequalities.SemigroupDecay'],
+        'high-order':['Analysis.Calculus.Taylor','Taylor'],
+        'statistical-loss':['Measure.CouplingQuadraticIntegrability']
+    }
     for edge in model['hyperedges']:
         details = [{'label':'Evidence boundary','value':'Literature/structural correspondence; no Lean-certified functor or theorem transfer.'}]
+        if edge.get('family_ids'):
+            details += [{'label':'Conceptual families','value':', '.join(edge['family_ids'])}]
         details += [{'label':k.replace('_',' ').title(),'value':edge[k]} for k in ['mechanism','hypothesis_map','conclusion_map','failure_boundary']]
         details += [{'label':'Category '+k,'value':v} for k,v in edge['category_contract'].items()]
         details += [{'label':'Shared planned checkpoints','value':', '.join(edge['shared_stages'])}]
@@ -173,14 +209,30 @@ def add_to_graph(builder) -> dict[str, Any]:
 
 def graph_guide_html() -> str:
     model = load(FUNCTOR_PATH)
+    memory = load(GRAPH_MEMORY_PATH)
+    view_cards = ''.join(
+        f'''<article><b>{escape(view_id.upper())}</b><h3>{escape(view['label'])}</h3><p>{escape(view['question'])}</p><small>{escape(view['status_semantics'])}</small></article>'''
+        for view_id, view in memory['views'].items()
+    )
+    family_cards = []
+    for family in memory['families']:
+        jumps = ''.join(
+            f'<button type="button" data-functor-jump="{escape(edge_id)}">{escape(edge_id.replace("transport:", ""))}</button>'
+            for edge_id in family['functor_edges']
+        )
+        family_cards.append(
+            f'''<article id="{escape(family['id'].replace(':','-'))}"><b>{escape(family['id'])}</b><h3>{escape(family['label'])}</h3><p>{escape(family['plain_language'])}</p><p><strong>Do not conflate:</strong> {escape(family['do_not_conflate'])}</p><nav class="ulg-functor-links" aria-label="{escape(family['label'])}">{jumps}</nav></article>'''
+        )
     links = ''.join(f'<button type="button" data-functor-jump="{escape(e["id"])}">{escape(e["label"])}</button>' for e in model['hyperedges'])
-    return r'''<section class="ulg-semantics" id="functor-contract"><div class="section-heading"><span>Functor Hypergraph · conceptual layer</span><h2>Transport the idea, not just the lemma.</h2></div><p>Optimization is the organizing center, not a claim that every other field is merely optimization on another space. In particular, lower bounds add an information/oracle model. Domain cards are coarse presentations; bridge cards record the actual mathematical mechanism.</p><p>Each hyperedge has a joint input set, output set, hypothesis and conclusion maps, source evidence and failure boundary. All inputs are read together (AND); pairwise lines do not each assert an implication. Cycles in this conceptual atlas are not cyclic Lean proofs.</p><div class="math-display">\[e:(P_1,\ldots,P_m;H_e)\rightsquigarrow(Q_1,\ldots,Q_n),\qquad F(\mathrm{id})=\mathrm{id},\quad F(g\circ f)=F(g)\circ F(f).\]</div><p>The first notation describes a conditional transport record. The latter two equations are obligations for an actual functor, not laws established by this diagram. Shared-energy spans, analogies, conditional reductions and functor candidates have different types. None of the current bridges is Lean-certified.</p><p>A safe graph compression must preserve source/assumption provenance, primitive dependencies and an expandable certificate. Conceptual similarity alone never merges Lean declarations. The inspector exposes object/morphism assignments, identity/composition gaps and candidate Lean substrates separately.</p><nav class="ulg-functor-links" aria-label="Conceptual bridge inspector">''' + links + '''</nav><p><a href="progress/index.html#shared-order">Shared prerequisite order</a> · <a href="progress/higher-order-sampling-detail.html">Higher-order smoothness research route</a></p></section>'''
+    return r'''<section class="ulg-semantics" id="graph-truth-contract"><div class="section-heading"><span>One data model · three truth views</span><h2>Overview, Lean Branches, and Functor Hypergraph answer different questions.</h2></div><p>Agents should read stable family and bridge ids before expanding the full declaration graph. Readers can use the same order: orient by source/project topology, understand the recurring mathematical mechanism, then inspect the exact compiled Lean substrate. A conceptual bridge never upgrades the Lean view.</p><div>''' + view_cards + r'''</div></section>
+<section class="ulg-semantics" id="functor-contract"><div class="section-heading"><span>Functor Hypergraph · conceptual layer</span><h2>Transport the idea, not just the lemma.</h2></div><p>Optimization is the organizing center, not a claim that every other field is merely optimization on another space. In particular, lower bounds add an information/oracle model. Domain cards are coarse presentations; bridge cards record the actual mathematical mechanism.</p><p>Each hyperedge has a joint input set, output set, hypothesis and conclusion maps, source evidence, conceptual-family ids and a failure boundary. All inputs are read together (AND); pairwise lines do not each assert an implication. Cycles in this conceptual atlas are not cyclic Lean proofs.</p><div class="math-display">\[e:(P_1,\ldots,P_m;H_e)\rightsquigarrow(Q_1,\ldots,Q_n),\qquad F(\mathrm{id})=\mathrm{id},\quad F(g\circ f)=F(g)\circ F(f).\]</div><p>The first notation describes a conditional transport record. The latter two equations are obligations for an actual functor, not laws established by this diagram. Shared-energy spans, PL/LSI mirrors, curvature patterns, conditional reductions and functor candidates have different types. None of the current bridges is Lean-certified.</p><p>A safe graph compression must preserve source/assumption provenance, primitive dependencies and an expandable certificate. Conceptual similarity alone never merges Lean declarations. The inspector exposes object/morphism assignments, identity/composition gaps and candidate Lean substrates separately.</p><div class="section-heading"><span>Conceptual memory families</span><h2>Read the mother mechanism first; expand bridges second.</h2></div><div>''' + ''.join(family_cards) + r'''</div><div class="section-heading"><span>All typed bridges</span><h2>Direct bridge inspector</h2></div><nav class="ulg-functor-links" aria-label="Conceptual bridge inspector">''' + links + '''</nav><p><a href="progress/index.html#shared-order">Shared prerequisite order</a> · <a href="progress/higher-order-sampling-detail.html">Higher-order smoothness research route</a></p></section>'''
 
 
 def validate_site(output: Path) -> None:
     validate_data()
     import library_shelves
     ot = load(OT_PATH)
+    memory = load(GRAPH_MEMORY_PATH)
     canonical = set(library_shelves.canonical_theme_styles(output))
     for rel in [OT_BASE+'index.html', *[OT_BASE+r['path'] for r in ot['chapters']], RESEARCH_PAGE]:
         path = output/rel
@@ -201,3 +253,6 @@ def validate_site(output: Path) -> None:
             require(any(e['target']==head and e['source']==edge['id'] and e['relation']=='conditional conceptual output' for e in graph['edges']), 'Cross-domain contract invariant failed')
     page = (output/'lean-foundations.html').read_text(encoding='utf-8')
     require('data-view="functor"' in page and 'id="functor-contract"' in page, 'Cross-domain contract invariant failed')
+    require('id="graph-truth-contract"' in page, 'Three-view graph truth contract missing')
+    for family in memory['families']:
+        require(family['label'] in page, f"Conceptual family missing from reader guide: {family['id']}")

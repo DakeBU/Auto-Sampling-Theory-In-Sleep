@@ -73,23 +73,27 @@ def main() -> None:
                         page.wait_for_function('Boolean(window.MathJax?.startup?.promise)')
                         page.evaluate('() => MathJax.startup.promise')
                     page.locator('button[data-view="functor"]').click()
-                    page.locator('[data-functor-jump="transport:gibbs-prox"]').click()
+                    page.locator('[data-functor-jump="transport:gibbs-prox"]').first.click()
                     assert 'ALL inputs:' in page.locator('[data-graph-detail]').inner_text()
                     assert 'not-Lean-certified' in page.locator('[data-graph-detail]').inner_text()
+                    assert 'Conceptual families:' in page.locator('[data-graph-detail]').inner_text()
                     if not args.offline_dom:
-                        # Inspect every transport, not only the initially selected one.
+                        # Family cards intentionally repeat bridge buttons. Check each
+                        # unique typed transport exactly once and derive the expected
+                        # count from the source model rather than a stale constant.
                         jump_ids=page.locator('[data-functor-jump]').evaluate_all(
-                            '(nodes) => nodes.map(n => n.dataset.functorJump)')
-                        assert len(jump_ids)==9
+                            '(nodes) => [...new Set(nodes.map(n => n.dataset.functorJump))]')
+                        expected=len(json.loads((ROOT/'website/content/functor_hypergraph.json').read_text())['hyperedges'])
+                        assert len(jump_ids)==expected,(len(jump_ids),expected)
                         for jump_id in jump_ids:
-                            page.locator(f'[data-functor-jump="{jump_id}"]').click()
+                            page.locator(f'[data-functor-jump="{jump_id}"]').first.click()
                             page.wait_for_selector('[data-graph-detail] .ulg-formula mjx-container')
                             assert page.locator('[data-graph-detail] mjx-merror').count()==0, jump_id
                             assert not page.locator('[data-graph-detail] .ulg-formula').evaluate(
                                 '(node) => node.scrollWidth > node.clientWidth + 1'), jump_id
                         report['graph_mathjax_rendered']=True
                         report['graph_formulas_checked']=len(jump_ids)
-                        page.locator('[data-functor-jump="transport:gibbs-prox"]').click()
+                        page.locator('[data-functor-jump="transport:gibbs-prox"]').first.click()
                         page.wait_for_selector('[data-graph-detail] .ulg-formula mjx-container')
                     page.locator('[data-graph-canvas]').scroll_into_view_if_needed()
                     # All conceptual incidence edges remain overlays, not formal.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the interactive textbook/SampleWiki/Lean/semantic dependency graph."""
+"""Generate the interactive Overview/Lean/Functor/source-fidelity evidence graph."""
 
 from __future__ import annotations
 
@@ -41,13 +41,20 @@ def build_graph(output: Path) -> dict[str, Any]:
     setting_ids = add_frontier(builder, manifest, audit_registry, textbook["chapter_ids"])
     semantic = add_semantic(builder, semantic_registry)
     functor = cross_domain.add_to_graph(builder)
+    memory = cross_domain.load(cross_domain.GRAPH_MEMORY_PATH)
     graph = builder.export()
     graph["schema_version"] = 3
     graph["hyperedges"] = functor["hyperedges"]
     graph["conceptual_transport_contract"] = functor["certification_policy"]
+    graph["graph_memory_index"] = {
+        "path": "website/content/graph_memory_index.json",
+        "family_ids": [row["id"] for row in memory["families"]],
+        "view_contracts": memory["views"],
+    }
     graph["counts"] = {
         "conceptual_domains": len(functor["objects"]),
         "conceptual_hyperedges": len(functor["hyperedges"]),
+        "conceptual_families": len(memory["families"]),
         "peer_library_chapter_scaffolds": sum(n["kind"] == "library-chapter" for n in builder.nodes.values()),
         "chapters": len(textbook["chapter_ids"]),
         "samplewiki_settings": len(setting_ids),
@@ -69,23 +76,23 @@ def build_graph(output: Path) -> dict[str, Any]:
 def main_html(counts: dict[str, Any]) -> str:
     return f'''
 <section class="ulg-hero" data-underlying-lean-graph data-graph-source="{DATA}">
-  <div class="eyebrow">Samplinglib · formal topology · semantic fidelity</div>
+  <div class="eyebrow">Samplinglib · formal topology · conceptual memory · semantic fidelity</div>
   <div class="ulg-hero-grid">
-    <div><h1>{LABEL}</h1><p>Chewi's twelve-chapter theorem order, the compiled Samplinglib branches beneath it, the SampleWiki frontier, and ASTIS's source-text ↔ Lean semantic round trip are one navigable evidence graph.</p></div>
-    <dl><div><dt>{counts.get('chapters', 0)}</dt><dd>sampling chapters</dd></div><div><dt>{counts.get('source_claims', 0)}</dt><dd>source claims</dd></div><div><dt>{counts.get('lean_modules', 0)}</dt><dd>Lean modules</dd></div><div><dt>{counts.get('samplewiki_cases', 0)}</dt><dd>frontier results</dd></div><div><dt>{counts.get('semantic_audits', 0)}</dt><dd>round-trip audits</dd></div><div><dt>{counts.get('repair_proposals', 0)}</dt><dd>repair proposals</dd></div></dl>
+    <div><h1>{LABEL}</h1><p>Read the same project at three epistemic resolutions: <strong>Overview Graph</strong> for source/routes/shared stages, <strong>Lean Branches Graph</strong> for compiler-backed declarations and dependencies, and <strong>Functor Hypergraph</strong> for source-backed recurring mathematical mechanisms such as curvature, PL/LSI and Poincaré/χ² mirrors. The views share stable ids but never share truth status automatically.</p></div>
+    <dl><div><dt>{counts.get('chapters', 0)}</dt><dd>sampling chapters</dd></div><div><dt>{counts.get('lean_modules', 0)}</dt><dd>Lean modules</dd></div><div><dt>{counts.get('conceptual_families', 0)}</dt><dd>concept families</dd></div><div><dt>{counts.get('conceptual_hyperedges', 0)}</dt><dd>typed bridges</dd></div><div><dt>{counts.get('samplewiki_cases', 0)}</dt><dd>frontier results</dd></div><div><dt>{counts.get('semantic_audits', 0)}</dt><dd>round-trip audits</dd></div></dl>
   </div>
-  <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite → consumer. <strong>Solid edges</strong> are compiler-backed Lean/module/declaration structure; <strong>dashed edges</strong> are curated textbook, source-audit, proof-route, SampleWiki, or semantic-review overlays. <strong>Compilation proves the Lean proposition only:</strong> source fidelity additionally requires a blind Lean-to-text reconstruction, seven-slot semantic diff, and independent source review. Repair proposals never overwrite a pinned source theorem.</p>
+  <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite → consumer. <strong>Solid edges</strong> are compiler-backed Lean/module/declaration structure; <strong>dashed edges</strong> are curated textbook, source-audit, proof-route, SampleWiki, semantic-review, or conceptual-mirror overlays. <strong>Compilation proves the Lean proposition only:</strong> source fidelity additionally requires source review. A Functor Hypergraph mirror may organize memory, but it never becomes a formal Lean edge or certified functor by visual proximity.</p>
 </section>
 <section class="ulg-shell">
   <div class="ulg-toolbar">
-    <div class="ulg-presets" role="group" aria-label="Graph view"><button class="active" data-view="overview">Library overview</button><button data-view="textbook">Textbook · 12 chapters</button><button data-view="frontier">SampleWiki frontier</button><button data-view="lean">Lean branches</button><button data-view="semantic">Semantic fidelity & repair</button><button data-view="functor">Functor Hypergraph</button></div>
-    <label class="ulg-search"><span>Search theorem, paper, module, declaration, semantic delta, or repair</span><input type="search" data-graph-search placeholder="e.g. Theorem 8.4.1, Fisher, hidden assumption, quantifier mismatch"></label>
+    <div class="ulg-presets" role="group" aria-label="Graph view"><button class="active" data-view="overview">Overview Graph</button><button data-view="textbook">Textbook · 12 chapters</button><button data-view="frontier">SampleWiki frontier</button><button data-view="lean">Lean Branches Graph</button><button data-view="semantic">Semantic fidelity & repair</button><button data-view="functor">Functor Hypergraph</button></div>
+    <label class="ulg-search"><span>Search theorem, family, bridge, paper, module, declaration, semantic delta, or repair</span><input type="search" data-graph-search placeholder="e.g. metric-gradient-flow, PL, LSI, Fisher, Theorem 8.4.1"></label>
     <div class="ulg-actions"><button data-graph-fit>Fit</button><button data-graph-reset>Reset</button><span data-graph-count></span></div>
   </div>
-  <div class="ulg-stage"><div class="ulg-canvas" data-graph-canvas tabindex="0"><svg data-graph-svg role="img" aria-label="Interactive Lean and semantic dependency graph"></svg><p data-graph-empty hidden>No matching branch.</p><small>Drag to pan · wheel to zoom · click a node to highlight its immediate prerequisites/consumers while retaining surrounding context · Esc clears focus.</small></div><aside class="ulg-detail" data-graph-detail aria-live="polite"><div class="ulg-placeholder"><span>Branch inspector</span><h2>Select a node.</h2><p>Source statement, blind reconstruction, semantic deltas, repair proposals, proof equations, exact Lean leaves, prerequisites, consumers, and reader links appear here.</p></div></aside></div>
-  <div class="ulg-legend"><span><i data-status="compiled"></i>compiled</span><span><i data-status="partial"></i>partial</span><span><i data-status="audited"></i>source audited</span><span><i data-status="planned"></i>planned / blocked</span><span><i data-status="literature-open"></i>literature-open</span><span><i data-status="shared"></i>shared protocol/root</span><span><i data-status="fidelity-exact"></i>fidelity exact</span><span><i data-status="review-required"></i>semantic review required</span><span><i data-status="fidelity-mismatch"></i>semantic mismatch</span><span><i data-status="fidelity-repaired"></i>reviewed repair</span><span><i data-status="proposal"></i>repair proposal</span><span class="edge-semantics"><b class="ulg-line-key formal"></b>Lean structural edge</span><span><b class="ulg-line-key overlay"></b>curated evidence edge</span></div>
+  <div class="ulg-stage"><div class="ulg-canvas" data-graph-canvas tabindex="0"><svg data-graph-svg role="img" aria-label="Interactive Lean and conceptual dependency graph"></svg><p data-graph-empty hidden>No matching branch.</p><small>Drag to pan · wheel to zoom · click a node to highlight its immediate prerequisites/consumers while retaining surrounding context · Esc clears focus.</small></div><aside class="ulg-detail" data-graph-detail aria-live="polite"><div class="ulg-placeholder"><span>Branch inspector</span><h2>Select a node.</h2><p>Source statement, conceptual family, semantic deltas, proof equations, exact Lean leaves, prerequisites, consumers, and reader links appear here.</p></div></aside></div>
+  <div class="ulg-legend"><span><i data-status="compiled"></i>compiled</span><span><i data-status="partial"></i>partial</span><span><i data-status="audited"></i>source audited</span><span><i data-status="planned"></i>planned / blocked</span><span><i data-status="literature-open"></i>literature-open</span><span><i data-status="shared"></i>shared protocol/root</span><span><i data-status="fidelity-exact"></i>fidelity exact</span><span><i data-status="review-required"></i>semantic review required</span><span><i data-status="fidelity-mismatch"></i>semantic mismatch</span><span><i data-status="fidelity-repaired"></i>reviewed repair</span><span><i data-status="proposal"></i>conceptual / repair proposal</span><span class="edge-semantics"><b class="ulg-line-key formal"></b>Lean structural edge</span><span><b class="ulg-line-key overlay"></b>curated evidence edge</span></div>
 </section>
-<section class="ulg-semantics"><div class="section-heading"><span>Topology and semantic-contract semantics</span><h2>What a contribution changes—and what it preserves.</h2></div><div><article><b>01</b><h3>Reuse a branch</h3><p>A thin assembly adds a consumer edge, not a duplicate proof.</p></article><article><b>02</b><h3>Close a leaf</h3><p>A new analytic lemma discharges an open interface.</p></article><article><b>03</b><h3>Add topology</h3><p>A proof connects branches that were previously formalized only in isolation.</p></article><article><b>04</b><h3>Expose a gap</h3><p>An unknown matching theorem stays visible; ASTIS never invents a source statement.</p></article><article><b>05</b><h3>Theorem Fidelity Checker</h3><p>Original theorem → Lean → blind reconstructed theorem is compared slot by slot, not by wording.</p></article><article><b>06</b><h3>Lean Theorem Denoiser</h3><p>Lean-exposed hidden conditions become minimal, independently reviewed repair proposals—not silent source edits.</p></article></div></section>
+<section class="ulg-semantics"><div class="section-heading"><span>Topology and semantic-contract semantics</span><h2>What a contribution changes—and what it preserves.</h2></div><div><article><b>01</b><h3>Reuse a branch</h3><p>A thin assembly adds a consumer edge, not a duplicate proof.</p></article><article><b>02</b><h3>Close a leaf</h3><p>A new analytic lemma discharges an open interface.</p></article><article><b>03</b><h3>Add topology</h3><p>A proof connects branches that were previously formalized only in isolation.</p></article><article><b>04</b><h3>Expose a gap</h3><p>An unknown matching theorem stays visible; ASTIS never invents a source statement.</p></article><article><b>05</b><h3>Theorem Fidelity Checker</h3><p>Original theorem → Lean → blind reconstructed theorem is compared slot by slot, not by wording.</p></article><article><b>06</b><h3>Lean Theorem Denoiser</h3><p>Source repair proposals stay separate from the pinned theorem until independent review accepts the exact repair.</p></article><article><b>07</b><h3>Conceptual Mirror Audit</h3><p>A recurring mechanism is retained under stable family/bridge ids, with translated hypotheses and a failure boundary, without becoming a Lean theorem edge.</p></article></div></section>
 {cross_domain.graph_guide_html()}
 <noscript><p>The interactive graph requires JavaScript. Exact declarations remain in the <a href="declarations/index.html">declaration index</a>.</p></noscript>
 '''
@@ -164,7 +171,7 @@ def validate(output: Path, graph: dict[str, Any]) -> None:
         "semantic_protocol_nodes": 7,
     }
     errors = [f"{key}: expected {value}, found {counts.get(key)}" for key, value in expected.items() if counts.get(key) != value]
-    for key in ("source_claims", "lean_modules", "registry_declarations", "nodes", "edges"):
+    for key in ("source_claims", "lean_modules", "registry_declarations", "conceptual_families", "conceptual_hyperedges", "nodes", "edges"):
         if not counts.get(key):
             errors.append(f"{key} is empty")
     page = (output / PAGE).read_text(encoding="utf-8")
@@ -179,9 +186,12 @@ def validate(output: Path, graph: dict[str, Any]) -> None:
         "ulg-line-key formal",
         "ulg-line-key overlay",
         'data-view="semantic"',
+        "Overview Graph",
+        "Lean Branches Graph",
+        "Functor Hypergraph",
+        "Conceptual Mirror Audit",
         "Theorem Fidelity Checker",
         "Lean Theorem Denoiser",
-        "blind reconstructed theorem",
     ):
         if marker not in page:
             errors.append(f"graph page missing {marker}")

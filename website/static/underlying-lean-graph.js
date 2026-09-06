@@ -47,6 +47,8 @@
     "concept:transport":"Optimal transport", "concept:sampling":"Sampling / MFLD", "concept:lower":"Lower bounds / SampleWiki",
     "transport:metric-lift":"Change the metric", "transport:gibbs-prox":"Minimizer / Gibbs law",
     "transport:dirac":"Maps to Markov kernels", "transport:wasserstein-flow":"Energy to Wasserstein flow",
+    "transport:metric-pl":"Metric PL / dissipation", "transport:curvature-growth":"Curvature → coercivity",
+    "transport:pl-lsi":"PL ↔ LSI / KL", "transport:pi-chi2":"Poincaré ↔ χ²",
     "transport:entropy-sandwich":"KL gap / PL / growth", "transport:duality":"Convex duality",
     "transport:high-order":"Smoothness to accuracy?", "transport:oracle-reduction":"Oracle reduction",
     "transport:statistical-loss":"Data, loss and risk"
@@ -101,18 +103,20 @@
   function layout(ids) {
     if (state.view === "functor" && !state.query) {
       // Optimization-centered conceptual atlas, not a topological proof layout.
+      // The stable placement groups the new coercivity/dissipation mirrors near
+      // the center without turning visual proximity into a theorem implication.
       const anchors = {
-        "concept:optimization":[335,350], "concept:riemannian":[670,0],
-        "concept:transport":[670,700], "concept:sampling":[0,700], "concept:lower":[0,0],
-        "transport:metric-lift":[670,175], "transport:gibbs-prox":[0,525],
-        "transport:dirac":[0,350], "transport:wasserstein-flow":[670,525],
-        "transport:entropy-sandwich":[335,700], "transport:duality":[670,350],
-        "transport:high-order":[0,875], "transport:oracle-reduction":[335,175],
-        "transport:statistical-loss":[670,875]
+        "concept:lower":[0,0], "transport:oracle-reduction":[340,0], "concept:riemannian":[680,0],
+        "transport:curvature-growth":[340,170], "transport:metric-lift":[680,170],
+        "transport:dirac":[0,340], "concept:optimization":[340,340], "transport:duality":[680,340],
+        "transport:gibbs-prox":[0,510], "transport:metric-pl":[340,510], "transport:wasserstein-flow":[680,510],
+        "transport:pi-chi2":[0,680], "transport:pl-lsi":[340,680],
+        "concept:sampling":[0,850], "transport:entropy-sandwich":[340,850], "concept:transport":[680,850],
+        "transport:high-order":[0,1020], "transport:statistical-loss":[680,1020]
       };
       const positions = new Map(); let extra = 0;
-      [...ids].forEach(id => { const a=anchors[id] || [335,1050+extra++*140]; positions.set(id,{x:a[0]+20,y:a[1]+20}); });
-      return {positions,width:1000,height:1000+extra*140};
+      [...ids].forEach(id => { const a=anchors[id] || [340,1190+extra++*140]; positions.set(id,{x:a[0]+20,y:a[1]+20}); });
+      return {positions,width:1020,height:1180+extra*140};
     }
     const columns = new Map(); let maxColumn = 0;
     [...ids].forEach(id => { const n=nodes.get(id); const explicit=Number(n.column); const key=Number.isFinite(explicit) ? explicit : (kindOrder[n.kind] ?? 3); maxColumn=Math.max(maxColumn,key); if (!columns.has(key)) columns.set(key, []); columns.get(key).push(n); });
@@ -197,7 +201,8 @@
     const h=n.hyperedge;
     const names=ids=>ids.map(id=>nodes.get(id)?.label||id).join(" + ");
     const sources=(n.sources||[]).map(s=>`<p>${linkButton(s.url,s.title)}<small>${esc(s.anchor)}</small></p>`).join("");
-    return `<section class="ulg-hyperedge"><h3>Joint-input hyperedge</h3><p><strong>ALL inputs:</strong> ${esc(names(h.tails))}</p><p><strong>Conditional outputs:</strong> ${esc(names(h.heads))}</p><p><strong>Type:</strong> ${esc(h.relation_kind)}</p><p class="ulg-warning">${esc(h.status)}. These incidence lines are not separate logical implications; candidate Lean substrates are search locations, not transport certificates.</p><h3>Primary source evidence</h3>${sources}</section>`;
+    const families=(h.family_ids||[]).length?`<p><strong>Conceptual families:</strong> ${esc(h.family_ids.join(" · "))}</p>`:"";
+    return `<section class="ulg-hyperedge"><h3>Joint-input hyperedge</h3>${families}<p><strong>ALL inputs:</strong> ${esc(names(h.tails))}</p><p><strong>Conditional outputs:</strong> ${esc(names(h.heads))}</p><p><strong>Type:</strong> ${esc(h.relation_kind)}</p><p class="ulg-warning">${esc(h.status)}. These incidence lines are not separate logical implications; candidate Lean substrates are search locations, not transport certificates.</p><h3>Primary source evidence</h3>${sources}</section>`;
   }
 
   function selectNode(id, expand=false) {
