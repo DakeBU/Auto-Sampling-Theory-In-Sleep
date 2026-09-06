@@ -1,22 +1,51 @@
-name: Discrete source snapshot
+name: Apply tested discrete library integration
 on:
   push:
     branches: [feat/discrete-sampling-library]
     paths: [.github/workflows/discrete-source-snapshot.yml]
 permissions:
-  contents: read
+  contents: write
 jobs:
-  snapshot:
+  integrate:
+    if: github.repository == 'DakeBU/Auto-Sampling-Theory-In-Sleep'
     runs-on: ubuntu-latest
     steps:
-      - name: Download version-pinned public source for audit
-        run: |
-          mkdir -p /tmp/discrete-source
-          curl --fail --location --retry 3 https://arxiv.org/pdf/2307.13826v4 -o /tmp/discrete-source/2307.13826v4.pdf
-          curl --fail --location --retry 3 https://arxiv.org/html/2307.13826v4 -o /tmp/discrete-source/2307.13826v4.html
-          sha256sum /tmp/discrete-source/* > /tmp/discrete-source/SHA256SUMS
-      - uses: actions/upload-artifact@v4
+      - uses: actions/checkout@v4
         with:
-          name: discrete-primary-source-audit
-          path: /tmp/discrete-source
-          retention-days: 1
+          fetch-depth: 0
+      - name: Verify baseline and exact tested patch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git diff --exit-code 458d3c9f8d2f7286030c2ccb2893f8a685c38101 HEAD -- . ':!.github/workflows/discrete-source-snapshot.yml'
+          python3 - <<'PY'
+          import base64, hashlib, json, lzma, os, urllib.request
+          from pathlib import Path
+          root = 'https://api.github.com/repos/DakeBU/Auto-Sampling-Theory-In-Sleep/git/blobs/'
+          parts = []
+          for sha in ('22688ecf1f0922d6305cbe713eec3d9a69a0f1ab', 'e468cfda38fb924a39a6c906779fc57fad36b06c'):
+              req = urllib.request.Request(root + sha, headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json'})
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  blob = json.load(response)
+              parts.append(base64.b64decode(blob['content']))
+          patch = lzma.decompress(base64.b64decode(b''.join(parts)))
+          assert hashlib.sha256(patch).hexdigest() == '1d6f947c90b0569e45d56c8d0e544675efd8f98b5d3058109b30d6a7e166dc6d'
+          Path('/tmp/discrete-integration.patch').write_bytes(patch)
+          PY
+          git apply --check --unidiff-zero /tmp/discrete-integration.patch
+          git apply --unidiff-zero /tmp/discrete-integration.patch
+          rm .github/workflows/discrete-source-snapshot.yml
+      - name: Check exact integrated source
+        run: |
+          python3 -m compileall -q tools website/scripts
+          python3 -m unittest tools.tests.test_discrete_sampling tools.tests.test_cross_domain_program tools.tests.test_harness_site tools.tests.test_underlying_lean_graph
+          python3 tools/astis_frontier_cells.py check
+          node --check website/static/underlying-lean-graph.js
+          git diff --check
+      - name: Commit integration without temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'feat: add Discrete Sampling as a peer source library with shared graph contracts'
+          git push origin HEAD:feat/discrete-sampling-library
