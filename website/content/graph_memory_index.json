@@ -48,6 +48,7 @@
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.FisherTransport",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay"
       ],
+      "compiled_substrate_bindings": [],
       "reading_order": [
         "metric chooses the gradient",
         "gradient flow gives an energy-dissipation identity",
@@ -76,6 +77,14 @@
         "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"
       ],
+      "compiled_substrate_bindings": [
+        {
+          "node": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder",
+          "edges": ["transport:curvature-growth"],
+          "role": "Compiled Euclidean first-order quadratic lower model produced by strong convexity.",
+          "truth_boundary": "This module is a substrate for the Euclidean curvature-to-growth pattern only. It does not certify Riemannian, Wasserstein, Bakry-Emery, PL, Poincare, or LSI arrows."
+        }
+      ],
       "reading_order": [
         "Euclidean strong-convex quadratic model",
         "geodesic/Riemannian curvature adapter",
@@ -103,6 +112,7 @@
         "AutoSamplingTheory.TechnicalLemmas.InformationTheory.FisherTransport",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev"
       ],
+      "compiled_substrate_bindings": [],
       "reading_order": [
         "identify the gap functional",
         "identify its exact dissipation / metric-gradient norm",
@@ -128,6 +138,7 @@
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
         "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay"
       ],
+      "compiled_substrate_bindings": [],
       "reading_order": [
         "chi-square as an L2 density gap",
         "Poincare as coercivity of the Dirichlet form",
@@ -151,6 +162,7 @@
         "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
         "AutoSamplingTheory.TechnicalLemmas.Measure.Gibbs"
       ],
+      "compiled_substrate_bindings": [],
       "reading_order": [
         "common regularized energy",
         "deterministic minimizer branch",

@@ -12,6 +12,8 @@ import cross_domain
 import astis_frontier_cells
 
 SPINE_PATH = ROOT/'Libraries/frontloaded-shared-spine.json'
+STRONG_CELL_PATH = ROOT/'research-wiki/frontier-cells/ASTIS-SHARED-strong-convex-first-order.json'
+STRONG_MODULE = 'AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder'
 
 class CrossDomainProgramTests(unittest.TestCase):
     def test_valid_data(self):
@@ -65,6 +67,35 @@ class CrossDomainProgramTests(unittest.TestCase):
         self.assertIn('transport:pi-chi2',families['family:l2-coercivity']['functor_edges'])
         self.assertTrue(families['family:gap-gradient']['do_not_conflate'])
         self.assertTrue(families['family:metric-gradient-flow']['formal_search_nodes'])
+        bindings=families['family:curvature-growth']['compiled_substrate_bindings']
+        self.assertEqual([row['node'] for row in bindings],[STRONG_MODULE])
+        self.assertEqual(bindings[0]['edges'],['transport:curvature-growth'])
+        self.assertIn('does not certify',bindings[0]['truth_boundary'])
+
+    def test_compiled_family_binding_is_edge_specific_and_data_driven(self):
+        memory=cross_domain.load(cross_domain.GRAPH_MEMORY_PATH)
+        model=cross_domain.load(cross_domain.FUNCTOR_PATH)
+        edges={e['id']:e for e in model['hyperedges']}
+        module_id='module:'+STRONG_MODULE
+        present={module_id}
+        curvature=cross_domain.candidate_substrate_ids(
+            edges['transport:curvature-growth'],memory,present)
+        lsi=cross_domain.candidate_substrate_ids(
+            edges['transport:pl-lsi'],memory,present)
+        self.assertEqual(curvature,[module_id])
+        self.assertNotIn(module_id,lsi)
+
+    def test_merged_strong_convex_frontier_cell_has_evidence_and_mirror_annotation(self):
+        cell=json.loads(STRONG_CELL_PATH.read_text())
+        self.assertEqual(astis_frontier_cells.validate_cells([cell]),[])
+        self.assertEqual(cell['status'],'merged')
+        self.assertTrue(cell['evidence']['focused_checks'])
+        self.assertIn('34017680187',cell['evidence']['independent_verification'])
+        self.assertIn('6b132f9745178d43f7a6051180dbbf059497d220',cell['evidence']['pr'])
+        mirror=cell['conceptual_mirror_annotation']
+        self.assertEqual(mirror['family_ids'],['family:curvature-growth'])
+        self.assertEqual(mirror['bridge_ids'],['transport:curvature-growth'])
+        self.assertIn('does not certify',mirror['truth_boundary'])
 
     def test_unknown_conceptual_family_is_rejected(self):
         model=cross_domain.load(cross_domain.FUNCTOR_PATH)
@@ -164,6 +195,8 @@ class CrossDomainProgramTests(unittest.TestCase):
         text=(ROOT/'website/scripts/cross_domain.py').read_text()
         self.assertIn('shelves.index_body(',text)
         self.assertIn('shelves.chapter_body(',text)
+        self.assertIn('compiled_substrate_bindings',text)
+        self.assertIn('candidate_substrate_ids',text)
         js=(ROOT/'website/static/underlying-lean-graph.js').read_text()
         self.assertIn('functor: new Set(["concept-domain", "concept-bridge"])',js)
         self.assertIn('ALL inputs:',js)

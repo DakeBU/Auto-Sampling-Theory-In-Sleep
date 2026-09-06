@@ -19,6 +19,26 @@ GRAPH_MEMORY_PATH = ROOT / 'website/content/graph_memory_index.json'
 OT_BASE = 'libraries/statistical-optimal-transport/'
 RESEARCH_PAGE = 'progress/higher-order-sampling-detail.html'
 
+# These are bridge-local search locations that do not belong to a reusable
+# conceptual family. Family-wide search locations and stabilized compiled
+# examples live only in graph_memory_index.json so Codex and the renderer read
+# the same memory source.
+EDGE_SPECIFIC_SUBSTRATES = {
+    'transport:duality': [
+        'AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSubgradient',
+    ],
+    'transport:wasserstein-flow': [
+        'AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementInterpolationCoupling',
+    ],
+    'transport:high-order': [
+        'AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Taylor',
+        'AutoSamplingTheory.TechnicalLemmas.Taylor',
+    ],
+    'transport:statistical-loss': [
+        'AutoSamplingTheory.TechnicalLemmas.Measure.CouplingQuadraticIntegrability',
+    ],
+}
+
 
 def load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding='utf-8'))
@@ -27,6 +47,41 @@ def load(path: Path) -> dict[str, Any]:
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise ValueError(message)
+
+
+def candidate_substrate_ids(
+    edge: dict[str, Any],
+    memory: dict[str, Any],
+    present_node_ids: set[str],
+) -> list[str]:
+    """Resolve dashed Lean search substrates from one canonical family memory.
+
+    `formal_search_nodes` are family-wide search regions. A
+    `compiled_substrate_binding` is narrower: its node is attached only to the
+    explicitly listed bridge ids. Neither kind of link is a transport theorem or
+    a compiler dependency; the returned ids are rendered as dashed evidence
+    overlays.
+    """
+    family_lookup = {row['id']: row for row in memory.get('families', [])}
+    names: list[str] = []
+    for family_id in edge.get('family_ids', []):
+        family = family_lookup.get(family_id, {})
+        names.extend(family.get('formal_search_nodes', []))
+        for binding in family.get('compiled_substrate_bindings', []):
+            if edge.get('id') in binding.get('edges', []):
+                names.append(str(binding.get('node', '')))
+    names.extend(EDGE_SPECIFIC_SUBSTRATES.get(str(edge.get('id', '')), []))
+
+    result: list[str] = []
+    seen: set[str] = set()
+    for name in names:
+        if not name:
+            continue
+        node_id = name if name.startswith('module:') else 'module:' + name
+        if node_id in present_node_ids and node_id not in seen:
+            seen.add(node_id)
+            result.append(node_id)
+    return result
 
 
 def validate_data(ot=None, plan=None, model=None, memory=None, mirror_policy=None) -> None:
@@ -88,7 +143,23 @@ def validate_data(ot=None, plan=None, model=None, memory=None, mirror_policy=Non
     for family in family_rows:
         require(set(family.get('domains', [])) <= ids, f"Graph memory family {family['id']} has an unknown domain")
         require(set(family.get('functor_edges', [])) <= edge_ids, f"Graph memory family {family['id']} has an unknown Functor edge")
-        require(family.get('formal_search_nodes'), f"Graph memory family {family['id']} needs formal search nodes")
+        search_nodes = family.get('formal_search_nodes')
+        require(isinstance(search_nodes, list) and search_nodes, f"Graph memory family {family['id']} needs formal search nodes")
+        require(len(search_nodes) == len(set(search_nodes)), f"Graph memory family {family['id']} repeats a formal search node")
+        require(all(isinstance(name, str) and name.startswith('AutoSamplingTheory.') for name in search_nodes), f"Graph memory family {family['id']} has a malformed formal search node")
+        bindings = family.get('compiled_substrate_bindings', [])
+        require(isinstance(bindings, list), f"Graph memory family {family['id']} compiled bindings must be a list")
+        binding_nodes: set[str] = set()
+        for binding in bindings:
+            require(isinstance(binding, dict), f"Graph memory family {family['id']} has a malformed compiled binding")
+            node = binding.get('node')
+            require(isinstance(node, str) and node.startswith('AutoSamplingTheory.'), f"Graph memory family {family['id']} compiled binding has a malformed node")
+            require(node not in binding_nodes, f"Graph memory family {family['id']} repeats a compiled binding node")
+            binding_nodes.add(node)
+            binding_edges = binding.get('edges')
+            require(isinstance(binding_edges, list) and binding_edges and set(binding_edges) <= set(family.get('functor_edges', [])), f"Graph memory family {family['id']} compiled binding targets an unrelated bridge")
+            require(isinstance(binding.get('role'), str) and binding['role'].strip(), f"Graph memory family {family['id']} compiled binding lacks role")
+            require(isinstance(binding.get('truth_boundary'), str) and binding['truth_boundary'].strip(), f"Graph memory family {family['id']} compiled binding lacks truth boundary")
         for slot in ('plain_language', 'reading_order', 'do_not_conflate'):
             require(family.get(slot), f"Graph memory family {family['id']} lacks {slot}")
 
@@ -157,7 +228,7 @@ def write_research_page(output: Path) -> None:
 def add_to_graph(builder) -> dict[str, Any]:
     import library_shelves
     validate_data()
-    model, ot = load(FUNCTOR_PATH), load(OT_PATH)
+    model, ot, memory = load(FUNCTOR_PATH), load(OT_PATH), load(GRAPH_MEMORY_PATH)
     for ident, label, url in [('riemannian','Riemannian Optimization','libraries/riemannian-optimization/index.html'),('optimisation','Optimisation','libraries/optimisation/index.html'),('optimal-transport','Statistical Optimal Transport',OT_BASE+'index.html')]:
         builder.add('library:'+ident, 'library', label, status='planned', subtitle='peer source library · scaffold, not a Lean closure', url=url)
         builder.edge('library:samplinglib', 'library:'+ident, 'formalization route')
@@ -171,20 +242,10 @@ def add_to_graph(builder) -> dict[str, Any]:
         builder.edge('library-chapter:optimal-transport:'+a,'library-chapter:optimal-transport:'+b,'source cross-reference')
     for obj in model['objects']:
         builder.add(obj['id'],'concept-domain',obj['label'],status='shared',subtitle=obj['space'],url=obj['url'],details=[{'label':k.title(),'value':obj[k]} for k in ['space','energy','assumptions']])
-    # Candidate substrates link to source-present modules, never to a fabricated
-    # formal theorem. These edges stay dashed and carry no proof assertion.
-    substrates = {
-        'metric-lift':['Geometry.GeodesicConvexity'],
-        'gibbs-prox':['Geometry.StrongConvexity','Measure.Gibbs'],
-        'duality':['Analysis.ConvexSubgradient'],
-        'wasserstein-flow':['Measure.DisplacementInterpolationCoupling','InformationTheory.FisherTransport'],
-        'metric-pl':['Geometry.GeodesicConvexity','InformationTheory.FisherTransport','FunctionalInequalities.SemigroupDecay'],
-        'curvature-growth':['Geometry.StrongConvexity','Geometry.GeodesicConvexity','FunctionalInequalities.LogSobolev'],
-        'pl-lsi':['InformationTheory.RelativeFisher','InformationTheory.FisherTransport','FunctionalInequalities.LogSobolev'],
-        'pi-chi2':['FunctionalInequalities.Poincare','FunctionalInequalities.Generator','FunctionalInequalities.SemigroupDecay'],
-        'high-order':['Analysis.Calculus.Taylor','Taylor'],
-        'statistical-loss':['Measure.CouplingQuadraticIntegrability']
-    }
+
+    # Candidate substrates are resolved from compact family memory plus a very
+    # small set of bridge-local search nodes. All such incidence edges stay
+    # dashed and never become compiler dependencies or transport certificates.
     for edge in model['hyperedges']:
         details = [{'label':'Evidence boundary','value':'Literature/structural correspondence; no Lean-certified functor or theorem transfer.'}]
         if edge.get('family_ids'):
@@ -192,11 +253,7 @@ def add_to_graph(builder) -> dict[str, Any]:
         details += [{'label':k.replace('_',' ').title(),'value':edge[k]} for k in ['mechanism','hypothesis_map','conclusion_map','failure_boundary']]
         details += [{'label':'Category '+k,'value':v} for k,v in edge['category_contract'].items()]
         details += [{'label':'Shared planned checkpoints','value':', '.join(edge['shared_stages'])}]
-        refs = []
-        for suffix in substrates.get(edge['id'].split(':')[1],[]):
-            mid='module:AutoSamplingTheory.TechnicalLemmas.'+suffix
-            if mid in builder.nodes:
-                refs.append(mid)
+        refs = candidate_substrate_ids(edge, memory, set(builder.nodes))
         builder.add(edge['id'],'concept-bridge',edge['label'],status='proposal',subtitle=edge['relation_kind'],summary=edge['mechanism'],formula=edge['formula'],details=details,url='progress/index.html#shared-order',source_url=model['sources'][edge['source_ids'][0]]['url'],hyperedge=edge,sources=[model['sources'][key] for key in edge['source_ids']],candidate_substrates=refs)
         for src in edge['tails']:
             builder.edge(src,edge['id'],'joint conceptual input')
@@ -220,8 +277,13 @@ def graph_guide_html() -> str:
             f'<button type="button" data-functor-jump="{escape(edge_id)}">{escape(edge_id.replace("transport:", ""))}</button>'
             for edge_id in family['functor_edges']
         )
+        bindings = ''.join(
+            f'''<li><code>{escape(binding['node'])}</code><br><small>{escape(binding['role'])} Bound only to {escape(', '.join(binding['edges']))}. {escape(binding['truth_boundary'])}</small></li>'''
+            for binding in family.get('compiled_substrate_bindings', [])
+        )
+        compiled = f'<p><strong>Compiled substrates</strong></p><ul>{bindings}</ul>' if bindings else ''
         family_cards.append(
-            f'''<article id="{escape(family['id'].replace(':','-'))}"><b>{escape(family['id'])}</b><h3>{escape(family['label'])}</h3><p>{escape(family['plain_language'])}</p><p><strong>Do not conflate:</strong> {escape(family['do_not_conflate'])}</p><nav class="ulg-functor-links" aria-label="{escape(family['label'])}">{jumps}</nav></article>'''
+            f'''<article id="{escape(family['id'].replace(':','-'))}"><b>{escape(family['id'])}</b><h3>{escape(family['label'])}</h3><p>{escape(family['plain_language'])}</p>{compiled}<p><strong>Do not conflate:</strong> {escape(family['do_not_conflate'])}</p><nav class="ulg-functor-links" aria-label="{escape(family['label'])}">{jumps}</nav></article>'''
         )
     links = ''.join(f'<button type="button" data-functor-jump="{escape(e["id"])}">{escape(e["label"])}</button>' for e in model['hyperedges'])
     return r'''<section class="ulg-semantics" id="graph-truth-contract"><div class="section-heading"><span>One data model · three truth views</span><h2>Overview, Lean Branches, and Functor Hypergraph answer different questions.</h2></div><p>Agents should read stable family and bridge ids before expanding the full declaration graph. Readers can use the same order: orient by source/project topology, understand the recurring mathematical mechanism, then inspect the exact compiled Lean substrate. A conceptual bridge never upgrades the Lean view.</p><div>''' + view_cards + r'''</div></section>
@@ -244,6 +306,7 @@ def validate_site(output: Path) -> None:
     require(len(graph['hyperedges']) == len(load(FUNCTOR_PATH)['hyperedges']), 'Cross-domain contract invariant failed')
     require(graph['counts']['conceptual_domains'] == 5, 'Cross-domain contract invariant failed')
     lookup = {n['id']: n for n in graph['nodes']}
+    present = set(lookup)
     for edge in graph['hyperedges']:
         node = lookup[edge['id']]
         require(node['kind'] == 'concept-bridge' and node['hyperedge'] == edge, 'Cross-domain contract invariant failed')
@@ -251,8 +314,20 @@ def validate_site(output: Path) -> None:
             require(any(e['source']==tail and e['target']==edge['id'] and e['relation']=='joint conceptual input' for e in graph['edges']), 'Cross-domain contract invariant failed')
         for head in edge['heads']:
             require(any(e['target']==head and e['source']==edge['id'] and e['relation']=='conditional conceptual output' for e in graph['edges']), 'Cross-domain contract invariant failed')
+        expected_refs = candidate_substrate_ids(edge, memory, present)
+        require(set(node.get('candidate_substrates', [])) == set(expected_refs), f"Functor substrate drift: {edge['id']}")
+        for mid in expected_refs:
+            require(any(e['source']==mid and e['target']==edge['id'] and e['relation']=='reuse search candidate; not a proof dependency' for e in graph['edges']), f"Functor substrate edge missing: {mid} -> {edge['id']}")
+    for family in memory['families']:
+        for binding in family.get('compiled_substrate_bindings', []):
+            mid = 'module:' + binding['node']
+            require(mid in lookup, f"Compiled family substrate missing from Lean graph: {binding['node']}")
+            for edge_id in binding['edges']:
+                require(mid in lookup[edge_id].get('candidate_substrates', []), f"Compiled family substrate is not attached to {edge_id}: {binding['node']}")
     page = (output/'lean-foundations.html').read_text(encoding='utf-8')
     require('data-view="functor"' in page and 'id="functor-contract"' in page, 'Cross-domain contract invariant failed')
     require('id="graph-truth-contract"' in page, 'Three-view graph truth contract missing')
     for family in memory['families']:
         require(family['label'] in page, f"Conceptual family missing from reader guide: {family['id']}")
+        for binding in family.get('compiled_substrate_bindings', []):
+            require(binding['node'] in page, f"Compiled family substrate missing from reader guide: {binding['node']}")
