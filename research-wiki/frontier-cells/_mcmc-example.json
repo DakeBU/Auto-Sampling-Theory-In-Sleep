@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "cell_id": "EXAMPLE-MCMC-NOT-A-CLAIM",
+  "route": "mcmc",
+  "title": "Template: source-pinned MH invariant-law identity",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2407.12751v1 \u00a72.1 and math/0404033v4 \u00a72; replace by exact theorem",
+  "target_statement": "Replace by one exact MH kernel theorem and all support/domain assumptions.",
+  "status": "claimed",
+  "parents": [],
+  "consumers": [],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib",
+      "Mathlib",
+      "Libraries/shared-foundations.yml"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "",
+    "canonical_shared_cell": "",
+    "notes": "Explain why this is route-local or which existing/shared node is reused."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "Exact version/date/hash for the controlling source",
+    "primary_anchor": "Exact theorem/page/lines",
+    "detail_status": "sufficient",
+    "gap": "",
+    "consulted": [],
+    "fidelity_boundary": "Original statement unchanged; any proposed repair is separately reviewed."
+  },
+  "mcmc_contract": {
+    "state_space": "Replace with exact source contract; not a theorem claim.",
+    "target": "Replace with exact source contract; not a theorem claim.",
+    "support": "Replace with exact source contract; not a theorem claim.",
+    "operator": "Replace with exact source contract; not a theorem claim.",
+    "clock": "Replace with exact source contract; not a theorem claim.",
+    "invariance": "Replace with exact source contract; not a theorem claim.",
+    "ergodicity": "Replace with exact source contract; not a theorem claim.",
+    "initialization": "Replace with exact source contract; not a theorem claim.",
+    "metric": "Replace with exact source contract; not a theorem claim.",
+    "cost": "Replace with exact source contract; not a theorem claim.",
+    "objective": "Replace with exact source contract; not a theorem claim.",
+    "source_proof_status": "Replace with exact source contract; not a theorem claim.",
+    "time_model": "static",
+    "invariance_class": "exact-target"
+  }
+}

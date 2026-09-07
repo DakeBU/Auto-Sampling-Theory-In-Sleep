@@ -1,4 +1,4 @@
-/* Six-library navigation and textbook scaffolds. */
+/* Seven-library navigation and textbook scaffolds. */
 
 .sidebar-libraries h2 a {
   color: inherit;
@@ -9,7 +9,7 @@
   grid-template-columns: 1fr;
 }
 
-.source-portal-grid-six,
+.source-portal-grid-seven,
 .library-index-grid,
 .upstream-library-grid,
 .library-contract-grid {
@@ -18,14 +18,15 @@
   gap: 1rem;
 }
 
-.source-portal-grid-six .source-portal {
+.source-portal-grid-seven .source-portal {
   min-height: 300px;
 }
 
 .source-portal-riemannian,
 .source-portal-optimization,
 .source-portal-transport,
-.source-portal-discrete {
+.source-portal-discrete,
+.source-portal-mcmc {
   border-top: 4px solid var(--accent);
 }
 
@@ -138,20 +139,20 @@
   margin-top: 3rem;
 }
 
-.atlas-source-grid-six {
+.atlas-source-grid-seven {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 @media (max-width: 760px) {
-  .source-portal-grid-six,
+  .source-portal-grid-seven,
   .library-index-grid,
   .upstream-library-grid,
   .library-contract-grid,
-  .atlas-source-grid-six {
+  .atlas-source-grid-seven {
     grid-template-columns: 1fr;
   }
 
-  .source-portal-grid-six .source-portal,
+  .source-portal-grid-seven .source-portal,
   .library-index-card {
     min-height: auto;
   }

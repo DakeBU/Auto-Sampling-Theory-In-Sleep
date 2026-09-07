@@ -120,7 +120,7 @@ def validate_data(ot=None, plan=None, model=None, memory=None, mirror_policy=Non
     require(set(memory.get('views', {})) == {'overview', 'lean', 'functor'}, 'Graph memory must document exactly the three main graph truth views')
 
     ids = {o['id'] for o in model['objects']}
-    require(len(ids) == len(model['objects']) and len(ids) >= 6, 'Unique peer conceptual domains required')
+    require(len(ids) == len(model['objects']) and len(ids) >= 7, 'Unique peer conceptual domains required')
     require('concept:discrete-sampling' in ids, 'Discrete Sampling conceptual domain missing')
     require(model['center'] in ids, 'Cross-domain contract invariant failed')
     edge_ids = set()
@@ -141,6 +141,13 @@ def validate_data(ot=None, plan=None, model=None, memory=None, mirror_policy=Non
         # accepting a status string as evidence of a Lean-certified functor.
         require(edge['status'] == 'not-Lean-certified', 'Certification needs a real independent certificate gate')
         require(edge['formal_refs'] == [], 'Do not fabricate formal transport witnesses')
+        if edge['id'].startswith('transport:mcmc-'):
+            review=edge.get('review',{})
+            require(review.get('status') in {'candidate','independently-reviewed'}, 'MCMC mirror review status required')
+            require(bool(review.get('proposed_by')), 'MCMC mirror proposer required')
+            if review['status']=='independently-reviewed':
+                require(bool(review.get('independent_reviewer')) and review['independent_reviewer']!=review['proposed_by'], 'MCMC mirror cannot self-validate')
+                require(isinstance(review.get('evidence'),list) and bool(review['evidence']), 'MCMC source review evidence required')
     for family in family_rows:
         require(set(family.get('domains', [])) <= ids, f"Graph memory family {family['id']} has an unknown domain")
         require(set(family.get('functor_edges', [])) <= edge_ids, f"Graph memory family {family['id']} has an unknown Functor edge")
@@ -245,6 +252,8 @@ def add_to_graph(builder) -> dict[str, Any]:
         builder.edge('library-chapter:optimal-transport:'+a,'library-chapter:optimal-transport:'+b,'source cross-reference')
     import discrete_sampling
     discrete_sampling.add_to_graph(builder)
+    import mcmc_library
+    mcmc_library.add_to_graph(builder)
     for obj in model['objects']:
         builder.add(obj['id'],'concept-domain',obj['label'],status='shared',subtitle=obj['space'],url=obj['url'],details=[{'label':k.title(),'value':obj[k]} for k in ['space','energy','assumptions']])
 
@@ -302,6 +311,8 @@ def validate_site(output: Path) -> None:
     import library_shelves
     import discrete_sampling
     discrete_sampling.validate_site(output)
+    import mcmc_library
+    mcmc_library.validate_site(output)
     ot = load(OT_PATH)
     memory = load(GRAPH_MEMORY_PATH)
     canonical = set(library_shelves.canonical_theme_styles(output))

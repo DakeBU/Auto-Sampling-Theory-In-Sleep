@@ -1,0 +1,640 @@
+{
+  "schema_version": 1,
+  "view": "overview:methods-targets",
+  "truth_contract": "All perspective edges are curated taxonomy or conditional applicability. Colour is source scope / planned reuse, never proof status or verified multi-consumer use.",
+  "palette": {
+    "log-concave-sampling": {
+      "label": "Log-concave Sampling",
+      "color": "#4361AA",
+      "node": "library:chewi"
+    },
+    "mcmc": {
+      "label": "MCMC",
+      "color": "#B66128",
+      "node": "library:mcmc"
+    },
+    "discrete-sampling": {
+      "label": "Discrete Sampling",
+      "color": "#A54673",
+      "node": "library:discrete-sampling"
+    },
+    "optimisation": {
+      "label": "Optimisation",
+      "color": "#87652C",
+      "node": "library:optimisation"
+    },
+    "riemannian-optimization": {
+      "label": "Riemannian Optimisation",
+      "color": "#795BB1",
+      "node": "library:riemannian"
+    },
+    "statistical-optimal-transport": {
+      "label": "Optimal Transport",
+      "color": "#167E79",
+      "node": "library:optimal-transport"
+    },
+    "samplewiki": {
+      "label": "SampleWiki",
+      "color": "#687438",
+      "node": "library:samplewiki"
+    },
+    "shared": {
+      "label": "Shared scope / planned reuse",
+      "color": "#167BA6"
+    },
+    "unassigned": {
+      "label": "Scope not audited",
+      "color": "#747D89"
+    }
+  },
+  "nodes": [
+    {
+      "id": "perspective:sampling",
+      "kind": "perspective-family",
+      "label": "Sampling methods",
+      "position": [
+        0,
+        260
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling",
+        "discrete-sampling"
+      ],
+      "summary": "Methods are not target classes: MCMC is one large family, not all sampling.",
+      "formula": "",
+      "source_ids": [
+        "mcmc-primary"
+      ]
+    },
+    {
+      "id": "perspective:mcmc",
+      "kind": "perspective-family",
+      "label": "MCMC method family",
+      "position": [
+        280,
+        110
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling",
+        "discrete-sampling"
+      ],
+      "summary": "Markov transitions; exact-target and approximate implementations have different invariance contracts.",
+      "formula": "",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-rr"
+      ]
+    },
+    {
+      "id": "perspective:independent",
+      "kind": "perspective-method",
+      "label": "Independent / rejection draws",
+      "position": [
+        280,
+        680
+      ],
+      "library_scope": [
+        "log-concave-sampling",
+        "mcmc"
+      ],
+      "summary": "A contrasting family: direct and rejection sampling need not be MCMC. This does not classify every algorithm in either book.",
+      "formula": "",
+      "source_ids": [
+        "mcmc-primary"
+      ]
+    },
+    {
+      "id": "method:ula",
+      "kind": "perspective-method",
+      "label": "ULA / Langevin MC",
+      "position": [
+        560,
+        0
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling"
+      ],
+      "summary": "Fixed-step Euler proposal is generally biased for pi; invariant law existence and bias bounds require their own assumptions.",
+      "formula": "X_{k+1}=X_k-h\\nabla V(X_k)+\\sqrt{2h}\\xi_k",
+      "source_ids": [
+        "mcmc-primary"
+      ]
+    },
+    {
+      "id": "method:mala",
+      "kind": "perspective-method",
+      "label": "MALA / Metropolized Langevin",
+      "position": [
+        560,
+        112
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling"
+      ],
+      "summary": "Corrected Langevin proposal; exact invariant target under the MH contract does not mean iid or exact finite-time draws.",
+      "formula": "Q_h\\;\\xrightarrow{\\mathrm{MH}}\\;P_\\pi",
+      "source_ids": [
+        "mcmc-primary"
+      ]
+    },
+    {
+      "id": "method:rwm",
+      "kind": "perspective-method",
+      "label": "Random-walk Metropolis",
+      "position": [
+        560,
+        224
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling"
+      ],
+      "summary": "A general MH instance; log-concavity is one target regime, not a prerequisite for defining the algorithm.",
+      "formula": "Y=X+\\varepsilon",
+      "source_ids": [
+        "mcmc-primary"
+      ]
+    },
+    {
+      "id": "method:hitrun",
+      "kind": "perspective-method",
+      "label": "Hit-and-Run",
+      "position": [
+        560,
+        336
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling"
+      ],
+      "summary": "Continuous-state, discrete-time chain: choose a direction and sample its chord. Full dimension, bounded volume, access model and initialization belong to the theorem.",
+      "formula": "Y\\sim\\operatorname{Unif}(K\\cap(x+\\mathbb R u))",
+      "source_ids": [
+        "mcmc-geometry"
+      ]
+    },
+    {
+      "id": "method:glauber",
+      "kind": "perspective-method",
+      "label": "Gibbs / Glauber",
+      "position": [
+        560,
+        448
+      ],
+      "library_scope": [
+        "mcmc",
+        "discrete-sampling"
+      ],
+      "summary": "Conditional resampling on feasible support. Random scan and systematic scan differ; stationarity is not rapid mixing.",
+      "formula": "\\sigma_i\\sim\\pi(\\,\\cdot\\mid\\sigma_{-i})",
+      "source_ids": [
+        "mcmc-primary"
+      ]
+    },
+    {
+      "id": "method:hmc",
+      "kind": "perspective-method",
+      "label": "Hamiltonian Monte Carlo",
+      "position": [
+        560,
+        560
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling",
+        "riemannian-optimization"
+      ],
+      "summary": "Augmented-state method. Standard and nonreversible variants differ; geometric connection is a planned analytic perspective, not a theorem.",
+      "formula": "H(x,p)=V(x)+\\tfrac12p^\\top M^{-1}p",
+      "source_ids": [
+        "mcmc-primary"
+      ]
+    },
+    {
+      "id": "method:pdmp",
+      "kind": "perspective-method",
+      "label": "PDMP / lifted dynamics",
+      "position": [
+        560,
+        672
+      ],
+      "library_scope": [
+        "mcmc"
+      ],
+      "summary": "Deterministic motion plus jumps; generator stationarity needs existence/nonexplosion and domain conditions.",
+      "formula": "L=A+J",
+      "source_ids": [
+        "mcmc-primary"
+      ]
+    },
+    {
+      "id": "target:general",
+      "kind": "perspective-target",
+      "label": "General continuous targets",
+      "position": [
+        880,
+        0
+      ],
+      "library_scope": [
+        "mcmc"
+      ],
+      "summary": "May be multimodal and non-log-concave; not every method has a proven useful rate for every target.",
+      "formula": "",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-rr"
+      ]
+    },
+    {
+      "id": "target:logconcave",
+      "kind": "perspective-target",
+      "label": "Log-concave targets",
+      "position": [
+        880,
+        152
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling"
+      ],
+      "summary": "A target property, not a method class; includes nonsmooth convex-support examples.",
+      "formula": "",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-rr"
+      ]
+    },
+    {
+      "id": "target:smooth",
+      "kind": "perspective-target",
+      "label": "Smooth unconstrained log-concave",
+      "position": [
+        880,
+        290
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling",
+        "optimisation"
+      ],
+      "summary": "An important Langevin regime; differentiability, curvature and tail assumptions are theorem-specific.",
+      "formula": "",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-rr"
+      ]
+    },
+    {
+      "id": "target:convexbody",
+      "kind": "perspective-target",
+      "label": "Uniform on a convex body",
+      "position": [
+        880,
+        432
+      ],
+      "library_scope": [
+        "mcmc",
+        "log-concave-sampling",
+        "statistical-optimal-transport"
+      ],
+      "summary": "A log-concave density with extended-valued potential, not generally a smooth unconstrained density. Geometric analysis connects convexity and transport.",
+      "formula": "",
+      "source_ids": [
+        "mcmc-geometry"
+      ]
+    },
+    {
+      "id": "target:finite",
+      "kind": "perspective-target",
+      "label": "Finite Gibbs / Ising",
+      "position": [
+        880,
+        590
+      ],
+      "library_scope": [
+        "mcmc",
+        "discrete-sampling"
+      ],
+      "summary": "State space is finite; update time may be discrete or continuous. Preserve graph, temperature, fields, boundaries and feasible pinnings.",
+      "formula": "",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-rr"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "perspective:sampling",
+      "target": "perspective:mcmc",
+      "relation": "method-family inclusion (curated)"
+    },
+    {
+      "source": "perspective:sampling",
+      "target": "perspective:independent",
+      "relation": "method-family contrast (curated)"
+    },
+    {
+      "source": "perspective:mcmc",
+      "target": "method:ula",
+      "relation": "method instance (curated)"
+    },
+    {
+      "source": "perspective:mcmc",
+      "target": "method:mala",
+      "relation": "method instance (curated)"
+    },
+    {
+      "source": "perspective:mcmc",
+      "target": "method:rwm",
+      "relation": "method instance (curated)"
+    },
+    {
+      "source": "perspective:mcmc",
+      "target": "method:hitrun",
+      "relation": "method instance (curated)"
+    },
+    {
+      "source": "perspective:mcmc",
+      "target": "method:glauber",
+      "relation": "method instance (curated)"
+    },
+    {
+      "source": "perspective:mcmc",
+      "target": "method:hmc",
+      "relation": "method instance (curated)"
+    },
+    {
+      "source": "perspective:mcmc",
+      "target": "method:pdmp",
+      "relation": "method instance (curated)"
+    },
+    {
+      "source": "method:ula",
+      "target": "target:smooth",
+      "relation": "applies under stated contract (curated)"
+    },
+    {
+      "source": "method:mala",
+      "target": "target:smooth",
+      "relation": "applies under stated contract (curated)"
+    },
+    {
+      "source": "method:rwm",
+      "target": "target:general",
+      "relation": "applies under stated contract (curated)"
+    },
+    {
+      "source": "method:hitrun",
+      "target": "target:convexbody",
+      "relation": "applies under stated contract (curated)"
+    },
+    {
+      "source": "method:glauber",
+      "target": "target:finite",
+      "relation": "applies under stated contract (curated)"
+    },
+    {
+      "source": "method:hmc",
+      "target": "target:general",
+      "relation": "applies under stated contract (curated)"
+    },
+    {
+      "source": "method:pdmp",
+      "target": "target:general",
+      "relation": "applies under stated contract (curated)"
+    },
+    {
+      "source": "target:smooth",
+      "target": "target:logconcave",
+      "relation": "target subclass (curated)"
+    },
+    {
+      "source": "target:convexbody",
+      "target": "target:logconcave",
+      "relation": "target subclass (curated)"
+    },
+    {
+      "source": "target:logconcave",
+      "target": "target:general",
+      "relation": "target subclass (curated)"
+    },
+    {
+      "source": "method:ula",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:ula",
+      "target": "library:chewi",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:mala",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:mala",
+      "target": "library:chewi",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:rwm",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:rwm",
+      "target": "library:chewi",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:hitrun",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:hitrun",
+      "target": "library:chewi",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:glauber",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:glauber",
+      "target": "library:discrete-sampling",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:hmc",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:hmc",
+      "target": "library:chewi",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:hmc",
+      "target": "library:riemannian",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "method:pdmp",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:general",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:logconcave",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:logconcave",
+      "target": "library:chewi",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:smooth",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:smooth",
+      "target": "library:chewi",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:smooth",
+      "target": "library:optimisation",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:convexbody",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:convexbody",
+      "target": "library:chewi",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:convexbody",
+      "target": "library:optimal-transport",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:finite",
+      "target": "library:mcmc",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "target:finite",
+      "target": "library:discrete-sampling",
+      "relation": "reader / analytic perspective (curated)"
+    },
+    {
+      "source": "perspective:sampling",
+      "target": "library:optimisation",
+      "relation": "analytical lens, not inclusion (curated)"
+    },
+    {
+      "source": "perspective:sampling",
+      "target": "library:riemannian",
+      "relation": "analytical lens, not inclusion (curated)"
+    },
+    {
+      "source": "perspective:sampling",
+      "target": "library:optimal-transport",
+      "relation": "analytical lens, not inclusion (curated)"
+    },
+    {
+      "source": "perspective:sampling",
+      "target": "library:samplewiki",
+      "relation": "analytical lens, not inclusion (curated)"
+    }
+  ],
+  "module_scope": [
+    {
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel",
+      "libraries": [
+        "mcmc",
+        "discrete-sampling",
+        "log-concave-sampling"
+      ],
+      "boundary": "Kernel / conditional-probability reuse search; no finite adapter certified."
+    },
+    {
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "libraries": [
+        "mcmc",
+        "discrete-sampling",
+        "log-concave-sampling"
+      ],
+      "boundary": "Generator formulation is shared-scope; zero-density MLSI obstruction must be resolved before jump-process reuse."
+    },
+    {
+      "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder",
+      "libraries": [
+        "optimisation",
+        "log-concave-sampling",
+        "statistical-optimal-transport"
+      ],
+      "boundary": "Generic convex core has planned consumers. Only its original compiled Euclidean declaration is certified."
+    },
+    {
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay",
+      "libraries": [
+        "mcmc",
+        "log-concave-sampling",
+        "discrete-sampling"
+      ],
+      "boundary": "Scalar decay search lead; no Markov semigroup construction or model specialization inferred."
+    }
+  ],
+  "library_positions": {
+    "library:chewi": [
+      1200,
+      0
+    ],
+    "library:mcmc": [
+      1200,
+      105
+    ],
+    "library:discrete-sampling": [
+      1200,
+      210
+    ],
+    "library:optimisation": [
+      1200,
+      315
+    ],
+    "library:riemannian": [
+      1200,
+      420
+    ],
+    "library:optimal-transport": [
+      1200,
+      525
+    ],
+    "library:samplewiki": [
+      1200,
+      630
+    ]
+  }
+}

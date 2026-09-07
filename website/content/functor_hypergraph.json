@@ -52,6 +52,14 @@
       "energy": "Finite Gibbs law; variance/chi-square or KL with a specified Markov kernel/generator",
       "assumptions": "Support, feasible pinnings, reversibility, clock normalization and graph/temperature regime; no Euler discretization interpretation",
       "url": "libraries/discrete-sampling/index.html"
+    },
+    {
+      "id": "concept:mcmc",
+      "label": "Markov Chain Monte Carlo",
+      "space": "General measurable state, including finite, Euclidean and augmented states",
+      "energy": "Target invariant law; estimator variance and computational cost are separate objectives",
+      "assumptions": "Each kernel or generator states support, invariance, irreducibility, domain, clock and bias contracts",
+      "url": "libraries/mcmc/index.html"
     }
   ],
   "hyperedges": [
@@ -690,6 +698,220 @@
         "identity": "Unproved; no certified functor claim.",
         "composition": "Unproved; composed transfers need fresh hypothesis and normalization checks."
       }
+    },
+    {
+      "id": "transport:mcmc-metropolis",
+      "label": "Proposal → target-invariant correction",
+      "family_ids": [
+        "family:invariance-correction"
+      ],
+      "tails": [
+        "concept:mcmc"
+      ],
+      "heads": [
+        "concept:sampling",
+        "concept:discrete-sampling"
+      ],
+      "relation_kind": "conceptual correspondence candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "Q\\xrightarrow{\\mathrm{accept/reject}}P_\\pi,\\quad\\pi P_\\pi=\\pi",
+      "mechanism": "One accepted-flux construction admits finite and density-based Metropolis adapters.",
+      "hypothesis_map": "Correct proposal normalization, support, rejection mass and measurable acceptance; for singular proposals use the correct measure-level ratio.",
+      "conclusion_map": "Finite Metropolis and MALA share a construction pattern after their exact adapters.",
+      "failure_boundary": "This does not make ULA exact, guarantee mixing, or prove that MH improves every efficiency metric.",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-rr"
+      ],
+      "shared_stages": [
+        "kernel-algebra",
+        "mcmc-invariance"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-mcmc-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "State, target, algorithm, geometry, clock and cost presentations.",
+        "morphisms": "Scoped adapters or asymptotic relations only; not automatically a category morphism.",
+        "identity": "Not proved; no certified functor.",
+        "composition": "Composed adapters need independent contracts and certificates."
+      }
+    },
+    {
+      "id": "transport:mcmc-scaling",
+      "label": "MCMC weak limits ↔ diffusion analysis",
+      "family_ids": [
+        "family:scaling-limit"
+      ],
+      "tails": [
+        "concept:mcmc"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "conceptual correspondence candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "X^{(d)}_{\\lfloor a_dt\\rfloor}\\Rightarrow Z_t",
+      "mechanism": "A space/time-rescaled Markov chain may converge weakly to a diffusion under an asymptotic target regime.",
+      "hypothesis_map": "Sequence of dimensions, target dependence, initialization, topology and time rescaling must match the source.",
+      "conclusion_map": "Connect diffusion tools to high-dimensional scaling after a separate limit proof.",
+      "failure_boundary": "No uniform finite-d mixing guarantee or universal 0.234 rule follows just from weak convergence.",
+      "source_ids": [
+        "mcmc-yrr",
+        "mcmc-rr",
+        "mcmc-primary"
+      ],
+      "shared_stages": [
+        "semigroup",
+        "mcmc-ergodicity"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-mcmc-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "State, target, algorithm, geometry, clock and cost presentations.",
+        "morphisms": "Scoped adapters or asymptotic relations only; not automatically a category morphism.",
+        "identity": "Not proved; no certified functor.",
+        "composition": "Composed adapters need independent contracts and certificates."
+      }
+    },
+    {
+      "id": "transport:mcmc-lifting",
+      "label": "Augmented states, Hamiltonian and event-driven samplers",
+      "family_ids": [
+        "family:augmented-state"
+      ],
+      "tails": [
+        "concept:mcmc",
+        "concept:riemannian"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "conceptual correspondence candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "\\widetilde\\pi(dx,dv)=\\pi(dx)\\nu_x(dv),\\quad\\operatorname{proj}_{x\\#}\\widetilde\\pi=\\pi",
+      "mechanism": "Add auxiliary variables and prove the marginal target, while changing the dynamics on the enlarged space.",
+      "hypothesis_map": "Momentum law, Jacobians/metric volume, reversibility convention, refreshment and non-explosion.",
+      "conclusion_map": "Use geometric calculations in extended-state samplers after explicit invariance adapters.",
+      "failure_boundary": "Standard HMC may be reversible; nonreversibility is not universally faster. Riemannian HMC is not obtained by a naive gradient substitution.",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-neal",
+        "mcmc-bouncy"
+      ],
+      "shared_stages": [
+        "mcmc-invariance",
+        "manifold"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-mcmc-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "State, target, algorithm, geometry, clock and cost presentations.",
+        "morphisms": "Scoped adapters or asymptotic relations only; not automatically a category morphism.",
+        "identity": "Not proved; no certified functor.",
+        "composition": "Composed adapters need independent contracts and certificates."
+      }
+    },
+    {
+      "id": "transport:mcmc-perturbation",
+      "label": "Kernel perturbation ↔ discretization error",
+      "family_ids": [
+        "family:kernel-perturbation"
+      ],
+      "tails": [
+        "concept:mcmc",
+        "concept:transport"
+      ],
+      "heads": [
+        "concept:sampling"
+      ],
+      "relation_kind": "conceptual correspondence candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "d(\\mu\\widetilde P^n,\\pi)\\le d(\\mu\\widetilde P^n,\\mu P^n)+d(\\mu P^n,\\pi)",
+      "mechanism": "Separate implemented-kernel error from ideal mixing in a specified discrepancy.",
+      "hypothesis_map": "Time, target, initialization, metric and stability bounds must match; finite and diffusion adapters differ.",
+      "conclusion_map": "Reuse common triangle/error propagation skeletons without duplicating ULA definitions.",
+      "failure_boundary": "Local consistency alone does not imply uniform-in-time accuracy or exact stationarity.",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-perturbation"
+      ],
+      "shared_stages": [
+        "kernel-algebra",
+        "scalar-decay",
+        "coupling-wasserstein"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-mcmc-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "State, target, algorithm, geometry, clock and cost presentations.",
+        "morphisms": "Scoped adapters or asymptotic relations only; not automatically a category morphism.",
+        "identity": "Not proved; no certified functor.",
+        "composition": "Composed adapters need independent contracts and certificates."
+      }
+    },
+    {
+      "id": "transport:mcmc-gibbs-coordinate",
+      "label": "Conditional draws ↔ block optimization",
+      "family_ids": [
+        "family:proximal-energy"
+      ],
+      "tails": [
+        "concept:mcmc",
+        "concept:optimization"
+      ],
+      "heads": [
+        "concept:discrete-sampling",
+        "concept:sampling"
+      ],
+      "relation_kind": "conceptual correspondence candidate; independent review pending",
+      "status": "not-Lean-certified",
+      "formula": "\\pi(dx_i\\mid x_{-i})\\quad\\leftrightsquigarrow\\quad\\arg\\min_{x_i}V(x_i,x_{-i})",
+      "mechanism": "A block is updated while others are fixed, with a conditional Gibbs draw versus a conditional minimizer.",
+      "hypothesis_map": "Conditional laws and minimizers require different existence hypotheses; block schedule and objective conventions must be explicit.",
+      "conclusion_map": "Retain a common block-decomposition idea, not equality of outputs or rates.",
+      "failure_boundary": "Random-scan mixtures are not deterministic-scan compositions; invariant Gibbs sweeps need not be reversible. No automatic optimization-to-mixing theorem.",
+      "source_ids": [
+        "mcmc-primary",
+        "mcmc-rr",
+        "opt"
+      ],
+      "shared_stages": [
+        "kernel-algebra",
+        "convex"
+      ],
+      "formal_refs": [],
+      "review": {
+        "status": "candidate",
+        "proposed_by": "astis-mcmc-library-integration",
+        "independent_reviewer": null,
+        "evidence": []
+      },
+      "category_contract": {
+        "objects": "State, target, algorithm, geometry, clock and cost presentations.",
+        "morphisms": "Scoped adapters or asymptotic relations only; not automatically a category morphism.",
+        "identity": "Not proved; no certified functor.",
+        "composition": "Composed adapters need independent contracts and certificates."
+      }
     }
   ],
   "sources": {
@@ -767,6 +989,61 @@
       "title": "Levin–Peres (with Wilmer): Markov Chains and Mixing Times, 2nd ed.",
       "url": "https://pages.uoregon.edu/dlevin/MARKOV/",
       "anchor": "Reversibility, spectral gaps, coupling and mixing; discrete/continuous-time conventions"
+    },
+    "mcmc-primary": {
+      "title": "Scalable Monte Carlo for Bayesian Learning",
+      "url": "https://arxiv.org/pdf/2407.12751v1",
+      "anchor": "Chapters 1–6; arXiv preprint, 2024 (separate from published book pagination)"
+    },
+    "mcmc-rr": {
+      "title": "General state space Markov chains and MCMC algorithms",
+      "url": "https://arxiv.org/pdf/math/0404033v4",
+      "anchor": "§2 construction; §§3–4 convergence/drift/coupling; §5 CLT; §6 scaling. Probability Surveys 1 (2004), 20–71; arXiv v4 (2007)."
+    },
+    "mcmc-yrr": {
+      "title": "Optimal Scaling of Random-Walk Metropolis Algorithms on General Target Distributions",
+      "url": "https://arxiv.org/pdf/1904.12157v3",
+      "anchor": "§§2–3: optimal ESJD and diffusion limits; assumptions differ between results"
+    },
+    "mcmc-neal": {
+      "title": "MCMC using Hamiltonian dynamics",
+      "url": "https://arxiv.org/pdf/1206.1901v1",
+      "anchor": "Hamiltonian dynamics, volume preservation and Metropolis-corrected integrators; pinpoint each theorem before formalization"
+    },
+    "mcmc-geometry": {
+      "title": "Geometric Random Walks: A Survey",
+      "url": "https://sites.cc.gatech.edu/fac/vempala/papers/survey.pdf",
+      "anchor": "§§2–4 foundations and isoperimetry; §6 Mixing of Hit-and-Run (PDF pp.25–26); historical claims are edition-scoped"
+    },
+    "mcmc-perturbation": {
+      "title": "Perturbations of Markov Chains",
+      "url": "https://arxiv.org/html/2404.10251v1",
+      "anchor": "§19.2 Basic Principles and §19.3 Survey of Mathematical Results in this pinned preprint; handbook chapter numbering may differ"
+    },
+    "mcmc-bouncy": {
+      "title": "MCMC using bouncy Hamiltonian dynamics: A unifying framework for Hamiltonian Monte Carlo and piecewise deterministic Markov process samplers",
+      "url": "https://arxiv.org/abs/2405.08290v1",
+      "anchor": "Dynamics construction and frequent-refreshment limit; source-level extension candidate, exact theorem audit pending"
+    },
+    "mcmc-qin": {
+      "title": "Convergence Bounds for Monte Carlo Markov Chains",
+      "url": "https://arxiv.org/abs/2409.14656v1",
+      "anchor": "Handbook contribution on quantitative convergence; theorem-level anchor required for each bound"
+    },
+    "mcmc-runlength": {
+      "title": "For how many iterations should we run Markov chain Monte Carlo?",
+      "url": "https://arxiv.org/abs/2311.02726v1",
+      "anchor": "Run length and convergence diagnostics; not a universal finite-time certificate"
+    },
+    "mcmc-unbiased": {
+      "title": "Unbiased Markov Chain Monte Carlo: what, why, and how",
+      "url": "https://arxiv.org/html/2406.06851v1",
+      "anchor": "Coupled-chain estimators, meeting times and moment assumptions"
+    },
+    "mcmc-cv": {
+      "title": "Control Variates for MCMC",
+      "url": "https://arxiv.org/abs/2402.07349v1",
+      "anchor": "Control variates and zero-mean identities; estimator validity and learning bias must be checked"
     }
   }
 }

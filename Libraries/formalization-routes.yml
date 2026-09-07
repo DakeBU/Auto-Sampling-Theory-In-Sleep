@@ -47,6 +47,14 @@ routes:
     status: scaffold
     contract: /docs/discrete-sampling-protocol.md
 
+  - id: mcmc
+    title: Markov Chain Monte Carlo Route
+    source: https://arxiv.org/pdf/2407.12751v1
+    progress: /progress/#mcmc
+    mode: textbook
+    status: scaffold
+    contract: /docs/mcmc-library-protocol.md
+
 canonical_textbook_spines:
   - id: log-concave-sampling
     title: Log-Concave Sampling
@@ -66,6 +74,11 @@ canonical_textbook_spines:
     source: https://arxiv.org/pdf/2307.13826v4
     source_map: /Libraries/DiscreteSampling/source-map.json
     reader: /libraries/discrete-sampling/
+
+  - id: mcmc
+    source: https://arxiv.org/pdf/2407.12751v1
+    source_map: /Libraries/MCMC/source-map.json
+    reader: /libraries/mcmc/
 
 shared_dependency_plan: /Libraries/cross-domain-program.json
 frontloaded_shared_spine: /Libraries/frontloaded-shared-spine.json

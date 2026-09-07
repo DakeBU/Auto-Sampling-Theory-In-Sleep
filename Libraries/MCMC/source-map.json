@@ -1,0 +1,1022 @@
+{
+  "schema_version": 1,
+  "library_id": "mcmc",
+  "title": "Markov Chain Monte Carlo",
+  "primary": {
+    "title": "Scalable Monte Carlo for Bayesian Learning",
+    "authors": [
+      "Paul Fearnhead",
+      "Christopher Nemeth",
+      "Chris J. Oates",
+      "Chris Sherlock"
+    ],
+    "url": "https://arxiv.org/pdf/2407.12751v1",
+    "anchor": "Chapters 1–6; arXiv preprint, 2024 (separate from published book pagination)",
+    "role": "controlling primary textbook",
+    "pin_status": "version-and-sha256-pinned",
+    "version": "2407.12751v1",
+    "sha256": "60ecdd243a5815771332b5461e7eae59d41242933e53a721785870b6877f008f",
+    "pdf_pages": 244
+  },
+  "pdf_pages": 244,
+  "pdf_page_offset": 6,
+  "source_audit_date": "2026-09-07",
+  "scope": "Method-family perspective spanning continuous, finite and augmented states. Not a superset of every sampling theorem.",
+  "status": "scaffold; no new Lean theorem",
+  "chapters": [
+    {
+      "id": "01",
+      "title": "Background",
+      "printed_page": 4,
+      "pdf_page": 10,
+      "path": "chapter-01.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "1.1",
+          "title": "Monte Carlo Methods",
+          "printed_page": 5,
+          "pdf_page": 11
+        },
+        {
+          "id": "1.1.1",
+          "title": "What is Monte Carlo Integration?",
+          "printed_page": 5,
+          "pdf_page": 11
+        },
+        {
+          "id": "1.1.2",
+          "title": "Importance Sampling",
+          "printed_page": 7,
+          "pdf_page": 13
+        },
+        {
+          "id": "1.1.3",
+          "title": "Monte Carlo or Quadrature?",
+          "printed_page": 7,
+          "pdf_page": 13
+        },
+        {
+          "id": "1.1.4",
+          "title": "Control Variates",
+          "printed_page": 9,
+          "pdf_page": 15
+        },
+        {
+          "id": "1.1.5",
+          "title": "Monte Carlo Integration and Bayesian Statistics",
+          "printed_page": 11,
+          "pdf_page": 17
+        },
+        {
+          "id": "1.2",
+          "title": "Example Applications",
+          "printed_page": 14,
+          "pdf_page": 20
+        },
+        {
+          "id": "1.2.1",
+          "title": "Logistic Regression",
+          "printed_page": 15,
+          "pdf_page": 21
+        },
+        {
+          "id": "1.2.2",
+          "title": "Bayesian Matrix Factorisation",
+          "printed_page": 15,
+          "pdf_page": 21
+        },
+        {
+          "id": "1.2.3",
+          "title": "Bayesian Neural Networks for Classification",
+          "printed_page": 16,
+          "pdf_page": 22
+        },
+        {
+          "id": "1.3",
+          "title": "Markov Chains",
+          "printed_page": 17,
+          "pdf_page": 23
+        },
+        {
+          "id": "1.3.1",
+          "title": "Reversible Markov chains",
+          "printed_page": 18,
+          "pdf_page": 24
+        },
+        {
+          "id": "1.3.2",
+          "title": "Convergence, Averages, and Variances",
+          "printed_page": 19,
+          "pdf_page": 25
+        },
+        {
+          "id": "1.4",
+          "title": "Stochastic Differential Equations",
+          "printed_page": 22,
+          "pdf_page": 28
+        },
+        {
+          "id": "1.4.1",
+          "title": "The Ornstein–Uhlenbeck Process",
+          "printed_page": 23,
+          "pdf_page": 29
+        },
+        {
+          "id": "1.4.2",
+          "title": "The Infinitesimal Generator",
+          "printed_page": 24,
+          "pdf_page": 30
+        },
+        {
+          "id": "1.4.3",
+          "title": "Langevin Diffusions",
+          "printed_page": 26,
+          "pdf_page": 32
+        },
+        {
+          "id": "1.5",
+          "title": "The Kernel Trick",
+          "printed_page": 28,
+          "pdf_page": 34
+        },
+        {
+          "id": "1.5.1",
+          "title": "Finite-Dimensional Inner Product Spaces",
+          "printed_page": 28,
+          "pdf_page": 34
+        },
+        {
+          "id": "1.5.2",
+          "title": "Kernels in a Finite-Dimensional Inner Product Space",
+          "printed_page": 31,
+          "pdf_page": 37
+        },
+        {
+          "id": "1.5.3",
+          "title": "A New Inner Product and the Kernel Trick in Finite Dimensions",
+          "printed_page": 34,
+          "pdf_page": 40
+        },
+        {
+          "id": "1.5.4",
+          "title": "General Kernels",
+          "printed_page": 35,
+          "pdf_page": 41
+        },
+        {
+          "id": "1.5.5",
+          "title": "The Power of the Kernel Trick",
+          "printed_page": 38,
+          "pdf_page": 44
+        },
+        {
+          "id": "1.6",
+          "title": "Chapter Notes",
+          "printed_page": 40,
+          "pdf_page": 46
+        }
+      ],
+      "motivation": "Separate the sampler from its target and its estimator.",
+      "formula": "\\pi P=\\pi,\\qquad \\widehat I_n=\\frac1n\\sum_{k=1}^n f(X_k)",
+      "boundary": "Share measurable kernels, invariance, covariance and integrability. The RKHS kernel of §1.5 is not a Markov transition kernel. Pull §1.3 forward; stochastic calculus is only a prerequisite for the diffusion branch. A Markov law contract is not an existence theorem for a process or semigroup."
+    },
+    {
+      "id": "02",
+      "title": "Reversible MCMC and its Scaling",
+      "printed_page": 42,
+      "pdf_page": 48,
+      "path": "chapter-02.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "2.1",
+          "title": "The Metropolis–Hastings Algorithm",
+          "printed_page": 43,
+          "pdf_page": 49
+        },
+        {
+          "id": "2.1.1",
+          "title": "Component-wise updates and Gibbs moves",
+          "printed_page": 48,
+          "pdf_page": 54
+        },
+        {
+          "id": "2.1.2",
+          "title": "The Metropolis–Hastings Independence Sampler",
+          "printed_page": 49,
+          "pdf_page": 55
+        },
+        {
+          "id": "2.1.3",
+          "title": "The Random Walk Metropolis Algorithm",
+          "printed_page": 50,
+          "pdf_page": 56
+        },
+        {
+          "id": "2.1.4",
+          "title": "The Metropolis-Adjusted Langevin Algorithm",
+          "printed_page": 53,
+          "pdf_page": 59
+        },
+        {
+          "id": "2.2",
+          "title": "Hamiltonian Monte Carlo",
+          "printed_page": 57,
+          "pdf_page": 63
+        },
+        {
+          "id": "2.3",
+          "title": "Chapter Notes",
+          "printed_page": 63,
+          "pdf_page": 69
+        }
+      ],
+      "motivation": "Proposals, invariant kernels, and scaling are different obligations.",
+      "formula": "\\pi(x)q(x,y)\\alpha(x,y)=\\min\\{\\pi(x)q(x,y),\\pi(y)q(y,x)\\}",
+      "boundary": "First prove a correctly normalized Metropolis construction, including rejection mass, support and zero-denominator rules. Gibbs/heat-bath updates use a conditional-law adapter. Random-scan mixtures and deterministic-scan compositions have different reversibility properties. Scaling limits are asymptotic claims, not finite-dimensional guarantees."
+    },
+    {
+      "id": "03",
+      "title": "Stochastic Gradient MCMC Algorithms",
+      "printed_page": 65,
+      "pdf_page": 71,
+      "path": "chapter-03.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "3.1",
+          "title": "The Unadjusted Langevin Algorithm",
+          "printed_page": 65,
+          "pdf_page": 71
+        },
+        {
+          "id": "3.2",
+          "title": "Approximate vs. Exact MCMC",
+          "printed_page": 67,
+          "pdf_page": 73
+        },
+        {
+          "id": "3.3",
+          "title": "Stochastic Gradient Langevin Dynamics",
+          "printed_page": 69,
+          "pdf_page": 75
+        },
+        {
+          "id": "3.3.1",
+          "title": "Controlling Stochasticity in the Gradient Estimator",
+          "printed_page": 72,
+          "pdf_page": 78
+        },
+        {
+          "id": "3.3.2",
+          "title": "Example: The Value of Control Variates",
+          "printed_page": 78,
+          "pdf_page": 84
+        },
+        {
+          "id": "3.3.3",
+          "title": "Convergence Results for Stochastic Gradient Langevin Dynamics",
+          "printed_page": 80,
+          "pdf_page": 86
+        },
+        {
+          "id": "3.4",
+          "title": "A General Framework for stochastic gradient MCMC",
+          "printed_page": 85,
+          "pdf_page": 91
+        },
+        {
+          "id": "3.5",
+          "title": "Guidance for Efficient Scalable Bayesian Learning",
+          "printed_page": 90,
+          "pdf_page": 96
+        },
+        {
+          "id": "3.5.1",
+          "title": "Experiments on a Logistic Regression Model",
+          "printed_page": 92,
+          "pdf_page": 98
+        },
+        {
+          "id": "3.5.2",
+          "title": "Experiments on a Bayesian Neural Network Model",
+          "printed_page": 97,
+          "pdf_page": 103
+        },
+        {
+          "id": "3.6",
+          "title": "Generalisations and Extensions",
+          "printed_page": 100,
+          "pdf_page": 106
+        },
+        {
+          "id": "3.6.1",
+          "title": "Scalable Inference for Models in Constrained Spaces",
+          "printed_page": 100,
+          "pdf_page": 106
+        },
+        {
+          "id": "3.6.2",
+          "title": "Scalable Inference with Time Series Data",
+          "printed_page": 102,
+          "pdf_page": 108
+        },
+        {
+          "id": "3.7",
+          "title": "Chapter Notes",
+          "printed_page": 105,
+          "pdf_page": 111
+        }
+      ],
+      "motivation": "An approximate transition need not preserve the intended target.",
+      "formula": "X_{k+1}=X_k-h\\widehat{\\nabla V}(X_k)+\\sqrt{2h}\\,\\xi_k",
+      "boundary": "Use a stated time convention: this display is ASTIS normalization, not a verbatim equation of the book. Share the ULA recurrence with the Chewi route through a factor-of-two adapter. Fixed-step ULA/SGLD may have invariant-law bias; drift, stochastic-gradient error, discretization and mixing require separate bounds."
+    },
+    {
+      "id": "04",
+      "title": "Non-Reversible MCMC",
+      "printed_page": 106,
+      "pdf_page": 112,
+      "path": "chapter-04.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "4.1",
+          "title": "The Benefits of Non-Reversibility",
+          "printed_page": 106,
+          "pdf_page": 112
+        },
+        {
+          "id": "4.2",
+          "title": "Hamiltonian Monte Carlo Revisited",
+          "printed_page": 109,
+          "pdf_page": 115
+        },
+        {
+          "id": "4.3",
+          "title": "Lifting Schemes for MCMC",
+          "printed_page": 112,
+          "pdf_page": 118
+        },
+        {
+          "id": "4.3.1",
+          "title": "Non-Reversible HMC",
+          "printed_page": 112,
+          "pdf_page": 118
+        },
+        {
+          "id": "4.3.2",
+          "title": "Gustafson’s Algorithm and Multidimensional Generalisations",
+          "printed_page": 113,
+          "pdf_page": 119
+        },
+        {
+          "id": "4.4",
+          "title": "Improving Non-reversibility: Delayed Rejection",
+          "printed_page": 119,
+          "pdf_page": 125
+        },
+        {
+          "id": "4.4.1",
+          "title": "The Discrete Bouncy Particle Sampler",
+          "printed_page": 121,
+          "pdf_page": 127
+        },
+        {
+          "id": "4.5",
+          "title": "Chapter Notes",
+          "printed_page": 124,
+          "pdf_page": 130
+        }
+      ],
+      "motivation": "Preserving a law is weaker than being reversible.",
+      "formula": "\\pi P=\\pi\\quad\\not\\Rightarrow\\quad \\pi(dx)P(x,dy)=\\pi(dy)P(y,dx)",
+      "boundary": "Keep invariance independent of detailed balance. Lifting changes the state, and a marginal target must be proved by projection. Ordinary position-space HMC with the usual symmetrization can be reversible; Hamiltonian dynamics alone is not a blanket nonreversibility certificate. Acceleration depends on an explicit comparator and cost."
+    },
+    {
+      "id": "05",
+      "title": "Continuous-Time MCMC",
+      "printed_page": 126,
+      "pdf_page": 132,
+      "path": "chapter-05.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "5.1",
+          "title": "Continuous-Time MCMC as the Limit of Non-Reversible MCMC",
+          "printed_page": 126,
+          "pdf_page": 132
+        },
+        {
+          "id": "5.2",
+          "title": "Piecewise Deterministic Markov Processes",
+          "printed_page": 129,
+          "pdf_page": 135
+        },
+        {
+          "id": "5.2.1",
+          "title": "What is a PDMP?",
+          "printed_page": 129,
+          "pdf_page": 135
+        },
+        {
+          "id": "5.2.2",
+          "title": "Simulating PDMPs",
+          "printed_page": 130,
+          "pdf_page": 136
+        },
+        {
+          "id": "5.2.3",
+          "title": "The Generator and Invariant Distribution of a PDMP",
+          "printed_page": 134,
+          "pdf_page": 140
+        },
+        {
+          "id": "5.2.4",
+          "title": "The Limiting Process of Section 5.1 as a PDMP",
+          "printed_page": 136,
+          "pdf_page": 142
+        },
+        {
+          "id": "5.3",
+          "title": "Continuous-time MCMC via PDMPs",
+          "printed_page": 139,
+          "pdf_page": 145
+        },
+        {
+          "id": "5.3.1",
+          "title": "Different Samplers",
+          "printed_page": 140,
+          "pdf_page": 146
+        },
+        {
+          "id": "5.3.2",
+          "title": "Use of PDMP Output",
+          "printed_page": 154,
+          "pdf_page": 160
+        },
+        {
+          "id": "5.3.3",
+          "title": "Comparison of Samplers",
+          "printed_page": 155,
+          "pdf_page": 161
+        },
+        {
+          "id": "5.4",
+          "title": "Efficient Simulation of PDMP Samplers",
+          "printed_page": 159,
+          "pdf_page": 165
+        },
+        {
+          "id": "5.4.1",
+          "title": "Simulating PDMPs",
+          "printed_page": 159,
+          "pdf_page": 165
+        },
+        {
+          "id": "5.4.2",
+          "title": "Exploiting Model Sparsity",
+          "printed_page": 165,
+          "pdf_page": 171
+        },
+        {
+          "id": "5.4.3",
+          "title": "Data Subsampling Ideas",
+          "printed_page": 168,
+          "pdf_page": 174
+        },
+        {
+          "id": "5.5",
+          "title": "Extensions",
+          "printed_page": 175,
+          "pdf_page": 181
+        },
+        {
+          "id": "5.5.1",
+          "title": "Discontinuous Target Distribution",
+          "printed_page": 176,
+          "pdf_page": 182
+        },
+        {
+          "id": "5.5.2",
+          "title": "Reversible Jump PDMP Samplers",
+          "printed_page": 179,
+          "pdf_page": 185
+        },
+        {
+          "id": "5.5.3",
+          "title": "More General Velocity Models",
+          "printed_page": 184,
+          "pdf_page": 190
+        },
+        {
+          "id": "5.6",
+          "title": "Chapter Notes",
+          "printed_page": 191,
+          "pdf_page": 197
+        }
+      ],
+      "motivation": "A continuous-time method need not be a diffusion.",
+      "formula": "Lf(z)=b(z)\\cdot\\nabla f(z)+\\lambda(z)\\!\\int\\!(f(z\\prime)-f(z))Q(z,dz\\prime)",
+      "boundary": "PDMPs combine deterministic flows and jumps. Audit event rates, simulation, non-explosion, generator domains and invariant integration. An infinitesimal balance identity does not by itself construct an invariant Markov semigroup. Continuous time and continuous state are independent axes."
+    },
+    {
+      "id": "06",
+      "title": "Assessing and Improving MCMC",
+      "printed_page": 192,
+      "pdf_page": 198,
+      "path": "chapter-06.html",
+      "status": "scaffold",
+      "sections": [
+        {
+          "id": "6.1",
+          "title": "Diagnostics for MCMC",
+          "printed_page": 192,
+          "pdf_page": 198
+        },
+        {
+          "id": "6.1.1",
+          "title": "Convergence Diagnostics",
+          "printed_page": 193,
+          "pdf_page": 199
+        },
+        {
+          "id": "6.1.2",
+          "title": "Bias Diagnostics",
+          "printed_page": 194,
+          "pdf_page": 200
+        },
+        {
+          "id": "6.1.3",
+          "title": "Improved Bias Diagnostics via the Kernel Trick",
+          "printed_page": 197,
+          "pdf_page": 203
+        },
+        {
+          "id": "6.2",
+          "title": "Convergence Bounds for MCMC",
+          "printed_page": 200,
+          "pdf_page": 206
+        },
+        {
+          "id": "6.2.1",
+          "title": "Bounds on Integral Probability Metrics",
+          "printed_page": 200,
+          "pdf_page": 206
+        },
+        {
+          "id": "6.2.2",
+          "title": "Choice of Auxiliary Markov Process",
+          "printed_page": 203,
+          "pdf_page": 209
+        },
+        {
+          "id": "6.2.3",
+          "title": "Kernel Stein Discrepancy",
+          "printed_page": 205,
+          "pdf_page": 211
+        },
+        {
+          "id": "6.2.4",
+          "title": "Convergence Control",
+          "printed_page": 210,
+          "pdf_page": 216
+        },
+        {
+          "id": "6.2.5",
+          "title": "Stochastic Gradient Stein Discrepancy",
+          "printed_page": 216,
+          "pdf_page": 222
+        },
+        {
+          "id": "6.3",
+          "title": "Optimal Weights for MCMC",
+          "printed_page": 218,
+          "pdf_page": 224
+        },
+        {
+          "id": "6.4",
+          "title": "Optimal Thinning for MCMC",
+          "printed_page": 223,
+          "pdf_page": 229
+        },
+        {
+          "id": "6.5",
+          "title": "Chapter Notes",
+          "printed_page": 224,
+          "pdf_page": 230
+        }
+      ],
+      "motivation": "Sampling error, estimator variance and diagnostics are distinct.",
+      "formula": "\\sigma_f^2=\\operatorname{Var}_\\pi(f)+2\\sum_{k\\ge1}\\operatorname{Cov}_\\pi(f(X_0),f(X_k))",
+      "boundary": "The covariance series needs stationary sampling and summability; a CLT needs its own assumptions. Diagnostics are not automatic finite-sample certificates. Distinguish Monte Carlo iterations n, data count N and dimension d. Share IPM/transport and covariance tools without treating dependent samples as IID."
+    }
+  ],
+  "extensions": [
+    {
+      "id": "E1",
+      "parent_chapter": "01",
+      "path": "extended-e1.html",
+      "title": "General-state convergence: drift, minorisation and coupling",
+      "source_ids": [
+        "mcmc-rr",
+        "mcmc-qin"
+      ],
+      "primary_connection": "Primary §1.3; Roberts–Rosenthal §§2–4 (PDF pp.4–32).",
+      "status": "source-backed-outline",
+      "motivation": "Stationarity is only the starting point. Determine from which states the law converges, and whether the rate is qualitative, geometric or uniform.",
+      "formula": "PV\\le aV+b\\mathbf1_C,\\qquad P^m(x,\\cdot)\\ge\\epsilon\\nu(\\cdot)\\ (x\\in C)",
+      "proof_route": [
+        "Audit the measurable state and reference measure.",
+        "Keep invariance separate from irreducibility and aperiodicity.",
+        "Build the small-set coupling from the exact minorisation.",
+        "Combine drift and returns to obtain the source-specific bound."
+      ],
+      "truth_boundary": "Do not infer mixing from detailed balance alone. Preserve exceptional null starting sets, small-set conditions and theorem quantifiers; the displayed conditions are a blueprint, not a complete theorem.",
+      "consumers": [
+        "mcmc",
+        "discrete-sampling",
+        "log-concave-sampling"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E2",
+      "parent_chapter": "01",
+      "path": "extended-e2.html",
+      "title": "Ergodic averages, Poisson equations and CLTs",
+      "source_ids": [
+        "mcmc-rr"
+      ],
+      "primary_connection": "Primary §1.3.2; Roberts–Rosenthal §5 (PDF pp.33–41).",
+      "status": "source-backed-outline",
+      "motivation": "Estimating an expectation from a dependent path is not the same problem as drawing one nearly stationary sample.",
+      "formula": "(I-P)g=f-\\pi(f)",
+      "proof_route": [
+        "Check integrability and centering.",
+        "Search shared covariance and L2 interfaces.",
+        "Use the source Poisson equation or regeneration route.",
+        "Retain variance existence and CLT assumptions explicitly."
+      ],
+      "truth_boundary": "Do not replace dependent output by IID samples. A small TV error for a marginal law does not prove an estimator CLT or an effective-sample-size formula.",
+      "consumers": [
+        "mcmc",
+        "statistical-optimal-transport"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E3",
+      "parent_chapter": "02",
+      "path": "extended-e3.html",
+      "title": "Optimal scaling beyond product targets",
+      "source_ids": [
+        "mcmc-yrr",
+        "mcmc-rr"
+      ],
+      "primary_connection": "Primary §2.1.3; Yang–Roberts–Rosenthal §§2–3 (PDF pp.4–16); RR §6.",
+      "status": "source-backed-outline",
+      "motivation": "Separate a high-dimensional optimization criterion from finite-dimensional convergence.",
+      "formula": "\\operatorname{ESJD}=\\mathbb E[\\|X_{k+1}-X_k\\|^2]",
+      "proof_route": [
+        "Fix the sequence of target laws and proposal scaling.",
+        "Audit ESJD and acceptance-limit assumptions.",
+        "Check stronger conditions needed for a diffusion limit.",
+        "Translate time scaling and cost only through a separate argument."
+      ],
+      "truth_boundary": "The 0.234 acceptance limit is not a universal tuning theorem. A weak diffusion limit is not by itself a nonasymptotic mixing bound; correlated targets still need the exact source conditions.",
+      "consumers": [
+        "mcmc",
+        "log-concave-sampling",
+        "optimisation"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E4",
+      "parent_chapter": "02",
+      "path": "extended-e4.html",
+      "title": "Hamiltonian proposals and geometric adapters",
+      "source_ids": [
+        "mcmc-neal"
+      ],
+      "primary_connection": "Primary §2.2; geometric comparisons also read Chapter 4.",
+      "status": "source-backed-outline",
+      "motivation": "Explain why deterministic numerical trajectories can be used inside an exact-target Markov kernel.",
+      "formula": "H(x,p)=V(x)+\\tfrac12p^TM^{-1}p",
+      "proof_route": [
+        "Introduce the extended target and momentum law.",
+        "Check reversibility/involution and volume or Jacobian conditions.",
+        "Apply the acceptance construction on the extended state.",
+        "Prove the desired marginal by projection."
+      ],
+      "truth_boundary": "A Riemannian mass matrix requires determinant/volume and position-dependent corrections. A plain gradient replacement is not Riemannian HMC; no blanket acceleration or nonreversibility claim.",
+      "consumers": [
+        "mcmc",
+        "riemannian-optimization",
+        "log-concave-sampling"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E5",
+      "parent_chapter": "02",
+      "path": "extended-e5.html",
+      "title": "Convex-body MCMC: Hit-and-Run",
+      "source_ids": [
+        "mcmc-geometry"
+      ],
+      "primary_connection": "Primary §2.1 kernel construction; Vempala §6; cross-link Chewi constrained-sampling topics.",
+      "status": "source-backed-outline",
+      "motivation": "The same continuous state space can support a geometric random walk rather than a Langevin proposal.",
+      "formula": "X_{k+1}\\mid(X_k,u)\\sim\\operatorname{Unif}(K\\cap(X_k+\\mathbb Ru))",
+      "proof_route": [
+        "Require a full-dimensional convex body with finite positive volume.",
+        "Build a measurable random-direction/chord conditional kernel.",
+        "Prove target invariance and required reversibility.",
+        "Use isoperimetry/conductance with the source start and oracle model."
+      ],
+      "truth_boundary": "Uniform on a convex body is log-concave with extended potential, but not a smooth unconstrained potential. Boundary, rounding, warm start and chord-oracle costs remain explicit. Historical survey bounds are not claimed to be current best bounds.",
+      "consumers": [
+        "mcmc",
+        "log-concave-sampling",
+        "optimisation"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E6",
+      "parent_chapter": "03",
+      "path": "extended-e6.html",
+      "title": "Perturbed kernels: approximation versus exact invariance",
+      "source_ids": [
+        "mcmc-perturbation"
+      ],
+      "primary_connection": "Primary §§3.1–3.3; pinned perturbations §19.2–§19.3.",
+      "status": "source-backed-outline",
+      "motivation": "A cheap transition may approximate an ideal chain while introducing a persistent target bias.",
+      "formula": "d(\\mu\\widetilde P^n,\\pi)\\le d(\\mu\\widetilde P^n,\\mu P^n)+d(\\mu P^n,\\pi)",
+      "proof_route": [
+        "State the ideal and implemented kernels separately.",
+        "Pin the discrepancy, initialization and local error.",
+        "Prove stability/error propagation rather than assume it.",
+        "Combine with the ideal mixing bound and report total work."
+      ],
+      "truth_boundary": "Invariant-law bias need not vanish at a fixed step size. Small local error alone does not give a uniform-in-time bound. General-state drift norms and Wasserstein metrics require separate adapters.",
+      "consumers": [
+        "mcmc",
+        "log-concave-sampling",
+        "statistical-optimal-transport"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E7",
+      "parent_chapter": "04",
+      "path": "extended-e7.html",
+      "title": "Lifting, bouncy dynamics and PDMP limits",
+      "source_ids": [
+        "mcmc-bouncy",
+        "mcmc-neal"
+      ],
+      "primary_connection": "Primary Chapters 4–5; refreshment-limit source candidate.",
+      "status": "source-backed-outline",
+      "motivation": "Changing the state and clock connects deterministic proposals and event-driven samplers, but not via an unconditional equivalence.",
+      "formula": "(X,V)\\longmapsto X",
+      "proof_route": [
+        "Specify the augmented law and its projection.",
+        "Audit deterministic flow and jump/refreshment kernels.",
+        "State the exact limiting regime.",
+        "Only compare efficiency under a fixed observable and cost."
+      ],
+      "truth_boundary": "Nonreversibility is not uniformly faster. HMC may be reversible at the position-kernel level. A limit theorem is neither equality of finite algorithms nor an identity/composition certificate.",
+      "consumers": [
+        "mcmc",
+        "log-concave-sampling",
+        "riemannian-optimization"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E8",
+      "parent_chapter": "06",
+      "path": "extended-e8.html",
+      "title": "Run length, diagnostics and quantitative guarantees",
+      "source_ids": [
+        "mcmc-runlength",
+        "mcmc-qin",
+        "mcmc-rr"
+      ],
+      "primary_connection": "Primary §§6.1–6.2; RR §§3–5.",
+      "status": "source-backed-outline",
+      "motivation": "Separate a useful diagnostic from a theorem that controls a stated error.",
+      "formula": "\\|\\mathcal L(X_n)-\\pi\\|_{\\rm TV}\\le\\varepsilon",
+      "proof_route": [
+        "Choose marginal-law error or estimator error.",
+        "Record assumptions behind a bound.",
+        "Keep diagnostic heuristics labelled.",
+        "Separate initialization, iteration count, dimension and data size."
+      ],
+      "truth_boundary": "A diagnostic threshold alone cannot certify stationarity or a CLT for every target; do not infer an oracle lower bound from a poor chain.",
+      "consumers": [
+        "mcmc",
+        "samplewiki"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E9",
+      "parent_chapter": "06",
+      "path": "extended-e9.html",
+      "title": "Coupling for unbiased MCMC estimates",
+      "source_ids": [
+        "mcmc-unbiased"
+      ],
+      "primary_connection": "Primary §6.1–§6.3; coupled estimator extension.",
+      "status": "source-backed-outline",
+      "motivation": "Use coupling not just to bound mixing, but to construct an unbiased expectation estimator.",
+      "formula": "\\mathbb E[H]=\\pi(f)",
+      "proof_route": [
+        "Build a coupling with correct marginals.",
+        "State meeting and faithful-sticking requirements.",
+        "Prove telescoping and justify exchanging expectation and series.",
+        "Prove finite moments and expected cost separately."
+      ],
+      "truth_boundary": "An unbiased estimator is not an exact independent sample from the target. Almost-sure meeting alone does not ensure finite variance or finite expected work.",
+      "consumers": [
+        "mcmc",
+        "statistical-optimal-transport",
+        "discrete-sampling"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    },
+    {
+      "id": "E10",
+      "parent_chapter": "06",
+      "path": "extended-e10.html",
+      "title": "Control variates and expectation-preserving corrections",
+      "source_ids": [
+        "mcmc-cv"
+      ],
+      "primary_connection": "Primary §§1.1.4,3.3.1,6.3; MCMC control-variates chapter.",
+      "status": "source-backed-outline",
+      "motivation": "Reuse zero-mean identities while keeping a fitted correction distinct from a target-preserving transition.",
+      "formula": "\\pi(f-c)=\\pi(f)\\quad\\text{when }\\pi(c)=0",
+      "proof_route": [
+        "Audit integrability and a genuine zero-mean identity.",
+        "Compare stationary asymptotic variance, not just pointwise variance.",
+        "Check training and evaluation dependence.",
+        "Preserve any boundary terms in generator/Stein identities."
+      ],
+      "truth_boundary": "Variance reduction is not automatically guaranteed by a zero mean. A fitted correction can introduce bias; a formal generator identity requires its domain and integration-by-parts assumptions.",
+      "consumers": [
+        "mcmc",
+        "optimisation",
+        "statistical-optimal-transport"
+      ],
+      "attribution": "ASTIS extended material, not a chapter of Fearnhead–Nemeth–Oates–Sherlock. No Lean closure asserted."
+    }
+  ],
+  "sources": {
+    "mcmc-primary": {
+      "title": "Scalable Monte Carlo for Bayesian Learning",
+      "authors": [
+        "Paul Fearnhead",
+        "Christopher Nemeth",
+        "Chris J. Oates",
+        "Chris Sherlock"
+      ],
+      "url": "https://arxiv.org/pdf/2407.12751v1",
+      "anchor": "Chapters 1–6; arXiv preprint, 2024 (separate from published book pagination)",
+      "role": "controlling primary textbook",
+      "pin_status": "version-and-sha256-pinned",
+      "version": "2407.12751v1",
+      "sha256": "60ecdd243a5815771332b5461e7eae59d41242933e53a721785870b6877f008f",
+      "pdf_pages": 244
+    },
+    "mcmc-rr": {
+      "title": "General state space Markov chains and MCMC algorithms",
+      "authors": [
+        "Gareth O. Roberts",
+        "Jeffrey S. Rosenthal"
+      ],
+      "url": "https://arxiv.org/pdf/math/0404033v4",
+      "anchor": "§2 construction; §§3–4 convergence/drift/coupling; §5 CLT; §6 scaling. Probability Surveys 1 (2004), 20–71; arXiv v4 (2007).",
+      "role": "required general-state rigor supplement",
+      "pin_status": "version-and-sha256-pinned",
+      "version": "math/0404033v4",
+      "sha256": "0c7bddb799b48b4cf8ce7f164292a96d4ebb107b279bf6dd620a2d226526c743",
+      "pdf_pages": 52
+    },
+    "mcmc-yrr": {
+      "title": "Optimal Scaling of Random-Walk Metropolis Algorithms on General Target Distributions",
+      "authors": [
+        "Jun Yang",
+        "Gareth O. Roberts",
+        "Jeffrey S. Rosenthal"
+      ],
+      "url": "https://arxiv.org/pdf/1904.12157v3",
+      "anchor": "§§2–3: optimal ESJD and diffusion limits; assumptions differ between results",
+      "role": "scaling extension",
+      "pin_status": "version-and-sha256-pinned",
+      "version": "1904.12157v3",
+      "sha256": "a09160e2f3d20128ed914f63b7dfe3fbcb3d11a319a7ce0ccb3e1738f1513310",
+      "pdf_pages": 45
+    },
+    "mcmc-neal": {
+      "title": "MCMC using Hamiltonian dynamics",
+      "authors": [
+        "Radford M. Neal"
+      ],
+      "url": "https://arxiv.org/pdf/1206.1901v1",
+      "anchor": "Hamiltonian dynamics, volume preservation and Metropolis-corrected integrators; pinpoint each theorem before formalization",
+      "role": "extended source",
+      "pin_status": "version-pinned; theorem-level audit pending",
+      "version": "1206.1901v1"
+    },
+    "mcmc-geometry": {
+      "title": "Geometric Random Walks: A Survey",
+      "authors": [
+        "Santosh Vempala"
+      ],
+      "url": "https://sites.cc.gatech.edu/fac/vempala/papers/survey.pdf",
+      "anchor": "§§2–4 foundations and isoperimetry; §6 Mixing of Hit-and-Run (PDF pp.25–26); historical claims are edition-scoped",
+      "role": "extended source",
+      "pin_status": "public author manuscript; byte pin required before theorem use"
+    },
+    "mcmc-perturbation": {
+      "title": "Perturbations of Markov Chains",
+      "authors": [
+        "Daniel Rudolf",
+        "Aaron Smith",
+        "Matias Quiroz"
+      ],
+      "url": "https://arxiv.org/html/2404.10251v1",
+      "anchor": "§19.2 Basic Principles and §19.3 Survey of Mathematical Results in this pinned preprint; handbook chapter numbering may differ",
+      "role": "extended source",
+      "pin_status": "version-pinned; theorem-level audit pending",
+      "version": "2404.10251v1"
+    },
+    "mcmc-bouncy": {
+      "title": "MCMC using bouncy Hamiltonian dynamics: A unifying framework for Hamiltonian Monte Carlo and piecewise deterministic Markov process samplers",
+      "authors": [
+        "Andrew Chin",
+        "Akihiko Nishimura"
+      ],
+      "url": "https://arxiv.org/abs/2405.08290v1",
+      "anchor": "Dynamics construction and frequent-refreshment limit; source-level extension candidate, exact theorem audit pending",
+      "role": "extended source",
+      "pin_status": "version-pinned; theorem-level audit pending",
+      "version": "2405.08290v1"
+    },
+    "mcmc-qin": {
+      "title": "Convergence Bounds for Monte Carlo Markov Chains",
+      "authors": [
+        "Qian Qin"
+      ],
+      "url": "https://arxiv.org/abs/2409.14656v1",
+      "anchor": "Handbook contribution on quantitative convergence; theorem-level anchor required for each bound",
+      "role": "extended source",
+      "pin_status": "version-pinned; theorem-level audit pending",
+      "version": "2409.14656v1"
+    },
+    "mcmc-runlength": {
+      "title": "For how many iterations should we run Markov chain Monte Carlo?",
+      "authors": [
+        "Charles C. Margossian",
+        "Andrew Gelman"
+      ],
+      "url": "https://arxiv.org/abs/2311.02726v1",
+      "anchor": "Run length and convergence diagnostics; not a universal finite-time certificate",
+      "role": "extended source",
+      "pin_status": "version-pinned; theorem-level audit pending",
+      "version": "2311.02726v1"
+    },
+    "mcmc-unbiased": {
+      "title": "Unbiased Markov Chain Monte Carlo: what, why, and how",
+      "authors": [
+        "Yves F. Atchadé",
+        "Pierre E. Jacob"
+      ],
+      "url": "https://arxiv.org/html/2406.06851v1",
+      "anchor": "Coupled-chain estimators, meeting times and moment assumptions",
+      "role": "extended source",
+      "pin_status": "version-pinned; theorem-level audit pending",
+      "version": "2406.06851v1"
+    },
+    "mcmc-cv": {
+      "title": "Control Variates for MCMC",
+      "authors": [
+        "Leah South",
+        "Matthew Sutton"
+      ],
+      "url": "https://arxiv.org/abs/2402.07349v1",
+      "anchor": "Control variates and zero-mean identities; estimator validity and learning bias must be checked",
+      "role": "extended source",
+      "pin_status": "version-pinned; theorem-level audit pending",
+      "version": "2402.07349v1"
+    }
+  },
+  "source_policy": "Pin exact statements before formalization. Public access is not a claim of an open-source license; link and paraphrase, do not republish books. Extended pages are ASTIS organization, not primary book chapters."
+}

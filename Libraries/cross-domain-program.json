@@ -10,7 +10,8 @@
       "parents": [],
       "consumers": [
         "all",
-        "discrete-sampling"
+        "discrete-sampling",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Pin measures, spaces, norms, constants, metrics, input access, randomness, output error and source editions before comparing or sharing routes.",
@@ -27,7 +28,8 @@
         "optimisation",
         "riemannian-optimization",
         "statistical-optimal-transport",
-        "discrete-sampling"
+        "discrete-sampling",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Coordinates, inner products, norms, symmetric/PSD matrices and quadratic-energy conventions used repeatedly in the first textbook window.",
@@ -44,7 +46,8 @@
         "statistical-optimal-transport",
         "samplewiki-route",
         "higher-order-sampling",
-        "discrete-sampling"
+        "discrete-sampling",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Probability normalization, pushforwards, products, marginal transfer, finite moments and deterministic-map versus kernel interfaces.",
@@ -59,7 +62,8 @@
       "consumers": [
         "discrete-sampling",
         "log-concave-sampling",
-        "statistical-optimal-transport"
+        "statistical-optimal-transport",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "One measurable-kernel, composition and stationarity API with finite PMF adapters. No spatial differentiation is required.",
@@ -76,7 +80,8 @@
         "log-concave-sampling",
         "optimisation",
         "riemannian-optimization",
-        "statistical-optimal-transport"
+        "statistical-optimal-transport",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Scalar differential/recurrence comparison after the consumer proves its own dissipation identity. No manifold, OT, SDE or strong-convexity prerequisite.",
@@ -94,7 +99,8 @@
         "optimisation",
         "riemannian-optimization",
         "statistical-optimal-transport",
-        "higher-order-sampling"
+        "higher-order-sampling",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Source-neutral normed-space derivative/gradient/chain-rule interfaces; manifold and stochastic adapters remain explicit.",
@@ -112,7 +118,8 @@
         "optimisation",
         "statistical-optimal-transport",
         "riemannian-optimization",
-        "samplewiki-route"
+        "samplewiki-route",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "One Euclidean convex/subgradient/strong-convexity core; log-concavity, geodesic convexity, mixture convexity and displacement convexity are typed adapters or separate statements.",
@@ -128,7 +135,8 @@
       "consumers": [
         "log-concave-sampling",
         "statistical-optimal-transport",
-        "discrete-sampling"
+        "discrete-sampling",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Shared coupling membership, marginal bookkeeping, p-moment costs, deterministic couplings and metric identities needed by OT Chapter 1 and Sampling §1.3 before route-local transport code is written.",
@@ -159,7 +167,8 @@
       ],
       "consumers": [
         "discrete-sampling",
-        "log-concave-sampling"
+        "log-concave-sampling",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Pull §3 forward: detailed balance, weighted L2 and Dirichlet identities; pair them with shared coercivity/decay without a diffusion chain rule. Fix P^k versus exp(t(P-I)), all rates and periodicity.",
@@ -189,7 +198,8 @@
       ],
       "consumers": [
         "log-concave-sampling",
-        "samplewiki-route"
+        "samplewiki-route",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Consume shared kernel algebra, then prove diffusion generator domains and integration by parts. Finite chains use finite-dirichlet and never wait for this spatial-calculus branch.",
@@ -253,7 +263,8 @@
         "log-concave-sampling",
         "samplewiki-route",
         "statistical-optimal-transport",
-        "discrete-sampling"
+        "discrete-sampling",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Common entropy/KL/convex core supports Sampling Chapter 2, OT Chapter 4 and proximal/MFLD routes; invariant-law and semigroup claims remain separate.",
@@ -273,7 +284,8 @@
         "optimisation",
         "riemannian-optimization",
         "statistical-optimal-transport",
-        "samplewiki-route"
+        "samplewiki-route",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "Share scalar energy-dissipation/Gronwall patterns first; connect Euclidean, Riemannian and Wasserstein flows only through explicit adapters whose hypotheses are proved.",
@@ -287,7 +299,8 @@
         "concentration"
       ],
       "consumers": [
-        "statistical-optimal-transport"
+        "statistical-optimal-transport",
+        "mcmc"
       ],
       "status": "planned-reuse-audit",
       "target": "OT Chapters 2-3 empirical/statistical leaves and 7-8 metric geometry branch. Statistical observation count n is never identified with sampling oracle cost.",
@@ -351,6 +364,52 @@
       "status": "planned-reuse-audit",
       "target": "Separate variance and entropy factorization, gap and mLSI, then audited Ising/hard-core/matroid adapters. §12 cited results require external proof completion.",
       "search": "Primary §§4-12; LPW; Chen-Liu-Vigoda and Blanca et al.; exact graph/temperature/clock contracts"
+    },
+    {
+      "id": "mcmc-invariance",
+      "title": "MCMC kernel construction and target invariance",
+      "parents": [
+        "kernel-algebra"
+      ],
+      "consumers": [
+        "mcmc",
+        "discrete-sampling",
+        "log-concave-sampling"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "General measurable kernels, MH rejection mass/support and conditional-update invariance. Keep path existence and mixing separate.",
+      "search": "Existing Probability/ConditionalKernel, StochasticProcesses; pinned Mathlib Kernel; RR §2"
+    },
+    {
+      "id": "mcmc-ergodicity",
+      "title": "General-state drift, minorisation and coupling",
+      "parents": [
+        "mcmc-invariance",
+        "scalar-decay"
+      ],
+      "consumers": [
+        "mcmc",
+        "discrete-sampling",
+        "log-concave-sampling"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Source-specific geometric/uniform ergodicity; finite-state adapter does not require SDEs.",
+      "search": "RR §§3–4; pinned Mathlib measures, stopping times and coupling APIs"
+    },
+    {
+      "id": "mcmc-estimation",
+      "title": "Correlated averages and Poisson/CLT layer",
+      "parents": [
+        "mcmc-ergodicity",
+        "linear-algebra"
+      ],
+      "consumers": [
+        "mcmc",
+        "statistical-optimal-transport"
+      ],
+      "status": "planned-reuse-audit",
+      "target": "Prove covariance/Poisson/regeneration hypotheses for estimator error, not only marginal mixing.",
+      "search": "RR §5; shared covariance and integral interfaces"
     }
   ]
 }

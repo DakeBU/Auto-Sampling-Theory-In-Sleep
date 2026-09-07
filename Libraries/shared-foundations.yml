@@ -152,3 +152,18 @@ checkpoints:
 canonical_declarations: []
 shared_dependency_plan: /Libraries/cross-domain-program.json
 transport_policy: conceptual correspondence never identifies Lean declarations without a compatibility proof
+
+# MCMC readers use the same source-neutral floor; these are plans, not certificates.
+mcmc_shared_floor:
+  source: /Libraries/MCMC/source-map.json
+  protocol: /docs/mcmc-library-protocol.md
+  priorities:
+    - target: "General-state MH flux / detailed-balance / invariance contract"
+      consumers: [mcmc, discrete-sampling, log-concave-sampling]
+      action: "Search Samplinglib and pinned Mathlib kernels; handle singular/zero-support adapters explicitly"
+    - target: "Drift/minorisation and coupling; scalar decay without diffusion assumptions"
+      consumers: [mcmc, discrete-sampling, log-concave-sampling]
+      action: "Roberts-Rosenthal math/0404033v4 sections 3-4; one canonical shared cell"
+    - target: "Ergodic averages / Poisson equations / estimator variance"
+      consumers: [mcmc, discrete-sampling]
+      action: "Keep invariant-law accuracy and Monte Carlo estimation error as separate obligations"

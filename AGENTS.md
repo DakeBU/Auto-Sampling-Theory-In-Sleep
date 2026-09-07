@@ -376,3 +376,13 @@ Pull §3 foundations forward; use shared kernel/scalar/entropy cores without wai
 for SDEs. Every discrete route or shared discrete-consumer cell must carry
 `discrete_state_contract`. The existing schema-v3 conceptual-mirror audit and independent
 verification gates apply unchanged. Candidate bridge display is not validated admission.
+
+## MCMC method / target perspective
+
+Read `docs/mcmc-library-protocol.md`, `Libraries/MCMC/source-map.json` and
+`website/content/sampling_perspectives.json`. MCMC is a method family; target
+log-concavity, discrete state space and geometric/optimization lenses are distinct
+axes. Keep source membership / planned-reuse colour independent of proof status.
+Roberts–Rosenthal math/0404033v4 supplies general-state rigor; it is not merely a
+bibliographic mention. Exact invariance, convergence, estimator error and numerical
+bias are different obligations. Extend existing shared nodes before defining copies.

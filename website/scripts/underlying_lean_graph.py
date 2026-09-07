@@ -29,6 +29,7 @@ from underlying_lean_graph_model import (
 from underlying_lean_graph_semantic import add_semantic
 from underlying_lean_graph_textbook import add_textbook
 import cross_domain
+import sampling_perspectives
 
 
 def build_graph(output: Path) -> dict[str, Any]:
@@ -42,7 +43,9 @@ def build_graph(output: Path) -> dict[str, Any]:
     semantic = add_semantic(builder, semantic_registry)
     functor = cross_domain.add_to_graph(builder)
     memory = cross_domain.load(cross_domain.GRAPH_MEMORY_PATH)
+    scope_metadata = sampling_perspectives.apply_to_graph(builder)
     graph = builder.export()
+    graph["library_scope_metadata"] = scope_metadata
     graph["schema_version"] = 3
     graph["hyperedges"] = functor["hyperedges"]
     graph["conceptual_transport_contract"] = functor["certification_policy"]
@@ -81,12 +84,14 @@ def main_html(counts: dict[str, Any]) -> str:
     <div><h1>{LABEL}</h1><p>Read the same project at three epistemic resolutions: <strong>Overview Graph</strong> for source/routes/shared stages, <strong>Lean Branches Graph</strong> for compiler-backed declarations and dependencies, and <strong>Functor Hypergraph</strong> for source-backed recurring mathematical mechanisms such as curvature, PL/LSI and Poincaré/χ² mirrors. The views share stable ids but never share truth status automatically.</p></div>
     <dl><div><dt>{counts.get('chapters', 0)}</dt><dd>sampling chapters</dd></div><div><dt>{counts.get('lean_modules', 0)}</dt><dd>Lean modules</dd></div><div><dt>{counts.get('conceptual_families', 0)}</dt><dd>concept families</dd></div><div><dt>{counts.get('conceptual_hyperedges', 0)}</dt><dd>typed bridges</dd></div><div><dt>{counts.get('samplewiki_cases', 0)}</dt><dd>frontier results</dd></div><div><dt>{counts.get('semantic_audits', 0)}</dt><dd>round-trip audits</dd></div></dl>
   </div>
-  <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite → consumer. <strong>Solid edges</strong> are compiler-backed Lean/module/declaration structure; <strong>dashed edges</strong> are curated textbook, source-audit, proof-route, SampleWiki, semantic-review, or conceptual-mirror overlays. <strong>Compilation proves the Lean proposition only:</strong> source fidelity additionally requires source review. A Functor Hypergraph mirror may organize memory, but it never becomes a formal Lean edge or certified functor by visual proximity.</p>
+  <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite → consumer in the proof views; Methods × targets edges carry their own taxonomy/applicability labels, not proof implications. <strong>Solid edges</strong> are compiler-backed Lean/module/declaration structure; <strong>dashed edges</strong> are curated textbook, source-audit, proof-route, SampleWiki, semantic-review, or conceptual-mirror overlays. <strong>Compilation proves the Lean proposition only:</strong> source fidelity additionally requires source review. A Functor Hypergraph mirror may organize memory, but it never becomes a formal Lean edge or certified functor by visual proximity.</p>
 </section>
 <section class="ulg-shell">
   <div class="ulg-toolbar">
-    <div class="ulg-presets" role="group" aria-label="Graph view"><button class="active" data-view="overview">Overview Graph</button><button data-view="textbook">Textbook · 12 chapters</button><button data-view="frontier">SampleWiki frontier</button><button data-view="lean">Lean Branches Graph</button><button data-view="semantic">Semantic fidelity & repair</button><button data-view="functor">Functor Hypergraph</button></div>
+    <div class="ulg-presets" role="group" aria-label="Graph view"><button class="active" data-view="overview">Overview Graph</button><button data-view="textbook">Textbook · 12 chapters</button><button data-view="frontier">SampleWiki frontier</button><button data-view="lean">Lean Branches Graph</button><button data-view="semantic">Semantic fidelity & repair</button><button data-view="functor">Functor Hypergraph</button><button data-view="perspectives">Methods × targets</button></div>
     <label class="ulg-search"><span>Search theorem, family, bridge, paper, module, declaration, semantic delta, or repair</span><input type="search" data-graph-search placeholder="e.g. metric-gradient-flow, PL, LSI, Fisher, Theorem 8.4.1"></label>
+    <div class="ulg-scope-controls"><label>Colour by <select data-graph-color aria-label="Graph colouring"><option value="status">Evidence status</option><option value="library">Library scope / shared</option></select></label><p>Scope colours show source affiliation or planned reuse, not verified multi-textbook consumption. Evidence dots and solid/dashed edge semantics are unchanged.</p></div>
+    <div class="ulg-scope-legend" data-scope-legend hidden></div>
     <div class="ulg-actions"><button data-graph-fit>Fit</button><button data-graph-reset>Reset</button><span data-graph-count></span></div>
   </div>
   <div class="ulg-stage"><div class="ulg-canvas" data-graph-canvas tabindex="0"><svg data-graph-svg role="img" aria-label="Interactive Lean and conceptual dependency graph"></svg><p data-graph-empty hidden>No matching branch.</p><small>Drag to pan · wheel to zoom · click a node to highlight its immediate prerequisites/consumers while retaining surrounding context · Esc clears focus.</small></div><aside class="ulg-detail" data-graph-detail aria-live="polite"><div class="ulg-placeholder"><span>Branch inspector</span><h2>Select a node.</h2><p>Source statement, conceptual family, semantic deltas, proof equations, exact Lean leaves, prerequisites, consumers, and reader links appear here.</p></div></aside></div>

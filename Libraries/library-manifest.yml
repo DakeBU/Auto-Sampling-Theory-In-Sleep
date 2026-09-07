@@ -50,3 +50,12 @@ libraries:
     site: /libraries/discrete-sampling/
     state_space: finite-discrete
     protocol: /docs/discrete-sampling-protocol.md
+
+  - id: mcmc
+    title: Markov Chain Monte Carlo
+    kind: textbook
+    source: https://arxiv.org/pdf/2407.12751v1
+    priority: scaffold
+    chapters: 6
+    source_map: /Libraries/MCMC/source-map.json
+    site: /libraries/mcmc/
