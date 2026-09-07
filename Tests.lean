@@ -40,6 +40,7 @@ import Tests.ItoIntegralProcess
 import Tests.ItoIntegralProcessAfterHorizon
 import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
+import Tests.KernelInvariance
 import Tests.LangevinCarreDuChamp
 import Tests.LaggedDyadicApproximation
 import Tests.LaggedDyadicConvergence
