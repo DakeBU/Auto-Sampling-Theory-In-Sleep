@@ -1,6 +1,7 @@
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
 import AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductPairMarginal
 import AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductSupport
+import AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 import AutoSamplingTheory.TechnicalLemmas.Probability.NormalizedFiniteMeasure
 import AutoSamplingTheory.TechnicalLemmas.Probability.NormalizedFiniteMeasureIntegral
@@ -11,7 +12,7 @@ import AutoSamplingTheory.TechnicalLemmas.Probability.UniformExpectationGap
 
 Parent import surface for Mathlib-ready probability lemmas used by ASTIS:
 law-map rewrites, weak-test integral transport, conditional-kernel bridges,
-normalization/support and finite-mass integral scaling facts, one- and
-two-coordinate finite-product probability laws, probability-one support boxes,
-and uniform almost-sure expectation gaps.
+kernel invariance under finite powers, normalization/support and finite-mass
+integral scaling facts, one- and two-coordinate finite-product probability laws,
+probability-one support boxes, and uniform almost-sure expectation gaps.
 -/
