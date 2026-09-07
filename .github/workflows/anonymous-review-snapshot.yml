@@ -57,7 +57,12 @@ jobs:
 
       - name: Test Harness, source, semantic, graph, discrete, and MCMC contracts
         run: |
+          # Run the Harness internals directly instead of `astis.py harness-test`.
+          # The latter discovers every public-project regression, including the
+          # intentional live-site author-membership check, which must not hold on
+          # a double-blind review branch.
           python3 -m unittest \
+            tools.tests.test_astis_harness \
             tools.tests.test_astis_formalizer \
             tools.tests.test_astis_source \
             tools.tests.test_astis_advance \
@@ -69,7 +74,6 @@ jobs:
             tools.tests.test_cross_domain_program \
             tools.tests.test_discrete_sampling \
             tools.tests.test_mcmc_library
-          python3 tools/astis.py harness-test
 
       - name: Validate pinned external retrieval memory
         run: python3 tools/atlas_memory.py check --source .atlas-upstream/v1 --require-source
