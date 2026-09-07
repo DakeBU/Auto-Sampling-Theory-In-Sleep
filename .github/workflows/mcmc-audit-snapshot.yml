@@ -1,35 +1,50 @@
-name: MCMC integration audit snapshot
+name: MCMC tested integration
 on:
   push:
     branches: [feat/mcmc-library-perspectives]
     paths: [.github/workflows/mcmc-audit-snapshot.yml]
 permissions:
-  contents: read
+  contents: write
 jobs:
-  snapshot:
+  integrate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: false
-      - name: Export source and version-pinned public references
+          fetch-depth: 0
+      - name: Verify baseline and exact tested source patch
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          mkdir -p /tmp/mcmc-audit
-          git archive --format=tar HEAD > /tmp/mcmc-audit/source.tar
+          test "$(git rev-parse origin/main)" = 0a561cb24109aafc38057992742b62547abd2cd6
+          git diff --exit-code 0a561cb24109aafc38057992742b62547abd2cd6 HEAD -- . ':!.github/workflows/mcmc-audit-snapshot.yml'
           python3 - <<'PY'
-          import urllib.request, hashlib, json
+          import base64, hashlib, json, lzma, os, urllib.request
           from pathlib import Path
-          root=Path('/tmp/mcmc-audit'); records=[]
-          for name, ident in [('primary','2407.12751v1'),('roberts-rosenthal','math/0404033v4'),('yang-scaling','1904.12157v3')]:
-              url='https://arxiv.org/pdf/'+ident
-              data=urllib.request.urlopen(url,timeout=90).read()
-              assert data.startswith(b'%PDF'),url
-              (root/(name+'.pdf')).write_bytes(data)
-              records.append({'id':ident,'url':url,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)})
-          (root/'fingerprints.json').write_text(json.dumps(records,indent=2))
+          parts=[]
+          for sha in ('320e77330081d61cedc2d137a06febdf9ee9c749','def634948eb2e1c47f5174e7eca1df865f40ada4','9e44a64e93442b5a0a1f80531fa42f8aaadc211e'):
+              req=urllib.request.Request('https://api.github.com/repos/DakeBU/Auto-Sampling-Theory-In-Sleep/git/blobs/'+sha,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(req,timeout=30) as r: blob=json.load(r)
+              parts.append(base64.b64decode(blob['content']))
+          patch=lzma.decompress(base64.b64decode(b''.join(parts)))
+          assert hashlib.sha256(patch).hexdigest() == '26b70506910352db16a23ed0d6d072788c3dc5dbd20f12039636f39850e83e6c'
+          assert b'diff --git a/.github/workflows/' not in patch
+          Path('/tmp/mcmc-integration.patch').write_bytes(patch)
           PY
-      - uses: actions/upload-artifact@v4
-        with:
-          name: mcmc-audit-snapshot
-          path: /tmp/mcmc-audit
-          retention-days: 2
+          git apply --check --unidiff-zero /tmp/mcmc-integration.patch
+          git apply --unidiff-zero /tmp/mcmc-integration.patch
+      - name: Test integrated source and boundary contracts
+        run: |
+          python3 -m compileall -q tools website/scripts
+          python3 -m unittest tools.tests.test_mcmc_library tools.tests.test_discrete_sampling tools.tests.test_cross_domain_program tools.tests.test_underlying_lean_graph tools.tests.test_harness_site
+          python3 tools/astis_frontier_cells.py check
+          node --check website/static/underlying-lean-graph.js
+          git diff --check
+          git diff --exit-code -- .github/workflows
+      - name: Commit source-only integration on feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'feat: add MCMC peer Library, extensions and overlap-aware graph views'
+          git push origin HEAD:feat/mcmc-library-perspectives
