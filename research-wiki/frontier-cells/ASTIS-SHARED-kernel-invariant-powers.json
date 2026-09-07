@@ -62,6 +62,7 @@
     "objective": "Propagate a stationary law through a finite number of MCMC transitions, not estimate a mixing time or expectation error.",
     "source_proof_status": "The MCMC primary explicitly states repeated stationarity; the Lean proof reduces it to Mathlib's invariant-composition API.",
     "time_model": "discrete-time",
+    "periodicity": "Not required for this theorem: a periodic chain may still preserve a stationary law. Periodicity or laziness becomes relevant only for convergence/mixing claims, which are explicitly outside this cell.",
     "invariance_class": "exact-target"
   },
   "discrete_state_contract": {
