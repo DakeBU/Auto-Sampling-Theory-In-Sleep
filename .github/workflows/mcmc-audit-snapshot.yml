@@ -1,0 +1,35 @@
+name: MCMC integration audit snapshot
+on:
+  push:
+    branches: [feat/mcmc-library-perspectives]
+    paths: [.github/workflows/mcmc-audit-snapshot.yml]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Export source and version-pinned public references
+        run: |
+          mkdir -p /tmp/mcmc-audit
+          git archive --format=tar HEAD > /tmp/mcmc-audit/source.tar
+          python3 - <<'PY'
+          import urllib.request, hashlib, json
+          from pathlib import Path
+          root=Path('/tmp/mcmc-audit'); records=[]
+          for name, ident in [('primary','2407.12751v1'),('roberts-rosenthal','math/0404033v4'),('yang-scaling','1904.12157v3')]:
+              url='https://arxiv.org/pdf/'+ident
+              data=urllib.request.urlopen(url,timeout=90).read()
+              assert data.startswith(b'%PDF'),url
+              (root/(name+'.pdf')).write_bytes(data)
+              records.append({'id':ident,'url':url,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)})
+          (root/'fingerprints.json').write_text(json.dumps(records,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mcmc-audit-snapshot
+          path: /tmp/mcmc-audit
+          retention-days: 2
