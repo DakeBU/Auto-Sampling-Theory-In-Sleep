@@ -26,6 +26,7 @@ on:
       - "tools/tests/test_underlying_lean_graph.py"
       - "tools/tests/test_cross_domain_program.py"
       - "tools/tests/test_discrete_sampling.py"
+      - "tools/tests/test_mcmc_library.py"
       - "tools/tests/test_project_authors_footer.py"
       - "tools/tests/test_harness_site.py"
       - "README.md"
@@ -60,6 +61,7 @@ on:
       - "tools/tests/test_underlying_lean_graph.py"
       - "tools/tests/test_cross_domain_program.py"
       - "tools/tests/test_discrete_sampling.py"
+      - "tools/tests/test_mcmc_library.py"
       - "tools/tests/test_project_authors_footer.py"
       - "tools/tests/test_harness_site.py"
       - "README.md"
@@ -118,6 +120,7 @@ jobs:
             tools.tests.test_underlying_lean_graph \
             tools.tests.test_cross_domain_program \
             tools.tests.test_discrete_sampling \
+            tools.tests.test_mcmc_library \
             tools.tests.test_project_authors_footer
           node --check website/static/site.js
           node --check website/static/ide.js

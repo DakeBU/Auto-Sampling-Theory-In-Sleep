@@ -60,11 +60,11 @@ def main() -> None:
                     graph=json.loads((site/'data/underlying-lean-graph.json').read_text())
                     page.evaluate('g => { window.fetch = async () => ({ok:true,json:async()=>g}); }',graph)
                     page.add_script_tag(content=(site/'assets/underlying-lean-graph.js').read_text())
-            for rel,name in [('index.html','home'),('libraries/statistical-optimal-transport/index.html','ot'),('libraries/discrete-sampling/index.html','discrete'),('progress/index.html#optimal-transport','progress'),('lean-foundations.html?view=functor','functor')]:
+            for rel,name in [('index.html','home'),('libraries/statistical-optimal-transport/index.html','ot'),('libraries/discrete-sampling/index.html','discrete'),('libraries/mcmc/index.html','mcmc'),('progress/index.html#optimal-transport','progress'),('lean-foundations.html?view=functor','functor')]:
                 goto(rel)
                 page.wait_for_timeout(250)
-                assert page.locator('.library-source-hubs > a').count()==6
-                assert page.locator('.progress-route-nav > a').count()==6
+                assert page.locator('.library-source-hubs > a').count()==7
+                assert page.locator('.progress-route-nav > a').count()==7
                 assert page.locator('h1').count()==1
                 if name=='functor':
                     page.wait_for_selector('.ulg-node')
@@ -101,7 +101,27 @@ def main() -> None:
                 page.screenshot(path=str(evidence/(name+'.png')))
                 overflow=page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
                 assert not overflow, f'Horizontal overflow: {rel}'
-                report['pages'].append({'page':rel,'libraries':6,'routes':6,'horizontal_overflow':overflow})
+                report['pages'].append({'page':rel,'libraries':7,'routes':7,'horizontal_overflow':overflow})
+            goto('lean-foundations.html?view=perspectives&color=library')
+            page.wait_for_selector('.ulg-node')
+            page.locator('button[data-view="perspectives"]').click()
+            assert page.locator('[data-graph-canvas]').get_attribute('data-color')=='library'
+            assert page.locator('.ulg-node[data-id="method:hitrun"]').count()==1
+            assert page.locator('.ulg-node[data-id="method:glauber"][data-scope="shared"]').count()==1
+            assert page.locator('.ulg-edge[data-evidence="formal"]').count()==0
+            # Select via the public toolbar + node interaction, then read exact caveats.
+            page.locator('.ulg-node[data-id="method:ula"]').dispatch_event('click')
+            assert 'biased' in page.locator('[data-graph-detail]').inner_text()
+            assert 'not proof status' in page.locator('[data-graph-detail]').inner_text().lower()
+            page.locator('[data-graph-canvas]').scroll_into_view_if_needed()
+            page.screenshot(path=str(evidence/'perspectives.png'))
+            page.locator('button[data-view="lean"]').click()
+            before=page.locator('.ulg-edge[data-evidence="formal"]').count()
+            page.locator('[data-graph-color]').select_option('status')
+            assert page.locator('.ulg-edge[data-evidence="formal"]').count()==before
+            page.locator('[data-graph-color]').select_option('library')
+            assert page.locator('.ulg-edge[data-evidence="formal"]').count()==before
+            report['scope_colour_preserves_evidence']=True
             if not args.offline_dom:
                 goto('underlying-lean-graph/index.html?view=functor&focus=transport:dirac')
                 page.wait_for_url(lambda url: urlsplit(url).path.endswith('/lean-foundations.html')
@@ -123,8 +143,8 @@ def main() -> None:
             for i in range(1,13):
                 goto(f'libraries/discrete-sampling/chapter-{i:02d}.html')
                 assert page.locator('h1').count()==1
-                assert page.locator('.library-source-hubs > a').count()==6
-                assert page.locator('.progress-route-nav > a').count()==6
+                assert page.locator('.library-source-hubs > a').count()==7
+                assert page.locator('.progress-route-nav > a').count()==7
                 if not args.offline_dom:
                     page.wait_for_selector('mjx-container',timeout=30000)
                     assert page.locator('mjx-merror').count()==0
@@ -136,6 +156,23 @@ def main() -> None:
             assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'), 'Discrete contents mobile overflow'
             page.screenshot(path=str(evidence/'discrete-mobile.png'))
             report['discrete_mobile_overflow']=False
+            mcmc=json.loads((ROOT/'Libraries/MCMC/source-map.json').read_text())
+            report['mcmc_pages_checked']=0
+            for item in mcmc['chapters']+mcmc['extensions']:
+                goto('libraries/mcmc/'+item['path'])
+                assert page.locator('h1').count()==1
+                assert page.locator('.library-source-hubs > a').count()==7
+                assert page.locator('.progress-route-nav > a').count()==7
+                if not args.offline_dom:
+                    page.wait_for_selector('mjx-container',timeout=30000)
+                    assert page.locator('mjx-merror').count()==0,item['path']
+                assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'),item['path']
+                report['mcmc_pages_checked']+=1
+            goto('libraries/mcmc/index.html')
+            assert page.locator('.library-chapter-card').count()==16
+            assert 'math/0404033v4' in page.content()
+            assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
+            page.screenshot(path=str(evidence/'mcmc-mobile.png'))
             assert not report['runtime_errors'],report['runtime_errors']
             browser.close()
     except Exception as error:

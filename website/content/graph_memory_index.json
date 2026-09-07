@@ -161,10 +161,13 @@
       "plain_language": "Optimization and sampling can consume the same regularized energy differently: one chooses its minimizer, the other samples from its normalized exponential.",
       "domains": [
         "concept:optimization",
-        "concept:sampling"
+        "concept:sampling",
+        "concept:mcmc",
+        "concept:discrete-sampling"
       ],
       "functor_edges": [
-        "transport:gibbs-prox"
+        "transport:gibbs-prox",
+        "transport:mcmc-gibbs-coordinate"
       ],
       "formal_search_nodes": [
         "AutoSamplingTheory.TechnicalLemmas.Geometry.StrongConvexity",
@@ -203,6 +206,106 @@
         "mixing with its exact clock"
       ],
       "do_not_conflate": "One covariance matrix is not spectral independence; neither is Euclidean strong convexity or generating-polynomial log-concavity without a proved bridge."
+    },
+    {
+      "id": "family:invariance-correction",
+      "label": "Target-invariance correction",
+      "plain_language": "Construct a target-invariant transition from a proposal; density and finite-state adapters share one accepted-flux idea.",
+      "domains": [
+        "concept:discrete-sampling",
+        "concept:mcmc",
+        "concept:sampling"
+      ],
+      "functor_edges": [
+        "transport:mcmc-metropolis"
+      ],
+      "formal_search_nodes": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel"
+      ],
+      "compiled_substrate_bindings": [],
+      "reading_order": [
+        "source contract",
+        "candidate mechanism",
+        "explicit adapter",
+        "independent review",
+        "Lean certificate separately"
+      ],
+      "do_not_conflate": "No mixing theorem or universal efficiency improvement."
+    },
+    {
+      "id": "family:scaling-limit",
+      "label": "High-dimensional scaling and diffusion limits",
+      "plain_language": "Transport the analysis only through a proved asymptotic limit with its own clock.",
+      "domains": [
+        "concept:mcmc",
+        "concept:sampling"
+      ],
+      "functor_edges": [
+        "transport:mcmc-scaling"
+      ],
+      "formal_search_nodes": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.ReversibleGenerator"
+      ],
+      "compiled_substrate_bindings": [],
+      "reading_order": [
+        "source contract",
+        "candidate mechanism",
+        "explicit adapter",
+        "independent review",
+        "Lean certificate separately"
+      ],
+      "do_not_conflate": "Weak convergence is not finite-time uniform mixing."
+    },
+    {
+      "id": "family:augmented-state",
+      "label": "Augmented state and marginal invariance",
+      "plain_language": "Prove invariance on an enlarged space and recover the desired marginal.",
+      "domains": [
+        "concept:mcmc",
+        "concept:riemannian",
+        "concept:sampling"
+      ],
+      "functor_edges": [
+        "transport:mcmc-lifting"
+      ],
+      "formal_search_nodes": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel"
+      ],
+      "compiled_substrate_bindings": [],
+      "reading_order": [
+        "source contract",
+        "candidate mechanism",
+        "explicit adapter",
+        "independent review",
+        "Lean certificate separately"
+      ],
+      "do_not_conflate": "HMC is not always nonreversible; geometry must preserve volume conventions."
+    },
+    {
+      "id": "family:kernel-perturbation",
+      "label": "Ideal versus implemented Markov kernels",
+      "plain_language": "Keep perturbation error and ideal mixing as separately proved terms.",
+      "domains": [
+        "concept:mcmc",
+        "concept:sampling",
+        "concept:transport"
+      ],
+      "functor_edges": [
+        "transport:mcmc-perturbation"
+      ],
+      "formal_search_nodes": [
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay"
+      ],
+      "compiled_substrate_bindings": [],
+      "reading_order": [
+        "source contract",
+        "candidate mechanism",
+        "explicit adapter",
+        "independent review",
+        "Lean certificate separately"
+      ],
+      "do_not_conflate": "Fixed-step numerical samplers can retain a target bias."
     }
-  ]
+  ],
+  "perspective_index": "website/content/sampling_perspectives.json"
 }

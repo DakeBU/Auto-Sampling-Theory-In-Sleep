@@ -45,3 +45,27 @@
 .ulg-canvas[data-view="functor"] .ulg-node .label { font-size:20px; }
 .ulg-canvas[data-view="functor"] .ulg-node .kind { font-size:11px; }
 .ulg-canvas[data-view="functor"] .ulg-node.muted { opacity:.48; }
+
+/* Membership is an independent channel: status dots and edge style retain truth. */
+.ulg-scope-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:12px 0; }
+.ulg-scope-controls label { display:flex; align-items:center; gap:8px; font-weight:650; }
+.ulg-scope-controls select { font:inherit; padding:7px 12px; border:1px solid var(--line,#cbd5df); border-radius:8px; background:var(--bg,#fff); color:inherit; max-width:100%; }
+.ulg-scope-controls p { flex:1 1 330px; margin:0; font-size:12px; color:var(--muted,#5b6471); }
+.ulg-scope-legend { display:flex; flex-wrap:wrap; gap:9px 18px; padding:10px 0 16px; }
+.ulg-scope-legend[hidden] { display:none; }
+.ulg-scope-legend span { display:inline-flex; align-items:center; gap:6px; font-size:12px; }
+.ulg-scope-legend i { width:12px; height:12px; border-radius:3px; display:inline-block; }
+.ulg-column-title { fill:var(--muted,#5b6471); font-size:11px; font-weight:700; letter-spacing:1px; }
+.ulg-scope-note { border-left:3px solid #167ba6; padding-left:10px; }
+.ulg-scope-note small { display:block; line-height:1.6; }
+/* The taxonomy overview uses a wide canvas; selecting a node opens details below. */
+.ulg-stage:has(.ulg-canvas[data-view="perspectives"]) { grid-template-columns:minmax(0,1fr); }
+.ulg-canvas[data-view="perspectives"] { border-right:0; border-bottom:1px solid var(--line); }
+.ulg-canvas[data-view="perspectives"] .ulg-node .label { font-size:16px; }
+.ulg-canvas[data-view="perspectives"] .ulg-node .kind { font-size:9px; }
+.ulg-stage:has(.ulg-canvas[data-view="perspectives"]) .ulg-detail { max-height:none; }
+.ulg-toolbar .ulg-scope-controls,.ulg-toolbar .ulg-scope-legend { grid-column:1/-1; }
+.ulg-toolbar .ulg-scope-controls { margin:0; }
+.ulg-detail dl.ulg-details { display:block; }
+.ulg-detail dl.ulg-details > div { display:block; width:auto; }
+.ulg-detail dl.ulg-details dd { margin-top:5px; }

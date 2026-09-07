@@ -7,7 +7,8 @@
     "Lectures on Optimization Chapters 1-2, with Chapter 9 duality pulled forward when OT Chapter 1 needs it",
     "Boumal Chapters 1-3 minimal first-order geometry, because Sampling Chapter 2.5 depends on it",
     "Statistical Optimal Transport Chapters 1-2",
-    "Discrete Sampling §§1.1-1.3, §3 pulled forward, §2/§4.1 pinnings; §12.1 model definitions"
+    "Discrete Sampling §§1.1-1.3, §3 pulled forward, §2/§4.1 pinnings; §12.1 model definitions",
+    "MCMC §§1.3,2.1 early; §1.4 diffusion, §1.5 RKHS and estimation as separate dependency branches"
   ],
   "policies": {
     "dependency_over_book_order": "A later source chapter may be mined early for one shared prerequisite when another textbook needs it. This never marks that later chapter complete.",
@@ -59,6 +60,14 @@
         "§§2,4.1 influence matrices and pinnings",
         "§6.8 entropy; §12.1 Ising (external proofs required)"
       ]
+    },
+    {
+      "id": "mcmc",
+      "role": "method-family source spine; not all sampling problems",
+      "anchors": [
+        "Fearnhead et al. arXiv:2407.12751v1 §§1.3,2.1",
+        "Roberts–Rosenthal math/0404033v4 §§2–5"
+      ]
     }
   ],
   "nodes": [
@@ -71,7 +80,8 @@
         "optimisation",
         "riemannian-optimization",
         "statistical-optimal-transport",
-        "discrete-sampling"
+        "discrete-sampling",
+        "mcmc"
       ],
       "source_anchors": [
         "Optimization Ch.1 + App.A",
@@ -93,7 +103,8 @@
       "consumers": [
         "log-concave-sampling",
         "statistical-optimal-transport",
-        "discrete-sampling"
+        "discrete-sampling",
+        "mcmc"
       ],
       "source_anchors": [
         "Sampling §§1.2-1.4",
@@ -113,7 +124,8 @@
       "parents": [],
       "consumers": [
         "discrete-sampling",
-        "log-concave-sampling"
+        "log-concave-sampling",
+        "mcmc"
       ],
       "source_anchors": [
         "Discrete Sampling §§1-3,4.1,6.8",
@@ -137,7 +149,8 @@
         "log-concave-sampling",
         "optimisation",
         "riemannian-optimization",
-        "statistical-optimal-transport"
+        "statistical-optimal-transport",
+        "mcmc"
       ],
       "source_anchors": [
         "Sampling §1.1",
@@ -192,7 +205,8 @@
       "consumers": [
         "statistical-optimal-transport",
         "log-concave-sampling",
-        "discrete-sampling"
+        "discrete-sampling",
+        "mcmc"
       ],
       "source_anchors": [
         "OT §§1.1-1.3",
@@ -215,7 +229,8 @@
       ],
       "consumers": [
         "discrete-sampling",
-        "log-concave-sampling"
+        "log-concave-sampling",
+        "mcmc"
       ],
       "source_anchors": [
         "Discrete Sampling §§1-3,4.1,6.8",
@@ -264,7 +279,8 @@
       "consumers": [
         "optimisation",
         "log-concave-sampling",
-        "riemannian-optimization"
+        "riemannian-optimization",
+        "mcmc"
       ],
       "source_anchors": [
         "Optimization Ch.2 Gradient flow",
@@ -286,7 +302,8 @@
         "sf-calculus-gradient"
       ],
       "consumers": [
-        "log-concave-sampling"
+        "log-concave-sampling",
+        "mcmc"
       ],
       "source_anchors": [
         "Sampling §§1.1-1.2 and Chapter 2 semigroup proofs"
@@ -355,7 +372,8 @@
       ],
       "consumers": [
         "discrete-sampling",
-        "log-concave-sampling"
+        "log-concave-sampling",
+        "mcmc"
       ],
       "source_anchors": [
         "Discrete Sampling §§1-3,4.1,6.8",
@@ -391,6 +409,50 @@
         "Mathlib scalar comparison APIs"
       ],
       "boundary": "Planned reuse interface, not a compiled theorem or an automatic conceptual transport."
+    },
+    {
+      "id": "sf-mcmc-invariance",
+      "title": "General-state MH and conditional-update construction",
+      "parents": [
+        "sf-kernel-composition"
+      ],
+      "consumers": [
+        "mcmc",
+        "log-concave-sampling",
+        "discrete-sampling"
+      ],
+      "source_anchors": [
+        "MCMC §2.1",
+        "RR §2"
+      ],
+      "target": "One exact target-invariant kernel construction with density/Radon–Nikodym and finite-support adapters.",
+      "search": [
+        "Mathlib Probability.Kernel",
+        "TechnicalLemmas/Probability/ConditionalKernel.lean"
+      ],
+      "boundary": "Invariance is not mixing. Pointwise density ratios cannot cover singular proposals without a measure-level construction."
+    },
+    {
+      "id": "sf-mcmc-drift-coupling",
+      "title": "General-state drift/minorisation and ergodicity",
+      "parents": [
+        "sf-mcmc-invariance",
+        "sf-scalar-decay"
+      ],
+      "consumers": [
+        "mcmc",
+        "discrete-sampling",
+        "log-concave-sampling"
+      ],
+      "source_anchors": [
+        "RR §§3–4"
+      ],
+      "target": "Construct the coupling and prove the source-specific convergence bound.",
+      "search": [
+        "Mathlib measure and kernel APIs",
+        "TechnicalLemmas/Measure"
+      ],
+      "boundary": "Do not assume irreducibility/aperiodicity or all-start convergence from stationarity."
     }
   ],
   "pull_forward_rules": [

@@ -76,11 +76,11 @@ class DiscreteSamplingTests(unittest.TestCase):
 
     def test_peer_navigation_and_route(self):
         text=library_shelves.libraries_sidebar('libraries/discrete-sampling/index.html')
-        self.assertEqual(text.count('class="source-hub"'),6)
+        self.assertEqual(text.count('class="source-hub"'),7)
         self.assertIn('Discrete Sampling',text)
         self.assertIn('discrete-sampling',formalization_progress.ROUTE_ANCHORS)
         self.assertIn('data-progress-route="discrete-sampling"',formalization_progress.overview_body())
-        self.assertIn('Six routes',formalization_progress.overview_body())
+        self.assertIn('Seven routes',formalization_progress.overview_body())
 
     def test_no_lean_sources_added_by_scaffold(self):
         # The source map contains no formalization counters masquerading as proofs.

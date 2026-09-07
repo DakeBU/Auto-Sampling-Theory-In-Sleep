@@ -19,7 +19,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CELL_ROOT = ROOT / "research-wiki" / "frontier-cells"
 
-ROUTES = {"samplewiki-route", "riemannian-optimization", "optimisation", "statistical-optimal-transport", "higher-order-sampling", "discrete-sampling", "shared"}
+ROUTES = {"samplewiki-route", "riemannian-optimization", "optimisation", "statistical-optimal-transport", "higher-order-sampling", "discrete-sampling", "mcmc", "shared"}
 MODES = {"faithfulPaper", "exploratoryProof"}
 STATUSES = {
     "claimed",
@@ -159,7 +159,7 @@ def validate_cells(cells: list[dict[str, Any]]) -> list[str]:
                     f"{path}: route-local cell may not implement a new shared foundation; open/use the shared cell first"
                 )
 
-        if route in {"statistical-optimal-transport", "higher-order-sampling", "discrete-sampling"} and cell.get("schema_version") != 2:
+        if (route in {"statistical-optimal-transport", "higher-order-sampling", "discrete-sampling", "mcmc"} or "mcmc" in _list(cell.get("consumers"))) and cell.get("schema_version") != 2:
             errors.append(f"{path}: new cross-domain routes require schema_version 2")
         if cell.get("schema_version") not in {1, 2}:
             errors.append(f"{path}: unsupported schema_version")
@@ -195,6 +195,23 @@ def validate_cells(cells: list[dict[str, Any]]) -> list[str]:
                 for key in ("potential_class", "smoothness_p", "oracle_q", "dynamics_k", "accuracy_r", "metric", "start", "cost"):
                     if not _nonempty(comparison.get(key)):
                         errors.append(f"{path}: higher-order sampling needs comparison_contract.{key}")
+
+        if route == "mcmc" or "mcmc" in _list(cell.get("consumers")):
+            contract = cell.get("mcmc_contract")
+            if not isinstance(contract, dict):
+                errors.append(f"{path}: MCMC consumers require mcmc_contract")
+                contract = {}
+            for key in ("state_space", "target", "support", "operator", "time_model", "clock", "invariance", "ergodicity", "initialization", "metric", "cost", "objective", "source_proof_status"):
+                if not _nonempty(contract.get(key)):
+                    errors.append(f"{path}: mcmc_contract.{key} must be explicit")
+            if contract.get("time_model") not in {"static", "discrete-time", "continuous-time"}:
+                errors.append(f"{path}: MCMC time model must be explicit")
+            if contract.get("invariance_class") not in {"exact-target", "approximate-target", "not-applicable"}:
+                errors.append(f"{path}: MCMC invariance_class must separate exact and approximate targets")
+            if contract.get("invariance_class") == "approximate-target" and not _nonempty(contract.get("bias_contract")):
+                errors.append(f"{path}: approximate MCMC needs a bias_contract; mixing is not target accuracy")
+            if contract.get("time_model") == "discrete-time" and not _nonempty(contract.get("periodicity")):
+                errors.append(f"{path}: discrete-time MCMC must address periodicity")
 
         if route == "discrete-sampling" or "discrete-sampling" in _list(cell.get("consumers")):
             contract = cell.get("discrete_state_contract")
