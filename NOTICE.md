@@ -1,51 +1,24 @@
-# Notices
+# Notices for the anonymous review snapshot
 
-## Textbook and Blueprint website
+## Mathematical source spines
 
-- Sinho Chewi, *Log-Concave Sampling*
-  - Source: https://chewisinho.github.io/main.pdf
-  - Role: primary mathematical textbook reconstructed by ASTIS.
-  - Copyright boundary: the public draft exposes no explicit license for
-    wholesale republication. ASTIS uses original faithful paraphrase, precise
-    source correspondence, and separately identified supplemental
-    derivations/formalizations. Sinho Chewi does not participate in, endorse,
-    or maintain ASTIS.
-- Sho Sonoda, Lean-Ridgelet
-  - Repository: https://github.com/shosonoda/lean-ridgelet
-  - Blueprint:
-    https://shosonoda.github.io/lean-ridgelet/blueprint/html-multi/overview/#Lean-Ridgelet-Blueprint--L2-theory___-arXiv___2106___04770v2-implementation-map
-  - License: Apache-2.0.
-  - Role: inspiration for the Blueprint-style organization and implementation
-    map. ASTIS copied no Lean-Ridgelet source code, template, or style.
-    Sho Sonoda does not participate in, endorse, or maintain ASTIS.
+- **Sinho Chewi, _Log-Concave Sampling_** and official supplement — continuous/log-concave sampling spine.
+- **Sinho Chewi, _Lectures on Optimization_** — Euclidean optimisation spine.
+- **Nicolas Boumal, _An Introduction to Optimization on Smooth Manifolds_** — Riemannian geometry/optimisation spine.
+- **Sinho Chewi, Jonathan Niles-Weed, Philippe Rigollet, Statistical Optimal Transport notes** — statistical transport spine.
+- **Zongchen Chen, Daniel Štefankovič, Eric Vigoda, _Spectral Independence and Local-to-Global Techniques for Optimal Mixing of Markov Chains_ (arXiv:2307.13826v4)** — finite/discrete-state sampling spine.
+- **Paul Fearnhead, Christopher Nemeth, Chris J. Oates, Chris Sherlock, _Scalable Monte Carlo for Bayesian Learning_ (arXiv:2407.12751v1)** — primary MCMC spine.
+- **Gareth O. Roberts and Jeffrey S. Rosenthal, _General State Space Markov Chains and MCMC Algorithms_ (math/0404033v4)** — supporting source for general-state MCMC rigor.
+- **SampleWiki and source-pinned frontier papers** — frontier sampling results and lower-bound routes.
 
-## Automation workflow
+Each local claim keeps its own provenance and truth boundary. These sources are summarized/formalized rather than republished wholesale, and bibliographic attribution does not imply participation in or endorsement of the project.
 
-This project includes an automation workflow inspired by:
+## Formal and automation systems
 
-- `DakeBU/Quantum-Computing-Block-Encoding`
-  - Reference branch: https://github.com/DakeBU/Quantum-Computing-Block-Encoding/tree/wip/ghl2025-faithful-20260518-0201
-  - Role: plain-file agent orchestration, six-hour proof loops, conversion
-    windows, proof-obligation ledgers, and reviewer gates.
-- `wanshuiyin/Auto-claude-code-research-in-sleep`
-  - Repository: https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep
-  - Role: autonomous research-loop framing and adversarial multi-agent review.
-- Jiayi Weng, Learning Beyond Gradients
-  - Article: https://trinkle23897.github.io/learning-beyond-gradients/
-  - Artifact repository: https://github.com/Trinkle23897/learning-beyond-gradients
-  - Role: append-only trial memory, failure memory, and search-system
-    maintenance patterns.
-- `math-ai-org/mathcode`
-  - Repository: https://github.com/math-ai-org/mathcode
-  - Role: Lean proof diagnostics, hidden-assumption scans, theorem-reuse
-    memory, tree-of-subgoals decomposition, proof-statistics review, and
-    skills/tools/plugins as proof-workflow concepts.
-  - Note: the local checkout inspected during development did not include a
-    top-level license file, so ASTIS records citation/source links and does
-    not reuse MathCode source code.
-- `YuanheZ/lean-stat-learning-theory`
-  - Repository: https://github.com/YuanheZ/lean-stat-learning-theory
-  - Article: https://arxiv.org/abs/2602.02285
-  - Role: nearby Mathlib-based formalization reference for probability,
-    concentration, log-Sobolev/Poincare, entropy duality, and one-step
-    discretization results.
+The design and implementation draw on public ideas and tooling from Mathlib, Optlib, CvxLean, Lean-Ridgelet/Blueprint-style literate formalization, LeanMarathon, Lean Finder, LeanSearch, jixia, AXLE, AxProver, OpenGauss, FrontierAgent, LeanAgent, ProofFlow, ReasBook/M2F, Statistical Learning Theory in Lean, StatsMLlib, and other automated theorem-proving/research-agent systems cited in the project documentation. Their inclusion as related work does not imply source-code reuse or endorsement.
+
+ATLAS v1 is treated only as external retrieval memory under its own license and rider. No external theorem becomes local project truth until an owned declaration passes the local Lean/source gates.
+
+## Double-blind boundary
+
+Project authorship and author-controlled development URLs are intentionally withheld in reviewer-facing entry points. Bibliographic source authors remain named because source attribution is part of the mathematical truth boundary.
