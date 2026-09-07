@@ -34,9 +34,12 @@ theorem invariant_pow {α : Type*} [MeasurableSpace α]
     (κ ^ n).Invariant μ := by
   induction n with
   | zero =>
-      simp [Kernel.Invariant]
+      change Kernel.id.Invariant μ
+      exact Measure.id_comp
   | succ n ih =>
-      simpa [pow_succ] using ih.comp hκ
+      rw [pow_succ]
+      change ((κ ^ n) ∘ₖ κ).Invariant μ
+      exact ih.comp hκ
 
 /-- Measure-level form of `invariant_pow`: starting an invariant law and taking
 `n` transitions leaves the law unchanged. -/
