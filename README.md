@@ -105,12 +105,28 @@ Full mathematical provenance and design lineage: [docs/attribution.md](docs/attr
 
 ## Quick start
 
+Use the repository's pinned Lean toolchain and Python 3.12 or newer (CI uses
+Python 3.12). An inherited `ELAN_TOOLCHAIN` overrides `lean-toolchain`; verify
+`lean --version` before compiling. Native Windows Harness locks and atomic
+publication are supported; their durability is limited by filesystem/device
+flush guarantees, as documented in the implementation.
+
 ```bash
 git clone https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep.git
 cd Auto-Sampling-Theory-In-Sleep
 python3 tools/astis.py check
 python3 tools/astis_frontier_cells.py check
 ```
+
+In PowerShell, select the pinned toolchain for the current shell with
+`$env:ELAN_TOOLCHAIN = (Get-Content lean-toolchain -Raw).Trim()` and set
+`$env:PYTHONUTF8 = '1'`. Select a Python 3.12+ executable explicitly if `python`
+or `python3` resolves to an older interpreter or a Windows Store alias.
+
+The [SampleWiki resumption packet](runs/20260908-samplewiki-resume/plan.md)
+records the ordered shared-kernel route and its strict remaining boundaries.
+Current verification/integration state comes from the Frontier Cells and the
+SAU ledger, not from this historical run note.
 
 ```bibtex
 @misc{bu2026astis,

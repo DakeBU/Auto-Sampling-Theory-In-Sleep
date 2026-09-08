@@ -8,7 +8,13 @@
 ## Imports
 
 - `AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductPairMarginal`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.FiniteProductSupport`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance`
 - `AutoSamplingTheory.TechnicalLemmas.Probability.LawMap`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.NormalizedFiniteMeasure`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.NormalizedFiniteMeasureIntegral`
+- `AutoSamplingTheory.TechnicalLemmas.Probability.UniformExpectationGap`
 
 ## Representative Declarations And Exports
 

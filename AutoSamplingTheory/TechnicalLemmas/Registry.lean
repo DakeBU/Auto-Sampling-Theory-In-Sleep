@@ -24,6 +24,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure.KantorovichDual
 import AutoSamplingTheory.TechnicalLemmas.Measure.Product
 import AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym
 import AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel
+import AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance
 import AutoSamplingTheory.TechnicalLemmas.Measure.Transport
 import AutoSamplingTheory.TechnicalLemmas.Probability.LawMap
 import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions.Gaussian
@@ -1671,6 +1672,16 @@ def measureMemory : List LemmaMemoryEntry := [
     tags := ["conditional-law", "kernel", "Bochner-integral"],
     saldUse := "conditional frozen drift and named-law conditional integral interface",
     note := "Compiled ASTIS conditional-law bridge from Probability.lean."
+  },
+  {
+    key := "probability.kernel.invariant-powers",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.invariant_pow",
+    upstreamDecl := "Kernel.Invariant.comp / Measure.id_comp / pow_succ",
+    upstreamFile := "Mathlib.Probability.Kernel.Invariance; Mathlib.Probability.Kernel.Composition.Comp",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["KERN", "MCMC", "DiscreteSampling", "invariance", "iteration"],
+    saldUse := "Shared MCMC/discrete kernel floor: propagate one-step target invariance through any finite number of transitions",
+    note := "Source-neutral reusable edge; no ergodicity, mixing or complexity conclusion. bind_pow_eq is its notation adapter and is not counted separately."
   },
   {
     key := "conditional-kernel.named-field-integral",

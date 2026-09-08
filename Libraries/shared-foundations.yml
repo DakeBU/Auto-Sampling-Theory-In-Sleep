@@ -149,7 +149,8 @@ checkpoints:
     status: candidate
     note: share discrepancy or testing interfaces only after distinguishing statistical observations from sampling queries
 
-canonical_declarations: []
+canonical_declarations:
+  - AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.invariant_pow
 shared_dependency_plan: /Libraries/cross-domain-program.json
 transport_policy: conceptual correspondence never identifies Lean declarations without a compatibility proof
 
