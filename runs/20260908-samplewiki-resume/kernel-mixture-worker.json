@@ -1,0 +1,50 @@
+{
+  "advance_id": "ASTIS-20260908-KernelMixture",
+  "worker_id": "windows_harness_worker",
+  "route": "shared",
+  "frontier_cell": "ASTIS-SHARED-finite-kernel-mixture",
+  "frontier_cell_record": "research-wiki/frontier-cells/ASTIS-SHARED-finite-kernel-mixture.json",
+  "state": "PROVED_LOCAL",
+  "result_kind": "integration-node",
+  "base_commit": "c0ed642305bb36500d5646f06d3f34e6aee32880",
+  "branch": "codex/samplewiki-shared-stabilization",
+  "proposal": {
+    "advance_id": "ASTIS-20260908-KernelMixture",
+    "task_id": "ASTIS-SHARED-KERNEL-MIXTURE",
+    "goal": "Prove exact common-target invariance and Markovness of finite fixed-weight convex kernel mixtures.",
+    "source_anchor": "Source-neutral interface; inherited MCMC arXiv:2407.12751v1 §2.1.1 printed p.48 / PDF p.54 and Discrete arXiv:2307.13826v4 §1.3 PDF p.5 motivation, no numbered theorem assimilation.",
+    "theorem_delta": "Construct finiteMixture from constant-density kernels, prove one pointwise measure evaluation interface, prove normalized Markovness and preservation of an arbitrary common invariant μ, then test lazy heat-bath and finite powers via existing interfaces.",
+    "truth_boundary": "Finite index and fixed NNReal weights summing to one; zero weights and arbitrary μ allowed. The s-finite component assumption is the current withDensity API contract, supplied by Markov components, not a mathematical necessity claim. No state-dependent weights, reversibility, scan-model implementation or mixing.",
+    "created_by": "windows_harness_worker",
+    "dag_inputs": ["ProbabilityTheory.Kernel.withDensity", "MeasureTheory.withDensity_const", "MeasureTheory.Measure.bind_apply", "MeasureTheory.lintegral_finsetSum", "MeasureTheory.lintegral_const_mul", "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_invariant", "AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.invariant_pow"],
+    "proposed_files": ["AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean", "Tests/KernelMixture.lean", "research-wiki/frontier-cells/ASTIS-SHARED-finite-kernel-mixture.json", "runs/20260908-samplewiki-resume/kernel-mixture-worker.json"],
+    "focused_checks": ["lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean", "lake build Tests.KernelMixture", "python tools/astis_frontier_cells.py check"],
+    "modes": ["proof-design", "lean-implementation", "compiler-diagnosis"],
+    "priority": 80,
+    "frontier_cell": "ASTIS-SHARED-finite-kernel-mixture",
+    "target_declarations": ["AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture", "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_apply", "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_isMarkovKernel", "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_invariant"]
+  },
+  "shared_floor_audit": {"classification": "missing", "decision": "new_canonical_shared", "canonical_shared_cell": "ASTIS-SHARED-finite-kernel-mixture", "search_evidence": "Exact APIs and missing ENNReal Kernel scalar action recorded in cell; no existing finite fixed-mixture invariance theorem found."},
+  "proof_route": ["Form the finite sum of Kernel.withDensity with constant NNReal-coerced density.", "Prove measurable_const for the uncurry density, then use MeasureTheory.withDensity_const for pointwise evaluation.", "Prove Markovness from component mass one and the fixed weight sum.", "Evaluate bind on a measurable set, use finite-sum and constant-multiple lintegral linearity, then component invariance and weight normalization.", "Test arbitrary μ, zero weights, and the identity/heatBathSnd mixture using invariant_pow."],
+  "semantic_roundtrip": {"required": false, "state": "not-applicable", "verdict": "Source-neutral kernel API, no numbered source statement."},
+  "conceptual_mirror_audit": {"status": "none-found", "discovery_ids": [], "reason": "Literal shared-kernel reuse and nonnegative integral linearity, no new conceptual transport."},
+  "mathematical_result": "The finite sum of constant-density component kernels evaluates to the weighted sum of their measures. Normalized fixed NNReal weights preserve Markovness and any common invariant measure μ, without finite or SFinite assumptions on μ. Tests exercise actual zero-weight elimination and a lazy identity/heatBathSnd update through the existing invariant_pow interface.",
+  "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture", "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_apply", "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_isMarkovKernel", "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_invariant"],
+  "lean_files": ["AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean", "Tests/KernelMixture.lean"],
+  "source_fidelity": "Source-neutral fixed-mixture kernel correctness. The parent MCMC/Discrete anchors motivate the consumer, but no numbered source theorem is assimilated or source-index repair adopted.",
+  "focused_checks": [
+    {"command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean", "result": "Passed, exit 0, 17.5805361 seconds. First attempt had only an unknown constant due to the namespace MeasureTheory.Measure.withDensity_const; corrected to exact pinned MeasureTheory.withDensity_const. No new hypothesis or proof route was needed. First attempt total elapsed was not captured."},
+    {"command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake build Tests.KernelMixture", "result": "Passed, exit 0, 2978 jobs, 43.4503847 seconds total. Lake reported KernelMixture 14s and Tests.KernelMixture 15s. Exercises arbitrary μ, zero-weight elimination, Markov identity/heatBathSnd mixture, and all finite powers via invariant_pow."},
+    {"command": "Python 3.14.4 tools/astis_frontier_cells.py check", "result": "Passed initially and after proved_locally update: 5 registered cells, exit 0."},
+    {"command": "Scoped rg scan for sorry/admit/axiom, Prop := True, and := trivial in the two Lean files; trailing-whitespace scan in all four owned files", "result": "No matches in either scan."}
+  ],
+  "compiled_source_sha256": {
+    "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean": "0ecff43c5aa377a6ba92233d13c37808a703ef4b0c52be89396e6fc87ffb64fd",
+    "Tests/KernelMixture.lean": "75ddfe0fb5bf3e11299cbb1af58b5424af5ac213d780017b18b73e201845e5cf"
+  },
+  "route_fingerprint": "constant-withDensity-finiteSum-lintegral-commonInvariant",
+  "progress_signature": "fixed-mixture-evaluation-Markov-arbitraryMu-invariance-lazyHeatBath-powers-compiled",
+  "same_route_failures": 0,
+  "remaining_truth_boundary": "PROVED_LOCAL only: independent verification, full root gate and stabilization remain. The component s-finiteness is the selected withDensity API contract, automatically supplied by Markovness, not a mathematical-necessity assertion. No state-dependent weights, reversibility, mixing, scan model, concrete Gibbs support/positivity or SDE claim.",
+  "integration_notes": {"public_imports_needed": ["AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture"], "root_tests_needed": ["Tests.KernelMixture"], "registry_or_site_updates": "Root stabilization owner only.", "downstream_consumers": ["mcmc", "discrete-sampling"]}
+}
