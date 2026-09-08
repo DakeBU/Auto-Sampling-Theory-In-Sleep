@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-9d4bd194002ac624",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {ι : Type u_1} [Fintype ι] {mu pi nu : Measure State} {gamma : Measure (State × State)}\n  (hgamma : DisplacementInterpolation.IsQuadraticOptimalCoupling gamma mu nu) (hscore : SmoothFiniteScoreDomain mu pi)\n  (hmu : Integrable (fun x => ‖x‖ ^ 2) mu) (hnu : Integrable (fun x => ‖x‖ ^ 2) nu),\n  |∫ (z : State × State), ⟪gradient (RNLogRatio.logRatio mu pi) z.1, z.2 - z.1⟫ ∂gamma| ≤\n    √(information mu pi hscore) * (WassersteinSpace.wassersteinDistance mu nu).toReal",
+    "statement_sha256": "9d4bd194002ac6249dce8334b25564e7d8f48c8b3b6a1cba595b37d6b1a0b14a",
+    "compiled": true,
+    "approved_definition_context": [
+      "State abbreviates EuclideanSpace ℝ ι for the finite index type ι, with its standard Borel measurable structure. mu, pi and nu are measures on this space, and gamma is a measure on its Cartesian square.",
+      "RNLogRatio.logRatio mu pi is MeasureTheory.llr mu pi: x ↦ Real.log ((mu.rnDeriv pi x).toReal). The RN representative is the library-selected one. Real.log and ENNReal.toReal are total functions, including Real.log 0 = 0 and ENNReal.toReal infinity = 0.",
+      "gradient phi x is the Riesz inverse of the real Frechet derivative fderiv at x. This is a total definition, with zero at points where phi is not differentiable.",
+      "SmoothFiniteScoreDomain mu pi consists of mu ≪ pi, mu-almost-everywhere DifferentiableAt ℝ (RNLogRatio.logRatio mu pi), and integrability under mu of x ↦ ‖gradient (RNLogRatio.logRatio mu pi) x‖^2.",
+      "information mu pi hscore is the real Bochner integral under mu of the squared norm of this gradient. The argument hscore is a proof of the domain condition just described.",
+      "Transport.IsCoupling gamma mu nu means that the two coordinate pushforwards of gamma equal mu and nu. It does not itself impose probability normalization or finite total mass.",
+      "DisplacementInterpolation.IsQuadraticOptimalCoupling gamma mu nu means that gamma is a coupling and that its extended-nonnegative integral of quadraticCost equals the infimum of those costs over all couplings of mu and nu.",
+      "quadraticCost(x,y) is ENNReal.ofReal(‖x-y‖^2). WassersteinSpace.wassersteinDistance mu nu is the extended-nonnegative square root (power 1/2) of that infimum. The suffix toReal converts this extended-nonnegative value to a real number."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "20a7120fd184e54a7d6efe7e86e119e32cf6ff8f20fa21786775403c21d8fd62"
+}

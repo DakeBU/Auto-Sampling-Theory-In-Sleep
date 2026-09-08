@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="980" viewBox="0 0 1020 980">
+<rect width="1020" height="980" fill="white"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>
+<text x="25" y="38" font-family="Segoe UI,Arial,sans-serif" font-size="24" fill="#101828">ASTIS canonical Fisher / transport pairing</text>
+<text x="25" y="66" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Compiled auxiliary only. Source score/map adapters are not certified; no proximal theorem is claimed.</text>
+<path d="M315,152 L355,322" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M500,204 L500,270" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M685,152 L645,322" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M500,374 L500,440" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="25" y="100" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="38" y="127" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Mathlib: L2 Holder</text>
+<text x="38" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">and integral pullback</text>
+<rect x="355" y="100" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="368" y="127" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Input: canonical finite score</text>
+<text x="368" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">and two finite second moments</text>
+<rect x="685" y="100" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="698" y="127" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Input: actual coupling</text>
+<text x="698" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">and optimal quadratic cost</text>
+<rect x="355" y="270" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
+<text x="368" y="297" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Canonical pairing</text>
+<text x="368" y="320" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">integrability</text>
+<text x="368" y="343" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">and absolute W2 estimate</text>
+<text x="368" y="366" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">proved locally</text>
+<rect x="355" y="440" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="368" y="467" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Test: remove hcs from</text>
+<text x="368" y="490" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">existing geodesic closure</text>
+<rect x="25" y="610" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="38" y="637" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: actual KL</text>
+<text x="38" y="660" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">first variation producer</text>
+<rect x="355" y="610" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="368" y="637" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: canonical KL</text>
+<text x="368" y="660" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">geodesic convexity</text>
+<rect x="685" y="610" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="698" y="637" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: actual flow</text>
+<text x="698" y="660" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">derivative interchange</text>
+<rect x="25" y="780" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="38" y="807" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: matching flow</text>
+<text x="38" y="830" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">W2 contraction</text>
+<rect x="355" y="780" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="368" y="807" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: map / representative</text>
+<text x="368" y="830" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">source adapters</text>
+<rect x="685" y="780" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="698" y="807" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: full proximal</text>
+<text x="698" y="830" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">source theorem</text>
+<text x="25" y="934" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Blue: one ASTIS compiled packet. Gray: inputs/API/test. Red: separate source obligations.</text>
+<text x="25" y="958" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Existing conditional/scalar interfaces are reused; first variation and the full rate are not supplied here.</text>
+</svg>

@@ -32,6 +32,17 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 
 ## News
 
+- **2026-09-08, analytic checkpoint:** the canonical Fisher/transport pairing
+  now has a compiled integrability proof and an optimal-coupling L2 estimate,
+  with a test that removes the assumed pairing bound from the existing
+  geodesic interface. See the [learning card](research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.md)
+  and [dependency slice](runs/20260908-samplewiki-resume/fisher-transport-frontier.svg).
+  This is a shared prerequisite, not Chewi 8.4.1 or a SampleWiki contribution.
+  Independent proof review passes; source certification is withheld pending
+  the map/representative adapters. Finite entropy and actual first variation
+  remain distinct. The [edition audit](runs/20260908-samplewiki-resume/chewi-edition-audit.md)
+  recovers the exact pinned textbook despite changes at the live PDF URL.
+
 - **2026-09-08, local proof checkpoint:** the shared Discrete Sampling / MCMC
   route now includes reversibility of the actual uniform random-scan kernel,
   through a reusable countable singleton-balance bridge. Zero target atoms

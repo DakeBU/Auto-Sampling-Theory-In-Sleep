@@ -1,4 +1,4 @@
-"""Render this run's shared-kernel slice from Frontier Cell evidence.
+"""Render this run's shared-kernel or analytic slice from Frontier Cell evidence.
 
 SVG is dependency-free; optional Pillow produces a matching inspection PNG.
 This is a local-proof snapshot, not root-build or publication certification.
@@ -47,6 +47,8 @@ artifact = "shared-kernel-frontier"
 heading = "ASTIS shared-kernel frontier"
 caption = "Selected proof/test inputs. Local evidence only; root integration and publication are separate gates."
 height = 800
+legend = "Blue: ASTIS-owned, focused-compiled. Gray: external API / test consumer. Red: TODO."
+boundary = "No mixing, concrete Gibbs density, general-state MH, or continuous-time invariance is concluded."
 if "--transport" in sys.argv:
     artifact = "kernel-transport-frontier"
     heading = "ASTIS transport checkpoint (31fe8f2)"
@@ -163,6 +165,30 @@ if "--reversibility" in sys.argv:
     # Two public facts in ONE SAU: a reusable bridge and its actual consumer.
     # No arrows imply that reversibility proves the independent red contracts.
     edges = [(0, 3, False), (1, 2, False), (2, 3, False), (3, 4, False)]
+if "--fisher-transport" in sys.argv:
+    artifact = "fisher-transport-frontier"
+    heading = "ASTIS canonical Fisher / transport pairing"
+    caption = "Compiled auxiliary only. Source score/map adapters are not certified; no proximal theorem is claimed."
+    height = 980
+    nodes = [
+        node("Mathlib: L2 Holder\nand integral pullback", 25, 100),
+        node("Input: canonical finite score\nand two finite second moments", 355, 100),
+        node("Input: actual coupling\nand optimal quadratic cost", 685, 100),
+        node("Canonical pairing integrability\nand absolute W2 estimate", 355, 270,
+             "ASTIS-SHARED-canonical-fisher-transport-pairing"),
+        node("Test: remove hcs from\nexisting geodesic closure", 355, 440),
+        node("TODO: actual KL\nfirst variation producer", 25, 610, color=RED),
+        node("TODO: canonical KL\ngeodesic convexity", 355, 610, color=RED),
+        node("TODO: actual flow\nderivative interchange", 685, 610, color=RED),
+        node("TODO: matching flow\nW2 contraction", 25, 780, color=RED),
+        node("TODO: map / representative\nsource adapters", 355, 780, color=RED),
+        node("TODO: full proximal\nsource theorem", 685, 780, color=RED),
+    ]
+    # Gray input boxes are hypotheses/API categories, not additional owned leaves.
+    # No arrow from the conditional test claims any of the red source producers.
+    edges = [(0, 3, False), (1, 3, False), (2, 3, False), (3, 4, False)]
+    legend = "Blue: one ASTIS compiled packet. Gray: inputs/API/test. Red: separate source obligations."
+    boundary = "Existing conditional/scalar interfaces are reused; first variation and the full rate are not supplied here."
 svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="{height}" viewBox="0 0 1020 {height}">',
        f'<rect width="1020" height="{height}" fill="white"/>',
        '<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>']
@@ -217,8 +243,8 @@ for n in nodes:
     lines = [line for part in n["label"].splitlines() for line in textwrap.wrap(part, 30)]
     for j, line in enumerate(lines):
         text(x + 13, y + 27 + 23 * j, line, color=color)
-text(25, height - 46, "Blue: ASTIS-owned, focused-compiled. Gray: external API / test consumer. Red: TODO.", 15)
-text(25, height - 22, "No mixing, concrete Gibbs density, general-state MH, or continuous-time invariance is concluded.", 15)
+text(25, height - 46, legend, 15)
+text(25, height - 22, boundary, 15)
 svg.append("</svg>")
 (OUT / (artifact + ".svg")).write_text("\n".join(svg) + "\n", encoding="utf-8", newline="\n")
 if canvas:

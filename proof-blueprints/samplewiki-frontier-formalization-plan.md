@@ -90,6 +90,32 @@ the exact bridge used later:
 \mathrm{FI}(\mu\|\pi)\,W_2^2(\mu,\pi).
 \]
 
+The 2026-09-08 [canonical pairing cell](../research-wiki/frontier-cells/ASTIS-SHARED-canonical-fisher-transport-pairing.json)
+supplies the L2 pairing producer, not this whole bridge. Its two new declarations
+prove integrability under a coupling and the absolute integral estimate under
+quadratic optimality. The focused geodesic test derives `hcs` from that actual
+estimate; it does not assume `hcs` again. It still uses `klDiv.toReal`, with
+first variation, geodesic convexity and a metric adapter explicit, and supplies
+no finite-entropy theorem. Status and independent evidence belong to the cell
+and semantic audit, not to this planning paragraph.
+
+Independent source review records `domain-mismatch / needs-revision` for this
+auxiliary packet. Its Lean proof is sound, but the source-law formulation is
+not certified. First audit the chosen-RN representative/score domain: a smooth
+version of a density does not by itself make the library-selected representative
+differentiable. Search existing representative-aware/weak-gradient APIs before
+assuming or changing that domain. Probability specialization and the optimal
+graph-coupling expectation must also be matched; do not count those routine
+adapters as independent leaves without a genuine consumer.
+
+Then audit a genuine endpoint first variation of **finite** KL along the selected
+displacement law. Resolve the one-sided endpoint / two-sided `HasDerivAt`
+interface. Search the existing change-of-variables/entropy modules; do not add
+a new structure that merely assumes the desired first variation.
+This scheduling boundary is not itself a typed blocker or a completed leaf.
+The [source recovery audit](../runs/20260908-samplewiki-resume/chewi-edition-audit.md)
+pins this calculation to August 9, printed p.221 / PDF p.233.
+
 ### C3. Chewi Theorem 8.3.1: simultaneous-flow f-divergence dissipation
 
 For

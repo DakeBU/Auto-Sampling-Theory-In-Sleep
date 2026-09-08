@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-6edd0c5302757fcc",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "fisher_transport_worker",
+    "blind_decoder": "Independent Codex blind decoder analytic_blind_decoder; reconstruction uses only the anonymous statement and approved definition context in this packet.",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "chewi:8.4.1-cauchy-schwarz-substep",
+    "anchor": "Chewi, Log-Concave Sampling, August 9, 2026, Section 8.4, proof of Theorem 8.4.1, printed p.221 / PDF p.233. Only the unnumbered Cauchy-Schwarz substep, not the numbered convergence theorem.",
+    "original_text": "ASTIS supplementary expansion of the source calculation, not a quotation: In the forward simultaneous-flow step, write mu and pi for the current probability laws and T for the optimal transport map from mu to pi. The source pairs the relative score s = gradient log(dmu/dpi) with T-id. The Cauchy-Schwarz substep bounds the absolute value of its mu-expectation by the square root of the mu-expectation of the squared score norm, multiplied by W2(mu,pi). Combined with the preceding first-order KL inequality, this gives FI(mu||pi) W2(mu,pi)^2 >= KL(mu||pi)^2. The selected auxiliary substep does not include that preceding first-order inequality or the later flow/convergence argument. This page does not spell out all measurability, finite-energy, or density-representative conditions for the calculation. The audit must distinguish this source use from any more general coupling statement or restricted smooth representative domain.",
+    "text_sha256": "4093eff44dd358be8012f87232bb2509e2a05f8213659c1815743520032d1d7c"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.abs_integral_pairing_le_sqrt_information_mul_wasserstein",
+    "file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalFisherTransportPairing.lean",
+    "statement": "∀ {ι : Type u_1} [Fintype ι] {mu pi nu : Measure State} {gamma : Measure (State × State)}\n  (hgamma : DisplacementInterpolation.IsQuadraticOptimalCoupling gamma mu nu) (hscore : SmoothFiniteScoreDomain mu pi)\n  (hmu : Integrable (fun x => ‖x‖ ^ 2) mu) (hnu : Integrable (fun x => ‖x‖ ^ 2) nu),\n  |∫ (z : State × State), ⟪gradient (RNLogRatio.logRatio mu pi) z.1, z.2 - z.1⟫ ∂gamma| ≤\n    √(information mu pi hscore) * (WassersteinSpace.wassersteinDistance mu nu).toReal",
+    "statement_sha256": "9d4bd194002ac6249dce8334b25564e7d8f48c8b3b6a1cba595b37d6b1a0b14a",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite index type iota, let E = EuclideanSpace(R, iota) with its standard Borel structure. For all measures mu, pi, nu on E and gamma on E x E, put ell(x) = Real.log((mu.rnDeriv pi x).toReal), using the library-selected Radon-Nikodym representative, and s(x) = gradient ell x, the Riesz inverse of the real Frechet derivative. For a measure eta on E x E, let C(eta) be the extended-nonnegative integral of ENNReal.ofReal(||x-y||^2), and let K(mu,nu) be the infimum of C(eta) over all measures eta whose coordinate pushforwards are mu and nu. Suppose gamma has these coordinate pushforwards and C(gamma) = K(mu,nu); mu is absolutely continuous with respect to pi; ell is differentiable at mu-almost every point; x -> ||s(x)||^2 is integrable under mu; and x -> ||x||^2 is integrable under both mu and nu. Then |integral_(E x E) <s(x), y-x> dgamma(x,y)| <= sqrt(integral_E ||s(x)||^2 dmu(x)) * (K(mu,nu)^(1/2)).toReal. The integrals outside the definition of C are real Bochner integrals, the displayed sqrt is the real square root, and K^(1/2) is the extended-nonnegative square root. Real.log, ENNReal.toReal, and the gradient are total definitions: Real.log(0) = 0, ENNReal.toReal(+infinity) = 0, and the gradient is zero where ell is not differentiable. No probability normalization or finite-total-mass assumption is imposed.",
+    "text_sha256": "03c1c7a1da50665ed34c73d935b7352728c188876170680d0a3389b913c78b42",
+    "decoder": "Independent Codex blind decoder analytic_blind_decoder; reconstruction uses only the anonymous statement and approved definition context in this packet.",
+    "decoder_packet_sha256": "20a7120fd184e54a7d6efe7e86e119e32cf6ff8f20fa21786775403c21d8fd62",
+    "decoder_run_sha256": "4695de0e2c8f13a996f5f0a7f6f1dd114d605de51511018cb512466fa2ec1d3a",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "packet_sha256": "7bd955681318e9db9275da3619fdf71d57a1099c941a2e35497846d666badd8c"
+}
