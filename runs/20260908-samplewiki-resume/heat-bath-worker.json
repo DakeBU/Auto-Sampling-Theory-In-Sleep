@@ -1,0 +1,104 @@
+{
+  "advance_id": "ASTIS-20260908-HeatBathSnd",
+  "worker_id": "windows_harness_worker",
+  "route": "shared",
+  "frontier_cell": "ASTIS-SHARED-heat-bath-snd-invariance",
+  "frontier_cell_record": "research-wiki/frontier-cells/ASTIS-SHARED-heat-bath-snd-invariance.json",
+  "state": "PROVED_LOCAL",
+  "result_kind": "integration-node",
+  "branch": "codex/samplewiki-shared-stabilization",
+  "base_commit": "51dbfae5089e163b7e28195591df7010d5850ada",
+  "proposal": {
+    "advance_id": "ASTIS-20260908-HeatBathSnd",
+    "task_id": "ASTIS-SHARED-HEAT-BATH",
+    "goal": "Construct the second-coordinate heat-bath Markov kernel and prove exact invariance of its finite joint target.",
+    "source_anchor": "Source-neutral kernel interface; inherited MCMC arXiv:2407.12751v1 §2.1.1 printed p.48 / PDF p.54 and Discrete arXiv:2307.13826v4 §1.3 PDF p.5 conditional-update context.",
+    "theorem_delta": "Define heatBathSnd, infer Markovness, expose the pointwise Dirac-product law, and prove heatBathSnd_invariant via the existing ASTIS disintegration identity. Exercise finite powers using existing invariant_pow in Tests.HeatBath.",
+    "truth_boundary": "Finite μ including zero; arbitrary measurable α and nonempty Standard-Borel β. No reversibility, scan mixtures, mixing, conditional support on null fibers, concrete Gibbs support/positivity, or SDE claim.",
+    "created_by": "windows_harness_worker",
+    "dag_inputs": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalResampling.fst_compProd_condDistrib_snd_eq_self",
+      "AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.invariant_pow",
+      "MeasureTheory.Measure.comp_assoc",
+      "MeasureTheory.Measure.deterministic_comp_eq_map",
+      "MeasureTheory.Measure.compProd_eq_comp_prod"
+    ],
+    "proposed_files": [
+      "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+      "Tests/HeatBath.lean",
+      "research-wiki/frontier-cells/ASTIS-SHARED-heat-bath-snd-invariance.json",
+      "runs/20260908-samplewiki-resume/heat-bath-worker.json"
+    ],
+    "focused_checks": ["lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean", "lake build Tests.HeatBath", "python tools/astis_frontier_cells.py check"],
+    "modes": ["proof-design", "lean-implementation", "compiler-diagnosis"],
+    "priority": 80,
+    "frontier_cell": "ASTIS-SHARED-heat-bath-snd-invariance",
+    "target_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd",
+      "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_isMarkovKernel",
+      "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_apply",
+      "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_invariant"
+    ]
+  },
+  "shared_floor_audit": {
+    "classification": "missing",
+    "decision": "new_canonical_shared",
+    "canonical_shared_cell": "ASTIS-SHARED-heat-bath-snd-invariance",
+    "search_evidence": "ASTIS Probability modules, pinned Mathlib Kernel directory and active shared cells contain conditional-law and invariant-power parents but no state-to-state heat-bath definition. Exact reused APIs are listed in the cell; no reproof of disintegration or invariance under powers."
+  },
+  "proof_route": [
+    "Compose deterministic first projection with the product of identity and condDistrib snd fst μ.",
+    "Use existing Markov instances for condDistrib, deterministic projection, product and composition.",
+    "Expose pointwise law using comp_deterministic_eq_comap, comap_apply, prod_apply and id_apply.",
+    "Transport action on μ by Measure.comp_assoc and deterministic_comp_eq_map to the action on μ.map fst.",
+    "Rewrite that action as a measure composition-product and invoke ConditionalResampling.fst_compProd_condDistrib_snd_eq_self.",
+    "Compile a finite-power consumer using KernelInvariance.invariant_pow and explicit zero-measure cases."
+  ],
+  "source_fidelity": "Source-neutral shared kernel construction; no numbered source theorem assimilation and no adoption of the discrete-source copy-index repair candidate as a faithful statement.",
+  "semantic_roundtrip": {"required": false, "state": "not-applicable", "verdict": "Source-neutral kernel interface inheriting audited parent assumptions."},
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Reviewed the existing conditional-dependence, invariance-correction and Gibbs/coordinate/Dirac candidate memory. This proof is literal common kernel/disintegration reuse, not a new cross-domain mechanism or a block-optimization analogy."
+  },
+  "mathematical_result": "The explicitly constructed Markov kernel heatBathSnd μ retains the first coordinate through a Dirac factor and resamples the second via the selected condDistrib version. Its action preserves every finite joint measure μ, including zero, by the existing ASTIS disintegration identity. Tests instantiate the existing invariant_pow interface for all n.",
+  "lean_declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd",
+    "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_isMarkovKernel",
+    "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_apply",
+    "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_invariant"
+  ],
+  "lean_files": ["AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean", "Tests/HeatBath.lean"],
+  "focused_checks": [
+    {
+      "command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+      "result": "Passed on first attempt without warnings/errors; initial wait yielded at 10.015s and completion was observed on the next poll. Total elapsed time was not captured."
+    },
+    {
+      "command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake build Tests.HeatBath",
+      "result": "Passed, 2976 jobs. Lake reported HeatBath 11s and Tests.HeatBath 11s. The requested PowerShell total-timing line was not returned; no unobserved total duration is claimed."
+    },
+    {
+      "command": "Python 3.14.4 tools/astis_frontier_cells.py check",
+      "result": "Passed before and after focused compilation, including the proved_locally cell: 4 registered cells."
+    },
+    {
+      "command": "Scoped rg scan for sorry/admit/axiom, Prop := True, and := trivial in HeatBath.lean and Tests/HeatBath.lean",
+      "result": "No matches; rg exit 1 denotes no matching fake-closure patterns. A trailing-whitespace scan of all four owned files also had no matches."
+    }
+  ],
+  "compiled_source_sha256": {
+    "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean": "f246c8fd89c1555de29cc899e7b00e7bce9f6a5b3acb7e303973430fc549bf4f",
+    "Tests/HeatBath.lean": "d5ce2b470f089f63f409c1c34114d7fe6a11254e45d19672e56555def8697672"
+  },
+  "route_fingerprint": "heatBathSnd-product-projection-compAssoc-disintegration",
+  "progress_signature": "heatBathSnd-Markov-productLaw-invariant-and-power-tests-compiled",
+  "same_route_failures": 0,
+  "remaining_truth_boundary": "PROVED_LOCAL only: independent verification, root gate and stabilization remain the coordinator's responsibility. No reversibility, scan theorem, mixing, concrete Gibbs support/positivity, null-fiber conditional-support property, or SDE-domain claim. No source/graph/Registry/root-import updates owned by this Worker.",
+  "integration_notes": {
+    "public_imports_needed": ["AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath"],
+    "root_tests_needed": ["Tests.HeatBath"],
+    "registry_or_site_updates": "Single stabilization owner only, after independent verification.",
+    "downstream_consumers": ["mcmc", "discrete-sampling"]
+  }
+}
