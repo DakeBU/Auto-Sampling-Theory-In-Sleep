@@ -6,15 +6,19 @@
   "mode": "exploratoryProof",
   "source_anchor": "Source-neutral interface inheriting the conditional-update context of Fearnhead–Nemeth–Oates–Sherlock arXiv:2407.12751v1 §2.1.1, printed p.48 / PDF p.54, and Chen–Štefankovič–Vigoda arXiv:2307.13826v4 §1.3, PDF p.5; not a numbered source-theorem assimilation.",
   "target_statement": "For finite μ on α × β with measurable α and nonempty Standard-Borel β, construct heatBathSnd μ by retaining the first coordinate and drawing the second from condDistrib snd fst μ; show the kernel is Markov, has pointwise law dirac x.1 × condDistrib snd fst μ x.1, and leaves μ invariant. Exercise its finite powers through the existing invariant_pow interface.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-conditional-resampling-law",
-    "ASTIS-SHARED-kernel-invariant-powers",
     "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalResampling.fst_compProd_condDistrib_snd_eq_self",
     "MeasureTheory.Measure.comp_assoc",
     "MeasureTheory.Measure.deterministic_comp_eq_map",
     "MeasureTheory.Measure.compProd_eq_comp_prod"
   ],
+  "test_consumer_inputs": {
+    "file": "Tests/HeatBath.lean",
+    "cells": ["ASTIS-SHARED-kernel-invariant-powers"],
+    "role": "Finite iteration test only; invariant_pow is not a proof prerequisite of heatBathSnd_invariant."
+  },
   "consumers": ["mcmc", "discrete-sampling"],
   "shared_floor_audit": {
     "searched": [
@@ -35,7 +39,7 @@
       "2026-09-08: ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean passed on first attempt, without warnings or errors.",
       "2026-09-08: ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake build Tests.HeatBath passed (2976 jobs; HeatBath 11s, Tests.HeatBath 11s). Finite-power and zero-measure consumers compiled against Mathlib db584cd6d46c92f209a44c0f1c829460d327499d."
     ],
-    "independent_verification": "",
+    "independent_verification": "2026-09-08: kernel_packet_review accepted commit c0ed642305bb36500d5646f06d3f34e6aee32880 independently of windows_harness_worker. Single-threaded Tests.HeatBath build passed (2976 jobs); exact signatures/axioms, empty retained-space and zero-target checks passed; scoped fake-closure scan clean; Frontier Cell check passed. Source-neutral integration-node acceptance only, with root build/stabilization separate. See runs/20260908-samplewiki-resume/heat-bath-independent-review.md.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Fearnhead–Nemeth–Oates–Sherlock arXiv:2407.12751v1 §2.1.1 Component-wise updates and Gibbs moves, printed p.48 / PDF p.54; Chen–Štefankovič–Vigoda arXiv:2307.13826v4 §1.3 Glauber dynamics/Gibbs sampler",
   "target_statement": "For measurable spaces α and nonempty Standard-Borel β, a finite measure μ on α × β is recovered exactly by the composition-product of its first marginal and the regular conditional law of the second coordinate given the first.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ProbabilityTheory.compProd_map_condDistrib"
   ],
@@ -29,7 +29,7 @@
   },
   "evidence": {
     "focused_checks": ["2026-09-08: lake build Tests.ConditionalResampling passed; Lean 4.33.0, Mathlib db584cd6d46c92f209a44c0f1c829460d327499d"],
-    "independent_verification": "",
+    "independent_verification": "2026-09-08: kernel_packet_review independently checked commit 51dbfae5089e163b7e28195591df7010d5850ada. Tests.ConditionalResampling passed (2973 jobs), Frontier Cell check passed, scoped fake-closure scan clean, and compiled signatures/axioms checked. Accepted only as a source-neutral reusable interface; root build and stabilization remain pending. See runs/20260908-samplewiki-resume/independent-review.md.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/247"

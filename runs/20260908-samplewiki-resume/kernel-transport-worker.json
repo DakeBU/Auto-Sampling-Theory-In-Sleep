@@ -1,0 +1,69 @@
+{
+  "schema_version": 3,
+  "advance_id": "ASTIS-20260908-KernelTransport",
+  "route": "shared",
+  "frontier_cell": "ASTIS-SHARED-kernel-invariant-transport",
+  "frontier_cell_record": "research-wiki/frontier-cells/ASTIS-SHARED-kernel-invariant-transport.json",
+  "state": "PROVED_LOCAL",
+  "result_kind": "reusable-interface",
+  "owner": "kernel_transport_worker",
+  "base_commit": "1d400af1eda6ffabbb2ef3221965d0261afc4b10",
+  "lean_pin": "leanprover/lean4:v4.33.0",
+  "mathlib_pin": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "owned_files": ["AutoSamplingTheory/TechnicalLemmas/Probability/KernelTransport.lean", "Tests/KernelTransport.lean", "research-wiki/frontier-cells/ASTIS-SHARED-kernel-invariant-transport.json", "runs/20260908-samplewiki-resume/kernel-transport-worker.json"],
+  "mathematical_result": "Kernel invariance transports through an arbitrary measurable equivalence, with no extra typeclass assumptions.",
+  "theorem_delta": "For measurable alpha/beta, kappa : Kernel alpha alpha, mu : Measure alpha and e : alpha equiv_m beta, h : kappa.Invariant mu gives ((kappa.comap e.symm e.symm.measurable).map e).Invariant (mu.map e).",
+  "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Probability.KernelTransport.invariant_map_comap"],
+  "public_declaration_count": 1,
+  "lean_files": ["AutoSamplingTheory/TechnicalLemmas/Probability/KernelTransport.lean", "Tests/KernelTransport.lean"],
+  "minimal_imports": ["Mathlib.Probability.Kernel.Invariance"],
+  "proof_parents": ["MeasureTheory.Measure.map_comp", "ProbabilityTheory.Kernel.comp_deterministic_eq_comap", "MeasureTheory.Measure.comp_assoc", "MeasureTheory.Measure.deterministic_comp_eq_map", "MeasurableEquiv.map_symm_map", "ProbabilityTheory.Kernel.Invariant.def"],
+  "exact_interfaces": [
+    "MeasureComp.lean:99 map_comp (mu) (kappa) (hf : Measurable f): (kappa comp_m mu).map f = (kappa.map f) comp_m mu",
+    "CompMap.lean:44 comp_deterministic_eq_comap (kappa) (hg : Measurable g): kappa comp_k deterministic g hg = kappa.comap g hg",
+    "MeasureComp.lean:31 comp_assoc: eta comp_m (kappa comp_m mu) = (eta comp_k kappa) comp_m mu",
+    "CompNotation.lean:47 deterministic_comp_eq_map (hf : Measurable f): deterministic f hf comp_m mu = mu.map f",
+    "Measure/Map.lean:307 MeasurableEquiv.map_symm_map (e): (mu.map e).map e.symm = mu",
+    "All proof APIs are unrestricted in measure/kernel finiteness. Genuine e.measurable and e.symm.measurable supply the measurable-map branches."
+  ],
+  "test_consumer_inputs": {
+    "declarations": ["HeatBath.heatBathSnd_invariant", "KernelMixture.finiteMixture_invariant", "KernelMixture.finiteMixture_isMarkovKernel", "KernelInvariance.invariant_pow", "MeasurableEquiv.piFinSuccAbove", "MeasurableEquiv.prodComm", "Kernel.IsMarkovKernel.map"],
+    "checks": ["Generic arbitrary-kernel/measure public signature", "Dependent Fin (n+1) split identity: chosen coordinate is second, remaining coordinates are first", "Private conjugated heat-bath invariance with finite mu and StandardBorel/nonempty only on X i", "Nontrivial middle-coordinate update on Fin 3 -> Bool", "Fixed weighted random-scan mixture is Markov", "Every finite power of that actual mixture preserves mu"],
+    "boundary": "Consumer inputs only, not proof parents of invariant_map_comap. Test-only private definitions/theorem are not a public coordinate algorithm. A full retained-coordinate operational theorem is not claimed."
+  },
+  "shared_floor_audit": {
+    "classification": "missing",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTransport.invariant_map_comap",
+    "canonical_shared_cell": "ASTIS-SHARED-kernel-invariant-transport",
+    "searched": ["Reused next-packet.md and kernel-cell-synthesis.json scouts", "Samplinglib probability interfaces, active shared cells, Libraries/shared-foundations.yml", "Pinned Mathlib MeasureComp, CompMap, MapComap, Invariance, Measure.Map, MeasurableSpace.Embedding"],
+    "notes": "One missing invariance closure; no duplicate map/comap/evaluation/Markov or coordinate-split wrapper. Removed redundant CompMap import after confirming its transitive import through Invariance."
+  },
+  "focused_checks": [
+    {"command": "$env:ELAN_TOOLCHAIN='leanprover/lean4:v4.33.0'; $env:LEAN_NUM_THREADS='1'; lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/KernelTransport.lean", "result": "PASS exit 0 on first proof attempt (before removal of redundant import)."},
+    {"command": "$env:ELAN_TOOLCHAIN='leanprover/lean4:v4.33.0'; $env:LEAN_NUM_THREADS='1'; lake env lean Tests/KernelTransport.lean", "result": "PASS exit 0; only standard axioms [propext, Classical.choice, Quot.sound]."},
+    {"command": "$env:ELAN_TOOLCHAIN='leanprover/lean4:v4.33.0'; $env:LEAN_NUM_THREADS='1'; lake build Tests.KernelTransport", "result": "PASS exit 0 on final one-import public module and final tests, 2979 jobs. Public module 10s; tests 16s."},
+    {"command": "Scoped rg fake-closure/trailing-whitespace scan on the two owned Lean files; git diff --check on the same paths", "result": "No matches / clean."},
+    {"command": "python tools/astis_frontier_cells.py check", "result": "PASS, 6 registered cells."}
+  ],
+  "diagnosed_failures": ["First consumer build failed because prodComm has implicit type parameters and coordinateUpdate has coordinate-indexed instance arguments. Removed two explicit type placeholders and eta-expanded the component function. No theorem hypothesis or mathematical route changed; the corrected test compiled on its next attempt."],
+  "source_fidelity": "Exact formal proof is audited pinned Mathlib algebra (Apache 2.0). MCMC 2407.12751v1 section 2.1.1 PDF54 and Discrete 2307.13826v4 section 1.3 PDF5 motivate later consumers, not a numbered theorem assimilation. Parent source-coordinate-update-audit.md preserves byte-pinned page review and unresolved copy-index repair boundary.",
+  "semantic_roundtrip": {"required": false, "audit_id": "", "state": "not-applicable", "verdict": "Source-neutral algebraic interface, not assimilation of a numbered source theorem; exact proposition and proof parents are explicit.", "remaining_semantic_delta": "Consumer Gibbs support, normalization, operational retained-coordinate behavior, reversibility and mixing are not claimed."},
+  "conceptual_mirror_audit": {"status": "none-found", "discovery_ids": [], "reason": "Read conceptual-mirror protocol and existing dirac / Gibbs-coordinate candidate boundaries. This result is literal measurable-equivalence conjugation and direct theorem reuse, not a new source-backed cross-domain analogy or certified category/functor. No new candidate was found."},
+  "truth_boundary": "Exact invariance only. Generic theorem has arbitrary measurable spaces/kernel/measure, no Markov/finiteness/SFinite/StandardBorel/nonempty restrictions. Heat-bath tests separately need a finite target and nonempty Standard Borel resampled coordinates. Conditional versions are only marginal-a.e. characterized. No support, normalization, operational-coordinate theorem, source-copy repair, reversibility, convergence, holding probability, cost, MH or SDE claim. Independent verification, root gate and shared integration remain pending.",
+  "route_fingerprint": "map-comp:deterministic-comap:measure-associativity:inverse-pushforward",
+  "progress_signature": "one-public-unrestricted-transport-plus-dependent-coordinate-mixture-powers-compiled",
+  "new_discoveries": [],
+  "integration_notes": {
+    "public_imports_needed": ["AutoSamplingTheory.TechnicalLemmas.Probability.KernelTransport in probability aggregator", "Tests.KernelTransport in Tests.lean"],
+    "registry_or_site_updates": ["Sole stabilization owner should add exactly one canonical theorem record after independent acceptance; preserve proof-parent/test-consumer distinction and source-neutral scope."],
+    "downstream_consumers": ["Coordinate heat-bath operational properties and concrete supported Gibbs adapters", "Fixed random-scan invariance by existing finiteMixture_invariant; no public algorithm added in this SAU"],
+    "shared_mutations": "None outside own SAU events and four owned new files. No branch, commit, registry, aggregator, site or remote publication changes."
+  },
+  "hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Probability/KernelTransport.lean": {"sha256": "509a03bf2833a27036017b172fe12e74f9fd56d1828786227397ecff646ab217", "git_blob": "d9172c1f66c35575ee6c848dd940cf61a2172789"},
+    "Tests/KernelTransport.lean": {"sha256": "54c26fb2d1bb91d5279f2dda1ed3721232f7f5ff4dd375d7e770408a94fcb53c", "git_blob": "2332f6e29848246e21cee6c11db75c0981ab45b1"}
+  },
+  "branch": "Existing shared checkout unchanged",
+  "commit": "No worker commit; base 1d400af1eda6ffabbb2ef3221965d0261afc4b10, exact new file hashes above"
+}
