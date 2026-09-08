@@ -5,3 +5,4 @@ research-wiki/retrieval-index/atlas-v1/*.jsonl text eol=lf
 runs/20260908-samplewiki-resume/positive-fiber.*.json text eol=lf
 runs/20260908-samplewiki-resume/copy-index.*.json text eol=lf
 runs/20260908-samplewiki-resume/random-scan.*.json text eol=lf
+runs/20260908-samplewiki-resume/reversibility.*.json text eol=lf

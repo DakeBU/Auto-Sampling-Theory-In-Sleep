@@ -121,7 +121,7 @@ if "--positive-fiber" in sys.argv:
 if "--random-scan" in sys.argv:
     artifact = "random-scan-frontier"
     heading = "ASTIS supported random-scan transition law"
-    caption = "One uniform update, source-supported starts. Local proof, semantic review and publication are distinct."
+    caption = "Historical transition-law checkpoint. See reversibility-frontier.svg for the later balance packet."
     height = 980
     nodes = [
         node("Canonical heat-bath:\npositive-fiber conditional law", 25, 100,
@@ -139,6 +139,30 @@ if "--random-scan" in sys.argv:
     # Existing invariance/powers are test inputs, not new proof prerequisites.
     # Separate red claims do not follow from the operational formula alone.
     edges = [(0, 2, False), (1, 2, False), (2, 3, False)]
+if "--reversibility" in sys.argv:
+    artifact = "reversibility-frontier"
+    heading = "ASTIS actual random-scan reversibility"
+    caption = "One integration packet with a reusable atomic bridge. Local proof and publication remain distinct."
+    height = 980
+    nodes = [
+        node("Actual uniform random scan:\nsupported singleton law", 25, 100,
+             "ASTIS-SHARED-random-scan-heat-bath"),
+        node("Mathlib: countable lintegrals\nand nonnegative sum exchange", 685, 100),
+        node("Countable atom balance\nto set-integral reversibility", 685, 270,
+             "ASTIS-SHARED-random-scan-reversibility"),
+        node("Actual random-scan kernel:\nreversible for its target", 25, 270,
+             "ASTIS-SHARED-random-scan-reversibility"),
+        node("Tests: weighted flux, null atoms,\nexisting invariant powers", 355, 440),
+        node("TODO: concrete Gibbs density\nand normalization", 25, 610, color=RED),
+        node("TODO: supported-state\nkernel restriction", 355, 610, color=RED),
+        node("TODO: model connectivity\nand ergodicity", 685, 610, color=RED),
+        node("TODO: quantitative mixing\nand sampling cost", 25, 780, color=RED),
+        node("TODO: general-state MH\nRN/support contract", 355, 780, color=RED),
+        node("TODO: continuous-time\noperator/domain closure", 685, 780, color=RED),
+    ]
+    # Two public facts in ONE SAU: a reusable bridge and its actual consumer.
+    # No arrows imply that reversibility proves the independent red contracts.
+    edges = [(0, 3, False), (1, 2, False), (2, 3, False), (3, 4, False)]
 svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="{height}" viewBox="0 0 1020 {height}">',
        f'<rect width="1020" height="{height}" fill="white"/>',
        '<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>']

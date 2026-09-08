@@ -45,7 +45,7 @@
     "detail_status": "omitted",
     "gap": "Combine the already-defined coordinate conditional law with actual uniform site selection, and derive each positive retained fiber from source-supported x by singleton inclusion. No extra positive-fiber assumption is supplied. The source copy-index discrepancy has a separate exact-proposal review; it is not silently corrected by this Lean proof.",
     "consulted": [{"source": "Pinned Mathlib db584cd6d46c92f209a44c0f1c829460d327499d, Apache2.0", "anchor": "ConditionalProbability.lean216-221 cond_apply/cond_apply'; Data/Fin/SuccPred.lean succAbove_ne and exists_succAbove_eq; ENNReal/Inv.lean67 coe_inv", "hypothesis_adapter": "Bool carries discrete measurable, measurable singleton, nonempty and StandardBorel instances. Probability gives finite target; source support supplies nonzero singleton and monotonicity supplies every fiber. The n+1 index makes the uniform denominator nonzero. Operational all-other-site equality is equivalent to native retained tuple equality."}],
-    "fidelity_boundary": "Source-facing finite Boolean probability specialization and one uniform update. Graph vertices are represented by Fin(n+1), spins by Bool, source support by mu{x}!=0 within the full cube. Uniformity and support now match the source scope. Fresh blind reconstruction and independent source comparison remain required; historical limited-context discrepancy audit is not overwritten. No null-fiber law, concrete Gibbs normalization, general-state MH, reversibility, mixing or executable cost is asserted."
+    "fidelity_boundary": "Source-facing finite Boolean probability specialization and one uniform update. Graph vertices are represented by Fin(n+1), spins by Bool, source support by mu{x}!=0 within the full cube. Canonical audit ASTIS-RT-20260908-RandomScanLaw independently accepts the explicitly cited explanatory one-update target as equivalent-after-elaboration. This does not certify literal printed step2 or the full numbered algorithm; the historical limited-context discrepancy audit is not overwritten. No null-fiber law, concrete Gibbs normalization, general-state MH, reversibility, mixing or executable cost is asserted."
   },
   "semantic_roundtrip_required": true,
   "conceptual_mirror_audit": {"status": "none-found", "discovery_ids": [], "reason": "Reviewed conceptual protocol, family:proximal-energy, family:conditional-dependence and transport:mcmc-gibbs-coordinate. The new step is literal finite-mixture plus atomic-conditioning reuse, not a new cross-domain analogy. Existing block optimization candidate is not certified or duplicated."},
@@ -63,7 +63,7 @@
     "metric": "Exact pointwise singleton transition probabilities, not an error rate.",
     "cost": "Noncomputable measure-level interface; no algorithmic conditional sampler or work guarantee.",
     "objective": "Identify exact one-move random-scan transition law on source-valid starts.",
-    "source_proof_status": "Uniform choice and conditional move are source algorithm steps; exact new source-fidelity audit pending distinct reviewers.",
+    "source_proof_status": "Uniform choice and conditional move are source algorithm steps. Independent ASTIS-RT-20260908-RandomScanLaw accepts only the cited explanatory one-update target as equivalent-after-elaboration; complete printed algorithm remains outside acceptance.",
     "periodicity": "No aperiodicity, absolute-gap or convergence claim is needed for this one-step identity."
   },
   "discrete_state_contract": {
@@ -78,7 +78,7 @@
     "regime": "Any finite Boolean probability target; no graph degree, temperature, uniqueness or mixing condition.",
     "metric": "Exact singleton transition law.",
     "cost": "No executable sampling or complexity claim.",
-    "source_proof_status": "Source support and uniform selection directly audited on complete pinned pages. Fresh full statement semantic review remains independent.",
+    "source_proof_status": "Source support and uniform selection audited on complete pinned pages; independent ASTIS-RT-20260908-RandomScanLaw accepts the expressly scoped explanatory one-update law, not the complete printed numbered algorithm.",
     "aperiodicity_or_absolute_gap": "Not applicable to one-step identification; no convergence theorem."
   }
 }

@@ -74,6 +74,11 @@ singleton law. The focused tests include the two-bit uniform row
 boundary, and a nonzero target whose null-fiber normalized formula differs from
 the actual Markov kernel.
 
+The later [actual-kernel reversibility packet](AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBathReversibility.md)
+consumes this transition law in its positive-atom branches. That theorem's
+proof/source status is separate; it does not extend this pointwise law to null
+starts or certify the entire printed source algorithm.
+
 ## Source and status boundaries
 
 The primary operational target is Discrete Sampling, arXiv:2307.13826v4,

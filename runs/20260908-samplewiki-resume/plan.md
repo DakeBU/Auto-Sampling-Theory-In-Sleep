@@ -328,3 +328,67 @@ upstream PR status was not changed.
   Hard-core ergodicity must not be transferred to arbitrary targets. The D:
   repository and physical `.lake` remain in place; no remote mutation, detached
   session, replacement Goal or overall completion is authorized by this step.
+
+## Actual random-scan reversibility: current checkpoint
+
+- Frozen proof commit `865871bfe058e073421a478103bd5fc9f9b1a3eb` contains one
+  substantive integration packet, with two public facts: a generic countable
+  singleton-balance bridge and the actual Boolean random-scan consumer. The
+  helper imports only Mathlib kernel invariance and countable integration;
+  Markovness, finite target mass and finite kernel output mass are not required.
+- The consumer imposes no full-support or positive-start premise on the target
+  flux theorem. It invokes the existing supported-start law only after the
+  appropriate nonzero case split. Matching retained tuples identify the fibers;
+  no inverse cancellation is needed in this new proof. Null target atoms are
+  handled by zero factors and the opposite supported-start transition law.
+- Worker focused build passes 2984 jobs. Tests include infinite-mass counting
+  kernels, zero target measure, nonuniform forward/backward probabilities
+  `3/8` and `1/8`, equal weighted flux, all measurable sets, null fibers,
+  disconnected supported targets, the single-site boundary and reuse of the
+  existing invariant-power interface. Two standard-axiom checks and scoped
+  fake-closure checks pass. Distinct `reversibility_proof_review` completed fresh
+  public/test/scratch elaboration and independently accepted the exact frozen
+  packet; it published `VERIFIED` through the supported API. Its report is
+  `reversibility-independent-review.md`. Exact-arithmetic stress checks cover
+  1,029 target/null-version cases and 52,896 weighted-flux pairs; these checks
+  are supporting diagnostics, not additional compiled leaves.
+- The direct finite-state source is Levin--Peres second edition, Section
+  3.3.2 and Exercise 3.2. Full PDF pages 58, 59 and 61 were visually inspected
+  and byte-pinned; the MCMC component/composition distinction was checked on
+  full PDF pages 54--55. No PDF was republished or relabeled as open-licensed.
+  Missing external checkout directories are explicit, not a claimed fetch.
+- Fresh blind reconstruction and independent source review accept exactly the
+  Boolean reversibility clause as `equivalent-after-elaboration`. All seven
+  slots and six informational deltas are copied from the immutable reviewer
+  response with hash and packet bindings verified. No repair is proposed for
+  this target; previous audits and the earlier one-index repair are preserved.
+  The semantic gate passes three audits and one existing repair.
+- `kernel-cell-synthesis-v2.json` compresses the preceding eight packets at
+  historical checkpoint `bb6fa81`, keeping proof parents, consumer tests,
+  source scope and integration status distinct. It does not count this later
+  packet or manufacture a new mathematical result. The independent bounded
+  synthesis audit passed; its discovery and the new atomic interface discovery
+  were validated by the distinct verifier. Nine shared kernel packets now have
+  independent local proof evidence, without claiming nine Registry additions.
+- Registry remains 394 and kernel powers retains the only stabilization lane.
+  No queued packet is bulk-promoted, merged, or remotely published. The
+  source-bound root gate covers the root imports; focused queued-module
+  checks remain separate evidence, not implied root `Tests` coverage.
+- README and the theorem/module cards link the new reusable bridge, actual
+  consumer and dependency slice. The earlier random-scan graph is labeled a
+  historical transition-law snapshot. The current graph separates model
+  normalization, supported-state restriction, connectivity, mixing, general
+  MH and continuous-time domain closure. Final-status PNGs are inspected after
+  rendering; code-native SVG remains the versioned source of the visual.
+- The four focused metadata/protocol suites pass 48 tests. Frontier gate
+  passes 10 registered cells. Python syntax and whitespace checks pass. The
+  final evidence commit is followed by the canonical root Lean/ASTIS gate
+  and static-site build/check, whose exact result lives in the machine-local
+  source-bound gate stamp rather than a speculative success flag here.
+- `reversibility-next-route-audit.md` returns scheduling to the dependency-ready
+  SampleWiki analytic spine. Existing canonical Fisher domains, explicit
+  KL-flow derivative fields and scalar geodesic closure must be reused;
+  missing first-variation/transport inputs must not be assumed into existence.
+  This is a source/API audit candidate, not a frozen next theorem or typed
+  blocker. Goal stays active in this chat, with no detached session, parallel
+  checkout, relocated cache, or new publication authority.

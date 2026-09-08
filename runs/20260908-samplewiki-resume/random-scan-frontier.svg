@@ -2,7 +2,7 @@
 <rect width="1020" height="980" fill="white"/>
 <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>
 <text x="25" y="38" font-family="Segoe UI,Arial,sans-serif" font-size="24" fill="#101828">ASTIS supported random-scan transition law</text>
-<text x="25" y="66" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">One uniform update, source-supported starts. Local proof, semantic review and publication are distinct.</text>
+<text x="25" y="66" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Historical transition-law checkpoint. See reversibility-frontier.svg for the later balance packet.</text>
 <path d="M315,152 L355,322" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 <path d="M685,152 L645,322" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 <path d="M500,374 L500,440" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>

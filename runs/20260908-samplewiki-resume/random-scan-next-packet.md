@@ -1,5 +1,10 @@
 # Next route after the actual random-scan transition law
 
+Historical planning packet: the candidate below is now implemented at
+`865871bfe058e073421a478103bd5fc9f9b1a3eb`. The canonical reversibility cell
+owns proof/source status. See `reversibility-next-route-audit.md` for the next
+dependency audit; do not reopen this packet as another scalar balance wrapper.
+
 This is a scoped candidate handoff, not a frozen theorem or a new Goal. Resolve
 the canonical independent proof/source gates for the current packet first.
 

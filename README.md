@@ -33,10 +33,12 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 ## News
 
 - **2026-09-08, local proof checkpoint:** the shared Discrete Sampling / MCMC
-  route now includes the actual uniform random-scan singleton transition law,
-  with positive support, the one-update clock and null-fiber limits explicit.
-  See the [learning card](research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.md)
-  and [dependency slice](runs/20260908-samplewiki-resume/random-scan-frontier.svg).
+  route now includes reversibility of the actual uniform random-scan kernel,
+  through a reusable countable singleton-balance bridge. Zero target atoms
+  are allowed; the one-update clock and null-fiber limits remain explicit.
+  See the [learning card](research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBathReversibility.md),
+  [atomic bridge](research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.KernelReversibility.md)
+  and [dependency slice](runs/20260908-samplewiki-resume/reversibility-frontier.svg).
   Focused compilation, independent review, Registry integration and remote
   publication are separate statuses; this is not a chapter or mixing result.
 

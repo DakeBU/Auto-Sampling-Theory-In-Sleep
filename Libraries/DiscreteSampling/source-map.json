@@ -720,6 +720,11 @@
       "id": "lpw",
       "title": "Levin–Peres, with contributions by Wilmer: Markov Chains and Mixing Times, 2nd ed. (2017)",
       "url": "https://pages.uoregon.edu/dlevin/MARKOV/",
+      "pdf_url": "https://pages.uoregon.edu/dlevin/MARKOV/mcmt2e.pdf",
+      "sha256": "9ef39f9467d9647ff3f5e8747b9ce24b7a90d13be2f8156fbd827b95b661a772",
+      "retrieved_date": "2026-09-08",
+      "pdf_pages": 461,
+      "audited_anchor": "Section 3.3.2, printed pp.42–43 / PDF pp.58–59, equations (3.6)–(3.7); Exercise 3.2, printed p.45 / PDF p.61. Complete relevant pages visually inspected; Boolean specialization for the current ASTIS consumer, not the whole finite-alphabet exercise.",
       "role": "background textbook",
       "use": "Basic finite chains, coupling, spectral analysis and mixing-time lower bounds; not claimed to have an arXiv edition."
     },

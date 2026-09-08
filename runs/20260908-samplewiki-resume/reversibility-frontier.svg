@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="980" viewBox="0 0 1020 980">
+<rect width="1020" height="980" fill="white"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>
+<text x="25" y="38" font-family="Segoe UI,Arial,sans-serif" font-size="24" fill="#101828">ASTIS actual random-scan reversibility</text>
+<text x="25" y="66" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">One integration packet with a reusable atomic bridge. Local proof and publication remain distinct.</text>
+<path d="M170,204 L170,270" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M830,204 L830,270" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M685,322 L315,322" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M315,322 L355,492" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="25" y="100" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
+<text x="38" y="127" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Actual uniform random scan:</text>
+<text x="38" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">supported singleton law</text>
+<text x="38" y="173" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">independently verified</text>
+<rect x="685" y="100" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="698" y="127" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Mathlib: countable lintegrals</text>
+<text x="698" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">and nonnegative sum exchange</text>
+<rect x="685" y="270" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
+<text x="698" y="297" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Countable atom balance</text>
+<text x="698" y="320" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">to set-integral reversibility</text>
+<text x="698" y="343" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">independently verified</text>
+<rect x="25" y="270" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
+<text x="38" y="297" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Actual random-scan kernel:</text>
+<text x="38" y="320" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">reversible for its target</text>
+<text x="38" y="343" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">independently verified</text>
+<rect x="355" y="440" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="368" y="467" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Tests: weighted flux, null</text>
+<text x="368" y="490" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">atoms,</text>
+<text x="368" y="513" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">existing invariant powers</text>
+<rect x="25" y="610" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="38" y="637" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: concrete Gibbs density</text>
+<text x="38" y="660" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">and normalization</text>
+<rect x="355" y="610" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="368" y="637" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: supported-state</text>
+<text x="368" y="660" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">kernel restriction</text>
+<rect x="685" y="610" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="698" y="637" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: model connectivity</text>
+<text x="698" y="660" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">and ergodicity</text>
+<rect x="25" y="780" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="38" y="807" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: quantitative mixing</text>
+<text x="38" y="830" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">and sampling cost</text>
+<rect x="355" y="780" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="368" y="807" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: general-state MH</text>
+<text x="368" y="830" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">RN/support contract</text>
+<rect x="685" y="780" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="698" y="807" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: continuous-time</text>
+<text x="698" y="830" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">operator/domain closure</text>
+<text x="25" y="934" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Blue: ASTIS-owned, focused-compiled. Gray: external API / test consumer. Red: TODO.</text>
+<text x="25" y="958" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">No mixing, concrete Gibbs density, general-state MH, or continuous-time invariance is concluded.</text>
+</svg>
