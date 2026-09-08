@@ -7,7 +7,12 @@
   "source_anchor": "Source-neutral interface motivated by MCMC arXiv:2407.12751v1 §2.1.1, printed p.48 / PDF p.54, and Discrete Sampling arXiv:2307.13826v4 §1.3, PDF p.5; no numbered source theorem assimilation.",
   "target_statement": "For finite ι, fixed w : ι → ℝ≥0 with sum w = 1 and kernels κ i preserving the same arbitrary measure μ, construct the finite mixture and prove μ invariant. Markov components give a Markov mixture. The selected withDensity implementation requires s-finite component kernels, automatically supplied by Markovness; μ requires no finiteness or s-finiteness.",
   "status": "proved_locally",
-  "parents": ["ProbabilityTheory.Kernel.withDensity", "MeasureTheory.withDensity_const", "MeasureTheory.lintegral_finsetSum", "MeasureTheory.lintegral_const_mul", "ASTIS-SHARED-heat-bath-snd-invariance", "ASTIS-SHARED-kernel-invariant-powers"],
+  "parents": ["ProbabilityTheory.Kernel.withDensity", "MeasureTheory.withDensity_const", "MeasureTheory.Measure.bind_apply", "MeasureTheory.lintegral_finsetSum", "MeasureTheory.lintegral_const_mul"],
+  "test_consumer_inputs": {
+    "file": "Tests/KernelMixture.lean",
+    "cells": ["ASTIS-SHARED-heat-bath-snd-invariance", "ASTIS-SHARED-kernel-invariant-powers"],
+    "role": "Inputs to the identity/heat-bath mixture and finite-power tests only; not proof dependencies of finiteMixture_invariant. Identity weight may be zero, so no positive holding probability or aperiodicity is inferred."
+  },
   "consumers": ["mcmc", "discrete-sampling"],
   "shared_floor_audit": {
     "searched": ["Samplinglib Probability modules and all TechnicalLemmas for mixture/random-scan/convex-kernel targets", "Mathlib db584cd6d46c92f209a44c0f1c829460d327499d Probability/Kernel/{Defs,WithDensity,Invariance}.lean", "Mathlib MeasureTheory/{Measure/GiryMonad,Measure/WithDensity,Integral/Lebesgue/Add}.lean and Data/ENNReal/BigOperators.lean", "Active shared Frontier Cells and Libraries/shared-foundations.yml"],
