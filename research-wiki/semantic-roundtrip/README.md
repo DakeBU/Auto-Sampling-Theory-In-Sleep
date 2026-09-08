@@ -102,3 +102,18 @@ python3 tools/astis_semantic_roundtrip.py repair-reviewer-packet \
 The formalizer, blind decoder, and each source-facing reviewer must satisfy the recorded independence contract. The canonical registry pins the original text, Lean statement, anonymous decoder packet, decoder run, reconstruction, source-review packet/run, repaired statement, exact repair payload, and repair-review packet/run with SHA-256 hashes.
 
 The canonical machine-readable registry is `research-wiki/semantic-roundtrip/registry.json`. The Underlying Lean Graph reads the same registry, so protocol stages, fidelity verdicts, semantic deltas, denoising proposals, and repair-review evidence shown to readers are generated from the gated evidence rather than hand-written website claims.
+
+## First source-facing shared-kernel audit
+
+`ASTIS-RT-20260908-PositiveFiberUpdate` compares the actual compiled
+positive-fiber coordinate update with short pinned Discrete Sampling excerpts.
+The blind decoder and independent source reviewer are separate actors. The
+review's `possible-source-error` diagnosis is accepted, but exact source
+fidelity is false: retention and positive-fiber assumptions have blocking
+differences. No repair is accepted and no source algorithm is assimilated.
+The website therefore displays a fidelity mismatch, not a blue source theorem.
+
+The immutable source-review run record retains both the original response and
+its independent schema-only amendment. The latter changes unsupported severity
+labels to the canonical enum; it does not change the mathematical analysis.
+Packet/run hashes bind the source, proposition, reconstruction and review.

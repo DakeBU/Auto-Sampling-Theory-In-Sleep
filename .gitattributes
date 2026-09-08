@@ -1,3 +1,5 @@
 runs/trials_summary.csv whitespace=cr-at-eol
 # Byte-pinned ATLAS snapshot: Git must not rewrite its line endings on Windows.
 research-wiki/retrieval-index/atlas-v1/*.jsonl text eol=lf
+# Immutable semantic packets and actor responses carry byte-level run hashes.
+runs/20260908-samplewiki-resume/positive-fiber.*.json text eol=lf

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-f29e18365436d674",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {n : ℕ} (X : Fin (n + 1) → Type u_1) [inst : (j : Fin (n + 1)) → MeasurableSpace (X j)] (μ : Measure ((j : Fin (n + 1)) → X j)) [inst_1 : IsFiniteMeasure μ] (i : Fin (n + 1)) [inst_2 : StandardBorelSpace (X i)] [inst_3 : Nonempty (X i)] [MeasurableSingletonClass ((j : Fin n) → X (i.succAbove j))] (x : (j : Fin (n + 1)) → X j), μ {y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)} ≠ 0 → (CoordinateHeatBath.heatBath X μ i) x = μ[|{y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)}]",
+    "statement_sha256": "f29e18365436d674077613488f998f767452128a1c991e84f755bb469488260f",
+    "compiled": true,
+    "approved_definition_context": [
+      "Fin (n+1) is the finite index type; i.succAbove : Fin n → Fin (n+1) enumerates the indices other than i in increasing order. The universe u_1 is arbitrary.",
+      "e_i is the measurable equivalence x ↦ ((fun j => x (i.succAbove j)), x i), with inverse reinserting the selected coordinate.",
+      "For ν = μ.map e_i, let κ = condDistrib Prod.snd Prod.fst ν. condDistrib Y Z ν is the selected regular conditional-distribution Markov kernel, defined as the conditional kernel of ν.map (fun a => (Z a, Y a)); it is characterized ν.map Z-almost everywhere.",
+      "CoordinateHeatBath.heatBath X μ i x = (e_i.symm)_# (dirac ((e_i x).1) × κ ((e_i x).1)); measure map denotes pushforward, and the product is the product of measures.",
+      "μ[|s] denotes ProbabilityTheory.cond μ s, defined as (μ s)⁻¹ • μ.restrict s. The scalar is ENNReal with totalized inverse. IsFiniteMeasure means finite total mass; no normalization to mass one is built into that class."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "ac527c3ca65e38837e9289657ab78b22792fb7a1ced8f924c16876b043bc6eab"
+}

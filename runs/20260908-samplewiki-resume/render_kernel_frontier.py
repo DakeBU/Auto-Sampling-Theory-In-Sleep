@@ -97,6 +97,27 @@ if "--coordinate" in sys.argv:
     # red obligations are separate residual contracts, not implied by invariance.
     edges = [(0, 3, False), (1, 3, False), (2, 3, False),
              (3, 6, False), (4, 6, False), (5, 6, False)]
+if "--positive-fiber" in sys.argv:
+    artifact = "positive-fiber-frontier"
+    heading = "ASTIS positive-fiber conditional-law slice"
+    caption = "One existing kernel, one positive-fiber law. Source fidelity and publication are separate gates."
+    height = 980
+    nodes = [
+        node("Canonical coordinate heat-bath\nand one-block evaluation", 25, 100,
+             "ASTIS-SHARED-coordinate-heat-bath"),
+        node("Mathlib: atomic conditional law\nand normalized restriction", 685, 100),
+        node("Positive-fiber law:\nactual kernel = conditional target", 355, 270,
+             "ASTIS-SHARED-coordinate-heat-bath-positive-fiber"),
+        node("Focused finite-state consumer:\ntransition ratios / null exclusion", 355, 440),
+        node("TODO: exact source alignment\nand separate copy-index repair", 25, 610, color=RED),
+        node("TODO: supported Gibbs model\nand scan integration", 685, 610, color=RED),
+        node("TODO: reversibility", 25, 780, color=RED),
+        node("TODO: quantitative mixing", 685, 780, color=RED),
+    ]
+    # The positive-fiber law deliberately has no null-fiber conclusion. Red
+    # source/model/mixing contracts are not mathematical consequences of a
+    # green focused build or of an independently reviewed semantic diagnosis.
+    edges = [(0, 2, False), (1, 2, False), (2, 3, False)]
 svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="{height}" viewBox="0 0 1020 {height}">',
        f'<rect width="1020" height="{height}" fill="white"/>',
        '<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>']

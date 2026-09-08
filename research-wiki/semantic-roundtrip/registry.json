@@ -36,5 +36,132 @@
     ],
     "repair_policy": "A repair is a separately reviewed proposal. It never overwrites or silently weakens the pinned source theorem, and formalization artifacts may not be accepted as source corrections. Every reviewed repair is bound to its exact proposal payload and an independent repair-review packet."
   },
-  "audits": []
+  "audits": [
+    {
+      "id": "ASTIS-RT-20260908-PositiveFiberUpdate",
+      "state": "source-reviewed",
+      "graph_node": "ASTIS-SHARED-coordinate-heat-bath-positive-fiber",
+      "source": {
+        "source_id": "discrete-sampling:2307.13826v4",
+        "anchor": "Section 1.3, printed/PDF page 5, general Glauber update steps 2–3; https://arxiv.org/pdf/2307.13826v4#page=5. Two short formula/instruction excerpts below. ASTIS context paraphrase (not source quotation): the source uses a distribution on Omega subset of {0,1}^V, a finite site set V and a starting configuration X_t in Omega; step 2 applies to every w != v. The preceding uniform-site selection step is outside this fixed-site comparison.",
+        "original_text": "X_{t+1}(w) = X_t(v).\nChoose X_{t+1}(v) from the conditional Gibbs distribution μ(σ(v) = · | σ(w) = X_t(w) for all w ≠ v).",
+        "text_sha256": "f8d1d26fd9c535d95f37bbdfab2e52e4665b3c298853257bf6d0f89a2a604aac",
+        "wording_status": "short quotation; mathematical typography normalized",
+        "pdf_sha256": "3cc2f911b33bb5538157ef8a70f0c7e0f3c812ecd06dc9c1d5ea0bfdae11a52a"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_eq_cond",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBathConditional.lean",
+        "statement": "∀ {n : ℕ} (X : Fin (n + 1) → Type u_1) [inst : (j : Fin (n + 1)) → MeasurableSpace (X j)] (μ : Measure ((j : Fin (n + 1)) → X j)) [inst_1 : IsFiniteMeasure μ] (i : Fin (n + 1)) [inst_2 : StandardBorelSpace (X i)] [inst_3 : Nonempty (X i)] [MeasurableSingletonClass ((j : Fin n) → X (i.succAbove j))] (x : (j : Fin (n + 1)) → X j), μ {y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)} ≠ 0 → (CoordinateHeatBath.heatBath X μ i) x = μ[|{y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)}]",
+        "statement_sha256": "f29e18365436d674077613488f998f767452128a1c991e84f755bb469488260f",
+        "compiled": true,
+        "formalizer": "positive_fiber_worker",
+        "decoder_context": [
+          "Fin (n+1) is the finite index type; i.succAbove : Fin n → Fin (n+1) enumerates the indices other than i in increasing order. The universe u_1 is arbitrary.",
+          "e_i is the measurable equivalence x ↦ ((fun j => x (i.succAbove j)), x i), with inverse reinserting the selected coordinate.",
+          "For ν = μ.map e_i, let κ = condDistrib Prod.snd Prod.fst ν. condDistrib Y Z ν is the selected regular conditional-distribution Markov kernel, defined as the conditional kernel of ν.map (fun a => (Z a, Y a)); it is characterized ν.map Z-almost everywhere.",
+          "CoordinateHeatBath.heatBath X μ i x = (e_i.symm)_# (dirac ((e_i x).1) × κ ((e_i x).1)); measure map denotes pushforward, and the product is the product of measures.",
+          "μ[|s] denotes ProbabilityTheory.cond μ s, defined as (μ s)⁻¹ • μ.restrict s. The scalar is ENNReal with totalized inverse. IsFiniteMeasure means finite total mass; no normalization to mass one is built into that class."
+        ]
+      },
+      "reconstruction": {
+        "text": "Let n be any natural number, let (X_j) indexed by Fin(n+1) be measurable spaces, and let μ be a finite measure on their dependent product Ω = ∏_j X_j. Fix i ∈ Fin(n+1). Assume X_i is a nonempty standard Borel space and the complementary product Ω_{-i} = ∏_{j∈Fin(n)} X_{i.succAbove(j)} has measurable singletons. Write r_i(x) = (x_{i.succAbove(j)})_j and e_i(x) = (r_i(x), x_i). Let κ be the selected regular conditional-distribution kernel of the second coordinate given the first under (e_i)_#μ, and define H_i(x) = (e_i^{-1})_#(δ_{r_i(x)} × κ(r_i(x))). Then, for every x ∈ Ω whose complementary-coordinate fiber F_x = {y ∈ Ω : r_i(y) = r_i(x)} has nonzero μ-measure, H_i(x) = (μ(F_x))^{-1} • (μ restricted to F_x). Thus the coordinate heat-bath measure at every such x equals μ conditioned on that fiber.",
+        "text_sha256": "9fc768a3f784e100635e3443342a786d1f33f45c1a69112590974d39c3097c69",
+        "decoder": "math_decoder",
+        "decoder_run_sha256": "b9d41fb4d89c266b784ea5c0617b3cf22ba6ef448eba36804464d67b25ac3ff6",
+        "decoder_packet_sha256": "ac527c3ca65e38837e9289657ab78b22792fb7a1ced8f924c16876b043bc6eab",
+        "source_text_visible": false,
+        "lean_statement_sha256": "f29e18365436d674077613488f998f767452128a1c991e84f755bb469488260f",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/20260908-samplewiki-resume/positive-fiber.decoder-result.json"
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "A distribution μ on Ω ⊆ {0,1}^V, a current configuration X_t, a selected site v, and the next configuration X_{t+1}.",
+          "reconstructed": "A finite measure μ on a dependent product of measurable spaces, a selected coordinate i, a complementary-coordinate fiber F_x, and a coordinate heat-bath measure H_i(x) constructed using a conditional-distribution kernel.",
+          "relation": "explicit-elaboration",
+          "evidence": "The source's conditional sampling instruction has a measure/kernel interpretation. The reconstruction explicitly supplies that interpretation. Its enlarged domains and changed joint-update conclusion require separate assessment below."
+        },
+        "domains": {
+          "original": "The supplied context paraphrase specifies a finite site set V, Boolean configurations, Ω ⊆ {0,1}^V, a probability distribution on Ω, and X_t ∈ Ω.",
+          "reconstructed": "Coordinates are indexed by Fin(n+1), each coordinate has an arbitrary measurable space, μ is any finite measure on the full dependent product, and x is any product element satisfying the positive-fiber premise.",
+          "relation": "different",
+          "evidence": "The Lean statement quantifies over X : Fin(n+1) → Type, MeasurableSpace instances and IsFiniteMeasure μ. It does not impose Boolean coordinates, probability normalization, a distinguished subset Ω, or x ∈ Ω. A Boolean probability measure on Ω can be represented on the ambient cube, but that representation is an additional elaboration, not an identification stated in the excerpt."
+        },
+        "quantifiers": {
+          "original": "For a current configuration X_t ∈ Ω and a selected site v, the supplied context says step 2 applies to every w ≠ v; step 3 samples the selected coordinate conditional on the old complementary coordinates.",
+          "reconstructed": "For every n, eligible measurable family X, finite measure μ, selected coordinate i and configuration x, the equality holds only if μ(F_x) ≠ 0.",
+          "relation": "different",
+          "evidence": "The reconstructed assertion is universal over substantially more ambient spaces and measures, while its pointwise conclusion is restricted by an explicit nonzero-fiber implication. The excerpt/context does not state that restriction. The source's every-w complementary update also differs from the reconstructed update, as recorded under conclusion."
+        },
+        "assumptions": {
+          "original": "The supplied context gives a finite Boolean configuration space and a probability distribution. The displayed conditional sampling instruction presupposes a meaningful conditional law, but neither excerpt nor context explicitly asserts μ(F_x) > 0 or defines Ω as the positive-probability support.",
+          "reconstructed": "μ is finite; X_i is nonempty and standard Borel; the complementary product has measurable singletons; and μ(F_x) ≠ 0.",
+          "relation": "different",
+          "evidence": "The positive-fiber premise appears explicitly in the Lean implication. Membership x ∈ Ω alone does not imply μ(F_x) > 0 under the supplied context. The measurable-space requirements are automatic for the usual finite discrete Boolean specialization, but matter in the generalized domain. Conversely, finite measure is a weaker normalization requirement than probability distribution."
+        },
+        "conclusion": {
+          "original": "Taken literally, step 2 sets X_{t+1}(w) = X_t(v) for every w ≠ v. Step 3 draws X_{t+1}(v) conditional on σ(w) = X_t(w) for every w ≠ v.",
+          "reconstructed": "H_i(x) equals the normalized restriction of μ to F_x = {y : y_{-i} = x_{-i}}. Therefore the complementary coordinates retain their own old values almost surely, and the selected coordinate has the corresponding conditional law.",
+          "relation": "different",
+          "evidence": "Literal step 2 copies the old selected-coordinate value into each other coordinate. The reconstruction instead preserves each other coordinate's old value. For V = {0,1}, v = 0, x = (0,1), and uniform μ on the Boolean square, μ(F_x) = 1/2. The reconstruction gives the next second coordinate equal to 1 almost surely, whereas literal step 2 gives it equal to 0 almost surely. Both sides have a well-defined selected-coordinate conditional law in this example, so the discrepancy is not caused by zero conditioning mass."
+        },
+        "scopes": {
+          "original": "A fixed-site, one-step comparison of general Glauber update steps 2–3. The packet expressly excludes the preceding uniform-site selection step.",
+          "reconstructed": "A pointwise identity for the heat-bath measure at one fixed coordinate, subject to a positive-fiber premise.",
+          "relation": "same",
+          "evidence": "Both supplied comparison targets concern a single selected coordinate. Neither the reconstructed proposition nor this review establishes the full random-site transition, an iterated trajectory, stationarity, mixing, or any global sampling guarantee."
+        },
+        "constant_dependencies": {
+          "original": "No numerical estimate or auxiliary numerical constant appears. The conditional update depends on μ, the selected site v, and the current complementary configuration.",
+          "reconstructed": "No numerical estimate or auxiliary numerical constant appears. H_i(x) and the conditioning fiber depend on X, μ, i and x; the normalization is μ(F_x)^{-1}.",
+          "relation": "same",
+          "evidence": "There are no bound constants to compare. The reconstruction's reciprocal fiber mass is the ordinary conditional-measure normalization, not an additional free constant."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "conclusion",
+          "severity": "blocking",
+          "description": "The literal nonselected-coordinate assignment disagrees with the fiber-conditioned joint law. The discrepancy may be a source or excerpt error, but cannot be silently corrected or treated as exact fidelity.",
+          "evidence": "Pinned original_text says X_{t+1}(w) = X_t(v). The reconstruction conditions the next full configuration on y_{-i} = x_{-i}. With uniform μ on {0,1}^2, selected coordinate 0 and x = (0,1), the two next-step distributions have disjoint supports according to the second coordinate."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "blocking",
+          "description": "The theorem explicitly excludes zero-mass complementary fibers. The provided source evidence does not establish that all starting configurations have positive-mass fibers.",
+          "evidence": "The Lean statement requires μ {y | r_i(y) = r_i(x)} ≠ 0. The source context supplies only X_t ∈ Ω. For example, Ω may be the entire Boolean square while μ is concentrated at (0,0); the point (0,1) belongs to Ω but its complementary fiber for site 0 has zero mass."
+        },
+        {
+          "slot": "domains",
+          "severity": "review",
+          "description": "The reconstructed theorem generalizes from a finite Boolean probability model on a subset to arbitrary eligible measurable coordinate spaces and finite measures on the full product.",
+          "evidence": "The packet contrasts Ω ⊆ {0,1}^V and a distribution with arbitrary X, MeasurableSpace instances and IsFiniteMeasure μ. A finite Boolean specialization is available mathematically, but the supplied excerpt does not itself claim the generalized theorem."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "review",
+          "description": "The universal reconstructed assertion ranges over broader objects but covers only configurations with positive-mass complementary fibers. This is not an unqualified translation of the supplied update instruction.",
+          "evidence": "The theorem's final premise is a nonzero-fiber implication for every ambient x. The source/context supplies an update at X_t ∈ Ω without stating the corresponding support restriction or a convention for null conditioning events."
+        }
+      ],
+      "verdict": "possible-source-error",
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "source_comparison",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "This review used only the designated anti-anchored packet. I did not inspect repository instructions, implementation bodies, prior reviews, repair suggestions, other agents' work, or external sources. Independence here means that the reviewer is distinct from the stated formalizer and blind decoder and assessed the supplied source evidence against their supplied artifacts independently.\n\nThe decisive finding is a direct mathematical counterexample on the finite Boolean domain itself. Let V = {0,1}, select v = 0, take x = (0,1), and let μ assign mass 1/4 to every configuration. Conditioning on the old complementary coordinate gives F_x = {(0,1),(1,1)} of mass 1/2. The reconstructed law is uniform on this fiber. The literal source instructions instead set the next second coordinate to x_0 = 0 and sample the first coordinate uniformly, yielding a law on {(0,0),(1,0)}. Thus the two laws differ even when every reconstructed assumption is satisfied. The selected-coordinate conditional marginal is compatible in this example; the nonselected-coordinate assignment is not.\n\nThe instruction pair suggests a possible indexing error in the pinned step 2, because step 3 conditions on old complementary values whereas step 2 overwrites those values with the old selected value. Nevertheless, the available evidence does not establish whether the published PDF contains that error, whether the packet excerpt is inaccurate, or whether omitted context changes its interpretation. Consequently, possible-source-error is a diagnosis of the supplied source representation, not a verified erratum to the publication.\n\nIndependently, positive complementary-fiber mass is a genuine qualification. It would follow from μ({x}) > 0 in the finite model, but the packet does not state that Ω is precisely positive-probability support or that the current state has positive mass. The source's conditional-law instruction therefore remains underspecified at null conditioning events relative to the explicit theorem premise. I cannot classify this premise as merely an exposed source-implicit assumption on the evidence provided.\n\nThe generalized measure-theoretic setting can contain the usual finite Boolean specialization, with the source measure embedded in an ambient product and the relevant measurability assumptions supplied. This gives a plausible relationship between the mathematical constructions but does not erase the literal assignment discrepancy, prove the source's unstated support assumptions, or make the generalization an exact source statement.\n\nThe packet reports that the Lean statement compiled. I have not independently checked compilation, the proof, or the definition of CoordinateHeatBath.heatBath. Its conditional-kernel interpretation is supplied by the blind reconstruction and is not recoverable in full from the opaque declaration name alone. Accordingly, conclusions about that implementation are conditional on the supplied reconstruction accurately describing it.\n\nThe source evidence consists of two short excerpts plus an explicitly nonquoted context paraphrase. This limits conclusions about the surrounding publication and prevents verification of source transcription or broader conventions. The reviewer_packet_sha256 value is copied from the packet's provided packet_sha256 field; I did not produce or independently verify a packet hash. review_run_sha256 is intentionally empty for the root to populate by hashing the immutable returned record. No repair is approved.",
+        "review_run_sha256": "d8a6680eb14cb951db6bc384a0fa0dbd26a6acbf091126c774e94d0889e96480",
+        "reviewer_packet_sha256": "19c98e4d2cb2ed004453dc7b6dfb700de70a0923dbd8fac4c0d2b46babe2cbef",
+        "run_artifact": "runs/20260908-samplewiki-resume/positive-fiber.source-review-result.json",
+        "exact_source_fidelity": false,
+        "interpretation": "Accepted means acceptance of this documented discrepancy diagnosis. It does not mean acceptance of the formalization as an exact rendering of the pinned source, acceptance of a corrected source, or approval of any repair."
+      },
+      "repairs": []
+    }
+  ]
 }

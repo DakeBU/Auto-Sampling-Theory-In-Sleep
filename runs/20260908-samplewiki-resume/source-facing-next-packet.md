@@ -1,4 +1,9 @@
-# Next route after operational retention: positive-fiber source alignment
+# Historical next-route audit: positive-fiber source alignment
+
+Implemented by `CoordinateHeatBath.heatBath_eq_cond` at `ce0a871` with focused
+consumer tests. The independent semantic comparison records a mismatch, not
+exact source assimilation. See `finite-model-next-packet.md` for the remaining
+source/model route; the API search below is retained as historical evidence.
 
 Read-only API audit, 2026-09-08. This does not freeze a theorem, admit a source
 repair, or add a new proof leaf. Reuse the operational coordinate kernel rather

@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-8a59e9d6beb3a600",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "positive_fiber_worker",
+    "blind_decoder": "math_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "discrete-sampling:2307.13826v4",
+    "anchor": "Section 1.3, printed/PDF page 5, general Glauber update steps 2–3; https://arxiv.org/pdf/2307.13826v4#page=5. Two short formula/instruction excerpts below. ASTIS context paraphrase (not source quotation): the source uses a distribution on Omega subset of {0,1}^V, a finite site set V and a starting configuration X_t in Omega; step 2 applies to every w != v. The preceding uniform-site selection step is outside this fixed-site comparison.",
+    "original_text": "X_{t+1}(w) = X_t(v).\nChoose X_{t+1}(v) from the conditional Gibbs distribution μ(σ(v) = · | σ(w) = X_t(w) for all w ≠ v).",
+    "text_sha256": "f8d1d26fd9c535d95f37bbdfab2e52e4665b3c298853257bf6d0f89a2a604aac"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_eq_cond",
+    "file": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBathConditional.lean",
+    "statement": "∀ {n : ℕ} (X : Fin (n + 1) → Type u_1) [inst : (j : Fin (n + 1)) → MeasurableSpace (X j)] (μ : Measure ((j : Fin (n + 1)) → X j)) [inst_1 : IsFiniteMeasure μ] (i : Fin (n + 1)) [inst_2 : StandardBorelSpace (X i)] [inst_3 : Nonempty (X i)] [MeasurableSingletonClass ((j : Fin n) → X (i.succAbove j))] (x : (j : Fin (n + 1)) → X j), μ {y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)} ≠ 0 → (CoordinateHeatBath.heatBath X μ i) x = μ[|{y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)}]",
+    "statement_sha256": "f29e18365436d674077613488f998f767452128a1c991e84f755bb469488260f",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let n be any natural number, let (X_j) indexed by Fin(n+1) be measurable spaces, and let μ be a finite measure on their dependent product Ω = ∏_j X_j. Fix i ∈ Fin(n+1). Assume X_i is a nonempty standard Borel space and the complementary product Ω_{-i} = ∏_{j∈Fin(n)} X_{i.succAbove(j)} has measurable singletons. Write r_i(x) = (x_{i.succAbove(j)})_j and e_i(x) = (r_i(x), x_i). Let κ be the selected regular conditional-distribution kernel of the second coordinate given the first under (e_i)_#μ, and define H_i(x) = (e_i^{-1})_#(δ_{r_i(x)} × κ(r_i(x))). Then, for every x ∈ Ω whose complementary-coordinate fiber F_x = {y ∈ Ω : r_i(y) = r_i(x)} has nonzero μ-measure, H_i(x) = (μ(F_x))^{-1} • (μ restricted to F_x). Thus the coordinate heat-bath measure at every such x equals μ conditioned on that fiber.",
+    "text_sha256": "9fc768a3f784e100635e3443342a786d1f33f45c1a69112590974d39c3097c69",
+    "decoder": "math_decoder",
+    "decoder_packet_sha256": "ac527c3ca65e38837e9289657ab78b22792fb7a1ced8f924c16876b043bc6eab",
+    "decoder_run_sha256": "b9d41fb4d89c266b784ea5c0617b3cf22ba6ef448eba36804464d67b25ac3ff6",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "packet_sha256": "19c98e4d2cb2ed004453dc7b6dfb700de70a0923dbd8fac4c0d2b46babe2cbef"
+}

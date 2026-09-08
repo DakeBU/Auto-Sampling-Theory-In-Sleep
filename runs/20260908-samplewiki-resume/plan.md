@@ -224,3 +224,57 @@ upstream PR status was not changed.
   another public Registry. Six shared packets do not constitute six source
   theorem assimilations. The overall Goal remains active and no remote
   operation or replacement Goal is authorized by this local checkpoint.
+
+## Positive-fiber packet: current proof and semantic checkpoint
+
+- The existing coordinate kernel now has a direct-compiled normalized
+  restriction law on a positive retained fiber. There is one new public
+  theorem and no new kernel or splitting wrapper. The atomic conditional
+  formula is reused from pinned Mathlib, not formalized again.
+- The numerical consumer suite and independent proof review are separate
+  from public-module compilation. In particular, test-local higher-order
+  measurable-space inference was isolated in a minimal reproducer before
+  another full focused build; no public assumption changed.
+- Audit `ASTIS-RT-20260908-PositiveFiberUpdate` records short pinned source
+  excerpts, the headerless elaborated proposition, and a source-blind
+  reconstruction by `math_decoder`. Only the generated anonymous packet was
+  given to that decoder. A different actor receives the fresh anti-anchored
+  source-comparison packet. Immutable JSON packets/responses have LF pinned
+  so byte-level run hashes survive Windows/Linux checkout.
+- Neither exact source fidelity nor a repair is accepted at this checkpoint.
+  The generic finite-measure law, its finite-discrete specialization, the
+  original update wording and uniform scan remain distinct contracts.
+- Registry remains 394; kernel powers still owns the sole stabilization lane.
+  All new files are in the original D: repository. No remote publication,
+  background ASTIS session, replacement Goal or overall completion occurred.
+
+## Positive-fiber packet: independent verification and source diagnosis
+
+- Frozen proof checkpoint `ce0a871f65382df2d5e5200f42af984f092af74b` contains
+  one public conditional-law integration theorem. The final focused target
+  passed 2981 jobs, including exact 3/4 and 1/4 transition ratios, retained
+  mismatch zero and a nonzero-target null-fiber inequality.
+- `positive_fiber_review` independently checked the exact committed files,
+  the generic signature and standard-only axioms, plus fresh one-coordinate
+  and infinite-selected-space, arbitrary retained-space and null-fiber tests.
+  It published `VERIFIED` for the generic exploratory theorem only. Seven
+  mathematical packets now have independent local evidence; Registry stays
+  394 and only kernel powers is in the stabilization lane.
+- The canonical semantic audit has one accepted discrepancy diagnosis and
+  zero repair proposals. Its `possible-source-error` verdict has blocking
+  conclusion/positivity differences and review-level domain/quantifier
+  differences. The source review's initial noncanonical severity labels were
+  corrected by that same independent actor in a separate schema-only response;
+  both original responses remain immutable evidence. No mathematical verdict
+  was rewritten by the coordinator.
+- Cross-checks confirmed exact actor-run file hashes, the original response
+  and amendment's correspondence to canonical fields, both generated packet
+  bindings, and website `fidelity-mismatch` status. This is explicitly not
+  exact source fidelity, source assimilation, or accepted copy-index repair.
+- The positive-fiber SVG and matching PNG were generated and the PNG was
+  actually viewed. Text/arrows/colors are readable; source alignment, supported
+  model/scan, reversibility and mixing remain four separate red contracts.
+  `finite-model-next-packet.md` records the next route without freezing it.
+- The final evidence commit is followed by the canonical repository/site
+  gates. The machine-local stamp records their exact commit and source digest;
+  queued modules' focused checks remain distinct from root-import coverage.
