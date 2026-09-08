@@ -1,1 +1,3 @@
 runs/trials_summary.csv whitespace=cr-at-eol
+# Byte-pinned ATLAS snapshot: Git must not rewrite its line endings on Windows.
+research-wiki/retrieval-index/atlas-v1/*.jsonl text eol=lf

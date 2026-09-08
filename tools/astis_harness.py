@@ -13,14 +13,22 @@ import argparse
 import contextlib
 import dataclasses
 import datetime as dt
-import fcntl
+import errno
 import hashlib
 import json
 import os
 import re
 import tempfile
+import time
 from pathlib import Path
 from typing import Any, Callable, Iterator, Sequence
+
+if os.name == "nt":
+    import ctypes
+    import msvcrt
+    from ctypes import wintypes
+else:
+    import fcntl
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -106,19 +114,40 @@ def digest(value: Any) -> str:
 def file_lock(path: Path) -> Iterator[None]:
     """Take a cross-process exclusive lock associated with ``path``."""
 
-    canonical = str(path.resolve())
+    canonical = os.path.normcase(str(path.resolve()))
     lock_root = ROOT / ".astis" / "locks"
     lock_root.mkdir(parents=True, exist_ok=True)
     lock_path = lock_root / (hashlib.sha256(canonical.encode("utf-8")).hexdigest() + ".lock")
     with lock_path.open("a+b") as handle:
-        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        if os.name == "nt":
+            # Byte-range locks may extend beyond EOF, including on a new empty
+            # lock file. Always lock byte zero, independent of append position.
+            handle.seek(0)
+            while True:
+                try:
+                    msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+                    break
+                except OSError as exc:
+                    if exc.errno != errno.EACCES:
+                        raise
+                    # LK_LOCK gives up after ten attempts; match flock's
+                    # blocking behavior without swallowing unrelated failures.
+                    time.sleep(0.05)
+        else:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
         try:
             yield
         finally:
-            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            if os.name == "nt":
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
 
 
 def _fsync_directory(path: Path) -> None:
+    """Sync a POSIX directory; Windows publication uses write-through rename."""
+
     fd = os.open(path, os.O_RDONLY)
     try:
         os.fsync(fd)
@@ -126,8 +155,31 @@ def _fsync_directory(path: Path) -> None:
         os.close(fd)
 
 
+def _replace_and_sync(source: str, destination: Path) -> None:
+    if os.name == "nt":
+        move_file_ex = ctypes.WinDLL("kernel32", use_last_error=True).MoveFileExW
+        move_file_ex.argtypes = (wintypes.LPCWSTR, wintypes.LPCWSTR, wintypes.DWORD)
+        move_file_ex.restype = wintypes.BOOL
+        # Same-volume replacement, never a copy/delete fallback. The payload
+        # was fsynced before closing; request write-through for the rename too.
+        flags = 0x1 | 0x8  # MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH
+        if not move_file_ex(source, str(destination), flags):
+            raise ctypes.WinError(ctypes.get_last_error())
+    else:
+        os.replace(source, destination)
+        _fsync_directory(destination.parent)
+
+
 def atomic_write_text(path: Path, text: str) -> None:
-    """Publish a complete text file atomically under a canonical-path lock."""
+    """Publish a complete text file under a canonical-path lock.
+
+    Sync the staged payload before same-directory replacement. POSIX then
+    fsyncs the parent directory; Windows requests a write-through native rename
+    instead, not a directory fsync. Crash durability remains bounded by the
+    filesystem/device's flush guarantees; newly created ancestors are not
+    individually synced. Windows readers denying delete sharing can prevent
+    replacement, in which case the native error is propagated.
+    """
 
     path = path.resolve()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -138,8 +190,7 @@ def atomic_write_text(path: Path, text: str) -> None:
                 handle.write(text)
                 handle.flush()
                 os.fsync(handle.fileno())
-            os.replace(temporary, path)
-            _fsync_directory(path.parent)
+            _replace_and_sync(temporary, path)
         finally:
             if os.path.exists(temporary):
                 os.unlink(temporary)

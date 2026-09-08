@@ -477,8 +477,8 @@ def validate_snapshot() -> tuple[dict, list[str]]:
 
 def check(source: Path | None, require_source: bool) -> int:
     summary, errors = validate_snapshot()
+    manifest = read_json(MANIFEST)
     if source and source.is_dir():
-        manifest = read_json(MANIFEST)
         commit = source_git_commit(source)
         if commit != manifest["pinned_commit"]:
             errors.append(f"external checkout commit mismatch: {commit}")
