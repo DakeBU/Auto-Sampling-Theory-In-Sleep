@@ -1,0 +1,8 @@
+{
+  "actor": "/root/random_scan_source_review",
+  "original_response_sha256": "b62914b54efc84122813b1530f2175ea35bdf6f170861bc1bdd8c67d14410935",
+  "approved": false,
+  "delta_evidence_rule": "For each original delta d, preserve ALL existing fields unchanged and add d.evidence as the exact string in the original semantic_slots[d.slot].evidence.",
+  "statement": "The seven-slot findings, delta severities, verdict, acceptance, and original artifacts remain unchanged. No mathematical reassessment was performed.",
+  "rejection_reason": "The rule does not provide supporting evidence for delta pdf-hash-provenance: that delta has slot scopes, but semantic_slots.scopes.evidence discusses the printed update-rule conflict and target boundary, not the independently computed PDF hash or supplemental expected hash. The corresponding hash evidence is already present in review_evidence. The adapter is otherwise suitable for the other four deltas."
+}

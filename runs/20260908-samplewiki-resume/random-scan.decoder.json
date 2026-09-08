@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-c7bd862adeaa76be",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {n : ℕ} (μ : Measure (Fin (n + 1) → Bool)) [inst : IsProbabilityMeasure μ]\n  (x y : Fin (n + 1) → Bool),\n  μ {x} ≠ 0 →\n    ((randomScan μ) x) {y} =\n      (↑n + 1)⁻¹ *\n        ∑ i,\n          if ∀ (j : Fin (n + 1)), j ≠ i → y j = x j then\n            (μ {z | (fun j => z (i.succAbove j)) = fun j => x (i.succAbove j)})⁻¹ * μ {y}\n          else 0",
+    "statement_sha256": "c7bd862adeaa76beb38df77209598550a44ded4b90d6945ff443497fcca74dd4",
+    "compiled": true,
+    "approved_definition_context": [
+      "Bool={false,true} has its standard discrete measurable structure; function spaces carry the product measurable structure. Measure and IsProbabilityMeasure denote a measure and total mass one. μ{x} is singleton mass in extended nonnegative reals.",
+      "For i:Fin(n+1), i.succAbove:Fin n→Fin(n+1) is the increasing bijection onto all indices except i. Define r_i(z)=(fun j=>z(i.succAbove j)) and e_i(z)=(r_i(z),z i); e_i is the corresponding measurable equivalence.",
+      "Write ν_i=(e_i)_#μ. Let C_i be the regular conditional distribution of the second component given the first under ν_i, selected as a Markov kernel by the ambient library. Set H_i(x)=(e_i⁻¹)_#(δ_{r_i(x)}⊗C_i(r_i(x))). Here # denotes pushforward and δ a Dirac measure.",
+      "randomScan μ is the finite sum over i:Fin(n+1) of H_i.withDensity(fun _ _ => (↑((n+1:ℝ≥0)⁻¹):ℝ≥0∞)); withDensity multiplies the component kernel's output measure by the stated constant density. The weights are state-independent."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "3199afb4019a46e5082f4eac3d3ee910fb5e4092c529838bcc2087bf504ce341"
+}

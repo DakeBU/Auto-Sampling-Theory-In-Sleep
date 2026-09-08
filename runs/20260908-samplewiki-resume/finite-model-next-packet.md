@@ -1,5 +1,11 @@
 # Next source/model route after positive-fiber normalization
 
+Historical handoff before the random-scan packet. The complete page-4 support
+convention and independent one-index proposal review are now recorded in
+`source-support-and-repair-audit.md`; the actual transition-law implementation
+is frozen at `90581ec`. Continue from `random-scan-next-packet.md`, not by
+repeating the earlier limited-context audit or creating another scan kernel.
+
 This is a dependency-ready handoff, not a frozen new theorem or an accepted
 source repair. Continue the existing overall Goal and SAU queue.
 

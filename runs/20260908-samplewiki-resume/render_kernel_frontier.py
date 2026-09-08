@@ -118,6 +118,27 @@ if "--positive-fiber" in sys.argv:
     # source/model/mixing contracts are not mathematical consequences of a
     # green focused build or of an independently reviewed semantic diagnosis.
     edges = [(0, 2, False), (1, 2, False), (2, 3, False)]
+if "--random-scan" in sys.argv:
+    artifact = "random-scan-frontier"
+    heading = "ASTIS supported random-scan transition law"
+    caption = "One uniform update, source-supported starts. Local proof, semantic review and publication are distinct."
+    height = 980
+    nodes = [
+        node("Canonical heat-bath:\npositive-fiber conditional law", 25, 100,
+             "ASTIS-SHARED-coordinate-heat-bath-positive-fiber"),
+        node("Fixed finite mixture:\nevaluation and Markov weights", 685, 100,
+             "ASTIS-SHARED-finite-kernel-mixture"),
+        node("Actual uniform random scan:\nsingleton transition formula", 355, 270,
+             "ASTIS-SHARED-random-scan-heat-bath"),
+        node("Focused consumers: exact row,\nforbidden states, finite powers", 355, 440),
+        node("TODO: concrete Gibbs density\nand model normalization", 25, 610, color=RED),
+        node("TODO: explicit supported-state\nkernel restriction", 685, 610, color=RED),
+        node("TODO: reversibility", 25, 780, color=RED),
+        node("TODO: quantitative mixing\nand sampling cost", 685, 780, color=RED),
+    ]
+    # Existing invariance/powers are test inputs, not new proof prerequisites.
+    # Separate red claims do not follow from the operational formula alone.
+    edges = [(0, 2, False), (1, 2, False), (2, 3, False)]
 svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="{height}" viewBox="0 0 1020 {height}">',
        f'<rect width="1020" height="{height}" fill="white"/>',
        '<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>']

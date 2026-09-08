@@ -3,3 +3,5 @@ runs/trials_summary.csv whitespace=cr-at-eol
 research-wiki/retrieval-index/atlas-v1/*.jsonl text eol=lf
 # Immutable semantic packets and actor responses carry byte-level run hashes.
 runs/20260908-samplewiki-resume/positive-fiber.*.json text eol=lf
+runs/20260908-samplewiki-resume/copy-index.*.json text eol=lf
+runs/20260908-samplewiki-resume/random-scan.*.json text eol=lf

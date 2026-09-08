@@ -278,3 +278,53 @@ upstream PR status was not changed.
 - The final evidence commit is followed by the canonical repository/site
   gates. The machine-local stamp records their exact commit and source digest;
   queued modules' focused checks remain distinct from root-import coverage.
+
+## Supported random-scan packet: current checkpoint
+
+- Frozen commit `90581ec87c039ae9597f76d3a434eb08e14aa579` adds one actual
+  uniform random-site integration node. The definition and Markov adapter
+  support `randomScan_apply_singleton`; they are not three substantive leaves.
+  The positive starting atom is the source's support condition, and each
+  conditional denominator is derived by singleton inclusion.
+- Complete pinned Discrete Sampling pages 4 and 5 were inspected. Page 4's
+  positive-support convention resolves the earlier limited-packet positivity
+  concern without changing that historical audit. Independent exact-proposal
+  review accepts only the one-index micro-correction overlay; the original
+  PDF and all old source/reviewer hashes remain unchanged.
+- Fresh anonymous `random_scan_decoder` reconstructed the exact compiled
+  proposition with only approved definition context. Fresh
+  `random_scan_source_review` independently accepted the explicitly cited
+  explanatory one-update target as `equivalent-after-elaboration`. This does
+  not certify the conflicting printed step 2 or the entire numbered algorithm.
+  All seven semantic slots and the ambient/support, index-cardinality and
+  one-update clock distinctions are recorded in the canonical audit.
+- The source response's delta metadata initially lacked required `evidence`.
+  Same-reviewer amendments only redact a local path and place existing reviewed
+  evidence into the required fields. A first adapter was rejected for a
+  provenance-evidence mismatch; the approved v2 uses the correct source text.
+  Original records, including the rejection, are retained. Root verified raw
+  actor hashes, canonical packets, amendment bindings and unchanged assessments.
+  The final semantic gate passes with two audits and one source-reviewed repair.
+- `random_scan_proof_review` independently accepted the exact committed proof,
+  checked its minimal public interface and standard-only axioms, and added
+  forbidden-destination, two-changed-sites and nonuniform `3/8` tests. Fresh
+  direct public and scratch elaborations passed. The one final focused target
+  passed 2982 jobs; its cached replay is distinguished from fresh elaboration.
+  The independent report and canonical cell record the `VERIFIED` outcome.
+- Eight shared mathematical packets now have independent local evidence.
+  Registry remains 394 and kernel powers retains the only stabilization lane;
+  the queued packets have not been bulk-promoted or represented as merged.
+  Their focused builds are not coverage by the root `Tests` import tree.
+- The new card and generated random-scan SVG/PNG present actual parents,
+  operational consumer tests and separate red model/restriction/reversibility/
+  mixing boundaries. The PNG is actually inspected after final status rendering.
+  README links this local checkpoint without claiming remote publication.
+- Four focused metadata/protocol suites pass 48 tests. Python compilation,
+  frontier/semantic gates and whitespace checks pass. The final evidence commit
+  is followed by the canonical root Lean gate and static-site build/check;
+  `.astis/site-lean-gate.json` records their actual source-bound result.
+- `random-scan-next-packet.md` records the next source/API audit toward detailed
+  balance of this same kernel, reusing Mathlib's existing reversibility contract.
+  Hard-core ergodicity must not be transferred to arbitrary targets. The D:
+  repository and physical `.lake` remain in place; no remote mutation, detached
+  session, replacement Goal or overall completion is authorized by this step.

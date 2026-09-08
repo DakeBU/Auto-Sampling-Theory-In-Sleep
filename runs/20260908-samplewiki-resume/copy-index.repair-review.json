@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "task": "independent-theorem-repair-review",
+  "packet_id": "ASTIS-REPAIR-REVIEW-b377f2dcb0fbea39",
+  "anti_anchoring": {
+    "prior_fidelity_verdict_included": false,
+    "prior_semantic_deltas_included": false,
+    "prior_source_review_included": false,
+    "prior_repair_review_included": false
+  },
+  "roles": {
+    "formalizer": "positive_fiber_worker",
+    "blind_decoder": "math_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "discrete-sampling:2307.13826v4",
+    "anchor": "Section 1.3, printed/PDF page 5, general Glauber update steps 2–3; https://arxiv.org/pdf/2307.13826v4#page=5. Two short formula/instruction excerpts below. ASTIS context paraphrase (not source quotation): the source uses a distribution on Omega subset of {0,1}^V, a finite site set V and a starting configuration X_t in Omega; step 2 applies to every w != v. The preceding uniform-site selection step is outside this fixed-site comparison.",
+    "original_text": "X_{t+1}(w) = X_t(v).\nChoose X_{t+1}(v) from the conditional Gibbs distribution μ(σ(v) = · | σ(w) = X_t(w) for all w ≠ v).",
+    "text_sha256": "f8d1d26fd9c535d95f37bbdfab2e52e4665b3c298853257bf6d0f89a2a604aac"
+  },
+  "lean": {
+    "statement": "∀ {n : ℕ} (X : Fin (n + 1) → Type u_1) [inst : (j : Fin (n + 1)) → MeasurableSpace (X j)] (μ : Measure ((j : Fin (n + 1)) → X j)) [inst_1 : IsFiniteMeasure μ] (i : Fin (n + 1)) [inst_2 : StandardBorelSpace (X i)] [inst_3 : Nonempty (X i)] [MeasurableSingletonClass ((j : Fin n) → X (i.succAbove j))] (x : (j : Fin (n + 1)) → X j), μ {y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)} ≠ 0 → (CoordinateHeatBath.heatBath X μ i) x = μ[|{y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)}]",
+    "statement_sha256": "f29e18365436d674077613488f998f767452128a1c991e84f755bb469488260f",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let n be any natural number, let (X_j) indexed by Fin(n+1) be measurable spaces, and let μ be a finite measure on their dependent product Ω = ∏_j X_j. Fix i ∈ Fin(n+1). Assume X_i is a nonempty standard Borel space and the complementary product Ω_{-i} = ∏_{j∈Fin(n)} X_{i.succAbove(j)} has measurable singletons. Write r_i(x) = (x_{i.succAbove(j)})_j and e_i(x) = (r_i(x), x_i). Let κ be the selected regular conditional-distribution kernel of the second coordinate given the first under (e_i)_#μ, and define H_i(x) = (e_i^{-1})_#(δ_{r_i(x)} × κ(r_i(x))). Then, for every x ∈ Ω whose complementary-coordinate fiber F_x = {y ∈ Ω : r_i(y) = r_i(x)} has nonzero μ-measure, H_i(x) = (μ(F_x))^{-1} • (μ restricted to F_x). Thus the coordinate heat-bath measure at every such x equals μ conditioned on that fiber.",
+    "text_sha256": "9fc768a3f784e100635e3443342a786d1f33f45c1a69112590974d39c3097c69",
+    "decoder": "math_decoder",
+    "decoder_packet_sha256": "ac527c3ca65e38837e9289657ab78b22792fb7a1ced8f924c16876b043bc6eab",
+    "decoder_run_sha256": "b9d41fb4d89c266b784ea5c0617b3cf22ba6ef448eba36804464d67b25ac3ff6"
+  },
+  "proposal": {
+    "id": "ASTIS-REPAIR-20260908-GlauberCopyIndex",
+    "class": "micro-correction",
+    "necessity": "source-implicit",
+    "proposed_change": "In general update step 2 only, replace the right-hand-side coordinate index v by w: X_{t+1}(w) = X_t(w) for w != v. Leave the uniform-site choice and selected-coordinate conditional distribution unchanged. Do not add a positivity assumption: section 1.1 already defines the source state space as positive support.",
+    "reconstructed_statement": "For a current configuration in the positive support of the finite Boolean target distribution and a selected site v, leave each coordinate w != v at its own old value X_t(w), then sample the value at v from the target conditional on all those old complementary values. This is the fixed-site substep of the source's uniform random-site update; no sweep, reversibility, or mixing conclusion is added.",
+    "statement_sha256": "d6dc70fe3fae11ca7ea11eb8a1b8844f0d56555a66f95a1312385a33bed0f519",
+    "justification": "The complete pinned PDF page 5 has adjacent prose describing retention of the complementary coordinates. Page 4 section 1.1 defines Omega by strictly positive configuration probability, so a source-valid initial configuration has positive mass and every retained-coordinate fiber containing it has positive mass. The printed step-2 index instead copies the selected site's old value into other sites and can leave Omega even when all relevant conditional events have mass one. The correction addresses that index only, not a Lean typeclass or totalized-conditional convenience.",
+    "minimality_evidence": "Exactly one right-hand-side index changes in step 2. The source distribution, positive-support state set, uniform site selection and step-3 conditional law are unchanged. No new regularity, positivity, normalization, clock, temperature, irreducibility, reversibility or complexity premise is inserted. The original text and its hash remain immutable evidence.",
+    "reference_or_counterexample": "Chen–Štefankovič–Vigoda arXiv:2307.13826v4, section 1.1 printed/PDF p.4 and section 1.3 printed/PDF p.5; https://arxiv.org/pdf/2307.13826v4#page=4 and #page=5; PDF SHA256 3cc2f911b33bb5538157ef8a70f0c7e0f3c812ecd06dc9c1d5ea0bfdae11a52a. Mathematical witness, not a Lean-certified counterexample: on two Boolean coordinates let mu be the point mass at (0,1), so Omega={(0,1)}. At x=(0,1), choosing site 0 gives (0,0) under literal step 2 followed by the specified conditional draw; choosing site 1 gives (1,1). Both conditioning events at the starting state have mass one, but both outputs are outside Omega. The corrected assignment leaves (0,1) fixed for either site.",
+    "proposal_sha256": "84672456f7f106eb07cfe8c7663b41837a83475ebd6bdb1b9dd300f6743c3ac6"
+  },
+  "review_contract": {
+    "rule": "Decide whether this exact minimal change is source-correct, not merely helpful to the current Lean proof route.",
+    "allowed_states": [
+      "accepted",
+      "needs-revision",
+      "rejected"
+    ]
+  },
+  "output_contract": {
+    "state": "",
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": "",
+    "proposal_sha256": "84672456f7f106eb07cfe8c7663b41837a83475ebd6bdb1b9dd300f6743c3ac6"
+  },
+  "packet_sha256": "ff95503d7c83e7b647758652e9c8393e9d3e95b833e6bfdae29bb326017ba2df"
+}

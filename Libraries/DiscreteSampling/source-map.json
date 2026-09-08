@@ -701,7 +701,10 @@
       "anchor": "§1.3, PDF p.5, general update step 2",
       "observation": "The PDF prints X_(t+1)(w)=X_t(v) for w != v, while its following prose says the other spins stay fixed.",
       "proposed_repair": "Keep X_(t+1)(w)=X_t(w) for w != v.",
-      "status": "repair-candidate; independent semantic review required",
+      "status": "source-reviewed micro-correction overlay; full algorithm fidelity is a separate gate",
+      "repair_review": "ASTIS-REPAIR-20260908-GlauberCopyIndex",
+      "repair_evidence": "runs/20260908-samplewiki-resume/copy-index.repair-review-result.json",
+      "support_context": "Section 1.1, PDF p.4, defines Omega as positive atom support. Thus a source-valid start has a positive retained fiber; no added positivity repair is needed.",
       "rule": "Do not silently edit a faithful source statement. Audit the corrected conditional-update contract and record source/Lean/reconstructed-text differences."
     },
     {

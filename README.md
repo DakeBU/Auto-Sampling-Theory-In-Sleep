@@ -30,6 +30,16 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 | Discrete Sampling | Zongchen Chen, Daniel Štefankovič, Eric Vigoda, *Spectral Independence and Local-to-Global Techniques for Optimal Mixing of Markov Chains* (arXiv:2307.13826v4) |
 | Markov Chain Monte Carlo | Fearnhead, Nemeth, Oates, Sherlock, *Scalable Monte Carlo for Bayesian Learning* (arXiv:2407.12751) |
 
+## News
+
+- **2026-09-08, local proof checkpoint:** the shared Discrete Sampling / MCMC
+  route now includes the actual uniform random-scan singleton transition law,
+  with positive support, the one-update clock and null-fiber limits explicit.
+  See the [learning card](research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.md)
+  and [dependency slice](runs/20260908-samplewiki-resume/random-scan-frontier.svg).
+  Focused compilation, independent review, Registry integration and remote
+  publication are separate statuses; this is not a chapter or mixing result.
+
 ## Research aim
 
 ```text

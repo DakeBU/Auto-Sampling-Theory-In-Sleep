@@ -80,13 +80,27 @@ proof status must not be read as exact source fidelity or accepted repair.
 
 The completed comparison is `ASTIS-RT-20260908-PositiveFiberUpdate` in the
 [semantic registry](../../semantic-roundtrip/registry.json). Its independent
-verdict is `possible-source-error`: literal retention and the unsupported
-positive-fiber qualification block exact source alignment; ambient-domain
-and quantifier generalization also require review. Acceptance records the
-diagnosis, not a correction. There are no accepted repair proposals.
+verdict is `possible-source-error` for its limited page-5 evidence window:
+literal retention differs, and that packet did not establish positive support.
+Ambient-domain and quantifier generalization also require review. Acceptance
+records that historical diagnosis, not full source alignment. Follow-up evidence
+and the separate micro-correction review below do not rewrite its hashed record.
 
 The source reviewer supplied a separate uniform two-bit example: copying the
 old selected value changes the complementary coordinate, while conditioning
 on its old value keeps it fixed. Both conditioning events are positive, so
 the discrepancy is not explained by a null-fiber convention. The source PDF
-itself remains unchanged; a fresh exact-proposal review is still needed.
+itself remains unchanged.
+
+Follow-up source context: section 1.1 on PDF page 4 defines the source state
+space as positive support. Its admissible start therefore has positive atom
+mass, implying positive fiber mass by inclusion. The earlier audit's positivity
+warning concerned its limited page-5 input, not the complete source convention.
+See the [support audit](../../../runs/20260908-samplewiki-resume/source-support-and-repair-audit.md).
+The original audit and hashes remain historical evidence. Independent reviewer
+`copy_index_review` accepted the exact one-index correction as a source-implicit
+micro-correction overlay, recorded separately as
+`ASTIS-REPAIR-20260908-GlauberCopyIndex`. This is not acceptance of the whole
+algorithm or of the generic theorem as an exact source rendering. The actual
+finite uniform-scan consumer has its own fresh semantic audit,
+`ASTIS-RT-20260908-RandomScanLaw`.
