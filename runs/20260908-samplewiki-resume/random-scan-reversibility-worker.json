@@ -1,0 +1,149 @@
+{
+  "schema_version": 3,
+  "advance_id": "ASTIS-20260908-RandomScanReversibility",
+  "worker_id": "random_scan_reversibility_worker",
+  "route": "shared",
+  "mode": "exploratoryProof",
+  "frontier_cell": "ASTIS-SHARED-random-scan-reversibility",
+  "frontier_cell_record": "research-wiki/frontier-cells/ASTIS-SHARED-random-scan-reversibility.json",
+  "state": "PROVED_LOCAL",
+  "result_kind": "integration-node",
+  "mathematical_result": "The EXISTING uniform random-scan Boolean heat-bath kernel satisfies Mathlib Kernel.IsReversible for every probability target, including forbidden ambient atoms. One minimal countable singleton-balance interface is directly consumed by this actual-kernel theorem. These are one substantive integration node, not two progress counts.",
+  "theorem_delta": "All-ambient flux symmetry follows from the existing supported-start law: matched retained coordinates give identical fibers; zero source atoms are handled by zero multiplication and the opposite supported law. The countable bridge turns singleton symmetry into equality of set lintegrals through nonnegative double sums. No full-support or positive-start premise is added to reversibility.",
+  "lean_declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Probability.KernelReversibility.isReversible_of_singleton_balance",
+    "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_isReversible"
+  ],
+  "lean_files": [
+    "AutoSamplingTheory/TechnicalLemmas/Probability/KernelReversibility.lean",
+    "AutoSamplingTheory/TechnicalLemmas/Probability/RandomScanHeatBathReversibility.lean",
+    "Tests/RandomScanHeatBathReversibility.lean"
+  ],
+  "frozen_lean_sha256": {
+    "AutoSamplingTheory/TechnicalLemmas/Probability/KernelReversibility.lean": "439e00b3aea2e674925eecde68ce43d62a7b9b168762f07d414c1feb51e8408a",
+    "AutoSamplingTheory/TechnicalLemmas/Probability/RandomScanHeatBathReversibility.lean": "9e4e6b3d792884660e1b9da65f804e7e497e046f3986613731dd9289ad026ac8",
+    "Tests/RandomScanHeatBathReversibility.lean": "03fad6ab86be3dc1fad2de1e6dae47e22a331bf37cbe6aa5f013bd35c96b0c6f"
+  },
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib/ASTIS TechnicalLemmas/Probability, current RandomScanHeatBath card and random-scan-next-packet.md, existing shared Frontier Cells and compact kernel memory",
+      "Libraries/shared-foundations.yml, frontloaded-shared-spine.json, DiscreteSampling/reuse-audit.json, external-lean-libraries metadata, ATLAS reversibility query (no match)",
+      "Mathlib db584cd6d46c92f209a44c0f1c829460d327499d: Kernel/Invariance.lean IsReversible/.invariant; Lebesgue/Countable.lean lintegral_countable; Dirac.lean ext_of_singleton; MeasureCompProd.lean rectangle route considered; InfiniteSum/ENNReal.lean tsum_mul_right/tsum_comm"
+    ],
+    "classification": "adapt",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_isReversible",
+    "canonical_shared_cell": "ASTIS-SHARED-random-scan-reversibility",
+    "exact_helper_boundary": "Generic bridge only assumes Countable alpha and MeasurableSingletonClass alpha, with an arbitrary measure and arbitrary kernel. No IsMarkovKernel, IsFiniteMeasure, SFinite or IsProbabilityMeasure is required. Root approved separate minimal KernelReversibility module ownership before implementation.",
+    "external_boundary": "outer_repos and outer_papers are absent. No external checkout was cloned or searched and no external Lean source was ported. Local compatible metadata yielded no exact bridge. Pinned Mathlib is Apache2.0."
+  },
+  "proof_parents": {
+    "isReversible_of_singleton_balance": ["MeasureTheory.lintegral_countable", "Set.to_countable", "ENNReal.tsum_mul_right", "ENNReal.tsum_comm", "tsum_congr"],
+    "randomScan_isReversible": ["AutoSamplingTheory.TechnicalLemmas.Probability.KernelReversibility.isReversible_of_singleton_balance", "private singleton_balance"],
+    "private_singleton_balance": ["AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_apply_singleton", "Fin.succAbove_ne", "Finset.mul_sum", "Finset.sum_congr", "commutative ENNReal multiplication"],
+    "not_proof_parents": ["Kernel.IsReversible.invariant", "KernelInvariance.invariant_pow", "KernelMixture.finiteMixture_invariant", "CoordinateHeatBath.heatBath_invariant"]
+  },
+  "focused_checks": [
+    {"command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake build AutoSamplingTheory.TechnicalLemmas.Probability.KernelReversibility", "result": "PASS exit0,1883 jobs,14s; only two Mathlib imports"},
+    {"command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/RandomScanHeatBathReversibility.lean", "result": "PASS exit0 on first complete actual-kernel proof; later public build15s"},
+    {"command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake build Tests.RandomScanHeatBathReversibility", "result": "Final PASS exit0,2984 jobs,tests18s after explicit infinite-mass and zero-measure assertions were included"},
+    {"command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=1 lake env lean .astis/random-scan-reversibility-worker/Signatures.lean", "result": "PASS exit0; exact raw headerless #check @ outputs recorded below and in owned ignored raw-checks.txt"},
+    {"command": "Canonical tools.astis strip_lean_comments_and_strings plus FORBIDDEN_REGEX on three owned Lean files", "result": "PASS zero fake-closure hits, zero trailing-whitespace hits; SHA256 hashes match frozen_lean_sha256"},
+    {"command": "python tools/astis_frontier_cells.py check", "result": "Final PASS10 registered cells after packet/cell freeze"}
+  ],
+  "test_consumers": [
+    "Infinite countable Nat constant counting kernel is reversible under counting target; its actual univ mass is infinity, explicitly exercising non-Markov/nonfinite boundary.",
+    "Any kernel on Nat is reversible under zero measure via the generic bridge.",
+    "Arbitrary measurable A,B consume randomScan_isReversible as an actual set-lintegral equality, not an atomic wrapper.",
+    "Existing IsReversible.invariant and KernelInvariance.invariant_pow consume the new conclusion only in Tests.",
+    "Nonuniform target (1/4)delta00+(3/4)delta10 gives actual P(00,10)=3/8, P(10,00)=1/8, unequal transition probabilities and equal weighted singleton flux from the reversible consumer.",
+    "Forbidden ambient 11 has zero target mass and zero weighted outgoing flux; a supported start has zero transition into 11.",
+    "Nonzero Dirac00 target has every retained fiber null at ambient11, yet actual kernel remains Markov and differs from the naively zero normalized-fiber mixture; reversibility still holds.",
+    "Diagonal target (delta00+delta11)/2 is reversible while supported00 is absorbing and target mass at00 is not1. No irreducibility or mixing follows.",
+    "Single-site Fin1 boundary, with an empty retained tuple, remains reversible."
+  ],
+  "axioms": {"both_public_declarations": ["propext", "Classical.choice", "Quot.sound"], "extra_axioms": [], "fake_closures": []},
+  "source_detail_audit": {
+    "primary_edition": "Discrete2307.13826v4 SHA2563cc2f911b33bb5538157ef8a70f0c7e0f3c812ecd06dc9c1d5ea0bfdae11a52a; MCMC2407.12751v1 SHA25660ecdd243a5815771332b5461e7eae59d41242933e53a721785870b6877f008f. Worker byte-checked both originals and visually read complete Discrete PDF5 and MCMC PDF54-55.",
+    "primary_anchor": "Discrete section1.3 PDF5 general conditional update follows hard-core-specific detailed balance and ergodicity discussion. MCMC section2.1.1 printed48/PDF54 proves component-update detailed balance and states compositions usually need not be reversible; Gibbs conditional proposal has acceptance1.",
+    "detail_status": "omitted",
+    "gap": "Do not attribute the arbitrary-target theorem to the exact CSV hard-core paragraph. The general finite random-scan claim is directly supported by the classical background below; ASTIS integrates its Boolean specialization and an ambient-null/set-integral elaboration. No literal copy-index source overlay is silently changed.",
+    "consulted": [
+      {"source": "Levin-Peres with Wilmer, Markov Chains and Mixing Times, second edition author PDF https://pages.uoregon.edu/dlevin/MARKOV/mcmt2e.pdf", "sha256": "9ef39f9467d9647ff3f5e8747b9ce24b7a90d13be2f8156fbd827b95b661a772", "anchor": "section3.3.2 printed42-43/PDF58-59, equations3.6-3.7; Exercise3.2 printed45/PDF61", "hypothesis_adapter": "Source finite site/alphabet and target support X; here nonempty site set Fin(n+1), Bool alphabet, source support represented by positive atoms in ambient cube. Conditional law at supported starts is existing theorem, retained fibers equal for a permitted pair, and arbitrary null-input versions disappear under zero flux. Not a formalization of the entire general finite-alphabet statement.", "inspection": "Worker independently byte-checked cached author PDF and visually inspected all three complete rendered pages. General reversibility/stationarity statement is explicit; verification assigned to Exercise3.2."},
+      {"source": "Mathlib db584cd6d46c92f209a44c0f1c829460d327499d, Apache2.0", "anchor": "Kernel/Invariance.lean and Lebesgue/Countable.lean; ENNReal nonnegative infinite sums", "hypothesis_adapter": "Countable measurable-singleton atomic measure decomposition plus unrestricted nonnegative double-sum exchange. No finite/Markov assumptions needed for the bridge; actual-kernel target is probability. No new inverse cancellation in flux symmetry, only identical denominators and factor commutation."}
+    ],
+    "fidelity_boundary": "Standard finite conditional-update derivation, Boolean specialization of precise background source. Fresh blind reconstruction and independent source comparison required. CSV source support/copy-index audit remains separate. No mixing, spectral gap, concrete Gibbs normalization, supported subtype kernel, arbitrary alphabets, sweeps, general-state MH, continuous time or cost is claimed."
+  },
+  "source_fidelity": "Not self-reviewed. Mathematical source-scope audit above is worker evidence for independent review, not accepted source assimilation.",
+  "semantic_roundtrip": {
+    "required": true,
+    "audit_id": "Root-owned fresh canonical audit pending",
+    "state": "draft",
+    "verdict": "No self-verdict; formalizer cannot be blind decoder or source reviewer.",
+    "remaining_semantic_delta": "Review Boolean specialization, source positive-support versus ambient null extension, and finite-matrix versus set-lintegral reversibility. Do not transfer CSV hard-core ergodicity or prior copy-index verdict.",
+    "raw_headerless_check_output": "@AutoSamplingTheory.TechnicalLemmas.Probability.KernelReversibility.isReversible_of_singleton_balance : ∀ {α : Type u_1}\n  [inst : MeasurableSpace α] [Countable α] [MeasurableSingletonClass α] (κ : ProbabilityTheory.Kernel α α)\n  (μ : MeasureTheory.Measure α), (∀ (x y : α), μ {x} * (κ x) {y} = μ {y} * (κ y) {x}) → κ.IsReversible μ\n@AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_isReversible : ∀ {n : ℕ}\n  (μ : MeasureTheory.Measure (Fin (n + 1) → Bool)) [inst : MeasureTheory.IsProbabilityMeasure μ],\n  (AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan μ).IsReversible μ\n",
+    "minimal_definition_only_context": [
+      "A measure assigns extended nonnegative masses to measurable sets; IsProbabilityMeasure means mass of the whole space is one. A kernel assigns each input a measure measurably. Countable and MeasurableSingletonClass mean countability and measurability of all singleton sets.",
+      "Fin(n+1) is a finite index type with n+1 elements; Bool is a two-element measurable type. The state is the full function space on those coordinates.",
+      "The kernel in the second proposition is an equal-weight state-independent mixture, with weight1/(n+1) per coordinate. For i, split x into (retained tuple,x_i) by a measurable equivalence e_i and map the target through e_i; at retained value a take the product of the Dirac measure at a and the selected regular conditional distribution of the second coordinate given the first, then map through e_i inverse.",
+      "The regular conditional distribution here is Mathlib's chosen Markov conditional law, specified only almost everywhere under the retained marginal. The definition stipulates no pointwise normalized-fiber formula at null retained values.",
+      "Kernel.IsReversible means that for every pair of measurable sets A,B the lower integral of κ(x,B) over A under μ equals the lower integral of κ(y,A) over B under μ."
+    ]
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Reviewed conceptual protocol, graph memory families, finite Dirichlet/L2 coercivity, and transport:mcmc-gibbs-coordinate with its random-mixture versus deterministic-composition failure boundary. This advance is exact atomic algebra in the existing kernel spine, not a new source-backed cross-domain analogy. Existing candidate is not duplicated or self-validated."
+  },
+  "discrete_state_contract": {
+    "state_space": "Fin(n+1)->Bool, finite nonempty site set.",
+    "support": "Positive target atoms within ambient cube; forbidden states permitted.",
+    "target": "Arbitrary probability measure; no graph/temperature/Gibbs construction.",
+    "operator": "Existing actual randomScan kernel acting on laws, with uniform fixed weights.",
+    "time_model": "discrete-time",
+    "clock": "One selected site per step, not sweep or continuous-time rate.",
+    "reversibility": "Mathlib set-lintegral IsReversible for all ambient target flux; no start premise.",
+    "pinning": "Retained-coordinate fibers; supported law used only at positive atoms, null inputs handled by zero flux.",
+    "regime": "Any finite Boolean probability target, no uniqueness or degree assumptions.",
+    "metric": "Exact balance only, no approximation/mixing bound.",
+    "cost": "Noncomputable law interface, no sampler/oracle bound.",
+    "source_proof_status": "General statement explicit in LPW3.3.2 with exercise verification; CSV hard-core and general update kept separate; independent source review pending.",
+    "aperiodicity_or_absolute_gap": "Not assumed or concluded; diagonal target tests show disconnected absorption."
+  },
+  "mcmc_contract": {
+    "state_space": "Finite Boolean ambient cube with discrete measurable structure.",
+    "target": "Any probability target, zero atoms allowed.",
+    "support": "Source support is positive atoms, ambient null-input versions do not affect target-weighted flux.",
+    "operator": "Existing uniform randomScan, not a new conditional kernel or deterministic composition.",
+    "time_model": "discrete-time",
+    "clock": "One uniformly selected site per transition.",
+    "invariance": "Only tested as existing IsReversible.invariant consequence and invariant powers; not proof parents or new wrappers.",
+    "invariance_class": "exact-target",
+    "ergodicity": "Not inferred; disconnected absorbing diagonal target is allowed.",
+    "initialization": "No starting-state condition in reversible theorem; supported law only used when target atom nonzero.",
+    "metric": "Exact flux equality, not estimator or marginal-error bound.",
+    "cost": "No computational cost statement.",
+    "objective": "Actual-kernel detailed-balance integration, not convergence or Monte Carlo estimation.",
+    "source_proof_status": "MCMC fixed-block Gibbs balance and LPW general finite random-scan background audited; source comparison independent.",
+    "periodicity": "No aperiodicity/absolute-gap premise or conclusion."
+  },
+  "diagnoses": [
+    "Initial unrestricted simplification using measure-as-atomic-sum recursively expanded singleton measures; localized outer-set rewrites fixed this without changing mathematics.",
+    "Pinned API is ENNReal.tsum_mul_right in reverse, not ENNReal.tsum_mul. Exact source search resolved the name/direction; generic bridge then compiled.",
+    "Concrete rational tests exposed NNReal-to-ENNReal division normalization and conditional inverse coercion. Explicit finite NNReal arithmetic transported by congrArg, with div_eq_mul_inv, resolved this; no target or theorem assumption changed.",
+    "A scratch signature command used unsupported pp.width once. Removed the option and reran successfully; supplied raw outputs come only from the successful command."
+  ],
+  "new_discoveries": [{"discovery_id": "ASTIS-DISC-20260908-CountableAtomicReversibility", "kind": "interface", "frontier_cell": "ASTIS-SHARED-random-scan-reversibility", "statement": "Minimal countable singleton-balance bridge into Mathlib IsReversible, without mass finiteness or Markov assumption.", "evidence": "Compiled generic declaration consumed by actual randomScan and infinite counting-kernel tests.", "where_it_matters": "Shared finite/discrete MCMC detailed-balance integration.", "provenance": "ASTIS/Mathlib/shared-floor retrieval and pinned nonnegative-sum APIs; published raw Discovery only, not independently validated."}],
+  "truth_boundary": "PROVED_LOCAL only. Root owns fresh semantic audit and independent proof review. No public aggregators, Registry394, source maps/cards/graphs/semantic registry, Git or remote mutation performed by this worker. KernelInvariance remains sole stabilization lane. No new Goal and no detached sessions.",
+  "route_fingerprint": "positive-law-zero-atom-flux-countable-set-integral",
+  "progress_signature": "frozen-two-declarations-substantive-tests-standard-axioms",
+  "integration_notes": {
+    "public_imports_needed": ["Root decides future shared aggregation of KernelReversibility and RandomScanHeatBathReversibility after independent gates."],
+    "registry_or_site_updates": ["Deferred to sole stabilization lane; count exactly one substantive integration node."],
+    "downstream_consumers": ["Canonical reversibility-to-invariance", "Future finite Dirichlet/ergodicity results only after their extra hypotheses are separately proved"],
+    "independent_review_focus": "Check generic no-finiteness assumptions, all three zero/nonzero atom branches, native retained-fiber equality, exactly-once random site normalization inherited from parent, full source support/ambient extension semantic boundary."
+  },
+  "branch": "codex/samplewiki-shared-stabilization",
+  "base_commit": "bb6fa815270f0bb41a6ec197caecae737227acf6",
+  "commit": "No worker commit; final owned file SHA256 hashes are frozen above."
+}
