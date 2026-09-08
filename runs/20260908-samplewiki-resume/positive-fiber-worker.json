@@ -1,0 +1,176 @@
+{
+  "schema_version": 3,
+  "advance_id": "ASTIS-20260908-CoordinateHeatBathConditional",
+  "route": "shared",
+  "mode": "exploratoryProof",
+  "frontier_cell": "ASTIS-SHARED-coordinate-heat-bath-positive-fiber",
+  "frontier_cell_record": "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath-positive-fiber.json",
+  "state": "PROVED_LOCAL",
+  "result_kind": "theorem-edge",
+  "owner": "positive_fiber_worker",
+  "base_commit": "649b5e8f59375f8180d567417b3b99730e170fed",
+  "lean_pin": "leanprover/lean4:v4.33.0",
+  "mathlib_pin": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "mathematical_result": "The actual canonical coordinate heat-bath output law equals normalized target restriction on every positive retained-coordinate fiber.",
+  "theorem_delta": "heatBath X mu i x = cond mu {y | retained_i y = retained_i x}; finite dependent coordinate count, finite mu, selected-only Nonempty/StandardBorel, retained-product measurable singletons, and explicit nonzero fiber mass.",
+  "lean_declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_eq_cond"
+  ],
+  "public_declaration_count": 1,
+  "substantive_advance_count": 1,
+  "lean_files": [
+    "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBathConditional.lean",
+    "Tests/CoordinateHeatBathConditional.lean"
+  ],
+  "owned_files": [
+    "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBathConditional.lean",
+    "Tests/CoordinateHeatBathConditional.lean",
+    "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath-positive-fiber.json",
+    "runs/20260908-samplewiki-resume/positive-fiber-worker.json"
+  ],
+  "minimal_imports": [
+    "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath",
+    "Mathlib.Probability.ConditionalProbability"
+  ],
+  "exact_elaborated_proposition": "∀ {n : ℕ} (X : Fin (n + 1) → Type u_1) [inst : (j : Fin (n + 1)) → MeasurableSpace (X j)] (μ : Measure ((j : Fin (n + 1)) → X j)) [inst_1 : IsFiniteMeasure μ] (i : Fin (n + 1)) [inst_2 : StandardBorelSpace (X i)] [inst_3 : Nonempty (X i)] [MeasurableSingletonClass ((j : Fin n) → X (i.succAbove j))] (x : (j : Fin (n + 1)) → X j), μ {y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)} ≠ 0 → (CoordinateHeatBath.heatBath X μ i) x = μ[|{y | (fun j => y (i.succAbove j)) = fun j => x (i.succAbove j)}]",
+  "minimal_anonymous_definition_context": [
+    "Fin (n+1) is the index type; i.succAbove : Fin n → Fin(n+1) enumerates all indices other than i in increasing order.",
+    "e_i is the measurable equivalence x ↦ ((fun j => x(i.succAbove j)), x i), with inverse reinserting the selected coordinate.",
+    "For ν = μ.map e_i, κ = condDistrib Prod.snd Prod.fst ν; condDistrib Y X ν is the selected regular conditional-distribution Markov kernel, defined as the conditional kernel of ν.map(fun a => (X a,Y a)).",
+    "CoordinateHeatBath.heatBath X μ i x = (e_i.symm)_#(dirac((e_i x).1) × κ((e_i x).1)); measure map means pushforward.",
+    "μ[|s] means ProbabilityTheory.cond μ s, defined by (μ s)⁻¹ • μ.restrict s; scalars are ENNReal with totalized inverse."
+  ],
+  "proof_parents": [
+    "CoordinateHeatBath.heatBath",
+    "HeatBath.heatBathSnd_apply",
+    "Kernel.map_apply",
+    "Kernel.comap_apply",
+    "Measure.dirac_prod",
+    "Measure.map_map",
+    "Measure.map_apply",
+    "ProbabilityTheory.condDistrib_apply_of_ne_zero",
+    "Measure.map_id'",
+    "ProbabilityTheory.cond_apply'",
+    "MeasurableEquiv.symm_apply_apply"
+  ],
+  "proof_route": [
+    "Use the existing native retained-first split e; no new kernel or split definition.",
+    "Translate nonzero native fiber mass into nonzero atom of the first marginal by genuine measurable map evaluation.",
+    "Expand actual heatBath at input x, using its existing HeatBath product law and dirac_prod.",
+    "Collapse the two measurable output maps and evaluate on an arbitrary measurable output event.",
+    "Use pinned condDistrib_apply_of_ne_zero with measurable_snd and the nonzero marginal atom.",
+    "Evaluate the pushforward rectangle and cond_apply' to expose the same denominator.",
+    "Identify the rectangle preimage with retained fiber intersect output event, by e.symm_apply_apply."
+  ],
+  "test_consumer_inputs": {
+    "interfaces": [
+      "CoordinateHeatBath.heatBath_eq_cond",
+      "CoordinateHeatBath.heatBath_isMarkovKernel",
+      "CoordinateHeatBath.heatBath_invariant",
+      "KernelMixture.finiteMixture_invariant",
+      "KernelInvariance.invariant_pow",
+      "Measure.measure_mono",
+      "ProbabilityTheory.cond_eq_zero_of_meas_eq_zero",
+      "ENNReal.inv_div"
+    ],
+    "checks": [
+      "Private support adapter: positive singleton mass implies positive retained fiber by set inclusion and measure monotonicity.",
+      "Finite target implies fiber mass is not infinity.",
+      "Private conditional singleton transition formula explicitly separates matching and nonmatching retained tuples.",
+      "Actual joint probability on Fin3 -> Bool has support a=[false,false,false], b=[false,true,false], c=[true,false,false] and weights1/6,1/2,1/3; total mass1 checked.",
+      "Selecting index1 at a retains indices0,2; fiber mass2/3, transition to b3/4, to a1/4, and to c0.",
+      "Positive supported starting atom b supplies the theorem denominator without assuming all ambient states feasible.",
+      "The same nonzero probability target has null retained fiber at off=[false,false,true]; its normalized restriction is zero but actual heatBath remains mass1, so equality is disproved.",
+      "Existing fixed-weight mixture and finite-power invariance consume the same actual coordinate kernel."
+    ],
+    "boundary": "Support/singleton adapters and finite example data are private tests, not public theorem copies. Mixture/powers are reused consumer inputs, not new proof parents or counted advances."
+  },
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib Probability/SDE and probability technical modules/card; six reviewed kernel packets, source-facing-next-packet and existing cell contracts.",
+      "Pinned Mathlib CondDistrib.lean75; Disintegration/StandardBorel.lean389; ConditionalProbability.lean; Measure/Prod.lean dirac_prod; map and measurable-equivalence APIs.",
+      "Libraries/shared-foundations.yml and frontloaded shared spine; active shared cells; no outside clone."
+    ],
+    "classification": "adapt",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_eq_cond",
+    "canonical_shared_cell": "ASTIS-SHARED-coordinate-heat-bath-positive-fiber",
+    "notes": "One missing actual-kernel law edge, not another invariance/marginal wrapper. The standard atomic conditional theorem and normalized restriction definition are reused literally. No extra Measurable X argument or countability/coordinate-finiteness assumptions."
+  },
+  "focused_checks": [
+    {
+      "command": "$env:ELAN_TOOLCHAIN='leanprover/lean4:v4.33.0'; $env:LEAN_NUM_THREADS='1'; lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBathConditional.lean",
+      "result": "PASS exit0 early, after one syntactic identity-map normalization correction. Final simplified module rebuilt successfully,17s."
+    },
+    {
+      "command": "$env:ELAN_TOOLCHAIN='leanprover/lean4:v4.33.0'; $env:LEAN_NUM_THREADS='1'; lake build Tests.CoordinateHeatBathConditional",
+      "result": "PASS exit0 final,2981 jobs, tests18s. All supported-joint, singleton, null-fiber, finite-mass and mixture/power consumers compile."
+    },
+    {
+      "command": "#check @CoordinateHeatBath.heatBath_eq_cond; #print axioms CoordinateHeatBath.heatBath_eq_cond (included in final focused tests)",
+      "result": "Exact headerless quantified proposition recorded above. Axioms only propext, Classical.choice, Quot.sound; no sorryAx or custom axiom."
+    },
+    {
+      "command": "Scoped rg for sorry/admit/axiom declarations, Prop := True, := trivial and trailing whitespace; scoped git diff --check",
+      "result": "PASS no matches; diff check clean. New untracked files also checked directly."
+    },
+    {
+      "command": "python tools/astis_frontier_cells.py check",
+      "result": "PASS8 registered cells; final proved_locally record rechecked before ledger transition."
+    }
+  ],
+  "diagnosed_failures": [
+    "Public proof reached the exact desired law in the first check; only map(fun a=>a) versus map id prevented rewriting. Native map_id' removed the syntactic residual, with no mathematical contract change.",
+    "Consumer elaboration needed Classical scope for the generic if formula and explicit set-membership typing for intersection-singleton rewrite.",
+    "IsFiniteMeasure instance keyed by private State abbreviation was not retrieved at the concrete dependent Fin(2+1)->Bool heatBath call. Minimal standalone synthesis and direct explicit evidence isolated the discrimination issue; registering the same proven instance at explicit alpha=Fin(2+1)->Bool made the minimal reproducer pass. No assumption was added.",
+    "Concrete third-coordinate vector evaluation used native cons_val_two/head_cons/tail_cons. NNReal-to-ENNReal congrArg transported rational arithmetic; native ENNReal.inv_div supplied its nonzero and finite endpoints. All numerical/test issues are closed.",
+    "Unchanged instance failures were diagnosed via minimal reproducers before another full test build; no theorem weakening or repeated unchanged mathematical route."
+  ],
+  "source_fidelity": "SOURCE-FACING ALIGNMENT packet, not source-neutral relabeling. Exact original cached PDFs rehashed to source-map pins and complete existing page renders visually inspected. Proposed correspondence is the fixed selected-site conditional substep only. Source original, formal target and proposed correspondence remain separate; no source repair accepted by this worker.",
+  "source_pins": {
+    "Discrete2307.13826v4 section1.3 PDF5": "3cc2f911b33bb5538157ef8a70f0c7e0f3c812ecd06dc9c1d5ea0bfdae11a52a",
+    "MCMC2407.12751v1 section2.1.1 PDF54": "60ecdd243a5815771332b5461e7eae59d41242933e53a721785870b6877f008f"
+  },
+  "semantic_roundtrip": {
+    "required": true,
+    "state": "draft",
+    "audit_id": "ASTIS-RT-20260908-PositiveFiberUpdate",
+    "verdict": "No worker fidelity verdict. Exact compiled statement and minimal definition context handed to root for independent blind reconstruction and separate anti-anchored source comparison.",
+    "remaining_semantic_delta": "Finite source configuration/probability setting is generalized to finite coordinate count with arbitrary measurable coordinate spaces and finite unnormalized target; selected-only nonempty StandardBorel and retained-product measurable singletons are explicit existence/evaluation contracts. Formula applies only positive retained fibers. Source source-support start does not alone imply positive atom unless the weight/support convention says so. Printed copy-index discrepancy remains unresolved. Full random scan/whole algorithm, general continuous conditional fibers, Gibbs weights, reversibility, mixing and cost are not covered."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Read conceptual-mirror protocol, graph-memory proximal-energy family, existing transport:dirac and transport:mcmc-gibbs-coordinate candidates and shared-spine kernel slice. This is literal pushforward/atomic-conditioning theorem reuse, not a new source-backed cross-domain analogy or certified functor. Existing candidates remain unvalidated."
+  },
+  "truth_boundary": "Finite target including zero globally, but theorem only at nonzero retained fibers; finite mass excludes infinity. Selected coordinate alone Nonempty/StandardBorel; retained product has measurable singletons. No coordinate-state finiteness, countability, retained StandardBorel or full-state StandardBorel assumption. Native retained tuple equality is equivalent to keeping all j != i. Genuine measurable maps only. No equality with totalized cond on null fibers; concrete nonzero-target counterexample tested. No Gibbs normalization, reversibility, mixing, scan choice, cost, continuous-time result or accepted source-copy repair. Independent verification and source review, then sole-owner root integration, remain distinct.",
+  "route_fingerprint": "actual-kernel:dirac-product-map:atomic-condDistrib:preimage-fiber",
+  "progress_signature": "one-public-positive-fiber-law-and-real-joint-boundary-consumers-compiled",
+  "new_discoveries": [],
+  "integration_notes": {
+    "public_imports_needed": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBathConditional in probability aggregator",
+      "Tests.CoordinateHeatBathConditional in Tests.lean"
+    ],
+    "registry_or_site_updates": [
+      "Root owns card, source-semantic registry, graphs, site and all shared integration. Registry remains394; no stabilization lane bypass."
+    ],
+    "downstream_consumers": [
+      "Independent source-facing fixed selected-site alignment review",
+      "Finite Gibbs/Glauber support specialization using existing law, mixtures and powers"
+    ],
+    "shared_mutations": "Only owned module/tests/cell/worker packet plus supported SAU ledger events. No branch, commit, Goal, remote, public source, shared import or registry mutations; no agents or detached/background sessions spawned."
+  },
+  "hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBathConditional.lean": {
+      "sha256": "f46810ed241b0883d33b0a8db517fe88646ebd97fdf4df670ce766f9b0d83174",
+      "git_blob": "617c9d00e586d4a763522ac5d9328487d11b0f23"
+    },
+    "Tests/CoordinateHeatBathConditional.lean": {
+      "sha256": "eb2b13beb9f3e68e682b9016b5665e6a30f422d925b6282770f463b261118a1d",
+      "git_blob": "c318888173a2502077c0ba32f0e93a13b3b27a7e"
+    }
+  },
+  "branch": "codex/samplewiki-shared-stabilization (unchanged)",
+  "commit": "No worker commit; base649b5e8f59375f8180d567417b3b99730e170fed with frozen owned Lean hashes above."
+}
