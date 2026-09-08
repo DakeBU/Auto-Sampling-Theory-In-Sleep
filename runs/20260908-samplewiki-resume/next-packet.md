@@ -1,4 +1,10 @@
-# Next dependency-ready packet: measurable-equivalence kernel transport
+# Historical scout: measurable-equivalence kernel transport
+
+This scout has been implemented at `31fe8f2`. See the canonical
+`ASTIS-SHARED-kernel-invariant-transport` Frontier Cell for current verification
+status, and `coordinate-operational-next-packet.md` for the next strict residual.
+The candidate language below records the earlier planning checkpoint; it does
+not override the newer compiled evidence.
 
 Read-only scout: `windows_harness_worker`, 2026-09-08. This is an API-inspected
 candidate, not a frozen statement or compiled theorem. Source-neutral shared

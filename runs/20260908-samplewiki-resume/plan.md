@@ -91,7 +91,7 @@ upstream PR status was not changed.
   The temporary copy and original metadata remainder are retained as ignored
   recovery backups. No absolute cache paths enter repository truth.
 
-## Current checkpoint
+## Prior checkpoint: four shared packets
 
 - Independent verification accepted kernel powers and the conditional-law
   adapter at `51dbfae5089e163b7e28195591df7010d5850ada`.
@@ -134,3 +134,65 @@ upstream PR status was not changed.
 - Final Windows Harness regression: 163 tests passed. Python compilation and
   `git diff --check` passed. All bounded Worker/verifier tasks have ended;
   no detached/background ASTIS session was started.
+
+## Transport checkpoint
+
+- Commit `31fe8f23265077225ed31adf169b2895cbd1c958` adds the single generic
+  `KernelTransport.invariant_map_comap` declaration, with no Markov, finite,
+  s-finite, Standard-Borel or nonempty hypotheses. Its dependent coordinate
+  tests exercise the real heat-bath, mixture and powers interfaces; they are
+  consumers, not proof parents of the transport theorem.
+- Independent `kernel_transport_review` accepted the exact committed packet
+  and published `VERIFIED`, checking unrestricted signatures, standard-only
+  axioms, pointwise map direction, zero target and empty state examples. The
+  Worker and verifier have both ended. The updated transport SVG/PNG was
+  actually inspected after the verification status changed; labels, arrows
+  and the separate red operational/source boundary remain readable.
+- The canonical source-bound gate passed at that exact commit, source digest
+  `6482d3992d8e43386e5aff46d6f2a057353a3f02527a9b6416de6ae60e4d16aa`:
+  `lake build`, `lake build Tests` (9050 jobs), ASTIS/ATLAS and fake-closure
+  checks. Website build and full site check then passed: 12 Chewi chapters,
+  394 compiled Registry leaves, 511 source modules, 3572 source declarations,
+  77 reviewed teaching declarations. These are different inventories, not
+  interchangeable completion counts.
+- The validated four-cell synthesis remains a historical capsule; it avoids
+  replaying the previous proof sessions. Heat-bath's powers dependency is now
+  correctly recorded as a test-consumer input, not a mathematical proof parent.
+- Both pinned coordinate-update PDFs match their source-map SHA-256 values;
+  the relevant pages were rendered and visually inspected. The existing
+  Discrete Sampling copy-index discrepancy is confirmed, but its proposed
+  repair has not received independent source acceptance. The audit neither
+  edits the source map nor claims numbered theorem assimilation.
+- `coordinate-operational-next-packet.md` records the next genuine residual:
+  literal retained-coordinate equality almost everywhere, beyond invariance
+  or equality of marginal laws. Singleton measurability is explicit where it
+  is used. A single isolated Worker is exploring that operational integration;
+  there is no parallel public definition or shared Registry edit.
+- Registry remains 394, with only kernel powers in the sole stabilization
+  lane. No remote push, PR update, merge or deployment has been authorized or
+  performed. The existing overall Goal remains active; no replacement cycle
+  or Goal was created.
+
+## Operational coordinate packet: proof checkpoint
+
+- `CoordinateHeatBath.heatBath` is one public finite-coordinate construction;
+  its substantive behavior theorem `heatBath_ae_apply_eq` retains each
+  unselected coordinate almost everywhere, with singleton measurability only
+  for that retained coordinate. Markovness and invariance reuse the already
+  verified shared floor and are not counted as separate new substantive leaves.
+- The final two-import public module and `Tests.CoordinateHeatBath` passed a
+  2980-job focused build. Tests include a nonconstant three-site middle update,
+  finite simultaneous retention, zero target, an indiscrete retained space's
+  weaker marginal contract, and fixed-mixture finite powers. Printed axioms
+  are standard only; fake-closure/whitespace and seven-cell checks passed.
+- The proof's local-definition alignment issue was resolved by an explicit
+  proposition change and pointwise transitivity. There was no true measurable
+  space mismatch and no assumption change. Two test-local issues used a final
+  definitional equality and explicit selected-coordinate typeclass transport.
+- The Worker has stopped. Exact-commit independent review is next; this
+  checkpoint records `PROVED_LOCAL`, not acceptance or source assimilation.
+- The pending source-copy repair, supported-target/null-fiber contract,
+  reversibility and mixing are distinct residuals. After operational review,
+  the next route is source/semantic alignment of the concrete update, not
+  another generic invariance wrapper. Remote publication remains unapproved;
+  kernel powers retains the only stabilization lane and Registry stays 394.

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="800" viewBox="0 0 1020 800">
+<rect width="1020" height="800" fill="white"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>
+<text x="25" y="38" font-family="Segoe UI,Arial,sans-serif" font-size="24" fill="#101828">ASTIS coordinate-transport prerequisite</text>
+<text x="25" y="66" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Selected proof/test inputs. Local evidence only; root integration and publication are separate gates.</text>
+<path d="M315,152 L355,152" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M500,204 L500,270" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M315,322 L355,322" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M685,152 L645,322" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M315,492 L355,492" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M685,492 L645,492" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="25" y="100" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="38" y="127" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Mathlib: map/comap and</text>
+<text x="38" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">inverse pushforwards</text>
+<rect x="355" y="100" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
+<text x="368" y="127" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Measurable-equivalence</text>
+<text x="368" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">invariance transport</text>
+<text x="368" y="173" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">independently verified</text>
+<rect x="25" y="270" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
+<text x="38" y="297" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">One-block heat-bath invariance</text>
+<text x="38" y="320" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">independently verified</text>
+<rect x="355" y="270" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="368" y="297" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Focused test:</text>
+<text x="368" y="320" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">coordinate-conjugated update</text>
+<rect x="685" y="100" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="698" y="127" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Mathlib: finite-coordinate</text>
+<text x="698" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">splitting equivalence</text>
+<rect x="25" y="440" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
+<text x="38" y="467" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Fixed finite kernel mixture</text>
+<text x="38" y="490" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">independently verified</text>
+<rect x="355" y="440" width="290" height="104" rx="10" fill="white" stroke="#475467" stroke-width="2"/>
+<text x="368" y="467" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">Focused test: fixed scan</text>
+<text x="368" y="490" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#475467">and finite powers</text>
+<rect x="685" y="440" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
+<text x="698" y="467" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Finite kernel powers</text>
+<text x="698" y="490" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">stabilized</text>
+<rect x="355" y="610" width="290" height="104" rx="10" fill="white" stroke="#b42318" stroke-width="2"/>
+<text x="368" y="637" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">TODO: retained-coordinate law</text>
+<text x="368" y="660" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#b42318">and source-facing update</text>
+<text x="25" y="754" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Blue: ASTIS-owned, focused-compiled. Gray: external API / test consumer. Red: TODO.</text>
+<text x="25" y="778" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">No mixing, concrete Gibbs density, general-state MH, or continuous-time invariance is concluded.</text>
+</svg>

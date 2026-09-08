@@ -45,6 +45,7 @@ edges = [(0, 1, False), (2, 3, False), (3, 4, False),
          (7, 8, False), (4, 8, False), (7, 9, True)]
 artifact = "shared-kernel-frontier"
 heading = "ASTIS shared-kernel frontier"
+height = 800
 if "--transport" in sys.argv:
     artifact = "kernel-transport-frontier"
     heading = "ASTIS coordinate-transport prerequisite"
@@ -67,13 +68,39 @@ if "--transport" in sys.argv:
     # other tests or of the separate remaining operational/source contract.
     edges = [(0, 1, False), (1, 3, False), (2, 3, False),
              (4, 3, False), (5, 6, False), (7, 6, False)]
-svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="800" viewBox="0 0 1020 800">',
-       '<rect width="1020" height="800" fill="white"/>',
+if "--coordinate" in sys.argv:
+    artifact = "coordinate-heat-bath-frontier"
+    heading = "ASTIS operational coordinate-update slice"
+    height = 980
+    nodes = [
+        node("Mathlib: coordinate split,\nmarginals and a.e. transport", 25, 100),
+        node("One-block heat-bath invariance", 355, 100,
+             "ASTIS-SHARED-heat-bath-snd-invariance"),
+        node("Measurable-equivalence\ninvariance transport", 685, 100,
+             "ASTIS-SHARED-kernel-invariant-transport"),
+        node("Coordinate heat-bath\nretained-coordinate equality", 355, 270,
+             "ASTIS-SHARED-coordinate-heat-bath"),
+        node("Fixed finite kernel mixture", 25, 440,
+             "ASTIS-SHARED-finite-kernel-mixture"),
+        node("Finite kernel powers", 685, 440,
+             "ASTIS-SHARED-kernel-invariant-powers"),
+        node("Focused consumer: fixed scan\nand finite powers", 355, 440),
+        node("TODO: source correspondence\nand independent repair review", 25, 610, color=RED),
+        node("TODO: supported Gibbs model\nand null-fiber contract", 685, 610, color=RED),
+        node("TODO: reversibility", 25, 780, color=RED),
+        node("TODO: quantitative mixing", 685, 780, color=RED),
+    ]
+    # One canonical integration packet, not one new leaf per adapter. The four
+    # red obligations are separate residual contracts, not implied by invariance.
+    edges = [(0, 3, False), (1, 3, False), (2, 3, False),
+             (3, 6, False), (4, 6, False), (5, 6, False)]
+svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="{height}" viewBox="0 0 1020 {height}">',
+       f'<rect width="1020" height="{height}" fill="white"/>',
        '<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>']
 canvas = draw = font = small = title = None
 try:
     from PIL import Image, ImageDraw, ImageFont
-    canvas = Image.new("RGB", (1020, 800), "white")
+    canvas = Image.new("RGB", (1020, height), "white")
     draw = ImageDraw.Draw(canvas)
     font = ImageFont.truetype("segoeui.ttf", 17)
     small = ImageFont.truetype("segoeui.ttf", 15)
@@ -121,8 +148,8 @@ for n in nodes:
     lines = [line for part in n["label"].splitlines() for line in textwrap.wrap(part, 30)]
     for j, line in enumerate(lines):
         text(x + 13, y + 27 + 23 * j, line, color=color)
-text(25, 754, "Blue: ASTIS-owned, focused-compiled. Gray: external API / test consumer. Red: TODO.", 15)
-text(25, 778, "No mixing, concrete Gibbs density, general-state MH, or continuous-time invariance is concluded.", 15)
+text(25, height - 46, "Blue: ASTIS-owned, focused-compiled. Gray: external API / test consumer. Red: TODO.", 15)
+text(25, height - 22, "No mixing, concrete Gibbs density, general-state MH, or continuous-time invariance is concluded.", 15)
 svg.append("</svg>")
 (OUT / (artifact + ".svg")).write_text("\n".join(svg) + "\n", encoding="utf-8", newline="\n")
 if canvas:

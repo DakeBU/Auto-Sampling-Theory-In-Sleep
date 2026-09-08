@@ -1,0 +1,76 @@
+{
+  "schema_version": 3,
+  "advance_id": "ASTIS-20260908-CoordinateHeatBath",
+  "route": "shared",
+  "mode": "exploratoryProof",
+  "frontier_cell": "ASTIS-SHARED-coordinate-heat-bath",
+  "frontier_cell_record": "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath.json",
+  "state": "PROVED_LOCAL",
+  "result_kind": "integration-node",
+  "owner": "coordinate_heatbath_worker",
+  "base_commit": "31fe8f23265077225ed31adf169b2895cbd1c958",
+  "lean_pin": "leanprover/lean4:v4.33.0",
+  "mathlib_pin": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "owned_files": ["AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean", "Tests/CoordinateHeatBath.lean", "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath.json", "runs/20260908-samplewiki-resume/coordinate-heat-bath-worker.json"],
+  "mathematical_result": "One canonical finite-coordinate heat-bath kernel now has operational retained-coordinate semantics, not merely target invariance.",
+  "theorem_delta": "For every input x and every retained j != i with measurable singletons in X j, almost every output y of heatBath X mu i x satisfies y j = x j. Construction and Markov/invariance adapters are counted together as one integration packet, not separate substantive leaves.",
+  "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath", "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_isMarkovKernel", "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_invariant", "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_ae_apply_eq"],
+  "public_declaration_count": 4,
+  "substantive_integration_count": 1,
+  "lean_files": ["AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean", "Tests/CoordinateHeatBath.lean"],
+  "minimal_imports": ["AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath", "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTransport"],
+  "exact_signatures": {
+    "shared_parameters": "{n : ℕ} (X : Fin (n + 1) → Type*) [∀ j, MeasurableSpace (X j)] (μ : Measure (∀ j, X j)) [IsFiniteMeasure μ] (i : Fin (n + 1)) [StandardBorelSpace (X i)] [Nonempty (X i)]",
+    "heatBath": "shared_parameters : Kernel (∀ j, X j) (∀ j, X j)",
+    "heatBath_isMarkovKernel": "shared_parameters : IsMarkovKernel (heatBath X μ i)",
+    "heatBath_invariant": "shared_parameters : (heatBath X μ i).Invariant μ",
+    "heatBath_ae_apply_eq": "shared_parameters (j : Fin (n + 1)) [MeasurableSingletonClass (X j)] (hji : j ≠ i) (x : ∀ j, X j) : ∀ᵐ y ∂heatBath X μ i x, y j = x j",
+    "definition": "let e := (MeasurableEquiv.piFinSuccAbove X i).trans MeasurableEquiv.prodComm; ((HeatBath.heatBathSnd (μ.map e)).comap e e.measurable).map e.symm"
+  },
+  "proof_parents": {
+    "construction": ["MeasurableEquiv.piFinSuccAbove", "MeasurableEquiv.prodComm", "HeatBath.heatBathSnd", "Kernel.comap", "Kernel.map"],
+    "markov_adapter": ["HeatBath.heatBathSnd_isMarkovKernel", "Kernel.IsMarkovKernel.map", "Native comap Markov instance"],
+    "invariance_adapter": ["HeatBath.heatBathSnd_invariant", "KernelTransport.invariant_map_comap", "MeasurableEquiv.map_symm_map"],
+    "retention": ["Fin.exists_succAbove_eq", "HeatBath.heatBathSnd_apply", "MeasureTheory.ae_eq_dirac'", "measurable_pi_apply", "MeasureTheory.Measure.map_fst_prod", "condDistrib IsMarkovKernel instance", "MeasureTheory.ae_of_ae_map", "MeasurableEquiv.apply_symm_apply", "Kernel.map_apply", "Kernel.comap_apply", "MeasureTheory.ae_map_iff", "measurableSet_singleton", "Filter.Eventually.mono"]
+  },
+  "proof_route": ["Represent retained j as i.succAbove k.", "Use native split e with retained tuple first and selected coordinate second.", "The conditional second-factor measure is probability, hence s-finite; product first marginal equals the retained Dirac measure.", "Measurable evaluation at k and MeasurableSingletonClass (X j) give equality almost everywhere under that Dirac measure without requiring singleton measurability of the full retained product.", "Pull this event back along genuinely measurable first projection.", "Expand the public kernel at x and transfer through the genuinely measurable inverse equivalence.", "Use e.apply_symm_apply pointwise and Eventually.mono to identify the original retained coordinate."],
+  "test_consumer_inputs": {
+    "declarations": ["CoordinateHeatBath public API", "KernelMixture.finiteMixture_isMarkovKernel", "KernelMixture.finiteMixture_invariant", "KernelInvariance.invariant_pow", "ae_all_iff", "Filter.Eventually.and", "Measure.map_map", "Measure.map_fst_prod"],
+    "checks": ["Generic Markov and invariance with arbitrary measurable retained coordinates", "Private retained-marginal test derives a Dirac law by expanding the one public construction; no public marginal wrapper", "Generic literal-retention signature with singleton measurability only at j", "Simultaneous finite-coordinate retention by existing ae_all_iff", "Fin3 Bool middle index1 preserves coordinates0 and2", "Zero target and concrete nonconstant input [false,true,false] preserve both unselected false coordinates", "Zero-target invariance", "Dependent Fin2 family: retained two-point Fin2 with indiscrete sigma-algebra and selected ordinary Bool; weaker marginal law and invariance compile without retained singleton/StandardBorel assumptions", "Actual public-coordinate fixed finite mixture is Markov", "All finite powers of that actual mixture preserve mu"],
+    "boundary": "Mixture and powers are consumer inputs only, not proof parents of coordinate retention. Existing reviewed Tests/KernelTransport.lean remains untouched and explicitly private. No second test-only coordinate-update definition was added."
+  },
+  "shared_floor_audit": {
+    "classification": "adapt",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_ae_apply_eq",
+    "canonical_shared_cell": "ASTIS-SHARED-coordinate-heat-bath",
+    "searched": ["Validated kernel-cell-synthesis.json, reviewed kernel-transport-worker.json and coordinate-operational-next-packet.md", "Samplinglib Probability/SDE and probability technical modules/cards, active shared cells and shared-foundations.yml", "Pinned Mathlib Embedding, Data/Fin/Tuple and SuccPred, Measure/Prod, Measure/Dirac, Measure/Map, Kernel/CondDistrib, map/comap and fst_prod/fst_comp APIs"],
+    "notes": "No existing public operational coordinate-retention API was found. Exact split/product/marginal/Markov/transport APIs were reused; no public split/marginal wrapper. Embedding import proved redundant and was removed, with final two-import module rebuilt successfully. No external repository checkout or clone."
+  },
+  "focused_checks": [
+    {"command": "$env:ELAN_TOOLCHAIN='leanprover/lean4:v4.33.0'; $env:LEAN_NUM_THREADS='1'; lake env lean AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean", "result": "PASS exit0 on first construction/Markov/invariance check, before retention was added."},
+    {"command": "$env:ELAN_TOOLCHAIN='leanprover/lean4:v4.33.0'; $env:LEAN_NUM_THREADS='1'; lake build Tests.CoordinateHeatBath", "result": "PASS exit0 on final two-import public module and final tests; 2980 jobs; public module16s, tests15s. Exact signatures and all four axioms prints show only propext, Classical.choice, Quot.sound."},
+    {"command": "Scoped rg scan for sorry/admit/axiom declarations, Prop := True, := trivial and trailing whitespace on both owned Lean files; git diff --check scoped to those files", "result": "PASS no matches / clean. Both new files were untracked, so direct rg scan supplied the content check."},
+    {"command": "python tools/astis_frontier_cells.py check", "result": "PASS7 registered cells; final proved_locally record checked before PROVED_LOCAL ledger publication."}
+  ],
+  "diagnosed_failures": ["Retention reached its final closure on the first attempt. Initial simpa exposed singleton-membership versus equality shape; after normalizing that shape a second attempt, plus an already-launched unchanged test build, still stopped at the definitionally equal local split/conditional measure. Before another simplifier retry, explicit change diagnosed that no measurable-space or condDistrib instance mismatch existed. Direct hprod.mono with pointwise inverse-equivalence equality compiled; no theorem contract or mathematical route changed.", "First consumer build exposed two test-local elaboration issues: a definitional Dirac equality required rfl after simplifying probability mass, and selected Bool in the private coarse dependent family required explicit StandardBorel/Nonempty instances via change. The next consumer build passed."],
+  "source_fidelity": "Source-neutral canonical algorithm integration motivated by MCMC2407.12751v1 section2.1.1 PDF54 and Discrete2307.13826v4 section1.3 PDF5. Exact formal proof uses pinned Mathlib Apache2.0 and reviewed ASTIS parents. Parent source-coordinate-update-audit.md records byte-pinned page inspection and pending copy-index issue; it is reused as motivation evidence, not a repair certificate.",
+  "semantic_roundtrip": {"required": false, "audit_id": "", "state": "not-applicable", "verdict": "No numbered source theorem is assimilated, no faithfulPaper statement or semantic/source registry is changed, and the existing copy-index repair is not adopted. This is an explicit source-neutral operational kernel contract.", "remaining_semantic_delta": "Any source-facing Gibbs/Glauber theorem or copy-index repair must separately pass the independent blind reconstruction/source-review workflow. Gibbs support/normalization, reversibility and mixing remain separate."},
+  "conceptual_mirror_audit": {"status": "none-found", "discovery_ids": [], "reason": "Read protocol, graph-memory proximal-energy family, existing transport:dirac and transport:mcmc-gibbs-coordinate candidate contracts, and shared-spine kernel nodes. This proof is literal measurable-equivalence/product/Dirac theorem reuse; it introduces no new source-backed cross-domain analogy. Existing candidates remain candidates; no categorical/functor certificate fabricated."},
+  "truth_boundary": "Finite target including zero; selected coordinate alone StandardBorel/nonempty. Literal a.e. retention requires MeasurableSingletonClass at the retained coordinate under discussion, not on all coordinates or generic KernelTransport. Only the marginal law is claimed for arbitrary coarse retained spaces. Genuine measurable map branches used throughout. Conditional laws remain characterized only marginal-a.e.; no conditional support on null fibers. No Gibbs weights/support/normalization, reversibility, mixing, estimator accuracy, cost, MH, SDE, stationary-to-invariant inference, source-copy repair or numbered source assimilation. Independent verification, root gate and shared integration remain pending.",
+  "route_fingerprint": "native-split:product-dirac-marginal:ae-map-transfer:explicit-eventually-mono",
+  "progress_signature": "one-operational-coordinate-integration-and-full-consumer-suite-compiled",
+  "new_discoveries": [],
+  "integration_notes": {
+    "public_imports_needed": ["AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath in probability aggregator", "Tests.CoordinateHeatBath in Tests.lean"],
+    "registry_or_site_updates": ["Sole stabilization owner should present one integration packet; four declarations do not mean four substantive advances. Preserve proof-parent versus test-input distinction and source-neutral status."],
+    "downstream_consumers": ["Supported finite Gibbs specialization and independent source/semantic audit", "Existing fixed finite mixtures and powers already consume the public kernel in Tests.CoordinateHeatBath"],
+    "shared_mutations": "Only four owned files and supported astis_advance ledger events. No shared aggregator/Registry/site/semantic registry, branch, commit, remote or Goal changes; no new agent or detached/background process. Root owns stabilization."
+  },
+  "hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean": {"sha256": "b621e7142e4b3a69ec1d72b90befb7a638603cf06e806dd120734f776f0a5662", "git_blob": "9137baf2d1d3ea49bd8e1861d46dfb3fdf214af9"},
+    "Tests/CoordinateHeatBath.lean": {"sha256": "368f172a931af8046156235ee15daad538c4d666ea434483f2731e9acdd6a13a", "git_blob": "af7e9f5ea36dea6e7ee8c75f43df40d3fb71ec87"}
+  },
+  "branch": "Original shared D: checkout, unchanged by worker",
+  "commit": "No worker commit; base31fe8f23265077225ed31adf169b2895cbd1c958 with exact owned Lean file hashes above."
+}
