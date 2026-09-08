@@ -1,4 +1,10 @@
-# Next residual: operational coordinate retention
+# Historical route audit: operational coordinate retention
+
+Implemented at `5576ad81fbfcf0dbd68a1fc2e34de8b8ac435164`; the canonical
+`ASTIS-SHARED-coordinate-heat-bath` cell owns current verification evidence.
+See `source-facing-next-packet.md` for the next residual. The audit below
+preserves the pre-implementation distinction between marginal laws and
+literal almost-everywhere retention.
 
 This is a bounded route audit, not a compiled claim or a frozen source theorem.
 The preceding `KernelTransport.invariant_map_comap` packet has focused and root

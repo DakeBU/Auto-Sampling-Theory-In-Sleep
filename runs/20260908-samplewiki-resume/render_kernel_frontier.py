@@ -45,10 +45,12 @@ edges = [(0, 1, False), (2, 3, False), (3, 4, False),
          (7, 8, False), (4, 8, False), (7, 9, True)]
 artifact = "shared-kernel-frontier"
 heading = "ASTIS shared-kernel frontier"
+caption = "Selected proof/test inputs. Local evidence only; root integration and publication are separate gates."
 height = 800
 if "--transport" in sys.argv:
     artifact = "kernel-transport-frontier"
-    heading = "ASTIS coordinate-transport prerequisite"
+    heading = "ASTIS transport checkpoint (31fe8f2)"
+    caption = "Historical pre-coordinate packet. See coordinate-heat-bath-frontier.svg for current residuals."
     nodes = [
         node("Mathlib: map/comap and\ninverse pushforwards", 25, 100),
         node("Measurable-equivalence\ninvariance transport", 355, 100,
@@ -71,6 +73,7 @@ if "--transport" in sys.argv:
 if "--coordinate" in sys.argv:
     artifact = "coordinate-heat-bath-frontier"
     heading = "ASTIS operational coordinate-update slice"
+    caption = "Selected proof/test inputs. Local evidence only; root integration and publication are separate gates."
     height = 980
     nodes = [
         node("Mathlib: coordinate split,\nmarginals and a.e. transport", 25, 100),
@@ -117,7 +120,7 @@ def text(x, y, value, size=17, color="#101828"):
 
 
 text(25, 38, heading, 24)
-text(25, 66, "Selected proof/test inputs. Local evidence only; root integration and publication are separate gates.", 15)
+text(25, 66, caption, 15)
 for a, b, planned in edges:
     n, m = nodes[a], nodes[b]
     if n["x"] == m["x"]:

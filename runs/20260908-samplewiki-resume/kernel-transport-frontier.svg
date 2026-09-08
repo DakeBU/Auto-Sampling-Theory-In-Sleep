@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1020" height="800" viewBox="0 0 1020 800">
 <rect width="1020" height="800" fill="white"/>
 <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#667085"/></marker></defs>
-<text x="25" y="38" font-family="Segoe UI,Arial,sans-serif" font-size="24" fill="#101828">ASTIS coordinate-transport prerequisite</text>
-<text x="25" y="66" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Selected proof/test inputs. Local evidence only; root integration and publication are separate gates.</text>
+<text x="25" y="38" font-family="Segoe UI,Arial,sans-serif" font-size="24" fill="#101828">ASTIS transport checkpoint (31fe8f2)</text>
+<text x="25" y="66" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#101828">Historical pre-coordinate packet. See coordinate-heat-bath-frontier.svg for current residuals.</text>
 <path d="M315,152 L355,152" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 <path d="M500,204 L500,270" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 <path d="M315,322 L355,322" stroke="#667085" stroke-width="2" fill="none" marker-end="url(#arrow)"/>

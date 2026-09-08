@@ -22,7 +22,7 @@
 <rect x="355" y="270" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
 <text x="368" y="297" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Coordinate heat-bath</text>
 <text x="368" y="320" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">retained-coordinate equality</text>
-<text x="368" y="343" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">proved locally</text>
+<text x="368" y="343" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">independently verified</text>
 <rect x="25" y="440" width="290" height="104" rx="10" fill="white" stroke="#155eef" stroke-width="2"/>
 <text x="38" y="467" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">Fixed finite kernel mixture</text>
 <text x="38" y="490" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#155eef">independently verified</text>

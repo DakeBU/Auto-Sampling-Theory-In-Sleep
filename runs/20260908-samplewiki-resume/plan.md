@@ -196,3 +196,31 @@ upstream PR status was not changed.
   the next route is source/semantic alignment of the concrete update, not
   another generic invariance wrapper. Remote publication remains unapproved;
   kernel powers retains the only stabilization lane and Registry stays 394.
+
+## Operational coordinate packet: independent acceptance
+
+- `coordinate_heatbath_review` independently accepted the exact code at
+  `5576ad81fbfcf0dbd68a1fc2e34de8b8ac435164` and published `VERIFIED`.
+  Besides the 2980-job focused target, the verifier freshly checked the public
+  module and independent signatures/axioms, pointwise direction, a mixed
+  Boolean/indiscrete retained-coordinate example, and empty-retained-state
+  Markovness/invariance. The canonical cell and separate report own the evidence.
+- The first review-metadata update used an object where the existing cell
+  schema requires a nonempty string. The consistency gate rejected it; the
+  verifier corrected the field without weakening the gate, then the final
+  seven-cell check passed before publishing acceptance. No Lean change or
+  mathematical assumption change was involved.
+- The Worker and verifier have stopped all owned writes. The current
+  operational SVG/PNG is regenerated from the accepted cell and visually
+  checked. The older transport graph is explicitly a historical checkpoint,
+  not a competing current frontier.
+- `source-facing-next-packet.md` pins the already existing Mathlib
+  `condDistrib_apply_of_ne_zero` API. The next missing edge is its connection
+  to the canonical coordinate kernel on a positive retained fiber, followed
+  by source/semantic review; do not reprove the standard atomic formula.
+- Final root/site gates run after the evidence-only checkpoint commit. Their
+  machine-local, source-bound result is `.astis/site-lean-gate.json`; site
+  counts and statuses are generated from current metadata, not copied into
+  another public Registry. Six shared packets do not constitute six source
+  theorem assimilations. The overall Goal remains active and no remote
+  operation or replacement Goal is authorized by this local checkpoint.
