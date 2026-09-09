@@ -26,6 +26,9 @@ import reader_contract_final  # noqa: E402
 import source_foundations  # noqa: E402
 import cross_domain  # noqa: E402
 import proof_readers  # noqa: E402
+import declaration_lessons  # noqa: E402
+import metadata_lessons  # noqa: E402
+import inline_lean  # noqa: E402
 
 
 # Validation must resolve Registry entries with the same declaration parser used
@@ -141,10 +144,10 @@ def source_first_implicit_prerequisite_errors(output: Path) -> list[str]:
         required = (
             ('data-provenance="astis-implicit-prerequisite"', "ASTIS provenance"),
             (chewi_source_first_contract.esc(item["latex_statement"]), "LaTeX statement"),
-            ("source-contract-implicit-proof", "mathematical proof disclosure"),
-            ("<summary>Mathematical proof</summary>", "mathematical proof label"),
+            ("source-contract-implicit-proof", "visible mathematical proof"),
+            ("<h3>Mathematical proof</h3>", "mathematical proof label"),
             ("source-contract-lean", "folded Lean disclosure"),
-            ("<summary>Lean formalization</summary>", "Lean disclosure label"),
+            ("<summary>Source mapping and supporting declarations</summary>", "source-mapping disclosure label"),
         )
         for needle, label in required:
             if needle not in card:
@@ -201,6 +204,7 @@ def main() -> int:
     parser.add_argument("--output", default="", help="output directory (default: _site)")
     parser.add_argument("--rebuild", action="store_true")
     parser.add_argument("--require-chapter-1-closure", action="store_true")
+    parser.add_argument("--require-full-exposition", action="store_true")
     args = parser.parse_args()
     source_errors, _ = astis_source.validate_source_contract()
     if source_errors:
@@ -274,6 +278,9 @@ def main() -> int:
             print(f"- {error}", file=sys.stderr)
         return 1
     reader_errors = proof_readers.validate_site(output)
+    reader_errors.extend(declaration_lessons.validate_site(output, require_complete=args.require_full_exposition))
+    reader_errors.extend(inline_lean.validate_textbook(output))
+    reader_errors.extend(metadata_lessons.validate_site(output))
     if reader_errors:
         for error in reader_errors:
             print(f"Proof reader check failed: {error}", file=sys.stderr)

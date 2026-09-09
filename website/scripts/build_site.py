@@ -21,6 +21,9 @@ import chewi_source_first_contract  # noqa: E402
 import chewi_source_first_refinement  # noqa: E402
 import chewi_source_first_scope  # noqa: E402
 import formalization_progress  # noqa: E402
+import declaration_lessons  # noqa: E402
+import metadata_lessons  # noqa: E402
+import inline_lean  # noqa: E402
 import proof_readers  # noqa: E402
 import harness  # noqa: E402
 import implicit_prerequisites  # noqa: E402
@@ -221,6 +224,9 @@ def main() -> int:
     formalization_progress.enrich_site(output)
 
     proof_readers.enrich_site(output)
+    declaration_lessons.enrich_site(output)
+    metadata_lessons.enrich_site(output)
+    inline_lean.enrich_textbook(output)
 
     inherit_final_reader_contract(output)
     repair_project_author_footer(output)

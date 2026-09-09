@@ -32,12 +32,23 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 
 ## News
 
+- **2026-09-09, per-declaration textbook expansion (in progress):** statements
+  and mathematical proofs now each have their own adjacent, initially folded
+  Lean explanation and exact source. Mathematical derivations are visible by
+  default; there is no end-of-chapter “Optional Lean reading” substitute.
+  The new [exposition maintenance guide](website/README.md#declaration-by-declaration-textbook-expansion)
+  explains how to add complete teaching units and check the exhaustive
+  coverage ledger at local `lessons/index.html`. Missing exposition remains
+  explicitly unfinished; compilation, a source record, and a complete
+  natural-language proof are different achievements. This documentation work
+  does not change the mathematical frontier or mark the overall Goal complete.
+
 - **2026-09-09, mathematics-first readers:** recent shared prerequisites now
   have standalone [proof readers](website/README.md#shared-proof-readers): the
   random-coordinate transition law, its reversibility proof (including null
   atoms), and the Fisher/transport estimate. Build the site and open
   `proofs/index.html` to read statements, displayed derivations, optional
-  step-to-Lean explanations, complete folded source, and separate ASTIS/Mathlib
+  step-to-Lean explanations, per-theorem folded source, and separate ASTIS/Mathlib
   dependencies. Status comes from the source inventory and independent audit,
   not the prose. Fisher source certification remains withheld. These readers
   are included on the collaboration branch; pushing that branch does not

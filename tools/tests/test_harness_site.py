@@ -94,6 +94,23 @@ class HarnessSiteTest(unittest.TestCase):
             self.assertIn("coordinator no-progress detection", related)
             self.assertNotIn("old boundary", related)
 
+    def test_wrapped_title_and_existing_advance_wording_are_normalized(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            self._make_site(output)
+            live = output / "live" / "index.html"
+            attribution = output / "attribution" / "index.html"
+            live.write_text('<html><body>Substantive Advance: export unresolved work into the ASTIS hierarchy</body></html>', encoding="utf-8")
+            attribution.write_text('<html><body>A Hierarchical Automated\nTheorem Proving System for Sampling Theory</body></html>', encoding="utf-8")
+            harness.enrich_site(output)
+            harness.validate_site(output)
+            first = live.read_text(encoding="utf-8")
+            harness.enrich_site(output)
+            self.assertEqual(first, live.read_text(encoding="utf-8"))
+            self.assertEqual(first.count('id="astis-substantive-advance-export"'), 1)
+            self.assertNotIn("ASTIS hierarchy", first)
+            self.assertIn("A Substantive-Advance Automated\n", attribution.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

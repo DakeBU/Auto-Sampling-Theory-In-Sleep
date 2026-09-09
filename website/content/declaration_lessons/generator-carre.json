@@ -1,0 +1,1288 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm",
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "short_name": "dirichletForm",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "source_line": 22,
+      "source_end_line": 25,
+      "astis_projection_dependencies": [],
+      "title": "The negative-generator integral pairing",
+      "classification": "unconditional real-valued definition",
+      "statement": "For a measure μ on a measurable space E, an arbitrary operator L on real-valued functions, and observables f,g:E→ℝ, define the generator Dirichlet pairing to be minus the μ-integral of f times Lg. No symmetry, positivity or operator linearity is part of this definition.",
+      "formula": "\\mathcal E_\\mu^L(f,g):=-\\int_E f(x)(Lg)(x)\\,d\\mu(x).",
+      "assumptions": [
+        "E is any measurable space and μ is any measure on E, unless probability normalization is explicitly included below. No topology, norm, finite dimension, σ-finiteness, or nonempty-space premise is imposed.",
+        "L:(E→ℝ)→(E→ℝ) is an arbitrary operator on real functions. This signature does not require linearity, measurability preservation, Markovness, or a semigroup.",
+        "f,g:E→ℝ are arbitrary; no integrability premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Apply the operator to the second argument",
+          "text": "First form the function Lg and multiply its value by the first observable f.",
+          "formula": "u(x):=f(x)(Lg)(x).",
+          "lean": "generator g; pointwise real multiplication"
+        },
+        {
+          "number": 2,
+          "title": "Negate its integral",
+          "text": "The definition fixes the negative-generator sign convention. With integrability, this is the usual finite pairing; without it the real integral remains totalized.",
+          "formula": "\\mathcal E_\\mu^L(f,g)=-\\int_Eu\\,d\\mu.",
+          "lean": "MeasureTheory.integral; Generator.dirichletForm"
+        }
+      ],
+      "lean_statement": "The operator parameter is a function taking functions to functions; it is not a linear-map parameter. The return value is a real number, not a bilinear-form structure with proved laws.",
+      "lean_proof": "This is a construction only: apply L to g, multiply by f, integrate, and negate. No integration-by-parts, symmetry or nonnegativity proof occurs.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 22
+        },
+        {
+          "label": "Totalized Bochner integral",
+          "scope": "integral_undef explains the nonintegrable case; it is background, not a call in this definition.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+          "line": 202
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check only. No test/build run for this packet.",
+          "path": "Tests/GeneratorFunctionalInequalities.lean",
+          "line": 5
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/GeneratorFunctionalInequalities.lean",
+          "line": 5,
+          "scope": "Declaration-visibility #check only."
+        }
+      ],
+      "boundary": [
+        "All integrals are real Bochner integrals. An integral is totalized to zero when its integrand is not integrable; writing the integral does not prove a genuine finite expectation or energy.",
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "Calling this a Dirichlet form does not assert bilinearity, closedness, positivity, or a Hilbert-space form domain."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.variance",
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "short_name": "variance",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "source_line": 28,
+      "source_end_line": 29,
+      "astis_projection_dependencies": [],
+      "title": "The squared-centering integral called variance",
+      "classification": "unconditional centering-and-integral definition",
+      "statement": "For any measure μ on a measurable space E and any function f:E→ℝ, define m=∫f dμ and variance μ f=∫(f−m)² dμ. The definition does not normalize μ. It represents the usual probability variance only when the relevant probability and integrability conditions are supplied.",
+      "formula": "m_\\mu(f):=\\int_E f\\,d\\mu,\\qquad\\operatorname{Var}_\\mu(f):=\\int_E\\big(f(x)-m_\\mu(f)\\big)^2\\,d\\mu(x).",
+      "assumptions": [
+        "E is any measurable space and μ is any measure on E, unless probability normalization is explicitly included below. No topology, norm, finite dimension, σ-finiteness, or nonempty-space premise is imposed.",
+        "f:E→ℝ is arbitrary. No probability, finite-total-mass, integrability, or square-integrability premise; no operator is an input."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Choose the displayed center",
+          "text": "The center is the integral itself, not that integral divided by μ(E). It is a real-valued expression under the totalized convention.",
+          "formula": "m:=\\int_Ef\\,d\\mu.",
+          "lean": "MeasureTheory.integral"
+        },
+        {
+          "number": 2,
+          "title": "Integrate the squared displacement from that center",
+          "text": "Subtract the same scalar m at every point, square, and integrate under μ.",
+          "formula": "\\operatorname{Var}_\\mu(f)=\\int_E(f-m)^2\\,d\\mu.",
+          "lean": "Generator.variance"
+        }
+      ],
+      "lean_statement": "The declaration accepts an arbitrary measure. Its displayed center has no mass-normalization factor, so probability-language interpretation must not be applied automatically.",
+      "lean_proof": "There is no theorem proof: form the inner integral, then form and integrate the centered square. Both integrals are totalized unless their integrability is known.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 28
+        }
+      ],
+      "boundary": [
+        "All integrals are real Bochner integrals. An integral is totalized to zero when its integrand is not integrable; writing the integral does not prove a genuine finite expectation or energy.",
+        "For general μ this is not automatically the variance of the normalized law μ/μ(E). No normalization or finite-variance theorem is asserted."
+      ],
+      "tests": [],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.PoincareAdmissible",
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "short_name": "PoincareAdmissible",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "source_line": 33,
+      "source_end_line": 38,
+      "astis_projection_dependencies": [],
+      "title": "The three finite-integral obligations for Poincaré's inequality",
+      "classification": "definition of a genuine proposition-valued admissibility predicate",
+      "statement": "For a measure μ on a measurable space E, an arbitrary operator L, and f:E→ℝ, PoincareAdmissible means exactly that f, its squared displacement from ∫f dμ, and the generator pairing integrand fLf are μ-integrable. The predicate itself neither assumes μ is probability nor imposes linearity on L.",
+      "formula": "\\mathcal A_P(\\mu,L,f)\\ :\\Longleftrightarrow\\ f\\in L^1(\\mu)\\ \\land\\ (f-\\textstyle\\int_E f\\,d\\mu)^2\\in L^1(\\mu)\\ \\land\\ fLf\\in L^1(\\mu).",
+      "assumptions": [
+        "E is any measurable space and μ is any measure on E, unless probability normalization is explicitly included below. No topology, norm, finite dimension, σ-finiteness, or nonempty-space premise is imposed.",
+        "L:(E→ℝ)→(E→ℝ) is an arbitrary operator on real functions. This signature does not require linearity, measurability preservation, Markovness, or a semigroup.",
+        "f:E→ℝ is arbitrary when the predicate is formed. To inhabit it, all three stated integrability facts must be proved.",
+        "Integrable means a.e. strong measurability together with finite integral of the norm, not merely existence of the totalized integral expression."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Require an integrable observable",
+          "text": "This gives a genuine finite centering integral.",
+          "formula": "f\\in L^1(\\mu).",
+          "lean": "MeasureTheory.Integrable"
+        },
+        {
+          "number": 2,
+          "title": "Require an integrable centered square",
+          "text": "This is the precise variance integrand used by this module, not an unstated equivalent domain.",
+          "formula": "(f-\\textstyle\\int_E f\\,d\\mu)^2\\in L^1(\\mu).",
+          "lean": "Generator.variance integrand"
+        },
+        {
+          "number": 3,
+          "title": "Require an integrable generator pairing and collect the conditions",
+          "text": "The last condition makes the quadratic Dirichlet pairing a finite integral. The three proofs are joined by logical conjunction.",
+          "formula": "fLf\\in L^1(\\mu),\\qquad\\mathcal A_P\\equiv A_1\\land A_2\\land A_3.",
+          "lean": "Generator.PoincareAdmissible; And"
+        }
+      ],
+      "lean_statement": "This definition returns a proposition. Its conjunction components are real proof obligations, not metadata fields or automatically established regularity.",
+      "lean_proof": "Constructing a witness requires supplying each of the three integrability proofs. No one component is derived from another, and no witness is created by the definition.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MeasureTheory.Integrable",
+        "MeasureTheory.integral"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 33
+        },
+        {
+          "label": "Exact integrability predicate",
+          "scope": "Integrable includes a.e. strong measurability and finite integral of the norm.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Function/L1Space/Integrable.lean",
+          "line": 59
+        }
+      ],
+      "tests": [],
+      "boundary": [
+        "This defines a proposition that must be proved for a concrete model. It does not prove existence of a witness or derive an inequality from the operator's name.",
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "No probability normalization, operator-domain closure or global L² theorem is included."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesPoincare",
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "short_name": "SatisfiesPoincare",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "source_line": 42,
+      "source_end_line": 47,
+      "astis_projection_dependencies": [],
+      "title": "The generator Poincaré predicate",
+      "classification": "definition of a universal inequality, not its proof",
+      "statement": "Given a measure μ on a measurable space E, any operator L on real functions, and C∈ℝ, SatisfiesPoincare means that μ is a probability measure, C>0, and every Poincare-admissible f satisfies Varμ(f)≤C Eμ^L(f,f). Admissibility requires μ-integrability of f, its centered square, and fLf.",
+      "formula": "\\begin{aligned}\\operatorname{Poincare}(\\mu,L,C)\\ :\\Longleftrightarrow\\;&\\mu(E)=1\\ \\land\\ C>0\\\\&\\land\\ \\forall f:E\\to\\mathbb R,\\ \\mathcal A_P(\\mu,L,f)\\Rightarrow\\operatorname{Var}_\\mu(f)\\le C\\mathcal E_\\mu^L(f,f).\\end{aligned}",
+      "assumptions": [
+        "E is any measurable space and μ is any measure on E, unless probability normalization is explicitly included below. No topology, norm, finite dimension, σ-finiteness, or nonempty-space premise is imposed.",
+        "L:(E→ℝ)→(E→ℝ) is an arbitrary operator on real functions. This signature does not require linearity, measurability preservation, Markovness, or a semigroup.",
+        "C is an arbitrary real input to the predicate; positivity and probability normalization are required conjuncts, not ambient typeclass assumptions.",
+        "The universal quantifier is over all real functions; the inequality is required only when all three PoincareAdmissible integrability conditions hold."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Require a probability measure and positive constant",
+          "text": "These are the first two parts of a certificate for this predicate.",
+          "formula": "\\mu(E)=1,\\qquad C>0.",
+          "lean": "MeasureTheory.IsProbabilityMeasure; Generator.SatisfiesPoincare"
+        },
+        {
+          "number": 2,
+          "title": "Require the inequality on the explicit domain",
+          "text": "For every f, a proof of the three admissibility conditions must yield the variance-versus-energy estimate.",
+          "formula": "\\mathcal A_P(\\mu,L,f)\\Longrightarrow\\int_E(f-\\textstyle\\int_E f\\,d\\mu)^2d\\mu\\le-C\\int_EfLf\\,d\\mu.",
+          "lean": "Generator.PoincareAdmissible; Generator.variance; Generator.dirichletForm"
+        }
+      ],
+      "lean_statement": "The probability condition is stored inside the proposition rather than assumed in brackets. The declaration does not require L to be a linear or Markov operator.",
+      "lean_proof": "This is a definition of what a Poincaré certificate must establish: normalization, positive C, and an estimate for every admissible observable. It does not produce such a certificate or prove decay.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.PoincareAdmissible",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.variance",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.IsProbabilityMeasure"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 42
+        },
+        {
+          "label": "Existing source-correspondence record: chewi-1-2-definition-1-2-19",
+          "scope": "Existing local record for Chewi Definition1.2.19, edition2026-08-09, printed p.16/PDF p.28. Reported only within the current declaration's explicit assumptions; no new source audit or source-equivalence verdict.",
+          "path": "website/content/source_correspondence.json",
+          "line": 866
+        },
+        {
+          "label": "Probability-measure class",
+          "scope": "The class means μ(univ)=1; no extra state-space topology is introduced.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Typeclasses/Probability.lean",
+          "line": 64
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check only. No test/build run for this packet.",
+          "path": "Tests/GeneratorFunctionalInequalities.lean",
+          "line": 6
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/GeneratorFunctionalInequalities.lean",
+          "line": 6,
+          "scope": "Declaration-visibility #check only."
+        }
+      ],
+      "boundary": [
+        "This defines a proposition that must be proved for a concrete model. It does not prove existence of a witness or derive an inequality from the operator's name.",
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "No spectral-gap equivalence, semigroup variance dissipation, or exponential-convergence theorem is supplied."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.densityEntropy",
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "short_name": "densityEntropy",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "source_line": 52,
+      "source_end_line": 53,
+      "astis_projection_dependencies": [],
+      "title": "The totalized density-entropy integral",
+      "classification": "unconditional real-valued definition",
+      "statement": "For any measure μ on a measurable space E and any real-valued function ρ, define densityEntropy μ ρ=∫ρ logρ dμ using Mathlib's totalized real logarithm. No nonnegative-density, normalization, probability, or integrability condition is included in this definition.",
+      "formula": "H_\\mu(\\rho):=\\int_E\\rho(x)\\operatorname{Real.log}(\\rho(x))\\,d\\mu(x),\\qquad0\\cdot\\operatorname{Real.log}(0)=0.",
+      "assumptions": [
+        "E is any measurable space and μ is any measure on E, unless probability normalization is explicitly included below. No topology, norm, finite dimension, σ-finiteness, or nonempty-space premise is imposed.",
+        "ρ:E→ℝ is arbitrary; it is not supplied as a selected RN representative, nor assumed nonnegative or normalized.",
+        "No operator is an input and no integrability hypothesis is required to form the expression."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Form the entropy integrand",
+          "text": "Multiply each value of ρ by its totalized real logarithm. At zero the product is zero. Values of ρ are not restricted by this definition.",
+          "formula": "u(x):=\\rho(x)\\operatorname{Real.log}(\\rho(x)).",
+          "lean": "Real.log"
+        },
+        {
+          "number": 2,
+          "title": "Integrate against the explicit base",
+          "text": "Take the real Bochner integral of u, with its standard totalization outside the integrable domain.",
+          "formula": "H_\\mu(\\rho)=\\int_Eu\\,d\\mu.",
+          "lean": "MeasureTheory.integral; Generator.densityEntropy"
+        }
+      ],
+      "lean_statement": "The name suggests a density interpretation, but the signature accepts arbitrary real functions and arbitrary measures. The later admissibility predicate supplies the conditions needed for that interpretation.",
+      "lean_proof": "This is a construction, not a KL theorem. It forms the product with the real logarithm and integrates it; it neither constructs a density measure nor identifies this expression with canonical KL.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "Real.log",
+        "MeasureTheory.integral"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 52
+        },
+        {
+          "label": "Totalized real logarithm and its zero value",
+          "scope": "Real.log is defined on all reals; log_zero is at103.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+          "line": 44
+        }
+      ],
+      "tests": [],
+      "boundary": [
+        "All integrals are real Bochner integrals. An integral is totalized to zero when its integrand is not integrable; writing the integral does not prove a genuine finite expectation or energy.",
+        "No equality with InformationTheory.klDiv, no nonnegativity, and no genuine relative-entropy interpretation is established for arbitrary signed or unnormalized ρ."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.LogSobolevAdmissible",
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "short_name": "LogSobolevAdmissible",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "source_line": 56,
+      "source_end_line": 63,
+      "astis_projection_dependencies": [],
+      "title": "The five density-domain conditions for log-Sobolev",
+      "classification": "definition of a genuine density admissibility proposition",
+      "statement": "For a measure μ on a measurable space E, an arbitrary operator L on real functions, and ρ:E→ℝ, LogSobolevAdmissible means: ρ is pointwise nonnegative; ρ is μ-integrable; ∫ρ dμ=1; ρ logρ is μ-integrable; and ρ L(logρ) is μ-integrable. Here logρ is the exact totalized function x↦Real.log(ρ(x)).",
+      "formula": "\\begin{aligned}\\mathcal A_{LS}(\\mu,L,\\rho)\\ :\\Longleftrightarrow\\;&(\\forall x,\\ 0\\le\\rho(x))\\ \\land\\ \\rho\\in L^1(\\mu)\\ \\land\\ \\int_E\\rho\\,d\\mu=1\\\\&\\land\\ \\rho\\log\\rho\\in L^1(\\mu)\\ \\land\\ \\rho L(\\log\\rho)\\in L^1(\\mu).\\end{aligned}",
+      "assumptions": [
+        "E is any measurable space and μ is any measure on E, unless probability normalization is explicitly included below. No topology, norm, finite dimension, σ-finiteness, or nonempty-space premise is imposed.",
+        "L:(E→ℝ)→(E→ℝ) is an arbitrary operator on real functions. This signature does not require linearity, measurability preservation, Markovness, or a semigroup.",
+        "ρ is arbitrary when the predicate is formed. All five listed properties must be proved to construct a witness.",
+        "Integrable means a.e. strong measurability together with finite integral of the norm, not merely existence of the totalized integral expression.",
+        "Nonnegativity is pointwise, not merely μ-a.e. The base measure is not required to be probability by this predicate itself."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Require a nonnegative integrable normalized weight",
+          "text": "Supply the sign, integrability, and unit-integral statements separately.",
+          "formula": "\\rho\\ge0,\\qquad\\rho\\in L^1(\\mu),\\qquad\\int_E\\rho\\,d\\mu=1.",
+          "lean": "Generator.LogSobolevAdmissible: first three conjuncts"
+        },
+        {
+          "number": 2,
+          "title": "Require finite entropy integrability",
+          "text": "Demand integrability of the product with the totalized logarithm; integrability of ρ alone does not supply it.",
+          "formula": "\\rho\\operatorname{Real.log}\\rho\\in L^1(\\mu).",
+          "lean": "MeasureTheory.Integrable"
+        },
+        {
+          "number": 3,
+          "title": "Require finite generator pairing and collect the domain",
+          "text": "Demand integrability of ρ times L applied to the full log function. This last condition controls the Dirichlet pairing used in the inequality.",
+          "formula": "\\rho L(\\operatorname{Real.log}\\rho)\\in L^1(\\mu).",
+          "lean": "Generator.LogSobolevAdmissible: last conjunct"
+        }
+      ],
+      "lean_statement": "This is a five-part logical proposition, not a structure with generated named fields. It supplies no differentiability or chain rule for the logarithm at zero-density points.",
+      "lean_proof": "Construct a witness by proving every listed condition. In particular, neither entropy integrability nor generator-pairing integrability is inferred from normalization.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MeasureTheory.Integrable",
+        "MeasureTheory.integral",
+        "Real.log"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 56
+        },
+        {
+          "label": "Integrability includes measurability and finite norm integral",
+          "scope": "Exact domain meaning.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Function/L1Space/Integrable.lean",
+          "line": 59
+        }
+      ],
+      "tests": [],
+      "boundary": [
+        "This defines a proposition that must be proved for a concrete model. It does not prove existence of a witness or derive an inequality from the operator's name.",
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "No strict positivity, smoothness, RN representative choice, generator-domain stability, or closed Dirichlet-form/Sobolev domain is imposed.",
+        "The operator is arbitrary on pointwise functions; the predicate does not grant invariance under changing ρ on a null set."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.SatisfiesLogSobolev",
+      "module": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator",
+      "short_name": "SatisfiesLogSobolev",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+      "source_line": 67,
+      "source_end_line": 73,
+      "astis_projection_dependencies": [],
+      "title": "The generator log-Sobolev predicate with factor C/2",
+      "classification": "definition of a universal density inequality",
+      "statement": "Given a measure μ on a measurable space E, an arbitrary operator L on real functions, and C∈ℝ, SatisfiesLogSobolev means that μ is probability, C>0, and every LogSobolev-admissible ρ satisfies Hμ(ρ)≤(C/2)Eμ^L(ρ,logρ). Admissibility includes pointwise nonnegativity, integrability and unit integral of ρ, plus integrability of ρ logρ and ρ L(logρ).",
+      "formula": "\\begin{aligned}\\operatorname{LSI}(\\mu,L,C)\\ :\\Longleftrightarrow\\;&\\mu(E)=1\\ \\land\\ C>0\\\\&\\land\\ \\forall\\rho:E\\to\\mathbb R,\\ \\mathcal A_{LS}(\\mu,L,\\rho)\\Rightarrow H_\\mu(\\rho)\\le\\frac C2\\mathcal E_\\mu^L(\\rho,\\log\\rho).\\end{aligned}",
+      "assumptions": [
+        "E is any measurable space and μ is any measure on E, unless probability normalization is explicitly included below. No topology, norm, finite dimension, σ-finiteness, or nonempty-space premise is imposed.",
+        "L:(E→ℝ)→(E→ℝ) is an arbitrary operator on real functions. This signature does not require linearity, measurability preservation, Markovness, or a semigroup.",
+        "C is a real input. Probability normalization and positivity of C are assertions inside this predicate, not prerequisites for forming it.",
+        "The quantifier ranges over all real functions, with the inequality conditional on all five LogSobolevAdmissible requirements."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Require normalization and a positive constant",
+          "text": "These two conjuncts establish the law and constant used by the inequality.",
+          "formula": "\\mu(E)=1,\\qquad C>0.",
+          "lean": "MeasureTheory.IsProbabilityMeasure; Generator.SatisfiesLogSobolev"
+        },
+        {
+          "number": 2,
+          "title": "Demand the normalized density inequality",
+          "text": "For every admissible density, compare the defined entropy integral with the negative-generator pairing and retain the exact factor one-half.",
+          "formula": "\\int_E\\rho\\log\\rho\\,d\\mu\\le-\\frac C2\\int_E\\rho L(\\log\\rho)\\,d\\mu.",
+          "lean": "Generator.LogSobolevAdmissible; Generator.densityEntropy; Generator.dirichletForm"
+        }
+      ],
+      "lean_statement": "The universal estimate is part of what this proposition means. The return type is a proposition, not a theorem producing log-Sobolev from curvature or reversibility.",
+      "lean_proof": "This definition packages normalization, positivity of C, and the displayed inequality on its explicit domain. It does not prove any particular model satisfies it or equate its Dirichlet pairing with canonical Fisher information.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.LogSobolevAdmissible",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.densityEntropy",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.IsProbabilityMeasure"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 67
+        },
+        {
+          "label": "Existing source-correspondence record: chewi-1-2-definition-1-2-25",
+          "scope": "Existing local record for Chewi Definition1.2.25, edition2026-08-09, printed p.18/PDF p.30. Reported only within the current declaration's explicit assumptions; no new source audit or source-equivalence verdict.",
+          "path": "website/content/source_correspondence.json",
+          "line": 920
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check only. No test/build run for this packet.",
+          "path": "Tests/GeneratorFunctionalInequalities.lean",
+          "line": 7
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/GeneratorFunctionalInequalities.lean",
+          "line": 7,
+          "scope": "Declaration-visibility #check only."
+        }
+      ],
+      "boundary": [
+        "This defines a proposition that must be proved for a concrete model. It does not prove existence of a witness or derive an inequality from the operator's name.",
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "No Bakry–Émery-to-LSI theorem, KL/entropy identification, density-flow dissipation, canonical Fisher bridge, or convergence rate is proved by this definition."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp",
+      "short_name": "carreDuChamp",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+      "source_line": 35,
+      "source_end_line": 39,
+      "astis_projection_dependencies": [],
+      "title": "Construct the algebraic carré du champ",
+      "classification": "pointwise algebraic definition",
+      "statement": "For any type X, any real-linear operator L on real functions on X, and f,g:X→ℝ, define ΓL(f,g) pointwise as one-half the defect between applying L to the product and the two product-rule terms. No measure or topology on X is needed.",
+      "formula": "\\Gamma_L(f,g)(x):=\\frac12\\big(L(fg)(x)-f(x)Lg(x)-g(x)Lf(x)\\big).",
+      "assumptions": [
+        "X is an arbitrary type, with no measurable-space, topological-space, normed-space, or finiteness hypothesis.",
+        "L:(X→ℝ)→ₗ[ℝ](X→ℝ) is a real-linear operator on all real-valued functions on X. No Markov semigroup or invariant law is supplied.",
+        "f,g:X→ℝ are arbitrary; products of functions are pointwise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Compare operator-before-product and product-before-operator",
+          "text": "Form L(fg), f Lg, and g Lf as functions on the same X.",
+          "formula": "A:=L(fg),\\qquad B:=fLg,\\qquad C:=gLf.",
+          "lean": "generator (f * g); generator g; generator f"
+        },
+        {
+          "number": 2,
+          "title": "Take the normalized defect",
+          "text": "Subtract both product-rule terms and multiply by one-half, fixing the Γ convention used downstream.",
+          "formula": "\\Gamma_L(f,g)=\\tfrac12(A-B-C).",
+          "lean": "CarreDuChamp.carreDuChamp"
+        }
+      ],
+      "lean_statement": "L is a real-linear map, but not a proved Markov generator. The result is a function on X; no measurability or differential structure is assumed.",
+      "lean_proof": "This definition performs the displayed pointwise algebra. It does not prove positivity or identify Γ with an inner product of gradients.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "LinearMap"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 35
+        },
+        {
+          "label": "Existing source-correspondence record: chewi-1-2-definition-1-2-12",
+          "scope": "Existing local record for Chewi Definition1.2.12, edition2026-08-09, printed p.14/PDF p.26. Reported only within the current declaration's explicit assumptions; no new source audit or source-equivalence verdict.",
+          "path": "website/content/source_correspondence.json",
+          "line": 1839
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 11
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Algebraic example proves Γ=0 for the zero operator; not a nontrivial diffusion construction. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 20
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 11,
+          "scope": "Declaration-visibility #check."
+        },
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 20,
+          "scope": "Algebraic example proves Γ=0 for the zero operator; not a nontrivial diffusion construction."
+        }
+      ],
+      "boundary": [
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "No Γ positivity, diffusion chain rule, or gradient formula follows from this definition alone."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp_comm",
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp",
+      "short_name": "carreDuChamp_comm",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+      "source_line": 42,
+      "source_end_line": 51,
+      "astis_projection_dependencies": [],
+      "title": "Symmetry of the algebraic carré du champ",
+      "classification": "pointwise algebraic symmetry theorem",
+      "statement": "For any type X, real-linear L on real functions, and arbitrary f,g:X→ℝ, the functions ΓL(f,g) and ΓL(g,f) are equal everywhere. This symmetry is in the two observable arguments, not symmetry of L with respect to a measure.",
+      "formula": "\\Gamma_L(f,g)=\\Gamma_L(g,f).",
+      "assumptions": [
+        "X is an arbitrary type, with no measurable-space, topological-space, normed-space, or finiteness hypothesis.",
+        "L:(X→ℝ)→ₗ[ℝ](X→ℝ) is a real-linear operator on all real-valued functions on X. No Markov semigroup or invariant law is supplied.",
+        "f and g are arbitrary real functions. No measure or stationarity premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use commutativity of the pointwise product",
+          "text": "At every input y, f(y)g(y)=g(y)f(y), hence the input functions fg and gf are equal.",
+          "formula": "fg=gf\\quad\\Longrightarrow\\quad L(fg)=L(gf).",
+          "lean": "funext y; mul_comm"
+        },
+        {
+          "number": 2,
+          "title": "Reorder the two subtraction terms",
+          "text": "At each x, the first operator term is unchanged and the two cross terms exchange places. Real arithmetic gives identical values.",
+          "formula": "\\tfrac12[L(fg)-fLg-gLf]=\\tfrac12[L(gf)-gLf-fLg].",
+          "lean": "funext x; simp only [carreDuChamp, hfg]; ring"
+        }
+      ],
+      "lean_statement": "The conclusion is equality of functions. It does not say ∫f Lg=∫g Lf; no measure even appears.",
+      "lean_proof": "The proof first establishes equality of the pointwise product inputs, then unfolds Γ at an arbitrary state and rearranges the real terms.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp"
+      ],
+      "mathlib_dependencies": [
+        "mul_comm"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 42
+        }
+      ],
+      "tests": [],
+      "boundary": [
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "Argument symmetry of Γ is not reversibility or self-adjointness of L. No positivity claim is made."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp",
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp",
+      "short_name": "iteratedCarreDuChamp",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+      "source_line": 54,
+      "source_end_line": 60,
+      "astis_projection_dependencies": [],
+      "title": "Construct the iterated carré du champ",
+      "classification": "pointwise algebraic definition",
+      "statement": "For any type X, real-linear L on real functions, and observables f,g, define Γ₂,L(f,g) as half of L applied to ΓL(f,g), minus the two mixed terms ΓL(f,Lg) and ΓL(g,Lf). This uses only the previously defined algebraic Γ.",
+      "formula": "\\Gamma_{2,L}(f,g):=\\frac12\\big[L(\\Gamma_L(f,g))-\\Gamma_L(f,Lg)-\\Gamma_L(g,Lf)\\big].",
+      "assumptions": [
+        "X is an arbitrary type, with no measurable-space, topological-space, normed-space, or finiteness hypothesis.",
+        "L:(X→ℝ)→ₗ[ℝ](X→ℝ) is a real-linear operator on all real-valued functions on X. No Markov semigroup or invariant law is supplied.",
+        "f,g:X→ℝ are arbitrary. Γ is the same normalized expression defined previously."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Build the three observable functions",
+          "text": "Apply L to Γ(f,g), and substitute Lg or Lf into the appropriate Γ argument.",
+          "formula": "A:=L(\\Gamma_L(f,g)),\\quad B:=\\Gamma_L(f,Lg),\\quad C:=\\Gamma_L(g,Lf).",
+          "lean": "CarreDuChamp.carreDuChamp; generator"
+        },
+        {
+          "number": 2,
+          "title": "Take the normalized difference",
+          "text": "Combine those functions pointwise with the same factor one-half.",
+          "formula": "\\Gamma_{2,L}(f,g)=\\tfrac12(A-B-C).",
+          "lean": "CarreDuChamp.iteratedCarreDuChamp"
+        }
+      ],
+      "lean_statement": "The result is a real-valued function on X. The subscript two denotes this algebraic iterate; no Hessian or second-order differentiability assumption is encoded.",
+      "lean_proof": "This construction applies L and Γ in the displayed arrangement and combines their real values. There is no curvature estimate to prove at this stage.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp"
+      ],
+      "mathlib_dependencies": [
+        "LinearMap"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 54
+        },
+        {
+          "label": "Existing source-correspondence record: chewi-1-2-definition-1-2-28",
+          "scope": "Existing local record for Chewi Definition1.2.28, edition2026-08-09, printed p.18/PDF p.30. Reported only within the current declaration's explicit assumptions; no new source audit or source-equivalence verdict.",
+          "path": "website/content/source_correspondence.json",
+          "line": 1996
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 12
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Algebraic example proves Γ₂=0 for the zero operator. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 25
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 12,
+          "scope": "Declaration-visibility #check."
+        },
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 25,
+          "scope": "Algebraic example proves Γ₂=0 for the zero operator."
+        }
+      ],
+      "boundary": [
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "No nonnegativity of Γ₂, curvature lower bound, Bochner identity, or concrete diffusion/Hessian identification is asserted."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp_comm",
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp",
+      "short_name": "iteratedCarreDuChamp_comm",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+      "source_line": 63,
+      "source_end_line": 70,
+      "astis_projection_dependencies": [],
+      "title": "Symmetry of the iterated carré du champ",
+      "classification": "algebraic reuse of Γ symmetry",
+      "statement": "For any type X, real-linear L on real-valued functions, and arbitrary f,g, the functions Γ₂,L(f,g) and Γ₂,L(g,f) agree at every state.",
+      "formula": "\\Gamma_{2,L}(f,g)=\\Gamma_{2,L}(g,f).",
+      "assumptions": [
+        "X is an arbitrary type, with no measurable-space, topological-space, normed-space, or finiteness hypothesis.",
+        "L:(X→ℝ)→ₗ[ℝ](X→ℝ) is a real-linear operator on all real-valued functions on X. No Markov semigroup or invariant law is supplied.",
+        "f,g:X→ℝ are arbitrary. No measure, topology, or curvature premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Keep the first term fixed using Γ symmetry",
+          "text": "The earlier theorem identifies Γ(f,g) and Γ(g,f), so their images under L agree.",
+          "formula": "L(\\Gamma_L(f,g))=L(\\Gamma_L(g,f)).",
+          "lean": "CarreDuChamp.carreDuChamp_comm"
+        },
+        {
+          "number": 2,
+          "title": "Swap the remaining terms",
+          "text": "After unfolding Γ₂, the other two terms appear in opposite order. Rearranging the subtraction proves the equality pointwise, hence as functions.",
+          "formula": "\\tfrac12[A-\\Gamma_L(f,Lg)-\\Gamma_L(g,Lf)]=\\tfrac12[A-\\Gamma_L(g,Lf)-\\Gamma_L(f,Lg)].",
+          "lean": "funext x; simp only [iteratedCarreDuChamp, carreDuChamp_comm]; ring"
+        }
+      ],
+      "lean_statement": "This is symmetry in the two observable slots, not an integral or spectral symmetry statement.",
+      "lean_proof": "The proof unfolds the iterate, reuses symmetry of Γ for its operator input, and rearranges the two real cross terms.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp_comm"
+      ],
+      "mathlib_dependencies": [],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 63
+        }
+      ],
+      "tests": [],
+      "boundary": [
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "No curvature or integrated nonnegativity follows merely from this argument symmetry."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.SatisfiesBakryEmery",
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp",
+      "short_name": "SatisfiesBakryEmery",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+      "source_line": 74,
+      "source_end_line": 79,
+      "astis_projection_dependencies": [],
+      "title": "The positive-parameter Bakry–Émery condition",
+      "classification": "definition of a pointwise universal curvature predicate",
+      "statement": "For a real-linear operator L on real functions on an arbitrary type X and a real α, SatisfiesBakryEmery L α means α>0 and Γ₂,L(f,f)(x)≥α ΓL(f,f)(x) for every real-valued function f and every state x. The formal predicate quantifies over all functions, with no hidden admissible-observable domain.",
+      "formula": "\\operatorname{BE}(L,\\alpha)\\ :\\Longleftrightarrow\\ \\alpha>0\\ \\land\\ \\forall f:X\\to\\mathbb R\\ \\forall x\\in X,\\quad\\alpha\\Gamma_L(f,f)(x)\\le\\Gamma_{2,L}(f,f)(x).",
+      "assumptions": [
+        "X is an arbitrary type, with no measurable-space, topological-space, normed-space, or finiteness hypothesis.",
+        "L:(X→ℝ)→ₗ[ℝ](X→ℝ) is a real-linear operator on all real-valued functions on X. No Markov semigroup or invariant law is supplied.",
+        "α is any real input to the predicate; strict positivity is one of its required conjuncts.",
+        "No measure, regularity domain, probability law, or topology on X is present."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Require positive curvature parameter",
+          "text": "A certificate first provides the strict inequality, so this definition does not include zero or negative parameters.",
+          "formula": "\\alpha>0.",
+          "lean": "CarreDuChamp.SatisfiesBakryEmery: first conjunct"
+        },
+        {
+          "number": 2,
+          "title": "Require the pointwise estimate for every observable and state",
+          "text": "A certificate must prove the Γ₂-versus-Γ comparison without an unstated restriction on f.",
+          "formula": "\\forall f,x,\\qquad\\Gamma_{2,L}(f,f)(x)-\\alpha\\Gamma_L(f,f)(x)\\ge0.",
+          "lean": "CarreDuChamp.carreDuChamp; CarreDuChamp.iteratedCarreDuChamp"
+        }
+      ],
+      "lean_statement": "This definition packages an inequality; it does not prove it. Its universal quantifiers are part of the exact domain, and no integral or a.e. qualifier occurs.",
+      "lean_proof": "To establish the predicate for a model one must prove positive α and the displayed estimate for all f and x. The definition itself supplies no such proof.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.iteratedCarreDuChamp"
+      ],
+      "mathlib_dependencies": [],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 74
+        },
+        {
+          "label": "Existing source-correspondence record: chewi-1-2-definition-1-2-29",
+          "scope": "Existing local record for Chewi Definition1.2.29, edition2026-08-09, printed p.19/PDF p.31. Reported only within the current declaration's explicit assumptions; no new source audit or source-equivalence verdict.",
+          "path": "website/content/source_correspondence.json",
+          "line": 2046
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 13
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "For any supplied α>0, an algebraic zero-operator example satisfies the predicate because both Γ expressions vanish. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 30
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 13,
+          "scope": "Declaration-visibility #check."
+        },
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 30,
+          "scope": "For any supplied α>0, an algebraic zero-operator example satisfies the predicate because both Γ expressions vanish."
+        }
+      ],
+      "boundary": [
+        "This defines a proposition that must be proved for a concrete model. It does not prove existence of a witness or derive an inequality from the operator's name.",
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "This does not prove a Bakry–Émery criterion for LSI/Poincaré, a lower Ricci/Hessian bound, or a nontrivial ergodic property. The zero-operator test illustrates that no such additional structure is encoded."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp_nonneg_of_markov_jensen_rightGenerator",
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp",
+      "short_name": "carreDuChamp_nonneg_of_markov_jensen_rightGenerator",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+      "source_line": 87,
+      "source_end_line": 145,
+      "astis_projection_dependencies": [],
+      "title": "A Jensen gap yields nonnegative Γ through right-generator limits",
+      "classification": "pointwise limit theorem from explicit scalar hypotheses",
+      "statement": "Let X be any type, L a real-linear operator on real functions, P_h a family of arbitrary operators indexed by h∈ℝ≥0, f:X→ℝ, and x∈X fixed. Assume (P_h f(x))²≤P_h(f²)(x) for every h>0; as h↓0 through positive nonnegative-real times, the difference quotients for f and f² converge respectively to Lf(x) and L(f²)(x); and P_h f(x)→f(x). Then ΓL(f,f)(x)≥0.",
+      "formula": "\\begin{gathered}(P_hf(x))^2\\le P_h(f^2)(x)\\quad(h>0),\\\\\\frac{P_hf(x)-f(x)}h\\to Lf(x),\\qquad\\frac{P_h(f^2)(x)-f(x)^2}h\\to L(f^2)(x),\\qquad P_hf(x)\\to f(x)\\\\\\Longrightarrow\\quad0\\le\\Gamma_L(f,f)(x)=\\tfrac12\\big[L(f^2)(x)-2f(x)Lf(x)\\big].\\end{gathered}",
+      "assumptions": [
+        "X is an arbitrary type, with no measurable-space, topological-space, normed-space, or finiteness hypothesis.",
+        "L:(X→ℝ)→ₗ[ℝ](X→ℝ) is a real-linear operator on all real-valued functions on X. No Markov semigroup or invariant law is supplied.",
+        "P:ℝ≥0→(X→ℝ)→X→ℝ is an arbitrary family; no linearity, semigroup law, positivity-preserving property, or value at h=0 is assumed of P.",
+        "f:X→ℝ and x∈X are fixed. hjensen holds for every positive h∈ℝ≥0, for this f and this x.",
+        "hf is convergence of (P_hf(x)−f(x))/(h:ℝ) to Lf(x); hf2 is convergence of (P_h(f*f)(x)−f(x)²)/(h:ℝ) to L(f*f)(x). Both filters are nhdsWithin 0 (Ioi 0) on ℝ≥0.",
+        "hcontinuous asserts only P_hf(x)→f(x) along that same right-hand filter. It is not operator strong continuity or continuity at every state."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Define the nonnegative scaled Jensen gap",
+          "text": "For h>0 the numerator is nonnegative by hjensen and the denominator is positive, so the gap is nonnegative on the right-hand filter.",
+          "formula": "G(h):=\\frac{P_h(f^2)(x)-(P_hf(x))^2}{2h}\\ge0\\quad(h>0).",
+          "lean": "gap; hgap_nonneg; self_mem_nhdsWithin; div_nonneg"
+        },
+        {
+          "number": 2,
+          "title": "Factor the difference of squares",
+          "text": "Subtract and add f(x)², then factor (P_hf(x))²−f(x)². This algebra is used only for h>0, where cancellation is valid.",
+          "formula": "G(h)=\\tfrac12\\frac{P_h(f^2)(x)-f(x)^2}{h}-\\tfrac12\\frac{P_hf(x)-f(x)}h\\big(P_hf(x)+f(x)\\big).",
+          "lean": "hrewrite; field_simp; ring"
+        },
+        {
+          "number": 3,
+          "title": "Take the sum and product limits",
+          "text": "The supplied right-continuity gives P_hf(x)+f(x)→2f(x). Combine this with hf to identify the product's limit.",
+          "formula": "P_hf(x)+f(x)\\to2f(x),\\qquad\\frac{P_hf(x)-f(x)}h\\big(P_hf(x)+f(x)\\big)\\to2f(x)Lf(x).",
+          "lean": "tendsto_const_nhds; Filter.Tendsto.add; Filter.Tendsto.mul"
+        },
+        {
+          "number": 4,
+          "title": "Identify the gap limit with Γ",
+          "text": "Use hf2 and the preceding product limit, multiply by one-half, subtract, and unfold the diagonal Γ formula. The eventually valid factorization transfers the limit back to G.",
+          "formula": "G(h)\\to\\tfrac12L(f^2)(x)-\\tfrac12Lf(x)(2f(x))=\\Gamma_L(f,f)(x).",
+          "lean": "Filter.Tendsto.const_mul; Filter.Tendsto.sub; hvalue; Filter.Tendsto.congr'"
+        },
+        {
+          "number": 5,
+          "title": "Pass nonnegativity through the limit",
+          "text": "The half-line [0,∞) is closed, and G is eventually in it along a nontrivial right-hand time filter. Therefore its limit lies there too.",
+          "formula": "G(h)\\ge0\\ \\text{eventually},\\quad G(h)\\to\\Gamma_L(f,f)(x)\\Longrightarrow\\Gamma_L(f,f)(x)\\ge0.",
+          "lean": "isClosed_Ici.mem_of_tendsto hlimit hgap_nonneg"
+        }
+      ],
+      "lean_statement": "The three convergence assumptions are scalar assertions at one selected state. No topology or measurable structure on X is needed. The theorem name describes the motivating Markov route, but the formal inputs already supply its Jensen and generator-limit consequences.",
+      "lean_proof": "The proof constructs a nonnegative gap, factors a difference of squares, applies the supplied three limits, and uses closedness of the nonnegative real half-line. It never constructs P, establishes a semigroup law, or derives the difference-quotient hypotheses.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp"
+      ],
+      "mathlib_dependencies": [
+        "self_mem_nhdsWithin",
+        "div_nonneg",
+        "sub_nonneg",
+        "tendsto_const_nhds",
+        "Filter.Tendsto.add",
+        "Filter.Tendsto.mul",
+        "Filter.Tendsto.const_mul",
+        "Filter.Tendsto.sub",
+        "Filter.Tendsto.congr'",
+        "isClosed_Ici",
+        "IsClosed.mem_of_tendsto"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 87
+        },
+        {
+          "label": "Existing source-correspondence record: chewi-1-2-lemma-1-2-13",
+          "scope": "Existing local record for Chewi Lemma1.2.13, edition2026-08-09, printed p.14/PDF p.26. Reported only within the current declaration's explicit assumptions; no new source audit or source-equivalence verdict.",
+          "path": "website/content/source_correspondence.json",
+          "line": 1890
+        },
+        {
+          "label": "Limit sums and products",
+          "scope": "Tendsto.mul and its to_additive counterpart Tendsto.add; const_mul is at132. The scalar codomain ℝ supplies their topological instances.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Monoid/Defs.lean",
+          "line": 78
+        },
+        {
+          "label": "Closed-set preservation by a nontrivial filter limit",
+          "scope": "The right-neighborhood filter on positive ℝ≥0 times supplies the needed nontriviality automatically; it is not an extra assumption on X.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Neighborhoods.lean",
+          "line": 355
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check only; no concrete producer of the three limits in this focused file. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 14
+        },
+        {
+          "label": "Limit subtraction",
+          "scope": "Filter.Tendsto.sub is generated by to_additive from Filter.Tendsto.div'; applied here only to real scalar limits.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Group/Defs.lean",
+          "line": 141
+        },
+        {
+          "label": "Eventual equality transports a limit",
+          "scope": "Filter.Tendsto.congr' transfers the factored-expression limit to the original gap.",
+          "path": ".lake/packages/mathlib/Mathlib/Order/Filter/Tendsto.lean",
+          "line": 105
+        },
+        {
+          "label": "Positive times hold eventually in the right-neighborhood filter",
+          "scope": "self_mem_nhdsWithin supplies h∈Ioi0, avoiding the zero denominator.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/NhdsWithin.lean",
+          "line": 146
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 14,
+          "scope": "Declaration-visibility #check only; no concrete producer of the three limits in this focused file."
+        }
+      ],
+      "boundary": [
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "The conclusion is only at the supplied f and x; a global statement requires those inputs for every relevant observable and state.",
+        "The limit excludes h=0; no division-by-zero argument or two-sided derivative is used.",
+        "No diffusion chain rule or invariant-law theorem is produced."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts",
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp",
+      "short_name": "fundamental_integration_by_parts",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+      "source_line": 153,
+      "source_end_line": 188,
+      "astis_projection_dependencies": [],
+      "title": "Pairwise integration by parts from three integrable terms",
+      "classification": "integral-algebra theorem with explicit local assumptions",
+      "statement": "Let X be a measurable space, μ any measure, L a real-linear operator on real functions, and f,g:X→ℝ. Assume L(fg), fLg and gLf are μ-integrable; ∫L(fg)dμ=0; and ∫fLg dμ=∫gLf dμ. Then the two Dirichlet pairings agree and their common value equals ∫ΓL(f,g)dμ. Stationarity and symmetry are required only for these displayed observables and integrals.",
+      "formula": "\\begin{gathered}L(fg),fLg,gLf\\in L^1(\\mu),\\qquad\\int_XL(fg)\\,d\\mu=0,\\qquad\\int_XfLg\\,d\\mu=\\int_XgLf\\,d\\mu\\\\\\Longrightarrow\\quad\\mathcal E_\\mu^L(f,g)=\\mathcal E_\\mu^L(g,f),\\qquad\\mathcal E_\\mu^L(f,g)=\\int_X\\Gamma_L(f,g)\\,d\\mu.\\end{gathered}",
+      "assumptions": [
+        "X is any measurable space; μ is any measure on X. No probability, finite measure, σ-finiteness, topology or norm on X is assumed.",
+        "L:(X→ℝ)→ₗ[ℝ](X→ℝ) is a real-linear operator on all real-valued functions on X. No Markov semigroup or invariant law is supplied.",
+        "f,g:X→ℝ are arbitrary observables.",
+        "hLfg proves Integrable L(fg) μ; hfLg proves Integrable (fLg) μ; hgLf proves Integrable (gLf) μ. Each includes a.e. strong measurability and finite norm integral.",
+        "hstationary is the single equality ∫L(fg)dμ=0. hsymmetric is the single equality ∫fLg dμ=∫gLf dμ; neither is quantified over all observables."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Prepare integrability for the subtraction",
+          "text": "The first two assumptions imply integrability of L(fg)−fLg. The third integrable term gLf may then be subtracted from that difference.",
+          "formula": "L(fg)-fLg\\in L^1(\\mu).",
+          "lean": "MeasureTheory.Integrable.sub; hsub"
+        },
+        {
+          "number": 2,
+          "title": "Expand the Γ integral legitimately",
+          "text": "Pull out one-half and use the two subtraction rules, whose integrability premises are now available.",
+          "formula": "\\int_X\\Gamma_L(f,g)\\,d\\mu=\\tfrac12\\left[\\int_XL(fg)\\,d\\mu-\\int_XfLg\\,d\\mu-\\int_XgLf\\,d\\mu\\right].",
+          "lean": "MeasureTheory.integral_const_mul; MeasureTheory.integral_sub; hgammaIntegral"
+        },
+        {
+          "number": 3,
+          "title": "Prove equality of the two pairings",
+          "text": "The definition negates the two cross integrals; their assumed equality therefore gives symmetric pairings for this pair.",
+          "formula": "\\mathcal E_\\mu^L(f,g)=-\\int_XfLg\\,d\\mu=-\\int_XgLf\\,d\\mu=\\mathcal E_\\mu^L(g,f).",
+          "lean": "Generator.dirichletForm; hsymmetric"
+        },
+        {
+          "number": 4,
+          "title": "Use the supplied zero product integral and pairing symmetry",
+          "text": "Set A=∫fLg dμ. The expansion becomes one-half of 0−A−A, hence equals −A, which is the Dirichlet pairing.",
+          "formula": "\\int_X\\Gamma_L(f,g)\\,d\\mu=\\tfrac12(0-A-A)=-A=\\mathcal E_\\mu^L(f,g).",
+          "lean": "hstationary; hsymmetric; Generator.dirichletForm; ring"
+        },
+        {
+          "number": 5,
+          "title": "Collect both conclusions",
+          "text": "The theorem returns the conjunction of pair symmetry and the integrated Γ identity, not a global property of L.",
+          "formula": "[\\mathcal E_\\mu^L(f,g)=\\mathcal E_\\mu^L(g,f)]\\ \\land\\ [\\mathcal E_\\mu^L(f,g)=\\textstyle\\int_X\\Gamma_L(f,g)\\,d\\mu].",
+          "lean": "constructor"
+        }
+      ],
+      "lean_statement": "There are three integrability proofs and two exact integral identities. They are explicit local hypotheses rather than an assumption that μ is a globally stationary reversible law. The conclusion contains two equalities joined by conjunction.",
+      "lean_proof": "The proof splits the Γ integral using the three integrability inputs, substitutes the local zero-integral and symmetry equations, and simplifies real arithmetic. The same symmetry equation directly proves the first equality.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Integrable.sub",
+        "MeasureTheory.integral_const_mul",
+        "MeasureTheory.integral_sub"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 153
+        },
+        {
+          "label": "Existing source-correspondence record: chewi-1-2-theorem-1-2-14",
+          "scope": "Existing local record for Chewi Theorem1.2.14, edition2026-08-09, printed p.14/PDF p.26. Reported only within the current declaration's explicit assumptions; no new source audit or source-equivalence verdict.",
+          "path": "website/content/source_correspondence.json",
+          "line": 656
+        },
+        {
+          "label": "Integrable subtraction",
+          "scope": "Produces hsub from hLfg and hfLg.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Function/L1Space/Integrable.lean",
+          "line": 541
+        },
+        {
+          "label": "Integral subtraction with both integrability premises",
+          "scope": "Used twice to expand Γ. Constant multiplication is at288.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+          "line": 261
+        },
+        {
+          "label": "Exact negative-generator convention",
+          "scope": "Defines Eμ(f,g)=−∫fLg dμ.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 22
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check only; no nontrivial stationary/reversible model is constructed in this focused file. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 15
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 15,
+          "scope": "Declaration-visibility #check only; no nontrivial stationary/reversible model is constructed in this focused file."
+        }
+      ],
+      "boundary": [
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "The explicit integrability inputs prevent invalid linear expansion of totalized nonintegrable integrals; they must not be omitted.",
+        "This is algebraic generator integration by parts, not a spatial divergence theorem with boundary terms or a concrete gradient identity."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.negativeGenerator_quadratic_nonneg",
+      "module": "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp",
+      "short_name": "negativeGenerator_quadratic_nonneg",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+      "source_line": 192,
+      "source_end_line": 204,
+      "astis_projection_dependencies": [],
+      "title": "Nonnegative Γ gives a nonnegative quadratic generator pairing",
+      "classification": "diagonal integration-by-parts consequence",
+      "statement": "Let X be a measurable space, μ any measure, L a real-linear operator on real functions and f:X→ℝ. Assume L(f²) and fLf are μ-integrable, ∫L(f²)dμ=0, and ΓL(f,f)(x)≥0 for every x∈X. Then the negative-generator quadratic pairing Eμ^L(f,f) is nonnegative. No separate symmetry premise is required on the diagonal.",
+      "formula": "\\begin{gathered}L(f^2),fLf\\in L^1(\\mu),\\qquad\\int_XL(f^2)\\,d\\mu=0,\\qquad\\forall x,\\ \\Gamma_L(f,f)(x)\\ge0\\\\\\Longrightarrow\\quad0\\le\\mathcal E_\\mu^L(f,f)=-\\int_X fLf\\,d\\mu.\\end{gathered}",
+      "assumptions": [
+        "X is any measurable space and μ any measure on X; no probability, finite-mass, σ-finiteness, or topological premise.",
+        "L:(X→ℝ)→ₗ[ℝ](X→ℝ) is a real-linear operator on all real-valued functions on X. No Markov semigroup or invariant law is supplied.",
+        "f:X→ℝ is arbitrary. hLf2 proves Integrable L(f*f) μ and hfLf proves Integrable (fLf) μ.",
+        "hstationary is only ∫L(f*f)dμ=0. hgamma is pointwise nonnegativity ΓL(f,f)(x)≥0 for every x, not merely an a.e. assumption in the stated theorem."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Specialize the previous theorem to the repeated observable",
+          "text": "Use f in both slots. The two cross integrability obligations are the same supplied hfLf, and the symmetry equation becomes reflexive.",
+          "formula": "\\mathcal E_\\mu^L(f,f)=\\int_X\\Gamma_L(f,f)\\,d\\mu.",
+          "lean": "CarreDuChamp.fundamental_integration_by_parts mu generator f f hLf2 hfLf hfLf hstationary rfl"
+        },
+        {
+          "number": 2,
+          "title": "Pass the pointwise sign condition to an a.e. one",
+          "text": "A statement true at every x is true μ-almost everywhere, whatever μ is.",
+          "formula": "\\forall x,\\ \\Gamma_L(f,f)(x)\\ge0\\Longrightarrow\\Gamma_L(f,f)\\ge0\\quad\\mu\\text{-a.e.}.",
+          "lean": "Filter.Eventually.of_forall hgamma"
+        },
+        {
+          "number": 3,
+          "title": "Integrate nonnegativity",
+          "text": "The real integral of an a.e. nonnegative function is nonnegative. Combine this with the diagonal pairing identity.",
+          "formula": "0\\le\\int_X\\Gamma_L(f,f)\\,d\\mu=\\mathcal E_\\mu^L(f,f).",
+          "lean": "MeasureTheory.integral_nonneg_of_ae"
+        }
+      ],
+      "lean_statement": "The repeated observable removes the need for a separate pair-symmetry proof. Positivity of Γ is nevertheless a supplied pointwise hypothesis; the theorem does not derive it from a Markov operator.",
+      "lean_proof": "Apply the already-proved integration-by-parts identity on the diagonal, using the same pairing-integrability proof twice. Then integrate the supplied nonnegative Γ and rewrite the result as the quadratic pairing.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm"
+      ],
+      "mathlib_dependencies": [
+        "Filter.Eventually.of_forall",
+        "MeasureTheory.integral_nonneg_of_ae"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current statement and body; renderer extracts exact Lean rather than duplicating it in this packet.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 192
+        },
+        {
+          "label": "Existing source-correspondence record: chewi-1-2-corollary-1-2-15",
+          "scope": "Existing local record for Chewi Corollary1.2.15, edition2026-08-09, printed p.14/PDF p.26. Reported only within the current declaration's explicit assumptions; no new source audit or source-equivalence verdict.",
+          "path": "website/content/source_correspondence.json",
+          "line": 712
+        },
+        {
+          "label": "Nonnegative a.e. Bochner integrands",
+          "scope": "Exact final positivity theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+          "line": 607
+        },
+        {
+          "label": "Existing focused test",
+          "scope": "Declaration-visibility #check only; the Γ-positivity premise remains supplied. No test/build run for this packet.",
+          "path": "Tests/CarreDuChamp.lean",
+          "line": 16
+        }
+      ],
+      "tests": [
+        {
+          "file": "Tests/CarreDuChamp.lean",
+          "line": 16,
+          "scope": "Declaration-visibility #check only; the Γ-positivity premise remains supplied."
+        }
+      ],
+      "boundary": [
+        "No global invariant-law, stationarity for every observable, reversibility, semigroup construction, or concrete diffusion identity is inferred from this declaration.",
+        "No global reversibility or self-adjointness is proved. The conclusion concerns this one observable satisfying the listed local assumptions.",
+        "The Jensen-to-generator theorem is a possible separate producer of hgamma, but this proof does not call it or establish its limit hypotheses."
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "independent kernel researcher",
+        "scope": "All 15 units compared with both complete Lean modules, Tests, source anchors and key Mathlib helpers. Operator linearity, domain quantifiers, scalar right limits, local stationarity/symmetry, and totalized integrals retained; no source-admission change."
+      }
+    }
+  ]
+}

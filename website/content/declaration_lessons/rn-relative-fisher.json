@@ -1,0 +1,1417 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density",
+      "kind": "def",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 36,
+      "source_end_line": 37,
+      "short_name": "density",
+      "title": "The selected real RN density",
+      "classification": "definition reusing Mathlib's RN derivative",
+      "statement": "For any measures μ and π on a measurable space α and any x∈α, define the selected real density ρ(x) by converting Mathlib's extended-nonnegative RN derivative to ℝ. This is a globally defined representative-valued expression, not an unconditional assertion that μ has a classical density relative to π.",
+      "formula": "a(x):=\\mu.\\mathrm{rnDeriv}\\,\\pi\\,x,\\qquad\\rho(x):=a(x).\\mathrm{toReal}.",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are arbitrary measures on α unless further conditions are stated; no probability or finite-mass assumption is implicit.",
+        "x is any point of α; no absolute-continuity, decomposition or σ-finiteness premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Select the existing extended-valued function",
+          "text": "Use Mathlib's chosen measurable RN derivative. When a Lebesgue decomposition does not exist, this library function is defined to be zero.",
+          "formula": "a:=\\mu.\\mathrm{rnDeriv}\\,\\pi:\\alpha\\to[0,\\infty].",
+          "lean": "MeasureTheory.Measure.rnDeriv"
+        },
+        {
+          "number": 2,
+          "title": "Convert each value to a real number",
+          "text": "Finite nonnegative values retain their real value; the extended value infinity is sent to zero. The result is the real function needed by later calculus expressions.",
+          "formula": "\\rho(x)=\\operatorname{toReal}(a(x)),\\qquad\\operatorname{toReal}(\\infty)=0.",
+          "lean": "ENNReal.toReal"
+        }
+      ],
+      "lean_statement": "The inputs are two measures and a point, and the output is a real number. No hypothesis certifies a density reconstruction at this stage.",
+      "lean_proof": "This is a construction: take the existing RN derivative value and apply its real conversion. No existence, normalization, or finiteness theorem is proved.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.rnDeriv",
+        "ENNReal.toReal"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 36
+        },
+        {
+          "label": "Mathlib RN selection and fallback",
+          "scope": "Definition rnDeriv selects from HaveLebesgueDecomposition when available and otherwise is zero.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean",
+          "line": 80
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 3
+        }
+      ],
+      "boundary": [
+        "Mathlib's RN derivative is a selected measurable extended-nonnegative function, and defaults to zero if no Lebesgue decomposition exists. ENNReal.toReal sends ∞ to 0; Real.log 0=0. Unconditional naming or measurability is not a reconstruction or positivity theorem.",
+        "No differentiability, strict positivity, normalization, or integral reconstruction is supplied."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 3,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio",
+      "kind": "def",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 41,
+      "source_end_line": 42,
+      "short_name": "logRatio",
+      "title": "The selected log-density ratio",
+      "classification": "definition alias for Mathlib's log-likelihood ratio",
+      "statement": "For arbitrary measures μ and π on a measurable space α, define r to be Mathlib's selected log-likelihood ratio. At a point x, it is the totalized real logarithm of the selected real RN function ρ(x).",
+      "formula": "r:=\\operatorname{llr}(\\mu,\\pi),\\qquad r(x)=\\operatorname{Real.log}\\big((\\mu.\\mathrm{rnDeriv}\\,\\pi\\,x).\\mathrm{toReal}\\big).",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are arbitrary measures on α unless further conditions are stated; no probability or finite-mass assumption is implicit.",
+        "No absolute-continuity, σ-finiteness, differentiability or integrability premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Reuse the likelihood-ratio object",
+          "text": "Choose the existing llr function unchanged so the later measure and calculus layers share the same selected representative.",
+          "formula": "r=\\operatorname{llr}(\\mu,\\pi).",
+          "lean": "MeasureTheory.llr"
+        }
+      ],
+      "lean_statement": "The output is a real-valued function on α. Its name does not assert regularity or finiteness of relative entropy.",
+      "lean_proof": "This is an alias-style construction, not a new logarithm theorem. The body reuses Mathlib's entire selected log-likelihood-ratio function.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MeasureTheory.llr"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 41
+        },
+        {
+          "label": "Mathlib log-likelihood ratio definition",
+          "scope": "Exact pointwise definition via Real.log and rnDeriv.toReal.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean",
+          "line": 37
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 4
+        }
+      ],
+      "boundary": [
+        "Mathlib's RN derivative is a selected measurable extended-nonnegative function, and defaults to zero if no Lebesgue decomposition exists. ENNReal.toReal sends ∞ to 0; Real.log 0=0. Unconditional naming or measurability is not a reconstruction or positivity theorem.",
+        "An equality a.e. of function values does not by itself identify classical gradients. No pointwise choice on exceptional null sets or independence under arbitrary null-set changes is proved.",
+        "The function is real-valued even when the mathematical extended logarithm would be −∞ at a zero density. No Sobolev or classical score is constructed."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 4,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio_apply",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 45,
+      "source_end_line": 47,
+      "short_name": "logRatio_apply",
+      "title": "Evaluate the log-ratio as the logarithm of the selected density",
+      "classification": "definitional evaluation theorem",
+      "statement": "For arbitrary measures μ and π on a measurable space α, and every x∈α, the selected log-ratio equals Real.log of the selected real density at x. The equality holds everywhere in the library's totalized conventions.",
+      "formula": "\\forall x\\in\\alpha,\\qquad r(x)=\\operatorname{Real.log}(\\rho(x)).",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are arbitrary measures on α unless further conditions are stated; no probability or finite-mass assumption is implicit.",
+        "Write a(x)=μ.rnDeriv π x∈[0,∞], ρ(x)=a(x).toReal, and r=RNLogRatio.logRatio μ π=MeasureTheory.llr μ π=Real.log ρ. All names refer to the same selected functions for the original pair (μ,π).",
+        "x is arbitrary; no positivity premise is present."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Unfold both names",
+          "text": "Both sides expand to the same logarithm of the same converted RN value, so reflexivity proves equality.",
+          "formula": "r(x)\\equiv\\log\\big(a(x).\\mathrm{toReal}\\big)\\equiv\\log\\rho(x).",
+          "lean": "RNLogRatio.logRatio; RNLogRatio.density; rfl"
+        }
+      ],
+      "lean_statement": "This is pointwise equality for an arbitrary input, not just a.e. equality. Its validity at zeros comes from the definition of the totalized logarithm.",
+      "lean_proof": "Unfolding the two selected-function names leaves identical expressions. The proof does not use or establish positivity.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.llr"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 45
+        },
+        {
+          "label": "Underlying llr definition",
+          "scope": "Explains why the equality is definitional.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean",
+          "line": 37
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 5
+        }
+      ],
+      "boundary": [
+        "Mathlib's RN derivative is a selected measurable extended-nonnegative function, and defaults to zero if no Lebesgue decomposition exists. ENNReal.toReal sends ∞ to 0; Real.log 0=0. Unconditional naming or measurability is not a reconstruction or positivity theorem.",
+        "This equality alone cannot be exponentiated to recover ρ everywhere: exp(log 0)=1, not 0."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 5,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.measurable_density",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 50,
+      "source_end_line": 52,
+      "short_name": "measurable_density",
+      "title": "Measurability of the selected real density",
+      "classification": "measurability composition theorem",
+      "statement": "For arbitrary measures μ and π on any measurable space α, the selected real RN function ρ is measurable as a map to ℝ with its Borel measurable structure.",
+      "formula": "\\rho:\\alpha\\to\\mathbb R\\quad\\text{is measurable}.",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are arbitrary measures on α unless further conditions are stated; no probability or finite-mass assumption is implicit.",
+        "Write a(x)=μ.rnDeriv π x∈[0,∞], ρ(x)=a(x).toReal, and r=RNLogRatio.logRatio μ π=MeasureTheory.llr μ π=Real.log ρ. All names refer to the same selected functions for the original pair (μ,π).",
+        "No absolute-continuity or σ-finiteness assumption is required."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use measurability of the selected RN function",
+          "text": "Mathlib guarantees measurability even in the fallback case, where the selected function is zero.",
+          "formula": "a:\\alpha\\to[0,\\infty]\\quad\\text{is measurable}.",
+          "lean": "MeasureTheory.Measure.measurable_rnDeriv"
+        },
+        {
+          "number": 2,
+          "title": "Compose with real conversion",
+          "text": "The measurable real conversion of an extended-nonnegative measurable function remains measurable.",
+          "formula": "\\rho=\\operatorname{toReal}\\circ a\\quad\\text{is measurable}.",
+          "lean": "Measurable.ennreal_toReal"
+        }
+      ],
+      "lean_statement": "The conclusion is ordinary measurability of the exact selected function, not an a.e.-measurability claim or a statement about every representative.",
+      "lean_proof": "The proof starts with Mathlib's RN measurability theorem and applies the rule preserving measurability under real conversion.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.measurable_rnDeriv",
+        "Measurable.ennreal_toReal"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 50
+        },
+        {
+          "label": "RN measurability with and without decomposition",
+          "scope": "Actual theorem handles both the selected-decomposition and zero-fallback cases.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean",
+          "line": 100
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 6
+        }
+      ],
+      "boundary": [
+        "Mathlib's RN derivative is a selected measurable extended-nonnegative function, and defaults to zero if no Lebesgue decomposition exists. ENNReal.toReal sends ∞ to 0; Real.log 0=0. Unconditional naming or measurability is not a reconstruction or positivity theorem.",
+        "Measurability does not imply integrability, finite entropy, positivity or differentiability."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 6,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.measurable_logRatio",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 55,
+      "source_end_line": 57,
+      "short_name": "measurable_logRatio",
+      "title": "Measurability of the selected log-ratio",
+      "classification": "reuse wrapper for likelihood-ratio measurability",
+      "statement": "For arbitrary measures μ and π on a measurable space α, the selected real log-ratio r is measurable. No positivity or entropy-integrability assumption is needed.",
+      "formula": "r=\\operatorname{llr}(\\mu,\\pi):\\alpha\\to\\mathbb R\\quad\\text{is measurable}.",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are arbitrary measures on α unless further conditions are stated; no probability or finite-mass assumption is implicit.",
+        "Write a(x)=μ.rnDeriv π x∈[0,∞], ρ(x)=a(x).toReal, and r=RNLogRatio.logRatio μ π=MeasureTheory.llr μ π=Real.log ρ. All names refer to the same selected functions for the original pair (μ,π)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Reuse the library's log-ratio measurability",
+          "text": "Mathlib composes measurable RN selection, measurable real conversion, and the measurable totalized real logarithm.",
+          "formula": "a\\text{ measurable}\\Longrightarrow\\log(a.\\mathrm{toReal})\\text{ measurable}.",
+          "lean": "MeasureTheory.measurable_llr"
+        },
+        {
+          "number": 2,
+          "title": "Replace the alias",
+          "text": "The ASTIS name denotes exactly that same function, so the imported assertion is the target.",
+          "formula": "r=\\operatorname{llr}(\\mu,\\pi).",
+          "lean": "simp [RNLogRatio.logRatio]"
+        }
+      ],
+      "lean_statement": "The measurable object is a real function despite the totalized zero-density convention. No regularity of its derivative is included.",
+      "lean_proof": "The proof applies the existing likelihood-ratio measurability theorem and unfolds only the ASTIS alias.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.measurable_llr"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 55
+        },
+        {
+          "label": "Mathlib likelihood-ratio measurability",
+          "scope": "Proof composes measurable RN, toReal, and Real.log; direct reused API.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean",
+          "line": 83
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 7
+        }
+      ],
+      "boundary": [
+        "Mathlib's RN derivative is a selected measurable extended-nonnegative function, and defaults to zero if no Lebesgue decomposition exists. ENNReal.toReal sends ∞ to 0; Real.log 0=0. Unconditional naming or measurability is not a reconstruction or positivity theorem.",
+        "An equality a.e. of function values does not by itself identify classical gradients. No pointwise choice on exceptional null sets or independence under arbitrary null-set changes is proved.",
+        "No continuity, differentiability, gradient measurability or integrability is deduced."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 7,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density_nonneg",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 60,
+      "source_end_line": 62,
+      "short_name": "density_nonneg",
+      "title": "The selected real density is nonnegative everywhere",
+      "classification": "pointwise nonnegativity reuse",
+      "statement": "For arbitrary measures μ and π on a measurable space α and every x∈α, the real conversion ρ(x) of the selected RN derivative is nonnegative.",
+      "formula": "\\forall x\\in\\alpha,\\qquad0\\le\\rho(x).",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are arbitrary measures on α unless further conditions are stated; no probability or finite-mass assumption is implicit.",
+        "Write a(x)=μ.rnDeriv π x∈[0,∞], ρ(x)=a(x).toReal, and r=RNLogRatio.logRatio μ π=MeasureTheory.llr μ π=Real.log ρ. All names refer to the same selected functions for the original pair (μ,π).",
+        "x is arbitrary; no absolute-continuity or finiteness premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the nonnegativity of real conversion",
+          "text": "Every extended-nonnegative value has nonnegative toReal, including infinity whose conversion is zero.",
+          "formula": "a(x)\\in[0,\\infty]\\Longrightarrow0\\le a(x).\\mathrm{toReal}=\\rho(x).",
+          "lean": "ENNReal.toReal_nonneg"
+        }
+      ],
+      "lean_statement": "The conclusion is a non-strict pointwise bound. It does not rule out zero values or distinguish a zero RN value from an infinite one after conversion.",
+      "lean_proof": "The density definition is a toReal expression, so the general nonnegativity theorem applies directly.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density"
+      ],
+      "mathlib_dependencies": [
+        "ENNReal.toReal_nonneg"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 60
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 8
+        }
+      ],
+      "boundary": [
+        "Mathlib's RN derivative is a selected measurable extended-nonnegative function, and defaults to zero if no Lebesgue decomposition exists. ENNReal.toReal sends ∞ to 0; Real.log 0=0. Unconditional naming or measurability is not a reconstruction or positivity theorem.",
+        "No strict positivity, normalization, or reconstruction follows from this bound."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 8,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density_ae_pos_of_absolutelyContinuous",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 66,
+      "source_end_line": 73,
+      "short_name": "density_ae_pos_of_absolutelyContinuous",
+      "title": "Absolute continuity gives a positive real density μ-almost everywhere",
+      "classification": "a.e. positivity with explicit finiteness transport",
+      "statement": "Let μ and π be measures on a measurable space α. Assume μ is σ-finite, a Lebesgue decomposition of μ relative to π exists, and μ≪π. Then the selected real density ρ is strictly positive at μ-almost every point. The assertion is neither everywhere nor necessarily π-almost everywhere.",
+      "formula": "\\mu\\ll\\pi,\\quad\\mu\\ \\sigma\\text{-finite},\\quad\\operatorname{HaveLebesgueDecomposition}(\\mu,\\pi)\\quad\\Longrightarrow\\quad0<\\rho(x)\\ \\text{for }\\mu\\text{-a.e. }x.",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are arbitrary measures on α unless further conditions are stated; no probability or finite-mass assumption is implicit.",
+        "Write a(x)=μ.rnDeriv π x∈[0,∞], ρ(x)=a(x).toReal, and r=RNLogRatio.logRatio μ π=MeasureTheory.llr μ π=Real.log ρ. All names refer to the same selected functions for the original pair (μ,π).",
+        "μ is σ-finite; HaveLebesgueDecomposition μ π is supplied; and hμΠ proves μ≪π. No σ-finiteness of π or probability normalization is required."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Obtain positive extended RN values under μ",
+          "text": "The decomposition and absolute continuity imply that a is positive outside a μ-null set.",
+          "formula": "0<a(x)\\quad\\mu\\text{-a.e.}.",
+          "lean": "MeasureTheory.Measure.rnDeriv_pos hmuPi"
+        },
+        {
+          "number": 2,
+          "title": "Transport a.e. finiteness from π to μ",
+          "text": "σ-finiteness of μ gives a<∞ π-a.e. Absolute continuity transfers that assertion to μ-a.e.; it is not necessary to assume π σ-finite.",
+          "formula": "a(x)<\\infty\\quad\\pi\\text{-a.e.}\\Longrightarrow a(x)<\\infty\\quad\\mu\\text{-a.e.}.",
+          "lean": "MeasureTheory.Measure.rnDeriv_lt_top; MeasureTheory.Measure.AbsolutelyContinuous.ae_le"
+        },
+        {
+          "number": 3,
+          "title": "Convert positive finite values",
+          "text": "Intersect the two μ-a.e. sets. A nonzero extended value distinct from infinity has strictly positive real conversion.",
+          "formula": "0<a(x)<\\infty\\Longrightarrow0<a(x).\\mathrm{toReal}=\\rho(x).",
+          "lean": "filter_upwards; ENNReal.toReal_pos"
+        }
+      ],
+      "lean_statement": "The a.e. filter is μ. The decomposition instance and μ's σ-finiteness have separate roles: RN positivity and exclusion of infinity before real conversion.",
+      "lean_proof": "The proof combines μ-a.e. positivity with π-a.e. finiteness transported through absolute continuity. The final conversion theorem needs both nonzero and non-infinite RN values.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.rnDeriv_pos",
+        "MeasureTheory.Measure.rnDeriv_lt_top",
+        "MeasureTheory.Measure.AbsolutelyContinuous.ae_le",
+        "ENNReal.toReal_pos"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 66
+        },
+        {
+          "label": "Extended RN positivity",
+          "scope": "Requires HaveLebesgueDecomposition and absolute continuity; conclusion is μ-a.e.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Decomposition/RadonNikodym.lean",
+          "line": 75
+        },
+        {
+          "label": "RN finiteness",
+          "scope": "Requires SigmaFinite μ; initial conclusion is π-a.e.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean",
+          "line": 383
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 9
+        }
+      ],
+      "boundary": [
+        "Neither pointwise positivity nor π-a.e. positivity is asserted. In particular π may assign positive mass to a region where μ has zero density.",
+        "An equality a.e. of function values does not by itself identify classical gradients. No pointwise choice on exceptional null sets or independence under arbitrary null-set changes is proved.",
+        "Positivity μ-a.e. does not provide differentiability, finite entropy, or a score domain."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 9,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.exp_logRatio_ae_eq_density_of_absolutelyContinuous",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 77,
+      "source_end_line": 83,
+      "short_name": "exp_logRatio_ae_eq_density_of_absolutelyContinuous",
+      "title": "Exponentiating the log-ratio recovers density μ-almost everywhere",
+      "classification": "reuse wrapper for the a.e. exponential-log identity",
+      "statement": "Let μ and π be measures on a measurable space α, with μ σ-finite, a Lebesgue decomposition of μ relative to π, and μ≪π. Exponentiating the selected real log-ratio gives the selected real density μ-almost everywhere.",
+      "formula": "\\exp(r(x))=\\rho(x)\\quad\\text{for }\\mu\\text{-a.e. }x.",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are arbitrary measures on α unless further conditions are stated; no probability or finite-mass assumption is implicit.",
+        "Write a(x)=μ.rnDeriv π x∈[0,∞], ρ(x)=a(x).toReal, and r=RNLogRatio.logRatio μ π=MeasureTheory.llr μ π=Real.log ρ. All names refer to the same selected functions for the original pair (μ,π).",
+        "μ is σ-finite; HaveLebesgueDecomposition μ π is supplied; and hμΠ proves μ≪π. No σ-finiteness of π or probability normalization is required."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the established a.e. likelihood identity",
+          "text": "Mathlib's exp_llr_of_ac already handles the positivity/finiteness and change-of-a.e.-measure issues under these precise premises.",
+          "formula": "\\exp(\\operatorname{llr}(\\mu,\\pi)(x))=(\\mu.\\mathrm{rnDeriv}\\,\\pi\\,x).\\mathrm{toReal}\\quad\\mu\\text{-a.e.}.",
+          "lean": "MeasureTheory.exp_llr_of_ac"
+        },
+        {
+          "number": 2,
+          "title": "Translate the two selected-function names",
+          "text": "On the imported full-μ-measure set, unfold logRatio and density to identify the two sides with the target functions.",
+          "formula": "\\exp r=\\rho\\quad\\mu\\text{-a.e.}.",
+          "lean": "filter_upwards; simp [RNLogRatio.logRatio, RNLogRatio.density]"
+        }
+      ],
+      "lean_statement": "This compares two functions modulo μ-null sets. It does not identify their values at every point or under the stronger π-a.e. filter.",
+      "lean_proof": "The proof directly reuses Mathlib's exponential-likelihood theorem and changes only notation. It does not derive a chain rule by differentiating this a.e. equality.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.exp_llr_of_ac"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 77
+        },
+        {
+          "label": "Exact imported exponential-likelihood identity",
+          "scope": "Includes SigmaFinite μ, HaveLebesgueDecomposition μ π, μ≪π, and a μ-a.e. conclusion.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean",
+          "line": 53
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 10
+        }
+      ],
+      "boundary": [
+        "At ρ=0, exp(Real.log ρ)=1, so replacing the a.e. statement by an everywhere identity is unjustified.",
+        "An equality a.e. of function values does not by itself identify classical gradients. No pointwise choice on exceptional null sets or independence under arbitrary null-set changes is proved.",
+        "No density-gradient identity or differentiation of a.e.-equal functions is established."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 10,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density_self_ae",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 86,
+      "source_end_line": 89,
+      "short_name": "density_self_ae",
+      "title": "A measure's selected self-density is one almost everywhere",
+      "classification": "reuse wrapper for the self RN derivative",
+      "statement": "For a σ-finite measure μ on any measurable space α, its selected real RN density relative to itself equals the constant one μ-almost everywhere.",
+      "formula": "\\rho_{\\mu,\\mu}(x)=1\\quad\\mu\\text{-a.e.}.",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ is a σ-finite measure; no finite-total-mass or probability requirement.",
+        "Both measure arguments are the same μ."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the self RN identity",
+          "text": "The selected extended RN derivative is one outside a μ-null set.",
+          "formula": "\\mu.\\mathrm{rnDeriv}\\,\\mu\\,x=1\\quad\\mu\\text{-a.e.}.",
+          "lean": "MeasureTheory.Measure.rnDeriv_self"
+        },
+        {
+          "number": 2,
+          "title": "Convert the finite unit value",
+          "text": "Real conversion sends one to one, yielding the stated real-density identity on the same a.e. set.",
+          "formula": "\\rho_{\\mu,\\mu}(x)=\\operatorname{toReal}(1)=1.",
+          "lean": "filter_upwards; simp [RNLogRatio.density]"
+        }
+      ],
+      "lean_statement": "The same σ-finite measure appears twice, and equality is only a.e. under that measure. No representative values on null points are fixed.",
+      "lean_proof": "The proof takes the library self-RN identity and converts its value one into a real one.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.rnDeriv_self",
+        "ENNReal.toReal_one"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 86
+        },
+        {
+          "label": "Mathlib self RN identity",
+          "scope": "SigmaFinite μ and μ-a.e. equality.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean",
+          "line": 317
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 11
+        }
+      ],
+      "boundary": [
+        "An equality a.e. of function values does not by itself identify classical gradients. No pointwise choice on exceptional null sets or independence under arbitrary null-set changes is proved.",
+        "No pointwise self-density formula, classical gradient identity, or Fisher-zero theorem is proved here."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 11,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio_self_ae",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 93,
+      "source_end_line": 96,
+      "short_name": "logRatio_self_ae",
+      "title": "A measure's selected self-log-ratio is zero almost everywhere",
+      "classification": "reuse wrapper for the self log-likelihood ratio",
+      "statement": "For every σ-finite measure μ on a measurable space α, the selected log-ratio of μ relative to itself equals the constant zero μ-almost everywhere.",
+      "formula": "r_{\\mu,\\mu}(x)=0\\quad\\mu\\text{-a.e.}.",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ is σ-finite; no probability, nonzero-mass or finite-entropy premise.",
+        "Both arguments of logRatio are μ."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Reuse the self likelihood identity",
+          "text": "Mathlib obtains this from the self RN derivative being one a.e. and log 1=0.",
+          "formula": "\\operatorname{llr}(\\mu,\\mu)=0\\quad\\mu\\text{-a.e.}.",
+          "lean": "MeasureTheory.llr_self"
+        },
+        {
+          "number": 2,
+          "title": "Unfold the ASTIS alias",
+          "text": "The selected ASTIS log-ratio is exactly this likelihood ratio, with the same exceptional set.",
+          "formula": "r_{\\mu,\\mu}=0\\quad\\mu\\text{-a.e.}.",
+          "lean": "filter_upwards; simp [RNLogRatio.logRatio]"
+        }
+      ],
+      "lean_statement": "The assertion concerns values of a selected function a.e. It does not say the function is everywhere constant or differentiable.",
+      "lean_proof": "The proof uses the existing self-likelihood theorem and unfolds the alias. There is no argument about gradients.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.llr_self"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 93
+        },
+        {
+          "label": "Mathlib self log-likelihood theorem",
+          "scope": "A.e. consequence of self RN identity; exact reused API.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean",
+          "line": 41
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 12
+        }
+      ],
+      "boundary": [
+        "An equality a.e. of function values does not by itself identify classical gradients. No pointwise choice on exceptional null sets or independence under arbitrary null-set changes is proved.",
+        "In particular, do not infer that the selected log-ratio's totalized classical gradient vanishes μ-a.e. from this function-value identity alone."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 12,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.toReal_klDiv_eq_integral_logRatio_of_probability",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+      "source_line": 104,
+      "source_end_line": 111,
+      "short_name": "toReal_klDiv_eq_integral_logRatio_of_probability",
+      "title": "The real conversion of KL equals the totalized log-ratio integral",
+      "classification": "probability specialization of an equal-mass KL formula",
+      "statement": "Let μ and π be probability measures on a measurable space α, and suppose μ≪π. Then the real conversion of Mathlib's extended-valued KL divergence equals the real Bochner integral of the selected log-ratio under μ. No log-ratio integrability or finite-KL assumption is present; the equality is also valid in the nonintegrable case, when both displayed real quantities are zero by totalization.",
+      "formula": "\\operatorname{toReal}\\!\\left(\\mathrm{KL}(\\mu\\Vert\\pi)\\right)=\\int_\\alpha r_{\\mu,\\pi}(x)\\,d\\mu(x).",
+      "assumptions": [
+        "α is any measurable space; no topology, standard-Borel, countability, or nonempty-space hypothesis is imposed.",
+        "μ and π are probability measures: μ(α)=π(α)=1. Their finiteness instances are automatic.",
+        "hμΠ proves μ≪π. No separate SigmaFinite, decomposition, finite-KL or Integrable r μ premise appears.",
+        "Write a(x)=μ.rnDeriv π x∈[0,∞], ρ(x)=a(x).toReal, and r=RNLogRatio.logRatio μ π=MeasureTheory.llr μ π=Real.log ρ. All names refer to the same selected functions for the original pair (μ,π)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Verify equal finite masses",
+          "text": "Probability normalization supplies the equal-mass hypothesis of the imported finite-measure theorem.",
+          "formula": "\\mu(\\alpha)=1=\\pi(\\alpha).",
+          "lean": "IsProbabilityMeasure instances; by simp"
+        },
+        {
+          "number": 2,
+          "title": "Apply the equal-mass KL formula",
+          "text": "Mathlib's theorem gives exactly this toReal equality without an integrability premise. Its proof separates the integrable and nonintegrable cases.",
+          "formula": "\\operatorname{toReal}(\\mathrm{KL}(\\mu\\Vert\\pi))=\\int\\operatorname{llr}(\\mu,\\pi)\\,d\\mu.",
+          "lean": "InformationTheory.toReal_klDiv_of_measure_eq"
+        },
+        {
+          "number": 3,
+          "title": "Understand the nonintegrable branch and rename the function",
+          "text": "In the integrable branch the mass correction cancels. Otherwise KL is infinity, its real conversion is zero, and the nonintegrable Bochner integral is zero. Finally llr is the ASTIS logRatio.",
+          "formula": "r\\notin L^1(\\mu)\\Longrightarrow\\mathrm{KL}=\\infty,\\quad\\operatorname{toReal}(\\infty)=0=\\int r\\,d\\mu.",
+          "lean": "Imported helper: klDiv_of_not_integrable; integral_undef; ENNReal.toReal_top. ASTIS: simp [RNLogRatio.logRatio]"
+        }
+      ],
+      "lean_statement": "The left side explicitly converts an extended nonnegative KL value to a real number. This conversion loses the distinction between infinity and zero, so the conclusion is not a proof that KL is finite.",
+      "lean_proof": "The proof establishes equal total masses from normalization, invokes the existing equal-mass KL theorem, and unfolds the selected log-ratio name. The imported theorem's nonintegrable branch explains why no finite-entropy hypothesis was needed.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [
+        "InformationTheory.toReal_klDiv_of_measure_eq"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 104
+        },
+        {
+          "label": "Equal-mass real KL identity and its two branches",
+          "scope": "Finite measures, absolute continuity and equal mass; no Integrable premise. Nonintegrable branch explicitly uses integral_undef and toReal_top.",
+          "path": ".lake/packages/mathlib/Mathlib/InformationTheory/KullbackLeibler/Basic.lean",
+          "line": 164
+        },
+        {
+          "label": "KL definition",
+          "scope": "KL is infinity when the log-ratio is not integrable or absolute continuity fails.",
+          "path": ".lake/packages/mathlib/Mathlib/InformationTheory/KullbackLeibler/Basic.lean",
+          "line": 57
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RNLogRatio.lean",
+          "line": 13
+        }
+      ],
+      "boundary": [
+        "The ASTIS comment's phrase 'finite KL' is interpretive motivation, not an extra premise in the actual declaration. The formula must retain toReal.",
+        "The real Bochner integral is totalized: a nonintegrable integrand has integral 0. No finite-energy or extended-valued Fisher interpretation is supplied unless the relevant analytic domain is established separately.",
+        "No finiteness, differentiability of KL along a path, or entropy-dissipation identity is produced."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RNLogRatio.lean",
+          "line": 13,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.State",
+      "kind": "abbrev",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+      "source_line": 38,
+      "source_end_line": 38,
+      "short_name": "State",
+      "title": "The shared finite-dimensional Euclidean state space",
+      "classification": "type abbreviation",
+      "statement": "State is the local name for Mathlib's real Euclidean space indexed by ι. The abbreviation itself can be formed for any index type; subsequent energy and gradient declarations in this module assume ι finite.",
+      "formula": "E:=\\operatorname{EuclideanSpace}(\\mathbb R,\\iota).",
+      "assumptions": [
+        "ι is an index type. No Fintype proof is used by the abbreviation itself; finite-dimensional analysis later uses the surrounding Fintype ι instance.",
+        "No measure, function, or positive-dimension assumption."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Reuse the existing coordinate space",
+          "text": "The local name unfolds directly to Mathlib's Euclidean type; no geometric structure is constructed anew.",
+          "formula": "\\mathrm{State}\\equiv\\operatorname{EuclideanSpace}(\\mathbb R,\\iota).",
+          "lean": "EuclideanSpace"
+        }
+      ],
+      "lean_statement": "This is a shorter type name, not a theorem about a state space or a probability distribution.",
+      "lean_proof": "There is no proof. The abbreviation expands to the existing Mathlib coordinate type.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "EuclideanSpace"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 38
+        },
+        {
+          "label": "Underlying EuclideanSpace abbreviation",
+          "scope": "Reused type; no independent geometry or transport is introduced.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+          "line": 113
+        }
+      ],
+      "boundary": [
+        "No probability, positivity-of-dimension, or infinite-dimensional Fisher theorem is asserted."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RelativeFisher.lean",
+          "line": null,
+          "scope": "No dedicated #check for the State abbreviation; the other six declarations are checked."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy",
+      "kind": "def",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+      "source_line": 42,
+      "source_end_line": 44,
+      "short_name": "densityEnergy",
+      "title": "Weighted squared-gradient energy at a point",
+      "classification": "unconditional pointwise energy definition",
+      "statement": "For finite-dimensional real Euclidean space E, arbitrary functions q,r:E→ℝ, and x∈E, define densityEnergy(q,r,x) to be q(x) times the squared norm of the totalized classical gradient of r at x. The formal inputs need not be a density and a log-ratio despite their suggestive names.",
+      "formula": "e_{q,r}(x):=q(x)\\|\\nabla r(x)\\|^2.",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E=EuclideanSpace ℝ ι has its standard real inner product, topology and Borel measurable structure. Empty ι is allowed.",
+        "q and r are arbitrary functions E→ℝ. Their argument names do not assert that q is a density or r is a log-density; neither measurability nor differentiability is assumed.",
+        "x is any point of E; no nonnegativity, normalization, measure, or integrability premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Measure the gradient's squared length",
+          "text": "The globally defined gradient expression supplies a vector, and its squared norm supplies a nonnegative real factor.",
+          "formula": "v(x):=\\nabla r(x),\\qquad\\|v(x)\\|^2\\ge0.",
+          "lean": "gradient"
+        },
+        {
+          "number": 2,
+          "title": "Multiply by the supplied weight",
+          "text": "Use q(x) exactly as provided. The resulting energy need not be nonnegative if q(x) is negative.",
+          "formula": "e_{q,r}(x)=q(x)\\|v(x)\\|^2.",
+          "lean": "RelativeFisher.densityEnergy"
+        }
+      ],
+      "lean_statement": "The construction returns one real value from two functions and one point. It contains no assertion that q is an RN density or that r is differentiable.",
+      "lean_proof": "This definition multiplies the supplied weight by a squared gradient norm. Analytic regularity and density interpretation must be justified by a later interface.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "gradient"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 42
+        },
+        {
+          "label": "Totalized classical gradient",
+          "scope": "gradient is defined via the Fréchet derivative; its zero default at nondifferentiable points is recorded at line118.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Gradient/Basic.lean",
+          "line": 82
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RelativeFisher.lean",
+          "line": 3
+        }
+      ],
+      "boundary": [
+        "gradient is the totalized classical gradient, equal to zero at nondifferentiable points. No classical differentiability, weak derivative, Sobolev domain, or selected-representative/score equivalence follows merely from writing it.",
+        "No RN/log-ratio relation, positive density, source Fisher normalization, or square-root-energy identity is supplied."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RelativeFisher.lean",
+          "line": 3,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.information",
+      "kind": "def",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+      "source_line": 52,
+      "source_end_line": 55,
+      "short_name": "information",
+      "title": "Integrate the supplied weighted score energy",
+      "classification": "unconditional totalized real integral definition",
+      "statement": "On finite-dimensional real Euclidean space E, let β be any measure and q,r:E→ℝ arbitrary functions. Define the shared RelativeFisher information to be the real Bochner integral of q‖∇r‖² under β. This layer has no domain guard, so existence of the real-valued expression does not imply genuine finite Fisher energy.",
+      "formula": "\\mathcal I_\\beta(q,r):=\\int_E e_{q,r}(x)\\,d\\beta(x)=\\int_Eq(x)\\|\\nabla r(x)\\|^2\\,d\\beta(x).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E=EuclideanSpace ℝ ι has its standard real inner product, topology and Borel measurable structure. Empty ι is allowed.",
+        "q and r are arbitrary functions E→ℝ. Their argument names do not assert that q is a density or r is a log-density; neither measurability nor differentiability is assumed.",
+        "β is any measure on E; it need not be probability, finite, σ-finite, or Lebesgue measure.",
+        "No Integrable e β, nonnegative q, normalized q, or differentiability premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Form the supplied energy integrand",
+          "text": "Use the existing densityEnergy expression without changing the supplied q or r.",
+          "formula": "e_{q,r}(x)=q(x)\\|\\nabla r(x)\\|^2.",
+          "lean": "RelativeFisher.densityEnergy"
+        },
+        {
+          "number": 2,
+          "title": "Take its totalized real integral",
+          "text": "Integrate against the explicit base β. The integrable case has the usual finite integral; if integrability fails, Mathlib assigns zero.",
+          "formula": "\\mathcal I_\\beta(q,r)=\\int_E e_{q,r}\\,d\\beta,\\qquad e_{q,r}\\notin L^1(\\beta)\\Longrightarrow\\mathcal I_\\beta(q,r)=0.",
+          "lean": "MeasureTheory.integral; integral_undef"
+        }
+      ],
+      "lean_statement": "The base measure is an explicit parameter, not fixed to Lebesgue measure or to a probability law. Unlike CanonicalRelativeFisher.information, this definition takes no admissibility certificate.",
+      "lean_proof": "The body simply integrates the already-defined pointwise energy. It does not prove integrability, density reconstruction, or any equality with a measure-level Fisher quantity.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 52
+        },
+        {
+          "label": "Nonintegrable Bochner-integral convention",
+          "scope": "integral_undef explains the totalization; it is not an explicit call in this definition.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+          "line": 202
+        },
+        {
+          "label": "Later guarded specialization, not a dependency here",
+          "scope": "The later module supplies a smooth finite score-domain witness and selects base μ, unit weight and the canonical log-ratio.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 66
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RelativeFisher.lean",
+          "line": 4
+        }
+      ],
+      "boundary": [
+        "gradient is the totalized classical gradient, equal to zero at nondifferentiable points. No classical differentiability, weak derivative, Sobolev domain, or selected-representative/score equivalence follows merely from writing it.",
+        "The real Bochner integral is totalized: a nonintegrable integrand has integral 0. No finite-energy or extended-valued Fisher interpretation is supplied unless the relevant analytic domain is established separately.",
+        "No general nonnegativity is claimed for arbitrary signed q. No normalization, KL relation, RN measure-change identity, or Sobolev/square-root Fisher equivalence is built into this definition."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RelativeFisher.lean",
+          "line": 4,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy_nonneg",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+      "source_line": 59,
+      "source_end_line": 63,
+      "short_name": "densityEnergy_nonneg",
+      "title": "A nonnegative weight gives nonnegative pointwise energy",
+      "classification": "elementary positivity consequence",
+      "statement": "For arbitrary functions q,r:E→ℝ on finite-dimensional Euclidean space and a point x, if q(x)≥0 then the pointwise densityEnergy(q,r,x) is nonnegative.",
+      "formula": "q(x)\\ge0\\quad\\Longrightarrow\\quad e_{q,r}(x)=q(x)\\|\\nabla r(x)\\|^2\\ge0.",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E=EuclideanSpace ℝ ι has its standard real inner product, topology and Borel measurable structure. Empty ι is allowed.",
+        "q and r are arbitrary functions E→ℝ. Their argument names do not assert that q is a density or r is a log-density; neither measurability nor differentiability is assumed.",
+        "x∈E and hq proves only the pointwise inequality q(x)≥0. No global nonnegativity or measure hypothesis."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the squared-norm sign",
+          "text": "The squared norm is a real square and is always nonnegative, including when the gradient is its default zero.",
+          "formula": "0\\le\\|\\nabla r(x)\\|^2.",
+          "lean": "sq_nonneg"
+        },
+        {
+          "number": 2,
+          "title": "Multiply nonnegative factors",
+          "text": "Combine the supplied weight inequality with the squared-norm inequality.",
+          "formula": "0\\le q(x),\\quad0\\le\\|\\nabla r(x)\\|^2\\Longrightarrow0\\le e_{q,r}(x).",
+          "lean": "mul_nonneg hq"
+        }
+      ],
+      "lean_statement": "The sole mathematical premise is a sign condition at this point. The conclusion is a pointwise real inequality, not an integral bound.",
+      "lean_proof": "The proof applies the nonnegative-product rule to the supplied weight and a nonnegative square. No differentiability calculation is involved.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy"
+      ],
+      "mathlib_dependencies": [
+        "mul_nonneg",
+        "sq_nonneg"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 59
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RelativeFisher.lean",
+          "line": 5
+        }
+      ],
+      "boundary": [
+        "gradient is the totalized classical gradient, equal to zero at nondifferentiable points. No classical differentiability, weak derivative, Sobolev domain, or selected-representative/score equivalence follows merely from writing it.",
+        "No global sign condition on q, density normalization, or integrated Fisher inequality is proved here."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RelativeFisher.lean",
+          "line": 5,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy_eq_zero_of_gradient_eq_zero",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+      "source_line": 66,
+      "source_end_line": 70,
+      "short_name": "densityEnergy_eq_zero_of_gradient_eq_zero",
+      "title": "A zero supplied gradient gives zero pointwise energy",
+      "classification": "elementary vanishing consequence",
+      "statement": "For arbitrary functions q,r:E→ℝ on finite-dimensional Euclidean space, if the totalized gradient of r at x is zero, then densityEnergy(q,r,x)=0. No restriction on the sign or magnitude of q(x) is needed.",
+      "formula": "\\nabla r(x)=0\\quad\\Longrightarrow\\quad e_{q,r}(x)=q(x)\\|0\\|^2=0.",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E=EuclideanSpace ℝ ι has its standard real inner product, topology and Borel measurable structure. Empty ι is allowed.",
+        "q and r are arbitrary functions E→ℝ. Their argument names do not assert that q is a density or r is a log-density; neither measurability nor differentiability is assumed.",
+        "x∈E and hgrad asserts gradient r x=0 as an equality of vectors. No differentiability premise is included."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Substitute the zero gradient",
+          "text": "Its norm and squared norm are zero, so multiplication by any real q(x) leaves zero.",
+          "formula": "e_{q,r}(x)=q(x)\\|0\\|^2=q(x)\\cdot0=0.",
+          "lean": "simp [RelativeFisher.densityEnergy, hgrad]"
+        }
+      ],
+      "lean_statement": "The gradient equality is supplied, not inferred from equality or constancy of function values at a point. The weight is arbitrary.",
+      "lean_proof": "Unfold the energy, replace the gradient by zero, and simplify the norm, square and product.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy"
+      ],
+      "mathlib_dependencies": [
+        "norm_zero",
+        "zero_pow",
+        "mul_zero"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 66
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RelativeFisher.lean",
+          "line": 6
+        }
+      ],
+      "boundary": [
+        "gradient is the totalized classical gradient, equal to zero at nondifferentiable points. No classical differentiability, weak derivative, Sobolev domain, or selected-representative/score equivalence follows merely from writing it.",
+        "A zero totalized gradient may reflect nondifferentiability; this implication does not establish genuine differentiability or characterize when the energy vanishes."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RelativeFisher.lean",
+          "line": 6,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.information_eq_zero_of_gradient_ae_eq_zero",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+      "source_line": 75,
+      "source_end_line": 83,
+      "short_name": "information_eq_zero_of_gradient_ae_eq_zero",
+      "title": "Almost-everywhere zero gradient gives zero shared information",
+      "classification": "a.e.-integrand vanishing theorem",
+      "statement": "Let β be any measure on finite-dimensional Euclidean space E and q,r:E→ℝ arbitrary functions. If the totalized gradient of r is zero β-almost everywhere, then the shared information integral is zero. No positivity, normalization, or independent integrability premise is needed.",
+      "formula": "\\nabla r=0\\quad\\beta\\text{-a.e.}\\quad\\Longrightarrow\\quad\\mathcal I_\\beta(q,r)=\\int_Eq\\|\\nabla r\\|^2\\,d\\beta=0.",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E=EuclideanSpace ℝ ι has its standard real inner product, topology and Borel measurable structure. Empty ι is allowed.",
+        "q and r are arbitrary functions E→ℝ. Their argument names do not assert that q is a density or r is a log-density; neither measurability nor differentiability is assumed.",
+        "β is an arbitrary measure on E, without probability or finiteness assumptions.",
+        "hgrad is the β-a.e. equality gradient r x=0. No differentiability or integrability condition on q or r is present."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Expose the defining integral",
+          "text": "Unfold the shared information functional; the integrand remains the same weighted score energy.",
+          "formula": "\\mathcal I_\\beta(q,r)=\\int_Ee_{q,r}\\,d\\beta.",
+          "lean": "RelativeFisher.information"
+        },
+        {
+          "number": 2,
+          "title": "Obtain a zero integrand on the supplied full-measure set",
+          "text": "At every point where the supplied gradient vanishes, the preceding pointwise theorem gives zero energy regardless of the weight.",
+          "formula": "\\nabla r(x)=0\\Longrightarrow e_{q,r}(x)=0,\\qquad e_{q,r}=0\\quad\\beta\\text{-a.e.}.",
+          "lean": "filter_upwards; RelativeFisher.densityEnergy_eq_zero_of_gradient_eq_zero"
+        },
+        {
+          "number": 3,
+          "title": "Integrate the a.e. zero function",
+          "text": "The Bochner integral of a function equal to zero a.e. is zero; no separate integrability hypothesis is needed for this theorem.",
+          "formula": "e_{q,r}=0\\quad\\beta\\text{-a.e.}\\Longrightarrow\\int_E e_{q,r}\\,d\\beta=0.",
+          "lean": "MeasureTheory.integral_eq_zero_of_ae"
+        }
+      ],
+      "lean_statement": "The a.e. premise refers to gradients themselves under the explicit base measure. It is not merely an assertion that r equals a constant a.e.",
+      "lean_proof": "The proof first unfolds information, then transfers the supplied zero-gradient equality to a zero-energy equality a.e., and finally uses the zero-integral rule.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy_eq_zero_of_gradient_eq_zero"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral_eq_zero_of_ae"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 75
+        },
+        {
+          "label": "Bochner integral of an a.e. zero function",
+          "scope": "The exact final theorem has no separate integrability premise.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+          "line": 347
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RelativeFisher.lean",
+          "line": 7
+        }
+      ],
+      "boundary": [
+        "gradient is the totalized classical gradient, equal to zero at nondifferentiable points. No classical differentiability, weak derivative, Sobolev domain, or selected-representative/score equivalence follows merely from writing it.",
+        "An equality a.e. of function values does not by itself identify classical gradients. No pointwise choice on exceptional null sets or independence under arbitrary null-set changes is proved.",
+        "This is a sufficient condition, not a converse: zero totalized information does not in general imply a zero genuine score or equality of measures."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RelativeFisher.lean",
+          "line": 7,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.information_congr_gradient_ae",
+      "kind": "theorem",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+      "source_line": 89,
+      "source_end_line": 97,
+      "short_name": "information_congr_gradient_ae",
+      "title": "Equal gradients almost everywhere give equal weighted information",
+      "classification": "a.e. gradient congruence theorem",
+      "statement": "Let β be any measure on finite-dimensional Euclidean space and let q,r,s:E→ℝ be arbitrary functions. If the totalized gradients of r and s agree β-almost everywhere, their shared weighted information values with the same weight q and base β are equal. No equality of r and s themselves is required.",
+      "formula": "\\nabla r=\\nabla s\\quad\\beta\\text{-a.e.}\\quad\\Longrightarrow\\quad\\mathcal I_\\beta(q,r)=\\mathcal I_\\beta(q,s).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E=EuclideanSpace ℝ ι has its standard real inner product, topology and Borel measurable structure. Empty ι is allowed.",
+        "β is any measure on E, and q,r,s are arbitrary real-valued functions on E.",
+        "hgrad supplies gradient r x=gradient s x for β-almost every x; no function-value equality, differentiability, nonnegativity or integrability premise is included.",
+        "The base β and the weight q are identical on both sides."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Open both energy integrals",
+          "text": "Use the same base measure and weight, leaving only the squared-gradient factor to compare.",
+          "formula": "\\mathcal I_\\beta(q,r)=\\int_Eq\\|\\nabla r\\|^2\\,d\\beta,\\qquad\\mathcal I_\\beta(q,s)=\\int_Eq\\|\\nabla s\\|^2\\,d\\beta.",
+          "lean": "RelativeFisher.information; RelativeFisher.densityEnergy"
+        },
+        {
+          "number": 2,
+          "title": "Transfer gradient equality to energy equality",
+          "text": "At points in the supplied full-β-measure set, equal vectors have equal squared norms, and multiplication by the same q preserves equality.",
+          "formula": "\\nabla r(x)=\\nabla s(x)\\Longrightarrow q(x)\\|\\nabla r(x)\\|^2=q(x)\\|\\nabla s(x)\\|^2.",
+          "lean": "filter_upwards; simp [RelativeFisher.densityEnergy, hx]"
+        },
+        {
+          "number": 3,
+          "title": "Use a.e. integral congruence",
+          "text": "The two integrands are equal a.e., so their totalized Bochner integrals agree without needing separate integrability proofs.",
+          "formula": "e_{q,r}=e_{q,s}\\quad\\beta\\text{-a.e.}\\Longrightarrow\\int_Ee_{q,r}\\,d\\beta=\\int_Ee_{q,s}\\,d\\beta.",
+          "lean": "MeasureTheory.integral_congr_ae"
+        }
+      ],
+      "lean_statement": "The hypothesis compares gradients, not log-ratio values. No equality of function values is required. Conversely, an a.e. function-value identity alone is not the premise here: the gradient equality must be supplied separately.",
+      "lean_proof": "The proof rewrites both functional names as integrals, uses the gradient hypothesis to make their integrands equal a.e., and applies integral congruence. It does not prove the gradient equality.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral_congr_ae"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration and body",
+          "scope": "Local source authority; renderer extracts the exact code.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 89
+        },
+        {
+          "label": "Bochner a.e. integral congruence",
+          "scope": "Direct comparison theorem; valid for totalized integrals with no independent integrability assumptions.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+          "line": 299
+        },
+        {
+          "label": "Existing declaration-visibility check",
+          "scope": "Read-only #check evidence; no build/test run.",
+          "path": "Tests/RelativeFisher.lean",
+          "line": 8
+        }
+      ],
+      "boundary": [
+        "gradient is the totalized classical gradient, equal to zero at nondifferentiable points. No classical differentiability, weak derivative, Sobolev domain, or selected-representative/score equivalence follows merely from writing it.",
+        "The real Bochner integral is totalized: a nonintegrable integrand has integral 0. No finite-energy or extended-valued Fisher interpretation is supplied unless the relevant analytic domain is established separately.",
+        "This is not automatic independence of Fisher information under arbitrary a.e. changes to an RN/log-ratio representative. Actual a.e. gradient equality is the required adapter.",
+        "No change of base measure, weight, weak/classical derivative domain or source Fisher definition is covered."
+      ],
+      "tests": [
+        {
+          "file": "Tests/RelativeFisher.lean",
+          "line": 8,
+          "scope": "Existing #check declaration-visibility test only; no concrete regularity/domain example and no run during this task."
+        }
+      ],
+      "review": {
+        "status": "pass",
+        "reviewer": "main independent review",
+        "scope": "Compared all 18 teaching units with both complete Lean modules; retained RN fallback, toReal/log totalization, exact measure assumptions and actual a.e. gradient premises. No source-admission change."
+      }
+    }
+  ]
+}

@@ -35,13 +35,91 @@ scope, and an explicit remaining boundary. It is not a source-theorem closure
 record or an addition to the reviewed-teaching count.
 
 `proof_readers.py` resolves declaration links from the existing generated
-inventory; it includes full checkout Lean modules and tests in closed native
-disclosures. It reads compilation, Registry membership, Frontier Cell status
+inventory. Each mathematical statement is immediately followed by its own
+closed Lean-statement disclosure; each mathematical proof by its own closed
+Lean-proof disclosure, including named private helpers where needed. It reads
+compilation, Registry membership, Frontier Cell status
 and independent semantic verdict separately. Do not author those statuses in
 the exposition. List ASTIS and Mathlib dependencies separately, with a role for
 each call. Add a reader to an actual chapter/library consumer using
 `entry_pages`. Build and validation commands below include this layer. The
 rendered entry is `_site/proofs/index.html`.
+
+### Declaration-by-declaration textbook expansion
+
+The full-library teaching expansion is in progress, not complete. The generated
+`_site/lessons/index.html` lists **every production declaration**, including
+definitions and provenance records. `_site/data/declaration-exposition.json`
+is generated from the source inventory, not a second theorem-status registry.
+An older teaching note is not automatically classified as a complete proof.
+
+Author a unit in `website/content/declaration_lessons/*.json`, under `units`.
+Required fields are `declaration`, `kind`, `title`, `statement`, `formula`,
+`assumptions`, `steps`, `lean_statement`, `lean_proof`, and `boundary`.
+Each step needs `title`, natural-language `text`, a display-TeX `formula`, and
+a declaration-specific beginner `lean` explanation. The `lean_statement` and
+`lean_proof` fields are **explanations**, not duplicated code: exact signatures
+and complete proof source are extracted from the current Lean declaration.
+Include notation, ASTIS parents, Mathlib calls, exact sources, tests and their
+actual scope. Definitions require their construction and meaning, not invented
+proofs of the propositions their metadata describes.
+
+Source entries use either an HTTPS `url` or a repository-relative `path` with
+an optional one-based `line`. Mathlib paths resolve using `lake-manifest.json`;
+local source contexts are included in the generated site with line anchors.
+No absolute machine paths, mutable Mathlib branch links, or invented source
+equivalence verdicts are allowed. Preserve the complete mathematical content
+of source statements in clearly attributed restatements; distinguish source
+assumptions, rigorous supplements, and the actual formal contract. This is not
+permission to reproduce copyrighted prose at length.
+
+`inline_lean.py` also gives mapped Chewi source cards adjacent statement/proof
+disclosures and makes their existing rigorous mathematical expansion visible.
+This presentation pass does **not** invent missing derivations or certify
+source fidelity. `declaration_lessons.py` renders authored units and links them
+from exact module declarations. The common mathematical unit never changes
+Registry, mathematical DAG, Frontier Cell, or semantic-audit state.
+
+Generated structure accessors use `astis_projection_dependencies` entries with
+`structure`, `field`, and `role`. The field must exist in the actual linked
+structure; reading an assumed integrability field is not a new integrability
+proof. Lean names are case-sensitive, so lesson URLs include a stable digest
+to prevent an interface type and its similarly named constructor overwriting
+one another. Shared module readers use the same authored units in source order.
+
+### Data records are not mathematical proofs
+
+`metadata_reader.py` handles only an independently audited allowlist of 1,062
+nullary SALD data definitions, using 62 local data schemas and the Core schemas.
+`metadata_lessons.py` publishes their field values, schema defaults, symbolic
+data references and adjacent exact Lean construction. The generated ledger
+keeps `data-explained` / `data-unresolved` separate from authored mathematics.
+The 1,046 currently supported constructions do not add mathematical proofs.
+The 16 unsupported records remain explicit: unknown computations are not
+guessed, and source containing absolute machine paths is withheld, not silently
+redacted and called exact.
+
+The allowlist is `website/content/metadata_reader/audit.json`, bound by its
+manifest to the source snapshot and each complete declaration body. Digests
+normalize **only CRLF to LF**, so Windows and Linux checkouts agree; all other
+source drift requires review, never a blind hash refresh. Strings named
+`statement`, `status`, or `dependsOn` remain data. They cannot upgrade the
+Registry, source fidelity or the Lean dependency graph. Unsupported proof-bearing
+structures and mathematical functions are never admitted by this parser.
+
+```bash
+python3 -m unittest tools.tests.test_proof_readers
+python3 -m unittest tools.tests.test_metadata_reader
+python3 website/scripts/build_site.py
+python3 website/scripts/check_site.py
+# Strong acceptance check: intentionally fails while any teaching unit is missing.
+python3 website/scripts/check_site.py --require-full-exposition
+```
+
+The website runtime is Python 3.12 or later (CI uses 3.12; the current Windows
+runtime uses 3.14). On Windows use the installed Python 3.14 executable if `python3` is
+a Windows Store alias. Retain the repository's pinned Lean toolchain; a website
+change does not authorize a toolchain upgrade or mathematical packet change.
 
 Publication is distinct from Git push: pushing a collaboration branch saves
 the source remotely. The existing Pages workflow deploys from `main` (or an
@@ -141,10 +219,22 @@ missing public/system identity markers.
 
 ## CI and Pages
 
+Sites reuses the existing project in `.openai/hosting.json`, without changing
+its audience. After a checked build, `python3 website/scripts/build_sites_bundle.py`
+stages static output in ignored `build/` for the Sites packaging helper; it
+also preserves the legacy `.open-next/` adapter. The `--archive` option is the
+legacy worker format, not the current Sites upload format. Use the Sites
+plugin's `package-site.sh PROJECT_DIR ARCHIVE_PATH` for a current upload.
+The build refuses to replace a pre-existing `build/` not marked as generated.
+Only a successful source push and exact source-bound build may be published.
+
 `.github/workflows/blueprint-site.yml` runs Python and JavaScript contract
-checks, harness tests, the Lean gate, site generation, site validation, and
-Pages artifact creation. Pages receives only `_site/`; the loopback compiler
-server is never deployed.
+checks, harness tests, source-derived site generation, site validation, browser
+checks and Pages artifact creation. This website-first job can build without
+installing Lean or Mathlib; external source links remain lockfile-pinned.
+The separate canonical Lean gate is required for a current compiled claim:
+a source-only website build does not manufacture gate evidence. Pages receives
+only `_site/`; the loopback compiler server is never deployed.
 
 Website prose is original Samplinglib/ASTIS exposition. Chewi's public draft
 is summarized with source correspondence rather than copied at length.

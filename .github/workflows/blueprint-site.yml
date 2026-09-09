@@ -29,6 +29,7 @@ on:
       - "tools/tests/test_mcmc_library.py"
       - "tools/tests/test_project_authors_footer.py"
       - "tools/tests/test_proof_readers.py"
+      - "tools/tests/test_metadata_reader.py"
       - "tools/tests/test_harness_site.py"
       - "README.md"
       - "docs/**"
@@ -65,6 +66,7 @@ on:
       - "tools/tests/test_mcmc_library.py"
       - "tools/tests/test_project_authors_footer.py"
       - "tools/tests/test_proof_readers.py"
+      - "tools/tests/test_metadata_reader.py"
       - "tools/tests/test_harness_site.py"
       - "README.md"
       - "docs/**"
@@ -111,6 +113,7 @@ jobs:
           python3 -m unittest \
             tools.tests.test_astis_site \
             tools.tests.test_proof_readers \
+            tools.tests.test_metadata_reader \
             tools.tests.test_astis_source \
             tools.tests.test_astis_advance \
             tools.tests.test_astis_semantic_roundtrip \

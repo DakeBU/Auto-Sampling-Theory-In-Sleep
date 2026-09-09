@@ -1,6 +1,46 @@
 [
   {
     "id": "fisher-transport",
+    "theorems": [
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.integrable_pairing_of_isCoupling",
+        "title": "Theorem 1. Integrability of the score–displacement pairing",
+        "statement": "Let \\(\\gamma\\) be a coupling of \\(\\mu,\\nu\\) on a finite-dimensional Euclidean space. Assume the two marginal squared norms are integrable. For \\(\\mu,\\pi\\) in the smooth finite score domain, put \\(\\ell=\\log(d\\mu/d\\pi)\\) using the selected RN representative and \\(s=\\nabla\\ell\\). Then the following scalar function is integrable under the coupling. Optimality is not required.",
+        "formula": "(x,y)\\longmapsto\\langle s(x),y-x\\rangle\\ \\in L^1(\\gamma).",
+        "assumptions": [
+          "\\(\\mu\\ll\\pi\\); the selected \\(\\ell\\) is differentiable \\(\\mu\\)-almost everywhere; \\(\\|s\\|^2\\in L^1(\\mu)\\).",
+          "\\((\\mathrm{pr}_1)_\\#\\gamma=\\mu,\\ (\\mathrm{pr}_2)_\\#\\gamma=\\nu\\), and \\(\\|x\\|^2\\) is integrable under both marginals. Probability and sigma-finiteness are not assumed."
+        ],
+        "steps": [
+          0,
+          1,
+          2
+        ],
+        "proof_intro": "We obtain two L² functions on the coupling space and dominate their inner product by the integrable product of their norms.",
+        "lean_statement": "hgamma contains the two marginal identities. hscore is a structure packaging absolute continuity, genuine almost-everywhere differentiability and finite squared-score energy. hmu and hnu are second-moment hypotheses. Integrable is the conclusion to prove; it is not supplied as a premise.",
+        "lean_proof": "obtain unpacks the two L² facts from the private helper. MemLp.integrable_mul proves integrability of the product of the norms. Integrable.mono' transfers integrability to the measurable inner product using its pointwise norm bound.",
+        "helpers": [
+          "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.memLp_score_and_displacement"
+        ]
+      },
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.abs_integral_pairing_le_sqrt_information_mul_wasserstein",
+        "title": "Theorem 2. The optimal-coupling Fisher estimate",
+        "statement": "Under Theorem 1’s hypotheses, assume in addition that \\(\\gamma\\) is quadratic-optimal. With \\(I(\\mu\\mid\\pi)=\\int\\|s\\|^2\\,d\\mu\\), the pairing is bounded by the square root of the score energy times the Wasserstein distance.",
+        "formula": "\\left|\\int \\langle s(x),y-x\\rangle\\,d\\gamma(x,y)\\right|\\leq \\sqrt{I(\\mu\\mid\\pi)}\\,W_2(\\mu,\\nu),\\qquad I(\\mu\\mid\\pi)=\\int\\|s(x)\\|^2\\,d\\mu(x).",
+        "assumptions": [
+          "All hypotheses of Theorem 1 remain in force. Quadratic optimality identifies \\(\\int\\|y-x\\|^2\\,d\\gamma\\) with the actual optimal cost.",
+          "The distance in Lean is extended nonnegative. Finite moments imply finite cost before its real representation is used."
+        ],
+        "steps": [
+          3,
+          4
+        ],
+        "proof_intro": "The preceding proof provides pairing integrability, displacement L² integrability and the first-marginal score identity. Apply Hölder and identify the optimal cost.",
+        "lean_statement": "IsQuadraticOptimalCoupling includes the coupling equations plus optimality. Real.sqrt applies to the guarded finite Fisher information. The suffix toReal translates a finite extended distance to a real value; it is not permission to interpret an infinite distance as zero.",
+        "lean_proof": "The calc block is the displayed inequality chain. hscoreEq pulls back through the first marginal; hdispEq identifies the cost. The final rw substitutes these equalities and Real.sqrt_sq removes the square using nonnegativity."
+      }
+    ],
     "title": "Pairing a relative score with transport displacement",
     "purpose": "The analytic estimate behind the Cauchy–Schwarz step in Chewi’s proximal-sampling argument; first variation remains a separate theorem.",
     "statement": "Let \\(\\gamma\\) couple measures \\(\\mu\\) and \\(\\nu\\) on a finite-dimensional Euclidean space, both with integrable squared norm. Let \\(s=\\nabla\\ell\\), where \\(\\ell\\) is ASTIS’s selected RN log-ratio for \\(\\mu,\\pi\\), and assume its smooth finite score domain. The score–displacement pairing is integrable. If the coupling is quadratic-optimal, the following estimate holds.",
@@ -93,6 +133,27 @@
   },
   {
     "id": "random-scan-law",
+    "theorems": [
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_apply_singleton",
+        "title": "Theorem. One-update transition probability",
+        "statement": "Let \\(\\mu\\) be a probability measure on \\(\\{0,1\\}^{n+1}\\), and assume \\(\\mu(\\{x\\})>0\\). One step selects a site uniformly and applies the existing coordinate heat-bath kernel. With \\(F_i(x)=\\{z:z_j=x_j\\text{ for }j\\ne i\\}\\), its singleton transition law is:",
+        "formula": "P(x,\\{y\\})=\\frac1{n+1}\\sum_{i=0}^{n}\\mathbf1_{\\{y_{-i}=x_{-i}\\}}\\frac{\\mu(\\{y\\})}{\\mu(F_i(x))}.",
+        "assumptions": [
+          "The finite site set is nonempty: there are \\(n+1\\) Boolean coordinates. \\(\\mu\\) is a probability measure. Only the initial atom \\(x\\) must have positive mass; the destination \\(y\\) is arbitrary.",
+          "One step is a uniform random mixture, not a deterministic sweep. The underlying Markov kernel uses selected conditional versions, including at null fibers."
+        ],
+        "steps": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "proof_intro": "Evaluate the existing mixture, prove every conditioning fiber encountered from the supported start has positive mass, and evaluate its normalized restriction.",
+        "lean_statement": "Fin (n + 1) → Bool is the finite configuration space. [IsProbabilityMeasure μ] is an inferred premise asserting total mass one. hx states nonzero starting mass; since measures are nonnegative, this is positivity. The sum and if-expression are exactly the displayed transition formula.",
+        "lean_proof": "The first rw expands the mixture, not the conditional law. hpos derives fiber positivity; hret proves that the indexing implementation matches ordinary coordinate retention. Only then does heatBath_eq_cond rewrite each component. split_ifs performs the two intersection cases."
+      }
+    ],
     "title": "The exact law of one random-coordinate update",
     "purpose": "Turn the instruction “resample a uniformly selected coordinate conditionally” into an explicit transition probability.",
     "statement": "Let \\(\\mu\\) be a probability measure on \\(\\{0,1\\}^{n+1}\\), and assume \\(\\mu(\\{x\\})>0\\). One step selects a site uniformly and applies the existing coordinate heat-bath kernel. With \\(F_i(x)=\\{z:z_j=x_j\\text{ for }j\\ne i\\}\\), its singleton transition law is:",
@@ -171,6 +232,45 @@
   },
   {
     "id": "random-scan-reversibility",
+    "theorems": [
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelReversibility.isReversible_of_singleton_balance",
+        "title": "Theorem 1. Atomic balance implies reversibility",
+        "statement": "Let \\(E\\) be a countable measurable space with measurable singletons, \\(\\kappa\\) a kernel on \\(E\\), and \\(\\mu\\) a measure. Suppose every pair of atoms has equal forward and backward flux. Then the same symmetry holds between any two measurable sets.",
+        "formula": "\\left[\\forall x,y,\\ \\mu(\\{x\\})\\kappa(x,\\{y\\})=\\mu(\\{y\\})\\kappa(y,\\{x\\})\\right]\\Longrightarrow\\left[\\forall A,B,\\ \\int_A\\kappa(x,B)\\,d\\mu(x)=\\int_B\\kappa(y,A)\\,d\\mu(y)\\right].",
+        "assumptions": [
+          "Sets \\(A,B\\) in the conclusion are measurable. Countability and measurable singletons allow atomic expansion.",
+          "No Markov, probability, finite-total-mass or integrability hypothesis is needed: integrals and sums here are nonnegative extended-valued ones."
+        ],
+        "steps": [
+          3
+        ],
+        "proof_intro": "Write \\(P=\\kappa\\) in the calculation below. Atomic balance is a hypothesis in this generic theorem; the next theorem proves it for the actual heat-bath kernel.",
+        "lean_statement": "α is an arbitrary state space. [Countable α] and [MeasurableSingletonClass α] express the two measurable-space hypotheses. The parameter h is the atomic balance equation. Kernel.IsReversible is Mathlib’s set-integral equality, not a new ASTIS definition.",
+        "lean_proof": "intro introduces arbitrary measurable sets. hm expresses a measure of a set as a countable sum of atom masses. lintegral_countable expands both integrals; tsum_mul_right distributes weights; tsum_comm swaps the nonnegative sums. The remaining equality is precisely the supplied balance hypothesis."
+      },
+      {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_isReversible",
+        "title": "Theorem 2. The actual random-scan kernel is reversible",
+        "statement": "For any probability target \\(\\mu\\) on \\(\\{0,1\\}^{n+1}\\), the actual uniform random-scan heat-bath kernel \\(P\\) is reversible. No full-support hypothesis is needed. For every pair of measurable sets \\(A,B\\):",
+        "formula": "\\int_A P(x,B)\\,d\\mu(x)=\\int_B P(y,A)\\,d\\mu(y).",
+        "assumptions": [
+          "The target is a probability measure on a finite Boolean cube with a nonempty site set. The kernel is the existing uniform randomScan. Zero-mass atoms are allowed.",
+          "This concerns weighted flux, not a claim about conditional normalization at unsupported inputs."
+        ],
+        "steps": [
+          0,
+          1,
+          2
+        ],
+        "proof_intro": "Prove atomic balance in the following cases, then apply Theorem 1. The finite Boolean space is countable and has measurable singletons, so all hypotheses of that bridge are available.",
+        "lean_statement": "The single probability-measure premise is sufficient: no positivity premise is attached to the starting configuration. The conclusion applies to the existing randomScan μ rather than an abstract kernel assumed to be reversible.",
+        "lean_proof": "The public theorem applies KernelReversibility.isReversible_of_singleton_balance to the actual kernel and its privately proved singleton_balance. The private proof below contains the positive-atom and zero-atom case split; it does not assume the desired reversibility.",
+        "helpers": [
+          "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.singleton_balance"
+        ]
+      }
+    ],
     "title": "Why random-scan heat bath is reversible",
     "purpose": "Follow the proof from symmetric atomic flux to Mathlib’s full set-integral definition; zero target atoms are handled explicitly.",
     "statement": "For any probability target \\(\\mu\\) on \\(\\{0,1\\}^{n+1}\\), the actual uniform random-scan heat-bath kernel \\(P\\) is reversible. No full-support hypothesis is needed. For every pair of measurable sets \\(A,B\\):",

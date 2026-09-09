@@ -1,0 +1,1430 @@
+{
+  "schema_version": 1,
+  "exposition_review": {
+    "scope": "Independent review of ten units; two prose corrections applied: finite mass versus probability, and exact s-finiteness consumer.",
+    "result": "corrections-applied",
+    "reviewer": "kernel_exposition_research"
+  },
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalResampling.fst_compProd_condDistrib_snd_eq_self",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalResampling",
+      "kind": "theorem",
+      "title": "Recover the joint measure from its first marginal and a conditional law",
+      "result_classification": "Explicit reuse adapter: product-state specialization of Mathlib disintegration, not a new proof of existence or uniqueness of conditional distributions.",
+      "statement": "Let α be an arbitrary measurable space and β a nonempty Standard Borel measurable space. For every finite measure μ on α × β, combine its first marginal with the selected regular conditional distribution of its second coordinate given its first. The resulting joint measure is exactly μ. This is equality of measures, including when μ is zero, not a claim that every conditional fiber has a canonical pointwise law.",
+      "formula": "(\\operatorname{fst}_\\#\\mu)\\otimes_m\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\mu)=\\mu.",
+      "assumptions": [
+        "{α β : Type*} — Two possibly universe-polymorphic coordinate types α and β.",
+        "[MeasurableSpace α] [MeasurableSpace β] — Both carry measurable-space structures; α × β has the product sigma-algebra.",
+        "[StandardBorelSpace β] — The resampled space β is Standard Borel, supplying the regular-conditional-distribution existence contract.",
+        "[Nonempty β] — β is nonempty, so the selected conditional kernel can be totalized as a probability law even on marginal-null fibers.",
+        "{μ : Measure (α × β)} [IsFiniteMeasure μ] — μ is any finite joint measure. It need not be normalized and may be zero. α need not be Standard Borel or nonempty."
+      ],
+      "proof_kind": "reuse proof",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the general disintegration identity",
+          "text": "Mathlib supplies the following result on an arbitrary finite-measure sample space: if V is almost-everywhere measurable with values in a nonempty Standard Borel space, the joint law of (U,V) is the composition-product of the law of U with the selected conditional law of V given U. This imported theorem is the substantive disintegration input; ASTIS does not reprove it here.",
+          "formula": "(U_\\#\\rho)\\otimes_m\\operatorname{condDistrib}(V\\mid U;\\rho)=(\\omega\\mapsto(U(\\omega),V(\\omega)))_\\#\\rho.",
+          "lean": "ProbabilityTheory.compProd_map_condDistrib; the theorem's explicit argument is hY : AEMeasurable Y μ."
+        },
+        {
+          "number": 2,
+          "title": "Choose the product projections",
+          "text": "Take the sample space to be α × β, ρ = μ, U(a,b)=a and V(a,b)=b. The second projection is measurable for the product sigma-algebra and is therefore μ-almost-everywhere measurable. The measurable-space instance passed as mβ in the generalized theorem is the structure of the retained α, despite the generalized theorem's different type-variable names.",
+          "formula": "U=\\operatorname{fst},\\qquad V=\\operatorname{snd},\\qquad V\\text{ is measurable}.",
+          "lean": "have h := ... (μ := μ) (X := Prod.fst) (Y := Prod.snd) (mβ := inferInstance) measurable_snd.aemeasurable."
+        },
+        {
+          "number": 3,
+          "title": "Simplify the joint reconstruction map",
+          "text": "Pairing the projections returns the original pair, so its pushforward leaves μ unchanged. The general disintegration equality therefore becomes precisely the desired measure identity. No conditioning denominator or positivity assumption is introduced.",
+          "formula": "(a,b)\\longmapsto(\\operatorname{fst}(a,b),\\operatorname{snd}(a,b))=(a,b),\\qquad \\operatorname{id}_\\#\\mu=\\mu.",
+          "lean": "simpa using h simplifies the pair of projections and the identity pushforward."
+        }
+      ],
+      "lean_statement": "When μ is a probability measure, first sample the retained coordinate from its marginal, then the other coordinate from the selected conditional law. For a general finite μ, this is a measure-reconstruction identity preserving total mass μ(univ), not a normalized sampling experiment. Conditional laws on marginal-null inputs do not affect the integrated identity, but any replacement must still form a measurable kernel.",
+      "lean_proof": "`have h := ...` names a previously proved equality after specializing its parameters. It is not an extra hypothesis.\n\n`measurable_snd.aemeasurable` converts ordinary measurability of the second projection into the weaker almost-everywhere measurability required by the imported theorem.\n\n`simpa using h` checks that simplifying the established equality gives the stated target; it does not erase the Standard Borel, nonempty, or finite-measure requirements.\n\nIn the generalized theorem, X is the conditioning variable and Y is the resampled variable. The Lean call's mβ is a measurable-space parameter for X's codomain, here the retained α.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.compProd_map_condDistrib",
+        "ProbabilityTheory.condDistrib",
+        "measurable_snd",
+        "Measurable.aemeasurable"
+      ],
+      "dependency_notes": "Exact source uses the existing theorem and simplification; no ASTIS disintegration proof is added.",
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalResampling.fst_compProd_condDistrib_snd_eq_self",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/ConditionalResampling.lean",
+          "line": 32
+        },
+        {
+          "label": ".lake/packages/mathlib/Mathlib/Probability/Kernel/CondDistrib.lean:82",
+          "scope": "Existing imported proof/construction source, not a newly proved ASTIS theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/CondDistrib.lean",
+          "line": 82
+        },
+        {
+          "path": "Tests/ConditionalResampling.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "An example consumes the exact identity with the same finite-measure and selected-coordinate hypotheses. Existing test source was read; not rerun."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/ConditionalResampling.lean",
+        "start_line": 32,
+        "end_line": 41,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-conditional-resampling-law.json",
+        "mathlib": ".lake/packages/mathlib/Mathlib/Probability/Kernel/CondDistrib.lean:82"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/ConditionalResampling.lean",
+        "summary": "An example consumes the exact identity with the same finite-measure and selected-coordinate hypotheses. Existing test source was read; not rerun."
+      },
+      "notation": [
+        {
+          "symbol": "m",
+          "text": "The first marginal, represented by μ.map Prod.fst.",
+          "formula": "m=(\\operatorname{fst})_\\#\\mu"
+        },
+        {
+          "symbol": "q",
+          "text": "The particular regular conditional probability kernel selected by Mathlib, not a pointwise unique conditional density.",
+          "formula": "q(a)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\mu)(a)"
+        },
+        {
+          "symbol": "μ ⊗ₘ q",
+          "text": "Composition-product of a measure and a kernel, for measurable A ⊆ α × β. It is a joint measure, unlike ordinary kernel composition which forgets the intermediate state.",
+          "formula": "(m\\otimes_m q)(A)=\\int_\\alpha q(a,\\{b:(a,b)\\in A\\})\\,m(da)"
+        },
+        {
+          "symbol": "K ∘ₘ μ",
+          "text": "The measure after one kernel application. Invariant means exactly K ∘ₘ μ = μ.",
+          "formula": "(K\\circ_m\\mu)(A)=\\int K(x,A)\\,\\mu(dx)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath",
+      "kind": "def",
+      "title": "Construct a one-block heat-bath update",
+      "result_classification": "Definition built from existing deterministic, identity, product and conditional kernels.",
+      "statement": "Under the product-space hypotheses, define a kernel Hμ from α × β back to α × β by first projecting the input to its first coordinate and then pairing the identity kernel on that coordinate with the selected conditional distribution of the second coordinate. This is a noncomputable law construction; it does not implement a procedure for drawing a conditional sample.",
+      "formula": "H_\\mu=(\\operatorname{Id}_\\alpha\\times_k q)\\circ_k D_{\\operatorname{fst}},\\qquad D_{\\operatorname{fst}}(a,b)=\\delta_a.",
+      "assumptions": [
+        "{α β : Type*} — Two possibly universe-polymorphic coordinate types α and β.",
+        "[MeasurableSpace α] [MeasurableSpace β] — Both carry measurable-space structures; α × β has the product sigma-algebra.",
+        "[StandardBorelSpace β] — The resampled space β is Standard Borel, supplying the regular-conditional-distribution existence contract.",
+        "[Nonempty β] — β is nonempty, so the selected conditional kernel can be totalized as a probability law even on marginal-null fibers.",
+        "(μ : Measure (α × β)) [IsFiniteMeasure μ] — μ is any finite joint measure. It need not be normalized and may be zero. α need not be Standard Borel or nonempty."
+      ],
+      "proof_kind": "construction, not theorem proof",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Forget only the old resampled value",
+          "text": "The deterministic first-projection kernel turns (a,b) into the point-mass law at a. Its measurability is supplied by the measurable first projection. This determines which information the update retains.",
+          "formula": "(a,b)\\xrightarrow{D_{\\operatorname{fst}}}\\delta_a.",
+          "lean": "Kernel.deterministic Prod.fst measurable_fst."
+        },
+        {
+          "number": 2,
+          "title": "Build a joint output law at a retained value",
+          "text": "At a, Kernel.id gives δa and condDistrib Prod.snd Prod.fst μ gives q(a). Their kernel product is a measurable family of laws on α × β. The conditional kernel comes from the finite-measure disintegration machinery, with β nonempty and Standard Borel.",
+          "formula": "(\\operatorname{Id}_\\alpha\\times_k q)(a)=\\delta_a\\otimes q(a).",
+          "lean": "Kernel.id ×ₖ condDistrib Prod.snd Prod.fst μ. The pointwise evaluation is separately proved by heatBathSnd_apply."
+        },
+        {
+          "number": 3,
+          "title": "Compose in the order of the experiment",
+          "text": "Compose the output-law kernel after the deterministic projection, obtaining a state-to-state kernel. In κ ∘ₖ η, η acts first. The old second coordinate is not used in selecting q(a). The following theorems establish its mass-one and invariant-law properties; these are not additional clauses of the definition.",
+          "formula": "\\alpha\\times\\beta\\xrightarrow{D_{\\operatorname{fst}}}\\alpha\\xrightarrow{\\operatorname{Id}_\\alpha\\times_k q}\\alpha\\times\\beta.",
+          "lean": "The definition is the displayed composition. `noncomputable` records that the conditional version is selected nonconstructively."
+        }
+      ],
+      "lean_statement": "Keep a, redraw b from the selected law conditioned on a, and regard the result as a law for the whole pair. The word noncomputable warns that an abstract conditional distribution need not come with a usable sampling algorithm.",
+      "lean_proof": "`Kernel (α × β) (α × β)` means a measurable assignment from each input state to an output measure.\n\n`Kernel.id` is the probabilistic identity kernel a ↦ δa, not an ordinary function that returns a directly.\n\n`×ₖ` forms a product of two kernels with the same input; it returns a law on the pair of output spaces.\n\n`∘ₖ` composes kernels in right-to-left order. `measurable_fst` is an actual measurability proof, not a placeholder.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.id",
+        "ProbabilityTheory.condDistrib",
+        "ProbabilityTheory.Kernel.prod",
+        "ProbabilityTheory.Kernel.comp",
+        "ProbabilityTheory.Kernel.deterministic",
+        "measurable_fst"
+      ],
+      "dependency_notes": null,
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+          "line": 29
+        },
+        {
+          "path": "Tests/HeatBath.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "The definition is exercised by its Markovness, product-law, invariance, finite-power and zero-target consumers."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+        "start_line": 29,
+        "end_line": 32,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-heat-bath-snd-invariance.json"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/HeatBath.lean",
+        "summary": "The definition is exercised by its Markovness, product-law, invariance, finite-power and zero-target consumers."
+      },
+      "notation": [
+        {
+          "symbol": "m",
+          "text": "The first marginal, represented by μ.map Prod.fst.",
+          "formula": "m=(\\operatorname{fst})_\\#\\mu"
+        },
+        {
+          "symbol": "q",
+          "text": "The particular regular conditional probability kernel selected by Mathlib, not a pointwise unique conditional density.",
+          "formula": "q(a)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\mu)(a)"
+        },
+        {
+          "symbol": "μ ⊗ₘ q",
+          "text": "Composition-product of a measure and a kernel, for measurable A ⊆ α × β. It is a joint measure, unlike ordinary kernel composition which forgets the intermediate state.",
+          "formula": "(m\\otimes_m q)(A)=\\int_\\alpha q(a,\\{b:(a,b)\\in A\\})\\,m(da)"
+        },
+        {
+          "symbol": "K ∘ₘ μ",
+          "text": "The measure after one kernel application. Invariant means exactly K ∘ₘ μ = μ.",
+          "formula": "(K\\circ_m\\mu)(A)=\\int K(x,A)\\,\\mu(dx)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_isMarkovKernel",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath",
+      "kind": "instance",
+      "title": "Every one-block update is a probability law",
+      "result_classification": "Reuse of Mathlib Markov-kernel closure instances after unfolding the construction.",
+      "statement": "For every finite joint μ under the stated coordinate hypotheses, heatBathSnd μ is a Markov kernel: for every input x, its output measure has total mass one. This remains true if μ is zero or x lies over a first-marginal-null conditioning value.",
+      "formula": "\\forall x\\in\\alpha\\times\\beta,\\qquad H_\\mu(x,\\alpha\\times\\beta)=1.",
+      "assumptions": [
+        "{α β : Type*} — Two possibly universe-polymorphic coordinate types α and β.",
+        "[MeasurableSpace α] [MeasurableSpace β] — Both carry measurable-space structures; α × β has the product sigma-algebra.",
+        "[StandardBorelSpace β] — The resampled space β is Standard Borel, supplying the regular-conditional-distribution existence contract.",
+        "[Nonempty β] — β is nonempty, so the selected conditional kernel can be totalized as a probability law even on marginal-null fibers.",
+        "(μ : Measure (α × β)) [IsFiniteMeasure μ] — μ is any finite joint measure. It need not be normalized and may be zero. α need not be Standard Borel or nonempty."
+      ],
+      "proof_kind": "instance proof by closure reuse",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Each component is Markov",
+          "text": "The deterministic first projection and the identity kernel have Dirac output laws of total mass one. Mathlib's selected regular conditional distribution is also a probability kernel at every a, including otherwise undetermined marginal-null a.",
+          "formula": "D_{\\operatorname{fst}}(x,\\alpha)=1,\\quad \\operatorname{Id}_\\alpha(a,\\alpha)=1,\\quad q(a,\\beta)=1.",
+          "lean": "unfold heatBathSnd exposes the three components; their Markov instances are already in Mathlib."
+        },
+        {
+          "number": 2,
+          "title": "A product of probability laws has mass one",
+          "text": "For each a, multiplying the two component masses shows that the product output is a probability measure. The existing kernel-product instance supplies this statement uniformly and measurably in a.",
+          "formula": "(\\delta_a\\otimes q(a))(\\alpha\\times\\beta)=\\delta_a(\\alpha)\\,q(a,\\beta)=1\\cdot1=1.",
+          "lean": "ProbabilityTheory.Kernel.IsMarkovKernel.prod is found by infer_instance."
+        },
+        {
+          "number": 3,
+          "title": "Composition preserves mass one",
+          "text": "The composed kernel integrates a constant total output mass of one against the deterministic probability input law. Its mass is therefore one. This is a statement about normalization only, not a formula for the chosen conditional measure on a null fiber.",
+          "formula": "H_\\mu(x,\\alpha\\times\\beta)=\\int_\\alpha 1\\,D_{\\operatorname{fst}}(x,da)=1.",
+          "lean": "ProbabilityTheory.Kernel.IsMarkovKernel.comp and the deterministic instance close the goal through infer_instance."
+        }
+      ],
+      "lean_statement": "A Markov update must return one whole probability distribution from every input. The target itself need not have mass one: it supplies relative conditional laws, while the transition from each input is still normalized.",
+      "lean_proof": "`instance` registers a proved mathematical property for later automatic use; it does not assume that property.\n\n`unfold heatBathSnd` replaces the public name by its defining composition.\n\n`infer_instance` combines already proved facts that deterministic kernels, conditional kernels, products, and compositions are Markov. It is a short formal proof because the reusable closure theorems carry the work.\n\nThe declaration has no parameter x because IsMarkovKernel contains a universal assertion over every input.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.IsMarkovKernel.prod",
+        "ProbabilityTheory.Kernel.IsMarkovKernel.comp",
+        "ProbabilityTheory.Kernel.isMarkovKernel_deterministic",
+        "ProbabilityTheory.condDistrib"
+      ],
+      "dependency_notes": "Anonymous instances are identified by source anchors rather than guessed generated Lean names.",
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_isMarkovKernel",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+          "line": 37
+        },
+        {
+          "path": "Tests/HeatBath.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Includes IsMarkovKernel for arbitrary finite μ and for the zero target."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+        "start_line": 37,
+        "end_line": 40,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-heat-bath-snd-invariance.json"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/HeatBath.lean",
+        "summary": "Includes IsMarkovKernel for arbitrary finite μ and for the zero target."
+      },
+      "notation": [
+        {
+          "symbol": "m",
+          "text": "The first marginal, represented by μ.map Prod.fst.",
+          "formula": "m=(\\operatorname{fst})_\\#\\mu"
+        },
+        {
+          "symbol": "q",
+          "text": "The particular regular conditional probability kernel selected by Mathlib, not a pointwise unique conditional density.",
+          "formula": "q(a)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\mu)(a)"
+        },
+        {
+          "symbol": "μ ⊗ₘ q",
+          "text": "Composition-product of a measure and a kernel, for measurable A ⊆ α × β. It is a joint measure, unlike ordinary kernel composition which forgets the intermediate state.",
+          "formula": "(m\\otimes_m q)(A)=\\int_\\alpha q(a,\\{b:(a,b)\\in A\\})\\,m(da)"
+        },
+        {
+          "symbol": "K ∘ₘ μ",
+          "text": "The measure after one kernel application. Invariant means exactly K ∘ₘ μ = μ.",
+          "formula": "(K\\circ_m\\mu)(A)=\\int K(x,A)\\,\\mu(dx)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_apply",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath",
+      "kind": "theorem",
+      "title": "The exact output law is a retained Dirac factor times a conditional law",
+      "result_classification": "Pointwise evaluation adapter for the public construction.",
+      "statement": "For every input pair x under the finite-measure conditional-existence hypotheses, the measure returned by heatBathSnd μ at x is exactly the ordinary product of the Dirac measure at x's first coordinate and the selected conditional law of the second coordinate given that value. This is a pointwise identity for the chosen kernel, not pointwise uniqueness of conditional distributions.",
+      "formula": "H_\\mu(x)=\\delta_{x_1}\\otimes q(x_1)\\qquad(x\\in\\alpha\\times\\beta).",
+      "assumptions": [
+        "{α β : Type*} — Two possibly universe-polymorphic coordinate types α and β.",
+        "[MeasurableSpace α] [MeasurableSpace β] — Both carry measurable-space structures; α × β has the product sigma-algebra.",
+        "[StandardBorelSpace β] — The resampled space β is Standard Borel, supplying the regular-conditional-distribution existence contract.",
+        "[Nonempty β] — β is nonempty, so the selected conditional kernel can be totalized as a probability law even on marginal-null fibers.",
+        "(μ : Measure (α × β)) [IsFiniteMeasure μ] — μ is any finite joint measure. It need not be normalized and may be zero. α need not be Standard Borel or nonempty.",
+        "(x : α × β) — An arbitrary input x=(a,b), with no positivity or support condition."
+      ],
+      "proof_kind": "evaluation proof",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Replace deterministic precomposition by input substitution",
+          "text": "Composing a kernel with a deterministic map evaluates that kernel at the mapped input. The identity is between kernels and does not require a singleton-measurable retained space.",
+          "formula": "(L\\circ_k D_f)(x)=L(f(x)),\\qquad f=\\operatorname{fst}.",
+          "lean": "Kernel.comp_deterministic_eq_comap turns the composition into a comap; Kernel.comap_apply evaluates the comap."
+        },
+        {
+          "number": 2,
+          "title": "Evaluate the product kernel",
+          "text": "The product kernel evaluated at x1 is the product of its two measure values at x1. Markovness supplies the s-finiteness needed by the kernel-product evaluation machinery.",
+          "formula": "(\\operatorname{Id}_\\alpha\\times_k q)(x_1)=\\operatorname{Id}_\\alpha(x_1)\\otimes q(x_1).",
+          "lean": "Kernel.prod_apply."
+        },
+        {
+          "number": 3,
+          "title": "Evaluate the identity kernel",
+          "text": "The identity kernel returns the Dirac measure at its input. Substituting this gives the desired measure identity. The x2 component never enters the expression.",
+          "formula": "\\operatorname{Id}_\\alpha(x_1)=\\delta_{x_1},\\qquad H_\\mu(x)=\\delta_{x_1}\\otimes q(x_1).",
+          "lean": "Kernel.id_apply completes the rw chain."
+        }
+      ],
+      "lean_statement": "Once a starting pair is fixed, the update's whole law can be written down compactly: a point mass on the retained coordinate, multiplied by the conditional law on the updated coordinate. The equality is valid even at a null conditioning value because it refers to the version already selected.",
+      "lean_proof": "`@[simp]` marks the proven equality as a standard simplification rule for later uses; it does not weaken the statement.\n\n`rw [heatBathSnd, ...]` performs a sequence of equality rewrites, each corresponding to one of the evaluation steps.\n\n`x.1` means the first projection of x. `Measure.prod` is a product of two measures, whereas the construction used the product `×ₖ` of two kernels.\n\nEquality of this retained marginal law with a Dirac measure is not automatically literal almost-everywhere equality of retained values on an arbitrary coarse sigma-algebra; the coordinate-retention theorem makes its singleton assumption explicit.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.comp_deterministic_eq_comap",
+        "ProbabilityTheory.Kernel.comap_apply",
+        "ProbabilityTheory.Kernel.prod_apply",
+        "ProbabilityTheory.Kernel.id_apply"
+      ],
+      "dependency_notes": null,
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_apply",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+          "line": 44
+        },
+        {
+          "path": "Tests/HeatBath.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "An example consumes exactly this pointwise equality for arbitrary x."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+        "start_line": 44,
+        "end_line": 48,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-heat-bath-snd-invariance.json"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/HeatBath.lean",
+        "summary": "An example consumes exactly this pointwise equality for arbitrary x."
+      },
+      "notation": [
+        {
+          "symbol": "m",
+          "text": "The first marginal, represented by μ.map Prod.fst.",
+          "formula": "m=(\\operatorname{fst})_\\#\\mu"
+        },
+        {
+          "symbol": "q",
+          "text": "The particular regular conditional probability kernel selected by Mathlib, not a pointwise unique conditional density.",
+          "formula": "q(a)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\mu)(a)"
+        },
+        {
+          "symbol": "μ ⊗ₘ q",
+          "text": "Composition-product of a measure and a kernel, for measurable A ⊆ α × β. It is a joint measure, unlike ordinary kernel composition which forgets the intermediate state.",
+          "formula": "(m\\otimes_m q)(A)=\\int_\\alpha q(a,\\{b:(a,b)\\in A\\})\\,m(da)"
+        },
+        {
+          "symbol": "K ∘ₘ μ",
+          "text": "The measure after one kernel application. Invariant means exactly K ∘ₘ μ = μ.",
+          "formula": "(K\\circ_m\\mu)(A)=\\int K(x,A)\\,\\mu(dx)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_invariant",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath",
+      "kind": "theorem",
+      "title": "A one-block heat-bath step preserves the finite joint target",
+      "result_classification": "Kernel-correctness integration using the ASTIS disintegration adapter and Mathlib composition algebra.",
+      "statement": "For every finite μ on α × β, with α measurable and β nonempty Standard Borel, heatBathSnd μ leaves μ invariant. Starting with measure μ and applying one update gives exactly μ again. This remains true for the zero measure and for finite targets that are not probability measures.",
+      "formula": "H_\\mu\\circ_m\\mu=\\mu,\\qquad\\text{equivalently }\\int_{\\alpha\\times\\beta}H_\\mu(x,A)\\,\\mu(dx)=\\mu(A)\\ \\text{for every measurable }A.",
+      "assumptions": [
+        "{α β : Type*} — Two possibly universe-polymorphic coordinate types α and β.",
+        "[MeasurableSpace α] [MeasurableSpace β] — Both carry measurable-space structures; α × β has the product sigma-algebra.",
+        "[StandardBorelSpace β] — The resampled space β is Standard Borel, supplying the regular-conditional-distribution existence contract.",
+        "[Nonempty β] — β is nonempty, so the selected conditional kernel can be totalized as a probability law even on marginal-null fibers.",
+        "(μ : Measure (α × β)) [IsFiniteMeasure μ] — μ is any finite joint measure. It need not be normalized and may be zero. α need not be Standard Borel or nonempty."
+      ],
+      "proof_kind": "integration proof by exact reuse",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Unpack invariance and regroup the two stages",
+          "text": "Let L be the product kernel retaining the first coordinate and drawing the second from its conditional law, and let D be the deterministic first-projection kernel. Acting with their composite on μ is the same as first acting with D and then L. This reassociation is a measure/kernel composition identity; it does not require an additional s-finiteness premise.",
+          "formula": "H_\\mu\\circ_m\\mu=(L\\circ_k D)\\circ_m\\mu=L\\circ_m(D\\circ_m\\mu).",
+          "lean": "change exposes the definition of Kernel.Invariant and of heatBathSnd; ← Measure.comp_assoc reassociates."
+        },
+        {
+          "number": 2,
+          "title": "The deterministic first stage produces the first marginal",
+          "text": "A deterministic kernel acts on a measure by pushforward along its function. For the first projection this is exactly m.",
+          "formula": "D_{\\operatorname{fst}}\\circ_m\\mu=(\\operatorname{fst})_\\#\\mu=m.",
+          "lean": "Measure.deterministic_comp_eq_map."
+        },
+        {
+          "number": 3,
+          "title": "Recognize reconstruction as a composition-product",
+          "text": "Applying a kernel whose output at a is the pair of the retained Dirac value and q(a) to m produces the joint measure m ⊗ₘ q. This is why the retained identity factor was included in the construction. This step uses Measure.compProd_eq_comp_prod, whose hypotheses require an s-finite first marginal and an s-finite conditional kernel. Here the marginal is finite and the conditional kernel is Markov, so both instances are available.",
+          "formula": "(\\operatorname{Id}_\\alpha\\times_k q)\\circ_m m=m\\otimes_m q.",
+          "lean": "← Measure.compProd_eq_comp_prod."
+        },
+        {
+          "number": 4,
+          "title": "Reuse the joint-law identity",
+          "text": "The conditional-resampling theorem already proves that this composition-product recovers μ. Combining the three equalities establishes invariance without any density computation or acceptance-ratio argument.",
+          "formula": "H_\\mu\\circ_m\\mu=m\\otimes_m q=\\mu.",
+          "lean": "exact ConditionalResampling.fst_compProd_condDistrib_snd_eq_self."
+        }
+      ],
+      "lean_statement": "If a pair already has the target joint distribution, keeping its first coordinate preserves the correct first marginal. Redrawing the second coordinate from the correct conditional law then reconstructs that same joint distribution. This is stationarity, not a convergence guarantee.",
+      "lean_proof": "`Invariant μ` is a predicate on a kernel, meaning equality between the post-update measure and μ. `change` unfolds that target into a usable equation.\n\nThe backward arrows in the rewrite list mean an existing equality is used from right to left, to reveal the marginal and composition-product forms.\n\n`exact` finishes with the earlier ASTIS theorem after the goal has become exactly its statement.\n\nThe proof concerns the initial measure μ itself. It does not show that repeatedly updating an arbitrary initial distribution approaches μ.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalResampling.fst_compProd_condDistrib_snd_eq_self"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.Invariant",
+        "MeasureTheory.Measure.comp_assoc",
+        "MeasureTheory.Measure.deterministic_comp_eq_map",
+        "MeasureTheory.Measure.compProd_eq_comp_prod"
+      ],
+      "dependency_notes": null,
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_invariant",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+          "line": 54
+        },
+        {
+          "path": "Tests/HeatBath.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Tests direct invariance, zero-target invariance, and finite-power invariance using existing KernelInvariance.invariant_pow. That power theorem is a consumer, not a proof parent here."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/HeatBath.lean",
+        "start_line": 54,
+        "end_line": 60,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-heat-bath-snd-invariance.json"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/HeatBath.lean",
+        "summary": "Tests direct invariance, zero-target invariance, and finite-power invariance using existing KernelInvariance.invariant_pow. That power theorem is a consumer, not a proof parent here."
+      },
+      "notation": [
+        {
+          "symbol": "m",
+          "text": "The first marginal, represented by μ.map Prod.fst.",
+          "formula": "m=(\\operatorname{fst})_\\#\\mu"
+        },
+        {
+          "symbol": "q",
+          "text": "The particular regular conditional probability kernel selected by Mathlib, not a pointwise unique conditional density.",
+          "formula": "q(a)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\mu)(a)"
+        },
+        {
+          "symbol": "μ ⊗ₘ q",
+          "text": "Composition-product of a measure and a kernel, for measurable A ⊆ α × β. It is a joint measure, unlike ordinary kernel composition which forgets the intermediate state.",
+          "formula": "(m\\otimes_m q)(A)=\\int_\\alpha q(a,\\{b:(a,b)\\in A\\})\\,m(da)"
+        },
+        {
+          "symbol": "K ∘ₘ μ",
+          "text": "The measure after one kernel application. Invariant means exactly K ∘ₘ μ = μ.",
+          "formula": "(K\\circ_m\\mu)(A)=\\int K(x,A)\\,\\mu(dx)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath",
+      "kind": "def",
+      "title": "Construct a heat-bath update at one coordinate",
+      "result_classification": "Construction adapter: split the dependent product, reuse the one-block kernel, and transport back; no second conditional sampler or split theorem is defined.",
+      "statement": "For every finite target measure μ on a finite dependent product of measurable coordinate spaces and every selected index i whose coordinate type is nonempty Standard Borel, define heatBath X μ i by a measurable change of coordinates: retain all coordinates except i, resample coordinate i with the existing one-block heat-bath kernel for the transformed target, and map the output back to the original state space. No measurable-singleton assumptions are required for this construction.",
+      "formula": "K_i=\\bigl(\\operatorname{comap}_{e_i}H_{\\eta_i}\\bigr)\\operatorname{.map}(e_i^{-1}),\\qquad K_i(x)=(e_i^{-1})_\\#H_{\\eta_i}(e_i(x)).",
+      "assumptions": [
+        "{n : ℕ} — n is an arbitrary natural number, so Fin (n+1) is a nonempty finite index set. Individual coordinate spaces need not be finite.",
+        "(X : Fin (n + 1) → Type*) — X is a possibly dependent family: coordinate j may have its own type X j. A state x is a function choosing x j : X j for every j.",
+        "[∀ j, MeasurableSpace (X j)] — Each coordinate is measurable; the full and retained products use their product sigma-algebras.",
+        "(μ : Measure (∀ j, X j)) [IsFiniteMeasure μ] — μ is any finite measure on the full state space. It may have zero mass or be unnormalized.",
+        "(i : Fin (n + 1)) — i is a fixed selected coordinate, not a randomly drawn index.",
+        "[StandardBorelSpace (X i)] [Nonempty (X i)] — Only the selected coordinate must be nonempty and Standard Borel. The other coordinates need neither condition for the construction, Markovness, or invariance."
+      ],
+      "proof_kind": "construction, not theorem proof",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Separate the selected coordinate from the retained tuple",
+          "text": "Use Mathlib's measurable equivalence for inserting/removing one Fin-indexed coordinate. It initially returns (selected, retained); follow it by product commutation to return (retained, selected). No new proof of a splitting bijection is needed.",
+          "formula": "x\\longmapsto(x_i,r_i(x))\\longmapsto(r_i(x),x_i)=e_i(x).",
+          "lean": "let e := (MeasurableEquiv.piFinSuccAbove X i).trans MeasurableEquiv.prodComm."
+        },
+        {
+          "number": 2,
+          "title": "Express the target in split coordinates",
+          "text": "Push μ forward along e. The measure ηi is finite. Its second coordinate is Xi, exactly the space for which Standard Borel and nonempty instances are assumed, so the existing one-block construction can be applied to ηi.",
+          "formula": "\\eta_i=(e_i)_\\#\\mu,\\qquad H_{\\eta_i}:R_i\\times X_i\\rightsquigarrow R_i\\times X_i.",
+          "lean": "HeatBath.heatBathSnd (μ.map e); measurable equivalence and finite-measure map instances discharge the implicit requirements."
+        },
+        {
+          "number": 3,
+          "title": "Move input and output in opposite directions",
+          "text": "To update an original input x, use comap to evaluate the split-space kernel at e(x); then use map to push each output measure through e⁻¹. These are different operations: comap changes the input, map changes the output.",
+          "formula": "x\\xmapsto{e_i}e_i(x)\\xrightsquigarrow{H_{\\eta_i}}\\text{a split output}\\xmapsto{e_i^{-1}}\\text{an original-space output}.",
+          "lean": "((HeatBath.heatBathSnd (μ.map e)).comap e e.measurable).map e.symm."
+        },
+        {
+          "number": 4,
+          "title": "Read the intended transition law without adding a new theorem",
+          "text": "The existing one-block evaluation lemma identifies the split output measure as the retained Dirac law times the selected conditional law. The construction therefore has the explanatory formula below; the public source keeps only the single heatBath definition.",
+          "formula": "K_i(x)=(e_i^{-1})_\\#\\bigl(\\delta_{r_i(x)}\\otimes q_i(r_i(x))\\bigr).",
+          "lean": "HeatBath.heatBathSnd_apply, Kernel.comap_apply and Kernel.map_apply explain evaluation; no additional public algorithm is introduced."
+        }
+      ],
+      "lean_statement": "Temporarily reorder the state into a pair: all coordinates being kept, followed by the one coordinate being updated. Apply the already understood pair update, then undo that reordering. This lets one general construction cover different types of coordinates.",
+      "lean_proof": "`∀ j, X j` is a dependent function type and represents one value at each coordinate.\n\n`Fin (n + 1)` records a finite nonempty set of coordinate indices, not a finite number of possible states.\n\n`e.symm` is the inverse measurable equivalence. `.comap e e.measurable` changes the input, and `.map e.symm` changes the output law.\n\nThe definition is noncomputable because it inherits the selected regular conditional distribution. No claim about implementation or complexity is hidden in the construction.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd"
+      ],
+      "mathlib_dependencies": [
+        "MeasurableEquiv.piFinSuccAbove",
+        "MeasurableEquiv.prodComm",
+        "MeasurableEquiv.trans",
+        "ProbabilityTheory.Kernel.comap",
+        "ProbabilityTheory.Kernel.map",
+        "MeasureTheory.Measure.map"
+      ],
+      "dependency_notes": null,
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean",
+          "line": 25
+        },
+        {
+          "label": ".lake/packages/mathlib/Mathlib/MeasureTheory/MeasurableSpace/Embedding.lean:569",
+          "scope": "Existing imported proof/construction source, not a newly proved ASTIS theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/MeasurableSpace/Embedding.lean",
+          "line": 569
+        },
+        {
+          "path": "Tests/CoordinateHeatBath.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Exercises nonconstant three-site Boolean updates, zero targets, a retained coordinate with indiscrete sigma-algebra, and mixture/power consumers. No new tests run."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean",
+        "start_line": 25,
+        "end_line": 29,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath.json",
+        "mathlib": ".lake/packages/mathlib/Mathlib/MeasureTheory/MeasurableSpace/Embedding.lean:569"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/CoordinateHeatBath.lean",
+        "summary": "Exercises nonconstant three-site Boolean updates, zero targets, a retained coordinate with indiscrete sigma-algebra, and mixture/power consumers. No new tests run."
+      },
+      "notation": [
+        {
+          "symbol": "S",
+          "text": "The dependent full state space, written ∀ j, X j in Lean.",
+          "formula": "S=\\prod_{j\\in\\operatorname{Fin}(n+1)}X_j"
+        },
+        {
+          "symbol": "R_i",
+          "text": "The retained-coordinate product. i.succAbove lists every original index except i; k is its own Fin n index.",
+          "formula": "R_i=\\prod_{k\\in\\operatorname{Fin}(n)}X_{i.\\operatorname{succAbove}(k)}"
+        },
+        {
+          "symbol": "r_i",
+          "text": "The tuple of all unselected coordinates; this is explanatory notation, not a newly introduced Lean declaration.",
+          "formula": "r_i(x)(k)=x(i.\\operatorname{succAbove}(k))"
+        },
+        {
+          "symbol": "e_i",
+          "text": "MeasurableEquiv.piFinSuccAbove X i first places Xi before Ri; composing with prodComm puts retained coordinates first. e_i and its inverse are measurable.",
+          "formula": "e_i:S\\simeq_{\\mathrm{meas}}R_i\\times X_i,\\qquad e_i(x)=(r_i(x),x_i)"
+        },
+        {
+          "symbol": "η_i,m_i,q_i",
+          "text": "Pushed-forward joint target, retained marginal, and selected conditional version.",
+          "formula": "\\eta_i=(e_i)_\\#\\mu,\\qquad m_i=(\\operatorname{fst})_\\#\\eta_i,\\qquad q_i(r)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\eta_i)(r)"
+        },
+        {
+          "symbol": "K_i",
+          "text": "The existing public CoordinateHeatBath.heatBath X μ i; this evaluated formula uses HeatBath.heatBathSnd_apply.",
+          "formula": "K_i(x)=(e_i^{-1})_\\#\\bigl(\\delta_{r_i(x)}\\otimes q_i(r_i(x))\\bigr)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_isMarkovKernel",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath",
+      "kind": "instance",
+      "title": "Coordinate splitting and reconstruction preserve mass one",
+      "result_classification": "Markovness adapter reusing one-block Markovness and measurable kernel map/comap rules.",
+      "statement": "For every finite target and fixed selected coordinate under the construction's exact hypotheses, the coordinate heat-bath update is a Markov kernel on the full dependent product. At every starting state x its output law has total mass one, regardless of the target mass or whether the retained fiber has positive target mass.",
+      "formula": "\\forall x\\in S,\\qquad K_i(x,S)=1.",
+      "assumptions": [
+        "{n : ℕ} — n is an arbitrary natural number, so Fin (n+1) is a nonempty finite index set. Individual coordinate spaces need not be finite.",
+        "(X : Fin (n + 1) → Type*) — X is a possibly dependent family: coordinate j may have its own type X j. A state x is a function choosing x j : X j for every j.",
+        "[∀ j, MeasurableSpace (X j)] — Each coordinate is measurable; the full and retained products use their product sigma-algebras.",
+        "(μ : Measure (∀ j, X j)) [IsFiniteMeasure μ] — μ is any finite measure on the full state space. It may have zero mass or be unnormalized.",
+        "(i : Fin (n + 1)) — i is a fixed selected coordinate, not a randomly drawn index.",
+        "[StandardBorelSpace (X i)] [Nonempty (X i)] — Only the selected coordinate must be nonempty and Standard Borel. The other coordinates need neither condition for the construction, Markovness, or invariance."
+      ],
+      "proof_kind": "instance proof by reuse",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the one-block probability law",
+          "text": "The pushed-forward target ηi is finite and Xi has the required conditional-existence structures. Thus the existing one-block heat-bath kernel returns a probability law at every split input.",
+          "formula": "H_{\\eta_i}(e_i(x),R_i\\times X_i)=1.",
+          "lean": "After unfold heatBath, the implicit Markov instance for HeatBath.heatBathSnd is available."
+        },
+        {
+          "number": 2,
+          "title": "Changing the input does not change the mass property",
+          "text": "A comap simply substitutes e(x) for the input of the same kernel. It cannot change whether each output measure has mass one.",
+          "formula": "\\operatorname{comap}_{e_i}H_{\\eta_i}(x,R_i\\times X_i)=H_{\\eta_i}(e_i(x),R_i\\times X_i)=1.",
+          "lean": "ProbabilityTheory.Kernel.IsMarkovKernel.comap is inferred for the comapped kernel."
+        },
+        {
+          "number": 3,
+          "title": "A measurable pushforward of a probability measure is a probability measure",
+          "text": "The inverse equivalence is measurable. The inverse image of the entire original state space is the entire split state space, so mapping the output through e⁻¹ preserves total mass one.",
+          "formula": "K_i(x,S)=H_{\\eta_i}(e_i(x),(e_i^{-1})^{-1}(S))=H_{\\eta_i}(e_i(x),R_i\\times X_i)=1.",
+          "lean": "exact Kernel.IsMarkovKernel.map _ e.symm.measurable, written with the explicit equivalence expression in the original source."
+        }
+      ],
+      "lean_statement": "Rewriting a state in different coordinates and then translating the result back does not lose probability mass. A whole probability distribution before the change of coordinates is still a whole probability distribution afterward.",
+      "lean_proof": "`Kernel.IsMarkovKernel.map` is the reused theorem, applied explicitly to the already-Markov comapped kernel.\n\nThe underscore lets Lean infer which kernel is being mapped from the goal.\n\n`...symm.measurable` supplies measurability of the inverse coordinate change. There is no fallback to a nonmeasurable map.\n\nThe instance proves only normalization. It does not identify which states the selected conditional measure favors on a null fiber.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_isMarkovKernel"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.IsMarkovKernel.map",
+        "ProbabilityTheory.Kernel.IsMarkovKernel.comap",
+        "MeasurableEquiv.piFinSuccAbove",
+        "MeasurableEquiv.prodComm"
+      ],
+      "dependency_notes": null,
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_isMarkovKernel",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean",
+          "line": 33
+        },
+        {
+          "path": "Tests/CoordinateHeatBath.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Generic Markovness is checked with only the selected coordinate nonempty Standard Borel; no whole-product Standard Borel assumption is imposed."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean",
+        "start_line": 33,
+        "end_line": 38,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath.json"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/CoordinateHeatBath.lean",
+        "summary": "Generic Markovness is checked with only the selected coordinate nonempty Standard Borel; no whole-product Standard Borel assumption is imposed."
+      },
+      "notation": [
+        {
+          "symbol": "S",
+          "text": "The dependent full state space, written ∀ j, X j in Lean.",
+          "formula": "S=\\prod_{j\\in\\operatorname{Fin}(n+1)}X_j"
+        },
+        {
+          "symbol": "R_i",
+          "text": "The retained-coordinate product. i.succAbove lists every original index except i; k is its own Fin n index.",
+          "formula": "R_i=\\prod_{k\\in\\operatorname{Fin}(n)}X_{i.\\operatorname{succAbove}(k)}"
+        },
+        {
+          "symbol": "r_i",
+          "text": "The tuple of all unselected coordinates; this is explanatory notation, not a newly introduced Lean declaration.",
+          "formula": "r_i(x)(k)=x(i.\\operatorname{succAbove}(k))"
+        },
+        {
+          "symbol": "e_i",
+          "text": "MeasurableEquiv.piFinSuccAbove X i first places Xi before Ri; composing with prodComm puts retained coordinates first. e_i and its inverse are measurable.",
+          "formula": "e_i:S\\simeq_{\\mathrm{meas}}R_i\\times X_i,\\qquad e_i(x)=(r_i(x),x_i)"
+        },
+        {
+          "symbol": "η_i,m_i,q_i",
+          "text": "Pushed-forward joint target, retained marginal, and selected conditional version.",
+          "formula": "\\eta_i=(e_i)_\\#\\mu,\\qquad m_i=(\\operatorname{fst})_\\#\\eta_i,\\qquad q_i(r)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\eta_i)(r)"
+        },
+        {
+          "symbol": "K_i",
+          "text": "The existing public CoordinateHeatBath.heatBath X μ i; this evaluated formula uses HeatBath.heatBathSnd_apply.",
+          "formula": "K_i(x)=(e_i^{-1})_\\#\\bigl(\\delta_{r_i(x)}\\otimes q_i(r_i(x))\\bigr)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_invariant",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath",
+      "kind": "theorem",
+      "title": "The coordinate update preserves the original finite target",
+      "result_classification": "Literal reuse of one-block invariance and the existing measurable kernel-transport theorem.",
+      "statement": "For every finite measure μ on the dependent coordinate product, a fixed selected coordinate's heat-bath kernel preserves μ, provided only that all coordinates are measurable and the selected coordinate is nonempty Standard Borel. No singleton-measurability, density, positive-support, or probability-normalization assumption is used.",
+      "formula": "K_i\\circ_m\\mu=\\mu,\\qquad \\text{i.e. }\\int_S K_i(x,A)\\,\\mu(dx)=\\mu(A)\\quad\\text{for every measurable }A\\subseteq S.",
+      "assumptions": [
+        "{n : ℕ} — n is an arbitrary natural number, so Fin (n+1) is a nonempty finite index set. Individual coordinate spaces need not be finite.",
+        "(X : Fin (n + 1) → Type*) — X is a possibly dependent family: coordinate j may have its own type X j. A state x is a function choosing x j : X j for every j.",
+        "[∀ j, MeasurableSpace (X j)] — Each coordinate is measurable; the full and retained products use their product sigma-algebras.",
+        "(μ : Measure (∀ j, X j)) [IsFiniteMeasure μ] — μ is any finite measure on the full state space. It may have zero mass or be unnormalized.",
+        "(i : Fin (n + 1)) — i is a fixed selected coordinate, not a randomly drawn index.",
+        "[StandardBorelSpace (X i)] [Nonempty (X i)] — Only the selected coordinate must be nonempty and Standard Borel. The other coordinates need neither condition for the construction, Markovness, or invariance."
+      ],
+      "proof_kind": "transport reuse proof",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Move the invariant-law problem to split coordinates",
+          "text": "Let e=e_i and η=e#μ. The one-block theorem already proves exact invariance of η under Hη.",
+          "formula": "H_\\eta\\circ_m\\eta=\\eta,\\qquad\\eta=e_\\#\\mu.",
+          "lean": "HeatBath.heatBathSnd_invariant (μ.map e)."
+        },
+        {
+          "number": 2,
+          "title": "Transport the proven invariant pair back",
+          "text": "The existing KernelTransport theorem says that pushing both an invariant measure and the kernel's output through a measurable equivalence, while pulling the kernel input back, preserves invariance. Apply it to e⁻¹ and the invariant pair (Hη,η). This yields exactly the transported coordinate kernel.",
+          "formula": "\\bigl((\\operatorname{comap}_e H_\\eta)\\operatorname{.map}(e^{-1})\\bigr)\\circ_m (e^{-1})_\\#\\eta=(e^{-1})_\\#\\eta.",
+          "lean": "KernelTransport.invariant_map_comap e.symm (HeatBath.heatBathSnd_invariant (μ.map e))."
+        },
+        {
+          "number": 3,
+          "title": "Cancel the inverse pushforward",
+          "text": "Since e is a measurable equivalence, pushing μ through e and then back through e⁻¹ gives μ. Simplify the double inverse in the transported input and unfold heatBath to identify the target kernel.",
+          "formula": "(e^{-1})_\\#(e_\\#\\mu)=\\mu,\\qquad(e^{-1})^{-1}=e,\\qquad K_i\\circ_m\\mu=\\mu.",
+          "lean": "simpa only [heatBath, MeasurableEquiv.symm_symm, MeasurableEquiv.map_symm_map] using the transport result."
+        }
+      ],
+      "lean_statement": "We already know the pair update preserves the target when the state is written as (retained coordinates, selected coordinate). Calling the same states by their original coordinate names cannot change that equality of laws.",
+      "lean_proof": "`let e := ...` gives a local name to the existing measurable equivalence; it is not a new global definition.\n\n`invariant_map_comap e.symm` uses the inverse equivalence because we start from the split-space target and move back to original coordinates.\n\n`simpa only [...]` restricts simplification to exactly the listed definitional/equivalence facts, making the adapter visible.\n\nThe transport theorem itself requires no Markovness or finiteness; those hypotheses enter through the particular heat-bath kernel being transported.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_invariant",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTransport.invariant_map_comap"
+      ],
+      "mathlib_dependencies": [
+        "MeasurableEquiv.piFinSuccAbove",
+        "MeasurableEquiv.prodComm",
+        "MeasurableEquiv.symm_symm",
+        "MeasurableEquiv.map_symm_map"
+      ],
+      "dependency_notes": null,
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_invariant",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean",
+          "line": 42
+        },
+        {
+          "path": "Tests/CoordinateHeatBath.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Covers generic invariance, zero targets, and an indiscrete retained coordinate. KernelMixture and KernelInvariance appear only in consumer tests, not as proof parents of this theorem."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean",
+        "start_line": 42,
+        "end_line": 47,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath.json",
+        "astis_transport": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelTransport.lean:21"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/CoordinateHeatBath.lean",
+        "summary": "Covers generic invariance, zero targets, and an indiscrete retained coordinate. KernelMixture and KernelInvariance appear only in consumer tests, not as proof parents of this theorem."
+      },
+      "notation": [
+        {
+          "symbol": "S",
+          "text": "The dependent full state space, written ∀ j, X j in Lean.",
+          "formula": "S=\\prod_{j\\in\\operatorname{Fin}(n+1)}X_j"
+        },
+        {
+          "symbol": "R_i",
+          "text": "The retained-coordinate product. i.succAbove lists every original index except i; k is its own Fin n index.",
+          "formula": "R_i=\\prod_{k\\in\\operatorname{Fin}(n)}X_{i.\\operatorname{succAbove}(k)}"
+        },
+        {
+          "symbol": "r_i",
+          "text": "The tuple of all unselected coordinates; this is explanatory notation, not a newly introduced Lean declaration.",
+          "formula": "r_i(x)(k)=x(i.\\operatorname{succAbove}(k))"
+        },
+        {
+          "symbol": "e_i",
+          "text": "MeasurableEquiv.piFinSuccAbove X i first places Xi before Ri; composing with prodComm puts retained coordinates first. e_i and its inverse are measurable.",
+          "formula": "e_i:S\\simeq_{\\mathrm{meas}}R_i\\times X_i,\\qquad e_i(x)=(r_i(x),x_i)"
+        },
+        {
+          "symbol": "η_i,m_i,q_i",
+          "text": "Pushed-forward joint target, retained marginal, and selected conditional version.",
+          "formula": "\\eta_i=(e_i)_\\#\\mu,\\qquad m_i=(\\operatorname{fst})_\\#\\eta_i,\\qquad q_i(r)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\eta_i)(r)"
+        },
+        {
+          "symbol": "K_i",
+          "text": "The existing public CoordinateHeatBath.heatBath X μ i; this evaluated formula uses HeatBath.heatBathSnd_apply.",
+          "formula": "K_i(x)=(e_i^{-1})_\\#\\bigl(\\delta_{r_i(x)}\\otimes q_i(r_i(x))\\bigr)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_ae_apply_eq",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath",
+      "kind": "theorem",
+      "title": "Every unselected coordinate stays unchanged almost surely",
+      "result_classification": "Operational retention theorem for the existing coordinate kernel; stronger than an invariant-law assertion.",
+      "statement": "Fix a finite target μ, selected coordinate i with Xi nonempty Standard Borel, and a distinct coordinate j whose singletons are measurable. At every input x, almost every output y under the actual transition law heatBath X μ i x satisfies y j = x j. The almost-everywhere quantifier is over the output law for each fixed input; it is not a statement only for μ-almost-every input, nor is it pointwise equality for every possible y.",
+      "formula": "\\forall x\\in S,\\qquad y_j=x_j\\quad\\text{for }K_i(x)\\text{-almost every }y.\\qquad\\text{Equivalently }K_i(x,\\{y:y_j=x_j\\})=1.",
+      "assumptions": [
+        "{n : ℕ} — n is an arbitrary natural number, so Fin (n+1) is a nonempty finite index set. Individual coordinate spaces need not be finite.",
+        "(X : Fin (n + 1) → Type*) — X is a possibly dependent family: coordinate j may have its own type X j. A state x is a function choosing x j : X j for every j.",
+        "[∀ j, MeasurableSpace (X j)] — Each coordinate is measurable; the full and retained products use their product sigma-algebras.",
+        "(μ : Measure (∀ j, X j)) [IsFiniteMeasure μ] — μ is any finite measure on the full state space. It may have zero mass or be unnormalized.",
+        "(i : Fin (n + 1)) — i is a fixed selected coordinate, not a randomly drawn index.",
+        "[StandardBorelSpace (X i)] [Nonempty (X i)] — Only the selected coordinate must be nonempty and Standard Borel. The other coordinates need neither condition for the construction, Markovness, or invariance.",
+        "(j : Fin (n + 1)) — j is one particular coordinate whose output is to be compared with the input.",
+        "[MeasurableSingletonClass (X j)] — Every singleton in X j is measurable. This makes the event y j = x j measurable. The other retained coordinates and their full product need no singleton assumption for this one-coordinate conclusion.",
+        "(hji : j ≠ i) — The coordinate j is not the selected coordinate.",
+        "(x : ∀ j, X j) — x is any input state, including an input with a marginal-null retained fiber."
+      ],
+      "proof_kind": "almost-everywhere retention proof",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Identify j inside the retained tuple",
+          "text": "Because j≠i, the enumeration succAbove contains j. Choose k with i.succAbove(k)=j and rewrite the problem using this k. Set a=r_i(x) and ν=q_i(a).",
+          "formula": "\\exists k\\in\\operatorname{Fin}(n),\\quad i.\\operatorname{succAbove}(k)=j,\\qquad a=r_i(x),\\quad \\nu=q_i(a).",
+          "lean": "obtain ⟨k, rfl⟩ := Fin.exists_succAbove_eq hji; the local e and ν match the coordinate split."
+        },
+        {
+          "number": 2,
+          "title": "Prove the retained evaluation is fixed under its Dirac law",
+          "text": "The map z↦z(k) from Ri to Xj is measurable. Since {a(k)} is measurable in Xj, the event z(k)=a(k) is measurable and contains a, hence has full δa measure. Notice why measurability of singletons in the whole retained product is unnecessary.",
+          "formula": "\\delta_a(\\{z:z(k)=a(k)\\})=1,\\qquad z(k)=a(k)\\quad\\delta_a\\text{-a.e.}",
+          "lean": "hret := ae_eq_dirac' (measurable_pi_apply k)."
+        },
+        {
+          "number": 3,
+          "title": "Compute the first marginal of the split output law",
+          "text": "The conditional law ν is a probability measure, so the first marginal of δa⊗ν is ν(Xi) times δa, which is δa. This computation does not use target positivity or the conditional support of ν.",
+          "formula": "(\\operatorname{fst})_\\#(\\delta_a\\otimes\\nu)=\\nu(X_i)\\,\\delta_a=\\delta_a.",
+          "lean": "hfirst is proved by simp [ν], using Measure.map_fst_prod and measure_univ for the conditional probability measure."
+        },
+        {
+          "number": 4,
+          "title": "Pull the retained equality through the first projection",
+          "text": "An event that holds almost everywhere for a pushforward measure also holds almost everywhere after composing with the measurable map. Apply this to fst and the Dirac-a.e. equality from step 2.",
+          "formula": "p_1(k)=a(k)\\quad\\text{for }(\\delta_a\\otimes\\nu)\\text{-almost every }p.",
+          "lean": "hprod := ae_of_ae_map measurable_fst.aemeasurable (by rw [hfirst]; exact hret)."
+        },
+        {
+          "number": 5,
+          "title": "Check that reconstruction reads the same coordinate",
+          "text": "For every split output p, applying e and then evaluating its retained kth coordinate to the identity e(e⁻¹p)=p gives the exact coordinate formula for e⁻¹p. This is a pointwise algebraic identity, separate from the probabilistic a.e. statement.",
+          "formula": "e(e^{-1}p)=p\\quad\\Longrightarrow\\quad(e^{-1}p)(i.\\operatorname{succAbove}(k))=p_1(k).",
+          "lean": "hcoord p := congrArg (fun q => q.1 k) (e.apply_symm_apply p)."
+        },
+        {
+          "number": 6,
+          "title": "Push the almost-everywhere event back to original coordinates",
+          "text": "Expand the public kernel to (e⁻¹)#(δa⊗ν). The event yj=xj is measurable because evaluation at j is measurable and {xj} is measurable. The measurable map a.e. equivalence reduces the goal to the split output. Combining hcoord with hprod gives the equality and hence the result.",
+          "formula": "(e^{-1}p)_j=p_1(k)=a(k)=x_j\\quad(\\delta_a\\otimes\\nu)\\text{-a.e.},\\quad\\text{so }y_j=x_j\\quad K_i(x)\\text{-a.e.}",
+          "lean": "Kernel.map_apply, Kernel.comap_apply, HeatBath.heatBathSnd_apply; (ae_map_iff e.symm.measurable.aemeasurable ...).2; hprod.mono (fun p hp => (hcoord p).trans hp)."
+        }
+      ],
+      "lean_statement": "The selected coordinate may change, but the retained tuple enters the split output as a point mass. Reading coordinate j from that point mass fixes its old value with probability one. We must still check that the event 'this coordinate equals its old value' is measurable; that is what the singleton assumption does.",
+      "lean_proof": "`∀ᵐ y ∂heatBath X μ i x, ...` means the property fails only on a set of zero measure for that one transition law. The input x is unrestricted.\n\n`obtain ⟨k, rfl⟩` chooses the retained index and replaces j by its equal expression, avoiding manual dependent-type casts.\n\n`hret`, `hfirst`, `hprod`, and `hcoord` are local proved facts: respectively the Dirac event, first marginal, lifted event, and inverse-coordinate identity.\n\n`congrArg` applies a function to both sides of an equality. Here it extracts the kth retained coordinate from the measurable equivalence's inverse law.\n\n`ae_map_iff ... .2` transports the almost-everywhere fact through the measurable inverse map; its explicit measurable-set proof is exactly where the singleton hypothesis is visible.\n\n`hprod.mono` replaces an almost-everywhere proposition by one it implies, using transitivity of the two coordinate equalities.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_apply"
+      ],
+      "mathlib_dependencies": [
+        "Fin.exists_succAbove_eq",
+        "MeasurableEquiv.piFinSuccAbove",
+        "MeasurableEquiv.prodComm",
+        "MeasureTheory.ae_eq_dirac'",
+        "measurable_pi_apply",
+        "MeasureTheory.Measure.map_fst_prod",
+        "MeasureTheory.measure_univ",
+        "MeasureTheory.ae_of_ae_map",
+        "MeasurableEquiv.apply_symm_apply",
+        "ProbabilityTheory.Kernel.map_apply",
+        "ProbabilityTheory.Kernel.comap_apply",
+        "MeasureTheory.ae_map_iff",
+        "measurableSet_singleton"
+      ],
+      "dependency_notes": "The local hfirst uses simp's existing conditional-kernel Markov instance. KernelMixture/KernelInvariance are tests-only consumers.",
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_ae_apply_eq",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean",
+          "line": 53
+        },
+        {
+          "path": "Tests/CoordinateHeatBath.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Tests simultaneous retention by a finite intersection, a middle update on Fin 3 → Bool, and a nonconstant input with zero target. An indiscrete retained coordinate deliberately receives only marginal-law/invariance tests: no literal a.e. equality is asserted without its singleton contract."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBath.lean",
+        "start_line": 53,
+        "end_line": 78,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath.json",
+        "mathlib_dirac": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Dirac.lean:213",
+        "mathlib_marginal": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Prod.lean:254"
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone.",
+        "Retaining coordinates almost surely at every input is not a Gibbs/feasible-support assertion for the selected conditional version on a null retained fiber.",
+        "The theorem is one retained-coordinate assertion at a time. A tests-only finite-intersection consumer proves simultaneous retention assuming singleton measurability at every coordinate; it is not another public declaration in this module."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/CoordinateHeatBath.lean",
+        "summary": "Tests simultaneous retention by a finite intersection, a middle update on Fin 3 → Bool, and a nonconstant input with zero target. An indiscrete retained coordinate deliberately receives only marginal-law/invariance tests: no literal a.e. equality is asserted without its singleton contract."
+      },
+      "notation": [
+        {
+          "symbol": "S",
+          "text": "The dependent full state space, written ∀ j, X j in Lean.",
+          "formula": "S=\\prod_{j\\in\\operatorname{Fin}(n+1)}X_j"
+        },
+        {
+          "symbol": "R_i",
+          "text": "The retained-coordinate product. i.succAbove lists every original index except i; k is its own Fin n index.",
+          "formula": "R_i=\\prod_{k\\in\\operatorname{Fin}(n)}X_{i.\\operatorname{succAbove}(k)}"
+        },
+        {
+          "symbol": "r_i",
+          "text": "The tuple of all unselected coordinates; this is explanatory notation, not a newly introduced Lean declaration.",
+          "formula": "r_i(x)(k)=x(i.\\operatorname{succAbove}(k))"
+        },
+        {
+          "symbol": "e_i",
+          "text": "MeasurableEquiv.piFinSuccAbove X i first places Xi before Ri; composing with prodComm puts retained coordinates first. e_i and its inverse are measurable.",
+          "formula": "e_i:S\\simeq_{\\mathrm{meas}}R_i\\times X_i,\\qquad e_i(x)=(r_i(x),x_i)"
+        },
+        {
+          "symbol": "η_i,m_i,q_i",
+          "text": "Pushed-forward joint target, retained marginal, and selected conditional version.",
+          "formula": "\\eta_i=(e_i)_\\#\\mu,\\qquad m_i=(\\operatorname{fst})_\\#\\eta_i,\\qquad q_i(r)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\eta_i)(r)"
+        },
+        {
+          "symbol": "K_i",
+          "text": "The existing public CoordinateHeatBath.heatBath X μ i; this evaluated formula uses HeatBath.heatBathSnd_apply.",
+          "formula": "K_i(x)=(e_i^{-1})_\\#\\bigl(\\delta_{r_i(x)}\\otimes q_i(r_i(x))\\bigr)"
+        },
+        {
+          "symbol": "k,ν",
+          "text": "k is the retained tuple's position corresponding to j; ν is a probability measure on Xi.",
+          "formula": "k\\in\\operatorname{Fin}(n),\\quad i.\\operatorname{succAbove}(k)=j,\\qquad \\nu=q_i(r_i(x))"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_eq_cond",
+      "module": "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBathConditional",
+      "kind": "theorem",
+      "title": "On a positive retained fiber, the update is normalized target restriction",
+      "result_classification": "One integration theorem for the already-defined coordinate kernel, reusing Mathlib's positive-atom conditional-law formula.",
+      "statement": "Let μ be any finite measure on a finite dependent product of measurable coordinate spaces. Fix i with Xi nonempty Standard Borel, assume measurable singletons in the retained product Ri, and choose x whose retained fiber Fi(x) has nonzero μ mass. Then the actual coordinate heat-bath output measure at x equals μ restricted to Fi(x), scaled by the reciprocal of its mass. Thus for every measurable event A in the full state space, the transition probability is μ(Fi(x)∩A)/μ(Fi(x)). This is an equality of whole output measures at this fixed positive fiber, not merely a selected-coordinate marginal identity.",
+      "formula": "0<\\mu(F_i(x))<\\infty\\quad\\Longrightarrow\\quad K_i(x)=\\operatorname{cond}(\\mu,F_i(x))=\\mu(F_i(x))^{-1}\\,\\mu|_{F_i(x)},\\qquad K_i(x,A)=\\frac{\\mu(F_i(x)\\cap A)}{\\mu(F_i(x))}.",
+      "assumptions": [
+        "{n : ℕ} — n is an arbitrary natural number, so Fin (n+1) is a nonempty finite index set. Individual coordinate spaces need not be finite.",
+        "(X : Fin (n + 1) → Type*) — X is a possibly dependent family: coordinate j may have its own type X j. A state x is a function choosing x j : X j for every j.",
+        "[∀ j, MeasurableSpace (X j)] — Each coordinate is measurable; the full and retained products use their product sigma-algebras.",
+        "(μ : Measure (∀ j, X j)) [IsFiniteMeasure μ] — μ is any finite measure on the full state space. It may have zero mass or be unnormalized.",
+        "(i : Fin (n + 1)) — i is a fixed selected coordinate, not a randomly drawn index.",
+        "[StandardBorelSpace (X i)] [Nonempty (X i)] — Only the selected coordinate must be nonempty and Standard Borel. The other coordinates need neither condition for the construction, Markovness, or invariance.",
+        "[MeasurableSingletonClass (∀ j : Fin n, X (i.succAbove j))] — The retained product Ri has measurable singletons. This makes its conditioning atom {r_i(x)} and the full-state fiber Fi(x) measurable. It is a separate assumption from the selected coordinate's Standard Borel structure; no Standard Borel assumption is added on Ri.",
+        "(x : ∀ j, X j) — x is a fixed input state.",
+        "(hx : μ {y | (fun j => y (i.succAbove j)) = (fun j => x (i.succAbove j))} ≠ 0) — The entire retained fiber has nonzero μ mass. Because μ is finite, this is exactly 0 < μ(Fi(x)) < ∞. It is not the stronger assumption μ{x}>0, although that would suffice by inclusion."
+      ],
+      "proof_kind": "positive-atom integration proof",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Identify the positive atom of the retained marginal",
+          "text": "Set e=e_i, η=e#μ, and a=r_i(x)=(e x)1. The marginal mass of the singleton {a} is the mass of its inverse-image fiber. Both pushforward formulas apply to measurable sets: Ri has measurable singletons and e and fst are measurable. The given fiber hypothesis becomes exactly the nonzero-atom condition required by the conditional-law formula.",
+          "formula": "m_i(\\{a\\})=((\\operatorname{fst})_\\#\\eta)(\\{a\\})=\\mu(\\{y:(e y)_1=a\\})=\\mu(F_i(x))\\ne0.",
+          "lean": "hm; two uses of Measure.map_apply, measurableSet_singleton, measurable_fst, and e.measurable. `rwa` rewrites the nonzero statement to hx."
+        },
+        {
+          "number": 2,
+          "title": "Reduce equality of measures to a measurable event",
+          "text": "To prove equality of two measures, fix an arbitrary measurable A⊆S and compare their masses. Evaluate the coordinate kernel using its construction and the one-block product-law theorem. The inverse split is measurable, so this is a genuine pushforward calculation.",
+          "formula": "K_i(x,A)=\\bigl((e^{-1})_\\#(\\delta_a\\otimes q_i(a))\\bigr)(A).",
+          "lean": "apply Measure.ext; intro s hs; change exposes heatBath; Kernel.map_apply, Kernel.comap_apply, HeatBath.heatBathSnd_apply."
+        },
+        {
+          "number": 3,
+          "title": "Collapse the Dirac product to an insertion map",
+          "text": "The product δa⊗q_i(a) is the pushforward of q_i(a) along b↦(a,b). Compose that insertion with e⁻¹, defining g(b)=e⁻¹(a,b). Because both maps are measurable, the output event is measured by q_i(a) on B=g⁻¹(A).",
+          "formula": "\\delta_a\\otimes q_i(a)=(b\\mapsto(a,b))_\\#q_i(a),\\qquad K_i(x,A)=q_i(a,g^{-1}(A)).",
+          "lean": "Measure.dirac_prod; Measure.map_map e.symm.measurable measurable_prodMk_left; Measure.map_apply (e.symm.measurable.comp measurable_prodMk_left) hs."
+        },
+        {
+          "number": 4,
+          "title": "Evaluate the selected conditional law at the positive atom",
+          "text": "Mathlib's conditional-distribution formula applies at a because m_i{a}≠0, and the second projection is measurable. It expresses q_i(a,B) by the joint mass of {a}×B divided by the marginal atom mass. The paired projections map on the split space is the identity, so its pushforward is η itself. This reuses the existing atomic conditional-law theorem, not a new proof of disintegration.",
+          "formula": "q_i(a,B)=m_i(\\{a\\})^{-1}\\,\\eta(\\{a\\}\\times B),\\qquad B=g^{-1}(A).",
+          "lean": "condDistrib_apply_of_ne_zero measurable_snd _ hm; simp only [Prod.eta, Measure.map_id']."
+        },
+        {
+          "number": 5,
+          "title": "Pull the numerator and denominator back to the original state space",
+          "text": "The rectangle {a}×B is measurable because {a} and B are measurable. Pulling it back through e gives the event that y has retained tuple a and that reconstructing (a,(e y)2) lies in A. The denominator pulls back to Fi(x), as in step 1.",
+          "formula": "\\eta(\\{a\\}\\times B)=\\mu\\bigl(\\{y:(e y)_1=a\\ \\land\\ e^{-1}(a,(e y)_2)\\in A\\}\\bigr),\\qquad m_i(\\{a\\})=\\mu(F_i(x)).",
+          "lean": "Measure.map_apply e.measurable on the measurable rectangle; subsequent Measure.map_apply rewrites for the marginal."
+        },
+        {
+          "number": 6,
+          "title": "Use the fiber equality to simplify the reconstruction",
+          "text": "On the event (e y)1=a, substitute the actual first component of e y for a. Then (a,(e y)2)=e y and e⁻¹(e y)=y. Therefore the numerator event equals Fi(x)∩A. Prove both inclusions rather than presuming the insertion always returns y off the fiber.",
+          "formula": "\\bigl((e y)_1=a\\ \\land\\ e^{-1}(a,(e y)_2)\\in A\\bigr)\\iff\\bigl((e y)_1=a\\ \\land\\ y\\in A\\bigr).",
+          "lean": "congr 1; congr 1; ext y; constructor; in each direction rintro ⟨hy,hys⟩ and simpa only [← hy, Prod.eta, e.symm_apply_apply] using hys."
+        },
+        {
+          "number": 7,
+          "title": "Recognize normalized restriction",
+          "text": "For measurable A, cond_apply' evaluates the normalized restriction at exactly μ(Fi(x))⁻¹ μ(Fi(x)∩A), which is the expression obtained. Equality on every measurable A proves the measure identity. Finiteness rules out an infinite denominator; the explicit hypothesis rules out zero.",
+          "formula": "K_i(x,A)=\\mu(F_i(x))^{-1}\\mu(F_i(x)\\cap A)=\\operatorname{cond}(\\mu,F_i(x))(A).",
+          "lean": "cond_apply' hs appears before the final set identity in the Lean rewrite sequence; Measure.ext completes after the numerators are identified."
+        }
+      ],
+      "lean_statement": "On a fiber with positive target mass, conditioning means keeping only the target mass on that fiber and renormalizing it to total mass one. The proof checks that the abstract kernel already does exactly this, after translating between split coordinates and the original state. For a zero fiber the normalized restriction is the zero measure, while the actual transition remains a probability measure, so the equality genuinely fails there.",
+      "lean_proof": "`hx` is an explicit mathematical assumption. It is used to prove `hm`, the positive marginal-atom premise for the imported conditional-law theorem; it is not inferred from arbitrary input membership.\n\n`Measure.ext` asks for equality on every measurable set. The Lean variables `s` and `hs` correspond to the proof's A and its measurability.\n\n`Measure.dirac_prod` changes the retained Dirac product into a measurable insertion pushforward, making a single conditional-law evaluation possible.\n\n`condDistrib_apply_of_ne_zero` is imported Mathlib reuse. Its denominator is the retained marginal atom, and the double map rewrites identify that denominator with the original fiber's mass.\n\nThe two `congr 1` steps reduce equality of scaled measure values to equality of the sets measured in their numerators. `ext y` then proves set equality point by point.\n\n`constructor` proves both directions of the final iff. `hy` is crucial: the reconstructed state equals y only on the retained fiber, not for all y.\n\nThe source uses `n` as an implicitly auto-bound natural number and has the same CoordinateHeatBath namespace as the construction despite being in the separate CoordinateHeatBathConditional module.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.HeatBath.heatBathSnd_apply"
+      ],
+      "mathlib_dependencies": [
+        "MeasurableEquiv.piFinSuccAbove",
+        "MeasurableEquiv.prodComm",
+        "MeasureTheory.Measure.ext",
+        "ProbabilityTheory.Kernel.map_apply",
+        "ProbabilityTheory.Kernel.comap_apply",
+        "MeasureTheory.Measure.dirac_prod",
+        "MeasureTheory.Measure.map_map",
+        "MeasureTheory.Measure.map_apply",
+        "ProbabilityTheory.condDistrib_apply_of_ne_zero",
+        "ProbabilityTheory.cond_apply'",
+        "MeasureTheory.Measure.map_id'",
+        "MeasurableEquiv.symm_apply_apply",
+        "measurable_prodMk_left",
+        "measurable_fst",
+        "measurable_snd",
+        "measurableSet_singleton"
+      ],
+      "dependency_notes": "Whole-product equality is proved for the existing kernel. heatBath_invariant, KernelMixture, and KernelInvariance occur in tests/interpretation but are not proof prerequisites of heatBath_eq_cond.",
+      "sources": [
+        {
+          "label": "Fearnhead–Nemeth–Oates–Sherlock, arXiv:2407.12751v1, §2.1.1 Component-wise updates and Gibbs moves; printed page 48 / PDF page 54",
+          "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+          "scope": "Conditional-update motivation only; the generic finite-measure regular-conditional-law contract is not a numbered-source theorem assimilation."
+        },
+        {
+          "label": "Chen–Štefankovič–Vigoda, arXiv:2307.13826v4, §1.3 Glauber dynamics/Gibbs sampler; printed/PDF page 5; support convention in §1.1 printed/PDF page 4",
+          "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+          "scope": "Fixed-site update motivation, not full finite-binary-state algorithm or uniform-scan certification."
+        },
+        {
+          "label": "Existing ASTIS declaration AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_eq_cond",
+          "scope": "Exact public declaration and proof/construction read from the local source. Line numbers are current source anchors; no new source certification or Lean build performed.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBathConditional.lean",
+          "line": 21
+        },
+        {
+          "path": "Tests/CoordinateHeatBathConditional.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Read the existing positive-fiber, exact transition, mismatch, supported-start, null-fiber and mixture/power consumers; no tests rerun."
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Probability/CoordinateHeatBathConditional.lean",
+        "start_line": 21,
+        "end_line": 58,
+        "frontier_cell": "research-wiki/frontier-cells/ASTIS-SHARED-coordinate-heat-bath-positive-fiber.json",
+        "mathlib_atomic": ".lake/packages/mathlib/Mathlib/Probability/Kernel/CondDistrib.lean:75",
+        "mathlib_cond_definition": ".lake/packages/mathlib/Mathlib/Probability/ConditionalProbability.lean:76",
+        "mathlib_cond_evaluation": ".lake/packages/mathlib/Mathlib/Probability/ConditionalProbability.lean:220",
+        "mathlib_dirac_product": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Prod.lean:797",
+        "source_facing_comparison": "Discrete Sampling §1.3 PDF page 5, general update steps 2–3, with §1.1 PDF page 4 positive-support convention supplied by the later local audit. Historical ASTIS-RT-20260908-PositiveFiberUpdate and separate ASTIS-REPAIR-20260908-GlauberCopyIndex must not be conflated."
+      },
+      "boundary": [
+        "These are existing source-neutral measure/kernel interfaces, not newly proved claims in this research packet. Reading source and historical tests is not a fresh Lean build or independent verification.",
+        "Finite target measure means μ(univ) < ∞, not μ(univ) = 1; zero and finite unnormalized targets are allowed unless a positive-fiber hypothesis rules them out.",
+        "A selected regular conditional distribution is a probability kernel at every conditioning value. Its conditional-law characterization is determined only almost everywhere under the conditioning marginal; null fibers have no asserted feasible/Gibbs-support property.",
+        "No reversibility, irreducibility, ergodicity, convergence from a different initial law, mixing rate, random scan, scan-order correctness, executable conditional sampling or cost bound follows from these declarations alone.",
+        "Finite coordinate count is not finite state space. The theorem does not require positive mass for every configuration or impose Standard Borel structure on all retained coordinates.",
+        "Under μ(Fi(x))≠0 and finiteness, the normalized restriction is a probability law and has full mass on the measurable retained fiber. Neither this formula nor conditional-support conclusions extend to μ-null fibers.",
+        "Positive singleton starting mass μ{x}≠0 suffices by {x}⊆Fi(x), but that implication is a private test adapter, not a second public theorem in this module.",
+        "Do not present the formula as a random-site scan theorem, a concrete Gibbs target normalization, or accepted fidelity to the literal conflicting source copy step."
+      ],
+      "source_history_boundary": "Older frontier cells and the coordinate card say the printed copy-index repair is pending. The later positive-fiber card and source-support audit record separate acceptance of the exact one-index correction as ASTIS-REPAIR-20260908-GlauberCopyIndex. The old PositiveFiberUpdate audit remains possible-source-error for its limited page-5 evidence window. Do not overwrite that history, call the original PDF corrected, call a null-fiber start a counterexample to the positive-support source convention, or infer full source fidelity. This packet reads local evidence only; it performs no new PDF/source certification.",
+      "tests": {
+        "file": "Tests/CoordinateHeatBathConditional.lean",
+        "summary": "Read the existing positive-fiber, exact transition, mismatch, supported-start, null-fiber and mixture/power consumers; no tests rerun.",
+        "worked_example": {
+          "definition": "S=Fin 3→Bool; a=(false,false,false), b=(false,true,false), c=(true,false,false), off=(false,false,true). Target μ=(1/6)δa+(1/2)δb+(1/3)δc and selected coordinate i=1.",
+          "formula": "\\mu(F_1(a))=\\tfrac23,\\quad K_1(a,\\{b\\})=\\tfrac34,\\quad K_1(a,\\{a\\})=\\tfrac14,\\quad K_1(a,\\{c\\})=0.",
+          "explanation": "a and b have the same retained coordinates 0 and 2, so their masses normalize by 2/3; c differs at retained coordinate 0 and is excluded."
+        },
+        "null_fiber_example": {
+          "formula": "\\mu(F_1(\\mathrm{off}))=0,\\quad\\operatorname{cond}(\\mu,F_1(\\mathrm{off}))=0,\\quad K_1(\\mathrm{off},S)=1.",
+          "explanation": "The target is a nonzero probability measure, yet off has a null retained fiber. The normalized restriction has mass zero and cannot equal the always-Markov selected update. This is a counterexample to dropping hx, not a counterexample to the source algorithm's supported-start convention."
+        }
+      },
+      "notation": [
+        {
+          "symbol": "S",
+          "text": "The dependent full state space, written ∀ j, X j in Lean.",
+          "formula": "S=\\prod_{j\\in\\operatorname{Fin}(n+1)}X_j"
+        },
+        {
+          "symbol": "R_i",
+          "text": "The retained-coordinate product. i.succAbove lists every original index except i; k is its own Fin n index.",
+          "formula": "R_i=\\prod_{k\\in\\operatorname{Fin}(n)}X_{i.\\operatorname{succAbove}(k)}"
+        },
+        {
+          "symbol": "r_i",
+          "text": "The tuple of all unselected coordinates; this is explanatory notation, not a newly introduced Lean declaration.",
+          "formula": "r_i(x)(k)=x(i.\\operatorname{succAbove}(k))"
+        },
+        {
+          "symbol": "e_i",
+          "text": "MeasurableEquiv.piFinSuccAbove X i first places Xi before Ri; composing with prodComm puts retained coordinates first. e_i and its inverse are measurable.",
+          "formula": "e_i:S\\simeq_{\\mathrm{meas}}R_i\\times X_i,\\qquad e_i(x)=(r_i(x),x_i)"
+        },
+        {
+          "symbol": "η_i,m_i,q_i",
+          "text": "Pushed-forward joint target, retained marginal, and selected conditional version.",
+          "formula": "\\eta_i=(e_i)_\\#\\mu,\\qquad m_i=(\\operatorname{fst})_\\#\\eta_i,\\qquad q_i(r)=\\operatorname{condDistrib}(\\operatorname{snd}\\mid\\operatorname{fst};\\eta_i)(r)"
+        },
+        {
+          "symbol": "K_i",
+          "text": "The existing public CoordinateHeatBath.heatBath X μ i; this evaluated formula uses HeatBath.heatBathSnd_apply.",
+          "formula": "K_i(x)=(e_i^{-1})_\\#\\bigl(\\delta_{r_i(x)}\\otimes q_i(r_i(x))\\bigr)"
+        },
+        {
+          "symbol": "F_i(x)",
+          "text": "The retained fiber through x; its defining equality is equality of retained dependent tuples, not equality of just one coordinate.",
+          "formula": "F_i(x)=\\{y\\in S:r_i(y)=r_i(x)\\}=r_i^{-1}(\\{r_i(x)\\})"
+        },
+        {
+          "symbol": "cond(μ,F)",
+          "text": "Mathlib's totalized normalized restriction. Its measurable-set values are μ(F)⁻¹ μ(F∩A), with arithmetic in the extended nonnegative reals.",
+          "formula": "\\operatorname{cond}(\\mu,F)=\\mu(F)^{-1}\\,\\mu|_F"
+        },
+        {
+          "symbol": "a,g,B",
+          "text": "Local proof notation for the retained atom, the insertion map from Xi to S, and the preimage of a measurable test set A.",
+          "formula": "a=r_i(x),\\qquad g(b)=e_i^{-1}(a,b),\\qquad B=g^{-1}(A)"
+        }
+      ],
+      "conventions": [
+        "All sets used to test equality of measures are measurable unless explicitly stated otherwise.",
+        "All measure values, reciprocals and scalar multiplications in the Lean conditional formula are in ℝ≥0∞. Integral displays of kernel probabilities denote nonnegative extended integrals, not Bochner integrals with unstated integrability hypotheses.",
+        "The notation r_i, F_i, e_i, q_i and K_i in the teaching text is explanatory mathematical shorthand, not new public Lean definitions.",
+        "Markovness quantifies over every input; a selected conditional version's law characterization is only marginal-a.e. unless a positive-atom/fiber theorem applies.",
+        "Finite target mass is not probability normalization. Fin (n+1) counts sites, not states. No law is assumed to have a density."
+      ]
+    }
+  ]
+}

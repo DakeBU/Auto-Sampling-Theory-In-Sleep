@@ -1,0 +1,1084 @@
+{
+  "schema_version": 1,
+  "exposition_review": {
+    "scope": "Independent mathematical exposition review of all seven units against Lean, tests and used Mathlib API. No source-equivalence verdict or new build certification.",
+    "result": "pass",
+    "reviewer": "heatbath_exposition_research"
+  },
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.invariant_pow",
+      "kind": "theorem",
+      "title": "An invariant measure remains invariant after any finite number of transitions",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelInvariance.lean",
+      "source_line": 31,
+      "statement": "Let A be an arbitrary measurable space, let K be a kernel from A to itself, and let μ be any measure on A. Suppose one transition leaves μ unchanged: μK=μ. Then, for every natural number n, applying the n-fold kernel Kⁿ also leaves μ unchanged. The case n=0 is included. When K is Markov and μ is a probability measure this says that a chain initialized in stationarity remains stationary at every finite time, but neither normalization is required for the actual theorem.",
+      "formula": "\\mu K=\\mu\\quad\\Longrightarrow\\quad \\forall n\\in\\mathbb N,\\ \\mu K^n=\\mu.\\qquad\\text{Equivalently, }\\int_A K^n(a,E)\\,\\mu(da)=\\mu(E)\\quad(E\\text{ measurable}).",
+      "assumptions": [
+        "α : Type* with [MeasurableSpace α]; no topology, nonempty or Standard-Borel assumption.",
+        "κ : ProbabilityTheory.Kernel α α; no IsMarkovKernel or IsSFiniteKernel assumption.",
+        "μ : MeasureTheory.Measure α; no finite, s-finite, nonzero or probability assumption.",
+        "hκ : κ.Invariant μ, meaning μ.bind κ = μ.",
+        "n : ℕ, including zero. No local section parameters beyond these."
+      ],
+      "steps": [
+        {
+          "title": "Zero transitions do nothing",
+          "text": "Prove the claim by induction on n. At n=0, the power is the identity kernel, which sends every input a to the point mass δₐ. Applying this kernel simply returns the original measure, so the base case is true.",
+          "formula": "\\mu K^0=\\mu I=\\mu,\\qquad I(a,\\cdot)=\\delta_a.",
+          "lean": "induction n with\n| zero =>\n    change Kernel.id.Invariant μ\n    exact Measure.id_comp",
+          "helpers": [
+            "MeasureTheory.Measure.id_comp",
+            "ProbabilityTheory.Kernel.id"
+          ],
+          "detail": "Measure.id_comp is the identity bind law; no assumption that μ has total mass one is used.",
+          "number": 1
+        },
+        {
+          "title": "Append one transition and reassociate",
+          "text": "Assume μKⁿ=μ. The successor power is Kⁿ∘ₖK, where the rightmost K is applied first. Associativity of composing measures and kernels says that starting from μ and applying this composite is the same as first evolving μ by K and then by Kⁿ.",
+          "formula": "\\mu K^{n+1}=\\mu(K^n\\circ_{\\!k}K)=(\\mu K)K^n.",
+          "lean": "| succ n ih =>\n    rw [pow_succ]\n    change ((κ ^ n) ∘ₖ κ).Invariant μ",
+          "helpers": [
+            "pow_succ",
+            "MeasureTheory.Measure.comp_assoc"
+          ],
+          "detail": "The proof uses this associativity through ProbabilityTheory.Kernel.Invariant.comp in the next line; it does not call Chapman–Kolmogorov as a separate theorem.",
+          "number": 2
+        },
+        {
+          "title": "Use one-step invariance and the induction hypothesis",
+          "text": "The first transition returns μ by the supplied assumption, and the remaining n transitions return μ by the induction hypothesis. Hence the successor case holds. Together with the base case, induction proves the assertion for every natural n.",
+          "formula": "(\\mu K)K^n=\\mu K^n=\\mu.",
+          "lean": "    exact ih.comp hκ",
+          "helpers": [
+            "ProbabilityTheory.Kernel.Invariant.comp"
+          ],
+          "detail": "ih supplies invariance of κⁿ, hκ supplies invariance of κ; Invariant.comp returns invariance of κⁿ∘ₖκ in precisely this order.",
+          "number": 3
+        }
+      ],
+      "lean_statement": "Braces mark inputs Lean usually infers; square brackets ask it to find the measurable-space structure. Kernel α α is a measurable family of measures, not automatically a Markov kernel. hκ is a proof of the input equality μ.bind κ = μ. The explicit n may be any natural number. The expression after the final colon is the proposition to be proved: μ is invariant for the power κ^n.",
+      "lean_proof": "The two induction branches correspond exactly to zero transitions and one-more-than-n transitions. ih is the already-established invariance of κ^n. The final line applies the existing composition theorem to ih and hκ; it is a mathematical closure argument, not a test or simulation.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.Invariant",
+        "ProbabilityTheory.Kernel.Invariant.comp",
+        "MeasureTheory.Measure.id_comp",
+        "ProbabilityTheory.Kernel.id",
+        "pow_succ"
+      ],
+      "mathlib_dependency_notes": [
+        {
+          "declaration": "MeasureTheory.Measure.comp_assoc",
+          "role": "Inside the inspected implementation of Invariant.comp, not a separately written call in invariant_pow."
+        },
+        {
+          "declaration": "ProbabilityTheory.Kernel.pow_add",
+          "role": "Available from the imported kernel-power API, but not called by this proof; do not draw it as a direct proof dependency."
+        }
+      ],
+      "sources": [
+        {
+          "label": "ASTIS statement and proof",
+          "scope": "Directly inspected local theorem.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelInvariance.lean",
+          "line": 31
+        },
+        {
+          "label": "Mathlib invariant-composition identity",
+          "scope": "Direct mathematical dependency.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Invariance.lean",
+          "line": 50
+        },
+        {
+          "label": "Mathlib identity kernel acting on a measure",
+          "scope": "Direct base-case dependency.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Composition/CompNotation.lean",
+          "line": 52
+        },
+        {
+          "label": "Module card",
+          "scope": "Local explanation of assumptions and reuse; not a primary textbook citation.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.md"
+        },
+        {
+          "path": "Tests/KernelInvariance.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "First test specializes invariant_pow to n=7 without Markovness. Second obtains invariance from supplied reversibility using ProbabilityTheory.Kernel.IsReversible.invariant under an explicit IsMarkovKernel hypothesis, then calls bind_pow_eq at n=5. The Markov hypothesis belongs to reversibility→invariance, not invariant_pow."
+        }
+      ],
+      "boundary": [
+        "Starts from exactly μ; says nothing about another initial law approaching μ.",
+        "No uniqueness, irreducibility, aperiodicity, reversibility, ergodicity, spectral gap, mixing rate, estimator error, or computational cost conclusion.",
+        "Only finite natural-number iteration; no infinite-time limit is taken.",
+        "No independently checked numbered textbook source anchor in this dossier; local provenance records are listed separately."
+      ],
+      "notation": [
+        {
+          "symbol": "Measurable space and kernel",
+          "text": "A measurable space is a set with a specified sigma-algebra of events. A kernel K from A to B assigns to each input a a measure K(a,·) on B, and a↦K(a,E) is measurable whenever E is measurable. A kernel need not assign probability measures unless Markovness is separately assumed.",
+          "formula": "K:A\\to\\mathcal M(B),\\qquad a\\mapsto K(a,E)\\text{ measurable for every measurable }E\\subseteq B."
+        },
+        {
+          "symbol": "Measure evolved by a kernel; invariance",
+          "text": "Write μK for the measure obtained by starting with μ and applying K. Lean writes μ.bind K or K ∘ₘ μ. Invariance says that this evolved measure is exactly μ. If μ is a probability law this means a stationary initial distribution, but the definitions and these theorems also allow arbitrary measures.",
+          "formula": "(\\mu K)(E)=\\int_A K(a,E)\\,\\mu(da),\\qquad \\mu K=\\mu."
+        },
+        {
+          "symbol": "Composition and powers",
+          "text": "Lean's L ∘ₖ K applies K first and L second. The multiplicative identity is the identity kernel a↦δ_a, and powers are repeated composition. All integrals here are nonnegative extended-real (lower Lebesgue) integrals; no signed or Bochner integrability is silently assumed.",
+          "formula": "(L\\circ_{\\!k}K)(a,E)=\\int L(b,E)\\,K(a,db),\\quad K^0(a,\\cdot)=\\delta_a,\\quad K^{n+1}=K^n\\circ_{\\!k}K."
+        },
+        {
+          "symbol": "Markov and s-finite kernels",
+          "text": "Markov means every output measure has total mass one. An s-finite kernel is a countable sum of finite kernels, where each finite kernel has a finite uniform bound on its total mass across inputs. Markovness supplies this s-finiteness automatically. S-finite is not the same hypothesis as sigma-finite, and is not merely a pointwise finiteness assertion.",
+          "formula": "K(a,B)=1\\ \\forall a\\quad\\text{(Markov)};\\qquad K=\\sum_{n=0}^{\\infty}K_n,\\quad \\forall n\\ \\exists C_n<\\infty\\ \\forall a,\\ K_n(a,B)\\le C_n\\quad\\text{(s-finite)}."
+        },
+        {
+          "symbol": "Nonnegative weights",
+          "text": "ℝ≥0 consists of finite nonnegative real numbers; ℝ≥0∞ also allows infinity and is the codomain of measure values. The coercion wᵢ↦cᵢ puts finite weights into extended nonnegative arithmetic. Zero weights are permitted, including when component masses are infinite; this arithmetic uses 0·∞=0.",
+          "formula": "w_i\\in[0,\\infty),\\qquad c_i=\\iota(w_i)\\in[0,\\infty]."
+        },
+        {
+          "symbol": "Measurable equivalence and pushforward",
+          "text": "A measurable equivalence e is a bijection whose forward and inverse maps are both measurable. Its pushforward measure records the original mass of inverse images. This is transport of measures, not a density transformation with an implicit Jacobian.",
+          "formula": "(e_*\\mu)(E)=\\mu(e^{-1}(E)),\\qquad (e^{-1})_*(e_*\\mu)=\\mu."
+        }
+      ],
+      "tests": {
+        "file": "Tests/KernelInvariance.lean",
+        "summary": "First test specializes invariant_pow to n=7 without Markovness. Second obtains invariance from supplied reversibility using ProbabilityTheory.Kernel.IsReversible.invariant under an explicit IsMarkovKernel hypothesis, then calls bind_pow_eq at n=5. The Markov hypothesis belongs to reversibility→invariance, not invariant_pow."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.bind_pow_eq",
+      "kind": "theorem",
+      "title": "The evolved-measure form of finite-step invariance",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelInvariance.lean",
+      "source_line": 46,
+      "statement": "On an arbitrary measurable space A, let K:A→𝓜(A) be a kernel, μ a measure, and suppose μK=μ. For each natural n, binding μ to Kⁿ gives exactly μ. This is the same finite-step invariance result written as an equality of measures instead of the predicate Invariant; it introduces no additional mathematical conclusion.",
+      "formula": "\\mu.\\operatorname{bind}(K^n)=\\mu,\\qquad\\text{that is, }\\mu K^n=\\mu.",
+      "assumptions": [
+        "α : Type* with [MeasurableSpace α].",
+        "κ : Kernel α α and μ : Measure α; neither finiteness nor Markovness is assumed.",
+        "hκ : κ.Invariant μ.",
+        "n : ℕ. No omitted section variables or extra hypotheses."
+      ],
+      "steps": [
+        {
+          "title": "Reuse the finite-iteration theorem",
+          "text": "Apply invariant_pow to the one-step invariance assumption and the chosen n. This already proves that μ is invariant for Kⁿ.",
+          "formula": "\\operatorname{Invariant}(K,\\mu)\\Longrightarrow\\operatorname{Invariant}(K^n,\\mu).",
+          "lean": "invariant_pow hκ n",
+          "helpers": [
+            "AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.invariant_pow"
+          ],
+          "number": 1
+        },
+        {
+          "title": "Read the predicate as its defining equality",
+          "text": "By definition, a measure is invariant for a kernel precisely when binding it to that kernel leaves it unchanged. Exposing that definition gives the requested equality, without any new induction or integral argument.",
+          "formula": "\\operatorname{Invariant}(K^n,\\mu)\\ \\equiv\\ \\mu.\\operatorname{bind}(K^n)=\\mu.",
+          "lean": "(invariant_pow hκ n).def",
+          "helpers": [
+            "ProbabilityTheory.Kernel.Invariant.def"
+          ],
+          "number": 2
+        }
+      ],
+      "lean_statement": "μ.bind (κ ^ n) is Lean's measure obtained by applying the n-step kernel to μ. The type annotation distinguishes this equality from equality of kernels or densities. Inputs and assumptions are exactly those of invariant_pow.",
+      "lean_proof": "The expression invariant_pow hκ n supplies a proof of (κ^n).Invariant μ. Its .def projection is the Mathlib theorem that exposes the equality stored in the invariant predicate. This declaration exists for convenient measure-level rewriting, not as a second independent mathematical leaf.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.KernelInvariance.invariant_pow"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.Invariant",
+        "MeasureTheory.Measure.bind"
+      ],
+      "sources": [
+        {
+          "label": "ASTIS measure-level wrapper",
+          "scope": "Directly inspected wrapper.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelInvariance.lean",
+          "line": 46
+        },
+        {
+          "label": "Definition-exposure theorem",
+          "scope": "Exact meaning of .def.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Invariance.lean",
+          "line": 44
+        },
+        {
+          "path": "Tests/KernelInvariance.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "First test specializes invariant_pow to n=7 without Markovness. Second obtains invariance from supplied reversibility using ProbabilityTheory.Kernel.IsReversible.invariant under an explicit IsMarkovKernel hypothesis, then calls bind_pow_eq at n=5. The Markov hypothesis belongs to reversibility→invariance, not invariant_pow."
+        }
+      ],
+      "boundary": [
+        "Same mathematical boundary as invariant_pow; count this as a reuse/notation wrapper, not a new stationary-distribution or mixing theorem.",
+        "A downstream reversible-kernel use still needs the Markov assumption required by Mathlib IsReversible.invariant before this wrapper can be applied."
+      ],
+      "notation": [
+        {
+          "symbol": "Measurable space and kernel",
+          "text": "A measurable space is a set with a specified sigma-algebra of events. A kernel K from A to B assigns to each input a a measure K(a,·) on B, and a↦K(a,E) is measurable whenever E is measurable. A kernel need not assign probability measures unless Markovness is separately assumed.",
+          "formula": "K:A\\to\\mathcal M(B),\\qquad a\\mapsto K(a,E)\\text{ measurable for every measurable }E\\subseteq B."
+        },
+        {
+          "symbol": "Measure evolved by a kernel; invariance",
+          "text": "Write μK for the measure obtained by starting with μ and applying K. Lean writes μ.bind K or K ∘ₘ μ. Invariance says that this evolved measure is exactly μ. If μ is a probability law this means a stationary initial distribution, but the definitions and these theorems also allow arbitrary measures.",
+          "formula": "(\\mu K)(E)=\\int_A K(a,E)\\,\\mu(da),\\qquad \\mu K=\\mu."
+        },
+        {
+          "symbol": "Composition and powers",
+          "text": "Lean's L ∘ₖ K applies K first and L second. The multiplicative identity is the identity kernel a↦δ_a, and powers are repeated composition. All integrals here are nonnegative extended-real (lower Lebesgue) integrals; no signed or Bochner integrability is silently assumed.",
+          "formula": "(L\\circ_{\\!k}K)(a,E)=\\int L(b,E)\\,K(a,db),\\quad K^0(a,\\cdot)=\\delta_a,\\quad K^{n+1}=K^n\\circ_{\\!k}K."
+        },
+        {
+          "symbol": "Markov and s-finite kernels",
+          "text": "Markov means every output measure has total mass one. An s-finite kernel is a countable sum of finite kernels, where each finite kernel has a finite uniform bound on its total mass across inputs. Markovness supplies this s-finiteness automatically. S-finite is not the same hypothesis as sigma-finite, and is not merely a pointwise finiteness assertion.",
+          "formula": "K(a,B)=1\\ \\forall a\\quad\\text{(Markov)};\\qquad K=\\sum_{n=0}^{\\infty}K_n,\\quad \\forall n\\ \\exists C_n<\\infty\\ \\forall a,\\ K_n(a,B)\\le C_n\\quad\\text{(s-finite)}."
+        },
+        {
+          "symbol": "Nonnegative weights",
+          "text": "ℝ≥0 consists of finite nonnegative real numbers; ℝ≥0∞ also allows infinity and is the codomain of measure values. The coercion wᵢ↦cᵢ puts finite weights into extended nonnegative arithmetic. Zero weights are permitted, including when component masses are infinite; this arithmetic uses 0·∞=0.",
+          "formula": "w_i\\in[0,\\infty),\\qquad c_i=\\iota(w_i)\\in[0,\\infty]."
+        },
+        {
+          "symbol": "Measurable equivalence and pushforward",
+          "text": "A measurable equivalence e is a bijection whose forward and inverse maps are both measurable. Its pushforward measure records the original mass of inverse images. This is transport of measures, not a density transformation with an implicit Jacobian.",
+          "formula": "(e_*\\mu)(E)=\\mu(e^{-1}(E)),\\qquad (e^{-1})_*(e_*\\mu)=\\mu."
+        }
+      ],
+      "tests": {
+        "file": "Tests/KernelInvariance.lean",
+        "summary": "First test specializes invariant_pow to n=7 without Markovness. Second obtains invariance from supplied reversibility using ProbabilityTheory.Kernel.IsReversible.invariant under an explicit IsMarkovKernel hypothesis, then calls bind_pow_eq at n=5. The Markov hypothesis belongs to reversibility→invariance, not invariant_pow."
+      },
+      "result_classification": "notation-wrapper theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture",
+      "kind": "def",
+      "title": "Constructing a finite fixed-weight mixture of kernels",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean",
+      "source_line": 27,
+      "statement": "Let I be a finite index type, A and B measurable spaces, w:I→[0,∞) fixed nonnegative real weights, and Kᵢ kernels from A to B. Assume every Kᵢ is an s-finite kernel. The construction first multiplies each output measure of Kᵢ by the constant density wᵢ, then adds these finitely many kernels. Denote the result by M_w. No sum-to-one condition is needed to define it; the next theorem identifies its value at each input as the weighted sum of component measures.",
+      "formula": "M_w:=\\sum_{i\\in I}K_i.\\operatorname{withDensity}\\bigl((a,b)\\mapsto c_i\\bigr),\\qquad c_i=\\iota(w_i)\\in[0,\\infty].",
+      "assumptions": [
+        "Implicit section variables {ι α β : Type*}.",
+        "[Fintype ι]: there are finitely many component indices; this does not make α or β a finite state space.",
+        "[MeasurableSpace α] and [MeasurableSpace β].",
+        "w : ι → ℝ≥0, fixed independently of input and output states.",
+        "κ : ι → Kernel α β.",
+        "[∀ i, IsSFiniteKernel (κ i)], a uniform-kernel decomposition contract for each component, required by the chosen withDensity API.",
+        "No normalization, strict positivity, Markovness, target measure μ, nonempty-space, Standard-Borel or topological assumption."
+      ],
+      "steps": [
+        {
+          "title": "Embed the weights into the range of measure values",
+          "text": "A measure takes extended nonnegative real values. Regard the finite nonnegative real weight wᵢ as the extended value cᵢ. For each i, the proposed density is the constant function (a,b)↦cᵢ, so it is measurable on the product measurable space.",
+          "formula": "c_i=\\iota(w_i),\\qquad f_i(a,b)=c_i,\\qquad f_i\\text{ measurable}.",
+          "lean": "(fun _ _ => (w i : ℝ≥0∞))",
+          "helpers": [
+            "measurable_const"
+          ],
+          "detail": "measurable_const is used explicitly in finiteMixture_apply to certify the genuine-density branch; the definition itself passes the density to the totalized API.",
+          "number": 1
+        },
+        {
+          "title": "Form one constant-density kernel for each component",
+          "text": "For each i, invoke the existing withDensity construction. At a fixed input a, its intended measure is obtained by integrating the constant cᵢ against Kᵢ(a,·). The s-finite component hypothesis guarantees that the imported construction yields a measurable kernel. Because fᵢ is measurable, the API's nonmeasurable zero fallback is not used; the next evaluation theorem proves this explicitly.",
+          "formula": "L_i:=K_i.\\operatorname{withDensity}(f_i),\\qquad L_i(a,E)=\\int_E c_i\\,K_i(a,db)=c_iK_i(a,E).",
+          "lean": "(κ i).withDensity (fun _ _ => (w i : ℝ≥0∞))",
+          "helpers": [
+            "ProbabilityTheory.Kernel.withDensity"
+          ],
+          "detail": "The displayed pointwise interpretation is justified by finiteMixture_apply and its Mathlib helpers, not by an additional theorem proof inside this definition.",
+          "number": 2
+        },
+        {
+          "title": "Add the finitely many kernels",
+          "text": "Use the additive structure on kernels to take the finite sum of the Lᵢ. Finite sums of measures remain measures, and the existing kernel sum structure preserves the required input measurability. This defines M_w. If I is empty the sum is the zero kernel.",
+          "formula": "M_w=\\sum_{i\\in I}L_i.",
+          "lean": "∑ i, (κ i).withDensity (fun _ _ => (w i : ℝ≥0∞))",
+          "helpers": [
+            "ProbabilityTheory.Kernel.instAddCommMonoid",
+            "Finset.sum"
+          ],
+          "detail": "These are construction steps, not an invariance or normalization proof.",
+          "number": 3
+        }
+      ],
+      "lean_statement": "This declaration returns a kernel, not a proposition. Fintype supplies the finite summation range. Each κ i is a component kernel. The bracketed family of IsSFiniteKernel assumptions lets Lean construct every withDensity component. The two underscores in fun _ _ mean the density ignores both current and next state. noncomputable indicates an abstract mathematical construction, not an executable sampling implementation.",
+      "lean_statement_note": "The source writes the first four implicit parameters as a preceding variable command; they are expanded here so the adjacent statement stands alone.",
+      "lean_proof": "The displayed body is the definition itself. withDensity weights each component by a constant, and ∑ adds the resulting kernels. The statement does not assert that these masses add to one; that is proved separately only when normalized weights and Markov components are supplied.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.withDensity",
+        "ProbabilityTheory.IsSFiniteKernel",
+        "ProbabilityTheory.Kernel.instAddCommMonoid",
+        "Finset.sum"
+      ],
+      "sources": [
+        {
+          "label": "ASTIS mixture construction",
+          "scope": "Directly inspected definition.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean",
+          "line": 27
+        },
+        {
+          "label": "Mathlib withDensity construction",
+          "scope": "Inspected s-finite assumption and measurable/nonmeasurable branches.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/WithDensity.lean",
+          "line": 48
+        },
+        {
+          "label": "Finite-kernel additive structure",
+          "scope": "Existing sum infrastructure.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Defs.lean",
+          "line": 111
+        },
+        {
+          "path": "Tests/KernelMixture.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Tests preserve the arbitrary-target contract; remove a zero-weight Bool component at the measure level; and use a private Bool family consisting of the identity and heatBathSnd. The latter is Markov, invariant, and reusable in invariant_pow. The identity weight may be zero, so the tests do not establish positive holding probability or aperiodicity."
+        }
+      ],
+      "boundary": [
+        "This definition alone claims neither Markovness nor invariance.",
+        "S-finiteness is the selected Mathlib implementation's contract; this is not a claim that every conceivable finite-mixture definition mathematically needs it.",
+        "State-dependent weights, signed weights and computational sampling code are not provided.",
+        "Empty I yields the zero kernel; the later hypothesis ∑ᵢwᵢ=1 cannot hold for empty I.",
+        "Source-neutral construction; no numbered primary textbook theorem is assigned."
+      ],
+      "notation": [
+        {
+          "symbol": "Measurable space and kernel",
+          "text": "A measurable space is a set with a specified sigma-algebra of events. A kernel K from A to B assigns to each input a a measure K(a,·) on B, and a↦K(a,E) is measurable whenever E is measurable. A kernel need not assign probability measures unless Markovness is separately assumed.",
+          "formula": "K:A\\to\\mathcal M(B),\\qquad a\\mapsto K(a,E)\\text{ measurable for every measurable }E\\subseteq B."
+        },
+        {
+          "symbol": "Measure evolved by a kernel; invariance",
+          "text": "Write μK for the measure obtained by starting with μ and applying K. Lean writes μ.bind K or K ∘ₘ μ. Invariance says that this evolved measure is exactly μ. If μ is a probability law this means a stationary initial distribution, but the definitions and these theorems also allow arbitrary measures.",
+          "formula": "(\\mu K)(E)=\\int_A K(a,E)\\,\\mu(da),\\qquad \\mu K=\\mu."
+        },
+        {
+          "symbol": "Composition and powers",
+          "text": "Lean's L ∘ₖ K applies K first and L second. The multiplicative identity is the identity kernel a↦δ_a, and powers are repeated composition. All integrals here are nonnegative extended-real (lower Lebesgue) integrals; no signed or Bochner integrability is silently assumed.",
+          "formula": "(L\\circ_{\\!k}K)(a,E)=\\int L(b,E)\\,K(a,db),\\quad K^0(a,\\cdot)=\\delta_a,\\quad K^{n+1}=K^n\\circ_{\\!k}K."
+        },
+        {
+          "symbol": "Markov and s-finite kernels",
+          "text": "Markov means every output measure has total mass one. An s-finite kernel is a countable sum of finite kernels, where each finite kernel has a finite uniform bound on its total mass across inputs. Markovness supplies this s-finiteness automatically. S-finite is not the same hypothesis as sigma-finite, and is not merely a pointwise finiteness assertion.",
+          "formula": "K(a,B)=1\\ \\forall a\\quad\\text{(Markov)};\\qquad K=\\sum_{n=0}^{\\infty}K_n,\\quad \\forall n\\ \\exists C_n<\\infty\\ \\forall a,\\ K_n(a,B)\\le C_n\\quad\\text{(s-finite)}."
+        },
+        {
+          "symbol": "Nonnegative weights",
+          "text": "ℝ≥0 consists of finite nonnegative real numbers; ℝ≥0∞ also allows infinity and is the codomain of measure values. The coercion wᵢ↦cᵢ puts finite weights into extended nonnegative arithmetic. Zero weights are permitted, including when component masses are infinite; this arithmetic uses 0·∞=0.",
+          "formula": "w_i\\in[0,\\infty),\\qquad c_i=\\iota(w_i)\\in[0,\\infty]."
+        },
+        {
+          "symbol": "Measurable equivalence and pushforward",
+          "text": "A measurable equivalence e is a bijection whose forward and inverse maps are both measurable. Its pushforward measure records the original mass of inverse images. This is transport of measures, not a density transformation with an implicit Jacobian.",
+          "formula": "(e_*\\mu)(E)=\\mu(e^{-1}(E)),\\qquad (e^{-1})_*(e_*\\mu)=\\mu."
+        }
+      ],
+      "tests": {
+        "file": "Tests/KernelMixture.lean",
+        "summary": "Tests preserve the arbitrary-target contract; remove a zero-weight Bool component at the measure level; and use a private Bool family consisting of the identity and heatBathSnd. The latter is Markov, invariant, and reusable in invariant_pow. The identity weight may be zero, so the tests do not establish positive holding probability or aperiodicity."
+      },
+      "result_classification": "noncomputable definition"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_apply",
+      "kind": "theorem",
+      "title": "The mixture at each input is the weighted sum of output measures",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean",
+      "source_line": 33,
+      "statement": "Let I be a finite index type, A and B measurable spaces, w:I→[0,∞) fixed weights, and Kᵢ:A→𝓜(B) s-finite kernels. For every input a∈A, the output measure of finiteMixture w K is exactly the sum of the scaled measures wᵢKᵢ(a,·). Normalization of w is not assumed. This evaluation identity explains the construction rather than asserting a new convergence property.",
+      "formula": "M_w(a,\\cdot)=\\sum_{i\\in I}c_i\\,K_i(a,\\cdot),\\qquad c_i=\\iota(w_i).\\qquad M_w(a,E)=\\sum_{i\\in I}c_iK_i(a,E).",
+      "assumptions": [
+        "{ι α β : Type*}, [Fintype ι], [MeasurableSpace α], [MeasurableSpace β] from the local section.",
+        "w : ι → ℝ≥0 and κ : ι → Kernel α β.",
+        "[∀ i, IsSFiniteKernel (κ i)].",
+        "a : α is an arbitrary input.",
+        "No ∑ᵢwᵢ=1 hypothesis, no Markovness, and no target measure. The primary equality is equality of measures, not merely equality of densities on measurable sets."
+      ],
+      "steps": [
+        {
+          "title": "Evaluate the finite kernel sum at the input",
+          "text": "Expand the mixture definition. Evaluation of a finite sum of kernels at a fixed input distributes over that sum, leaving one constant-density output measure for each i.",
+          "formula": "M_w(a,\\cdot)=\\sum_{i\\in I}\\bigl[K_i.\\operatorname{withDensity}(f_i)\\bigr](a,\\cdot),\\qquad f_i(x,b)=c_i.",
+          "lean": "classical\nrw [finiteMixture, sum_apply]",
+          "helpers": [
+            "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture",
+            "sum_apply"
+          ],
+          "detail": "This sum_apply is the root fun-like finite-sum evaluation theorem generated in Mathlib/Algebra/BigOperators/Pi.lean, not ProbabilityTheory.Kernel.sum_apply (which concerns a countable Kernel.sum).",
+          "number": 1
+        },
+        {
+          "title": "Use the genuinely measurable constant-density branch",
+          "text": "Fix one index i. The function fᵢ on the product is constant, hence measurable. The withDensity evaluation law therefore identifies the output of the kernel construction with the measure Kᵢ(a,·) carrying the constant density cᵢ. This rules out the API's fallback value.",
+          "formula": "\\bigl[K_i.\\operatorname{withDensity}(f_i)\\bigr](a,\\cdot)=K_i(a,\\cdot).\\operatorname{withDensity}(b\\mapsto c_i).",
+          "lean": "apply Finset.sum_congr rfl\nintro i _\nrw [Kernel.withDensity_apply _ measurable_const, MeasureTheory.withDensity_const]",
+          "helpers": [
+            "Finset.sum_congr",
+            "ProbabilityTheory.Kernel.withDensity_apply",
+            "measurable_const"
+          ],
+          "detail": "The first rewrite in the final rw line performs this step.",
+          "number": 2
+        },
+        {
+          "title": "A constant density is scalar multiplication of a measure",
+          "text": "Multiplying a measure by the constant density cᵢ gives precisely the scalar multiple cᵢKᵢ(a,·). Substitute this equality in every summand. The resulting equality is exactly the asserted weighted-sum formula.",
+          "formula": "K_i(a,\\cdot).\\operatorname{withDensity}(c_i)=c_i\\,K_i(a,\\cdot),\\qquad M_w(a,\\cdot)=\\sum_i c_iK_i(a,\\cdot).",
+          "lean": "rw [Kernel.withDensity_apply _ measurable_const, MeasureTheory.withDensity_const]",
+          "helpers": [
+            "MeasureTheory.withDensity_const"
+          ],
+          "detail": "The second rewrite in the same source line performs this step. No division by weights is used, so wᵢ=0 is allowed.",
+          "number": 3
+        }
+      ],
+      "lean_statement": "finiteMixture w κ a is a measure on β. On the right, κ i a is the i-th output measure at a, • multiplies a measure by an extended nonnegative scalar, and ∑ sums measures over the finite index type. The cast (w i : ℝ≥0∞) changes the number type, not the mathematical weight.",
+      "lean_statement_note": "Source section parameters are expanded for standalone reading.",
+      "lean_proof": "After distributing evaluation over the finite sum, it suffices to check one summand. measurable_const verifies the joint measurability required by withDensity_apply, and withDensity_const turns constant density into scalar multiplication. classical supplies finite-index bookkeeping without an extra mathematical hypothesis.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture"
+      ],
+      "mathlib_dependencies": [
+        "sum_apply",
+        "Finset.sum_congr",
+        "ProbabilityTheory.Kernel.withDensity_apply",
+        "measurable_const",
+        "MeasureTheory.withDensity_const"
+      ],
+      "sources": [
+        {
+          "label": "ASTIS pointwise measure identity",
+          "scope": "Directly inspected theorem and proof.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean",
+          "line": 33
+        },
+        {
+          "label": "Mathlib kernel density evaluation",
+          "scope": "Genuine measurable branch.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/WithDensity.lean",
+          "line": 60
+        },
+        {
+          "label": "Mathlib constant-density measure identity",
+          "scope": "Scalar-multiple identity.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/WithDensity.lean",
+          "line": 180
+        },
+        {
+          "label": "Mathlib root finite-sum evaluation",
+          "scope": "sum_apply is the additive theorem generated by the to_additive annotation on prod_apply.",
+          "path": ".lake/packages/mathlib/Mathlib/Algebra/BigOperators/Pi.lean",
+          "line": 241
+        },
+        {
+          "path": "Tests/KernelMixture.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Tests preserve the arbitrary-target contract; remove a zero-weight Bool component at the measure level; and use a private Bool family consisting of the identity and heatBathSnd. The latter is Markov, invariant, and reusable in invariant_pow. The identity weight may be zero, so the tests do not establish positive holding probability or aperiodicity."
+        }
+      ],
+      "boundary": [
+        "Evaluation interface only: no probability normalization, common target, invariance, reversibility or mixing result.",
+        "A finite family of arbitrary state spaces is allowed; no finite-state restriction is introduced.",
+        "This proof establishes that constant densities avoid withDensity's nonmeasurable zero branch.",
+        "No independently checked primary textbook anchor; exact proof sources are the local definition and Mathlib identities."
+      ],
+      "notation": [
+        {
+          "symbol": "Measurable space and kernel",
+          "text": "A measurable space is a set with a specified sigma-algebra of events. A kernel K from A to B assigns to each input a a measure K(a,·) on B, and a↦K(a,E) is measurable whenever E is measurable. A kernel need not assign probability measures unless Markovness is separately assumed.",
+          "formula": "K:A\\to\\mathcal M(B),\\qquad a\\mapsto K(a,E)\\text{ measurable for every measurable }E\\subseteq B."
+        },
+        {
+          "symbol": "Measure evolved by a kernel; invariance",
+          "text": "Write μK for the measure obtained by starting with μ and applying K. Lean writes μ.bind K or K ∘ₘ μ. Invariance says that this evolved measure is exactly μ. If μ is a probability law this means a stationary initial distribution, but the definitions and these theorems also allow arbitrary measures.",
+          "formula": "(\\mu K)(E)=\\int_A K(a,E)\\,\\mu(da),\\qquad \\mu K=\\mu."
+        },
+        {
+          "symbol": "Composition and powers",
+          "text": "Lean's L ∘ₖ K applies K first and L second. The multiplicative identity is the identity kernel a↦δ_a, and powers are repeated composition. All integrals here are nonnegative extended-real (lower Lebesgue) integrals; no signed or Bochner integrability is silently assumed.",
+          "formula": "(L\\circ_{\\!k}K)(a,E)=\\int L(b,E)\\,K(a,db),\\quad K^0(a,\\cdot)=\\delta_a,\\quad K^{n+1}=K^n\\circ_{\\!k}K."
+        },
+        {
+          "symbol": "Markov and s-finite kernels",
+          "text": "Markov means every output measure has total mass one. An s-finite kernel is a countable sum of finite kernels, where each finite kernel has a finite uniform bound on its total mass across inputs. Markovness supplies this s-finiteness automatically. S-finite is not the same hypothesis as sigma-finite, and is not merely a pointwise finiteness assertion.",
+          "formula": "K(a,B)=1\\ \\forall a\\quad\\text{(Markov)};\\qquad K=\\sum_{n=0}^{\\infty}K_n,\\quad \\forall n\\ \\exists C_n<\\infty\\ \\forall a,\\ K_n(a,B)\\le C_n\\quad\\text{(s-finite)}."
+        },
+        {
+          "symbol": "Nonnegative weights",
+          "text": "ℝ≥0 consists of finite nonnegative real numbers; ℝ≥0∞ also allows infinity and is the codomain of measure values. The coercion wᵢ↦cᵢ puts finite weights into extended nonnegative arithmetic. Zero weights are permitted, including when component masses are infinite; this arithmetic uses 0·∞=0.",
+          "formula": "w_i\\in[0,\\infty),\\qquad c_i=\\iota(w_i)\\in[0,\\infty]."
+        },
+        {
+          "symbol": "Measurable equivalence and pushforward",
+          "text": "A measurable equivalence e is a bijection whose forward and inverse maps are both measurable. Its pushforward measure records the original mass of inverse images. This is transport of measures, not a density transformation with an implicit Jacobian.",
+          "formula": "(e_*\\mu)(E)=\\mu(e^{-1}(E)),\\qquad (e^{-1})_*(e_*\\mu)=\\mu."
+        }
+      ],
+      "tests": {
+        "file": "Tests/KernelMixture.lean",
+        "summary": "Tests preserve the arbitrary-target contract; remove a zero-weight Bool component at the measure level; and use a private Bool family consisting of the identity and heatBathSnd. The latter is Markov, invariant, and reusable in invariant_pow. The identity weight may be zero, so the tests do not establish positive holding probability or aperiodicity."
+      },
+      "result_classification": "evaluation theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_isMarkovKernel",
+      "kind": "theorem",
+      "title": "A normalized mixture of Markov kernels is a Markov kernel",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean",
+      "source_line": 44,
+      "statement": "Let I be a finite index type, A and B measurable spaces, and Kᵢ Markov kernels from A to B. Let wᵢ be fixed nonnegative real weights whose sum is one. Then the finite mixture M_w is a Markov kernel: for every input a, its output measure is a probability measure. Individual weights may be zero.",
+      "formula": "\\left[\\forall i,a,\\ K_i(a,B)=1\\right]\\ \\land\\ \\left[\\sum_{i\\in I}w_i=1\\right]\\quad\\Longrightarrow\\quad\\forall a,\\ M_w(a,B)=1.",
+      "assumptions": [
+        "{ι α β : Type*}, [Fintype ι], [MeasurableSpace α], [MeasurableSpace β] from the local section.",
+        "w : ι → ℝ≥0, independent of current state.",
+        "κ : ι → Kernel α β with [∀ i, IsMarkovKernel (κ i)].",
+        "hsum : ∑ i, w i = 1 as an equality in ℝ≥0.",
+        "There is no separate IsSFiniteKernel argument: the Markov-kernel typeclass instances supply the construction contract automatically.",
+        "No target measure, finiteness of state spaces, strict positivity of weights, nonempty-state assumption, reversibility or convergence assumption."
+      ],
+      "steps": [
+        {
+          "title": "Express normalization in extended nonnegative arithmetic",
+          "text": "The input weights are finite nonnegative reals but the total masses of measures are extended nonnegative reals. Apply the natural inclusion to the sum-to-one equality. This inclusion preserves finite sums and the number one, so the same normalization holds for cᵢ.",
+          "formula": "\\sum_iw_i=1\\quad\\Longrightarrow\\quad\\sum_ic_i=\\iota\\!\\left(\\sum_iw_i\\right)=\\iota(1)=1.",
+          "lean": "have hsum' : ∑ i, (w i : ℝ≥0∞) = 1 := by\n  simpa using congrArg (fun r : ℝ≥0 => (r : ℝ≥0∞)) hsum",
+          "helpers": [
+            "congrArg",
+            "ENNReal.ofNNReal_finsetSum",
+            "ENNReal.coe_one"
+          ],
+          "detail": "The named cast lemmas are the inspected simplification support for simpa; only congrArg is written explicitly.",
+          "number": 1
+        },
+        {
+          "title": "Reduce Markovness to total mass at one input",
+          "text": "The construction already supplies a measurable kernel and therefore an output measure for every input. To prove it is Markov, fix an arbitrary input a and show that this measure assigns mass one to the full output space. No additional measurability proof or density normalization is needed.",
+          "formula": "\\text{It remains to prove }M_w(a,B)=1\\quad\\text{for each }a\\in A.",
+          "lean": "constructor\nintro a\nconstructor",
+          "helpers": [
+            "ProbabilityTheory.IsMarkovKernel",
+            "MeasureTheory.IsProbabilityMeasure"
+          ],
+          "detail": "The two constructors unpack Markovness and then the total-mass-one field of a probability measure; their mathematical content is the stated reduction.",
+          "number": 2
+        },
+        {
+          "title": "Compute the total mass and use component normalization",
+          "text": "Evaluate the weighted-sum measure on the whole output space B. Evaluation distributes over the finite sum, and scaling a measure scales its total mass. Every component has mass one because it is Markov. Thus the mixture's mass is the sum of the weights, which equals one by the first step.",
+          "formula": "M_w(a,B)=\\sum_i c_iK_i(a,B)=\\sum_i c_i\\cdot1=\\sum_ic_i=1.",
+          "lean": "rw [finiteMixture_apply, Measure.finsetSum_apply]\nsimpa only [Measure.smul_apply, measure_univ, smul_eq_mul, mul_one] using hsum'",
+          "helpers": [
+            "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_apply",
+            "MeasureTheory.Measure.finsetSum_apply",
+            "MeasureTheory.Measure.smul_apply",
+            "MeasureTheory.IsProbabilityMeasure.measure_univ",
+            "smul_eq_mul",
+            "mul_one"
+          ],
+          "detail": "This finite nonnegative mass calculation proves normalization even with zero weights.",
+          "number": 3
+        }
+      ],
+      "lean_statement": "IsMarkovKernel says every output measure has total mass one. The bracketed ∀ i assumption supplies this property for each component. hsum is the actual normalization condition; nonnegative weights are already enforced by the type ℝ≥0. The conclusion is about the mixture kernel, not about invariance of any target measure.",
+      "lean_statement_note": "Source section parameters are expanded for standalone reading.",
+      "lean_proof": "hsum' translates the normalization equation into the number system used by measure values. After fixing a, the proof evaluates the output measure on the full space and replaces each component's mass by one. The resulting equation is hsum'.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_apply"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.IsMarkovKernel",
+        "MeasureTheory.IsProbabilityMeasure",
+        "congrArg",
+        "ENNReal.ofNNReal_finsetSum",
+        "ENNReal.coe_one",
+        "MeasureTheory.Measure.finsetSum_apply",
+        "MeasureTheory.Measure.smul_apply",
+        "MeasureTheory.IsProbabilityMeasure.measure_univ",
+        "smul_eq_mul",
+        "mul_one"
+      ],
+      "implicit_instance_dependencies": [
+        "ProbabilityTheory.IsMarkovKernel.IsZeroOrMarkovKernel",
+        "ProbabilityTheory.IsZeroOrMarkovKernel.isFiniteKernel",
+        "ProbabilityTheory.Kernel.IsFiniteKernel.isSFiniteKernel",
+        "ProbabilityTheory.IsMarkovKernel.is_probability_measure'"
+      ],
+      "sources": [
+        {
+          "label": "ASTIS Markov-mixture theorem",
+          "scope": "Directly inspected theorem and proof.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean",
+          "line": 44
+        },
+        {
+          "label": "Markov kernels are probability-valued",
+          "scope": "Definition and surrounding instance chain were inspected.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Defs.lean",
+          "line": 146
+        },
+        {
+          "label": "Finite sums of measures evaluate termwise",
+          "scope": "Exact finite-sum helper.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/MeasureSpace.lean",
+          "line": 990
+        },
+        {
+          "label": "Embedding weights preserves finite sums",
+          "scope": "Exact cast simplification support.",
+          "path": ".lake/packages/mathlib/Mathlib/Data/ENNReal/BigOperators.lean",
+          "line": 33
+        },
+        {
+          "path": "Tests/KernelMixture.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Tests preserve the arbitrary-target contract; remove a zero-weight Bool component at the measure level; and use a private Bool family consisting of the identity and heatBathSnd. The latter is Markov, invariant, and reusable in invariant_pow. The identity weight may be zero, so the tests do not establish positive holding probability or aperiodicity."
+        }
+      ],
+      "boundary": [
+        "Normalization alone says nothing about a common invariant measure; finiteMixture_invariant addresses that separate assertion.",
+        "Weights need not be positive. A mixture containing the identity kernel need not have positive holding probability.",
+        "Empty I cannot satisfy hsum.",
+        "No sampling implementation, state-dependent scan rule, reversibility, aperiodicity, convergence or mixing bound.",
+        "The abstract normalized-mixture theorem is source-neutral; no numbered textbook theorem is assigned."
+      ],
+      "notation": [
+        {
+          "symbol": "Measurable space and kernel",
+          "text": "A measurable space is a set with a specified sigma-algebra of events. A kernel K from A to B assigns to each input a a measure K(a,·) on B, and a↦K(a,E) is measurable whenever E is measurable. A kernel need not assign probability measures unless Markovness is separately assumed.",
+          "formula": "K:A\\to\\mathcal M(B),\\qquad a\\mapsto K(a,E)\\text{ measurable for every measurable }E\\subseteq B."
+        },
+        {
+          "symbol": "Measure evolved by a kernel; invariance",
+          "text": "Write μK for the measure obtained by starting with μ and applying K. Lean writes μ.bind K or K ∘ₘ μ. Invariance says that this evolved measure is exactly μ. If μ is a probability law this means a stationary initial distribution, but the definitions and these theorems also allow arbitrary measures.",
+          "formula": "(\\mu K)(E)=\\int_A K(a,E)\\,\\mu(da),\\qquad \\mu K=\\mu."
+        },
+        {
+          "symbol": "Composition and powers",
+          "text": "Lean's L ∘ₖ K applies K first and L second. The multiplicative identity is the identity kernel a↦δ_a, and powers are repeated composition. All integrals here are nonnegative extended-real (lower Lebesgue) integrals; no signed or Bochner integrability is silently assumed.",
+          "formula": "(L\\circ_{\\!k}K)(a,E)=\\int L(b,E)\\,K(a,db),\\quad K^0(a,\\cdot)=\\delta_a,\\quad K^{n+1}=K^n\\circ_{\\!k}K."
+        },
+        {
+          "symbol": "Markov and s-finite kernels",
+          "text": "Markov means every output measure has total mass one. An s-finite kernel is a countable sum of finite kernels, where each finite kernel has a finite uniform bound on its total mass across inputs. Markovness supplies this s-finiteness automatically. S-finite is not the same hypothesis as sigma-finite, and is not merely a pointwise finiteness assertion.",
+          "formula": "K(a,B)=1\\ \\forall a\\quad\\text{(Markov)};\\qquad K=\\sum_{n=0}^{\\infty}K_n,\\quad \\forall n\\ \\exists C_n<\\infty\\ \\forall a,\\ K_n(a,B)\\le C_n\\quad\\text{(s-finite)}."
+        },
+        {
+          "symbol": "Nonnegative weights",
+          "text": "ℝ≥0 consists of finite nonnegative real numbers; ℝ≥0∞ also allows infinity and is the codomain of measure values. The coercion wᵢ↦cᵢ puts finite weights into extended nonnegative arithmetic. Zero weights are permitted, including when component masses are infinite; this arithmetic uses 0·∞=0.",
+          "formula": "w_i\\in[0,\\infty),\\qquad c_i=\\iota(w_i)\\in[0,\\infty]."
+        },
+        {
+          "symbol": "Measurable equivalence and pushforward",
+          "text": "A measurable equivalence e is a bijection whose forward and inverse maps are both measurable. Its pushforward measure records the original mass of inverse images. This is transport of measures, not a density transformation with an implicit Jacobian.",
+          "formula": "(e_*\\mu)(E)=\\mu(e^{-1}(E)),\\qquad (e^{-1})_*(e_*\\mu)=\\mu."
+        }
+      ],
+      "tests": {
+        "file": "Tests/KernelMixture.lean",
+        "summary": "Tests preserve the arbitrary-target contract; remove a zero-weight Bool component at the measure level; and use a private Bool family consisting of the identity and heatBathSnd. The latter is Markov, invariant, and reusable in invariant_pow. The identity weight may be zero, so the tests do not establish positive holding probability or aperiodicity."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_invariant",
+      "kind": "theorem",
+      "title": "A fixed normalized finite mixture preserves a common invariant measure",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean",
+      "source_line": 60,
+      "statement": "Let I be a finite index type and A an arbitrary measurable space. Let Kᵢ:A→𝓜(A) be s-finite kernels, and let μ be any measure on A. Suppose each component preserves the same μ. If the fixed nonnegative real weights wᵢ sum to one, then their finite mixture M_w also preserves μ. The component kernels need not be Markov, and the target μ need not be finite, s-finite, nonzero or normalized.",
+      "formula": "\\left[\\forall i,\\ \\mu K_i=\\mu\\right]\\ \\land\\ \\left[\\sum_iw_i=1\\right]\\quad\\Longrightarrow\\quad\\mu M_w=\\mu,\\qquad M_w(a,\\cdot)=\\sum_i c_iK_i(a,\\cdot).",
+      "assumptions": [
+        "Implicit parameters actually used by this declaration: {ι α : Type*}, [Fintype ι], [MeasurableSpace α]. The preceding section also declares β and its measurable structure, but they are unused here and are not parameters of this result.",
+        "w : ι → ℝ≥0, fixed independently of the input state.",
+        "κ : ι → Kernel α α with [∀ i, IsSFiniteKernel (κ i)].",
+        "μ : Measure α, completely arbitrary as a measure.",
+        "hsum : ∑ i, w i = 1.",
+        "hκ : ∀ i, (κ i).Invariant μ, meaning μ.bind (κ i)=μ for every i.",
+        "No Markov, finite-target, s-finite-target, probability-target, domination or Bochner integrability hypothesis."
+      ],
+      "steps": [
+        {
+          "title": "Put normalization into the measure-value number system",
+          "text": "Set cᵢ to be wᵢ viewed as an extended nonnegative real. The inclusion preserves finite sums and one, so the normalized-weight equation becomes ∑ᵢcᵢ=1. This is the equation needed at the end of the measure calculation.",
+          "formula": "c_i=\\iota(w_i),\\qquad\\sum_ic_i=1.",
+          "lean": "have hsum' : ∑ i, (w i : ℝ≥0∞) = 1 := by\n  simpa using congrArg (fun r : ℝ≥0 => (r : ℝ≥0∞)) hsum",
+          "helpers": [
+            "congrArg",
+            "ENNReal.ofNNReal_finsetSum",
+            "ENNReal.coe_one"
+          ],
+          "number": 1
+        },
+        {
+          "title": "Compare the evolved measure and μ on an arbitrary measurable event",
+          "text": "Invariance is equality of measures. It suffices to prove equality on each measurable set E. For such an E, the bind formula expresses the evolved mass as the nonnegative integral of M_w(a,E). Substitute the pointwise weighted-sum identity to obtain an integral of a finite sum.",
+          "formula": "(\\mu M_w)(E)=\\int_A M_w(a,E)\\,\\mu(da)=\\int_A\\sum_i c_iK_i(a,E)\\,\\mu(da).",
+          "lean": "change μ.bind (finiteMixture w κ) = μ\next s hs\ncalc\n  (μ.bind (finiteMixture w κ)) s = ∫⁻ a, ∑ i, (w i : ℝ≥0∞) * κ i a s ∂μ := by\n    rw [Measure.bind_apply hs (Kernel.aemeasurable _)]\n    simp only [finiteMixture_apply, Measure.finsetSum_apply, Measure.smul_apply, smul_eq_mul]",
+          "helpers": [
+            "ProbabilityTheory.Kernel.Invariant",
+            "MeasureTheory.Measure.ext",
+            "MeasureTheory.Measure.bind_apply",
+            "ProbabilityTheory.Kernel.aemeasurable",
+            "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_apply",
+            "MeasureTheory.Measure.finsetSum_apply",
+            "MeasureTheory.Measure.smul_apply",
+            "smul_eq_mul"
+          ],
+          "detail": "Here s is E and hs is its measurability proof. Kernel.aemeasurable follows from the measurability built into the mixture kernel.",
+          "number": 2
+        },
+        {
+          "title": "Interchange the finite sum and the nonnegative integral",
+          "text": "For each i, the kernel property makes a↦Kᵢ(a,E) measurable. Multiplication by the constant cᵢ preserves measurability. Therefore finite additivity of the nonnegative integral gives the sum of the component integrals. Because all functions are nonnegative, no signed-integral cancellation or finiteness of μ is needed.",
+          "formula": "\\int_A\\sum_i c_iK_i(a,E)\\,\\mu(da)=\\sum_i\\int_A c_iK_i(a,E)\\,\\mu(da).",
+          "lean": "_ = ∑ i, ∫⁻ a, (w i : ℝ≥0∞) * κ i a s ∂μ :=\n  lintegral_finsetSum _ (fun i _ => ((κ i).measurable_coe hs).const_mul _)",
+          "helpers": [
+            "MeasureTheory.lintegral_finsetSum",
+            "ProbabilityTheory.Kernel.measurable_coe",
+            "Measurable.const_mul"
+          ],
+          "detail": "The proof supplies measurability for every summand; it does not invoke dominated convergence.",
+          "number": 3
+        },
+        {
+          "title": "Take each fixed weight outside and use its component's invariance",
+          "text": "The weight cᵢ does not depend on a, so it can be taken outside the lower integral. The remaining integral is precisely the E-mass of μ evolved by Kᵢ. By common component invariance, that mass equals μ(E). Apply this reasoning separately to every summand.",
+          "formula": "\\int_A c_iK_i(a,E)\\,\\mu(da)=c_i\\int_A K_i(a,E)\\,\\mu(da)=c_i(\\mu K_i)(E)=c_i\\mu(E).",
+          "lean": "_ = ∑ i, (w i : ℝ≥0∞) * μ s := by\n  apply Finset.sum_congr rfl\n  intro i _\n  rw [lintegral_const_mul _ ((κ i).measurable_coe hs),\n    ← Measure.bind_apply hs (κ i).aemeasurable, (hκ i).def]",
+          "helpers": [
+            "Finset.sum_congr",
+            "MeasureTheory.lintegral_const_mul",
+            "ProbabilityTheory.Kernel.measurable_coe",
+            "MeasureTheory.Measure.bind_apply",
+            "ProbabilityTheory.Kernel.aemeasurable",
+            "ProbabilityTheory.Kernel.Invariant.def"
+          ],
+          "detail": "State-independent weights are essential to this step. hκ i supplies exactly the same μ for each component.",
+          "number": 4
+        },
+        {
+          "title": "Use normalization and conclude equality of measures",
+          "text": "Factor the common nonnegative extended value μ(E) out of the finite sum. Its coefficient is one, so the result is μ(E). This identity holds even when μ(E)=∞ or some weight is zero. Since E was arbitrary among measurable sets, the evolved measure equals μ, proving invariance.",
+          "formula": "\\sum_i c_i\\mu(E)=\\left(\\sum_ic_i\\right)\\mu(E)=1\\cdot\\mu(E)=\\mu(E),\\qquad\\mu M_w=\\mu.",
+          "lean": "_ = μ s := by rw [← Finset.sum_mul, hsum', one_mul]",
+          "helpers": [
+            "Finset.sum_mul",
+            "one_mul"
+          ],
+          "detail": "Measure extensionality opened in step 2 closes the final equality; no finite/SFinite assumption on μ entered the calculation.",
+          "number": 5
+        }
+      ],
+      "lean_statement": "The same μ appears in every hκ i, so the theorem assumes a common invariant measure. The family of s-finite-kernel instances permits construction of finiteMixture; it is not a condition on μ. ∀ i means every component must satisfy invariance, including zero-weight components under this stated theorem. The result says exact equality after one mixture transition.",
+      "lean_statement_note": "Only the used section parameters are expanded; β is not a hidden hypothesis.",
+      "lean_proof": "The symbols ∫⁻ and ℝ≥0∞ make explicit that the calculation uses nonnegative extended-real integrals. ext s hs selects a measurable event; the calc chain then follows its mass through the mixture, finite-sum integration, component invariance, and weight normalization. Every equation in the mathematical proof above has a corresponding part of this chain.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_apply"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.Invariant",
+        "ProbabilityTheory.Kernel.Invariant",
+        "congrArg",
+        "ENNReal.ofNNReal_finsetSum",
+        "ENNReal.coe_one",
+        "MeasureTheory.Measure.ext",
+        "MeasureTheory.Measure.bind_apply",
+        "ProbabilityTheory.Kernel.aemeasurable",
+        "MeasureTheory.Measure.finsetSum_apply",
+        "MeasureTheory.Measure.smul_apply",
+        "smul_eq_mul",
+        "MeasureTheory.lintegral_finsetSum",
+        "ProbabilityTheory.Kernel.measurable_coe",
+        "Measurable.const_mul",
+        "Finset.sum_congr",
+        "MeasureTheory.lintegral_const_mul",
+        "Finset.sum_mul",
+        "one_mul"
+      ],
+      "sources": [
+        {
+          "label": "ASTIS fixed-mixture invariance theorem",
+          "scope": "Directly inspected theorem and proof.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelMixture.lean",
+          "line": 60
+        },
+        {
+          "label": "Measure bind on a measurable set",
+          "scope": "Only requires measurability of the event and almost-everywhere measurability of the kernel map.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/GiryMonad.lean",
+          "line": 235
+        },
+        {
+          "label": "Finite-sum nonnegative integral identity",
+          "scope": "Exact linearity helper, with summand measurability.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Lebesgue/Add.lean",
+          "line": 354
+        },
+        {
+          "label": "Constant-factor nonnegative integral identity",
+          "scope": "Exact factorization helper; no finite-target hypothesis.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Lebesgue/Add.lean",
+          "line": 379
+        },
+        {
+          "path": "Tests/KernelMixture.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Tests preserve the arbitrary-target contract; remove a zero-weight Bool component at the measure level; and use a private Bool family consisting of the identity and heatBathSnd. The latter is Markov, invariant, and reusable in invariant_pow. The identity weight may be zero, so the tests do not establish positive holding probability or aperiodicity."
+        }
+      ],
+      "boundary": [
+        "No finite or s-finite assumption on μ; do not add one in the reader.",
+        "Only fixed state-independent finite weights. A state-dependent rule cannot use the constant-factor step without a different argument.",
+        "Does not prove reversibility, positive holding probability, aperiodicity, mixing, concrete Gibbs support/normalization, or a sampling implementation.",
+        "HeatBath and KernelInvariance are dependencies of concrete tests/consumers, not proof prerequisites of this generic theorem.",
+        "The theorem as written asks invariance of every component, even if its weight is zero; it does not export a weaker positive-weight-only hypothesis.",
+        "Source-neutral interface; no numbered source theorem or source-copy-index repair is claimed."
+      ],
+      "notation": [
+        {
+          "symbol": "Measurable space and kernel",
+          "text": "A measurable space is a set with a specified sigma-algebra of events. A kernel K from A to B assigns to each input a a measure K(a,·) on B, and a↦K(a,E) is measurable whenever E is measurable. A kernel need not assign probability measures unless Markovness is separately assumed.",
+          "formula": "K:A\\to\\mathcal M(B),\\qquad a\\mapsto K(a,E)\\text{ measurable for every measurable }E\\subseteq B."
+        },
+        {
+          "symbol": "Measure evolved by a kernel; invariance",
+          "text": "Write μK for the measure obtained by starting with μ and applying K. Lean writes μ.bind K or K ∘ₘ μ. Invariance says that this evolved measure is exactly μ. If μ is a probability law this means a stationary initial distribution, but the definitions and these theorems also allow arbitrary measures.",
+          "formula": "(\\mu K)(E)=\\int_A K(a,E)\\,\\mu(da),\\qquad \\mu K=\\mu."
+        },
+        {
+          "symbol": "Composition and powers",
+          "text": "Lean's L ∘ₖ K applies K first and L second. The multiplicative identity is the identity kernel a↦δ_a, and powers are repeated composition. All integrals here are nonnegative extended-real (lower Lebesgue) integrals; no signed or Bochner integrability is silently assumed.",
+          "formula": "(L\\circ_{\\!k}K)(a,E)=\\int L(b,E)\\,K(a,db),\\quad K^0(a,\\cdot)=\\delta_a,\\quad K^{n+1}=K^n\\circ_{\\!k}K."
+        },
+        {
+          "symbol": "Markov and s-finite kernels",
+          "text": "Markov means every output measure has total mass one. An s-finite kernel is a countable sum of finite kernels, where each finite kernel has a finite uniform bound on its total mass across inputs. Markovness supplies this s-finiteness automatically. S-finite is not the same hypothesis as sigma-finite, and is not merely a pointwise finiteness assertion.",
+          "formula": "K(a,B)=1\\ \\forall a\\quad\\text{(Markov)};\\qquad K=\\sum_{n=0}^{\\infty}K_n,\\quad \\forall n\\ \\exists C_n<\\infty\\ \\forall a,\\ K_n(a,B)\\le C_n\\quad\\text{(s-finite)}."
+        },
+        {
+          "symbol": "Nonnegative weights",
+          "text": "ℝ≥0 consists of finite nonnegative real numbers; ℝ≥0∞ also allows infinity and is the codomain of measure values. The coercion wᵢ↦cᵢ puts finite weights into extended nonnegative arithmetic. Zero weights are permitted, including when component masses are infinite; this arithmetic uses 0·∞=0.",
+          "formula": "w_i\\in[0,\\infty),\\qquad c_i=\\iota(w_i)\\in[0,\\infty]."
+        },
+        {
+          "symbol": "Measurable equivalence and pushforward",
+          "text": "A measurable equivalence e is a bijection whose forward and inverse maps are both measurable. Its pushforward measure records the original mass of inverse images. This is transport of measures, not a density transformation with an implicit Jacobian.",
+          "formula": "(e_*\\mu)(E)=\\mu(e^{-1}(E)),\\qquad (e^{-1})_*(e_*\\mu)=\\mu."
+        }
+      ],
+      "tests": {
+        "file": "Tests/KernelMixture.lean",
+        "summary": "Tests preserve the arbitrary-target contract; remove a zero-weight Bool component at the measure level; and use a private Bool family consisting of the identity and heatBathSnd. The latter is Markov, invariant, and reusable in invariant_pow. The identity weight may be zero, so the tests do not establish positive holding probability or aperiodicity."
+      }
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTransport.invariant_map_comap",
+      "kind": "theorem",
+      "title": "Invariant measures survive a measurable change of coordinates",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelTransport.lean",
+      "source_line": 21,
+      "statement": "Let A and B be arbitrary measurable spaces, e:A→B a measurable bijection with measurable inverse, K:A→𝓜(A) a kernel, and μ any measure on A preserved by K. Define the transported kernel Kᵉ on B by returning an input y to e⁻¹(y), applying K there, and pushing the output measure forward by e. Then Kᵉ preserves the pushforward measure e_*μ. No Markovness, finiteness, s-finiteness, topology, Standard-Borel or nonempty-space assumptions are needed.",
+      "formula": "K^e(y,\\cdot):=e_*\\!\\left(K(e^{-1}(y),\\cdot)\\right),\\qquad K^e(y,E)=K(e^{-1}(y),e^{-1}(E)).\\qquad \\mu K=\\mu\\ \\Longrightarrow\\ (e_*\\mu)K^e=e_*\\mu.",
+      "assumptions": [
+        "{α β : Type*}, [MeasurableSpace α], [MeasurableSpace β].",
+        "κ : Kernel α α, with no Markov or s-finite-kernel hypothesis.",
+        "μ : Measure α, with no finite, s-finite, nonzero or probability-measure hypothesis.",
+        "e : α ≃ᵐ β: an actual bijective equivalence with measurable forward and inverse maps, not just a measurable map or an almost-everywhere inverse.",
+        "hκ : κ.Invariant μ.",
+        "No additional local section variables. The conclusion concerns measures/laws, not densities relative to a fixed reference measure."
+      ],
+      "steps": [
+        {
+          "title": "Move the output pushforward outside kernel evolution",
+          "text": "Write ν=e_*μ and let Q(y,·)=K(e⁻¹(y),·). By construction Kᵉ=Q.map e. Applying this output-mapped kernel to ν is the same measure as first applying Q to ν and then pushing the resulting measure through e. The measurability of e is what makes this genuine pushforward identity applicable.",
+          "formula": "\\nu K^e=e_*(\\nu Q),\\qquad \\nu=e_*\\mu,\\quad Q(y,\\cdot)=K(e^{-1}(y),\\cdot).",
+          "lean": "change ((κ.comap e.symm e.symm.measurable).map e) ∘ₘ μ.map e = μ.map e\nrw [← Measure.map_comp _ _ e.measurable,",
+          "helpers": [
+            "MeasureTheory.Measure.map_comp",
+            "MeasurableEquiv.measurable"
+          ],
+          "detail": "This is the first rewrite in the single source rw block. Measure.map_comp states (ρ.bind Q).map e = ρ.bind (Q.map e).",
+          "number": 1
+        },
+        {
+          "title": "Realize the input coordinate change as a deterministic kernel",
+          "text": "Let D be the deterministic kernel y↦δ_{e⁻¹(y)}. Applying D then K gives Q: the point mass forces K to be evaluated at e⁻¹(y). Because e⁻¹ is measurable, this is a well-defined deterministic kernel. Replace input comap by that composition.",
+          "formula": "D(y,\\cdot)=\\delta_{e^{-1}(y)},\\qquad Q=K\\circ_{\\!k}D,\\qquad \\nu K^e=e_*\\!\\left(\\nu(K\\circ_{\\!k}D)\\right).",
+          "lean": "← Kernel.comp_deterministic_eq_comap,",
+          "helpers": [
+            "ProbabilityTheory.Kernel.comp_deterministic_eq_comap",
+            "ProbabilityTheory.Kernel.deterministic"
+          ],
+          "detail": "The theorem's comap term explicitly carries e.symm.measurable. Comap changes the input; map in step 1 changes the output.",
+          "number": 2
+        },
+        {
+          "title": "Reassociate measure and kernel composition",
+          "text": "Starting from ν, applying D and then K can be grouped by first evolving the measure ν through D. This associativity is valid for the arbitrary kernels and measures in the statement; no probability or finite-measure condition is required.",
+          "formula": "\\nu(K\\circ_{\\!k}D)=(\\nu D)K,\\qquad \\nu K^e=e_*\\!\\left((\\nu D)K\\right).",
+          "lean": "← Measure.comp_assoc,",
+          "helpers": [
+            "MeasureTheory.Measure.comp_assoc"
+          ],
+          "detail": "In Lean orientation, (κ ∘ₖ D) ∘ₘ ν becomes κ ∘ₘ (D ∘ₘ ν).",
+          "number": 3
+        },
+        {
+          "title": "A deterministic transition is a pushforward",
+          "text": "Evolving ν through the deterministic kernel D simply pushes ν forward along e⁻¹. Thus the measure on which K acts is (e⁻¹)_*ν.",
+          "formula": "\\nu D=(e^{-1})_*\\nu,\\qquad \\nu K^e=e_*\\!\\left(\\bigl((e^{-1})_*\\nu\\bigr)K\\right).",
+          "lean": "Measure.deterministic_comp_eq_map,",
+          "helpers": [
+            "MeasureTheory.Measure.deterministic_comp_eq_map"
+          ],
+          "detail": "This is the measure-level deterministic-composition lemma, not the similarly named Kernel.deterministic_comp_eq_map.",
+          "number": 4
+        },
+        {
+          "title": "Cancel the inverse change of coordinates",
+          "text": "Since ν=e_*μ and e is a measurable equivalence, pushing ν back by e⁻¹ returns exactly μ. Hence the inner evolved measure is now μK.",
+          "formula": "(e^{-1})_*(e_*\\mu)=\\mu,\\qquad \\nu K^e=e_*(\\mu K).",
+          "lean": "e.map_symm_map,",
+          "helpers": [
+            "MeasurableEquiv.map_symm_map"
+          ],
+          "detail": "The inverse identity is exact for measures, not just almost everywhere. Both directions of the equivalence are measurable.",
+          "number": 5
+        },
+        {
+          "title": "Use the supplied invariance and identify the target",
+          "text": "The original kernel preserves μ by hypothesis, so μK=μ. Push this equality forward by e. The result is νKᵉ=e_*μ=ν, which is precisely invariance of the transported kernel for the transported target measure.",
+          "formula": "\\nu K^e=e_*(\\mu K)=e_*\\mu=\\nu.",
+          "lean": "hκ.def]",
+          "helpers": [
+            "ProbabilityTheory.Kernel.Invariant.def"
+          ],
+          "detail": "The final rewrite exposes and uses the given equality μ.bind κ=μ; no heat-bath or mixture theorem enters the proof.",
+          "number": 6
+        }
+      ],
+      "lean_statement": "α ≃ᵐ β denotes a measurable equivalence, and e.symm is its inverse. κ.comap e.symm changes the input from β to α; its explicit measurability proof ensures this is well-defined. .map e then pushes the output measure from α to β. The resulting kernel acts on β and is compared with μ.map e, a measure on that same space. Reversing these directions would describe a different, or ill-typed, operation.",
+      "lean_proof": "∘ₘ is alternate notation for binding a measure to a kernel. The six rewrites are the six mathematical identities above: move the final pushforward, realize the input map deterministically, reassociate, identify deterministic evolution with pushforward, cancel inverse pushforwards, and apply the original invariance. The arrows ← mean the identity is used from right to left in that calculation.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.Invariant",
+        "ProbabilityTheory.Kernel.Invariant",
+        "ProbabilityTheory.Kernel.comap",
+        "ProbabilityTheory.Kernel.map",
+        "MeasurableEquiv.measurable",
+        "MeasureTheory.Measure.map_comp",
+        "ProbabilityTheory.Kernel.comp_deterministic_eq_comap",
+        "MeasureTheory.Measure.comp_assoc",
+        "MeasureTheory.Measure.deterministic_comp_eq_map",
+        "MeasurableEquiv.map_symm_map"
+      ],
+      "explanatory_not_direct_dependencies": [
+        "ProbabilityTheory.Kernel.map_apply",
+        "ProbabilityTheory.Kernel.map_apply'",
+        "ProbabilityTheory.Kernel.comap_apply",
+        "ProbabilityTheory.Kernel.comap_apply'",
+        "ProbabilityTheory.Kernel.deterministic"
+      ],
+      "sources": [
+        {
+          "label": "ASTIS invariance transport theorem",
+          "scope": "Directly inspected theorem and complete proof.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelTransport.lean",
+          "line": 21
+        },
+        {
+          "label": "Pushforward commutes with kernel evolution",
+          "scope": "Exact first rewrite.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Composition/MeasureComp.lean",
+          "line": 85
+        },
+        {
+          "label": "Input comap as deterministic composition",
+          "scope": "Exact second rewrite.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Composition/CompMap.lean",
+          "line": 44
+        },
+        {
+          "label": "Measure-kernel associativity",
+          "scope": "Exact third rewrite; no s-finiteness assumption.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Composition/MeasureComp.lean",
+          "line": 30
+        },
+        {
+          "label": "Deterministic evolution is measure pushforward",
+          "scope": "Exact fourth rewrite.",
+          "path": ".lake/packages/mathlib/Mathlib/Probability/Kernel/Composition/CompNotation.lean",
+          "line": 47
+        },
+        {
+          "label": "Inverse measurable-equivalence pushforwards cancel",
+          "scope": "Exact fifth rewrite.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Map.lean",
+          "line": 307
+        },
+        {
+          "path": "Tests/KernelTransport.lean",
+          "label": "Focused tests (consumer evidence)",
+          "scope": "Private test definitions use MeasurableEquiv.piFinSuccAbove and prodComm to put a chosen dependent-product coordinate second, conjugate heatBathSnd back to the original product, and combine this with finite mixtures and powers. The split identities are tested, including a middle coordinate of Fin 3→Bool. A finite coordinate index does not mean a finite state space. The public transport theorem has none of the consumer's finite-measure/Standard-Borel/nonempty assumptions."
+        }
+      ],
+      "boundary": [
+        "Transport requires an actual measurable equivalence. This theorem does not handle arbitrary noninvertible maps or merely almost-everywhere coordinate inverses.",
+        "Measurability of e ensures Kernel.map uses its genuine pushforward branch, not its nonmeasurable zero fallback.",
+        "This is exact invariance only: no reversibility, irreducibility, convergence, mixing, Jacobian/density formula, or computational-cost conclusion.",
+        "No ASTIS HeatBath, KernelMixture or KernelInvariance declaration is a proof prerequisite; they occur only in concrete consumer tests.",
+        "Coordinate heat-bath tests add finite joint target and nonempty Standard-Borel resampled-coordinate assumptions. Conditional representatives there remain marginal-almost-everywhere objects.",
+        "Private test constructions are not public coordinate-update algorithms and do not establish general retained-coordinate behavior, concrete Gibbs support/normalization, or source-copy-index repair.",
+        "Exact directly inspected proof source is Mathlib measure/kernel algebra. Textbook anchors in local provenance records are motivation, not independently checked numbered-source assimilation."
+      ],
+      "notation": [
+        {
+          "symbol": "Measurable space and kernel",
+          "text": "A measurable space is a set with a specified sigma-algebra of events. A kernel K from A to B assigns to each input a a measure K(a,·) on B, and a↦K(a,E) is measurable whenever E is measurable. A kernel need not assign probability measures unless Markovness is separately assumed.",
+          "formula": "K:A\\to\\mathcal M(B),\\qquad a\\mapsto K(a,E)\\text{ measurable for every measurable }E\\subseteq B."
+        },
+        {
+          "symbol": "Measure evolved by a kernel; invariance",
+          "text": "Write μK for the measure obtained by starting with μ and applying K. Lean writes μ.bind K or K ∘ₘ μ. Invariance says that this evolved measure is exactly μ. If μ is a probability law this means a stationary initial distribution, but the definitions and these theorems also allow arbitrary measures.",
+          "formula": "(\\mu K)(E)=\\int_A K(a,E)\\,\\mu(da),\\qquad \\mu K=\\mu."
+        },
+        {
+          "symbol": "Composition and powers",
+          "text": "Lean's L ∘ₖ K applies K first and L second. The multiplicative identity is the identity kernel a↦δ_a, and powers are repeated composition. All integrals here are nonnegative extended-real (lower Lebesgue) integrals; no signed or Bochner integrability is silently assumed.",
+          "formula": "(L\\circ_{\\!k}K)(a,E)=\\int L(b,E)\\,K(a,db),\\quad K^0(a,\\cdot)=\\delta_a,\\quad K^{n+1}=K^n\\circ_{\\!k}K."
+        },
+        {
+          "symbol": "Markov and s-finite kernels",
+          "text": "Markov means every output measure has total mass one. An s-finite kernel is a countable sum of finite kernels, where each finite kernel has a finite uniform bound on its total mass across inputs. Markovness supplies this s-finiteness automatically. S-finite is not the same hypothesis as sigma-finite, and is not merely a pointwise finiteness assertion.",
+          "formula": "K(a,B)=1\\ \\forall a\\quad\\text{(Markov)};\\qquad K=\\sum_{n=0}^{\\infty}K_n,\\quad \\forall n\\ \\exists C_n<\\infty\\ \\forall a,\\ K_n(a,B)\\le C_n\\quad\\text{(s-finite)}."
+        },
+        {
+          "symbol": "Nonnegative weights",
+          "text": "ℝ≥0 consists of finite nonnegative real numbers; ℝ≥0∞ also allows infinity and is the codomain of measure values. The coercion wᵢ↦cᵢ puts finite weights into extended nonnegative arithmetic. Zero weights are permitted, including when component masses are infinite; this arithmetic uses 0·∞=0.",
+          "formula": "w_i\\in[0,\\infty),\\qquad c_i=\\iota(w_i)\\in[0,\\infty]."
+        },
+        {
+          "symbol": "Measurable equivalence and pushforward",
+          "text": "A measurable equivalence e is a bijection whose forward and inverse maps are both measurable. Its pushforward measure records the original mass of inverse images. This is transport of measures, not a density transformation with an implicit Jacobian.",
+          "formula": "(e_*\\mu)(E)=\\mu(e^{-1}(E)),\\qquad (e^{-1})_*(e_*\\mu)=\\mu."
+        }
+      ],
+      "tests": {
+        "file": "Tests/KernelTransport.lean",
+        "summary": "Private test definitions use MeasurableEquiv.piFinSuccAbove and prodComm to put a chosen dependent-product coordinate second, conjugate heatBathSnd back to the original product, and combine this with finite mixtures and powers. The split identities are tested, including a middle coordinate of Fin 3→Bool. A finite coordinate index does not mean a finite state space. The public transport theorem has none of the consumer's finite-measure/Standard-Borel/nonempty assumptions."
+      }
+    }
+  ]
+}

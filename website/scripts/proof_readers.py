@@ -13,6 +13,7 @@ from pathlib import Path
 
 import astis_site as base
 import source_lineage
+import inline_lean
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "website/content/proof_readers.json"
@@ -43,6 +44,14 @@ def load_items() -> list[dict]:
         for step in item["steps"]:
             if not all(step.get(k) for k in ("title", "text", "formula", "lean")):
                 raise ValueError(f"{item['id']}: incomplete proof step")
+        units = item.get('theorems', [])
+        if {u['declaration'] for u in units} != set(item['declarations']):
+            raise ValueError(f"{item['id']}: every declaration needs its own theorem unit")
+        for unit in units:
+            for key in ('title', 'statement', 'formula', 'assumptions', 'steps',
+                        'proof_intro', 'lean_statement', 'lean_proof'):
+                if not unit.get(key):
+                    raise ValueError(f"{item['id']}: theorem unit missing {key}")
     return items
 
 
@@ -79,19 +88,24 @@ def render(item: dict, data: dict) -> str:
     def decl_link(name: str) -> str:
         return f'<a href="../{esc(names[name]["page"])}"><code>{esc(name)}</code></a>'
 
-    steps = "".join(
-        f'<section class="proof-reader-step"><h3>{i}. {esc(s["title"])}</h3>'
-        f'<p>{esc(s["text"])}</p><div class="proof-reader-equation">\\[{esc(s["formula"])}\\]</div>'
-        f'<details><summary>How this step appears in Lean</summary><p>{esc(s["lean"])}</p></details></section>'
-        for i, s in enumerate(item["steps"], 1)
-    )
-    files = sorted({d["source_file"] for d in ev["declarations"]})
-    code = "".join(
-        f'<details class="proof-reader-code"><summary>Complete ASTIS module · {esc(file)}</summary>'
-        '<p>Exact checkout source, including imports, namespace, implicit parameters and private proof helpers.</p>'
-        + base.code_html((ROOT / file).read_text(encoding="utf-8")) + '</details>'
-        for file in files
-    )
+    units = []
+    for unit in item['theorems']:
+        steps = ''.join(
+            f'<div class="proof-reader-step"><h4>{i}. {esc(s["title"])}</h4>'
+            f'<p>{esc(s["text"])}</p><div class="proof-reader-equation">\\[{esc(s["formula"])}\\]</div>'
+            f'<details><summary>How this step appears in Lean</summary><p>{esc(s["lean"])}</p></details></div>'
+            for i, s in enumerate((item['steps'][n] for n in unit['steps']), 1)
+        )
+        units.append(
+            f'<section class="proof-reader-theorem" data-theorem="{esc(unit["declaration"])}">'
+            f'<h2>{esc(unit["title"])}</h2><h3>Statement</h3><p>{esc(unit["statement"])}</p>'
+            f'<div class="proof-reader-equation">\\[{esc(unit["formula"])}\\]</div>'
+            + base.list_html(unit['assumptions'])
+            + inline_lean.disclosure(unit['declaration'], role='statement', explanation=unit['lean_statement'], page=rel)
+            + f'<h3>Mathematical proof</h3><p>{esc(unit["proof_intro"])}</p>' + steps
+            + inline_lean.disclosure(unit['declaration'], role='proof', explanation=unit['lean_proof'], page=rel, helpers=tuple(unit.get('helpers', [])))
+            + '</section>'
+        )
     sources = "".join(f'<li><a href="{esc(s["url"])}">{esc(s["label"])}</a> — {esc(s["scope"])}</li>' for s in item["sources"])
     mathlib = "".join(f'<li><a href="{esc(d["url"])}"><code>{esc(d["name"])}</code></a> — {esc(d["role"])}</li>' for d in item["mathlib_dependencies"])
     color = "blue" if ev["compiled"] else "gray"
@@ -100,16 +114,13 @@ def render(item: dict, data: dict) -> str:
 <p><a href="index.html">Shared proof readers</a></p>
 <header><div class="eyebrow">Samplinglib · shared mathematical prerequisite</div><h1>{esc(item['title'])}</h1>
 <p class="lede">{esc(item['purpose'])}</p></header>
-<section id="statement"><h2>Statement</h2><p>{esc(item['statement'])}</p>
-<div class="proof-reader-equation">\\[{esc(item['formula'])}\\]</div>
-<h3>Objects and hypotheses</h3>{base.list_html(item['assumptions'])}</section>
-<section id="proof"><h2>Mathematical proof</h2>{steps}</section>
+{''.join(units)}
 <section id="boundary" class="proof-reader-boundary"><h2>What is still not proved by this result</h2>{base.list_html(item['boundary'])}</section>
-<section id="lean"><h2>Optional Lean reading</h2><p>The calculation above is independent reading. Open the explanations under each step to match its mathematics to the proof; open the modules below for the complete code.</p>
+<section id="dependencies"><h2>Proof dependencies</h2>
 <details><summary>Declarations and reuse: ASTIS versus Mathlib</summary>
 <h3>Results proved here by ASTIS</h3><ul>{''.join('<li>'+decl_link(n)+'</li>' for n in item['declarations'])}</ul>
 <h3>Existing ASTIS declarations reused</h3><ul>{''.join('<li>'+decl_link(n)+'</li>' for n in item['astis_dependencies'])}</ul>
-<h3>Mathlib results called, not re-proved here</h3><ul>{mathlib}</ul></details>{code}
+<h3>Mathlib results called, not re-proved here</h3><ul>{mathlib}</ul></details>
 <details><summary>Focused tests · exact source</summary>{base.code_html((ROOT / item['test']).read_text(encoding='utf-8'))}</details></section>
 <section id="source"><h2>Source and evidence</h2><p>This is original ASTIS exposition of a shared prerequisite, not a quotation or a replacement statement for a numbered source theorem. Expository coverage does not change formal completion.</p>
 <span class="status status-{color}" data-reader-compiled="{str(ev['compiled']).lower()}">{compile_label}</span>
@@ -161,16 +172,20 @@ def validate_site(output: Path) -> list[str]:
     for item in load_items():
         ev = evidence(item, data)
         text = (output / f"proofs/{item['id']}.html").read_text(encoding="utf-8")
-        for value in [item['statement'], item['formula'], *[s['formula'] for s in item['steps']], *item['boundary']]:
+        for value in [*[u['statement'] for u in item['theorems']], *[u['formula'] for u in item['theorems']], *[s['formula'] for s in item['steps']], *item['boundary']]:
             if esc(value) not in text:
                 errors.append(f"{item['id']}: missing mathematical content")
         if f'data-reader-compiled="{str(ev["compiled"]).lower()}"' not in text:
             errors.append(f"{item['id']}: compilation status drift")
         if f'data-reader-source-verdict="{esc(ev["source_verdict"])}"' not in text:
             errors.append(f"{item['id']}: source verdict drift")
-        for file in {d["source_file"] for d in ev["declarations"]}:
-            if esc((ROOT / file).read_text(encoding="utf-8")) not in text:
-                errors.append(f"{item['id']}: exact full Lean source drift")
-        if '<details open' in text or '<details class="proof-reader-code" open' in text:
+        for name in item['declarations']:
+            if esc(inline_lean.declarations()[name].source_text) not in text:
+                errors.append(f"{item['id']}: exact Lean proof source drift")
+            if text.count(f'data-inline-lean="{esc(name)}"') < 2:
+                errors.append(f"{item['id']}: missing adjacent statement/proof Lean disclosure")
+        if 'Optional Lean reading' in text:
+            errors.append(f"{item['id']}: forbidden omnibus Lean panel")
+        if re.search(r'<details\b[^>]*\bopen(?:\s|>)', text):
             errors.append(f"{item['id']}: optional source must start folded")
     return errors

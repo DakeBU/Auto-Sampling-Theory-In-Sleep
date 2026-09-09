@@ -91,18 +91,19 @@ def enrich_site(output: Path) -> None:
     text = _read(live)
     for old in (
         "export into the ASTIS hierarchy",
+        "export unresolved work into the ASTIS hierarchy",
         "export into the ASTIS Substantive Advance queue",
         "export into the ASTIS Substantive Advance frontier mesh",
     ):
         text = text.replace(old, "export into the ASTIS Substantive Advance workflow")
     text = text.replace("export to ASTIS typed packets", "export to ASTIS substantive-advance packets")
-    if "Substantive Advance" not in text and "substantive-advance" not in text:
+    if 'id="astis-substantive-advance-export"' not in text:
         text = text.replace("</body>", LIVE_NOTE + "\n</body>", 1)
     _write(live, text)
 
     text = _read(attribution).replace(
-        "A Hierarchical Automated Theorem Proving System for Sampling Theory",
-        "A Substantive-Advance Automated Theorem Proving System for Sampling Theory",
+        "A Hierarchical Automated",
+        "A Substantive-Advance Automated",
     )
     _write(attribution, text)
 
@@ -114,6 +115,7 @@ def validate_site(output: Path) -> None:
         "workflow": _read(output / "workflow" / "index.html"),
         "related": _read(output / "related-systems" / "index.html"),
         "live": _read(output / "live" / "index.html"),
+        "attribution": _read(output / "attribution" / "index.html"),
     }
     workflow = pages["workflow"]
     match = re.search(
@@ -142,8 +144,12 @@ def validate_site(output: Path) -> None:
         raise RuntimeError("home page is missing the visual project-purpose summary")
     if "FrontierAgent" not in pages["related"]:
         raise RuntimeError("related-systems page is missing FrontierAgent")
-    if "Substantive Advance" not in pages["live"] and "substantive-advance" not in pages["live"]:
+    if 'id="astis-substantive-advance-export"' not in pages["live"]:
         raise RuntimeError("live workspace is missing the Substantive Advance export boundary")
+    if "into the ASTIS hierarchy" in pages["live"]:
+        raise RuntimeError("live workspace retains the superseded hierarchy export wording")
+    if "A Hierarchical Automated" in pages["attribution"]:
+        raise RuntimeError("attribution retains the superseded Harness title")
 
 
 __all__ = ["enrich_site", "validate_site"]

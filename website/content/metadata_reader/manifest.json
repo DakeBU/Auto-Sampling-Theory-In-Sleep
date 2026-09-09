@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "reader_version": "syntax-only-metadata-lf-v1",
+  "digest_mode": "utf8-lf-v1",
+  "audit_path": "website/content/metadata_reader/audit.json",
+  "audit_sha256": "b803321f753fc37f3dd06f873bcf3a0e28df03ff79f55588eeaf025c8fbbb44b",
+  "source_sha256": {
+    "AutoSamplingTheory/SALD.lean": "8d434c418006f842b5ca470c0f3fde8886b3c4caddf474546975c5327262fcc5",
+    "AutoSamplingTheory/Core.lean": "46022fd13f5057c63019aca09934bcdca43265753fb5974ab67f702cef5a520c"
+  },
+  "expected_definitions": 1062,
+  "expected_local_schemas": 62,
+  "namespace": "AutoSamplingTheory.SALD",
+  "truth_boundary": "Syntax explanation of an independently reviewed allowlist. Stored strings, status labels and references are never mathematical proofs or Lean dependency evidence.",
+  "review_basis": "Bounded independent schema and construction audit; main reviewed the reader, Core schemas, unknown-expression rejection and exact-source checks. Only unused audit fields were removed. CRLF/LF checkout differences alone are normalized for portable source identity. Independent review found line-ended source truncation could pass the prefix check; each allowlisted body is now bound to an explicit digest of the complete current ASTIS parser excerpt, with a truncation regression test. This is source identity, not proof certification.",
+  "original_audit_sha256_raw": "1464c52a2d9e55d3ab9fb8b43f6ff81810ab68b0030c853ca457966b9e5e5b3e",
+  "original_source_sha256_raw": {
+    "AutoSamplingTheory/SALD.lean": "8e3125c1d9bdf851aa428c4096d41b43d44d3b8b27f8de5ad9eddf98fd439bdf",
+    "AutoSamplingTheory/Core.lean": "edae6e7019e5f37a30e7775e0cb19725a8a927f829d75c3a7622f2f7cb52d069"
+  }
+}

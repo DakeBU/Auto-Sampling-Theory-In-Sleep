@@ -1,0 +1,1420 @@
+{
+  "schema_version": 1,
+  "exposition_review": {
+    "result": "corrections-applied",
+    "scope": "All 16 units independently reviewed. Root compiler-checked the exported State, SmoothFiniteScoreDomain, DirichletPairDomain and Gamma signatures; corrected unused Fintype for the pair-domain structure. No source-fidelity certificate issued.",
+    "reviewer": "score_representative_worker"
+  },
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.State",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "abbrev",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 41,
+      "source_end_line": 41,
+      "lean_statement": "This line introduces a shorter name for the existing coordinate space. The index type specifies its coordinate labels; it is not a theorem asserting an analytic fact about that space.",
+      "lean_proof": "There is no proof to supply. The right-hand expression is the underlying Mathlib type, so Lean can unfold the abbreviation whenever a later definition needs Euclidean calculus.",
+      "title": "The Euclidean state-space name",
+      "classification": "type abbreviation; no new space or theorem",
+      "statement": "For an index type ι, State is simply the existing Mathlib Euclidean space of real ι-indexed coordinates. The abbreviation itself imposes no finiteness proof; the surrounding Fisher development assumes ι is finite when using the usual Euclidean calculus.",
+      "formula": "E:=\\operatorname{EuclideanSpace}(\\mathbb R,\\iota);\\qquad\\text{for finite }\\iota,\\quad \\langle x,y\\rangle=\\sum_{i\\in\\iota}x_i y_i,\\quad\\|x\\|^2=\\sum_{i\\in\\iota}x_i^2.",
+      "assumptions": [
+        "ι is an arbitrary index type for the abbreviation itself. In the surrounding section, Fintype ι is available for subsequent finite-dimensional analysis.",
+        "No measure, density, gradient, probability assumption, or Nonempty ι proof is needed to name State."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Reuse the existing space",
+          "text": "Give Mathlib's EuclideanSpace ℝ ι the local short name State; no elements, norms, or topology are reconstructed.",
+          "formula": "\\mathrm{State}=\\operatorname{EuclideanSpace}(\\mathbb R,\\iota).",
+          "lean": "EuclideanSpace ℝ ι"
+        }
+      ],
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "EuclideanSpace"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 41
+        },
+        {
+          "label": "Mathlib EuclideanSpace abbreviation",
+          "scope": "Underlying type reused; finite-coordinate inner-product interpretation is inherited from Mathlib.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+          "line": 113
+        }
+      ],
+      "boundary": [
+        "The module's later declarations work with finite ι. This abbreviation does not create an independent state-space construction or an infinite-dimensional Fisher theorem.",
+        "No positivity-of-dimension or probability-law assumption."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": null,
+        "coverage": "No dedicated #check for the State abbreviation.",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "construction explanation, not a theorem proof"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 44,
+      "source_end_line": 47,
+      "lean_statement": "The definition takes two measures and one state and returns a real number. No hypothesis accompanies it, so its availability does not certify that the chosen log-ratio is differentiable at that state.",
+      "lean_proof": "The body first obtains the fixed log-ratio function, then its Mathlib gradient at the input point, and finally a squared norm. These are existing operations; the later domain structure is what justifies interpreting the result as a classical finite score energy.",
+      "title": "Squared score of the selected RN log-ratio",
+      "classification": "definition of a pointwise expression",
+      "statement": "Let μ and π be arbitrary measures on a finite-dimensional real Euclidean space E and let x∈E. Form the specific Mathlib RN log-ratio r(x)=log((dμ/dπ)selected(x).toReal). The canonical squared score at x is the squared Euclidean norm of the totalized classical gradient of this very function r.",
+      "formula": "\\rho(x):=(\\mu.\\mathrm{rnDeriv}\\,\\pi\\,x).\\mathrm{toReal},\\qquad r(x):=\\log\\rho(x),\\qquad q(x):=\\|\\nabla r(x)\\|^2.",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "x is any point of E. This definition has no absolute-continuity, differentiability, integrability, σ-finiteness, or Lebesgue-decomposition premise."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Fix the log-ratio function",
+          "text": "Use the canonical RNLogRatio.logRatio attached to the original measures. This is Mathlib's selected log-likelihood ratio; it is not a user-selected smooth density representative.",
+          "formula": "r=\\mathrm{llr}(\\mu,\\pi)=\\log\\big((\\mu.\\mathrm{rnDeriv}\\,\\pi).\\mathrm{toReal}\\big).",
+          "lean": "RNLogRatio.logRatio mu pi"
+        },
+        {
+          "number": 2,
+          "title": "Take the totalized Euclidean gradient",
+          "text": "Mathlib represents a derivative by its Riesz-dual vector when the classical derivative exists, and uses zero when it does not. Thus this operation is globally defined before a regularity domain has been supplied.",
+          "formula": "\\nabla r(x)=(\\mathrm{toDual}_{\\mathbb R,E})^{-1}(\\mathrm{fderiv}_{\\mathbb R}r(x)).",
+          "lean": "gradient (RNLogRatio.logRatio mu pi) x"
+        },
+        {
+          "number": 3,
+          "title": "Measure its squared length",
+          "text": "Take the norm of the gradient vector and square it. This completes a construction, not a proof of differentiability or integrability.",
+          "formula": "q(x)=\\|\\nabla r(x)\\|^2.",
+          "lean": "‖gradient (RNLogRatio.logRatio mu pi) x‖ ^ 2"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [
+        "gradient"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 44
+        },
+        {
+          "label": "ASTIS selected RN density and log-ratio",
+          "scope": "Definitions density and logRatio plus pointwise logRatio_apply at line45; representative conventions only.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 36
+        },
+        {
+          "label": "Mathlib gradient and its nondifferentiable default",
+          "scope": "Definition gradient; gradient_eq_zero_of_not_differentiableAt is at line118.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Gradient/Basic.lean",
+          "line": 82
+        },
+        {
+          "label": "Existing selected-score representative boundary in the downstream module card",
+          "scope": "Context only, not a dependency of either current module. The card explicitly preserves selected-RN versus Sobolev-score limits and records independent source certification withheld for that downstream transport packet. No status is changed here.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.md"
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 3
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "Real.log and ENNReal.toReal are totalized (log 0 = 0 and ∞.toReal = 0). Without the separately stated decomposition/σ-finiteness/absolute-continuity assumptions, this notation alone is not a theorem that ρ represents dμ/dπ with a finite positive value.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "No identification with ∇log of an arbitrary smooth version of a density is supplied."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 3,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "construction explanation, not a theorem proof"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "structure",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 54,
+      "source_end_line": 59,
+      "lean_statement": "The result is a proposition with three named proof fields, not descriptive metadata or a string-valued contract. The phrase almost everywhere in the differentiability field refers specifically to μ. Integrable includes both the relevant measurability and finite-norm-integral requirement.",
+      "lean_proof": "A structure declaration defines what a certificate must contain; it does not itself construct a certificate. A user must independently prove absolute continuity, differentiability of this selected representative, and squared-score integrability before using the guarded Fisher value.",
+      "title": "The explicit smooth finite score domain",
+      "classification": "proposition-valued domain structure; construction requires proofs",
+      "statement": "For arbitrary measures μ and π on finite-dimensional Euclidean space, SmoothFiniteScoreDomain μ π is the conjunction of three actual mathematical requirements: μ is absolutely continuous with respect to π; the selected RN log-ratio r is classically differentiable at μ-almost every point; and its squared totalized gradient q is integrable with respect to μ. A witness must prove all three. This declaration does not prove that any given pair belongs to the domain.",
+      "formula": "\\mathcal D(\\mu,\\pi)\\;:\\Longleftrightarrow\\;\\mu\\ll\\pi\\ \\land\\ [r\\text{ is Fréchet differentiable at }x\\text{ for }\\mu\\text{-a.e. }x]\\ \\land\\ q\\in L^1(\\mu),\\qquad q=\\|\\nabla r\\|^2.",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "The structure itself takes only μ and π; its three fields are obligations to prove, not assumptions automatically generated by declaring the structure.",
+        "No σ-finiteness or HaveLebesgueDecomposition instance is part of this domain. No probability normalization, strict positivity everywhere, or global smoothness is asserted."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Supply absolute continuity",
+          "text": "Prove that every π-null measurable set is μ-null. This is the first field of a domain witness; it is independent of the later differentiability requirement.",
+          "formula": "\\mu\\ll\\pi.",
+          "lean": "SmoothFiniteScoreDomain.absolutelyContinuous"
+        },
+        {
+          "number": 2,
+          "title": "Supply classical differentiability at almost every μ-point",
+          "text": "Prove differentiability of the exact function r on the ambient Euclidean space at all points outside a μ-null exceptional set. The filter is μ, not π or Lebesgue measure.",
+          "formula": "\\mu\\text{-a.e. }x:\\quad r\\text{ is differentiable at }x.",
+          "lean": "SmoothFiniteScoreDomain.differentiable_ae"
+        },
+        {
+          "number": 3,
+          "title": "Supply finite score integrability",
+          "text": "Prove that q is a.e. strongly measurable and that the integral of its norm is finite. This prevents a real Bochner integral from merely returning its default value for a nonintegrable expression.",
+          "formula": "q\\in L^1(\\mu),\\qquad \\int |q|\\,d\\mu<\\infty.",
+          "lean": "SmoothFiniteScoreDomain.scoreSq_integrable"
+        },
+        {
+          "number": 4,
+          "title": "Package the three proofs",
+          "text": "Only after all three proofs have been obtained may they be collected into one witness of the proposition. The structure records these facts without deriving one from another.",
+          "formula": "(h_{\\mathrm{ac}},h_{\\mathrm{diff}},h_{L^1})\\;:\\;\\mathcal D(\\mu,\\pi).",
+          "lean": "SmoothFiniteScoreDomain.mk"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.AbsolutelyContinuous",
+        "DifferentiableAt",
+        "MeasureTheory.Integrable",
+        "Filter.Eventually"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 54
+        },
+        {
+          "label": "Selected log-ratio definition",
+          "scope": "Identifies the exact function appearing in the differentiability field.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RNLogRatio.lean",
+          "line": 41
+        },
+        {
+          "label": "Existing selected-score representative boundary in the downstream module card",
+          "scope": "Context only, not a dependency of either current module. The card explicitly preserves selected-RN versus Sobolev-score limits and records independent source certification withheld for that downstream transport packet. No status is changed here.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.md"
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 4
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "Real.log and ENNReal.toReal are totalized (log 0 = 0 and ∞.toReal = 0). Without the separately stated decomposition/σ-finiteness/absolute-continuity assumptions, this notation alone is not a theorem that ρ represents dμ/dπ with a finite positive value.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "Differentiable μ-a.e. is not C¹ smoothness, smoothness on the support, differentiability π-a.e., or a weak-derivative assertion."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 4,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "domain definition and construction obligations, not a proof of existence"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 66,
+      "source_end_line": 69,
+      "lean_statement": "The last input is a proof that the pair lies in the stated domain. Although this proof is not used to compute the real-valued expression, requiring it at the interface prevents callers from presenting an unqualified totalized integral as the guarded Fisher value.",
+      "lean_proof": "This is a definition, not a new integral theorem. It calls the already-existing RelativeFisher functional with μ as the base measure and unit weight. The proof certificate controls admissibility; the numerical expression does not depend on how that certificate was established.",
+      "title": "A guarded finite Fisher value using the shared energy",
+      "classification": "domain-guarded definition reusing RelativeFisher",
+      "statement": "Given arbitrary measures μ and π on finite-dimensional Euclidean space and a proof h of the smooth finite score domain, define their canonical relative Fisher value by evaluating the existing RelativeFisher energy with base measure μ, constant weight one, and the selected log-ratio r. Thus the guarded value is the finite integral of the squared classical score of that representative.",
+      "formula": "I_h(\\mu\\Vert\\pi):=\\operatorname{RelativeFisher}(\\mu,1,r)=\\int_E 1\\cdot\\|\\nabla r(x)\\|^2\\,d\\mu(x),\\qquad h:\\mathcal D(\\mu,\\pi).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the explicit domain certificate",
+          "text": "The input certificate guarantees a classical score μ-a.e. and integrability of its squared norm. No certificate is inferred from the measures alone.",
+          "formula": "h:\\mathcal D(\\mu,\\pi)\\ \\Longrightarrow\\ q\\in L^1(\\mu).",
+          "lean": "_h : SmoothFiniteScoreDomain mu pi"
+        },
+        {
+          "number": 2,
+          "title": "Choose the shared energy's three inputs",
+          "text": "Set its base measure to μ, its multiplier to the constant function one, and its log-ratio argument to the selected r. Since μ itself is the integration measure, no additional density factor is needed here.",
+          "formula": "(\\mathrm{base},\\mathrm{weight},\\mathrm{logRatio})=(\\mu,1,r).",
+          "lean": "RelativeFisher.information mu (fun _ => 1) (RNLogRatio.logRatio mu pi)"
+        },
+        {
+          "number": 3,
+          "title": "Read the constructed value",
+          "text": "The shared energy integrates its pointwise weight times squared gradient. The domain's integrability field makes this a genuine finite real integral, not an infinite-energy extension.",
+          "formula": "I_h(\\mu\\Vert\\pi)=\\int 1\\cdot q\\,d\\mu=\\int q\\,d\\mu.",
+          "lean": "RelativeFisher.information; RelativeFisher.densityEnergy"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 66
+        },
+        {
+          "label": "Shared density-energy functional reused by definition",
+          "scope": "densityEnergy at42 and information at52 define the existing weighted Bochner integral.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 42
+        },
+        {
+          "label": "Existing selected-score representative boundary in the downstream module card",
+          "scope": "Context only, not a dependency of either current module. The card explicitly preserves selected-RN versus Sobolev-score limits and records independent source certification withheld for that downstream transport packet. No status is changed here.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.md"
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 5
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "No second independent Fisher hierarchy is constructed. The codomain is ℝ, and inputs outside the explicit domain have no value through this guarded interface.",
+        "The domain certificate contains no probability assumption and no finite-entropy assumption; this definition alone gives neither."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 5,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "construction explanation, not a theorem proof"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_eq_relativeFisher",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 73,
+      "source_end_line": 78,
+      "lean_statement": "Both sides use the same measures and the same selected log-ratio. The theorem exposes the definition under the older shared energy name; it does not compare two independently defined notions of Fisher information.",
+      "lean_proof": "After Lean unfolds the guarded name, there is nothing to prove beyond equality of an expression with itself. The domain certificate remains a required input even though no analytic field is used in this definitional equality.",
+      "title": "The guarded value is exactly the shared RelativeFisher energy",
+      "classification": "definitional reuse theorem",
+      "statement": "For arbitrary μ and π on finite-dimensional Euclidean space, and any witness h that μ≪π, the selected log-ratio r is differentiable μ-a.e., and its squared gradient is μ-integrable, the canonical guarded Fisher value is exactly RelativeFisher.information with base μ, unit weight, and log-ratio r. This equality is built into the definition.",
+      "formula": "I_h(\\mu\\Vert\\pi)=\\operatorname{RelativeFisher.information}(\\mu,\\mathbf 1,r).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Unfold the guarded name",
+          "text": "Its defining expression already is the shared functional with the specified three inputs.",
+          "formula": "I_h(\\mu\\Vert\\pi)\\equiv\\operatorname{RelativeFisher.information}(\\mu,\\mathbf 1,r).",
+          "lean": "information"
+        },
+        {
+          "number": 2,
+          "title": "Recognize identical expressions",
+          "text": "Both sides reduce to precisely the same term. No estimate or change of representatives is involved.",
+          "formula": "\\operatorname{RelativeFisher.information}(\\mu,\\mathbf 1,r)=\\operatorname{RelativeFisher.information}(\\mu,\\mathbf 1,r).",
+          "lean": "rfl"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 73
+        },
+        {
+          "label": "Shared information definition",
+          "scope": "The exact functional on the right; equality is a reuse identity, not a source equivalence theorem.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 52
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 6
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "This wrapper is not an independent analytic identification with a Sobolev, Dirichlet, or source-defined Fisher quantity."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 6,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_eq_integral_scoreSq",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 84,
+      "source_end_line": 88,
+      "lean_statement": "The conclusion is an equality of real numbers. The same selected score appears in the named functional and in the integral, and the domain assumption includes the integrability needed to read that integral as a finite energy.",
+      "lean_proof": "Lean expands the two energy definitions and the squared-score name, then simplifies multiplication by one. It does not establish integrability during this proof: that fact was required in the supplied domain certificate.",
+      "title": "The guarded value is the squared-score integral under μ",
+      "classification": "definition-unfolding integral formula",
+      "statement": "For measures μ and π on finite-dimensional Euclidean space and an explicit smooth finite score-domain witness h, the canonical Fisher value equals the μ-integral of the squared gradient of the selected RN log-ratio. The domain witness makes the integrand genuinely integrable; the equality itself follows by removing the unit weight in the reused definition.",
+      "formula": "I_h(\\mu\\Vert\\pi)=\\int_E q(x)\\,d\\mu(x)=\\int_E\\|\\nabla r(x)\\|^2\\,d\\mu(x),\\qquad q\\in L^1(\\mu).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Open the shared-energy definition",
+          "text": "The guarded value uses μ as the base measure and the constant multiplier one.",
+          "formula": "I_h(\\mu\\Vert\\pi)=\\int_E\\operatorname{densityEnergy}(\\mathbf 1,r)(x)\\,d\\mu(x).",
+          "lean": "information; RelativeFisher.information"
+        },
+        {
+          "number": 2,
+          "title": "Expand the pointwise energy",
+          "text": "The density-energy definition is weight times squared gradient norm.",
+          "formula": "\\operatorname{densityEnergy}(\\mathbf 1,r)(x)=1\\cdot\\|\\nabla r(x)\\|^2.",
+          "lean": "RelativeFisher.densityEnergy"
+        },
+        {
+          "number": 3,
+          "title": "Remove the unit multiplier",
+          "text": "Multiplication by one leaves the squared score unchanged, so both integral expressions coincide.",
+          "formula": "1\\cdot\\|\\nabla r(x)\\|^2=q(x),\\qquad I_h(\\mu\\Vert\\pi)=\\int_Eq\\,d\\mu.",
+          "lean": "simp [information, RelativeFisher.information, RelativeFisher.densityEnergy, scoreSq]"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RelativeFisher.densityEnergy"
+      ],
+      "mathlib_dependencies": [
+        "one_mul"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 84
+        },
+        {
+          "label": "Shared pointwise and integrated energy definitions",
+          "scope": "Unit-weight specialization only; no RN change of integration measure occurs in this proof.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 42
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 7
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "This theorem does not require σ-finiteness or a Lebesgue-decomposition instance because it only unfolds the μ-based definition.",
+        "No finiteness of KL divergence or entropy is asserted."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 7,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_eq_integral_density_mul_scoreSq",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 98,
+      "source_end_line": 107,
+      "lean_statement": "The two bracketed assumptions provide σ-finiteness of μ and a Lebesgue decomposition of μ relative to π. There is no bracket requiring π to be σ-finite. The domain witness separately supplies absolute continuity and the score's classical and integrability conditions.",
+      "lean_proof": "The proof first rewrites the guarded value as its μ-integral. It then instantiates Mathlib's RN integral identity with the already-fixed squared-score function and reverses that equality. Expanding only the density name prevents the original μ parameter inside the score from being inadvertently replaced by another representation of the measure.",
+      "title": "Move the score integral from μ to the reference measure",
+      "classification": "Radon–Nikodym change-of-measure reuse adapter",
+      "statement": "Let μ and π be measures on finite-dimensional Euclidean space. Assume μ is σ-finite, a Lebesgue decomposition of μ with respect to π is available, and h proves μ≪π, differentiability of the selected log-ratio r μ-a.e., and integrability of q=‖∇r‖² under μ. Then the same canonical Fisher value equals the π-integral of the selected real RN density times the same squared score. Only the integration measure changes; both ρ and q retain the original pair (μ,π).",
+      "formula": "I_h(\\mu\\Vert\\pi)=\\int_E q_{\\mu,\\pi}\\,d\\mu=\\int_E\\rho_{\\mu,\\pi}(x)\\,q_{\\mu,\\pi}(x)\\,d\\pi(x).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "μ is σ-finite, and the typeclass HaveLebesgueDecomposition μ π is supplied. π need not be assumed σ-finite. These are in addition to μ ≪ π in the score-domain witness.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Expose the original μ-integral",
+          "text": "Use the already-proved definition-unfolding formula. Keep its integrand fixed as the function q attached to μ and π.",
+          "formula": "I_h(\\mu\\Vert\\pi)=\\int_Eq_{\\mu,\\pi}(x)\\,d\\mu(x).",
+          "lean": "information_eq_integral_scoreSq mu pi h"
+        },
+        {
+          "number": 2,
+          "title": "Apply the existing RN integral formula",
+          "text": "Absolute continuity, the specified Lebesgue decomposition, and σ-finiteness of μ are exactly the assumptions of Mathlib's real-valued RN transport theorem. Applied to f=q, it identifies the weighted π-integral with the μ-integral.",
+          "formula": "\\int_E(\\mu.\\mathrm{rnDeriv}\\,\\pi\\,x).\\mathrm{toReal}\\,q_{\\mu,\\pi}(x)\\,d\\pi(x)=\\int_Eq_{\\mu,\\pi}(x)\\,d\\mu(x).",
+          "lean": "MeasureTheory.integral_toReal_rnDeriv_mul (f := scoreSq mu pi) h.absolutelyContinuous"
+        },
+        {
+          "number": 3,
+          "title": "Read the selected density and reverse the equality",
+          "text": "The real factor is exactly ρ by definition. Reverse the imported equality to obtain the target orientation, without replacing μ inside the score's parameters.",
+          "formula": "I_h(\\mu\\Vert\\pi)=\\int_E\\rho_{\\mu,\\pi}(x)q_{\\mu,\\pi}(x)\\,d\\pi(x).",
+          "lean": "simpa [RNLogRatio.density] using (...) .symm"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_eq_integral_scoreSq",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density"
+      ],
+      "astis_projection_dependencies": [{"structure": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain", "field": "absolutelyContinuous", "role": "Access the supplied absolute-continuity proof; this step does not establish absolute continuity from the definition of the score."}],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral_toReal_rnDeriv_mul"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 98
+        },
+        {
+          "label": "Exact Mathlib RN integral transport API and ambient hypotheses",
+          "scope": "Section assumptions include HaveLebesgueDecomposition μ ν and SigmaFinite μ; integral_toReal_rnDeriv_mul is at597.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Decomposition/RadonNikodym.lean",
+          "line": 579
+        },
+        {
+          "label": "Companion integrability transport (explanatory, not called by this proof)",
+          "scope": "integrable_toReal_rnDeriv_mul_iff confirms that the weighted reference-measure integrand is integrable when q is μ-integrable under the same RN hypotheses. It is not an additional theorem proved by this ASTIS wrapper.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Decomposition/RadonNikodym.lean",
+          "line": 588
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 8
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "The RN formula is a reused totalized-integral identity; genuine finite-energy interpretation here is supported by h.scoreSq_integrable. Its companion integrability theorem is contextual, not a direct dependency of the displayed proof.",
+        "No σ-finiteness of π, probability normalization, pointwise positivity of ρ, or smooth density version is inferred.",
+        "Changing only the integration measure does not justify changing either measure argument inside RNLogRatio or scoreSq."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 8,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq_integrable",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 111,
+      "source_end_line": 115,
+      "lean_statement": "The conclusion repeats one field of the domain certificate. Integrable means a.e. strong measurability together with a finite integral of the norm, not merely that a total real integral expression can be written.",
+      "lean_proof": "The proof retrieves the certificate's stored integrability proof by its field name. No calculation or estimate is performed, and the other two fields do not by themselves imply this one.",
+      "title": "Read squared-score integrability from its certificate",
+      "classification": "structure-field projection theorem; no new regularity proof",
+      "statement": "If h is a smooth finite score-domain witness for μ and π on finite-dimensional Euclidean space, then the squared gradient q of their selected log-ratio is integrable with respect to μ. This is exactly the integrability field already contained in h, not a consequence newly derived from absolute continuity or differentiability.",
+      "formula": "h:\\mathcal D(\\mu,\\pi)\\quad\\Longrightarrow\\quad q_{\\mu,\\pi}\\in L^1(\\mu).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Extract the requested field",
+          "text": "The domain witness contains three proofs. Return its third proof, whose assertion is precisely the target integrability statement.",
+          "formula": "h=(h_{\\mathrm{ac}},h_{\\mathrm{diff}},h_{L^1})\\quad\\Longrightarrow\\quad h_{L^1}:q\\in L^1(\\mu).",
+          "lean": "h.scoreSq_integrable"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq"
+      ],
+      "astis_projection_dependencies": [{"structure": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain", "field": "scoreSq_integrable", "role": "Return the integrability premise already stored in the supplied domain witness; this is a contract accessor, not a new integrability theorem."}],
+      "mathlib_dependencies": [
+        "MeasureTheory.Integrable"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 111
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 9
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "This is a convenience wrapper for reusing an assumption. It must not be presented as a theorem producing a finite score domain from absolute continuity or differentiability."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 9,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_nonneg",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 119,
+      "source_end_line": 124,
+      "lean_statement": "The theorem concludes only a lower bound of zero for the same guarded real-valued Fisher quantity. It has no probability-law assumption and does not state when equality is possible.",
+      "lean_proof": "The proof rewrites the Fisher value as the score integral, observes that every squared norm is nonnegative, and applies the integral-positivity theorem. It does not need to reprove integrability, since the certificate already supplies it.",
+      "title": "The guarded Fisher value is nonnegative",
+      "classification": "positivity consequence of a squared-score integral",
+      "statement": "For arbitrary μ and π on finite-dimensional Euclidean space and a supplied smooth finite score-domain witness h, the canonical Fisher value is nonnegative. It is the integral of a pointwise squared Euclidean norm, and therefore cannot be negative.",
+      "formula": "0\\le I_h(\\mu\\Vert\\pi)=\\int_E\\|\\nabla r(x)\\|^2\\,d\\mu(x).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the squared-score representation",
+          "text": "Replace the named guarded quantity with the μ-integral of q.",
+          "formula": "I_h(\\mu\\Vert\\pi)=\\int_Eq\\,d\\mu.",
+          "lean": "information_eq_integral_scoreSq mu pi h"
+        },
+        {
+          "number": 2,
+          "title": "Establish pointwise nonnegativity",
+          "text": "Every real square is nonnegative, including the square of the gradient's norm at each point. This does not require differentiability at that point because the gradient expression is totalized.",
+          "formula": "\\forall x\\in E,\\quad 0\\le\\|\\nabla r(x)\\|^2=q(x).",
+          "lean": "sq_nonneg ‖gradient (RNLogRatio.logRatio mu pi) x‖"
+        },
+        {
+          "number": 3,
+          "title": "Integrate the nonnegative function",
+          "text": "The Bochner integral of a pointwise nonnegative real function is nonnegative; in this guarded use q is additionally integrable by hypothesis.",
+          "formula": "0\\le\\int_Eq\\,d\\mu=I_h(\\mu\\Vert\\pi).",
+          "lean": "MeasureTheory.integral_nonneg"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_eq_integral_scoreSq",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral_nonneg",
+        "sq_nonneg",
+        "gradient"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 119
+        },
+        {
+          "label": "Mathlib positivity of the integral",
+          "scope": "The pointwise-nonnegative version used by this proof.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+          "line": 612
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 10
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "Nonnegativity does not show that zero Fisher implies μ=π, establish strict positivity, or identify the value with a source Sobolev energy."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 10,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_proof_irrel",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+      "source_line": 128,
+      "source_end_line": 132,
+      "lean_statement": "The subscripts distinguish proofs of admissibility, not two densities or two log-ratios. All mathematical inputs are held fixed, so the conclusion says the choice of proof cannot affect the numerical result.",
+      "lean_proof": "The defining expression never reads the witness. Consequently both sides reduce to the same shared integral and Lean accepts reflexivity. This argument gives no permission to replace the RN representative by another a.e.-equal function.",
+      "title": "Different proofs of the same domain give the same value",
+      "classification": "definitional proof-witness irrelevance",
+      "statement": "Fix the same measures μ and π on finite-dimensional Euclidean space. If h₁ and h₂ are two proofs of exactly the same smooth finite score-domain proposition, the guarded Fisher values obtained from them are equal. The measures and the selected RN/log-gradient representative are unchanged.",
+      "formula": "h_1,h_2:\\mathcal D(\\mu,\\pi)\\quad\\Longrightarrow\\quad I_{h_1}(\\mu\\Vert\\pi)=I_{h_2}(\\mu\\Vert\\pi).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "h₁ and h₂ each prove all three domain fields for the identical ordered measure pair (μ,π): absolute continuity, μ-a.e. classical differentiability of r, and μ-integrability of q."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Observe that the numerical definition ignores the witness",
+          "text": "Both values unfold to the shared energy using the same μ, weight one, and r. The proof argument controls admissibility but is absent from the defining numerical expression.",
+          "formula": "I_{h_1}(\\mu\\Vert\\pi)\\equiv\\operatorname{RelativeFisher.information}(\\mu,1,r)\\equiv I_{h_2}(\\mu\\Vert\\pi).",
+          "lean": "information"
+        },
+        {
+          "number": 2,
+          "title": "Close by definitional equality",
+          "text": "After unfolding, the two sides are literally the same expression. No comparison of two differentiable versions is needed or provided.",
+          "formula": "\\operatorname{RelativeFisher.information}(\\mu,1,r)=\\operatorname{RelativeFisher.information}(\\mu,1,r).",
+          "lean": "rfl"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain"
+      ],
+      "mathlib_dependencies": [],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 128
+        },
+        {
+          "label": "Separate gradient-congruence theorem, not used here",
+          "scope": "information_congr_gradient_ae requires actual gradient equality a.e.; it illustrates why witness irrelevance is not representative independence.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/RelativeFisher.lean",
+          "line": 89
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalRelativeFisher.lean",
+          "line": 11
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "Proof-witness irrelevance is not density-version independence, weak/classical score equivalence, or invariance under arbitrary modifications on null sets."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalRelativeFisher.lean",
+        "line": 11,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.State",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher",
+      "kind": "abbrev",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+      "source_line": 50,
+      "source_end_line": 50,
+      "lean_statement": "This declaration is a short name for the coordinate type used by every later density, gradient, and generator in this module. It does not attach a particular measure or choose a dynamics.",
+      "lean_proof": "There is no proof body: the abbreviation simply expands to Mathlib's type. The inherited finite-dimensional structure is available later because the module works under the finite-index assumption.",
+      "title": "The Euclidean space used by the Dirichlet bridge",
+      "classification": "type abbreviation; reuse of the same Euclidean space",
+      "statement": "For an index type ι, the local name State denotes Mathlib's EuclideanSpace ℝ ι. It is definitionally the same underlying Euclidean type used in the canonical relative-Fisher module; the two namespace-local abbreviations do not create different mathematical spaces. Subsequent analysis in this module is carried out for finite ι.",
+      "formula": "E:=\\operatorname{EuclideanSpace}(\\mathbb R,\\iota),\\qquad\\mathrm{CanonicalDirichletFisher.State}=\\mathrm{CanonicalRelativeFisher.State}=E.",
+      "assumptions": [
+        "ι is any index type for the abbreviation itself; the surrounding section supplies Fintype ι to subsequent finite-dimensional analytic declarations.",
+        "No measure or generator is an input to this abbreviation. No Nonempty ι hypothesis is present."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Reuse the Mathlib coordinate space",
+          "text": "The local type name unfolds directly to the existing real Euclidean space. Equality of the two local names is definitional, not a constructed transport map between spaces.",
+          "formula": "\\mathrm{State}\\equiv\\operatorname{EuclideanSpace}(\\mathbb R,\\iota).",
+          "lean": "EuclideanSpace ℝ ι"
+        }
+      ],
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "EuclideanSpace"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 50
+        },
+        {
+          "label": "Mathlib EuclideanSpace abbreviation",
+          "scope": "The same underlying type as the relative-Fisher module's State; no nontrivial equivalence is asserted.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+          "line": 113
+        }
+      ],
+      "boundary": [
+        "This is a namespace-local alias, not a new geometric construction or theorem about changing spaces.",
+        "No probability normalization, measure invariance, or generator property."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalDirichletFisher.lean",
+        "line": null,
+        "coverage": "No dedicated #check for the State abbreviation.",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "construction explanation, not a theorem proof"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.DirichletPairDomain",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher",
+      "kind": "structure",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+      "source_line": 58,
+      "source_end_line": 82,
+      "lean_statement": "This is a proposition with five mathematical fields. The first three prevent invalid subtraction of nonintegrable Bochner integrals. The last two apply only to the selected density and log-ratio, even though their names recall stationarity and symmetry.",
+      "lean_proof": "A domain witness is built by providing the five required proofs. Declaring L as a linear map does not supply any of them. Once supplied, they match the five hypotheses of the existing integration-by-parts helper exactly.",
+      "title": "The five local conditions for the density–log-density pairing",
+      "classification": "proposition-valued local integration-by-parts domain",
+      "statement": "For any index type ι, let E be EuclideanSpace ℝ ι with its coordinate measurable structure, let μ and π be arbitrary measures on E, and let L be a real-linear operator on real-valued functions. For the fixed selected RN density ρ and log-ratio r, DirichletPairDomain means exactly that L(ρr), ρLr, and rLρ are π-integrable, the integral of L(ρr) is zero, and the integrals of ρLr and rLρ are equal. Constructing this domain requires five proofs. This is a condition on one ordered pair, not global stationarity or reversibility. Finiteness of ι is required by the later score/gradient bridges, not by this pair-domain structure.",
+      "formula": "\\begin{aligned}\\mathcal P(\\mu,\\pi,L)\\ :\\Longleftrightarrow\\;&L(\\rho r),\\ \\rho Lr,\\ rL\\rho\\in L^1(\\pi),\\\\&\\int_E L(\\rho r)\\,d\\pi=0,\\\\&\\int_E\\rho Lr\\,d\\pi=\\int_ErL\\rho\\,d\\pi.\\end{aligned}",
+      "assumptions": [
+        "ι is an arbitrary index type, and E = EuclideanSpace ℝ ι is used only as a measurable coordinate space in this structure. There is no Fintype or Nonempty ι parameter in its compiler-exported signature.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)). They remain fixed by the original ordered pair (μ,π); no gradient is used in this pair-domain definition.",
+        "L is a real-linear map from all functions E → ℝ to all functions E → ℝ. Its linearity alone does not say that it generates a Markov semigroup, preserves a measure, or is a diffusion.",
+        "The definition takes μ, π and L only. Neither absolute continuity, σ-finiteness, score differentiability, score integrability nor the canonical Γ identity is included unless supplied separately.",
+        "Every product of functions is pointwise: (ρr)(x)=ρ(x)r(x). All three integrability claims and both integral identities refer to π."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Check the generator applied to the product",
+          "text": "Supply integrability of the single function L(ρr). This term will be the first summand in the carré-du-champ expansion.",
+          "formula": "L(\\rho r)\\in L^1(\\pi).",
+          "lean": "DirichletPairDomain.generator_product_integrable"
+        },
+        {
+          "number": 2,
+          "title": "Check the two generator pairings",
+          "text": "Supply integrability of both cross terms separately. One finite integral does not automatically establish the other.",
+          "formula": "\\rho Lr\\in L^1(\\pi),\\qquad rL\\rho\\in L^1(\\pi).",
+          "lean": "DirichletPairDomain.density_mul_generator_logRatio_integrable; DirichletPairDomain.logRatio_mul_generator_density_integrable"
+        },
+        {
+          "number": 3,
+          "title": "Check stationarity only for the product observable",
+          "text": "Supply the identity that the π-integral of L(ρr) vanishes. The definition does not quantify over every observable.",
+          "formula": "\\int_E L(\\rho r)\\,d\\pi=0.",
+          "lean": "DirichletPairDomain.stationary_product"
+        },
+        {
+          "number": 4,
+          "title": "Check symmetry only for this pairing",
+          "text": "Supply equality of the two cross integrals. This is precisely the pair-level equality used in the integral algebra.",
+          "formula": "\\int_E\\rho Lr\\,d\\pi=\\int_ErL\\rho\\,d\\pi.",
+          "lean": "DirichletPairDomain.symmetric_pair"
+        },
+        {
+          "number": 5,
+          "title": "Collect the five proofs",
+          "text": "These obligations together form the local domain witness consumed by the later integration-by-parts bridge; none of them is proved by naming the structure.",
+          "formula": "(h_1,h_2,h_3,h_{\\mathrm{stat}},h_{\\mathrm{sym}}):\\mathcal P(\\mu,\\pi,L).",
+          "lean": "DirichletPairDomain.mk"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [
+        "LinearMap",
+        "MeasureTheory.Integrable",
+        "MeasureTheory.integral"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 58
+        },
+        {
+          "label": "Exact existing integration-by-parts consumer of these fields",
+          "scope": "The three integrability hypotheses and two integral equalities are passed directly to fundamental_integration_by_parts.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 153
+        },
+        {
+          "label": "Existing source-correspondence card: chewi-1-2-theorem-1-2-14",
+          "scope": "Existing local source-correspondence entry for the reused fundamental_integration_by_parts theorem. It records Chewi Theorem 1.2.14, edition 2026-08-09, printed p.14/PDF p.26, status compiled, with three integrability inputs, stationarity and symmetry. This exposition does not independently re-audit that source or promote the canonical Fisher bridge to a numbered source theorem.",
+          "path": "website/content/source_correspondence.json",
+          "line": 656
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalDirichletFisher.lean",
+          "line": 3
+        }
+      ],
+      "boundary": [
+        "These are only local pair conditions. No global stationarity, reversibility, generator-domain closure, concrete Langevin generator, or diffusion chain rule is derived.",
+        "Real.log and ENNReal.toReal are totalized (log 0 = 0 and ∞.toReal = 0). Without the separately stated decomposition/σ-finiteness/absolute-continuity assumptions, this notation alone is not a theorem that ρ represents dμ/dπ with a finite positive value.",
+        "This structure does not assert membership in a separately defined closed Dirichlet-form or Sobolev domain. It does not provide the score-domain witness or the Γ-to-score identity.",
+        "No probability assumption or finite total mass is part of this local domain.",
+        "A focused compiler signature check confirmed that ambient Fintype is not retained for this structure. The finite-dimensional assumptions of the later Fisher bridge must not be copied back into this definition."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalDirichletFisher.lean",
+        "line": 3,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "domain definition and construction obligations, not a proof of existence"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.HasCanonicalFisherGamma",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher",
+      "kind": "def",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+      "source_line": 91,
+      "source_end_line": 99,
+      "lean_statement": "The result is a proposition saying that two functions agree almost everywhere for π, the reference measure. It differs from the score-domain differentiability condition, whose exceptional set is measured by μ. The statement itself includes no integrability or regularity proof.",
+      "lean_proof": "The body spells out the desired a.e. equality using the already-defined algebraic Γ, selected RN functions, and squared score. It does not establish the equality. In an eventual concrete model, the appropriate diffusion formula and representative-valid chain rule must justify it.",
+      "title": "The separate carré-du-champ identification needed for Fisher energy",
+      "classification": "definition of an a.e. identity contract; not a diffusion theorem",
+      "statement": "For arbitrary μ and π on finite-dimensional Euclidean space and a real-linear operator L on functions, HasCanonicalFisherGamma is the assertion that, π-almost everywhere, the algebraic carré du champ of the selected density ρ and log-ratio r equals ρ times the squared totalized gradient of r. This equality is a separate input to the bridge, not a chain rule derived by the definition.",
+      "formula": "\\begin{aligned}\\Gamma_L(f,g)&:=\\tfrac12\\big[L(fg)-fLg-gLf\\big],\\\\\\operatorname{HasCanonicalFisherGamma}(\\mu,\\pi,L)&:\\Longleftrightarrow\\Gamma_L(\\rho,r)=\\rho\\,\\|\\nabla r\\|^2\\quad\\pi\\text{-a.e.}\\end{aligned}",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "L is a real-linear map from all functions E → ℝ to all functions E → ℝ. Its linearity alone does not say that it generates a Markov semigroup, preserves a measure, or is a diffusion.",
+        "This proposition is defined without assuming any domain witness, absolute continuity, integrability, σ-finiteness, or differentiability. To use it as a hypothesis, a caller must actually prove its π-a.e. equality."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Evaluate the existing algebraic Γ expression",
+          "text": "Substitute the fixed functions ρ and r into the imported carré-du-champ definition. The factor one-half fixes the normalization.",
+          "formula": "\\Gamma_L(\\rho,r)(x)=\\tfrac12\\big(L(\\rho r)(x)-\\rho(x)Lr(x)-r(x)L\\rho(x)\\big).",
+          "lean": "StochasticProcesses.CarreDuChamp.carreDuChamp generator (RNLogRatio.density mu pi) (RNLogRatio.logRatio mu pi)"
+        },
+        {
+          "number": 2,
+          "title": "Form the intended score-energy density",
+          "text": "Multiply the same selected ρ by the squared gradient of the same selected r. No derivative of ρ or chain rule is assumed merely by writing this expression.",
+          "formula": "\\rho(x)q(x)=\\rho(x)\\|\\nabla r(x)\\|^2.",
+          "lean": "RNLogRatio.density mu pi x * CanonicalRelativeFisher.scoreSq mu pi x"
+        },
+        {
+          "number": 3,
+          "title": "Require equality outside a π-null set",
+          "text": "Define the proposition by the a.e. comparison of these expressions. A concrete diffusion must supply its proof; a pointwise identity everywhere is not required.",
+          "formula": "\\Gamma_L(\\rho,r)=\\rho q\\quad\\pi\\text{-a.e.}.",
+          "lean": "∀ᵐ x ∂pi, ..."
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq"
+      ],
+      "mathlib_dependencies": [
+        "LinearMap",
+        "Filter.Eventually"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 91
+        },
+        {
+          "label": "ASTIS algebraic carré du champ and its normalization",
+          "scope": "Definition Γ_L(f,g)=½[L(fg)−fLg−gLf]. No differential Γ formula is supplied by this definition.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 35
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalDirichletFisher.lean",
+          "line": 4
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "These are only local pair conditions. No global stationarity, reversibility, generator-domain closure, concrete Langevin generator, or diffusion chain rule is derived.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "A μ-a.e. identity alone would not be the same stated hypothesis; the integral comparison later uses this π-a.e. identity.",
+        "This does not follow from absolute continuity alone and does not construct a valid canonical-density chain rule."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalDirichletFisher.lean",
+        "line": 4,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "construction explanation, not a theorem proof"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.dirichletForm_density_logRatio_eq_information",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+      "source_line": 108,
+      "source_end_line": 129,
+      "lean_statement": "The three named witnesses carry different obligations: the score witness controls μ-a.e. classical differentiability and μ-integrability, the pair witness supplies five π-integral conditions, and the Γ witness supplies a π-a.e. equality. The bracketed RN assumptions are additional. None of these witnesses is constructed by this theorem.",
+      "lean_proof": "Lean first obtains the two-part integration-by-parts result and uses its second component. It next rewrites the Fisher side as a weighted π-integral. The remaining goal is equality of two π-integrals, which follows directly from the supplied a.e. Γ identity. The integral algebra behind the imported helper explains the factor one-half and the negative-generator sign.",
+      "title": "Identify the density–log-density Dirichlet pairing with guarded Fisher",
+      "classification": "conditional integration node using existing integration by parts and RN transport",
+      "statement": "Let μ and π be measures on finite-dimensional Euclidean space, with μ σ-finite and a Lebesgue decomposition of μ relative to π. Let L be a real-linear operator on real-valued functions. Suppose the selected RN log-ratio has a smooth finite score-domain witness hscore; the three terms L(ρr), ρLr, rLρ are π-integrable; the integral of L(ρr) is zero; the two cross integrals are equal; and Γ_L(ρ,r)=ρ‖∇r‖² π-a.e. Then the generator Dirichlet pairing of the selected density and log-ratio equals their guarded canonical Fisher value.",
+      "formula": "\\mathcal E_\\pi^L(\\rho,r):=-\\int_E\\rho\\,Lr\\,d\\pi\\ =\\ \\int_E\\Gamma_L(\\rho,r)\\,d\\pi\\ =\\ \\int_E\\rho\\,\\|\\nabla r\\|^2\\,d\\pi\\ =\\ I_{h_{\\mathrm{score}}}(\\mu\\Vert\\pi).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "μ is σ-finite, and the typeclass HaveLebesgueDecomposition μ π is supplied. π need not be assumed σ-finite. These are in addition to μ ≪ π in the score-domain witness.",
+        "L is a real-linear map from all functions E → ℝ to all functions E → ℝ. Its linearity alone does not say that it generates a Markov semigroup, preserves a measure, or is a diffusion.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm).",
+        "The supplied witness hpair proves, for the fixed functions ρ and r, that L(ρr), x ↦ ρ(x)Lr(x), and x ↦ r(x)Lρ(x) are π-integrable, that ∫ L(ρr) dπ = 0, and that ∫ ρ Lr dπ = ∫ r Lρ dπ.",
+        "The supplied hgamma asserts Γ_L(ρ,r)(x) = ρ(x)q(x) for π-almost every x, where Γ_L(f,g) = ½[L(fg) − f Lg − g Lf]. It is not required pointwise everywhere."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Apply the existing integration-by-parts theorem to the selected pair",
+          "text": "Pass all five fields of hpair to the existing helper with base measure π, f=ρ, and g=r. The relevant second conclusion identifies the Dirichlet pairing with the integrated Γ.",
+          "formula": "\\mathcal E_\\pi^L(\\rho,r)=\\int_E\\Gamma_L(\\rho,r)\\,d\\pi.",
+          "lean": "StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts ...; hibp.2"
+        },
+        {
+          "number": 2,
+          "title": "Understand why that reused identity is valid",
+          "text": "Inside the helper, the three integrability assumptions permit subtracting integrals term by term in the Γ definition. This is explanatory expansion of the reused proof, not a newly proved helper.",
+          "formula": "\\int_E\\Gamma_L(\\rho,r)\\,d\\pi=\\tfrac12\\left[\\int_EL(\\rho r)\\,d\\pi-\\int_E\\rho Lr\\,d\\pi-\\int_ErL\\rho\\,d\\pi\\right].",
+          "lean": "fundamental_integration_by_parts: hLfg.sub hfLg; integral_const_mul; integral_sub"
+        },
+        {
+          "number": 3,
+          "title": "Use only the supplied local stationarity and symmetry",
+          "text": "The first integral is zero and the two cross integrals coincide, so the half-sum is exactly minus either cross integral, with the same sign as the Dirichlet-form definition.",
+          "formula": "\\tfrac12(0-A-A)=-A=\\mathcal E_\\pi^L(\\rho,r),\\qquad A:=\\int_E\\rho Lr\\,d\\pi.",
+          "lean": "fundamental_integration_by_parts: hstationary; hsymmetric; Generator.dirichletForm"
+        },
+        {
+          "number": 4,
+          "title": "Put the Fisher value over the same measure",
+          "text": "Use the already-established RN change-of-measure formula for the fixed original score, under μ's σ-finiteness, the decomposition instance, and the absolute continuity in hscore.",
+          "formula": "I_{h_{\\mathrm{score}}}(\\mu\\Vert\\pi)=\\int_E\\rho(x)q(x)\\,d\\pi(x).",
+          "lean": "CanonicalRelativeFisher.information_eq_integral_density_mul_scoreSq mu pi hscore"
+        },
+        {
+          "number": 5,
+          "title": "Compare the integrands almost everywhere",
+          "text": "Now both sides are π-integrals. Apply integral congruence to hgamma; its exceptional π-null set is harmless and no pointwise-everywhere identity is needed.",
+          "formula": "\\Gamma_L(\\rho,r)=\\rho q\\quad\\pi\\text{-a.e.}\\quad\\Longrightarrow\\quad\\int_E\\Gamma_L(\\rho,r)\\,d\\pi=\\int_E\\rho q\\,d\\pi.",
+          "lean": "MeasureTheory.integral_congr_ae hgamma"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.fundamental_integration_by_parts",
+        "AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.CarreDuChamp.carreDuChamp",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.DirichletPairDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.HasCanonicalFisherGamma",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_eq_integral_density_mul_scoreSq",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral_congr_ae"
+      ],
+      "mathlib_dependencies_transitive_explained": [
+        "MeasureTheory.Integrable.sub",
+        "MeasureTheory.integral_const_mul",
+        "MeasureTheory.integral_sub",
+        "MeasureTheory.integral_toReal_rnDeriv_mul"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 108
+        },
+        {
+          "label": "Reused fundamental integration-by-parts proof",
+          "scope": "Direct helper; its integral expansion is explained in steps2–3, not reimplemented.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/StochasticProcesses/CarreDuChamp.lean",
+          "line": 153
+        },
+        {
+          "label": "Dirichlet-form sign convention",
+          "scope": "Eπ(f,g)=−∫f Lg dπ.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Generator.lean",
+          "line": 22
+        },
+        {
+          "label": "Existing canonical RN transport identity",
+          "scope": "Direct adapter carrying μ σ-finiteness, the decomposition instance, and the exact score representative.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 98
+        },
+        {
+          "label": "Mathlib a.e. integral congruence",
+          "scope": "Direct final equality of π-integrals.",
+          "path": ".lake/packages/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+          "line": 299
+        },
+        {
+          "label": "Existing source-correspondence card: chewi-1-2-theorem-1-2-14",
+          "scope": "Existing local source-correspondence entry for the reused fundamental_integration_by_parts theorem. It records Chewi Theorem 1.2.14, edition 2026-08-09, printed p.14/PDF p.26, status compiled, with three integrability inputs, stationarity and symmetry. This exposition does not independently re-audit that source or promote the canonical Fisher bridge to a numbered source theorem.",
+          "path": "website/content/source_correspondence.json",
+          "line": 656
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalDirichletFisher.lean",
+          "line": 5
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "These are only local pair conditions. No global stationarity, reversibility, generator-domain closure, concrete Langevin generator, or diffusion chain rule is derived.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "This bridge preserves the selected representative, generator normalization, and all three witnesses. It does not produce a concrete Γ formula or show that any diffusion satisfies the hypotheses.",
+        "The source card belongs to the reused integration-by-parts helper. This combined canonical Fisher edge is not assigned a new numbered source theorem or a source-equivalence certification.",
+        "No probability normalization, entropy identity, or law-evolution statement is required or concluded."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalDirichletFisher.lean",
+        "line": 5,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.dirichletForm_density_logRatio_eq_integral_scoreSq",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+      "source_line": 132,
+      "source_end_line": 145,
+      "lean_statement": "The right side now displays the squared-score integral explicitly instead of naming the guarded value. The hypotheses have not been weakened: the same score certificate, pair certificate, Γ equality, σ-finiteness, and decomposition instance remain inputs.",
+      "lean_proof": "Lean chains two existing equalities. First it replaces the Dirichlet pairing with the guarded Fisher value; then it replaces that value with its μ-integral formula. This declaration is a reusable presentation wrapper, not a second proof of the analytic bridge.",
+      "title": "The same Dirichlet bridge written as an integral under μ",
+      "classification": "reuse wrapper for the preceding conditional bridge",
+      "statement": "Under exactly the same hypotheses as the Dirichlet–Fisher bridge—μ σ-finite, a Lebesgue decomposition relative to π, a real-linear L, the smooth finite selected-score domain, the five local π-pair conditions, and Γ_L(ρ,r)=ρ‖∇r‖² π-a.e.—the Dirichlet pairing equals the μ-integral of the squared selected score. This is a reformulation of the preceding bridge using the integral definition of guarded Fisher information.",
+      "formula": "\\mathcal E_\\pi^L(\\rho,r)=-\\int_E\\rho Lr\\,d\\pi=\\int_E\\|\\nabla r(x)\\|^2\\,d\\mu(x).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "μ is σ-finite, and the typeclass HaveLebesgueDecomposition μ π is supplied. π need not be assumed σ-finite. These are in addition to μ ≪ π in the score-domain witness.",
+        "L is a real-linear map from all functions E → ℝ to all functions E → ℝ. Its linearity alone does not say that it generates a Markov semigroup, preserves a measure, or is a diffusion.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm).",
+        "The supplied witness hpair proves, for the fixed functions ρ and r, that L(ρr), x ↦ ρ(x)Lr(x), and x ↦ r(x)Lρ(x) are π-integrable, that ∫ L(ρr) dπ = 0, and that ∫ ρ Lr dπ = ∫ r Lρ dπ.",
+        "The supplied hgamma asserts Γ_L(ρ,r)(x) = ρ(x)q(x) for π-almost every x, where Γ_L(f,g) = ½[L(fg) − f Lg − g Lf]. It is not required pointwise everywhere."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Reuse the guarded Dirichlet–Fisher identification",
+          "text": "Apply the preceding theorem with the same μ, π, L and three witnesses. No new integration-by-parts argument is needed.",
+          "formula": "\\mathcal E_\\pi^L(\\rho,r)=I_{h_{\\mathrm{score}}}(\\mu\\Vert\\pi).",
+          "lean": "dirichletForm_density_logRatio_eq_information mu pi generator hscore hpair hgamma"
+        },
+        {
+          "number": 2,
+          "title": "Open the already-proved μ-integral formula",
+          "text": "The canonical relative-Fisher formula identifies that same guarded value with the μ-integral of q. Combine the two equalities.",
+          "formula": "I_{h_{\\mathrm{score}}}(\\mu\\Vert\\pi)=\\int_Eq(x)\\,d\\mu(x)=\\int_E\\|\\nabla r(x)\\|^2\\,d\\mu(x).",
+          "lean": "CanonicalRelativeFisher.information_eq_integral_scoreSq mu pi hscore"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.dirichletForm_density_logRatio_eq_information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_eq_integral_scoreSq",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.DirichletPairDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.HasCanonicalFisherGamma",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.scoreSq",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 132
+        },
+        {
+          "label": "Preceding Dirichlet–Fisher integration node",
+          "scope": "Directly reused with every hypothesis unchanged.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 108
+        },
+        {
+          "label": "The canonical μ-integral formula",
+          "scope": "Second equality in the proof.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalRelativeFisher.lean",
+          "line": 84
+        },
+        {
+          "label": "Existing source-correspondence card: chewi-1-2-theorem-1-2-14",
+          "scope": "Existing local source-correspondence entry for the reused fundamental_integration_by_parts theorem. It records Chewi Theorem 1.2.14, edition 2026-08-09, printed p.14/PDF p.26, status compiled, with three integrability inputs, stationarity and symmetry. This exposition does not independently re-audit that source or promote the canonical Fisher bridge to a numbered source theorem.",
+          "path": "website/content/source_correspondence.json",
+          "line": 656
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalDirichletFisher.lean",
+          "line": 6
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "These are only local pair conditions. No global stationarity, reversibility, generator-domain closure, concrete Langevin generator, or diffusion chain rule is derived.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "This source-facing notation does not make the selected score automatically equal to a source's Sobolev or square-root-density Fisher functional.",
+        "No new diffusion-domain existence, integrability producer, source theorem, or entropy dissipation result."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalDirichletFisher.lean",
+        "line": 6,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.hasDerivAt_eq_neg_information_of_eq_neg_dirichlet",
+      "module": "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher",
+      "kind": "theorem",
+      "source_file": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+      "source_line": 154,
+      "source_end_line": 168,
+      "lean_statement": "K is a general real-valued function and hK already proves its derivative at t. The conclusion changes only the displayed derivative value. Since the type is the ordinary HasDerivAt, an endpoint right derivative by itself is not the input required here.",
+      "lean_proof": "The proof uses the Dirichlet–Fisher equality to rewrite the real number inside hK, preserving its minus sign. It then reuses hK unchanged in substance. There is no proof of a measure-flow equation, no entropy identification, and no exchange of differentiation with integration.",
+      "title": "Rewrite a supplied negative-Dirichlet derivative as negative Fisher",
+      "classification": "derivative-value rewriting adapter; no analytic differentiation",
+      "statement": "Let μ and π, L, and the three domain/Γ witnesses satisfy all hypotheses of the Dirichlet–Fisher bridge, including μ σ-finiteness and a Lebesgue-decomposition instance. Let K:ℝ→ℝ be any real function and t∈ℝ. If K has a two-sided derivative at t with value −Eπ^L(ρ,r), then K has a derivative there with value −I_hscore(μ∥π). The derivative assumption is supplied; K is not required by the formal statement to be a KL-divergence path.",
+      "formula": "\\left[K'(t)=-\\mathcal E_\\pi^L(\\rho,r)\\ \\text{in the sense of HasDerivAt}\\right]\\quad\\Longrightarrow\\quad K'(t)=-I_{h_{\\mathrm{score}}}(\\mu\\Vert\\pi).",
+      "assumptions": [
+        "ι is a finite index type (Fintype ι), and E = EuclideanSpace ℝ ι has its standard real inner product, norm, topology and Borel measurable structure. Empty ι is allowed; no Nonempty ι assumption is made.",
+        "μ and π are arbitrary measures on E. No probability, finite-total-mass, or normalization hypothesis is present.",
+        "Use the exact selected functions ρ(x) = (μ.rnDeriv π x).toReal and r(x) = RNLogRatio.logRatio μ π x = MeasureTheory.llr μ π x = Real.log(ρ(x)); put q(x) = ‖gradient r x‖². These are fixed by the original ordered pair (μ,π), not arbitrary versions.",
+        "μ is σ-finite, and the typeclass HaveLebesgueDecomposition μ π is supplied. π need not be assumed σ-finite. These are in addition to μ ≪ π in the score-domain witness.",
+        "L is a real-linear map from all functions E → ℝ to all functions E → ℝ. Its linearity alone does not say that it generates a Markov semigroup, preserves a measure, or is a diffusion.",
+        "The supplied witness h (or hscore) proves all three conditions: μ ≪ π; r is classically Fréchet differentiable over ℝ at μ-almost every x; and q is μ-integrable (including its a.e. strong measurability and finite integral of its norm).",
+        "The supplied witness hpair proves, for the fixed functions ρ and r, that L(ρr), x ↦ ρ(x)Lr(x), and x ↦ r(x)Lρ(x) are π-integrable, that ∫ L(ρr) dπ = 0, and that ∫ ρ Lr dπ = ∫ r Lρ dπ.",
+        "The supplied hgamma asserts Γ_L(ρ,r)(x) = ρ(x)q(x) for π-almost every x, where Γ_L(f,g) = ½[L(fg) − f Lg − g Lf]. It is not required pointwise everywhere.",
+        "K is an arbitrary function ℝ → ℝ and t is an arbitrary real time. hK is the full HasDerivAt assertion for K at t with derivative −Eπ^L(ρ,r), using the ordinary two-sided neighborhood filter, not a one-sided derivative on t≥0.",
+        "The measures μ and π are fixed parameters in this declaration. No time-dependent law μ_t or equation relating K to entropy is assumed."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Identify the rate already present in the derivative hypothesis",
+          "text": "The existing conditional bridge gives equality of the Dirichlet pairing and guarded Fisher value for these fixed measures and generator.",
+          "formula": "\\mathcal E_\\pi^L(\\rho,r)=I_{h_{\\mathrm{score}}}(\\mu\\Vert\\pi).",
+          "lean": "dirichletForm_density_logRatio_eq_information mu pi generator hscore hpair hgamma"
+        },
+        {
+          "number": 2,
+          "title": "Negate equal quantities",
+          "text": "The negative rate in hK can therefore be written as negative Fisher without changing its numerical value.",
+          "formula": "-\\mathcal E_\\pi^L(\\rho,r)=-I_{h_{\\mathrm{score}}}(\\mu\\Vert\\pi).",
+          "lean": "Rewriting under the unary minus in HasDerivAt"
+        },
+        {
+          "number": 3,
+          "title": "Reuse the already-supplied derivative proof",
+          "text": "Substitute that equal real number into the derivative assertion. The differentiability and limiting argument are wholly contained in hK, not produced here.",
+          "formula": "\\operatorname{HasDerivAt}(K,-\\mathcal E_\\pi^L(\\rho,r),t)\\Longrightarrow\\operatorname{HasDerivAt}(K,-I_{h_{\\mathrm{score}}}(\\mu\\Vert\\pi),t).",
+          "lean": "simpa [dirichletForm_density_logRatio_eq_information ...] using hK"
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.dirichletForm_density_logRatio_eq_information",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.DirichletPairDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalDirichletFisher.HasCanonicalFisherGamma",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator.dirichletForm",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.density",
+        "AutoSamplingTheory.TechnicalLemmas.InformationTheory.RNLogRatio.logRatio"
+      ],
+      "mathlib_dependencies": [
+        "HasDerivAt"
+      ],
+      "sources": [
+        {
+          "label": "Exact existing ASTIS declaration",
+          "scope": "Current local declaration and body, read without editing or recompiling.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 154
+        },
+        {
+          "label": "Same conditional bridge used to rewrite the rate",
+          "scope": "Only a numerical identification is consumed in the derivative statement.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 108
+        },
+        {
+          "label": "Existing declaration's explicit analytic handoff boundary",
+          "scope": "The source comment explicitly places law evolution and differentiation under the integral in a separate future obligation.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/InformationTheory/CanonicalDirichletFisher.lean",
+          "line": 147
+        },
+        {
+          "label": "Existing declaration-visibility smoke check",
+          "scope": "This file contains #check only for this declaration; it does not construct domain witnesses or independently establish analytic identities. No test/build was run for this exposition.",
+          "path": "Tests/CanonicalDirichletFisher.lean",
+          "line": 7
+        },
+        {
+          "label": "Mathlib ordinary derivative assertion",
+          "scope": "HasDerivAt uses the ordinary neighborhood at t; no one-sided time-domain restriction is encoded.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+          "line": 130
+        }
+      ],
+      "boundary": [
+        "This is the selected RN/log-ratio and its totalized classical gradient, not a representative-free Sobolev score. Equality of log-ratios merely a.e. does not by itself identify their gradients. Mathlib sets gradient to zero at nondifferentiable points; the score-domain witness excludes those points only μ-a.e.",
+        "These are only local pair conditions. No global stationarity, reversibility, generator-domain closure, concrete Langevin generator, or diffusion chain rule is derived.",
+        "No existence of the smooth score domain is proved. No weak derivative, Sobolev-domain membership, lower-semicontinuous or extended-valued Fisher extension, or square-root-density identity 4∫‖∇√ρ‖² dπ is established.",
+        "No KL identity, entropy finiteness, evolving family of measures, PDE/semigroup equation, or differentiation under the integral is proved. The function K and its derivative are supplied as inputs.",
+        "A finite-entropy neighborhood, differentiability of an actual KL path, source-law normalization, and an endpoint one-sided-to-two-sided adapter are not supplied.",
+        "This is an algebraic handoff after a derivative proof; it is not a new entropy-dissipation theorem."
+      ],
+      "tests": {
+        "file": "Tests/CanonicalDirichletFisher.lean",
+        "line": 7,
+        "coverage": "declaration-visibility #check only",
+        "run_in_this_task": false
+      },
+      "exposition_mode": "proof explanation of the exact existing body"
+    }
+  ]
+}

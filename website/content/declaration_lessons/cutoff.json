@@ -1,0 +1,2891 @@
+{
+  "schema_version": 1,
+  "exposition_review": {
+    "result": "pass",
+    "scope": "All 25 mathematical statements, exact proof bodies and relevant Mathlib APIs independently reviewed. Current second-order API is described with its actual assumptions, not introduced as new mathematics.",
+    "reviewer": "heatbath_exposition_research"
+  },
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff",
+      "short_name": "smoothUnitCutoff",
+      "kind": "def",
+      "role": "noncomputable definition",
+      "title": "Construct the fixed smooth unit cutoff",
+      "statement": "Define q:ℝ→ℝ to be Mathlib's inner-product bump base on the real line with outer-radius parameter 2. This is a fixed function, before any radial scale is chosen; its pointwise description is q(t)=S(2−|t|), where S is the smooth transition from 0 to 1.",
+      "formula": "q(t):=B_{\\mathbb R}(2,t),\\qquad B_E(\\rho,x)=S\\!\\left(\\frac{\\rho-\\|x\\|}{\\rho-1}\\right),\\qquad q(t)=S(2-|t|).",
+      "assumptions": [
+        "There are no explicit parameters: q is a fixed real-to-real function."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use the existing smooth bump family",
+          "text": "Mathlib's inner-product-space bump base supplies a family B_E(ρ,x), built from the smooth transition S and the norm. Select E=ℝ.",
+          "formula": "B_{\\mathbb R}(\\rho,t)=S\\!\\left(\\frac{\\rho-|t|}{\\rho-1}\\right).",
+          "lean": "ContDiffBumpBase.ofInnerProductSpace ℝ",
+          "lean_explanation": "This is an imported structure containing the family and its properties; no smooth-bump existence theorem is reproved."
+        },
+        {
+          "number": 2,
+          "title": "Fix its scale parameter at two",
+          "text": "Evaluate the family at ρ=2. The denominator becomes 1, which yields the transition expression proved formally in the next declaration.",
+          "formula": "q(t)=B_{\\mathbb R}(2,t)=S(2-|t|).",
+          "lean": "(ContDiffBumpBase.ofInnerProductSpace ℝ).toFun 2",
+          "lean_explanation": "toFun extracts the function from the bump structure. This body constructs q; it is not a theorem proof."
+        }
+      ],
+      "lean_statement": "noncomputable marks an abstract real function construction. The one-dimensional q is distinct from the later family χ_R on an arbitrary normed space.",
+      "lean_proof": "Construction, not a theorem proof. Use the existing smooth bump family: This is an imported structure containing the family and its properties; no smooth-bump existence theorem is reproved. Fix its scale parameter at two: toFun extracts the function from the bump structure. This body constructs q; it is not a theorem proof.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ContDiffBumpBase.ofInnerProductSpace"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "ContDiffBumpBase.ofInnerProductSpace",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean",
+          "line": 32,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean:32",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 41
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing module overview only; no exact per-declaration curated source-memory entry was found in this card.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 6
+        },
+        {
+          "label": "ContDiffBumpBase.ofInnerProductSpace",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean",
+          "line": 32
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Definition occurs in a checked test statement; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 50
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 41,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:41"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 50,
+          "url": "Tests/Basic.lean:50",
+          "scope": "Definition occurs in a checked test statement; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "Construction only; later declarations expose smoothness, values, support and derivative bounds."
+      ],
+      "classification": "definition"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_smoothTransition",
+      "short_name": "smoothUnitCutoff_eq_smoothTransition",
+      "kind": "theorem",
+      "role": "evaluation theorem",
+      "title": "Evaluate the unit cutoff through the smooth transition",
+      "statement": "For every real t, the fixed unit cutoff is q(t)=S(2−|t|), where S=Real.smoothTransition.",
+      "formula": "\\forall t\\in\\mathbb R,\\quad q(t)=S(2-|t|).",
+      "assumptions": [
+        "x : ℝ is arbitrary (called t in the display)."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Unfold the bump-base formula",
+          "text": "The selected bump base evaluates S at (2−‖t‖)/(2−1).",
+          "formula": "q(t)=S\\!\\left(\\frac{2-\\|t\\|}{2-1}\\right).",
+          "lean": "simp [smoothUnitCutoff, ContDiffBumpBase.ofInnerProductSpace, Real.norm_eq_abs, hden]",
+          "lean_explanation": "The rewrite list uses the two actual definitions and the identity of the real norm with absolute value."
+        },
+        {
+          "number": 2,
+          "title": "Simplify the real norm and denominator",
+          "text": "On ℝ, ‖t‖=|t| and 2−1=1. Substitution leaves exactly S(2−|t|).",
+          "formula": "\\|t\\|=|t|,\\quad 2-1=1,\\quad (2-|t|)/1=2-|t|.",
+          "lean": "have hden : (2 : ℝ) - 1 = 1 := by norm_num",
+          "lean_explanation": "hden is a proved arithmetic equality, not an extra hypothesis; the final simp applies it."
+        }
+      ],
+      "lean_statement": "This is an equality of functions evaluated at an arbitrary input. It adds an accessible formula for the existing definition, not a second cutoff.",
+      "lean_proof": "Actual proof outline: Unfold the bump-base formula: The rewrite list uses the two actual definitions and the identity of the real norm with absolute value. Simplify the real norm and denominator: hden is a proved arithmetic equality, not an extra hypothesis; the final simp applies it.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff"
+      ],
+      "mathlib_dependencies": [
+        "ContDiffBumpBase.ofInnerProductSpace",
+        "Real.norm_eq_abs"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "ContDiffBumpBase.ofInnerProductSpace",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean",
+          "line": 32,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean:32",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 45
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 38
+        },
+        {
+          "label": "ContDiffBumpBase.ofInnerProductSpace",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean",
+          "line": 32
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 41
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 52
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 45,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:45"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 52,
+          "url": "Tests/Basic.lean:52",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "Do not infer smoothness merely by treating |t| as differentiable at zero; smoothness is established separately."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+      "short_name": "smoothUnitCutoff_contDiff",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The unit cutoff is infinitely differentiable",
+      "statement": "The fixed function q:ℝ→ℝ is C∞ on the whole real line, including t=0.",
+      "formula": "q\\in C^\\infty(\\mathbb R;\\mathbb R).",
+      "assumptions": [
+        "No parameters or additional hypotheses."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use joint smoothness in the valid bump-parameter region",
+          "text": "The bump base is jointly smooth on (1,∞)×ℝ. For any t, the point (2,t) belongs to this open set, so it has a neighborhood on which the joint function is smooth.",
+          "formula": "(2,t)\\in(1,\\infty)\\times\\mathbb R,\\qquad B_{\\mathbb R}\\text{ is }C^\\infty\\text{ near }(2,t).",
+          "lean": "have hmem := ⟨by norm_num, Set.mem_univ x⟩\nhave hnhds := (isOpen_Ioi.prod isOpen_univ).mem_nhds hmem\nhave hbase := (ContDiffBumpBase.ofInnerProductSpace ℝ).smooth.contDiffAt hnhds",
+          "lean_explanation": "hnhds turns the open-domain membership into the neighborhood condition needed to pass from ContDiffOn to ContDiffAt."
+        },
+        {
+          "number": 2,
+          "title": "Insert the fixed parameter smoothly",
+          "text": "The map t↦(2,t) is smooth because its coordinates are a constant and the identity.",
+          "formula": "J(t)=(2,t),\\qquad J\\in C^\\infty.",
+          "lean": "have hpair := (contDiffAt_const (c := (2 : ℝ))).prodMk contDiffAt_id",
+          "lean_explanation": "prodMk pairs two smooth component functions."
+        },
+        {
+          "number": 3,
+          "title": "Compose and conclude at every point",
+          "text": "The cutoff is Bℝ∘J. Compose the two smooth maps at each t, then use the pointwise characterization of global C∞ regularity.",
+          "formula": "q=B_{\\mathbb R}\\circ J\\in C^\\infty.",
+          "lean": "rw [contDiff_iff_contDiffAt]\nintro x\n-- after hbase and hpair:\nexact hbase.comp x hpair",
+          "lean_explanation": "The pointwise proof is repeated for arbitrary x. It does not assume that the norm itself is smooth at the origin."
+        }
+      ],
+      "lean_statement": "ContDiff ℝ (⊤ : ℕ∞) is the C∞ assertion. Smoothness comes from the bump family, whose plateau resolves the apparent absolute-value singularity.",
+      "lean_proof": "Actual proof outline: Use joint smoothness in the valid bump-parameter region: hnhds turns the open-domain membership into the neighborhood condition needed to pass from ContDiffOn to ContDiffAt. Insert the fixed parameter smoothly: prodMk pairs two smooth component functions. Compose and conclude at every point: The pointwise proof is repeated for arbitrary x. It does not assume that the norm itself is smooth at the origin.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff"
+      ],
+      "mathlib_dependencies": [
+        "contDiff_iff_contDiffAt",
+        "ContDiffBumpBase.ofInnerProductSpace",
+        "ContDiffOn.contDiffAt",
+        "ContDiffAt.prodMk",
+        "ContDiffAt.comp",
+        "contDiffAt_const",
+        "contDiffAt_id"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "ContDiffBumpBase.ofInnerProductSpace",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean",
+          "line": 32,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean:32",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 51
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 39
+        },
+        {
+          "label": "ContDiffBumpBase.ofInnerProductSpace",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean",
+          "line": 32
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 41
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 56
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 51,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:51"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 56,
+          "url": "Tests/Basic.lean:56",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "Global one-dimensional smoothness; no radial-space or radius assumptions occur yet."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_one_of_abs_le_one",
+      "short_name": "smoothUnitCutoff_eq_one_of_abs_le_one",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The unit cutoff equals one on the closed unit interval",
+      "statement": "For any real t satisfying |t|≤1, q(t)=1, including both endpoints t=−1 and t=1.",
+      "formula": "|t|\\le1\\Longrightarrow q(t)=1.",
+      "assumptions": [
+        "x : ℝ with hx : |x|≤1."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Put the transition input in its upper plateau",
+          "text": "The hypothesis gives 2−|t|≥1.",
+          "formula": "|t|\\le1\\Longrightarrow 1\\le2-|t|.",
+          "lean": "have h : (1 : ℝ) ≤ 2 - |x| := by linarith",
+          "lean_explanation": "The linear arithmetic step is exactly the rearrangement of hx."
+        },
+        {
+          "number": 2,
+          "title": "Use the transition's value-one theorem",
+          "text": "S(u)=1 whenever u≥1. Apply this at u=2−|t| and rewrite q using its evaluation formula.",
+          "formula": "q(t)=S(2-|t|)=1.",
+          "lean": "simpa [smoothUnitCutoff_eq_smoothTransition] using (Real.smoothTransition.one_of_one_le (x := 2 - |x|) h)",
+          "lean_explanation": "one_of_one_le includes equality at the endpoint, so this is a closed-interval assertion."
+        }
+      ],
+      "lean_statement": "The implicit x is a real input and hx is the exact closed-interval premise.",
+      "lean_proof": "Actual proof outline: Put the transition input in its upper plateau: The linear arithmetic step is exactly the rearrangement of hx. Use the transition's value-one theorem: one_of_one_le includes equality at the endpoint, so this is a closed-interval assertion.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_smoothTransition"
+      ],
+      "mathlib_dependencies": [
+        "Real.smoothTransition.one_of_one_le"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "Real.smoothTransition.one_of_one_le",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 161,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:161",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 73
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 40
+        },
+        {
+          "label": "Real.smoothTransition.one_of_one_le",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 161
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_smoothTransition",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 45
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 60
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 73,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:73"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 60,
+          "url": "Tests/Basic.lean:60",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "Only a value identity is asserted; no derivative formula is added here."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_zero_of_two_le_abs",
+      "short_name": "smoothUnitCutoff_eq_zero_of_two_le_abs",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The unit cutoff vanishes at and beyond radius two",
+      "statement": "For any real t with 2≤|t|, q(t)=0. The boundary points ±2 are included.",
+      "formula": "2\\le|t|\\Longrightarrow q(t)=0.",
+      "assumptions": [
+        "x : ℝ with hx : 2≤|x|."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Put the transition input in its zero region",
+          "text": "The hypothesis gives 2−|t|≤0.",
+          "formula": "2\\le|t|\\Longrightarrow 2-|t|\\le0.",
+          "lean": "have h : 2 - |x| ≤ 0 := by linarith",
+          "lean_explanation": "h is the elementary consequence of hx needed by the transition API."
+        },
+        {
+          "number": 2,
+          "title": "Apply the zero-value rule",
+          "text": "S(u)=0 for u≤0. The unit-cutoff evaluation formula therefore gives q(t)=0.",
+          "formula": "q(t)=S(2-|t|)=0.",
+          "lean": "simpa [smoothUnitCutoff_eq_smoothTransition] using (Real.smoothTransition.zero_of_nonpos (x := 2 - |x|) h)",
+          "lean_explanation": "zero_of_nonpos is an imported value theorem, not a support or differentiability assumption."
+        }
+      ],
+      "lean_statement": "The non-strict inequality is important: the function vanishes on the boundary itself.",
+      "lean_proof": "Actual proof outline: Put the transition input in its zero region: h is the elementary consequence of hx needed by the transition API. Apply the zero-value rule: zero_of_nonpos is an imported value theorem, not a support or differentiability assumption.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_smoothTransition"
+      ],
+      "mathlib_dependencies": [
+        "Real.smoothTransition.zero_of_nonpos"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "Real.smoothTransition.zero_of_nonpos",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 168,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:168",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 80
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 41
+        },
+        {
+          "label": "Real.smoothTransition.zero_of_nonpos",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 168
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_smoothTransition",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 45
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 64
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 80,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:80"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 64,
+          "url": "Tests/Basic.lean:64",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "Vanishing at a boundary point must not be confused with being locally constant there."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_mem_Icc",
+      "short_name": "smoothUnitCutoff_mem_Icc",
+      "kind": "theorem",
+      "role": "reuse theorem",
+      "title": "Every unit-cutoff value lies between zero and one",
+      "statement": "For every real t, 0≤q(t)≤1.",
+      "formula": "\\forall t\\in\\mathbb R,\\qquad q(t)\\in[0,1].",
+      "assumptions": [
+        "x : ℝ arbitrary."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Evaluate the bump family's range guarantee",
+          "text": "The bump base already includes the [0,1] range property at every parameter and input. Apply it to parameter 2 and t.",
+          "formula": "B_{\\mathbb R}(2,t)\\in[0,1].",
+          "lean": "exact (ContDiffBumpBase.ofInnerProductSpace ℝ).mem_Icc 2 x",
+          "lean_explanation": "mem_Icc is the range field of the imported bump structure. Its two components are the lower and upper inequalities."
+        }
+      ],
+      "lean_statement": "Icc 0 1 is the closed interval, so both endpoints are allowed.",
+      "lean_proof": "Actual proof outline: Evaluate the bump family's range guarantee: mem_Icc is the range field of the imported bump structure. Its two components are the lower and upper inequalities.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff"
+      ],
+      "mathlib_dependencies": [
+        "ContDiffBumpBase.ofInnerProductSpace"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "ContDiffBumpBase.ofInnerProductSpace",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean",
+          "line": 32,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean:32",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 87
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 42
+        },
+        {
+          "label": "ContDiffBumpBase.ofInnerProductSpace",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/InnerProduct.lean",
+          "line": 32
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 41
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 68
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 87,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:87"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 68,
+          "url": "Tests/Basic.lean:68",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "The theorem supplies bounds, not strict positivity throughout the transition region."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_hasCompactSupport",
+      "short_name": "smoothUnitCutoff_hasCompactSupport",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The unit cutoff has compact closed support",
+      "statement": "The topological support of q—the closure of {t:q(t)≠0}—is compact in ℝ.",
+      "formula": "\\operatorname{supp}(q)\\subseteq[-2,2],\\qquad\\operatorname{tsupp}(q)=\\overline{\\operatorname{supp}(q)}\\text{ compact}.",
+      "assumptions": [
+        "No explicit parameter or additional hypothesis; the ambient space is ℝ."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Choose a compact enclosure",
+          "text": "The interval [−2,2] is compact. It suffices to place the ordinary nonzero support inside it.",
+          "formula": "K=[-2,2]\\text{ is compact}.",
+          "lean": "apply HasCompactSupport.of_support_subset_isCompact (K := Set.Icc (-2 : ℝ) 2) isCompact_Icc",
+          "lean_explanation": "The helper converts containment of ordinary support in a compact set into compactness of its closure."
+        },
+        {
+          "number": 2,
+          "title": "Exclude nonzero values outside the interval",
+          "text": "If q(t)≠0 but t<−2 or t>2, then |t|≥2, so the vanishing theorem gives q(t)=0, a contradiction. Thus every support point lies in the chosen interval.",
+          "formula": "q(t)\\ne0\\Longrightarrow -2\\le t\\le2.",
+          "lean": "rw [Function.mem_support] at hx\n-- The two contradiction branches use smoothUnitCutoff_eq_zero_of_two_le_abs,\n-- with abs_of_nonpos on the left and abs_of_nonneg on the right.",
+          "lean_explanation": "Support membership means nonzero value. The proof treats the two interval inequalities separately, using the sign-appropriate absolute-value identity."
+        }
+      ],
+      "lean_statement": "HasCompactSupport concerns the closed topological support, not merely whether the nonzero set itself is compact.",
+      "lean_proof": "Actual proof outline: Choose a compact enclosure: The helper converts containment of ordinary support in a compact set into compactness of its closure. Exclude nonzero values outside the interval: Support membership means nonzero value. The proof treats the two interval inequalities separately, using the sign-appropriate absolute-value identity.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_zero_of_two_le_abs"
+      ],
+      "mathlib_dependencies": [
+        "HasCompactSupport.of_support_subset_isCompact",
+        "isCompact_Icc",
+        "Function.mem_support",
+        "abs_of_nonpos",
+        "abs_of_nonneg"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "HasCompactSupport.of_support_subset_isCompact",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean",
+          "line": 247,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean:247",
+          "scope": "Additive declaration generated from HasCompactMulSupport.of_mulSupport_subset_isCompact by to_additive."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 91
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing module overview only; no exact per-declaration curated source-memory entry was found in this card.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 6
+        },
+        {
+          "label": "HasCompactSupport.of_support_subset_isCompact",
+          "scope": "Additive declaration generated from HasCompactMulSupport.of_mulSupport_subset_isCompact by to_additive.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean",
+          "line": 247
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_zero_of_two_le_abs",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 80
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 91,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:91"
+      },
+      "tests": [],
+      "boundary": [
+        "The source proves containment and compactness, not equality of topological support with a particular interval.",
+        "No direct named invocation was found in the inspected cutoff example block Tests/Basic.lean:49–169; this is not a statement about all possible project consumers."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_deriv_bounded",
+      "short_name": "smoothUnitCutoff_deriv_bounded",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "A fixed positive constant bounds the first derivative of the unit cutoff",
+      "statement": "There exists C>0 such that |q′(t)|≤C for every real t. This constant is chosen before any radial scale.",
+      "formula": "\\exists C>0\\ \\forall t\\in\\mathbb R,\\quad|q'(t)|\\le C.",
+      "assumptions": [
+        "No radius R occurs in this statement. The derivative is the scalar real derivative of the fixed q."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Use smoothness to make q′ continuous",
+          "text": "Since q is C∞, it is at least C¹ and its first derivative is continuous on ℝ.",
+          "formula": "q\\in C^\\infty\\Longrightarrow q'\\text{ continuous}.",
+          "lean": "have hcont := smoothUnitCutoff_contDiff.continuous_deriv (WithTop.coe_le_coe.mpr (le_top : (1 : ℕ∞) ≤ ⊤))",
+          "lean_explanation": "The order proof says one derivative is available from infinite smoothness."
+        },
+        {
+          "number": 2,
+          "title": "Use compact support to bound the derivative",
+          "text": "A derivative vanishes off the closed support of its original function. Thus q′ has compact support, and its continuity gives a global norm bound B.",
+          "formula": "\\operatorname{tsupp}(q')\\subseteq\\operatorname{tsupp}(q),\\qquad\\exists B\\ \\forall t,\\ |q'(t)|\\le B.",
+          "lean": "obtain ⟨C, hC⟩ := smoothUnitCutoff_hasCompactSupport.deriv.exists_bound_of_continuous hcont",
+          "lean_explanation": ".deriv transfers compact support, and exists_bound_of_continuous supplies the uniform bound."
+        },
+        {
+          "number": 3,
+          "title": "Make the bound strictly positive",
+          "text": "Replace B by max(B,1). This number is positive and no smaller than B, so it keeps the derivative bound.",
+          "formula": "C=\\max(B,1)>0,\\qquad |q'(t)|\\le B\\le C.",
+          "lean": "exact ⟨max C 1, lt_max_of_lt_right one_pos, fun x => (hC x).trans (le_max_left C 1)⟩",
+          "lean_explanation": "The source's C from the intermediate bound is renamed B here to distinguish it from the final positive witness."
+        }
+      ],
+      "lean_statement": "The order ∃C then ∀t is a genuine uniform bound. No numerical value for C is computed.",
+      "lean_proof": "Actual proof outline: Use smoothness to make q′ continuous: The order proof says one derivative is available from infinite smoothness. Use compact support to bound the derivative: .deriv transfers compact support, and exists_bound_of_continuous supplies the uniform bound. Make the bound strictly positive: The source's C from the intermediate bound is renamed B here to distinguish it from the final positive witness.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_hasCompactSupport"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.continuous_deriv",
+        "HasCompactSupport.deriv",
+        "HasCompactSupport.exists_bound_of_continuous",
+        "lt_max_of_lt_right",
+        "le_max_left"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "ContDiff.continuous_deriv",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Deriv.lean",
+          "line": 108,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Deriv.lean:108",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "HasCompactSupport.deriv",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Support.lean",
+          "line": 60,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Support.lean:60",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "HasCompactSupport.exists_bound_of_continuous",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean",
+          "line": 103,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean:103",
+          "scope": "Additive declaration generated from HasCompactMulSupport.exists_bound_of_continuous by to_additive."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 113
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 43
+        },
+        {
+          "label": "ContDiff.continuous_deriv",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Deriv.lean",
+          "line": 108
+        },
+        {
+          "label": "HasCompactSupport.deriv",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Support.lean",
+          "line": 60
+        },
+        {
+          "label": "HasCompactSupport.exists_bound_of_continuous",
+          "scope": "Additive declaration generated from HasCompactMulSupport.exists_bound_of_continuous by to_additive.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean",
+          "line": 103
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 51
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_hasCompactSupport",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 91
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 72
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 113,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:113"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 72,
+          "url": "Tests/Basic.lean:72",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "This is the first-order input to the radial C/R theorem; no second-order API is needed."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_continuous",
+      "short_name": "smoothUnitCutoff_secondDeriv_continuous",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The second scalar derivative of the unit cutoff is continuous",
+      "statement": "The function t↦q″(t), defined as deriv(deriv q), is continuous on ℝ.",
+      "formula": "q''=(q')'\\in C^0(\\mathbb R;\\mathbb R).",
+      "assumptions": [
+        "No extra hypothesis; q is the existing smooth scalar cutoff."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Retain two derivatives from infinite smoothness",
+          "text": "C∞ regularity implies C² regularity.",
+          "formula": "q\\in C^\\infty\\Longrightarrow q\\in C^2.",
+          "lean": "have htwo : ContDiff ℝ 2 smoothUnitCutoff := smoothUnitCutoff_contDiff.of_le (WithTop.coe_le_coe.mpr (le_top : (2 : ℕ∞) ≤ ⊤))",
+          "lean_explanation": "of_le weakens the regularity order, not the statement's domain."
+        },
+        {
+          "number": 2,
+          "title": "Differentiate twice and read continuity",
+          "text": "The iterated-derivative rule sends a C² scalar function to a C⁰ function after two derivatives. The second iterate of deriv is exactly deriv(deriv q), and C⁰ implies continuity.",
+          "formula": "\\operatorname{deriv}^{[2]}q=q'',\\qquad q''\\in C^0.",
+          "lean": "have hzero := htwo.iterate_deriv' 0 2\nsimp only [Function.iterate_succ, Function.iterate_zero, Function.comp_apply] at hzero\nexact hzero.continuous",
+          "lean_explanation": "deriv^[2] iterates the derivative-taking operation twice; the simplification expands that iteration."
+        }
+      ],
+      "lean_statement": "This is the already-existing scalar second-derivative result, not a new radial Hessian statement.",
+      "lean_proof": "Actual proof outline: Retain two derivatives from infinite smoothness: of_le weakens the regularity order, not the statement's domain. Differentiate twice and read continuity: deriv^[2] iterates the derivative-taking operation twice; the simplification expands that iteration.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.of_le",
+        "ContDiff.iterate_deriv'",
+        "ContDiff.continuous"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "ContDiff.iterate_deriv'",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Deriv.lean",
+          "line": 136,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Deriv.lean:136",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 124
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing module overview only; no exact per-declaration curated source-memory entry was found in this card.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 6
+        },
+        {
+          "label": "ContDiff.iterate_deriv'",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Deriv.lean",
+          "line": 136
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 51
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 76
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 124,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:124"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 76,
+          "url": "Tests/Basic.lean:76",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "It asserts continuity only; boundedness and support are distinct following declarations."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_hasCompactSupport",
+      "short_name": "smoothUnitCutoff_secondDeriv_hasCompactSupport",
+      "kind": "theorem",
+      "role": "reuse theorem",
+      "title": "The second scalar derivative has compact support",
+      "statement": "The closed topological support of q″=deriv(deriv q) is compact in ℝ.",
+      "formula": "\\operatorname{tsupp}(q'')\\subseteq\\operatorname{tsupp}(q')\\subseteq\\operatorname{tsupp}(q),\\qquad q''\\text{ has compact support}.",
+      "assumptions": [
+        "No additional parameter or hypothesis."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Transfer compact support through both derivatives",
+          "text": "Each scalar differentiation preserves compact support because the derivative is zero where the original function is locally zero. Apply this existing rule first to q, then to q′.",
+          "formula": "q\\text{ compactly supported}\\Longrightarrow q'\\text{ compactly supported}\\Longrightarrow q''\\text{ compactly supported}.",
+          "lean": "smoothUnitCutoff_hasCompactSupport.deriv.deriv",
+          "lean_explanation": "The two .deriv calls apply the same Mathlib support theorem at successive derivative orders."
+        }
+      ],
+      "lean_statement": "This is a support-closure reuse theorem; it is separate from continuity of q″.",
+      "lean_proof": "Actual proof outline: Transfer compact support through both derivatives: The two .deriv calls apply the same Mathlib support theorem at successive derivative orders.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_hasCompactSupport"
+      ],
+      "mathlib_dependencies": [
+        "HasCompactSupport.deriv"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "HasCompactSupport.deriv",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Support.lean",
+          "line": 60,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Support.lean:60",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 135
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing module overview only; no exact per-declaration curated source-memory entry was found in this card.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 6
+        },
+        {
+          "label": "HasCompactSupport.deriv",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Support.lean",
+          "line": 60
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_hasCompactSupport",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 91
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 80
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 135,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:135"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 80,
+          "url": "Tests/Basic.lean:80",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "No radius or radial second-derivative bound is proved by this declaration."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_bounded",
+      "short_name": "smoothUnitCutoff_secondDeriv_bounded",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "A fixed positive constant bounds the second scalar derivative",
+      "statement": "There exists C>0 such that |q″(t)|≤C for every real t, before any radial scale is introduced.",
+      "formula": "\\exists C>0\\ \\forall t\\in\\mathbb R,\\quad|q''(t)|\\le C.",
+      "assumptions": [
+        "The function is the fixed scalar q; no R or ambient radial space occurs."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Bound the continuous compactly supported second derivative",
+          "text": "The preceding two theorems show q″ is continuous and compactly supported. The compact-support boundedness theorem therefore gives some global bound B.",
+          "formula": "\\exists B\\ \\forall t,\\quad |q''(t)|\\le B.",
+          "lean": "obtain ⟨C, hC⟩ := smoothUnitCutoff_secondDeriv_hasCompactSupport.exists_bound_of_continuous smoothUnitCutoff_secondDeriv_continuous",
+          "lean_explanation": "The two existing ASTIS properties discharge the compact-support and continuity premises."
+        },
+        {
+          "number": 2,
+          "title": "Choose a strictly positive witness",
+          "text": "As for the first derivative, enlarge the bound to max(B,1).",
+          "formula": "C=\\max(B,1)>0,\\qquad |q''(t)|\\le C.",
+          "lean": "exact ⟨max C 1, lt_max_of_lt_right one_pos, fun x => (hC x).trans (le_max_left C 1)⟩",
+          "lean_explanation": "This positivity adjustment is explicit; it does not compute a sharp bound."
+        }
+      ],
+      "lean_statement": "This is an existing scalar bound. The later radial iterated-second-derivative proof actually bounds the unit radial function directly; it does not call this scalar bound.",
+      "lean_proof": "Actual proof outline: Bound the continuous compactly supported second derivative: The two existing ASTIS properties discharge the compact-support and continuity premises. Choose a strictly positive witness: This positivity adjustment is explicit; it does not compute a sharp bound.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_hasCompactSupport",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_continuous"
+      ],
+      "mathlib_dependencies": [
+        "HasCompactSupport.exists_bound_of_continuous",
+        "lt_max_of_lt_right",
+        "le_max_left"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "HasCompactSupport.exists_bound_of_continuous",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean",
+          "line": 103,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean:103",
+          "scope": "Additive declaration generated from HasCompactMulSupport.exists_bound_of_continuous by to_additive."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 142
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing module overview only; no exact per-declaration curated source-memory entry was found in this card.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 6
+        },
+        {
+          "label": "HasCompactSupport.exists_bound_of_continuous",
+          "scope": "Additive declaration generated from HasCompactMulSupport.exists_bound_of_continuous by to_additive.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean",
+          "line": 103
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_hasCompactSupport",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 135
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_secondDeriv_continuous",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 124
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 84
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 142,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:142"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 84,
+          "url": "Tests/Basic.lean:84",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "Do not draw this as a prerequisite of the first-order radial C/R route, or invent a Hessian consumer from it."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+      "short_name": "radialSmoothCutoff",
+      "kind": "def",
+      "role": "definition",
+      "title": "The radial cutoff at a real scale",
+      "statement": "For a normed additive commutative group E, a real scale R, and a point x∈E, define χ_R(x) by applying the fixed scalar cutoff q to the quotient ‖x‖/R. This definition is meaningful for every R; positivity is imposed only in later theorems.",
+      "formula": "\\chi_R:E\\to\\mathbb R,\\qquad \\chi_R(x):=q\\!\\left(\\frac{\\|x\\|}{R}\\right).",
+      "assumptions": [
+        "E is a normed additive commutative group; no real scalar multiplication is required.",
+        "R is any real number and x∈E; there is no hypothesis R>0."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Form the radial argument and apply the scalar cutoff",
+          "text": "The norm produces a nonnegative real number. Divide this real number by R using Lean's total real division, then evaluate q. In particular, division by zero is defined to be zero, so the construction at R=0 is the constant-one function.",
+          "formula": "\\chi_R=q\\circ(x\\mapsto\\|x\\|/R),\\qquad \\chi_0(x)=q(0)=1.",
+          "lean": "smoothUnitCutoff (‖x‖ / R)",
+          "lean_explanation": "This is the defining expression, not a proof. `noncomputable` allows use of the library's noncomputable smooth bump; `E` is inferred from the argument x."
+        }
+      ],
+      "lean_statement": "`(R : ℝ) (x : E) : ℝ` states that the construction accepts a real scale and an E-valued point and returns a real value. Calling it smooth does not itself prove smoothness; the separate smoothness theorem has stronger ambient assumptions and requires a positive radius. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Construction, not a theorem proof. Form the radial argument and apply the scalar cutoff: This is the defining expression, not a proof. `noncomputable` allows use of the library's noncomputable smooth bump; `E` is inferred from the argument x.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff"
+      ],
+      "mathlib_dependencies": [],
+      "mathlib_anchors": [],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 155
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing module overview only; no exact per-declaration curated source-memory entry was found in this card.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 6
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 41
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Definition occurs in a checked test statement; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 88
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 155,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:155"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 88,
+          "url": "Tests/Basic.lean:88",
+          "scope": "Definition occurs in a checked test statement; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "The displayed R=0 observation explains totalization and is not a separately exported declaration.",
+        "Negative scales are allowed by the definition, but this module exports no negative-radius ball or derivative-bound theorem."
+      ],
+      "classification": "definition"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le",
+      "short_name": "radialSmoothCutoff_eq_one_of_norm_le",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The radial cutoff equals one on the inner closed ball",
+      "statement": "Let E be a normed additive commutative group, let R>0, and let x∈E satisfy ‖x‖≤R. Then the radius-R cutoff has value one at x.",
+      "formula": "R>0,\\ \\|x\\|\\le R\\quad\\Longrightarrow\\quad\\chi_R(x)=1.",
+      "assumptions": [
+        "E is a normed additive commutative group.",
+        "R∈ℝ, R>0, x∈E, and ‖x‖≤R."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Put the radial argument in the scalar plateau",
+          "text": "Because R is positive and norms are nonnegative, the quotient is nonnegative. The assumed norm bound gives a quotient at most one, hence absolute value at most one.",
+          "formula": "0\\le\\frac{\\|x\\|}{R}\\le1,\\qquad \\left|\\frac{\\|x\\|}{R}\\right|\\le1.",
+          "lean": "rw [abs_of_nonneg (div_nonneg (norm_nonneg x) hR.le)]; exact div_le_one_of_le₀ hx hR.le",
+          "lean_explanation": "`hR` is the proof that R is positive, and `hx` is the norm bound. These lines discharge the absolute-value premise of the scalar plateau theorem."
+        },
+        {
+          "number": 2,
+          "title": "Use the scalar plateau value",
+          "text": "The already-proved scalar cutoff equals one whenever its argument has absolute value at most one. Substitute the quotient.",
+          "formula": "\\chi_R(x)=q(\\|x\\|/R)=1.",
+          "lean": "apply smoothUnitCutoff_eq_one_of_abs_le_one",
+          "lean_explanation": "`apply` reduces this radial value statement to the precise scalar condition verified in the preceding mathematical step."
+        }
+      ],
+      "lean_statement": "Curly braces mark inferred R and x; explicit arguments `hR` and `hx` are proofs of positivity and membership in the inner closed ball. The conclusion is equality of real values, not yet a smoothness statement. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Put the radial argument in the scalar plateau: `hR` is the proof that R is positive, and `hx` is the norm bound. These lines discharge the absolute-value premise of the scalar plateau theorem. Use the scalar plateau value: `apply` reduces this radial value statement to the precise scalar condition verified in the preceding mathematical step.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_one_of_abs_le_one"
+      ],
+      "mathlib_dependencies": [
+        "div_le_one_of_le₀",
+        "abs_of_nonneg"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "div_le_one_of_le₀",
+          "path": ".lake/packages/mathlib/Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+          "line": 1195,
+          "url": ".lake/packages/mathlib/Mathlib/Algebra/Order/GroupWithZero/Basic.lean:1195",
+          "scope": "Exact checked local Mathlib lemma used in this proof."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 159
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 44
+        },
+        {
+          "label": "div_le_one_of_le₀",
+          "scope": "Exact checked local Mathlib lemma used in this proof.",
+          "path": ".lake/packages/mathlib/Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+          "line": 1195
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 155
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_one_of_abs_le_one",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 73
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 89
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 159,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:159"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 89,
+          "url": "Tests/Basic.lean:89",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "The sphere ‖x‖=R is included; this theorem alone does not say the function is locally constant at that sphere."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_zero_of_two_mul_le_norm",
+      "short_name": "radialSmoothCutoff_eq_zero_of_two_mul_le_norm",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The radial cutoff vanishes on and beyond the outer sphere",
+      "statement": "Let E be a normed additive commutative group and let R>0. For every x∈E with 2R≤‖x‖, the radius-R cutoff vanishes.",
+      "formula": "R>0,\\ 2R\\le\\|x\\|\\quad\\Longrightarrow\\quad\\chi_R(x)=0.",
+      "assumptions": [
+        "E is a normed additive commutative group.",
+        "R∈ℝ, R>0, x∈E, and 2R≤‖x‖."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Put the radial argument outside the scalar support region",
+          "text": "The radial argument is nonnegative. Dividing the assumed inequality by the positive radius shows it is at least two.",
+          "formula": "\\left|\\frac{\\|x\\|}{R}\\right|=\\frac{\\|x\\|}{R}\\ge\\frac{2R}{R}=2.",
+          "lean": "rw [abs_of_nonneg (div_nonneg (norm_nonneg x) hR.le)]; calc (2 : ℝ) = 2 * R / R := by field_simp; _ ≤ ‖x‖ / R := div_le_div_of_nonneg_right hx hR.le",
+          "lean_explanation": "The proof uses positivity both to remove absolute values and to preserve the inequality on division. `field_simp` verifies cancellation of the nonzero radius."
+        },
+        {
+          "number": 2,
+          "title": "Apply scalar vanishing",
+          "text": "The scalar cutoff vanishes whenever the argument has absolute value at least two. Applying that fact gives the desired zero value.",
+          "formula": "\\chi_R(x)=q(\\|x\\|/R)=0.",
+          "lean": "apply smoothUnitCutoff_eq_zero_of_two_le_abs",
+          "lean_explanation": "This is a radial substitution into the scalar zero-value theorem."
+        }
+      ],
+      "lean_statement": "The inequality is non-strict, so the exported zero region includes the boundary sphere of radius 2R. No differentiable structure on E is needed for this value assertion. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Put the radial argument outside the scalar support region: The proof uses positivity both to remove absolute values and to preserve the inequality on division. `field_simp` verifies cancellation of the nonzero radius. Apply scalar vanishing: This is a radial substitution into the scalar zero-value theorem.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_zero_of_two_le_abs"
+      ],
+      "mathlib_dependencies": [
+        "div_le_div_of_nonneg_right",
+        "abs_of_nonneg"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "div_le_div_of_nonneg_right",
+          "path": ".lake/packages/mathlib/Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+          "line": 1199,
+          "url": ".lake/packages/mathlib/Mathlib/Algebra/Order/GroupWithZero/Basic.lean:1199",
+          "scope": "Exact checked local Mathlib lemma used in this proof."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 166
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 45
+        },
+        {
+          "label": "div_le_div_of_nonneg_right",
+          "scope": "Exact checked local Mathlib lemma used in this proof.",
+          "path": ".lake/packages/mathlib/Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+          "line": 1199
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 155
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_eq_zero_of_two_le_abs",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 80
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 94
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 166,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:166"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 94,
+          "url": "Tests/Basic.lean:94",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "Zero at a boundary point is not a claim of local constancy there."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_mem_Icc",
+      "short_name": "radialSmoothCutoff_mem_Icc",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "Every radial cutoff value lies between zero and one",
+      "statement": "For every normed additive commutative group E, every real scale R, and every x∈E, the cutoff value χ_R(x) belongs to [0,1].",
+      "formula": "\\forall R\\in\\mathbb R\\ \\forall x\\in E,\\qquad0\\le\\chi_R(x)\\le1.",
+      "assumptions": [
+        "E is a normed additive commutative group.",
+        "R is arbitrary, including zero or negative values; x is any point of E."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Reuse the scalar range theorem at the radial argument",
+          "text": "The scalar bound holds at every real input, so it applies directly to ‖x‖/R without a positivity condition on R.",
+          "formula": "q(t)\\in[0,1]\\ \\text{for all }t\\in\\mathbb R\\quad\\Longrightarrow\\quad q(\\|x\\|/R)\\in[0,1].",
+          "lean": "smoothUnitCutoff_mem_Icc _",
+          "lean_explanation": "The underscore asks Lean to infer the particular input ‖x‖/R. This one-line wrapper does not supply new range analysis."
+        }
+      ],
+      "lean_statement": "`Set.Icc (0 : ℝ) 1` is the closed real interval; membership is a pair of inequalities. This is one of the statements intentionally valid at all totalized scales. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Reuse the scalar range theorem at the radial argument: The underscore asks Lean to infer the particular input ‖x‖/R. This one-line wrapper does not supply new range analysis.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_mem_Icc"
+      ],
+      "mathlib_dependencies": [],
+      "mathlib_anchors": [],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 175
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 46
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 155
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_mem_Icc",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 87
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 175,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:175"
+      },
+      "tests": [],
+      "boundary": [
+        "The all-scale range bound does not extend positive-radius support or scale-decay theorems to nonpositive R.",
+        "No direct named invocation was found in the inspected cutoff example block Tests/Basic.lean:49–169; this is not a statement about all possible project consumers."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.fderiv_norm_div_bound",
+      "short_name": "fderiv_norm_div_bound",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "A totalized derivative bound for the scaled norm",
+      "statement": "Let E be a real normed vector space and R>0. At every x∈E, the operator norm of Mathlib's totalized Fréchet derivative of y↦‖y‖/R is at most 1/R. No differentiability assumption on the norm at x is made.",
+      "formula": "R>0\\quad\\Longrightarrow\\quad\\forall x\\in E,\\quad\\left\\|D_{\\mathrm{tot}}\\!\\left(y\\mapsto\\frac{\\|y\\|}{R}\\right)(x)\\right\\|_{\\mathrm{op}}\\le\\frac1R.",
+      "assumptions": [
+        "E is a normed additive commutative group equipped with a real normed-vector-space structure.",
+        "R∈ℝ with R>0; x∈E is arbitrary.",
+        "`D_tot` denotes `fderiv`: the Fréchet derivative when it exists and zero when it does not."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Prove a global Lipschitz estimate from the reverse triangle inequality",
+          "text": "The reverse triangle inequality bounds the change of the norm by the distance between points. Dividing by the positive radius gives Lipschitz constant 1/R.",
+          "formula": "\\left|\\frac{\\|y\\|}{R}-\\frac{\\|z\\|}{R}\\right|=\\frac{|\\|y\\|-\\|z\\||}{R}\\le\\frac{\\|y-z\\|}{R}=\\frac1R\\,d(y,z).",
+          "lean": "LipschitzWith.of_dist_le_mul fun y z => by ...; have hnorm : |‖y‖ - ‖z‖| ≤ ‖y - z‖ := abs_norm_sub_norm_le y z; rw [hdiv, abs_div, abs_of_pos hR]; ... div_le_div_of_nonneg_right hnorm hR.le",
+          "lean_explanation": "`hLip` packages exactly this inequality. The nonnegative real constant is stored as `⟨1 / R, by positivity⟩`; the omitted algebra is shown in the complete adjacent proof."
+        },
+        {
+          "number": 2,
+          "title": "Pass the Lipschitz constant to the totalized derivative",
+          "text": "Mathlib bounds the norm of fderiv by a global Lipschitz constant. Where a derivative exists, this is the ordinary derivative estimate. Where it does not exist, the totalized derivative is zero, which also satisfies the nonnegative bound.",
+          "formula": "\\|D_{\\mathrm{tot}}(\\|\\cdot\\|/R)(x)\\|_{\\mathrm{op}}\\le\\operatorname{Lip}(\\|\\cdot\\|/R)\\le1/R.",
+          "lean": "exact norm_fderiv_le_of_lipschitz ℝ hLip",
+          "lean_explanation": "The library theorem is deliberately stated for totalized fderiv; it requires no `DifferentiableAt` premise. This matters in particular at the origin."
+        }
+      ],
+      "lean_statement": "`[NormedSpace ℝ E]` is required to speak about a real Fréchet derivative. `fderiv ℝ ... x` is a continuous linear map E→ℝ, and the outer norm is its operator norm. The statement is not an assertion that the norm is smooth, or differentiable everywhere. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Prove a global Lipschitz estimate from the reverse triangle inequality: `hLip` packages exactly this inequality. The nonnegative real constant is stored as `⟨1 / R, by positivity⟩`; the omitted algebra is shown in the complete adjacent proof. Pass the Lipschitz constant to the totalized derivative: The library theorem is deliberately stated for totalized fderiv; it requires no `DifferentiableAt` premise. This matters in particular at the origin.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "LipschitzWith.of_dist_le_mul",
+        "abs_norm_sub_norm_le",
+        "norm_fderiv_le_of_lipschitz",
+        "fderiv_zero_of_not_differentiableAt"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "norm_fderiv_le_of_lipschitz",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean",
+          "line": 947,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean:947",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "fderiv_zero_of_not_differentiableAt",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean",
+          "line": 234,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean:234",
+          "scope": "Explanatory library dependency behind totalization, not necessarily a direct call in this ASTIS body."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 182
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 47
+        },
+        {
+          "label": "norm_fderiv_le_of_lipschitz",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean",
+          "line": 947
+        },
+        {
+          "label": "fderiv_zero_of_not_differentiableAt",
+          "scope": "Explanatory library dependency behind totalization, not necessarily a direct call in this ASTIS body.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean",
+          "line": 234
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 99
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 182,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:182"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 99,
+          "url": "Tests/Basic.lean:99",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "No inner-product, finite-dimensionality, or nonzero-point hypothesis is present.",
+        "Do not read totalized fderiv as a proof of differentiability at the origin or at other nonsmooth points of a general norm."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_contDiff",
+      "short_name": "radialSmoothCutoff_contDiff",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "Positive-radius radial cutoffs are smooth",
+      "statement": "Let E be a real inner-product space, not necessarily finite-dimensional or complete, and let R>0. The function χ_R:E→ℝ is infinitely continuously differentiable on all of E, including the origin.",
+      "formula": "R>0\\quad\\Longrightarrow\\quad\\chi_R\\in C^\\infty(E,\\mathbb R).",
+      "assumptions": [
+        "E is a normed additive commutative group with a real inner-product-space structure.",
+        "R∈ℝ and R>0. There is no finite-dimensionality, completeness, or nontriviality hypothesis."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Separate the inner plateau from the nonzero region",
+          "text": "Smoothness is checked at an arbitrary point x. Split according to whether ‖x‖<R. These two cases include the inner sphere in the second branch.",
+          "formula": "E=\\{x:\\|x\\|<R\\}\\cup\\{x:R\\le\\|x\\|\\}.",
+          "lean": "rw [contDiff_iff_contDiffAt]; intro x; by_cases hx : ‖x‖ < R",
+          "lean_explanation": "`ContDiff` is global smoothness; `contDiff_iff_contDiffAt` allows a point-by-point argument."
+        },
+        {
+          "number": 2,
+          "title": "Use a constant neighborhood inside the plateau",
+          "text": "If ‖x‖<R, the ball around x of radius R−‖x‖ is a neighborhood. Every y in it satisfies ‖y‖≤‖x‖+‖y−x‖<R, so χ_R(y)=1. A function agreeing with a constant near x is smooth at x.",
+          "formula": "d(y,x)<R-\\|x\\|\\ \\Longrightarrow\\ \\|y\\|<R\\ \\Longrightarrow\\ \\chi_R(y)=1.",
+          "lean": "Metric.ball_mem_nhds x (sub_pos.mpr hx); radialSmoothCutoff_eq_one_of_norm_le hR; norm_add_le x (y - x); hconst.congr_of_eventuallyEq",
+          "lean_explanation": "`heq` records equality on a neighborhood, which is stronger than equality only at x. The library transfers smoothness of the constant function along this local equality."
+        },
+        {
+          "number": 3,
+          "title": "Compose smooth functions away from the origin",
+          "text": "In the remaining case R≤‖x‖, positivity implies x≠0. The norm on a real inner-product space is smooth at nonzero points. Compose it with division by the fixed R, then with the scalar smooth cutoff q.",
+          "formula": "x\\ne0,\\qquad \\chi_R=q\\circ(t\\mapsto t/R)\\circ\\|\\cdot\\|,\\qquad \\chi_R\\text{ is }C^\\infty\\text{ at }x.",
+          "lean": "contDiffAt_norm ℝ hx_ne; contDiff_id.div_const R; hdiv.contDiffAt.comp x hnorm; smoothUnitCutoff_contDiff.contDiffAt.comp x hscaled",
+          "lean_explanation": "The norm-smoothness theorem is invoked only after proving x≠0. This avoids making a false smoothness assertion about the norm itself at zero."
+        }
+      ],
+      "lean_statement": "`ContDiff ℝ (⊤ : ℕ∞)` means derivatives of every finite order exist and are continuous. The inner-product assumption is used for smoothness of the norm away from zero; the plateau handles the origin. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Separate the inner plateau from the nonzero region: `ContDiff` is global smoothness; `contDiff_iff_contDiffAt` allows a point-by-point argument. Use a constant neighborhood inside the plateau: `heq` records equality on a neighborhood, which is stronger than equality only at x. The library transfers smoothness of the constant function along this local equality. Compose smooth functions away from the origin: The norm-smoothness theorem is invoked only after proving x≠0. This avoids making a false smoothness assertion about the norm itself at zero.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff"
+      ],
+      "mathlib_dependencies": [
+        "contDiff_iff_contDiffAt",
+        "Metric.ball_mem_nhds",
+        "norm_add_le",
+        "ContDiffAt.congr_of_eventuallyEq",
+        "contDiffAt_norm",
+        "ContDiff.div_const",
+        "ContDiffAt.comp"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "ContDiffAt.congr_of_eventuallyEq",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Defs.lean",
+          "line": 967,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Defs.lean:967",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "contDiffAt_norm",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Calculus.lean",
+          "line": 154,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Calculus.lean:154",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 198
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 48
+        },
+        {
+          "label": "ContDiffAt.congr_of_eventuallyEq",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Defs.lean",
+          "line": 967
+        },
+        {
+          "label": "contDiffAt_norm",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Calculus.lean",
+          "line": 154
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 159
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 51
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 155
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 105
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 198,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:198"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 105,
+          "url": "Tests/Basic.lean:105",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "This proves genuine smoothness of χ_R, unlike the preceding totalized derivative bound for the scaled norm.",
+        "The source does not weaken the ambient assumption here to an arbitrary normed space."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_fderiv_bound",
+      "short_name": "radialSmoothCutoff_fderiv_bound",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "One constant controls every positive-radius first derivative",
+      "statement": "For any real inner-product space E, there is a positive real constant C such that for every positive radius R and every point x∈E, the operator norm of the Fréchet derivative of χ_R at x is at most C/R. The constant is chosen before R and x from a global bound on the fixed scalar cutoff derivative.",
+      "formula": "\\exists C>0\\ \\forall R>0\\ \\forall x\\in E,\\qquad\\|D\\chi_R(x)\\|_{\\mathrm{op}}\\le\\frac CR.",
+      "assumptions": [
+        "E is a normed additive commutative group with a real inner-product-space structure; no finite-dimensionality or completeness assumption.",
+        "C is existential and strictly positive; R>0 and x∈E are universally quantified after C.",
+        "The derivative is genuine here because χ_R is smooth for R>0; the Lean expression remains the totalized `fderiv`."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Fix the scalar derivative constant before choosing the radius",
+          "text": "The scalar boundedness theorem supplies C>0 such that |q′(t)|≤C for every t. Keep this same C for all radii and points.",
+          "formula": "\\exists C>0\\ \\forall t\\in\\mathbb R,\\ |q'(t)|\\le C.",
+          "lean": "obtain ⟨C, hC_pos, hC_bound⟩ := smoothUnitCutoff_deriv_bounded; refine ⟨C, hC_pos, ?_⟩; intro R hR x",
+          "lean_explanation": "Introducing R and x only after selecting C records the required scale-uniform quantifier order."
+        },
+        {
+          "number": 2,
+          "title": "The derivative vanishes strictly inside the plateau",
+          "text": "If ‖x‖<R, the triangle inequality shows that χ_R agrees with one on a neighborhood of x of radius R−‖x‖. Its derivative is therefore the zero linear map, and the desired nonnegative upper bound follows.",
+          "formula": "\\|x\\|<R\\ \\Longrightarrow\\ D\\chi_R(x)=D(1)(x)=0,\\qquad0\\le C/R.",
+          "lean": "Metric.eventually_nhds_iff.mpr ⟨R - ‖x‖, hradius, ?_⟩; radialSmoothCutoff_eq_one_of_norm_le hR; (Filter.EventuallyEq.fderiv_eq h_eq).trans hconst; div_nonneg hC_pos.le hR.le",
+          "lean_explanation": "The proof constructs actual neighborhood equality `h_eq`; it does not infer derivative equality from a single point value."
+        },
+        {
+          "number": 3,
+          "title": "Use genuine differentiability for the chain rule outside the inner ball",
+          "text": "If R≤‖x‖, then x≠0. The inner-product norm is differentiable there, so h(y)=‖y‖/R is differentiable at x; q is differentiable everywhere. The Fréchet chain rule therefore applies.",
+          "formula": "D\\chi_R(x)=Dq(\\|x\\|/R)\\circ Dh(x),\\qquad h(y)=\\|y\\|/R.",
+          "lean": "(contDiffAt_norm ℝ hx_ne).differentiableAt WithTop.top_ne_zero; hnorm.mul_const R⁻¹; smoothUnitCutoff_contDiff.differentiable ...; fderiv_comp x hcutoff_diff hnorm_diff",
+          "lean_explanation": "`fderiv_comp` is called with explicit differentiability witnesses for both factors. Totalization alone would not justify an unrestricted chain rule."
+        },
+        {
+          "number": 4,
+          "title": "Multiply the two operator-norm bounds",
+          "text": "The norm of a composition is at most the product of the norms. The scalar derivative factor is at most C; the scaled-norm derivative factor is at most 1/R by the preceding Lipschitz-based lemma. Their product is C/R.",
+          "formula": "\\|D\\chi_R(x)\\|_{\\mathrm{op}}\\le |q'(\\|x\\|/R)|\\,\\|Dh(x)\\|_{\\mathrm{op}}\\le C(1/R)=C/R.",
+          "lean": "ContinuousLinearMap.opNorm_comp_le _ _; rw [← norm_deriv_eq_norm_fderiv]; exact hC_bound _; exact fderiv_norm_div_bound hR x; ... _ = C / R := by ring",
+          "lean_explanation": "`norm_deriv_eq_norm_fderiv` identifies the norm of the scalar derivative with the operator norm of its one-dimensional Fréchet derivative."
+        }
+      ],
+      "lean_statement": "The existential statement does not give a numerical or optimal value of C. The proof uses only first-order ingredients and the scalar first-derivative bound; it neither invokes nor requires the later second-order API. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Fix the scalar derivative constant before choosing the radius: Introducing R and x only after selecting C records the required scale-uniform quantifier order. The derivative vanishes strictly inside the plateau: The proof constructs actual neighborhood equality `h_eq`; it does not infer derivative equality from a single point value. Use genuine differentiability for the chain rule outside the inner ball: `fderiv_comp` is called with explicit differentiability witnesses for both factors. Totalization alone would not justify an unrestricted chain rule. Multiply the two operator-norm bounds: `norm_deriv_eq_norm_fderiv` identifies the norm of the scalar derivative with the operator norm of its one-dimensional Fréchet derivative.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_deriv_bounded",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.fderiv_norm_div_bound",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff"
+      ],
+      "mathlib_dependencies": [
+        "Metric.eventually_nhds_iff",
+        "Filter.EventuallyEq.fderiv_eq",
+        "contDiffAt_norm",
+        "DifferentiableAt.mul_const",
+        "fderiv_comp",
+        "ContinuousLinearMap.opNorm_comp_le",
+        "norm_deriv_eq_norm_fderiv"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "Filter.EventuallyEq.fderiv_eq",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Congr.lean",
+          "line": 258,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Congr.lean:258",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "contDiffAt_norm",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Calculus.lean",
+          "line": 154,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Calculus.lean:154",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "fderiv_comp",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Comp.lean",
+          "line": 177,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Comp.lean:177",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "ContinuousLinearMap.opNorm_comp_le",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Operator/Basic.lean",
+          "line": 395,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Operator/Basic.lean:395",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "norm_deriv_eq_norm_fderiv",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+          "line": 470,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean:470",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 235
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 49
+        },
+        {
+          "label": "Filter.EventuallyEq.fderiv_eq",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Congr.lean",
+          "line": 258
+        },
+        {
+          "label": "contDiffAt_norm",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Calculus.lean",
+          "line": 154
+        },
+        {
+          "label": "fderiv_comp",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Comp.lean",
+          "line": 177
+        },
+        {
+          "label": "ContinuousLinearMap.opNorm_comp_le",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Operator/Basic.lean",
+          "line": 395
+        },
+        {
+          "label": "norm_deriv_eq_norm_fderiv",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+          "line": 470
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_deriv_bounded",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 113
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 159
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.smoothUnitCutoff_contDiff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 51
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.fderiv_norm_div_bound",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 182
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 155
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 112
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 235,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:235"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 112,
+          "url": "Tests/Basic.lean:112",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "This theorem is not a Hessian, Laplacian, or second-derivative estimate.",
+        "A fixed E is an ambient parameter; although the construction reuses the fixed scalar bound, the declaration does not quantify one C simultaneously over all space types."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_fderiv_eq_zero_of_two_mul_le_norm",
+      "short_name": "radialSmoothCutoff_fderiv_eq_zero_of_two_mul_le_norm",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The totalized derivative vanishes throughout the outer zero region",
+      "statement": "Let E be a real normed vector space, let R>0, and let x∈E satisfy 2R≤‖x‖. Then Mathlib's totalized Fréchet derivative of χ_R at x is the zero continuous linear map. This includes the outer boundary sphere and does not assume an inner-product norm or differentiability of χ_R.",
+      "formula": "R>0,\\ 2R\\le\\|x\\|\\quad\\Longrightarrow\\quad D_{\\mathrm{tot}}\\chi_R(x)=0.",
+      "assumptions": [
+        "E is a normed additive commutative group equipped with a real normed-vector-space structure.",
+        "R>0, x∈E, and 2R≤‖x‖.",
+        "No differentiability or inner-product-space hypothesis is assumed; `fderiv` is totalized."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Recognize a global, hence local, minimum",
+          "text": "The outer value theorem gives χ_R(x)=0. The range theorem gives χ_R(y)≥0 for every y∈E. Thus x is a global minimum, and in particular a local minimum.",
+          "formula": "\\chi_R(x)=0\\le\\chi_R(y)\\quad(\\forall y\\in E).",
+          "lean": "rw [radialSmoothCutoff_eq_zero_of_two_mul_le_norm hR hx]; exact Filter.Eventually.of_forall fun y => (radialSmoothCutoff_mem_Icc R y).1",
+          "lean_explanation": "`Filter.Eventually.of_forall` turns the inequality at all points into the neighborhood inequality defining a local minimum."
+        },
+        {
+          "number": 2,
+          "title": "Apply the totalized form of Fermat's rule",
+          "text": "At a differentiable local minimum the derivative is zero. Mathlib's theorem states this for totalized fderiv: if differentiability fails, fderiv is zero by definition instead. Consequently the same conclusion holds without an explicit differentiability assumption.",
+          "formula": "x\\text{ a local minimum of }\\chi_R\\quad\\Longrightarrow\\quad D_{\\mathrm{tot}}\\chi_R(x)=0.",
+          "lean": "apply IsLocalMin.fderiv_eq_zero",
+          "lean_explanation": "This exact library theorem handles both differentiability cases. The ASTIS proof supplies the local-minimum premise."
+        }
+      ],
+      "lean_statement": "The right-hand zero is the zero continuous linear map, not just a zero real value. At ‖x‖=2R the proof uses a minimum, not an unjustified locally-constant neighborhood. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Recognize a global, hence local, minimum: `Filter.Eventually.of_forall` turns the inequality at all points into the neighborhood inequality defining a local minimum. Apply the totalized form of Fermat's rule: This exact library theorem handles both differentiability cases. The ASTIS proof supplies the local-minimum premise.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_zero_of_two_mul_le_norm",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_mem_Icc"
+      ],
+      "mathlib_dependencies": [
+        "IsLocalMin.fderiv_eq_zero",
+        "Filter.Eventually.of_forall",
+        "fderiv_zero_of_not_differentiableAt"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "IsLocalMin.fderiv_eq_zero",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/LocalExtr/Basic.lean",
+          "line": 181,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/LocalExtr/Basic.lean:181",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "fderiv_zero_of_not_differentiableAt",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean",
+          "line": 234,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean:234",
+          "scope": "Explanatory library dependency behind totalization, not necessarily a direct call in this ASTIS body."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 296
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 50
+        },
+        {
+          "label": "IsLocalMin.fderiv_eq_zero",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/LocalExtr/Basic.lean",
+          "line": 181
+        },
+        {
+          "label": "fderiv_zero_of_not_differentiableAt",
+          "scope": "Explanatory library dependency behind totalization, not necessarily a direct call in this ASTIS body.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Basic.lean",
+          "line": 234
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_zero_of_two_mul_le_norm",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 166
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_mem_Icc",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 175
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 141
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 296,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:296"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 141,
+          "url": "Tests/Basic.lean:141",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "On a general normed space this statement does not itself establish differentiability.",
+        "No strict inequality or omission of the boundary sphere should be substituted for the existing statement."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_support_subset_closedBall",
+      "short_name": "radialSmoothCutoff_support_subset_closedBall",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The ordinary support lies in the outer closed ball",
+      "statement": "Let E be a normed additive commutative group and R>0. Every point where χ_R is nonzero lies in the closed ball about zero of radius 2R.",
+      "formula": "\\operatorname{supp}\\chi_R:=\\{x:\\chi_R(x)\\ne0\\}\\subseteq\\overline B(0,2R)=\\{x:\\|x\\|\\le2R\\}.",
+      "assumptions": [
+        "E is a normed additive commutative group.",
+        "R∈ℝ with R>0.",
+        "Here `Function.support` means the nonzero set, not its closure."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Exclude a nonzero value beyond the outer ball",
+          "text": "Take x in the ordinary support. If x were outside the closed ball, then 2R<‖x‖. The outer zero-value theorem would force χ_R(x)=0, contradicting membership in the support.",
+          "formula": "\\chi_R(x)\\ne0,\\ \\|x\\|>2R\\quad\\Longrightarrow\\quad\\chi_R(x)=0\\quad\\text{(contradiction)}.",
+          "lean": "rw [Metric.mem_closedBall, dist_zero_right]; by_contra hout; push Not at hout; have hzero := radialSmoothCutoff_eq_zero_of_two_mul_le_norm hR hout.le; exact hx hzero",
+          "lean_explanation": "Support membership `hx` is definitionally the assertion that the function value is nonzero. The contradiction proves the closed-ball inequality."
+        }
+      ],
+      "lean_statement": "The theorem is an inclusion, not an exact support description. No compactness or smoothness is needed to prove it. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Exclude a nonzero value beyond the outer ball: Support membership `hx` is definitionally the assertion that the function value is nonzero. The contradiction proves the closed-ball inequality.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_zero_of_two_mul_le_norm"
+      ],
+      "mathlib_dependencies": [
+        "Metric.mem_closedBall",
+        "dist_zero_right"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "Metric.mem_closedBall",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean",
+          "line": 424,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean:424",
+          "scope": "Exact checked local Mathlib lemma used in this proof."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 305
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 51
+        },
+        {
+          "label": "Metric.mem_closedBall",
+          "scope": "Exact checked local Mathlib lemma used in this proof.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean",
+          "line": 424
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_zero_of_two_mul_le_norm",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 166
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 305,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:305"
+      },
+      "tests": [],
+      "boundary": [
+        "Ordinary support is not assumed closed, and this statement alone does not assert compact support in an arbitrary normed group.",
+        "No direct named invocation was found in the inspected cutoff example block Tests/Basic.lean:49–169; this is not a statement about all possible project consumers."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tsupport_subset_closedBall",
+      "short_name": "radialSmoothCutoff_tsupport_subset_closedBall",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "The closed support lies in the same outer closed ball",
+      "statement": "Let E be a normed additive commutative group and R>0. The topological support of χ_R, defined as the closure of its nonzero set, is contained in the closed ball about zero of radius 2R.",
+      "formula": "\\operatorname{tsupp}\\chi_R:=\\overline{\\{x:\\chi_R(x)\\ne0\\}}\\subseteq\\overline B(0,2R).",
+      "assumptions": [
+        "E is a normed additive commutative group.",
+        "R∈ℝ with R>0.",
+        "Topological support is the closure of ordinary support."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Take closure inside the closed containing ball",
+          "text": "The preceding theorem places the ordinary support inside the outer closed ball. Because that ball is closed, it also contains the closure of the support.",
+          "formula": "\\operatorname{supp}\\chi_R\\subseteq\\overline B(0,2R),\\quad\\overline B(0,2R)\\text{ closed}\\quad\\Longrightarrow\\quad\\overline{\\operatorname{supp}\\chi_R}\\subseteq\\overline B(0,2R).",
+          "lean": "closure_minimal (radialSmoothCutoff_support_subset_closedBall hR) Metric.isClosed_closedBall",
+          "lean_explanation": "`closure_minimal` is the topological fact that the closure is contained in every closed superset. The apparent change from support to tsupport is exactly this closure operation."
+        }
+      ],
+      "lean_statement": "This is a short topological wrapper around the ordinary-support inclusion. It is useful for compact-support arguments, which concern the closed support. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Take closure inside the closed containing ball: `closure_minimal` is the topological fact that the closure is contained in every closed superset. The apparent change from support to tsupport is exactly this closure operation.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_support_subset_closedBall"
+      ],
+      "mathlib_dependencies": [
+        "closure_minimal",
+        "Metric.isClosed_closedBall"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "closure_minimal",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Closure.lean",
+          "line": 199,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/Closure.lean:199",
+          "scope": "Exact checked local Mathlib lemma used in this proof."
+        },
+        {
+          "declaration": "Metric.isClosed_closedBall",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/Pseudo/Lemmas.lean",
+          "line": 61,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/Pseudo/Lemmas.lean:61",
+          "scope": "Exact checked local Mathlib lemma used in this proof."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 317
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 52
+        },
+        {
+          "label": "closure_minimal",
+          "scope": "Exact checked local Mathlib lemma used in this proof.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Closure.lean",
+          "line": 199
+        },
+        {
+          "label": "Metric.isClosed_closedBall",
+          "scope": "Exact checked local Mathlib lemma used in this proof.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/Pseudo/Lemmas.lean",
+          "line": 61
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_support_subset_closedBall",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 305
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 147
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 317,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:317"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 147,
+          "url": "Tests/Basic.lean:147",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "Containment in a bounded closed ball is not yet compactness in infinite dimension."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_hasCompactSupport",
+      "short_name": "radialSmoothCutoff_hasCompactSupport",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "Finite dimension makes the radial cutoff compactly supported",
+      "statement": "Let E be a finite-dimensional real normed vector space and R>0. Then χ_R has compact support: the closure of its nonzero set is compact.",
+      "formula": "\\dim_{\\mathbb R}E<\\infty,\\ R>0\\quad\\Longrightarrow\\quad\\operatorname{tsupp}\\chi_R\\text{ is compact}.",
+      "assumptions": [
+        "E is a normed additive commutative group with a real normed-vector-space structure and `FiniteDimensional ℝ E`.",
+        "R∈ℝ with R>0; no inner-product-space or nontriviality assumption is present."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Place the closed support inside a compact ball",
+          "text": "The closed support is closed by its definition as a closure and lies in the closed ball of radius 2R. In a finite-dimensional real normed vector space, this ball is compact.",
+          "formula": "\\operatorname{tsupp}\\chi_R\\subseteq\\overline B(0,2R),\\qquad\\overline B(0,2R)\\text{ compact}.",
+          "lean": "isCompact_closedBall (0 : E) (2 * R); isClosed_closure; radialSmoothCutoff_tsupport_subset_closedBall hR",
+          "lean_explanation": "Finite-dimensionality supplies the proper-space instance needed for the compact closed-ball fact; smoothness of χ_R is not used."
+        },
+        {
+          "number": 2,
+          "title": "Use compactness of a closed subset",
+          "text": "A closed subset of a compact set is compact. This is precisely the definition of compact support for χ_R.",
+          "formula": "\\operatorname{tsupp}\\chi_R\\text{ closed in a compact containing ball}\\quad\\Longrightarrow\\quad\\operatorname{HasCompactSupport}(\\chi_R).",
+          "lean": "rw [hasCompactSupport_def]; exact IsCompact.of_isClosed_subset ...",
+          "lean_explanation": "`hasCompactSupport_def` unfolds the predicate into compactness of tsupport; `IsCompact.of_isClosed_subset` finishes that exact goal."
+        }
+      ],
+      "lean_statement": "The finite-dimensional assumption enters the compactness argument rather than the value or support-inclusion lemmas. This theorem applies to arbitrary real norms, not just inner-product norms. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Place the closed support inside a compact ball: Finite-dimensionality supplies the proper-space instance needed for the compact closed-ball fact; smoothness of χ_R is not used. Use compactness of a closed subset: `hasCompactSupport_def` unfolds the predicate into compactness of tsupport; `IsCompact.of_isClosed_subset` finishes that exact goal.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tsupport_subset_closedBall"
+      ],
+      "mathlib_dependencies": [
+        "hasCompactSupport_def",
+        "isCompact_closedBall",
+        "isClosed_closure",
+        "IsCompact.of_isClosed_subset"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "hasCompactSupport_def",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean",
+          "line": 220,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean:220",
+          "scope": "Additive declaration generated by to_additive; compactness of the closure of ordinary support."
+        },
+        {
+          "declaration": "isCompact_closedBall",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/ProperSpace.lean",
+          "line": 40,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/ProperSpace.lean:40",
+          "scope": "ProperSpace field exported at line 42; finite-dimensional normed-space instances supply properness."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 324
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 53
+        },
+        {
+          "label": "hasCompactSupport_def",
+          "scope": "Additive declaration generated by to_additive; compactness of the closure of ordinary support.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean",
+          "line": 220
+        },
+        {
+          "label": "isCompact_closedBall",
+          "scope": "ProperSpace field exported at line 42; finite-dimensional normed-space instances supply properness.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/MetricSpace/ProperSpace.lean",
+          "line": 40
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tsupport_subset_closedBall",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 317
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 153
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 324,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:324"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 153,
+          "url": "Tests/Basic.lean:153",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "No compact-support theorem for an arbitrary infinite-dimensional space is asserted."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_iteratedFDeriv_two_bound",
+      "short_name": "radialSmoothCutoff_iteratedFDeriv_two_bound",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "An existing uniform second-derivative bound under dilation",
+      "statement": "Let E be a nontrivial finite-dimensional real inner-product space. There is a positive real constant C such that for every positive R and every x∈E, the operator norm of the second iterated Fréchet derivative of χ_R at x is at most C/R². The constant is chosen from the fixed unit-radius radial function before R and x.",
+      "formula": "\\exists C>0\\ \\forall R>0\\ \\forall x\\in E,\\qquad\\|D^2\\chi_R(x)\\|_{\\mathrm{op}}\\le\\frac{C}{R^2}.",
+      "assumptions": [
+        "E is a normed additive commutative group with a real inner-product-space structure.",
+        "E is finite-dimensional over ℝ and nontrivial, exactly as required by the existing declaration.",
+        "The second iterated Fréchet derivative is a continuous bilinear map; its norm is the multilinear operator norm.",
+        "C>0 is existential; R>0 and x∈E are quantified after it."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Obtain continuity and compact support of the unit-radius second derivative",
+          "text": "The already-proved smoothness of χ_1 implies continuity of its second iterated Fréchet derivative. The compact-support theorem for χ_1 and Mathlib's support theorem for iterated derivatives give compact support of this derivative.",
+          "formula": "\\chi_1\\in C^\\infty,\\quad \\operatorname{HasCompactSupport}(\\chi_1)\\quad\\Longrightarrow\\quad D^2\\chi_1\\text{ continuous and compactly supported}.",
+          "lean": "radialSmoothCutoff_contDiff one_pos; hunit_smooth.continuous_iteratedFDeriv ...; (radialSmoothCutoff_hasCompactSupport one_pos).iteratedFDeriv 2",
+          "lean_explanation": "The code obtains its second-order input from the unit radial function itself. It does not call `smoothUnitCutoff_secondDeriv_bounded` or the first-order radial bound."
+        },
+        {
+          "number": 2,
+          "title": "Choose one positive global bound at unit radius",
+          "text": "A continuous compactly supported map has globally bounded norm. Take a bound B for D²χ_1 and enlarge it to C=max(B,1)>0.",
+          "formula": "\\|D^2\\chi_1(z)\\|_{\\mathrm{op}}\\le B\\le C:=\\max(B,1)\\qquad(\\forall z\\in E).",
+          "lean": "hunit_support.exists_bound_of_continuous hunit_continuous; let C' : ℝ := max C 1; have hC'_pos : 0 < C' := lt_max_of_lt_right one_pos",
+          "lean_explanation": "The names `C` and `C'` in Lean correspond to B and the positive C in the exposition. This choice precedes `intro R hR x`."
+        },
+        {
+          "number": 3,
+          "title": "Represent the radius change by a bounded linear dilation",
+          "text": "For R>0 let L_R(y)=R⁻¹y. This is a continuous linear map with operator norm at most 1/R, because ‖L_R y‖=(1/R)‖y‖.",
+          "formula": "L_R=R^{-1}I_E,\\qquad\\|L_Ry\\|=\\frac{\\|y\\|}{R},\\qquad\\|L_R\\|_{\\mathrm{op}}\\le\\frac1R.",
+          "lean": "let L : E →L[ℝ] E := R⁻¹ • ContinuousLinearMap.id ℝ E; refine L.opNorm_le_bound (by positivity) ?_; rw [norm_smul, Real.norm_eq_abs, abs_inv, abs_of_pos hR]",
+          "lean_explanation": "`E →L[ℝ] E` is the type of real continuous linear maps. The positivity assumption removes the absolute value of R in the scaling norm."
+        },
+        {
+          "number": 4,
+          "title": "Express every cutoff as the unit cutoff after dilation",
+          "text": "The norm identity for positive dilation gives χ_R(y)=q(‖y‖/R)=χ_1(L_R y) at every y.",
+          "formula": "\\chi_R=\\chi_1\\circ L_R.",
+          "lean": "have hfun : (radialSmoothCutoff R : E → ℝ) = (radialSmoothCutoff 1 : E → ℝ) ∘ L := by funext y; simp only [radialSmoothCutoff, Function.comp_apply, L, smul_apply, ContinuousLinearMap.id_apply, div_one]; rw [norm_smul, Real.norm_eq_abs, abs_inv, abs_of_pos hR]; ring_nf",
+          "lean_explanation": "`funext` proves equality of functions by evaluating at an arbitrary point. This is an exact scaling identity, not an asymptotic approximation."
+        },
+        {
+          "number": 5,
+          "title": "Apply the exact second-derivative rule for a linear inner map",
+          "text": "Because the inner map is linear, the second derivative of the composite is the unit-radius second derivative with L_R applied in each argument. There are no derivatives of order two of L_R and no extra chain-rule terms.",
+          "formula": "D^2\\chi_R(x)[u,v]=D^2\\chi_1(L_Rx)[L_Ru,L_Rv].",
+          "lean": "rw [hfun]; rw [L.iteratedFDeriv_comp_right hunit_smooth x (i := 2) ...]",
+          "lean_explanation": "The actual helper is `ContinuousLinearMap.iteratedFDeriv_comp_right`; `compContinuousLinearMap (fun _ => L)` places the same linear map in both multilinear slots."
+        },
+        {
+          "number": 6,
+          "title": "Bound both linear slots and simplify the scale",
+          "text": "The multilinear composition norm is bounded by the outer norm times the product of the two inner operator norms. Combine the unit bound and dilation bound to obtain C/R².",
+          "formula": "\\|D^2\\chi_R(x)\\|_{\\mathrm{op}}\\le\\|D^2\\chi_1(L_Rx)\\|_{\\mathrm{op}}\\|L_R\\|_{\\mathrm{op}}^2\\le C(1/R)^2=C/R^2.",
+          "lean": "ContinuousMultilinearMap.norm_compContinuousLinearMap_le _ _; ... ∏ _ : Fin 2, ‖L‖ ...; simp; gcongr; exact (hC (L x)).trans (le_max_left C 1); ... := by ring",
+          "lean_explanation": "The product indexed by `Fin 2` has exactly two factors. The final algebra is the displayed R⁻² scale."
+        }
+      ],
+      "lean_statement": "`iteratedFDeriv ℝ 2` is the existing order-two continuous multilinear derivative API. This theorem already occurs in the current checkout; documenting it neither adds a Hessian/Laplacian declaration nor makes it a prerequisite of the separate first-order proof route. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Obtain continuity and compact support of the unit-radius second derivative: The code obtains its second-order input from the unit radial function itself. It does not call `smoothUnitCutoff_secondDeriv_bounded` or the first-order radial bound. Choose one positive global bound at unit radius: The names `C` and `C'` in Lean correspond to B and the positive C in the exposition. This choice precedes `intro R hR x`. Represent the radius change by a bounded linear dilation: `E →L[ℝ] E` is the type of real continuous linear maps. The positivity assumption removes the absolute value of R in the scaling norm. Express every cutoff as the unit cutoff after dilation: `funext` proves equality of functions by evaluating at an arbitrary point. This is an exact scaling identity, not an asymptotic approximation. Apply the exact second-derivative rule for a linear inner map: The actual helper is `ContinuousLinearMap.iteratedFDeriv_comp_right`; `compContinuousLinearMap (fun _ => L)` places the same linear map in both multilinear slots. Bound both linear slots and simplify the scale: The product indexed by `Fin 2` has exactly two factors. The final algebra is the displayed R⁻² scale.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_contDiff",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_hasCompactSupport",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.continuous_iteratedFDeriv",
+        "HasCompactSupport.iteratedFDeriv",
+        "HasCompactSupport.exists_bound_of_continuous",
+        "ContinuousLinearMap.opNorm_le_bound",
+        "norm_smul",
+        "ContinuousLinearMap.iteratedFDeriv_comp_right",
+        "ContinuousMultilinearMap.norm_compContinuousLinearMap_le"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "ContDiff.continuous_iteratedFDeriv",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Defs.lean",
+          "line": 1234,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Defs.lean:1234",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "HasCompactSupport.iteratedFDeriv",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean",
+          "line": 871,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean:871",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "HasCompactSupport.exists_bound_of_continuous",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean",
+          "line": 103,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean:103",
+          "scope": "Additive declaration generated from HasCompactMulSupport.exists_bound_of_continuous by to_additive."
+        },
+        {
+          "declaration": "ContinuousLinearMap.iteratedFDeriv_comp_right",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Basic.lean",
+          "line": 461,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Basic.lean:461",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "ContinuousMultilinearMap.norm_compContinuousLinearMap_le",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Module/Multilinear/Basic.lean",
+          "line": 1024,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Module/Multilinear/Basic.lean:1024",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 339
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing module overview only; no exact per-declaration curated source-memory entry was found in this card.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 6
+        },
+        {
+          "label": "ContDiff.continuous_iteratedFDeriv",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Defs.lean",
+          "line": 1234
+        },
+        {
+          "label": "HasCompactSupport.iteratedFDeriv",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean",
+          "line": 871
+        },
+        {
+          "label": "HasCompactSupport.exists_bound_of_continuous",
+          "scope": "Additive declaration generated from HasCompactMulSupport.exists_bound_of_continuous by to_additive.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Group/Bounded.lean",
+          "line": 103
+        },
+        {
+          "label": "ContinuousLinearMap.iteratedFDeriv_comp_right",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/ContDiff/Basic.lean",
+          "line": 461
+        },
+        {
+          "label": "ContinuousMultilinearMap.norm_compContinuousLinearMap_le",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Normed/Module/Multilinear/Basic.lean",
+          "line": 1024
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_contDiff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 198
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_hasCompactSupport",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 324
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 155
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 120
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 339,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:339"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 120,
+          "url": "Tests/Basic.lean:120",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "The module header's statement that no second-derivative bound is supplied is stale relative to this existing declaration.",
+        "Retain the finite-dimensional and nontrivial hypotheses even if some could potentially be weakened mathematically; no such generalization is proved here.",
+        "No new Hessian, Laplacian, trace estimate, or inferred downstream consumer is asserted.",
+        "No numerical value or optimality of C is given.",
+        "The opening module comment is stale: this second-order declaration already exists in the current checkout. Documenting it does not introduce a new Hessian branch or make it a prerequisite of a first-order cutoff argument."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_tendsto_one",
+      "short_name": "radialSmoothCutoff_tendsto_one",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "At each fixed point the cutoffs are eventually equal to one",
+      "statement": "For any normed additive commutative group E and any fixed x∈E, χ_R(x) tends to one as the real scale R tends to positive infinity. Indeed it equals one for every R≥‖x‖+1.",
+      "formula": "\\forall x\\in E,\\qquad \\lim_{R\\to+\\infty}\\chi_R(x)=1,\\qquad R\\ge\\|x\\|+1\\Longrightarrow\\chi_R(x)=1.",
+      "assumptions": [
+        "E is a normed additive commutative group and x∈E is fixed.",
+        "The limit is over all real R along `atTop`; sufficiently large R are automatically positive."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Choose a threshold depending on the fixed point",
+          "text": "Take R₀=‖x‖+1. If R≥R₀, then R>0 and ‖x‖≤R, so the point lies on the inner plateau of χ_R.",
+          "formula": "R\\ge R_0:=\\|x\\|+1\\quad\\Longrightarrow\\quad R>0,\\quad\\|x\\|\\le R.",
+          "lean": "apply tendsto_atTop_of_eventually_const (i₀ := ‖x‖ + 1); intro R hR; have hR_pos : 0 < R := by ...",
+          "lean_explanation": "The threshold is allowed to depend on x because x is fixed before the limit is stated."
+        },
+        {
+          "number": 2,
+          "title": "Use eventual equality to obtain the limit",
+          "text": "The inner-ball value theorem gives χ_R(x)=1 beyond this threshold. An eventually constant function converges to that constant.",
+          "formula": "\\forall R\\ge R_0,\\ \\chi_R(x)=1\\quad\\Longrightarrow\\quad\\chi_R(x)\\longrightarrow1.",
+          "lean": "apply radialSmoothCutoff_eq_one_of_norm_le hR_pos; linarith",
+          "lean_explanation": "`tendsto_atTop_of_eventually_const` supplies the limit once the remaining equality goal has been proved."
+        }
+      ],
+      "lean_statement": "`Tendsto ... atTop (𝓝 1)` expresses convergence to the neighborhood filter at one as R grows without bound. It is a pointwise result, and actually follows from exact eventual equality. The source's surrounding Radial section contributes the implicit type E and its NormedAddCommGroup instance; further structures appear explicitly in the declaration.",
+      "lean_proof": "Actual proof outline: Choose a threshold depending on the fixed point: The threshold is allowed to depend on x because x is fixed before the limit is stated. Use eventual equality to obtain the limit: `tendsto_atTop_of_eventually_const` supplies the limit once the remaining equality goal has been proved.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le"
+      ],
+      "mathlib_dependencies": [
+        "tendsto_atTop_of_eventually_const"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "tendsto_atTop_of_eventually_const",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Neighborhoods.lean",
+          "line": 194,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/Neighborhoods.lean:194",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 390
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 54
+        },
+        {
+          "label": "tendsto_atTop_of_eventually_const",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Neighborhoods.lean",
+          "line": 194
+        },
+        {
+          "label": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.radialSmoothCutoff_eq_one_of_norm_le",
+          "scope": "Exact earlier ASTIS definition or theorem used in this declaration; not an independent external-source claim.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 159
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 159
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 390,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:390"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 159,
+          "url": "Tests/Basic.lean:159",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "No measure, integrability hypothesis, dominated-convergence argument, or limit of integrals appears.",
+        "No uniform convergence on all of E is asserted."
+      ],
+      "classification": "theorem"
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.exists_contDiff_eq_one_tsupport_subset",
+      "short_name": "exists_contDiff_eq_one_tsupport_subset",
+      "kind": "theorem",
+      "role": "theorem",
+      "title": "A smooth compactly supported plateau inside any open neighborhood of a compact set",
+      "statement": "Let E be a finite-dimensional real normed vector space. If K⊆E is compact, U⊆E is open, and K⊆U, then there exists a real-valued smooth function χ on E which takes values in [0,1], equals one on K, and has compact topological support contained in U. The statement also explicitly includes ordinary support contained in U.",
+      "formula": "\\begin{gathered}K\\text{ compact},\\quad U\\text{ open},\\quad K\\subseteq U\\\\ \\Longrightarrow\\ \\exists\\chi\\in C^\\infty(E,\\mathbb R):\\quad \\operatorname{supp}\\chi\\subseteq U,\\quad\\operatorname{tsupp}\\chi\\subseteq U,\\quad\\operatorname{tsupp}\\chi\\text{ compact},\\\\ 0\\le\\chi(x)\\le1\\quad(\\forall x\\in E),\\qquad\\chi(x)=1\\quad(\\forall x\\in K).\\end{gathered}",
+      "assumptions": [
+        "E is a normed additive commutative group with a real normed-vector-space structure and is finite-dimensional over ℝ.",
+        "K and U are subsets of E, K is compact, U is open, and K⊆U.",
+        "No inner product, nontriviality, or nonemptiness of K or U is assumed."
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "title": "Insert a compact neighborhood and obtain an auxiliary smooth function",
+          "text": "Choose a compact set L with K⊆interior(L) and L⊆U. Mathlib's smooth-support theorem for an open set supplies a smooth g:E→ℝ with ordinary support exactly interior(L) and all values in [0,1]. Thus g is strictly positive at each point of K.",
+          "formula": "K\\subseteq\\operatorname{int}L\\subseteq L\\subseteq U,\\qquad\\operatorname{supp}g=\\operatorname{int}L,\\quad g\\in C^\\infty,\\quad0\\le g\\le1,\\quad g|_K>0.",
+          "lean": "exists_compact_between hK hU hKU; (isOpen_interior : IsOpen (interior L)).exists_contDiff_support_eq (E := E) (n := (⊤ : ℕ∞)); lt_of_le_of_ne (hg_range (Set.mem_range_self x)).1 (Ne.symm hx_support)",
+          "lean_explanation": "The first two library results provide L and g with their recorded properties. Positivity on K combines nonzero support membership with nonnegativity, rather than assuming g equals one there."
+        },
+        {
+          "number": 2,
+          "title": "Choose a uniform positive lower bound on K",
+          "text": "Continuity and strict positivity of g on the compact set K give a real m>0 such that m≤g(x) for all x∈K. The library statement also handles K empty; no attained positive minimum is claimed in that case.",
+          "formula": "\\exists m>0,\\quad\\forall x\\in K,\\quad m\\le g(x),\\qquad m/2>0.",
+          "lean": "hK.exists_forall_le' hg_contDiff.continuous.continuousOn hg_pos; have hm_half_pos : 0 < m / 2 := half_pos hm_pos",
+          "lean_explanation": "`exists_forall_le'` gives a strict improvement of the lower bound zero, not an extra nonempty-set premise."
+        },
+        {
+          "number": 3,
+          "title": "Compress the values through the smooth transition",
+          "text": "Define χ using the standard transition S, with threshold m/2 and transition interval up to m. This composition is smooth because g is smooth and the denominator is a fixed nonzero constant. Its values lie in [0,1] because every value of S does.",
+          "formula": "\\chi(x):=S\\!\\left(\\frac{g(x)-m/2}{m/2}\\right),\\qquad \\chi\\in C^\\infty(E,\\mathbb R),\\qquad0\\le\\chi\\le1.",
+          "lean": "let χ : E → ℝ := fun x => Real.smoothTransition ((g x - m / 2) / (m / 2)); Real.smoothTransition.contDiff.comp; (hg_contDiff.sub contDiff_const).div_const (m / 2); ⟨Real.smoothTransition.nonneg _, Real.smoothTransition.le_one _⟩",
+          "lean_explanation": "This is the construction used to prove the existence theorem. The scalar transition has already been supplied by Mathlib; no new bump formula is postulated."
+        },
+        {
+          "number": 4,
+          "title": "Separate the nonzero set from the boundary of the auxiliary support",
+          "text": "If χ(x)≠0, then its transition argument must be positive, since S vanishes on nonpositive arguments. Hence g(x)>m/2. In particular the ordinary support lies in the closed superlevel set F={x:g(x)≥m/2}.",
+          "formula": "\\chi(x)\\ne0\\Longrightarrow\\frac{g(x)-m/2}{m/2}>0\\Longrightarrow g(x)>m/2,\\qquad\\operatorname{supp}\\chi\\subseteq F:=\\{x:g(x)\\ge m/2\\}.",
+          "lean": "Real.smoothTransition.zero_of_nonpos hnonpos; (div_pos_iff_of_pos_right hm_half_pos).mp harg; exact (sub_pos.mp hnum).le",
+          "lean_explanation": "The proof weakens the strict lower bound to a non-strict one so that the containing set F is closed and can also contain the closure of the support."
+        },
+        {
+          "number": 5,
+          "title": "Control the closed support and obtain compactness",
+          "text": "Continuity of g makes F closed, so tsupp χ⊆F. Because m/2>0, every point of F has g(x)≠0, hence lies in interior(L). Therefore tsupp χ⊆L⊆U. The closed set tsupp χ is a subset of compact L and is compact; ordinary support is contained in tsupport and hence also in U.",
+          "formula": "\\operatorname{tsupp}\\chi=\\overline{\\operatorname{supp}\\chi}\\subseteq F\\subseteq\\operatorname{int}L\\subseteq L\\subseteq U,\\qquad\\operatorname{tsupp}\\chi\\text{ compact}.",
+          "lean": "isClosed_le continuous_const hg_contDiff.continuous; closure_minimal hχ_support_superlevel hsuperlevel_closed; hm_half_pos.trans_le hx; (subset_tsupport χ).trans hχ_tsupport_U; hL.of_isClosed_subset isClosed_closure hχ_tsupport_L",
+          "lean_explanation": "This is why using a positive superlevel threshold matters: merely knowing supp g⊆U would not by itself control its closure inside U."
+        },
+        {
+          "number": 6,
+          "title": "Verify the plateau and collect all six properties",
+          "text": "For x∈K, the bound g(x)≥m forces the transition argument to be at least one. Hence χ(x)=1. Together with the support inclusions, compactness, smoothness, and range bounds already proved, this supplies the required witness.",
+          "formula": "x\\in K\\Longrightarrow \\frac{g(x)-m/2}{m/2}\\ge1\\Longrightarrow\\chi(x)=1.",
+          "lean": "apply Real.smoothTransition.one_of_one_le; rw [one_le_div hm_half_pos]; linarith [hm_le x hx]; exact ⟨χ, hχ_support_U, hχ_tsupport_U, hχ_compact, hχ_contDiff, hχ_range, hχ_one⟩",
+          "lean_explanation": "`Set.EqOn χ 1 K` means equality on K with the constant-one function. The final nested conjunction lists exactly the six requested properties."
+        }
+      ],
+      "lean_statement": "This is an existence theorem proved by constructing a witness from two Mathlib existence results and a scalar transition. It is not a definition of a canonical χ: the chosen L, g, and m are not exported as a uniquely determined plateau.",
+      "lean_proof": "Actual proof outline: Insert a compact neighborhood and obtain an auxiliary smooth function: The first two library results provide L and g with their recorded properties. Positivity on K combines nonzero support membership with nonnegativity, rather than assuming g equals one there. Choose a uniform positive lower bound on K: `exists_forall_le'` gives a strict improvement of the lower bound zero, not an extra nonempty-set premise. Compress the values through the smooth transition: This is the construction used to prove the existence theorem. The scalar transition has already been supplied by Mathlib; no new bump formula is postulated. Separate the nonzero set from the boundary of the auxiliary support: The proof weakens the strict lower bound to a non-strict one so that the containing set F is closed and can also contain the closure of the support. Control the closed support and obtain compactness: This is why using a positive superlevel threshold matters: merely knowing supp g⊆U would not by itself control its closure inside U. Verify the plateau and collect all six properties: `Set.EqOn χ 1 K` means equality on K with the constant-one function. The final nested conjunction lists exactly the six requested properties.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "exists_compact_between",
+        "IsOpen.exists_contDiff_support_eq",
+        "IsCompact.exists_forall_le'",
+        "Real.smoothTransition",
+        "Real.smoothTransition.contDiff",
+        "Real.smoothTransition.nonneg",
+        "Real.smoothTransition.le_one",
+        "Real.smoothTransition.zero_of_nonpos",
+        "Real.smoothTransition.one_of_one_le",
+        "isClosed_le",
+        "closure_minimal",
+        "subset_tsupport",
+        "IsCompact.of_isClosed_subset"
+      ],
+      "mathlib_anchors": [
+        {
+          "declaration": "exists_compact_between",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Compactness/LocallyCompact.lean",
+          "line": 172,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/Compactness/LocallyCompact.lean:172",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "IsOpen.exists_contDiff_support_eq",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/FiniteDimension.lean",
+          "line": 79,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/FiniteDimension.lean:79",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "IsCompact.exists_forall_le'",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Order/Compact.lean",
+          "line": 238,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/Order/Compact.lean:238",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "Real.smoothTransition",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 146,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:146",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "Real.smoothTransition.contDiff",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 206,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:206",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "Real.smoothTransition.nonneg",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 191,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:191",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "Real.smoothTransition.le_one",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 188,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:188",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "Real.smoothTransition.zero_of_nonpos",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 168,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:168",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "Real.smoothTransition.one_of_one_le",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 161,
+          "url": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:161",
+          "scope": "Exact checked local Mathlib dependency definition or theorem."
+        },
+        {
+          "declaration": "subset_tsupport",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean",
+          "line": 53,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean:53",
+          "scope": "Additive declaration generated by to_additive."
+        },
+        {
+          "declaration": "closure_minimal",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Closure.lean",
+          "line": 199,
+          "url": ".lake/packages/mathlib/Mathlib/Topology/Closure.lean:199",
+          "scope": "Exact checked local Mathlib lemma used in this proof."
+        }
+      ],
+      "sources": [
+        {
+          "label": "Current ASTIS declaration and complete body",
+          "scope": "Authority for the statement, local assumptions, and actual proof/construction documented here.",
+          "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+          "line": 408
+        },
+        {
+          "label": "Existing module card",
+          "scope": "Existing curated entry for this declaration. Attribution is preserved as local card evidence only, without a new external-source audit or source-equivalence verdict.",
+          "path": "research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff.md",
+          "line": 55
+        },
+        {
+          "label": "exists_compact_between",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Compactness/LocallyCompact.lean",
+          "line": 172
+        },
+        {
+          "label": "IsOpen.exists_contDiff_support_eq",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Calculus/BumpFunction/FiniteDimension.lean",
+          "line": 79
+        },
+        {
+          "label": "IsCompact.exists_forall_le'",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Order/Compact.lean",
+          "line": 238
+        },
+        {
+          "label": "Real.smoothTransition",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 146
+        },
+        {
+          "label": "Real.smoothTransition.contDiff",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 206
+        },
+        {
+          "label": "Real.smoothTransition.nonneg",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 191
+        },
+        {
+          "label": "Real.smoothTransition.le_one",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 188
+        },
+        {
+          "label": "Real.smoothTransition.zero_of_nonpos",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 168
+        },
+        {
+          "label": "Real.smoothTransition.one_of_one_le",
+          "scope": "Exact checked local Mathlib dependency definition or theorem.",
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean",
+          "line": 161
+        },
+        {
+          "label": "subset_tsupport",
+          "scope": "Additive declaration generated by to_additive.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Algebra/Support.lean",
+          "line": 53
+        },
+        {
+          "label": "closure_minimal",
+          "scope": "Exact checked local Mathlib lemma used in this proof.",
+          "path": ".lake/packages/mathlib/Mathlib/Topology/Closure.lean",
+          "line": 199
+        },
+        {
+          "label": "Existing test source",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed.",
+          "path": "Tests/Basic.lean",
+          "line": 168
+        }
+      ],
+      "source_anchor": {
+        "path": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean",
+        "line": 408,
+        "url": "AutoSamplingTheory/TechnicalLemmas/Analysis/Calculus/Cutoff.lean:408"
+      },
+      "tests": [
+        {
+          "path": "Tests/Basic.lean",
+          "line": 168,
+          "url": "Tests/Basic.lean:168",
+          "scope": "Existing direct example invocation inspected; no build or test run was performed."
+        }
+      ],
+      "boundary": [
+        "There are no radius-dependent derivative constants, Hessian estimates, or measure-theoretic limits in this theorem.",
+        "This proof does not call the radial cutoff family; its compact-within-open construction is a separate API."
+      ],
+      "classification": "theorem"
+    }
+  ]
+}
