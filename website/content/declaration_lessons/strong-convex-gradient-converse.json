@@ -1,0 +1,82 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound",
+      "kind": "theorem",
+      "title": "Recover strong convexity from gradient separation",
+      "statement": "On a convex subset of a complete real inner-product space, a quantitative lower bound on differences of genuine gradients forces the matching strong-convexity chord inequality.",
+      "formula": "\\langle g(y)-g(x),y-x\\rangle\\ge m\\|y-x\\|^2\\quad\\Longrightarrow\\quad f((1-t)x+ty)\\le(1-t)f(x)+tf(y)-\\frac m2t(1-t)\\|y-x\\|^2.",
+      "assumptions": [
+        "E is a complete real inner-product space, s is a convex subset of E, f:E→ℝ, g:E→E and m∈ℝ.",
+        "At every z∈s, g(z) is a genuine ambient gradient: HasGradientAt f (g z) z. This includes boundary points, and implies the continuity needed at segment endpoints.",
+        "For every x,y∈s, the gradient difference paired with y−x is at least m‖y−x‖². The modulus may be positive, zero or negative.",
+        "The conclusion quantifies over all x,y∈s and t∈[0,1]. No extra continuity of g, Hessian, measurable representative, integrability, domination or measure assumption is used."
+      ],
+      "steps": [
+        {
+          "title": "Stay on one segment",
+          "text": "Fix x,y in the domain, put d=y−x and N=‖d‖². Convexity of the domain keeps the full segment inside s. Subtract a scalar quadratic along that segment.",
+          "formula": "p(t)=x+td\\in s,\\quad q(t)=f(p(t))-\\frac m2t^2N,\\quad 0\\le t\\le1.",
+          "lean": "Local p and q select this segment; hp uses Convex.add_smul_sub_mem."
+        },
+        {
+          "title": "Compute the genuine derivative",
+          "text": "Apply the chain rule to f composed with the affine segment, then differentiate the quadratic. The ambient gradient hypothesis supplies differentiability even at the endpoints. Therefore q is continuous on [0,1] and differentiable on its interior.",
+          "formula": "q\\prime(t)=\\langle g(p(t)),d\\rangle-mtN.",
+          "lean": "hq combines HasGradientAt.hasFDerivAt, HasFDerivAt.comp_hasDerivAt and derivatives of powers and scalar products."
+        },
+        {
+          "title": "Cancel only a positive scalar",
+          "text": "For 0≤u<v≤1, the displacement is p(v)−p(u)=(v−u)d. Apply the gradient bound and divide by the positive parameter difference. Subtracting the quadratic derivative gives monotonicity of q′. Equal parameters require no division.",
+          "formula": "\\langle g(p(v))-g(p(u)),d\\rangle\\ge m(v-u)\\|d\\|^2,\\qquad q\\prime(u)\\le q\\prime(v).",
+          "lean": "hdis rewrites the displacement. hscaled rewrites norm_smul using |v−u|²=(v−u)². le_of_mul_le_mul_left cancels v−u>0; hmon handles equality separately."
+        },
+        {
+          "title": "Use scalar convexity",
+          "text": "The mean value theorem implies that a continuous scalar function with nondecreasing derivative is convex on the interval. All three hypotheses have been established, so the chord bound for q follows.",
+          "formula": "q(b)\\le a\\,q(0)+b\\,q(1),\\qquad a,b\\ge0,\\quad a+b=1.",
+          "lean": "hconv applies Mathlib MonotoneOn.convexOn_of_deriv. hq.deriv identifies the library derivative with the supplied q′. hchord evaluates the resulting ConvexOn inequality at 0 and 1."
+        },
+        {
+          "title": "Restore the quadratic correction",
+          "text": "Expand q at the three parameters and use a=1−b. The difference between b and b² is ab, producing exactly the strong-convexity correction. Nothing here requires m≥0.",
+          "formula": "f(ax+by)\\le af(x)+bf(y)-\\frac m2\\,ab\\,\\|x-y\\|^2.",
+          "lean": "hpoint identifies ax+by with p(b). norm_sub_rev aligns norm conventions; substitution of a=1−b and ring arithmetic finish the inequality."
+        }
+      ],
+      "lean_statement": "Convex ℝ s and supplied HasGradientAt on s, together with the quantitative gradient bound for every ordered pair of domain points, imply StrongConvexOn s m f. The inherited CompleteSpace assumption is explicit.",
+      "lean_proof": "One segment-local quadratic correction reduces the target to Mathlib scalar derivative monotonicity. Equal segment parameters are separated before positive cancellation. The final chord bound uses the exact m/2 normalization.",
+      "boundary": [
+        "This is an ASTIS-owned port of the pinned Optlib Lower_Strong_Convex statement with its domain-local supplied-gradient assumptions.",
+        "The proof uses a scalar mean-value route. Chewi Proposition 1.6 proves its whole-space C¹ reverse implication by integration; this module does not reproduce that integral argument or certify the entire equivalence.",
+        "No geometric transport, gradient-flow convergence or Hessian result follows merely from publishing this declaration."
+      ],
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MonotoneOn.convexOn_of_deriv — continuous scalar functions with monotone derivative are convex, proved using the mean value theorem.",
+        "Convex.add_smul_sub_mem; convex_Icc — segment membership and scalar-domain convexity.",
+        "HasGradientAt.hasFDerivAt; HasFDerivAt.comp_hasDerivAt; hasDerivAt_id; HasDerivAt.smul_const, const_add, pow, const_mul, mul_const, sub — differentiation.",
+        "inner_smul_right; inner_sub_left; norm_smul; sq_abs; le_of_mul_le_mul_left; norm_sub_rev — gradient monotonicity and exact normalization."
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Convex/StronglyConvex.lean#L144",
+          "label": "Optlib Lower_Strong_Convex (Apache-2.0; Chenyi Li and Ziyu Wang)",
+          "scope": "Exact domain-local theorem statement provenance; the upstream proof chain is not imported."
+        },
+        {
+          "path": ".lake/packages/mathlib/Mathlib/Analysis/Convex/Deriv.lean",
+          "line": 35,
+          "label": "Mathlib scalar derivative criterion",
+          "scope": "Actual compiled mean-value-theorem dependency."
+        },
+        {
+          "path": "Tests/Shared/StrongConvexGradientConverse.lean",
+          "label": "Focused quantitative consumers",
+          "scope": "Sharp signed quadratic modulus and a midpoint bound on a closed domain."
+        }
+      ],
+      "source_history_boundary": "Existing Optlib mathematics adapted to pinned Mathlib 4.33.0. This is a compatibility integration, not a claim of first formalization. The implementation uses a segment-local quadratic correction instead of importing Optlib’s global quadratic-shift dependency chain."
+    }
+  ]
+}

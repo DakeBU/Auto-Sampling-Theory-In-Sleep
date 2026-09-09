@@ -643,6 +643,231 @@
         "interpretation": "Accepted only for the explicitly selected Boolean specialization of the reversibility clause. The arbitrary finite-spin-alphabet statement and separate source conclusions are not fully formalized by this declaration."
       },
       "repairs": []
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientConverse",
+      "state": "source-reviewed",
+      "graph_node": "ASTIS-SHARED-strong-convex-gradient-converse",
+      "source": {
+        "source_id": "optlib:Lower_Strong_Convex:5da27c5f",
+        "anchor": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Convex/StronglyConvex.lean#L144",
+        "original_text": "Let E be a complete real inner-product space, s a convex subset, f:E→ℝ, g:E→E and m∈ℝ. Suppose f has ambient gradient g(z) at every z∈s. If ⟨g(y)−g(x),y−x⟩≥m‖y−x‖² for every x,y∈s, then f is m-strongly convex on s, in the chord sense with quadratic correction m/2.",
+        "text_sha256": "54be77238cd31bfeef770dfac2883f6036e7950b712bb80569d718818deb5d7a"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/StrongConvexGradientConverse.lean",
+        "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {s : Set E}\n  {f : E → ℝ} {m : ℝ} {grad : E → E},\n  Convex ℝ s →\n    (∀ z ∈ s, HasGradientAt f (grad z) z) →\n      (∀ x ∈ s, ∀ y ∈ s, m * ‖y - x‖ ^ 2 ≤ inner ℝ (grad y - grad x) (y - x)) → StrongConvexOn s m f",
+        "statement_sha256": "4454cd5b7a2bb8ea759a3f29c6ae35aca03beb866779d12bbdd8d0e3ce03c3fb",
+        "compiled": true,
+        "formalizer": "andi-opt-converse-worker",
+        "decoder_context": [
+          "E is a real normed additive group with a real inner product inducing its norm. CompleteSpace means that every Cauchy filter converges.",
+          "Convex ℝ s means that s contains a • x + b • y whenever x,y∈s, a,b≥0 and a+b=1.",
+          "HasGradientAt f (g z) z means that f has an ambient Frechet derivative at z represented by v ↦ inner ℝ (g z) v. It does not mean only a derivative within s.",
+          "StrongConvexOn s m f means Convex ℝ s and, for all x,y∈s and all nonnegative real a,b with a+b=1, f(a • x+b • y) ≤ a*f(x)+b*f(y)−a*b*(m/2*norm(x−y)^2). The definition itself imposes no sign restriction on m."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Complete real inner-product space E, a subset s, f:E→ℝ, supplied gradient field g:E→E, and a real scalar m.",
+          "reconstructed": "Complete real inner-product space E, convex subset s, f:E→ℝ, grad:E→E and m∈ℝ.",
+          "relation": "same",
+          "evidence": "The pinned Optlib file declares E with NormedAddCommGroup and InnerProductSpace ℝ, s:Set E, f:E→ℝ, f′:E→E and m:ℝ; the enclosing section immediately before Lower_Strong_Convex supplies CompleteSpace E. The candidate elaborated statement has precisely these types and instances. Renaming f′ to grad introduces no new object."
+        },
+        "domains": {
+          "original": "An arbitrary convex subset s of E; gradients are ambient at every point of s, including any boundary; functions are defined on all E.",
+          "reconstructed": "Any convex s⊆E, with ambient Fréchet derivatives at each z∈s and chord conclusions for x,y∈s.",
+          "relation": "explicit-elaboration",
+          "evidence": "Optlib Lower_Strong_Convex explicitly takes hs:Convex ℝ s and hf:∀ x∈s, HasGradientAt f (f′ x) x; it does not require s to be open, closed, nonempty or the whole space. Mathlib Gradient/Basic.lean defines HasGradientAt using the full neighborhood filter, unlike HasGradientWithinAt. The candidate hgrad and decoder preserve this boundary distinction; hp establishes all segment points stay in s."
+        },
+        "quantifiers": {
+          "original": "For every z∈s a supplied ambient gradient exists as the given g(z); for every ordered x,y∈s the lower bound holds; the conclusion is StrongConvexOn s m f.",
+          "reconstructed": "For every z∈s the derivative equals v↦⟨grad(z),v⟩; for all x,y∈s the lower bound holds; for all nonnegative a,b summing to one the chord bound holds.",
+          "relation": "explicit-elaboration",
+          "evidence": "The candidate preserves all outer universal parameters and both ∀ x∈s, ∀ y∈s binders. Expanding Mathlib UniformConvexOn reveals all x,y,a,b with 0≤a,0≤b,a+b=1. Endpoints a=0 or b=0 are included, as are x=y and empty or singleton domains. Source uses x−y while candidate uses y−x; swapping the two universally quantified points gives the same hypothesis."
+        },
+        "assumptions": {
+          "original": "Completeness, real inner product structure, convex domain, supplied HasGradientAt at all domain points and the quantitative gradient inequality; no stated positivity constraint on m.",
+          "reconstructed": "The identical structural conditions with ambient Fréchet differentiability and its represented derivative made explicit; m can have either sign.",
+          "relation": "explicit-elaboration",
+          "evidence": "The source has an unused file-level variable mp:m>0, but Lower_Strong_Convex neither mentions nor uses mp and its proof never invokes positivity of m. Its h hypothesis and candidate hmono use the same modulus. Mathlib hasGradientAt_iff_hasFDerivAt and toDual turn HasGradientAt into the stated derivative map. Neither source theorem nor candidate adds continuity of grad, a Hessian, a measure, integrability or domination. The candidate derives continuity of q on the closed interval from hq, rather than assuming it."
+        },
+        "conclusion": {
+          "original": "StrongConvexOn s m f, with the chord correction m/2.",
+          "reconstructed": "Convexity of s and f(ax+by)≤af(x)+bf(y)−(m/2)ab‖x−y‖² for all allowed endpoints and weights.",
+          "relation": "explicit-elaboration",
+          "evidence": "Mathlib Analysis/Convex/Strong.lean defines StrongConvexOn as UniformConvexOn with modulus r↦m/2*r²; UniformConvexOn is domain convexity conjoined with exactly this chord inequality. Scalar multiplication in ℝ is ordinary multiplication. The candidate constructs the convexity component from hs and proves the full inequality with both endpoint weights allowed to vanish. No minimizer, strict convexity for negative m, or Hessian equivalence is inferred."
+        },
+        "scopes": {
+          "original": "The domain-local converse from quantitative monotonicity of actual gradients to the chord definition of strong convexity.",
+          "reconstructed": "The same implication, explicitly in the signed-modulus chord sense on s.",
+          "relation": "same",
+          "evidence": "The exact provenance is Optlib Lower_Strong_Convex at lines 144–155. Inspection of its upstream monotone_gradient_convex′ confirms a mean-value argument is available without continuous gradients. Candidate code imports Mathlib, not Optlib, and follows its own segmentwise scalar-convexity proof. The lesson clearly distinguishes statement provenance, actual Mathlib calls and the secondary Chewi comparison; it does not claim the whole convexity/Hessian equivalence proposition."
+        },
+        "constant_dependencies": {
+          "original": "One arbitrary real modulus m in the lower bound yields exactly the same modulus m in StrongConvexOn, hence m/2 in the chord inequality.",
+          "reconstructed": "The same m and exactly (m/2)ab‖x−y‖²; no dimension, domain-diameter or regularity constant appears.",
+          "relation": "same",
+          "evidence": "With d=y−x and N=‖d‖², q(t)=f(x+td)−(m/2)t²N has derivative ⟨grad(x+td),d⟩−mtN. For u<v the bound gives m(v−u)²N≤(v−u)⟨grad(p(v))−grad(p(u)),d⟩. Cancelling the positive v−u yields monotonicity of q′ for arbitrary signed m. Restoring q at 0,b,1 yields (m/2)(b−b²)N=(m/2)abN, with norm_sub_rev only changing orientation. The focused tests include the sharp signed quadratic and the midpoint correction m/8."
+        }
+      },
+      "deltas": [],
+      "verdict": "equivalent-after-elaboration",
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "converse_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independent anti-anchored review of the supplied packet only, the pinned primary Optlib StronglyConvex.lean and exact upstream ConvexFunction.lean dependency, candidate production module and focused consumers, and local Mathlib Strong/Deriv/Gradient definitions. No semantic registry or prior reviewer result/verdict was read. All seven slots were compared mathematically, independently of compilation. Attribution is supported by the primary Optlib header: Apache-2.0, authors Chenyi Li and Ziyu Wang. The primary theorem has complete real inner-product spaces, arbitrary convex subsets, actual ambient gradients on the subset and arbitrary real m. The decoder expansion and candidate theorem preserve this boundary exactly. Authored proof review: hp uses domain convexity; hq composes the ambient derivative with an affine scalar path and differentiates the correction, establishing endpoint continuity; hmon separates u=v and cancels only v−u>0; hconv invokes MonotoneOn.convexOn_of_deriv with continuity on Icc and differentiability/derivative monotonicity on its interior; hchord specializes at 0,1; hpoint and a=1−b restore exactly m/2. The actual Mathlib criterion (Analysis/Convex/Deriv.lean:35 onward) proves adjacent slope monotonicity using exists_deriv_eq_slope twice, so the mean-value-theorem description is accurate. Every named dependency family in the lesson is present in the candidate proof; astis_dependencies=[] is accurate. No hidden gradient continuity, Hessian, integral or measure argument is used. Secondary comparison independently checked at https://arxiv.org/html/2605.07006v1#S1.SS2 : Proposition 1.6 assumes the whole Euclidean space, alpha≥0 and continuous differentiability, and its (1.5)⇒(1.3) proof uses the fundamental theorem of calculus. This supports the stated contrast without treating Chewi as the exact provenance of the generalized local statement. Module bytes match publication-context SHA-256 3110476d62f569293ece3f78b556b1123ffd4c949b4de4bbc1edba23332e9e14. Independent focused compilation succeeded (exit 0, no diagnostics) for both the production module and Tests/Shared/StrongConvexGradientConverse.lean using /Users/andyjm3/.elan/bin/lake env lean. A targeted textual scan of both files found no sorry, admit, axiom, Prop := True or := trivial. These focused checks are evidence for this review, not a substitute for the coordinator full repository gate or commit-bound integration verification. No source or authored-exposition mismatch found; no repair is proposed.",
+        "review_run_sha256": "6bb2cacecdf2046da566e7d204dca8ca2052bbd2cd34820aa1fc399381c90f11",
+        "reviewer_packet_sha256": "932f552acfb554d3dcc6137378a1677241854280c7355e1fd8d80cd94e88c872",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gradient-converse/reviewer-result.json"
+      },
+      "repairs": [],
+      "publication_binding_sha256": "0c9c46021b1869738d716a7a8d92d3c02d20825d88822f74271fb195653b9b42",
+      "publication_context": {
+        "file": "3110476d62f569293ece3f78b556b1123ffd4c949b4de4bbc1edba23332e9e14",
+        "current_lean_module": "import Mathlib.Analysis.Calculus.Deriv.AffineMap\nimport Mathlib.Analysis.Calculus.Deriv.Pow\nimport Mathlib.Analysis.Calculus.Gradient.Basic\nimport Mathlib.Analysis.Convex.Deriv\nimport Mathlib.Analysis.Convex.Strong\nimport Mathlib.Tactic.Linarith\nimport Mathlib.Tactic.Ring\n\n/-!\n# Strong convexity from quantitative gradient monotonicity\n\nStatement provenance: Optlib `Lower_Strong_Convex`, commit\n`5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3`,\n`Optlib/Convex/StronglyConvex.lean` (Apache-2.0; Chenyi Li and Ziyu Wang).\nThe proof reuses Mathlib's scalar derivative criterion on an affine segment\nafter subtracting its quadratic correction. This is a mean-value-theorem route;\nChewi, arXiv:2605.07006v1, Proposition 1.6 (1.5) implies (1.3), instead uses\nintegration under whole-space C¹ assumptions. No integral proof, Hessian\nequivalence or complete textbook proposition is claimed here.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse\n\nopen Set\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- Quantitative monotonicity of genuine ambient gradients on a convex domain\nimplies strong convexity, with the same (possibly signed) modulus. -/\ntheorem strongConvexOn_of_gradient_inner_lower_bound\n    {s : Set E} {f : E → ℝ} {m : ℝ} {grad : E → E}\n    (hs : Convex ℝ s)\n    (hgrad : ∀ z ∈ s, HasGradientAt f (grad z) z)\n    (hmono : ∀ x ∈ s, ∀ y ∈ s,\n      m * ‖y - x‖ ^ 2 ≤ inner ℝ (grad y - grad x) (y - x)) :\n    StrongConvexOn s m f := by\n  refine ⟨hs, ?_⟩\n  intro x hx y hy a b ha hb hab\n  let p : ℝ → E := fun t => x + t • (y - x)\n  let q : ℝ → ℝ := fun t => f (p t) - m / 2 * t ^ 2 * ‖y - x‖ ^ 2\n  let q' : ℝ → ℝ := fun t => inner ℝ (grad (p t)) (y - x) - m * t * ‖y - x‖ ^ 2\n  have hp : ∀ t ∈ Icc (0 : ℝ) 1, p t ∈ s := by\n    intro t ht\n    exact hs.add_smul_sub_mem hx hy ht\n  have hq : ∀ t ∈ Icc (0 : ℝ) 1, HasDerivAt q (q' t) t := by\n    intro t ht\n    have hline : HasDerivAt (fun u => f (p u))\n        (inner ℝ (grad (p t)) (y - x)) t := by\n      have hpderiv : HasDerivAt p (y - x) t := by\n        simpa [p] using ((hasDerivAt_id t).smul_const (y - x)).const_add x\n      convert! (hgrad (p t) (hp t ht)).hasFDerivAt.comp_hasDerivAt t hpderiv using 1\n    have hquad := (((hasDerivAt_id t).pow 2).const_mul (m / 2)).mul_const (‖y - x‖ ^ 2)\n    convert! hline.sub hquad using 1\n    simp only [q', id_eq]\n    ring\n  have hmon : MonotoneOn q' (Icc (0 : ℝ) 1) := by\n    intro u hu v hv huv\n    rcases eq_or_lt_of_le huv with rfl | huv\n    · exact le_rfl\n    have h := hmono (p u) (hp u hu) (p v) (hp v hv)\n    have hdis : p v - p u = (v - u) • (y - x) := by\n      simp only [p, add_sub_add_left_eq_sub, sub_smul]\n    rw [hdis, inner_smul_right, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs] at h\n    have hscaled : (v - u) * (m * (v - u) * ‖y - x‖ ^ 2) ≤\n        (v - u) * inner ℝ (grad (p v) - grad (p u)) (y - x) := by\n      nlinarith [h]\n    have hbound := le_of_mul_le_mul_left hscaled (sub_pos.mpr huv)\n    rw [inner_sub_left] at hbound\n    dsimp [q']\n    linarith\n  have hconv : ConvexOn ℝ (Icc (0 : ℝ) 1) q := by\n    apply MonotoneOn.convexOn_of_deriv (convex_Icc (0 : ℝ) 1)\n      (fun t ht => (hq t ht).continuousAt.continuousWithinAt)\n      (fun t ht => (hq t (interior_subset ht)).differentiableAt.differentiableWithinAt)\n    intro u hu v hv huv\n    rw [(hq u (interior_subset hu)).deriv, (hq v (interior_subset hv)).deriv]\n    exact hmon (interior_subset hu) (interior_subset hv) huv\n  have hchord := hconv.2 (show (0 : ℝ) ∈ Icc 0 1 by norm_num)\n    (show (1 : ℝ) ∈ Icc 0 1 by norm_num) ha hb hab\n  have hpoint : a • x + b • y = p b := by\n    have ha' : a = 1 - b := by linarith\n    simp [p, ha', sub_smul, smul_sub]\n    abel\n  rw [hpoint]\n  simp only [smul_eq_mul, mul_zero, mul_one, zero_add] at hchord ⊢\n  norm_num [q, p] at hchord\n  rw [norm_sub_rev] at hchord\n  have ha' : a = 1 - b := by linarith\n  rw [ha'] at hchord ⊢\n  dsimp [p]\n  nlinarith [hchord]\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Convex/StronglyConvex.lean#L144",
+          "edition": "Optlib 5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3",
+          "anchor": "Lower_Strong_Convex, lines 144–155; ConvexFunction.lean::monotone_gradient_convex' is its upstream convexity dependency",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Chenyi Li and Ziyu Wang, Optlib, Apache-2.0. ASTIS mathematical restatement."
+        },
+        "statement": "Let E be a complete real inner-product space, s a convex subset, f:E→ℝ, g:E→E and m∈ℝ. Suppose f has ambient gradient g(z) at every z∈s. If ⟨g(y)−g(x),y−x⟩≥m‖y−x‖² for every x,y∈s, then f is m-strongly convex on s, in the chord sense with quadratic correction m/2.",
+        "formulae": [
+          {
+            "label": "Gradient bound",
+            "tex": "\\langle g(y)-g(x),y-x\\rangle\\ge m\\|y-x\\|^2,\\quad x,y\\in s."
+          },
+          {
+            "label": "Conclusion",
+            "tex": "f(ax+by)\\le af(x)+bf(y)-\\frac m2ab\\|x-y\\|^2,\\quad x,y\\in s,\\ a,b\\ge0,\\ a+b=1."
+          }
+        ],
+        "assumptions": [
+          "E is a complete real inner-product space, s is a convex subset of E, f:E→ℝ, g:E→E and m∈ℝ.",
+          "At every z∈s, g(z) is a genuine ambient gradient: HasGradientAt f (g z) z. This includes boundary points, and implies the continuity needed at segment endpoints.",
+          "For every x,y∈s, the gradient difference paired with y−x is at least m‖y−x‖². The modulus may be positive, zero or negative."
+        ],
+        "obligations": [
+          {
+            "id": "gradient-to-chord",
+            "label": "Domain-local gradient inequality implies the strong-convexity chord inequality."
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound",
+          "kind": "theorem",
+          "title": "Recover strong convexity from gradient separation",
+          "statement": "On a convex subset of a complete real inner-product space, a quantitative lower bound on differences of genuine gradients forces the matching strong-convexity chord inequality.",
+          "formula": "\\langle g(y)-g(x),y-x\\rangle\\ge m\\|y-x\\|^2\\quad\\Longrightarrow\\quad f((1-t)x+ty)\\le(1-t)f(x)+tf(y)-\\frac m2t(1-t)\\|y-x\\|^2.",
+          "assumptions": [
+            "E is a complete real inner-product space, s is a convex subset of E, f:E→ℝ, g:E→E and m∈ℝ.",
+            "At every z∈s, g(z) is a genuine ambient gradient: HasGradientAt f (g z) z. This includes boundary points, and implies the continuity needed at segment endpoints.",
+            "For every x,y∈s, the gradient difference paired with y−x is at least m‖y−x‖². The modulus may be positive, zero or negative.",
+            "The conclusion quantifies over all x,y∈s and t∈[0,1]. No extra continuity of g, Hessian, measurable representative, integrability, domination or measure assumption is used."
+          ],
+          "steps": [
+            {
+              "title": "Stay on one segment",
+              "text": "Fix x,y in the domain, put d=y−x and N=‖d‖². Convexity of the domain keeps the full segment inside s. Subtract a scalar quadratic along that segment.",
+              "formula": "p(t)=x+td\\in s,\\quad q(t)=f(p(t))-\\frac m2t^2N,\\quad 0\\le t\\le1.",
+              "lean": "Local p and q select this segment; hp uses Convex.add_smul_sub_mem."
+            },
+            {
+              "title": "Compute the genuine derivative",
+              "text": "Apply the chain rule to f composed with the affine segment, then differentiate the quadratic. The ambient gradient hypothesis supplies differentiability even at the endpoints. Therefore q is continuous on [0,1] and differentiable on its interior.",
+              "formula": "q\\prime(t)=\\langle g(p(t)),d\\rangle-mtN.",
+              "lean": "hq combines HasGradientAt.hasFDerivAt, HasFDerivAt.comp_hasDerivAt and derivatives of powers and scalar products."
+            },
+            {
+              "title": "Cancel only a positive scalar",
+              "text": "For 0≤u<v≤1, the displacement is p(v)−p(u)=(v−u)d. Apply the gradient bound and divide by the positive parameter difference. Subtracting the quadratic derivative gives monotonicity of q′. Equal parameters require no division.",
+              "formula": "\\langle g(p(v))-g(p(u)),d\\rangle\\ge m(v-u)\\|d\\|^2,\\qquad q\\prime(u)\\le q\\prime(v).",
+              "lean": "hdis rewrites the displacement. hscaled rewrites norm_smul using |v−u|²=(v−u)². le_of_mul_le_mul_left cancels v−u>0; hmon handles equality separately."
+            },
+            {
+              "title": "Use scalar convexity",
+              "text": "The mean value theorem implies that a continuous scalar function with nondecreasing derivative is convex on the interval. All three hypotheses have been established, so the chord bound for q follows.",
+              "formula": "q(b)\\le a\\,q(0)+b\\,q(1),\\qquad a,b\\ge0,\\quad a+b=1.",
+              "lean": "hconv applies Mathlib MonotoneOn.convexOn_of_deriv. hq.deriv identifies the library derivative with the supplied q′. hchord evaluates the resulting ConvexOn inequality at 0 and 1."
+            },
+            {
+              "title": "Restore the quadratic correction",
+              "text": "Expand q at the three parameters and use a=1−b. The difference between b and b² is ab, producing exactly the strong-convexity correction. Nothing here requires m≥0.",
+              "formula": "f(ax+by)\\le af(x)+bf(y)-\\frac m2\\,ab\\,\\|x-y\\|^2.",
+              "lean": "hpoint identifies ax+by with p(b). norm_sub_rev aligns norm conventions; substitution of a=1−b and ring arithmetic finish the inequality."
+            }
+          ],
+          "lean_statement": "Convex ℝ s and supplied HasGradientAt on s, together with the quantitative gradient bound for every ordered pair of domain points, imply StrongConvexOn s m f. The inherited CompleteSpace assumption is explicit.",
+          "lean_proof": "One segment-local quadratic correction reduces the target to Mathlib scalar derivative monotonicity. Equal segment parameters are separated before positive cancellation. The final chord bound uses the exact m/2 normalization.",
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "MonotoneOn.convexOn_of_deriv — continuous scalar functions with monotone derivative are convex, proved using the mean value theorem.",
+            "Convex.add_smul_sub_mem; convex_Icc — segment membership and scalar-domain convexity.",
+            "HasGradientAt.hasFDerivAt; HasFDerivAt.comp_hasDerivAt; hasDerivAt_id; HasDerivAt.smul_const, const_add, pow, const_mul, mul_const, sub — differentiation.",
+            "inner_smul_right; inner_sub_left; norm_smul; sq_abs; le_of_mul_le_mul_left; norm_sub_rev — gradient monotonicity and exact normalization."
+          ],
+          "sources": [
+            {
+              "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Convex/StronglyConvex.lean#L144",
+              "label": "Optlib Lower_Strong_Convex (Apache-2.0; Chenyi Li and Ziyu Wang)",
+              "scope": "Exact domain-local theorem statement provenance; the upstream proof chain is not imported."
+            },
+            {
+              "path": ".lake/packages/mathlib/Mathlib/Analysis/Convex/Deriv.lean",
+              "line": 35,
+              "label": "Mathlib scalar derivative criterion",
+              "scope": "Actual compiled mean-value-theorem dependency."
+            },
+            {
+              "path": "Tests/Shared/StrongConvexGradientConverse.lean",
+              "label": "Focused quantitative consumers",
+              "scope": "Sharp signed quadratic modulus and a midpoint bound on a closed domain."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound",
+          "role": "proof-edge",
+          "supports": [
+            "gradient-to-chord"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Complete real inner-product space, convex domain, ambient gradients on the domain; arbitrary real modulus.",
+            "lean": "Identical space/domain/gradient/modulus hypotheses; ordered pairs are written with y−x instead of x−y."
+          },
+          {
+            "source": "Supplied HasGradientAt at every domain point.",
+            "lean": "Continuity on each closed segment and differentiability on its interior are derived from those ambient gradients."
+          },
+          {
+            "source": "Chewi uses Euclidean whole-space C¹ and α≥0 for the corresponding implication.",
+            "lean": "The primary source here is the more general Optlib domain-local supplied-gradient statement with arbitrary m."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be a complete real inner product space, let s be any convex subset of E, let f : E → ℝ and grad : E → E, and let m ∈ ℝ. Suppose that f is Fréchet differentiable in the ambient space at every z ∈ s, with derivative v ↦ ⟨grad(z), v⟩. Suppose further that for every x,y ∈ s, m‖y−x‖² ≤ ⟨grad(y)−grad(x), y−x⟩. Then f is strongly convex on s with parameter m in the following precise sense: for every x,y ∈ s and every a,b ∈ ℝ with a ≥ 0, b ≥ 0 and a+b=1, f(ax+by) ≤ af(x)+bf(y)−(m/2)ab‖x−y‖². Convexity of s is also part of the conclusion. No sign restriction is imposed on m.",
+        "text_sha256": "b342cbc2120b86426489947c80e472af43ca67c98ad3cb7b6d4f894987dfa4dc",
+        "decoder": "blind_reconstruct",
+        "decoder_run_sha256": "7578dc5d2c6de08e785d8fb1ea7f5d53ec673bab58b8f07dbf2e61ac592ed65e",
+        "decoder_packet_sha256": "d3ad172348420ca0be50969e3ae5202ab220339a8411bdc8f8412428102d99ac",
+        "source_text_visible": false,
+        "lean_statement_sha256": "4454cd5b7a2bb8ea759a3f29c6ae35aca03beb866779d12bbdd8d0e3ce03c3fb",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gradient-converse/decoder-result.json"
+      }
     }
   ]
 }

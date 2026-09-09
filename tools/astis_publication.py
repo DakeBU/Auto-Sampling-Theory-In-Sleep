@@ -31,6 +31,10 @@ REGISTRY_DATA_NAMES = frozenset(('sltSourceAnchor analysisMemory gaussianMemory 
     'calculusMemory measureMemory functionalInequalityMemory stochasticProcessMemory '
     'klDensityMemory renyiDensityMemory variationalMemory geometryMemory saldExtractedMemory '
     'portQueueMemory technicalLemmaMemory formalizedTechnicalLemmaCount').split())
+REGISTRY_METADATA_TYPES = frozenset({
+    ('inductive', 'AutoSamplingTheory.TechnicalLemmas.LemmaMemoryStatus'),
+    ('structure', 'AutoSamplingTheory.TechnicalLemmas.LemmaMemoryEntry'),
+})
 LEGACY_NAMES = frozenset(
     'AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.' + name
     for name in ('firstOrder_lower_bound_of_strongConvexOn',
@@ -248,7 +252,8 @@ aggregators and test examples do not count as new mathematical declarations.
                 raise ValueError(f'{path}:{line}: unindexed declaration syntax/name; extend the inventory before publishing (no silent Unicode/anonymous-instance bypass)')
     return {d.full_name for d in inputs()['declarations'].values() if d.source_file in paths
             and not (d.source_file == 'AutoSamplingTheory/TechnicalLemmas/Registry.lean'
-                     and d.kind == 'def' and d.short_name in REGISTRY_DATA_NAMES)}
+                     and ((d.kind == 'def' and d.short_name in REGISTRY_DATA_NAMES)
+                          or (d.kind, d.full_name) in REGISTRY_METADATA_TYPES))}
 
 
 def packet(cell_id: str) -> dict:

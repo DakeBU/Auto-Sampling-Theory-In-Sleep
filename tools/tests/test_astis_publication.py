@@ -16,13 +16,15 @@ class PublicationTest(unittest.TestCase):
     def setUp(self):
         self.items = copy.deepcopy(p.load())
         self.data = copy.deepcopy(p.inputs())
-        self.item = self.items[0]
+        self.item = next(item for item in self.items if item['id'] == 'chewi-opt-v1-prop-1-6')
         self.binding = self.item['bindings'][0]
         self.name = self.binding['declaration']
 
     def test_current_migration_is_explicit_not_certified(self):
         self.assertEqual(p.validate(self.items, self.data), [])
-        state = p.chapter_progress('optimisation', '01')
+        # The migration fixture remains partial as other source items are added.
+        with patch.object(p, 'load', return_value=[self.item]):
+            state = p.chapter_progress('optimisation', '01')
         self.assertEqual(state['status'], 'partial')
         self.assertEqual(len(state['proof_declarations']), 2)
         self.assertFalse(state['source_complete'])
@@ -83,7 +85,7 @@ class PublicationTest(unittest.TestCase):
     def test_prerequisite_does_not_credit_a_proof(self):
         for b in self.item['bindings']:
             b['role'] = 'prerequisite'
-        with patch.object(p, 'load', return_value=self.items), patch.object(p, 'inputs', return_value=self.data):
+        with patch.object(p, 'load', return_value=[self.item]), patch.object(p, 'inputs', return_value=self.data):
             state = p.chapter_progress('optimisation', '01')
             self.assertEqual(state['status'], 'prerequisite-ready')
             self.assertFalse(state['proof_declarations'])
@@ -134,6 +136,36 @@ class PublicationTest(unittest.TestCase):
             with patch.object(p, 'ROOT', root), patch.object(p, 'git', side_effect=fake_git), patch.object(p, 'inputs', return_value={'declarations': {}}):
                 with self.assertRaisesRegex(ValueError, 'unindexed declaration'):
                     p.changed_declarations('HEAD')
+
+    def test_registry_metadata_exemption_does_not_hide_mathematics(self):
+        file = 'AutoSamplingTheory/TechnicalLemmas/Registry.lean'
+        source = ('inductive LemmaMemoryStatus where\n  | formalizedLocal\n'
+                  'structure LemmaMemoryEntry where\n  key : String\n'
+                  'def analysisMemory : Nat := 0\n'
+                  'theorem newRegistryTheorem : 0 = 0 := rfl\n'
+                  'structure NewMathematicalObject where\n  n : Nat\n'
+                  'structure OtherMathematics.LemmaMemoryEntry where\n  n : Nat\n')
+        specs = [(1, 'inductive', 'LemmaMemoryStatus'), (3, 'structure', 'LemmaMemoryEntry'),
+                 (5, 'def', 'analysisMemory'), (6, 'theorem', 'newRegistryTheorem'),
+                 (7, 'structure', 'NewMathematicalObject'),
+                 (9, 'structure', 'OtherMathematics.LemmaMemoryEntry')]
+        declarations = {name: SimpleNamespace(source_file=file, source_line=line,
+                         kind=kind, short_name=name.rsplit('.', 1)[-1],
+                         full_name=('AutoSamplingTheory.TechnicalLemmas.' + name
+                                    if name in {'LemmaMemoryStatus', 'LemmaMemoryEntry'} else name))
+                        for line, kind, name in specs}
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path = root / file
+            path.parent.mkdir(parents=True)
+            path.write_text(source, encoding='utf-8')
+            def fake_git(*args):
+                return file + '\0' if args[0] == 'diff' else ''
+            with patch.object(p, 'ROOT', root), patch.object(p, 'git', side_effect=fake_git), \
+                 patch.object(p, 'inputs', return_value={'declarations': declarations}):
+                self.assertEqual(p.changed_declarations('HEAD'),
+                                 {'newRegistryTheorem', 'NewMathematicalObject',
+                                  'OtherMathematics.LemmaMemoryEntry'})
 
     def test_multiline_attribute_and_truncated_name_do_not_bypass(self):
         for source in ('@[simp\n] theorem foo (n : Nat) : n = n := rfl\n',
