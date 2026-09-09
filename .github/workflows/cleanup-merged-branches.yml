@@ -69,3 +69,39 @@ jobs:
                 }
               }
             }
+
+
+      - name: Archive and remove audited superseded website branches
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            // User-authorized, exact-tip cleanup. New work is never removed.
+            // Archived commits remain recoverable even when not merged verbatim.
+            const targets = {
+              'harness-vnext1-public-copy-fix': '1557f61dfd4979c7c7ef2f4343ffc4db810b1af6',
+              'library-shelves-beck-boumal-20260829': 'b32470e010857ad318262cc6561d34d592349d41',
+              'progress-routes-theme-harness-20260830': '55d252d1f8fba932bc22a95102a5c3788b680363',
+              'live-pages-verification': '920378b4710ca5f2165f2581a6121761c8339ba6',
+              'harness-frontier-cells-vnext1': '936d046ea066f07c23ed03712ad35e4f711d7c40',
+              'codex/samplewiki-shared-stabilization': 'c6788d98238f675ed67e3469f68e750d8231b2df',
+            };
+            const open = await github.paginate(github.rest.pulls.list, {owner, repo, state: 'open', per_page: 100});
+            const protectedHeads = new Set(open.map(pr => pr.head.ref));
+            for (const [branch, expected] of Object.entries(targets)) {
+              if (protectedHeads.has(branch)) { core.info(`keep open PR: ${branch}`); continue; }
+              let head;
+              try { head = (await github.rest.git.getRef({owner, repo, ref: `heads/${branch}`})).data; }
+              catch (error) { if (error.status === 404) { core.info(`already absent: ${branch}`); continue; } throw error; }
+              if (head.object.sha !== expected) { core.warning(`keep changed branch: ${branch}`); continue; }
+              const archive = `tags/archive/website-20260909/${branch}`;
+              try { await github.rest.git.createRef({owner, repo, ref: `refs/${archive}`, sha: expected}); }
+              catch (error) { if (error.status !== 422) throw error; }
+              const saved = (await github.rest.git.getRef({owner, repo, ref: archive})).data;
+              if (saved.object.sha !== expected) throw new Error(`archive mismatch: ${branch}`);
+              const current = (await github.rest.git.getRef({owner, repo, ref: `heads/${branch}`})).data;
+              if (current.object.sha !== expected) { core.warning(`keep newly changed branch: ${branch}`); continue; }
+              await github.rest.git.deleteRef({owner, repo, ref: `heads/${branch}`});
+              core.info(`archived and deleted: ${branch} at ${expected}`);
+            }
+
