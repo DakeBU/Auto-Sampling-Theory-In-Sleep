@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "purpose": "Help researchers see which proof mechanisms are inherited, adapted, strengthened or newly composed before Lean compilation is complete.",
+  "truth_boundary": "Contribution roles are source-backed reading judgments, not an exhaustive priority/novelty survey. No local proof, measured centrality, or certified graph compression is inferred.",
+  "lineage": [
+    {"id": "lineage:dms", "label": "Dolbeault–Mouhot–Schmeiser", "role": "Modified-L2 framework", "url": "https://arxiv.org/html/2609.06905v1", "anchor": "PBPS references [DMS15] and Appendix B.3; historical attribution, not a newly audited DMS theorem"},
+    {"id": "lineage:fan-li-lu", "label": "Zexi Fan · Bowen Li · Jianfeng Lu", "role": "Gap-shifted continuous-time refinement", "url": "https://arxiv.org/html/2604.10068v1", "anchor": "Section 2; cited explicitly in PBPS Appendix B.3"},
+    {"id": "lineage:pbps-discrete", "label": "Chen · Chewi · Lu · Zhang", "role": "Discrete reflection / half-turn adaptation", "url": "https://arxiv.org/html/2609.06905v1", "anchor": "Lemma B.1, Proposition B.2, (B.19)–(B.20), Lemmas B.3–B.4"}
+  ],
+  "deltas": [
+    {
+      "id": "delta:smoothed-regularity",
+      "label": "Regularity becomes an algorithmic resource",
+      "kind": "quantitative refinement and integrator branch",
+      "before": "Gaussian convolution and high-order integration are existing tools; higher-order HMC normally pays for stronger smoothness assumptions.",
+      "after": "Density smoothing supplies controlled derivative tensors; Picard/quadrature analysis also tracks the implementable smoothed-score bias and fluctuations.",
+      "structure": "Separate regularity production from trajectory integration and from the oracle that evaluates the score.",
+      "formula": "V_\\eta=-\\log(e^{-V}*\\gamma_\\eta),\\qquad \\widehat g_\\eta\\ne\\nabla V_\\eta\\quad\\text{in general}",
+      "source_id": "sphmc-2026",
+      "anchor": "Sections 3.1–3.3, Lemmas 4.1–4.3, Sections 4.4 and 5",
+      "technology_ids": ["tech:density-smoothing", "tech:picard-integrator"],
+      "boundary": "Not a claim that Gaussian smoothing or Picard iteration was invented here; do not replace density smoothing by E[V(x+noise)]."
+    },
+    {
+      "id": "delta:proxy-certificate",
+      "label": "A proxy law creates a reusable handoff",
+      "kind": "algorithmic bridge and composition",
+      "before": "Wasserstein control compares displacement; Renyi control compares density ratios. Neither metric name by itself supplies an algorithmic conversion.",
+      "after": "Moment truncation, Gaussian regularization and recursive RGO sampling construct an implementable law near a Renyi-certified proxy.",
+      "structure": "The certificate is a pair: actual-law-to-proxy TV plus proxy-to-target Renyi. A downstream kernel can consume it without sampling the proxy.",
+      "formula": "\\mathsf{ProxyWarm}_{2,C,\\delta}(\\mu,\\pi):\\quad\\exists\\nu,\\quad\\operatorname{TV}(\\mu,\\nu)\\le\\delta\\quad\\land\\quad R_2(\\nu\\Vert\\pi)\\le C",
+      "source_id": "sphmc-2026",
+      "anchor": "Lemmas 6.2–6.4; Theorems 6.1, 7.1(ii); Section 7.2",
+      "technology_ids": ["tech:proxy-warm", "tech:tv-handoff"],
+      "boundary": "ProxyWarm is explanatory mathematical notation, not an existing Lean structure or a genuine Renyi bound for mu."
+    },
+    {
+      "id": "delta:half-turn-memory",
+      "label": "Local motion preserves useful memory",
+      "kind": "algorithmic reorganization",
+      "before": "Ordinary proximal updates redraw conditionals; vanilla BPS has straight flights; boomerang-type methods use quadratic reference dynamics.",
+      "after": "Auxiliary reflection and a conditional harmonic half-turn are combined with occasional resampling, rather than equilibrating each local process independently.",
+      "structure": "At a half-period the fresh momentum disappears from the no-bounce position, but the incoming displacement survives with reversed sign.",
+      "formula": "x_t=c+(x_0-c)\\cos t+\\sqrt\\eta p_0\\sin t,\\qquad x_{\\pi}=2c-x_0",
+      "source_id": "pbps-2026",
+      "anchor": "Section 3.1; (3.8)–(3.11); Proposition 3.1; Appendix A",
+      "technology_ids": ["tech:reflection", "tech:half-turn"],
+      "boundary": "The displayed half-turn identity is the no-bounce path, not the full random transition. Reflection alone does not establish acceleration."
+    },
+    {
+      "id": "delta:discrete-corrector",
+      "label": "The inherited framework needs a discrete adapter",
+      "kind": "model-specific operator theorem and structural reuse",
+      "before": "DMS supplies modified-L2 hypocoercivity; Fan–Li–Lu sharpen it for underdamped Langevin using a gap-shifted corrector.",
+      "after": "PBPS proves macroscopic reflection coercivity and a global half-turn bound, then builds a discrete corrector adapted to the one-step operator.",
+      "structure": "Polar decomposition isolates the microscopic directions coupled to macro modes. In a no-damping, ideal-half-turn model these two components form an operator-valued rotation.",
+      "formula": "\\begin{pmatrix}g_{\\mathsf P}\\\\g_{\\mathsf V}\\end{pmatrix}=\\begin{pmatrix}\\mathsf U_{\\mathsf{PP}}&-\\Gamma_{\\mathsf P}\\\\\\Gamma_{\\mathsf P}&\\mathsf U_{\\mathsf{PP}}\\end{pmatrix}\\begin{pmatrix}f_{\\mathsf P}\\\\f_{\\mathsf V}\\end{pmatrix}",
+      "source_id": "pbps-2026",
+      "anchor": "Lemma B.1; Proposition B.2; Appendix B.3, immediately after (B.20)",
+      "technology_ids": ["tech:discrete-hypocoercivity"],
+      "boundary": "This rotation describes K_id=U(P-P_perp), with rho=0 and idealized H_perp,perp=-I. It is not the exact implemented chain; actual damping and half-turn defects must be estimated."
+    },
+    {
+      "id": "delta:implementation-contract",
+      "label": "Accuracy and cost require different certificates",
+      "kind": "robust implementation interface",
+      "before": "An ideal invariant kernel and a warm-law convergence theorem need not describe an executable algorithm from the actual input.",
+      "after": "Capped solver and event routines, approximate RGO calls and coupling budgets give an implemented kernel whose cost can be controlled beyond the proxy law.",
+      "structure": "Proof composition has two channels: TV data processing for error, conditional uniform query bounds for expected cost.",
+      "formula": "\\operatorname{TV}(\\mu K,\\pi)\\le\\delta+\\tau,\\qquad\\mathbb E Q_{\\rm total}=\\mathbb E Q_{\\rm warm}+\\mathbb E Q_{\\rm engine}",
+      "source_id": "pbps-2026",
+      "anchor": "Algorithm 2; Theorem 4.3, (4.17)–(4.18); SPHMC Section 7.2",
+      "technology_ids": ["tech:implemented-kernel", "tech:tv-handoff"],
+      "boundary": "Error addition needs the same probability kernel. Cost addition needs the real input's integrable query count, not TV closeness alone."
+    }
+  ],
+  "operator_walkthrough": [
+    {"title": "Expose the part ordinary L2 misses", "formula": "\\|\\mathsf K f\\|^2-\\|f\\|^2\\le-\\rho\\|f_\\perp\\|^2", "text": "P is conditional expectation given Y in the augmented law, and f_perp=(I-P)f. If f=Pf, this bound supplies no strict decrease. The missing control is mathematical, not a tactic problem.", "anchor": "PBPS (B.18)"},
+    {"title": "Identify the coupled directions", "formula": "\\mathsf U_{\\perp\\mathsf P}=\\mathsf V_{\\perp\\mathsf P}\\Gamma_{\\mathsf P},\\qquad f_{\\mathsf V}=\\mathsf V_{\\perp\\mathsf P}^{*}f_\\perp", "text": "U is the augmented-reflection operator. Its off-diagonal block maps macro modes into micro modes. Polar decomposition separates the strength Gamma from the isometric direction V; both f_P and f_V now lie in the same centered macro space.", "anchor": "PBPS (B.16); Appendix B.3"},
+    {"title": "Correct the energy in the coupled two-component space", "formula": "\\begin{gathered}\\mathscr L_\\omega(f)=\\|f\\|^2+\\omega\\mathscr C(f_{\\mathsf P},f_{\\mathsf V}),\\\\\\mathscr C(a,b)=\\tfrac12(\\|a\\|^2-\\|b\\|^2)-\\langle\\mathsf U_{\\mathsf{PP}}\\Gamma_{\\mathsf P}^{-1}a,b\\rangle.\\end{gathered}", "text": "The inverse is only on the centered macro subspace, where the macroscopic gap bounds Gamma away from zero. First prove that this energy is comparable to the ordinary norm, then estimate its one-step change. It would be false to invert Gamma on constants.", "anchor": "PBPS (B.19)–(B.20); Lemmas B.3–B.4"},
+    {"title": "Pay for the real half-turn defect", "formula": "\\|(I+\\mathsf H_{\\perp\\perp})\\mathsf V_{\\perp\\mathsf P}v\\|^2\\le C\\log(1/\\gamma_{\\rm gap})\\|\\Gamma_{\\mathsf P}v\\|^2", "text": "Under the source small-beta-eta condition, Proposition B.2 controls the error in replacing the half-turn by -I on the relevant directions. Combined with macroscopic coercivity, this makes the corrected energy decay and yields block L2 contraction. This model-specific estimate is a major new formalization branch, not an imported continuous-time theorem.", "anchor": "PBPS Proposition B.2; Appendix C; Theorem 3.5"}
+  ]
+}

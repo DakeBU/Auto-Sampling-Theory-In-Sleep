@@ -39,6 +39,7 @@ import samplewiki_frontier_audit  # noqa: E402
 import samplewiki_math_render  # noqa: E402
 import samplewiki_primary_audit_additions  # noqa: E402
 import samplewiki_reader_contract  # noqa: E402
+import samplewiki_companions  # noqa: E402
 import source_foundations  # noqa: E402
 import source_lineage  # noqa: E402
 import textbook_math_contract  # noqa: E402
@@ -227,6 +228,7 @@ def main() -> int:
     declaration_lessons.enrich_site(output)
     metadata_lessons.enrich_site(output)
     inline_lean.enrich_textbook(output)
+    samplewiki_companions.enrich_site(output)
 
     inherit_final_reader_contract(output)
     repair_project_author_footer(output)

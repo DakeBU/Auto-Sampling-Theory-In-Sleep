@@ -29,6 +29,7 @@ import proof_readers  # noqa: E402
 import declaration_lessons  # noqa: E402
 import metadata_lessons  # noqa: E402
 import inline_lean  # noqa: E402
+import samplewiki_companions  # noqa: E402
 
 
 # Validation must resolve Registry entries with the same declaration parser used
@@ -278,6 +279,7 @@ def main() -> int:
             print(f"- {error}", file=sys.stderr)
         return 1
     reader_errors = proof_readers.validate_site(output)
+    reader_errors.extend(samplewiki_companions.validate_site(output))
     reader_errors.extend(declaration_lessons.validate_site(output, require_complete=args.require_full_exposition))
     reader_errors.extend(inline_lean.validate_textbook(output))
     reader_errors.extend(metadata_lessons.validate_site(output))

@@ -69,3 +69,8 @@
 .ulg-detail dl.ulg-details { display:block; }
 .ulg-detail dl.ulg-details > div { display:block; width:auto; }
 .ulg-detail dl.ulg-details dd { margin-top:5px; }
+/* Companion proof targets are red, independently of library-affiliation colour. */
+.ulg-node[data-id^="tech:"] .status.planned,
+.ulg-node[data-id^="case:ASTIS-SW-SPHMC"] .status.planned,
+.ulg-node[data-id="case:ASTIS-SW-PBPS-2026"] .status.planned { fill:var(--red,#ba3535); }
+.ulg-node[data-id^="lineage:"] .status { fill:var(--muted,#747b86); }

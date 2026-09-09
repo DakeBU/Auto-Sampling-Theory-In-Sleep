@@ -1,0 +1,15 @@
+.companion-reader { max-width: 980px; margin-inline: auto; line-height: 1.75; }
+.companion-reader h1 { font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.18; margin-block: 1.5rem; }
+.companion-reader section { margin-block: 2.5rem; }
+.companion-theorem { border-top: 2px solid #b64040; padding-top: 1.5rem; }
+.companion-status { color: #a42626; font-size: .9rem; font-weight: 650; }
+.companion-reader .formula { overflow-x: auto; padding: .7rem; max-width: 100%; }
+.companion-steps > li { margin-block: 1.6rem; padding-inline-start: .3rem; }
+.companion-source { font-size: .86rem; opacity: .85; overflow-wrap: anywhere; }
+.companion-lean { margin-block: 1.2rem; border-inline-start: 3px solid #8b7ba8; padding: .8rem 1rem; }
+.companion-reader details { overflow-wrap: anywhere; }
+.companion-reader summary { cursor: pointer; }
+.companion-reader img { width: 100%; height: auto; border-radius: .6rem; }
+.companion-reader figcaption { font-size: .85rem; }
+[data-color-scheme="dark"] .companion-status { color: #ffb1ac; }
+@media (max-width: 600px) { .companion-reader h1 { font-size: 1.8rem; } .companion-reader ol { padding-left: 1.2rem; } }

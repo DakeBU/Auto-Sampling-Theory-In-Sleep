@@ -32,48 +32,14 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 
 ## News
 
-- **2026-09-09, per-declaration textbook expansion (in progress):** statements
-  and mathematical proofs now each have their own adjacent, initially folded
-  Lean explanation and exact source. Mathematical derivations are visible by
-  default; there is no end-of-chapter “Optional Lean reading” substitute.
-  The new [exposition maintenance guide](website/README.md#declaration-by-declaration-textbook-expansion)
-  explains how to add complete teaching units and check the exhaustive
-  coverage ledger at local `lessons/index.html`. Missing exposition remains
-  explicitly unfinished; compilation, a source record, and a complete
-  natural-language proof are different achievements. This documentation work
-  does not change the mathematical frontier or mark the overall Goal complete.
-
-- **2026-09-09, mathematics-first readers:** recent shared prerequisites now
-  have standalone [proof readers](website/README.md#shared-proof-readers): the
-  random-coordinate transition law, its reversibility proof (including null
-  atoms), and the Fisher/transport estimate. Build the site and open
-  `proofs/index.html` to read statements, displayed derivations, optional
-  step-to-Lean explanations, per-theorem folded source, and separate ASTIS/Mathlib
-  dependencies. Status comes from the source inventory and independent audit,
-  not the prose. Fisher source certification remains withheld. These readers
-  are included on the collaboration branch; pushing that branch does not
-  deploy GitHub Pages or establish complete textbook proof coverage.
-
-- **2026-09-08, analytic checkpoint:** the canonical Fisher/transport pairing
-  now has a compiled integrability proof and an optimal-coupling L2 estimate,
-  with a test that removes the assumed pairing bound from the existing
-  geodesic interface. See the [learning card](research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.md)
-  and [dependency slice](runs/20260908-samplewiki-resume/fisher-transport-frontier.svg).
-  This is a shared prerequisite, not Chewi 8.4.1 or a SampleWiki contribution.
-  Independent proof review passes; source certification is withheld pending
-  the map/representative adapters. Finite entropy and actual first variation
-  remain distinct. The [edition audit](runs/20260908-samplewiki-resume/chewi-edition-audit.md)
-  recovers the exact pinned textbook despite changes at the live PDF URL.
-
-- **2026-09-08, local proof checkpoint:** the shared Discrete Sampling / MCMC
-  route now includes reversibility of the actual uniform random-scan kernel,
-  through a reusable countable singleton-balance bridge. Zero target atoms
-  are allowed; the one-update clock and null-fiber limits remain explicit.
-  See the [learning card](research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBathReversibility.md),
-  [atomic bridge](research-wiki/sampling-sde-library/cards/AutoSamplingTheory.TechnicalLemmas.Probability.KernelReversibility.md)
-  and [dependency slice](runs/20260908-samplewiki-resume/reversibility-frontier.svg).
-  Focused compilation, independent review, Registry integration and remote
-  publication are separate statuses; this is not a chapter or mixing result.
+- **2026-09-09:** Added [companion-paper proof maps](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/) for Smoothed Picard HMC and Proximal BPS.
+- **2026-09-09:** Added [mathematics-first readers](website/README.md#shared-proof-readers) with per-theorem folded Lean explanations.
+- **2026-09-07:** Added Discrete Sampling and MCMC as peer libraries.
+- **2026-09-05:** Added Statistical Optimal Transport and the Functor Hypergraph.
+- **2026-08-30:** Unified cross-library progress and Frontier Cell collaboration.
+- **2026-08-29:** Added source-fidelity checks and theorem denoising.
+- **2026-07-27:** Added the Blueprint-style textbook and formalization website.
+- **2026-07-17:** Established Auto-Sampling-Theory-In-Sleep.
 
 ## Research aim
 

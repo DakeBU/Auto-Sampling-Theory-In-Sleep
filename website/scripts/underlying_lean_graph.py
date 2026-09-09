@@ -30,6 +30,7 @@ from underlying_lean_graph_semantic import add_semantic
 from underlying_lean_graph_textbook import add_textbook
 import cross_domain
 import sampling_perspectives
+import samplewiki_companions
 
 
 def build_graph(output: Path) -> dict[str, Any]:
@@ -43,9 +44,11 @@ def build_graph(output: Path) -> dict[str, Any]:
     semantic = add_semantic(builder, semantic_registry)
     functor = cross_domain.add_to_graph(builder)
     memory = cross_domain.load(cross_domain.GRAPH_MEMORY_PATH)
+    companion_counts = samplewiki_companions.add_to_graph(builder)
     scope_metadata = sampling_perspectives.apply_to_graph(builder)
     graph = builder.export()
     graph["library_scope_metadata"] = scope_metadata
+    graph["companion_frontiers"] = companion_counts
     graph["schema_version"] = 3
     graph["hyperedges"] = functor["hyperedges"]
     graph["conceptual_transport_contract"] = functor["certification_policy"]

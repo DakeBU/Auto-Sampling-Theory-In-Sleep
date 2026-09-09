@@ -29,6 +29,30 @@
   },
   "families": [
     {
+      "id": "family:proxy-warm-composition",
+      "label": "Transport control → proxy warmness → high accuracy",
+      "plain_language": "A nearby Renyi-warm witness is enough for accuracy under the same implemented probability kernel; expected cost requires a different, actual-input bound.",
+      "domains": ["concept:transport", "concept:sampling", "concept:mcmc"],
+      "functor_edges": ["transport:proxy-warm-handoff"],
+      "formal_search_nodes": ["AutoSamplingTheory.TechnicalLemmas.InformationTheory.Renyi", "AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel"],
+      "compiled_substrate_bindings": [],
+      "reading_order": ["SPHMC Theorem 1.2", "proxy law and TV witness", "PBPS Corollary 4.4", "SPHMC Section 7.2", "actual-input cost audit"],
+      "do_not_conflate": "W2 proximity is not Renyi warmness; the actual law is not its proxy; TV closeness alone does not transfer unbounded costs.",
+      "review": {"status": "candidate", "proposed_by": "ASTIS companion source audit", "independent_reviewer": null}
+    },
+    {
+      "id": "family:discrete-hypocoercivity",
+      "label": "Reflection coupling and discrete modified-L2 decay",
+      "plain_language": "Use a conditional-expectation projection to separate macro and micro modes. An involution couples them; a half-turn estimate and corrected energy propagate microscopic damping to macroscopic control.",
+      "domains": ["concept:mcmc", "concept:sampling"],
+      "functor_edges": ["transport:proximal-half-turn"],
+      "formal_search_nodes": ["AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel", "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay"],
+      "compiled_substrate_bindings": [],
+      "reading_order": ["DMS modified-L2 ancestry", "Fan–Li–Lu gap-shifted refinement", "PBPS Lemma B.1", "PBPS Proposition B.2", "PBPS Appendix B.3 discrete corrector"],
+      "do_not_conflate": "The conditional PDMP, discrete augmented chain, and continuous-time Langevin theorem have different operators and domains. Reuse requires adapters, not renaming a generator.",
+      "review": {"status": "candidate", "proposed_by": "ASTIS companion source audit", "independent_reviewer": null}
+    },
+    {
       "id": "family:metric-gradient-flow",
       "label": "Metric gradient flow → dissipation → exponential decay",
       "plain_language": "The state space changes, but the same proof skeleton can survive: choose an energy and a metric, identify its metric gradient, write energy dissipation, then use a PL-shaped inequality to turn dissipation into exponential convergence.",

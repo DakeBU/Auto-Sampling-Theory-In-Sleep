@@ -270,7 +270,7 @@ def add_to_graph(builder) -> dict[str, Any]:
         details += [{'label':'Category '+k,'value':v} for k,v in edge['category_contract'].items()]
         details += [{'label':'Shared planned checkpoints','value':', '.join(edge['shared_stages'])}]
         refs = candidate_substrate_ids(edge, memory, set(builder.nodes))
-        builder.add(edge['id'],'concept-bridge',edge['label'],status='proposal',subtitle=edge['relation_kind'],summary=edge['mechanism'],formula=edge['formula'],details=details,url='progress/index.html#shared-order',source_url=model['sources'][edge['source_ids'][0]]['url'],hyperedge=edge,sources=[model['sources'][key] for key in edge['source_ids']],candidate_substrates=refs)
+        builder.add(edge['id'],'concept-bridge',edge['label'],status='proposal',subtitle=edge['relation_kind'],summary=edge['mechanism'],formula=edge['formula'],details=details,url=edge.get('url','progress/index.html#shared-order'),source_url=model['sources'][edge['source_ids'][0]]['url'],hyperedge=edge,sources=[model['sources'][key] for key in edge['source_ids']],candidate_substrates=refs)
         for src in edge['tails']:
             builder.edge(src,edge['id'],'joint conceptual input')
         for dst in edge['heads']:

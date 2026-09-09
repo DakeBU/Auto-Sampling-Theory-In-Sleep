@@ -64,6 +64,46 @@
   ],
   "hyperedges": [
     {
+      "id": "transport:proxy-warm-handoff",
+      "label": "A proxy certificate connects two samplers",
+      "family_ids": ["family:proxy-warm-composition"],
+      "tails": ["concept:transport", "concept:sampling"],
+      "heads": ["concept:mcmc"],
+      "relation_kind": "source-backed composition candidate",
+      "status": "not-Lean-certified",
+      "formula": "\\operatorname{TV}(\\mu K,\\pi)\\le\\operatorname{TV}(\\mu,\\mu^\\dagger)+\\operatorname{TV}(\\mu^\\dagger K,\\pi)",
+      "mechanism": "Recursive smoothed sampling produces an actual law near a Renyi-warm proxy; the same implemented kernel transports both laws and TV data processing controls their separation.",
+      "hypothesis_map": "Match target normalization, probability kernels, order-2 divergence, small-gradient reference input, and accuracy budgets; separately bound actual-input expected cost.",
+      "conclusion_map": "A two-stage cold-to-high-accuracy contract; expected gradient costs add only after the conditional oracle-cost hypotheses match.",
+      "failure_boundary": "Not a general W2-to-Renyi inequality; no cost bound follows from TV proximity alone; composition order is engine after generator.",
+      "source_ids": ["sphmc-2026", "pbps-2026"],
+      "shared_stages": ["measure", "transport", "entropy", "kernel-algebra"],
+      "formal_refs": [],
+      "url": "example-cases/samplewiki/companions/warm-start-composition.html",
+      "review": {"status": "candidate", "proposed_by": "ASTIS companion source audit", "independent_reviewer": null, "evidence": []},
+      "category_contract": {"objects": "Probability laws with separate transport, proxy-TV and divergence certificates.", "morphisms": "Algorithm-specific certificate transformations with explicit access and error budgets.", "identity": "No categorical identity certificate.", "composition": "Source composition is known; a Lean-certified cost/error-graded category is not supplied."}
+    },
+    {
+      "id": "transport:proximal-half-turn",
+      "label": "Proximal geometry meets discrete hypocoercivity",
+      "family_ids": ["family:discrete-hypocoercivity"],
+      "tails": ["concept:sampling"],
+      "heads": ["concept:mcmc"],
+      "relation_kind": "model-specific adapter candidate",
+      "status": "not-Lean-certified",
+      "formula": "\\mathsf K=\\mathsf U[\\mathsf P+(1-\\rho)\\mathsf H_{\\perp\\perp}]",
+      "mechanism": "An augmented reflection U, conditional projection P, and conditional half-turn H form a discrete Markov operator. A modified L2 corrector exposes transfer between undamped macro and damped micro modes.",
+      "hypothesis_map": "Positive conditional normalizers; non-explosive harmonic bounce process; invariant augmented law; centered L2 domain; macroscopic gap and half-turn operator estimate.",
+      "conclusion_map": "Reuse the modified-energy mechanism through explicit discrete operator bounds before proving chi-square block contraction and marginal TV decay.",
+      "failure_boundary": "Not the ordinary proximal chain or vanilla BPS; the unrefreshed conditional process alone need not mix. Continuous-time DMS/Fan–Li–Lu rates do not transfer verbatim.",
+      "source_ids": ["pbps-2026", "fan-li-lu-2026"],
+      "shared_stages": ["linear-algebra", "measure", "kernel-algebra", "entropy"],
+      "formal_refs": [],
+      "url": "example-cases/samplewiki/companions/proof-delta.html",
+      "review": {"status": "candidate", "proposed_by": "ASTIS companion source audit", "independent_reviewer": null, "evidence": []},
+      "category_contract": {"objects": "Specified centered Hilbert spaces, projections, involutions and half-turn contractions.", "morphisms": "Candidate mechanism adapters, not implication edges between arbitrary samplers.", "identity": "No category certificate.", "composition": "Requires each operator, norm and domain estimate; no certified functor."}
+    },
+    {
       "id": "transport:metric-lift",
       "label": "Change the metric, change the gradient",
       "family_ids": [
@@ -915,6 +955,9 @@
     }
   ],
   "sources": {
+    "sphmc-2026": {"title": "Smoothed Picard Hamiltonian Monte Carlo", "url": "https://arxiv.org/html/2609.06906v1", "anchor": "Theorems 1.1–1.3; Sections 3–7; Lemmas 6.2–6.4; Appendices C–D"},
+    "pbps-2026": {"title": "Accelerated High-Accuracy Sampling from a Warm Start via the Proximal Bouncy Particle Sampler", "url": "https://arxiv.org/html/2609.06905v1", "anchor": "Propositions 3.1–3.4; Theorem 3.5; Theorem 4.3; Corollary 4.4; Appendices A–D"},
+    "fan-li-lu-2026": {"title": "Fan–Li–Lu: Sharp hypocoercive convergence estimates for underdamped Langevin dynamics via the modified L2 method", "url": "https://arxiv.org/html/2604.10068v1", "anchor": "Section 2 gap-shifted corrector; cited by PBPS Appendix B.3 as a refinement of DMS"},
     "ot": {
       "title": "Chewi–Niles-Weed–Rigollet, Statistical Optimal Transport",
       "url": "https://chewisinho.github.io/st_flour.pdf",

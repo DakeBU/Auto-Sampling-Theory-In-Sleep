@@ -26,6 +26,32 @@ proof.
 
 ## Build
 
+### Companion frontiers and proof-technology deltas
+
+`samplewiki_companion_frontiers.json` extends the pinned SampleWiki snapshot
+with two primary-paper cases and a composition view; it does not change the
+upstream 34 rows or the active Chewi 8.4.1 case. `samplewiki_proof_deltas.json`
+records inherited mechanisms, paper-specific adapters, revealed structures and
+their exact source anchors. The generated reader begins at
+`example-cases/samplewiki/companions/index.html`.
+
+Add or update a theorem contract in the companion model, not in generated HTML.
+Keep the actual law, proxy law, divergence convention, oracle and expected-cost
+contracts separate. Every teaching statement/proof has an adjacent closed Lean
+disclosure; without a local declaration the disclosure says so instead of
+displaying invented Lean. Technology search modules are not proof certificates.
+
+Candidate families and bridges use the existing Graph Memory / Functor
+Hypergraph; their source title, URL and anchor are checked against the companion
+model. The proof-delta view follows DMS → Fan–Li–Lu → the PBPS discrete adapter,
+without claiming an exhaustive novelty ranking. Generated SVGs and the full
+graph share metadata identities. All new local theorem targets stay red.
+
+Run the normal build/check commands below and
+`python3 -m unittest tools.tests.test_samplewiki_companions` after editing.
+Do not move a candidate to blue by changing this metadata: use the existing
+independent Lean/source review and Registry gates.
+
 ### Shared proof readers
 
 `website/content/proof_readers.json` holds original mathematical exposition for

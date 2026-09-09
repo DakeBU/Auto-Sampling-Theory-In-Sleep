@@ -1,6 +1,13 @@
 {
   "schema_version": 1,
   "status": "dependency plan only; no Lean completion is inferred",
+  "companion_extension": {
+    "metadata": "website/content/samplewiki_companion_frontiers.json",
+    "proof_deltas": "website/content/samplewiki_proof_deltas.json",
+    "status": "unscheduled source-pinned backlog; not a replacement active frontier",
+    "reuse_first": ["sf-kernel-composition", "sf-measure-map-integral", "sf-convex-energy", "sf-euclidean-linear-algebra"],
+    "rule": "Audit exact TV, quadratic RGO and reflection APIs before new leaves; analytic PDMP and discrete hypocoercivity consumers stay separate. This record does not change recommended_wave_order."
+  },
   "goal": "Schedule the beginning of the textbook libraries, including finite-state Discrete Sampling by mathematical dependency rather than cover-to-cover order, so genuinely identical lower-level Lean lemmas are proved once and reused with explicit adapters.",
   "scope": [
     "Log-Concave Sampling Chapters 1-2",
