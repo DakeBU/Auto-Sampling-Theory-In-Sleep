@@ -83,6 +83,29 @@ theorem firstOrder_lower_bound_of_strongConvexOn
       hconvex hpath hderiv
   simpa [path, dist_eq_norm, norm_sub_rev] using hfirst
 
+/-- The gradient of a strongly convex function has the corresponding inner-product
+lower bound on its domain.
+
+Mathematical provenance: Optlib `Strong_Convex_lower`, commit
+`5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3`,
+`Optlib/Convex/StronglyConvex.lean` (Apache-2.0; Chenyi Li and Ziyu Wang).
+This proof reuses the local first-order bound in both directions, as in Chewi,
+arXiv:2605.07006v1, Proposition 1.6, (1.4) implies (1.5).
+The domain-local supplied-gradient interface retains arbitrary real `m`;
+Chewi's whole-space `C¹`, nonnegative-modulus statement is a specialization.
+-/
+theorem gradient_inner_lower_bound_of_strongConvexOn
+    {s : Set E} {f : E → ℝ} {m : ℝ} {grad : E → E}
+    (hsc : StrongConvexOn s m f)
+    (hgrad : ∀ z ∈ s, HasGradientAt f (grad z) z)
+    {x y : E} (hx : x ∈ s) (hy : y ∈ s) :
+    m * ‖y - x‖ ^ 2 ≤ inner ℝ (grad y - grad x) (y - x) := by
+  have hxy := firstOrder_lower_bound_of_strongConvexOn hsc hgrad hx hy
+  have hyx := firstOrder_lower_bound_of_strongConvexOn hsc hgrad hy hx
+  rw [show x - y = -(y - x) by abel, inner_neg_right, norm_neg] at hyx
+  rw [inner_sub_left]
+  linarith
+
 end
 
 end StrongConvexFirstOrder
