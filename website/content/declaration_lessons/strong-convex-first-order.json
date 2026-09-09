@@ -27,7 +27,7 @@
         },
         {
           "title": "Take the one-sided limit",
-          "text": "HasGradientAt gives Pass to the limit in the inequality. The existing ASTIS firstOrder_geodesicConvexity theorem packages precisely this scalar limiting step.",
+          "text": "The genuine gradient identifies the difference-quotient limit below. Pass to the limit in the preceding inequality; the existing ASTIS firstOrder_geodesicConvexity theorem packages this scalar limiting step.",
           "formula": "\\lim_{t\\downarrow0}\\frac{f(x+tv)-f(x)}t=\\langle g(x),v\\rangle.",
           "lean": "`hline` and `hderiv` obtain the real segment derivative from `HasGradientAt`; `hfirst` applies the scalar limit theorem and `simpa` reconciles norm and distance."
         }
@@ -93,13 +93,13 @@
         },
         {
           "title": "Cancel and collect",
-          "text": "Add, cancel the function values, and use linearity of the real inner product: Rearranging proves the claimed bound.",
+          "text": "Add, cancel the function values, and use linearity of the real inner product. Rearranging the following inequality proves the claimed bound.",
           "formula": "0\\ge-\\langle g(y)-g(x),v\\rangle+m\\|v\\|^2.",
           "lean": "`rw [inner_sub_left]` expands the goal. `linarith` combines the two inequalities and cancels the function values."
         },
         {
           "title": "The positive-modulus test consumer",
-          "text": "The focused test checks a genuine consequence: if m>0 and g(x)=g(y), then This test is not a second registered theorem.",
+          "text": "If m>0 and g(x)=g(y), the bound forces the displacement to vanish, as calculated below. The focused test checks this consequence; it is not a second registered theorem.",
           "formula": "0\\ge m\\|y-x\\|^2\\ge0\\quad\\Longrightarrow\\quad x=y.",
           "lean": "The `Set.InjOn` example substitutes equal gradients. `mul_pos hm (pow_pos hn' 2)` excludes a nonzero displacement, and `norm_eq_zero` and `sub_eq_zero` conclude equality."
         }

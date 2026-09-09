@@ -19,6 +19,10 @@ on:
       - "tools/astis_advance.py"
       - "tools/astis_frontier_cells.py"
       - "tools/astis_semantic_roundtrip.py"
+      - "tools/astis_publication.py"
+      - "tools/tests/test_astis_publication.py"
+      - "website/content/publications/**"
+      - "website/content/declaration_lessons/**"
       - "tools/astis_site.py"
       - "tools/astis_source.py"
       - "tools/tests/test_astis_advance.py"
@@ -56,6 +60,10 @@ on:
       - "tools/astis_advance.py"
       - "tools/astis_frontier_cells.py"
       - "tools/astis_semantic_roundtrip.py"
+      - "tools/astis_publication.py"
+      - "tools/tests/test_astis_publication.py"
+      - "website/content/publications/**"
+      - "website/content/declaration_lessons/**"
       - "tools/astis_site.py"
       - "tools/astis_source.py"
       - "tools/tests/test_astis_advance.py"
@@ -104,6 +112,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Enforce incremental reader and encoder-denoiser publication
+        env:
+          PUBLICATION_BASE: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha || github.event.before }}
+        run: python3 tools/astis_publication.py check --ci
+
       - name: Compile website generators
         run: |
           python3 -m compileall -q tools website/scripts
@@ -117,6 +130,7 @@ jobs:
             tools.tests.test_astis_source \
             tools.tests.test_astis_advance \
             tools.tests.test_astis_semantic_roundtrip \
+            tools.tests.test_astis_publication \
             tools.tests.test_harness_site \
             tools.tests.test_lean_tutor \
             tools.tests.test_undergrad_guides \

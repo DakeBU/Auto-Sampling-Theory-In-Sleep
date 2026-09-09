@@ -40,6 +40,12 @@ If a missing lower-level lemma is useful to two or more routes, do **not** imple
 
 ## Verification
 
+- [ ] `python3 tools/astis_publication.py check --base BASE_COMMIT`
+- [ ] Each changed declaration has an authored formula proof and adjacent collapsed Lean
+- [ ] Source/actual assumptions and local-vs-Mathlib reuse are explicit
+- [ ] Independent encoder–denoiser audit is fresh; source repairs are separately reviewed
+- [ ] Chapter progress is generated from proof-obligation mappings, not hand-edited
+
 - [ ] `python3 tools/astis_frontier_cells.py check`
 - [ ] Relevant focused Lean tests exercise the named declaration
 - [ ] Independent verification performed by someone/agent other than the proving worker before `independently_verified`

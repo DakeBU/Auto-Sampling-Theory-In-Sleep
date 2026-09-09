@@ -31,6 +31,7 @@ from underlying_lean_graph_textbook import add_textbook
 import cross_domain
 import sampling_perspectives
 import samplewiki_companions
+import publication_reader
 
 
 def build_graph(output: Path) -> dict[str, Any]:
@@ -46,6 +47,7 @@ def build_graph(output: Path) -> dict[str, Any]:
     memory = cross_domain.load(cross_domain.GRAPH_MEMORY_PATH)
     companion_counts = samplewiki_companions.add_to_graph(builder)
     scope_metadata = sampling_perspectives.apply_to_graph(builder)
+    publication_reader.project_graph(builder)
     graph = builder.export()
     graph["library_scope_metadata"] = scope_metadata
     graph["companion_frontiers"] = companion_counts

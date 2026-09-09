@@ -173,6 +173,29 @@ def main() -> None:
             assert 'math/0404033v4' in page.content()
             assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
             page.screenshot(path=str(evidence/'mcmc-mobile.png'))
+            publications = json.loads((site/'data/publication-progress.json').read_text())
+            def chapter_label(path):
+                return next((v['label'] for v in publications.values() if v['chapter_path'] == path), 'scaffold')
+            opt_path = 'libraries/optimisation/chapter-01.html'
+            expected_units = sum(len(i['bindings']) for f in (ROOT/'website/content/publications').glob('*.json')
+                for i in json.loads(f.read_text(encoding='utf-8'))['items'] if i['chapter_path'] == opt_path)
+            goto('libraries/optimisation/index.html')
+            assert chapter_label(opt_path) in page.locator('.library-chapter-card').first.inner_text()
+            assert chapter_label('libraries/optimisation/chapter-02.html') in page.locator('.library-chapter-card').nth(1).inner_text()
+            goto(opt_path)
+            assert page.locator('[data-publication-item]').count() >= 1
+            assert page.locator('[data-authored-declaration]').count() == expected_units
+            assert page.locator('details.inline-lean-statement:not([open])').count() == expected_units
+            assert page.locator('details.inline-lean-proof:not([open])').count() == expected_units
+            if not args.offline_dom:
+                page.wait_for_selector('mjx-container', timeout=30000)
+                assert page.locator('mjx-merror').count() == 0
+            page.locator('details.inline-lean-proof > summary').last.click()
+            assert page.locator('details.inline-lean-proof[open] code.language-lean').count() == 1
+            assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
+            page.screenshot(path=str(evidence/'optimisation-proof-mobile.png'))
+            report['optimisation_publication'] = {'partial': True, 'source_complete': False,
+                'adjacent_lean': True, 'mobile_overflow': False}
             assert not report['runtime_errors'],report['runtime_errors']
             browser.close()
     except Exception as error:

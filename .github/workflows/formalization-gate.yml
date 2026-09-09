@@ -16,6 +16,10 @@ on:
       - "tools/astis_advance.py"
       - "tools/astis_formalizer.py"
       - "tools/astis_semantic_roundtrip.py"
+      - "tools/astis_publication.py"
+      - "tools/tests/test_astis_publication.py"
+      - "website/content/publications/**"
+      - "website/content/declaration_lessons/**"
       - "tools/astis_site_source_index.py"
       - "tools/chapter_1_evidence.py"
       - "tools/astis_source.py"
@@ -46,6 +50,10 @@ on:
       - "tools/astis_advance.py"
       - "tools/astis_formalizer.py"
       - "tools/astis_semantic_roundtrip.py"
+      - "tools/astis_publication.py"
+      - "tools/tests/test_astis_publication.py"
+      - "website/content/publications/**"
+      - "website/content/declaration_lessons/**"
       - "tools/astis_site_source_index.py"
       - "tools/chapter_1_evidence.py"
       - "tools/astis_source.py"
@@ -92,6 +100,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Enforce incremental reader and encoder-denoiser publication
+        env:
+          PUBLICATION_BASE: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha || github.event.before }}
+        run: python3 tools/astis_publication.py check --ci
+
       - name: Set up Lean and Mathlib cache
         uses: leanprover/lean-action@v1
         with:
@@ -107,6 +120,7 @@ jobs:
             tools.tests.test_astis_source \
             tools.tests.test_astis_advance \
             tools.tests.test_astis_semantic_roundtrip \
+            tools.tests.test_astis_publication \
             tools.tests.test_atlas_memory
           python3 tools/astis.py harness-test
 

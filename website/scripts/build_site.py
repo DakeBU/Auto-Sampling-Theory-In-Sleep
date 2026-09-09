@@ -22,6 +22,7 @@ import chewi_source_first_refinement  # noqa: E402
 import chewi_source_first_scope  # noqa: E402
 import formalization_progress  # noqa: E402
 import declaration_lessons  # noqa: E402
+import publication_reader  # noqa: E402
 import metadata_lessons  # noqa: E402
 import inline_lean  # noqa: E402
 import proof_readers  # noqa: E402
@@ -226,6 +227,7 @@ def main() -> int:
 
     proof_readers.enrich_site(output)
     declaration_lessons.enrich_site(output)
+    publication_reader.enrich_site(output)
     metadata_lessons.enrich_site(output)
     inline_lean.enrich_textbook(output)
     samplewiki_companions.enrich_site(output)

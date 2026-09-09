@@ -32,8 +32,9 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 
 ## News
 
+- **2026-09-09:** Connected mathematics-first readers to [chapter progress and semantic review](docs/theorem-publication-protocol.md).
+
 - **2026-09-09:** Added [companion-paper proof maps](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/) for Smoothed Picard HMC and Proximal BPS.
-- **2026-09-09:** Added [mathematics-first readers](website/README.md#shared-proof-readers) with per-theorem folded Lean explanations.
 - **2026-09-07:** Added Discrete Sampling and MCMC as peer libraries.
 - **2026-09-05:** Added Statistical Optimal Transport and the Functor Hypergraph.
 - **2026-08-30:** Unified cross-library progress and Frontier Cell collaboration.
@@ -54,6 +55,11 @@ A paper may add a **LEAF**, **BRIDGE**, **SHORTCUT**, **HUB**, or **RE-ORGANIZAT
 </p>
 
 ## ASTIS Harness
+
+Contributors start with `python3 tools/astis_publication.py packet --cell CELL_ID`.
+The [publication protocol](docs/theorem-publication-protocol.md) synchronizes source
+statements, formula proofs, folded Lean, assumption audits and chapter progress;
+`check --base BASE_COMMIT` rejects missing or stale publication evidence.
 
 The three formalization routes use the same theorem-driven verification workflow. A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. Parallel work may discover shared foundations, but shared declarations are reused or coordinated before publication; independent review and a single stabilization lane decide what becomes Samplinglib truth.
 

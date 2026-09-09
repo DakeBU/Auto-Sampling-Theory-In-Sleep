@@ -260,6 +260,23 @@ def decoder_packet(audit: dict[str, Any]) -> dict[str, Any]:
     return {**core, "packet_sha256": sha256_json(core)}
 
 
+def _bind_publication_context(core: dict[str, Any], audit: dict[str, Any]) -> None:
+    """New publication evidence is part of the actual independent review input.
+
+    Legacy audits keep identical packet hashes. Never call this from the blind
+    decoder exporter: this context contains source-facing candidate exposition.
+    """
+    if audit.get('publication_binding_sha256') or audit.get('publication_context'):
+        core['publication_binding_sha256'] = audit.get('publication_binding_sha256', '')
+        core['candidate_publication_context'] = audit.get('publication_context', {})
+        core['publication_review_rule'] = (
+            'Independently compare the current Lean module, its scoped assumptions, '
+            'source statement and candidate natural-language formula proof. '
+            'These are claims to check, not previous reviewer verdicts. '
+            'Do not infer equivalence from a hash or compilation alone.'
+        )
+
+
 def semantic_reviewer_packet(audit: dict[str, Any]) -> dict[str, Any]:
     """Create an independent source-review packet after blind reconstruction.
 
@@ -342,6 +359,7 @@ def semantic_reviewer_packet(audit: dict[str, Any]) -> dict[str, Any]:
             "reviewer_packet_sha256": "",
         },
     }
+    _bind_publication_context(core, audit)
     return {**core, "packet_sha256": sha256_json(core)}
 
 
@@ -414,6 +432,7 @@ def repair_reviewer_packet(audit: dict[str, Any], repair: dict[str, Any]) -> dic
             "proposal_sha256": proposal_hash,
         },
     }
+    _bind_publication_context(core, audit)
     return {**core, "packet_sha256": sha256_json(core)}
 
 

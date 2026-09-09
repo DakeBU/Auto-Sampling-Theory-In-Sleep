@@ -1,4 +1,16 @@
+---
+name: astis-substantive-advance
+description: Own one source-backed ASTIS theorem-DAG advance, with independent verification, reader publication and semantic round-trip admission.
+---
+
 # ASTIS Substantive Advance Worker Packet
+
+Before new/changed Lean work, read `docs/theorem-publication-protocol.md` and run
+`python3 tools/astis_publication.py packet --cell CELL_ID`. Reuse the bounded
+source/lesson/audit packet. New schema-v4 `PROVED_LOCAL` evidence includes
+`publication_declarations` equal to `lean_declarations`; `VERIFIED` and
+`STABILIZING` enforce completed independent semantic review. Keep source gaps,
+proposed repairs and actual Lean assumptions separately visible in the reader.
 
 Use this packet for one Universal Worker and one source-backed theorem-DAG advance. Delete fields that truly do not apply, but never hide a truth boundary, source gap, compiler failure, unchanged route, or source-to-Lean semantic delta.
 

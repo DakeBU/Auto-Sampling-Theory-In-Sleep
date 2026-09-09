@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from tools import astis_advance as advance
@@ -9,6 +10,11 @@ from tools import astis_advance as advance
 
 class SubstantiveAdvanceHarnessTest(unittest.TestCase):
     def setUp(self) -> None:
+        # The original state-machine fixtures are v3 replay-compatibility tests.
+        # Real v4 publication admission is covered in test_astis_publication.
+        self.version = patch.object(advance, 'ADVANCE_SCHEMA_VERSION', 3)
+        self.version.start()
+        self.addCleanup(self.version.stop)
         self.tempdir = tempfile.TemporaryDirectory()
         root = Path(self.tempdir.name)
         self.advance_ledger = root / "advances.jsonl"

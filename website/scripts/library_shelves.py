@@ -16,6 +16,7 @@ import astis_site
 import cross_domain
 import discrete_sampling
 import mcmc_library
+import publication_reader
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -164,7 +165,7 @@ def cards(chapters: tuple[str, ...]) -> str:
     return "".join(
         f"""<article class="library-chapter-card">
 <div class="library-chapter-number">{i:02d}</div>
-<div><div class="card-meta">{badge("scaffold")}</div>
+<div><div class="card-meta">{publication_reader.status("riemannian-optimization", f"{i:02d}")}</div>
 <h2><a href="chapter-{i:02d}.html">{escape(title)}</a></h2>
 <p>Source map, theorem nodes, upstream matches, and exact Lean correspondence will be attached here.</p></div>
 </article>"""
@@ -179,9 +180,9 @@ def optimisation_cards() -> str:
         rows.append(
             f"""<article class="library-chapter-card">
 <div class="library-chapter-number">{escape(chapter_id)}</div>
-<div><div class="card-meta">{badge("scaffold")}</div>
+<div><div class="card-meta">{publication_reader.status("optimisation", chapter_id)}</div>
 <h2><a href="{href}">{escape(title)}</a></h2>
-<p>{escape(source_section)} of Chewi's public lecture notes · source map and Lean correspondence pending.</p></div>
+<p>{escape(source_section)} · {len(publication_reader.publication.chapter_progress('optimisation', chapter_id)['proof_declarations'])} mapped, independently verified local proof declarations. Source equivalence and chapter completion are separate.</p></div>
 </article>"""
         )
     return "".join(rows)
@@ -205,13 +206,13 @@ def index_body(*, eyebrow: str, title: str, lede: str, source: str, chapters: tu
 """
 
 
-def chapter_body(library: str, number: str, title: str, source: str, upstream: str, source_label: str = "Primary source") -> str:
+def chapter_body(library: str, number: str, title: str, source: str, upstream: str, source_label: str = "Primary source", publication_status: str = "") -> str:
     return f"""
 <section class="page-hero compact library-chapter-hero">
 <div class="eyebrow">{escape(library)} · {escape(number)}</div>
 <h1>{escape(title)}</h1>
 <p class="lede">Stable source-facing chapter environment inside the shared Samplinglib reader.</p>
-<div class="tag-row">{badge("scaffold")}<span>source map</span><span>Lean graph pending</span></div>
+<div class="tag-row">{publication_status or badge("scaffold")}<span>source map</span><span>Full source closure not claimed</span></div>
 </section>
 <section class="library-chapter-contract">
 <div class="section-heading"><span>Planned route</span><h2>Source → theorem map → reusable Lean nodes</h2></div>
@@ -276,7 +277,7 @@ def write_pages(output: Path) -> None:
 <section class="page-hero compact library-book-hero">
 <div class="eyebrow">Optimisation Library · Sinho Chewi</div><h1>Lectures on Optimization</h1>
 <p class="lede">A public theorem-proof formalization route following arXiv:2605.07006 section by section.</p>
-<div class="library-meta-row"><span><strong>Status</strong>chapter environment established</span><a href="{CHEWI_OPT_URL}">Primary arXiv source ↗</a></div>
+<div class="library-meta-row"><span><strong>Status</strong>{publication_reader.status('optimisation')}</span><a href="{CHEWI_OPT_URL}">Primary arXiv source ↗</a></div>
 </section>
 <section class="library-integration-note">
 <div class="section-heading"><span>Source hierarchy</span><h2>Chewi is the formalization target; Beck is background.</h2></div>
@@ -295,7 +296,7 @@ def write_pages(output: Path) -> None:
         path = "libraries/optimisation/appendix-a.html" if chapter_id == "A" else f"libraries/optimisation/chapter-{chapter_id}.html"
         source = f"{CHEWI_OPT_URL}#page={page}"
         number = f"{source_section} · source p. {page}"
-        body = chapter_body("Optimisation", number, title, source, "Search Mathlib, Optlib, CvxLean, and shared Samplinglib interfaces; preserve the exact Chewi statement and use a small adapter when conventions differ.", source_label="Open exact Chewi source")
+        body = chapter_body("Optimisation", number, title, source, "Search Mathlib, Optlib, CvxLean, and shared Samplinglib interfaces; preserve the exact Chewi statement and use a small adapter when conventions differ.", source_label="Open exact Chewi source", publication_status=publication_reader.status('optimisation', chapter_id))
         astis_site.write_page(output, path, astis_site.page(f"Optimisation {source_section}: {title}", path, body, active="Libraries"))
 
     cross_domain.write_ot_pages(output, __import__(__name__))

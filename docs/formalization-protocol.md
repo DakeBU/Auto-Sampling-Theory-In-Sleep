@@ -4,6 +4,11 @@ This protocol governs collaborative formalization across the public **SampleWiki
 
 ## 1. Unit of work: one Frontier Cell
 
+All routes, including shared, Discrete Sampling and MCMC, additionally follow
+[the theorem publication contract](theorem-publication-protocol.md): one authored
+formula proof with adjacent folded Lean, explicit source/assumption mapping,
+mandatory encoder–denoiser evidence, and generated chapter/graph status.
+
 Every substantive formalization advance is one theorem-sized **Frontier Cell** with:
 
 - one exact source anchor;

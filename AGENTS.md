@@ -41,6 +41,17 @@ merely to manufacture handoff artifacts.
 
 ## Operating Loop
 
+Every new/changed Lean declaration also follows
+`docs/theorem-publication-protocol.md`. Start with the bounded
+`python3 tools/astis_publication.py packet --cell CELL_ID`, not a whole-site scan.
+Author mathematical statement/formula proof once in declaration lessons; bind
+source obligations and explicit assumption differences in publication metadata.
+The existing encoder–denoiser skill is mandatory: independent source-blind
+decoder, anti-anchored source reviewer, separately reviewed repair overlays.
+New schema-v4 SAUs require real publication validation at `PROVED_LOCAL` and
+completed independent source review at `VERIFIED` / `STABILIZING`. The diff-aware
+CI gate covers older lanes too. Never hand-edit a chapter's completion badge.
+
 1. Reconcile source and theorem state. For the main textbook program, select a
    dependency-ready DAG delta rather than recovering a frontier from old prose:
 
@@ -364,7 +375,7 @@ Reject:
 
 ## Cross-domain routes and source detail audit
 
-Statistical Optimal Transport and Higher-Order Smoothness × Sampling are coordinated with the existing routes. Read `docs/cross-domain-program.md` and `docs/conceptual-mirror-protocol.md`; use `Libraries/cross-domain-program.json` for dependency-ready shared work and `website/content/graph_memory_index.json` for compact conceptual families. New Frontier Cells use schema 2 with `source_detail_audit`; new substantive advances use schema 3 and require `conceptual_mirror_audit` before `PROVED_LOCAL`. Search formal libraries first; when textbook detail is omitted, consult exact background theorems and record hypotheses/conventions instead of silently changing the target. Conceptual transport hyperedges are not Lean dependencies or certified functors. Upper-bound integrator and lower-bound oracle-hardness lanes remain independent until their comparison contracts match.
+Statistical Optimal Transport and Higher-Order Smoothness × Sampling are coordinated with the existing routes. Read `docs/cross-domain-program.md` and `docs/conceptual-mirror-protocol.md`; use `Libraries/cross-domain-program.json` for dependency-ready shared work and `website/content/graph_memory_index.json` for compact conceptual families. New Frontier Cells use schema 2 with `source_detail_audit`; new substantive advances use schema 4 and require `conceptual_mirror_audit` plus publication admission before `PROVED_LOCAL`. Search formal libraries first; when textbook detail is omitted, consult exact background theorems and record hypotheses/conventions instead of silently changing the target. Conceptual transport hyperedges are not Lean dependencies or certified functors. Upper-bound integrator and lower-bound oracle-hardness lanes remain independent until their comparison contracts match.
 
 
 ## Discrete Sampling peer route

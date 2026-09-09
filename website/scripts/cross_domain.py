@@ -240,11 +240,13 @@ def add_to_graph(builder) -> dict[str, Any]:
     validate_data()
     model, ot, memory = load(FUNCTOR_PATH), load(OT_PATH), load(GRAPH_MEMORY_PATH)
     for ident, label, url in [('riemannian','Riemannian Optimization','libraries/riemannian-optimization/index.html'),('optimisation','Optimisation','libraries/optimisation/index.html'),('optimal-transport','Statistical Optimal Transport',OT_BASE+'index.html')]:
-        builder.add('library:'+ident, 'library', label, status='planned', subtitle='peer source library · scaffold, not a Lean closure', url=url)
+        progress = library_shelves.publication_reader.publication.chapter_progress(ident)
+        builder.add('library:'+ident, 'library', label, status='partial' if progress['status'] == 'partial' else 'planned', subtitle=progress['label']+' · not a source closure', url=url)
         builder.edge('library:samplinglib', 'library:'+ident, 'formalization route')
     for ident, rows in [('riemannian', [(f'{i:02d}', t, f'libraries/riemannian-optimization/chapter-{i:02d}.html') for i,t in enumerate(library_shelves.BOUMAL,1)]), ('optimisation', [(i,t,'libraries/optimisation/'+('appendix-a.html' if i=='A' else f'chapter-{i}.html')) for i,t,_,_ in library_shelves.OPTIMISATION]), ('optimal-transport',[(r['id'],r['title'],OT_BASE+r['path']) for r in ot['chapters']])]:
         for cid,title,url in rows:
-            node = builder.add(f'library-chapter:{ident}:{cid}', 'library-chapter', f'{cid}. {title}', status='planned', subtitle='source chapter scaffold', url=url)
+            progress = library_shelves.publication_reader.publication.chapter_progress(ident, cid)
+            node = builder.add(f'library-chapter:{ident}:{cid}', 'library-chapter', f'{cid}. {title}', status='partial' if progress['status'] == 'partial' else 'planned', subtitle=progress['label']+' · source fidelity separate', url=url)
             builder.edge('library:'+ident,node,'chapter scaffold')
     for a,b in ot['chapter_prerequisites']:
         builder.edge('library-chapter:optimal-transport:'+a,'library-chapter:optimal-transport:'+b,'source prerequisite')

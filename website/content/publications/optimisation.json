@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "chewi-opt-v1-prop-1-6",
+      "library": "optimisation",
+      "chapter": "01",
+      "chapter_path": "libraries/optimisation/chapter-01.html",
+      "title": "Proposition 1.6 · convexity equivalences",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "§1.2, Definition 1.5 and Proposition 1.6; equations (1.3)–(1.6)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS restatement, not quoted prose; no endorsement implied."
+      },
+      "statement": "For a continuously differentiable real-valued function on Euclidean space and a nonnegative modulus, the chord inequality, quadratic lower model and gradient monotonicity inequality below are equivalent. Under twice continuous differentiability they are also equivalent to the Hessian bound.",
+      "assumptions": [
+        "The domain is all of real d-dimensional Euclidean space; α ≥ 0.",
+        "The first three conditions use f ∈ C¹; the Hessian equivalence uses f ∈ C².",
+        "All points and directions below are universally quantified. The chord parameter lies in [0,1]."
+      ],
+      "formulae": [
+        {
+          "label": "(1.3) · chord",
+          "tex": "f((1-t)x+ty)\\le (1-t)f(x)+tf(y)-\\frac\\alpha2t(1-t)\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d,\\ t\\in[0,1]."
+        },
+        {
+          "label": "(1.4) · lower model",
+          "tex": "f(y)\\ge f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\alpha2\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d."
+        },
+        {
+          "label": "(1.5) · gradient monotonicity",
+          "tex": "\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge\\alpha\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d."
+        },
+        {
+          "label": "(1.6) · Hessian",
+          "tex": "\\langle v,\\nabla^2f(x)v\\rangle\\ge\\alpha\\|v\\|^2,\\quad x,v\\in\\mathbb R^d."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "chord-to-model",
+          "label": "(1.3) → (1.4): affine segment, positive division, genuine derivative limit"
+        },
+        {
+          "id": "model-to-monotonicity",
+          "label": "(1.4) → (1.5): sum endpoint lower bounds"
+        },
+        {
+          "id": "monotonicity-to-chord",
+          "label": "(1.5) → (1.3): fundamental theorem of calculus with its regularity hypotheses"
+        },
+        {
+          "id": "hessian-equivalence",
+          "label": "(1.5) ↔ (1.6): derivative limit and Hessian integral"
+        },
+        {
+          "id": "source-specialization",
+          "label": "Whole-space C¹/C² source-facing adapters and independent fidelity review"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+          "cell": "ASTIS-SHARED-strong-convex-first-order",
+          "role": "proof-edge",
+          "supports": [
+            "chord-to-model"
+          ],
+          "boundary": "Generic domain-local forward lower-model proof. Whole-space source specialization and complete equivalence are not certified. Existing proof from PR #239, registered during #248 integration; not a newly invented leaf.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean whole space; C¹; α≥0.",
+              "lean": "Complete real inner-product space; convex domain s; HasGradientAt on s; arbitrary real m.",
+              "classification": "generalization",
+              "reason": "Only genuine segment derivatives and the chord inequality are used. Gradient continuity is unnecessary for this direction. This interface generalization is not a repair of Chewi."
+            },
+            {
+              "source": "The gradient is the genuine derivative of f.",
+              "lean": "Ambient HasGradientAt, including boundary points of s; not a within-set or totalized gradient.",
+              "classification": "same",
+              "reason": "The difference quotient must converge to the gradient pairing. A totalized fderiv value cannot justify this step."
+            }
+          ],
+          "legacy_audit_debt": {
+            "base_commit": "5c6adf3b812f3ba9315c92ba78a4ff59ccc2a53e",
+            "file_sha256": "6efa3254bc53f8bd93423d56c79f38b90af35f0097e1223940c328861b336c17",
+            "reason": "Historical independent Lean/source review is not a blind semantic round trip. Source fidelity remains pending; changing the Lean file invalidates this grandfathering."
+          }
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.gradient_inner_lower_bound_of_strongConvexOn",
+          "cell": "ASTIS-SHARED-strong-convex-gradient-monotonicity",
+          "role": "proof-edge",
+          "supports": [
+            "model-to-monotonicity"
+          ],
+          "boundary": "The declaration assumes StrongConvexOn and invokes the first-order parent twice; it does not expose (1.4) alone as a hypothesis. The proof mechanism is covered, not the whole equivalence. Gradient flow, reverse implication and invariance remain separate.",
+          "assumption_deltas": [
+            {
+              "source": "The displayed proof edge starts from the first-order lower model.",
+              "lean": "StrongConvexOn and supplied gradients; two lower bounds are obtained from the compiled parent.",
+              "classification": "generalization",
+              "reason": "The local theorem packages the composed forward route, rather than a stand-alone arbitrary lower-model predicate."
+            },
+            {
+              "source": "Whole-space C¹; nonnegative α.",
+              "lean": "Complete real inner-product space; x,y∈s; ambient gradients on s; arbitrary real m.",
+              "classification": "generalization",
+              "reason": "Algebra works for signed m. Only the injectivity test needs m>0. No Hessian or integration is used."
+            }
+          ],
+          "legacy_audit_debt": {
+            "base_commit": "5c6adf3b812f3ba9315c92ba78a4ff59ccc2a53e",
+            "file_sha256": "6efa3254bc53f8bd93423d56c79f38b90af35f0097e1223940c328861b336c17",
+            "reason": "Historical independent Lean/source review is not a blind semantic round trip. Source fidelity remains pending; changing the Lean file invalidates this grandfathering."
+          }
+        }
+      ]
+    }
+  ]
+}

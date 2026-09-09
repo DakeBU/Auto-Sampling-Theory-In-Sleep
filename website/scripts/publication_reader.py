@@ -1,0 +1,148 @@
+"""Project publication correspondences into reader pages; no authored statuses."""
+from __future__ import annotations
+
+import json
+import re
+from html import escape
+from pathlib import Path
+
+import astis_publication as publication
+import astis_site
+import declaration_lessons
+
+
+def status(library: str, chapter: str | None = None) -> str:
+    p = publication.chapter_progress(library, chapter)
+    return (f'<span class="status status-{"orange" if p["status"] != "scaffold" else "gray"}" '
+            f'data-publication-status="{p["status"]}">{escape(p["label"])}</span>')
+
+
+def semantic_details(audit: dict) -> str:
+    gaps = ''.join(f'<li><strong>{escape(str(d.get("slot", "")))}</strong>: '
+                   f'{escape(str(d.get("description", "")))} — {escape(str(d.get("evidence", "")))}</li>'
+                   for d in audit.get('deltas', []))
+    repairs = ''.join('<article><h4>Proposed source repair — not the original theorem</h4>'
+                      f'<p>{escape(r["reconstructed_statement"])}</p><p>{escape(r["proposed_change"])}</p>'
+                      f'<p>Classification: {escape(r["necessity"])} · Status: {escape(r["status"])}</p>'
+                      f'<p>{escape(r["justification"])}</p><p>Minimality: {escape(r["minimality_evidence"])}</p>'
+                      f'<p>Evidence: {escape(r["reference_or_counterexample"])}</p></article>'
+                      for r in audit.get('repairs', []))
+    return ('<h4>Detected semantic differences</h4><ul>' + gaps + '</ul>' if gaps else '') + repairs
+
+
+def source_card(item: dict, page: str) -> str:
+    data = publication.inputs()
+    source = item['source']
+    formulae = ''.join(f'<h3>{escape(f["label"])}</h3><div class="proof-reader-equation">'
+                       f'\\[{escape(f["tex"])}\\]</div>' for f in item['formulae'])
+    obligations = []
+    for o in item['obligations']:
+        supporters = [b for b in item['bindings'] if o['id'] in b.get('supports', []) and b['role'] == 'proof-edge' and publication.verified_binding(b, data)]
+        label = 'Local proof component; source adapter/review separate' if supporters else 'TODO — not closed by these contributions'
+        obligations.append(f'<li><span class="status status-{"orange" if supporters else "red"}">{label}</span> {escape(o["label"])}</li>')
+    comparisons = []
+    lessons = []
+    for b in item['bindings']:
+        name = b['declaration']
+        audit = data['audits'].get(b.get('audit_id'), {})
+        rows = ''.join('<tr>' + ''.join(f'<td>{escape(r[k])}</td>' for k in ('source', 'lean', 'classification', 'reason')) + '</tr>'
+                       for r in b['assumption_deltas'])
+        comparisons.append(f'<h3>{escape(name.rsplit(".", 1)[-1])}</h3>'
+                           '<div class="table-scroll"><table><thead><tr><th>Source</th><th>Actual Lean</th>'
+                           '<th>Difference kind</th><th>Why it matters</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+                           f'<p>{escape(b["boundary"])}</p>'
+                           '<p><strong>Encoder–denoiser:</strong> ' + escape(audit.get('state', 'pending historical audit'))
+                           + ' · ' + escape(audit.get('verdict', 'No source-fidelity verdict. Local compilation is not source assimilation.')) + '</p>')
+        comparisons.append(semantic_details(audit))
+        lesson = data['lessons'][name]
+        rendered = declaration_lessons.render_unit(lesson, page)
+        rendered = rendered.replace('<h1>', '<h2>').replace('</h1>', '</h2>')
+        rendered = rendered.replace('href="index.html">Teaching coverage',
+                                    f'href="{astis_site.relative_prefix(page)}lessons/index.html">Teaching coverage')
+        lessons.append(rendered)
+    return (f'<section id="{escape(item["id"])}" data-publication-item="{escape(item["id"])}">'
+            f'<h2>{escape(item["title"])}</h2><p>{escape(source.get("attribution", ""))}</p>'
+            f'<p><a href="{escape(source["url"])}">{escape(source["edition"])} · {escape(source["anchor"])}</a>'
+            f' · {escape(source["wording_status"])}</p><h3>Complete source statement (ASTIS restatement)</h3>'
+            f'<p>{escape(item["statement"])}</p>' + astis_site.list_html(item['assumptions']) + formulae
+            + '<h3>Which proof edges are actually covered?</h3><ul>' + ''.join(obligations) + '</ul>'
+            + '<h3>Source assumptions versus formal assumptions</h3>' + ''.join(comparisons)
+            + '<p>A generalization is not a source correction. Proposed missing conditions require separate independent repair review. '
+            'No proposed repair silently changes the original theorem.</p>'
+            + '<h2>Read the formalized proofs</h2><p>Each statement and proof below has its own closed Lean disclosure. '
+            'ASTIS parents, Mathlib calls and external mathematical sources are distinguished in each proof.</p>'
+            + ''.join(lessons) + '</section>')
+
+
+def enrich_site(output: Path) -> None:
+    errors = publication.validate()
+    if errors:
+        raise ValueError('\n'.join(errors))
+    groups = {}
+    for item in publication.load():
+        groups.setdefault(item['chapter_path'], []).append(item)
+    for rel, items in groups.items():
+        path = output / rel
+        text = path.read_text(encoding='utf-8')
+        # A common projection hook covers peer shelves without asking authors
+        # to copy state into that library's generator or generated HTML.
+        marker = status(items[0]['library'], items[0]['chapter'])
+        text = re.sub(r'(<div class="tag-row">)<span class="status[^>]*>.*?</span>',
+                      lambda m: m[1] + marker, text, count=1)
+        block = ''.join(source_card(i, rel) for i in items)
+        text = text.replace('</main>', block + '</main>', 1)
+        path.write_text(text, encoding='utf-8', newline='\n')
+        index = path.parent / 'index.html'
+        if index.exists():
+            shelf = index.read_text(encoding='utf-8')
+            def card(match):
+                value = match[0]
+                if f'href="{path.name}"' in value:
+                    value = re.sub(r'<span class="status[^>]*>.*?</span>', lambda _: marker, value, count=1)
+                return value
+            shelf = re.sub(r'<article class="library-chapter-card".*?</article>', card, shelf, flags=re.S)
+            index.write_text(shelf, encoding='utf-8', newline='\n')
+    projection = {i['id']: {'chapter_path': i['chapter_path'],
+                            **publication.chapter_progress(i['library'], i['chapter'])}
+                  for i in publication.load()}
+    (output / 'data/publication-progress.json').write_text(json.dumps(projection, indent=2), encoding='utf-8')
+
+
+def project_graph(builder) -> None:
+    """Update source containers only; never recolor declaration/proof nodes."""
+    by_path = {i['chapter_path']: publication.chapter_progress(i['library'], i['chapter']) for i in publication.load()}
+    by_path.update({str(Path(i['chapter_path']).parent / 'index.html').replace('\\', '/'):
+                   publication.chapter_progress(i['library']) for i in publication.load()})
+    for node in builder.nodes.values():
+        p = by_path.get(node.get('url'))
+        if p and node.get('kind') in {'library', 'library-chapter'}:
+            node['status'] = 'partial' if p['status'] == 'partial' else 'planned'
+            node['subtitle'] = p['label'] + ' · source fidelity and chapter closure separate'
+            node['search'] += ' ' + node['subtitle'].lower()
+            for item in publication.load():
+                if item['chapter_path'] == node.get('url'):
+                    node.setdefault('details', []).append({'label': 'Mapped source',
+                        'value': item['title'] + ' · ' + item['source']['anchor']})
+                    for b in item['bindings']:
+                        node['details'].append({'label': 'Local component / boundary',
+                            'value': b['declaration'] + ' · ' + b['boundary']})
+                        # Correspondence overlay, not an implication extracted from Lean.
+                        builder.edge('decl:' + b['declaration'], node['id'], 'source correspondence; not a Lean dependency')
+
+
+def validate_site(output: Path) -> list[str]:
+    errors = publication.validate()
+    for item in publication.load():
+        path = output / item['chapter_path']
+        if not path.exists():
+            errors.append(f'Missing publication chapter {item["chapter_path"]}')
+            continue
+        text = path.read_text(encoding='utf-8')
+        for marker in (f'data-publication-item="{item["id"]}"', 'Encoder–denoiser:',
+                       'Source assumptions versus formal assumptions'):
+            if marker not in text:
+                errors.append(f'{path.name}: missing {marker}')
+        for b in item['bindings']:
+            if f'data-authored-declaration="{b["declaration"]}"' not in text:
+                errors.append(f'{path.name}: missing adjacent authored proof {b["declaration"]}')
+    return errors

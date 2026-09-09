@@ -39,7 +39,7 @@ except ImportError:  # direct ``python3 tools/astis_advance.py ...``
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ADVANCE_LEDGER = ROOT / "runs" / "substantive_advances.jsonl"
 DEFAULT_DISCOVERY_LEDGER = ROOT / "runs" / "substantive_discoveries.jsonl"
-ADVANCE_SCHEMA_VERSION = 3
+ADVANCE_SCHEMA_VERSION = 4
 
 
 class HarnessError(RuntimeError):
@@ -371,6 +371,8 @@ def _replay_advances(records: Iterable[dict[str, Any]]) -> dict[str, dict[str, A
             current["modes"] = list(record.get("modes") or current.get("modes") or [])
             if record.get("evidence"):
                 current["latest_evidence"] = record["evidence"]
+                if to_state == 'PROVED_LOCAL' and record['evidence'].get('publication_declarations'):
+                    current['publication_declarations'] = record['evidence']['publication_declarations']
             current["updated_at"] = record.get("created_at", current.get("updated_at"))
         elif event == "checkpoint":
             previous = current.get("latest_checkpoint") or {}
@@ -422,6 +424,8 @@ def _validate_transition_evidence(
             required += ("result_kind", "lean_declarations")
         if schema_version >= 3:
             required += ("conceptual_mirror_audit",)
+        if schema_version >= 4:
+            required += ("publication_declarations",)
         missing = [key for key in required if not _meaningful(evidence.get(key))]
         if missing:
             raise HarnessError("PROVED_LOCAL lacks evidence: " + ", ".join(missing))
@@ -432,6 +436,8 @@ def _validate_transition_evidence(
             )
         if schema_version >= 3:
             _validate_conceptual_mirror_audit(evidence.get("conceptual_mirror_audit"))
+        if schema_version >= 4 and set(evidence['publication_declarations']) != set(evidence['lean_declarations']):
+            raise HarnessError('publication_declarations must cover exactly the proved Lean declarations')
     elif to_state == "VERIFIED":
         required = ("gate",)
         if schema_version >= 2:
@@ -542,6 +548,21 @@ def transition_advance(
             raise HarnessError(f"illegal substantive-advance transition: {current} -> {to_state}")
         schema_version = int(item.get("schema_version", 1))
         _validate_transition_evidence(to_state, evidence, schema_version=schema_version)
+        if schema_version >= 4 and to_state in {'PROVED_LOCAL', 'VERIFIED', 'STABILIZING'}:
+            # Carry the exact target set through transitions; no prose "site OK" bypass.
+            declarations = evidence.get('publication_declarations') or item.get('publication_declarations')
+            if not declarations:
+                raise HarnessError('publication_declarations required for reader/round-trip gate')
+            if to_state != 'PROVED_LOCAL' and set(declarations) != set(item.get('publication_declarations', [])):
+                raise HarnessError('Cannot change the publication target set after PROVED_LOCAL')
+            try:
+                from tools.astis_publication import check_advance
+            except ImportError:
+                from astis_publication import check_advance
+            try:
+                check_advance(list(declarations), reviewed=to_state != 'PROVED_LOCAL')
+            except ValueError as exc:
+                raise HarnessError(str(exc)) from exc
         if to_state == "PROVED_LOCAL" and schema_version >= 3:
             _validate_conceptual_mirror_audit_links(
                 advance_id,

@@ -20,6 +20,13 @@ A proving/formalizing Worker must not act as its own blind decoder or source-fac
 
 ## Required workflow
 
+For new/changed declarations, also read `docs/theorem-publication-protocol.md`.
+The bounded publication packet supplies a `publication_binding_sha256`; record
+it on the canonical audit to bind current code, source, assumptions and authored
+proof explanation. It is coordinator metadata, **never blind decoder input**.
+Reuse an unchanged review; changed inputs invalidate it. The Harness and CI
+enforce admission automatically but never invent a decoder/reviewer verdict.
+
 1. Pin the source ID, exact anchor, verbatim or licensed ASTIS source restatement, and SHA-256.
 2. Pin the Lean declaration, file, fully elaborated statement available to the decoder, statement SHA-256, and compiler evidence.
 3. Create or update an audit in `research-wiki/semantic-roundtrip/registry.json` in `draft` state.

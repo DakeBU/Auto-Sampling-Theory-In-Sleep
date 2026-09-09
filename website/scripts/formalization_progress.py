@@ -252,6 +252,9 @@ def route_panel(
     cells: list[dict[str, object]],
     actions: str,
 ) -> str:
+    progress = library_shelves.publication_reader.publication.chapter_progress(route_id)
+    if progress['status'] != 'scaffold':
+        status = progress['label'] + ' · source fidelity separate'
     return f"""
 <section class="progress-route-panel route-{escape(anchor)}" id="{escape(anchor)}" data-progress-route="{escape(route_id)}">
   <header class="progress-route-header">
