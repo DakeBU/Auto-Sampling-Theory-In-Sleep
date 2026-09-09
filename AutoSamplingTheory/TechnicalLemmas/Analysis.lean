@@ -10,6 +10,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCycleNeighborhood
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCycleQuantitativeNeighborhood
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedQuadraticCost
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
+import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder
 
 /-!
 # Analysis technical lemma arsenal

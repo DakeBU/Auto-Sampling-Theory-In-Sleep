@@ -1,0 +1,141 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+      "kind": "theorem",
+      "title": "A quadratic lower model from strong convexity",
+      "statement": "On a convex subset of a real Hilbert space, a strongly convex function lies above its tangent model by a quadratic correction, provided its genuine gradients exist at the domain points.",
+      "formula": "f(y)\\ge f(x)+\\langle g(x),y-x\\rangle+\\frac m2\\|y-x\\|^2.",
+      "assumptions": [
+        "Let E be a complete real inner-product space, s⊆E, f:E→ℝ, m∈ℝ and g:E→E. For x,y∈s, assume StrongConvexOn s m f and HasGradientAt f (g z) z for every z∈s.",
+        "StrongConvexOn includes convexity of s and the chord inequality with the normalization m/2.",
+        "HasGradientAt is an ambient derivative of f at each z∈s, including boundary points; it is not merely a derivative within s or a totalized gradient value.",
+        "m is an arbitrary real number. No measure, integration or continuity of the gradient field is assumed. CompleteSpace is retained from the reused Hilbert-space API."
+      ],
+      "steps": [
+        {
+          "title": "Restrict to an affine segment",
+          "text": "Set v=y−x and p(t)=x+tv. The chord inequality gives",
+          "formula": "f(p(t))\\le(1-t)f(x)+tf(y)-\\frac m2t(1-t)\\|v\\|^2,\\quad 0<t\\le1.",
+          "lean": "`path` is the affine segment; `hpoint` rewrites the convex combination. `hsc.2` supplies the chord inequality."
+        },
+        {
+          "title": "Divide by a positive parameter",
+          "text": "Rearrange and divide by t:",
+          "formula": "f(y)\\ge f(x)+\\frac{f(p(t))-f(x)}t+\\frac m2(1-t)\\|v\\|^2.",
+          "lean": "The existing `Geometry.GeodesicConvexity.firstOrder_geodesicConvexity` parent handles the positive-parameter rearrangement; ASTIS does not duplicate that proof."
+        },
+        {
+          "title": "Take the one-sided limit",
+          "text": "HasGradientAt gives Pass to the limit in the inequality. The existing ASTIS firstOrder_geodesicConvexity theorem packages precisely this scalar limiting step.",
+          "formula": "\\lim_{t\\downarrow0}\\frac{f(x+tv)-f(x)}t=\\langle g(x),v\\rangle.",
+          "lean": "`hline` and `hderiv` obtain the real segment derivative from `HasGradientAt`; `hfirst` applies the scalar limit theorem and `simpa` reconciles norm and distance."
+        }
+      ],
+      "lean_statement": "StrongConvexOn includes convexity of s and the chord inequality with the normalization m/2. HasGradientAt is an ambient derivative of f at each z∈s, including boundary points; it is not merely a derivative within s or a totalized gradient value. m is an arbitrary real number. No measure, integration or continuity of the gradient field is assumed. CompleteSpace is retained from the reused Hilbert-space API.",
+      "lean_proof": "The local definitions path and isSelected encode the chosen affine segment; hconvex rewrites the Mathlib chord inequality into the geodesic parent's normalization. hgrad supplies HasFDerivAt, then HasLineDerivAt; hderiv identifies the real derivative of the segment composition. simpa reconciles dist and norm conventions.",
+      "boundary": [
+        "Convexity keeps the segment in the domain; positive t permits division without reversing the inequality.",
+        "Genuine differentiability identifies the difference-quotient limit. The domain-local interface is not a claim that Chewi's entire whole-space C¹ equivalence is formalized.",
+        "Existing parent from PR #239, newly registered during PR #248 integration, not a newly proved result."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Geometry.GeodesicConvexity.firstOrder_geodesicConvexity"
+      ],
+      "mathlib_dependencies": [
+        "StrongConvexOn — convex domain and m/2 normalization.",
+        "HasGradientAt.hasFDerivAt; HasFDerivAt.hasLineDerivAt; HasLineDerivAt — genuine derivative interfaces.",
+        "InnerProductSpace.toDual_apply_apply; dist_eq_norm; norm_sub_rev — gradient, distance and norm identifications."
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Convex/StronglyConvex.lean",
+          "label": "Optlib, Chenyi Li and Ziyu Wang (Apache-2.0), pinned source",
+          "scope": "Strong_Convex_second_lower: mathematical statement provenance; ASTIS uses its existing geodesic limiting proof."
+        },
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Lectures on Optimization, §1.2, Proposition 1.6",
+          "scope": "(1.3) implies (1.4). Domain-local supplied gradients are explicit in the ASTIS interface, not silently attributed to the source."
+        },
+        {
+          "path": "Tests/Shared/StrongConvexFirstOrder.lean",
+          "label": "Exact focused tests",
+          "scope": "Uses the first-order bound and checks positive-modulus gradient injectivity."
+        }
+      ],
+      "source_history_boundary": "Mathematical statement provenance: Optlib Strong_Convex_second_lower, commit 5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3 (Chenyi Li and Ziyu Wang, Apache-2.0). ASTIS reuses its own geodesic limiting proof, not an imported Optlib proof. Chewi Lectures on Optimization, arXiv:2605.07006v1, Proposition 1.6, (1.3)→(1.4), is the whole-space specialization."
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.gradient_inner_lower_bound_of_strongConvexOn",
+      "kind": "theorem",
+      "title": "Strong convexity separates gradients",
+      "statement": "The gradient of a strongly convex function has a quantitative monotonicity bound on its domain. A positive modulus therefore makes the gradient injective there.",
+      "formula": "\\langle g(y)-g(x),y-x\\rangle\\ge m\\|y-x\\|^2.",
+      "assumptions": [
+        "Let E be a complete real inner-product space, s⊆E, f:E→ℝ, m∈ℝ and g:E→E. For x,y∈s, assume StrongConvexOn s m f and HasGradientAt f (g z) z for every z∈s.",
+        "The set is convex as part of StrongConvexOn. Both x and y belong to s.",
+        "Supplied gradients are genuine ambient derivatives at all domain points; no totalized derivative is used to manufacture differentiability.",
+        "Complete real inner-product space, with arbitrary real m. No extra smoothness, Hessian, measure or integrability assumptions."
+      ],
+      "steps": [
+        {
+          "title": "The lower model at x",
+          "text": "Put v=y−x. Apply the parent at (x,y):",
+          "formula": "f(y)-f(x)\\ge\\langle g(x),v\\rangle+\\frac m2\\|v\\|^2.",
+          "lean": "`hxy` applies the existing first-order bound with `hx hy`."
+        },
+        {
+          "title": "The lower model at y",
+          "text": "Apply the same parent at (y,x), using x−y=−v:",
+          "formula": "f(x)-f(y)\\ge-\\langle g(y),v\\rangle+\\frac m2\\|v\\|^2.",
+          "lean": "`hyx` applies that same bound with `hy hx`. Rewriting uses the reversed-displacement identity, `inner_neg_right` and `norm_neg`."
+        },
+        {
+          "title": "Cancel and collect",
+          "text": "Add, cancel the function values, and use linearity of the real inner product: Rearranging proves the claimed bound.",
+          "formula": "0\\ge-\\langle g(y)-g(x),v\\rangle+m\\|v\\|^2.",
+          "lean": "`rw [inner_sub_left]` expands the goal. `linarith` combines the two inequalities and cancels the function values."
+        },
+        {
+          "title": "The positive-modulus test consumer",
+          "text": "The focused test checks a genuine consequence: if m>0 and g(x)=g(y), then This test is not a second registered theorem.",
+          "formula": "0\\ge m\\|y-x\\|^2\\ge0\\quad\\Longrightarrow\\quad x=y.",
+          "lean": "The `Set.InjOn` example substitutes equal gradients. `mul_pos hm (pow_pos hn' 2)` excludes a nonzero displacement, and `norm_eq_zero` and `sub_eq_zero` conclude equality."
+        }
+      ],
+      "lean_statement": "The set is convex as part of StrongConvexOn. Both x and y belong to s. Supplied gradients are genuine ambient derivatives at all domain points; no totalized derivative is used to manufacture differentiability. Complete real inner-product space, with arbitrary real m. No extra smoothness, Hessian, measure or integrability assumptions.",
+      "lean_proof": "hxy and hyx are the two calls to the same ASTIS parent. rw changes the reversed displacement to a negative, normalizes its norm, and expands inner_sub_left. linarith combines the two scalar inequalities without assuming the desired conclusion.",
+      "boundary": [
+        "The existing first-order bound is used at both endpoints. The proof adds no assumptions beyond that parent interface.",
+        "The lower bound is strong monotonicity only when m>0, ordinary monotonicity when m=0, and a signed lower bound when m<0.",
+        "No reverse implication, Hessian equivalence, gradient-flow contraction, Gibbs invariance or sampling rate is proved. The injectivity test is not another registered leaf."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+      ],
+      "mathlib_dependencies": [
+        "inner_neg_right; norm_neg; inner_sub_left — inner-product and norm identities.",
+        "abel; linarith — checked algebraic normalization and linear arithmetic."
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Convex/StronglyConvex.lean",
+          "label": "Optlib, Chenyi Li and Ziyu Wang (Apache-2.0), pinned source",
+          "scope": "Strong_Convex_lower: matching domain-local statement after swapping x and y; ASTIS uses its own first-order parent rather than this external proof code."
+        },
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Lectures on Optimization, §1.2, Proposition 1.6",
+          "scope": "(1.4) implies (1.5). The whole-space C¹, nonnegative-modulus formulation is a specialization; the full equivalence remains open."
+        },
+        {
+          "path": "Tests/Shared/StrongConvexFirstOrder.lean",
+          "label": "Exact focused tests",
+          "scope": "Uses the first-order bound and checks positive-modulus gradient injectivity."
+        }
+      ],
+      "source_history_boundary": "Source correspondence: Chewi Lectures on Optimization, arXiv:2605.07006v1, Proposition 1.6, (1.4)→(1.5). Reverse implications, Hessian equivalence, whole-space source-facing specialization and gradient-flow contraction remain separate obligations. This is not a Gibbs-invariance or sampling-rate theorem."
+    }
+  ]
+}

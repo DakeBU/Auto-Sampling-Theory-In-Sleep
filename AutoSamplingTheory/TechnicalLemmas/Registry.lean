@@ -1,5 +1,6 @@
 import AutoSamplingTheory.Core
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability
+import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Cutoff
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Divergence
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient
@@ -71,6 +72,26 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
     note
 
 def analysisMemory : List LemmaMemoryEntry := [
+  {
+    key := "analysis.strong-convexity.first-order-lower-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+    upstreamDecl := "Strong_Convex_second_lower",
+    upstreamFile := "Optlib/Convex/StronglyConvex.lean@5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "CONV", "strong-convexity", "gradient", "first-order", "shared"],
+    saldUse := "Parent of gradient_inner_lower_bound_of_strongConvexOn; intended Optimization Proposition 1.6 (1.4) and sampling convex-potential adapters",
+    note := "Existing ASTIS theorem admitted to Registry during PR #248 integration, not a new proof. Domain-local Hilbert-space supplied-gradient interface with arbitrary real modulus; not the whole source equivalence. Optlib mathematical provenance: Chenyi Li and Ziyu Wang, Apache-2.0; ASTIS proof uses the existing geodesic first-order lemma."
+  },
+  {
+    key := "analysis.strong-convexity.gradient-inner-lower-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.gradient_inner_lower_bound_of_strongConvexOn",
+    upstreamDecl := "Strong_Convex_lower",
+    upstreamFile := "Optlib/Convex/StronglyConvex.lean@5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "CONV", "strong-convexity", "gradient", "monotonicity", "shared"],
+    saldUse := "Positive-modulus gradient injectivity in Tests.Shared.StrongConvexFirstOrder; intended Optimization Proposition 1.6 (1.5) and gradient-flow contraction adapters",
+    note := "PR #248 by andyjm3: sum the ASTIS first-order bounds in both directions. Arbitrary real modulus; only the injectivity consumer needs positivity. No reverse implication, Hessian equivalence, flow theorem, Gibbs invariance or new conceptual transport certificate is claimed."
+  },
   {
     key := "analysis.integrability.of-real-lintegral-finite",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_ofReal_ne_top_of_integrable_nonneg",
