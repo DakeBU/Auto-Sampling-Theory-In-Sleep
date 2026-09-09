@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Optlib 5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3, Optlib/Convex/StronglyConvex.lean:133, Strong_Convex_lower; Chewi arXiv:2605.07006v1, Proposition 1.6, (1.4) implies (1.5)",
   "target_statement": "StrongConvexOn s m f and supplied HasGradientAt on s imply m * norm(y-x)^2 <= inner (grad y-grad x) (y-x), by summing the existing first-order bounds.",
-  "status": "stabilized",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-strong-convex-first-order"
   ],
@@ -37,7 +37,7 @@
     "independent_verification": "Independent maintainer review of PR head a3506c2a370f98926ffee2e6f41f3a2152fa7aa6 on 2026-09-09: exact Lean blobs, pinned Optlib source and Chewi implication reviewed; focused build, axiom audit and full integrated ASTIS gate passed. See verifier-feedback/pr248-strong-convex-gradient-monotonicity.md; GitHub approval review 5152758694. This is not a full source-equivalence semantic round trip.",
     "root_build": "python3 tools/astis.py check passed under Lean 4.33.0: Lake root build, Tests build, pinned ATLAS inventory and fake-closure scan. Independently rerun by review_opt_monotonicity on the Lean file hashes below.",
     "graph_regeneration": "website/scripts/build_site.py and website/scripts/check_site.py passed during serialized integration: 12 chapters, 522 modules, 3623 declarations and 396 registered compiled leaves. The source-driven Underlying Lean Graph and authored declaration lessons include the first-order parent and gradient lower-bound child; no conceptual edge is promoted into a formal dependency.",
-    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/248 (reviewed head a3506c2a370f98926ffee2e6f41f3a2152fa7aa6; serialized integration pending publication)",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/248 merged on 2026-09-09 as 2dc983754e55fcf245e53c107f06fc3b35c4337a; reviewed head a3506c2a370f98926ffee2e6f41f3a2152fa7aa6 and website parent 8937518af764ab6a042df74b0c98213a0fd36549 are both retained in history.",
     "protocol_checks": [
       "python3 tools/astis_frontier_cells.py check passed.",
       "python3 tools/astis.py harness-test passed: 141 tests, Python 3.14.6; run by the implementation worker after the independent Lean review."
