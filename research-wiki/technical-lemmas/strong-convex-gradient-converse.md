@@ -46,8 +46,15 @@ obligation, after checking whether another contributor has closed it.
 - No new conceptual mirror was identified beyond the existing curvature-growth
   family. No conceptual correspondence is promoted to a formal dependency.
 
-The cell remains `proved_locally`. Reviews pin file contents; commit-bound
-`VERIFIED` admission, commit/push, PR and merge are still outstanding.
+The implementation is committed at
+`e84cd69e87338f9b9593b12e9b11524aa0989d07` and pushed on
+`andi/opt-gradient-converse`. Commit-bound independent verification is recorded
+in `runs/semantic-roundtrip/andi-opt-gradient-converse/commit-verification.json`
+and the canonical ledger. The user authorized direct integration without a PR,
+conditional on the protocol gates. Main integration is pending: the single
+stabilization lane is occupied by `ASTIS-20260908-KernelInvariance`, owned by
+`root-samplewiki-resume`; PR #246 was confirmed OPEN at this closeout. Do not
+change that owner or its state to admit this contribution. No PR was created.
 
 ## Integration lessons
 
