@@ -1,0 +1,13 @@
+.proof-reader { max-width: 54rem; margin-inline: auto; font-size: 1.05rem; line-height: 1.8; }
+.proof-reader h1 { max-width: 22ch; }
+.proof-reader section { margin-block: 2rem; }
+.proof-reader-step { padding-block: .75rem 1.25rem; border-bottom: 1px solid var(--border, #8b95a555); }
+.proof-reader-equation { max-width: 100%; overflow-x: auto; padding: .5rem .75rem; }
+.proof-reader details { margin-block: 1rem; padding: .85rem 1rem; border: 1px solid var(--border, #8b95a555); border-radius: .4rem; }
+.proof-reader summary { cursor: pointer; font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; }
+.proof-reader code, .proof-reader dd { overflow-wrap: anywhere; }
+.proof-reader pre { max-width: 100%; overflow: auto; font-size: .9rem; line-height: 1.65; }
+.proof-reader-boundary { border-left: .25rem solid #dc3545; padding-left: 1.25rem; }
+.proof-reader dt { font-weight: 650; margin-top: .6rem; }
+.proof-reader dd { margin-left: 0; }
+@media (max-width: 600px) { .proof-reader { font-size: 1rem; } .proof-reader details { padding: .65rem; } }

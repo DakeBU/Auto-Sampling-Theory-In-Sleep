@@ -26,6 +26,28 @@ proof.
 
 ## Build
 
+### Shared proof readers
+
+`website/content/proof_readers.json` holds original mathematical exposition for
+recent shared prerequisites. Each reader has an exact statement, hypotheses,
+displayed equations for every proof step, step-to-Lean explanations, source
+scope, and an explicit remaining boundary. It is not a source-theorem closure
+record or an addition to the reviewed-teaching count.
+
+`proof_readers.py` resolves declaration links from the existing generated
+inventory; it includes full checkout Lean modules and tests in closed native
+disclosures. It reads compilation, Registry membership, Frontier Cell status
+and independent semantic verdict separately. Do not author those statuses in
+the exposition. List ASTIS and Mathlib dependencies separately, with a role for
+each call. Add a reader to an actual chapter/library consumer using
+`entry_pages`. Build and validation commands below include this layer. The
+rendered entry is `_site/proofs/index.html`.
+
+Publication is distinct from Git push: pushing a collaboration branch saves
+the source remotely. The existing Pages workflow deploys from `main` (or an
+explicit manual workflow run), not from that collaboration branch. Do not
+present a pushed branch as a changed live website.
+
 From the repository root:
 
 ```bash

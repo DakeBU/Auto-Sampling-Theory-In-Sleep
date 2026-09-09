@@ -25,6 +25,7 @@ import lean_tutor  # noqa: E402
 import reader_contract_final  # noqa: E402
 import source_foundations  # noqa: E402
 import cross_domain  # noqa: E402
+import proof_readers  # noqa: E402
 
 
 # Validation must resolve Registry entries with the same declaration parser used
@@ -271,6 +272,11 @@ def main() -> int:
         print("Lean learning studio site check failed:", file=sys.stderr)
         for error in tutor_errors:
             print(f"- {error}", file=sys.stderr)
+        return 1
+    reader_errors = proof_readers.validate_site(output)
+    if reader_errors:
+        for error in reader_errors:
+            print(f"Proof reader check failed: {error}", file=sys.stderr)
         return 1
     return 0
 

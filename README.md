@@ -32,6 +32,17 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 
 ## News
 
+- **2026-09-09, mathematics-first readers:** recent shared prerequisites now
+  have standalone [proof readers](website/README.md#shared-proof-readers): the
+  random-coordinate transition law, its reversibility proof (including null
+  atoms), and the Fisher/transport estimate. Build the site and open
+  `proofs/index.html` to read statements, displayed derivations, optional
+  step-to-Lean explanations, complete folded source, and separate ASTIS/Mathlib
+  dependencies. Status comes from the source inventory and independent audit,
+  not the prose. Fisher source certification remains withheld. These readers
+  are included on the collaboration branch; pushing that branch does not
+  deploy GitHub Pages or establish complete textbook proof coverage.
+
 - **2026-09-08, analytic checkpoint:** the canonical Fisher/transport pairing
   now has a compiled integrability proof and an optimal-coupling L2 estimate,
   with a test that removes the assumed pairing bound from the existing

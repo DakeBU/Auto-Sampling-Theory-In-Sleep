@@ -862,6 +862,17 @@ def local_declaration_status(declaration: SourceDeclaration, gate: GateEvidence)
     return "Compiled" if gate.passed else "Partial"
 
 
+def source_commit_link_error(url: str, commit: str, web_root: str) -> str | None:
+    """Local source uses this checkout; external libraries use their own pins."""
+    root = web_root.rstrip("/") or "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep"
+    if url.startswith(root + "/blob/"):
+        if commit and f"/blob/{commit}/" not in url:
+            return f"source link is not pinned to the generated commit: {url}"
+    elif not re.search(r"/blob/[0-9a-f]{40}/", url):
+        return f"external source link is not pinned to an immutable commit: {url}"
+    return None
+
+
 def source_href(
     declaration: SourceDeclaration,
     *,
@@ -3610,8 +3621,9 @@ def validate_site(
         r'href="(https://github\.com/[^"]+/blob/[^"]+)"',
         generated_text,
     ):
-        if commit and f"/blob/{commit}/" not in source_link:
-            errors.append(f"source link is not pinned to the generated commit: {source_link}")
+        pin_error = source_commit_link_error(source_link, commit, str(site_data["git"].get("web_root", "")))
+        if pin_error:
+            errors.append(pin_error)
             break
     if not gate.get("passed") and "Lean gate passed" in generated_text:
         errors.append("unverified build displays a Lean gate passed label")

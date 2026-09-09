@@ -1,0 +1,261 @@
+[
+  {
+    "id": "fisher-transport",
+    "title": "Pairing a relative score with transport displacement",
+    "purpose": "The analytic estimate behind the Cauchy–Schwarz step in Chewi’s proximal-sampling argument; first variation remains a separate theorem.",
+    "statement": "Let \\(\\gamma\\) couple measures \\(\\mu\\) and \\(\\nu\\) on a finite-dimensional Euclidean space, both with integrable squared norm. Let \\(s=\\nabla\\ell\\), where \\(\\ell\\) is ASTIS’s selected RN log-ratio for \\(\\mu,\\pi\\), and assume its smooth finite score domain. The score–displacement pairing is integrable. If the coupling is quadratic-optimal, the following estimate holds.",
+    "formula": "\\left|\\int \\langle s(x),y-x\\rangle\\,d\\gamma(x,y)\\right|\\leq \\sqrt{I(\\mu\\mid\\pi)}\\,W_2(\\mu,\\nu),\\qquad I(\\mu\\mid\\pi)=\\int\\|s(x)\\|^2\\,d\\mu(x).",
+    "assumptions": [
+      "The state space is \\(\\mathbb R^d\\), represented by EuclideanSpace ℝ ι with Fintype ι. The measures need not be probability measures for this auxiliary inequality.",
+      "\\(\\mu\\ll\\pi\\); the selected function \\(\\ell\\) is genuinely differentiable \\(\\mu\\)-almost everywhere; and \\(\\int\\|s\\|^2\\,d\\mu<\\infty\\). These are the three fields of SmoothFiniteScoreDomain.",
+      "\\((\\mathrm{pr}_1)_\\#\\gamma=\\mu\\), \\((\\mathrm{pr}_2)_\\#\\gamma=\\nu\\), and the two squared norms are integrable. Optimality is used only to identify the displacement cost with \\(W_2^2\\)."
+    ],
+    "steps": [
+      {
+        "title": "Pull score energy through the first marginal",
+        "text": "The total gradient is measurable by an existing ASTIS result. Composition with the first projection is therefore strongly measurable almost everywhere. The marginal identity transports its squared integral exactly; it does not require independence of the coordinates.",
+        "formula": "\\int \\|s(x)\\|^2\\,d\\gamma(x,y)=\\int\\|s(x)\\|^2\\,d\\mu(x)=I(\\mu\\mid\\pi).",
+        "lean": "memLp_score_and_displacement uses measurable_gradient and measurePreserving_fst_of_isCoupling; memLp_two_iff_integrable_sq_norm turns measurability plus integrable squared norm into MemLp at exponent 2."
+      },
+      {
+        "title": "Obtain displacement energy from marginal moments",
+        "text": "The displacement is continuous. Its squared norm is dominated by the sum of the two marginal squared norms, so it is integrable. This is an existing ASTIS coupling lemma, reused rather than re-proved in this packet.",
+        "formula": "\\|y-x\\|^2\\leq 2\\|x\\|^2+2\\|y\\|^2,\\qquad \\int\\|y-x\\|^2\\,d\\gamma<\\infty.",
+        "lean": "integrable_norm_sub_sq_of_isCoupling supplies the integrable cost. norm_sub_rev reconciles x − y with y − x."
+      },
+      {
+        "title": "Justify the pairing integral before estimating it",
+        "text": "The product of the two norm functions is integrable by the \\(L^2\\)-product theorem. Pointwise Cauchy–Schwarz dominates the scalar pairing by that product, while measurability is preserved by the inner product. Thus the displayed integral is a genuine integrable pairing, not merely the value of a totalized integral.",
+        "formula": "|\\langle s(x),y-x\\rangle|\\leq\\|s(x)\\|\\,\\|y-x\\|,\\qquad \\langle s(x),y-x\\rangle\\in L^1(\\gamma).",
+        "lean": "hs.norm.integrable_mul hd.norm produces the dominating integrable product; Integrable.mono' with hs.1.inner hd.1 proves integrable_pairing_of_isCoupling."
+      },
+      {
+        "title": "Apply the existing Hölder inequality",
+        "text": "First move the absolute value inside the integral, then dominate the inner product and apply Hölder with conjugate exponents 2 and 2. No first-variation or convexity assumption enters this calculation.",
+        "formula": "\\begin{aligned}\\left|\\int\\langle s(x),y-x\\rangle\\,d\\gamma\\right|&\\leq\\int\\|s(x)\\|\\,\\|y-x\\|\\,d\\gamma\\\\&\\leq\\left(\\int\\|s(x)\\|^2\\,d\\gamma\\right)^{1/2}\\left(\\int\\|y-x\\|^2\\,d\\gamma\\right)^{1/2}.\\end{aligned}",
+        "lean": "The calc block follows norm_integral_le_integral_norm, integral_mono, and integral_mul_norm_le_Lp_mul_Lq with Real.HolderConjugate.two_two."
+      },
+      {
+        "title": "Identify the optimal cost, with finiteness retained",
+        "text": "For an optimal coupling, the existing real/extended quadratic-cost bridge identifies the second factor. The moment bound guarantees finite transport cost before converting the extended distance to a real number. Substitute both energy identities and take the square root of a nonnegative square.",
+        "formula": "\\int\\|y-x\\|^2\\,d\\gamma=W_2(\\mu,\\nu)^2,\\qquad \\sqrt{W_2(\\mu,\\nu)^2}=W_2(\\mu,\\nu).",
+        "lean": "hdispEq invokes integral_norm_sq_eq_wassersteinDistance_sq_toReal_of_optimal. The final rewrite uses Real.sqrt_sq ENNReal.toReal_nonneg. The focused test separately checks that the actual extended W₂ is not infinity."
+      }
+    ],
+    "declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.integrable_pairing_of_isCoupling",
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalFisherTransportPairing.abs_integral_pairing_le_sqrt_information_mul_wasserstein"
+    ],
+    "astis_dependencies": [
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.MeasurableGradient.measurable_gradient",
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.SmoothFiniteScoreDomain",
+      "AutoSamplingTheory.TechnicalLemmas.InformationTheory.CanonicalRelativeFisher.information_eq_integral_scoreSq",
+      "AutoSamplingTheory.TechnicalLemmas.Measure.CouplingQuadraticIntegrability.integrable_norm_sub_sq_of_isCoupling",
+      "AutoSamplingTheory.TechnicalLemmas.Measure.DisplacementRealQuadraticCost.integral_norm_sq_eq_wassersteinDistance_sq_toReal_of_optimal"
+    ],
+    "mathlib_dependencies": [
+      {
+        "name": "MeasureTheory.memLp_two_iff_integrable_sq_norm",
+        "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/Function/L2Space.lean#L45",
+        "role": "L² criterion"
+      },
+      {
+        "name": "MeasureTheory.integral_mul_norm_le_Lp_mul_Lq",
+        "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L1144",
+        "role": "Hölder inequality; not a new ASTIS theorem"
+      },
+      {
+        "name": "MeasureTheory.integral_map",
+        "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L1043",
+        "role": "Marginal change of variables"
+      }
+    ],
+    "boundary": [
+      "This is not Theorem 8.4.1. Source certification is withheld: the smooth score of the source has not been identified with the selected RN representative’s classical total gradient. Almost-everywhere equality alone does not imply equality of classical gradients.",
+      "Specializing to probability laws, setting \\(\\nu=\\pi\\), constructing the source’s optimal graph coupling and identifying its expectation are still source adapters.",
+      "Finite entropy, a genuine KL first variation, endpoint one-sided versus two-sided differentiation, convexity, heat-flow domains and the proximal convergence theorem are not supplied.",
+      "The test removes an assumed Cauchy–Schwarz bound from an existing geodesic interface; the first variation and path/law adapters remain test hypotheses. Totalized klDiv.toReal is not evidence of finite entropy."
+    ],
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/chewisinho/chewisinho.github.io/b3ad6e874119983ae5f689a3295df4cdb44b11a7/main.pdf#page=233",
+        "label": "Sinho Chewi, Log-Concave Sampling, August 9, 2026, proof of Theorem 8.4.1, printed p.221 / PDF p.233",
+        "scope": "Motivation for the Cauchy–Schwarz step only; this is an ASTIS supplementary general-coupling derivation."
+      }
+    ],
+    "source_boundary": "The immutable canonical edition is used. The independent source audit records domain-mismatch / needs-revision; this does not refute the compiled conditional inequality and must not be hidden by a green compilation badge.",
+    "cell": "ASTIS-SHARED-canonical-fisher-transport-pairing",
+    "audit": "ASTIS-RT-20260908-CanonicalFisherTransportPairing",
+    "test": "Tests/CanonicalFisherTransportPairing.lean",
+    "entry_pages": [
+      "textbook/chapter-08/section-8-4.html"
+    ]
+  },
+  {
+    "id": "random-scan-law",
+    "title": "The exact law of one random-coordinate update",
+    "purpose": "Turn the instruction “resample a uniformly selected coordinate conditionally” into an explicit transition probability.",
+    "statement": "Let \\(\\mu\\) be a probability measure on \\(\\{0,1\\}^{n+1}\\), and assume \\(\\mu(\\{x\\})>0\\). One step selects a site uniformly and applies the existing coordinate heat-bath kernel. With \\(F_i(x)=\\{z:z_j=x_j\\text{ for }j\\ne i\\}\\), its singleton transition law is:",
+    "formula": "P(x,\\{y\\})=\\frac1{n+1}\\sum_{i=0}^{n}\\mathbf1_{\\{y_{-i}=x_{-i}\\}}\\frac{\\mu(\\{y\\})}{\\mu(F_i(x))}.",
+    "assumptions": [
+      "There are \\(n+1\\geq1\\) Boolean sites. Finite state space gives measurable singletons and the required standard Borel structure.",
+      "Only the starting atom is required positive. The ambient cube may include forbidden zero-mass configurations; global full support is not assumed.",
+      "The clock is one uniformly chosen site per update, not a sweep, continuous-time process or computational cost model."
+    ],
+    "steps": [
+      {
+        "title": "Evaluate the finite mixture",
+        "text": "The actual kernel is already defined as a state-independent finite mixture of coordinate heat-bath kernels. Evaluate this mixture on a singleton; the uniform weight can be factored out of the finite sum.",
+        "formula": "P(x,\\{y\\})=\\sum_i w_iK_i(x,\\{y\\}),\\qquad w_i=(n+1)^{-1}.",
+        "lean": "Unfold randomScan, then use KernelMixture.finiteMixture_apply, Measure.finsetSum_apply and Finset.mul_sum."
+      },
+      {
+        "title": "Derive, rather than assume, positive conditioning mass",
+        "text": "The initial configuration belongs to every retained-coordinate fiber. Monotonicity of the target measure therefore makes every relevant denominator positive. It is finite because the target is a probability measure.",
+        "formula": "0<\\mu(\\{x\\})\\leq\\mu(F_i(x))\\leq1.",
+        "lean": "The local hpos proof uses measure_mono and Set.singleton_subset_iff. The proof never inserts a separate unexplained fiber-positivity assumption."
+      },
+      {
+        "title": "Evaluate conditional restriction on the destination atom",
+        "text": "On a positive fiber, the existing conditional-law theorem identifies the heat-bath kernel with normalized restriction. Its intersection with a singleton is either the singleton or the empty set.",
+        "formula": "K_i(x,\\{y\\})=\\frac{\\mu(F_i(x)\\cap\\{y\\})}{\\mu(F_i(x))}=\\begin{cases}\\mu(\\{y\\})/\\mu(F_i(x)),&y_{-i}=x_{-i},\\\\0,&\\text{otherwise}.\\end{cases}",
+        "lean": "CoordinateHeatBath.heatBath_eq_cond and Mathlib cond_apply' supply the normalized measure. hret proves that succAbove enumeration is exactly equality at every unselected coordinate; split_ifs handles the two intersections."
+      },
+      {
+        "title": "Sum all site contributions",
+        "text": "Substitute the conditional value into the mixture. The sum includes every selected site: a self-transition can arise from several coordinates. For the uniform two-bit target, remaining at the start has probability one half and either one-bit flip has probability one quarter.",
+        "formula": "\\mu\\text{ uniform on }\\{0,1\\}^2:\\quad P(x,\\{x\\})=\\tfrac12,\\quad P(x,\\{x^{(i)}\\})=\\tfrac14,\\quad P(x,\\{x^{(1,2)}\\})=0.",
+        "lean": "The public theorem finishes by Finset.sum_congr and the ENNReal coercion of the reciprocal weight. Tests/RandomScanHeatBath.lean checks the uniform row and forbidden-state and one-site boundaries."
+      }
+    ],
+    "declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_apply_singleton"
+    ],
+    "astis_dependencies": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan",
+      "AutoSamplingTheory.TechnicalLemmas.Probability.KernelMixture.finiteMixture_apply",
+      "AutoSamplingTheory.TechnicalLemmas.Probability.CoordinateHeatBath.heatBath_eq_cond"
+    ],
+    "mathlib_dependencies": [
+      {
+        "name": "ProbabilityTheory.cond_apply'",
+        "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Probability/ConditionalProbability.lean#L220",
+        "role": "Evaluate normalized restriction"
+      },
+      {
+        "name": "Fin.exists_succAbove_eq",
+        "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fin/SuccPred.lean#L672",
+        "role": "Enumerate every nonselected site"
+      }
+    ],
+    "boundary": [
+      "This formula is not claimed pointwise at a zero-mass starting atom. The existing Markov kernel remains total there through its chosen conditional versions.",
+      "The formula is a noncomputable law interface, not an executable sampler. Invariance and reversibility have separate declarations; mixing, irreducibility and sampling complexity do not follow from the formula alone.",
+      "The source’s copy-index discrepancy is recorded separately. The accepted comparison covers the conditional-update interpretation and retention prose, not unqualified equivalence to every printed numbered instruction."
+    ],
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2307.13826v4#page=5",
+        "label": "Chen, Štefankovič, Vigoda, arXiv:2307.13826v4, §1.3, PDF p.5 (with §1.1, PDF p.4)",
+        "scope": "Uniform coordinate choice and conditional update. The explicit singleton formula is ASTIS’s derivation, not a quotation."
+      }
+    ],
+    "source_boundary": "Independent comparison accepted the narrow target as equivalent-after-elaboration. Positive support and the source copy-index issue remain explicit in the audit.",
+    "cell": "ASTIS-SHARED-random-scan-heat-bath",
+    "audit": "ASTIS-RT-20260908-RandomScanLaw",
+    "test": "Tests/RandomScanHeatBath.lean",
+    "entry_pages": [
+      "libraries/discrete-sampling/index.html",
+      "libraries/mcmc/index.html"
+    ]
+  },
+  {
+    "id": "random-scan-reversibility",
+    "title": "Why random-scan heat bath is reversible",
+    "purpose": "Follow the proof from symmetric atomic flux to Mathlib’s full set-integral definition; zero target atoms are handled explicitly.",
+    "statement": "For any probability target \\(\\mu\\) on \\(\\{0,1\\}^{n+1}\\), the actual uniform random-scan heat-bath kernel \\(P\\) is reversible. No full-support hypothesis is needed. For every pair of measurable sets \\(A,B\\):",
+    "formula": "\\int_A P(x,B)\\,d\\mu(x)=\\int_B P(y,A)\\,d\\mu(y).",
+    "assumptions": [
+      "The finite nonempty site set is represented by Fin (n+1). The kernel is the same randomScan as in the transition-law reader, not a new construction.",
+      "The atomic-to-set bridge is more general: countability and measurable singletons suffice. Neither the measure nor the kernel must have finite mass for that bridge.",
+      "Zero-mass configurations are permitted. Reversibility concerns weighted flux, not a pointwise conditional law at null inputs."
+    ],
+    "steps": [
+      {
+        "title": "Compare flux at positive atoms",
+        "text": "Use the supported-start transition law in both directions. Multiplying by the starting mass leaves a symmetric numerator in each matched-site summand.",
+        "formula": "\\mu(\\{x\\})P(x,\\{y\\})=\\frac1{n+1}\\sum_i\\mathbf1_{\\{y_{-i}=x_{-i}\\}}\\frac{\\mu(\\{x\\})\\mu(\\{y\\})}{\\mu(F_i(x))}.",
+        "lean": "The private singleton_balance lemma rewrites both randomScan_apply_singleton equations only after ruling out zero starting masses."
+      },
+      {
+        "title": "Identify the same retained-coordinate fiber",
+        "text": "If the unselected coordinates match, the two fibers are the same set and therefore have the same mass. The matching condition itself is symmetric; if it fails, both summands vanish. This proves positive-atom flux symmetry term by term.",
+        "formula": "y_{-i}=x_{-i}\\ \\Longrightarrow\\ F_i(y)=F_i(x),\\qquad \\mu(\\{x\\})P(x,\\{y\\})=\\mu(\\{y\\})P(y,\\{x\\}).",
+        "lean": "hsym reverses the coordinate equalities; hf identifies retained-coordinate functions using Fin.succAbove_ne. Finset.sum_congr reduces to each site and ac_rfl handles the symmetric product."
+      },
+      {
+        "title": "Handle null atoms without a false conditional formula",
+        "text": "If the first mass is zero and the second positive, evaluate the transition law from the positive atom. The numerator for arrival at the null atom is zero, so both weighted fluxes vanish. If both masses are zero, neither transition value needs to be identified.",
+        "formula": "\\mu(\\{x\\})=0<\\mu(\\{y\\})\\ \\Longrightarrow\\ P(y,\\{x\\})=0,\\qquad 0\\cdot P(x,\\{y\\})=\\mu(\\{y\\})\\cdot0.",
+        "lean": "The local hz proof splits on the second mass. It calls randomScan_apply_singleton only with the supported start b; simp removes the zero numerator."
+      },
+      {
+        "title": "Pass from singletons to arbitrary sets",
+        "text": "On a countable measurable-singleton space, expand each set integral into nonnegative atomic sums. Insert atomic balance, commute the two sums and regroup the measure of a set. Nonnegative extended sums allow this rearrangement without assuming integrability or finite total mass.",
+        "formula": "\\begin{aligned}\\int_A P(x,B)\\,d\\mu(x)&=\\sum_{x\\in A}\\sum_{y\\in B}\\mu(\\{x\\})P(x,\\{y\\})\\\\&=\\sum_{y\\in B}\\sum_{x\\in A}\\mu(\\{y\\})P(y,\\{x\\})\\\\&=\\int_B P(y,A)\\,d\\mu(y).\\end{aligned}",
+        "lean": "KernelReversibility.isReversible_of_singleton_balance uses lintegral_countable, ENNReal.tsum_mul_right and ENNReal.tsum_comm. randomScan_isReversible then applies that bridge to singleton_balance."
+      }
+    ],
+    "declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.KernelReversibility.isReversible_of_singleton_balance",
+      "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_isReversible"
+    ],
+    "astis_dependencies": [
+      "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_apply_singleton",
+      "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan"
+    ],
+    "mathlib_dependencies": [
+      {
+        "name": "ProbabilityTheory.Kernel.IsReversible",
+        "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Probability/Kernel/Invariance.lean#L60",
+        "role": "The set-integral reversibility definition"
+      },
+      {
+        "name": "MeasureTheory.lintegral_countable",
+        "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/Integral/Lebesgue/Countable.lean#L135",
+        "role": "Atomic expansion"
+      },
+      {
+        "name": "ENNReal.tsum_comm",
+        "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean#L104",
+        "role": "Exchange nonnegative sums (exact pinned Mathlib implementation)"
+      }
+    ],
+    "boundary": [
+      "Reversibility is not irreducibility, a spectral gap or a mixing bound. A probability target supported on two disconnected diagonal configurations can give two absorbing classes.",
+      "A deterministic composition of reversible coordinate kernels need not be reversible. This proof is for a uniform random mixture and one-update clock.",
+      "The source correspondence is the Boolean specialization of the standard finite-state argument, not all alphabets or every model-specific ergodicity claim.",
+      "Invariance and finite powers are existing downstream test consumers. They are not counted again as new mathematical leaves."
+    ],
+    "sources": [
+      {
+        "url": "https://pages.uoregon.edu/dlevin/MARKOV/mcmt2e.pdf#page=58",
+        "label": "Levin–Peres with Wilmer, Markov Chains and Mixing Times, 2nd ed., §3.3.2, printed pp.42–43 / PDF pp.58–59",
+        "scope": "Equations (3.6)–(3.7), with Exercise 3.2 on printed p.45 / PDF p.61: finite heat-bath update and reversibility."
+      },
+      {
+        "url": "https://arxiv.org/pdf/2407.12751v1#page=54",
+        "label": "Fearnhead, Nemeth, Oates, Sherlock, Scalable Monte Carlo for Bayesian Learning, §2.1.1, printed p.48 / PDF p.54",
+        "scope": "Conditional-move balance; mixtures and deterministic compositions have different contracts."
+      }
+    ],
+    "source_boundary": "Independent source comparison accepted the Boolean reversibility clause as equivalent-after-elaboration. Source acceptance, local compilation and Registry integration remain separate evidence fields.",
+    "cell": "ASTIS-SHARED-random-scan-reversibility",
+    "audit": "ASTIS-RT-20260908-RandomScanReversibility",
+    "test": "Tests/RandomScanHeatBathReversibility.lean",
+    "entry_pages": [
+      "libraries/discrete-sampling/index.html",
+      "libraries/mcmc/index.html"
+    ]
+  }
+]

@@ -21,6 +21,7 @@ import chewi_source_first_contract  # noqa: E402
 import chewi_source_first_refinement  # noqa: E402
 import chewi_source_first_scope  # noqa: E402
 import formalization_progress  # noqa: E402
+import proof_readers  # noqa: E402
 import harness  # noqa: E402
 import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
@@ -218,6 +219,8 @@ def main() -> int:
     # per-route URLs to anchors, renders Frontier Cell records, and enforces the
     # common Harness/shared-foundation protocol.
     formalization_progress.enrich_site(output)
+
+    proof_readers.enrich_site(output)
 
     inherit_final_reader_contract(output)
     repair_project_author_footer(output)
