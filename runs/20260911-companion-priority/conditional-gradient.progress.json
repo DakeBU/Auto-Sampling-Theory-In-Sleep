@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable",
     "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable"
@@ -38,10 +38,10 @@
   },
   "mathematical_status": "Dense compact-test gradient operator and its closed extension under actual weighted probability only. No weighted generator operator core, dense mean-zero generator range, resolvent regularity, Poincare, score variance, macro coercivity, process or full-paper result. The gradient closure core is not automatically a core of D*D.",
   "remaining": [
-    "Independent fixed-commit review",
     "Integration, aggregate and reader/graph delivery",
     "Weighted generator operator core, dense mean-zero range or resolvent regularity",
     "Poincare and actual noncompact conditional score variance",
     "All later main-theorem dependencies and full papers"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/conditional-gradient.verified-admission.json"
 }

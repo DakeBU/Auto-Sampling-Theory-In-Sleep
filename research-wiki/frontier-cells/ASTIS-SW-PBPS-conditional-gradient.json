@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06905v1 Appendix C.1 conditional Poincare analytic prerequisite; Kolesnikov-Milman arXiv:1310.2526v7 section2.5 weighted Sobolev construction, directly proved Euclidean full-space prerequisite",
   "target_statement": "Construct the actual partial gradient operator on L2 of normalized exp(-W) volume from smooth compact scalar representatives, prove its dense domain, representative-independent graph and IsClosable using weighted compact-test vector integration by parts and smooth vector L2 density. W is C1 and exp(-W) integrable. Instantiate for the actual common reflected Gibbs-Gaussian conditional kernels with their C2 W_y and proved normalization. Do not assume weighted IBP, closability, Poincare, coercivity or a closed generator core.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-PBPS-conditional-bochner"
   ],
@@ -38,10 +38,12 @@
     ],
     "proof_plan": "proof-blueprints/PBPS-conditional-gradient.md",
     "planning_review": "Independent log_depth_source_review bounded API and noncircular route audit; root inspected exact smooth density and graph construction declarations. No need to reprove mollifier density.",
-    "execution_boundary": "Root sole writer. Bochner PR256 merged and stabilization lane released. Current gradient packet PROVED_LOCAL only.",
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous Bochner packet merged and deployed.",
     "ownership_note": "One real PBPS consuming route; no invented second route or multi-route shared-floor claim.",
     "independent_proof_review": "runs/20260911-companion-priority/conditional-gradient.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL with independent complete production proof review; source/fixed-commit admission, aggregate and reader/graph delivery pending."
+    "admission_boundary": "VERIFIED at cc01e8087b63776cf801fe415b1e7e981c3bf9c6; aggregate and reader/graph integration pending.",
+    "independent_verification": "runs/20260911-companion-priority/conditional-gradient.verified-admission.json",
+    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3296, independent complete-proof review and final hash-bound source audits accepted."
   },
   "blocked": {
     "reason": "",

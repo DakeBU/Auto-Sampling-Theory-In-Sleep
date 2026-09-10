@@ -1,0 +1,62 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "cc01e8087b63776cf801fe415b1e7e981c3bf9c6",
+    "gate": {
+      "production": "Independent focused PASS3296 reused at unchanged hashes; freshly exported complete Lean statements byte-identical to registry and anonymous packets.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication": "Independent check_advance with reviewed=True PASS for both declarations",
+      "tests_scope": "Axiom checks only; actual conditional gradient theorem is the shared theorem consumer"
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-WeightedGradient",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "gradient_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "4660a8b0da0404096e2b50a3fc909c9a2bd3a880535536cef75ff6e0b5a65ff9",
+        "decoder_packet_sha256": "9401e867f158bdc8506a4b750cfbb1c3196390e585644b9589299e50bdc57a64",
+        "decoder_run_sha256": "71694a05dc75cdc77a7a2b5f5a94b451b5b7fd996dbb995de5273e01d2765f9c",
+        "reviewer_packet_sha256": "85008fd8fdbbb651b84e5d3d4d93af4ede6f4ee562665f1035757940f0287408",
+        "review_run_sha256": "de22d1fe6324705a8f11d58e54809b6bb970b08de56a494f1547367ebd8e8a12",
+        "blocking_issues": []
+      },
+      {
+        "id": "ASTIS-RT-20260911-PBPSConditionalGradient",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "gradient_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "4f272ad1e1c3ea4a06bf109587810e585e367730f2bc1581187606e72b158560",
+        "decoder_packet_sha256": "8fa693243008088e11a8b1891be5801a1a15c88f81509d79a180d3c9e8097601",
+        "decoder_run_sha256": "6c737b93ed36150780478ff4733888380e179551522c1a8810e134b838adec7d",
+        "reviewer_packet_sha256": "50747078d8cea5d1266df68bd51f279ded15bef8b02f59aa4f876424958acd03",
+        "review_run_sha256": "336907f18d99286f926d0b83e0168fef89353ac6c449d117664bbc6c0222b06c",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Both production files and focused test; standard theorem axioms only"
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable",
+      "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable"
+    ],
+    "independent_checks": [
+      "Fixed clean HEAD and final raw hashes verified; commit/worktree match modulo line endings.",
+      "All source, statement, reconstruction, packet and run hashes matched; publication bindings independently recomputed.",
+      "Full inline proof review preserved; actual common conditional law and positive normalization confirmed.",
+      "Latest ledger has no other STABILIZING unit."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of depth_commit_verifier explicit fixed-commit VERIFIED and sole-owner STABILIZING decision.",
+  "boundary": "Dense compact-test gradient operator and its closed extension under actual weighted probability only. No weighted generator operator core, dense mean-zero generator range, resolvent regularity, Poincare, score variance, macro coercivity, process or full-paper result. The gradient closure core is not automatically a core of D*D."
+}

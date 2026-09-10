@@ -3,6 +3,7 @@ import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient
 
 /-!
 # Functional-inequality technical lemma arsenal
