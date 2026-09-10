@@ -14,23 +14,37 @@ import astis_site as base
 
 
 def split_statement(source: str) -> tuple[str, str]:
-    """Split the outer assignment, ignoring comments and binder defaults.
+    """Split the outer assignment, retaining local definitions in the result type.
 
 If no outer assignment exists (e.g. a structure), retain the full declaration.
 This is source syntax, not an elaborated replacement for implicit parameters.
+Unrecognized local-definition syntax also keeps the complete source rather than
+discarding part of its proposition.
 """
     clean = base.sanitize_lean(source)
+    clean = re.sub(r'«[^»]*»', lambda m: ' ' * len(m[0]), clean)
     if re.match(r'^\s*(?:(?:private|protected)\s+)?(?:structure|class|inductive)\b', clean):
         return source, ''  # Field defaults are part of a type's specification.
     depth = 0
+    local_assignments = 0
+    in_result_type = False
+    local_keywords = {m.start() for m in re.finditer(
+        r"(?<![\w'.])(?:let|letI|have|haveI)(?![\w'.])", clean)}
     for i, char in enumerate(clean):
+        if depth == 0 and char == ':' and clean[i:i+2] != ':=':
+            in_result_type = True
+        if depth == 0 and in_result_type and i in local_keywords:
+            local_assignments += 1
         if char in '([{':
             depth += 1
         elif char in ')]}':
             depth -= 1
         elif clean[i:i+2] == ':=' and depth == 0:
+            if local_assignments:
+                local_assignments -= 1
+                continue
             return source[:i].rstrip(), source[i:]
-        elif depth == 0 and clean[i:i+5] == 'where' and (i == 0 or clean[i-1].isspace()) and (i+5 == len(clean) or clean[i+5].isspace()):
+        elif depth == 0 and not local_assignments and clean[i:i+5] == 'where' and (i == 0 or clean[i-1].isspace()) and (i+5 == len(clean) or clean[i+5].isspace()):
             return source[:i].rstrip(), source[i:]
     return source, ''
 
@@ -45,9 +59,11 @@ def declarations() -> dict:
 def disclosure(name: str, *, role: str, explanation: str,
                page: str, helpers: tuple[str, ...] = ()) -> str:
     declaration = declarations()[name]
-    signature, _ = split_statement(declaration.source_text)
+    signature, body = split_statement(declaration.source_text)
     code = signature if role == 'statement' else declaration.source_text
     label = 'Lean statement' if role == 'statement' else 'Lean proof / instance' if declaration.kind == 'instance' else 'Lean proof' if declaration.kind in {'theorem', 'lemma'} else 'Lean construction'
+    if role == 'statement' and not body and declaration.kind in {'theorem', 'lemma'}:
+        label = 'Complete Lean declaration (unsplit)'
     href, _ = base.source_href(declaration, from_path=page)
     helper_html = ''.join(disclosure(n, role='proof', explanation='Supporting proof called by the result above.', page=page) for n in helpers)
     return (

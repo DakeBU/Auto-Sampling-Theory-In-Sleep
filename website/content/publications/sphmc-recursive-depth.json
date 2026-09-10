@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-recursive-depth",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual recursive schedule: persistent good conditioning and a terminal parameter bound",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma6.4 (6.1), schedule(6.2), Lemma6.6 and the terminal-stage argument following(6.4)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS expanded parameter proof; no author endorsement implied."
+      },
+      "statement": "For the normalized recursive RGO schedule assume κ≥1, r₀≥0, 0<c<1/4 and 0<ηⱼ≤c for every j. Define K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) for K(r)≥2 and τ(r)=c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All rⱼ are nonnegative and every rⱼ₊₁ is positive. K(rⱼ) is nonincreasing, so a stage below two stays below two at every later stage. If (4/5)^M K(r₀)<2, then for every N≥0, 0<1/r_(M+1+N)≤2c[2c/(1+2c)]^N. For every B>0, some J>0 satisfies 0<1/rⱼ≤B. These are the parameter consequences of Lemma6.4, the schedule and Lemma6.6 used in the terminal-stage argument; they do not claim the full recursive sampling theorem or its prescribed logarithmic constants.",
+      "formulae": [
+        {
+          "label": "actual parameter schedule and terminal certificate",
+          "tex": "\\begin{gathered}K(r)=\\frac{1+r}{\\kappa^{-1}+r},\\quad \\tau(r)=\\begin{cases}K(r)&K(r)\\ge2,\\\\c&K(r)<2,\\end{cases}\\\\r_{j+1}=r_j+\\frac{1+r_j}{\\eta_j+\\tau(r_j)},\\quad\\rho=\\frac{2c}{1+2c},\\\\(4/5)^M K(r_0)<2\\Longrightarrow 0<r_{M+1+N}^{-1}\\le2c\\rho^N.\\end{gathered}"
+        }
+      ],
+      "assumptions": [
+        "κ≥1, r₀≥0, 0<c<1/4, and every real ηⱼ satisfies 0<ηⱼ≤c. κ≥1 retains the original α≤β condition after normalization.",
+        "K(r)=(1+r)/(κ⁻¹+r); τ(r)=K(r) if K(r)≥2 and c otherwise; a(r,h)=(h+τ(r))/(1+r); the sequence starts at r₀ and adds 1/a(rⱼ,ηⱼ) at each step. These are definitions, not supplied contraction hypotheses.",
+        "All quantities in this theorem are deterministic real parameters and natural stage indices. η may be any admissible sequence; the result can be applied to a realized sequence but constructs no measurable random sequence.",
+        "Zero initial precision represents infinite initial regularization. Only strictly positive successor precisions are interpreted as finite reciprocal variance. The parameter is not Gibbs covariance."
+      ],
+      "obligations": [
+        {
+          "id": "schedule-positivity",
+          "label": "Positive successor precision and decreasing actual condition numbers"
+        },
+        {
+          "id": "regime-persistence",
+          "label": "Reach the good branch by a strict geometric certificate and stay there"
+        },
+        {
+          "id": "terminal-parameter",
+          "label": "Positive finite parameter at M+1+N, geometric bound and finite threshold attainment"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control",
+          "cell": "ASTIS-SW-SPHMC-recursive-depth",
+          "role": "proof-edge",
+          "supports": [
+            "schedule-positivity",
+            "regime-persistence",
+            "terminal-parameter"
+          ],
+          "audit_id": "ASTIS-RT-20260910-SPHMCRecursiveDepth",
+          "boundary": "Only deterministic parameter evolution defined by the source schedule. No stochastic kernel or adaptive-history measurability, FORS correctness/work, recursive distributional errors, actual-input expected query cost, or complete paper. The geometric depth certificate and existence of a finite threshold-hitting stage do not establish the specified logarithmic J and universal constants in equation(6.4).",
+          "assumption_deltas": [
+            {
+              "source": "Normalized α≤β gives κ≥1; A₀∈(0,∞]; 0<ηⱼ≤c<1/4.",
+              "lean": "κ≥1, r₀≥0, 0<c<1/4 and ∀j,0<ηⱼ≤c.",
+              "classification": "same",
+              "reason": "Zero precision keeps initial infinite regularization. The source parameter range is not enlarged."
+            },
+            {
+              "source": "The terminal-stage argument uses Lemma6.6 and the schedule to reach its prescribed small parameter.",
+              "lean": "A pathwise Nat.rec schedule with a strict geometric certificate and J=M+1+N; arbitrary positive threshold is eventually reached.",
+              "classification": "source-implicit",
+              "reason": "Persistence and the first finite step are supplied explicitly. The logarithmic J and its universal constants are still unproved and excluded from this binding."
+            },
+            {
+              "source": "Recursive targets are Gibbs laws with random centers.",
+              "lean": "Only scalar parameters and arbitrary admissible smoothing sequences; Gibbs probability is checked separately with the identical update.",
+              "classification": "same",
+              "reason": "This binding isolates the deterministic parameter obligation. It asserts neither adaptive measurability nor a recursive stochastic sampler."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

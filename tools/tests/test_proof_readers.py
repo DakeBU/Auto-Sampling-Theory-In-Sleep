@@ -41,6 +41,36 @@ class ProofReaderTests(unittest.TestCase):
         self.assertEqual(inline_lean.split_statement(source), (source, ''))
         self.assertEqual(inline_lean.split_statement('def r : R where\n  n := 1\n  title := "a"')[0], 'def r : R')
 
+    def test_statement_retains_nested_local_definitions(self):
+        source = ('theorem local_result : let x := let y := 1; y; '
+                  'let z := x + 1; z = 2 := by rfl')
+        statement, proof = inline_lean.split_statement(source)
+        self.assertTrue(statement.endswith('let z := x + 1; z = 2'))
+        self.assertEqual(proof, ':= by rfl')
+
+    def test_local_keywords_inside_names_are_not_definitions(self):
+        for name in ('«let»', 'Demo.have'):
+            source = f'theorem {name} : True := by trivial'
+            self.assertEqual(inline_lean.split_statement(source),
+                             (f'theorem {name} : True', ':= by trivial'))
+        source = 'theorem f : Demo.have «let» := by assumption'
+        self.assertEqual(inline_lean.split_statement(source),
+                         ('theorem f : Demo.have «let»', ':= by assumption'))
+
+    def test_unrecognized_local_equations_preserve_complete_source(self):
+        source = 'theorem f : let g | 0 => 0 | n+1 => n; g 0 = 0 := by rfl'
+        self.assertEqual(inline_lean.split_statement(source), (source, ''))
+
+    def test_recursive_depth_disclosure_keeps_all_conclusions(self):
+        source = (ROOT / 'AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RecursiveDepth.lean').read_text(encoding='utf-8')
+        source = source[source.index('theorem parameter_control'):]
+        statement, proof = inline_lean.split_statement(source)
+        self.assertIn('Nat.rec r₀', statement)
+        self.assertIn('Antitone (fun n => K (r n))', statement)
+        self.assertIn('∀ B : ℝ, 0 < B → ∃ J : ℕ', statement)
+        self.assertTrue(statement.endswith('(r J)⁻¹ ≤ B)'))
+        self.assertTrue(proof.startswith(':= by\n'))
+
     def test_every_theorem_requires_separate_statement_and_proof(self):
         items = copy.deepcopy(self.items)
         items[0]['theorems'].pop()

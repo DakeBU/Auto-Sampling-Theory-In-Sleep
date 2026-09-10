@@ -177,3 +177,38 @@ The selected branch needs no c<1/4 restriction; that extension is disclosed.
 Finite-stage termination, branch persistence, implemented oracle, recursive
 error and expected query costs remain separate red targets. Neither complete
 paper is claimed.
+
+## Actual recursive parameter schedule: active proof packet
+
+Cell `ASTIS-SW-SPHMC-recursive-depth` is independently **VERIFIED** and in
+stabilization. `depth_commit_verifier` accepted commit
+`457144154299d0a4efc444dc41518727252e74c9` after a successful focused build,
+standard-axiom check and exact-bound independent semantic review by
+`lambda_decoder` and `depth_final_source`. The canonical aggregate gate and
+formalization CI passed at candidate `c533963`. Local reader/graph checks and
+targeted browser inspection passed after repairing statement display for local
+let-definitions. PR250 remains in stabilization; live publication and neither
+complete paper are admitted. Exact command/hash evidence is in
+`runs/20260910-companion-priority/recursive-depth.progress.json`. The source contract and
+proof route are in `proof-blueprints/SPHMC-recursive-depth.md`.
+
+The single public declaration is `RecursiveDepth.parameter_control`. Its
+statement defines the source (6.1) update, (6.2) heat schedule and actual
+repeated update using local lets and `Nat.rec`. Its proof contains the internal
+facts `well_conditioned_persists` and `finite_depth`; these are not separate
+public theorem claims. Lemma6.6's two existing contraction proofs are reused.
+The target bound is
+
+\[
+(4/5)^M K_0<2 \quad\Longrightarrow\quad
+0<r_{M+1+N}^{-1}\le 2c\left(\frac{2c}{1+2c}\right)^N.
+\]
+
+It retains κ≥1, r₀≥0, 0<ηⱼ≤c<1/4, the actual branch test, and the first
+positive-precision step. The Gibbs consumer test uses the same next precision
+and center in `RGOCalculus.rgo_calculus`; its conclusion is next-target
+normalizability, not a stochastic implementation or conditional-kernel proof.
+
+The existence of a finite threshold-hitting depth is distinct from the precise
+logarithmic schedule in (6.4). That schedule's constants, random history
+measurability, terminal FORS, recursive errors and expected costs remain open.

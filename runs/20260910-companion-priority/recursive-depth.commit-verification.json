@@ -1,0 +1,28 @@
+{
+  "verifier_id": "depth_commit_verifier",
+  "verified_commit": "890a1686efb79a71558c9b1ed29af5f679fc0a16",
+  "decision": "PASS_LOCAL_COMMIT_REVIEW_PENDING_SOURCE_ADMISSION",
+  "gate": {
+    "command": "LEAN_NUM_THREADS=2 lake build Tests.SmoothedPicardRecursiveDepth",
+    "exit_code": 0,
+    "jobs": 2947,
+    "cache_replay": true,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "files_match_commit": true,
+  "fake_closure_scan": "No matches in the two target files and both direct scalar parent modules; printed transitive theorem axioms standard only.",
+  "mathematical_review": [
+    "Actual recursion rather than an assumed contraction. K=2 remains in large branch; entry requires strict K<2. Antitone sequence justifies prefix large-branch estimates in the contradiction argument.",
+    "Zero initial precision is retained; finite-parameter conclusions start at M+1+N. Guarded reciprocal comparisons require positive precision. The kappa=1,r0=0,c=eta=1/8 test covers arbitrary N.",
+    "Quantifiers, constants and indexing agree with the draft audit and reader statement. The prescribed logarithmic depth is not claimed.",
+    "The Gibbs consumer uses the identical Nat.rec precision update, a and center w in RGOCalculus.rgo_calculus. It is genuine but consumes precision nonnegativity only; it is not a sampler or cost proof."
+  ],
+  "boundary": "Only local Lean/mathematical and draft consistency verification at the named commit. Independent source fidelity, integration and complete main results not claimed.",
+  "writes_by_verifier": false,
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Transcribed structured findings returned by independent depth_commit_verifier in the current thread; no self-issued verification."
+}
