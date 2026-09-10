@@ -1,0 +1,13 @@
+{
+  "reviewer": "depth_source_reviewer",
+  "reviewer_packet_sha256": "04dbbaaf2074d43335c223e0ee253817099e8ec93b136ff9b2cf51febfe288ee",
+  "publication_binding_sha256": "71ceab14b2a42673514214a2b86de0df7de8644bf729b486048213e4be2bc862",
+  "reported_decision": "accepted",
+  "reported_verdict": "equivalent-after-elaboration",
+  "record_kind": "summary of superseded initial review; not canonical admission evidence",
+  "scope": "The three deterministic parameter obligations only; no full Lemma6.6, logarithmic depth, kernels, error or cost.",
+  "wording_observation": "The reviewer accepted the phrase first finite-variance stage as referring to the starting stage of this certificate; earlier stages may already be finite. Root clarified that sentence to remove the ambiguity.",
+  "effect": "The old packet remains preserved. Its verdict was not entered as a canonical accepted audit because the lesson wording changed. The unchanged anonymous reconstruction is reused; a fresh independent source packet and reviewer are required for the new binding.",
+  "source": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+  "recorded_by": "root-samplinglib-writer"
+}

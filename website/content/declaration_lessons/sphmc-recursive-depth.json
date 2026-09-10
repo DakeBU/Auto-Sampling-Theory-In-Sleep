@@ -33,7 +33,7 @@
         },
         {
           "title": "Start with one genuinely finite parameter",
-          "text": "Apply the existing small-branch variance bound at stage M. It yields a positive A_(M+1)≤2c, including when M=0 and r₀=0. The first finite-variance stage is M+1, not M.",
+          "text": "Apply the existing small-branch variance bound at stage M. It yields a positive A_(M+1)≤2c, including when M=0 and r₀=0. The guaranteed finite starting stage for this geometric certificate is M+1; earlier stages may also have finite parameters.",
           "formula": "0<A_{M+1}=r_{M+1}^{-1}\\le2c.",
           "lean": "well_branch_variance unfolds the actual c branch and calls RecursiveVariance.variance_update_bounds. The consumer test checks κ=1, r₀=0, η=c=1/8 and arbitrary subsequent N."
         },
