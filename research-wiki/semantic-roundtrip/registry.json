@@ -6565,6 +6565,492 @@
           "evidence": "hSy,hW,hI,hZ from same hfiber y; shared hI and hW.of_le are supplied, not assumed anew."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-ClosedGraphResolvent",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:pbps-closed-graph-resolvent",
+        "anchor": "sections2.4-2.5; abstract weak-form prerequisite",
+        "url": "https://arxiv.org/html/1310.2526v7",
+        "original_text": "Selected abstract prerequisite: H,K real Hilbert spaces, A closed partial real-linear, epsilon>0, f arbitrary in H; no dense-domain or PI hypothesis.\nBackground source uses a compact weighted manifold. Abstract Hilbert weak existence and full-space conditional application are explicit changes of scope, not source Poisson regularity.\nKolesnikov-Milman sections2.4-2.5 discuss weighted Poisson solvability and Sobolev spaces on compact manifolds. The selected ASTIS prerequisite is a separate abstract weak-form construction, not a formalization of that classical compact-manifold regularity theorem: for real Hilbert spaces H,K and a closed partial linear A, every epsilon>0 and f in H admit a unique u in Dom(A) satisfying epsilon inner(u,v)+inner(Au,Av)=inner(f,v) for every domain v. The exact energy is epsilon norm(u)^2+norm(Au)^2=inner(f,u), with norm(u)<=epsilon^-1 norm(f) and energy<=epsilon^-1 norm(f)^2. Domain norms here are ambient H norms. Density and PI are not hypotheses. This supplies the actual conditional closed-gradient consumer, not a compact Bochner extension or epsilon-to-zero PI argument.",
+        "text_sha256": "b9430c48790db98c119cb9453fb8d08de467f44debdd243a93eceed5c7863b56"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
+        "file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/ClosedGraphResolvent.lean",
+        "statement": "∀ {H : Type u_1}\n  {K : Type u_2} [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℝ H] [CompleteSpace H]\n  [inst_3 : NormedAddCommGroup K] [inst_4 : InnerProductSpace ℝ K] [CompleteSpace K] (A : H →ₗ.[ℝ] K),\n  A.IsClosed →\n    ∀ (ε : ℝ),\n      0 < ε →\n        ∀ (f : H),\n          ∃ u,\n            (∀ (v : ↥A.domain), ε * Inner.inner ℝ ↑u ↑v + Inner.inner ℝ (↑A u) (↑A v) = Inner.inner ℝ f ↑v) ∧\n              ε * ‖↑u‖ ^ 2 + ‖↑A u‖ ^ 2 = Inner.inner ℝ f ↑u ∧\n                ‖↑u‖ ≤ ε⁻¹ * ‖f‖ ∧\n                  ε * ‖↑u‖ ^ 2 + ‖↑A u‖ ^ 2 ≤ ε⁻¹ * ‖f‖ ^ 2 ∧\n                    ∀ (w : ↥A.domain),\n                      (∀ (v : ↥A.domain), ε * Inner.inner ℝ ↑w ↑v + Inner.inner ℝ (↑A w) (↑A v) = Inner.inner ℝ f ↑v) →\n                        w = u",
+        "statement_sha256": "b596bf12834c376c4df3a9e876e51a34cee6d0b762f7d36026303aecbafe50c2",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3298, independently replayed, standard propext/Classical.choice/Quot.sound only. Independent complete development proof review passed; no fixed-commit admission yet.",
+        "decoder_context": [
+          "H,K with NormedAddCommGroup, InnerProductSpace over real scalars and CompleteSpace are real Hilbert spaces. E finite-dimensional real inner-product Borel includes dimension zero.",
+          "A LinearPMap is a partial real-linear map with a linear-subspace domain; applying it takes a domain subtype element. Coercion of a domain element into H has the ambient H norm. IsClosed means its graph is closed in the product topology; it does not mean A is bounded or everywhere defined.",
+          "IsClosable means topological closure of the graph is the graph of a partial linear map. For a closable D, D.closure has this graph. Dense domain uses the ambient L2 topology.",
+          "Lp F 2 mu consists of measurable F-valued functions with finite squared-norm integral, modulo almost-everywhere equality; =ae compares representatives. The real inner product is the usual L2 inner product.",
+          "ContDiff at 2/infinity means C2/smooth. HasCompactSupport means closure of nonzero support is compact. gradient is the Riesz representative of the actual Frechet derivative.",
+          "Measure.tilted is normalized exponential weighting, totalized to zero if weight is not integrable. Integrable means almost-everywhere strongly measurable with finite integral of norm.",
+          "Measure.map is pushforward, prod is independent product, stdGaussian is standard Gaussian. A Markov kernel is a measurably parameterized probability measure. IsCondKernel disintegrates the specified joint measure on its first coordinate; Prod.swap swaps coordinates.",
+          "Lets abbreviate the displayed objects. Quantifier order follows the printed type; inverse of a positive epsilon is ordinary reciprocal."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "5916cd73a2d3f630c4192cf77b7d900765683030acb687b8376e55a4583765d6",
+        "review_run_sha256": "e779adee99d22bb0931e12791ec2ecc6ba73353567e83fa43674c6a493f84c6b",
+        "run_artifact": "runs/20260911-companion-priority/closed-graph-resolvent.source-review-result.json",
+        "evidence": "Independent anti-anchored source review freshly opened primary KM sections2.4-2.5 and PBPS C.1, read complete embedded proofs, anonymous reconstructions and every five plus three authored steps. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module text hashes independently recomputed; current production text equals embedded text. Binding digests authenticated packet fields; external binding preimages NOT independently reconstructed. No registry verdict consulted. No independent compilation, axiom-output verification, aggregate or fixed-commit VERIFIED claim in this source review."
+      },
+      "publication_binding_sha256": "362f704d1af4bf1695fbe2238c6b2736fa8bb95d2bd4e269d7f0155daa188266",
+      "publication_context": {
+        "file": "32ed6c367cdd5f52578366b83a448f96619f362b05d05e25963c3efbf870e022",
+        "current_lean_module": "import Mathlib.Analysis.InnerProductSpace.Projection.Basic\nimport Mathlib.Analysis.InnerProductSpace.ProdL2\nimport Mathlib.Topology.Algebra.Module.LinearPMap\n\n/-!\n# Epsilon weak resolvent from a closed graph\n\nAn abstract Hilbert-space prerequisite for the full-space weighted Poisson route\nused toward PBPS arXiv:2609.06905v1 Appendix C.1. The Poisson/Sobolev background\nin Kolesnikov-Milman arXiv:1310.2526v7 sections 2.4-2.5 concerns compact\nmanifolds; this result asserts only a directly constructed weak equation.\nIt proves no classical elliptic regularity, generator core or Poincare bound.\nThe operator may be unbounded and its domain need not be dense.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent\n\nopen scoped RealInnerProductSpace\n\n/-- Orthogonal projection onto the scaled closed graph constructs the unique\nweak solution. Norms of domain elements below are their ambient H norms;\nthe explicit bounds depend on epsilon and do not persist uniformly as it\napproaches zero. -/\ntheorem weak_resolvent {H K : Type*}\n    [NormedAddCommGroup H] [InnerProductSpace ℝ H] [CompleteSpace H]\n    [NormedAddCommGroup K] [InnerProductSpace ℝ K] [CompleteSpace K]\n    (A : H →ₗ.[ℝ] K) (hA : A.IsClosed) (ε : ℝ) (hε : 0 < ε) (f : H) :\n    ∃ u : A.domain,\n      (∀ v : A.domain, ε * ⟪(u : H), (v : H)⟫ + ⟪A u, A v⟫ = ⟪f, (v : H)⟫) ∧\n      ε * ‖(u : H)‖^2 + ‖A u‖^2 = ⟪f, (u : H)⟫ ∧\n      ‖(u : H)‖ ≤ ε⁻¹ * ‖f‖ ∧\n      ε * ‖(u : H)‖^2 + ‖A u‖^2 ≤ ε⁻¹ * ‖f‖^2 ∧\n      ∀ w : A.domain,\n        (∀ v : A.domain, ε * ⟪(w : H), (v : H)⟫ + ⟪A w, A v⟫ = ⟪f, (v : H)⟫) → w = u := by\n  have hex : ∃ u : A.domain, ∀ v : A.domain,\n      ε * ⟪(u : H), (v : H)⟫ + ⟪A u, A v⟫ = ⟪f, (v : H)⟫ := by\n    let s := Real.sqrt ε\n    have hs : 0 < s := Real.sqrt_pos.2 hε\n    have hs0 : s ≠ 0 := ne_of_gt hs\n    have hss : s * s = ε := Real.mul_self_sqrt hε.le\n    let T : WithLp 2 (H × K) →L[ℝ] H × K :=\n      (s⁻¹ • (WithLp.fstL 2 ℝ H K)).prod (WithLp.sndL 2 ℝ H K)\n    let G : Submodule ℝ (WithLp 2 (H × K)) := A.graph.comap T.toLinearMap\n    have hG : IsClosed (G : Set (WithLp 2 (H × K))) := hA.preimage T.continuous\n    let : CompleteSpace G := hG.completeSpace_coe\n    let z : WithLp 2 (H × K) := WithLp.toLp 2 (s⁻¹ • f, 0)\n    let p := G.starProjection z\n    have hp : T p ∈ A.graph := G.starProjection_apply_mem z\n    obtain ⟨u,hu,hAu⟩ := A.mem_graph_iff.mp hp\n    have hu' : s • (u : H) = p.fst := by\n      rw [hu]\n      change s • (s⁻¹ • p.fst) = p.fst\n      simp [smul_smul, hs0]\n    refine ⟨u, ?_⟩\n    intro v\n    let w : WithLp 2 (H × K) := WithLp.toLp 2 (s • (v : H), A v)\n    have hw : w ∈ G := by\n      change T w ∈ A.graph\n      apply A.mem_graph_iff.mpr\n      refine ⟨v, ?_, ?_⟩\n      · change (v : H) = s⁻¹ • (s • (v : H))\n        simp [smul_smul, hs0]\n      · rfl\n    have ho := G.starProjection_inner_eq_zero z w hw\n    change ⟪s⁻¹ • f - p.fst, s • (v : H)⟫ + ⟪(0 : K) - p.snd, A v⟫ = 0 at ho\n    have hAu' : A u = p.snd := hAu\n    rw [← hu', ← hAu'] at ho\n    simp only [inner_sub_left, real_inner_smul_left, real_inner_smul_right, zero_sub,\n      inner_neg_left] at ho\n    simp only [← mul_assoc, mul_inv_cancel₀ hs0, hss, one_mul] at ho\n    linarith\n  obtain ⟨u,hu⟩ := hex\n  have he : ε * ‖(u : H)‖^2 + ‖A u‖^2 = ⟪f, (u : H)⟫ := by\n    simpa only [real_inner_self_eq_norm_sq] using hu u\n  have hn : ε * ‖(u : H)‖ ≤ ‖f‖ := by\n    have hcs := real_inner_le_norm f (u : H)\n    by_cases hz : ‖(u : H)‖ = 0\n    · simp [hz]\n    · have hp : 0 < ‖(u : H)‖ := lt_of_le_of_ne (norm_nonneg _) (Ne.symm hz)\n      nlinarith [sq_nonneg ‖A u‖]\n  have hb : ‖(u : H)‖ ≤ ε⁻¹ * ‖f‖ := by\n    have hn' : ‖(u : H)‖ ≤ ‖f‖ / ε := (le_div_iff₀ hε).2 (by simpa [mul_comm] using hn)\n    simpa [div_eq_mul_inv, mul_comm] using hn'\n  have heb : ε * ‖(u : H)‖^2 + ‖A u‖^2 ≤ ε⁻¹ * ‖f‖^2 := by\n    rw [he]\n    calc\n      ⟪f, (u : H)⟫ ≤ ‖f‖ * ‖(u : H)‖ := real_inner_le_norm _ _\n      _ ≤ ‖f‖ * (ε⁻¹ * ‖f‖) := mul_le_mul_of_nonneg_left hb (norm_nonneg _)\n      _ = _ := by ring\n  refine ⟨u,hu,he,hb,heb,?_⟩\n  intro w hw\n  let d : A.domain := w-u\n  have hd : ε * ⟪(d : H), (d : H)⟫ + ⟪A d, A d⟫ = 0 := by\n    have heq := sub_eq_zero.mpr ((hw d).trans (hu d).symm)\n    have hAd : A d = A w - A u := A.toFun.map_sub w u\n    rw [hAd, inner_sub_left]\n    change ε * ⟪(w : H) - (u : H), (d : H)⟫ + _ = 0\n    rw [inner_sub_left]\n    rw [hAd] at heq\n    nlinarith\n  rw [real_inner_self_eq_norm_sq, real_inner_self_eq_norm_sq] at hd\n  have hz : ‖(d : H)‖ = 0 := by\n    by_contra hz\n    have hp : 0 < ‖(d : H)‖ := lt_of_le_of_ne (norm_nonneg _) (Ne.symm hz)\n    have hpos := mul_pos hε (sq_pos_of_pos hp)\n    nlinarith [sq_nonneg ‖A d‖]\n  apply Subtype.ext\n  exact sub_eq_zero.mp (norm_eq_zero.mp hz)\n\nend AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/1310.2526v7",
+          "edition": "arXiv:1310.2526v7",
+          "anchor": "sections2.4-2.5; abstract weak-form prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Kolesnikov-Milman background; Chen-Chewi-Lu-Zhang PBPS consumer; ASTIS expanded prerequisite proof."
+        },
+        "statement": "Kolesnikov-Milman sections2.4-2.5 discuss weighted Poisson solvability and Sobolev spaces on compact manifolds. The selected ASTIS prerequisite is a separate abstract weak-form construction, not a formalization of that classical compact-manifold regularity theorem: for real Hilbert spaces H,K and a closed partial linear A, every epsilon>0 and f in H admit a unique u in Dom(A) satisfying epsilon inner(u,v)+inner(Au,Av)=inner(f,v) for every domain v. The exact energy is epsilon norm(u)^2+norm(Au)^2=inner(f,u), with norm(u)<=epsilon^-1 norm(f) and energy<=epsilon^-1 norm(f)^2. Domain norms here are ambient H norms. Density and PI are not hypotheses. This supplies the actual conditional closed-gradient consumer, not a compact Bochner extension or epsilon-to-zero PI argument.",
+        "formulae": [
+          {
+            "label": "Weak equation and energy",
+            "tex": "\\varepsilon\\langle u,v\\rangle_H+\\langle Au,Av\\rangle_K=\\langle f,v\\rangle_H\\quad(v\\in\\operatorname{Dom}A),\\qquad \\|u\\|_H\\le\\varepsilon^{-1}\\|f\\|_H."
+          }
+        ],
+        "assumptions": [
+          "Selected abstract prerequisite: H,K real Hilbert spaces, A closed partial real-linear, epsilon>0, f arbitrary in H; no dense-domain or PI hypothesis.",
+          "Background source uses a compact weighted manifold. Abstract Hilbert weak existence and full-space conditional application are explicit changes of scope, not source Poisson regularity."
+        ],
+        "obligations": [
+          {
+            "id": "weak-existence-unique",
+            "label": "Actual domain weak solution and uniqueness"
+          },
+          {
+            "id": "energy-explicit-bounds",
+            "label": "Exact energy and positive-epsilon norm and energy constants"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
+          "kind": "theorem",
+          "title": "A unique weak resolvent from a closed Hilbert graph",
+          "statement": "Let H,K be real Hilbert spaces and A a partial real-linear operator with closed graph. For each epsilon>0 and f in H, there is a unique domain element u such that epsilon inner(u,v)+inner(Au,Av)=inner(f,v) for every v in the domain. It satisfies the exact energy identity epsilon norm(u)^2+norm(Au)^2=inner(f,u), the ambient bound norm(u)<=epsilon^-1 norm(f), and the energy bound <=epsilon^-1 norm(f)^2. No density, boundedness, Poincare or prior solvability is assumed.",
+          "formula": "\\varepsilon\\langle u,v\\rangle_H+\\langle Au,Av\\rangle_K=\\langle f,v\\rangle_H\\quad(v\\in\\operatorname{Dom}A),\\qquad \\|u\\|_H\\le\\varepsilon^{-1}\\|f\\|_H.",
+          "assumptions": [
+            "H and K are complete real inner-product spaces; they may be infinite dimensional.",
+            "A is a partial real-linear map with a linear-subspace domain, and its graph is closed in H times K. The domain is not assumed dense or all of H, and A is not assumed bounded.",
+            "Epsilon is strictly positive and f is an arbitrary H element. Domain-element norms in the statement are ambient H norms, not graph norms.",
+            "This is an abstract Hilbert weak-form prerequisite inspired by the Poisson/Sobolev discussion in Kolesnikov-Milman sections2.4-2.5. It is not that source compact-manifold Poisson existence/regularity theorem, nor PBPS conditional Poincare."
+          ],
+          "steps": [
+            {
+              "title": "Place the scaled graph in a Hilbert product",
+              "text": "Set s=sqrt(epsilon)>0. On H direct-sum K with its L2 product norm use T(a,b)=(s^-1 a,b). Define G as the inverse image under T of the graph of A. T is continuous linear, so G is a closed subspace and therefore complete. This avoids assuming the unbounded operator is continuous.",
+              "formula": "G=T^{-1}(\\operatorname{Graph}A)=\\{(s u,Au):u\\in\\operatorname{Dom}A\\},\\qquad s=\\sqrt\\varepsilon.",
+              "lean": "The local hex proof uses WithLp.fstL/sndL, Submodule.comap, hA.preimage T.continuous and hG.completeSpace_coe."
+            },
+            {
+              "title": "Project and recover a genuine domain element",
+              "text": "Project z=(s^-1 f,0) orthogonally onto G. Membership of p in G gives an actual u in the domain with u=s^-1 p_1 and Au=p_2. Since s is nonzero, p_1=s u. No totalized inverse or arbitrary differential representative is used.",
+              "formula": "p=P_G(s^{-1}f,0)=(s u,Au),\\qquad u\\in\\operatorname{Dom}A.",
+              "lean": "starProjection_apply_mem and LinearPMap.mem_graph_iff provide u; scalar cancellation establishes hu'."
+            },
+            {
+              "title": "Orthogonality is exactly the weak equation",
+              "text": "For every domain v, the vector w=(s v,Av) lies in G. Orthogonality of z-p to w gives inner(s^-1 f-s u,s v)-inner(Au,Av)=0. Expanding both inner products and using s^2=epsilon yields the weak equation for every test in the closed domain.",
+              "formula": "0=\\langle z-p,(s v,Av)\\rangle=\\langle f,v\\rangle-\\varepsilon\\langle u,v\\rangle-\\langle Au,Av\\rangle.",
+              "lean": "Submodule.starProjection_inner_eq_zero, the L2 product inner product and explicit nonzero-s scalar simplification close the local existence proof."
+            },
+            {
+              "title": "Derive the exact energy and explicit bounds",
+              "text": "Use v=u in the weak equation. Cauchy-Schwarz bounds its right side by norm(f) norm(u). When norm(u)=0 the norm bound is immediate; otherwise divide its positive value to obtain epsilon norm(u)<=norm(f). Substitute this estimate back into the energy identity. The constants are explicit and deteriorate as epsilon approaches zero.",
+              "formula": "\\varepsilon\\|u\\|_H^2+\\|Au\\|_K^2=\\langle f,u\\rangle_H\\le\\|f\\|_H\\|u\\|_H\\le\\varepsilon^{-1}\\|f\\|_H^2.",
+              "lean": "he is the self-test identity; hn handles the zero/nonzero norm branches, hb divides by positive epsilon, heb combines Cauchy-Schwarz and hb."
+            },
+            {
+              "title": "Prove uniqueness by testing the difference",
+              "text": "If w also solves the same equation, subtract the two equations tested at d=w-u. Domain linearity and A(w-u)=Aw-Au give epsilon norm(d)^2+norm(Ad)^2=0. Positivity of epsilon forces the ambient norm of d to vanish, hence the two domain elements are equal.",
+              "formula": "\\varepsilon\\|w-u\\|_H^2+\\|A(w-u)\\|_K^2=0\\quad\\Longrightarrow\\quad w=u.",
+              "lean": "The last quantified clause assumes only the weak equation for w, not its norm/energy bounds; Subtype.ext concludes equality from ambient norm zero."
+            }
+          ],
+          "lean_statement": "Existence, exact energy, ambient H norm bound, energy bound, and uniqueness among all weak solutions on A.domain.",
+          "lean_proof": "The scaled-graph existence proof is local to the single public theorem; the complete folded proof includes it and all bounds and uniqueness.",
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "WithLp.fstL",
+            "WithLp.sndL",
+            "Submodule.comap",
+            "IsClosed.completeSpace_coe",
+            "Submodule.starProjection_apply_mem",
+            "Submodule.starProjection_inner_eq_zero",
+            "LinearPMap.mem_graph_iff",
+            "real_inner_le_norm"
+          ],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/1310.2526v7",
+              "label": "Kolesnikov and Milman, sections2.4-2.5",
+              "scope": "Poisson/Sobolev background; this directly proved abstract weak-form prerequisite does not claim compact-manifold classical regularity."
+            },
+            {
+              "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+              "label": "Chen, Chewi, Lu and Zhang, PBPS Appendix C.1",
+              "scope": "Actual conditional Poincare route requires further regularity/core and limiting arguments."
+            }
+          ],
+          "tests": {
+            "file": "Tests/ProximalBPSConditionalResolvent.lean",
+            "command": "lake build Tests.ProximalBPSConditionalResolvent"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
+          "role": "prerequisite",
+          "supports": [
+            "weak-existence-unique",
+            "energy-explicit-bounds"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Compact weighted-manifold Poisson existence/regularity and Sobolev background.",
+            "lean": "Arbitrary real Hilbert H,K and closed partial-linear A; positive-epsilon weak existence, energy and uniqueness."
+          },
+          {
+            "source": "Full-space conditional Poincare route needs a weak equation.",
+            "lean": "No domain density assumed, ambient H norm and epsilon^-1 bounds proved."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let H,K be arbitrary real Hilbert spaces and A a partial real-linear map from a linear-subspace domain in H into K with closed graph. For every epsilon>0 and f in H there exists u in Dom(A) such that for every v in Dom(A), epsilon inner(u,v)_H+inner(Au,Av)_K=inner(f,v)_H; epsilon norm(u)_H^2+norm(Au)_K^2=inner(f,u)_H; norm(u)_H<=epsilon^-1 norm(f)_H; and epsilon norm(u)_H^2+norm(Au)_K^2<=epsilon^-1 norm(f)_H^2. For every w in Dom(A), if it satisfies the same weak equation for all v in Dom(A), then w=u as domain-subtype elements. Quantifiers: all spaces/Hilbert structures, A and closed graph, epsilon>0, f, then existence of u with all four properties and uniqueness. Domain density or equality to H and boundedness of A are not assumed. Domain-element norms are ambient H norms. This is a variational existence/uniqueness statement with exact constants 1/epsilon; no adjoint, strong operator equation or regularity beyond domain membership is explicitly asserted.",
+        "text_sha256": "0234bd1b2f35ab3e98463e268f105ec84a62857be8d1406dcb42bdccb490170d",
+        "decoder_packet_sha256": "9191d186d07c21b73a83da40877aaf1eb67fbd0e36104daf23090fc0684125ab",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "resolvent_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent inspected only two anonymous compiled statement/definition packets. No source-fidelity verdict, parameter measurability, PDE/adjoint identification or extra regularity inferred."
+        ],
+        "decoder_run_sha256": "4fae41d5e28ab5e053e2ecbebee325316f12d8e9b2a3d01b09dd4f8928db9225",
+        "lean_statement_sha256": "b596bf12834c376c4df3a9e876e51a34cee6d0b762f7d36026303aecbafe50c2",
+        "run_artifact": "runs/20260911-companion-priority/closed-graph-resolvent.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "KM Poisson/Sobolev background, explicitly replaced by a selected abstract prerequisite.",
+          "reconstructed": "Closed partial real-linear A between Hilbert spaces and positive-epsilon weak solution.",
+          "relation": "different",
+          "evidence": "A is arbitrary, not identified with the manifold differential operator; source contract and lesson disclose the change."
+        },
+        "domains": {
+          "original": "Primary compact weighted manifold; selected authored real-Hilbert prerequisite.",
+          "reconstructed": "Arbitrary Hilbert spaces, possibly infinite-dimensional, with possibly nondense proper domain.",
+          "relation": "different",
+          "evidence": "No manifold, finite-dimension, boundary or density assumption; these are disclosed changes, not source equivalence."
+        },
+        "quantifiers": {
+          "original": "Every closed A, positive epsilon, input f admits a unique domain solution.",
+          "reconstructed": "Same order; equation for every domain v and uniqueness among all solutions of that equation.",
+          "relation": "same",
+          "evidence": "Uniqueness for w assumes only weak equation, not energy or norm bounds."
+        },
+        "assumptions": {
+          "original": "Hilbert completeness, closed graph and epsilon>0; no PI/density.",
+          "reconstructed": "Exactly those selected prerequisite assumptions.",
+          "relation": "equivalent",
+          "evidence": "Closed-subspace projection in Hilbert L2 product; no continuity of A, coercivity or prior solvability assumed."
+        },
+        "conclusion": {
+          "original": "Weak existence/uniqueness, exact energy and epsilon-inverse bounds.",
+          "reconstructed": "Same equation, exact energy, ambient H norm and total-energy bounds; subtype equality.",
+          "relation": "same",
+          "evidence": "hu,he,hb,heb and difference testing supply all clauses."
+        },
+        "scopes": {
+          "original": "Abstract prerequisite inspired by KM2.4-2.5, not classical Poisson or PBPS PI.",
+          "reconstructed": "Weak domain statement, no regularity/generator/Bochner/epsilon-to-zero argument.",
+          "relation": "explicit-elaboration",
+          "evidence": "Module, source contract and lesson consistently retain these boundaries."
+        },
+        "constant_dependencies": {
+          "original": "Exactly epsilon^-1 in norm and total-energy bounds.",
+          "reconstructed": "Exactly epsilon^-1 with ambient H norm, no hidden graph-norm or coercivity constant.",
+          "relation": "same",
+          "evidence": "Self-test and Cauchy-Schwarz imply epsilon norm(u)<=norm(f), then both bounds."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Separately proved abstract weak resolvent, not background differential-operator theorem transcription.",
+          "evidence": "A is arbitrary, not identified with the manifold differential operator; source contract and lesson disclose the change."
+        },
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Compact-manifold setting replaced by arbitrary Hilbert spaces and potentially nondense domains.",
+          "evidence": "No manifold, finite-dimension, boundary or density assumption; these are disclosed changes, not source equivalence."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "No classical Poisson regularity or spectral conclusion; selected prerequisite only.",
+          "evidence": "Module, source contract and lesson consistently retain these boundaries."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-PBPSConditionalResolvent",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:pbps-conditional-resolvent",
+        "anchor": "Appendix C.1; actual conditional weak-form prerequisite",
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "original_text": "Source Euclidean d>=1, V C2, 0<alpha<=beta, genuine Hessian bounds, eta>0 and beta eta<=1.\nActual independent Gibbs-Gaussian augmentation (X,X+sqrt(eta)Z) and reflected conditional kernel. Normalization and closed genuine gradient are derived prerequisites, not additional paper assumptions.\nPBPS Appendix C.1 applies conditional Poincare to the actual reflected Gibbs-Gaussian conditional law. The selected ASTIS analytic prerequisite retains that law with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), its finite positive normalizer and the genuine dense closable compact gradient D_y. For each y, the same D_y is chosen before all positive epsilon and f in scalar L2(S_y); A=D_y.closure then has a unique weak solution to epsilon inner(u,v)+inner(Au,Av)=inner(f,v) on its domain, with exact energy identity and epsilon^-1 norm/energy bounds. The source PI or score variance is not proved here. No measurable solution family or classical regularity is asserted.",
+        "text_sha256": "54c6417ab5405a64ddffd9d1569d6797a4e637245dbdc986f876d948db10c6ca"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent",
+        "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalResolvent.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          0 < η →\n            ↑β * η ≤ 1 →\n              have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n              have J :=\n                MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n              have W := fun y u => V ((1 / 2) • (y + u)) + ‖u - y‖ ^ 2 / (8 * η);\n              ∃ R S,\n                ProbabilityTheory.IsMarkovKernel R ∧\n                  ProbabilityTheory.IsMarkovKernel S ∧\n                    (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                      (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                        ∀ (y : E),\n                          (S y = MeasureTheory.MeasureSpace.volume.tilted fun u => -W y u) ∧\n                            ContDiff ℝ 2 (W y) ∧\n                              MeasureTheory.Integrable (fun u => Real.exp (-W y u)) MeasureTheory.MeasureSpace.volume ∧\n                                0 < ∫ (u : E), Real.exp (-W y u) ∧\n                                  ∃ D,\n                                    Dense ↑D.domain ∧\n                                      D.IsClosable ∧\n                                        D.closure.IsClosed ∧\n                                          (∀ (u : ↥(MeasureTheory.Lp ℝ 2 (S y))) (v : ↥(MeasureTheory.Lp E 2 (S y))),\n                                              (u, v) ∈ D.graph ↔\n                                                ∃ f,\n                                                  ContDiff ℝ (↑⊤) f ∧\n                                                    HasCompactSupport f ∧ ↑↑u =ᵐ[S y] f ∧ ↑↑v =ᵐ[S y] gradient f) ∧\n                                            ∀ (ε : ℝ),\n                                              0 < ε →\n                                                ∀ (f : ↥(MeasureTheory.Lp ℝ 2 (S y))),\n                                                  ∃ u,\n                                                    (∀ (v : ↥D.closure.domain),\n                                                        ε * Inner.inner ℝ ↑u ↑v +\n                                                            Inner.inner ℝ (↑D.closure u) (↑D.closure v) =\n                                                          Inner.inner ℝ f ↑v) ∧\n                                                      ε * ‖↑u‖ ^ 2 + ‖↑D.closure u‖ ^ 2 = Inner.inner ℝ f ↑u ∧\n                                                        ‖↑u‖ ≤ ε⁻¹ * ‖f‖ ∧\n                                                          ε * ‖↑u‖ ^ 2 + ‖↑D.closure u‖ ^ 2 ≤ ε⁻¹ * ‖f‖ ^ 2 ∧\n                                                            ∀ (w : ↥D.closure.domain),\n                                                              (∀ (v : ↥D.closure.domain),\n                                                                  ε * Inner.inner ℝ ↑w ↑v +\n                                                                      Inner.inner ℝ (↑D.closure w) (↑D.closure v) =\n                                                                    Inner.inner ℝ f ↑v) →\n                                                                w = u",
+        "statement_sha256": "82840f4a390aaa5cadd67c774bf67a9116a9f2ceb85d8d97e90e311e15840610",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3298, independently replayed, standard propext/Classical.choice/Quot.sound only. Independent complete development proof review passed; no fixed-commit admission yet.",
+        "decoder_context": [
+          "H,K with NormedAddCommGroup, InnerProductSpace over real scalars and CompleteSpace are real Hilbert spaces. E finite-dimensional real inner-product Borel includes dimension zero.",
+          "A LinearPMap is a partial real-linear map with a linear-subspace domain; applying it takes a domain subtype element. Coercion of a domain element into H has the ambient H norm. IsClosed means its graph is closed in the product topology; it does not mean A is bounded or everywhere defined.",
+          "IsClosable means topological closure of the graph is the graph of a partial linear map. For a closable D, D.closure has this graph. Dense domain uses the ambient L2 topology.",
+          "Lp F 2 mu consists of measurable F-valued functions with finite squared-norm integral, modulo almost-everywhere equality; =ae compares representatives. The real inner product is the usual L2 inner product.",
+          "ContDiff at 2/infinity means C2/smooth. HasCompactSupport means closure of nonzero support is compact. gradient is the Riesz representative of the actual Frechet derivative.",
+          "Measure.tilted is normalized exponential weighting, totalized to zero if weight is not integrable. Integrable means almost-everywhere strongly measurable with finite integral of norm.",
+          "Measure.map is pushforward, prod is independent product, stdGaussian is standard Gaussian. A Markov kernel is a measurably parameterized probability measure. IsCondKernel disintegrates the specified joint measure on its first coordinate; Prod.swap swaps coordinates.",
+          "Lets abbreviate the displayed objects. Quantifier order follows the printed type; inverse of a positive epsilon is ordinary reciprocal."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "35bf972eb6dec741d32d29864d3275bbd7e6413f252a06d275bd5c6f162b83f4",
+        "review_run_sha256": "2081555b8ed0705ad5c31f05be5ba0fcfc183fd5e7f7551f534f0c637e86b6a2",
+        "run_artifact": "runs/20260911-companion-priority/conditional-resolvent.source-review-result.json",
+        "evidence": "Independent anti-anchored source review freshly opened primary KM sections2.4-2.5 and PBPS C.1, read complete embedded proofs, anonymous reconstructions and every five plus three authored steps. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module text hashes independently recomputed; current production text equals embedded text. Binding digests authenticated packet fields; external binding preimages NOT independently reconstructed. No registry verdict consulted. No independent compilation, axiom-output verification, aggregate or fixed-commit VERIFIED claim in this source review."
+      },
+      "publication_binding_sha256": "1a042bdc396094fa291cb0a643d59f20b6bd5feb9e32e7ff4cfca36992f575d8",
+      "publication_context": {
+        "file": "4f8329c95b027dda94c6cb555d6a88fe24b42aaa9fa037f8056526c3fc05a4ff",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient\nimport AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent\n\n/-!\n# Weak resolvent for the actual PBPS conditional closed gradient\n\nRetain the same conditional kernels and the exact smooth compact gradient\noperator from ConditionalGradient. For each fiber, its closure supplies the\nweak equation for every positive epsilon and scalar L2 input, with uniqueness\nand explicit ambient L2 energy/norm bounds. No measurable selection in y,\nclassical PDE solution, generator core, Bochner extension or Poincare theorem\nis claimed. This is an analytic prerequisite to arXiv:2609.06905v1 Appendix C.1.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent\nopen MeasureTheory ProbabilityTheory InnerProductSpace\nopen scoped ContDiff NNReal RealInnerProductSpace Topology\n\n/-- On each actual fiber, one fixed genuine gradient closure solves every\npositive-epsilon weak equation; the operator precedes epsilon and input f. -/\ntheorem conditional_weak_resolvent {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    {V : E → ℝ} {α β : NNReal} {η : ℝ}\n    (hα : 0 < (α:ℝ)) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n      (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β:ℝ)*‖v‖^2)\n    (hη : 0 < η) (hβη : (β:ℝ)*η ≤ 1) :\n    let μ := (volume : Measure E).tilted (fun x => -V x)\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2)) (μ.prod (stdGaussian E))\n    let W := fun y u : E => V ((1/2:ℝ) • (y+u)) + ‖u-y‖^2/(8*η)\n    ∃ R S : Kernel E E, IsMarkovKernel R ∧ IsMarkovKernel S ∧\n      (J.map Prod.swap).IsCondKernel R ∧\n      (∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y)) ∧\n      ∀ y, S y = (volume : Measure E).tilted (fun u => -W y u) ∧\n        ContDiff ℝ 2 (W y) ∧ Integrable (fun u => Real.exp (-W y u)) ∧\n        0 < (∫ u, Real.exp (-W y u)) ∧\n        ∃ D : Lp ℝ 2 (S y) →ₗ.[ℝ] Lp E 2 (S y),\n          Dense (D.domain : Set (Lp ℝ 2 (S y))) ∧ D.IsClosable ∧ D.closure.IsClosed ∧\n          (∀ (u : Lp ℝ 2 (S y)) (v : Lp E 2 (S y)), (u,v) ∈ D.graph ↔\n            ∃ f : E → ℝ, ContDiff ℝ ∞ f ∧ HasCompactSupport f ∧\n              u =ᵐ[S y] f ∧ v =ᵐ[S y] gradient f) ∧\n          ∀ (ε : ℝ), 0 < ε → ∀ f : Lp ℝ 2 (S y),\n            ∃ u : D.closure.domain,\n              (∀ v : D.closure.domain, ε * ⟪(u : Lp ℝ 2 (S y)), (v : Lp ℝ 2 (S y))⟫ +\n                ⟪D.closure u, D.closure v⟫ = ⟪f, (v : Lp ℝ 2 (S y))⟫) ∧\n              ε * ‖(u : Lp ℝ 2 (S y))‖^2 + ‖D.closure u‖^2 = ⟪f, (u : Lp ℝ 2 (S y))⟫ ∧\n              ‖(u : Lp ℝ 2 (S y))‖ ≤ ε⁻¹ * ‖f‖ ∧\n              ε * ‖(u : Lp ℝ 2 (S y))‖^2 + ‖D.closure u‖^2 ≤ ε⁻¹ * ‖f‖^2 ∧\n              ∀ w : D.closure.domain,\n                (∀ v : D.closure.domain, ε * ⟪(w : Lp ℝ 2 (S y)), (v : Lp ℝ 2 (S y))⟫ +\n                  ⟪D.closure w, D.closure v⟫ = ⟪f, (v : Lp ℝ 2 (S y))⟫) → w = u := by\n  obtain ⟨R,S,hR,hS,hcond,hSR,hfiber⟩ :=\n    ConditionalGradient.conditional_gradient_closable hα hαβ hV hH hη hβη\n  dsimp only\n  refine ⟨R,S,hR,hS,hcond,hSR,?_⟩\n  intro y\n  obtain ⟨hSy,hW,hI,hZ,D,hDense,hClose,hClosed,hgraph⟩ := hfiber y\n  refine ⟨hSy,hW,hI,hZ,D,hDense,hClose,hClosed,hgraph,?_⟩\n  intro ε hε f\n  exact AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent D.closure hClosed ε hε f\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "edition": "arXiv:2609.06905v1",
+          "anchor": "Appendix C.1; actual conditional weak-form prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Kolesnikov-Milman background; Chen-Chewi-Lu-Zhang PBPS consumer; ASTIS expanded prerequisite proof."
+        },
+        "statement": "PBPS Appendix C.1 applies conditional Poincare to the actual reflected Gibbs-Gaussian conditional law. The selected ASTIS analytic prerequisite retains that law with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), its finite positive normalizer and the genuine dense closable compact gradient D_y. For each y, the same D_y is chosen before all positive epsilon and f in scalar L2(S_y); A=D_y.closure then has a unique weak solution to epsilon inner(u,v)+inner(Au,Av)=inner(f,v) on its domain, with exact energy identity and epsilon^-1 norm/energy bounds. The source PI or score variance is not proved here. No measurable solution family or classical regularity is asserted.",
+        "formulae": [
+          {
+            "label": "Weak equation and energy",
+            "tex": "\\varepsilon\\langle u,v\\rangle_{L^2(S_y)}+\\langle\\overline D_yu,\\overline D_yv\\rangle_{L^2(S_y;E)}=\\langle f,v\\rangle_{L^2(S_y)},\\quad v\\in\\operatorname{Dom}\\overline D_y."
+          }
+        ],
+        "assumptions": [
+          "Source Euclidean d>=1, V C2, 0<alpha<=beta, genuine Hessian bounds, eta>0 and beta eta<=1.",
+          "Actual independent Gibbs-Gaussian augmentation (X,X+sqrt(eta)Z) and reflected conditional kernel. Normalization and closed genuine gradient are derived prerequisites, not additional paper assumptions."
+        ],
+        "obligations": [
+          {
+            "id": "weak-existence-unique",
+            "label": "Actual domain weak solution and uniqueness"
+          },
+          {
+            "id": "energy-explicit-bounds",
+            "label": "Exact energy and positive-epsilon norm and energy constants"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent",
+          "kind": "theorem",
+          "title": "Solve the weak equation on the actual conditional gradient closure",
+          "statement": "For the actual Gibbs-Gaussian augmentation, retain common Markov kernels R,S with swapped-joint disintegration and reflected pushforward. Every S_y is the normalized exp(-W_y) law with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), C2 potential and finite positive normalizer. Choose one genuine compact-test gradient D_y on scalar/vector L2(S_y), dense and closable with the exact almost-everywhere smooth-gradient graph. For this same D_y, every epsilon>0 and scalar L2 input f has a unique weak solution u in the domain of D_y.closure with the exact energy identity and epsilon^-1 norm and energy bounds.",
+          "formula": "\\varepsilon\\langle u,v\\rangle_{L^2(S_y)}+\\langle\\overline D_yu,\\overline D_yv\\rangle_{L^2(S_y;E)}=\\langle f,v\\rangle_{L^2(S_y)},\\quad v\\in\\operatorname{Dom}\\overline D_y.",
+          "assumptions": [
+            "E is finite-dimensional real inner-product Borel, including dimension zero, and V is C2.",
+            "Explicit 0<alpha<=beta, genuine lower/upper Hessian quadratic-form bounds, eta>0 and beta eta<=1 are inherited from the actual kernel interface. They are not needed by the abstract closed-graph theorem.",
+            "Mu is the actual normalized tilt by -V. J is the pushforward of independent Gibbs X and standard Gaussian Z under (X,X+sqrt(eta)Z).",
+            "Common R,S precede every y; each D_y precedes every epsilon and f. The exact graph iff characterizes D_y, not every element of its closure.",
+            "Integrable exp(-W_y) and its positive normalizer are proved conclusions supplied by the same actual conditional law, not additional paper assumptions. No measurability of y-to-D_y or y-to-solution is asserted."
+          ],
+          "steps": [
+            {
+              "title": "Preserve the same conditional probability and gradient",
+              "text": "Use conditional_gradient_closable to obtain common R,S and, at each y, the actual normalized potential and one dense closable partial gradient. Retain its exact graph equivalence with smooth compact f and their genuine gradients. The operator is chosen before epsilon and f.",
+              "formula": "\\operatorname{Graph}D_y=\\{([g],[\\nabla g]):g\\in C_c^\\infty(E)\\},\\qquad S_y=Z_y^{-1}e^{-W_y}\\,du.",
+              "lean": "hfiber supplies hSy,hW,hI,hZ,D,hDense,hClose,hClosed,hgraph; every one is retained in the result."
+            },
+            {
+              "title": "Use the proved closed extension on the actual fiber",
+              "text": "Take A=D_y.closure in the Hilbert spaces of scalar and vector L2(S_y). The parent theorem already proves that this closure has a closed graph. Thus the abstract theorem applies without assuming PI, domain coercivity or a classical differential equation.",
+              "formula": "H=L^2(S_y),\\quad K=L^2(S_y;E),\\quad A=\\overline D_y,\\quad\\operatorname{Graph}A\\ \\text{closed}.",
+              "lean": "Instantiate ClosedGraphResolvent.weak_resolvent with D.closure and hClosed for each positive epsilon and each input f."
+            },
+            {
+              "title": "Retain uniqueness and constants without claiming regularity",
+              "text": "The abstract result supplies the exact weak equation over every closed-domain test, energy identity, both explicit bounds and uniqueness on that same domain. This is an L2 domain statement. It does not justify substitution into compact-test Bochner or a pointwise PDE identity.",
+              "formula": "\\|u\\|_{L^2(S_y)}\\le\\varepsilon^{-1}\\|f\\|_{L^2(S_y)},\\quad\\varepsilon\\|u\\|^2+\\|\\overline D_yu\\|^2\\le\\varepsilon^{-1}\\|f\\|^2.",
+              "lean": "All clauses are returned directly for the same D and actual S_y; generator core/regularity and the epsilon-to-zero step remain separate obligations."
+            }
+          ],
+          "lean_statement": "Actual common conditional kernels, normalized C2 potential, dense closable exact gradient graph, then every positive-epsilon weak solution with exact energy, bounds and uniqueness.",
+          "lean_proof": "The consumer uses the same parent kernels and operator; its only analytic application is the proved closed-graph weak resolvent.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+            "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent"
+          ],
+          "mathlib_dependencies": [],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+              "label": "Chen, Chewi, Lu and Zhang, PBPS Appendix C.1",
+              "scope": "Actual conditional weak-form prerequisite, not the conditional PI or variance estimate."
+            }
+          ],
+          "tests": {
+            "file": "Tests/ProximalBPSConditionalResolvent.lean",
+            "command": "lake build Tests.ProximalBPSConditionalResolvent"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent",
+          "role": "prerequisite",
+          "supports": [
+            "weak-existence-unique",
+            "energy-explicit-bounds"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Euclidean d>=1.",
+            "lean": "Arbitrary finite-dimensional real inner-product Borel E, including zero dimension."
+          },
+          {
+            "source": "Appendix C.1 conditional Poincare/variance.",
+            "lean": "Actual conditional closed-gradient epsilon weak equation only."
+          },
+          {
+            "source": "Actual augmentation and conditional Gibbs law.",
+            "lean": "Same common R,S; every actual normalized C2 fiber; one exact D_y before all epsilon,f."
+          },
+          {
+            "source": "Source curvature and scale hypotheses.",
+            "lean": "0<alpha<=beta, C2, true Hessian bounds, eta>0 and beta eta<=1 retained."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be a finite-dimensional real inner-product Borel space with designated volume, including dimension zero; V:E->R, nonnegative alpha,beta, real eta. Assume alpha>0, alpha<=beta, V C2, alpha norm(v)^2<=D(DV)(x)[v][v]<=beta norm(v)^2 for all x,v, eta>0 and beta eta<=1, using actual iterated Frechet derivatives. Define mu=tilt(volume,-V), with normalized exponential weighting totalized to zero if nonintegrable; J is the pushforward of mu tensor standard Gaussian under (x,z)->(x,x+sqrt(eta)z); W_y(q)=V((y+q)/2)+norm(q-y)^2/(8eta). There exist common Markov kernels R,S such that R disintegrates swap-pushforward J on its first coordinate (original first conditioned on original second), and for every y, S(y) is the pushforward of R(y) by x->2x-y. For every y, S(y)=tilt(volume,-W_y), W_y C2, exp(-W_y) volume-integrable and its integral strictly positive. For each y there exists a partial real-linear D from scalar L2(S(y)) to vector L2(S(y);E), with dense domain, closable and closed closure. For every scalar class a and vector class b, (a,b) belongs to graph D iff there exists smooth compact scalar g with a=g and b=gradient(g) S(y)-almost everywhere. These compare representatives; gradient is the Riesz representative of the genuine Frechet derivative. For every epsilon>0 and scalar L2 input f there exists u in Dom(D.closure) such that, writing A=D.closure, for every v in Dom(A), epsilon inner(u,v)+inner(Au,Av)=inner(f,v); epsilon norm(u)^2+norm(Au)^2=inner(f,u); norm(u)<=epsilon^-1 norm(f); and epsilon norm(u)^2+norm(Au)^2<=epsilon^-1 norm(f)^2. Scalar/domain norms and pairings use scalar L2(S(y)); images use vector L2(S(y);E). Every w in Dom(A) satisfying the same weak equation against all domain v equals u as a subtype element. Order: original data/hypotheses, common R,S, every y, one D, every epsilon>0 and f, existence of unique u. D may depend on y but precedes epsilon,f. No measurable dependence of D or u on parameters is asserted. Both S(y) identities hold for every y, whereas disintegration has its usual measure-theoretic scope; no R/S uniqueness. Solution uniqueness is of L2 classes in the closed domain, not pointwise representatives. The exact initial graph characterizes D, not its closure. No pointwise PDE, adjoint/second-order generator identification or extra smoothness is asserted. Resolvent constants are exactly 1/epsilon with no displayed dimension, curvature or y factor.",
+        "text_sha256": "7553470fef19e9d86cca70403fb22a5afed821aeb9242b076cc12e5eeb068d60",
+        "decoder_packet_sha256": "0f5a9eeeae37127fde45acb3d41dee9b6e42f3ec34fba49f57d426872f7005d7",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "resolvent_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent inspected only two anonymous compiled statement/definition packets. No source-fidelity verdict, parameter measurability, PDE/adjoint identification or extra regularity inferred."
+        ],
+        "decoder_run_sha256": "b347fe7f226d60cf96ecbe26c109473e3395b0479ecd0539127d474375b9bef9",
+        "lean_statement_sha256": "82840f4a390aaa5cadd67c774bf67a9116a9f2ceb85d8d97e90e311e15840610",
+        "run_artifact": "runs/20260911-companion-priority/conditional-resolvent.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual reflected conditional law and selected closed-gradient prerequisite.",
+          "reconstructed": "Common actual R,S, exact W_y and normalizer, genuine initial D_y and A=D_y.closure.",
+          "relation": "explicit-elaboration",
+          "evidence": "Retains all parent witnesses and exact graph iff; directly applies shared result to same closure."
+        },
+        "domains": {
+          "original": "Positive-dimensional Euclidean source.",
+          "reconstructed": "Finite-dimensional real inner-product Borel including zero dimension, actual scalar L2 closed-gradient domain.",
+          "relation": "stronger-in-lean",
+          "evidence": "No positive-dimension premise; zero dimension explicitly disclosed."
+        },
+        "quantifiers": {
+          "original": "Actual fibers and one gradient before resolvent parameters.",
+          "reconstructed": "Common R,S; every y; one D_y; all epsilon>0 and f; unique closed-domain u.",
+          "relation": "same",
+          "evidence": "D retained before intro epsilon,f; no measurable operator/solution family asserted."
+        },
+        "assumptions": {
+          "original": "C2 V, 0<alpha<=beta, genuine Hessian bounds, eta>0, beta eta<=1.",
+          "reconstructed": "Same inherited hypotheses, probability/normalization/closedness are conclusions.",
+          "relation": "equivalent",
+          "evidence": "hSy,hW,hI,hZ,hClosed from same parent, not added premises."
+        },
+        "conclusion": {
+          "original": "Actual-fiber weak solvability with exact energy and epsilon-inverse estimates.",
+          "reconstructed": "All those clauses plus actual kernels, normalizer and exact initial graph retained.",
+          "relation": "explicit-elaboration",
+          "evidence": "Complete abstract result for same L2 spaces and D.closure."
+        },
+        "scopes": {
+          "original": "Analytic prerequisite to C.1 PI invocation.",
+          "reconstructed": "Weak L2-domain solution, no PDE/core/Bochner substitution/PI/variance.",
+          "relation": "explicit-elaboration",
+          "evidence": "Graph iff describes D, not closure; uniqueness is of domain L2 classes, not pointwise representatives."
+        },
+        "constant_dependencies": {
+          "original": "Epsilon^-1 bounds.",
+          "reconstructed": "Exactly epsilon^-1, scalar L2 norm and vector L2 energy, no extra dimension/y/curvature coefficient.",
+          "relation": "same",
+          "evidence": "Unchanged shared conclusion; not uniform as epsilon tends to zero."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit finite-dimensional and zero-dimensional extension.",
+          "evidence": "No positive-dimension premise; zero dimension explicitly disclosed."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Authored weak-resolvent prerequisite, not C.1 PI/variance.",
+          "evidence": "Graph iff describes D, not closure; uniqueness is of domain L2 classes, not pointwise representatives."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Curvature and beta eta<=1 retained parent restrictions, not abstract weak-existence premises.",
+          "evidence": "hSy,hW,hI,hZ,hClosed from same parent, not added premises."
+        }
+      ]
     }
   ]
 }

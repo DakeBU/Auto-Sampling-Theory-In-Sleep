@@ -126,6 +126,7 @@ import Tests.ProximalBPSMacroscopicRepresentative
 import Tests.ProximalBPSConditionalScoreDomain
 import Tests.ProximalBPSConditionalBochner
 import Tests.ProximalBPSConditionalGradient
+import Tests.ProximalBPSConditionalResolvent
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are

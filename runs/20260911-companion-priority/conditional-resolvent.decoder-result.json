@@ -1,0 +1,16 @@
+{
+  "decoder": "resolvent_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent English anonymous reconstruction; math rendered in plain text without changing quantifiers or scope. Decoder reported supplied hashes, not independent hash recomputation.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-resolvent-b.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-PBPSConditionalResolvent.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "0f5a9eeeae37127fde45acb3d41dee9b6e42f3ec34fba49f57d426872f7005d7",
+  "lean_statement_sha256": "82840f4a390aaa5cadd67c774bf67a9116a9f2ceb85d8d97e90e311e15840610",
+  "reconstructed_theorem_text": "Let E be a finite-dimensional real inner-product Borel space with designated volume, including dimension zero; V:E->R, nonnegative alpha,beta, real eta. Assume alpha>0, alpha<=beta, V C2, alpha norm(v)^2<=D(DV)(x)[v][v]<=beta norm(v)^2 for all x,v, eta>0 and beta eta<=1, using actual iterated Frechet derivatives. Define mu=tilt(volume,-V), with normalized exponential weighting totalized to zero if nonintegrable; J is the pushforward of mu tensor standard Gaussian under (x,z)->(x,x+sqrt(eta)z); W_y(q)=V((y+q)/2)+norm(q-y)^2/(8eta). There exist common Markov kernels R,S such that R disintegrates swap-pushforward J on its first coordinate (original first conditioned on original second), and for every y, S(y) is the pushforward of R(y) by x->2x-y. For every y, S(y)=tilt(volume,-W_y), W_y C2, exp(-W_y) volume-integrable and its integral strictly positive. For each y there exists a partial real-linear D from scalar L2(S(y)) to vector L2(S(y);E), with dense domain, closable and closed closure. For every scalar class a and vector class b, (a,b) belongs to graph D iff there exists smooth compact scalar g with a=g and b=gradient(g) S(y)-almost everywhere. These compare representatives; gradient is the Riesz representative of the genuine Frechet derivative. For every epsilon>0 and scalar L2 input f there exists u in Dom(D.closure) such that, writing A=D.closure, for every v in Dom(A), epsilon inner(u,v)+inner(Au,Av)=inner(f,v); epsilon norm(u)^2+norm(Au)^2=inner(f,u); norm(u)<=epsilon^-1 norm(f); and epsilon norm(u)^2+norm(Au)^2<=epsilon^-1 norm(f)^2. Scalar/domain norms and pairings use scalar L2(S(y)); images use vector L2(S(y);E). Every w in Dom(A) satisfying the same weak equation against all domain v equals u as a subtype element. Order: original data/hypotheses, common R,S, every y, one D, every epsilon>0 and f, existence of unique u. D may depend on y but precedes epsilon,f. No measurable dependence of D or u on parameters is asserted. Both S(y) identities hold for every y, whereas disintegration has its usual measure-theoretic scope; no R/S uniqueness. Solution uniqueness is of L2 classes in the closed domain, not pointwise representatives. The exact initial graph characterizes D, not its closure. No pointwise PDE, adjoint/second-order generator identification or extra smoothness is asserted. Resolvent constants are exactly 1/epsilon with no displayed dimension, curvature or y factor.",
+  "source_fidelity_verdict": null
+}

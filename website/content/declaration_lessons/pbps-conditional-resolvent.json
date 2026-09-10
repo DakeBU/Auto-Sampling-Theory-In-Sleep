@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
+      "kind": "theorem",
+      "title": "A unique weak resolvent from a closed Hilbert graph",
+      "statement": "Let H,K be real Hilbert spaces and A a partial real-linear operator with closed graph. For each epsilon>0 and f in H, there is a unique domain element u such that epsilon inner(u,v)+inner(Au,Av)=inner(f,v) for every v in the domain. It satisfies the exact energy identity epsilon norm(u)^2+norm(Au)^2=inner(f,u), the ambient bound norm(u)<=epsilon^-1 norm(f), and the energy bound <=epsilon^-1 norm(f)^2. No density, boundedness, Poincare or prior solvability is assumed.",
+      "formula": "\\varepsilon\\langle u,v\\rangle_H+\\langle Au,Av\\rangle_K=\\langle f,v\\rangle_H\\quad(v\\in\\operatorname{Dom}A),\\qquad \\|u\\|_H\\le\\varepsilon^{-1}\\|f\\|_H.",
+      "assumptions": [
+        "H and K are complete real inner-product spaces; they may be infinite dimensional.",
+        "A is a partial real-linear map with a linear-subspace domain, and its graph is closed in H times K. The domain is not assumed dense or all of H, and A is not assumed bounded.",
+        "Epsilon is strictly positive and f is an arbitrary H element. Domain-element norms in the statement are ambient H norms, not graph norms.",
+        "This is an abstract Hilbert weak-form prerequisite inspired by the Poisson/Sobolev discussion in Kolesnikov-Milman sections2.4-2.5. It is not that source compact-manifold Poisson existence/regularity theorem, nor PBPS conditional Poincare."
+      ],
+      "steps": [
+        {
+          "title": "Place the scaled graph in a Hilbert product",
+          "text": "Set s=sqrt(epsilon)>0. On H direct-sum K with its L2 product norm use T(a,b)=(s^-1 a,b). Define G as the inverse image under T of the graph of A. T is continuous linear, so G is a closed subspace and therefore complete. This avoids assuming the unbounded operator is continuous.",
+          "formula": "G=T^{-1}(\\operatorname{Graph}A)=\\{(s u,Au):u\\in\\operatorname{Dom}A\\},\\qquad s=\\sqrt\\varepsilon.",
+          "lean": "The local hex proof uses WithLp.fstL/sndL, Submodule.comap, hA.preimage T.continuous and hG.completeSpace_coe."
+        },
+        {
+          "title": "Project and recover a genuine domain element",
+          "text": "Project z=(s^-1 f,0) orthogonally onto G. Membership of p in G gives an actual u in the domain with u=s^-1 p_1 and Au=p_2. Since s is nonzero, p_1=s u. No totalized inverse or arbitrary differential representative is used.",
+          "formula": "p=P_G(s^{-1}f,0)=(s u,Au),\\qquad u\\in\\operatorname{Dom}A.",
+          "lean": "starProjection_apply_mem and LinearPMap.mem_graph_iff provide u; scalar cancellation establishes hu'."
+        },
+        {
+          "title": "Orthogonality is exactly the weak equation",
+          "text": "For every domain v, the vector w=(s v,Av) lies in G. Orthogonality of z-p to w gives inner(s^-1 f-s u,s v)-inner(Au,Av)=0. Expanding both inner products and using s^2=epsilon yields the weak equation for every test in the closed domain.",
+          "formula": "0=\\langle z-p,(s v,Av)\\rangle=\\langle f,v\\rangle-\\varepsilon\\langle u,v\\rangle-\\langle Au,Av\\rangle.",
+          "lean": "Submodule.starProjection_inner_eq_zero, the L2 product inner product and explicit nonzero-s scalar simplification close the local existence proof."
+        },
+        {
+          "title": "Derive the exact energy and explicit bounds",
+          "text": "Use v=u in the weak equation. Cauchy-Schwarz bounds its right side by norm(f) norm(u). When norm(u)=0 the norm bound is immediate; otherwise divide its positive value to obtain epsilon norm(u)<=norm(f). Substitute this estimate back into the energy identity. The constants are explicit and deteriorate as epsilon approaches zero.",
+          "formula": "\\varepsilon\\|u\\|_H^2+\\|Au\\|_K^2=\\langle f,u\\rangle_H\\le\\|f\\|_H\\|u\\|_H\\le\\varepsilon^{-1}\\|f\\|_H^2.",
+          "lean": "he is the self-test identity; hn handles the zero/nonzero norm branches, hb divides by positive epsilon, heb combines Cauchy-Schwarz and hb."
+        },
+        {
+          "title": "Prove uniqueness by testing the difference",
+          "text": "If w also solves the same equation, subtract the two equations tested at d=w-u. Domain linearity and A(w-u)=Aw-Au give epsilon norm(d)^2+norm(Ad)^2=0. Positivity of epsilon forces the ambient norm of d to vanish, hence the two domain elements are equal.",
+          "formula": "\\varepsilon\\|w-u\\|_H^2+\\|A(w-u)\\|_K^2=0\\quad\\Longrightarrow\\quad w=u.",
+          "lean": "The last quantified clause assumes only the weak equation for w, not its norm/energy bounds; Subtype.ext concludes equality from ambient norm zero."
+        }
+      ],
+      "lean_statement": "Existence, exact energy, ambient H norm bound, energy bound, and uniqueness among all weak solutions on A.domain.",
+      "lean_proof": "The scaled-graph existence proof is local to the single public theorem; the complete folded proof includes it and all bounds and uniqueness.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "WithLp.fstL",
+        "WithLp.sndL",
+        "Submodule.comap",
+        "IsClosed.completeSpace_coe",
+        "Submodule.starProjection_apply_mem",
+        "Submodule.starProjection_inner_eq_zero",
+        "LinearPMap.mem_graph_iff",
+        "real_inner_le_norm"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/1310.2526v7",
+          "label": "Kolesnikov and Milman, sections2.4-2.5",
+          "scope": "Poisson/Sobolev background; this directly proved abstract weak-form prerequisite does not claim compact-manifold classical regularity."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS Appendix C.1",
+          "scope": "Actual conditional Poincare route requires further regularity/core and limiting arguments."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalResolvent.lean",
+        "command": "lake build Tests.ProximalBPSConditionalResolvent"
+      },
+      "boundary": "Weak equation on the closed gradient domain only. No classical PDE regularity, identified maximal differential domain, D*D operator core, compact-test Bochner extension, epsilon-uniform estimate, Poincare, noncompact score variance, measurable parameter selection, process/error/cost or full-paper conclusion."
+    },
+    {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent",
+      "kind": "theorem",
+      "title": "Solve the weak equation on the actual conditional gradient closure",
+      "statement": "For the actual Gibbs-Gaussian augmentation, retain common Markov kernels R,S with swapped-joint disintegration and reflected pushforward. Every S_y is the normalized exp(-W_y) law with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), C2 potential and finite positive normalizer. Choose one genuine compact-test gradient D_y on scalar/vector L2(S_y), dense and closable with the exact almost-everywhere smooth-gradient graph. For this same D_y, every epsilon>0 and scalar L2 input f has a unique weak solution u in the domain of D_y.closure with the exact energy identity and epsilon^-1 norm and energy bounds.",
+      "formula": "\\varepsilon\\langle u,v\\rangle_{L^2(S_y)}+\\langle\\overline D_yu,\\overline D_yv\\rangle_{L^2(S_y;E)}=\\langle f,v\\rangle_{L^2(S_y)},\\quad v\\in\\operatorname{Dom}\\overline D_y.",
+      "assumptions": [
+        "E is finite-dimensional real inner-product Borel, including dimension zero, and V is C2.",
+        "Explicit 0<alpha<=beta, genuine lower/upper Hessian quadratic-form bounds, eta>0 and beta eta<=1 are inherited from the actual kernel interface. They are not needed by the abstract closed-graph theorem.",
+        "Mu is the actual normalized tilt by -V. J is the pushforward of independent Gibbs X and standard Gaussian Z under (X,X+sqrt(eta)Z).",
+        "Common R,S precede every y; each D_y precedes every epsilon and f. The exact graph iff characterizes D_y, not every element of its closure.",
+        "Integrable exp(-W_y) and its positive normalizer are proved conclusions supplied by the same actual conditional law, not additional paper assumptions. No measurability of y-to-D_y or y-to-solution is asserted."
+      ],
+      "steps": [
+        {
+          "title": "Preserve the same conditional probability and gradient",
+          "text": "Use conditional_gradient_closable to obtain common R,S and, at each y, the actual normalized potential and one dense closable partial gradient. Retain its exact graph equivalence with smooth compact f and their genuine gradients. The operator is chosen before epsilon and f.",
+          "formula": "\\operatorname{Graph}D_y=\\{([g],[\\nabla g]):g\\in C_c^\\infty(E)\\},\\qquad S_y=Z_y^{-1}e^{-W_y}\\,du.",
+          "lean": "hfiber supplies hSy,hW,hI,hZ,D,hDense,hClose,hClosed,hgraph; every one is retained in the result."
+        },
+        {
+          "title": "Use the proved closed extension on the actual fiber",
+          "text": "Take A=D_y.closure in the Hilbert spaces of scalar and vector L2(S_y). The parent theorem already proves that this closure has a closed graph. Thus the abstract theorem applies without assuming PI, domain coercivity or a classical differential equation.",
+          "formula": "H=L^2(S_y),\\quad K=L^2(S_y;E),\\quad A=\\overline D_y,\\quad\\operatorname{Graph}A\\ \\text{closed}.",
+          "lean": "Instantiate ClosedGraphResolvent.weak_resolvent with D.closure and hClosed for each positive epsilon and each input f."
+        },
+        {
+          "title": "Retain uniqueness and constants without claiming regularity",
+          "text": "The abstract result supplies the exact weak equation over every closed-domain test, energy identity, both explicit bounds and uniqueness on that same domain. This is an L2 domain statement. It does not justify substitution into compact-test Bochner or a pointwise PDE identity.",
+          "formula": "\\|u\\|_{L^2(S_y)}\\le\\varepsilon^{-1}\\|f\\|_{L^2(S_y)},\\quad\\varepsilon\\|u\\|^2+\\|\\overline D_yu\\|^2\\le\\varepsilon^{-1}\\|f\\|^2.",
+          "lean": "All clauses are returned directly for the same D and actual S_y; generator core/regularity and the epsilon-to-zero step remain separate obligations."
+        }
+      ],
+      "lean_statement": "Actual common conditional kernels, normalized C2 potential, dense closable exact gradient graph, then every positive-epsilon weak solution with exact energy, bounds and uniqueness.",
+      "lean_proof": "The consumer uses the same parent kernels and operator; its only analytic application is the proved closed-graph weak resolvent.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent"
+      ],
+      "mathlib_dependencies": [],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS Appendix C.1",
+          "scope": "Actual conditional weak-form prerequisite, not the conditional PI or variance estimate."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalResolvent.lean",
+        "command": "lake build Tests.ProximalBPSConditionalResolvent"
+      },
+      "boundary": "Weak equation on the closed gradient domain only. No classical PDE regularity, identified maximal differential domain, D*D operator core, compact-test Bochner extension, epsilon-uniform estimate, Poincare, noncompact score variance, measurable parameter selection, process/error/cost or full-paper conclusion."
+    }
+  ]
+}
