@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-ff17a8f10acdddc9",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    ContDiff ℝ 2 V →\n      (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n        0 < η →\n          have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n          have J :=\n            MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n          have s := fun y u => -(1 / 2) • fderiv ℝ V ((1 / 2) • (y + u)) - (1 / (4 * η)) • (innerSL ℝ) (y - u);\n          ∃ R S,\n            ProbabilityTheory.IsMarkovKernel R ∧\n              ProbabilityTheory.IsMarkovKernel S ∧\n                (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                  (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                    (∀ (y : E),\n                        S y =\n                          MeasureTheory.MeasureSpace.volume.tilted fun u =>\n                            -V ((1 / 2) • (y + u)) - ‖y - u‖ ^ 2 / (8 * η)) ∧\n                      ∀ (f : E → ℝ),\n                        ContDiff ℝ (↑⊤) f →\n                          HasCompactSupport f →\n                            ∀ (y : E),\n                              MeasureTheory.Integrable (s y) (S y) ∧\n                                MeasureTheory.Integrable (fun u => f u • s y u) (S y) ∧\n                                  HasFDerivAt (fun z => ∫ (u : E), f u ∂S z)\n                                    (∫ (u : E), f u • s y u ∂S y - (∫ (u : E), f u ∂S y) • ∫ (u : E), s y u ∂S y) y",
+    "statement_sha256": "ff17a8f10acdddc990b839c05280ac5f60e1fd5714637e4288206eac5bfb361a",
+    "compiled": true,
+    "approved_definition_context": [
+      "Measure.map means pushforward, Measure.prod independent product, and stdGaussian the standard centered Gaussian. volume is the canonical Lebesgue measure. Measure.tilted is normalized exponential weighting of a base measure.",
+      "A Markov kernel is a measurably parameterized probability measure. For a joint measure M, M.IsCondKernel R asserts disintegration using R conditional on the first coordinate. Prod.swap exchanges the two coordinates.",
+      "ContDiff at order two means twice continuously Frechet differentiable, and at infinity means smooth. HasCompactSupport requires compact closure of the nonzero set. fderiv is the Frechet derivative. HasFDerivAt certifies the displayed continuous linear map as the derivative at the displayed point.",
+      "innerSL is the real inner product regarded as a continuous linear functional in its second argument. Integrals of such functionals are Bochner integrals. Local let or have expressions in a proposition define abbreviations rather than assumptions."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "035bb6a22333ece3f012b3a4c0c506b6373895c9e608e49165dacc52a79bcc43"
+}

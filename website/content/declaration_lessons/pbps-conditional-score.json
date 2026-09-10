@@ -1,0 +1,84 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+      "kind": "theorem",
+      "title": "Actual reflected conditional expectation and its score derivative",
+      "statement": "There exist Markov kernels R and S such that R disintegrates the actual law of (Y,X), S_y is the pushforward of R_y by x↦2x−y, and every S_y has the normalized density proportional to exp(−V((y+u)/2)−‖y−u‖²/(8η)). For every smooth compactly supported real f and every y, both s_y and f s_y are S_y-integrable, and the Fréchet derivative of T_f(y)=∫f dS_y is ∫f s_y dS_y−T_f(y)∫s_y dS_y. Here s_y(u)=−DV((y+u)/2)/2−⟨y−u,·⟩/(4η) is a continuous linear functional, the derivative of the unnormalized log weight.",
+      "formula": "DT_f(y)=\\mathbb E_{S_y}[f\\,s_y]-\\mathbb E_{S_y}[f]\\,\\mathbb E_{S_y}[s_y].",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. The potential V:E→R is C².",
+        "Constants α and β are finite nonnegative reals, α>0, and the actual second Fréchet derivative satisfies α‖v‖²≤D²V(x)[v,v]≤β‖v‖² for every x,v. The scale η is positive. No upper bound βη≤1 is needed for this differentiation step.",
+        "μ is volume tilted by −V and J is the law of (X,X+sqrt(η)Z), where X has law μ and Z is an independent standard Gaussian. Normalization and all integrability used in the proof are derived from the curvature assumptions.",
+        "The public conclusion quantifies over every C∞ compactly supported real test f and every parameter y. The internally proved differentiation argument works for bounded continuous f, including the noncompact test f≡1 needed for the normalizer."
+      ],
+      "steps": [
+        {
+          "title": "Push the actual backward conditional kernel through reflection",
+          "text": "Positive curvature gives a positive finite Gibbs normalizer. The existing Gaussian conditional-kernel theorem therefore supplies a Markov kernel R disintegrating (Y,X), with R_y equal to μ tilted by −‖x−y‖²/(2η). Tilting twice adds the exponents. The affine change of variables u=2x−y has inverse x=(u+y)/2 and sends volume to 2^(−dim E) times volume. A constant positive factor cancels from a normalized tilt. Substituting the inverse yields W(y,u)=−V((y+u)/2)−‖y−u‖²/(8η). To obtain joint measurability, define S by mapping the product kernel id×R through (y,x)↦2x−y; its fibers are exactly these pushforwards.",
+          "formula": "S_y=(x\\mapsto2x-y)_\\#R_y=\\frac{e^{W(y,u)}\\,du}{Z(y)},\\qquad Z(y)=\\int e^{W(y,u)}\\,du.",
+          "lean": "actual_reflected_density combines normalized_augmentation_density, exists_tilted_isCondKernel, tilted_tilted, an affine measurable equivalence and the Haar scaling formula. reflected_kernel uses Kernel.prod and Kernel.map to construct the measurable Markov kernel."
+        },
+        {
+          "title": "Extract a potential lower bound and linear gradient growth",
+          "text": "Apply the existing quadratic-regularization theorem with regularization parameter zero. Its strong-convexity conclusion gives V(x)≥V(0)+⟨∇V(0),x⟩+α‖x‖²/2. Completing the square gives the global lower bound m=V(0)−‖∇V(0)‖²/(2α). The same theorem's β-Lipschitz gradient gives ‖DV(x)‖≤G+β‖x‖, where G=‖∇V(0)‖. These estimates are consequences of the supplied genuine Hessian inequalities, not new premises.",
+          "formula": "V(x)\\ge m:=V(0)-\\frac{\\|\\nabla V(0)\\|^2}{2\\alpha},\\qquad\\|DV(x)\\|\\le G+\\beta\\|x\\|.",
+          "lean": "potential_controls specializes strongConvexOn_and_lipschitzWith_gradient_add_quadratic at r=0, uses its first-order lower bound, and identifies gradient and derivative norms through the Riesz isometry."
+        },
+        {
+          "title": "Derive an integrable local envelope, including the normalizer",
+          "text": "Fix y₀ and put R=‖y₀‖+1. On the unit ball around y₀, ‖y‖≤R. The triangle inequality gives ‖u‖²≤2‖y−u‖²+2R². Thus w=e^W is bounded by C exp(−a‖u‖²), where a=1/(16η) and C=exp(−m+R²/(8η)). The derivative score obeys ‖s_y(u)‖≤A+b‖u‖ with b=(β+η⁻¹)/4 and A=G/2+bR. Absorb this linear factor into a weaker Gaussian: (A+br)exp(−ar²)≤(A+b(1+2/a))exp(−ar²/2). Consequently C(A+b(1+2/a))exp(−a‖u‖²/2) dominates ‖D_yw(y,u)‖ uniformly in that ball and is integrable on E. A fixed-y version also proves integrability of w itself.",
+          "formula": "\\|D_yw(y,u)\\|\\le C\\bigl(A+b(1+2/a)\\bigr)e^{-a\\|u\\|^2/2}.",
+          "lean": "weight_envelope, score_envelope and absorb_linear feed local_controls. Gaussian integrability is reused from integrable_exp_neg_mul_norm_sq; no domination hypothesis is accepted by the public theorem."
+        },
+        {
+          "title": "Differentiate the numerator and the noncompact normalizer",
+          "text": "The ordinary chain rule gives D_yw=w s_y. For a continuous test f with |f|≤M, multiply the local envelope by M. Continuity of f, V and DV provides the required measurability, so dominated differentiation proves DN_f(y)=∫f(u)w(y,u)s_y(u)du for N_f=∫fw. Apply the same argument separately to f≡1 to obtain DZ(y)=∫w(y,u)s_y(u)du. This second use is essential: compact support of the original test cannot justify differentiating Z. Positivity of the exponential and its already proved integrability give Z(y)>0.",
+          "formula": "DN_f(y)=\\int fws_y\\,du,\\qquad DZ(y)=\\int ws_y\\,du,\\qquad Z(y)>0.",
+          "lean": "weight_derivative proves the chain-rule formula. unnormalized_derivative applies hasFDerivAt_integral_of_dominated_of_fderiv_le with the derived neighborhood envelope. normalized_covariance invokes it both for f and for the constant one."
+        },
+        {
+          "title": "Normalize and center the derivative",
+          "text": "Integration against a tilt is division by Z. The quotient rule gives D(N_f/Z)=Z⁻¹DN_f−(N_f/Z)Z⁻¹DZ. Each weighted volume integral becomes an expectation under S_y. This gives the stated covariance and proves that the score and f times the score are integrable under S_y. The unnormalized score s_y is not itself the derivative of log of the normalized density: that derivative is s_y−E_{S_y}s_y. Under the real Riesz identification, the continuous-linear-functional formula is the source's vector gradient formula.",
+          "formula": "D(N_f/Z)=Z^{-1}DN_f-(N_f/Z)Z^{-1}DZ.",
+          "lean": "quotient_derivative uses the derivative of inversion and multiplication. integral_tilted and integrable_tilted_iff convert the derivative and its integrability to the actual normalized conditional measure."
+        },
+        {
+          "title": "Recover the smooth compactly supported source inputs",
+          "text": "A continuous compactly supported f has bounded norm, so every source test satisfies the bounded-continuous premise used internally. Substitute the everywhere fiber identity for S into both the parameterized expectation and the derivative. This uses the same constructed R and S for all tests and all y. The result supplies the differentiation input to Appendix C.1's conditional gradient–variance estimate; the quantitative variance estimate and its subsequent Sobolev extension are separate obligations.",
+          "formula": "f\\in C_c^\\infty(E)\\Longrightarrow\\sup_u|f(u)|<\\infty.",
+          "lean": "The final assembly obtains the norm bound from bddAbove_range_of_hasCompactSupport and rewrites normalized_covariance through hSν."
+        }
+      ],
+      "lean_statement": "One public theorem constructs both Markov kernels from the genuine Gibbs/Gaussian law, identifies every reflected fiber and differentiates every smooth compactly supported test expectation at every parameter.",
+      "lean_proof": "Local helpers derive normalization, the affine pushforward density, Gaussian domination, both unnormalized derivatives and the normalized covariance. The public theorem assumes none of those conclusions.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation.normalized_augmentation_density",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_mul_norm_sq"
+      ],
+      "mathlib_dependencies": [
+        "Measure.map_addHaar_smul",
+        "tilted_tilted",
+        "integral_tilted",
+        "integrable_tilted_iff",
+        "hasFDerivAt_integral_of_dominated_of_fderiv_le",
+        "Continuous.bddAbove_range_of_hasCompactSupport"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1",
+          "scope": "Conditional density and differentiated conditional expectation only; expanded normalization and domination proof."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalScore.lean",
+        "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore Tests.ProximalBPSConditionalScore"
+      },
+      "boundary": "Actual reflected conditional-kernel density and smooth-test derivative only. The transformed joint law's IsCondKernel interface and its identification with the existing L² PUP representative are not yet exposed. Conditional Poincare, score variance, the L²/H¹ extension, macroscopic coercivity, half-turn/process semantics, invariance/nonexplosion, mixing/error/cost and full-paper completion remain open."
+    }
+  ]
+}

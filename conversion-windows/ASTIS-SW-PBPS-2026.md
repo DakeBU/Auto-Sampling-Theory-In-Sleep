@@ -109,7 +109,7 @@ proof with adjacent folded Lean; the cell records local, source-review and
 commit-verification states separately. This is still not an implemented RGO,
 half-turn process, invariant PBPS law or mixing theorem.
 
-## Actual reflection blocks: independently verified, integration pending
+## Actual reflection blocks: merged and deployed
 
 `ReflectionL2.actual_reflection_block_identities` now constructs the actual
 reflection pullback on the Gaussian joint law and identifies the actual
@@ -130,11 +130,61 @@ The independent anonymous reconstruction is recorded. Source review accepts
 the disclosed arbitrary-probability generalization through its Gibbs instance,
 with verdict `domain-mismatch`, not source-statement equivalence.
 Independent commit-bound admission passed at
-`c78ec0da9e834aabd30fc405beb232ac14c8e4d5`; integration remains pending.
+`c78ec0da9e834aabd30fc405beb232ac14c8e4d5`. PR #252 merged at
+`dc189ab16186d8d5d76b965b4dfac78048a6cc0e`; merge Lean and website CI passed.
 Canonical evidence is in
 `ASTIS-SW-PBPS-reflection-l2-blocks` and its source audit. The authored
 `pbps-reflection-l2.json` lesson and publication binding provide the expanded
-mathematical proof; rendered-site delivery has not yet been validated.
+mathematical proof. The rendered companion and affected graph were inspected;
+the deployed reader contains the result and merge-commit source links. Exact
+checks are retained in `runs/20260911-companion-priority/reflection-l2.progress.json`.
 
 No strict macroscopic coercivity, half-turn process, non-explosion, invariant
 PBPS chain, modified-energy contraction or query bound follows from this packet.
+
+## Reflected conditional score: locally proved, source review accepted
+
+Appendix C.1 differentiates the conditional expectation of a smooth compactly
+supported test. `ConditionalScore.reflected_conditional_covariance` constructs
+the actual backward conditional kernel $R$ and a measurable Markov kernel
+$S_y=(x\mapsto2x-y)_\#R_y$, with the everywhere fiber identity
+
+$$S_y(du)=\frac{e^{W(y,u)}}{Z(y)}\,du,\qquad
+W(y,u)=-V((y+u)/2)-\frac{\|y-u\|^2}{8\eta}.$$
+
+Writing $s_y(u)=D_yW(y,u)$ as a continuous linear functional, it proves
+
+$$D_y\!\int f\,dS_y=\int f s_y\,dS_y-
+\left(\int f\,dS_y\right)\left(\int s_y\,dS_y\right).$$
+
+This $s_y$ differentiates the **unnormalized** log weight; the normalized score
+is $s_y-\int s_y\,dS_y$. The real Riesz identification gives the vector form.
+Genuine C² Hessian bounds $0<\alpha I\le D^2V\le\beta I$ derive the potential
+lower bound, linear derivative growth and a locally uniform Gaussian envelope.
+The same dominated-differentiation argument handles $f\equiv1$ separately,
+so the noncompact normalizer is actually differentiated. No normalization,
+domination, interchange or covariance identity is assumed.
+
+The theorem allows every $\eta>0$ and finite-dimensional real inner-product
+spaces including dimension zero. These are disclosed extensions of this proof
+step, not relaxations of the later estimates requiring $\beta\eta\le1$.
+The public test class remains $C_c^\infty$.
+
+Focused production and axiom checks passed (3182 jobs), with only standard
+axioms; independent development replay also passed. The six-step authored
+lesson and publication binding are present, anonymous reconstruction is recorded,
+and the fresh source review accepts the disclosed generalization with verdict
+`domain-mismatch`, not statement equivalence. The packet remains `PROVED_LOCAL`;
+independent commit verification, integration and full-paper completion are separate.
+
+| Proof interface | Current boundary |
+|---|---|
+| Actual backward law and reflected density | Constructed from GaussianConditionalKernel and GibbsAugmentation |
+| Local Gaussian domination and normalizer derivative | Derived from genuine Hessian bounds using QuadraticRegularization and Gaussian integrability |
+| Smooth-test covariance derivative | Locally compiled; disclosed generalization accepted by formal source review |
+| Transformed-joint IsCondKernel and old L² PUP representative | Not yet exposed |
+| Conditional Poincaré, score variance and L²/H¹ extension | Remain to be proved before coercivity |
+
+The canonical state is recorded in `ASTIS-SW-PBPS-conditional-score`, audit
+`ASTIS-RT-20260911-PBPSConditionalScore` and
+`runs/20260911-companion-priority/conditional-score.progress.json`.

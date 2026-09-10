@@ -1,0 +1,28 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Root transcription of the independent read-only response; reviewer wrote no files.",
+  "module_sha256": "2fc25ec02d242eba8fd5724c4ea1795a6f04f6935b5b5933acb1319d0eeb66b3",
+  "result": "PASS local proof review; not VERIFIED or commit-bound admission.",
+  "command": "Full production source plus #print axioms via lake env lean --stdin",
+  "exit_code": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Actual swapped Gaussian conditional kernel R and jointly measurable Markov S constructed by product-kernel pushforward.",
+    "Affine Jacobian cancels in normalized tilt; 1/2, 8eta and score coefficient 1/(4eta) agree.",
+    "Genuine Hessian bounds derive a global potential lower bound and linear derivative growth; a local integrable Gaussian envelope follows.",
+    "Normalizer derivative uses bounded continuous f=1 separately; no compact-support premise for that test and no zero-normalizer loophole.",
+    "Score and f times score are proved integrable under the actual S fiber; no differentiation-interchange or covariance conclusion is assumed."
+  ],
+  "qualifications": [
+    "Only eta>0 is needed for this edge; subsequent estimates may require beta*eta<=1.",
+    "Finite-dimensional real spaces include dimension zero.",
+    "Score is a continuous dual functional; vector gradient is its Riesz counterpart. It differentiates the unnormalized log weight; normalized score is centered.",
+    "No PUP representative identification, conditional Poincare, L2/H1 extension or coercivity is claimed.",
+    "Tests contains only an axiom check and is not a separate mathematical consumer."
+  ]
+}
