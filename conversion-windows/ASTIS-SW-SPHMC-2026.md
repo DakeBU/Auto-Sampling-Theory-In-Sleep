@@ -156,6 +156,24 @@ construction of recursive random stages. The five-step authored lesson explains
 why potentials differ by a constant while their normalized laws are equal.
 Every statement/proof retains its separate initially folded Lean disclosure.
 
-The well-conditioned geometric-variance branch of Lemma6.6(ii), finite-stage
-termination, implemented oracle, recursive error and expected query costs remain
-separate red targets. Neither complete paper is claimed.
+## Lemma 6.6(ii): one well-conditioned parameter update
+
+`RecursiveVariance.variance_update_bounds` and its focused tests compile. Exact
+source and commit admission is separately tracked by
+`ASTIS-SW-SPHMC-recursive-variance-contraction`, not certified by this note.
+The authored `sphmc-recursive-variance.json` lesson contains the four-step proof
+and corresponding folded Lean. For r>=0 and 0<h<=c, it establishes
+
+$$a=\frac{h+c}{1+r},\quad r^+=r+a^{-1}>0,\quad
+0<A^+=(r^+)^{-1}=\frac{h+c}{1+r+r(h+c)}\le2c,$$
+$$0<\rho=\frac{2c}{1+2c}<1,\qquad r>0\Longrightarrow A^+\le\rho/r.$$
+
+At zero precision the next parameter is h+c. The finite-parameter comparison
+never uses the totalized real inverse of zero as infinity. The same update is
+tested with the actual normalized Gibbs target from RGOCalculus; the scalar
+production theorem imports only Mathlib. This parameter is not Gibbs covariance.
+The selected branch needs no c<1/4 restriction; that extension is disclosed.
+
+Finite-stage termination, branch persistence, implemented oracle, recursive
+error and expected query costs remain separate red targets. Neither complete
+paper is claimed.

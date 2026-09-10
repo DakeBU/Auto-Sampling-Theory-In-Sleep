@@ -81,3 +81,19 @@ contraction, retaining r=0 initially and strictly positive finite variance after
 the first update. Reuse the calculus and existing scalar route; inspect exact
 source hypotheses before freezing. Stage termination, actual recursive sampler,
 quantitative error and costs must not be bundled into the scalar branch.
+
+## One-step variance component now compiled
+
+RecursiveVariance.variance_update_bounds passes its focused 2945-job test,
+including zero initial precision and the actual updated Gibbs target. The
+independent source reviewer accepts this component with a disclosed broader
+c-domain, not global equivalence of the unrestricted statements. Its cell and
+semantic audit hold exact admission evidence; this note does not replace them.
+
+Next source-facing candidate: persistence of the selected well-conditioned
+regime, then the finite-depth threshold used after (6.4). First inspect the
+actual ratio update from Lemma 6.4 and existing Mathlib geometric-sequence
+bounds. Preserve the schedule constraints of the algorithm, strict positive
+precision after the first step, the two regimes and precise stage indexing.
+This is a planned route, not a frozen or compiled recursion theorem. Error
+propagation, terminal FORS work and actual-input query cost remain independent.

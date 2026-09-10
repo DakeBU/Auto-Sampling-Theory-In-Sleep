@@ -38,6 +38,250 @@
   },
   "audits": [
     {
+      "id": "ASTIS-RT-20260910-SPHMCRecursiveVariance",
+      "state": "accepted",
+      "reconstruction": {
+        "text": "For every three real numbers r,h,c satisfying r≥0, h>0, and h≤c, define a=(h+c)/(1+r), r_p=r+a⁻¹, A_plus=r_p⁻¹, and ρ=2c/(1+2c). These are local abbreviations, not additional hypotheses. Then r_p>0, A_plus>0, A_plus≤2c, ρ>0, and ρ<1. In addition, if r>0, then A_plus≤ρ·r⁻¹. All variables, products, inequalities, reciprocals, and divisions are real. The reciprocal convention is totalized, with 0⁻¹=0. The stated assumptions give c>0 and make 1+r and 1+2c positive; they also make a positive, while the first conclusion gives positivity of r_p. Their reciprocals therefore have their ordinary nonzero-denominator meanings. The premise r≥0 allows r=0. At that boundary, all five unconditional conclusions still apply, but the final implication imposes no bound involving r⁻¹ because its separate premise r>0 is false. In particular, one must not extend A_plus≤ρ·r⁻¹ to r=0: its totalized right-hand side would be zero, whereas A_plus is strictly positive. No further iterative, asymptotic, or probabilistic conclusion is asserted.",
+        "text_sha256": "07b848808f12f870734a60636ca199122f12f22df3091a9d2c23e9bfd8cf7430",
+        "decoder_packet_sha256": "b4c4d33378a79549a231c2803843debd33f16231f5df88f6cc7f7c285d6e308e",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "heatbath_exposition_research",
+        "notes": [
+          "Only the designated anonymous packet was read; no files were written or source identity inferred.",
+          "Canonical packet hash verified using recursively sorted keys, compact Unicode JSON, excluding top-level packet_sha256.",
+          "Text hash uses UTF-8 without an added newline. No source-equivalence verdict is supplied."
+        ],
+        "decoder_run_sha256": "53fb42be8274710de1647d8e498ff4ff2905589a49290daec5c3f750701fd01a",
+        "lean_statement_sha256": "5b4cb511046e8713d643b2d64084636d3144b5640f47d9fde4f1f7f634c47d4d",
+        "run_artifact": "runs/20260910-companion-priority/anonymous-theta.decoder-result.json"
+      },
+      "source": {
+        "source_id": "companion:sphmc-recursive-variance",
+        "anchor": "Section 6.3, Lemma 6.6(ii), equations (6.1)–(6.2)",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "original_text": "At a recursive stage let 0<η≤c₀<1/4. The well-conditioned branch κ_A<2 selects τ=c₀ and a=(η+c₀)/(1+A⁻¹), with A∈(0,∞]. The update (A⁺)⁻¹=A⁻¹+a⁻¹ has A⁺≤2c₀. For a finite previous A, it also satisfies A⁺≤ρ₀A, where ρ₀=2c₀/(1+2c₀)<1. These are the one-step parameter claims of Lemma 6.6(ii), not the later multi-stage algorithm theorem. ASTIS uses r=A⁻¹≥0 and proves A⁺>0 even at r=0. This selected scalar formula does not require c₀<1/4; that generalization is disclosed separately.",
+        "text_sha256": "9f3d16e309efdf9586a0f7ef3d6fff66c5a7aad07a740f1e14d920c81e6bee1c"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RecursiveVariance.lean",
+        "statement": "∀ {r h c : ℝ}, 0 ≤ r → 0 < h → h ≤ c → let a := (h + c) / (1 + r); let rp := r + a⁻¹; let Aplus := rp⁻¹; let rho := 2 * c / (1 + 2 * c); 0 < rp ∧ 0 < Aplus ∧ Aplus ≤ 2 * c ∧ 0 < rho ∧ rho < 1 ∧ (0 < r → Aplus ≤ rho * r⁻¹)",
+        "compiled": true,
+        "formalizer": "root-companion-writer",
+        "compiler_evidence": "Lean4.33.0, two threads: lake build Tests.SmoothedPicardRecursiveVariance PASS2945; standard axioms propext, Classical.choice, Quot.sound only. Module SHA256 fa5e2ed0e992053be1ff07453e5e80d3c92f5706f7637f26b26ba74692e9956b; test 27636043917a7bf48bf2b0e0a4adf4a7ac2af7f09dee5c97f98822ac69526030. Both zero-precision boundary and actual normalized updated Gibbs target tested.",
+        "decoder_context": [
+          "All variables are real numbers. Real reciprocal and division are totalized at zero: the real inverse of zero is zero. A let-expression introduces only a local abbreviation. The final implication has its own strict positivity premise."
+        ],
+        "statement_sha256": "5b4cb511046e8713d643b2d64084636d3144b5640f47d9fde4f1f7f634c47d4d"
+      },
+      "verdict": "domain-mismatch",
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "publication_gate_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "23b14528bb05e74c87d16d2d7b2ead951ea5c29287c7a17fc24542b1e34cd6cc",
+        "evidence": "Compared the fresh reconstruction, entire supplied module, assumptions and four-step reader proof against [SPHMC v1 §6.3, Lemma 6.6(ii)](https://arxiv.org/html/2609.06906v1#S6.SS3) and the cited update. The algebra, denominator signs and exact contraction constant agree. No blocking defect was found in the selected component; acceptance retains the disclosed generalization and limited scope. Independent signed amendment: The parameter domains genuinely differ: the source requires c<1/4, whereas the Lean theorem permits every 0<h≤c. Of the existing verdicts, domain-mismatch accurately records this difference. Here it is a disclosed, mathematically valid generalization, not a counterexample or strengthened assumption. Restricting the theorem to the source parameters supplies the selected one-step bounds, but does not make the unrestricted statements equivalent.",
+        "review_run_sha256": "d82ea8849cd386a68cefaaaf6a8decb518bf4b561296352ec3451e474f05a8c5",
+        "run_artifact": "runs/20260910-companion-priority/recursive-variance.source-review-result.json"
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Regularization variance, smoothing parameter, selected schedule constant and the reciprocal variance update.",
+          "reconstructed": "Real scalar precision r, parameters h,c, and explicitly defined a,rp,Aplus,rho.",
+          "relation": "explicit-elaboration",
+          "evidence": "With r=A⁻¹, h=η and c=c₀, the definitions reproduce the selected update. These are regularization parameters, not distributional covariance or random variables."
+        },
+        "domains": {
+          "original": "A∈(0,∞] and source parameters satisfying 0<η≤c₀<1/4.",
+          "reconstructed": "All real r≥0 and 0<h≤c, without c<1/4.",
+          "relation": "stronger-in-lean",
+          "evidence": "The formal theorem has a genuinely broader parameter domain. Its proof needs only positivity and h+c≤2c; the publication expressly discloses the omitted upper restriction."
+        },
+        "quantifiers": {
+          "original": "The bounds apply at each stage using the well-conditioned schedule.",
+          "reconstructed": "Every scalar triple satisfying the premises obeys the bounds for one explicitly defined update.",
+          "relation": "explicit-elaboration",
+          "evidence": "Universal scalar quantification permits application at any qualifying stage. It does not itself construct a stage sequence or establish that a particular algorithm selects this schedule."
+        },
+        "assumptions": {
+          "original": "The branch κ_A<2 selects τ=c₀; smoothing is positive and bounded by c₀.",
+          "reconstructed": "The selected formula a=(h+c)/(1+r) is fixed, with r≥0 and 0<h≤c.",
+          "relation": "explicit-elaboration",
+          "evidence": "Branch selection is outside the theorem, not silently proved. The premises imply c>0, a>0 and rp>0, so all reciprocals used for the updated parameter have nonzero denominators."
+        },
+        "conclusion": {
+          "original": "A⁺≤2c₀ and contraction by ρ₀ for a finite previous variance.",
+          "reconstructed": "Positive rp and Aplus, Aplus≤2c, 0<rho<1, and r>0 implies Aplus≤rho/r.",
+          "relation": "explicit-elaboration",
+          "evidence": "The additional positivity conclusions justify finiteness. The final guard is essential: at r=0, Aplus=h+c>0, whereas the totalized expression rho*r⁻¹ would be zero."
+        },
+        "scopes": {
+          "original": "The one-step parameter estimates appearing in Lemma 6.6(ii).",
+          "reconstructed": "A scalar update estimate after schedule selection.",
+          "relation": "same",
+          "evidence": "The binding credits only finite updated variance and finite-variance contraction. Branch persistence, iterative termination, sampler construction, error and cost are explicitly excluded. No completion of the entire recursive argument is asserted."
+        },
+        "constant_dependencies": {
+          "original": "The bound 2c₀ and contraction factor 2c₀/(1+2c₀).",
+          "reconstructed": "Exactly 2c and rho=2c/(1+2c).",
+          "relation": "same",
+          "evidence": "Writing t=h+c and D=1+r+rt gives Aplus=t/D. D≥1 proves Aplus≤2c. The contraction residual is exactly 2cD−rt(1+2c)=2c+r(2c−t)≥0."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "The restriction c<1/4 is removed.",
+          "evidence": "This is a disclosed, valid generalization of the scalar inequality, not equivalence of unrestricted parameter domains or permission to enlarge the algorithm's admissible schedule."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "The formal result handles an already selected single update rather than the stage-selection machinery.",
+          "evidence": "The source restatement, lesson and binding consistently restrict their claim to this component."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Initial infinity is represented by zero precision, with a guarded finite-previous-variance comparison.",
+          "evidence": "The unconditional updated bound remains valid at r=0; no real inverse of zero is interpreted as infinity."
+        }
+      ],
+      "repairs": [],
+      "publication_binding_sha256": "96e70b50ad6be02ffc58164ea97f2d2e0d25729193030340423ffb9b04932b55",
+      "publication_context": {
+        "file": "fa5e2ed0e992053be1ff07453e5e80d3c92f5706f7637f26b26ba74692e9956b",
+        "current_lean_module": "import Mathlib.Data.Real.Basic\nimport Mathlib.Tactic.FieldSimp\nimport Mathlib.Tactic.Linarith\nimport Mathlib.Tactic.Positivity\n\n/-!\n# Well-conditioned recursive RGO variance progress\n\nSource: Chen, Chewi, Lu and Zhang, *Smoothed Picard Hamiltonian Monte Carlo*,\narXiv:2609.06906v1, Lemma 6.6(ii), update (6.1) and schedule (6.2).\n\nThe scalar branch uses precision `r`, so `r = 0` also describes the source's\ninfinite initial regularization variance. The updated variance is finite.\nThe comparison with the *previous* real reciprocal is guarded by `0 < r`;\nLean's totalized inverse of zero is never used to represent infinity.\nThis is the RGO regularization parameter, not the covariance of a Gibbs law.\n\nThe source's branch test selects `tau = c`; selection, later stage semantics,\ntermination, sampling error and query costs are not conclusions here.\nThe source restriction `c < 1/4` is unnecessary for this scalar inequality.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance\n\n/-- One well-conditioned precision update yields a positive finite variance\nbounded by `2*c`. If the previous variance is finite, it contracts by\n`2*c/(1+2*c)`. Positivity of every denominator follows from the hypotheses. -/\ntheorem variance_update_bounds {r h c : ℝ} (hr : 0 ≤ r) (hh : 0 < h)\n    (hhc : h ≤ c) :\n    let a := (h + c) / (1 + r)\n    let rp := r + a⁻¹\n    let Aplus := rp⁻¹\n    let rho := 2 * c / (1 + 2 * c)\n    0 < rp ∧ 0 < Aplus ∧ Aplus ≤ 2 * c ∧\n      0 < rho ∧ rho < 1 ∧ (0 < r → Aplus ≤ rho * r⁻¹) := by\n  have hc : 0 < c := lt_of_lt_of_le hh hhc\n  have ht : 0 < h + c := add_pos hh hc\n  have ht_upper : h + c ≤ 2 * c := by linarith\n  have hbeta : 0 < 1 + r := by positivity\n  have ha : 0 < (h + c) / (1 + r) := div_pos ht hbeta\n  have hrp : 0 < r + ((h + c) / (1 + r))⁻¹ :=\n    add_pos_of_nonneg_of_pos hr (inv_pos.mpr ha)\n  have hD : 0 < 1 + r + r * (h + c) := by positivity\n  have hformula :\n      (r + ((h + c) / (1 + r))⁻¹)⁻¹ =\n        (h + c) / (1 + r + r * (h + c)) := by\n    rw [inv_div]\n    field_simp\n    exact add_comm _ _\n  have hbound : (h + c) / (1 + r + r * (h + c)) ≤ 2 * c := by\n    apply le_trans _ ht_upper\n    apply (div_le_iff₀ hD).2\n    nlinarith [mul_nonneg hr ht.le, mul_nonneg ht.le (mul_nonneg hr ht.le)]\n  have hrhoden : 0 < 1 + 2 * c := by positivity\n  have hscaled : r * ((h + c) / (1 + r + r * (h + c))) ≤\n      2 * c / (1 + 2 * c) := by\n    rw [← mul_div_assoc]\n    apply (div_le_div_iff₀ hD hrhoden).2\n    nlinarith [mul_nonneg hr (sub_nonneg.mpr ht_upper)]\n  refine ⟨hrp, inv_pos.mpr hrp, ?_, div_pos (by positivity) hrhoden, ?_, ?_⟩\n  · simpa only [hformula] using hbound\n  · exact (div_lt_one hrhoden).2 (by linarith)\n  · intro hrpos\n    rw [hformula, ← div_eq_mul_inv]\n    apply (le_div_iff₀ hrpos).2\n    simpa only [mul_comm] using hscaled\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Section 6.3, Lemma 6.6(ii), equations (6.1)–(6.2)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS restatement, expanded mathematical proof and Lean formalization; no author endorsement implied."
+        },
+        "statement": "At a recursive stage let 0<η≤c₀<1/4. The well-conditioned branch κ_A<2 selects τ=c₀ and a=(η+c₀)/(1+A⁻¹), with A∈(0,∞]. The update (A⁺)⁻¹=A⁻¹+a⁻¹ has A⁺≤2c₀. For a finite previous A, it also satisfies A⁺≤ρ₀A, where ρ₀=2c₀/(1+2c₀)<1. These are the one-step parameter claims of Lemma 6.6(ii), not the later multi-stage algorithm theorem. ASTIS uses r=A⁻¹≥0 and proves A⁺>0 even at r=0. This selected scalar formula does not require c₀<1/4; that generalization is disclosed separately.",
+        "formulae": [
+          {
+            "label": "one-step parameter bound",
+            "tex": "\\begin{gathered}a=\\frac{h+c}{1+r},\\quad r^+=r+a^{-1},\\quad A^+=(r^+)^{-1},\\quad \\rho=\\frac{2c}{1+2c},\\\\0<r^+,\\quad0<A^+\\le2c,\\quad0<\\rho<1,\\quad r>0\\Longrightarrow A^+\\le\\rho r^{-1}.\\end{gathered}"
+          }
+        ],
+        "assumptions": [
+          "r≥0 is precision. A previous finite regularization variance equals 1/r only when r>0; r=0 models A=∞ without using Lean's real inverse of zero as infinity.",
+          "0<h≤c implies c>0. The source restriction c<1/4 is not needed for this selected scalar branch.",
+          "The well-conditioned branch has already selected τ=c. This theorem does not test its condition number, prove branch persistence or implement a recursive sampler.",
+          "All quantities here are real scalar parameters, not random variables or the covariance of the Gibbs distribution. No measure-theoretic hypothesis is needed for the scalar inequalities."
+        ],
+        "obligations": [
+          {
+            "id": "finite-updated-variance",
+            "label": "Positive finite updated parameter bounded by twice the schedule constant, including initial infinity"
+          },
+          {
+            "id": "finite-variance-contraction",
+            "label": "Exact contraction factor for a positive previous precision"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds",
+          "kind": "theorem",
+          "title": "Well-conditioned RGO update: finite variance and contraction",
+          "statement": "For real r,h,c assume r≥0 and 0<h≤c. Define a=(h+c)/(1+r), the updated precision r⁺=r+a⁻¹, the updated regularization variance A⁺=(r⁺)⁻¹, and ρ=2c/(1+2c). Then r⁺>0, 0<A⁺≤2c and 0<ρ<1. Whenever r>0, A⁺≤ρ/r. No previous real variance is assigned to r=0: it represents the source's infinite initial parameter.",
+          "formula": "\\begin{gathered}a=\\frac{h+c}{1+r},\\quad r^+=r+a^{-1},\\quad A^+=(r^+)^{-1},\\quad \\rho=\\frac{2c}{1+2c},\\\\0<r^+,\\quad0<A^+\\le2c,\\quad0<\\rho<1,\\quad r>0\\Longrightarrow A^+\\le\\rho r^{-1}.\\end{gathered}",
+          "assumptions": [
+            "r≥0 is precision. A previous finite regularization variance equals 1/r only when r>0; r=0 models A=∞ without using Lean's real inverse of zero as infinity.",
+            "0<h≤c implies c>0. The source restriction c<1/4 is not needed for this selected scalar branch.",
+            "The well-conditioned branch has already selected τ=c. This theorem does not test its condition number, prove branch persistence or implement a recursive sampler.",
+            "All quantities here are real scalar parameters, not random variables or the covariance of the Gibbs distribution. No measure-theoretic hypothesis is needed for the scalar inequalities."
+          ],
+          "steps": [
+            {
+              "title": "Establish positivity before using reciprocals",
+              "text": "Put t=h+c and β=1+r. The assumptions give 0<t≤2c and β≥1. Thus a=t/β is positive, and adding its positive inverse to nonnegative precision produces r⁺>0. Its inverse is consequently a genuine finite positive parameter.",
+              "formula": "0<t=h+c\\le2c,\\quad\\beta=1+r\\ge1,\\quad a=t/\\beta>0,\\quad r^+=r+1/a>0.",
+              "lean": "hc, ht, ht_upper and hbeta establish these inequalities. div_pos, inv_pos and add_pos_of_nonneg_of_pos justify every inverse; positivity closes elementary sign obligations."
+            },
+            {
+              "title": "Write the updated variance in a uniform form",
+              "text": "Substitute a and clear the positive denominator t. The expression D=1+r+rt is at least one, so the formula also holds at r=0. At that boundary it yields A⁺=t=h+c, handling the source's infinite initial variance without finite-A division.",
+              "formula": "D=1+r+rt\\ge1,\\qquad A^+=\\frac1{r+(1+r)/t}=\\frac{t}{1+r+rt}=\\frac tD.",
+              "lean": "hD proves denominator positivity. hformula uses inv_div and field_simp, then add_comm, to verify the identity. The focused zero-precision test checks a=Aplus=h+c, positivity and the bound."
+            },
+            {
+              "title": "Bound the first finite parameter",
+              "text": "Since D≥1 and t>0, division by D cannot increase t. Combining this with the schedule bound proves A⁺≤2c even when the previous parameter was infinite.",
+              "formula": "A^+=t/D\\le t\\le2c.",
+              "lean": "hbound first applies le_trans and div_le_iff₀ hD. nlinarith checks the polynomial inequality using nonnegative products, with no extra analytic premise."
+            },
+            {
+              "title": "Prove a guarded finite-parameter contraction",
+              "text": "Both D and 1+2c are positive. After multiplying by them, the desired bound rA⁺≤ρ reduces to the nonnegative residual 2c+r(2c−t). Also 2c is positive and strictly below 1+2c, so 0<ρ<1. Only when r>0 may we divide the scaled inequality by r to compare with the previous finite variance.",
+              "formula": "\\begin{aligned}2cD-rt(1+2c)&=2c+r(2c-t)\\ge0,\\\\rA^+&\\le\\frac{2c}{1+2c}=\\rho\\in(0,1),\\\\r>0&\\Longrightarrow A^+\\le\\rho/r.\\end{aligned}",
+              "lean": "hscaled uses div_le_div_iff₀ and the nonnegativity of r(2c−t). div_lt_one proves ρ<1. The final implication explicitly introduces hrpos before le_div_iff₀ is used; real 0⁻¹ never becomes a previous variance."
+            }
+          ],
+          "lean_statement": "The let-bindings preserve the update without adding wrapper definitions. All parameters are real, and three explicit inequalities suffice. The strict r>0 hypothesis is confined to the final implication; the finite updated bound covers r=0 too.",
+          "lean_proof": "Only Mathlib ordered-field facts and arithmetic tactics are imported. The production proof has no ASTIS dependency. A separate consumer test uses the same a,r⁺ and center in RGOCalculus.rgo_calculus, deriving an actual normalized updated Gibbs probability together with these inequalities, with no normalizer or probability premise.",
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "inv_div",
+            "div_pos",
+            "inv_pos",
+            "div_le_iff₀",
+            "div_le_div_iff₀",
+            "div_lt_one",
+            "le_div_iff₀"
+          ],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+              "label": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, SPHMC v1, §6.3, Lemma 6.6(ii), (6.1)–(6.2)",
+              "scope": "ASTIS mathematical restatement and expanded scalar derivation; no verbatim paper proof reproduced."
+            },
+            {
+              "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Field/Basic.lean",
+              "label": "Mathlib contributors, Apache-2.0",
+              "scope": "Reused ordered-field inequalities, not counted as newly formalized ASTIS leaves."
+            }
+          ],
+          "tests": {
+            "file": "Tests/SmoothedPicardRecursiveVariance.lean",
+            "command": "lake build Tests.SmoothedPicardRecursiveVariance"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds",
+          "role": "proof-edge",
+          "supports": [
+            "finite-updated-variance",
+            "finite-variance-contraction"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "A∈(0,∞] and reciprocal update (6.1)",
+            "lean": "r≥0; updated precision positive; comparison with r⁻¹ guarded by r>0"
+          },
+          {
+            "source": "0<η≤c₀<1/4",
+            "lean": "0<h≤c, with c>0 derived"
+          },
+          {
+            "source": "κ_A<2 selects τ=c₀",
+            "lean": "Already selected a=(h+c)/(1+r)"
+          }
+        ]
+      }
+    },
+    {
       "id": "ASTIS-RT-20260910-SPHMCRGOCalculus",
       "state": "accepted",
       "source": {
