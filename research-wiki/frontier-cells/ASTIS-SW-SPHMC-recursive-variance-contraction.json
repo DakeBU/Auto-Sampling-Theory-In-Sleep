@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 §6.3, Lemma6.6(ii), update(6.1) and schedule(6.2)",
   "target_statement": "For real r>=0 and 0<h<=c, put a=(h+c)/(1+r), rp=r+a^-1 and rho=2c/(1+2c). Prove rp>0, 0<rp^-1<=2c, 0<rho<1 and, only if r>0, rp^-1<=rho*r^-1. This is the well-conditioned source variance update, retaining r=0 as initial A=infinity and establishing finite positive variance after the update.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "SPHMC RGOCalculus.rgo_calculus update rp=r+a^-1",
     "Mathlib ordered-field reciprocal and division inequalities"
@@ -29,16 +29,16 @@
     "notes": "One route-specific scalar update, not a duplicate RGO library. Source parameter interpretation is exercised with the actual RGOCalculus target in Tests; no Lean dependency on that large analytic module is needed for the scalar proof."
   },
   "evidence": {
-    "verified_commit": "",
+    "verified_commit": "51b3b91334b9d73e4741d1b8847a7576846edc3d",
     "focused_checks": [
       {
         "command": "lake build Tests.SmoothedPicardRecursiveVariance",
         "result": "PASS2945 on Lean4.33.0, two threads; standard axioms only. Zero-precision and actual normalized updated Gibbs target tested."
       }
     ],
-    "independent_verification": "rgo_independent_verifier APPROVE_PROOF, read-only exact module/test/lesson review; commit-bound admission and source review pending.",
-    "root_build": "Release gate evidence and actual outcomes will be recorded after execution.",
-    "graph_regeneration": "Affected generated branch and reader will be checked at serialized publication.",
+    "independent_verification": "rgo_independent_verifier APPROVE_VERIFIED at 51b3b91334b9d73e4741d1b8847a7576846edc3d; exact immutable evidence: runs/20260910-companion-priority/recursive-variance.commit-verification.json. Source review accepted selected specialization with a disclosed broader domain, not unrestricted equivalence.",
+    "root_build": "Final source-bound aggregate evidence: .astis/site-lean-gate.json. Actual gate/deployment outcomes are recorded after execution in runs/20260910-companion-priority/publication-release.md; this pointer is not a pass claim.",
+    "graph_regeneration": "Regenerate affected module/declaration/source branch and inspect the four-step lesson, separate folded Lean and one-hop graph. Actual checks recorded in publication-release.md after execution; no source edge is a formal implication.",
     "pr": ""
   },
   "blocked": {

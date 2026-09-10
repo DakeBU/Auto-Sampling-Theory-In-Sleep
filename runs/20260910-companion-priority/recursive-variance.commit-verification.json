@@ -1,0 +1,31 @@
+{
+  "decision": "APPROVE_VERIFIED",
+  "verified_commit": "51b3b91334b9d73e4741d1b8847a7576846edc3d",
+  "verifier_id": "rgo_independent_verifier",
+  "publication_declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds"
+  ],
+  "gate": "Reused root-reported lake build Tests.SmoothedPicardRecursiveVariance PASS2945 under Lean 4.33.0, two threads, with only propext, Classical.choice and Quot.sound. My independent proof review and current commit/hash checks passed. No build rerun. Aggregate Lean/site gate remains PENDING; this is not stabilization or deployment approval.",
+  "source_audit": "Accepted selected one-step component by publication_gate_review, independently decoded by heatbath_exposition_research; formalizer root-companion-writer. Effective amended verdict is domain-mismatch, with domains.relation=stronger-in-lean and informational deltas only. The broader c domain is retained explicitly. No unrestricted source-equivalence or complete recursive-stage claim is authorized.",
+  "semantic_roundtrip_audit": "ASTIS-RT-20260910-SPHMCRecursiveVariance",
+  "fake_closure_scan": "Independent bounded scan of committed-matching module/tests passed: no sorry, admit, custom axiom, trivial closure, unsafe or native_decide. Positivity is derived, and the previous reciprocal comparison is guarded by r>0. The Gibbs consumer derives probability for the same update parameters.",
+  "artifact_checks": {
+    "tree": "8f222115053606b4223760e5b32e7526157b4332",
+    "module_sha256": "fa5e2ed0e992053be1ff07453e5e80d3c92f5706f7637f26b26ba74692e9956b",
+    "tests_sha256": "27636043917a7bf48bf2b0e0a4adf4a7ac2af7f09dee5c97f98822ac69526030",
+    "publication_raw_sha256": "fd4ab094170a028b5cd9d41ebc3cc54790f99fc9d576cf1ac7f18ff71f876761",
+    "lesson_raw_sha256": "44755f92b9a5b8c7288f30080051064dd21a903a4d191e39d85fbd3587d96e02",
+    "publication_binding_sha256": "96e70b50ad6be02ffc58164ea97f2d2e0d25729193030340423ffb9b04932b55",
+    "reviewer_packet_canonical_sha256": "23b14528bb05e74c87d16d2d7b2ead951ea5c29287c7a17fc24542b1e34cd6cc",
+    "review_result_with_amendment_raw_sha256": "d82ea8849cd386a68cefaaaf6a8decb518bf4b561296352ec3451e474f05a8c5",
+    "decoder_packet_canonical_sha256": "b4c4d33378a79549a231c2803843debd33f16231f5df88f6cc7f7c285d6e308e",
+    "decoder_result_raw_sha256": "53fb42be8274710de1647d8e498ff4ff2905589a49290daec5c3f750701fd01a",
+    "source_text_sha256": "9f3d16e309efdf9586a0f7ef3d6fff66c5a7aad07a740f1e14d920c81e6bee1c",
+    "statement_sha256": "5b4cb511046e8713d643b2d64084636d3144b5640f47d9fde4f1f7f634c47d4d",
+    "reconstruction_sha256": "07b848808f12f870734a60636ca199122f12f22df3091a9d2c23e9bfd8cf7430",
+    "result": "Module/tests, publication, lesson, cell and all four decoder/reviewer artifacts match commit/current raw bytes. Checked registry, toolchain, manifest and root imports/tests differ only by CRLF/LF. Official full binding_digest and canonical/source/statement/reconstruction hashes independently recomputed and matched; projected context was not substituted for the full binding.",
+    "amendment": "Reviewer identity, packet/binding pins, final verdict, unchanged seven slots and informational deltas match the canonical audit. Original review plus amendment remains preserved.",
+    "root_inclusion": "Committed AutoSamplingTheory.lean imports ExampleCases; ExampleCases.lean imports RecursiveVariance; Tests.lean imports Tests.SmoothedPicardRecursiveVariance.",
+    "scope": "Only this scalar theorem/module/cell. No covariance, branch persistence, termination, sampler, error, cost or whole-paper completion. No files or ledger entries changed."
+  }
+}

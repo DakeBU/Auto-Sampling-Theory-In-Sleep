@@ -478,3 +478,30 @@ Next dependency-ready candidate: Lemma6.6(ii)'s well-conditioned variance
 contraction; inspect source before freezing it. Stage termination, actual
 recursive algorithms, accuracy, mixing and actual-input expected query costs
 remain red. No reset credit, replacement Goal or detached session was used.
+
+## Thirteenth result: selected well-conditioned RGO parameter step
+
+RecursiveVariance.variance_update_bounds and its consumer tests pass2945 on
+Lean4.33.0 with two threads and standard axioms only. The result proves finite
+positive updated variance, the 2c bound and exact guarded contraction; its
+zero-precision case is retained and its real normalized Gibbs consumer is tested.
+Registry remains396, separate from thirteen companion/shared declarations.
+
+Independent proof and commit admission: rgo_independent_verifier at
+51b3b91334b9d73e4741d1b8847a7576846edc3d. Independent anonymous decoder:
+heatbath_exposition_research. Source reviewer: publication_gate_review, whose
+signed amendment retains domain-mismatch/stronger-in-lean because c<1/4 is
+unnecessary for this scalar proof. This is an accepted source specialization
+with a disclosed valid generalization, not unrestricted equivalence. The raw
+review and amendment are preserved; no schema or mathematical premise changed.
+
+The four-step reader proof is authored once, with adjacent folded Lean and
+an explicit parameter-not-covariance warning. Publication PASS14 and semantic
+PASS17/1 preserved repair preceded admission. Final aggregate, graph/reader
+inspection and deployment outcomes will be recorded in publication-release.md
+after execution, not inferred from the focused test.
+
+Next: source-update branch persistence and the finite-depth threshold, with
+algorithm schedule and stage indices retained. Recursive sampler construction,
+error, terminal FORS work, mixing and actual-input expected query costs remain
+independent red obligations. The same full two-paper Goal stays active.
