@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "pbps-reflection-l2",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "Actual reflection and conditional-projection blocks",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06905v1#A2.SS1",
+        "edition": "arXiv:2609.06905v1",
+        "anchor": "Appendix B.1, equations B.1 and B.3–B.5; joint density 2.6",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded mathematical proof."
+      },
+      "statement": "The conditional resampling operator is the orthogonal projection P onto functions of Y. Reflection pullback U is a self-adjoint unitary. With A=PUP, B=(I−P)UP and D=(I−P)U(I−P), the block identities are B*B=I−A² on the range of P and B*D=−AB*. Consequently ‖Bf‖²=‖f‖²−‖Af‖² for f in that range. The full-space extension of the first identity has P in place of I.",
+      "assumptions": [
+        "The paper uses the normalized Gibbs target on R^d, d≥1, with C² potential V and Hessian bounds 0<αI≤∇²V≤βI, and 0<η≤1/β. Its joint law has density proportional to exp(−V(x)−‖y−x‖²/(2η)).",
+        "The selected block-algebra component acts on real L² of this joint law. P is conditional expectation given Y and U is pullback by (x,y)↦(x,2x−y)."
+      ],
+      "formulae": [
+        {
+          "label": "whole-space block extension",
+          "tex": "B^*B=P-A^2,\\qquad B^*D=-AB^*,\\qquad Pf=f\\Longrightarrow\\|Bf\\|^2=\\|f\\|^2-\\|Af\\|^2."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-reflection",
+          "label": "Actual pullback is a self-adjoint isometric involution"
+        },
+        {
+          "id": "actual-projection",
+          "label": "Actual conditional projection agrees a.e. with quadratic-tilt kernel"
+        },
+        {
+          "id": "reflection-blocks",
+          "label": "Whole-space block identities and macroscopic energy identity"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2.actual_reflection_block_identities",
+          "cell": "ASTIS-SW-PBPS-reflection-l2-blocks",
+          "role": "proof-edge",
+          "supports": [
+            "actual-reflection",
+            "actual-projection",
+            "reflection-blocks"
+          ],
+          "audit_id": "ASTIS-RT-20260911-PBPSReflectionL2",
+          "boundary": "Actual reflection and conditional-projection block identities only. No macro coercivity, Sobolev regularity, square roots or inverses, half-turn process, invariance or nonexplosion, modified-energy contraction, mixing, implementation error, expected cost or full-paper closure.",
+          "assumption_deltas": [
+            {
+              "source": "The paper uses the normalized Gibbs target on R^d, d≥1, with C² potential V and Hessian bounds 0<αI≤∇²V≤βI, and 0<η≤1/β. Its joint law has density proportional to exp(−V(x)−‖y−x‖²/(2η)).",
+              "lean": "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. μ is any probability measure on E and η>0.",
+              "classification": "generalization",
+              "reason": "These algebraic identities need only an input probability and positive Gaussian scale, not curvature or an upper scale bound. The separately compiled Gibbs-density consumer retains C² and positive Hessian lower bound, derives normalization and specializes every conclusion on the explicit source density. Zero dimension is also valid."
+            },
+            {
+              "source": "Conditional projection is written with conditional-kernel representatives.",
+              "lean": "Integral representation is J-a.e. for every L² class.",
+              "classification": "source-implicit",
+              "reason": "Conditional expectation and L² classes are defined modulo null sets; arbitrary representatives need not have an everywhere-defined integrable section. Finite probability provides L²-to-L¹ integrability."
+            },
+            {
+              "source": "B*B=I−A² on the macroscopic subspace.",
+              "lean": "B*B=P−A² on the full Hilbert space, with Pf=f explicitly required in the energy clause.",
+              "classification": "same",
+              "reason": "Compressed blocks are extended by zero on the orthogonal complement; this retains the subspace identity without falsely replacing P by I everywhere."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

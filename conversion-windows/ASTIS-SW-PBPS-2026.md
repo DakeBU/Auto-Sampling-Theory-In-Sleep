@@ -108,3 +108,31 @@ and measurability are derived, including for singular input laws. Its
 proof with adjacent folded Lean; the cell records local, source-review and
 commit-verification states separately. This is still not an implemented RGO,
 half-turn process, invariant PBPS law or mixing theorem.
+
+## Actual reflection blocks: locally proved, admission pending
+
+`ReflectionL2.actual_reflection_block_identities` now constructs the actual
+reflection pullback on the Gaussian joint law and identifies the actual
+conditional projection with the backward quadratic-tilt kernel, almost
+everywhere for each L² representative. With $Q=I-P$, $A=PUP$, $B=QUP$ and
+$D=QUQ$, the theorem proves
+
+$$B^*B=P-A^2,\qquad B^*D=-AB^*,\qquad
+Pf=f\Longrightarrow\|Bf\|^2=\|f\|^2-\|Af\|^2.$$
+
+The first equality acts on the entire Hilbert space; its right-hand side becomes
+$I-A^2$ only on the range of $P$. The compiled
+`Tests/ProximalBPSReflectionL2.lean` consumes the normalized Gibbs augmentation
+certificate to obtain all these statements on the explicit source density,
+retaining the C² and positive Hessian lower-bound premises. The focused build
+passed, and an independent production-proof replay found only standard axioms.
+The independent anonymous reconstruction is recorded. Source review accepts
+the disclosed arbitrary-probability generalization through its Gibbs instance,
+with verdict `domain-mismatch`, not source-statement equivalence.
+Commit-bound admission remains pending. Canonical evidence is in
+`ASTIS-SW-PBPS-reflection-l2-blocks` and its source audit. The authored
+`pbps-reflection-l2.json` lesson and publication binding provide the expanded
+mathematical proof; rendered-site delivery has not yet been validated.
+
+No strict macroscopic coercivity, half-turn process, non-explosion, invariant
+PBPS chain, modified-energy contraction or query bound follows from this packet.

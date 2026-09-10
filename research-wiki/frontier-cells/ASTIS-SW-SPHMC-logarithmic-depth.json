@@ -34,8 +34,28 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-recursive-depth.md#next-source-edge-prescribed-depth-not-yet-formalized",
     "planning_review": "depth_source_reviewer independently checked ceiling arithmetic, all C>=8, and explicit gamma dependence. Planning only, not Lean/source admission.",
-    "admission_boundary": "VERIFIED local theorem; STABILIZING integration and rendered reader pending.",
-    "independent_verification": "depth_commit_verifier authorized VERIFIED at4d283fccb6322826f4b68f662011163145e0b0dd; exact evidence in runs/20260911-companion-priority/log-depth.verified-admission.json"
+    "admission_boundary": "Independently verified theorem merged via PR251; merge Lean and site CI passed and live reader HTML confirmed. Full paper remains incomplete.",
+    "independent_verification": "depth_commit_verifier authorized VERIFIED at4d283fccb6322826f4b68f662011163145e0b0dd; exact evidence in runs/20260911-companion-priority/log-depth.verified-admission.json",
+    "integration": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/251",
+      "commit": "dc841b21b111a1340e8d282118a08aeeec50e939",
+      "candidate": "505df47191850f8e6f4248cf319630837115b704",
+      "merged_at": "2026-09-10T17:15:43Z",
+      "independent_merge_review": "depth_commit_verifier recommended ready and merge of exact candidate after CI and preserved proof, source audit and reader checks; root records review.",
+      "post_merge": {
+        "site_run": "34507122389 SUCCESS",
+        "lean_run": "34507122504 SUCCESS",
+        "live_reader": {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+          "http_status": 200,
+          "section_id_present": true,
+          "terminal_depth_present": true,
+          "merge_commit_source_links_present": true,
+          "scope": "Live HTML check; local visual reader and graph checks already recorded for unchanged merged candidate."
+        }
+      },
+      "truth_boundary": "Deterministic logarithmic terminal depth and terminal Gibbs consumer only; sampler error, expected cost and full paper results remain incomplete."
+    }
   },
   "blocked": {
     "reason": "",
