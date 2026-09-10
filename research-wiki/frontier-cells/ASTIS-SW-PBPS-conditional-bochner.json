@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06905v1 Appendix C.1 conditional Poincare prerequisite; Kolesnikov-Milman arXiv:1310.2526v7 Theorem 1.1 equation (1.3), Euclidean compact-test specialization",
   "target_statement": "Prove the actual compact-test weighted Bochner identity for C2 W on finite-dimensional real inner-product E: integral exp(-W)*(L_W h)^2 equals integral exp(-W)*(sum of squared genuine Hessian coordinates of h + D2W[gradient h,gradient h]) for every smooth compactly supported h, with all integrability derived. Apply this identity to the actual common reflected Gibbs-Gaussian conditional kernels S_y and their W_y, proving integral (L_Wy h)^2 dS_y >= (alpha+eta^-1)/4 * integral norm(gradient h)^2 dS_y. Preserve actual kernel/disintegration, normalization, C2 V, genuine Hessian bounds, 0<alpha<=beta, eta>0 and beta eta<=1. Do not assume IBP, Bochner, Poincare or spectral gap.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-PBPS-conditional-score-domain",
     "ASTIS-SW-PBPS-weighted-bochner"
@@ -39,10 +39,11 @@
     ],
     "proof_plan": "proof-blueprints/PBPS-conditional-bochner.md",
     "planning_review": "depth_commit_verifier independent bounded route audit confirms direct Haar-volume IBP with weight in first factor, compact derivative second factor; permits C2 W and arbitrary finite dimension. Never pass Gibbs to a Haar API. Root sole writer.",
-    "execution_boundary": "Root sole writer. Previous score-domain PR255 merged and stabilization lane released. This Bochner packet remains EXPLORING, without public proof/source/commit admission.",
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous score-domain packet merged and deployed.",
     "independent_proof_review": "runs/20260911-companion-priority/conditional-bochner.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL with independent development proof review; source/fixed-commit admission and integration/reader delivery pending.",
-    "packaging_refresh": "Same proof helpers localized into the public theorem, public statements unchanged; refreshed focused PASS3242, final independent review pending."
+    "admission_boundary": "VERIFIED at 88e936738e5f7fa5547481dd1309a8439bbea843; aggregate and reader/graph integration pending.",
+    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3242, independent complete-proof review and final hash-bound source audits accepted.",
+    "independent_verification": "runs/20260911-companion-priority/conditional-bochner.verified-admission.json"
   },
   "blocked": {
     "reason": "",

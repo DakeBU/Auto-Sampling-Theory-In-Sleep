@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity",
     "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy"
@@ -38,7 +38,6 @@
   },
   "mathematical_status": "Compact-test integrated Bochner identity and its actual PBPS conditional curvature-energy consequence only. This is a prerequisite to Appendix C.1 Poincare, not that inequality. Weighted closure/core, dense range or resolvent construction, noncompact test extension, score variance, general L2/H1, macro coercivity and full main results remain open.",
   "remaining": [
-    "Independent source and fixed-commit review",
     "Integration, aggregate and reader/graph delivery",
     "Weighted closure/core and dense range or resolvent",
     "Noncompact test extension, Poincare and actual conditional score variance",
@@ -49,5 +48,6 @@
     "compile": "PASS3242 standard axioms only",
     "source_review": "Independent final authenticated packet refresh accepted for both audits.",
     "independent_proof_review": "depth_commit_verifier final consolidated full-proof review and focused replay PASS3242, same raw hashes."
-  }
+  },
+  "independent_admission": "runs/20260911-companion-priority/conditional-bochner.verified-admission.json"
 }

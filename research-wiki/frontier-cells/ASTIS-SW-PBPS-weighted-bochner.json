@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:1310.2526v7 Theorem1.1 (1.3): directly proved Euclidean compact-test localized version",
   "target_statement": "For C2 W and smooth compact f on finite-dimensional real inner-product E, prove the actual weighted Bochner identity, all four integrability clauses and its consequence under genuine lower curvature. No global weight normalization or Poincare assumption.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [],
   "consumers": [
     "ASTIS-SW-PBPS-conditional-bochner: actual normalized PBPS Gibbs conditional energy theorem"
@@ -36,11 +36,12 @@
     ],
     "proof_plan": "proof-blueprints/PBPS-conditional-bochner.md",
     "planning_review": "depth_commit_verifier independent bounded route audit confirms direct Haar-volume IBP with weight in first factor, compact derivative second factor; permits C2 W and arbitrary finite dimension. Never pass Gibbs to a Haar API. Root sole writer.",
-    "execution_boundary": "Root sole writer. Previous score-domain PR255 merged and stabilization lane released. This Bochner packet remains EXPLORING, without public proof/source/commit admission.",
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous score-domain packet merged and deployed.",
     "ownership_note": "Reusable TechnicalLemmas implementation with one current actual consumer; not claiming a two-route canonical shared foundation or inventing a second consumer. Metadata split from the existing pre-development Bochner packet to preserve one canonical declaration per cell.",
     "independent_proof_review": "runs/20260911-companion-priority/conditional-bochner.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL with independent development proof review; source/fixed-commit admission and integration/reader delivery pending.",
-    "packaging_refresh": "Same proof helpers localized into the public theorem, public statements unchanged; refreshed focused PASS3242, final independent review pending."
+    "admission_boundary": "VERIFIED at 88e936738e5f7fa5547481dd1309a8439bbea843; aggregate and reader/graph integration pending.",
+    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3242, independent complete-proof review and final hash-bound source audits accepted.",
+    "independent_verification": "runs/20260911-companion-priority/conditional-bochner.verified-admission.json"
   },
   "blocked": {
     "reason": "",

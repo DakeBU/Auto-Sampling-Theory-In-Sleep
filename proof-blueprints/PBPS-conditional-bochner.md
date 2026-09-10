@@ -39,5 +39,6 @@ deployment verified. Both current public results and axiom tests pass the
 focused 3242-job build. Helper proofs are local to the shared public theorem,
 so its folded Lean can include the entire argument. The explicit Hessian
 coordinate sum is retained without claiming a separate abstract norm theorem.
-Final source and fixed-commit admission, integration and reader delivery are
-still separate from this local proof milestone.
+Final source and independent fixed-commit admission passed at
+88e936738e5f7fa5547481dd1309a8439bbea843. Aggregate integration and reader
+delivery remain separate pending milestones.
