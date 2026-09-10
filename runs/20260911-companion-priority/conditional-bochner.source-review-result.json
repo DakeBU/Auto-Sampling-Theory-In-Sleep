@@ -1,0 +1,84 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of full independent seven-slot review plus explicit final packaging/hash refresh acceptance. Earlier packet acceptance alone is not reused.",
+  "reviewer_packet_sha256": "7e29be9e5373b84f6be461d471507433a38eaf3e509517efbb28122e4ff19099",
+  "source_text_sha256": "7e8b8a55409fe52833feb8de9847ea647148ffbc158c3be512375f04aef5fe34",
+  "lean_statement_sha256": "35513fc85c4be1963c6b6fd018250e97d9badf4e5e9d68377da17832e31a52fa",
+  "reconstruction_text_sha256": "eb698d6b91f70c34a666fe3f7f558da1d4460971c6f7dffb5db05063f02f56b6",
+  "embedded_module_text_sha256": "995cdfb7261d177f14eb63fcbfa1627391ae6b6b9c034cb7bf757fbbcc18f8d2",
+  "publication_binding_sha256": "6c18450e63ac0d4550650f727025c21540fbac3f0bc8803b6de0d1a7d1008f67",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual reflected Gibbs-Gaussian conditional potential and law in C.1.",
+      "reconstructed": "Common R,S, swapped disintegration, reflection, actual tilted W_y and differential expression.",
+      "relation": "explicit-elaboration",
+      "evidence": "Consumer retains R,S,hcond,hSR,hSy,hcurv for the same law."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean paper setting.",
+      "reconstructed": "Finite-dimensional real inner-product Borel space including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "Explicitly disclosed domain extension."
+    },
+    "quantifiers": {
+      "original": "Fiberwise prerequisite for actual conditional laws and smooth compact tests.",
+      "reconstructed": "One R,S before all y and all smooth compact f; selected version has everywhere properties.",
+      "relation": "explicit-elaboration",
+      "evidence": "No uniqueness of conditional laws at every y asserted."
+    },
+    "assumptions": {
+      "original": "C2 V, explicit 0<alpha<=beta, genuine Hessian bounds, eta>0, beta eta<=1.",
+      "reconstructed": "Same assumptions; probability, normalizer and tested integrability are derived.",
+      "relation": "equivalent",
+      "evidence": "Upper scale restriction retained from parent interface and distinguished from abstract Bochner needs."
+    },
+    "conclusion": {
+      "original": "Analytic prerequisite expanding the curvature route before Poincare.",
+      "reconstructed": "Finite positive normalizer, four S_y integrability clauses, normalized identity and exact energy bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "hweight excludes zero tilt using Markov mass, hZ positive, hI and htilt transfer exact integrals and hbound consumes hcurv."
+    },
+    "scopes": {
+      "original": "Prerequisite to C.1 Poincare, not its conclusion.",
+      "reconstructed": "Compact-test square-differential-expression estimate only.",
+      "relation": "explicit-elaboration",
+      "evidence": "No closed generator, noncompact score extension, variance or macro coercivity; missing core/range/resolvent explicit."
+    },
+    "constant_dependencies": {
+      "original": "Actual conditional curvature (alpha+eta^-1)/4.",
+      "reconstructed": "Same coefficient after normalization; beta only in retained assumptions.",
+      "relation": "same",
+      "evidence": "Multiply by reciprocal of proven positive normalizer; no leftover normalization constant."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Disclosed abstract finite-dimensional and zero-dimensional extension.",
+      "evidence": "Explicitly disclosed domain extension."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Authored analytic prerequisite, not an explicit PBPS C.1 theorem or proof of its Poincare conclusion.",
+      "evidence": "No closed generator, noncompact score extension, variance or macro coercivity; missing core/range/resolvent explicit."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Inherited beta eta<=1 preserved although abstract Bochner does not need it.",
+      "evidence": "Upper scale restriction retained from parent interface and distinguished from abstract Bochner needs."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "evidence": "All six shared and four consumer mathematical steps accepted; final packaging refresh preserves the proof and accurately exposes local helpers."
+  },
+  "review_evidence": "Independent anti-anchored review of source, anonymous reconstruction, actual proof and authored steps. Final refresh independently matched packet, source, statement, reconstruction, embedded-module and raw-file hashes. Shared helpers verified unchanged after local-have/let conversion, indentation, equivalent sum_apply spelling and disclosed finite-index universe specialization. Final lesson correctly includes all helpers in the public proof. Seven semantic slots and informational deltas expressly reaffirmed. Binding fields authenticated from packet, external preimage not independently rebuilt. No compilation, fixed-commit or VERIFIED claim in this source review."
+}

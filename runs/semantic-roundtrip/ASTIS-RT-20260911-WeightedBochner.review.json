@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-131f16d865b0ba17",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "bochner_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:pbps-weighted-bochner",
+    "anchor": "Theorem1.1 (1.3), Euclidean compact-test localized component",
+    "original_text": "Selected Euclidean localization: d>=1, W:R^d->R C2 and f smooth compactly supported. Haar volume and actual derivatives are used; no global probability normalization is needed for this compact-test formula.\nFor the energy consequence only, a real m satisfies D2W(x)[v,v]>=m norm(v)^2 for every x,v. The full background source has compact manifold and boundary hypotheses outside this selected localized component.\nThe weighted Reilly identity in Theorem 1.1 (1.3) is a compact weighted manifold formula with boundary terms. The selected ASTIS background component is its Euclidean smooth compact-test localization, proved directly: on R^d for d>=1, W C2 and f smooth compactly supported, Lf=Delta f-gradient W dot gradient f satisfies integral exp(-W)(Lf)^2 = integral exp(-W)sum_i norm(gradient(D_i f))^2 + integral exp(-W)D2W[gradient f,gradient f]. All tested weighted products are integrable by compact support; global weight integrability is not required. If D2W>=m I, dropping the nonnegative Hessian-square term gives m times weighted gradient energy at most weighted square-generator energy. This selected component does not claim the entire manifold theorem or a spectral gap.",
+    "text_sha256": "50c402e8393816a8702f65c687bb36a88bba9089844b4a929e7e48ea3343652f"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity",
+    "file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/WeightedBochner.lean",
+    "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] (W f : E → ℝ),\n  ContDiff ℝ 2 W →\n    ContDiff ℝ (↑⊤) f →\n      HasCompactSupport f →\n        have L := fun x => Laplacian.laplacian f x - Inner.inner ℝ (gradient W x) (gradient f x);\n        have H := fun x => ∑ i, ‖gradient (fun z => (fderiv ℝ f z) ((stdOrthonormalBasis ℝ E) i)) x‖ ^ 2;\n        have C := fun x => ((fderiv ℝ (fderiv ℝ W) x) (gradient f x)) (gradient f x);\n        MeasureTheory.Integrable (fun x => Real.exp (-W x) * L x ^ 2) MeasureTheory.MeasureSpace.volume ∧\n          MeasureTheory.Integrable (fun x => Real.exp (-W x) * ‖gradient f x‖ ^ 2) MeasureTheory.MeasureSpace.volume ∧\n            MeasureTheory.Integrable (fun x => Real.exp (-W x) * H x) MeasureTheory.MeasureSpace.volume ∧\n              MeasureTheory.Integrable (fun x => Real.exp (-W x) * C x) MeasureTheory.MeasureSpace.volume ∧\n                ∫ (x : E), Real.exp (-W x) * L x ^ 2 =\n                    (∫ (x : E), Real.exp (-W x) * H x) + ∫ (x : E), Real.exp (-W x) * C x ∧\n                  ∀ (m : ℝ),\n                    (∀ (x v : E), m * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ W) x) v) v) →\n                      m * ∫ (x : E), Real.exp (-W x) * ‖gradient f x‖ ^ 2 ≤ ∫ (x : E), Real.exp (-W x) * L x ^ 2",
+    "statement_sha256": "8885e2a2c387f1fca2e7a9321a96d977615fca88acd46b01f949a88f16a24875",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite-dimensional real inner-product space E with its Borel measurable structure, every C2 W:E->R and every smooth compactly supported f:E->R, define L(x)=Delta f(x)-inner(gradient W(x),gradient f(x)), H(x)=sum_i norm(gradient(z->Df(z)[e_i])(x))^2, and C(x)=D2W(x)[gradient f(x),gradient f(x)], using the displayed standard orthonormal basis indexed by the dimension. With respect to canonical volume all four functions exp(-W)L^2, exp(-W)norm(gradient f)^2, exp(-W)H and exp(-W)C are integrable, including absolute integrability of the signed curvature contribution. The integral of exp(-W)L^2 equals the sum of the integrals of exp(-W)H and exp(-W)C. For every real m, if D2W(x)[v,v]>=m norm(v)^2 for every x,v, then m times the weighted gradient-energy integral is at most the weighted L^2 integral. All derivatives are genuine Frechet derivatives, gradients their Riesz representatives and Delta the trace of the genuine second derivative. There is no positivity requirement on m, no global integrability assumption on exp(-W), and no probability normalization. Zero-dimensional E is allowed with an empty basis sum. The integrability clauses are conclusions, not premises.",
+    "text_sha256": "dd38791e93681ce36b0493799515594a3f70f79d560a4843d1df7e2dde79c91c",
+    "decoder": "bochner_blind_decoder",
+    "decoder_packet_sha256": "3872b7c14700e9b02eacead59bc747b0870bbe2dbd93c0c56a2c9681e18f5a9e",
+    "decoder_run_sha256": "b9873da1f70a21c1006c385953bcb1c10d89c52b3282daa93032e6aaa5eb159c",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "fc2767d0dee21a1934cbcb46c6a9e76fa402dfd4b54220b6a38d63a33377655a",
+  "candidate_publication_context": {
+    "file": "39b11508ddb3026e3033274a844708fd243621f460c81cc738065754b1364e9c",
+    "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.StochasticProcesses.LangevinCarreDuChamp\nimport Mathlib.Analysis.Calculus.LineDeriv.IntegrationByParts\nimport Mathlib.Analysis.Calculus.FDeriv.Symmetric\n\n/-!\n# Compact-test weighted Bochner identity\n\nBackground: Kolesnikov--Milman, arXiv:1310.2526v7, Theorem 1.1 (1.3),\nEuclidean compact-test localized version, proved directly. In positive\ndimension an enclosing ball gives zero boundary terms; dimension zero is an\nadditional trivial extension. The PBPS consumer is Appendix C.1 of\narXiv:2609.06905v1, via ConditionalBochner.\n\nOnly C2 regularity of the potential is used. Haar-volume integration by parts\nhandles one compactly supported factor; no semigroup, spectral gap or\nPoincare inequality is assumed. The sum of squared gradients of genuine\ndirectional derivatives is the coordinate expression for the squared\nHilbert--Schmidt Hessian norm; no separate abstract norm identification is\nasserted.\nThe weight need not be globally integrable for this compact-test identity;\nnormalization and probability are separate obligations of its consumer.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner\n\nopen MeasureTheory InnerProductSpace\nopen scoped RealInnerProductSpace ContDiff\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\n/-- Actual weighted Bochner identity, all compact-test integrability facts, and\nits curvature-energy consequence. This does not establish Poincare. -/\ntheorem integrated_bochner_identity (W f : E → ℝ) (hW : ContDiff ℝ 2 W)\n    (hf : ContDiff ℝ ∞ f) (hc : HasCompactSupport f) :\n    let L := fun x => Laplacian.laplacian f x - inner ℝ (gradient W x) (gradient f x)\n    let H := fun x => ∑ i, ‖gradient (fun z => fderiv ℝ f z ((stdOrthonormalBasis ℝ E) i)) x‖^2\n    let C := fun x => fderiv ℝ (fderiv ℝ W) x (gradient f x) (gradient f x)\n    Integrable (fun x => Real.exp (-W x) * (L x)^2) ∧\n    Integrable (fun x => Real.exp (-W x) * ‖gradient f x‖^2) ∧\n    Integrable (fun x => Real.exp (-W x) * H x) ∧\n    Integrable (fun x => Real.exp (-W x) * C x) ∧\n    (∫ x, Real.exp (-W x) * (L x)^2) =\n      (∫ x, Real.exp (-W x) * H x) + ∫ x, Real.exp (-W x) * C x ∧\n    ∀ m : ℝ, (∀ x v, m * ‖v‖^2 ≤ fderiv ℝ (fderiv ℝ W) x v v) →\n      m * (∫ x, Real.exp (-W x) * ‖gradient f x‖^2) ≤ ∫ x, Real.exp (-W x) * (L x)^2 := by\n  have weighted_directional_ibp (W g h : E → ℝ) (hW : ContDiff ℝ 1 W) (hg : ContDiff ℝ 1 g)\n      (hh : ContDiff ℝ 2 h) (hc : HasCompactSupport h) (v : E) :\n      (∫ x, (Real.exp (-W x) * g x) *\n        fderiv ℝ (fun z => fderiv ℝ h z v) x v) =\n      - ∫ x, Real.exp (-W x) *\n        (fderiv ℝ g x v - g x * fderiv ℝ W x v) * fderiv ℝ h x v := by\n    let F := fun x => Real.exp (-W x) * g x\n    let H := fun x => fderiv ℝ h x v\n    have hF : ContDiff ℝ 1 F := hW.neg.exp.mul hg\n    have hH : ContDiff ℝ 1 H :=\n      (hh.fderiv_right (m := 1) (by norm_num)).clm_apply contDiff_const\n    have hHc : HasCompactSupport H := by\n      refine HasCompactSupport.of_support_subset_isCompact hc.isCompact ?_\n      intro x hx\n      by_contra hnot\n      exact hx (by simp [H, fderiv_of_notMem_tsupport ℝ hnot])\n    have hDHc : HasCompactSupport (fun x => fderiv ℝ H x v) := by\n      refine HasCompactSupport.of_support_subset_isCompact hHc.isCompact ?_\n      intro x hx\n      by_contra hnot\n      exact hx (by simp [fderiv_of_notMem_tsupport ℝ hnot])\n    have hDF : Continuous (fun x => fderiv ℝ F x v) :=\n      (hF.fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const\n    have hDH : Continuous (fun x => fderiv ℝ H x v) :=\n      (hH.fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const\n    have h1 : Integrable (fun x => fderiv ℝ F x v * H x) :=\n      (hDF.mul hH.continuous).integrable_of_hasCompactSupport hHc.mul_left\n    have h2 : Integrable (fun x => F x * fderiv ℝ H x v) :=\n      (hF.continuous.mul hDH).integrable_of_hasCompactSupport hDHc.mul_left\n    have h3 : Integrable (fun x => F x * H x) :=\n      (hF.continuous.mul hH.continuous).integrable_of_hasCompactSupport hHc.mul_left\n    have hibp := integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable h1 h2 h3\n      (fun x _ => hF.differentiable one_ne_zero x)\n      (fun x _ => hH.differentiable one_ne_zero x)\n    change (∫ x, F x * fderiv ℝ H x v) = _\n    rw [hibp]\n    congr 1\n    apply integral_congr_ae\n    filter_upwards [] with x\n    have hw := (hW.differentiable one_ne_zero x).hasFDerivAt.neg.exp\n    have hder := hw.mul (hg.differentiable one_ne_zero x).hasFDerivAt\n    have hd : fderiv ℝ F x v = Real.exp (-W x) *\n        (fderiv ℝ g x v - g x * fderiv ℝ W x v) := by\n      rw [show fderiv ℝ F x = _ from hder.fderiv]\n      simp only [add_apply, smul_apply,\n        neg_apply, smul_eq_mul, Pi.neg_apply]\n      ring\n    rw [hd]\n\n  have directional_second (h : E → ℝ) (hh : ContDiff ℝ 2 h) (x v w : E) :\n      fderiv ℝ (fun z => fderiv ℝ h z w) x v =\n        fderiv ℝ (fderiv ℝ h) x v w := by\n    have hd := ((hh.fderiv_right (m := 1) (by norm_num)).differentiable one_ne_zero x).hasFDerivAt\n    have he := hd.clm_apply (hasFDerivAt_const w x)\n    simpa using congrArg (fun T : E →L[ℝ] ℝ => T v) he.fderiv\n\n  have inner_gradient_eq_sum (f g : E → ℝ)\n      (hf : Differentiable ℝ f) (hg : Differentiable ℝ g) (x : E) :\n      inner ℝ (gradient f x) (gradient g x) =\n        ∑ i, fderiv ℝ f x ((stdOrthonormalBasis ℝ E) i) *\n          fderiv ℝ g x ((stdOrthonormalBasis ℝ E) i) := by\n    simp_rw [AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt (hf x),\n      AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt (hg x)]\n    rw [← (stdOrthonormalBasis ℝ E).sum_inner_mul_inner (gradient f x) (gradient g x)]\n    apply Finset.sum_congr rfl\n    intro i _\n    rw [real_inner_comm ((stdOrthonormalBasis ℝ E) i) (gradient g x)]\n\n  have weighted_bilinear_ibp (W g h : E → ℝ) (hW : ContDiff ℝ 1 W)\n      (hg : ContDiff ℝ 1 g) (hh : ContDiff ℝ 2 h) (hc : HasCompactSupport h) :\n      (∫ x, Real.exp (-W x) * g x *\n        (Laplacian.laplacian h x - inner ℝ (gradient W x) (gradient h x))) =\n      - ∫ x, Real.exp (-W x) * inner ℝ (gradient g x) (gradient h x) := by\n    let b := stdOrthonormalBasis ℝ E\n    let A := fun i x => (Real.exp (-W x) * g x) *\n      fderiv ℝ (fun z => fderiv ℝ h z (b i)) x (b i)\n    let B := fun i x => Real.exp (-W x) *\n      (fderiv ℝ g x (b i) - g x * fderiv ℝ W x (b i)) * fderiv ℝ h x (b i)\n    have hA (i) : Integrable (A i) := by\n      have hD : ContDiff ℝ 1 (fun z => fderiv ℝ h z (b i)) :=\n        (hh.fderiv_right (m := 1) (by norm_num)).clm_apply contDiff_const\n      have hC : Continuous (fun x => fderiv ℝ (fun z => fderiv ℝ h z (b i)) x (b i)) :=\n        (hD.fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const\n      apply (((hW.neg.exp).continuous.mul hg.continuous).mul hC).integrable_of_hasCompactSupport\n      refine HasCompactSupport.of_support_subset_isCompact hc.isCompact ?_\n      intro x hx\n      by_contra hn\n      have hcD : tsupport (fun z => fderiv ℝ h z (b i)) ⊆ tsupport h := by\n        apply closure_minimal _ isClosed_closure\n        intro z hz\n        by_contra hnz\n        exact hz (by simp [fderiv_of_notMem_tsupport ℝ hnz])\n      have hnD : x ∉ tsupport (fun z => fderiv ℝ h z (b i)) := fun hx => hn (hcD hx)\n      exact hx (by simp [fderiv_of_notMem_tsupport ℝ hnD])\n    have hB (i) : Integrable (B i) := by\n      have hD (f : E → ℝ) (hf : ContDiff ℝ 1 f) : Continuous (fun x => fderiv ℝ f x (b i)) :=\n        (hf.fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const\n      have hDh : Continuous (fun x => fderiv ℝ h x (b i)) := hD h (hh.of_le (by norm_num))\n      apply ((hW.neg.exp).continuous.mul ((hD g hg).sub (hg.continuous.mul (hD W hW))) |>.mul hDh).integrable_of_hasCompactSupport\n      refine HasCompactSupport.of_support_subset_isCompact hc.isCompact ?_\n      intro x hx\n      by_contra hn\n      exact hx (by simp [fderiv_of_notMem_tsupport ℝ hn])\n    have heq : (∫ x, ∑ i, A i x) = - ∫ x, ∑ i, B i x := by\n      rw [integral_finsetSum _ (fun i _ => hA i), integral_finsetSum _ (fun i _ => hB i)]\n      simp_rw [show ∀ i, (∫ x, A i x) = -∫ x, B i x from fun i => weighted_directional_ibp W g h hW hg hh hc (b i)]\n      exact Finset.sum_neg_distrib _\n    have hLap (x : E) : Laplacian.laplacian h x =\n        ∑ i, fderiv ℝ (fun z => fderiv ℝ h z (b i)) x (b i) := by\n      rw [InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis]\n      apply Finset.sum_congr rfl\n      intro i _\n      rw [directional_second h hh, iteratedFDeriv_two_apply]\n      rfl\n    have hpoint (x : E) : (∑ i, A i x) + (∑ i, B i x) =\n        Real.exp (-W x) * g x *\n          (Laplacian.laplacian h x - inner ℝ (gradient W x) (gradient h x)) +\n        Real.exp (-W x) * inner ℝ (gradient g x) (gradient h x) := by\n      rw [hLap, inner_gradient_eq_sum W h (hW.differentiable one_ne_zero) (hh.differentiable (by norm_num)),\n        inner_gradient_eq_sum g h (hg.differentiable one_ne_zero) (hh.differentiable (by norm_num))]\n      simp only [A, B, mul_sub, sub_mul, mul_assoc, Finset.sum_sub_distrib, ← Finset.mul_sum, b]\n      ring\n    -- The finite sums establish compact integrability before splitting integrals.\n    have hS1 : Integrable (fun x => ∑ i, A i x) := integrable_finsetSum _ (fun i _ => hA i)\n    have hS2 : Integrable (fun x => ∑ i, B i x) := integrable_finsetSum _ (fun i _ => hB i)\n    let G := fun x => Real.exp (-W x) * inner ℝ (gradient g x) (gradient h x)\n    have hG : Integrable G := by\n      have hgD : Continuous (fun x => fderiv ℝ g x) :=\n        (hg.fderiv_right (m := 0) (by norm_num)).continuous\n      have hhD : Continuous (fun x => fderiv ℝ h x) :=\n        (hh.fderiv_right (m := 1) (by norm_num)).continuous\n      have hrep : G = fun x => Real.exp (-W x) * ∑ i, fderiv ℝ g x (b i) * fderiv ℝ h x (b i) := by\n        funext x\n        exact congrArg (fun t => Real.exp (-W x) * t)\n          (inner_gradient_eq_sum g h (hg.differentiable one_ne_zero) (hh.differentiable (by norm_num)) x)\n      rw [hrep]\n      apply ((hW.neg.exp).continuous.mul (continuous_finsetSum _ fun i _ =>\n        (hgD.clm_apply continuous_const).mul (hhD.clm_apply continuous_const))).integrable_of_hasCompactSupport\n      refine HasCompactSupport.of_support_subset_isCompact hc.isCompact ?_\n      intro x hx\n      by_contra hn\n      exact hx (by simp [fderiv_of_notMem_tsupport ℝ hn])\n    let L := fun x => Real.exp (-W x) * g x *\n        (Laplacian.laplacian h x - inner ℝ (gradient W x) (gradient h x))\n    have hLG : (fun x => (∑ i, A i x) + (∑ i, B i x)) = fun x => L x + G x := funext hpoint\n    have hL : Integrable L := by\n      have hp := hS1.add hS2\n      change Integrable (fun x => (∑ i, A i x) + (∑ i, B i x)) at hp\n      rw [hLG] at hp\n      convert hp.sub hG using 1\n      ext x\n      simp only [Pi.sub_apply, add_sub_cancel_right]\n    have hz : (∫ x, L x) + (∫ x, G x) = 0 := by\n      rw [← integral_add hL hG, ← hLG, integral_add hS1 hS2, heq]\n      ring\n    exact eq_neg_of_add_eq_zero_left hz\n\n  let dir (f : E → ℝ) (v : E) : E → ℝ := fun x => fderiv ℝ f x v\n\n  have dir_contDiff {n : ℕ∞ω} (f : E → ℝ) (hf : ContDiff ℝ (n+1) f) (v : E) :\n      ContDiff ℝ n (dir f v) := (hf.fderiv_right le_rfl).clm_apply contDiff_const\n\n  have dir_compact (f : E → ℝ) (hc : HasCompactSupport f) (v : E) :\n      HasCompactSupport (dir f v) := by\n    refine HasCompactSupport.of_support_subset_isCompact hc.isCompact ?_\n    intro x hx\n    by_contra hn\n    exact hx (by simp [dir, fderiv_of_notMem_tsupport ℝ hn])\n\n  have dir_comm (f : E → ℝ) (hf : ContDiff ℝ 2 f) (v w : E) :\n      dir (dir f v) w = dir (dir f w) v := by\n    funext x\n    change fderiv ℝ (fun z => fderiv ℝ f z v) x w =\n      fderiv ℝ (fun z => fderiv ℝ f z w) x v\n    rw [directional_second f hf, directional_second f hf]\n    exact (hf.contDiffAt.isSymmSndFDerivAt (by norm_num)).eq w v\n\n  have laplacian_dirs (f : E → ℝ) (hf : ContDiff ℝ 2 f) :\n      Laplacian.laplacian f = fun x => ∑ i,\n        dir (dir f ((stdOrthonormalBasis ℝ E) i)) ((stdOrthonormalBasis ℝ E) i) x := by\n    funext x\n    rw [InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis]\n    apply Finset.sum_congr rfl\n    intro i _\n    change iteratedFDeriv ℝ 2 f x ![(stdOrthonormalBasis ℝ E) i, (stdOrthonormalBasis ℝ E) i] =\n      fderiv ℝ (fun z => fderiv ℝ f z ((stdOrthonormalBasis ℝ E) i)) x ((stdOrthonormalBasis ℝ E) i)\n    rw [directional_second f hf, iteratedFDeriv_two_apply]\n    rfl\n\n  have dir_sum {ι : Type} [Fintype ι] (f : ι → E → ℝ)\n      (hf : ∀ i, Differentiable ℝ (f i)) (v : E) :\n      dir (fun x => ∑ i, f i x) v = fun x => ∑ i, dir (f i) v x := by\n    funext x\n    dsimp [dir]\n    rw [fderiv_fun_sum (fun i _ => hf i x)]\n    simp\n\n  have smooth_finite (f : E → ℝ) (hf : ContDiff ℝ ∞ f) (n : ℕ) :\n      ContDiff ℝ n f := contDiff_infty.mp hf n\n\n  have dir_mul (f g : E → ℝ) (hf : Differentiable ℝ f) (hg : Differentiable ℝ g)\n      (v : E) : dir (fun x => f x * g x) v =\n        fun x => dir f v x * g x + f x * dir g v x := by\n    funext x\n    dsimp [dir]\n    change fderiv ℝ (f * g) x v = _\n    rw [fderiv_mul (hf x) (hg x)]\n    simp only [add_apply, smul_apply, smul_eq_mul]\n    ring\n\n  let op (W f : E → ℝ) : E → ℝ :=\n    fun x => Laplacian.laplacian f x - inner ℝ (gradient W x) (gradient f x)\n\n  have op_coords (W f : E → ℝ) (hW : ContDiff ℝ 1 W) (hf : ContDiff ℝ 2 f) :\n      op W f = fun x => ∑ i,\n        (dir (dir f ((stdOrthonormalBasis ℝ E) i)) ((stdOrthonormalBasis ℝ E) i) x -\n          dir W ((stdOrthonormalBasis ℝ E) i) x * dir f ((stdOrthonormalBasis ℝ E) i) x) := by\n    funext x\n    dsimp [op]\n    rw [laplacian_dirs f hf, inner_gradient_eq_sum W f (hW.differentiable one_ne_zero)\n      (hf.differentiable (by norm_num))]\n    exact (Finset.sum_sub_distrib _ _).symm\n\n  have op_contDiff (W f : E → ℝ) (hW : ContDiff ℝ 2 W) (hf : ContDiff ℝ ∞ f) :\n      ContDiff ℝ 1 (op W f) := by\n    rw [op_coords W f (hW.of_le (by norm_num)) (smooth_finite f hf 2)]\n    apply ContDiff.sum\n    intro i _\n    have hfd : ContDiff ℝ ∞ (dir f ((stdOrthonormalBasis ℝ E) i)) :=\n      dir_contDiff f (by simpa using hf) _\n    have hfdd : ContDiff ℝ ∞ (dir (dir f ((stdOrthonormalBasis ℝ E) i)) ((stdOrthonormalBasis ℝ E) i)) :=\n      dir_contDiff _ (by simpa using hfd) _\n    exact (smooth_finite _ hfdd 1).sub\n      ((dir_contDiff W hW _).mul (smooth_finite _ hfd 1))\n\n  have op_compact (W f : E → ℝ) (hW : ContDiff ℝ 1 W)\n      (hf : ContDiff ℝ 2 f) (hc : HasCompactSupport f) : HasCompactSupport (op W f) := by\n    rw [op_coords W f hW hf]\n    refine HasCompactSupport.of_support_subset_isCompact hc.isCompact ?_\n    intro x hx\n    by_contra hn\n    apply hx\n    apply Finset.sum_eq_zero\n    intro i _\n    have hsub : tsupport (dir f ((stdOrthonormalBasis ℝ E) i)) ⊆ tsupport f := by\n      apply closure_minimal _ isClosed_closure\n      intro z hz\n      by_contra hnz\n      exact hz (by simp [dir, fderiv_of_notMem_tsupport ℝ hnz])\n    have hnd : x ∉ tsupport (dir f ((stdOrthonormalBasis ℝ E) i)) := fun hx => hn (hsub hx)\n    change (fderiv ℝ (dir f ((stdOrthonormalBasis ℝ E) i)) x) ((stdOrthonormalBasis ℝ E) i) -\n      dir W ((stdOrthonormalBasis ℝ E) i) x * (fderiv ℝ f x) ((stdOrthonormalBasis ℝ E) i) = 0\n    simp [fderiv_of_notMem_tsupport ℝ hn, fderiv_of_notMem_tsupport ℝ hnd]\n\n  have dir_op (W f : E → ℝ) (hW : ContDiff ℝ 2 W) (hf : ContDiff ℝ ∞ f) (v : E) :\n      dir (op W f) v = fun x => op W (dir f v) x -\n        ∑ i, dir (dir W ((stdOrthonormalBasis ℝ E) i)) v x *\n          dir f ((stdOrthonormalBasis ℝ E) i) x := by\n    let b := stdOrthonormalBasis ℝ E\n    have hfd (w : E) : ContDiff ℝ ∞ (dir f w) := dir_contDiff f (by simpa using hf) w\n    have hfdd (w z : E) : ContDiff ℝ ∞ (dir (dir f w) z) :=\n      dir_contDiff _ (by simpa using hfd w) z\n    have hWd (w : E) : ContDiff ℝ 1 (dir W w) := dir_contDiff W hW w\n    rw [op_coords W f (hW.of_le (by norm_num)) (smooth_finite f hf 2)]\n    rw [dir_sum (fun i x => dir (dir f (b i)) (b i) x - dir W (b i) x * dir f (b i) x)\n      (fun i => ((hfdd _ _).differentiable (by simp)).sub\n      ((hWd _).differentiable one_ne_zero |>.mul ((hfd _).differentiable (by simp))))]\n    funext x\n    rw [op_coords W (dir f v) (hW.of_le (by norm_num)) (smooth_finite _ (hfd v) 2)]\n    rw [← Finset.sum_sub_distrib]\n    apply Finset.sum_congr rfl\n    intro i _\n    have hdsub : dir (fun x => dir (dir f (b i)) (b i) x - dir W (b i) x * dir f (b i) x) v x =\n        dir (dir (dir f (b i)) (b i)) v x -\n          dir (fun x => dir W (b i) x * dir f (b i) x) v x := by\n      change fderiv ℝ (dir (dir f (b i)) (b i) - dir W (b i) * dir f (b i)) x v =\n        fderiv ℝ (dir (dir f (b i)) (b i)) x v -\n          fderiv ℝ (dir W (b i) * dir f (b i)) x v\n      rw [fderiv_sub ((hfdd _ _).differentiable (by simp) x)\n        (((hWd _).differentiable one_ne_zero).mul ((hfd _).differentiable (by simp)) x)]\n      rfl\n    rw [hdsub, dir_mul _ _ ((hWd _).differentiable one_ne_zero) ((hfd _).differentiable (by simp))]\n    rw [dir_comm (dir f (b i)) (smooth_finite _ (hfd _) 2) (b i) v,\n      dir_comm f (smooth_finite f hf 2) (b i) v]\n    dsimp only [b]\n    ring\n\n  have weighted_mul_integrable (W f g : E → ℝ) (hW : Continuous W)\n      (hf : Continuous f) (hg : Continuous g) (hc : HasCompactSupport g) :\n      Integrable (fun x => Real.exp (-W x) * f x * g x) :=\n    ((Real.continuous_exp.comp hW.neg).mul hf |>.mul hg).integrable_of_hasCompactSupport hc.mul_left\n\n  have weighted_inner_integrable (W f g : E → ℝ) (hW : Continuous W)\n      (hf : ContDiff ℝ 1 f) (hg : ContDiff ℝ 1 g) (hc : HasCompactSupport g) :\n      Integrable (fun x => Real.exp (-W x) * inner ℝ (gradient f x) (gradient g x)) := by\n    have hd (k : E → ℝ) (hk : ContDiff ℝ 1 k) (v : E) : Continuous (dir k v) :=\n      (dir_contDiff (n := 0) k hk v).continuous\n    have he : (fun x => Real.exp (-W x) * inner ℝ (gradient f x) (gradient g x)) =\n        fun x => ∑ i, Real.exp (-W x) * dir f ((stdOrthonormalBasis ℝ E) i) x *\n          dir g ((stdOrthonormalBasis ℝ E) i) x := by\n      funext x\n      rw [inner_gradient_eq_sum f g (hf.differentiable one_ne_zero) (hg.differentiable one_ne_zero)]\n      simp only [Finset.mul_sum, dir, mul_assoc]\n    rw [he]\n    exact integrable_finsetSum _ (fun i _ => weighted_mul_integrable W _ _ hW\n      (hd f hf _) (hd g hg _) (dir_compact g hc _))\n\n  have bochner_coordinate_integrals (W f : E → ℝ) (hW : ContDiff ℝ 2 W)\n      (hf : ContDiff ℝ ∞ f) (hc : HasCompactSupport f) :\n      (∫ x, Real.exp (-W x) * (op W f x)^2) =\n        (∑ i, ∫ x, Real.exp (-W x) *\n          ‖gradient (dir f ((stdOrthonormalBasis ℝ E) i)) x‖^2) +\n        ∑ i, ∫ x, Real.exp (-W x) *\n          (∑ j, dir (dir W ((stdOrthonormalBasis ℝ E) j)) ((stdOrthonormalBasis ℝ E) i) x *\n            dir f ((stdOrthonormalBasis ℝ E) j) x) * dir f ((stdOrthonormalBasis ℝ E) i) x := by\n    let b := stdOrthonormalBasis ℝ E\n    have hfd (v : E) : ContDiff ℝ ∞ (dir f v) := dir_contDiff f (by simpa using hf) v\n    have hop := op_contDiff W f hW hf\n    have hW1 : ContDiff ℝ 1 W := hW.of_le (by norm_num)\n    have hf1 : ContDiff ℝ 1 f := smooth_finite f hf 1\n    have hfd1 (v : E) : ContDiff ℝ 1 (dir f v) := smooth_finite _ (hfd v) 1\n    have hWdd (v w : E) : Continuous (dir (dir W w) v) :=\n      (dir_contDiff (n := 0) _ (dir_contDiff (n := 1) W hW w) v).continuous\n    let T := fun i x => Real.exp (-W x) * dir (op W f) (b i) x * dir f (b i) x\n    let A := fun i x => Real.exp (-W x) * dir f (b i) x * op W (dir f (b i)) x\n    let K := fun i x => Real.exp (-W x) *\n      (∑ j, dir (dir W (b j)) (b i) x * dir f (b j) x) * dir f (b i) x\n    have hTi (i) : Integrable (T i) := weighted_mul_integrable W _ _ hW.continuous\n      (dir_contDiff (n := 0) _ hop _).continuous (hfd1 _).continuous (dir_compact f hc _)\n    have hAi (i) : Integrable (A i) := weighted_mul_integrable W _ _ hW.continuous\n      (hfd1 _).continuous (op_contDiff W _ hW (hfd _)).continuous\n      (op_compact W _ hW1 (smooth_finite _ (hfd _) 2) (dir_compact f hc _))\n    have hKi (i) : Integrable (K i) := weighted_mul_integrable W _ _ hW.continuous\n      (continuous_finsetSum _ fun j _ => (hWdd _ _).mul (hfd1 _).continuous)\n      (hfd1 _).continuous (dir_compact f hc _)\n    have hpoint (i) : T i = fun x => A i x - K i x := by\n      funext x\n      dsimp only [T]\n      rw [dir_op W f hW hf (b i)]\n      dsimp only [A, K, b]\n      ring\n    have hfirst : (∫ x, Real.exp (-W x) * (op W f x)^2) = -∑ i, ∫ x, T i x := by\n      have hibp := weighted_bilinear_ibp W (op W f) f hW1 hop (smooth_finite f hf 2) hc\n      have hlhs : (fun x => Real.exp (-W x) * op W f x *\n          (Laplacian.laplacian f x - inner ℝ (gradient W x) (gradient f x))) =\n          fun x => Real.exp (-W x) * (op W f x)^2 := by\n        funext x\n        change Real.exp (-W x) * op W f x * op W f x = _\n        ring\n      rw [hlhs] at hibp\n      rw [hibp]\n      congr 1\n      rw [← integral_finsetSum _ (fun i _ => hTi i)]\n      apply integral_congr_ae\n      filter_upwards [] with x\n      rw [inner_gradient_eq_sum (op W f) f (hop.differentiable one_ne_zero) (hf1.differentiable one_ne_zero)]\n      simp only [T, dir, b, Finset.mul_sum, mul_assoc]\n    have hsecond (i) : (∫ x, A i x) = -∫ x, Real.exp (-W x) * ‖gradient (dir f (b i)) x‖^2 := by\n      have hibp := weighted_bilinear_ibp W (dir f (b i)) (dir f (b i)) hW1\n        (hfd1 _) (smooth_finite _ (hfd _) 2) (dir_compact f hc _)\n      simpa only [A, op, real_inner_self_eq_norm_sq] using hibp\n    rw [hfirst]\n    have heach (i) : (∫ x, T i x) =\n        -(∫ x, Real.exp (-W x) * ‖gradient (dir f (b i)) x‖^2) - ∫ x, K i x := by\n      rw [hpoint, integral_sub (hAi i) (hKi i), hsecond]\n    simp_rw [heach]\n    rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib]\n    dsimp only [K, b]\n    ring\n\n  have gradient_basis (f : E → ℝ) (hf : Differentiable ℝ f) (x : E) :\n      gradient f x = ∑ i, dir f ((stdOrthonormalBasis ℝ E) i) x • ((stdOrthonormalBasis ℝ E) i) := by\n    rw [← (stdOrthonormalBasis ℝ E).sum_repr' (gradient f x)]\n    apply Finset.sum_congr rfl\n    intro i _\n    congr 1\n    rw [real_inner_comm]\n    exact (AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt (hf x)).symm\n\n  have curvature_sum (W f : E → ℝ) (hW : ContDiff ℝ 2 W)\n      (hf : Differentiable ℝ f) (x : E) :\n      (∑ i, (∑ j, dir (dir W ((stdOrthonormalBasis ℝ E) j)) ((stdOrthonormalBasis ℝ E) i) x *\n        dir f ((stdOrthonormalBasis ℝ E) j) x) * dir f ((stdOrthonormalBasis ℝ E) i) x) =\n      fderiv ℝ (fderiv ℝ W) x (gradient f x) (gradient f x) := by\n    have hdir (v w : E) : dir (dir W w) v x = fderiv ℝ (fderiv ℝ W) x v w :=\n      directional_second W hW x v w\n    simp_rw [hdir]\n    rw [gradient_basis f hf x]\n    simp only [map_sum, map_smul, sum_apply, smul_apply, smul_eq_mul]\n    apply Finset.sum_congr rfl\n    intro i _\n    rw [Finset.sum_mul, Finset.mul_sum]\n    apply Finset.sum_congr rfl\n    intro j _\n    rw [(hW.contDiffAt.isSymmSndFDerivAt (by norm_num)).eq ((stdOrthonormalBasis ℝ E) i) ((stdOrthonormalBasis ℝ E) j)]\n    ring\n\n  have curvature_component_integrable (W f : E → ℝ) (hW : ContDiff ℝ 2 W)\n      (hf : ContDiff ℝ 1 f) (hc : HasCompactSupport f) (i : Fin (Module.finrank ℝ E)) :\n      Integrable (fun x => Real.exp (-W x) *\n        (∑ j, dir (dir W ((stdOrthonormalBasis ℝ E) j)) ((stdOrthonormalBasis ℝ E) i) x *\n          dir f ((stdOrthonormalBasis ℝ E) j) x) * dir f ((stdOrthonormalBasis ℝ E) i) x) := by\n    apply weighted_mul_integrable W _ _ hW.continuous\n    · apply continuous_finsetSum\n      intro j _\n      exact ((dir_contDiff (n := 0) _ (dir_contDiff (n := 1) W hW _) _).continuous).mul\n        (dir_contDiff (n := 0) f hf _).continuous\n    · exact (dir_contDiff (n := 0) f hf _).continuous\n    · exact dir_compact f hc _\n\n  have curvature_integrable_and_sum (W f : E → ℝ) (hW : ContDiff ℝ 2 W)\n      (hf : ContDiff ℝ 1 f) (hc : HasCompactSupport f) :\n      Integrable (fun x => Real.exp (-W x) *\n        fderiv ℝ (fderiv ℝ W) x (gradient f x) (gradient f x)) ∧\n      (∫ x, Real.exp (-W x) * fderiv ℝ (fderiv ℝ W) x (gradient f x) (gradient f x)) =\n        ∑ i, ∫ x, Real.exp (-W x) *\n          (∑ j, dir (dir W ((stdOrthonormalBasis ℝ E) j)) ((stdOrthonormalBasis ℝ E) i) x *\n            dir f ((stdOrthonormalBasis ℝ E) j) x) * dir f ((stdOrthonormalBasis ℝ E) i) x := by\n    let K := fun i x => Real.exp (-W x) *\n      (∑ j, dir (dir W ((stdOrthonormalBasis ℝ E) j)) ((stdOrthonormalBasis ℝ E) i) x *\n        dir f ((stdOrthonormalBasis ℝ E) j) x) * dir f ((stdOrthonormalBasis ℝ E) i) x\n    have he : (fun x => Real.exp (-W x) * fderiv ℝ (fderiv ℝ W) x (gradient f x) (gradient f x)) =\n        fun x => ∑ i, K i x := by\n      funext x\n      rw [← curvature_sum W f hW (hf.differentiable one_ne_zero)]\n      rw [Finset.mul_sum]\n      apply Finset.sum_congr rfl\n      intro i _\n      dsimp only [K]\n      ring\n    rw [he]\n    exact ⟨integrable_finsetSum _ (fun i _ => curvature_component_integrable W f hW hf hc i),\n      integral_finsetSum _ (fun i _ => curvature_component_integrable W f hW hf hc i)⟩\n\n  have integrated_identity (W f : E → ℝ) (hW : ContDiff ℝ 2 W)\n      (hf : ContDiff ℝ ∞ f) (hc : HasCompactSupport f) :\n      (∫ x, Real.exp (-W x) * (op W f x)^2) =\n        (∫ x, Real.exp (-W x) * ∑ i, ‖gradient (dir f ((stdOrthonormalBasis ℝ E) i)) x‖^2) +\n        ∫ x, Real.exp (-W x) * fderiv ℝ (fderiv ℝ W) x (gradient f x) (gradient f x) := by\n    rw [(curvature_integrable_and_sum W f hW (smooth_finite f hf 1) hc).2,\n      bochner_coordinate_integrals W f hW hf hc]\n    congr 1\n    have hfd (v : E) : ContDiff ℝ ∞ (dir f v) := dir_contDiff f (by simpa using hf) v\n    have hI (i : Fin (Module.finrank ℝ E)) : Integrable (fun x =>\n        Real.exp (-W x) * ‖gradient (dir f ((stdOrthonormalBasis ℝ E) i)) x‖^2) := by\n      simpa only [real_inner_self_eq_norm_sq] using weighted_inner_integrable W\n        (dir f ((stdOrthonormalBasis ℝ E) i)) (dir f ((stdOrthonormalBasis ℝ E) i)) hW.continuous\n        (smooth_finite _ (hfd _) 1) (smooth_finite _ (hfd _) 1) (dir_compact f hc _)\n    simp_rw [Finset.mul_sum]\n    exact (integral_finsetSum _ (fun i _ => hI i)).symm\n\n  have weighted_energy_lower_bound (W f : E → ℝ) (hW : ContDiff ℝ 2 W)\n      (hf : ContDiff ℝ ∞ f) (hc : HasCompactSupport f) (m : ℝ)\n      (hm : ∀ x v, m * ‖v‖^2 ≤ fderiv ℝ (fderiv ℝ W) x v v) :\n      m * (∫ x, Real.exp (-W x) * ‖gradient f x‖^2) ≤\n        ∫ x, Real.exp (-W x) * (op W f x)^2 := by\n    have hI : Integrable (fun x => Real.exp (-W x) * ‖gradient f x‖^2) := by\n      simpa only [real_inner_self_eq_norm_sq] using weighted_inner_integrable W f f hW.continuous\n        (smooth_finite f hf 1) (smooth_finite f hf 1) hc\n    have hC := (curvature_integrable_and_sum W f hW (smooth_finite f hf 1) hc).1\n    have hbound : m * (∫ x, Real.exp (-W x) * ‖gradient f x‖^2) ≤\n        ∫ x, Real.exp (-W x) * fderiv ℝ (fderiv ℝ W) x (gradient f x) (gradient f x) := by\n      rw [← integral_const_mul]\n      apply integral_mono (hI.const_mul m) hC\n      intro x\n      calc\n        m * (Real.exp (-W x) * ‖gradient f x‖^2) =\n          Real.exp (-W x) * (m * ‖gradient f x‖^2) := by ring\n        _ ≤ _ := mul_le_mul_of_nonneg_left (hm x (gradient f x)) (Real.exp_nonneg _)\n    rw [integrated_identity W f hW hf hc]\n    exact hbound.trans (le_add_of_nonneg_left (integral_nonneg (fun x =>\n      mul_nonneg (Real.exp_nonneg _) (Finset.sum_nonneg (fun i _ => sq_nonneg _)))))\n  have hop := op_contDiff W f hW hf\n  have hopc := op_compact W f (hW.of_le (by norm_num)) (smooth_finite f hf 2) hc\n  have hL : Integrable (fun x => Real.exp (-W x) * (op W f x)^2) := by\n    simpa only [pow_two, mul_assoc] using weighted_mul_integrable W (op W f) (op W f)\n      hW.continuous hop.continuous hop.continuous hopc\n  have hG : Integrable (fun x => Real.exp (-W x) * ‖gradient f x‖^2) := by\n    simpa only [real_inner_self_eq_norm_sq] using weighted_inner_integrable W f f hW.continuous\n      (smooth_finite f hf 1) (smooth_finite f hf 1) hc\n  have hfd (v : E) : ContDiff ℝ ∞ (dir f v) := dir_contDiff f (by simpa using hf) v\n  have hH : Integrable (fun x => Real.exp (-W x) *\n      ∑ i, ‖gradient (dir f ((stdOrthonormalBasis ℝ E) i)) x‖^2) := by\n    simp_rw [Finset.mul_sum]\n    apply integrable_finsetSum\n    intro i _\n    simpa only [real_inner_self_eq_norm_sq] using weighted_inner_integrable W\n      (dir f ((stdOrthonormalBasis ℝ E) i)) (dir f ((stdOrthonormalBasis ℝ E) i)) hW.continuous\n      (smooth_finite _ (hfd _) 1) (smooth_finite _ (hfd _) 1) (dir_compact f hc _)\n  exact ⟨hL,hG,hH,(curvature_integrable_and_sum W f hW (smooth_finite f hf 1) hc).1,\n    integrated_identity W f hW hf hc,fun m hm => weighted_energy_lower_bound W f hW hf hc m hm⟩\n\nend AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner\n\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/1310.2526v7",
+      "edition": "arXiv:1310.2526v7",
+      "anchor": "Theorem1.1 (1.3), Euclidean compact-test localized component",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+    },
+    "statement": "The weighted Reilly identity in Theorem 1.1 (1.3) is a compact weighted manifold formula with boundary terms. The selected ASTIS background component is its Euclidean smooth compact-test localization, proved directly: on R^d for d>=1, W C2 and f smooth compactly supported, Lf=Delta f-gradient W dot gradient f satisfies integral exp(-W)(Lf)^2 = integral exp(-W)sum_i norm(gradient(D_i f))^2 + integral exp(-W)D2W[gradient f,gradient f]. All tested weighted products are integrable by compact support; global weight integrability is not required. If D2W>=m I, dropping the nonnegative Hessian-square term gives m times weighted gradient energy at most weighted square-generator energy. This selected component does not claim the entire manifold theorem or a spectral gap.",
+    "formulae": [
+      {
+        "label": "Bochner identity and curvature energy",
+        "tex": "\\int e^{-W}(Lf)^2=\\int e^{-W}H_f+\\int e^{-W}D^2W[\\nabla f,\\nabla f],\\qquad m\\int e^{-W}\\|\\nabla f\\|^2\\le\\int e^{-W}(Lf)^2."
+      }
+    ],
+    "assumptions": [
+      "Selected Euclidean localization: d>=1, W:R^d->R C2 and f smooth compactly supported. Haar volume and actual derivatives are used; no global probability normalization is needed for this compact-test formula.",
+      "For the energy consequence only, a real m satisfies D2W(x)[v,v]>=m norm(v)^2 for every x,v. The full background source has compact manifold and boundary hypotheses outside this selected localized component."
+    ],
+    "obligations": [
+      {
+        "id": "weighted-bochner",
+        "label": "Genuine compact-test weighted Bochner identity and integrability"
+      },
+      {
+        "id": "curvature-energy",
+        "label": "Actual curvature square-generator energy estimate"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity",
+      "kind": "theorem",
+      "title": "Weighted Bochner identity from compact-test integration by parts",
+      "statement": "Let E be a finite-dimensional real inner-product space with its Borel structure, W a C2 real potential, and f a smooth compactly supported real function. Put Lf=Delta f-inner(gradient W,gradient f), H_f=sum_i norm(gradient(D_i f))^2 for a fixed orthonormal basis, and C_f=D2W[gradient f,gradient f]. All four weighted functions (Lf)^2, norm(gradient f)^2, H_f and C_f are integrable against exp(-W) times volume. Their actual integrals satisfy the Bochner identity. For every real m with genuine Hessian lower bound D2W(x)[v,v]>=m norm(v)^2, m times weighted gradient energy is at most the weighted square of Lf.",
+      "formula": "\\int e^{-W}(Lf)^2=\\int e^{-W}H_f+\\int e^{-W}D^2W[\\nabla f,\\nabla f],\\qquad m\\int e^{-W}\\|\\nabla f\\|^2\\le\\int e^{-W}(Lf)^2.",
+      "assumptions": [
+        "E is finite-dimensional real inner-product with Borel sigma algebra and canonical volume, including dimension zero.",
+        "W:E->R is C2; f:E->R is C-infinity and compactly supported. No C3 regularity of W is assumed.",
+        "All differential expressions use the actual Frechet derivative, Riesz gradient and canonical Laplacian. H_f is a coordinate Hessian-square expression; no separate abstract Hilbert-Schmidt norm theorem is claimed.",
+        "The identity needs no curvature or global integrability of exp(-W). All tested products are compactly supported. For the energy consequence, m is any real number and its pointwise genuine Hessian lower bound is an explicit premise.",
+        "This is the directly proved Euclidean compact-test localization of the background weighted Reilly formula. Positive-dimensional localization kills boundary terms on an enclosing ball; dimension zero is a disclosed extension, not a full manifold theorem."
+      ],
+      "steps": [
+        {
+          "title": "Prove weighted integration by parts in one direction",
+          "text": "For fixed v set F=exp(-W)g and H=D_v h, where W,g are C1 and h is C2 with compact support. H and D_v H are continuous and vanish outside the support of h. Thus F H, D_v F H and F D_v H are continuous compactly supported products and are genuinely integrable. Apply the Haar-volume integration-by-parts theorem, then expand D_v F=exp(-W)(D_v g-g D_v W). The API is applied to volume, not to a non-Haar Gibbs measure.",
+          "formula": "\\int e^{-W}gD_{vv}h=-\\int e^{-W}(D_vg-gD_vW)D_vh.",
+          "lean": "weighted_directional_ibp derives all three API integrability premises. All helper proofs are local steps inside the single public theorem and included in its full Lean proof."
+        },
+        {
+          "title": "Sum directions to recover the actual Langevin expression",
+          "text": "Sum over the standard orthonormal basis. The diagonal genuine second derivatives sum to the canonical Laplacian, while the products of directional derivatives sum to the inner product of gradients. Finite sums and compact integrability justify splitting the integrals. This gives weighted bilinear IBP for g merely C1; h is C2 compact. No semigroup or generator-domain contract enters.",
+          "formula": "\\int e^{-W}gLh=-\\int e^{-W}\\langle\\nabla g,\\nabla h\\rangle.",
+          "lean": "directional_second and inner_gradient_eq_sum identify the actual derivatives. weighted_bilinear_ibp proves the integral identity rather than assuming it."
+        },
+        {
+          "title": "Differentiate Lf using only the second derivative of W",
+          "text": "Smooth f permits the required directional derivative exchanges. The C2 Hessian symmetry theorem exchanges two genuine derivatives; the product rule gives the differentiated drift. Hence D_i Lf=L(D_i f)-sum_j D_ij W D_j f. W being C2 guarantees Lf is C1; no third derivative of W is used. Compact support is inherited by all directional derivatives and Lf.",
+          "formula": "D_iLf=L(D_if)-\\sum_jD_{ij}W\\,D_jf.",
+          "lean": "dir_comm, op_coords, op_contDiff, op_compact and dir_op are locally proved helpers. The displayed op is the actual Laplacian-minus-drift expression."
+        },
+        {
+          "title": "Apply integration by parts twice",
+          "text": "First use g=Lf and h=f. Expand the gradient inner product in the orthonormal basis and substitute the commutator. For each basis direction use g=h=D_i f in the second IBP. Its negative sign cancels the first IBP sign and yields a positive squared gradient. Every cross term is integrable because a smooth compact derivative of f is one factor.",
+          "formula": "\\int e^{-W}(Lf)^2=\\sum_i\\int e^{-W}\\|\\nabla D_if\\|^2+\\sum_{i,j}\\int e^{-W}D_{ij}W D_ifD_jf.",
+          "lean": "bochner_coordinate_integrals derives both IBP applications and all finite-sum integral exchanges with explicit Integrable witnesses."
+        },
+        {
+          "title": "Recover the genuine Hessian quadratic form",
+          "text": "Expand gradient f in the orthonormal basis using its actual derivative coordinates. Bilinearity and C2 symmetry identify the curvature sum with D2W[gradient f,gradient f]. The sum of squared gradients of D_i f is the coordinate expression for the Hessian Hilbert-Schmidt square. The formal result retains this explicit sum and does not assert a separate abstract norm identification.",
+          "formula": "\\sum_{i,j}D_{ij}W D_ifD_jf=D^2W[\\nabla f,\\nabla f].",
+          "lean": "gradient_basis and curvature_sum provide the pointwise algebra; curvature_integrable_and_sum and integrated_identity preserve genuine integral equalities."
+        },
+        {
+          "title": "Derive the curvature-energy inequality",
+          "text": "All four weighted integrability claims follow from the compact-test proof. If D2W>=m I, multiply the pointwise quadratic-form bound by the nonnegative weight and integrate. The Hessian-square term is nonnegative, so dropping it gives m times the gradient energy at most the square-generator energy. This is an estimate on the actual differential expression, not Poincare or closed-operator coercivity.",
+          "formula": "m\\int e^{-W}\\|\\nabla f\\|^2\\le\\int e^{-W}D^2W[\\nabla f,\\nabla f]\\le\\int e^{-W}(Lf)^2.",
+          "lean": "weighted_energy_lower_bound uses integral_mono with proved integrability; the public theorem packages that result with the full identity and input integrability."
+        }
+      ],
+      "lean_statement": "The public statement retains actual differential expressions and every integrability clause; the m-bound is universally quantified with an explicit genuine curvature premise.",
+      "lean_proof": "Two proved Haar-volume IBP applications, C2 Hessian symmetry and finite-basis algebra yield the identity; nonnegative integration gives the energy bound. All helper proofs are local haves/lets in this complete public proof.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt"
+      ],
+      "mathlib_dependencies": [
+        "integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable",
+        "ContDiffAt.isSymmSndFDerivAt",
+        "InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis",
+        "Continuous.integrable_of_hasCompactSupport",
+        "MeasureTheory.integral_finsetSum",
+        "MeasureTheory.integral_mono"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/1310.2526v7",
+          "label": "Kolesnikov and Milman, weighted Reilly identity, Theorem 1.1 (1.3)",
+          "scope": "Euclidean compact-test localized version proved directly; not the full compact manifold/boundary theorem. Zero dimension is an additional extension."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1",
+          "scope": "Analytic prerequisite for the invoked conditional Poincare inequality. The Bochner edge does not discharge that inequality."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalBochner.lean",
+        "command": "lake build Tests.ProximalBPSConditionalBochner"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity",
+      "role": "proof-edge",
+      "supports": [
+        "weighted-bochner",
+        "curvature-energy"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Selected Euclidean localization: d>=1, W:R^d->R C2 and f smooth compactly supported. Haar volume and actual derivatives are used; no global probability normalization is needed for this compact-test formula.",
+        "lean": "E is finite-dimensional real inner-product with Borel sigma algebra and canonical volume, including dimension zero."
+      },
+      {
+        "source": "Full weighted manifold Reilly formula has boundary terms.",
+        "lean": "Direct whole-space Haar IBP for smooth compact tests, using W C2; all products are integrable."
+      },
+      {
+        "source": "Hessian Hilbert-Schmidt square term.",
+        "lean": "Explicit sum_i norm(gradient(D_i f))^2 using the standard orthonormal basis."
+      },
+      {
+        "source": "Compact-test integral manipulations.",
+        "lean": "Four explicit Integrable conclusions and a universally quantified real lower-curvature parameter."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "20452a807639a55530d313c35319d7f9b0f63c0f47a385b46b378ea88a91c407"
+}
