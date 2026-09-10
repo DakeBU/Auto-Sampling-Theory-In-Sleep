@@ -212,3 +212,46 @@ normalizability, not a stochastic implementation or conditional-kernel proof.
 The existence of a finite threshold-hitting depth is distinct from the precise
 logarithmic schedule in (6.4). That schedule's constants, random history
 measurability, terminal FORS, recursive errors and expected costs remain open.
+
+## Prescribed logarithmic depth: locally proved and source reviewed
+
+The successor cell `ASTIS-SW-SPHMC-logarithmic-depth` has passed the actual
+`PROVED_LOCAL` publication gate. Its sole public theorem is
+`LogarithmicDepth.terminal_depth`. The production module and
+`Tests/SmoothedPicardLogarithmicDepth.lean` passed the focused build (2948 jobs).
+Independent `depth_commit_verifier` replayed the production proof and found
+only standard Lean axioms, without authorizing source or commit admission.
+
+The theorem retains the same actual schedule. For positive natural dimension,
+q≥2, 0<Δ≤1/2, 0<γ≤1 and C≥8, it proves
+
+\[
+L=q+\log(K_0dq/\Delta)\ge2,\qquad
+B=\frac{\gamma}{\sqrt{dL}+L}\in(0,1],\qquad
+J=\left\lceil C\log(eK_0/B)\right\rceil>0,
+\]
+\[
+0<r_J^{-1}\le B,\qquad
+J\le\left(3C+\frac C2\log(1/\gamma)\right)L.
+\]
+
+The terminal constant γ is separate from the heat-schedule constant c.
+The displayed sufficient constants refine the parameter argument; they are
+not author-specified values or a claim that C=8 suffices for every later
+sampler obligation. A universal upper coefficient requires fixed universal γ.
+The terminal consumer uses the actual precision to prove integrability and
+normalization of the terminal Gibbs target in its actual ambient dimension.
+It does not implement FORS or certify its output error or expected work.
+
+Five authored proof steps and source bindings are in
+`website/content/declaration_lessons/sphmc-logarithmic-depth.json` and
+`website/content/publications/sphmc-logarithmic-depth.json`. Independent
+`log_depth_blind_decoder` reconstructed the anonymous proposition;
+`log_depth_source_review` accepted the fresh primary-source packet as
+equivalent after elaboration for the disclosed constant refinement, retaining
+informational precision-representation, constant-dependence and scope deltas.
+Exact local evidence is in `runs/20260911-companion-priority/`.
+This advances the prior open deterministic-depth boundary only. Independent
+commit admission, integration and rendered-reader validation
+remain pending; stochastic history, FORS, recursive errors and expected costs
+remain separate mathematical obligations. Neither complete paper is admitted.

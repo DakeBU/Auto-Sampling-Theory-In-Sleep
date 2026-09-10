@@ -108,3 +108,48 @@ A uniform `J <= C*Lq` requires `gamma` fixed universally or a bound on
 the proposed numerical constants are sufficient witnesses, not author-stated
 values. Terminal FORS, random-kernel semantics, recursive errors and actual-input
 expected costs remain distinct obligations.
+
+## Logarithmic-depth development checkpoint (2026-09-11)
+
+The development proof `runs/20260911-companion-priority/LogDepthDevelopment.lean`
+now checks the ceiling/geometric bridge for every `K>=1`, `0<B<=1`, `C>=8`:
+`M=ceil(5 log K)`, `P=ceil(2 log(1/B))`, and
+`J=ceil(C log(exp(1)*K/B))` imply `(4/5)^M K<2`, `M+1+P<=J`,
+and `(1/2)^P<=B`. A second development example proves
+`2*c*(2*c/(1+2*c))^(J-(M+1))<=B` for `0<c<1/4`, with
+`M+1<=J` proved before using natural subtraction. These are local development
+results, not public production declarations or admission of the complete cell.
+
+Independent read-only mathematical reviewer `depth_source_reviewer` confirmed
+the connection to `parameter_control`: substitute `K=K(r0)`, establish `K>=1`,
+use `N=J-(M+1)` and `M+1+N=J`, then consume its geometric certificate.
+The reviewer did not recompile and did not perform formal source admission.
+
+For the remaining upper bound, the reviewer supplied an elementary route:
+`log 2=log(4/3)+log(3/2)<=1/3+1/2<=7/8`. Applying
+`log x<=x-1` to `Lq/2` gives `log Lq<=Lq/2`. With positive natural
+dimension, `sqrt(d*Lq)+Lq<=2*sqrt(d)*Lq`, hence its logarithm is at most
+`7/8+Lq`. The ceiling slack is absorbed by `1<=C/8` and `2<=Lq`.
+This yields the planned coefficient `3*C+(C/2)*log(1/gamma)`; its Lean proof,
+the production theorem, terminal consumer, reader binding and independent
+semantic/admission audits remain outstanding. No full-paper status changes.
+
+The next development increment completed these Lean calculations and assembled
+`LogarithmicDepth.terminal_depth` in the production module
+`AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/LogarithmicDepth.lean`.
+Its focused `lake env lean` invocation exited zero. It proves the complete
+deterministic contract of the logarithmic-depth cell, including the actual
+`Nat.rec` schedule, positive natural dimension, terminal inverse precision and
+the distinct explicit upper-depth coefficient. All six auxiliary proofs are
+local `have` blocks inside the sole public theorem. This supersedes the earlier
+development-only compilation boundary, but does not yet establish independent
+admission, publication readiness, sampler correctness, or either full paper.
+Read-only reviewer `depth_commit_verifier` independently passed the focused
+proof and standard-axiom checks. The terminal Gibbs consumer also compiled,
+and the actual `PROVED_LOCAL` metadata gate passed. The anonymous decoder
+`log_depth_blind_decoder` reconstructed the statement; fresh primary-source
+review by `log_depth_source_review` accepted the disclosed constant refinement
+as equivalent after elaboration, with three informational domain/constant/scope
+deltas and no blocking discrepancy. Commit-bound verification, integration
+and rendered-reader validation remain pending. This does not certify FORS,
+random history, error propagation, expected costs or either complete paper.

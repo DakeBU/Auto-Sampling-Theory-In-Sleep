@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-logarithmic-depth",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Prescribed logarithmic terminal depth with explicit constants",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Theorem6.5 definition of Lq, equation(6.4), terminal-stage parameter argument; schedule(6.2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+      },
+      "statement": "For every parameter and sequence satisfying the stated assumptions, the actual recursive schedule has L≥2, 0<B≤1, J>0, 0<1/r_J≤B and J≤(3C+(C/2)log(1/γ))L. This is an explicit sufficient-constant refinement of the deterministic parameter argument in equation (6.4). The paper leaves its sufficiently large and small universal constants unspecified; C≥8 is a sufficient witness for this parameter argument alone, not a certified value for all later sampling obligations.",
+      "formulae": [
+        {
+          "label": "prescribed depth and terminal threshold",
+          "tex": "\\begin{gathered}L=q+\\log\\frac{K_0dq}{\\Delta},\\quad B=\\frac{\\gamma}{\\sqrt{dL}+L},\\quad J=\\left\\lceil C\\log\\frac{eK_0}{B}\\right\\rceil,\\\\L\\ge2,\\quad0<B\\le1,\\quad J>0,\\quad0<r_J^{-1}\\le B,\\\\J\\le\\left(3C+\\frac C2\\log\\frac1\\gamma\\right)L.\\end{gathered}"
+        }
+      ],
+      "assumptions": [
+        "Real κ≥1, r₀≥0, 0<c<1/4 and an arbitrary real sequence with 0<ηⱼ≤c for every natural j. Zero initial precision represents infinite regularization.",
+        "Positive natural dimension d, real q≥2, 0<Δ≤1/2, 0<γ≤1 and real C≥8. The schedule constant c and terminal constant γ are distinct.",
+        "Define K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) when K(r)≥2 and c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All later quantities use this actual recursion.",
+        "Let K₀=K(r₀), L=q+log(K₀dq/Δ), B=γ/(sqrt(dL)+L), and J=ceil(C log(eK₀/B)). No contraction, terminal threshold or depth bound is assumed."
+      ],
+      "obligations": [
+        {
+          "id": "log-domain",
+          "label": "Source L and positive terminal threshold"
+        },
+        {
+          "id": "prescribed-terminal",
+          "label": "Actual recursion attains threshold at prescribed depth"
+        },
+        {
+          "id": "depth-upper",
+          "label": "Explicit logarithmic depth upper bound"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth",
+          "cell": "ASTIS-SW-SPHMC-logarithmic-depth",
+          "role": "proof-edge",
+          "supports": [
+            "log-domain",
+            "prescribed-terminal",
+            "depth-upper"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCLogarithmicDepth",
+          "boundary": "Deterministic parameter clause of (6.4) and the terminal precision threshold only. No FORS algorithm, stochastic-kernel or adaptive measurability theorem, divergence guarantee, reference-point construction, expected query cost, or full-paper closure. The explicit final depth coefficient differs from C and depends on gamma; a universal coefficient requires gamma fixed universally.",
+          "assumption_deltas": [
+            {
+              "source": "The paper chooses sufficiently small and large universal constants in (6.4), and reuses generic C in its depth upper bound.",
+              "lean": "0<γ≤1 and C≥8; upper coefficient 3C+(C/2)log(1/γ).",
+              "classification": "source-implicit",
+              "reason": "Provides sufficient numerical witnesses for the parameter clause and exposes dependence on the fixed terminal constant. It does not claim identical numerical C on both sides or sufficiency for other proof clauses."
+            },
+            {
+              "source": "κ≥1, positive dimension, q≥2, 0<Δ≤1/2 and the schedule(6.2) with c₀<1/4.",
+              "lean": "Same domain, natural d>0 and arbitrary admissible η sequence; c denotes c₀ and γ denotes terminal c.",
+              "classification": "same",
+              "reason": "The theorem keeps the two small constants separate and permits zero initial precision."
+            },
+            {
+              "source": "Terminal-stage argument uses the recursive RGO parameter schedule.",
+              "lean": "Only deterministic actual parameters; terminal Gibbs law checked in a separate consumer.",
+              "classification": "same",
+              "reason": "This binding isolates a proof obligation, with stochastic semantics and FORS accuracy/cost expressly remaining outside its conclusion."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

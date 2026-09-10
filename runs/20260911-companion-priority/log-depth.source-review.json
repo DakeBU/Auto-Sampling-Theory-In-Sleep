@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-8d951189da73756d",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "log_depth_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-logarithmic-depth",
+    "anchor": "Theorem6.5 definition of Lq, equation(6.4), terminal-stage parameter argument; schedule(6.2)",
+    "original_text": "Real κ≥1, r₀≥0, 0<c<1/4 and an arbitrary real sequence with 0<ηⱼ≤c for every natural j. Zero initial precision represents infinite regularization.\nPositive natural dimension d, real q≥2, 0<Δ≤1/2, 0<γ≤1 and real C≥8. The schedule constant c and terminal constant γ are distinct.\nDefine K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) when K(r)≥2 and c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All later quantities use this actual recursion.\nLet K₀=K(r₀), L=q+log(K₀dq/Δ), B=γ/(sqrt(dL)+L), and J=ceil(C log(eK₀/B)). No contraction, terminal threshold or depth bound is assumed.\nFor every parameter and sequence satisfying the stated assumptions, the actual recursive schedule has L≥2, 0<B≤1, J>0, 0<1/r_J≤B and J≤(3C+(C/2)log(1/γ))L. This is an explicit sufficient-constant refinement of the deterministic parameter argument in equation (6.4). The paper leaves its sufficiently large and small universal constants unspecified; C≥8 is a sufficient witness for this parameter argument alone, not a certified value for all later sampling obligations.",
+    "text_sha256": "8c189dcaa09ae5770c11c3b1507ee6a3afa1b8c64786b59bfdbb32e8c7186b20"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/LogarithmicDepth.lean",
+    "statement": "∀ {κ c r₀ q Δ γ C : ℝ} {d : ℕ}\n  {η : ℕ → ℝ},\n  1 ≤ κ →\n    0 < c →\n      c < 1 / 4 →\n        0 ≤ r₀ →\n          (∀ (n : ℕ), 0 < η n ∧ η n ≤ c) →\n            0 < d →\n              2 ≤ q →\n                0 < Δ →\n                  Δ ≤ 1 / 2 →\n                    0 < γ →\n                      γ ≤ 1 →\n                        8 ≤ C →\n                          have K := fun r => (1 + r) / (κ⁻¹ + r);\n                          have τ := fun r => if 2 ≤ K r then K r else c;\n                          have a := fun r h => (h + τ r) / (1 + r);\n                          have step := fun r h => r + (a r h)⁻¹;\n                          have r := fun t => Nat.rec r₀ (fun j r => step r (η j)) t;\n                          have L := q + Real.log (K r₀ * ↑d * q / Δ);\n                          have B := γ / (√(↑d * L) + L);\n                          have J := ⌈C * Real.log (Real.exp 1 * K r₀ / B)⌉₊;\n                          2 ≤ L ∧\n                            (0 < B ∧ B ≤ 1) ∧\n                              0 < J ∧ 0 < (r J)⁻¹ ∧ (r J)⁻¹ ≤ B ∧ ↑J ≤ (3 * C + C / 2 * Real.log (1 / γ)) * L",
+    "statement_sha256": "446b6496805b78994b4f9f19506bf12b8662162bcb0bb3365bc0f2c643b4b8c6",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "任取实数 κ,c,r₀,q,Δ,γ,C、自然数 d 以及实数序列 η:ℕ→ℝ。假设 1≤κ，0<c<1/4，r₀≥0；对每个 n∈ℕ 有 0<ηₙ≤c；并且 d>0，q≥2，0<Δ≤1/2，0<γ≤1，C≥8。\n定义 K(x)=(1+x)/(κ⁻¹+x)，τ(x)=K(x) 当 K(x)≥2，τ(x)=c 当 K(x)<2；a(x,h)=(h+τ(x))/(1+x)，step(x,h)=x+a(x,h)⁻¹。\n定义 r(0)=r₀，r(n+1)=r(n)+((ηₙ+τ(r(n)))/(1+r(n)))⁻¹。\n再定义 L=q+log(K(r₀)dq/Δ)，B=γ/(sqrt(dL)+L)，J=ceil_N(C log(exp(1)K(r₀)/B))。\n其中实数公式中的 d,J 表示自然数到实数的强制转换。则同时成立 L≥2，0<B≤1，J>0，0<r(J)⁻¹≤B，以及 (J:ℝ)≤(3C+(C/2)log(1/γ))L。\n所有参数均为全称量化，q 不要求为整数；序列条件包括零指标。局部定义作用于后续整个结论，不是额外的存在见证或独立假设。所有不等式为确定性数值断言，无概率、几乎处处或渐近意义；没有假设序列收缩，也没有断言 J 是最小满足指标。\n实数逆在零处定义为零。允许 r(0)=0，但结论明确要求 J>0 与 r(J)⁻¹>0。由假设 κ>0；对 x≥0，各实际步长分母正，递推精度非负且增量正。初始对数自变量至少为四。L≥2 与 d≥1 保证 dL>0 和 sqrt(dL)+L>0；B>0、γ>0 保证相应对数自变量正。\n自然数 ceiling 在自变量非正时为零，正时为不小于自变量的最小自然数。因此不能只由 ceiling 记号推出 J>0。平方根为非负实平方根。\nK 依赖 κ；τ 依赖 κ,c；递推依赖 κ,c,r₀,η；L 依赖 κ,r₀,d,q,Δ；B 再依赖 γ；J 再依赖 C。所给 J 不依赖 c 或具体 η，并对所有 admissible 序列统一有效。最终系数恰为 3C+(C/2)log(1/γ)，没有未明示常数。",
+    "text_sha256": "05b825d5bafcd4c3433078bd79f1a06e872fae12ed0a7e947a880fdef3d0ae8c",
+    "decoder": "log_depth_blind_decoder",
+    "decoder_packet_sha256": "ddfd941a3b0362abd25190848545e0b03f113c2349e0ad1273fd370e1d07e13c",
+    "decoder_run_sha256": "b91bef0d96dcbed4cc90268cb1d08f160c85e8783a463d9ed0c21191b81644af",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "b7d8dccccca8ffa7b37bc0263464c535e018a006af1e72353111ec959d764527",
+  "candidate_publication_context": {
+    "file": "e62a222e170ad692575cb733b088ffb072b4a46b0031ebf4db4dd4226231476c",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth\nimport Mathlib.Analysis.SpecialFunctions.Log.Basic\nimport Mathlib.Algebra.Order.Floor.Semiring\n\n/-!\n# Prescribed logarithmic depth for the actual recursive RGO schedule\n\nSource: arXiv:2609.06906v1, Theorem 6.5, equation (6.4).\nThe explicit sufficient depth constant is at least eight. The final upper-bound\ncoefficient retains its dependence on the fixed terminal-threshold constant.\nThis deterministic parameter result does not establish sampler error or cost.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth\n\n/-- The actual schedule reaches the source terminal variance threshold at the\nprescribed logarithmic stage. The upper-depth coefficient is explicit and is\ndistinct from the coefficient defining that stage. -/\ntheorem terminal_depth {κ c r₀ q Δ γ C : ℝ} {d : ℕ} {η : ℕ → ℝ}\n    (hκ : 1 ≤ κ) (hc : 0 < c) (hc1 : c < 1/4) (hr₀ : 0 ≤ r₀)\n    (hη : ∀ n, 0 < η n ∧ η n ≤ c) (hd : 0 < d) (hq : 2 ≤ q)\n    (hΔ : 0 < Δ) (hΔ1 : Δ ≤ 1/2) (hγ : 0 < γ) (hγ1 : γ ≤ 1) (hC : 8 ≤ C) :\n    let K := fun r : ℝ => (1+r)/(κ⁻¹+r)\n    let τ := fun r : ℝ => if 2 ≤ K r then K r else c\n    let a := fun r h : ℝ => (h+τ r)/(1+r)\n    let step := fun r h : ℝ => r+(a r h)⁻¹\n    let r : ℕ → ℝ := Nat.rec r₀ (fun j r => step r (η j))\n    let L := q+Real.log (K r₀*d*q/Δ)\n    let B := γ/(Real.sqrt (d*L)+L)\n    let J := Nat.ceil (C*Real.log (Real.exp 1*K r₀/B))\n    2 ≤ L ∧ (0 < B ∧ B ≤ 1) ∧ 0 < J ∧ 0 < (r J)⁻¹ ∧ (r J)⁻¹ ≤ B ∧\n      (J:ℝ) ≤ (3*C+(C/2)*Real.log (1/γ))*L := by\n  have depth_indices {K B C : ℝ} (hK : 1 ≤ K) (hB : 0 < B) (hB1 : B ≤ 1)\n      (hC : 8 ≤ C) :\n      let M := Nat.ceil (5 * Real.log K)\n      let P := Nat.ceil (2 * Real.log (1 / B))\n      let J := Nat.ceil (C * Real.log (Real.exp 1 * K / B))\n      (4 / 5 : ℝ)^M * K < 2 ∧ M + 1 + P ≤ J ∧\n        (1 / 2 : ℝ)^P ≤ B := by\n    dsimp only\n    have hKpos : 0 < K := by linarith\n    have hL : 0 ≤ Real.log K := Real.log_nonneg hK\n    have hH : 0 ≤ Real.log (1 / B) := Real.log_nonneg ((one_le_div hB).2 hB1)\n    have hlog : Real.log (Real.exp 1 * K / B) =\n        1 + Real.log K + Real.log (1 / B) := by\n      rw [Real.log_div (mul_pos (Real.exp_pos _) hKpos).ne' hB.ne',\n        Real.log_mul (Real.exp_pos _).ne' hKpos.ne', Real.log_exp]\n      simp [sub_eq_add_neg]\n    have hM := Nat.le_ceil (5 * Real.log K)\n    have hP := Nat.le_ceil (2 * Real.log (1 / B))\n    have hMupper := Nat.ceil_lt_add_one (mul_nonneg (by norm_num : (0:ℝ) ≤ 5) hL)\n    have hPupper := Nat.ceil_lt_add_one (mul_nonneg (by norm_num : (0:ℝ) ≤ 2) hH)\n    have hfour : Real.log (4 / 5 : ℝ) ≤ -(1 / 5) := by\n      have := Real.log_le_sub_one_of_pos (by norm_num : (0:ℝ) < 4/5)\n      linarith\n    have hhalf : Real.log (1 / 2 : ℝ) ≤ -(1 / 2) := by\n      have := Real.log_le_sub_one_of_pos (by norm_num : (0:ℝ) < 1/2)\n      linarith\n    have hentry : (4 / 5 : ℝ)^⌈5 * Real.log K⌉₊ * K ≤ 1 := by\n      apply (Real.log_le_log_iff (mul_pos (pow_pos (by norm_num) _) hKpos) zero_lt_one).1\n      rw [Real.log_mul (pow_pos (by norm_num : (0:ℝ)<4/5) _).ne' hKpos.ne',\n        Real.log_pow, Real.log_one]\n      nlinarith [mul_le_mul_of_nonneg_left hfour\n        (Nat.cast_nonneg (⌈5 * Real.log K⌉₊) : (0:ℝ) ≤ _)]\n    refine ⟨lt_of_le_of_lt hentry (by norm_num), ?_, ?_⟩\n    · have hJ := Nat.le_ceil (C * Real.log (Real.exp 1 * K / B))\n      rw [hlog] at hJ\n      have hlarge : 8 * (1 + Real.log K + Real.log (1 / B)) ≤\n          C * (1 + Real.log K + Real.log (1 / B)) :=\n        mul_le_mul_of_nonneg_right hC (by linarith)\n      have : ((⌈5 * Real.log K⌉₊ + 1 + ⌈2 * Real.log (1 / B)⌉₊ : ℕ) : ℝ) ≤\n          (⌈C * Real.log (Real.exp 1 * K / B)⌉₊ : ℝ) := by\n        rw [hlog]\n        push_cast\n        linarith\n      exact_mod_cast this\n    · apply (Real.log_le_log_iff (pow_pos (by norm_num) _) hB).1\n      rw [Real.log_pow]\n      have hneg : Real.log (1 / B) = -Real.log B := by simp\n      have hPbound : -2 * Real.log B ≤ (⌈2 * Real.log (1 / B)⌉₊ : ℝ) := by\n        calc\n          -2 * Real.log B = 2 * Real.log (1 / B) := by rw [hneg]; ring\n          _ ≤ _ := hP\n      nlinarith [mul_le_mul_of_nonneg_left hhalf\n        (Nat.cast_nonneg (⌈2 * Real.log (1 / B)⌉₊) : (0:ℝ) ≤ _)]\n\n  -- The remaining index budget gives the needed variance contraction directly.\n\n  have remaining_contraction {K B C c : ℝ} (hK : 1 ≤ K) (hB : 0 < B) (hB1 : B ≤ 1)\n      (hC : 8 ≤ C) (hc : 0 < c) (hc1 : c < 1/4) :\n      let M := Nat.ceil (5 * Real.log K)\n      let J := Nat.ceil (C * Real.log (Real.exp 1 * K / B))\n      M + 1 ≤ J ∧ 2*c*(2*c/(1+2*c))^(J-(M+1)) ≤ B := by\n    dsimp only\n    obtain ⟨_, hidx, _⟩ := depth_indices hK hB hB1 hC\n\n    have hm : ⌈5 * Real.log K⌉₊ + 1 ≤ ⌈C * Real.log (Real.exp 1 * K / B)⌉₊ := by omega\n    refine ⟨hm, ?_⟩\n    let N := ⌈C * Real.log (Real.exp 1 * K / B)⌉₊ - (⌈5 * Real.log K⌉₊ + 1)\n    have hpN : ⌈2 * Real.log (1 / B)⌉₊ ≤ N := by dsimp [N]; omega\n    have hn : 2 * Real.log (1 / B) ≤ (N : ℝ) :=\n      (Nat.le_ceil _).trans (by exact_mod_cast hpN)\n    have hrpos : 0 < 2*c/(1+2*c) := div_pos (by linarith) (by linarith)\n    have hrhalf : 2*c/(1+2*c) ≤ 1/2 := (div_le_iff₀ (by linarith)).2 (by nlinarith)\n    have hlog : Real.log (2*c/(1+2*c)) ≤ -(1/2) := by\n      have h := Real.log_le_sub_one_of_pos hrpos\n      linarith\n    have hpow : (2*c/(1+2*c))^N ≤ B := by\n      apply (Real.log_le_log_iff (pow_pos hrpos _) hB).1\n      rw [Real.log_pow]\n      have hneg : Real.log (1 / B) = -Real.log B := by simp\n      rw [hneg] at hn\n      nlinarith [mul_le_mul_of_nonneg_left hlog (Nat.cast_nonneg N : (0:ℝ) ≤ _)]\n    calc\n      2*c*(2*c/(1+2*c))^N ≤ 1*(2*c/(1+2*c))^N :=\n        mul_le_mul_of_nonneg_right (by linarith) (pow_nonneg hrpos.le _)\n      _ ≤ B := by simpa using hpow\n\n  have denominator_log {d L : ℝ} (hd : 1 ≤ d) (hL : 2 ≤ L)\n      (hld : Real.log d ≤ L) :\n      Real.log (Real.sqrt (d*L) + L) ≤ 7/8 + L := by\n    have hd0 : 0 < d := by linarith\n    have hL0 : 0 < L := by linarith\n    have htwo : Real.log 2 ≤ (7/8:ℝ) := by\n      have h₁ := Real.log_le_sub_one_of_pos (by norm_num : (0:ℝ)<4/3)\n      have h₂ := Real.log_le_sub_one_of_pos (by norm_num : (0:ℝ)<3/2)\n      have heq : Real.log (2:ℝ) = Real.log (4/3) + Real.log (3/2) := by\n        rw [← Real.log_mul (by norm_num : (4/3:ℝ)≠0) (by norm_num : (3/2:ℝ)≠0)]\n        norm_num\n      linarith\n    have hlogL : Real.log L ≤ L/2 := by\n      have h := Real.log_le_sub_one_of_pos (div_pos hL0 (by norm_num : (0:ℝ)<2))\n      rw [Real.log_div hL0.ne' (by norm_num : (2:ℝ)≠0)] at h\n      linarith\n    have hsL : Real.sqrt L ≤ L := Real.sqrt_le_self_iff.2 (Or.inr (by linarith))\n    have hsd : 1 ≤ Real.sqrt d := by\n      have := Real.sqrt_le_sqrt hd\n      simpa using this\n    have hbound : Real.sqrt (d*L) + L ≤ 2*Real.sqrt d*L := by\n      rw [Real.sqrt_mul hd0.le]\n      nlinarith [mul_le_mul_of_nonneg_left hsL (Real.sqrt_nonneg d),\n        mul_le_mul_of_nonneg_right hsd hL0.le]\n    have hp : 0 < Real.sqrt (d*L)+L := add_pos_of_nonneg_of_pos (Real.sqrt_nonneg _) hL0\n    have hsd0 : 0 < Real.sqrt d := by linarith\n    have hlog := Real.log_le_log hp hbound\n    rw [Real.log_mul (mul_pos (by norm_num : (0:ℝ)<2) hsd0).ne' hL0.ne',\n      Real.log_mul (by norm_num : (2:ℝ)≠0) hsd0.ne', Real.log_sqrt hd0.le] at hlog\n    linarith\n\n  have depth_upper {K d L γ C : ℝ} (hK : 1 ≤ K) (hd : 1 ≤ d)\n      (hL : 2 ≤ L) (hlogK : Real.log K ≤ L) (hlogd : Real.log d ≤ L)\n      (hγ : 0 < γ) (hγ1 : γ ≤ 1) (hC : 8 ≤ C) :\n      let B := γ / (Real.sqrt (d*L)+L)\n      (Nat.ceil (C * Real.log (Real.exp 1 * K / B)) : ℝ) ≤\n        (3*C+(C/2)*Real.log (1/γ))*L := by\n    let D := Real.sqrt (d*L)+L\n    have hD : 0 < D := by dsimp [D]; positivity\n    have hD2 : 2 ≤ D := by dsimp [D]; linarith [Real.sqrt_nonneg (d*L)]\n    have hK0 : 0 < K := by linarith\n    have hC0 : 0 ≤ C := by linarith\n    have hB : 0 < γ/D := div_pos hγ hD\n    have hB1 : γ/D ≤ 1 := (div_le_one hD).2 (by linarith)\n    have hG : 0 ≤ Real.log (1/γ) := Real.log_nonneg ((one_le_div hγ).2 hγ1)\n    have hlogD : Real.log D ≤ 7/8+L := denominator_log hd hL hlogd\n    have heq : Real.log (Real.exp 1*K/(γ/D)) =\n        1 + Real.log K + Real.log D + Real.log (1/γ) := by\n      rw [Real.log_div (mul_pos (Real.exp_pos _) hK0).ne' hB.ne',\n        Real.log_mul (Real.exp_pos _).ne' hK0.ne', Real.log_exp,\n        Real.log_div hγ.ne' hD.ne']\n      simp only [one_div, Real.log_inv]\n      ring\n    have hx : 0 ≤ C * Real.log (Real.exp 1*K/(γ/D)) := by\n      apply mul_nonneg hC0\n      rw [Real.log_div (mul_pos (Real.exp_pos _) hK0).ne' hB.ne',\n        Real.log_mul (Real.exp_pos _).ne' hK0.ne', Real.log_exp]\n      have := Real.log_nonneg hK\n      have := Real.log_nonpos hB.le hB1\n      linarith\n    have hceil := Nat.ceil_lt_add_one hx\n    rw [heq] at hceil\n    have hxupper : C*(1+Real.log K+Real.log D+Real.log (1/γ)) ≤\n        C*(1+L+(7/8+L)+Real.log (1/γ)) :=\n      mul_le_mul_of_nonneg_left (by linarith) hC0\n    have hCG : 0 ≤ C*Real.log (1/γ) := mul_nonneg hC0 hG\n    have hscale := mul_le_mul_of_nonneg_left hL hCG\n    have hscaleC := mul_le_mul_of_nonneg_left hL hC0\n    change (Nat.ceil (C * Real.log (Real.exp 1*K/(γ/D))) : ℝ) ≤ _\n    rw [heq]\n    nlinarith\n\n  have source_log_domain {K q Δ : ℝ} {d : ℕ} (hK : 1 ≤ K)\n      (hd : 0 < d) (hq : 2 ≤ q) (hΔ : 0 < Δ) (hΔ1 : Δ ≤ 1/2) :\n      let L := q + Real.log (K*d*q/Δ)\n      2 ≤ L ∧ Real.log K ≤ L ∧ Real.log (d:ℝ) ≤ L := by\n    have hK0 : 0 < K := by linarith\n    have hd1 : (1:ℝ) ≤ d := by exact_mod_cast hd\n    have hd0 : (0:ℝ) < d := by linarith\n    have hq0 : 0 < q := by linarith\n    have hq1 : 1 ≤ q := by linarith\n    have hΔone : Δ ≤ 1 := by linarith\n    have heq : Real.log (K*d*q/Δ) =\n        Real.log K + Real.log (d:ℝ) + Real.log q - Real.log Δ := by\n      rw [Real.log_div (mul_pos (mul_pos hK0 hd0) hq0).ne' hΔ.ne',\n        Real.log_mul (mul_pos hK0 hd0).ne' hq0.ne', Real.log_mul hK0.ne' hd0.ne']\n    have := Real.log_nonneg hK\n    have := Real.log_nonneg hd1\n    have := Real.log_nonneg hq1\n    have := Real.log_nonpos hΔ.le hΔone\n    dsimp only\n    rw [heq]\n    constructor\n    · linarith\n    constructor <;> linarith\n\n  have actual_terminal {κ c r₀ B C : ℝ} {η : ℕ → ℝ}\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hc1 : c < 1/4) (hr₀ : 0 ≤ r₀)\n      (hη : ∀ n, 0 < η n ∧ η n ≤ c)\n      (hB : 0 < B) (hB1 : B ≤ 1) (hC : 8 ≤ C) :\n      let K := fun r : ℝ => (1+r)/(κ⁻¹+r)\n      let τ := fun r : ℝ => if 2 ≤ K r then K r else c\n      let a := fun r h : ℝ => (h+τ r)/(1+r)\n      let step := fun r h : ℝ => r+(a r h)⁻¹\n      let r : ℕ → ℝ := Nat.rec r₀ (fun j r => step r (η j))\n      let J := Nat.ceil (C*Real.log (Real.exp 1*K r₀/B))\n      0 < J ∧ 0 < (r J)⁻¹ ∧ (r J)⁻¹ ≤ B := by\n    dsimp only\n    let K := fun r : ℝ => (1+r)/(κ⁻¹+r)\n    let τ := fun r : ℝ => if 2 ≤ K r then K r else c\n    let a := fun r h : ℝ => (h+τ r)/(1+r)\n    let step := fun r h : ℝ => r+(a r h)⁻¹\n    let r : ℕ → ℝ := Nat.rec r₀ (fun j r => step r (η j))\n    let M := Nat.ceil (5*Real.log (K r₀))\n    let J := Nat.ceil (C*Real.log (Real.exp 1*K r₀/B))\n    have hκ0 : 0 < κ := by linarith\n    have hK : 1 ≤ K r₀ := by\n      apply (one_le_div (add_pos_of_pos_of_nonneg (inv_pos.mpr hκ0) hr₀)).2\n      have := (inv_le_one₀ hκ0).2 hκ\n      linarith\n    have hentry : (4/5:ℝ)^M*K r₀ < 2 := (depth_indices hK hB hB1 hC).1\n    obtain ⟨hm, hbound⟩ := remaining_contraction hK hB hB1 hC hc hc1\n    change M+1 ≤ J at hm\n    have hid : M+1+(J-(M+1)) = J := Nat.add_sub_of_le hm\n    have hcontrol :=\n      AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control\n        hκ hc hc1 hr₀ hη\n    have hterminal : 0 < (r (M+1+(J-(M+1))))⁻¹ ∧\n        (r (M+1+(J-(M+1))))⁻¹ ≤ 2*c*(2*c/(1+2*c))^(J-(M+1)) :=\n      hcontrol.2.2.2.1 M (J-(M+1)) hentry\n    rw [hid] at hterminal\n    change 0 < J ∧ 0 < (r J)⁻¹ ∧ (r J)⁻¹ ≤ B\n    exact ⟨by omega, hterminal.1, hterminal.2.trans hbound⟩\n\n  dsimp only\n  let K := fun r : ℝ => (1+r)/(κ⁻¹+r)\n  let L := q+Real.log (K r₀*d*q/Δ)\n  let B := γ/(Real.sqrt (d*L)+L)\n  have hκ0 : 0 < κ := by linarith\n  have hK : 1 ≤ K r₀ := by\n    apply (one_le_div (add_pos_of_pos_of_nonneg (inv_pos.mpr hκ0) hr₀)).2\n    have := (inv_le_one₀ hκ0).2 hκ\n    linarith\n  obtain ⟨hL, hlogK, hlogd⟩ := source_log_domain hK hd hq hΔ hΔ1\n  change 2 ≤ L at hL\n  have hD : 0 < Real.sqrt (d*L)+L := by positivity\n  have hB : 0 < B := div_pos hγ hD\n  have hB1 : B ≤ 1 := (div_le_one hD).2 (by linarith [Real.sqrt_nonneg ((d:ℝ)*L)])\n  obtain ⟨hJ, hpos, hterm⟩ := actual_terminal hκ hc hc1 hr₀ hη hB hB1 hC\n  have hd1 : (1:ℝ) ≤ d := by exact_mod_cast hd\n  exact ⟨hL, ⟨hB, hB1⟩, hJ, hpos, hterm,\n    depth_upper hK hd1 hL hlogK hlogd hγ hγ1 hC⟩\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Theorem6.5 definition of Lq, equation(6.4), terminal-stage parameter argument; schedule(6.2)",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+    },
+    "statement": "For every parameter and sequence satisfying the stated assumptions, the actual recursive schedule has L≥2, 0<B≤1, J>0, 0<1/r_J≤B and J≤(3C+(C/2)log(1/γ))L. This is an explicit sufficient-constant refinement of the deterministic parameter argument in equation (6.4). The paper leaves its sufficiently large and small universal constants unspecified; C≥8 is a sufficient witness for this parameter argument alone, not a certified value for all later sampling obligations.",
+    "formulae": [
+      {
+        "label": "prescribed depth and terminal threshold",
+        "tex": "\\begin{gathered}L=q+\\log\\frac{K_0dq}{\\Delta},\\quad B=\\frac{\\gamma}{\\sqrt{dL}+L},\\quad J=\\left\\lceil C\\log\\frac{eK_0}{B}\\right\\rceil,\\\\L\\ge2,\\quad0<B\\le1,\\quad J>0,\\quad0<r_J^{-1}\\le B,\\\\J\\le\\left(3C+\\frac C2\\log\\frac1\\gamma\\right)L.\\end{gathered}"
+      }
+    ],
+    "assumptions": [
+      "Real κ≥1, r₀≥0, 0<c<1/4 and an arbitrary real sequence with 0<ηⱼ≤c for every natural j. Zero initial precision represents infinite regularization.",
+      "Positive natural dimension d, real q≥2, 0<Δ≤1/2, 0<γ≤1 and real C≥8. The schedule constant c and terminal constant γ are distinct.",
+      "Define K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) when K(r)≥2 and c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All later quantities use this actual recursion.",
+      "Let K₀=K(r₀), L=q+log(K₀dq/Δ), B=γ/(sqrt(dL)+L), and J=ceil(C log(eK₀/B)). No contraction, terminal threshold or depth bound is assumed."
+    ],
+    "obligations": [
+      {
+        "id": "log-domain",
+        "label": "Source L and positive terminal threshold"
+      },
+      {
+        "id": "prescribed-terminal",
+        "label": "Actual recursion attains threshold at prescribed depth"
+      },
+      {
+        "id": "depth-upper",
+        "label": "Explicit logarithmic depth upper bound"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth",
+      "kind": "theorem",
+      "title": "Prescribed logarithmic terminal depth with explicit constants",
+      "statement": "For every parameter and sequence satisfying the stated assumptions, the actual recursive schedule has L≥2, 0<B≤1, J>0, 0<1/r_J≤B and J≤(3C+(C/2)log(1/γ))L. This is an explicit sufficient-constant refinement of the deterministic parameter argument in equation (6.4). The paper leaves its sufficiently large and small universal constants unspecified; C≥8 is a sufficient witness for this parameter argument alone, not a certified value for all later sampling obligations.",
+      "formula": "\\begin{gathered}L=q+\\log\\frac{K_0dq}{\\Delta},\\quad B=\\frac{\\gamma}{\\sqrt{dL}+L},\\quad J=\\left\\lceil C\\log\\frac{eK_0}{B}\\right\\rceil,\\\\L\\ge2,\\quad0<B\\le1,\\quad J>0,\\quad0<r_J^{-1}\\le B,\\\\J\\le\\left(3C+\\frac C2\\log\\frac1\\gamma\\right)L.\\end{gathered}",
+      "assumptions": [
+        "Real κ≥1, r₀≥0, 0<c<1/4 and an arbitrary real sequence with 0<ηⱼ≤c for every natural j. Zero initial precision represents infinite regularization.",
+        "Positive natural dimension d, real q≥2, 0<Δ≤1/2, 0<γ≤1 and real C≥8. The schedule constant c and terminal constant γ are distinct.",
+        "Define K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) when K(r)≥2 and c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All later quantities use this actual recursion.",
+        "Let K₀=K(r₀), L=q+log(K₀dq/Δ), B=γ/(sqrt(dL)+L), and J=ceil(C log(eK₀/B)). No contraction, terminal threshold or depth bound is assumed."
+      ],
+      "steps": [
+        {
+          "title": "Establish the logarithmic domain",
+          "text": "Since K₀,d≥1, q≥2 and Δ≤1/2, expand the logarithm of K₀dq/Δ. Its component signs yield L≥2, log K₀≤L and log d≤L. The denominator sqrt(dL)+L is positive and at least two, so 0<B≤1.",
+          "formula": "L\\ge2,\\quad\\log K_0\\le L,\\quad\\log d\\le L,\\quad0<B\\le1.",
+          "lean": "Local source_log_domain proves the three bounds; the final proof establishes the threshold signs."
+        },
+        {
+          "title": "Budget the two geometric phases",
+          "text": "Set M=ceil(5 log K₀), P=ceil(2 log(1/B)). The inequality log x≤x−1 gives log(4/5)≤−1/5 and log(1/2)≤−1/2. Thus (4/5)^M K₀≤1<2. Ceiling bounds and C≥8 give M+1+P≤J, retaining the first guaranteed finite step.",
+          "formula": "M+1+P<5\\log K_0+2\\log(1/B)+3\\le C(1+\\log K_0+\\log(1/B))\\le J.",
+          "lean": "Local depth_indices proves the entry certificate and exact natural index budget."
+        },
+        {
+          "title": "Consume the actual recursive certificate",
+          "text": "Set N=J−(M+1) only after proving M+1≤J. Then M+1+N=J and N≥P. With ρ=2c/(1+2c)≤1/2, the logarithmic estimate gives ρ^N≤B. The existing actual-schedule theorem therefore yields positive A_J=r_J⁻¹≤2cρ^N≤B, including r₀=0.",
+          "formula": "0<A_J\\le2c\\rho^{J-(M+1)}\\le B.",
+          "lean": "remaining_contraction controls the tail; actual_terminal calls RecursiveDepth.parameter_control and rewrites the precise natural index identity."
+        },
+        {
+          "title": "Bound the threshold denominator",
+          "text": "Write D=sqrt(dL)+L. Split 2=(4/3)(3/2) to obtain log 2≤5/6≤7/8. Apply log x≤x−1 to L/2 to get log L≤L/2. Since sqrt L≤L and sqrt d≥1, D≤2 sqrt d L, so log D≤7/8+L.",
+          "formula": "\\log D\\le\\log2+\\tfrac12\\log d+\\log L\\le\\tfrac78+L.",
+          "lean": "Local denominator_log proves the square-root product comparison and all positive-domain logarithm identities."
+        },
+        {
+          "title": "Absorb the ceiling slack with explicit constants",
+          "text": "Put G=log(1/γ)≥0. Expanding log(eK₀/B) and using the denominator estimate gives J<C(1+2L+7/8+G)+1. Since C≥8 and L≥2, 15C/8+1≤2C≤CL and CG≤(C/2)GL. This yields the displayed upper bound with its separate coefficient.",
+          "formula": "J\\le(3C+(C/2)G)L,\\qquad G=\\log(1/\\gamma)\\ge0.",
+          "lean": "Local depth_upper uses Nat.ceil_lt_add_one after establishing nonnegativity of its argument."
+        }
+      ],
+      "lean_statement": "Eight local definitions expose the exact schedule and L, B, J. All parameters are universally quantified; positive natural dimension is explicit.",
+      "lean_proof": "Six local helper proofs feed one public theorem. The existing recursive certificate is an actual proof dependency. The consumer test uses the terminal precision to obtain an integrable, normalized Gibbs target in its actual finite dimension; it does not implement FORS.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control"
+      ],
+      "mathlib_dependencies": [
+        "Real.log_le_sub_one_of_pos",
+        "Real.log_pow",
+        "Real.log_le_log_iff",
+        "Real.log_sqrt",
+        "Real.sqrt_mul",
+        "Nat.le_ceil",
+        "Nat.ceil_lt_add_one"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1, Theorem 6.5 (6.4)",
+          "scope": "Expanded deterministic parameter argument; explicit constants are ASTIS sufficient witnesses."
+        }
+      ],
+      "tests": {
+        "file": "Tests/SmoothedPicardLogarithmicDepth.lean",
+        "command": "lake build Tests.SmoothedPicardLogarithmicDepth"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth",
+      "role": "proof-edge",
+      "supports": [
+        "log-domain",
+        "prescribed-terminal",
+        "depth-upper"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "The paper chooses sufficiently small and large universal constants in (6.4), and reuses generic C in its depth upper bound.",
+        "lean": "0<γ≤1 and C≥8; upper coefficient 3C+(C/2)log(1/γ)."
+      },
+      {
+        "source": "κ≥1, positive dimension, q≥2, 0<Δ≤1/2 and the schedule(6.2) with c₀<1/4.",
+        "lean": "Same domain, natural d>0 and arbitrary admissible η sequence; c denotes c₀ and γ denotes terminal c."
+      },
+      {
+        "source": "Terminal-stage argument uses the recursive RGO parameter schedule.",
+        "lean": "Only deterministic actual parameters; terminal Gibbs law checked in a separate consumer."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "371df22c82f5c754a9300844989aaf8b17c2bfcf54ac1bef2141bab5b8c79519"
+}
