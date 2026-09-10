@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-8897dbc4d727933b",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {A B : Type*} [MeasurableSpace A] [MeasurableSpace B] (μ ν : MeasureTheory.Measure A) [MeasureTheory.IsProbabilityMeasure μ] [MeasureTheory.IsProbabilityMeasure ν] (K : ProbabilityTheory.Kernel A B) [ProbabilityTheory.IsMarkovKernel K] {δ : ℝ}, (∀ s : Set A, MeasurableSet s → |μ.real s - ν.real s| ≤ δ) → ∀ t : Set B, MeasurableSet t → |(K ∘ₘ μ).real t - (K ∘ₘ ν).real t| ≤ δ",
+    "statement_sha256": "8897dbc4d727933b7cedc20f7c15b3c2c1900535b8aa791f78483097db12324a",
+    "compiled": true,
+    "approved_definition_context": [
+      "A and B carry arbitrary sigma algebras. MeasureTheory.Measure A is a measure on the measurable space A. IsProbabilityMeasure ρ means ρ has total mass one. For a finite-mass event S, ρ.real S is its ordinary real measure, the toReal of its extended nonnegative measure.",
+      "ProbabilityTheory.Kernel A B assigns a measure K x on B to each x in A and requires x↦K x T to be measurable for every measurable T. IsMarkovKernel K means every K x is a probability measure. K ∘ₘ ρ is the measure on B defined by integrating these transition measures against the input measure ρ.",
+      "MeasurableSet s says the subset belongs to the given sigma algebra. ∀ s followed by MeasurableSet s → quantifies over all measurable events. Absolute value and ≤ are ordinary real operations. There is no implicit topology, density, coupling or additional inequality assumed."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "27404c64285c1b67d86b420b9e0ccf0355c8fb8eda8a79ce3b5919a71b9fdd94"
+}

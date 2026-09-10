@@ -110,3 +110,24 @@ representation, symmetry, the Rayleigh norm bound and the mean-value theorem.
 Specialize $m=\kappa^{-1},L=1,r=A^{-1}$; $r=0$ covers $A=\infty$.
 The source condition-number substitution, actual recursive sampler and its
 error/query bills remain separate. No invariant-law conclusion is inferred.
+
+## Common-kernel TV error transfer
+
+The shared `KernelTotalVariation.abs_real_comp_sub_le` now proves the selected
+data-processing step in Section 7.2, proof of Theorem 1.3:
+
+$$\sup_S|\mu(S)-\nu(S)|\le\delta
+\quad\Longrightarrow\quad
+\sup_T|(\mu K)(T)-(\nu K)(T)|\le\delta.$$
+
+Both input laws are probabilities and K is an actual common measurable Markov
+kernel. The proof derives bounded input integrability and both layer integrals
+over $(0,1]$; its measure is one, so the factor is exactly one. No density or
+Standard Borel assumption is introduced. A focused consumer adds a separately
+assumed proxy mixing error by triangle. It does not transfer unbounded query
+costs. The four-step lesson and separate folded Lean are generated from
+`markov-tv-contraction.json`; the cell records exact admission status.
+
+Next dependency-ready route: an explicit RGO Markov kernel with a genuine
+joint-law disintegration certificate. See the bounded synthesis in
+`runs/20260910-companion-priority/next-rgo-packet.md`; it is a plan, not a proof.

@@ -402,3 +402,18 @@ Chromium installer was stopped; no ASTIS background session was created.
 Final site build, graph projection, visual inspection and online deployment
 are performed after this metadata commit. Their actual outcomes will be
 reported in the current thread; none is inferred from this checkpoint.
+
+## Published release and tenth proof edge
+
+The nine-result release actually reached GitHub main and public Pages at
+f0b50de65ecea87c359294ed25d8ecd9a305d114; deployment/run evidence is recorded in
+publication-release.md. The optional private mirror upload failed independently.
+
+The next shared MarkovKernelTVContraction packet is now locally compiled and
+independently proof/source reviewed. The exact factor-one eventwise theorem
+uses actual measurable probability kernels, explicit input/layer integrability
+and layercake on (0,1]. Frozen file hashes and reviewers live in its Frontier
+Cell and semantic audit; commit-bound admission is separate. Full Lean/Tests
+PASS9072, ASTIS/ATLAS and 61 focused protocol tests pass. Registry remains396.
+No old Chewi frontier or cycle memory was reset. The next-rgo-packet.md records
+the next actual conditional-kernel interface, without claiming it compiled.

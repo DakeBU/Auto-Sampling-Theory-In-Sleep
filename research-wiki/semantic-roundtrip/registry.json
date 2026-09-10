@@ -38,6 +38,259 @@
   },
   "audits": [
     {
+      "id": "ASTIS-RT-20260910-MarkovKernelTVContraction",
+      "state": "accepted",
+      "graph_node": "ASTIS-SHARED-markov-kernel-tv-contraction",
+      "source": {
+        "source_id": "companion:markov-tv-contraction",
+        "anchor": "Section 7.2, proof of Theorem 1.3: data-processing display after constructing the actual and proxy input laws",
+        "url": "https://arxiv.org/html/2609.06906v1#S7.SS2",
+        "original_text": "SPHMC v1 Section 7.2, proof of Theorem 1.3, passes the actual/proxy input TV error through the same proximal BPS Markov kernel. ASTIS expands only this data-processing step: on any two measurable spaces, if probability input laws μ and ν satisfy |μ(S)−ν(S)|≤δ for every measurable input event S, then for every Markov kernel K and every measurable output event T, |(μK)(T)−(νK)(T)|≤δ. In the paper the selected inputs are the implementable law and its comparison law, δ=ε/2, and K is K_{ε/2,1}. The generic measurable-space formulation and arbitrary real δ are an explicit generalization; the premise on the empty event implies δ≥0. This is an attributed faithful paraphrase with ASTIS's standard proof expansion, not copied prose. The construction of the paper's actual kernel, proxy warmness, its separate mixing error and actual-input expected query costs are not supplied by this declaration.",
+        "text_sha256": "539ad52de8f730d8b1ef3c35e6dd5bf490e62b0a2eac8c11b2cd6776c4144a1d"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation.abs_real_comp_sub_le",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Probability/KernelTotalVariation.lean",
+        "statement": "∀ {A B : Type*} [MeasurableSpace A] [MeasurableSpace B] (μ ν : MeasureTheory.Measure A) [MeasureTheory.IsProbabilityMeasure μ] [MeasureTheory.IsProbabilityMeasure ν] (K : ProbabilityTheory.Kernel A B) [ProbabilityTheory.IsMarkovKernel K] {δ : ℝ}, (∀ s : Set A, MeasurableSet s → |μ.real s - ν.real s| ≤ δ) → ∀ t : Set B, MeasurableSet t → |(K ∘ₘ μ).real t - (K ∘ₘ ν).real t| ≤ δ",
+        "statement_sha256": "8897dbc4d727933b7cedc20f7c15b3c2c1900535b8aa791f78483097db12324a",
+        "compiled": true,
+        "formalizer": "root-companion-writer",
+        "compiler_evidence": "Lean4.33.0, LEAN_NUM_THREADS=2; lake build Tests.KernelTotalVariation PASS2589; printed axioms only propext, Classical.choice, Quot.sound. Module SHA2567995000cf384916314bca2d844d2eb0e54ae9983951dfe2b42571b691124238e; test SHA256ede6d32352575291810631de19203e77db91fbb9ec2e654c502055cb7b183f0a.",
+        "decoder_context": [
+          "A and B carry arbitrary sigma algebras. MeasureTheory.Measure A is a measure on the measurable space A. IsProbabilityMeasure ρ means ρ has total mass one. For a finite-mass event S, ρ.real S is its ordinary real measure, the toReal of its extended nonnegative measure.",
+          "ProbabilityTheory.Kernel A B assigns a measure K x on B to each x in A and requires x↦K x T to be measurable for every measurable T. IsMarkovKernel K means every K x is a probability measure. K ∘ₘ ρ is the measure on B defined by integrating these transition measures against the input measure ρ.",
+          "MeasurableSet s says the subset belongs to the given sigma algebra. ∀ s followed by MeasurableSet s → quantifies over all measurable events. Absolute value and ≤ are ordinary real operations. There is no implicit topology, density, coupling or additional inequality assumed."
+        ]
+      },
+      "reconstruction": {
+        "text": "For any measurable spaces A and B with arbitrary σ-algebras, any probability measures μ and ν on A, any Markov kernel K from A to B, and any real number δ, suppose that |μ.real(S)−ν.real(S)| ≤ δ for every measurable set S ⊆ A. Then |(K∘ₘμ).real(T)−(K∘ₘν).real(T)| ≤ δ for every measurable set T ⊆ B. Here a Markov kernel assigns to every x ∈ A a probability measure K(x,·) on B, with x ↦ K(x,T) measurable for each measurable T. The measure K∘ₘρ on B is obtained by integrating the transition measures K(x,·) against ρ. The notation ρ.real(S) is the real value of the extended nonnegative event measure; the event measures in the displayed inequalities are finite under the stated probability and Markov assumptions. Absolute value and the inequalities are ordinary real operations. The same δ bounds every input event and every output event, without an additional factor. No separate sign condition on δ, topology, density, coupling, or further hypothesis is imposed.",
+        "decoder": "heatbath_exposition_research",
+        "source_text_visible": false,
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "notes": [
+          "No prior exposure to this exact target's source or identity. Only the designated anonymous packet was read; no files were written.",
+          "Canonical packet hash verified using recursively sorted keys, compact JSON, ensure_ascii=false, and exclusion of only the top-level packet_sha256.",
+          "Text hash uses UTF-8 without an added newline. No unresolved decoding uncertainty under the approved definitions."
+        ],
+        "decoder_packet_sha256": "27404c64285c1b67d86b420b9e0ccf0355c8fb8eda8a79ce3b5919a71b9fdd94",
+        "text_sha256": "c75d7096598788bce22f26150f5eecc64906253f7741dfdbfa5613a66b650016",
+        "decoder_run_sha256": "0685e3c6919ad0b3b583d30df2b4a50bbc13779bdeed802be2e40ac5c2a057fb",
+        "lean_statement_sha256": "8897dbc4d727933b7cedc20f7c15b3c2c1900535b8aa791f78483097db12324a",
+        "run_artifact": "runs/20260910-companion-priority/anonymous-kappa.decoder-result.json"
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual and proxy probability input laws passed through the same proximal BPS kernel.",
+          "reconstructed": "Probability measures μ,ν and one measurable probability kernel K, with actual composed measures K ∘ₘ μ and K ∘ₘ ν.",
+          "relation": "explicit-elaboration",
+          "evidence": "The specialization μ=actual law, ν=proxy law and K=K_{ε/2,1} matches the selected display. Pinned Kernel and IsMarkovKernel definitions require measurable dependence and probability transitions."
+        },
+        "domains": {
+          "original": "The selected application uses the sampling state space.",
+          "reconstructed": "Arbitrary input and output measurable spaces A,B.",
+          "relation": "explicit-elaboration",
+          "evidence": "This is a disclosed generalization of the data-processing step. Event probabilities and level sets need no topology, densities, standard-Borel structure or conditional representative."
+        },
+        "quantifiers": {
+          "original": "A uniform input TV bound is passed through the fixed common kernel.",
+          "reconstructed": "For every μ,ν,K,δ satisfying the premises, every measurable output event obeys the same bound; the premise covers every measurable input event.",
+          "relation": "equivalent",
+          "evidence": "The primary definition TV(P,Q)=sup_S |P(S)-Q(S)| makes the uniform-event statement equivalent to the selected TV inequality. No event or kernel quantifier is dropped."
+        },
+        "assumptions": {
+          "original": "Probability input laws, one Markov kernel, and input TV error at most ε/2.",
+          "reconstructed": "IsProbabilityMeasure μ and ν, Kernel A B with IsMarkovKernel, and the uniform real-event bound δ.",
+          "relation": "explicit-elaboration",
+          "evidence": "Finite event masses justify Measure.real. hf and hfi derive measurable bounded input integrability; htail derives level integrability. No integral-contraction or additional regularity premise is assumed. The empty event forces δ≥0."
+        },
+        "conclusion": {
+          "original": "The displayed output discrepancy between actual and proxy laws is at most ε/2.",
+          "reconstructed": "|(K ∘ₘ μ).real T-(K ∘ₘ ν).real T|≤δ for every measurable T.",
+          "relation": "equivalent",
+          "evidence": "Probability kernel composition remains a probability measure, so real-event conversion is faithful. Specializing δ=ε/2 and taking the event supremum gives precisely the selected data-processing conclusion."
+        },
+        "scopes": {
+          "original": "One data-processing step inside the proof of Theorem 1.3.",
+          "reconstructed": "A generic contraction lemma for a supplied common kernel, not its construction, mixing or costs.",
+          "relation": "same",
+          "evidence": "The binding supports only kernel-tv-contraction. Its other obligations retain algorithm/proxy construction, separate mixing and actual-input cost. It does not transfer unbounded expected cost or claim the full theorem."
+        },
+        "constant_dependencies": {
+          "original": "The ε/2 input allowance remains ε/2 after applying the kernel.",
+          "reconstructed": "The same real δ is retained with factor one, independently of the spaces, measures and kernel.",
+          "relation": "equivalent",
+          "evidence": "The observable K(x,T) lies in [0,1]. Layercake integrates over (0,1], whose Lebesgue measure is one. This uses the event-supremum TV convention, not a factor-two signed-measure norm."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "The generic two-measurable-space formulation extends the concrete source application.",
+          "evidence": "The source restatement explicitly discloses this extension, and the supplied proof uses only measurable events and finite probability masses."
+        },
+        {
+          "slot": "constant_dependencies",
+          "severity": "informational",
+          "description": "Arbitrary real δ replaces the particular ε/2 allowance.",
+          "evidence": "The empty-event premise rules out negative δ; no extra sign hypothesis or loss of constant is required. This does not relax the parameter requirements of the actual sampling algorithm."
+        }
+      ],
+      "verdict": "equivalent-after-elaboration",
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "publication_gate_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independent review of the fresh anti-anchored packet, its embedded entire Lean module, complete four-step lesson and projected binding, the selected primary argument, and needed pinned Mathlib definitions. The selected display and event-supremum convention agree with [SPHMC v1, Section 7.2](https://arxiv.org/html/2609.06906v1#S7.SS2). Acceptance is confined to the explicitly selected data-processing obligation, not Theorem 1.3 or its cost argument. All seven slots and the complete candidate exposition were checked without prior verdicts. happly establishes actual kernel-composed event evaluation; hfi supplies bounded input integrability; hlayer uses the pinned integrable layercake theorem; htail supplies both witnesses for integral_sub; the final interval has mass one. Endpoint atoms and zero discrepancy cause no missing condition. No blocking semantic delta was found within the selected obligation. The coordinator preserved the returned review object without changing its verdict; review_run_sha256 below binds the raw saved response artifact.",
+        "review_run_sha256": "4e84c8ec807777cbf911ca80c6ddee5dd089005c37166edfd1e61b76ea229a05",
+        "reviewer_packet_sha256": "74ad3937bd5e0f32778cdad76971301623a21f298d2a2b962149f20fb8dd0201",
+        "run_artifact": "runs/20260910-companion-priority/markov-tv.source-review-result.json"
+      },
+      "repairs": [],
+      "publication_binding_sha256": "d1ae3b122be5fcbe81bf4eb0d2eaa0f610be8eb673e87b5e5eeda5fe0f74dc93",
+      "publication_context": {
+        "file": "7995000cf384916314bca2d844d2eb0e54ae9983951dfe2b42571b691124238e",
+        "current_lean_module": "import Mathlib.MeasureTheory.Integral.Layercake\nimport Mathlib.Probability.Kernel.Composition.MeasureComp\n\n/-!\n# Eventwise total-variation contraction under a Markov kernel\n\nFor two probability input laws, a common Markov kernel cannot increase their\nuniform discrepancy on measurable events. This is the exact factor-one step\nused to transfer actual/proxy input error in SPHMC, arXiv:2609.06906v1, §7.2.\nIt also supports the existing MCMC E6 perturbed-kernel error-propagation route.\nNeither an algorithm kernel nor its mixing or expected-cost guarantee is\nconstructed here. In particular, TV proximity does not control unbounded cost.\n\nFor an output event `t`, its kernel probability is a measurable `[0,1]`-valued\nfunction. Layercake writes its integral as the integral of superlevel-event\nprobabilities over `(0,1]`, whose Lebesgue measure is one. Boundedness supplies\nboth input integrability and layer integrability; no conditional representative\nor standard-Borel hypothesis is needed.\n\nThe local tail-integrability argument follows Mathlib's\n`MeasureTheory/Measure/LevyProkhorovMetric.lean` (Kalle Kytölä and Mathlib\ncontributors, Apache-2.0). We reuse its public Layercake and measure APIs without\nimporting the Lévy–Prokhorov development or introducing a new TV definition.\n-/\n\nopen MeasureTheory ProbabilityTheory Set\nopen scoped ProbabilityTheory\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation\n\n/-- An eventwise probability discrepancy bound is preserved by a common Markov\nkernel. The hypothesis on the empty event already implies `0 ≤ δ`. All helper\nfunctions and integrability proofs are local; the conclusion concerns the\nactual kernel-composed measures, not an assumed integral-contraction premise. -/\ntheorem abs_real_comp_sub_le\n    {A B : Type*} [MeasurableSpace A] [MeasurableSpace B]\n    (μ ν : Measure A) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν]\n    (K : Kernel A B) [IsMarkovKernel K]\n    {δ : ℝ}\n    (hδ : ∀ s, MeasurableSet s → |μ.real s - ν.real s| ≤ δ) :\n    ∀ t, MeasurableSet t →\n      |(K ∘ₘ μ).real t - (K ∘ₘ ν).real t| ≤ δ := by\n  intro t ht\n  let f : A → ℝ := fun x => (K x).real t\n  have hf : Measurable f := (K.measurable_coe ht).ennreal_toReal\n  have hf0 (x : A) : 0 ≤ f x := measureReal_nonneg\n  have hf1 (x : A) : f x ≤ 1 := measureReal_le_one\n  have hfi (ρ : Measure A) [IsProbabilityMeasure ρ] :\n      Integrable f ρ := by\n    apply (integrable_const (1 : ℝ)).mono' hf.aestronglyMeasurable\n    exact Filter.Eventually.of_forall fun x => by\n      simpa only [Real.norm_eq_abs, abs_of_nonneg (hf0 x)] using hf1 x\n  have happly (ρ : Measure A) [IsProbabilityMeasure ρ] :\n      (K ∘ₘ ρ).real t = ∫ x, f x ∂ρ := by\n    change (Measure.bind ρ K t).toReal = ∫ x, (K x t).toReal ∂ρ\n    rw [Measure.bind_apply ht K.aemeasurable]\n    exact (integral_toReal (K.measurable_coe ht).aemeasurable\n      (Filter.Eventually.of_forall fun x => measure_lt_top (K x) t)).symm\n  have htail (ρ : Measure A) [IsProbabilityMeasure ρ] :\n      IntegrableOn (fun u : ℝ => ρ.real {x | u ≤ f x}) (Ioc 0 1) := by\n    apply Measure.integrableOn_of_bounded\n      (M := ρ.real univ) measure_Ioc_lt_top.ne\n    · apply\n        (Measurable.ennreal_toReal (Antitone.measurable ?_)).aestronglyMeasurable\n      exact fun _ _ huv => measure_mono (fun _ hx => huv.trans hx)\n    · exact Filter.Eventually.of_forall fun u => by\n        simp only [Real.norm_eq_abs, abs_of_nonneg measureReal_nonneg]\n        exact measureReal_mono (subset_univ _)\n  have hlayer (ρ : Measure A) [IsProbabilityMeasure ρ] :\n      (∫ x, f x ∂ρ) =\n        ∫ u in Ioc (0 : ℝ) 1, ρ.real {x | u ≤ f x} :=\n    (hfi ρ).integral_eq_integral_Ioc_meas_le\n      (Filter.Eventually.of_forall hf0)\n      (Filter.Eventually.of_forall hf1)\n  rw [happly μ, happly ν, hlayer μ, hlayer ν,\n    ← integral_sub (htail μ) (htail ν)]\n  simpa [Real.norm_eq_abs, measureReal_def] using\n    (norm_integral_le_of_norm_le_const\n      (μ := volume.restrict (Ioc (0 : ℝ) 1))\n      (f := fun u => μ.real {x | u ≤ f x} - ν.real {x | u ≤ f x})\n      (C := δ)\n      (Filter.Eventually.of_forall fun u => by\n        simpa only [Real.norm_eq_abs] using\n          hδ {x | u ≤ f x} (measurableSet_le measurable_const hf)))\n\nend AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S7.SS2",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Section 7.2, proof of Theorem 1.3: data-processing display after constructing the actual and proxy input laws",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS expands the selected standard data-processing step; no author endorsement or full theorem formalization is implied."
+        },
+        "statement": "SPHMC v1 Section 7.2, proof of Theorem 1.3, passes the actual/proxy input TV error through the same proximal BPS Markov kernel. ASTIS expands only this data-processing step: on any two measurable spaces, if probability input laws μ and ν satisfy |μ(S)−ν(S)|≤δ for every measurable input event S, then for every Markov kernel K and every measurable output event T, |(μK)(T)−(νK)(T)|≤δ. In the paper the selected inputs are the implementable law and its comparison law, δ=ε/2, and K is K_{ε/2,1}. The generic measurable-space formulation and arbitrary real δ are an explicit generalization; the premise on the empty event implies δ≥0. This is an attributed faithful paraphrase with ASTIS's standard proof expansion, not copied prose. The construction of the paper's actual kernel, proxy warmness, its separate mixing error and actual-input expected query costs are not supplied by this declaration.",
+        "formulae": [
+          {
+            "label": "selected data-processing step",
+            "tex": "\\operatorname{TV}(\\widehat\\pi_{\\varepsilon/2}K_{\\varepsilon/2,1},\\widehat\\pi^{\\dagger}_{\\varepsilon/2}K_{\\varepsilon/2,1})\\le\\varepsilon/2."
+          },
+          {
+            "label": "generic eventwise formulation",
+            "tex": "\\sup_{T\\in\\mathcal B}|(\\mu K)(T)-(\\nu K)(T)|\\le\\delta,\\qquad (\\rho K)(T)=\\int_A K(x,T)\\,\\rho(dx)."
+          }
+        ],
+        "assumptions": [
+          "K(x,·) is a probability measure for every x, and x↦K(x,T) is measurable for each measurable T. IsMarkovKernel records the first property and Kernel records the second; merely specifying transition probabilities without measurable dependence would not suffice.",
+          "Both input measures have total mass one. Every event probability is finite, so Measure.real is an ordinary real probability, not a misleading conversion of infinity.",
+          "The discrepancy premise is uniform over all measurable input events; a bound on one event, or only pointwise convergence of densities, is not the same hypothesis.",
+          "The same K is applied to both inputs. Comparing distinct kernels requires an additional approximation-error estimate."
+        ],
+        "obligations": [
+          {
+            "id": "kernel-tv-contraction",
+            "label": "Transfer the input eventwise discrepancy through the same actual Markov kernel with factor one"
+          },
+          {
+            "id": "paper-kernel-and-proxy",
+            "label": "Construct the source algorithm kernel and actual/proxy laws and establish the separate proxy mixing bound"
+          },
+          {
+            "id": "actual-input-cost",
+            "label": "Establish the source expected query cost under the actual input law, not by unbounded-cost TV transfer"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation.abs_real_comp_sub_le",
+          "kind": "theorem",
+          "title": "A common Markov kernel cannot amplify total-variation error",
+          "statement": "Let A and B be measurable spaces, μ and ν probability measures on A, and K a Markov kernel from A to B. Let δ be real. If |μ(S)−ν(S)|≤δ for every measurable S⊆A, then |(μK)(T)−(νK)(T)|≤δ for every measurable T⊆B. No density, topology or coupling is required. The input assumption on the empty event already implies δ≥0.",
+          "formula": "\\sup_{T\\in\\mathcal B}|(\\mu K)(T)-(\\nu K)(T)|\\le\\delta,\\qquad (\\rho K)(T)=\\int_A K(x,T)\\,\\rho(dx).",
+          "assumptions": [
+            "K(x,·) is a probability measure for every x, and x↦K(x,T) is measurable for each measurable T. IsMarkovKernel records the first property and Kernel records the second; merely specifying transition probabilities without measurable dependence would not suffice.",
+            "Both input measures have total mass one. Every event probability is finite, so Measure.real is an ordinary real probability, not a misleading conversion of infinity.",
+            "The discrepancy premise is uniform over all measurable input events; a bound on one event, or only pointwise convergence of densities, is not the same hypothesis.",
+            "The same K is applied to both inputs. Comparing distinct kernels requires an additional approximation-error estimate."
+          ],
+          "steps": [
+            {
+              "title": "Replace the output event by a bounded observable",
+              "text": "Fix a measurable output event T and put f(x)=K(x,T). Kernel measurability makes f measurable and each transition law being a probability gives 0≤f≤1. Since each input measure is finite, f is strongly measurable and integrable for both inputs. Evaluating the composed law is therefore a genuine integral.",
+              "formula": "0\\le f(x)\\le1,\\qquad(\\rho K)(T)=\\int_A f\\,d\\rho,\\quad\\rho\\in\\{\\mu,\\nu\\}.",
+              "lean": "The local hf, hf0 and hf1 establish measurability and the bounds. hfi uses integrable_const and Integrable.mono'. happly unfolds Measure.bind, applies Measure.bind_apply, and converts the nonnegative integral with integral_toReal; finite event masses discharge the conversion condition."
+            },
+            {
+              "title": "Express a bounded observable by its level events",
+              "text": "For each u, the event {x:u≤f(x)} is measurable. Integrate these event probabilities over (0,1]. This layercake identity follows because for each fixed x the set of levels u in (0,1] with u≤f(x) has length f(x). It remains valid at f=0 and f=1 and for atoms; no continuous distribution is assumed.",
+              "formula": "f(x)=\\int_{(0,1]}\\mathbf1_{\\{u\\le f(x)\\}}\\,du,\\qquad\\int_A f\\,d\\rho=\\int_{(0,1]}\\rho\\{x:u\\le f(x)\\}\\,du.",
+              "lean": "hlayer applies Integrable.integral_eq_integral_Ioc_meas_le using hfi and the everywhere bounds promoted to almost-everywhere bounds. This reuses Mathlib's layercake theorem rather than reproving Tonelli."
+            },
+            {
+              "title": "Justify subtraction of the two level integrals",
+              "text": "As u increases, each level set shrinks, hence its measure is an antitone measurable function of u. These real probabilities lie in [0,1]. The interval has finite measure, so both level functions are integrable there. This explicit witness licenses subtracting their integrals.",
+              "formula": "0\\le\\rho\\{f\\ge u\\}\\le1,\\qquad \\int f\\,d\\mu-\\int f\\,d\\nu=\\int_{(0,1]}[\\mu\\{f\\ge u\\}-\\nu\\{f\\ge u\\}]\\,du.",
+              "lean": "htail uses Antitone.measurable, finite-measure bounded integrability and measureReal_mono. integral_sub receives both htail witnesses. A totalized integral subtraction without those witnesses would not justify the mathematical equality."
+            },
+            {
+              "title": "Apply the event bound and preserve the exact constant",
+              "text": "Apply the input hypothesis to every measurable level event. The absolute integrand is bounded by δ. The norm-of-integral estimate multiplies this bound by the measure of (0,1], which is exactly one. Thus no factor two is lost; this is the event-supremum convention for probability total variation.",
+              "formula": "|(\\mu K)(T)-(\\nu K)(T)|\\le\\int_{(0,1]}|\\mu\\{f\\ge u\\}-\\nu\\{f\\ge u\\}|\\,du\\le\\delta\\,|(0,1]|=\\delta.",
+              "lean": "measurableSet_le measurable_const hf supplies each measurable event. norm_integral_le_of_norm_le_const and the interval-volume simplification close the bound; no integral-contraction hypothesis is smuggled into the inputs."
+            }
+          ],
+          "lean_statement": "Measure.real turns finite event mass into a real number. Lean writes K ∘ₘ μ for the input law μ passed through K (often written μK on paper). The theorem quantifies over arbitrary measurable spaces and uses actual Kernel and IsMarkovKernel data. There is no separate δ≥0 premise because the event bound already forces it.",
+          "lean_proof": "The only production declaration is this contraction theorem; hf, hfi, happly, htail and hlayer are local proof terms. The focused tests exercise the declaration at zero discrepancy and compose it with a separately assumed proxy-output estimate using the triangle inequality. They also check that the empty-event premise forces nonnegative δ. No wrapper is counted as a new leaf.",
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "Kernel.measurable_coe",
+            "Measure.bind_apply",
+            "integral_toReal",
+            "Integrable.integral_eq_integral_Ioc_meas_le",
+            "Antitone.measurable",
+            "Measure.integrableOn_of_bounded",
+            "integral_sub",
+            "norm_integral_le_of_norm_le_const"
+          ],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S7.SS2",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1, Section 7.2, proof of Theorem 1.3",
+              "scope": "Only the data-processing step for actual/proxy inputs. This four-step proof is ASTIS's standard mathematical expansion, not quoted paper prose."
+            },
+            {
+              "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/Measure/LevyProkhorovMetric.lean",
+              "label": "Kalle Kytölä and Mathlib contributors, Apache-2.0",
+              "scope": "The local bounded tail-integrability pattern is adapted from this module; public Layercake and kernel APIs do the mathematical work. No external code is marked ASTIS-owned merely by citation."
+            }
+          ],
+          "tests": {
+            "file": "Tests/KernelTotalVariation.lean",
+            "command": "lake build Tests.KernelTotalVariation"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation.abs_real_comp_sub_le",
+          "role": "proof-edge",
+          "supports": [
+            "kernel-tv-contraction"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Probability input laws and the proximal BPS Markov kernel",
+            "lean": "Probability μ,ν on A and a common Kernel A B with IsMarkovKernel"
+          },
+          {
+            "source": "Input TV bound ε/2",
+            "lean": "Uniform event bound with δ:ℝ"
+          },
+          {
+            "source": "By data processing",
+            "lean": "Measurability, bounded input integrability, integrable layer functions and kernel evaluation proved in the body"
+          },
+          {
+            "source": "Probability total variation",
+            "lean": "Uniform absolute real-event difference"
+          }
+        ]
+      }
+    },
+    {
       "id": "ASTIS-RT-20260910-QuadraticRegularization",
       "state": "accepted",
       "graph_node": "ASTIS-SHARED-quadratic-regularization",
