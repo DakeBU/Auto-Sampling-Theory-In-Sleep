@@ -81,3 +81,38 @@ Next: next-rgo-packet.md, the explicit RGO conditional kernel and genuine
 disintegration certificate. Both full paper theorems, proxy/kernel construction,
 mixing bounds and actual-input query cost remain open. The same Goal stays active;
 all bounded review agents have completed, with no detached ASTIS session.
+
+## Eleventh-result release: validated candidate
+
+Proof commit af73e49d56d5e3b041ee37cc198012367598c581 is independently bound by
+gaussian-rgo.commit-verification.json; admission commit5284ed4 records VERIFIED.
+The current source/lesson and full publication binding remain unchanged.
+No companion main theorem is complete. Registry remains396; eleven new
+companion/shared declarations are separately imported, tested and inventoried.
+
+On5284ed4 the official site Lean gate passed8954 build jobs and9074 Tests jobs,
+ASTIS/ATLAS and fake-closure checks, with source digest
+dc8f82b0382de6ddef49c154727b5582ddc374a9d90d3968f05a7876a26bf110.
+The generated website and local graph checks passed:12 chapters,544 modules,
+3639 declarations and77 reviewed teaching declarations in the existing catalog.
+Publication PASS12, semantic PASS15 audits/1 preserved repair, frontier PASS23,
+py_compile, whitespace and61 protocol regressions also passed.
+
+Root actually viewed the full five-step proof, steady mobile reading region
+and local graph screenshots. Real HTTP/MathJax checks found six rendered
+formulas and no math/runtime errors; separate initially closed statement/proof
+Lean and proof-disclosure interaction passed. Long mobile equations scroll
+inside their containers without page overflow. The first two mobile captures
+caught smooth-scroll/sidebar transitions; instantaneous test scrolling and
+the screenshot API's finite-animation completion produced the stable view.
+No production layout was changed to hide a failure. All test browsers and
+temporary test HTTP servers closed normally.
+
+The local SVG view contains five nodes and three edges. Owning-module
+declaration is structural; PBPS correspondence is dashed and explicitly not
+a Lean dependency. The same shared declaration occurs once. Its publication
+projection remains partial while the compiled owning module is blue; no full
+PBPS or SPHMC closure is inferred. The exact graph outcome is in the cell.
+
+This section records local validation, not a successful eleventh online
+deployment. Push/deployment outcomes are appended only after confirmation.
