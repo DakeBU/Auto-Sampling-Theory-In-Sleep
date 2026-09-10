@@ -176,8 +176,10 @@ lesson and publication binding are present, anonymous reconstruction is recorded
 and the fresh source review accepts the disclosed generalization with verdict
 `domain-mismatch`, not statement equivalence. Independent commit verification
 passed at `728a18dd9b9dc737bd923c00d0dc71e07606cd2d`; the packet is now
-`STABILIZING`. Aggregate integration, rendered delivery and full-paper completion
-remain separate checks.
+`STABILIZING`. Aggregate integration passed (9086 jobs). The generated companion,
+complete folded Lean and affected theorem graph were inspected, and site checks
+passed. PR #253 remains pending final integration and deployed validation;
+neither full-paper completion nor deployed delivery is inferred from these checks.
 
 | Proof interface | Current boundary |
 |---|---|

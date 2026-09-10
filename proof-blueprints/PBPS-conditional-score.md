@@ -63,3 +63,23 @@ reflected kernel with the transformed joint disintegration and the existing
 `PUP` representative before claiming an operator/Sobolev theorem. These are
 actual missing dependencies; the compiled smooth-test derivative does not
 silently provide them.
+
+Independent bounded route advice (`log_depth_source_review`, read-only) selects
+the following integration node before the new Poincaré foundation. For the
+actual observation marginal $\nu=J_Y$ and reflected pair law
+$\Lambda=((x,y)\mapsto(y,2x-y))_\#J$, prove that the constructed $S$
+disintegrates $\Lambda$ and $\Lambda_{\rm fst}=\nu$. For every
+$f\in C_c^\infty(E)$, construct $g_f=[f\circ\mathrm{snd}]\in L^2(J)$,
+prove $Pg_f=g_f$, identify the actual $PUPg_f$ with
+$T_f\circ\mathrm{snd}$ almost everywhere, and give $T_f\in L^2(\nu)$
+with the existing everywhere classical derivative. The two parent theorems'
+existential kernel witnesses require a.e. disintegration uniqueness; they must
+not simply be treated as identical. Boundedness under probability supplies
+$g_f\in L^2$, although $f\circ\mathrm{snd}$ need not have compact support.
+
+These connected clauses form one proposed substantive integration node; the
+isolated pushforward identity alone is not the planned completion boundary.
+The optional actual conditional-variance energy identity can follow if ready.
+After this bridge, the required curvature-to-Poincaré result must cover the
+noncompact score components as well as the smooth compact test class. No new
+cell or compiled theorem is asserted by this route advice.
