@@ -1,5 +1,5 @@
 {
-  "status": "PROVED_LOCAL",
+  "status": "STABILIZING",
   "checks": [
     {
       "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2 Tests.ProximalBPSReflectionL2",
@@ -11,9 +11,18 @@
   "independent_proof_review": "runs/20260911-companion-priority/reflection-l2.independent-proof-review.json",
   "source_fidelity": "accepted domain-mismatch: disclosed generalization, source block identities recovered through Gibbs consumer",
   "remaining": [
-    "Source review completed; no source equivalence claim",
-    "Exact-commit admission and integration",
-    "Rendered companion and graph verification",
-    "All quantitative coercivity, half-turn, process, mixing/error/cost and complete paper obligations remain open"
-  ]
+    "Root and aggregate integration",
+    "Rendered companion and graph checks and deployment",
+    "Quantitative coercivity, half-turn, processes, mixing/error/cost and complete paper results"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/reflection-l2.verified-admission.json",
+  "aggregate_gate": {
+    "status": "PASS",
+    "candidate": "c78ec0da9e834aabd30fc405beb232ac14c8e4d5 plus root imports",
+    "command": "python website/scripts/lean_gate.py",
+    "exit_code": 0,
+    "jobs": 9084,
+    "source_digest": "c903475980fcf59a81eef8757e2c876f31b85b7f5f6c0843b28d0b3e8205eabc",
+    "log": ".astis/reflection-l2.aggregate-gate.log"
+  }
 }

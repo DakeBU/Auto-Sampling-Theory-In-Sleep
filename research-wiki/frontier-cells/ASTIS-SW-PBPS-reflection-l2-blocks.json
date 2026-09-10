@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06905v1 Appendix B.1 (B.1)-(B.5); actual Gaussian augmentation (2.7)-(2.8)",
   "target_statement": "For the actual Gaussian augmentation J of a probability mu on a finite-dimensional real inner-product Borel space and eta>0, construct the reflection pullback U on real L2(J), identify the actual sigma(Y) conditional projection P with the proved backward quadratic-tilt kernel almost everywhere, and prove U self-adjoint/isometric/involutive. With Q=I-P,A=PUP,B=QUP,D=QUQ prove B*B=P-A^2,B*D=-AB*, and norm(Bf)^2=norm(f)^2-norm(Af)^2 for Pf=f. Bind a Gibbs instance to the proved normalized source density.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-PBPS-gaussian-augmentation-reflection",
     "ASTIS-SHARED-gaussian-rgo-conditional-kernel",
@@ -37,8 +37,9 @@
     ],
     "proof_plan": "proof-blueprints/PBPS-reflection-blocks.md",
     "planning_review": "Independent read-only log_depth_source_review recommended actual kernel-to-projection identification in same packet; generic API packaging alone is insufficient.",
-    "admission_boundary": "PROVED_LOCAL and independently source-reviewed; exact-commit admission, integration and reader checks pending.",
-    "source_review": "ASTIS-RT-20260911-PBPSReflectionL2 accepted domain-mismatch, disclosed generalization via Gibbs consumer"
+    "admission_boundary": "VERIFIED local theorem and Gibbs consumer; STABILIZING root/reader/graph integration pending.",
+    "source_review": "ASTIS-RT-20260911-PBPSReflectionL2 accepted domain-mismatch, disclosed generalization via Gibbs consumer",
+    "independent_verification": "depth_commit_verifier VERIFIED at c78ec0da9e834aabd30fc405beb232ac14c8e4d5; exact evidence in reflection-l2.verified-admission.json"
   },
   "blocked": {
     "reason": "",

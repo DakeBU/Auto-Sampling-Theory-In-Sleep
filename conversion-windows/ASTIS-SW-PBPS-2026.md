@@ -109,7 +109,7 @@ proof with adjacent folded Lean; the cell records local, source-review and
 commit-verification states separately. This is still not an implemented RGO,
 half-turn process, invariant PBPS law or mixing theorem.
 
-## Actual reflection blocks: locally proved, admission pending
+## Actual reflection blocks: independently verified, integration pending
 
 `ReflectionL2.actual_reflection_block_identities` now constructs the actual
 reflection pullback on the Gaussian joint law and identifies the actual
@@ -129,7 +129,9 @@ passed, and an independent production-proof replay found only standard axioms.
 The independent anonymous reconstruction is recorded. Source review accepts
 the disclosed arbitrary-probability generalization through its Gibbs instance,
 with verdict `domain-mismatch`, not source-statement equivalence.
-Commit-bound admission remains pending. Canonical evidence is in
+Independent commit-bound admission passed at
+`c78ec0da9e834aabd30fc405beb232ac14c8e4d5`; integration remains pending.
+Canonical evidence is in
 `ASTIS-SW-PBPS-reflection-l2-blocks` and its source audit. The authored
 `pbps-reflection-l2.json` lesson and publication binding provide the expanded
 mathematical proof; rendered-site delivery has not yet been validated.
