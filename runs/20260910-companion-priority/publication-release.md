@@ -64,6 +64,10 @@ Cleanup run34456463067 also succeeded. At the last check, formalization
 run34456462865 was still in_progress; do not report that remote gate as passed
 without its final result. The local aggregate already passed as recorded above.
 
+Follow-up authenticated verification: run34456462865 completed/success, as did
+the two other workflows above. The tenth release's remote formalization gate
+is therefore confirmed green, not merely inferred from the local result.
+
 The earlier private-mirror upload failure was resolved for this release.
 Saved Sites version4 contains the exact 77194b8 source and validated archive;
 private deployment appgdep_6aa26db17358819193e4684f9f1c858f succeeded.

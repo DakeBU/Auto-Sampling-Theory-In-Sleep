@@ -115,6 +115,7 @@ import Tests.EnergyStoppingL2Bridge
 import Tests.CanonicalLocalizationTheorem
 import Tests.CanonicalStoppedItoIntegral
 import Tests.EnergyStoppedItoOverlap
+import Tests.GaussianConditionalKernel
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are

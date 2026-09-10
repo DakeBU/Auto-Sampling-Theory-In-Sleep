@@ -1,5 +1,10 @@
 # Next packet: explicit RGO conditional kernel
 
+Historical plan, now implemented by GaussianConditionalKernel. The exact
+proposal, compiled tests and independent source review are linked from
+ASTIS-SHARED-gaussian-rgo-conditional-kernel. Commit-bound verification and
+publication are separate admission steps; this note does not certify them.
+
 Read-only route synthesis by rgo_closure_worker; not a compiled result, frozen
 statement or new Goal. Begin only after the preceding TV packet is stabilized.
 

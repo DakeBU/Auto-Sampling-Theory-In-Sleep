@@ -417,3 +417,35 @@ Cell and semantic audit; commit-bound admission is separate. Full Lean/Tests
 PASS9072, ASTIS/ATLAS and 61 focused protocol tests pass. Registry remains396.
 No old Chewi frontier or cycle memory was reset. The next-rgo-packet.md records
 the next actual conditional-kernel interface, without claiming it compiled.
+
+## Eleventh proof edge: actual Gaussian backward conditional kernel
+
+The preceding release is pushed and deployed; the remote formalization gate
+also completed successfully (publication-release.md). The new theorem
+GaussianConditionalKernel.exists_tilted_isCondKernel constructs an everywhere
+normalized measurable Markov kernel and proves actual swapped-joint
+disintegration. Probability of an arbitrary, possibly singular input and η>0
+suffice; normalizers and measurability are proved internally. A focused consumer
+recovers μ from the actual smoothed marginal. This is not process invariance.
+
+Production/test hashes and the accepted 15th semantic audit are recorded in
+the cell. Independent mathematical review: rgo_independent_verifier; anonymous
+decoder: heatbath_exposition_research; source review: publication_gate_review.
+Full build8954, Tests9074, ASTIS/ATLAS, publication12, frontier23, py_compile,
+diff whitespace and 61 protocol regressions pass. Registry remains396; the
+eleven companion/shared declarations have their separate tested inventory.
+
+Compilation diagnosed implicit prodComm parameters, lambda/uncurry matching
+and swapped-projection reduction; no statement change or added assumption.
+The frontier check required the Samplinglib name in reuse evidence. README
+identifies that name with ASTIS; the actual original ConditionalKernel module,
+Probability import surface and base Probability declarations were read and
+their paths recorded. No separate nonexistent Samplinglib checkout was claimed.
+
+Commit verification, affected reader/graph inspection and eleventh publication
+remain pending here until their actual outcomes are recorded. The next planned
+source integration is SPHMC Lemma6.4: combine the existing genuine quadratic
+curvature and normalized-law parents with positive Gibbs normalization and the
+exact condition-number identity. Preserve A=infinity through zero precision.
+Neither full companion paper, its actual algorithm, mixing nor actual-input
+query complexity is complete. The same Goal and older Chewi frontier remain.

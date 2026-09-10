@@ -96,6 +96,15 @@ invariant-process or mixing theorem. The shared
 convexity and actual gradient smoothness for the quadratic potential.
 For PBPS set $m=\alpha,L=\beta,r=\eta^{-1}$. This is analytic support,
 not public formalization of the entire Hessian sandwich (2.10), conditional
-law or Proposition 2.1. The next selected edge is genuine Markov-kernel TV
-contraction for the companion composition; unbounded query costs remain
-independent of TV closeness.
+law or Proposition 2.1. The shared Markov-kernel TV contraction has now been
+verified; unbounded query costs remain independent of TV closeness.
+
+The new `ASTIS-SHARED-gaussian-rgo-conditional-kernel` separately constructs
+the backward law in (2.8): for every observation y, the normalized quadratic
+tilt is a measurable probability kernel, and its composition with the actual
+observation marginal equals the swapped augmentation law. Normalizer positivity
+and measurability are derived, including for singular input laws. Its
+`gaussian-rgo-conditional-kernel.json` lesson supplies the five-step formula
+proof with adjacent folded Lean; the cell records local, source-review and
+commit-verification states separately. This is still not an implemented RGO,
+half-turn process, invariant PBPS law or mixing theorem.

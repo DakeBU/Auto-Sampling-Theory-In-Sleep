@@ -128,6 +128,15 @@ assumed proxy mixing error by triangle. It does not transfer unbounded query
 costs. The four-step lesson and separate folded Lean are generated from
 `markov-tv-contraction.json`; the cell records exact admission status.
 
-Next dependency-ready route: an explicit RGO Markov kernel with a genuine
-joint-law disintegration certificate. See the bounded synthesis in
-`runs/20260910-companion-priority/next-rgo-packet.md`; it is a plan, not a proof.
+The explicit RGO Markov kernel and genuine joint-law disintegration are now
+compiled in `ASTIS-SHARED-gaussian-rgo-conditional-kernel`. A focused consumer
+recovers the original law by applying its all-y normalized kernel to the actual
+Gaussian-smoothed marginal. The five-step lesson and source review are linked
+from that cell; commit admission remains separately recorded. This justifies
+the exact backward-law mechanism, not the recursive sampler's error or cost.
+
+Next planned integration: the complete normalized statement of Lemma6.4,
+including its exact condition-number identity, assembled from existing Gibbs
+normalization, quadratic curvature and normalized RGO-composition parents.
+Zero precision retains A=infinity. The historical next-rgo-packet.md is no
+longer an unimplemented next target; neither full paper is marked complete.

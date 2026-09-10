@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-60baaf80e5a7c41f",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] {η : ℝ}, 0 < η → let J := MeasureTheory.Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E)); ∃ R : ProbabilityTheory.Kernel E E, ProbabilityTheory.IsMarkovKernel R ∧ (∀ y, R y = μ.tilted (fun x => -‖x - y‖ ^ 2 / (2 * η))) ∧ (J.map Prod.swap).IsCondKernel R",
+    "statement_sha256": "60baaf80e5a7c41f4d2eeee92cb635f3b35f95c2343b8900e57f2b1dddcb23f2",
+    "compiled": true,
+    "approved_definition_context": [
+      "E has a real inner product inducing its norm and is finite dimensional. The given measurable space is exactly its Borel sigma algebra. IsProbabilityMeasure μ means μ has total mass one. μ.prod ν is the product measure; Measure.map f ρ is the pushforward law along f.",
+      "stdGaussian E is the centered Gaussian measure with identity covariance for the inner product, including the unique probability law in dimension zero. Real.sqrt is the nonnegative square root. The scalar action • is real scalar multiplication, and Prod.swap sends (x,y) to (y,x).",
+      "Kernel E E assigns a measure to every input and requires the measure of each measurable output event to depend measurably on the input. IsMarkovKernel R means each measure R y has mass one.",
+      "For a real-valued f, μ.tilted f is μ.withDensity (x↦ENNReal.ofReal(exp(f(x))/∫exp(f) dμ)). The real integral is totalized when nonintegrable. No additional integrability premise is implicit in this definition.",
+      "For a joint measure ρ on E×E, ρ.IsCondKernel R means ρ.fst ⊗ₘ R=ρ, where ρ.fst is the first marginal and ⊗ₘ is measure–kernel composition-product. On a measurable rectangle A×B this composition has mass ∫⁻y∈A R(y,B) dρ.fst."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "e8415ffdcdc84e327899265ba41412469338f55cda48155535ae9c4964674d9e"
+}
