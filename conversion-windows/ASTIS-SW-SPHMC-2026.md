@@ -180,10 +180,15 @@ paper is claimed.
 
 ## Actual recursive parameter schedule: active proof packet
 
-Cell `ASTIS-SW-SPHMC-recursive-depth` is **PROVED_LOCAL**, not independently verified. The new
-`RecursiveDepth.lean` and its Gibbs consumer test compiled locally on Lean 4.33.0;
-publication/source/commit admission remains pending. This is not an admitted
-result. Exact command/hash evidence is in
+Cell `ASTIS-SW-SPHMC-recursive-depth` is independently **VERIFIED** and in
+stabilization. `depth_commit_verifier` accepted commit
+`457144154299d0a4efc444dc41518727252e74c9` after a successful focused build,
+standard-axiom check and exact-bound independent semantic review by
+`lambda_decoder` and `depth_final_source`. The canonical aggregate gate and
+formalization CI passed at candidate `c533963`. Local reader/graph checks and
+targeted browser inspection passed after repairing statement display for local
+let-definitions. PR250 remains in stabilization; live publication and neither
+complete paper are admitted. Exact command/hash evidence is in
 `runs/20260910-companion-priority/recursive-depth.progress.json`. The source contract and
 proof route are in `proof-blueprints/SPHMC-recursive-depth.md`.
 
