@@ -116,3 +116,25 @@ PBPS or SPHMC closure is inferred. The exact graph outcome is in the cell.
 
 This section records local validation, not a successful eleventh online
 deployment. Push/deployment outcomes are appended only after confirmation.
+
+### Confirmed eleventh-result publication
+
+Final validated release51309b674324f474054827614aeb48bc11986951 was pushed
+normally to origin/main without overwriting the unrelated Measure.lean change.
+The official Lean/site gate was rerun on that exact release, with the same
+source digest above. GitHub runs34462498052 (Samplinglib site),34462498053
+(ASTIS formalization gate) and34462498064 (merged-branch cleanup) all reached
+completed/success. Public site: https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/.
+
+The existing private mirror saved version5 from the same source commit and
+validated archive. Deployment appgdep_6aa27de9a69c81919e0db583d676a3c8 reached
+succeeded at2026-09-10T09:53:56.065965Z, with no failure message.
+URL: https://astis-formalization.w4htry4yqc.chatgpt.site.
+Its owner-only audience is unchanged. The app browser handoff was queued;
+it is not evidence that a tab became visible. No credential was printed or saved.
+
+This outcome-only checkpoint does not change the published mathematical
+artifact or imply another deployment. Registry396 and the eleven independently
+verified companion/shared results remain distinct counts. Both full papers
+remain open. Continue the same active Goal with the planned Lemma6.4 integration
+in next-rgo-packet.md; no replacement Goal, cycle or background session.
