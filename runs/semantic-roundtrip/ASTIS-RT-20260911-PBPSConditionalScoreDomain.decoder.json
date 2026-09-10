@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-25e72294c164785d",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          0 < η →\n            ↑β * η ≤ 1 →\n              have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n              have J :=\n                MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n              have W := fun y u => V ((1 / 2) • (y + u)) + ‖u - y‖ ^ 2 / (8 * η);\n              have s := fun y u => -(1 / 2) • fderiv ℝ V ((1 / 2) • (y + u)) - (1 / (4 * η)) • (innerSL ℝ) (y - u);\n              ∃ R S,\n                ProbabilityTheory.IsMarkovKernel R ∧\n                  ProbabilityTheory.IsMarkovKernel S ∧\n                    (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                      (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                        ∀ (y : E),\n                          (S y = MeasureTheory.MeasureSpace.volume.tilted fun u => -W y u) ∧\n                            ContDiff ℝ 2 (W y) ∧\n                              ContDiff ℝ 1 (s y) ∧\n                                (∀ (u v w : E),\n                                    ((fderiv ℝ (fderiv ℝ (W y)) u) v) w =\n                                        1 / 4 * ((fderiv ℝ (fderiv ℝ V) ((1 / 2) • (y + u))) v) w +\n                                          1 / (4 * η) * Inner.inner ℝ v w ∧\n                                      ((fderiv ℝ (s y) u) v) w =\n                                        1 / (4 * η) * Inner.inner ℝ v w -\n                                          1 / 4 * ((fderiv ℝ (fderiv ℝ V) ((1 / 2) • (y + u))) v) w) ∧\n                                  (∀ (u v : E), (↑α + 1 / η) / 4 * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ (W y)) u) v) v) ∧\n                                    (∀ (u : E), ‖fderiv ℝ (s y) u‖ ≤ (1 / η - ↑α) / 4) ∧\n                                      ∀ (a : E),\n                                        (ContDiff ℝ 1 fun u => (s y u) a) ∧\n                                          MeasureTheory.MemLp (fun u => (s y u) a) 2 (S y) ∧\n                                            (AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Admissible\n                                                (S y) fun u => (s y u) a) ∧\n                                              ∀ (u : E), ‖gradient (fun z => (s y z) a) u‖ ≤ (1 / η - ↑α) / 4 * ‖a‖",
+    "statement_sha256": "25e72294c164785d84b1028718b1beeda197ed68453c4495d5c15cea5f32b593",
+    "compiled": true,
+    "approved_definition_context": [
+      "Measure.map is pushforward, Measure.prod independent product, stdGaussian standard Gaussian and volume canonical Lebesgue measure. A tilt is normalized exponential weighting.",
+      "A Markov kernel is a measurably parameterized probability measure. M.IsCondKernel R disintegrates joint M conditional on its first coordinate. Prod.swap exchanges the coordinates.",
+      "ContDiff at order one or two is C1 or C2. fderiv is the actual Frechet derivative; iterated fderiv is the bilinear second derivative. innerSL is the inner product as a continuous linear functional in its second argument. gradient is the Riesz inverse of fderiv.",
+      "MemLp at exponent two means an almost-everywhere strongly measurable function with finite L2 seminorm. Bochner Integrable includes measurability and finite integral of the norm.",
+      "The Admissible predicate in the displayed namespace is exactly Integrable q mu AND Integrable (fun x => (q x - integral q dmu)^2) mu AND Integrable (fun x => norm(gradient q x)^2) mu. It does not contain a variance inequality.",
+      "Operator norms are norms of continuous linear maps. Local lets abbreviate explicitly defined objects, not extra hypotheses."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "c018fae515bbef100e095f961e4aee7ef18c48ce56bb6cb0ed544cfb8ad9fd87"
+}

@@ -1,0 +1,83 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent response and seven semantic slots.",
+  "reviewer_packet_sha256": "b8552ea6d8a7816fd301f06fb7b648be30d4cf1d6a115ba5dc20073f097eeeec",
+  "source_text_sha256": "a13fe35f3c1c4e4a9a5b0cb1488732ce24ee04d6b17204bfafc9122205fe8274",
+  "lean_statement_sha256": "25e72294c164785d84b1028718b1beeda197ed68453c4495d5c15cea5f32b593",
+  "reconstruction_text_sha256": "cd28f029bbbf27abef59e9fe99bfc0561fc46b1ba65eb05faf037893ba138855",
+  "publication_binding_sha256": "0498cc55db6aae9d592fcba9f2737933cf5730bb6c3a6fc2493ff69bfcd29e03",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Reflected conditional density and vector score.",
+      "reconstructed": "Actual Gibbs-Gaussian J and common R,S with swapped disintegration, reflected pushforward and normalized density; continuous-dual score.",
+      "relation": "explicit-elaboration",
+      "evidence": "Final assembly retains R,S,hcond,hSR,hSnu from ConditionalScore. hSy changes only norm order; real Riesz identifies the source vector."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean space.",
+      "reconstructed": "Any finite-dimensional real inner-product Borel space with volume, including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "No positive-dimension hypothesis; lesson discloses generalization. Explicit alpha<=beta retains nonnegative bound in zero dimension."
+    },
+    "quantifiers": {
+      "original": "Conditional estimates in y,u and unit directions for subsequent Poincare.",
+      "reconstructed": "One common R,S then all y,u,v,w and directions a with norm(a) factor.",
+      "relation": "explicit-elaboration",
+      "evidence": "Kernel existential precedes all fibers/directions. Directional homogeneity includes a=0. Everywhere claims concern the selected version."
+    },
+    "assumptions": {
+      "original": "C2, genuine Hessian bounds, explicit 0<alpha<=beta, eta>0 and beta eta<=1.",
+      "reconstructed": "Same analytic hypotheses with NNReal alpha,beta; no moment, domination, norm or Poincare premise.",
+      "relation": "equivalent",
+      "evidence": "alpha<=beta<=1/eta gives nonnegative L without nonzero vectors; genuine iterated Frechet derivative in hH. All moment/energy facts are conclusions."
+    },
+    "conclusion": {
+      "original": "Conditional Hessian lower bound and sharp score spatial derivative before Poincare.",
+      "reconstructed": "Exact bilinear derivatives, curvature, sharp dual norm, C1 directional score, MemLp 2, Admissible and gradient bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "conditional_derivatives retains minus quarter Hessian in Ds and plus quadratic term. Rayleigh/Riesz supplies sharp norm. Weighted Gaussian moments and gradient bounds establish the domain."
+    },
+    "scopes": {
+      "original": "Input to Appendix C.1 before Poincare, variance and macroscopic estimates.",
+      "reconstructed": "Only actual curvature/derivative/directional-score domain; no variance or general H1 closure.",
+      "relation": "explicit-elaboration",
+      "evidence": "Admissible is exactly L1, centered-square and gradient-square integrability, not Satisfies. Its membership does not imply membership in an arbitrary future test class; extension remains open."
+    },
+    "constant_dependencies": {
+      "original": "Curvature (alpha+eta^-1)/4 and norm (eta^-1-alpha)/4 under beta eta<=1.",
+      "reconstructed": "Same constants with norm(a); auxiliary envelopes depend on V(0), gradient V(0), beta,y,eta,a.",
+      "relation": "explicit-elaboration",
+      "evidence": "Rayleigh forms in [0,L norm(v)^2]. Auxiliary k=1/(16eta), m=V(0)-G^2/(2alpha), C=exp(-m+norm(y)^2/(8eta)), b=(beta+eta^-1)/4 do not enter sharp bound."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Abstract finite-dimensional and zero-dimensional extension, disclosed rather than exact source-domain equivalence.",
+      "evidence": "No positive-dimension hypothesis; lesson discloses generalization. Explicit alpha<=beta retains nonnegative bound in zero dimension."
+    },
+    {
+      "slot": "conclusion",
+      "severity": "informational",
+      "description": "Detailed noncompact moment/domain proof elaborates implicit source conditions without new assumptions.",
+      "evidence": "conditional_derivatives retains minus quarter Hessian in Ds and plus quadratic term. Rayleigh/Riesz supplies sharp norm. Weighted Gaussian moments and gradient bounds establish the domain."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Accepted pre-Poincare edge only; Admissible alone does not put a function in an arbitrary future Poincare test class.",
+      "evidence": "Admissible is exactly L1, centered-square and gradient-square integrability, not Satisfies. Its membership does not imply membership in an arbitrary future test class; extension remains open."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "evidence": "All six steps accepted: common conditional version; exact derivatives; positive-semidefinite Rayleigh/Riesz with zero dimension; true lower bound and tails; polynomial absorption and normalized L2; full integrability domain without Poincare. Weight integrability is proved before tilted equivalence, not exploited through totalized integrals."
+  },
+  "review_evidence": "Fresh anti-anchored packet, full embedded proof, anonymous reconstruction and six authored steps reviewed. Live primary introduction 1.1 and C.1 checked. Canonical packet/source/statement/reconstruction/module hashes independently recomputed; module normalized text 45d838a1ea0acd078db24d38323be39db4b7485d596adb828179f46f9d9f24e4 matches disk text. Binding recorded from authenticated packet without reconstructing external preimage. Exact Admissible definition and axiom-only test read. Reviewer did not compile or claim axiom-output verification, commit admission or VERIFIED. No edits."
+}

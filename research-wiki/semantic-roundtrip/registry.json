@@ -5301,6 +5301,273 @@
           "evidence": "hSnu is obtained from ConditionalScore; binding lists actual disintegration, representative and derivative, not a new density obligation."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-PBPSConditionalScoreDomain",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:pbps-conditional-score-domain",
+        "anchor": "Appendix C.1 after C.1: conditional Hessian, sharp score derivative and noncompact input before conditional Poincare",
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "original_text": "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds alpha I<=D2V<=beta I, explicit 0<alpha<=beta, eta>0 and beta eta<=1.\nThe actual conditional law of Y_minus given Y_plus=y, with Y_plus/minus=X plus/minus sqrt(eta)Z and X Gibbs, has density proportional to exp(-W_y(u)), W_y(u)=V((y+u)/2)+norm(y-u)^2/(8eta). The score is s_y(u)=-grad V((y+u)/2)/2-(y-u)/(4eta).\nThe conditional negative log-density has Hessian (D2V((y+u)/2)+eta^-1 I)/4, bounded below by (alpha+eta^-1)I/4. The score spatial derivative is (eta^-1 I-D2V((y+u)/2))/4 and has operator norm at most (eta^-1-alpha)/4 under beta eta<=1. The conditional Poincare step uses directional scores a dot s_y, for unit a. This selected input packet makes the noncompact directional-score L2 and finite gradient-energy domain explicit; it does not prove the curvature-to-Poincare inequality or the resulting variance bound.",
+        "text_sha256": "a13fe35f3c1c4e4a9a5b0cb1488732ce24ee04d6b17204bfafc9122205fe8274"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+        "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalScoreDomain.lean",
+        "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          0 < η →\n            ↑β * η ≤ 1 →\n              have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n              have J :=\n                MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n              have W := fun y u => V ((1 / 2) • (y + u)) + ‖u - y‖ ^ 2 / (8 * η);\n              have s := fun y u => -(1 / 2) • fderiv ℝ V ((1 / 2) • (y + u)) - (1 / (4 * η)) • (innerSL ℝ) (y - u);\n              ∃ R S,\n                ProbabilityTheory.IsMarkovKernel R ∧\n                  ProbabilityTheory.IsMarkovKernel S ∧\n                    (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                      (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                        ∀ (y : E),\n                          (S y = MeasureTheory.MeasureSpace.volume.tilted fun u => -W y u) ∧\n                            ContDiff ℝ 2 (W y) ∧\n                              ContDiff ℝ 1 (s y) ∧\n                                (∀ (u v w : E),\n                                    ((fderiv ℝ (fderiv ℝ (W y)) u) v) w =\n                                        1 / 4 * ((fderiv ℝ (fderiv ℝ V) ((1 / 2) • (y + u))) v) w +\n                                          1 / (4 * η) * Inner.inner ℝ v w ∧\n                                      ((fderiv ℝ (s y) u) v) w =\n                                        1 / (4 * η) * Inner.inner ℝ v w -\n                                          1 / 4 * ((fderiv ℝ (fderiv ℝ V) ((1 / 2) • (y + u))) v) w) ∧\n                                  (∀ (u v : E), (↑α + 1 / η) / 4 * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ (W y)) u) v) v) ∧\n                                    (∀ (u : E), ‖fderiv ℝ (s y) u‖ ≤ (1 / η - ↑α) / 4) ∧\n                                      ∀ (a : E),\n                                        (ContDiff ℝ 1 fun u => (s y u) a) ∧\n                                          MeasureTheory.MemLp (fun u => (s y u) a) 2 (S y) ∧\n                                            (AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Admissible\n                                                (S y) fun u => (s y u) a) ∧\n                                              ∀ (u : E), ‖gradient (fun z => (s y z) a) u‖ ≤ (1 / η - ↑α) / 4 * ‖a‖",
+        "statement_sha256": "25e72294c164785d84b1028718b1beeda197ed68453c4495d5c15cea5f32b593",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and Tests PASS3186. Independent full-source stdin replay by depth_commit_verifier exit0, only propext/Classical.choice/Quot.sound. Development review, not fixed-commit admission.",
+        "decoder_context": [
+          "Measure.map is pushforward, Measure.prod independent product, stdGaussian standard Gaussian and volume canonical Lebesgue measure. A tilt is normalized exponential weighting.",
+          "A Markov kernel is a measurably parameterized probability measure. M.IsCondKernel R disintegrates joint M conditional on its first coordinate. Prod.swap exchanges the coordinates.",
+          "ContDiff at order one or two is C1 or C2. fderiv is the actual Frechet derivative; iterated fderiv is the bilinear second derivative. innerSL is the inner product as a continuous linear functional in its second argument. gradient is the Riesz inverse of fderiv.",
+          "MemLp at exponent two means an almost-everywhere strongly measurable function with finite L2 seminorm. Bochner Integrable includes measurability and finite integral of the norm.",
+          "The Admissible predicate in the displayed namespace is exactly Integrable q mu AND Integrable (fun x => (q x - integral q dmu)^2) mu AND Integrable (fun x => norm(gradient q x)^2) mu. It does not contain a variance inequality.",
+          "Operator norms are norms of continuous linear maps. Local lets abbreviate explicitly defined objects, not extra hypotheses."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "b8552ea6d8a7816fd301f06fb7b648be30d4cf1d6a115ba5dc20073f097eeeec",
+        "review_run_sha256": "9ea851807f39620ee85f5e03744f88755f2c3d4040c6d50dbd098e4de666ff23",
+        "run_artifact": "runs/20260911-companion-priority/conditional-score-domain.source-review-result.json",
+        "evidence": "Fresh anti-anchored packet, full embedded proof, anonymous reconstruction and six authored steps reviewed. Live primary introduction 1.1 and C.1 checked. Canonical packet/source/statement/reconstruction/module hashes independently recomputed; module normalized text 45d838a1ea0acd078db24d38323be39db4b7485d596adb828179f46f9d9f24e4 matches disk text. Binding recorded from authenticated packet without reconstructing external preimage. Exact Admissible definition and axiom-only test read. Reviewer did not compile or claim axiom-output verification, commit admission or VERIFIED. No edits."
+      },
+      "publication_binding_sha256": "0498cc55db6aae9d592fcba9f2737933cf5730bb6c3a6fc2493ff69bfcd29e03",
+      "publication_context": {
+        "file": "45d838a1ea0acd078db24d38323be39db4b7485d596adb828179f46f9d9f24e4",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore\nimport Mathlib.Analysis.Calculus.FDeriv.Symmetric\nimport Mathlib.Analysis.InnerProductSpace.Rayleigh\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability\nimport Mathlib.MeasureTheory.Measure.Tilted\nimport Mathlib.MeasureTheory.Function.L2Space\nimport AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare\nopen MeasureTheory ProbabilityTheory InnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.Analysis\nopen scoped ContDiff NNReal\n\n\n\n/-!\n# Actual conditional curvature and noncompact directional scores\n\nSource: arXiv:2609.06905v1 Appendix C.1, the conditional Hessian and score\nbounds preceding the conditional Poincare step. This derives the actual\nnoncompact test domain, not the curvature-to-Poincare inequality itself.\nThe explicit alpha <= beta hypothesis is retained even in dimension zero.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain\nuniverse u\n\n/-- The actual reflected conditional law has the source curvature and sharp\nscore derivative bound, with directional scores in L2 and the stated finite\nvariance/gradient-energy domain. No Poincare inequality is assumed or proved. -/\ntheorem conditional_curvature_and_score_domain {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    {V : E → ℝ} {α β : NNReal} {η : ℝ}\n    (hα : 0 < (α:ℝ)) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n      (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β:ℝ)*‖v‖^2)\n    (hη : 0 < η) (hβη : (β:ℝ)*η ≤ 1) :\n    let μ := (volume : Measure E).tilted (fun x => -V x)\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2)) (μ.prod (stdGaussian E))\n    let W := fun y u : E => V ((1/2:ℝ) • (y+u)) + ‖u-y‖^2/(8*η)\n    let s := fun y u : E => -(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) - (1/(4*η)) • innerSL ℝ (y-u)\n    ∃ R S : Kernel E E, IsMarkovKernel R ∧ IsMarkovKernel S ∧\n      (J.map Prod.swap).IsCondKernel R ∧\n      (∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y)) ∧\n      ∀ y, S y = (volume : Measure E).tilted (fun u => -W y u) ∧\n        ContDiff ℝ 2 (W y) ∧ ContDiff ℝ 1 (s y) ∧\n        (∀ u v w,\n          (fderiv ℝ (fderiv ℝ (W y)) u v) w =\n            (1/4:ℝ)*(fderiv ℝ (fderiv ℝ V) ((1/2:ℝ) • (y+u)) v) w + (1/(4*η))*inner ℝ v w ∧\n          (fderiv ℝ (s y) u v) w = (1/(4*η))*inner ℝ v w -\n            (1/4:ℝ)*(fderiv ℝ (fderiv ℝ V) ((1/2:ℝ) • (y+u)) v) w) ∧\n        (∀ u v, (((α:ℝ)+1/η)/4)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ (W y)) u v) v) ∧\n        (∀ u, ‖fderiv ℝ (s y) u‖ ≤ (1/η-(α:ℝ))/4) ∧\n        ∀ a : E, ContDiff ℝ 1 (fun u => s y u a) ∧\n          MemLp (fun u => s y u a) 2 (S y) ∧\n          AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Admissible (S y) (fun u => s y u a) ∧\n          ∀ u, ‖gradient (fun z => s y z a) u‖ ≤ ((1/η-(α:ℝ))/4)*‖a‖ := by\n  have conditional_derivatives {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n      {V : E → ℝ} (hV : ContDiff ℝ 2 V) (η : ℝ) (y : E) :\n      let W := fun u : E => V ((1/2:ℝ) • (y+u)) + ‖u-y‖^2/(8*η)\n      let s := fun u : E => -(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n        (1/(4*η)) • innerSL ℝ (y-u)\n      ContDiff ℝ 2 W ∧ ContDiff ℝ 1 s ∧\n        ∀ u v w : E,\n          (fderiv ℝ (fderiv ℝ W) u v) w =\n            (1/4:ℝ) * (fderiv ℝ (fderiv ℝ V) ((1/2:ℝ) • (y+u)) v) w +\n              (1/(4*η)) * inner ℝ v w ∧\n          (fderiv ℝ s u v) w =\n            (1/(4*η)) * inner ℝ v w -\n              (1/4:ℝ) * (fderiv ℝ (fderiv ℝ V) ((1/2:ℝ) • (y+u)) v) w := by\n    let mid := fun u : E => (1/2:ℝ) • (y+u)\n    let W := fun u : E => V (mid u) + ‖u-y‖^2/(8*η)\n    let s := fun u : E => -(1/2:ℝ) • fderiv ℝ V (mid u) -\n        (1/(4*η)) • innerSL ℝ (y-u)\n    let J : E →L[ℝ] (E →L[ℝ] ℝ) :=\n      { toFun := fun v => innerSL ℝ v\n        map_add' := by intros; ext; simp\n        map_smul' := by intros; ext; simp\n        cont := (innerSL ℝ (E := E)).continuous }\n    have hmid (u : E) : HasFDerivAt mid ((1/2:ℝ) • ContinuousLinearMap.id ℝ E) u := by\n      convert ((hasFDerivAt_const (𝕜 := ℝ) y u).add (hasFDerivAt_id u)).const_smul (1/2:ℝ) using 1 <;> simp [mid] <;> rfl\n    have hVd := hV.differentiable (by norm_num)\n    have hVdd := (hV.fderiv_right (m := 1) (by norm_num)).differentiable_one\n    have hmidC : ContDiff ℝ 2 mid := by fun_prop\n    have hWC : ContDiff ℝ 2 W := hV.comp hmidC |>.add (((contDiff_id.sub contDiff_const).norm_sq (𝕜 := ℝ)).div_const _)\n    have hsC : ContDiff ℝ 1 s := by\n      apply ContDiff.sub\n      · exact ((hV.fderiv_right (m := 1) (by norm_num)).comp (hmidC.of_le (by norm_num))).const_smul _\n      · exact (J.contDiff.comp (contDiff_const.sub contDiff_id)).const_smul _\n    have hWfd (u : E) : fderiv ℝ W u =\n        (1/2:ℝ) • fderiv ℝ V (mid u) + (1/(4*η)) • J (u-y) := by\n      have hv := (hVd (mid u)).hasFDerivAt.comp u (hmid u)\n      have hq := (((hasFDerivAt_id u).sub_const y).norm_sq).const_mul (1/(8*η))\n      have hw : HasFDerivAt W ((1/2:ℝ) • fderiv ℝ V (mid u) + (1/(4*η)) • J (u-y)) u := by\n        convert hv.add hq using 1 <;> first | rfl | (ext v; simp [W,J,Function.comp_def]; ring)\n      exact hw.fderiv\n    have hWdd (u : E) : HasFDerivAt (fderiv ℝ W)\n        ((1/4:ℝ) • fderiv ℝ (fderiv ℝ V) (mid u) + (1/(4*η)) • J) u := by\n      rw [show fderiv ℝ W = _ from funext hWfd]\n      convert (((hVdd (mid u)).hasFDerivAt.comp u (hmid u)).const_smul (1/2:ℝ)).add\n        ((J.hasFDerivAt.comp u ((hasFDerivAt_id u).sub_const y)).const_smul (1/(4*η))) using 1 <;>\n        first | rfl | (ext v w; simp; ring)\n    have hsD (u : E) : HasFDerivAt s\n        ((1/(4*η)) • J - (1/4:ℝ) • fderiv ℝ (fderiv ℝ V) (mid u)) u := by\n      convert (((hVdd (mid u)).hasFDerivAt.comp u (hmid u)).const_smul (-(1/2:ℝ))).sub\n        ((J.hasFDerivAt.comp u ((hasFDerivAt_const (𝕜 := ℝ) y u).sub (hasFDerivAt_id u))).const_smul (1/(4*η))) using 1 <;>\n        first | rfl | (ext v w; simp; ring)\n    refine ⟨hWC,hsC,?_⟩\n    intro u v w\n    rw [(hWdd u).fderiv,(hsD u).fderiv]\n    constructor <;> rfl\n\n  have sharp_score_norm {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n      {V : E → ℝ} (hV : ContDiff ℝ 2 V) {α β η : ℝ}\n      (hαβ : α ≤ β) (hη : 0 < η) (hβη : β*η ≤ 1)\n      (hH : ∀ x v : E, α*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n        (fderiv ℝ (fderiv ℝ V) x v) v ≤ β*‖v‖^2)\n      (x : E) (D : E →L[ℝ] (E →L[ℝ] ℝ))\n      (hD : ∀ v w, D v w = (1/(4*η))*inner ℝ v w -\n        (1/4:ℝ)*(fderiv ℝ (fderiv ℝ V) x v) w) :\n      ‖D‖ ≤ (1/η-α)/4 := by\n    let R : (E →L[ℝ] ℝ) →L[ℝ] E :=\n      { toFun := (toDual ℝ E).symm\n        map_add' := (toDual ℝ E).symm.map_add\n        map_smul' := by intros; simp\n        cont := (toDual ℝ E).symm.continuous }\n    let T := R.comp D\n    have hinner (v w : E) : inner ℝ (T v) w = D v w := toDual_symm_apply\n    have hsym : T.IsSymmetric := by\n      intro v w\n      change inner ℝ (T v) w = inner ℝ v (T w)\n      calc\n        _ = D v w := hinner v w\n        _ = D w v := by\n          rw [hD,hD,hV.contDiffAt.isSymmSndFDerivAt (by norm_num) v w,real_inner_comm w v]\n        _ = inner ℝ (T w) v := (hinner w v).symm\n        _ = inner ℝ v (T w) := real_inner_comm _ _\n    have hβ : β ≤ 1/η := (le_div_iff₀ hη).2 hβη\n    have hc : 0 ≤ (1/η-α)/4 := div_nonneg (sub_nonneg.mpr (hαβ.trans hβ)) (by norm_num)\n    have hdiag (v : E) : D v v = ((1/η)*‖v‖^2-(fderiv ℝ (fderiv ℝ V) x v) v)/4 := by\n      rw [hD,real_inner_self_eq_norm_sq]\n      ring\n    have hbounds (v : E) : 0 ≤ D v v ∧ D v v ≤ ((1/η-α)/4)*‖v‖^2 := by\n      rw [hdiag]\n      have hh := hH x v\n      have hb := mul_le_mul_of_nonneg_right hβ (sq_nonneg ‖v‖)\n      constructor <;> nlinarith\n    have hnormT : ‖T‖ ≤ (1/η-α)/4 := by\n      rw [T.norm_eq_iSup_rayleighQuotient hsym]\n      apply ciSup_le\n      intro v\n      change |inner ℝ (T v) v / ‖v‖^2| ≤ (1/η-α)/4\n      rw [hinner,abs_of_nonneg (div_nonneg (hbounds v).1 (sq_nonneg _))]\n      by_cases hv : v=0\n      · simpa [hv] using hc\n      · exact (div_le_iff₀ (sq_pos_of_pos (norm_pos_iff.mpr hv))).2 (hbounds v).2\n    apply D.opNorm_le_bound hc\n    intro v\n    calc\n      ‖D v‖ = ‖T v‖ := ((toDual ℝ E).symm.norm_map (D v)).symm\n      _ ≤ ‖T‖ * ‖v‖ := T.le_opNorm v\n      _ ≤ ((1/η-α)/4)*‖v‖ := mul_le_mul_of_nonneg_right hnormT (norm_nonneg _)\n\n  have absorb_quadratic {a r : ℝ} (ha : 0 < a) :\n      r^2 * Real.exp (-a*r^2) ≤ (2/a)*Real.exp (-(a/2)*r^2) := by\n    have hx : (a/2)*r^2 ≤ Real.exp ((a/2)*r^2) := by\n      linarith [Real.add_one_le_exp ((a/2)*r^2)]\n    have hm := mul_le_mul_of_nonneg_right hx (Real.exp_nonneg (-a*r^2))\n    have he : Real.exp ((a/2)*r^2)*Real.exp (-a*r^2) = Real.exp (-(a/2)*r^2) := by\n      rw [← Real.exp_add]\n      congr 1\n      ring\n    rw [he] at hm\n    calc\n      r^2 * Real.exp (-a*r^2) ≤ Real.exp (-(a/2)*r^2)/(a/2) :=\n        (le_div_iff₀ (by positivity : 0 < a/2)).2 (by nlinarith [hm])\n      _ = (2/a)*Real.exp (-(a/2)*r^2) := by ring\n\n  have weighted_linear_memLp {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (w q : E → ℝ) (hw : Continuous w) (hq : Continuous q)\n      {a C A B : ℝ} (ha : 0 < a) (hC : 0 ≤ C) (hA : 0 ≤ A) (hB : 0 ≤ B)\n      (hweight : ∀ u, Real.exp (w u) ≤ C*Real.exp (-a*‖u‖^2))\n      (hgrowth : ∀ u, ‖q u‖ ≤ A+B*‖u‖) :\n      Integrable (fun u => Real.exp (w u)) (volume : Measure E) ∧\n        MemLp q 2 ((volume : Measure E).tilted w) := by\n    have hwi : Integrable (fun u => Real.exp (w u)) (volume : Measure E) := by\n      apply ((AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_mul_norm_sq\n        (E := E) ha).const_mul C).mono' hw.rexp.aestronglyMeasurable\n      filter_upwards with u\n      simpa only [Real.norm_eq_abs,abs_of_pos (Real.exp_pos _)] using hweight u\n    refine ⟨hwi,?_⟩\n    apply (memLp_two_iff_integrable_sq hq.aestronglyMeasurable).2\n    apply (integrable_tilted_iff hwi (fun u => q u ^ 2)).2\n    have hdom := (AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_mul_norm_sq\n        (E := E) (show 0 < a/2 by positivity)).const_mul (C*(2*A^2+4*B^2/a))\n    apply hdom.mono' (hw.rexp.smul (hq.pow 2)).aestronglyMeasurable\n    filter_upwards with u\n    change ‖Real.exp (w u)*(q u)^2‖ ≤ C*(2*A^2+4*B^2/a)*Real.exp (-(a/2)*‖u‖^2)\n    simp only [smul_eq_mul,Real.norm_eq_abs,abs_of_nonneg (mul_nonneg (Real.exp_nonneg _) (sq_nonneg _))]\n    have hs : (q u)^2 ≤ 2*A^2+2*B^2*‖u‖^2 := by\n      have hh := (sq_le_sq₀ (norm_nonneg (q u)) (by positivity)).2 (hgrowth u)\n      rw [Real.norm_eq_abs,sq_abs] at hh\n      nlinarith [sq_nonneg (A-B*‖u‖)]\n    have he : Real.exp (-a*‖u‖^2) ≤ Real.exp (-(a/2)*‖u‖^2) := by\n      apply Real.exp_le_exp.mpr\n      nlinarith [mul_nonneg ha.le (sq_nonneg ‖u‖)]\n    calc\n      Real.exp (w u)*(q u)^2 ≤ (C*Real.exp (-a*‖u‖^2))*(2*A^2+2*B^2*‖u‖^2) :=\n        mul_le_mul (hweight u) hs (sq_nonneg _) (mul_nonneg hC (Real.exp_nonneg _))\n      _ = C*(2*A^2*Real.exp (-a*‖u‖^2)+2*B^2*(‖u‖^2*Real.exp (-a*‖u‖^2))) := by ring\n      _ ≤ C*(2*A^2*Real.exp (-(a/2)*‖u‖^2)+2*B^2*((2/a)*Real.exp (-(a/2)*‖u‖^2))) := by\n        apply mul_le_mul_of_nonneg_left _ hC\n        exact add_le_add (mul_le_mul_of_nonneg_left he (by positivity))\n          (mul_le_mul_of_nonneg_left (absorb_quadratic (r := ‖u‖) ha) (by positivity))\n      _ = C*(2*A^2+4*B^2/a)*Real.exp (-(a/2)*‖u‖^2) := by ring\n\n  have admissible_of_memLp_gradient_bound {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (μ : Measure E) [IsFiniteMeasure μ] (q : E → ℝ)\n      (hq : ContDiff ℝ 1 q) (hLp : MemLp q 2 μ)\n      {M : ℝ} (hM : ∀ u, ‖gradient q u‖ ≤ M) :\n      AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Admissible μ q := by\n    have hgc : Continuous (gradient q) :=\n      (toDual ℝ E).symm.continuous.comp (hq.continuous_fderiv (by norm_num))\n    have hgLp : MemLp (gradient q) 2 μ :=\n      MemLp.of_bound hgc.aestronglyMeasurable M (Filter.Eventually.of_forall hM)\n    refine ⟨hLp.integrable (by norm_num),?_,?_⟩\n    · exact (hLp.sub (memLp_const _)).integrable_sq\n    · exact (memLp_two_iff_integrable_sq_norm hgc.aestronglyMeasurable).1 hgLp\n\n  have directional_score {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n      (s : E → (E →L[ℝ] ℝ)) (hs : ContDiff ℝ 1 s) {c : ℝ} (hc : 0 ≤ c)\n      (hD : ∀ u, ‖fderiv ℝ s u‖ ≤ c) (a : E) :\n      ContDiff ℝ 1 (fun u => s u a) ∧ ∀ u,\n        ‖gradient (fun z => s z a) u‖ ≤ c*‖a‖ := by\n    let ev := ContinuousLinearMap.apply' ℝ (RingHom.id ℝ) a\n    have hq : ContDiff ℝ 1 (fun u => s u a) := ev.contDiff.comp hs\n    refine ⟨hq,?_⟩\n    intro u\n    have hqD : HasFDerivAt (fun z => s z a) (ev.comp (fderiv ℝ s u)) u :=\n      ev.hasFDerivAt.comp u ((hs.differentiable (by norm_num)) u).hasFDerivAt\n    have hdn : ‖fderiv ℝ (fun z => s z a) u‖ ≤ c*‖a‖ := by\n      rw [hqD.fderiv]\n      apply ContinuousLinearMap.opNorm_le_bound _ (mul_nonneg hc (norm_nonneg _))\n      intro v\n      change ‖(fderiv ℝ s u v) a‖ ≤ (c*‖a‖)*‖v‖\n      calc\n        ‖(fderiv ℝ s u v) a‖ ≤ ‖fderiv ℝ s u v‖*‖a‖ := (fderiv ℝ s u v).le_opNorm a\n        _ ≤ (‖fderiv ℝ s u‖*‖v‖)*‖a‖ := mul_le_mul_of_nonneg_right ((fderiv ℝ s u).le_opNorm v) (norm_nonneg _)\n        _ ≤ (c*‖v‖)*‖a‖ := mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right (hD u) (norm_nonneg _)) (norm_nonneg _)\n        _ = (c*‖a‖)*‖v‖ := by ring\n    rw [← toDual_gradient,(toDual ℝ E).norm_map] at hdn\n    exact hdn\n\n  have potential_controls {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] {V : E → ℝ} {α β : ℝ≥0}\n      (hα : 0 < (α : ℝ)) (hV : ContDiff ℝ 2 V)\n      (hH : ∀ x v : E,\n        (α : ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n        (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β : ℝ)*‖v‖^2) :\n      (∀ x, V 0 - (α : ℝ)⁻¹/2*‖gradient V 0‖^2 ≤ V x) ∧\n      (∀ x, ‖fderiv ℝ V x‖ ≤ ‖gradient V 0‖ + (β : ℝ)*‖x‖) := by\n    have hd : Differentiable ℝ V := hV.differentiable (by norm_num)\n    have hreg := QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic\n      hV hH (r := 0) (0 : E)\n    simp only [NNReal.coe_zero, zero_div, zero_mul, add_zero] at hreg\n    constructor\n    · intro x\n      have hfirst := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn hreg.1\n          (fun z _ => (hd z).hasGradientAt) (x := 0) (y := x)\n          (Set.mem_univ _) (Set.mem_univ _)\n      simp only [sub_zero] at hfirst\n      have hinner := (abs_le.mp (abs_real_inner_le_norm (gradient V 0) x)).1\n      have hyoung := two_mul_le_add_mul_sq (a := ‖x‖) (b := ‖gradient V 0‖) hα\n      nlinarith\n    · intro x\n      rw [← toDual_gradient]\n      rw [(toDual ℝ E).norm_map]\n      calc\n        ‖gradient V x‖ ≤ ‖gradient V x - gradient V 0‖ + ‖gradient V 0‖ :=\n          norm_le_norm_sub_add _ _\n        _ ≤ (β : ℝ)*‖x‖ + ‖gradient V 0‖ := by\n          apply add_le_add _ (le_refl _)\n          simpa using hreg.2.norm_sub_le x 0\n        _ = _ := add_comm _ _\n\n  have weight_envelope {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      (V : E → ℝ) {m η R : ℝ} (hV : ∀ x, m ≤ V x) (hη : 0 < η)\n      (y u : E) (hy : ‖y‖ ≤ R) :\n      Real.exp (-V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η)) ≤\n        Real.exp (-m+R^2/(8*η)) * Real.exp (-(1/(16*η))*‖u‖^2) := by\n    have hR : 0 ≤ R := (norm_nonneg y).trans hy\n    have htri : ‖u‖ ≤ ‖y-u‖ + R := by\n      have h := norm_le_norm_sub_add u y\n      rw [norm_sub_rev u y] at h\n      linarith\n    have hsq : ‖u‖^2 ≤ 2*‖y-u‖^2 + 2*R^2 := by\n      have ht := (sq_le_sq₀ (norm_nonneg u) (by positivity)).mpr htri\n      nlinarith [sq_nonneg (‖y-u‖-R)]\n    have hq := div_le_div_of_nonneg_right hsq (by positivity : 0 ≤ 16*η)\n    have hdiv : ‖u‖^2/(16*η) ≤ ‖y-u‖^2/(8*η) + R^2/(8*η) := by\n      have heq : (2*‖y-u‖^2+2*R^2)/(16*η) = ‖y-u‖^2/(8*η)+R^2/(8*η) := by\n        field_simp\n        ring\n      rw [heq] at hq\n      exact hq\n    rw [← Real.exp_add]\n    apply Real.exp_le_exp.mpr\n    have hv := hV ((1/2:ℝ) • (y+u))\n    simp only [div_eq_mul_inv, one_mul] at hdiv ⊢\n    nlinarith\n\n  have score_envelope {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [CompleteSpace E] (V : E → ℝ) {G β η R : ℝ}\n      (hG : ∀ x, ‖fderiv ℝ V x‖ ≤ G+β*‖x‖) (hβ : 0 ≤ β) (hη : 0 < η)\n      (y u : E) (hy : ‖y‖ ≤ R) :\n      ‖-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n        (1/(4*η)) • innerSL ℝ (y-u)‖ ≤\n        G/2 + ((β+η⁻¹)/4)*R + ((β+η⁻¹)/4)*‖u‖ := by\n    have hmid : ‖(1/2:ℝ) • (y+u)‖ ≤ (R+‖u‖)/2 := by\n      rw [norm_smul, Real.norm_eq_abs]\n      norm_num\n      have h := norm_add_le y u\n      linarith\n    have hfd : ‖fderiv ℝ V ((1/2:ℝ) • (y+u))‖ ≤ G+β*((R+‖u‖)/2) :=\n      (hG _).trans (add_le_add (le_refl _) (mul_le_mul_of_nonneg_left hmid hβ))\n    have hdiff : ‖y-u‖ ≤ R+‖u‖ := (norm_sub_le _ _).trans (add_le_add hy (le_refl _))\n    calc\n      _ ≤ ‖-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u))‖ +\n          ‖(1/(4*η)) • innerSL ℝ (y-u)‖ := norm_sub_le _ _\n      _ = (1/2:ℝ)*‖fderiv ℝ V ((1/2:ℝ) • (y+u))‖ + (1/(4*η))*‖y-u‖ := by\n        simp only [norm_smul, Real.norm_eq_abs, innerSL_apply_norm]\n        rw [abs_of_pos (by positivity : 0 < 1/(4*η))]\n        norm_num\n      _ ≤ (1/2:ℝ)*(G+β*((R+‖u‖)/2)) + (1/(4*η))*(R+‖u‖) := by\n        gcongr\n      _ = _ := by simp only [div_eq_mul_inv, mul_inv_rev]; ring\n  let W := fun y u : E => V ((1/2:ℝ) • (y+u)) + ‖u-y‖^2/(8*η)\n  let s := fun y u : E => -(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) - (1/(4*η)) • innerSL ℝ (y-u)\n  obtain ⟨R,S,hR,hS,hcond,hSR,hSν,hder⟩ :=\n    AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance hα hV hH hη\n  let _ : IsMarkovKernel S := hS\n  obtain ⟨hmin,hgrad⟩ := potential_controls hα hV hH\n  have hαβr : (α:ℝ) ≤ β := hαβ\n  have hβInv : (β:ℝ) ≤ 1/η := (le_div_iff₀ hη).2 hβη\n  have hc : 0 ≤ (1/η-(α:ℝ))/4 := div_nonneg (sub_nonneg.mpr (hαβr.trans hβInv)) (by norm_num)\n  dsimp only\n  refine ⟨R,S,hR,hS,hcond,hSR,?_⟩\n  intro y\n  have hSy : S y = (volume : Measure E).tilted (fun u => -W y u) := by\n    rw [hSν y]\n    congr 1\n    funext u\n    dsimp [W]\n    rw [norm_sub_rev u y]\n    ring\n  obtain ⟨hWC,hsC,hcalc⟩ := conditional_derivatives hV η y\n  have hDn (u : E) : ‖fderiv ℝ (s y) u‖ ≤ (1/η-(α:ℝ))/4 :=\n    sharp_score_norm hV hαβr hη hβη hH ((1/2:ℝ) • (y+u)) (fderiv ℝ (s y) u)\n      (fun v w => (hcalc u v w).2)\n  refine ⟨hSy,hWC,hsC,hcalc,?_,hDn,?_⟩\n  · intro u v\n    rw [(hcalc u v v).1,real_inner_self_eq_norm_sq]\n    have hco : 1/(4*η) = (1/η)/4 := by ring\n    rw [hco]\n    nlinarith [(hH ((1/2:ℝ) • (y+u)) v).1]\n  · intro a\n    obtain ⟨hqC,hqG⟩ := directional_score (s y) hsC hc hDn a\n    let b := ((β:ℝ)+η⁻¹)/4\n    let A := ‖gradient V 0‖/2+b*‖y‖\n    let m := V 0 - (α:ℝ)⁻¹/2*‖gradient V 0‖^2\n    have hb : 0 ≤ b := by dsimp [b]; positivity\n    have hA : 0 ≤ A := by dsimp [A]; positivity\n    have hqgrowth (u : E) : ‖s y u a‖ ≤ (A*‖a‖)+(b*‖a‖)*‖u‖ := by\n      have hsg := score_envelope V hgrad (NNReal.coe_nonneg β) hη y u (le_refl ‖y‖)\n      calc\n        ‖s y u a‖ ≤ ‖s y u‖*‖a‖ := (s y u).le_opNorm a\n        _ ≤ (A+b*‖u‖)*‖a‖ := mul_le_mul_of_nonneg_right hsg (norm_nonneg _)\n        _ = _ := by ring\n    have hweight (u : E) : Real.exp (-W y u) ≤\n        Real.exp (-m+‖y‖^2/(8*η))*Real.exp (-(1/(16*η))*‖u‖^2) := by\n      have hw := weight_envelope V hmin hη y u (le_refl ‖y‖)\n      convert hw using 1\n      dsimp [W]\n      rw [norm_sub_rev u y]\n      congr 1\n      ring\n    have hLp : MemLp (fun u => s y u a) 2 (S y) := by\n      rw [hSy]\n      exact (weighted_linear_memLp (fun u => -W y u) (fun u => s y u a)\n        hWC.continuous.neg hqC.continuous (by positivity) (Real.exp_nonneg _)\n        (mul_nonneg hA (norm_nonneg _)) (mul_nonneg hb (norm_nonneg _)) hweight hqgrowth).2\n    exact ⟨hqC,hLp,admissible_of_memLp_gradient_bound (S y) (fun u => s y u a) hqC hLp hqG,hqG⟩\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "edition": "arXiv:2609.06905v1",
+          "anchor": "Appendix C.1 after C.1: conditional Hessian, sharp score derivative and noncompact input before conditional Poincare",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded mathematical proof."
+        },
+        "statement": "The conditional negative log-density has Hessian (D2V((y+u)/2)+eta^-1 I)/4, bounded below by (alpha+eta^-1)I/4. The score spatial derivative is (eta^-1 I-D2V((y+u)/2))/4 and has operator norm at most (eta^-1-alpha)/4 under beta eta<=1. The conditional Poincare step uses directional scores a dot s_y, for unit a. This selected input packet makes the noncompact directional-score L2 and finite gradient-energy domain explicit; it does not prove the curvature-to-Poincare inequality or the resulting variance bound.",
+        "formulae": [
+          {
+            "label": "conditional curvature and directional score domain",
+            "tex": "D^2W_y\\succeq\\frac{\\alpha+\\eta^{-1}}4I,\\qquad\\|D_us_y\\|_{\\mathrm{op}}\\le\\frac{\\eta^{-1}-\\alpha}4,\\qquad q_a\\in L^2(S_y)."
+          }
+        ],
+        "assumptions": [
+          "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds alpha I<=D2V<=beta I, explicit 0<alpha<=beta, eta>0 and beta eta<=1.",
+          "The actual conditional law of Y_minus given Y_plus=y, with Y_plus/minus=X plus/minus sqrt(eta)Z and X Gibbs, has density proportional to exp(-W_y(u)), W_y(u)=V((y+u)/2)+norm(y-u)^2/(8eta). The score is s_y(u)=-grad V((y+u)/2)/2-(y-u)/(4eta)."
+        ],
+        "obligations": [
+          {
+            "id": "conditional-curvature",
+            "label": "Genuine conditional-potential Hessian and positive lower curvature"
+          },
+          {
+            "id": "sharp-score-derivative",
+            "label": "Genuine C1 score derivative and sharp operator norm bound"
+          },
+          {
+            "id": "noncompact-score-domain",
+            "label": "Actual directional-score L2 and finite centered-square/gradient-square domain"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+          "kind": "theorem",
+          "title": "Actual conditional curvature and the noncompact directional-score domain",
+          "statement": "For the actual Gibbs-Gaussian augmentation J, there exist common Markov kernels R,S with R disintegrating the swapped joint law and S_y its reflected pushforward. Every S_y is the normalized tilt by -W_y, with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta). The theorem computes the genuine Hessian of W_y and derivative of the dual-valued score s_y(u)=-DV((y+u)/2)/2-inner(y-u,.)/(4 eta), proves the lower curvature (alpha+eta inverse)/4 and sharp score derivative norm bound L=(eta inverse-alpha)/4. Every directional score q_a(u)=s_y(u)(a) is C1 and lies in L2(S_y); its mean, centered square and gradient square are integrable, and its gradient norm is bounded by L norm(a), for every y,a,u.",
+          "formula": "D^2W_y\\succeq\\frac{\\alpha+\\eta^{-1}}4I,\\qquad\\|D_us_y\\|_{\\mathrm{op}}\\le\\frac{\\eta^{-1}-\\alpha}4,\\qquad q_a\\in L^2(S_y).",
+          "assumptions": [
+            "E is a finite-dimensional real inner-product space with its Borel structure and canonical volume. Dimension zero is allowed. V:E->R is C2.",
+            "Alpha and beta are finite nonnegative reals with explicit 0<alpha<=beta. For every x,v the genuine second derivative satisfies alpha norm(v)^2<=D2V(x)[v,v]<=beta norm(v)^2.",
+            "Eta is positive and beta eta<=1. The explicit alpha<=beta condition is retained even in dimension zero, where the Hessian inequalities alone do not imply it.",
+            "Mu is normalized exponential weighting of volume by -V; J is the law of (X,X+sqrt(eta)Z) with X~mu and independent standard Gaussian Z. Kernels, normalization, tails and moment conditions are derived.",
+            "The same R,S work for every y and every direction a. No compact support is imposed on q_a. All regularity, pointwise derivative bounds and fiber integrability conclusions are for the selected everywhere-defined conditional version."
+          ],
+          "steps": [
+            {
+              "title": "Fix the actual reflected conditional law",
+              "text": "Use the existing conditional-score construction to obtain Markov R and S. R disintegrates the actual swapped Gibbs-Gaussian augmentation; every S_y is the pushforward of R_y through x to 2x-y. The same S_y is volume tilted by minus W_y, where W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta). Symmetry of the norm identifies this exponent with the earlier density. No abstract measure with assumed curvature or moments replaces this conditional law.",
+              "formula": "S_y=(x\\mapsto2x-y)_\\#R_y\\propto e^{-W_y(u)}\\,du.",
+              "lean": "Final assembly retains R,S from reflected_conditional_covariance and rewrites hSnu using norm_sub_rev. All following estimates use that S."
+            },
+            {
+              "title": "Compute both genuine derivatives",
+              "text": "The midpoint map has derivative one half times identity. Apply the chain rule twice to V composed with the midpoint, and differentiate the quadratic term. Its Hessian is the inner-product map divided by 4 eta. For the score, differentiating minus one half DV gives minus one quarter D2V, while differentiating minus inner(y-u,.)/(4 eta) gives plus the inner-product map divided by 4 eta. V being C2 yields W_y C2 and s_y C1. The Hessian lower bound of V therefore gives the displayed positive lower curvature for W_y.",
+              "formula": "D^2W_y(u)=\\tfrac14\\bigl(D^2V((y+u)/2)+\\eta^{-1}I\\bigr),\\qquad D_us_y(u)=\\tfrac14\\bigl(\\eta^{-1}I-D^2V((y+u)/2)\\bigr).",
+              "lean": "conditional_derivatives proves both Frechet derivative identities and regularity by chain rules. The final lower bound substitutes the genuine hH lower inequality."
+            },
+            {
+              "title": "Obtain the sharp score derivative norm",
+              "text": "The explicit inequalities alpha<=beta and beta eta<=1 imply beta<=eta inverse and L=(eta inverse-alpha)/4>=0. Use the real Riesz isometry to view D_us_y as an endomorphism of E. Symmetry follows from the symmetry of the genuine second derivative of V. Its quadratic forms lie between zero and L norm(v)^2; the Rayleigh quotient norm formula therefore gives operator norm at most L. The operator is positive semidefinite and may vanish at the endpoint. Transfer the bound back through the Riesz isometry. Keeping alpha<=beta explicitly is necessary when dimension zero is allowed.",
+              "formula": "0\\preceq D_us_y\\preceq L I,\\qquad \\|D_us_y\\|_{\\mathrm{op}}\\le L:=\\frac{\\eta^{-1}-\\alpha}{4}.",
+              "lean": "sharp_score_norm uses ContDiffAt.isSymmSndFDerivAt and norm_eq_iSup_rayleighQuotient on the Riesz endomorphism, then opNorm_le_bound on the dual-valued map. No Hessian operator-norm premise is assumed."
+            },
+            {
+              "title": "Derive Gaussian tails and linear score growth",
+              "text": "The existing quadratic-regularization theorem at zero regularization gives strong convexity and beta-Lipschitz continuity of the actual gradient. Write G=norm(gradient V(0)). The first-order lower bound and completing the square imply V>=m, with m=V(0)-G^2/(2 alpha), and norm(DV(x))<=G+beta norm(x). For fixed y, put R=norm(y), k=1/(16 eta), C=exp(-m+R^2/(8 eta)), and b=(beta+eta inverse)/4. The triangle inequality gives exp(-W_y(u))<=C exp(-k norm(u)^2) and norm(s_y(u))<=G/2+bR+b norm(u). For direction a, evaluation yields norm(q_a(u))<=A+B norm(u), where A=(G/2+bR)norm(a), B=b norm(a).",
+              "formula": "e^{-W_y(u)}\\le C e^{-k\\|u\\|^2},\\qquad |q_a(u)|\\le A+B\\|u\\|.",
+              "lean": "potential_controls, weight_envelope and score_envelope are local proved adapters, reusing public QuadraticRegularization and StrongConvexFirstOrder. They are not treated as publicly available helpers of ConditionalScore."
+            },
+            {
+              "title": "Prove second moments by absorbing the quadratic factor",
+              "text": "The linear bound gives q_a(u)^2<=2A^2+2B^2 norm(u)^2. The elementary exponential inequality t<=exp(t), with t=k r^2/2, gives r^2 exp(-k r^2)<=(2/k) exp(-k r^2/2). Consequently the unnormalized squared-score integrand is bounded by C(2A^2+4B^2/k) exp(-k norm(u)^2/2), which is integrable on finite-dimensional E. The original Gaussian envelope also proves integrability of the normalizing weight. The tilted-integral equivalence then proves q_a in L2(S_y). No second-moment assumption is introduced.",
+              "formula": "e^{-W_y(u)}q_a(u)^2\\le C\\left(2A^2+\\frac{4B^2}{k}\\right)e^{-k\\|u\\|^2/2}.",
+              "lean": "absorb_quadratic and weighted_linear_memLp use the exponential lower bound, finite-dimensional Gaussian integrability, integrable_tilted_iff and memLp_two_iff_integrable_sq."
+            },
+            {
+              "title": "Verify the noncompact input domain",
+              "text": "Evaluation at a is a continuous linear map, so q_a is C1 and its gradient has norm at most L norm(a). Its gradient is continuous and uniformly bounded, hence has integrable square under the probability S_y. The already proved L2 membership gives L1 integrability; subtracting the constant expectation preserves L2 and proves the centered square integrable. These are precisely the three clauses of the existing Poincare.Admissible domain. This supplies a valid noncompact directional-score input, but the curvature-to-Poincare theorem and its applicable test-domain extension are separate missing proofs.",
+              "formula": "q_a\\in L^2(S_y),\\quad \\int(q_a-\\mathbb E q_a)^2\\,dS_y<\\infty,\\quad \\|\\nabla q_a\\|\\le L\\|a\\|.",
+              "lean": "directional_score proves C1 and the norm bound through continuous-linear evaluation. admissible_of_memLp_gradient_bound derives the Admissible clauses from MemLp, MemLp subtraction and bounded continuous gradient; it does not use Poincare.Satisfies or variance_le."
+            }
+          ],
+          "lean_statement": "One public theorem constructs actual compatible kernels and proves conditional curvature, the sharp score derivative bound and the full directional-score admissibility domain.",
+          "lean_proof": "Chain rules and symmetric Rayleigh quotients give exact derivatives and sharp norms; Gaussian domination derives L2 moments; continuous evaluation and bounded gradients give the noncompact input domain.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_mul_norm_sq",
+            "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Admissible"
+          ],
+          "mathlib_dependencies": [
+            "ContDiffAt.isSymmSndFDerivAt",
+            "ContinuousLinearMap.norm_eq_iSup_rayleighQuotient",
+            "Real.add_one_le_exp",
+            "MeasureTheory.integrable_tilted_iff",
+            "MeasureTheory.memLp_two_iff_integrable_sq",
+            "MeasureTheory.MemLp.integrable_sq"
+          ],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+              "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1",
+              "scope": "Conditional Hessian and score derivative estimates before conditional Poincare, with explicit noncompact test-domain proof."
+            }
+          ],
+          "tests": {
+            "file": "Tests/ProximalBPSConditionalScoreDomain.lean",
+            "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain Tests.ProximalBPSConditionalScoreDomain"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+          "role": "proof-edge",
+          "supports": [
+            "conditional-curvature",
+            "sharp-score-derivative",
+            "noncompact-score-domain"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds alpha I<=D2V<=beta I, explicit 0<alpha<=beta, eta>0 and beta eta<=1.",
+            "lean": "E is a finite-dimensional real inner-product space with its Borel structure and canonical volume. Dimension zero is allowed. V:E->R is C2. Alpha and beta are finite nonnegative reals with explicit 0<alpha<=beta. For every x,v the genuine second derivative satisfies alpha norm(v)^2<=D2V(x)[v,v]<=beta norm(v)^2. Eta is positive and beta eta<=1. The explicit alpha<=beta condition is retained even in dimension zero, where the Hessian inequalities alone do not imply it."
+          },
+          {
+            "source": "Unit direction a in the score-variance input.",
+            "lean": "Every direction a, with gradient bound L norm(a)."
+          },
+          {
+            "source": "Gradient and symmetric score derivative in Euclidean coordinates.",
+            "lean": "Continuous-dual score with Frechet derivative; real Riesz identification supplies the symmetric endomorphism used in the norm proof."
+          },
+          {
+            "source": "The conditional Poincare application uses noncompact directional scores.",
+            "lean": "For the same actual conditional version, directional scores are C1, MemLp 2 and Poincare.Admissible, derived from Gaussian tails."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be a finite-dimensional real inner-product space with its Borel measurable structure. Let V:E->R, alpha,beta nonnegative real and eta real. Assume alpha>0, alpha<=beta, V is C2, alpha norm(v)^2<=D2V(x)[v,v]<=beta norm(v)^2 for all x,v, eta>0 and beta eta<=1. Define mu as Lebesgue measure tilted by -V. Let J be the pushforward of mu tensor standard Gaussian by (x,z)->(x,x+sqrt(eta)z). Define W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), and s_y(u)=-DV((y+u)/2)/2-inner(y-u,.)/(4eta), a continuous linear functional. There exist Markov kernels R,S such that R is a conditional kernel for swap pushforward J given the first coordinate, and S(y) is the pushforward of R(y) by x->2x-y for every y. Thus R represents the original first coordinate conditional on the noisy second coordinate. The same kernels satisfy, for every y: S(y) is volume tilted by -W_y; W_y is C2 and s_y C1; for every u,v,w, D2W_y(u)[v,w]=D2V((y+u)/2)[v,w]/4+inner(v,w)/(4eta), and Ds_y(u)[v][w]=inner(v,w)/(4eta)-D2V((y+u)/2)[v,w]/4; for every u,v, D2W_y(u)[v,v]>=(alpha+1/eta)norm(v)^2/4; and for every u, norm(Ds_y(u))<=(1/eta-alpha)/4. For every direction a define q_(y,a)(u)=s_y(u)[a]. Then q is C1, belongs to L2(S(y)), and is Admissible for S(y): exactly q integrable, its square centered by its S(y) expectation integrable, and norm(gradient q)^2 integrable. Admissible does not assert a variance inequality. For every u, norm(gradient q(u))<=((1/eta-alpha)/4)norm(a). Quantifiers: every space and tuple satisfying hypotheses, then one pair R,S, then every y and every indicated point and direction. Kernel identities and analytic conclusions are pointwise for every y, not merely almost everywhere. Norm constants depend only on alpha,eta; beta enters hypotheses. Gradient is the Riesz representative of the Frechet derivative. L2 includes almost-everywhere strong measurability and finite seminorm.",
+        "text_sha256": "cd28f029bbbf27abef59e9fe99bfc0561fc46b1ba65eb05faf037893ba138855",
+        "decoder_packet_sha256": "c018fae515bbef100e095f961e4aee7ef18c48ce56bb6cb0ed544cfb8ad9fd87",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "score_domain_blind_decoder",
+        "notes": [
+          "Fresh independent agent received only anonymous packet; root transcribed without source-fidelity verdict."
+        ],
+        "decoder_run_sha256": "885c6560873b7852571e1a81a32765eca6788557f00e8f7c566f6b4bbcd225c3",
+        "lean_statement_sha256": "25e72294c164785d84b1028718b1beeda197ed68453c4495d5c15cea5f32b593",
+        "run_artifact": "runs/20260911-companion-priority/conditional-score-domain.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Reflected conditional density and vector score.",
+          "reconstructed": "Actual Gibbs-Gaussian J and common R,S with swapped disintegration, reflected pushforward and normalized density; continuous-dual score.",
+          "relation": "explicit-elaboration",
+          "evidence": "Final assembly retains R,S,hcond,hSR,hSnu from ConditionalScore. hSy changes only norm order; real Riesz identifies the source vector."
+        },
+        "domains": {
+          "original": "Positive-dimensional Euclidean space.",
+          "reconstructed": "Any finite-dimensional real inner-product Borel space with volume, including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No positive-dimension hypothesis; lesson discloses generalization. Explicit alpha<=beta retains nonnegative bound in zero dimension."
+        },
+        "quantifiers": {
+          "original": "Conditional estimates in y,u and unit directions for subsequent Poincare.",
+          "reconstructed": "One common R,S then all y,u,v,w and directions a with norm(a) factor.",
+          "relation": "explicit-elaboration",
+          "evidence": "Kernel existential precedes all fibers/directions. Directional homogeneity includes a=0. Everywhere claims concern the selected version."
+        },
+        "assumptions": {
+          "original": "C2, genuine Hessian bounds, explicit 0<alpha<=beta, eta>0 and beta eta<=1.",
+          "reconstructed": "Same analytic hypotheses with NNReal alpha,beta; no moment, domination, norm or Poincare premise.",
+          "relation": "equivalent",
+          "evidence": "alpha<=beta<=1/eta gives nonnegative L without nonzero vectors; genuine iterated Frechet derivative in hH. All moment/energy facts are conclusions."
+        },
+        "conclusion": {
+          "original": "Conditional Hessian lower bound and sharp score spatial derivative before Poincare.",
+          "reconstructed": "Exact bilinear derivatives, curvature, sharp dual norm, C1 directional score, MemLp 2, Admissible and gradient bound.",
+          "relation": "explicit-elaboration",
+          "evidence": "conditional_derivatives retains minus quarter Hessian in Ds and plus quadratic term. Rayleigh/Riesz supplies sharp norm. Weighted Gaussian moments and gradient bounds establish the domain."
+        },
+        "scopes": {
+          "original": "Input to Appendix C.1 before Poincare, variance and macroscopic estimates.",
+          "reconstructed": "Only actual curvature/derivative/directional-score domain; no variance or general H1 closure.",
+          "relation": "explicit-elaboration",
+          "evidence": "Admissible is exactly L1, centered-square and gradient-square integrability, not Satisfies. Its membership does not imply membership in an arbitrary future test class; extension remains open."
+        },
+        "constant_dependencies": {
+          "original": "Curvature (alpha+eta^-1)/4 and norm (eta^-1-alpha)/4 under beta eta<=1.",
+          "reconstructed": "Same constants with norm(a); auxiliary envelopes depend on V(0), gradient V(0), beta,y,eta,a.",
+          "relation": "explicit-elaboration",
+          "evidence": "Rayleigh forms in [0,L norm(v)^2]. Auxiliary k=1/(16eta), m=V(0)-G^2/(2alpha), C=exp(-m+norm(y)^2/(8eta)), b=(beta+eta^-1)/4 do not enter sharp bound."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Abstract finite-dimensional and zero-dimensional extension, disclosed rather than exact source-domain equivalence.",
+          "evidence": "No positive-dimension hypothesis; lesson discloses generalization. Explicit alpha<=beta retains nonnegative bound in zero dimension."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Detailed noncompact moment/domain proof elaborates implicit source conditions without new assumptions.",
+          "evidence": "conditional_derivatives retains minus quarter Hessian in Ds and plus quadratic term. Rayleigh/Riesz supplies sharp norm. Weighted Gaussian moments and gradient bounds establish the domain."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Accepted pre-Poincare edge only; Admissible alone does not put a function in an arbitrary future Poincare test class.",
+          "evidence": "Admissible is exactly L1, centered-square and gradient-square integrability, not Satisfies. Its membership does not imply membership in an arbitrary future test class; extension remains open."
+        }
+      ]
     }
   ]
 }

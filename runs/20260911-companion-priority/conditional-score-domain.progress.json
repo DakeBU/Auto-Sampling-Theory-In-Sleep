@@ -1,0 +1,33 @@
+{
+  "state": "PROVED_LOCAL",
+  "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+  "focused_check": {
+    "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain Tests.ProximalBPSConditionalScoreDomain",
+    "result": "PASS3186",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalScoreDomain.lean": "88675897290ba5b11ab1fb96b13fa3170da5c1fff41926b59771bf88c26ec419",
+      "Tests/ProximalBPSConditionalScoreDomain.lean": "f49549378808cdad5b7414e65a52ed843ec2694fe30cb351742295b31a3ecff8"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/conditional-score-domain.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audit": "ASTIS-RT-20260911-PBPSConditionalScoreDomain",
+    "artifact": "runs/20260911-companion-priority/conditional-score-domain.source-review-result.json"
+  },
+  "mathematical_status": "Actual conditional curvature, sharp score derivative and noncompact directional-score input domain only. Curvature-to-Poincare, its noncompact test extension, conditional variance, general L2/H1 differentiation, macroscopic coercivity, processes, implementation/error/cost and full paper remain open.",
+  "remaining": [
+    "Source review and fixed-commit admission",
+    "Integration, aggregate gate and reader/graph delivery",
+    "Curvature-to-Poincare and appropriate noncompact test extension",
+    "Conditional variance, general L2/H1 and all later main-theorem dependencies"
+  ]
+}

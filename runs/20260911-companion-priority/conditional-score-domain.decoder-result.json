@@ -1,0 +1,15 @@
+{
+  "decoder": "score_domain_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent anonymous mathematical reconstruction, with formulas in plain text.",
+  "source_text_visible": false,
+  "only_input": "runs/semantic-roundtrip/ASTIS-RT-20260911-PBPSConditionalScoreDomain.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "c018fae515bbef100e095f961e4aee7ef18c48ce56bb6cb0ed544cfb8ad9fd87",
+  "lean_statement_sha256": "25e72294c164785d84b1028718b1beeda197ed68453c4495d5c15cea5f32b593",
+  "reconstructed_theorem_text": "Let E be a finite-dimensional real inner-product space with its Borel measurable structure. Let V:E->R, alpha,beta nonnegative real and eta real. Assume alpha>0, alpha<=beta, V is C2, alpha norm(v)^2<=D2V(x)[v,v]<=beta norm(v)^2 for all x,v, eta>0 and beta eta<=1. Define mu as Lebesgue measure tilted by -V. Let J be the pushforward of mu tensor standard Gaussian by (x,z)->(x,x+sqrt(eta)z). Define W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), and s_y(u)=-DV((y+u)/2)/2-inner(y-u,.)/(4eta), a continuous linear functional. There exist Markov kernels R,S such that R is a conditional kernel for swap pushforward J given the first coordinate, and S(y) is the pushforward of R(y) by x->2x-y for every y. Thus R represents the original first coordinate conditional on the noisy second coordinate. The same kernels satisfy, for every y: S(y) is volume tilted by -W_y; W_y is C2 and s_y C1; for every u,v,w, D2W_y(u)[v,w]=D2V((y+u)/2)[v,w]/4+inner(v,w)/(4eta), and Ds_y(u)[v][w]=inner(v,w)/(4eta)-D2V((y+u)/2)[v,w]/4; for every u,v, D2W_y(u)[v,v]>=(alpha+1/eta)norm(v)^2/4; and for every u, norm(Ds_y(u))<=(1/eta-alpha)/4. For every direction a define q_(y,a)(u)=s_y(u)[a]. Then q is C1, belongs to L2(S(y)), and is Admissible for S(y): exactly q integrable, its square centered by its S(y) expectation integrable, and norm(gradient q)^2 integrable. Admissible does not assert a variance inequality. For every u, norm(gradient q(u))<=((1/eta-alpha)/4)norm(a). Quantifiers: every space and tuple satisfying hypotheses, then one pair R,S, then every y and every indicated point and direction. Kernel identities and analytic conclusions are pointwise for every y, not merely almost everywhere. Norm constants depend only on alpha,eta; beta enters hypotheses. Gradient is the Riesz representative of the Frechet derivative. L2 includes almost-everywhere strong measurability and finite seminorm.",
+  "source_fidelity_verdict": null
+}

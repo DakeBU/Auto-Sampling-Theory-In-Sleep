@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative.macroscopic_reflection_smooth_representative",
   "focused_check": {
     "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative Tests.ProximalBPSMacroscopicRepresentative",
@@ -25,7 +25,7 @@
   },
   "mathematical_status": "Actual joint disintegration and the differentiable representative of the actual compressed L2 reflection only. No conditional Poincare, quantitative score variance, general L2/H1 extension, coercivity, process/error/cost or complete-paper result.",
   "remaining": [
-    "Final-head independent merge advice, CI and actual merge/deployment",
+    "Verify merge-commit CI and actual deployed reader",
     "Conditional curvature and noncompact score domain",
     "Curvature-to-Poincare, score variance and general L2/H1 extension",
     "Coercivity, processes, mixing/error/cost and complete main results"
@@ -42,9 +42,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/254",
-    "state": "draft",
-    "head": "2a41c9ce039a0817b98c85f583fa28953db12d11",
-    "boundary": "Local reader and graph checks, final-head CI and independent merge advice pending."
+    "state": "MERGED",
+    "head": "e5c6d15cd912ef7865c06ae8a21f68f933840f26",
+    "boundary": "Actual merge verified; merge CI and deployed delivery pending."
   },
   "integration_notes": {
     "metadata_correction": "Initial site CI 34522705475 failed because the completed dependency search record omitted the literal Samplinglib label. Corrected that record at 2a41c9c; Frontier Cell check and 9 discrete-sampling tests pass, publication binding unchanged. No Lean or authored lesson changes."
@@ -76,5 +76,18 @@
       "evidence_card_opened": true
     },
     "boundary": "Local rendered QA only; no actual merge or deployed delivery asserted."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/254",
+    "commit": "df4625d5dafb94f9db69cb93adf01efd0ea9530e",
+    "candidate": "e5c6d15cd912ef7865c06ae8a21f68f933840f26",
+    "merged_at": "2026-09-10T20:26:01Z",
+    "independent_merge_review": "depth_commit_verifier accepted final content and advised ready/merge conditional on both final-head CI succeeding. Root verified both SUCCESS and unchanged head, then ready and merge with match-head-commit.",
+    "candidate_ci": {
+      "lean": "34523942433 SUCCESS",
+      "site": "34523942472 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": "Merge-commit CI and actual deployed reader pending.",
+    "truth_boundary": "Actual macroscopic reflected joint/L2 representative/classical derivative integration only; source domain-mismatch generalization retained, no Poincare/variance/Sobolev/coercivity/process/cost/full-paper completion."
   }
 }
