@@ -6075,6 +6075,496 @@
           "evidence": "Upper scale restriction retained from parent interface and distinguished from abstract Bochner needs."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-WeightedGradient",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:pbps-weighted-gradient",
+        "anchor": "section2.5 weighted Sobolev construction; direct Euclidean prerequisite",
+        "url": "https://arxiv.org/html/1310.2526v7",
+        "original_text": "Selected full-space prerequisite: d>=1, W:R^d->R C1 and exp(-W) integrable, actual normalized Gibbs measure and smooth compact tests.\nThe background discussion is on compact weighted manifolds with smoother potential; full-space construction and weaker C1 regularity are explicit scope changes, not silent specialization.\nSection2.5 of Kolesnikov-Milman describes weighted H1 and H10 by completing smooth test functions in the graph norm on its compact weighted manifold. The selected ASTIS analytic prerequisite is a directly proved Euclidean full-space construction, not that source spectral conclusion: for d>=1, C1 W with integrable exp(-W), the graph of smooth compact f and their genuine gradients determines a densely defined closable scalar-to-vector L2 operator under the normalized Gibbs measure. Its graph closure remains single-valued. This explicit construction is needed before a weighted resolvent route to PBPS conditional Poincare. No manifold boundary theorem or D*D operator-core assertion is included.",
+        "text_sha256": "66cb0512bf0575d043eff13dff7cb0de8398ca2a7bc02681e27f2df2d3adaf75"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable",
+        "file": "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/WeightedGradient.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] (W : E → ℝ),\n  ContDiff ℝ 1 W →\n    MeasureTheory.Integrable (fun x => Real.exp (-W x)) MeasureTheory.MeasureSpace.volume →\n      have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -W x;\n      ∃ D,\n        Dense ↑D.domain ∧\n          D.IsClosable ∧\n            D.closure.IsClosed ∧\n              ∀ (u : ↥(MeasureTheory.Lp ℝ 2 μ)) (v : ↥(MeasureTheory.Lp E 2 μ)),\n                (u, v) ∈ D.graph ↔ ∃ f, ContDiff ℝ (↑⊤) f ∧ HasCompactSupport f ∧ ↑↑u =ᵐ[μ] f ∧ ↑↑v =ᵐ[μ] gradient f",
+        "statement_sha256": "60a4223280f49c9d9c403eda7b21d8faea3c0e2258e26c2409df4d003050338b",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3296, independently replayed, only propext/Classical.choice/Quot.sound. Full independent development proof review passed; fixed-commit admission not yet granted.",
+        "decoder_context": [
+          "E is a finite-dimensional real inner-product space with Borel measurable structure and canonical volume, including dimension zero.",
+          "ContDiff at order1/2/infinity means C1/C2/smooth. HasCompactSupport means closure of nonzero support is compact. gradient is the Riesz representative of the genuine Frechet derivative.",
+          "Lp F 2 mu is the vector space of measurable functions with finite squared-norm integral, modulo mu-almost-everywhere equality. Equality =ae explicitly compares representatives. Dense uses the L2 norm topology.",
+          "A LinearPMap is a partial real-linear map with a linear-subspace domain. Its graph consists of input-output pairs on that domain. IsClosable means the topological closure of that graph is itself a graph of a partial linear map. For a closable map its closure has exactly that closed graph; IsClosed means graph-closed, not boundedness or an everywhere-defined map.",
+          "Measure.tilted is normalized exponential weighting, totalized to zero when the exponential is not integrable. The displayed Integrable condition means almost-everywhere strong measurability and finite integral of norm.",
+          "Measure.map is pushforward; Measure.prod encodes independent product; stdGaussian is the standard Gaussian. A Markov kernel is a measurably parameterized probability measure. IsCondKernel disintegrates the specified joint measure on its first coordinate; Prod.swap swaps coordinates.",
+          "Existential operators are chosen before the universal quantifiers over their graph inputs. Lets abbreviate the displayed actual objects, not additional assumptions."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "85008fd8fdbbb651b84e5d3d4d93af4ede6f4ee562665f1035757940f0287408",
+        "review_run_sha256": "de22d1fe6324705a8f11d58e54809b6bb970b08de56a494f1547367ebd8e8a12",
+        "run_artifact": "runs/20260911-companion-priority/weighted-gradient.source-review-result.json",
+        "evidence": "Independent anti-anchored review of primary context, anonymous reconstruction, complete embedded production proof and all six plus three authored steps. Canonical packet, source, statement, reconstruction and embedded-module hashes independently recomputed; production files match embedded text. Binding digests authenticated from packet, external preimage not independently reconstructed. Primary section2.5 compact-manifold graph-norm paragraph freshly checked; PBPS C.1 boundary checked in review sequence. No candidate verdict consulted. No independent compile, axiom-output verification, aggregate or VERIFIED claim in this source review."
+      },
+      "publication_binding_sha256": "4660a8b0da0404096e2b50a3fc909c9a2bd3a880535536cef75ff6e0b5a65ff9",
+      "publication_context": {
+        "file": "5bd3402124330f69d7875e9bbfc6eb31760b70528850ac841d1ff7c84ab72149",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient\nimport Mathlib.Analysis.Calculus.LineDeriv.IntegrationByParts\nimport Mathlib.Analysis.InnerProductSpace.Calculus\nimport Mathlib.Analysis.Normed.Lp.SmoothApprox\nimport Mathlib.Analysis.InnerProductSpace.LinearPMap\nimport Mathlib.MeasureTheory.Function.L2Space\nimport Mathlib.MeasureTheory.Measure.Tilted\n\n/-!\n# Dense closable gradient for a normalized Gibbs measure\n\nDirectly proved Euclidean full-space Sobolev prerequisite for PBPS\narXiv:2609.06905v1 Appendix C.1. Background arXiv:1310.2526v7 section 2.5\nuses weighted Sobolev completions on compact manifolds. This construction\nis not that source's spectral theorem or a manifold/boundary generalization.\n\nThe actual graph consists exactly of smooth compact scalar representatives\nand their genuine gradients. Weighted vector-field integration by parts\nand vector-valued smooth L2 density prove single-valuedness of its closure.\nOnly C1 potential and actual exponential integrability are assumed; no\nPoincare, coercivity, closed-generator or operator-core premise is used.\nThe result includes dimension zero. No claim about the operator core of D*D,\nresolvent regularity, noncompact score bounds or a complete paper is made.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient\n\nopen MeasureTheory InnerProductSpace\nopen scoped RealInnerProductSpace ContDiff Topology\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\ntheorem compact_gradient_closable (W : E → ℝ) (hW : ContDiff ℝ 1 W)\n    (hI : Integrable (fun x => Real.exp (-W x))) :\n    let μ := (volume : Measure E).tilted (fun x => -W x)\n    ∃ D : Lp ℝ 2 μ →ₗ.[ℝ] Lp E 2 μ,\n      Dense (D.domain : Set (Lp ℝ 2 μ)) ∧ D.IsClosable ∧ D.closure.IsClosed ∧\n      ∀ (u : Lp ℝ 2 μ) (v : Lp E 2 μ), (u,v) ∈ D.graph ↔\n        ∃ f : E → ℝ, ContDiff ℝ ∞ f ∧ HasCompactSupport f ∧\n          u =ᵐ[μ] f ∧ v =ᵐ[μ] gradient f := by\n  have weighted_directional (W f g : E → ℝ) (hW : ContDiff ℝ 1 W)\n      (hf : ContDiff ℝ 1 f) (hg : ContDiff ℝ 1 g)\n      (hgc : HasCompactSupport g) (v : E) :\n      (∫ x, Real.exp (-W x) * g x * fderiv ℝ f x v) =\n        - ∫ x, Real.exp (-W x) *\n          (fderiv ℝ g x v - g x * fderiv ℝ W x v) * f x := by\n    let F := fun x => Real.exp (-W x) * g x\n    have hF : ContDiff ℝ 1 F := hW.neg.exp.mul hg\n    have hFc : HasCompactSupport F := hgc.mul_left\n    have hDF : Continuous (fun x => fderiv ℝ F x v) :=\n      (hF.fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const\n    have hDf : Continuous (fun x => fderiv ℝ f x v) :=\n      (hf.fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const\n    have hDFc : HasCompactSupport (fun x => fderiv ℝ F x v) := by\n      refine HasCompactSupport.of_support_subset_isCompact hFc.isCompact ?_\n      intro x hx\n      by_contra hn\n      exact hx (by simp [fderiv_of_notMem_tsupport ℝ hn])\n    have h1 : Integrable (fun x => fderiv ℝ F x v * f x) :=\n      (hDF.mul hf.continuous).integrable_of_hasCompactSupport hDFc.mul_right\n    have h2 : Integrable (fun x => F x * fderiv ℝ f x v) :=\n      (hF.continuous.mul hDf).integrable_of_hasCompactSupport hFc.mul_right\n    have h3 : Integrable (fun x => F x * f x) :=\n      (hF.continuous.mul hf.continuous).integrable_of_hasCompactSupport hFc.mul_right\n    have hi := integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable h1 h2 h3\n      (fun x _ => hF.differentiable one_ne_zero x)\n      (fun x _ => hf.differentiable one_ne_zero x)\n    change (∫ x, F x * fderiv ℝ f x v) = _\n    rw [hi]\n    congr 1\n    apply integral_congr_ae\n    filter_upwards [] with x\n    have hd := ((hW.differentiable one_ne_zero x).hasFDerivAt.neg.exp).mul\n      (hg.differentiable one_ne_zero x).hasFDerivAt\n    have he : fderiv ℝ F x v = Real.exp (-W x) *\n        (fderiv ℝ g x v - g x * fderiv ℝ W x v) := by\n      rw [show fderiv ℝ F x = _ from hd.fderiv]\n      simp only [add_apply, smul_apply, neg_apply, smul_eq_mul, Pi.neg_apply]\n      ring\n    rw [he]\n\n  have gradient_cont (f : E → ℝ) (hf : ContDiff ℝ 1 f) : Continuous (gradient f) := by\n    exact (toDual ℝ E).symm.continuous.comp (hf.fderiv_right (m := 0) (by norm_num)).continuous\n\n  have gradient_compact (f : E → ℝ) (hc : HasCompactSupport f) :\n      HasCompactSupport (gradient f) := by\n    refine HasCompactSupport.of_support_subset_isCompact hc.isCompact ?_\n    intro x hx\n    by_contra hn\n    exact hx (by simp [gradient, fderiv_of_notMem_tsupport ℝ hn])\n\n  have raw_vector_ibp (W : E → ℝ) (hW : ContDiff ℝ 1 W)\n      (P : E → E) (hP : ContDiff ℝ 1 P) (hPc : HasCompactSupport P) :\n      ∃ q : E → ℝ, Continuous q ∧ HasCompactSupport q ∧\n        ∀ (f : E → ℝ), ContDiff ℝ 1 f →\n          (∫ x, Real.exp (-W x) * inner ℝ (gradient f x) (P x)) =\n            ∫ x, Real.exp (-W x) * f x * q x := by\n    let b := stdOrthonormalBasis ℝ E\n    let g := fun i x => inner ℝ (P x) (b i)\n    have hg (i) : ContDiff ℝ 1 (g i) := hP.inner ℝ contDiff_const\n    have hgc (i) : HasCompactSupport (g i) := by\n      refine HasCompactSupport.of_support_subset_isCompact hPc.isCompact ?_\n      intro x hx\n      by_contra hn\n      exact hx (by simp [g, image_eq_zero_of_notMem_tsupport hn])\n    have hdg (i) : Continuous (fun x => fderiv ℝ (g i) x (b i)) :=\n      ((hg i).fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const\n    have hdgc (i) : HasCompactSupport (fun x => fderiv ℝ (g i) x (b i)) := by\n      refine HasCompactSupport.of_support_subset_isCompact (hgc i).isCompact ?_\n      intro x hx\n      by_contra hn\n      exact hx (by simp [fderiv_of_notMem_tsupport ℝ hn])\n    have hdW (i) : Continuous (fun x => fderiv ℝ W x (b i)) :=\n      (hW.fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const\n    let Q := fun i x => -(fderiv ℝ (g i) x (b i) - g i x * fderiv ℝ W x (b i))\n    have hQ (i) : Continuous (Q i) := ((hdg i).sub ((hg i).continuous.mul (hdW i))).neg\n    have hQc (i) : HasCompactSupport (Q i) := ((hdgc i).sub (hgc i).mul_right).neg\n    let q := fun x => ∑ i, Q i x\n    refine ⟨q,continuous_finsetSum _ (fun i _ => hQ i),?_,?_⟩\n    · have hfun : q = ∑ i, Q i := by funext x; simp [q]\n      rw [hfun]\n      exact HasCompactSupport.finset_sum (s := Finset.univ) (f := Q) fun i _ => hQc i\n    intro f hf\n    have hA (i) : Integrable (fun x => Real.exp (-W x) * g i x * fderiv ℝ f x (b i)) := by\n      apply (((hW.neg.exp).continuous.mul (hg i).continuous).mul\n        ((hf.fderiv_right (m := 0) (by norm_num)).continuous.clm_apply continuous_const)).integrable_of_hasCompactSupport\n      exact (hgc i).mul_left.mul_right\n    have hB (i) : Integrable (fun x => Real.exp (-W x) * f x * Q i x) :=\n      (((hW.neg.exp).continuous.mul hf.continuous).mul (hQ i)).integrable_of_hasCompactSupport (hQc i).mul_left\n    have hpoint (x : E) : inner ℝ (gradient f x) (P x) =\n        ∑ i, g i x * fderiv ℝ f x (b i) := by\n      rw [← b.sum_inner_mul_inner (gradient f x) (P x)]\n      apply Finset.sum_congr rfl\n      intro i _\n      rw [AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt (hf.differentiable one_ne_zero x)]\n      simp only [g, real_inner_comm (b i) (P x), mul_comm]\n    simp_rw [hpoint, Finset.mul_sum]\n    rw [integral_finsetSum _ (fun i _ => by simpa [mul_assoc] using hA i)]\n    change _ = ∫ x, Real.exp (-W x) * f x * ∑ i, Q i x\n    simp_rw [Finset.mul_sum]\n    rw [integral_finsetSum _ (fun i _ => hB i)]\n    apply Finset.sum_congr rfl\n    intro i _\n    rw [show (∫ x, Real.exp (-W x) * (g i x * fderiv ℝ f x (b i))) =\n      ∫ x, Real.exp (-W x) * g i x * fderiv ℝ f x (b i) by congr 1; funext x; ring]\n    rw [weighted_directional W f (g i) hW hf (hg i) (hgc i) (b i), ← integral_neg]\n    apply integral_congr_ae\n    filter_upwards [] with x\n    dsimp only [Q]\n    ring\n\n  have tilted_vector_ibp (W : E → ℝ) (hW : ContDiff ℝ 1 W)\n      (hI : Integrable (fun x => Real.exp (-W x)))\n      (P : E → E) (hP : ContDiff ℝ 1 P) (hPc : HasCompactSupport P) :\n      let μ := (volume : Measure E).tilted (fun x => -W x)\n      ∃ q : E → ℝ, Continuous q ∧ HasCompactSupport q ∧ MemLp q 2 μ ∧\n        ∀ (f : E → ℝ), ContDiff ℝ 1 f →\n          (∫ x, inner ℝ (gradient f x) (P x) ∂μ) = ∫ x, f x * q x ∂μ := by\n    let μ := (volume : Measure E).tilted (fun x => -W x)\n    let : IsProbabilityMeasure μ := isProbabilityMeasure_tilted hI\n    obtain ⟨q,hq,hqc,hi⟩ := raw_vector_ibp W hW P hP hPc\n    refine ⟨q,hq,hqc,hq.memLp_of_hasCompactSupport hqc,?_⟩\n    have ht (g : E → ℝ) : (∫ x, g x ∂μ) =\n        (∫ x, Real.exp (-W x))⁻¹ * ∫ x, Real.exp (-W x) * g x := by\n      rw [show μ = (volume : Measure E).tilted (fun x => -W x) from rfl, integral_tilted]\n      rw [← integral_const_mul]\n      apply integral_congr_ae\n      filter_upwards [] with x\n      change (Real.exp (-W x) / (∫ z, Real.exp (-W z))) • g x =\n        (∫ z, Real.exp (-W z))⁻¹ * (Real.exp (-W x) * g x)\n      simp only [smul_eq_mul, div_eq_mul_inv]\n      ring\n    intro f hf\n    rw [ht,ht,hi f hf]\n    congr 1\n    apply integral_congr_ae\n    filter_upwards [] with x\n    ring\n\n  let smoothGradientGraph (μ : Measure E) : Submodule ℝ (Lp ℝ 2 μ × Lp E 2 μ) :=\n    {\n      carrier := {u | ∃ f : E → ℝ, ContDiff ℝ ∞ f ∧ HasCompactSupport f ∧\n        u.1 =ᵐ[μ] f ∧ u.2 =ᵐ[μ] gradient f}\n      zero_mem' := by\n        refine ⟨0,contDiff_const,HasCompactSupport.zero,?_,?_⟩\n        · exact Lp.coeFn_zero _ _ _\n        · have hz : gradient (0 : E → ℝ) = (0 : E → E) := by\n            funext x\n            exact gradient_fun_const x (0 : ℝ)\n          change (0 : Lp E 2 μ) =ᵐ[μ] gradient (0 : E → ℝ)\n          rw [hz]\n          exact Lp.coeFn_zero E 2 μ\n      add_mem' := by\n        rintro u v ⟨f,hf,hfc,hfu,hfg⟩ ⟨g,hg,hgc,hgu,hgg⟩\n        refine ⟨f+g,hf.add hg,hfc.add hgc,?_,?_⟩\n        · exact (Lp.coeFn_add u.1 v.1).trans (hfu.add hgu)\n        have he : gradient (f+g) = gradient f + gradient g := by\n          funext x\n          simp only [gradient, fderiv_add (hf.differentiable (by simp) x)\n            (hg.differentiable (by simp) x), map_add, Pi.add_apply]\n        rw [he]\n        exact (Lp.coeFn_add u.2 v.2).trans (hfg.add hgg)\n      smul_mem' := by\n        rintro a u ⟨f,hf,hfc,hfu,hfg⟩\n        refine ⟨a • f,contDiff_const.smul hf,hfc.smul_left,?_,?_⟩\n        · exact (Lp.coeFn_smul a u.1).trans (hfu.const_smul a)\n        have he : gradient (a • f) = a • gradient f := by\n          funext x\n          simp only [gradient, fderiv_const_smul (hf.differentiable (by simp) x),\n            map_smul, Pi.smul_apply]\n        rw [he]\n        exact (Lp.coeFn_smul a u.2).trans (hfg.const_smul a)\n    }\n\n  have closure_unique (W : E → ℝ) (hW : ContDiff ℝ 1 W)\n      (hI : Integrable (fun x => Real.exp (-W x))) :\n      let μ := (volume : Measure E).tilted (fun x => -W x)\n      ∀ u ∈ (smoothGradientGraph μ).topologicalClosure, u.1 = 0 → u.2 = 0 := by\n    let μ := (volume : Measure E).tilted (fun x => -W x)\n    let : IsProbabilityMeasure μ := isProbabilityMeasure_tilted hI\n    dsimp only\n    intro u hu huz\n    have hd : Dense {v : Lp E 2 μ | ∃ P : E → E,\n        v =ᵐ[μ] P ∧ HasCompactSupport P ∧ ContDiff ℝ ∞ P} :=\n      Lp.dense_hasCompactSupport_contDiff (by norm_num)\n    have horth : ∀ v ∈ {v : Lp E 2 μ | ∃ P : E → E,\n        v =ᵐ[μ] P ∧ HasCompactSupport P ∧ ContDiff ℝ ∞ P}, inner ℝ u.2 v = 0 := by\n      rintro v ⟨P,hv,hPc,hP⟩\n      obtain ⟨q,hq,hqc,hqL,hqi⟩ := tilted_vector_ibp W hW hI P (contDiff_infty.mp hP 1) hPc\n      let qv : Lp ℝ 2 μ := hqL.toLp q\n      have hc : IsClosed {z : Lp ℝ 2 μ × Lp E 2 μ |\n          inner ℝ z.2 v = inner ℝ z.1 qv} :=\n        isClosed_eq (continuous_snd.inner continuous_const) (continuous_fst.inner continuous_const)\n      have hs : (smoothGradientGraph μ : Set (Lp ℝ 2 μ × Lp E 2 μ)) ⊆\n          {z | inner ℝ z.2 v = inner ℝ z.1 qv} := by\n        rintro z ⟨f,hf,hfc,hfz,hfg⟩\n        change inner ℝ z.2 v = inner ℝ z.1 qv\n        calc\n          inner ℝ z.2 v = ∫ x, inner ℝ (gradient f x) (P x) ∂μ := by\n            rw [L2.inner_def]\n            apply integral_congr_ae\n            filter_upwards [hfg,hv] with x hx hy\n            rw [hx,hy]\n          _ = ∫ x, f x * q x ∂μ := hqi f (contDiff_infty.mp hf 1)\n          _ = inner ℝ z.1 qv := by\n            rw [L2.inner_def]\n            apply integral_congr_ae\n            filter_upwards [hfz,hqL.coeFn_toLp] with x hx hy\n            rw [hx,show qv x = q x from hy]\n            simp [mul_comm]\n      have he := (closure_minimal hs hc) hu\n      change inner ℝ u.2 v = inner ℝ u.1 qv at he\n      simpa [huz] using he\n    have hall : ∀ v : Lp E 2 μ, inner ℝ u.2 v = 0 :=\n      hd.induction horth (isClosed_eq (continuous_const.inner continuous_id) continuous_const)\n    exact inner_self_eq_zero.mp (hall u.2)\n\n  let μ := (volume : Measure E).tilted (fun x => -W x)\n  let : IsProbabilityMeasure μ := isProbabilityMeasure_tilted hI\n  let G := smoothGradientGraph μ\n  have hu : ∀ z ∈ G.topologicalClosure, z.1 = 0 → z.2 = 0 := closure_unique W hW hI\n  let D := G.toLinearPMap\n  have hgraph : D.graph = G :=\n    G.toLinearPMap_graph_eq (fun z hz hzero => hu z (subset_closure hz) hzero)\n  have hc : D.IsClosable := by\n    refine ⟨G.topologicalClosure.toLinearPMap,?_⟩\n    rw [hgraph]\n    exact (G.topologicalClosure.toLinearPMap_graph_eq hu).symm\n  have hd : Dense {u : Lp ℝ 2 μ | ∃ f : E → ℝ,\n      u =ᵐ[μ] f ∧ HasCompactSupport f ∧ ContDiff ℝ ∞ f} :=\n    Lp.dense_hasCompactSupport_contDiff (by norm_num)\n  have hD : Dense (D.domain : Set (Lp ℝ 2 μ)) := by\n    apply hd.mono\n    rintro u ⟨f,huf,hfc,hf⟩\n    have hgf : MemLp (gradient f) 2 μ :=\n      (gradient_cont f (contDiff_infty.mp hf 1)).memLp_of_hasCompactSupport (gradient_compact f hfc)\n    change u ∈ G.map (LinearMap.fst ℝ (Lp ℝ 2 μ) (Lp E 2 μ))\n    exact ⟨(u,hgf.toLp (gradient f)),⟨f,hf,hfc,huf,hgf.coeFn_toLp⟩,rfl⟩\n  refine ⟨D,hD,hc,hc.closure_isClosed,?_⟩\n  intro u v\n  rw [hgraph]\n  rfl\n\nend AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/1310.2526v7",
+          "edition": "arXiv:1310.2526v7",
+          "anchor": "section2.5 weighted Sobolev construction; direct Euclidean prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+        },
+        "statement": "Section2.5 of Kolesnikov-Milman describes weighted H1 and H10 by completing smooth test functions in the graph norm on its compact weighted manifold. The selected ASTIS analytic prerequisite is a directly proved Euclidean full-space construction, not that source spectral conclusion: for d>=1, C1 W with integrable exp(-W), the graph of smooth compact f and their genuine gradients determines a densely defined closable scalar-to-vector L2 operator under the normalized Gibbs measure. Its graph closure remains single-valued. This explicit construction is needed before a weighted resolvent route to PBPS conditional Poincare. No manifold boundary theorem or D*D operator-core assertion is included.",
+        "formulae": [
+          {
+            "label": "Actual gradient graph and closure",
+            "tex": "\\operatorname{Graph}D=\\{([f],[\\nabla f]):f\\in C_c^\\infty(E)\\},\\qquad \\overline{\\operatorname{Dom}D}=L^2(\\mu),\\qquad D\\ \\text{is closable}."
+          }
+        ],
+        "assumptions": [
+          "Selected full-space prerequisite: d>=1, W:R^d->R C1 and exp(-W) integrable, actual normalized Gibbs measure and smooth compact tests.",
+          "The background discussion is on compact weighted manifolds with smoother potential; full-space construction and weaker C1 regularity are explicit scope changes, not silent specialization."
+        ],
+        "obligations": [
+          {
+            "id": "exact-gradient-graph",
+            "label": "Exact genuine smooth compact gradient graph"
+          },
+          {
+            "id": "dense-closable-domain",
+            "label": "Dense domain and single-valued closed graph extension"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable",
+          "kind": "theorem",
+          "title": "A dense closable gradient for a genuine Gibbs measure",
+          "statement": "Let E be a finite-dimensional real inner-product Borel space, W:E->R be C1, and exp(-W) be integrable against canonical volume. Set mu=Z^{-1}exp(-W)dx. There is a partial real-linear operator D from scalar L2(mu) to vector L2(mu) whose domain is dense, whose graph is closable, and whose closure is closed. For any scalar L2 class u and vector L2 class v, (u,v) belongs to its graph exactly when there exists a smooth compactly supported scalar f with u=f and v=gradient f almost everywhere. This equivalence fixes the actual differential operator and its exact initial domain.",
+          "formula": "\\operatorname{Graph}D=\\{([f],[\\nabla f]):f\\in C_c^\\infty(E)\\},\\qquad \\overline{\\operatorname{Dom}D}=L^2(\\mu),\\qquad D\\ \\text{is closable}.",
+          "assumptions": [
+            "E is finite-dimensional real inner-product with its Borel sigma algebra and canonical volume; dimension zero is included.",
+            "W is C1 and the actual positive function exp(-W) is volume-integrable. No curvature, Poincare, gradient coercivity or operator-closure assumption is made.",
+            "Mu is the actual normalized exponential tilt. Positive exponential and nonzero canonical volume give a finite positive normalizer and hence a probability; the zero-tilt fallback is not used.",
+            "Lp objects are equivalence classes modulo mu-almost-everywhere equality. D is a partial linear map; closable means the topological closure of its graph is still the graph of a partial linear map, not that D is bounded or everywhere defined.",
+            "Background weighted H1 completion in Kolesnikov-Milman section2.5 is on compact manifolds. This directly proved full-space Euclidean construction is a selected analytic prerequisite, not that source spectral theorem."
+          ],
+          "steps": [
+            {
+              "title": "Establish weighted directional integration by parts",
+              "text": "Take F=exp(-W)g with g C1 compact and f C1. F, its directional derivative, and all three products needed by Haar IBP are continuous and compactly supported. Apply the actual volume theorem and expand the genuine derivative of F. The drift term has the minus sign inside the derivative of exp(-W).",
+              "formula": "\\int e^{-W}gD_vf=-\\int e^{-W}(D_vg-gD_vW)f.",
+              "lean": "The local weighted_directional proof derives all three Integrable premises; it never applies a Haar theorem to mu."
+            },
+            {
+              "title": "Construct the weighted negative divergence test",
+              "text": "For a C1 compact vector field P, project onto each orthonormal basis vector and sum the directional formula. This constructs a continuous compact scalar q, namely minus divergence P plus gradient W dot P. The public theorem does not separately export a divergence formula; this is a proved internal construction.",
+              "formula": "q=-\\operatorname{div}P+\\langle\\nabla W,P\\rangle,\\qquad \\int\\langle\\nabla f,P\\rangle\\,d\\mu=\\int fq\\,d\\mu.",
+              "lean": "raw_vector_ibp proves the finite sum and integrability; tilted_vector_ibp transfers the exact identity and proves q in L2(mu)."
+            },
+            {
+              "title": "Build the exact smooth gradient graph",
+              "text": "Pairs of scalar and vector L2 classes belong to the graph when they have representatives f and gradient f for a smooth compact f. Genuine derivative addition and scalar multiplication prove this set is a linear submodule. This defines a relation before any representative-dependent operator is selected.",
+              "formula": "G=\\{(u,v):\\exists f\\in C_c^\\infty(E),\\ u=f\\ \\mu\\text{-a.e.},\\ v=\\nabla f\\ \\mu\\text{-a.e.}\\}.",
+              "lean": "The local smoothGradientGraph submodule proves zero, addition and scalar closure using Lp coeFn almost-everywhere identities and genuine fderiv rules."
+            },
+            {
+              "title": "Extend the integration-by-parts pairing to the graph closure",
+              "text": "For fixed smooth compact P and its scalar q, the equality between the two L2 inner products is a closed condition on a scalar/vector pair. Every graph pair satisfies it by the proved weighted IBP and representative identities, so every pair in the topological closure also satisfies it.",
+              "formula": "(u,v)\\in\\overline G\\ \\Longrightarrow\\ \\langle v,[P]\\rangle_{L^2(\\mu;E)}=\\langle u,[q]\\rangle_{L^2(\\mu)}.",
+              "lean": "closure_unique uses continuous L2 inner products and closure_minimal; no closedness of the derivative is assumed."
+            },
+            {
+              "title": "Use vector-valued smooth density to prove single-valuedness",
+              "text": "If (0,v) belongs to the closed graph relation, the pairing identity makes v orthogonal to every smooth compact vector test. The pinned Mathlib theorem makes these tests dense in vector L2 for every measure finite on compacts, including this probability. A continuous zero pairing therefore vanishes on all vector L2; pairing with v gives v=0.",
+              "formula": "(0,v)\\in\\overline G\\ \\Longrightarrow\\ \\forall P\\in C_c^\\infty(E;E),\\ \\langle v,[P]\\rangle=0\\ \\Longrightarrow\\ \\|v\\|_2^2=0.",
+              "lean": "Lp.dense_hasCompactSupport_contDiff, Dense.induction and inner_self_eq_zero prove the zero-fiber statement. This implies both G and its closure are single-valued."
+            },
+            {
+              "title": "Construct the partial operator and its dense closed extension",
+              "text": "Only after single-valuedness is proved does toLinearPMap construct D from G. Its graph is proved equal to G, and the analogous construction from the closed relation proves IsClosable. Scalar smooth density and L2 integrability of each compact continuous gradient prove the initial domain dense. Mathlib then supplies the closed graph of D.closure.",
+              "formula": "\\operatorname{Graph}D=G,\\qquad \\operatorname{Graph}\\overline D=\\overline G,\\qquad \\overline{\\operatorname{Dom}D}=L^2(\\mu).",
+              "lean": "Submodule.toLinearPMap_graph_eq is used with the proved zero-fiber witnesses; IsClosable.closure_isClosed is applied only after closability is derived."
+            }
+          ],
+          "lean_statement": "Exact graph equivalence, dense domain, IsClosable and closed closure, for the actual normalized Gibbs L2 spaces.",
+          "lean_proof": "Every helper and the graph submodule are local haves/lets in the public proof; its folded Lean contains the complete argument.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt"
+          ],
+          "mathlib_dependencies": [
+            "integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable",
+            "MeasureTheory.integral_tilted",
+            "MeasureTheory.Lp.dense_hasCompactSupport_contDiff",
+            "Dense.induction",
+            "Submodule.toLinearPMap_graph_eq",
+            "LinearPMap.IsClosable.closure_isClosed"
+          ],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/1310.2526v7",
+              "label": "Kolesnikov and Milman, section2.5 weighted Sobolev completion",
+              "scope": "Direct Euclidean full-space analytic prerequisite; compact manifold spectral conclusions are outside this result."
+            },
+            {
+              "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+              "label": "Chen, Chewi, Lu and Zhang, PBPS Appendix C.1",
+              "scope": "Weighted-space construction needed by the conditional Poincare route; does not prove PI."
+            }
+          ],
+          "tests": {
+            "file": "Tests/ProximalBPSConditionalGradient.lean",
+            "command": "lake build Tests.ProximalBPSConditionalGradient"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable",
+          "role": "prerequisite",
+          "supports": [
+            "exact-gradient-graph",
+            "dense-closable-domain"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Selected full-space prerequisite: d>=1, W:R^d->R C1 and exp(-W) integrable, actual normalized Gibbs measure and smooth compact tests.",
+            "lean": "E is finite-dimensional real inner-product with its Borel sigma algebra and canonical volume; dimension zero is included."
+          },
+          {
+            "source": "Background section2.5 compact-manifold weighted Sobolev completion and spectral discussion.",
+            "lean": "Direct Euclidean full-space graph construction under C1 W and actual exponential integrability."
+          },
+          {
+            "source": "Sobolev gradient completion.",
+            "lean": "Exact L2 almost-everywhere gradient graph equivalence, dense partial-linear domain, IsClosable and closed closure."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every finite-dimensional real inner-product space E with its Borel measurable structure and canonical volume, including dimension zero, every W:E->R with W C1 and exp(-W) volume-integrable, let mu be volume tilted by -W, with the supplied normalized exponential definition totalized to zero when the weight is not integrable. There exists a partial real-linear operator D from a linear subspace of scalar L2(mu) into vector L2(mu;E). Its domain is dense in scalar L2, D is closable, and its closure is a closed operator. For every scalar L2 class a and vector L2 class b, (a,b) belongs to graph D if and only if there exists a smooth scalar f with compact closure of its nonzero support, a=f mu-almost everywhere, and b=gradient f mu-almost everywhere. The latter equalities compare representatives; gradient is the Riesz representative of the genuine Frechet derivative. Quantifiers are for all E,W satisfying the assumptions, there exists D, for all a,b, the graph equivalence with an existential f. D is selected before its graph inputs and may depend on E,W; f may depend on a,b. The graph characterization concerns D, not its closure. Closedness means graph closedness and does not assert boundedness or an everywhere-defined operator. No extra numeric constant is quantified. No material ambiguity under the supplied definitions; the printed existential omits the explicit type of D, but the approved API context and graph inputs determine its partial real-linear interpretation.",
+        "text_sha256": "6247cbec1b91a0afaffdc75e5f77d81d1f32f16b3e1d19bdec483d09369bc3fc",
+        "decoder_packet_sha256": "9401e867f158bdc8506a4b750cfbb1c3196390e585644b9589299e50bdc57a64",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "gradient_blind_decoder",
+        "notes": [
+          "Fresh independent source-blind agent read only two anonymously named identical packets. No source-fidelity verdict. No uniform/measurable operator family or pointwise conditional-version uniqueness inferred."
+        ],
+        "decoder_run_sha256": "71694a05dc75cdc77a7a2b5f5a94b451b5b7fd996dbb995de5273e01d2765f9c",
+        "lean_statement_sha256": "60a4223280f49c9d9c403eda7b21d8faea3c0e2258e26c2409df4d003050338b",
+        "run_artifact": "runs/20260911-companion-priority/weighted-gradient.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Weighted Sobolev completion motivating the selected actual smooth-gradient construction.",
+          "reconstructed": "A partial real-linear operator between scalar and vector L2 of normalized Gibbs measure, with exact smooth compact gradient graph.",
+          "relation": "explicit-elaboration",
+          "evidence": "The graph iff identifies both components with f and its genuine Riesz gradient a.e., not an arbitrary closable operator."
+        },
+        "domains": {
+          "original": "Selected positive-dimensional full-space Euclidean prerequisite, distinguished from background compact manifold.",
+          "reconstructed": "Any finite-dimensional real inner-product Borel space, including dimension zero.",
+          "relation": "stronger-in-lean",
+          "evidence": "Canonical volume is nonzero in zero dimension; vector space and gradients then trivial. Extension disclosed."
+        },
+        "quantifiers": {
+          "original": "Every admissible potential determines the smooth compact gradient relation.",
+          "reconstructed": "For all E,W satisfying hypotheses, one D precedes all u,v; f may depend on u,v.",
+          "relation": "explicit-elaboration",
+          "evidence": "The public graph iff concerns D, not every element of its graph closure."
+        },
+        "assumptions": {
+          "original": "Selected prerequisite C1 W and genuine exponential integrability; background has different regularity and geometry.",
+          "reconstructed": "C1 W and integrable exp(-W), no curvature, PI, coercivity or closure premise.",
+          "relation": "equivalent",
+          "evidence": "Exactly the analytic arguments; positive exponential and nonzero volume support actual probability, not zero-tilt fallback."
+        },
+        "conclusion": {
+          "original": "Selected prerequisite supplies a densely defined closable actual gradient.",
+          "reconstructed": "Dense domain, IsClosable, closed closure and exact bidirectional graph characterization.",
+          "relation": "explicit-elaboration",
+          "evidence": "closure_unique proves zero vertical fiber before toLinearPMap_graph_eq constructs the operator and closed graph."
+        },
+        "scopes": {
+          "original": "Direct full-space prerequisite inspired by section2.5, not manifold spectral conclusions.",
+          "reconstructed": "Initial smooth compact gradient and closed extension only.",
+          "relation": "explicit-elaboration",
+          "evidence": "No self-adjoint generator, D*D core, spectral gap, resolvent or PI. Full-space/C1 changes disclosed."
+        },
+        "constant_dependencies": {
+          "original": "No quantitative spectral or coercivity constant.",
+          "reconstructed": "No numeric bound or operator norm constant asserted.",
+          "relation": "same",
+          "evidence": "Qualitative dense-domain and graph properties only."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit abstract finite-dimensional and zero-dimensional extension.",
+          "evidence": "Canonical volume is nonzero in zero dimension; vector space and gradients then trivial. Extension disclosed."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Direct full-space C1 prerequisite, not compact-manifold Sobolev/spectral source theorem verbatim.",
+          "evidence": "No self-adjoint generator, D*D core, spectral gap, resolvent or PI. Full-space/C1 changes disclosed."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-PBPSConditionalGradient",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:pbps-conditional-gradient",
+        "anchor": "Appendix C.1 weighted-space analytic prerequisite",
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "original_text": "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta, genuine alpha/beta Hessian bounds, eta>0 and beta eta<=1.\nThe actual joint law is (X,X+sqrt(eta)Z) with independent Gibbs X and standard Gaussian Z; the reflected conditional law is S_y.\nPBPS Appendix C.1 uses conditional Poincare for the actual reflected Gibbs-Gaussian conditional law. The selected ASTIS prerequisite constructs the actual weighted gradient domain and closure on that law: with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), S_y is normalized exp(-W_y) volume, and the smooth compact gradient graph in L2(S_y) is densely defined and closable. The original source PI/variance application is not proved by this prerequisite. Kernels, normalization and potential regularity must be those of the actual augmentation.",
+        "text_sha256": "ba0c9bf2c56d58e1c181495a20c9debd6d37422666bacd34c5318849d6663ae6"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+        "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalGradient.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          0 < η →\n            ↑β * η ≤ 1 →\n              have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n              have J :=\n                MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n              have W := fun y u => V ((1 / 2) • (y + u)) + ‖u - y‖ ^ 2 / (8 * η);\n              ∃ R S,\n                ProbabilityTheory.IsMarkovKernel R ∧\n                  ProbabilityTheory.IsMarkovKernel S ∧\n                    (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                      (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                        ∀ (y : E),\n                          (S y = MeasureTheory.MeasureSpace.volume.tilted fun u => -W y u) ∧\n                            ContDiff ℝ 2 (W y) ∧\n                              MeasureTheory.Integrable (fun u => Real.exp (-W y u)) MeasureTheory.MeasureSpace.volume ∧\n                                0 < ∫ (u : E), Real.exp (-W y u) ∧\n                                  ∃ D,\n                                    Dense ↑D.domain ∧\n                                      D.IsClosable ∧\n                                        D.closure.IsClosed ∧\n                                          ∀ (u : ↥(MeasureTheory.Lp ℝ 2 (S y))) (v : ↥(MeasureTheory.Lp E 2 (S y))),\n                                            (u, v) ∈ D.graph ↔\n                                              ∃ f,\n                                                ContDiff ℝ (↑⊤) f ∧\n                                                  HasCompactSupport f ∧ ↑↑u =ᵐ[S y] f ∧ ↑↑v =ᵐ[S y] gradient f",
+        "statement_sha256": "ed139f45dfdc692ab67c195def0e19138bb8976a8303ce72cedc63f370fb6e74",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3296, independently replayed, only propext/Classical.choice/Quot.sound. Full independent development proof review passed; fixed-commit admission not yet granted.",
+        "decoder_context": [
+          "E is a finite-dimensional real inner-product space with Borel measurable structure and canonical volume, including dimension zero.",
+          "ContDiff at order1/2/infinity means C1/C2/smooth. HasCompactSupport means closure of nonzero support is compact. gradient is the Riesz representative of the genuine Frechet derivative.",
+          "Lp F 2 mu is the vector space of measurable functions with finite squared-norm integral, modulo mu-almost-everywhere equality. Equality =ae explicitly compares representatives. Dense uses the L2 norm topology.",
+          "A LinearPMap is a partial real-linear map with a linear-subspace domain. Its graph consists of input-output pairs on that domain. IsClosable means the topological closure of that graph is itself a graph of a partial linear map. For a closable map its closure has exactly that closed graph; IsClosed means graph-closed, not boundedness or an everywhere-defined map.",
+          "Measure.tilted is normalized exponential weighting, totalized to zero when the exponential is not integrable. The displayed Integrable condition means almost-everywhere strong measurability and finite integral of norm.",
+          "Measure.map is pushforward; Measure.prod encodes independent product; stdGaussian is the standard Gaussian. A Markov kernel is a measurably parameterized probability measure. IsCondKernel disintegrates the specified joint measure on its first coordinate; Prod.swap swaps coordinates.",
+          "Existential operators are chosen before the universal quantifiers over their graph inputs. Lets abbreviate the displayed actual objects, not additional assumptions."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "50747078d8cea5d1266df68bd51f279ded15bef8b02f59aa4f876424958acd03",
+        "review_run_sha256": "336907f18d99286f926d0b83e0168fef89353ac6c449d117664bbc6c0222b06c",
+        "run_artifact": "runs/20260911-companion-priority/conditional-gradient.source-review-result.json",
+        "evidence": "Independent anti-anchored review of primary context, anonymous reconstruction, complete embedded production proof and all six plus three authored steps. Canonical packet, source, statement, reconstruction and embedded-module hashes independently recomputed; production files match embedded text. Binding digests authenticated from packet, external preimage not independently reconstructed. Primary section2.5 compact-manifold graph-norm paragraph freshly checked; PBPS C.1 boundary checked in review sequence. No candidate verdict consulted. No independent compile, axiom-output verification, aggregate or VERIFIED claim in this source review."
+      },
+      "publication_binding_sha256": "4f272ad1e1c3ea4a06bf109587810e585e367730f2bc1581187606e72b158560",
+      "publication_context": {
+        "file": "3452712be04429132cbebcb6b9e6e24835d1f5f3dee9ddcd0af83c7a2d268ed6",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner\nimport AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient\n\n/-!\n# Dense closable gradient for the actual PBPS conditional law\n\nAnalytic prerequisite to arXiv:2609.06905v1 Appendix C.1. The same common\nconditional kernels retain their disintegration, reflection and normalized\ndensity. The genuine C2 conditional potential and positive normalizer supply\nthe shared weighted-gradient construction, without any new paper hypothesis.\nInherited alpha<=beta and beta eta<=1 restrictions belong to the parent kernel\ninterface; the abstract gradient closure needs no curvature bound.\nNo generator operator core, resolvent regularity, Poincare, noncompact score\nbound or complete-paper conclusion is asserted.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient\n\nopen MeasureTheory ProbabilityTheory InnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities\nopen scoped ContDiff NNReal RealInnerProductSpace Topology\n\n/-- The actual conditional Gibbs gradient has a dense smooth compact domain\nand a single-valued closed graph extension. The displayed graph equivalence\nfixes the genuine gradient, not an arbitrary abstract closable operator. -/\ntheorem conditional_gradient_closable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    {V : E → ℝ} {α β : NNReal} {η : ℝ}\n    (hα : 0 < (α:ℝ)) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n      (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β:ℝ)*‖v‖^2)\n    (hη : 0 < η) (hβη : (β:ℝ)*η ≤ 1) :\n    let μ := (volume : Measure E).tilted (fun x => -V x)\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2)) (μ.prod (stdGaussian E))\n    let W := fun y u : E => V ((1/2:ℝ) • (y+u)) + ‖u-y‖^2/(8*η)\n    ∃ R S : Kernel E E, IsMarkovKernel R ∧ IsMarkovKernel S ∧\n      (J.map Prod.swap).IsCondKernel R ∧\n      (∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y)) ∧\n      ∀ y, S y = (volume : Measure E).tilted (fun u => -W y u) ∧\n        ContDiff ℝ 2 (W y) ∧ Integrable (fun u => Real.exp (-W y u)) ∧\n        0 < (∫ u, Real.exp (-W y u)) ∧\n        ∃ D : Lp ℝ 2 (S y) →ₗ.[ℝ] Lp E 2 (S y),\n          Dense (D.domain : Set (Lp ℝ 2 (S y))) ∧ D.IsClosable ∧ D.closure.IsClosed ∧\n          ∀ (u : Lp ℝ 2 (S y)) (v : Lp E 2 (S y)), (u,v) ∈ D.graph ↔\n            ∃ f : E → ℝ, ContDiff ℝ ∞ f ∧ HasCompactSupport f ∧\n              u =ᵐ[S y] f ∧ v =ᵐ[S y] gradient f := by\n  obtain ⟨R,S,hR,hS,hcond,hSR,hfiber⟩ :=\n    ConditionalBochner.conditional_bochner_energy hα hαβ hV hH hη hβη\n  dsimp only\n  refine ⟨R,S,hR,hS,hcond,hSR,?_⟩\n  intro y\n  obtain ⟨hSy,hW,hI,hZ,_⟩ := hfiber y\n  refine ⟨hSy,hW,hI,hZ,?_⟩\n  rw [hSy]\n  exact WeightedGradient.compact_gradient_closable _ (hW.of_le (by norm_num)) hI\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "edition": "arXiv:2609.06905v1",
+          "anchor": "Appendix C.1 weighted-space analytic prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+        },
+        "statement": "PBPS Appendix C.1 uses conditional Poincare for the actual reflected Gibbs-Gaussian conditional law. The selected ASTIS prerequisite constructs the actual weighted gradient domain and closure on that law: with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), S_y is normalized exp(-W_y) volume, and the smooth compact gradient graph in L2(S_y) is densely defined and closable. The original source PI/variance application is not proved by this prerequisite. Kernels, normalization and potential regularity must be those of the actual augmentation.",
+        "formulae": [
+          {
+            "label": "Actual gradient graph and closure",
+            "tex": "S_y(du)=Z_y^{-1}e^{-W_y(u)}du,\\quad W_y(u)=V((y+u)/2)+\\frac{\\|u-y\\|^2}{8\\eta},\\quad \\operatorname{Graph}D_y=\\{([f],[\\nabla f]):f\\in C_c^\\infty(E)\\}."
+          }
+        ],
+        "assumptions": [
+          "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta, genuine alpha/beta Hessian bounds, eta>0 and beta eta<=1.",
+          "The actual joint law is (X,X+sqrt(eta)Z) with independent Gibbs X and standard Gaussian Z; the reflected conditional law is S_y."
+        ],
+        "obligations": [
+          {
+            "id": "exact-gradient-graph",
+            "label": "Exact genuine smooth compact gradient graph"
+          },
+          {
+            "id": "dense-closable-domain",
+            "label": "Dense domain and single-valued closed graph extension"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+          "kind": "theorem",
+          "title": "The actual conditional PBPS gradient is densely defined and closable",
+          "statement": "For the actual Gibbs-Gaussian augmentation, choose common Markov kernels R,S with R disintegrating the swapped joint law and S_y the reflected pushforward of R_y. For every y, S_y is normalized exp(-W_y) volume, W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), with W_y C2 and finite positive normalizer. On the scalar and vector L2 spaces of this same S_y there exists a partial real-linear gradient D_y with dense domain, IsClosable and closed closure. Its graph consists exactly of pairs represented by f and the genuine gradient f for smooth compact scalar f.",
+          "formula": "S_y(du)=Z_y^{-1}e^{-W_y(u)}du,\\quad W_y(u)=V((y+u)/2)+\\frac{\\|u-y\\|^2}{8\\eta},\\quad \\operatorname{Graph}D_y=\\{([f],[\\nabla f]):f\\in C_c^\\infty(E)\\}.",
+          "assumptions": [
+            "E is finite-dimensional real inner-product Borel, including dimension zero; V is C2.",
+            "Alpha,beta are nonnegative real parameters with explicit 0<alpha<=beta and genuine alpha/beta Hessian quadratic-form bounds. Eta>0 and beta eta<=1 are retained from the parent conditional-kernel interface.",
+            "Mu is volume tilted by -V and J is the law of (X,X+sqrt(eta)Z) under independent Gibbs X and standard Gaussian Z. The constructed R,S are shared before the universal quantifier over y.",
+            "Weight integrability and positive normalization are conclusions inherited from the proved actual conditional law, not new hypotheses. The abstract gradient closure itself requires no curvature restrictions."
+          ],
+          "steps": [
+            {
+              "title": "Preserve the actual conditional law",
+              "text": "Use the already proved ConditionalBochner construction once. Keep its same R,S, swapped disintegration and pointwise reflected pushforward, then fix y. No new abstract measure or surrogate score is substituted.",
+              "formula": "R=\\operatorname{Law}(X\\mid Y),\\qquad S_y=(x\\mapsto2x-y)_\\#R_y.",
+              "lean": "The consumer destructures one conditional_bochner_energy witness and retains hR,hS,hcond,hSR."
+            },
+            {
+              "title": "Supply the genuine weight and regularity",
+              "text": "The parent provides S_y as the actual tilt, W_y C2, integrable exp(-W_y) and a positive normalizer. Lower the regularity only to C1 for the shared construction. The finite positive normalizer remains explicitly stated under the same fiber law.",
+              "formula": "W_y\\in C^2(E)\\subset C^1(E),\\qquad 0<Z_y=\\int e^{-W_y}<\\infty.",
+              "lean": "hSy,hW,hI,hZ are obtained from the same hfiber y; no new integrability assumption is added."
+            },
+            {
+              "title": "Instantiate the exact gradient graph on that fiber",
+              "text": "Rewrite the scalar/vector L2 spaces using the proved equality of measures and apply compact_gradient_closable with W_y. This gives the dense domain and closed extension together with the exact smooth-gradient graph. It is still an analytic prerequisite and supplies neither the generator core nor the conditional PI estimate.",
+              "formula": "\\overline{\\operatorname{Dom}D_y}=L^2(S_y),\\qquad D_y\\ \\text{closable},\\qquad \\overline D_y\\ \\text{closed}.",
+              "lean": "The final application uses the actual hI and hW.of_le; graph membership remains an iff for both directions."
+            }
+          ],
+          "lean_statement": "One actual pair R,S before all y; for each y, actual density, C2 potential, positive finite normalizer and an operator with exact gradient graph.",
+          "lean_proof": "Apply the proved conditional law and the genuine weighted-gradient construction; no PI, variance or core conclusion is assumed.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy",
+            "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable"
+          ],
+          "mathlib_dependencies": [
+            "ContDiff.of_le"
+          ],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+              "label": "Chen, Chewi, Lu and Zhang, PBPS Appendix C.1",
+              "scope": "Actual conditional weighted-space analytic prerequisite to PI, not PI or variance."
+            }
+          ],
+          "tests": {
+            "file": "Tests/ProximalBPSConditionalGradient.lean",
+            "command": "lake build Tests.ProximalBPSConditionalGradient"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+          "role": "prerequisite",
+          "supports": [
+            "exact-gradient-graph",
+            "dense-closable-domain"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta, genuine alpha/beta Hessian bounds, eta>0 and beta eta<=1.",
+            "lean": "E is finite-dimensional real inner-product Borel, including dimension zero; V is C2."
+          },
+          {
+            "source": "Appendix C.1 conditional Poincare application.",
+            "lean": "Actual conditional dense closable gradient construction only."
+          },
+          {
+            "source": "Source Hessian and scale assumptions.",
+            "lean": "Explicit 0<alpha<=beta, V C2, genuine Hessian bounds and beta eta<=1 retained."
+          },
+          {
+            "source": "Actual conditional Gibbs normalization.",
+            "lean": "One common R,S with disintegration and reflected pushforward; every fiber has actual density, C2 potential, integrable weight and positive normalizer."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every finite-dimensional real inner-product Borel space E with canonical volume, including dimension zero, V:E->R, nonnegative real alpha,beta and real eta, assume alpha>0, alpha<=beta, V C2, alpha norm(h)^2<=D2V(x)[h,h]<=beta norm(h)^2 for all x,h, eta>0 and beta eta<=1. D2V is the actual iterated Frechet derivative. Define mu as volume tilted by -V, J as the pushforward of mu tensor standard Gaussian under (x,z)->(x,x+sqrt(eta)z), and W_y(q)=V((y+q)/2)+norm(q-y)^2/(8eta). There exist common Markov kernels R,S from E to E. R is the conditional disintegration kernel of swap-pushforward J on its first coordinate; for every y, S(y) is the pushforward of R(y) under x->2x-y. For every y, S(y)=volume tilted by -W_y, W_y is C2, exp(-W_y) is volume-integrable with integral strictly positive, and there exists a partial real-linear operator D_y from a dense linear subspace of scalar L2(S(y)) into vector L2(S(y);E). D_y is closable and its closure is closed. For every scalar class a and vector class b, graph membership (a,b) in D_y is equivalent to existence of smooth compactly supported scalar f with a=f and b=gradient f S(y)-almost everywhere. R,S are selected before all y. D_y is selected after y and before a,b; f may depend on y,a,b. There is no asserted measurability or continuity of y->D_y and no uniform operator bound. Conditional disintegration does not assert a uniquely determined version at every y; by contrast both S(y) measure equalities and all fiber analytic conclusions are explicitly for every y. Mu,J,W are displayed definitions, not extra premises or freely chosen objects. No separate exp(-V) integrability assumption is added. The coefficients 1/2,2,8 are fixed. Approved definitions determine the reconstruction; IsCondKernel is interpreted only as the supplied disintegration on the first coordinate, without extra pointwise density convention or uniqueness requirement.",
+        "text_sha256": "39d764ab4a0fbfe4fa6b0c641c31560ccc2fc20f72e8918e8cf3ef4c70fcd0f9",
+        "decoder_packet_sha256": "8fa693243008088e11a8b1891be5801a1a15c88f81509d79a180d3c9e8097601",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "gradient_blind_decoder",
+        "notes": [
+          "Fresh independent source-blind agent read only two anonymously named identical packets. No source-fidelity verdict. No uniform/measurable operator family or pointwise conditional-version uniqueness inferred."
+        ],
+        "decoder_run_sha256": "6c737b93ed36150780478ff4733888380e179551522c1a8810e134b838adec7d",
+        "lean_statement_sha256": "ed139f45dfdc692ab67c195def0e19138bb8976a8303ce72cedc63f370fb6e74",
+        "run_artifact": "runs/20260911-companion-priority/conditional-gradient.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual Gibbs-Gaussian reflected conditional law in PBPS C.1.",
+          "reconstructed": "Common R,S retaining disintegration and reflection; exact conditional Gibbs gradient on scalar/vector L2(S_y).",
+          "relation": "explicit-elaboration",
+          "evidence": "One conditional_bochner_energy witness is retained, then rewritten by hSy."
+        },
+        "domains": {
+          "original": "Positive-dimensional Euclidean paper setting.",
+          "reconstructed": "Every finite-dimensional real inner-product Borel space including dimension zero.",
+          "relation": "stronger-in-lean",
+          "evidence": "Public domain and lesson explicitly allow zero dimension."
+        },
+        "quantifiers": {
+          "original": "Analytic prerequisite on actual conditional fibers.",
+          "reconstructed": "One R,S before all y; for each y exists D_y before universal graph inputs and existential smooth compact representative.",
+          "relation": "explicit-elaboration",
+          "evidence": "No measurable/continuous selection y->D_y or uniform operator bound is asserted."
+        },
+        "assumptions": {
+          "original": "C2 V, genuine Hessian bounds, explicit 0<alpha<=beta, eta>0, beta eta<=1.",
+          "reconstructed": "Same inherited hypotheses; conditional normalization and C2 W_y are parent conclusions.",
+          "relation": "equivalent",
+          "evidence": "hSy,hW,hI,hZ from same hfiber y; shared hI and hW.of_le are supplied, not assumed anew."
+        },
+        "conclusion": {
+          "original": "Selected actual weighted-space prerequisite before conditional PI.",
+          "reconstructed": "Actual density, finite positive normalizer, dense-domain closability, closed closure and exact initial gradient graph on every fiber.",
+          "relation": "explicit-elaboration",
+          "evidence": "Measure rewrite transfers both directions of shared graph iff into actual L2(S_y)."
+        },
+        "scopes": {
+          "original": "Prerequisite expansion to conditional PI invocation, not variance conclusion.",
+          "reconstructed": "Fiberwise weighted-gradient construction only.",
+          "relation": "explicit-elaboration",
+          "evidence": "Operator core, resolvent regularity and PI remain open; pointwise properties concern the chosen conditional version."
+        },
+        "constant_dependencies": {
+          "original": "Fixed augmentation/reflection coefficients, no quantitative gradient-operator bound.",
+          "reconstructed": "Same midpoint, reflection and quadratic coefficients; no norm bound for D_y.",
+          "relation": "same",
+          "evidence": "Definitions retain 1/2,2,8eta; alpha,beta,eta constrain inherited law, not a closability constant."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit abstract finite-dimensional and zero-dimensional extension.",
+          "evidence": "Public domain and lesson explicitly allow zero dimension."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Authored analytic prerequisite, not the PI assertion in C.1.",
+          "evidence": "Operator core, resolvent regularity and PI remain open; pointwise properties concern the chosen conditional version."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Upper curvature and beta eta<=1 are inherited interface restrictions, absent from abstract gradient construction.",
+          "evidence": "hSy,hW,hI,hZ from same hfiber y; shared hI and hW.of_le are supplied, not assumed anew."
+        }
+      ]
     }
   ]
 }

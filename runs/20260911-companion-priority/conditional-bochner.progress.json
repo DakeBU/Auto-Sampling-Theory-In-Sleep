@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity",
     "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy"
@@ -38,7 +38,6 @@
   },
   "mathematical_status": "Compact-test integrated Bochner identity and its actual PBPS conditional curvature-energy consequence only. This is a prerequisite to Appendix C.1 Poincare, not that inequality. Weighted closure/core, dense range or resolvent construction, noncompact test extension, score variance, general L2/H1, macro coercivity and full main results remain open.",
   "remaining": [
-    "Final-head independent merge advice, CI and actual merge/deployment",
     "Weighted closure/core and dense range or resolvent",
     "Noncompact test extension, Poincare and actual conditional score variance",
     "All later main-theorem dependencies and full papers"
@@ -67,9 +66,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/256",
-    "state": "draft",
-    "head": "4031bf1d4ceaba8de49dcc8d39b7687b0df6ac82",
-    "boundary": "Reader/graph, final-head CI, independent merge advice and actual merge/deployment pending."
+    "state": "MERGED",
+    "head": "f7c7e0ad9850563959a5da137392fe15350f4794",
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and both live anchors/build provenance verified."
   },
   "reader_checks": {
     "candidate": "4031bf1d4ceaba8de49dcc8d39b7687b0df6ac82",
@@ -119,5 +118,33 @@
       "graph": "Each focused graph:5 nodes,3 edges,2 direct relations. Selected actual declaration, inspected graph screenshot, clicked exact evidence link; each card Compiled Not mapped. Solid import/ownership versus dashed source correspondence remains explicit, not a theorem implication certificate.",
       "boundary": "Local rendered QA only; merge and actual deployment remain separate."
     }
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/256",
+    "commit": "f0cdeaf5c46fae61408c0ffcd947dd5bdbe5d217",
+    "candidate": "f7c7e0ad9850563959a5da137392fe15350f4794",
+    "merged_at": "2026-09-10T22:02:08Z",
+    "independent_merge_review": "depth_commit_verifier accepted final integration/evidence delta and advised ready/merge only after same fixed-head Lean/site SUCCESS. Root verified both completed/success at unchanged head and merged using match-head-commit.",
+    "candidate_ci": {
+      "lean": "34534210278 SUCCESS",
+      "site": "34534210259 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": {
+      "lean_run": 34535358132,
+      "site_run": 34535358162,
+      "state": "Both merge-commit runs SUCCESS; deploy website job SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+        "http_status": 200,
+        "anchors": [
+          "pbps-weighted-bochner",
+          "pbps-conditional-bochner"
+        ],
+        "merge_commit": "f0cdeaf5c46fae61408c0ffcd947dd5bdbe5d217",
+        "merge_commit_present": true,
+        "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
+      }
+    },
+    "truth_boundary": "Compact-test integrated Bochner identity and its actual PBPS conditional curvature-energy consequence only. This is a prerequisite to Appendix C.1 Poincare, not that inequality. Weighted closure/core, dense range or resolvent construction, noncompact test extension, score variance, general L2/H1, macro coercivity and full main results remain open."
   }
 }

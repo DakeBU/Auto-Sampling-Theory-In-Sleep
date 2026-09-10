@@ -1,0 +1,15 @@
+# Next mathematical edge: actual weighted gradient closure
+
+Independent bounded route review: log_depth_source_review. SAU ASTIS-SA-20260911-PBPSConditionalGradient: both production declarations and Tests pass focused PASS3296 with standard axioms. Independent complete proof review and both anonymous reconstruction/source audits accepted. Fixed-commit admission and integration remain pending. Previous Bochner PR256 is merged and deployed, with its lane released.
+
+Use Mathlib.Analysis.Normed.Lp.SmoothApprox, MeasureTheory.Lp.dense_hasCompactSupport_contDiff (finite-dimensional Borel domain, IsFiniteMeasureOnCompacts, finite p>=1, scalar or vector range). Actual conditional S_y is a probability measure, so do not reprove mollifier density or impose global boundedness of the density.
+
+Prove weighted compact vector-field IBP for C1 W with integrable exp(-W), using Haar volume and the weight in an integrand; transfer to actual normalized tilted measure. The adjoint test is -div Phi + inner(gradient W,Phi); smooth compact Phi makes it continuous compact and in L2. No third derivative or PI is required.
+
+Represent the gradient graph as a submodule of scalar L2 times vector L2 consisting of smooth compact representatives and their genuine gradients. Show every graph element satisfies the continuous pairings furnished by IBP; these equalities survive topologicalClosure. A closure element (0,G) pairs to zero with every smooth compact vector test. Density forces G=0. Submodule.toLinearPMap_graph_eq then constructs the genuine closable partial gradient map without an arbitrary representative selector. Dense domain follows scalar smooth density; IsClosable.closure_isClosed supplies its closed extension.
+
+Actual PBPS consumer must retain common R,S, disintegration, reflected density and W_y, and instantiate closure for each actual fiber. Existing conditional Bochner provides true potential regularity and positive normalization, but this consumer is only a Sobolev prerequisite.
+
+Afterwards, graph norm gives a Hilbert space. Epsilon inner(u,v)+inner(Du,Dv) is coercive by min(epsilon,1)>0 without PI. Lax-Milgram may construct weak resolvent. Missing: weak regularity or graph approximation linking it to compact-test Bochner, generator operator core, zero-gradient kernel constants, and noncompact score extension. closureHasCore concerns the original gradient's own closure, not automatically D*D. Do not collapse these steps.
+
+Next-route refinement from independent bounded review: use a scaled closed gradient graph in WithLp 2, defined by comap of (a,b)->(epsilon^(-1/2)a,b), and orthogonally project (epsilon^(-1/2)f,0). Its orthogonality gives the epsilon weak equation without a coercive bilinear-form wrapper. This is a plan, not an implemented resolvent or operator-core result.

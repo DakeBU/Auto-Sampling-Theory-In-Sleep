@@ -1,0 +1,47 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable",
+    "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.ProximalBPSConditionalGradient",
+    "result": "PASS3296",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/WeightedGradient.lean": "c2495b6ab8a4c82cadf0d86b910d663e0e4f65f6b96bc4b449149112756d4690",
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalGradient.lean": "8453ea8758be0ce67c32a434b2b5b4e4523572447001c52de18238c662cfd2a7",
+      "Tests/ProximalBPSConditionalGradient.lean": "b592ab689fb8cddc160882d695eaa233bc33a1c5a6b7946c501dea4ce26c791b"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/conditional-gradient.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-WeightedGradient",
+      "ASTIS-RT-20260911-PBPSConditionalGradient"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/weighted-gradient.source-review-result.json",
+      "runs/20260911-companion-priority/conditional-gradient.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Dense compact-test gradient operator and its closed extension under actual weighted probability only. No weighted generator operator core, dense mean-zero generator range, resolvent regularity, Poincare, score variance, macro coercivity, process or full-paper result. The gradient closure core is not automatically a core of D*D.",
+  "remaining": [
+    "Independent fixed-commit review",
+    "Integration, aggregate and reader/graph delivery",
+    "Weighted generator operator core, dense mean-zero range or resolvent regularity",
+    "Poincare and actual noncompact conditional score variance",
+    "All later main-theorem dependencies and full papers"
+  ]
+}

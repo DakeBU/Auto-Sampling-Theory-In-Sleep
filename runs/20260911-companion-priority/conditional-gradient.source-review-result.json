@@ -1,0 +1,100 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent formal seven-slot source review.",
+  "reviewer_packet_sha256": "50747078d8cea5d1266df68bd51f279ded15bef8b02f59aa4f876424958acd03",
+  "source_text_sha256": "ba0c9bf2c56d58e1c181495a20c9debd6d37422666bacd34c5318849d6663ae6",
+  "lean_statement_sha256": "ed139f45dfdc692ab67c195def0e19138bb8976a8303ce72cedc63f370fb6e74",
+  "reconstruction_text_sha256": "39d764ab4a0fbfe4fa6b0c641c31560ccc2fc20f72e8918e8cf3ef4c70fcd0f9",
+  "embedded_module_text_sha256": "3452712be04429132cbebcb6b9e6e24835d1f5f3dee9ddcd0af83c7a2d268ed6",
+  "publication_binding_sha256": "4f272ad1e1c3ea4a06bf109587810e585e367730f2bc1581187606e72b158560",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual Gibbs-Gaussian reflected conditional law in PBPS C.1.",
+      "reconstructed": "Common R,S retaining disintegration and reflection; exact conditional Gibbs gradient on scalar/vector L2(S_y).",
+      "relation": "explicit-elaboration",
+      "evidence": "One conditional_bochner_energy witness is retained, then rewritten by hSy."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean paper setting.",
+      "reconstructed": "Every finite-dimensional real inner-product Borel space including dimension zero.",
+      "relation": "stronger-in-lean",
+      "evidence": "Public domain and lesson explicitly allow zero dimension."
+    },
+    "quantifiers": {
+      "original": "Analytic prerequisite on actual conditional fibers.",
+      "reconstructed": "One R,S before all y; for each y exists D_y before universal graph inputs and existential smooth compact representative.",
+      "relation": "explicit-elaboration",
+      "evidence": "No measurable/continuous selection y->D_y or uniform operator bound is asserted."
+    },
+    "assumptions": {
+      "original": "C2 V, genuine Hessian bounds, explicit 0<alpha<=beta, eta>0, beta eta<=1.",
+      "reconstructed": "Same inherited hypotheses; conditional normalization and C2 W_y are parent conclusions.",
+      "relation": "equivalent",
+      "evidence": "hSy,hW,hI,hZ from same hfiber y; shared hI and hW.of_le are supplied, not assumed anew."
+    },
+    "conclusion": {
+      "original": "Selected actual weighted-space prerequisite before conditional PI.",
+      "reconstructed": "Actual density, finite positive normalizer, dense-domain closability, closed closure and exact initial gradient graph on every fiber.",
+      "relation": "explicit-elaboration",
+      "evidence": "Measure rewrite transfers both directions of shared graph iff into actual L2(S_y)."
+    },
+    "scopes": {
+      "original": "Prerequisite expansion to conditional PI invocation, not variance conclusion.",
+      "reconstructed": "Fiberwise weighted-gradient construction only.",
+      "relation": "explicit-elaboration",
+      "evidence": "Operator core, resolvent regularity and PI remain open; pointwise properties concern the chosen conditional version."
+    },
+    "constant_dependencies": {
+      "original": "Fixed augmentation/reflection coefficients, no quantitative gradient-operator bound.",
+      "reconstructed": "Same midpoint, reflection and quadratic coefficients; no norm bound for D_y.",
+      "relation": "same",
+      "evidence": "Definitions retain 1/2,2,8eta; alpha,beta,eta constrain inherited law, not a closability constant."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Explicit abstract finite-dimensional and zero-dimensional extension.",
+      "evidence": "Public domain and lesson explicitly allow zero dimension."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Authored analytic prerequisite, not the PI assertion in C.1.",
+      "evidence": "Operator core, resolvent regularity and PI remain open; pointwise properties concern the chosen conditional version."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Upper curvature and beta eta<=1 are inherited interface restrictions, absent from abstract gradient construction.",
+      "evidence": "hSy,hW,hI,hZ from same hfiber y; shared hI and hW.of_le are supplied, not assumed anew."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "One actual conditional witness preserves R,S and their identities."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "C2 regularity and positive finite normalizer come from the same fiber; C1 reduction valid."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Actual measure rewrite and shared theorem preserve exact graph and closure without PI."
+      }
+    ]
+  },
+  "review_evidence": "Independent anti-anchored review of primary context, anonymous reconstruction, complete embedded production proof and all six plus three authored steps. Canonical packet, source, statement, reconstruction and embedded-module hashes independently recomputed; production files match embedded text. Binding digests authenticated from packet, external preimage not independently reconstructed. Primary section2.5 compact-manifold graph-norm paragraph freshly checked; PBPS C.1 boundary checked in review sequence. No candidate verdict consulted. No independent compile, axiom-output verification, aggregate or VERIFIED claim in this source review."
+}

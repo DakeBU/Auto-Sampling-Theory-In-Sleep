@@ -1,0 +1,16 @@
+{
+  "decoder": "gradient_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root English transcription of independent anonymous Chinese reconstruction, formulas rendered in plain text. Scope and actual ambiguities preserved.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-packet-a.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-WeightedGradient.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "9401e867f158bdc8506a4b750cfbb1c3196390e585644b9589299e50bdc57a64",
+  "lean_statement_sha256": "60a4223280f49c9d9c403eda7b21d8faea3c0e2258e26c2409df4d003050338b",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product space E with its Borel measurable structure and canonical volume, including dimension zero, every W:E->R with W C1 and exp(-W) volume-integrable, let mu be volume tilted by -W, with the supplied normalized exponential definition totalized to zero when the weight is not integrable. There exists a partial real-linear operator D from a linear subspace of scalar L2(mu) into vector L2(mu;E). Its domain is dense in scalar L2, D is closable, and its closure is a closed operator. For every scalar L2 class a and vector L2 class b, (a,b) belongs to graph D if and only if there exists a smooth scalar f with compact closure of its nonzero support, a=f mu-almost everywhere, and b=gradient f mu-almost everywhere. The latter equalities compare representatives; gradient is the Riesz representative of the genuine Frechet derivative. Quantifiers are for all E,W satisfying the assumptions, there exists D, for all a,b, the graph equivalence with an existential f. D is selected before its graph inputs and may depend on E,W; f may depend on a,b. The graph characterization concerns D, not its closure. Closedness means graph closedness and does not assert boundedness or an everywhere-defined operator. No extra numeric constant is quantified. No material ambiguity under the supplied definitions; the printed existential omits the explicit type of D, but the approved API context and graph inputs determine its partial real-linear interpretation.",
+  "source_fidelity_verdict": null
+}
