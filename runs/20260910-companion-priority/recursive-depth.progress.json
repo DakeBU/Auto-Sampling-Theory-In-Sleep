@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "source_commit": "fcfe6d6a96dadaf5c9de5bcdcdccac73d31b117e",
   "branch": "codex/sphmc-recursive-depth",
   "writer": "root-samplinglib-writer",
@@ -15,8 +15,6 @@
   "toolchain_release_sha256": "60d045a2ef45fca55a620b7d55be682e8439ec8d1fc9a8bcd2615da7dffba26a",
   "python": "C:/Users/admin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
   "remaining": [
-    "Finish anonymous decoder and independent source review for the consolidated parameter_control declaration; authored publication already passes PROVED_LOCAL metadata gate.",
-    "Independent commit-bound verification.",
     "Source-bound integration, root/site checks and visual inspection.",
     "Exact source logarithmic schedule, random-kernel measurability, FORS, errors and costs remain separate proof work."
   ],
@@ -33,5 +31,6 @@
     "Quot.sound"
   ],
   "fake_closure_scan": "Bounded source/test scan found no sorry, admit, custom axiom, unsafe or native_decide.",
-  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control"
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control",
+  "independent_admission": "runs/20260910-companion-priority/recursive-depth.verified-admission.json"
 }

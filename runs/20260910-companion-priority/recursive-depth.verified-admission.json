@@ -1,0 +1,42 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "457144154299d0a4efc444dc41518727252e74c9",
+    "gate": {
+      "command": "LEAN_NUM_THREADS=2 lake build Tests.SmoothedPicardRecursiveDepth",
+      "exit_code": 0,
+      "result": "2947 jobs; target replayed successfully",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication_gate": "astis_publication.check_advance([parameter_control full name], reviewed=True): PASS"
+    },
+    "source_audit": {
+      "audit_id": "ASTIS-RT-20260910-SPHMCRecursiveDepth",
+      "state": "accepted",
+      "verdict": "equivalent-after-elaboration",
+      "formalizer": "root-samplinglib-writer",
+      "decoder": "lambda_decoder",
+      "source_reviewer": "depth_final_source",
+      "publication_binding_sha256": "07b97601f188760ad0e3a85a5ef44b413161a127b1c4718ea2bf61f543a4f4b9",
+      "reviewer_packet_sha256": "eee92cacb5f2e4abf2e92be1a0cd8d0bb3e9795ccb06d880340b2cb6c4939600",
+      "review_run_sha256": "c55de43b10918e20b135b781541459fcb4068e6c9c19f7c2b3dd29bf81899b58",
+      "blocking_deltas": [],
+      "checked": "Current binding, canonical reviewer packet hash and raw result artifact hash independently recomputed and matched; seven semantic slots and anti-anchoring reviewed."
+    },
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "RecursiveDepth.lean, Tests/SmoothedPicardRecursiveDepth.lean, RecursiveCondition.lean, RecursiveVariance.lean",
+      "evidence": "No sorry/admit/axiom/Prop := True/:= trivial hits; compiled parameter_control uses only standard axioms."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control"
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Independently authored VERIFIED decision returned by depth_commit_verifier; explicitly authorized sole-writer root recording. Reviewer made no file edits.",
+  "boundary": "Local theorem only. Integration, prescribed logarithmic depth, sampler, errors, costs and main results remain unproved."
+}

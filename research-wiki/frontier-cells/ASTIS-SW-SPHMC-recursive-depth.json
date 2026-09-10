@@ -38,15 +38,15 @@
         "test_sha256": "78af83fe061b4b5608bbf76760b75534f43511fa62ec8b5aa5e5f573a3ab18fa"
       }
     ],
-    "independent_verification": "Read-only mathematical planning review by recursive_route_audit; not Lean/source admission.",
+    "independent_verification": "depth_commit_verifier independently authorized VERIFIED at457144154299d0a4efc444dc41518727252e74c9; see runs/20260910-companion-priority/recursive-depth.verified-admission.json",
     "proof_plan": "proof-blueprints/SPHMC-recursive-depth.md",
     "axioms": [
       "propext",
       "Classical.choice",
       "Quot.sound"
     ],
-    "admission_boundary": "PROVED_LOCAL metadata gate passed. Independent source/commit verification and integration remain pending.",
-    "publication_admission": "Pending fresh theorem binding and independent reviews after consolidating private proof steps."
+    "admission_boundary": "Independently VERIFIED local theorem. Aggregate and site integration pending.",
+    "publication_admission": "Accepted exact binding07b97601f188760ad0e3a85a5ef44b413161a127b1c4718ea2bf61f543a4f4b9; reviewed publication gate PASS."
   },
   "blocked": {
     "reason": "",

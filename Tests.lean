@@ -118,6 +118,7 @@ import Tests.EnergyStoppedItoOverlap
 import Tests.GaussianConditionalKernel
 import Tests.SmoothedPicardRGOCalculus
 import Tests.SmoothedPicardRecursiveVariance
+import Tests.SmoothedPicardRecursiveDepth
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are
