@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma 6.2",
+          "scope": "Optimal-coupling existence expanded and actual truncation construction."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCTruncation"
+      ],
+      "boundary": "Actual infimum p-cost and bounded-displacement coupling certificate for Lemma6.2; no full Wp/Winfinity metric API, Gaussian reverse transport, Renyi/proxy-warmness, sampler construction, error/cost propagation or full-paper conclusion.",
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+      "title": "A continuous transport cost attains its infimum",
+      "statement": "For probability measures P,Q on complete second-countable metric Borel spaces E,F and any continuous nonnegative real cost c on E times F, there is an actual probability coupling gamma whose extended nonnegative integral of c equals the infimum over all couplings. The value may be infinite; neither a moment bound nor an optimizer is assumed.",
+      "formula": "\\exists\\gamma\\in\\Pi(P,Q),\\qquad\\int c\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int c\\,d\\rho.",
+      "assumptions": [
+        "E,F are complete second-countable metric spaces with their Borel sigma algebras.",
+        "P,Q are probability measures and c:E times F to nonnegative reals is continuous.",
+        "This is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma."
+      ],
+      "steps": [
+        {
+          "title": "Use a genuine nonempty coupling space",
+          "text": "Package P and Q as probability measures. Their product is a coupling, so the space of probability couplings is nonempty.",
+          "formula": "P\\otimes Q\\in\\Pi(P,Q).",
+          "lean": "Transport.isCoupling_prod and isProbabilityCoupling_iff_isCoupling_toMeasure."
+        },
+        {
+          "title": "Apply existing weak compactness and lower semicontinuity",
+          "text": "The existing ASTIS compactness theorem makes the coupling space compact in the weak topology. Its continuous-cost lower semicontinuity theorem applies to the extended integral, without a bounded cost or finite moment restriction.",
+          "formula": "\\Pi(P,Q)\\text{ compact},\\qquad\\gamma\\mapsto\\int c\\,d\\gamma\\text{ lower semicontinuous}.",
+          "lean": "isCompact_probabilityCouplingSet and lowerSemicontinuous_lintegral_continuous_nnreal."
+        },
+        {
+          "title": "Take the compact minimum",
+          "text": "A lower-semicontinuous function into the ordered extended nonnegative reals attains a minimum on a nonempty compact set. Recover an actual raw measure gamma and its two marginals.",
+          "formula": "\\int c\\,d\\gamma\\le\\int c\\,d\\rho\\quad(\\rho\\in\\Pi(P,Q)).",
+          "lean": "LowerSemicontinuousOn.exists_isMinOn supplies gamma and hmin."
+        },
+        {
+          "title": "Identify the original infimum over raw couplings",
+          "text": "Every raw coupling is a probability because its first marginal is P. It therefore belongs to the compact probability-coupling set, so minimality gives the lower bound against every element in the transportCost infimum. Membership gives the reverse inequality.",
+          "formula": "\\int c\\,d\\gamma=\\operatorname{transportCost}(c,P,Q).",
+          "lean": "transportCost_eq_sInf, le_sInf and transportCost_le_lintegral_of_isCoupling."
+        }
+      ],
+      "lean_statement": "A genuine probability coupling attaining the extended integral infimum for a continuous NNReal cost.",
+      "lean_proof": "Compact minimum with explicit conversion between probability couplings and raw measure couplings.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.ProbabilityCouplingCompactness.isCompact_probabilityCouplingSet",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.ContinuousCostWeakLowerSemicontinuity.lowerSemicontinuous_lintegral_continuous_nnreal"
+      ],
+      "mathlib_dependencies": [
+        "LowerSemicontinuousOn.exists_isMinOn"
+      ]
+    },
+    {
+      "kind": "theorem",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma 6.2",
+          "scope": "Optimal-coupling existence expanded and actual truncation construction."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCTruncation"
+      ],
+      "boundary": "Actual infimum p-cost and bounded-displacement coupling certificate for Lemma6.2; no full Wp/Winfinity metric API, Gaussian reverse transport, Renyi/proxy-warmness, sampler construction, error/cost propagation or full-paper conclusion.",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+      "title": "The actual SPHMC truncation proxy from an infimum p-cost budget",
+      "statement": "Let P,Q be probabilities on a complete second-countable normed Borel additive group, p>=2, r>=0 and 0<delta<1. If the infimum over couplings of the integral of norm(x-y)^p is at most r^p, there exists an actual optimal probability coupling gamma. Set t=r delta^(-1/p) and T(x,y)=x when norm(x-y)<=t, otherwise y. Then T is measurable, Pdag=gamma.map(T) is a probability, and Gamma=gamma.map((T(x,y),y)) is a probability coupling of Pdag,Q concentrated on norm(a-b)<=t. Every measurable event B satisfies abs(P(B)-Pdag(B))<=delta.",
+      "formula": "t=r\\delta^{-1/p},\\quad T(x,y)=\\begin{cases}x&\\|x-y\\|\\le t,\\\\y&\\|x-y\\|>t,\\end{cases}\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\quad\\Gamma\\{\\|a-b\\|\\le t\\}=1.",
+      "assumptions": [
+        "P,Q are probability measures, p is real with p>=2, r>=0 and 0<delta<1.",
+        "The input budget is the true infimum p-cost<=r^p, not the cost of an assumed coupling.",
+        "Complete second-countable normed Borel additive groups explicitly generalize the source Euclidean domain.",
+        "No separate marginal moment, finite coupling moment or optimal-coupling assumption is added. The output is a real coupling certificate, without introducing full Wasserstein metric APIs."
+      ],
+      "steps": [
+        {
+          "title": "Produce an optimal coupling and derive integrability",
+          "text": "Apply the shared optimizer to the continuous nonnegative cost norm(x-y)^p. Its exact optimum is bounded by r^p, hence finite. Nonnegativity and measurability then yield actual Bochner integrability and the real moment budget.",
+          "formula": "\\int\\|x-y\\|^p\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int\\|x-y\\|^p\\,d\\rho\\le r^p.",
+          "lean": "exists_optimal_coupling, lintegral_ofReal_ne_top_iff_integrable, integral_eq_lintegral_of_nonneg_ae and ENNReal.toReal_mono."
+        },
+        {
+          "title": "Build the measurable truncation and its two actual marginals",
+          "text": "The good event norm(x-y)<=t is measurable, so the piecewise projection T is measurable. Push forward gamma by T and by (T,y). Composition of measurable maps gives the first marginal Pdag and second marginal Q.",
+          "formula": "P^\\dagger=T_\\#\\gamma,\\qquad\\Gamma=(T,\\operatorname{snd})_\\#\\gamma\\in\\Pi(P^\\dagger,Q).",
+          "lean": "Local truncation_coupling proves Measurable.ite, map probabilities and both map_map marginal identities."
+        },
+        {
+          "title": "Prove bounded displacement and eventwise total variation",
+          "text": "On the good event the new first coordinate is x and has distance at most t from y; on the bad event it equals y. For any event B, each of its x and T preimages lies in the other preimage union the bad event, giving both signed probability inequalities.",
+          "formula": "\\|T(x,y)-y\\|\\le t,\\qquad|P(B)-P^\\dagger(B)|\\le\\gamma\\{\\|x-y\\|>t\\}.",
+          "lean": "ae_map_iff transfers the pointwise bound; measureReal_mono and measureReal_union_le prove both sides of abs_le."
+        },
+        {
+          "title": "Handle zero radius without division",
+          "text": "If r=0, the nonnegative integrable p-cost has integral zero. It is zero almost everywhere, and p>=2 implies norm(x-y)=0 almost everywhere. Thus the bad event at threshold zero has probability zero.",
+          "formula": "r=0\\Longrightarrow\\|x-y\\|^p=0\\ \\gamma\\text{-a.e.}\\Longrightarrow\\gamma\\{\\|x-y\\|>0\\}=0.",
+          "lean": "integral_eq_zero_iff_of_nonneg_ae, Real.rpow_eq_zero_iff_of_nonneg and measure_eq_zero_iff_ae_notMem."
+        },
+        {
+          "title": "Apply Markov with the exact positive-radius power",
+          "text": "For r>0, t>0 and t^p=r^p/delta. Monotonicity of the real pth power embeds the bad event in the p-cost threshold event. Markov and the derived moment budget show bad probability<=delta.",
+          "formula": "\\gamma\\{\\|x-y\\|>t\\}\\le\\frac{\\int\\|x-y\\|^p\\,d\\gamma}{t^p}\\le\\delta,\\qquad t^p=r^p/\\delta.",
+          "lean": "mul_meas_ge_le_integral_of_nonneg, Real.rpow_le_rpow, Real.mul_rpow, Real.rpow_mul and positive cancellation."
+        },
+        {
+          "title": "Return the same coupling and proxy",
+          "text": "Retain the actual optimizer, its optimality equality, the explicit T, both probability witnesses, coupling marginals, almost-everywhere bound and the uniform event inequality. The source Lemma6.3(ii) reverse-transport argument remains a later consumer.",
+          "formula": "\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\qquad\\|a-b\\|\\le r\\delta^{-1/p}\\quad\\Gamma\\text{-a.e.}",
+          "lean": "The final tuple combines hopt with the local moment_proxy certificate and rewrites the original gamma marginals to P,Q."
+        }
+      ],
+      "lean_statement": "An actual optimal coupling and an explicit pushforward proxy with eventwise TV and bounded-displacement coupling guarantees at the exact radius.",
+      "lean_proof": "All measurable truncation and moment-tail helpers are local in the substantive public theorem; optimizer is the shared public dependency.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling"
+      ],
+      "mathlib_dependencies": [
+        "mul_meas_ge_le_integral_of_nonneg",
+        "integral_eq_zero_iff_of_nonneg_ae"
+      ]
+    }
+  ]
+}

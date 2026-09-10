@@ -1,0 +1,115 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent formal seven-slot review; prose compacted without changing relations, findings or limits.",
+  "reviewer_packet_sha256": "9344979846bcfcc5de416636a5cffa2b0829706098ab4fa0ba4f53e7639f9dff",
+  "source_text_sha256": "d79b2760cc1a902083dc8d6bc6ad7f204ed016b46396601ecf67c0ee1198d8f5",
+  "lean_statement_sha256": "a2cf39663b3c2de3c6f923a09b78e8cdf9f8f2430db89ce8bad278054a55d014",
+  "reconstruction_text_sha256": "f40122910e699d5b07de81e1e6afe6d52995e8602cb6a244960c6bb8a1ebe63d",
+  "embedded_module_text_sha256": "98c078f2dbf09d941f67f9da5d4feb8240e53ca7b523401494acfa435fe55fed",
+  "publication_binding_sha256": "5b4b7d21c5fa60f3c009d00c6a7edf7dbc6e4a3c1637403518f2df34f70d6e79",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Source probabilities, optimal coupling and truncated proxy.",
+      "reconstructed": "Same piecewise-coordinate construction on actual attained infimum-cost coupling and both pushforward probabilities.",
+      "relation": "explicit-elaboration",
+      "evidence": "Final tuple retains one gamma, exact optimum, T, proxy and coupling to Q."
+    },
+    "domains": {
+      "original": "Euclidean probability laws.",
+      "reconstructed": "Complete second-countable normed Borel additive commutative groups, including zero space.",
+      "relation": "stronger-in-lean",
+      "evidence": "No scalar or finite-dimensional structure used; disclosed domain extension."
+    },
+    "quantifiers": {
+      "original": "Each admissible P,Q,p,r,delta has a proxy with both bounds.",
+      "reconstructed": "All inputs, one optimal gamma, explicit T and same pushforwards, uniform measurable events.",
+      "relation": "explicit-elaboration",
+      "evidence": "Gamma precedes all conclusions; events universal."
+    },
+    "assumptions": {
+      "original": "Wp(P,Q)<=r, real p>=2, 0<delta<1.",
+      "reconstructed": "Actual infimum p-cost<=ofReal(r^p), r>=0, same p/delta and no supplied optimizer or moment.",
+      "relation": "explicit-elaboration",
+      "evidence": "Finite budget and optimality derive integrability; cost semantics explicitly replace full metric API."
+    },
+    "conclusion": {
+      "original": "TV<=delta and Winfinity<=r delta^(-1/p).",
+      "reconstructed": "Uniform measurable-event TV bound and explicit probability coupling with exact a.e. displacement.",
+      "relation": "explicit-elaboration",
+      "evidence": "Both marginals, a.e. bound and signed event inequalities proved; no full Winfinity declaration."
+    },
+    "scopes": {
+      "original": "Lemma6.2 proxy for later reverse transport.",
+      "reconstructed": "Actual infimum-cost and bounded-coupling certificate only.",
+      "relation": "explicit-elaboration",
+      "evidence": "Metric API, Gaussian reverse transport, Renyi warmness and sampler error/cost outside result."
+    },
+    "constant_dependencies": {
+      "original": "Exact radius r delta^(-1/p), error delta, p>=2.",
+      "reconstructed": "Same constants with r=0 and real powers.",
+      "relation": "same",
+      "evidence": "Positive t^p=r^p/delta; zero case vanishing nonnegative integral; no extra factor two."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Complete second-countable normed additive groups extend Euclidean source.",
+      "evidence": "No scalar or finite-dimensional structure used; disclosed domain extension."
+    },
+    {
+      "slot": "conclusion",
+      "severity": "informational",
+      "description": "Exact cost/coupling/event certificates, not full Wp/Winfinity APIs.",
+      "evidence": "Both marginals, a.e. bound and signed event inequalities proved; no full Winfinity declaration."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Finite displacement p-cost does not imply finite marginal p-moments; later Lemma6.3(ii) Pp premises must be established separately.",
+      "evidence": "Metric API, Gaussian reverse transport, Renyi warmness and sampler error/cost outside result."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Optimizer and finite infimum budget yield integrable real moment."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Measurable piecewise projection and map composition prove probability marginals."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Pointwise displacement and both event inclusions prove coupling and TV."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Zero radius proves bad event null from zero nonnegative integral without division."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Positive-radius Markov and real powers preserve exact constants."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Same optimizer and explicit proxy returned; downstream reverse-transport boundary retained."
+      }
+    ]
+  },
+  "review_evidence": "Independent review used immediately preceding primary Lemma6.2/6.3 reading and complete production plus4+6step inspection, then fresh anonymous reconstructions and canonical packets. Independently recomputed canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON; source/statement/reconstruction/module text hashes matched, embedded modules equal current production. Binding hashes authenticated packet fields, NOT independently reconstructed external preimages. No compilation, aggregate or fixed-commit VERIFIED admission."
+}

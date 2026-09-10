@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation
+
+#print axioms AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy

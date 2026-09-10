@@ -1,0 +1,47 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCTruncation",
+    "result": "PASS2621",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/Measure/OptimalContinuousCost.lean": "b5e6a819209b051cc140e12e66ffcd0b0a71a3d23607cc4da924aa68abe1e1a0",
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/Truncation.lean": "bc0c75a7f5a89d7963a7e722df26d279a22da8b4867f8204da739216f51e36ba",
+      "Tests/SmoothedPicardHMCTruncation.lean": "4c9d58b31e19393384977bc1eaa712956ffc1d5be583dbc14df4e1203ca10049"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/sphmc-truncation.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-OptimalContinuousCost",
+      "ASTIS-RT-20260911-SPHMCTruncation"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/optimal-continuous-cost.source-review-result.json",
+      "runs/20260911-companion-priority/sphmc-truncation.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion.",
+  "remaining": [
+    "Independent fixed-commit review",
+    "Integration, aggregate and reader/graph delivery",
+    "Gaussian reverse transport and proxy-warmness",
+    "Actual sampler/error/cost propagation and all later main-theorem dependencies",
+    "Both complete papers and necessary delivery"
+  ]
+}

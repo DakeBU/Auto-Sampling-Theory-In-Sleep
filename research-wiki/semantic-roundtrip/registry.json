@@ -7051,6 +7051,477 @@
           "evidence": "hSy,hW,hI,hZ,hClosed from same parent, not added premises."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-OptimalContinuousCost",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-optimal-continuous-cost",
+        "anchor": "Lemma6.2 optimal coupling prerequisite",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "E,F are complete second-countable metric spaces with their Borel sigma algebras.\nP,Q are probability measures and c:E times F to nonnegative reals is continuous.\nThis is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma.\nSPHMC Lemma6.2 chooses an optimal coupling for the pth displacement cost. The expanded ASTIS prerequisite proves the required existence in a generic form: probabilities on complete second-countable metric Borel spaces and a continuous finite nonnegative cost admit a true minimizing coupling, with the minimum allowed to be infinite. No finite-moment or optimizer assumption is made.",
+        "text_sha256": "0a39143030d65d2f360c3b82d5e860322ef44dad8bbf0d329873339faded8efe"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Measure/OptimalContinuousCost.lean",
+        "statement": "∀ {E : Type u_1}\n  {F : Type u_2} [inst : MetricSpace E] [CompleteSpace E] [SecondCountableTopology E] [inst_3 : MeasurableSpace E]\n  [BorelSpace E] [inst_5 : MetricSpace F] [CompleteSpace F] [SecondCountableTopology F] [inst_8 : MeasurableSpace F]\n  [BorelSpace F] (μ : MeasureTheory.Measure E) (ν : MeasureTheory.Measure F) [MeasureTheory.IsProbabilityMeasure μ]\n  [MeasureTheory.IsProbabilityMeasure ν] (c : E × F → NNReal),\n  Continuous c →\n    ∃ γ,\n      MeasureTheory.IsProbabilityMeasure γ ∧\n        AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling γ μ ν ∧\n          ∫⁻ (z : E × F), ↑(c z) ∂γ =\n            AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost (fun z => ↑(c z)) μ ν",
+        "statement_sha256": "8fd746e059264a3f8a17abf8f564d2dcbc343db66dd8782276909f58387662dc",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS2621, independently replayed; standard propext/Classical.choice/Quot.sound only. Full development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "MetricSpace, CompleteSpace and SecondCountableTopology give complete second-countable metric spaces; BorelSpace identifies the measurable structure with the Borel sigma algebra. NormedAddCommGroup is an additive commutative group with a norm and its metric, not necessarily a vector space.",
+          "IsProbabilityMeasure means total mass one. Measure.map is the pushforward of a measure by the specified map. Measure.fst and Measure.snd are pushforwards by product projections. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q.",
+          "Transport.transportCost c P Q is the infimum in extended nonnegative reals of integrals of c over all raw measures with those two marginals. It does not assume an optimizer or bounded/finite cost.",
+          "NNReal are nonnegative finite reals; ENNReal are extended nonnegative reals. The displayed casts preserve nonnegative values. ENNReal.ofReal takes the nonnegative part of a real number. Lintegral is the extended nonnegative integral.",
+          "Measure.real B is the real-valued measure of B, i.e. the extended measure converted to real; here all relevant measures are probabilities. A.e. refers to almost everywhere under the specified measure.",
+          "Real powers are powers with real exponents. All p,r,delta quantifiers and restrictions are exactly those displayed. Norm is the norm of the actual group difference. Lets are abbreviations for the explicit maps and radius."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "eefaf9010db5560a011cd155fd6ab757e446abc6dc2a92af43117b26d42e11b7",
+        "review_run_sha256": "27dd769e77634d422fb266945ecc64737257229fcbf78cfce30debf518b8dc84",
+        "run_artifact": "runs/20260911-companion-priority/optimal-continuous-cost.source-review-result.json",
+        "evidence": "Independent review used immediately preceding primary Lemma6.2/6.3 reading and complete production plus4+6step inspection, then fresh anonymous reconstructions and canonical packets. Independently recomputed canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON; source/statement/reconstruction/module text hashes matched, embedded modules equal current production. Binding hashes authenticated packet fields, NOT independently reconstructed external preimages. No compilation, aggregate or fixed-commit VERIFIED admission."
+      },
+      "publication_binding_sha256": "20dfdeb59bc5f0674a55983caa4a7443ffff322a9e8f0181a56fd0065bcba135",
+      "publication_context": {
+        "file": "5bb6bf1ae586b957744724c88c4380380c19c5d90610779c743d249d3fb2961e",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.ProbabilityCouplingCompactness\nimport AutoSamplingTheory.TechnicalLemmas.Measure.ContinuousCostWeakLowerSemicontinuity\n\nopen MeasureTheory\nopen scoped ENNReal NNReal\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen ProbabilityCouplingCompactness\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\n\n/-- A continuous nonnegative cost attains its actual infimum over couplings of\nprobabilities on complete second-countable metric Borel spaces. The minimum\nmay be infinite; no finite moment or optimizer is assumed. -/\ntheorem exists_optimal_coupling {E F : Type*}\n    [MetricSpace E] [CompleteSpace E] [SecondCountableTopology E]\n    [MeasurableSpace E] [BorelSpace E]\n    [MetricSpace F] [CompleteSpace F] [SecondCountableTopology F]\n    [MeasurableSpace F] [BorelSpace F]\n    (μ : Measure E) (ν : Measure F) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν]\n    (c : E × F → ℝ≥0) (hc : Continuous c) :\n    ∃ γ : Measure (E × F), IsProbabilityMeasure γ ∧ Transport.IsCoupling γ μ ν ∧\n      (∫⁻ z, (c z : ℝ≥0∞) ∂γ) = Transport.transportCost (fun z => (c z : ℝ≥0∞)) μ ν := by\n  let P : ProbabilityMeasure E := ⟨μ,inferInstance⟩\n  let Q : ProbabilityMeasure F := ⟨ν,inferInstance⟩\n  have hn : (probabilityCouplingSet P Q).Nonempty := by\n    refine ⟨⟨μ.prod ν,inferInstance⟩, ?_⟩\n    exact isProbabilityCoupling_iff_isCoupling_toMeasure.mpr (Transport.isCoupling_prod μ ν)\n  have hcompact := isCompact_probabilityCouplingSet P Q\n  have hlsc := ContinuousCostWeakLowerSemicontinuity.lowerSemicontinuous_lintegral_continuous_nnreal c hc\n  obtain ⟨γ,hγ,hmin⟩ := LowerSemicontinuousOn.exists_isMinOn hn hcompact (hlsc.lowerSemicontinuousOn _)\n  have hγ' : Transport.IsCoupling (γ : Measure (E × F)) μ ν :=\n    isProbabilityCoupling_iff_isCoupling_toMeasure.mp hγ\n  refine ⟨γ,inferInstance,hγ',le_antisymm ?_ ?_⟩\n  · rw [Transport.transportCost_eq_sInf]\n    apply le_sInf\n    rintro r ⟨ρ,hρ,rfl⟩\n    let : IsProbabilityMeasure ρ := Transport.isProbabilityMeasure_of_isCoupling_left hρ\n    let R : ProbabilityMeasure (E × F) := ⟨ρ,inferInstance⟩\n    have hR : IsProbabilityCoupling R P Q := isProbabilityCoupling_iff_isCoupling_toMeasure.mpr hρ\n    exact hmin hR\n  · exact Transport.transportCost_le_lintegral_of_isCoupling _ μ ν γ hγ'\n\nend AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.2 optimal coupling prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+        },
+        "statement": "SPHMC Lemma6.2 chooses an optimal coupling for the pth displacement cost. The expanded ASTIS prerequisite proves the required existence in a generic form: probabilities on complete second-countable metric Borel spaces and a continuous finite nonnegative cost admit a true minimizing coupling, with the minimum allowed to be infinite. No finite-moment or optimizer assumption is made.",
+        "formulae": [
+          {
+            "label": "Optimal cost",
+            "tex": "\\exists\\gamma\\in\\Pi(P,Q),\\qquad\\int c\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int c\\,d\\rho."
+          }
+        ],
+        "assumptions": [
+          "E,F are complete second-countable metric spaces with their Borel sigma algebras.",
+          "P,Q are probability measures and c:E times F to nonnegative reals is continuous.",
+          "This is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma."
+        ],
+        "obligations": [
+          {
+            "id": "optimal-coupling",
+            "label": "Actual optimal coupling with no optimizer premise"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma 6.2",
+              "scope": "Optimal-coupling existence expanded and actual truncation construction."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCTruncation"
+          ],
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+          "title": "A continuous transport cost attains its infimum",
+          "statement": "For probability measures P,Q on complete second-countable metric Borel spaces E,F and any continuous nonnegative real cost c on E times F, there is an actual probability coupling gamma whose extended nonnegative integral of c equals the infimum over all couplings. The value may be infinite; neither a moment bound nor an optimizer is assumed.",
+          "formula": "\\exists\\gamma\\in\\Pi(P,Q),\\qquad\\int c\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int c\\,d\\rho.",
+          "assumptions": [
+            "E,F are complete second-countable metric spaces with their Borel sigma algebras.",
+            "P,Q are probability measures and c:E times F to nonnegative reals is continuous.",
+            "This is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma."
+          ],
+          "steps": [
+            {
+              "title": "Use a genuine nonempty coupling space",
+              "text": "Package P and Q as probability measures. Their product is a coupling, so the space of probability couplings is nonempty.",
+              "formula": "P\\otimes Q\\in\\Pi(P,Q).",
+              "lean": "Transport.isCoupling_prod and isProbabilityCoupling_iff_isCoupling_toMeasure."
+            },
+            {
+              "title": "Apply existing weak compactness and lower semicontinuity",
+              "text": "The existing ASTIS compactness theorem makes the coupling space compact in the weak topology. Its continuous-cost lower semicontinuity theorem applies to the extended integral, without a bounded cost or finite moment restriction.",
+              "formula": "\\Pi(P,Q)\\text{ compact},\\qquad\\gamma\\mapsto\\int c\\,d\\gamma\\text{ lower semicontinuous}.",
+              "lean": "isCompact_probabilityCouplingSet and lowerSemicontinuous_lintegral_continuous_nnreal."
+            },
+            {
+              "title": "Take the compact minimum",
+              "text": "A lower-semicontinuous function into the ordered extended nonnegative reals attains a minimum on a nonempty compact set. Recover an actual raw measure gamma and its two marginals.",
+              "formula": "\\int c\\,d\\gamma\\le\\int c\\,d\\rho\\quad(\\rho\\in\\Pi(P,Q)).",
+              "lean": "LowerSemicontinuousOn.exists_isMinOn supplies gamma and hmin."
+            },
+            {
+              "title": "Identify the original infimum over raw couplings",
+              "text": "Every raw coupling is a probability because its first marginal is P. It therefore belongs to the compact probability-coupling set, so minimality gives the lower bound against every element in the transportCost infimum. Membership gives the reverse inequality.",
+              "formula": "\\int c\\,d\\gamma=\\operatorname{transportCost}(c,P,Q).",
+              "lean": "transportCost_eq_sInf, le_sInf and transportCost_le_lintegral_of_isCoupling."
+            }
+          ],
+          "lean_statement": "A genuine probability coupling attaining the extended integral infimum for a continuous NNReal cost.",
+          "lean_proof": "Compact minimum with explicit conversion between probability couplings and raw measure couplings.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.ProbabilityCouplingCompactness.isCompact_probabilityCouplingSet",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.ContinuousCostWeakLowerSemicontinuity.lowerSemicontinuous_lintegral_continuous_nnreal"
+          ],
+          "mathlib_dependencies": [
+            "LowerSemicontinuousOn.exists_isMinOn"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+          "role": "prerequisite",
+          "supports": [
+            "optimal-coupling"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Lemma6.2 invokes an optimal coupling for Euclidean p-distance cost.",
+            "lean": "Continuous nonnegative costs on complete second-countable metric Borel spaces, minimum possibly infinite."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every pair of complete second-countable metric spaces E,F equipped with their Borel measurable structures, every probability measure mu on E and nu on F, and every continuous function c:E times F to finite nonnegative reals, there exists a measure gamma on E times F which is a probability, has first marginal mu and second marginal nu, and satisfies the extended nonnegative integral equality integral(c,gamma)=inf{integral(c,eta): eta is a raw measure with first marginal mu and second marginal nu}. The cost is cast to extended nonnegative reals for integration. Both sides take values in [0,infinity], and the minimum is not asserted finite. No boundedness, finite integral or additional moment hypothesis is imposed. There are no numerical constants.",
+        "text_sha256": "9a45728d3a8b9d4110e5acdc2d8807f22ad474bc1bba4a25c2ae546297392f1a",
+        "decoder_packet_sha256": "335cddb1a364a04e51caf4e784a6feec84e4c4adf35b92bfd422ed25c9503c52",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "truncation_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent inspected only the two anonymous compiled statement/definition packets. No source-fidelity verdict or additional metric API inferred."
+        ],
+        "decoder_run_sha256": "25ec7d015e9a46c2da74da3d869214156bc9ca487896e682a4b65d247652f9ef",
+        "lean_statement_sha256": "8fd746e059264a3f8a17abf8f564d2dcbc343db66dd8782276909f58387662dc",
+        "run_artifact": "runs/20260911-companion-priority/optimal-continuous-cost.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Lemma6.2 optimal coupling for pth displacement cost.",
+          "reconstructed": "Minimizing probability coupling for arbitrary continuous finite nonnegative cost.",
+          "relation": "stronger-in-lean",
+          "evidence": "Arbitrary continuous NNReal cost; actual p-distance consumer is truncated_proxy."
+        },
+        "domains": {
+          "original": "Euclidean source probabilities.",
+          "reconstructed": "Two complete second-countable metric Borel spaces.",
+          "relation": "stronger-in-lean",
+          "evidence": "No vector structure or finite dimension; explicit generic expanded prerequisite."
+        },
+        "quantifiers": {
+          "original": "Choose optimizer for source pair and cost.",
+          "reconstructed": "Every admissible pair of spaces, probabilities and continuous cost admits optimizer.",
+          "relation": "stronger-in-lean",
+          "evidence": "Universal input data followed by existential actual coupling and optimality equality."
+        },
+        "assumptions": {
+          "original": "Source invocation has finite p-transport budget.",
+          "reconstructed": "No finite-cost or moment premise for optimizer existence.",
+          "relation": "stronger-in-lean",
+          "evidence": "Compact minimum applies to ENNReal even if every feasible cost is infinite."
+        },
+        "conclusion": {
+          "original": "Availability of optimal coupling.",
+          "reconstructed": "Probability, exact marginals and equality with original raw-coupling infimum.",
+          "relation": "explicit-elaboration",
+          "evidence": "Repackage every raw coupling for le_sInf; feasibility gives reverse inequality."
+        },
+        "scopes": {
+          "original": "Optimal-coupling choice within Lemma6.2.",
+          "reconstructed": "Separately proved generic prerequisite, not generic theorem printed in source.",
+          "relation": "explicit-elaboration",
+          "evidence": "Source contract and publication distinguish generic prerequisite."
+        },
+        "constant_dependencies": {
+          "original": "No numerical constant.",
+          "reconstructed": "No numerical constant; optimum may be infinite.",
+          "relation": "same",
+          "evidence": "Extended integral equality without quantitative loss."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Generic two-space metric setting extends Euclidean source.",
+          "evidence": "No vector structure or finite dimension; explicit generic expanded prerequisite."
+        },
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Arbitrary continuous nonnegative costs and potentially infinite optimum extend finite p-distance application.",
+          "evidence": "Arbitrary continuous NNReal cost; actual p-distance consumer is truncated_proxy."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCTruncation",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-truncation",
+        "anchor": "Lemma6.2 statement and proof",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "P,Q are probability measures, p is real with p>=2, r>=0 and 0<delta<1.\nThe input budget is the true infimum p-cost<=r^p, not the cost of an assumed coupling.\nComplete second-countable normed Borel additive groups explicitly generalize the source Euclidean domain.\nNo separate marginal moment, finite coupling moment or optimal-coupling assumption is added. The output is a real coupling certificate, without introducing full Wasserstein metric APIs.\nSPHMC v1 Lemma6.2: probabilities P,Q with Wp(P,Q)<=r, real p>=2 and 0<delta<1 admit a proxy Pdag with TV(P,Pdag)<=delta and Winfinity(Pdag,Q)<=r delta^(-1/p). Its proof chooses an optimal coupling and replaces its first coordinate by the second when distance exceeds the threshold. The selected Lean contract expands this as actual infimum p-cost<=r^p, r>=0, and proves a measurable explicit proxy plus a true bounded-displacement coupling and uniform measurable-event TV inequalities. This records the cost/coupling content without a complete Wp/Winfinity metric API. Complete second-countable normed Borel additive groups explicitly generalize the Euclidean source domain; the zero-radius case is included.",
+        "text_sha256": "d79b2760cc1a902083dc8d6bc6ad7f204ed016b46396601ecf67c0ee1198d8f5"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/Truncation.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [CompleteSpace E] [SecondCountableTopology E] [inst_3 : MeasurableSpace E]\n  [BorelSpace E] (P Q : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure P]\n  [MeasureTheory.IsProbabilityMeasure Q] (p r δ : ℝ),\n  2 ≤ p →\n    0 ≤ r →\n      0 < δ →\n        δ < 1 →\n          AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost (fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ p))\n                P Q ≤\n              ENNReal.ofReal (r ^ p) →\n            ∃ γ,\n              MeasureTheory.IsProbabilityMeasure γ ∧\n                AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling γ P Q ∧\n                  ∫⁻ (z : E × E), ENNReal.ofReal (‖z.1 - z.2‖ ^ p) ∂γ =\n                      AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost\n                        (fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ p)) P Q ∧\n                    have t := r * δ ^ (-1 / p);\n                    have T := fun z => if ‖z.1 - z.2‖ ≤ t then z.1 else z.2;\n                    Measurable T ∧\n                      MeasureTheory.IsProbabilityMeasure (MeasureTheory.Measure.map T γ) ∧\n                        MeasureTheory.IsProbabilityMeasure (MeasureTheory.Measure.map (fun z => (T z, z.2)) γ) ∧\n                          AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling\n                              (MeasureTheory.Measure.map (fun z => (T z, z.2)) γ) (MeasureTheory.Measure.map T γ) Q ∧\n                            (∀ᵐ (z : E × E) ∂MeasureTheory.Measure.map (fun z => (T z, z.2)) γ, ‖z.1 - z.2‖ ≤ t) ∧\n                              ∀ (B : Set E), MeasurableSet B → |P.real B - (MeasureTheory.Measure.map T γ).real B| ≤ δ",
+        "statement_sha256": "a2cf39663b3c2de3c6f923a09b78e8cdf9f8f2430db89ce8bad278054a55d014",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS2621, independently replayed; standard propext/Classical.choice/Quot.sound only. Full development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "MetricSpace, CompleteSpace and SecondCountableTopology give complete second-countable metric spaces; BorelSpace identifies the measurable structure with the Borel sigma algebra. NormedAddCommGroup is an additive commutative group with a norm and its metric, not necessarily a vector space.",
+          "IsProbabilityMeasure means total mass one. Measure.map is the pushforward of a measure by the specified map. Measure.fst and Measure.snd are pushforwards by product projections. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q.",
+          "Transport.transportCost c P Q is the infimum in extended nonnegative reals of integrals of c over all raw measures with those two marginals. It does not assume an optimizer or bounded/finite cost.",
+          "NNReal are nonnegative finite reals; ENNReal are extended nonnegative reals. The displayed casts preserve nonnegative values. ENNReal.ofReal takes the nonnegative part of a real number. Lintegral is the extended nonnegative integral.",
+          "Measure.real B is the real-valued measure of B, i.e. the extended measure converted to real; here all relevant measures are probabilities. A.e. refers to almost everywhere under the specified measure.",
+          "Real powers are powers with real exponents. All p,r,delta quantifiers and restrictions are exactly those displayed. Norm is the norm of the actual group difference. Lets are abbreviations for the explicit maps and radius."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "9344979846bcfcc5de416636a5cffa2b0829706098ab4fa0ba4f53e7639f9dff",
+        "review_run_sha256": "3edea95e9a2fd8ebfc0cd945e452cdcbbfed1a713bb7dd2252107ed32552354b",
+        "run_artifact": "runs/20260911-companion-priority/sphmc-truncation.source-review-result.json",
+        "evidence": "Independent review used immediately preceding primary Lemma6.2/6.3 reading and complete production plus4+6step inspection, then fresh anonymous reconstructions and canonical packets. Independently recomputed canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON; source/statement/reconstruction/module text hashes matched, embedded modules equal current production. Binding hashes authenticated packet fields, NOT independently reconstructed external preimages. No compilation, aggregate or fixed-commit VERIFIED admission."
+      },
+      "publication_binding_sha256": "5b4b7d21c5fa60f3c009d00c6a7edf7dbc6e4a3c1637403518f2df34f70d6e79",
+      "publication_context": {
+        "file": "98c078f2dbf09d941f67f9da5d4feb8240e53ca7b523401494acfa435fe55fed",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\nimport Mathlib.MeasureTheory.Integral.Bochner.Basic\nimport Mathlib.MeasureTheory.Function.L1Space.Integrable\nimport Mathlib.Analysis.SpecialFunctions.Pow.Continuity\nimport Mathlib.MeasureTheory.Function.SpecialFunctions.Basic\n\n/-!\n# SPHMC truncation from the actual infimum p-cost\n\nExpanded proof of arXiv:2609.06906v1 Lemma 6.2. The input is the true infimum\nof the pth displacement moment over all couplings, bounded by r^p. We prove\noptimizer existence and finite integrability, then construct the measurable\nproxy and its bounded-displacement coupling, with the exact eventwise TV bound.\nThe zero-radius case is included. Complete second-countable normed Borel\nspaces generalize the source Euclidean setting explicitly. This certificate\nexpresses the Wp-cost and Winfinity-coupling content without a full Wp metric\nAPI. It does not prove reverse transport, Renyi warmness or sampler costs.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation\n\nopen MeasureTheory Set\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen scoped ENNReal NNReal\n\n/-- A finite infimum p-cost budget produces an actual optimal coupling and\nan explicit truncated proxy within delta in eventwise total variation, coupled\nto Q at displacement at most r * delta^(-1/p). -/\ntheorem truncated_proxy {E : Type*} [NormedAddCommGroup E] [CompleteSpace E]\n    [SecondCountableTopology E] [MeasurableSpace E] [BorelSpace E]\n    (P Q : Measure E) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n    (p r δ : ℝ) (hp : 2 ≤ p) (hr : 0 ≤ r) (hδ : 0 < δ) (hδ1 : δ < 1)\n    (hcost : Transport.transportCost (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖ ^ p)) P Q ≤ ENNReal.ofReal (r ^ p)) :\n    ∃ γ : Measure (E × E), IsProbabilityMeasure γ ∧ Transport.IsCoupling γ P Q ∧\n      (∫⁻ z, ENNReal.ofReal (‖z.1-z.2‖ ^ p) ∂γ) =\n        Transport.transportCost (fun z => ENNReal.ofReal (‖z.1-z.2‖ ^ p)) P Q ∧\n      let t := r * δ ^ (-1 / p)\n      let T := fun z : E × E => if ‖z.1-z.2‖ ≤ t then z.1 else z.2\n      Measurable T ∧ IsProbabilityMeasure (γ.map T) ∧\n        IsProbabilityMeasure (γ.map (fun z => (T z,z.2))) ∧\n        Transport.IsCoupling (γ.map (fun z => (T z,z.2))) (γ.map T) Q ∧\n        (∀ᵐ z ∂(γ.map (fun z => (T z,z.2))), ‖z.1-z.2‖ ≤ t) ∧\n        ∀ B, MeasurableSet B → |P.real B - (γ.map T).real B| ≤ δ := by\n  have truncation_coupling\n      (γ : Measure (E × E)) [IsProbabilityMeasure γ] (t : ℝ) (ht : 0 ≤ t) :\n      let T := fun z : E × E => if ‖z.1-z.2‖ ≤ t then z.1 else z.2\n      Measurable T ∧ IsProbabilityMeasure (γ.map T) ∧\n        IsProbabilityMeasure (γ.map (fun z => (T z,z.2))) ∧\n        Transport.IsCoupling (γ.map (fun z => (T z,z.2))) (γ.map T) γ.snd ∧\n        (∀ᵐ z ∂(γ.map (fun z => (T z,z.2))), ‖z.1-z.2‖ ≤ t) ∧\n        ∀ B, MeasurableSet B → |γ.fst.real B - (γ.map T).real B| ≤ γ.real {z | t < ‖z.1-z.2‖} := by\n    classical\n    dsimp only\n    let T := fun z : E × E => if ‖z.1-z.2‖ ≤ t then z.1 else z.2\n    have hT : Measurable T :=\n      Measurable.ite (measurableSet_le (measurable_fst.sub measurable_snd).norm measurable_const)\n        measurable_fst measurable_snd\n    have hp : Measurable (fun z : E × E => (T z,z.2)) := hT.prodMk measurable_snd\n    have hbound (z : E × E) : ‖T z-z.2‖ ≤ t := by\n      dsimp only [T]\n      split_ifs with hz\n      · exact hz\n      · simpa using ht\n    refine ⟨hT,γ.isProbabilityMeasure_map hT.aemeasurable,\n      γ.isProbabilityMeasure_map hp.aemeasurable,?_,?_,?_⟩\n    · constructor\n      · rw [Measure.fst,Measure.map_map measurable_fst hp]\n        rfl\n      · rw [Measure.snd,Measure.map_map measurable_snd hp]\n        rfl\n    · exact (ae_map_iff hp.aemeasurable (measurableSet_le\n        (measurable_fst.sub measurable_snd).norm measurable_const)).2 (Filter.Eventually.of_forall hbound)\n    · intro B hB\n      have hm1 : γ.fst.real B = γ.real (Prod.fst ⁻¹' B) := by\n        rw [Measure.fst,measureReal_def,Measure.map_apply measurable_fst hB]\n        rfl\n      have hm2 : (γ.map T).real B = γ.real (T ⁻¹' B) := by\n        rw [measureReal_def,Measure.map_apply hT hB]\n        rfl\n      rw [hm1,hm2]\n      have hsub1 : Prod.fst ⁻¹' B ⊆ T ⁻¹' B ∪ {z | t < ‖z.1-z.2‖} := by\n        intro z hz\n        by_cases hg : ‖z.1-z.2‖ ≤ t\n        · exact Or.inl (by simpa [T,hg] using hz)\n        · exact Or.inr (lt_of_not_ge hg)\n      have hsub2 : T ⁻¹' B ⊆ Prod.fst ⁻¹' B ∪ {z | t < ‖z.1-z.2‖} := by\n        intro z hz\n        by_cases hg : ‖z.1-z.2‖ ≤ t\n        · exact Or.inl (by simpa [T,hg] using hz)\n        · exact Or.inr (lt_of_not_ge hg)\n      have h1 := (measureReal_mono (μ := γ) hsub1).trans (measureReal_union_le _ _)\n      have h2 := (measureReal_mono (μ := γ) hsub2).trans (measureReal_union_le _ _)\n      exact abs_le.mpr ⟨by linarith, by linarith⟩\n  \n  have moment_tail\n      (γ : Measure (E × E)) [IsProbabilityMeasure γ] (p t : ℝ) (hp : 2 ≤ p) (ht : 0 < t)\n      (hI : Integrable (fun z : E × E => ‖z.1-z.2‖ ^ p) γ) :\n      γ.real {z | t < ‖z.1-z.2‖} ≤ (∫ z, ‖z.1-z.2‖ ^ p ∂γ) / t ^ p := by\n    have hnon : 0 ≤ᵐ[γ] (fun z : E × E => ‖z.1-z.2‖ ^ p) :=\n      Filter.Eventually.of_forall fun z => Real.rpow_nonneg (norm_nonneg _) _\n    have hm := mul_meas_ge_le_integral_of_nonneg hnon hI (t ^ p)\n    have hs : {z : E × E | t < ‖z.1-z.2‖} ⊆ {z | t ^ p ≤ ‖z.1-z.2‖ ^ p} := by\n      intro z hz\n      exact Real.rpow_le_rpow ht.le (le_of_lt hz) (by linarith)\n    have hmeasure := measureReal_mono (μ := γ) hs\n    have htpos : 0 < t ^ p := Real.rpow_pos_of_pos ht p\n    apply (le_div_iff₀ htpos).2\n    nlinarith\n  \n  have moment_proxy\n      (γ : Measure (E × E)) [IsProbabilityMeasure γ] (p r δ : ℝ)\n      (hp : 2 ≤ p) (hr : 0 ≤ r) (hδ : 0 < δ) (hδ1 : δ < 1)\n      (hI : Integrable (fun z : E × E => ‖z.1-z.2‖ ^ p) γ)\n      (hbudget : (∫ z, ‖z.1-z.2‖ ^ p ∂γ) ≤ r ^ p) :\n      let t := r * δ ^ (-1 / p)\n      let T := fun z : E × E => if ‖z.1-z.2‖ ≤ t then z.1 else z.2\n      Measurable T ∧ IsProbabilityMeasure (γ.map T) ∧\n        IsProbabilityMeasure (γ.map (fun z => (T z,z.2))) ∧\n        Transport.IsCoupling (γ.map (fun z => (T z,z.2))) (γ.map T) γ.snd ∧\n        (∀ᵐ z ∂(γ.map (fun z => (T z,z.2))), ‖z.1-z.2‖ ≤ t) ∧\n        ∀ B, MeasurableSet B → |γ.fst.real B - (γ.map T).real B| ≤ δ := by\n    let t := r * δ ^ (-1 / p)\n    have ht : 0 ≤ t := mul_nonneg hr (Real.rpow_nonneg hδ.le _)\n    obtain ⟨hT,hP,hΓ,hcouple,hbound,hTV⟩ := truncation_coupling γ t ht\n    refine ⟨hT,hP,hΓ,hcouple,hbound,?_⟩\n    have htail : γ.real {z | t < ‖z.1-z.2‖} ≤ δ := by\n      by_cases hr0 : r = 0\n      · have hp0 : p ≠ 0 := by linarith\n        have hz : (∫ z, ‖z.1-z.2‖ ^ p ∂γ) = 0 := by\n          have hnon : 0 ≤ (∫ z : E × E, ‖z.1-z.2‖ ^ p ∂γ) :=\n            integral_nonneg (fun z => Real.rpow_nonneg (norm_nonneg (z.1-z.2)) p)\n          have hupper : (∫ z : E × E, ‖z.1-z.2‖ ^ p ∂γ) ≤ 0 := by\n            simpa [hr0,Real.zero_rpow hp0] using hbudget\n          exact le_antisymm hupper hnon\n        have hae := (integral_eq_zero_iff_of_nonneg_ae\n          (Filter.Eventually.of_forall (fun z : E × E => Real.rpow_nonneg (norm_nonneg (z.1-z.2)) p)) hI).mp hz\n        have hb : γ {z : E × E | 0 < ‖z.1-z.2‖} = 0 := by\n          apply measure_eq_zero_iff_ae_notMem.mpr\n          filter_upwards [hae] with z hz\n          have hn : ‖z.1-z.2‖ = 0 := (Real.rpow_eq_zero_iff_of_nonneg (norm_nonneg _)).mp hz |>.1\n          simp [hn]\n        have ht0 : t = 0 := by simp [t,hr0]\n        rw [ht0,measureReal_def,hb,ENNReal.toReal_zero]\n        exact hδ.le\n      · have hrpos : 0 < r := lt_of_le_of_ne hr (Ne.symm hr0)\n        have htpos : 0 < t := mul_pos hrpos (Real.rpow_pos_of_pos hδ _)\n        have hp0 : p ≠ 0 := by linarith\n        have htp : t ^ p = r ^ p / δ := by\n          dsimp only [t]\n          rw [Real.mul_rpow hr (Real.rpow_nonneg hδ.le _), ← Real.rpow_mul hδ.le]\n          have hpow : (-1 / p) * p = -1 := by field_simp\n          rw [hpow,Real.rpow_neg_one]\n          rfl\n        have hm := moment_tail γ p t hp htpos hI\n        have htpPos : 0 < t ^ p := Real.rpow_pos_of_pos htpos p\n        have hmul := (le_div_iff₀ htpPos).mp hm\n        have hcancel : δ * t ^ p = r ^ p := by rw [htp]; field_simp\n        have hle : γ.real {z | t < ‖z.1-z.2‖} * t ^ p ≤ δ * t ^ p := by nlinarith\n        exact (mul_le_mul_iff_left₀ htpPos).mp hle\n    intro B hB\n    exact (hTV B hB).trans htail\n  have hn (z : E × E) : 0 ≤ ‖z.1-z.2‖ ^ p := Real.rpow_nonneg (norm_nonneg _) _\n  let c : E × E → ℝ≥0 := fun z => ⟨‖z.1-z.2‖ ^ p, hn z⟩\n  have hf : Continuous (fun z : E × E => ‖z.1-z.2‖ ^ p) :=\n    (Real.continuous_rpow_const (by linarith : 0 ≤ p)).comp (continuous_fst.sub continuous_snd).norm\n  have hc : Continuous c := hf.subtype_mk _\n  obtain ⟨γ,hprob,hcouple,hopt⟩ := OptimalContinuousCost.exists_optimal_coupling P Q c hc\n  let : IsProbabilityMeasure γ := hprob\n  have heq : (fun z => (c z : ℝ≥0∞)) = (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖ ^ p)) := by\n    funext z\n    exact (ENNReal.ofReal_eq_coe_nnreal (hn z)).symm\n  rw [heq] at hopt\n  have hfinite : (∫⁻ z, ENNReal.ofReal (‖z.1-z.2‖ ^ p) ∂γ) ≠ ∞ :=\n    ne_of_lt (lt_of_le_of_lt (hopt.le.trans hcost) ENNReal.ofReal_lt_top)\n  have hnon : 0 ≤ᵐ[γ] (fun z : E × E => ‖z.1-z.2‖ ^ p) := Filter.Eventually.of_forall hn\n  have hI := (lintegral_ofReal_ne_top_iff_integrable hf.aestronglyMeasurable hnon).mp hfinite\n  have hbudget : (∫ z, ‖z.1-z.2‖ ^ p ∂γ) ≤ r ^ p := by\n    rw [integral_eq_lintegral_of_nonneg_ae hnon hf.aestronglyMeasurable]\n    have hh := ENNReal.toReal_mono ENNReal.ofReal_ne_top (hopt.le.trans hcost)\n    simpa [ENNReal.toReal_ofReal (Real.rpow_nonneg hr p)] using hh\n  refine ⟨γ,hprob,hcouple,hopt,?_⟩\n  have hproxy := moment_proxy γ p r δ hp hr hδ hδ1 hI hbudget\n  rw [hcouple.1,hcouple.2] at hproxy\n  exact hproxy\n\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.2 statement and proof",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+        },
+        "statement": "SPHMC v1 Lemma6.2: probabilities P,Q with Wp(P,Q)<=r, real p>=2 and 0<delta<1 admit a proxy Pdag with TV(P,Pdag)<=delta and Winfinity(Pdag,Q)<=r delta^(-1/p). Its proof chooses an optimal coupling and replaces its first coordinate by the second when distance exceeds the threshold. The selected Lean contract expands this as actual infimum p-cost<=r^p, r>=0, and proves a measurable explicit proxy plus a true bounded-displacement coupling and uniform measurable-event TV inequalities. This records the cost/coupling content without a complete Wp/Winfinity metric API. Complete second-countable normed Borel additive groups explicitly generalize the Euclidean source domain; the zero-radius case is included.",
+        "formulae": [
+          {
+            "label": "Truncated proxy",
+            "tex": "t=r\\delta^{-1/p},\\quad T(x,y)=\\begin{cases}x&\\|x-y\\|\\le t,\\\\y&\\|x-y\\|>t,\\end{cases}\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\quad\\Gamma\\{\\|a-b\\|\\le t\\}=1."
+          }
+        ],
+        "assumptions": [
+          "P,Q are probability measures, p is real with p>=2, r>=0 and 0<delta<1.",
+          "The input budget is the true infimum p-cost<=r^p, not the cost of an assumed coupling.",
+          "Complete second-countable normed Borel additive groups explicitly generalize the source Euclidean domain.",
+          "No separate marginal moment, finite coupling moment or optimal-coupling assumption is added. The output is a real coupling certificate, without introducing full Wasserstein metric APIs."
+        ],
+        "obligations": [
+          {
+            "id": "measurable-proxy",
+            "label": "Explicit measurable proxy probability and true coupling marginals"
+          },
+          {
+            "id": "tv-displacement",
+            "label": "Uniform eventwise TV and exact a.e. displacement bounds, including r=0"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma 6.2",
+              "scope": "Optimal-coupling existence expanded and actual truncation construction."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCTruncation"
+          ],
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+          "title": "The actual SPHMC truncation proxy from an infimum p-cost budget",
+          "statement": "Let P,Q be probabilities on a complete second-countable normed Borel additive group, p>=2, r>=0 and 0<delta<1. If the infimum over couplings of the integral of norm(x-y)^p is at most r^p, there exists an actual optimal probability coupling gamma. Set t=r delta^(-1/p) and T(x,y)=x when norm(x-y)<=t, otherwise y. Then T is measurable, Pdag=gamma.map(T) is a probability, and Gamma=gamma.map((T(x,y),y)) is a probability coupling of Pdag,Q concentrated on norm(a-b)<=t. Every measurable event B satisfies abs(P(B)-Pdag(B))<=delta.",
+          "formula": "t=r\\delta^{-1/p},\\quad T(x,y)=\\begin{cases}x&\\|x-y\\|\\le t,\\\\y&\\|x-y\\|>t,\\end{cases}\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\quad\\Gamma\\{\\|a-b\\|\\le t\\}=1.",
+          "assumptions": [
+            "P,Q are probability measures, p is real with p>=2, r>=0 and 0<delta<1.",
+            "The input budget is the true infimum p-cost<=r^p, not the cost of an assumed coupling.",
+            "Complete second-countable normed Borel additive groups explicitly generalize the source Euclidean domain.",
+            "No separate marginal moment, finite coupling moment or optimal-coupling assumption is added. The output is a real coupling certificate, without introducing full Wasserstein metric APIs."
+          ],
+          "steps": [
+            {
+              "title": "Produce an optimal coupling and derive integrability",
+              "text": "Apply the shared optimizer to the continuous nonnegative cost norm(x-y)^p. Its exact optimum is bounded by r^p, hence finite. Nonnegativity and measurability then yield actual Bochner integrability and the real moment budget.",
+              "formula": "\\int\\|x-y\\|^p\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int\\|x-y\\|^p\\,d\\rho\\le r^p.",
+              "lean": "exists_optimal_coupling, lintegral_ofReal_ne_top_iff_integrable, integral_eq_lintegral_of_nonneg_ae and ENNReal.toReal_mono."
+            },
+            {
+              "title": "Build the measurable truncation and its two actual marginals",
+              "text": "The good event norm(x-y)<=t is measurable, so the piecewise projection T is measurable. Push forward gamma by T and by (T,y). Composition of measurable maps gives the first marginal Pdag and second marginal Q.",
+              "formula": "P^\\dagger=T_\\#\\gamma,\\qquad\\Gamma=(T,\\operatorname{snd})_\\#\\gamma\\in\\Pi(P^\\dagger,Q).",
+              "lean": "Local truncation_coupling proves Measurable.ite, map probabilities and both map_map marginal identities."
+            },
+            {
+              "title": "Prove bounded displacement and eventwise total variation",
+              "text": "On the good event the new first coordinate is x and has distance at most t from y; on the bad event it equals y. For any event B, each of its x and T preimages lies in the other preimage union the bad event, giving both signed probability inequalities.",
+              "formula": "\\|T(x,y)-y\\|\\le t,\\qquad|P(B)-P^\\dagger(B)|\\le\\gamma\\{\\|x-y\\|>t\\}.",
+              "lean": "ae_map_iff transfers the pointwise bound; measureReal_mono and measureReal_union_le prove both sides of abs_le."
+            },
+            {
+              "title": "Handle zero radius without division",
+              "text": "If r=0, the nonnegative integrable p-cost has integral zero. It is zero almost everywhere, and p>=2 implies norm(x-y)=0 almost everywhere. Thus the bad event at threshold zero has probability zero.",
+              "formula": "r=0\\Longrightarrow\\|x-y\\|^p=0\\ \\gamma\\text{-a.e.}\\Longrightarrow\\gamma\\{\\|x-y\\|>0\\}=0.",
+              "lean": "integral_eq_zero_iff_of_nonneg_ae, Real.rpow_eq_zero_iff_of_nonneg and measure_eq_zero_iff_ae_notMem."
+            },
+            {
+              "title": "Apply Markov with the exact positive-radius power",
+              "text": "For r>0, t>0 and t^p=r^p/delta. Monotonicity of the real pth power embeds the bad event in the p-cost threshold event. Markov and the derived moment budget show bad probability<=delta.",
+              "formula": "\\gamma\\{\\|x-y\\|>t\\}\\le\\frac{\\int\\|x-y\\|^p\\,d\\gamma}{t^p}\\le\\delta,\\qquad t^p=r^p/\\delta.",
+              "lean": "mul_meas_ge_le_integral_of_nonneg, Real.rpow_le_rpow, Real.mul_rpow, Real.rpow_mul and positive cancellation."
+            },
+            {
+              "title": "Return the same coupling and proxy",
+              "text": "Retain the actual optimizer, its optimality equality, the explicit T, both probability witnesses, coupling marginals, almost-everywhere bound and the uniform event inequality. The source Lemma6.3(ii) reverse-transport argument remains a later consumer.",
+              "formula": "\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\qquad\\|a-b\\|\\le r\\delta^{-1/p}\\quad\\Gamma\\text{-a.e.}",
+              "lean": "The final tuple combines hopt with the local moment_proxy certificate and rewrites the original gamma marginals to P,Q."
+            }
+          ],
+          "lean_statement": "An actual optimal coupling and an explicit pushforward proxy with eventwise TV and bounded-displacement coupling guarantees at the exact radius.",
+          "lean_proof": "All measurable truncation and moment-tail helpers are local in the substantive public theorem; optimizer is the shared public dependency.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling"
+          ],
+          "mathlib_dependencies": [
+            "mul_meas_ge_le_integral_of_nonneg",
+            "integral_eq_zero_iff_of_nonneg_ae"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+          "role": "prerequisite",
+          "supports": [
+            "measurable-proxy",
+            "tv-displacement"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Euclidean probabilities.",
+            "lean": "Complete second-countable normed Borel additive groups, including the zero space."
+          },
+          {
+            "source": "Wp(P,Q)<=r and Winfinity(Pdag,Q)<=r delta^(-1/p).",
+            "lean": "True infimum p-cost<=r^p and an actual coupling with a.e. bounded displacement."
+          },
+          {
+            "source": "Proof chooses an optimal coupling and applies Markov.",
+            "lean": "Optimizer and its finite moment are proved from the actual infimum budget; r=0 handled separately."
+          },
+          {
+            "source": "Real p>=2, 0<delta<1, nonnegative error budget r.",
+            "lean": "Same real restrictions and exact radius r delta^(-1/p)."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every complete second-countable normed additive commutative group E with its Borel measurable structure, probabilities P,Q on E, and real p,r,delta with p>=2, r>=0 and 0<delta<1, suppose the infimum over raw measures eta on E times E with marginals P,Q of the extended nonnegative integral of ofReal(norm(x-y)^p) is at most ofReal(r^p). Here ofReal embeds the nonnegative part into extended nonnegative reals, and powers are real powers. Then there exists a measure gamma on E times E which is a probability with marginals P,Q and whose integral of this same cost equals that same infimum. For this same gamma, define t=r delta^(-1/p) and T(x,y)=x if norm(x-y)<=t, otherwise y. T is measurable; Pdag=T pushforward gamma is a probability; lambda=(fun (x,y)=>(T(x,y),y)) pushforward gamma is a probability with first marginal Pdag and second marginal Q; norm(u-v)<=t for lambda-almost every (u,v); and every measurable set B satisfies abs(P.real(B)-Pdag.real(B))<=delta. The same gamma satisfies all conclusions. The radius and maps are explicit definitions, not additional existential choices. E need not be a vector space. No separately stated moment or integrability premise occurs beyond the displayed infimum-cost bound. The parameter constants are exactly 2,0,1, the radius is exactly r delta^(-1/p), and the measurable-event error bound is exactly delta.",
+        "text_sha256": "f40122910e699d5b07de81e1e6afe6d52995e8602cb6a244960c6bb8a1ebe63d",
+        "decoder_packet_sha256": "e25e65a349a409096bcb02ad00a7c5bb78d585f5a46de1d11b28a1fe9687700d",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "truncation_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent inspected only the two anonymous compiled statement/definition packets. No source-fidelity verdict or additional metric API inferred."
+        ],
+        "decoder_run_sha256": "8a48981dbd8c39fa97ed3c59be3bf3a4119052cfe1026c14dfbd1de0e54343dc",
+        "lean_statement_sha256": "a2cf39663b3c2de3c6f923a09b78e8cdf9f8f2430db89ce8bad278054a55d014",
+        "run_artifact": "runs/20260911-companion-priority/sphmc-truncation.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Source probabilities, optimal coupling and truncated proxy.",
+          "reconstructed": "Same piecewise-coordinate construction on actual attained infimum-cost coupling and both pushforward probabilities.",
+          "relation": "explicit-elaboration",
+          "evidence": "Final tuple retains one gamma, exact optimum, T, proxy and coupling to Q."
+        },
+        "domains": {
+          "original": "Euclidean probability laws.",
+          "reconstructed": "Complete second-countable normed Borel additive commutative groups, including zero space.",
+          "relation": "stronger-in-lean",
+          "evidence": "No scalar or finite-dimensional structure used; disclosed domain extension."
+        },
+        "quantifiers": {
+          "original": "Each admissible P,Q,p,r,delta has a proxy with both bounds.",
+          "reconstructed": "All inputs, one optimal gamma, explicit T and same pushforwards, uniform measurable events.",
+          "relation": "explicit-elaboration",
+          "evidence": "Gamma precedes all conclusions; events universal."
+        },
+        "assumptions": {
+          "original": "Wp(P,Q)<=r, real p>=2, 0<delta<1.",
+          "reconstructed": "Actual infimum p-cost<=ofReal(r^p), r>=0, same p/delta and no supplied optimizer or moment.",
+          "relation": "explicit-elaboration",
+          "evidence": "Finite budget and optimality derive integrability; cost semantics explicitly replace full metric API."
+        },
+        "conclusion": {
+          "original": "TV<=delta and Winfinity<=r delta^(-1/p).",
+          "reconstructed": "Uniform measurable-event TV bound and explicit probability coupling with exact a.e. displacement.",
+          "relation": "explicit-elaboration",
+          "evidence": "Both marginals, a.e. bound and signed event inequalities proved; no full Winfinity declaration."
+        },
+        "scopes": {
+          "original": "Lemma6.2 proxy for later reverse transport.",
+          "reconstructed": "Actual infimum-cost and bounded-coupling certificate only.",
+          "relation": "explicit-elaboration",
+          "evidence": "Metric API, Gaussian reverse transport, Renyi warmness and sampler error/cost outside result."
+        },
+        "constant_dependencies": {
+          "original": "Exact radius r delta^(-1/p), error delta, p>=2.",
+          "reconstructed": "Same constants with r=0 and real powers.",
+          "relation": "same",
+          "evidence": "Positive t^p=r^p/delta; zero case vanishing nonnegative integral; no extra factor two."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Complete second-countable normed additive groups extend Euclidean source.",
+          "evidence": "No scalar or finite-dimensional structure used; disclosed domain extension."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Exact cost/coupling/event certificates, not full Wp/Winfinity APIs.",
+          "evidence": "Both marginals, a.e. bound and signed event inequalities proved; no full Winfinity declaration."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Finite displacement p-cost does not imply finite marginal p-moments; later Lemma6.3(ii) Pp premises must be established separately.",
+          "evidence": "Metric API, Gaussian reverse transport, Renyi warmness and sampler error/cost outside result."
+        }
+      ]
     }
   ]
 }

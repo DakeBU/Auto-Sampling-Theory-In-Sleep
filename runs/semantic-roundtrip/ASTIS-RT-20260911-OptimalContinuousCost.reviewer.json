@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-d25506bd2782d2e4",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "truncation_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-optimal-continuous-cost",
+    "anchor": "Lemma6.2 optimal coupling prerequisite",
+    "original_text": "E,F are complete second-countable metric spaces with their Borel sigma algebras.\nP,Q are probability measures and c:E times F to nonnegative reals is continuous.\nThis is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma.\nSPHMC Lemma6.2 chooses an optimal coupling for the pth displacement cost. The expanded ASTIS prerequisite proves the required existence in a generic form: probabilities on complete second-countable metric Borel spaces and a continuous finite nonnegative cost admit a true minimizing coupling, with the minimum allowed to be infinite. No finite-moment or optimizer assumption is made.",
+    "text_sha256": "0a39143030d65d2f360c3b82d5e860322ef44dad8bbf0d329873339faded8efe"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+    "file": "AutoSamplingTheory/TechnicalLemmas/Measure/OptimalContinuousCost.lean",
+    "statement": "∀ {E : Type u_1}\n  {F : Type u_2} [inst : MetricSpace E] [CompleteSpace E] [SecondCountableTopology E] [inst_3 : MeasurableSpace E]\n  [BorelSpace E] [inst_5 : MetricSpace F] [CompleteSpace F] [SecondCountableTopology F] [inst_8 : MeasurableSpace F]\n  [BorelSpace F] (μ : MeasureTheory.Measure E) (ν : MeasureTheory.Measure F) [MeasureTheory.IsProbabilityMeasure μ]\n  [MeasureTheory.IsProbabilityMeasure ν] (c : E × F → NNReal),\n  Continuous c →\n    ∃ γ,\n      MeasureTheory.IsProbabilityMeasure γ ∧\n        AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling γ μ ν ∧\n          ∫⁻ (z : E × F), ↑(c z) ∂γ =\n            AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost (fun z => ↑(c z)) μ ν",
+    "statement_sha256": "8fd746e059264a3f8a17abf8f564d2dcbc343db66dd8782276909f58387662dc",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every pair of complete second-countable metric spaces E,F equipped with their Borel measurable structures, every probability measure mu on E and nu on F, and every continuous function c:E times F to finite nonnegative reals, there exists a measure gamma on E times F which is a probability, has first marginal mu and second marginal nu, and satisfies the extended nonnegative integral equality integral(c,gamma)=inf{integral(c,eta): eta is a raw measure with first marginal mu and second marginal nu}. The cost is cast to extended nonnegative reals for integration. Both sides take values in [0,infinity], and the minimum is not asserted finite. No boundedness, finite integral or additional moment hypothesis is imposed. There are no numerical constants.",
+    "text_sha256": "9a45728d3a8b9d4110e5acdc2d8807f22ad474bc1bba4a25c2ae546297392f1a",
+    "decoder": "truncation_blind_decoder",
+    "decoder_packet_sha256": "335cddb1a364a04e51caf4e784a6feec84e4c4adf35b92bfd422ed25c9503c52",
+    "decoder_run_sha256": "25ec7d015e9a46c2da74da3d869214156bc9ca487896e682a4b65d247652f9ef",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "20dfdeb59bc5f0674a55983caa4a7443ffff322a9e8f0181a56fd0065bcba135",
+  "candidate_publication_context": {
+    "file": "5bb6bf1ae586b957744724c88c4380380c19c5d90610779c743d249d3fb2961e",
+    "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.ProbabilityCouplingCompactness\nimport AutoSamplingTheory.TechnicalLemmas.Measure.ContinuousCostWeakLowerSemicontinuity\n\nopen MeasureTheory\nopen scoped ENNReal NNReal\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen ProbabilityCouplingCompactness\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\n\n/-- A continuous nonnegative cost attains its actual infimum over couplings of\nprobabilities on complete second-countable metric Borel spaces. The minimum\nmay be infinite; no finite moment or optimizer is assumed. -/\ntheorem exists_optimal_coupling {E F : Type*}\n    [MetricSpace E] [CompleteSpace E] [SecondCountableTopology E]\n    [MeasurableSpace E] [BorelSpace E]\n    [MetricSpace F] [CompleteSpace F] [SecondCountableTopology F]\n    [MeasurableSpace F] [BorelSpace F]\n    (μ : Measure E) (ν : Measure F) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν]\n    (c : E × F → ℝ≥0) (hc : Continuous c) :\n    ∃ γ : Measure (E × F), IsProbabilityMeasure γ ∧ Transport.IsCoupling γ μ ν ∧\n      (∫⁻ z, (c z : ℝ≥0∞) ∂γ) = Transport.transportCost (fun z => (c z : ℝ≥0∞)) μ ν := by\n  let P : ProbabilityMeasure E := ⟨μ,inferInstance⟩\n  let Q : ProbabilityMeasure F := ⟨ν,inferInstance⟩\n  have hn : (probabilityCouplingSet P Q).Nonempty := by\n    refine ⟨⟨μ.prod ν,inferInstance⟩, ?_⟩\n    exact isProbabilityCoupling_iff_isCoupling_toMeasure.mpr (Transport.isCoupling_prod μ ν)\n  have hcompact := isCompact_probabilityCouplingSet P Q\n  have hlsc := ContinuousCostWeakLowerSemicontinuity.lowerSemicontinuous_lintegral_continuous_nnreal c hc\n  obtain ⟨γ,hγ,hmin⟩ := LowerSemicontinuousOn.exists_isMinOn hn hcompact (hlsc.lowerSemicontinuousOn _)\n  have hγ' : Transport.IsCoupling (γ : Measure (E × F)) μ ν :=\n    isProbabilityCoupling_iff_isCoupling_toMeasure.mp hγ\n  refine ⟨γ,inferInstance,hγ',le_antisymm ?_ ?_⟩\n  · rw [Transport.transportCost_eq_sInf]\n    apply le_sInf\n    rintro r ⟨ρ,hρ,rfl⟩\n    let : IsProbabilityMeasure ρ := Transport.isProbabilityMeasure_of_isCoupling_left hρ\n    let R : ProbabilityMeasure (E × F) := ⟨ρ,inferInstance⟩\n    have hR : IsProbabilityCoupling R P Q := isProbabilityCoupling_iff_isCoupling_toMeasure.mpr hρ\n    exact hmin hR\n  · exact Transport.transportCost_le_lintegral_of_isCoupling _ μ ν γ hγ'\n\nend AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Lemma6.2 optimal coupling prerequisite",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+    },
+    "statement": "SPHMC Lemma6.2 chooses an optimal coupling for the pth displacement cost. The expanded ASTIS prerequisite proves the required existence in a generic form: probabilities on complete second-countable metric Borel spaces and a continuous finite nonnegative cost admit a true minimizing coupling, with the minimum allowed to be infinite. No finite-moment or optimizer assumption is made.",
+    "formulae": [
+      {
+        "label": "Optimal cost",
+        "tex": "\\exists\\gamma\\in\\Pi(P,Q),\\qquad\\int c\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int c\\,d\\rho."
+      }
+    ],
+    "assumptions": [
+      "E,F are complete second-countable metric spaces with their Borel sigma algebras.",
+      "P,Q are probability measures and c:E times F to nonnegative reals is continuous.",
+      "This is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma."
+    ],
+    "obligations": [
+      {
+        "id": "optimal-coupling",
+        "label": "Actual optimal coupling with no optimizer premise"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma 6.2",
+          "scope": "Optimal-coupling existence expanded and actual truncation construction."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCTruncation"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+      "title": "A continuous transport cost attains its infimum",
+      "statement": "For probability measures P,Q on complete second-countable metric Borel spaces E,F and any continuous nonnegative real cost c on E times F, there is an actual probability coupling gamma whose extended nonnegative integral of c equals the infimum over all couplings. The value may be infinite; neither a moment bound nor an optimizer is assumed.",
+      "formula": "\\exists\\gamma\\in\\Pi(P,Q),\\qquad\\int c\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int c\\,d\\rho.",
+      "assumptions": [
+        "E,F are complete second-countable metric spaces with their Borel sigma algebras.",
+        "P,Q are probability measures and c:E times F to nonnegative reals is continuous.",
+        "This is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma."
+      ],
+      "steps": [
+        {
+          "title": "Use a genuine nonempty coupling space",
+          "text": "Package P and Q as probability measures. Their product is a coupling, so the space of probability couplings is nonempty.",
+          "formula": "P\\otimes Q\\in\\Pi(P,Q).",
+          "lean": "Transport.isCoupling_prod and isProbabilityCoupling_iff_isCoupling_toMeasure."
+        },
+        {
+          "title": "Apply existing weak compactness and lower semicontinuity",
+          "text": "The existing ASTIS compactness theorem makes the coupling space compact in the weak topology. Its continuous-cost lower semicontinuity theorem applies to the extended integral, without a bounded cost or finite moment restriction.",
+          "formula": "\\Pi(P,Q)\\text{ compact},\\qquad\\gamma\\mapsto\\int c\\,d\\gamma\\text{ lower semicontinuous}.",
+          "lean": "isCompact_probabilityCouplingSet and lowerSemicontinuous_lintegral_continuous_nnreal."
+        },
+        {
+          "title": "Take the compact minimum",
+          "text": "A lower-semicontinuous function into the ordered extended nonnegative reals attains a minimum on a nonempty compact set. Recover an actual raw measure gamma and its two marginals.",
+          "formula": "\\int c\\,d\\gamma\\le\\int c\\,d\\rho\\quad(\\rho\\in\\Pi(P,Q)).",
+          "lean": "LowerSemicontinuousOn.exists_isMinOn supplies gamma and hmin."
+        },
+        {
+          "title": "Identify the original infimum over raw couplings",
+          "text": "Every raw coupling is a probability because its first marginal is P. It therefore belongs to the compact probability-coupling set, so minimality gives the lower bound against every element in the transportCost infimum. Membership gives the reverse inequality.",
+          "formula": "\\int c\\,d\\gamma=\\operatorname{transportCost}(c,P,Q).",
+          "lean": "transportCost_eq_sInf, le_sInf and transportCost_le_lintegral_of_isCoupling."
+        }
+      ],
+      "lean_statement": "A genuine probability coupling attaining the extended integral infimum for a continuous NNReal cost.",
+      "lean_proof": "Compact minimum with explicit conversion between probability couplings and raw measure couplings.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.ProbabilityCouplingCompactness.isCompact_probabilityCouplingSet",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.ContinuousCostWeakLowerSemicontinuity.lowerSemicontinuous_lintegral_continuous_nnreal"
+      ],
+      "mathlib_dependencies": [
+        "LowerSemicontinuousOn.exists_isMinOn"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+      "role": "prerequisite",
+      "supports": [
+        "optimal-coupling"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Lemma6.2 invokes an optimal coupling for Euclidean p-distance cost.",
+        "lean": "Continuous nonnegative costs on complete second-countable metric Borel spaces, minimum possibly infinite."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "eefaf9010db5560a011cd155fd6ab757e446abc6dc2a92af43117b26d42e11b7"
+}
