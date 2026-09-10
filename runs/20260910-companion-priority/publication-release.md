@@ -33,3 +33,47 @@ manager; no credential was printed or added to repository/configuration files.
 Continue the existing Goal with the separately frozen Markov-kernel TV
 contraction packet. Both full companion main theorems remain open, including
 actual algorithm semantics, quantitative errors, and actual-input costs.
+
+## Tenth-result publication: actual outcomes
+
+The TV proof commit is a11d5430752fc2d54dea8c8aca2ac6da24898eb9; the independently
+bound release is 77194b834a39cd099ab9beada267cee210425ca6. Both GitHub main and
+the existing private Sites source received that release by fast-forward.
+The current SAU is VERIFIED, not a completed companion paper.
+
+The official site Lean gate actually reran on release 77194b8 and passed
+9072 test-build jobs, ASTIS/ATLAS and the fake-closure check. Its source digest
+is 9bf26e1c25d3a37434a80205f1c8b3be8726e1343730c2335f16d67a430793f6.
+The site check passed: 12 chapters, 542 modules, 3638 declarations, Registry396.
+Publication PASS11 source items; semantic PASS14 audits/1 preserved repair;
+Frontier Cell PASS22; 61 focused protocol regression tests passed.
+
+The coordinator actually opened the desktop proof PNG, mobile proof PNG and
+local graph PNG. Real HTTP/MathJax checks passed with zero formula errors,
+separate initially folded statement/proof Lean, working disclosure interaction,
+and no mobile page overflow. Long mobile equations remain horizontally scrollable.
+The bounded graph has five visible nodes and three edges: owning-module
+declaration is structural; the SPHMC source link is explicitly not a Lean
+dependency. Shared lemma identity is not duplicated. The declaration's publication
+projection remains partial rather than inferring a whole-paper compiled badge.
+Generated PNGs are ignored browser evidence, not hand-maintained graph sources.
+
+GitHub Samplinglib site run34456463025 completed successfully: website-first
+reader build102803900343 and deploy website102804729892 both success.
+Cleanup run34456463067 also succeeded. At the last check, formalization
+run34456462865 was still in_progress; do not report that remote gate as passed
+without its final result. The local aggregate already passed as recorded above.
+
+The earlier private-mirror upload failure was resolved for this release.
+Saved Sites version4 contains the exact 77194b8 source and validated archive;
+private deployment appgdep_6aa26db17358819193e4684f9f1c858f succeeded.
+Its existing owner-only audience was checked and not changed.
+Private URL: https://astis-formalization.w4htry4yqc.chatgpt.site.
+Public URL: https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/.
+The browser handoff was queued in the current app task, not falsely reported
+as a visibly opened tab. No credential was persisted or printed.
+
+Next: next-rgo-packet.md, the explicit RGO conditional kernel and genuine
+disintegration certificate. Both full paper theorems, proxy/kernel construction,
+mixing bounds and actual-input query cost remain open. The same Goal stays active;
+all bounded review agents have completed, with no detached ASTIS session.
