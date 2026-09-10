@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "PBPS arXiv:2609.06905v1 Introduction (1.1); SPHMC arXiv:2609.06906v1 Introduction (1.1). Supporting analytic prerequisite only.",
   "target_statement": "For a real normed space E, a C² real potential V and any real α, if α*‖v‖² ≤ D²V(x)[v,v] for every x,v, then StrongConvexOn univ α V. The second derivative is the derivative of the genuine first derivative supplied by C².",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": ["Mathlib ContDiff.fderiv_right", "Mathlib HasFDerivAt.comp_hasDerivAt", "Mathlib HasDerivAt.clm_apply", "Mathlib convexOn_of_hasDerivWithinAt2_nonneg"],
   "consumers": ["AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn", "PBPS and SPHMC source-positive Hessian Gibbs targets"],
   "shared_floor_audit": {
@@ -18,6 +18,8 @@
     "notes": "Use scalar line restriction and quadratic compensation; no inner-product, finite-dimension, positive-modulus or upper-Hessian assumptions are needed for the analytic implication."
   },
   "evidence": {
+    "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+    "commit_verification": "runs/20260910-companion-priority/nine-results.commit-verification.json; independent verifier rgo_independent_verifier; accepted audit ASTIS-RT-20260910-HessianStrongConvexity",
     "focused_checks": [
       "2026-09-10: lake build AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity PASS, exit 0, 2113 jobs; explicit ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 and LEAN_NUM_THREADS=2.",
       "2026-09-10: lake build Tests.HessianStrongConvexity PASS, exit 0, 2802 jobs; same explicit toolchain/thread environment. Genuine C² plus positive Hessian premises reach Integrable and strictly positive Gibbs mass, probability normalization, and the actual quadratic_tilt_tilt RGO consumer. Zero modulus and zero dimension also tested.",

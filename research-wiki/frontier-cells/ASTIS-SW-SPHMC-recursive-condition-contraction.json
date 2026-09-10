@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1, Lemma 6.6(i), equation (6.3), using (6.1) and (6.2)",
   "target_statement": "For real k >= 2 and 0 < h < 1/4, k/2 <= k*(k+h+1)/(2*k+h) <= (4/5)*k. This is the source one-step recurrence after substituting tau=k and a*beta_A=h+tau; it is not an assumption that the sampler contracts.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "Mathlib le_div_iff₀",
     "Mathlib div_le_iff₀",
@@ -29,6 +29,8 @@
     "notes": "The rational recurrence and its source constants are paper-specific. Reuse Mathlib ordered-field arithmetic, do not build another scalar convergence library. No probability/concentration upstream is required for this arithmetic packet. TV/kernel and RGO-normalization audits remain separate next candidates."
   },
   "evidence": {
+    "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+    "commit_verification": "runs/20260910-companion-priority/nine-results.commit-verification.json; independent verifier rgo_independent_verifier; accepted audit ASTIS-RT-20260910-SPHMCRecursiveCondition",
     "focused_checks": [
       "2026-09-10 v2: lake build Tests.SmoothedPicardRecursiveCondition PASS, 847 jobs, Lean4.33.0. Strict-domain theorem, k=2/h=1/8 example, source-c0 specialization. Axioms only propext, Classical.choice, Quot.sound."
     ],

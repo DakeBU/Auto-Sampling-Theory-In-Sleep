@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06905v1, Section 2.2, Proposition 2.1(iii), (2.7) and (2.14)",
   "target_statement": "Let E be a finite-dimensional real inner-product space with its Borel sigma algebra, mu a probability measure, and eta>0. Write Phi(x,z)=(x,x+sqrt(eta)*z), pi=map Phi (mu.prod(stdGaussian E)), and R(x,y)=(x,2*x-y). Then R is involutive and map R pi=pi. The identification of this generative law with the paper's density (2.6) remains separate.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "Mathlib ProbabilityTheory.stdGaussian_map",
     "Mathlib MeasureTheory.Measure.map_prod_map",
@@ -31,6 +31,8 @@
     "notes": "Compose existing pushforward and Gaussian isometry APIs for the source's specific augmentation/reflection. No duplicate generic Gaussian symmetry lemma or separate wrapper is needed. No currently identified second route requires this exact augmentation adapter."
   },
   "evidence": {
+    "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+    "commit_verification": "runs/20260910-companion-priority/nine-results.commit-verification.json; independent verifier rgo_independent_verifier; accepted audit ASTIS-RT-20260910-PBPSGaussianReflection",
     "focused_checks": [
       "2026-09-10: lake build Tests.ProximalBPSGaussianReflection PASS, 3117 jobs, Lean4.33.0. Full production theorem exercised at eta=1 and mu=stdGaussian R; pointwise involution exercised with general E, mu and eta>0. Axioms only propext, Classical.choice, Quot.sound."
     ],

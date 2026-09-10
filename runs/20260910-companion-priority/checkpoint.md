@@ -366,3 +366,39 @@ Safe fetch confirms local HEAD and origin/main coincide at 4fec6664; no
 working-tree or collaborator update was overwritten. Batch verification and
 publication now follow before the next implementation, avoiding repeated
 full builds for individual prose edits.
+
+## Nine-result publication batch
+
+The proof-containing commit is `38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e`.
+Independent verifier `rgo_independent_verifier` checked its nine frozen
+module/test pairs, lesson/source/statement hashes, source-review packets,
+review artifacts and complete publication bindings: 9/9 match. The attestation
+is `nine-results.commit-verification.json`; it explicitly distinguishes the
+earlier working-tree aggregate gate from the later committed tree and records
+the CRLF/LF-only bridge. Root transcribed that independent attestation, without
+reassigning the original reviewers, through the official SAU transition API.
+All nine SAUs are VERIFIED and their cells are independently_verified.
+They are not marked as whole-paper closure or merged cells.
+
+The unchanged compiled technical Registry is 396. The nine new declarations
+are separately inventoried, imported and tested; this release does not invent
+Registry entries to increase a counter. The aggregate Lean/Tests gate passed
+9070 jobs, ASTIS and ATLAS checks. Publication check passes ten source items;
+Frontier Cell check passes 21 cells and semantic registry check passes 13
+audits with one preserved repair proposal.
+
+Release regression checks caught two stale expectations: nine News entries
+instead of the agreed eight, and MCMC's old solid-edge whitelist. News now
+keeps the latest companion result and removes its superseded planning entry;
+the MCMC test now requires only imports/declares as solid structural evidence,
+explicitly excluding scanned/curated theorem edges. The browser suite now
+checks every companion binding for rendered mathematics and adjacent folded
+statement/proof Lean, including mobile overflow and disclosure interaction.
+An optional installed-browser channel supports Windows without a large browser
+download; CI retains its pinned Chromium default. Local test dependencies live
+only under the ignored `.astis/site-browser/` directory. The slow optional
+Chromium installer was stopped; no ASTIS background session was created.
+
+Final site build, graph projection, visual inspection and online deployment
+are performed after this metadata commit. Their actual outcomes will be
+reported in the current thread; none is inferred from this checkpoint.

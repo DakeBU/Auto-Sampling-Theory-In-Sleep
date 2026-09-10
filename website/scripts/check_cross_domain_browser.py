@@ -24,6 +24,8 @@ def main() -> None:
     parser.add_argument('--output',default=str(ROOT/'_site'))
     parser.add_argument('--evidence',default=str(ROOT/'_browser-evidence'))
     parser.add_argument('--offline-dom',action='store_true')
+    parser.add_argument('--browser-channel', choices=['chrome', 'msedge'],
+                        help='Use an installed browser in an isolated profile; CI defaults to pinned Chromium')
     args=parser.parse_args()
     site=Path(args.output).resolve(); evidence=Path(args.evidence).resolve(); evidence.mkdir(parents=True,exist_ok=True)
     server=None; report={'mode':'offline DOM; CDN and alias not tested' if args.offline_dom else 'HTTP, MathJax and graph interaction','pages':[],'runtime_errors':[]}
@@ -34,7 +36,8 @@ def main() -> None:
     try:
         with sync_playwright() as p:
             executable=shutil.which('chromium') if args.offline_dom else None
-            browser=p.chromium.launch(executable_path=executable,headless=True,args=['--no-sandbox'])
+            browser=p.chromium.launch(executable_path=executable, channel=args.browser_channel,
+                                      headless=True,args=['--no-sandbox'])
             page=browser.new_page(viewport={'width':1600,'height':1050})
             page.on('pageerror',lambda e:report['runtime_errors'].append(str(e)))
             def goto(rel: str) -> None:
@@ -218,6 +221,31 @@ def main() -> None:
             page.screenshot(path=str(evidence/'optimisation-proof-mobile.png'))
             report['optimisation_publication'] = {'partial': True, 'source_complete': False,
                 'adjacent_lean': True, 'mobile_overflow': False}
+            # Every companion binding must have adjacent, initially folded Lean.
+            # Derive the inventory from publications; do not freeze a leaf count.
+            items = [i for f in (ROOT/'website/content/publications').glob('*.json')
+                     for i in json.loads(f.read_text(encoding='utf-8'))['items']
+                     if i['chapter_path'].startswith('example-cases/samplewiki/companions/')]
+            report['companion_publications'] = []
+            for rel in sorted({i['chapter_path'] for i in items}):
+                goto(rel)
+                expected = sum(len(i['bindings']) for i in items if i['chapter_path'] == rel)
+                assert page.locator('[data-authored-declaration]').count() == expected, rel
+                assert page.locator('details.inline-lean-statement:not([open])').count() == expected, rel
+                assert page.locator('details.inline-lean-proof:not([open])').count() == expected, rel
+                if not args.offline_dom:
+                    page.wait_for_function('Boolean(window.MathJax?.startup?.promise)')
+                    page.evaluate('() => MathJax.startup.promise')
+                    assert page.locator('mjx-container').count() > 0, rel
+                    assert page.locator('mjx-merror').count() == 0, rel
+                assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'), rel
+                for summary in page.locator('details.inline-lean-proof > summary').all():
+                    summary.click()
+                assert page.locator('details.inline-lean-proof[open] code.language-lean').count() == expected, rel
+                page.locator('[data-authored-declaration]').last.scroll_into_view_if_needed()
+                page.screenshot(path=str(evidence/(Path(rel).stem+'-proof-mobile.png')))
+                report['companion_publications'].append({'path': rel, 'declarations': expected,
+                    'adjacent_lean': True, 'mobile_overflow': False})
             assert not report['runtime_errors'],report['runtime_errors']
             browser.close()
     except Exception as error:

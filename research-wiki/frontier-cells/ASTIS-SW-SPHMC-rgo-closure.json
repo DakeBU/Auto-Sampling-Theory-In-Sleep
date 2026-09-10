@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1, Section 6.2.2, Lemma 6.4, normalized-law clause and equation (6.1)",
   "target_statement": "For a Borel real inner-product space E, a probability measure mu, r>=0, s>0 and u,y:E, tilting mu by -r*||x-u||^2/2 and then by -s*||x-y||^2/2 equals its single tilt by -(r+s)*||x-w||^2/2, where w=(r+s)^(-1) • (r • u+s • y). Integrability and positive finite normalizers are derived internally; r=0 covers source A=infinity.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "Mathlib Measure.tilted",
     "Mathlib tilted_tilted",
@@ -34,6 +34,8 @@
     "notes": "Reuse Mathlib normalized exponential tilts without a second normalization implementation. No existing quadratic nested-tilt closure found. PBPS has single RGO conditional updates, not an identified direct consumer of this exact nested-tilt identity; do not invent shared reuse. Promote only when a real second consumer exists. No SLT code port is needed."
   },
   "evidence": {
+    "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+    "commit_verification": "runs/20260910-companion-priority/nine-results.commit-verification.json; independent verifier rgo_independent_verifier; accepted audit ASTIS-RT-20260910-SPHMCRGOClosure",
     "focused_checks": [
       "2026-09-10: final lake build Tests.SmoothedPicardRGOClosure PASS exit0, 2543 jobs; Lean4.33.0 and LEAN_NUM_THREADS=2 explicitly set. Production module and tests compile with no remaining warnings.",
       "Tests explicitly apply quadratic_tilt_tilt at r=0 (the source A=infinity case) and at r=s=1 (midpoint centre). Exact public signature printed; axioms only propext, Classical.choice, Quot.sound.",

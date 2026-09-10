@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "PBPS arXiv:2609.06905v1 Section 2.2 equations (2.6)-(2.7), with C2 positive Hessian setting (1.1)",
   "target_statement": "From a C2 potential with a positive genuine Hessian lower bound and eta>0, derive a positive Gibbs normalizer, probability of the independent Gaussian augmented joint law, and its exact normalized density relative to product canonical volume.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
     "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
@@ -28,6 +28,8 @@
     "notes": "Source-specific integration of existing shared parents. No second shared consumer is invented; no generic normalization reexport is added. The conjunction explicitly excludes a zero totalized tilt."
   },
   "evidence": {
+    "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+    "commit_verification": "runs/20260910-companion-priority/nine-results.commit-verification.json; independent verifier rgo_independent_verifier; accepted audit ASTIS-RT-20260910-PBPSGibbsAugmentation",
     "focused_checks": [
       "2026-09-10: ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=2 lake build Tests.GibbsAugmentation PASS exit0, 3134 jobs, no remaining warnings.",
       "The focused test uses positive Z_V, joint probability and the exact density equality to transport GaussianReflection to the actual source-density measure. A second example exercises the entire certificate for the zero-dimensional constant potential.",

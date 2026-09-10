@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06905v1, Section 2.2, equations (2.6)-(2.7): Gaussian-noise density dependency",
   "target_statement": "For every finite-dimensional real inner-product Borel space E and eta>0, the map of stdGaussian E by z -> sqrt(eta) z is volume.withDensity of ofReal((sqrt(2*pi*eta))^(-finrank R E) * exp(-norm(z)^2/(2*eta))). The natural-power inverse normalizer includes dimension zero. This is only the isotropic-noise density dependency; the augmentation identity is a separate next edge.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.pi_withDensity_prod",
     "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity",
@@ -35,6 +35,8 @@
     "notes": "Transport actual scalar Gaussian densities through the existing product-density and measurable-equivalence APIs. Do not assume the desired multidimensional density or port a Jacobian theorem."
   },
   "evidence": {
+    "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+    "commit_verification": "runs/20260910-companion-priority/nine-results.commit-verification.json; independent verifier rgo_independent_verifier; accepted audit ASTIS-RT-20260910-IsotropicGaussianDensity",
     "focused_checks": [
       "2026-09-10: ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0, LEAN_NUM_THREADS=2, lake build Tests.IsotropicGaussianDensity PASS (3118 jobs). Named tests real_scale_density, two_dimensional_density and zero_dimensional_density exercise the actual theorem; the zero-dimensional density simplifies to canonical volume itself. Axioms: propext, Classical.choice, Quot.sound only.",
       "Production module SHA-256: 08eaba5759c1f514e80c58123f6a7c4c9f1ffc18c4d20df3a93b6e718fae25d7. Working-tree result; repository HEAD 4fec6664ccbb0c338b81febe48c02e76486f0da4 is not a commit containing this new file."

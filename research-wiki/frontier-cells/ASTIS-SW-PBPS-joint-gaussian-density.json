@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06905v1, Section 2.2, equations (2.6)-(2.7)",
   "target_statement": "For a probability measure mu on any finite-dimensional real inner-product Borel space E and eta>0, the pushforward of mu.prod(stdGaussian E) by (x,z)->(x,x+sqrt(eta) z) equals (mu.prod volume).withDensity of ofReal(((sqrt(2*pi*eta))^-1)^finrank R E * exp(-norm(y-x)^2/(2*eta))). The density is relative to mu tensor volume, not volume tensor volume; the source-specific Gibbs substitution remains separate.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-isotropic-gaussian-density",
     "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity",
@@ -32,6 +32,8 @@
     "notes": "Use the frozen local Gaussian-density candidate as an explicit parent. The new theorem performs the paper-specific shear/product-law integration; no duplicate generic Gaussian density or Jacobian lemma is introduced."
   },
   "evidence": {
+    "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+    "commit_verification": "runs/20260910-companion-priority/nine-results.commit-verification.json; independent verifier rgo_independent_verifier; accepted audit ASTIS-RT-20260910-PBPSGaussianAugmentation",
     "focused_checks": [
       "2026-09-10: ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 and LEAN_NUM_THREADS=2, lake build Tests.ProximalBPSGaussianAugmentation PASS, 3119 jobs. Tests.ProximalBPSGaussianAugmentation.dirac_real_input applies the actual theorem to arbitrary real Dirac input with eta>0; Tests.ProximalBPSGaussianAugmentation.gaussian_two_dimensional_input applies it to a two-dimensional standard-Gaussian input and simplifies the dimension-dependent normalizer. Axioms only propext, Classical.choice, Quot.sound."
     ],

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Normalization prerequisite for SPHMC arXiv:2609.06906v1 Section 6.2.2 Lemma 6.4 and PBPS arXiv:2609.06905v1 Section 2.1 Gibbs target; ASTIS expanded first-order/Young/Gaussian-envelope derivation, not either whole numbered theorem",
   "target_statement": "On a finite-dimensional real inner-product Borel space with canonical volume, if V is differentiable and StrongConvexOn univ m V with m>0, then exp(-V) is Lebesgue integrable. Neither a minimizer nor a gradient field, moment, tail or normalization assumption is supplied.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
     "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_norm_sq",
@@ -35,6 +35,8 @@
     "notes": "Reuse the compiled first-order bound and Gaussian tail integrability. Existing StrongConvexOn normalization requires an exposed minimizer; removing that premise is the mathematical delta. The same normalization input is needed by both companion papers. No new density-equality or probability wrapper is introduced."
   },
   "evidence": {
+    "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+    "commit_verification": "runs/20260910-companion-priority/nine-results.commit-verification.json; independent verifier rgo_independent_verifier; accepted audit ASTIS-RT-20260910-StrongConvexGibbsIntegrability",
     "focused_checks": [
       "2026-09-10: final lake build Tests.StrongConvexGibbsIntegrability PASS exit0, 2801 jobs, explicit ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 and LEAN_NUM_THREADS=2; no remaining warnings.",
       "Tests derive a strictly positive normalizer and IsProbabilityMeasure for volume.tilted(-V), then feed that actual normalized Gibbs measure to quadratic_tilt_tilt with r>=0 and s>0. No supplied minimizer or integral bound occurs.",
