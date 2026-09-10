@@ -40,7 +40,7 @@
     "planning_review": "Independent log_depth_source_review recommends combined transformed-law, L2 representative and derivative integration node, rather than a standalone pushforward identity.",
     "execution_boundary": "Root sole writer; PR253 actually merged and stabilization lane released. This packet has no root imports yet.",
     "independent_proof_review": "runs/20260911-companion-priority/macroscopic-representative.independent-proof-review.json",
-    "admission_boundary": "Independently VERIFIED and merged PR254; actual deployment pending.",
+    "admission_boundary": "Independently VERIFIED, merged via PR254, both merge CI SUCCESS and actual reader delivery verified.",
     "independent_verification": "runs/20260911-companion-priority/macroscopic-representative.verified-admission.json",
     "integration": {
       "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/254",
@@ -52,7 +52,18 @@
         "lean": "34523942433 SUCCESS",
         "site": "34523942472 SUCCESS; PR deploy skipped"
       },
-      "post_merge": "Merge-commit CI and actual deployed reader pending.",
+      "post_merge": {
+        "lean_run": 34526344853,
+        "site_run": 34526344919,
+        "state": "Both SUCCESS; deploy website job SUCCESS",
+        "live": {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html#pbps-macroscopic-representative",
+          "http_status": 200,
+          "anchor_present": true,
+          "merge_commit_present": true,
+          "scope": "Live HTTP content and build provenance; local disclosure/visual checks previously recorded. No declaration-specific GitHub blob link asserted."
+        }
+      },
       "truth_boundary": "Actual macroscopic reflected joint/L2 representative/classical derivative integration only; source domain-mismatch generalization retained, no Poincare/variance/Sobolev/coercivity/process/cost/full-paper completion."
     }
   },

@@ -25,7 +25,6 @@
   },
   "mathematical_status": "Actual joint disintegration and the differentiable representative of the actual compressed L2 reflection only. No conditional Poincare, quantitative score variance, general L2/H1 extension, coercivity, process/error/cost or complete-paper result.",
   "remaining": [
-    "Verify merge-commit CI and actual deployed reader",
     "Conditional curvature and noncompact score domain",
     "Curvature-to-Poincare, score variance and general L2/H1 extension",
     "Coercivity, processes, mixing/error/cost and complete main results"
@@ -44,7 +43,7 @@
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/254",
     "state": "MERGED",
     "head": "e5c6d15cd912ef7865c06ae8a21f68f933840f26",
-    "boundary": "Actual merge verified; merge CI and deployed delivery pending."
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and live reader anchor/build provenance verified."
   },
   "integration_notes": {
     "metadata_correction": "Initial site CI 34522705475 failed because the completed dependency search record omitted the literal Samplinglib label. Corrected that record at 2a41c9c; Frontier Cell check and 9 discrete-sampling tests pass, publication binding unchanged. No Lean or authored lesson changes."
@@ -87,7 +86,18 @@
       "lean": "34523942433 SUCCESS",
       "site": "34523942472 SUCCESS; PR deploy skipped"
     },
-    "post_merge": "Merge-commit CI and actual deployed reader pending.",
+    "post_merge": {
+      "lean_run": 34526344853,
+      "site_run": 34526344919,
+      "state": "Both SUCCESS; deploy website job SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html#pbps-macroscopic-representative",
+        "http_status": 200,
+        "anchor_present": true,
+        "merge_commit_present": true,
+        "scope": "Live HTTP content and build provenance; local disclosure/visual checks previously recorded. No declaration-specific GitHub blob link asserted."
+      }
+    },
     "truth_boundary": "Actual macroscopic reflected joint/L2 representative/classical derivative integration only; source domain-mismatch generalization retained, no Poincare/variance/Sobolev/coercivity/process/cost/full-paper completion."
   }
 }

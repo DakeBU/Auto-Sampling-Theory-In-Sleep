@@ -38,10 +38,17 @@
     ],
     "proof_plan": "proof-blueprints/PBPS-conditional-score.md",
     "planning_review": "depth_commit_verifier bounded dependency audit and log_depth_source_review independent primary C.1 route review. Keep alpha<=beta explicitly for zero dimension; score derivative is positive semidefinite, possibly zero. Preserve norm a for general directions.",
-    "execution_boundary": "Root sole writer. Previous macro PR254 actually merged and stabilization lane released. This packet remains PROVED_LOCAL with source/commit admission pending.",
+    "execution_boundary": "Root sole writer. Previous macro PR254 merged and deployed. Current packet independently VERIFIED and sole-owner STABILIZING; no parallel stabilization.",
     "independent_proof_review": "runs/20260911-companion-priority/conditional-score-domain.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at ec4201999a73bac8fab65d9c468865d1941a04e7; sole-owner STABILIZING, integration and reader checks pending.",
-    "independent_verification": "runs/20260911-companion-priority/conditional-score-domain.verified-admission.json"
+    "admission_boundary": "VERIFIED at ec4201999a73bac8fab65d9c468865d1941a04e7; integrated at 528e2a5 with aggregate PASS9090 and local reader/graph QA passed. Final-head CI, merge advice and actual delivery pending.",
+    "independent_verification": "runs/20260911-companion-priority/conditional-score-domain.verified-admission.json",
+    "integration": {
+      "progress": "runs/20260911-companion-priority/conditional-score-domain.progress.json",
+      "aggregate_candidate": "528e2a5580831dc9b140be10ea65adefb48e475f",
+      "source_digest": "16b214345c5f1d08a8deca6d7d02c83a4612673862c0d1be1313c91aec6d589f",
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/255",
+      "reader_checks": "Local site, graph coverage and browser QA PASS; actual deployment separate."
+    }
   },
   "blocked": {
     "reason": "",
