@@ -40,7 +40,7 @@
       "Compiler diagnostics resolved by NNReal scope, valid qualified-name syntax, existing parent transparency setting with explicit center, then removing a no-progress dsimp and redundant ring. No mathematical assumption was added."
     ],
     "independent_verification": "Exact code/test and corrected lesson accepted by rgo_independent_verifier at the named commit. Independent source-blind decoder and anti-anchored review are accepted in ASTIS-RT-20260910-SPHMCRGOCalculus. This is theorem admission, not a whole-paper or aggregate-publication certificate.",
-    "root_build": "Pending",
+    "root_build": "The authoritative aggregate certificate is the generator-owned .astis/site-lean-gate.json, bound to exact Lean sources and release commit. Actual execution results are appended to runs/20260910-companion-priority/publication-release.md; this independent-admission record does not pre-assert release success.",
     "graph_regeneration": "Release generation and actual bounded graph/reader inspection outcomes are recorded in runs/20260910-companion-priority/publication-release.md after execution; no unexecuted visual review is asserted here.",
     "pr": "",
     "commit_verification": "runs/20260910-companion-priority/rgo-calculus.commit-verification.json; independent verifier rgo_independent_verifier; source audit accepted."
