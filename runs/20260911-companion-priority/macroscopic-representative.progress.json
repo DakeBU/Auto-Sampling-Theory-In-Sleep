@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative.macroscopic_reflection_smooth_representative",
   "focused_check": {
     "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative Tests.ProximalBPSMacroscopicRepresentative",
@@ -29,5 +29,6 @@
     "Integration, aggregate gate and reader/graph delivery",
     "Conditional curvature-to-Poincare and score variance",
     "General L2/H1 extension and all later main-theorem dependencies"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/macroscopic-representative.verified-admission.json"
 }
