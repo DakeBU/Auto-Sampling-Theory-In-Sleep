@@ -1,0 +1,75 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth",
+      "kind": "theorem",
+      "title": "Prescribed logarithmic terminal depth with explicit constants",
+      "statement": "For every parameter and sequence satisfying the stated assumptions, the actual recursive schedule has L≥2, 0<B≤1, J>0, 0<1/r_J≤B and J≤(3C+(C/2)log(1/γ))L. This is an explicit sufficient-constant refinement of the deterministic parameter argument in equation (6.4). The paper leaves its sufficiently large and small universal constants unspecified; C≥8 is a sufficient witness for this parameter argument alone, not a certified value for all later sampling obligations.",
+      "formula": "\\begin{gathered}L=q+\\log\\frac{K_0dq}{\\Delta},\\quad B=\\frac{\\gamma}{\\sqrt{dL}+L},\\quad J=\\left\\lceil C\\log\\frac{eK_0}{B}\\right\\rceil,\\\\L\\ge2,\\quad0<B\\le1,\\quad J>0,\\quad0<r_J^{-1}\\le B,\\\\J\\le\\left(3C+\\frac C2\\log\\frac1\\gamma\\right)L.\\end{gathered}",
+      "assumptions": [
+        "Real κ≥1, r₀≥0, 0<c<1/4 and an arbitrary real sequence with 0<ηⱼ≤c for every natural j. Zero initial precision represents infinite regularization.",
+        "Positive natural dimension d, real q≥2, 0<Δ≤1/2, 0<γ≤1 and real C≥8. The schedule constant c and terminal constant γ are distinct.",
+        "Define K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) when K(r)≥2 and c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All later quantities use this actual recursion.",
+        "Let K₀=K(r₀), L=q+log(K₀dq/Δ), B=γ/(sqrt(dL)+L), and J=ceil(C log(eK₀/B)). No contraction, terminal threshold or depth bound is assumed."
+      ],
+      "steps": [
+        {
+          "title": "Establish the logarithmic domain",
+          "text": "Since K₀,d≥1, q≥2 and Δ≤1/2, expand the logarithm of K₀dq/Δ. Its component signs yield L≥2, log K₀≤L and log d≤L. The denominator sqrt(dL)+L is positive and at least two, so 0<B≤1.",
+          "formula": "L\\ge2,\\quad\\log K_0\\le L,\\quad\\log d\\le L,\\quad0<B\\le1.",
+          "lean": "Local source_log_domain proves the three bounds; the final proof establishes the threshold signs."
+        },
+        {
+          "title": "Budget the two geometric phases",
+          "text": "Set M=ceil(5 log K₀), P=ceil(2 log(1/B)). The inequality log x≤x−1 gives log(4/5)≤−1/5 and log(1/2)≤−1/2. Thus (4/5)^M K₀≤1<2. Ceiling bounds and C≥8 give M+1+P≤J, retaining the first guaranteed finite step.",
+          "formula": "M+1+P<5\\log K_0+2\\log(1/B)+3\\le C(1+\\log K_0+\\log(1/B))\\le J.",
+          "lean": "Local depth_indices proves the entry certificate and exact natural index budget."
+        },
+        {
+          "title": "Consume the actual recursive certificate",
+          "text": "Set N=J−(M+1) only after proving M+1≤J. Then M+1+N=J and N≥P. With ρ=2c/(1+2c)≤1/2, the logarithmic estimate gives ρ^N≤B. The existing actual-schedule theorem therefore yields positive A_J=r_J⁻¹≤2cρ^N≤B, including r₀=0.",
+          "formula": "0<A_J\\le2c\\rho^{J-(M+1)}\\le B.",
+          "lean": "remaining_contraction controls the tail; actual_terminal calls RecursiveDepth.parameter_control and rewrites the precise natural index identity."
+        },
+        {
+          "title": "Bound the threshold denominator",
+          "text": "Write D=sqrt(dL)+L. Split 2=(4/3)(3/2) to obtain log 2≤5/6≤7/8. Apply log x≤x−1 to L/2 to get log L≤L/2. Since sqrt L≤L and sqrt d≥1, D≤2 sqrt d L, so log D≤7/8+L.",
+          "formula": "\\log D\\le\\log2+\\tfrac12\\log d+\\log L\\le\\tfrac78+L.",
+          "lean": "Local denominator_log proves the square-root product comparison and all positive-domain logarithm identities."
+        },
+        {
+          "title": "Absorb the ceiling slack with explicit constants",
+          "text": "Put G=log(1/γ)≥0. Expanding log(eK₀/B) and using the denominator estimate gives J<C(1+2L+7/8+G)+1. Since C≥8 and L≥2, 15C/8+1≤2C≤CL and CG≤(C/2)GL. This yields the displayed upper bound with its separate coefficient.",
+          "formula": "J\\le(3C+(C/2)G)L,\\qquad G=\\log(1/\\gamma)\\ge0.",
+          "lean": "Local depth_upper uses Nat.ceil_lt_add_one after establishing nonnegativity of its argument."
+        }
+      ],
+      "lean_statement": "Eight local definitions expose the exact schedule and L, B, J. All parameters are universally quantified; positive natural dimension is explicit.",
+      "lean_proof": "Six local helper proofs feed one public theorem. The existing recursive certificate is an actual proof dependency. The consumer test uses the terminal precision to obtain an integrable, normalized Gibbs target in its actual finite dimension; it does not implement FORS.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control"
+      ],
+      "mathlib_dependencies": [
+        "Real.log_le_sub_one_of_pos",
+        "Real.log_pow",
+        "Real.log_le_log_iff",
+        "Real.log_sqrt",
+        "Real.sqrt_mul",
+        "Nat.le_ceil",
+        "Nat.ceil_lt_add_one"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1, Theorem 6.5 (6.4)",
+          "scope": "Expanded deterministic parameter argument; explicit constants are ASTIS sufficient witnesses."
+        }
+      ],
+      "tests": {
+        "file": "Tests/SmoothedPicardLogarithmicDepth.lean",
+        "command": "lake build Tests.SmoothedPicardLogarithmicDepth"
+      },
+      "boundary": "Deterministic parameter clause of (6.4) and the terminal precision threshold only. No FORS algorithm, stochastic-kernel or adaptive measurability theorem, divergence guarantee, reference-point construction, expected query cost, or full-paper closure. The explicit final depth coefficient differs from C and depends on gamma; a universal coefficient requires gamma fixed universally."
+    }
+  ]
+}

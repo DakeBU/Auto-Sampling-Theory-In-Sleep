@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "source_commit": "fcfe6d6a96dadaf5c9de5bcdcdccac73d31b117e",
   "branch": "codex/sphmc-recursive-depth",
   "writer": "root-samplinglib-writer",
@@ -15,8 +15,9 @@
   "toolchain_release_sha256": "60d045a2ef45fca55a620b7d55be682e8439ec8d1fc9a8bcd2615da7dffba26a",
   "python": "C:/Users/admin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
   "remaining": [
-    "Commit/push presentation fix and integration notes; verify resulting CI before publication.",
-    "Exact source logarithmic schedule, random-kernel measurability, FORS, errors and costs remain separate proof work."
+    "Verify merge-commit deployment and actual reader page.",
+    "Continue independent admission and integration of logarithmic-depth successor.",
+    "Random kernels, FORS, errors, actual-input costs and full-paper results remain incomplete."
   ],
   "boundary": "Compiled deterministic parameter recurrence only; neither paper complete.",
   "route_review": "recursive_route_audit: read-only mathematical review found no counterexample or stage-index error, not admission.",
@@ -121,5 +122,22 @@
     "generator_fix_review": "depth_commit_verifier independently approved bounded parser repair and25 regression tests; unknown local-equation syntax retains explicitly labelled full declaration.",
     "site_build_log_sha256": "463a79c0d1aaca8a56f9c282e0769a98bb81271775b08d92fa1e000d05abf64e",
     "site_check_log_sha256": "28341a5e44b97413d89ee064f5990b528c5e2934d9666d345f392d1ddd6fcd39"
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/250",
+    "commit": "5a177a38ae896eb6a06f6d7458a48e60e619bdf7",
+    "merged_at": "2026-09-10T16:45:34Z",
+    "candidate": "70995e83df9e81b774ec58ecf1357f01ca47720c",
+    "independent_merge_review": "depth_commit_verifier independently recommended ready+merge for exact head70995 and basefcfe6 after live CI, preserved theorem/audit/lesson comparison and bounded reader-fix review. Root records its recommendation; reviewer made no edits.",
+    "candidate_ci": {
+      "lean": "34500908817 SUCCESS",
+      "site": "34500908828 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": {
+      "lean_run": "34504058218",
+      "site_run": "34504058093",
+      "status": "in_progress at live inspection; deployment and live reader not yet certified"
+    },
+    "truth_boundary": "Previous RecursiveDepth parameter theorem merged only; no new LogarithmicDepth or sampler/error/cost/full-paper claim."
   }
 }

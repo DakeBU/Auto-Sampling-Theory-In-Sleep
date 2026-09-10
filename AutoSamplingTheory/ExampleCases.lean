@@ -7,6 +7,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOCalculus
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth
 
 /-!
 # ASTIS example cases

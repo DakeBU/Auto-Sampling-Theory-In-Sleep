@@ -1,0 +1,20 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Independent read-only agent response in the current thread; root transcribed its decision under the sole-writer policy.",
+  "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/LogarithmicDepth.lean",
+  "sha256": "f2623dff329732859cbf1b9a07a38812988745eae2e34659e16a26097fe5cc13",
+  "local_proof_review": "passed",
+  "independent_compile": "focused compile and complete-file stdin compile with axiom print both exited zero",
+  "axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "findings": [
+    "Exactly one public theorem; no forbidden closure found.",
+    "The M and P ceiling budgets and C>=8 establish the required natural index bound.",
+    "Natural subtraction is guarded before the exact index rewrite consuming the actual recursion theorem.",
+    "Zero initial precision is retained and positive terminal reciprocal is proved.",
+    "The explicit depth coefficient retains gamma dependence and absorbs the ceiling slack.",
+    "Logarithm, square-root and division domains are established in the proof."
+  ],
+  "admission": "not-authorized",
+  "remaining": "Independent blind reconstruction and source fidelity, consumer/reader review and commit-bound admission."
+}

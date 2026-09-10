@@ -1,0 +1,61 @@
+{
+  "status": "accepted",
+  "verdict": "equivalent-after-elaboration",
+  "reviewer": "log_depth_source_review",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "371df22c82f5c754a9300844989aaf8b17c2bfcf54ac1bef2141bab5b8c79519",
+  "publication_binding_sha256": "b7d8dccccca8ffa7b37bc0263464c535e018a006af1e72353111ec959d764527",
+  "semantic_slots": {
+    "objects": {
+      "original": "Theorem 6.5 uses regularization variances A_j, condition numbers κ_j, smoothing levels η_j, heat durations τ_j and logarithmic depth.",
+      "reconstructed": "r_j is precision, K(r_j) is the condition number, and the actual Nat.rec schedule defines τ, a, L, B and J.",
+      "relation": "explicit-elaboration",
+      "evidence": "Primary §6.3, (6.1)-(6.2), identifies r_j=A_j⁻¹ and β_A=1+r_j. Substitution gives precisely the embedded definitions a=(η+τ)/(1+r) and r_next=r+a⁻¹."
+    },
+    "domains": {
+      "original": "A₀∈(0,∞], κ≥1, positive dimension, real q≥2 and 0<Δ₀≤1/2.",
+      "reconstructed": "r₀≥0, d:ℕ with d>0, q:ℝ≥2 and Δ=Δ₀∈(0,1/2]. All logarithms and square roots are real.",
+      "relation": "explicit-elaboration",
+      "evidence": "Precision zero represents the source's infinite initial variance, not a zero initial variance. The conclusion explicitly gives J>0 and r_J⁻¹>0. source_log_domain and the final proof establish positive domains rather than relying on totalized inverse/log behavior."
+    },
+    "quantifiers": {
+      "original": "The parameter argument applies to admissible stage schedules; its universal constants are chosen sufficiently small or large.",
+      "reconstructed": "Every admissible real sequence η:ℕ→ℝ and every γ∈(0,1], C≥8 satisfy the displayed deterministic bounds.",
+      "relation": "explicit-elaboration",
+      "evidence": "The Lean hη quantifies over every natural index. This is a uniform deterministic strengthening of the schedule argument, transparently declared in the candidate assumptions. It neither constructs a stochastic sampler nor asserts a minimal stopping index."
+    },
+    "assumptions": {
+      "original": "Lemma 6.6 imposes 0<c₀<1/4 and 0<η_j≤c₀. Theorem 6.5 additionally has sampler and potential hypotheses.",
+      "reconstructed": "The deterministic theorem retains the schedule hypotheses, uses c=c₀, and separates terminal γ from c.",
+      "relation": "explicit-elaboration",
+      "evidence": "Its hypotheses contain no assumed contraction, threshold achievement or depth upper bound. Sampler/potential assumptions are absent because this binding is only the scalar proof-edge. The statement and candidate_assumptions explicitly state this restricted scope."
+    },
+    "conclusion": {
+      "original": "Equation (6.4) chooses a logarithmic depth; the terminal-stage argument establishes A_J≤underline A.",
+      "reconstructed": "L≥2, 0<B≤1, J>0, 0<r_J⁻¹≤B and J≤(3C+(C/2)log(1/γ))L.",
+      "relation": "explicit-elaboration",
+      "evidence": "B instantiates the terminal threshold. The additional positivity clauses prevent a vacuous zero-inverse endpoint. actual_terminal consumes RecursiveDepth.parameter_control at the exact index M+1+(J−(M+1))=J; depth_upper separately proves the coefficient bound."
+    },
+    "scopes": {
+      "original": "The complete theorem includes distributional accuracy and query-cost guarantees beyond its parameter argument.",
+      "reconstructed": "Only deterministic actual-recursion parameter assertions; publication role is proof-edge supporting log-domain, prescribed-terminal and depth-upper.",
+      "relation": "explicit-elaboration",
+      "evidence": "The module header, authored statement and source scope consistently restrict the result. The lesson expressly says its separate Gibbs consumer does not implement FORS. No assertion of KL, Rényi, TV, terminal FORS correctness, or query complexity occurs in the Lean conclusion."
+    },
+    "constant_dependencies": {
+      "original": "The paper uses generic universal c,C, permitted to change between lines.",
+      "reconstructed": "C≥8 is a sufficient depth witness; γ is independent of schedule c; the upper coefficient is 3C+(C/2)log(1/γ).",
+      "relation": "explicit-elaboration",
+      "evidence": "The numerical witness and coefficient are ASTIS refinements, not literal source constants. depth_indices budgets M=ceil(5 log K₀), P=ceil(2 log(1/B)) and proves M+1+P≤J. The lesson retains γ dependence and expressly disclaims C=8 as a certified value for later sampling obligations."
+    }
+  },
+  "deltas": [
+    {"id":"precision-representation","blocking":false,"description":"The extended-positive initial variance is encoded by nonnegative real precision. Positivity after the first finite step is explicit.","evidence":"Embedded actual_terminal and the J>0, r_J⁻¹>0 conclusion; source (6.1)."},
+    {"id":"explicit-constant-refinement","blocking":false,"description":"C≥8, γ≤1 and the displayed upper coefficient are proved sufficient constants for this deterministic edge, not the paper's verbatim quantified claim.","evidence":"Candidate statement, lesson statement, candidate_assumptions and lesson source scope all disclose this. For fixed universal γ and C the coefficient is universal; allowing γ to vary requires retaining its logarithmic dependence."},
+    {"id":"deterministic-scope","blocking":false,"description":"Acceptance covers the parameter proof-edge only. It does not certify Theorem 6.5's full sampler, error propagation, terminal algorithm or cost.","evidence":"Binding supports exactly three scalar obligations; source terminal-stage work after A_J≤underline A remains outside this declaration."}
+  ],
+  "repairs": [],
+  "review_evidence": "Canonical packet SHA-256 recomputed using ensure_ascii=False, sort_keys=True and separators=(',',':'), excluding packet_sha256; exact match. Source text, elaborated statement and blind reconstruction hashes also match. Embedded module hash is e62a222e170ad692575cb733b088ffb072b4a46b0031ebf4db4dd4226231476c and its text matches the current Lean file. The five authored mathematical proof steps agree with the six local Lean helper proofs. Source reviewed live at the pinned primary v1 page. No historical registry, prior reviews or unrelated audits were read; no files were changed and no compilation claim was independently rerun. The publication binding digest above is pinned by the verified review packet; its complete unredacted payload was not reconstructed from registry data.",
+  "recording_provenance": "Root sole writer transcribed the independent source review returned in the current thread. No root-authored semantic acceptance."
+}

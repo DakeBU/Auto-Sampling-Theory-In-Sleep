@@ -45,8 +45,25 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "admission_boundary": "Independently VERIFIED local theorem. Aggregate and site integration pending.",
-    "publication_admission": "Accepted exact binding07b97601f188760ad0e3a85a5ef44b413161a127b1c4718ea2bf61f543a4f4b9; reviewed publication gate PASS."
+    "admission_boundary": "Independently verified parameter theorem merged via PR250; merge-commit deployment and live page pending.",
+    "publication_admission": "Accepted exact binding07b97601f188760ad0e3a85a5ef44b413161a127b1c4718ea2bf61f543a4f4b9; reviewed publication gate PASS.",
+    "integration": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/250",
+      "commit": "5a177a38ae896eb6a06f6d7458a48e60e619bdf7",
+      "merged_at": "2026-09-10T16:45:34Z",
+      "candidate": "70995e83df9e81b774ec58ecf1357f01ca47720c",
+      "independent_merge_review": "depth_commit_verifier independently recommended ready+merge for exact head70995 and basefcfe6 after live CI, preserved theorem/audit/lesson comparison and bounded reader-fix review. Root records its recommendation; reviewer made no edits.",
+      "candidate_ci": {
+        "lean": "34500908817 SUCCESS",
+        "site": "34500908828 SUCCESS; PR deploy skipped"
+      },
+      "post_merge": {
+        "lean_run": "34504058218",
+        "site_run": "34504058093",
+        "status": "in_progress at live inspection; deployment and live reader not yet certified"
+      },
+      "truth_boundary": "Previous RecursiveDepth parameter theorem merged only; no new LogarithmicDepth or sampler/error/cost/full-paper claim."
+    }
   },
   "blocked": {
     "reason": "",

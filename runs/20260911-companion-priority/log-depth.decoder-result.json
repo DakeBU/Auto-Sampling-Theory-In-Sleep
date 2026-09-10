@@ -1,0 +1,10 @@
+{
+  "decoder": "log_depth_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Transcription of the independent decoder response in this thread, preserving its mathematical reconstruction and domain explanations.",
+  "reconstructed_theorem_text": "任取实数 κ,c,r₀,q,Δ,γ,C、自然数 d 以及实数序列 η:ℕ→ℝ。假设 1≤κ，0<c<1/4，r₀≥0；对每个 n∈ℕ 有 0<ηₙ≤c；并且 d>0，q≥2，0<Δ≤1/2，0<γ≤1，C≥8。\n定义 K(x)=(1+x)/(κ⁻¹+x)，τ(x)=K(x) 当 K(x)≥2，τ(x)=c 当 K(x)<2；a(x,h)=(h+τ(x))/(1+x)，step(x,h)=x+a(x,h)⁻¹。\n定义 r(0)=r₀，r(n+1)=r(n)+((ηₙ+τ(r(n)))/(1+r(n)))⁻¹。\n再定义 L=q+log(K(r₀)dq/Δ)，B=γ/(sqrt(dL)+L)，J=ceil_N(C log(exp(1)K(r₀)/B))。\n其中实数公式中的 d,J 表示自然数到实数的强制转换。则同时成立 L≥2，0<B≤1，J>0，0<r(J)⁻¹≤B，以及 (J:ℝ)≤(3C+(C/2)log(1/γ))L。\n所有参数均为全称量化，q 不要求为整数；序列条件包括零指标。局部定义作用于后续整个结论，不是额外的存在见证或独立假设。所有不等式为确定性数值断言，无概率、几乎处处或渐近意义；没有假设序列收缩，也没有断言 J 是最小满足指标。\n实数逆在零处定义为零。允许 r(0)=0，但结论明确要求 J>0 与 r(J)⁻¹>0。由假设 κ>0；对 x≥0，各实际步长分母正，递推精度非负且增量正。初始对数自变量至少为四。L≥2 与 d≥1 保证 dL>0 和 sqrt(dL)+L>0；B>0、γ>0 保证相应对数自变量正。\n自然数 ceiling 在自变量非正时为零，正时为不小于自变量的最小自然数。因此不能只由 ceiling 记号推出 J>0。平方根为非负实平方根。\nK 依赖 κ；τ 依赖 κ,c；递推依赖 κ,c,r₀,η；L 依赖 κ,r₀,d,q,Δ；B 再依赖 γ；J 再依赖 C。所给 J 不依赖 c 或具体 η，并对所有 admissible 序列统一有效。最终系数恰为 3C+(C/2)log(1/γ)，没有未明示常数。",
+  "only_input": "E:/Samplinglib/runs/20260911-companion-priority/log-depth.decoder.json",
+  "source_text_visible": false,
+  "decoder_packet_sha256": "ddfd941a3b0362abd25190848545e0b03f113c2349e0ad1273fd370e1d07e13c",
+  "source_fidelity_verdict": null
+}
