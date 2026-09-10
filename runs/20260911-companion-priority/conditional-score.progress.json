@@ -1,6 +1,6 @@
 {
   "advance_id": "ASTIS-SA-20260911-PBPSConditionalScore",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "mathematical_status": "Focused compile, independent development replay and formal independent source review passed. Disclosed generalization; fixed-commit verification, integration and full-paper results remain open.",
   "focused_check": {
     "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore Tests.ProximalBPSConditionalScore",
@@ -33,7 +33,6 @@
     "Score is a continuous dual functional; vector gradient is its Riesz counterpart. It differentiates the unnormalized log weight; normalized score is centered."
   ],
   "remaining": [
-    "Final candidate CI, independent merge advice and actual merge/deployment",
     "Actual transformed-law IsCondKernel interface and PUP representative identification",
     "Conditional Poincare/score variance, L2/H1 extension and coercivity",
     "Both complete paper results and required dependencies remain open"
@@ -58,9 +57,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/253",
-    "state": "draft",
-    "head": "f35cdee1ce6a997e5b5728b475d485b0750b540a",
-    "boundary": "Local reader/graph checks passed. Final-head independent merge advice, CI, actual merge and deployment remain pending."
+    "state": "MERGED",
+    "head": "0bea53678971482ef66edbd315a697f60b3f869c",
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and live reader anchor/build provenance verified."
   },
   "reader_checks": {
     "candidate": "f35cdee1ce6a997e5b5728b475d485b0750b540a",
@@ -89,5 +88,29 @@
       "evidence_card_opened": true
     },
     "boundary": "This is local rendered validation at the stated candidate; no merge or deployed delivery asserted."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/253",
+    "commit": "b76a6a14282479d9bd48116549ccb1513789f8b9",
+    "candidate": "0bea53678971482ef66edbd315a697f60b3f869c",
+    "merged_at": "2026-09-10T19:25:59Z",
+    "independent_merge_review": "depth_commit_verifier accepted final content and recommended ready/merge conditional on both CI runs succeeding at the same head. Root rechecked both SUCCESS and the unchanged exact head before ready and merge.",
+    "candidate_ci": {
+      "lean": "34518946499 SUCCESS",
+      "site": "34518946465 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": {
+      "lean_run": 34520375556,
+      "site_run": 34520375617,
+      "state": "Both SUCCESS; deploy website job SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html#pbps-conditional-score",
+        "http_status": 200,
+        "anchor_present": true,
+        "merge_commit_present": true,
+        "scope": "Live HTTP content and build provenance; local disclosure/visual checks previously recorded. No declaration-specific GitHub blob link asserted."
+      }
+    },
+    "truth_boundary": "Actual reflected conditional density and smooth-test derivative only; accepted domain-mismatch generalization. No PUP/variance/Sobolev/coercivity/process/cost/full-paper completion."
   }
 }

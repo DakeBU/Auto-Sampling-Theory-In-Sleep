@@ -47,9 +47,33 @@
     "proof_plan": "proof-blueprints/PBPS-conditional-score.md",
     "planning_review": "Independent depth_commit_verifier recommended actual reflected conditional law and compactly supported score-covariance formula; independent log_depth_source_review derived local Gaussian derivative envelope.",
     "development_checkpoint": "runs/20260911-companion-priority/conditional-score.progress.json",
-    "admission_boundary": "VERIFIED at 728a18dd9b9dc737bd923c00d0dc71e07606cd2d; STABILIZING integration and reader/graph pending.",
+    "admission_boundary": "Independently VERIFIED, merged via PR253, both merge CI SUCCESS and actual reader delivery verified.",
     "source_review": "ASTIS-RT-20260911-PBPSConditionalScore accepted with domain-mismatch; disclosed scale/domain generalization only.",
-    "independent_verification": "runs/20260911-companion-priority/conditional-score.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/conditional-score.verified-admission.json",
+    "integration": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/253",
+      "commit": "b76a6a14282479d9bd48116549ccb1513789f8b9",
+      "candidate": "0bea53678971482ef66edbd315a697f60b3f869c",
+      "merged_at": "2026-09-10T19:25:59Z",
+      "independent_merge_review": "depth_commit_verifier accepted final content and recommended ready/merge conditional on both CI runs succeeding at the same head. Root rechecked both SUCCESS and the unchanged exact head before ready and merge.",
+      "candidate_ci": {
+        "lean": "34518946499 SUCCESS",
+        "site": "34518946465 SUCCESS; PR deploy skipped"
+      },
+      "post_merge": {
+        "lean_run": 34520375556,
+        "site_run": 34520375617,
+        "state": "Both SUCCESS; deploy website job SUCCESS",
+        "live": {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html#pbps-conditional-score",
+          "http_status": 200,
+          "anchor_present": true,
+          "merge_commit_present": true,
+          "scope": "Live HTTP content and build provenance; local disclosure/visual checks previously recorded. No declaration-specific GitHub blob link asserted."
+        }
+      },
+      "truth_boundary": "Actual reflected conditional density and smooth-test derivative only; accepted domain-mismatch generalization. No PUP/variance/Sobolev/coercivity/process/cost/full-paper completion."
+    }
   },
   "blocked": {
     "reason": "",

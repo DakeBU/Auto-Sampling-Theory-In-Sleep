@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-f7f900c1b4c8d110",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    ContDiff ℝ 2 V →\n      (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n        0 < η →\n          have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n          have J :=\n            MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n          have Λ := MeasureTheory.Measure.map (fun p => (p.2, 2 • p.1 - p.2)) J;\n          have P :=\n            (MeasureTheory.lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd inferInstance) 2 J).subtypeL ∘SL\n              MeasureTheory.condExpL2 ℝ ℝ (Measurable.comap_le measurable_snd);\n          have s := fun y u => -(1 / 2) • fderiv ℝ V ((1 / 2) • (y + u)) - (1 / (4 * η)) • (innerSL ℝ) (y - u);\n          ∃ S,\n            ProbabilityTheory.IsMarkovKernel S ∧\n              Λ.IsCondKernel S ∧\n                Λ.fst = J.snd ∧\n                  ∃ U,\n                    (∀ (g : ↥(MeasureTheory.Lp ℝ 2 J)), ↑↑(U g) =ᵐ[J] fun p => ↑↑g (p.1, 2 • p.1 - p.2)) ∧\n                      Function.Involutive ⇑U ∧\n                        IsSelfAdjoint U.toContinuousLinearMap ∧\n                          ∀ (f : E → ℝ),\n                            ContDiff ℝ (↑⊤) f →\n                              HasCompactSupport f →\n                                ∃ g,\n                                  (↑↑g =ᵐ[J] fun p => f p.2) ∧\n                                    P g = g ∧\n                                      (↑↑((P * U.toContinuousLinearMap * P) g) =ᵐ[J] fun p => ∫ (u : E), f u ∂S p.2) ∧\n                                        MeasureTheory.MemLp (fun y => ∫ (u : E), f u ∂S y) 2 J.snd ∧\n                                          ∀ (y : E),\n                                            MeasureTheory.Integrable (s y) (S y) ∧\n                                              MeasureTheory.Integrable (fun u => f u • s y u) (S y) ∧\n                                                HasFDerivAt (fun z => ∫ (u : E), f u ∂S z)\n                                                  (∫ (u : E), f u • s y u ∂S y -\n                                                    (∫ (u : E), f u ∂S y) • ∫ (u : E), s y u ∂S y)\n                                                  y",
+    "statement_sha256": "f7f900c1b4c8d1103322a43ce7fca97353f5a5cebd2a69760846d631295d8f84",
+    "compiled": true,
+    "approved_definition_context": [
+      "Measure.map is pushforward; Measure.prod is independent product; stdGaussian is the standard Gaussian and volume canonical Lebesgue measure. Measure.tilted is normalized exponential weighting.",
+      "For a joint measure M, M.IsCondKernel S asserts disintegration with S conditional on the first coordinate. fst and snd denote marginals for measures and coordinates for pairs. A Markov kernel is a measurably parameterized probability measure.",
+      "Lp at exponent two consists of almost-everywhere equivalence classes of square-integrable functions. Coercion chooses a representative; =ᵐ denotes almost-everywhere equality for the displayed measure. MemLp asserts measurable finite Lp seminorm.",
+      "lpMeas is the closed subspace of classes measurable with respect to the displayed sub-sigma-algebra. condExpL2 is the conditional orthogonal projection into that subspace and subtypeL includes it into the original L2 space. Multiplication of continuous linear endomorphisms is composition.",
+      "A linear isometry preserves the norm; its continuous linear map is the same operator with continuity data. Involutive means its square is identity; IsSelfAdjoint means equality with its Hilbert-space adjoint.",
+      "ContDiff at order two means C2 and at infinity smooth. HasCompactSupport requires compact closure of the nonzero set. fderiv is the Frechet derivative. HasFDerivAt certifies the displayed continuous linear map as the derivative. innerSL is the real inner product as a linear functional in its second argument."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "55e01efcb02a44209af19a1e96d64a22d852cf1753389ea7f06b94836ac22f01"
+}

@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-6e23c1c1e8ee04a6",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "macro_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:pbps-macroscopic-representative",
+    "anchor": "Appendix B.1 compression and Appendix C.1 conditional representation/differentiation; selected proof step",
+    "original_text": "The paper works on R^d, d>=1, with C2 potential V, genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.\nX has normalized Gibbs law proportional to exp(-V); Y_plus=X+sqrt(eta)Z and Y_minus=X-sqrt(eta)Z for independent standard Gaussian Z. P projects in L2 of the augmented joint law onto the Y coordinate, and U is pullback by the actual reflection. Select smooth compactly supported real f for the differentiation step.\nThe macroscopic compressed reflection acts by the conditional expectation T_f(y)=E[f(Y_minus)|Y_plus=y]. The conditional law has density proportional to exp(-V((y+u)/2)-norm(y-u)^2/(8eta)), and the derivative of T_f is its covariance with the unnormalized logarithmic derivative -DV((y+u)/2)/2-inner(y-u,.)/(4eta). This is the conditional-representative and differentiation step connecting Appendix B.1 to Appendix C.1; quantitative variance estimates and the extension to general L2 inputs remain separate.",
+    "text_sha256": "10fa00fbf49c7b08ebbcd43962169f616d457c0e694b2b556e904a64caba8d09"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative.macroscopic_reflection_smooth_representative",
+    "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/MacroscopicRepresentative.lean",
+    "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    ContDiff ℝ 2 V →\n      (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n        0 < η →\n          have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n          have J :=\n            MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n          have Λ := MeasureTheory.Measure.map (fun p => (p.2, 2 • p.1 - p.2)) J;\n          have P :=\n            (MeasureTheory.lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd inferInstance) 2 J).subtypeL ∘SL\n              MeasureTheory.condExpL2 ℝ ℝ (Measurable.comap_le measurable_snd);\n          have s := fun y u => -(1 / 2) • fderiv ℝ V ((1 / 2) • (y + u)) - (1 / (4 * η)) • (innerSL ℝ) (y - u);\n          ∃ S,\n            ProbabilityTheory.IsMarkovKernel S ∧\n              Λ.IsCondKernel S ∧\n                Λ.fst = J.snd ∧\n                  ∃ U,\n                    (∀ (g : ↥(MeasureTheory.Lp ℝ 2 J)), ↑↑(U g) =ᵐ[J] fun p => ↑↑g (p.1, 2 • p.1 - p.2)) ∧\n                      Function.Involutive ⇑U ∧\n                        IsSelfAdjoint U.toContinuousLinearMap ∧\n                          ∀ (f : E → ℝ),\n                            ContDiff ℝ (↑⊤) f →\n                              HasCompactSupport f →\n                                ∃ g,\n                                  (↑↑g =ᵐ[J] fun p => f p.2) ∧\n                                    P g = g ∧\n                                      (↑↑((P * U.toContinuousLinearMap * P) g) =ᵐ[J] fun p => ∫ (u : E), f u ∂S p.2) ∧\n                                        MeasureTheory.MemLp (fun y => ∫ (u : E), f u ∂S y) 2 J.snd ∧\n                                          ∀ (y : E),\n                                            MeasureTheory.Integrable (s y) (S y) ∧\n                                              MeasureTheory.Integrable (fun u => f u • s y u) (S y) ∧\n                                                HasFDerivAt (fun z => ∫ (u : E), f u ∂S z)\n                                                  (∫ (u : E), f u • s y u ∂S y -\n                                                    (∫ (u : E), f u ∂S y) • ∫ (u : E), s y u ∂S y)\n                                                  y",
+    "statement_sha256": "f7f900c1b4c8d1103322a43ce7fca97353f5a5cebd2a69760846d631295d8f84",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let E be any finite-dimensional real inner-product space equipped with its Borel structure and canonical Lebesgue measure. Let V:E->R, alpha,beta nonnegative real, eta real. Assume alpha>0, V is C2, eta>0, and alpha||v||^2 <= D2V(x)[v,v] <= beta||v||^2 for every x,v. Define mu as normalized exponential weighting of volume by -V, gamma as standard Gaussian, J as the pushforward of mu tensor gamma by (x,z)->(x,x+sqrt(eta)z), and Lambda as the pushforward of J by (x,y)->(y,2x-y). Let H=L2(J;R) and P be conditional expectation onto the subspace measurable in the second coordinate followed by inclusion into H. Define the continuous real-linear functional s(y,u)=-DV((y+u)/2)/2-inner(y-u,.)/(4 eta). There exists a Markov kernel S:E->E which is a conditional kernel for Lambda given its first coordinate: its input is y and its output is u=2x-y. Lambda.fst=J.snd. There exists a real-linear isometry U:H->H such that for every g in H, Ug(x,y)=g(x,2x-y) J-almost everywhere. U is involutive and its continuous linear operator is self-adjoint. For every smooth compactly supported real f, there exists g in H satisfying g(x,y)=f(y) J-almost everywhere and Pg=g. Define h_f(y)=integral f(u) S(y,du). Then (PUP)g(x,y)=h_f(y) J-almost everywhere and h_f belongs to L2(J.snd). For every y, s(y,.) and f(.)s(y,.) are integrable under S(y,.), and h_f is Frechet differentiable at y with derivative in E* equal to integral f(u)s(y,u)S(y,du) minus (integral f(u)S(y,du)) times (integral s(y,u)S(y,du)). The same S and U work for all f; g may depend on f. Derivative and integrability hold everywhere, while representative identities hold only J-almost everywhere. No additional numerical constant or constraint connecting eta,alpha,beta appears.",
+    "text_sha256": "3e5cfcc31578e08958bce93567c77b985f06a314657b64af1d25788e35058af9",
+    "decoder": "macro_blind_decoder",
+    "decoder_packet_sha256": "55e01efcb02a44209af19a1e96d64a22d852cf1753389ea7f06b94836ac22f01",
+    "decoder_run_sha256": "39aa910bb29ee643eb21459a90c4149bc99d36d7b03cdd036e036db34eba042a",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "d83200e93ba177a4144cdded34b70d1193403ce9c9452d82f440cc915dea3d9c",
+  "candidate_publication_context": {
+    "file": "6f112e9e9871fceb1fb80bae40207321e6d0555822a2c72d1ca730eee35e4cdc",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore\nimport AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2\nimport Mathlib.Probability.Kernel.Composition.MeasureCompProd\nimport Mathlib.Probability.Kernel.MeasurableIntegral\n\n/-!\n# The actual compressed reflection has a differentiable representative\n\nSource: arXiv:2609.06905v1 Appendix C.1, connecting the conditional expectation\nto the macroscopic compression from Appendix B.1. This identifies actual joint\ndisintegration, L2 classes and the classical smooth-test derivative. It does\nnot supply a conditional Poincare inequality or a general Sobolev extension.\n-/\n\nopen MeasureTheory ProbabilityTheory\nopen scoped ContDiff\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative\n\nuniverse u\n\n/-- The actual reflected pair has conditional kernel S, and the actual\ncompressed reflection PUP of each smooth compactly supported macroscopic test\nhas the S-expectation as an L2 representative with the score covariance\nderivative. All conditional and representative identities use one compatible\nkernel; no equality between independently existential witnesses is assumed. -/\ntheorem macroscopic_reflection_smooth_representative {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    {V : E → ℝ} {α β : NNReal} {η : ℝ}\n    (hα : 0 < (α : ℝ)) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E,\n      (α : ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n      (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β : ℝ)*‖v‖^2) (hη : 0 < η) :\n    let μ := (volume : Measure E).tilted (fun x => -V x)\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n      (μ.prod (stdGaussian E))\n    let Λ := J.map (fun p : E × E => (p.2,(2:ℝ) • p.1-p.2))\n    let P : Lp ℝ 2 J →L[ℝ] Lp ℝ 2 J :=\n      (lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)) 2 J).subtypeL\n        ∘L condExpL2 ℝ ℝ measurable_snd.comap_le\n    let s := fun y u : E => -(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n      (1/(4*η)) • innerSL ℝ (y-u)\n    ∃ S : Kernel E E, IsMarkovKernel S ∧ Λ.IsCondKernel S ∧ Λ.fst = J.snd ∧\n      ∃ U : Lp ℝ 2 J →ₗᵢ[ℝ] Lp ℝ 2 J,\n        (∀ g : Lp ℝ 2 J, (U g : E × E → ℝ) =ᵐ[J]\n          (fun p => g (p.1,(2:ℝ) • p.1-p.2))) ∧\n        Function.Involutive U ∧ IsSelfAdjoint U.toContinuousLinearMap ∧\n        ∀ (f : E → ℝ), ContDiff ℝ ∞ f → HasCompactSupport f →\n          ∃ g : Lp ℝ 2 J,\n            (g : E × E → ℝ) =ᵐ[J] (fun p => f p.2) ∧ P g = g ∧\n            ((P * U.toContinuousLinearMap * P) g : E × E → ℝ) =ᵐ[J]\n              (fun p => ∫ u, f u ∂S p.2) ∧\n            MemLp (fun y => ∫ u, f u ∂S y) 2 J.snd ∧\n            ∀ y, Integrable (s y) (S y) ∧ Integrable (fun u => f u • s y u) (S y) ∧\n              HasFDerivAt (fun z => ∫ u, f u ∂S z)\n              ((∫ u, f u • s y u ∂S y) -\n                (∫ u, f u ∂S y) • (∫ u, s y u ∂S y)) y := by\n  have reflected_disintegration {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (ρ : Measure (E × E)) [IsFiniteMeasure ρ]\n      (R S : Kernel E E) [IsMarkovKernel R] [IsMarkovKernel S]\n      [ρ.IsCondKernel R]\n      (hS : ∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y)) :\n      let G := fun p : E × E => (p.1,(2:ℝ) • p.2-p.1)\n      (ρ.map G).fst = ρ.fst ∧ (ρ.map G).IsCondKernel S := by\n    let G := fun p : E × E => (p.1,(2:ℝ) • p.2-p.1)\n    have hG : Measurable G := by fun_prop\n    have hfst : (ρ.map G).fst = ρ.fst := by\n      exact Measure.fst_map_prodMk (by fun_prop)\n    have hmap : ρ.fst ⊗ₘ S = (ρ.fst ⊗ₘ R).map G := by\n      ext t ht\n      rw [Measure.compProd_apply ht, Measure.map_apply hG ht,\n        Measure.compProd_apply (hG ht)]\n      apply lintegral_congr_ae\n      filter_upwards with y\n      rw [hS y, Measure.map_apply (by fun_prop) (measurable_prodMk_left ht)]\n      rfl\n    refine ⟨hfst,⟨?_⟩⟩\n    rw [hfst,hmap,Measure.disintegrate ρ R]\n\n\n\n  have macroscopic_class {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (J : Measure (E × E)) [IsProbabilityMeasure J]\n      (f : E → ℝ) (hf : Continuous f) {M : ℝ} (hMf : ∀ u, ‖f u‖ ≤ M) :\n      let P : Lp ℝ 2 J →L[ℝ] Lp ℝ 2 J :=\n        (lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)) 2 J).subtypeL\n          ∘L condExpL2 ℝ ℝ measurable_snd.comap_le\n      ∃ g : Lp ℝ 2 J, (g : E × E → ℝ) =ᵐ[J] (fun p => f p.2) ∧ P g = g := by\n    let mY : MeasurableSpace (E × E) := MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)\n    let _ : MeasurableSpace (E × E) := Prod.instMeasurableSpace\n    have hm : mY ≤ Prod.instMeasurableSpace := measurable_snd.comap_le\n    let : Fact (mY ≤ Prod.instMeasurableSpace) := ⟨hm⟩\n    have hLp : MemLp (fun p : E × E => f p.2) 2 J :=\n      MemLp.of_bound (hf.comp continuous_snd).aestronglyMeasurable M\n        (Filter.Eventually.of_forall fun p => hMf p.2)\n    let g := hLp.toLp (fun p : E × E => f p.2)\n    have hg : (g : E × E → ℝ) =ᵐ[J] (fun p => f p.2) := hLp.coeFn_toLp\n    have hSnd : Measurable[mY] (Prod.snd : E × E → E) := measurable_iff_comap_le.mpr le_rfl\n    have hgm : AEStronglyMeasurable[mY] (g : E × E → ℝ) J :=\n      (hf.stronglyMeasurable.comp_measurable hSnd).aestronglyMeasurable.congr hg.symm\n    refine ⟨g,hg,?_⟩\n    change (lpMeas ℝ ℝ mY 2 J).starProjection g = g\n    exact Submodule.starProjection_eq_self_iff.mpr (mem_lpMeas_iff_aestronglyMeasurable.mpr hgm)\n\n\n\n  have projection_kernel {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (J : Measure (E × E)) [IsProbabilityMeasure J]\n      (R : Kernel E E) [IsMarkovKernel R] [(J.map Prod.swap).IsCondKernel R]\n      (v : Lp ℝ 2 J) :\n      let P : Lp ℝ 2 J →L[ℝ] Lp ℝ 2 J :=\n        (lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)) 2 J).subtypeL\n          ∘L condExpL2 ℝ ℝ measurable_snd.comap_le\n      (P v : E × E → ℝ) =ᵐ[J] (fun p => ∫ x, v (x,p.2) ∂R p.2) := by\n    have hvI := (Lp.memLp v).integrable (by norm_num)\n    have hswap : Integrable (fun p : E × E => v p.swap) (J.map Prod.swap) := by\n      apply (integrable_map_equiv (MeasurableEquiv.prodComm : E × E ≃ᵐ E × E) _).2\n      exact hvI\n    have h := condExp_prod_ae_eq_integral_condDistrib'\n      (μ := J) (X := Prod.snd) (Y := Prod.fst)\n      (f := fun p : E × E => v p.swap) measurable_snd measurable_fst.aemeasurable hswap\n    have heq : R =ᵐ[(J.map Prod.swap).fst] (J.map Prod.swap).condKernel :=\n      eq_condKernel_of_measure_eq_compProd R (Measure.disintegrate _ _).symm\n    rw [Measure.fst_map_swap] at heq\n    have heq' : ∀ᵐ p ∂J, R p.2 = (J.map Prod.swap).condKernel p.2 :=\n      ae_of_ae_map measurable_snd.aemeasurable heq\n    have hP := (Lp.memLp v).condExpL2_ae_eq_condExp (𝕜 := ℝ) measurable_snd.comap_le\n    rw [Lp.toLp_coeFn] at hP\n    apply hP.trans\n    filter_upwards [h,heq'] with p hp he\n    rw [he]\n    simp only [condDistrib] at hp\n    exact hp\n\n  have fiber_ae {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (J : Measure (E × E)) [IsProbabilityMeasure J]\n      (R : Kernel E E) [IsMarkovKernel R] [(J.map Prod.swap).IsCondKernel R]\n      {a b : E × E → ℝ} (hab : a =ᵐ[J] b) :\n      ∀ᵐ y ∂J.snd, (fun x => a (x,y)) =ᵐ[R y] (fun x => b (x,y)) := by\n    have hswap : (fun p : E × E => a p.swap) =ᵐ[J.map Prod.swap] (fun p => b p.swap) := by\n      apply (MeasurableEquiv.prodComm.measurableEmbedding.ae_map_iff).2\n      change ∀ᵐ p ∂J, a p.swap.swap = b p.swap.swap\n      simp only [Prod.swap_swap]\n      exact hab\n    rw [← Measure.disintegrate (J.map Prod.swap) R] at hswap\n    have h := Measure.ae_ae_of_ae_compProd hswap\n    rw [Measure.fst_map_swap] at h\n    exact h\n\n\n\n  have expectation_memLp {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (ν : Measure E) [IsFiniteMeasure ν] (S : Kernel E E) [IsMarkovKernel S]\n      (f : E → ℝ) (hf : Continuous f) {M : ℝ} (hMf : ∀ u, ‖f u‖ ≤ M) :\n      MemLp (fun y => ∫ u, f u ∂S y) 2 ν := by\n    refine MemLp.of_bound hf.stronglyMeasurable.integral_kernel.aestronglyMeasurable M ?_\n    filter_upwards with y\n    simpa using (norm_integral_le_of_norm_le_const (μ := S y)\n      (Filter.Eventually.of_forall hMf))\n\n  have expectation_map {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (R S : Kernel E E) (hS : ∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y))\n      (f : E → ℝ) (hf : Continuous f) (y : E) :\n      ∫ u, f u ∂S y = ∫ x, f ((2:ℝ) • x-y) ∂R y := by\n    rw [hS y, integral_map (by fun_prop) hf.aestronglyMeasurable]\n\n\n  have compressed_representative {E : Type u}\n      [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      (J : Measure (E × E)) [IsProbabilityMeasure J]\n      (R S : Kernel E E) [IsMarkovKernel R] [IsMarkovKernel S]\n      [(J.map Prod.swap).IsCondKernel R]\n      (hS : ∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y))\n      (U : Lp ℝ 2 J →ₗᵢ[ℝ] Lp ℝ 2 J)\n      (hF : MeasurePreserving (fun p : E × E => (p.1,(2:ℝ) • p.1-p.2)) J J)\n      (hU : ∀ g : Lp ℝ 2 J, (U g : E × E → ℝ) =ᵐ[J]\n        (fun p => g (p.1,(2:ℝ) • p.1-p.2)))\n      (f : E → ℝ) (hf : Continuous f) (g : Lp ℝ 2 J)\n      (hg : (g : E × E → ℝ) =ᵐ[J] (fun p => f p.2)) :\n      let P : Lp ℝ 2 J →L[ℝ] Lp ℝ 2 J :=\n        (lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)) 2 J).subtypeL\n          ∘L condExpL2 ℝ ℝ measurable_snd.comap_le\n      (P (U g) : E × E → ℝ) =ᵐ[J] (fun p => ∫ u, f u ∂S p.2) := by\n    have hUg : (U g : E × E → ℝ) =ᵐ[J] (fun p => f ((2:ℝ) • p.1-p.2)) :=\n      (hU g).trans (hF.quasiMeasurePreserving.ae_eq hg)\n    have hs := fiber_ae J R hUg\n    have hs' : ∀ᵐ p ∂J, (fun x => (U g) (x,p.2)) =ᵐ[R p.2]\n        (fun x => f ((2:ℝ) • x-p.2)) :=\n      ae_of_ae_map measurable_snd.aemeasurable hs\n    apply (projection_kernel J R (U g)).trans\n    filter_upwards [hs'] with p hp\n    calc\n      (∫ x, (U g) (x,p.2) ∂R p.2) = ∫ x, f ((2:ℝ) • x-p.2) ∂R p.2 :=\n        integral_congr_ae hp\n      _ = ∫ u, f u ∂S p.2 := (expectation_map R S hS f hf p.2).symm\n  let μ := (volume : Measure E).tilted (fun x => -V x)\n  let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n    (μ.prod (stdGaussian E))\n  let Λ := J.map (fun p : E × E => (p.2,(2:ℝ) • p.1-p.2))\n  have density := AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation.normalized_augmentation_density\n    hα hV (fun x v => (hH x v).1) hη\n  have hi : Integrable (fun x => Real.exp (-V x)) (volume : Measure E) := by\n    by_contra hn\n    exact (ne_of_gt density.1) (integral_undef hn)\n  have : IsProbabilityMeasure μ := isProbabilityMeasure_tilted hi\n  have : IsProbabilityMeasure J := Measure.isProbabilityMeasure_map (by fun_prop)\n  obtain ⟨R,S,hR,hS,hcond,hSR,hSν,hder⟩ :=\n    AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance hα hV hH hη\n  let _ : IsMarkovKernel R := hR\n  let _ : IsMarkovKernel S := hS\n  let _ : (J.map Prod.swap).IsCondKernel R := hcond\n  have hΛ : (J.map Prod.swap).map (fun p : E × E => (p.1,(2:ℝ) • p.2-p.1)) = Λ := by\n    rw [Measure.map_map (by fun_prop) (by fun_prop)]\n    rfl\n  obtain ⟨hfst,hΛcond⟩ := reflected_disintegration (J.map Prod.swap) R S hSR\n  rw [hΛ,Measure.fst_map_swap] at hfst\n  rw [hΛ] at hΛcond\n  obtain ⟨R₀,hR₀,hRf₀,U,hU,hUi,hUs,hrest⟩ :=\n    AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2.actual_reflection_block_identities μ hη\n  have hF : MeasurePreserving (fun p : E × E => (p.1,(2:ℝ) • p.1-p.2)) J J :=\n    ⟨by fun_prop,\n      (AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection.reflection_preserves_augmentation μ η hη).2⟩\n  dsimp only\n  refine ⟨S,hS,hΛcond,hfst,U,hU,hUi,hUs,?_⟩\n  intro f hf hfc\n  obtain ⟨M,hM⟩ := hf.continuous.norm.bddAbove_range_of_hasCompactSupport hfc.norm\n  have hMf (u : E) : ‖f u‖ ≤ M := hM (Set.mem_range_self u)\n  obtain ⟨g,hg,hPg⟩ := macroscopic_class J f hf.continuous hMf\n  refine ⟨g,hg,hPg,?_,expectation_memLp J.snd S f hf.continuous hMf,?_⟩\n  · change ((lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)) 2 J).subtypeL\n      ∘L condExpL2 ℝ ℝ measurable_snd.comap_le) (U\n        (((lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)) 2 J).subtypeL\n          ∘L condExpL2 ℝ ℝ measurable_snd.comap_le) g)) =ᵐ[J] _\n    rw [hPg]\n    exact compressed_representative J R S hSR U hF hU f hf.continuous g hg\n  · intro y\n    exact hder f hf hfc y\n\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+      "edition": "arXiv:2609.06905v1",
+      "anchor": "Appendix B.1 compression and Appendix C.1 conditional representation/differentiation; selected proof step",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded mathematical proof."
+    },
+    "statement": "The macroscopic compressed reflection acts by the conditional expectation T_f(y)=E[f(Y_minus)|Y_plus=y]. The conditional law has density proportional to exp(-V((y+u)/2)-norm(y-u)^2/(8eta)), and the derivative of T_f is its covariance with the unnormalized logarithmic derivative -DV((y+u)/2)/2-inner(y-u,.)/(4eta). This is the conditional-representative and differentiation step connecting Appendix B.1 to Appendix C.1; quantitative variance estimates and the extension to general L2 inputs remain separate.",
+    "formulae": [
+      {
+        "label": "actual compressed representative",
+        "tex": "PUP[f\\circ\\mathrm{snd}]=[T_f\\circ\\mathrm{snd}],\\quad T_f\\in L^2(\\nu),\\quad DT_f=\\operatorname{Cov}_{S_y}(f,s_y)."
+      }
+    ],
+    "assumptions": [
+      "The paper works on R^d, d>=1, with C2 potential V, genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.",
+      "X has normalized Gibbs law proportional to exp(-V); Y_plus=X+sqrt(eta)Z and Y_minus=X-sqrt(eta)Z for independent standard Gaussian Z. P projects in L2 of the augmented joint law onto the Y coordinate, and U is pullback by the actual reflection. Select smooth compactly supported real f for the differentiation step."
+    ],
+    "obligations": [
+      {
+        "id": "actual-joint",
+        "label": "Reflected kernel disintegrates the actual two-output joint law"
+      },
+      {
+        "id": "compressed-representative",
+        "label": "Actual PUP on smooth macroscopic tests has an L2 conditional-expectation representative"
+      },
+      {
+        "id": "classical-derivative",
+        "label": "Same representative has the score-covariance derivative everywhere"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative.macroscopic_reflection_smooth_representative",
+      "kind": "theorem",
+      "title": "The actual macroscopic reflection has a differentiable conditional representative",
+      "statement": "Let nu=J.snd, Lambda be the law of (Y_plus,Y_minus), and P be the L2(J) orthogonal projection onto functions measurable in the second coordinate. There are one Markov kernel S disintegrating Lambda and an involutive self-adjoint reflection isometry U, acting by composition with F(x,y)=(x,2x-y). For every smooth compactly supported real f, its macroscopic class g=[f composed with snd] satisfies Pg=g and PUPg=[T_f composed with snd], where T_f(y)=integral f dS_y belongs to L2(nu). For every y, s_y and f s_y are S_y-integrable and DT_f(y)=E[f s_y]-E[f]E[s_y], with s_y(u)=-DV((y+u)/2)/2-inner(y-u,.)/(4 eta).",
+      "formula": "PUP[f\\circ\\mathrm{snd}]=[T_f\\circ\\mathrm{snd}],\\quad T_f\\in L^2(\\nu),\\quad DT_f=\\operatorname{Cov}_{S_y}(f,s_y).",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. The potential V:E→R is C².",
+        "Constants α and β are finite nonnegative reals, α>0, and the actual second Fréchet derivative satisfies α‖v‖²≤D²V(x)[v,v]≤β‖v‖² for every x,v. The scale η is positive. No upper bound βη≤1 is needed for this differentiation step.",
+        "μ is volume tilted by −V and J is the law of (X,X+sqrt(η)Z), where X has law μ and Z is an independent standard Gaussian. Normalization and all integrability used in the proof are derived from the curvature assumptions.",
+        "The conclusion quantifies over every smooth compactly supported real f and every parameter y. P is the actual conditional orthogonal projection, not an arbitrary operator assumed to have the desired integral representation."
+      ],
+      "steps": [
+        {
+          "title": "Use one compatible pair of conditional kernels",
+          "text": "The previously proved conditional-score theorem constructs R disintegrating the actual law of (Y,X), and S_y as the reflected pushforward of R_y. Its normalization, density and derivative estimates follow from the genuine Hessian bounds. Keep these same R and S throughout the proof. The reflection theorem also supplies an isometry U and an unrelated conditional kernel witness; only its U is used. No equality of independently chosen versions is assumed.",
+          "formula": "S_y=(x\\mapsto 2x-y)_\\#R_y.",
+          "lean": "The final assembly obtains R,S from reflected_conditional_covariance and U from actual_reflection_block_identities; it discards the latter theorem's kernel witness."
+        },
+        {
+          "title": "Disintegrate the actual reflected joint law",
+          "text": "Write the swapped augmentation as J_swap=nu tensor R, with nu=J.snd. Push this measure through G(y,x)=(y,2x-y). For every measurable set, the composition-product formula and the fiber pushforward identity show that this pushforward is nu tensor S. Its first coordinate is unchanged. Composing G with the swap gives precisely the joint law Lambda of (Y_plus,Y_minus).",
+          "formula": "\\Lambda=\\nu\\otimes S,\\qquad \\Lambda_{1}=\\nu.",
+          "lean": "reflected_disintegration proves the measure equality by compProd_apply and map_apply; hLambda identifies the composed measurable maps."
+        },
+        {
+          "title": "Construct the macroscopic L2 class",
+          "text": "A smooth compactly supported real f is bounded. Since J is a probability measure, f composed with the second coordinate belongs to L2(J). Let g be its Lp class. The representative f composed with snd is measurable for the sigma-algebra generated by snd, so g lies in that closed measurable subspace. Orthogonal projection onto this subspace therefore fixes g.",
+          "formula": "g=[f\\circ\\mathrm{snd}],\\qquad Pg=g.",
+          "lean": "macroscopic_class uses MemLp.of_bound, toLp, mem_lpMeas_iff_aestronglyMeasurable and starProjection_eq_self_iff. It does not assert compact support on the product space."
+        },
+        {
+          "title": "Identify conditional projection using the selected kernel",
+          "text": "Every v in L2(J) is integrable because J is finite. The conditional expectation formula identifies Pv with the conditional integral of v(x,y). The selected R agrees almost everywhere with the canonical disintegration kernel by uniqueness; this is enough to obtain the formula J-almost everywhere. This step is proved for the R already used to construct S.",
+          "formula": "(Pv)(x,y)=\\int v(x\\prime,y)\\,R_y(dx\\prime)\\quad J\\text{-a.e.}",
+          "lean": "projection_kernel uses condExp_prod_ae_eq_integral_condDistrib', eq_condKernel_of_measure_eq_compProd and Lp.condExpL2_ae_eq_condExp."
+        },
+        {
+          "title": "Transport representatives through reflection and disintegration",
+          "text": "The actual reflection F(x,y)=(x,2x-y) preserves J, so composing a J-almost-everywhere representative identity with F remains valid almost everywhere. Thus Ug equals f(2x-y) J-almost everywhere. Disintegrating this equality yields R_y-almost-everywhere equality for nu-almost every y, sufficient for equality of conditional integrals. Pushforward integration then identifies these integrals with T_f(y). Combining with Pg=g gives the actual compressed operator representative.",
+          "formula": "PUPg=[T_f\\circ\\mathrm{snd}],\\qquad T_f(y)=\\int f(u)\\,S_y(du).",
+          "lean": "compressed_representative combines reflection_preserves_augmentation, fiber_ae, projection_kernel and expectation_map. Fiber representative identities are not asserted for every y."
+        },
+        {
+          "title": "Join L2 membership with the everywhere classical derivative",
+          "text": "Measurability of a kernel integral and the bound |T_f(y)|<=sup|f| give T_f in L2(nu). For this same everywhere-defined kernel S, the conditional-score theorem supplies integrability of s_y and f s_y and the derivative at every y. The operator identity is an almost-everywhere identity of representatives, whereas this derivative statement is everywhere for the selected representative. Neither statement alone supplies a quantitative variance estimate or a Sobolev extension.",
+          "formula": "DT_f(y)=\\mathbb E_{S_y}[f s_y]-\\mathbb E_{S_y}[f]\\,\\mathbb E_{S_y}[s_y].",
+          "lean": "expectation_memLp uses measurable kernel integration and MemLp.of_bound; the final derivative and both integrability clauses use hder for the same S."
+        }
+      ],
+      "lean_statement": "One compatible reflected kernel supplies the actual joint disintegration, actual compressed L2 representative and its everywhere classical derivative.",
+      "lean_proof": "Local measure and conditional-expectation adapters join the existing actual reflection isometry and conditional-score construction, discharging every adapter premise from the public Hessian hypotheses.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2.actual_reflection_block_identities",
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection.reflection_preserves_augmentation",
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation.normalized_augmentation_density"
+      ],
+      "mathlib_dependencies": [
+        "Measure.compProd_apply",
+        "Measure.disintegrate",
+        "Measure.ae_ae_of_ae_compProd",
+        "ProbabilityTheory.condExp_prod_ae_eq_integral_condDistrib'",
+        "MeasureTheory.Lp.condExpL2_ae_eq_condExp",
+        "Submodule.starProjection_eq_self_iff",
+        "MeasureTheory.MemLp.of_bound"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1 and Appendix B.1",
+          "scope": "Conditional expectation representation and differentiation joined to the compressed reflection; selected proof step only."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSMacroscopicRepresentative.lean",
+        "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative Tests.ProximalBPSMacroscopicRepresentative"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative.macroscopic_reflection_smooth_representative",
+      "role": "proof-edge",
+      "supports": [
+        "actual-joint",
+        "compressed-representative",
+        "classical-derivative"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "The paper works on R^d, d>=1, with C2 potential V, genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.",
+        "lean": "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. The potential V:E→R is C². Constants α and β are finite nonnegative reals, α>0, and the actual second Fréchet derivative satisfies α‖v‖²≤D²V(x)[v,v]≤β‖v‖² for every x,v. The scale η is positive. No upper bound βη≤1 is needed for this differentiation step."
+      },
+      {
+        "source": "Conditional expectation expressed as a macroscopic operator.",
+        "lean": "One Markov S disintegrates Lambda; actual PUPg equals T_f composed with snd J-almost everywhere."
+      },
+      {
+        "source": "Gradient covariance for smooth compactly supported real f.",
+        "lean": "Everywhere HasFDerivAt with a continuous-dual-valued covariance and integrable score and f score."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "7676998ee464a23e7f424280ee4774d3840a2e504f9590440a96a62a6f20982b"
+}

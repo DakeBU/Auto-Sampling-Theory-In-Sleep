@@ -1,0 +1,33 @@
+{
+  "state": "PROVED_LOCAL",
+  "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative.macroscopic_reflection_smooth_representative",
+  "focused_check": {
+    "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative Tests.ProximalBPSMacroscopicRepresentative",
+    "result": "PASS3196",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/MacroscopicRepresentative.lean": "c9862a26075a1e48089a785c002a95d3b18262d2f94cabe15af4bc57e33af0a2",
+      "Tests/ProximalBPSMacroscopicRepresentative.lean": "3a13a3f258d4763888ec8f1bc305f95bf1f37eb8aa2af07ff9445db5d259e9f6"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/macroscopic-representative.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audit": "ASTIS-RT-20260911-PBPSMacroscopicRepresentative",
+    "artifact": "runs/20260911-companion-priority/macroscopic-representative.source-review-result.json"
+  },
+  "mathematical_status": "Actual joint disintegration and the differentiable representative of the actual compressed L2 reflection only. No conditional Poincare, quantitative score variance, general L2/H1 extension, coercivity, process/error/cost or complete-paper result.",
+  "remaining": [
+    "Source review and fixed-commit admission",
+    "Integration, aggregate gate and reader/graph delivery",
+    "Conditional curvature-to-Poincare and score variance",
+    "General L2/H1 extension and all later main-theorem dependencies"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "decoder": "macro_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent anonymous reconstruction; mathematical formulas transcribed in plain text.",
+  "source_text_visible": false,
+  "only_input": "runs/semantic-roundtrip/ASTIS-RT-20260911-PBPSMacroscopicRepresentative.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "55e01efcb02a44209af19a1e96d64a22d852cf1753389ea7f06b94836ac22f01",
+  "lean_statement_sha256": "f7f900c1b4c8d1103322a43ce7fca97353f5a5cebd2a69760846d631295d8f84",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product space equipped with its Borel structure and canonical Lebesgue measure. Let V:E->R, alpha,beta nonnegative real, eta real. Assume alpha>0, V is C2, eta>0, and alpha||v||^2 <= D2V(x)[v,v] <= beta||v||^2 for every x,v. Define mu as normalized exponential weighting of volume by -V, gamma as standard Gaussian, J as the pushforward of mu tensor gamma by (x,z)->(x,x+sqrt(eta)z), and Lambda as the pushforward of J by (x,y)->(y,2x-y). Let H=L2(J;R) and P be conditional expectation onto the subspace measurable in the second coordinate followed by inclusion into H. Define the continuous real-linear functional s(y,u)=-DV((y+u)/2)/2-inner(y-u,.)/(4 eta). There exists a Markov kernel S:E->E which is a conditional kernel for Lambda given its first coordinate: its input is y and its output is u=2x-y. Lambda.fst=J.snd. There exists a real-linear isometry U:H->H such that for every g in H, Ug(x,y)=g(x,2x-y) J-almost everywhere. U is involutive and its continuous linear operator is self-adjoint. For every smooth compactly supported real f, there exists g in H satisfying g(x,y)=f(y) J-almost everywhere and Pg=g. Define h_f(y)=integral f(u) S(y,du). Then (PUP)g(x,y)=h_f(y) J-almost everywhere and h_f belongs to L2(J.snd). For every y, s(y,.) and f(.)s(y,.) are integrable under S(y,.), and h_f is Frechet differentiable at y with derivative in E* equal to integral f(u)s(y,u)S(y,du) minus (integral f(u)S(y,du)) times (integral s(y,u)S(y,du)). The same S and U work for all f; g may depend on f. Derivative and integrability hold everywhere, while representative identities hold only J-almost everywhere. No additional numerical constant or constraint connecting eta,alpha,beta appears.",
+  "source_fidelity_verdict": null
+}

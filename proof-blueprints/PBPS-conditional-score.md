@@ -45,6 +45,34 @@ macroscopic coercivity, square-root/inverse operators and the half-turn process
 remain distinct proof obligations. Do not count this plan as another theorem
 packet or reset the current reflection packet's stabilization work.
 
+## Macroscopic representative and the remaining curvature criterion
+
+The new `MacroscopicRepresentative.macroscopic_reflection_smooth_representative`
+has passed focused compilation and independent development proof review. Its
+Frontier Cell records source review and integration separately. It joins the
+actual reflected joint disintegration, the actual `PUP` representative and the
+everywhere smooth-test derivative using one compatible kernel. This is not a
+conditional variance estimate.
+
+An independent bounded dependency audit by `depth_commit_verifier` found no
+ready curvature-to-Poincare proof in the searched ASTIS FunctionalInequalities
+and pinned Mathlib Gaussian/Convex slices. `Poincare.Satisfies`, `variance_le`
+and `Generator.SatisfiesPoincare` are contracts, not curvature criteria. The
+missing analytic theorem must derive the inequality with constant `1/m` from
+the genuine lower Hessian bound `D2W >= m I`, including its test domain and
+extension to noncompact score components. This search does not certify absence
+from every library file.
+
+The next dependency-ready source input is the actual conditional potential
+`W_y(u) = V((y+u)/2) + norm(y-u)^2/(8 eta)`: prove its Hessian lower bound
+`(alpha + eta^(-1))/4`, the score derivative norm bound
+`(eta^(-1) - alpha)/4` under `beta*eta <= 1`, and integrability of directional
+scores, their centered squares and gradient squares under the actual fiber.
+This supplies the noncompact input domain needed by Appendix C.1. It must not
+be reported as the Poincare inequality or its variance conclusion. A later
+Brascamp--Lieb/weighted Bochner route still needs actual integration by parts,
+density or weak-solution arguments; an isolated Bochner identity is insufficient.
+
 ## Next dependency audit
 
 The bounded lookup of
