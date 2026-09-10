@@ -38,7 +38,6 @@
   },
   "mathematical_status": "Dense compact-test gradient operator and its closed extension under actual weighted probability only. No weighted generator operator core, dense mean-zero generator range, resolvent regularity, Poincare, score variance, macro coercivity, process or full-paper result. The gradient closure core is not automatically a core of D*D.",
   "remaining": [
-    "Verify merge-commit CI and actual deployed reader",
     "Weak resolvent actual consumer, generator regularity/core and compact Bochner extension",
     "Noncompact score extension and conditional Poincare",
     "All later main-theorem dependencies and full papers"
@@ -63,7 +62,7 @@
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/257",
     "state": "MERGED",
     "head": "1795a162d744d852b8c7a9adc386d53f689bcf83",
-    "boundary": "Actual merge verified; merge CI and actual deployment pending."
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and both live anchors/build provenance verified."
   },
   "reader_checks": {
     "candidate": "d503968ce62d29392ec627910c8a88685eb4c093",
@@ -129,7 +128,22 @@
       "lean": "34538552602 SUCCESS",
       "site": "34538552654 SUCCESS; PR deployment skipped"
     },
-    "post_merge": "Merge-commit CI and actual deployed reader pending.",
+    "post_merge": {
+      "lean_run": 34539398464,
+      "site_run": 34539398506,
+      "state": "Both merge-commit runs SUCCESS; deploy website job SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+        "http_status": 200,
+        "anchors": [
+          "pbps-weighted-gradient",
+          "pbps-conditional-gradient"
+        ],
+        "merge_commit": "dc511b5603287a597379f96e7283a5cda19570e1",
+        "merge_commit_present": true,
+        "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
+      }
+    },
     "truth_boundary": "Dense compact-test gradient operator and its closed extension under actual weighted probability only. No weighted generator operator core, dense mean-zero generator range, resolvent regularity, Poincare, score variance, macro coercivity, process or full-paper result. The gradient closure core is not automatically a core of D*D."
   }
 }
