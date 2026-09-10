@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
     "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent"
@@ -38,10 +38,10 @@
   },
   "mathematical_status": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim.",
   "remaining": [
-    "Independent fixed-commit review",
     "Integration, aggregate and reader/graph delivery",
     "Generator regularity/core and compact Bochner extension",
     "Constant-kernel/mean-zero limit, conditional Poincare and noncompact score variance",
     "All later main-theorem dependencies and full papers"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/conditional-resolvent.verified-admission.json"
 }
