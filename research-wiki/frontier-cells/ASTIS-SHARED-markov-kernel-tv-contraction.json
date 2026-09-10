@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Section 7.2 input/proxy error transfer; PBPS arXiv:2609.06905v1 Section 4.3 costs remain separate.",
   "target_statement": "For probability measures μ and ν and Markov kernel K, an eventwise bound |μ(s)-ν(s)|≤δ for every measurable s implies the same δ bound for every measurable event of K∘μ and K∘ν. All measurability and integrability are proved from the kernel and probability hypotheses.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "Integrable.integral_eq_integral_Ioc_meas_le",
     "Measure.bind_apply",
@@ -31,12 +31,14 @@
     "notes": "Reuse Layercake; no new TV distance definition, densities, standard-Borel assumption or coupling selection. All helpers remain local."
   },
   "evidence": {
+    "verified_commit": "a11d5430752fc2d54dea8c8aca2ac6da24898eb9",
+    "commit_verification": "runs/20260910-companion-priority/markov-tv.commit-verification.json; independently checked by rgo_independent_verifier, including committed module/test bytes and official publication binding.",
     "focused_checks": [
       "Lean 4.33.0, LEAN_NUM_THREADS=2: lake build Tests.KernelTotalVariation PASS2589; printed axioms only propext, Classical.choice, Quot.sound."
     ],
     "module_sha256": "7995000cf384916314bca2d844d2eb0e54ae9983951dfe2b42571b691124238e",
     "test_sha256": "ede6d32352575291810631de19203e77db91fbb9ec2e654c502055cb7b183f0a",
-    "independent_verification": "rgo_independent_verifier independently read both frozen files and checked the fake-closure scan: approved exact factor one, genuine input/tail integrability, arbitrary measurable spaces and endpoint/atomic validity; reused root's actual focused build, no separate rerun claimed. Source round-trip and commit-bound admission remain pending.",
+    "independent_verification": "rgo_independent_verifier approved exact factor one, genuine input/tail integrability, arbitrary measurable spaces and endpoint/atomic validity; reused root's actual focused/full builds without claiming a rerun. Accepted source audit and proof commit a11d543 are independently bound in the recorded attestation.",
     "source_review": "ASTIS-RT-20260910-MarkovKernelTVContraction accepted by publication_gate_review after independent source-blind reconstruction; seven semantic slots checked, two informational generalizations, no repair.",
     "root_build": "python tools/astis.py check PASS: lake build 8953 jobs; lake build Tests 9072 jobs; ATLAS and fake-closure check passed. 61 publication/semantic/advance regression tests passed; py_compile tools/astis.py passed. Commit-bound admission remains separate.",
     "graph_regeneration": "not yet integrated",

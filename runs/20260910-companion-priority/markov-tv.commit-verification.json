@@ -1,0 +1,12 @@
+{
+  "verifier_id": "rgo_independent_verifier",
+  "verified_commit": "a11d5430752fc2d54dea8c8aca2ac6da24898eb9",
+  "verified_tree": "e64d3b510b2f8e97c03210eb1de9dd26664d347d",
+  "gate": "PASS by independent reuse of root's completed current aggregate: lake build8953, Tests9072, ATLAS and fake-closure check passed. Two frozen raw module/test blobs and current files exactly match the verifier's prior proof review. No verifier build rerun is claimed. Old .astis/site-lean-gate.json still references the nine-result f0b snapshot and is not evidence for this new aggregate.",
+  "source_audit": "ASTIS-RT-20260910-MarkovKernelTVContraction accepted independently by publication_gate_review; anonymous decoder heatbath_exposition_research. The verifier independently recomputed official single-item publication binding d1ae3b122be5fcbe81bf4eb0d2eaa0f610be8eb673e87b5e5eeda5fe0f74dc93; lesson/publication/reviewer packet/reviewer response/decoder response match committed bytes. Registry/toolchain/manifest have CRLF/LF-only differences.",
+  "semantic_roundtrip_audit": "ASTIS-RT-20260910-MarkovKernelTVContraction",
+  "fake_closure_scan": "PASS by independent unchanged target scan and root aggregate check. Standard axioms only propext/Classical.choice/Quot.sound; exact layercake kernel-composition proof, no assumed contraction/mixing/cost conclusion.",
+  "publication_declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation.abs_real_comp_sub_le"
+  ]
+}
