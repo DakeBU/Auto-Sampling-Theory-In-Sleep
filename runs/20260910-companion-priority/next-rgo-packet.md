@@ -36,3 +36,28 @@ normalized Gibbs certificate and quadratic_tilt_tilt supply later specialization
 No curvature, moments, convergence, nonexplosion, generator-domain or query-cost
 conclusion belongs in this packet. Arbitrary conditional representatives agree
 only marginal-a.e.; the explicit density is an everywhere-defined selected version.
+
+## Planned successor after conditional-kernel publication
+
+Primary source inspected: https://arxiv.org/html/2609.06906v1#S6.SS2,
+Section6.2.2, Lemma6.4 and (6.1). Assemble the numbered calculus result from
+existing parents rather than introducing a second quadratic or RGO library.
+This is a source-audited plan, not a new claimed SAU or frozen Lean declaration.
+
+Use nonnegative precision r=A^-1 so r=0 retains A=infinity. For C² U with
+kappa^-1 I ≤ D²U ≤ I and a>0, put alpha=kappa^-1+r, beta=1+r,
+K=beta/alpha. The source successor is r+=r+1/a and
+u+=(r+1/a)^-1*(r*u+y/a), with
+K+=(beta+1/a)/(alpha+1/a)=(a*beta+1)*K/(a*beta+K).
+Positive alpha and a justify every division. The source scalar identity is
+not a claim that RecursiveCondition's already compiled contraction bounds
+construct or execute a recursive sampler.
+
+Reuse QuadraticRegularization for genuine strong convexity and gradient
+smoothness; HessianStrongConvexity plus StrongConvexGibbsIntegrability for a
+positive finite Gibbs normalizer; RGOClosure.quadratic_tilt_tilt for normalized
+composition; and the explicit conditional kernel only where the probability
+law is interpreted as a backward oracle. Convert the mu-relative tilts to the
+source potentials using Mathlib tilted_tilted under proved integrability.
+Keep an implementable oracle, recursive accuracy, reference-point work and
+actual-input expected query costs outside this calculus integration packet.

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "PBPS arXiv:2609.06905v1 §2.2 (2.7)-(2.8), Definition2.2 and §3.2; SPHMC arXiv:2609.06906v1 §3.4 RGO semantics.",
   "target_statement": "For any probability law μ on finite-dimensional real inner-product Borel E and η>0, construct an actual measurable Markov kernel R with R(y)=μ.tilted(x↦−‖x−y‖²/(2η)) at every y, and prove that R disintegrates the swapped actual law of (X,X+sqrt(η)G), with independent X~μ and standard Gaussian G.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation.augmentation_eq_withDensity",
     "Measure.compProd_withDensity",
@@ -33,12 +33,14 @@
     "notes": "Reuse the already owned generic augmentation theorem in its existing PBPS module; do not move/reprove it and invalidate old audits. This location is historical, not a source-specific mathematical premise. All normalizer and density helpers remain local."
   },
   "evidence": {
+    "verified_commit": "af73e49d56d5e3b041ee37cc198012367598c581",
+    "commit_verification": "runs/20260910-companion-priority/gaussian-rgo.commit-verification.json: rgo_independent_verifier independently checked commit bytes, canonical review hashes and the full publication binding; prior unchanged proof/source reviews and root build evidence explicitly reused.",
     "focused_checks": [
       "Lean4.33.0, LEAN_NUM_THREADS=2: lake build Tests.GaussianConditionalKernel PASS3164; singular Dirac and general backward-law recovery tests passed; printed axioms propext, Classical.choice, Quot.sound."
     ],
     "module_sha256": "6233b2527acc6b4297b62ac92f041b8c1af02e35ea60e16ddaa3501123329d1e",
     "test_sha256": "ee265686008c6df082bf1dffc0ea07827bc905efd1dfcdb80b7796aa1f0ab800",
-    "independent_verification": "rgo_independent_verifier independently approved the exact candidate: genuine all-y probability, jointly measurable density, correct swapped disintegration and singular/dimension-zero scope. No duplicate build or source/commit certification claimed; those admissions remain pending.",
+    "independent_verification": "rgo_independent_verifier approved the unchanged proof and exact af73e49 commit: genuine all-y probability, jointly measurable density, correct swapped disintegration and singular/dimension-zero scope. Accepted source review and root build results were reused with their original actors; no verifier build rerun or complete-paper claim.",
     "source_review": "ASTIS-RT-20260910-GaussianConditionalKernel accepted: anonymous decoder heatbath_exposition_research and independent source reviewer publication_gate_review; all seven slots checked, three informational elaborations, no repair.",
     "root_build": "tools/astis.py check PASS: lake build 8954 jobs, lake build Tests 9074 jobs, ATLAS and fake-closure check. py_compile tools/astis.py and 61 focused protocol regressions passed. Publication PASS12, semantic PASS15 audits/1 preserved repair, frontier PASS23. Commit-bound admission remains separate.",
     "graph_regeneration": "not integrated",

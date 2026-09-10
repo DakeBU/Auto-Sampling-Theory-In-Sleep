@@ -1,0 +1,28 @@
+{
+  "verifier_id": "rgo_independent_verifier",
+  "verified_commit": "af73e49d56d5e3b041ee37cc198012367598c581",
+  "decision": "APPROVE_VERIFIED",
+  "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+  "cell": "ASTIS-SHARED-gaussian-rgo-conditional-kernel",
+  "gate": "Reused root-reported Lean 4.33.0/thread-2 results: lake build 8954 PASS; Tests 9074 PASS; focused Tests.GaussianConditionalKernel 3164 PASS; standard axioms only; ASTIS/ATLAS and 61 protocol tests PASS. No build rerun by this verifier.",
+  "source_audit": "Accepted source review by publication_gate_review, independently decoded by heatbath_exposition_research; neither is formalizer root-companion-writer. Existing unchanged review reused, not independently repeated here.",
+  "semantic_roundtrip_audit": "ASTIS-RT-20260910-GaussianConditionalKernel",
+  "fake_closure_scan": "Independent bounded scan of the committed-matching module/tests found no sorry, admit, custom axiom, trivial closure, unsafe or native_decide. Only the expected #print axioms matched. Root's aggregate fake-closure PASS is reused separately.",
+  "evidence": {
+    "tree": "f0045c709994bf5219621875ef24614792c0a12f",
+    "module_sha256": "6233b2527acc6b4297b62ac92f041b8c1af02e35ea60e16ddaa3501123329d1e",
+    "tests_sha256": "ee265686008c6df082bf1dffc0ea07827bc905efd1dfcdb80b7796aa1f0ab800",
+    "publication_binding_sha256": "4cbb446c64948d2d573bad6f4a749cb9d6768b2c90bf0fa8ecd3796b807f284d",
+    "reviewer_packet_sha256": "b47e07f107cfda198c7ac38e8543ee1cb896b2eb0990e545eae003e70bd6edd0",
+    "review_result_raw_sha256": "bfe882154a6ae895208c3edad7f7519da96ea4680e8f2ee95fef9a07ac45ac3b",
+    "decoder_packet_sha256": "e8415ffdcdc84e327899265ba41412469338f55cda48155535ae9c4964674d9e",
+    "decoder_result_raw_sha256": "3e170a9ebab614d8001097248a67684a6c1fc3070d07b4e6cbe824b4cc169471",
+    "source_text_sha256": "83142467228b7ddf145c7d1a4c34ed0a0ba22c2d54afba1249ef1e32258a4766",
+    "statement_sha256": "60baaf80e5a7c41f4d2eeee92cb635f3b35f95c2343b8900e57f2b1dddcb23f2",
+    "reconstruction_sha256": "b65d5896b69011d14f8ed84af3aa3c93ee2f91f8f4006cdc9bd75fe2366309cd",
+    "checks": "Single git blob batch confirmed module, tests, publication, lesson and all four review/decoder artifacts match commit/current raw bytes. Registry, toolchain, manifest and checked import/test roots differ only by CRLF/LF. Official binding_digest independently recomputed and matched; canonical packet and source/statement/reconstruction hashes matched. Full binding was not confused with projected-context hash.",
+    "proof_review": "Reused my unchanged independent mathematical review: genuine jointly measurable Markov kernel, integrable strictly positive likelihood and positive normalizer for every y; actual swapped-joint disintegration; singular probability inputs and dimension zero allowed; no totalized fallback.",
+    "scope": "Only this theorem/module/cell admission. Backward marginal recovery is not PBPS process invariance, RGO implementation, mixing or whole-paper completion.",
+    "protocol": "ASTIS semantic-roundtrip and substantive-advance rules preserve actor independence and unchanged evidence attribution. No files edited."
+  }
+}
