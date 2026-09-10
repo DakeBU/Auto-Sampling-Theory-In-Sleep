@@ -1,5 +1,5 @@
 {
-  "status": "PROVED_LOCAL",
+  "status": "STABILIZING",
   "source": "arXiv:2609.06906v1 equation (6.4)",
   "proof": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/LogarithmicDepth.lean",
   "command": "lake env lean AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/LogarithmicDepth.lean",
@@ -23,5 +23,24 @@
     "test_sha256": "730e254189082f90cd7bcc997fa41d3d9b47d3f11095619a7bf4b4b863c23e07"
   },
   "independent_proof_review": "runs/20260911-companion-priority/log-depth.independent-proof-review.json",
-  "source_fidelity": "draft; anonymous decoder in progress"
+  "source_fidelity": "accepted equivalent-after-elaboration, three informational deltas",
+  "independent_admission": "runs/20260911-companion-priority/log-depth.verified-admission.json",
+  "aggregate_gate": {
+    "status": "PASS",
+    "candidate": "4d283fccb6322826f4b68f662011163145e0b0dd plus root imports",
+    "command": "python website/scripts/lean_gate.py",
+    "exit_code": 0,
+    "jobs": 9082,
+    "source_digest": "ad614d41788c99206a27e7c544dff208261d5033f420ff53f8b6a0982ed6f1e3",
+    "log": ".astis/log-depth.aggregate-gate.log"
+  },
+  "site_build": {
+    "status": "running",
+    "session": 16842,
+    "log": ".astis/log-depth.site-build.log",
+    "preview_session": 10788,
+    "preview_port": 8765,
+    "preview_checked": false,
+    "previous_failure": "Frontier metadata omitted the literal Samplinglib scope; actual prior search was preserved and clarified. Frontier protocol and reviewed publication gate now PASS."
+  }
 }

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Theorem6.5 definition of Lq, equation(6.4), and terminal-stage argument; schedule(6.2)",
   "target_statement": "Under the actual precision recursion with kappa>=1,r0>=0,0<c0<1/4 and0<eta_j<=c0, let d be a positive natural dimension,q>=2,0<Delta0<=1/2,0<gamma<=1,C>=8. Define Lq=q+log(K0*d*q/Delta0),B=gamma/(sqrt(d*Lq)+Lq),J=ceil(C*log(exp(1)*K0/B)). Prove Lq>=2,0<B<=1,0<J,0<1/r_J<=B, and J<=(3*C+(C/2)*log(1/gamma))*Lq.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-recursive-depth"
   ],
@@ -15,7 +15,7 @@
   ],
   "shared_floor_audit": {
     "searched": [
-      "ASTIS RecursiveDepth.parameter_control and its two scalar parent cells; no prescribed logarithmic depth theorem",
+      "Samplinglib / ASTIS RecursiveDepth.parameter_control and its two scalar parent cells; no prescribed logarithmic depth theorem",
       "Pinned Mathlib Real.log_pow, Real.log_le_log_iff, Real.log_le_sub_one_of_pos, Nat.le_ceil, Nat.ceil_lt_add_one, square-root inequalities"
     ],
     "classification": "adapt",
@@ -34,7 +34,8 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-recursive-depth.md#next-source-edge-prescribed-depth-not-yet-formalized",
     "planning_review": "depth_source_reviewer independently checked ceiling arithmetic, all C>=8, and explicit gamma dependence. Planning only, not Lean/source admission.",
-    "admission_boundary": "PROVED_LOCAL only. Source review, commit admission, integration and reader validation remain pending."
+    "admission_boundary": "VERIFIED local theorem; STABILIZING integration and rendered reader pending.",
+    "independent_verification": "depth_commit_verifier authorized VERIFIED at4d283fccb6322826f4b68f662011163145e0b0dd; exact evidence in runs/20260911-companion-priority/log-depth.verified-admission.json"
   },
   "blocked": {
     "reason": "",
