@@ -18,7 +18,7 @@
   ],
   "shared_floor_audit": {
     "searched": [
-      "Current ReflectionL2 actual isometry/projection theorem and ConditionalScore actual reflected kernel derivative",
+      "Samplinglib: current ReflectionL2 actual isometry/projection theorem and ConditionalScore actual reflected kernel derivative",
       "Pinned Mathlib Measure.IsCondKernel, disintegrate, compProd_apply, ae_ae_of_ae_compProd, conditional expectation and Lp APIs",
       "FunctionalInequalities.Poincare has contracts only; no curvature criterion"
     ],
