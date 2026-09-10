@@ -3725,7 +3725,7 @@
         "source_id": "discrete-sampling:2307.13826v4",
         "anchor": "Section 1.1, unnumbered support definition, printed/PDF p.4; section 1.3 general update step 1 (site selection), step 3 (conditional sampling), and the explanatory prose immediately after step 3, printed/PDF p.5. https://arxiv.org/pdf/2307.13826v4#page=4 and #page=5. This comparison targets that explanatory update rule and its one-step law.",
         "original_text": "ASTIS mathematical paraphrase, not source quotation: Let V be a finite nonempty set of sites and let μ be a probability distribution on the Boolean configurations. Its state space Ω consists of exactly the configurations of positive probability. Starting at x in Ω, select one site i uniformly from V. Retain each other site's own old value and sample the value at i from the target conditional on all the retained values. Identify the probability of each configuration y after this one update. Coordinates are represented by Fin(n+1) and Boolean values by Bool; this is a coordinate convention, not a sweep or a convergence claim.",
-      "text_sha256": "aa35db799a78cbbea3e317648de5f277c2b77106a4c61dec9b4ceb75f63507ac",
+        "text_sha256": "aa35db799a78cbbea3e317648de5f277c2b77106a4c61dec9b4ceb75f63507ac",
         "wording_status": "faithful ASTIS paraphrase of the cited explanatory route; not licensed source text",
         "pdf_sha256": "3cc2f911b33bb5538157ef8a70f0c7e0f3c812ecd06dc9c1d5ea0bfdae11a52a"
       },
@@ -3733,7 +3733,7 @@
         "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.RandomScanHeatBath.randomScan_apply_singleton",
         "file": "AutoSamplingTheory/TechnicalLemmas/Probability/RandomScanHeatBath.lean",
         "statement": "∀ {n : ℕ} (μ : Measure (Fin (n + 1) → Bool)) [inst : IsProbabilityMeasure μ]\n  (x y : Fin (n + 1) → Bool),\n  μ {x} ≠ 0 →\n    ((randomScan μ) x) {y} =\n      (↑n + 1)⁻¹ *\n        ∑ i,\n          if ∀ (j : Fin (n + 1)), j ≠ i → y j = x j then\n            (μ {z | (fun j => z (i.succAbove j)) = fun j => x (i.succAbove j)})⁻¹ * μ {y}\n          else 0",
-      "statement_sha256": "c7bd862adeaa76beb38df77209598550a44ded4b90d6945ff443497fcca74dd4",
+        "statement_sha256": "c7bd862adeaa76beb38df77209598550a44ded4b90d6945ff443497fcca74dd4",
         "compiled": true,
         "formalizer": "random_scan_worker",
         "decoder_context": [
@@ -4012,6 +4012,171 @@
         "interpretation": "Accepted only for the explicitly selected Boolean specialization of the reversibility clause. The arbitrary finite-spin-alphabet statement and separate source conclusions are not fully formalized by this declaration."
       },
       "repairs": []
+    },
+    {
+      "id": "ASTIS-RT-20260910-SPHMCRecursiveDepth",
+      "state": "draft",
+      "source": {
+        "source_id": "companion:sphmc-recursive-depth",
+        "anchor": "Lemma6.4 (6.1), schedule(6.2), Lemma6.6 and the terminal-stage argument following(6.4)",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "original_text": "For the normalized recursive RGO schedule assume κ≥1, r₀≥0, 0<c<1/4 and 0<ηⱼ≤c for every j. Define K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) for K(r)≥2 and τ(r)=c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All rⱼ are nonnegative and every rⱼ₊₁ is positive. K(rⱼ) is nonincreasing, so a stage below two stays below two at every later stage. If (4/5)^M K(r₀)<2, then for every N≥0, 0<1/r_(M+1+N)≤2c[2c/(1+2c)]^N. For every B>0, some J>0 satisfies 0<1/rⱼ≤B. These are the parameter consequences of Lemma6.4, the schedule and Lemma6.6 used in the terminal-stage argument; they do not claim the full recursive sampling theorem or its prescribed logarithmic constants.",
+        "text_sha256": "7b8df3931128342853b47a75febac1e034ce153428ab12a9fc1b1ebe7caa6d35"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RecursiveDepth.lean",
+        "statement": "∀ {κ c r₀ : ℝ} {η : ℕ → ℝ},\n  1 ≤ κ →\n    0 < c →\n      c < 1 / 4 →\n        0 ≤ r₀ →\n          (∀ (n : ℕ), 0 < η n ∧ η n ≤ c) →\n            have K := fun r => (1 + r) / (κ⁻¹ + r);\n            have τ := fun r => if 2 ≤ K r then K r else c;\n            have a := fun r h => (h + τ r) / (1 + r);\n            have step := fun r h => r + (a r h)⁻¹;\n            have r := fun t => Nat.rec r₀ (fun j r => step r (η j)) t;\n            (∀ (n : ℕ), 0 ≤ r n ∧ 0 < r (n + 1)) ∧\n              (Antitone fun n => K (r n)) ∧\n                (∀ (m n : ℕ), m ≤ n → K (r m) < 2 → K (r n) < 2) ∧\n                  (∀ (M N : ℕ),\n                      (4 / 5) ^ M * K r₀ < 2 →\n                        0 < (r (M + 1 + N))⁻¹ ∧ (r (M + 1 + N))⁻¹ ≤ 2 * c * (2 * c / (1 + 2 * c)) ^ N) ∧\n                    ∀ (B : ℝ), 0 < B → ∃ J, 0 < J ∧ 0 < (r J)⁻¹ ∧ (r J)⁻¹ ≤ B",
+        "statement_sha256": "a4e9db522739a3eabd69ae52b3ae042423c2b32f730f08724af6ce828b0783c7",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Consolidated parameter_control production module compiled on official Lean4.33.0,1669 jobs; consumer refresh separately recorded.",
+        "decoder_context": [
+          "ℝ denotes the real numbers, ℕ the natural numbers starting at zero. Real reciprocal is totalized: 0⁻¹=0. A have-expression in a displayed type introduces a local abbreviation. Nat.rec z f defines the sequence with value z at zero and value f j (previous value) at j+1. Antitone f means that m≤n implies f n≤f m. All functions and operations are as explicitly defined in the displayed statement."
+        ]
+      },
+      "repairs": [],
+      "publication_binding_sha256": "71ceab14b2a42673514214a2b86de0df7de8644bf729b486048213e4be2bc862",
+      "publication_context": {
+        "file": "96975c94da3abb8c0d267a4739188eb55f765b0c9de78219a3cc30ded28e0b28",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance\nimport Mathlib.Analysis.SpecificLimits.Basic\n\n/-!\n# Actual recursive RGO parameter schedule\n\nSource: arXiv:2609.06906v1, (6.1)--(6.4) and Lemma 6.6.\nThe precision recursion retains the source's infinite initial regularization\nparameter as zero precision. This is a deterministic parameter calculation;\nit is not a construction of a random sampler or a query-cost bound.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth\n\n/-- Actual scheduled precision recursion has persistent well-conditioning and\nan explicit geometric terminal-parameter bound. This is not an error or cost\nbound for a random sampler. All finite variance readings occur at positive\nsuccessor precision, including when the initial precision is zero. -/\ntheorem parameter_control {κ c r₀ : ℝ} {η : ℕ → ℝ}\n    (hκ : 1 ≤ κ) (hc : 0 < c) (hc_upper : c < 1 / 4) (hr₀ : 0 ≤ r₀)\n    (hη : ∀ n, 0 < η n ∧ η n ≤ c) :\n    let K := fun r : ℝ => (1 + r) / (κ⁻¹ + r)\n    let τ := fun r : ℝ => if 2 ≤ K r then K r else c\n    let a := fun r h : ℝ => (h + τ r) / (1 + r)\n    let step := fun r h : ℝ => r + (a r h)⁻¹\n    let r : ℕ → ℝ := Nat.rec r₀ (fun j r => step r (η j))\n    (∀ n, 0 ≤ r n ∧ 0 < r (n + 1)) ∧\n      Antitone (fun n => K (r n)) ∧\n      (∀ m n, m ≤ n → K (r m) < 2 → K (r n) < 2) ∧\n      (∀ M N, (4 / 5 : ℝ)^M * K r₀ < 2 →\n        0 < (r (M + 1 + N))⁻¹ ∧\n        (r (M + 1 + N))⁻¹ ≤ 2 * c * (2 * c / (1 + 2 * c))^N) ∧\n      (∀ B : ℝ, 0 < B → ∃ J : ℕ,\n        0 < J ∧ 0 < (r J)⁻¹ ∧ (r J)⁻¹ ≤ B) := by\n  let condition (κ r : ℝ) : ℝ := (1 + r) / (κ⁻¹ + r)\n  let heat (κ c r : ℝ) : ℝ := if 2 ≤ condition κ r then condition κ r else c\n  let stepVariance (κ c r h : ℝ) : ℝ := (h + heat κ c r) / (1 + r)\n  let nextPrecision (κ c r h : ℝ) : ℝ := r + (stepVariance κ c r h)⁻¹\n  let precision (κ c r₀ : ℝ) (η : ℕ → ℝ) : ℕ → ℝ :=\n    Nat.rec r₀ (fun j r => nextPrecision κ c r (η j))\n  have condition_bounds {κ r : ℝ} (hκ : 1 ≤ κ) (hr : 0 ≤ r) :\n      1 ≤ condition κ r := by\n    have hkpos : 0 < κ := lt_of_lt_of_le zero_lt_one hκ\n    have hbpos : 0 < κ⁻¹ := inv_pos.mpr hkpos\n    have hble : κ⁻¹ ≤ 1 := (inv_le_one₀ hkpos).2 hκ\n    unfold condition\n    apply (one_le_div (add_pos_of_pos_of_nonneg hbpos hr)).2\n    linarith\n\n  have condition_antitone {κ r s : ℝ} (hκ : 1 ≤ κ)\n      (hr : 0 ≤ r) (hrs : r ≤ s) : condition κ s ≤ condition κ r := by\n    have hkpos : 0 < κ := lt_of_lt_of_le zero_lt_one hκ\n    have hbpos : 0 < κ⁻¹ := inv_pos.mpr hkpos\n    have hble : κ⁻¹ ≤ 1 := (inv_le_one₀ hkpos).2 hκ\n    unfold condition\n    apply (div_le_div_iff₀ (add_pos_of_pos_of_nonneg hbpos (hr.trans hrs))\n      (add_pos_of_pos_of_nonneg hbpos hr)).2\n    nlinarith [mul_nonneg (sub_nonneg.mpr hrs) (sub_nonneg.mpr hble)]\n\n  have stepVariance_pos {κ c r h : ℝ} (_hκ : 1 ≤ κ)\n      (hc : 0 < c) (hr : 0 ≤ r) (hh : 0 < h) :\n      0 < stepVariance κ c r h := by\n    have hheat : 0 < heat κ c r := by\n      unfold heat\n      split_ifs with hk\n      · linarith\n      · exact hc\n    exact div_pos (add_pos hh hheat) (by linarith)\n\n  have nextPrecision_gt {κ c r h : ℝ} (hκ : 1 ≤ κ)\n      (hc : 0 < c) (hr : 0 ≤ r) (hh : 0 < h) :\n      r < nextPrecision κ c r h := by\n    exact lt_add_of_pos_right r (inv_pos.mpr (stepVariance_pos hκ hc hr hh))\n\n  have precision_nonneg {κ c r₀ : ℝ} {η : ℕ → ℝ}\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hr₀ : 0 ≤ r₀) (hη : ∀ n, 0 < η n)\n      (n : ℕ) : 0 ≤ precision κ c r₀ η n := by\n    induction n with\n    | zero => exact hr₀\n    | succ n ih =>\n      exact ih.trans (nextPrecision_gt hκ hc ih (hη n)).le\n\n  have precision_succ_pos {κ c r₀ : ℝ} {η : ℕ → ℝ}\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hr₀ : 0 ≤ r₀) (hη : ∀ n, 0 < η n)\n      (n : ℕ) : 0 < precision κ c r₀ η (n + 1) := by\n    have hr := precision_nonneg hκ hc hr₀ hη n\n    exact lt_of_le_of_lt hr (nextPrecision_gt hκ hc hr (hη n))\n\n  have condition_sequence_antitone {κ c r₀ : ℝ} {η : ℕ → ℝ}\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hr₀ : 0 ≤ r₀) (hη : ∀ n, 0 < η n) :\n      Antitone (fun n => condition κ (precision κ c r₀ η n)) := by\n    apply antitone_nat_of_succ_le\n    intro n\n    have hr := precision_nonneg hκ hc hr₀ hη n\n    exact condition_antitone hκ hr (nextPrecision_gt hκ hc hr (hη n)).le\n\n  have well_conditioned_persists {κ c r₀ : ℝ} {η : ℕ → ℝ}\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hr₀ : 0 ≤ r₀) (hη : ∀ n, 0 < η n)\n      {m n : ℕ} (hmn : m ≤ n) (hm : condition κ (precision κ c r₀ η m) < 2) :\n      condition κ (precision κ c r₀ η n) < 2 :=\n    lt_of_le_of_lt (condition_sequence_antitone hκ hc hr₀ hη hmn) hm\n\n  have ratio_update {b r t : ℝ} (hb : 0 < b) (hr : 0 ≤ r)\n      (ht : 0 < t) :\n      (1 + (r + (t / (1 + r))⁻¹)) / (b + (r + (t / (1 + r))⁻¹)) =\n        ((1 + r) / (b + r)) * (t + 1) / (t + (1 + r) / (b + r)) := by\n    have hB : 0 < 1 + r := by linarith\n    have hD : 0 < b + r := add_pos_of_pos_of_nonneg hb hr\n    have hnext : 0 < b + (r + (t / (1 + r))⁻¹) := by positivity\n    have hden : 0 < t + (1 + r) / (b + r) := by positivity\n    rw [inv_div]\n    field_simp\n    ring\n\n  have large_branch_contraction {κ c r h : ℝ}\n      (hκ : 1 ≤ κ) (hr : 0 ≤ r) (hh : 0 < h) (hhc : h ≤ c)\n      (hc : c < 1 / 4) (hk : 2 ≤ condition κ r) :\n      condition κ (nextPrecision κ c r h) ≤ (4 / 5) * condition κ r := by\n    have hkpos : 0 < κ := lt_of_lt_of_le zero_lt_one hκ\n    have ht : 0 < h + condition κ r := by linarith\n    have heq := ratio_update (inv_pos.mpr hkpos) hr ht\n    have hb := (RecursiveCondition.contraction_bounds hk hh (lt_of_le_of_lt hhc hc)).2\n    unfold nextPrecision stepVariance heat\n    rw [if_pos hk]\n    unfold condition at *\n    rw [heq]\n    convert hb using 1\n    congr 1 <;> ring\n\n  have enters_well_conditioned {κ c r₀ : ℝ} {η : ℕ → ℝ}\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hc_upper : c < 1 / 4) (hr₀ : 0 ≤ r₀)\n      (hη : ∀ n, 0 < η n ∧ η n ≤ c) (M : ℕ)\n      (hM : (4 / 5 : ℝ) ^ M * condition κ r₀ < 2) :\n      condition κ (precision κ c r₀ η M) < 2 := by\n    by_contra hnot\n    have hlarge : 2 ≤ condition κ (precision κ c r₀ η M) := le_of_not_gt hnot\n    have hanti := condition_sequence_antitone hκ hc hr₀ (fun n => (hη n).1)\n    have hbound := le_geom (u := fun n => condition κ (precision κ c r₀ η n))\n      (c := (4 / 5 : ℝ)) (by norm_num) M (by\n        intro n hn\n        have hnlarge := hlarge.trans (hanti (Nat.le_of_lt hn))\n        exact large_branch_contraction hκ\n          (precision_nonneg hκ hc hr₀ (fun j => (hη j).1) n)\n          (hη n).1 (hη n).2 hc_upper hnlarge)\n    have : condition κ (precision κ c r₀ η M) < 2 := lt_of_le_of_lt hbound hM\n    exact (not_lt_of_ge hlarge) this\n\n  have well_branch_variance {κ c r h : ℝ} (hr : 0 ≤ r)\n      (hh : 0 < h) (hhc : h ≤ c) (hk : condition κ r < 2) :\n      0 < (nextPrecision κ c r h)⁻¹ ∧\n        (nextPrecision κ c r h)⁻¹ ≤ 2 * c ∧\n        (0 < r → (nextPrecision κ c r h)⁻¹ ≤ (2 * c / (1 + 2 * c)) * r⁻¹) := by\n    rcases RecursiveVariance.variance_update_bounds hr hh hhc with\n      ⟨_, hpos, hbound, _, _, hcontract⟩\n    unfold nextPrecision stepVariance heat\n    rw [if_neg (not_le_of_gt hk)]\n    exact ⟨hpos, hbound, hcontract⟩\n\n  have finite_depth {κ c r₀ : ℝ} {η : ℕ → ℝ}\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hc_upper : c < 1 / 4) (hr₀ : 0 ≤ r₀)\n      (hη : ∀ n, 0 < η n ∧ η n ≤ c) (M N : ℕ)\n      (hM : (4 / 5 : ℝ) ^ M * condition κ r₀ < 2) :\n      0 < (precision κ c r₀ η (M + 1 + N))⁻¹ ∧\n        (precision κ c r₀ η (M + 1 + N))⁻¹ ≤\n          2 * c * (2 * c / (1 + 2 * c)) ^ N := by\n    have hm := enters_well_conditioned hκ hc hc_upper hr₀ hη M hM\n    have hn (n : ℕ) := precision_nonneg hκ hc hr₀ (fun j => (hη j).1) n\n    have hp (n : ℕ) := precision_succ_pos hκ hc hr₀ (fun j => (hη j).1) n\n    have hw (n : ℕ) (hmn : M ≤ n) :=\n      well_conditioned_persists hκ hc hr₀ (fun j => (hη j).1) hmn hm\n    have hstep (n : ℕ) (hmn : M ≤ n) :=\n      well_branch_variance (hn n) (hη n).1 (hη n).2 (hw n hmn)\n    have hrho : 0 ≤ 2 * c / (1 + 2 * c) := by positivity\n    have hbase : (precision κ c r₀ η (M + 1))⁻¹ ≤ 2 * c :=\n      (hstep M le_rfl).2.1\n    constructor\n    · apply inv_pos.mpr\n      simpa only [Nat.add_assoc, Nat.add_comm 1 N] using hp (M + N)\n    · induction N with\n      | zero => simpa using hbase\n      | succ N ih =>\n        have hs := (hstep (M + 1 + N) (by omega)).2.2\n          (by simpa only [Nat.add_assoc, Nat.add_comm 1 N] using hp (M + N))\n        change (precision κ c r₀ η ((M + 1 + N) + 1))⁻¹ ≤\n          (2 * c / (1 + 2 * c)) * (precision κ c r₀ η (M + 1 + N))⁻¹ at hs\n        calc\n          (precision κ c r₀ η (M + 1 + (N + 1)))⁻¹\n              ≤ (2 * c / (1 + 2 * c)) * (precision κ c r₀ η (M + 1 + N))⁻¹ :=\n            by simpa only [Nat.add_assoc] using hs\n          _ ≤ (2 * c / (1 + 2 * c)) * (2 * c * (2 * c / (1 + 2 * c)) ^ N) :=\n            mul_le_mul_of_nonneg_left ih hrho\n          _ = 2 * c * (2 * c / (1 + 2 * c)) ^ (N + 1) := by rw [pow_succ]; ring\n\n  have exists_terminal {κ c r₀ B : ℝ} {η : ℕ → ℝ}\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hc_upper : c < 1 / 4) (hr₀ : 0 ≤ r₀)\n      (hη : ∀ n, 0 < η n ∧ η n ≤ c) (hB : 0 < B) :\n      ∃ J : ℕ, 0 < J ∧ 0 < (precision κ c r₀ η J)⁻¹ ∧\n        (precision κ c r₀ η J)⁻¹ ≤ B := by\n    have hK : 0 < condition κ r₀ := lt_of_lt_of_le zero_lt_one (condition_bounds hκ hr₀)\n    obtain ⟨M, hM⟩ := exists_pow_lt_of_lt_one (div_pos (by norm_num : (0 : ℝ) < 2) hK)\n      (by norm_num : (4 / 5 : ℝ) < 1)\n    have hM' : (4 / 5 : ℝ) ^ M * condition κ r₀ < 2 := (lt_div_iff₀ hK).mp hM\n    have htwo : 0 < 2 * c := by positivity\n    have hrho : 2 * c / (1 + 2 * c) < 1 :=\n      (div_lt_one (by positivity)).2 (by linarith)\n    obtain ⟨N, hN⟩ := exists_pow_lt_of_lt_one (div_pos hB htwo) hrho\n    have hN' : 2 * c * (2 * c / (1 + 2 * c)) ^ N < B := by\n      simpa only [mul_comm] using (lt_div_iff₀ htwo).mp hN\n    have hf := finite_depth hκ hc hc_upper hr₀ hη M N hM'\n    exact ⟨M + 1 + N, by omega, hf.1, hf.2.trans hN'.le⟩\n\n  exact ⟨fun n => ⟨precision_nonneg hκ hc hr₀ (fun j => (hη j).1) n,\n      precision_succ_pos hκ hc hr₀ (fun j => (hη j).1) n⟩,\n    condition_sequence_antitone hκ hc hr₀ (fun j => (hη j).1),\n    fun m n hmn hm => well_conditioned_persists hκ hc hr₀\n      (fun j => (hη j).1) hmn hm,\n    fun M N hM => finite_depth hκ hc hc_upper hr₀ hη M N hM,\n    fun B hB => exists_terminal hκ hc hc_upper hr₀ hη hB⟩\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.4 (6.1), schedule(6.2), Lemma6.6 and the terminal-stage argument following(6.4)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS expanded parameter proof; no author endorsement implied."
+        },
+        "statement": "For the normalized recursive RGO schedule assume κ≥1, r₀≥0, 0<c<1/4 and 0<ηⱼ≤c for every j. Define K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) for K(r)≥2 and τ(r)=c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All rⱼ are nonnegative and every rⱼ₊₁ is positive. K(rⱼ) is nonincreasing, so a stage below two stays below two at every later stage. If (4/5)^M K(r₀)<2, then for every N≥0, 0<1/r_(M+1+N)≤2c[2c/(1+2c)]^N. For every B>0, some J>0 satisfies 0<1/rⱼ≤B. These are the parameter consequences of Lemma6.4, the schedule and Lemma6.6 used in the terminal-stage argument; they do not claim the full recursive sampling theorem or its prescribed logarithmic constants.",
+        "formulae": [
+          {
+            "label": "actual parameter schedule and terminal certificate",
+            "tex": "\\begin{gathered}K(r)=\\frac{1+r}{\\kappa^{-1}+r},\\quad \\tau(r)=\\begin{cases}K(r)&K(r)\\ge2,\\\\c&K(r)<2,\\end{cases}\\\\r_{j+1}=r_j+\\frac{1+r_j}{\\eta_j+\\tau(r_j)},\\quad\\rho=\\frac{2c}{1+2c},\\\\(4/5)^M K(r_0)<2\\Longrightarrow 0<r_{M+1+N}^{-1}\\le2c\\rho^N.\\end{gathered}"
+          }
+        ],
+        "assumptions": [
+          "κ≥1, r₀≥0, 0<c<1/4, and every real ηⱼ satisfies 0<ηⱼ≤c. κ≥1 retains the original α≤β condition after normalization.",
+          "K(r)=(1+r)/(κ⁻¹+r); τ(r)=K(r) if K(r)≥2 and c otherwise; a(r,h)=(h+τ(r))/(1+r); the sequence starts at r₀ and adds 1/a(rⱼ,ηⱼ) at each step. These are definitions, not supplied contraction hypotheses.",
+          "All quantities in this theorem are deterministic real parameters and natural stage indices. η may be any admissible sequence; the result can be applied to a realized sequence but constructs no measurable random sequence.",
+          "Zero initial precision represents infinite initial regularization. Only strictly positive successor precisions are interpreted as finite reciprocal variance. The parameter is not Gibbs covariance."
+        ],
+        "obligations": [
+          {
+            "id": "schedule-positivity",
+            "label": "Positive successor precision and decreasing actual condition numbers"
+          },
+          {
+            "id": "regime-persistence",
+            "label": "Reach the good branch by a strict geometric certificate and stay there"
+          },
+          {
+            "id": "terminal-parameter",
+            "label": "Positive finite parameter at M+1+N, geometric bound and finite threshold attainment"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control",
+          "kind": "theorem",
+          "title": "Actual recursive schedule: persistent good conditioning and a terminal parameter bound",
+          "statement": "For the normalized recursive RGO schedule assume κ≥1, r₀≥0, 0<c<1/4 and 0<ηⱼ≤c for every j. Define K(r)=(1+r)/(κ⁻¹+r), τ(r)=K(r) for K(r)≥2 and τ(r)=c otherwise, a(r,h)=(h+τ(r))/(1+r), and rⱼ₊₁=rⱼ+1/a(rⱼ,ηⱼ). All rⱼ are nonnegative and every rⱼ₊₁ is positive. K(rⱼ) is nonincreasing, so a stage below two stays below two at every later stage. If (4/5)^M K(r₀)<2, then for every N≥0, 0<1/r_(M+1+N)≤2c[2c/(1+2c)]^N. For every B>0, some J>0 satisfies 0<1/rⱼ≤B. These are the parameter consequences of Lemma6.4, the schedule and Lemma6.6 used in the terminal-stage argument; they do not claim the full recursive sampling theorem or its prescribed logarithmic constants.",
+          "formula": "\\begin{gathered}K(r)=\\frac{1+r}{\\kappa^{-1}+r},\\quad \\tau(r)=\\begin{cases}K(r)&K(r)\\ge2,\\\\c&K(r)<2,\\end{cases}\\\\r_{j+1}=r_j+\\frac{1+r_j}{\\eta_j+\\tau(r_j)},\\quad\\rho=\\frac{2c}{1+2c},\\\\(4/5)^M K(r_0)<2\\Longrightarrow 0<r_{M+1+N}^{-1}\\le2c\\rho^N.\\end{gathered}",
+          "assumptions": [
+            "κ≥1, r₀≥0, 0<c<1/4, and every real ηⱼ satisfies 0<ηⱼ≤c. κ≥1 retains the original α≤β condition after normalization.",
+            "K(r)=(1+r)/(κ⁻¹+r); τ(r)=K(r) if K(r)≥2 and c otherwise; a(r,h)=(h+τ(r))/(1+r); the sequence starts at r₀ and adds 1/a(rⱼ,ηⱼ) at each step. These are definitions, not supplied contraction hypotheses.",
+            "All quantities in this theorem are deterministic real parameters and natural stage indices. η may be any admissible sequence; the result can be applied to a realized sequence but constructs no measurable random sequence.",
+            "Zero initial precision represents infinite initial regularization. Only strictly positive successor precisions are interpreted as finite reciprocal variance. The parameter is not Gibbs covariance."
+          ],
+          "steps": [
+            {
+              "title": "Positive precision and decreasing condition number",
+              "text": "Set b=κ⁻¹. Then 0<b≤1. Every heat duration is positive; hence a>0 and r⁺>r≥0. The first successor has finite positive inverse even if r₀=0. For s≥r≥0, positive-denominator cross multiplication shows K(s)≤K(r), because the relevant residual is (s−r)(1−b)≥0. Induction gives nonnegative precisions and a nonincreasing condition sequence.",
+              "formula": "0<b\\le1,\\quad r^+>r\\ge0,\\qquad (s-r)(1-b)\\ge0\\Longrightarrow K(s)\\le K(r).",
+              "lean": "Local condition_bounds, condition_antitone and precision_nonneg establish signs; condition_sequence_antitone uses antitone_nat_of_succ_le. All helper facts are internal proof steps of the one published theorem."
+            },
+            {
+              "title": "Identify the actual large-branch update",
+              "text": "For t=η+τ>0, substitute the precision update into K and clear positive denominators. In the branch K≥2, τ=K, so the existing large-branch scalar theorem bounds the actual next K by 4K/5. No contraction is assumed.",
+              "formula": "K\\left(r+\\frac{1+r}{t}\\right)=K(r)\\frac{t+1}{t+K(r)},\\qquad K\\ge2\\Longrightarrow K^+\\le\\frac45K.",
+              "lean": "Local ratio_update verifies the rational identity. large_branch_contraction selects the actual if-branch and calls RecursiveCondition.contraction_bounds with 0<η≤c<1/4."
+            },
+            {
+              "title": "Reach and preserve the good regime",
+              "text": "If the condition at stage M were at least two, monotonicity would force every earlier stage to remain in the large branch. The preceding contraction and the existing geometric-sequence lemma would contradict the strict certificate. The condition then remains below two for all later indices, so every later heat duration equals c.",
+              "formula": "K_M\\ge2\\Longrightarrow K_M\\le(4/5)^M K_0<2;\\qquad n\\ge M\\Longrightarrow K_n<2.",
+              "lean": "enters_well_conditioned uses le_geom under the contradiction hypothesis; well_conditioned_persists applies the proved antitone relation. Equality K=2 is kept in the large branch."
+            },
+            {
+              "title": "Start with one genuinely finite parameter",
+              "text": "Apply the existing small-branch variance bound at stage M. It yields a positive A_(M+1)≤2c, including when M=0 and r₀=0. The first finite-variance stage is M+1, not M.",
+              "formula": "0<A_{M+1}=r_{M+1}^{-1}\\le2c.",
+              "lean": "well_branch_variance unfolds the actual c branch and calls RecursiveVariance.variance_update_bounds. The consumer test checks κ=1, r₀=0, η=c=1/8 and arbitrary subsequent N."
+            },
+            {
+              "title": "Propagate the exact geometric bound",
+              "text": "Every later precision is positive, so the guarded reciprocal contraction is applicable. Inducting N times after the first finite stage gives A_(M+1+N)≤2cρ^N. Every such reciprocal is positive.",
+              "formula": "A_{j+1}\\le\\rho A_j,\\quad 0<\\rho<1\\quad\\Longrightarrow\\quad0<A_{M+1+N}\\le2c\\rho^N.",
+              "lean": "The local finite_depth proof uses successor positivity before each reciprocal comparison; its index conversion identifies M+1+(N+1) with (M+1+N)+1."
+            },
+            {
+              "title": "Reach an arbitrary positive threshold",
+              "text": "Since K₀≥1 and ρ<1, geometric powers provide M with (4/5)^M<2/K₀ and N with ρ^N<B/(2c). The preceding bound at J=M+1+N proves the threshold statement. This is an explicit geometric certificate and existential termination, not the source logarithmic-depth complexity bound.",
+              "formula": "J=M+1+N>0,\\qquad0<A_J\\le2c\\rho^N<B.",
+              "lean": "exists_pow_lt_of_lt_one supplies both natural indices. The final local exists_terminal fact is combined with positivity, monotonicity, persistence and finite_depth in parameter_control."
+            }
+          ],
+          "lean_statement": "Five local let-definitions expose the exact source schedule and Nat.rec evolution. The conclusion bundles positive precisions, antitone condition numbers, persistent strict good conditioning, the M+1+N geometric bound, and existence of a positive terminal stage.",
+          "lean_proof": "The former helper calculations are local have proofs, not extra public theorem claims. The two existing scalar contraction theorems and Mathlib geometric-power facts are actual proof dependencies. A separate Gibbs consumer uses the same parameters with RGOCalculus.rgo_calculus; this proves next-target probability only.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition.contraction_bounds",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds"
+          ],
+          "mathlib_dependencies": [
+            "div_le_div_iff₀",
+            "antitone_nat_of_succ_le",
+            "le_geom",
+            "exists_pow_lt_of_lt_one"
+          ],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1, §6.2.2–6.3",
+              "scope": "Source parameter schedule and geometric progress; expanded ASTIS proof, not a verbatim paper proof."
+            }
+          ],
+          "tests": {
+            "file": "Tests/SmoothedPicardRecursiveDepth.lean",
+            "command": "lake build Tests.SmoothedPicardRecursiveDepth"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control",
+          "role": "proof-edge",
+          "supports": [
+            "schedule-positivity",
+            "regime-persistence",
+            "terminal-parameter"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Normalized α≤β gives κ≥1; A₀∈(0,∞]; 0<ηⱼ≤c<1/4.",
+            "lean": "κ≥1, r₀≥0, 0<c<1/4 and ∀j,0<ηⱼ≤c."
+          },
+          {
+            "source": "The terminal-stage argument uses Lemma6.6 and the schedule to reach its prescribed small parameter.",
+            "lean": "A pathwise Nat.rec schedule with a strict geometric certificate and J=M+1+N; arbitrary positive threshold is eventually reached."
+          },
+          {
+            "source": "Recursive targets are Gibbs laws with random centers.",
+            "lean": "Only scalar parameters and arbitrary admissible smoothing sequences; Gibbs probability is checked separately with the identical update."
+          }
+        ]
+      },
+      "source_review": {
+        "state": "pending"
+      }
     }
   ]
 }

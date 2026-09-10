@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Lemma6.4 (6.1), schedule(6.2), Lemma6.6 and terminal-stage paragraph after(6.4)",
   "target_statement": "For kappa>=1, r0>=0, 0<c<1/4 and every 0<eta_j<=c, define the actual source branch tau_j and precision recursion. Prove condition-number persistence and: if (4/5)^M*K0<2, then for every N, 0<1/r_(M+1+N)<=2c*(2c/(1+2c))^N; hence attain each positive terminal parameter threshold.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SW-SPHMC-recursive-condition-contraction",
     "ASTIS-SW-SPHMC-recursive-variance-contraction",
@@ -22,25 +22,20 @@
     ],
     "classification": "adapt",
     "decision": "new_route_local",
-    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.finite_depth",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control",
     "canonical_shared_cell": ""
   },
   "evidence": {
     "focused_checks": [
       {
         "command": "lake build AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth",
-        "result": "PASS on official Lean4.33.0;1669 jobs, final module7.5s.",
-        "module_sha256": "f1df71c8799f671be368611e05bc1c9dc40a73f876dd72c4480d4a49fae5f8c0"
+        "result": "PASS1669, final module8.0s; consolidated parameter_control.",
+        "module_sha256": "95fd9e5b64efb6fff76ea015f670d0a418aa28bd26baf2fd091fdb6882343b70"
       },
       {
         "command": "lake build Tests.SmoothedPicardRecursiveDepth",
-        "result": "PASS, 2947 jobs; final consumer7.4s",
-        "test_sha256": "53b48fe5af95fd1fd03f91d1ffbc9b95cbcd659ff90eb37d3d687f0e7593be13",
-        "coverage": [
-          "Infinite initial variance: kappa=1, r0=0, c=eta=1/8, arbitrary N; first finite stage is1+N.",
-          "Actual scheduled parameters give a normalized next Gibbs target through RGOCalculus.rgo_calculus.",
-          "Printed axioms for finite_depth and exists_terminal."
-        ]
+        "result": "PASS2947, final consumer7.0s; initial infinity and actual next Gibbs target; standard axioms only.",
+        "test_sha256": "78af83fe061b4b5608bbf76760b75534f43511fa62ec8b5aa5e5f573a3ab18fa"
       }
     ],
     "independent_verification": "Read-only mathematical planning review by recursive_route_audit; not Lean/source admission.",
@@ -50,7 +45,8 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "admission_boundary": "Production and consumer compile passed; cell stays claimed until authored publication and PROVED_LOCAL metadata admission. No independent source/commit verification yet."
+    "admission_boundary": "PROVED_LOCAL metadata gate passed. Independent source/commit verification and integration remain pending.",
+    "publication_admission": "Pending fresh theorem binding and independent reviews after consolidating private proof steps."
   },
   "blocked": {
     "reason": "",

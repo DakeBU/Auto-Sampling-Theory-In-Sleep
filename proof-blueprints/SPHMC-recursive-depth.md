@@ -1,7 +1,9 @@
 # SPHMC recursive parameter termination
 
 Status: production Lean module and Gibbs consumer test compiled locally on
-Lean 4.33.0; publication metadata and independent source/commit admission remain pending.
+Lean 4.33.0. The consolidated `RecursiveDepth.parameter_control` declaration
+passes the PROVED_LOCAL publication metadata gate; independent source/commit
+admission remains pending. Its helpers are internal proof facts.
 Exact command/hash evidence: `runs/20260910-companion-priority/recursive-depth.progress.json`.
 Source: arXiv:2609.06906v1, Lemma 6.4, equations (6.1)--(6.4),
 Lemma 6.6, and the terminal-stage paragraph in the proof of Theorem 6.5.

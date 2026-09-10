@@ -180,16 +180,18 @@ paper is claimed.
 
 ## Actual recursive parameter schedule: active proof packet
 
-Cell `ASTIS-SW-SPHMC-recursive-depth` is **claimed / exploring**. The new
+Cell `ASTIS-SW-SPHMC-recursive-depth` is **PROVED_LOCAL**, not independently verified. The new
 `RecursiveDepth.lean` and its Gibbs consumer test compiled locally on Lean 4.33.0;
 publication/source/commit admission remains pending. This is not an admitted
 result. Exact command/hash evidence is in
 `runs/20260910-companion-priority/recursive-depth.progress.json`. The source contract and
 proof route are in `proof-blueprints/SPHMC-recursive-depth.md`.
 
-The source correspondence is (6.1) → `nextPrecision`, (6.2) → `heat`, the
-actual repeated update → `precision`, the omitted persistence argument →
-`well_conditioned_persists`, and Lemma6.6's two branches → `finite_depth`.
+The single public declaration is `RecursiveDepth.parameter_control`. Its
+statement defines the source (6.1) update, (6.2) heat schedule and actual
+repeated update using local lets and `Nat.rec`. Its proof contains the internal
+facts `well_conditioned_persists` and `finite_depth`; these are not separate
+public theorem claims. Lemma6.6's two existing contraction proofs are reused.
 The target bound is
 
 \[
