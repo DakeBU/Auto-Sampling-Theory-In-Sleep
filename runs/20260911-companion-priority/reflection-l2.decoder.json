@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-40607eb09974fdf3",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ]\n  {η : ℝ},\n  0 < η →\n    let J :=\n      MeasureTheory.Measure.map (fun (p : E × E) => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n    have F := fun (p : E × E) => (p.1, 2 • p.1 - p.2);\n    have P :=\n      (MeasureTheory.lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd inferInstance) 2 J).subtypeL ∘SL\n        MeasureTheory.condExpL2 ℝ ℝ (Measurable.comap_le measurable_snd);\n    ∃ (R : ProbabilityTheory.Kernel E E),\n      ProbabilityTheory.IsMarkovKernel R ∧\n        (∀ (y : E), R y = μ.tilted fun (x : E) => -‖x - y‖ ^ 2 / (2 * η)) ∧\n          ∃ (U : ↥(MeasureTheory.Lp ℝ 2 J) →ₗᵢ[ℝ] ↥(MeasureTheory.Lp ℝ 2 J)),\n            (∀ (f : ↥(MeasureTheory.Lp ℝ 2 J)), ↑↑(U f) =ᵐ[J] ↑↑f ∘ F) ∧\n              Function.Involutive ⇑U ∧\n                IsSelfAdjoint U.toContinuousLinearMap ∧\n                  (∀ (f : ↥(MeasureTheory.Lp ℝ 2 J)), ↑↑(P f) =ᵐ[J] fun (p : E × E) => ∫ (x : E), ↑↑f (x, p.2) ∂R p.2) ∧\n                    have A := P * U.toContinuousLinearMap * P;\n                    have B := (1 - P) * U.toContinuousLinearMap * P;\n                    have D := (1 - P) * U.toContinuousLinearMap * (1 - P);\n                    star B * B = P - A ^ 2 ∧\n                      star B * D = -(A * star B) ∧\n                        ∀ (f : ↥(MeasureTheory.Lp ℝ 2 J)), P f = f → ‖B f‖ ^ 2 = ‖f‖ ^ 2 - ‖A f‖ ^ 2",
+    "statement_sha256": "40607eb09974fdf3d8fa92d4ba2c1e201f18032f0907c19f7e191632540d3978",
+    "compiled": true,
+    "approved_definition_context": [
+      "Measure.map is pushforward and Measure.prod is the independent product. stdGaussian is the standard centered Gaussian on the indicated finite-dimensional real inner-product space. Measure.tilted normalizes the exponential of the supplied real function against the base measure.",
+      "Lp ℝ 2 J is the real square-integrable Hilbert space modulo almost-everywhere equality. lpMeas for a sub-sigma-algebra is its measurable L² subspace; subtypeL includes it in the full space. condExpL2 is orthogonal projection onto that subspace.",
+      "The arrow marked linear isometry preserves real linear structure and norm. Continuous linear maps form an algebra under composition. star is the Hilbert adjoint. The a.e. notation uses the displayed measure. An Lp coercion to a function selects a representative. Local let or have expressions in the type define abbreviations, not assumptions."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "357a6e44a8fe089514ba0d0ea6c3777b6043a04edfdbfe2ab39e4e90bdaba6c0"
+}
