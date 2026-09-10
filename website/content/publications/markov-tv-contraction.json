@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-markov-tv-contraction",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "A common Markov kernel cannot amplify total-variation error",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S7.SS2",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Section 7.2, proof of Theorem 1.3: data-processing display after constructing the actual and proxy input laws",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS expands the selected standard data-processing step; no author endorsement or full theorem formalization is implied."
+      },
+      "statement": "SPHMC v1 Section 7.2, proof of Theorem 1.3, passes the actual/proxy input TV error through the same proximal BPS Markov kernel. ASTIS expands only this data-processing step: on any two measurable spaces, if probability input laws μ and ν satisfy |μ(S)−ν(S)|≤δ for every measurable input event S, then for every Markov kernel K and every measurable output event T, |(μK)(T)−(νK)(T)|≤δ. In the paper the selected inputs are the implementable law and its comparison law, δ=ε/2, and K is K_{ε/2,1}. The generic measurable-space formulation and arbitrary real δ are an explicit generalization; the premise on the empty event implies δ≥0. This is an attributed faithful paraphrase with ASTIS's standard proof expansion, not copied prose. The construction of the paper's actual kernel, proxy warmness, its separate mixing error and actual-input expected query costs are not supplied by this declaration.",
+      "assumptions": [
+        "K(x,·) is a probability measure for every x, and x↦K(x,T) is measurable for each measurable T. IsMarkovKernel records the first property and Kernel records the second; merely specifying transition probabilities without measurable dependence would not suffice.",
+        "Both input measures have total mass one. Every event probability is finite, so Measure.real is an ordinary real probability, not a misleading conversion of infinity.",
+        "The discrepancy premise is uniform over all measurable input events; a bound on one event, or only pointwise convergence of densities, is not the same hypothesis.",
+        "The same K is applied to both inputs. Comparing distinct kernels requires an additional approximation-error estimate."
+      ],
+      "formulae": [
+        {
+          "label": "selected data-processing step",
+          "tex": "\\operatorname{TV}(\\widehat\\pi_{\\varepsilon/2}K_{\\varepsilon/2,1},\\widehat\\pi^{\\dagger}_{\\varepsilon/2}K_{\\varepsilon/2,1})\\le\\varepsilon/2."
+        },
+        {
+          "label": "generic eventwise formulation",
+          "tex": "\\sup_{T\\in\\mathcal B}|(\\mu K)(T)-(\\nu K)(T)|\\le\\delta,\\qquad (\\rho K)(T)=\\int_A K(x,T)\\,\\rho(dx)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "kernel-tv-contraction",
+          "label": "Transfer the input eventwise discrepancy through the same actual Markov kernel with factor one"
+        },
+        {
+          "id": "paper-kernel-and-proxy",
+          "label": "Construct the source algorithm kernel and actual/proxy laws and establish the separate proxy mixing bound"
+        },
+        {
+          "id": "actual-input-cost",
+          "label": "Establish the source expected query cost under the actual input law, not by unbounded-cost TV transfer"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation.abs_real_comp_sub_le",
+          "cell": "ASTIS-SHARED-markov-kernel-tv-contraction",
+          "role": "proof-edge",
+          "supports": [
+            "kernel-tv-contraction"
+          ],
+          "audit_id": "ASTIS-RT-20260910-MarkovKernelTVContraction",
+          "boundary": "This proves the standard data-processing edge used in SPHMC Section 7.2, not construction of the proximal BPS kernel or the implementable/proxy laws. A separate estimate TV(νK,π)≤ε gives TV(μK,π)≤δ+ε by triangle. The focused consumer test makes that estimate explicit; it does not establish mixing. TV proximity alone does not control an unbounded expected query count. Actual-input cost, event-rate bounds and algorithm termination remain independent open obligations. The MCMC E6 perturbed-kernel route is an intended additional consumer for its TV-specialized stability step, not an already compiled general perturbation theorem.",
+          "assumption_deltas": [
+            {
+              "source": "Probability input laws and the proximal BPS Markov kernel",
+              "lean": "Probability μ,ν on A and a common Kernel A B with IsMarkovKernel",
+              "classification": "generalization",
+              "reason": "Arbitrary measurable spaces and any Markov kernel suffice for the selected standard step; constructing the source-specific kernel remains separate."
+            },
+            {
+              "source": "Input TV bound ε/2",
+              "lean": "Uniform event bound with δ:ℝ",
+              "classification": "generalization",
+              "reason": "Set δ=ε/2. The premise on the empty event supplies δ≥0, so omitting a separate sign assumption does not change the source specialization."
+            },
+            {
+              "source": "By data processing",
+              "lean": "Measurability, bounded input integrability, integrable layer functions and kernel evaluation proved in the body",
+              "classification": "source-implicit",
+              "reason": "These are the mathematical justifications of the displayed step, derived from actual kernel/probability data, not added input restrictions."
+            },
+            {
+              "source": "Probability total variation",
+              "lean": "Uniform absolute real-event difference",
+              "classification": "same",
+              "reason": "This is the event-supremum convention, equivalent to half the L1 density difference when densities exist; densities are not assumed."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

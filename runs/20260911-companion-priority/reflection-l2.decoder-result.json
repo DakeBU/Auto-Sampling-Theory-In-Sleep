@@ -1,0 +1,10 @@
+{
+  "decoder": "reflection_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Root transcription of independent decoder mathematical response, preserving all mathematical content and domain qualifications.",
+  "reconstructed_theorem_text": "任取有限维实内积空间 E，赋予其 Borel 可测结构；任取 E 上概率测度 μ 和 η>0。γ_E 是标准中心高斯。J 是独立 X~μ、Z~γ_E 的 (X,X+sqrt(η)Z) 联合分布。令 H=L²(E×E,J;ℝ)，F(x,y)=(x,2x−y)，P 为第二坐标生成子 sigma 代数的可测 L² 子空间上的正交投影，再包含回 H。\n存在 Markov 核 R:E→E，对每个 y，R(y,dx)=exp(−‖x−y‖²/(2η))μ(dx)/∫exp(−‖z−y‖²/(2η))μ(dz)。Markov 核含可测性及每个 R_y 为概率的要求。\n对于该核还存在实线性等距 U:H→H，使对每个 f，Uf=f∘F J-a.e.，U(Uf)=f，U*=U，并且对每个 f，Pf(x,y)=∫f(z,y)R(y,dz) J-a.e.。\n定义 A=PUP，B=(I−P)UP，D=(I−P)U(I−P)。整个 H 上 B*B=P−A²，B*D=−AB*。每个 Pf=f 的 f 满足 ‖Bf‖²=‖f‖²−‖Af‖²。\n倾斜核公式对所有 y 成立；代表元公式只 J-a.e.，零测例外集可依赖 f。f、Uf、Pf 是模 a.e. 等价类，函数公式用选定代表元；命题未另断言所有固定 y 的切片都可积。能量等式只在 P 的范围断言；算子等式在整个 H 成立。乘法是右侧先作用的复合，star 为 Hilbert 伴随。R,U 在给定 E,μ,η 后存在，同一组见证满足全部结论，无显式唯一性断言。没有额外密度、光滑性或矩条件，局部 let/have 是定义非假设。精确常数为 sqrt(η)、反射系数2、指数分母2η和能量单位系数，无其他常数或维数依赖系数。",
+  "source_text_visible": false,
+  "only_input": "E:/Samplinglib/runs/20260911-companion-priority/reflection-l2.decoder.json",
+  "decoder_packet_sha256": "357a6e44a8fe089514ba0d0ea6c3777b6043a04edfdbfe2ab39e4e90bdaba6c0",
+  "source_fidelity_verdict": null
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-0a530e88fc2c41ad",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {V : E → ℝ} {α : ℝ}, ContDiff ℝ 2 V → (∀ x v : E, α * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v) → StrongConvexOn (Set.univ : Set E) α V",
+    "statement_sha256": "0a530e88fc2c41ada56a4e3d87599d9b057d009bb749b939346f378bd725aaff",
+    "compiled": true,
+    "approved_definition_context": [
+      "E is any real normed vector space. No completeness, finite-dimensionality, inner-product, measurable-space or measure assumption is imposed. The scalar α is an arbitrary real number.",
+      "ContDiff ℝ 2 V means that the real-valued function V is genuinely twice continuously Fréchet differentiable everywhere.",
+      "fderiv ℝ V x is the continuous linear Fréchet derivative when V is differentiable at x, and is totalized to zero otherwise. fderiv ℝ (fderiv ℝ V) x is the derivative of the continuous-linear-map-valued first derivative. Applying this second derivative to v and then v gives the diagonal evaluation D²V(x)[v,v]. The C² assumption supplies genuine first and second derivatives here.",
+      "StrongConvexOn s α V means that s is convex and V(a • x + b • y) ≤ a * V(x) + b * V(y) - (α / 2) * a * b * ‖x-y‖^2 for every x,y∈s and all real a,b≥0 with a+b=1. Here s=Set.univ is the whole space and • is real scalar multiplication."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "279b2a5717cf7d40723ea18a1c4acf677fa4797eac88b035ddc30819f051c9eb"
+}

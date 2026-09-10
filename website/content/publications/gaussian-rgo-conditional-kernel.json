@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "gaussian-rgo-conditional-kernel",
+      "library": "samplewiki-route",
+      "chapter": "pbps-01",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "The Gaussian posterior is an actual measurable conditional kernel",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06905v1#S2.SS2",
+        "edition": "arXiv:2609.06905v1",
+        "anchor": "Section 2.2, equations (2.7)-(2.8), backward conditional-law clause; Definition 2.2 and Section 3.2 consumers",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS supplies the standard conditional-kernel derivation; no author endorsement or complete-paper certificate is implied."
+      },
+      "statement": "PBPS v1 §2.2, (2.7)-(2.8), takes X with normalized Gibbs law μ(dx) proportional to exp(−V(x))dx, an independent standard Gaussian G, and Y=X+sqrt(η)G. The selected backward conditional-law clause gives X conditional on Y=y density proportional to exp(−V(x)−‖x−y‖²/(2η)). ASTIS formalizes its normalized conditional-kernel mechanism: for any probability μ on a finite-dimensional real inner-product Borel space E and any η>0, the everywhere-defined normalized tilt R(y,dx)=exp(−‖x−y‖²/(2η))μ(dx)/∫exp(−‖z−y‖²/(2η))μ(dz) is a measurable Markov kernel satisfying L(Y,X)=L(Y)⊗R. The source's Gibbs, C² curvature and η≤1/β restrictions are not needed for this identity; this generalization is explicit, and the source Gibbs probability certificate is a separate compiled parent. This is an ASTIS mathematical restatement and standard expansion, not an original quotation. Equality with other conditional versions is only marginal-almost-everywhere. No RGO implementation, PBPS process invariance or quantitative sampling bound is asserted.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel sigma algebra; μ is a probability measure, possibly singular and without finite moments.",
+        "The variance η is strictly positive. No curvature bound, density for μ, or restriction η≤1/β is needed for this law identity.",
+        "A kernel means a measure-valued function with measurable dependence on its input. Every returned fiber is a probability law; these properties are proved, not supplied.",
+        "The explicit formula selects a version at every y. Conditional laws chosen in other ways need agree with it only almost everywhere under the observation marginal."
+      ],
+      "formulae": [
+        {
+          "label": "source Gibbs specialization",
+          "tex": "\\mathcal L(X\\mid Y=y)(dx)\\propto e^{-V(x)-\\|x-y\\|^2/(2\\eta)}\\,dx."
+        },
+        {
+          "label": "normalized generic conditional kernel",
+          "tex": "R(y,dx)=\\frac{e^{-\\|x-y\\|^2/(2\\eta)}\\mu(dx)}{\\int_E e^{-\\|z-y\\|^2/(2\\eta)}\\mu(dz)},\\qquad\\mathcal L(Y,X)=\\mathcal L(Y)\\otimes R."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "measurable-normalized-conditional",
+          "label": "Construct the actual normalized measurable Markov kernel and prove the joint disintegration"
+        },
+        {
+          "id": "implemented-rgo",
+          "label": "Construct an implementable restricted Gaussian sampler with its source error and cost bounds"
+        },
+        {
+          "id": "pbps-process",
+          "label": "Construct and analyze the PBPS process, nonexplosion and invariant-law/domain obligations"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+          "cell": "ASTIS-SHARED-gaussian-rgo-conditional-kernel",
+          "role": "proof-edge",
+          "supports": [
+            "measurable-normalized-conditional"
+          ],
+          "audit_id": "ASTIS-RT-20260910-GaussianConditionalKernel",
+          "boundary": "This closes the conditional-law construction behind PBPS (2.7)-(2.8), not a realizable RGO algorithm, PBPS trajectory, nonexplosion, invariant process law, mixing bound or expected query cost. Gibbs specialization uses the separately proved positive Gibbs normalizer and probability certificate. The generic theorem itself assumes an input probability law and does not prove those Gibbs facts again. The focused consumer test proves exact recovery of μ from the actual smoothed marginal via this kernel. This is one joint-law marginal identity, not stationarity of the PBPS process. Curvature, covariance, moment bounds and implementation error remain separate. No pointwise uniqueness among arbitrary conditional versions is claimed.",
+          "assumption_deltas": [
+            {
+              "source": "Normalized Gibbs input law in Euclidean space",
+              "lean": "Any probability μ on finite-dimensional real inner-product Borel E",
+              "classification": "generalization",
+              "reason": "The Gaussian likelihood argument permits singular input laws and zero dimension. Source Gibbs normalization is supplied separately, not silently assumed from a totalized integral."
+            },
+            {
+              "source": "η in (0,1/β] and source curvature assumptions",
+              "lean": "η>0 with no curvature or moment premise",
+              "classification": "generalization",
+              "reason": "These source restrictions support later curvature and complexity bounds; they are unnecessary for the selected exact conditional-law identity."
+            },
+            {
+              "source": "Conditional density proportional to the exponential",
+              "lean": "Everywhere positive normalizer, jointly measurable kernel, every fiber probability and actual disintegration",
+              "classification": "source-implicit",
+              "reason": "Bounded positive weights and parameter-integral measurability justify the omitted conditions without adding input hypotheses."
+            },
+            {
+              "source": "X conditional on Y=y",
+              "lean": "One explicit all-y kernel with IsCondKernel certificate",
+              "classification": "same",
+              "reason": "An explicit regular version is selected. The claim is not pointwise equality with all arbitrary conditional versions."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

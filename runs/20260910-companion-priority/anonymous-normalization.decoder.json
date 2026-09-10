@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-ea2cc2043e44327d",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] {V : E → ℝ} {m : ℝ}, 0 < m → Differentiable ℝ V → StrongConvexOn Set.univ m V → MeasureTheory.Integrable (fun x => Real.exp (-V x)) (volume : MeasureTheory.Measure E)",
+    "statement_sha256": "ea2cc2043e44327d5b545384c97af6e2a10fe024cfd83bc815eb3b4d5f5510a9",
+    "compiled": true,
+    "approved_definition_context": [
+      "E is a finite-dimensional real inner-product space with its norm topology. BorelSpace identifies its measurable structure with the Borel sigma algebra. volume is canonical Lebesgue measure normalized by orthonormal coordinates, not an arbitrary MeasureSpace parameter. In dimension zero this is unit mass on the one-point space.",
+      "Differentiable ℝ V means genuine real Fréchet differentiability at every point, not a prescribed value of a totalized derivative. Finite-dimensional real inner-product spaces are complete.",
+      "StrongConvexOn s m V means that s is convex and V(a • x + b • y) ≤ a * V(x) + b * V(y) - (m / 2) * a * b * ‖x-y‖^2 for x,y∈s and real a,b≥0 with a+b=1. Here s=Set.univ is the whole space, and • is real scalar multiplication.",
+      "MeasureTheory.Integrable f μ means almost-everywhere strong measurability and finiteness of the integral of the norm. It is not merely finiteness of a totalized Bochner integral expression. Real.exp is the positive real exponential."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "4c4f00ebe85b625db3459a705218687591c24351aa2ad5f658c82a16be6a0cc2"
+}

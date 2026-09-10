@@ -1,0 +1,143 @@
+{
+  "state": "MERGED",
+  "source_commit": "fcfe6d6a96dadaf5c9de5bcdcdccac73d31b117e",
+  "branch": "codex/sphmc-recursive-depth",
+  "writer": "root-samplinglib-writer",
+  "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RecursiveDepth.lean",
+  "module_sha256": "95fd9e5b64efb6fff76ea015f670d0a418aa28bd26baf2fd091fdb6882343b70",
+  "focused_production_compile": {
+    "command": "lake build AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth",
+    "result": "PASS1669, final module8.0s; consolidated parameter_control.",
+    "module_sha256": "95fd9e5b64efb6fff76ea015f670d0a418aa28bd26baf2fd091fdb6882343b70"
+  },
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "toolchain_release_sha256": "60d045a2ef45fca55a620b7d55be682e8439ec8d1fc9a8bcd2615da7dffba26a",
+  "python": "C:/Users/admin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+  "remaining": [
+    "Verify merge-commit deployment and actual reader page.",
+    "Continue independent admission and integration of logarithmic-depth successor.",
+    "Random kernels, FORS, errors, actual-input costs and full-paper results remain incomplete."
+  ],
+  "boundary": "Compiled deterministic parameter recurrence only; neither paper complete.",
+  "route_review": "recursive_route_audit: read-only mathematical review found no counterexample or stage-index error, not admission.",
+  "focused_consumer_compile": {
+    "command": "lake build Tests.SmoothedPicardRecursiveDepth",
+    "result": "PASS2947, final consumer7.0s; initial infinity and actual next Gibbs target; standard axioms only.",
+    "test_sha256": "78af83fe061b4b5608bbf76760b75534f43511fa62ec8b5aa5e5f573a3ab18fa"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "fake_closure_scan": "Bounded source/test scan found no sorry, admit, custom axiom, unsafe or native_decide.",
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.parameter_control",
+  "independent_admission": "runs/20260910-companion-priority/recursive-depth.verified-admission.json",
+  "aggregate_gate": {
+    "candidate": "c533963f2e7d74a076c4bf28b7da42fe2ed3e806",
+    "command": "python website/scripts/lean_gate.py",
+    "status": "PASS",
+    "exit_code": 0,
+    "production_jobs": 8957,
+    "test_jobs": 9080,
+    "source_digest": "da314101f1fd3985601e0f5eb52bed356884c0ea9a0c130080a80d3e2262fd06",
+    "log": ".astis/recursive-depth.aggregate-gate.log",
+    "log_sha256": "e7c19c06460ffc14d12a8d15e6fed49918afdda5b8b15df4cdaa57820e3c55e1",
+    "gate_evidence": {
+      "passed": true,
+      "commit": "c533963f2e7d74a076c4bf28b7da42fe2ed3e806",
+      "source_digest": "da314101f1fd3985601e0f5eb52bed356884c0ea9a0c130080a80d3e2262fd06",
+      "generated_at": "2026-09-10T13:06:15.042855+00:00",
+      "commands": [
+        "python3 tools/astis.py check"
+      ],
+      "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+    }
+  },
+  "next_mathematical_edge": {
+    "status": "source-checked plan, not proved",
+    "source": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+    "anchor": "(6.4) and terminal-stage paragraph",
+    "objective": "Derive a prescribed logarithmic natural depth for the actual recursion, then specialize the positive threshold to c/(sqrt(d Lq)+Lq). Preserve positivity, stage indexing and dependence on fixed universal constants.",
+    "reuse": [
+      "RecursiveDepth.parameter_control",
+      "Real.log_pow",
+      "Real.log_div",
+      "Nat.ceil_le"
+    ],
+    "boundary": "No Lean proof of this depth bound yet; does not discharge FORS, kernel, error or cost obligations.",
+    "review": "depth_source_reviewer independently confirmed the arithmetic and generalization to all C>=8. Planned terminal coefficient is 3*C+(C/2)*log(1/gamma); gamma must be fixed universally for a universal coefficient. Planning only, no compilation or admission."
+  },
+  "integration_pr": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/250",
+    "draft": true,
+    "head": "c533963f2e7d74a076c4bf28b7da42fe2ed3e806",
+    "formalization_run": 34479288516,
+    "site_run": 34479288542,
+    "last_observed_status": "both original candidate CI runs succeeded; presentation fix pending push",
+    "site_checks": {
+      "run": 34479288542,
+      "head": "c533963f2e7d74a076c4bf28b7da42fe2ed3e806",
+      "conclusion": "success",
+      "covered": [
+        "publication gate",
+        "website generation",
+        "inventory/links/formulas/diagrams/assets",
+        "browser peer readers/math/graph/mobile smoke",
+        "static artifact"
+      ],
+      "deployment": "skipped for PR; not live release",
+      "remaining": "Focused visual review of the new recursive-depth branch remains separate."
+    }
+  },
+  "presentation_fix": {
+    "problem": "Statement disclosure stopped at first local let instead of the theorem assignment.",
+    "files": [
+      "website/scripts/inline_lean.py",
+      "tools/tests/test_proof_readers.py"
+    ],
+    "tests": "25 reader tests PASS",
+    "independent_reviewer": "depth_commit_verifier",
+    "decision": "Approved bounded presentation fix after identifier regressions were corrected.",
+    "scope": "Actual full parameter_control signature preserved. Unknown local-equation syntax conservatively displays complete unsplit declaration; no full Lean-parser claim.",
+    "proof_binding": "Lean, consumer, semantic audit, publication and lesson unchanged from independent acceptance."
+  },
+  "ci_artifact_reuse": {
+    "run": 34479288542,
+    "artifact": "github-pages",
+    "source_merge_commit": "8d10da85e59491dd0a50c98d7aff71d101dd3a13",
+    "parents": [
+      "fcfe6d6a96dadaf5c9de5bcdcdccac73d31b117e",
+      "c533963f2e7d74a076c4bf28b7da42fe2ed3e806"
+    ],
+    "result": "Read-only browser inspection exposed the statement splitter defect. Local graph freshness check rejected the downloaded artifact against this checkout; no pass was claimed or checker weakened. Regenerating locally after the actual presentation fix."
+  },
+  "local_site": {
+    "build": "PASS:12 chapters,550 modules,3647 declarations",
+    "check": "PASS:inventory,links,formulae,diagrams,assets and77 reviewed teaching declarations",
+    "graph_check": "PASS for ASTIS-SW-SPHMC-recursive-depth",
+    "browser": "PASS: complete statement retained all five local definitions and five conclusions; statement/proof separately expandable; zero KaTeX errors; graph query selects parameter_control and points to exact module declaration anchor. Reader and focused graph screenshots visually inspected.",
+    "graph_delta": "One contribution declaration linked to its module and original SPHMC source case. Focus view has5nodes/3edges including fidelity context. Name scans remain incomplete; no exhaustive Lean proof-DAG claim or compiled badge is inferred.",
+    "generator_fix_review": "depth_commit_verifier independently approved bounded parser repair and25 regression tests; unknown local-equation syntax retains explicitly labelled full declaration.",
+    "site_build_log_sha256": "463a79c0d1aaca8a56f9c282e0769a98bb81271775b08d92fa1e000d05abf64e",
+    "site_check_log_sha256": "28341a5e44b97413d89ee064f5990b528c5e2934d9666d345f392d1ddd6fcd39"
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/250",
+    "commit": "5a177a38ae896eb6a06f6d7458a48e60e619bdf7",
+    "merged_at": "2026-09-10T16:45:34Z",
+    "candidate": "70995e83df9e81b774ec58ecf1357f01ca47720c",
+    "independent_merge_review": "depth_commit_verifier independently recommended ready+merge for exact head70995 and basefcfe6 after live CI, preserved theorem/audit/lesson comparison and bounded reader-fix review. Root records its recommendation; reviewer made no edits.",
+    "candidate_ci": {
+      "lean": "34500908817 SUCCESS",
+      "site": "34500908828 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": {
+      "lean_run": "34504058218",
+      "site_run": "34504058093",
+      "status": "in_progress at live inspection; deployment and live reader not yet certified"
+    },
+    "truth_boundary": "Previous RecursiveDepth parameter theorem merged only; no new LogarithmicDepth or sampler/error/cost/full-paper claim."
+  }
+}

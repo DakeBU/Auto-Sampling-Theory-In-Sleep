@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "items": [{
+    "id": "companion-hessian-strong-convexity-prerequisite",
+    "library": "samplewiki-route",
+    "chapter": "sphmc-01",
+    "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "title": "Supporting Hessian-to-strong-convexity implication",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1",
+      "edition": "arXiv:2609.06906v1; shared assumption in arXiv:2609.06905v1",
+      "anchor": "Introduction equation (1.1) in both companion papers; lower-Hessian analytic prerequisite only",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang provide the C² potential and Hessian-sandwich setting in the two cited v1 papers. The supporting implication and line-restriction exposition are ASTIS's mathematical expansion, not copied prose, a source correction or either full sampler theorem."
+    },
+    "statement": "Both companion papers work with a C² Euclidean potential V and constants 0<α≤β such that αI≼∇²V(x)≼βI at every x. The supporting lower-curvature implication selected here is: if D²V(x)[v,v]≥α‖v‖² for all points x and directions v, then V(ax+by)≤aV(x)+bV(y)−αab‖x−y‖²/2 for every x,y and a,b≥0 with a+b=1. The upper Hessian bound is unnecessary for this implication. ASTIS proves the supporting implication more generally on any real normed space for any real α, retaining genuine everywhere C² regularity.",
+    "assumptions": [
+      "The primary setting is V∈C²(R^d), 0<α≤β, and αI≼∇²V(x)≼βI for every x.",
+      "The selected supporting implication only uses genuine C² regularity and D²V(x)[v,v]≥α‖v‖² for every x,v. In Euclidean coordinates this is the quadratic-form meaning of the lower matrix inequality.",
+      "All lines lie in the full state space. The target chord weights are nonnegative real numbers summing to one.",
+      "The normed-space/arbitrary-real-modulus generalization is confined to the analytic implication; normalization consumers separately require positive modulus, finite dimension and canonical volume."
+    ],
+    "formulae": [
+      {"label": "primary Hessian setting", "tex": "V\\in C^2(\\mathbb R^d),\\quad0<\\alpha\\le\\beta,\\quad\\alpha I\\preceq\\nabla^2V(x)\\preceq\\beta I\\quad(\\forall x)."},
+      {"label": "selected lower-curvature consequence", "tex": "D^2V(x)[v,v]\\ge\\alpha\\|v\\|^2\\quad\\Longrightarrow\\quad V(ax+by)\\le aV(x)+bV(y)-\\frac\\alpha2ab\\|x-y\\|^2,\\quad a,b\\ge0,\\ a+b=1."}
+    ],
+    "obligations": [
+      {"id": "hessian-to-chord", "label": "Derive the exact α-strong-convexity chord inequality from the genuine C² lower Hessian bound"},
+      {"id": "source-sampling-consumers", "label": "Combine source-potential specializations with the separate Gibbs, oracle and sampling-theorem obligations"}
+    ],
+    "bindings": [{
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+      "cell": "ASTIS-SHARED-hessian-strong-convexity",
+      "role": "prerequisite",
+      "supports": ["hessian-to-chord"],
+      "audit_id": "ASTIS-RT-20260910-HessianStrongConvexity",
+      "boundary": "One analytic prerequisite shared by both papers. No upper-Hessian theorem, entire Gibbs/RGO initialization, invariance, discrepancy or query-cost guarantee is proved by this declaration.",
+      "assumption_deltas": [
+        {"source": "V is everywhere C²", "lean": "ContDiff ℝ 2 V", "classification": "same", "reason": "This supplies actual first and second Fréchet derivatives, rather than relying on totalized derivative notation alone."},
+        {"source": "αI≼∇²V(x) pointwise", "lean": "∀ x v, α*‖v‖² ≤ (fderiv ℝ (fderiv ℝ V) x v) v", "classification": "same", "reason": "For a C² Euclidean potential this is the defining quadratic-form meaning of the Hessian lower bound. No separate field is assumed to be the Hessian."},
+        {"source": "Euclidean finite-dimensional state space", "lean": "Any real normed space, including zero dimension", "classification": "generalization", "reason": "The proof differentiates only a scalar line and its scalar quadratic compensation, not the squared norm on the ambient space. No inner product, completeness or finite dimension is used."},
+        {"source": "0<α≤β and the additional upper Hessian bound βI", "lean": "Arbitrary α:ℝ; no β or upper Hessian bound", "classification": "generalization", "reason": "Only the lower bound controls the compensated second derivative. The concluding algebra works for any α. This does not remove positivity or smoothness conditions from either source sampling theorem."},
+        {"source": "Strong convexity in the C² Hessian convention", "lean": "StrongConvexOn Set.univ α V, with chord correction αab‖x−y‖²/2", "classification": "source-implicit", "reason": "The selected analytic expansion proves the conversion to the exact chord normalization. It does not assume StrongConvexOn or change α to a weaker constant."}
+      ]
+    }]
+  }]
+}

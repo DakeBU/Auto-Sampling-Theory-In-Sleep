@@ -1,0 +1,16 @@
+{
+  "decoder": "resolvent_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent English anonymous reconstruction; math rendered in plain text without changing quantifiers or scope. Decoder reported supplied hashes, not independent hash recomputation.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-resolvent-a.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-ClosedGraphResolvent.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "9191d186d07c21b73a83da40877aaf1eb67fbd0e36104daf23090fc0684125ab",
+  "lean_statement_sha256": "b596bf12834c376c4df3a9e876e51a34cee6d0b762f7d36026303aecbafe50c2",
+  "reconstructed_theorem_text": "Let H,K be arbitrary real Hilbert spaces and A a partial real-linear map from a linear-subspace domain in H into K with closed graph. For every epsilon>0 and f in H there exists u in Dom(A) such that for every v in Dom(A), epsilon inner(u,v)_H+inner(Au,Av)_K=inner(f,v)_H; epsilon norm(u)_H^2+norm(Au)_K^2=inner(f,u)_H; norm(u)_H<=epsilon^-1 norm(f)_H; and epsilon norm(u)_H^2+norm(Au)_K^2<=epsilon^-1 norm(f)_H^2. For every w in Dom(A), if it satisfies the same weak equation for all v in Dom(A), then w=u as domain-subtype elements. Quantifiers: all spaces/Hilbert structures, A and closed graph, epsilon>0, f, then existence of u with all four properties and uniqueness. Domain density or equality to H and boundedness of A are not assumed. Domain-element norms are ambient H norms. This is a variational existence/uniqueness statement with exact constants 1/epsilon; no adjoint, strong operator equation or regularity beyond domain membership is explicitly asserted.",
+  "source_fidelity_verdict": null
+}

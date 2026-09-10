@@ -1,0 +1,63 @@
+{
+  "units": [{
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+    "kind": "theorem",
+    "title": "Quadratic regularization shifts actual curvature and gradient smoothness",
+    "statement": "Let E be a complete real inner-product space and U:E→R be everywhere twice continuously Fréchet differentiable. Let m,L,r be nonnegative real constants. Suppose m‖v‖²≤D²U(x)[v,v]≤L‖v‖² for every x,v∈E. For every centre u∈E, the actual potential W(x)=U(x)+r‖x−u‖²/2 is (m+r)-strongly convex on E and its actual gradient is (L+r)-Lipschitz on E. The constants are exact, including r=0. No gradient field, Hessian field or operator-norm bound is supplied as an assumption.",
+    "formula": "W(x)=U(x)+\\frac r2\\|x-u\\|^2,\\qquad W(ax+by)\\le aW(x)+bW(y)-\\frac{m+r}{2}ab\\|x-y\\|^2,\\qquad\\|\\nabla W(x)-\\nabla W(y)\\|\\le(L+r)\\|x-y\\|,\\quad a,b\\ge0,\\ a+b=1.",
+    "assumptions": [
+      "E is any complete real inner-product space, including zero dimension; no finite-dimensional or nontrivial-space assumption occurs in the theorem.",
+      "ContDiff ℝ 2 U witnesses genuine C² regularity. D²U(x)[v,v] is (fderiv ℝ (fderiv ℝ U) x v) v. Totalized derivative notation alone would not establish that these are actual derivatives.",
+      "The lower and upper inequalities hold at every point and in every direction on the whole space. The nonnegative types m,L,r:ℝ≥0 encode their signs. In particular, nonnegative lower curvature is used to control the absolute Rayleigh quotient.",
+      "In SPHMC Lemma 6.4 use m=κ⁻¹, L=1 and r=A⁻¹. A=∞ is represented by r=0, not by declaring a zero finite variance admissible. PBPS uses the same regularized potential with m=α, L=β and r=η⁻¹, under its source-positive parameters.",
+      "No measure, normalizer, measurability or integrability is needed for the production conclusion. Focused probability consumers separately add finite dimension, a Borel measurable structure, canonical volume and positive source curvature."
+    ],
+    "steps": [
+      {
+        "title": "Differentiate the actual quadratic potential",
+        "text": "The squared norm is smooth on a real inner-product space. Differentiate the shifted quadratic twice: its first derivative evaluates r⟨x−u,v⟩, and its second derivative evaluates r⟨v,w⟩. Thus W is genuinely C² and its diagonal Hessian is the diagonal Hessian of U plus r‖v‖². The original sandwich shifts by exactly r on both sides.",
+        "formula": "DW(x)[v]=DU(x)[v]+r\\langle x-u,v\\rangle,\\qquad D^2W(x)[v,w]=D^2U(x)[v,w]+r\\langle v,w\\rangle,\\qquad(m+r)\\|v\\|^2\\le D^2W(x)[v,v]\\le(L+r)\\|v\\|^2.",
+        "lean": "ContDiff.norm_sq proves hW. HasFDerivAt.norm_sq and the sum/chain rules give hq, hWfd and hWdd; hbounds evaluates the derivative on the diagonal. The local J packages v↦innerSL ℝ v as a continuous real-linear map, proving additivity and scalar compatibility because the generic innerSL API is conjugate-linear. This is an implementation adapter, not an assumed Hessian."
+      },
+      {
+        "title": "Turn the shifted lower bound into the exact chord inequality",
+        "text": "Apply the shared Hessian-to-strong-convexity theorem to W and the shifted lower bound. Its scalar-line argument yields the chord correction (m+r)ab‖x−y‖²/2 without losing a factor. This is the first public conclusion.",
+        "formula": "D^2W(x)[v,v]\\ge(m+r)\\|v\\|^2\\quad\\Longrightarrow\\quad W(ax+by)\\le aW(x)+bW(y)-\\frac{m+r}{2}ab\\|x-y\\|^2.",
+        "lean": "HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower receives hW and the lower half of hbounds, returning StrongConvexOn Set.univ with precisely the coerced NNReal sum m+r."
+      },
+      {
+        "title": "Identify the genuine derivative of the gradient and its symmetry",
+        "text": "Completeness supplies inverse Riesz representation. Apply it to the first derivative of W to obtain Mathlib's actual gradient, then differentiate this fixed continuous linear transformation. The resulting operator Tₓ=D(∇W)(x) represents the genuine Hessian: ⟨Tₓv,w⟩=D²W(x)[v,w]. The C² symmetry theorem makes Tₓ symmetric; no matrix representation or finite-dimensional eigenbasis is introduced.",
+        "formula": "T_x=D(\\nabla W)(x),\\qquad\\langle T_xv,w\\rangle=D^2W(x)[v,w]=D^2W(x)[w,v]=\\langle v,T_xw\\rangle.",
+        "lean": "R packages (InnerProductSpace.toDual ℝ E).symm as a continuous real-linear map. T is R.comp applied to fderiv ℝ (fderiv ℝ W) x. hTd is a HasFDerivAt witness for gradient W, hinner uses InnerProductSpace.toDual_symm_apply, and hsym uses ContDiffAt.isSymmSndFDerivAt."
+      },
+      {
+        "title": "Bound the operator norm from the diagonal sandwich",
+        "text": "For a symmetric operator the operator norm equals the supremum of the absolute Rayleigh quotient. The shifted lower bound and m+r≥0 make the Hessian diagonal nonnegative. For v≠0 the shifted upper bound therefore gives quotient at most L+r. At v=0 the totalized quotient is zero, so this case also satisfies the bound and does not require E to contain a nonzero vector.",
+        "formula": "\\|T_x\\|=\\sup_v\\left|\\frac{\\langle T_xv,v\\rangle}{\\|v\\|^2}\\right|\\le L+r.",
+        "lean": "ContinuousLinearMap.norm_eq_iSup_rayleighQuotient and ciSup_le reduce hnorm to each quotient. hbounds supplies nonnegativity and the upper estimate. The proof handles v=0 explicitly; otherwise norm_pos_iff and div_le_iff₀ justify division."
+      },
+      {
+        "title": "Use the whole-space mean-value bound",
+        "text": "The actual gradient is differentiable everywhere and its derivative has norm at most L+r at every point. The whole-space mean-value theorem gives global (L+r)-Lipschitz continuity, which is the precise smoothness sense returned here.",
+        "formula": "\\|D(\\nabla W)(x)\\|\\le L+r\\quad(\\forall x)\\quad\\Longrightarrow\\quad\\|\\nabla W(x)-\\nabla W(y)\\|\\le(L+r)\\|x-y\\|\\quad(\\forall x,y).",
+        "lean": "lipschitzWith_of_nnnorm_fderiv_le uses differentiability from hTd and rewrites the derivative by (hTd x).fderiv before applying hnorm. The public LipschitzWith conclusion is about gradient W itself, not a separately declared gradient or Hessian norm."
+      }
+    ],
+    "lean_statement": "The theorem quantifies over E with NormedAddCommGroup, InnerProductSpace ℝ and CompleteSpace; U:E→ℝ; m,L,r:ℝ≥0; and u:E. Its only mathematical input hypotheses are ContDiff ℝ 2 U and the everywhere/every-direction nested-fderiv sandwich. Its let-bound W is the actual quadratic regularization. The two conclusions are StrongConvexOn Set.univ (↑(m+r)) W and LipschitzWith (L+r) (gradient W).",
+    "lean_proof": "One shared production theorem contains the quadratic-shift, Riesz and norm estimates as local proof terms, not public wrapper siblings. The focused tests instantiate the source constants κ⁻¹, 1, A⁻¹; separately retain r=0 and zero dimension. Under source-positive curvature and the finite-dimensional Borel canonical-volume assumptions, they use the derived strong convexity with StrongConvexGibbsIntegrability to return integrability, strictly positive Gibbs normalizer and actual probability. That derived probability feeds quadratic_tilt_tilt, with positive A⁻¹ used for the additional normalized Gaussian reweighting. Neither integrability nor probability is assumed.",
+    "boundary": [
+      "Direct source coverage is SPHMC Lemma 6.4's strong-convexity and smoothness clause for the actual regularized potential. Its normalized-oracle closure and condition-number recurrence (6.1) are not proved by this declaration.",
+      "PBPS (2.9) supplies a second potential consumer and (2.10) supplies its Hessian sandwich. This theorem gives an analytic consequence useful downstream, including smoothness for that potential; it does not return the Hessian sandwich as a public conclusion and is not direct formalization of all of (2.10) or Proposition 2.1.",
+      "Conditional-law identification, Poincaré or covariance bounds, invariant kernels, sampler accuracy, condition-number algebra and query costs are not proved by this declaration.",
+      "The complete-inner-product-space and nonnegative-parameter extensions concern only deterministic curvature/smoothness. They do not establish infinite-dimensional Gibbs normalization or remove positive-curvature conditions from the source sampling results."
+    ],
+    "astis_dependencies": ["AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower"],
+    "mathlib_dependencies": ["ContDiff.norm_sq", "ContDiff.differentiable", "ContDiff.fderiv_right", "ContDiff.differentiable_one", "HasFDerivAt.norm_sq", "HasFDerivAt.comp", "HasFDerivAt.const_mul", "HasFDerivAt.const_smul", "HasFDerivAt.add", "HasFDerivAt.fderiv", "InnerProductSpace.toDual_symm_apply", "ContDiffAt.isSymmSndFDerivAt", "ContinuousLinearMap.norm_eq_iSup_rayleighQuotient", "lipschitzWith_of_nnnorm_fderiv_le"],
+    "sources": [
+      {"url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2", "label": "Chen, Chewi, Lu and Zhang, Smoothed Picard Hamiltonian Monte Carlo v1, Section 6.2.2, Lemma 6.4", "scope": "Direct curvature/smoothness clause for U_A,u with constants κ⁻¹+A⁻¹ and 1+A⁻¹, including A=∞ through zero precision. The five-step proof is ASTIS's mathematical expansion, not quoted prose or the full lemma."},
+      {"url": "https://arxiv.org/html/2609.06905v1", "label": "Chen, Chewi, Lu and Zhang, Proximal Bouncy Particle Sampler v1, Proposition 2.1(i), (2.9)-(2.10), and Section 4.1", "scope": "Prerequisite/consequence support: the same actual regularized potential has shifted curvature and actual gradient Lipschitz continuity. The public theorem does not return (2.10)'s Hessian sandwich or identify the conditional law, Poincaré or covariance bounds."}
+    ],
+    "tests": {"file": "Tests/QuadraticRegularization.lean", "command": "lake build Tests.QuadraticRegularization"}
+  }]
+}

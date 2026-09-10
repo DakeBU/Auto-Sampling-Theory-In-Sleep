@@ -5,7 +5,20 @@
   "audit_date": "2026-09-09",
   "scope": "Two primary-paper cases and one composition view; an extension to, not a mutation of, the pinned 34-row SampleWiki snapshot.",
   "status": "source-pinned-plan",
-  "review": "Primary statements and selected proof interfaces checked; independent mathematical review and Lean formalization pending.",
+  "execution": {
+    "updated": "2026-09-10",
+    "priority": "first-mathematical-priority",
+    "authorization": "The user deleted the old app Goal and explicitly authorized one new Goal prioritizing faithful formalization of both papers.",
+    "targets": ["ASTIS-SW-PBPS-2026", "ASTIS-SW-SPHMC-2026"],
+    "selection": "One dependency-ready substantive packet at a time; shortest verified path to actual paper theorems, not leaf-count maximization.",
+    "first_cell": "ASTIS-SW-SPHMC-recursive-condition-contraction",
+    "result_cells": ["ASTIS-SW-SPHMC-recursive-condition-contraction", "ASTIS-SW-PBPS-gaussian-augmentation-reflection", "ASTIS-SW-SPHMC-rgo-closure", "ASTIS-SHARED-isotropic-gaussian-density", "ASTIS-SW-PBPS-joint-gaussian-density", "ASTIS-SHARED-strong-convex-gibbs-integrability", "ASTIS-SHARED-hessian-strong-convexity", "ASTIS-SW-PBPS-gibbs-augmentation", "ASTIS-SHARED-quadratic-regularization", "ASTIS-SHARED-markov-kernel-tv-contraction", "ASTIS-SHARED-gaussian-rgo-conditional-kernel", "ASTIS-SW-SPHMC-rgo-calculus", "ASTIS-SW-SPHMC-recursive-variance-contraction"],
+    "preserved_frontier": "Chewi 8.4.1 representative/score-Fisher identification and all previous cell/cycle evidence are preserved, not completed or reset.",
+    "delivery": "Each existing companion page and its conversion window is a separate result entry. Complete main theorems require algorithms, source constants, discrepancy guarantees and actual-input expected query costs, not just conditional helper proofs.",
+    "deferred_product_work": ["Stable page and version-pinned citation/BibTeX entry", "Copy associated Lean and download a reproducible paper/book/chapter Lean bundle with manifest, imports, toolchain and licenses", "Theorem-local graph location and audited topology contribution"],
+    "cost_rule": "Do not schedule graph or website feature work ahead of a reachable paper proof. Reuse metadata and prior audit evidence; retain normal truth/source gates at stabilization."
+  },
+  "review": "Main theorem routes remain source-pinned plans. Per-declaration compilation and independent reviews are recorded in the linked Frontier Cells and semantic registry; they do not certify either full paper.",
   "sources": {
     "sphmc-2026": {
       "title": "Smoothed Picard Hamiltonian Monte Carlo",
@@ -31,7 +44,7 @@
   "setting": {
     "formula": "d\\ge1,\\quad V\\in C^2(\\mathbb R^d),\\quad 0<\\alpha I\\preceq\\nabla^2V(x)\\preceq\\beta I,\\quad \\kappa=\\beta/\\alpha,\\quad \\pi(dx)=Z^{-1}e^{-V(x)}dx",
     "notes": [
-      "The Hessian inequalities hold at every point; alpha and beta are positive real numbers. Strong convexity supplies a positive finite normalizer, but its proof remains a separate Lean obligation.",
+      "The Hessian inequalities hold at every point; alpha and beta are positive real numbers. Separate Hessian-to-chord and Gibbs-integrability proofs support the compiled normalized PBPS augmentation certificate: positive Gibbs integral, probability and exact product-volume joint density. Consult linked cells for independent-review and admission states. Conditional kernels, the sampling process and its guarantees remain separate.",
       "TV(P,Q) means sup over measurable events of |P(A)-Q(A)|. For probability laws with densities it is half their L1 distance.",
       "R_2(P||Q)=log integral (dP/dQ)^2 dQ when P is absolutely continuous with respect to Q, and infinity otherwise. The PBPS paper writes D_2 and calls the target mu; here the common target is pi.",
       "Expected oracle queries are not worst-case runtime. Reference-point preparation, proximal access and gradient-only reductions must be charged under the particular theorem's model."
@@ -140,10 +153,8 @@
     {"id": "tech:tv-handoff", "title": "Proxy-stable kernel composition", "sources": ["sphmc-2026", "pbps-2026"], "anchor": "SPHMC Section 7.2; PBPS (4.18)", "parents": ["tech:proxy-warm", "tech:implemented-kernel"], "consumers": ["ASTIS-SW-SPHMC-PBPS-COMPOSITION"], "target": "TV data processing plus triangle inequality; separate conditional expected-cost addition.", "boundary": "Markov-kernel measurability and mass one; no unbounded-cost transfer from TV alone.", "search_modules": ["AutoSamplingTheory.TechnicalLemmas.Probability.ConditionalKernel"]}
   ],
   "next_packets": [
-    {"priority": 1, "target": "Reuse audit for proxy-stable TV kernel handoff", "consumer": "tech:tv-handoff", "scope": "Locate exact TV convention, probability-kernel contraction and triangle APIs; freeze one source-neutral statement only after matching them.", "exclude": "No new Renyi definition, algorithm or cost theorem is needed for the error-only adapter."},
-    {"priority": 2, "target": "Quadratic energy completion and normalized RGO adapter", "consumer": "tech:rgo-calculus", "scope": "One algebraic identity, then a separate positive-normalizer/measurable-kernel packet; reuse both in recursion and PBPS.", "exclude": "Not a proximal-sampler convergence theorem."},
-    {"priority": 3, "target": "Reflection API audit", "consumer": "tech:reflection", "scope": "Search existing orthogonal reflection and Gaussian map APIs; freeze the zero-vector convention and genuine consumers before porting.", "exclude": "No PDMP construction or invariance follows from linear algebra."},
-    {"priority": 4, "target": "Source-detail audits of analytic consumers", "consumer": "tech:discrete-hypocoercivity", "scope": "Split score/cumulant domination, event-process domains and discrete modified-energy bounds into independent contracts.", "exclude": "Do not replace the existing active Chewi 8.4.1 frontier or require the whole SDE library before algebraic leaves."}
+    {"priority":0,"target":"Branch persistence and finite-depth RGO parameter threshold","consumer":"SPHMC Lemma 6.6 and the terminal-stage step after (6.4) in Theorem 6.5","scope":"RGOCalculus and both scalar regime estimates now compile; exact independent admission is tracked in their cells. RecursiveVariance includes zero initial precision and a guarded finite-previous-variance comparison, with c<1/4 generalized away only for the selected scalar formula. Next inspect the actual condition-number update for branch persistence, then geometric progress toward the finite positive threshold with exact stage indexing. These successor claims remain planned, not proved.","exclude":"Do not relax the algorithm's source schedule or infer termination directly from a single-step inequality. Recursive error, terminal FORS work, reference-point cost, implemented sampling and actual-input expected query costs remain independent. TV proximity does not transfer unbounded expected cost."},
+    {"priority": 2, "target": "Source-detail audits of analytic and process consumers", "consumer": "tech:discrete-hypocoercivity and tech:density-smoothing", "scope": "Separate conditional score/covariance representatives, domination, event-process domains and discrete modified-energy contracts. Reuse the existing Gaussian law, reflection and normalization results.", "exclude": "Preserve earlier Chewi 8.4.1 evidence; do not require the whole SDE library before reachable paper lemmas or infer process invariance from reflection algebra."}
   ],
   "topology": {
     "bridge_ids": ["transport:proxy-warm-handoff", "transport:proximal-half-turn"],

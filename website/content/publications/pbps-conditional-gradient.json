@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "pbps-weighted-gradient",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "A dense closable gradient for a genuine Gibbs measure",
+      "source": {
+        "url": "https://arxiv.org/html/1310.2526v7",
+        "edition": "arXiv:1310.2526v7",
+        "anchor": "section2.5 weighted Sobolev construction; direct Euclidean prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+      },
+      "statement": "Section2.5 of Kolesnikov-Milman describes weighted H1 and H10 by completing smooth test functions in the graph norm on its compact weighted manifold. The selected ASTIS analytic prerequisite is a directly proved Euclidean full-space construction, not that source spectral conclusion: for d>=1, C1 W with integrable exp(-W), the graph of smooth compact f and their genuine gradients determines a densely defined closable scalar-to-vector L2 operator under the normalized Gibbs measure. Its graph closure remains single-valued. This explicit construction is needed before a weighted resolvent route to PBPS conditional Poincare. No manifold boundary theorem or D*D operator-core assertion is included.",
+      "assumptions": [
+        "Selected full-space prerequisite: d>=1, W:R^d->R C1 and exp(-W) integrable, actual normalized Gibbs measure and smooth compact tests.",
+        "The background discussion is on compact weighted manifolds with smoother potential; full-space construction and weaker C1 regularity are explicit scope changes, not silent specialization."
+      ],
+      "formulae": [
+        {
+          "label": "Actual gradient graph and closure",
+          "tex": "\\operatorname{Graph}D=\\{([f],[\\nabla f]):f\\in C_c^\\infty(E)\\},\\qquad \\overline{\\operatorname{Dom}D}=L^2(\\mu),\\qquad D\\ \\text{is closable}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "exact-gradient-graph",
+          "label": "Exact genuine smooth compact gradient graph"
+        },
+        {
+          "id": "dense-closable-domain",
+          "label": "Dense domain and single-valued closed graph extension"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable",
+          "cell": "ASTIS-SW-PBPS-weighted-gradient",
+          "role": "prerequisite",
+          "supports": [
+            "exact-gradient-graph",
+            "dense-closable-domain"
+          ],
+          "audit_id": "ASTIS-RT-20260911-WeightedGradient",
+          "boundary": "Dense compact-test gradient operator, exact genuine-gradient graph and closed extension only. No operator core of D*D, dense mean-zero generator range, resolvent regularity, Poincare, noncompact score variance, macro coercivity, process/mixing/error/cost or complete-paper result.",
+          "assumption_deltas": [
+            {
+              "source": "Selected full-space prerequisite: d>=1, W:R^d->R C1 and exp(-W) integrable, actual normalized Gibbs measure and smooth compact tests.",
+              "lean": "E is finite-dimensional real inner-product with its Borel sigma algebra and canonical volume; dimension zero is included.",
+              "classification": "generalization",
+              "reason": "Finite-dimensional real inner-product Borel E includes dimension zero. This extends the source positive-dimensional Euclidean setting and is explicitly disclosed."
+            },
+            {
+              "source": "Background section2.5 compact-manifold weighted Sobolev completion and spectral discussion.",
+              "lean": "Direct Euclidean full-space graph construction under C1 W and actual exponential integrability.",
+              "classification": "generalization",
+              "reason": "No claim of automatic compact-manifold specialization or spectral conclusion; only the analytic prerequisite is supplied, with weaker C1 regularity explicitly stated."
+            },
+            {
+              "source": "Sobolev gradient completion.",
+              "lean": "Exact L2 almost-everywhere gradient graph equivalence, dense partial-linear domain, IsClosable and closed closure.",
+              "classification": "source-implicit",
+              "reason": "Representative independence and closed-graph construction are derived from weighted vector IBP and smooth density, never assumed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pbps-conditional-gradient",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "The actual conditional PBPS gradient is densely defined and closable",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "edition": "arXiv:2609.06905v1",
+        "anchor": "Appendix C.1 weighted-space analytic prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+      },
+      "statement": "PBPS Appendix C.1 uses conditional Poincare for the actual reflected Gibbs-Gaussian conditional law. The selected ASTIS prerequisite constructs the actual weighted gradient domain and closure on that law: with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), S_y is normalized exp(-W_y) volume, and the smooth compact gradient graph in L2(S_y) is densely defined and closable. The original source PI/variance application is not proved by this prerequisite. Kernels, normalization and potential regularity must be those of the actual augmentation.",
+      "assumptions": [
+        "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta, genuine alpha/beta Hessian bounds, eta>0 and beta eta<=1.",
+        "The actual joint law is (X,X+sqrt(eta)Z) with independent Gibbs X and standard Gaussian Z; the reflected conditional law is S_y."
+      ],
+      "formulae": [
+        {
+          "label": "Actual gradient graph and closure",
+          "tex": "S_y(du)=Z_y^{-1}e^{-W_y(u)}du,\\quad W_y(u)=V((y+u)/2)+\\frac{\\|u-y\\|^2}{8\\eta},\\quad \\operatorname{Graph}D_y=\\{([f],[\\nabla f]):f\\in C_c^\\infty(E)\\}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "exact-gradient-graph",
+          "label": "Exact genuine smooth compact gradient graph"
+        },
+        {
+          "id": "dense-closable-domain",
+          "label": "Dense domain and single-valued closed graph extension"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+          "cell": "ASTIS-SW-PBPS-conditional-gradient",
+          "role": "prerequisite",
+          "supports": [
+            "exact-gradient-graph",
+            "dense-closable-domain"
+          ],
+          "audit_id": "ASTIS-RT-20260911-PBPSConditionalGradient",
+          "boundary": "Dense compact-test gradient operator, exact genuine-gradient graph and closed extension only. No operator core of D*D, dense mean-zero generator range, resolvent regularity, Poincare, noncompact score variance, macro coercivity, process/mixing/error/cost or complete-paper result.",
+          "assumption_deltas": [
+            {
+              "source": "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta, genuine alpha/beta Hessian bounds, eta>0 and beta eta<=1.",
+              "lean": "E is finite-dimensional real inner-product Borel, including dimension zero; V is C2.",
+              "classification": "generalization",
+              "reason": "Finite-dimensional real inner-product Borel E includes dimension zero. This extends the source positive-dimensional Euclidean setting and is explicitly disclosed."
+            },
+            {
+              "source": "Appendix C.1 conditional Poincare application.",
+              "lean": "Actual conditional dense closable gradient construction only.",
+              "classification": "API-limitation",
+              "reason": "This prerequisite does not prove the source variance estimate, PI, a D*D core or resolvent regularity."
+            },
+            {
+              "source": "Source Hessian and scale assumptions.",
+              "lean": "Explicit 0<alpha<=beta, V C2, genuine Hessian bounds and beta eta<=1 retained.",
+              "classification": "same",
+              "reason": "The conditional parent interface retains these restrictions even though the abstract gradient result has no curvature hypothesis."
+            },
+            {
+              "source": "Actual conditional Gibbs normalization.",
+              "lean": "One common R,S with disintegration and reflected pushforward; every fiber has actual density, C2 potential, integrable weight and positive normalizer.",
+              "classification": "source-implicit",
+              "reason": "The shared exponential integrability premise is supplied by the proved actual conditional law, not introduced as a new paper assumption."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

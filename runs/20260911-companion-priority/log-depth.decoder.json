@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-446b6496805b7899",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {κ c r₀ q Δ γ C : ℝ} {d : ℕ}\n  {η : ℕ → ℝ},\n  1 ≤ κ →\n    0 < c →\n      c < 1 / 4 →\n        0 ≤ r₀ →\n          (∀ (n : ℕ), 0 < η n ∧ η n ≤ c) →\n            0 < d →\n              2 ≤ q →\n                0 < Δ →\n                  Δ ≤ 1 / 2 →\n                    0 < γ →\n                      γ ≤ 1 →\n                        8 ≤ C →\n                          have K := fun r => (1 + r) / (κ⁻¹ + r);\n                          have τ := fun r => if 2 ≤ K r then K r else c;\n                          have a := fun r h => (h + τ r) / (1 + r);\n                          have step := fun r h => r + (a r h)⁻¹;\n                          have r := fun t => Nat.rec r₀ (fun j r => step r (η j)) t;\n                          have L := q + Real.log (K r₀ * ↑d * q / Δ);\n                          have B := γ / (√(↑d * L) + L);\n                          have J := ⌈C * Real.log (Real.exp 1 * K r₀ / B)⌉₊;\n                          2 ≤ L ∧\n                            (0 < B ∧ B ≤ 1) ∧\n                              0 < J ∧ 0 < (r J)⁻¹ ∧ (r J)⁻¹ ≤ B ∧ ↑J ≤ (3 * C + C / 2 * Real.log (1 / γ)) * L",
+    "statement_sha256": "446b6496805b78994b4f9f19506bf12b8662162bcb0bb3365bc0f2c643b4b8c6",
+    "compiled": true,
+    "approved_definition_context": [
+      "ℝ denotes real numbers and ℕ natural numbers starting at zero. Real inverse is totalized with inverse zero equal to zero. Nat.rec z f defines value z at zero and f j (previous value) at j+1. A have-expression in a displayed type is a local abbreviation. The upward-arrow coerces a natural number to a real number; the subscripted ceiling is the natural ceiling, zero for nonpositive arguments. Real.log is the natural logarithm, Real.exp its exponential, and the square root is the nonnegative real square root."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "ddfd941a3b0362abd25190848545e0b03f113c2349e0ad1273fd370e1d07e13c"
+}

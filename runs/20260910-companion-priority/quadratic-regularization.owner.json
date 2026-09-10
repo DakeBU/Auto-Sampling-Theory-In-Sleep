@@ -1,0 +1,27 @@
+{
+  "advance_id": "ASTIS-SA-20260910-QuadraticRegularization",
+  "owner": "publication_gate_review",
+  "state": "PROVED_LOCAL",
+  "frontier_cell": "ASTIS-SHARED-quadratic-regularization",
+  "audit_id": "ASTIS-RT-20260910-QuadraticRegularization",
+  "publication_binding_sha256": "81cc82aa40c055f5f0df1aaa557336947a7a60fa0e9636e38d6d94773599148d",
+  "frozen_sha256": {
+    "module": "516ac170f482f2e038f79292a2e5dc3ab3138ea9a574e08e088bf59cfba48303",
+    "test": "b4428f3e58b2c31cc1a33dbc011c5378a48617326b4a00b27b3dcb07525cd1e8",
+    "lesson": "295dc4f698b2798d29f7a6d9ce55c43952dc80932b2acbb71d24a87187a7e783",
+    "publication": "571b1f1fc860e03335aab10026f1987551c3411096622640627c2a7022c3f166"
+  },
+  "admission_evidence": {
+    "result_kind": "theorem-edge",
+    "theorem_delta": "From genuine C² U and a nonnegative diagonal Hessian sandwich, derive exact (m+r)-strong convexity and actual (L+r)-Lipschitz gradient for U+r||x-u||²/2 on complete real inner-product E, including zero precision and zero dimension.",
+    "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic"],
+    "publication_declarations": ["AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic"],
+    "lean_files": ["AutoSamplingTheory/TechnicalLemmas/Analysis/QuadraticRegularization.lean", "Tests/QuadraticRegularization.lean"],
+    "focused_checks": ["Lean 4.33.0 with LEAN_NUM_THREADS=2: production module PASS; lake build Tests.QuadraticRegularization PASS, 2943 jobs, no warnings; axioms only propext, Classical.choice, Quot.sound. Tests retain source constants, r=0, zero dimension, positive finite canonical-volume Gibbs mass, probability and actual quadratic_tilt_tilt consumer."],
+    "truth_boundary": "Direct SPHMC Lemma 6.4 curvature/smoothness clause only; PBPS potential is prerequisite/consequence support, not public Hessian-sandwich or whole Proposition 2.1 closure. Conditional laws, Poincaré/covariance, recurrence, sampler and cost are not proved by this declaration. Independent source review and coordinator integration remain separate; no owner VERIFIED or commit claim.",
+    "conceptual_mirror_audit": {"status": "none-found", "discovery_ids": [], "reason": "Existing curvature-growth and proximal-energy families already retain the mechanism; no new conceptual transport is proposed."}
+  },
+  "source_review": "Coordinator integrated the independent equivalent-after-elaboration verdict into accepted audit ASTIS-RT-20260910-QuadraticRegularization: seven slots, three informational deltas, no repairs. Source-review artifact SHA256 68ae1a46c473789f5cd4259a039e2f08db9d34c167bcee345d05102de0a0a4c2. Owner is neither decoder nor reviewer.",
+  "independent_proof": "Coordinator reports focused and direct checks PASS on the exact frozen module/test hashes; the owner does not issue a verification transition.",
+  "integration_notes": "Coordinator owns shared imports, Registry, semantic registry, aggregate checks, graphs and deployment. No Git writes by this owner. Frozen Lean, test, lesson, publication and cell metadata require no further owner edits."
+}

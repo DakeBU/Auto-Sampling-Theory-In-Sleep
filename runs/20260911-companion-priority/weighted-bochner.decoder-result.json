@@ -1,0 +1,15 @@
+{
+  "decoder": "bochner_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent anonymous reconstruction, formulas in plain text. No material ambiguities reported.",
+  "source_text_visible": false,
+  "only_input": "runs/semantic-roundtrip/ASTIS-RT-20260911-WeightedBochner.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "3872b7c14700e9b02eacead59bc747b0870bbe2dbd93c0c56a2c9681e18f5a9e",
+  "lean_statement_sha256": "8885e2a2c387f1fca2e7a9321a96d977615fca88acd46b01f949a88f16a24875",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product space E with its Borel measurable structure, every C2 W:E->R and every smooth compactly supported f:E->R, define L(x)=Delta f(x)-inner(gradient W(x),gradient f(x)), H(x)=sum_i norm(gradient(z->Df(z)[e_i])(x))^2, and C(x)=D2W(x)[gradient f(x),gradient f(x)], using the displayed standard orthonormal basis indexed by the dimension. With respect to canonical volume all four functions exp(-W)L^2, exp(-W)norm(gradient f)^2, exp(-W)H and exp(-W)C are integrable, including absolute integrability of the signed curvature contribution. The integral of exp(-W)L^2 equals the sum of the integrals of exp(-W)H and exp(-W)C. For every real m, if D2W(x)[v,v]>=m norm(v)^2 for every x,v, then m times the weighted gradient-energy integral is at most the weighted L^2 integral. All derivatives are genuine Frechet derivatives, gradients their Riesz representatives and Delta the trace of the genuine second derivative. There is no positivity requirement on m, no global integrability assumption on exp(-W), and no probability normalization. Zero-dimensional E is allowed with an empty basis sum. The integrability clauses are conclusions, not premises.",
+  "source_fidelity_verdict": null
+}

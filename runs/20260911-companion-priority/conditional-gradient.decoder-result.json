@@ -1,0 +1,16 @@
+{
+  "decoder": "gradient_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root English transcription of independent anonymous Chinese reconstruction, formulas rendered in plain text. Scope and actual ambiguities preserved.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-packet-b.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-PBPSConditionalGradient.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "8fa693243008088e11a8b1891be5801a1a15c88f81509d79a180d3c9e8097601",
+  "lean_statement_sha256": "ed139f45dfdc692ab67c195def0e19138bb8976a8303ce72cedc63f370fb6e74",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product Borel space E with canonical volume, including dimension zero, V:E->R, nonnegative real alpha,beta and real eta, assume alpha>0, alpha<=beta, V C2, alpha norm(h)^2<=D2V(x)[h,h]<=beta norm(h)^2 for all x,h, eta>0 and beta eta<=1. D2V is the actual iterated Frechet derivative. Define mu as volume tilted by -V, J as the pushforward of mu tensor standard Gaussian under (x,z)->(x,x+sqrt(eta)z), and W_y(q)=V((y+q)/2)+norm(q-y)^2/(8eta). There exist common Markov kernels R,S from E to E. R is the conditional disintegration kernel of swap-pushforward J on its first coordinate; for every y, S(y) is the pushforward of R(y) under x->2x-y. For every y, S(y)=volume tilted by -W_y, W_y is C2, exp(-W_y) is volume-integrable with integral strictly positive, and there exists a partial real-linear operator D_y from a dense linear subspace of scalar L2(S(y)) into vector L2(S(y);E). D_y is closable and its closure is closed. For every scalar class a and vector class b, graph membership (a,b) in D_y is equivalent to existence of smooth compactly supported scalar f with a=f and b=gradient f S(y)-almost everywhere. R,S are selected before all y. D_y is selected after y and before a,b; f may depend on y,a,b. There is no asserted measurability or continuity of y->D_y and no uniform operator bound. Conditional disintegration does not assert a uniquely determined version at every y; by contrast both S(y) measure equalities and all fiber analytic conclusions are explicitly for every y. Mu,J,W are displayed definitions, not extra premises or freely chosen objects. No separate exp(-V) integrability assumption is added. The coefficients 1/2,2,8 are fixed. Approved definitions determine the reconstruction; IsCondKernel is interpreted only as the supplied disintegration on the first coordinate, without extra pointwise density convention or uniqueness requirement.",
+  "source_fidelity_verdict": null
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-recursive-variance",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Well-conditioned RGO update: finite variance and contraction",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Section 6.3, Lemma 6.6(ii), equations (6.1)–(6.2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS restatement, expanded mathematical proof and Lean formalization; no author endorsement implied."
+      },
+      "statement": "At a recursive stage let 0<η≤c₀<1/4. The well-conditioned branch κ_A<2 selects τ=c₀ and a=(η+c₀)/(1+A⁻¹), with A∈(0,∞]. The update (A⁺)⁻¹=A⁻¹+a⁻¹ has A⁺≤2c₀. For a finite previous A, it also satisfies A⁺≤ρ₀A, where ρ₀=2c₀/(1+2c₀)<1. These are the one-step parameter claims of Lemma 6.6(ii), not the later multi-stage algorithm theorem. ASTIS uses r=A⁻¹≥0 and proves A⁺>0 even at r=0. This selected scalar formula does not require c₀<1/4; that generalization is disclosed separately.",
+      "assumptions": [
+        "r≥0 is precision. A previous finite regularization variance equals 1/r only when r>0; r=0 models A=∞ without using Lean's real inverse of zero as infinity.",
+        "0<h≤c implies c>0. The source restriction c<1/4 is not needed for this selected scalar branch.",
+        "The well-conditioned branch has already selected τ=c. This theorem does not test its condition number, prove branch persistence or implement a recursive sampler.",
+        "All quantities here are real scalar parameters, not random variables or the covariance of the Gibbs distribution. No measure-theoretic hypothesis is needed for the scalar inequalities."
+      ],
+      "formulae": [
+        {
+          "label": "one-step parameter bound",
+          "tex": "\\begin{gathered}a=\\frac{h+c}{1+r},\\quad r^+=r+a^{-1},\\quad A^+=(r^+)^{-1},\\quad \\rho=\\frac{2c}{1+2c},\\\\0<r^+,\\quad0<A^+\\le2c,\\quad0<\\rho<1,\\quad r>0\\Longrightarrow A^+\\le\\rho r^{-1}.\\end{gathered}"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "finite-updated-variance",
+          "label": "Positive finite updated parameter bounded by twice the schedule constant, including initial infinity"
+        },
+        {
+          "id": "finite-variance-contraction",
+          "label": "Exact contraction factor for a positive previous precision"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds",
+          "cell": "ASTIS-SW-SPHMC-recursive-variance-contraction",
+          "role": "proof-edge",
+          "supports": [
+            "finite-updated-variance",
+            "finite-variance-contraction"
+          ],
+          "audit_id": "ASTIS-RT-20260910-SPHMCRecursiveVariance",
+          "boundary": "Only the deterministic well-conditioned parameter step of Lemma6.6(ii). The source condition-number test selects tau=c; it is not asserted by this lemma. c<1/4 is unnecessary for this scalar branch and explicitly generalized away. r^-1 represents a previous finite variance only under r>0. No finite-stage termination, implemented recursion, probability error, mixing or query cost. One-step regularization-parameter control is not a covariance estimate, a termination theorem, an error guarantee or an expected query-cost estimate.",
+          "assumption_deltas": [
+            {
+              "source": "A∈(0,∞] and reciprocal update (6.1)",
+              "lean": "r≥0; updated precision positive; comparison with r⁻¹ guarded by r>0",
+              "classification": "source-implicit",
+              "reason": "Zero precision retains the infinite initial case. A⁺=h+c there; no totalized real inverse of zero represents infinity."
+            },
+            {
+              "source": "0<η≤c₀<1/4",
+              "lean": "0<h≤c, with c>0 derived",
+              "classification": "generalization",
+              "reason": "The upper restriction c<1/4 is unused in this scalar branch and is not needed for 0<ρ<1."
+            },
+            {
+              "source": "κ_A<2 selects τ=c₀",
+              "lean": "Already selected a=(h+c)/(1+r)",
+              "classification": "same",
+              "reason": "No condition-number test, branch persistence or full recursive process is claimed."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

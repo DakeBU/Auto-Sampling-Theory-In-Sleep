@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-42e463c6c25cde86",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] {r s : ℝ}, 0 ≤ r → 0 < s → ∀ (u y : E), (μ.tilted (fun x => -(r / 2) * ‖x - u‖ ^ 2)).tilted (fun x => -(s / 2) * ‖x - y‖ ^ 2) = μ.tilted (fun x => -((r + s) / 2) * ‖x - (r + s)⁻¹ • (r • u + s • y)‖ ^ 2)",
+    "statement_sha256": "42e463c6c25cde869c3c1823f851dec4e9b0ca2d568ac22ed9ba977e77cebb9e",
+    "compiled": true,
+    "approved_definition_context": [
+      "Measure.tilted m f is m.withDensity (fun x => ENNReal.ofReal (Real.exp (f x) / ∫ z, Real.exp (f z) ∂m)). If exp ∘ f is not integrable, its real integral is totalized to zero and the tilted measure is zero. When the base is nonzero and the exponential weight is integrable, its integral is strictly positive and this definition is the normalized probability reweighting. Here withDensity means weighting a measure by a nonnegative extended-real measurable density.",
+      "IsProbabilityMeasure means mass one. BorelSpace identifies the measurable structure with the norm topology's Borel sets. InnerProductSpace ℝ E is a real inner-product space; no finite-dimensionality or completeness typeclass is present. The norm is the induced norm, • is real scalar multiplication and a⁻¹ is real reciprocal, with 0⁻¹=0 by totalization."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "763636e2c54762d57104f10b7b76399959b5b69397030aa6c5c0e652d74c851a"
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-8885e2a2c387f1fc",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] (W f : E → ℝ),\n  ContDiff ℝ 2 W →\n    ContDiff ℝ (↑⊤) f →\n      HasCompactSupport f →\n        have L := fun x => Laplacian.laplacian f x - Inner.inner ℝ (gradient W x) (gradient f x);\n        have H := fun x => ∑ i, ‖gradient (fun z => (fderiv ℝ f z) ((stdOrthonormalBasis ℝ E) i)) x‖ ^ 2;\n        have C := fun x => ((fderiv ℝ (fderiv ℝ W) x) (gradient f x)) (gradient f x);\n        MeasureTheory.Integrable (fun x => Real.exp (-W x) * L x ^ 2) MeasureTheory.MeasureSpace.volume ∧\n          MeasureTheory.Integrable (fun x => Real.exp (-W x) * ‖gradient f x‖ ^ 2) MeasureTheory.MeasureSpace.volume ∧\n            MeasureTheory.Integrable (fun x => Real.exp (-W x) * H x) MeasureTheory.MeasureSpace.volume ∧\n              MeasureTheory.Integrable (fun x => Real.exp (-W x) * C x) MeasureTheory.MeasureSpace.volume ∧\n                ∫ (x : E), Real.exp (-W x) * L x ^ 2 =\n                    (∫ (x : E), Real.exp (-W x) * H x) + ∫ (x : E), Real.exp (-W x) * C x ∧\n                  ∀ (m : ℝ),\n                    (∀ (x v : E), m * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ W) x) v) v) →\n                      m * ∫ (x : E), Real.exp (-W x) * ‖gradient f x‖ ^ 2 ≤ ∫ (x : E), Real.exp (-W x) * L x ^ 2",
+    "statement_sha256": "8885e2a2c387f1fca2e7a9321a96d977615fca88acd46b01f949a88f16a24875",
+    "compiled": true,
+    "approved_definition_context": [
+      "The ambient type is a finite-dimensional real inner-product space with Borel measurable structure. The default measure in a real integral is canonical volume.",
+      "ContDiff at order 2 is C2 and at order infinity is smooth. HasCompactSupport means the closure of the nonzero support is compact. fderiv is the genuine Frechet derivative; gradient is its Riesz representative; Laplacian is the canonical trace of the genuine second derivative.",
+      "stdOrthonormalBasis is an orthonormal basis indexed by Fin(finrank R E), empty in dimension zero. The displayed sum of squared gradients of directional derivatives is explicit; no abstract Hessian norm equality is an additional premise.",
+      "Integrable means almost-everywhere strong measurability and finite integral of the norm; signed curvature terms require actual integrability. Lets name displayed expressions, not hypotheses.",
+      "Measure.map is pushforward and Measure.prod is independent product. stdGaussian is the standard Gaussian. Tilted is normalized exponential weighting, totalized to zero if the exponential weight is not integrable.",
+      "A Markov kernel is a measurably parameterized probability measure. IsCondKernel disintegrates the specified joint measure conditional on its first coordinate; Prod.swap exchanges coordinates."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "3872b7c14700e9b02eacead59bc747b0870bbe2dbd93c0c56a2c9681e18f5a9e"
+}

@@ -1,0 +1,155 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity",
+      "kind": "theorem",
+      "title": "Weighted Bochner identity from compact-test integration by parts",
+      "statement": "Let E be a finite-dimensional real inner-product space with its Borel structure, W a C2 real potential, and f a smooth compactly supported real function. Put Lf=Delta f-inner(gradient W,gradient f), H_f=sum_i norm(gradient(D_i f))^2 for a fixed orthonormal basis, and C_f=D2W[gradient f,gradient f]. All four weighted functions (Lf)^2, norm(gradient f)^2, H_f and C_f are integrable against exp(-W) times volume. Their actual integrals satisfy the Bochner identity. For every real m with genuine Hessian lower bound D2W(x)[v,v]>=m norm(v)^2, m times weighted gradient energy is at most the weighted square of Lf.",
+      "formula": "\\int e^{-W}(Lf)^2=\\int e^{-W}H_f+\\int e^{-W}D^2W[\\nabla f,\\nabla f],\\qquad m\\int e^{-W}\\|\\nabla f\\|^2\\le\\int e^{-W}(Lf)^2.",
+      "assumptions": [
+        "E is finite-dimensional real inner-product with Borel sigma algebra and canonical volume, including dimension zero.",
+        "W:E->R is C2; f:E->R is C-infinity and compactly supported. No C3 regularity of W is assumed.",
+        "All differential expressions use the actual Frechet derivative, Riesz gradient and canonical Laplacian. H_f is a coordinate Hessian-square expression; no separate abstract Hilbert-Schmidt norm theorem is claimed.",
+        "The identity needs no curvature or global integrability of exp(-W). All tested products are compactly supported. For the energy consequence, m is any real number and its pointwise genuine Hessian lower bound is an explicit premise.",
+        "This is the directly proved Euclidean compact-test localization of the background weighted Reilly formula. Positive-dimensional localization kills boundary terms on an enclosing ball; dimension zero is a disclosed extension, not a full manifold theorem."
+      ],
+      "steps": [
+        {
+          "title": "Prove weighted integration by parts in one direction",
+          "text": "For fixed v set F=exp(-W)g and H=D_v h, where W,g are C1 and h is C2 with compact support. H and D_v H are continuous and vanish outside the support of h. Thus F H, D_v F H and F D_v H are continuous compactly supported products and are genuinely integrable. Apply the Haar-volume integration-by-parts theorem, then expand D_v F=exp(-W)(D_v g-g D_v W). The API is applied to volume, not to a non-Haar Gibbs measure.",
+          "formula": "\\int e^{-W}gD_{vv}h=-\\int e^{-W}(D_vg-gD_vW)D_vh.",
+          "lean": "weighted_directional_ibp derives all three API integrability premises. All helper proofs are local steps inside the single public theorem and included in its full Lean proof."
+        },
+        {
+          "title": "Sum directions to recover the actual Langevin expression",
+          "text": "Sum over the standard orthonormal basis. The diagonal genuine second derivatives sum to the canonical Laplacian, while the products of directional derivatives sum to the inner product of gradients. Finite sums and compact integrability justify splitting the integrals. This gives weighted bilinear IBP for g merely C1; h is C2 compact. No semigroup or generator-domain contract enters.",
+          "formula": "\\int e^{-W}gLh=-\\int e^{-W}\\langle\\nabla g,\\nabla h\\rangle.",
+          "lean": "directional_second and inner_gradient_eq_sum identify the actual derivatives. weighted_bilinear_ibp proves the integral identity rather than assuming it."
+        },
+        {
+          "title": "Differentiate Lf using only the second derivative of W",
+          "text": "Smooth f permits the required directional derivative exchanges. The C2 Hessian symmetry theorem exchanges two genuine derivatives; the product rule gives the differentiated drift. Hence D_i Lf=L(D_i f)-sum_j D_ij W D_j f. W being C2 guarantees Lf is C1; no third derivative of W is used. Compact support is inherited by all directional derivatives and Lf.",
+          "formula": "D_iLf=L(D_if)-\\sum_jD_{ij}W\\,D_jf.",
+          "lean": "dir_comm, op_coords, op_contDiff, op_compact and dir_op are locally proved helpers. The displayed op is the actual Laplacian-minus-drift expression."
+        },
+        {
+          "title": "Apply integration by parts twice",
+          "text": "First use g=Lf and h=f. Expand the gradient inner product in the orthonormal basis and substitute the commutator. For each basis direction use g=h=D_i f in the second IBP. Its negative sign cancels the first IBP sign and yields a positive squared gradient. Every cross term is integrable because a smooth compact derivative of f is one factor.",
+          "formula": "\\int e^{-W}(Lf)^2=\\sum_i\\int e^{-W}\\|\\nabla D_if\\|^2+\\sum_{i,j}\\int e^{-W}D_{ij}W D_ifD_jf.",
+          "lean": "bochner_coordinate_integrals derives both IBP applications and all finite-sum integral exchanges with explicit Integrable witnesses."
+        },
+        {
+          "title": "Recover the genuine Hessian quadratic form",
+          "text": "Expand gradient f in the orthonormal basis using its actual derivative coordinates. Bilinearity and C2 symmetry identify the curvature sum with D2W[gradient f,gradient f]. The sum of squared gradients of D_i f is the coordinate expression for the Hessian Hilbert-Schmidt square. The formal result retains this explicit sum and does not assert a separate abstract norm identification.",
+          "formula": "\\sum_{i,j}D_{ij}W D_ifD_jf=D^2W[\\nabla f,\\nabla f].",
+          "lean": "gradient_basis and curvature_sum provide the pointwise algebra; curvature_integrable_and_sum and integrated_identity preserve genuine integral equalities."
+        },
+        {
+          "title": "Derive the curvature-energy inequality",
+          "text": "All four weighted integrability claims follow from the compact-test proof. If D2W>=m I, multiply the pointwise quadratic-form bound by the nonnegative weight and integrate. The Hessian-square term is nonnegative, so dropping it gives m times the gradient energy at most the square-generator energy. This is an estimate on the actual differential expression, not Poincare or closed-operator coercivity.",
+          "formula": "m\\int e^{-W}\\|\\nabla f\\|^2\\le\\int e^{-W}D^2W[\\nabla f,\\nabla f]\\le\\int e^{-W}(Lf)^2.",
+          "lean": "weighted_energy_lower_bound uses integral_mono with proved integrability; the public theorem packages that result with the full identity and input integrability."
+        }
+      ],
+      "lean_statement": "The public statement retains actual differential expressions and every integrability clause; the m-bound is universally quantified with an explicit genuine curvature premise.",
+      "lean_proof": "Two proved Haar-volume IBP applications, C2 Hessian symmetry and finite-basis algebra yield the identity; nonnegative integration gives the energy bound. All helper proofs are local haves/lets in this complete public proof.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.fderiv_apply_eq_inner_gradient_of_differentiableAt"
+      ],
+      "mathlib_dependencies": [
+        "integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable",
+        "ContDiffAt.isSymmSndFDerivAt",
+        "InnerProductSpace.laplacian_eq_iteratedFDeriv_stdOrthonormalBasis",
+        "Continuous.integrable_of_hasCompactSupport",
+        "MeasureTheory.integral_finsetSum",
+        "MeasureTheory.integral_mono"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/1310.2526v7",
+          "label": "Kolesnikov and Milman, weighted Reilly identity, Theorem 1.1 (1.3)",
+          "scope": "Euclidean compact-test localized version proved directly; not the full compact manifold/boundary theorem. Zero dimension is an additional extension."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1",
+          "scope": "Analytic prerequisite for the invoked conditional Poincare inequality. The Bochner edge does not discharge that inequality."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalBochner.lean",
+        "command": "lake build Tests.ProximalBPSConditionalBochner"
+      },
+      "boundary": "Compact-test Bochner identity and curvature-energy bound only. No curvature-to-Poincare theorem, closed weighted operator/core, dense range or resolvent construction, noncompact score extension, variance estimate, macro coercivity, process/mixing/error/cost or complete-paper result."
+    },
+    {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy",
+      "kind": "theorem",
+      "title": "Bochner energy under the actual reflected conditional Gibbs kernel",
+      "statement": "For the actual Gibbs-Gaussian augmentation there are common Markov kernels R,S: R disintegrates the swapped joint law and S_y is the reflected pushforward of R_y. Every S_y is normalized exp(-W_y) times volume, W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta), with W_y C2 and finite strictly positive normalizer. For every smooth compactly supported f, the square of L_y f, squared gradient, coordinate Hessian-square term and genuine conditional curvature term are integrable under this same S_y. The exact normalized Bochner identity holds, and the square-generator energy bounds ((alpha+eta inverse)/4) times the gradient energy.",
+      "formula": "\\int(L_yf)^2\\,dS_y=\\int H_f\\,dS_y+\\int D^2W_y[\\nabla f,\\nabla f]\\,dS_y\\ge\\frac{\\alpha+\\eta^{-1}}4\\int\\|\\nabla f\\|^2\\,dS_y.",
+      "assumptions": [
+        "E is finite-dimensional real inner-product with Borel structure and canonical volume, including dimension zero. V:E->R is C2.",
+        "Alpha,beta are finite nonnegative real parameters with explicit 0<alpha<=beta and genuine alpha/beta Hessian quadratic-form bounds on V.",
+        "Eta>0 and beta eta<=1 are retained from the ConditionalScoreDomain parent interface. The upper scale and upper curvature restrictions are not needed by the abstract Bochner identity; they are not removed from this conditional consumer.",
+        "Mu is volume tilted by -V; J is the law of (X,X+sqrt(eta)Z) from independent X~mu and standard Gaussian Z. The same constructed R,S work for every y and every smooth compactly supported f.",
+        "No probability, conditional density, global normalizer, integrability, integration-by-parts or Poincare premise is silently added; they are derived where claimed."
+      ],
+      "steps": [
+        {
+          "title": "Keep one actual conditional kernel",
+          "text": "Use ConditionalScoreDomain to obtain common R,S, their Markov properties, disintegration and reflected pushforward. For each y it provides exactly S_y=volume tilted by -W_y, W_y C2 and the genuine lower curvature (alpha+eta inverse)/4. Do not replace S_y by an unrelated measure with an assumed curvature inequality.",
+          "formula": "S_y=(x\\mapsto2x-y)_\\#R_y=Z_y^{-1}e^{-W_y(u)}\\,du.",
+          "lean": "conditional_curvature_and_score_domain supplies the same existential witnesses; the consumer retains hR,hS,hcond,hSR,hSy and hcurv."
+        },
+        {
+          "title": "Prove the global normalizer is finite and positive",
+          "text": "The shared compact-test identity alone cannot prove global weight integrability. Instead, S_y is already an actual probability measure and equals the tilt. If exp(-W_y) were not integrable, Mathlib tilt would be the zero measure, contradicting S_y(univ)=1. Thus the weight is integrable. Its pointwise strict positivity and nonzero volume make Z_y strictly positive. This rules out a totalized zero-measure normalization.",
+          "formula": "0<Z_y:=\\int e^{-W_y(u)}\\,du<\\infty.",
+          "lean": "hweight contradicts tilted_of_not_integrable using the Markov probability mass. integral_exp_pos gives hZ before any normalized inequality is transferred."
+        },
+        {
+          "title": "Transport the full identity and every integral domain",
+          "text": "Apply the actual shared Bochner theorem to W_y and f. It supplies all four weighted Integrable facts and the raw identity. The tilted-integrability equivalence transfers each fact to this same S_y. For every integrand g, the exact tilted integral equals Z_y inverse times the weighted volume integral, so multiplying the raw identity gives the normalized identity.",
+          "formula": "\\int g\\,dS_y=Z_y^{-1}\\int e^{-W_y}g,\\qquad\\int(L_yf)^2\\,dS_y=\\int H_f\\,dS_y+\\int C_f\\,dS_y.",
+          "lean": "integrated_bochner_identity is a genuine public shared theorem call. hI uses integrable_tilted_iff only after hweight; htilt uses integral_tilted and scalar integral algebra."
+        },
+        {
+          "title": "Use the actual conditional curvature constant",
+          "text": "Apply the shared curvature-energy consequence to the inherited genuine Hessian lower bound, then multiply by positive Z_y inverse. This yields precisely (alpha+eta inverse)/4 times the S_y gradient energy. It remains a compact-test square-generator estimate. Constructing a weighted closed core/range or resolvent and extending to noncompact scores are still necessary before claiming conditional Poincare or score variance.",
+          "formula": "\\frac{\\alpha+\\eta^{-1}}4\\int\\|\\nabla f\\|^2\\,dS_y\\le\\int(L_yf)^2\\,dS_y.",
+          "lean": "The final calc applies hbound to hcurv and uses inv_nonneg.mpr hZ.le; no variance or spectral-gap theorem is assumed."
+        }
+      ],
+      "lean_statement": "Common actual kernels, density and finite positive normalizer precede the universal compact-test integrability, identity and exact energy inequality.",
+      "lean_proof": "Reuse the genuine conditional construction and the full shared Bochner identity; derive the normalizer from actual probability and transfer all integrals exactly.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.tilted_of_not_integrable",
+        "MeasureTheory.integral_exp_pos",
+        "MeasureTheory.integrable_tilted_iff",
+        "MeasureTheory.integral_tilted"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1",
+          "scope": "Analytic prerequisite for the invoked conditional Poincare inequality. The Bochner edge does not discharge that inequality."
+        },
+        {
+          "url": "https://arxiv.org/html/1310.2526v7",
+          "label": "Kolesnikov and Milman, weighted Reilly identity, Theorem 1.1 (1.3)",
+          "scope": "Euclidean compact-test localized version proved directly; not the full compact manifold/boundary theorem. Zero dimension is an additional extension."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalBochner.lean",
+        "command": "lake build Tests.ProximalBPSConditionalBochner"
+      },
+      "boundary": "Compact-test Bochner identity and curvature-energy bound only. No curvature-to-Poincare theorem, closed weighted operator/core, dense range or resolvent construction, noncompact score extension, variance estimate, macro coercivity, process/mixing/error/cost or complete-paper result."
+    }
+  ]
+}

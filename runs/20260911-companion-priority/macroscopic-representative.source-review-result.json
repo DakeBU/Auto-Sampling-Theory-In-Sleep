@@ -1,0 +1,95 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent review and all seven slots under sole-writer policy.",
+  "reviewer_packet_sha256": "7676998ee464a23e7f424280ee4774d3840a2e504f9590440a96a62a6f20982b",
+  "source_text_sha256": "10fa00fbf49c7b08ebbcd43962169f616d457c0e694b2b556e904a64caba8d09",
+  "lean_statement_sha256": "f7f900c1b4c8d1103322a43ce7fca97353f5a5cebd2a69760846d631295d8f84",
+  "reconstruction_text_sha256": "3e5cfcc31578e08958bce93567c77b985f06a314657b64af1d25788e35058af9",
+  "publication_binding_sha256": "d83200e93ba177a4144cdded34b70d1193403ce9c9452d82f440cc915dea3d9c",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Source compressed reflection represented by conditional expectation.",
+      "reconstructed": "Actual Gibbs Gaussian J, reflected joint Lambda, actual conditional L2 projection P, actual reflection U, one S for the representative and derivative.",
+      "relation": "explicit-elaboration",
+      "evidence": "Final assembly retains ConditionalScore R,S and only U from ReflectionL2, discarding its unrelated kernel. reflected_disintegration proves Lambda.IsCondKernel S."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean space.",
+      "reconstructed": "Any finite-dimensional real inner-product Borel space including dimension zero; real smooth compactly supported tests.",
+      "relation": "stronger-in-lean",
+      "evidence": "No positive-dimension hypothesis; lesson explicitly discloses zero dimension. Public test class preserved."
+    },
+    "quantifiers": {
+      "original": "Selected conditional representative differentiated on smooth compactly supported inputs.",
+      "reconstructed": "S,U fixed before all f; g may depend on f; derivative for every y.",
+      "relation": "explicit-elaboration",
+      "evidence": "Same S is used in hLambdaCond, compressed_representative and hder f hf hfc y. No claim for all conditional versions."
+    },
+    "assumptions": {
+      "original": "C2, genuine positive lower and finite upper Hessian bounds and upper scale restriction.",
+      "reconstructed": "C2/Hessian bounds with NNReal alpha,beta, alpha>0 and only eta>0.",
+      "relation": "stronger-in-lean",
+      "evidence": "Disclosed omission of beta eta<=1 is valid for this selected edge. Gibbs probability derived from normalized_augmentation_density and isProbabilityMeasure_tilted; no target identity or derivative assumed."
+    },
+    "conclusion": {
+      "original": "Compressed reflection equals conditional expectation with centered score derivative.",
+      "reconstructed": "Lambda disintegration and first marginal, Pg=g, PUPg=T_f composed with snd J-a.e., T_f in L2, everywhere dual-valued derivative with integrable scores.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual pushforward, macroscopic_class and compressed_representative prove all clauses; final assembly rewrites Pg. Riesz identifies dual derivative with source gradient."
+    },
+    "scopes": {
+      "original": "L2 classes with a classical derivative for the selected smooth conditional expectation.",
+      "reconstructed": "Joint-a.e. representative identity, marginal-a.e. fiber transport, everywhere derivative and score integrability for selected S.",
+      "relation": "explicit-elaboration",
+      "evidence": "Reflection measure preservation transports a.e. equality, then ae_ae_of_ae_compProd transfers it before conditional integration. No promotion to everywhere fibers. Variance, Sobolev and coercivity remain open."
+    },
+    "constant_dependencies": {
+      "original": "Reflection, midpoint and Gaussian score coefficients.",
+      "reconstructed": "Same sqrt eta,2,1/2,1/(4eta); no new quantitative constant.",
+      "relation": "same",
+      "evidence": "Actual coordinate maps and score match. Compact boundedness proves L2 only; no spectral-gap, variance or dimension estimate."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Finite-dimensional inner-product generalization including dimension zero.",
+      "evidence": "No positive-dimension hypothesis; lesson explicitly discloses zero dimension. Public test class preserved."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Positive scale without source upper bound for this selected identity.",
+      "evidence": "Disclosed omission of beta eta<=1 is valid for this selected edge. Gibbs probability derived from normalized_augmentation_density and isProbabilityMeasure_tilted; no target identity or derivative assumed."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Everywhere classical derivative for selected representative; L2 equality remains a.e.",
+      "evidence": "Reflection measure preservation transports a.e. equality, then ae_ae_of_ae_compProd transfers it before conditional integration. No promotion to everywhere fibers. Variance, Sobolev and coercivity remain open."
+    },
+    {
+      "slot": "conclusion",
+      "severity": "informational",
+      "description": "Gradient encoded by continuous-dual Frechet derivative.",
+      "evidence": "Actual pushforward, macroscopic_class and compressed_representative prove all clauses; final assembly rewrites Pg. Riesz identifies dual derivative with source gradient."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Conditional density is inherited internally and not re-exported by this integration theorem.",
+      "evidence": "hSnu is obtained from ConditionalScore; binding lists actual disintegration, representative and derivative, not a new density obligation."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "evidence": "All six steps accepted: same kernel; transformed joint; actual macroscopic L2 class/projection; a.e. disintegration uniqueness; null-set transport; bounded kernel expectation and same-S derivative."
+  },
+  "review_evidence": "Fresh anti-anchored review of supplied packet, anonymous reconstruction, entire embedded module and six authored lesson steps. Reviewer inspected no registry or previous verdict. Canonical packet, source, statement, reconstruction and embedded module hashes recomputed and matched. Normalized text module hash 6f112e9e9871fceb1fb80bae40207321e6d0555822a2c72d1ca730eee35e4cdc matches current file text. Binding digest is pinned by packet; unredacted payload not separately reconstructed. Live primary v1 B.1/B.2 and C.1 checked including B.9 and C.1. Test is only import and axiom query; actual consumer is production PUP representative. Reviewer ran no compiler and changed no files. Acceptance is a disclosed proof-edge generalization, not commit admission."
+}

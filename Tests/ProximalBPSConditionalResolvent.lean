@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent
+
+#print axioms AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent
+#print axioms AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent

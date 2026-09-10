@@ -1,0 +1,94 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+      "kind": "theorem",
+      "title": "The Gaussian posterior is an actual measurable conditional kernel",
+      "statement": "Let μ be any probability measure on a finite-dimensional real inner-product Borel space E, and let η>0. For independent X∼μ and G∼N(0,I), set Y=X+√η G and let J be the law of (X,Y). There exists a measurable Markov kernel R from E to E such that for every y its law is the normalized quadratic tilt μ.tilted(x↦−‖x−y‖²/(2η)), and R disintegrates the law of (Y,X) with respect to the actual observation marginal.",
+      "formula": "R(y,dx)=\\frac{e^{-\\|x-y\\|^2/(2\\eta)}\\mu(dx)}{\\int_E e^{-\\|z-y\\|^2/(2\\eta)}\\mu(dz)},\\qquad\\mathcal L(Y,X)=\\mathcal L(Y)\\otimes R.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel sigma algebra; μ is a probability measure, possibly singular and without finite moments.",
+        "The variance η is strictly positive. No curvature bound, density for μ, or restriction η≤1/β is needed for this law identity.",
+        "A kernel means a measure-valued function with measurable dependence on its input. Every returned fiber is a probability law; these properties are proved, not supplied.",
+        "The explicit formula selects a version at every y. Conditional laws chosen in other ways need agree with it only almost everywhere under the observation marginal."
+      ],
+      "steps": [
+        {
+          "title": "A bounded positive likelihood has a genuine normalizer",
+          "text": "For each observation y put w(y,x)=exp(−‖x−y‖²/(2η)). Positivity of η gives 0<w≤1. Joint continuity makes w measurable; the finite input measure makes every fiber integrable. Since μ has mass one and w is strictly positive everywhere, its integral is strictly positive. Thus neither division nor the tilted-measure API can fall back to a zero law.",
+          "formula": "w(y,x)=e^{-\\|x-y\\|^2/(2\\eta)},\\qquad Z(y)=\\int_Ew(y,x)\\,\\mu(dx),\\qquad0<Z(y)\\le1.",
+          "lean": "hw proves joint measurability. hI uses integrable_const and Integrable.mono' with the explicit bound by one; hZpos invokes integral_exp_pos. The upper bound is the domination used in hI, not a separate production declaration."
+        },
+        {
+          "title": "Make the normalized fibers into one measurable Markov kernel",
+          "text": "Measurability of parameter integrals makes y↦Z(y) measurable. Consequently w(y,x)/Z(y) is jointly measurable. Weight the constant kernel μ by this density. Its fiber at every y is exactly the existing normalized tilted measure, whose probability theorem applies because hI has already been proved.",
+          "formula": "R(y,dx)=\\frac{w(y,x)}{Z(y)}\\mu(dx),\\qquad R(y,E)=1.",
+          "lean": "hZ uses StronglyMeasurable.integral_prod_right. hd supplies the required joint measurability to Kernel.withDensity_apply; without it that totalized constructor would return zero. hRfiber identifies the exact Measure.tilted expression, and hR uses isProbabilityMeasure_tilted."
+        },
+        {
+          "title": "Express the actual joint law in observation-first order",
+          "text": "Take independent X with law μ and a standard Gaussian G, and set Y=X+√η G. Reuse the already compiled Gaussian augmentation density, then swap its coordinates. The symmetry ‖y−x‖=‖x−y‖ gives the displayed density with respect to dy μ(dx). No density of μ relative to volume is needed.",
+          "formula": "J^\\leftrightarrow(dy,dx)=C_\\eta w(y,x)\\,dy\\,\\mu(dx),\\qquad C_\\eta=(\\sqrt{2\\pi\\eta})^{-\\dim E}.",
+          "lean": "hJ calls the ASTIS-owned GaussianAugmentation.augmentation_eq_withDensity, transports the density through MeasurableEquiv.prodComm using the existing ASTIS RadonNikodym lemma, then uses Measure.prod_swap and norm_sub_rev."
+        },
+        {
+          "title": "Cancel only the proven positive normalizer",
+          "text": "Introduce the auxiliary observation measure ν(dy)=Cη Z(y)dy. This measure is s-finite, so its composition-product with R is defined by the usual kernel integral. The density-product identities combine the factors; Z(y)>0 justifies cancellation at every point. This proves the full joint-measure identity, not merely proportionality of densities.",
+          "formula": "(\\nu\\otimes R)(dy,dx)=C_\\eta Z(y)\\frac{w(y,x)}{Z(y)}\\,dy\\,\\mu(dx)=J^\\leftrightarrow(dy,dx).",
+          "lean": "hcomp uses Measure.compProd_withDensity, Measure.compProd_const, prod_withDensity_left and withDensity_mul. ENNReal.ofReal_mul converts the nonnegative density product, and field_simp receives (hZpos y).ne'. No cancellation of a possibly zero integral is permitted."
+        },
+        {
+          "title": "Identify the observation marginal and certify disintegration",
+          "text": "Take first marginals of the joint identity. Because each R(y,·) has total mass one, the first marginal of ν⊗R is ν. Therefore ν is the actual law of Y, and the joint identity is precisely the conditional-kernel certificate. Taking second marginals also recovers the original input law after applying R to the law of Y.",
+          "formula": "\\nu=J^\\leftrightarrow_1=\\mathcal L(Y),\\qquad\\mathcal L(Y)\\otimes R=\\mathcal L(Y,X),\\qquad\\int R(y,\\cdot)\\,\\mathcal L(Y)(dy)=\\mu.",
+          "lean": "hf applies congrArg Measure.fst and Measure.fst_compProd. Measure.IsCondKernel packages exactly the resulting equality. The separate focused test takes second marginals with Measure.snd_compProd and checks the backward-law recovery consumer."
+        }
+      ],
+      "lean_statement": "The let-bound J is the pushforward of μ.prod(stdGaussian E) by (x,g)↦(x,x+sqrt η•g), so independence and the actual observation law are encoded explicitly. IsMarkovKernel and the all-y fiber formula are returned together with (J.map Prod.swap).IsCondKernel R. Measure.tilted already expresses normalized exponential reweighting; no duplicate posterior definition is introduced.",
+      "lean_proof": "All weights, normalizers, densities and the constructed kernel are local proof terms. Their measurability and normalization witnesses are proved before density or composition APIs are used. The focused tests exercise a singular Dirac input and the general backward-law recovery identity, and print the theorem's axioms.",
+      "boundary": [
+        "This closes the conditional-law construction behind PBPS (2.7)-(2.8), not a realizable RGO algorithm, PBPS trajectory, nonexplosion, invariant process law, mixing bound or expected query cost.",
+        "Gibbs specialization uses the separately proved positive Gibbs normalizer and probability certificate. The generic theorem itself assumes an input probability law and does not prove those Gibbs facts again.",
+        "The focused consumer test proves exact recovery of μ from the actual smoothed marginal via this kernel. This is one joint-law marginal identity, not stationarity of the PBPS process.",
+        "Curvature, covariance, moment bounds and implementation error remain separate. No pointwise uniqueness among arbitrary conditional versions is claimed."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation.augmentation_eq_withDensity",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity"
+      ],
+      "mathlib_dependencies": [
+        "integral_exp_pos",
+        "StronglyMeasurable.integral_prod_right",
+        "Kernel.withDensity_apply",
+        "isProbabilityMeasure_tilted",
+        "Measure.prod_swap",
+        "Measure.compProd_withDensity",
+        "Measure.compProd_const",
+        "prod_withDensity_left",
+        "withDensity_mul",
+        "Measure.fst_compProd"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#S2.SS2",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1, §2.2, (2.7)-(2.8)",
+          "scope": "Conditional-law step, expanded by ASTIS with normalization, measurability and disintegration; no copied paper prose."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S3.SS4",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1, §3.4",
+          "scope": "Intended consumer: the backward restricted Gaussian law. Algorithm implementation and quantitative guarantees are independent."
+        },
+        {
+          "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Probability/Kernel/WithDensity.lean",
+          "label": "Rémy Degenne and Mathlib contributors, Apache-2.0",
+          "scope": "Existing measurable density-kernel and composition APIs are reused, not counted as ASTIS-owned results."
+        }
+      ],
+      "tests": {
+        "file": "Tests/GaussianConditionalKernel.lean",
+        "command": "lake build Tests.GaussianConditionalKernel"
+      }
+    }
+  ]
+}

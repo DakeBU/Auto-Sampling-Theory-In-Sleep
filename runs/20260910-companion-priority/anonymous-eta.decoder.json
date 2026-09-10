@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-9ccc33ccd1082a80",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] {U : E → ℝ} {κ a : ℝ}, 0 < κ → ContDiff ℝ 2 U → (∀ x v : E, κ⁻¹ * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ U) x v) v ∧ (fderiv ℝ (fderiv ℝ U) x v) v ≤ ‖v‖ ^ 2) → ∀ (r : NNReal), 0 < a → ∀ (u y : E), let W := fun x => U x + (r : ℝ) / 2 * ‖x - u‖ ^ 2; let α := κ⁻¹ + (r : ℝ); let β : NNReal := 1 + r; let K := (β : ℝ) / α; let rp := (r : ℝ) + a⁻¹; let w := rp⁻¹ • ((r : ℝ) • u + a⁻¹ • y); StrongConvexOn Set.univ α W ∧ LipschitzWith β (gradient W) ∧ MeasureTheory.Integrable (fun x => Real.exp (-W x)) (MeasureTheory.volume : MeasureTheory.Measure E) ∧ 0 < ∫ x, Real.exp (-W x) ∂(MeasureTheory.volume : MeasureTheory.Measure E) ∧ MeasureTheory.IsProbabilityMeasure ((MeasureTheory.volume : MeasureTheory.Measure E).tilted (fun x => -W x)) ∧ MeasureTheory.IsProbabilityMeasure ((MeasureTheory.volume : MeasureTheory.Measure E).tilted (fun x => -(U x + rp / 2 * ‖x - w‖ ^ 2))) ∧ (MeasureTheory.volume : MeasureTheory.Measure E).tilted (fun x => -(W x + a⁻¹ / 2 * ‖x - y‖ ^ 2)) = MeasureTheory.volume.tilted (fun x => -(U x + rp / 2 * ‖x - w‖ ^ 2)) ∧ ((β : ℝ) + a⁻¹) / (α + a⁻¹) = (a * (β : ℝ) + 1) * K / (a * (β : ℝ) + K)",
+    "statement_sha256": "9ccc33ccd1082a80df22c617a648d24bee79e6673e23070ef4625a15ffe6cfb6",
+    "compiled": true,
+    "approved_definition_context": [
+      "E is a finite-dimensional real inner-product space, with the given measurable space equal to the Borel sigma algebra. NNReal is the subtype of nonnegative real numbers. A real inverse and division are totalized at zero in Lean.",
+      "ContDiff ℝ 2 U means U is twice continuously differentiable. fderiv ℝ U x is the continuous-linear Frechet derivative, totalized when no derivative exists. Applying fderiv again yields a bilinear form; the expression shown evaluates it on v twice. gradient W is the Riesz vector of its derivative; C² ensures genuine derivatives.",
+      "StrongConvexOn Set.univ α W means convexity of the domain and W(tx+(1−t)y)≤t W(x)+(1−t)W(y)−α t(1−t)||x−y||²/2 for t∈[0,1]. LipschitzWith β (gradient W) means ||gradient W(x)−gradient W(y)||≤β||x−y||.",
+      "volume is canonical Lebesgue measure associated to the inner product. Integrable is Bochner integrability, including almost-everywhere strong measurability and finite norm integral. IsProbabilityMeasure means total mass one.",
+      "For a measure μ and real function f, μ.tilted f is μ.withDensity(x↦ENNReal.ofReal(exp(f(x))/∫exp(f) dμ)). Its real integral is totalized if f's exponential is not integrable. Thus probability is a genuine additional conclusion, not implicit in the definition."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "26c3c8dd027249a81c9d28aa3d85b5a69f85a60e89b779711617a67c6391fa08"
+}

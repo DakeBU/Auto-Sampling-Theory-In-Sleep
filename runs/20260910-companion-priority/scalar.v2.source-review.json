@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-93410e7bd5f1a99f",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-companion-writer",
+    "blind_decoder": "scalar_decoder_v2",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "sphmc-v1:lemma-6.6-i-scalar-step",
+    "anchor": "arXiv:2609.06906v1, Lemma 6.6(i), proof via (6.1)-(6.3)",
+    "original_text": "ASTIS expansion of the scalar calculation in the proof, not a quotation or the full algorithmic lemma: let c0 be in (0,1/4), let 0<eta<=c0 and kappa>=2. Substituting tau=kappa and a*beta_A=eta+tau into kappa_next=kappa*(a*beta_A+1)/(a*beta_A+kappa) gives kappa_next=kappa*(kappa+eta+1)/(2*kappa+eta). Prove kappa/2<=kappa_next<=(4/5)*kappa. The source uses this at actual recursive RGO stages. Establishing that those stages satisfy the update is a separate obligation; this selected proof component is only the rational inequality.",
+    "text_sha256": "d4a572ed13b5ddc8beb3a162c2b0acbd587010a3eda7080eba66977df3027cd1"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition.contraction_bounds",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RecursiveCondition.lean",
+    "statement": "∀ {k h : ℝ}, 2 ≤ k → 0 < h → h < 1 / 4 → k / 2 ≤ k * (k + h + 1) / (2 * k + h) ∧ k * (k + h + 1) / (2 * k + h) ≤ 4 / 5 * k",
+    "statement_sha256": "a696baa5725992b77ba24f2b446567405903c2f5c525656d221301c8d9d69d8d",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every pair of real numbers k and h, if k ≥ 2 and 0 < h < 1/4, then both k/2 ≤ k(k+h+1)/(2k+h) and k(k+h+1)/(2k+h) ≤ (4/5)k hold for that same pair. All operations and inequalities are over the real numbers. The numerical constants 2, 1/4, 1/2, and 4/5 are fixed and independent of k and h; there are no additional parameters or existentially chosen constants. Division is totalized real division, with division by zero equal to zero, but the hypotheses ensure 2k+h > 0, so the displayed quotient has a nonzero denominator.",
+    "text_sha256": "163d0ea1df45b6dbb15915668d2cd9eed8a94c2db9d483709e00111c92d7798d",
+    "decoder": "scalar_decoder_v2",
+    "decoder_packet_sha256": "586bb6b81e67fcacd30baba50009ceb6e64c5c696db6358acc2b368518bf0e92",
+    "decoder_run_sha256": "c30a8e4080cca8be4737128cb3bce83126366239998eaa1cf82ed8c4f7ecf9fe",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "2f5720e05e1bd104655c255eb7cc0931cba80d0b88c6872c12404630a3460b1c",
+  "candidate_publication_context": {
+    "file": "a9a7c40ea7ab9321cb7686aee6a738c49011bb948592aa49d9a4b7dc26930542",
+    "current_lean_module": "import Mathlib.Data.Real.Basic\nimport Mathlib.Tactic.Linarith\n\n/-!\n# Recursive RGO condition-number progress\n\nSource: Chen, Chewi, Lu and Zhang, *Smoothed Picard Hamiltonian Monte Carlo*,\narXiv:2609.06906v1, Lemma 6.6(i), equations (6.1)--(6.3).\n\nAfter substituting `tau = k` and `a * beta_A = h + tau`, the next condition\nnumber is `k * (k + h + 1) / (2 * k + h)`. This file proves the scalar\ncontraction used to bound the number of ill-conditioned recursion stages.\nIdentifying this expression with an actual RGO condition number remains a\nseparate source-facing adapter; neither an RGO nor a sampling law is defined\nhere. We retain the source's strict smoothing-parameter range.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition\n\n/-- The ill-conditioned recursive update lies between half and four fifths\nof its previous condition number. The denominator is proved positive from\nthe hypotheses, so no totalized-division exceptional case is used. -/\ntheorem contraction_bounds {k h : ℝ} (hk : 2 ≤ k) (hh : 0 < h)\n    (hh_upper : h < 1 / 4) :\n    k / 2 ≤ k * (k + h + 1) / (2 * k + h) ∧\n      k * (k + h + 1) / (2 * k + h) ≤ (4 / 5) * k := by\n  have hk_nonneg : 0 ≤ k := by linarith\n  have hden : 0 < 2 * k + h := by linarith\n  constructor\n  · apply (le_div_iff₀ hden).2\n    nlinarith [mul_nonneg hk_nonneg hh.le]\n  · apply (div_le_iff₀ hden).2\n    have hmargin : 0 ≤ 3 * k - h - 5 := by linarith\n    nlinarith [mul_nonneg hk_nonneg hmargin]\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "§6.3, Lemma 6.6(i), (6.3), from (6.1)–(6.2)",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS mathematical restatement, not original prose; no endorsement implied."
+    },
+    "statement": "In the recursive RGO scheme let c0 be in (0,1/4), with 0<eta_j≤c0 at each stage. If the current ratio kappa_j of specified curvature bounds is at least 2, the next ratio is between one half and four fifths of the current ratio.",
+    "formulae": [
+      {
+        "label": "(6.3)",
+        "tex": "\\frac12\\kappa_j\\le\\kappa_{j+1}\\le\\frac45\\kappa_j."
+      },
+      {
+        "label": "substitution of (6.1)–(6.2)",
+        "tex": "\\kappa_{j+1}=\\frac{\\kappa_j(\\kappa_j+\\eta_j+1)}{2\\kappa_j+\\eta_j}."
+      }
+    ],
+    "assumptions": [
+      "The recursive parameters follow (6.1): kappa_next=kappa*(a*beta_A+1)/(a*beta_A+kappa), with beta_A>0.",
+      "The ill-conditioned branch of (6.2) sets tau=kappa, a=(eta+tau)/beta_A; kappa≥2 and 0<eta≤c0<1/4.",
+      "The ratio comes from the RGO curvature parameters in Lemma 6.4; it is not an independently assumed mixing rate."
+    ],
+    "obligations": [
+      {
+        "id": "scalar-progress",
+        "label": "Positive-denominator rational calculation with the source constants"
+      },
+      {
+        "id": "rgo-parameter-identification",
+        "label": "Actual recursive RGO curvature ratios satisfy (6.1)–(6.2), including A=infinity"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition.contraction_bounds",
+      "kind": "theorem",
+      "title": "Why an ill-conditioned recursive stage makes geometric progress",
+      "statement": "For any real numbers k and h with k at least 2 and h strictly between 0 and 1/4, the displayed rational update lies between k/2 and four fifths of k.",
+      "formula": "k_+=\\frac{k(k+h+1)}{2k+h},\\qquad \\frac{k}{2}\\le k_+\\le\\frac45 k.",
+      "assumptions": [
+        "k,h are real scalars; 2 ≤ k and 0 < h < 1/4.",
+        "In the paper application k is the ratio of the specified curvature bounds, h is the smoothing parameter, and tau=k. It is not necessarily the optimal condition number of the target.",
+        "The source assumes 0<h≤c0<1/4. For this uniform single-stage calculation, eliminating the unused cutoff gives exactly 0<h<1/4; conversely any such h admits c0=h. No zero-smoothing or closed-endpoint extension is asserted.",
+        "This calculation does not involve a measure, derivative or random variable. The recurrence-to-RGO identification is a separate obligation."
+      ],
+      "steps": [
+        {
+          "title": "Check division is legitimate",
+          "text": "The denominator is positive. Thus multiplying either inequality by it preserves its direction; Lean's exceptional value for division by zero is irrelevant.",
+          "formula": "D=2k+h\\ge4>0.",
+          "lean": "hden proves strict positivity; le_div_iff₀ and div_le_iff₀ remove the denominator only after this proof."
+        },
+        {
+          "title": "Prove the lower bound",
+          "text": "Subtract half the previous value. The numerator is nonnegative because both k and h are nonnegative.",
+          "formula": "k_+-\\frac{k}{2}=\\frac{k(h+2)}{2D}\\ge0.",
+          "lean": "The first branch uses mul_nonneg hk_nonneg hh.le, then nlinarith checks the cleared-denominator polynomial inequality."
+        },
+        {
+          "title": "Prove the uniform contraction",
+          "text": "The deficit from four fifths has a positive margin throughout the parameter range. This checks the paper's constants without an unspecified further reduction of c0.",
+          "formula": "\\frac45k-k_+=\\frac{k(3k-h-5)}{5D},\\qquad 3k-h-5\\ge6-\\frac14-5=\\frac34>0.",
+          "lean": "hmargin proves 0 ≤ 3*k-h-5 by linarith. Its product with k is nonnegative; nlinarith closes the upper bound."
+        }
+      ],
+      "lean_statement": "The parameters in braces are implicit real numbers; hk, hh and hh_upper are explicit hypotheses. The conjunction returns both inequalities. No typeclass or unproved sampler property is hidden in the statement.",
+      "lean_proof": "constructor separates the two inequalities. Positivity licenses cross-multiplication; mul_nonneg supplies the needed products; linarith and nlinarith generate checked ordered-field proofs. ASTIS authors this source-specific recurrence estimate; Mathlib supplies real arithmetic and the proof-producing tactics.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "le_div_iff₀ and div_le_iff₀: ordered-field division with a strictly positive denominator.",
+        "mul_nonneg: nonnegative products; Mathlib linarith/nlinarith: kernel-checked polynomial arithmetic."
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "Chen, Chewi, Lu and Zhang, Smoothed Picard Hamiltonian Monte Carlo v1",
+          "scope": "Lemma 6.6(i), (6.3), after substituting (6.1) and (6.2). ASTIS exposition, not quoted prose."
+        }
+      ],
+      "tests": {
+        "file": "Tests/SmoothedPicardRecursiveCondition.lean",
+        "command": "lake build Tests.SmoothedPicardRecursiveCondition"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition.contraction_bounds",
+      "role": "proof-edge",
+      "supports": [
+        "scalar-progress"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "0<eta≤c0<1/4",
+        "lean": "0<h<1/4"
+      },
+      {
+        "source": "kappa_j is the ratio from the actual RGO parameter recurrence",
+        "lean": "k is a real scalar at least 2, with the rational update written explicitly"
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "ba12a3df02881bb4fca1c8d56f14b1b7fa8132e25fd68a09cf5943e263dc17f3"
+}

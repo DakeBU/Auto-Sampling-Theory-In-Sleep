@@ -39,11 +39,73 @@ The hosting agent follows the instructions below; mechanical CI verifies them.
    `generalization`, `unresolved`. A technical limitation is not a textbook
    correction. Explicitly address relevant measurability, representatives,
    regularity, integrability, domination, boundaries, domains and constants;
-   explain why irrelevant categories truly do not apply.
+   omit inapplicable checklist boilerplate; explain only non-obvious omissions.
 
 Mathematical exposition is authored and independently checked, not inferred from
 declaration names. Existing authored units are reused in the chapter reader.
 No copied status table, HTML editing or new wrapper theorem is required.
+
+## Graph contribution: part of the same publication
+
+Codex and Claude Code use this contract (`CLAUDE.md` imports `AGENTS.md`). A
+formalization is not publication-ready if its contribution disappears from the
+Underlying Lean Graph or its affected source/route views. Reuse stable ids;
+never draw a second copy of a shared declaration to make a chapter look complete.
+
+| Changed fact | Canonical input and affected view |
+|---|---|
+| Declaration, owning module, imports, reuse | Lean source + Registry → Underlying Lean Graph / Lean Branches, module and dependency views |
+| Source proof component, prerequisite, remaining boundary | Publication binding + source obligations → chapter/Overview graph and generated progress |
+| Frontier parent, consumer, retired or blocked route | Existing Frontier Cell and route/source metadata → relevant frontier and theorem-local DAG |
+| Semantic mismatch or proposed repair | Existing round-trip audit → Semantic fidelity & repair view |
+| New recurring mathematical mechanism | Existing conceptual-mirror audit; only a real discovery updates Graph Memory / Functor Hypergraph |
+
+Only change the rows affected by the contribution. A routine lemma does not
+require a new conceptual bridge, a full-book redraw, or a graph-specific agent.
+An intended consumer is a planned/curated edge, not an existing Lean use.
+Source-name scans are incomplete reference signals, not elaborated Lean proof
+dependencies. Keep them dashed and labelled; solid `imports`/`declares` edges
+record module structure. Do not infer theorem implication from an import,
+source correspondence, a proof-route leaf, or conceptual similarity. Blue still
+requires owned, compiled evidence; library/source colours do not confer it.
+
+At stabilization, build the site once and inspect the contribution:
+
+```bash
+python3 website/scripts/build_site.py
+python3 tools/astis_publication.py graph-check --cell CELL_ID
+python3 website/scripts/check_site.py
+```
+
+`graph-check` reads the generated graph, verifies mapped nodes, owning modules,
+reference/consumer edges and chapter links, then prints a bounded one-hop slice
+and focus links. The site check runs the same graph contract for all publication
+bindings, including unchanged mappings affected by a generator regression.
+It does not certify that source scanning found every Lean dependency.
+If `_site` is absent/stale, regenerate it; never paste the entire graph into an
+agent prompt. If a curated SVG/Mermaid theorem/frontier diagram is affected,
+update its maintained source too; do not hand-edit generated SVG/PNG/HTML.
+
+Open the changed branch and any changed static diagram: check labels, directions,
+solid/dashed distinction, status, reader links and legibility. Inspect mobile
+layout when layout code or branch size changes. Automation does not claim to
+perform this visual review. Add a short graph delta to the **existing** PR or
+`integration_notes`: node/focus links, changed connections or topology, remaining
+red boundary, and commands + views actually inspected. Do not repeat the proof
+or add a new screenshot/report ledger. Layout-only changes do not invalidate
+mathematical audits; changed source/assumptions/proof explanations do.
+
+## Cost discipline
+
+Each requirement protects one boundary: Lean checks truth, round trips check
+source fidelity, authored lessons explain the mathematics, graph checks prevent
+omitted/misclassified contributions, and visual inspection checks readability.
+Reuse those results rather than adding another reviewer for each surface.
+Use focused tests while editing; run aggregate acceptance once on the final
+candidate (again only after a relevant change). Reuse unchanged audit hashes and
+existing `none-found` conceptual-mirror evidence. Do not read unrelated books,
+dump full graphs, create duplicate metadata, or repeat full builds after every
+sentence edit. This is a bounded workflow, not a claim of globally optimal tokens.
 
 ## Encoder–denoiser: required semantic round trip
 

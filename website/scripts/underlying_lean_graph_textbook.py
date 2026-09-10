@@ -57,6 +57,7 @@ def add_textbook(builder: GraphBuilder, site: dict[str, Any]) -> dict[str, Any]:
             if source and target:
                 edge(source, target, "imports")
 
+    inventory = {d['full_name']: d for d in site.get('declarations', [])}
     decl_ids: dict[str, str] = {}
     registry = site.get("registry_declarations", [])
     for declaration in registry:
@@ -64,9 +65,10 @@ def add_textbook(builder: GraphBuilder, site: dict[str, Any]) -> dict[str, Any]:
         decl_ids[name] = add(
             f"decl:{name}", "declaration", name, status=status(declaration.get("status")), subtitle=declaration.get("key", "registry declaration"),
             summary=" · ".join(declaration.get("tags", [])), url=declaration.get("card", ""),
-            details=[{"label": "Source", "value": f"{declaration.get('source_file', '')}:{declaration.get('source_line', '')}"}, {"label": "Dependencies", "value": " · ".join(declaration.get("dependencies", []))}, {"label": "Consumers", "value": " · ".join(declaration.get("consumers", []))}],
+            details=[{"label": "Source", "value": f"{declaration.get('source_file', '')}:{declaration.get('source_line', '')}"}, {"label": "References (name scan; incomplete)", "value": " · ".join(declaration.get("dependencies", []))}, {"label": "Consumers (name scan; incomplete)", "value": " · ".join(declaration.get("consumers", []))}],
         )
-        module_name = name.rsplit(".", 1)[0]
+        # A namespace is not necessarily the name of the owning Lean module.
+        module_name = inventory.get(name, {}).get('module', '')
         if module_name in module_ids:
             edge(module_ids[module_name], decl_ids[name], "declares")
     for declaration in registry:
@@ -74,7 +76,9 @@ def add_textbook(builder: GraphBuilder, site: dict[str, Any]) -> dict[str, Any]:
         for dependency in declaration.get("dependencies", []):
             source = decl_ids.get(str(dependency))
             if source and target:
-                edge(source, target, "depends-on")
+                # Registry dependencies currently come from name scans, not an
+                # elaborated proof-term export. Do not render them as certified.
+                edge(source, target, "source reference (scanner)")
 
     source_ids: dict[str, str] = {}
     for claim in site.get("source_correspondence", []):

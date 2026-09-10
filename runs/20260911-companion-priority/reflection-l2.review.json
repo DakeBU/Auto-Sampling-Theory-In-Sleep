@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-2b8d6a925fe19b93",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "reflection_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:pbps-reflection-l2",
+    "anchor": "Appendix B.1, equations B.1 and B.3–B.5; joint density 2.6",
+    "original_text": "The paper uses the normalized Gibbs target on R^d, d≥1, with C² potential V and Hessian bounds 0<αI≤∇²V≤βI, and 0<η≤1/β. Its joint law has density proportional to exp(−V(x)−‖y−x‖²/(2η)).\nThe selected block-algebra component acts on real L² of this joint law. P is conditional expectation given Y and U is pullback by (x,y)↦(x,2x−y).\nThe conditional resampling operator is the orthogonal projection P onto functions of Y. Reflection pullback U is a self-adjoint unitary. With A=PUP, B=(I−P)UP and D=(I−P)U(I−P), the block identities are B*B=I−A² on the range of P and B*D=−AB*. Consequently ‖Bf‖²=‖f‖²−‖Af‖² for f in that range. The full-space extension of the first identity has P in place of I.",
+    "text_sha256": "bd070782f4f20ad2ea4b3c469cf1b35c9011a3e795f3d67d111a1cc9da0c8f2b"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2.actual_reflection_block_identities",
+    "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/ReflectionL2.lean",
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ]\n  {η : ℝ},\n  0 < η →\n    let J :=\n      MeasureTheory.Measure.map (fun (p : E × E) => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n    have F := fun (p : E × E) => (p.1, 2 • p.1 - p.2);\n    have P :=\n      (MeasureTheory.lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd inferInstance) 2 J).subtypeL ∘SL\n        MeasureTheory.condExpL2 ℝ ℝ (Measurable.comap_le measurable_snd);\n    ∃ (R : ProbabilityTheory.Kernel E E),\n      ProbabilityTheory.IsMarkovKernel R ∧\n        (∀ (y : E), R y = μ.tilted fun (x : E) => -‖x - y‖ ^ 2 / (2 * η)) ∧\n          ∃ (U : ↥(MeasureTheory.Lp ℝ 2 J) →ₗᵢ[ℝ] ↥(MeasureTheory.Lp ℝ 2 J)),\n            (∀ (f : ↥(MeasureTheory.Lp ℝ 2 J)), ↑↑(U f) =ᵐ[J] ↑↑f ∘ F) ∧\n              Function.Involutive ⇑U ∧\n                IsSelfAdjoint U.toContinuousLinearMap ∧\n                  (∀ (f : ↥(MeasureTheory.Lp ℝ 2 J)), ↑↑(P f) =ᵐ[J] fun (p : E × E) => ∫ (x : E), ↑↑f (x, p.2) ∂R p.2) ∧\n                    have A := P * U.toContinuousLinearMap * P;\n                    have B := (1 - P) * U.toContinuousLinearMap * P;\n                    have D := (1 - P) * U.toContinuousLinearMap * (1 - P);\n                    star B * B = P - A ^ 2 ∧\n                      star B * D = -(A * star B) ∧\n                        ∀ (f : ↥(MeasureTheory.Lp ℝ 2 J)), P f = f → ‖B f‖ ^ 2 = ‖f‖ ^ 2 - ‖A f‖ ^ 2",
+    "statement_sha256": "40607eb09974fdf3d8fa92d4ba2c1e201f18032f0907c19f7e191632540d3978",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "任取有限维实内积空间 E，赋予其 Borel 可测结构；任取 E 上概率测度 μ 和 η>0。γ_E 是标准中心高斯。J 是独立 X~μ、Z~γ_E 的 (X,X+sqrt(η)Z) 联合分布。令 H=L²(E×E,J;ℝ)，F(x,y)=(x,2x−y)，P 为第二坐标生成子 sigma 代数的可测 L² 子空间上的正交投影，再包含回 H。\n存在 Markov 核 R:E→E，对每个 y，R(y,dx)=exp(−‖x−y‖²/(2η))μ(dx)/∫exp(−‖z−y‖²/(2η))μ(dz)。Markov 核含可测性及每个 R_y 为概率的要求。\n对于该核还存在实线性等距 U:H→H，使对每个 f，Uf=f∘F J-a.e.，U(Uf)=f，U*=U，并且对每个 f，Pf(x,y)=∫f(z,y)R(y,dz) J-a.e.。\n定义 A=PUP，B=(I−P)UP，D=(I−P)U(I−P)。整个 H 上 B*B=P−A²，B*D=−AB*。每个 Pf=f 的 f 满足 ‖Bf‖²=‖f‖²−‖Af‖²。\n倾斜核公式对所有 y 成立；代表元公式只 J-a.e.，零测例外集可依赖 f。f、Uf、Pf 是模 a.e. 等价类，函数公式用选定代表元；命题未另断言所有固定 y 的切片都可积。能量等式只在 P 的范围断言；算子等式在整个 H 成立。乘法是右侧先作用的复合，star 为 Hilbert 伴随。R,U 在给定 E,μ,η 后存在，同一组见证满足全部结论，无显式唯一性断言。没有额外密度、光滑性或矩条件，局部 let/have 是定义非假设。精确常数为 sqrt(η)、反射系数2、指数分母2η和能量单位系数，无其他常数或维数依赖系数。",
+    "text_sha256": "879fcbd02f63d5e089f948d873b41f87c6cc33427d2949d6cadbeb8d1a6576c8",
+    "decoder": "reflection_blind_decoder",
+    "decoder_packet_sha256": "357a6e44a8fe089514ba0d0ea6c3777b6043a04edfdbfe2ab39e4e90bdaba6c0",
+    "decoder_run_sha256": "9a2d93c557593bb009efa554a0f29175d254e91aacfb7230c2eec0a96ab7b2db",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "0866d4fa004405518fc1b166b10064967213b73d7f4d0ad17f326eec1348325c",
+  "candidate_publication_context": {
+    "file": "94d3d294677cac2c9aece47b0ae231ee09ae5884a69e948b1cae0194cb0c7563",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection\nimport AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel\nimport Mathlib.Probability.Kernel.CondDistrib\nimport Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic\nimport Mathlib.Analysis.InnerProductSpace.Adjoint\nimport Mathlib.Tactic.NoncommRing\n\n/-!\n# Actual reflection and conditional-projection blocks\n\nSource: arXiv:2609.06905v1, Appendix B.1, equations (B.1)-(B.5).\nThis constructs the operators on the actual Gaussian augmentation. No strict\ncoercivity, half-turn dynamics or mixing bound is asserted.\n-/\n\nopen MeasureTheory ProbabilityTheory\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2\n\nuniverse u\n\n/-- Actual reflection is an L2 self-adjoint isometric involution. The actual\nconditional projection has the normalized quadratic-tilt kernel representation\nalmost everywhere, and its reflection blocks satisfy the source algebra and\nmacroscopic energy-transfer identity. -/\ntheorem actual_reflection_block_identities\n    {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (μ : Measure E) [IsProbabilityMeasure μ] {η : ℝ} (hη : 0 < η) :\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n      (μ.prod (stdGaussian E))\n    let F := fun p : E × E => (p.1,(2:ℝ) • p.1-p.2)\n    let P : Lp ℝ 2 J →L[ℝ] Lp ℝ 2 J :=\n      (lpMeas ℝ ℝ (MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)) 2 J).subtypeL\n        ∘L condExpL2 ℝ ℝ measurable_snd.comap_le\n    ∃ R : Kernel E E, IsMarkovKernel R ∧\n      (∀ y, R y = μ.tilted (fun x => -‖x-y‖^2/(2*η))) ∧\n      ∃ U : Lp ℝ 2 J →ₗᵢ[ℝ] Lp ℝ 2 J,\n        (∀ f, U f =ᵐ[J] f ∘ F) ∧ Function.Involutive U ∧\n        IsSelfAdjoint U.toContinuousLinearMap ∧\n        (∀ f : Lp ℝ 2 J, (P f : E × E → ℝ) =ᵐ[J]\n          fun p => ∫ x, f (x,p.2) ∂R p.2) ∧\n        let A := P * U.toContinuousLinearMap * P\n        let B := (1-P) * U.toContinuousLinearMap * P\n        let D := (1-P) * U.toContinuousLinearMap * (1-P)\n        star B*B=P-A^2 ∧ star B*D= -(A*star B) ∧\n          (∀ f, P f=f → ‖B f‖^2 = ‖f‖^2-‖A f‖^2) := by\n  let J₀ := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n    (μ.prod (stdGaussian E))\n  let H := Lp ℝ 2 J₀\n  have reflection_lift (μ : Measure E) [IsProbabilityMeasure μ] (η : ℝ) (hη : 0 < η) :\n      let J := Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2))\n        (μ.prod (stdGaussian E))\n      let R := fun p : E × E => (p.1, (2:ℝ) • p.1-p.2)\n      ∃ U : Lp ℝ 2 J →ₗᵢ[ℝ] Lp ℝ 2 J,\n        (∀ f, U f =ᵐ[J] f ∘ R) ∧ Function.Involutive U ∧ IsSelfAdjoint U.toContinuousLinearMap := by\n    dsimp only\n    let J := Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2))\n      (μ.prod (stdGaussian E))\n    let R := fun p : E × E => (p.1, (2:ℝ) • p.1-p.2)\n    obtain ⟨hinv, hmap⟩ :=\n      AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection.reflection_preserves_augmentation μ η hη\n    have hp : MeasurePreserving R J J := ⟨by fun_prop, hmap⟩\n    let U : Lp ℝ 2 J →ₗᵢ[ℝ] Lp ℝ 2 J := Lp.compMeasurePreservingₗᵢ ℝ R hp\n    have hU : Function.Involutive U := by\n      intro f\n      change Lp.compMeasurePreserving R hp (Lp.compMeasurePreserving R hp f) = f\n      rw [← Lp.compMeasurePreserving_comp_apply]\n      have hRR : R ∘ R = id := funext hinv\n      simp only [hRR, Lp.compMeasurePreserving_id_apply]\n    refine ⟨U, fun f => Lp.coeFn_compMeasurePreserving f hp, hU, ?_⟩\n    apply ContinuousLinearMap.isSelfAdjoint_iff_isSymmetric.2\n    intro f g\n    change inner ℝ (U f) g = inner ℝ f (U g)\n    calc\n      inner ℝ (U f) g = inner ℝ (U f) (U (U g)) := by rw [hU g]\n      _ = inner ℝ f (U g) := U.inner_map_map f (U g)\n\n  have kernel_condExp (J : Measure (E × E)) [IsProbabilityMeasure J]\n      (R : Kernel E E) [IsMarkovKernel R] [(J.map Prod.swap).IsCondKernel R]\n      (f : E × E → ℝ) (hf : Integrable f J) :\n      J[f | MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)] =ᵐ[J]\n        fun p => ∫ x, f (x,p.2) ∂R p.2 := by\n    have hswap : Integrable (fun p : E × E => f p.swap) (J.map Prod.swap) := by\n      apply (integrable_map_equiv (MeasurableEquiv.prodComm : E × E ≃ᵐ E × E) _).2\n      change Integrable f J\n      exact hf\n    have h := condExp_prod_ae_eq_integral_condDistrib'\n      (μ := J) (X := Prod.snd) (Y := Prod.fst)\n      (f := fun p : E × E => f p.swap) measurable_snd measurable_fst.aemeasurable hswap\n    have heq : R =ᵐ[(J.map Prod.swap).fst] (J.map Prod.swap).condKernel :=\n      eq_condKernel_of_measure_eq_compProd R (Measure.disintegrate _ _).symm\n    rw [Measure.fst_map_swap] at heq\n    have heq' : ∀ᵐ p ∂J, R p.2 = (J.map Prod.swap).condKernel p.2 := by\n      exact ae_of_ae_map measurable_snd.aemeasurable heq\n    filter_upwards [h, heq'] with p hp he\n    rw [he]\n    simp only [condDistrib] at hp\n    exact hp\n\n  have projection_kernel (μ : Measure E) [IsProbabilityMeasure μ] {η : ℝ} (hη : 0 < η) :\n      let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n        (μ.prod (stdGaussian E))\n      ∃ R : Kernel E E, IsMarkovKernel R ∧\n        (∀ y, R y = μ.tilted (fun x => -‖x-y‖^2/(2*η))) ∧\n        (∀ f : Lp ℝ 2 J,\n          (condExpL2 ℝ ℝ (μ := J) measurable_snd.comap_le f : E × E → ℝ) =ᵐ[J]\n            fun p => ∫ x, f (x,p.2) ∂R p.2) := by\n    dsimp only\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n      (μ.prod (stdGaussian E))\n    have : IsProbabilityMeasure J := Measure.isProbabilityMeasure_map (by fun_prop)\n    obtain ⟨R,hR,hformula,hcond⟩ :=\n      AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel μ hη\n    let _ := hR\n    let _ : (J.map Prod.swap).IsCondKernel R := hcond\n    refine ⟨R,hR,hformula,?_⟩\n    intro f\n    have hL2 := (Lp.memLp f).condExpL2_ae_eq_condExp (𝕜 := ℝ) measurable_snd.comap_le\n    rw [Lp.toLp_coeFn] at hL2\n    exact hL2.trans (kernel_condExp J R f ((Lp.memLp f).integrable (by norm_num)))\n\n  have block_algebra {A : Type u} [Ring A] [StarRing A] (U P : A)\n      (hU : star U = U) (hP : star P = P) (hUU : U*U=1) (hPP : P*P=P) :\n      let B := (1-P)*U*P\n      let D := (1-P)*U*(1-P)\n      let A₀ := P*U*P\n      star B*B=P-A₀^2 ∧ star B*D= -(A₀*star B) := by\n    have hpt (X : A) : P*(P*X)=P*X := by rw [← mul_assoc,hPP]\n    have hut (X : A) : U*(U*X)=X := by rw [← mul_assoc,hUU,one_mul]\n    dsimp only\n    simp only [star_mul,star_sub,star_one,hU,hP]\n    constructor <;> noncomm_ring [hPP,hUU,hpt,hut]\n\n  have block_energy (P A B : H →L[ℝ] H) (hA : IsSelfAdjoint A)\n      (hBB : star B * B = P-A^2) (f : H) (hf : P f=f) :\n      ‖B f‖^2 = ‖f‖^2-‖A f‖^2 := by\n    have h := B.apply_norm_sq_eq_inner_adjoint_right f\n    have he : B.adjoint.comp B = P-A^2 := hBB\n    rw [he] at h\n    have hAf : inner ℝ f ((A^2) f) = ‖A f‖^2 := by\n      rw [pow_two]\n      change inner ℝ f (A (A f)) = _\n      calc\n        inner ℝ f (A (A f)) = inner ℝ f (A.adjoint (A f)) := by rw [hA.adjoint_eq]\n        _ = inner ℝ (A f) (A f) := A.adjoint_inner_right f (A f)\n        _ = ‖A f‖^2 := real_inner_self_eq_norm_sq (A f)\n    simpa only [sub_apply, hf, inner_sub_right,\n      hAf, real_inner_self_eq_norm_sq, RCLike.re_to_real] using h\n\n  dsimp only\n  let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n    (μ.prod (stdGaussian E))\n  let mY : MeasurableSpace (E × E) := MeasurableSpace.comap Prod.snd (inferInstance : MeasurableSpace E)\n  let _ : MeasurableSpace (E × E) := Prod.instMeasurableSpace\n  have hmY : mY ≤ Prod.instMeasurableSpace := measurable_snd.comap_le\n  let S := lpMeas ℝ ℝ mY 2 J\n  have : Fact (mY ≤ Prod.instMeasurableSpace) := ⟨hmY⟩\n  let P : Lp ℝ 2 J →L[ℝ] Lp ℝ 2 J := S.subtypeL ∘L condExpL2 ℝ ℝ (μ := J) hmY\n  have hPdef : P = S.starProjection := rfl\n  have hP : IsSelfAdjoint P := by rw [hPdef]; exact isSelfAdjoint_starProjection S\n  have hPP : P*P=P := by rw [hPdef]; exact S.isIdempotentElem_starProjection\n  obtain ⟨U,hUae,hUi,hUs⟩ := reflection_lift μ η hη\n  obtain ⟨R,hR,hRf,hRp⟩ := projection_kernel μ hη\n  have hUU : U.toContinuousLinearMap * U.toContinuousLinearMap = 1 := by\n    apply ContinuousLinearMap.ext\n    intro f\n    exact hUi f\n  obtain ⟨hBB,hBD⟩ := block_algebra U.toContinuousLinearMap P hUs.star_eq hP.star_eq hUU hPP\n  have hA : IsSelfAdjoint (P*U.toContinuousLinearMap*P) := by\n    change star (P*U.toContinuousLinearMap*P) = P*U.toContinuousLinearMap*P\n    simp only [star_mul,hP.star_eq,hUs.star_eq,mul_assoc]\n  refine ⟨R,hR,hRf,U,hUae,hUi,hUs,hRp,hBB,hBD,?_⟩\n  intro f hf\n  exact block_energy P (P*U.toContinuousLinearMap*P) ((1-P)*U.toContinuousLinearMap*P) hA hBB f hf\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06905v1#A2.SS1",
+      "edition": "arXiv:2609.06905v1",
+      "anchor": "Appendix B.1, equations B.1 and B.3–B.5; joint density 2.6",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded mathematical proof."
+    },
+    "statement": "The conditional resampling operator is the orthogonal projection P onto functions of Y. Reflection pullback U is a self-adjoint unitary. With A=PUP, B=(I−P)UP and D=(I−P)U(I−P), the block identities are B*B=I−A² on the range of P and B*D=−AB*. Consequently ‖Bf‖²=‖f‖²−‖Af‖² for f in that range. The full-space extension of the first identity has P in place of I.",
+    "formulae": [
+      {
+        "label": "whole-space block extension",
+        "tex": "B^*B=P-A^2,\\qquad B^*D=-AB^*,\\qquad Pf=f\\Longrightarrow\\|Bf\\|^2=\\|f\\|^2-\\|Af\\|^2."
+      }
+    ],
+    "assumptions": [
+      "The paper uses the normalized Gibbs target on R^d, d≥1, with C² potential V and Hessian bounds 0<αI≤∇²V≤βI, and 0<η≤1/β. Its joint law has density proportional to exp(−V(x)−‖y−x‖²/(2η)).",
+      "The selected block-algebra component acts on real L² of this joint law. P is conditional expectation given Y and U is pullback by (x,y)↦(x,2x−y)."
+    ],
+    "obligations": [
+      {
+        "id": "actual-reflection",
+        "label": "Actual pullback is a self-adjoint isometric involution"
+      },
+      {
+        "id": "actual-projection",
+        "label": "Actual conditional projection agrees a.e. with quadratic-tilt kernel"
+      },
+      {
+        "id": "reflection-blocks",
+        "label": "Whole-space block identities and macroscopic energy identity"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2.actual_reflection_block_identities",
+      "kind": "theorem",
+      "title": "Actual reflection and conditional-projection blocks",
+      "statement": "There is a Markov kernel R with R_y=μ tilted by −‖x−y‖²/(2η), and a real linear isometry U with Uf=f∘F almost everywhere, U²=I and U*=U. For every L² class f, Pf(x,y)=∫f(x′,y)R_y(dx′) J-almost everywhere. The actual blocks obey B*B=P−A² and B*D=−AB*. For every Pf=f, ‖Bf‖²=‖f‖²−‖Af‖².",
+      "formula": "B^*B=P-A^2,\\qquad B^*D=-AB^*,\\qquad Pf=f\\Longrightarrow\\|Bf\\|^2=\\|f\\|^2-\\|Af\\|^2.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. μ is any probability measure on E and η>0.",
+        "J is the law of (X,X+sqrt(η)Z), with independent X of law μ and standard Gaussian Z. All operators act on the real Hilbert space L²(J).",
+        "F(x,y)=(x,2x−y). P is the inclusion into L²(J) of conditional expectation onto the sub-sigma-algebra generated by Y; P is defined, not assumed.",
+        "Let A=PUP, B=(I−P)UP and D=(I−P)U(I−P), with multiplication denoting composition. The energy identity quantifies over every f satisfying Pf=f."
+      ],
+      "steps": [
+        {
+          "title": "Lift the actual reflection",
+          "text": "The Gaussian augmentation is preserved by F, and F∘F=id. Pullback therefore preserves L² norms and defines a linear isometry U on equivalence classes. Applying the involution twice gives U²=I. Inner-product preservation implies ⟨Uf,g⟩=⟨f,Ug⟩, hence U*=U.",
+          "formula": "U^2=I,\\quad\\langle Uf,g\\rangle=\\langle Uf,U^2g\\rangle=\\langle f,Ug\\rangle.",
+          "lean": "reflection_lift uses the proved measure-preserving reflection and Lp.compMeasurePreservingₗᵢ."
+        },
+        {
+          "title": "Identify the conditional projection",
+          "text": "The proved quadratic-tilt kernel disintegrates the swapped joint law (Y,X). Conditional-distribution integration and a.e. uniqueness of disintegration identify the conditional expectation given Y. Since J is a probability measure, each L² representative is integrable. The L² conditional expectation agrees a.e. with this integral, so the actual orthogonal projection has the stated kernel semantics.",
+          "formula": "(Pf)(x,y)=\\int f(x^{\\prime},y)R_y(dx^{\\prime})\\quad J\\text{-a.e.}",
+          "lean": "kernel_condExp and projection_kernel use condExp_prod_ae_eq_integral_condDistrib', eq_condKernel_of_measure_eq_compProd and MemLp.condExpL2_ae_eq_condExp. No everywhere assertion for arbitrary representatives is made."
+        },
+        {
+          "title": "Expand the diagonal and off-diagonal blocks",
+          "text": "Write Q=I−P. Orthogonal projection gives P*=P and P²=P. Thus B*B=PUQUP=PU²P−PUPUP=P−A². Also B*D=PUQUQ=PU²Q−PUPUQ=−AB*, using PQ=0. These are identities on the whole Hilbert space; P becomes the identity only on its range.",
+          "formula": "B^*B=PU(I-P)UP=P-A^2,\\qquad B^*D=PU(I-P)U(I-P)=-AB^*.",
+          "lean": "block_algebra proves both identities from the established projection and reflection equalities by noncommutative ring normalization."
+        },
+        {
+          "title": "Recover the energy transferred from the macroscopic space",
+          "text": "The compression A is self-adjoint. For Pf=f, take the inner product of B*B=P−A² with f. The P term is ‖f‖² and self-adjointness changes ⟨f,A²f⟩ into ‖Af‖². No centering or spectral-gap premise is needed for this algebraic identity.",
+          "formula": "\\|Bf\\|^2=\\langle f,(P-A^2)f\\rangle=\\|f\\|^2-\\|Af\\|^2.",
+          "lean": "block_energy uses the adjoint norm identity and the actual compression self-adjointness."
+        }
+      ],
+      "lean_statement": "All ambient spaces, μ and η are quantified. The joint law, reflection and conditional projection are local definitions. R and U are constructed witnesses with actual-law semantics.",
+      "lean_proof": "Five local proof helpers feed one public theorem. The test rewrites the actual Gibbs normalized density to its generative augmentation using normalized_augmentation_density; positive normalization supplies integrability and the probability instance.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection.reflection_preserves_augmentation",
+        "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel"
+      ],
+      "mathlib_dependencies": [
+        "Lp.compMeasurePreservingₗᵢ",
+        "condExpL2",
+        "condExp_prod_ae_eq_integral_condDistrib'",
+        "eq_condKernel_of_measure_eq_compProd",
+        "isSelfAdjoint_starProjection",
+        "Submodule.isIdempotentElem_starProjection"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A2.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix B.1",
+          "scope": "Equations B.1 and B.3–B.5, expanded actual-law proof."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSReflectionL2.lean",
+        "command": "lake build Tests.ProximalBPSReflectionL2"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2.actual_reflection_block_identities",
+      "role": "proof-edge",
+      "supports": [
+        "actual-reflection",
+        "actual-projection",
+        "reflection-blocks"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "The paper uses the normalized Gibbs target on R^d, d≥1, with C² potential V and Hessian bounds 0<αI≤∇²V≤βI, and 0<η≤1/β. Its joint law has density proportional to exp(−V(x)−‖y−x‖²/(2η)).",
+        "lean": "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. μ is any probability measure on E and η>0."
+      },
+      {
+        "source": "Conditional projection is written with conditional-kernel representatives.",
+        "lean": "Integral representation is J-a.e. for every L² class."
+      },
+      {
+        "source": "B*B=I−A² on the macroscopic subspace.",
+        "lean": "B*B=P−A² on the full Hilbert space, with Pf=f explicitly required in the energy clause."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "341c399e01a23e4582f81088cab5e020ae81665a14caf59f9df182e2247daa41"
+}

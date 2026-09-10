@@ -1,0 +1,33 @@
+{
+  "advance_id": "ASTIS-SA-20260910-GaussianConditionalKernel",
+  "task_id": "companion-papers-priority",
+  "goal": "For any probability law μ on finite-dimensional real inner-product Borel E and η>0, construct an actual measurable Markov kernel R with R(y)=μ.tilted(x↦−‖x−y‖²/(2η)) at every y, and prove that R disintegrates the swapped actual law of (X,X+sqrt(η)G), with independent X~μ and standard Gaussian G.",
+  "source_anchor": "PBPS arXiv:2609.06905v1 §2.2 (2.7)-(2.8), Definition2.2 and §3.2; SPHMC arXiv:2609.06906v1 §3.4 RGO semantics.",
+  "theorem_delta": "For any probability law μ on finite-dimensional real inner-product Borel E and η>0, construct an actual measurable Markov kernel R with R(y)=μ.tilted(x↦−‖x−y‖²/(2η)) at every y, and prove that R disintegrates the swapped actual law of (X,X+sqrt(η)G), with independent X~μ and standard Gaussian G.",
+  "truth_boundary": "The explicit everywhere-defined density is one selected version. No pointwise identification with arbitrary conditional versions, curvature, moments, algorithm implementation, convergence, nonexplosion, invariance of PBPS or query costs is claimed.",
+  "created_by": "root-companion-writer",
+  "dag_inputs": [
+    "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation.augmentation_eq_withDensity",
+    "Measure.compProd_withDensity",
+    "Measure.fst_compProd",
+    "isProbabilityMeasure_tilted",
+    "StronglyMeasurable.integral_prod_right"
+  ],
+  "proposed_files": [
+    "AutoSamplingTheory/TechnicalLemmas/Probability/GaussianConditionalKernel.lean",
+    "Tests/GaussianConditionalKernel.lean"
+  ],
+  "focused_checks": [
+    "lake build Tests.GaussianConditionalKernel"
+  ],
+  "modes": [
+    "source-audit",
+    "proof-design",
+    "lean-implementation"
+  ],
+  "priority": 100,
+  "frontier_cell": "ASTIS-SHARED-gaussian-rgo-conditional-kernel",
+  "target_declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel"
+  ]
+}

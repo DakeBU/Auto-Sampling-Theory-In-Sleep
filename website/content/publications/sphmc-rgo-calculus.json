@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-rgo-calculus",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "RGO calculus: curvature, normalized target and condition-number update",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Section6.2.2, Lemma6.4 and equation(6.1)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS restatement, expanded mathematical proof and Lean formalization; no author endorsement implied."
+      },
+      "statement": "For a C² potential U on Euclidean space satisfying κ⁻¹I≤D²U≤I, use the positive condition-number convention κ>0. For A∈(0,∞] define U_A,u=U+||·−u||²/(2A). It is α_A=κ⁻¹+A⁻¹ strongly convex and β_A=1+A⁻¹ smooth; let K_A=β_A/α_A. For a>0 the normalized Gibbs law R^(U_A,u)_a,y equals R^U_A+,u+, where (A+)⁻¹=A⁻¹+a⁻¹ and u+=A+(u/A+y/a). Its condition-number bounds satisfy K_A+=(aβ_A+1)K_A/(aβ_A+K_A). ASTIS expands the omitted calculation by proving integrability, strictly positive normalization and actual probability laws, and uses precision r=A⁻¹ to include infinity. This is a mathematical restatement, not a quotation. The formal space is any finite-dimensional real inner-product Borel space, including zero dimension. No recursive algorithm, error or cost bound is included.",
+      "assumptions": [
+        "The derivatives are genuine derivatives of the C² potential; the Hessian is not a separately supplied field. The quadratic-form bounds hold everywhere.",
+        "κ>0 is the positive condition-number convention of the source. The ratio β/α uses the supplied bounds, not necessarily optimal constants. In dimension zero it need not be at least one.",
+        "r is a nonnegative real precision, represented by NNReal. Its zero value means A=∞, not a zero variance. The second variance a is strictly positive.",
+        "All laws are normalized relative to canonical Euclidean volume. No minimizer, moment estimate, integrability or kernel identity is supplied as a hidden premise."
+      ],
+      "formulae": [
+        {
+          "label": "source normalized RGO and condition update",
+          "tex": "\\begin{gathered}W=U+\\tfrac r2\\|\\cdot-u\\|^2,\\quad r^+=r+a^{-1},\\quad w=(r^+)^{-1}(ru+a^{-1}y),\\\\R^{W}_{a,y}=R^{U}_{(r^+)^{-1},w},\\qquad K^+=\\frac{\\beta+a^{-1}}{\\alpha+a^{-1}}=\\frac{(a\\beta+1)K}{a\\beta+K}.\\end{gathered}"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "curvature-and-normalization",
+          "label": "Genuine curvature/smoothness with integrable, positive normalized Gibbs laws"
+        },
+        {
+          "id": "normalized-source-update",
+          "label": "Exact source potential-law identity and condition-number update"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOCalculus.rgo_calculus",
+          "cell": "ASTIS-SW-SPHMC-rgo-calculus",
+          "role": "proof-edge",
+          "supports": [
+            "curvature-and-normalization",
+            "normalized-source-update"
+          ],
+          "audit_id": "ASTIS-RT-20260910-SPHMCRGOCalculus",
+          "boundary": "Source-level RGO potential calculus only. No implementable sampler, recursive accuracy, reference-point cost, invariance, mixing or actual-input expected query cost. κ>0 is the positive condition-number convention; r=0 retains A=infinity. Finite-dimensional real inner-product spaces, including dimension zero, generalize Euclidean coordinates. A=∞ is represented through its zero precision. The theorem does not claim a zero-variance Gaussian law. The updated potentials differ by an additive constant before normalization. No equality of unnormalized densities or partition functions is asserted. The constants are valid curvature/smoothness bounds. No optimal-condition-number, covariance or transport estimate follows from this packet alone.",
+          "assumption_deltas": [
+            {
+              "source": "U∈C²(Rd), source positive condition number",
+              "lean": "C² on finite-dimensional real inner-product Borel E; κ>0",
+              "classification": "generalization",
+              "reason": "Coordinates and positive dimension are not required. Explicit κ positivity retains the source convention; no claim K≥1 in dimension zero."
+            },
+            {
+              "source": "A∈(0,∞], a>0",
+              "lean": "r:NNReal, a>0, r+=r+a⁻¹",
+              "classification": "same",
+              "reason": "Precision r=A⁻¹ retains A=∞ at r=0 and keeps the second variance strictly positive."
+            },
+            {
+              "source": "RGO law proportional to exp(−U_A,u)",
+              "lean": "Integrable Gibbs weight, positive normalizer and probability from the existing curvature parents",
+              "classification": "source-implicit",
+              "reason": "These are derived, not added assumptions. They justify normalized-law composition and prevent totalized zero measures."
+            },
+            {
+              "source": "β_A-smooth potential and κ_A=β_A/α_A",
+              "lean": "LipschitzWith β_A (gradient W); exact ratio of supplied bounds",
+              "classification": "same",
+              "reason": "C² supplies genuine gradients. The ratio is not asserted to be the optimal condition number."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

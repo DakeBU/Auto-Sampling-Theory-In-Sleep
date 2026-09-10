@@ -1,0 +1,40 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "65f943e9f1c958989798196c5fb7301ce9af0981",
+    "gate": {
+      "production": "Independent unchanged complete-source stdin compile exit0; focused production and Tests PASS3196",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication": "Independent check_advance with reviewed=True PASS",
+      "tests_scope": "Axiom query only; actual PUP representative is the production consumer"
+    },
+    "source_audit": {
+      "id": "ASTIS-RT-20260911-PBPSMacroscopicRepresentative",
+      "state": "accepted",
+      "verdict": "domain-mismatch",
+      "decoder": "macro_blind_decoder",
+      "reviewer": "log_depth_source_review",
+      "publication_binding_sha256": "d83200e93ba177a4144cdded34b70d1193403ce9c9452d82f440cc915dea3d9c",
+      "decoder_packet_sha256": "55e01efcb02a44209af19a1e96d64a22d852cf1753389ea7f06b94836ac22f01",
+      "decoder_run_sha256": "39aa910bb29ee643eb21459a90c4149bc99d36d7b03cdd036e036db34eba042a",
+      "reviewer_packet_sha256": "7676998ee464a23e7f424280ee4774d3840a2e504f9590440a96a62a6f20982b",
+      "review_run_sha256": "0c5d7dd53e6b9c514e94a59b8932a611d0407bfbfe9a2d4ed0cf80d99d532fa8",
+      "blocking_issues": []
+    },
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused test; standard theorem axioms only"
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative.macroscopic_reflection_smooth_representative"
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Root transcription of depth_commit_verifier explicit fixed-commit VERIFIED and sole-owner STABILIZING decision.",
+  "boundary": "No aggregate integration, reader/graph, conditional variance, Sobolev/coercivity, process/cost or complete-paper result asserted."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-truncation",
+  "route": "samplewiki-route",
+  "title": "SPHMC actual truncation proxy from the infimum p-cost",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Lemma6.2 and proof, section6.2.1; optimal-coupling existence is expanded with reusable ASTIS compactness and continuous-cost lower semicontinuity",
+  "target_statement": "Construct an optimal actual coupling for continuous nonnegative cost using existing weak compactness and lower semicontinuity. For the true infimum cost of norm(x-y)^p, real p>=2, prove SPHMC Lemma6.2 in cost-input/bounded-coupling form: cost<=r^p, r>=0, 0<delta<1 yields an actual proxy probability Pdag with eventwise TV(P,Pdag)<=delta and an actual coupling of Pdag,Q concentrated on displacement<=r delta^(-1/p). Prove measurability, pushforward probabilities/marginals, Markov budget and zero-radius case; do not assume an optimal or good coupling.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-optimal-continuous-cost"
+  ],
+  "consumers": [
+    "SPHMC Lemma6.3(ii) heat-flow reverse transport then Theorem6.5 A2 branch; later consumers remain unfinished"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib ProbabilityCouplingCompactness.isCompact_probabilityCouplingSet and isProbabilityCoupling_iff_isCoupling_toMeasure; Transport coupling nonemptiness/probability/infimum APIs",
+      "Samplinglib ContinuousCostWeakLowerSemicontinuity.lowerSemicontinuous_lintegral_continuous_nnreal accepts arbitrary continuous NNReal cost; no existing generic compact-minimum optimizer found in bounded references",
+      "Samplinglib KernelTotalVariation uses eventwise absolute real probability discrepancy, so no new TV definition; existing recursive depth/calculus do not imply sampler/transport guarantees",
+      "Mathlib Topology.Semicontinuity.Basic: LowerSemicontinuousOn.exists_isMinOn; MeasureTheory real-measure union/mono and Bochner Markov; Real.rpow for real p"
+    ],
+    "classification": "adapt",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-truncation.md",
+    "planning_review": "Independent log_depth_source_review primary/source and exact-API route review. Root confirmed actual compactness, general continuous-cost LSC, lower-semicontinuous minimum and coupling definitions.",
+    "execution_boundary": "Root sole writer; resolvent PR258 remains sole STABILIZING. Truncation EXPLORING only.",
+    "ownership_note": "One actual SPHMC consumer route; no invented second consumer or general metric API."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Lemma6.2, section6.2.1",
+    "detail_status": "sufficient",
+    "gap": "Primary chooses optimal Wp coupling without detailing its existence. Reuse proved compactness/LSC rather than assume a good coupling; radius zero needs independent handling.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS2",
+        "anchor": "Lemma6.2 and proof; Lemma6.3(ii) consumer",
+        "hypothesis_adapter": "Real p>=2, r>=0 and 0<delta<1. Input is the actual infimum p-cost<=r^p; output includes a real coupling with bounded displacement, not an assumed Winfinity or Renyi certificate."
+      }
+    ],
+    "fidelity_boundary": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Direct optimal coupling and measurable truncation, not a renamed parameter interface."
+  }
+}

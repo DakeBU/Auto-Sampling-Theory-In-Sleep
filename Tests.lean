@@ -1,4 +1,13 @@
 import Tests.Basic
+import Tests.HessianStrongConvexity
+import Tests.QuadraticRegularization
+import Tests.GibbsAugmentation
+import Tests.SmoothedPicardRecursiveCondition
+import Tests.SmoothedPicardRGOClosure
+import Tests.StrongConvexGibbsIntegrability
+import Tests.IsotropicGaussianDensity
+import Tests.ProximalBPSGaussianAugmentation
+import Tests.ProximalBPSGaussianReflection
 import Tests.BrownianMotion
 import Tests.BrownianQuadraticVariation
 import Tests.GaussianFourthMoment
@@ -43,6 +52,7 @@ import Tests.ItoIntegralProcessAfterHorizon
 import Tests.ItoIntegralProcessCongruence
 import Tests.KantorovichDual
 import Tests.KernelInvariance
+import Tests.KernelTotalVariation
 import Tests.LangevinCarreDuChamp
 import Tests.LaggedDyadicApproximation
 import Tests.LaggedDyadicConvergence
@@ -106,6 +116,18 @@ import Tests.EnergyStoppingL2Bridge
 import Tests.CanonicalLocalizationTheorem
 import Tests.CanonicalStoppedItoIntegral
 import Tests.EnergyStoppedItoOverlap
+import Tests.GaussianConditionalKernel
+import Tests.SmoothedPicardRGOCalculus
+import Tests.SmoothedPicardRecursiveVariance
+import Tests.SmoothedPicardRecursiveDepth
+import Tests.SmoothedPicardLogarithmicDepth
+import Tests.ProximalBPSReflectionL2
+import Tests.ProximalBPSConditionalScore
+import Tests.ProximalBPSMacroscopicRepresentative
+import Tests.ProximalBPSConditionalScoreDomain
+import Tests.ProximalBPSConditionalBochner
+import Tests.ProximalBPSConditionalGradient
+import Tests.ProximalBPSConditionalResolvent
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are

@@ -2,6 +2,9 @@ import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Generator
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.LogSobolev
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare
 import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.SemigroupDecay
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient
+import AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent
 
 /-!
 # Functional-inequality technical lemma arsenal

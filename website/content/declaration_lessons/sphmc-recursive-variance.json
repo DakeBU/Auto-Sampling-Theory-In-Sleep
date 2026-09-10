@@ -1,0 +1,75 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds",
+      "kind": "theorem",
+      "title": "Well-conditioned RGO update: finite variance and contraction",
+      "statement": "For real r,h,c assume r≥0 and 0<h≤c. Define a=(h+c)/(1+r), the updated precision r⁺=r+a⁻¹, the updated regularization variance A⁺=(r⁺)⁻¹, and ρ=2c/(1+2c). Then r⁺>0, 0<A⁺≤2c and 0<ρ<1. Whenever r>0, A⁺≤ρ/r. No previous real variance is assigned to r=0: it represents the source's infinite initial parameter.",
+      "formula": "\\begin{gathered}a=\\frac{h+c}{1+r},\\quad r^+=r+a^{-1},\\quad A^+=(r^+)^{-1},\\quad \\rho=\\frac{2c}{1+2c},\\\\0<r^+,\\quad0<A^+\\le2c,\\quad0<\\rho<1,\\quad r>0\\Longrightarrow A^+\\le\\rho r^{-1}.\\end{gathered}",
+      "assumptions": [
+        "r≥0 is precision. A previous finite regularization variance equals 1/r only when r>0; r=0 models A=∞ without using Lean's real inverse of zero as infinity.",
+        "0<h≤c implies c>0. The source restriction c<1/4 is not needed for this selected scalar branch.",
+        "The well-conditioned branch has already selected τ=c. This theorem does not test its condition number, prove branch persistence or implement a recursive sampler.",
+        "All quantities here are real scalar parameters, not random variables or the covariance of the Gibbs distribution. No measure-theoretic hypothesis is needed for the scalar inequalities."
+      ],
+      "steps": [
+        {
+          "title": "Establish positivity before using reciprocals",
+          "text": "Put t=h+c and β=1+r. The assumptions give 0<t≤2c and β≥1. Thus a=t/β is positive, and adding its positive inverse to nonnegative precision produces r⁺>0. Its inverse is consequently a genuine finite positive parameter.",
+          "formula": "0<t=h+c\\le2c,\\quad\\beta=1+r\\ge1,\\quad a=t/\\beta>0,\\quad r^+=r+1/a>0.",
+          "lean": "hc, ht, ht_upper and hbeta establish these inequalities. div_pos, inv_pos and add_pos_of_nonneg_of_pos justify every inverse; positivity closes elementary sign obligations."
+        },
+        {
+          "title": "Write the updated variance in a uniform form",
+          "text": "Substitute a and clear the positive denominator t. The expression D=1+r+rt is at least one, so the formula also holds at r=0. At that boundary it yields A⁺=t=h+c, handling the source's infinite initial variance without finite-A division.",
+          "formula": "D=1+r+rt\\ge1,\\qquad A^+=\\frac1{r+(1+r)/t}=\\frac{t}{1+r+rt}=\\frac tD.",
+          "lean": "hD proves denominator positivity. hformula uses inv_div and field_simp, then add_comm, to verify the identity. The focused zero-precision test checks a=Aplus=h+c, positivity and the bound."
+        },
+        {
+          "title": "Bound the first finite parameter",
+          "text": "Since D≥1 and t>0, division by D cannot increase t. Combining this with the schedule bound proves A⁺≤2c even when the previous parameter was infinite.",
+          "formula": "A^+=t/D\\le t\\le2c.",
+          "lean": "hbound first applies le_trans and div_le_iff₀ hD. nlinarith checks the polynomial inequality using nonnegative products, with no extra analytic premise."
+        },
+        {
+          "title": "Prove a guarded finite-parameter contraction",
+          "text": "Both D and 1+2c are positive. After multiplying by them, the desired bound rA⁺≤ρ reduces to the nonnegative residual 2c+r(2c−t). Also 2c is positive and strictly below 1+2c, so 0<ρ<1. Only when r>0 may we divide the scaled inequality by r to compare with the previous finite variance.",
+          "formula": "\\begin{aligned}2cD-rt(1+2c)&=2c+r(2c-t)\\ge0,\\\\rA^+&\\le\\frac{2c}{1+2c}=\\rho\\in(0,1),\\\\r>0&\\Longrightarrow A^+\\le\\rho/r.\\end{aligned}",
+          "lean": "hscaled uses div_le_div_iff₀ and the nonnegativity of r(2c−t). div_lt_one proves ρ<1. The final implication explicitly introduces hrpos before le_div_iff₀ is used; real 0⁻¹ never becomes a previous variance."
+        }
+      ],
+      "lean_statement": "The let-bindings preserve the update without adding wrapper definitions. All parameters are real, and three explicit inequalities suffice. The strict r>0 hypothesis is confined to the final implication; the finite updated bound covers r=0 too.",
+      "lean_proof": "Only Mathlib ordered-field facts and arithmetic tactics are imported. The production proof has no ASTIS dependency. A separate consumer test uses the same a,r⁺ and center in RGOCalculus.rgo_calculus, deriving an actual normalized updated Gibbs probability together with these inequalities, with no normalizer or probability premise.",
+      "boundary": [
+        "Only the deterministic well-conditioned parameter step of Lemma6.6(ii). The source condition-number test selects tau=c; it is not asserted by this lemma. c<1/4 is unnecessary for this scalar branch and explicitly generalized away. r^-1 represents a previous finite variance only under r>0. No finite-stage termination, implemented recursion, probability error, mixing or query cost.",
+        "One-step regularization-parameter control is not a covariance estimate, a termination theorem, an error guarantee or an expected query-cost estimate."
+      ],
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "inv_div",
+        "div_pos",
+        "inv_pos",
+        "div_le_iff₀",
+        "div_le_div_iff₀",
+        "div_lt_one",
+        "le_div_iff₀"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, SPHMC v1, §6.3, Lemma 6.6(ii), (6.1)–(6.2)",
+          "scope": "ASTIS mathematical restatement and expanded scalar derivation; no verbatim paper proof reproduced."
+        },
+        {
+          "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Field/Basic.lean",
+          "label": "Mathlib contributors, Apache-2.0",
+          "scope": "Reused ordered-field inequalities, not counted as newly formalized ASTIS leaves."
+        }
+      ],
+      "tests": {
+        "file": "Tests/SmoothedPicardRecursiveVariance.lean",
+        "command": "lake build Tests.SmoothedPicardRecursiveVariance"
+      }
+    }
+  ]
+}

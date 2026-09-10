@@ -1,4 +1,20 @@
 import AutoSamplingTheory.ExampleCases.SampleWiki
+import AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection
+import AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation
+import AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ReflectionL2
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore
+import AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOCalculus
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth
 
 /-!
 # ASTIS example cases

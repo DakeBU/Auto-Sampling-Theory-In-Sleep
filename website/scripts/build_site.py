@@ -227,10 +227,13 @@ def main() -> int:
 
     proof_readers.enrich_site(output)
     declaration_lessons.enrich_site(output)
+    # Publication bindings can target companion-paper readers too. Materialize
+    # those source pages before attaching their checked theorem/proof lessons;
+    # running the companion generator later would overwrite the attachments.
+    samplewiki_companions.enrich_site(output)
     publication_reader.enrich_site(output)
     metadata_lessons.enrich_site(output)
     inline_lean.enrich_textbook(output)
-    samplewiki_companions.enrich_site(output)
 
     inherit_final_reader_contract(output)
     repair_project_author_footer(output)

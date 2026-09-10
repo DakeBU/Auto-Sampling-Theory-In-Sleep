@@ -7,3 +7,7 @@ runs/20260908-samplewiki-resume/copy-index.*.json text eol=lf
 runs/20260908-samplewiki-resume/random-scan.*.json text eol=lf
 runs/20260908-samplewiki-resume/reversibility.*.json text eol=lf
 runs/20260908-samplewiki-resume/fisher-transport.*.json text eol=lf
+runs/20260910-companion-priority/*.json text eol=lf
+# Preserve reviewed response bytes (including the recorded final empty line).
+runs/20260910-companion-priority/anonymous-pbps.decoder-result.json whitespace=-blank-at-eof
+runs/20260910-companion-priority/scalar.v2.source-review-result.json whitespace=-blank-at-eof

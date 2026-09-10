@@ -1,0 +1,220 @@
+# Companion-paper formalization handoff
+
+Updated: 2026-09-10. Project: **Auto-Sampling-Theory-In-Sleep (ASTIS)**.
+
+The owner requested an immediate push and a pause because their usage allowance
+is nearly exhausted. Do not interpret this pause as completion or a mathematical
+blocker. This document is intended for collaborators' Codex/Claude sessions and
+for reading directly through GitHub or ChatGPT.
+
+## Exact checkpoint
+
+- Branch: `main`.
+- Latest mathematical proof commit:
+  `51b3b91334b9d73e4741d1b8847a7576846edc3d`.
+- Independent-admission/frontier commit:
+  `ec33034d17061e8d91d3948dbf8e03d5ac4526ba`.
+- This handoff is a later documentation-only commit. Use the actual current
+  remote HEAD when beginning work; never reconstruct a SHA from an abbreviation.
+- Preserve the owner's pre-existing local modification to
+  `AutoSamplingTheory/TechnicalLemmas/Measure.lean`. It had no textual diff
+  (line endings only), was not authored here and was not staged.
+- No reset credit was used. No detached ASTIS process was started. The running
+  foreground aggregate gate was explicitly interrupted at the owner's stop
+  request; no local gate process is intentionally retained.
+
+## Priority and honest completion boundary
+
+Faithfully formalize the two pinned papers by Fan Chen, Sinho Chewi, Jianfeng Lu
+and Matthew S. Zhang:
+
+1. [PBPS, arXiv:2609.06905v1](https://arxiv.org/abs/2609.06905v1):
+   *Accelerated High-Accuracy Sampling from a Warm Start via the Proximal
+   Bouncy Particle Sampler*.
+2. [SPHMC, arXiv:2609.06906v1](https://arxiv.org/abs/2609.06906v1):
+   *Smoothed Picard Hamiltonian Monte Carlo*.
+
+**Neither full paper is formalized.** Actual algorithms/processes, main
+convergence/error theorems, and expected query costs for their actual inputs
+remain open. Partial scalar or kernel facts do not establish those claims.
+The older Chewi 8.4.1 representative/score frontier and all previous cycle
+memory remain preserved; do not restart Cycle 26 from historical chat text.
+
+The legacy Registry count remains **396**. There are now **13 separately
+inventoried, focused-tested, independently reviewed companion/shared results**.
+Do not add these numbers to manufacture a new Registry count, or confuse
+declaration counts with completed paper theorems.
+
+## What is available for reuse
+
+Exact names, files, tests and admission evidence are in the linked Frontier
+Cells and generated declaration inventory. The compact result sequence is:
+
+| Result | Owning module / proof component |
+|---|---|
+| 1 | SPHMC `RecursiveCondition.contraction_bounds`: ill-conditioned scalar update |
+| 2 | PBPS `GaussianReflection.reflection_preserves_augmentation` |
+| 3 | SPHMC `RGOClosure.quadratic_tilt_tilt`: normalized quadratic tilt composition |
+| 4 | `Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity` |
+| 5 | PBPS `GaussianAugmentation.augmentation_eq_withDensity` |
+| 6 | `Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn` |
+| 7 | `Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower` |
+| 8 | PBPS `GibbsAugmentation.normalized_augmentation_density` |
+| 9 | `Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic` |
+| 10 | `Probability.KernelTotalVariation.abs_real_comp_sub_le` |
+| 11 | `Probability.GaussianConditionalKernel.exists_tilted_isCondKernel` |
+| 12 | SPHMC `RGOCalculus.rgo_calculus`: Lemma 6.4 source integration |
+| 13 | SPHMC `RecursiveVariance.variance_update_bounds`: selected Lemma 6.6(ii) step |
+
+Use `website/content/samplewiki_companion_frontiers.json` →
+`execution.result_cells` to find the canonical records; this table is a
+retrieval aid, not another completion-status source.
+
+## Latest result: exact mathematical scope
+
+Production:
+`AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RecursiveVariance.lean`.
+
+Test: `Tests/SmoothedPicardRecursiveVariance.lean`.
+
+Exact declaration:
+`AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds`.
+
+For real `r ≥ 0` and `0 < h ≤ c`, define
+
+\[
+a=\frac{h+c}{1+r},\qquad r^+=r+a^{-1},\qquad
+A^+=(r^+)^{-1},\qquad \rho=\frac{2c}{1+2c}.
+\]
+
+The theorem proves `r⁺ > 0`, `0 < A⁺ ≤ 2c`, `0 < ρ < 1`, and
+`r > 0 → A⁺ ≤ ρ/r`. The proof uses
+
+\[
+A^+=\frac{t}{D},\quad t=h+c,\quad D=1+r+rt\ge1,
+\qquad 2cD-rt(1+2c)=2c+r(2c-t)\ge0.
+\]
+
+Important boundaries:
+
+- `r=0` represents the source's initial `A=∞`; then the updated parameter
+  equals `h+c`. Real `0⁻¹=0` is never treated as infinity.
+- “Variance” here is an RGO regularization parameter, **not Gibbs covariance**.
+- The branch has already selected `τ=c`. Branch selection, persistence,
+  sequences, termination, sampling error and cost are not conclusions.
+- The source requires `c<1/4`; this scalar proof does not need it. This is
+  explicitly recorded as a valid generalization, not permission to enlarge
+  the algorithm's schedule.
+- A genuine Gibbs consumer test uses the same `a,r⁺,w` with
+  `RGOCalculus.rgo_calculus`, obtaining updated-target probability without
+  supplying integrability, a normalizer or a probability premise.
+- Production imports only Mathlib arithmetic; the Gibbs connection belongs
+  in the consumer test, not in a fabricated production dependency.
+
+The four-step English/formula lesson and per-statement/per-proof folded Lean
+are driven by `website/content/declaration_lessons/sphmc-recursive-variance.json`
+and `website/content/publications/sphmc-recursive-variance.json`.
+
+## Verification and publication: do not conflate these
+
+Completed for result 13:
+
+- Focused `lake build Tests.SmoothedPicardRecursiveVariance`: PASS, 2945 jobs.
+- Standard axioms only: `propext`, `Classical.choice`, `Quot.sound`.
+- Independent mathematical/commit reviewer: `rgo_independent_verifier`.
+- Source-blind decoder: `heatbath_exposition_research`.
+- Independent source reviewer: `publication_gate_review`.
+- Publication metadata check: PASS, 14 source items.
+- Semantic registry check: PASS, 17 audits and one preserved older repair.
+- Frontier Cell check: PASS, 25 cells.
+- `git diff --check`: PASS.
+
+Canonical cell:
+`research-wiki/frontier-cells/ASTIS-SW-SPHMC-recursive-variance-contraction.json`.
+
+Canonical audit: `ASTIS-RT-20260910-SPHMCRecursiveVariance` in
+`research-wiki/semantic-roundtrip/registry.json`.
+
+The reviewer accepted the **selected specialization**, with final verdict
+`domain-mismatch` and `domains.relation=stronger-in-lean` because the formal
+parameter range is genuinely broader. The original review and signed amendment
+are both preserved in
+`runs/20260910-companion-priority/recursive-variance.source-review-result.json`.
+Do not relabel this unrestricted statement as globally source-equivalent.
+
+Commit-bound evidence:
+`runs/20260910-companion-priority/recursive-variance.commit-verification.json`.
+
+**Pending for result 13 at the owner's stop request:** aggregate Lean/ASTIS
+gate, source-bound site build/check, generated branch/reader visual inspection,
+and confirmation of online deployment. The local final-gate command was
+interrupted before it returned a pass. Do not reuse the old gate JSON as new
+evidence.
+
+The last confirmed published source is
+`26eb51a602f9976a4eae769be1b811582951ec4a` (result 12).
+Its GitHub site and formalization workflows both completed successfully.
+Its site snapshot had 12 chapters, 546 modules and 3640 inventoried declarations;
+those are the **previous release's** counts, not a new site-build claim.
+The new push triggers the repository's normal CI/Pages workflow; inspect its
+actual status before claiming result 13 is visible online.
+
+## First actions for the next collaborator
+
+1. Read `AGENTS.md`, then this handoff and the bounded current Frontier Cell.
+   Follow the required substantive-advance and semantic-roundtrip skills.
+2. Fetch safely; inspect branch, commit, status and incoming changes.
+   Do not reset, clean, overwrite local edits or create a parallel clone.
+3. Finish result 13's aggregate and publication checks before opening a new
+   proof packet. Reuse unchanged source/decoder/reviewer hashes.
+4. Inspect the affected proof reader and one-hop graph, including the positive
+   parameter boundary and the disclosed source-domain difference.
+5. Continue the next dependency-ready mathematical edge below.
+
+Pinned toolchain: `leanprover/lean4:v4.33.0`.
+Mathlib commit: `db584cd6d46c92f209a44c0f1c829460d327499d`.
+On the owner's machine an inherited Lean 4.29.1 setting is wrong; explicitly
+use the repository toolchain and a conservative two-thread build.
+
+Run in the repository (Linux-compatible command forms):
+
+```bash
+lake build Tests.SmoothedPicardRecursiveVariance
+python3 website/scripts/lean_gate.py
+python3 tools/astis_publication.py check --base 0c5f911b4f39d7204aee2efe5ef8640c5649806e
+python3 tools/astis_semantic_roundtrip.py check
+python3 tools/astis_frontier_cells.py check
+python3 -m py_compile tools/astis.py
+python3 website/scripts/build_site.py
+python3 tools/astis_publication.py graph-check --cell ASTIS-SW-SPHMC-recursive-variance-contraction
+python3 website/scripts/check_site.py
+git diff --check
+```
+
+The official site Lean gate runs `tools/astis.py check`, including aggregate
+Lake/Tests and fake-closure checks, and generates real source/commit-bound
+evidence. Freeze the candidate before running it; do not hand-edit its pass,
+commit or digest, or rerun the whole build after every lesson sentence.
+
+## Next mathematical edge, not yet proved
+
+Use the actual Lemma 6.4 ratio update to establish persistence of the
+well-conditioned regime, then derive the finite-depth threshold needed after
+SPHMC equation (6.4). Preserve both regimes, schedule hypotheses, strict positive
+precision after the first step, and exact stage indexing.
+
+A bounded search found existing Mathlib `le_geom` and
+`tendsto_pow_atTop_nhds_zero_of_lt_one` in
+`Mathlib/Analysis/SpecificLimits/Basic.lean`; inspect exact signatures and reuse
+them rather than formalizing geometric-sequence facts again. This is retrieval
+evidence, **not** a frozen packet or a compiled recursion theorem.
+
+Keep these red boundaries independent: recursive probability error, terminal
+FORS algorithm/work, actual-input query costs, PBPS event-process
+nonexplosion/invariance, discrete hypocoercivity and complete mixing guarantees.
+TV proximity does not transfer unbounded expected costs.
+
+Use one sole writer per bounded SAU, exact source anchors, early focused tests
+and independent source/commit admission. Reuse local dependency slices; avoid
+whole-site scans, full transcript replay, duplicate wrappers and graph-only
+agents. Keep the full two-paper objective unfinished until it is actually proved.

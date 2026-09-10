@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-a696baa5725992b7",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {k h : ℝ}, 2 ≤ k → 0 < h → h < 1 / 4 → k / 2 ≤ k * (k + h + 1) / (2 * k + h) ∧ k * (k + h + 1) / (2 * k + h) ≤ 4 / 5 * k",
+    "statement_sha256": "a696baa5725992b77ba24f2b446567405903c2f5c525656d221301c8d9d69d8d",
+    "compiled": true,
+    "approved_definition_context": [
+      "All operations are on real numbers. The conjunction requires both inequalities. Real division is total, but the hypotheses imply its displayed denominator is strictly positive."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "586bb6b81e67fcacd30baba50009ceb6e64c5c696db6358acc2b368518bf0e92"
+}

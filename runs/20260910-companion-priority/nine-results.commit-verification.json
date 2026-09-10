@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "recorded_by": "root harness, transcribed from rgo_independent_verifier's explicit independent attestation in the current thread",
+  "verifier_id": "rgo_independent_verifier",
+  "verified_commit": "38e1ef64e5851b8ecab7b6a3d2771a55ab5db40e",
+  "verified_tree": "243798a1aa5f6fe3cea5f934c626113205818138",
+  "gate": "PASS. Nine frozen module/test byte pairs match the committed blobs and existing focused verification. All nine lesson/source/statement hashes, canonical reviewer packets, raw review artifacts and independently recomputed full publication bindings match. Reused aggregate ASTIS/ATLAS gate: 9070 jobs; working-source digest 1847b4d8a385b18afeb3cbe5a357ff9dd01e3a0ee594a1e160e2f4e8a15e257f independently reproduced. The original gate ran before commit under HEAD 4fec6664ccbb0c338b81febe48c02e76486f0da4, not under the verified commit. All 543 build inputs match after newline normalization; 525 raw differences are CRLF/LF only. Raw committed-source digest: 16a9489b3fff2aeb9ac16904835eade23027b8099506047caf7c80a0a8902994. No tracked Lean changes; commit whitespace check passed.",
+  "fake_closure_scan": "PASS by reuse of unchanged, byte-bound independent target scans and the aggregate ASTIS scan. Recorded axioms are only propext, Classical.choice and Quot.sound. No new scan or build is claimed.",
+  "results": [
+    {
+      "advance_id": "ASTIS-ADV-20260910-SPHMC-RecursiveCondition",
+      "cell": "ASTIS-SW-SPHMC-recursive-condition-contraction",
+      "source_audit": "ASTIS-RT-20260910-SPHMCRecursiveCondition",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-SPHMCRecursiveCondition"
+    },
+    {
+      "advance_id": "ASTIS-ADV-20260910-PBPS-GaussianReflection",
+      "cell": "ASTIS-SW-PBPS-gaussian-augmentation-reflection",
+      "source_audit": "ASTIS-RT-20260910-PBPSGaussianReflection",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-PBPSGaussianReflection"
+    },
+    {
+      "advance_id": "ASTIS-ADV-20260910-SPHMC-RGOClosure",
+      "cell": "ASTIS-SW-SPHMC-rgo-closure",
+      "source_audit": "ASTIS-RT-20260910-SPHMCRGOClosure",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-SPHMCRGOClosure"
+    },
+    {
+      "advance_id": "ASTIS-ADV-20260910-IsotropicGaussianDensity",
+      "cell": "ASTIS-SHARED-isotropic-gaussian-density",
+      "source_audit": "ASTIS-RT-20260910-IsotropicGaussianDensity",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-IsotropicGaussianDensity"
+    },
+    {
+      "advance_id": "ASTIS-ADV-20260910-PBPS-JointGaussianDensity",
+      "cell": "ASTIS-SW-PBPS-joint-gaussian-density",
+      "source_audit": "ASTIS-RT-20260910-PBPSGaussianAugmentation",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-PBPSGaussianAugmentation"
+    },
+    {
+      "advance_id": "ASTIS-ADV-20260910-StrongConvexGibbsIntegrability",
+      "cell": "ASTIS-SHARED-strong-convex-gibbs-integrability",
+      "source_audit": "ASTIS-RT-20260910-StrongConvexGibbsIntegrability",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-StrongConvexGibbsIntegrability"
+    },
+    {
+      "advance_id": "ASTIS-SA-20260910-HessianStrongConvexity",
+      "cell": "ASTIS-SHARED-hessian-strong-convexity",
+      "source_audit": "ASTIS-RT-20260910-HessianStrongConvexity",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-HessianStrongConvexity"
+    },
+    {
+      "advance_id": "ASTIS-ADV-20260910-PBPSGibbsAugmentation",
+      "cell": "ASTIS-SW-PBPS-gibbs-augmentation",
+      "source_audit": "ASTIS-RT-20260910-PBPSGibbsAugmentation",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-PBPSGibbsAugmentation"
+    },
+    {
+      "advance_id": "ASTIS-SA-20260910-QuadraticRegularization",
+      "cell": "ASTIS-SHARED-quadratic-regularization",
+      "source_audit": "ASTIS-RT-20260910-QuadraticRegularization",
+      "semantic_roundtrip_audit": "ASTIS-RT-20260910-QuadraticRegularization"
+    }
+  ],
+  "boundary": "Commit-binding audit only; existing independent proof/source reviews are reused, not reassigned. No entire-paper theorem, stabilization, Registry admission or remote merge is certified."
+}

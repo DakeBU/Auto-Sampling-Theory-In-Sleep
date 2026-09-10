@@ -1,0 +1,31 @@
+{
+  "decision": "APPROVE_VERIFIED",
+  "verified_commit": "8ef889b89ae1b23e19d41acf25c115cfbef5e30a",
+  "verifier_id": "rgo_independent_verifier",
+  "publication_declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOCalculus.rgo_calculus"
+  ],
+  "gate": "Reused recorded focused lake build Tests.SmoothedPicardRGOCalculus PASS2945 under Lean 4.33.0 and LEAN_NUM_THREADS=2; standard axioms only, no warnings. My independent mathematical review and current commit/hash checks passed. No build rerun. Aggregate Lean/site publication gate remains PENDING; this is not stabilization or deployment approval.",
+  "source_audit": "Accepted by publication_gate_review after independent decoder heatbath_exposition_research; formalizer root-companion-writer. All seven slots present, verdict equivalent-after-elaboration, no blocking deltas or repairs. Reviewer disclosed authorship of reused QuadraticRegularization parent; no parent recertification is claimed.",
+  "semantic_roundtrip_audit": "ASTIS-RT-20260910-SPHMCRGOCalculus",
+  "fake_closure_scan": "Independent bounded scan of committed-matching module/tests passed: no sorry, admit, custom axiom, trivial closure, unsafe or native_decide. Scoped transparency setting is elaboration-only. Genuine integrability and original/updated probability certificates exclude zero-law fallback.",
+  "artifact_checks": {
+    "tree": "38380ce87ed16f8bf7592f83ebfdc4a1cee62e4c",
+    "module_sha256": "ed24f36ba0a28cf4579dff881b3329280c1ba783baac165ad539834815e9847a",
+    "tests_sha256": "d202fc2a3d5a730a2afc97465aa49ec9fe927080e97ffd479d12be0673125f07",
+    "publication_raw_sha256": "c316ec119719cf65f444dc1ad36b70b08a9434411b818efbb33cadd6f7b6d7a6",
+    "lesson_raw_sha256": "64694b343fe810e7acb97d5fef2fa9de9c44e932f932f57769c2cdd29b622db4",
+    "publication_binding_sha256": "2de7ffd2b8f71677201207d43c9ad7b855dd3b67ebe2b2f9b86269c4e87a336b",
+    "reviewer_packet_canonical_sha256": "ed0e36f318c8f2095391859cf86498e0b5b8959f25a03c85b2e3530e3e49ccd5",
+    "review_result_raw_sha256": "ea82bf9e64b2c8a701a8548e1dec6984d1cfe9a0b0271eb16b40c927b1833976",
+    "decoder_packet_canonical_sha256": "26c3c8dd027249a81c9d28aa3d85b5a69f85a60e89b779711617a67c6391fa08",
+    "decoder_result_raw_sha256": "0a8a3d00b89648c82b49cf593414b9bb3ae29d8e519bc7bedd94ad359d2965e5",
+    "source_text_sha256": "8c5bdbf3c183804a689a4426b8275332f4f59c65682106f00fafaf08efd2067f",
+    "statement_sha256": "9ccc33ccd1082a80df22c617a648d24bee79e6673e23070ef4625a15ffe6cfb6",
+    "reconstruction_sha256": "a9f7574cef6c72d0caf4061dbb28adbc02187b50f01e657861f73d8ddd74fe26",
+    "result": "Module/tests, publication, corrected lesson, cell and four decoder/reviewer artifacts match commit/current raw bytes. Checked registry, toolchain, manifest and import/test roots differ only by CRLF/LF. Canonical hashes and official binding_digest independently recomputed and matched; full binding was not confused with projected context.",
+    "root_inclusion": "Committed AutoSamplingTheory.lean imports ExampleCases; ExampleCases.lean imports RGOCalculus; Tests.lean imports Tests.SmoothedPicardRGOCalculus.",
+    "correction": "Lesson now correctly multiplies both numerator and denominator by K=beta/alpha; corrected lesson matches the accepted packet.",
+    "scope": "Only this integration theorem/module/cell. No sampler, invariance, accuracy, cost or whole-paper completion. No files edited."
+  }
+}

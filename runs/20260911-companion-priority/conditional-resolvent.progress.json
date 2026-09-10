@@ -1,0 +1,124 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
+    "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.ProximalBPSConditionalResolvent",
+    "result": "PASS3298",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/ClosedGraphResolvent.lean": "1ab1ae53e9251ae4fc210fc3b5b938f3f503419dc817df8771817e2dd2821c98",
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalResolvent.lean": "279022a8711a82aea2ae4e105b5701dff62946793d6f10a731e93613681101b1",
+      "Tests/ProximalBPSConditionalResolvent.lean": "d191c66be8143af07a6a9b24e2f3da10bcd0d69c60ac06060d5c6b7bda504df4"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/conditional-resolvent.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-ClosedGraphResolvent",
+      "ASTIS-RT-20260911-PBPSConditionalResolvent"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/closed-graph-resolvent.source-review-result.json",
+      "runs/20260911-companion-priority/conditional-resolvent.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim.",
+  "remaining": [
+    "Final-head independent merge advice, CI and actual merge/deployment",
+    "Explicit weak-gradient distributional identification, local regularity/core and compact Bochner extension",
+    "Constant-kernel/mean-zero limit, conditional Poincare and noncompact score variance",
+    "All later main-theorem dependencies and full papers"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/conditional-resolvent.verified-admission.json",
+  "aggregate_gate": {
+    "passed": true,
+    "commit": "7e04f4b502505ed5aea1146bf16af25cf2f598e2",
+    "source_digest": "a1dd6fdab0c4597fc590691a0090fba311242f429f21539064b8c523885ab3a4",
+    "generated_at": "2026-09-10T22:58:22.849833+00:00",
+    "commands": [
+      "python3 tools/astis.py check"
+    ],
+    "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available.",
+    "status": "PASS",
+    "jobs": 9099,
+    "exit_code": 0,
+    "log": ".astis\\resolvent-aggregate-gate.log",
+    "log_sha256": "cfbe6e9b3756cf6d9690fef5a84b5213797a2c19a93d80c1666d4e4cd0913159"
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/258",
+    "state": "draft",
+    "head": "7e04f4b502505ed5aea1146bf16af25cf2f598e2",
+    "boundary": "Aggregate, local reader and initial CI passed. Final-head independent merge advice/CI and actual merge/deployment remain separate."
+  },
+  "reader_checks": {
+    "candidate": "7e04f4b502505ed5aea1146bf16af25cf2f598e2",
+    "site_build": {
+      "exit_code": 0,
+      "log": ".astis/resolvent-site-build.log"
+    },
+    "site_check": {
+      "initial_exit_code": 1,
+      "initial_log": ".astis/resolvent-site-check.log",
+      "cause": "Previous gradient deployment metadata changed mapped-cell graph input after graph generation; production inventory/body passed.",
+      "repair": "Existing underlying_lean_graph.py regenerated graph metadata only, exit0, no Lean rebuild.",
+      "refresh_log": ".astis/resolvent-graph-refresh.log",
+      "exit_code": 0,
+      "log": ".astis/resolvent-site-check-retry.log",
+      "modules": 569,
+      "declarations": 3658
+    },
+    "graph_checks": [
+      {
+        "cell": "ASTIS-SW-PBPS-closed-graph-resolvent",
+        "exit_code": 0,
+        "log": ".astis/closed-graph-resolvent-graph-check.json"
+      },
+      {
+        "cell": "ASTIS-SW-PBPS-conditional-resolvent",
+        "exit_code": 0,
+        "log": ".astis/conditional-resolvent-graph-check.json"
+      }
+    ],
+    "browser": {
+      "page": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "entries": [
+        {
+          "id": "pbps-closed-graph-resolvent",
+          "proof_steps": 5,
+          "initially_closed_disclosures": 8,
+          "statement_characters": 575,
+          "proof_characters": 3752,
+          "katex_errors": 0,
+          "evidence_card": "modules/autosamplingtheory-technicallemmas-functionalinequalities-closedgraphresolvent.html#decl-autosamplingtheory-technicallemmas-functionalinequalities-closedgraphres-5eb0732dc0"
+        },
+        {
+          "id": "pbps-conditional-resolvent",
+          "proof_steps": 3,
+          "initially_closed_disclosures": 6,
+          "statement_characters": 1939,
+          "proof_characters": 2454,
+          "katex_errors": 0,
+          "evidence_card": "modules/autosamplingtheory-examplecases-proximalbps-conditionalresolvent.html#decl-autosamplingtheory-examplecases-proximalbps-conditionalresolvent-conditi-8a75c209be"
+        }
+      ],
+      "visual": "Both complete statements, proofs and reuse disclosures opened. Visually checked scaled projection, weak-equation signs, actual fiber closure and explicit epsilon^-1 norm/energy formulas. Exact graph is initial D; no classical PDE/core/Bochner/PI claim.",
+      "graph": "Both focused graphs:5nodes3edges2relations. Selected actual declarations and clicked exact proof-card links; both Compiled Notmapped. Actual conditional graph screenshot inspected. Solid ownership/import and dashed source links not implication certificates.",
+      "boundary": "Local rendered QA only; actual deployment separate."
+    }
+  }
+}

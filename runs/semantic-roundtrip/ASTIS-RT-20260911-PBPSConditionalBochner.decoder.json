@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-35513fc85c4be196",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          0 < η →\n            ↑β * η ≤ 1 →\n              have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n              have J :=\n                MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n              have W := fun y u => V ((1 / 2) • (y + u)) + ‖u - y‖ ^ 2 / (8 * η);\n              ∃ R S,\n                ProbabilityTheory.IsMarkovKernel R ∧\n                  ProbabilityTheory.IsMarkovKernel S ∧\n                    (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                      (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                        ∀ (y : E),\n                          (S y = MeasureTheory.MeasureSpace.volume.tilted fun u => -W y u) ∧\n                            ContDiff ℝ 2 (W y) ∧\n                              MeasureTheory.Integrable (fun u => Real.exp (-W y u)) MeasureTheory.MeasureSpace.volume ∧\n                                0 < ∫ (u : E), Real.exp (-W y u) ∧\n                                  ∀ (f : E → ℝ),\n                                    ContDiff ℝ (↑⊤) f →\n                                      HasCompactSupport f →\n                                        have L := fun u =>\n                                          Laplacian.laplacian f u - Inner.inner ℝ (gradient (W y) u) (gradient f u);\n                                        have H := fun u =>\n                                          ∑ i, ‖gradient (fun z => (fderiv ℝ f z) ((stdOrthonormalBasis ℝ E) i)) u‖ ^ 2;\n                                        have C := fun u =>\n                                          ((fderiv ℝ (fderiv ℝ (W y)) u) (gradient f u)) (gradient f u);\n                                        MeasureTheory.Integrable (fun u => L u ^ 2) (S y) ∧\n                                          MeasureTheory.Integrable (fun u => ‖gradient f u‖ ^ 2) (S y) ∧\n                                            MeasureTheory.Integrable H (S y) ∧\n                                              MeasureTheory.Integrable C (S y) ∧\n                                                ∫ (u : E), L u ^ 2 ∂S y = ∫ (u : E), H u ∂S y + ∫ (u : E), C u ∂S y ∧\n                                                  (↑α + 1 / η) / 4 * ∫ (u : E), ‖gradient f u‖ ^ 2 ∂S y ≤\n                                                    ∫ (u : E), L u ^ 2 ∂S y",
+    "statement_sha256": "35513fc85c4be1963c6b6fd018250e97d9badf4e5e9d68377da17832e31a52fa",
+    "compiled": true,
+    "approved_definition_context": [
+      "The ambient type is a finite-dimensional real inner-product space with Borel measurable structure. The default measure in a real integral is canonical volume.",
+      "ContDiff at order 2 is C2 and at order infinity is smooth. HasCompactSupport means the closure of the nonzero support is compact. fderiv is the genuine Frechet derivative; gradient is its Riesz representative; Laplacian is the canonical trace of the genuine second derivative.",
+      "stdOrthonormalBasis is an orthonormal basis indexed by Fin(finrank R E), empty in dimension zero. The displayed sum of squared gradients of directional derivatives is explicit; no abstract Hessian norm equality is an additional premise.",
+      "Integrable means almost-everywhere strong measurability and finite integral of the norm; signed curvature terms require actual integrability. Lets name displayed expressions, not hypotheses.",
+      "Measure.map is pushforward and Measure.prod is independent product. stdGaussian is the standard Gaussian. Tilted is normalized exponential weighting, totalized to zero if the exponential weight is not integrable.",
+      "A Markov kernel is a measurably parameterized probability measure. IsCondKernel disintegrates the specified joint measure conditional on its first coordinate; Prod.swap exchanges coordinates."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "bff1feee3c38b819961ce190dea1903d317e8f520a0ac1b47f510d72226fdc41"
+}

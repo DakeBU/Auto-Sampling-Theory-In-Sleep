@@ -1,0 +1,30 @@
+{
+  "advance_id": "ASTIS-SA-20260910-SPHMCRecursiveVariance",
+  "task_id": "companion-papers-priority",
+  "goal": "For real r>=0 and 0<h<=c, put a=(h+c)/(1+r), rp=r+a^-1 and rho=2c/(1+2c). Prove rp>0, 0<rp^-1<=2c, 0<rho<1 and, only if r>0, rp^-1<=rho*r^-1. This is the well-conditioned source variance update, retaining r=0 as initial A=infinity and establishing finite positive variance after the update.",
+  "source_anchor": "arXiv:2609.06906v1 §6.3, Lemma6.6(ii), update(6.1) and schedule(6.2)",
+  "theorem_delta": "For real r>=0 and 0<h<=c, put a=(h+c)/(1+r), rp=r+a^-1 and rho=2c/(1+2c). Prove rp>0, 0<rp^-1<=2c, 0<rho<1 and, only if r>0, rp^-1<=rho*r^-1. This is the well-conditioned source variance update, retaining r=0 as initial A=infinity and establishing finite positive variance after the update.",
+  "truth_boundary": "Only the deterministic well-conditioned parameter step of Lemma6.6(ii). The source condition-number test selects tau=c; it is not asserted by this lemma. c<1/4 is unnecessary for this scalar branch and explicitly generalized away. r^-1 represents a previous finite variance only under r>0. No finite-stage termination, implemented recursion, probability error, mixing or query cost.",
+  "created_by": "root-companion-writer",
+  "dag_inputs": [
+    "SPHMC RGOCalculus.rgo_calculus update rp=r+a^-1",
+    "Mathlib ordered-field reciprocal and division inequalities"
+  ],
+  "proposed_files": [
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RecursiveVariance.lean",
+    "Tests/SmoothedPicardRecursiveVariance.lean"
+  ],
+  "focused_checks": [
+    "lake build Tests.SmoothedPicardRecursiveVariance"
+  ],
+  "modes": [
+    "source-audit",
+    "proof-design",
+    "lean-implementation"
+  ],
+  "priority": 100,
+  "frontier_cell": "ASTIS-SW-SPHMC-recursive-variance-contraction",
+  "target_declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveVariance.variance_update_bounds"
+  ]
+}

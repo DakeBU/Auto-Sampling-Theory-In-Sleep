@@ -160,6 +160,9 @@ def render_unit(unit: dict, page: str) -> str:
     dep_notes = unit.get('dependency_notes', '')
     if isinstance(dep_notes, list):
         dep_notes = ' '.join(str(n) for n in dep_notes)
+    boundary = unit['boundary']
+    if isinstance(boundary, str):
+        boundary = [boundary]
     return (
         f'<article class="proof-reader" data-authored-declaration="{base.esc(name)}">'
         '<div class="eyebrow">ASTIS mathematical exposition</div>'
@@ -174,7 +177,7 @@ def render_unit(unit: dict, page: str) -> str:
         + f'<h2>{proof_title}</h2>' + steps
         + inline_lean.disclosure(name, role='proof', explanation=unit['lean_proof'], page=page, helpers=tuple(unit.get('helpers', [])))
         + examples
-        + '<h2>Scope and omitted-condition boundaries</h2>' + base.list_html(unit['boundary'])
+        + '<h2>Scope and omitted-condition boundaries</h2>' + base.list_html(boundary)
         + '<details><summary>Source and reuse</summary><h3>ASTIS parents called</h3><ul>' + astis
         + '</ul>'
         + ('<h3>Domain assumptions accessed</h3><p>These are fields of the linked structure, not additional independently authored theorem leaves.</p><ul>' + projections + '</ul>' if projections else '')

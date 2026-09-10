@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+import re
 from pathlib import Path
 
 
@@ -27,8 +28,8 @@ class UnderlyingLeanGraphInteractionTests(unittest.TestCase):
         css = GRAPH_CSS.read_text(encoding="utf-8")
         builder = GRAPH_BUILDER.read_text(encoding="utf-8")
 
-        for relation in ("imports", "declares", "depends-on", "closes leaf"):
-            self.assertIn(f'"{relation}"', js)
+        formal = re.search(r'const FORMAL_RELATIONS = new Set\(\[(.*?)\]\)', js).group(1)
+        self.assertEqual(set(re.findall(r'"([^"]+)"', formal)), {"imports", "declares"})
         self.assertIn("FORMAL_RELATIONS", js)
         self.assertIn('`${relationEvidence(e.relation)}-edge`', js)
         self.assertIn('data-evidence', js)

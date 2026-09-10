@@ -1,0 +1,91 @@
+{
+  "reviewer": "log_depth_source_review",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "341c399e01a23e4582f81088cab5e020ae81665a14caf59f9df182e2247daa41",
+  "publication_binding_sha256": "0866d4fa004405518fc1b166b10064967213b73d7f4d0ad17f326eec1348325c",
+  "status": "accepted",
+  "verdict": "domain-mismatch",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Root transcription of independent source reviewer response in this thread, retaining each semantic judgment and evidence. Reviewer modified no files.",
+  "semantic_slots": {
+    "objects": {
+      "original": "Augmented Gibbs law, conditional projection given Y, reflection pullback and micro-macro blocks.",
+      "reconstructed": "Actual Gaussian J, explicitly defined condExpL2 projection P, reflection U and A=PUP,B=(I-P)UP,D=(I-P)U(I-P).",
+      "relation": "explicit-elaboration",
+      "evidence": "J,F,P are definitions. reflection_lift and projection_kernel consume the actual preservation and conditional-kernel parents; Gibbs consumer rewrites normalized_augmentation_density."
+    },
+    "domains": {
+      "original": "Source Gibbs target on finite-dimensional Euclidean space and its L².",
+      "reconstructed": "Arbitrary probability μ on finite-dimensional real inner-product Borel E, η>0 and real L²(J), including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "Broader domain is disclosed in lesson and candidate assumptions; test specializes exact source density. Block algebra needs neither positive dimension, upper Hessian bound nor upper scale restriction."
+    },
+    "quantifiers": {
+      "original": "All L² observables; energy on macroscopic subspace.",
+      "reconstructed": "For every E,μ,η common witnesses R,U; all y have kernel formula; each f has J-a.e. identities; every Pf=f has energy equality.",
+      "relation": "explicit-elaboration",
+      "evidence": "Existential witnesses precede observable quantifiers; no exchange with common exceptional set and no loss of Pf=f."
+    },
+    "assumptions": {
+      "original": "C² Gibbs curvature and 0<η≤1/β in source context.",
+      "reconstructed": "General theorem only probability and positive scale; Gibbs consumer retains C² and genuine positive Hessian lower bound.",
+      "relation": "stronger-in-lean",
+      "evidence": "Disclosed generalization for algebraic component only. Positive ZV from normalized_augmentation_density excludes nonintegrability via integral_undef, then isProbabilityMeasure_tilted; no conditional law or integrability assumed."
+    },
+    "conclusion": {
+      "original": "Self-adjoint unitary reflection and compressed block identities B.5.",
+      "reconstructed": "Isometric involutive self-adjoint U, actual kernel projection, full-space B*B=P-A²,B*D=-AB*, and macroscopic energy.",
+      "relation": "equivalent",
+      "evidence": "Isometry plus involution is surjective. Restriction to ran P recovers source identity. Noncommutative product order and adjoint energy calculation correct."
+    },
+    "scopes": {
+      "original": "Source macro/micro block domains and L² conditional expectations.",
+      "reconstructed": "Ambient block identities, Pf=f energy, a.e. representative formulas; only this proof component.",
+      "relation": "explicit-elaboration",
+      "evidence": "P becomes identity only on range. Swapped disintegration and L²-to-L¹ under probability J support integral formula, with no every-y arbitrary-representative integrability or coercivity/process/mixing claim."
+    },
+    "constant_dependencies": {
+      "original": "Reflection coefficient2, scaleη, unit block coefficients.",
+      "reconstructed": "F=(x,2x−y), Gaussian sqrtη, exponent denominator2η, exact unit block/energy coefficients.",
+      "relation": "same",
+      "evidence": "No generic or dimension-dependent estimate. Gibbs consumer keeps (sqrt(2πη))^(-finrank E)/ZV and same variance; normalized tilt preserves quadratic term."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Disclosed generalization to arbitrary probability input, including zero dimension.",
+      "evidence": "Lesson and candidate assumptions disclose it; Gibbs consumer applies full result on exact source density."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Curvature and upper scale restrictions unnecessary for this algebra; no extension of full mixing claim.",
+      "evidence": "Actual preservation, conditional kernel and orthogonal projection support proof; consumer supplies Gibbs normalization."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Macroscopic identity represented as B*B=P−A² on full space.",
+      "evidence": "Actual projection; block_energy retains Pf=f."
+    },
+    {
+      "slot": "quantifiers",
+      "severity": "informational",
+      "description": "A.e. representative formulas for each f, everywhere fiber formula for R.",
+      "evidence": "Theorem, authored proof and anonymous reconstruction distinguish ∀y from ∀f a.e."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Fresh anti-anchored review, no registry history read or prior verdict reused. Recomputed canonical reviewer packet hash matches 341c399e01a23e4582f81088cab5e020ae81665a14caf59f9df182e2247daa41; source, Lean and reconstruction hashes match. Embedded module normalized UTF-8 hash94d3d294677cac2c9aece47b0ae231ee09ae5884a69e948b1cae0194cb0c7563 matches current disk text. All five local helpers and four authored proof steps inspected. Gibbs test normalized UTF-8 hash e4539bf38e9d5c09f232979b9f61d0aac7aa31cee9ba0c61f7698c659282f847 inspected. Live primary arXiv2609.06905v1 §2.2 and Appendix B.1, equations2.6,2.14,B.1,B.3–B.5 checked. Binding digest recorded from verified packet, unredacted payload not separately reconstructed. Source acceptance of disclosed proof-edge generalization, not exact transcription of entire source theorem or VERIFIED. No file changes or independent build rerun. Independent reviewer subsequently corrected verdict to domain-mismatch, explicitly retaining accepted disclosed generalization via the Gibbs consumer; the initial equivalence label is superseded.",
+  "initial_verdict_superseded": "equivalent-after-elaboration",
+  "classification_correction": {
+    "reviewer": "log_depth_source_review",
+    "reason": "Arbitrary probability μ and η>0 genuinely generalize the source Gibbs domain and weaken its premises; this is disclosed and justified but not equivalence. Keep stronger-in-lean domain and assumption slots.",
+    "source_acceptance": "Accepted only as an explicitly generalized proof-edge through the inspected Gibbs-density specialization. No exact/equivalent transcription or full PBPS claim.",
+    "evidence_addendum": "Independent reviewer correction in this thread; same packet hashes, seven slots and deltas remain unchanged. No new verification or VERIFIED transition."
+  }
+}

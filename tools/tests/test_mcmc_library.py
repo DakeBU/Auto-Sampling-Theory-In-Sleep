@@ -78,7 +78,10 @@ class MCMCLibraryTests(unittest.TestCase):
         self.assertTrue((ROOT/'Libraries/DiscreteSampling/reuse-audit.md').exists())
     def test_colors_do_not_change_formal_edge_whitelist(self):
         js=(ROOT/'website/static/underlying-lean-graph.js').read_text()
-        self.assertIn('new Set(["imports", "declares", "depends-on", "closes leaf"])',js)
+        # Source-name scans and curated leaf links are overlays, even when
+        # library colors change; only module structure is solid evidence.
+        self.assertIn('const FORMAL_RELATIONS = new Set(["imports", "declares"]);',js)
+        self.assertNotIn('new Set(["imports", "declares", "depends-on", "closes leaf"])',js)
         self.assertIn('data-graph-color',js);self.assertIn('data-scope',js)
         self.assertIn('Scope evidence boundary',(ROOT/'website/scripts/sampling_perspectives.py').read_text())
 

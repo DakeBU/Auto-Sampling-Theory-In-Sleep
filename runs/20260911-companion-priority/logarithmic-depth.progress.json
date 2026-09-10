@@ -1,0 +1,77 @@
+{
+  "status": "MERGED",
+  "source": "arXiv:2609.06906v1 equation (6.4)",
+  "proof": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/LogarithmicDepth.lean",
+  "command": "lake env lean AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/LogarithmicDepth.lean",
+  "exit_code": 0,
+  "proof_sha256": "f2623dff329732859cbf1b9a07a38812988745eae2e34659e16a26097fe5cc13",
+  "boundary": "Deterministic logarithmic terminal depth and terminal Gibbs consumer only; sampler error, expected cost and full paper results remain incomplete.",
+  "prior_pr": {
+    "head": "70995e83df9e81b774ec58ecf1357f01ca47720c",
+    "deployment": "skipped",
+    "site_run": "34500908828",
+    "site_reader_conclusion": "success",
+    "lean_run": "34500908817",
+    "merged": false,
+    "lean_conclusion": "success",
+    "number": 250
+  },
+  "consumer": {
+    "command": "lake build AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth Tests.SmoothedPicardLogarithmicDepth",
+    "result": "PASS2948; production13s, terminal Gibbs consumer7.3s; standard axioms only",
+    "module_sha256": "f2623dff329732859cbf1b9a07a38812988745eae2e34659e16a26097fe5cc13",
+    "test_sha256": "730e254189082f90cd7bcc997fa41d3d9b47d3f11095619a7bf4b4b863c23e07"
+  },
+  "independent_proof_review": "runs/20260911-companion-priority/log-depth.independent-proof-review.json",
+  "source_fidelity": "accepted equivalent-after-elaboration, three informational deltas",
+  "independent_admission": "runs/20260911-companion-priority/log-depth.verified-admission.json",
+  "aggregate_gate": {
+    "status": "PASS",
+    "candidate": "4d283fccb6322826f4b68f662011163145e0b0dd plus root imports",
+    "command": "python website/scripts/lean_gate.py",
+    "exit_code": 0,
+    "jobs": 9082,
+    "source_digest": "ad614d41788c99206a27e7c544dff208261d5033f420ff53f8b6a0982ed6f1e3",
+    "log": ".astis/log-depth.aggregate-gate.log"
+  },
+  "site_build": {
+    "status": "PASS",
+    "candidate": "505df47191850f8e6f4248cf319630837115b704",
+    "log": ".astis/log-depth.site-build-final.log",
+    "check_log": ".astis/log-depth.site-check-final.log",
+    "graph_check": "PASS",
+    "reader_check": "Five proof steps, eight initially closed disclosures, complete signature and proof, no KaTeX errors; screenshots inspected",
+    "graph_visual": "Five nodes, three edges; actual theorem selected, structural and source-correspondence edges distinguished; exact reader anchor opened",
+    "preview_service": "stopped",
+    "earlier_failures": "Missing literal Samplinglib metadata fixed; mixed commit source links fixed by freezing HEAD and regenerating. Both gates then passed."
+  },
+  "pr": {
+    "number": 251,
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/251",
+    "head": "505df47191850f8e6f4248cf319630837115b704",
+    "state": "MERGED",
+    "site_run": "34505647868 SUCCESS",
+    "lean_run": "34505647867 SUCCESS",
+    "deployed": true
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/251",
+    "commit": "dc841b21b111a1340e8d282118a08aeeec50e939",
+    "candidate": "505df47191850f8e6f4248cf319630837115b704",
+    "merged_at": "2026-09-10T17:15:43Z",
+    "independent_merge_review": "depth_commit_verifier recommended ready and merge of exact candidate after CI and preserved proof, source audit and reader checks; root records review.",
+    "post_merge": {
+      "site_run": "34507122389 SUCCESS",
+      "lean_run": "34507122504 SUCCESS",
+      "live_reader": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "section_id_present": true,
+        "terminal_depth_present": true,
+        "merge_commit_source_links_present": true,
+        "scope": "Live HTML check; local visual reader and graph checks already recorded for unchanged merged candidate."
+      }
+    },
+    "truth_boundary": "Deterministic logarithmic terminal depth and terminal Gibbs consumer only; sampler error, expected cost and full paper results remain incomplete."
+  }
+}

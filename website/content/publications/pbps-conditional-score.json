@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "pbps-conditional-score",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "Actual reflected conditional expectation and its score derivative",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "edition": "arXiv:2609.06905v1",
+        "anchor": "Appendix C.1, conditional density and differentiation in C.1; selected proof step only",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded mathematical proof."
+      },
+      "statement": "The conditional density of Y_- given Y_+=y is proportional to exp(-V((y+u)/2)-norm(y-u)^2/(8eta)). Differentiating the conditional expectation of f gives its covariance with the unnormalized logarithmic derivative -grad V((y+u)/2)/2-(y-u)/(4eta). This is the differentiation input to Appendix C.1; the subsequent conditional variance estimate and extension to general L2 inputs are separate obligations.",
+      "assumptions": [
+        "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.",
+        "Let X have normalized density proportional to exp(-V), and let Y_+=X+sqrt(eta)Z and Y_-=X-sqrt(eta)Z for independent standard Gaussian Z. The selected differentiation step uses smooth compactly supported real f."
+      ],
+      "formulae": [
+        {
+          "label": "conditional covariance derivative",
+          "tex": "DT_f(y)=\\mathbb E_{S_y}[f\\,s_y]-\\mathbb E_{S_y}[f]\\,\\mathbb E_{S_y}[s_y]."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "reflected-density",
+          "label": "Actual reflected conditional kernel and everywhere normalized density"
+        },
+        {
+          "id": "score-differentiation",
+          "label": "Smooth-test conditional expectation derivative, with normalization and local domination proved"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+          "cell": "ASTIS-SW-PBPS-conditional-score",
+          "role": "proof-edge",
+          "supports": [
+            "reflected-density",
+            "score-differentiation"
+          ],
+          "audit_id": "ASTIS-RT-20260911-PBPSConditionalScore",
+          "boundary": "Actual reflected conditional-kernel density and smooth-test derivative only. The transformed joint law's IsCondKernel interface and its identification with the existing L² PUP representative are not yet exposed. Conditional Poincare, score variance, the L²/H¹ extension, macroscopic coercivity, half-turn/process semantics, invariance/nonexplosion, mixing/error/cost and full-paper completion remain open.",
+          "assumption_deltas": [
+            {
+              "source": "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.",
+              "lean": "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. The potential V:E→R is C². Constants α and β are finite nonnegative reals, α>0, and the actual second Fréchet derivative satisfies α‖v‖²≤D²V(x)[v,v]≤β‖v‖² for every x,v. The scale η is positive. No upper bound βη≤1 is needed for this differentiation step.",
+              "classification": "generalization",
+              "reason": "The density and differentiation identity are valid in any finite-dimensional real inner-product space including dimension zero and for every eta>0. This does not relax the scale hypotheses of subsequent quantitative estimates."
+            },
+            {
+              "source": "Vector gradient of the normalized conditional expectation.",
+              "lean": "HasFDerivAt with a continuous linear functional equal to the centered integral of the unnormalized log-weight derivative.",
+              "classification": "same",
+              "reason": "The real Riesz identification converts the covector derivative to a gradient; subtracting the expectation of the log-weight derivative accounts for the normalizer."
+            },
+            {
+              "source": "Conditional density and differentiation are expressed analytically.",
+              "lean": "R disintegrates the actual swapped Gaussian augmentation; S is its jointly measurable reflected pushforward with an everywhere tilted-density identity. Normalization and local domination are derived.",
+              "classification": "source-implicit",
+              "reason": "The proof makes conditional-kernel measurability, positive normalizers and integral interchange explicit. It does not yet state a transformed-joint IsCondKernel interface or identify the old L2 PUP representative."
+            },
+            {
+              "source": "Smooth compactly supported real observable f.",
+              "lean": "The public conclusion quantifies over every C∞ compactly supported real test f and every parameter y. The internally proved differentiation argument works for bounded continuous f, including the noncompact test f≡1 needed for the normalizer.",
+              "classification": "same",
+              "reason": "The public test class is unchanged. The stronger bounded-continuous internal helper is used also for f=1 to differentiate the noncompact normalizer."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

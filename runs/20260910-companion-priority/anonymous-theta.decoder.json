@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-5b4cb511046e8713",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {r h c : ℝ}, 0 ≤ r → 0 < h → h ≤ c → let a := (h + c) / (1 + r); let rp := r + a⁻¹; let Aplus := rp⁻¹; let rho := 2 * c / (1 + 2 * c); 0 < rp ∧ 0 < Aplus ∧ Aplus ≤ 2 * c ∧ 0 < rho ∧ rho < 1 ∧ (0 < r → Aplus ≤ rho * r⁻¹)",
+    "statement_sha256": "5b4cb511046e8713d643b2d64084636d3144b5640f47d9fde4f1f7f634c47d4d",
+    "compiled": true,
+    "approved_definition_context": [
+      "All variables are real numbers. Real reciprocal and division are totalized at zero: the real inverse of zero is zero. A let-expression introduces only a local abbreviation. The final implication has its own strict positivity premise."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "b4c4d33378a79549a231c2803843debd33f16231f5df88f6cc7f7c285d6e308e"
+}

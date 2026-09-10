@@ -1,0 +1,24 @@
+{
+  "text": "For every pair of real numbers k and h, if k ≥ 2, h ≥ 0, and h ≤ 1/4, then both inequalities k/2 ≤ k(k + h + 1)/(2k + h) and k(k + h + 1)/(2k + h) ≤ (4/5)k hold. The same universally quantified k and h occur throughout the hypotheses and both conclusions. All arithmetic and ordering are over the real numbers. Real division is totalized, with division by zero defined, but the hypotheses imply 2k + h ≥ 4 > 0; hence the variable denominator in these conclusions is strictly positive. The fixed numerical denominators 2, 4, and 5 are also positive. Every displayed constant is an absolute numerical constant independent of k and h. There are no existentially chosen constants, additional parameters, or further assumptions.",
+  "objects": [
+    "k",
+    "h"
+  ],
+  "domains": "k and h are real numbers; all operations and comparisons are over ℝ.",
+  "quantifiers": "Universally quantified k and h, implicit binders in the Lean statement.",
+  "assumptions": [
+    "2 ≤ k",
+    "0 ≤ h",
+    "h ≤ 1/4"
+  ],
+  "conclusion": "k/2 ≤ k(k + h + 1)/(2k + h) ∧ k(k + h + 1)/(2k + h) ≤ (4/5)k",
+  "scopes": "Both universal quantifiers scope over all three successive hypotheses and the entire conjunction. All three hypotheses jointly imply both inequalities.",
+  "constant_dependencies": "All constants are fixed numerical constants; none depend on k or h.",
+  "decoder": "scalar_blind_decoder",
+  "source_text_visible": false,
+  "decoder_packet_sha256": "74615d55ce0d71d51decb2ce9eb40bcfccf8910cd5cb7f2091b6f4059bd27f5f",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ]
+}

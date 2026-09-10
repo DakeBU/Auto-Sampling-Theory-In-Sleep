@@ -1,0 +1,33 @@
+{
+  "advance_id": "ASTIS-SA-20260910-MarkovKernelTVContraction",
+  "task_id": "companion-papers-priority",
+  "goal": "Prove exact measurable-event total-variation contraction under an actual common Markov kernel, supporting companion-paper composition.",
+  "source_anchor": "SPHMC arXiv:2609.06906v1 Section 7.2 input/proxy error transfer; PBPS arXiv:2609.06905v1 Section 4.3 costs remain separate.",
+  "theorem_delta": "For probability measures μ and ν and Markov kernel K, an eventwise bound |μ(s)-ν(s)|≤δ for every measurable s implies the same δ bound for every measurable event of K∘μ and K∘ν. All measurability and integrability are proved from the kernel and probability hypotheses.",
+  "truth_boundary": "No construction of the PBPS algorithm kernel, warm proxy, invariance, convergence or expected query-cost bound. TV proximity does not transfer unbounded expected cost.",
+  "created_by": "root-companion-writer",
+  "dag_inputs": [
+    "Integrable.integral_eq_integral_Ioc_meas_le",
+    "Measure.bind_apply",
+    "Kernel.measurable_coe",
+    "norm_integral_le_of_norm_le_const"
+  ],
+  "proposed_files": [
+    "AutoSamplingTheory/TechnicalLemmas/Probability/KernelTotalVariation.lean",
+    "Tests/KernelTotalVariation.lean"
+  ],
+  "focused_checks": [
+    "lake build AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation",
+    "lake build Tests.KernelTotalVariation"
+  ],
+  "modes": [
+    "source-audit",
+    "proof-design",
+    "lean-implementation"
+  ],
+  "priority": 100,
+  "frontier_cell": "ASTIS-SHARED-markov-kernel-tv-contraction",
+  "target_declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Probability.KernelTotalVariation.abs_real_comp_sub_le"
+  ]
+}

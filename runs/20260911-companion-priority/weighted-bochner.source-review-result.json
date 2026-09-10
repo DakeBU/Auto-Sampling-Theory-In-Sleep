@@ -1,0 +1,78 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of full independent seven-slot review plus explicit final packaging/hash refresh acceptance. Earlier packet acceptance alone is not reused.",
+  "reviewer_packet_sha256": "20452a807639a55530d313c35319d7f9b0f63c0f47a385b46b378ea88a91c407",
+  "source_text_sha256": "50c402e8393816a8702f65c687bb36a88bba9089844b4a929e7e48ea3343652f",
+  "lean_statement_sha256": "8885e2a2c387f1fca2e7a9321a96d977615fca88acd46b01f949a88f16a24875",
+  "reconstruction_text_sha256": "dd38791e93681ce36b0493799515594a3f70f79d560a4843d1df7e2dde79c91c",
+  "embedded_module_text_sha256": "39b11508ddb3026e3033274a844708fd243621f460c81cc738065754b1364e9c",
+  "publication_binding_sha256": "fc2767d0dee21a1934cbcb46c6a9e76fa402dfd4b54220b6a38d63a33377655a",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Weighted Euclidean Laplacian, Hessian-square and curvature terms.",
+      "reconstructed": "Canonical Laplacian minus drift, genuine directional Hessian coordinate sum and iterated-Frechet curvature.",
+      "relation": "explicit-elaboration",
+      "evidence": "op_coords, directional_second, gradient_basis and curvature_sum identify actual expressions."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean compact-test localization.",
+      "reconstructed": "Finite-dimensional real inner-product Borel space including dimension zero.",
+      "relation": "stronger-in-lean",
+      "evidence": "Empty basis sums valid; extension explicitly disclosed."
+    },
+    "quantifiers": {
+      "original": "Every C2 W and smooth compact f; every real lower-curvature m for the energy consequence.",
+      "reconstructed": "Same universal W,f,m and pointwise x,v curvature premise.",
+      "relation": "same",
+      "evidence": "Universal m-bound follows the unconditional identity and integrability clauses."
+    },
+    "assumptions": {
+      "original": "C2 potential, smooth compact test; no global weight integrability or probability.",
+      "reconstructed": "Same analytic hypotheses; m can be any real.",
+      "relation": "equivalent",
+      "evidence": "IBP needs only C1 g, permitting g=Lf with W C2. Compact support proves all products; no C3 W or Poincare."
+    },
+    "conclusion": {
+      "original": "Localized weighted identity and curvature-energy consequence.",
+      "reconstructed": "Exact identity, four explicit integrability conclusions and m-energy bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "Two correctly signed IBP applications; genuine curvature reconstruction; integral_mono and nonnegative term."
+    },
+    "scopes": {
+      "original": "Selected Euclidean compact-test component, not complete manifold theorem.",
+      "reconstructed": "Direct Haar-volume proof with explicit Hessian coordinate sum, no spectral gap.",
+      "relation": "explicit-elaboration",
+      "evidence": "Enclosing-ball localization, zero-dimensional extension and absent abstract HS norm theorem disclosed."
+    },
+    "constant_dependencies": {
+      "original": "Identity coefficients one, energy coefficient real lower-curvature m.",
+      "reconstructed": "Same coefficients without dimension loss or positivity requirement on m.",
+      "relation": "same",
+      "evidence": "Multiply genuine curvature by exp(-W), discard nonnegative square term."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Disclosed abstract finite-dimensional and zero-dimensional extension.",
+      "evidence": "Empty basis sums valid; extension explicitly disclosed."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Direct Euclidean localized component only, not the full manifold source theorem.",
+      "evidence": "Enclosing-ball localization, zero-dimensional extension and absent abstract HS norm theorem disclosed."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "evidence": "All six shared and four consumer mathematical steps accepted; final packaging refresh preserves the proof and accurately exposes local helpers."
+  },
+  "review_evidence": "Independent anti-anchored review of source, anonymous reconstruction, actual proof and authored steps. Final refresh independently matched packet, source, statement, reconstruction, embedded-module and raw-file hashes. Shared helpers verified unchanged after local-have/let conversion, indentation, equivalent sum_apply spelling and disclosed finite-index universe specialization. Final lesson correctly includes all helpers in the public proof. Seven semantic slots and informational deltas expressly reaffirmed. Binding fields authenticated from packet, external preimage not independently rebuilt. No compilation, fixed-commit or VERIFIED claim in this source review."
+}

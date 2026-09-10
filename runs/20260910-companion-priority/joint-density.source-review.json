@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-94b260bddc8292c0",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "pbps_density_scout",
+    "blind_decoder": "heatbath_exposition_research",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "pbps-v1:joint-density-relative-input",
+    "anchor": "arXiv:2609.06905v1, Section 2.2, (2.6)-(2.7), selected joint density relative to input law times volume",
+    "original_text": "ASTIS expanded intermediate calculation between (2.7) and (2.6), not a quotation or full Gibbs-density identification. Let E be a finite-dimensional real inner-product Borel space with canonical volume, mu any probability measure, eta>0, and gamma its standard Gaussian law. Define Phi(x,z)=(x,x+sqrt(eta)*z). Then Phi_#(mu tensor gamma) equals (mu tensor volume).withDensity of the function (x,y) -> ((sqrt(2*pi*eta))^(-1))^dim(E) * exp(-||y-x||^2/(2*eta)), interpreted as a nonnegative density. Measurability and sigma-finiteness for product-density transport are derived from the displayed objects. This explicitly allows singular mu and zero-dimensional E and uses no sampler step-size upper bound. Instantiating mu with the source's normalized Gibbs density to produce a density relative to volume tensor volume remains a separate obligation. No reflection, conditional representative, PBPS dynamics, convergence or cost is asserted.",
+    "text_sha256": "6b2158cc7e7a0cdfdd41c0dfe23fba0460a427294e4726499245b5319988f2a1"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation.augmentation_eq_withDensity",
+    "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/GaussianAugmentation.lean",
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] (η : ℝ), 0 < η → MeasureTheory.Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E)) = (μ.prod (volume : MeasureTheory.Measure E)).withDensity (fun p => ENNReal.ofReal (((Real.sqrt (2 * Real.pi * η))⁻¹) ^ Module.finrank ℝ E * Real.exp (-‖p.2 - p.1‖ ^ 2 / (2 * η))))",
+    "statement_sha256": "2c32752732eaaf0a4f355e92e4caf41f1c9ce5c6a1b6113f17522aa4ded9c745",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let E be any finite-dimensional real inner-product space, equipped with its induced norm and with the Borel σ-algebra of its norm topology. Write d = finrank_ℝ(E) ∈ ℕ, let γ_E be the centered standard Gaussian probability measure with identity covariance, and let λ_E be the canonical Lebesgue measure normalized by orthonormal coordinates. For every probability measure μ on E and every real η > 0, define Φ_η : E × E → E × E by Φ_η(x,z) = (x, x + √η · z). Then the following equality of measures on E × E holds:\n\n(Φ_η)_*(μ ⊗ γ_E) = (μ ⊗ λ_E).withDensity((x,y) ↦ ENNReal.ofReal(((√(2πη))⁻¹)^d · exp(−‖y−x‖²/(2η)))).\n\nThe reference measure on the right is μ in the first coordinate and canonical Lebesgue measure λ_E in the second coordinate; it is not Lebesgue measure in both coordinates. The input μ is arbitrary apart from being a Borel probability measure: no density, moment, or smoothness hypothesis on μ is imposed. The left side is the pushforward of the product probability measure, so it describes the joint law of (X, X + √η · Z) when X has law μ and Z has law γ_E independently. For every Borel set A ⊆ E × E, the right side assigns to A the nonnegative integral of the displayed extended-nonnegative density over A with respect to μ ⊗ λ_E.\n\nThe dimension d is a natural number and zero dimension is allowed; canonical volume in that case is unit mass on the one-point space. The power in the prefactor is ordinary natural-number exponentiation. All scalar operations are real, √ is the nonnegative real square root, π is the circle constant, and the norm is the inner-product norm. ENNReal.ofReal embeds nonnegative real numbers into extended nonnegative reals and sends negative real numbers to zero. Real division and reciprocal are totalized at zero, with 0⁻¹ = 0, but η > 0 makes the displayed denominators positive, so these expressions use their ordinary nonzero-denominator values. No arbitrary choice of a measure-space volume, separate completeness hypothesis, or nontriviality hypothesis is present.",
+    "text_sha256": "3ba391bb4b309199ef42c8f4e15a881416a9d2267abcc0adbce1d1830b1459c4",
+    "decoder": "heatbath_exposition_research",
+    "decoder_packet_sha256": "6f8154b4c2391f79c03fe94671c80d0dbbe1a5b2e8b2f17420e0166220f4e562",
+    "decoder_run_sha256": "f882872fcdac0b2e768a0a81c58a71f44c2e1e9c37cb99d244401176cbafaa35",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "e6f82ac9bdb01cfa28a908d5b912eb9497f0ca9a02ce0e9e9901c882a5bf3446",
+  "candidate_publication_context": {
+    "file": "e3075df55a8ac80ccb3e1df44f11a47661d6b517464cf69069afc2734fd175ee",
+    "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity\nimport Mathlib.MeasureTheory.Group.Prod\n\n/-!\n# Density of the Gaussian augmentation\n\nThe joint-law density component of equations (2.6)-(2.7) in\narXiv:2609.06905v1, Section 2.2. The reference measure here is `μ.prod volume`.\nInserting the source's Gibbs density for `μ` to obtain a density relative to\n`volume.prod volume` is a separate obligation. No reflection or PBPS-process\ninvariance, conditional representative, convergence, or query cost is claimed.\n-/\n\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\n/-- The law of independent `X ~ μ`, `Z ~ stdGaussian E` and\n`Y = X + sqrt η • Z` has the displayed joint density relative to\n`μ.prod volume`. The input law may be singular with respect to volume. -/\ntheorem augmentation_eq_withDensity (μ : Measure E) [IsProbabilityMeasure μ]\n    (η : ℝ) (hη : 0 < η) :\n    Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2))\n        (μ.prod (stdGaussian E)) =\n      (μ.prod (volume : Measure E)).withDensity (fun p =>\n        ENNReal.ofReal\n          (((Real.sqrt (2 * Real.pi * η))⁻¹) ^ Module.finrank ℝ E *\n            Real.exp (-‖p.2 - p.1‖ ^ 2 / (2 * η)))) := by\n  let σ : E → E := fun z => Real.sqrt η • z\n  let q : E → ℝ≥0∞ := fun z => ENNReal.ofReal\n    (((Real.sqrt (2 * Real.pi * η))⁻¹) ^ Module.finrank ℝ E *\n      Real.exp (-‖z‖ ^ 2 / (2 * η)))\n  let S : E × E ≃ᵐ E × E := MeasurableEquiv.shearAddRight E\n  have hq : Measurable q := by fun_prop\n  have hnoise : (stdGaussian E).map σ = (volume : Measure E).withDensity q :=\n    TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity\n      η hη\n  have hprod : Measure.map (Prod.map id σ) (μ.prod (stdGaussian E)) =\n      μ.prod ((volume : Measure E).withDensity q) := by\n    rw [← Measure.map_prod_map μ (stdGaussian E) measurable_id (by fun_prop),\n      hnoise, Measure.map_id]\n  have hΦ : (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) =\n      S ∘ Prod.map id σ := rfl\n  have hvol : (μ.prod (volume : Measure E)).map S = μ.prod volume :=\n    (measurePreserving_prod_add μ volume).map_eq\n  rw [hΦ, ← Measure.map_map S.measurable (by fun_prop), hprod,\n    prod_withDensity_right hq,\n    TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity\n      S _ (f := fun p : E × E => q p.2) (by fun_prop), hvol]\n  congr 1\n  funext p\n  change q (-p.1 + p.2) = q (p.2 - p.1)\n  rw [neg_add_eq_sub]\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06905v1#S2.SS2",
+      "edition": "arXiv:2609.06905v1",
+      "anchor": "Section 2.2, equations (2.6)-(2.7): joint-law density before inserting the Gibbs density of mu",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS mathematical restatement of the Gaussian joint-law component, not copied source prose or a claim of complete source-density formalization."
+    },
+    "statement": "For independent X with probability law mu and standard Gaussian Z on R^d, and eta>0, the joint law of (X,X+sqrt(eta) Z) equals mu(dx) q_eta(y-x) dy, where q_eta is the centered isotropic Gaussian density with variance eta. Inserting the paper's Gibbs density mu(dx)=Z_V^{-1} exp(-V(x)) dx is a separate final substitution to obtain the displayed joint Gibbs density.",
+    "formulae": [
+      {
+        "label": "joint-density intermediate between (2.7) and (2.6)",
+        "tex": "\\mathcal L(X,X+\\sqrt\\eta Z)(dx,dy)=\\mu(dx)q_\\eta(y-x)dy,\\qquad q_\\eta(w)=((\\sqrt{2\\pi\\eta})^{-1})^d\\exp(-\\|w\\|^2/(2\\eta))."
+      }
+    ],
+    "assumptions": [
+      "The paper works on R^d with d>=1 and a twice continuously differentiable potential with positive lower and upper Hessian bounds. Its target mu is the normalized Gibbs probability measure.",
+      "The source takes 0<eta<=1/beta and states the independent Gaussian augmentation X~mu, Z~N(0,I), Y=X+sqrt(eta) Z.",
+      "The selected intermediate identity is a density relative to mu tensor volume, rather than volume tensor volume. It needs only probability of mu and eta>0."
+    ],
+    "obligations": [
+      {
+        "id": "joint-density-relative-mu-volume",
+        "label": "Identify the generative joint law with the explicit density relative to mu tensor volume"
+      },
+      {
+        "id": "gibbs-density-substitution",
+        "label": "Insert the target's normalized Gibbs density to recover the density relative to volume tensor volume in (2.6)"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation.augmentation_eq_withDensity",
+      "kind": "theorem",
+      "title": "The joint density of a Gaussian augmentation for any input law",
+      "statement": "Let E be a finite-dimensional real inner-product space with its Borel sigma algebra and canonical volume, mu a probability measure on E, and eta>0. Independently draw X with law mu and Z with the standard Gaussian law, and put Y=X+sqrt(eta) Z. Then the entire joint law of (X,Y) has density q_eta(y-x) relative to mu tensor volume. The input mu need not have a density relative to volume.",
+      "formula": "\\Phi_\\eta(x,z)=(x,x+\\sqrt\\eta\\,z),\\quad (\\Phi_\\eta)_\\#(\\mu\\otimes\\gamma_E)=(\\mu\\otimes\\mathrm{vol}_E)\\,q_\\eta(y-x),\\quad q_\\eta(w)=((\\sqrt{2\\pi\\eta})^{-1})^d\\exp(-\\|w\\|^2/(2\\eta)),\\quad d=\\dim_{\\mathbb R}E.",
+      "assumptions": [
+        "E is a normed additive commutative group with a real inner product, finite real dimension, and its Borel measurable structure. Volume is the canonical inner-product-space volume, not an arbitrary Haar normalization.",
+        "mu is any probability measure on E. Independence is represented by the product measure mu.prod(stdGaussian E). Singular inputs, including point masses, are allowed.",
+        "eta is a positive real number. There is no upper scale bound and no potential, curvature, or input-density assumption. Finite dimension zero is included.",
+        "The reference measure is mu tensor volume. A density relative to volume tensor volume requires an additional density for mu, such as the source's Gibbs representation. That substitution is outside this theorem."
+      ],
+      "steps": [
+        {
+          "title": "Scale the independent Gaussian noise",
+          "text": "The existing isotropic Gaussian density theorem identifies the law of sqrt(eta) Z with volume weighted by q_eta. Mapping the two independent coordinates separately leaves the first law unchanged and applies this identity to the second law.",
+          "formula": "(x,z)\\mapsto(x,\\sqrt\\eta\\,z),\\qquad (\\mathrm{id}\\times(\\sqrt\\eta\\,\\cdot))_\\#(\\mu\\otimes\\gamma_E)=\\mu\\otimes(\\mathrm{vol}_E q_\\eta).",
+          "lean": "The new local ASTIS IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity parent supplies the actual noise-law identity. Measure.map_prod_map and Measure.map_id then establish hprod. The density parent is compiled local work, not asserted to be Registry-admitted merely because this module imports it."
+        },
+        {
+          "title": "Express the independent product by a joint density",
+          "text": "The product-density theorem moves the weight in the second coordinate to a density on the product reference measure. The Gaussian density is measurable, and the first probability measure needs no Lebesgue density.",
+          "formula": "\\mu\\otimes(\\mathrm{vol}_E q_\\eta)=(\\mu\\otimes\\mathrm{vol}_E)\\,[q_\\eta(w)].",
+          "lean": "MeasureTheory.prod_withDensity_right is applied with the proved measurability of q. The formula is with respect to mu.prod volume, so it remains valid for a Dirac input."
+        },
+        {
+          "title": "The additive shear preserves the reference measure",
+          "text": "The shear S(x,w)=(x,x+w) is a measurable equivalence, with inverse S inverse(x,y)=(x,y-x). It leaves the first coordinate fixed and translates volume in the second coordinate. Therefore it preserves mu tensor volume even when mu is not translation-invariant.",
+          "formula": "S_\\#(\\mu\\otimes\\mathrm{vol}_E)=\\mu\\otimes\\mathrm{vol}_E,\\qquad S^{-1}(x,y)=(x,y-x).",
+          "lean": "MeasurableEquiv.shearAddRight supplies the equivalence, and measurePreserving_prod_add mu volume supplies hvol. Probability of mu and canonical-volume sigma-finiteness discharge the product-measure prerequisites; no Jacobian proof is introduced."
+        },
+        {
+          "title": "Transport the density through the shear",
+          "text": "Augmentation is exactly the composition of independent noise scaling and the shear. The existing ASTIS measurable-equivalence density theorem composes the density with the inverse shear, changing q_eta(w) into q_eta(y-x). This gives equality of the entire joint measures, not only equality of their total mass.",
+          "formula": "(\\Phi_\\eta)_\\#(\\mu\\otimes\\gamma_E)=S_\\#((\\mu\\otimes\\mathrm{vol}_E)q_\\eta(w))=(\\mu\\otimes\\mathrm{vol}_E)q_\\eta(y-x).",
+          "lean": "Measure.map_map uses the proved factorization hPhi and measurable maps. RadonNikodym.measurableEquiv_map_withDensity transports the explicit product density. The inverse shear's second coordinate is -x+y; additive commutativity rewrites it to y-x."
+        }
+      ],
+      "lean_statement": "Measure.map denotes pushforward; Measure.prod is the independent product measure. withDensity takes an ENNReal-valued function obtained by ENNReal.ofReal from the nonnegative displayed real density. Equality is equality of measures, hence holds on every measurable event. Module.finrank is a natural dimension, and the normalizer uses a natural power of an inverse square root.",
+      "lean_proof": "One theorem composes the newly compiled isotropic Gaussian density with existing product-density and measurable-equivalence transport. All abbreviations are local to the proof. No desired joint-law equality, density of mu, conditional representative, or volume-preservation claim is assumed as a hypothesis. The source-specific Gibbs density remains a separate consumer-level substitution.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity: actual scaled Gaussian law and its canonical-volume density.",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity: explicit density transport through a measurable equivalence."
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.map_prod_map, map_id and map_map: independent-product and composed pushforwards.",
+        "MeasureTheory.prod_withDensity_right: second-coordinate density on a product reference measure.",
+        "MeasurableEquiv.shearAddRight and MeasureTheory.measurePreserving_prod_add: the additive shear and invariance of mu tensor volume.",
+        "Measurability of the explicit Gaussian density and continuous affine maps; neg_add_eq_sub."
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#S2.SS2",
+          "label": "Chen, Chewi, Lu and Zhang, Accelerated High-Accuracy Sampling from a Warm Start via the Proximal Bouncy Particle Sampler v1",
+          "scope": "Joint-law density component of equations (2.6)-(2.7), with reference measure mu tensor volume kept explicit. Original ASTIS exposition, not reproduced paper prose."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSGaussianAugmentation.lean",
+        "command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 lake build Tests.ProximalBPSGaussianAugmentation"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation.augmentation_eq_withDensity",
+      "role": "proof-edge",
+      "supports": [
+        "joint-density-relative-mu-volume"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "The input is the paper's normalized smooth strongly log-concave Gibbs law on R^d",
+        "lean": "Any probability measure mu on a finite-dimensional real inner-product Borel space E"
+      },
+      {
+        "source": "d>=1 and Euclidean Lebesgue volume",
+        "lean": "Every finite real dimension, including zero, with the canonical inner-product-space volume"
+      },
+      {
+        "source": "0<eta<=1/beta",
+        "lean": "eta>0"
+      },
+      {
+        "source": "Joint Gibbs density relative to dx dy, with the source's target-density definition",
+        "lean": "Density relative to mu.prod volume, with factor q_eta(y-x)"
+      },
+      {
+        "source": "Independent sampling and translation of the Gaussian auxiliary coordinate",
+        "lean": "Product probability measure, proved measurable factorization, explicit density transport, and shear preserving mu.prod volume"
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "d9a79ebc80590feb46bd47108f7f6bd916833f9df21ad3d1a8655751e9e8d6ee"
+}

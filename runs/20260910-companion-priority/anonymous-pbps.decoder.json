@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-5eaa2969985abd3f",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] (η : ℝ), 0 < η → Function.Involutive (fun p : E × E => (p.1, (2 : ℝ) • p.1 - p.2)) ∧ MeasureTheory.Measure.map (fun p : E × E => (p.1, (2 : ℝ) • p.1 - p.2)) (MeasureTheory.Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E))) = MeasureTheory.Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E))",
+    "statement_sha256": "5eaa2969985abd3ffc54670e07e1aa446bef61f48c62488109ce014dbbb997f6",
+    "compiled": true,
+    "approved_definition_context": [
+      "Measure.map f m is the pushforward of measure m along f; the relevant maps are measurable here, so the totalized nonmeasurable fallback is not invoked. Measure.prod is the product measure and encodes independence. stdGaussian E is the centered standard Gaussian with identity covariance on the finite-dimensional real inner-product space E. Function.Involutive f means f (f x) = x for every x. BorelSpace identifies measurable sets with the topology's Borel sets; IsProbabilityMeasure means total mass one. Real.sqrt is the nonnegative square root, and • is scalar multiplication."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "5d59223c41747ec4ec0aaa13e603e43ec3de00e9c7283752b50d49bff76d1766"
+}

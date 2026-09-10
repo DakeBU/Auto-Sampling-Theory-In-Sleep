@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "items": [{
+    "id": "pbps-v1-normalized-gibbs-augmentation",
+    "library": "samplewiki-route",
+    "chapter": "pbps-02",
+    "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+    "title": "The actual normalized Gibbs augmentation law",
+    "source": {"url": "https://arxiv.org/html/2609.06905v1#S2.SS2", "edition": "arXiv:2609.06905v1", "anchor": "Section 2.2 equations (2.6)-(2.7); positive Hessian setting in introduction (1.1)", "wording_status": "faithful paraphrase", "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS mathematical restatement with explicit normalization details, not copied prose or author endorsement."},
+    "statement": "In the paper's Euclidean C² setting αI≤D²V≤βI with 0<α≤β and 0<η≤1/β, the target μ has normalized density Z_V^{-1}exp(-V). The joint density proportional to exp(-V(x)-||x-y||²/(2η)) is the law of X~μ and Y=X+sqrt(η)N for independent standard Gaussian N. Its exact normalizing factor is (2πη)^(-d/2)/Z_V. ASTIS makes finite positive Gibbs mass and probability of this law explicit.",
+    "assumptions": ["The primary source assumes V∈C²(R^d), 0<α≤β and αI≤D²V(x)≤βI globally, in (1.1).", "Section 2.2 fixes 0<η≤1/β. The noise N has covariance I and is independent of X.", "The normalization convention uses Euclidean Lebesgue volume and Z_V=∫exp(-V(x))dx. The source writes the joint density up to proportionality; this packet supplies its exact factor and positive finite mass."],
+    "formulae": [{"label": "(2.6)-(2.7), explicit normalizer", "tex": "Z_V=\\int e^{-V(x)}dx>0,\\quad \\pi_\\eta(dx,dy)=\\frac{((\\sqrt{2\\pi\\eta})^{-1})^d}{Z_V}e^{-V(x)-\\|y-x\\|^2/(2\\eta)}dx\\,dy=\\mathcal L(X,X+\\sqrt\\eta N)(dx,dy)."}],
+    "obligations": [{"id": "positive-gibbs-normalization", "label": "Derive strictly positive finite Gibbs mass from genuine source curvature, without an assumed minimizer"}, {"id": "probability-joint-law", "label": "Certify that the independent Gaussian augmentation is a probability measure"}, {"id": "normalized-product-volume-density", "label": "Identify that actual joint law with the exact source density relative to product volume"}],
+    "bindings": [{
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation.normalized_augmentation_density",
+      "cell": "ASTIS-SW-PBPS-gibbs-augmentation",
+      "role": "proof-edge",
+      "supports": ["positive-gibbs-normalization", "probability-joint-law", "normalized-product-volume-density"],
+      "audit_id": "ASTIS-RT-20260910-PBPSGibbsAugmentation",
+      "boundary": "Exact normalized joint-law component (2.6)-(2.7), not conditional kernels, curvature conclusions, process invariance, mixing or query cost. Independent source-blind semantic audit is required for admission.",
+      "assumption_deltas": [
+        {"source": "C² Euclidean V and lower matrix bound αI≤D²V, α>0", "lean": "ContDiff ℝ 2 V, hα:0<α, and ∀x v, α*||v||²≤(fderiv ℝ (fderiv ℝ V) x v) v", "classification": "same", "reason": "The quadratic-form version expresses the lower Hessian bound. C² guarantees genuine first and second derivatives; a zero totalized derivative without differentiability cannot replace this hypothesis."},
+        {"source": "Euclidean space and Lebesgue volume", "lean": "Any finite-dimensional real inner-product Borel E, including dimension zero, with canonical volume", "classification": "generalization", "reason": "The shared analytic and Gaussian parents are coordinate-free and include zero dimension. The volume normalization is fixed by the inner product, not an arbitrary Haar measure."},
+        {"source": "Upper Hessian bound βI and 0<η≤1/β", "lean": "No upper Hessian bound; η>0", "classification": "generalization", "reason": "Only lower curvature is used to normalize the Gibbs target. Gaussian augmentation and density multiplication hold at every positive scale. The omitted upper constraints are retained in separate sampler/curvature obligations."},
+        {"source": "Normalized Gibbs notation and joint-density proportionality", "lean": "Explicit 0<Z_V and IsProbabilityMeasure joint as well as the exact density equality", "classification": "source-implicit", "reason": "Existing parent proofs establish exp(-V) integrability without a minimizer. Positive exponential mass excludes zero normalization; the explicit probability conclusion prevents the displayed equality from being satisfied only by a zero totalized tilted law."},
+        {"source": "Independent Gaussian construction (2.7)", "lean": "Product measure and proved measurable pushforward, with measurable product-density multiplication", "classification": "source-implicit", "reason": "The Borel continuity witnesses and product measure contracts are supplied internally. No conditional representative, boundary integration or exchange of improper integrals is assumed."},
+        {"source": "Exponent -V(x)-||x-y||²/(2η), Gaussian covariance ηI", "lean": "Exponent -V p.1-||p.2-p.1||²/(2η), prefactor ((sqrt(2πη))⁻¹)^finrank/Z_V", "classification": "same", "reason": "Norm symmetry changes x-y to y-x without changing the value; the natural-power square-root expression is exactly the same Gaussian normalization."}
+      ]
+    }]
+  }]
+}
