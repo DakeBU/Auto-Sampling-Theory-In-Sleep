@@ -41,9 +41,16 @@
     "planning_review": "depth_commit_verifier independent bounded route audit confirms direct Haar-volume IBP with weight in first factor, compact derivative second factor; permits C2 W and arbitrary finite dimension. Never pass Gibbs to a Haar API. Root sole writer.",
     "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous score-domain packet merged and deployed.",
     "independent_proof_review": "runs/20260911-companion-priority/conditional-bochner.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at 88e936738e5f7fa5547481dd1309a8439bbea843; aggregate and reader/graph integration pending.",
+    "admission_boundary": "VERIFIED at 88e936738e5f7fa5547481dd1309a8439bbea843; integrated at 4031bf1 with aggregate PASS9093 and local reader/graph QA passed. Final-head CI, independent merge advice and actual delivery pending.",
     "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3242, independent complete-proof review and final hash-bound source audits accepted.",
-    "independent_verification": "runs/20260911-companion-priority/conditional-bochner.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/conditional-bochner.verified-admission.json",
+    "integration": {
+      "progress": "runs/20260911-companion-priority/conditional-bochner.progress.json",
+      "aggregate_candidate": "4031bf1d4ceaba8de49dcc8d39b7687b0df6ac82",
+      "source_digest": "4c82ec2f33c73248c452ca4a61f888cb80eb9fbed755df4b160dc28aaa63214a",
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/256",
+      "reader_checks": "Both original companion entries, complete folded proof, site check, graph coverage and browser evidence-card navigation PASS; actual deployment separate."
+    }
   },
   "blocked": {
     "reason": "",

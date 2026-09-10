@@ -38,7 +38,7 @@
   },
   "mathematical_status": "Compact-test integrated Bochner identity and its actual PBPS conditional curvature-energy consequence only. This is a prerequisite to Appendix C.1 Poincare, not that inequality. Weighted closure/core, dense range or resolvent construction, noncompact test extension, score variance, general L2/H1, macro coercivity and full main results remain open.",
   "remaining": [
-    "Integration, aggregate and reader/graph delivery",
+    "Final-head independent merge advice, CI and actual merge/deployment",
     "Weighted closure/core and dense range or resolvent",
     "Noncompact test extension, Poincare and actual conditional score variance",
     "All later main-theorem dependencies and full papers"
@@ -49,5 +49,75 @@
     "source_review": "Independent final authenticated packet refresh accepted for both audits.",
     "independent_proof_review": "depth_commit_verifier final consolidated full-proof review and focused replay PASS3242, same raw hashes."
   },
-  "independent_admission": "runs/20260911-companion-priority/conditional-bochner.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/conditional-bochner.verified-admission.json",
+  "aggregate_gate": {
+    "passed": true,
+    "commit": "4031bf1d4ceaba8de49dcc8d39b7687b0df6ac82",
+    "source_digest": "4c82ec2f33c73248c452ca4a61f888cb80eb9fbed755df4b160dc28aaa63214a",
+    "generated_at": "2026-09-10T21:41:55.775008+00:00",
+    "commands": [
+      "python tools/astis.py check"
+    ],
+    "note": "Root records the just-completed direct canonical ASTIS gate, exit0 PASS9093, unchanged Lean sources. Wrapper lean_gate.py was not invoked and no duplicate aggregate was run.",
+    "log_sha256": "917d62d5c92cad42bbfac8ae798888a04fbe874c5b0e51e52c32c58862fa8bb2",
+    "status": "PASS",
+    "jobs": 9093,
+    "exit_code": 0,
+    "log": ".astis\\bochner-aggregate-gate.log"
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/256",
+    "state": "draft",
+    "head": "4031bf1d4ceaba8de49dcc8d39b7687b0df6ac82",
+    "boundary": "Reader/graph, final-head CI, independent merge advice and actual merge/deployment pending."
+  },
+  "reader_checks": {
+    "candidate": "4031bf1d4ceaba8de49dcc8d39b7687b0df6ac82",
+    "site_build": {
+      "exit_code": 0,
+      "log": ".astis/bochner-site-build.log"
+    },
+    "site_check": {
+      "exit_code": 0,
+      "log": ".astis/bochner-site-check.log"
+    },
+    "graph_checks": [
+      {
+        "cell": "ASTIS-SW-PBPS-weighted-bochner",
+        "exit_code": 0,
+        "log": ".astis/weighted-bochner-graph-check.json"
+      },
+      {
+        "cell": "ASTIS-SW-PBPS-conditional-bochner",
+        "exit_code": 0,
+        "log": ".astis/conditional-bochner-graph-check.json"
+      }
+    ],
+    "browser": {
+      "page": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "entries": [
+        {
+          "id": "pbps-weighted-bochner",
+          "proof_steps": 6,
+          "initially_closed_disclosures": 9,
+          "statement_characters": 855,
+          "proof_characters": 27257,
+          "katex_errors": 0,
+          "evidence_card": "modules/autosamplingtheory-technicallemmas-functionalinequalities-weightedbochner.html#decl-autosamplingtheory-technicallemmas-functionalinequalities-weightedbochne-7dc181d0c2"
+        },
+        {
+          "id": "pbps-conditional-bochner",
+          "proof_steps": 4,
+          "initially_closed_disclosures": 7,
+          "statement_characters": 1603,
+          "proof_characters": 3436,
+          "katex_errors": 0,
+          "evidence_card": "modules/autosamplingtheory-examplecases-proximalbps-conditionalbochner.html#decl-autosamplingtheory-examplecases-proximalbps-conditionalbochner-condition-a902572e2f"
+        }
+      ],
+      "visual": "Both full statement/proof and source/reuse disclosures opened. Complete shared local helper proof included. Visually checked weighted IBP, negative Hessian commutator, normalized identity and quarter curvature coefficient. Scope states compact tests and missing Poincare/closure/score extension.",
+      "graph": "Each focused graph:5 nodes,3 edges,2 direct relations. Selected actual declaration, inspected graph screenshot, clicked exact evidence link; each card Compiled Not mapped. Solid import/ownership versus dashed source correspondence remains explicit, not a theorem implication certificate.",
+      "boundary": "Local rendered QA only; merge and actual deployment remain separate."
+    }
+  }
 }
