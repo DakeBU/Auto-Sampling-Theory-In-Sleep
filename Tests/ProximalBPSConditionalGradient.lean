@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient
+
+#print axioms AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable
+#print axioms AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable

@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-PBPS-conditional-resolvent",
+  "route": "samplewiki-route",
+  "title": "Weak resolvent of the actual PBPS conditional closed gradient",
+  "mode": "faithfulPaper",
+  "source_anchor": "PBPS arXiv:2609.06905v1 Appendix C.1 conditional Poincare prerequisite; Kolesnikov-Milman arXiv:1310.2526v7 sections2.4-2.5 Poisson/Sobolev background, explicitly not the compact-manifold classical regularity theorem",
+  "target_statement": "For any closed partial real-linear A between Hilbert spaces, epsilon>0 and f in H, construct the unique u in A.domain satisfying epsilon inner(u,v)+inner(Au,Av)=inner(f,v) for every domain v, with exact energy identity and norm<=epsilon^-1 norm(f), energy<=epsilon^-1 norm(f)^2. Instantiate A as the closure of the SAME actual conditional gradient D_y, selected before epsilon and f, retaining the common R,S, disintegration, reflection, potential, normalization and exact original compact gradient graph.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-PBPS-conditional-gradient",
+    "ASTIS-SW-PBPS-closed-graph-resolvent"
+  ],
+  "consumers": [
+    "PBPS Appendix C.1 conditional Poincare route; regularity and limit consumers remain unfinished"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib FunctionalInequalities and ProximalBPS: actual WeightedGradient and ConditionalGradient provide closed gradient but no weak resolvent; Bochner remains compact-test only",
+      "Mathlib Analysis.InnerProductSpace.Projection.Basic: starProjection_inner_eq_zero, closed-subspace complete instance; ProdL2 and Normed.Lp.ProdLp supply Hilbert product and continuous coordinate maps",
+      "Mathlib Topology.Algebra.Module.LinearPMap: IsClosed graph and closure_isClosed; LinearAlgebra.LinearPMap mem_graph_iff; bounded independent search found no ready closed-partial-operator resolvent"
+    ],
+    "classification": "adapt",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/PBPS-conditional-resolvent.md",
+    "planning_review": "depth_commit_verifier bounded exact-API projection route; log_depth_source_review independently checked noncircular weak existence/uniqueness, constants and source/domain boundary; planning only, no compilation or formal acceptance.",
+    "execution_boundary": "Root sole writer. Gradient PR257 is sole STABILIZING owner; this next packet EXPLORING only.",
+    "ownership_note": "One actual PBPS consuming route, no fictitious second consumer."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06905v1; background arXiv:1310.2526v7",
+    "primary_anchor": "Appendix C.1; background sections2.4-2.5",
+    "detail_status": "omitted",
+    "gap": "Construct weak epsilon solution before proving generator regularity/core and epsilon-to-zero Poincare argument.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/1310.2526v7",
+        "anchor": "sections2.4-2.5",
+        "hypothesis_adapter": "Abstract Hilbert closed-graph construction inspired by Poisson/Sobolev background; not compact-manifold Poisson/classical regularity theorem."
+      },
+      {
+        "source": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "anchor": "conditional Poincare and score variance",
+        "hypothesis_adapter": "Actual D_y.closure from same conditional kernels; retain original gradient graph; no new PI or regularity assumptions."
+      }
+    ],
+    "fidelity_boundary": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Direct scaled closed-graph orthogonal projection; reuse existing Hilbert projection API."
+  }
+}

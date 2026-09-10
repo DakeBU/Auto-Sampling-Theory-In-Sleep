@@ -1,0 +1,109 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent formal seven-slot source review.",
+  "reviewer_packet_sha256": "85008fd8fdbbb651b84e5d3d4d93af4ede6f4ee562665f1035757940f0287408",
+  "source_text_sha256": "66cb0512bf0575d043eff13dff7cb0de8398ca2a7bc02681e27f2df2d3adaf75",
+  "lean_statement_sha256": "60a4223280f49c9d9c403eda7b21d8faea3c0e2258e26c2409df4d003050338b",
+  "reconstruction_text_sha256": "6247cbec1b91a0afaffdc75e5f77d81d1f32f16b3e1d19bdec483d09369bc3fc",
+  "embedded_module_text_sha256": "5bd3402124330f69d7875e9bbfc6eb31760b70528850ac841d1ff7c84ab72149",
+  "publication_binding_sha256": "4660a8b0da0404096e2b50a3fc909c9a2bd3a880535536cef75ff6e0b5a65ff9",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Weighted Sobolev completion motivating the selected actual smooth-gradient construction.",
+      "reconstructed": "A partial real-linear operator between scalar and vector L2 of normalized Gibbs measure, with exact smooth compact gradient graph.",
+      "relation": "explicit-elaboration",
+      "evidence": "The graph iff identifies both components with f and its genuine Riesz gradient a.e., not an arbitrary closable operator."
+    },
+    "domains": {
+      "original": "Selected positive-dimensional full-space Euclidean prerequisite, distinguished from background compact manifold.",
+      "reconstructed": "Any finite-dimensional real inner-product Borel space, including dimension zero.",
+      "relation": "stronger-in-lean",
+      "evidence": "Canonical volume is nonzero in zero dimension; vector space and gradients then trivial. Extension disclosed."
+    },
+    "quantifiers": {
+      "original": "Every admissible potential determines the smooth compact gradient relation.",
+      "reconstructed": "For all E,W satisfying hypotheses, one D precedes all u,v; f may depend on u,v.",
+      "relation": "explicit-elaboration",
+      "evidence": "The public graph iff concerns D, not every element of its graph closure."
+    },
+    "assumptions": {
+      "original": "Selected prerequisite C1 W and genuine exponential integrability; background has different regularity and geometry.",
+      "reconstructed": "C1 W and integrable exp(-W), no curvature, PI, coercivity or closure premise.",
+      "relation": "equivalent",
+      "evidence": "Exactly the analytic arguments; positive exponential and nonzero volume support actual probability, not zero-tilt fallback."
+    },
+    "conclusion": {
+      "original": "Selected prerequisite supplies a densely defined closable actual gradient.",
+      "reconstructed": "Dense domain, IsClosable, closed closure and exact bidirectional graph characterization.",
+      "relation": "explicit-elaboration",
+      "evidence": "closure_unique proves zero vertical fiber before toLinearPMap_graph_eq constructs the operator and closed graph."
+    },
+    "scopes": {
+      "original": "Direct full-space prerequisite inspired by section2.5, not manifold spectral conclusions.",
+      "reconstructed": "Initial smooth compact gradient and closed extension only.",
+      "relation": "explicit-elaboration",
+      "evidence": "No self-adjoint generator, D*D core, spectral gap, resolvent or PI. Full-space/C1 changes disclosed."
+    },
+    "constant_dependencies": {
+      "original": "No quantitative spectral or coercivity constant.",
+      "reconstructed": "No numeric bound or operator norm constant asserted.",
+      "relation": "same",
+      "evidence": "Qualitative dense-domain and graph properties only."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Explicit abstract finite-dimensional and zero-dimensional extension.",
+      "evidence": "Canonical volume is nonzero in zero dimension; vector space and gradients then trivial. Extension disclosed."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Direct full-space C1 prerequisite, not compact-manifold Sobolev/spectral source theorem verbatim.",
+      "evidence": "No self-adjoint generator, D*D core, spectral gap, resolvent or PI. Full-space/C1 changes disclosed."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Directional Haar IBP has three compact-product integrability witnesses and correct derivative sign."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Finite-basis weighted negative-divergence test is continuous compact and L2 after normalization."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Relation is a submodule by genuine derivative linearity and Lp representative identities, before operator selection."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Continuous L2 pairing equalities define closed supersets of the graph and its closure."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Vector compact smooth density forces zero fiber to vanish without assuming derivative closedness."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Single-valuedness supports both graph constructions; scalar density and gradient MemLp prove dense domain."
+      }
+    ]
+  },
+  "review_evidence": "Independent anti-anchored review of primary context, anonymous reconstruction, complete embedded production proof and all six plus three authored steps. Canonical packet, source, statement, reconstruction and embedded-module hashes independently recomputed; production files match embedded text. Binding digests authenticated from packet, external preimage not independently reconstructed. Primary section2.5 compact-manifold graph-norm paragraph freshly checked; PBPS C.1 boundary checked in review sequence. No candidate verdict consulted. No independent compile, axiom-output verification, aggregate or VERIFIED claim in this source review."
+}

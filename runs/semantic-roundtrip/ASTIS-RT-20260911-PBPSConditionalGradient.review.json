@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-0c44ef1607d38c8e",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "gradient_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:pbps-conditional-gradient",
+    "anchor": "Appendix C.1 weighted-space analytic prerequisite",
+    "original_text": "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta, genuine alpha/beta Hessian bounds, eta>0 and beta eta<=1.\nThe actual joint law is (X,X+sqrt(eta)Z) with independent Gibbs X and standard Gaussian Z; the reflected conditional law is S_y.\nPBPS Appendix C.1 uses conditional Poincare for the actual reflected Gibbs-Gaussian conditional law. The selected ASTIS prerequisite constructs the actual weighted gradient domain and closure on that law: with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), S_y is normalized exp(-W_y) volume, and the smooth compact gradient graph in L2(S_y) is densely defined and closable. The original source PI/variance application is not proved by this prerequisite. Kernels, normalization and potential regularity must be those of the actual augmentation.",
+    "text_sha256": "ba0c9bf2c56d58e1c181495a20c9debd6d37422666bacd34c5318849d6663ae6"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+    "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalGradient.lean",
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          0 < η →\n            ↑β * η ≤ 1 →\n              have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n              have J :=\n                MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n              have W := fun y u => V ((1 / 2) • (y + u)) + ‖u - y‖ ^ 2 / (8 * η);\n              ∃ R S,\n                ProbabilityTheory.IsMarkovKernel R ∧\n                  ProbabilityTheory.IsMarkovKernel S ∧\n                    (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                      (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                        ∀ (y : E),\n                          (S y = MeasureTheory.MeasureSpace.volume.tilted fun u => -W y u) ∧\n                            ContDiff ℝ 2 (W y) ∧\n                              MeasureTheory.Integrable (fun u => Real.exp (-W y u)) MeasureTheory.MeasureSpace.volume ∧\n                                0 < ∫ (u : E), Real.exp (-W y u) ∧\n                                  ∃ D,\n                                    Dense ↑D.domain ∧\n                                      D.IsClosable ∧\n                                        D.closure.IsClosed ∧\n                                          ∀ (u : ↥(MeasureTheory.Lp ℝ 2 (S y))) (v : ↥(MeasureTheory.Lp E 2 (S y))),\n                                            (u, v) ∈ D.graph ↔\n                                              ∃ f,\n                                                ContDiff ℝ (↑⊤) f ∧\n                                                  HasCompactSupport f ∧ ↑↑u =ᵐ[S y] f ∧ ↑↑v =ᵐ[S y] gradient f",
+    "statement_sha256": "ed139f45dfdc692ab67c195def0e19138bb8976a8303ce72cedc63f370fb6e74",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite-dimensional real inner-product Borel space E with canonical volume, including dimension zero, V:E->R, nonnegative real alpha,beta and real eta, assume alpha>0, alpha<=beta, V C2, alpha norm(h)^2<=D2V(x)[h,h]<=beta norm(h)^2 for all x,h, eta>0 and beta eta<=1. D2V is the actual iterated Frechet derivative. Define mu as volume tilted by -V, J as the pushforward of mu tensor standard Gaussian under (x,z)->(x,x+sqrt(eta)z), and W_y(q)=V((y+q)/2)+norm(q-y)^2/(8eta). There exist common Markov kernels R,S from E to E. R is the conditional disintegration kernel of swap-pushforward J on its first coordinate; for every y, S(y) is the pushforward of R(y) under x->2x-y. For every y, S(y)=volume tilted by -W_y, W_y is C2, exp(-W_y) is volume-integrable with integral strictly positive, and there exists a partial real-linear operator D_y from a dense linear subspace of scalar L2(S(y)) into vector L2(S(y);E). D_y is closable and its closure is closed. For every scalar class a and vector class b, graph membership (a,b) in D_y is equivalent to existence of smooth compactly supported scalar f with a=f and b=gradient f S(y)-almost everywhere. R,S are selected before all y. D_y is selected after y and before a,b; f may depend on y,a,b. There is no asserted measurability or continuity of y->D_y and no uniform operator bound. Conditional disintegration does not assert a uniquely determined version at every y; by contrast both S(y) measure equalities and all fiber analytic conclusions are explicitly for every y. Mu,J,W are displayed definitions, not extra premises or freely chosen objects. No separate exp(-V) integrability assumption is added. The coefficients 1/2,2,8 are fixed. Approved definitions determine the reconstruction; IsCondKernel is interpreted only as the supplied disintegration on the first coordinate, without extra pointwise density convention or uniqueness requirement.",
+    "text_sha256": "39d764ab4a0fbfe4fa6b0c641c31560ccc2fc20f72e8918e8cf3ef4c70fcd0f9",
+    "decoder": "gradient_blind_decoder",
+    "decoder_packet_sha256": "8fa693243008088e11a8b1891be5801a1a15c88f81509d79a180d3c9e8097601",
+    "decoder_run_sha256": "6c737b93ed36150780478ff4733888380e179551522c1a8810e134b838adec7d",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "4f272ad1e1c3ea4a06bf109587810e585e367730f2bc1581187606e72b158560",
+  "candidate_publication_context": {
+    "file": "3452712be04429132cbebcb6b9e6e24835d1f5f3dee9ddcd0af83c7a2d268ed6",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner\nimport AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient\n\n/-!\n# Dense closable gradient for the actual PBPS conditional law\n\nAnalytic prerequisite to arXiv:2609.06905v1 Appendix C.1. The same common\nconditional kernels retain their disintegration, reflection and normalized\ndensity. The genuine C2 conditional potential and positive normalizer supply\nthe shared weighted-gradient construction, without any new paper hypothesis.\nInherited alpha<=beta and beta eta<=1 restrictions belong to the parent kernel\ninterface; the abstract gradient closure needs no curvature bound.\nNo generator operator core, resolvent regularity, Poincare, noncompact score\nbound or complete-paper conclusion is asserted.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient\n\nopen MeasureTheory ProbabilityTheory InnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities\nopen scoped ContDiff NNReal RealInnerProductSpace Topology\n\n/-- The actual conditional Gibbs gradient has a dense smooth compact domain\nand a single-valued closed graph extension. The displayed graph equivalence\nfixes the genuine gradient, not an arbitrary abstract closable operator. -/\ntheorem conditional_gradient_closable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    {V : E → ℝ} {α β : NNReal} {η : ℝ}\n    (hα : 0 < (α:ℝ)) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n      (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β:ℝ)*‖v‖^2)\n    (hη : 0 < η) (hβη : (β:ℝ)*η ≤ 1) :\n    let μ := (volume : Measure E).tilted (fun x => -V x)\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2)) (μ.prod (stdGaussian E))\n    let W := fun y u : E => V ((1/2:ℝ) • (y+u)) + ‖u-y‖^2/(8*η)\n    ∃ R S : Kernel E E, IsMarkovKernel R ∧ IsMarkovKernel S ∧\n      (J.map Prod.swap).IsCondKernel R ∧\n      (∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y)) ∧\n      ∀ y, S y = (volume : Measure E).tilted (fun u => -W y u) ∧\n        ContDiff ℝ 2 (W y) ∧ Integrable (fun u => Real.exp (-W y u)) ∧\n        0 < (∫ u, Real.exp (-W y u)) ∧\n        ∃ D : Lp ℝ 2 (S y) →ₗ.[ℝ] Lp E 2 (S y),\n          Dense (D.domain : Set (Lp ℝ 2 (S y))) ∧ D.IsClosable ∧ D.closure.IsClosed ∧\n          ∀ (u : Lp ℝ 2 (S y)) (v : Lp E 2 (S y)), (u,v) ∈ D.graph ↔\n            ∃ f : E → ℝ, ContDiff ℝ ∞ f ∧ HasCompactSupport f ∧\n              u =ᵐ[S y] f ∧ v =ᵐ[S y] gradient f := by\n  obtain ⟨R,S,hR,hS,hcond,hSR,hfiber⟩ :=\n    ConditionalBochner.conditional_bochner_energy hα hαβ hV hH hη hβη\n  dsimp only\n  refine ⟨R,S,hR,hS,hcond,hSR,?_⟩\n  intro y\n  obtain ⟨hSy,hW,hI,hZ,_⟩ := hfiber y\n  refine ⟨hSy,hW,hI,hZ,?_⟩\n  rw [hSy]\n  exact WeightedGradient.compact_gradient_closable _ (hW.of_le (by norm_num)) hI\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+      "edition": "arXiv:2609.06905v1",
+      "anchor": "Appendix C.1 weighted-space analytic prerequisite",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+    },
+    "statement": "PBPS Appendix C.1 uses conditional Poincare for the actual reflected Gibbs-Gaussian conditional law. The selected ASTIS prerequisite constructs the actual weighted gradient domain and closure on that law: with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), S_y is normalized exp(-W_y) volume, and the smooth compact gradient graph in L2(S_y) is densely defined and closable. The original source PI/variance application is not proved by this prerequisite. Kernels, normalization and potential regularity must be those of the actual augmentation.",
+    "formulae": [
+      {
+        "label": "Actual gradient graph and closure",
+        "tex": "S_y(du)=Z_y^{-1}e^{-W_y(u)}du,\\quad W_y(u)=V((y+u)/2)+\\frac{\\|u-y\\|^2}{8\\eta},\\quad \\operatorname{Graph}D_y=\\{([f],[\\nabla f]):f\\in C_c^\\infty(E)\\}."
+      }
+    ],
+    "assumptions": [
+      "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta, genuine alpha/beta Hessian bounds, eta>0 and beta eta<=1.",
+      "The actual joint law is (X,X+sqrt(eta)Z) with independent Gibbs X and standard Gaussian Z; the reflected conditional law is S_y."
+    ],
+    "obligations": [
+      {
+        "id": "exact-gradient-graph",
+        "label": "Exact genuine smooth compact gradient graph"
+      },
+      {
+        "id": "dense-closable-domain",
+        "label": "Dense domain and single-valued closed graph extension"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+      "kind": "theorem",
+      "title": "The actual conditional PBPS gradient is densely defined and closable",
+      "statement": "For the actual Gibbs-Gaussian augmentation, choose common Markov kernels R,S with R disintegrating the swapped joint law and S_y the reflected pushforward of R_y. For every y, S_y is normalized exp(-W_y) volume, W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), with W_y C2 and finite positive normalizer. On the scalar and vector L2 spaces of this same S_y there exists a partial real-linear gradient D_y with dense domain, IsClosable and closed closure. Its graph consists exactly of pairs represented by f and the genuine gradient f for smooth compact scalar f.",
+      "formula": "S_y(du)=Z_y^{-1}e^{-W_y(u)}du,\\quad W_y(u)=V((y+u)/2)+\\frac{\\|u-y\\|^2}{8\\eta},\\quad \\operatorname{Graph}D_y=\\{([f],[\\nabla f]):f\\in C_c^\\infty(E)\\}.",
+      "assumptions": [
+        "E is finite-dimensional real inner-product Borel, including dimension zero; V is C2.",
+        "Alpha,beta are nonnegative real parameters with explicit 0<alpha<=beta and genuine alpha/beta Hessian quadratic-form bounds. Eta>0 and beta eta<=1 are retained from the parent conditional-kernel interface.",
+        "Mu is volume tilted by -V and J is the law of (X,X+sqrt(eta)Z) under independent Gibbs X and standard Gaussian Z. The constructed R,S are shared before the universal quantifier over y.",
+        "Weight integrability and positive normalization are conclusions inherited from the proved actual conditional law, not new hypotheses. The abstract gradient closure itself requires no curvature restrictions."
+      ],
+      "steps": [
+        {
+          "title": "Preserve the actual conditional law",
+          "text": "Use the already proved ConditionalBochner construction once. Keep its same R,S, swapped disintegration and pointwise reflected pushforward, then fix y. No new abstract measure or surrogate score is substituted.",
+          "formula": "R=\\operatorname{Law}(X\\mid Y),\\qquad S_y=(x\\mapsto2x-y)_\\#R_y.",
+          "lean": "The consumer destructures one conditional_bochner_energy witness and retains hR,hS,hcond,hSR."
+        },
+        {
+          "title": "Supply the genuine weight and regularity",
+          "text": "The parent provides S_y as the actual tilt, W_y C2, integrable exp(-W_y) and a positive normalizer. Lower the regularity only to C1 for the shared construction. The finite positive normalizer remains explicitly stated under the same fiber law.",
+          "formula": "W_y\\in C^2(E)\\subset C^1(E),\\qquad 0<Z_y=\\int e^{-W_y}<\\infty.",
+          "lean": "hSy,hW,hI,hZ are obtained from the same hfiber y; no new integrability assumption is added."
+        },
+        {
+          "title": "Instantiate the exact gradient graph on that fiber",
+          "text": "Rewrite the scalar/vector L2 spaces using the proved equality of measures and apply compact_gradient_closable with W_y. This gives the dense domain and closed extension together with the exact smooth-gradient graph. It is still an analytic prerequisite and supplies neither the generator core nor the conditional PI estimate.",
+          "formula": "\\overline{\\operatorname{Dom}D_y}=L^2(S_y),\\qquad D_y\\ \\text{closable},\\qquad \\overline D_y\\ \\text{closed}.",
+          "lean": "The final application uses the actual hI and hW.of_le; graph membership remains an iff for both directions."
+        }
+      ],
+      "lean_statement": "One actual pair R,S before all y; for each y, actual density, C2 potential, positive finite normalizer and an operator with exact gradient graph.",
+      "lean_proof": "Apply the proved conditional law and the genuine weighted-gradient construction; no PI, variance or core conclusion is assumed.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.of_le"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS Appendix C.1",
+          "scope": "Actual conditional weighted-space analytic prerequisite to PI, not PI or variance."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalGradient.lean",
+        "command": "lake build Tests.ProximalBPSConditionalGradient"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable",
+      "role": "prerequisite",
+      "supports": [
+        "exact-gradient-graph",
+        "dense-closable-domain"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta, genuine alpha/beta Hessian bounds, eta>0 and beta eta<=1.",
+        "lean": "E is finite-dimensional real inner-product Borel, including dimension zero; V is C2."
+      },
+      {
+        "source": "Appendix C.1 conditional Poincare application.",
+        "lean": "Actual conditional dense closable gradient construction only."
+      },
+      {
+        "source": "Source Hessian and scale assumptions.",
+        "lean": "Explicit 0<alpha<=beta, V C2, genuine Hessian bounds and beta eta<=1 retained."
+      },
+      {
+        "source": "Actual conditional Gibbs normalization.",
+        "lean": "One common R,S with disintegration and reflected pushforward; every fiber has actual density, C2 potential, integrable weight and positive normalizer."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "50747078d8cea5d1266df68bd51f279ded15bef8b02f59aa4f876424958acd03"
+}

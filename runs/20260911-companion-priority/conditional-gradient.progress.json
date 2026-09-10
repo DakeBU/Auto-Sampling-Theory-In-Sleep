@@ -1,0 +1,122 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedGradient.compact_gradient_closable",
+    "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalGradient.conditional_gradient_closable"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.ProximalBPSConditionalGradient",
+    "result": "PASS3296",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/WeightedGradient.lean": "c2495b6ab8a4c82cadf0d86b910d663e0e4f65f6b96bc4b449149112756d4690",
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalGradient.lean": "8453ea8758be0ce67c32a434b2b5b4e4523572447001c52de18238c662cfd2a7",
+      "Tests/ProximalBPSConditionalGradient.lean": "b592ab689fb8cddc160882d695eaa233bc33a1c5a6b7946c501dea4ce26c791b"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/conditional-gradient.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-WeightedGradient",
+      "ASTIS-RT-20260911-PBPSConditionalGradient"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/weighted-gradient.source-review-result.json",
+      "runs/20260911-companion-priority/conditional-gradient.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Dense compact-test gradient operator and its closed extension under actual weighted probability only. No weighted generator operator core, dense mean-zero generator range, resolvent regularity, Poincare, score variance, macro coercivity, process or full-paper result. The gradient closure core is not automatically a core of D*D.",
+  "remaining": [
+    "Final-head independent merge advice, CI and actual merge/deployment",
+    "Weak resolvent actual consumer, generator regularity/core and compact Bochner extension",
+    "Noncompact score extension and conditional Poincare",
+    "All later main-theorem dependencies and full papers"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/conditional-gradient.verified-admission.json",
+  "aggregate_gate": {
+    "passed": true,
+    "commit": "d503968ce62d29392ec627910c8a88685eb4c093",
+    "source_digest": "49465301850d739a3e02fe8ab654485522b7bc30ccca0dd1b4c4e9d545e76a42",
+    "generated_at": "2026-09-10T22:24:17.850240+00:00",
+    "commands": [
+      "python3 tools/astis.py check"
+    ],
+    "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available.",
+    "status": "PASS",
+    "jobs": 9096,
+    "exit_code": 0,
+    "log": ".astis\\gradient-aggregate-gate.log",
+    "log_sha256": "e44044ec0b620bdf6b499fc298400dc5e8ce5a0edb50cafbc731ee4972934f11"
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/257",
+    "state": "draft",
+    "head": "d503968ce62d29392ec627910c8a88685eb4c093",
+    "boundary": "Initial CI failed on missing samplinglib search label in both cells, same as local first site build. Narrow record correction and local retry passed. Final-head CI and merge/deploy pending."
+  },
+  "reader_checks": {
+    "candidate": "d503968ce62d29392ec627910c8a88685eb4c093",
+    "metadata_delta": "Both cell searched entries explicitly name the actual Samplinglib search; next resolvent planning records only, no new production Lean.",
+    "site_build": {
+      "initial_exit_code": 1,
+      "initial_log": ".astis/gradient-site-build.log",
+      "failure": "Two cell search records lacked required samplinglib name",
+      "retry_exit_code": 0,
+      "log": ".astis/gradient-site-build-retry.log"
+    },
+    "site_check": {
+      "exit_code": 0,
+      "log": ".astis/gradient-site-check.log",
+      "modules": 566,
+      "declarations": 3656
+    },
+    "graph_checks": [
+      {
+        "cell": "ASTIS-SW-PBPS-weighted-gradient",
+        "exit_code": 0,
+        "log": ".astis/weighted-gradient-graph-check.json"
+      },
+      {
+        "cell": "ASTIS-SW-PBPS-conditional-gradient",
+        "exit_code": 0,
+        "log": ".astis/conditional-gradient-graph-check.json"
+      }
+    ],
+    "browser": {
+      "page": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "entries": [
+        {
+          "id": "pbps-weighted-gradient",
+          "proof_steps": 6,
+          "initially_closed_disclosures": 9,
+          "statement_characters": 447,
+          "proof_characters": 12399,
+          "katex_errors": 0,
+          "evidence_card": "modules/autosamplingtheory-technicallemmas-functionalinequalities-weightedgradient.html#decl-autosamplingtheory-technicallemmas-functionalinequalities-weightedgradie-89c2144cfe"
+        },
+        {
+          "id": "pbps-conditional-gradient",
+          "proof_steps": 3,
+          "initially_closed_disclosures": 6,
+          "statement_characters": 1278,
+          "proof_characters": 1678,
+          "katex_errors": 0
+        }
+      ],
+      "visual": "Opened complete statements, proofs and source/reuse. Verified exact graph, closure pairing, vector density, actual C2 potential and positive normalizer and dense closable fiber gradient; compact domain versus closure and missing PI explicit.",
+      "graph": "Both focus graphs show 5 nodes,3 edges,2 direct relations. Actual declaration selected; exact evidence-card link clicked; Compiled Not mapped on each. Solid ownership/import and dashed source affiliation are not elaborated implication certificates.",
+      "boundary": "Local rendered checks only; deployment separate."
+    }
+  }
+}
