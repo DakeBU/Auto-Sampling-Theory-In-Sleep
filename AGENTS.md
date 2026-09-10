@@ -4,6 +4,14 @@ ASTIS is a Lean-first SDE/Sampling proof project. The repository may contain
 source contracts and explicit proof obligations, but completed mathematical
 claims must compile in Lean and match their cited source boundary.
 
+## Current user-directed priority
+
+Read `website/content/samplewiki_companion_frontiers.json` → `execution` before
+scheduling. The two September 2026 companion papers are the first mathematical
+priority. Preserve older frontiers; work on them only when they supply a needed
+paper dependency. Correct Lean/source results come before new graph, citation or
+download features. This is scheduling, never a theorem-completion badge.
+
 ## Non-Negotiable Gate
 
 ```bash
@@ -51,6 +59,10 @@ decoder, anti-anchored source reviewer, separately reviewed repair overlays.
 New schema-v4 SAUs require real publication validation at `PROVED_LOCAL` and
 completed independent source review at `VERIFIED` / `STABILIZING`. The diff-aware
 CI gate covers older lanes too. Never hand-edit a chapter's completion badge.
+Graph contribution is part of that same publication contract, not another
+workflow: regenerate the affected graph views, run `graph-check --cell CELL_ID`,
+and inspect the changed branch. Record the small graph delta in the existing
+PR/integration notes; do not create another status ledger or graph-only agent.
 
 1. Reconcile source and theorem state. For the main textbook program, select a
    dependency-ready DAG delta rather than recovering a frontier from old prose:

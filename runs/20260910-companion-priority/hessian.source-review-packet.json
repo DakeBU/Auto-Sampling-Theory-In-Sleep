@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-3cc2e3cc5a3aad87",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "publication_gate_review",
+    "blind_decoder": "heatbath_exposition_research",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:hessian-strong-convexity-prerequisite",
+    "anchor": "Introduction equation (1.1) in both companion v1 papers; supporting lower-Hessian-to-chord implication only",
+    "original_text": "Both companion papers assume a C² Euclidean potential V and 0<α≤β satisfying αI≼∇²V(x)≼βI for every x. The selected supporting analytic implication is the lower-curvature conversion: if the genuine second derivative satisfies D²V(x)[v,v]≥α‖v‖² for every x,v, then V(ax+by)≤aV(x)+bV(y)−(α/2)ab‖x−y‖² for all x,y and nonnegative real a,b with a+b=1.\n\nThis is ASTIS's mathematical expansion of the source assumptions, not a quoted paper theorem. For the selected implication only, ASTIS allows any real normed space and any real α and does not require an upper Hessian bound. C² regularity is retained throughout and supplies actual Fréchet derivatives. No upper-smoothness, Gibbs normalization, oracle or sampling conclusion is included; the source's positivity, finite-dimensional state space and upper-curvature hypotheses remain attached to their own consumers.",
+    "text_sha256": "2734315e0166ef566ce4de8ea67df97ad2e3110f4618d1e7ce573b821d56870d"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+    "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/HessianStrongConvexity.lean",
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {V : E → ℝ} {α : ℝ}, ContDiff ℝ 2 V → (∀ x v : E, α * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v) → StrongConvexOn (Set.univ : Set E) α V",
+    "statement_sha256": "0a530e88fc2c41ada56a4e3d87599d9b057d009bb749b939346f378bd725aaff",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let E be any real normed vector space, let V : E → ℝ be any real-valued function, and let α be any real number, without a sign restriction. Suppose V is twice continuously Fréchet differentiable on all of E and, for every point x ∈ E and every vector v ∈ E, its second derivative satisfies\n\nα ‖v‖² ≤ D²V(x)[v,v].\n\nThen V is α-strongly convex on the entire space E: the domain E is convex, and for every x,y ∈ E and all real numbers a,b ≥ 0 with a+b = 1,\n\nV(a x + b y) ≤ a V(x) + b V(y) − (α/2) a b ‖x−y‖².\n\nThe norm is the given norm of E, and all scalar multiplications are real. Here D²V(x)[v,v] means first differentiating the continuous-linear-map-valued function x ↦ DV(x), then applying its derivative to v, and applying the resulting real-valued continuous linear map to v again. The underlying Fréchet-derivative operation is totalized to zero where differentiability fails, but the assumed C² regularity ensures that the first and second derivatives appearing here are genuine derivatives. Both the derivative bound and the conclusion are pointwise and global. No completeness, finite-dimensionality, inner-product structure, measurable structure, or measure is assumed.",
+    "text_sha256": "8d8fe5c226aef9e5b054596b4cf393f3b648362539260e2f621a6303154b0b7c",
+    "decoder": "heatbath_exposition_research",
+    "decoder_packet_sha256": "279b2a5717cf7d40723ea18a1c4acf677fa4797eac88b035ddc30819f051c9eb",
+    "decoder_run_sha256": "809294848c2dc8a05bb4fd701d42291c31fd4b0cffc823350acbd51a2927ddf8",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "348f1c9ac91aaa1710feffaf0c947e90fed26550cd5db5eec3c5436c47ec4169",
+  "candidate_publication_context": {
+    "file": "2274e86f3affb400c4de8c94c1796bb103d4b77c980a530ff23bd4c344e0bb62",
+    "current_lean_module": "import Mathlib.Analysis.Convex.Deriv\nimport Mathlib.Analysis.Convex.Strong\nimport Mathlib.Analysis.Calculus.ContDiff.Comp\nimport Mathlib.Analysis.Calculus.Deriv.Mul\nimport Mathlib.Analysis.Calculus.Deriv.Pow\nimport Mathlib.Tactic.Module\n\n/-!\n# Strong convexity from a genuine Hessian lower bound\n\nRestrict a C² real potential to an affine line and subtract the scalar\nquadratic prescribed by its Hessian lower bound. The scalar second-derivative\nconvexity criterion then gives exactly Mathlib's strong-convexity convention.\n\nThis is the shared analytic prerequisite for the Hessian assumptions in\nChen, Chewi, Lu and Zhang, arXiv:2609.06905v1 and arXiv:2609.06906v1,\nIntroduction (1.1). It is not a smoothness, normalization or sampler theorem.\nThe normed-space statement needs neither finite dimension nor positive modulus.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity\n\nset_option backward.isDefEq.respectTransparency false in\n/-- An everywhere C² potential whose genuine second Fréchet derivative is\nbounded below on diagonal directions is strongly convex with the same modulus.\nThe `ContDiff` hypothesis prevents totalized derivatives from serving as\nunsupported differentiability witnesses. -/\ntheorem strongConvexOn_univ_of_fderiv2_lower\n    {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]\n    {V : E → ℝ} {α : ℝ}\n    (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E, α * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v) :\n    StrongConvexOn (Set.univ : Set E) α V := by\n  have hVd : Differentiable ℝ V := hV.differentiable (by norm_num)\n  have hVdd : Differentiable ℝ (fderiv ℝ V) :=\n    (hV.fderiv_right (m := 1) (by norm_num)).differentiable_one\n  refine ⟨convex_univ, ?_⟩\n  intro x _ y _ a b ha hb hab\n  let v : E := y - x\n  let c : ℝ := α * ‖v‖ ^ 2\n  let q : ℝ → ℝ := fun t => V (x + t • v) - c / 2 * t ^ 2\n  let q' : ℝ → ℝ := fun t => fderiv ℝ V (x + t • v) v - c * t\n  let q'' : ℝ → ℝ := fun t =>\n    (fderiv ℝ (fderiv ℝ V) (x + t • v) v) v - c\n  have hline (t : ℝ) : HasDerivAt (fun s : ℝ => x + s • v) v t := by\n    simpa using ((hasDerivAt_id t).smul_const v).const_add x\n  have hq' (t : ℝ) : HasDerivAt q (q' t) t := by\n    have hquadratic : HasDerivAt (fun s : ℝ => c / 2 * s ^ 2) (c * t) t := by\n      convert ((hasDerivAt_id t).pow 2).const_mul (c / 2) using 1 <;>\n        first | rfl | (norm_num [id_eq]; ring)\n    convert ((hVd _).hasFDerivAt.comp_hasDerivAt t (hline t)).sub hquadratic\n      using 1 <;> rfl\n  have hq'' (t : ℝ) : HasDerivAt q' (q'' t) t := by\n    have hfirst := ((hVdd _).hasFDerivAt.comp_hasDerivAt t (hline t)).clm_apply\n      (hasDerivAt_const t v)\n    convert hfirst.sub ((hasDerivAt_id t).const_mul c) using 1 <;>\n      first | rfl | simp [q'', ContinuousLinearMap.map_zero]\n  have hconv : ConvexOn ℝ Set.univ q :=\n    convexOn_of_hasDerivWithinAt2_nonneg convex_univ\n      (fun t _ => (hq' t).continuousAt.continuousWithinAt)\n      (fun t _ => (hq' t).hasDerivWithinAt)\n      (fun t _ => (hq'' t).hasDerivWithinAt)\n      (fun t _ => sub_nonneg.mpr (hH (x + t • v) v))\n  have hchord := hconv.2 (x := 0) (Set.mem_univ _) (y := 1) (Set.mem_univ _)\n    ha hb hab\n  have hxy : x + b • v = a • x + b • y := by\n    dsimp only [v]\n    rw [show a = 1 - b by linarith]\n    module\n  have hend : x + v = y := by simp [v]\n  simp only [q, smul_eq_mul, mul_zero, mul_one, zero_add, zero_smul, add_zero,\n    one_pow, one_smul] at hchord\n  norm_num only [zero_pow, mul_zero, sub_zero] at hchord\n  rw [hxy, hend] at hchord\n  have hnorm : ‖v‖ ^ 2 = ‖x - y‖ ^ 2 := by\n    dsimp only [v]\n    rw [norm_sub_rev]\n  change V (a • x + b • y) ≤ a * V x + b * V y - a * b * (α / 2 * ‖x - y‖ ^ 2)\n  dsimp only [c] at hchord\n  rw [hnorm] at hchord\n  rw [show a = 1 - b by linarith] at hchord ⊢\n  nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1",
+      "edition": "arXiv:2609.06906v1; shared assumption in arXiv:2609.06905v1",
+      "anchor": "Introduction equation (1.1) in both companion papers; lower-Hessian analytic prerequisite only",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang provide the C² potential and Hessian-sandwich setting in the two cited v1 papers. The supporting implication and line-restriction exposition are ASTIS's mathematical expansion, not copied prose, a source correction or either full sampler theorem."
+    },
+    "statement": "Both companion papers work with a C² Euclidean potential V and constants 0<α≤β such that αI≼∇²V(x)≼βI at every x. The supporting lower-curvature implication selected here is: if D²V(x)[v,v]≥α‖v‖² for all points x and directions v, then V(ax+by)≤aV(x)+bV(y)−αab‖x−y‖²/2 for every x,y and a,b≥0 with a+b=1. The upper Hessian bound is unnecessary for this implication. ASTIS proves the supporting implication more generally on any real normed space for any real α, retaining genuine everywhere C² regularity.",
+    "formulae": [
+      {
+        "label": "primary Hessian setting",
+        "tex": "V\\in C^2(\\mathbb R^d),\\quad0<\\alpha\\le\\beta,\\quad\\alpha I\\preceq\\nabla^2V(x)\\preceq\\beta I\\quad(\\forall x)."
+      },
+      {
+        "label": "selected lower-curvature consequence",
+        "tex": "D^2V(x)[v,v]\\ge\\alpha\\|v\\|^2\\quad\\Longrightarrow\\quad V(ax+by)\\le aV(x)+bV(y)-\\frac\\alpha2ab\\|x-y\\|^2,\\quad a,b\\ge0,\\ a+b=1."
+      }
+    ],
+    "assumptions": [
+      "The primary setting is V∈C²(R^d), 0<α≤β, and αI≼∇²V(x)≼βI for every x.",
+      "The selected supporting implication only uses genuine C² regularity and D²V(x)[v,v]≥α‖v‖² for every x,v. In Euclidean coordinates this is the quadratic-form meaning of the lower matrix inequality.",
+      "All lines lie in the full state space. The target chord weights are nonnegative real numbers summing to one.",
+      "The normed-space/arbitrary-real-modulus generalization is confined to the analytic implication; normalization consumers separately require positive modulus, finite dimension and canonical volume."
+    ],
+    "obligations": [
+      {
+        "id": "hessian-to-chord",
+        "label": "Derive the exact α-strong-convexity chord inequality from the genuine C² lower Hessian bound"
+      },
+      {
+        "id": "source-sampling-consumers",
+        "label": "Combine source-potential specializations with the separate Gibbs, oracle and sampling-theorem obligations"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+      "kind": "theorem",
+      "title": "From a genuine Hessian lower bound to strong convexity",
+      "statement": "Let E be a real normed space, let V:E→R be twice continuously Fréchet differentiable everywhere, and let α be any real number. Suppose D²V(x)[v,v]≥α‖v‖² for every x,v∈E. Then V is α-strongly convex on the whole space in the chord convention below. No finite dimension, completeness, inner product, positive α, upper Hessian bound, measure or normalizer is an additional hypothesis.",
+      "formula": "D^2V(x)[v,v]\\ge\\alpha\\|v\\|^2\\quad(\\forall x,v\\in E)\\quad\\Longrightarrow\\quad V(ax+by)\\le aV(x)+bV(y)-\\frac\\alpha2ab\\|x-y\\|^2\\quad(a,b\\ge0,\\ a+b=1).",
+      "assumptions": [
+        "ContDiff ℝ 2 V is a genuine C² witness. D²V(x)[v,v] means (fderiv ℝ (fderiv ℝ V) x v) v; the regularity hypothesis ensures these totalized operators represent actual derivatives.",
+        "The Hessian lower bound holds at every point and in every direction, not almost everywhere or only along algorithmic iterates.",
+        "The papers use Euclidean spaces and 0<α≤β with an upper Hessian bound βI. This supporting implication only needs their lower bound, and remains valid on arbitrary real normed spaces for any real α.",
+        "The domain is the whole vector space, so every affine line used in the proof is admissible. No boundary extension or differentiability-within-set convention is hidden."
+      ],
+      "steps": [
+        {
+          "title": "Restrict to a line and compensate its curvature",
+          "text": "Fix x,y∈E and set v=y−x and c=α‖v‖². Restrict V to the line ℓ(t)=x+tv, then subtract the scalar quadratic ct²/2. The norm of v is a fixed number: the proof never differentiates the norm on E, which is why no inner product or smooth norm is needed.",
+          "formula": "\\ell(t)=x+tv,\\qquad c=\\alpha\\|v\\|^2,\\qquad q(t)=V(\\ell(t))-\\frac c2t^2.",
+          "lean": "The proof defines v, c and q locally after opening the StrongConvexOn chord goal. hV.differentiable gives differentiability of V; hV.fderiv_right at order one gives differentiability of its actual first derivative. hline is the derivative witness for the affine line."
+        },
+        {
+          "title": "Calculate two genuine scalar derivatives",
+          "text": "The chain rule differentiates V along the constant direction v. Applying the chain rule to DV and then evaluating at the fixed vector v gives the second derivative. The assumed diagonal Hessian inequality therefore makes the compensated second derivative nonnegative.",
+          "formula": "q'(t)=DV(\\ell(t))[v]-ct,\\qquad q''(t)=D^2V(\\ell(t))[v,v]-c\\ge0.",
+          "lean": "hq' and hq'' are HasDerivAt proofs, obtained from HasFDerivAt.comp_hasDerivAt, HasDerivAt.clm_apply and the scalar polynomial rules. Explicit reflexivity conversions reconcile definitionally equal scalar instances; they add no mathematical premise. hH supplies the final nonnegativity."
+        },
+        {
+          "title": "Use one-dimensional convexity",
+          "text": "A scalar function with the displayed genuine first and second derivatives and nonnegative second derivative is convex. Continuity of q follows from its first derivative witness. Applying its chord inequality at 0 and 1 with weights a,b≥0 and a+b=1 controls q(b).",
+          "formula": "q(b)\\le aq(0)+bq(1)=aV(x)+b\\left(V(y)-\\frac c2\\right).",
+          "lean": "convexOn_of_hasDerivWithinAt2_nonneg is applied on Set.univ. Each whole-line HasDerivAt witness supplies the required HasDerivWithinAt witness. hconv.2 then yields hchord at the endpoints 0 and 1."
+        },
+        {
+          "title": "Recover the exact strong-convexity constant",
+          "text": "Since x+b(y−x)=ax+by and ‖y−x‖=‖x−y‖, rearrange the scalar chord inequality and use b(1−b)=ab. This is algebra, not multiplication of an inequality by α, so it is valid even when α is zero or negative.",
+          "formula": "V(ax+by)\\le aV(x)+bV(y)-\\frac c2(b-b^2)=aV(x)+bV(y)-\\frac\\alpha2ab\\|x-y\\|^2.",
+          "lean": "hxy and hend identify the line points with the desired chord and endpoint; norm_sub_rev identifies the two displacement norms. Substituting a=1−b and polynomial arithmetic gives the defining StrongConvexOn inequality with exactly α/2."
+        }
+      ],
+      "lean_statement": "The public theorem quantifies over any real normed E, V:E→ℝ and α:ℝ. Its two hypotheses are ContDiff ℝ 2 V and the everywhere, every-direction nested-fderiv diagonal lower bound. The conclusion is Mathlib StrongConvexOn Set.univ α V. There is no assumed gradient or Hessian field with a separate unproved identification.",
+      "lean_proof": "This declaration is a new mathematical adapter built from Mathlib calculus and one-dimensional convexity. It calls no ASTIS production theorem. In the focused tests, its positive-α finite-dimensional Borel inner-product specialization feeds the existing ASTIS StrongConvexGibbsIntegrability theorem. The tests derive Integrable and a strictly positive canonical-volume Gibbs integral, then an actual IsProbabilityMeasure for volume.tilted(-V), which supplies the probability input of the existing quadratic_tilt_tilt RGO consumer. The tests assume neither StrongConvexOn nor integrability. Separate tests cover α=0 and zero dimension.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ContDiff.differentiable",
+        "ContDiff.fderiv_right",
+        "ContDiff.differentiable_one",
+        "HasFDerivAt.comp_hasDerivAt",
+        "HasDerivAt.clm_apply",
+        "HasDerivAt.pow",
+        "HasDerivAt.const_mul",
+        "HasDerivAt.sub",
+        "convexOn_of_hasDerivWithinAt2_nonneg",
+        "norm_sub_rev"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "Chen, Chewi, Lu and Zhang, Smoothed Picard Hamiltonian Monte Carlo v1, Introduction (1.1)",
+          "scope": "The C² Euclidean potential and pointwise Hessian sandwich supply the source setting. The line-restriction proof is ASTIS's expanded supporting argument, not quoted source prose or full sampler formalization."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06905v1",
+          "label": "Chen, Chewi, Lu and Zhang, Proximal Bouncy Particle Sampler v1, Introduction (1.1)",
+          "scope": "The same C² lower-Hessian assumption supplies a second consumer of this canonical shared analytic adapter."
+        }
+      ],
+      "tests": {
+        "file": "Tests/HessianStrongConvexity.lean",
+        "command": "lake build Tests.HessianStrongConvexity"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+      "role": "prerequisite",
+      "supports": [
+        "hessian-to-chord"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "V is everywhere C²",
+        "lean": "ContDiff ℝ 2 V"
+      },
+      {
+        "source": "αI≼∇²V(x) pointwise",
+        "lean": "∀ x v, α*‖v‖² ≤ (fderiv ℝ (fderiv ℝ V) x v) v"
+      },
+      {
+        "source": "Euclidean finite-dimensional state space",
+        "lean": "Any real normed space, including zero dimension"
+      },
+      {
+        "source": "0<α≤β and the additional upper Hessian bound βI",
+        "lean": "Arbitrary α:ℝ; no β or upper Hessian bound"
+      },
+      {
+        "source": "Strong convexity in the C² Hessian convention",
+        "lean": "StrongConvexOn Set.univ α V, with chord correction αab‖x−y‖²/2"
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "6fde8926ae0bb34413cd6a67f7f43407025ee2ee6adcb1c789b4bf7932dc5252"
+}

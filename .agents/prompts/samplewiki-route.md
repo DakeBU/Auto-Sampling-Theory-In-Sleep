@@ -29,6 +29,11 @@ Primary mathematical sources are the exact primary papers behind the relevant Sa
 
 ## Boundary between textbook and frontier work
 
+First apply `execution` in `website/content/samplewiki_companion_frontiers.json`.
+The two September 2026 companion papers now precede unrelated textbook work;
+the dependency and fidelity rules below remain mandatory. Preserve older cells.
+Do not let new graph/citation/download features delay correct paper lemmas.
+
 When the shortest path to a SampleWiki theorem passes through Chewi Sampling Chapters 1-2, first inspect `Libraries/frontloaded-shared-spine.json`. Convexity, coupling/Wasserstein, semigroup, manifold, empirical-concentration and related low-level facts should come from their canonical shared nodes. Do not create a SampleWiki-local copy, and do not count completion of those textbook prerequisites as a frontier theorem contribution.
 
 This matters especially for the early shared spine:

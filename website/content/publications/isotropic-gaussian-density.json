@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "items": [{
+    "id": "pbps-v1-isotropic-gaussian-density-prerequisite",
+    "library": "samplewiki-route",
+    "chapter": "pbps-02",
+    "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+    "title": "Gaussian-noise density prerequisite for the proximal augmentation",
+    "source": {"url": "https://arxiv.org/html/2609.06905v1#S2.SS2", "edition": "arXiv:2609.06905v1", "anchor": "Section 2.2, equations (2.6)-(2.7): isotropic Gaussian-noise density implicit in the joint-law identification", "wording_status": "faithful paraphrase", "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS mathematical expansion of the standard Gaussian-noise prerequisite, not copied paper prose or a claim of complete joint-law formalization."},
+    "statement": "For eta>0 and Z a standard Gaussian vector in R^d, sqrt(eta) Z has density (sqrt(2*pi*eta))^{-d} exp(-||z||^2/(2*eta)) with respect to Euclidean volume. This is the Gaussian-noise density used when passing from the independent construction (2.7) to the joint density (2.6).",
+    "assumptions": ["The source uses d>=1, a real Euclidean state space, and independent standard Gaussian noise Z in the displayed augmentation.", "The paper assumes 0<eta<=1/beta for the overall sampler. The Gaussian-noise density prerequisite only uses eta>0.", "The target potential and its Hessian bounds are not hypotheses of this noise-only identity. They remain part of the paper's target and algorithmic setting."],
+    "formulae": [{"label": "isotropic-noise density prerequisite of (2.6)-(2.7)", "tex": "(z\\mapsto\\sqrt\\eta\\,z)_\\#\\gamma_d=\\mathrm{vol}_{\\mathbb R^d}\\,q_\\eta,\\qquad q_\\eta(z)=((\\sqrt{2\\pi\\eta})^{-1})^d\\exp(-\\|z\\|^2/(2\\eta))."}],
+    "obligations": [{"id": "isotropic-noise-volume-law", "label": "Identify the scaled standard Gaussian pushforward with its explicit canonical-volume density"}],
+    "bindings": [{
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity",
+      "cell": "ASTIS-SHARED-isotropic-gaussian-density",
+      "role": "prerequisite",
+      "supports": ["isotropic-noise-volume-law"],
+      "audit_id": "ASTIS-RT-20260910-IsotropicGaussianDensity",
+      "boundary": "Only the isotropic-noise density prerequisite. No PBPS joint/conditional law, target normalizer, process invariance, convergence or oracle cost is formalized by this binding.",
+      "assumption_deltas": [
+        {"source": "A standard Gaussian vector in R^d with d>=1", "lean": "stdGaussian E for any finite-dimensional real inner-product Borel space E, including dimension zero", "classification": "generalization", "reason": "Orthonormal coordinate transport proves the same law with canonical volume. Empty products and sums make the zero-dimensional case valid; a focused test reduces its density to one."},
+        {"source": "The sampler takes 0<eta<=1/beta", "lean": "eta is real and eta>0", "classification": "generalization", "reason": "The noise law only uses positivity to ensure nonzero variance and (sqrt eta)^2=eta. The upper bound remains an assumption of other source results."},
+        {"source": "Euclidean Lebesgue volume and the Gaussian density normalizer", "lean": "Canonical volume supplied by the finite-dimensional real inner-product Borel instance; inverse square-root constant to the natural power Module.finrank R E", "classification": "same", "reason": "Orthonormal bases preserve this precise volume normalization. ((sqrt(2*pi*eta))^{-1})^d equals the conventional (2*pi*eta)^{-d/2} for eta>0."},
+        {"source": "Implicit measurable coordinate maps and independent Gaussian coordinates", "lean": "Measurable equivalences and finite-product pushforwards, with measurability proved and Gaussian probability instances supplying sigma-finiteness", "classification": "source-implicit", "reason": "The change-of-law and product-density theorems require these measure-theoretic contracts; they are established from the displayed objects rather than assumed as the desired density identity."},
+        {"source": "The full joint law uses the target potential V and the Gibbs normalizer", "lean": "No input law or potential occurs in the selected Gaussian-noise density statement", "classification": "same", "reason": "This binding targets only the noise prerequisite, not the full density-generative identification. The source's Gibbs assumptions and joint adapter are neither removed from their own statement nor claimed proved here."}
+      ]
+    }]
+  }]
+}

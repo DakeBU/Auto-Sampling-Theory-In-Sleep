@@ -54,7 +54,8 @@ If a missing lower-level lemma is useful to two or more routes, do **not** imple
 - [ ] `python3 tools/astis.py harness-test`
 - [ ] `python3 website/scripts/lean_gate.py`
 - [ ] Site build and `python3 website/scripts/check_site.py` when site-facing
-- [ ] Graph/index regenerated before `stabilized`
+- [ ] Affected graphs regenerated; `graph-check --cell CELL_ID` and site check pass
+- Graph delta (in this PR, not a second report): focus links, changed parents/consumers or topology, remaining red boundary, views actually inspected; `n/a` with reason for unrelated changes
 - [ ] No `sorry`, `admit`, hidden axiom/interface closure, or fake completion
 - [ ] Generated `_site/` output is not committed
 

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-e124a3a1805c08a9",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E] {U : E → ℝ} {m L r : ℝ≥0}, ContDiff ℝ 2 U → (∀ x v : E, (m : ℝ) * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ U) x v) v ∧ (fderiv ℝ (fderiv ℝ U) x v) v ≤ (L : ℝ) * ‖v‖ ^ 2) → ∀ u : E, let W := fun x => U x + (r : ℝ) / 2 * ‖x - u‖ ^ 2; StrongConvexOn Set.univ ((m + r : ℝ≥0) : ℝ) W ∧ LipschitzWith (L + r) (gradient W)",
+    "statement_sha256": "e124a3a1805c08a970c84f412a5c132d45460547ee30ff44b178447a2af57b49",
+    "compiled": true,
+    "approved_definition_context": [
+      "E is a complete real inner-product space, with the norm induced by its inner product. Finite dimension, measurable structure and any measure are not assumed. ℝ≥0 denotes nonnegative real numbers, and coercion to ℝ preserves addition and multiplication.",
+      "ContDiff ℝ 2 U means genuine twice-continuous Fréchet differentiability everywhere. fderiv ℝ U x is the continuous linear Fréchet derivative, totalized to zero where differentiability fails. fderiv ℝ (fderiv ℝ U) x differentiates the first-derivative-valued function; applying to v and then to v is the diagonal second derivative. C² supplies genuine derivatives here.",
+      "StrongConvexOn s c W means s is convex and W(a • x+b • y)≤a*W(x)+b*W(y)−(c/2)*a*b*‖x−y‖² for all x,y∈s and all real a,b≥0 with a+b=1. Set.univ is the whole space and • denotes real scalar multiplication.",
+      "gradient W x is the Riesz vector of fderiv ℝ W x: its inner product with a direction v equals fderiv ℝ W x v. Completeness provides the inverse Riesz map. This API is totalized where W is not differentiable; no separate vector field is an input.",
+      "LipschitzWith C F means dist(F(x),F(y))≤(C:ℝ)*dist(x,y) for every x,y. In these normed spaces this is ‖F(x)−F(y)‖≤(C:ℝ)*‖x−y‖. The let-bound W is fixed by the displayed formula, not an extra hypothesis."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "2b63de59d9eddde06dbbadfff6fc384e0003b5fd1ccdf04c8729f3082067edf1"
+}

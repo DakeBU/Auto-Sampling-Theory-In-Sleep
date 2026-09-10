@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "items": [{
+    "id": "sphmc-v1-lemma-6-4-rgo-closure",
+    "library": "samplewiki-route",
+    "chapter": "sphmc-06",
+    "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "title": "Lemma 6.4: RGO calculus and normalized-law closure",
+    "source": {"url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2", "edition": "arXiv:2609.06906v1", "anchor": "Section 6.2.2, Lemma 6.4, equation (6.1)", "wording_status": "faithful paraphrase", "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS restatement and expanded calculation, not copied original prose; no endorsement implied."},
+    "statement": "Let U be a twice continuously differentiable potential on Euclidean space satisfying κ⁻¹ I ≤ ∇²U ≤ I. For A in (0,infinity] and centre u, put U_A,u(x)=U(x)+‖x−u‖²/(2A). Its strong-convexity and smoothness parameters are α_A=κ⁻¹+A⁻¹ and β_A=1+A⁻¹, with ratio κ_A=β_A/α_A. For a>0 and centre y, the RGO for U_A,u with variance a equals the RGO for U with precision A⁻¹+a⁻¹ and precision-weighted centre. The new condition-number ratio is given in (6.1). The current proof binding covers only the normalized-law calculation, not every clause of this lemma.",
+    "assumptions": ["U is C² on R^d with κ⁻¹ I ≤ Hessian(U) ≤ I and positive κ, as in the source's normalized curvature convention.", "A∈(0,infinity], a>0, and u,y∈R^d; A⁻¹=0 when A=infinity.", "RGO denotes the normalized probability law with density proportional to exp(−U(x)−‖x−u‖²/(2A)). Its relation to a pre-existing probability base is an explicit pending adapter, not an assumed equality of the target laws."],
+    "formulae": [{"label": "RGO potential and curvature", "tex": "U_{A,u}(x)=U(x)+\\frac{\\|x-u\\|^2}{2A},\\quad \\alpha_A=\\kappa^{-1}+A^{-1},\\quad \\beta_A=1+A^{-1},\\quad \\kappa_A=\\beta_A/\\alpha_A."}, {"label": "(6.1), normalized law and updated parameters", "tex": "R^{U_{A,u}}_{a,y}=R^U_{A^+,u^+},\\quad (A^+)^{-1}=A^{-1}+a^{-1},\\quad u^+=A^+(u/A+y/a),\\quad \\kappa_{A^+}=\\frac{a\\beta_A+1}{a\\beta_A+\\kappa_A}\\,\\kappa_A."}],
+    "obligations": [{"id": "normalized-measure-closure", "label": "Actual equality of successive normalized quadratic tilts, including all normalizers and A=infinity"}, {"id": "gibbs-base-identification", "label": "Identify the probability-base tilts with the source Lebesgue Gibbs densities for U and U_A,u"}, {"id": "curvature-update", "label": "Prove the Hessian/strong-convexity/smoothness updates and the resulting condition-number formula"}],
+    "bindings": [{
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+      "cell": "ASTIS-SW-SPHMC-rgo-closure",
+      "role": "proof-edge",
+      "supports": ["normalized-measure-closure"],
+      "audit_id": "ASTIS-RT-20260910-SPHMCRGOClosure",
+      "boundary": "The normalized-law calculation on a probability base only; the Gibbs-density adapter, curvature conclusions and recursive sampling guarantee remain open.",
+      "assumption_deltas": [{"source": "Euclidean Gibbs probability base with a C² potential and Hessian bounds", "lean": "Arbitrary probability measure on a Borel real inner-product space", "classification": "generalization", "reason": "Completing the square and exact normalized reweighting do not use density, finite dimension or derivatives. This wider calculus statement does not transfer the source's algorithm or curvature guarantees to arbitrary laws."}, {"source": "A∈(0,infinity] and a>0", "lean": "r≥0 and s>0, interpreted as r=A⁻¹ and s=a⁻¹", "classification": "same", "reason": "The precision convention includes infinite first variance as r=0 and keeps total precision strictly positive. No division by zero occurs."}, {"source": "The RGO proportional-density notation suppresses normalization details", "lean": "Actual Measure.tilted equality; integrability and positive finite normalization proved internally", "classification": "source-implicit", "reason": "Bounded positive measurable weights over a probability base justify normalization and its cancellation without additional integrability assumptions."}, {"source": "RGO built directly from the unnormalized potential U", "lean": "A supplied probability base μ", "classification": "unresolved", "reason": "The source adapter identifying μ and its tilts with the specific Lebesgue densities remains a separately named obligation; this proof does not assume that adapter as its conclusion."}]
+    }]
+  }]
+}

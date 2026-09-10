@@ -1,0 +1,22 @@
+{
+  "units": [{
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition.contraction_bounds",
+    "kind": "theorem",
+    "title": "Why an ill-conditioned recursive stage makes geometric progress",
+    "statement": "For any real numbers k and h with k at least 2 and h strictly between 0 and 1/4, the displayed rational update lies between k/2 and four fifths of k.",
+    "formula": "k_+=\\frac{k(k+h+1)}{2k+h},\\qquad \\frac{k}{2}\\le k_+\\le\\frac45 k.",
+    "assumptions": ["k,h are real scalars; 2 ≤ k and 0 < h < 1/4.", "In the paper application k is the ratio of the specified curvature bounds, h is the smoothing parameter, and tau=k. It is not necessarily the optimal condition number of the target.", "The source assumes 0<h≤c0<1/4. For this uniform single-stage calculation, eliminating the unused cutoff gives exactly 0<h<1/4; conversely any such h admits c0=h. No zero-smoothing or closed-endpoint extension is asserted.", "This calculation does not involve a measure, derivative or random variable. The recurrence-to-RGO identification is a separate obligation."],
+    "steps": [
+      {"title": "Check division is legitimate", "text": "The denominator is positive. Thus multiplying either inequality by it preserves its direction; Lean's exceptional value for division by zero is irrelevant.", "formula": "D=2k+h\\ge4>0.", "lean": "hden proves strict positivity; le_div_iff₀ and div_le_iff₀ remove the denominator only after this proof."},
+      {"title": "Prove the lower bound", "text": "Subtract half the previous value. The numerator is nonnegative because both k and h are nonnegative.", "formula": "k_+-\\frac{k}{2}=\\frac{k(h+2)}{2D}\\ge0.", "lean": "The first branch uses mul_nonneg hk_nonneg hh.le, then nlinarith checks the cleared-denominator polynomial inequality."},
+      {"title": "Prove the uniform contraction", "text": "The deficit from four fifths has a positive margin throughout the parameter range. This checks the paper's constants without an unspecified further reduction of c0.", "formula": "\\frac45k-k_+=\\frac{k(3k-h-5)}{5D},\\qquad 3k-h-5\\ge6-\\frac14-5=\\frac34>0.", "lean": "hmargin proves 0 ≤ 3*k-h-5 by linarith. Its product with k is nonnegative; nlinarith closes the upper bound."}
+    ],
+    "lean_statement": "The parameters in braces are implicit real numbers; hk, hh and hh_upper are explicit hypotheses. The conjunction returns both inequalities. No typeclass or unproved sampler property is hidden in the statement.",
+    "lean_proof": "constructor separates the two inequalities. Positivity licenses cross-multiplication; mul_nonneg supplies the needed products; linarith and nlinarith generate checked ordered-field proofs. ASTIS authors this source-specific recurrence estimate; Mathlib supplies real arithmetic and the proof-producing tactics.",
+    "boundary": ["Only Lemma 6.6(i)'s scalar calculation is covered. Lemma 6.4's normalized RGO closure and curvature formulas remain separate.", "The well-conditioned phase, finite termination, sampling-error propagation and actual expected query count are not conclusions.", "The first test checks k=2,h=1/8; the second derives this interface from the paper's strict c0 range. An earlier unneeded endpoint generalization was removed after independent source review; its artifacts are retained."],
+    "astis_dependencies": [],
+    "mathlib_dependencies": ["le_div_iff₀ and div_le_iff₀: ordered-field division with a strictly positive denominator.", "mul_nonneg: nonnegative products; Mathlib linarith/nlinarith: kernel-checked polynomial arithmetic."],
+    "sources": [{"url": "https://arxiv.org/html/2609.06906v1#S6.SS3", "label": "Chen, Chewi, Lu and Zhang, Smoothed Picard Hamiltonian Monte Carlo v1", "scope": "Lemma 6.6(i), (6.3), after substituting (6.1) and (6.2). ASTIS exposition, not quoted prose."}],
+    "tests": {"file": "Tests/SmoothedPicardRecursiveCondition.lean", "command": "lake build Tests.SmoothedPicardRecursiveCondition"}
+  }]
+}

@@ -1,4 +1,13 @@
 import Tests.Basic
+import Tests.HessianStrongConvexity
+import Tests.QuadraticRegularization
+import Tests.GibbsAugmentation
+import Tests.SmoothedPicardRecursiveCondition
+import Tests.SmoothedPicardRGOClosure
+import Tests.StrongConvexGibbsIntegrability
+import Tests.IsotropicGaussianDensity
+import Tests.ProximalBPSGaussianAugmentation
+import Tests.ProximalBPSGaussianReflection
 import Tests.BrownianMotion
 import Tests.BrownianQuadraticVariation
 import Tests.GaussianFourthMoment

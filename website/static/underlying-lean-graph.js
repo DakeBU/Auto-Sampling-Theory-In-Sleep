@@ -22,10 +22,10 @@
     lean: new Set(["library", "proof-root", "module", "declaration", "proof-leaf", "source-claim"]),
     semantic: new Set(["library", "semantic-stage", "semantic-audit", "repair-proposal"]),
   };
-  // Only relations extracted from Lean/module/declaration structure are drawn as
-  // solid edges. Everything else is an audited/curated reader overlay and stays
-  // dashed so the visualization never upgrades exposition into a Lean fact.
-  const FORMAL_RELATIONS = new Set(["imports", "declares", "depends-on", "closes leaf"]);
+  // Solid edges record source module structure, not theorem implication.
+  // Name scans and curated proof-leaf links are dashed: neither is an
+  // elaborated Lean dependency certificate.
+  const FORMAL_RELATIONS = new Set(["imports", "declares"]);
   const colorSelect=document.querySelector('[data-graph-color]');
   const scopeLegend=document.querySelector('[data-scope-legend]');
   let graph, nodes, incident, degree;
@@ -147,18 +147,18 @@
     const columns = new Map(); let maxColumn = 0;
     [...ids].forEach(id => { const n=nodes.get(id); const explicit=Number(n.column); const key=Number.isFinite(explicit) ? explicit : (kindOrder[n.kind] ?? 3); maxColumn=Math.max(maxColumn,key); if (!columns.has(key)) columns.set(key, []); columns.get(key).push(n); });
     const positions = new Map(); let maxRows = 1;
-    [...columns.entries()].sort((a,b)=>a[0]-b[0]).forEach(([column, list]) => {
+    [...columns.entries()].sort((a,b)=>a[0]-b[0]).forEach(([column, list], localColumn) => {
       list.sort((a,b) => (a.kind.localeCompare(b.kind)) || a.label.localeCompare(b.label)); maxRows = Math.max(maxRows, list.length);
-      const gap = list.length > 38 ? 64 : 82; list.forEach((n,i) => positions.set(n.id, {x: 62 + column * 310, y: 58 + i * gap}));
+      const gap = list.length > 38 ? 64 : 82; list.forEach((n,i) => positions.set(n.id, {x: 62 + (state.query ? localColumn : column) * 310, y: 58 + i * gap}));
     });
-    return {positions, width: Math.max(1560, 360 + maxColumn * 310), height: Math.max(700, 130 + maxRows * (maxRows > 38 ? 64 : 82))};
+    return {positions, width: state.query ? 360 + Math.max(0, columns.size - 1) * 310 : Math.max(1560, 360 + maxColumn * 310), height: Math.max(state.query ? 300 : 700, 130 + maxRows * (maxRows > 38 ? 64 : 82))};
   }
 
   function applyTransform() { const viewport = svg.querySelector(".ulg-viewport"); if (viewport) viewport.setAttribute("transform", `translate(${state.x} ${state.y}) scale(${state.scale})`); }
   function fit() { const box = svg.getBoundingClientRect(); const width = Number(svg.dataset.worldWidth || 1500), height = Number(svg.dataset.worldHeight || 700); state.scale = Math.max(.2, Math.min(1.05, Math.min((box.width-40)/width, (box.height-40)/height))); state.x = Math.max(18, (box.width-width*state.scale)/2); state.y = 22; applyTransform(); }
 
   function render() {
-    canvas.dataset.view=state.view; canvas.dataset.color=state.color; updateScopeLegend();
+    canvas.dataset.view=state.view; canvas.dataset.color=state.color; canvas.dataset.local=state.query?'true':'false'; updateScopeLegend();
     const ids = visibleIds(); const edges = edgeSetFor(ids); const {positions,width,height} = layout(ids);
     const focusNeighbors = new Set(state.focus ? neighbors(state.focus) : []);
     const directEdges = state.focus ? (incident.get(state.focus) || []).filter(e => ids.has(e.source) && ids.has(e.target)) : [];
@@ -204,7 +204,8 @@
         group.append(svgEl("rect",{x:conceptual?"288":"208",y:"9",width:"5",height:conceptual?"82":"44",rx:"2",style:`fill:${colour};stroke:none`}));
       }
       const kind=svgEl("text", {x:"30",y:"20",class:"kind"}); kind.textContent=kindLabel[n.kind]||n.kind; group.append(kind);
-      const label=svgEl("text", {x:"14",y:conceptual?"52":"40",class:"label"}); wrap(conceptual?(atlasLabels[n.id]||n.label):n.label,conceptual?24:24).forEach((line,i)=>{ const t=svgEl("tspan",{x:"14",dy:i?(conceptual?"26":"15"):"0"}); t.textContent=line; label.append(t); }); group.append(label);
+      const displayLabel=state.query && ["module","declaration"].includes(n.kind) ? n.label.split('.').slice(n.kind==="module"?-2:-1).join('.') : n.label;
+      const label=svgEl("text", {x:"14",y:conceptual?"52":"40",class:"label"}); wrap(conceptual?(atlasLabels[n.id]||n.label):displayLabel,state.query&&!conceptual?20:24).forEach((line,i)=>{ const t=svgEl("tspan",{x:"14",dy:i?(conceptual?"26":"15"):"0"}); t.textContent=line; label.append(t); }); group.append(label);
       const title=svgEl("title"); title.textContent=`${n.label}\n${n.subtitle||""}\nScope: ${(n.library_scope||[]).join(", ")||"not audited"}\n${n.scope_basis||""}`; group.append(title);
       const choose=()=>selectNode(n.id,true); group.addEventListener("pointerdown",ev=>ev.stopPropagation()); group.addEventListener("click",choose); group.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();choose();}}); nodeLayer.append(group);
     });
@@ -254,11 +255,11 @@
     if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([detail]).catch(()=>{}); render();
   }
 
-  function setView(view) { try { const url=new URL(location.href); url.searchParams.set("view",view); url.searchParams.delete("focus"); history.replaceState(null,"",url); } catch (_) {} state.view=view; if(view==="perspectives")state.color="library"; state.focus=""; state.expanded.clear(); buttons.forEach(b=>b.classList.toggle("active",b.dataset.view===view)); render(); requestAnimationFrame(fit); }
+  function setView(view) { try { const url=new URL(location.href); url.searchParams.set("view",view); url.searchParams.delete("focus"); if(!state.query)url.searchParams.delete("q"); history.replaceState(null,"",url); } catch (_) {} state.view=view; if(view==="perspectives")state.color="library"; state.focus=""; state.expanded.clear(); buttons.forEach(b=>b.classList.toggle("active",b.dataset.view===view)); render(); requestAnimationFrame(fit); }
   if(colorSelect)colorSelect.addEventListener('change',()=>{state.color=colorSelect.value==='library'?'library':'status';try{const u=new URL(location.href);u.searchParams.set('color',state.color);history.replaceState(null,'',u);}catch(_){}render();});
   buttons.forEach(button=>button.addEventListener("click",()=>setView(button.dataset.view)));
   document.querySelectorAll("[data-functor-jump]").forEach(button=>button.addEventListener("click",()=>{if(!nodes)return; setView("functor"); selectNode(button.dataset.functorJump,true); requestAnimationFrame(fit);}));
-  search.addEventListener("input",()=>{state.query=search.value.trim(); state.focus=""; state.expanded.clear(); render(); requestAnimationFrame(fit);});
+  search.addEventListener("input",()=>{state.query=search.value.trim(); state.focus=""; state.expanded.clear(); try{const u=new URL(location.href);u.searchParams.delete("focus");if(state.query)u.searchParams.set("q",state.query);else u.searchParams.delete("q");history.replaceState(null,"",u);}catch(_){} render(); requestAnimationFrame(fit);});
   document.querySelector("[data-graph-fit]").addEventListener("click",fit);
   document.querySelector("[data-graph-reset]").addEventListener("click",()=>{search.value="";state.query="";state.focus="";state.expanded.clear();setView("overview");});
   canvas.addEventListener("keydown",ev=>{if(ev.key==="Escape"&&state.focus){ev.preventDefault();clearFocus();}});
@@ -269,6 +270,8 @@
 
   fetch(host.dataset.graphSource).then(r=>{if(!r.ok)throw new Error(`graph data ${r.status}`);return r.json();}).then(data=>{
     graph=data; nodes=new Map(data.nodes.map(n=>[n.id,n])); incident=new Map(data.nodes.map(n=>[n.id,[]])); data.edges.forEach(e=>{if(incident.has(e.source))incident.get(e.source).push(e);if(incident.has(e.target))incident.get(e.target).push(e);}); degree=new Map([...incident].map(([id,list])=>[id,list.length]));
-    const params=new URLSearchParams(location.search); const requested=params.get("view"); if(viewKinds[requested])state.view=requested; state.color=params.get("color")==="library"||state.view==="perspectives"?"library":"status"; const focus=params.get("focus"); buttons.forEach(b=>b.classList.toggle("active",b.dataset.view===state.view)); render(); requestAnimationFrame(()=>{fit();if(focus&&nodes.has(focus))selectNode(focus,true);});
+    const params=new URLSearchParams(location.search); const requested=params.get("view"); if(viewKinds[requested])state.view=requested; state.color=params.get("color")==="library"||state.view==="perspectives"?"library":"status";
+    state.query=(params.get("q")||"").trim(); search.value=state.query;
+    const focus=params.get("focus"); buttons.forEach(b=>b.classList.toggle("active",b.dataset.view===state.view)); render(); requestAnimationFrame(()=>{if(focus&&nodes.has(focus))selectNode(focus,true);fit();});
   }).catch(error=>{empty.hidden=false;empty.textContent=`The formal graph could not be loaded: ${error.message}`;console.error(error);});
 })();

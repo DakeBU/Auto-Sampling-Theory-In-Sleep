@@ -1,6 +1,7 @@
 """Publication admission regressions; no fake theorem or semantic certification."""
 from __future__ import annotations
 
+import ast
 import copy
 import tempfile
 import unittest
@@ -16,7 +17,9 @@ class PublicationTest(unittest.TestCase):
     def setUp(self):
         self.items = copy.deepcopy(p.load())
         self.data = copy.deepcopy(p.inputs())
-        self.item = self.items[0]
+        # This legacy migration fixture has two proof bindings. New source
+        # files may sort before it; catalog order is not fixture identity.
+        self.item = next(i for i in self.items if i['id'] == 'chewi-opt-v1-prop-1-6')
         self.binding = self.item['bindings'][0]
         self.name = self.binding['declaration']
 
@@ -28,6 +31,16 @@ class PublicationTest(unittest.TestCase):
         self.assertFalse(state['source_complete'])
         self.assertEqual(p.chapter_progress('optimisation', '02')['status'], 'scaffold')
 
+    def test_companion_pages_exist_before_publication_projection(self):
+        tree = ast.parse((p.ROOT / 'website/scripts/build_site.py').read_text(encoding='utf-8'))
+        main = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == 'main')
+        order = [n.value.func.value.id for n in main.body
+                 if isinstance(n, ast.Expr) and isinstance(n.value, ast.Call)
+                 and isinstance(n.value.func, ast.Attribute)
+                 and n.value.func.attr == 'enrich_site'
+                 and isinstance(n.value.func.value, ast.Name)]
+        self.assertLess(order.index('samplewiki_companions'), order.index('publication_reader'))
+
     def test_absent_declaration_rejected(self):
         del self.data['declarations'][self.name]
         self.assertTrue(any('missing/placeholder' in e for e in p.validate(self.items, self.data)))
@@ -35,6 +48,16 @@ class PublicationTest(unittest.TestCase):
     def test_missing_lesson_rejected(self):
         del self.data['lessons'][self.name]
         self.assertTrue(any('authored statement' in e for e in p.validate(self.items, self.data)))
+
+    def test_lesson_dependency_is_an_exact_declaration_not_prose(self):
+        self.data['lessons'][self.name]['astis_dependencies'] = [self.name + ': description']
+        self.assertTrue(any('unknown lesson dependency' in e for e in p.validate(self.items, self.data)))
+
+    def test_source_catalog_order_does_not_select_migration_fixture(self):
+        with patch.object(p, 'load', return_value=list(reversed(self.items))):
+            self.setUp()
+        self.assertEqual(self.item['id'], 'chewi-opt-v1-prop-1-6')
+        self.assertEqual(len(self.item['bindings']), 2)
 
     def test_changed_legacy_requires_real_review(self):
         errors = p.validate(self.items, self.data, strict_names={self.name})
@@ -178,6 +201,97 @@ class PublicationTest(unittest.TestCase):
     def test_real_harness_gate_rejects_invented_audit(self):
         with self.assertRaises(ValueError):
             p.check_advance(['NoSuch.declaration'], reviewed=True)
+
+    def graph_fixture(self, container_kind='library-chapter'):
+        import publication_reader as reader
+        from underlying_lean_graph_model import GraphBuilder
+        from underlying_lean_graph_textbook import add_textbook
+        names = [b['declaration'] for b in self.item['bindings']]
+        module = self.data['declarations'][names[0]].module
+        site = {'modules': [{'name': module, 'imports': []}],
+                'declarations': [{'full_name': n, 'module': module,
+                    'source_file': self.data['declarations'][n].source_file,
+                    'source_line': self.data['declarations'][n].source_line} for n in names],
+                'registry_declarations': [{'local_decl': n, 'status': 'formalizedLocal',
+                    'card': 'theorems/example.html',
+                    'dependencies': [names[0]] if n == names[1] else []} for n in names]}
+        builder = GraphBuilder()
+        add_textbook(builder, site)
+        builder.add('chapter:fixture', container_kind, 'Fixture', status='planned',
+                    url=self.item['chapter_path'])
+        reader.project_graph(builder)
+        graph = builder.export()
+        graph['publication_inputs_sha256'] = reader.graph_input_digest()
+        return reader, graph, site
+
+    def test_contribution_graph_has_owned_nodes_and_typed_connections(self):
+        reader, graph, site = self.graph_fixture()
+        self.assertEqual(reader.validate_graph(graph, site, [self.item]), [])
+        self.assertIn(reader.REFERENCE_EDGE, {e['relation'] for e in graph['edges']})
+        self.assertNotIn('depends-on', {e['relation'] for e in graph['edges']})
+
+    def test_contribution_missing_or_mistyped_edges_rejected(self):
+        reader, graph, site = self.graph_fixture()
+        for relation in ('declares', reader.REFERENCE_EDGE, reader.SOURCE_EDGE):
+            with self.subTest(relation=relation):
+                broken = copy.deepcopy(graph)
+                broken['edges'] = [e for e in broken['edges'] if e['relation'] != relation]
+                self.assertTrue(any(relation in e for e in reader.validate_graph(broken, site)))
+        broken = copy.deepcopy(graph)
+        for e in broken['edges']:
+            if e['relation'] == reader.REFERENCE_EDGE:
+                e['relation'] = 'depends-on'
+        self.assertTrue(any('promotes a name scan' in e for e in reader.validate_graph(broken, site)))
+
+    def test_paper_frontier_container_uses_the_same_publication_contract(self):
+        reader, graph, site = self.graph_fixture('frontier-case')
+        self.assertEqual(reader.validate_graph(graph, site, [self.item]), [])
+        self.assertTrue(any(e['relation'] == reader.SOURCE_EDGE and
+                            e['target'] == 'chapter:fixture' for e in graph['edges']))
+
+    def test_contribution_missing_duplicate_stale_or_false_blue_rejected(self):
+        reader, graph, site = self.graph_fixture()
+        broken = copy.deepcopy(graph)
+        broken['nodes'] = [n for n in broken['nodes'] if n['id'] != 'decl:' + self.name]
+        self.assertTrue(any('missing declaration' in e for e in reader.validate_graph(broken, site)))
+        broken = copy.deepcopy(graph)
+        broken['nodes'].append(copy.deepcopy(broken['nodes'][0]))
+        self.assertTrue(any('duplicate node' in e for e in reader.validate_graph(broken, site)))
+        broken['publication_inputs_sha256'] = 'stale'
+        self.assertTrue(any('stale' in e for e in reader.validate_graph(broken, site)))
+        site['registry_declarations'][0]['status'] = 'todo'
+        self.assertTrue(any('unsupported compiled' in e for e in reader.validate_graph(graph, site)))
+
+    def test_contribution_chapter_progress_drift_rejected(self):
+        reader, graph, site = self.graph_fixture()
+        next(n for n in graph['nodes'] if n['id'] == 'chapter:fixture')['status'] = 'compiled'
+        self.assertTrue(any('progress drift' in e for e in reader.validate_graph(graph, site)))
+
+    def test_actual_owner_module_not_namespace(self):
+        from underlying_lean_graph_model import GraphBuilder
+        from underlying_lean_graph_textbook import add_textbook
+        site = {'modules': [{'name': 'Actual.File'}],
+                'declarations': [{'full_name': 'Other.Namespace.result', 'module': 'Actual.File'}],
+                'registry_declarations': [{'local_decl': 'Other.Namespace.result'}]}
+        builder = GraphBuilder()
+        add_textbook(builder, site)
+        self.assertIn(('module:Actual.File', 'decl:Other.Namespace.result', 'declares'), builder.edges)
+
+    def test_bounded_graph_report_and_no_absent_output_fallback(self):
+        import json
+        reader, graph, site = self.graph_fixture()
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            with self.assertRaisesRegex(ValueError, 'Build the site once'):
+                p.graph_report(self.binding['cell'], out)
+            (out / 'data').mkdir()
+            (out / 'data/site-data.json').write_text(json.dumps(site), encoding='utf-8')
+            (out / 'data/underlying-lean-graph.json').write_text(json.dumps(graph), encoding='utf-8')
+            report = p.graph_report(self.binding['cell'], out)
+        self.assertEqual(report['status'], 'graph coverage checked')
+        self.assertEqual(len(report['contributions']), 1)
+        self.assertIn('view=lean&focus=decl%3A', report['contributions'][0]['focus'])
+        self.assertLess(len(json.dumps(report)), 5000)
 
 
 if __name__ == '__main__':

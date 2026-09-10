@@ -10,6 +10,9 @@ import astis_publication as publication
 import astis_site
 import declaration_lessons
 
+SOURCE_EDGE = 'source correspondence; not a Lean dependency'
+REFERENCE_EDGE = 'source reference (scanner)'
+
 
 def status(library: str, chapter: str | None = None) -> str:
     p = publication.chapter_progress(library, chapter)
@@ -109,13 +112,24 @@ def enrich_site(output: Path) -> None:
 
 
 def project_graph(builder) -> None:
-    """Update source containers only; never recolor declaration/proof nodes."""
+    """Project source containers and missing mapped nodes; never upgrade proof badges."""
+    data = publication.inputs()
+    for item in publication.load():
+        for binding in item['bindings']:
+            decl = data['declarations'][binding['declaration']]
+            ident = 'decl:' + decl.full_name
+            if ident not in builder.nodes:
+                # Mapping alone cannot confer a compiled badge or Registry count.
+                builder.add(ident, 'declaration', decl.full_name, status='partial',
+                            subtitle='Source-present publication; compiled badge not inferred',
+                            url=astis_site.declaration_path(decl))
+            builder.edge('module:' + decl.module, ident, 'declares')
     by_path = {i['chapter_path']: publication.chapter_progress(i['library'], i['chapter']) for i in publication.load()}
     by_path.update({str(Path(i['chapter_path']).parent / 'index.html').replace('\\', '/'):
                    publication.chapter_progress(i['library']) for i in publication.load()})
     for node in builder.nodes.values():
         p = by_path.get(node.get('url'))
-        if p and node.get('kind') in {'library', 'library-chapter'}:
+        if p and node.get('kind') in {'library', 'library-chapter', 'chapter', 'frontier-case'}:
             node['status'] = 'partial' if p['status'] == 'partial' else 'planned'
             node['subtitle'] = p['label'] + ' · source fidelity and chapter closure separate'
             node['search'] += ' ' + node['subtitle'].lower()
@@ -127,11 +141,94 @@ def project_graph(builder) -> None:
                         node['details'].append({'label': 'Local component / boundary',
                             'value': b['declaration'] + ' · ' + b['boundary']})
                         # Correspondence overlay, not an implication extracted from Lean.
-                        builder.edge('decl:' + b['declaration'], node['id'], 'source correspondence; not a Lean dependency')
+                        builder.edge('decl:' + b['declaration'], node['id'], SOURCE_EDGE)
+
+
+def graph_input_digest() -> str:
+    """Cheap rebuild freshness, independent of semantic-review admission."""
+    data = publication.inputs()
+    return publication.digest({'lean': astis_site.source_digest(), 'items': publication.load(),
+        'cells': {b['cell']: data['cells'].get(b['cell']) for i in publication.load() for b in i['bindings']}})
+
+
+def validate_graph(graph: dict, site: dict, items: list[dict] | None = None) -> list[str]:
+    """Verify generated contribution coverage, not mathematical completeness.
+
+    Expected facts are read from the existing site inventory/publication inputs;
+    no separate dependency or status manifest is authored for this check.
+    """
+    items = publication.load() if items is None else items
+    errors = []
+    if graph.get('publication_inputs_sha256') != graph_input_digest():
+        errors.append('Generated contribution graph is stale; rebuild the site')
+    nodes = {n['id']: n for n in graph.get('nodes', [])}
+    if len(nodes) != len(graph.get('nodes', [])):
+        errors.append('Graph has duplicate node identities')
+    edges = {(e['source'], e['target'], e['relation']) for e in graph.get('edges', [])}
+    if len(edges) != len(graph.get('edges', [])):
+        errors.append('Graph has duplicate edges')
+    if any(a not in nodes or b not in nodes for a, b, _ in edges):
+        errors.append('Graph has dangling edges')
+    declarations = {d['full_name']: d for d in site.get('declarations', [])}
+    registry = {d['local_decl']: d for d in site.get('registry_declarations', [])}
+    modules = {m['name']: m for m in site.get('modules', [])}
+    targets = {b['declaration'] for i in items for b in i['bindings']}
+
+    def require_edge(a, b, relation):
+        if (a, b, relation) not in edges:
+            errors.append(f'Graph contribution missing {relation}: {a} → {b}')
+
+    for name in sorted(targets):
+        decl, ident = declarations.get(name), 'decl:' + name
+        if not decl or nodes.get(ident, {}).get('kind') != 'declaration':
+            errors.append(f'Graph contribution missing declaration: {name}')
+            continue
+        if decl.get('has_placeholder'):
+            errors.append(f'Graph contribution contains placeholder: {name}')
+        if not nodes[ident].get('url'):
+            errors.append(f'Graph contribution missing reader link: {name}')
+        module_id = 'module:' + decl['module']
+        if nodes.get(module_id, {}).get('kind') != 'module':
+            errors.append(f'Graph contribution missing owning module: {name}')
+        require_edge(module_id, ident, 'declares')
+        for imported in modules.get(decl['module'], {}).get('imports', []):
+            if imported in modules:
+                require_edge('module:' + imported, module_id, 'imports')
+        if nodes[ident].get('status') == 'compiled' and not (
+            decl.get('local_status') == 'Compiled'
+            or registry.get(name, {}).get('status') == 'formalizedLocal'
+        ):
+            errors.append(f'Graph contribution has unsupported compiled badge: {name}')
+    # Check both parents and actual scanned consumers, including edges to a
+    # mapped contribution from an otherwise unmapped Registry declaration.
+    for consumer, record in registry.items():
+        for parent in record.get('dependencies', []):
+            if consumer in targets or parent in targets:
+                require_edge('decl:' + parent, 'decl:' + consumer, REFERENCE_EDGE)
+                if ('decl:' + parent, 'decl:' + consumer, 'depends-on') in edges:
+                    errors.append(f'Graph promotes a name scan to a formal dependency: {consumer}')
+    for item in items:
+        chapters = [n for n in nodes.values() if n.get('url') == item['chapter_path']
+                    and n.get('kind') in {'chapter', 'library-chapter', 'frontier-case'}]
+        if len(chapters) != 1:
+            errors.append(f'Graph contribution needs one source chapter: {item["id"]}')
+            continue
+        expected = publication.chapter_progress(item['library'], item['chapter'])
+        if chapters[0].get('status') != ('partial' if expected['status'] == 'partial' else 'planned'):
+            errors.append(f'Graph chapter progress drift: {item["id"]}')
+        for binding in item['bindings']:
+            require_edge('decl:' + binding['declaration'], chapters[0]['id'], SOURCE_EDGE)
+    return errors
 
 
 def validate_site(output: Path) -> list[str]:
     errors = publication.validate()
+    graph_path, site_path = output / 'data/underlying-lean-graph.json', output / 'data/site-data.json'
+    if not graph_path.exists() or not site_path.exists():
+        errors.append('Missing generated contribution graph/inventory; rebuild the site')
+    else:
+        errors.extend(validate_graph(json.loads(graph_path.read_text(encoding='utf-8')),
+                                     json.loads(site_path.read_text(encoding='utf-8'))))
     for item in publication.load():
         path = output / item['chapter_path']
         if not path.exists():

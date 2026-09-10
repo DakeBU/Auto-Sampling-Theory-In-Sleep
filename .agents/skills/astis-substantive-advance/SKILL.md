@@ -11,6 +11,9 @@ source/lesson/audit packet. New schema-v4 `PROVED_LOCAL` evidence includes
 `publication_declarations` equal to `lean_declarations`; `VERIFIED` and
 `STABILIZING` enforce completed independent semantic review. Keep source gaps,
 proposed repairs and actual Lean assumptions separately visible in the reader.
+The same protocol covers graph publication: exact declaration/module ids,
+source and consumer links, generated graph checks, and one visual inspection of
+the affected branch. Reuse `integration_notes`; no second graph packet or agent.
 
 Use this packet for one Universal Worker and one source-backed theorem-DAG advance. Delete fields that truly do not apply, but never hide a truth boundary, source gap, compiler failure, unchanged route, or source-to-Lean semantic delta.
 

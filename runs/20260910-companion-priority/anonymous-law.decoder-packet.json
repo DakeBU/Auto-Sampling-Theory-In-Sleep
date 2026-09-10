@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-f9006b1433084a29",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] {V : E → ℝ} {α η : ℝ}, 0 < α → ContDiff ℝ 2 V → (∀ x v : E, α * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v) → 0 < η → let ZV := ∫ x, Real.exp (-V x) ∂(volume : MeasureTheory.Measure E); let μ := (volume : MeasureTheory.Measure E).tilted (fun x => -V x); let joint := MeasureTheory.Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E)); 0 < ZV ∧ MeasureTheory.IsProbabilityMeasure joint ∧ joint = ((volume : MeasureTheory.Measure E).prod volume).withDensity (fun p => ENNReal.ofReal (((((Real.sqrt (2 * Real.pi * η))⁻¹) ^ Module.finrank ℝ E) / ZV) * Real.exp (-V p.1 - ‖p.2 - p.1‖ ^ 2 / (2 * η))))",
+    "statement_sha256": "f9006b1433084a29748b7b179e0d58182c7470f1b4a118f4080e81e6bda05c70",
+    "compiled": true,
+    "approved_definition_context": [
+      "E is a finite-dimensional real inner-product space with its norm topology and Borel sigma algebra. volume is its canonical Lebesgue measure normalized by orthonormal coordinates, not an arbitrary MeasureSpace parameter. Dimension zero is allowed, with volume equal to unit mass on the one-point space. Module.finrank ℝ E is its nonnegative integer dimension.",
+      "ContDiff ℝ 2 V means genuine twice continuous real Fréchet differentiability everywhere. fderiv is the actual continuous linear derivative when differentiability holds, otherwise totalized to zero. Differentiating x ↦ fderiv ℝ V x and applying to v and then v gives D²V(x)[v,v]; C² supplies genuine derivatives here.",
+      "The integral of a real function is the totalized Bochner integral: nonintegrability gives zero. Measure.tilted ν f is ν.withDensity (fun x => ENNReal.ofReal (Real.exp (f x) / ∫ x, Real.exp (f x) ∂ν)). In particular it is zero when the exponential weight is not integrable.",
+      "Measure.map is pushforward by the displayed function, and μ.prod ν is product measure. stdGaussian E is the centered Gaussian probability law with identity covariance. Under the product law its two coordinate variables are independent. The standard Gaussian in dimension zero is unit mass.",
+      "IsProbabilityMeasure ν means ν has total mass one. ν.withDensity g weights ν by a nonnegative extended-real density g. ENNReal.ofReal t is max(t,0) as an extended nonnegative real number. Real.sqrt is the nonnegative square root, inverse and division on real numbers are totalized, and Real.exp is the positive real exponential.",
+      "All hypotheses on points and directions are global and pointwise, not almost everywhere. The conclusion is the conjunction displayed; local let-bindings only name the specified integral and measures and are not extra assumptions."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "c10d35edbc08639f3b92f4e0f6ea1c43b3467aaedb23c33f59c9b759fec44829"
+}

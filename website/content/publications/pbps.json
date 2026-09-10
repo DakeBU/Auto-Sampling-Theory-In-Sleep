@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "items": [{
+    "id": "pbps-v1-proposition-2-1-iii",
+    "library": "samplewiki-route",
+    "chapter": "pbps-02",
+    "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+    "title": "Proposition 2.1(iii): reflection symmetry of the augmented law",
+    "source": {"url": "https://arxiv.org/html/2609.06905v1#S2.SS2", "edition": "arXiv:2609.06905v1", "anchor": "Section 2.2, Proposition 2.1(iii), (2.6), (2.7), (2.14)", "wording_status": "faithful paraphrase", "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS mathematical restatement, not original prose; no endorsement implied."},
+    "statement": "For the paper's augmented Gibbs law, reflecting the auxiliary point through the current position leaves the joint distribution unchanged. Applying this reflection twice gives the original state.",
+    "assumptions": ["The source works on Euclidean space with a twice continuously differentiable potential V satisfying alpha I <= Hessian V <= beta I for 0<alpha<=beta, and mu(dx)=Z^{-1} exp(-V(x)) dx.", "The source takes 0<eta<=1/beta and defines the joint density proportional to exp(-V(x)-||x-y||^2/(2 eta)).", "The paper also displays the generative representation: independent X~mu and Z~N(0,I), then Y=X+sqrt(eta) Z. Equality of the normalized density and this generative law is a separate formal obligation."],
+    "formulae": [{"label": "(2.14) and Proposition 2.1(iii)", "tex": "R(x,y)=(x,2x-y),\\qquad R\\circ R=\\mathrm{id},\\qquad R_\\#\\pi_\\eta=\\pi_\\eta."}, {"label": "generative representation (2.7)", "tex": "\\Phi_\\eta(x,z)=(x,x+\\sqrt\\eta\\,z),\\qquad \\pi_\\eta=(\\Phi_\\eta)_\\#(\\mu\\otimes\\gamma)."}],
+    "obligations": [{"id": "generative-reflection", "label": "Involution and reflection invariance of the displayed generative Gaussian augmentation"}, {"id": "density-generative-identification", "label": "Identify the normalized density (2.6) with the generative probability law (2.7) under the source hypotheses"}],
+    "bindings": [{
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection.reflection_preserves_augmentation",
+      "cell": "ASTIS-SW-PBPS-gaussian-augmentation-reflection",
+      "role": "proof-edge", "supports": ["generative-reflection"],
+      "audit_id": "ASTIS-RT-20260910-PBPSGaussianReflection",
+      "boundary": "The generative-law proof component, not the density identification or any PBPS transition/process invariance theorem.",
+      "assumption_deltas": [{"source": "The target is a strongly log-concave smooth Gibbs probability law on R^d", "lean": "Any probability measure on a finite-dimensional real inner-product space with its Borel sigma algebra", "classification": "generalization", "reason": "The selected symmetry calculation only uses independence and symmetry of the auxiliary standard Gaussian. Neither a density nor potential regularity enters this proof component; the density adapter remains open."}, {"source": "0<eta<=1/beta", "lean": "0<eta", "classification": "generalization", "reason": "The upper step-size restriction controls other curvature and algorithmic bounds. Gaussian sign symmetry works at every positive scale; it does not establish those bounds."}, {"source": "The joint law is written by both a normalized density and a generative representation", "lean": "The joint law is explicitly a pushforward of mu.prod(stdGaussian E)", "classification": "unresolved", "reason": "The formalized measure is the generative representation. Identifying it with the density requires a separate normalization/change-of-variables proof."}, {"source": "The state-space maps are affine maps on Euclidean space", "lean": "Measurability is proved from BorelSpace, finite-dimensional topology, addition and scalar multiplication", "classification": "source-implicit", "reason": "The pushforward composition rules require measurable maps. The proof supplies this prerequisite rather than treating the totalized map API as mathematical invariance."}]
+    }]
+  }]
+}

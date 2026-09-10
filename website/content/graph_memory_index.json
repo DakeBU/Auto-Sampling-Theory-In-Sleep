@@ -16,8 +16,8 @@
     },
     "lean": {
       "label": "Lean Branches Graph",
-      "question": "Which modules and declarations are compiled, and what are their actual formal dependencies?",
-      "status_semantics": "Compiler-backed structure is solid. Curated source/proof overlays remain dashed.",
+      "question": "Which declarations and modules are present, with what compiled evidence and reference signals?",
+      "status_semantics": "Solid edges show imports/ownership. Scanned references and curated proof links are dashed, not elaborated dependency certificates.",
       "preferred_entry": "exact module or declaration id"
     },
     "functor": {

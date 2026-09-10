@@ -1,7 +1,8 @@
 ---
 name: astis-proof-dag
 description: Plan and review ASTIS proof work as reusable Lean proof DAGs instead of repeated flat proof traces.
-argument-hint: "[task id or Lean theorem]"
+metadata:
+  argument-hint: "[task id or Lean theorem]"
 ---
 
 # ASTIS Proof DAG
@@ -32,21 +33,22 @@ not retire a blocker should be recorded as waste.
 - predicted-clean or guide-surrogate error decomposition;
 - SMC/Feynman--Kac particle approximation.
 
-## Required Table
+## Canonical graph records
 
-Add or maintain this table in the conversion window or proof-obligation file:
-
-| Block | Interface | Dependencies | Lean declaration | Source anchor | Reused by | Status |
-|---|---|---|---|---|---|---|
+Reuse the current Frontier Cell, Registry, source obligations and publication
+bindings. Do not copy their status/dependency tables into a second ledger.
+For a new proof plan, keep only the missing interfaces and strict boundaries in
+the existing proof-obligation file. At publication, follow the graph section of
+`docs/theorem-publication-protocol.md` and inspect the affected local view.
 
 ## Protocol
 
-- Upper chooses the next reusable block or proof route.
-- Middle keeps the DAG synchronized with source anchors and obligations.
-- Lower works on one block interface at a time.
-- Reviewer rejects duplicated informal proofs and hidden assumptions.
-- Reviewer records whether a failure should become a reusable cut, a cited
-  technical lemma, a stale route, or an actual lower-agent proof target.
+- One SAU owner chooses a dependency-ready block and implements its interface.
+- The existing independent verifier checks hidden assumptions and truth edges;
+  graph-only changes do not require a new mathematical reviewer.
+- The stabilization owner regenerates affected views from canonical records.
+- Classify failed routes as a missing reusable interface, source gap, retired
+  route or typed blocker. Do not restore the legacy role ladder just for graphs.
 
 In `faithfulPaper` mode, the DAG decomposes the paper proof only. It must not
 add hypotheses, change constants, or replace the theorem target.

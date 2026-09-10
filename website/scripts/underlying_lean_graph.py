@@ -6,9 +6,12 @@ from __future__ import annotations
 import json
 import re
 import shutil
+import sys
 from html import escape
 from pathlib import Path
 from typing import Any
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tools'))
 
 from underlying_lean_graph_frontier import add_frontier
 from underlying_lean_graph_model import (
@@ -52,6 +55,8 @@ def build_graph(output: Path) -> dict[str, Any]:
     graph["library_scope_metadata"] = scope_metadata
     graph["companion_frontiers"] = companion_counts
     graph["schema_version"] = 3
+    graph['reference_contract'] = 'Name-scanned references are incomplete signals, not elaborated proof dependencies.'
+    graph['publication_inputs_sha256'] = publication_reader.graph_input_digest()
     graph["hyperedges"] = functor["hyperedges"]
     graph["conceptual_transport_contract"] = functor["certification_policy"]
     graph["graph_memory_index"] = {
@@ -86,10 +91,10 @@ def main_html(counts: dict[str, Any]) -> str:
 <section class="ulg-hero" data-underlying-lean-graph data-graph-source="{DATA}">
   <div class="eyebrow">Samplinglib · formal topology · conceptual memory · semantic fidelity</div>
   <div class="ulg-hero-grid">
-    <div><h1>{LABEL}</h1><p>Read the same project at three epistemic resolutions: <strong>Overview Graph</strong> for source/routes/shared stages, <strong>Lean Branches Graph</strong> for compiler-backed declarations and dependencies, and <strong>Functor Hypergraph</strong> for source-backed recurring mathematical mechanisms such as curvature, PL/LSI and Poincaré/χ² mirrors. The views share stable ids but never share truth status automatically.</p></div>
+    <div><h1>{LABEL}</h1><p>Read the same project at three epistemic resolutions: <strong>Overview Graph</strong> for source/routes/shared stages, <strong>Lean Branches Graph</strong> for declarations, module structure and labelled reference signals, and <strong>Functor Hypergraph</strong> for source-backed recurring mathematical mechanisms such as curvature, PL/LSI and Poincaré/χ² mirrors. The views share stable ids but never share truth status automatically.</p></div>
     <dl><div><dt>{counts.get('chapters', 0)}</dt><dd>sampling chapters</dd></div><div><dt>{counts.get('lean_modules', 0)}</dt><dd>Lean modules</dd></div><div><dt>{counts.get('conceptual_families', 0)}</dt><dd>concept families</dd></div><div><dt>{counts.get('conceptual_hyperedges', 0)}</dt><dd>typed bridges</dd></div><div><dt>{counts.get('samplewiki_cases', 0)}</dt><dd>frontier results</dd></div><div><dt>{counts.get('semantic_audits', 0)}</dt><dd>round-trip audits</dd></div></dl>
   </div>
-  <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite → consumer in the proof views; Methods × targets edges carry their own taxonomy/applicability labels, not proof implications. <strong>Solid edges</strong> are compiler-backed Lean/module/declaration structure; <strong>dashed edges</strong> are curated textbook, source-audit, proof-route, SampleWiki, semantic-review, or conceptual-mirror overlays. <strong>Compilation proves the Lean proposition only:</strong> source fidelity additionally requires source review. A Functor Hypergraph mirror may organize memory, but it never becomes a formal Lean edge or certified functor by visual proximity.</p>
+  <p class="ulg-contract"><strong>Edge direction:</strong> prerequisite/reference → consumer in proof views; Methods × targets edges carry taxonomy labels, not proof implications. <strong>Solid edges</strong> record imports and module/declaration ownership, not theorem implication. <strong>dashed edges</strong> include incomplete source-name reference scans, curated proof-leaf links, textbook/source correspondences, SampleWiki routes, semantic reviews and conceptual mirrors. Scanned references are not an exhaustive export of Lean proof dependencies. <strong>Compilation proves the Lean proposition only:</strong> source fidelity additionally requires source review. Visual proximity never certifies a conceptual transport.</p>
 </section>
 <section class="ulg-shell">
   <div class="ulg-toolbar">
@@ -181,6 +186,7 @@ def validate(output: Path, graph: dict[str, Any]) -> None:
         "semantic_protocol_nodes": 7,
     }
     errors = [f"{key}: expected {value}, found {counts.get(key)}" for key, value in expected.items() if counts.get(key) != value]
+    errors.extend(publication_reader.validate_graph(graph, load(output / 'data/site-data.json')))
     for key in ("source_claims", "lean_modules", "registry_declarations", "conceptual_families", "conceptual_hyperedges", "nodes", "edges"):
         if not counts.get(key):
             errors.append(f"{key} is empty")

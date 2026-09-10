@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-d0e2379685ed6427",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "pbps_reflection_worker",
+    "blind_decoder": "gaussian_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "pbps-v1:prop-2.1-iii-generative-component",
+    "anchor": "arXiv:2609.06905v1, Section 2.2, Proposition 2.1(iii), (2.7), (2.14)",
+    "original_text": "ASTIS extraction of the generative-law symmetry calculation supporting Proposition 2.1(iii), not a quotation or the full Gibbs-density proposition. Let E be a finite-dimensional real inner-product space with its Borel sigma algebra, mu any probability measure, and eta>0. Let gamma be the standard Gaussian, Phi(x,z)=(x,x+sqrt(eta) z), and R(x,y)=(x,2x-y). Then R(R(p))=p for every p and R_#(Phi_#(mu tensor gamma))=Phi_#(mu tensor gamma). The calculation uses Gaussian sign symmetry, independence, and measurable pushforward composition. Generality beyond the source Gibbs law and eta<=1/beta is explicit; identifying the normalized density (2.6) with the generative law (2.7), and all process/algorithm guarantees, are separate unproved obligations.",
+    "text_sha256": "75a2efe37a111b22f3639fb2a8c82f9cc8cea4ce8ccaf737b20be3ea3c786f25"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection.reflection_preserves_augmentation",
+    "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/GaussianReflection.lean",
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] (η : ℝ), 0 < η → Function.Involutive (fun p : E × E => (p.1, (2 : ℝ) • p.1 - p.2)) ∧ MeasureTheory.Measure.map (fun p : E × E => (p.1, (2 : ℝ) • p.1 - p.2)) (MeasureTheory.Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E))) = MeasureTheory.Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E))",
+    "statement_sha256": "5eaa2969985abd3ffc54670e07e1aa446bef61f48c62488109ce014dbbb997f6",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite-dimensional real inner-product space E equipped with its Borel measurable structure, every probability measure μ on E, and every real parameter η > 0, define R : E × E → E × E by R(x,y) = (x, 2x − y). Let X have law μ and let Z independently have the centered standard Gaussian law on E with identity covariance. Then R is an involution on all of E × E, meaning R(R(x,y)) = (x,y) for every x,y ∈ E, and R preserves the joint law ν of (X, X + √η Z): R₊ν = ν, where R₊ denotes pushforward. Equivalently, (X, X − √η Z) and (X, X + √η Z) have the same joint distribution. No restriction on μ beyond being a probability measure is assumed; in particular no density or moment assumption is present. The coefficient 2 is fixed, and the Gaussian displacement scale is the nonnegative square root √η; there are no additional constants. The asserted scope is η > 0. All pushforward maps involved are measurable, so Measure.map uses ordinary pushforward and its totalized nonmeasurable fallback is not invoked.",
+    "text_sha256": "eceed4cdd6f3a1afecefdb9e52072dec00c1dc01a75fefac43f84f3f7ae0e4d2",
+    "decoder": "gaussian_blind_decoder",
+    "decoder_packet_sha256": "5d59223c41747ec4ec0aaa13e603e43ec3de00e9c7283752b50d49bff76d1766",
+    "decoder_run_sha256": "0cc91aec38874813be5aff913719a1ad77bbf11c0b7c576facad9fdc70cf44c7",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "3a6dc8352dbcc7cdc1306615177e9164c8fcc24b91de100ab916c95a4e237f27",
+  "candidate_publication_context": {
+    "file": "6f927d287a37c8d4de13ab4e34ead24cf1fb609880424611c99c4f22a92e32bb",
+    "current_lean_module": "import Mathlib.Probability.Distributions.Gaussian.Multivariate\nimport Mathlib.MeasureTheory.Measure.Prod\nimport Mathlib.Tactic.Abel\nimport Mathlib.Tactic.FunProp\n\n/-!\n# Reflection of the generative Gaussian augmentation\n\nThis is the generative-law proof component of Proposition 2.1(iii) in Chen,\nChewi, Lu and Zhang, arXiv:2609.06905v1, Section 2.2, equations (2.7) and (2.14):\n<https://arxiv.org/html/2609.06905v1#S2.SS2>.\n\nThe law below is defined by independent `X ~ μ`, `Z ~ stdGaussian E` and\n`Y = X + sqrt η • Z`. Identifying it with the normalized density (2.6) is a\nseparate obligation. The symmetry component needs no potential, curvature or\nupper step-size bound; this generality is explicit, not a claim to have proved\nthose source assumptions or the invariance of any PBPS process.\n-/\n\nopen MeasureTheory ProbabilityTheory\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\n/-- Reflecting the auxiliary point through the position is involutive and\npreserves the generative Gaussian augmentation. All maps used in the\npushforward calculation are proved measurable. The positive-scale hypothesis\nretains the paper's sampling regime; the reflection algebra itself is\nscale-independent. Intended consumers are the auxiliary update in Section 3.1\nand, after a separate `L²` adapter, the reflection operator in Appendix B. -/\ntheorem reflection_preserves_augmentation (μ : Measure E) [IsProbabilityMeasure μ]\n    (η : ℝ) (_hη : 0 < η) :\n    Function.Involutive (fun p : E × E => (p.1, (2 : ℝ) • p.1 - p.2)) ∧\n      Measure.map (fun p : E × E => (p.1, (2 : ℝ) • p.1 - p.2))\n        (Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2))\n          (μ.prod (stdGaussian E))) =\n        Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2))\n          (μ.prod (stdGaussian E)) := by\n  let Φ : E × E → E × E := fun p => (p.1, p.1 + Real.sqrt η • p.2)\n  let R : E × E → E × E := fun p => (p.1, (2 : ℝ) • p.1 - p.2)\n  let S : E × E → E × E := Prod.map id (fun z => -z)\n  have hΦ : Measurable Φ := by fun_prop\n  have hR : Measurable R := by fun_prop\n  have hS : Measurable S := by fun_prop\n  have hneg : Measure.map (fun z : E => -z) (stdGaussian E) = stdGaussian E := by\n    simpa using (stdGaussian_map (LinearIsometryEquiv.neg ℝ (E := E)))\n  have hprod : Measure.map S (μ.prod (stdGaussian E)) = μ.prod (stdGaussian E) := by\n    dsimp [S]\n    rw [← Measure.map_prod_map μ (stdGaussian E) measurable_id (by fun_prop),\n      hneg, Measure.map_id]\n  have hcomp : R ∘ Φ = Φ ∘ S := by\n    funext p\n    apply Prod.ext\n    · rfl\n    · dsimp [R, Φ, S]\n      simp only [smul_neg, two_smul]\n      abel\n  constructor\n  · intro p\n    apply Prod.ext\n    · rfl\n    · exact sub_sub_cancel ((2 : ℝ) • p.1) p.2\n  · change Measure.map R (Measure.map Φ (μ.prod (stdGaussian E))) =\n      Measure.map Φ (μ.prod (stdGaussian E))\n    rw [Measure.map_map hR hΦ, hcomp, ← Measure.map_map hΦ hS, hprod]\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06905v1#S2.SS2",
+      "edition": "arXiv:2609.06905v1",
+      "anchor": "Section 2.2, Proposition 2.1(iii), (2.6), (2.7), (2.14)",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS mathematical restatement, not original prose; no endorsement implied."
+    },
+    "statement": "For the paper's augmented Gibbs law, reflecting the auxiliary point through the current position leaves the joint distribution unchanged. Applying this reflection twice gives the original state.",
+    "formulae": [
+      {
+        "label": "(2.14) and Proposition 2.1(iii)",
+        "tex": "R(x,y)=(x,2x-y),\\qquad R\\circ R=\\mathrm{id},\\qquad R_\\#\\pi_\\eta=\\pi_\\eta."
+      },
+      {
+        "label": "generative representation (2.7)",
+        "tex": "\\Phi_\\eta(x,z)=(x,x+\\sqrt\\eta\\,z),\\qquad \\pi_\\eta=(\\Phi_\\eta)_\\#(\\mu\\otimes\\gamma)."
+      }
+    ],
+    "assumptions": [
+      "The source works on Euclidean space with a twice continuously differentiable potential V satisfying alpha I <= Hessian V <= beta I for 0<alpha<=beta, and mu(dx)=Z^{-1} exp(-V(x)) dx.",
+      "The source takes 0<eta<=1/beta and defines the joint density proportional to exp(-V(x)-||x-y||^2/(2 eta)).",
+      "The paper also displays the generative representation: independent X~mu and Z~N(0,I), then Y=X+sqrt(eta) Z. Equality of the normalized density and this generative law is a separate formal obligation."
+    ],
+    "obligations": [
+      {
+        "id": "generative-reflection",
+        "label": "Involution and reflection invariance of the displayed generative Gaussian augmentation"
+      },
+      {
+        "id": "density-generative-identification",
+        "label": "Identify the normalized density (2.6) with the generative probability law (2.7) under the source hypotheses"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection.reflection_preserves_augmentation",
+      "kind": "theorem",
+      "title": "Why reflecting the Gaussian auxiliary point preserves its joint law",
+      "statement": "Let E be a finite-dimensional real inner-product space with its Borel sigma algebra, let mu be a probability measure on E, and let eta>0. Independently draw X with law mu and a standard Gaussian Z, and put Y=X+sqrt(eta) Z. The map R(x,y)=(x,2x-y) is an involution, and (X,2X-Y) has exactly the same joint law as (X,Y).",
+      "formula": "\\Phi_\\eta(x,z)=(x,x+\\sqrt\\eta\\,z),\\quad \\pi_\\eta=(\\Phi_\\eta)_\\#(\\mu\\otimes\\gamma),\\quad R\\circ R=\\mathrm{id},\\quad R_\\#\\pi_\\eta=\\pi_\\eta.",
+      "assumptions": [
+        "E is a normed additive commutative group with a real inner product and finite real dimension; its measurable sets are the Borel sets.",
+        "mu is a probability measure. The product mu tensor gamma encodes independence; gamma is Mathlib's standard Gaussian on E.",
+        "eta is a positive real scale. Positivity retains the sampling interpretation; the reflection calculation itself uses no division by eta.",
+        "This selected proof component is more general than the paper's Gibbs/curvature setting. It neither assumes nor proves that its pushforward law equals the density displayed in (2.6)."
+      ],
+      "steps": [
+        {
+          "title": "Check the reflection is an involution",
+          "text": "The first coordinate stays fixed. Reflecting the second coordinate twice cancels the two subtractions, so no exceptional point or almost-everywhere qualification is needed.",
+          "formula": "R(R(x,y))=(x,2x-(2x-y))=(x,y).",
+          "lean": "The first conjunction branch proves equality of the two product coordinates. The second coordinate is sub_sub_cancel; it holds pointwise for every state."
+        },
+        {
+          "title": "Reverse the Gaussian displacement",
+          "text": "Negation is an orthogonal linear isometry. Hence the standard Gaussian is unchanged by Z becoming -Z. Product pushforward preserves the first law and changes only the independent auxiliary variable.",
+          "formula": "(-\\mathrm{id})_\\#\\gamma=\\gamma,\\qquad S(x,z)=(x,-z),\\qquad S_\\#(\\mu\\otimes\\gamma)=\\mu\\otimes\\gamma.",
+          "lean": "ProbabilityTheory.stdGaussian_map is instantiated with LinearIsometryEquiv.neg. Measure.map_prod_map and Measure.map_id then transport this equality to the product measure. These are Mathlib results, not new ASTIS Gaussian lemmas."
+        },
+        {
+          "title": "Relate noise reversal to state reflection",
+          "text": "Reflecting Y around X reverses its displacement from X. This is an equality of actual measurable functions, not merely equality in distribution.",
+          "formula": "R(\\Phi_\\eta(x,z))=(x,2x-(x+\\sqrt\\eta\\,z))=(x,x-\\sqrt\\eta\\,z)=\\Phi_\\eta(S(x,z)).",
+          "lean": "The proof establishes the composition identity pointwise with scalar/additive algebra. Measurability of the reflection, augmentation and sign map is supplied before using Measure.map_map."
+        },
+        {
+          "title": "Transport the invariant product law",
+          "text": "Pushforward composition and the preceding symmetry now give equality of the entire joint measures, hence equality on every measurable event. No density argument, integral interchange or conditional representative is hidden in this calculation.",
+          "formula": "R_\\#\\pi_\\eta=(R\\circ\\Phi_\\eta)_\\#(\\mu\\otimes\\gamma)=(\\Phi_\\eta\\circ S)_\\#(\\mu\\otimes\\gamma)=(\\Phi_\\eta)_\\#S_\\#(\\mu\\otimes\\gamma)=\\pi_\\eta.",
+          "lean": "The final rewrite uses Measure.map_map twice, the proved composition identity and the proved product symmetry. It does not assume the desired invariance as a hypothesis."
+        }
+      ],
+      "lean_statement": "Measure.map is pushforward and Measure.prod is product measure. The IsProbabilityMeasure typeclass supplies finiteness for the product transport theorem; BorelSpace ties measurable sets to the topology. Function.Involutive is a pointwise statement that applying a function twice is the identity. The conjunction packages both parts of the source's reflection claim without adding a duplicate wrapper.",
+      "lean_proof": "Local names abbreviate the three displayed affine functions inside the proof only. Every map needed by pushforward composition is proved measurable. ASTIS composes Mathlib's Gaussian-isometry theorem and product/map transport with the source-specific reflection algebra. The source hypotheses on potential smoothness are not silently used or claimed: they belong to the still-open density and algorithmic adapters.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.stdGaussian_map: invariance of the standard Gaussian under linear isometric equivalence.",
+        "LinearIsometryEquiv.neg: negation as a real linear isometry.",
+        "MeasureTheory.Measure.map_prod_map, map_id and map_map: measurable product and composition pushforwards.",
+        "Measurability of continuous affine maps; elementary additive-group cancellation."
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#S2.SS2",
+          "label": "Chen, Chewi, Lu and Zhang, Accelerated High-Accuracy Sampling from a Warm Start via the Proximal Bouncy Particle Sampler v1",
+          "scope": "Proposition 2.1(iii), with the generative law (2.7) and reflection (2.14). ASTIS exposition, not copied source prose."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSGaussianReflection.lean",
+        "command": "lake build Tests.ProximalBPSGaussianReflection"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianReflection.reflection_preserves_augmentation",
+      "role": "proof-edge",
+      "supports": [
+        "generative-reflection"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "The target is a strongly log-concave smooth Gibbs probability law on R^d",
+        "lean": "Any probability measure on a finite-dimensional real inner-product space with its Borel sigma algebra"
+      },
+      {
+        "source": "0<eta<=1/beta",
+        "lean": "0<eta"
+      },
+      {
+        "source": "The joint law is written by both a normalized density and a generative representation",
+        "lean": "The joint law is explicitly a pushforward of mu.prod(stdGaussian E)"
+      },
+      {
+        "source": "The state-space maps are affine maps on Euclidean space",
+        "lean": "Measurability is proved from BorelSpace, finite-dimensional topology, addition and scalar multiplication"
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "9747ffb5d414e2db15272d862d91b52f02adfc3d5d79415df7ddb877980ab855"
+}

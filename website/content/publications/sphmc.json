@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "items": [{
+    "id": "sphmc-v1-lemma-6-6-i",
+    "library": "samplewiki-route",
+    "chapter": "sphmc-06",
+    "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "title": "Lemma 6.6(i): progress of the ill-conditioned recursive stages",
+    "source": {"url": "https://arxiv.org/html/2609.06906v1#S6.SS3", "edition": "arXiv:2609.06906v1", "anchor": "§6.3, Lemma 6.6(i), (6.3), from (6.1)–(6.2)", "wording_status": "faithful paraphrase", "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS mathematical restatement, not original prose; no endorsement implied."},
+    "statement": "In the recursive RGO scheme let c0 be in (0,1/4), with 0<eta_j≤c0 at each stage. If the current ratio kappa_j of specified curvature bounds is at least 2, the next ratio is between one half and four fifths of the current ratio.",
+    "assumptions": ["The recursive parameters follow (6.1): kappa_next=kappa*(a*beta_A+1)/(a*beta_A+kappa), with beta_A>0.", "The ill-conditioned branch of (6.2) sets tau=kappa, a=(eta+tau)/beta_A; kappa≥2 and 0<eta≤c0<1/4.", "The ratio comes from the RGO curvature parameters in Lemma 6.4; it is not an independently assumed mixing rate."],
+    "formulae": [{"label": "(6.3)", "tex": "\\frac12\\kappa_j\\le\\kappa_{j+1}\\le\\frac45\\kappa_j."}, {"label": "substitution of (6.1)–(6.2)", "tex": "\\kappa_{j+1}=\\frac{\\kappa_j(\\kappa_j+\\eta_j+1)}{2\\kappa_j+\\eta_j}."}],
+    "obligations": [{"id": "scalar-progress", "label": "Positive-denominator rational calculation with the source constants"}, {"id": "rgo-parameter-identification", "label": "Actual recursive RGO curvature ratios satisfy (6.1)–(6.2), including A=infinity"}],
+    "bindings": [{
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition.contraction_bounds",
+      "cell": "ASTIS-SW-SPHMC-recursive-condition-contraction",
+      "role": "proof-edge", "supports": ["scalar-progress"],
+      "audit_id": "ASTIS-RT-20260910-SPHMCRecursiveCondition",
+      "boundary": "Scalar proof component, not the RGO parameter construction or the complete sampling theorem.",
+      "assumption_deltas": [{"source": "0<eta≤c0<1/4", "lean": "0<h<1/4", "classification": "same", "reason": "For the uniform single-stage scalar assertion c0 occurs only in the hypotheses. The source implies this range; conversely an admissible c0 exists, for example c0=h. This eliminates a redundant cutoff without adding endpoints."}, {"source": "kappa_j is the ratio from the actual RGO parameter recurrence", "lean": "k is a real scalar at least 2, with the rational update written explicitly", "classification": "unresolved", "reason": "This leaf proves the arithmetic proof step. The actual RGO construction and curvature-to-recurrence identification remain a separate red edge."}]
+    }]
+  }]
+}

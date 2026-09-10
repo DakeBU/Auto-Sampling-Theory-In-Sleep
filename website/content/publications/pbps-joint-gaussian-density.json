@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "items": [{
+    "id": "pbps-v1-joint-density-relative-input",
+    "library": "samplewiki-route",
+    "chapter": "pbps-02",
+    "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+    "title": "Joint augmentation density relative to the input law times volume",
+    "source": {"url": "https://arxiv.org/html/2609.06905v1#S2.SS2", "edition": "arXiv:2609.06905v1", "anchor": "Section 2.2, equations (2.6)-(2.7): joint-law density before inserting the Gibbs density of mu", "wording_status": "faithful paraphrase", "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS mathematical restatement of the Gaussian joint-law component, not copied source prose or a claim of complete source-density formalization."},
+    "statement": "For independent X with probability law mu and standard Gaussian Z on R^d, and eta>0, the joint law of (X,X+sqrt(eta) Z) equals mu(dx) q_eta(y-x) dy, where q_eta is the centered isotropic Gaussian density with variance eta. Inserting the paper's Gibbs density mu(dx)=Z_V^{-1} exp(-V(x)) dx is a separate final substitution to obtain the displayed joint Gibbs density.",
+    "assumptions": ["The paper works on R^d with d>=1 and a twice continuously differentiable potential with positive lower and upper Hessian bounds. Its target mu is the normalized Gibbs probability measure.", "The source takes 0<eta<=1/beta and states the independent Gaussian augmentation X~mu, Z~N(0,I), Y=X+sqrt(eta) Z.", "The selected intermediate identity is a density relative to mu tensor volume, rather than volume tensor volume. It needs only probability of mu and eta>0."],
+    "formulae": [{"label": "joint-density intermediate between (2.7) and (2.6)", "tex": "\\mathcal L(X,X+\\sqrt\\eta Z)(dx,dy)=\\mu(dx)q_\\eta(y-x)dy,\\qquad q_\\eta(w)=((\\sqrt{2\\pi\\eta})^{-1})^d\\exp(-\\|w\\|^2/(2\\eta))."}],
+    "obligations": [{"id": "joint-density-relative-mu-volume", "label": "Identify the generative joint law with the explicit density relative to mu tensor volume"}, {"id": "gibbs-density-substitution", "label": "Insert the target's normalized Gibbs density to recover the density relative to volume tensor volume in (2.6)"}],
+    "bindings": [{
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation.augmentation_eq_withDensity",
+      "cell": "ASTIS-SW-PBPS-joint-gaussian-density",
+      "role": "proof-edge",
+      "supports": ["joint-density-relative-mu-volume"],
+      "audit_id": "ASTIS-RT-20260910-PBPSGaussianAugmentation",
+      "boundary": "Actual joint-law density relative to mu tensor volume only; source Gibbs-density substitution remains unbound and open. No reflection or PBPS-process claim.",
+      "assumption_deltas": [
+        {"source": "The input is the paper's normalized smooth strongly log-concave Gibbs law on R^d", "lean": "Any probability measure mu on a finite-dimensional real inner-product Borel space E", "classification": "generalization", "reason": "The selected density is relative to mu tensor volume. Only the independent Gaussian coordinate is given a volume density, so mu may even be a Dirac measure. The missing Gibbs substitution is a separate obligation, not a hidden hypothesis."},
+        {"source": "d>=1 and Euclidean Lebesgue volume", "lean": "Every finite real dimension, including zero, with the canonical inner-product-space volume", "classification": "generalization", "reason": "The proved noise-density parent and shear identity apply in zero dimension too. No arbitrary Haar normalization or extra measure-space parameter is introduced."},
+        {"source": "0<eta<=1/beta", "lean": "eta>0", "classification": "generalization", "reason": "The upper bound is not used for the joint Gaussian-density identity; it belongs to other curvature and algorithmic statements."},
+        {"source": "Joint Gibbs density relative to dx dy, with the source's target-density definition", "lean": "Density relative to mu.prod volume, with factor q_eta(y-x)", "classification": "unresolved", "reason": "The actual Gaussian augmentation adapter is proved, but the final target-density and Gibbs-normalizer substitution is still outside this theorem and remains an unbound source obligation."},
+        {"source": "Independent sampling and translation of the Gaussian auxiliary coordinate", "lean": "Product probability measure, proved measurable factorization, explicit density transport, and shear preserving mu.prod volume", "classification": "source-implicit", "reason": "The proof supplies the required measurable maps and product-measure contracts. Translation invariance is required only of volume, not of mu."}
+      ]
+    }]
+  }]
+}

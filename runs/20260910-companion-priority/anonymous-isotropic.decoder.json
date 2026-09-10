@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-06ba06ee300aa2f0",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] (η : ℝ), 0 < η → (ProbabilityTheory.stdGaussian E).map (fun z : E => Real.sqrt η • z) = (volume : MeasureTheory.Measure E).withDensity (fun z => ENNReal.ofReal (((Real.sqrt (2 * Real.pi * η))⁻¹) ^ Module.finrank ℝ E * Real.exp (-‖z‖ ^ 2 / (2 * η))))",
+    "statement_sha256": "06ba06ee300aa2f0b6280f7b31f6efd6cc328f933616e5d3a7d1d644c74428ab",
+    "compiled": true,
+    "approved_definition_context": [
+      "stdGaussian E is the centered standard Gaussian probability measure with identity covariance on the finite-dimensional real inner-product space E. Measure.map is pushforward along the displayed map. BorelSpace identifies measurable sets with the norm topology's Borel sigma algebra.",
+      "volume denotes the canonical Lebesgue/Haar measure supplied by the finite-dimensional real inner-product-space instance, normalized by orthonormal coordinates; no arbitrary MeasureSpace E is assumed. In dimension zero it is unit mass on the single point.",
+      "m.withDensity q weights m by the extended-nonnegative density q: on a measurable set A its value is the nonnegative integral of q over A. ENNReal.ofReal embeds nonnegative real values and sends negative real values to zero. Module.finrank ℝ E is the natural-number real dimension; exponentiation by it is ordinary natural-number power.",
+      "Real.sqrt is the nonnegative square root, Real.pi is the circle constant, • is real scalar multiplication, and the norm comes from the inner product. Real reciprocal and division are totalized at zero, with inverse zero equal to zero. The supplied positivity condition excludes zero scale."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "28ba97a6fab124287ffb857707dc32a0811e776d107a8c7cd63e68a713f5628d"
+}

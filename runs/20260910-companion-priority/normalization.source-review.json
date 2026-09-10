@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-430e6416bc399ecc",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "rgo_closure_worker",
+    "blind_decoder": "heatbath_exposition_research",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:strong-convex-gibbs-normalization-prerequisite",
+    "anchor": "SPHMC Section 6.2.2, RGO potential and normalized-density definition before Lemma 6.4; supporting normalizability argument only",
+    "original_text": "Supporting normalization theorem: on a finite-dimensional real inner-product Borel space, a differentiable potential V that is m-strongly convex on the whole space for m>0 has a volume-integrable Gibbs weight exp(−V). In the paper, normalized laws are specified by densities proportional to exp(−U_A,u), where U_A,u=U+‖·−u‖²/(2A), U is C² with positive Hessian lower bound, and A∈(0,infinity]. Establishing StrongConvexOn from those Hessian bounds and identifying the particular source potential are separate source adapters, not premises silently replaced by this prerequisite.\n\nSelected supporting theorem: V is differentiable, m>0, and V((1−t)x+ty)≤(1−t)V(x)+tV(y)−m t(1−t)‖x−y‖²/2 for all x,y and 0≤t≤1.\nThe integration space is finite-dimensional real inner-product space with its Borel sigma-algebra and canonical volume.\nNo minimizer, stationary point, gradient field, tail envelope or finite normalizer is an additional hypothesis.\nThe source's C²/Hessian potential conditions and RGO parameters remain attached to its own statements. The Hessian-to-StrongConvexOn adapter is not proved by this prerequisite.",
+    "text_sha256": "406a0387eb9afa716941b3dc147c49dd4fd4fc1360d0268e07ed16ddf4d21e19"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
+    "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/StrongConvexGibbsIntegrability.lean",
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] {V : E → ℝ} {m : ℝ}, 0 < m → Differentiable ℝ V → StrongConvexOn Set.univ m V → MeasureTheory.Integrable (fun x => Real.exp (-V x)) (volume : MeasureTheory.Measure E)",
+    "statement_sha256": "ea2cc2043e44327d5b545384c97af6e2a10fe024cfd83bc815eb3b4d5f5510a9",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite-dimensional real inner-product space E, equipped with its induced norm, norm topology, and Borel σ-algebra, let λ_E denote the canonical Lebesgue measure normalized by orthonormal coordinates. For every real-valued function V : E → ℝ and every real number m > 0, assume that V is genuinely Fréchet differentiable over ℝ at every point of E and is m-strongly convex on all of E. Explicitly, for every x,y ∈ E and every pair of real numbers a,b ≥ 0 with a+b = 1, assume\n\nV(a x + b y) ≤ a V(x) + b V(y) − (m/2) a b ‖x−y‖².\n\nThen the function x ↦ exp(−V(x)) is integrable with respect to λ_E. This conclusion means both that the function is almost everywhere strongly measurable and that the nonnegative integral of its absolute value is finite. It is a genuine integrability assertion, not merely a statement about a real-valued, totalized Bochner integral expression.\n\nThe strong-convexity domain is the entire space E, which is convex. All weights and scalar multiplications in the displayed inequality are real, and the coefficient of the squared-distance correction is exactly m/2. The exponential is the positive real exponential. Canonical volume is not an arbitrary measure-space parameter. No positive-dimension or nontriviality assumption is imposed; dimension zero is allowed, with canonical volume equal to unit mass on the one-point space. Completeness is supplied by finite dimensionality, rather than imposed as a separate hypothesis. The differentiability premise asserts existence of an actual derivative everywhere, not a value assigned by a totalized derivative API.",
+    "text_sha256": "e574d67f31ccf8f37f7dc3cc1ee8ed3cecd85bece2aa035c4a7138330f074cd5",
+    "decoder": "heatbath_exposition_research",
+    "decoder_packet_sha256": "4c4f00ebe85b625db3459a705218687591c24351aa2ad5f658c82a16be6a0cc2",
+    "decoder_run_sha256": "c80c0b543cce53525e3e31dd4150cc550535607c111b6363ec83b9750b4090f9",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "9bdd183cb8f65e5ed78603cdc13300a24e840ff4fdd5adb769731413da321ec2",
+  "candidate_publication_context": {
+    "file": "6497a5901e6fa898524821007f053d8c7396cd4d72d12ee647379d8bfa3dacf1",
+    "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability\n\n/-!\n# Gibbs integrability without a supplied minimizer\n\nA differentiable potential with positive strong-convexity modulus has an\nintegrable exponential Gibbs weight on finite-dimensional Lebesgue space.\nThe proof uses the existing first-order lower bound at the fixed point zero,\nnot an assumed or constructed minimizer. Its Gaussian envelope is obtained\nby absorbing the linear term with Young's inequality.\n\nThis is a shared normalization prerequisite for the targets in Chen, Chewi,\nLu and Zhang, arXiv:2609.06906v1 Section 6.2.2 and arXiv:2609.06905v1 Section 2.1.\nThe papers' Hessian-to-`StrongConvexOn` adapter is a separate obligation;\nneither their Gibbs initialization nor a sampling theorem is asserted here.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability\n\nopen MeasureTheory\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\n/-- A differentiable strongly convex potential has an integrable Gibbs weight\nfor canonical volume. Positive modulus is essential to the Gaussian-envelope\nargument. No minimizer, gradient field, or normalizer is supplied as an extra\nassumption; differentiability supplies the genuine gradient used at zero. -/\ntheorem integrable_exp_neg_of_strongConvexOn {V : E → ℝ} {m : ℝ}\n    (hm : 0 < m) (hV : Differentiable ℝ V)\n    (hsc : StrongConvexOn Set.univ m V) :\n    Integrable (fun x => Real.exp (-V x)) (volume : Measure E) := by\n  let g : E := gradient V 0\n  let b : ℝ := V 0 - (m / 2)⁻¹ / 2 * ‖g‖ ^ 2\n  have hquad : ∀ x : E, m / 4 * ‖x‖ ^ 2 + b ≤ V x := by\n    intro x\n    have hfirst : V 0 + inner ℝ g x + m / 2 * ‖x‖ ^ 2 ≤ V x := by\n      simpa only [g, sub_zero] using\n        StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn hsc\n          (fun z _ => (hV z).hasGradientAt) (x := 0) (y := x)\n          (Set.mem_univ _) (Set.mem_univ _)\n    have hinner := (abs_le.mp (abs_real_inner_le_norm g x)).1\n    have hyoung := two_mul_le_add_mul_sq (a := ‖x‖) (b := ‖g‖)\n      (show 0 < m / 2 by positivity)\n    dsimp only [b]\n    nlinarith\n  have hbound := Integrability.integrable_exp_neg_add_mul_norm_sq\n    (E := E) (a := m / 4) (b := b) (by positivity)\n  refine hbound.mono' ((Real.continuous_exp.comp hV.continuous.neg).aestronglyMeasurable) ?_\n  filter_upwards with x\n  rw [Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]\n  exact Real.exp_le_exp.mpr (neg_le_neg (hquad x))\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2",
+      "edition": "arXiv:2609.06906v1; shared target-normalization consumer in arXiv:2609.06905v1 Section 2.1",
+      "anchor": "SPHMC Section 6.2.2, RGO potential and normalized-density definition before Lemma 6.4; supporting normalizability argument only",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang supply the source target and RGO setting. The displayed supporting theorem and detailed proof are ASTIS's explicit mathematical expansion, not a quotation, source correction, or claim of full Lemma 6.4 formalization."
+    },
+    "statement": "Supporting normalization theorem: on a finite-dimensional real inner-product Borel space, a differentiable potential V that is m-strongly convex on the whole space for m>0 has a volume-integrable Gibbs weight exp(−V). In the paper, normalized laws are specified by densities proportional to exp(−U_A,u), where U_A,u=U+‖·−u‖²/(2A), U is C² with positive Hessian lower bound, and A∈(0,infinity]. Establishing StrongConvexOn from those Hessian bounds and identifying the particular source potential are separate source adapters, not premises silently replaced by this prerequisite.",
+    "formulae": [
+      {
+        "label": "strong-convexity convention",
+        "tex": "V((1-t)x+ty)\\le(1-t)V(x)+tV(y)-\\frac m2t(1-t)\\|x-y\\|^2,\\qquad 0\\le t\\le1."
+      },
+      {
+        "label": "normalization prerequisite and derived envelope",
+        "tex": "\\int_Ee^{-V(x)}\\,dx<\\infty,\\qquad V(x)\\ge\\frac m4\\|x\\|^2+V(0)-\\frac{\\|\\nabla V(0)\\|^2}{m}."
+      }
+    ],
+    "assumptions": [
+      "Selected supporting theorem: V is differentiable, m>0, and V((1−t)x+ty)≤(1−t)V(x)+tV(y)−m t(1−t)‖x−y‖²/2 for all x,y and 0≤t≤1.",
+      "The integration space is finite-dimensional real inner-product space with its Borel sigma-algebra and canonical volume.",
+      "No minimizer, stationary point, gradient field, tail envelope or finite normalizer is an additional hypothesis.",
+      "The source's C²/Hessian potential conditions and RGO parameters remain attached to its own statements. The Hessian-to-StrongConvexOn adapter is not proved by this prerequisite."
+    ],
+    "obligations": [
+      {
+        "id": "gibbs-weight-integrability",
+        "label": "Derive Gibbs-weight integrability from differentiable positive strong convexity without a supplied minimizer"
+      },
+      {
+        "id": "source-hessian-adapter",
+        "label": "Derive StrongConvexOn for the actual source potential from its C² Hessian lower bound"
+      },
+      {
+        "id": "source-gibbs-identification",
+        "label": "Instantiate normalized source Gibbs/RGO laws and their exact density representation"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
+      "kind": "theorem",
+      "title": "Normalize a strongly convex Gibbs target without assuming its minimizer",
+      "statement": "Let E be a finite-dimensional real inner-product space equipped with its Borel sigma-algebra and canonical volume. Let V:E→R be differentiable and m-strongly convex on the whole space, where m>0. Then exp(−V) is integrable with respect to volume. A minimizer, a gradient witness, a tail bound and a normalizing constant are not additional inputs.",
+      "formula": "m>0,\\quad V\\text{ differentiable and }m\\text{-strongly convex}\\quad\\Longrightarrow\\quad\\int_E e^{-V(x)}\\,dx<\\infty.",
+      "assumptions": [
+        "Strong convexity uses the chord convention V((1−t)x+ty)≤(1−t)V(x)+tV(y)−m t(1−t)‖x−y‖²/2 for every x,y and t∈[0,1].",
+        "Differentiability is genuine everywhere differentiability, not a formula using a possibly totalized gradient alone. It supplies both continuity and the actual gradient at zero.",
+        "The space has finite real dimension. Canonical volume is the Lebesgue normalization attached to the inner product, not an arbitrary measure or infinite-dimensional formal volume.",
+        "Strict positivity of m gives a decaying Gaussian envelope. Convexity with m=0 does not suffice: the constant potential on the real line has infinite normalizer.",
+        "The two papers state Hessian lower bounds for C² potentials. Their conversion to this StrongConvexOn hypothesis remains an explicit separate adapter; this supporting theorem does not silently replace those source assumptions."
+      ],
+      "steps": [
+        {
+          "title": "Use a fixed point rather than assume a minimizer",
+          "text": "Set g=∇V(0). Since V is differentiable, this is its actual gradient. The compiled first-order strong-convexity inequality applied at zero controls V everywhere, regardless of whether zero is a critical point or an admissible algorithmic reference point.",
+          "formula": "V(x)\\ge V(0)+\\langle g,x\\rangle+\\frac m2\\|x\\|^2,\\qquad g=\\nabla V(0).",
+          "lean": "Each (hV z).hasGradientAt supplies the genuine gradient required by StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn. The proof specializes its x input to zero and y input to the point being bounded. No global gradient field is assumed."
+        },
+        {
+          "title": "Absorb the linear term into the quadratic growth",
+          "text": "Cauchy–Schwarz controls the potentially negative inner product. Young's inequality with parameter m/2 then spends half of the quadratic growth to absorb the linear term. The remaining coefficient m/4 is strictly positive.",
+          "formula": "\\langle g,x\\rangle\\ge-\\|g\\|\\,\\|x\\|,\\qquad \\|g\\|\\,\\|x\\|\\le\\frac m4\\|x\\|^2+\\frac{\\|g\\|^2}{m},\\qquad V(x)\\ge\\frac m4\\|x\\|^2+b,\\quad b=V(0)-\\frac{\\|g\\|^2}{m}.",
+          "lean": "abs_real_inner_le_norm supplies the lower inner-product bound; two_mul_le_add_mul_sq with ε=m/2 supplies Young's inequality. nlinarith combines these with hfirst. The code writes b as V 0−(m/2)⁻¹/2*‖g‖², equal to the displayed value because m>0."
+        },
+        {
+          "title": "Dominate the Gibbs weight by the compiled Gaussian envelope",
+          "text": "Negation reverses the lower potential bound and the exponential is increasing. The resulting Gaussian envelope is already known to be volume-integrable in finite dimension. Continuity of V makes exp(−V) strongly measurable, so pointwise domination proves integrability.",
+          "formula": "0<e^{-V(x)}\\le e^{-b}e^{-(m/4)\\|x\\|^2},\\qquad \\int_Ee^{-b}e^{-(m/4)\\|x\\|^2}\\,dx=e^{-b}\\left(\\frac{4\\pi}{m}\\right)^{\\dim(E)/2}<\\infty.",
+          "lean": "Integrability.integrable_exp_neg_add_mul_norm_sq supplies integrability of the envelope; its exact integral is explanatory and is not reproved here. The explicit composition Real.continuous_exp.comp hV.continuous.neg supplies measurability. Integrable.mono' and Real.exp_le_exp conclude the proof."
+        }
+      ],
+      "lean_statement": "The three explicit hypotheses are positive real modulus, everywhere differentiability, and Mathlib StrongConvexOn univ m V. Finite-dimensional Borel inner-product structure appears as typeclasses. Finite dimension supplies completeness used by the actual-gradient API. The conclusion is Bochner Integrable for a nonnegative real function, which includes measurable and finite-integral content.",
+      "lean_proof": "This is a new join of two existing ASTIS mathematical parents, not a restatement of an assumed normalizer. The first-order bound and Gaussian tail theorem are owned compiled ASTIS results; Mathlib supplies the gradient bridge, Cauchy–Schwarz, Young's inequality and integral domination. Tests then use Mathlib integral_exp_pos and isProbabilityMeasure_tilted to obtain a positive normalizer and a probability measure, and feed that actual Gibbs probability into the previously compiled RGO closure.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_norm_sq"
+      ],
+      "mathlib_dependencies": [
+        "DifferentiableAt.hasGradientAt",
+        "abs_real_inner_le_norm",
+        "two_mul_le_add_mul_sq",
+        "MeasureTheory.Integrable.mono'",
+        "Real.continuous_exp",
+        "Real.exp_le_exp"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2",
+          "label": "Chen, Chewi, Lu and Zhang, Smoothed Picard Hamiltonian Monte Carlo v1",
+          "scope": "Normalization prerequisite for the Gibbs and RGO densities defined before Lemma 6.4. ASTIS expanded first-order/Young/Gaussian-envelope proof, not copied prose or the whole lemma."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#S2.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, Proximal Bouncy Particle Sampler v1",
+          "scope": "The strongly convex Gibbs target also requires this finite-normalizer input. Its Hessian and probability-density adapter remain separately explicit."
+        }
+      ],
+      "tests": {
+        "file": "Tests/StrongConvexGibbsIntegrability.lean",
+        "command": "lake build Tests.StrongConvexGibbsIntegrability"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
+      "role": "prerequisite",
+      "supports": [
+        "gibbs-weight-integrability"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "The displayed supporting lemma uses differentiability and positive m-strong convexity",
+        "lean": "Differentiable ℝ V and StrongConvexOn Set.univ m V, with 0<m"
+      },
+      {
+        "source": "Euclidean finite-dimensional state and Lebesgue normalization",
+        "lean": "Any finite-dimensional real inner-product Borel space with canonical volume"
+      },
+      {
+        "source": "Gibbs normalizability is implicit in proportional-density notation",
+        "lean": "Integrability is proved from first-order growth and an existing Gaussian envelope; the actual gradient comes from differentiability"
+      },
+      {
+        "source": "The paper imposes C² Hessian lower bounds on U and adds the quadratic RGO potential",
+        "lean": "The supporting lemma takes StrongConvexOn for V rather than a Hessian field"
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "0e0f9011d7eefaab65b39846b7a887a6832ff75bef7ef0df049b9e6d80b48b0f"
+}

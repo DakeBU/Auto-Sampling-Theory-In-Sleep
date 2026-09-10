@@ -1,0 +1,82 @@
+{
+  "schema_version": 4,
+  "advance_id": "ASTIS-SA-20260910-HessianStrongConvexity",
+  "task_id": "ASTIS-SW-COMPANION-2026",
+  "owner": "publication_gate_review",
+  "route": "shared",
+  "frontier_cell": "ASTIS-SHARED-hessian-strong-convexity",
+  "frontier_cell_record": "research-wiki/frontier-cells/ASTIS-SHARED-hessian-strong-convexity.json",
+  "state": "PROVED_LOCAL",
+  "result_kind": "theorem-edge",
+  "mathematical_result": "The exact proposed Hessian-to-strong-convexity implication is compiled for arbitrary real normed E and arbitrary real α, retaining genuine ContDiff ℝ 2 V. Focused tests connect source-positive Hessian potentials to positive finite Gibbs normalization and the actual RGO closure consumer.",
+  "theorem_delta": "ContDiff ℝ 2 V and ∀ x v, α*‖v‖² ≤ (fderiv ℝ (fderiv ℝ V) x v) v imply StrongConvexOn Set.univ α V, without added finite-dimensional, inner-product, positive-modulus, upper-Hessian or completeness hypotheses.",
+  "lean_declarations": ["AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower"],
+  "publication_declarations": ["AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower"],
+  "lean_files": ["AutoSamplingTheory/TechnicalLemmas/Analysis/HessianStrongConvexity.lean", "Tests/HessianStrongConvexity.lean"],
+  "owned_files": ["AutoSamplingTheory/TechnicalLemmas/Analysis/HessianStrongConvexity.lean", "Tests/HessianStrongConvexity.lean", "website/content/declaration_lessons/hessian-strong-convexity.json", "website/content/publications/hessian-strong-convexity.json", "research-wiki/frontier-cells/ASTIS-SHARED-hessian-strong-convexity.json", "runs/20260910-companion-priority/hessian.owner.json"],
+  "shared_floor_audit": {
+    "searched": [
+      "ASTIS/Samplinglib Analysis.StrongConvexFirstOrder, Geometry.StrongConvexity, Analysis.Calculus.LineDeriv, Analysis.Calculus.Taylor",
+      "Mathlib Analysis.Convex.Strong and Deriv, ContDiff.Comp, Deriv.Comp, Deriv.Mul and Deriv.Pow at root-pinned v4.33.0",
+      "Libraries/shared-foundations.yml, existing shared strong-convexity cells, frontloaded sf-calculus-gradient and sf-convex-energy floors",
+      "Pinned Optlib 5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3 Optlib/Convex/StronglyConvex.lean, Apache-2.0: related gradient-monotonicity equivalence, not the exact Hessian hypothesis",
+      "Pinned CvxLean c62c2f292c6420f31a12e738ebebdfed50f6f840 complete GitHub file tree, Apache-2.0: DCP and algebraic PSD interfaces, no corresponding Hessian calculus module found in this bounded audit"
+    ],
+    "classification": "missing",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+    "canonical_shared_cell": "ASTIS-SHARED-hessian-strong-convexity",
+    "external_port": "None. The new proof is built directly from the pinned local Mathlib APIs; upstream source presence is not claimed as local compiler evidence."
+  },
+  "proof_route": [
+    "Obtain genuine first and second derivative witnesses from C². Fix x,y and set v=y−x, c=α‖v‖², q(t)=V(x+t v)−ct²/2.",
+    "Use the chain and evaluation rules to prove q′(t)=DV(x+t v)[v]−ct and q″(t)=D²V(x+t v)[v,v]−c≥0.",
+    "Use Mathlib's scalar second-derivative convexity criterion on the whole real line and apply its chord inequality at 0 and 1.",
+    "Identify x+bv=ax+by, use norm_sub_rev, and rearrange with a=1−b to get the exact αab‖x−y‖²/2 correction."
+  ],
+  "focused_checks": [
+    {"command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=2 lake build AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity", "result": "PASS, exit 0, 2113 jobs; 2026-09-10. No remaining warning."},
+    {"command": "ELAN_TOOLCHAIN=leanprover/lean4:v4.33.0 LEAN_NUM_THREADS=2 lake build Tests.HessianStrongConvexity", "result": "PASS, exit 0, 2802 jobs; 2026-09-10. Printed exact signature and axioms propext, Classical.choice, Quot.sound only."},
+    {"command": "Scoped forbidden-closure scan of the two owned Lean files", "result": "PASS: no sorry, admit, axiom declaration, unsafe, extern, native_decide, Prop := True or trivial closure."},
+    {"command": "tools/astis_frontier_cells.py check", "result": "PASS: 19 registered cells."},
+    {"command": "tools/astis_publication.py packet --cell ASTIS-SHARED-hessian-strong-convexity", "result": "Authored lesson and source binding found. Initial bounded packet before declaration work reported missing publication; final authored packet has no missing publication metadata."},
+    {"command": "tools.astis_advance.transition_advance(ASTIS-SA-20260910-HessianStrongConvexity, PROVED_LOCAL)", "result": "PASS, exit 0, official schema-v4 Harness admission after coordinator integrated canonical source/statement hashes and full publication context/binding. Current official state returned PROVED_LOCAL. Exactly one admission attempt after ready notification; no frozen code/source/lesson/publication change."}
+  ],
+  "consumer_tests": [
+    "For finite-dimensional real inner-product Borel E, positive α, C² V and its diagonal Hessian lower bound, derive Integrable(exp(-V),volume) and 0<integral exp(-V) through the new theorem and StrongConvexGibbsIntegrability.",
+    "Derive IsProbabilityMeasure(volume.tilted(-V)) with no assumed StrongConvexOn, integrability, minimizer or normalizer.",
+    "Feed that actual Gibbs probability into SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt with r≥0,s>0.",
+    "Check zero modulus for a constant real potential and arbitrary modulus for a constant potential in EuclideanSpace ℝ (Fin 0)."
+  ],
+  "frozen_sha256": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/HessianStrongConvexity.lean": "2274e86f3affb400c4de8c94c1796bb103d4b77c980a530ff23bd4c344e0bb62",
+    "Tests/HessianStrongConvexity.lean": "21aa1466cf523c8313c786c07bd5a09624d19cbd72c66b67c88518dc7aa4962e",
+    "website/content/declaration_lessons/hessian-strong-convexity.json": "17173b2c2852cc281a183c4d6da4c2f878c8d25b641a1de7fdf4c7accdea2eba",
+    "website/content/publications/hessian-strong-convexity.json": "369489e974586587a5974ed995eb55da334e50ee0cd4fded3fa105b00382bbd2"
+  },
+  "publication_binding_sha256": "348f1c9ac91aaa1710feffaf0c947e90fed26550cd5db5eec3c5436c47ec4169",
+  "source_fidelity": "Owner checked the exact two arXiv v1 equation(1.1) settings and authored the explicit supporting implication. Independent source fidelity has not been asserted by the owner. Generalizations and omitted unused upper/positive conditions are visible in the assumption ledger.",
+  "semantic_roundtrip": {"required": true, "audit_id": "ASTIS-RT-20260910-HessianStrongConvexity", "state": "blind-reconstructed", "canonical_registry_state": "reconstructed", "verdict": "pending independent source review; coordinator reports anonymous decoding complete", "remaining_semantic_delta": "Normed-space and arbitrary-real-modulus generalization; exact C²/Hessian representation and prerequisite-only scope must be checked independently."},
+  "conceptual_mirror_audit": {"status": "none-found", "discovery_ids": [], "reason": "Read the existing curvature-growth family, its typed hyperedge, and shared calculus/convex floors. This is a direct analytic adapter inside that existing family, with no new cross-domain mechanism or certified functor claim."},
+  "truth_boundary": "One compiled supporting analytic implication, not either full sampler theorem. The production theorem itself proves no upper-Hessian smoothness, normalization, minimizer, invariance, discrepancy or query complexity. Its finite-dimensional positive-curvature tests exercise normalization and RGO consumers under their actual assumptions.",
+  "route_fingerprint": "scalar-line-quadratic-compensation-v1",
+  "progress_signature": "official-proved-local-admission-pass",
+  "exact_residual": "No Lean proof or PROVED_LOCAL admission residual. Independent source review and coordinator stabilization remain separate. The coordinator reports independent focused/direct proof checks PASS on the frozen bytes; this artifact does not claim a verified commit.",
+  "compiler_history": [
+    "First focused build: endpoint simplification/algebra and derivative conversion residuals.",
+    "Second focused build: endpoint algebra closed; scalar derivative instance conversions remained.",
+    "Third focused build: pointwise-function simplification did not resolve the same scalar instance residual. Stopped tactic substitution and diagnosed the exact equality goals.",
+    "One direct elaboration diagnostic exposed definitionally equal Real AddCommGroup/Module instances plus function and polynomial equalities. Explicit convert/rfl bridges resolved the API mismatch without changing any hypothesis.",
+    "Next focused production build PASS; first focused consumer test build PASS. No background process was launched; each surfaced foreground compiler session was resumed to completion."
+  ],
+  "bookkeeping": "Official SAU proposal/claim/exploring events were written at actual current timestamps after initial cell/draft/compiler work, and explicitly recorded that sequence. No event was backdated. All official ledger writes used the Harness API.",
+  "integration_notes": {
+    "public_imports_needed": [],
+    "public_imports_integrated": ["Coordinator integrated the module in declaration-free AutoSamplingTheory.TechnicalLemmas, not the declaration-bearing Analysis aggregator, preserving prior review bindings.", "Coordinator integrated Tests.HessianStrongConvexity in root Tests."],
+    "registry_or_site_updates": ["Root owns exact declaration Registry entry, semantic registry/context, conversion windows and aggregate graph/site checks. Do not alter any old packet or lesson merely because the new adapter now exists."],
+    "downstream_consumers": ["StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn", "MeasureTheory.integral_exp_pos", "MeasureTheory.isProbabilityMeasure_tilted", "SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt"],
+    "graph_delta": "One new shared Mathlib-only theorem module and declaration, with source correspondence to both companion equation(1.1) settings. Production ASTIS dependency list is empty; actual existing ASTIS consumption is demonstrated in the focused Tests module. Planned paper reuse/source correspondence stays curated, not a claimed formal sampler edge. Graph regeneration and visual inspection are reserved for the coordinator."
+  },
+  "branch": "existing shared checkout; no Git mutation performed",
+  "commit": "No commit created and no verified-commit claim; evidence is bound to the recorded file bytes."
+}

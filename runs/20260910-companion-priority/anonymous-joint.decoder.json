@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-2c32752732eaaf0a",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] (η : ℝ), 0 < η → MeasureTheory.Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E)) = (μ.prod (volume : MeasureTheory.Measure E)).withDensity (fun p => ENNReal.ofReal (((Real.sqrt (2 * Real.pi * η))⁻¹) ^ Module.finrank ℝ E * Real.exp (-‖p.2 - p.1‖ ^ 2 / (2 * η))))",
+    "statement_sha256": "2c32752732eaaf0a4f355e92e4caf41f1c9ce5c6a1b6113f17522aa4ded9c745",
+    "compiled": true,
+    "approved_definition_context": [
+      "stdGaussian E is the centered standard Gaussian probability law with identity covariance. IsProbabilityMeasure μ means total mass one. μ.prod ν is the product measure; for probability measures it represents independent coordinates. Measure.map is pushforward along the displayed map. All displayed maps are continuous and hence Borel measurable.",
+      "volume is canonical Lebesgue/Haar measure provided by the finite-dimensional real inner-product-space instance, normalized by orthonormal coordinates; no arbitrary MeasureSpace E is assumed. BorelSpace identifies measurable sets with the topology's Borel sigma algebra. In dimension zero canonical volume is unit mass at the only point.",
+      "m.withDensity q weights the reference measure m by the extended nonnegative density q. For measurable A it is the nonnegative integral of q over A. ENNReal.ofReal maps nonnegative real numbers into extended nonnegative reals and sends negatives to zero. Module.finrank ℝ E is the natural-number dimension; powers are natural-number powers.",
+      "Real.sqrt is the nonnegative square root, Real.pi is the circle constant, • is real scalar multiplication and the norm comes from the inner product. Division and reciprocals are totalized at zero; the displayed positive scale makes their denominators nonzero."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "6f8154b4c2391f79c03fe94671c80d0dbbe1a5b2e8b2f17420e0166220f4e562"
+}

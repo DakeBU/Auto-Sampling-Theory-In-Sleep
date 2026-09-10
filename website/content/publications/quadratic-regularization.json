@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "items": [{
+    "id": "sphmc-quadratic-regularization-curvature",
+    "library": "samplewiki-route",
+    "chapter": "sphmc-01",
+    "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "title": "Curvature and actual gradient smoothness of the RGO potential",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2",
+      "edition": "arXiv:2609.06906v1; related potential in arXiv:2609.06905v1",
+      "anchor": "Section 6.2.2, Lemma 6.4, strong-convexity/smoothness clause; PBPS Proposition 2.1(i), (2.9)-(2.10), as prerequisite/consequence support only",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang state the SPHMC RGO-potential curvature/smoothness clause and the related PBPS potential and Hessian sandwich in the cited v1 papers. This is ASTIS's attributed paraphrase and expanded analytic proof, not copied prose, a source correction or either complete sampling theorem."
+    },
+    "statement": "In SPHMC Section 6.2.2 let U∈C²(R^d) satisfy κ⁻¹I≼∇²U(x)≼I everywhere. For A∈(0,∞] and u∈R^d put U_A,u(x)=U(x)+‖x−u‖²/(2A). Lemma 6.4's selected clause states that U_A,u is α_A-strongly convex and β_A-smooth, where α_A=κ⁻¹+A⁻¹ and β_A=1+A⁻¹; smoothness here means actual gradient Lipschitz continuity. Zero precision A⁻¹=0 retains A=∞. ASTIS proves this clause for general nonnegative m,L,r on a complete real inner-product space, with U+r‖x−u‖²/2 and constants m+r,L+r. PBPS (2.9)-(2.10) uses the same quadratic potential with constants α,β,η⁻¹ and states its Hessian sandwich; the present public two-conclusion theorem is prerequisite/consequence support for that use, not a formalization of the entire PBPS statement.",
+    "assumptions": [
+      "SPHMC's potential is genuinely C² on Euclidean space and satisfies its pointwise lower and upper Hessian bounds with the source condition parameter κ≥1.",
+      "The regularization centre is arbitrary and A is positive or infinite. Precision r=A⁻¹ is nonnegative; r=0 represents infinite variance, not a legal zero finite variance.",
+      "The generalized Lean hypothesis is m‖v‖²≤D²U(x)[v,v]≤L‖v‖² for every x,v, with m,L,r nonnegative, together with ContDiff ℝ 2 U.",
+      "The deterministic theorem is on the whole complete real inner-product space. It uses neither an assumed derivative field nor any measure or normalization premise."
+    ],
+    "formulae": [
+      {"label": "source regularization", "tex": "U_{A,u}(x)=U(x)+\\frac{\\|x-u\\|^2}{2A},\\qquad\\alpha_A=\\kappa^{-1}+A^{-1},\\qquad\\beta_A=1+A^{-1}."},
+      {"label": "exact curvature and smoothness", "tex": "U_{A,u}(ax+by)\\le aU_{A,u}(x)+bU_{A,u}(y)-\\frac{\\alpha_A}{2}ab\\|x-y\\|^2,\\quad\\|\\nabla U_{A,u}(x)-\\nabla U_{A,u}(y)\\|\\le\\beta_A\\|x-y\\|,\\quad a,b\\ge0,\\ a+b=1."}
+    ],
+    "obligations": [
+      {"id": "actual-strong-convexity", "label": "Derive the exact shifted strong-convexity chord inequality for the actual RGO potential"},
+      {"id": "actual-gradient-smoothness", "label": "Derive actual global gradient Lipschitz continuity with the exact shifted smoothness constant"},
+      {"id": "normalized-oracle-and-recurrence", "label": "Keep the separate normalized-oracle closure and source condition-number recurrence obligations distinct from the curvature clause"}
+    ],
+    "bindings": [{
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+      "cell": "ASTIS-SHARED-quadratic-regularization",
+      "role": "proof-edge",
+      "supports": ["actual-strong-convexity", "actual-gradient-smoothness"],
+      "audit_id": "ASTIS-RT-20260910-QuadraticRegularization",
+      "boundary": "Exactly the SPHMC Lemma 6.4 strong-convexity/smoothness clause, generalized as recorded. PBPS is a related prerequisite/consequence consumer, not a second direct source-proof binding. Neither normalized-law closure, condition-number recurrence, conditional-law identification, Poincaré, covariance, sampler guarantees nor costs are proved by this declaration.",
+      "assumption_deltas": [
+        {"source": "U∈C²(R^d)", "lean": "ContDiff ℝ 2 U", "classification": "same", "reason": "The proof obtains actual first and second Fréchet derivatives from genuine C² regularity; merely totalized nested fderiv notation would be insufficient."},
+        {"source": "κ⁻¹I≼∇²U(x)≼I at every x", "lean": "∀ x v, ↑m*‖v‖²≤(fderiv ℝ (fderiv ℝ U) x v) v ∧ (fderiv ℝ (fderiv ℝ U) x v) v≤↑L*‖v‖²", "classification": "generalization", "reason": "The quadratic-form Hessian meaning is retained exactly. m=κ⁻¹,L=1 recovers SPHMC; any nonnegative m,L are allowed. No unrelated field or operator-norm bound is assumed."},
+        {"source": "Euclidean finite-dimensional state space", "lean": "Complete real inner-product space, including zero dimension", "classification": "generalization", "reason": "Riesz representation and the symmetric-operator Rayleigh norm formula work on complete real inner-product spaces; no finite-dimensional spectral theorem is used. Euclidean spaces satisfy completeness automatically. This does not generalize probability normalization to infinite dimension."},
+        {"source": "A∈(0,∞], quadratic coefficient 1/(2A)", "lean": "r:ℝ≥0, quadratic coefficient ↑r/2", "classification": "same", "reason": "Set r=A⁻¹ for finite positive A and r=0 for A=∞. Zero precision is explicitly tested and must not be confused with a zero finite variance."},
+        {"source": "α_A-strong convexity and β_A-smoothness, α_A=κ⁻¹+A⁻¹, β_A=1+A⁻¹", "lean": "StrongConvexOn Set.univ (↑(m+r)) W ∧ LipschitzWith (L+r) (gradient W)", "classification": "same", "reason": "The exact source specialization retains the chord correction α_A/2 and actual gradient Lipschitz constant β_A. Smoothness is derived, not replaced by a declared Hessian norm bound."},
+        {"source": "Positive lower source curvature", "lean": "Nonnegative m and r are sufficient for this deterministic theorem", "classification": "generalization", "reason": "The lower sandwich is needed for nonnegative Rayleigh quotients. Strict positivity is not needed for strong convexity with possibly zero modulus or for gradient Lipschitz continuity; focused Gibbs tests restore source-positive curvature and finite-dimensional canonical-volume hypotheses."}
+      ]
+    }]
+  }]
+}

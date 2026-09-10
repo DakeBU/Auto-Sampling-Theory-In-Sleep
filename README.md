@@ -32,9 +32,9 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 
 ## News
 
+- **2026-09-10:** Compiled and source-reviewed the first [SPHMC](conversion-windows/ASTIS-SW-SPHMC-2026.md) and [Proximal BPS](conversion-windows/ASTIS-SW-PBPS-2026.md) proof packets.
 - **2026-09-09:** Connected mathematics-first readers to [chapter progress and semantic review](docs/theorem-publication-protocol.md).
 
-- **2026-09-09:** Added [companion-paper proof maps](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/) for Smoothed Picard HMC and Proximal BPS.
 - **2026-09-07:** Added Discrete Sampling and MCMC as peer libraries.
 - **2026-09-05:** Added Statistical Optimal Transport and the Functor Hypergraph.
 - **2026-08-30:** Unified cross-library progress and Frontier Cell collaboration.

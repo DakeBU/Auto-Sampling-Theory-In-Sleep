@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-7d0ef4fbf96d01c0",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "rgo_closure_worker",
+    "blind_decoder": "heatbath_exposition_research",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "sphmc-v1:lemma-6.4-normalized-measure-component",
+    "anchor": "arXiv:2609.06906v1, Section 6.2.2, Lemma 6.4 and (6.1), selected normalized-measure calculation",
+    "original_text": "ASTIS expanded mathematical extraction supporting the normalized-law clause of Lemma 6.4, not a quotation or all clauses of that lemma. On a Borel real inner-product space E, let mu be any probability measure. For centres u,y and real precisions r>=0 and s>0, first reweight mu proportionally by exp(-r*||x-u||^2/2), then reweight the resulting probability by exp(-s*||x-y||^2/2). The result equals the one normalized reweighting of mu with precision r+s and centre (r+s)^(-1)*(r*u+s*y). All positive finite normalizers follow from positive measurable weights bounded by one; they are not extra hypotheses. The precision r=0 represents A=infinity and s=a^(-1)>0. The calculation is explicitly more general than the paper's Euclidean Gibbs base. Identifying that base and its potential-defined RGO densities, curvature updates and the actual sampler and costs remain separate obligations.",
+    "text_sha256": "0436abf3c0285ffbb5954236201f4847e0ff7d16679beab98d0e62f1f1221f93"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RGOClosure.lean",
+    "statement": "∀ {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] {r s : ℝ}, 0 ≤ r → 0 < s → ∀ (u y : E), (μ.tilted (fun x => -(r / 2) * ‖x - u‖ ^ 2)).tilted (fun x => -(s / 2) * ‖x - y‖ ^ 2) = μ.tilted (fun x => -((r + s) / 2) * ‖x - (r + s)⁻¹ • (r • u + s • y)‖ ^ 2)",
+    "statement_sha256": "42e463c6c25cde869c3c1823f851dec4e9b0ca2d568ac22ed9ba977e77cebb9e",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let E be any real inner-product space with its induced norm and with measurable sets given by the Borel σ-algebra of its norm topology. No finite-dimensionality or completeness assumption is imposed. Let μ be any probability measure on E. For every pair of real numbers r,s satisfying r ≥ 0 and s > 0, and every u,y ∈ E, set m = (r+s)⁻¹(r u+s y). Then the following equality of measures on E holds:\n\nTilt(Tilt(μ, x ↦ −(r/2)‖x−u‖²), x ↦ −(s/2)‖x−y‖²) = Tilt(μ, x ↦ −((r+s)/2)‖x−m‖²).\n\nHere, for a measure ν and real-valued function f, Tilt(ν,f) means ν.withDensity(x ↦ ENNReal.ofReal(exp(f(x))/Zν(f))), where Zν(f) = ∫ exp(f(z)) dν(z). Thus the second tilt is normalized relative to the measure obtained after the first tilt. The real integral is totalized to zero when its integrand is not integrable; division by zero is totalized to zero, so a zero normalizer gives the zero tilted measure. ENNReal.ofReal converts a nonnegative real number into an extended nonnegative real number and sends negative real numbers to zero. Scalar products and reciprocals in m are real scalar operations. Although the reciprocal convention includes 0⁻¹ = 0, the stated assumptions ensure r+s > 0.",
+    "text_sha256": "977d0c5ef211c8414ea02dd23266bb14b3952a2eaddc79a9befb274faec413f7",
+    "decoder": "heatbath_exposition_research",
+    "decoder_packet_sha256": "763636e2c54762d57104f10b7b76399959b5b69397030aa6c5c0e652d74c851a",
+    "decoder_run_sha256": "799677a910b91173d0d0386228311380ed5504d81a2ec55772e2a24d01929a48",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "b001f2768be62a7a7c645cd994b5f3cba18e6bc79bd7cdfbd9185d0d561ac6e5",
+  "candidate_publication_context": {
+    "file": "32e53cf8aee2ceeba76a495204def3827a4f016467ce8970e3b5c855a0e7568f",
+    "current_lean_module": "import Mathlib.MeasureTheory.Measure.Tilted\nimport Mathlib.Analysis.InnerProductSpace.Basic\nimport Mathlib.MeasureTheory.Constructions.BorelSpace.Basic\nimport Mathlib.MeasureTheory.Function.SpecialFunctions.Basic\nimport Mathlib.Tactic.FieldSimp\nimport Mathlib.Tactic.Ring\nimport Mathlib.Tactic.Positivity\n\n/-!\n# Normalized restricted Gaussian reweighting is closed under composition\n\nThe normalized-law calculation in Chen, Chewi, Lu and Zhang,\n*Smoothed Picard Hamiltonian Monte Carlo*, arXiv:2609.06906v1,\nSection 6.2.2, Lemma 6.4 and (6.1).\n\nThe real precisions are `r = A⁻¹` and `s = a⁻¹`: allowing `r = 0`\nretains the source case `A = ∞`. The base is already a probability measure;\nidentifying it with the source Gibbs density and proving curvature updates\nare distinct obligations. The calculation itself needs only a Borel real\ninner-product space, with no moment or density assumptions.\n\nMathlib's `Measure.tilted` supplies the existing normalized-measure API.\nThe proof derives integrability and nonzero normalization from weights in\n`(0,1]`; it cannot succeed through the zero-measure fallback of that API.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure\n\nopen MeasureTheory\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [MeasurableSpace E] [BorelSpace E]\n\n/-- Applying two normalized quadratic exponential reweightings gives a single\nreweighting with summed precision and precision-weighted centre. All\nnormalizing integrals are positive and finite by boundedness of the weights\nand probability of the base; no such hypotheses are supplied by the caller.\nThis is the distribution-level calculation, not a sampler or curvature result. -/\ntheorem quadratic_tilt_tilt (μ : Measure E) [IsProbabilityMeasure μ]\n    {r s : ℝ} (hr : 0 ≤ r) (hs : 0 < s) (u y : E) :\n    (μ.tilted (fun x => -(r / 2) * ‖x - u‖ ^ 2)).tilted\n        (fun x => -(s / 2) * ‖x - y‖ ^ 2) =\n      μ.tilted (fun x => -((r + s) / 2) *\n        ‖x - (r + s)⁻¹ • (r • u + s • y)‖ ^ 2) := by\n  have hint : ∀ (t : ℝ), 0 ≤ t → ∀ (v : E),\n      Integrable (fun x => Real.exp (-(t / 2) * ‖x - v‖ ^ 2)) μ := by\n    intro t ht v\n    have hcont : Continuous (fun x : E => Real.exp (-(t / 2) * ‖x - v‖ ^ 2)) :=\n      Real.continuous_exp.comp (continuous_const.mul ((continuous_id.sub continuous_const).norm.pow 2))\n    refine (integrable_const (1 : ℝ)).mono' hcont.aestronglyMeasurable ?_\n    filter_upwards with x\n    rw [Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]\n    apply Real.exp_le_one_iff.mpr\n    exact mul_nonpos_of_nonpos_of_nonneg (neg_nonpos.mpr (by positivity)) (sq_nonneg _)\n  have hrs : 0 < r + s := add_pos_of_nonneg_of_pos hr hs\n  let w : E := (r + s)⁻¹ • (r • u + s • y)\n  let c : ℝ := -(r * s / (2 * (r + s))) * ‖u - y‖ ^ 2\n  have hsq : (fun x => -(r / 2) * ‖x - u‖ ^ 2) +\n      (fun x => -(s / 2) * ‖x - y‖ ^ 2) =\n      (fun x => -((r + s) / 2) * ‖x - w‖ ^ 2) + (fun _ => c) := by\n    funext x\n    simp only [Pi.add_apply, w, c, ← real_inner_self_eq_norm_sq,\n      inner_sub_left, inner_sub_right, inner_add_left, inner_add_right,\n      real_inner_smul_left, real_inner_smul_right]\n    rw [real_inner_comm y u, real_inner_comm u x, real_inner_comm y x]\n    field_simp\n    ring\n  have : IsProbabilityMeasure\n      (μ.tilted (fun x => -((r + s) / 2) * ‖x - w‖ ^ 2)) :=\n    isProbabilityMeasure_tilted (hint (r + s) hrs.le w)\n  rw [tilted_tilted (hint r hr u), hsq,\n    ← tilted_tilted (hint (r + s) hrs.le w), tilted_const]\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Section 6.2.2, Lemma 6.4, equation (6.1)",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang. ASTIS restatement and expanded calculation, not copied original prose; no endorsement implied."
+    },
+    "statement": "Let U be a twice continuously differentiable potential on Euclidean space satisfying κ⁻¹ I ≤ ∇²U ≤ I. For A in (0,infinity] and centre u, put U_A,u(x)=U(x)+‖x−u‖²/(2A). Its strong-convexity and smoothness parameters are α_A=κ⁻¹+A⁻¹ and β_A=1+A⁻¹, with ratio κ_A=β_A/α_A. For a>0 and centre y, the RGO for U_A,u with variance a equals the RGO for U with precision A⁻¹+a⁻¹ and precision-weighted centre. The new condition-number ratio is given in (6.1). The current proof binding covers only the normalized-law calculation, not every clause of this lemma.",
+    "formulae": [
+      {
+        "label": "RGO potential and curvature",
+        "tex": "U_{A,u}(x)=U(x)+\\frac{\\|x-u\\|^2}{2A},\\quad \\alpha_A=\\kappa^{-1}+A^{-1},\\quad \\beta_A=1+A^{-1},\\quad \\kappa_A=\\beta_A/\\alpha_A."
+      },
+      {
+        "label": "(6.1), normalized law and updated parameters",
+        "tex": "R^{U_{A,u}}_{a,y}=R^U_{A^+,u^+},\\quad (A^+)^{-1}=A^{-1}+a^{-1},\\quad u^+=A^+(u/A+y/a),\\quad \\kappa_{A^+}=\\frac{a\\beta_A+1}{a\\beta_A+\\kappa_A}\\,\\kappa_A."
+      }
+    ],
+    "assumptions": [
+      "U is C² on R^d with κ⁻¹ I ≤ Hessian(U) ≤ I and positive κ, as in the source's normalized curvature convention.",
+      "A∈(0,infinity], a>0, and u,y∈R^d; A⁻¹=0 when A=infinity.",
+      "RGO denotes the normalized probability law with density proportional to exp(−U(x)−‖x−u‖²/(2A)). Its relation to a pre-existing probability base is an explicit pending adapter, not an assumed equality of the target laws."
+    ],
+    "obligations": [
+      {
+        "id": "normalized-measure-closure",
+        "label": "Actual equality of successive normalized quadratic tilts, including all normalizers and A=infinity"
+      },
+      {
+        "id": "gibbs-base-identification",
+        "label": "Identify the probability-base tilts with the source Lebesgue Gibbs densities for U and U_A,u"
+      },
+      {
+        "id": "curvature-update",
+        "label": "Prove the Hessian/strong-convexity/smoothness updates and the resulting condition-number formula"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+      "kind": "theorem",
+      "title": "An RGO of an RGO has an explicit normalized target law",
+      "statement": "Let E be a real inner-product space with its Borel measurable sets, and let μ be any probability measure on E. For u,y in E, r≥0 and s>0, normalized reweighting first by exp(−r‖x−u‖²/2) and then by exp(−s‖x−y‖²/2) is exactly one normalized reweighting with precision r+s and centre w=(r+s)⁻¹(ru+sy). No moment or density assumption on μ is needed.",
+      "formula": "T_{s,y}(T_{r,u}\\mu)=T_{r+s,w}\\mu,\\quad w=\\frac{ru+sy}{r+s},\\quad \\frac{dT_{r,u}\\mu}{d\\mu}(x)=\\frac{e^{-r\\|x-u\\|^2/2}}{Z_{r,u}},\\quad Z_{r,u}=\\int e^{-r\\|x-u\\|^2/2}\\,d\\mu(x).",
+      "assumptions": [
+        "μ is a probability measure, not an unnormalized Lebesgue density. This is an explicit base-law contract, not a proof that the paper's Gibbs potential is normalizable.",
+        "E carries the Borel sigma-algebra of its norm topology and a real inner product. Finite dimension is unnecessary for this algebraic probability-law identity; the source uses Euclidean space.",
+        "The precisions satisfy r≥0 and s>0, so r+s>0. Source A=infinity is represented by r=0; for finite source parameters r=A⁻¹ and s=a⁻¹.",
+        "No derivatives, a.e. choices of conditional distributions, generator domains, moments, boundary decay or sampling-error premises occur in this selected measure calculation."
+      ],
+      "steps": [
+        {
+          "title": "Show each normalized reweighting is a genuine probability law",
+          "text": "For every nonnegative precision t and every centre v, the exponential weight is continuous, hence measurable. It is positive and bounded above by one. Since the base measure is a probability, the weight is integrable and its integral is strictly positive. Thus normalization uses a finite positive number, not Lean's fallback value for a nonintegrable expression.",
+          "formula": "0<e^{-t\\|x-v\\|^2/2}\\le1,\\qquad 0<Z_{t,v}=\\int e^{-t\\|x-v\\|^2/2}\\,d\\mu\\le1.",
+          "lean": "The internal hint proves Integrable from integrable_const 1 and Integrable.mono'. hcont explicitly composes continuous norm, square, multiplication and exponential; hcont.aestronglyMeasurable supplies the measurable representative. Real.exp_le_one_iff checks the bound. Mathlib tilted_tilted and isProbabilityMeasure_tilted use integral_exp_pos for the nonzero normalization."
+        },
+        {
+          "title": "Complete the square with the exact additive constant",
+          "text": "Expand each squared norm as an inner product and collect coefficients of x. The weighted centre makes the linear terms agree. The remaining difference is independent of x. Positivity of r+s justifies division, including r=0.",
+          "formula": "\\frac r2\\|x-u\\|^2+\\frac s2\\|x-y\\|^2=\\frac{r+s}{2}\\|x-w\\|^2+C,\\qquad C=\\frac{rs}{2(r+s)}\\|u-y\\|^2.",
+          "lean": "hsq is the pointwise identity between the sum of two log-weights and the combined log-weight plus c=−C. Inner-product bilinearity expands the squares; field_simp and ring verify the real polynomial identity."
+        },
+        {
+          "title": "Cancel normalization rather than assuming proportional laws are equal",
+          "text": "The normalizer of the second tilt is the integral of its weight under the first normalized law. Multiplying the two normalized densities cancels the first normalizer. Completing the square contributes the same positive factor exp(−C) to numerator and denominator, which cancels as well.",
+          "formula": "\\frac{e^{-r\\|x-u\\|^2/2}}{Z_{r,u}}\\,\\frac{e^{-s\\|x-y\\|^2/2}}{\\int e^{-s\\|z-y\\|^2/2}\\,dT_{r,u}\\mu(z)}=\\frac{e^{-C}e^{-(r+s)\\|x-w\\|^2/2}}{e^{-C}Z_{r+s,w}}=\\frac{e^{-(r+s)\\|x-w\\|^2/2}}{Z_{r+s,w}}.",
+          "lean": "The first tilted_tilted combines normalized exponential tilts. hsq rewrites their sum. A second tilted_tilted presents the additive constant as a constant tilt; tilted_const removes it because the combined law has already been proved a probability."
+        }
+      ],
+      "lean_statement": "Measure.tilted μ f is Mathlib's actual normalized exponential-density measure. The theorem compares measures, not informal density proportionality. IsProbabilityMeasure μ is a typeclass assumption. u,y and the two precision inequalities are explicit inputs; no integrability hypothesis is hidden in the signature.",
+      "lean_proof": "ASTIS authors the quadratic completion and connects it to Mathlib's existing normalization theorem. The source law's Gibbs representation is deliberately not encoded as an assumption equating the two target laws. All weights used in the proof are integrable by direct domination; Mathlib handles their exact normalizer cancellation.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.tilted: existing normalized exponential reweighting.",
+        "MeasureTheory.tilted_tilted and tilted_const: composition and cancellation of constant normalized tilts.",
+        "MeasureTheory.isProbabilityMeasure_tilted and integral_exp_pos: probability and strictly positive normalizer from integrability and nonzero mass.",
+        "MeasureTheory.Integrable.mono': integrability under an integrable envelope; Borel measurability from continuity.",
+        "real_inner_self_eq_norm_sq, inner_sub_left/right, inner_add_left/right, real_inner_smul_left/right: completion of the square."
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2",
+          "label": "Chen, Chewi, Lu and Zhang, Smoothed Picard Hamiltonian Monte Carlo v1",
+          "scope": "Section 6.2.2, Lemma 6.4 normalized-law clause and (6.1). ASTIS's original expanded proof of the omitted calculation, not quoted paper prose."
+        }
+      ],
+      "tests": {
+        "file": "Tests/SmoothedPicardRGOClosure.lean",
+        "command": "lake build Tests.SmoothedPicardRGOClosure"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+      "role": "proof-edge",
+      "supports": [
+        "normalized-measure-closure"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Euclidean Gibbs probability base with a C² potential and Hessian bounds",
+        "lean": "Arbitrary probability measure on a Borel real inner-product space"
+      },
+      {
+        "source": "A∈(0,infinity] and a>0",
+        "lean": "r≥0 and s>0, interpreted as r=A⁻¹ and s=a⁻¹"
+      },
+      {
+        "source": "The RGO proportional-density notation suppresses normalization details",
+        "lean": "Actual Measure.tilted equality; integrability and positive finite normalization proved internally"
+      },
+      {
+        "source": "RGO built directly from the unnormalized potential U",
+        "lean": "A supplied probability base μ"
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "b7b33cb71f5d4ac7c90f883fced3abb188f4c797fba4d9a440ea50bf2478116e"
+}

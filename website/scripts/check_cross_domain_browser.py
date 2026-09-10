@@ -13,7 +13,7 @@ import re
 import shutil
 import threading
 from pathlib import Path
-from urllib.parse import parse_qs, urlsplit
+from urllib.parse import parse_qs, urlsplit, quote
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -122,6 +122,28 @@ def main() -> None:
             page.locator('[data-graph-color]').select_option('library')
             assert page.locator('.ulg-edge[data-evidence="formal"]').count()==before
             report['scope_colour_preserves_evidence']=True
+            # One real, metadata-derived contribution slice: no giant graph or
+            # hand-maintained declaration list in the browser acceptance test.
+            publication_items = [i for f in (ROOT/'website/content/publications').glob('*.json')
+                                 for i in json.loads(f.read_text(encoding='utf-8'))['items']]
+            if publication_items:
+                name = publication_items[0]['bindings'][0]['declaration']
+                ident = 'decl:' + name
+                goto('lean-foundations.html?view=lean&focus=' + quote(ident, safe='') + '&q=' + quote(name, safe=''))
+                page.wait_for_selector('.ulg-canvas[data-local="true"]')
+                assert page.locator(f'.ulg-node[data-id="{ident}"]').count() == 1
+                assert page.locator('.ulg-edge[data-relation="source reference (scanner)"][data-evidence="formal"]').count() == 0
+                assert page.locator('.ulg-edge[data-relation="closes leaf"][data-evidence="formal"]').count() == 0
+                assert not page.locator('[data-graph-detail] h2').evaluate('(n) => n.scrollWidth > n.clientWidth + 1')
+                assert page.locator('.ulg-node .label').evaluate_all(
+                    '(labels) => labels.every(n => n.getBBox().x + n.getBBox().width <= Number(n.parentNode.querySelector("rect").getAttribute("width")))')
+                page.locator('[data-graph-canvas]').scroll_into_view_if_needed()
+                page.screenshot(path=str(evidence/'contribution-graph.png'))
+                page.set_viewport_size({'width':412,'height':915})
+                assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
+                page.screenshot(path=str(evidence/'contribution-graph-mobile.png'))
+                page.set_viewport_size({'width':1440,'height':1000})
+                report['contribution_graph'] = {'node':ident,'local_view':True,'scanned_edges_not_formal':True}
             if not args.offline_dom:
                 goto('underlying-lean-graph/index.html?view=functor&focus=transport:dirac')
                 page.wait_for_url(lambda url: urlsplit(url).path.endswith('/lean-foundations.html')
