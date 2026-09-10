@@ -138,3 +138,64 @@ artifact or imply another deployment. Registry396 and the eleven independently
 verified companion/shared results remain distinct counts. Both full papers
 remain open. Continue the same active Goal with the planned Lemma6.4 integration
 in next-rgo-packet.md; no replacement Goal, cycle or background session.
+
+## Twelfth-result release: source-level SPHMC Lemma6.4
+
+Validated release26eb51a602f9976a4eae769be1b811582951ec4a was pushed normally
+to origin/main. Proof commit8ef889b89ae1b23e19d41acf25c115cfbef5e30a is bound
+by rgo-calculus.commit-verification.json; admission50e3878 records the actual
+independent VERIFIED decision. The original Measure.lean change is untouched.
+
+The official gate passed8955 Lean build jobs,9076 Tests jobs, ASTIS/ATLAS and
+fake-closure checks. Final generator-owned evidence names26eb51a and source
+digest e5035973f4e9967383012056d4435817dafe0a7eba35e81c662c5bc3e1b5494c.
+The earlier pass named50e3878: the one-line evidence-pointer commit had landed
+after that gate finished. A fresh actual gate was therefore run for26eb51a;
+no old pass flag or commit hash was rewritten. Both runs used identical Lean
+sources; no further gate is needed for this outcome-only documentation record.
+Publication diff gate PASS13, semantic PASS16 audits/1 preserved repair,
+frontier PASS24, py_compile and whitespace also pass. Existing61 tool regression
+results remain reusable because their tool implementations were not changed.
+
+The final site build/check reports12 chapters,546 modules,3640 declarations
+and77 reviewed teaching declarations in the existing catalog. Registry396
+remains distinct from the twelve separately inventoried companion/shared
+results. The new five-step authored lesson is included in the companion reader.
+
+Root actually opened all three screenshots of the new full proof, mobile
+reader and local SVG graph. Six MathJax formula blocks rendered, with no
+math/runtime errors. Statement and proof have separate initially closed Lean
+disclosures; each mathematical step has its own corresponding-Lean explanation.
+Opening the complete proof disclosure passed. Mobile has no page overflow;
+long formulas scroll inside their containers. Five graph nodes and three edges
+are legible; the owning module is compiled blue, the declaration's conservative
+publication projection is partial, and the dashed SPHMC correspondence is
+explicitly not a Lean implication. Shared declaration identity is unique.
+No new graph feature or hand-maintained image source was introduced. All
+temporary browser/test-server resources closed normally after the checks.
+
+GitHub Samplinglib site run34467857292 completed/success; cleanup34467857214
+also succeeded. At the recorded final check, formalization34467857382 was
+in_progress. Do not infer its terminal result from the successful local gate.
+Public site: https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/.
+
+The first private packaging invocation exited1 because the isolated Bash
+runtime lacked its existing Git runtime/search paths. Setting PATH only in the
+packaging process to those already installed directories made the unchanged
+official package-site.sh pass. The validated immutable archive is
+.astis/companion-calculus-site.tar.gz; no existing archive was overwritten.
+Sites saved version6 from the same exact26eb51a source, with archive hash
+sha256:917e2bb6f8d16d65ef5a9d8e70148d99237bc783392df7eb16d9513e44a7a269.
+Deployment appgdep_6aa28bc492a88191aec5a93af783bea8 succeeded at
+2026-09-10T10:52:25.559689Z. Owner-only access is unchanged.
+Private URL: https://astis-formalization.w4htry4yqc.chatgpt.site.
+Temporary Git authorization was cleared, not printed or persisted.
+
+Next: the well-conditioned variance branch of SPHMC Lemma6.6(ii). Source
+inspection confirms a=(eta+c0)/(1+r), r+=r+1/a, with0<eta<=c0<1/4.
+First show(r+)^-1<=2c0 including r=0; only for r>0 compare with the previous
+finite variance and derive ratio<=2c0/(1+2c0)<1. The source finite-A algebra
+does not itself handle A=infinity; the precision formulation retains that case.
+This is a planned successor, not a frozen new SAU or an algorithmic termination
+theorem. Complete samplers, errors, mixing and actual-input expected costs
+remain red. All bounded review agents have completed. The same Goal stays active.
