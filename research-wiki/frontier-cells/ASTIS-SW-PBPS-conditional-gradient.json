@@ -17,7 +17,7 @@
     "searched": [
       "Mathlib.Analysis.Normed.Lp.SmoothApprox: Lp.dense_hasCompactSupport_contDiff supports arbitrary locally finite Borel measures and scalar/vector ranges",
       "Mathlib.Topology.Algebra.Module.LinearPMap: IsClosable, closure_isClosed, closureHasCore; LinearAlgebra.LinearPMap: Submodule.toLinearPMap_graph_eq",
-      "Current Bochner local Haar IBP helpers and actual normalized conditional law; no existing complete weighted gradient operator found"
+      "Samplinglib: current Bochner local Haar IBP helpers and actual normalized conditional law; no pre-existing complete weighted gradient operator found. Bounded integration recheck in FunctionalInequalities and ProximalBPS finds only this packet's new closable-gradient declarations."
     ],
     "classification": "adapt",
     "decision": "new_route_local",
@@ -41,9 +41,15 @@
     "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous Bochner packet merged and deployed.",
     "ownership_note": "One real PBPS consuming route; no invented second route or multi-route shared-floor claim.",
     "independent_proof_review": "runs/20260911-companion-priority/conditional-gradient.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at cc01e8087b63776cf801fe415b1e7e981c3bf9c6; aggregate and reader/graph integration pending.",
+    "admission_boundary": "VERIFIED at cc01e8087b63776cf801fe415b1e7e981c3bf9c6; integrated aggregate PASS9096 at d503968. Corrected explicit Samplinglib search record, local site build/check and both reader/graph checks PASS. Final-head CI, merge advice and deployment pending.",
     "independent_verification": "runs/20260911-companion-priority/conditional-gradient.verified-admission.json",
-    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3296, independent complete-proof review and final hash-bound source audits accepted."
+    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3296, independent complete-proof review and final hash-bound source audits accepted.",
+    "integration": {
+      "progress": "runs/20260911-companion-priority/conditional-gradient.progress.json",
+      "aggregate_candidate": "d503968ce62d29392ec627910c8a88685eb4c093",
+      "source_digest": "49465301850d739a3e02fe8ab654485522b7bc30ccca0dd1b4c4e9d545e76a42",
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/257"
+    }
   },
   "blocked": {
     "reason": "",

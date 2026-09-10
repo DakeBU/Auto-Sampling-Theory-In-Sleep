@@ -1,6 +1,6 @@
 # Next mathematical edge: actual weighted gradient closure
 
-Independent bounded route review: log_depth_source_review. SAU ASTIS-SA-20260911-PBPSConditionalGradient: both production declarations and Tests pass focused PASS3296 with standard axioms. Independent complete proof review and both anonymous reconstruction/source audits accepted. Fixed-commit admission and integration remain pending. Previous Bochner PR256 is merged and deployed, with its lane released.
+Independent bounded route review: log_depth_source_review. SAU ASTIS-SA-20260911-PBPSConditionalGradient: both production declarations and Tests pass focused PASS3296 with standard axioms. Independent complete proof review and both anonymous reconstruction/source audits accepted. Fixed-commit admission accepted cc01e8087b63776cf801fe415b1e7e981c3bf9c6; integrated aggregate PASS9096 at d503968. Original companion and graph QA passed after correcting the explicit Samplinglib search label. Final-head CI and merge/deployment remain pending. Previous Bochner PR256 is merged and deployed, with its lane released.
 
 Use Mathlib.Analysis.Normed.Lp.SmoothApprox, MeasureTheory.Lp.dense_hasCompactSupport_contDiff (finite-dimensional Borel domain, IsFiniteMeasureOnCompacts, finite p>=1, scalar or vector range). Actual conditional S_y is a probability measure, so do not reprove mollifier density or impose global boundedness of the density.
 
