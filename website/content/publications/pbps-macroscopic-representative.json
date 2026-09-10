@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "pbps-macroscopic-representative",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "The actual macroscopic reflection has a differentiable conditional representative",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "edition": "arXiv:2609.06905v1",
+        "anchor": "Appendix B.1 compression and Appendix C.1 conditional representation/differentiation; selected proof step",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded mathematical proof."
+      },
+      "statement": "The macroscopic compressed reflection acts by the conditional expectation T_f(y)=E[f(Y_minus)|Y_plus=y]. The conditional law has density proportional to exp(-V((y+u)/2)-norm(y-u)^2/(8eta)), and the derivative of T_f is its covariance with the unnormalized logarithmic derivative -DV((y+u)/2)/2-inner(y-u,.)/(4eta). This is the conditional-representative and differentiation step connecting Appendix B.1 to Appendix C.1; quantitative variance estimates and the extension to general L2 inputs remain separate.",
+      "assumptions": [
+        "The paper works on R^d, d>=1, with C2 potential V, genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.",
+        "X has normalized Gibbs law proportional to exp(-V); Y_plus=X+sqrt(eta)Z and Y_minus=X-sqrt(eta)Z for independent standard Gaussian Z. P projects in L2 of the augmented joint law onto the Y coordinate, and U is pullback by the actual reflection. Select smooth compactly supported real f for the differentiation step."
+      ],
+      "formulae": [
+        {
+          "label": "actual compressed representative",
+          "tex": "PUP[f\\circ\\mathrm{snd}]=[T_f\\circ\\mathrm{snd}],\\quad T_f\\in L^2(\\nu),\\quad DT_f=\\operatorname{Cov}_{S_y}(f,s_y)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-joint",
+          "label": "Reflected kernel disintegrates the actual two-output joint law"
+        },
+        {
+          "id": "compressed-representative",
+          "label": "Actual PUP on smooth macroscopic tests has an L2 conditional-expectation representative"
+        },
+        {
+          "id": "classical-derivative",
+          "label": "Same representative has the score-covariance derivative everywhere"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.MacroscopicRepresentative.macroscopic_reflection_smooth_representative",
+          "cell": "ASTIS-SW-PBPS-macroscopic-representative",
+          "role": "proof-edge",
+          "supports": [
+            "actual-joint",
+            "compressed-representative",
+            "classical-derivative"
+          ],
+          "audit_id": "ASTIS-RT-20260911-PBPSMacroscopicRepresentative",
+          "boundary": "Actual joint disintegration and the differentiable representative of PUP on smooth compactly supported macroscopic tests only. No conditional Poincare or score variance bound, general L2/H1 extension, macroscopic coercivity, process semantics, invariance/nonexplosion, mixing, implementation error, query cost or full-paper completion.",
+          "assumption_deltas": [
+            {
+              "source": "The paper works on R^d, d>=1, with C2 potential V, genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.",
+              "lean": "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. The potential V:E→R is C². Constants α and β are finite nonnegative reals, α>0, and the actual second Fréchet derivative satisfies α‖v‖²≤D²V(x)[v,v]≤β‖v‖² for every x,v. The scale η is positive. No upper bound βη≤1 is needed for this differentiation step.",
+              "classification": "generalization",
+              "reason": "This selected identity holds in finite-dimensional real inner-product spaces including dimension zero and for every eta>0. Subsequent quantitative bounds retain their own scale restrictions."
+            },
+            {
+              "source": "Conditional expectation expressed as a macroscopic operator.",
+              "lean": "One Markov S disintegrates Lambda; actual PUPg equals T_f composed with snd J-almost everywhere.",
+              "classification": "source-implicit",
+              "reason": "Joint disintegration and a.e. representative transport are made explicit. Conditional versions are compared only almost everywhere where uniqueness permits."
+            },
+            {
+              "source": "Gradient covariance for smooth compactly supported real f.",
+              "lean": "Everywhere HasFDerivAt with a continuous-dual-valued covariance and integrable score and f score.",
+              "classification": "same",
+              "reason": "The Riesz identification converts the covector to a gradient. The statement does not extend differentiation to arbitrary L2 inputs."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
