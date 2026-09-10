@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy"
@@ -38,10 +38,10 @@
   },
   "mathematical_status": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion.",
   "remaining": [
-    "Independent fixed-commit review",
     "Integration, aggregate and reader/graph delivery",
     "Gaussian reverse transport and proxy-warmness",
     "Actual sampler/error/cost propagation and all later main-theorem dependencies",
     "Both complete papers and necessary delivery"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/sphmc-truncation.verified-admission.json"
 }

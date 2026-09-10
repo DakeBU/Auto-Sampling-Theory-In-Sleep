@@ -127,6 +127,7 @@ import Tests.ProximalBPSConditionalScoreDomain
 import Tests.ProximalBPSConditionalBochner
 import Tests.ProximalBPSConditionalGradient
 import Tests.ProximalBPSConditionalResolvent
+import Tests.SmoothedPicardHMCTruncation
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are

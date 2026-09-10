@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Lemma6.2 and proof, section6.2.1; optimal-coupling existence is expanded with reusable ASTIS compactness and continuous-cost lower semicontinuity",
   "target_statement": "Construct an optimal actual coupling for continuous nonnegative cost using existing weak compactness and lower semicontinuity. For the true infimum cost of norm(x-y)^p, real p>=2, prove SPHMC Lemma6.2 in cost-input/bounded-coupling form: cost<=r^p, r>=0, 0<delta<1 yields an actual proxy probability Pdag with eventwise TV(P,Pdag)<=delta and an actual coupling of Pdag,Q concentrated on displacement<=r delta^(-1/p). Prove measurability, pushforward probabilities/marginals, Markov budget and zero-radius case; do not assume an optimal or good coupling.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [],
   "consumers": [
     "SPHMC Lemma6.2 truncated_proxy"
@@ -37,10 +37,12 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-truncation.md",
     "planning_review": "Independent log_depth_source_review primary/source and exact-API route review. Root confirmed actual compactness, general continuous-cost LSC, lower-semicontinuous minimum and coupling definitions.",
-    "execution_boundary": "Root sole writer; previous resolvent PR258 merged and stabilization lane released. Truncation is PROVED_LOCAL only.",
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous resolvent packet merged; website deployed and live anchors checked, merge Lean CI separate.",
     "ownership_note": "One actual SPHMC consumer route; no invented second consumer or general metric API.",
     "independent_proof_review": "runs/20260911-companion-priority/sphmc-truncation.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL with independent proof review and replay; source and fixed-commit admission, aggregate and rendered delivery pending."
+    "admission_boundary": "VERIFIED at 79ed080e952a6dd184f2b348c016ce0748f49aa8; aggregate and reader/graph integration pending.",
+    "independent_verification": "runs/20260911-companion-priority/sphmc-truncation.verified-admission.json",
+    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS2621, independent complete-proof review and final hash-bound source audits accepted."
   },
   "blocked": {
     "reason": "",
