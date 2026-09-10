@@ -1,0 +1,40 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "ec4201999a73bac8fab65d9c468865d1941a04e7",
+    "gate": {
+      "production": "Independent unchanged complete-source stdin compile exit0; focused production and Tests PASS3186",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication": "Independent check_advance with reviewed=True PASS",
+      "tests_scope": "Axiom query only; actual conditional curvature and noncompact score domain is the production input"
+    },
+    "source_audit": {
+      "id": "ASTIS-RT-20260911-PBPSConditionalScoreDomain",
+      "state": "accepted",
+      "verdict": "domain-mismatch",
+      "decoder": "score_domain_blind_decoder",
+      "reviewer": "log_depth_source_review",
+      "publication_binding_sha256": "0498cc55db6aae9d592fcba9f2737933cf5730bb6c3a6fc2493ff69bfcd29e03",
+      "decoder_packet_sha256": "c018fae515bbef100e095f961e4aee7ef18c48ce56bb6cb0ed544cfb8ad9fd87",
+      "decoder_run_sha256": "885c6560873b7852571e1a81a32765eca6788557f00e8f7c566f6b4bbcd225c3",
+      "reviewer_packet_sha256": "b8552ea6d8a7816fd301f06fb7b648be30d4cf1d6a115ba5dc20073f097eeeec",
+      "review_run_sha256": "9ea851807f39620ee85f5e03744f88755f2c3d4040c6d50dbd098e4de666ff23",
+      "blocking_issues": []
+    },
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused test; standard theorem axioms only"
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain"
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Root transcription of depth_commit_verifier explicit fixed-commit VERIFIED and sole-owner STABILIZING decision.",
+  "boundary": "No aggregate integration, reader/graph, curvature-to-Poincare, conditional variance, Sobolev/coercivity, process/cost or complete-paper result asserted."
+}

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06905v1 Appendix C.1 after C.1: conditional potential Hessian and directional score derivative before conditional Poincare",
   "target_statement": "For the actual reflected conditional Markov kernel of the Gibbs Gaussian augmentation, C2 V with genuine alpha/beta Hessian bounds, explicit 0<alpha<=beta and eta>0 with beta*eta<=1, prove the exact conditional-potential Hessian and lower bound (alpha+eta^-1)/4, the actual score C1 derivative (eta^-1 I-Hessian V)/4 and sharp norm bound (eta^-1-alpha)/4, and for every y and direction a prove the actual directional score belongs to L2(S_y), has integrable centered square and gradient square with pointwise gradient bound ((eta^-1-alpha)/4)*norm a. All kernel, curvature and moment facts must be derived, not assumed.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-PBPS-conditional-score",
     "ASTIS-SW-PBPS-macroscopic-representative",
@@ -40,7 +40,8 @@
     "planning_review": "depth_commit_verifier bounded dependency audit and log_depth_source_review independent primary C.1 route review. Keep alpha<=beta explicitly for zero dimension; score derivative is positive semidefinite, possibly zero. Preserve norm a for general directions.",
     "execution_boundary": "Root sole writer. Previous macro PR254 actually merged and stabilization lane released. This packet remains PROVED_LOCAL with source/commit admission pending.",
     "independent_proof_review": "runs/20260911-companion-priority/conditional-score-domain.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL only; independent source and fixed-commit review, integration and reader delivery pending."
+    "admission_boundary": "VERIFIED at ec4201999a73bac8fab65d9c468865d1941a04e7; sole-owner STABILIZING, integration and reader checks pending.",
+    "independent_verification": "runs/20260911-companion-priority/conditional-score-domain.verified-admission.json"
   },
   "blocked": {
     "reason": "",

@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
   "focused_check": {
     "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain Tests.ProximalBPSConditionalScoreDomain",
@@ -29,5 +29,6 @@
     "Integration, aggregate gate and reader/graph delivery",
     "Curvature-to-Poincare and appropriate noncompact test extension",
     "Conditional variance, general L2/H1 and all later main-theorem dependencies"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/conditional-score-domain.verified-admission.json"
 }
