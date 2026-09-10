@@ -1,0 +1,85 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+      "kind": "theorem",
+      "title": "Actual conditional curvature and the noncompact directional-score domain",
+      "statement": "For the actual Gibbs-Gaussian augmentation J, there exist common Markov kernels R,S with R disintegrating the swapped joint law and S_y its reflected pushforward. Every S_y is the normalized tilt by -W_y, with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta). The theorem computes the genuine Hessian of W_y and derivative of the dual-valued score s_y(u)=-DV((y+u)/2)/2-inner(y-u,.)/(4 eta), proves the lower curvature (alpha+eta inverse)/4 and sharp score derivative norm bound L=(eta inverse-alpha)/4. Every directional score q_a(u)=s_y(u)(a) is C1 and lies in L2(S_y); its mean, centered square and gradient square are integrable, and its gradient norm is bounded by L norm(a), for every y,a,u.",
+      "formula": "D^2W_y\\succeq\\frac{\\alpha+\\eta^{-1}}4I,\\qquad\\|D_us_y\\|_{\\mathrm{op}}\\le\\frac{\\eta^{-1}-\\alpha}4,\\qquad q_a\\in L^2(S_y).",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel structure and canonical volume. Dimension zero is allowed. V:E->R is C2.",
+        "Alpha and beta are finite nonnegative reals with explicit 0<alpha<=beta. For every x,v the genuine second derivative satisfies alpha norm(v)^2<=D2V(x)[v,v]<=beta norm(v)^2.",
+        "Eta is positive and beta eta<=1. The explicit alpha<=beta condition is retained even in dimension zero, where the Hessian inequalities alone do not imply it.",
+        "Mu is normalized exponential weighting of volume by -V; J is the law of (X,X+sqrt(eta)Z) with X~mu and independent standard Gaussian Z. Kernels, normalization, tails and moment conditions are derived.",
+        "The same R,S work for every y and every direction a. No compact support is imposed on q_a. All regularity, pointwise derivative bounds and fiber integrability conclusions are for the selected everywhere-defined conditional version."
+      ],
+      "steps": [
+        {
+          "title": "Fix the actual reflected conditional law",
+          "text": "Use the existing conditional-score construction to obtain Markov R and S. R disintegrates the actual swapped Gibbs-Gaussian augmentation; every S_y is the pushforward of R_y through x to 2x-y. The same S_y is volume tilted by minus W_y, where W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta). Symmetry of the norm identifies this exponent with the earlier density. No abstract measure with assumed curvature or moments replaces this conditional law.",
+          "formula": "S_y=(x\\mapsto2x-y)_\\#R_y\\propto e^{-W_y(u)}\\,du.",
+          "lean": "Final assembly retains R,S from reflected_conditional_covariance and rewrites hSnu using norm_sub_rev. All following estimates use that S."
+        },
+        {
+          "title": "Compute both genuine derivatives",
+          "text": "The midpoint map has derivative one half times identity. Apply the chain rule twice to V composed with the midpoint, and differentiate the quadratic term. Its Hessian is the inner-product map divided by 4 eta. For the score, differentiating minus one half DV gives minus one quarter D2V, while differentiating minus inner(y-u,.)/(4 eta) gives plus the inner-product map divided by 4 eta. V being C2 yields W_y C2 and s_y C1. The Hessian lower bound of V therefore gives the displayed positive lower curvature for W_y.",
+          "formula": "D^2W_y(u)=\\tfrac14\\bigl(D^2V((y+u)/2)+\\eta^{-1}I\\bigr),\\qquad D_us_y(u)=\\tfrac14\\bigl(\\eta^{-1}I-D^2V((y+u)/2)\\bigr).",
+          "lean": "conditional_derivatives proves both Frechet derivative identities and regularity by chain rules. The final lower bound substitutes the genuine hH lower inequality."
+        },
+        {
+          "title": "Obtain the sharp score derivative norm",
+          "text": "The explicit inequalities alpha<=beta and beta eta<=1 imply beta<=eta inverse and L=(eta inverse-alpha)/4>=0. Use the real Riesz isometry to view D_us_y as an endomorphism of E. Symmetry follows from the symmetry of the genuine second derivative of V. Its quadratic forms lie between zero and L norm(v)^2; the Rayleigh quotient norm formula therefore gives operator norm at most L. The operator is positive semidefinite and may vanish at the endpoint. Transfer the bound back through the Riesz isometry. Keeping alpha<=beta explicitly is necessary when dimension zero is allowed.",
+          "formula": "0\\preceq D_us_y\\preceq L I,\\qquad \\|D_us_y\\|_{\\mathrm{op}}\\le L:=\\frac{\\eta^{-1}-\\alpha}{4}.",
+          "lean": "sharp_score_norm uses ContDiffAt.isSymmSndFDerivAt and norm_eq_iSup_rayleighQuotient on the Riesz endomorphism, then opNorm_le_bound on the dual-valued map. No Hessian operator-norm premise is assumed."
+        },
+        {
+          "title": "Derive Gaussian tails and linear score growth",
+          "text": "The existing quadratic-regularization theorem at zero regularization gives strong convexity and beta-Lipschitz continuity of the actual gradient. Write G=norm(gradient V(0)). The first-order lower bound and completing the square imply V>=m, with m=V(0)-G^2/(2 alpha), and norm(DV(x))<=G+beta norm(x). For fixed y, put R=norm(y), k=1/(16 eta), C=exp(-m+R^2/(8 eta)), and b=(beta+eta inverse)/4. The triangle inequality gives exp(-W_y(u))<=C exp(-k norm(u)^2) and norm(s_y(u))<=G/2+bR+b norm(u). For direction a, evaluation yields norm(q_a(u))<=A+B norm(u), where A=(G/2+bR)norm(a), B=b norm(a).",
+          "formula": "e^{-W_y(u)}\\le C e^{-k\\|u\\|^2},\\qquad |q_a(u)|\\le A+B\\|u\\|.",
+          "lean": "potential_controls, weight_envelope and score_envelope are local proved adapters, reusing public QuadraticRegularization and StrongConvexFirstOrder. They are not treated as publicly available helpers of ConditionalScore."
+        },
+        {
+          "title": "Prove second moments by absorbing the quadratic factor",
+          "text": "The linear bound gives q_a(u)^2<=2A^2+2B^2 norm(u)^2. The elementary exponential inequality t<=exp(t), with t=k r^2/2, gives r^2 exp(-k r^2)<=(2/k) exp(-k r^2/2). Consequently the unnormalized squared-score integrand is bounded by C(2A^2+4B^2/k) exp(-k norm(u)^2/2), which is integrable on finite-dimensional E. The original Gaussian envelope also proves integrability of the normalizing weight. The tilted-integral equivalence then proves q_a in L2(S_y). No second-moment assumption is introduced.",
+          "formula": "e^{-W_y(u)}q_a(u)^2\\le C\\left(2A^2+\\frac{4B^2}{k}\\right)e^{-k\\|u\\|^2/2}.",
+          "lean": "absorb_quadratic and weighted_linear_memLp use the exponential lower bound, finite-dimensional Gaussian integrability, integrable_tilted_iff and memLp_two_iff_integrable_sq."
+        },
+        {
+          "title": "Verify the noncompact input domain",
+          "text": "Evaluation at a is a continuous linear map, so q_a is C1 and its gradient has norm at most L norm(a). Its gradient is continuous and uniformly bounded, hence has integrable square under the probability S_y. The already proved L2 membership gives L1 integrability; subtracting the constant expectation preserves L2 and proves the centered square integrable. These are precisely the three clauses of the existing Poincare.Admissible domain. This supplies a valid noncompact directional-score input, but the curvature-to-Poincare theorem and its applicable test-domain extension are separate missing proofs.",
+          "formula": "q_a\\in L^2(S_y),\\quad \\int(q_a-\\mathbb E q_a)^2\\,dS_y<\\infty,\\quad \\|\\nabla q_a\\|\\le L\\|a\\|.",
+          "lean": "directional_score proves C1 and the norm bound through continuous-linear evaluation. admissible_of_memLp_gradient_bound derives the Admissible clauses from MemLp, MemLp subtraction and bounded continuous gradient; it does not use Poincare.Satisfies or variance_le."
+        }
+      ],
+      "lean_statement": "One public theorem constructs actual compatible kernels and proves conditional curvature, the sharp score derivative bound and the full directional-score admissibility domain.",
+      "lean_proof": "Chain rules and symmetric Rayleigh quotients give exact derivatives and sharp norms; Gaussian domination derives L2 moments; continuous evaluation and bounded gradients give the noncompact input domain.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_mul_norm_sq",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.Poincare.Admissible"
+      ],
+      "mathlib_dependencies": [
+        "ContDiffAt.isSymmSndFDerivAt",
+        "ContinuousLinearMap.norm_eq_iSup_rayleighQuotient",
+        "Real.add_one_le_exp",
+        "MeasureTheory.integrable_tilted_iff",
+        "MeasureTheory.memLp_two_iff_integrable_sq",
+        "MeasureTheory.MemLp.integrable_sq"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1",
+          "scope": "Conditional Hessian and score derivative estimates before conditional Poincare, with explicit noncompact test-domain proof."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalScoreDomain.lean",
+        "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain Tests.ProximalBPSConditionalScoreDomain"
+      },
+      "boundary": "Actual conditional curvature, sharp score derivative norm and noncompact directional-score domain only. No curvature-to-Poincare theorem, noncompact test extension of that inequality, conditional variance bound, general L2/H1 differentiation, macroscopic coercivity, process/mixing/implementation/error/query-cost or complete-paper theorem."
+    }
+  ]
+}

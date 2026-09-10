@@ -1,0 +1,77 @@
+{
+  "state": "STABILIZING",
+  "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+  "focused_check": {
+    "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain Tests.ProximalBPSConditionalScoreDomain",
+    "result": "PASS3186",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalScoreDomain.lean": "88675897290ba5b11ab1fb96b13fa3170da5c1fff41926b59771bf88c26ec419",
+      "Tests/ProximalBPSConditionalScoreDomain.lean": "f49549378808cdad5b7414e65a52ed843ec2694fe30cb351742295b31a3ecff8"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/conditional-score-domain.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audit": "ASTIS-RT-20260911-PBPSConditionalScoreDomain",
+    "artifact": "runs/20260911-companion-priority/conditional-score-domain.source-review-result.json"
+  },
+  "mathematical_status": "Actual conditional curvature, sharp score derivative and noncompact directional-score input domain only. Curvature-to-Poincare, its noncompact test extension, conditional variance, general L2/H1 differentiation, macroscopic coercivity, processes, implementation/error/cost and full paper remain open.",
+  "remaining": [
+    "Final-head independent merge advice, CI and actual merge/deployment",
+    "Curvature-to-Poincare and appropriate noncompact test extension",
+    "Conditional variance, general L2/H1 and all later main-theorem dependencies"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/conditional-score-domain.verified-admission.json",
+  "aggregate_gate": {
+    "status": "PASS",
+    "jobs": 9090,
+    "command": "python website/scripts/lean_gate.py",
+    "exit_code": 0,
+    "commit": "528e2a5580831dc9b140be10ea65adefb48e475f",
+    "source_digest": "16b214345c5f1d08a8deca6d7d02c83a4612673862c0d1be1313c91aec6d589f",
+    "log": ".astis/score-domain-aggregate-gate.log"
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/255",
+    "state": "draft",
+    "head": "528e2a5580831dc9b140be10ea65adefb48e475f",
+    "boundary": "Local reader and graph checks, final-head CI and independent merge advice pending."
+  },
+  "reader_checks": {
+    "candidate": "528e2a5580831dc9b140be10ea65adefb48e475f",
+    "site_build": {
+      "exit_code": 0,
+      "log": ".astis/score-domain-site-build.log"
+    },
+    "site_check": {
+      "exit_code": 0,
+      "log": ".astis/score-domain-site-check.log"
+    },
+    "graph_check": {
+      "exit_code": 0,
+      "log": ".astis/score-domain-graph-check.json"
+    },
+    "browser": {
+      "page": "example-cases/samplewiki/companions/proximal-bouncy-particle.html#pbps-conditional-score-domain",
+      "proof_steps": 6,
+      "initially_closed_disclosures": 9,
+      "statement_characters": 1703,
+      "proof_characters": 18675,
+      "katex_errors": 0,
+      "visual": "Inspected actual conditional law and both derivative equations, full statement/proof and reuse disclosure toggles. Correct Hessian plus sign, score minus Hessian and quarter factors render. Explicit alpha<=beta, beta eta<=1 and noncompact input versus Poincare boundary retained.",
+      "graph": "5 nodes,3 edges,2 direct relations. Solid module ownership and dashed source correspondence distinguished; source-present badge not inflated. Selected declaration and graph inspected.",
+      "evidence_card": "modules/autosamplingtheory-examplecases-proximalbps-conditionalscoredomain.html#decl-autosamplingtheory-examplecases-proximalbps-conditionalscoredomain-condi-032b53c223",
+      "evidence_card_opened": true,
+      "card_boundary": "Compiled Not mapped; no theorem-implication claim."
+    },
+    "boundary": "Local rendered QA only; current merge/deployment not asserted."
+  }
+}

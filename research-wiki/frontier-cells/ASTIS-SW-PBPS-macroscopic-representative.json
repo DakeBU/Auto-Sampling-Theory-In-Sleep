@@ -40,8 +40,32 @@
     "planning_review": "Independent log_depth_source_review recommends combined transformed-law, L2 representative and derivative integration node, rather than a standalone pushforward identity.",
     "execution_boundary": "Root sole writer; PR253 actually merged and stabilization lane released. This packet has no root imports yet.",
     "independent_proof_review": "runs/20260911-companion-priority/macroscopic-representative.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at 65f943e9f1c958989798196c5fb7301ce9af0981; sole-owner STABILIZING, integration and reader checks pending.",
-    "independent_verification": "runs/20260911-companion-priority/macroscopic-representative.verified-admission.json"
+    "admission_boundary": "Independently VERIFIED, merged via PR254, both merge CI SUCCESS and actual reader delivery verified.",
+    "independent_verification": "runs/20260911-companion-priority/macroscopic-representative.verified-admission.json",
+    "integration": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/254",
+      "commit": "df4625d5dafb94f9db69cb93adf01efd0ea9530e",
+      "candidate": "e5c6d15cd912ef7865c06ae8a21f68f933840f26",
+      "merged_at": "2026-09-10T20:26:01Z",
+      "independent_merge_review": "depth_commit_verifier accepted final content and advised ready/merge conditional on both final-head CI succeeding. Root verified both SUCCESS and unchanged head, then ready and merge with match-head-commit.",
+      "candidate_ci": {
+        "lean": "34523942433 SUCCESS",
+        "site": "34523942472 SUCCESS; PR deploy skipped"
+      },
+      "post_merge": {
+        "lean_run": 34526344853,
+        "site_run": 34526344919,
+        "state": "Both SUCCESS; deploy website job SUCCESS",
+        "live": {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html#pbps-macroscopic-representative",
+          "http_status": 200,
+          "anchor_present": true,
+          "merge_commit_present": true,
+          "scope": "Live HTTP content and build provenance; local disclosure/visual checks previously recorded. No declaration-specific GitHub blob link asserted."
+        }
+      },
+      "truth_boundary": "Actual macroscopic reflected joint/L2 representative/classical derivative integration only; source domain-mismatch generalization retained, no Poincare/variance/Sobolev/coercivity/process/cost/full-paper completion."
+    }
   },
   "blocked": {
     "reason": "",

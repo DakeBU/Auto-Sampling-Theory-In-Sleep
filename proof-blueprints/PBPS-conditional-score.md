@@ -47,9 +47,10 @@ packet or reset the current reflection packet's stabilization work.
 
 ## Macroscopic representative and the remaining curvature criterion
 
-The new `MacroscopicRepresentative.macroscopic_reflection_smooth_representative`
-has passed focused compilation and independent development proof review. Its
-Frontier Cell records source review and integration separately. It joins the
+`MacroscopicRepresentative.macroscopic_reflection_smooth_representative`
+has passed independent source and fixed-commit review, aggregate and local
+reader checks, and merged through PR #254. Its Frontier Cell records deployed
+delivery separately. It joins the
 actual reflected joint disintegration, the actual `PUP` representative and the
 everywhere smooth-test derivative using one compatible kernel. This is not a
 conditional variance estimate.
@@ -68,8 +69,13 @@ The next dependency-ready source input is the actual conditional potential
 `(alpha + eta^(-1))/4`, the score derivative norm bound
 `(eta^(-1) - alpha)/4` under `beta*eta <= 1`, and integrability of directional
 scores, their centered squares and gradient squares under the actual fiber.
-This supplies the noncompact input domain needed by Appendix C.1. It must not
-be reported as the Poincare inequality or its variance conclusion. A later
+`ConditionalScoreDomain.conditional_curvature_and_score_domain` now supplies
+this noncompact input domain in locally compiled production Lean, with an
+independent full-source replay. Formal source/commit admission and integration
+remain separately tracked in its Frontier Cell. The theorem retains explicit
+`alpha <= beta` even in dimension zero, and the score derivative is positive
+semidefinite, possibly zero. Arbitrary directions retain their norm factor.
+This must not be reported as the Poincare inequality or its variance conclusion. A later
 Brascamp--Lieb/weighted Bochner route still needs actual integration by parts,
 density or weak-solution arguments; an isolated Bochner identity is insufficient.
 

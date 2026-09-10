@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "pbps-conditional-score-domain",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "Actual conditional curvature and the noncompact directional-score domain",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "edition": "arXiv:2609.06905v1",
+        "anchor": "Appendix C.1 after C.1: conditional Hessian, sharp score derivative and noncompact input before conditional Poincare",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded mathematical proof."
+      },
+      "statement": "The conditional negative log-density has Hessian (D2V((y+u)/2)+eta^-1 I)/4, bounded below by (alpha+eta^-1)I/4. The score spatial derivative is (eta^-1 I-D2V((y+u)/2))/4 and has operator norm at most (eta^-1-alpha)/4 under beta eta<=1. The conditional Poincare step uses directional scores a dot s_y, for unit a. This selected input packet makes the noncompact directional-score L2 and finite gradient-energy domain explicit; it does not prove the curvature-to-Poincare inequality or the resulting variance bound.",
+      "assumptions": [
+        "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds alpha I<=D2V<=beta I, explicit 0<alpha<=beta, eta>0 and beta eta<=1.",
+        "The actual conditional law of Y_minus given Y_plus=y, with Y_plus/minus=X plus/minus sqrt(eta)Z and X Gibbs, has density proportional to exp(-W_y(u)), W_y(u)=V((y+u)/2)+norm(y-u)^2/(8eta). The score is s_y(u)=-grad V((y+u)/2)/2-(y-u)/(4eta)."
+      ],
+      "formulae": [
+        {
+          "label": "conditional curvature and directional score domain",
+          "tex": "D^2W_y\\succeq\\frac{\\alpha+\\eta^{-1}}4I,\\qquad\\|D_us_y\\|_{\\mathrm{op}}\\le\\frac{\\eta^{-1}-\\alpha}4,\\qquad q_a\\in L^2(S_y)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "conditional-curvature",
+          "label": "Genuine conditional-potential Hessian and positive lower curvature"
+        },
+        {
+          "id": "sharp-score-derivative",
+          "label": "Genuine C1 score derivative and sharp operator norm bound"
+        },
+        {
+          "id": "noncompact-score-domain",
+          "label": "Actual directional-score L2 and finite centered-square/gradient-square domain"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+          "cell": "ASTIS-SW-PBPS-conditional-score-domain",
+          "role": "proof-edge",
+          "supports": [
+            "conditional-curvature",
+            "sharp-score-derivative",
+            "noncompact-score-domain"
+          ],
+          "audit_id": "ASTIS-RT-20260911-PBPSConditionalScoreDomain",
+          "boundary": "Actual conditional curvature, sharp score derivative norm and noncompact directional-score domain only. No curvature-to-Poincare theorem, noncompact test extension of that inequality, conditional variance bound, general L2/H1 differentiation, macroscopic coercivity, process/mixing/implementation/error/query-cost or complete-paper theorem.",
+          "assumption_deltas": [
+            {
+              "source": "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds alpha I<=D2V<=beta I, explicit 0<alpha<=beta, eta>0 and beta eta<=1.",
+              "lean": "E is a finite-dimensional real inner-product space with its Borel structure and canonical volume. Dimension zero is allowed. V:E->R is C2. Alpha and beta are finite nonnegative reals with explicit 0<alpha<=beta. For every x,v the genuine second derivative satisfies alpha norm(v)^2<=D2V(x)[v,v]<=beta norm(v)^2. Eta is positive and beta eta<=1. The explicit alpha<=beta condition is retained even in dimension zero, where the Hessian inequalities alone do not imply it.",
+              "classification": "generalization",
+              "reason": "The theorem allows any finite-dimensional real inner-product space including zero dimension. Explicit alpha<=beta and the original upper scale restriction remain in place; the former is needed to keep the sharp constant nonnegative in zero dimension."
+            },
+            {
+              "source": "Unit direction a in the score-variance input.",
+              "lean": "Every direction a, with gradient bound L norm(a).",
+              "classification": "generalization",
+              "reason": "Evaluation is linear in a; retaining norm(a) specializes exactly to the unit-direction bound."
+            },
+            {
+              "source": "Gradient and symmetric score derivative in Euclidean coordinates.",
+              "lean": "Continuous-dual score with Frechet derivative; real Riesz identification supplies the symmetric endomorphism used in the norm proof.",
+              "classification": "same",
+              "reason": "The Riesz map preserves norms and inner products; signs and all factors are retained."
+            },
+            {
+              "source": "The conditional Poincare application uses noncompact directional scores.",
+              "lean": "For the same actual conditional version, directional scores are C1, MemLp 2 and Poincare.Admissible, derived from Gaussian tails.",
+              "classification": "source-implicit",
+              "reason": "Normalization, measurability, second moments, centered square and gradient square integrability are proved. Admissible is only the input domain; no inequality or its extension is assumed or claimed."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
