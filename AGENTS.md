@@ -12,6 +12,10 @@ priority. Preserve older frontiers; work on them only when they supply a needed
 paper dependency. Correct Lean/source results come before new graph, citation or
 download features. This is scheduling, never a theorem-completion badge.
 
+Current collaborator checkpoint: read `docs/companion-papers-handoff.md` before
+resuming these papers. It records the owner's pause, reviewed local results,
+pending aggregate/publication checks and the next bounded mathematical edge.
+
 ## Non-Negotiable Gate
 
 ```bash
