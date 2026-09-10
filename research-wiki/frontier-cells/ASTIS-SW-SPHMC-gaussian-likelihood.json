@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-gaussian-likelihood",
+  "route": "samplewiki-route",
+  "title": "Actual translated Gaussian likelihood and RN identity",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Lemma6.3(ii) and its Winfinity reverse-transport proof; expand its actual equal-covariance Gaussian ingredient",
+  "target_statement": "For finite-dimensional real inner-product Borel E, tau>0 and actual G_a=Law(a+sqrt(tau)Z), prove G_x=G_y.withDensity(ofReal L), absolute continuity and RN derivative a.e. L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then prove actual q>1 likelihood/RN power integrability and exact moment exp(q(q-1)norm(x-y)^2/(2tau)), including zero dimension, using actual Gaussian projection/MGF rather than an assumed density-ratio or finite-moment contract.",
+  "status": "claimed",
+  "parents": [],
+  "consumers": [
+    "SPHMC GaussianPowerMoment.gaussian_power_moment"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity proves actual scaled Gaussian volume density",
+      "Samplinglib RadonNikodym.measurableEquiv_map_withDensity and withDensity_absolutelyContinuous_base; GaussianSmoothing defines actual independent noise, no reverse transport",
+      "Samplinglib ProbabilityDistributions.Gaussian exports coordinate Esscher and MGF proofs; Renyi.lean has no q>1 mixture/data-processing theorem",
+      "Fixed Mathlib Gaussian.Multivariate: IsGaussian.map_eq_gaussianReal, integral_strongDual_stdGaussian, variance_dual_stdGaussian; Gaussian.Real mgf_gaussianReal and integrable_exp_mul_gaussianReal",
+      "Fixed Mathlib Haar translation invariance and rnDeriv_withDensity; no direct generic inner-product Esscher API found in bounded scan"
+    ],
+    "classification": "adapt",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-gaussian-power-moment.md",
+    "planning_review": "Independent log_depth_source_review primary route audit and depth_commit_verifier exact-API route review; root rechecked primary and bounded definitions.",
+    "execution_boundary": "Root sole writer; truncation PR259 remains sole STABILIZING. Gaussian packet EXPLORING only.",
+    "ownership_note": "One actual paper consumer route; no invented second shared consumer."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Lemma6.3(ii), proof Winfinity reverse-transport inequality",
+    "detail_status": "omitted",
+    "gap": "Source invokes reverse transport; expand actual Gaussian likelihood and q moment before proving independent mixture inequality.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "anchor": "Lemma6.3(ii) and proof",
+        "hypothesis_adapter": "tau>0, real q>1, actual translated/scaled Gaussian laws. Finite-dimensional inner-product Borel domain including zero dimension is explicit."
+      }
+    ],
+    "fidelity_boundary": "Actual Gaussian likelihood and exact power moment prerequisite to SPHMC Lemma6.3(ii). No mixture/data-processing power-divergence inequality, complete Renyi metric API, general reverse transport, proxy-warmness, sampler or query-cost conclusion. Finite marginal moments remain separate when later source consumers require them."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual measure equality/RN and integral computation, not a renamed parameter wrapper."
+  }
+}

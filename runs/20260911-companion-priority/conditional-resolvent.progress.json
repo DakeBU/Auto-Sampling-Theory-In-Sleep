@@ -38,7 +38,6 @@
   },
   "mathematical_status": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim.",
   "remaining": [
-    "Verify merge-commit Lean CI 34542000493",
     "Explicit weak-gradient distributional identification, local regularity/core and compact Bochner extension",
     "Constant-kernel/mean-zero limit, conditional Poincare and noncompact score variance",
     "All later main-theorem dependencies and full papers"
@@ -63,7 +62,7 @@
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/258",
     "state": "MERGED",
     "head": "f80147536a95b27bdca362eb0e01e624b295c35f",
-    "boundary": "Actual merge verified; merge CI and actual deployment pending."
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and both live anchors/build provenance verified."
   },
   "reader_checks": {
     "candidate": "7e04f4b502505ed5aea1146bf16af25cf2f598e2",
@@ -131,7 +130,22 @@
       "lean": "34541016474 SUCCESS",
       "site": "34541016477 SUCCESS; PR deployment skipped"
     },
-    "post_merge": "Merge site and deployment SUCCESS; actual HTTP200 both reader anchors and merge provenance checked. Merge Lean CI remains pending.",
+    "post_merge": {
+      "lean_run": 34542000493,
+      "site_run": 34542000496,
+      "state": "Both merge-commit runs SUCCESS; deploy website job SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+        "http_status": 200,
+        "anchors": [
+          "pbps-closed-graph-resolvent",
+          "pbps-conditional-resolvent"
+        ],
+        "merge_commit": "b9f23c7b7b0b7e4e813b151725867b29a66b49a9",
+        "merge_commit_present": true,
+        "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
+      }
+    },
     "truth_boundary": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim."
   },
   "deployment": {
@@ -146,6 +160,6 @@
     "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately.",
     "site_run": "34542000496 SUCCESS",
     "deploy_job": "103087032053 SUCCESS",
-    "merge_lean": "34542000493 pending"
+    "merge_lean": "34542000493 SUCCESS"
   }
 }
