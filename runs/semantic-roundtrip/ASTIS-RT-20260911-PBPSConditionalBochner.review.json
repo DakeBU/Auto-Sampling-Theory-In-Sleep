@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-d4716d6cfcf5b5a5",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "bochner_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:pbps-conditional-bochner",
+    "anchor": "Appendix C.1 conditional Poincare analytic prerequisite",
+    "original_text": "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta and actual Hessian bounds alpha I<=D2V<=beta I, eta>0 with beta eta<=1.\nThe Gibbs-Gaussian augmentation is (X,X+sqrt(eta)Z) with independent Gibbs X and standard Gaussian Z; S_y is the actual reflected conditional law. The Bochner prerequisite uses smooth compactly supported f; extending to the noncompact score test remains separate.\nPBPS Appendix C.1 applies a conditional Poincare inequality to the reflected conditional potential W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta), whose lower curvature is (alpha+eta inverse)/4. The selected ASTIS prerequisite expands the missing analytic curvature route using the separately proved compact-test weighted Bochner identity: for the actual conditional law S_y, the square-generator integral equals the coordinate Hessian-square integral plus the D2W_y quadratic-form integral, and is at least (alpha+eta inverse)/4 times gradient energy. Global normalization and all tested integrability are established under the actual conditional law. This is a prerequisite expansion, not the Poincare or variance conclusion stated in C.1.",
+    "text_sha256": "7e8b8a55409fe52833feb8de9847ea647148ffbc158c3be512375f04aef5fe34"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy",
+    "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalBochner.lean",
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          0 < η →\n            ↑β * η ≤ 1 →\n              have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n              have J :=\n                MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n              have W := fun y u => V ((1 / 2) • (y + u)) + ‖u - y‖ ^ 2 / (8 * η);\n              ∃ R S,\n                ProbabilityTheory.IsMarkovKernel R ∧\n                  ProbabilityTheory.IsMarkovKernel S ∧\n                    (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                      (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                        ∀ (y : E),\n                          (S y = MeasureTheory.MeasureSpace.volume.tilted fun u => -W y u) ∧\n                            ContDiff ℝ 2 (W y) ∧\n                              MeasureTheory.Integrable (fun u => Real.exp (-W y u)) MeasureTheory.MeasureSpace.volume ∧\n                                0 < ∫ (u : E), Real.exp (-W y u) ∧\n                                  ∀ (f : E → ℝ),\n                                    ContDiff ℝ (↑⊤) f →\n                                      HasCompactSupport f →\n                                        have L := fun u =>\n                                          Laplacian.laplacian f u - Inner.inner ℝ (gradient (W y) u) (gradient f u);\n                                        have H := fun u =>\n                                          ∑ i, ‖gradient (fun z => (fderiv ℝ f z) ((stdOrthonormalBasis ℝ E) i)) u‖ ^ 2;\n                                        have C := fun u =>\n                                          ((fderiv ℝ (fderiv ℝ (W y)) u) (gradient f u)) (gradient f u);\n                                        MeasureTheory.Integrable (fun u => L u ^ 2) (S y) ∧\n                                          MeasureTheory.Integrable (fun u => ‖gradient f u‖ ^ 2) (S y) ∧\n                                            MeasureTheory.Integrable H (S y) ∧\n                                              MeasureTheory.Integrable C (S y) ∧\n                                                ∫ (u : E), L u ^ 2 ∂S y = ∫ (u : E), H u ∂S y + ∫ (u : E), C u ∂S y ∧\n                                                  (↑α + 1 / η) / 4 * ∫ (u : E), ‖gradient f u‖ ^ 2 ∂S y ≤\n                                                    ∫ (u : E), L u ^ 2 ∂S y",
+    "statement_sha256": "35513fc85c4be1963c6b6fd018250e97d9badf4e5e9d68377da17832e31a52fa",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite-dimensional real inner-product space E with its Borel measurable structure, V:E->R, nonnegative real alpha,beta and real eta, assume 0<alpha<=beta, V C2, eta>0, beta eta<=1, and alpha norm(v)^2<=D2V(x)[v,v]<=beta norm(v)^2 for every x,v. Define mu as canonical volume tilted by -V, with the supplied totalized normalized exponential definition; define gamma as standard Gaussian and J as the pushforward of mu tensor gamma under (x,z)->(x,x+sqrt(eta)z). Thus J has coordinates (X,Y). For all y,u define W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta). There exist Markov kernels R,S:E->E such that R disintegrates the swapped joint (Y,X), conditional on its first coordinate, and for every y, S(y) is the pushforward of R(y) under x->2x-y. For every y, W_y is C2, exp(-W_y) is volume-integrable with strictly positive normalizer Z_y=integral exp(-W_y), and S(y)(du)=Z_y inverse exp(-W_y(u))du. These equalities hold for every y, not only almost everywhere. For every smooth compactly supported f, define L_y(u)=Delta f(u)-inner(gradient W_y(u),gradient f(u)), H(u)=sum_i norm(gradient(z->Df(z)[e_i])(u))^2, C_y(u)=D2W_y(u)[gradient f(u),gradient f(u)]. All four L_y^2, norm(gradient f)^2, H and C_y are integrable under S(y), including absolute integrability of C_y. Their integrals satisfy integral L_y^2 = integral H + integral C_y, and ((alpha+1/eta)/4) integral norm(gradient f)^2 <= integral L_y^2 under S(y). Kernels are chosen before y and f and do not depend on the test. The inequality constant depends only on alpha,eta; beta enters hypotheses. Zero dimension is allowed. Disintegration does not assert a uniquely determined conditional law at every y; the universal statements specify the selected kernels' pointwise properties.",
+    "text_sha256": "eb698d6b91f70c34a666fe3f7f558da1d4460971c6f7dffb5db05063f02f56b6",
+    "decoder": "bochner_blind_decoder",
+    "decoder_packet_sha256": "bff1feee3c38b819961ce190dea1903d317e8f520a0ac1b47f510d72226fdc41",
+    "decoder_run_sha256": "9051a60080ff0317928d266d12e978e4d2ecf0723cd7800d8fbca67efb4d8bf1",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "6c18450e63ac0d4550650f727025c21540fbac3f0bc8803b6de0d1a7d1008f67",
+  "candidate_publication_context": {
+    "file": "995cdfb7261d177f14eb63fcbfa1627391ae6b6b9c034cb7bf757fbbcc18f8d2",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain\nimport AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner\n\n/-!\n# Bochner energy of the actual reflected conditional Gibbs law\n\nThis is an analytic prerequisite to PBPS v1 Appendix C.1's conditional\nPoincare step. The actual Markov kernels and curvature come from the same\nConditionalScoreDomain construction. Global normalization is recovered from\nthat genuine probability law, not inferred from compact-test integrability.\nThe inherited beta eta <= 1 restriction belongs to that parent interface;\nthe Bochner identity itself does not require an upper curvature bound.\nWeighted closure/core and the noncompact extension remain separate.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner\n\nopen MeasureTheory ProbabilityTheory InnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities\nopen scoped ContDiff NNReal RealInnerProductSpace\n\n/-- Actual conditional normalized Bochner identity and curvature-energy bound.\nThe displayed Hessian square term uses genuine directional derivatives in\nan orthonormal basis, not an assumed operator or a spectral-gap premise. -/\ntheorem conditional_bochner_energy {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    {V : E → ℝ} {α β : NNReal} {η : ℝ}\n    (hα : 0 < (α:ℝ)) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n      (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β:ℝ)*‖v‖^2)\n    (hη : 0 < η) (hβη : (β:ℝ)*η ≤ 1) :\n    let μ := (volume : Measure E).tilted (fun x => -V x)\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2)) (μ.prod (stdGaussian E))\n    let W := fun y u : E => V ((1/2:ℝ) • (y+u)) + ‖u-y‖^2/(8*η)\n    ∃ R S : Kernel E E, IsMarkovKernel R ∧ IsMarkovKernel S ∧\n      (J.map Prod.swap).IsCondKernel R ∧\n      (∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y)) ∧\n      ∀ y, S y = (volume : Measure E).tilted (fun u => -W y u) ∧\n        ContDiff ℝ 2 (W y) ∧ Integrable (fun u => Real.exp (-W y u)) ∧\n        0 < (∫ u, Real.exp (-W y u)) ∧\n        ∀ f : E → ℝ, ContDiff ℝ ∞ f → HasCompactSupport f →\n          let L := fun u => Laplacian.laplacian f u - inner ℝ (gradient (W y) u) (gradient f u)\n          let H := fun u => ∑ i, ‖gradient (fun z => fderiv ℝ f z ((stdOrthonormalBasis ℝ E) i)) u‖^2\n          let C := fun u => fderiv ℝ (fderiv ℝ (W y)) u (gradient f u) (gradient f u)\n          Integrable (fun u => (L u)^2) (S y) ∧\n          Integrable (fun u => ‖gradient f u‖^2) (S y) ∧\n          Integrable H (S y) ∧ Integrable C (S y) ∧\n          (∫ u, (L u)^2 ∂S y) = (∫ u, H u ∂S y) + ∫ u, C u ∂S y ∧\n          (((α:ℝ)+1/η)/4) * (∫ u, ‖gradient f u‖^2 ∂S y) ≤ ∫ u, (L u)^2 ∂S y := by\n  obtain ⟨R,S,hR,hS,hcond,hSR,hfiber⟩ :=\n    ConditionalScoreDomain.conditional_curvature_and_score_domain hα hαβ hV hH hη hβη\n  let _ : IsMarkovKernel S := hS\n  dsimp only\n  refine ⟨R,S,hR,hS,hcond,hSR,?_⟩\n  intro y\n  let W := fun u : E => V ((1/2:ℝ) • (y+u)) + ‖u-y‖^2/(8*η)\n  obtain ⟨hSy,hWC,_,_,hcurv,_,_⟩ := hfiber y\n  change S y = (volume : Measure E).tilted (fun u => -W u) at hSy\n  have hweight : Integrable (fun u => Real.exp (-W u)) := by\n    by_contra hn\n    have hz : S y = 0 := hSy.trans (tilted_of_not_integrable hn)\n    have hu := measure_univ (μ := S y)\n    rw [hz] at hu\n    norm_num at hu\n  have hZ : 0 < ∫ u, Real.exp (-W u) := integral_exp_pos hweight\n  refine ⟨hSy,hWC,hweight,hZ,?_⟩\n  intro f hf hc\n  obtain ⟨hL,hG,hHess,hC,hidentity,hbound⟩ :=\n    WeightedBochner.integrated_bochner_identity W f hWC hf hc\n  have hI (g : E → ℝ) (hg : Integrable (fun u => Real.exp (-W u)*g u)) :\n      Integrable g (S y) := by\n    rw [hSy]\n    exact (integrable_tilted_iff hweight g).mpr (by simpa only [smul_eq_mul] using hg)\n  have htilt (g : E → ℝ) : (∫ u, g u ∂S y) =\n      (∫ u, Real.exp (-W u))⁻¹ * (∫ u, Real.exp (-W u)*g u) := by\n    rw [hSy, integral_tilted]\n    rw [← integral_const_mul]\n    apply integral_congr_ae\n    filter_upwards [] with u\n    change (Real.exp (-W u) / (∫ z, Real.exp (-W z))) • g u =\n      (∫ z, Real.exp (-W z))⁻¹ * (Real.exp (-W u) * g u)\n    simp only [smul_eq_mul, div_eq_mul_inv]\n    ring\n  refine ⟨hI _ hL,hI _ hG,hI _ hHess,hI _ hC,?_,?_⟩\n  · rw [htilt,htilt,htilt,hidentity,mul_add]\n  · rw [htilt,htilt]\n    calc\n      _ = (∫ u, Real.exp (-W u))⁻¹ *\n          ((((α:ℝ)+1/η)/4) * (∫ u, Real.exp (-W u)*‖gradient f u‖^2)) := by ring\n      _ ≤ _ := mul_le_mul_of_nonneg_left (hbound _ hcurv) (inv_nonneg.mpr hZ.le)\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+      "edition": "arXiv:2609.06905v1",
+      "anchor": "Appendix C.1 conditional Poincare analytic prerequisite",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+    },
+    "statement": "PBPS Appendix C.1 applies a conditional Poincare inequality to the reflected conditional potential W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta), whose lower curvature is (alpha+eta inverse)/4. The selected ASTIS prerequisite expands the missing analytic curvature route using the separately proved compact-test weighted Bochner identity: for the actual conditional law S_y, the square-generator integral equals the coordinate Hessian-square integral plus the D2W_y quadratic-form integral, and is at least (alpha+eta inverse)/4 times gradient energy. Global normalization and all tested integrability are established under the actual conditional law. This is a prerequisite expansion, not the Poincare or variance conclusion stated in C.1.",
+    "formulae": [
+      {
+        "label": "Bochner identity and curvature energy",
+        "tex": "\\int(L_yf)^2\\,dS_y=\\int H_f\\,dS_y+\\int D^2W_y[\\nabla f,\\nabla f]\\,dS_y\\ge\\frac{\\alpha+\\eta^{-1}}4\\int\\|\\nabla f\\|^2\\,dS_y."
+      }
+    ],
+    "assumptions": [
+      "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta and actual Hessian bounds alpha I<=D2V<=beta I, eta>0 with beta eta<=1.",
+      "The Gibbs-Gaussian augmentation is (X,X+sqrt(eta)Z) with independent Gibbs X and standard Gaussian Z; S_y is the actual reflected conditional law. The Bochner prerequisite uses smooth compactly supported f; extending to the noncompact score test remains separate."
+    ],
+    "obligations": [
+      {
+        "id": "weighted-bochner",
+        "label": "Genuine compact-test weighted Bochner identity and integrability"
+      },
+      {
+        "id": "curvature-energy",
+        "label": "Actual curvature square-generator energy estimate"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy",
+      "kind": "theorem",
+      "title": "Bochner energy under the actual reflected conditional Gibbs kernel",
+      "statement": "For the actual Gibbs-Gaussian augmentation there are common Markov kernels R,S: R disintegrates the swapped joint law and S_y is the reflected pushforward of R_y. Every S_y is normalized exp(-W_y) times volume, W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta), with W_y C2 and finite strictly positive normalizer. For every smooth compactly supported f, the square of L_y f, squared gradient, coordinate Hessian-square term and genuine conditional curvature term are integrable under this same S_y. The exact normalized Bochner identity holds, and the square-generator energy bounds ((alpha+eta inverse)/4) times the gradient energy.",
+      "formula": "\\int(L_yf)^2\\,dS_y=\\int H_f\\,dS_y+\\int D^2W_y[\\nabla f,\\nabla f]\\,dS_y\\ge\\frac{\\alpha+\\eta^{-1}}4\\int\\|\\nabla f\\|^2\\,dS_y.",
+      "assumptions": [
+        "E is finite-dimensional real inner-product with Borel structure and canonical volume, including dimension zero. V:E->R is C2.",
+        "Alpha,beta are finite nonnegative real parameters with explicit 0<alpha<=beta and genuine alpha/beta Hessian quadratic-form bounds on V.",
+        "Eta>0 and beta eta<=1 are retained from the ConditionalScoreDomain parent interface. The upper scale and upper curvature restrictions are not needed by the abstract Bochner identity; they are not removed from this conditional consumer.",
+        "Mu is volume tilted by -V; J is the law of (X,X+sqrt(eta)Z) from independent X~mu and standard Gaussian Z. The same constructed R,S work for every y and every smooth compactly supported f.",
+        "No probability, conditional density, global normalizer, integrability, integration-by-parts or Poincare premise is silently added; they are derived where claimed."
+      ],
+      "steps": [
+        {
+          "title": "Keep one actual conditional kernel",
+          "text": "Use ConditionalScoreDomain to obtain common R,S, their Markov properties, disintegration and reflected pushforward. For each y it provides exactly S_y=volume tilted by -W_y, W_y C2 and the genuine lower curvature (alpha+eta inverse)/4. Do not replace S_y by an unrelated measure with an assumed curvature inequality.",
+          "formula": "S_y=(x\\mapsto2x-y)_\\#R_y=Z_y^{-1}e^{-W_y(u)}\\,du.",
+          "lean": "conditional_curvature_and_score_domain supplies the same existential witnesses; the consumer retains hR,hS,hcond,hSR,hSy and hcurv."
+        },
+        {
+          "title": "Prove the global normalizer is finite and positive",
+          "text": "The shared compact-test identity alone cannot prove global weight integrability. Instead, S_y is already an actual probability measure and equals the tilt. If exp(-W_y) were not integrable, Mathlib tilt would be the zero measure, contradicting S_y(univ)=1. Thus the weight is integrable. Its pointwise strict positivity and nonzero volume make Z_y strictly positive. This rules out a totalized zero-measure normalization.",
+          "formula": "0<Z_y:=\\int e^{-W_y(u)}\\,du<\\infty.",
+          "lean": "hweight contradicts tilted_of_not_integrable using the Markov probability mass. integral_exp_pos gives hZ before any normalized inequality is transferred."
+        },
+        {
+          "title": "Transport the full identity and every integral domain",
+          "text": "Apply the actual shared Bochner theorem to W_y and f. It supplies all four weighted Integrable facts and the raw identity. The tilted-integrability equivalence transfers each fact to this same S_y. For every integrand g, the exact tilted integral equals Z_y inverse times the weighted volume integral, so multiplying the raw identity gives the normalized identity.",
+          "formula": "\\int g\\,dS_y=Z_y^{-1}\\int e^{-W_y}g,\\qquad\\int(L_yf)^2\\,dS_y=\\int H_f\\,dS_y+\\int C_f\\,dS_y.",
+          "lean": "integrated_bochner_identity is a genuine public shared theorem call. hI uses integrable_tilted_iff only after hweight; htilt uses integral_tilted and scalar integral algebra."
+        },
+        {
+          "title": "Use the actual conditional curvature constant",
+          "text": "Apply the shared curvature-energy consequence to the inherited genuine Hessian lower bound, then multiply by positive Z_y inverse. This yields precisely (alpha+eta inverse)/4 times the S_y gradient energy. It remains a compact-test square-generator estimate. Constructing a weighted closed core/range or resolvent and extending to noncompact scores are still necessary before claiming conditional Poincare or score variance.",
+          "formula": "\\frac{\\alpha+\\eta^{-1}}4\\int\\|\\nabla f\\|^2\\,dS_y\\le\\int(L_yf)^2\\,dS_y.",
+          "lean": "The final calc applies hbound to hcurv and uses inv_nonneg.mpr hZ.le; no variance or spectral-gap theorem is assumed."
+        }
+      ],
+      "lean_statement": "Common actual kernels, density and finite positive normalizer precede the universal compact-test integrability, identity and exact energy inequality.",
+      "lean_proof": "Reuse the genuine conditional construction and the full shared Bochner identity; derive the normalizer from actual probability and transfer all integrals exactly.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
+        "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.tilted_of_not_integrable",
+        "MeasureTheory.integral_exp_pos",
+        "MeasureTheory.integrable_tilted_iff",
+        "MeasureTheory.integral_tilted"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1",
+          "scope": "Analytic prerequisite for the invoked conditional Poincare inequality. The Bochner edge does not discharge that inequality."
+        },
+        {
+          "url": "https://arxiv.org/html/1310.2526v7",
+          "label": "Kolesnikov and Milman, weighted Reilly identity, Theorem 1.1 (1.3)",
+          "scope": "Euclidean compact-test localized version proved directly; not the full compact manifold/boundary theorem. Zero dimension is an additional extension."
+        }
+      ],
+      "tests": {
+        "file": "Tests/ProximalBPSConditionalBochner.lean",
+        "command": "lake build Tests.ProximalBPSConditionalBochner"
+      }
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy",
+      "role": "prerequisite",
+      "supports": [
+        "weighted-bochner",
+        "curvature-energy"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta and actual Hessian bounds alpha I<=D2V<=beta I, eta>0 with beta eta<=1.",
+        "lean": "E is finite-dimensional real inner-product with Borel structure and canonical volume, including dimension zero. V:E->R is C2."
+      },
+      {
+        "source": "Appendix C.1 invokes conditional Poincare.",
+        "lean": "Actual conditional Bochner identity and square-generator energy lower bound on smooth compact tests."
+      },
+      {
+        "source": "Source strong-convexity/smoothness and step-size setting.",
+        "lean": "Explicit 0<alpha<=beta, C2 V, genuine Hessian bounds and beta eta<=1 retained via ConditionalScoreDomain."
+      },
+      {
+        "source": "Actual conditional normalized Gibbs law.",
+        "lean": "One pair of common Markov R,S with disintegration and reflected pushforward, finite strictly positive normalizer, four integrability conclusions and normalized identity for every y."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "7e29be9e5373b84f6be461d471507433a38eaf3e509517efbb28122e4ff19099"
+}

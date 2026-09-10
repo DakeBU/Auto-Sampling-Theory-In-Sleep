@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "pbps-weighted-bochner",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "Weighted Bochner identity from compact-test integration by parts",
+      "source": {
+        "url": "https://arxiv.org/html/1310.2526v7",
+        "edition": "arXiv:1310.2526v7",
+        "anchor": "Theorem1.1 (1.3), Euclidean compact-test localized component",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+      },
+      "statement": "The weighted Reilly identity in Theorem 1.1 (1.3) is a compact weighted manifold formula with boundary terms. The selected ASTIS background component is its Euclidean smooth compact-test localization, proved directly: on R^d for d>=1, W C2 and f smooth compactly supported, Lf=Delta f-gradient W dot gradient f satisfies integral exp(-W)(Lf)^2 = integral exp(-W)sum_i norm(gradient(D_i f))^2 + integral exp(-W)D2W[gradient f,gradient f]. All tested weighted products are integrable by compact support; global weight integrability is not required. If D2W>=m I, dropping the nonnegative Hessian-square term gives m times weighted gradient energy at most weighted square-generator energy. This selected component does not claim the entire manifold theorem or a spectral gap.",
+      "assumptions": [
+        "Selected Euclidean localization: d>=1, W:R^d->R C2 and f smooth compactly supported. Haar volume and actual derivatives are used; no global probability normalization is needed for this compact-test formula.",
+        "For the energy consequence only, a real m satisfies D2W(x)[v,v]>=m norm(v)^2 for every x,v. The full background source has compact manifold and boundary hypotheses outside this selected localized component."
+      ],
+      "formulae": [
+        {
+          "label": "Bochner identity and curvature energy",
+          "tex": "\\int e^{-W}(Lf)^2=\\int e^{-W}H_f+\\int e^{-W}D^2W[\\nabla f,\\nabla f],\\qquad m\\int e^{-W}\\|\\nabla f\\|^2\\le\\int e^{-W}(Lf)^2."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "weighted-bochner",
+          "label": "Genuine compact-test weighted Bochner identity and integrability"
+        },
+        {
+          "id": "curvature-energy",
+          "label": "Actual curvature square-generator energy estimate"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity",
+          "cell": "ASTIS-SW-PBPS-weighted-bochner",
+          "role": "proof-edge",
+          "supports": [
+            "weighted-bochner",
+            "curvature-energy"
+          ],
+          "audit_id": "ASTIS-RT-20260911-WeightedBochner",
+          "boundary": "Compact-test Bochner identity and curvature-energy bound only. No curvature-to-Poincare theorem, closed weighted operator/core, dense range or resolvent construction, noncompact score extension, variance estimate, macro coercivity, process/mixing/error/cost or complete-paper result.",
+          "assumption_deltas": [
+            {
+              "source": "Selected Euclidean localization: d>=1, W:R^d->R C2 and f smooth compactly supported. Haar volume and actual derivatives are used; no global probability normalization is needed for this compact-test formula.",
+              "lean": "E is finite-dimensional real inner-product with Borel sigma algebra and canonical volume, including dimension zero.",
+              "classification": "generalization",
+              "reason": "Arbitrary finite-dimensional real inner-product spaces and zero dimension are allowed. The positive-dimensional Euclidean source is recovered by specialization; no full manifold result is claimed."
+            },
+            {
+              "source": "Full weighted manifold Reilly formula has boundary terms.",
+              "lean": "Direct whole-space Haar IBP for smooth compact tests, using W C2; all products are integrable.",
+              "classification": "API-limitation",
+              "reason": "Selected Euclidean compact-test localization kills boundary terms. This is not the full source theorem on a noncompact space."
+            },
+            {
+              "source": "Hessian Hilbert-Schmidt square term.",
+              "lean": "Explicit sum_i norm(gradient(D_i f))^2 using the standard orthonormal basis.",
+              "classification": "same",
+              "reason": "This is the coordinate expression in the identity; a separate abstract norm equivalence theorem is not claimed."
+            },
+            {
+              "source": "Compact-test integral manipulations.",
+              "lean": "Four explicit Integrable conclusions and a universally quantified real lower-curvature parameter.",
+              "classification": "source-implicit",
+              "reason": "All integrability and nonnegative-integral steps are proved. No global normalizer or spectral gap is assumed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pbps-conditional-bochner",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "Bochner energy under the actual reflected conditional Gibbs kernel",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "edition": "arXiv:2609.06905v1",
+        "anchor": "Appendix C.1 conditional Poincare analytic prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Kolesnikov and Milman background; Chen, Chewi, Lu and Zhang PBPS consumer; ASTIS expanded mathematical proof."
+      },
+      "statement": "PBPS Appendix C.1 applies a conditional Poincare inequality to the reflected conditional potential W_y(u)=V((y+u)/2)+norm(u-y)^2/(8 eta), whose lower curvature is (alpha+eta inverse)/4. The selected ASTIS prerequisite expands the missing analytic curvature route using the separately proved compact-test weighted Bochner identity: for the actual conditional law S_y, the square-generator integral equals the coordinate Hessian-square integral plus the D2W_y quadratic-form integral, and is at least (alpha+eta inverse)/4 times gradient energy. Global normalization and all tested integrability are established under the actual conditional law. This is a prerequisite expansion, not the Poincare or variance conclusion stated in C.1.",
+      "assumptions": [
+        "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta and actual Hessian bounds alpha I<=D2V<=beta I, eta>0 with beta eta<=1.",
+        "The Gibbs-Gaussian augmentation is (X,X+sqrt(eta)Z) with independent Gibbs X and standard Gaussian Z; S_y is the actual reflected conditional law. The Bochner prerequisite uses smooth compactly supported f; extending to the noncompact score test remains separate."
+      ],
+      "formulae": [
+        {
+          "label": "Bochner identity and curvature energy",
+          "tex": "\\int(L_yf)^2\\,dS_y=\\int H_f\\,dS_y+\\int D^2W_y[\\nabla f,\\nabla f]\\,dS_y\\ge\\frac{\\alpha+\\eta^{-1}}4\\int\\|\\nabla f\\|^2\\,dS_y."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "weighted-bochner",
+          "label": "Genuine compact-test weighted Bochner identity and integrability"
+        },
+        {
+          "id": "curvature-energy",
+          "label": "Actual curvature square-generator energy estimate"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy",
+          "cell": "ASTIS-SW-PBPS-conditional-bochner",
+          "role": "prerequisite",
+          "supports": [
+            "weighted-bochner",
+            "curvature-energy"
+          ],
+          "audit_id": "ASTIS-RT-20260911-PBPSConditionalBochner",
+          "boundary": "Compact-test Bochner identity and curvature-energy bound only. No curvature-to-Poincare theorem, closed weighted operator/core, dense range or resolvent construction, noncompact score extension, variance estimate, macro coercivity, process/mixing/error/cost or complete-paper result.",
+          "assumption_deltas": [
+            {
+              "source": "Paper setting: Euclidean d>=1, V C2, 0<alpha<=beta and actual Hessian bounds alpha I<=D2V<=beta I, eta>0 with beta eta<=1.",
+              "lean": "E is finite-dimensional real inner-product with Borel structure and canonical volume, including dimension zero. V:E->R is C2.",
+              "classification": "generalization",
+              "reason": "Arbitrary finite-dimensional real inner-product spaces and zero dimension are allowed. The positive-dimensional Euclidean source is recovered by specialization; no full manifold result is claimed."
+            },
+            {
+              "source": "Appendix C.1 invokes conditional Poincare.",
+              "lean": "Actual conditional Bochner identity and square-generator energy lower bound on smooth compact tests.",
+              "classification": "API-limitation",
+              "reason": "This is an explicitly labeled analytic prerequisite, not proof of the source Poincare or variance conclusion."
+            },
+            {
+              "source": "Source strong-convexity/smoothness and step-size setting.",
+              "lean": "Explicit 0<alpha<=beta, C2 V, genuine Hessian bounds and beta eta<=1 retained via ConditionalScoreDomain.",
+              "classification": "same",
+              "reason": "The Bochner argument itself needs only the lower curvature; inherited upper restrictions are disclosed as parent-interface restrictions."
+            },
+            {
+              "source": "Actual conditional normalized Gibbs law.",
+              "lean": "One pair of common Markov R,S with disintegration and reflected pushforward, finite strictly positive normalizer, four integrability conclusions and normalized identity for every y.",
+              "classification": "source-implicit",
+              "reason": "Probability of the constructed S rules out the zero tilt before the exact normalized integral transfer."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

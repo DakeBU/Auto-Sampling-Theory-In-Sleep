@@ -1,0 +1,46 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Root transcription of independent read-only full-source development proof review. Reviewer made no tracked edits.",
+  "hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/WeightedBochner.lean": "b0dae8b77ef2900552d1fd4efa082ce51ebfece450168c0137b6586870f3c714",
+    "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalBochner.lean": "995cdfb7261d177f14eb63fcbfa1627391ae6b6b9c034cb7bf757fbbcc18f8d2",
+    "Tests/ProximalBPSConditionalBochner.lean": "d658cd4a1cfaeab28eb79cb810126492897fbfd830d25d9ff02226f84db8b8d2"
+  },
+  "command": "lake build Tests.ProximalBPSConditionalBochner",
+  "exit_code": 0,
+  "jobs": 3242,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "result": "PASS development proof review, not fixed-commit VERIFIED",
+  "findings": [
+    "W C2 suffices; actual Haar IBP derives all three required integrability premises from continuous compact support.",
+    "The commutator minus Hessian sign is correct; no third derivative of W.",
+    "Hessian-square term is explicit genuine directional-derivative coordinate sum, including zero-dimensional empty basis. No abstract HS norm theorem claimed.",
+    "The real conditional consumer retains common R,S, disintegration, reflected pushforward and actual density.",
+    "Markov probability plus actual tilted representation proves global weight integrable and strictly positive normalizer before transfer.",
+    "Four normalized integrability clauses, exact identity and (alpha+eta inverse)/4 energy bound derived.",
+    "Tests are axiom checks; conditional_bochner_energy is the substantive actual mathematical consumer."
+  ],
+  "qualifications": [
+    "Nonblocking lint only.",
+    "No Poincare, weighted operator closure/core, dense range, noncompact score extension or complete-paper theorem.",
+    "Independent source and fixed-commit admission remain required."
+  ],
+  "final_packaging_review": {
+    "reviewer": "depth_commit_verifier",
+    "result": "PASS",
+    "command": "lake build Tests.ProximalBPSConditionalBochner",
+    "exit_code": 0,
+    "jobs": 3242,
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/WeightedBochner.lean": "d2e566989400b76d4df02f3b47280401e1737c129e4f0ebee7f0b02b0e36c956",
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalBochner.lean": "995cdfb7261d177f14eb63fcbfa1627391ae6b6b9c034cb7bf757fbbcc18f8d2",
+      "Tests/ProximalBPSConditionalBochner.lean": "d658cd4a1cfaeab28eb79cb810126492897fbfd830d25d9ff02226f84db8b8d2"
+    },
+    "findings": "Full local proof inspected; mathematical findings preserved, finite-index universe valid, unchanged consumer/test, standard axioms only. No fixed-commit admission yet."
+  }
+}

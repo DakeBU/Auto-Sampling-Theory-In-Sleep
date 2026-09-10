@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain.conditional_curvature_and_score_domain",
   "focused_check": {
     "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScoreDomain Tests.ProximalBPSConditionalScoreDomain",
@@ -25,7 +25,6 @@
   },
   "mathematical_status": "Actual conditional curvature, sharp score derivative and noncompact directional-score input domain only. Curvature-to-Poincare, its noncompact test extension, conditional variance, general L2/H1 differentiation, macroscopic coercivity, processes, implementation/error/cost and full paper remain open.",
   "remaining": [
-    "Final-head independent merge advice, CI and actual merge/deployment",
     "Curvature-to-Poincare and appropriate noncompact test extension",
     "Conditional variance, general L2/H1 and all later main-theorem dependencies"
   ],
@@ -41,9 +40,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/255",
-    "state": "draft",
-    "head": "528e2a5580831dc9b140be10ea65adefb48e475f",
-    "boundary": "Local reader and graph checks, final-head CI and independent merge advice pending."
+    "state": "MERGED",
+    "head": "3ac288fb77b4313bc532a9bf1a4ac78ff2d1a2fb",
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and live reader anchor/build provenance verified."
   },
   "reader_checks": {
     "candidate": "528e2a5580831dc9b140be10ea65adefb48e475f",
@@ -73,5 +72,29 @@
       "card_boundary": "Compiled Not mapped; no theorem-implication claim."
     },
     "boundary": "Local rendered QA only; current merge/deployment not asserted."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/255",
+    "commit": "7d7152072ec87717c611568a71ecaba765bde308",
+    "candidate": "3ac288fb77b4313bc532a9bf1a4ac78ff2d1a2fb",
+    "merged_at": "2026-09-10T20:57:35Z",
+    "independent_merge_review": "depth_commit_verifier accepted final evidence-only delta and advised ready/merge conditional on final-head Lean/site SUCCESS. Root verified both SUCCESS at unchanged head, then ready and merge with match-head-commit.",
+    "candidate_ci": {
+      "lean": "34528258471 SUCCESS",
+      "site": "34528258466 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": {
+      "lean_run": 34529431197,
+      "site_run": 34529431138,
+      "state": "Both SUCCESS; deploy website job SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html#pbps-conditional-score-domain",
+        "http_status": 200,
+        "anchor_present": true,
+        "merge_commit_present": true,
+        "scope": "Live HTTP content and build provenance; local disclosure/visual checks previously recorded. No declaration-specific GitHub blob link asserted."
+      }
+    },
+    "truth_boundary": "Actual conditional curvature, sharp score derivative and noncompact integrability domain only; no Poincare, test extension, variance, coercivity or complete-paper claim."
   }
 }

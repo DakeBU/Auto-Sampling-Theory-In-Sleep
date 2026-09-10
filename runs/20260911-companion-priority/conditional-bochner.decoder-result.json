@@ -1,0 +1,15 @@
+{
+  "decoder": "bochner_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent anonymous reconstruction, formulas in plain text. No material ambiguities reported.",
+  "source_text_visible": false,
+  "only_input": "runs/semantic-roundtrip/ASTIS-RT-20260911-PBPSConditionalBochner.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "bff1feee3c38b819961ce190dea1903d317e8f520a0ac1b47f510d72226fdc41",
+  "lean_statement_sha256": "35513fc85c4be1963c6b6fd018250e97d9badf4e5e9d68377da17832e31a52fa",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product space E with its Borel measurable structure, V:E->R, nonnegative real alpha,beta and real eta, assume 0<alpha<=beta, V C2, eta>0, beta eta<=1, and alpha norm(v)^2<=D2V(x)[v,v]<=beta norm(v)^2 for every x,v. Define mu as canonical volume tilted by -V, with the supplied totalized normalized exponential definition; define gamma as standard Gaussian and J as the pushforward of mu tensor gamma under (x,z)->(x,x+sqrt(eta)z). Thus J has coordinates (X,Y). For all y,u define W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta). There exist Markov kernels R,S:E->E such that R disintegrates the swapped joint (Y,X), conditional on its first coordinate, and for every y, S(y) is the pushforward of R(y) under x->2x-y. For every y, W_y is C2, exp(-W_y) is volume-integrable with strictly positive normalizer Z_y=integral exp(-W_y), and S(y)(du)=Z_y inverse exp(-W_y(u))du. These equalities hold for every y, not only almost everywhere. For every smooth compactly supported f, define L_y(u)=Delta f(u)-inner(gradient W_y(u),gradient f(u)), H(u)=sum_i norm(gradient(z->Df(z)[e_i])(u))^2, C_y(u)=D2W_y(u)[gradient f(u),gradient f(u)]. All four L_y^2, norm(gradient f)^2, H and C_y are integrable under S(y), including absolute integrability of C_y. Their integrals satisfy integral L_y^2 = integral H + integral C_y, and ((alpha+1/eta)/4) integral norm(gradient f)^2 <= integral L_y^2 under S(y). Kernels are chosen before y and f and do not depend on the test. The inequality constant depends only on alpha,eta; beta enters hypotheses. Zero dimension is allowed. Disintegration does not assert a uniquely determined conditional law at every y; the universal statements specify the selected kernels' pointwise properties.",
+  "source_fidelity_verdict": null
+}

@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner
+
+#print axioms AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity
+#print axioms AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy

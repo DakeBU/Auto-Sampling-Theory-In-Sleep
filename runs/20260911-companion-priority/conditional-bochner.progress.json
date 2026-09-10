@@ -1,0 +1,53 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.WeightedBochner.integrated_bochner_identity",
+    "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalBochner.conditional_bochner_energy"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.ProximalBPSConditionalBochner",
+    "result": "PASS3242",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/WeightedBochner.lean": "d2e566989400b76d4df02f3b47280401e1737c129e4f0ebee7f0b02b0e36c956",
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalBochner.lean": "995cdfb7261d177f14eb63fcbfa1627391ae6b6b9c034cb7bf757fbbcc18f8d2",
+      "Tests/ProximalBPSConditionalBochner.lean": "d658cd4a1cfaeab28eb79cb810126492897fbfd830d25d9ff02226f84db8b8d2"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/conditional-bochner.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-WeightedBochner",
+      "ASTIS-RT-20260911-PBPSConditionalBochner"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/weighted-bochner.source-review-result.json",
+      "runs/20260911-companion-priority/conditional-bochner.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Compact-test integrated Bochner identity and its actual PBPS conditional curvature-energy consequence only. This is a prerequisite to Appendix C.1 Poincare, not that inequality. Weighted closure/core, dense range or resolvent construction, noncompact test extension, score variance, general L2/H1, macro coercivity and full main results remain open.",
+  "remaining": [
+    "Independent source and fixed-commit review",
+    "Integration, aggregate and reader/graph delivery",
+    "Weighted closure/core and dense range or resolvent",
+    "Noncompact test extension, Poincare and actual conditional score variance",
+    "All later main-theorem dependencies and full papers"
+  ],
+  "packaging_refresh": {
+    "change": "Move the same shared helper proofs into local haves/lets so the complete proof is folded with its public theorem; local basis-index helper specialized to Type to avoid an unused universe. Both printed public statements byte-identical.",
+    "compile": "PASS3242 standard axioms only",
+    "source_review": "Independent final authenticated packet refresh accepted for both audits.",
+    "independent_proof_review": "depth_commit_verifier final consolidated full-proof review and focused replay PASS3242, same raw hashes."
+  }
+}
