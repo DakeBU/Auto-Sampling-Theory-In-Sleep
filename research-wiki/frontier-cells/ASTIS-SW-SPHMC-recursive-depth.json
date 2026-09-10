@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-recursive-depth",
+  "route": "samplewiki-route",
+  "title": "Actual recursive RGO schedule reaches every positive terminal variance threshold",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Lemma6.4 (6.1), schedule(6.2), Lemma6.6 and terminal-stage paragraph after(6.4)",
+  "target_statement": "For kappa>=1, r0>=0, 0<c<1/4 and every 0<eta_j<=c, define the actual source branch tau_j and precision recursion. Prove condition-number persistence and: if (4/5)^M*K0<2, then for every N, 0<1/r_(M+1+N)<=2c*(2c/(1+2c))^N; hence attain each positive terminal parameter threshold.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-recursive-condition-contraction",
+    "ASTIS-SW-SPHMC-recursive-variance-contraction",
+    "ASTIS-SW-SPHMC-rgo-calculus"
+  ],
+  "consumers": [
+    "SPHMC Theorem6.5 terminal-stage parameter threshold"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib RecursiveCondition, RecursiveVariance, RGOCalculus and their Frontier Cells; no actual schedule recurrence termination theorem",
+      "Pinned Mathlib Analysis/SpecificLimits/Basic.lean le_geom and exists_pow_lt_of_lt_one; ordered-field div_le_div_iff0"
+    ],
+    "classification": "adapt",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth.finite_depth",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [
+      {
+        "command": "lake build AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth",
+        "result": "PASS on official Lean4.33.0;1669 jobs, final module7.5s.",
+        "module_sha256": "f1df71c8799f671be368611e05bc1c9dc40a73f876dd72c4480d4a49fae5f8c0"
+      },
+      {
+        "command": "lake build Tests.SmoothedPicardRecursiveDepth",
+        "result": "PASS, 2947 jobs; final consumer7.4s",
+        "test_sha256": "53b48fe5af95fd1fd03f91d1ffbc9b95cbcd659ff90eb37d3d687f0e7593be13",
+        "coverage": [
+          "Infinite initial variance: kappa=1, r0=0, c=eta=1/8, arbitrary N; first finite stage is1+N.",
+          "Actual scheduled parameters give a normalized next Gibbs target through RGOCalculus.rgo_calculus.",
+          "Printed axioms for finite_depth and exists_terminal."
+        ]
+      }
+    ],
+    "independent_verification": "Read-only mathematical planning review by recursive_route_audit; not Lean/source admission.",
+    "proof_plan": "proof-blueprints/SPHMC-recursive-depth.md",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "admission_boundary": "Production and consumer compile passed; cell stays claimed until authored publication and PROVED_LOCAL metadata admission. No independent source/commit verification yet."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Section6.3 Lemma6.6 and Theorem6.5 terminal stage",
+    "detail_status": "omitted",
+    "gap": "Persistence after entering the well-conditioned branch and the permitted infinite initial variance are not explicitly justified in the finite-A algebra.",
+    "consulted": [
+      {
+        "source": "Source Lemma6.4 and pinned Mathlib ordered-field inequalities",
+        "anchor": "(6.1) and div_le_div_iff0",
+        "hypothesis_adapter": "kappa>=1 gives 0<kappa^-1<=1; positive precision increments decrease the ratio (1+r)/(kappa^-1+r). Zero initial precision is retained."
+      }
+    ],
+    "fidelity_boundary": "Deterministic actual parameter recurrence only. No logarithmic depth constants, FORS, random-kernel measurability, sampling error, query cost or whole-paper completion."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Continuation of the existing proximal-energy precision mechanism; no new cross-domain correspondence."
+  }
+}

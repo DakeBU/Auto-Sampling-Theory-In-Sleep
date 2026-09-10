@@ -177,3 +177,31 @@ The selected branch needs no c<1/4 restriction; that extension is disclosed.
 Finite-stage termination, branch persistence, implemented oracle, recursive
 error and expected query costs remain separate red targets. Neither complete
 paper is claimed.
+
+## Actual recursive parameter schedule: active proof packet
+
+Cell `ASTIS-SW-SPHMC-recursive-depth` is **claimed / exploring**. The new
+`RecursiveDepth.lean` and its Gibbs consumer test compiled locally on Lean 4.33.0;
+publication/source/commit admission remains pending. This is not an admitted
+result. Exact command/hash evidence is in
+`runs/20260910-companion-priority/recursive-depth.progress.json`. The source contract and
+proof route are in `proof-blueprints/SPHMC-recursive-depth.md`.
+
+The source correspondence is (6.1) → `nextPrecision`, (6.2) → `heat`, the
+actual repeated update → `precision`, the omitted persistence argument →
+`well_conditioned_persists`, and Lemma6.6's two branches → `finite_depth`.
+The target bound is
+
+\[
+(4/5)^M K_0<2 \quad\Longrightarrow\quad
+0<r_{M+1+N}^{-1}\le 2c\left(\frac{2c}{1+2c}\right)^N.
+\]
+
+It retains κ≥1, r₀≥0, 0<ηⱼ≤c<1/4, the actual branch test, and the first
+positive-precision step. The Gibbs consumer test uses the same next precision
+and center in `RGOCalculus.rgo_calculus`; its conclusion is next-target
+normalizability, not a stochastic implementation or conditional-kernel proof.
+
+The existence of a finite threshold-hitting depth is distinct from the precise
+logarithmic schedule in (6.4). That schedule's constants, random history
+measurability, terminal FORS, recursive errors and expected costs remain open.

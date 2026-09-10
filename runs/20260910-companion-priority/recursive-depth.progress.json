@@ -1,0 +1,41 @@
+{
+  "state": "EXPLORING",
+  "source_commit": "fcfe6d6a96dadaf5c9de5bcdcdccac73d31b117e",
+  "branch": "codex/sphmc-recursive-depth",
+  "writer": "root-samplinglib-writer",
+  "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RecursiveDepth.lean",
+  "module_sha256": "f1df71c8799f671be368611e05bc1c9dc40a73f876dd72c4480d4a49fae5f8c0",
+  "focused_production_compile": {
+    "command": "lake build AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveDepth",
+    "result": "PASS on official Lean4.33.0; 1669 jobs, final module7.5s; consumer test not yet completed.",
+    "module_sha256": "f1df71c8799f671be368611e05bc1c9dc40a73f876dd72c4480d4a49fae5f8c0"
+  },
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "toolchain_release_sha256": "60d045a2ef45fca55a620b7d55be682e8439ec8d1fc9a8bcd2615da7dffba26a",
+  "python": "C:/Users/admin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+  "remaining": [
+    "Create authored lessons/publication bindings and anonymous decoder/source review for all exposed declarations.",
+    "Independent commit-bound verification.",
+    "Source-bound integration, root/site checks and visual inspection.",
+    "Exact source logarithmic schedule, random-kernel measurability, FORS, errors and costs remain separate proof work."
+  ],
+  "boundary": "Compiled deterministic parameter recurrence only; neither paper complete.",
+  "route_review": "recursive_route_audit: read-only mathematical review found no counterexample or stage-index error, not admission.",
+  "focused_consumer_compile": {
+    "command": "lake build Tests.SmoothedPicardRecursiveDepth",
+    "result": "PASS, 2947 jobs; final consumer7.4s",
+    "test_sha256": "53b48fe5af95fd1fd03f91d1ffbc9b95cbcd659ff90eb37d3d687f0e7593be13",
+    "coverage": [
+      "Infinite initial variance: kappa=1, r0=0, c=eta=1/8, arbitrary N; first finite stage is1+N.",
+      "Actual scheduled parameters give a normalized next Gibbs target through RGOCalculus.rgo_calculus.",
+      "Printed axioms for finite_depth and exists_terminal."
+    ]
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "fake_closure_scan": "Bounded source/test scan found no sorry, admit, custom axiom, unsafe or native_decide."
+}
