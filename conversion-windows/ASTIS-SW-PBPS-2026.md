@@ -142,7 +142,7 @@ checks are retained in `runs/20260911-companion-priority/reflection-l2.progress.
 No strict macroscopic coercivity, half-turn process, non-explosion, invariant
 PBPS chain, modified-energy contraction or query bound follows from this packet.
 
-## Reflected conditional score: locally proved, source review accepted
+## Reflected conditional score: independently verified, integration in progress
 
 Appendix C.1 differentiates the conditional expectation of a smooth compactly
 supported test. `ConditionalScore.reflected_conditional_covariance` constructs
@@ -174,14 +174,16 @@ Focused production and axiom checks passed (3182 jobs), with only standard
 axioms; independent development replay also passed. The six-step authored
 lesson and publication binding are present, anonymous reconstruction is recorded,
 and the fresh source review accepts the disclosed generalization with verdict
-`domain-mismatch`, not statement equivalence. The packet remains `PROVED_LOCAL`;
-independent commit verification, integration and full-paper completion are separate.
+`domain-mismatch`, not statement equivalence. Independent commit verification
+passed at `728a18dd9b9dc737bd923c00d0dc71e07606cd2d`; the packet is now
+`STABILIZING`. Aggregate integration, rendered delivery and full-paper completion
+remain separate checks.
 
 | Proof interface | Current boundary |
 |---|---|
 | Actual backward law and reflected density | Constructed from GaussianConditionalKernel and GibbsAugmentation |
 | Local Gaussian domination and normalizer derivative | Derived from genuine Hessian bounds using QuadraticRegularization and Gaussian integrability |
-| Smooth-test covariance derivative | Locally compiled; disclosed generalization accepted by formal source review |
+| Smooth-test covariance derivative | Independently verified; disclosed generalization accepted by formal source review |
 | Transformed-joint IsCondKernel and old L² PUP representative | Not yet exposed |
 | Conditional Poincaré, score variance and L²/H¹ extension | Remain to be proved before coercivity |
 

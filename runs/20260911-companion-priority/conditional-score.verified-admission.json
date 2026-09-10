@@ -1,0 +1,48 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "728a18dd9b9dc737bd923c00d0dc71e07606cd2d",
+    "gate": {
+      "production": "Reused independent complete-source stdin compilation exit0; production SHA unchanged",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication": "check_advance([full declaration], reviewed=True): PASS",
+      "tests_scope": "Axiom inspection only; not an independent mathematical consumer"
+    },
+    "source_audit": {
+      "id": "ASTIS-RT-20260911-PBPSConditionalScore",
+      "state": "accepted",
+      "verdict": "domain-mismatch",
+      "decoder": "conditional_blind_decoder",
+      "reviewer": "log_depth_source_review",
+      "publication_binding_sha256": "c326c68e2511c21609c2c134e71f25986e7118acaeaca762d75834df001e84b9",
+      "decoder_packet_sha256": "035bb6a22333ece3f012b3a4c0c506b6373895c9e608e49165dacc52a79bcc43",
+      "decoder_run_sha256": "c697aebd1b5c451de522325207326e16f6ffed107c0e31a07ec13d04072d4cb7",
+      "reviewer_packet_sha256": "f21edbf722045cda23819f502c4267684e41a81e232f42757f12e910062a133a",
+      "review_run_sha256": "20da4ae4a17fbeafb91377adb333902ac9b98dfd236d710de4695f74159c8407",
+      "blocking_issues": [],
+      "informational_delta_slots": [
+        "domains",
+        "assumptions",
+        "conclusion",
+        "quantifiers",
+        "scopes"
+      ]
+    },
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "ConditionalScore.lean and Tests/ProximalBPSConditionalScore.lean",
+      "evidence": "No sorry/admit/custom axiom/Prop := True/:= trivial/native_decide/unsafe hits; standard theorem axioms only"
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance"
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "depth_commit_verifier explicitly authorized VERIFIED at the fixed commit and sole-owner STABILIZING. Root faithfully transcribes the independent decision.",
+  "boundary": "No integration, reader/graph, variance/Sobolev/coercivity/process or full-paper completion asserted."
+}

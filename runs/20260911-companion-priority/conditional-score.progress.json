@@ -1,6 +1,6 @@
 {
   "advance_id": "ASTIS-SA-20260911-PBPSConditionalScore",
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "mathematical_status": "Focused compile, independent development replay and formal independent source review passed. Disclosed generalization; fixed-commit verification, integration and full-paper results remain open.",
   "focused_check": {
     "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore Tests.ProximalBPSConditionalScore",
@@ -33,7 +33,6 @@
     "Score is a continuous dual functional; vector gradient is its Riesz counterpart. It differentiates the unnormalized log weight; normalized score is centered."
   ],
   "remaining": [
-    "Exact-commit independent VERIFIED admission",
     "Actual transformed-law IsCondKernel interface and PUP representative identification",
     "Conditional Poincare/score variance, L2/H1 extension and coercivity",
     "Aggregate integration and companion/conversion/graph delivery",
@@ -46,5 +45,6 @@
     "state": "accepted",
     "verdict": "domain-mismatch",
     "artifact": "runs/20260911-companion-priority/conditional-score.source-review-result.json"
-  }
+  },
+  "independent_admission": "runs/20260911-companion-priority/conditional-score.verified-admission.json"
 }

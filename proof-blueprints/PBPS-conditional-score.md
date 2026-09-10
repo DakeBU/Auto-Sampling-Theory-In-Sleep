@@ -1,6 +1,9 @@
 # Next mathematical edge: reflected conditional expectation
 
-Planning only; no declaration or proof admission is asserted here.
+The initial route below has now produced the local theorem
+`ConditionalScore.reflected_conditional_covariance`; its Frontier Cell and
+semantic audit record the current admission state. This plan itself is not
+proof or integration evidence.
 Independent read-only route advice: `depth_commit_verifier`, after inspecting
 the actual reflection-block theorem and its Gibbs-density consumer.
 
@@ -41,3 +44,22 @@ Conditional Poincaré constants, the extension from smooth tests to all L²/H¹,
 macroscopic coercivity, square-root/inverse operators and the half-turn process
 remain distinct proof obligations. Do not count this plan as another theorem
 packet or reset the current reflection packet's stabilization work.
+
+## Next dependency audit
+
+The bounded lookup of
+`AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/Poincare.lean`
+shows definitions of variance, energy, admissibility and `Satisfies`, together
+with nonnegativity and monotonicity. Its own header explicitly states that no
+Bakry–Émery criterion, tensorization, localization or sharp constant is proved.
+Consequently `Poincare.variance_le` only unpacks a supplied inequality; invoking
+it with an assumed `Satisfies` cannot discharge the source's conditional
+Poincaré requirement or count as the gradient–variance result.
+
+Before the quantitative consumer, either prove the required curvature-to-
+Poincaré theorem in a canonical shared cell or establish another independently
+justified route to the exact source bound. Also identify the constructed
+reflected kernel with the transformed joint disintegration and the existing
+`PUP` representative before claiming an operator/Sobolev theorem. These are
+actual missing dependencies; the compiled smooth-test derivative does not
+silently provide them.

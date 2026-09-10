@@ -121,6 +121,7 @@ import Tests.SmoothedPicardRecursiveVariance
 import Tests.SmoothedPicardRecursiveDepth
 import Tests.SmoothedPicardLogarithmicDepth
 import Tests.ProximalBPSReflectionL2
+import Tests.ProximalBPSConditionalScore
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are
