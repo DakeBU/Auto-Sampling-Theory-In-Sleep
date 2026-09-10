@@ -449,3 +449,32 @@ curvature and normalized-law parents with positive Gibbs normalization and the
 exact condition-number identity. Preserve A=infinity through zero precision.
 Neither full companion paper, its actual algorithm, mixing nor actual-input
 query complexity is complete. The same Goal and older Chewi frontier remain.
+
+## Twelfth result: source-level RGO calculus
+
+Proof commit8ef889b89ae1b23e19d41acf25c115cfbef5e30a contains the single
+RGOCalculus.rgo_calculus integration theorem and focused consumer tests.
+It joins existing curvature, Gibbs-integrability and normalized-tilt parents
+to prove SPHMC Lemma6.4, including (6.1), with explicit positive normalization
+and probability of both source laws. Zero precision preserves A=infinity.
+Tests feed the actual updated curvature ratio into the previously compiled
+ill-conditioned contraction, rather than repeating its scalar hypothesis.
+
+Focused PASS2945 (Lean4.33.0, two threads), standard axioms only, no warnings;
+publication PASS13, semantic PASS16 audits/1 preserved repair, frontier PASS24.
+Independent code review by rgo_independent_verifier; source-blind reconstruction
+by heatbath_exposition_research; accepted anti-anchored source audit by
+publication_gate_review. The latter disclosed prior authorship of a reused
+parent, not this integration theorem. A lesson wording error in the final
+field calculation was corrected before the source-review binding.
+
+Exact code/statement/source bindings and commit admission live in the existing
+cell/audit records, not in an inferred chapter badge. Aggregate build,
+reader/graph inspection and online publication results are recorded in
+publication-release.md only after execution. Registry remains396; this is the
+twelfth separately inventoried companion/shared result, not paper completion.
+
+Next dependency-ready candidate: Lemma6.6(ii)'s well-conditioned variance
+contraction; inspect source before freezing it. Stage termination, actual
+recursive algorithms, accuracy, mixing and actual-input expected query costs
+remain red. No reset credit, replacement Goal or detached session was used.
