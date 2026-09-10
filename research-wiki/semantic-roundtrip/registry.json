@@ -4756,6 +4756,277 @@
           "evidence": "Theorem, authored proof and anonymous reconstruction distinguish ∀y from ∀f a.e."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-PBPSConditionalScore",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:pbps-conditional-score",
+        "anchor": "Appendix C.1, conditional density and differentiation in C.1; selected proof step only",
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "original_text": "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.\nLet X have normalized density proportional to exp(-V), and let Y_+=X+sqrt(eta)Z and Y_-=X-sqrt(eta)Z for independent standard Gaussian Z. The selected differentiation step uses smooth compactly supported real f.\nThe conditional density of Y_- given Y_+=y is proportional to exp(-V((y+u)/2)-norm(y-u)^2/(8eta)). Differentiating the conditional expectation of f gives its covariance with the unnormalized logarithmic derivative -grad V((y+u)/2)/2-(y-u)/(4eta). This is the differentiation input to Appendix C.1; the subsequent conditional variance estimate and extension to general L2 inputs are separate obligations.",
+        "text_sha256": "498a731570d5cf0ede4e0ab6d251412011c3a62adf94faba0eb266a2ca23d540"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+        "file": "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalScore.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal} {η : ℝ},\n  0 < ↑α →\n    ContDiff ℝ 2 V →\n      (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) v) v ∧ ((fderiv ℝ (fderiv ℝ V) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n        0 < η →\n          have μ := MeasureTheory.MeasureSpace.volume.tilted fun x => -V x;\n          have J :=\n            MeasureTheory.Measure.map (fun p => (p.1, p.1 + √η • p.2)) (μ.prod (ProbabilityTheory.stdGaussian E));\n          have s := fun y u => -(1 / 2) • fderiv ℝ V ((1 / 2) • (y + u)) - (1 / (4 * η)) • (innerSL ℝ) (y - u);\n          ∃ R S,\n            ProbabilityTheory.IsMarkovKernel R ∧\n              ProbabilityTheory.IsMarkovKernel S ∧\n                (MeasureTheory.Measure.map Prod.swap J).IsCondKernel R ∧\n                  (∀ (y : E), S y = MeasureTheory.Measure.map (fun x => 2 • x - y) (R y)) ∧\n                    (∀ (y : E),\n                        S y =\n                          MeasureTheory.MeasureSpace.volume.tilted fun u =>\n                            -V ((1 / 2) • (y + u)) - ‖y - u‖ ^ 2 / (8 * η)) ∧\n                      ∀ (f : E → ℝ),\n                        ContDiff ℝ (↑⊤) f →\n                          HasCompactSupport f →\n                            ∀ (y : E),\n                              MeasureTheory.Integrable (s y) (S y) ∧\n                                MeasureTheory.Integrable (fun u => f u • s y u) (S y) ∧\n                                  HasFDerivAt (fun z => ∫ (u : E), f u ∂S z)\n                                    (∫ (u : E), f u • s y u ∂S y - (∫ (u : E), f u ∂S y) • ∫ (u : E), s y u ∂S y) y",
+        "statement_sha256": "ff17a8f10acdddc990b839c05280ac5f60e1fd5714637e4288206eac5bfb361a",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused build PASS3182; independent full-source stdin replay by depth_commit_verifier exit0. Only propext, Classical.choice, Quot.sound. Axiom test is not an independent mathematical consumer.",
+        "decoder_context": [
+          "Measure.map means pushforward, Measure.prod independent product, and stdGaussian the standard centered Gaussian. volume is the canonical Lebesgue measure. Measure.tilted is normalized exponential weighting of a base measure.",
+          "A Markov kernel is a measurably parameterized probability measure. For a joint measure M, M.IsCondKernel R asserts disintegration using R conditional on the first coordinate. Prod.swap exchanges the two coordinates.",
+          "ContDiff at order two means twice continuously Frechet differentiable, and at infinity means smooth. HasCompactSupport requires compact closure of the nonzero set. fderiv is the Frechet derivative. HasFDerivAt certifies the displayed continuous linear map as the derivative at the displayed point.",
+          "innerSL is the real inner product regarded as a continuous linear functional in its second argument. Integrals of such functionals are Bochner integrals. Local let or have expressions in a proposition define abbreviations rather than assumptions."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "f21edbf722045cda23819f502c4267684e41a81e232f42757f12e910062a133a",
+        "review_run_sha256": "20da4ae4a17fbeafb91377adb333902ac9b98dfd236d710de4695f74159c8407",
+        "run_artifact": "runs/20260911-companion-priority/conditional-score.source-review-result.json",
+        "evidence": "Fresh anti-anchored packet inspection with no registry history or reuse of prior development verdict. Reviewer recomputed canonical packet and source/statement/reconstruction hashes; all match. Entire embedded module and six authored proof steps reviewed; module normalized UTF-8 hash39eec278de291ed52cf847f40ca064e89c301dac97406127fd3612b772c0776a matches current file text. Live primary arXiv2609.06905v1 Appendix C.1 density, score, covariance and later variance step checked. Test file e1e34028bd7b93292dc5c6f678de0ac53cda79c6869b2ca8b58afbe455d9d86b read as an axiom check only; reviewer did not independently compile. Binding digest pinned by verified packet, unredacted underlying payload not separately reconstructed. No edits. Accept disclosed proof-edge generalization, not statement equivalence, VERIFIED or full Appendix/Goal completion."
+      },
+      "publication_binding_sha256": "c326c68e2511c21609c2c134e71f25986e7118acaeaca762d75834df001e84b9",
+      "publication_context": {
+        "file": "39eec278de291ed52cf847f40ca064e89c301dac97406127fd3612b772c0776a",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel\nimport AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation\nimport Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar\nimport Mathlib.Tactic.Module\nimport Mathlib.Probability.Kernel.Composition.Prod\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability\nimport Mathlib.Analysis.Calculus.ParametricIntegral\nimport Mathlib.Analysis.Calculus.Deriv.Inv\n\n/-!\n# Reflected Gaussian conditional expectation and its derivative\n\nSource: arXiv:2609.06905v1, Appendix C.1, the conditional density and\nthe differentiation step preceding the conditional variance estimate.\nThe score below differentiates the unnormalized log weight. Its centered\ncovariance is the derivative of the normalized conditional expectation.\nThis does not prove conditional Poincare, the L2 extension or coercivity.\n-/\n\nopen MeasureTheory ProbabilityTheory\nopen MeasureTheory InnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.Analysis\nopen scoped RealInnerProductSpace NNReal\nopen scoped RealInnerProductSpace\nopen scoped ContDiff\n\nnamespace AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore\n\nuniverse u\n\n/-- The reflected actual backward Gaussian conditional kernel has the stated\nnormalized density, and expectations of smooth compactly supported tests have\nthe centered score derivative. Normalization and domination are consequences\nof the genuine Hessian bounds. Only positive eta is needed for this edge. -/\ntheorem reflected_conditional_covariance {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    {V : E → ℝ} {α β : ℝ≥0} {η : ℝ}\n    (hα : 0 < (α : ℝ)) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E,\n      (α : ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n      (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β : ℝ)*‖v‖^2) (hη : 0 < η) :\n    let μ := (volume : Measure E).tilted (fun x => -V x)\n    let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n      (μ.prod (stdGaussian E))\n    let s := fun y u : E => -(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n      (1/(4*η)) • innerSL ℝ (y-u)\n    ∃ R S : Kernel E E, IsMarkovKernel R ∧ IsMarkovKernel S ∧\n      (J.map Prod.swap).IsCondKernel R ∧\n      (∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y)) ∧\n      (∀ y, S y = (volume : Measure E).tilted\n        (fun u => -V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η))) ∧\n      ∀ (f : E → ℝ), ContDiff ℝ ∞ f → HasCompactSupport f →\n        ∀ y, Integrable (s y) (S y) ∧ Integrable (fun u => f u • s y u) (S y) ∧\n          HasFDerivAt (fun z => ∫ u, f u ∂S z)\n            ((∫ u, f u • s y u ∂S y) -\n              (∫ u, f u ∂S y) • (∫ u, s y u ∂S y)) y := by\n  have map_tilt {E F : Type u} [MeasurableSpace E] [MeasurableSpace F]\n      (μ : Measure E) (e : E ≃ᵐ F) (f : E → ℝ) (hf : Measurable f) :\n      (μ.tilted f).map e = (μ.map e).tilted (f ∘ e.symm) := by\n    unfold Measure.tilted\n    rw [AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity e _ (by fun_prop)]\n    congr 1\n    funext y\n    have hi : (∫ y, Real.exp (f (e.symm y)) ∂(μ.map e)) = ∫ x, Real.exp (f x) ∂μ := by\n      rw [integral_map_equiv e]\n      simp only [e.symm_apply_apply]\n    simp only [Function.comp_apply, hi]\n\n  have smul_tilt {E : Type u} [MeasurableSpace E] (μ : Measure E) (f : E → ℝ)\n      (hf : Measurable f) {c : ℝ} (hc : 0 < c) :\n      (ENNReal.ofReal c • μ).tilted f = μ.tilted f := by\n    unfold Measure.tilted\n    rw [integral_smul_measure, ENNReal.toReal_ofReal hc.le, smul_eq_mul,\n      withDensity_smul_measure, ← withDensity_smul _ (by fun_prop)]\n    congr 1\n    funext x\n    simp only [Pi.smul_apply, smul_eq_mul]\n    rw [← ENNReal.ofReal_mul hc.le]\n    congr 1\n    by_cases hz : (∫ x, Real.exp (f x) ∂μ) = 0\n    · simp [hz]\n    · field_simp\n\n  have reflection_affine {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] (y : E) :\n      ∃ e : E ≃ᵐ E,\n        (∀ x, e x = (2:ℝ) • x-y) ∧\n        (∀ u, e.symm u = (1/2:ℝ) • (u+y)) ∧\n        Measure.map e (volume : Measure E) =\n          ENNReal.ofReal (abs ((2:ℝ)^Module.finrank ℝ E)⁻¹) • volume := by\n    let e : E ≃ᵐ E :=\n      { toFun := fun x => (2:ℝ) • x-y\n        invFun := fun u => (1/2:ℝ) • (u+y)\n        left_inv := by intro x; simp [smul_smul]\n        right_inv := by intro u; simp [smul_smul]\n        measurable_toFun := by\n          change Measurable (fun x : E => (2:ℝ) • x-y)\n          fun_prop\n        measurable_invFun := by\n          change Measurable (fun u : E => (1/2:ℝ) • (u+y))\n          fun_prop }\n    refine ⟨e, fun _ => rfl, fun _ => rfl, ?_⟩\n    change Measure.map (fun x : E => (2:ℝ) • x-y) volume = _\n    simp only [sub_eq_add_neg]\n    change Measure.map ((fun x : E => x + -y) ∘ (fun x : E => (2:ℝ) • x)) volume = _\n    rw [← Measure.map_map (by fun_prop) (by fun_prop),\n      Measure.map_addHaar_smul volume (by norm_num : (2:ℝ) ≠ 0),\n      Measure.map_smul, map_add_right_eq_self]\n\n  have reflected_exponent {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      (V : E → ℝ) (η : ℝ) (y u : E) :\n      -V ((1/2:ℝ) • (u+y)) - ‖(1/2:ℝ) • (u+y)-y‖^2/(2*η) =\n        -V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η) := by\n    rw [show (1/2:ℝ) • (u+y)-y = (1/2:ℝ) • (u-y) by module]\n    rw [norm_smul, Real.norm_eq_abs, norm_sub_rev u y, add_comm u y]\n    norm_num\n    simp only [div_eq_mul_inv, mul_inv_rev]\n    ring\n\n  have actual_reflected_density {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      {V : E → ℝ} {α η : ℝ} (hα : 0 < α) (hV : ContDiff ℝ 2 V)\n      (hH : ∀ x v : E, α*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v)\n      (hη : 0 < η) :\n      let μ := (volume : Measure E).tilted (fun x => -V x)\n      let J := Measure.map (fun p : E × E => (p.1,p.1+Real.sqrt η • p.2))\n        (μ.prod (stdGaussian E))\n      ∃ R : Kernel E E, IsMarkovKernel R ∧ (J.map Prod.swap).IsCondKernel R ∧\n        ∀ y, Measure.map (fun x => (2:ℝ) • x-y) (R y) =\n          (volume : Measure E).tilted\n            (fun u => -V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η)) := by\n    have density := AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation.normalized_augmentation_density\n       hα hV hH hη\n    have hi : Integrable (fun x => Real.exp (-V x)) (volume : Measure E) := by\n      by_contra hn\n      exact (ne_of_gt density.1) (integral_undef hn)\n    have : IsProbabilityMeasure ((volume : Measure E).tilted (fun x => -V x)) :=\n      isProbabilityMeasure_tilted hi\n    have hVm : Measurable V := hV.continuous.measurable\n    obtain ⟨R,hR,hRf,hcond⟩ :=\n      AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel\n        ((volume : Measure E).tilted (fun x => -V x)) hη\n    refine ⟨R,hR,hcond,?_⟩\n    intro y\n    rw [hRf y, tilted_tilted hi]\n    obtain ⟨e,he,heinv,hemap⟩ := reflection_affine y\n    rw [show (fun x => (2:ℝ) • x-y) = e from (funext he).symm]\n    rw [map_tilt _ e _ (by fun_prop), hemap,\n      smul_tilt _ _ (by fun_prop) (by positivity)]\n    congr 1\n    funext u\n    simp only [Function.comp_apply, Pi.add_apply, heinv]\n    simpa only [neg_div, sub_eq_add_neg] using reflected_exponent V η y u\n\n  have reflected_kernel {E : Type u} [NormedAddCommGroup E] [NormedSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] (R : Kernel E E) [IsMarkovKernel R] :\n      ∃ S : Kernel E E, IsMarkovKernel S ∧\n        ∀ y, S y = (R y).map (fun x => (2:ℝ) • x-y) := by\n    let F := fun p : E × E => (2:ℝ) • p.2-p.1\n    have hF : Measurable F := by fun_prop\n    let S := (Kernel.id ×ₖ R).map F\n    have : IsMarkovKernel S := Kernel.IsMarkovKernel.map _ hF\n    refine ⟨S, inferInstance, ?_⟩\n    intro y\n    change ((Kernel.id ×ₖ R).map F) y = _\n    rw [Kernel.map_apply _ hF, Kernel.prod_apply, Kernel.id_apply,\n      Measure.dirac_prod, Measure.map_map hF (by fun_prop)]\n    rfl\n\n\n\n  have potential_controls {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] {V : E → ℝ} {α β : ℝ≥0}\n      (hα : 0 < (α : ℝ)) (hV : ContDiff ℝ 2 V)\n      (hH : ∀ x v : E,\n        (α : ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n        (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β : ℝ)*‖v‖^2) :\n      (∀ x, V 0 - (α : ℝ)⁻¹/2*‖gradient V 0‖^2 ≤ V x) ∧\n      (∀ x, ‖fderiv ℝ V x‖ ≤ ‖gradient V 0‖ + (β : ℝ)*‖x‖) := by\n    have hd : Differentiable ℝ V := hV.differentiable (by norm_num)\n    have hreg := QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic\n      hV hH (r := 0) (0 : E)\n    simp only [NNReal.coe_zero, zero_div, zero_mul, add_zero] at hreg\n    constructor\n    · intro x\n      have hfirst := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn hreg.1\n          (fun z _ => (hd z).hasGradientAt) (x := 0) (y := x)\n          (Set.mem_univ _) (Set.mem_univ _)\n      simp only [sub_zero] at hfirst\n      have hinner := (abs_le.mp (abs_real_inner_le_norm (gradient V 0) x)).1\n      have hyoung := two_mul_le_add_mul_sq (a := ‖x‖) (b := ‖gradient V 0‖) hα\n      nlinarith\n    · intro x\n      rw [← toDual_gradient]\n      rw [(toDual ℝ E).norm_map]\n      calc\n        ‖gradient V x‖ ≤ ‖gradient V x - gradient V 0‖ + ‖gradient V 0‖ :=\n          norm_le_norm_sub_add _ _\n        _ ≤ (β : ℝ)*‖x‖ + ‖gradient V 0‖ := by\n          apply add_le_add _ (le_refl _)\n          simpa using hreg.2.norm_sub_le x 0\n        _ = _ := add_comm _ _\n\n  have weight_envelope {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      (V : E → ℝ) {m η R : ℝ} (hV : ∀ x, m ≤ V x) (hη : 0 < η)\n      (y u : E) (hy : ‖y‖ ≤ R) :\n      Real.exp (-V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η)) ≤\n        Real.exp (-m+R^2/(8*η)) * Real.exp (-(1/(16*η))*‖u‖^2) := by\n    have hR : 0 ≤ R := (norm_nonneg y).trans hy\n    have htri : ‖u‖ ≤ ‖y-u‖ + R := by\n      have h := norm_le_norm_sub_add u y\n      rw [norm_sub_rev u y] at h\n      linarith\n    have hsq : ‖u‖^2 ≤ 2*‖y-u‖^2 + 2*R^2 := by\n      have ht := (sq_le_sq₀ (norm_nonneg u) (by positivity)).mpr htri\n      nlinarith [sq_nonneg (‖y-u‖-R)]\n    have hq := div_le_div_of_nonneg_right hsq (by positivity : 0 ≤ 16*η)\n    have hdiv : ‖u‖^2/(16*η) ≤ ‖y-u‖^2/(8*η) + R^2/(8*η) := by\n      have heq : (2*‖y-u‖^2+2*R^2)/(16*η) = ‖y-u‖^2/(8*η)+R^2/(8*η) := by\n        field_simp\n        ring\n      rw [heq] at hq\n      exact hq\n    rw [← Real.exp_add]\n    apply Real.exp_le_exp.mpr\n    have hv := hV ((1/2:ℝ) • (y+u))\n    simp only [div_eq_mul_inv, one_mul] at hdiv ⊢\n    nlinarith\n\n  have score_envelope {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [CompleteSpace E] (V : E → ℝ) {G β η R : ℝ}\n      (hG : ∀ x, ‖fderiv ℝ V x‖ ≤ G+β*‖x‖) (hβ : 0 ≤ β) (hη : 0 < η)\n      (y u : E) (hy : ‖y‖ ≤ R) :\n      ‖-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n        (1/(4*η)) • innerSL ℝ (y-u)‖ ≤\n        G/2 + ((β+η⁻¹)/4)*R + ((β+η⁻¹)/4)*‖u‖ := by\n    have hmid : ‖(1/2:ℝ) • (y+u)‖ ≤ (R+‖u‖)/2 := by\n      rw [norm_smul, Real.norm_eq_abs]\n      norm_num\n      have h := norm_add_le y u\n      linarith\n    have hfd : ‖fderiv ℝ V ((1/2:ℝ) • (y+u))‖ ≤ G+β*((R+‖u‖)/2) :=\n      (hG _).trans (add_le_add (le_refl _) (mul_le_mul_of_nonneg_left hmid hβ))\n    have hdiff : ‖y-u‖ ≤ R+‖u‖ := (norm_sub_le _ _).trans (add_le_add hy (le_refl _))\n    calc\n      _ ≤ ‖-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u))‖ +\n          ‖(1/(4*η)) • innerSL ℝ (y-u)‖ := norm_sub_le _ _\n      _ = (1/2:ℝ)*‖fderiv ℝ V ((1/2:ℝ) • (y+u))‖ + (1/(4*η))*‖y-u‖ := by\n        simp only [norm_smul, Real.norm_eq_abs, innerSL_apply_norm]\n        rw [abs_of_pos (by positivity : 0 < 1/(4*η))]\n        norm_num\n      _ ≤ (1/2:ℝ)*(G+β*((R+‖u‖)/2)) + (1/(4*η))*(R+‖u‖) := by\n        gcongr\n      _ = _ := by simp only [div_eq_mul_inv, mul_inv_rev]; ring\n\n  have absorb_linear {a A b r : ℝ} (ha : 0 < a) (hA : 0 ≤ A) (hb : 0 ≤ b) (hr : 0 ≤ r) :\n      (A+b*r)*Real.exp (-a*r^2) ≤\n        (A+b*(1+2/a))*Real.exp (-(a/2)*r^2) := by\n    let t := a/2*r^2\n    have ht : 0 ≤ t := by dsimp [t]; positivity\n    have he1 : 1 ≤ Real.exp t := Real.one_le_exp_iff.mpr ht\n    have he2 : t ≤ Real.exp t := by linarith [Real.add_one_le_exp t]\n    have hr2 : r^2 ≤ (2/a)*Real.exp t := by\n      have hh : r^2*a ≤ 2*Real.exp t := by dsimp [t] at he2; nlinarith\n      calc\n        r^2 ≤ (2*Real.exp t)/a := (le_div_iff₀ ha).2 hh\n        _ = _ := by ring\n    have hrb : r ≤ (1+2/a)*Real.exp t := by\n      nlinarith [sq_nonneg (r-1)]\n    have hcoef : A+b*r ≤ (A+b*(1+2/a))*Real.exp t := by\n      have h1 := mul_le_mul_of_nonneg_left he1 hA\n      have h2 := mul_le_mul_of_nonneg_left hrb hb\n      nlinarith\n    have h := mul_le_mul_of_nonneg_right hcoef (Real.exp_nonneg (-a*r^2))\n    rw [mul_assoc, ← Real.exp_add] at h\n    have heq : t + -a*r^2 = -(a/2)*r^2 := by dsimp [t]; ring\n    rw [heq] at h\n    exact h\n\n\n\n  have weight_derivative {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] {V : E → ℝ} (hV : Differentiable ℝ V)\n      (η : ℝ) (y u : E) :\n      HasFDerivAt\n        (fun z => Real.exp (-V ((1/2:ℝ) • (z+u)) - ‖z-u‖^2/(8*η)))\n        (Real.exp (-V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η)) •\n          (-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n            (1/(4*η)) • innerSL ℝ (y-u))) y := by\n    have hv := (hV ((1/2:ℝ) • (y+u))).hasFDerivAt.comp y\n      (((hasFDerivAt_id y).add_const u).const_smul (1/2:ℝ))\n    have hq := (((hasFDerivAt_id y).sub_const u).norm_sq).const_mul (8*η)⁻¹\n    convert (hv.neg.sub hq).exp using 1 <;>\n      first | (congr 1; ext z; simp [div_eq_mul_inv]; ring) |\n        (ext v; simp [div_eq_mul_inv, mul_inv_rev]; ring)\n\n\n\n  have quotient_derivative {E : Type u} [NormedAddCommGroup E] [NormedSpace ℝ E]\n      {N Z : E → ℝ} {DN DZ : E →L[ℝ] ℝ} {y : E}\n      (hN : HasFDerivAt N DN y) (hZ : HasFDerivAt Z DZ y) (hz : Z y ≠ 0) :\n      HasFDerivAt (fun z => N z/Z z)\n        ((Z y)⁻¹ • DN - (N y/Z y) • ((Z y)⁻¹ • DZ)) y := by\n    have hi := (hasFDerivAt_inv hz).comp y hZ\n    have hp := hN.mul hi\n    convert! hp using 1\n    ext v\n    simp [div_eq_mul_inv, pow_two]\n    ring\n\n\n  have local_controls {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      {V : E → ℝ} {α β : ℝ≥0} {η : ℝ}\n      (hα : 0 < (α : ℝ)) (hV : ContDiff ℝ 2 V)\n      (hH : ∀ x v : E,\n        (α : ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n        (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β : ℝ)*‖v‖^2) (hη : 0 < η) :\n      let w := fun y u : E => Real.exp (-V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η))\n      let dw := fun y u : E => w y u •\n        (-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) - (1/(4*η)) • innerSL ℝ (y-u))\n      (∀ y, Integrable (w y) (volume : Measure E)) ∧\n        ∀ y₀, ∃ bound : E → ℝ, Integrable bound (volume : Measure E) ∧\n          (∀ u, 0 ≤ bound u) ∧\n          ∀ y ∈ Metric.ball y₀ 1, ∀ u, ‖dw y u‖ ≤ bound u := by\n    let w := fun y u : E => Real.exp (-V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η))\n    let dw := fun y u : E => w y u •\n      (-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) - (1/(4*η)) • innerSL ℝ (y-u))\n    let m := V 0 - (α : ℝ)⁻¹/2*‖gradient V 0‖^2\n    let G := ‖gradient V 0‖\n    let a := 1/(16*η)\n    have ha : 0 < a := by dsimp [a]; positivity\n    obtain ⟨hlower,hgrowth⟩ := potential_controls hα hV hH\n    have hVc : Continuous V := hV.continuous\n    have hgauss : Integrable (fun u : E => Real.exp (-a*‖u‖^2)) volume :=\n      Integrability.integrable_exp_neg_mul_norm_sq ha\n    constructor\n    · intro y\n      refine (hgauss.const_mul (Real.exp (-m+‖y‖^2/(8*η)))).mono' (by dsimp [w]; fun_prop) ?_\n      filter_upwards with u\n      rw [Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]\n      exact weight_envelope V hlower hη y u (le_refl _)\n    · intro y₀\n      let R := ‖y₀‖+1\n      let b := ((β : ℝ)+η⁻¹)/4\n      let A := G/2+b*R\n      let C := Real.exp (-m+R^2/(8*η))\n      let bound := fun u : E => C*(A+b*(1+2/a))*Real.exp (-(a/2)*‖u‖^2)\n      have hR : 0 ≤ R := by dsimp [R]; positivity\n      have hb : 0 ≤ b := by dsimp [b]; positivity\n      have hA : 0 ≤ A := by dsimp [A,G]; positivity\n      have hC : 0 ≤ C := Real.exp_nonneg _\n      refine ⟨bound, (Integrability.integrable_exp_neg_mul_norm_sq\n        (E := E) (a := a/2) (by positivity)).const_mul _, ?_, ?_⟩\n      · intro u\n        dsimp [bound]\n        positivity\n      · intro y hy u\n        have hyR : ‖y‖ ≤ R := by\n          have ht := norm_le_norm_sub_add y y₀\n          have hd : ‖y-y₀‖ < 1 := by simpa only [Metric.mem_ball, dist_eq_norm] using hy\n          dsimp [R]\n          linarith\n        have hw : w y u ≤ C*Real.exp (-a*‖u‖^2) := weight_envelope V hlower hη y u hyR\n        have hs : ‖-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n            (1/(4*η)) • innerSL ℝ (y-u)‖ ≤ A+b*‖u‖ :=\n          score_envelope V hgrowth β.coe_nonneg hη y u hyR\n        have hp := absorb_linear ha hA hb (norm_nonneg u)\n        change ‖dw y u‖ ≤ bound u\n        dsimp only [dw]\n        rw [norm_smul, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]\n        calc\n          _ ≤ w y u*(A+b*‖u‖) := mul_le_mul_of_nonneg_left hs (Real.exp_nonneg _)\n          _ ≤ (C*Real.exp (-a*‖u‖^2))*(A+b*‖u‖) :=\n            mul_le_mul_of_nonneg_right hw (by positivity)\n          _ = C*((A+b*‖u‖)*Real.exp (-a*‖u‖^2)) := by ring\n          _ ≤ C*((A+b*(1+2/a))*Real.exp (-(a/2)*‖u‖^2)) :=\n            mul_le_mul_of_nonneg_left hp hC\n          _ = bound u := by dsimp [bound]; ring\n\n\n\n  have unnormalized_derivative {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      {V : E → ℝ} {α β : ℝ≥0} {η : ℝ}\n      (hα : 0 < (α : ℝ)) (hV : ContDiff ℝ 2 V)\n      (hH : ∀ x v : E,\n        (α : ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n        (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β : ℝ)*‖v‖^2) (hη : 0 < η)\n      (f : E → ℝ) (hf : Continuous f) {M : ℝ} (hM : 0 ≤ M) (hMf : ∀ u, ‖f u‖ ≤ M) :\n      let w := fun y u : E => Real.exp (-V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η))\n      let dw := fun y u : E => w y u •\n        (-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) - (1/(4*η)) • innerSL ℝ (y-u))\n      ∀ y, Integrable (fun u => f u*w y u) (volume : Measure E) ∧\n        Integrable (fun u => f u • dw y u) (volume : Measure E) ∧\n        HasFDerivAt (fun z => ∫ u, f u*w z u ∂(volume : Measure E))\n          (∫ u, f u • dw y u ∂(volume : Measure E)) y := by\n    let w := fun y u : E => Real.exp (-V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η))\n    let dw := fun y u : E => w y u •\n      (-(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) - (1/(4*η)) • innerSL ℝ (y-u))\n    have hVc : Continuous V := hV.continuous\n    have hVdc : Continuous (fderiv ℝ V) := (hV.fderiv_right (m := 1) (by norm_num)).continuous\n    have hVd : Differentiable ℝ V := hV.differentiable (by norm_num)\n    obtain ⟨hwI,hcontrols⟩ := local_controls hα hV hH hη\n    have hfwI (y : E) : Integrable (fun u => f u*w y u) (volume : Measure E) := by\n      refine ((hwI y).const_mul M).mono' (by dsimp [w]; fun_prop) ?_\n      filter_upwards with u\n      rw [norm_mul, Real.norm_eq_abs (w y u), abs_of_pos (Real.exp_pos _)]\n      exact mul_le_mul_of_nonneg_right (hMf u) (Real.exp_nonneg _)\n    dsimp only\n    intro y\n    obtain ⟨B,hBI,hB0,hB⟩ := hcontrols y\n    have hbound : ∀ u, ∀ z ∈ Metric.ball y 1, ‖f u • dw z u‖ ≤ M*B u := by\n      intro u z hz\n      rw [norm_smul]\n      exact mul_le_mul (hMf u) (hB z hz u) (norm_nonneg _) hM\n    have hfdI : Integrable (fun u => f u • dw y u) (volume : Measure E) := by\n      refine (hBI.const_mul M).mono' (by dsimp [dw,w]; fun_prop) ?_\n      exact ae_of_all _ (fun u => hbound u y (Metric.mem_ball_self zero_lt_one))\n    refine ⟨hfwI y,hfdI,?_⟩\n    apply hasFDerivAt_integral_of_dominated_of_fderiv_le\n      (F' := fun z u => f u • dw z u) (bound := fun u => M*B u)\n      (Metric.ball_mem_nhds y zero_lt_one)\n    · exact Filter.Eventually.of_forall (fun z => by fun_prop)\n    · exact hfwI y\n    · exact hfdI.aestronglyMeasurable\n    · exact ae_of_all _ hbound\n    · exact hBI.const_mul M\n    · filter_upwards with u\n      intro z _\n      exact (weight_derivative hVd η z u).const_mul (f u)\n\n\n\n  have normalized_tilt_integral {E F : Type u} [MeasurableSpace E]\n      [NormedAddCommGroup F] [NormedSpace ℝ F] (μ : Measure E) (W : E → ℝ) (g : E → F) :\n      ∫ u, g u ∂(μ.tilted W) = (∫ u, Real.exp (W u) ∂μ)⁻¹ •\n        ∫ u, Real.exp (W u) • g u ∂μ := by\n    rw [integral_tilted]\n    simp only [div_eq_inv_mul, mul_smul]\n    rw [integral_smul]\n\n  have normalized_covariance {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n      [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n      {V : E → ℝ} {α β : ℝ≥0} {η : ℝ}\n      (hα : 0 < (α : ℝ)) (hV : ContDiff ℝ 2 V)\n      (hH : ∀ x v : E,\n        (α : ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ V) x v) v ∧\n        (fderiv ℝ (fderiv ℝ V) x v) v ≤ (β : ℝ)*‖v‖^2) (hη : 0 < η)\n      (f : E → ℝ) (hf : Continuous f) {M : ℝ} (hM : 0 ≤ M) (hMf : ∀ u, ‖f u‖ ≤ M) :\n      let ν := fun y : E => (volume : Measure E).tilted\n        (fun u => -V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η))\n      let s := fun y u : E => -(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n        (1/(4*η)) • innerSL ℝ (y-u)\n      ∀ y, Integrable (s y) (ν y) ∧ Integrable (fun u => f u • s y u) (ν y) ∧\n        HasFDerivAt (fun z => ∫ u, f u ∂ν z)\n          ((∫ u, f u • s y u ∂ν y) - (∫ u, f u ∂ν y) • (∫ u, s y u ∂ν y)) y := by\n    let ν := fun y : E => (volume : Measure E).tilted\n      (fun u => -V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η))\n    let s := fun y u : E => -(1/2:ℝ) • fderiv ℝ V ((1/2:ℝ) • (y+u)) -\n      (1/(4*η)) • innerSL ℝ (y-u)\n    let w := fun y u : E => Real.exp (-V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η))\n    let dw := fun y u : E => w y u • s y u\n    let Z := fun y => ∫ u, w y u ∂(volume : Measure E)\n    let N := fun y => ∫ u, f u*w y u ∂(volume : Measure E)\n    let DZ := fun y => ∫ u, dw y u ∂(volume : Measure E)\n    let DN := fun y => ∫ u, f u • dw y u ∂(volume : Measure E)\n    have hN := unnormalized_derivative hα hV hH hη f hf hM hMf\n    have hZraw := unnormalized_derivative hα hV hH hη (fun _ : E => (1:ℝ))\n      continuous_const (M := 1) (by norm_num) (fun _ => by norm_num)\n    have hZ : ∀ y, Integrable (w y) (volume : Measure E) ∧\n        Integrable (dw y) (volume : Measure E) ∧ HasFDerivAt Z (DZ y) y := by\n      intro y\n      simpa only [one_mul, one_smul] using hZraw y\n    have hTf (y : E) : (∫ u, f u ∂ν y) = N y/Z y := by\n      have hscalar (μ : Measure E) (W g : E → ℝ) :\n          ∫ u, g u ∂(μ.tilted W) = (∫ u, Real.exp (W u) ∂μ)⁻¹ •\n            ∫ u, Real.exp (W u) • g u ∂μ := by\n        rw [integral_tilted]\n        simp only [div_eq_inv_mul, mul_smul]\n        rw [integral_smul]\n      rw [hscalar]\n      change (Z y)⁻¹ * (∫ u, w y u * f u ∂(volume : Measure E)) = N y / Z y\n      rw [div_eq_mul_inv, mul_comm (N y)]\n      congr 1\n      apply integral_congr_ae\n      filter_upwards with u\n      exact mul_comm _ _\n    have hTs (y : E) : (∫ u, s y u ∂ν y) = (Z y)⁻¹ • DZ y := by\n      exact normalized_tilt_integral _ _ _\n    have hTfs (y : E) : (∫ u, f u • s y u ∂ν y) = (Z y)⁻¹ • DN y := by\n      rw [normalized_tilt_integral]\n      congr 1\n      apply integral_congr_ae\n      filter_upwards with u\n      simp only [dw, smul_smul]\n      rw [mul_comm]\n    dsimp only\n    intro y\n    have hsI : Integrable (s y) (ν y) := by\n      rw [integrable_tilted_iff (hZ y).1]\n      exact (hZ y).2.1\n    have hfsI : Integrable (fun u => f u • s y u) (ν y) := by\n      rw [integrable_tilted_iff (hZ y).1]\n      apply (hN y).2.1.congr\n      filter_upwards with u\n      simp only [smul_smul]\n      rw [mul_comm]\n    refine ⟨hsI,hfsI,?_⟩\n    change HasFDerivAt (fun z => ∫ u, f u ∂ν z)\n      ((∫ u, f u • s y u ∂ν y) - (∫ u, f u ∂ν y) • (∫ u, s y u ∂ν y)) y\n    rw [show (fun z => ∫ u, f u ∂ν z) = (fun z => N z/Z z) from funext hTf,\n      hTf y,hTs y,hTfs y]\n    exact quotient_derivative (hN y).2.2 (hZ y).2.2 (ne_of_gt (integral_exp_pos (hZ y).1))\n  dsimp only\n  obtain ⟨R,hR,hcond,hν⟩ := actual_reflected_density hα hV (fun x v => (hH x v).1) hη\n  let : IsMarkovKernel R := hR\n  obtain ⟨S,hS,hSR⟩ := reflected_kernel R\n  have hSν (y : E) : S y = (volume : Measure E).tilted\n      (fun u => -V ((1/2:ℝ) • (y+u)) - ‖y-u‖^2/(8*η)) :=\n    (hSR y).trans (hν y)\n  refine ⟨R,S,hR,hS,hcond,hSR,hSν,?_⟩\n  intro f hf hfc y\n  obtain ⟨M,hM⟩ := hf.continuous.norm.bddAbove_range_of_hasCompactSupport hfc.norm\n  have hMf (u : E) : ‖f u‖ ≤ M := hM (Set.mem_range_self u)\n  have hM0 : 0 ≤ M := (norm_nonneg (f 0)).trans (hMf 0)\n  simpa only [hSν] using normalized_covariance hα hV hH hη f hf.continuous hM0 hMf y\n\n\nend AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+          "edition": "arXiv:2609.06905v1",
+          "anchor": "Appendix C.1, conditional density and differentiation in C.1; selected proof step only",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded mathematical proof."
+        },
+        "statement": "The conditional density of Y_- given Y_+=y is proportional to exp(-V((y+u)/2)-norm(y-u)^2/(8eta)). Differentiating the conditional expectation of f gives its covariance with the unnormalized logarithmic derivative -grad V((y+u)/2)/2-(y-u)/(4eta). This is the differentiation input to Appendix C.1; the subsequent conditional variance estimate and extension to general L2 inputs are separate obligations.",
+        "formulae": [
+          {
+            "label": "conditional covariance derivative",
+            "tex": "DT_f(y)=\\mathbb E_{S_y}[f\\,s_y]-\\mathbb E_{S_y}[f]\\,\\mathbb E_{S_y}[s_y]."
+          }
+        ],
+        "assumptions": [
+          "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.",
+          "Let X have normalized density proportional to exp(-V), and let Y_+=X+sqrt(eta)Z and Y_-=X-sqrt(eta)Z for independent standard Gaussian Z. The selected differentiation step uses smooth compactly supported real f."
+        ],
+        "obligations": [
+          {
+            "id": "reflected-density",
+            "label": "Actual reflected conditional kernel and everywhere normalized density"
+          },
+          {
+            "id": "score-differentiation",
+            "label": "Smooth-test conditional expectation derivative, with normalization and local domination proved"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+          "kind": "theorem",
+          "title": "Actual reflected conditional expectation and its score derivative",
+          "statement": "There exist Markov kernels R and S such that R disintegrates the actual law of (Y,X), S_y is the pushforward of R_y by x↦2x−y, and every S_y has the normalized density proportional to exp(−V((y+u)/2)−‖y−u‖²/(8η)). For every smooth compactly supported real f and every y, both s_y and f s_y are S_y-integrable, and the Fréchet derivative of T_f(y)=∫f dS_y is ∫f s_y dS_y−T_f(y)∫s_y dS_y. Here s_y(u)=−DV((y+u)/2)/2−⟨y−u,·⟩/(4η) is a continuous linear functional, the derivative of the unnormalized log weight.",
+          "formula": "DT_f(y)=\\mathbb E_{S_y}[f\\,s_y]-\\mathbb E_{S_y}[f]\\,\\mathbb E_{S_y}[s_y].",
+          "assumptions": [
+            "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. The potential V:E→R is C².",
+            "Constants α and β are finite nonnegative reals, α>0, and the actual second Fréchet derivative satisfies α‖v‖²≤D²V(x)[v,v]≤β‖v‖² for every x,v. The scale η is positive. No upper bound βη≤1 is needed for this differentiation step.",
+            "μ is volume tilted by −V and J is the law of (X,X+sqrt(η)Z), where X has law μ and Z is an independent standard Gaussian. Normalization and all integrability used in the proof are derived from the curvature assumptions.",
+            "The public conclusion quantifies over every C∞ compactly supported real test f and every parameter y. The internally proved differentiation argument works for bounded continuous f, including the noncompact test f≡1 needed for the normalizer."
+          ],
+          "steps": [
+            {
+              "title": "Push the actual backward conditional kernel through reflection",
+              "text": "Positive curvature gives a positive finite Gibbs normalizer. The existing Gaussian conditional-kernel theorem therefore supplies a Markov kernel R disintegrating (Y,X), with R_y equal to μ tilted by −‖x−y‖²/(2η). Tilting twice adds the exponents. The affine change of variables u=2x−y has inverse x=(u+y)/2 and sends volume to 2^(−dim E) times volume. A constant positive factor cancels from a normalized tilt. Substituting the inverse yields W(y,u)=−V((y+u)/2)−‖y−u‖²/(8η). To obtain joint measurability, define S by mapping the product kernel id×R through (y,x)↦2x−y; its fibers are exactly these pushforwards.",
+              "formula": "S_y=(x\\mapsto2x-y)_\\#R_y=\\frac{e^{W(y,u)}\\,du}{Z(y)},\\qquad Z(y)=\\int e^{W(y,u)}\\,du.",
+              "lean": "actual_reflected_density combines normalized_augmentation_density, exists_tilted_isCondKernel, tilted_tilted, an affine measurable equivalence and the Haar scaling formula. reflected_kernel uses Kernel.prod and Kernel.map to construct the measurable Markov kernel."
+            },
+            {
+              "title": "Extract a potential lower bound and linear gradient growth",
+              "text": "Apply the existing quadratic-regularization theorem with regularization parameter zero. Its strong-convexity conclusion gives V(x)≥V(0)+⟨∇V(0),x⟩+α‖x‖²/2. Completing the square gives the global lower bound m=V(0)−‖∇V(0)‖²/(2α). The same theorem's β-Lipschitz gradient gives ‖DV(x)‖≤G+β‖x‖, where G=‖∇V(0)‖. These estimates are consequences of the supplied genuine Hessian inequalities, not new premises.",
+              "formula": "V(x)\\ge m:=V(0)-\\frac{\\|\\nabla V(0)\\|^2}{2\\alpha},\\qquad\\|DV(x)\\|\\le G+\\beta\\|x\\|.",
+              "lean": "potential_controls specializes strongConvexOn_and_lipschitzWith_gradient_add_quadratic at r=0, uses its first-order lower bound, and identifies gradient and derivative norms through the Riesz isometry."
+            },
+            {
+              "title": "Derive an integrable local envelope, including the normalizer",
+              "text": "Fix y₀ and put R=‖y₀‖+1. On the unit ball around y₀, ‖y‖≤R. The triangle inequality gives ‖u‖²≤2‖y−u‖²+2R². Thus w=e^W is bounded by C exp(−a‖u‖²), where a=1/(16η) and C=exp(−m+R²/(8η)). The derivative score obeys ‖s_y(u)‖≤A+b‖u‖ with b=(β+η⁻¹)/4 and A=G/2+bR. Absorb this linear factor into a weaker Gaussian: (A+br)exp(−ar²)≤(A+b(1+2/a))exp(−ar²/2). Consequently C(A+b(1+2/a))exp(−a‖u‖²/2) dominates ‖D_yw(y,u)‖ uniformly in that ball and is integrable on E. A fixed-y version also proves integrability of w itself.",
+              "formula": "\\|D_yw(y,u)\\|\\le C\\bigl(A+b(1+2/a)\\bigr)e^{-a\\|u\\|^2/2}.",
+              "lean": "weight_envelope, score_envelope and absorb_linear feed local_controls. Gaussian integrability is reused from integrable_exp_neg_mul_norm_sq; no domination hypothesis is accepted by the public theorem."
+            },
+            {
+              "title": "Differentiate the numerator and the noncompact normalizer",
+              "text": "The ordinary chain rule gives D_yw=w s_y. For a continuous test f with |f|≤M, multiply the local envelope by M. Continuity of f, V and DV provides the required measurability, so dominated differentiation proves DN_f(y)=∫f(u)w(y,u)s_y(u)du for N_f=∫fw. Apply the same argument separately to f≡1 to obtain DZ(y)=∫w(y,u)s_y(u)du. This second use is essential: compact support of the original test cannot justify differentiating Z. Positivity of the exponential and its already proved integrability give Z(y)>0.",
+              "formula": "DN_f(y)=\\int fws_y\\,du,\\qquad DZ(y)=\\int ws_y\\,du,\\qquad Z(y)>0.",
+              "lean": "weight_derivative proves the chain-rule formula. unnormalized_derivative applies hasFDerivAt_integral_of_dominated_of_fderiv_le with the derived neighborhood envelope. normalized_covariance invokes it both for f and for the constant one."
+            },
+            {
+              "title": "Normalize and center the derivative",
+              "text": "Integration against a tilt is division by Z. The quotient rule gives D(N_f/Z)=Z⁻¹DN_f−(N_f/Z)Z⁻¹DZ. Each weighted volume integral becomes an expectation under S_y. This gives the stated covariance and proves that the score and f times the score are integrable under S_y. The unnormalized score s_y is not itself the derivative of log of the normalized density: that derivative is s_y−E_{S_y}s_y. Under the real Riesz identification, the continuous-linear-functional formula is the source's vector gradient formula.",
+              "formula": "D(N_f/Z)=Z^{-1}DN_f-(N_f/Z)Z^{-1}DZ.",
+              "lean": "quotient_derivative uses the derivative of inversion and multiplication. integral_tilted and integrable_tilted_iff convert the derivative and its integrability to the actual normalized conditional measure."
+            },
+            {
+              "title": "Recover the smooth compactly supported source inputs",
+              "text": "A continuous compactly supported f has bounded norm, so every source test satisfies the bounded-continuous premise used internally. Substitute the everywhere fiber identity for S into both the parameterized expectation and the derivative. This uses the same constructed R and S for all tests and all y. The result supplies the differentiation input to Appendix C.1's conditional gradient–variance estimate; the quantitative variance estimate and its subsequent Sobolev extension are separate obligations.",
+              "formula": "f\\in C_c^\\infty(E)\\Longrightarrow\\sup_u|f(u)|<\\infty.",
+              "lean": "The final assembly obtains the norm bound from bddAbove_range_of_hasCompactSupport and rewrites normalized_covariance through hSν."
+            }
+          ],
+          "lean_statement": "One public theorem constructs both Markov kernels from the genuine Gibbs/Gaussian law, identifies every reflected fiber and differentiates every smooth compactly supported test expectation at every parameter.",
+          "lean_proof": "Local helpers derive normalization, the affine pushforward density, Gaussian domination, both unnormalized derivatives and the normalized covariance. The public theorem assumes none of those conclusions.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation.normalized_augmentation_density",
+            "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_mul_norm_sq"
+          ],
+          "mathlib_dependencies": [
+            "Measure.map_addHaar_smul",
+            "tilted_tilted",
+            "integral_tilted",
+            "integrable_tilted_iff",
+            "hasFDerivAt_integral_of_dominated_of_fderiv_le",
+            "Continuous.bddAbove_range_of_hasCompactSupport"
+          ],
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+              "label": "Chen, Chewi, Lu and Zhang, PBPS v1 Appendix C.1",
+              "scope": "Conditional density and differentiated conditional expectation only; expanded normalization and domination proof."
+            }
+          ],
+          "tests": {
+            "file": "Tests/ProximalBPSConditionalScore.lean",
+            "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore Tests.ProximalBPSConditionalScore"
+          }
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+          "role": "proof-edge",
+          "supports": [
+            "reflected-density",
+            "score-differentiation"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "The paper works on R^d, d>=1, with C2 potential V and genuine Hessian bounds 0<alpha I<=D2V<=beta I, and 0<eta<=1/beta.",
+            "lean": "E is a finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is allowed. The potential V:E→R is C². Constants α and β are finite nonnegative reals, α>0, and the actual second Fréchet derivative satisfies α‖v‖²≤D²V(x)[v,v]≤β‖v‖² for every x,v. The scale η is positive. No upper bound βη≤1 is needed for this differentiation step."
+          },
+          {
+            "source": "Vector gradient of the normalized conditional expectation.",
+            "lean": "HasFDerivAt with a continuous linear functional equal to the centered integral of the unnormalized log-weight derivative."
+          },
+          {
+            "source": "Conditional density and differentiation are expressed analytically.",
+            "lean": "R disintegrates the actual swapped Gaussian augmentation; S is its jointly measurable reflected pushforward with an everywhere tilted-density identity. Normalization and local domination are derived."
+          },
+          {
+            "source": "Smooth compactly supported real observable f.",
+            "lean": "The public conclusion quantifies over every C∞ compactly supported real test f and every parameter y. The internally proved differentiation argument works for bounded continuous f, including the noncompact test f≡1 needed for the normalizer."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any finite-dimensional real inner-product space, equipped with its norm and Borel measurable structure, and let V:E→ℝ, α,β∈[0,∞), and η∈ℝ. Assume α>0, η>0, V is twice continuously Fréchet differentiable, and for every x,v∈E, α‖v‖²≤D²V(x)[v,v]≤β‖v‖². Define μ to be normalized exponential weighting of Lebesgue measure by −V. Let J be the pushforward of μ⊗γ under (x,g)↦(x,x+√η g), where γ is the standard centered Gaussian on E. Define the continuous-linear-functional-valued function s by s(y,u)=−(1/2)DV((y+u)/2)−(1/(4η))⟨y−u,·⟩. There exist Markov kernels R and S from E to E with the following simultaneous properties. First, R disintegrates the swapped joint measure swap₍*₎J conditional on its first coordinate; thus, in the joint-coordinate notation (X,Y) for J, R is a conditional distribution of X given Y. Second, for every y∈E, S(y) is the pushforward of R(y) under x↦2x−y. Third, for every y∈E, S(y) is normalized exponential weighting of Lebesgue measure in u by −V((y+u)/2)−‖y−u‖²/(8η). Finally, for every smooth compactly supported real-valued function f on E and every y∈E, both u↦s(y,u) and u↦f(u)s(y,u) are Bochner integrable under S(y), and F(z)=∫f(u)S(z)(du) has a Fréchet derivative at y equal to ∫f(u)s(y,u)S(y)(du)−(∫f(u)S(y)(du))(∫s(y,u)S(y)(du)). Equivalently, its derivative applied to h∈E is ∫f(u)s(y,u)[h]S(y)(du)−(∫f(u)S(y)(du))(∫s(y,u)[h]S(y)(du)).\nThe same R,S work for every f,y. The explicit fiber identities hold everywhere, although disintegration itself identifies a conditional version relative to the marginal. This is existence of a suitable version, not a statement about every conditional version. Local μ,J,s are definitions rather than hypotheses. No positive-dimension or separate α≤β premise occurs. There is no asserted uniqueness, measure-valued or operator-norm differentiability, continuous derivative, higher derivative, arbitrary measurable test extension or quantitative derivative bound. The unnormalized score need not have zero mean; the formula centers it. The exact coefficients are √η, 2, 1/2, 1/(8η) and 1/(4η), with kernels selected before the tests.",
+        "text_sha256": "33f7738b19164d5ba28d8c89f45feb327ab6bf434fb7d5721af085e4e0baec12",
+        "decoder_packet_sha256": "035bb6a22333ece3f012b3a4c0c506b6373895c9e608e49165dacc52a79bcc43",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "conditional_blind_decoder",
+        "notes": [
+          "Independent fresh agent received only the anonymous packet; root recorded the mathematical reconstruction."
+        ],
+        "decoder_run_sha256": "c697aebd1b5c451de522325207326e16f6ffed107c0e31a07ec13d04072d4cb7",
+        "lean_statement_sha256": "ff17a8f10acdddc990b839c05280ac5f60e1fd5714637e4288206eac5bfb361a",
+        "run_artifact": "runs/20260911-companion-priority/conditional-score.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Reflected conditional density and differentiation of its test expectation.",
+          "reconstructed": "Actual Gibbs Gaussian augmentation J; R disintegrates swapped J; S is the reflected pushforward with explicit tilt and dual-valued score.",
+          "relation": "explicit-elaboration",
+          "evidence": "actual_reflected_density and reflected_kernel construct actual Markov kernels using GaussianConditionalKernel and a jointly measurable product-kernel map."
+        },
+        "domains": {
+          "original": "Positive-dimensional Euclidean space in the source scale regime.",
+          "reconstructed": "Any finite-dimensional real inner-product Borel space, including zero dimension, with eta>0 and real C∞ compactly supported tests.",
+          "relation": "stronger-in-lean",
+          "evidence": "The broader ambient and scale domains are disclosed in the lesson and candidate assumptions; public test class matches the selected source input."
+        },
+        "quantifiers": {
+          "original": "A conditional version and differentiation for smooth compactly supported f.",
+          "reconstructed": "Common R,S witnesses precede all f,y, with pointwise fiber identities and derivatives.",
+          "relation": "explicit-elaboration",
+          "evidence": "The constructed suitable version satisfies the everywhere formulas; the theorem does not assert them for arbitrary versions. Compact support supplies the bound for each test."
+        },
+        "assumptions": {
+          "original": "C², genuine positive lower and finite upper Hessian bounds, and beta*eta<=1.",
+          "reconstructed": "C² and genuine second Frechet derivative bounds retained, alpha,beta NNReal with alpha>0; only eta>0.",
+          "relation": "stronger-in-lean",
+          "evidence": "Potential lower bound, linear derivative growth, normalizers and local domination are derived, not assumed. Removing the scale upper bound is valid only for this differentiation edge."
+        },
+        "conclusion": {
+          "original": "Covariance with the unnormalized logarithmic derivative.",
+          "reconstructed": "HasFDerivAt with dual-valued covariance E[f s]-E[f]E[s], and integrability of s and f s.",
+          "relation": "explicit-elaboration",
+          "evidence": "Both numerator and noncompact normalizer are differentiated; quotient-rule centering is retained. Riesz identification converts the functional to the source vector gradient; f is fixed in the parameter differentiation."
+        },
+        "scopes": {
+          "original": "Differentiation feeds later variance and Sobolev arguments.",
+          "reconstructed": "Pointwise smooth-test expectation derivative, no quantitative variance or general L² conclusion.",
+          "relation": "explicit-elaboration",
+          "evidence": "The module, binding and lesson preserve this scope. No operator-norm differentiability or identification with the old PUP L² representative is asserted."
+        },
+        "constant_dependencies": {
+          "original": "Midpoint, reflection and Gaussian coefficients in density and score.",
+          "reconstructed": "Coefficients 2,1/2,8eta and -1/(4eta), with derived local Gaussian constants.",
+          "relation": "explicit-elaboration",
+          "evidence": "Jacobian 2^(-dim E) cancels. The proof uses m=V(0)-G²/(2alpha), a=1/(16eta), R=norm(y0)+1, C=exp(-m+R²/(8eta)), b=(beta+eta^(-1))/4, A=G/2+bR and envelope C(A+b(1+2/a))exp(-a norm(u)^2/2). These are proof constants, not source variance constants."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Generalization to finite-dimensional inner-product spaces including zero dimension.",
+          "evidence": "The broader ambient and scale domains are disclosed in the lesson and candidate assumptions; public test class matches the selected source input."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Upper scale bound removed only for the selected differentiation component.",
+          "evidence": "Potential lower bound, linear derivative growth, normalizers and local domination are derived, not assumed. Removing the scale upper bound is valid only for this differentiation edge."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Vector gradient represented by its real continuous-dual Frechet derivative.",
+          "evidence": "Both numerator and noncompact normalizer are differentiated; quotient-rule centering is retained. Riesz identification converts the functional to the source vector gradient; f is fixed in the parameter differentiation."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "Everywhere formulas belong to the constructed conditional version.",
+          "evidence": "The constructed suitable version satisfies the everywhere formulas; the theorem does not assert them for arbitrary versions. Compact support supplies the bound for each test."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "No completed PUP Sobolev, Poincare, variance or coercivity theorem.",
+          "evidence": "The module, binding and lesson preserve this scope. No operator-norm differentiability or identification with the old PUP L² representative is asserted."
+        }
+      ]
     }
   ]
 }

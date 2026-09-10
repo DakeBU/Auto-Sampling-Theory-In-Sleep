@@ -1,0 +1,95 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent reviewer response and all seven semantic classifications under sole-writer policy.",
+  "reviewer_packet_sha256": "f21edbf722045cda23819f502c4267684e41a81e232f42757f12e910062a133a",
+  "source_text_sha256": "498a731570d5cf0ede4e0ab6d251412011c3a62adf94faba0eb266a2ca23d540",
+  "lean_statement_sha256": "ff17a8f10acdddc990b839c05280ac5f60e1fd5714637e4288206eac5bfb361a",
+  "reconstruction_text_sha256": "33f7738b19164d5ba28d8c89f45feb327ab6bf434fb7d5721af085e4e0baec12",
+  "publication_binding_sha256": "c326c68e2511c21609c2c134e71f25986e7118acaeaca762d75834df001e84b9",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Reflected conditional density and differentiation of its test expectation.",
+      "reconstructed": "Actual Gibbs Gaussian augmentation J; R disintegrates swapped J; S is the reflected pushforward with explicit tilt and dual-valued score.",
+      "relation": "explicit-elaboration",
+      "evidence": "actual_reflected_density and reflected_kernel construct actual Markov kernels using GaussianConditionalKernel and a jointly measurable product-kernel map."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean space in the source scale regime.",
+      "reconstructed": "Any finite-dimensional real inner-product Borel space, including zero dimension, with eta>0 and real C∞ compactly supported tests.",
+      "relation": "stronger-in-lean",
+      "evidence": "The broader ambient and scale domains are disclosed in the lesson and candidate assumptions; public test class matches the selected source input."
+    },
+    "quantifiers": {
+      "original": "A conditional version and differentiation for smooth compactly supported f.",
+      "reconstructed": "Common R,S witnesses precede all f,y, with pointwise fiber identities and derivatives.",
+      "relation": "explicit-elaboration",
+      "evidence": "The constructed suitable version satisfies the everywhere formulas; the theorem does not assert them for arbitrary versions. Compact support supplies the bound for each test."
+    },
+    "assumptions": {
+      "original": "C², genuine positive lower and finite upper Hessian bounds, and beta*eta<=1.",
+      "reconstructed": "C² and genuine second Frechet derivative bounds retained, alpha,beta NNReal with alpha>0; only eta>0.",
+      "relation": "stronger-in-lean",
+      "evidence": "Potential lower bound, linear derivative growth, normalizers and local domination are derived, not assumed. Removing the scale upper bound is valid only for this differentiation edge."
+    },
+    "conclusion": {
+      "original": "Covariance with the unnormalized logarithmic derivative.",
+      "reconstructed": "HasFDerivAt with dual-valued covariance E[f s]-E[f]E[s], and integrability of s and f s.",
+      "relation": "explicit-elaboration",
+      "evidence": "Both numerator and noncompact normalizer are differentiated; quotient-rule centering is retained. Riesz identification converts the functional to the source vector gradient; f is fixed in the parameter differentiation."
+    },
+    "scopes": {
+      "original": "Differentiation feeds later variance and Sobolev arguments.",
+      "reconstructed": "Pointwise smooth-test expectation derivative, no quantitative variance or general L² conclusion.",
+      "relation": "explicit-elaboration",
+      "evidence": "The module, binding and lesson preserve this scope. No operator-norm differentiability or identification with the old PUP L² representative is asserted."
+    },
+    "constant_dependencies": {
+      "original": "Midpoint, reflection and Gaussian coefficients in density and score.",
+      "reconstructed": "Coefficients 2,1/2,8eta and -1/(4eta), with derived local Gaussian constants.",
+      "relation": "explicit-elaboration",
+      "evidence": "Jacobian 2^(-dim E) cancels. The proof uses m=V(0)-G²/(2alpha), a=1/(16eta), R=norm(y0)+1, C=exp(-m+R²/(8eta)), b=(beta+eta^(-1))/4, A=G/2+bR and envelope C(A+b(1+2/a))exp(-a norm(u)^2/2). These are proof constants, not source variance constants."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Generalization to finite-dimensional inner-product spaces including zero dimension.",
+      "evidence": "The broader ambient and scale domains are disclosed in the lesson and candidate assumptions; public test class matches the selected source input."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Upper scale bound removed only for the selected differentiation component.",
+      "evidence": "Potential lower bound, linear derivative growth, normalizers and local domination are derived, not assumed. Removing the scale upper bound is valid only for this differentiation edge."
+    },
+    {
+      "slot": "conclusion",
+      "severity": "informational",
+      "description": "Vector gradient represented by its real continuous-dual Frechet derivative.",
+      "evidence": "Both numerator and noncompact normalizer are differentiated; quotient-rule centering is retained. Riesz identification converts the functional to the source vector gradient; f is fixed in the parameter differentiation."
+    },
+    {
+      "slot": "quantifiers",
+      "severity": "informational",
+      "description": "Everywhere formulas belong to the constructed conditional version.",
+      "evidence": "The constructed suitable version satisfies the everywhere formulas; the theorem does not assert them for arbitrary versions. Compact support supplies the bound for each test."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "No completed PUP Sobolev, Poincare, variance or coercivity theorem.",
+      "evidence": "The module, binding and lesson preserve this scope. No operator-norm differentiability or identification with the old PUP L² representative is asserted."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "evidence": "All six steps match production: actual reflected kernel and Jacobian; potential and gradient controls; exact Gaussian envelope; separate constant-one normalizer derivative; quotient centering; compact-test assembly."
+  },
+  "review_evidence": "Fresh anti-anchored packet inspection with no registry history or reuse of prior development verdict. Reviewer recomputed canonical packet and source/statement/reconstruction hashes; all match. Entire embedded module and six authored proof steps reviewed; module normalized UTF-8 hash39eec278de291ed52cf847f40ca064e89c301dac97406127fd3612b772c0776a matches current file text. Live primary arXiv2609.06905v1 Appendix C.1 density, score, covariance and later variance step checked. Test file e1e34028bd7b93292dc5c6f678de0ac53cda79c6869b2ca8b58afbe455d9d86b read as an axiom check only; reviewer did not independently compile. Binding digest pinned by verified packet, unredacted underlying payload not separately reconstructed. No edits. Accept disclosed proof-edge generalization, not statement equivalence, VERIFIED or full Appendix/Goal completion."
+}

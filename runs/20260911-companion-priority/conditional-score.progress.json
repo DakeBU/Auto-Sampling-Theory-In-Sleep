@@ -1,0 +1,93 @@
+{
+  "advance_id": "ASTIS-SA-20260911-PBPSConditionalScore",
+  "state": "STABILIZING",
+  "mathematical_status": "Focused compile, independent development replay and formal independent source review passed. Disclosed generalization; fixed-commit verification, integration and full-paper results remain open.",
+  "focused_check": {
+    "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore Tests.ProximalBPSConditionalScore",
+    "exit_code": 0,
+    "jobs": 3182,
+    "log": ".astis/conditional-score-focused.log",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalScore.lean": "2fc25ec02d242eba8fd5724c4ea1795a6f04f6935b5b5933acb1319d0eeb66b3",
+      "Tests/ProximalBPSConditionalScore.lean": "e1e34028bd7b93292dc5c6f678de0ac53cda79c6869b2ca8b58afbe455d9d86b"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "reviewer": "depth_commit_verifier",
+    "module_sha256": "2fc25ec02d242eba8fd5724c4ea1795a6f04f6935b5b5933acb1319d0eeb66b3",
+    "result": "Read-only full source plus axiom print independently compiled via stdin, exit 0; no blocking mathematical finding. Not VERIFIED or commit-bound admission.",
+    "artifact": "runs/20260911-companion-priority/conditional-score.independent-proof-review.json"
+  },
+  "independent_development_source_review": {
+    "reviewer": "log_depth_source_review",
+    "result": "No sign, constant or actual-kernel issue found; local Gaussian domination and noncompact normalizer differentiation are derived. Not packet-bound semantic review."
+  },
+  "source_deltas": [
+    "Only eta>0 is needed for this edge; subsequent estimates may require beta*eta<=1.",
+    "Finite-dimensional real spaces include dimension zero.",
+    "Score is a continuous dual functional; vector gradient is its Riesz counterpart. It differentiates the unnormalized log weight; normalized score is centered."
+  ],
+  "remaining": [
+    "Final candidate CI, independent merge advice and actual merge/deployment",
+    "Actual transformed-law IsCondKernel interface and PUP representative identification",
+    "Conditional Poincare/score variance, L2/H1 extension and coercivity",
+    "Both complete paper results and required dependencies remain open"
+  ],
+  "failed_attempt_preserved": "Replacing ring by ring1 failed to normalize an expression inside exp; reverted before the successful build. That failure is not completion evidence.",
+  "test_boundary": "Tests is an axiom check, not a separately counted mathematical consumer. Actual R/S and the smooth compactly supported test-function conclusion are in production.",
+  "source_fidelity": {
+    "audit_id": "ASTIS-RT-20260911-PBPSConditionalScore",
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "artifact": "runs/20260911-companion-priority/conditional-score.source-review-result.json"
+  },
+  "independent_admission": "runs/20260911-companion-priority/conditional-score.verified-admission.json",
+  "aggregate_gate": {
+    "status": "PASS",
+    "jobs": 9086,
+    "command": "python website/scripts/lean_gate.py",
+    "exit_code": 0,
+    "commit": "f35cdee1ce6a997e5b5728b475d485b0750b540a",
+    "source_digest": "c416cbdc74f25897a563f635cb8452d8e4e4c0110f7b4e466ec10020c01f9cd0",
+    "log": ".astis/conditional-score.aggregate-gate.log"
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/253",
+    "state": "draft",
+    "head": "f35cdee1ce6a997e5b5728b475d485b0750b540a",
+    "boundary": "Local reader/graph checks passed. Final-head independent merge advice, CI, actual merge and deployment remain pending."
+  },
+  "reader_checks": {
+    "candidate": "f35cdee1ce6a997e5b5728b475d485b0750b540a",
+    "site_build": {
+      "exit_code": 0,
+      "log": ".astis/conditional-score.site-build.log"
+    },
+    "site_check": {
+      "exit_code": 0,
+      "log": ".astis/conditional-score.site-check.log"
+    },
+    "graph_check": {
+      "exit_code": 0,
+      "log": ".astis/conditional-score.graph-check.json"
+    },
+    "browser": {
+      "page": "example-cases/samplewiki/companions/proximal-bouncy-particle.html#pbps-conditional-score",
+      "proof_steps": 6,
+      "initially_closed_disclosures": 9,
+      "statement_characters": 1192,
+      "proof_characters": 22986,
+      "katex_errors": 0,
+      "visual": "Inspected normalizer differentiation and quotient steps. Full statement retains Hessian assumptions; full proof ends in the kernel/compact-test assembly. Disclosure toggles work. Accepted domain-mismatch and all remaining boundaries visible.",
+      "graph": "5 nodes, 3 edges, 2 direct relations. Solid module ownership and dashed source correspondence are distinguished. Selected declaration/card inspected; conservative source-present badge is not inflated to source equivalence.",
+      "evidence_card": "modules/autosamplingtheory-examplecases-proximalbps-conditionalscore.html#decl-autosamplingtheory-examplecases-proximalbps-conditionalscore-reflected-c-478caa63a8",
+      "evidence_card_opened": true
+    },
+    "boundary": "This is local rendered validation at the stated candidate; no merge or deployed delivery asserted."
+  }
+}

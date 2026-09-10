@@ -1,0 +1,77 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-PBPS-conditional-score",
+  "route": "samplewiki-route",
+  "title": "Actual reflected conditional density and score covariance derivative",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06905v1 Appendix C.1, conditional density and score preceding C.1; conditional law2.8",
+  "target_statement": "For a C2 potential with genuine positive lower and finite nonnegative upper Hessian bounds and eta>0, identify the pushforward of the actual backward Gaussian-augmentation conditional kernel under x↦2x−y with the normalized density exp(−V((y+u)/2)−norm(y−u)^2/(8eta)). For every smooth compactly supported real f, prove the Frechet derivative of its actual conditional expectation equals the centered conditional score integral, deriving positive normalizers, local Gaussian domination and differentiation under the integral from these premises.",
+  "status": "independently_verified",
+  "parents": [
+    "ASTIS-SW-PBPS-reflection-l2-blocks",
+    "ASTIS-SHARED-gaussian-rgo-conditional-kernel",
+    "ASTIS-SW-PBPS-gibbs-augmentation",
+    "ASTIS-SHARED-quadratic-regularization"
+  ],
+  "consumers": [
+    "PBPS Appendix C.1 conditional gradient-variance estimate for smooth compactly supported observables; quantitative variance and H1 extension still pending"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib GaussianConditionalKernel actual disintegration, ReflectionL2 actual projection, GibbsAugmentation exact density, QuadraticRegularization genuine gradient Lipschitz result and StrongConvexFirstOrder lower model",
+      "Pinned Mathlib Tilted normalization/integration, map_addHaar_smul, measurableEquiv_map_withDensity and ParametricIntegral.hasFDerivAt_integral_of_dominated_of_fderiv_le"
+    ],
+    "classification": "adapt",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore.reflected_conditional_covariance",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [
+      {
+        "command": "lake build AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalScore Tests.ProximalBPSConditionalScore",
+        "exit_code": 0,
+        "jobs": 3182,
+        "log": ".astis/conditional-score-focused.log",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalScore.lean": "2fc25ec02d242eba8fd5724c4ea1795a6f04f6935b5b5933acb1319d0eeb66b3",
+          "Tests/ProximalBPSConditionalScore.lean": "e1e34028bd7b93292dc5c6f678de0ac53cda79c6869b2ca8b58afbe455d9d86b"
+        },
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    ],
+    "proof_plan": "proof-blueprints/PBPS-conditional-score.md",
+    "planning_review": "Independent depth_commit_verifier recommended actual reflected conditional law and compactly supported score-covariance formula; independent log_depth_source_review derived local Gaussian derivative envelope.",
+    "development_checkpoint": "runs/20260911-companion-priority/conditional-score.progress.json",
+    "admission_boundary": "VERIFIED at 728a18dd9b9dc737bd923c00d0dc71e07606cd2d; STABILIZING integration and reader/graph pending.",
+    "source_review": "ASTIS-RT-20260911-PBPSConditionalScore accepted with domain-mismatch; disclosed scale/domain generalization only.",
+    "independent_verification": "runs/20260911-companion-priority/conditional-score.verified-admission.json"
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06905v1",
+    "primary_anchor": "Appendix C.1",
+    "detail_status": "omitted",
+    "gap": "Local domination and differentiating normalized parameter integrals need explicit proofs; actual conditional-kernel pushforward must be identified first.",
+    "consulted": [
+      {
+        "source": "Primary Appendix C.1 and pinned ASTIS/Mathlib calculus and Gaussian measure APIs",
+        "anchor": "Conditional density, score and covariance differentiation",
+        "hypothesis_adapter": "Use actual C2 Hessian lower/upper premises and positive eta; no assumed normalizability, domination, interchange or covariance identity."
+      }
+    ],
+    "fidelity_boundary": "Actual conditional-density and smooth-test score-covariance derivative only. No conditional Poincare bound, all-L2 Sobolev extension, macroscopic coercivity, half-turn process, invariance/nonexplosion, modified energy, mixing/error/cost or complete-paper result."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Source conditional score differentiation, not a novel conceptual bridge."
+  }
+}
