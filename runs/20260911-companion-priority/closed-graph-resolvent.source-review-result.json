@@ -1,0 +1,110 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent formal seven-slot source review.",
+  "reviewer_packet_sha256": "5916cd73a2d3f630c4192cf77b7d900765683030acb687b8376e55a4583765d6",
+  "source_text_sha256": "b9430c48790db98c119cb9453fb8d08de467f44debdd243a93eceed5c7863b56",
+  "lean_statement_sha256": "b596bf12834c376c4df3a9e876e51a34cee6d0b762f7d36026303aecbafe50c2",
+  "reconstruction_text_sha256": "0234bd1b2f35ab3e98463e268f105ec84a62857be8d1406dcb42bdccb490170d",
+  "embedded_module_text_sha256": "32ed6c367cdd5f52578366b83a448f96619f362b05d05e25963c3efbf870e022",
+  "publication_binding_sha256": "362f704d1af4bf1695fbe2238c6b2736fa8bb95d2bd4e269d7f0155daa188266",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "KM Poisson/Sobolev background, explicitly replaced by a selected abstract prerequisite.",
+      "reconstructed": "Closed partial real-linear A between Hilbert spaces and positive-epsilon weak solution.",
+      "relation": "different",
+      "evidence": "A is arbitrary, not identified with the manifold differential operator; source contract and lesson disclose the change."
+    },
+    "domains": {
+      "original": "Primary compact weighted manifold; selected authored real-Hilbert prerequisite.",
+      "reconstructed": "Arbitrary Hilbert spaces, possibly infinite-dimensional, with possibly nondense proper domain.",
+      "relation": "different",
+      "evidence": "No manifold, finite-dimension, boundary or density assumption; these are disclosed changes, not source equivalence."
+    },
+    "quantifiers": {
+      "original": "Every closed A, positive epsilon, input f admits a unique domain solution.",
+      "reconstructed": "Same order; equation for every domain v and uniqueness among all solutions of that equation.",
+      "relation": "same",
+      "evidence": "Uniqueness for w assumes only weak equation, not energy or norm bounds."
+    },
+    "assumptions": {
+      "original": "Hilbert completeness, closed graph and epsilon>0; no PI/density.",
+      "reconstructed": "Exactly those selected prerequisite assumptions.",
+      "relation": "equivalent",
+      "evidence": "Closed-subspace projection in Hilbert L2 product; no continuity of A, coercivity or prior solvability assumed."
+    },
+    "conclusion": {
+      "original": "Weak existence/uniqueness, exact energy and epsilon-inverse bounds.",
+      "reconstructed": "Same equation, exact energy, ambient H norm and total-energy bounds; subtype equality.",
+      "relation": "same",
+      "evidence": "hu,he,hb,heb and difference testing supply all clauses."
+    },
+    "scopes": {
+      "original": "Abstract prerequisite inspired by KM2.4-2.5, not classical Poisson or PBPS PI.",
+      "reconstructed": "Weak domain statement, no regularity/generator/Bochner/epsilon-to-zero argument.",
+      "relation": "explicit-elaboration",
+      "evidence": "Module, source contract and lesson consistently retain these boundaries."
+    },
+    "constant_dependencies": {
+      "original": "Exactly epsilon^-1 in norm and total-energy bounds.",
+      "reconstructed": "Exactly epsilon^-1 with ambient H norm, no hidden graph-norm or coercivity constant.",
+      "relation": "same",
+      "evidence": "Self-test and Cauchy-Schwarz imply epsilon norm(u)<=norm(f), then both bounds."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "objects",
+      "severity": "informational",
+      "description": "Separately proved abstract weak resolvent, not background differential-operator theorem transcription.",
+      "evidence": "A is arbitrary, not identified with the manifold differential operator; source contract and lesson disclose the change."
+    },
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Compact-manifold setting replaced by arbitrary Hilbert spaces and potentially nondense domains.",
+      "evidence": "No manifold, finite-dimension, boundary or density assumption; these are disclosed changes, not source equivalence."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "No classical Poisson regularity or spectral conclusion; selected prerequisite only.",
+      "evidence": "Module, source contract and lesson consistently retain these boundaries."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Continuous T and graph preimage produce a closed complete WithLp2 subspace without continuity of A."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Projection membership and mem_graph_iff recover an actual domain u; positive square root justifies scaling."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "All scaled tests lie in G; orthogonality has correct signs and epsilon factor."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Self-test gives energy; zero/nonzero norm split and epsilon positivity yield norm and total-energy bounds."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Difference-tested equations give nonnegative squared sum; ambient equality then Subtype.ext."
+      }
+    ]
+  },
+  "review_evidence": "Independent anti-anchored source review freshly opened primary KM sections2.4-2.5 and PBPS C.1, read complete embedded proofs, anonymous reconstructions and every five plus three authored steps. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module text hashes independently recomputed; current production text equals embedded text. Binding digests authenticated packet fields; external binding preimages NOT independently reconstructed. No registry verdict consulted. No independent compilation, axiom-output verification, aggregate or fixed-commit VERIFIED claim in this source review."
+}

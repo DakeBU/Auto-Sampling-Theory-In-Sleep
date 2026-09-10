@@ -1,0 +1,31 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Root faithful transcription of independent complete production proof review and focused replay; reviewer changed no files.",
+  "hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/ClosedGraphResolvent.lean": "1ab1ae53e9251ae4fc210fc3b5b938f3f503419dc817df8771817e2dd2821c98",
+    "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalResolvent.lean": "279022a8711a82aea2ae4e105b5701dff62946793d6f10a731e93613681101b1",
+    "Tests/ProximalBPSConditionalResolvent.lean": "d191c66be8143af07a6a9b24e2f3da10bcd0d69c60ac06060d5c6b7bda504df4"
+  },
+  "command": "lake build Tests.ProximalBPSConditionalResolvent",
+  "exit_code": 0,
+  "jobs": 3298,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "result": "PASS development proof review; not fixed-commit VERIFIED",
+  "findings": [
+    "Scaled graph is comap under actual continuous linear coordinates and closed by hA.preimage in the genuine WithLp2 Hilbert product.",
+    "Graph membership recovers actual domain u and Au, with correct sqrt(epsilon) factors in projection orthogonality.",
+    "Exact energy identity, both epsilon^-1 bounds and difference-test uniqueness are actually proved; domain norms are ambient H norms.",
+    "No dense domain, bounded A, PI, coercivity or regularity assumption.",
+    "Consumer retains common R,S, actual fiber, normalization, exact initial gradient graph and the same D before every epsilon,f.",
+    "No measurable parameter family, classical PDE, generator core, Bochner extension or epsilon-uniform estimate asserted.",
+    "Tests are axiom checks; actual consumer is conditional_weak_resolvent."
+  ],
+  "qualifications": [
+    "Source audit, lesson acceptance and fixed-commit admission remain separate."
+  ]
+}

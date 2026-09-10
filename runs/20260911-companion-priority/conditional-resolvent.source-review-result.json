@@ -1,0 +1,100 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent formal seven-slot source review.",
+  "reviewer_packet_sha256": "35bf972eb6dec741d32d29864d3275bbd7e6413f252a06d275bd5c6f162b83f4",
+  "source_text_sha256": "54c6417ab5405a64ddffd9d1569d6797a4e637245dbdc986f876d948db10c6ca",
+  "lean_statement_sha256": "82840f4a390aaa5cadd67c774bf67a9116a9f2ceb85d8d97e90e311e15840610",
+  "reconstruction_text_sha256": "7553470fef19e9d86cca70403fb22a5afed821aeb9242b076cc12e5eeb068d60",
+  "embedded_module_text_sha256": "4f8329c95b027dda94c6cb555d6a88fe24b42aaa9fa037f8056526c3fc05a4ff",
+  "publication_binding_sha256": "1a042bdc396094fa291cb0a643d59f20b6bd5feb9e32e7ff4cfca36992f575d8",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual reflected conditional law and selected closed-gradient prerequisite.",
+      "reconstructed": "Common actual R,S, exact W_y and normalizer, genuine initial D_y and A=D_y.closure.",
+      "relation": "explicit-elaboration",
+      "evidence": "Retains all parent witnesses and exact graph iff; directly applies shared result to same closure."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean source.",
+      "reconstructed": "Finite-dimensional real inner-product Borel including zero dimension, actual scalar L2 closed-gradient domain.",
+      "relation": "stronger-in-lean",
+      "evidence": "No positive-dimension premise; zero dimension explicitly disclosed."
+    },
+    "quantifiers": {
+      "original": "Actual fibers and one gradient before resolvent parameters.",
+      "reconstructed": "Common R,S; every y; one D_y; all epsilon>0 and f; unique closed-domain u.",
+      "relation": "same",
+      "evidence": "D retained before intro epsilon,f; no measurable operator/solution family asserted."
+    },
+    "assumptions": {
+      "original": "C2 V, 0<alpha<=beta, genuine Hessian bounds, eta>0, beta eta<=1.",
+      "reconstructed": "Same inherited hypotheses, probability/normalization/closedness are conclusions.",
+      "relation": "equivalent",
+      "evidence": "hSy,hW,hI,hZ,hClosed from same parent, not added premises."
+    },
+    "conclusion": {
+      "original": "Actual-fiber weak solvability with exact energy and epsilon-inverse estimates.",
+      "reconstructed": "All those clauses plus actual kernels, normalizer and exact initial graph retained.",
+      "relation": "explicit-elaboration",
+      "evidence": "Complete abstract result for same L2 spaces and D.closure."
+    },
+    "scopes": {
+      "original": "Analytic prerequisite to C.1 PI invocation.",
+      "reconstructed": "Weak L2-domain solution, no PDE/core/Bochner substitution/PI/variance.",
+      "relation": "explicit-elaboration",
+      "evidence": "Graph iff describes D, not closure; uniqueness is of domain L2 classes, not pointwise representatives."
+    },
+    "constant_dependencies": {
+      "original": "Epsilon^-1 bounds.",
+      "reconstructed": "Exactly epsilon^-1, scalar L2 norm and vector L2 energy, no extra dimension/y/curvature coefficient.",
+      "relation": "same",
+      "evidence": "Unchanged shared conclusion; not uniform as epsilon tends to zero."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Explicit finite-dimensional and zero-dimensional extension.",
+      "evidence": "No positive-dimension premise; zero dimension explicitly disclosed."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Authored weak-resolvent prerequisite, not C.1 PI/variance.",
+      "evidence": "Graph iff describes D, not closure; uniqueness is of domain L2 classes, not pointwise representatives."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Curvature and beta eta<=1 retained parent restrictions, not abstract weak-existence premises.",
+      "evidence": "hSy,hW,hI,hZ,hClosed from same parent, not added premises."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Parent preserves actual R,S, normalization and exact initial graph before epsilon and input."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Proved closure supplies the sole closed-graph hypothesis on actual Hilbert L2 fiber; no PI or regularity."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "All weak equation, energy, bounds and uniqueness retained without classical/compact-test upgrade."
+      }
+    ]
+  },
+  "review_evidence": "Independent anti-anchored source review freshly opened primary KM sections2.4-2.5 and PBPS C.1, read complete embedded proofs, anonymous reconstructions and every five plus three authored steps. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module text hashes independently recomputed; current production text equals embedded text. Binding digests authenticated packet fields; external binding preimages NOT independently reconstructed. No registry verdict consulted. No independent compilation, axiom-output verification, aggregate or fixed-commit VERIFIED claim in this source review."
+}

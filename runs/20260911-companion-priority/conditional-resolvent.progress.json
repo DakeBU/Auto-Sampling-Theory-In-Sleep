@@ -1,0 +1,47 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
+    "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.ProximalBPSConditionalResolvent",
+    "result": "PASS3298",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/ClosedGraphResolvent.lean": "1ab1ae53e9251ae4fc210fc3b5b938f3f503419dc817df8771817e2dd2821c98",
+      "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalResolvent.lean": "279022a8711a82aea2ae4e105b5701dff62946793d6f10a731e93613681101b1",
+      "Tests/ProximalBPSConditionalResolvent.lean": "d191c66be8143af07a6a9b24e2f3da10bcd0d69c60ac06060d5c6b7bda504df4"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/conditional-resolvent.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-ClosedGraphResolvent",
+      "ASTIS-RT-20260911-PBPSConditionalResolvent"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/closed-graph-resolvent.source-review-result.json",
+      "runs/20260911-companion-priority/conditional-resolvent.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim.",
+  "remaining": [
+    "Independent fixed-commit review",
+    "Integration, aggregate and reader/graph delivery",
+    "Generator regularity/core and compact Bochner extension",
+    "Constant-kernel/mean-zero limit, conditional Poincare and noncompact score variance",
+    "All later main-theorem dependencies and full papers"
+  ]
+}

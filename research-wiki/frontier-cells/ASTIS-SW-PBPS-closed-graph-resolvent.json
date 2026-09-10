@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "PBPS arXiv:2609.06905v1 Appendix C.1 conditional Poincare prerequisite; Kolesnikov-Milman arXiv:1310.2526v7 sections2.4-2.5 Poisson/Sobolev background, explicitly not the compact-manifold classical regularity theorem",
   "target_statement": "For any closed partial real-linear A between Hilbert spaces, epsilon>0 and f in H, construct the unique u in A.domain satisfying epsilon inner(u,v)+inner(Au,Av)=inner(f,v) for every domain v, with exact energy identity and norm<=epsilon^-1 norm(f), energy<=epsilon^-1 norm(f)^2. Instantiate A as the closure of the SAME actual conditional gradient D_y, selected before epsilon and f, retaining the common R,S, disintegration, reflection, potential, normalization and exact original compact gradient graph.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SW-PBPS-weighted-gradient"
   ],
@@ -25,11 +25,23 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.ProximalBPSConditionalResolvent",
+        "result": "PASS3298; independent replay, standard axioms only, full development proof review passed.",
+        "hashes": {
+          "AutoSamplingTheory/TechnicalLemmas/FunctionalInequalities/ClosedGraphResolvent.lean": "1ab1ae53e9251ae4fc210fc3b5b938f3f503419dc817df8771817e2dd2821c98",
+          "AutoSamplingTheory/ExampleCases/ProximalBPS/ConditionalResolvent.lean": "279022a8711a82aea2ae4e105b5701dff62946793d6f10a731e93613681101b1",
+          "Tests/ProximalBPSConditionalResolvent.lean": "d191c66be8143af07a6a9b24e2f3da10bcd0d69c60ac06060d5c6b7bda504df4"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/PBPS-conditional-resolvent.md",
     "planning_review": "depth_commit_verifier bounded exact-API projection route; log_depth_source_review independently checked noncircular weak existence/uniqueness, constants and source/domain boundary; planning only, no compilation or formal acceptance.",
-    "execution_boundary": "Root sole writer. Gradient PR257 is sole STABILIZING owner; this next packet EXPLORING only.",
-    "ownership_note": "One actual PBPS consuming route, no fictitious second consumer."
+    "execution_boundary": "Root sole writer. Gradient PR257 merged and lane released. Resolvent PROVED_LOCAL only; formal source/fixed-commit admission pending.",
+    "ownership_note": "One actual PBPS consuming route, no fictitious second consumer.",
+    "independent_proof_review": "runs/20260911-companion-priority/conditional-resolvent.independent-proof-review.json",
+    "admission_boundary": "PROVED_LOCAL with independent proof review and replay, source and fixed-commit admission, aggregate and rendered delivery pending."
   },
   "blocked": {
     "reason": "",

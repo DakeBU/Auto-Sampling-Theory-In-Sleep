@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "pbps-closed-graph-resolvent",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "A unique weak resolvent from a closed Hilbert graph",
+      "source": {
+        "url": "https://arxiv.org/html/1310.2526v7",
+        "edition": "arXiv:1310.2526v7",
+        "anchor": "sections2.4-2.5; abstract weak-form prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Kolesnikov-Milman background; Chen-Chewi-Lu-Zhang PBPS consumer; ASTIS expanded prerequisite proof."
+      },
+      "statement": "Kolesnikov-Milman sections2.4-2.5 discuss weighted Poisson solvability and Sobolev spaces on compact manifolds. The selected ASTIS prerequisite is a separate abstract weak-form construction, not a formalization of that classical compact-manifold regularity theorem: for real Hilbert spaces H,K and a closed partial linear A, every epsilon>0 and f in H admit a unique u in Dom(A) satisfying epsilon inner(u,v)+inner(Au,Av)=inner(f,v) for every domain v. The exact energy is epsilon norm(u)^2+norm(Au)^2=inner(f,u), with norm(u)<=epsilon^-1 norm(f) and energy<=epsilon^-1 norm(f)^2. Domain norms here are ambient H norms. Density and PI are not hypotheses. This supplies the actual conditional closed-gradient consumer, not a compact Bochner extension or epsilon-to-zero PI argument.",
+      "assumptions": [
+        "Selected abstract prerequisite: H,K real Hilbert spaces, A closed partial real-linear, epsilon>0, f arbitrary in H; no dense-domain or PI hypothesis.",
+        "Background source uses a compact weighted manifold. Abstract Hilbert weak existence and full-space conditional application are explicit changes of scope, not source Poisson regularity."
+      ],
+      "formulae": [
+        {
+          "label": "Weak equation and energy",
+          "tex": "\\varepsilon\\langle u,v\\rangle_H+\\langle Au,Av\\rangle_K=\\langle f,v\\rangle_H\\quad(v\\in\\operatorname{Dom}A),\\qquad \\|u\\|_H\\le\\varepsilon^{-1}\\|f\\|_H."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "weak-existence-unique",
+          "label": "Actual domain weak solution and uniqueness"
+        },
+        {
+          "id": "energy-explicit-bounds",
+          "label": "Exact energy and positive-epsilon norm and energy constants"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
+          "cell": "ASTIS-SW-PBPS-closed-graph-resolvent",
+          "role": "prerequisite",
+          "supports": [
+            "weak-existence-unique",
+            "energy-explicit-bounds"
+          ],
+          "audit_id": "ASTIS-RT-20260911-ClosedGraphResolvent",
+          "boundary": "Weak equation on the closed gradient domain only. No classical PDE regularity, identified maximal differential domain, D*D operator core, compact-test Bochner extension, epsilon-uniform estimate, Poincare, noncompact score variance, measurable parameter selection, process/error/cost or full-paper conclusion.",
+          "assumption_deltas": [
+            {
+              "source": "Compact weighted-manifold Poisson existence/regularity and Sobolev background.",
+              "lean": "Arbitrary real Hilbert H,K and closed partial-linear A; positive-epsilon weak existence, energy and uniqueness.",
+              "classification": "generalization",
+              "reason": "Explicit abstract prerequisite, not a claim of equivalence to the source classical elliptic theorem. No regularity or boundary result."
+            },
+            {
+              "source": "Full-space conditional Poincare route needs a weak equation.",
+              "lean": "No domain density assumed, ambient H norm and epsilon^-1 bounds proved.",
+              "classification": "source-implicit",
+              "reason": "Orthogonal projection proves the weak equation without assuming PI or bounded A; this supplies only one analytic input."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pbps-conditional-resolvent",
+      "library": "samplewiki-route",
+      "chapter": "pbps-02",
+      "chapter_path": "example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "title": "Solve the weak equation on the actual conditional gradient closure",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06905v1#A3.SS1",
+        "edition": "arXiv:2609.06905v1",
+        "anchor": "Appendix C.1; actual conditional weak-form prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Kolesnikov-Milman background; Chen-Chewi-Lu-Zhang PBPS consumer; ASTIS expanded prerequisite proof."
+      },
+      "statement": "PBPS Appendix C.1 applies conditional Poincare to the actual reflected Gibbs-Gaussian conditional law. The selected ASTIS analytic prerequisite retains that law with W_y(u)=V((y+u)/2)+norm(u-y)^2/(8eta), its finite positive normalizer and the genuine dense closable compact gradient D_y. For each y, the same D_y is chosen before all positive epsilon and f in scalar L2(S_y); A=D_y.closure then has a unique weak solution to epsilon inner(u,v)+inner(Au,Av)=inner(f,v) on its domain, with exact energy identity and epsilon^-1 norm/energy bounds. The source PI or score variance is not proved here. No measurable solution family or classical regularity is asserted.",
+      "assumptions": [
+        "Source Euclidean d>=1, V C2, 0<alpha<=beta, genuine Hessian bounds, eta>0 and beta eta<=1.",
+        "Actual independent Gibbs-Gaussian augmentation (X,X+sqrt(eta)Z) and reflected conditional kernel. Normalization and closed genuine gradient are derived prerequisites, not additional paper assumptions."
+      ],
+      "formulae": [
+        {
+          "label": "Weak equation and energy",
+          "tex": "\\varepsilon\\langle u,v\\rangle_{L^2(S_y)}+\\langle\\overline D_yu,\\overline D_yv\\rangle_{L^2(S_y;E)}=\\langle f,v\\rangle_{L^2(S_y)},\\quad v\\in\\operatorname{Dom}\\overline D_y."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "weak-existence-unique",
+          "label": "Actual domain weak solution and uniqueness"
+        },
+        {
+          "id": "energy-explicit-bounds",
+          "label": "Exact energy and positive-epsilon norm and energy constants"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent",
+          "cell": "ASTIS-SW-PBPS-conditional-resolvent",
+          "role": "prerequisite",
+          "supports": [
+            "weak-existence-unique",
+            "energy-explicit-bounds"
+          ],
+          "audit_id": "ASTIS-RT-20260911-PBPSConditionalResolvent",
+          "boundary": "Weak equation on the closed gradient domain only. No classical PDE regularity, identified maximal differential domain, D*D operator core, compact-test Bochner extension, epsilon-uniform estimate, Poincare, noncompact score variance, measurable parameter selection, process/error/cost or full-paper conclusion.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean d>=1.",
+              "lean": "Arbitrary finite-dimensional real inner-product Borel E, including zero dimension.",
+              "classification": "generalization",
+              "reason": "Explicit dimension-zero extension retained."
+            },
+            {
+              "source": "Appendix C.1 conditional Poincare/variance.",
+              "lean": "Actual conditional closed-gradient epsilon weak equation only.",
+              "classification": "API-limitation",
+              "reason": "Generator core/regularity, compact Bochner extension, mean-zero limit and score extension remain open."
+            },
+            {
+              "source": "Actual augmentation and conditional Gibbs law.",
+              "lean": "Same common R,S; every actual normalized C2 fiber; one exact D_y before all epsilon,f.",
+              "classification": "source-implicit",
+              "reason": "No unrelated law or arbitrary surrogate operator and no extra integrability premise."
+            },
+            {
+              "source": "Source curvature and scale hypotheses.",
+              "lean": "0<alpha<=beta, C2, true Hessian bounds, eta>0 and beta eta<=1 retained.",
+              "classification": "same",
+              "reason": "Inherited parent restrictions, not required by the abstract weak theorem."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
