@@ -4,6 +4,7 @@ import AutoSamplingTheory.ExampleCases.ProximalBPS.GaussianAugmentation
 import AutoSamplingTheory.ExampleCases.ProximalBPS.GibbsAugmentation
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RecursiveCondition
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOCalculus
 
 /-!
 # ASTIS example cases

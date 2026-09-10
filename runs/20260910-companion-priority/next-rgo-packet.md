@@ -61,3 +61,23 @@ law is interpreted as a backward oracle. Convert the mu-relative tilts to the
 source potentials using Mathlib tilted_tilted under proved integrability.
 Keep an implementable oracle, recursive accuracy, reference-point work and
 actual-input expected query costs outside this calculus integration packet.
+
+## Successor implemented locally
+
+RGOCalculus.rgo_calculus and its focused test pass2945 jobs on Lean4.33.0.
+The theorem returns the source curvature/smoothness, positive integrable Gibbs
+weight, probability of current and updated source laws, normalized-law identity
+and exact bound-ratio update. The r=0 case and the actual ratio-to-contraction
+consumer are exercised. Admission remains separately tracked by
+ASTIS-SW-SPHMC-rgo-calculus; do not infer it from this local record.
+
+Preflight required explicit updated-law probability to exclude the zero fallback;
+it was included without new assumptions. Independent mathematical review found
+one lesson wording slip: the field identity multiplies by K=beta/alpha, not
+divides by alpha. Corrected before the canonical source-review packet.
+
+Next dependency-ready candidate: Lemma6.6(ii)'s well-conditioned variance
+contraction, retaining r=0 initially and strictly positive finite variance after
+the first update. Reuse the calculus and existing scalar route; inspect exact
+source hypotheses before freezing. Stage termination, actual recursive sampler,
+quantitative error and costs must not be bundled into the scalar branch.

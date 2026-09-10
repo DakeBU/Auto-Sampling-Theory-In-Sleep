@@ -1,0 +1,32 @@
+{
+  "advance_id": "ASTIS-SA-20260910-SPHMCRGOCalculus",
+  "task_id": "companion-papers-priority",
+  "goal": "For C² U with genuine Hessian sandwich κ⁻¹I≤D²U≤I, κ>0, r:NNReal, a>0 and u,y:E, W=U+r/2||x-u||² is (κ⁻¹+r)-strongly convex and (1+r)-gradient-Lipschitz. Its Gibbs weight is integrable with strictly positive integral and normalized tilt is a probability. The volume-normalized Gibbs law of W+||x-y||²/(2a) equals that of U+(r+1/a)||x-w||²/2 for w=(r+1/a)⁻¹•(r•u+a⁻¹•y); its updated condition number is (aβ+1)K/(aβ+K), β=1+r, K=β/(κ⁻¹+r).",
+  "source_anchor": "arXiv:2609.06906v1 §6.2.2, Lemma6.4 and equation(6.1)",
+  "theorem_delta": "For C² U with genuine Hessian sandwich κ⁻¹I≤D²U≤I, κ>0, r:NNReal, a>0 and u,y:E, W=U+r/2||x-u||² is (κ⁻¹+r)-strongly convex and (1+r)-gradient-Lipschitz. Its Gibbs weight is integrable with strictly positive integral and normalized tilt is a probability. The volume-normalized Gibbs law of W+||x-y||²/(2a) equals that of U+(r+1/a)||x-w||²/2 for w=(r+1/a)⁻¹•(r•u+a⁻¹•y); its updated condition number is (aβ+1)K/(aβ+K), β=1+r, K=β/(κ⁻¹+r).",
+  "truth_boundary": "Source-level RGO potential calculus only. No implementable sampler, recursive accuracy, reference-point cost, invariance, mixing or actual-input expected query cost. κ>0 is the positive condition-number convention; r=0 retains A=infinity. Finite-dimensional real inner-product spaces, including dimension zero, generalize Euclidean coordinates.",
+  "created_by": "root-companion-writer",
+  "dag_inputs": [
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+    "MeasureTheory.tilted_tilted"
+  ],
+  "proposed_files": [
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RGOCalculus.lean",
+    "Tests/SmoothedPicardRGOCalculus.lean"
+  ],
+  "focused_checks": [
+    "lake build Tests.SmoothedPicardRGOCalculus"
+  ],
+  "modes": [
+    "source-audit",
+    "proof-design",
+    "lean-implementation"
+  ],
+  "priority": 100,
+  "frontier_cell": "ASTIS-SW-SPHMC-rgo-calculus",
+  "target_declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOCalculus.rgo_calculus"
+  ]
+}

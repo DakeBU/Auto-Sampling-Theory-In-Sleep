@@ -135,8 +135,27 @@ Gaussian-smoothed marginal. The five-step lesson and source review are linked
 from that cell; commit admission remains separately recorded. This justifies
 the exact backward-law mechanism, not the recursive sampler's error or cost.
 
-Next planned integration: the complete normalized statement of Lemma6.4,
-including its exact condition-number identity, assembled from existing Gibbs
-normalization, quadratic curvature and normalized RGO-composition parents.
-Zero precision retains A=infinity. The historical next-rgo-packet.md is no
-longer an unimplemented next target; neither full paper is marked complete.
+## Lemma6.4 source integration
+
+`RGOCalculus.rgo_calculus` now compiles the source calculus as one integration
+node: genuine curvature and gradient smoothness, integrable positive Gibbs
+normalization, actual probability laws, exact normalized target update and
+the condition-number identity. Cell `ASTIS-SW-SPHMC-rgo-calculus` holds its
+independent source/commit admission status; local compilation is not that status.
+
+$$r=A^{-1}\ge0,\quad \alpha=\kappa^{-1}+r,\quad\beta=1+r,
+\quad r^+=r+a^{-1},\quad w=(r^+)^{-1}(ru+a^{-1}y),$$
+$$R^{U_{A,u}}_{a,y}=R^U_{(r^+)^{-1},w},\qquad
+K^+=\frac{\beta+a^{-1}}{\alpha+a^{-1}}
+=\frac{(a\beta+1)K}{a\beta+K},\quad K=\beta/\alpha.$$
+
+Zero precision retains A=infinity. The scalar consumer test substitutes
+$a=(h+K)/\beta$ and obtains $K/2\le K^+\le4K/5$ when $K\ge2$ and
+$0<h<1/4$. This is the actual target-bound adapter to Lemma6.6(i), not a
+construction of recursive random stages. The five-step authored lesson explains
+why potentials differ by a constant while their normalized laws are equal.
+Every statement/proof retains its separate initially folded Lean disclosure.
+
+The well-conditioned geometric-variance branch of Lemma6.6(ii), finite-stage
+termination, implemented oracle, recursive error and expected query costs remain
+separate red targets. Neither complete paper is claimed.

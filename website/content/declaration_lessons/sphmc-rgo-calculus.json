@@ -1,0 +1,85 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOCalculus.rgo_calculus",
+      "kind": "theorem",
+      "title": "RGO calculus: curvature, normalized target and condition-number update",
+      "statement": "Let E be a finite-dimensional real inner-product space with its Borel sigma algebra. Let U:E→R be C² with κ⁻¹||v||²≤D²U(x)[v,v]≤||v||² at every x,v, where κ>0. Given nonnegative precision r, positive variance a and centers u,y, put W=U+r||·−u||²/2, α=κ⁻¹+r, β=1+r, K=β/α, r+=r+a⁻¹ and w=(r+)⁻¹(ru+a⁻¹y). Then W is α-strongly convex and its gradient is β-Lipschitz; its exponential weight is integrable with positive integral. Both the normalized law of W and that of the updated potential are probabilities. The normalized law after adding ||·−y||²/(2a) is precisely that updated law, and the supplied condition-number bounds obey the displayed identity.",
+      "formula": "\\begin{gathered}W=U+\\tfrac r2\\|\\cdot-u\\|^2,\\quad r^+=r+a^{-1},\\quad w=(r^+)^{-1}(ru+a^{-1}y),\\\\R^{W}_{a,y}=R^{U}_{(r^+)^{-1},w},\\qquad K^+=\\frac{\\beta+a^{-1}}{\\alpha+a^{-1}}=\\frac{(a\\beta+1)K}{a\\beta+K}.\\end{gathered}",
+      "assumptions": [
+        "The derivatives are genuine derivatives of the C² potential; the Hessian is not a separately supplied field. The quadratic-form bounds hold everywhere.",
+        "κ>0 is the positive condition-number convention of the source. The ratio β/α uses the supplied bounds, not necessarily optimal constants. In dimension zero it need not be at least one.",
+        "r is a nonnegative real precision, represented by NNReal. Its zero value means A=∞, not a zero variance. The second variance a is strictly positive.",
+        "All laws are normalized relative to canonical Euclidean volume. No minimizer, moment estimate, integrability or kernel identity is supplied as a hidden premise."
+      ],
+      "steps": [
+        {
+          "title": "Shift both curvature bounds by the precision",
+          "text": "The quadratic term has Hessian rI, so its addition changes the lower bound to α and upper bound to β. The existing analytic theorem turns the lower bound into strong convexity and uses Hessian symmetry and the operator norm bound to prove actual gradient Lipschitz continuity. The C² premise rules out treating a totalized derivative as an arbitrary field.",
+          "formula": "D^2W=D^2U+rI,\\qquad \\alpha I\\preceq D^2W\\preceq\\beta I,\\qquad\\|\\nabla W(x)-\\nabla W(z)\\|\\le\\beta\\|x-z\\|.",
+          "lean": "hreg directly reuses QuadraticRegularization. Its NNReal constants are m=κ⁻¹, L=1 and t=r. This is an integration call, not another proof of the Hessian or Rayleigh argument."
+        },
+        {
+          "title": "Prove normalization before manipulating Gibbs laws",
+          "text": "For any nonnegative precision t, the regularized potential is differentiable and has strictly positive strong-convexity modulus κ⁻¹+t. The existing Gaussian-envelope proof gives integrability without a supplied minimizer. Strict positivity of the exponential and nonzero canonical volume make its integral positive. Apply this at t=0, t=r and t=r+1/a.",
+          "formula": "Z_{t,z}=\\int_Ee^{-U(x)-t\\|x-z\\|^2/2}\\,dx,\\qquad0<Z_{t,z}<\\infty.",
+          "lean": "hI reuses StrongConvexGibbsIntegrability after hreg; hIU and hIW specialize it. integral_exp_pos and isProbabilityMeasure_tilted certify positivity and mass one. Integrable plus a positive real integral prevents the totalized tilted API from returning zero."
+        },
+        {
+          "title": "Complete the square, retaining its constant",
+          "text": "Write s=1/a. The two quadratic penalties combine into one centered at w, plus a constant independent of x. It is the normalized laws that agree: their unnormalized integrals differ by exp(−c). Reuse the existing normalized quadratic-tilt theorem, which already proves and cancels this constant with positive normalizers.",
+          "formula": "\\frac r2\\|x-u\\|^2+\\frac s2\\|x-y\\|^2=\\frac{r+s}{2}\\|x-w\\|^2+c,\\qquad c=\\frac{rs}{2(r+s)}\\|u-y\\|^2.",
+          "lean": "RGOClosure.quadratic_tilt_tilt supplies the completed-square law identity for the probability base volume.tilted(−U). No new square-completion lemma or duplicate RGO definition is introduced."
+        },
+        {
+          "title": "Translate the tilt identity to the paper's potential laws",
+          "text": "Nested tilting adds exponents, provided the first exponential is integrable. This was proved above. Identify the quadratic tilt of the Gibbs base with the volume-normalized regularized potential, and perform the same identification after the second tilt. The output is equality of actual probability measures, not a proportionality assertion.",
+          "formula": "\\bigl(dx\\,\\mathrm{tilted}(-U)\\bigr)\\,\\mathrm{tilted}(-q_r)=dx\\,\\mathrm{tilted}(-(U+q_r)),\\qquad q_r(x)=\\tfrac r2\\|x-u\\|^2.",
+          "lean": "htilt applies Mathlib tilted_tilted using hIU. The final hcomp rewrite uses hIW for the second volume tilt. The separately returned updated probability certificate excludes equality of two zero fallback measures."
+        },
+        {
+          "title": "Derive the recursive condition-number identity",
+          "text": "The updated constants are α+1/a and β+1/a. Multiply numerator and denominator by a, then multiply both by K=β/α; the denominator becomes (aα+1)K=aβ+K. All canceled factors are strictly positive: α, β, a and aβ+K. This ratio is the bridge to the already proved scalar contraction of ill-conditioned recursive stages; it does not execute those stages.",
+          "formula": "\\frac{\\beta+a^{-1}}{\\alpha+a^{-1}}=\\frac{a\\beta+1}{a\\alpha+1}=\\frac{(a\\beta+1)(\\beta/\\alpha)}{a\\beta+\\beta/\\alpha}.",
+          "lean": "hα, hβ and hden justify denominator nonvanishing; field_simp checks the remaining field identity. The focused test feeds this actual curvature ratio into RecursiveCondition.contraction_bounds at a=(h+K)/β, proving K/2≤K+≤4K/5 for K≥2 and 0<h<1/4. This tests the scalar consumer, not implementation of the sampler."
+        }
+      ],
+      "lean_statement": "Let-bindings retain the paper's W, α, β, K, updated precision and center without adding global wrapper definitions. NNReal packages the nonnegative precision and Lipschitz constant; κ and a remain positive real numbers. The conclusion returns analytic properties, normalization certificates, an exact measure equality and the source ratio identity.",
+      "lean_proof": "The integration follows three existing ASTIS parents and Mathlib's normalized-tilt composition. General local hreg/hI helpers are reused at every precision; no minimum, moment or normalizer is postulated.",
+      "boundary": [
+        "Source-level RGO potential calculus only. No implementable sampler, recursive accuracy, reference-point cost, invariance, mixing or actual-input expected query cost. κ>0 is the positive condition-number convention; r=0 retains A=infinity. Finite-dimensional real inner-product spaces, including dimension zero, generalize Euclidean coordinates.",
+        "A=∞ is represented through its zero precision. The theorem does not claim a zero-variance Gaussian law.",
+        "The updated potentials differ by an additive constant before normalization. No equality of unnormalized densities or partition functions is asserted.",
+        "The constants are valid curvature/smoothness bounds. No optimal-condition-number, covariance or transport estimate follows from this packet alone."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt"
+      ],
+      "mathlib_dependencies": [
+        "tilted_tilted",
+        "integral_exp_pos",
+        "isProbabilityMeasure_tilted",
+        "ContDiff.norm_sq",
+        "ContDiff.differentiable"
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS2",
+          "label": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, SPHMC v1, §6.2.2, Lemma6.4 and (6.1)",
+          "scope": "ASTIS mathematical restatement and expanded proof of the omitted calculus; no paper prose reproduced."
+        },
+        {
+          "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/Measure/Tilted.lean",
+          "label": "Mathlib contributors, Apache-2.0",
+          "scope": "Existing normalized measure APIs; imported code is not counted as a new ASTIS leaf."
+        }
+      ],
+      "tests": {
+        "file": "Tests/SmoothedPicardRGOCalculus.lean",
+        "command": "lake build Tests.SmoothedPicardRGOCalculus"
+      }
+    }
+  ]
+}
