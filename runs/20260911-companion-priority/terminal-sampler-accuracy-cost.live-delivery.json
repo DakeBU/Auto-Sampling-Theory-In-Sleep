@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-09-11T19:21:05.606763+00:00",
+  "merge": "dfc29763cbe482e1eebf5fa7b6c5072e3a551c31",
+  "pages": [
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "status": 200,
+      "merge_provenance": true,
+      "declaration_present": true
+    },
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-terminalsampleraccuracycost.html",
+      "status": 200,
+      "merge_provenance": true,
+      "declaration_present": true
+    }
+  ],
+  "boundary": "Actual HTTP content/provenance only; merge Lean CI remains separate."
+}

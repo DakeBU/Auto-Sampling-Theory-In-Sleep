@@ -3,7 +3,7 @@
   "state": "MERGED",
   "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs.",
   "remaining": [
-    "Verify merge CI and actual live provenance",
+    "Verify merge Lean CI34637874210",
     "Whole Goal copy/citation/associated Lean download requirements"
   ],
   "scratch_checkpoint": {
@@ -119,11 +119,12 @@
     "commit": "dfc29763cbe482e1eebf5fa7b6c5072e3a551c31",
     "merged_at": "2026-09-11T19:15:42Z",
     "candidate": "cc1f333938c54ad681aa2f8d6991932cd2c39061",
-    "post_merge": "Merge CI and live provenance pending.",
+    "post_merge": "Site CI succeeded and original companion/module HTTP200 with full merge provenance verified. Merge Lean CI34637874210 still in progress.",
     "ci_runs": {
       "lean": 34637874210,
       "site": 34637874347,
       "observed_state": "in_progress"
     }
-  }
+  },
+  "live_delivery": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.live-delivery.json"
 }
