@@ -43,8 +43,57 @@
     "execution_boundary": "Root sole writer and sole STABILIZING owner; Gaussian KL PR263 actually merged; lane released.",
     "ownership_note": "One actual paper consumer; no invented second consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/rgo-backward.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at ebaa88025ba28ebc2013c959e9a0d6fca3ffc2b6; aggregate and reader/graph pending.",
-    "independent_verification": "runs/20260911-companion-priority/rgo-backward.verified-admission.json"
+    "admission_boundary": "Independently VERIFIED; root aggregate PASS9118 and fixed-commit original reader/graph passed. Final CI/review/merge/deployment separate.",
+    "independent_verification": "runs/20260911-companion-priority/rgo-backward.verified-admission.json",
+    "integration": {
+      "commit": "dec445c3ce0f42a78c2ab3f02d83cd14d2ee460c",
+      "aggregate": {
+        "result": "PASS9118",
+        "gate": {
+          "passed": true,
+          "commit": "dec445c3ce0f42a78c2ab3f02d83cd14d2ee460c",
+          "source_digest": "1d9796d9acf5bb9a43d09bdd11faf1b8eb0ec04483c24615bd43e92cb34d10a4",
+          "generated_at": "2026-09-11T03:07:55.948915+00:00",
+          "commands": [
+            "python3 tools/astis.py check"
+          ],
+          "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+        },
+        "log": ".astis/rgo-backward-aggregate.log"
+      },
+      "site": {
+        "build": "PASS588 modules3671 declarations",
+        "check": "PASS77 reviewed teaching declarations",
+        "build_log": ".astis/rgo-backward-site-build.log",
+        "check_log": ".astis/rgo-backward-site-check.log"
+      },
+      "reader": {
+        "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "anchor": "sphmc-rgo-backward",
+        "proof_steps": 6,
+        "initially_closed_disclosures": 9,
+        "statement_chars": 896,
+        "proof_chars": 3905,
+        "proof_complete_namespace_end": true,
+        "actual_statement_proof_reuse_clicks": true,
+        "formula_errors": 0,
+        "visual": "Actual screenshot checked disintegration recovery, exact precision and weighted-center formula including b=0, and KL input guarantee."
+      },
+      "graph": {
+        "check": "PASS",
+        "artifact": ".astis/rgo-backward-graph-check.json",
+        "focused_nodes": 5,
+        "edges": 3,
+        "direct_relations": 2,
+        "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-rgobackward.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-rgobackward-rgo-backwa-1b1bae175d",
+        "local_card_labels": [
+          "Compiled",
+          "Not mapped"
+        ],
+        "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+      },
+      "boundary": "Local aggregate and browser QA pinned to this commit; final candidateCI/review/merge/deployment separate."
+    }
   },
   "blocked": {
     "reason": "",

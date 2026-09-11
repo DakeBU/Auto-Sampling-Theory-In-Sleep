@@ -33,7 +33,7 @@
   },
   "mathematical_status": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate.",
   "remaining": [
-    "Verify actual merge CI and deployed reader provenance",
+    "Online Lean-gate badge synchronization remains separate",
     "Full W2 interface and marginal moment correspondence",
     "Actual recursive kernels, sampler error and query costs",
     "Both paper main results and agreed remaining reader/copy/download deliveries"
@@ -174,7 +174,24 @@
       "lean": "34556099864 SUCCESS",
       "site": "34556099933 SUCCESS; PR deploy skipped"
     },
-    "post_merge": "Actual merge CI and deployed reader provenance pending. Prior local/CI artifact records remain bound to their original commits.",
+    "post_merge": "Actual merge Lean/site and deployment succeeded; HTTP and merge provenance verified. Actual cards Partial/Notmapped, no online gate artifact inferred.",
     "truth_boundary": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate."
+  },
+  "actual_deployment": {
+    "merge_commit": "79dc5520010de2234acfc5cc956c88e21dfeb0d8",
+    "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "http_status": 200,
+    "anchor": "sphmc-gaussian-kl",
+    "merge_provenance": true,
+    "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl.html",
+    "card_http_status": 200,
+    "card_labels": [
+      "Partial",
+      "Not mapped"
+    ],
+    "boundary": "Actual deployed HTTP/provenance/labels; earlier CI artifact and local visual checks remain separately pinned.",
+    "site_run": "34556944001 SUCCESS",
+    "deploy_job": "103132123724 SUCCESS",
+    "merge_lean": "34556943874 SUCCESS"
   }
 }
