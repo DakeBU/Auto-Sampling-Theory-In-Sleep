@@ -38,10 +38,25 @@
   },
   "mathematical_status": "Actual Gaussian likelihood and exact power moment prerequisite to SPHMC Lemma6.3(ii). No mixture/data-processing power-divergence inequality, complete Renyi metric API, general reverse transport, proxy-warmness, sampler or query-cost conclusion. Finite marginal moments remain separate when later source consumers require them.",
   "remaining": [
-    "Integration, aggregate and reader/graph delivery",
+    "Rendered reader/graph QA, final-head CI and actual merge/deployment",
     "Independent mixture/data-processing inequality and general Gaussian reverse transport",
     "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
     "Remaining agreed reader/conversion/copy/download deliveries"
   ],
-  "independent_admission": "runs/20260911-companion-priority/gaussian-power-moment.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/gaussian-power-moment.verified-admission.json",
+  "aggregate_gate": {
+    "passed": true,
+    "commit": "abaa0b4f09562344338deadfde2b326a0b329404",
+    "source_digest": "f2e624476667c2037baf9d310fa0e393755566fd47e6a71f27b45f50261e7272",
+    "generated_at": "2026-09-11T00:14:32.665553+00:00",
+    "commands": [
+      "python3 tools/astis.py check"
+    ],
+    "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available.",
+    "status": "PASS",
+    "jobs": 9105,
+    "exit_code": 0,
+    "log": ".astis\\gaussian-power-moment-aggregate.log",
+    "log_sha256": "cf7f1f7b83d27e2a3eaa016cf52388b0e3d36344c6bd406110cb12ea2897f44a"
+  }
 }

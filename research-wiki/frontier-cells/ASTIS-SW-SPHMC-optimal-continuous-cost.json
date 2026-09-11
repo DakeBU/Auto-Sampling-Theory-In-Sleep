@@ -40,7 +40,7 @@
     "execution_boundary": "Root sole writer; packet actually merged and stabilization lane released.",
     "ownership_note": "One actual SPHMC consumer route; no invented second consumer or general metric API.",
     "independent_proof_review": "runs/20260911-companion-priority/sphmc-truncation.independent-proof-review.json",
-    "admission_boundary": "Independently VERIFIED and merged PR259; actual deployment pending.",
+    "admission_boundary": "Independently VERIFIED, merged PR259, both merge CI SUCCESS and both actual reader entries verified.",
     "independent_verification": "runs/20260911-companion-priority/sphmc-truncation.verified-admission.json",
     "packaging_refresh": "Full local helper proof included in public theorem; focused PASS2621, independent complete-proof review and final hash-bound source audits accepted.",
     "integration": {
@@ -53,7 +53,23 @@
         "lean": "34544004895 SUCCESS",
         "site": "34544004870 SUCCESS; PR deployment skipped"
       },
-      "post_merge": "Merge-commit CI and actual deployed reader pending.",
+      "post_merge": {
+        "lean_run": 34544976974,
+        "site_run": 34544976964,
+        "deploy_job": 103096161567,
+        "state": "Both merge-commit runs SUCCESS; deploy job SUCCESS",
+        "live": {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+          "http_status": 200,
+          "anchors": [
+            "sphmc-optimal-continuous-cost",
+            "sphmc-truncation"
+          ],
+          "merge_commit": "7cc582e9439c618341c9ec34ccca73587c4140ff",
+          "merge_commit_present": true,
+          "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
+        }
+      },
       "truth_boundary": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion."
     }
   },
