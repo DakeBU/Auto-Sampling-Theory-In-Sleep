@@ -6,7 +6,7 @@
   "title": "Actual clipped-gradient Poisson retry program",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Appendix A.4(2), external arXiv:2602.01338v1 Appendix D.1 Eq18; actual Poisson mechanism SPHMC A.1 Lemma A.2 and arXiv:2608.05022v1 Algorithm1",
   "target_statement": "For finite-dimensional real inner-product Borel E, differentiable f with beta-Lipschitz actual gradient, beta>=0, eta>0, B>0, fix x0,xp and h=x0-eta gradient f xp. Use actual q=N(h,eta I), nu=Uniform time prod N(0,eta I), W=<actual arc velocity,gradient f xp-gradient f arc>, clipped W=min B(max(-B)W), mB=integral clipped W, and common C from the actual unclipped mean. Prove joint measurability including x, unclipped/clipped/excess L1 for each x, abs(mB)<=B and abs(mB-(<gradient f xp,x>-f x+C))<=integral max(abs W-B,0). Prove exp(-B)<=ZB=integral exp(mB) dq<=exp B, actual iid Poisson(2B) full-batch retry output law=q.tilted mB with explicit never-hit default and null never-hit event, and actual full-batch expected estimator count=2B/p<=2B exp(2B), p=exp(-B)ZB.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SW-SPHMC-gradient-arc-mean",
     "ASTIS-SW-SPHMC-poisson-rejection"
@@ -29,13 +29,18 @@
     "focused_checks": [
       {
         "command": "lake build Tests.SmoothedPicardHMCClippedGradientProgram",
-        "result": "PASS3722; standard three axioms; no lint"
+        "result": "PASS3722; standard three axioms; no lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ClippedGradientProgram.lean": "49a7c35698f3f95754c0430f40928ed1abed73480412dee1a0f1002ce3611532",
+          "Tests/SmoothedPicardHMCClippedGradientProgram.lean": "023851902106e7650f8149b7f9bfbfee87ce327d617e9327403539ac05d66e85"
+        }
       }
     ],
     "proof_plan": "proof-blueprints/SPHMC-clipped-gradient-program.md",
     "planning_review": "Independent log_depth_source_review accepted exact actual-program consumer, identified fixed auxiliary law and cached reference gradient cost boundaries. Prior depth next-consumer review in gradient-arc-mean blueprint.",
     "execution_boundary": "Root sole writer; mean PR281 merged, no active stabilizer. Actual clipped program EXPLORING.",
-    "development_boundary": "Complete production compiled; independent full scratch compile/proof review and source preaudit accepted fixed050abeb1. No formal source admission or PROVED_LOCAL yet."
+    "development_boundary": "Complete production compiled; independent full scratch compile/proof review and source preaudit accepted fixed050abeb1. No formal source admission or PROVED_LOCAL yet.",
+    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
   },
   "blocked": {
     "reason": "",

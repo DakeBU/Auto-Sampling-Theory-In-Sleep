@@ -18149,7 +18149,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCClippedGradientProgram",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-clipped-gradient-program",
         "anchor": "Appendix D.1 Eq18 and clipping mean comparison; consumed by SPHMC A.4(2), actual Poisson mechanism A.1 Lemma A.2",
@@ -18178,7 +18178,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "9f2cbbe769b0e03b24f803004a6979955db885d6207a4f3d5454f469081d63e9",
+        "review_run_sha256": "68638d2f9eaf7c18cc185f411d1bdcafafd511f53c2ffec3fd1d5408bf6efefb",
+        "run_artifact": "runs/20260911-companion-priority/clipped-gradient-program.source-review-result.json",
+        "evidence": "Independent primary-source review accepted7slots,7authoredsteps,8informationaldeltas and13private implementations. Rechecked D.1 clipping output/mean comparison and PoissonAlgorithm1; SPHMCA.4(2) fullaccuracy/cost remains downstream. Recomputed packet excluding packetSHA,source,expandedstatement,reconstruction,wholemodule,productionraw hashes; current module/lesson/publication and all delta pairs matched. Binding authenticated as packet field; external preimage,decoder artifact hashes,Meta replay,Lean/axioms and fixed admission remain verifier obligations. No prior reviewer verdict/slots present; exposition/deltas audited as claims. Attributed expanded paraphrase, not verbatim source. Only clipped normalizer/law proved, not ideal Gibbs/RGO,RN,Renyi,adaptivekernel,initialization or complete gradient-oracle accounting. Same-C potential L1 parent-supported, not additional public conjunct. Arbitrary B bound not uniform constant cost. This accepts source-facing dependency, not full Eq18/FORS or VERIFIED."
       },
       "publication_binding_sha256": "047291482786e6fc30d6dc23fc076506230bae2ab2691434a11b314036ed3204",
       "publication_context": {
@@ -18365,7 +18372,118 @@
         "decoder_run_sha256": "eb6e06363820f46edf30004ea7709610f806110437786a6de0871f948d911542",
         "lean_statement_sha256": "a8578f333c33f063f9c15076cc895fa52784cf8bf66c4c8d1970b7b6daccf786",
         "run_artifact": "runs/20260911-companion-priority/clipped-gradient-program.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual source-centered gradient arc, clipped estimator, Gaussian proposal and independent Poisson retry program.",
+          "reconstructed": "Explicit source h,W,Wc,Gaussian maps,two distinct uniforms,iid auxiliary and attempt streams,least-success output and stopped batch count.",
+          "relation": "explicit-elaboration",
+          "evidence": "Expanded statement exposes actual program definitions; production change aligns parent output/count."
+        },
+        "domains": {
+          "original": "Euclidean smooth setting.",
+          "reconstructed": "Finite-dimensional real inner-product Borel space including zero dimension and explicit second countability.",
+          "relation": "different",
+          "evidence": "Disclosed coordinate-free/zero-dimensional extensions; no dimension division, second countability automatic."
+        },
+        "quantifiers": {
+          "original": "Fixed call with source center and an additive log-weight constant independent of proposal point.",
+          "reconstructed": "Fixed eta,beta,B,x0,xp; all definitions including C precede forall x.",
+          "relation": "same",
+          "evidence": "Source-center substitution present; C has no x dependence; no global adaptive-parameter family."
+        },
+        "assumptions": {
+          "original": "Surrounding accuracy theorem uses residual, step and parameter restrictions.",
+          "reconstructed": "Differentiable f with actual beta-Lipschitz gradient,beta>=0,eta>0,B>0 suffice for selected construction.",
+          "relation": "different",
+          "evidence": "Beta0 supported; omitted restrictions are unnecessary for clipped law/count and no small-error conclusion substituted."
+        },
+        "conclusion": {
+          "original": "Clipped mean determines normalized rejection output; unclipped mean controls clipping loss.",
+          "reconstructed": "Actual pushforward equals q.tilted m; auxiliary L1,joint measurability,mean loss,positive finite clipped Z,acceptance,never-hit null,expected full-batch count.",
+          "relation": "explicit-elaboration",
+          "evidence": "All listed results occur publicly; neither ideal Gibbs equality nor Renyi bound occurs."
+        },
+        "scopes": {
+          "original": "Construction and clipping comparison supporting terminal approximation.",
+          "reconstructed": "Fixed-parameter clipped-program edge with actual estimator-call count.",
+          "relation": "same",
+          "evidence": "Header and reader retain ideal normalization,Renyi,adaptive kernels,initialization and full oracle accounting."
+        },
+        "constant_dependencies": {
+          "original": "B controls normalization/acceptance; Poisson rate2B.",
+          "reconstructed": "exp(-B)<=Z<=exp B; p=ofReal(exp(-B)*Z)>=ofReal(exp(-2B)); expectedcount=p^-1*ofReal(2B)<=ofReal(2Bexp(2B)).",
+          "relation": "explicit-elaboration",
+          "evidence": "Exact rate, exponential factors and ENNReal arithmetic preserved; arbitrary B not called uniform constant cost."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "Coordinate-free/zero-dimensional extension valid; second countability automatic.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted this disclosed difference: Coordinate-free/zero-dimensional extension valid; second countability automatic."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "generalization",
+          "description": "Beta0 uses same proof without division.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted this disclosed difference: Beta0 uses same proof without division."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "generalization",
+          "description": "Residual/small-step assumptions not needed for selected construction; downstream accuracy/uniform-cost remain unclaimed.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted this disclosed difference: Residual/small-step assumptions not needed for selected construction; downstream accuracy/uniform-cost remain unclaimed."
+        },
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "description": "Ioc/Icc differ by null endpoint; auxiliary time and acceptance uniform distinct independent coordinates, only first N auxiliaries read.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted this disclosed difference: Ioc/Icc differ by null endpoint; auxiliary time and acceptance uniform distinct independent coordinates, only first N auxiliaries read."
+        },
+        {
+          "slot": "conclusion",
+          "classification": "source-implicit",
+          "description": "Actual L1/measurability justify same-C comparison and clipped normalization; potential L1 supporting C is parent result, not extra public conjunct.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted this disclosed difference: Actual L1/measurability justify same-C comparison and clipped normalization; potential L1 supporting C is parent result, not extra public conjunct."
+        },
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "description": "Nat.find is first success; x0 default totalizes null never-hit branch.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted this disclosed difference: Nat.find is first success; x0 default totalizes null never-hit branch."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Actual full-batch estimator counter, not separate gradient-oracle/wall-clock model.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted this disclosed difference: Actual full-batch estimator counter, not separate gradient-oracle/wall-clock model."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Fixed-parameter clipped law/residual inequality only; ideal-target and global adaptive-kernel obligations retained.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted this disclosed difference: Fixed-parameter clipped law/residual inequality only; ideal-target and global adaptive-kernel obligations retained."
+        }
+      ]
     }
   ]
 }

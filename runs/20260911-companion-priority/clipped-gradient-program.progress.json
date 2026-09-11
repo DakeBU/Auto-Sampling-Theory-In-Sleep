@@ -1,11 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-clipped-gradient-program",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "remaining": [
-    "Focused production verification",
-    "Fresh anonymous reconstruction and formal independent source admission",
-    "Independent fixed-commit verification and integration",
-    "Original reader and actual delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and actual deployment"
   ],
   "boundary": "Fixed-center actual clipped program and mean truncation error only. No ideal Gibbs normalization/identification, normalized Renyi accuracy, adaptive eta kernel, initialization, or full gradient query accounting. Auxiliary time differs from acceptance uniform. Count includes successful batch; cached reference gradient preparation is separate. Uniform O(1) cost still needs source B=Theta(1) and accuracy parameters. Neither main paper complete.",
   "development_checkpoint": {
@@ -72,6 +70,15 @@
   },
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-clipped-gradient-program.json",
-    "state": "Seven authored mathematical steps; formal source review pending."
-  }
+    "state": "Seven authored steps and13private implementations accepted; publicationPASS58."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCClippedGradientProgram"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }
