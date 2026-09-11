@@ -1,0 +1,30 @@
+{
+  "cell": "ASTIS-SHARED-gibbs-gradient-moment",
+  "state": "EXPLORING",
+  "boundary": "Ideal actual normalized Gibbs gradient moment only, including dimension zero. Coordinate-free finite-dimensional formulation disclosed. No smoothed/approximate law moment transfer, Gaussian perturbation, random-history conditioning, summed GD cost or paper-completion claim. The initial-moment premise of TerminalReferenceGradientDescent still requires its actual starting law to be identified and controlled.",
+  "remaining": [
+    "Weighted gradient/Hessian integrability from actual curvature",
+    "Directional IBP and Parseval",
+    "Actual tilted normalization, L1 and beta*d bound",
+    "Independent proof/source review and delivery"
+  ],
+  "weighted_checkpoint": {
+    "path": ".astis/GibbsGradientMomentWeighted.lean",
+    "sha256": "7b51acdcd676ecbe046d805f31df65097575fb1adbd1404ee12e30ff10cc07c2",
+    "session": 76236,
+    "exit_code": 0,
+    "result": "Three private helpers compile with standard three axioms/no lint. Actual Hessian-derived Gibbs weight and weighted gradient first/second powers L1. No IBP or normalized moment/public theorem yet."
+  },
+  "independent_weighted_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "7b51acdcd676ecbe046d805f31df65097575fb1adbd1404ee12e30ff10cc07c2",
+    "result": "Independent frozen-source stdin compilation exit0,standard3/no lint; three actual weighted integrability helpers accepted, no VERIFIED."
+  },
+  "complete_scratch": {
+    "path": ".astis/GibbsGradientMomentComplete.lean",
+    "sha256": "cd2f8da46b12f34993a4c74498745fcdf664c8f6364ff039a7aeb5301987718a",
+    "session": 25021,
+    "exit_code": 0,
+    "result": "Four private helpers and public gibbs_gradient_moment compile standard three axioms/no lint. Actual Hessian-derived weighted integrability, directional full-space IBP, Parseval sum, actual tilted probability and L1, expected gradient-square equals expected basis Hessian sum and <=beta*finrank. Independent full review/source preaudit/production pending."
+  }
+}

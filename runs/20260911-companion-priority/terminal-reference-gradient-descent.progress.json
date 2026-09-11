@@ -90,5 +90,13 @@
   "integration_notes": {
     "upstream": "dfc29763cbe482e1eebf5fa7b6c5072e3a551c31",
     "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior cc1f333, metadata ancestry conflicts resolved after verifying main tree equals cc1f333; zero merge tree delta. Accepted program/source unchanged; aggregate pending."
+  },
+  "remote": {
+    "pr": 288,
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/288",
+    "head": "32f50f4",
+    "lean_run": 34641811580,
+    "site_run": 34641811567,
+    "state": "Both PR checks pending at last observation; no merge/deployment claim"
   }
 }
