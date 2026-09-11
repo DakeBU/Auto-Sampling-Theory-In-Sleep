@@ -58,5 +58,14 @@
     "sha256": "5a1f72f6cafcd91f370654a19262139161cac6294af049640378fa5ae4003288",
     "characters": 3028,
     "definitionally_equal": true
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "d5f56d043d2a44b0a928c8fa845f59780f32ce6f",
+    "result": "Fixed production/test hashes matched; mathematics identical to reviewed scratch after namespace/documentation/prints. Independent focusedPASS3648 and3028-character Meta expansion/defeq replay0; standard3nolint. No VERIFIED before formal source admission."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-gradient-arc-mean.json",
+    "state": "Six authored steps; fresh anonymous decoder running, formal review pending."
   }
 }

@@ -46,9 +46,20 @@ found by bounded search; ConvexSmoothGradient requires inappropriate extra
 convexity or assumes the model and is not a replacement proof here.
 
 
-Development checkpoint: the actual fixed-path FTC identity compiles in the
+Earlier development checkpoint: the actual fixed-path FTC identity compiled in the
 registered scratch module with only standard three axioms. The proof extracts
 public GaussianArcLaw derivative/endpoints, differentiates the actual potential
 along that arc, proves estimator continuity and applies interval FTC. No
 production theorem or admission: joint input integrability and common-C mean
-remain to be proved.
+remained to be proved at that checkpoint.
+
+Current production checkpoint: the complete actual path mean and auxiliary
+input integrability theorem now compiles (focused PASS3648, only the standard
+three axioms, no lint). Independent full scratch and fixed production
+d5f56d043d2a44b0a928c8fa845f59780f32ce6f reviews accepted the mathematical
+proof. The public constant C precedes every x. Three private path definitions
+were expanded from the actual compiled type, and independent Meta.isDefEq
+replay matched all 3028 characters. Six authored reader steps and explicit
+source-domain differences are now bound for a fresh anonymous reconstruction.
+Formal source admission, aggregate integration and reader delivery remain
+separate; the SAU stays EXPLORING.

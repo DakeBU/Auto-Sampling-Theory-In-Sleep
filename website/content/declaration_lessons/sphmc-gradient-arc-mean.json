@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+      "title": "Actual unclipped gradient-arc mean",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "Appendix D.1 before Eq. (18)",
+          "scope": "Actual gradient-path estimator mean identifying the unnormalized log weight."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.4(2)",
+          "scope": "Terminal gradient-only approximation consumer; its full accuracy and cost remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGradientArcMean"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel measurable structure; second countability is explicit and automatic for this domain. The real-valued potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz.",
+        "eta>0, beta>=0 and h,x_plus are arbitrary points. No positive dimension, convexity, center residual or clipping step restriction is assumed.",
+        "P is the pushforward of stdGaussian E by z -> sqrt(eta) z, hence the actual auxiliary N(0,eta I). U is Lebesgue measure restricted to (0,1], which is the same uniform probability law as on [0,1].",
+        "For each x,z and real r, theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z, v=(pi/2)(cos(theta)(x-h)-sin(theta)z), and W_x(r,z)=<v,grad f(x_plus)-grad f(gamma)>."
+      ],
+      "statement": "The square of sqrt(eta) equals eta, U is a probability measure, and f(h+Z) is integrable under P. Define the finite constant C=integral f(h+z) dP(z)-<grad f(x_plus),h> before choosing x. For every x, W_x is jointly measurable and integrable under U product P, its integral is <grad f(x_plus),x>-f(x)+C, and for every z its time integral from 0 to 1 equals <grad f(x_plus),x-(h+z)>-f(x)+f(h+z).",
+      "formula": "\\mathbb E_{(r,Z)\\sim U\\otimes P}W_x(r,Z)=\\langle\\nabla f(x_+),x\\rangle-f(x)+C,\\qquad C=\\mathbb E_P f(h+Z)-\\langle\\nabla f(x_+),h\\rangle.",
+      "boundary": "This proves the actual unclipped estimator mean for each fixed x, including genuine Gaussian/uniform joint integrability. Coordinate-free spaces, zero dimension, beta=0 and arbitrary h are disclosed extensions. It does not assert joint parameter measurability in x,h,x_plus or an additional random-x integral. The source center h=x0-eta grad f(x_plus), completion of the Gaussian square, positive finite target normalization, clipped output law, Renyi comparison, initialization and actual query costs remain separate. L1 integrability of f(h+Z) does not imply exponential Gibbs integrability. Neither full companion paper is complete.",
+      "steps": [
+        {
+          "title": "Use the actual auxiliary input and uniform time",
+          "text": "The noise is the pushforward of the centered identity-covariance Gaussian by sqrt(eta) scaling. Positive eta gives the exact variance identity. Lebesgue measure on (0,1] has total mass one. The choice of one open endpoint changes no probability mass and agrees with the interval-integral convention used below.",
+          "formula": "(\\sqrt\\eta)^2=\\eta,\\qquad U=\\mathrm{Leb}|_{(0,1]},\\qquad U(\\mathbb R)=1.",
+          "lean": "gradient_arc_mean; Real.sq_sqrt"
+        },
+        {
+          "title": "Integrate the actual path derivative",
+          "text": "Extract the public derivative and endpoints from GaussianArcLaw. Its auxiliary scale value 1 is used only to obtain these deterministic facts, never to replace the actual noise law. Apply the true gradient chain rule to r -> <grad f(x_plus),gamma_r>-f(gamma_r). The Lipschitz gradient and continuous path imply that its derivative W is continuous, so FTC applies. The path starts at h+z and ends at x.",
+          "formula": "\\int_0^1 W_x(r,z)\\,dr=\\langle\\nabla f(x_+),x-(h+z)\\rangle-f(x)+f(h+z).",
+          "lean": "path_integral; GaussianArcLaw.gaussian_arc_law; DifferentiableAt.hasGradientAt; HasFDerivAt.comp_hasDerivAt; intervalIntegral.integral_eq_sub_of_hasDerivAt"
+        },
+        {
+          "title": "Prove potential integrability from quadratic growth",
+          "text": "Along the straight line h+t z, the gradient norm is at most norm(grad f(h))+beta norm(z) for t in [0,1]. The segment derivative bound yields the displayed quadratic growth estimate; no convexity is required. Gaussian second moments persist under actual scalar pushforward, so the constant, linear norm and squared norm terms are integrable. Measurable domination proves f(h+Z) integrable before defining its expectation.",
+          "formula": "|f(h+z)|\\le |f(h)|+\\|\\nabla f(h)\\|\\,\\|z\\|+\\beta\\|z\\|^2.",
+          "lean": "potential_growth; potential_integrable; norm_image_sub_le_of_norm_deriv_le_segment_01'; ProbabilityTheory.IsGaussian.memLp_two_id; MeasureTheory.integrable_map_measure"
+        },
+        {
+          "title": "Bound the same estimator uniformly in time",
+          "text": "Let A=norm(x-h) and D=norm(x_plus-h). Sine and cosine are bounded by one in absolute value, so the speed norm is at most (pi/2)(A+norm(z)) and the arc distance from x_plus is at most D+A+norm(z). Apply the actual gradient Lipschitz inequality and the inner-product norm inequality. This bound holds for every real time; it supplies one majorant for the whole uniform-time integral.",
+          "formula": "|W_x(r,z)|\\le\\frac\\pi2\\,\\beta(A+\\|z\\|)(D+A+\\|z\\|).",
+          "lean": "estimator_bound; norm_inner_le_norm; LipschitzWith.norm_sub_le"
+        },
+        {
+          "title": "Establish joint integrability before Fubini",
+          "text": "Expand the majorant as a constant plus a linear norm term plus a squared norm term. The actual mapped Gaussian has finite second moment, making this polynomial integrable. Its lift to the product with the finite uniform-time measure is integrable. Gradient continuity makes the explicit W jointly measurable; domination then proves W integrable under the product. The proof does not infer joint integrability merely from fixed-time sections.",
+          "formula": "W_x\\in L^1(U\\otimes P).",
+          "lean": "estimator_integrable; MeasureTheory.memLp_map_measure_iff; MeasureTheory.MemLp.integrable_sq; MeasureTheory.Integrable.comp_snd; MeasureTheory.Integrable.mono'"
+        },
+        {
+          "title": "Identify one finite constant for every x",
+          "text": "Use Fubini only after the preceding joint-integrability result, then replace each time integral by the FTC identity. The actual auxiliary mean is zero, proved by the Gaussian map integral and scalar linearity. The linear, constant and potential terms are individually integrable, so their integrals can be separated. The remaining C depends on f,h,x_plus,eta and is defined before the universal quantifier over x.",
+          "formula": "\\mathbb E_P\\langle\\nabla f(x_+),x-(h+Z)\\rangle=\\langle\\nabla f(x_+),x-h\\rangle,\\qquad \\mathbb E_P Z=0.",
+          "lean": "auxiliary_mean; MeasureTheory.integral_prod_symm; intervalIntegral.integral_of_le; ProbabilityTheory.integral_id_stdGaussian; integral_inner; gradient_arc_mean"
+        }
+      ],
+      "lean_statement": "Actual Gaussian/uniform input integrability, path integral and a common finite constant identifying the mean for every fixed output point.",
+      "lean_proof": "Actual arc calculus, quadratic potential growth, true Gaussian moments, joint polynomial domination, Fubini and zero auxiliary mean.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law"
+      ],
+      "mathlib_dependencies": [
+        "DifferentiableAt.hasGradientAt",
+        "HasFDerivAt.comp_hasDerivAt",
+        "intervalIntegral.integral_eq_sub_of_hasDerivAt",
+        "norm_image_sub_le_of_norm_deriv_le_segment_01'",
+        "ProbabilityTheory.IsGaussian.memLp_two_id",
+        "MeasureTheory.memLp_map_measure_iff",
+        "MeasureTheory.integrable_map_measure",
+        "MeasureTheory.Integrable.comp_snd",
+        "MeasureTheory.integral_prod_symm",
+        "ProbabilityTheory.integral_id_stdGaussian",
+        "integral_inner"
+      ]
+    }
+  ]
+}
