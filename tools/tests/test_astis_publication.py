@@ -218,10 +218,21 @@ class PublicationTest(unittest.TestCase):
         self.assertEqual(text.count('data-authored-declaration='), len(self.item['bindings']))
         self.assertNotIn('<h1>', text)
         self.assertIn('pending historical audit', text)
-        self.assertIn('TODO — not closed', text)
+        # This source item now has a verified component for every obligation;
+        # that does not certify the entire chapter or erase historical debt.
+        self.assertNotIn('TODO — not closed', text)
         self.assertNotIn('<details open', text)
         self.assertIn('Source assumptions versus formal assumptions', text)
         self.assertGreater(text.count('\\['), 8)
+
+    def test_reader_keeps_unbound_obligation_open(self):
+        import publication_reader
+        item = copy.deepcopy(self.item)
+        item['obligations'].append({'id': 'unbound-test-obligation',
+                                    'label': 'A deliberately unbound proof obligation'})
+        text = publication_reader.source_card(item, item['chapter_path'])
+        self.assertIn('TODO — not closed by these contributions', text)
+        self.assertIn('A deliberately unbound proof obligation', text)
 
     def test_new_default_harness_schema_requires_publication(self):
         self.assertEqual(advance.ADVANCE_SCHEMA_VERSION, 4)

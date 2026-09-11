@@ -12,5 +12,12 @@
   "source_audit": "Independent source-aware route review plus separate c2_blind_decoder and c2_source_reviewer packet-bound accepted source audits. All7 slots compared; two accepted generalizations and one exact source specialization.",
   "recording_provenance": "Root sole writer records explicit independent recommendation after its source-audit/publication conditions fulfilled.",
   "sync": "22f0e576fd0c963e0bc823a0e03e3113bd5b01f9 merges main79dc552 without conflicts; all41 upstream source audit objects preserved exactly.",
-  "integration_boundary": "Root gate, Registry/imports and site/graph checks follow on synchronized tree."
+  "integration_boundary": "Root gate, Registry/imports and site/graph checks follow on synchronized tree.",
+  "integration_review": {
+    "reviewer": "c2_route_review",
+    "commit": "554d5aeb39543effccd746d9d63bde00b33f2563",
+    "findings": [],
+    "scope": "Root Analysis/Tests reachability, exactly3 Registry entries400->403 and Basic, unchanged proof/test/lesson/publication, all41 upstream audits preserved, publication35items and semantic44audits passed.",
+    "fixture_followup": "Independently reviewed be256cc3c9ade86e54266de21ebe33090a16e0e3fd541ab9199935a7d2f0b2e2: completed obligation card and explicit unbound-obligation TODO regression; chapter partial remains. Independent35publication tests PASS; no renderer/gate weakening."
+  }
 }

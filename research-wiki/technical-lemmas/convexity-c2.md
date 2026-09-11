@@ -51,3 +51,12 @@ owner's MERGED transition is impersonated.
 Root Analysis and Tests import ConvexityC2, and Registry includes3 exact new
 declarations (400 to403). No Python test standard was changed. Full acceptance
 and reader/graph verification remain the final integration checks.
+
+Independent final integration review of554d5ae found no findings. The old
+reader fixture assumed Proposition1.6 must always contain a TODO; this is now
+replaced by an assertion that its supported obligations have no TODO plus an
+explicit unbound-obligation regression that still requires TODO. Chapter
+partial and historical source debt assertions remain. The reviewer repeated
+all35 publication tests successfully. Final full harness test passed250 tests
+(with6 environment/optional skips); prior pre-admission failures and sandbox
+loopback restrictions were resolved without relaxing production gates.
