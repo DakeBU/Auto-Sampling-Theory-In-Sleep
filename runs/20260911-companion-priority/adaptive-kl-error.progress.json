@@ -38,5 +38,13 @@
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
   ],
-  "independent_admission": "runs/20260911-companion-priority/adaptive-kl-error.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/adaptive-kl-error.verified-admission.json",
+  "aggregate": {
+    "commit": "1b6e4fc28958e01d3fa30f49162bd25c4dea3c4f",
+    "result": "PASS9126",
+    "command": "python website/scripts/lean_gate.py",
+    "source_digest": "d397bd5f132287eda646540689989920c2f0de51366dc9a98f91ada82bb280af",
+    "scope": "Root Lake build, Tests, fake-closure scan and ATLAS memory check.",
+    "reader_status": "Full renderer attempt failed on missing Samplinglib search label in newly planned cell. Label corrected and frontier validation passed. No reader or graph acceptance claimed."
+  }
 }

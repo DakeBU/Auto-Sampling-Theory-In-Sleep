@@ -33,7 +33,6 @@
   },
   "mathematical_status": "Joint state/center measurability for fixed base,precision andvariance, not joint selection over all base/precision/variance/history parameters. Input must be actual ideal joint lambda compProd H, not arbitrary correlated center-observation law. General probability base abstracts source Gibbs; no marginal moments, approximate recursive kernel, measurable proxy,error orcost guarantee. Expanded source-needed probability semantics, not a verbatim paper theorem.",
   "remaining": [
-    "Verify actual merge CI and deployed reader provenance",
     "Concrete Gibbs specialization and joint parameter/history obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
@@ -106,5 +105,27 @@
     },
     "post_merge": "Actual merge CI/deployed provenance pending; earlier local evidence remains fixed to e9dd5a8.",
     "truth_boundary": "Joint state/center measurability for fixed base,precision andvariance, not joint selection over all base/precision/variance/history parameters. Input must be actual ideal joint lambda compProd H, not arbitrary correlated center-observation law. General probability base abstracts source Gibbs; no marginal moments, approximate recursive kernel, measurable proxy,error orcost guarantee. Expanded source-needed probability semantics, not a verbatim paper theorem."
+  },
+  "deployment": {
+    "merge_lean": "34563088482 SUCCESS",
+    "merge_site": "34563088397 SUCCESS",
+    "deploy_job": "103150244925 SUCCESS",
+    "live": {
+      "deployed_commit": "1b7d3a6cb9086331f04ed940bf6ecdc0570beb9d",
+      "merge_commit": "24d166c0160e0a8c43dc08f356e3eed7d4e36c60",
+      "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchor": "sphmc-adaptive-center-rgo",
+      "deployed_provenance": true,
+      "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-adaptivecenterrgo.html",
+      "card_http_status": 200,
+      "card_labels": [
+        "Partial",
+        "Not mapped"
+      ],
+      "boundary": "Actual deployed HTTP/provenance/labels; earlier CI artifact and local visual checks remain separately pinned."
+    },
+    "ancestry": "GitHub compare: deployed 1b7d3a6 is six commits ahead of actual merge24d166c; changed smoothness integration files preserve AdaptiveCenter production and publication.",
+    "boundary": "HTTP and commit provenance checked at later deployed main; fixed local visual evidence remains at e9dd5a8."
   }
 }

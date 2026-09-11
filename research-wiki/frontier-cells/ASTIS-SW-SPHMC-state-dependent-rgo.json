@@ -16,7 +16,7 @@
   ],
   "shared_floor_audit": {
     "searched": [
-      "AdaptiveCenterRGO: parameters fixed outside measurable kernel",
+      "Samplinglib AdaptiveCenterRGO: parameters fixed outside measurable kernel",
       "GaussianConditionalKernel: direct jointly measurable normalized density at fixed variance",
       "Mathlib Kernel.withDensity and measurable parameter integrals",
       "RGOBackward actual recovery and RGOClosure quadratic tilt composition"
