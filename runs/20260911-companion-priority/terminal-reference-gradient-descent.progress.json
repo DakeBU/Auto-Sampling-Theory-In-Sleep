@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-reference-gradient-descent",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Same actual GD as source section6.3, fixed A/u with explicit supplied initial law moment only for expected bound. Coordinate-free finite-dimensional extension and nonnegative m/beta extension disclosed; positive regularization/dimension. Adjacent-iterate contraction gives stronger gradient bound than printed prefactor-kappa route. No actual recursive-history moment, joint random-parameter kernel, summed stage cost or fullpaper claim. Cost model includes final gradient check and reuses each gradient for the update; downstream cache sharing not silently deducted.",
   "remaining": [
-    "Author mathematical reader lesson and source publication binding",
-    "Fresh anonymous reconstruction and formal source admission",
-    "Independent fixed-commit VERIFIED, integration and actual original reader delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and actual deployment"
   ],
   "scratch_checkpoint": {
     "path": ".astis\\TerminalReferenceGradientDescent.lean",
@@ -73,5 +72,18 @@
     "production_sha256": "1845f0463edd9df2cf2dabba2327928bf839da7ec4c1ce15a676b66e420f2821",
     "test_sha256": "356e4c0fe2d5ff6d1cc285f2e77468a50d187a622695b595f3e200ebe8f55880",
     "result": "Unchanged reviewed mathematics, independent focused PASS3374 standard3 and2281-character expanded Meta.isDefEq replay accepted; no VERIFIED."
-  }
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-terminal-reference-gradient-descent.json",
+    "state": "Seven authored steps and7private implementations accepted; publicationPASS63."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCTerminalReferenceGradientDescent"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }

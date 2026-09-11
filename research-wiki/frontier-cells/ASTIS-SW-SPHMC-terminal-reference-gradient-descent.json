@@ -6,7 +6,7 @@
   "title": "Actual gradient descent terminal reference construction",
   "source_anchor": "SPHMC arXiv:2609.06906v1 section6.3 Reference point construction and Terminal stage",
   "target_statement": "For actual C2 V with global Hessian bounds mI<=HessV<=betaI,0<=m<=beta,A>0,d=finrank E>0, define F=V+norm(x-u)^2/(2A),alpha=m+1/A,betaF=beta+1/A,kappa=betaF/alpha and actual GD T=x-betaF^-1*gradientF. Construct first N(v) with normgradientF(T^N v)^2<=d/A. Prove finite termination, measurable N and output, exact gradient/residual identity and terminal center residual<=sqrt(d*A). Prove N<=Nat.ceil(kappa*log(1+A*normgradientF(v)^2/d)), cost N+1 including final gradient check. For any probability initial law with actual gradient squared L1 and moment<=M derive cost L1 and expected cost<=2+kappa*log(1+A*M/d).",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SHARED-gradient-step-contraction",
     "ASTIS-SHARED-quadratic-regularization"
@@ -27,10 +27,20 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCTerminalReferenceGradientDescent",
+        "result": "PASS3374; standard three axioms; no lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/TerminalReferenceGradientDescent.lean": "1845f0463edd9df2cf2dabba2327928bf839da7ec4c1ce15a676b66e420f2821",
+          "Tests/SmoothedPicardHMCTerminalReferenceGradientDescent.lean": "356e4c0fe2d5ff6d1cc285f2e77468a50d187a622695b595f3e200ebe8f55880"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-terminal-reference-gradient-descent.md",
     "planning_review": "Independent source/dependency review log_depth_source_review and mathematical contract review depth_commit_verifier accepted actual GD, adjacent-iterate route, Nat.ceil certificate, measurability/L1 obligations and counting convention.",
-    "execution_boundary": "Root sole writer; prior terminal sampler PR287 merged, all CI/live complete, no active stabilizer. Current reference packet EXPLORING; complete production/focused and independent development/expanded reviews accepted, formal anonymous/source admission pending."
+    "execution_boundary": "Root sole writer; prior terminal sampler PR287 merged, all CI/live complete, no active stabilizer. Current reference packet EXPLORING; complete production/focused and independent development/expanded reviews accepted, formal anonymous/source admission pending.",
+    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
   },
   "blocked": {
     "reason": "",

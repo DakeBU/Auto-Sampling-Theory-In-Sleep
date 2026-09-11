@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+      "title": "Actual terminal reference by gradient descent",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC section6.3 terminal reference construction",
+          "scope": "Actual gradient-descent preparation and the local moment-to-query-cost proof component; history and stage summation remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCTerminalReferenceGradientDescent"
+      ],
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra. The real parameter d is strictly positive and equals finrank(E). U:E->R is C2. Nonnegative real numbers m,b satisfy m<=b, and the genuine Hessian obeys m*norm(v)^2 <= D2U(x)[v,v] <= b*norm(v)^2 at every x,v.",
+        "Fix a finite real A>0 and u in E. Define F(x)=U(x)+norm(x-u)^2/(2A), a=m+1/A, c=b+1/A and k=c/a. Define the actual gradient-descent map T(x)=x-(1/c)*grad F(x). All gradients are the actual derivatives of these functions.",
+        "For every starting point v, N(v) is the least natural n with norm(grad F(T^n(v)))^2<=d/A if such an n exists, and zero otherwise. Let x_plus(v)=T^N(v)(v). The proof establishes finite attainment for every v, so the fallback branch never occurs. The specified query count is N(v)+1: evaluate grad U once at each visited point, form the quadratic-gradient term algebraically, check the threshold and reuse this gradient for an update when required. The final successful check is charged.",
+        "Only the expected-cost clause additionally takes an arbitrary probability starting law mu and a real M with actual norm(grad F(v))^2 integrable under mu and integral at most M. M need not be separately assumed nonnegative: the proof derives it. These are explicit inputs, not established properties of the recursive sampler history."
+      ],
+      "statement": "The derived a,c are positive and k>=1. The exact gradient is grad F(x)=grad U(x)+(x-u)/A. Both N and x_plus are measurable. For every v, the output satisfies norm(grad F(x_plus(v)))^2<=d/A and the exact center-residual identity norm(u-A*grad U(x_plus(v))-x_plus(v))=A*norm(grad F(x_plus(v)))<=sqrt(d*A). All j<N(v) strictly fail the stopping test. N(v)<=ceil(k*log(1+A*norm(grad F(v))^2/d)), and N(v)+1<=k*log(1+A*norm(grad F(v))^2/d)+2. Under the additional starting-law moment hypotheses, N+1 is genuinely integrable and its expectation is at most 2+k*log(1+A*M/d).",
+      "formula": "N(v)=\\min\\{n\\ge0:\\|\\nabla F(T^nv)\\|^2\\le d/A\\},\\quad x_+(v)=T^{N(v)}v,\\quad \\|u-A\\nabla U(x_+)-x_+\\|\\le\\sqrt{dA}.",
+      "boundary": "This constructs an actual fixed-parameter terminal reference point and its specified gradient-query count. It does not assume a minimizer, successful stopping or the desired residual. The same source GD is analyzed using a stronger adjacent-iterate rate without the source display's extra condition-number prefactor. The finite-dimensional coordinate-free formulation and nonnegative base Hessian modulus extend the source setting; positive finite A and positive dimension remain explicit. The dimension equality stays in the public contract even though the underlying threshold proof does not use its numeric value. N+1 is a mathematical count model, not a compiler/evaluator trace. The expectation clause requires the actual starting gradient-square moment; the recursive-history moment, retained-reference invariant and summed stage cost C*kappa0*Lq remain unproved here. Parameters A,u are fixed for the measurable map: no jointly measurable random-parameter kernel is claimed. The output has the residual needed by the terminal sampler, but a combined sampling program and cross-module cache saving have not been proved. No TV transport of unbounded costs or complete-paper result is asserted.",
+      "steps": [
+        {
+          "title": "Derive the actual regularized gradient and curvature",
+          "text": "The quadratic term has derivative A^{-1}<x-u, .>. Adding it to the derivative of U gives the exact gradient formula. Reuse QuadraticRegularization for strong convexity and gradient Lipschitz continuity. To obtain the quadratic upper model, apply the Hessian-to-strong-convexity theorem to -U with modulus -b, then the first-order lower bound and reverse its signs. Add the exact quadratic expansion. Since A>0 and 0<=m<=b, a,c>0 and k>=1. No model inequality or gradient field is supplied as an assumption.",
+          "formula": "\\nabla F(x)=\\nabla U(x)+A^{-1}(x-u),\\quad a=m+A^{-1},\\quad c=b+A^{-1},\\quad F(y)\\le F(x)+\\langle\\nabla F(x),y-x\\rangle+\\tfrac c2\\|y-x\\|^2.",
+          "lean": "quadratic_upper; regularized_data; AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic; AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower; AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+        },
+        {
+          "title": "Control gradients through adjacent actual iterates",
+          "text": "Apply the existing one-step contraction to x and T(x). Their distance is c^{-1} times the norm of grad F(x); the next distance is c^{-1} times the norm of grad F(T(x)). Cancel the positive step and iterate this inequality. Bound sqrt(1-a/c) by exp(-a/(2c)), then square the resulting norm bound. This uses the source gradient-descent map and needs no supplied minimizer. It is a stronger local proof than the source display with an extra k prefactor, rather than a literal replay of that display.",
+          "formula": "\\|\\nabla F(Tx)\\|\\le\\sqrt{1-a/c}\\,\\|\\nabla F(x)\\|,\\qquad \\|\\nabla F(T^nv)\\|^2\\le e^{-n/k}\\|\\nabla F(v)\\|^2.",
+          "lean": "gradient_decay; AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction; Real.add_one_le_exp"
+        },
+        {
+          "title": "Give a finite stopping certificate including degenerate gradients",
+          "text": "Put s=d/A>0 and z=norm(grad F(v))^2>=0. The natural ceiling n=ceil(k log(1+z/s)) satisfies n>=k log(1+z/s). Therefore exp(-n/k)z<=z/(1+z/s)<=s. This constructs a finite successful index before Nat.find is used. The argument covers z=0 and k=1 without taking log(1-1/k). The ceiling bound and ceil(t)<t+1 for t>=0 later give the extra two units in the real count bound.",
+          "formula": "n=\\lceil k\\log(1+z/s)\\rceil,\\qquad e^{-n/k}z\\le\\frac{z}{1+z/s}\\le s,\\qquad N(v)+1\\le k\\log(1+A\\|\\nabla F(v)\\|^2/d)+2.",
+          "lean": "stopping_certificate; stopped_program; Nat.le_ceil; Nat.ceil_lt_add_one"
+        },
+        {
+          "title": "Prove the first-hit index and stopped output are measurable",
+          "text": "The C1 gradient is continuous, hence T and each finite iterate are continuous. Each event where the nth gradient square is at most s is Borel measurable. The finite-attainment certificate identifies N with Nat.find of this event family. measurable_find proves N measurable, and Measurable.find proves measurability of v mapped to T^N(v)(v). Nat.find_spec gives success and Nat.find_min gives strict failure for every earlier index. Pointwise termination is not used as a substitute for measurability.",
+          "formula": "\\{N=n\\}=\\{\\|\\nabla F(T^nv)\\|^2\\le s\\}\\cap\\bigcap_{j<n}\\{\\|\\nabla F(T^jv)\\|^2>s\\},\\quad N,x_+\\text{ measurable}.",
+          "lean": "firstIndex; stopped_program; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one; measurable_find; Measurable.find; Nat.find_spec; Nat.find_min"
+        },
+        {
+          "title": "Convert the stopping test into the required terminal residual",
+          "text": "At every x, the exact gradient formula gives u-A grad U(x)-x=-A grad F(x). Because A>0, its norm is A times norm(grad F(x)). At the stopped point, multiply the proved gradient-square threshold by A squared; the result is at most dA. Taking the nonnegative square root yields the center residual used by the terminal sampler. This proves the residual of the constructed point rather than receiving it as input.",
+          "formula": "\\|u-A\\nabla U(x_+)-x_+\\|=A\\|\\nabla F(x_+)\\|,\\qquad A^2\\|\\nabla F(x_+)\\|^2\\le dA.",
+          "lean": "terminal_reference_gradient_descent; regularized_data; Real.le_sqrt_of_sq_le"
+        },
+        {
+          "title": "Establish integrability before the expected-count bound",
+          "text": "For g(v)=norm(grad F(v))^2, the given nonnegative integrable g and Eg<=M imply M>=0. First use 0<=log(1+g/s)<=g/s to prove logarithmic integrability. The log-ratio inequality gives the displayed tangent bound; both sides are integrable before integrating. Its remainder has nonpositive expectation by Eg<=M. Finally, measurability and the pointwise count bound imply N+1 is integrable, and integral monotonicity gives the expected count. This is a direct logarithmic tangent proof, not a call to a Jensen API or a presumption of cost integrability.",
+          "formula": "\\log(1+g/s)\\le\\log(1+M/s)+\\frac{g-M}{s+M},\\qquad N+1\\in L^1(\\mu),\\qquad \\mathbb E_\\mu(N+1)\\le2+k\\log(1+AM/d).",
+          "lean": "expected_count; Real.log_le_sub_one_of_pos; MeasureTheory.Integrable.mono'; MeasureTheory.integral_mono; MeasureTheory.integral_add"
+        },
+        {
+          "title": "Assemble the actual fixed-parameter reference and counting contract",
+          "text": "Instantiate the stopping and expectation lemmas with the genuine F, its proved a,c and threshold d/A. The pointwise conclusions hold for every starting point; the expected-cost clause is then quantified over any probability starting law satisfying the actual gradient moment hypotheses. At an initially successful point N=0 and one gradient check is charged. Each visit needs one U-gradient evaluation because the regularization term is algebraic, and the computed gradient is reused for the next update. The final gradient is charged; no unproved saving is deducted when later combining this construction with a sampler.",
+          "formula": "T(x)=x-c^{-1}\\nabla F(x),\\qquad Q_{\\nabla U}(v)=N(v)+1,\\qquad \\mathbb E_\\mu Q_{\\nabla U}\\le2+\\frac{b+A^{-1}}{m+A^{-1}}\\log\\!\\left(1+\\frac{AM}{d}\\right).",
+          "lean": "terminal_reference_gradient_descent; stopped_program; expected_count; regularized_data"
+        }
+      ],
+      "lean_statement": "Actual regularized gradient, positive curvature constants, measurable first-hit index/output, terminal residual, strict earlier failure, ceiling/count bounds and conditional initial-law L1/expected count.",
+      "lean_proof": "Derive regularized curvature and gradient, contract adjacent actual iterates, construct a finite ceiling certificate, prove measurable first hit, convert its residual and integrate a logarithmic tangent bound.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one"
+      ],
+      "mathlib_dependencies": [
+        "Nat.le_ceil",
+        "Nat.ceil_lt_add_one",
+        "measurable_find",
+        "Measurable.find",
+        "Nat.find_spec",
+        "Nat.find_min",
+        "Real.log_le_sub_one_of_pos",
+        "MeasureTheory.Integrable.mono'",
+        "MeasureTheory.integral_mono"
+      ]
+    }
+  ]
+}
