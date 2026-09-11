@@ -1,11 +1,9 @@
 {
   "remaining": [
-    "Independent full production proof review",
-    "Authored reader proof and full compiled-type anonymous reconstruction",
-    "Formal source admission and focused publication validation",
-    "Aggregate integration and delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and deployment"
   ],
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "cell": "ASTIS-SW-SPHMC-gaussian-arc-law",
   "scratch_sha256": "1d03511b1d0b6426c489265de1af155a7aeed894de8a14c45cc621d2df12b80a",
   "scratch": ".astis/GaussianArcLaw.lean",
@@ -52,5 +50,18 @@
     "result": "Independent full proof and focused compile PASS3117; complete delta-expanded type isDefEq checked.",
     "boundary": "Development review, not VERIFIED admission.",
     "reviewer": "depth_commit_verifier"
-  }
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCGaussianArcLaw"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-gaussian-arc-law.json",
+    "state": "Five authored steps accepted; publication PASS51."
+  },
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }

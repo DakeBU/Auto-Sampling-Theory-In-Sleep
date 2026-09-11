@@ -15819,7 +15819,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCGaussianArcLaw",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-gaussian-arc-law",
         "anchor": "Appendix D.1 gradient arc and joint Gaussian law preceding Claim 1; consumed by SPHMC Appendix A.4(2)",
@@ -15845,7 +15845,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "8ec9044cd82fd69ad5fc48a5276d493f23fbd83720318da542ca5df6c2108cd0",
+        "review_run_sha256": "234e12574fa986a39828be61f72911dc9b83f0c2d04963ec53569e09e861c356",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-arc-law.source-review-result.json",
+        "evidence": "Independent formal reviewer accepted seven semantic slots, five authored steps and five informational deltas, no blockers or repairs. Domain-mismatch records disclosed prerequisite generalizations, not equivalence to full FORS. Packet/source/statement/reconstruction/embedded module and raw production hashes independently recomputed; actual current reader/publication matched. External binding preimage, compilation/isDefEq, decoder execution and test/dependency hashes were not rerun by the source reviewer and remain separate verification."
       },
       "publication_binding_sha256": "873b91fd0320d4bee1551e8242ba7d831d0d45d5a8a92fe9e33d5e383bf738f7",
       "publication_context": {
@@ -15995,7 +16002,94 @@
         "decoder_run_sha256": "cfc1a88975b39d3f76d19007b12d7c925712697a018c5a162989de6d6d602451",
         "lean_statement_sha256": "ff8ba7804e5e560df9822bfaf007945ca6f136e6194bda77ecf86acf80c02c2f",
         "run_artifact": "runs/20260911-companion-priority/gaussian-arc-law.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Gaussian proposal, independent auxiliary, path and velocity.",
+          "reconstructed": "Actual affine standard-Gaussian product and entire path/velocity pushforward.",
+          "relation": "explicit-elaboration",
+          "evidence": "Joint measure equality supplies independence, not just marginals."
+        },
+        "domains": {
+          "original": "Euclidean Gaussian arc on the unit interpolation interval.",
+          "reconstructed": "Finite-dimensional real inner-product Borel space including zero dimension; explicit second countability.",
+          "relation": "different",
+          "evidence": "No positive dimension restriction; second countability adds no substantive geometric restriction."
+        },
+        "quantifiers": {
+          "original": "Fixed center and variance, interpolation in [0,1].",
+          "reconstructed": "Every eta>0 and h, every real r, every deterministic input pair.",
+          "relation": "stronger-in-lean",
+          "evidence": "All-real extension follows from rotation invariance and trigonometric calculus."
+        },
+        "assumptions": {
+          "original": "Independent input Gaussians with variance eta and eventual gradient-based center.",
+          "reconstructed": "Actual product inputs at sqrt eta and arbitrary center.",
+          "relation": "different",
+          "evidence": "Gradient/reference hypotheses are unnecessary for this law and remain separate consumer conditions."
+        },
+        "conclusion": {
+          "original": "Independent Gaussian position and velocity at exact covariance scales.",
+          "reconstructed": "Actual product pushforward, joint measurability, derivative, four endpoints and sqrt identity.",
+          "relation": "explicit-elaboration",
+          "evidence": "Five conjunct groups correctly reconstructed; initial position h+z retained."
+        },
+        "scopes": {
+          "original": "Arc supplies moment, clipping and terminal target analysis.",
+          "reconstructed": "Gaussian law and deterministic calculus only.",
+          "relation": "different",
+          "evidence": "No MGF, clipping, eta-indexed measure-family claim or silent repair of Claim 1."
+        },
+        "constant_dependencies": {
+          "original": "Angle pi*r/2 and covariances eta I and (pi/2)^2 eta I.",
+          "reconstructed": "Input standard deviation sqrt eta and output velocity scale (pi/2)sqrt eta.",
+          "relation": "same",
+          "evidence": "Affine formulas and Real.sq_sqrt give exact normalization."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "Basis-independent domain includes zero dimension.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "All-real-time law and derivative extend source interval.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "assumptions",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "Arbitrary center is valid; gradient substitution remains separate.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "conclusion",
+          "classification": "same",
+          "severity": "informational",
+          "description": "Actual product law preserves exact scales and independence.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "scopes",
+          "classification": "API-limitation",
+          "severity": "informational",
+          "description": "No moment, clipping, accuracy or complete sampler assertion.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        }
+      ]
     }
   ]
 }
