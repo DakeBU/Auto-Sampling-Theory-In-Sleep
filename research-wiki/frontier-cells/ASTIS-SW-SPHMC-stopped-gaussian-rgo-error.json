@@ -17,9 +17,9 @@
   ],
   "shared_floor_audit": {
     "searched": [
-      "GaussianRGOErrorBudget actual Q/P/R and source-scale finite error bound",
-      "StoppedRGODepth explicit F,P, power-output, terminal support and cap stability",
-      "LogarithmicDepth fixed initial-state threshold positivity",
+      "Samplinglib GaussianRGOErrorBudget actual Q/P/R and source-scale finite error bound",
+      "Samplinglib StoppedRGODepth explicit F,P, power-output, terminal support and cap stability",
+      "Samplinglib LogarithmicDepth fixed initial-state threshold positivity",
       "Mathlib kernel extensionality, bind/map integrals, restricted measure and almost-everywhere probability support"
     ],
     "classification": "missing",
