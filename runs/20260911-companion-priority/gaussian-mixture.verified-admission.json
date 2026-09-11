@@ -1,0 +1,62 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "9d3565c99b3ea393d93b4d8d28263628d2ebe445",
+    "gate": {
+      "production": "Independent focused PASS3702 reused at unchanged hashes; freshly exported complete Lean statements byte-identical to registry and anonymous packets.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication": "Independent check_advance with reviewed=True PASS for both declarations",
+      "tests_scope": "Axiom checks only; actual bounded_displacement_reverse_transport theorem is the shared theorem consumer"
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-PowerPerspective",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "mixture_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "c1da25b6ad6601607f7afacf4a4bcab1ff88889a2908165978f380e7462aa016",
+        "decoder_packet_sha256": "278437de5f0228426ee8bc0489ca362589ee2a3a6ba6b04c55ab3dc53f8962fb",
+        "decoder_run_sha256": "b1f39413218130917bbb1dd56a7cdf35f4db2d1774207fd06b10b01a466f3b00",
+        "reviewer_packet_sha256": "a41bf2938886ebfa45137e0cc51a2a46f07252d754924128d0d8ab2b9355957d",
+        "review_run_sha256": "5b21e62b31fe4994e1d05938ddcbae42fe47f8c183398890dec78255397e3fcf",
+        "blocking_issues": []
+      },
+      {
+        "id": "ASTIS-RT-20260911-SPHMCGaussianMixture",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "mixture_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "c9d8d1d900d51b1bf0c4cb6006060894565521e7c23e4cc3ab4c4922a2070e3f",
+        "decoder_packet_sha256": "37af294e334057a2bbf26a666361c56a650ef663cb3ed38da8373a8a2f269c8d",
+        "decoder_run_sha256": "589b0bf16237986b2ce097c163eac970aebcc8aefe1c1478a5314890ce8d4bb3",
+        "reviewer_packet_sha256": "5d040e943f063a20c55a368a57966f3bfb2a92619a57174967f18bf179e4122f",
+        "review_run_sha256": "0a1b66ed33cb2882ffb943189f2a70baa779a37f9afd237d2573a7cc31a5caf6",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Both production files and focused test; standard theorem axioms only"
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport"
+    ],
+    "independent_checks": [
+      "Fixed clean HEAD and final raw hashes verified; commit/worktree match modulo line endings.",
+      "All source, statement, reconstruction, packet and run hashes matched; publication bindings independently recomputed.",
+      "Full inline proof review preserved; actual Gaussian mixture product-map law, ENNReal Holder/Tonelli, derived integrability and positive logarithm with exact constants, zero-dimensional/t0 cases confirmed.",
+      "Latest ledger has no other STABILIZING unit."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of depth_commit_verifier explicit fixed-commit VERIFIED and sole-owner STABILIZING decision.",
+  "boundary": "Bounded-displacement Gaussian mixture reverse transport, expanded ingredient of SPHMC Lemma6.3(ii). No optimizer, truncation proxy, mixture inequality, likelihood identity or integrability is assumed in place of its proof. The coupling itself is an explicit input to this ingredient. No complete Wp/Winfinity/Renyi API, proxy-warmness, sampler or query-cost conclusion; the preceding truncation theorem will later provide a single proxy before forall q. Finite displacement bounds do not imply finite marginal p-moments."
+}

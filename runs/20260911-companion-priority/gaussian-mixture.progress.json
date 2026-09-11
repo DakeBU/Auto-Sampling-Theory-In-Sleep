@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport"
@@ -38,10 +38,10 @@
   },
   "mathematical_status": "Bounded-displacement Gaussian mixture reverse transport, expanded ingredient of SPHMC Lemma6.3(ii). No optimizer, truncation proxy, mixture inequality, likelihood identity or integrability is assumed in place of its proof. The coupling itself is an explicit input to this ingredient. No complete Wp/Winfinity/Renyi API, proxy-warmness, sampler or query-cost conclusion; the preceding truncation theorem will later provide a single proxy before forall q. Finite displacement bounds do not imply finite marginal p-moments.",
   "remaining": [
-    "Independent fixed-commit review",
     "Integration, aggregate and reader/graph delivery",
     "Truncation composition with one proxy before all q and required marginal moments/API",
     "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
     "Remaining agreed reader/conversion/copy/download deliveries"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/gaussian-mixture.verified-admission.json"
 }

@@ -10,6 +10,7 @@ import AutoSamplingTheory.TechnicalLemmas.Measure
 import AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity
 import AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost
 import AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood
+import AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective
 import AutoSamplingTheory.TechnicalLemmas.Probability
 import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions
 import AutoSamplingTheory.TechnicalLemmas.Registry

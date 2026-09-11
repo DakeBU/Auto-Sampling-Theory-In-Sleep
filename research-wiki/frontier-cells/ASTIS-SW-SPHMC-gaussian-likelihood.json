@@ -41,7 +41,7 @@
     "execution_boundary": "Root sole writer; packet actually merged and stabilization lane released.",
     "ownership_note": "One actual paper consumer route; no invented second shared consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/gaussian-power-moment.independent-proof-review.json",
-    "admission_boundary": "Independently VERIFIED and merged PR260; deployed reader/provenance verified, actual cards Partial. Merge Lean CI and future compiled-badge metadata synchronization separate.",
+    "admission_boundary": "Independently VERIFIED, merged PR260, both merge CI SUCCESS; deployed reader/provenance verified, actual cards Partial. Compiled-badge metadata synchronization remains separate.",
     "independent_verification": "runs/20260911-companion-priority/gaussian-power-moment.verified-admission.json",
     "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3120, independent complete-proof review and final hash-bound source audits accepted.",
     "integration": {
@@ -56,7 +56,7 @@
       },
       "post_merge": {
         "lean_run": 34548154066,
-        "merge_lean_state": "PENDING at delivery check",
+        "merge_lean_state": "SUCCESS",
         "site_run": 34548154053,
         "site_state": "SUCCESS",
         "deploy_job": 103105755760,

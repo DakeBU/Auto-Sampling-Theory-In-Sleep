@@ -38,7 +38,7 @@
   },
   "mathematical_status": "Actual Gaussian likelihood and exact power moment prerequisite to SPHMC Lemma6.3(ii). No mixture/data-processing power-divergence inequality, complete Renyi metric API, general reverse transport, proxy-warmness, sampler or query-cost conclusion. Finite marginal moments remain separate when later source consumers require them.",
   "remaining": [
-    "Verify merge-commit Lean CI34548154066; preserve actual Partial badge and synchronize compilation metadata at delivery stabilization",
+    "Preserve actual Partial badge; synchronize compilation metadata at delivery stabilization",
     "Independent mixture/data-processing inequality and general Gaussian reverse transport",
     "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
     "Remaining agreed reader/conversion/copy/download deliveries"
@@ -62,7 +62,7 @@
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/260",
     "state": "MERGED",
-    "boundary": "Actual merge, successful site deployment and live reader/card provenance verified. Actual cards Partial; merge Lean CI and compiled-badge metadata synchronization separate.",
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and live reader/card provenance verified. Actual cards Partial; compiled-badge metadata synchronization separate.",
     "head": "2077e00de8a227d4e82e9e7fcd9a3975128db421"
   },
   "reader_checks": {
@@ -152,7 +152,7 @@
     },
     "post_merge": {
       "lean_run": 34548154066,
-      "merge_lean_state": "PENDING at delivery check",
+      "merge_lean_state": "SUCCESS",
       "site_run": 34548154053,
       "site_state": "SUCCESS",
       "deploy_job": 103105755760,
@@ -196,7 +196,7 @@
   },
   "deployment": {
     "lean_run": 34548154066,
-    "merge_lean_state": "PENDING at delivery check",
+    "merge_lean_state": "SUCCESS",
     "site_run": 34548154053,
     "site_state": "SUCCESS",
     "deploy_job": 103105755760,
