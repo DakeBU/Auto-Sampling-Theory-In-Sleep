@@ -1,0 +1,74 @@
+{
+  "schema_version": 2,
+  "route": "samplewiki-route",
+  "mode": "faithfulPaper",
+  "cell_id": "ASTIS-SW-SPHMC-terminal-sampler-accuracy-cost",
+  "title": "Actual terminal sampler accuracy and cached gradient cost",
+  "source_anchor": "SPHMC arXiv:2609.06906v1 Theorem A.4(2), via smooth arXiv:2602.01338v1 D.1 and actual PoissonQueryTail",
+  "target_statement": "For the actual differentiable beta-Lipschitz gradient potential, positive dimension/beta/eta, order ell>=2, 0<eps<=1/2, supplied xp satisfying the center residual, and eta^-1>=64 beta(sqrt(d*(ell+log(1/eps)))+ell+log(1/eps)), fix clipping B=1. Prove the actual iid first-success output law is the clipped tilt and has both actual RN ell-power moments <=1+eps^2 against the actual Gaussian-regularized target, with true L1 and positive integrals and both explicit logarithmic expressions divided by ell-1 <=eps^2. For the cached-reference-gradient calling convention prove actual gradient query count G=1+full-batch estimator count has expectation <=1+2exp2, and tail <=p at (K1+1/log2)*log(2/p), K1=2(exp1-1)(exp2+1/log2)+1, for0<p<=1/2. Reuse actual program and existing PoissonQueryTail by proving their law/event/count definitions agree.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-clipped-renyi-comparison",
+    "ASTIS-SW-SPHMC-clipped-gradient-program"
+  ],
+  "consumers": [
+    "SPHMC A4(2) terminal sampler fixed-call accuracy and cost, then recursive terminal consumers"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "ActualClippedRenyiComparison and ClippedGradientProgram",
+      "PoissonQueryTail actual attempt/count/tail",
+      "InformationTheory.Renyi only density algebra; Mathlib RN positivity/log APIs"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-terminal-sampler-accuracy-cost.md",
+    "planning_review": "Independent log_depth source/route audit accepted explicit64parameter route, corrected cached count to1+C, identified reusable actual PoissonQueryTail.",
+    "execution_boundary": "Root sole writer; RN predecessor sole STABILIZING with PR286 CI, this packet EXPLORING only."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual quantitative terminal sampler consumer, not a new conceptual equivalence."
+  },
+  "outside_library_review": {
+    "status": "consulted",
+    "need": "Actual terminal accuracy and query cost",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1",
+        "anchor": "A4(2)",
+        "hypothesis_adapter": "Explicit64 constant and B1, supplied reference."
+      },
+      {
+        "source": "https://arxiv.org/html/2602.01338v1",
+        "anchor": "D1 smooth and Appendix C tail",
+        "hypothesis_adapter": "Actual local tail proof rather than unchecked printed final substitution."
+      }
+    ],
+    "fidelity_boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs."
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "A4(2)",
+    "detail_status": "cites_external",
+    "gap": "Unparameterized moment parent does not give actual accuracy and gradient cost automatically.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2602.01338v1",
+        "anchor": "D1 and Appendix C",
+        "hypothesis_adapter": "Explicit parameterization, log positivity, cached count and local tail."
+      }
+    ],
+    "fidelity_boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs."
+  }
+}
