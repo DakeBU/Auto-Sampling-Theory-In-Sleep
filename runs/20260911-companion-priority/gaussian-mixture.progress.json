@@ -38,7 +38,7 @@
   },
   "mathematical_status": "Bounded-displacement Gaussian mixture reverse transport, expanded ingredient of SPHMC Lemma6.3(ii). No optimizer, truncation proxy, mixture inequality, likelihood identity or integrability is assumed in place of its proof. The coupling itself is an explicit input to this ingredient. No complete Wp/Winfinity/Renyi API, proxy-warmness, sampler or query-cost conclusion; the preceding truncation theorem will later provide a single proxy before forall q. Finite displacement bounds do not imply finite marginal p-moments.",
   "remaining": [
-    "Verify merge Lean CI; preserve live badge synchronization frontier",
+    "Preserve live compiled-badge synchronization frontier",
     "Truncation composition with one proxy before all q and required marginal moments/API",
     "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
     "Remaining agreed reader/conversion/copy/download deliveries"
@@ -130,7 +130,7 @@
     "post_merge": {
       "site_run": "34550578046 SUCCESS",
       "deploy_job": "103112948543 SUCCESS",
-      "merge_lean": "34550578121 in_progress at this check",
+      "merge_lean": "34550578121 SUCCESS",
       "live": {
         "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
         "http_status": 200,

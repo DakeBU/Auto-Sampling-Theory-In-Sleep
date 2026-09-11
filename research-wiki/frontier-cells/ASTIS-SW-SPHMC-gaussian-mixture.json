@@ -42,7 +42,7 @@
     "execution_boundary": "Root sole writer; packet actually merged, stabilization lane released.",
     "ownership_note": "One actual paper consumer, no invented second shared consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/gaussian-mixture.independent-proof-review.json",
-    "admission_boundary": "Independently VERIFIED, merged PR261, site deployment and actual anchors/source provenance verified; merge Lean CI pending, online badges Partial honestly retained.",
+    "admission_boundary": "Independently VERIFIED, merged PR261, both merge CIs success, actual deployment/anchors/source provenance verified; online badges Partial honestly retained.",
     "independent_verification": "runs/20260911-companion-priority/gaussian-mixture.verified-admission.json",
     "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3702, independent complete-proof review and final hash-bound source audits accepted.",
     "integration": {
@@ -61,7 +61,7 @@
     "deployed_delivery": {
       "site_run": "34550578046 SUCCESS",
       "deploy_job": "103112948543 SUCCESS",
-      "merge_lean": "34550578121 in_progress at this check",
+      "merge_lean": "34550578121 SUCCESS",
       "live": {
         "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
         "http_status": 200,
