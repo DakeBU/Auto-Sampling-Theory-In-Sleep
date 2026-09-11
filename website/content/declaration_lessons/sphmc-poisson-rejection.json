@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output",
+      "title": "Actual bounded Poisson rejection output and full-batch cost",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#A1.SS1",
+          "label": "SPHMC v1 Appendix A.1, Lemma A.2",
+          "scope": "The bounded Poisson acceptance mechanism underlying FORS."
+        },
+        {
+          "url": "https://arxiv.org/html/2608.05022v1",
+          "label": "Poisson rejection mechanism, Algorithm 1",
+          "scope": "Independent auxiliary draws and repeated acceptance; the present theorem assumes already bounded W."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCPoissonRejection"
+      ],
+      "boundary": "Fixed B>0 and a fixed auxiliary probability law are explicit. W is jointly measurable and bounded everywhere by B. Cost counts full-batch auxiliary estimator calls, including the successful attempt; it is not automatically a gradient-query cost or the cost of an early-shortcircuit implementation. No clipping theorem, gradient-arc estimator, target log-weight identification, Renyi accuracy, initialization or complete FORS guarantee is established. The common output kernel is measurable in s and each output function is measurable in its attempt stream; joint measurability of the entire parameterized random-stream construction is not an additional public conclusion.",
+      "statement": "Let Q be a Markov proposal kernel from a measurable parameter space S to a measurable space X, let nu be a fixed probability measure on auxiliary space A, and let W((s,x),z) be jointly measurable with |W|<=B for a fixed B>0. Fix a default x0. An attempt independently draws x from Q(s), N from Poisson(2B), an infinite iid nu sequence z, and U uniform on [0,1], and accepts when U is at most the product over i<N of (B+W((s,x),z_i))/(2B). Let Lambda_s be this actual product law, E_s its acceptance event, and p_s=Lambda_s(E_s). On an iid sequence of whole attempts, return the proposal at the first success, using x0 only on never-success, and charge N for every attempt whose predecessors all failed. There is a measurable Markov kernel R whose fiber is both the actual output law and Q(s) exponentially tilted by w(s,x)=integral W((s,x),z) nu(dz). Conditional acceptance is exp(w-B), the projected accepted submeasure is exp(w-B)Q(s), and p_s is its total mass with p_s>=exp(-2B). Never-success has measure zero; the first n attempts all fail with probability (1-p_s)^n. The expected total full-batch charge equals 2B/p_s and is at most 2B exp(2B).",
+      "steps": [
+        {
+          "title": "Build the actual independent attempt",
+          "text": "Use the product of the proposal law, Poisson law, auxiliary infinite product and unit-interval Lebesgue restriction. Infinite-product finite-coordinate pushforward identifies the first N auxiliary draws with the finite product law. Variable N is measurable by countable discrete stratification. The empty product at N=0 is one, so that branch accepts and makes zero estimator calls.",
+          "formula": "\\Lambda_s=Q(s)\\otimes\\operatorname{Poisson}(2B)\\otimes\\nu^{\\mathbb N}\\otimes\\operatorname{Unif}[0,1].",
+          "lean": "attemptLaw; iid_prefix_law; measurable_accepted"
+        },
+        {
+          "title": "Compute conditional acceptance from the event",
+          "text": "Every factor lies in [0,1], so integrating the actual event U<=product gives the product itself. Finite product integration gives t^n, where t=(B+w)/(2B). The Poisson generating series then gives exp(2B(t-1))=exp(w-B). Bounded measurability supplies the integrability needed for the real-to-nonnegative-integral conversions.",
+          "formula": "\\mathbb P(E_s\\mid x)=\\sum_{n\\ge0}\\mathbb P(N=n)\\left(\\frac{B+w(s,x)}{2B}\\right)^n=e^{w(s,x)-B}.",
+          "lean": "finite_uniform_acceptance; poisson_power_integral; actual_poisson_acceptance"
+        },
+        {
+          "title": "Identify the accepted submeasure and its mass",
+          "text": "For every measurable proposal event, restrict the whole attempt law to acceptance and project to the proposal. Fubini and conditional acceptance give the exact weighted submeasure. Since -B<=w<=B, its density lies between exp(-2B) and one. Thus its mass p is strictly positive and finite; positivity is derived, not assumed.",
+          "formula": "(\\pi_X)_*(\\Lambda_s|_{E_s})=e^{w(s,\\cdot)-B}Q(s),\\qquad e^{-2B}\\le p_s=\\int e^{w(s,x)-B}Q(s)(dx)\\le1.",
+          "lean": "actual_accepted_proposal; bounded_estimator_mean; bounded_acceptance_mass; ha; hp"
+        },
+        {
+          "title": "Prove real retries terminate and normalize the output",
+          "text": "A failure prefix followed by an attempt in any measurable set F is an actual finite cylinder, with mass q^n Lambda(F), q=1-p. Taking F inside acceptance gives disjoint first-success events. Never-success is contained in every failure prefix and has mass zero because q^n tends to zero. The total firstOutput is measurable using measurable existence, Nat.find, and its explicit default branch. Summing the first-success events gives the normalized accepted proposal law.",
+          "formula": "\\mathbb P(\\text{first }n\\text{ fail})=(1-p_s)^n,\\qquad\\mathcal L(\\mathrm{out}_s)=p_s^{-1}(\\pi_X)_*(\\Lambda_s|_{E_s}).",
+          "lean": "first_hit_submeasure; never_hit_null; measurable_firstOutput; firstOutput_law"
+        },
+        {
+          "title": "Construct a common Markov kernel and identify the target",
+          "text": "Parameter integration makes w jointly measurable, and kernel integration makes p measurable. Construct Q.withDensity with the actual normalized density and verify unit mass in every fiber. This is a common measurable kernel, not merely separate fiberwise existence. Boundedness establishes exponential integrability, allowing the constant exp(-B) to cancel in the real normalization and identify the result with Q(s).tilted(w).",
+          "formula": "R(s,dx)=\\frac{e^{w(s,x)-B}}{p_s}Q(s)(dx)=\\frac{e^{w(s,x)}}{\\int e^{w(s,y)}Q(s)(dy)}Q(s)(dx).",
+          "lean": "normalized_density_kernel; bounded_estimator_output_kernel; normalized_exp_tilt; hReq"
+        },
+        {
+          "title": "Charge every full attempt, including the successful one",
+          "text": "Define total charge as the sum of N_n multiplied by the indicator that all earlier attempts failed. The current count may correlate with current acceptance. The finite-cylinder identity instead gives the current attempt law restricted only by preceding failure as q^n Lambda. Tonelli therefore yields E C=(sum q^n) E N. The actual Poisson expectation is proved from its mass series, including rate zero, and product integration gives E N=2B for the full attempt law.",
+          "formula": "C=\\sum_{n\\ge0}\\mathbf1_{\\{\\text{attempts }i<n\\text{ fail}\\}}N_n,\\qquad\\mathbb E C=\\frac{\\mathbb E N}{p_s}=\\frac{2B}{p_s}.",
+          "lean": "surviving_current_law; totalCost; expected_totalCost; poisson_nat_mean; attempt_count_mean"
+        },
+        {
+          "title": "Derive the explicit finite expected cost",
+          "text": "Invert the proved positive acceptance lower bound and multiply by the nonnegative per-attempt mean. This is a direct expectation calculation for the actual attempt stream and does not transfer unbounded costs through a distributional approximation.",
+          "formula": "\\mathbb E C=2B/p_s\\le2B e^{2B}.",
+          "lean": "hbound; hcost; ENNReal.inv_le_inv"
+        }
+      ],
+      "lean_statement": "Actual bounded Poisson rejection output, conditional and accepted laws, stopping, parameterized Markov kernel and full-batch expected cost.",
+      "lean_proof": "Actual product attempts; finite-prefix and uniform acceptance integration; Poisson generating series; first-hit cylinders and countable output decomposition; normalized density kernel; actual nonnegative accumulated cost.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.infinitePi",
+        "MeasureTheory.Measure.map_infinitePi_infinitePi_of_inj",
+        "ProbabilityTheory.poissonMeasure",
+        "ProbabilityTheory.integral_poissonMeasure",
+        "MeasureTheory.integral_fintype_prod_eq_pow",
+        "ProbabilityTheory.Kernel.withDensity",
+        "MeasureTheory.Measure.tilted",
+        "MeasureTheory.lintegral_tsum"
+      ]
+    }
+  ]
+}
