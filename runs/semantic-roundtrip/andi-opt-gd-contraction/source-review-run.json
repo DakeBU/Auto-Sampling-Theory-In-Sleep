@@ -1,0 +1,45 @@
+{
+  "reviewer": "coco_source",
+  "role": "independent anti-anchored source semantic/publication reviewer",
+  "input_artifacts": [
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-gd-contraction/reviewer-0.json",
+      "reviewer_packet_sha256": "a799db1cb6a87c2707a9dd83bd5138a58f6655414c8e443fd71bafd5e1020feb",
+      "publication_binding_sha256": "f44e6985759f3be332fac83c518da644a43235b463a8c528ccf11e7932b0ddaa"
+    },
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-gd-contraction/reviewer-1.json",
+      "reviewer_packet_sha256": "6da23aabe81f06dac38e14897f294ea7fd17eae6d36a620440ff90a6fd7be3e4",
+      "publication_binding_sha256": "30735b40dfed65ad9d812494462a69b3b1e195c9fdff97f268c9bc88b5e75e3a"
+    }
+  ],
+  "independence": {
+    "formalizer": "andi-gd-worker",
+    "decoder": "gd_blind",
+    "reviewer": "coco_source",
+    "old_target_verdicts_consulted": false,
+    "registry_read": false
+  },
+  "additional_inputs": [
+    "https://arxiv.org/html/2605.07006v1#S3: section introduction, Definition3.2, Theorem3.3 proof and immediately following rate paragraph",
+    "tools/astis_semantic_roundtrip.py: output schema and hashing implementation only"
+  ],
+  "primary_source_check": "Primary HTML confirms section C2 Euclidean scope, printed h<=1/beta with no explicit lower bound, source distance factor and h=1/beta rate, and stray gradient before y-x in the intermediate proof pairing.",
+  "independent_calculation": {
+    "negative_step_counterexample": "On R take f(t)=t^2/2, alpha=beta=1, h=-1, x=0,y=1. The printed h<=1/beta holds, but T(t)=2t, so the asserted bound requires 2<=sqrt(2), false since 4>2. More generally every h<0 fails this quadratic: (1-h)^2>1-h.",
+    "one_step": "For v=y-x, d=grad f(y)-grad f(x), p=<d,v>, the hypotheses give alpha||v||^2<=p, p>=0, ||d||^2<=beta p. From h>=0 and beta h<=1 get h^2||d||^2<=hp, hence ||v-hd||^2<=||v||^2-hp<=(1-alpha h)||v||^2.",
+    "sqrt_boundary": "If 1-alpha h<0, the squared estimate rules out v nonzero. For v=0 the bound is 0<=0 with the stated total Real.sqrt. On nontrivial Euclidean source domains alpha<=beta gives the usual nonnegative square-root argument.",
+    "iteration": "A supplied global minimizer is a local minimum on the entire space; C1 and Fermat yield zero derivative and actual gradient, thus T(xstar)=xstar. Iteration of the r-Lipschitz inequality yields r^N times the actual initial distance for N>=0.",
+    "exponential": "1-alpha h<=exp(-alpha h) yields sqrt(1-alpha h)<=exp(-alpha h/2), including the total square-root case. Natural powers preserve the bound and exp(-alpha h/2)^N=exp(-alpha h N/2).",
+    "source_specialization": "For beta>0, h=1/beta, positive alpha and kappa=beta/alpha>=1, r^N=(1-1/kappa)^(N/2), exp(-alpha h N/2)=exp(-N/(2 kappa))."
+  },
+  "publication_checks": [
+    "All local variables T,r,v,d,p,xstar,x0,N,R,a are explicitly defined in the relevant lesson or step. N is natural and T^0 is identity; N=0 produces equality.",
+    "No alpha<=beta premise is smuggled into the generic proof. Zero modulus, zero step and singleton cases are handled by the displayed formal statement.",
+    "C2 to C1 and Euclidean to arbitrary complete real inner-product space are actual mathematical generalizations, disclosed by the candidate module and assumptions.",
+    "Iterated theorem permits every admitted constant step, more general than the source rate at 1/beta. The logarithmic complexity obligation is explicitly uncovered.",
+    "The title about approaching a minimizer is interpreted through the displayed bounds: alpha h=0 gives no strict decay; no unconditional convergence theorem is accepted.",
+    "The source typo is not silently promoted to mathematics: the module explicitly identifies the displacement interpretation, verified by the exact norm expansion."
+  ],
+  "limits": "Compiler status is packet evidence; no independent Lean build or Optlib source/license audit was run. No repository or prior-review file was read. Proposed source repair remains unaccepted and needs another exact-proposal reviewer."
+}

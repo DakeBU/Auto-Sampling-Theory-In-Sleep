@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Theorem3.3 one-step inequality",
   "target_statement": "For a C1 globally alpha-strongly convex function with beta quadratic upper model on a complete real inner-product space, alpha,beta,h>=0 and beta*h<=1 imply that x-h grad f(x) contracts distances by sqrt(1-alpha*h).",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-strong-convex-gradient-monotonicity",
     "ASTIS-SHARED-convex-cocoercivity"
@@ -17,7 +17,7 @@
   ],
   "shared_floor_audit": {
     "searched": [
-      "ASTIS StrongConvexFirstOrder and ConvexSmoothGradient; current frontier/SAU ledgers",
+      "Samplinglib / ASTIS StrongConvexFirstOrder and ConvexSmoothGradient; current frontier/SAU ledgers",
       "Pinned Mathlib db584cd: LipschitzWith.iterate, IsLocalMin.fderiv_eq_zero, real sqrt and exponential APIs",
       "Optlib 5da27c5 GradientDescentStronglyConvex.gradient_method_strong_convex, independent review smoothness_review at bad36aa"
     ],
@@ -28,8 +28,10 @@
     "notes": "Compose the compiled cocoercivity and strong monotonicity parents. Optlib uses a different sharper interpolation route; no external module is imported."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "lake build Tests.Shared.GradientDescentContraction PASS2449 independently repeated, no warnings; standard axioms only."
+    ],
+    "independent_verification": "smoothness_review at b965caf proof/test/lesson/source-binding review and compile; independent gd_blind, coco_source, and exact-proposal repair acceptance in semantic registry.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

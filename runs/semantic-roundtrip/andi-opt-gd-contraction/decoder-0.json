@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-ed57cf213b01d7ce",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ} {α β h : ℝ},\n  ContDiff ℝ 1 f →\n    StrongConvexOn Set.univ α f →\n      0 ≤ α →\n        0 ≤ β →\n          0 ≤ h →\n            β * h ≤ 1 →\n              (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n                ∀ (x y : E), ‖y - h • gradient f y - (x - h • gradient f x)‖ ≤ √(1 - α * h) * ‖y - x‖",
+    "statement_sha256": "ed57cf213b01d7ce24c3023b0ef0906c84c8f7dcbbe3857fb110db35781b6701",
+    "compiled": true,
+    "approved_definition_context": [
+      "ContDiff ℝ 1 f means continuous Frechet differentiability on the entire space.",
+      "StrongConvexOn Set.univ a f means that for x,y in the entire space and t in [0,1], f((1-t)x+t y) <= (1-t)f(x)+t f(y)-(a/2)t(1-t)||y-x||^2.",
+      "gradient f x is the Riesz vector representing the Frechet derivative.",
+      "IsMinOn f Set.univ z means f(z)<=f(y) for every point y.",
+      "Function.iterate g N, written g^[N], means N-fold function composition, with the zeroth iterate the identity. Real.sqrt is the nonnegative square root, defined to be zero for negative arguments."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "0db3328cc3dd54907edc8e8d33bd071055ce96ad2cfe1b69563c118e7331fbd1"
+}
