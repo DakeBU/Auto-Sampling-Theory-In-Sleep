@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-clipped-gradient-program",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
   ],
   "boundary": "Fixed-center actual clipped program and mean truncation error only. No ideal Gibbs normalization/identification, normalized Renyi accuracy, adaptive eta kernel, initialization, or full gradient query accounting. Auxiliary time differs from acceptance uniform. Count includes successful batch; cached reference gradient preparation is separate. Uniform O(1) cost still needs source B=Theta(1) and accuracy parameters. Neither main paper complete.",
   "development_checkpoint": {
@@ -81,5 +81,9 @@
     ]
   },
   "admission_boundary": "VERIFIED atf334384. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/clipped-gradient-program.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/clipped-gradient-program.verified-admission.json",
+  "integration_notes": {
+    "upstream": "715630c8eec0ea00bd32b9091fe1177ee07afa29",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior3341e09, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  }
 }

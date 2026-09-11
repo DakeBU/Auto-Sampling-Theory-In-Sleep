@@ -38,7 +38,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-clipped-gradient-program.md",
     "planning_review": "Independent log_depth_source_review accepted exact actual-program consumer, identified fixed auxiliary law and cached reference gradient cost boundaries. Prior depth next-consumer review in gradient-arc-mean blueprint.",
-    "execution_boundary": "Root sole writer; mean PR281 merged, no active stabilizer. Actual clipped program EXPLORING.",
+    "execution_boundary": "Root sole writer; ClippedGradientProgram sole STABILIZING; accepted production/source unchanged.",
     "development_boundary": "Complete production compiled; independent full scratch compile/proof review and source preaudit accepted fixed050abeb1. No formal source admission or PROVED_LOCAL yet.",
     "admission_boundary": "VERIFIED atf334384. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/clipped-gradient-program.verified-admission.json"

@@ -36,6 +36,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram
 
 /-!
 # ASTIS example cases
