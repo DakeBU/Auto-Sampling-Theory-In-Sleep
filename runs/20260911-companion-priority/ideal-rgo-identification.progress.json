@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-ideal-rgo-identification",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA, merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "boundary": "Ideal untruncated target identification and actual positive finite normalization only. No clipping approximation/Renyi bound, adaptive kernel, initialization or cost transport. beta*eta<1 includes the source Claim2 permitted range; no C2 or convexity is silently added. Zero dimension and beta0 are valid disclosed extensions. Neither full companion paper complete.",
   "development_checkpoint": {
@@ -76,5 +76,6 @@
       "ASTIS-RT-20260911-SPHMCIdealRGOIdentification"
     ]
   },
-  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
+  "admission_boundary": "VERIFIED atdd88e79. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/ideal-rgo-identification.verified-admission.json"
 }
