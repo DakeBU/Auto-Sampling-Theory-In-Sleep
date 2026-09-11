@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error",
+      "title": "Actual adaptive backward-kernel KL error propagation",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC v1 Theorem 6.5 A1 recursive error propagation",
+          "scope": "Expanded actual joint-kernel entropy calculus used by the backward induction; not a completed recursive sampler."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCAdaptiveKLError"
+      ],
+      "boundary": "Fixed probability base, precision and variance. The supplied actual approximate Markov kernel need not retain the center or satisfy a finite error bound. Its conditional KL is charged under the actual input law. No concrete recursive program, uniform history accuracy, measurable proxy, Wp sampler guarantee, terminal implementation or expected query cost is proved.",
+      "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space E,b>=0,a>0. Construct Markov kernels T,H:E to E and B:E times E to E times E. Every T(u) is mu tilted by -b*norm(x-u)^2/2, and H(u) is its actual Gaussian smoothing at standard-deviation sqrt(a). Every B(u,y) retains u and draws from T(u) tilted by -norm(x-y)^2/(2a), equivalently from mu tilted at precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability center law nu, B composed with nu compProd H equals nu compProd T. The same T,H,B satisfy for every probability center law nu, every probability input law P on E times E and every Markov kernel L on E times E: s to actual ENNReal KL(L(s),B(s)) is measurable, and actual KL(L composed with P,nu compProd T) is at most KL(P,nu compProd H) plus the nonnegative integral of KL(L(s),B(s)) against P. All KL terms and the integral may be infinite.",
+      "formula": "\\mathrm{KL}(L\\circ_m P\\|\\nu\\otimes_m T)\\le\\mathrm{KL}(P\\|\\nu\\otimes_m H)+\\int\\mathrm{KL}(L(s)\\|B(s))\\,P(ds).",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel space including dimension zero; arbitrary probability base mu; b>=0,a>0.",
+        "T,H,B are constructed before every center law nu, input P and approximate Markov L; fiber formulas are everywhere.",
+        "P is any actual probability joint input law. Its divergence from the ideal nu compProd H is explicitly charged.",
+        "L is an actual measurable Markov kernel. It need not retain the center; relative conditional KL may then be infinite.",
+        "No AC, finite KL, LLR integrability or separately assumed fiber-KL measurability. General probability-base joint semantics explicitly extend the source setting."
+      ],
+      "steps": [
+        {
+          "title": "Construct the same ideal joint target and backward kernel",
+          "text": "Use the proved measurable random-center recovery theorem. It supplies actual T,H,B, both normalized backward fibers and recovery for every center law. None of these conclusions is introduced as an extra assumption.",
+          "formula": "B\\circ_m(\\nu\\otimes_m H)=\\nu\\otimes_m T.",
+          "lean": "AdaptiveCenterRGO.adaptive_center_recovery; retain all fibers and hrec."
+        },
+        {
+          "title": "Prove that actual conditional KL is measurable",
+          "text": "Kernel Radon-Nikodym derivatives are jointly measurable and agree fiberwise almost everywhere with measure RN derivatives. Express KL on the measurable AC set using the nonnegative klFun integral and set it to infinity on the complement. Kernel integration and measurable case distinction prove the desired measurable function.",
+          "formula": "\\mathrm{KL}(L_s\\|K_s)=\\begin{cases}\\int\\operatorname{klFun}(dL_s/dK_s)\\,dK_s,&L_s\\ll K_s,\\\\+\\infty,&\\text{otherwise}.\\end{cases}",
+          "lean": "Local measurable_fiber_kl; Kernel.measurable_rnDeriv; measurableSet_absolutelyContinuous; klDiv_eq_lintegral_klFun."
+        },
+        {
+          "title": "Identify the joint RN derivative and conditional entropy integral",
+          "text": "When the joint law is absolutely continuous, its fibers are almost everywhere absolutely continuous. The actual compProd-withDensity identity identifies its RN derivative with the kernel RN derivative. Tonelli for the nonnegative klFun gives the integral formula, even if that integral is infinite.",
+          "formula": "\\mathrm{KL}(P\\otimes_m L\\|P\\otimes_m K)=\\int\\mathrm{KL}(L_s\\|K_s)\\,P(ds).",
+          "lean": "Local conditional_kl_integral AC branch; kernel_of_compProd; compProd_withDensity; rnDeriv_withDensity; lintegral_compProd."
+        },
+        {
+          "title": "Prove the non-AC and infinite branches",
+          "text": "If the joint law is not absolutely continuous, its KL is infinite. If the fiber-KL integral were finite, fiber KL would be finite almost everywhere, hence fiber AC almost everywhere, implying joint AC and a contradiction. Thus the same exact formula holds without an AC or finite-integral premise.",
+          "formula": "P\\otimes_m L\\not\\ll P\\otimes_m K\\quad\\Longrightarrow\\quad\\int\\mathrm{KL}(L_s\\|K_s)\\,P(ds)=+\\infty.",
+          "lean": "Local conditional_kl_integral non-AC branch; ae_lt_top; klDiv_ne_top_iff; AbsolutelyContinuous.compProd_right."
+        },
+        {
+          "title": "Use the actual joint chain rule and output projection",
+          "text": "The chain rule separates input divergence from conditional joint divergence. The proved integral identity gives the latter under P. Projecting to the output can only decrease KL. The integration weight is the actual input P, not the ideal input Q.",
+          "formula": "\\mathrm{KL}(L P\\|K Q)\\le\\mathrm{KL}(P\\otimes_m L\\|Q\\otimes_m K)=\\mathrm{KL}(P\\|Q)+\\int\\mathrm{KL}(L_s\\|K_s)\\,P(ds).",
+          "lean": "Local composed_kl_bound; klDiv_compProd_eq_add; conditional_kl_integral; klDiv_map_le; snd_compProd."
+        },
+        {
+          "title": "Substitute actual ideal recovery",
+          "text": "Take Q=nu compProd H and K=B from the single earlier construction. Its actual recovery identifies BQ with nu compProd T. The general bound now gives the claimed error for the supplied actual input and approximate kernel; no algorithmic accuracy is inferred.",
+          "formula": "Q=\\nu\\otimes_m H,\\quad BQ=\\nu\\otimes_m T.",
+          "lean": "composed_kl_bound P (ν ⊗ₘ H) L B; rewrite hrec ν hν."
+        }
+      ],
+      "lean_statement": "Construct ideal random-center kernels and prove measurable actual conditional KL plus an extended-valued output error bound for every actual probability input and Markov approximation.",
+      "lean_proof": "Measurable kernel RN, nonnegative KL integrals, both AC branches, joint chain rule, output projection and actual ideal recovery.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.measurable_rnDeriv",
+        "ProbabilityTheory.Kernel.measurableSet_absolutelyContinuous",
+        "MeasureTheory.Measure.compProd_withDensity",
+        "InformationTheory.klDiv_eq_lintegral_klFun",
+        "InformationTheory.klDiv_compProd_eq_add",
+        "InformationTheory.klDiv_map_le"
+      ]
+    }
+  ]
+}

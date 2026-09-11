@@ -1,0 +1,36 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCAdaptiveKLError",
+    "result": "PASS3749",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/AdaptiveKLError.lean": "2df5aa222253d74b6aa2a21b6e3bf9f28cb794ea0326760b33e79d7cff27cd3c",
+      "Tests/SmoothedPicardHMCAdaptiveKLError.lean": "4de54297da77e12f77e5c12c4c9ed7d7c375746ac9d025bf246691cb510035bd"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/adaptive-kl-error.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "draft",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCAdaptiveKLError"
+    ]
+  },
+  "mathematical_status": "Actual error propagation for given Markov kernels, not construction or accuracy of the concrete approximate recursive algorithm. General probability base, fixed parameters; no measurable proxy choice, Wp sampler implementation, terminal FORS, accumulated numerical budgets or expected query costs. Arbitrary approximate input is allowed because its actual KL to the ideal joint law is charged. The output L need not retain center; the ideal B does, and the full joint discrepancy is bounded.",
+  "remaining": [
+    "Fresh anonymous reconstruction, formal source and fixed-commit admission",
+    "Integration, aggregate and original reader/graph delivery",
+    "Concrete Gibbs specialization and joint parameter/history obligations",
+    "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
+    "Both paper main results and agreed deliveries"
+  ]
+}
