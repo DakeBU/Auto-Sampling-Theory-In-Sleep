@@ -1,5 +1,5 @@
 {
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo"
   ],
@@ -93,5 +93,22 @@
     "state": "DRAFT",
     "local_qa_commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1"
   },
-  "reservation_resolution": "Release our TwoNoise reservation to VERIFIED while preserving upstream C2 STABILIZING. Proof/source/local integration evidence unchanged; final merge waits for owner release."
+  "reservation_resolution": "Release our TwoNoise reservation to VERIFIED while preserving upstream C2 STABILIZING. Proof/source/local integration evidence unchanged; final merge waits for owner release.",
+  "upstream_integration": {
+    "aggregate_jobs": 9122,
+    "gate": {
+      "passed": true,
+      "commit": "e7e724db8a7ad6ad1955cab8b902996ebbda4e2c",
+      "source_digest": "3b0992e641ebd62f487d292f0e972d030601608eba3bafa10dc3ade8374780b4",
+      "generated_at": "2026-09-11T03:56:11.599954+00:00",
+      "commands": [
+        "python3 tools/astis.py check"
+      ],
+      "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+    },
+    "tool_tests": "35PASS29.001s",
+    "preservation_review": "depth_commit_verifier accepted e7e724d exact event union and registry46; bad local intermediate merge repaired beforepush",
+    "later_upstream": "ebb6923 C2 owner completion metadata preserved; no new Lean changes",
+    "reservation_resolution": "C2 owner release preserved; TwoNoise resumed sole STABILIZING."
+  }
 }

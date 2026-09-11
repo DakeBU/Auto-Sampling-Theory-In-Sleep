@@ -39,7 +39,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-two-noise-rgo.md",
     "planning_review": "Independent log_depth_source_review recommends actual two-noise law/semigroup plus stage consumer; denominator must be added tau, not total eta+tau.",
-    "execution_boundary": "Release our TwoNoise reservation to VERIFIED while preserving upstream C2 STABILIZING. Proof/source/local integration evidence unchanged; final merge waits for owner release.",
+    "execution_boundary": "C2 owner MERGED event preserved; TwoNoise resumes sole STABILIZING; AdaptiveCenter EXPLORING.",
     "ownership_note": "One actual paper consumer; no invented second consumer.",
     "scope_refinement": "Before production: replace raw-cost public budget by source-facing actual ENNReal W2<=ofReal(r), deriving the equivalent squared-cost bound via existing wassersteinDistance_sq and ofReal_pow. log_depth_source_review independently confirmed this reuse; old GaussianKL/RGOBackward contracts unchanged.",
     "independent_proof_review": "runs/20260911-companion-priority/two-noise-rgo.independent-proof-review.json",
