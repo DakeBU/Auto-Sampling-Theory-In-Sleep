@@ -37,6 +37,8 @@ chapters:
   13: Interior point methods
 appendices:
   A: Background on symmetric matrices
+supplementary_routes: supplementary-routes.yml
+supplementary_route_policy: Supplementary papers may expose alternate proof architectures or later improvements, but Chewi remains the canonical textbook source and every theorem keeps its own source identity.
 formal_upstreams: [Mathlib, Optlib, CvxLean, ATLAS-v1]
 status_policy: [reuse, adapt, missing, out_of_scope]
-truth_boundary: chapter_scaffold_only
+truth_boundary: textbook_route_not_chapter_complete

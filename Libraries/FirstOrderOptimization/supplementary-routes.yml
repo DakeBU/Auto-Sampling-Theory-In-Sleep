@@ -1,0 +1,86 @@
+schema_version: 1
+library: optimisation
+primary_source: https://arxiv.org/pdf/2605.07006
+program: ../acceleration-geometry-program.json
+truth_boundary: supplementary sources do not replace Chewi's chapter statements and do not become Lean theorem edges until independently source-audited
+routes:
+  - id: linear-coupling
+    title: Linear Coupling: gradient progress + mirror progress
+    source:
+      authors: [Zeyuan Allen-Zhu, Lorenzo Orecchia]
+      title: "Linear Coupling: An Ultimate Unification of Gradient and Mirror Descent"
+      url: https://arxiv.org/abs/1407.1537
+    textbook_anchors:
+      - chapter: 5
+        role: acceleration theorem and potential/coupling architecture
+      - chapter: 10
+        role: mirror descent, Bregman divergence, dual progress and dual geometry
+    status: source-route-planned
+    shared_core_candidates:
+      - weighted primal/dual progress coupling
+      - potential/estimate-sequence scalar algebra
+      - smoothness-side descent certificate
+      - mirror/Bregman-side progress certificate
+    geometry_specific_obligations:
+      euclidean: [norm/dual-norm pairing, smoothness, Bregman prox]
+      riemannian: [tangent-cotangent conversion, log-or-retraction model, vector transport, curvature-or-retraction defect]
+      optimal_transport: [continuity-equation tangent, displacement/log-map analogue, geodesic convexity, moving-map correction]
+      sampling: [choice of law-space energy, dissipation identity, stochastic-or-inexact error interface]
+    lean_stage: ACC-OPT-LC-01
+
+  - id: katyusha
+    title: Katyusha: variance-reduced acceleration with negative momentum
+    source:
+      authors: [Zeyuan Allen-Zhu]
+      title: "Katyusha: The First Direct Acceleration of Stochastic Gradient Methods"
+      url: https://arxiv.org/abs/1603.05953
+    textbook_anchors:
+      - chapter: 12
+        role: stochastic optimization, variance reduction, snapshot/anchor and inexact progress
+      - chapter: 5
+        role: consumes deterministic acceleration/coupling substrate; does not redefine it
+    status: source-route-planned
+    prerequisites: [linear-coupling]
+    shared_core_candidates:
+      - inexact progress bookkeeping
+      - snapshot/anchor affine interpolation
+      - variance-reduced estimator contract
+      - weighted potential coupling
+    migration_boundary:
+      riemannian: source and prove manifold stochastic-oracle/vector-transport adapters separately
+      optimal_transport: no automatic finite-sum analogue; only reuse certified coupling/error algebra
+      sampling: anchor-distribution or snapshot-score stabilization is a research hypothesis, not a theorem transfer
+    lean_stage: ACC-OPT-KAT-01
+
+  - id: differing-norm-acceleration
+    title: Differing-norm acceleration for steepest descent
+    source:
+      authors: [Cedar Site Bai, Brian Bullins]
+      title: Faster Acceleration for Steepest Descent
+      url: https://proceedings.mlr.press/v291/bai25a.html
+    textbook_anchors:
+      - chapter: 5
+        role: accelerated steepest-descent rate and coupling mechanism
+      - chapter: 10
+        role: primal/dual geometry, dual norms and non-Euclidean progress certificates
+    status: source-route-planned
+    shared_core_candidates:
+      - primal progress inequality parameterized by a norm
+      - dual progress inequality parameterized by a potentially different norm
+      - implicit interpolation/coupling scalar relation
+      - norm/dual-norm Holder and smoothness algebra
+    migration_boundary:
+      riemannian: only quadratic Hilbert local norms directly instantiate a Riemannian metric; position-dependent transport/curvature must be proved
+      banach_finsler: general nonquadratic p-norm route belongs here before any manifold transport claim
+      optimal_transport: requires a law-space mobility/duality structure compatible with the selected primal/dual geometry
+      sampling: no rate transfer follows from changing norms alone; sampler invariance, dissipation and discretization remain separate obligations
+    do_not_do: Do not insert arbitrary G_primal and G_dual into the AIG Hamiltonian and assume the original Hamiltonian or Lyapunov cancellations survive.
+    lean_stage: ACC-NORM-01
+
+chapter_pull_forward_policy:
+  - chapter: 10
+    reason: mirror/Bregman primitives are prerequisites of the Chapter 5 supplementary Linear Coupling route even though they appear later in Chewi's source order
+    credit_rule: pulling a prerequisite forward does not mark Chapter 10 complete
+  - chapter: 12
+    reason: stochastic/inexact interfaces are consumed only after the deterministic Ch.5/10 substrate is source-audited
+    credit_rule: Katyusha work does not imply generic stochastic-optimization chapter completion

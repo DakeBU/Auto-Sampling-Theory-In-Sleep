@@ -31,6 +31,7 @@ import implicit_prerequisites  # noqa: E402
 import information_architecture  # noqa: E402
 import lean_tutor  # noqa: E402
 import library_shelves  # noqa: E402
+import project_scope_overlay  # noqa: E402
 import reader_contract_final  # noqa: E402
 import samplewiki_audit_queue  # noqa: E402
 import samplewiki_casebook_assets  # noqa: E402
@@ -234,6 +235,10 @@ def main() -> int:
     publication_reader.enrich_site(output)
     metadata_lessons.enrich_site(output)
     inline_lean.enrich_textbook(output)
+
+    # Public scope and the cross-library acceleration route are presentation
+    # overlays only; they never promote conceptual edges to Lean dependencies.
+    project_scope_overlay.enrich_site(output)
 
     inherit_final_reader_contract(output)
     repair_project_author_footer(output)
