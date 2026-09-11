@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
   "remaining": [
-    "PR/merge CI and actual live deployment"
+    "Merge Lean/Site CI and actual live deployment"
   ],
   "program_checkpoint": {
     "path": ".astis/JointReferenceGradientDescentProgram.lean",
@@ -73,9 +73,15 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/291",
     "head": "99c2c0bc672852a0c2737dcea57ac4157666960b",
-    "state": "OPEN; PR Site passed,Lean pending",
+    "state": "MERGED; all PR checks passed; merge CI/live pending",
     "lean_run": 34653896294,
     "site_run": 34653896330,
-    "site_result": "SUCCESS; PR deployment skipped"
+    "site_result": "SUCCESS; PR deployment skipped",
+    "merge_commit": "e933038111f3605aff343865a13de05987167fff",
+    "merged_at": "2026-09-11T22:43:06Z",
+    "lean_pr_result": "SUCCESS",
+    "merge_lean_run": 34655208468,
+    "merge_site_run": 34655208452,
+    "merge_checks": "in_progress; live pending"
   }
 }

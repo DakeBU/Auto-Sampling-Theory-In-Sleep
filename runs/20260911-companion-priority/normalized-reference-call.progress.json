@@ -3,9 +3,10 @@
   "state": "EXPLORING",
   "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
   "remaining": [
-    "Actual returned W2 coupling-cost bound",
-    "Actual Hessian/reference normalization and positive Gibbs normalization consumer",
-    "Independent complete proof/source admission and original reader delivery"
+    "Independent complete proof/source preaudit",
+    "Production focused compile",
+    "Authored reader lesson,fresh decoder/formal source review",
+    "Independent admission,integration and original reader delivery"
   ],
   "gibbs_checkpoint": {
     "path": ".astis/NormalizedReferenceCallGibbs.lean",
@@ -21,5 +22,29 @@
     "exit_code": 0,
     "result": "Three private helpers standard3/no lint. Actual Gaussian smoothing law commutes with inverse scaling for SFinite input,nonzero scale and arbitrary noise scale. Independent increment review pending.",
     "independent_review": "depth_commit_verifier independently compiled frozen source via stdin exit0,three private standard3/no lint. Actual product Gaussian/map composition yields X+(s^-1*sigma)Z; SFinite,nonzero signed scale and zero noise cases correct. Development only; no full consumer/VERIFIED."
+  },
+  "transport_checkpoint": {
+    "path": ".astis/NormalizedReferenceCallTransport.lean",
+    "sha256": "8bed84807daf7bb5bcf1c0cb6137c78ef3abe69bd65ad07c99ec2fb9cd577574",
+    "session": 41353,
+    "exit_code": 0,
+    "result": "Focused compile standard three axioms,no lint.",
+    "independent_review": "depth_commit_verifier independent stdin exit0,four private standard3/no lint; actual coupling maps and ENNReal sInf scaling accepted,including infinite/empty cost cases."
+  },
+  "laws_checkpoint": {
+    "path": ".astis/NormalizedReferenceCallLaws.lean",
+    "sha256": "dbbc2f50e21f7461c10c167d279711d1bce50a274aec02cb29910665460d46e0",
+    "session": 46107,
+    "exit_code": 0,
+    "result": "Focused compile standard three axioms,no lint.",
+    "independent_review": "depth_commit_verifier independent stdin exit0,six private standard3/no lint; true Hessian shift,positive Gibbs normalization,map/smoothing and returned budget accepted. Auxiliary B negative uses ofReal truncation; public budget nonnegative."
+  },
+  "complete_scratch": {
+    "path": ".astis/NormalizedReferenceCallComplete.lean",
+    "sha256": "b4c83ced6320f87dea9d2741290ffdb30be4eaeadcc057bc6affda0bd05e67a6",
+    "session": 30620,
+    "exit_code": 0,
+    "result": "Focused compile standard three axioms,no lint.",
+    "independent_review": "Independent complete proof and source preaudit pending."
   }
 }
