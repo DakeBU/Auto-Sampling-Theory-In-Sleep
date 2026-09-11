@@ -1,0 +1,16 @@
+{
+  "decoder": "gaussian_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent anonymous English reconstruction. Math rendered as plain text without changing quantifiers or scope. Decoder supplied hashes and compiled flag were not independently verified; no source-fidelity judgment.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-gaussian-b.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCGaussianPowerMoment.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "a5038b2f9111e5a471335fc51f8e63dbeeaedf2e076e1d827d8275543bdb171f",
+  "lean_statement_sha256": "f96a9ff590d3f46160bb8989ffe6398dd49e6a1774b587693c02fccc27e287ee",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product space E with its normed additive commutative group and Borel measurable structures, all x,y in E and real tau,q satisfying tau>0 and q>1, define G(a) as the pushforward of canonical centered standard Gaussian under z to a+sqrt(tau)z, and L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable; G(x)=G(y).withDensity(ofReal L); G(x) is absolutely continuous with respect to G(y); and the extended nonnegative RN derivative dG(x)/dG(y) equals ofReal L G(y)-almost everywhere. The real-valued function z to (ENNReal.toReal(dG(x)/dG(y)(z)))^q is integrable under G(y), meaning almost-everywhere strongly measurable with finite integral of its norm. Its real Bochner integral is exactly exp(q(q-1)norm(x-y)^2/(2tau)). Real.log of that same integral divided by q-1 equals q norm(x-y)^2/(2tau). Powers with q are real powers. ENNReal.toReal is the real conversion, including its totalized value at infinity; the integral and logarithm involve the actual RN derivative, not a separately postulated likelihood. The integration and a.e. reference measure are both G(y). Dimension zero is included. There is no restriction on x,y, no upper bound on q or additional parameter assumption. The G,L definitions scope over the full conjunction. Constants 2,q-1,q(q-1) are exactly those displayed, with no unspecified or existential constants.",
+  "source_fidelity_verdict": null
+}

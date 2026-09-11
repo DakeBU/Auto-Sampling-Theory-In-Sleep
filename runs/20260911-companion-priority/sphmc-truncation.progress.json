@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy"
@@ -38,7 +38,6 @@
   },
   "mathematical_status": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion.",
   "remaining": [
-    "Final-head independent merge advice, CI and actual merge/deployment",
     "Gaussian likelihood/power moment and independent mixture reverse transport",
     "Finite marginal moments where required and proxy-warmness",
     "Actual sampler/error/cost propagation and both complete paper main results",
@@ -68,9 +67,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/259",
-    "state": "draft",
-    "head": "27e79663d04278401ce8e1710c37bcb36e8189cf",
-    "boundary": "Corrected aggregate, local site/browser/graph passed; final-head independent merge advice, CI and actual deployment pending."
+    "state": "MERGED",
+    "head": "93c77d60ce83cb0b758d80fc359791efbc6c6632",
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and both live anchors/build provenance verified."
   },
   "ci_initial_failure": {
     "head": "28123dd15535851f3d39422ebaadcd0cc1de5225",
@@ -134,6 +133,52 @@
       "visual": "Opened both complete statement/proof/reuse disclosures; complete proof tails retain end namespaces. Screenshots checked compact minimum/raw infimum, zero-radius and Markov/exact threshold formulas and explicit source/reuse boundaries. Zero formula errors.",
       "graph": "Both focused views have5nodes3edges2relations. Selected actual declaration and clicked evidence-card link; both Compiled Notmapped. Solid ownership/import and dashed source correspondence are not implication certificates.",
       "boundary": "Local QA; actual deployment separate."
+    }
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/259",
+    "commit": "7cc582e9439c618341c9ec34ccca73587c4140ff",
+    "candidate": "93c77d60ce83cb0b758d80fc359791efbc6c6632",
+    "merged_at": "2026-09-11T00:05:19Z",
+    "independent_merge_review": "depth_commit_verifier accepted final fixed head; root verified same-head Lean and site CI success, made ready and merged with match-head-commit. PR description discloses initial changed-module publication failure, root import correction and stale local site failure followed by fresh build/validation.",
+    "candidate_ci": {
+      "lean": "34544004895 SUCCESS",
+      "site": "34544004870 SUCCESS; PR deployment skipped"
+    },
+    "post_merge": {
+      "lean_run": 34544976974,
+      "site_run": 34544976964,
+      "deploy_job": 103096161567,
+      "state": "Both merge-commit runs SUCCESS; deploy job SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "anchors": [
+          "sphmc-optimal-continuous-cost",
+          "sphmc-truncation"
+        ],
+        "merge_commit": "7cc582e9439c618341c9ec34ccca73587c4140ff",
+        "merge_commit_present": true,
+        "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
+      }
+    },
+    "truth_boundary": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion."
+  },
+  "deployment": {
+    "lean_run": 34544976974,
+    "site_run": 34544976964,
+    "deploy_job": 103096161567,
+    "state": "Both merge-commit runs SUCCESS; deploy job SUCCESS",
+    "live": {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchors": [
+        "sphmc-optimal-continuous-cost",
+        "sphmc-truncation"
+      ],
+      "merge_commit": "7cc582e9439c618341c9ec34ccca73587c4140ff",
+      "merge_commit_present": true,
+      "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
     }
   }
 }

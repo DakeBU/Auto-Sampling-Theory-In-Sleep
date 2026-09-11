@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-f6feeecf5202df3a",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "gaussian_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-gaussian-likelihood",
+    "anchor": "Lemma6.3(ii) Gaussian likelihood prerequisite",
+    "original_text": "Finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero.\nTau>0 and arbitrary centers x,y. The covariance is tau I, not sqrt(tau) I.\nBoth Gaussian laws are actual scaled/translated standard Gaussian pushforwards, not arbitrary laws assumed to have a density ratio.\nThe source states reverse transport on Euclidean probabilities. This coordinate-free Gaussian ingredient is an explicit expanded prerequisite, not the mixture theorem.\nSPHMC Lemma6.3(ii) uses the heat-flow bound R_q(Pdag*gamma_tau || Q*gamma_tau)<=q Winfinity(Pdag,Q)^2/(2tau). The selected expanded Gaussian prerequisite, not the full mixture inequality, is the actual likelihood between equal-covariance translates: for G_a=Law(a+sqrt(tau)Z), tau>0, L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)) satisfies G_x=G_y.withDensity(ofReal L), absolute continuity and a.e. RN identification under G_y. Measurability and the measure identity are proved rather than assumed.",
+    "text_sha256": "bd82a9700bc76fe494905f249a6c8dbe2d99dfd9d225e06900d17c618720aac8"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+    "file": "AutoSamplingTheory/TechnicalLemmas/Measure/GaussianLikelihood.lean",
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (x y : E) (τ : ℝ),\n  0 < τ →\n    have G := fun a => MeasureTheory.Measure.map (fun z => a + √τ • z) (ProbabilityTheory.stdGaussian E);\n    have L := fun z => Real.exp (Inner.inner ℝ (x - y) (z - y) / τ - ‖x - y‖ ^ 2 / (2 * τ));\n    Measurable L ∧\n      (G x = (G y).withDensity fun z => ENNReal.ofReal (L z)) ∧\n        (G x).AbsolutelyContinuous (G y) ∧ (G x).rnDeriv (G y) =ᵐ[G y] fun z => ENNReal.ofReal (L z)",
+    "statement_sha256": "6b5054a2f8fbe4dadaeff23c9c1439bd39f3f13dd8bad3d065314ca3c727a332",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite-dimensional real inner-product space E equipped with its normed additive commutative group structure and a Borel measurable structure, all x,y in E and real tau>0, define G(a) as the pushforward of canonical centered standard Gaussian on E by z to a+sqrt(tau)z. Define L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable; G(x)=G(y).withDensity(z to ENNReal.ofReal(L(z))); G(x) is absolutely continuous with respect to G(y); and the extended nonnegative RN derivative dG(x)/dG(y) equals ofReal L for G(y)-almost every z. The base measure is G(y) and the resulting weighted measure G(x). Dimension zero is included. There is no restriction on x,y, no extra regularity, integrability or normalization assumption, and no unspecified constant. The local definitions scope over the whole conjunction.",
+    "text_sha256": "0b4e3f94e556ecc56d41131e687c9aaef4dc35755d2d508e5eda7537f9203863",
+    "decoder": "gaussian_blind_decoder",
+    "decoder_packet_sha256": "4afdd6e1c1ada0e6add8189a21a14962a41e5ce5cdee181c75b0ecfb323b9f56",
+    "decoder_run_sha256": "711d5eb6cd8c733550d5910068aa8d586e1689387c6939ce2b3e588a08678e74",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "0657bcd3db7d6ba13b3868f2472f78773bc98defc06bc0904728ce133e2e2c61",
+  "candidate_publication_context": {
+    "file": "b3e3324306035b24937085ed8bc53dc182da73b6163a0b5e6e931c797a2e290c",
+    "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity\n\n/-!\n# Actual translated Gaussian likelihood\n\nThe equal-covariance Gaussian ingredient of arXiv:2609.06906v1 Lemma6.3(ii).\nFor the actual law of x+sqrt(tau)Z, prove the withDensity equality relative to\nthe law centered at y, absolute continuity and an a.e. RN derivative identity.\nThe finite-dimensional real inner-product Borel domain includes dimension zero;\nstrictly positive tau excludes singular positive-dimensional zero-variance laws.\nThis is not yet the mixture reverse-transport or proxy-warmness theorem.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood\n\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal RealInnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.Measure\n\n/-- Exact likelihood ratio for actual translated isotropic Gaussians.\nThe explicit likelihood is measurable and the RN identity is almost everywhere. -/\ntheorem translated_gaussian_likelihood {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (x y : E) (τ : ℝ) (hτ : 0 < τ) :\n    let G := fun a : E => (stdGaussian E).map (fun z => a + Real.sqrt τ • z)\n    let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n    Measurable L ∧ G x = (G y).withDensity (fun z => ENNReal.ofReal (L z)) ∧\n      G x ≪ G y ∧ (G x).rnDeriv (G y) =ᵐ[G y] (fun z => ENNReal.ofReal (L z)) := by\n  have translated_density\n      (a : E) (τ : ℝ) (hτ : 0 < τ) :\n      (stdGaussian E).map (fun z => a + Real.sqrt τ • z) =\n        (volume : Measure E).withDensity (fun z => ENNReal.ofReal\n          (((Real.sqrt (2 * Real.pi * τ))⁻¹) ^ Module.finrank ℝ E *\n            Real.exp (-‖z-a‖ ^ 2 / (2 * τ)))) := by\n    have hmap : (stdGaussian E).map (fun z => a + Real.sqrt τ • z) =\n        ((stdGaussian E).map (fun z : E => Real.sqrt τ • z)).map (MeasurableEquiv.addLeft a) := by\n      rw [Measure.map_map (by fun_prop) (by fun_prop)]\n      rfl\n    rw [hmap,IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity τ hτ,\n      RadonNikodym.measurableEquiv_map_withDensity (MeasurableEquiv.addLeft a) _ (by fun_prop)]\n    have hvol : (volume : Measure E).map (MeasurableEquiv.addLeft a) = volume :=\n      Measure.IsAddLeftInvariant.map_add_left_eq_self a\n    rw [hvol]\n    congr 1\n    funext z\n    simp [MeasurableEquiv.addLeft,sub_eq_add_neg,add_comm]\n  let G := fun a : E => (stdGaussian E).map (fun z => a + Real.sqrt τ • z)\n  let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n  have hL : Measurable L := by fun_prop\n  have heq : G x = (G y).withDensity (fun z => ENNReal.ofReal (L z)) := by\n    dsimp only [G]\n    rw [translated_density x τ hτ,translated_density y τ hτ,\n      ← withDensity_mul _ (by fun_prop) (by fun_prop)]\n    congr 1\n    funext z\n    change ENNReal.ofReal (_ * Real.exp _) = ENNReal.ofReal (_ * Real.exp _) * ENNReal.ofReal (L z)\n    rw [← ENNReal.ofReal_mul (by positivity)]\n    congr 1\n    dsimp only [L]\n    simp only [mul_assoc]\n    rw [← Real.exp_add]\n    congr 2\n    have hnorm : ‖z-x‖ ^ 2 = ‖z-y‖ ^ 2 - 2 * inner ℝ (x-y) (z-y) + ‖x-y‖ ^ 2 := by\n      have hz : z-x = (z-y)-(x-y) := by abel\n      rw [hz,norm_sub_sq_real,real_inner_comm]\n    rw [hnorm]\n    field_simp\n    ring\n  let : IsProbabilityMeasure (G y) := Measure.isProbabilityMeasure_map (by fun_prop)\n  refine ⟨hL,heq,?_,?_⟩\n  · change G x ≪ G y\n    rw [heq]\n    exact withDensity_absolutelyContinuous _ _\n  · change (G x).rnDeriv (G y) =ᵐ[G y] (fun z => ENNReal.ofReal (L z))\n    rw [heq]\n    exact Measure.rnDeriv_withDensity _ (by fun_prop)\n\nend AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Lemma6.3(ii) Gaussian likelihood prerequisite",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded prerequisite proof, no author endorsement implied."
+    },
+    "statement": "SPHMC Lemma6.3(ii) uses the heat-flow bound R_q(Pdag*gamma_tau || Q*gamma_tau)<=q Winfinity(Pdag,Q)^2/(2tau). The selected expanded Gaussian prerequisite, not the full mixture inequality, is the actual likelihood between equal-covariance translates: for G_a=Law(a+sqrt(tau)Z), tau>0, L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)) satisfies G_x=G_y.withDensity(ofReal L), absolute continuity and a.e. RN identification under G_y. Measurability and the measure identity are proved rather than assumed.",
+    "formulae": [
+      {
+        "label": "Actual likelihood",
+        "tex": "G_a=\\operatorname{Law}(a+\\sqrt\\tau Z),\\quad L(z)=\\exp\\!\\left(\\frac{\\langle x-y,z-y\\rangle}{\\tau}-\\frac{\\|x-y\\|^2}{2\\tau}\\right),\\quad \\frac{dG_x}{dG_y}=L\\quad G_y\\text{-a.e.}"
+      }
+    ],
+    "assumptions": [
+      "Finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero.",
+      "Tau>0 and arbitrary centers x,y. The covariance is tau I, not sqrt(tau) I.",
+      "Both Gaussian laws are actual scaled/translated standard Gaussian pushforwards, not arbitrary laws assumed to have a density ratio.",
+      "The source states reverse transport on Euclidean probabilities. This coordinate-free Gaussian ingredient is an explicit expanded prerequisite, not the mixture theorem."
+    ],
+    "obligations": [
+      {
+        "id": "actual-rn",
+        "label": "Actual Gaussian withDensity equality, absolute continuity and RN identification"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+          "scope": "Expanded actual Gaussian ingredient of the stated Winfinity reverse-transport inequality; mixture step separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGaussianPowerMoment"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+      "title": "The actual translated Gaussian likelihood and RN derivative",
+      "statement": "Let E be a finite-dimensional real inner-product Borel space, x,y in E and tau>0. Define G_a as the pushforward of standard Gaussian by z to a+sqrt(tau)z, and L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable, G_x=G_y.withDensity(ofReal L), G_x is absolutely continuous with respect to G_y, and its RN derivative equals ofReal L almost everywhere under G_y.",
+      "formula": "G_a=\\operatorname{Law}(a+\\sqrt\\tau Z),\\quad L(z)=\\exp\\!\\left(\\frac{\\langle x-y,z-y\\rangle}{\\tau}-\\frac{\\|x-y\\|^2}{2\\tau}\\right),\\quad \\frac{dG_x}{dG_y}=L\\quad G_y\\text{-a.e.}",
+      "assumptions": [
+        "Finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero.",
+        "Tau>0 and arbitrary centers x,y. The covariance is tau I, not sqrt(tau) I.",
+        "Both Gaussian laws are actual scaled/translated standard Gaussian pushforwards, not arbitrary laws assumed to have a density ratio.",
+        "The source states reverse transport on Euclidean probabilities. This coordinate-free Gaussian ingredient is an explicit expanded prerequisite, not the mixture theorem."
+      ],
+      "steps": [
+        {
+          "title": "Translate the existing actual Gaussian density",
+          "text": "Apply the existing canonical-volume density theorem for sqrt(tau)Z. Push that measure through the measurable equivalence z to a+z. Translation preserves Haar volume and the inverse map is z-a, giving the normalized density centered at a.",
+          "formula": "G_a(dz)=C_\\tau e^{-\\|z-a\\|^2/(2\\tau)}\\,dz,\\qquad C_\\tau=(\\sqrt{2\\pi\\tau})^{-\\dim E}.",
+          "lean": "Local translated_density uses map_map, IsotropicGaussianDensity, measurableEquiv_map_withDensity and map_add_left_eq_self."
+        },
+        {
+          "title": "Prove actual multiplication of densities",
+          "text": "The norm identity norm(z-x)^2=norm(z-y)^2-2 inner(x-y,z-y)+norm(x-y)^2 shows the x-density equals the y-density times L. Measurability permits withDensity multiplication, proving equality of the actual measures.",
+          "formula": "C_\\tau e^{-\\|z-x\\|^2/(2\\tau)}=C_\\tau e^{-\\|z-y\\|^2/(2\\tau)}L(z).",
+          "lean": "norm_sub_sq_real and real_inner_comm establish the exponent identity; withDensity_mul identifies actual measures, not merely exponent expressions."
+        },
+        {
+          "title": "Identify absolute continuity and the RN version",
+          "text": "The explicit density is measurable and finite everywhere. Actual withDensity equality gives absolute continuity. G_y is a probability, so the standard RN identification theorem applies and yields the equality almost everywhere in the correct direction.",
+          "formula": "G_x\\ll G_y,\\qquad (G_x).\\operatorname{rnDeriv}(G_y)=L\\quad G_y\\text{-a.e.}",
+          "lean": "withDensity_absolutelyContinuous and Measure.rnDeriv_withDensity after deriving the probability instance for G_y."
+        }
+      ],
+      "lean_statement": "Measurability, actual withDensity equality, absolute continuity and RN a.e. equality for the explicitly defined Gaussian laws.",
+      "lean_proof": "The actual translated density helper is local; the public proof derives the likelihood equality and genuine RN identity.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.rnDeriv_withDensity",
+        "MeasureTheory.withDensity_mul"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+      "role": "prerequisite",
+      "supports": [
+        "actual-rn"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Euclidean probabilities and Gaussian heat kernel.",
+        "lean": "Finite-dimensional real inner-product Borel spaces, including zero dimension."
+      },
+      {
+        "source": "Lemma6.3(ii) invokes reverse transport for mixed Gaussian laws.",
+        "lean": "Actual equal-covariance Gaussian likelihood"
+      },
+      {
+        "source": "Gaussian heat covariance tau I with positive heat time; q>1 for Renyi.",
+        "lean": "Actual law of a+sqrt(tau)Z, tau>0; real q>1 in power consumer."
+      },
+      {
+        "source": "Gaussian likelihood and high-order integrability implicit in the standard Gaussian ingredient.",
+        "lean": "Actual volume-density multiplication, RN identity and integrability derived from existing Gaussian facts."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "36f777ae9549cc0d0e570afe6ad17b9c0e1f11ca57cba476f859ba9640754664"
+}

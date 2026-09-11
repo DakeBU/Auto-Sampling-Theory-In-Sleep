@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Lemma6.3(ii) and its Winfinity reverse-transport proof; expand its actual equal-covariance Gaussian ingredient",
   "target_statement": "For finite-dimensional real inner-product Borel E, tau>0 and actual G_a=Law(a+sqrt(tau)Z), prove G_x=G_y.withDensity(ofReal L), absolute continuity and RN derivative a.e. L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then prove actual q>1 likelihood/RN power integrability and exact moment exp(q(q-1)norm(x-y)^2/(2tau)), including zero dimension, using actual Gaussian projection/MGF rather than an assumed density-ratio or finite-moment contract.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [],
   "consumers": [
     "SPHMC GaussianPowerMoment.gaussian_power_moment"
@@ -25,11 +25,25 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCGaussianPowerMoment",
+        "result": "PASS3120; independent replay, standard axioms only, complete production proof review passed.",
+        "hashes": {
+          "AutoSamplingTheory/TechnicalLemmas/Measure/GaussianLikelihood.lean": "c4a9adc373fb23eeeaa444b37dba2ff2a20d1fa937070295e102773cc8add4f4",
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianPowerMoment.lean": "190e9c4a09bb7ec39c8831e5dc09a00d1b4f942bff8c96756c58b3c8d05dcfaf",
+          "Tests/SmoothedPicardHMCGaussianPowerMoment.lean": "b6c79149423d274cc0456c4b1191f9dad24076de47d821426fb0351bb7cf2863"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-power-moment.md",
     "planning_review": "Independent log_depth_source_review primary route audit and depth_commit_verifier exact-API route review; root rechecked primary and bounded definitions.",
-    "execution_boundary": "Root sole writer; truncation PR259 remains sole STABILIZING. Gaussian packet EXPLORING only.",
-    "ownership_note": "One actual paper consumer route; no invented second shared consumer."
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous truncation packet merged; website deployed and live anchors checked, merge Lean CI separate.",
+    "ownership_note": "One actual paper consumer route; no invented second shared consumer.",
+    "independent_proof_review": "runs/20260911-companion-priority/gaussian-power-moment.independent-proof-review.json",
+    "admission_boundary": "VERIFIED at 42b5dab20dbd9568fc5f1d19f31beff3fffb3716; aggregate and reader/graph integration pending.",
+    "independent_verification": "runs/20260911-companion-priority/gaussian-power-moment.verified-admission.json",
+    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3120, independent complete-proof review and final hash-bound source audits accepted."
   },
   "blocked": {
     "reason": "",

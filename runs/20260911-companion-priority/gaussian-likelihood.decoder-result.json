@@ -1,0 +1,16 @@
+{
+  "decoder": "gaussian_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent anonymous English reconstruction. Math rendered as plain text without changing quantifiers or scope. Decoder supplied hashes and compiled flag were not independently verified; no source-fidelity judgment.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-gaussian-a.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-GaussianLikelihood.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "4afdd6e1c1ada0e6add8189a21a14962a41e5ce5cdee181c75b0ecfb323b9f56",
+  "lean_statement_sha256": "6b5054a2f8fbe4dadaeff23c9c1439bd39f3f13dd8bad3d065314ca3c727a332",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product space E equipped with its normed additive commutative group structure and a Borel measurable structure, all x,y in E and real tau>0, define G(a) as the pushforward of canonical centered standard Gaussian on E by z to a+sqrt(tau)z. Define L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable; G(x)=G(y).withDensity(z to ENNReal.ofReal(L(z))); G(x) is absolutely continuous with respect to G(y); and the extended nonnegative RN derivative dG(x)/dG(y) equals ofReal L for G(y)-almost every z. The base measure is G(y) and the resulting weighted measure G(x). Dimension zero is included. There is no restriction on x,y, no extra regularity, integrability or normalization assumption, and no unspecified constant. The local definitions scope over the whole conjunction.",
+  "source_fidelity_verdict": null
+}

@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment
+
+#print axioms AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment

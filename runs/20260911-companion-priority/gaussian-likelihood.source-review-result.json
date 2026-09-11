@@ -1,0 +1,94 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent seven-slot source review; prose compacted without changing judgments or limits.",
+  "reviewer_packet_sha256": "36f777ae9549cc0d0e570afe6ad17b9c0e1f11ca57cba476f859ba9640754664",
+  "source_text_sha256": "bd82a9700bc76fe494905f249a6c8dbe2d99dfd9d225e06900d17c618720aac8",
+  "lean_statement_sha256": "6b5054a2f8fbe4dadaeff23c9c1439bd39f3f13dd8bad3d065314ca3c727a332",
+  "reconstruction_text_sha256": "0b4e3f94e556ecc56d41131e687c9aaef4dc35755d2d508e5eda7537f9203863",
+  "embedded_module_text_sha256": "b3e3324306035b24937085ed8bc53dc182da73b6163a0b5e6e931c797a2e290c",
+  "publication_binding_sha256": "0657bcd3db7d6ba13b3868f2472f78773bc98defc06bc0904728ce133e2e2c61",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Selected equal-covariance Gaussian ingredient of Lemma6.3(ii).",
+      "reconstructed": "Actual translated/scaled standard Gaussian laws and explicit likelihood.",
+      "relation": "explicit-elaboration",
+      "evidence": "translated_density derives actual pushforward volume densities and heq is a measure equality."
+    },
+    "domains": {
+      "original": "Euclidean source setting.",
+      "reconstructed": "Finite-dimensional real inner-product Borel spaces including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "Positive dimension omitted; extension explicitly disclosed."
+    },
+    "quantifiers": {
+      "original": "Arbitrary Gaussian centers and positive heat time.",
+      "reconstructed": "Every x,y,tau>0; same G,L throughout.",
+      "relation": "same",
+      "evidence": "No nonzero displacement or extra parameter restriction."
+    },
+    "assumptions": {
+      "original": "Actual Gaussian covariance tau I, tau>0.",
+      "reconstructed": "Same covariance, no assumed density, integrability or normalization.",
+      "relation": "equivalent",
+      "evidence": "Existing isotropic density and actual measurable pushforwards supply law and probability."
+    },
+    "conclusion": {
+      "original": "Selected Gaussian likelihood identity.",
+      "reconstructed": "Measurable L, actual withDensity, AC and RN G_y-a.e. in correct direction.",
+      "relation": "explicit-elaboration",
+      "evidence": "withDensity multiplication and RN theorem prove all actual measure conclusions."
+    },
+    "scopes": {
+      "original": "Gaussian prerequisite to mixed reverse transport.",
+      "reconstructed": "Single-pair Gaussian likelihood, no mixed laws or full divergence API.",
+      "relation": "explicit-elaboration",
+      "evidence": "Source contract and binding retain independent mixture/data-processing boundary."
+    },
+    "constant_dependencies": {
+      "original": "inner(x-y,z-y)/tau-norm(x-y)^2/(2tau).",
+      "reconstructed": "Exactly that exponent and covariance tau I.",
+      "relation": "same",
+      "evidence": "Norm-square expansion preserves signs, center and denominator."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Coordinate-free finite-dimensional and zero-dimensional extension.",
+      "evidence": "Positive dimension omitted; extension explicitly disclosed."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Expanded Gaussian prerequisite, not the full mixed reverse-transport assertion in Lemma6.3(ii).",
+      "evidence": "Source contract and binding retain independent mixture/data-processing boundary."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual isotropic density translated with inverse map and Haar invariance."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Norm identity multiplies actual densities in correct direction."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Reference probability law gives absolute continuity and correctly a.e. RN identity."
+      }
+    ]
+  },
+  "review_evidence": "Independent review compared fresh anonymous reconstructions with complete production and all3+5steps, using primary Lemma6.3 reading from this sequence. Canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON, and source/statement/reconstruction/module text hashes independently recomputed; embedded modules match production. Binding hashes authenticated fields, external preimages NOT independently recomputed. No compilation, modification, deployment or fixed-commit VERIFIED admission."
+}

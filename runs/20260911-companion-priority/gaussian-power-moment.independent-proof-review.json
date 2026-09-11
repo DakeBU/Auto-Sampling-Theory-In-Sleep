@@ -1,0 +1,28 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent read-only production proof review and focused replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCGaussianPowerMoment",
+  "result": "PASS3120, exit0, no new lint.",
+  "hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Measure/GaussianLikelihood.lean": "c4a9adc373fb23eeeaa444b37dba2ff2a20d1fa937070295e102773cc8add4f4",
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianPowerMoment.lean": "190e9c4a09bb7ec39c8831e5dc09a00d1b4f942bff8c96756c58b3c8d05dcfaf",
+    "Tests/SmoothedPicardHMCGaussianPowerMoment.lean": "b6c79149423d274cc0456c4b1191f9dad24076de47d821426fb0351bb7cf2863"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Actual scaled/translated Gaussian withDensity, absolute continuity and correct RN direction.",
+    "Actual one-dimensional Gaussian projection, exponential integrability and MGF derive moment; no likelihood or moment assumption.",
+    "Normalized logarithm acts on actual RN power integral, using finite explicit density a.e. rather than toReal infinity totalization.",
+    "Exact q(q-1)/(2tau) and q/(2tau) constants, zero dimension and zero displacement retained.",
+    "No mixture/data-processing, general reverse transport or complete divergence API. Tests only query axioms; actual consumer gaussian_power_moment."
+  ],
+  "qualifications": [
+    "Source audit, lesson acceptance and fixed-commit admission remain separate."
+  ]
+}
