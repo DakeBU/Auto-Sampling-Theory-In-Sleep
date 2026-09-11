@@ -22,10 +22,18 @@
   },
   "final_acceptance": {
     "owner": "andi-opt-c2-integration",
-    "checked_commit": "f4e8d075af28dbc3bbf3f52223035d470e8d93b6",
-    "gate": "PASS canonical gate including root Tests9118jobs, fake-closure and ATLAS.",
-    "protocol_tests": "PASS250tests,6skipped; publication35tests independently passed.",
-    "reader_graph": "All3graph checks and whole site check PASS. Actual desktop/mobile source and focused graph inspection; correct compiled target, C1 and Hessian-monotonicity parents, dashed reference signals, solid module ownership and partial chapter.",
-    "followup": "Old C1 scope sentence updated to point to separate C2 theorem; C1 code/statement/proof/reconstruction unchanged, old artifacts retained; fresh independent source review required for that changed lesson binding."
+    "checked_commit": "01ceeefa207915c119a533c99a76aea4cd5fcb01",
+    "gate": "PASS canonical gate including root Tests9120jobs, fake-closure and ATLAS36469declarations/26books, 2026-09-11T03:46:25.537792+00:00.",
+    "protocol_tests": "PASS250tests,6skipped on synchronized tree; publication36source items, semantic45audits and frontier54cells validated.",
+    "reader_graph": "PASS canonical website/scripts/build_site.py and check_site.py:12chapters,403compiled local leaves,590modules,3674declarations; all3C2 graph checks PASS. Prior desktop/mobile inspection reused for byte-identical C2 lessons; new C1 boundary confirmed in generated chapter and both lesson pages. Chapter remains partial.",
+    "followup": "C1 boundary-only update independently accepted using anti-anchored packet plus separately disclosed exact boundary supplement and actual lesson bytes. No C1 mathematical or decoder change; historical artifacts retained.",
+    "site_entrypoint": "The preliminary tools/astis.py site-build/site-check invocation omitted the canonical website source-index and graph enrichment and failed. Rebuilt and checked via the same website/scripts entrypoints as CI; no gate or renderer changed."
+  },
+  "latest_sync": {
+    "commit": "01ceeefa207915c119a533c99a76aea4cd5fcb01",
+    "upstream": "2f54fc9e768879b6d0a3b78ac3745df90f067453",
+    "preservation": "Independent c2_route_review audited unchanged RGOBackward accepted proof/publication artifacts against ebaa88025ba28ebc2013c959e9a0d6fca3ffc2b6. GitHub confirms PR264 merged. Stale reservation released with attributed preservation evidence, not a fresh proof claim.",
+    "ledger_merge": "Exact common prefix, exact local unique tail, exact upstream unique tail; only byte-identical duplicates omitted. Concurrent GaussianKL STABILIZING->VERIFIED preservation and original-owner STABILIZING->MERGED records are branch-local events, not a fabricated sequential chain. Original-owner upstream MERGED is replayed last. No timestamp sorting or historical event rewriting.",
+    "audit_merge": "Three-way audit-id merge preserves upstream entries and the separately independently reviewed C1 boundary binding."
   }
 }

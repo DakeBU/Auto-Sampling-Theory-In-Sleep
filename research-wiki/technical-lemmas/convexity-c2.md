@@ -68,3 +68,29 @@ Site build/check and all3graph checks passed:403registered leaves,588modules,
 C2 statement, directional-limit proof and focused graph/inspector. Two named
 parent references, solid structural versus dashed reference links, compiled
 status and partial chapter are correctly distinguished.
+
+Final synchronization01ceeef includes upstream2f54fc9 (PR264). Independent
+preservation review confirms RGOBackward's accepted artifacts unchanged from
+its historical VERIFIED commit; stale reservation release is attributed to
+c2_route_review, not represented as fresh proof verification. Registry merges
+preserve upstream audit objects and the independently accepted C1 boundary
+follow-up. Concurrent GaussianKL ledger tails retain exact original events:
+common prefix, local unique tail, upstream unique tail. Original-owner MERGED
+is replayed last; timestamps and from-states are not rewritten to invent a
+single sequential history. C1 scope now points to the separate C2 result;
+independent reviewer inspected both the anti-anchored packet and a separately
+bound exact boundary supplement. Historical C1 artifacts remain available.
+
+Final joint canonical gate passed on01ceeefa207915c119a533c99a76aea4cd5fcb01
+at2026-09-11T03:46:25.537792+00:00: root Tests9120jobs, fake-closure and ATLAS.
+The synchronized harness suite passed250tests with6skips; publication36items,
+semantic45audits and54frontier cells validated. The earlier pending statements
+above are historical checkpoints and are superseded by these accepted checks.
+
+Final canonical website build/check passed:12chapters,403compiled local leaves,
+590modules,3674declarations. All3C2 graph checks passed. The generic astis.py
+site entrypoint lacks the canonical website enrichment; its preliminary failed
+check was superseded by the CI website/scripts build/check without code changes.
+Previously inspected C2 lesson bytes remain identical; the independently
+reviewed C1 boundary is present in the generated chapter and both lesson pages.
+Ready for authorized direct-main integration; no chapter completion claim.
