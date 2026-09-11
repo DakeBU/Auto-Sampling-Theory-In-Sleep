@@ -60,3 +60,11 @@ partial and historical source debt assertions remain. The reviewer repeated
 all35 publication tests successfully. Final full harness test passed250 tests
 (with6 environment/optional skips); prior pre-admission failures and sandbox
 loopback restrictions were resolved without relaxing production gates.
+
+Canonical full gate passed on f4e8d075af28dbc3bbf3f52223035d470e8d93b6:
+root Tests9118jobs, fake-closure scan and ATLAS36469declarations/26books.
+Site build/check and all3graph checks passed:403registered leaves,588modules,
+3673declarations. Actual desktop1280x720 and mobile390x844 inspection covered
+C2 statement, directional-limit proof and focused graph/inspector. Two named
+parent references, solid structural versus dashed reference links, compiled
+status and partial chapter are correctly distinguished.

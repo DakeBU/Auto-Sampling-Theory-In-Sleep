@@ -19,5 +19,13 @@
     "findings": [],
     "scope": "Root Analysis/Tests reachability, exactly3 Registry entries400->403 and Basic, unchanged proof/test/lesson/publication, all41 upstream audits preserved, publication35items and semantic44audits passed.",
     "fixture_followup": "Independently reviewed be256cc3c9ade86e54266de21ebe33090a16e0e3fd541ab9199935a7d2f0b2e2: completed obligation card and explicit unbound-obligation TODO regression; chapter partial remains. Independent35publication tests PASS; no renderer/gate weakening."
+  },
+  "final_acceptance": {
+    "owner": "andi-opt-c2-integration",
+    "checked_commit": "f4e8d075af28dbc3bbf3f52223035d470e8d93b6",
+    "gate": "PASS canonical gate including root Tests9118jobs, fake-closure and ATLAS.",
+    "protocol_tests": "PASS250tests,6skipped; publication35tests independently passed.",
+    "reader_graph": "All3graph checks and whole site check PASS. Actual desktop/mobile source and focused graph inspection; correct compiled target, C1 and Hessian-monotonicity parents, dashed reference signals, solid module ownership and partial chapter.",
+    "followup": "Old C1 scope sentence updated to point to separate C2 theorem; C1 code/statement/proof/reconstruction unchanged, old artifacts retained; fresh independent source review required for that changed lesson binding."
   }
 }

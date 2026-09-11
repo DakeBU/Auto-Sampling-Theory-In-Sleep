@@ -62,3 +62,10 @@ Do not mark the complete proposition or Riemannian analogue finished.
 
 Integrated directly into main at c6419942741d2ef3fe535859c22ef222aa936448 after all local gates and
 independent reviews passed; the atomic remote push succeeded. No PR created.
+
+Current follow-up: ConvexityC2 now supplies the exact C2 Hessian equivalence
+and its derivative-limit/integral proof, documented in convexity-c2.md. Earlier
+C2-open wording above describes the C1 checkpoint only. The C1 reader scope
+sentence is refreshed with a new independent source review; its Lean statement,
+proof and blind reconstruction are unchanged. Next candidate: audit source
+smoothness equivalences and existing shared APIs before claiming a new edge.

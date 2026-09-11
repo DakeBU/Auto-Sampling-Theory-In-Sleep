@@ -144,7 +144,7 @@
         }
       ],
       "boundary": [
-        "Exactly Proposition 1.6 part 1. The source C²/Hessian part and the full proposition remain open.",
+        "Exactly Proposition 1.6 part 1. The separate ConvexityC2.strongConvexOn_iff_fderiv2_lower declaration now supplies the C²/Hessian equivalence; this declaration itself covers only the C¹ conditions.",
         "The declaration retains m≥0 even though its shared parents also handle signed m. No new convexity definition or caller-supplied gradient is introduced."
       ],
       "astis_dependencies": [

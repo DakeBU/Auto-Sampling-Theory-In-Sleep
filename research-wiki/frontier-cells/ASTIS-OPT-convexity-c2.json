@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Proposition 1.6 part 2, (1.5)-(1.6), final proof paragraph",
   "target_statement": "For C2 f on all Euclidean space and m>=0, chord strong convexity iff D2f(x)[v,v]>=m||v||^2.",
-  "status": "independently_verified",
+  "status": "stabilized",
   "parents": [
     "ASTIS-OPT-convexity-c1",
     "ASTIS-SHARED-gradient-hessian-equivalence"
@@ -32,8 +32,8 @@
       "lake build Tests.Shared.ConvexityC2 PASS2727 independently repeated, no warnings; standard axioms only."
     ],
     "independent_verification": "c2_route_review verified frozen724e90f code/test/lesson and source route; c2_blind_decoder and c2_source_reviewer independently completed packet-bound semantic reviews. Root records their recommendations with attribution.",
-    "root_build": "",
-    "graph_regeneration": "",
+    "root_build": "PASS canonical tools/astis.py check via website/scripts/lean_gate.py on f4e8d075af28dbc3bbf3f52223035d470e8d93b6, 2026-09-11T03:32:50.968152+00:00. Root Tests9118jobs, fake-closure scan and ATLAS36469declarations/26books. Full harness250tests,6skips; focused publication35tests independently repeated.",
+    "graph_regeneration": "PASS site build/check:12chapters,403registered leaves,588modules,3673declarations; graph-check on all3C2cells. Desktop1280x720 source statement and directional limit proof inspected; focused graph13nodes23edges, solid structural/dashed reference links,2actual named references and compiled status. Mobile390x844 reader and inspector inspected; viewport reset and temporary tab closed. Chapter remains partial.",
     "pr": ""
   },
   "blocked": {

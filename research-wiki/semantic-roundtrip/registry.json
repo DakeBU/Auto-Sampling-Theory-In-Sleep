@@ -9798,52 +9798,60 @@
       },
       "semantic_slots": {
         "objects": {
-          "original": "A C¹ real-valued function, its gradient, and three quantitative convexity conditions.",
-          "reconstructed": "The same function/gradient and the chord, lower-model, and gradient-monotonicity predicates.",
-          "relation": "equivalent",
-          "evidence": "The actual gradient is obtained from C¹. StrongConvexOn unfolds to the source chord formula including its m/2 normalization."
+          "original": "A real-valued function f, its Euclidean gradient, the convexity chord, a quadratic lower model and a gradient monotonicity inequality.",
+          "reconstructed": "The same f and conditions, with gradient as the actual Riesz representative of the Fréchet derivative and StrongConvexOn as the chord predicate.",
+          "relation": "explicit-elaboration",
+          "evidence": "The displayed theorem and lesson refer to the genuine gradient of f. The module obtains HasGradientAt from ContDiff rather than assuming an unrelated gradient field. The decoded chord formula identifies the exact meaning of StrongConvexOn."
         },
         "domains": {
-          "original": "Whole real Euclidean d-space and a real nonnegative modulus.",
-          "reconstructed": "EuclideanSpace ℝ (Fin d), d∈ℕ, on univ; m∈ℝ with 0≤m.",
-          "relation": "explicit-elaboration",
-          "evidence": "PiL2 provides the Euclidean inner product and norm, not the supremum norm on plain functions. Zero dimension is permitted and gives the harmless singleton case; it does not alter any positive-dimensional source instance."
+          "original": "All of real Euclidean d-space.",
+          "reconstructed": "EuclideanSpace ℝ (Fin d), with Set.univ as the domain of StrongConvexOn.",
+          "relation": "equivalent",
+          "evidence": "This is precisely the source whole-space Euclidean geometry and norm. The generalized Hilbert-space helper leaves do not enlarge the final theorem domain."
         },
         "quantifiers": {
-          "original": "All dimensions and admissible f,m; each condition is global in x,y and the chord in t∈[0,1].",
-          "reconstructed": "Implicit universal d,f,m, explicit 0≤m and C¹ premises, and both global equivalences.",
-          "relation": "equivalent",
-          "evidence": "Two iff results sharing the chord predicate express equivalence of all three conditions. Nonnegative weights summing to one are equivalent to the source t parameter."
+          "original": "For each d, f and m≥0; all x,y in the space and all chord parameters t∈[0,1].",
+          "reconstructed": "Universal implicit d,f,m, explicit m≥0 and C¹ premises, universally quantified x,y, and nonnegative chord weights a,b summing to one.",
+          "relation": "explicit-elaboration",
+          "evidence": "Setting a=1−t and b=t gives the source chord parameterization; conversely any such a,b gives t=b∈[0,1]. Zero dimension is explicitly allowed and harmless: the unique-point space satisfies all three conditions, and the source imposes no positive-dimension condition."
         },
         "assumptions": {
-          "original": "f is C¹ on all of ℝᵈ, and m≥0.",
-          "reconstructed": "ContDiff ℝ 1 f and the explicit premise _hm:0≤m.",
+          "original": "f is continuously differentiable on all ℝ^d and the fixed modulus m is nonnegative.",
+          "reconstructed": "ContDiff ℝ 1 f on all EuclideanSpace ℝ (Fin d), with 0≤m explicitly in the theorem.",
           "relation": "equivalent",
-          "evidence": "The sign premise is retained in the exported theorem despite being unused by the stronger supporting proof. Completeness and genuine gradients are consequences of the stated Euclidean C¹ setting, not extra assumptions."
+          "evidence": "Finite-dimensional continuous Fréchet differentiability agrees with source C¹. The nonnegativity hypothesis is retained even though helper proofs can handle signed m. The FTC helper derives integrability from continuity of the actual gradient pairing; it adds no hidden integrability, Hessian or smoothness premise."
         },
         "conclusion": {
-          "original": "The chord condition is equivalent to each of the lower-model and monotonicity conditions.",
-          "reconstructed": "(StrongConvexOn univ m f ↔ lower model) ∧ (StrongConvexOn univ m f ↔ gradient monotonicity).",
+          "original": "The chord condition is equivalent to the quadratic lower model and is also equivalent to quantitative gradient monotonicity.",
+          "reconstructed": "A conjunction of the same two iff statements.",
           "relation": "equivalent",
-          "evidence": "The lower model has +m/2*‖y−x‖²; the gradient inequality has m*‖y−x‖² and the same orientation. No implication is missing."
+          "evidence": "The code obtains chord⇒model from the named derivative-limit dependency, model⇒monotonicity by adding endpoint inequalities, and monotonicity⇒chord from the displayed two-segment FTC proof. The conjunction is equivalent to the lesson’s three-condition cycle. No Hessian equivalence occurs in this declaration."
         },
         "scopes": {
-          "original": "Only Proposition 1.6 part 1, equations (1.3)–(1.5).",
-          "reconstructed": "Only the C¹ three-condition equivalence.",
-          "relation": "same",
-          "evidence": "The authored lesson closes the three-arrow cycle. hforward calls the shared derivative-limit theorem; hsum adds endpoint models; the integral lemma closes the cycle. The candidate chapter also describes part 2 as a separate source obligation, but this declaration and binding do not certify it."
+          "original": "Only Proposition 1.6 part 1, equations (1.3)–(1.5), under C¹; the C² part is separate.",
+          "reconstructed": "The C¹ global pointwise cycle only; lesson title, original source text, theorem and binding supports all retain this boundary.",
+          "relation": "explicit-elaboration",
+          "evidence": "The publication chapter can state both C¹ and C² results, but this declaration supports only chord-to-model, model-to-monotonicity, monotonicity-to-chord and source-specialization-c1. Its code imports no C² result and asserts no Hessian conclusion. The name StrongConvexOn includes m=0, where its displayed chord means ordinary convexity."
         },
         "constant_dependencies": {
-          "original": "Fixed m≥0 and exact m/2 lower/chord corrections.",
-          "reconstructed": "Identical parameter and coefficients, uniform in dimension.",
+          "original": "The chord and lower-model quadratic coefficients are m/2; the monotonicity coefficient is the same m.",
+          "reconstructed": "The identical m/2 and m, with no dimension-dependent or unspecified constants.",
           "relation": "same",
-          "evidence": "There is no smoothness constant, Hessian bound, hidden dimension dependence, or restriction m>0; m=0 is retained."
+          "evidence": "Adding two endpoint lower models doubles the half-quadratic term to m. Conversely the integral of the segment parameter over [0,1] supplies 1/2. The code cancels only the positive factor s(1−t) when t<1; t=1 is handled separately and multiplication by t uses t≥0. No sign or norm division changes the constants."
         }
       },
-      "deltas": [],
+      "deltas": [
+        {
+          "slot": "scopes",
+          "kind": "separately-bound-reader-scope-update",
+          "severity": "informational",
+          "description": "The reader boundary now points to the separate C2 theorem while preserving this declaration as a C1-only result.",
+          "evidence": "Separate prose-scope inspection: read supplement runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json (SHA256 e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f) and current lesson website/content/declaration_lessons/convexity-c1.json (SHA256 8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6). Actual lesson bytes match the supplement hash; the final declaration boundary exactly matches current_boundary. The packet SHA and publication binding SHA in the supplement equal the canonical anti-anchored packet fields. Removing only boundary from the actual final lesson gives exactly the packet lesson. The boundary text was NOT present in the anti-anchored body; this inspection is separately attributed. Its explicit restriction of the C1 declaration to Proposition 1.6 part 1 agrees with the theorem and binding supports. Its reference to the separate C2 strongConvexOn_iff_fderiv2_lower theorem is supported by the C2 declaration and proof previously independently inspected in reviewer-2.json, not by transferring C2 content into the C1 theorem. It does not retrospectively change the original C1 source selection, confer Hessian coverage on that declaration, or erase its historical boundary."
+        }
+      ],
       "verdict": "equivalent-after-elaboration",
       "repairs": [],
-      "publication_binding_sha256": "9e5aec078954d29d6a3120e33ffcc86252f5c4f2535f4cc22a823a7f5c29d22f",
+      "publication_binding_sha256": "06285748c2e647c8081904065c56214882749688ce010b88ae334edaa071ce6c",
       "publication_context": {
         "file": "d75bc538690de20976bb1fb9e8fc4d52178d118a7bef10392287d748b62c9f11",
         "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.Calculus.Deriv.AffineMap\nimport Mathlib.Analysis.InnerProductSpace.PiL2\nimport Mathlib.Analysis.SpecialFunctions.Integrals.Basic\nimport Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus\nimport Mathlib.Tactic.Module\n\n/-!\n# C¹ convexity equivalences and the affine-segment integral proof\n\nSource: Sinho Chewi, Lectures on Optimization, arXiv:2605.07006v1,\nProposition 1.6 part 1, equations (1.3)–(1.5). The shared integral leaves\nretain a complete real inner-product space and signed modulus. The final\ndeclaration specializes to the source's Euclidean C¹, nonnegative-modulus\nsetting. The C²/Hessian part is not asserted here.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1\n\nopen Set MeasureTheory\nopen scoped RealInnerProductSpace\n\nset_option backward.isDefEq.respectTransparency false\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- The fundamental theorem of calculus along an affine segment. Continuity\nand interval integrability of the genuine gradient pairing follow from C¹. -/\ntheorem sub_eq_integral_gradient {f : E → ℝ} (hf : ContDiff ℝ 1 f) (x v : E) :\n    f (x + v) - f x = ∫ s : ℝ in 0..1, inner ℝ (gradient f (x + s • v)) v := by\n  have hc : Continuous (fun s : ℝ => inner ℝ (gradient f (x + s • v)) v) := by\n    simpa [gradient, Function.comp_def] using\n      ((hf.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add (continuous_id.smul continuous_const))).clm_apply continuous_const\n  have hd (s : ℝ) : HasDerivAt (fun t : ℝ => f (x + t • v))\n      (inner ℝ (gradient f (x + s • v)) v) s := by\n    convert! (hf.differentiable_one (x + s • v)).hasGradientAt.hasFDerivAt.comp_hasDerivAt s\n      (((hasDerivAt_id s).smul_const v).const_add x) using 1\n    simp\n  simpa using (intervalIntegral.integral_eq_sub_of_hasDerivAt\n    (fun s _ => hd s) (hc.intervalIntegrable 0 1)).symm\n\n/-- Quantitative gradient monotonicity implies the chord inequality by the\nsource's two affine-segment FTC identities and integration of their difference.\nThe modulus can be signed; no Hessian or extra integrability is assumed. -/\ntheorem strongConvexOn_univ_of_gradient_mono_integral\n    {f : E → ℝ} {m : ℝ} (hf : ContDiff ℝ 1 f)\n    (hm : ∀ x y : E, m * ‖y - x‖ ^ 2 ≤\n      inner ℝ (gradient f y - gradient f x) (y - x)) :\n    StrongConvexOn (univ : Set E) m f := by\n  refine ⟨convex_univ, ?_⟩\n  intro x _ y _ a t ha ht hat\n  have hat' : a = 1 - t := by linarith\n  subst a\n  have ht1 : t ≤ 1 := by linarith\n  rcases eq_or_lt_of_le ht1 with ht1 | ht1\n  · subst t\n    simp\n  let v := y - x\n  let A : ℝ → ℝ := fun s => inner ℝ (gradient f (x + s • v)) v\n  let B : ℝ → ℝ := fun s => inner ℝ (gradient f (x + (s * t) • v)) v\n  have hA : Continuous A := by\n    simpa [A, gradient, Function.comp_def] using\n      ((hf.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add (continuous_id.smul continuous_const))).clm_apply continuous_const\n  have hB : Continuous B := by\n    simpa [B, gradient, Function.comp_def] using\n      ((hf.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add ((continuous_id.mul continuous_const).smul continuous_const))).clm_apply continuous_const\n  have hbound : ∫ s : ℝ in 0..1, m * s * (1 - t) * ‖v‖ ^ 2 ≤\n      ∫ s : ℝ in 0..1, (A s - B s) := by\n    apply intervalIntegral.integral_mono_on_of_le_Ioo (by norm_num)\n      ((show Continuous (fun s : ℝ => m * s * (1 - t) * ‖v‖ ^ 2) by fun_prop).intervalIntegrable 0 1)\n      ((hA.sub hB).intervalIntegrable 0 1)\n    intro s hs\n    have h := hm (x + (s * t) • v) (x + s • v)\n    have hdis : (x + s • v) - (x + (s * t) • v) = (s * (1 - t)) • v := by module\n    rw [hdis, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs, inner_smul_right] at h\n    have hscaled : (s * (1 - t)) * (m * s * (1 - t) * ‖v‖ ^ 2) ≤\n        (s * (1 - t)) * inner ℝ\n          (gradient f (x + s • v) - gradient f (x + (s * t) • v)) v := by nlinarith [h]\n    have hcancel := le_of_mul_le_mul_left hscaled (mul_pos hs.1 (sub_pos.mpr ht1))\n    simpa [A, B, inner_sub_left] using hcancel\n  have hpoly : (∫ s : ℝ in 0..1, m * s * (1 - t) * ‖v‖ ^ 2) =\n      m / 2 * (1 - t) * ‖v‖ ^ 2 := by\n    rw [intervalIntegral.integral_mul_const, intervalIntegral.integral_mul_const,\n      intervalIntegral.integral_const_mul, integral_id]\n    norm_num only [one_pow, zero_pow, sub_zero]\n    ring\n  rw [hpoly, intervalIntegral.integral_sub (hA.intervalIntegrable 0 1)\n    (hB.intervalIntegrable 0 1)] at hbound\n  have hy := sub_eq_integral_gradient hf x v\n  have hz := sub_eq_integral_gradient hf x (t • v)\n  have hpoint : (1 - t) • x + t • y = x + t • v := by dsimp [v]; module\n  have hys : x + v = y := by simp [v]\n  rw [hys] at hy\n  change f y - f x = ∫ s : ℝ in 0..1, A s at hy\n  simp only [smul_smul, inner_smul_right, intervalIntegral.integral_const_mul] at hz\n  change f (x + t • v) - f x = t * ∫ s : ℝ in 0..1, B s at hz\n  change f ((1 - t) • x + t • y) ≤ (1 - t) * f x + t * f y -\n    (1 - t) * t * (m / 2 * ‖x - y‖ ^ 2)\n  rw [hpoint, norm_sub_rev]\n  change f (x + t • v) ≤ (1 - t) * f x + t * f y -\n    (1 - t) * t * (m / 2 * ‖v‖ ^ 2)\n  nlinarith [mul_le_mul_of_nonneg_left hbound ht]\n\n/-- Proposition 1.6, part 1: on all of Euclidean space, the C¹ chord,\nquadratic lower-model and gradient-monotonicity conditions are equivalent.\nThe nonnegative modulus is retained exactly as in the source. -/\ntheorem convexity_equivalences {d : ℕ} {f : EuclideanSpace ℝ (Fin d) → ℝ}\n    {m : ℝ} (_hm : 0 ≤ m) (hf : ContDiff ℝ 1 f) :\n    (StrongConvexOn univ m f ↔ ∀ x y,\n      f x + inner ℝ (gradient f x) (y - x) + m / 2 * ‖y - x‖ ^ 2 ≤ f y) ∧\n    (StrongConvexOn univ m f ↔ ∀ x y,\n      m * ‖y - x‖ ^ 2 ≤ inner ℝ (gradient f y - gradient f x) (y - x)) := by\n  have hg : ∀ z ∈ (univ : Set (EuclideanSpace ℝ (Fin d))),\n      HasGradientAt f (gradient f z) z := fun z _ => (hf.differentiable_one z).hasGradientAt\n  have hforward := fun (hsc : StrongConvexOn univ m f) x y =>\n    StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn hsc hg\n      (mem_univ x) (mem_univ y)\n  have hsum : (∀ x y, f x + inner ℝ (gradient f x) (y - x) +\n      m / 2 * ‖y - x‖ ^ 2 ≤ f y) → ∀ x y,\n      m * ‖y - x‖ ^ 2 ≤ inner ℝ (gradient f y - gradient f x) (y - x) := by\n    intro hl x y\n    have hxy := hl x y\n    have hyx := hl y x\n    rw [show x - y = -(y - x) by abel, inner_neg_right, norm_neg] at hyx\n    rw [inner_sub_left]\n    linarith\n  exact ⟨⟨hforward, fun h => strongConvexOn_univ_of_gradient_mono_integral hf (hsum h)⟩,\n    ⟨fun h => hsum (hforward h), strongConvexOn_univ_of_gradient_mono_integral hf⟩⟩\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1\n",
@@ -9983,13 +9991,13 @@
       },
       "source_review": {
         "state": "accepted",
-        "reviewer": "c1_source_reviewer",
+        "reviewer": "c2_source_reviewer",
         "independent_from_formalizer": true,
         "independent_from_decoder": true,
-        "evidence": "Independently inspected Proposition 1.6 part 1 and Definition 1.5 at https://arxiv.org/html/2605.07006v1#S1.SS2. Compared both exported iff statements, their actual Euclidean domain, C¹ and sign premises, authored lesson and the full proof cycle. Also read StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn: it supplies the chord derivative-limit step through a genuine HasGradientAt premise, which the candidate derives from C¹. Exact source boundary is supported. No assumption repair is proposed; no C²/Hessian completion is implied.",
-        "review_run_sha256": "ff4a61203ce3e10412923e1327aa608c5ee825e595f5a906fa0c46f5e5d7d31f",
-        "reviewer_packet_sha256": "f2bd7b3573635992bd9edf0d0afbcafc4e7e5761d2517be30ddc356b3de513a3",
-        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c1/source-review-2.json"
+        "evidence": "Independently compared all seven slots, the embedded C1 module, declaration lesson and original blind reconstruction with the primary source https://arxiv.org/html/2605.07006v1#S1.SS2, Definition 1.5 and Proposition 1.6 part 1, equations (1.3)–(1.5), using the source already opened during this review session. No canonical registry or previous C1 verdict was inspected. The final theorem faithfully states both equivalences on all Euclidean space with C1 and m≥0. Its proof cycle matches the source: chord derivative limit via the named prior dependency, addition of endpoint models, and the explicitly displayed two-segment FTC converse. Compilation remains packet-reported and is not rerun for this prose-only scope review. Separate prose-scope inspection: read supplement runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json (SHA256 e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f) and current lesson website/content/declaration_lessons/convexity-c1.json (SHA256 8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6). Actual lesson bytes match the supplement hash; the final declaration boundary exactly matches current_boundary. The packet SHA and publication binding SHA in the supplement equal the canonical anti-anchored packet fields. Removing only boundary from the actual final lesson gives exactly the packet lesson. The boundary text was NOT present in the anti-anchored body; this inspection is separately attributed. Its explicit restriction of the C1 declaration to Proposition 1.6 part 1 agrees with the theorem and binding supports. Its reference to the separate C2 strongConvexOn_iff_fderiv2_lower theorem is supported by the C2 declaration and proof previously independently inspected in reviewer-2.json, not by transferring C2 content into the C1 theorem. It does not retrospectively change the original C1 source selection, confer Hessian coverage on that declaration, or erase its historical boundary.",
+        "review_run_sha256": "c0dc77dd9103316631a870c5e68b44c2eeb1c6bccd15c6d820152b85157e9fd4",
+        "reviewer_packet_sha256": "e1b544a7380b4978faa096fb6af964ee1ce7ad5de141f84682f14a7f6c15e896",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-source-review.json"
       },
       "reconstruction": {
         "text": "For every natural number d (including zero), every f:ℝᵈ→ℝ on Euclidean space with its usual inner product and ℓ² norm, and every real m≥0, suppose f is continuously Fréchet differentiable on all of ℝᵈ. Then both equivalences hold: (1) f is m-strongly convex on all of ℝᵈ if and only if, for every x,y∈ℝᵈ, f(x)+⟨∇f(x),y−x⟩+(m/2)‖y−x‖²≤f(y); (2) f is m-strongly convex on all of ℝᵈ if and only if, for every x,y∈ℝᵈ, m‖y−x‖²≤⟨∇f(y)−∇f(x),y−x⟩. Here m-strong convexity means that for all x,y and real a,b≥0 with a+b=1, f(a x+b y)≤a f(x)+b f(y)−a b(m/2)‖x−y‖².",
