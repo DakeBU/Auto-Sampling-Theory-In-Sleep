@@ -1,0 +1,13 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "reviewed_raw_sha256": {
+    "tools/astis_publication.py": "0cc6d7f4135f4635b854ca71bca035f1b6fa745ed3c0b47ead27536d6a1451bf",
+    "tools/tests/test_astis_publication.py": "e5bb4236b3051b119144424744cac13370f6f1451b0b6d9940bff4ebd57f7c97"
+  },
+  "independent_tests": "40 publication regressions passed",
+  "result": "Accepted bounded private implementation ownership gate: explicit inventory and attribution, same-file public theorem, accepted source review, exact current module, fresh binding and strict validator. Public declarations, anonymous public instances, unindexed Unicode and private axioms receive no exemption. Unsupported multiline modifier syntax fails closed.",
+  "upstream_merge": "6476230cf42813a2b44493dcdee86183751e6cb0",
+  "preservation": "Independently checked exact ledger multiset union 352/354 to 361 with complete upstream order, three-way audit union 59 base/60 ours/61 theirs to 62, all upstream files outside merge surfaces unchanged and both root import sets preserved.",
+  "boundary": "Tooling review and source preservation only. Final base-aware check and CI remain required; no merge, deployment or paper completion claim."
+}
