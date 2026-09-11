@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA, merge and deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "boundary": "Complete production theorem locally compiled; full scratch independently development-reviewed. EXPLORING until publication/source admission; target identification, normalized accuracy and costs remain outside. Neither paper main result complete.",
   "scratch": ".astis/SmoothGradientArcClipping.lean",
@@ -68,5 +68,6 @@
     ]
   },
   "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
-  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
+  "admission_boundary": "VERIFIED at09c24a2. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.verified-admission.json"
 }

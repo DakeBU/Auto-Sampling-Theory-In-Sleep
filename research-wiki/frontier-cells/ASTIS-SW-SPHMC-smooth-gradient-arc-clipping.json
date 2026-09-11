@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "SPHMC arXiv:2609.06906v1 A.4(2), via arXiv:2602.01338v1 D.1 Claim 2, smooth s=1",
   "target_statement": "For finite-dimensional real Hilbert E with d>0, eta,beta,B>0, ell>=2, differentiable f with actual beta-Lipschitz gradient and norm(h-xp)<=sqrt(d eta), suppose 1/eta^2>=64 beta^2(ell*d/B+ell^2). For the actual same independent Gaussian input and gradient arc estimator W_r, tau_B(w)=max(abs(w)-B,0), prove measurability and integrability of exp(2ell*tau_B(W_r))-1 and its expectation<=2 exp(-min(B^2/(40 beta^2 d eta^2),B/(8 beta eta))). All real r is a disclosed extension of source [0,1].",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-smooth-gradient-arc-moment"
   ],
@@ -43,7 +43,8 @@
       "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
       "result": "Independent complete compile exit0, standard three axioms, no lint. Actual same W/input/arc consumer accepted; pointwise nonnegative domination before integral, source caps and exact40/8/factor2 checked. No VERIFIED."
     },
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED at09c24a2. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.verified-admission.json"
   },
   "blocked": {
     "reason": "",
