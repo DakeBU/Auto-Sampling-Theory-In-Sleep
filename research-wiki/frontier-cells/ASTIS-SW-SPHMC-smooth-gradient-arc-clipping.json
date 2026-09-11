@@ -37,7 +37,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-smooth-gradient-arc-clipping.md",
     "planning_review": "Independent depth_commit_verifier source and route review confirmed exact Claim2 smooth constants, lambda minimum, MGF range and integrable pointwise domination.",
-    "execution_boundary": "Root sole writer; parent actual PR279 merged, no STABILIZING packet. Clipping consumer EXPLORING.",
+    "execution_boundary": "Root sole writer; SmoothGradientArcClipping sole STABILIZING; accepted source and compiled production unchanged.",
     "development_review": {
       "reviewer": "depth_commit_verifier",
       "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
