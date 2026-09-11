@@ -91,7 +91,15 @@
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/263",
     "state": "DRAFT",
-    "head": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
-    "boundary": "Candidate CI and final independent merge review pending."
+    "head": "See final PR head; ed623824462ca7fc4878bdec8cf1ba8bf2f4faea is historical local QA only",
+    "boundary": "Conflict resolved locally; new candidate aggregate, CI and independent integration review pending."
+  },
+  "upstream_integration": {
+    "upstream": "b199693",
+    "merge_commit": "9fa45b53317196b0a53b01fa3a24bfb43a29c8a3",
+    "reason": "PR263 conflicted after collaborator C1 main integration.",
+    "preservation": "Retained all collaborator C1 Lean, root imports, tests, lessons and publication changes. Registry three-way by audit ID:37 base,38 ours,40 theirs ->41. Ledger exact228-line base plus7 ours and8 theirs, no rewritten rows.",
+    "prior_review": "depth_commit_verifier accepted unchanged fixed-candidate mathematical diff, but withheld merge for CONFLICTING/no final-head CI.",
+    "verification": "New aggregate and final-head site CI required after upstream changes. Prior local browser/gate records belong exclusively to ed623824462ca7fc4878bdec8cf1ba8bf2f4faea."
   }
 }
