@@ -6,7 +6,7 @@
   "title": "Actual clipped-gradient Poisson retry program",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Appendix A.4(2), external arXiv:2602.01338v1 Appendix D.1 Eq18; actual Poisson mechanism SPHMC A.1 Lemma A.2 and arXiv:2608.05022v1 Algorithm1",
   "target_statement": "For finite-dimensional real inner-product Borel E, differentiable f with beta-Lipschitz actual gradient, beta>=0, eta>0, B>0, fix x0,xp and h=x0-eta gradient f xp. Use actual q=N(h,eta I), nu=Uniform time prod N(0,eta I), W=<actual arc velocity,gradient f xp-gradient f arc>, clipped W=min B(max(-B)W), mB=integral clipped W, and common C from the actual unclipped mean. Prove joint measurability including x, unclipped/clipped/excess L1 for each x, abs(mB)<=B and abs(mB-(<gradient f xp,x>-f x+C))<=integral max(abs W-B,0). Prove exp(-B)<=ZB=integral exp(mB) dq<=exp B, actual iid Poisson(2B) full-batch retry output law=q.tilted mB with explicit never-hit default and null never-hit event, and actual full-batch expected estimator count=2B/p<=2B exp(2B), p=exp(-B)ZB.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-gradient-arc-mean",
     "ASTIS-SW-SPHMC-poisson-rejection"
@@ -40,7 +40,8 @@
     "planning_review": "Independent log_depth_source_review accepted exact actual-program consumer, identified fixed auxiliary law and cached reference gradient cost boundaries. Prior depth next-consumer review in gradient-arc-mean blueprint.",
     "execution_boundary": "Root sole writer; mean PR281 merged, no active stabilizer. Actual clipped program EXPLORING.",
     "development_boundary": "Complete production compiled; independent full scratch compile/proof review and source preaudit accepted fixed050abeb1. No formal source admission or PROVED_LOCAL yet.",
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED atf334384. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/clipped-gradient-program.verified-admission.json"
   },
   "blocked": {
     "reason": "",
