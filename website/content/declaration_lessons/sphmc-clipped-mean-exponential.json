@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential",
+      "title": "Actual clipped-output exponential mean-error bounds",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "Appendix D.1 Claim2, Eq18 and Lemma B.12",
+          "scope": "Actual exponential clipping moment needed for normalized comparison."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.4(2)",
+          "scope": "Terminal sampler consumer; full accuracy and costs remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCClippedMeanExponential"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space, d=finrank(E)>0. The actual potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2.",
+        "Set g=grad f(x_plus), h=x0-eta*g. Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. These residual and step assumptions are retained exactly.",
+        "Let P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z), define W(x,s)=<v,g-grad f(gamma)>.",
+        "Define m(x)=integral W(x,s) dnu(s), mB(x)=integral min(B,max(-B,W(x,s))) dnu(s), V(x)=integral max(abs(W(x,s))-B,0) dnu(s), qhat=q.tilted(mB), and K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). All functions and measures are actual definitions, not abstract witnesses."
+      ],
+      "statement": "m, mB and V are measurable. For every x, V(x)>=0 and abs(m(x)-mB(x))<=V(x). The function J(x)=exp(2*ell*V(x))-1 is integrable under q and qhat, with respective integrals at most 2*exp(-K) and 2*exp(2*B-K). The function exp(2*ell*abs(m(x)-mB(x)))-1 is qhat-integrable and its integral is at most 2*exp(2*B-K).",
+      "formula": "\\mathbb E_q[e^{2\\ell V}-1]\\le 2e^{-K},\\qquad \\mathbb E_{\\widehat q}[e^{2\\ell V}-1]\\le 2e^{2B-K},\\qquad \\mathbb E_{\\widehat q}[e^{2\\ell|m-m_B|}-1]\\le 2e^{2B-K}.",
+      "boundary": "This proves three exponential-minus-one integrability statements and their explicit bounds under the actual proposal and actual clipped tilt. ClippedGradientProgram already identifies qhat with the actual program output; this theorem does not repeat its pushforward equality. It does not assert normalized Radon-Nikodym power identities, a Renyi divergence bound, an ideal-target equality, a joint adaptive kernel, initialization or query cost. The factor 2 is retained and no logarithmic estimate is claimed. Neither full companion paper is complete.",
+      "steps": [
+        {
+          "title": "Use the actual fixed-time clipping estimate",
+          "text": "For each real time r, the parent theorem applies to the actual independent proposal and auxiliary Gaussians. It proves integrability of the nonnegative exponential excess and its uniform bound. Joint measurability follows from the actual Lipschitz gradient and the explicit trigonometric estimator. Integrability of the section integrals follows by domination with the constant bound, so the product integrability criterion proves genuine joint L1 before any use of Fubini.",
+          "formula": "H(r,x,z)=e^{2\\ell(|W(x,r,z)|-B)_+}-1\\ge0,\\quad \\int H(r,x,z)\\,d(q\\otimes P)\\le2e^{-K}.",
+          "lean": "product_bound; actual_time_product; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping"
+        },
+        {
+          "title": "Reorder the independent inputs with a measure-preserving map",
+          "text": "Compose the measurable product associator, the swap of the proposal and time coordinates, and the inverse associator. This gives the actual map (x,(r,z)) to (r,(x,z)). Its measure-preserving property transfers joint integrability and the integral exactly, without replacing any marginal distribution or introducing a new independence assumption.",
+          "formula": "T_*(q\\otimes(U\\otimes P))=U\\otimes(q\\otimes P),\\qquad T(x,(r,z))=(r,(x,z)).",
+          "lean": "swap_time_preserving; swap_time_integrable; MeasureTheory.Measure.measurePreserving_swap"
+        },
+        {
+          "title": "Apply conditional Jensen only after establishing integrability",
+          "text": "The program parent proves integrability of the truncation excess for every fixed x. Genuine joint exponential L1 supplies exponential section integrability for q-almost every x. Apply convexity of the exponential on those sections. Measurability of V follows from the measurable parameter integral. The resulting nonnegative Jensen bound dominates J by an integrable section integral, proving outer L1 before integrating the inequality.",
+          "formula": "e^{2\\ell V(x)}-1\\le\\int\\!\\left(e^{2\\ell(|W(x,s)|-B)_+}-1\\right)d\\nu(s)\\quad(q\\text{-a.e. }x).",
+          "lean": "exponential_mean_bound; integrated_exponential_mean; actual_proposal_bound; convexOn_exp.map_integral_le"
+        },
+        {
+          "title": "Identify the actual means and the pointwise truncation error",
+          "text": "GradientArcMean identifies the untruncated mean with the actual affine potential expression using a single constant chosen independently of x. ClippedGradientProgram proves the corresponding error estimate and measurability for the actual clipped mean. Substituting the common mean identity gives the pointwise bound for every x. Nonnegativity of V comes from its nonnegative integrand.",
+          "formula": "m(x)=\\langle g,x\\rangle-f(x)+C,\\qquad 0\\le V(x),\\qquad |m(x)-m_B(x)|\\le V(x).",
+          "lean": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program"
+        },
+        {
+          "title": "Bound the actual clipped density using its positive normalizer",
+          "text": "The program parent gives abs(mB)<=B and ZB>=exp(-B)>0. Thus the actual clipped density w=exp(mB)/ZB is nonnegative, measurable and at most exp(2B). Dominate w*J by exp(2B)*J to prove weighted integrability first. The withDensity equivalence then gives J integrability under qhat, and integration of the density bound yields the clipped-output estimate. No closeness metric is used to transport this unbounded function.",
+          "formula": "Z_B=\\int e^{m_B}\\,dq\\ge e^{-B}>0,\\qquad 0\\le\\frac{e^{m_B(x)}}{Z_B}\\le e^{2B},\\qquad \\int J\\,d\\widehat q\\le e^{2B}\\int J\\,dq.",
+          "lean": "clipped_density_transfer; MeasureTheory.integrable_withDensity_iff_integrable_smul'; MeasureTheory.integral_withDensity_eq_integral_toReal_smul"
+        },
+        {
+          "title": "Dominate the true mean error under the clipped output law",
+          "text": "Since ell>=2, monotonicity of the exponential and the pointwise mean-error bound dominate the nonnegative true-error exponential by J. Its measurability and this domination prove its integrability under the actual clipped output law. Integrating gives the same bound, retaining the prefactor 2. Normalized comparison with the ideal law is a subsequent theorem obligation.",
+          "formula": "0\\le e^{2\\ell|m-m_B|}-1\\le e^{2\\ell V}-1,\\qquad \\int(e^{2\\ell|m-m_B|}-1)\\,d\\widehat q\\le2e^{2B-K}.",
+          "lean": "clipped_mean_exponential; MeasureTheory.Integrable.mono'; MeasureTheory.integral_mono"
+        }
+      ],
+      "lean_statement": "Three measurable actual means/excess functions, pointwise nonnegative excess and mean-error bound, three outer exponential L1 statements and three explicit integral bounds.",
+      "lean_proof": "Actual product L1, measure-preserving reordering, conditional Jensen, actual mean identity, positive clipped normalizer and density domination.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean"
+      ],
+      "mathlib_dependencies": [
+        "convexOn_exp.map_integral_le",
+        "MeasureTheory.integrable_prod_iff",
+        "MeasureTheory.integrable_withDensity_iff_integrable_smul'",
+        "MeasureTheory.integral_mono"
+      ]
+    }
+  ]
+}
