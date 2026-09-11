@@ -1,0 +1,26 @@
+{
+  "pr": 288,
+  "merge_commit": "61c710cb2d73b333fbd684571910b12d28a699a0",
+  "checked_at": "2026-09-11T20:20:12.086223+00:00",
+  "site_run": 34643268151,
+  "site_result": "SUCCESS including deploy",
+  "pages": [
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "status": 200,
+      "merge_commit_present": true,
+      "declaration_present": true,
+      "sha256": "2fd7e987ff972e46b677177a8a3be2b38e0f6fcd161ba9b4a9e60b63b6b388ef"
+    },
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-terminalreferencegradientdescent.html",
+      "status": 200,
+      "merge_commit_present": true,
+      "declaration_present": true,
+      "sha256": "0e5483941893fe2cb05b7cd781c60ea7c6564ea7877c7e31b23ffaa7dff62900"
+    }
+  ],
+  "boundary": "Fresh live HTTP source binding and declaration presence; actual visual interactions separately checked locally. Merge Lean and Site CI passed. No full-paper completion claim.",
+  "merge_lean_run": 34643268197,
+  "merge_lean_result": "SUCCESS"
+}

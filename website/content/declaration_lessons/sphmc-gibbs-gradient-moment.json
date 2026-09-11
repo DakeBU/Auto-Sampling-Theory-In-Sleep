@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment",
+      "title": "Actual Gibbs gradient second moment",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Section6.3 ideal Gibbs gradient moment",
+          "scope": "Ideal-law moment input to reference-point initialization; actual history and total cost remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.GibbsGradientMoment"
+      ],
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra and canonical Lebesgue volume. Dimension zero is included. U:E->R is twice continuously differentiable.",
+        "The nonnegative real parameters alpha,beta satisfy 0<alpha and alpha<=beta. At every x,v the genuine Hessian obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2. The alpha<=beta assumption remains in the public statement, despite its unused binder name.",
+        "Define mu=volume.tilted(-U), the actual normalized exponential Gibbs measure. For the standard orthonormal basis (e_i), define H(x)=sum_i D2U(x)[e_i,e_i]. No minimizer, normalizing constant, weighted integrability or moment bound is supplied as an assumption."
+      ],
+      "statement": "The actual measure mu is a probability measure. Both norm(grad U)^2 and H are integrable under mu. Their expectations are equal, and the expected squared gradient is at most beta*finrank(E). These are five public conclusions; bare exponential integrability, weighted linear integrability and directional integration by parts are proved internally.",
+      "formula": "\\mu=(\\mathrm{vol}).\\mathrm{tilted}(-U),\\qquad H(x)=\\sum_i D^2U(x)[e_i,e_i],\\qquad \\mathbb E_\\mu\\|\\nabla U\\|^2=\\mathbb E_\\mu H\\le\\beta\\dim E.",
+      "boundary": "This is the ideal Gibbs gradient-moment component used in SPHMC Section6.3. The coordinate-free finite-dimensional formulation includes dimension zero. The general beta bound specializes to the source normalized beta=1 setting. The alpha<=beta hypothesis is retained. H is the genuine Hessian diagonal sum in the standard orthonormal basis; no separate abstract trace/Laplacian API or basis-independence theorem is asserted. All weighted L1 and normalization prerequisites are proved from actual curvature. The Gaussian domination constants may depend on alpha,beta,U(0),grad U(0), but the final expectation bound is beta*finrank(E). Approximate or smoothed output moments, random-history conditioning, Gaussian perturbation, and summed reference-query cost remain separate obligations. This does not complete either paper.",
+      "steps": [
+        {
+          "title": "Obtain actual curvature, gradient growth and a Gaussian envelope",
+          "text": "Instantiate QuadraticRegularization at zero regularization precision to obtain strong convexity and Lipschitz continuity of the actual gradient. Thus norm(grad U(x))<=G+beta*norm(x), with G=norm(grad U(0)). The first-order strong-convexity inequality at zero and Young inequality give U(x)>=b+a*norm(x)^2, where a=alpha/4>0 and b=U(0)-G^2/alpha. No minimizer is chosen. The existing Gibbs-integrability theorem supplies integrability of exp(-U).",
+          "formula": "\\|\\nabla U(x)\\|\\le G+\\beta\\|x\\|,\\quad U(x)\\ge b+a\\|x\\|^2,\\quad a=\\alpha/4,\\quad b=U(0)-G^2/\\alpha.",
+          "lean": "weighted_gradient; QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic; StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn; StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn"
+        },
+        {
+          "title": "Prove weighted square and first-power integrability",
+          "text": "The inequality t<=exp(t), with t=a*r^2/2, absorbs r^2 into a Gaussian with half the exponent. For a continuous scalar q with norm(q(x))<=A+B*norm(x) and exp(w(x))<=C*exp(-a*norm(x)^2), expand the square and use this absorption to obtain the displayed integrable majorant. Apply it to q=norm(grad U), w=-U. Then norm(grad U)<=1+norm(grad U)^2 gives the weighted first-power L1 bound. Each domination is against a genuinely integrable Gaussian, not merely a bounded function.",
+          "formula": "r^2e^{-ar^2}\\le\\frac2a e^{-ar^2/2},\\qquad e^{w(x)}q(x)^2\\le C\\left(2A^2+\\frac{4B^2}{a}\\right)e^{-a\\|x\\|^2/2}.",
+          "lean": "absorb_quadratic; weighted_square; weighted_gradient; Integrability.integrable_exp_neg_mul_norm_sq; MeasureTheory.Integrable.mono'"
+        },
+        {
+          "title": "Apply full-space integration by parts only after all three L1 checks",
+          "text": "Fix a unit basis direction v and put f=exp(-U), q=DU[v]. C2 gives q in C1 and its actual directional derivative D2U[v,v]; the derivative of f is -f*q. The three products needed by the Haar-volume IBP theorem are -f*q^2, f*D2U[v,v], and f*q. Weighted gradient-square and gradient-norm integrability bound the first and third; 0<=D2U[v,v]<=beta and bare weight integrability bound the second. Only then apply the full-space IBP identity. There is no assumed vanishing boundary term, cutoff or third derivative.",
+          "formula": "D_vf=-fq,\\quad D_vq=D^2U[v,v],\\qquad \\int fD^2U[v,v]= -\\int (D_vf)q=\\int fq^2.",
+          "lean": "directional_ibp; MeasureTheory.integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable"
+        },
+        {
+          "title": "Sum the directional identities and identify the actual gradient square",
+          "text": "The standard orthonormal basis has finitely many vectors. Each weighted directional square and Hessian diagonal term is integrable, so their sums may pass through the integral. Parseval identifies the sum of squared genuine directional derivatives with the squared norm of the actual gradient. This proves the unnormalized weighted identity and integrability of the weighted Hessian diagonal sum, including the empty basis in dimension zero.",
+          "formula": "\\sum_i(DU[e_i])^2=\\|\\nabla U\\|^2,\\qquad \\int e^{-U}\\|\\nabla U\\|^2=\\int e^{-U}\\sum_iD^2U[e_i,e_i].",
+          "lean": "gibbs_gradient_moment: hdir, hHi, hparseval, heq; OrthonormalBasis.sum_sq_norm_inner_left; MeasureTheory.integral_finsetSum"
+        },
+        {
+          "title": "Normalize the actual exponential measure and transfer L1",
+          "text": "Canonical volume is nonzero, also in dimension zero. The positive integrable exponential therefore has a positive finite normalizer, as used by isProbabilityMeasure_tilted. The tilted-integrability equivalence converts the two proved weighted L1 statements into actual Gibbs L1 statements. integral_tilted rewrites both expectations with the same normalizing denominator; their equality follows from the already proved weighted identity. No undefined-integral fallback or supplied probability assumption is used.",
+          "formula": "Z=\\int e^{-U}>0,\\qquad \\mathbb E_\\mu g=\\frac{\\int e^{-U}g}{Z},\\qquad \\|\\nabla U\\|^2,H\\in L^1(\\mu).",
+          "lean": "gibbs_gradient_moment: hgμ, hHμ, htilt, heqμ; MeasureTheory.isProbabilityMeasure_tilted; MeasureTheory.integrable_tilted_iff; MeasureTheory.integral_tilted"
+        },
+        {
+          "title": "Use the Hessian upper bound under the same Gibbs law",
+          "text": "Every basis vector has unit norm, so each Hessian diagonal entry is at most beta. Their sum is at most beta times finrank(E). Integrate this inequality under the actual probability measure and use the moment identity. The result concerns the ideal Gibbs law; the actual approximate initialization law still needs its own moment-transfer proof before supplying a reference-descent cost bound.",
+          "formula": "H(x)\\le\\beta\\dim E\\quad\\Longrightarrow\\quad \\mathbb E_\\mu\\|\\nabla U\\|^2=\\mathbb E_\\mu H\\le\\beta\\dim E.",
+          "lean": "gibbs_gradient_moment: hdiag, hbound; MeasureTheory.integral_mono; MeasureTheory.probReal_univ"
+        }
+      ],
+      "lean_statement": "Actual normalized Gibbs probability, gradient-square and Hessian-diagonal-sum L1, expectation identity and beta*finrank bound.",
+      "lean_proof": "Derive noncompact weighted integrability from curvature, apply directional Haar IBP, sum via Parseval, normalize the actual exponential measure and integrate the Hessian bound.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_mul_norm_sq",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable",
+        "OrthonormalBasis.sum_sq_norm_inner_left",
+        "MeasureTheory.integrable_finsetSum",
+        "MeasureTheory.integral_finsetSum",
+        "MeasureTheory.isProbabilityMeasure_tilted",
+        "MeasureTheory.integrable_tilted_iff",
+        "MeasureTheory.integral_tilted",
+        "MeasureTheory.integral_mono"
+      ]
+    }
+  ]
+}

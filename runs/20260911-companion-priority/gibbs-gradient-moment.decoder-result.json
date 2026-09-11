@@ -1,0 +1,29 @@
+{
+  "decoder": "blind_reconstruction_r",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of the independent anonymous reconstruction and its requested exact measure-definition amendment.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-r.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-GibbsGradientMoment.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "d8d893cf7c266e83aff4c19553407aa37fe0c704c73a360f3ba8e68fd7c7695b",
+  "lean_statement_sha256": "fb0e1631711a05ef96df649ad8845a0190d18f39038f229a0d8aab017514afaa",
+  "reconstructed_theorem_text": "For every finite-dimensional complete real inner-product space E with its Borel structure and canonical Lebesgue volume, let d=dim_R E, with no assumption d>0. For every U:E->R and nonnegative real alpha,beta, assume 0<alpha, alpha<=beta, U is globally C2, and alpha||v||^2<=D2U(x)[v,v]<=beta||v||^2 for all x,v. Put Z=integral exp(-U) against volume, a real Bochner integral with value zero if not integrable. Define mu=volume.withDensity(x -> ENNReal.ofReal(exp(-U(x))/Z)), with real division by zero equal to zero and ofReal truncating negative values to zero. This is precisely the given tilted measure. For the full standard orthonormal basis e_i indexed by Fin(d), set H(x)=sum_i D2U(x)[e_i,e_i]. Then five conclusions hold under the same mu: mu is probability; x->||grad U(x)||^2 is Bochner integrable; H is Bochner integrable; integral ||grad U||^2 dmu=integral H dmu; and this integral<=beta*d. All derivatives and gradients are actual. The numeric upper bound explicitly depends only on beta,d; alpha remains a strictly positive assumption parameter. Dimension zero uses the empty basis sum.",
+  "source_fidelity_verdict": null,
+  "decoder_notes": [
+    "Fresh source-blind decoder read only the anonymous type and approved generic definition context. No source identity, source-equivalence or compile verdict.",
+    "Initial reconstruction preserved all five conclusions but noted the generic tilted operation had not specified degenerate cases. The same source-blind decoder reread the packet after only an exact generic Mathlib definition was appended and confirmed no substantive ambiguity remains.",
+    "The complete measure definition uses a real Bochner denominator, ofReal density and real division-by-zero convention. Probability is a proved conclusion, not an assumption. Z=0 would yield the zero measure and is incompatible with that conclusion.",
+    "Positive finite normalizer is not a sixth explicit conjunct. U is not assumed normalized, and no minimizer, extra smoothness or boundary decay assumption is added.",
+    "H is the displayed full basis diagonal sum. The theorem does not assert pointwise gradient-square equals H, a general vector-field IBP formula, sampling algorithm properties, dynamic convergence or optimality of the constant.",
+    "The final packet hash was read from the packet, not independently recomputed by the decoder. Five conclusions and their scopes remained unchanged after the definition clarification."
+  ],
+  "clarification_history": {
+    "initial_packet_sha256": "a8c841bd4feaa7979e4938080d219af1e76a1ae776e496478ffe8602e80d62ae",
+    "change": "Only generic exact Mathlib tilted definition context appended; compiled type unchanged.",
+    "final_ambiguities": []
+  }
+}

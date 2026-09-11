@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "16acdc7e6074fc7813072497ccfdb63ea75f4675",
+    "gate": {
+      "production": "Production/test unchanged; independent focused PASS3495, standard three axioms; full scratch math and production checked. Independent915-character Meta.isDefEq replay accepted.",
+      "publication": "Independent reviewed validator and actual publication check --base32f50f4fb302e19bd1d61d0af41df238e78d168d PASS64 with four private helpers covered. Source, statement, reconstruction, identical final anonymous/canonical packet, decoder/reviewer packet/run hashes and accurate generic tilted definition checked. External binding preimage independently recomputed.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-GibbsGradientMoment",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_r",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "200dffe7f662e5513ec4550fe49d19db0bea6f6fd0df8f37a049a61d688d26e9",
+        "decoder_packet_sha256": "d8d893cf7c266e83aff4c19553407aa37fe0c704c73a360f3ba8e68fd7c7695b",
+        "decoder_run_sha256": "841d42adcd03839731295946a41df6b1d299a181273fb025f102f27bf10d8e97",
+        "reviewer_packet_sha256": "eae70d51c5d6b45df0bd14115bd5f81f1274d89fa9b16f239502569b9d70c137",
+        "review_run_sha256": "fd6a44bf5d35cbbb6174619fe636882c04c50f822054f080e4b89a760fd1fee9",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual ideal Gibbs probability, weighted integrability, directional IBP, normalized moment identity and beta*dimension bound."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment"
+    ],
+    "independent_checks": [
+      "Seven semantic slots, six authored steps, five informational differences; no blockers/repairs.",
+      "Fixed commit clean, PROVED_LOCAL; production/test unchanged.",
+      "External binding matches200dffe7f662e5513ec4550fe49d19db0bea6f6fd0df8f37a049a61d688d26e9.",
+      "VERIFIED-only. Parent TerminalReferenceGradientDescent retains stabilization lane. Approximate-output moments, history conditioning, total cost and integration/delivery remain separate."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Ideal actual normalized Gibbs gradient moment only, including dimension zero. Coordinate-free finite-dimensional formulation disclosed. No smoothed/approximate law moment transfer, Gaussian perturbation, random-history conditioning, summed GD cost or paper-completion claim. The initial-moment premise of TerminalReferenceGradientDescent still requires its actual starting law to be identified and controlled."
+}

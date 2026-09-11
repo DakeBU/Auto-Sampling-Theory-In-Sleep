@@ -1,10 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-reference-gradient-descent",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Same actual GD as source section6.3, fixed A/u with explicit supplied initial law moment only for expected bound. Coordinate-free finite-dimensional extension and nonnegative m/beta extension disclosed; positive regularization/dimension. Adjacent-iterate contraction gives stronger gradient bound than printed prefactor-kappa route. No actual recursive-history moment, joint random-parameter kernel, summed stage cost or fullpaper claim. Cost model includes final gradient check and reuses each gradient for the update; downstream cache sharing not silently deducted.",
   "remaining": [
-    "Aggregate integration and exact-candidate reader/graph QA",
-    "PR CI, actual merge and deployment"
+    "Whole-paper actual-history, joint-parameter and summed-cost consumers remain separate; selected terminal-reference packet delivery complete."
   ],
   "scratch_checkpoint": {
     "path": ".astis\\TerminalReferenceGradientDescent.lean",
@@ -90,5 +89,30 @@
   "integration_notes": {
     "upstream": "dfc29763cbe482e1eebf5fa7b6c5072e3a551c31",
     "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior cc1f333, metadata ancestry conflicts resolved after verifying main tree equals cc1f333; zero merge tree delta. Accepted program/source unchanged; aggregate pending."
+  },
+  "remote": {
+    "pr": 288,
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/288",
+    "head": "32f50f4fb302e19bd1d61d0af41df238e78d168d",
+    "lean_run": 34641811580,
+    "site_run": 34641811567,
+    "state": "Actual merged and live; all PR and merge Lean/Site checks passed",
+    "lean_pr_result": "SUCCESS",
+    "site_pr_result": "SUCCESS",
+    "merge_commit": "61c710cb2d73b333fbd684571910b12d28a699a0",
+    "merged_at": "2026-09-11T20:15:42Z",
+    "merge_lean_run": 34643268197,
+    "merge_site_run": 34643268151
+  },
+  "post_merge_delivery": "runs/20260911-companion-priority/terminal-reference-gradient-descent.live-delivery.json",
+  "post_merge_final": {
+    "pr": 288,
+    "merge_commit": "61c710cb2d73b333fbd684571910b12d28a699a0",
+    "merge_lean_run": 34643268197,
+    "merge_lean_result": "SUCCESS",
+    "merge_site_run": 34643268151,
+    "merge_site_result": "SUCCESS including deploy",
+    "live_delivery": "runs/20260911-companion-priority/terminal-reference-gradient-descent.live-delivery.json",
+    "boundary": "All selected-packet merge checks and fresh live provenance confirmed and recorded; no full-paper completion."
   }
 }
