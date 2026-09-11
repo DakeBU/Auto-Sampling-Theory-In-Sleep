@@ -51,10 +51,42 @@ The implementation is committed at
 `andi/opt-gradient-converse`. Commit-bound independent verification is recorded
 in `runs/semantic-roundtrip/andi-opt-gradient-converse/commit-verification.json`
 and the canonical ledger. The user authorized direct integration without a PR,
-conditional on the protocol gates. Main integration is pending: the single
-stabilization lane is occupied by `ASTIS-20260908-KernelInvariance`, owned by
-`root-samplewiki-resume`; PR #246 was confirmed OPEN at this closeout. Do not
-change that owner or its state to admit this contribution. No PR was created.
+conditional on the protocol gates. The local branch has since incorporated
+main through `b9f23c7` at merge commit `969c6d8`; the theorem and its focused test
+remain byte-identical to the independently reviewed result. The complete synced
+Lean gate passed (9101 test-build jobs), as did 249 harness tests (6 skipped).
+
+The earlier PR #246 reservation was subsequently released in the upstream
+ledger. Latest observed remote main `7cc582e` records SPHMCTruncation as
+`STABILIZING`, but GitHub confirms its PR #259 merged at
+2026-09-11 00:05:19 UTC. This lagging record is not proof of an active integration
+lock. Reconcile actual ownership before the next stabilization; do not equate an
+open PR with global exclusion or silently impersonate another owner. No PR was
+created for this contribution.
+
+## Graph publication inspection
+
+The cell's existing `integration_notes` now contains the generated focus link,
+source-reader link, three exact incident relations, remaining source boundary,
+and desktop/mobile visual-review scope. Graph coverage and site validation
+passed. The module ownership edge is solid; source and semantic correspondence
+edges are dashed. The shared declaration has no spurious ASTIS `const_mul`
+dependency and no invented compiled downstream consumer. Chapter status remains
+partial. The source reader retains the independent verdict and exact signed
+modulus and quadratic correction.
+
+Inspected the focused graph, selected-node inspector and Registry reader link
+at 1280×720, and the source chapter and graph inspector at 390×844. Narrow text
+wraps without document overflow; graph labels require zoom or the complete
+inspector. The native colour-select control has low contrast in the current dark
+OS rendering; no unrelated global style change was made. No additional static
+diagram or screenshot ledger was created.
+
+The first generated preview correctly reported missing site gate evidence,
+despite the successful standalone gate. Running the canonical
+`website/scripts/lean_gate.py` supplied that source-bound evidence. This was the
+reason for the additional cached gate run; unchanged mathematical review hashes
+were reused, and no new source-fidelity verdict was authored.
 
 ## Integration lessons
 

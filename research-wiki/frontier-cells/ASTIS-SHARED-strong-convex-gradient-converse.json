@@ -35,8 +35,8 @@
       "#print axioms: propext, Classical.choice, Quot.sound only."
     ],
     "independent_verification": "Independent verifier converse_proof_review verified exact commit e84cd69e87338f9b9593b12e9b11524aa0989d07: canonical ASTIS gate, diff-aware publication gate, semantic registry and cell validation passed; unchanged accepted source review and blind reconstruction reused. Commit-bound report: runs/semantic-roundtrip/andi-opt-gradient-converse/commit-verification.json",
-    "root_build": "python3 tools/astis.py check: passed, including lake build Tests (9054 jobs), fake-closure scan and pinned ATLAS memory check. Registry count 397.",
-    "graph_regeneration": "website/scripts/build_site.py and check_site.py: passed; 397 local leaves. Underlying graph includes compiled converse and accepted semantic audit; no spurious ASTIS const_mul edge. Local-validation artifact: runs/semantic-roundtrip/andi-opt-gradient-converse/local-validation.json",
+    "root_build": "Synced commit 969c6d8: python3 tools/astis.py check passed (root 8969 jobs; Tests 9101 jobs, including our imported test, fake closure and ATLAS checks). Canonical site gate repeated only to create previously missing source-bound evidence; no mathematical edits.",
+    "graph_regeneration": "Graph coverage and generated site checks passed on synced commit 969c6d8; desktop/mobile graph and source-reader inspection recorded in integration_notes. Source-bound gate evidence generated via website/scripts/lean_gate.py.",
     "pr": "",
     "commit_verification": {
       "verifier_id": "converse_proof_review",
@@ -69,5 +69,36 @@
       }
     ],
     "fidelity_boundary": "Exact domain-local Optlib statement: complete real inner-product space, convex s, supplied ambient HasGradientAt at all points of s, arbitrary real m. No continuity of the gradient, Hessian, integration or measure assumption. Uses scalar derivative monotonicity/MVT, not the Chewi integral proof; no full textbook equivalence or source-specialization closure."
+  },
+  "integration_notes": {
+    "graph_focus": "lean-foundations.html?view=lean&focus=decl%3AAutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound&q=AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound",
+    "reader": "libraries/optimisation/chapter-01.html#optlib-strong-convex-gradient-converse",
+    "graph_delta": "One shared compiled declaration in its actual owning module. Solid module→declaration ownership; dashed declaration→semantic-audit and declaration→optimisation chapter correspondence. No ASTIS theorem-reference dependency; no duplicate node, fabricated consumer or conceptual transport.",
+    "remaining_boundary": "Full Chewi Proposition 1.6 equivalence, its integral route, and whole-space source specialization remain unclaimed; chapter is partial.",
+    "checks": [
+      "python3 website/scripts/lean_gate.py: PASS; canonical gate and source-bound site evidence recorded at 969c6d8494a0f9b86d4f6a28e447ef31bd27ade5",
+      "python3 website/scripts/build_site.py: PASS",
+      "python3 tools/astis_publication.py graph-check --cell ASTIS-SHARED-strong-convex-gradient-converse: PASS",
+      "python3 website/scripts/check_site.py: PASS"
+    ],
+    "visual_review": {
+      "reviewer": "andi-opt integration owner",
+      "views": [
+        "Focused Lean Branches graph at desktop 1280×720: inspected node labels, arrow directions, solid/dashed styles and selected-node detail; opened its Registry evidence link.",
+        "Optimisation chapter 01 source item: inspected attributed source, signed modulus, m/2 correction, assumptions, independent source verdict and authored proof with separate Lean disclosures.",
+        "At 390×844: graph controls and node inspector remain accessible; source text wraps and document width stays 390px. Dense graph labels require zoom or the complete inspector, as at desktop."
+      ],
+      "scope": "No layout or mathematical source edits. Existing native colour-select dark-theme contrast is low; not changed in this bounded contribution review. No new static diagram was authored or changed.",
+      "screenshots": "Inspected interactively; no new screenshot/report ledger."
+    },
+    "integration_queue_observation": {
+      "remote_main": "7cc582e9439c618341c9ec34ccca73587c4140ff",
+      "reserved_advance": "ASTIS-SA-20260911-SPHMCTruncation",
+      "recorded_owner": "root-samplinglib-writer",
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/259",
+      "remote_state": "MERGED",
+      "merged_at": "2026-09-11T00:05:19Z",
+      "interpretation": "Reservation record lags the confirmed merge. This is not evidence of a live GitHub merge lock; reconcile actual integration ownership before admitting another stabilization task. Other owner state not modified."
+    }
   }
 }
