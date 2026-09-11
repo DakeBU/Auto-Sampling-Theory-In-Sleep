@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Algorithm3.3 terminal branch and recursive update; Theorem6.5 stagewise execution",
   "target_statement": "On explicit states (b,u,k,h) with nonnegative precision b,center u,step count k and a sequence h storing the k most recent observations, take a measurable positive current-state variance a and a positive terminal precision threshold. Construct the actual precision-weighted update, increment k and prepend the observation. For arbitrary actual observation and terminal Markov kernels Q,L, construct a Markov state transition which is identity on terminal states and is the Q-pushforward under that explicit update elsewhere. Construct measurable probability output kernels R_n with R_0=L and R_(n+1)(s)=L(s) on terminal states, otherwise the integral of R_n(updated(s,y)) against Q(s). Construct the finite full trajectory law and prove its terminal-output marginal equals this recursive output. Use StateDependentRGO to construct actual target and ideal observation kernels; for Q=H and L=T prove every finite output R_n(s)=T(s), deriving posterior consistency from the actual update rather than assuming recovery. No deterministic schedule is imposed.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-state-dependent-rgo"
   ],
@@ -38,9 +38,10 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-finite-rgo-program.md",
     "planning_review": "Independent source review requires explicit actual state update and trajectory consumer, not only abstract recovery. Include terminal absorbing branch to avoid identifying forced recursion with source stopping.",
-    "execution_boundary": "Root sole writer; StateDependentRGO actually merged PR270. FiniteRGOProgram remains outside stabilization pending formal source review.",
+    "execution_boundary": "Root sole writer; FiniteRGOProgram sole STABILIZING; StoppedRGODepth EXPLORING.",
     "independent_proof_review": "runs/20260911-companion-priority/finite-rgo-program.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL with independent final production replay; formal source and fixed-commit admission pending."
+    "admission_boundary": "VERIFIED at 13a8921; no aggregate or reader integration admission yet.",
+    "independent_verification": "runs/20260911-companion-priority/finite-rgo-program.verified-admission.json"
   },
   "blocked": {
     "reason": "",

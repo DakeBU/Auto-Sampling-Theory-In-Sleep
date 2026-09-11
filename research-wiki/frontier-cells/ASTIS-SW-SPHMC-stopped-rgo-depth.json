@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-stopped-rgo-depth",
+  "route": "samplewiki-route",
+  "title": "Actual stopped RGO depth and finite-cap stability",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Algorithm3.3 fixed terminal threshold and Theorem6.5 equation(6.4)",
+  "target_statement": "Fix an initial explicit state s0 and positive-dimensional finite real Hilbert Borel space E. Let kappa>=1,0<c<1/4,q>=2,0<Delta<=1/2,0<gamma<=1,C>=8. For measurable eta on the full history state with 0<eta(s)<=c, use the source normalized variance a(s)=(eta(s)+tau(b(s)))/(1+b(s)), where K(b)=(1+b)/(kappa^-1+b) and tau is K when K>=2 and c otherwise. Compute L=q+log(K(b0)*finrank(E)*q/Delta), Aterminal=gamma/(sqrt(finrank(E)*L)+L), Bterminal=1/Aterminal and J=ceil(C log(e K(b0)/Aterminal)) from s0 once. Instantiate FiniteRGOProgram with this fixed threshold and actual supplied Markov observation Q and terminal Lterm. Prove its actual absorbed transition P has (P^J(s0))(terminal states)=1 and its recursive outputs satisfy R_(J+m)(s0)=R_J(s0) for every m. Retain the explicit existing logarithmic upper bound on J. Derive pathwise termination for all observations and transport it to actual kernel laws; never assume stopping or a common deterministic eta schedule.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-finite-rgo-program",
+    "ASTIS-SW-SPHMC-logarithmic-depth"
+  ],
+  "consumers": [
+    "Algorithm3.3 actual termination and Theorem6.5 elimination of the premature-cap branch"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib FiniteRGOProgram actual absorbed transition and recursion",
+      "Samplinglib LogarithmicDepth.terminal_depth uniform bound for any bounded positive eta sequence",
+      "Mathlib Kernel composition/powers, Measure.map and bind, measurable terminal events"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-stopped-rgo-depth.md",
+    "planning_review": "Independent source reviewer accepted actual kernel-support and output stability consumer; requires initial-state-frozen threshold, actual positive finrank, normalized smoothness disclosure and explicit sufficient depth constant.",
+    "execution_boundary": "Root sole writer; FiniteRGOProgram pending fixed-commit admission; this packet EXPLORING."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Algorithm3.3 and Theorem6.5 equation(6.4)",
+    "detail_status": "omitted",
+    "gap": "Transfer deterministic parameter depth to actual history-dependent absorbed kernel laws and cap-independent output at the initial state.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "anchor": "Equations(6.2)-(6.4) and iterative interpretation",
+        "hypothesis_adapter": "Freeze source terminal level from the initial state; eta varies with current history; normalized beta=1 and positive actual dimension."
+      }
+    ],
+    "fidelity_boundary": "The threshold and depth depend on the initial state and remain fixed throughout that execution. No all-initial-state kernel equality at one shared J is claimed. The scalar source formulas use smoothness normalized to one; general beta needs the separate source scaling adapter. C>=8 is an explicit sufficient Lean constant, not a source-prescribed numerical constant. This removes the finite cap residual at the specified initial state, but does not construct the concrete smoothed sampler or FORS, identify initialized histories, or establish errors or expected gradient queries."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual execution admission of an existing scalar depth bound, not a new cross-domain transport."
+  }
+}
