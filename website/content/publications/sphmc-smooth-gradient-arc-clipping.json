@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-smooth-gradient-arc-clipping",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual smooth gradient-arc clipping excess",
+      "source": {
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "edition": "arXiv:2602.01338v1",
+        "anchor": "Appendix D.1 Claim2, smooth s=1; consumed by SPHMC Appendix A.4(2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS mathematical restatement and exposition of the actual smooth gradient-estimator clipping bound, used as a dependency of Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. The prior proof-supported factor2 moment is used without silently repairing the differing printed Claim1 log formula."
+      },
+      "statement": "W_r and F_r are measurable, F_r is integrable under the actual input law mu, and its integral is at most 2 exp(-min(B^2/(40 beta^2 d eta^2),B/(8 beta eta))).",
+      "assumptions": [
+        "E is a finite-dimensional real inner product space with its Borel measurable structure and positive real dimension d=finrank(E). The real-valued function f is differentiable everywhere, and its actual gradient is beta-Lipschitz.",
+        "eta,beta,B>0, ell>=2, and 64 beta^2(ell*d/B+ell^2)<=1/eta^2. All denominators in the conclusion are strictly positive.",
+        "h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta). The independent input law is mu=N(h,eta I) product N(0,eta I), represented by the affine pushforwards of standard Gaussian.",
+        "For a fixed real r, theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)>, tau_B(w)=max(abs(w)-B,0), and F_r=exp(2ell*tau_B(W_r))-1."
+      ],
+      "formulae": [
+        {
+          "label": "Actual clipping-excess moment",
+          "tex": "\\mathbb E_\\mu\\!\\left[e^{2\\ell\\tau_B(W_r)}-1\\right]\\le2\\exp\\!\\left[-\\min\\!\\left\\{\\frac{B^2}{40\\beta^2d\\eta^2},\\frac{B}{8\\beta\\eta}\\right\\}\\right],\\quad\\tau_B(w)=(|w|-B)_+."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "smooth-gradient-arc-clipping",
+          "label": "Actual smooth clipping-excess moment before normalized target comparison"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
+          "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
+          "role": "proof-edge",
+          "supports": [
+            "smooth-gradient-arc-clipping"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCSmoothGradientArcClipping",
+          "boundary": "This is the fixed-r smooth Claim 2 clipping-excess moment for the actual estimator. The finite-dimensional inner-product domain and all-real r are disclosed extensions; positive dimension and beta are retained. Constructing h=x0-eta grad f(x_plus), joint time measurability and averaging over random uniform time, unclipped mean identification, the clipped target law, normalized Renyi accuracy, initialization and actual query costs remain separate. Arbitrary B>0 does not imply a uniform constant-cost statement; later source use sets B=Theta(1). The parent factor2 moment is used, without silently repairing printed Claim 1.",
+          "assumption_deltas": [
+            {
+              "source": "Smooth s=1 Euclidean case with positive dimension and beta.",
+              "lean": "Finite-dimensional real inner-product Borel space with positive finrank and beta.",
+              "classification": "generalization",
+              "reason": "Basis-independent domain retains the source positive-denominator conditions; zero-dimensional and zero-beta cases are not asserted."
+            },
+            {
+              "source": "For each r in [0,1].",
+              "lean": "For each real r.",
+              "classification": "generalization",
+              "reason": "The actual parent arc moment holds for all real angles. No random-time integration conclusion is added."
+            },
+            {
+              "source": "Source center h=x0-eta grad f(x_plus) with residual at most sqrt(d eta).",
+              "lean": "Arbitrary h,x_plus satisfying exactly this residual bound.",
+              "classification": "generalization",
+              "reason": "Only the distance bound enters the moment. Center/reference construction remains a later consumer."
+            },
+            {
+              "source": "Positive eta,beta,B,d; ell>=2 in the surrounding theorem; 1/eta^2>=64 beta^2(ell*d/B+ell^2).",
+              "lean": "Exactly these inequalities, with d=finrank(E), differentiable f and its actual beta-Lipschitz gradient.",
+              "classification": "same",
+              "reason": "No assumed MGF or integrability premise; source parameter range proves the needed moment and clipping comparisons."
+            },
+            {
+              "source": "Expectation of exp(2ell tau_B(W))-1 bounded by2 exp(-min(B²/(40 beta² d eta²),B/(8 beta eta))).",
+              "lean": "Same actual input, clipping excess max(abs(W)-B,0) and constants; W and excess integrand measurable, integrand integrable.",
+              "classification": "source-implicit",
+              "reason": "All analytic obligations for the actual expectation are proved explicitly before comparison."
+            },
+            {
+              "source": "Claim2 feeds Eq18 and normalized terminal approximation, later using B=Theta(1).",
+              "lean": "Fixed-time clipping-excess moment for arbitrary B>0 under the displayed step condition.",
+              "classification": "same",
+              "reason": "This is the selected proof edge only. Joint time measurability, target mean, target law, Renyi accuracy and cost remain separate; arbitrary B does not assert uniform cost."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

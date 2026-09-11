@@ -51,14 +51,14 @@
       "commit": "bfd7aaf36b9c64d40d8e1503e383de089949b667",
       "merged_at": "2026-09-11T13:00:29Z",
       "candidate": "34340bf3d1d87e4882839a30df9aeb00895cffa8",
-      "post_merge": "Merge CI and exact deployed provenance pending."
+      "post_merge": "Merge Lean34601902305 and Site34601902173 succeeded; deploy103272074272 succeeded; exactbfd7aaf original reader/card provenance verified."
     },
     "local_qa": "runs/20260911-companion-priority/smooth-gradient-arc-moment.local-qa.json",
     "post_merge_delivery": {
       "merge_commit": "bfd7aaf36b9c64d40d8e1503e383de089949b667",
       "merge_lean": {
         "run": 34601902305,
-        "status": "in_progress"
+        "status": "success"
       },
       "merge_site": {
         "run": 34601902173,
@@ -79,7 +79,7 @@
         ],
         "boundary": "Actual deployed commit, HTTP status, original anchor and labels verified. Local visual checks and candidate CI remain separately pinned."
       },
-      "boundary": "Actual merge deployment and exact original reader/card provenance verified. Merge Lean CI still running; neither paper main result complete."
+      "boundary": "Actual merge Lean CI, website build/deployment and exact live reader/card provenance passed. This is one dependency proof edge; both paper main results remain incomplete."
     }
   },
   "blocked": {

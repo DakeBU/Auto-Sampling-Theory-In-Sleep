@@ -2,8 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
   "state": "EXPLORING",
   "remaining": [
-    "Author source-faithful lesson and publication with preaudit disclosures",
-    "Fresh anonymous reconstruction and formal source review",
+    "Independent formal source review and real publication validation",
     "Fixed-commit independent verification and admission",
     "Aggregate integration and reader/graph/merge/deployment"
   ],
@@ -52,5 +51,23 @@
       "Arbitrary positive B does not imply uniform constant cost; later source consumer uses B=Theta(1).",
       "Unclipped mean identity, clipped target law, Renyi accuracy and actual query cost remain open."
     ]
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "ce585dad6d4eb56c6099ba682e1a00d61e576be7",
+    "result": "Independent focused PASS3121; standard three axioms; production body identical to reviewed scratch after namespace, documentation, print and public-name normalization. Actual parent MGF, same estimator/input, integrability and constants checked. No VERIFIED before formal source admission."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-smooth-gradient-arc-clipping.json",
+    "state": "Five authored proof steps; formal review pending."
+  },
+  "source_fidelity": {
+    "state": "blind-reconstructed",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCSmoothGradientArcClipping"
+    ],
+    "decoder": "blind_reconstruction_j",
+    "reconstruction_sha256": "a93711a6c9fade3575d6b50f80ec9dedd1ca6f6292665e6aa59e48a826d109b6",
+    "formal_review": "pending"
   }
 }

@@ -13,3 +13,25 @@ law, source parameter algebra and integrability order. The exported statement
 expands both private path definitions and passes Meta.isDefEq, with no omitted
 proof terms. Source preaudit, authored publication, fresh anonymous decoder
 and formal admission remain separate; the lane stays EXPLORING.
+
+Independent next-consumer route review (depth_commit_verifier): the next
+mathematical edge is the actual unclipped path mean, before normalized Renyi.
+For fixed x,z, FTC applied to r -> <gradient f(xp), gamma_r> - f(gamma_r)
+should establish integral_0^1 W(r,x,z) dr =
+<gradient f(xp), x-(h+z)> - f(x) + f(h+z).
+The starting point is h+z. Reuse GaussianArcLaw.gaussian_arc_law's derivative
+and endpoints, HasGradientAt.hasFDerivAt and
+intervalIntegral.integral_eq_sub_of_hasDerivAt. This identity is not yet proved.
+
+The actual auxiliary Gaussian and uniform-time expectation then needs joint
+measurability and integrability, not just fixed-time integrability. A uniform
+quadratic majorant on [0,1] is (pi/2)*beta*(norm(x-h)+norm(z))*
+(norm(xp-h)+norm(x-h)+norm(z)). Gaussian second moments and the potential's
+quadratic growth should establish the required integrals before Fubini.
+The intended mean is <gradient f(xp),x>-f(x)+C with
+C=E[f(h+Z)]-<gradient f(xp),h>; integrability of f(h+Z) must actually be proved.
+These steps need no clipping small-step or center-distance assumptions.
+The source consumer is D.1 before Eq.18. Substitution of the actual center,
+completion of the Gaussian square, clipped target law, Jensen, normalization
+and Renyi accuracy remain separate. This is route planning, not a new SAU,
+Lean result or admission.
