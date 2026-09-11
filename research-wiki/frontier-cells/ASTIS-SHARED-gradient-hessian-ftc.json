@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Proposition 1.6 part 2, (1.5)-(1.6), final proof paragraph",
   "target_statement": "For C2 f on a complete real inner-product space, pair the gradient difference with v and identify the integral of D2f(x+tv)[v,v].",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ContDiff.fderiv_right",
     "intervalIntegral.integral_eq_sub_of_hasDerivAt"
@@ -28,8 +28,10 @@
     "notes": "Preserve existing scalar-convexity Hessian sufficient condition; add exact source derivative-limit and integral edges, with C1 equivalences reused."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "lake build Tests.Shared.ConvexityC2 PASS2727 independently repeated, no warnings; standard axioms only."
+    ],
+    "independent_verification": "c2_route_review verified frozen724e90f code/test/lesson and source route; c2_blind_decoder and c2_source_reviewer independently completed packet-bound semantic reviews. Root records their recommendations with attribution.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

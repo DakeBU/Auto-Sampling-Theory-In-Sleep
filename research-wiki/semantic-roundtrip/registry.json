@@ -10008,7 +10008,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-HessianFTC",
-      "state": "blind-reconstructed",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-gradient-hessian-ftc",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -10032,12 +10032,70 @@
           "EuclideanSpace ℝ (Fin d) is real d-dimensional Euclidean space, including d=0."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "Real-valued f, Euclidean gradient, and Hessian quadratic form.",
+          "reconstructed": "Real-valued f, gradient as the Riesz representative of Df, and D²f(x)[v,v] as two evaluations of fderiv (fderiv f).",
+          "relation": "explicit-elaboration",
+          "evidence": "The actual module differentiates t ↦ Df(x+t v)[v]. In Euclidean space its derivative is the classical Hessian quadratic form; real inner-product symmetry accounts for the source pairing order. No independently postulated Hessian or gradient is substituted."
+        },
+        "domains": {
+          "original": "All real Euclidean d-space.",
+          "reconstructed": "Any complete real inner-product space, including infinite-dimensional spaces.",
+          "relation": "stronger-in-lean",
+          "evidence": "This is a genuine domain generalization, not literal source equality. The module preamble, lesson assumption 1 and candidate_assumptions explicitly disclose it. The scalar FTC proof only requires the displayed Fréchet regularity and the Riesz gradient interface."
+        },
+        "quantifiers": {
+          "original": "The source identity uses arbitrary x,y and their displacement y−x.",
+          "reconstructed": "For every x,v, with endpoints x and x+v.",
+          "relation": "equivalent",
+          "evidence": "On the source domain use v=y−x, or conversely y=x+v. There is no nonzero-direction restriction; v=0 gives both sides zero."
+        },
+        "assumptions": {
+          "original": "Twice continuous differentiability on the whole Euclidean domain.",
+          "reconstructed": "ContDiff ℝ 2 f everywhere on a complete real inner-product space.",
+          "relation": "explicit-elaboration",
+          "evidence": "In finite dimension C² and twice continuously Fréchet differentiable agree. The code obtains ContDiff ℝ 1 (fderiv ℝ f), differentiates its affine-segment evaluation, and obtains continuity of the second derivative. Compact-interval integrability follows from that continuity, with no omitted domination, boundary or boundedness assumption. The domain extension is recorded separately."
+        },
+        "conclusion": {
+          "original": "The gradient difference paired with the displacement equals the segment integral of its Hessian quadratic form.",
+          "reconstructed": "The identical scalar equality, using x+v and iterated Fréchet derivative notation.",
+          "relation": "equivalent",
+          "evidence": "The lesson defines g(t)=Df(x+t v)[v]. The code proves its genuine derivative and applies FTC to obtain g(1)−g(0), then rewrites the endpoints using the Riesz gradient. Specialization to ℝ^d yields exactly the final source identity."
+        },
+        "scopes": {
+          "original": "An exact global identity within the C² part of the proof, with ordinary dt on [0,1].",
+          "reconstructed": "An exact equality of real numbers; an oriented interval integral against real Lebesgue measure with endpoints 0 and 1.",
+          "relation": "explicit-elaboration",
+          "evidence": "Continuity makes the scalar integral agree with the classical source integral. No distributional, almost-everywhere, local-domain or asymptotic interpretation is substituted. Although the proposition has a nonnegative modulus, the identity itself has no modulus and does not require monotonicity."
+        },
+        "constant_dependencies": {
+          "original": "Unit integration interval; no modulus or unspecified multiplicative constant.",
+          "reconstructed": "Endpoints 0 and 1; no modulus, dimension factor or hidden constant.",
+          "relation": "same",
+          "evidence": "The segment has parameter length one, and the Hessian is evaluated twice on the unnormalized direction. No norm or time rescaling changes the identity."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "kind": "explicit-domain-generalization",
+          "severity": "informational",
+          "description": "The reusable proof edge extends the Euclidean source identity to complete real Hilbert spaces.",
+          "evidence": "The Lean E typeclasses and declaration lesson state completeness and real inner-product structure; candidate_assumptions contrasts this with the whole Euclidean source domain."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "c2_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as an explicitly generalized reusable proof edge. The domain-mismatch verdict records a real extension, not a defect or exact-source claim. Its Euclidean specialization is source faithful, and its generalized proof and lesson are mathematically sound.",
+        "review_run_sha256": "de24a33e7ee6f39c5a25684b7712995802137f22c66dc9f269db0382a31aeed5",
+        "reviewer_packet_sha256": "31950ea83d5f42cdd9e2593f77f6d636dfcf634576a67e6fc490a0bcd24b8d6f",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/source-review-0.json"
       },
       "publication_binding_sha256": "243be87dc1ffeabc7e67a0f65fd3c5223bd7276130dc718f07da6a664cafd822",
       "publication_context": {
@@ -10183,7 +10241,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-GradientHessian",
-      "state": "blind-reconstructed",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-gradient-hessian-equivalence",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -10207,12 +10265,77 @@
           "EuclideanSpace ℝ (Fin d) is real d-dimensional Euclidean space, including d=0."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "Real-valued f, Euclidean gradient, and Hessian quadratic form.",
+          "reconstructed": "Real-valued f, gradient as the Riesz representative of Df, and D²f(x)[v,v] as two evaluations of fderiv (fderiv f).",
+          "relation": "explicit-elaboration",
+          "evidence": "The actual module differentiates t ↦ Df(x+t v)[v]. In Euclidean space its derivative is the classical Hessian quadratic form; real inner-product symmetry accounts for the source pairing order. No independently postulated Hessian or gradient is substituted."
+        },
+        "domains": {
+          "original": "All real Euclidean d-space.",
+          "reconstructed": "Any complete real inner-product space.",
+          "relation": "stronger-in-lean",
+          "evidence": "The domain extension is explicit in the module preamble, lesson and candidate_assumptions. Both directions use scalar differentiation and integration along a segment; neither compactness of the ambient space nor finite-dimensional Hessian matrices is used."
+        },
+        "quantifiers": {
+          "original": "For each fixed nonnegative m, equivalence of all-pairs gradient monotonicity and the Hessian bound at all points and directions.",
+          "reconstructed": "For each fixed arbitrary real m, the same two globally quantified conditions.",
+          "relation": "stronger-in-lean",
+          "evidence": "The scope of x,y,x,v agrees. The only parameter-quantifier extension is from m≥0 to all real m. The identical fixed m is retained on both sides; it is not allowed to depend on the points or directions."
+        },
+        "assumptions": {
+          "original": "C² on ℝ^d, with m≥0 inherited from Proposition 1.6.",
+          "reconstructed": "ContDiff ℝ 2 f on a complete real inner-product space, with no sign assumption on m.",
+          "relation": "weaker-in-lean",
+          "evidence": "The omitted sign restriction is deliberate and disclosed by candidate_assumptions and lesson assumption 3. In the forward proof only positive t is cancelled; neither m nor the direction norm is divided by. The reverse proof integrates an inequality against positive measure, valid also for negative m. C² supplies all derivative and interval-integrability requirements."
+        },
+        "conclusion": {
+          "original": "Condition (1.5) is equivalent to condition (1.6).",
+          "reconstructed": "The same quantitative gradient/Hessian equivalence in Fréchet notation.",
+          "relation": "equivalent",
+          "evidence": "Forward: at x+t v, t>0 gives t²m‖v‖² ≤ t(g(t)−g(0)); two positive cancellations give m‖v‖² ≤ (g(t)−g(0))/t. The genuine right derivative at zero supplies D²f(x)[v,v]. Reverse: integrate the Hessian bound along x+t(y−x) and use the reviewed scalar FTC identity."
+        },
+        "scopes": {
+          "original": "Global, pointwise inequalities equivalent under C²; source uses a positive directional limit and the segment FTC.",
+          "reconstructed": "Global, pointwise inequalities in an iff, established by the same right-limit and integral mechanisms.",
+          "relation": "same",
+          "evidence": "All points and directions are unrestricted, including zero displacement. No conclusion is assumed as a premise: hf is the only regularity premise, hm and hH are introduced separately within the respective implication branches."
+        },
+        "constant_dependencies": {
+          "original": "The same nonnegative m multiplies the squared norm in both inequalities.",
+          "reconstructed": "The same signed m multiplies the same squared norms, with no dimension factor.",
+          "relation": "explicit-elaboration",
+          "evidence": "Integration is over an interval of length one, so ∫₀¹m‖v‖²dt=m‖v‖². The source modulus α is renamed m without scaling; the sign-domain extension is recorded in assumptions and quantifiers."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "kind": "explicit-domain-generalization",
+          "severity": "informational",
+          "description": "The equivalence is proved on complete real Hilbert spaces, beyond the finite-dimensional source.",
+          "evidence": "The typeclasses, lesson and scoped assumptions all state the extension."
+        },
+        {
+          "slot": "assumptions",
+          "kind": "explicit-signed-modulus-generalization",
+          "severity": "informational",
+          "description": "The reusable equivalence permits negative m, whereas the source proposition assumes a nonnegative modulus.",
+          "evidence": "Only the positive segment parameter is cancelled, and the converse uses monotonicity of integration; the proof remains valid for signed m. The publication lesson explicitly says any real m."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "c2_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as an explicitly generalized reusable proof edge. The domain-mismatch verdict and the signed-modulus delta must remain visible; this declaration is not literally the source-domain proposition. The generalized proof is valid, and the final theorem separately restores the source domain and sign restriction.",
+        "review_run_sha256": "3c0dc61f0ead3ecf59a7971b9fcea8abc7852f641876001408c4844918411212",
+        "reviewer_packet_sha256": "9013b94bfb4f3e9ae25829c5eea870769c2f0339110efef99aaf383b2665fc2a",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/source-review-1.json"
       },
       "publication_binding_sha256": "011027cccfca2832b1cae2d20bcd532fe5dd9589c008dcc1212e5718e05b29b9",
       "publication_context": {
@@ -10366,7 +10489,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-ConvexityC2",
-      "state": "blind-reconstructed",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-OPT-convexity-c2",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -10390,12 +10513,77 @@
           "EuclideanSpace ℝ (Fin d) is real d-dimensional Euclidean space, including d=0."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "Real-valued f, Euclidean gradient, and Hessian quadratic form.",
+          "reconstructed": "Real-valued f, gradient as the Riesz representative of Df, and D²f(x)[v,v] as two evaluations of fderiv (fderiv f).",
+          "relation": "explicit-elaboration",
+          "evidence": "The actual module differentiates t ↦ Df(x+t v)[v]. In Euclidean space its derivative is the classical Hessian quadratic form; real inner-product symmetry accounts for the source pairing order. No independently postulated Hessian or gradient is substituted."
+        },
+        "domains": {
+          "original": "The whole real Euclidean d-space.",
+          "reconstructed": "EuclideanSpace ℝ (Fin d), with Set.univ as the convexity domain.",
+          "relation": "equivalent",
+          "evidence": "This restores precisely the source geometry and whole-space restriction. The standard inner product/norm gives the source Hessian quadratic form via the second Fréchet derivative."
+        },
+        "quantifiers": {
+          "original": "For each dimension, each C² f and each m≥0; chord condition for every x,y,t∈[0,1], Hessian bound for every x,v.",
+          "reconstructed": "Implicit universal d,f,m, explicit nonnegativity and C² hypotheses, StrongConvexOn univ, and ∀ x v for the Hessian condition.",
+          "relation": "explicit-elaboration",
+          "evidence": "The decoded chord weights a,b≥0 with a+b=1 correspond bijectively to a=1−t,b=t, t∈[0,1]. d=0 is explicitly allowed in the lesson; the source does not exclude it, and in the zero-dimensional space both conditions hold without a nonzero-direction requirement."
+        },
+        "assumptions": {
+          "original": "m≥0 and f twice continuously differentiable on all ℝ^d.",
+          "reconstructed": "hm:0≤m and hf:ContDiff ℝ 2 f on all EuclideanSpace ℝ (Fin d).",
+          "relation": "equivalent",
+          "evidence": "The final theorem restores the sign and dimension boundary of Proposition 1.6. C² implies C¹ for the earlier equivalence. No coercivity, strictly positive modulus, Hessian upper bound, compactness or minimizer existence is assumed."
+        },
+        "conclusion": {
+          "original": "The chord inequality (1.3) is equivalent to the Hessian lower bound (1.6).",
+          "reconstructed": "StrongConvexOn univ m f iff ∀ x v, m‖v‖²≤D²f(x)[v,v].",
+          "relation": "equivalent",
+          "evidence": "The reconstruction spells out the chord correction as ab(m/2)‖x−y‖², identical to the source correction with a=1−t,b=t and symmetry of distance. The code composes the C¹ chord/gradient iff with the reviewed gradient/Hessian iff, implementing the source proof route."
+        },
+        "scopes": {
+          "original": "Pointwise global convexity equivalence under C²; m=0 means ordinary convexity.",
+          "reconstructed": "A global iff, with all-space StrongConvexOn interpreted by the displayed chord formula, including m=0.",
+          "relation": "explicit-elaboration",
+          "evidence": "The Lean name strongConvexOn does not silently exclude m=0: hm is nonnegative, and the decoded/lesson chord formula is the governing meaning. On the source domain Fréchet and classical Hessian senses agree."
+        },
+        "constant_dependencies": {
+          "original": "Chord correction m/2 and Hessian lower bound m, with no dimension-dependent factor.",
+          "reconstructed": "The same m/2 and m, with the norm from the same Euclidean inner product.",
+          "relation": "same",
+          "evidence": "Neither joining the two iff statements nor identifying the Hessian rescales the modulus. No unspecified constants or dependencies are introduced."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "scopes",
+          "kind": "notation-elaboration",
+          "severity": "informational",
+          "description": "StrongConvexOn at m=0 expresses ordinary convexity despite the theorem name.",
+          "evidence": "The actual nonnegativity hypothesis and published chord formula explicitly include zero and preserve Definition 1.5."
+        },
+        {
+          "slot": "quantifiers",
+          "kind": "degenerate-dimension-elaboration",
+          "severity": "informational",
+          "description": "The natural-number dimension includes zero, a harmless explicit boundary case.",
+          "evidence": "The lesson says d=0 is allowed; source imposes no d>0 assumption. There are no nonzero directions in that case, and both chord and Hessian conditions reduce to identities."
+        }
+      ],
+      "verdict": "equivalent-after-elaboration",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "c2_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as the faithful Euclidean C² specialization of Proposition 1.6 part 2. The chord-weight, Hessian and zero-modulus notation elaborations preserve all mathematical content and constants.",
+        "review_run_sha256": "a2b15036eba6fc718e61af20fff784dc602c88ccf773ffb6099947bd6f6b6268",
+        "reviewer_packet_sha256": "054e65a50d3e3c7cce2c0a0c48ad652d1aa81813d8db0d5b4f2aca291ff1c6ee",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/source-review-2.json"
       },
       "publication_binding_sha256": "dde91b1aa148d346bd1c8765ab051ae12f5af7c6fb9231c8107ba4999c121b6a",
       "publication_context": {

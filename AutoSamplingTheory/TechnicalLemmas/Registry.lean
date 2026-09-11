@@ -73,6 +73,36 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.calculus.segment-hessian-integral",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2",
+    upstreamDecl := "Proposition1.6 final Hessian FTC identity",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "CONV", "Hessian", "optimisation"],
+    saldUse := "Actual parent of gradient-Hessian equivalence; reversed quadratic segment test",
+    note := "Complete real inner-product-space generalization; C2 derives genuine continuous, interval-integrable Hessian pairings."
+  },
+  {
+    key := "analysis.strong-convexity.gradient-hessian-equivalence",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower",
+    upstreamDecl := "Proposition1.6 (1.5)-(1.6), derivative limit and FTC",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "CONV", "Hessian", "optimisation"],
+    saldUse := "Actual parent of source C2 specialization; signed quadratic curvature test",
+    note := "Signed modulus permitted. Cancels only positive directional parameter; independent derivative and source audits completed."
+  },
+  {
+    key := "analysis.strong-convexity.c2-hessian-equivalence",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.strongConvexOn_iff_fderiv2_lower",
+    upstreamDecl := "Proposition1.6 part2, (1.3)-(1.6)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "CONV", "Hessian", "optimisation"],
+    saldUse := "Source C2 theorem; joins unchanged C1 equivalences and stationary-point growth consumer",
+    note := "Whole finite-dimensional Euclidean space, nonnegative modulus, genuine C2. Completes the selected part2 boundary, not a chapter or Riemannian analogue."
+  },
+  {
     key := "analysis.calculus.segment-gradient-integral",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.sub_eq_integral_gradient",
     upstreamDecl := "Proposition 1.6 proof: segment FTC identity",
@@ -100,7 +130,7 @@ def analysisMemory : List LemmaMemoryEntry := [
     status := LemmaMemoryStatus.formalizedLocal,
     tags := ["CALC", "CONV", "gradient", "equivalence", "optimisation"],
     saldUse := "Whole-space Euclidean C1 source theorem; stationary-point quadratic-growth and zero-dimension consumers",
-    note := "Nonnegative modulus retained; exact source C1 equivalence independently reviewed. Reuses the shared first-order bound and new integral converse. C2/Hessian and full Proposition1.6 remain open."
+    note := "Nonnegative modulus retained; exact source C1 equivalence independently reviewed. Reuses the shared first-order bound and new integral converse. The separate ConvexityC2 module now supplies the C2/Hessian equivalence; this entry itself covers C1 only."
   },
   {
     key := "analysis.strong-convexity.first-order-lower-bound",

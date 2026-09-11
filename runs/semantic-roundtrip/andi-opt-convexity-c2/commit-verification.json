@@ -1,0 +1,16 @@
+{
+  "verifier_id": "c2_route_review",
+  "verified_commit": "724e90f519b8c8dc642a9acd093727ef586c600f",
+  "findings": [],
+  "file_hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/ConvexityC2.lean": "6609531642e87b06d655644da406bf6fb84f85df2c36ed627adf0c8851b0ae81",
+    "Tests/Shared/ConvexityC2.lean": "95cfd28cfb1e397462db2b739648184eeb733003f7ecc438fd31fe5345b8bc21",
+    "website/content/declaration_lessons/convexity-c2.json": "1baa276cd492eeeef70c18f2b7acb218b91839bcf5630a6f0069884cdf58d1c8"
+  },
+  "gate": "Independently repeated focused build PASS2727, no warnings; only propext/Classical.choice/Quot.sound.",
+  "fake_closure_scan": "Independent canonical scoped scan on committed production/test blobs:0hits.",
+  "source_audit": "Independent source-aware route review plus separate c2_blind_decoder and c2_source_reviewer packet-bound accepted source audits. All7 slots compared; two accepted generalizations and one exact source specialization.",
+  "recording_provenance": "Root sole writer records explicit independent recommendation after its source-audit/publication conditions fulfilled.",
+  "sync": "22f0e576fd0c963e0bc823a0e03e3113bd5b01f9 merges main79dc552 without conflicts; all41 upstream source audit objects preserved exactly.",
+  "integration_boundary": "Root gate, Registry/imports and site/graph checks follow on synchronized tree."
+}

@@ -13,6 +13,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
 import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder
 import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1
+import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2
 
 /-!
 # Analysis technical lemma arsenal

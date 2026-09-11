@@ -35,3 +35,19 @@ condition, actual stationary-point growth and zero dimension/modulus.
 Source-blind decoder c2_blind_decoder reconstructed the statements without
 ambiguities from anonymous packets only. Separate source review is pending.
 Root Tests import and Registry admission remain stabilization obligations.
+
+Independent source reviewer c2_source_reviewer accepted all3 packets: FTC and
+gradient/Hessian helper retain domain-mismatch generalizations, and the exact
+Euclidean theorem is equivalent-after-elaboration. No repair needed. The
+independent proof recommendation is bound to full724e90f commit and recorded
+only after source review and real publication validation passed.
+
+Latest main79dc552 (PR263) merged without conflicts into22f0e576. All41
+upstream source audit objects preserved. Its stale GaussianKL reservation was
+released with independent preservation review, retaining historical evidence
+and explicitly recording its older development-hash discrepancy. No original
+owner's MERGED transition is impersonated.
+
+Root Analysis and Tests import ConvexityC2, and Registry includes3 exact new
+declarations (400 to403). No Python test standard was changed. Full acceptance
+and reader/graph verification remain the final integration checks.
