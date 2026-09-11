@@ -31,7 +31,7 @@
       "lake build Tests.Shared.GradientDescentValue PASS2472 independently repeated, no warnings; standard axioms."
     ],
     "independent_verification": "smoothness_review at417d096; value_blind decoder, coco_source whole-module source review, converse_source_review exact repair review. See runs/semantic-roundtrip/andi-opt-gd-value.",
-    "root_build": "Canonical website/scripts/lean_gate.py -> tools/astis.py check PASS9150 atfccbf94, 2026-09-11T12:08:26.616759+00:00; real Tests root imported, ATLAS/fake closure passed.",
+    "root_build": "Canonical website/scripts/lean_gate.py -> tools/astis.py check PASS9152 at21dfd69, 2026-09-11T12:23:47.006138+00:00; Tests root covers GDV and incoming GaussianArcLaw; ATLAS/fake closure passed.",
     "graph_regeneration": "",
     "pr": ""
   },
