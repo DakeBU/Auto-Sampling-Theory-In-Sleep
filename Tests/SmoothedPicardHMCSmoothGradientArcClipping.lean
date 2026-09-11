@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping

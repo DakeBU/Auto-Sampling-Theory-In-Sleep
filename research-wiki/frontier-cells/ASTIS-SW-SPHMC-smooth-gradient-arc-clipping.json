@@ -15,6 +15,7 @@
   ],
   "shared_floor_audit": {
     "searched": [
+      "Mathlib MeasureTheory integrable domination and integral monotonicity; Algebra.Order.Field.Basic min_div_div_right and Algebra.Order.Ring.Unbundled.Basic mul_min_of_nonneg reused in the compiled proof",
       "Samplinglib SmoothGradientArcMoment actual MGF; older stochastic Truncation is a different interface",
       "Bounded ASTIS clipping/exponential-excess search: no existing exact actual-estimator tail theorem"
     ],
@@ -24,10 +25,24 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCSmoothGradientArcClipping",
+        "result": "PASS3121; standard three axioms; no lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcClipping.lean": "a9294cbfda5c53804095c49fa02a3bb763e59447125bdc8be20f18c4b9ed67b6",
+          "Tests/SmoothedPicardHMCSmoothGradientArcClipping.lean": "8dd99ff577f77bb34c775180dded0f66a64277d817ddbbf46952e82db69e7f3a"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-smooth-gradient-arc-clipping.md",
     "planning_review": "Independent depth_commit_verifier source and route review confirmed exact Claim2 smooth constants, lambda minimum, MGF range and integrable pointwise domination.",
-    "execution_boundary": "Root sole writer; parent actual PR279 merged, no STABILIZING packet. Clipping consumer EXPLORING."
+    "execution_boundary": "Root sole writer; parent actual PR279 merged, no STABILIZING packet. Clipping consumer EXPLORING.",
+    "development_review": {
+      "reviewer": "depth_commit_verifier",
+      "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
+      "result": "Independent complete compile exit0, standard three axioms, no lint. Actual same W/input/arc consumer accepted; pointwise nonnegative domination before integral, source caps and exact40/8/factor2 checked. No VERIFIED."
+    }
   },
   "blocked": {
     "reason": "",

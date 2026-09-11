@@ -1,6 +1,6 @@
 {
   "remaining": [
-    "Verify merge CI and exact live deployment"
+    "Confirm final merge Lean CI"
   ],
   "local_check": {
     "log": ".astis/smooth-gradient-arc-scratch.log",
@@ -86,5 +86,32 @@
     "candidate": "34340bf3d1d87e4882839a30df9aeb00895cffa8",
     "post_merge": "Merge CI and exact deployed provenance pending."
   },
-  "local_qa": "runs/20260911-companion-priority/smooth-gradient-arc-moment.local-qa.json"
+  "local_qa": "runs/20260911-companion-priority/smooth-gradient-arc-moment.local-qa.json",
+  "post_merge_delivery": {
+    "merge_commit": "bfd7aaf36b9c64d40d8e1503e383de089949b667",
+    "merge_lean": {
+      "run": 34601902305,
+      "status": "in_progress"
+    },
+    "merge_site": {
+      "run": 34601902173,
+      "status": "success",
+      "deployment_job": 103272074272
+    },
+    "live": {
+      "merge_commit": "bfd7aaf36b9c64d40d8e1503e383de089949b667",
+      "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchor": "sphmc-smooth-gradient-arc-moment",
+      "deployed_provenance": true,
+      "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-smoothgradientarcmoment.html",
+      "card_http_status": 200,
+      "card_labels": [
+        "Partial",
+        "Not mapped"
+      ],
+      "boundary": "Actual deployed commit, HTTP status, original anchor and labels verified. Local visual checks and candidate CI remain separately pinned."
+    },
+    "boundary": "Actual merge deployment and exact original reader/card provenance verified. Merge Lean CI still running; neither paper main result complete."
+  }
 }

@@ -5,3 +5,11 @@ For finite-dimensional real Hilbert E with d>0, eta,beta,B>0, ell>=2, differenti
 Actual smooth estimator clipping-excess moment only. Actual source center construction, target log-weight mean, normalized Renyi error, initialization and terminal query cost remain separate. No assumed MGF, surrogate estimator or full sampler completion.
 
 Independent route review: write A=beta^2*d*eta^2 and lambda=min(1/(4 beta eta),B/(20 A)). Source condition yields2ell<=lambda; its first cap implies12beta^2eta^2lambda^2<=3/4<=1. The second cap gives10A lambda^2-B lambda<=-B lambda/2, and B lambda/2 is the displayed minimum. Pointwise split abs(w)<=B versus B<abs(w) proves0<=exp(2ell max(abs(w)-B,0))-1<=exp(-lambda B)*exp(lambda abs(w)). Apply the actual parent MGF as a proved integrable majorant before comparing integrals. No repeated Gaussian integration or Fubini.
+
+The complete production theorem and focused test now compile (3121 jobs,
+standard three axioms, no lint). Independent full scratch compilation and
+development review accepted the actual parent call, exact same W and input
+law, source parameter algebra and integrability order. The exported statement
+expands both private path definitions and passes Meta.isDefEq, with no omitted
+proof terms. Source preaudit, authored publication, fresh anonymous decoder
+and formal admission remain separate; the lane stays EXPLORING.

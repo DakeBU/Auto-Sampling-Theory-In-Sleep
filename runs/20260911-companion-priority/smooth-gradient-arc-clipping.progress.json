@@ -2,17 +2,43 @@
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
   "state": "EXPLORING",
   "remaining": [
-    "Compile pointwise excess domination and exact source parameter algebra",
-    "Actual gradient estimator consumer with integrability before integral comparison",
-    "Independent proof and source reviews, publication and integration"
+    "Source preaudit and authored lesson/publication",
+    "Fresh anonymous reconstruction and formal source review",
+    "Fixed-commit independent verification and admission",
+    "Aggregate integration and reader/graph/merge/deployment"
   ],
-  "boundary": "Actual smooth estimator clipping-excess moment only. Actual source center construction, target log-weight mean, normalized Renyi error, initialization and terminal query cost remain separate. No assumed MGF, surrogate estimator or full sampler completion.",
+  "boundary": "Complete production theorem locally compiled; full scratch independently development-reviewed. EXPLORING until publication/source admission; target identification, normalized accuracy and costs remain outside. Neither paper main result complete.",
   "scratch": ".astis/SmoothGradientArcClipping.lean",
-  "scratch_sha256": "241f6e84c2e46e695e52a761e0d161b3c6f8c5955f05afa1d1511fec46887483",
-  "development_result": "Pointwise nonnegative exponential clipping-excess domination and integrability-before-integral comparison compiled, standard three axioms, no lint. Exact source parameter algebra and actual estimator consumer remain pending.",
+  "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
+  "development_result": "Complete actual estimator clipping-excess theorem compiled. Source parameter lower bound, MGF range, exact min exponent, actual parent estimator alignment, measurable excess and integrability-before-integral comparison all proved.",
   "local_check": {
     "command": "lake env lean .astis/SmoothGradientArcClipping.lean",
     "exit_code": 0,
     "log": ".astis/smooth-gradient-arc-clipping-scratch.log"
-  }
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcClipping.lean",
+    "test": "Tests/SmoothedPicardHMCSmoothGradientArcClipping.lean",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcClipping.lean": "a9294cbfda5c53804095c49fa02a3bb763e59447125bdc8be20f18c4b9ed67b6",
+      "Tests/SmoothedPicardHMCSmoothGradientArcClipping.lean": "8dd99ff577f77bb34c775180dded0f66a64277d817ddbbf46952e82db69e7f3a"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCSmoothGradientArcClipping",
+    "focused_log": ".astis/smooth-gradient-arc-clipping-focused.log",
+    "result": "PASS3121; standard three axioms; no lint",
+    "public_declarations": 1,
+    "private_implementations": 6
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
+    "result": "Independent complete compile exit0, standard three axioms, no lint. Actual same W/input/arc consumer accepted; pointwise nonnegative domination before integral, source caps and exact40/8/factor2 checked. No VERIFIED."
+  },
+  "expanded_statement": {
+    "file": ".astis/smooth-gradient-arc-clipping-expanded-statement.txt",
+    "sha256": "c5357edb19582fcb44c247f5b7b084e967a9013f2cd32e68ed401e7ec5dd0ce0",
+    "characters": 1853,
+    "definitionally_equal": true
+  },
+  "source_preaudit": "Pending independent log_depth_source_review."
 }
