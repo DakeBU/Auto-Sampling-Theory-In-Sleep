@@ -37,3 +37,5 @@ adds C2 and is not the shortest route for the current differentiable/Lipschitz
 contract. Later normalized Renyi still needs both directions of normalized
 perturbation, uniform-time Jensen and exponential integrability. This plan
 creates no additional SAU, theorem or completion claim.
+
+Integration update: exact895c48b independently accepted after canonicalPASS9163 and correct original reader/graph QA. Same-head PRLean/Site CI passed; PR282 actually merged840f48dd on2026-09-11T15:21:30Z. Earlier pending states above are historical checkpoints. Merge CI and actual live provenance remain pending. Ideal RGO identification now separately EXPLORING; neither full paper complete.

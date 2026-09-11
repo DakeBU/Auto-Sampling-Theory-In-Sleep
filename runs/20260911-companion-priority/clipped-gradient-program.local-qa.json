@@ -1,0 +1,64 @@
+{
+  "commit": "895c48b1a4b0c47e1c73875f2c2b3aa851f04da8",
+  "source_digest": "973ea5d378b812f3656f5271508672ff8bef62871c6b83bd40e6cb97750675ae",
+  "status": "passed-local",
+  "root_integration": {
+    "session": 84429,
+    "exit_code": 0,
+    "result": "PASS9163",
+    "log": ".astis/clipped-gradient-program-integration-gate.log"
+  },
+  "reader_build": {
+    "session": 10232,
+    "exit_code": 0,
+    "log": ".astis/clipped-gradient-program-reader-build.log"
+  },
+  "reader_check": {
+    "session": 48389,
+    "exit_code": 0,
+    "log": ".astis/clipped-gradient-program-reader-check.log",
+    "chapters": 12,
+    "modules": 633,
+    "declarations": 3817,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/clipped-gradient-program-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks and viewed reader/graph screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=895c48b",
+    "section": "sphmc-clipped-gradient-program",
+    "authored_steps": 7,
+    "initial_details": 10,
+    "initial_open_details": 0,
+    "clicked": [
+      "Lean statement · clipped_gradient_program",
+      "Lean proof · clipped_gradient_program",
+      "Source and reuse"
+    ],
+    "statement_code_characters": 1593,
+    "proof_code_characters": 2494,
+    "katex_errors": 0,
+    "source_and_parent_links": "Actual D.1, SPHMC A.4(2)/A.1, Poisson Algorithm1, GradientArcMean and PoissonRejection parent declarations, exact module context present.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "Clicked Open reader / evidence card; exact module shows Compiled, zero placeholders, fourteen declarations with Compiled and Not mapped. Source fidelity and mapping remain separate."
+  },
+  "remaining": [
+    "Same-head remote Lean CI",
+    "Merge and actual deployment"
+  ],
+  "paper_completion": false,
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "895c48b1a4b0c47e1c73875f2c2b3aa851f04da8",
+    "status": "accepted",
+    "authorization": "Independent reviewer explicitly accepted fixed candidate and authorized faithful root transcription. Verified unchanged proof/test/binding, ancestry, root imports, unique stabilization, exact digest, canonical and site logs, graph coverage and root browser provenance. No independent browser claim."
+  }
+}

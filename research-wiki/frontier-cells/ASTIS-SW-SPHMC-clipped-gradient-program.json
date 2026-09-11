@@ -38,10 +38,17 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-clipped-gradient-program.md",
     "planning_review": "Independent log_depth_source_review accepted exact actual-program consumer, identified fixed auxiliary law and cached reference gradient cost boundaries. Prior depth next-consumer review in gradient-arc-mean blueprint.",
-    "execution_boundary": "Root sole writer; ClippedGradientProgram sole STABILIZING; accepted production/source unchanged.",
+    "execution_boundary": "Actual PR282 merged; stabilization lane released. Merge CI/live pending.",
     "development_boundary": "Complete production compiled; independent full scratch compile/proof review and source preaudit accepted fixed050abeb1. No formal source admission or PROVED_LOCAL yet.",
     "admission_boundary": "VERIFIED atf334384. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-    "independent_verification": "runs/20260911-companion-priority/clipped-gradient-program.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/clipped-gradient-program.verified-admission.json",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/282",
+      "commit": "840f48dd1881ec348c167b1628b031f83dec9417",
+      "merged_at": "2026-09-11T15:21:30Z",
+      "candidate": "895c48b1a4b0c47e1c73875f2c2b3aa851f04da8",
+      "post_merge": "Merge CI and exact live provenance pending."
+    }
   },
   "blocked": {
     "reason": "",

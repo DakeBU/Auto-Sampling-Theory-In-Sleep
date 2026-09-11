@@ -1,0 +1,19 @@
+{
+  "merge_commit": "840f48dd1881ec348c167b1628b031f83dec9417",
+  "page": {
+    "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "http_status": 200,
+    "full_merge_provenance": true
+  },
+  "card": {
+    "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-clippedgradientprogram.html",
+    "http_status": 200,
+    "full_merge_provenance": true
+  },
+  "anchor": "sphmc-clipped-gradient-program",
+  "site_run": 34615645078,
+  "site_status": "success",
+  "merge_lean_run": 34615645105,
+  "merge_lean_status": "in_progress",
+  "boundary": "Fresh actual HTTP200 original reader/module have full merge provenance. Site workflow terminalsuccess; local compile/source/UI evidence separate. Merge Lean remains confirmedrunning; neither fullpaper complete."
+}
