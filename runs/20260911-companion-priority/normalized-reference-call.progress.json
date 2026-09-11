@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-normalized-reference-call",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "gibbs_checkpoint": {
     "path": ".astis/NormalizedReferenceCallGibbs.lean",
@@ -69,7 +69,7 @@
     "exit_code": 0,
     "definitionally_equal": true,
     "source_name_free": true,
-    "independent_review": "depth_commit_verifier replayed full expansion of actualIndex,three W2 costs and Gaussian product-map laws,Meta.isDefEq passed,exact length/hash."
+    "independent_review": "depth_commit_verifier independently replayed full9862-character Meta.deltaExpand/isDefEq,exacthash,real ENNReal rpow/coupling/Gaussian maps and no source-name leakage."
   },
   "independent_production_review": {
     "reviewer": "depth_commit_verifier",
@@ -88,5 +88,6 @@
       "ASTIS-RT-20260912-SPHMCNormalizedReferenceCall"
     ]
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
+  "admission_boundary": "VERIFIED atd4a1c6b. Aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json"
 }

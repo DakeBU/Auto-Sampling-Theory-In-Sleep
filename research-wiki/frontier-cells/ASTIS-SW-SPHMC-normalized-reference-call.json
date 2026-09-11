@@ -6,7 +6,7 @@
   "title": "Actual normalized reference and returned sampling law",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Section6.1 normalization convention and Section6.3 next smoothed-sampler call",
   "target_statement": "For the actual regularized potential F_p and actual first ad-hit reference constructed by JointReferenceGradientDescent, set a=alpha+1/A,c=beta+1/A,k=c/a,S(x)=sqrt(c)*x,Fbar_p(x)=F_p(S^-1(x)). Prove actual C2 Hessian bounds[a/c,1], gradient scaling, pairwise measurable scaled reference and its squared-gradient bound d/k. Prove actual normalized Gibbs law S#pi_Fp=pi_Fbarp, with positive finite normalizers/Jacobian justified. For next smoothing variance t>=0 prove S^-1#gaussianSmoothing(pi_Fbarp,sqrt(t))=gaussianSmoothing(pi_Fp,sqrt(t/c)). For every actual normalized probability output law with squared W2 budget R^2,R>=0, derive returned inverse-scaled output squared budget R^2/c; source A1 substitutes R^2=k*epsilon^2. Do not assume these measure equalities or a reference admissibility conclusion.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
     "ASTIS-SHARED-quadratic-regularization"
@@ -42,7 +42,8 @@
     "proof_plan": "proof-blueprints/SPHMC-normalized-reference-call.md",
     "planning_review": "Independent log_depth_source_review checked source normalization convention and accepted actual-law/reference/precision route; planning only.",
     "execution_boundary": "Root sole writer; predecessor remains sole stabilization owner until actual merge.",
-    "admission_boundary": "PROVED_LOCAL; fixed-commit independent VERIFIED pending."
+    "admission_boundary": "VERIFIED atd4a1c6b. Aggregate integration,original reader/graph QA,merge/live remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json"
   },
   "blocked": {
     "reason": "",
