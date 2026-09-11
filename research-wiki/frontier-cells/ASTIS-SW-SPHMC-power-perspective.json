@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Lemma6.3(ii), proof of Winfinity Gaussian reverse transport",
   "target_statement": "Prove the ENNReal integral power-perspective inequality for real q>1, measurable a,b, finite positive b almost everywhere and finite positive integral b, without assuming finite perspective integral. Apply it to actual Gaussian smoothing of probability laws P,Q and an actual coupling with displacement at most t almost everywhere, tau>0,t>=0: prove absolute continuity, integrability of the actual qth RN power, moment at most exp(q(q-1)t^2/(2tau)), and normalized log moment at most q t^2/(2tau).",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [],
   "consumers": [
     "SPHMC GaussianMixture.bounded_displacement_reverse_transport"
@@ -24,10 +24,22 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCGaussianMixture",
+        "result": "PASS3702; independent replay, standard axioms only, complete production proof review passed.",
+        "hashes": {
+          "AutoSamplingTheory/TechnicalLemmas/Measure/PowerPerspective.lean": "06f0313f049b40a74752fb3e5bab02b514e8a0931fe0f8cec7c7e0e79d4b19dd",
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianMixture.lean": "16045045717534aa4c85dff8d57b58b421cb560a87d60a5ee1be19949dd77380",
+          "Tests/SmoothedPicardHMCGaussianMixture.lean": "62348e9172195cc5c498837f6aeaaa7f293e6d8aef497036a4f6ef411382ce1d"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-mixture.md",
-    "execution_boundary": "Root sole writer; GaussianPowerMoment remains sole STABILIZING. This packet EXPLORING only.",
-    "ownership_note": "One actual paper consumer, no invented second shared consumer."
+    "execution_boundary": "Root sole writer. GaussianPowerMoment PR260 merged, stabilization lane released. Mixture PROVED_LOCAL only.",
+    "ownership_note": "One actual paper consumer, no invented second shared consumer.",
+    "independent_proof_review": "runs/20260911-companion-priority/gaussian-mixture.independent-proof-review.json",
+    "admission_boundary": "PROVED_LOCAL with independent proof review/replay; source/fixed-commit admission, aggregate and rendered delivery pending."
   },
   "blocked": {
     "reason": "",

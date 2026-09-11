@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment"
@@ -38,7 +38,7 @@
   },
   "mathematical_status": "Actual Gaussian likelihood and exact power moment prerequisite to SPHMC Lemma6.3(ii). No mixture/data-processing power-divergence inequality, complete Renyi metric API, general reverse transport, proxy-warmness, sampler or query-cost conclusion. Finite marginal moments remain separate when later source consumers require them.",
   "remaining": [
-    "Rendered reader/graph QA, final-head CI and actual merge/deployment",
+    "Verify merge-commit Lean CI34548154066; preserve actual Partial badge and synchronize compilation metadata at delivery stabilization",
     "Independent mixture/data-processing inequality and general Gaussian reverse transport",
     "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
     "Remaining agreed reader/conversion/copy/download deliveries"
@@ -61,8 +61,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/260",
-    "state": "draft",
-    "boundary": "Aggregate, independent admission and local rendering/graph QA passed. Exact-commit local card remains Partial and initial site/CI metadata failures are explicit. Final-head CI, merge advice and actual merge/deployment pending."
+    "state": "MERGED",
+    "boundary": "Actual merge, successful site deployment and live reader/card provenance verified. Actual cards Partial; merge Lean CI and compiled-badge metadata synchronization separate.",
+    "head": "2077e00de8a227d4e82e9e7fcd9a3975128db421"
   },
   "reader_checks": {
     "initial_build": {
@@ -138,5 +139,101 @@
     "repair": "Explicitly identified already-inspected Samplinglib GaussianPowerMoment, GaussianSmoothing/CommonNoiseContraction and Renyi reuse entries. No Lean changes.",
     "local_check": "python -m unittest tools.tests.test_discrete_sampling:9testsPASS",
     "log": ".astis/gaussian-frontier-metadata-test.log"
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/260",
+    "commit": "6ed4fd234fa843e84cb27706d312e3ddd4dfbe70",
+    "candidate": "2077e00de8a227d4e82e9e7fcd9a3975128db421",
+    "merged_at": "2026-09-11T00:49:53Z",
+    "independent_merge_review": "depth_commit_verifier accepted final fixed head conditional on same-head CI. Root verified both runs completed/success and unchanged PRhead, made ready and merged with match-head-commit. Initial failures and local Partial badge disclosed.",
+    "candidate_ci": {
+      "lean": "34547227050 SUCCESS",
+      "site": "34547227008 SUCCESS; PR deployment skipped"
+    },
+    "post_merge": {
+      "lean_run": 34548154066,
+      "merge_lean_state": "PENDING at delivery check",
+      "site_run": 34548154053,
+      "site_state": "SUCCESS",
+      "deploy_job": 103105755760,
+      "deploy_state": "SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "anchors": [
+          "sphmc-gaussian-likelihood",
+          "sphmc-gaussian-power-moment"
+        ],
+        "merge_commit": "6ed4fd234fa843e84cb27706d312e3ddd4dfbe70",
+        "merge_commit_present": true,
+        "cards": [
+          {
+            "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-technicallemmas-measure-gaussianlikelihood.html",
+            "http_status": 200,
+            "declaration": "translated_gaussian_likelihood",
+            "status_labels": [
+              "Partial",
+              "Not mapped"
+            ],
+            "merge_commit_present": true
+          },
+          {
+            "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussianpowermoment.html",
+            "http_status": 200,
+            "declaration": "gaussian_power_moment",
+            "status_labels": [
+              "Partial",
+              "Not mapped"
+            ],
+            "merge_commit_present": true
+          }
+        ],
+        "scope": "Actual HTTP anchors, build provenance and actual card labels; local visual/disclosure QA separate."
+      },
+      "badge_boundary": "Actual deployed cards are Partial / Not mapped. blueprint-site.yml builds independently and consumes no canonical Lean gate artifact, so deployment does not certify compiled badges. Source-independent Lean CI is tracked separately. Future metadata synchronization remains a delivery frontier; no badge or gate evidence was fabricated."
+    },
+    "truth_boundary": "Actual Gaussian likelihood and exact power moment prerequisite to SPHMC Lemma6.3(ii). No mixture/data-processing power-divergence inequality, complete Renyi metric API, general reverse transport, proxy-warmness, sampler or query-cost conclusion. Finite marginal moments remain separate when later source consumers require them."
+  },
+  "deployment": {
+    "lean_run": 34548154066,
+    "merge_lean_state": "PENDING at delivery check",
+    "site_run": 34548154053,
+    "site_state": "SUCCESS",
+    "deploy_job": 103105755760,
+    "deploy_state": "SUCCESS",
+    "live": {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchors": [
+        "sphmc-gaussian-likelihood",
+        "sphmc-gaussian-power-moment"
+      ],
+      "merge_commit": "6ed4fd234fa843e84cb27706d312e3ddd4dfbe70",
+      "merge_commit_present": true,
+      "cards": [
+        {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-technicallemmas-measure-gaussianlikelihood.html",
+          "http_status": 200,
+          "declaration": "translated_gaussian_likelihood",
+          "status_labels": [
+            "Partial",
+            "Not mapped"
+          ],
+          "merge_commit_present": true
+        },
+        {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussianpowermoment.html",
+          "http_status": 200,
+          "declaration": "gaussian_power_moment",
+          "status_labels": [
+            "Partial",
+            "Not mapped"
+          ],
+          "merge_commit_present": true
+        }
+      ],
+      "scope": "Actual HTTP anchors, build provenance and actual card labels; local visual/disclosure QA separate."
+    },
+    "badge_boundary": "Actual deployed cards are Partial / Not mapped. blueprint-site.yml builds independently and consumes no canonical Lean gate artifact, so deployment does not certify compiled badges. Source-independent Lean CI is tracked separately. Future metadata synchronization remains a delivery frontier; no badge or gate evidence was fabricated."
   }
 }

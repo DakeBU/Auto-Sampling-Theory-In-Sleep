@@ -7,3 +7,5 @@ Bounded-displacement Gaussian mixture reverse transport, expanded ingredient of 
 Use Holder exponents1/q and1-1/q on a^q/b^(q-1) and b. Keep ENNReal until the displacement bound supplies finite moments. Prove positive finite mixture densities from the bounded Gaussian density and actual product-map convolution identity by Tonelli. Apply pointwise perspective, Tonelli, exact Gaussian moment and bounded displacement. Transfer the actual mixed RN derivative and only then take real logarithms.
 
 Root sole writer. GaussianPowerMoment is sole STABILIZING; this packet is EXPLORING. Both bounded publication packets must precede Lean development. Preserve all prior PBPS and SampleWiki frontiers.
+
+Production focused and independent replay PASS3702. Actual GaussianSmoothing RN moment, integrability and logarithm upper bound proved with local helpers; PROVED_LOCAL only. GaussianPowerMoment PR260 merged; source/fixed-commit admission and delivery remain separate.

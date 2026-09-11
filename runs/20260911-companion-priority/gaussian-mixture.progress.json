@@ -1,0 +1,47 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCGaussianMixture",
+    "result": "PASS3702",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/Measure/PowerPerspective.lean": "06f0313f049b40a74752fb3e5bab02b514e8a0931fe0f8cec7c7e0e79d4b19dd",
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianMixture.lean": "16045045717534aa4c85dff8d57b58b421cb560a87d60a5ee1be19949dd77380",
+      "Tests/SmoothedPicardHMCGaussianMixture.lean": "62348e9172195cc5c498837f6aeaaa7f293e6d8aef497036a4f6ef411382ce1d"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/gaussian-mixture.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-PowerPerspective",
+      "ASTIS-RT-20260911-SPHMCGaussianMixture"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/power-perspective.source-review-result.json",
+      "runs/20260911-companion-priority/gaussian-mixture.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Bounded-displacement Gaussian mixture reverse transport, expanded ingredient of SPHMC Lemma6.3(ii). No optimizer, truncation proxy, mixture inequality, likelihood identity or integrability is assumed in place of its proof. The coupling itself is an explicit input to this ingredient. No complete Wp/Winfinity/Renyi API, proxy-warmness, sampler or query-cost conclusion; the preceding truncation theorem will later provide a single proxy before forall q. Finite displacement bounds do not imply finite marginal p-moments.",
+  "remaining": [
+    "Independent fixed-commit review",
+    "Integration, aggregate and reader/graph delivery",
+    "Truncation composition with one proxy before all q and required marginal moments/API",
+    "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
+    "Remaining agreed reader/conversion/copy/download deliveries"
+  ]
+}
