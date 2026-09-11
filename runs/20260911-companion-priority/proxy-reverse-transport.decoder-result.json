@@ -1,0 +1,16 @@
+{
+  "decoder": "proxy_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of fresh anonymous reconstruction, mathematical notation rendered as plain text. Supplied hashes/compiled flag reported by decoder, not independently verified by it.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-proxy-c.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCProxyReverseTransport.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "fcdf4111e5c3e02392f2cd2aa6a64ed678e4e2dd0e855cf94675147ea427dff2",
+  "lean_statement_sha256": "baded6fc1de8201ec263074d84aa3c47a5cee94eec5a5db96a13d2ec239e30b9",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero. Let P,Q be probability measures and real p,r,delta satisfy p>=2,r>=0,0<delta<1. Assume the actual extended-nonnegative infimum over measures gamma whose first/second marginals are P,Q of the nonnegative integral of ofReal(norm(x-y)^p) is at most ofReal(r^p). This hypothesis does not supply an attaining coupling. There exist measures Pdag on E and Gamma on E times E such that both are probability measures, Gamma has first marginal Pdag and second marginal Q, every Borel measurable event B satisfies abs(P(B).toReal-Pdag(B).toReal)<=delta, and norm(x-y)<=r delta^(-1/p) Gamma-almost everywhere. For every real tau>0 and q>1, let Htau(mu) be the actual law of X+sqrt(tau)Z using the product of mu and the centered identity-covariance standard Gaussian on E, and f_tau=dHtau(Pdag)/dHtau(Q) the extended nonnegative RN derivative. Then Htau(Pdag) is absolutely continuous with respect to Htau(Q); the extended nonnegative integral of f_tau^q under Htau(Q) is at most ofReal(exp(q(q-1)r^2/(2tau delta^(2/p)))); the real function (f_tau.toReal)^q is integrable under Htau(Q); its real Bochner integral is at most exp(q(q-1)r^2/(2tau delta^(2/p))); and the real logarithm of that same integral divided by q-1 is at most q r^2/(2tau delta^(2/p)). The witnesses Pdag,Gamma precede the universal quantifiers over tau,q and are the same for every smoothing conclusion; they may depend on E,P,Q,p,r,delta. The displayed constants have no explicit dimension dependence. The approved context supplies actual coupling, transport-infimum, Gaussian, product/pushforward, RN and integral definitions. No individual moment, density or regularity assumption on P,Q, or transport optimizer, is displayed. Integrability is explicit. Extended powers, ofReal, toReal and real log retain their specified totalized conventions; no pointwise finiteness premise is inserted. No source text was visible and no source-fidelity judgment is made.",
+  "source_fidelity_verdict": null
+}

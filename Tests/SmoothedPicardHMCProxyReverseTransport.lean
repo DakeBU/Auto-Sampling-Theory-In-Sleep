@@ -1,0 +1,3 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport
+
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport

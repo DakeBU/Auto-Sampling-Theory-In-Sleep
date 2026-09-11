@@ -1,0 +1,122 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent seven-slot source and five-step proof review.",
+  "reviewer_packet_sha256": "dbfb46c6bfe9b960889fe53594bb2bb11588510be9acb47a5f1e879f2f1c3ebf",
+  "source_text_sha256": "c86f4ba67de50125b59d391c85a4e33eecffeec4fa4227991ab21cbeda7090f9",
+  "lean_statement_sha256": "baded6fc1de8201ec263074d84aa3c47a5cee94eec5a5db96a13d2ec239e30b9",
+  "reconstruction_text_sha256": "64d767228026597a3ff62d0899baceeb5503aa46e2e398b63a559a450e1d78c0",
+  "embedded_module_text_sha256": "099ac1d4d61896f2456f3d1ecab1f2b5463347e47510b8b30842e41e16837444",
+  "publication_binding_sha256": "c52c88841f71c7d02a4853d6858cf909ff912d218da3f4b10fd981196e8e4ffa",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Probability laws, truncation proxy, Gaussian convolution, TV and forward Renyi.",
+      "reconstructed": "Actual probability proxy/coupling, eventwise TV, GaussianSmoothing and forward RN integrals under Htau Q.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual gamma.map T and gamma.map(T,snd); same Pdag,Q in every conclusion."
+    },
+    "domains": {
+      "original": "Euclidean probabilities.",
+      "reconstructed": "Finite-dimensional real inner-product Borel, including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "No positive-dimension requirement or division by dimension."
+    },
+    "quantifiers": {
+      "original": "At stated heat time, one proxy for all q>1 chosen via Lemma6.2.",
+      "reconstructed": "One Pdag,Gamma precedes all tau>0,q>1.",
+      "relation": "stronger-in-lean",
+      "evidence": "One truncation and existential tuple before intro tau,q; construction independent of both."
+    },
+    "assumptions": {
+      "original": "Marginal Pp membership; invoked Lemma6.2 has p>=2.",
+      "reconstructed": "Explicit p>=2,r>=0,0<delta<1, actual infimum cost budget; no marginal moments or optimizer.",
+      "relation": "stronger-in-lean",
+      "evidence": "Disclosed budget generalization; truncation obtains optimizer; no marginal moments inferred."
+    },
+    "conclusion": {
+      "original": "TV<=delta and forward Renyi bound q Wp^2/(2tau delta^(2/p)).",
+      "reconstructed": "Eventwise TV, bounded coupling, AC, finite ENNReal RN bound, real integrability/moment and log bound using r^2.",
+      "relation": "explicit-elaboration",
+      "evidence": "Disclosed radius-budget version with exact radius identity; full APIs excluded."
+    },
+    "scopes": {
+      "original": "Truncation and Gaussian reverse transport composition.",
+      "reconstructed": "Actual infimum-budget uniform-proxy composition with eventwise/RN-log interfaces.",
+      "relation": "different",
+      "evidence": "Full metric/divergence APIs, recursive warmness and sampler/error/cost remain separate."
+    },
+    "constant_dependencies": {
+      "original": "q/(2tau delta^(2/p)) times squared transport radius.",
+      "reconstructed": "q(q-1)r^2/(2tau delta^(2/p)) exponent and q r^2/(2tau delta^(2/p)) log.",
+      "relation": "same",
+      "evidence": "he,hc1,hc2 exact; sqrt(tau) Gaussian has covariance tau I."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Explicit finite-dimensional generalization including zero dimension.",
+      "evidence": "No positive-dimension requirement or division by dimension."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Raw displacement budget drops marginal Pp; finite cost does not imply marginal moments.",
+      "evidence": "Disclosed budget generalization; truncation obtains optimizer; no marginal moments inferred."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "p>=2 inherited from Lemma6.2, not restated in Lemma6.3(ii).",
+      "evidence": "Disclosed budget generalization; truncation obtains optimizer; no marginal moments inferred."
+    },
+    {
+      "slot": "quantifiers",
+      "severity": "informational",
+      "description": "Uniform positive heat times supported by same truncation.",
+      "evidence": "One truncation and existential tuple before intro tau,q; construction independent of both."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Budget/RN-log certificate does not establish full Wasserstein/Renyi APIs.",
+      "evidence": "Full metric/divergence APIs, recursive warmness and sampler/error/cost remain separate."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "One truncation consumes hcost and constructs actual optimal-coupling truncation; no optimizer premise."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Witness tuple fixes probability measures, marginals, TV/displacement before tau,q."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Mixture theorem uses same coupling with proved nonnegative threshold and a.e. displacement."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Positive-base rpow algebra proves radius identity including r0; no division by r."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Exact hc1,hc2 preserve five smoothing conclusions and earlier witnesses; no TV/unbounded-cost inference."
+      }
+    ]
+  },
+  "review_evidence": "Independent fresh primary v1 Lemmas6.2/6.3(ii), full production and five-step comparison. Canonical packet and source/statement/reconstruction/module hashes independently recomputed; embedded module matches current UTF8 text and lesson matches disk, including consistent extra boundary. Source hash binds expanded paraphrase, not verbatim paper. Publication context matches. Binding authenticated as packet field; external preimage not independently reconstructed. No compilation or fixed-commit admission in source review."
+}

@@ -36,12 +36,64 @@
       }
     ],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-mixture.md",
-    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous GaussianPowerMoment packet merged; actual reader deployed with Partial badges honestly recorded, merge Lean CI and later badge metadata synchronization separate.",
+    "execution_boundary": "Root sole writer; packet actually merged, stabilization lane released.",
     "ownership_note": "One actual paper consumer, no invented second shared consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/gaussian-mixture.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at 9d3565c99b3ea393d93b4d8d28263628d2ebe445; aggregate and reader/graph integration pending.",
+    "admission_boundary": "Independently VERIFIED, merged PR261, both merge CIs success, actual deployment/anchors/source provenance verified; online badges Partial honestly retained.",
     "independent_verification": "runs/20260911-companion-priority/gaussian-mixture.verified-admission.json",
-    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3702, independent complete-proof review and final hash-bound source audits accepted."
+    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3702, independent complete-proof review and final hash-bound source audits accepted.",
+    "integration": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/261",
+      "commit": "b1847a9a9bad121bc2614da91a0c9d75a6802b61",
+      "candidate": "db0396ab098fe6b15fce417b756ae28bf2163534",
+      "merged_at": "2026-09-11T01:25:06Z",
+      "independent_merge_review": "depth_commit_verifier accepted final fixed head conditional on same-head CI. Root verified both runs success and unchanged PR head, made ready and merged with match-head-commit.",
+      "candidate_ci": {
+        "lean": "34549914166 SUCCESS",
+        "site": "34549914194 SUCCESS; PR deployment skipped"
+      },
+      "post_merge": "Merge-commit CI and deployed reader/badge pending.",
+      "truth_boundary": "Bounded-displacement Gaussian mixture reverse transport, expanded ingredient of SPHMC Lemma6.3(ii). No optimizer, truncation proxy, mixture inequality, likelihood identity or integrability is assumed in place of its proof. The coupling itself is an explicit input to this ingredient. No complete Wp/Winfinity/Renyi API, proxy-warmness, sampler or query-cost conclusion; the preceding truncation theorem will later provide a single proxy before forall q. Finite displacement bounds do not imply finite marginal p-moments."
+    },
+    "deployed_delivery": {
+      "site_run": "34550578046 SUCCESS",
+      "deploy_job": "103112948543 SUCCESS",
+      "merge_lean": "34550578121 SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "anchors": [
+          "sphmc-power-perspective",
+          "sphmc-gaussian-mixture"
+        ],
+        "merge_commit": "b1847a9a9bad121bc2614da91a0c9d75a6802b61",
+        "merge_commit_present": true,
+        "cards": [
+          {
+            "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-technicallemmas-measure-powerperspective.html",
+            "http_status": 200,
+            "declaration": "lintegral_perspective_le",
+            "status_labels": [
+              "Partial",
+              "Not mapped"
+            ],
+            "merge_commit_present": true
+          },
+          {
+            "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussianmixture.html",
+            "http_status": 200,
+            "declaration": "bounded_displacement_reverse_transport",
+            "status_labels": [
+              "Partial",
+              "Not mapped"
+            ],
+            "merge_commit_present": true
+          }
+        ],
+        "scope": "Actual HTTP anchors, build provenance and actual card labels; local visual/disclosure QA separate."
+      },
+      "badge_boundary": "Actual deployed cards Partial / Not mapped. Website workflow does not consume canonical Lean gate artifact. Independent Lean CI is not an online Compiled badge; metadata synchronization remains a delivery frontier."
+    }
   },
   "blocked": {
     "reason": "",
