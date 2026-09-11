@@ -73,6 +73,26 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.smoothness.c1-upper-equivalence",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_gradient_upper",
+    upstreamDecl := "Definition1.12 (1.7), Proposition1.13 C1 clause",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "smoothness", "Hessian", "optimisation"],
+    saldUse := "Actual parent of C2 equivalence; beta0 non-Lipschitz concave boundary test",
+    note := "Complete real inner-product space and signed beta explicitly generalize the source. Uses actual derivatives and signed convexity parents on -f. No convexity assumption or Lipschitz-gradient conclusion; independent source review accepted the boundary."
+  },
+  {
+    key := "analysis.smoothness.c2-hessian-equivalence",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_fderiv2_upper",
+    upstreamDecl := "Proposition1.13 C2 Hessian clause",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "smoothness", "Hessian", "optimisation"],
+    saldUse := "Actual gradient-step descent consumer from Hessian upper bound; signed sharp quadratic test",
+    note := "Complete real inner-product space and signed beta explicitly generalize the source. Uses actual derivatives and signed convexity parents on -f. No convexity assumption or Lipschitz-gradient conclusion; independent source review accepted the boundary."
+  },
+  {
     key := "analysis.calculus.segment-hessian-integral",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2",
     upstreamDecl := "Proposition1.6 final Hessian FTC identity",

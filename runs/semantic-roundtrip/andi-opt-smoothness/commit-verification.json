@@ -1,0 +1,18 @@
+{
+  "verifier_id": "smoothness_review",
+  "verified_commit": "5434944361508bbe8e41eba9135d071f17978532",
+  "file_hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/SmoothnessEquivalences.lean": "60c0b4a1afaa83b0e19d18a6c7923be8335f1e1eb53243d59372e45464d2fbbd",
+    "Tests/Shared/SmoothnessEquivalences.lean": "3d584def3f7f308d9cf9e3d6a51879cdac3c67c21c6c45b15ce0491c129f1380",
+    "website/content/declaration_lessons/smoothness-equivalences.json": "2818879913af467a2861b0f16e033633d5f01e9ef17e7b2d07929e707ff76dbc",
+    "website/content/publications/optimisation.json": "9d2d5d29cb239e2b383f148fcb70d6d420d274150673e1080689ae8f087ca9c7"
+  },
+  "findings": [],
+  "gate": "Independently repeated focused lake build Tests.Shared.SmoothnessEquivalences PASS2727, no warnings; standard axioms only.",
+  "source_audit": "Independent anonymous smoothness_blind reconstruction and anti-anchored smoothness_source accepted both packets with domain-mismatch verdict: explicitly generalized Hilbert/signed-beta scope; source Euclidean beta>=0 clauses covered, no repairs.",
+  "fake_closure_scan": "Independent production/test scoped scan0hits.",
+  "consumer_checks": "Signed sharp quadratic, C1 beta0 concave non-Lipschitz boundary, genuine C2 gradient-step descent and zero-dimensional beta0 constant instance.",
+  "integration_boundary": "Frozen commit is not root-reachable yet. Independent reviewer explicitly requires Analysis/Tests root imports and full gate before integration.",
+  "recording_provenance": "Root sole writer records explicit independent recommendation; VERIFIED only after separate sourceaccepted and publicationPASS.",
+  "queue_coordination": "Independent smoothness_review preservation audit of already merged PR265 released its stale reservation. Historical VERIFIED4e1490a and merged4e94f0a production/test/publication/audit bytes unchanged; gh merge confirmed2026-09-11T04:12:59Z. No fresh proof claim or impersonated owner MERGED."
+}

@@ -51,3 +51,17 @@ admission must all pass before integration.
 Both production declarations and focused tests compiled (2727 jobs); standard
 axioms only. Draft audit schema passes, while the real publication gate
 correctly withholds admission until independent source review is completed.
+
+Independent smoothness_review checked frozen5434944361508bbe8e41eba9135d071f17978532,
+repeated focused PASS2727 with no warnings, and found no fake closures or
+substantive issues. Anonymous smoothness_blind reconstruction and separate
+anti-anchored smoothness_source reviews accepted both source clauses with
+explicit domain-mismatch generalizations; no repairs. Publication38items and
+semantic48audits passed. Root recorded attributed independent VERIFIED only
+after those conditions. TwoNoise PR265 stale reservation was released on a
+separate independent preservation audit and gh-confirmed merge, without
+rewriting historical events or impersonating its owner's MERGED transition.
+
+Root Analysis and Tests imports now reach the new module and focused tests.
+Registry adds exactly two declarations, count403→405. The joint full gate and
+reader/graph acceptance remain required on this integrated tree.

@@ -11288,7 +11288,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-SmoothnessC1",
-      "state": "draft",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-smoothness-c1",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-13",
@@ -11309,12 +11309,77 @@
           "The expression (fderiv ℝ (fderiv ℝ f) x v) v evaluates the second Frechet derivative twice at v. Under the displayed C2 regularity it is a genuine second derivative."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "Real-valued f, Euclidean gradient",
+          "reconstructed": "Real-valued f and actual Riesz gradient",
+          "relation": "explicit-elaboration",
+          "evidence": "Embedded Lean uses gradient f. Under the Euclidean specialization these are the ordinary derivatives; no free derivative field is substituted."
+        },
+        "domains": {
+          "original": "Whole ℝᵈ; β≥0.",
+          "reconstructed": "Whole complete real inner-product space E; β∈ℝ.",
+          "relation": "stronger-in-lean",
+          "evidence": "Embedded variable declarations require CompleteSpace E but not FiniteDimensional; β has no sign premise. Every finite-dimensional Euclidean source instance is covered, and additional Hilbert/signed instances are asserted. Module header, lesson assumptions and candidate_assumptions explicitly disclose both extensions."
+        },
+        "quantifiers": {
+          "original": "All x,y in ℝᵈ, at each admissible f,β.",
+          "reconstructed": "All x,y in E, universally in E,f and unrestricted β.",
+          "relation": "stronger-in-lean",
+          "evidence": "The inner point/direction quantifiers match after source specialization; ambient-space and parameter quantification are broader. There is no nonzero or unit-vector restriction."
+        },
+        "assumptions": {
+          "original": "C¹ globally; β≥0; no convexity.",
+          "reconstructed": "ContDiff ℝ 1 f globally; no sign or convexity premise.",
+          "relation": "weaker-in-lean",
+          "evidence": "On ℝᵈ, ContDiff is the stated classical regularity. Nonnegativity is removed, explicitly. CompleteSpace is automatic for the source domain. No extra symmetry, integrability, positivity or auxiliary derivative premise occurs in the target statement."
+        },
+        "conclusion": {
+          "original": "Quadratic upper model (β/2 coefficient) iff one-sided gradient inequality.",
+          "reconstructed": "The same model iff one-sided gradient inequality, using the same β.",
+          "relation": "equivalent",
+          "evidence": "Compare the embedded theorem signature and lesson formula with Definition 1.12 equation (1.7) and Proposition 1.13 first clause at https://arxiv.org/html/2605.07006v1#S1.SS2. Inequality orientations, squared norm, factor 1/2 and biconditional agree on the source domain."
+        },
+        "scopes": {
+          "original": "The equivalence clause; later convex Lipschitz-gradient consequence is separate.",
+          "reconstructed": "One-sided equivalence only, no Lipschitz or operator-norm conclusion.",
+          "relation": "same",
+          "evidence": "Primary-source lines 298–306 state the equivalences; lines 308–311 add convexity for the later Lipschitz consequence. Candidate binding supports only c1-upper-equivalence. Absence of convexity here is correct."
+        },
+        "constant_dependencies": {
+          "original": "β fixes both bounds, with quadratic coefficient β/2.",
+          "reconstructed": "Exactly the same β and β/2; no dimension-dependent or regularity-dependent degradation.",
+          "relation": "same",
+          "evidence": "The proof only transforms m=−β and g=−f; arithmetic preserves β. No extra constants are existentially introduced and no division by β occurs."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "kind": "explicit-generalization",
+          "severity": "informational",
+          "description": "The theorem covers complete real inner-product spaces, extending the source’s Euclidean domain. This is disclosed and preserves all source instances, but is not equality of full theorem scopes.",
+          "evidence": "Module variable declarations and header; lesson assumptions; primary source Proposition 1.13 at https://arxiv.org/html/2605.07006v1#S1.SS2"
+        },
+        {
+          "slot": "assumptions",
+          "kind": "explicit-generalization",
+          "severity": "informational",
+          "description": "The theorem permits signed β, extending the source β≥0 range. The proof transformations preserve the same coefficient and do not need β≥0. The extension is already disclosed.",
+          "evidence": "Theorem {β : ℝ} without a sign hypothesis; hf.neg with m=−β; primary source Definition 1.12 and Proposition 1.13."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "smoothness_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Accepted scope: the selected C1 equivalence obligation, recovered by specializing E to Euclidean d-space and β to a nonnegative real. No admission of the subsequent Lipschitz-gradient consequence or claim of literal full-domain equality. Independently opened the pinned primary source. Definition 1.12 and Proposition 1.13 support exactly the selected equivalence obligation after Euclidean/nonnegative specialization. The candidate distinguishes its broader scope and excludes the subsequent Lipschitz claim. The displayed C¹ proof obtains the forward direction by adding h x y and h y x, using displacement negation and expanding the inner product. The converse establishes gradient(−f)=−gradient f, invokes the signed gradient-to-chord interface for −f with m=−β, and applies the first-order lower-model interface before negating. Each authored lesson formula has the matching sign and coefficient in these calls. The source omits Proposition 1.13 proof by analogy with Proposition 1.6; the latter uses endpoint addition and segment FTC. The authored explanation correctly labels the expansion as ASTIS-authored and refers to signed local interfaces, not an illicit literal application of Proposition 1.6 at its excluded negative modulus.",
+        "review_run_sha256": "fe5bf615436adac406d2f119f182642753234593b1be11a7f2fc7d321d5701e8",
+        "reviewer_packet_sha256": "b2e5f26626027d335ae126edef35bc8ed3e850085a9ec6dc1c95e595f33a62a3",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-smoothness/source-review-0.json"
       },
       "publication_binding_sha256": "a75968b328c7c8594d7b4218a3f4c6e6e7846df01add1c6834d80626c47c7da3",
       "publication_context": {
@@ -11434,11 +11499,25 @@
             "lean": "No convexity premise or Lipschitz conclusion."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner-product space, with its induced norm and inner product, let f:E→ℝ be continuously Fréchet differentiable on all of E, and let β be any real number. Then the following two global assertions are equivalent: (1) For every x,y∈E, f(y) ≤ f(x) + ⟨∇f(x),y−x⟩ + (β/2)‖y−x‖². (2) For every x,y∈E, ⟨∇f(y)−∇f(x),y−x⟩ ≤ β‖y−x‖². Here ∇f(x) is the Riesz vector representing Df(x), so ⟨∇f(x),v⟩ = Df(x)[v] for every v∈E. The same β occurs in both assertions, with no positivity or nonnegativity assumption; β=0 and β<0 are included. All pairs of points are quantified on the entire space, with no restricted domain. The case x=y is included and yields equality on both sides of each corresponding inequality. No finite-dimensionality, convexity of f, or two-sided norm bound on gradient differences is assumed or concluded. The equivalence holds for every such E,f,β.",
+        "text_sha256": "66cb6184646396aa3c597e074559c12759a25d5a41bbc0cd25fe0f0cd21fc06a",
+        "decoder": "smoothness_blind",
+        "decoder_run_sha256": "e493cbedc56e0de119a698c356494650746d306975a204ac19dd9126da45e214",
+        "decoder_packet_sha256": "83284e43823af0d5cc1166a0555b7687c2938e1ef3a05cf408182b9c93e12575",
+        "source_text_visible": false,
+        "lean_statement_sha256": "12f841be361251cf549e330be19d7d28aa182b7991ffe36092516f373f774804",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-smoothness/decoder-result-0.json"
       }
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-SmoothnessC2",
-      "state": "draft",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-smoothness-c2",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-13",
@@ -11459,12 +11538,77 @@
           "The expression (fderiv ℝ (fderiv ℝ f) x v) v evaluates the second Frechet derivative twice at v. Under the displayed C2 regularity it is a genuine second derivative."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "Real-valued f, Euclidean gradient and Hessian",
+          "reconstructed": "Real-valued f and actual Riesz gradient and iterated Fréchet derivative D(Df)(x)[v][v]",
+          "relation": "explicit-elaboration",
+          "evidence": "Embedded Lean uses gradient f and fderiv ℝ (fderiv ℝ f). Under the Euclidean specialization these are the ordinary derivatives; no free derivative field is substituted."
+        },
+        "domains": {
+          "original": "Whole ℝᵈ; β≥0.",
+          "reconstructed": "Whole complete real inner-product space E; β∈ℝ.",
+          "relation": "stronger-in-lean",
+          "evidence": "Embedded variable declarations require CompleteSpace E but not FiniteDimensional; β has no sign premise. Every finite-dimensional Euclidean source instance is covered, and additional Hilbert/signed instances are asserted. Module header, lesson assumptions and candidate_assumptions explicitly disclose both extensions."
+        },
+        "quantifiers": {
+          "original": "All x,y and all x,v in ℝᵈ, at each admissible f,β.",
+          "reconstructed": "All x,y and all x,v in E, universally in E,f and unrestricted β.",
+          "relation": "stronger-in-lean",
+          "evidence": "The inner point/direction quantifiers match after source specialization; ambient-space and parameter quantification are broader. There is no nonzero or unit-vector restriction."
+        },
+        "assumptions": {
+          "original": "C² globally; β≥0; no convexity.",
+          "reconstructed": "ContDiff ℝ 2 f globally; no sign or convexity premise.",
+          "relation": "weaker-in-lean",
+          "evidence": "On ℝᵈ, ContDiff is the stated classical regularity. Nonnegativity is removed, explicitly. CompleteSpace is automatic for the source domain. No extra symmetry, integrability, positivity or auxiliary derivative premise occurs in the target statement."
+        },
+        "conclusion": {
+          "original": "Quadratic upper model (β/2 coefficient) iff Hessian diagonal upper bound.",
+          "reconstructed": "The same model iff Hessian diagonal upper bound, using the same β.",
+          "relation": "equivalent",
+          "evidence": "Compare the embedded theorem signature and lesson formula with Definition 1.12 equation (1.7) and Proposition 1.13 second clause at https://arxiv.org/html/2605.07006v1#S1.SS2. Inequality orientations, squared norm, factor 1/2 and biconditional agree on the source domain."
+        },
+        "scopes": {
+          "original": "The equivalence clause; later convex Lipschitz-gradient consequence is separate.",
+          "reconstructed": "One-sided equivalence only, no Lipschitz or operator-norm conclusion.",
+          "relation": "same",
+          "evidence": "Primary-source lines 298–306 state the equivalences; lines 308–311 add convexity for the later Lipschitz consequence. Candidate binding supports only c2-hessian-equivalence. Absence of convexity here is correct."
+        },
+        "constant_dependencies": {
+          "original": "β fixes both bounds, with quadratic coefficient β/2.",
+          "reconstructed": "Exactly the same β and β/2; no dimension-dependent or regularity-dependent degradation.",
+          "relation": "same",
+          "evidence": "The proof only transforms m=−β and g=−f; arithmetic preserves β. No extra constants are existentially introduced and no division by β occurs."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "kind": "explicit-generalization",
+          "severity": "informational",
+          "description": "The theorem covers complete real inner-product spaces, extending the source’s Euclidean domain. This is disclosed and preserves all source instances, but is not equality of full theorem scopes.",
+          "evidence": "Module variable declarations and header; lesson assumptions; primary source Proposition 1.13 at https://arxiv.org/html/2605.07006v1#S1.SS2"
+        },
+        {
+          "slot": "assumptions",
+          "kind": "explicit-generalization",
+          "severity": "informational",
+          "description": "The theorem permits signed β, extending the source β≥0 range. The proof transformations preserve the same coefficient and do not need β≥0. The extension is already disclosed.",
+          "evidence": "Theorem {β : ℝ} without a sign hypothesis; hf.neg with m=−β; primary source Definition 1.12 and Proposition 1.13."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "smoothness_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Accepted scope: the selected C2 equivalence obligation, recovered by specializing E to Euclidean d-space and β to a nonnegative real. No admission of the subsequent Lipschitz-gradient consequence or claim of literal full-domain equality. Independently opened the pinned primary source. Definition 1.12 and Proposition 1.13 support exactly the selected equivalence obligation after Euclidean/nonnegative specialization. The candidate distinguishes its broader scope and excludes the subsequent Lipschitz claim. The displayed C² proof first uses C²⇒C¹ and the preceding equivalence. It proves actual gradient and iterated-derivative negation identities, then applies the signed lower Hessian equivalence to −f with m=−β in both directions. The lesson formulas describe precisely these transformations, and diagonal iterated Fréchet evaluation is the Euclidean Hessian quadratic form. No replacement matrix or unverified Hessian field is introduced. Source Proposition 1.6 explains the derivative-limit and segment-FTC route underlying the omitted Proposition 1.13 proof. The embedded module calls the local dependency; the internal implementation of that imported dependency was outside this bounded packet review.",
+        "review_run_sha256": "af7f98ef44ef0474ffededc52ad4e35fdd8eee20c851b23a7f75bb8aa6f4d852",
+        "reviewer_packet_sha256": "b968fa13c448cdd755025b6761a7c5ad04794a72918f80bbf4a7ebf97e8f3050",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-smoothness/source-review-1.json"
       },
       "publication_binding_sha256": "885c06d64ce1a3d46aeab8ac925de286054461435ad232e4c66481693cac32a8",
       "publication_context": {
@@ -11585,6 +11729,20 @@
             "lean": "No convexity premise or Lipschitz conclusion."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner-product space, with its induced norm and inner product, let f:E→ℝ be twice continuously Fréchet differentiable on all of E, and let β be any real number. Then the following two global assertions are equivalent: (1) For every x,y∈E, f(y) ≤ f(x) + ⟨∇f(x),y−x⟩ + (β/2)‖y−x‖². (2) For every x,v∈E, D²f(x)[v,v] ≤ β‖v‖². Here ∇f(x) is the Riesz vector representing Df(x), and D²f(x)[v,v] means the continuous linear map D(Df)(x) applied to v and then evaluated at v. The same β occurs in both assertions, with no positivity or nonnegativity assumption; β=0 and β<0 are included. Both assertions apply on the entire space; v is an arbitrary vector, not required to be nonzero or normalized. The case x=y in (1) and the case v=0 in (2) are included and yield equality. No finite-dimensionality, convexity of f, lower bound on the second derivative, or bound on its absolute value or operator norm is assumed or concluded. The equivalence holds for every such E,f,β.",
+        "text_sha256": "ed8ba5d3f19c639c173db46ae9230c731b55eefb8f52fd7c3eed892b5ac31711",
+        "decoder": "smoothness_blind",
+        "decoder_run_sha256": "5430d07441b7d331bdeed8d85db62b40900ff12a2afb5285553c8666dfa8c791",
+        "decoder_packet_sha256": "864a1df473dfa50bf8ceacbfbc19f889535b57d80e70f823e55d18392a1f1289",
+        "source_text_visible": false,
+        "lean_statement_sha256": "7e36f044025248e2c44286080cd85b6ef11486e7b05cc35e64358457c3b3605e",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-smoothness/decoder-result-1.json"
       }
     }
   ]

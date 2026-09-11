@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Definition1.12 equation(1.7), Proposition1.13 C1 clause",
   "target_statement": "For C1 f on a complete real inner-product space and any real beta, the global quadratic upper model with beta/2 is equivalent to the one-sided gradient bound with beta.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-strong-convex-gradient-monotonicity",
     "ASTIS-SHARED-gradient-integral-convexity"
@@ -28,8 +28,10 @@
     "notes": "Apply signed lower-bound interfaces to -f with modulus -beta; preserve existing modules. No gradient-Lipschitz equivalence without convexity."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "lake build Tests.Shared.SmoothnessEquivalences PASS2727 independently repeated; no warnings; only propext, Classical.choice and Quot.sound."
+    ],
+    "independent_verification": "smoothness_review fixed5434944361508bbe8e41eba9135d071f17978532 proof/test review and build; independent smoothness_blind and smoothness_source accepted exact packet-bound source generalizations.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""
