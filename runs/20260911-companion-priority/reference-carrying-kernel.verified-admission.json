@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "b80d89a5ef66d6f1fdc14ae7d7afeb9bf48774a7",
+    "gate": {
+      "production": "Production/test unchanged from independent PASS3768; Lean4.33.0 and standard3. Independent4867-character Meta.deltaExpand/isDefEq replay accepted.",
+      "publication": "Independent check_advance(reviewed=True) and actual publication --base0382e3786e62cbb13f93717d6e08629b560e890c exit0 PASS68 with all6private covered. Source,statement,reconstruction,wholemodule,decoder/reviewer packet/run hashes recomputed; anonymous and canonical packets byte-identical. External binding preimage independently matches240b0e922f0fc4d912f99611469ae0fe7620a7c269abe4e3612272ed982a9bf3.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCReferenceCarryingKernel",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_v",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "240b0e922f0fc4d912f99611469ae0fe7620a7c269abe4e3612272ed982a9bf3",
+        "decoder_packet_sha256": "8ba10d6ab1b63287a4c5e4cf3bf243dc1411de21e91af17df2aa82d85ccc0e19",
+        "decoder_run_sha256": "67f92a581e9b1e84d261085642760183f70307c5488953c314fac6d7c6662f93",
+        "reviewer_packet_sha256": "2be16b35f91593210d2153f3da69fac650c2d2e1d7a5d0f5ca9f2b1c64ece480",
+        "review_run_sha256": "c9eee6458f7b36b156fa51b2073afd7f165f5b8fcc7d9c818c36834c21acd8db",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual first stopping,source potential and trajectory identity,scaled reference,enhanced Markov kernel and single-step projection; arbitrary supplied original-coordinate M and cutoff,no accuracy,cost,FORS or history conclusion."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel"
+    ],
+    "independent_checks": [
+      "Fixed commit clean and PROVED_LOCAL; no STABILIZING owner.",
+      "Seven semantic slots,eight steps,six informational deltas,no blockers/repairs.",
+      "VERIFIED-only; actual sampler/history/totalcost,aggregate integration,reader delivery,merge/live and both full papers remain separate."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Original-coordinate current output M is a supplied actual Markov kernel,not a supplied accuracy guarantee. Pointwise stopping and reference construction need no W2 input. General beta,coordinate-free positive dimension and arbitrary reference/count/history states are explicit; no history validity invariant or cost claimed. Only one-step projection equality; dependence of M on reference forbids automatic projected-chain Markovness. No constructed accurate smoothed sampler,state-varying terminalFORS,conditional moment,stage cost or complete main result."
+}
