@@ -39,7 +39,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-ideal-rgo-identification.md",
     "planning_review": "Independent depth_commit_verifier accepted direct ideal-target route with beta*eta<1 and exact Gaussian likelihood cancellation; source Claim2 implies beta*eta<=1/(8ell)<=1/16. No new compiled result yet.",
-    "execution_boundary": "Root sole writer; clipped program PR282 merged; no active stabilizer. Ideal RGO identification EXPLORING.",
+    "execution_boundary": "Root sole writer; IdealRGOIdentification sole STABILIZING; accepted production/source unchanged.",
     "admission_boundary": "VERIFIED atdd88e79. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/ideal-rgo-identification.verified-admission.json"
   },

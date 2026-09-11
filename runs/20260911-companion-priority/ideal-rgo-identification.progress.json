@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-ideal-rgo-identification",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
   ],
   "boundary": "Ideal untruncated target identification and actual positive finite normalization only. No clipping approximation/Renyi bound, adaptive kernel, initialization or cost transport. beta*eta<1 includes the source Claim2 permitted range; no C2 or convexity is silently added. Zero dimension and beta0 are valid disclosed extensions. Neither full companion paper complete.",
   "development_checkpoint": {
@@ -77,5 +77,9 @@
     ]
   },
   "admission_boundary": "VERIFIED atdd88e79. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/ideal-rgo-identification.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/ideal-rgo-identification.verified-admission.json",
+  "integration_notes": {
+    "upstream": "840f48dd1881ec348c167b1628b031f83dec9417",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior895c48b, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  }
 }
