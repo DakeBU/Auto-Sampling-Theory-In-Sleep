@@ -16,6 +16,6 @@
   "deploy_job": 103304935033,
   "deploy_status": "success",
   "merge_lean_run": 34611768597,
-  "merge_lean_status": "pending final observation",
-  "boundary": "Fresh actual HTTP200 original reader and module contain full merge SHA; source/local compile/UI evidence separate. Merge Lean CI not yet confirmed terminal; neither paper complete."
+  "merge_lean_status": "success",
+  "boundary": "Both merge CI terminal SUCCESS; actual deploy and original reader/module full merge provenance verified. Local proof/source/reader evidence remains separately pinned; neither full paper complete."
 }

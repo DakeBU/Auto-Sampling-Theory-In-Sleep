@@ -1,9 +1,7 @@
 {
   "cell": "ASTIS-SW-SPHMC-gradient-arc-mean",
   "state": "MERGED",
-  "remaining": [
-    "Verify final merge Lean CI34611768597"
-  ],
+  "remaining": [],
   "boundary": "Actual unclipped path mean and true auxiliary-input integrability only. No center residual, clipping step, convexity or assumed mean/integrability premise. Source center h=x0-eta gradient f xp, positive finite target normalization, clipped output law, Renyi comparison, initialization and costs remain separate. Neither paper main result complete.",
   "development_checkpoint": {
     "scratch": ".astis/GradientArcMean.lean",
@@ -86,7 +84,7 @@
     "commit": "715630c8eec0ea00bd32b9091fe1177ee07afa29",
     "merged_at": "2026-09-11T14:42:49Z",
     "candidate": "3341e0931ab048662af20df11218a3c6665835c9",
-    "post_merge": "Site and deploy successful; exact original live reader/module provenance verified. Merge Lean final observation pending."
+    "post_merge": "Merge Lean34611768597 SUCCESS; Site34611768656 and deploy103304935033 SUCCESS; exact original live reader/module full merge provenance verified."
   },
   "live_delivery": "runs/20260911-companion-priority/gradient-arc-mean.live-delivery.json"
 }

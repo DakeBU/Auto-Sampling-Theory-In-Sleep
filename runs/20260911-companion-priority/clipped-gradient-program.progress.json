@@ -53,5 +53,25 @@
     "session": 41154,
     "exit_code": 0,
     "focused_log": ".astis/clipped-gradient-program-focused.log"
+  },
+  "expanded_statement": {
+    "file": ".astis/clipped-gradient-program-expanded-statement.txt",
+    "sha256": "a8578f333c33f063f9c15076cc895fa52784cf8bf66c4c8d1970b7b6daccf786",
+    "characters": 5582,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "result": "Independent replay exit0, seven semantic definitions and generated opaque proof expanded; Meta.isDefEq true,5582chars SHA a8578f333c33f063f9c15076cc895fa52784cf8bf66c4c8d1970b7b6daccf786; no ellipsis/private/source names. Explicitly accepted anonymous preparation; no VERIFIED."
+    }
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "563c8bca8f10efea7f338f52c97bb8b6745d38e8",
+    "result": "Fixed563c8bc production/test hashes matched; independently focusedPASS3722 standard3nolint and unchanged mathematics. Final source-name-free Meta expansion5582chars independently replayed and accepted after generated opaque positivity proof expansion."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-clipped-gradient-program.json",
+    "state": "Seven authored mathematical steps; formal source review pending."
   }
 }
