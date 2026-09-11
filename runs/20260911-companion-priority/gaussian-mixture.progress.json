@@ -38,10 +38,82 @@
   },
   "mathematical_status": "Bounded-displacement Gaussian mixture reverse transport, expanded ingredient of SPHMC Lemma6.3(ii). No optimizer, truncation proxy, mixture inequality, likelihood identity or integrability is assumed in place of its proof. The coupling itself is an explicit input to this ingredient. No complete Wp/Winfinity/Renyi API, proxy-warmness, sampler or query-cost conclusion; the preceding truncation theorem will later provide a single proxy before forall q. Finite displacement bounds do not imply finite marginal p-moments.",
   "remaining": [
-    "Integration, aggregate and reader/graph delivery",
+    "Final-head independent merge advice, CI and actual merge/deployment",
     "Truncation composition with one proxy before all q and required marginal moments/API",
     "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
     "Remaining agreed reader/conversion/copy/download deliveries"
   ],
-  "independent_admission": "runs/20260911-companion-priority/gaussian-mixture.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/gaussian-mixture.verified-admission.json",
+  "aggregate_gate": {
+    "passed": true,
+    "commit": "388976ea3112d76b483277f9b6d3bae96c78e23d",
+    "source_digest": "1413a33136bbac0bb24ca65ff5feb858b5ebc6548c4bc890b07866d56fca3ce5",
+    "generated_at": "2026-09-11T01:05:51.824502+00:00",
+    "commands": [
+      "python3 tools/astis.py check"
+    ],
+    "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available.",
+    "status": "PASS",
+    "jobs": 9108,
+    "exit_code": 0,
+    "log": ".astis\\gaussian-mixture-aggregate.log",
+    "log_sha256": "9cc9ac37e743799925df249261ca7ee132faaaf1e7e1b4f5cac2cda2e5d51842"
+  },
+  "reader_checks": {
+    "candidate": "388976ea3112d76b483277f9b6d3bae96c78e23d",
+    "site_build": {
+      "exit_code": 0,
+      "log": ".astis/gaussian-mixture-site-build.log"
+    },
+    "site_check": {
+      "exit_code": 0,
+      "log": ".astis/gaussian-mixture-site-check.log",
+      "modules": 578,
+      "declarations": 3664,
+      "reviewed_teaching_declarations": 77
+    },
+    "graph_checks": [
+      {
+        "cell": "ASTIS-SW-SPHMC-power-perspective",
+        "exit_code": 0,
+        "log": ".astis/power-perspective-graph-check.json"
+      },
+      {
+        "cell": "ASTIS-SW-SPHMC-gaussian-mixture",
+        "exit_code": 0,
+        "log": ".astis/gaussian-mixture-graph-check.json"
+      }
+    ],
+    "browser": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "entries": [
+        {
+          "id": "sphmc-power-perspective",
+          "proof_steps": 4,
+          "initially_closed_disclosures": 7,
+          "statement_characters": 356,
+          "proof_characters": 1716,
+          "katex_errors": 0,
+          "card": "modules/autosamplingtheory-technicallemmas-measure-powerperspective.html#decl-autosamplingtheory-technicallemmas-measure-powerperspective-lintegral-pe-4419c64654"
+        },
+        {
+          "id": "sphmc-gaussian-mixture",
+          "proof_steps": 7,
+          "initially_closed_disclosures": 10,
+          "statement_characters": 828,
+          "proof_characters": 14563,
+          "katex_errors": 0,
+          "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussianmixture.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-gaussianmixture-bounde-cd4b29a307"
+        }
+      ],
+      "visual": "Opened complete statement/proof/reuse disclosures; full proofs retain end namespaces. Screenshots checked positive finite denominator cancellation and Holder/Tonelli/displacement finite-bound formulas. Zero formula errors.",
+      "graph": "Both focused graphs5nodes3edges2direct relations; actual declaration clicked and evidence-card link opened. Both local cards Compiled / Not mapped at the exact aggregate/render candidate388976e. Solid ownership/import and dashed correspondence are not implication certificates.",
+      "boundary": "Local exact-commit rendering/link QA. Actual website pipeline deployment and its badges are independent."
+    }
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/261",
+    "state": "draft",
+    "boundary": "Aggregate and original companion/browser/graph QA passed. Final-head independent merge advice and CI, actual merge/deployment pending."
+  }
 }
