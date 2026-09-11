@@ -1,10 +1,8 @@
 {
   "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
-  "remaining": [
-    "PR/merge CI and actual live deployment"
-  ],
+  "remaining": [],
   "program_checkpoint": {
     "path": ".astis/JointReferenceGradientDescentProgram.lean",
     "sha256": "8de74b9ab7f578489b6a36b82a0187b1ed4c94972188792b3099a894fe3a1d81",
@@ -69,5 +67,22 @@
     "upstream": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
     "boundary": "Independent final local integration accepted at caaccad; canonical gate,reader/graph and root browser QA passed. Remote delivery separate."
   },
-  "local_qa": "runs/20260911-companion-priority/joint-reference-gradient-descent.local-qa.json"
+  "local_qa": "runs/20260911-companion-priority/joint-reference-gradient-descent.local-qa.json",
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/291",
+    "head": "99c2c0bc672852a0c2737dcea57ac4157666960b",
+    "state": "MERGED; PR and merge CI plus live delivery complete",
+    "lean_run": 34653896294,
+    "site_run": 34653896330,
+    "site_result": "SUCCESS; PR deployment skipped",
+    "merge_commit": "e933038111f3605aff343865a13de05987167fff",
+    "merged_at": "2026-09-11T22:43:06Z",
+    "lean_pr_result": "SUCCESS",
+    "merge_lean_run": 34655208468,
+    "merge_site_run": 34655208452,
+    "merge_checks": "All PR and merge checks passed; live delivery checked",
+    "merge_site_result": "SUCCESS including deployment",
+    "live": "runs/20260911-companion-priority/joint-reference-gradient-descent.live-delivery.json: two fresh HTTP200 pages carry merge commit and declaration; merge Lean pending",
+    "merge_lean_result": "SUCCESS"
+  }
 }

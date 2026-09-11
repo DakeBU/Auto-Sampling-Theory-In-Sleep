@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call

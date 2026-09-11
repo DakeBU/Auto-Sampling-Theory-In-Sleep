@@ -164,6 +164,7 @@ import Tests.SmoothedPicardHMCTerminalSamplerAccuracyCost
 import Tests.SmoothedPicardHMCTerminalReferenceGradientDescent
 import Tests.SmoothedPicardHMCApproximateInitialGradientMoment
 import Tests.SmoothedPicardHMCJointReferenceGradientDescent
+import Tests.SmoothedPicardHMCNormalizedReferenceCall
 import Tests.SmoothedPicardHMCClippedGradientProgram
 
 /-!

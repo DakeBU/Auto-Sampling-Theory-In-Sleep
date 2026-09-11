@@ -1,0 +1,97 @@
+{
+  "cell": "ASTIS-SW-SPHMC-normalized-reference-call",
+  "state": "STABILIZING",
+  "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
+  "remaining": [
+    "PR/merge CI and actual live deployment"
+  ],
+  "gibbs_checkpoint": {
+    "path": ".astis/NormalizedReferenceCallGibbs.lean",
+    "sha256": "25cbc6726a39206348a2666f008e29918598f822d915793db78b19c499421e79",
+    "session": 62990,
+    "exit_code": 0,
+    "independent_review": "depth_commit_verifier independently compiled via stdin exit0,two private standard3/no lint. Genuine differential scaling and actual normalized Gibbs pushforward accepted; total-integral conventions handled without L1 assumption. Actual strong-convex consumer must still prove probability/finite positive normalizer."
+  },
+  "smoothing_checkpoint": {
+    "path": ".astis/NormalizedReferenceCallSmoothing.lean",
+    "sha256": "05ac9c983e191c660b9608d76e71903e18b571dc5cc749fbb7c22709bf1535a6",
+    "session": 37354,
+    "exit_code": 0,
+    "result": "Three private helpers standard3/no lint. Actual Gaussian smoothing law commutes with inverse scaling for SFinite input,nonzero scale and arbitrary noise scale. Independent increment review pending.",
+    "independent_review": "depth_commit_verifier independently compiled frozen source via stdin exit0,three private standard3/no lint. Actual product Gaussian/map composition yields X+(s^-1*sigma)Z; SFinite,nonzero signed scale and zero noise cases correct. Development only; no full consumer/VERIFIED."
+  },
+  "transport_checkpoint": {
+    "path": ".astis/NormalizedReferenceCallTransport.lean",
+    "sha256": "8bed84807daf7bb5bcf1c0cb6137c78ef3abe69bd65ad07c99ec2fb9cd577574",
+    "session": 41353,
+    "exit_code": 0,
+    "result": "Focused compile standard three axioms,no lint.",
+    "independent_review": "depth_commit_verifier independent stdin exit0,four private standard3/no lint; actual coupling maps and ENNReal sInf scaling accepted,including infinite/empty cost cases."
+  },
+  "laws_checkpoint": {
+    "path": ".astis/NormalizedReferenceCallLaws.lean",
+    "sha256": "dbbc2f50e21f7461c10c167d279711d1bce50a274aec02cb29910665460d46e0",
+    "session": 46107,
+    "exit_code": 0,
+    "result": "Focused compile standard three axioms,no lint.",
+    "independent_review": "depth_commit_verifier independent stdin exit0,six private standard3/no lint; true Hessian shift,positive Gibbs normalization,map/smoothing and returned budget accepted. Auxiliary B negative uses ofReal truncation; public budget nonnegative."
+  },
+  "complete_scratch": {
+    "path": ".astis/NormalizedReferenceCallComplete.lean",
+    "sha256": "b4c83ced6320f87dea9d2741290ffdb30be4eaeadcc057bc6affda0bd05e67a6",
+    "session": 30620,
+    "exit_code": 0,
+    "result": "Focused compile standard three axioms,no lint.",
+    "independent_review": "depth_commit_verifier independently compiled via stdin exit0,seven theorem prints standard3/no lint; actualIndex defeq to parent actual first ad-hit,same pair/reference/normalized laws accepted. Development only,not VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "b4c83ced6320f87dea9d2741290ffdb30be4eaeadcc057bc6affda0bd05e67a6",
+    "result": "Six private lemmas,actualIndex and public proof reviewed; same actual first hit,real Hessian/positive Gibbs normalization,pushforward smoothing variance t/c,W2 squared B/c accepted. Source B=k*epsilon^2 specializes to epsilon^2/a. Must distinguish outer W2 input from supplied next sampler guarantee; general beta/coordinate-free/eta0/t0/r0/B0 extensions; d>0,tau>0,alpha>0. No isometry API/all-parameter kernel/history/stage costs; expand actualIndex in fresh roundtrip."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/NormalizedReferenceCall.lean",
+    "test": "Tests/SmoothedPicardHMCNormalizedReferenceCall.lean",
+    "session": 20842,
+    "exit_code": 0,
+    "state": "Focused PASS3726,public theorem standard three axioms,no new module lint; imported historical warnings replayed. Prepared from independently accepted scratch by documentation and diagnostic print removal only.",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/NormalizedReferenceCall.lean": "de3ef695654cb35a4cf6aed3173fe691db6fea4d8900f691508deed59a7e1fb7",
+      "Tests/SmoothedPicardHMCNormalizedReferenceCall.lean": "afd0af935b72427097ead5755678cf14b1fe5a94c96bc286c1e4c11bc45170a4"
+    }
+  },
+  "expanded_statement": {
+    "file": ".astis/normalized-reference-call-expanded.log",
+    "characters": 9862,
+    "sha256": "0404ff0dd7ef9851841a30be35da5ea3b2aa73b9a680db9841630d085979ac86",
+    "session": 77963,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independently replayed full9862-character Meta.deltaExpand/isDefEq,exacthash,real ENNReal rpow/coupling/Gaussian maps and no source-name leakage."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "00950be3651b978a9cbeceab476df938f7a21c3f",
+    "result": "FocusedPASS3726,standard3/no newlint; exact reviewed mathematics and fakeclosure scan passed. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-normalized-reference-call.json",
+    "state": "Eight authored steps,6deltas and7private accepted; publicationPASS67."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCNormalizedReferenceCall"
+    ]
+  },
+  "admission_boundary": "VERIFIED atd4a1c6b. Aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json",
+  "integration_notes": {
+    "upstream": "e933038111f3605aff343865a13de05987167fff",
+    "boundary": "Independent final local integration accepted at cc0e120; canonicalgate,original reader/graph and root browser QA passed. Remote delivery separate."
+  },
+  "local_qa": "runs/20260911-companion-priority/normalized-reference-call.local-qa.json"
+}

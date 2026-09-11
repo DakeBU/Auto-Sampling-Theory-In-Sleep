@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-normalized-reference-call",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual normalized reference and returned sampling precision",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Sections6.1 and6.3: actual reference and next-call coordinate normalization",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded proof component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S.Zhang,Smoothed Picard Hamiltonian Monte Carlo. Fixed-call normalization,not a complete sampler theorem."
+      },
+      "statement": "N and p->S(out(p)) are measurable. For every p, the actual output satisfies norm(grad F_p(out))^2<=a*d and every earlier iterate strictly fails that threshold. The scaled reference satisfies norm(grad G_p(S(out)))^2<=d/k. G_p is C2 with genuine Hessian bounds [a/c,1]. Both exponential Gibbs weights are integrable with strictly positive integrals, and both tilted laws are probability measures. S#pi_p=pibar_p and grad G_p(S(x))=c^(-1/2)*grad F_p(x). For every next variance t>=0, R#H(pibar_p,sqrt(t))=H(pi_p,sqrt(t/c)). For every actual probability nubar and t,B>=0, a supplied W2(nubar,H(pibar_p,sqrt(t)))^2<=ofReal(B) implies W2(R#nubar,H(pi_p,sqrt(t/c)))^2<=ofReal(B/c).",
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume; d=dim(E)>0. U is C2 and its genuine Hessian lies between alpha*norm(v)^2 and beta*norm(v)^2 for every x,v, with 0<alpha<=beta.",
+        "eta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,law(X+sqrt(eta)*Z))^2<=ofReal(r^2), where X has the normalized Gibbs law volume.tilted(-U) and Z is an independent standard Gaussian. This is the outer input to the existing actual reference construction.",
+        "A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a. For p=(y,z), u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A). Here a is a curvature lower bound, not an RGO variance.",
+        "T_p(x)=x-c^(-1)*grad F_p(x). N(p) is the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if such an n exists, otherwise zero; out(p)=T_p^N(p)(y). The inherited finite-hit proof eliminates the default branch.",
+        "S(x)=sqrt(c)*x,R(x)=x/sqrt(c),G_p(x)=F_p(R(x)). pi_p=volume.tilted(-F_p) and pibar_p=volume.tilted(-G_p). Write H(mu,sigma)=law(X+sigma*Z) for independent X~mu,Z~stdGaussian(E). W2 squared is the extended nonnegative infimum of quadratic coupling costs."
+      ],
+      "formulae": [
+        {
+          "label": "Actual normalized reference,laws and returned precision",
+          "tex": "\\|\\nabla G_p(S\\,\\mathrm{out}(p))\\|^2\\le d/k,\\quad S_\\#\\pi_p=\\bar\\pi_p,\\quad R_\\#H(\\bar\\pi_p,\\sqrt t)=H(\\pi_p,\\sqrt{t/c}),\\quad W_2^2\\le B/c."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-normalized-reference-call",
+          "label": "Actual normalized reference and returned sampling precision"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call",
+          "cell": "ASTIS-SW-SPHMC-normalized-reference-call",
+          "role": "proof-edge",
+          "supports": [
+            "actual-normalized-reference-call"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCNormalizedReferenceCall",
+          "boundary": "Fixed-call normalization of the actual first ad-hit reference and actual sampling laws. General beta, coordinate-free finite dimension and eta=0,t=0,r=0,B=0 extend the source; d>0,tau>0,0<alpha<=beta remain required. The outer W2 input and next normalized output precision are distinct supplied guarantees. No sampler achieving the next budget, all-parameter kernel, measurable sampler selection, conditional history or stage costs are proved. The public transport conclusion is the needed inequality, not a full isometry theorem. For source B=k*epsilon^2, B/c=epsilon^2/a; a here denotes regularized curvature. Returned probability is a standard measurable-pushforward consequence, not an extra public conjunct. Both main results remain incomplete.",
+          "assumption_deltas": [
+            {
+              "source": "Normalize F(x/sqrt(c)) and divide the resulting output by sqrt(c).",
+              "lean": "True differential,normalized Gibbs,smoothing and quadratic transport calculations.",
+              "classification": "source-implicit",
+              "reason": "The source convention is expanded into actual law equalities and the required one-sided cost inequality."
+            },
+            {
+              "source": "The reference is built by the inner gradient stopping rule.",
+              "lean": "The same actual first ad-hit,with measurable scaled output and d/k bound.",
+              "classification": "same",
+              "reason": "The terminal reference is not substituted and no admissible point is supplied as an assumption."
+            },
+            {
+              "source": "Normalized beta=1,Euclidean positive-parameter setting.",
+              "lean": "General beta,coordinate-free,d>0,tau>0; eta,t,r,B may vanish.",
+              "classification": "generalization",
+              "reason": "Positive curvature remains required; neither dimension zero nor beta zero is included."
+            },
+            {
+              "source": "Upstream and next sampler precision guarantees participate in the recursive call.",
+              "lean": "Distinct outer W2 input and next normalized output budget B>=0.",
+              "classification": "same",
+              "reason": "The theorem constructs neither supplied sampler guarantee. B=k*epsilon^2 yields epsilon^2/a with a the regularized curvature."
+            },
+            {
+              "source": "Implicit normalizing constants and change of variables.",
+              "lean": "Both weights L1,strictly positive normalizers,actual probability laws and Jacobian cancellation proved.",
+              "classification": "source-implicit",
+              "reason": "Private total-integral conventions are not used to weaken actual Gibbs normalization."
+            },
+            {
+              "source": "This normalization is used within a recursive sampler.",
+              "lean": "Fixed-pair potential and law identities with joint reference measurability.",
+              "classification": "same",
+              "reason": "All-parameter kernels,measurable sampler selection,history and cumulative costs remain separate."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

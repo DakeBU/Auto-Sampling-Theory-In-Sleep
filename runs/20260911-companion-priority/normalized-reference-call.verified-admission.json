@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "d4a1c6b2882e6e4e1f1cc775f9eb86c776df8d74",
+    "gate": {
+      "production": "Production/test unchanged from independent PASS3726; Lean4.33.0 and standard3. Independent9862-character Meta.deltaExpand/isDefEq replay accepted.",
+      "publication": "Independent check_advance(reviewed=True) and actual publication --base99c2c0b exit0 PASS67 with all7private covered. Source,statement,reconstruction,wholemodule,decoder/reviewer packet/run hashes recomputed; anonymous and canonical packets byte-identical. External binding preimage independently matchesaab4e3b1af39e9657bd5a74678d0935ded5d7f0f144ec353acdd51491731c840.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCNormalizedReferenceCall",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_u",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "aab4e3b1af39e9657bd5a74678d0935ded5d7f0f144ec353acdd51491731c840",
+        "decoder_packet_sha256": "9107da5d36a2f35284781b9b6236122b4152d19358ca387cd395a0af872505c7",
+        "decoder_run_sha256": "57e6180eb9f243ba1edc27416993f745f119fe7bdbfff200efdc98e71d6cd468",
+        "reviewer_packet_sha256": "8e0c550175847402f55979b20751360eba3e205b6b58fbb2eb38ba50c68c9e11",
+        "review_run_sha256": "96cb81a47e9f43e803871a0d5b0b01c6f49c2a52560b6be2acf7763131291d32",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual first stopping,positive normalization,Gibbs/smoothing pushforward and conditional precision scaling; two distinct supplied accuracy inputs,no constructed sampler or optimizer assumption."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call"
+    ],
+    "independent_checks": [
+      "Fixed commit clean and PROVED_LOCAL; no STABILIZING owner.",
+      "Seven semantic slots,eight steps,six informational deltas,no blockers/repairs.",
+      "VERIFIED-only; actual sampler/history/totalcost,aggregate integration,reader delivery,merge/live and both full papers remain separate."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct."
+}

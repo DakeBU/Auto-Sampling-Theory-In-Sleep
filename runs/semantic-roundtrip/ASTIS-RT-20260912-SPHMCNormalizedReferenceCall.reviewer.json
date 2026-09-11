@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-adc401c85bb04af3",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "blind_reconstruction_u",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-normalized-reference-call",
+    "anchor": "Sections6.1 and6.3: actual reference and next-call coordinate normalization",
+    "original_text": "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume; d=dim(E)>0. U is C2 and its genuine Hessian lies between alpha*norm(v)^2 and beta*norm(v)^2 for every x,v, with 0<alpha<=beta.\neta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,law(X+sqrt(eta)*Z))^2<=ofReal(r^2), where X has the normalized Gibbs law volume.tilted(-U) and Z is an independent standard Gaussian. This is the outer input to the existing actual reference construction.\nA=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a. For p=(y,z), u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A). Here a is a curvature lower bound, not an RGO variance.\nT_p(x)=x-c^(-1)*grad F_p(x). N(p) is the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if such an n exists, otherwise zero; out(p)=T_p^N(p)(y). The inherited finite-hit proof eliminates the default branch.\nS(x)=sqrt(c)*x,R(x)=x/sqrt(c),G_p(x)=F_p(R(x)). pi_p=volume.tilted(-F_p) and pibar_p=volume.tilted(-G_p). Write H(mu,sigma)=law(X+sigma*Z) for independent X~mu,Z~stdGaussian(E). W2 squared is the extended nonnegative infimum of quadratic coupling costs.\nN and p->S(out(p)) are measurable. For every p, the actual output satisfies norm(grad F_p(out))^2<=a*d and every earlier iterate strictly fails that threshold. The scaled reference satisfies norm(grad G_p(S(out)))^2<=d/k. G_p is C2 with genuine Hessian bounds [a/c,1]. Both exponential Gibbs weights are integrable with strictly positive integrals, and both tilted laws are probability measures. S#pi_p=pibar_p and grad G_p(S(x))=c^(-1/2)*grad F_p(x). For every next variance t>=0, R#H(pibar_p,sqrt(t))=H(pi_p,sqrt(t/c)). For every actual probability nubar and t,B>=0, a supplied W2(nubar,H(pibar_p,sqrt(t)))^2<=ofReal(B) implies W2(R#nubar,H(pi_p,sqrt(t/c)))^2<=ofReal(B/c).",
+    "text_sha256": "92ab27b09fe688cd76b2718dcf8f86018d499e36c7bb2cccdc94447a64fda06f"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/NormalizedReferenceCall.lean",
+    "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E]\n  [inst_3 : FiniteDimensional ℝ E] [inst_4 : MeasurableSpace E] [inst_5 : BorelSpace E] {U : E → ℝ} {α β : NNReal},\n  0 < α →\n    α ≤ β →\n      ContDiff ℝ 2 U →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ U) x) v) v ∧ ((fderiv ℝ (fderiv ℝ U) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          ∀ {η τ r : ℝ},\n            0 ≤ η →\n              0 < τ →\n                0 ≤ r →\n                  0 < ↑(Module.finrank ℝ E) →\n                    ∀ (ν : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure ν],\n                      (InfSet.sInf\n                                {r |\n                                  ∃\n                                    γ ∈\n                                      {γ |\n                                        γ.fst = ν ∧\n                                          γ.snd =\n                                            MeasureTheory.Measure.map (fun p => p.1 + p.2)\n                                              ((MeasureTheory.MeasureSpace.volume.tilted fun x => -U x).prod\n                                                (MeasureTheory.Measure.map (fun z => √η • z)\n                                                  (ProbabilityTheory.stdGaussian E)))},\n                                    r = ∫⁻ (z : E × E), ENNReal.ofReal (‖z.1 - z.2‖ ^ 2) ∂γ} ^\n                              (1 / 2)) ^\n                            2 ≤\n                          ENNReal.ofReal (r ^ 2) →\n                        have d := ↑(Module.finrank ℝ E);\n                        have A := η + τ;\n                        have a := ↑α + A⁻¹;\n                        have c := ↑β + A⁻¹;\n                        have k := c / a;\n                        have u := fun p => p.1 + √τ • p.2;\n                        have F := fun p x => U x + A⁻¹ / 2 * ‖x - u p‖ ^ 2;\n                        have T := fun p x => x - c⁻¹ • gradient (F p) x;\n                        have N := fun p =>\n                          if h : ∃ n, (fun p x => ‖gradient (F p) x‖ ^ 2) p ((T p)^[n] p.1) ≤ a * d then Nat.find h\n                          else 0;\n                        have out := fun p => (T p)^[N p] p.1;\n                        have S := fun x => √c • x;\n                        have R := fun x => (√c)⁻¹ • x;\n                        have G := fun p x => F p (R x);\n                        have π := fun p => MeasureTheory.MeasureSpace.volume.tilted fun x => -F p x;\n                        have πbar := fun p => MeasureTheory.MeasureSpace.volume.tilted fun x => -G p x;\n                        Measurable N ∧\n                          (Measurable fun p => S (out p)) ∧\n                            ∀ (p : E × E),\n                              ‖gradient (F p) (out p)‖ ^ 2 ≤ a * d ∧\n                                (∀ j < N p, a * d < ‖gradient (F p) ((T p)^[j] p.1)‖ ^ 2) ∧\n                                  ‖gradient (G p) (S (out p))‖ ^ 2 ≤ d / k ∧\n                                    ContDiff ℝ 2 (G p) ∧\n                                      (∀ (x v : E),\n                                          a / c * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ (G p)) x) v) v ∧\n                                            ((fderiv ℝ (fderiv ℝ (G p)) x) v) v ≤ ‖v‖ ^ 2) ∧\n                                        MeasureTheory.Integrable (fun x => Real.exp (-F p x))\n                                            MeasureTheory.MeasureSpace.volume ∧\n                                          0 < ∫ (x : E), Real.exp (-F p x) ∧\n                                            MeasureTheory.IsProbabilityMeasure (π p) ∧\n                                              MeasureTheory.Integrable (fun x => Real.exp (-G p x))\n                                                  MeasureTheory.MeasureSpace.volume ∧\n                                                0 < ∫ (x : E), Real.exp (-G p x) ∧\n                                                  MeasureTheory.IsProbabilityMeasure (πbar p) ∧\n                                                    MeasureTheory.Measure.map S (π p) = πbar p ∧\n                                                      (∀ (x : E), gradient (G p) (S x) = (√c)⁻¹ • gradient (F p) x) ∧\n                                                        (∀ (t : ℝ),\n                                                            0 ≤ t →\n                                                              MeasureTheory.Measure.map R\n                                                                  (MeasureTheory.Measure.map (fun p => p.1 + p.2)\n                                                                    ((πbar p).prod\n                                                                      (MeasureTheory.Measure.map (fun z => √t • z)\n                                                                        (ProbabilityTheory.stdGaussian E)))) =\n                                                                MeasureTheory.Measure.map (fun p => p.1 + p.2)\n                                                                  ((π p).prod\n                                                                    (MeasureTheory.Measure.map (fun z => √(t / c) • z)\n                                                                      (ProbabilityTheory.stdGaussian E)))) ∧\n                                                          ∀ (νbar : MeasureTheory.Measure E) (t B : ℝ),\n                                                            MeasureTheory.IsProbabilityMeasure νbar →\n                                                              0 ≤ t →\n                                                                0 ≤ B →\n                                                                  (InfSet.sInf\n                                                                            {r |\n                                                                              ∃\n                                                                                γ ∈\n                                                                                  {γ |\n                                                                                    γ.fst = νbar ∧\n                                                                                      γ.snd =\n                                                                                        MeasureTheory.Measure.map\n                                                                                          (fun p => p.1 + p.2)\n                                                                                          ((πbar p).prod\n                                                                                            (MeasureTheory.Measure.map\n                                                                                              (fun z => √t • z)\n                                                                                              (ProbabilityTheory.stdGaussian\n                                                                                                E)))},\n                                                                                r =\n                                                                                  ∫⁻ (z : E × E),\n                                                                                    ENNReal.ofReal\n                                                                                      (‖z.1 - z.2‖ ^ 2) ∂γ} ^\n                                                                          (1 / 2)) ^\n                                                                        2 ≤\n                                                                      ENNReal.ofReal B →\n                                                                    (InfSet.sInf\n                                                                            {r |\n                                                                              ∃\n                                                                                γ ∈\n                                                                                  {γ |\n                                                                                    γ.fst =\n                                                                                        MeasureTheory.Measure.map R\n                                                                                          νbar ∧\n                                                                                      γ.snd =\n                                                                                        MeasureTheory.Measure.map\n                                                                                          (fun p => p.1 + p.2)\n                                                                                          ((π p).prod\n                                                                                            (MeasureTheory.Measure.map\n                                                                                              (fun z => √(t / c) • z)\n                                                                                              (ProbabilityTheory.stdGaussian\n                                                                                                E)))},\n                                                                                r =\n                                                                                  ∫⁻ (z : E × E),\n                                                                                    ENNReal.ofReal\n                                                                                      (‖z.1 - z.2‖ ^ 2) ∂γ} ^\n                                                                          (1 / 2)) ^\n                                                                        2 ≤\n                                                                      ENNReal.ofReal (B / c)",
+    "statement_sha256": "0404ff0dd7ef9851841a30be35da5ea3b2aa73b9a680db9841630d085979ac86",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let \\(E\\) be a complete finite-dimensional real inner-product space, equipped with its Borel measurable structure and canonical Lebesgue measure \\(dx\\), and suppose its dimension \\(d=\\dim_{\\mathbb R}E\\) is positive.\n\nLet \\(U:E\\to\\mathbb R\\) be \\(C^2\\), and let \\(0<\\alpha\\le\\beta\\) be real constants such that, for every \\(x,v\\in E\\),\n\\[\n\\alpha\\|v\\|^2\\le D^2U(x)[v,v]\\le\\beta\\|v\\|^2.\n\\]\n\nFor measures \\(\\mu,\\rho\\), write\n\\[\n\\mathcal W_2^2(\\mu,\\rho)\n=\n\\left[\n\\left(\n\\inf_{\\gamma:\\,\\gamma_1=\\mu,\\ \\gamma_2=\\rho}\n\\int\\|x-y\\|^2\\,d\\gamma(x,y)\n\\right)^{1/2}\n\\right]^2.\n\\]\nThe infimum, integral and powers here are taken in the extended nonnegative reals. Write \\(H_s\\mu\\) for the pushforward of \\(\\mu\\otimes\\mathcal N(0,sI)\\) under addition, for \\(s\\ge0\\).\n\nFor a real function \\(V\\), define its tilted Lebesgue measure by\n\\[\n\\operatorname{Tilt}(V)(dx)\n=\n\\frac{e^{-V(x)}}{\\int e^{-V(y)}\\,dy}\\,dx,\n\\]\ninterpreted using the supplied totalized integral and division conventions. This definition alone does not assert integrability or probability normalization.\n\nAssume \\(\\eta\\ge0\\), \\(\\tau>0\\), \\(r\\ge0\\), and that \\(\\nu\\) is a probability measure satisfying\n\\[\n\\mathcal W_2^2\\bigl(\\nu,H_\\eta\\operatorname{Tilt}(U)\\bigr)\\le r^2.\n\\]\n\nSet\n\\[\nA=\\eta+\\tau,\\qquad\na=\\alpha+A^{-1},\\qquad\nc=\\beta+A^{-1},\\qquad\nk=c/a.\n\\]\nFor each pair \\(p=(y,z)\\in E\\times E\\), define\n\\[\nu_p=y+\\sqrt\\tau\\,z,\\qquad\nF_p(x)=U(x)+\\frac{\\|x-u_p\\|^2}{2A},\n\\qquad\nT_p(x)=x-c^{-1}\\nabla F_p(x).\n\\]\nStarting at \\(x_{p,0}=y\\), let \\(x_{p,n}=T_p^{\\,n}(y)\\). Define\n\\[\nN(p)=\n\\begin{cases}\n\\min\\{n\\in\\mathbb N:\\|\\nabla F_p(x_{p,n})\\|^2\\le ad\\},\n&\\text{if this set is nonempty},\\\\\n0,&\\text{otherwise},\n\\end{cases}\n\\qquad\n\\operatorname{out}(p)=x_{p,N(p)}.\n\\]\nAlso define\n\\[\nSx=\\sqrt c\\,x,\\qquad Rx=c^{-1/2}x,\\qquad\nG_p(x)=F_p(Rx),\\qquad\n\\pi_p=\\operatorname{Tilt}(F_p),\\qquad\n\\bar\\pi_p=\\operatorname{Tilt}(G_p).\n\\]\n\nThen \\(N:E\\times E\\to\\mathbb N\\) and \\(p\\mapsto S(\\operatorname{out}(p))\\) are measurable. Moreover, **for every pair \\(p\\in E\\times E\\)**:\n\n1. The output satisfies the stopping criterion, and every earlier iterate fails it strictly:\n   \\[\n   \\|\\nabla F_p(\\operatorname{out}(p))\\|^2\\le ad,\\qquad\n   \\forall j<N(p),\\quad \\|\\nabla F_p(x_{p,j})\\|^2>ad.\n   \\]\n   Consequently a successful index exists for every \\(p\\); the fallback branch cannot represent a trajectory that never meets the criterion.\n\n2. The scaled output satisfies\n   \\[\n   \\|\\nabla G_p(S(\\operatorname{out}(p)))\\|^2\\le d/k.\n   \\]\n\n3. \\(G_p\\) is \\(C^2\\), and for every \\(x,v\\in E\\),\n   \\[\n   \\frac ac\\|v\\|^2\\le D^2G_p(x)[v,v]\\le\\|v\\|^2.\n   \\]\n\n4. Both \\(e^{-F_p}\\) and \\(e^{-G_p}\\) are Lebesgue integrable, and both of their integrals are strictly positive. Thus \\(\\pi_p\\) and \\(\\bar\\pi_p\\) are probability measures, and\n   \\[\n   S_\\#\\pi_p=\\bar\\pi_p.\n   \\]\n\n5. For every \\(x\\in E\\),\n   \\[\n   \\nabla G_p(Sx)=c^{-1/2}\\nabla F_p(x).\n   \\]\n\n6. For every real \\(t\\ge0\\),\n   \\[\n   R_\\#(H_t\\bar\\pi_p)=H_{t/c}\\pi_p.\n   \\]\n\n7. For every probability measure \\(\\bar\\nu\\) on \\(E\\) and every pair of real numbers \\(t,B\\ge0\\),\n   \\[\n   \\mathcal W_2^2(\\bar\\nu,H_t\\bar\\pi_p)\\le B\n   \\quad\\Longrightarrow\\quad\n   \\mathcal W_2^2(R_\\#\\bar\\nu,H_{t/c}\\pi_p)\\le B/c.\n   \\]\n\nInterpretation and scope:\n\n- The stopping threshold is exactly \\(ad\\), with equality accepted and iteration zero eligible. There is no arbitrary accuracy parameter, iteration bound, expected runtime bound, or stated computational implementation of the existence test.\n- The conclusions hold pointwise for all pairs \\((y,z)\\); the statement does not draw \\(y\\) from \\(\\nu\\), draw \\(z\\) from a Gaussian, or impose any joint distribution on the input pair.\n- The initial measure \\(\\nu\\) and radius \\(r\\) appear only in the assumptions. They do not enter the iteration, stopping threshold, or subsequent conclusions. The parameter \\(\\eta\\) enters through \\(A\\).\n- The final \\(B\\) bounds a **squared** transport distance. Rescaling divides that bound and Gaussian variance by \\(c\\).\n- No separate finite-second-moment hypotheses are stated. The transport costs retain their extended-real meaning, with the displayed finite upper bounds imposed where required.\n- The explicit integrability and normalization conclusions concern \\(F_p\\) and \\(G_p\\). The statement does not separately list these conclusions for \\(U\\).\n- Nothing here asserts that the deterministic stopping output itself has distribution \\(\\pi_p\\) or approximates it in transport distance.",
+    "text_sha256": "28be6c931e00b3165c3de61c49a6f631087868b7d078143b7fe1a95b6ad52858",
+    "decoder": "blind_reconstruction_u",
+    "decoder_packet_sha256": "9107da5d36a2f35284781b9b6236122b4152d19358ca387cd395a0af872505c7",
+    "decoder_run_sha256": "57e6180eb9f243ba1edc27416993f745f119fe7bdbfff200efdc98e71d6cd468",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "aab4e3b1af39e9657bd5a74678d0935ded5d7f0f144ec353acdd51491731c840",
+  "candidate_publication_context": {
+    "file": "003c2718741c2aab6e252b2d2afb5b34e9f4519e426ac0021a5ee76d246b560b",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent\nimport Mathlib.MeasureTheory.Measure.Haar.NormedSpace\nimport Mathlib.Tactic\n\nopen MeasureTheory Set InnerProductSpace ProbabilityTheory\nopen scoped RealInnerProductSpace NNReal\n/-!\n# Normalize the actual reference and next sampling call\n\nSource: Chen, Chewi, Lu and Zhang, arXiv:2609.06906v1, Sections 6.1 and 6.3.\nThe same actual first gradient-square a*d hit from JointReferenceGradientDescent\nsupplies the reference. Scaling by sqrt(c) makes the genuine Hessian lie in\n[a/c,1] and the reference gradient-square at most d/(c/a).\n\nBoth actual Gibbs laws have proved integrable weights and positive normalizers.\nA volume substitution proves their pushforward identity. Product-map identities\nthen send next normalized smoothing variance t to t/c under inverse scaling.\nPushing actual couplings and taking their cost infimum sends a supplied squared\nWasserstein budget B to B/c. For B=(c/a)*epsilon^2 this is epsilon^2/a.\nNo optimal coupling or separately supplied marginal second moment is assumed.\n\nThe outer Wasserstein input consumes the existing reference construction;\nthe next normalized sampler output and its precision are a distinct input.\nThis theorem does not construct that sampler, an all-parameter kernel,\nmeasurable selection, conditional history, stage costs or either main result.\nOnly the needed transport inequality is proved, not a complete isometry API.\n\nGeneral beta and coordinate-free finite dimension extend the source convention.\nDimension is positive, tau>0, and 0<alpha<=beta. eta,t,r,B may vanish.\nThe actual first-hit definition includes an unreachable no-hit fallback,\nwhich is expanded explicitly in the independent semantic roundtrip.\n-/\n\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\nprivate theorem differential_scaling {F : E → ℝ} (hF : ContDiff ℝ 2 F) (s : ℝ) :\n    ContDiff ℝ 2 (fun x => F (s • x)) ∧\n      (∀ x, gradient (fun y => F (s • y)) x = s • gradient F (s • x)) ∧\n      (∀ x v, fderiv ℝ (fderiv ℝ (fun y => F (s • y))) x v v =\n        s^2 * fderiv ℝ (fderiv ℝ F) (s • x) v v) := by\n  let L : E →L[ℝ] E := s • ContinuousLinearMap.id ℝ E\n  have hL (x : E) : HasFDerivAt (fun y : E => s • y) L x :=\n    (hasFDerivAt_id x).const_smul s\n  have hFd : Differentiable ℝ F := hF.differentiable (by norm_num)\n  have hFdd : Differentiable ℝ (fderiv ℝ F) :=\n    (hF.fderiv_right (m:=1) (by norm_num)).differentiable_one\n  have hfd (x : E) : fderiv ℝ (fun y => F (s • y)) x = s • fderiv ℝ F (s • x) := by\n    have hd : HasFDerivAt (fun y => F (s • y)) ((fderiv ℝ F (s • x)).comp L) x :=\n      (hFd (s • x)).hasFDerivAt.comp x (hL x)\n    rw [hd.fderiv]\n    ext v\n    simp [L]\n  have hg (x : E) : gradient (fun y => F (s • y)) x = s • gradient F (s • x) := by\n    apply HasGradientAt.gradient\n    rw [hasGradientAt_iff_hasFDerivAt]\n    have he : (InnerProductSpace.toDual ℝ E (gradient F (s • x))).comp L =\n        InnerProductSpace.toDual ℝ E (s • gradient F (s • x)) := by\n      ext v\n      simp [L]\n    rw [← he]\n    exact (hFd (s • x)).hasGradientAt.hasFDerivAt.comp x (hL x)\n  refine ⟨hF.comp (contDiff_id.const_smul s),hg,?_⟩\n  intro x v\n  have he : fderiv ℝ (fun y => F (s • y)) = fun x => s • fderiv ℝ F (s • x) :=\n    funext hfd\n  rw [he]\n  have hdd : HasFDerivAt (fun y => s • fderiv ℝ F (s • y))\n      (s • (fderiv ℝ (fderiv ℝ F) (s • x)).comp L) x :=\n    ((hFdd (s • x)).hasFDerivAt.comp x (hL x)).const_smul s\n  rw [hdd.fderiv]\n  simp [L,pow_two,mul_assoc]\n\nomit [CompleteSpace E] in\nprivate theorem scaled_gibbs [FiniteDimensional ℝ E]\n    [MeasurableSpace E] [BorelSpace E] (F : E → ℝ) {s : ℝ} (hs : 0 < s) :\n    Measure.map (fun x : E => s • x) ((volume : Measure E).tilted (fun x => -F x)) =\n      volume.tilted (fun x => -F (s⁻¹ • x)) := by\n  let J : ℝ := |(s ^ Module.finrank ℝ E)⁻¹|\n  have hJ : J ≠ 0 := abs_ne_zero.mpr (inv_ne_zero (pow_ne_zero _ hs.ne'))\n  have hm : Measurable (fun x : E => s • x) := (continuous_id.const_smul s).measurable\n  have hZ : (∫ x : E, Real.exp (-F x)) =\n      J * ∫ x : E, Real.exp (-F (s⁻¹ • x)) := by\n    have h := Measure.integral_comp_smul (volume : Measure E)\n      (fun x => Real.exp (-F (s⁻¹ • x))) s\n    simpa only [smul_smul,inv_mul_cancel₀ hs.ne',one_smul,smul_eq_mul] using h\n  ext B hB\n  rw [Measure.map_apply hm hB,tilted_apply_eq_ofReal_integral' _ (hB.preimage hm),\n    tilted_apply_eq_ofReal_integral' _ hB]\n  congr 1\n  rw [integral_div,integral_div]\n  have hI : (∫ x in (fun x : E => s • x) ⁻¹' B, Real.exp (-F x)) =\n      J * ∫ x in B, Real.exp (-F (s⁻¹ • x)) := by\n    have h := Measure.integral_comp_smul (volume : Measure E)\n      (B.indicator (fun x => Real.exp (-F (s⁻¹ • x)))) s\n    have he : (fun x => B.indicator (fun y => Real.exp (-F (s⁻¹ • y))) (s • x)) =\n        ((fun x : E => s • x) ⁻¹' B).indicator (fun x => Real.exp (-F x)) := by\n      funext x\n      by_cases hx : s • x ∈ B <;>\n        simp [Set.indicator,hx,smul_smul,inv_mul_cancel₀ hs.ne']\n    rw [he,integral_indicator (hB.preimage hm),integral_indicator hB] at h\n    exact h\n  rw [hI,hZ]\n  exact mul_div_mul_left _ _ hJ\n\nomit [CompleteSpace E] in\nprivate theorem scaled_smoothing [FiniteDimensional ℝ E]\n    [MeasurableSpace E] [BorelSpace E] (μ : Measure E) [SFinite μ]\n    {s : ℝ} (hs : s ≠ 0) (σ : ℝ) :\n    Measure.map (fun x : E => s⁻¹ • x)\n      (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n        (μ.map (fun x => s • x)) σ) =\n      TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing μ (s⁻¹*σ) := by\n  have law (ν : Measure E) [SFinite ν] (t : ℝ) :\n      TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing ν t =\n        (ν.prod (stdGaussian E)).map (fun p => p.1+t • p.2) := by\n    have hp : ν.prod (TechnicalLemmas.Measure.GaussianSmoothing.scaledStdGaussian (E:=E) t) =\n        (ν.prod (stdGaussian E)).map (Prod.map id (fun z : E => t • z)) := by\n      simpa only [Measure.map_id,TechnicalLemmas.Measure.GaussianSmoothing.scaledStdGaussian] using\n        Measure.map_prod_map ν (stdGaussian E) measurable_id\n          (by fun_prop : Measurable (fun z : E => t • z))\n    dsimp [TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing,\n      TechnicalLemmas.Measure.CommonNoiseContraction.addNoise]\n    rw [hp,Measure.map_map (by fun_prop) (by fun_prop)]\n    rfl\n  have hp : (μ.map (fun x : E => s • x)).prod (stdGaussian E) =\n      (μ.prod (stdGaussian E)).map (Prod.map (fun x : E => s • x) id) := by\n    simpa only [Measure.map_id] using Measure.map_prod_map μ (stdGaussian E)\n      (by fun_prop : Measurable (fun x : E => s • x)) measurable_id\n  rw [law,law,hp,Measure.map_map (by fun_prop) (by fun_prop),\n    Measure.map_map (by fun_prop) (by fun_prop)]\n  congr 1\n  funext p\n  simp [Function.comp_def,smul_add,smul_smul,inv_mul_cancel₀ hs]\n\nomit [CompleteSpace E] in\nprivate theorem scaled_wasserstein [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (μ ν : Measure E) {s : ℝ} (hs : s ≠ 0) :\n    TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance\n      (μ.map (fun x => s • x)) (ν.map (fun x => s • x)) ^ 2 ≤\n      ENNReal.ofReal (s^2) *\n        TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance μ ν ^ 2 := by\n  let C := TechnicalLemmas.Measure.WassersteinSpace.quadraticCost (E:=E)\n  have hm : Measurable (fun x : E => s • x) := by fun_prop\n  have hc : ENNReal.ofReal (s^2) ≠ 0 := ne_of_gt (ENNReal.ofReal_pos.mpr (sq_pos_of_ne_zero hs))\n  rw [TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq,\n    TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq,\n    TechnicalLemmas.Measure.Transport.transportCost_eq_sInf C μ ν,\n    sInf_eq_iInf, ENNReal.mul_iInf_of_ne hc ENNReal.ofReal_ne_top]\n  apply le_iInf\n  intro r\n  rw [ENNReal.mul_iInf_of_ne hc ENNReal.ofReal_ne_top]\n  apply le_iInf\n  rintro ⟨γ,hγ,rfl⟩\n  let T : E × E → E × E := fun p => (s • p.1,s • p.2)\n  have hT : Measurable T := by fun_prop\n  have hcouple : TechnicalLemmas.Measure.Transport.IsCoupling (γ.map T)\n      (μ.map (fun x => s • x)) (ν.map (fun x => s • x)) := by\n    constructor\n    · rw [Measure.fst_map_prodMk (by fun_prop), ← hγ.1]\n      exact (Measure.map_map hm measurable_fst).symm\n    · rw [Measure.snd_map_prodMk (by fun_prop), ← hγ.2]\n      exact (Measure.map_map hm measurable_snd).symm\n  have hcost : (∫⁻ p, C p ∂(γ.map T)) = ENNReal.ofReal (s^2) * ∫⁻ p, C p ∂γ := by\n    rw [lintegral_map (by unfold C TechnicalLemmas.Measure.WassersteinSpace.quadraticCost; fun_prop) hT]\n    have he (p : E × E) : C (T p) = ENNReal.ofReal (s^2) * C p := by\n      dsimp [C,T,TechnicalLemmas.Measure.WassersteinSpace.quadraticCost]\n      rw [← smul_sub,norm_smul,Real.norm_eq_abs,mul_pow,sq_abs,\n        ENNReal.ofReal_mul (sq_nonneg s)]\n    simp_rw [he]\n    exact lintegral_const_mul _ (by\n      unfold C TechnicalLemmas.Measure.WassersteinSpace.quadraticCost\n      fun_prop)\n  exact (TechnicalLemmas.Measure.Transport.transportCost_le_lintegral_of_isCoupling\n    C _ _ _ hcouple).trans_eq hcost\n\nomit [CompleteSpace E] in\nprivate theorem regularized_hessian {U : E → ℝ} (hU : ContDiff ℝ 2 U)\n    (r : ℝ) (u : E) :\n    ContDiff ℝ 2 (fun x => U x+r/2*‖x-u‖^2) ∧\n    ∀ x v, fderiv ℝ (fderiv ℝ (fun x => U x+r/2*‖x-u‖^2)) x v v =\n      fderiv ℝ (fderiv ℝ U) x v v+r*‖v‖^2 := by\n  let W := fun x => U x+r/2*‖x-u‖^2\n  have hUd : Differentiable ℝ U := hU.differentiable (by norm_num)\n  have hUdd : Differentiable ℝ (fderiv ℝ U) :=\n    (hU.fderiv_right (m:=1) (by norm_num)).differentiable_one\n  have hW : ContDiff ℝ 2 W := hU.add\n    (contDiff_const.mul ((contDiff_id.sub contDiff_const).norm_sq (𝕜:=ℝ)))\n  have hq (x : E) : HasFDerivAt (fun z => r/2*‖z-u‖^2)\n      (r • innerSL ℝ (x-u)) x := by\n    convert (((hasFDerivAt_id x).sub_const u).norm_sq).const_mul (r/2)\n      using 1 <;> first | rfl | (ext v; simp; ring)\n  have hfd (x : E) : fderiv ℝ W x = fderiv ℝ U x+r • innerSL ℝ (x-u) :=\n    ((hUd x).hasFDerivAt.add (hq x)).fderiv\n  let J : E →L[ℝ] (E →L[ℝ] ℝ) :=\n    { toFun := fun v => innerSL ℝ v\n      map_add' := by intros; ext; simp\n      map_smul' := by intros; ext; simp\n      cont := (innerSL ℝ (E:=E)).continuous }\n  have hdd (x : E) : HasFDerivAt (fderiv ℝ W)\n      (fderiv ℝ (fderiv ℝ U) x+r • J) x := by\n    rw [show fderiv ℝ W = (fun z => fderiv ℝ U z+r • innerSL ℝ (z-u)) from funext hfd]\n    convert (hUdd x).hasFDerivAt.add\n      ((J.hasFDerivAt.comp x ((hasFDerivAt_id x).sub_const u)).const_smul r)\n      using 1 <;> rfl\n  refine ⟨hW,fun x v => ?_⟩\n  rw [(hdd x).fderiv]\n  change fderiv ℝ (fderiv ℝ U) x v v+r*inner ℝ v v = _\n  rw [real_inner_self_eq_norm_sq]\n\nprivate theorem normalized_laws [FiniteDimensional ℝ E]\n    [MeasurableSpace E] [BorelSpace E] {F : E → ℝ} {a c : ℝ}\n    (ha : 0 < a) (hc : 0 < c) (hF : ContDiff ℝ 2 F)\n    (hH : ∀ x v, a*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ F) x v v ∧\n      fderiv ℝ (fderiv ℝ F) x v v ≤ c*‖v‖^2) :\n    let S := fun x : E => Real.sqrt c • x\n    let R := fun x : E => (Real.sqrt c)⁻¹ • x\n    let G := fun x => F (R x)\n    let π := (volume : Measure E).tilted (fun x => -F x)\n    let πbar := (volume : Measure E).tilted (fun x => -G x)\n    ContDiff ℝ 2 G ∧\n    (∀ x v, (a/c)*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ G) x v v ∧\n      fderiv ℝ (fderiv ℝ G) x v v ≤ ‖v‖^2) ∧\n    Integrable (fun x => Real.exp (-F x)) (volume : Measure E) ∧\n    0 < ∫ x : E, Real.exp (-F x) ∧ IsProbabilityMeasure π ∧\n    Integrable (fun x => Real.exp (-G x)) (volume : Measure E) ∧\n    0 < ∫ x : E, Real.exp (-G x) ∧ IsProbabilityMeasure πbar ∧\n    π.map S = πbar ∧\n    (∀ x, gradient G (S x) = (Real.sqrt c)⁻¹ • gradient F x) ∧\n    (∀ t : ℝ, 0 ≤ t →\n      (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing πbar (Real.sqrt t)).map R =\n        TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing π (Real.sqrt (t/c))) ∧\n    (∀ (νbar : Measure E) (t B : ℝ), 0 ≤ t →\n      TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance νbar\n        (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing πbar (Real.sqrt t)) ^ 2 ≤\n          ENNReal.ofReal B →\n      TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance (νbar.map R)\n        (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing π (Real.sqrt (t/c))) ^ 2 ≤\n          ENNReal.ofReal (B/c)) := by\n  let S := fun x : E => Real.sqrt c • x\n  let R := fun x : E => (Real.sqrt c)⁻¹ • x\n  let G := fun x => F (R x)\n  let π := (volume : Measure E).tilted (fun x => -F x)\n  let πbar := (volume : Measure E).tilted (fun x => -G x)\n  have hs : 0 < Real.sqrt c := Real.sqrt_pos.mpr hc\n  have hi : (Real.sqrt c)⁻¹^2=c⁻¹ := by rw [inv_pow,Real.sq_sqrt hc.le]\n  have hD := differential_scaling hF (Real.sqrt c)⁻¹\n  have hG : ContDiff ℝ 2 G := hD.1\n  have hGH (x v : E) : (a/c)*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ G) x v v ∧\n      fderiv ℝ (fderiv ℝ G) x v v ≤ ‖v‖^2 := by\n    rw [hD.2.2,hi]\n    have hlo := mul_le_mul_of_nonneg_left (hH (R x) v).1 (inv_pos.mpr hc).le\n    have hup := mul_le_mul_of_nonneg_left (hH (R x) v).2 (inv_pos.mpr hc).le\n    constructor\n    · calc\n        (a/c)*‖v‖^2 = c⁻¹*(a*‖v‖^2) := by ring\n        _ ≤ _ := hlo\n    · simpa only [← mul_assoc,inv_mul_cancel₀ hc.ne',one_mul] using hup\n  have hI := TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn\n    ha (hF.differentiable (by norm_num))\n    (TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower\n      hF (fun x v => (hH x v).1))\n  have hIG := TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn\n    (div_pos ha hc) (hG.differentiable (by norm_num))\n    (TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower\n      hG (fun x v => (hGH x v).1))\n  have : IsProbabilityMeasure π := isProbabilityMeasure_tilted hI\n  have : IsProbabilityMeasure πbar := isProbabilityMeasure_tilted hIG\n  have hmap : π.map S = πbar := scaled_gibbs F hs\n  have hsm (t : ℝ) (ht : 0 ≤ t) :\n      (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing πbar (Real.sqrt t)).map R =\n        TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing π (Real.sqrt (t/c)) := by\n    rw [← hmap,scaled_smoothing π hs.ne']\n    congr 1\n    rw [Real.sqrt_div ht]\n    ring\n  refine ⟨hG,hGH,hI,integral_exp_pos hI,inferInstance,hIG,integral_exp_pos hIG,\n    inferInstance,hmap,?_,hsm,?_⟩\n  · intro x\n    simpa [S,smul_smul,inv_mul_cancel₀ hs.ne'] using hD.2.1 (S x)\n  · intro νbar t B ht hw\n    rw [← hsm t ht]\n    have h := scaled_wasserstein νbar\n      (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing πbar (Real.sqrt t))\n      (inv_ne_zero hs.ne')\n    refine (h.trans (mul_le_mul_right hw _)).trans_eq ?_\n    rw [hi,← ENNReal.ofReal_mul (inv_pos.mpr hc).le]\n    congr 1\n    ring\n\nprivate def actualIndex (T : E × E → E → E) (g : E × E → E → ℝ)\n    (b : ℝ) (p : E × E) : ℕ := by\n  classical\n  exact if h : ∃ n, g p ((T p)^[n] p.1) ≤ b then Nat.find h else 0\n\ntheorem normalized_reference_call [FiniteDimensional ℝ E]\n    [MeasurableSpace E] [BorelSpace E] {U : E → ℝ} {α β : ℝ≥0}\n    (hα : 0 < α) (hαβ : α ≤ β) (hU : ContDiff ℝ 2 U)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ U) x v v ∧\n      fderiv ℝ (fderiv ℝ U) x v v ≤ (β:ℝ)*‖v‖^2)\n    {η τ r : ℝ} (hη : 0 ≤ η) (hτ : 0 < τ) (hr : 0 ≤ r)\n    (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (ν : Measure E) [IsProbabilityMeasure ν]\n    (hw : TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance ν\n      (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n        ((volume : Measure E).tilted (fun x => -U x)) (Real.sqrt η)) ^ 2 ≤ ENNReal.ofReal (r^2)) :\n    let d : ℝ := Module.finrank ℝ E\n    let A := η+τ\n    let a := (α:ℝ)+A⁻¹\n    let c := (β:ℝ)+A⁻¹\n    let k := c/a\n    let u := fun p : E × E => p.1+Real.sqrt τ • p.2\n    let F := fun p x => U x+A⁻¹/2*‖x-u p‖^2\n    let T := fun p x => x-c⁻¹ • gradient (F p) x\n    let N := actualIndex T (fun p x => ‖gradient (F p) x‖^2) (a*d)\n    let out := fun p => (T p)^[N p] p.1\n    let S := fun x : E => Real.sqrt c • x\n    let R := fun x : E => (Real.sqrt c)⁻¹ • x\n    let G := fun p x => F p (R x)\n    let π := fun p => (volume : Measure E).tilted (fun x => -F p x)\n    let πbar := fun p => (volume : Measure E).tilted (fun x => -G p x)\n    Measurable N ∧ Measurable (fun p => S (out p)) ∧\n    (∀ p, ‖gradient (F p) (out p)‖^2 ≤ a*d ∧\n      (∀ j < N p, a*d < ‖gradient (F p) ((T p)^[j] p.1)‖^2) ∧\n      ‖gradient (G p) (S (out p))‖^2 ≤ d/k ∧\n      ContDiff ℝ 2 (G p) ∧\n      (∀ x v, (a/c)*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ (G p)) x v v ∧\n        fderiv ℝ (fderiv ℝ (G p)) x v v ≤ ‖v‖^2) ∧\n      Integrable (fun x => Real.exp (-F p x)) (volume : Measure E) ∧\n      0 < ∫ x : E, Real.exp (-F p x) ∧ IsProbabilityMeasure (π p) ∧\n      Integrable (fun x => Real.exp (-G p x)) (volume : Measure E) ∧\n      0 < ∫ x : E, Real.exp (-G p x) ∧ IsProbabilityMeasure (πbar p) ∧\n      (π p).map S = πbar p ∧\n      (∀ x, gradient (G p) (S x) = (Real.sqrt c)⁻¹ • gradient (F p) x) ∧\n      (∀ t : ℝ, 0 ≤ t →\n        (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing (πbar p) (Real.sqrt t)).map R =\n          TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing (π p) (Real.sqrt (t/c))) ∧\n      (∀ (νbar : Measure E) (t B : ℝ), IsProbabilityMeasure νbar → 0 ≤ t → 0 ≤ B →\n        TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance νbar\n          (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing (πbar p) (Real.sqrt t)) ^ 2 ≤\n            ENNReal.ofReal B →\n        TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance (νbar.map R)\n          (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing (π p) (Real.sqrt (t/c))) ^ 2 ≤\n            ENNReal.ofReal (B/c))) := by\n  let d : ℝ := Module.finrank ℝ E\n  let A := η+τ\n  let a := (α:ℝ)+A⁻¹\n  let c := (β:ℝ)+A⁻¹\n  let k := c/a\n  let u := fun p : E × E => p.1+Real.sqrt τ • p.2\n  let F := fun p x => U x+A⁻¹/2*‖x-u p‖^2\n  let T := fun p x => x-c⁻¹ • gradient (F p) x\n  let N := actualIndex T (fun p x => ‖gradient (F p) x‖^2) (a*d)\n  let out := fun p => (T p)^[N p] p.1\n  let S := fun x : E => Real.sqrt c • x\n  let R := fun x : E => (Real.sqrt c)⁻¹ • x\n  let G := fun p x => F p (R x)\n  have hA : 0 < A := add_pos_of_nonneg_of_pos hη hτ\n  have ha : 0 < a := add_pos_of_nonneg_of_pos α.coe_nonneg (inv_pos.mpr hA)\n  have hc : 0 < c := add_pos_of_nonneg_of_pos β.coe_nonneg (inv_pos.mpr hA)\n  have hs : 0 < Real.sqrt c := Real.sqrt_pos.mpr hc\n  have hi : (Real.sqrt c)⁻¹^2=c⁻¹ := by rw [inv_pow,Real.sq_sqrt hc.le]\n  have hP := JointReferenceGradientDescent.joint_reference_gradient_descent\n    hα hαβ hU hH hη hτ hr hd ν hw\n  have hNm : Measurable N := hP.1\n  have hom : Measurable out := hP.2.1\n  refine ⟨hNm,(by fun_prop : Measurable S).comp hom,fun p => ?_⟩\n  have hreg := regularized_hessian hU A⁻¹ (u p)\n  have hFH (x v : E) : a*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ (F p)) x v v ∧\n      fderiv ℝ (fderiv ℝ (F p)) x v v ≤ c*‖v‖^2 := by\n    rw [hreg.2]\n    dsimp [a,c]\n    constructor <;> nlinarith [(hH x v).1,(hH x v).2]\n  obtain ⟨hG,hGH,hI,hZ,hprob,hIG,hZG,hprobG,hmap,hgrad,hsm,hprec⟩ :=\n    normalized_laws ha hc hreg.1 hFH\n  have hp : ‖gradient (F p) (out p)‖^2 ≤ a*d := (hP.2.2.1 p).1\n  have hearly : ∀ j < N p, a*d < ‖gradient (F p) ((T p)^[j] p.1)‖^2 :=\n    (hP.2.2.1 p).2.2.2.1\n  refine ⟨hp,hearly,?_,hG,hGH,hI,hZ,hprob,hIG,hZG,hprobG,hmap,hgrad,hsm,\n    fun νbar t B _ ht _ hbudget => hprec νbar t B ht hbudget⟩\n  rw [hgrad,norm_smul,Real.norm_eq_abs,mul_pow,sq_abs,hi]\n  have hb := mul_le_mul_of_nonneg_left hp (inv_pos.mpr hc).le\n  calc\n    c⁻¹*‖gradient (F p) (out p)‖^2 ≤ c⁻¹*(a*d) := hb\n    _ = d/k := by dsimp [k]; field_simp\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Sections6.1 and6.3: actual reference and next-call coordinate normalization",
+      "wording_status": "faithful paraphrase",
+      "attribution": "ASTIS expanded proof component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S.Zhang,Smoothed Picard Hamiltonian Monte Carlo. Fixed-call normalization,not a complete sampler theorem."
+    },
+    "statement": "N and p->S(out(p)) are measurable. For every p, the actual output satisfies norm(grad F_p(out))^2<=a*d and every earlier iterate strictly fails that threshold. The scaled reference satisfies norm(grad G_p(S(out)))^2<=d/k. G_p is C2 with genuine Hessian bounds [a/c,1]. Both exponential Gibbs weights are integrable with strictly positive integrals, and both tilted laws are probability measures. S#pi_p=pibar_p and grad G_p(S(x))=c^(-1/2)*grad F_p(x). For every next variance t>=0, R#H(pibar_p,sqrt(t))=H(pi_p,sqrt(t/c)). For every actual probability nubar and t,B>=0, a supplied W2(nubar,H(pibar_p,sqrt(t)))^2<=ofReal(B) implies W2(R#nubar,H(pi_p,sqrt(t/c)))^2<=ofReal(B/c).",
+    "formulae": [
+      {
+        "label": "Actual normalized reference,laws and returned precision",
+        "tex": "\\|\\nabla G_p(S\\,\\mathrm{out}(p))\\|^2\\le d/k,\\quad S_\\#\\pi_p=\\bar\\pi_p,\\quad R_\\#H(\\bar\\pi_p,\\sqrt t)=H(\\pi_p,\\sqrt{t/c}),\\quad W_2^2\\le B/c."
+      }
+    ],
+    "assumptions": [
+      "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume; d=dim(E)>0. U is C2 and its genuine Hessian lies between alpha*norm(v)^2 and beta*norm(v)^2 for every x,v, with 0<alpha<=beta.",
+      "eta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,law(X+sqrt(eta)*Z))^2<=ofReal(r^2), where X has the normalized Gibbs law volume.tilted(-U) and Z is an independent standard Gaussian. This is the outer input to the existing actual reference construction.",
+      "A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a. For p=(y,z), u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A). Here a is a curvature lower bound, not an RGO variance.",
+      "T_p(x)=x-c^(-1)*grad F_p(x). N(p) is the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if such an n exists, otherwise zero; out(p)=T_p^N(p)(y). The inherited finite-hit proof eliminates the default branch.",
+      "S(x)=sqrt(c)*x,R(x)=x/sqrt(c),G_p(x)=F_p(R(x)). pi_p=volume.tilted(-F_p) and pibar_p=volume.tilted(-G_p). Write H(mu,sigma)=law(X+sigma*Z) for independent X~mu,Z~stdGaussian(E). W2 squared is the extended nonnegative infimum of quadratic coupling costs."
+    ],
+    "obligations": [
+      {
+        "id": "actual-normalized-reference-call",
+        "label": "Actual normalized reference and returned sampling precision"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call",
+      "title": "Actual normalized reference and returned sampling precision",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS1",
+          "label": "SPHMC Sections6.1 and6.3 normalization convention and next call",
+          "scope": "Fixed-call normalization of the actual first ad-hit reference and actual sampling laws. General beta, coordinate-free finite dimension and eta=0,t=0,r=0,B=0 extend the source; d>0,tau>0,0<alpha<=beta remain required. The outer W2 input and next normalized output precision are distinct supplied guarantees. No sampler achieving the next budget, all-parameter kernel, measurable sampler selection, conditional history or stage costs are proved. The public transport conclusion is the needed inequality, not a full isometry theorem. For source B=k*epsilon^2, B/c=epsilon^2/a; a here denotes regularized curvature. Returned probability is a standard measurable-pushforward consequence, not an extra public conjunct. Both main results remain incomplete."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCNormalizedReferenceCall"
+      ],
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume; d=dim(E)>0. U is C2 and its genuine Hessian lies between alpha*norm(v)^2 and beta*norm(v)^2 for every x,v, with 0<alpha<=beta.",
+        "eta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,law(X+sqrt(eta)*Z))^2<=ofReal(r^2), where X has the normalized Gibbs law volume.tilted(-U) and Z is an independent standard Gaussian. This is the outer input to the existing actual reference construction.",
+        "A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a. For p=(y,z), u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A). Here a is a curvature lower bound, not an RGO variance.",
+        "T_p(x)=x-c^(-1)*grad F_p(x). N(p) is the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if such an n exists, otherwise zero; out(p)=T_p^N(p)(y). The inherited finite-hit proof eliminates the default branch.",
+        "S(x)=sqrt(c)*x,R(x)=x/sqrt(c),G_p(x)=F_p(R(x)). pi_p=volume.tilted(-F_p) and pibar_p=volume.tilted(-G_p). Write H(mu,sigma)=law(X+sigma*Z) for independent X~mu,Z~stdGaussian(E). W2 squared is the extended nonnegative infimum of quadratic coupling costs."
+      ],
+      "statement": "N and p->S(out(p)) are measurable. For every p, the actual output satisfies norm(grad F_p(out))^2<=a*d and every earlier iterate strictly fails that threshold. The scaled reference satisfies norm(grad G_p(S(out)))^2<=d/k. G_p is C2 with genuine Hessian bounds [a/c,1]. Both exponential Gibbs weights are integrable with strictly positive integrals, and both tilted laws are probability measures. S#pi_p=pibar_p and grad G_p(S(x))=c^(-1/2)*grad F_p(x). For every next variance t>=0, R#H(pibar_p,sqrt(t))=H(pi_p,sqrt(t/c)). For every actual probability nubar and t,B>=0, a supplied W2(nubar,H(pibar_p,sqrt(t)))^2<=ofReal(B) implies W2(R#nubar,H(pi_p,sqrt(t/c)))^2<=ofReal(B/c).",
+      "formula": "\\|\\nabla G_p(S\\,\\mathrm{out}(p))\\|^2\\le d/k,\\quad S_\\#\\pi_p=\\bar\\pi_p,\\quad R_\\#H(\\bar\\pi_p,\\sqrt t)=H(\\pi_p,\\sqrt{t/c}),\\quad W_2^2\\le B/c.",
+      "steps": [
+        {
+          "title": "Retain the actual first-hit program and pair dependence",
+          "text": "The parent JointReferenceGradientDescent theorem is applied to the same U,eta,tau and actual outer input law. actualIndex is definitionally the same first ad-hit program. Thus N and out are measurable, the stopped gradient satisfies the threshold, and every earlier iterate fails it. Continuous S preserves output measurability. No supplied reference point replaces the program.",
+          "formula": "N(p)=\\min\\{n:\\|\\nabla F_p(T_p^n(p_1))\\|^2\\le ad\\},\\qquad p\\mapsto S(\\mathrm{out}(p))\\text{ is measurable}.",
+          "lean": "actualIndex; normalized_reference_call: hP,hNm,hom,hp,hearly"
+        },
+        {
+          "title": "Differentiate the actual regularized potential",
+          "text": "Differentiate the quadratic norm term twice. Its first derivative is A^(-1) inner(x-u,.) and its second derivative is A^(-1) inner(.,.). Adding these genuine derivatives to those of U shifts both Hessian bounds by A^(-1); no independent Hessian field is assumed.",
+          "formula": "D^2F_p(x)[v,v]=D^2U(x)[v,v]+A^{-1}\\|v\\|^2,\\qquad a\\|v\\|^2\\le D^2F_p(x)[v,v]\\le c\\|v\\|^2.",
+          "lean": "regularized_hessian: hq,hfd,hdd; normalized_reference_call: hreg,hFH"
+        },
+        {
+          "title": "Apply the chain rule and certify the scaled reference",
+          "text": "For any real scalar s, differentiating F(s*x) gives s times its gradient and s^2 times its Hessian quadratic form. Set s=1/sqrt(c), using c>0. The actual stopped threshold ad becomes ad/c=d/k. The same chain rule gives normalized curvature [a/c,1].",
+          "formula": "\\nabla G_p(Sx)=c^{-1/2}\\nabla F_p(x),\\quad D^2G_p(x)[v,v]=c^{-1}D^2F_p(Rx)[v,v],\\quad ad/c=d/k.",
+          "lean": "differential_scaling; normalized_laws: hD,hGH; normalized_reference_call: hi,hb"
+        },
+        {
+          "title": "Prove both Gibbs normalizations before identifying probability laws",
+          "text": "Positive Hessian lower bounds imply strong convexity of F and G. StrongConvexGibbsIntegrability supplies integrability of their actual exponential weights without a minimizer assumption. Positive exponential integrals then give nonzero finite normalizers and actual probability tilted measures.",
+          "formula": "0<Z_F=\\int e^{-F(x)}\\,dx<\\infty,\\qquad 0<Z_G=\\int e^{-G(x)}\\,dx<\\infty.",
+          "lean": "normalized_laws: hI,hIG; HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower; integral_exp_pos; isProbabilityMeasure_tilted"
+        },
+        {
+          "title": "Cancel the same volume Jacobian in numerator and denominator",
+          "text": "For s=sqrt(c)>0, the volume substitution has J=abs((s^d)^(-1))>0. On each measurable B it gives I_F(S^(-1)B)=J*I_G(B), and also Z_F=J*Z_G. The tilted setwise formula cancels J, proving S#pi_F=pi_G. The private identity also supports total-integral degenerate inputs; the actual public consumer separately proves true positive normalization.",
+          "formula": "(S_\\#\\pi_F)(B)=\\frac{J\\int_B e^{-G(x)}dx}{JZ_G}=\\pi_G(B),\\qquad J=c^{-d/2}.",
+          "lean": "scaled_gibbs: hJ,hZ,hI; Measure.integral_comp_smul; tilted_apply_eq_ofReal_integral'"
+        },
+        {
+          "title": "Transform the actual independent Gaussian product law",
+          "text": "Expand H(mu,sigma) as the pushforward of mu.prod(stdGaussian) by (x,z)->x+sigma*z. Product-map and map-composition identities show R(SX+sqrt(t)Z)=X+sqrt(t/c)Z. The next t is distinct from the current eta and tau; t=0 is included.",
+          "formula": "R_\\#H(S_\\#\\pi,\\sqrt t)=H(\\pi,c^{-1/2}\\sqrt t)=H(\\pi,\\sqrt{t/c}).",
+          "lean": "scaled_smoothing: law,hp; normalized_laws: hsm; Measure.map_prod_map; Measure.map_map; Real.sqrt_div"
+        },
+        {
+          "title": "Push each coupling and take the cost infimum",
+          "text": "For any coupling gamma, map the pair by (x,y)->(s*x,s*y). Its two marginals are exactly the scaled marginals, and its quadratic cost is s^2 times the original cost. Since ofReal(s^2) is positive and finite for nonzero s, it commutes with both indexed infima defining transport cost, even for infinite cost or an empty coupling set. No optimal coupling or separate second-moment assumption is used.",
+          "formula": "\\int\\|sx-sy\\|^2d\\gamma=s^2\\int\\|x-y\\|^2d\\gamma,\\quad W_2^2(s_\\#\\mu,s_\\#\\nu)\\le s^2W_2^2(\\mu,\\nu).",
+          "lean": "scaled_wasserstein: hcouple,hcost; ENNReal.mul_iInf_of_ne; Transport.transportCost_le_lintegral_of_isCoupling"
+        },
+        {
+          "title": "Propagate the supplied next-call precision",
+          "text": "Apply the coupling bound with s=1/sqrt(c), substitute the proved smoothing-law identity, and use the nonnegative supplied budget B. This yields actual returned squared precision B/c. The source choice B=k*epsilon^2 therefore returns epsilon^2/a. This step consumes the normalized sampler guarantee; constructing that sampler and propagating conditional histories and total costs remain separate.",
+          "formula": "W_2^2(\\bar\\nu,H(\\bar\\pi,\\sqrt t))\\le B\\Longrightarrow W_2^2(R_\\#\\bar\\nu,H(\\pi,\\sqrt{t/c}))\\le B/c;\\quad \\frac{k\\varepsilon^2}{c}=\\frac{\\varepsilon^2}{a}.",
+          "lean": "normalized_laws: hprec; normalized_reference_call: hprec"
+        }
+      ],
+      "lean_statement": "Actual first-hit reference normalization,genuine Hessian,positive Gibbs laws,Gaussian variance and returned Wasserstein precision.",
+      "lean_proof": "Chain rules,actual first-hit parent,positive strong-convex Gibbs normalization,Haar substitution,product maps,and arbitrary-coupling infimum scaling.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost_le_lintegral_of_isCoupling"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.integral_comp_smul",
+        "MeasureTheory.tilted_apply_eq_ofReal_integral'",
+        "MeasureTheory.Measure.map_prod_map",
+        "MeasureTheory.Measure.map_map",
+        "ENNReal.mul_iInf_of_ne"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call",
+      "role": "proof-edge",
+      "supports": [
+        "actual-normalized-reference-call"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Normalize F(x/sqrt(c)) and divide the resulting output by sqrt(c).",
+        "lean": "True differential,normalized Gibbs,smoothing and quadratic transport calculations."
+      },
+      {
+        "source": "The reference is built by the inner gradient stopping rule.",
+        "lean": "The same actual first ad-hit,with measurable scaled output and d/k bound."
+      },
+      {
+        "source": "Normalized beta=1,Euclidean positive-parameter setting.",
+        "lean": "General beta,coordinate-free,d>0,tau>0; eta,t,r,B may vanish."
+      },
+      {
+        "source": "Upstream and next sampler precision guarantees participate in the recursive call.",
+        "lean": "Distinct outer W2 input and next normalized output budget B>=0."
+      },
+      {
+        "source": "Implicit normalizing constants and change of variables.",
+        "lean": "Both weights L1,strictly positive normalizers,actual probability laws and Jacobian cancellation proved."
+      },
+      {
+        "source": "This normalization is used within a recursive sampler.",
+        "lean": "Fixed-pair potential and law identities with joint reference measurability."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "8e0c550175847402f55979b20751360eba3e205b6b58fbb2eb38ba50c68c9e11"
+}
