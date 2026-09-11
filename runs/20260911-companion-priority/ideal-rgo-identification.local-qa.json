@@ -1,0 +1,69 @@
+{
+  "commit": "54f994e7b2fd5fb115bbbb67a73b562ad5c1b0ae",
+  "source_digest": "3ca089a17f11a4d787999630766f06b7d207e14ed12b3034eb6197761f5ae986",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 51138,
+    "exit_code": 0,
+    "result": "PASS9165",
+    "log": ".astis/ideal-rgo-identification-integration-gate.log"
+  },
+  "reader_build": {
+    "session": 95818,
+    "exit_code": 0,
+    "log": ".astis/ideal-rgo-identification-reader-build.log"
+  },
+  "reader_check": {
+    "session": 59520,
+    "exit_code": 0,
+    "log": ".astis/ideal-rgo-identification-reader-check.log",
+    "chapters": 12,
+    "modules": 635,
+    "declarations": 3828,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/ideal-rgo-identification-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=54f994e",
+    "section": "sphmc-ideal-rgo-identification",
+    "authored_steps": 6,
+    "initial_details": 9,
+    "initial_open_details": 0,
+    "clicked": [
+      "Lean statement · ideal_rgo_identification",
+      "Lean proof · ideal_rgo_identification",
+      "Source and reuse",
+      "First mathematical proof heading",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 1031,
+    "proof_code_characters": 1448,
+    "katex_errors": 0,
+    "source_and_parent_links": "D.1 and SPHMC A4(2); GradientArcMean,GaussianLikelihood,IsotropicGaussianDensity and Analysis.Integrability exact parent links present.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "Actual clicked module card: eleven declarations, Compiled, zero placeholders. Compiled and Not mapped remain distinct."
+  },
+  "remaining": [
+    "Same-head remote Lean CI",
+    "Independent integration review",
+    "Actual merge and deployment",
+    "Whole-Goal delivery gap: no visible companion copy button or paper-associated Lean download entry observed; do not claim implemented"
+  ],
+  "boundary": "Selected ideal normalization/identity and existing reader integration only. No clipped Renyi,adaptivekernel,initialization,cost or completepaper result. General Goal copy/download/citation delivery still requires implementation/verification.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "candidate": "54f994e7b2fd5fb115bbbb67a73b562ad5c1b0ae",
+    "result": "Accepted local integration; reviewed gate passed; source/test/binding unchanged from VERIFIEDdd88e79; rootimports and parent zero-tree-delta verified; exactHEAD sourceDigest rehashed; actual canonical/sitecheck logs and static page verified. Browser clicks/screenshots remain rootprovenance. No local blocker. CI/merge/deploy and copy/download goal gaps remain.",
+    "transcription_authorized": true
+  }
+}

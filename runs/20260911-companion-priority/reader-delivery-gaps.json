@@ -1,0 +1,12 @@
+{
+  "observed_candidate":"54f994e7b2fd5fb115bbbb67a73b562ad5c1b0ae",
+  "observer":"root actual browser",
+  "page":"example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+  "scope":"Whole persistent Goal delivery; not a mathematical theorem blocker",
+  "items":[
+    {"requirement":"Copy Lean from companion proof windows","status":"No visible copy button found in inspected companion main controls; selectable Lean blocks exist. Implementation/verification still required."},
+    {"requirement":"Download full associated Lean by paper/textbook/chapter","status":"No visible paper-associated download entry found in inspected companion main links. Broader site inventory not yet audited; do not infer globally absent."},
+    {"requirement":"Convenient ASTIS citation","status":"Attribution/source links present; citation-copy/export entry not yet verified."}
+  ],
+  "implementation_direction":"Reuse canonical publication/declaration/import metadata for source/bundle/citation entries. Preserve shared registry and module truth boundaries; no copied theorem graph. Do not block correct Lean packets while implementing later stable reader delivery."
+}
