@@ -33,7 +33,6 @@
   },
   "mathematical_status": "The terminal threshold and stage bound are computed from the initial state and then fixed. The scalar source formulas use smoothness normalized to one; a general smoothness parameter needs the source scaling adapter. The actual dimension is positive. C>=8 is a proved sufficient constant, not a source-prescribed numerical value. Arbitrary observation and terminal Markov kernels do not identify the concrete smoothed sampler or FORS. Stage transitions are not gradient queries. No initialization validity, approximation error or expected query-cost result is asserted, and no uniform kernel equality across all initial states is claimed.",
   "remaining": [
-    "Verify terminal merge Lean run34573620613; exact deployed reader provenance already verified",
     "General smoothness scaling and initialized history validity",
     "Concrete FORS and actual approximate sampler",
     "Errors and actual-input expected query costs",
@@ -117,6 +116,6 @@
       ],
       "boundary": "Exact deployed commit and actual HTTP/anchor/labels verified. Earlier local visual QA and PR CI remain distinct."
     },
-    "merge_lean": "34573620613 last observed in_progress; terminal verification pending"
+    "merge_lean": "34573620613 completed SUCCESS; exact gh run view verified"
   }
 }

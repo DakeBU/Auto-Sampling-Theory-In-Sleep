@@ -1,0 +1,29 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent scratch, localized production and final notation replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCGaussianRGOErrorBudget",
+  "result": "PASS3755, exit0, only existing parent lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianRGOErrorBudget.lean": "d13fc45f4b2f424cb68991593b7fcb5a8aa8e56d42be032f022f4c0556e1deb2",
+    "Tests/SmoothedPicardHMCGaussianRGOErrorBudget.lean": "cf637d567222175c9e245b17795b3e412f153e96a4ae680b10f5cb6c54fab4f2"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Public contract and complete proof match the localized draft; Delta>=0 and redundant kappa measurability disclosed.",
+    "Actual Gaussian Q is a measurable product/map kernel with variance tau/beta.",
+    "TwoNoiseRGO semigroup identifies the ideal total variance; added-time GaussianKL denominator is correct.",
+    "Squared-W2 actual transport cost and source accuracy cancel beta and kappa exactly.",
+    "Actual parent P,R propagate the constant over their own probability laws; terminal residual retained.",
+    "Five-step lesson matches; input M accuracy remains a premise, J is not a stopping theorem, and FORS/cost remain open."
+  ],
+  "history": {
+    "scratch_sha256": "ef99d31ca10cd3f9f4600ca9a837a0323041dd6675cb2b539a9ac6fd128e397f"
+  },
+  "qualification": "Development proof review only; formal source and fixed-commit admission separate."
+}

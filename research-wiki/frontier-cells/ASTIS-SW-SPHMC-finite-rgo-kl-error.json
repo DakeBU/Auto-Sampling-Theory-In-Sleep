@@ -38,10 +38,64 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-finite-rgo-kl-error.md",
     "planning_review": "Independent source review approved full finite actual-law sum instead of a state-KL wrapper. Require same T,H before Q,L,n, posterior consistency derived, stop error as if/else, terminal error retained, and all ENNReal branches.",
-    "execution_boundary": "Root sole writer; FiniteRGOKLError sole STABILIZING; GaussianRGOErrorBudget EXPLORING.",
+    "execution_boundary": "FiniteRGOKLError actually merged PR273; stabilization lane released. GaussianRGOErrorBudget remains EXPLORING.",
     "independent_proof_review": "runs/20260911-companion-priority/finite-rgo-kl-error.independent-proof-review.json",
     "admission_boundary": "VERIFIED at 1701670; no aggregate or reader integration admission yet.",
-    "independent_verification": "runs/20260911-companion-priority/finite-rgo-kl-error.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/finite-rgo-kl-error.verified-admission.json",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/273",
+      "commit": "b275d38e2a5e2dd5b769febbe51aca218c798725",
+      "candidate": "d733cf5f27ae784276c90486cd78bcfc25493595",
+      "merged_at": "2026-09-11T07:48:13Z",
+      "candidate_ci": {
+        "lean": "34575013584 SUCCESS",
+        "site": "34575013597 SUCCESS; PR deploy skipped"
+      },
+      "fixed_local_qa": {
+        "commit": "d733cf5f27ae784276c90486cd78bcfc25493595",
+        "aggregate": {
+          "status": "passed",
+          "jobs": 9136,
+          "source_digest": "10baf92318df8eae2249600b7c4805b758cec5e8e2bd7aa5bbd1b08e0a454b0f"
+        },
+        "site": {
+          "status": "passed",
+          "modules": 606,
+          "declarations": 3683,
+          "reviewed_teaching": 77,
+          "check_log": ".astis/finite-kl-site-check.log"
+        },
+        "graph": {
+          "status": "checked",
+          "report": ".astis/finite-kl-graph-check.json",
+          "boundary": "Reference edges are not elaborated dependency certificates."
+        },
+        "browser": {
+          "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-finite-rgo-kl-error",
+          "steps": 6,
+          "initially_closed_disclosures": 9,
+          "clicked": [
+            "Lean statement",
+            "Lean proof",
+            "Source and reuse"
+          ],
+          "statement_characters": 1317,
+          "proof_characters": 9388,
+          "math_errors": 0,
+          "screenshot": "Scope boundary and source/reuse visually inspected in actual browser screenshot.",
+          "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-finitergoklerror.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-finitergoklerror-finit-924f7565d3",
+          "card_labels": [
+            "Compiled",
+            "Not mapped"
+          ],
+          "displayed_commit": "d733cf5f27ae",
+          "boundary": "Local fixed-source QA only; no deployment claim."
+        }
+      },
+      "independent_merge_review": "depth_commit_verifier independently accepted the exact candidate, canonical gate9136 and source digest, unchanged VERIFIED production/test, reviewed source binding, preserved root imports, site and graph evidence, and same-head completed Lean/Site CI. Root rechecked MERGEABLE and candidate before match-head merge.",
+      "post_merge": "Merge CI and deployed provenance pending; local QA and candidate CI are not deployment evidence.",
+      "truth_boundary": "This proves the error-transfer dependency for the actual finite recursive program. Arbitrary supplied Markov Q and L are not identified with the paper smoothed sampler or FORS. No stage accuracy, adequate stopping cap, initialization validity, or expected query-cost bound is asserted. The terminal residual is retained, including on stopped states. All KL values and budgets are extended nonnegative reals. The source A1 Wasserstein accuracy and equation (6.5) still need an actual observation-kernel instantiation."
+    }
   },
   "blocked": {
     "reason": "",

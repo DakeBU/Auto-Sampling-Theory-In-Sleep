@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-5eed0916946d5360",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "gaussian_budget_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-gaussian-rgo-error-budget",
+    "anchor": "Theorem6.5 A1 actual Gaussian observation and equation(6.5) budget",
+    "original_text": "Finite-dimensional real Hilbert Borel E, including zero dimension; mu probability.\nbeta,kappa,tau are measurable and strictly positive everywhere; eta is measurable and nonnegative. Delta>=0, J natural, theta nonnegative and fixed.\nM,L are measurable Markov kernels on the complete state. Ideal T,H are fixed before their selection.\nOnly continuing states require the displayed squared-W2 accuracy with epsilon(s)^2=2*tau(s)*Delta^2/(kappa(s)*(J+1)). No observation KL bound is assumed.\nNo stopping bound, terminal accuracy, finite terminal KL, marginal moment or cost-transfer premise is added.\nLet E be a finite-dimensional real inner-product Borel space and mu a probability measure. Set S=NNReal times E times Nat times E^Nat. Let beta,kappa,tau:S to R be positive measurable functions and eta:S to R nonnegative measurable. Fix a nonnegative precision threshold theta, natural budget J and Delta>=0. Define a(s)=(eta(s)+tau(s))/beta(s). There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing with standard deviation sqrt(a(s)). These are chosen before arbitrary Markov smoothed-output M and terminal L. Suppose that on every continuing state, squared W2 from M(s) to T(s) smoothed at time eta(s)/beta(s) is at most ofReal(kappa(s)*[2*tau(s)*Delta^2/(kappa(s)*(J+1))]/beta(s)). Then there exist F,Q,P and Markov output kernels R_n. F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), increments the count and prepends y to history. Q(s) is M(s) with an independent Gaussian of variance tau(s)/beta(s) added. P(s)=dirac s if theta<=b and otherwise the F(s,.) pushforward of Q(s). R_0=L, and R_(n+1)(s)=L(s) if stopped, otherwise the bind of Q(s) with R_n(F(s,y)). On every continuing state KL(Q(s)||H(s))<=ofReal(Delta^2/(J+1)). For all n,s, KL(R_n(s)||T(s)) is at most n*ofReal(Delta^2/(J+1)) plus integral KL(L(x)||T(x)) under P^n(s). All bounds are in extended nonnegative reals.",
+    "text_sha256": "b3b70ae1d96bbb15ddf7026ecef59a332c75a2b6aeace74796633420a2338141"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianRGOErrorBudget.lean",
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ]\n  (β κ η τ : NNReal × E × ℕ × (ℕ → E) → ℝ),\n  Measurable β →\n    Measurable κ →\n      Measurable η →\n        Measurable τ →\n          (∀ (s : NNReal × E × ℕ × (ℕ → E)), 0 < β s) →\n            (∀ (s : NNReal × E × ℕ × (ℕ → E)), 0 < κ s) →\n              (∀ (s : NNReal × E × ℕ × (ℕ → E)), 0 ≤ η s) →\n                (∀ (s : NNReal × E × ℕ × (ℕ → E)), 0 < τ s) →\n                  ∀ (threshold : NNReal) (J : ℕ) (Δ : ℝ),\n                    0 ≤ Δ →\n                      have a := fun s => (η s + τ s) / β s;\n                      ∃ T H,\n                        ProbabilityTheory.IsMarkovKernel T ∧\n                          ProbabilityTheory.IsMarkovKernel H ∧\n                            (∀ (s : NNReal × E × ℕ × (ℕ → E)), T s = μ.tilted fun x => -(↑s.1 / 2) * ‖x - s.2.1‖ ^ 2) ∧\n                              (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                  H s =\n                                    AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing (T s)\n                                      √(a s)) ∧\n                                ∀ (M L : ProbabilityTheory.Kernel (NNReal × E × ℕ × (ℕ → E)) E),\n                                  ProbabilityTheory.IsMarkovKernel M →\n                                    ProbabilityTheory.IsMarkovKernel L →\n                                      (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                          ¬threshold ≤ s.1 →\n                                            AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance\n                                                  (M s)\n                                                  (AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n                                                    (T s) √(η s / β s)) ^\n                                                2 ≤\n                                              ENNReal.ofReal (κ s * (2 * τ s * Δ ^ 2 / (κ s * (↑J + 1))) / β s)) →\n                                        ∃ F Q P R,\n                                          (∀ (s : NNReal × E × ℕ × (ℕ → E)) (y : E),\n                                              ↑(F (s, y)).1 = ↑s.1 + (a s)⁻¹ ∧\n                                                (F (s, y)).2 =\n                                                  ((↑s.1 + (a s)⁻¹)⁻¹ • (↑s.1 • s.2.1 + (a s)⁻¹ • y), s.2.2.1 + 1,\n                                                    fun n => Nat.casesOn n y s.2.2.2)) ∧\n                                            ProbabilityTheory.IsMarkovKernel Q ∧\n                                              ProbabilityTheory.IsMarkovKernel P ∧\n                                                (∀ (n : ℕ), ProbabilityTheory.IsMarkovKernel (R n)) ∧\n                                                  (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                                      Q s =\n                                                        AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n                                                          (M s) √(τ s / β s)) ∧\n                                                    (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                                        P s =\n                                                          if threshold ≤ s.1 then MeasureTheory.Measure.dirac s\n                                                          else MeasureTheory.Measure.map (fun y => F (s, y)) (Q s)) ∧\n                                                      R 0 = L ∧\n                                                        (∀ (n : ℕ) (s : NNReal × E × ℕ × (ℕ → E)),\n                                                            (R (n + 1)) s =\n                                                              if threshold ≤ s.1 then L s\n                                                              else (Q s).bind fun y => (R n) (F (s, y))) ∧\n                                                          (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                                              ¬threshold ≤ s.1 →\n                                                                InformationTheory.klDiv (Q s) (H s) ≤\n                                                                  ENNReal.ofReal (Δ ^ 2 / (↑J + 1))) ∧\n                                                            ∀ (n : ℕ) (s : NNReal × E × ℕ × (ℕ → E)),\n                                                              InformationTheory.klDiv ((R n) s) (T s) ≤\n                                                                ↑n * ENNReal.ofReal (Δ ^ 2 / (↑J + 1)) +\n                                                                  ∫⁻ (x : NNReal × E × ℕ × (ℕ → E)),\n                                                                    InformationTheory.klDiv (L x) (T x) ∂(P ^ n) s",
+    "statement_sha256": "a040867917b60efd228265e544a35ce99e810abb702fcd7308a1740ec8459914",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let E be any finite-dimensional real inner-product Borel space, mu any probability measure, and S=NNReal times E times Nat times E^Nat with s=(b,u,k,h). Give measurable beta,kappa,eta,tau:S to Real such that beta,kappa,tau are positive everywhere and eta is nonnegative everywhere. For every threshold B>=0, natural J, and real Delta>=0, define a(s)=(eta(s)+tau(s))/beta(s). There exist Markov T,H:S to E, with T_s equal to mu normalized by exp(-(b/2)*norm(x-u)^2) and H_s its Gaussian smoothing with standard deviation sqrt(a(s)). Gaussian smoothing adds independent centered isotropic noise with covariance the square of that standard deviation times identity.\nAfter T,H are fixed, for every pair of Markov M,L:S to E satisfying, at each continuing state b<B, squared W2(M_s,GaussianSmoothing(T_s,sqrt(eta(s)/beta(s))))<=ofReal((kappa(s)/beta(s))*[2*tau(s)*Delta^2/(kappa(s)*(J+1))]), there exist F:S times E to S, Markov Q:S to E, Markov P:S to S, and Markov R_n:S to E for every n.\nFor every s,y, F(s,y) has precision b_new=b+1/a(s), center b_new^-1*(b*u+y/a(s)), count k+1 and prepended history h_new(0)=y,h_new(m+1)=h(m). The first coordinate identity uses the real cast of NNReal; vector multiplication is real scalar multiplication. Q_s=GaussianSmoothing(M_s,sqrt(tau(s)/beta(s))). P_s=dirac s if B<=b, and otherwise the pushforward of Q_s under F(s,.). R_0=L; R_(n+1)(s)=L_s if B<=b and otherwise the bind of Q_s with y mapped to R_n(F(s,y)). Equality at the threshold is in the stopped branch.\nAt every continuing state KL(Q_s||H_s)<=ofReal(Delta^2/(J+1)). For every natural n and every initial s, KL(R_n(s)||T_s)<=n*ofReal(Delta^2/(J+1))+integral KL(L_x||T_x) under P^n(s). The terminal integral is extended nonnegative and can be infinity; P^0 is identity. The left reference is T at the initial state, whereas the terminal integral compares the target and terminal kernel at each time-n state. n is cast to ENNReal and J to Real in the formula.\nQuantifiers are all space,mu,parameter functions and their conditions, then every B,J,Delta, then existence of T,H, then every admissible M,L, then existence of F,Q,P,R satisfying all n,s conclusions. No n<=J requirement or threshold-hitting-by-J conclusion is asserted. No extra terminal accuracy, finite terminal KL or separate marginal second-moment assumption is present. F measurability is not a separate public conjunct.",
+    "text_sha256": "f0860b8466169b294975bf8f9e2966f201a88fae3db204d25150ffb75e0e000d",
+    "decoder": "gaussian_budget_blind_decoder",
+    "decoder_packet_sha256": "6e7a7d0be1f2b3db120b3c1a5ce9b99b83b6e4098547df0f3366241b46b862bb",
+    "decoder_run_sha256": "5cb65a553d56c7334fe6842aafec9e64a4925748f87d20e27bee2d07990934c4",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "bac49f3202d5047ff1251e105c2a496ab4b302752726f5a1ae44134014f924fe",
+  "candidate_publication_context": {
+    "file": "ae346f196667d7ac99221dbe37ef854f43758bd7b983bfb6e2cd4f1a31fb565d",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOKLError\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO\n/-!\n# Actual Gaussian observation and finite recursive A1 error budget\n\nSource: SPHMC arXiv:2609.06906v1 Theorem 6.5, A1 branch and equation (6.5).\nConstruct the actual measurable observation kernel by adding an independent\nGaussian of variance tau/beta to the supplied smoothed output. Gaussian reverse\ntransport and the two-noise semigroup turn the stated squared-W2 accuracy into\nobservation KL at most Delta^2/(J+1). Consume FiniteRGOKLError to propagate this\nbound through the actual finite recursive program, retaining terminal residual.\n\nThe positive algebraic parameter kappa cancels; this theorem does not identify\nit with a curvature ratio. Its measurable premise is retained as an input\ncontract but is not used to construct a sampler or precision selector. The\nsource positive-precision regime is included in Delta>=0; eta=0 and J=0 are\nalso allowed. J is a budget parameter, not a proved stopping bound here.\n\nThe supplied Markov M must satisfy the displayed A1 Wasserstein guarantee.\nThis does not construct Picard HMC, prove that guarantee, identify FORS, remove\nthe terminal residual, validate initial histories or bound expected queries.\nNo separate marginal second moments or TV-to-cost transfer are assumed.\n-/\n\nopen MeasureTheory ProbabilityTheory InformationTheory\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen scoped ENNReal NNReal\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget\nuniverse u\nvariable {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\nlocal notation \"PS\" => ℝ≥0 × E × ℕ × (ℕ → E)\n\n/-- Source-scaled Wasserstein accuracy implies an actual Gaussian observation KL\nbudget and its finite recursive accumulation, with terminal error retained. -/\ntheorem gaussian_rgo_error_budget (μ : Measure E) [IsProbabilityMeasure μ]\n    (β κ η τ : PS → ℝ) (hβm : Measurable β) (_hκm : Measurable κ)\n    (hηm : Measurable η) (hτm : Measurable τ)\n    (hβ : ∀ s, 0 < β s) (hκ : ∀ s, 0 < κ s) (hη : ∀ s, 0 ≤ η s) (hτ : ∀ s, 0 < τ s)\n    (threshold : ℝ≥0) (J : ℕ) (Δ : ℝ) (_hΔ : 0 ≤ Δ) :\n    let a := fun s => (η s+τ s)/β s\n    ∃ (T H : Kernel PS E), IsMarkovKernel T ∧ IsMarkovKernel H ∧\n      (∀ s, T s = μ.tilted (fun x => -((s.1:ℝ)/2)*‖x-s.2.1‖^2)) ∧\n      (∀ s, H s = GaussianSmoothing.gaussianSmoothing (T s) (Real.sqrt (a s))) ∧\n      ∀ (M L : Kernel PS E), IsMarkovKernel M → IsMarkovKernel L →\n      (∀ s, ¬threshold ≤ s.1 → WassersteinSpace.wassersteinDistance (M s)\n        (GaussianSmoothing.gaussianSmoothing (T s) (Real.sqrt (η s/β s)))^2 ≤\n        ENNReal.ofReal (κ s*(2*τ s*Δ^2/(κ s*((J:ℝ)+1)))/β s)) →\n      ∃ (F : PS × E → PS) (Q : Kernel PS E) (P : Kernel PS PS) (R : ℕ → Kernel PS E),\n        (∀ s y, ((F (s,y)).1:ℝ) = (s.1:ℝ)+(a s)⁻¹ ∧\n          (F (s,y)).2 = (((s.1:ℝ)+(a s)⁻¹)⁻¹ • ((s.1:ℝ) • s.2.1+(a s)⁻¹ • y),\n            s.2.2.1+1,fun n => Nat.casesOn n y s.2.2.2)) ∧\n        IsMarkovKernel Q ∧ IsMarkovKernel P ∧ (∀ n, IsMarkovKernel (R n)) ∧\n        (∀ s, Q s = GaussianSmoothing.gaussianSmoothing (M s) (Real.sqrt (τ s/β s))) ∧\n        (∀ s, P s = if threshold ≤ s.1 then Measure.dirac s else (Q s).map (fun y => F (s,y))) ∧\n        R 0 = L ∧\n        (∀ n s, R (n+1) s = if threshold ≤ s.1 then L s else (Q s).bind (fun y => R n (F (s,y)))) ∧\n        (∀ s, ¬threshold ≤ s.1 → klDiv (Q s) (H s) ≤ ENNReal.ofReal (Δ^2/((J:ℝ)+1))) ∧\n        ∀ n s, klDiv (R n s) (T s) ≤\n          (n:ℝ≥0∞)*ENNReal.ofReal (Δ^2/((J:ℝ)+1)) + ∫⁻ x, klDiv (L x) (T x) ∂(P^n) s := by\n  classical\n  have gaussian_kernel {S : Type u} [MeasurableSpace S] (M : Kernel S E) [IsMarkovKernel M]\n      (v : S → ℝ) (hv : Measurable v) :\n      ∃ Q : Kernel S E, IsMarkovKernel Q ∧\n        ∀ s, Q s = GaussianSmoothing.gaussianSmoothing (M s) (Real.sqrt (v s)) := by\n    let N : Kernel S E :=\n      ((Kernel.deterministic (id : S → S) measurable_id) ×ₖ Kernel.const S (stdGaussian E)).map\n        (fun p : S × E => Real.sqrt (v p.1) • p.2)\n    have hN : IsMarkovKernel N := by\n      dsimp only [N]\n      exact Kernel.IsMarkovKernel.map _ (by fun_prop)\n    let := hN\n    have hNf (s : S) : N s = GaussianSmoothing.scaledStdGaussian (E := E) (Real.sqrt (v s)) := by\n      dsimp only [N]\n      rw [Kernel.map_apply _ (by fun_prop), Kernel.prod_apply, Kernel.deterministic_apply,\n        Kernel.const_apply, Measure.dirac_prod, Measure.map_map (by fun_prop) (by fun_prop)]\n      rfl\n    let Q := (M ×ₖ N).map (fun p : E × E => p.1+p.2)\n    have hQ : IsMarkovKernel Q := by\n      dsimp only [Q]\n      exact Kernel.IsMarkovKernel.map _ (by fun_prop)\n    refine ⟨Q,hQ,?_⟩\n    intro s\n    dsimp only [Q]\n    rw [Kernel.map_apply _ (by fun_prop), Kernel.prod_apply, hNf]\n    rfl\n  have gaussian_stage (μ ν : Measure E) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν]\n      (b : ℝ) (hb : 0 ≤ b) (u : E) (β κ η τ Δ : ℝ)\n      (hβ : 0 < β) (hκ : 0 < κ) (hη : 0 ≤ η) (hτ : 0 < τ) (J : ℕ)\n      (hW : WassersteinSpace.wassersteinDistance ν\n        (GaussianSmoothing.gaussianSmoothing (μ.tilted (fun x => -(b/2)*‖x-u‖^2)) (Real.sqrt (η/β))) ^ 2 ≤\n        ENNReal.ofReal (κ * (2*τ*Δ^2/(κ*((J:ℝ)+1))) / β)) :\n      klDiv (GaussianSmoothing.gaussianSmoothing ν (Real.sqrt (τ/β)))\n        (GaussianSmoothing.gaussianSmoothing (μ.tilted (fun x => -(b/2)*‖x-u‖^2))\n          (Real.sqrt ((η+τ)/β))) ≤ ENNReal.ofReal (Δ^2/((J:ℝ)+1)) := by\n    have hj : 0 < (J:ℝ)+1 := by positivity\n    have heta : 0 ≤ η/β := div_nonneg hη hβ.le\n    have htau : 0 < τ/β := div_pos hτ hβ\n    obtain ⟨hρ,hsem,K,hK,hKf,hrec,herr⟩ :=\n      AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo μ b (η/β) (τ/β) hb heta htau u\n    let ρ := μ.tilted (fun x => -(b/2)*‖x-u‖^2)\n    let := hρ\n    have hsm : IsProbabilityMeasure (GaussianSmoothing.gaussianSmoothing ρ (Real.sqrt (η/β))) := by\n      unfold GaussianSmoothing.gaussianSmoothing CommonNoiseContraction.addNoise\n      exact Measure.isProbabilityMeasure_map (by fun_prop)\n    let := hsm\n    let r := Real.sqrt (κ * (2*τ*Δ^2/(κ*((J:ℝ)+1))) / β)\n    have hrad : 0 ≤ κ * (2*τ*Δ^2/(κ*((J:ℝ)+1))) / β := by positivity\n    have hr2 : r^2 = κ * (2*τ*Δ^2/(κ*((J:ℝ)+1))) / β := Real.sq_sqrt hrad\n    have hcost : Transport.transportCost (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖^2)) ν\n        (GaussianSmoothing.gaussianSmoothing ρ (Real.sqrt (η/β))) ≤ ENNReal.ofReal (r^2) := by\n      rw [hr2]\n      rw [WassersteinSpace.wassersteinDistance_sq] at hW\n      exact hW\n    have hg := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport ν\n      (GaussianSmoothing.gaussianSmoothing ρ (Real.sqrt (η/β))) r (τ/β)\n      (Real.sqrt_nonneg _) htau hcost\n    have hscale : r^2/(2*(τ/β)) = Δ^2/((J:ℝ)+1) := by\n      rw [hr2]\n      field_simp\n    rw [hscale,hsem,← add_div] at hg\n    exact hg\n  intro a\n  have ha : Measurable a := (hηm.add hτm).div hβm\n  have ha0 : ∀ s, 0 < a s := fun s => div_pos (add_pos_of_nonneg_of_pos (hη s) (hτ s)) (hβ s)\n  let F : PS × E → PS := fun p =>\n    (⟨(p.1.1:ℝ)+(a p.1)⁻¹,add_nonneg p.1.1.coe_nonneg (le_of_lt (inv_pos.mpr (ha0 p.1)))⟩,\n     ((p.1.1:ℝ)+(a p.1)⁻¹)⁻¹ • ((p.1.1:ℝ) • p.1.2.1+(a p.1)⁻¹ • p.2),\n     p.1.2.2.1+1,fun n => Nat.casesOn n p.2 p.1.2.2.2)\n  obtain ⟨T,H,hT,hH,hTf,hHf,hprog⟩ :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOKLError.finite_rgo_kl_error μ a ha ha0 threshold\n  let := hT\n  let := hH\n  refine ⟨T,H,hT,hH,hTf,hHf,?_⟩\n  intro M L hM hL hW\n  let := hM\n  let := hL\n  obtain ⟨Q,hQ,hQf⟩ := gaussian_kernel M (fun s => τ s/β s) (hτm.div hβm)\n  let := hQ\n  have hlocal (s : PS) (hs : ¬threshold ≤ s.1) :\n      klDiv (Q s) (H s) ≤ ENNReal.ofReal (Δ^2/((J:ℝ)+1)) := by\n    rw [hQf,hHf,hTf]\n    apply gaussian_stage μ (M s) (s.1:ℝ) s.1.coe_nonneg s.2.1 (β s) (κ s) (η s) (τ s) Δ\n      (hβ s) (hκ s) (hη s) (hτ s) J\n    simpa only [hTf] using hW s hs\n  obtain ⟨P,R,hP,hR,hPf,hzero,hrec,he,ht,hbound⟩ := hprog Q L hQ hL\n  let := hP\n  refine ⟨F,Q,P,R,?_,hQ,hP,hR,hQf,hPf,hzero,hrec,hlocal,?_⟩\n  · intro s y\n    exact ⟨rfl,rfl⟩\n  · have hp (n : ℕ) : IsMarkovKernel (P^n) := by\n      induction n with\n      | zero => change IsMarkovKernel Kernel.id; infer_instance\n      | succ n ih =>\n        let := ih\n        rw [pow_succ]\n        change IsMarkovKernel ((P^n) ∘ₖ P)\n        infer_instance\n    let := hp\n    have herror (x : PS) : (if threshold ≤ x.1 then 0 else klDiv (Q x) (H x)) ≤\n        ENNReal.ofReal (Δ^2/((J:ℝ)+1)) := by\n      split_ifs with hs\n      · positivity\n      · exact hlocal x hs\n    intro n s\n    apply (hbound n s).trans\n    apply add_le_add _ le_rfl\n    calc\n      _ ≤ ∑ j ∈ Finset.range n, ENNReal.ofReal (Δ^2/((J:ℝ)+1)) := by\n        apply Finset.sum_le_sum\n        intro j hj\n        exact (lintegral_mono herror).trans_eq (by simp)\n      _ = _ := by simp\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Theorem6.5 A1 actual Gaussian observation and equation(6.5) budget",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded actual Gaussian observation and finite accuracy budget, no author endorsement implied."
+    },
+    "statement": "Let E be a finite-dimensional real inner-product Borel space and mu a probability measure. Set S=NNReal times E times Nat times E^Nat. Let beta,kappa,tau:S to R be positive measurable functions and eta:S to R nonnegative measurable. Fix a nonnegative precision threshold theta, natural budget J and Delta>=0. Define a(s)=(eta(s)+tau(s))/beta(s). There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing with standard deviation sqrt(a(s)). These are chosen before arbitrary Markov smoothed-output M and terminal L. Suppose that on every continuing state, squared W2 from M(s) to T(s) smoothed at time eta(s)/beta(s) is at most ofReal(kappa(s)*[2*tau(s)*Delta^2/(kappa(s)*(J+1))]/beta(s)). Then there exist F,Q,P and Markov output kernels R_n. F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), increments the count and prepends y to history. Q(s) is M(s) with an independent Gaussian of variance tau(s)/beta(s) added. P(s)=dirac s if theta<=b and otherwise the F(s,.) pushforward of Q(s). R_0=L, and R_(n+1)(s)=L(s) if stopped, otherwise the bind of Q(s) with R_n(F(s,y)). On every continuing state KL(Q(s)||H(s))<=ofReal(Delta^2/(J+1)). For all n,s, KL(R_n(s)||T(s)) is at most n*ofReal(Delta^2/(J+1)) plus integral KL(L(x)||T(x)) under P^n(s). All bounds are in extended nonnegative reals.",
+    "formulae": [
+      {
+        "label": "Actual Gaussian finite error budget",
+        "tex": "\\operatorname{KL}(Q(s)\\Vert H(s))\\le\\frac{\\Delta^2}{J+1}\\quad(b(s)<\\theta),\\qquad\\operatorname{KL}(R_n(s)\\Vert T(s))\\le\\frac{n\\Delta^2}{J+1}+\\int\\operatorname{KL}(L(x)\\Vert T(x))\\,P^n(s)(dx)."
+      }
+    ],
+    "assumptions": [
+      "Finite-dimensional real Hilbert Borel E, including zero dimension; mu probability.",
+      "beta,kappa,tau are measurable and strictly positive everywhere; eta is measurable and nonnegative. Delta>=0, J natural, theta nonnegative and fixed.",
+      "M,L are measurable Markov kernels on the complete state. Ideal T,H are fixed before their selection.",
+      "Only continuing states require the displayed squared-W2 accuracy with epsilon(s)^2=2*tau(s)*Delta^2/(kappa(s)*(J+1)). No observation KL bound is assumed.",
+      "No stopping bound, terminal accuracy, finite terminal KL, marginal moment or cost-transfer premise is added."
+    ],
+    "obligations": [
+      {
+        "id": "gaussian-rgo-error-budget",
+        "label": "Actual source Gaussian accuracy budget through finite recursion"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget",
+      "title": "Actual Gaussian observation and finite recursive A1 budget",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC v1 Theorem 6.5 A1 and equation (6.5)",
+          "scope": "Actual added-noise kernel and numerical error transfer from supplied A1 accuracy; no concrete sampler or terminal-cost result."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGaussianRGOErrorBudget"
+      ],
+      "statement": "Let E be a finite-dimensional real inner-product Borel space and mu a probability measure. Set S=NNReal times E times Nat times E^Nat. Let beta,kappa,tau:S to R be positive measurable functions and eta:S to R nonnegative measurable. Fix a nonnegative precision threshold theta, natural budget J and Delta>=0. Define a(s)=(eta(s)+tau(s))/beta(s). There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing with standard deviation sqrt(a(s)). These are chosen before arbitrary Markov smoothed-output M and terminal L. Suppose that on every continuing state, squared W2 from M(s) to T(s) smoothed at time eta(s)/beta(s) is at most ofReal(kappa(s)*[2*tau(s)*Delta^2/(kappa(s)*(J+1))]/beta(s)). Then there exist F,Q,P and Markov output kernels R_n. F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), increments the count and prepends y to history. Q(s) is M(s) with an independent Gaussian of variance tau(s)/beta(s) added. P(s)=dirac s if theta<=b and otherwise the F(s,.) pushforward of Q(s). R_0=L, and R_(n+1)(s)=L(s) if stopped, otherwise the bind of Q(s) with R_n(F(s,y)). On every continuing state KL(Q(s)||H(s))<=ofReal(Delta^2/(J+1)). For all n,s, KL(R_n(s)||T(s)) is at most n*ofReal(Delta^2/(J+1)) plus integral KL(L(x)||T(x)) under P^n(s). All bounds are in extended nonnegative reals.",
+      "formula": "\\operatorname{KL}(Q(s)\\Vert H(s))\\le\\frac{\\Delta^2}{J+1}\\quad(b(s)<\\theta),\\qquad\\operatorname{KL}(R_n(s)\\Vert T(s))\\le\\frac{n\\Delta^2}{J+1}+\\int\\operatorname{KL}(L(x)\\Vert T(x))\\,P^n(s)(dx).",
+      "assumptions": [
+        "Finite-dimensional real Hilbert Borel E, including zero dimension; mu probability.",
+        "beta,kappa,tau are measurable and strictly positive everywhere; eta is measurable and nonnegative. Delta>=0, J natural, theta nonnegative and fixed.",
+        "M,L are measurable Markov kernels on the complete state. Ideal T,H are fixed before their selection.",
+        "Only continuing states require the displayed squared-W2 accuracy with epsilon(s)^2=2*tau(s)*Delta^2/(kappa(s)*(J+1)). No observation KL bound is assumed.",
+        "No stopping bound, terminal accuracy, finite terminal KL, marginal moment or cost-transfer premise is added."
+      ],
+      "steps": [
+        {
+          "title": "Construct a measurable actual Gaussian observation kernel",
+          "text": "Form the independent product of a deterministic state-retaining kernel and a standard Gaussian kernel, then scale the noise by sqrt(tau(s)/beta(s)). Its fiber is the centered Gaussian at that variance. Take its product with M and push forward by addition. Product and map preserve Markov probability; measurability of the state-dependent scale supplies a single measurable Q, not separately selected fiber measures.",
+          "formula": "Q(s)=\\mathcal L(X+\\sqrt{\\tau(s)/\\beta(s)}Z),\\quad X\\sim M(s),\\quad Z\\sim N(0,I)\\ \\text{independent}.",
+          "lean": "Local gaussian_kernel; deterministic/constant kernel product, Kernel.map_apply and scaledStdGaussian."
+        },
+        {
+          "title": "Identify the ideal two-noise law",
+          "text": "At a fixed state, apply TwoNoiseRGO with times eta/beta and tau/beta to its actual quadratic tilt. The resulting Gaussian semigroup identifies sequential ideal smoothing with the total time (eta+tau)/beta, which equals the H fiber constructed for the finite program. Positivity of beta,tau ensures the added time is strictly positive even when eta=0.",
+          "formula": "H_{\\tau/\\beta}(H_{\\eta/\\beta}T(s))=H_{(\\eta+\\tau)/\\beta}T(s)=H(s).",
+          "lean": "Local gaussian_stage; TwoNoiseRGO.two_noise_rgo semigroup component, hsem and add_div."
+        },
+        {
+          "title": "Derive the exact per-stage KL allocation from W2",
+          "text": "Use the genuine squared-W2 equals quadratic transport-cost identity and set the radius to the square root of the stated nonnegative source budget. GaussianKL compares the actually smoothed laws with denominator twice the added time tau/beta. Substituting equation (6.5) cancels kappa,beta,tau exactly. This needs no separate moment premises and assumes no KL conclusion.",
+          "formula": "\\frac{\\kappa[2\\tau\\Delta^2/(\\kappa(J+1))]/\\beta}{2\\tau/\\beta}=\\frac{\\Delta^2}{J+1}.",
+          "lean": "Local gaussian_stage; wassersteinDistance_sq, Real.sq_sqrt, GaussianKL.gaussian_kl_reverse_transport and field_simp."
+        },
+        {
+          "title": "Instantiate the actual finite recursive program",
+          "text": "Use a=(eta+tau)/beta in FiniteRGOKLError. Its ideal target and observation kernels are chosen before M,L. Construct Q as above and instantiate the parent program with this same Q and L, retaining the explicit F, absorbing P and output recursion. The continuing-state W2 premise gives the derived observation-KL bound; stopped states require no W2 guarantee.",
+          "formula": "P(s)=\\begin{cases}\\delta_s,&\\theta\\le b(s),\\\\F(s,\\cdot)_\\#Q(s),&b(s)<\\theta.\\end{cases}",
+          "lean": "FiniteRGOKLError.finite_rgo_kl_error, gaussian_kernel, hlocal and actual hprog Q L."
+        },
+        {
+          "title": "Integrate the stage bound under actual visited laws",
+          "text": "Set observation error to zero on stopped states. It is everywhere bounded by Delta^2/(J+1). Each P^j(s) is a probability measure, so its integral of this error is bounded by the same constant. Sum the n terms and retain the parent terminal integral exactly. The result is valid for any finite n, without claiming threshold arrival at J.",
+          "formula": "\\sum_{j<n}\\int e(x)\\,P^j(s)(dx)\\le n\\frac{\\Delta^2}{J+1}.",
+          "lean": "Main hp, herror and hbound; lintegral_mono, probability normalization and Finset.sum_le_sum."
+        }
+      ],
+      "lean_statement": "Actual two-noise observation and finite recursive KL budget derived from the source-scaled squared-W2 premise.",
+      "lean_proof": "Measurable noise kernel, ideal Gaussian semigroup, source constant cancellation and actual finite-program occupation integral bound.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOKLError.finite_rgo_kl_error",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.map_apply",
+        "MeasureTheory.Measure.dirac_prod",
+        "WassersteinSpace.wassersteinDistance_sq",
+        "MeasureTheory.lintegral_mono",
+        "Finset.sum_le_sum"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget",
+      "role": "prerequisite",
+      "supports": [
+        "gaussian-rgo-error-budget"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Euclidean Gibbs targets with source curvature parameters.",
+        "lean": "Any probability base on finite real Hilbert Borel E and positive measurable algebraic beta,kappa,tau."
+      },
+      {
+        "source": "A1 returns a smoothed sampler with source-scaled Wasserstein accuracy.",
+        "lean": "A supplied Markov M satisfies the squared-W2 premise at continuing states; actual Q is constructed by adding independent Gaussian variance tau/beta."
+      },
+      {
+        "source": "Positive smoothing and precision and source logarithmic depth.",
+        "lean": "eta>=0, Delta>=0 and arbitrary natural J,n."
+      },
+      {
+        "source": "Actual source equation(6.5) precision selection.",
+        "lean": "The same squared accuracy expression is substituted in the W2 premise; kappa measurability retained as an unused explicit input."
+      },
+      {
+        "source": "Full recursion reaches a terminal FORS call and bounds its error and expected cost.",
+        "lean": "Actual finite program with terminal residual integral unchanged."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "baa57af217edb18b97180889e36c6f261106df36f739c4df4ebf912706a42ce4"
+}

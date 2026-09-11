@@ -1,0 +1,3 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget
+
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget

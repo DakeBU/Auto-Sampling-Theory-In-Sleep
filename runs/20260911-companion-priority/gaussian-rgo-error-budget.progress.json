@@ -1,0 +1,37 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCGaussianRGOErrorBudget",
+    "result": "PASS3755",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianRGOErrorBudget.lean": "d13fc45f4b2f424cb68991593b7fcb5a8aa8e56d42be032f022f4c0556e1deb2",
+      "Tests/SmoothedPicardHMCGaussianRGOErrorBudget.lean": "cf637d567222175c9e245b17795b3e412f153e96a4ae680b10f5cb6c54fab4f2"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/gaussian-rgo-error-budget.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "draft",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCGaussianRGOErrorBudget"
+    ]
+  },
+  "mathematical_status": "M is a supplied Markov kernel satisfying the displayed squared-W2 guarantee; its implementation and A1 correctness are not proved here. beta,kappa,tau are positive measurable algebraic functions, not yet identified with source curvature and heat choices. kappa measurability is an unused input condition, not a proved precision-selection implementation. eta may be zero, Delta is nonnegative, J may be zero, and n is unrestricted. J is a budget parameter: for n>J this bound does not establish total error below Delta^2. No stopping support, FORS accuracy, initialization validity, expected query cost or marginal P2 conclusion is asserted; the terminal residual remains.",
+  "remaining": [
+    "Formal source and fixed-commit admission",
+    "Integration, aggregate and original reader/graph delivery",
+    "Same-program stopping support and terminal accuracy",
+    "Concrete FORS and proof that the actual Picard sampler satisfies A1",
+    "Errors and actual-input expected query costs",
+    "Both paper main results and agreed deliveries"
+  ]
+}
