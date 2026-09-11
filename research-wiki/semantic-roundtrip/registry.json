@@ -16092,6 +16092,302 @@
       ]
     },
     {
+      "id": "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-smooth-gradient-arc-moment",
+        "anchor": "Appendix D.1 Claim 1 proof and Claim 2, smooth s=1 moment; consumed by SPHMC Appendix A.4(2)",
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "original_text": "E is a finite-dimensional real inner product space with its Borel measurable structure, and d=finrank(E). Zero dimension is allowed. The real-valued function f is differentiable everywhere and its actual gradient is beta-Lipschitz, where beta>=0.\neta>0, lambda>=0, 12 beta^2 eta^2 lambda^2<=1, and h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta).\nThe actual independent input law is mu=N(h,eta I) product N(0,eta I), explicitly the product of the pushforwards of standard Gaussian by z->h+sqrt(eta)z and z->sqrt(eta)z.\nFor each real r set theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)> and F_r=exp(lambda abs(W_r)).\nThe vector gradient f(x) is the actual gradient of f at every x. For each displayed real r, F_r is measurable and integrable under the actual input law mu, its integral is at most 2 exp(10 d eta^2 lambda^2 beta^2), and the logarithm of its integral is at most log 2+10 d eta^2 lambda^2 beta^2.",
+        "text_sha256": "b13e49389cbeb9428f2e489564d9678170e71fbbbc69f1c48cf55e9f4c0ef373"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcMoment.lean",
+        "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (f : E → ℝ),\n  Differentiable ℝ f →\n    ∀ (eta beta lam : ℝ),\n      0 < eta →\n        ∀ (hbeta : 0 ≤ beta),\n          0 ≤ lam →\n            LipschitzWith ⟨beta, hbeta⟩ (gradient f) →\n              ∀ (h xp : E) (r : ℝ),\n                ‖h - xp‖ ≤ √(↑(Module.finrank ℝ E) * eta) →\n                  12 * beta ^ 2 * eta ^ 2 * lam ^ 2 ≤ 1 →\n                    have mu :=\n                      (MeasureTheory.Measure.map (fun z => h + √eta • z) (ProbabilityTheory.stdGaussian E)).prod\n                        (MeasureTheory.Measure.map (fun z => √eta • z) (ProbabilityTheory.stdGaussian E));\n                    have F := fun p =>\n                      Real.exp\n                        (lam *\n                          |Inner.inner ℝ\n                              ((Real.pi / 2) •\n                                (Real.cos (Real.pi / 2 * r) • (p.1 - h) - Real.sin (Real.pi / 2 * r) • p.2))\n                              (gradient f xp -\n                                gradient f\n                                  (h + Real.sin (Real.pi / 2 * r) • (p.1 - h) + Real.cos (Real.pi / 2 * r) • p.2))|);\n                    (∀ (x : E), HasGradientAt f (gradient f x) x) ∧\n                      Measurable F ∧\n                        MeasureTheory.Integrable F mu ∧\n                          ∫ (p : E × E), F p ∂mu ≤\n                              2 * Real.exp (10 * ↑(Module.finrank ℝ E) * eta ^ 2 * lam ^ 2 * beta ^ 2) ∧\n                            Real.log (∫ (p : E × E), F p ∂mu) ≤\n                              Real.log 2 + 10 * ↑(Module.finrank ℝ E) * eta ^ 2 * lam ^ 2 * beta ^ 2",
+        "statement_sha256": "e97812dcc3fb6addb12e9bcd8ccde818865ad47b5e757211f983127ddb868dbd",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Production focused build PASS3120 at77b9db175642a0df911204e116ac3739274b59b6; standard three axioms, no lint. Complete scratch independently compiled and reviewed at SHA79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89. Meta.deltaExpand plus Meta.isDefEq succeeded for actual path definitions. This is local proof evidence, not formal source admission.",
+        "decoder_context": [
+          "stdGaussian E is the probability measure of a centered isotropic Gaussian vector with identity covariance on a finite-dimensional real inner product space E. Measure.map is actual pushforward and Measure.prod is independent product.",
+          "gradient f is the real inner-product gradient operator; Differentiable means differentiable at every point, and HasGradientAt identifies the derivative through the inner product. LipschitzWith beta means distance of outputs is at most beta times distance of inputs.",
+          "Module.finrank is the finite real dimension. Real.sqrt is the nonnegative square root. Integrable is Bochner integrability; the integral and logarithm in the conclusion are real-valued.",
+          "All local semantic definitions have been expanded from the compiled theorem type, with definitional equality checked by Lean."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "1c6f8e6cb63e0a60aa71b49074cd23097e4af48868c030d2cc5aafe2338fba8d",
+        "review_run_sha256": "f33338a942f1a78cb0a30d693ba0835b268ecaf69859c4138f7827be55a14145",
+        "run_artifact": "runs/20260911-companion-priority/smooth-gradient-arc-moment.source-review-result.json",
+        "evidence": "Independent anti-anchored review accepted seven slots, six authored steps and six informational deltas, no blockers/issues/repairs. Domain-mismatch records valid disclosed extensions, not full SPHMC equivalence. Fresh primary source comparison confirmed proof/Claim2 factor2. Packet, source, statement, reconstruction and embedded/current module hashes independently recomputed. Current lesson/publication matched. External binding preimage, compilation, fixed commit, Meta expansion, decoder execution and dependency hashes remain separate verifier obligations."
+      },
+      "publication_binding_sha256": "e2732d7f7b08564bd37bfb16520616ae35bc4fa9a9cbd829e69617931b419266",
+      "publication_context": {
+        "file": "4d705f3e5210d3cbcf7ad8c295b23e318b103f525387e610385442ba1698f75e",
+        "current_lean_module": "import Mathlib.Analysis.Calculus.Gradient.Basic\nimport Mathlib.Analysis.Real.Pi.Bounds\nimport Mathlib.Probability.Distributions.Gaussian.Multivariate\nimport Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw\n\n/-! Exponential moment of the actual smooth gradient arc estimator.\nThe factor 2 and log 2 follow the proof of arXiv:2602.01338v1 D.1 and its\nClaim 2, as consumed by SPHMC Appendix A.4(2). They do not silently repair\nthe printed Claim 1 logarithmic statement. Zero dimension, beta=0 and all\nreal arc times are disclosed extensions. Clipping, target identification,\nnormalized accuracy, reference-point construction and costs remain separate. -/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment\n\nopen MeasureTheory ProbabilityTheory\nnoncomputable section\n\nprivate theorem gaussian_weighted_exp (t x : ℝ) :\n    gaussianPDFReal 0 1 x * Real.exp (t * x^2) =\n      (1 / Real.sqrt (2 * Real.pi)) * Real.exp (-(1/2-t) * x^2) := by\n  simp only [gaussianPDFReal, NNReal.coe_one, mul_one, sub_zero]\n  rw [mul_assoc, ← Real.exp_add]\n  congr 2 <;> ring\n\nprivate theorem quadratic_integrable (t : ℝ) (ht : t < 1/2) :\n    Integrable (fun x : ℝ => Real.exp (t*x^2)) (gaussianReal 0 1) := by\n  rw [gaussianReal_of_var_ne_zero _ (by norm_num : (1 : NNReal) ≠ 0)]\n  apply (integrable_withDensity_iff_integrable_smul'\n    (measurable_gaussianPDF 0 1) (by simp [gaussianPDF_def])).mpr\n  simp only [gaussianPDF_def, ENNReal.toReal_ofReal (gaussianPDFReal_nonneg _ _ _),\n    smul_eq_mul, gaussian_weighted_exp]\n  exact (integrable_exp_neg_mul_sq (by linarith : 0 < 1/2-t)).const_mul _\n\nprivate theorem quadratic_integral_raw (t : ℝ) :\n    (∫ x : ℝ, Real.exp (t*x^2) ∂gaussianReal 0 1) =\n      (1 / Real.sqrt (2*Real.pi)) * Real.sqrt (Real.pi / (1/2-t)) := by\n  rw [gaussianReal_of_var_ne_zero _ (by norm_num : (1 : NNReal) ≠ 0)]\n  rw [integral_withDensity_eq_integral_toReal_smul₀\n    (measurable_gaussianPDF 0 1).aemeasurable (by simp [gaussianPDF_def])]\n  simp only [gaussianPDF_def, ENNReal.toReal_ofReal (gaussianPDFReal_nonneg _ _ _),\n    smul_eq_mul, gaussian_weighted_exp]\n  rw [integral_const_mul, integral_gaussian]\n\nprivate theorem quadratic_integral (t : ℝ) (ht : t < 1/2) :\n    (∫ x : ℝ, Real.exp (t*x^2) ∂gaussianReal 0 1) =\n      (Real.sqrt (1-2*t))⁻¹ := by\n  rw [quadratic_integral_raw, one_div, ← Real.sqrt_inv,\n    ← Real.sqrt_mul (inv_nonneg.mpr (by positivity : 0 ≤ 2*Real.pi)), ← Real.sqrt_inv]\n  congr 1\n  have hp := Real.pi_pos\n  have hden : 1/2-t ≠ 0 := by linarith\n  have hden2 : 1-2*t ≠ 0 := by linarith\n  field_simp\n\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\nomit [MeasurableSpace E] [BorelSpace E] in\nprivate theorem basis_exp_product (t : ℝ) (x : Fin (Module.finrank ℝ E) → ℝ) :\n    Real.exp (t * ‖∑ i, x i • stdOrthonormalBasis ℝ E i‖^2) =\n      ∏ i, Real.exp (t * (x i)^2) := by\n  have hn : ‖∑ i, x i • stdOrthonormalBasis ℝ E i‖^2 = ∑ i, (x i)^2 := by\n    simpa [real_inner_self_eq_norm_sq, pow_two] using\n      (stdOrthonormalBasis ℝ E).orthonormal.inner_sum x x Finset.univ\n  rw [hn, Finset.mul_sum, Real.exp_sum]\n\nprivate theorem quadratic_stdGaussian (t : ℝ) (ht : t < 1/2) :\n    Integrable (fun x : E => Real.exp (t*‖x‖^2)) (stdGaussian E) ∧\n    (∫ x : E, Real.exp (t*‖x‖^2) ∂stdGaussian E) =\n      ((Real.sqrt (1-2*t))⁻¹) ^ Module.finrank ℝ E := by\n  have hmap : Measurable (fun x : Fin (Module.finrank ℝ E) → ℝ => ∑ i, x i • stdOrthonormalBasis ℝ E i) := by fun_prop\n  have hp := Integrable.fintype_prod (fun _ : Fin (Module.finrank ℝ E) => quadratic_integrable t ht)\n  constructor\n  · unfold stdGaussian\n    apply (integrable_map_measure (by fun_prop) hmap.aemeasurable).mpr\n    simpa only [Function.comp_def, basis_exp_product] using hp\n  · unfold stdGaussian\n    rw [integral_map hmap.aemeasurable (by fun_prop)]\n    simp_rw [basis_exp_product]\n    rw [integral_fintype_prod_eq_pow (fun x : ℝ => Real.exp (t*x^2)), quadratic_integral t ht]\n    simp\n\nomit [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E]\n  [MeasurableSpace E] [BorelSpace E] in\nprivate theorem sqrt_inv_le_exp (t : ℝ) (ht0 : 0 ≤ t) (ht : t ≤ 1/4) :\n    (Real.sqrt (1-2*t))⁻¹ ≤ Real.exp (2*t) := by\n  have hx : 0 < 1-2*t := by linarith\n  apply (Real.log_le_iff_le_exp (inv_pos.mpr (Real.sqrt_pos.mpr hx))).mp\n  rw [Real.log_inv, Real.log_sqrt hx.le]\n  have hl := Real.one_sub_inv_le_log_of_pos hx\n  have hi : (1-2*t)⁻¹ ≤ 1+4*t := by\n    apply (inv_le_iff_one_le_mul₀ hx).mpr\n    nlinarith\n  linarith\n\nprivate theorem quadratic_stdGaussian_bound (t : ℝ) (ht0 : 0 ≤ t) (ht : t ≤ 1/4) :\n    Integrable (fun x : E => Real.exp (t*‖x‖^2)) (stdGaussian E) ∧\n    (∫ x : E, Real.exp (t*‖x‖^2) ∂stdGaussian E) ≤\n      Real.exp (2 * (Module.finrank ℝ E : ℝ) * t) := by\n  obtain ⟨hi,he⟩ := quadratic_stdGaussian (E := E) t (by linarith)\n  refine ⟨hi, ?_⟩\n  rw [he]\n  calc\n    _ ≤ (Real.exp (2*t)) ^ Module.finrank ℝ E :=\n      pow_le_pow_left₀ (by positivity) (sqrt_inv_le_exp t ht0 ht) _\n    _ = _ := by rw [← Real.exp_nat_mul]; congr 1; ring\n\nprivate theorem linear_exp\n    (h : E) (a : ℝ) :\n    Integrable (fun z : E => Real.exp (a * inner ℝ h z)) (stdGaussian E) ∧\n    (∫ z : E, Real.exp (a * inner ℝ h z) ∂stdGaussian E) =\n      Real.exp (a^2 * ‖h‖^2 / 2) := by\n  let l : StrongDual ℝ E := innerSL ℝ h\n  have hmap : (stdGaussian E).map l = gaussianReal 0 (‖h‖^2).toNNReal := by\n    rw [IsGaussian.map_eq_gaussianReal l,integral_strongDual_stdGaussian,\n      variance_dual_stdGaussian]\n    simp only [l,innerSL_apply_norm]\n  have hI := integrable_exp_mul_gaussianReal (μ := 0) (v := (‖h‖^2).toNNReal) a\n  rw [← hmap] at hI\n  have hI' := (integrable_map_measure (by fun_prop) (by fun_prop : AEMeasurable l (stdGaussian E))).mp hI\n  refine ⟨hI',?_⟩\n  have hm := mgf_gaussianReal hmap a\n  simpa [mgf,l,Real.toNNReal_of_nonneg (sq_nonneg ‖h‖),mul_comm] using hm\n\nprivate theorem linear_abs_exp (h : E) (a : ℝ) :\n    Integrable (fun z : E => Real.exp (a * |inner ℝ h z|)) (stdGaussian E) ∧\n    (∫ z : E, Real.exp (a * |inner ℝ h z|) ∂stdGaussian E) ≤\n      2 * Real.exp (a^2 * ‖h‖^2 / 2) := by\n  obtain ⟨hip,hp⟩ := linear_exp h a\n  obtain ⟨hin,hn⟩ := linear_exp h (-a)\n  have hi := integrable_exp_mul_abs hip hin\n  refine ⟨hi, ?_⟩\n  calc\n    _ ≤ ∫ z : E, (Real.exp (a * inner ℝ h z) + Real.exp (-a * inner ℝ h z))\n        ∂stdGaussian E := by\n      apply integral_mono hi (hip.add hin)\n      intro z\n      change Real.exp (a * |inner ℝ h z|) ≤ Real.exp (a * inner ℝ h z) + Real.exp (-a * inner ℝ h z)\n      by_cases hz : 0 ≤ inner ℝ h z\n      · rw [abs_of_nonneg hz]\n        exact le_add_of_nonneg_right (Real.exp_nonneg _)\n      · rw [abs_of_neg (lt_of_not_ge hz), mul_neg, neg_mul]\n        exact le_add_of_nonneg_left (Real.exp_nonneg _)\n    _ = _ := by rw [integral_add hip hin, hp, hn]; simp [sq, mul_assoc]; ring\n\n\nprivate theorem scaled_quadratic_bound (eta t : ℝ) (heta : 0 ≤ eta)\n    (ht : 0 ≤ t) (hb : t*eta ≤ 1/4) :\n    let nu := (stdGaussian E).map (fun z : E => Real.sqrt eta • z)\n    Integrable (fun z : E => Real.exp (t*‖z‖^2)) nu ∧\n    (∫ z : E, Real.exp (t*‖z‖^2) ∂nu) ≤\n      Real.exp (2 * (Module.finrank ℝ E : ℝ) * t * eta) := by\n  dsimp only\n  obtain ⟨hi,hv⟩ := quadratic_stdGaussian_bound (E := E) (t*eta) (mul_nonneg ht heta) hb\n  have hf : (fun z : E => Real.exp (t*‖Real.sqrt eta • z‖^2)) =\n      (fun z => Real.exp ((t*eta)*‖z‖^2)) := by\n    funext z\n    simp [norm_smul, mul_pow, Real.norm_eq_abs, sq_abs, Real.sq_sqrt heta, mul_assoc]\n  constructor\n  · apply (integrable_map_measure (by fun_prop) (by fun_prop)).mpr\n    simpa only [Function.comp_def, hf] using hi\n  · rw [integral_map (by fun_prop) (by fun_prop)]\n    rw [hf]\n    convert hv using 1\n    congr 1\n    ring\n\nprivate theorem gaussian_product_abs_moment {X : Type*} [MeasurableSpace X]\n    (mu : Measure X) [SFinite mu] (g : X → E) (hg : Measurable g) (a : ℝ)\n    (hI : Integrable (fun x => Real.exp (a^2 * ‖g x‖^2 / 2)) mu) :\n    Integrable (fun p : X × E => Real.exp (a * |inner ℝ (g p.1) p.2|))\n      (mu.prod (stdGaussian E)) ∧\n    (∫ p : X × E, Real.exp (a * |inner ℝ (g p.1) p.2|) ∂mu.prod (stdGaussian E)) ≤\n      2 * ∫ x, Real.exp (a^2 * ‖g x‖^2 / 2) ∂mu := by\n  let F := fun p : X × E => Real.exp (a * |inner ℝ (g p.1) p.2|)\n  have hF : StronglyMeasurable F := by dsimp [F]; fun_prop\n  have hi : Integrable F (mu.prod (stdGaussian E)) := by\n    apply (integrable_prod_iff hF.aestronglyMeasurable).mpr\n    constructor\n    · exact ae_of_all _ fun x => (linear_abs_exp (g x) a).1\n    · apply (hI.const_mul 2).mono' hF.norm.integral_prod_right'.aestronglyMeasurable\n      apply ae_of_all\n      intro x\n      change ‖∫ z : E, ‖Real.exp (a * |inner ℝ (g x) z|)‖ ∂stdGaussian E‖ ≤ _\n      simp only [Real.norm_eq_abs, Real.abs_exp]\n      rw [abs_of_nonneg (integral_nonneg fun _ => Real.exp_nonneg _)]\n      exact (linear_abs_exp (g x) a).2\n  refine ⟨hi, ?_⟩\n  change (∫ p, F p ∂mu.prod (stdGaussian E)) ≤ _\n  rw [integral_prod _ hi, ← integral_const_mul]\n  apply integral_mono hi.integral_prod_left (hI.const_mul 2)\n  intro x\n  exact (linear_abs_exp (g x) a).2\n\nprivate theorem positional_moment (eta c beta : ℝ) (heta : 0 ≤ eta)\n    (hc : 0 ≤ c) (hbeta : 0 ≤ beta) (hb : (2*c*beta^2)*eta ≤ 1/4)\n    (h xp : E) (g : E → E) (hg : Measurable g)\n    (hgnorm : ∀ x, ‖g x‖ ≤ beta * ‖x-xp‖) :\n    let nu := (stdGaussian E).map (fun z : E => Real.sqrt eta • z)\n    Integrable (fun z => Real.exp (c*‖g (h+z)‖^2)) nu ∧\n    (∫ z, Real.exp (c*‖g (h+z)‖^2) ∂nu) ≤\n      Real.exp (2*c*beta^2*‖h-xp‖^2 + 4*(Module.finrank ℝ E : ℝ)*c*beta^2*eta) := by\n  dsimp only\n  let nu := (stdGaussian E).map (fun z : E => Real.sqrt eta • z)\n  let k := 2*c*beta^2*‖h-xp‖^2\n  let t := 2*c*beta^2\n  have ht : 0 ≤ t := by dsimp [t]; positivity\n  obtain ⟨hi,hv⟩ := scaled_quadratic_bound (E := E) eta t heta ht hb\n  have hp : ∀ z : E, Real.exp (c*‖g (h+z)‖^2) ≤\n      Real.exp k * Real.exp (t*‖z‖^2) := by\n    intro z\n    have hn : ‖h+z-xp‖^2 ≤ 2*‖h-xp‖^2+2*‖z‖^2 := by\n      rw [show h+z-xp = (h-xp)+z by abel]\n      have hs := norm_add_le (h-xp) z\n      have hsq := (sq_le_sq₀ (norm_nonneg _) (by positivity)).mpr hs\n      nlinarith [sq_nonneg (‖h-xp‖-‖z‖)]\n    have hg2 := (sq_le_sq₀ (norm_nonneg (g (h+z)))\n      (mul_nonneg hbeta (norm_nonneg _))).mpr (hgnorm (h+z))\n    rw [mul_pow] at hg2\n    have hg3 := hg2.trans (mul_le_mul_of_nonneg_left hn (sq_nonneg beta))\n    have hex := mul_le_mul_of_nonneg_left hg3 hc\n    rw [← Real.exp_add]\n    apply Real.exp_le_exp.mpr\n    dsimp [k,t]\n    nlinarith\n  have hdom := hi.const_mul (Real.exp k)\n  have hres : Integrable (fun z : E => Real.exp (c*‖g (h+z)‖^2)) nu := by\n    have hm : Measurable (fun z : E => Real.exp (c*‖g (h+z)‖^2)) := by fun_prop\n    apply hdom.mono' hm.aestronglyMeasurable\n    exact ae_of_all _ fun z => by simpa only [Real.norm_eq_abs, Real.abs_exp] using hp z\n  refine ⟨hres, ?_⟩\n  calc\n    _ ≤ ∫ z : E, Real.exp k * Real.exp (t*‖z‖^2) ∂nu := integral_mono hres hdom hp\n    _ = Real.exp k * ∫ z : E, Real.exp (t*‖z‖^2) ∂nu := integral_const_mul _ _\n    _ ≤ Real.exp k * Real.exp (2*(Module.finrank ℝ E : ℝ)*t*eta) :=\n      mul_le_mul_of_nonneg_left hv (Real.exp_nonneg _)\n    _ = _ := by rw [← Real.exp_add]; congr 1; dsimp [k,t]; ring\n\nomit [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] in\nprivate theorem source_constants (eta beta lam d R : ℝ)\n    (heta : 0 ≤ eta) (hd : 0 ≤ d) (hR : R^2 ≤ d*eta)\n    (hrange : 12*beta^2*eta^2*lam^2 ≤ 1) :\n    let a := lam * (Real.pi/2) * Real.sqrt eta\n    a^2*beta^2*eta ≤ 1/4 ∧\n    a^2*beta^2*R^2 + 2*d*a^2*beta^2*eta ≤ 10*d*eta^2*lam^2*beta^2 := by\n  dsimp only\n  let a := lam * (Real.pi/2) * Real.sqrt eta\n  have hpi : Real.pi^2 ≤ 12 := by\n    have hp := Real.pi_pos\n    have hu := Real.pi_lt_d2\n    nlinarith\n  have haeq : a^2 = (Real.pi^2/4)*(eta*lam^2) := by\n    dsimp [a]\n    rw [mul_pow, Real.sq_sqrt heta]\n    ring\n  have ha : a^2 ≤ 3*eta*lam^2 := by\n    rw [haeq]\n    have hh := mul_le_mul_of_nonneg_right hpi (mul_nonneg heta (sq_nonneg lam))\n    nlinarith\n  have hb := mul_le_mul_of_nonneg_right ha (mul_nonneg (sq_nonneg beta) heta)\n  constructor\n  · change a^2*beta^2*eta ≤ _\n    nlinarith\n  · change a^2*beta^2*R^2 + 2*d*a^2*beta^2*eta ≤ _\n    have hs := mul_le_mul_of_nonneg_left hR (mul_nonneg (sq_nonneg a) (sq_nonneg beta))\n    have hc := mul_le_mul_of_nonneg_left hb (by positivity : 0 ≤ 3*d)\n    have hp : 0 ≤ d*eta^2*lam^2*beta^2 := by positivity\n    nlinarith\n\n\nprivate theorem field_product_moment (eta beta lam : ℝ) (heta : 0 < eta)\n    (hbeta : 0 ≤ beta) (h xp : E) (g : E → E) (hg : Measurable g)\n    (hgnorm : ∀ x, ‖g x‖ ≤ beta * ‖x-xp‖)\n    (hcenter : ‖h-xp‖^2 ≤ (Module.finrank ℝ E : ℝ)*eta)\n    (hrange : 12*beta^2*eta^2*lam^2 ≤ 1) :\n    let nu := (stdGaussian E).map (fun z : E => Real.sqrt eta • z)\n    let a := lam*(Real.pi/2)*Real.sqrt eta\n    Integrable (fun p : E × E => Real.exp (a*|inner ℝ (g (h+p.1)) p.2|))\n      (nu.prod (stdGaussian E)) ∧\n    (∫ p : E × E, Real.exp (a*|inner ℝ (g (h+p.1)) p.2|) ∂nu.prod (stdGaussian E)) ≤\n      2*Real.exp (10*(Module.finrank ℝ E : ℝ)*eta^2*lam^2*beta^2) := by\n  dsimp only\n  let a := lam*(Real.pi/2)*Real.sqrt eta\n  let nu := (stdGaussian E).map (fun z : E => Real.sqrt eta • z)\n  obtain ⟨hb,he⟩ := source_constants eta beta lam (Module.finrank ℝ E : ℝ) ‖h-xp‖\n    heta.le (by positivity) hcenter hrange\n  change a^2*beta^2*eta ≤ 1/4 at hb\n  have hb' : (2*(a^2/2)*beta^2)*eta ≤ 1/4 := by nlinarith [hb]\n  obtain ⟨hi,hv⟩ := positional_moment eta (a^2/2) beta heta.le (by positivity)\n    hbeta hb' h xp g hg hgnorm\n  have hg' : Measurable (fun z : E => g (h+z)) := by fun_prop\n  obtain ⟨hprod,hbound⟩ := gaussian_product_abs_moment nu (fun z => g (h+z)) hg' a\n    (by simpa only [div_mul_eq_mul_div] using hi)\n  refine ⟨hprod, hbound.trans ?_⟩\n  apply mul_le_mul_of_nonneg_left _ (by norm_num : (0 : ℝ) ≤ 2)\n  calc\n    _ ≤ Real.exp (2*(a^2/2)*beta^2*‖h-xp‖^2 +\n        4*(Module.finrank ℝ E : ℝ)*(a^2/2)*beta^2*eta) := by\n      simpa only [div_mul_eq_mul_div] using hv\n    _ ≤ _ := by\n      apply Real.exp_le_exp.mpr\n      change a^2*beta^2*‖h-xp‖^2 + 2*(Module.finrank ℝ E : ℝ)*a^2*beta^2*eta ≤ _ at he\n      nlinarith [he]\n\n\nprivate theorem true_gradient_product_moment (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta lam : ℝ) (heta : 0 < eta) (hbeta : 0 ≤ beta)\n    (hlip : LipschitzWith ⟨beta,hbeta⟩ (gradient f)) (h xp : E)\n    (hcenter : ‖h-xp‖^2 ≤ (Module.finrank ℝ E : ℝ)*eta)\n    (hrange : 12*beta^2*eta^2*lam^2 ≤ 1) :\n    (∀ x, HasGradientAt f (gradient f x) x) ∧\n    let nu := (stdGaussian E).map (fun z : E => Real.sqrt eta • z)\n    let a := lam*(Real.pi/2)*Real.sqrt eta\n    Integrable (fun p : E × E => Real.exp (a*|inner ℝ\n      (gradient f xp - gradient f (h+p.1)) p.2|)) (nu.prod (stdGaussian E)) ∧\n    (∫ p : E × E, Real.exp (a*|inner ℝ\n      (gradient f xp - gradient f (h+p.1)) p.2|) ∂nu.prod (stdGaussian E)) ≤\n      2*Real.exp (10*(Module.finrank ℝ E : ℝ)*eta^2*lam^2*beta^2) := by\n  refine ⟨fun x => (hf x).hasGradientAt, ?_⟩\n  apply field_product_moment eta beta lam heta hbeta h xp\n    (fun x => gradient f xp-gradient f x)\n  · exact measurable_const.sub hlip.continuous.measurable\n  · intro x\n    have hd := hlip.dist_le_mul xp x\n    simp only [dist_eq_norm] at hd\n    change ‖gradient f xp - gradient f x‖ ≤ beta * ‖xp-x‖ at hd\n    simpa only [norm_sub_rev x xp] using hd\n  · exact hcenter\n  · exact hrange\n\n\nprivate theorem gradient_output_moment (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta lam : ℝ) (heta : 0 < eta) (hbeta : 0 ≤ beta)\n    (hlip : LipschitzWith ⟨beta,hbeta⟩ (gradient f)) (h xp : E)\n    (hcenter : ‖h-xp‖^2 ≤ (Module.finrank ℝ E : ℝ)*eta)\n    (hrange : 12*beta^2*eta^2*lam^2 ≤ 1) :\n    let mu := ((stdGaussian E).map (fun z : E => h + Real.sqrt eta • z)).prod\n      ((stdGaussian E).map (fun z : E => ((Real.pi/2)*Real.sqrt eta) • z))\n    Integrable (fun p : E × E => Real.exp (lam*|inner ℝ p.2\n      (gradient f xp - gradient f p.1)|)) mu ∧\n    (∫ p : E × E, Real.exp (lam*|inner ℝ p.2\n      (gradient f xp - gradient f p.1)|) ∂mu) ≤\n      2*Real.exp (10*(Module.finrank ℝ E : ℝ)*eta^2*lam^2*beta^2) := by\n  let nu := (stdGaussian E).map (fun z : E => Real.sqrt eta • z)\n  let sigma := (Real.pi/2)*Real.sqrt eta\n  let T : E × E → E × E := fun p => (h+p.1, sigma • p.2)\n  let F : E × E → ℝ := fun p => Real.exp (lam*|inner ℝ p.2\n    (gradient f xp - gradient f p.1)|)\n  have hT : Measurable T := by dsimp [T]; fun_prop\n  have hF : Measurable F := by\n    have hg := hlip.continuous.measurable\n    dsimp [F]\n    fun_prop\n  have hmu : ((stdGaussian E).map (fun z : E => h + Real.sqrt eta • z)).prod\n      ((stdGaussian E).map (fun z : E => sigma • z)) =\n      (nu.prod (stdGaussian E)).map T := by\n    have hh : (stdGaussian E).map (fun z : E => h + Real.sqrt eta • z) =\n        nu.map (fun z : E => h+z) := by\n      dsimp [nu]\n      rw [Measure.map_map (by fun_prop) (by fun_prop)]\n      rfl\n    rw [hh, Measure.map_prod_map _ _ (by fun_prop) (by fun_prop)]\n    rfl\n  have heq : (fun p : E × E => F (T p)) =\n      (fun p : E × E => Real.exp ((lam*(Real.pi/2)*Real.sqrt eta)*\n        |inner ℝ (gradient f xp-gradient f (h+p.1)) p.2|)) := by\n    funext p\n    dsimp [F,T]\n    rw [real_inner_smul_left, abs_mul, abs_of_nonneg (by positivity : 0 ≤ sigma),\n      real_inner_comm]\n    congr 1\n    dsimp [sigma]\n    ring\n  obtain ⟨_,hi,hv⟩ := true_gradient_product_moment f hf eta beta lam heta hbeta\n    hlip h xp hcenter hrange\n  change Integrable F _ ∧ (∫ p, F p ∂_) ≤ _\n  rw [hmu]\n  constructor\n  · apply (integrable_map_measure hF.aestronglyMeasurable hT.aemeasurable).mpr\n    change Integrable (fun p => F (T p)) (nu.prod (stdGaussian E))\n    simpa only [heq] using hi\n  · rw [integral_map hT.aemeasurable hF.aestronglyMeasurable]\n    simpa only [heq] using hv\n\n\nprivate def momentArc (h : E) (r : ℝ) (p : E × E) : E :=\n  h + Real.sin (Real.pi/2*r) • (p.1-h) + Real.cos (Real.pi/2*r) • p.2\n\nprivate def momentVelocity (h : E) (r : ℝ) (p : E × E) : E :=\n  (Real.pi/2) • (Real.cos (Real.pi/2*r) • (p.1-h) - Real.sin (Real.pi/2*r) • p.2)\n\nprivate theorem actual_gradient_arc_moment (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta lam : ℝ) (heta : 0 < eta) (hbeta : 0 ≤ beta)\n    (hlip : LipschitzWith ⟨beta,hbeta⟩ (gradient f)) (h xp : E) (r : ℝ)\n    (hcenter : ‖h-xp‖^2 ≤ (Module.finrank ℝ E : ℝ)*eta)\n    (hrange : 12*beta^2*eta^2*lam^2 ≤ 1) :\n    let mu := ((stdGaussian E).map (fun z : E => h + Real.sqrt eta • z)).prod\n      ((stdGaussian E).map (fun z : E => Real.sqrt eta • z))\n    let F := fun p : E × E => Real.exp (lam*|inner ℝ (momentVelocity h r p)\n      (gradient f xp - gradient f (momentArc h r p))|)\n    Integrable F mu ∧ (∫ p, F p ∂mu) ≤\n      2*Real.exp (10*(Module.finrank ℝ E : ℝ)*eta^2*lam^2*beta^2) := by\n  let mu := ((stdGaussian E).map (fun z : E => h + Real.sqrt eta • z)).prod\n      ((stdGaussian E).map (fun z : E => Real.sqrt eta • z))\n  let T : E × E → E × E := fun p => (momentArc h r p, momentVelocity h r p)\n  let F : E × E → ℝ := fun p => Real.exp (lam*|inner ℝ p.2\n    (gradient f xp-gradient f p.1)|)\n  have hT : Measurable T := by dsimp [T,momentArc,momentVelocity]; fun_prop\n  have hF : Measurable F := by\n    have hg := hlip.continuous.measurable\n    dsimp [F]\n    fun_prop\n  obtain ⟨_,_,hlaw,_,_⟩ :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law eta heta h\n  have hr := hlaw r\n  change mu.map T = _ at hr\n  obtain ⟨hi,hv⟩ := gradient_output_moment f hf eta beta lam heta hbeta hlip h xp hcenter hrange\n  change Integrable F _ at hi\n  rw [← hr] at hi\n  have hi' := (integrable_map_measure hF.aestronglyMeasurable hT.aemeasurable).mp hi\n  refine ⟨hi', ?_⟩\n  change (∫ p, F p ∂_) ≤ _ at hv\n  rw [← hr, integral_map hT.aemeasurable hF.aestronglyMeasurable] at hv\n  exact hv\n\n\n/-- Actual Gaussian-input estimator: measurability, exponential integrability,\nthe source-proof-supported factor-2 moment bound and its logarithmic form. -/\ntheorem smooth_gradient_arc_moment (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta lam : ℝ) (heta : 0 < eta) (hbeta : 0 ≤ beta) (hlam : 0 ≤ lam)\n    (hlip : LipschitzWith ⟨beta,hbeta⟩ (gradient f)) (h xp : E) (r : ℝ)\n    (hcenter : ‖h-xp‖ ≤ Real.sqrt ((Module.finrank ℝ E : ℝ)*eta))\n    (hrange : 12*beta^2*eta^2*lam^2 ≤ 1) :\n    let mu := ((stdGaussian E).map (fun z : E => h + Real.sqrt eta • z)).prod\n      ((stdGaussian E).map (fun z : E => Real.sqrt eta • z))\n    let F := fun p : E × E => Real.exp (lam*|inner ℝ (momentVelocity h r p)\n      (gradient f xp - gradient f (momentArc h r p))|)\n    (∀ x, HasGradientAt f (gradient f x) x) ∧\n    Measurable F ∧ Integrable F mu ∧\n    (∫ p, F p ∂mu) ≤ 2*Real.exp (10*(Module.finrank ℝ E : ℝ)*eta^2*lam^2*beta^2) ∧\n    Real.log (∫ p, F p ∂mu) ≤ Real.log 2 +\n      10*(Module.finrank ℝ E : ℝ)*eta^2*lam^2*beta^2 := by\n  have hc : ‖h-xp‖^2 ≤ (Module.finrank ℝ E : ℝ)*eta := by\n    have hs := sq_le_sq₀ (norm_nonneg (h-xp)) (Real.sqrt_nonneg _) |>.mpr hcenter\n    rwa [Real.sq_sqrt (by positivity)] at hs\n  obtain ⟨hi,hv⟩ := actual_gradient_arc_moment f hf eta beta lam heta hbeta hlip h xp r hc hrange\n  dsimp only\n  refine ⟨fun x => (hf x).hasGradientAt, ?_, hi, hv, ?_⟩\n  · have hg := hlip.continuous.measurable\n    dsimp [momentArc,momentVelocity]\n    fun_prop\n  · have : IsProbabilityMeasure ((stdGaussian E).map (fun z : E => h+Real.sqrt eta • z)) :=\n      Measure.isProbabilityMeasure_map (by fun_prop)\n    have : IsProbabilityMeasure ((stdGaussian E).map (fun z : E => Real.sqrt eta • z)) :=\n      Measure.isProbabilityMeasure_map (by fun_prop)\n    have hlo : (1 : ℝ) ≤ ∫ p : E × E, Real.exp (lam*|inner ℝ (momentVelocity h r p)\n        (gradient f xp-gradient f (momentArc h r p))|) ∂\n        (((stdGaussian E).map (fun z : E => h+Real.sqrt eta • z)).prod\n          ((stdGaussian E).map (fun z : E => Real.sqrt eta • z))) := by\n      have hb := integral_mono (integrable_const (1 : ℝ)) hi\n        (fun p => Real.one_le_exp (mul_nonneg hlam (abs_nonneg _)))\n      simpa using hb\n    have hh := Real.log_le_log (lt_of_lt_of_le zero_lt_one hlo) hv\n    simpa only [Real.log_mul (by norm_num : (2 : ℝ) ≠ 0) (Real.exp_ne_zero _),\n      Real.log_exp] using hh\n\n\n\n\nend\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "edition": "arXiv:2602.01338v1",
+          "anchor": "Appendix D.1 Claim 1 proof and Claim 2, smooth s=1 moment; consumed by SPHMC Appendix A.4(2)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "ASTIS source-proof-supported mathematical restatement and exposition, preserving the factor2 used in the proof and subsequent Claim 2. This is a dependency of Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. It is not the differing printed logarithmic Claim 1 formula or an author-endorsed repair."
+        },
+        "statement": "The vector gradient f(x) is the actual gradient of f at every x. For each displayed real r, F_r is measurable and integrable under the actual input law mu, its integral is at most 2 exp(10 d eta^2 lambda^2 beta^2), and the logarithm of its integral is at most log 2+10 d eta^2 lambda^2 beta^2.",
+        "formulae": [
+          {
+            "label": "Actual estimator exponential moment and log bound",
+            "tex": "\\mathbb E_\\mu e^{\\lambda|W_r|}\\le2e^{10d\\eta^2\\lambda^2\\beta^2},\\qquad\\log\\mathbb E_\\mu e^{\\lambda|W_r|}\\le\\log2+10d\\eta^2\\lambda^2\\beta^2."
+          }
+        ],
+        "assumptions": [
+          "E is a finite-dimensional real inner product space with its Borel measurable structure, and d=finrank(E). Zero dimension is allowed. The real-valued function f is differentiable everywhere and its actual gradient is beta-Lipschitz, where beta>=0.",
+          "eta>0, lambda>=0, 12 beta^2 eta^2 lambda^2<=1, and h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta).",
+          "The actual independent input law is mu=N(h,eta I) product N(0,eta I), explicitly the product of the pushforwards of standard Gaussian by z->h+sqrt(eta)z and z->sqrt(eta)z.",
+          "For each real r set theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)> and F_r=exp(lambda abs(W_r))."
+        ],
+        "obligations": [
+          {
+            "id": "smooth-gradient-arc-moment",
+            "label": "Actual smooth gradient estimator moment required for clipping and target approximation"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment",
+          "title": "Actual smooth gradient-arc exponential moment",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2602.01338v1",
+              "label": "D.1 Claim 1 proof and Claim 2, smooth case",
+              "scope": "Factor-2 exponential moment from the proof, with the corresponding log2 term retained."
+            },
+            {
+              "url": "https://arxiv.org/html/2609.06906v1",
+              "label": "SPHMC Appendix A.1 and A.4(2)",
+              "scope": "Terminal gradient-estimator approximation consumer."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCSmoothGradientArcMoment"
+          ],
+          "assumptions": [
+            "E is a finite-dimensional real inner product space with its Borel measurable structure, and d=finrank(E). Zero dimension is allowed. The real-valued function f is differentiable everywhere and its actual gradient is beta-Lipschitz, where beta>=0.",
+            "eta>0, lambda>=0, 12 beta^2 eta^2 lambda^2<=1, and h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta).",
+            "The actual independent input law is mu=N(h,eta I) product N(0,eta I), explicitly the product of the pushforwards of standard Gaussian by z->h+sqrt(eta)z and z->sqrt(eta)z.",
+            "For each real r set theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)> and F_r=exp(lambda abs(W_r))."
+          ],
+          "statement": "The vector gradient f(x) is the actual gradient of f at every x. For each displayed real r, F_r is measurable and integrable under the actual input law mu, its integral is at most 2 exp(10 d eta^2 lambda^2 beta^2), and the logarithm of its integral is at most log 2+10 d eta^2 lambda^2 beta^2.",
+          "formula": "\\mathbb E_\\mu e^{\\lambda|W_r|}\\le2e^{10d\\eta^2\\lambda^2\\beta^2},\\qquad\\log\\mathbb E_\\mu e^{\\lambda|W_r|}\\le\\log2+10d\\eta^2\\lambda^2\\beta^2.",
+          "steps": [
+            {
+              "title": "Establish finite quadratic Gaussian moments",
+              "text": "Combine the standard one-dimensional Gaussian density with exp(t x^2). For t<1/2 the remaining Gaussian exponent is strictly negative, proving integrability before evaluating the integral. Expand the finite-dimensional standard Gaussian in an orthonormal basis; the squared norm is the sum of squared independent coordinates. Product integrability and Fubini give the exact power. On 0<=t<=1/4, a scalar logarithmic inequality bounds each factor by exp(2t). Scaling by sqrt(eta) supplies the nonstandard variance.",
+              "formula": "\\mathbb E e^{t\\|G\\|^2}=(1-2t)^{-d/2}\\le e^{2dt}\\quad(0\\le t\\le1/4).",
+              "lean": "quadratic_integrable; quadratic_integral; quadratic_stdGaussian; quadratic_stdGaussian_bound; scaled_quadratic_bound"
+            },
+            {
+              "title": "Integrate the independent velocity with both signs",
+              "text": "For any fixed vector g and real a, the linear projection of a standard Gaussian has variance norm(g)^2. Add its positive and negative exponential moments to dominate exp(a abs(<g,G>)). Establish product integrability by dominating the integral of the fiber norm with an integrable position moment, then apply Fubini.",
+              "formula": "\\mathbb E e^{a|\\langle g,G\\rangle|}\\le\\mathbb E e^{a\\langle g,G\\rangle}+\\mathbb E e^{-a\\langle g,G\\rangle}=2e^{a^2\\|g\\|^2/2}.",
+              "lean": "linear_exp; linear_abs_exp; gaussian_product_abs_moment"
+            },
+            {
+              "title": "Use the actual gradient and control the position moment",
+              "text": "Differentiability identifies gradient f as the true gradient; its Lipschitz hypothesis implies norm(grad f(x_plus)-grad f(x))<=beta norm(x-x_plus). For c>=0 and x=h+Z, the squared triangle bound splits the reference-point contribution and the centered Gaussian contribution. This yields an integrable exponential majorant, not an assumed moment of the gradient.",
+              "formula": "\\mathbb E e^{c\\|\\nabla f(x_+)-\\nabla f(h+Z)\\|^2}\\le e^{2c\\beta^2\\|h-x_+\\|^2+4dc\\beta^2\\eta},\\quad 2c\\beta^2\\eta\\le\\tfrac14.",
+              "lean": "positional_moment; true_gradient_product_moment; DifferentiableAt.hasGradientAt"
+            },
+            {
+              "title": "Check the source parameter range and constants",
+              "text": "Put a=lambda(pi/2)sqrt(eta) and c=a^2/2. Since pi^2<=12, a^2<=3 eta lambda^2. The source range guarantees a^2 beta^2 eta<=1/4, exactly the quadratic moment condition. The center-distance assumption bounds the reference contribution. The two contributions sum to at most 9 d eta^2 lambda^2 beta^2, which is at most the displayed source constant 10.",
+              "formula": "a^2\\beta^2\\|h-x_+\\|^2+2da^2\\beta^2\\eta\\le9d\\eta^2\\lambda^2\\beta^2\\le10d\\eta^2\\lambda^2\\beta^2.",
+              "lean": "source_constants; field_product_moment"
+            },
+            {
+              "title": "Return to the actual arc estimator input law",
+              "text": "First push the independent centered position and standard velocity through (z,y)->(h+z,(pi/2)sqrt(eta)y). The nonnegative velocity scale and inner-product symmetry identify the pulled-back integrand exactly. Then invoke GaussianArcLaw: the actual arc position and velocity jointly have this product law under the original independent input. Pull back both integrability and the integral equality; no surrogate random variable or unproved independence is substituted.",
+              "formula": "(\\gamma_r,v_r)_\\#\\mu=N(h,\\eta I)\\otimes N(0,\\tfrac{\\pi^2}{4}\\eta I).",
+              "lean": "gradient_output_moment; actual_gradient_arc_moment; GaussianArcLaw.gaussian_arc_law; integrable_map_measure; integral_map"
+            },
+            {
+              "title": "Take logarithms only after proving positivity",
+              "text": "The Gaussian pushforwards and their product are probability measures. Since lambda>=0, F_r>=1 pointwise; its established integrability therefore gives integral F_r>=1. Monotonicity of log applies to this positive integral, and log(2 exp(K))=log2+K. Measurability follows from the continuous gradient and the explicit arc maps.",
+              "formula": "1\\le\\mathbb E_\\mu F_r\\le2e^K\\quad\\Longrightarrow\\quad\\log\\mathbb E_\\mu F_r\\le\\log2+K.",
+              "lean": "smooth_gradient_arc_moment; Measure.isProbabilityMeasure_map; integral_mono; Real.log_le_log; Real.log_mul"
+            }
+          ],
+          "lean_statement": "The actual Gaussian-input gradient estimator is measurable and exponentially integrable, with explicit factor2 MGF and log2 bounds under the source range and center condition.",
+          "lean_proof": "Finite Gaussian quadratic moments, signed linear Gaussian moments, true-gradient Lipschitz domination, actual arc joint pushforward, and positivity before logarithms.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law"
+          ],
+          "mathlib_dependencies": [
+            "ProbabilityTheory.mgf_gaussianReal",
+            "ProbabilityTheory.integrable_exp_mul_gaussianReal",
+            "MeasureTheory.integrable_map_measure",
+            "MeasureTheory.integral_map",
+            "MeasureTheory.integral_fintype_prod_eq_pow",
+            "MeasureTheory.Integrable.fintype_prod",
+            "Real.log_le_log"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment",
+          "role": "proof-edge",
+          "supports": [
+            "smooth-gradient-arc-moment"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Smooth case s=1 in positive Euclidean dimension with beta>0.",
+            "lean": "Finite-dimensional real inner product space, including dimension zero, and beta>=0."
+          },
+          {
+            "source": "Interpolation time lies in [0,1].",
+            "lean": "Every real r."
+          },
+          {
+            "source": "h=x0-eta grad f(x_plus) with norm(h-x_plus)<=sqrt(d eta).",
+            "lean": "Arbitrary h,x_plus subject to the same norm bound."
+          },
+          {
+            "source": "Smooth differentiable potential with beta-Lipschitz gradient, eta>0, lambda>=0 and the smooth moment range.",
+            "lean": "Differentiable real f, LipschitzWith beta on its actual gradient, eta>0, lambda>=0 and 12 beta^2 eta^2 lambda^2<=1."
+          },
+          {
+            "source": "The Claim 1 proof and Claim 2 use a factor2 exponential moment; printed Claim 1 logarithmic formula lacks log2.",
+            "lean": "Integral exp(lambda abs(W))<=2 exp(10 d eta^2 lambda^2 beta^2), with log2 retained in the logarithmic form."
+          },
+          {
+            "source": "Expectations of the actual Gaussian arc gradient estimator.",
+            "lean": "Actual product of affine standard-Gaussian pushforwards; measurability and integrability are conclusions, and HasGradientAt identifies the gradient."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any finite-dimensional real inner product space with its normed additive commutative group structure and a measurable space structure whose sigma-algebra is the Borel sigma-algebra, and let d = dim_R E. For every everywhere differentiable function f : E -> R, every eta, beta, lambda in R with eta > 0, beta >= 0 and lambda >= 0, assume that its gradient is globally beta-Lipschitz. For every h, xp in E and every r in R, if ||h - xp|| <= sqrt(d eta) and 12 beta^2 eta^2 lambda^2 <= 1, define mu on E x E as the product of the pushforward of the centered identity-covariance Gaussian measure on E by z -> h + sqrt(eta) z and the pushforward of that same Gaussian measure by z -> sqrt(eta) z. Put theta = (pi/2) r and define F(x,y) = exp(lambda |< (pi/2)(cos(theta)(x-h) - sin(theta)y), grad f(xp) - grad f(h + sin(theta)(x-h) + cos(theta)y) >|), where the inner product is real and all scalar-vector products are scalar multiplication in E. Then f has gradient grad f(x) at every x in E, F is measurable and Bochner integrable with respect to mu, integral F dmu <= 2 exp(10 d eta^2 lambda^2 beta^2), and log(integral F dmu) <= log(2) + 10 d eta^2 lambda^2 beta^2. All integrals, exponentials and logarithms in these conclusions are real-valued; r is unrestricted and no positive-dimension assumption is made.",
+        "text_sha256": "6950dea3be6c58746e2595dd54416a70c7b494e6822e21617bc7b1e4215519e2",
+        "decoder_packet_sha256": "1bd54baf0d7759825bde82832c7666cd960f834d23a292fcf0c7654e3c61d9a1",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "blind_reconstruction_i",
+        "notes": [
+          "No ambiguities identified by the independent decoder. Actual expanded estimator and Gaussian product input reconstructed, including zero dimension and all-real time.",
+          "Only anonymous compiled type and approved mathematical definition context were supplied."
+        ],
+        "decoder_run_sha256": "4357ef157c597a6cd84664305e001d86f076b5bdefd5bd396eab38c7c3f9ef0f",
+        "lean_statement_sha256": "e97812dcc3fb6addb12e9bcd8ccde818865ad47b5e757211f983127ddb868dbd",
+        "run_artifact": "runs/20260911-companion-priority/smooth-gradient-arc-moment.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Gradient-arc estimator under independent proposal and auxiliary Gaussians.",
+          "reconstructed": "Actual gradient, explicit trigonometric arc/velocity, exponential integrand and original affine-Gaussian product input.",
+          "relation": "explicit-elaboration",
+          "evidence": "HasGradientAt exported; actual GaussianArcLaw pushforward transfers both integrability and bound."
+        },
+        "domains": {
+          "original": "Smooth Euclidean case in positive dimension.",
+          "reconstructed": "Finite-dimensional real inner-product Borel space including zero dimension.",
+          "relation": "different",
+          "evidence": "No positive-finrank premise; empty orthonormal product remains valid."
+        },
+        "quantifiers": {
+          "original": "Time in [0,1] and reference-constructed center.",
+          "reconstructed": "Every real r and arbitrary h,xp satisfying the same distance bound.",
+          "relation": "stronger-in-lean",
+          "evidence": "Parent law holds all-real; moment uses only center inequality."
+        },
+        "assumptions": {
+          "original": "Differentiable potential, beta-Lipschitz gradient, positive eta and smooth range.",
+          "reconstructed": "Actual gradient Lipschitzness, beta>=0, eta>0, lambda>=0, center and polynomial range.",
+          "relation": "different",
+          "evidence": "Division-free range allows beta0; no moment, measurability or integrability premise added."
+        },
+        "conclusion": {
+          "original": "Claim1 proof and Claim2 retain factor2 exponential moment.",
+          "reconstructed": "Measurability, Bochner integrability, factor2 MGF and log2 bound.",
+          "relation": "explicit-elaboration",
+          "evidence": "All analytic obligations are conclusions; not the printed no-log2 statement."
+        },
+        "scopes": {
+          "original": "Moment feeds clipping and normalized terminal-target accuracy.",
+          "reconstructed": "Actual smooth moment only.",
+          "relation": "different",
+          "evidence": "Clipping, target mean, normalized Renyi, initialization and costs explicitly remain open."
+        },
+        "constant_dependencies": {
+          "original": "Range12, exponent10, factor2 and exact Gaussian scales.",
+          "reconstructed": "Same explicit coefficients and scales, with log2.",
+          "relation": "same",
+          "evidence": "pi²<=12 and quadratic range give coefficient9 then10."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "Zero dimension and beta0 valid without division; constant gradient yields zero estimator.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "All-real time follows from parent law.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "assumptions",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "Arbitrary center satisfies exact source distance condition; construction separate.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "severity": "informational",
+          "description": "Actual differentiability, gradient Lipschitzness and smooth polynomial range match selected nonnegative-lambda contract.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "conclusion",
+          "classification": "same",
+          "severity": "informational",
+          "description": "Factor2/log2 matches cited proof-supported contract, not differing printed Claim1.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "severity": "informational",
+          "description": "Actual input, gradient identity, measurability and integrability are proved.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        }
+      ]
+    },
+    {
       "id": "ASTIS-RT-ANDI-OPT-GradientEnergy",
       "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-gradient-step-energy",
@@ -17091,9 +17387,9 @@
           "proposed_change": "Add h>=0 to the printed h<=1/beta restriction in Theorem3.6. Retain the original pinned source separately and preserve the local algebraic generalization.",
           "reconstructed_statement": "Let f:R^d->R be C2 and beta-smooth with beta>0, admit a global minimizer z, and satisfy ||grad f(x)||^2>=2alpha(f(x)-f(z)) for all x with alpha>0. For every step 0<=h<=1/beta, define T(x)=x-h grad f(x). For every x0 and N in the natural numbers, f(T^[N](x0))-f(z)<=(1-alpha h)^N(f(x0)-f(z)).",
           "statement_sha256": "199cbe17a03545ede9b486705f419b29f384a004e4d51b1f07d432004055a9b1",
-          "justification": "Same f with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h).",
+          "justification": "For f(t)=t^2/2 on R, with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h).",
           "minimality_evidence": "Only the lower bound h>=0 is added to the source step domain; h=0 remains valid. Source positive modulus/regularity/attained-minimum/PL premises are retained. No convexity or q>=0 assumption is added. Omitting the new lower bound admits the explicit quadratic counterexample.",
-          "reference_or_counterexample": "Primary source https://arxiv.org/html/2605.07006v1#S3, Theorem3.6. Exact counterexample: Same f with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h).",
+          "reference_or_counterexample": "Primary source https://arxiv.org/html/2605.07006v1#S3, Theorem3.6. Exact counterexample: For f(t)=t^2/2 on R, with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h).",
           "review": {
             "state": "pending"
           },

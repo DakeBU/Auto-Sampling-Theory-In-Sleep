@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment

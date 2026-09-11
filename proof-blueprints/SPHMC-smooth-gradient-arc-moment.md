@@ -16,3 +16,51 @@ Proof: actual joint product law permits integrating independent velocity first. 
 Reuse: GaussianPowerMoment.lean has a local linear_exp proof (not callable by name); reuse map_eq_gaussianReal/integrable_exp_mul_gaussianReal and existing audited proof route. No explicit high-dimensional norm-square exponential moment found in bounded Gaussian modules. Derive via stdGaussian orthonormal basis product, integral_fintype_prod_eq_pow / Integrable.fintype_prod and one-dimensional Gaussian density integral; Mathlib GaussianIntegral.lean integrable_exp_neg_mul_sq/integral_gaussian. Fernique existence alone cannot supply needed constants/range.
 
 Source Claim1 has no positive lambda lower bound. Printed logarithmic bound missing log2 remains possible-source-error; proof and Claim2 use factor2. Proposed result must be a disclosed source-proof-supported contract, not a silent repair. Full clipping, mean identification with target log-weight, normalized Renyi, initialization and gradient cost remain later consumers.
+
+## Compiled actual consumer checkpoint
+
+The production module and focused test now compile (3120 jobs, standard three
+axioms, no lint). Its single public theorem calls the actual GaussianArcLaw
+through private implementation lemmas. Both integrability and the moment bound
+are pulled back to the original independent Gaussian inputs; the estimator uses
+the actual gradient of a differentiable function. The norm initialization is
+converted to its squared form, and the probability integral is proved at least
+one before taking its logarithm.
+
+Independent complete development compile and mathematical review accepted the
+frozen scratch hash recorded in the progress file. Source preaudit likewise
+found no missing assumptions. These are development reviews, not formal
+encoder-denoiser admission. Production permits beta=0, zero dimension and all
+real times; these valid extensions must appear explicitly in the publication.
+The center is arbitrary subject to the source distance bound; construction of
+the actual source center remains a separate consumer.
+
+Next: author the lesson and binding, use the already compiled delta-expanded
+statement (with definitional equality checked) for a fresh anonymous decoder,
+then perform formal source review and fixed-commit production verification.
+The lane remains EXPLORING until publication validation; both main results
+remain incomplete.
+
+## Reviewed next consumer: actual clipping excess
+
+After admission of this moment edge, the next source consumer is D.1 Claim 2
+of arXiv:2602.01338v1, smooth s=1, with the same actual f, gradient, arc, input
+law and center condition. Independent depth_commit_verifier route review
+confirmed B,beta,eta,d>0, ell>=2 and
+1/eta^2 >= 64 beta^2 (ell*d/B+ell^2). Put A=beta^2*d*eta^2 and
+lambda=min(1/(4 beta eta),B/(20 A)). The step-size condition implies
+2ell<=lambda, while lambda<=1/(4 beta eta) implies the current MGF range.
+
+For tau_B(w)=max(abs(w)-B,0), prove pointwise
+0<=exp(2ell*tau_B(w))-1<=exp(-lambda*B)*exp(lambda*abs(w)).
+Use the already proved actual MGF as an integrable majorant before comparing
+integrals. The exponent satisfies 10A lambda^2-B lambda<=-B lambda/2 and
+B lambda/2=min(B^2/(40A),B/(8 beta eta)), giving the exact source tail bound.
+No Gaussian integration or Fubini needs to be repeated. A bounded ASTIS search
+found no existing clipping-excess exponential interface; the older stochastic
+truncation module is different. The planned public theorem should directly
+consume the actual estimator, with only the scalar domination as a private
+implementation. This is a reviewed route, not a new claimed/proved theorem.
+
+The next result still does not identify the target log-weight mean, prove
+normalized Renyi accuracy, construct the reference point or establish costs.

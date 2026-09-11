@@ -1,0 +1,146 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent formal review.",
+  "reviewer_packet_sha256": "1c6f8e6cb63e0a60aa71b49074cd23097e4af48868c030d2cc5aafe2338fba8d",
+  "source_sha256": "b13e49389cbeb9428f2e489564d9678170e71fbbbc69f1c48cf55e9f4c0ef373",
+  "statement_sha256": "e97812dcc3fb6addb12e9bcd8ccde818865ad47b5e757211f983127ddb868dbd",
+  "reconstruction_sha256": "6950dea3be6c58746e2595dd54416a70c7b494e6822e21617bc7b1e4215519e2",
+  "module_sha256": "4d705f3e5210d3cbcf7ad8c295b23e318b103f525387e610385442ba1698f75e",
+  "module_raw_file_sha256": "e130a17501c90d91a178d113e1e52aaa3656ffec7237e38c27cdae4f5237a5fa",
+  "publication_binding_sha256": "e2732d7f7b08564bd37bfb16520616ae35bc4fa9a9cbd829e69617931b419266",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Gradient-arc estimator under independent proposal and auxiliary Gaussians.",
+      "reconstructed": "Actual gradient, explicit trigonometric arc/velocity, exponential integrand and original affine-Gaussian product input.",
+      "relation": "explicit-elaboration",
+      "evidence": "HasGradientAt exported; actual GaussianArcLaw pushforward transfers both integrability and bound."
+    },
+    "domains": {
+      "original": "Smooth Euclidean case in positive dimension.",
+      "reconstructed": "Finite-dimensional real inner-product Borel space including zero dimension.",
+      "relation": "different",
+      "evidence": "No positive-finrank premise; empty orthonormal product remains valid."
+    },
+    "quantifiers": {
+      "original": "Time in [0,1] and reference-constructed center.",
+      "reconstructed": "Every real r and arbitrary h,xp satisfying the same distance bound.",
+      "relation": "stronger-in-lean",
+      "evidence": "Parent law holds all-real; moment uses only center inequality."
+    },
+    "assumptions": {
+      "original": "Differentiable potential, beta-Lipschitz gradient, positive eta and smooth range.",
+      "reconstructed": "Actual gradient Lipschitzness, beta>=0, eta>0, lambda>=0, center and polynomial range.",
+      "relation": "different",
+      "evidence": "Division-free range allows beta0; no moment, measurability or integrability premise added."
+    },
+    "conclusion": {
+      "original": "Claim1 proof and Claim2 retain factor2 exponential moment.",
+      "reconstructed": "Measurability, Bochner integrability, factor2 MGF and log2 bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "All analytic obligations are conclusions; not the printed no-log2 statement."
+    },
+    "scopes": {
+      "original": "Moment feeds clipping and normalized terminal-target accuracy.",
+      "reconstructed": "Actual smooth moment only.",
+      "relation": "different",
+      "evidence": "Clipping, target mean, normalized Renyi, initialization and costs explicitly remain open."
+    },
+    "constant_dependencies": {
+      "original": "Range12, exponent10, factor2 and exact Gaussian scales.",
+      "reconstructed": "Same explicit coefficients and scales, with log2.",
+      "relation": "same",
+      "evidence": "pi²<=12 and quadratic range give coefficient9 then10."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "severity": "informational",
+      "description": "Zero dimension and beta0 valid without division; constant gradient yields zero estimator.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "quantifiers",
+      "classification": "generalization",
+      "severity": "informational",
+      "description": "All-real time follows from parent law.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "severity": "informational",
+      "description": "Arbitrary center satisfies exact source distance condition; construction separate.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "assumptions",
+      "classification": "same",
+      "severity": "informational",
+      "description": "Actual differentiability, gradient Lipschitzness and smooth polynomial range match selected nonnegative-lambda contract.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "conclusion",
+      "classification": "same",
+      "severity": "informational",
+      "description": "Factor2/log2 matches cited proof-supported contract, not differing printed Claim1.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "objects",
+      "classification": "source-implicit",
+      "severity": "informational",
+      "description": "Actual input, gradient identity, measurability and integrability are proved.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Quadratic integrability before exact expectation; consumer t<=1/4; no default nonintegrable integral exploited."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Both signed Gaussian moments dominate absolute exponential; proved position majorant establishes product integrability before Fubini."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "True gradient Lipschitz bound supplies measurable difference and norm/exponential domination."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Range gives quadratic parameter<=1/4; center and position coefficients bounded without division by beta or dimension."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Exact affine integrand identity and actual GaussianArcLaw pullback return to original input."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Probability and lambda>=0 give integral>=1 before log; factor2 becomes log2."
+      }
+    ]
+  },
+  "review_evidence": "Independent anti-anchored review accepted seven slots, six authored steps and six informational deltas, no blockers/issues/repairs. Domain-mismatch records valid disclosed extensions, not full SPHMC equivalence. Fresh primary source comparison confirmed proof/Claim2 factor2. Packet, source, statement, reconstruction and embedded/current module hashes independently recomputed. Current lesson/publication matched. External binding preimage, compilation, fixed commit, Meta expansion, decoder execution and dependency hashes remain separate verifier obligations."
+}

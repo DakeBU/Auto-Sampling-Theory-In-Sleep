@@ -1,10 +1,7 @@
 {
   "remaining": [
-    "Normalize scalar square-root formula",
-    "Finite-dimensional quadratic exponential moment with explicit range",
-    "Actual gradient estimator conditional Gaussian integral and Lipschitz/center bounds",
-    "Integrability and source-supported factor2/log2 contract",
-    "Independent full proof and semantic admission"
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, merge and actual deployment"
   ],
   "local_check": {
     "log": ".astis/smooth-gradient-arc-scratch.log",
@@ -16,10 +13,71 @@
     ],
     "command": "lake env lean .astis/SmoothGradientArcMoment.lean"
   },
-  "development_result": "One-dimensional exp(t*x^2) under actual standard Gaussian is integrable for t<1/2; actual weighted density integral evaluated through integral_gaussian. Private development helpers only.",
-  "scratch_sha256": "de2753b70efa2512f0284831f80a759678d7e8eb0dc4b50c866f2190f163be99",
-  "state": "EXPLORING",
+  "development_result": "Complete actual smooth-gradient arc consumer compiles: true derivative/gradient, actual independent Gaussian input and arc velocity, source norm initialization, measurable and integrable exponential estimator, factor2 MGF and log2 bound.",
+  "scratch_sha256": "79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89",
+  "state": "STABILIZING",
   "scratch": ".astis/SmoothGradientArcMoment.lean",
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
-  "boundary": "No production estimator theorem or paper result proved yet."
+  "boundary": "Production and fixed-commit independent focused proof pass; fresh anonymous reconstruction complete. Formal source review pending; private implementation publication gate correctly remains closed. Neither paper main result is complete.",
+  "independent_quadratic_core": {
+    "result": "Independent compile and mathematical development review accepted; no integrability circularity; final finite moment retains t<1/2.",
+    "reviewer": "depth_commit_verifier",
+    "sha256": "fa2e2cc5e4f7f72030230ffc6a2368066754267873dd1708fe41d59fd7b1af37"
+  },
+  "independent_integral_tools": {
+    "result": "Independent focused compile and mathematical review accepted product integrability before Fubini, positional domination, factor2 and exact constants. Later source constant and true gradient assembly not covered by this review.",
+    "sha256": "6c40632fc0b352fc9a4554b35368c9b37a93e8be500416dc58c7c183c58d77d9",
+    "reviewer": "depth_commit_verifier"
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcMoment.lean",
+    "test": "Tests/SmoothedPicardHMCSmoothGradientArcMoment.lean",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcMoment.lean": "e130a17501c90d91a178d113e1e52aaa3656ffec7237e38c27cdae4f5237a5fa",
+      "Tests/SmoothedPicardHMCSmoothGradientArcMoment.lean": "b4936c5eaab2df47ab8ab4857d6d91c2f5fafd265aa7812f3eacd9c2b6682bb3"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCSmoothGradientArcMoment",
+    "focused_log": ".astis/smooth-gradient-arc-focused.log",
+    "result": "PASS3120; standard three axioms; no lint",
+    "public_declarations": 1,
+    "private_implementations": 20
+  },
+  "independent_complete_development": {
+    "scratch_sha256": "79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89",
+    "proof_reviewer": "depth_commit_verifier",
+    "proof_result": "Independent complete compile exit0, standard three axioms, no lint. Actual GaussianArcLaw call, correct pushforward, velocity scale/sign, integrability before Fubini and log, range/constants accepted. No VERIFIED admission.",
+    "source_reviewer": "log_depth_source_review",
+    "source_result": "Full actual estimator consumer and source-proof factor2/log2 contract accepted in preaudit. Disclose beta=0, d=0, all-real r, arbitrary residual-controlled center. Printed no-log2 Claim1 not silently repaired. Formal anonymous roundtrip remains pending."
+  },
+  "expanded_statement": {
+    "file": ".astis/smooth-gradient-arc-expanded-statement.txt",
+    "text_sha256": "e97812dcc3fb6addb12e9bcd8ccde818865ad47b5e757211f983127ddb868dbd",
+    "definitionally_equal": true,
+    "private_arc_and_velocity_expanded": true
+  },
+  "fixed_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "77b9db175642a0df911204e116ac3739274b59b6",
+    "result": "Independent focused PASS3120 and source-to-production diff accepted. Exact mathematical body unchanged except final public renaming and namespace. Standard three axioms; no fake closure. No VERIFIED until formal source admission."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-smooth-gradient-arc-moment.json",
+    "state": "Six authored steps accepted; publication PASS52."
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment"
+    ]
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment",
+  "admission_boundary": "VERIFIED at6618fd1. Aggregate integration, site, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/smooth-gradient-arc-moment.verified-admission.json",
+  "integration_notes": {
+    "upstream": "25e2670",
+    "merge": "3e16b71",
+    "log_resolution": "9f8f38f",
+    "boundary": "First local merge commit contained log conflict markers after failed prefix assumption; repaired before acceptance, without rewriting history. Both parents entire records preserved by Counter union; root actual GaussianArc MERGED retained. Publication53/frontier75/semantic67+3 pass. Aggregate pending."
+  }
 }

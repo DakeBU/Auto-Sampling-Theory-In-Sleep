@@ -1,0 +1,20 @@
+{
+  "decoder": "blind_reconstruction_i",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Verbatim independent source-blind response with hash checked.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-i.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "1bd54baf0d7759825bde82832c7666cd960f834d23a292fcf0c7654e3c61d9a1",
+  "lean_statement_sha256": "e97812dcc3fb6addb12e9bcd8ccde818865ad47b5e757211f983127ddb868dbd",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner product space with its normed additive commutative group structure and a measurable space structure whose sigma-algebra is the Borel sigma-algebra, and let d = dim_R E. For every everywhere differentiable function f : E -> R, every eta, beta, lambda in R with eta > 0, beta >= 0 and lambda >= 0, assume that its gradient is globally beta-Lipschitz. For every h, xp in E and every r in R, if ||h - xp|| <= sqrt(d eta) and 12 beta^2 eta^2 lambda^2 <= 1, define mu on E x E as the product of the pushforward of the centered identity-covariance Gaussian measure on E by z -> h + sqrt(eta) z and the pushforward of that same Gaussian measure by z -> sqrt(eta) z. Put theta = (pi/2) r and define F(x,y) = exp(lambda |< (pi/2)(cos(theta)(x-h) - sin(theta)y), grad f(xp) - grad f(h + sin(theta)(x-h) + cos(theta)y) >|), where the inner product is real and all scalar-vector products are scalar multiplication in E. Then f has gradient grad f(x) at every x in E, F is measurable and Bochner integrable with respect to mu, integral F dmu <= 2 exp(10 d eta^2 lambda^2 beta^2), and log(integral F dmu) <= log(2) + 10 d eta^2 lambda^2 beta^2. All integrals, exponentials and logarithms in these conclusions are real-valued; r is unrestricted and no positive-dimension assumption is made.",
+  "source_fidelity_verdict": null,
+  "decoder_notes": [
+    "No ambiguities identified by the independent decoder. Actual expanded estimator and Gaussian product input reconstructed, including zero dimension and all-real time.",
+    "Only anonymous compiled type and approved mathematical definition context were supplied."
+  ]
+}
