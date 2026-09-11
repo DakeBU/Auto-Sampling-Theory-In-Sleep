@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "4cb3594b3c31f0a7ad7efa349a9a235ce6534d4d",
+    "gate": {
+      "production": "Unchanged production/test, independently focusedPASS3727; actual proposal and clipped-output exponential mean-error L1 and bounds reviewed, standard3nolint. Independent4278-character source-free Meta expansion and defeq replay accepted.",
+      "publication": "Independent reviewed validator and actual check --base ce8273bdbca57d9527bbfdd5c5c34925b9e2d749 PASS60; all9private implementations covered. External binding preimage,wholemodule,lesson,source,reconstruction,packets,runs,test hashes verified; anonymous/canonical decoder bytes identical.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCClippedMeanExponential",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_n",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "b5b3e40a3130f7c57f64fde291acf7128b203c61feffe6f154dc4257351a120e",
+        "decoder_packet_sha256": "2aa6693507ef58527f6e96e2bc6769ba4475c3a5169c656c68a80ca8e9d59e89",
+        "decoder_run_sha256": "4f61bc53fb0f6d56773a4dbe9b3c4d61e1f9ded278b9d836505107a73da535d4",
+        "reviewer_packet_sha256": "1552969449d278265c698983f0352f34de50bdcb572fd55fd53ebf40e97bffe8",
+        "review_run_sha256": "5e57bb4af7a1cbc014bc1d5f7b1a3cb161d37d4d92075409430db825e86f9dd8",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual source center/gradient arc estimator, three true outer exponential L1 and bounds, actual positive clipped normalization before density domination."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential"
+    ],
+    "independent_checks": [
+      "7 semantic slots,6 authored steps,6 informational differences; no blockers/repairs.",
+      "Fixedcommit clean; production/test unchanged; root unique writer and no active stabilizer.",
+      "Actual wholemodule and external binding preimage independently checked.",
+      "VERIFIED-only; bidirectional normalized Renyi,adaptive kernels,initialization,cost,aggregate,reader,merge and full papers not completed."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Actual clipped-output exponential mean-error input to normalized Renyi comparison only. q-a.e. auxiliary exponential L1 must not be upgraded to everyx. Preserve factor2 and resulting log2 if logarithms are later taken. No bidirectional RN-power/divergence result, joint adaptive kernel,initialization,cost or fullpaper completion is asserted. No TV transport of unbounded cost."
+}
