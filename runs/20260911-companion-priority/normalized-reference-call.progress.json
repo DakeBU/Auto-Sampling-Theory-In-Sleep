@@ -3,9 +3,8 @@
   "state": "EXPLORING",
   "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
   "remaining": [
-    "Independent complete proof/source preaudit",
-    "Production focused compile",
-    "Authored reader lesson,fresh decoder/formal source review",
+    "Independent fixed-production review",
+    "Authored reader lesson,expanded statement and fresh decoder/formal source review",
     "Independent admission,integration and original reader delivery"
   ],
   "gibbs_checkpoint": {
@@ -45,6 +44,22 @@
     "session": 30620,
     "exit_code": 0,
     "result": "Focused compile standard three axioms,no lint.",
-    "independent_review": "Independent complete proof and source preaudit pending."
+    "independent_review": "depth_commit_verifier independently compiled via stdin exit0,seven theorem prints standard3/no lint; actualIndex defeq to parent actual first ad-hit,same pair/reference/normalized laws accepted. Development only,not VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "b4c83ced6320f87dea9d2741290ffdb30be4eaeadcc057bc6affda0bd05e67a6",
+    "result": "Six private lemmas,actualIndex and public proof reviewed; same actual first hit,real Hessian/positive Gibbs normalization,pushforward smoothing variance t/c,W2 squared B/c accepted. Source B=k*epsilon^2 specializes to epsilon^2/a. Must distinguish outer W2 input from supplied next sampler guarantee; general beta/coordinate-free/eta0/t0/r0/B0 extensions; d>0,tau>0,alpha>0. No isometry API/all-parameter kernel/history/stage costs; expand actualIndex in fresh roundtrip."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/NormalizedReferenceCall.lean",
+    "test": "Tests/SmoothedPicardHMCNormalizedReferenceCall.lean",
+    "session": 20842,
+    "exit_code": 0,
+    "state": "Focused PASS3726,public theorem standard three axioms,no new module lint; imported historical warnings replayed. Prepared from independently accepted scratch by documentation and diagnostic print removal only.",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/NormalizedReferenceCall.lean": "de3ef695654cb35a4cf6aed3173fe691db6fea4d8900f691508deed59a7e1fb7",
+      "Tests/SmoothedPicardHMCNormalizedReferenceCall.lean": "afd0af935b72427097ead5755678cf14b1fe5a94c96bc286c1e4c11bc45170a4"
+    }
   }
 }
