@@ -1,0 +1,30 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent scratch, localized production and final notation replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCFiniteRGOProgram",
+  "result": "PASS3752, exit0, only existing parent lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/FiniteRGOProgram.lean": "ec3f050f15e82fc77248dcc4eec66c55998f883df33db2e732b7c3019030e5ac",
+    "Tests/SmoothedPicardHMCFiniteRGOProgram.lean": "0e3991dd9fc8a5ca32a43b6b6e3cc18cdaa0ffe4b36c3e755cc4afdb1318f381"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Explicit measurable precision/center/count/history update and absorbing terminal branch.",
+    "Actual partialTraj endpoint followed by L equals recursively evaluated R_n.",
+    "Ideal T,H constructed before arbitrary Q,L; actual posterior consistency derives all finite-cap recovery, with no assumed recovery.",
+    "Local helpers specialize generic state arguments without adding public assumptions.",
+    "Final local notation expands to the original product state and prevents source identity from leaking through a source-named type abbreviation.",
+    "Finite cap need not reach threshold; FORS, concrete sampler, initialization validity, errors and query cost are not proved."
+  ],
+  "history": {
+    "scratch_sha256": "850e6c64e2a1582f4d2ce37aacab20fe6363e12f801c1e97959a1f7fbce45101",
+    "superseded_abbrev_production_sha256": "299a0e3e90d5bf3f0b623a00402f0a5f307768ff0ed41701c8271be80e7840a0"
+  },
+  "qualification": "Development proof review only; formal source and fixed-commit admission separate."
+}

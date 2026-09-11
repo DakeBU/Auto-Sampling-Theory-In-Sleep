@@ -1,0 +1,3 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram
+
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program

@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "17016703aa67e936a13cf4a3e54358ecb44c8f4a",
+    "gate": {
+      "production": "Independent PASS3753 reused at unchanged raw hashes; complete imported statement freshly reprinted and matched registry/anonymous packet.",
+      "publication": "Independent check_advance reviewed=True PASS; all packet/run/component hashes and external binding preimage verified.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCFiniteRGOKLError",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "finite_kl_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "29372ad50f2b369b9644f8379ec1dba1feefc8666572b0a7b0c35ad0a6c0e350",
+        "decoder_packet_sha256": "5e2728e8eb164a5ce41479de3dce6aa001af0bb23a05282d34bbbd61819f038d",
+        "decoder_run_sha256": "2f96fedf347a71db10c81caaeb2d1b13dc0cc65674fadd186b3806fe8968b4c0",
+        "reviewer_packet_sha256": "c25d2cd904972cab400957db96cde138a5ec38ebd43435d19b1d03ba39ee7eb0",
+        "review_run_sha256": "b69f5792f1af14bf45250677a314ce95908cfffdc013c4785e7a92b6d7df2490",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused test; actual recursive consumer, actual P occupancy integrals and complete terminal residual."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOKLError.finite_rgo_kl_error"
+    ],
+    "independent_checks": [
+      "Clean fixed commit and worktree match.",
+      "Seven semantic slots, six authored steps, five informational deltas; no blockers or repairs.",
+      "StoppedRGODepth actually merged PR272. This independent admission covers VERIFIED only; integration is a separate step."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED-only authorization.",
+  "boundary": "This proves the error-transfer dependency for the actual finite recursive program. Arbitrary supplied Markov Q and L are not identified with the paper smoothed sampler or FORS. No stage accuracy, adequate stopping cap, initialization validity, or expected query-cost bound is asserted. The terminal residual is retained, including on stopped states. All KL values and budgets are extended nonnegative reals. The source A1 Wasserstein accuracy and equation (6.5) still need an actual observation-kernel instantiation."
+}

@@ -1,0 +1,29 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent scratch, localized production and final notation replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCFiniteRGOKLError",
+  "result": "PASS3753, exit0, only existing parent lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/FiniteRGOKLError.lean": "b985954172724c7d90e9390f9690d1014403fd9fc4210ba9e54e7a8821fbfaec",
+    "Tests/SmoothedPicardHMCFiniteRGOKLError.lean": "2b824154f1474e1a264dd371750dd03b83306ce4da8038f326ae4ea10a4ac238"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "The public mathematical contract is unchanged from independently compiled scratch.",
+    "Four helper proofs are local and share E universe u, adding no public hypothesis.",
+    "Ideal consistency follows from actual parent recovery at one step.",
+    "Conditional KL includes singular and infinite-error fibers; actual P occupancy sum and terminal residual are correct.",
+    "Zero dimension, zero threshold, initial stopping and zero cap remain valid.",
+    "Six-step lesson matches production. Tests are import/axiom checks; actual consumer is the production theorem."
+  ],
+  "history": {
+    "scratch_sha256": "0282e128f1f7588fbc475ad57274ad5ed8bd2441739a267c2d25558e035534b9"
+  },
+  "qualification": "Development proof review only; formal source and fixed-commit admission separate."
+}

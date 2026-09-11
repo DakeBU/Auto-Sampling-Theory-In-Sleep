@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "d5c3aca17780ec0e888dfdd4ff70cdb0a1b510a7",
+    "gate": {
+      "production": "Independent PASS3757 reused at unchanged raw hashes; complete imported statement freshly reprinted and matched registry/anonymous packet.",
+      "publication": "Independent check_advance reviewed=True PASS; all packet/run/component hashes and external binding preimage verified.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCStoppedRGODepth",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "stopped_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "47c1534ae93dcc94a59cc56d672b94e83a01091846b626ed3bc6893e1a87d5df",
+        "decoder_packet_sha256": "e26ea94c278de869c44008e7927a448879c7eb1dfca851c7c0aa563e9a227298",
+        "decoder_run_sha256": "4e93668923f36c9c5e2133796a2decf3451f0a8e40600cb7a4cb6b6d662659bc",
+        "reviewer_packet_sha256": "fa9fe59d97ebe2b10fa8feff397bee309577917ca7ac06c6780362779c278808",
+        "review_run_sha256": "d0003b49ed32a5a6710438b7965374d5c824f14f44b502c04896c5d5a3890a70",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused test; actual history-dependent absorbed path, terminal support and output stability beyond the proven J."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth"
+    ],
+    "independent_checks": [
+      "Clean fixed commit and worktree match.",
+      "Seven semantic slots, six authored steps, six informational deltas; no blockers or repairs.",
+      "FiniteRGOProgram actually merged PR271. This independent admission covers VERIFIED only; integration is a separate step."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED-only authorization.",
+  "boundary": "The terminal threshold and stage bound are computed from the initial state and then fixed. The scalar source formulas use smoothness normalized to one; a general smoothness parameter needs the source scaling adapter. The actual dimension is positive. C>=8 is a proved sufficient constant, not a source-prescribed numerical value. Arbitrary observation and terminal Markov kernels do not identify the concrete smoothed sampler or FORS. Stage transitions are not gradient queries. No initialization validity, approximation error or expected query-cost result is asserted, and no uniform kernel equality across all initial states is claimed."
+}

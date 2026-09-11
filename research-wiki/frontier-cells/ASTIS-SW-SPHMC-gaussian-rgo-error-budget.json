@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-gaussian-rgo-error-budget",
+  "route": "samplewiki-route",
+  "title": "Actual two-noise observation and finite A1 accuracy budget",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Theorem6.5 A1 finite recursive error propagation, equations(6.5) and following induction",
+  "target_statement": "For the explicit RGO history state, any probability base mu, positive measurable beta,kappa,tau and nonnegative measurable eta, set a=(eta+tau)/beta. Construct the actual ideal T,H first. For every Markov smoothed output M and terminal L, construct a measurable Markov Q with fibers GaussianSmoothing(M(s),sqrt(tau(s)/beta(s))) and the actual finite RGO P,R. Fix J and Delta>=0 and set eps(s)^2=2*tau(s)*Delta^2/(kappa(s)*(J+1)). From the actual A1 squared-W2 bound between M(s) and GaussianSmoothing(T(s),sqrt(eta(s)/beta(s))) at every continuing state, derive KL(Q(s)||H(s))<=Delta^2/(J+1), then for every n,s derive KL(R_n(s)||T(s))<=n*Delta^2/(J+1)+integral KL(L(x)||T(x)) d(P^n(s)). Show actual update and recursion, all Markov semantics and actual Gaussian semigroup; no assumed observation KL or posterior consistency.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-finite-rgo-kl-error",
+    "ASTIS-SW-SPHMC-two-noise-rgo",
+    "ASTIS-SW-SPHMC-gaussian-kl"
+  ],
+  "consumers": [
+    "Theorem6.5 A1 actual finite recursive output error and later source accuracy budget"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib FiniteRGOKLError actual P-power error sum and retained terminal residual",
+      "Samplinglib StateDependentRGO measurable scaled-noise construction; TwoNoiseRGO Gaussian semigroup and GaussianKL reverse transport",
+      "Mathlib KL ChainRule/DataProcessing, kernel jointly measurable RN and conditional absolute continuity",
+      "Mathlib nonnegative kernel integration, composition powers and finite sums"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-gaussian-rgo-error-budget.md",
+    "planning_review": "Source reviewer identified actual added Gaussian and source A1 stage precision as next substantive consumer. Preserve beta scaling, prove observation KL from squared W2 and retain terminal residual.",
+    "execution_boundary": "Root sole writer; FiniteRGOKLError undergoing admission; this packet EXPLORING when claimed."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Theorem6.5 A1 recursive error propagation",
+    "detail_status": "omitted",
+    "gap": "Measurable actual added-noise kernel and source-scaled A1 budget propagated through the finite program.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "anchor": "Equation(6.5) and stagewise induction",
+        "hypothesis_adapter": "Use supplied smoothed-output Wasserstein accuracy, derive observation KL using actual noise, and retain terminal residual."
+      }
+    ],
+    "fidelity_boundary": "Source Theorem6.5 A1 equation(6.5) accuracy-transfer instance, retaining exact beta scaling and the actual added-noise denominator. The supplied M must satisfy the stated Wasserstein accuracy; this is not a proof that concrete Picard implements A1. Terminal FORS accuracy, adequate stopping depth at J, source conditioning choice, initialized-history validity and actual-input expected query cost remain separate. The terminal residual is not dropped and no TV transfer of unbounded cost is used."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "An actual-program consumer of the established KL chain mechanism, not a new conceptual equivalence."
+  }
+}

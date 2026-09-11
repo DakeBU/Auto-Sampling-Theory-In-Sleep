@@ -1,0 +1,16 @@
+{
+  "decoder": "finite_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent reconstruction, with formula notation converted to ASCII and bound coordinates consistently renamed.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-finite-d.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCFiniteRGOProgram.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "b4d8bb465624f120d24919a360ff3cd0b8376564acdc4b1ad1d6a0481f274eb8",
+  "lean_statement_sha256": "1ee10f9d9dad5b69734cc4533b46f7ee1514f6a2033468e4a33e598fb50a8502",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product Borel space, mu any probability measure on E, and S=NNReal times E times Nat times E^Nat. For any measurable a:S to R positive at every state, and any nonnegative threshold B, define F((b,u,k,h),y)=(b+1/a(s),(b*u+y/a(s))/(b+1/a(s)),k+1,h_y), where h_y(0)=y and h_y(m+1)=h(m). Vector division means reciprocal scalar multiplication. There exist Markov kernels T,H:S to E. For every state s=(b,u,k,h), T(s) is mu normalized by the density exp(-b*norm(x-u)^2/2), and H(s) is the actual law of X+sqrt(a(s))*Z under T(s) times an independent centered identity-covariance Gaussian. The square root is the standard-deviation scale.\nFor these same T,H and every pair of Markov kernels Q,L:S to E, there exist a Markov P:S to S and a sequence of Markov kernels R_n:S to E. At every state, P(s)=dirac s if B<=b, and otherwise P(s) is the F(s,.) pushforward of Q(s). R_0=L. For all n,s, R_(n+1)(s)=L(s) if B<=b, and otherwise it is the bind of Q(s) under y to R_n(F(s,y)). On every measurable event A this bind integrates R_n(F(s,y))(A). For every n and stopped state B<=b, R_n(s)=L(s).\nFor every finite n, define the history kernel kappa_k(path)=P(path(k)) on paths indexed by 0 through k. Start with the singleton path at s, append states through time n using partialTraj(kappa,0,n), and project to coordinate n. Composing this endpoint kernel with L equals R_n. This explicitly includes precomposition with the singleton initial path and pushforward by the final-coordinate map. If Q=H and L=T, then R_n=T as kernels for every n.\nThe quantifier order is all E,mu,a with their structures and assumptions, then all nonnegative thresholds, then existence of T,H, then all Markov Q,L, then existence of P and a single sequence R satisfying all identities for every n. The same T,H precede Q,L; P,R can depend on Q,L. The variance a can depend on every state coordinate. Equality with the threshold is a stopped state. No threshold-hitting claim, infinite-horizon limit, positive threshold lower bound, positive dimension or moment assumption on mu is asserted. There are no unspecified numerical constants; update coefficients are explicit in b,a(s),u,y.",
+  "source_fidelity_verdict": null
+}
