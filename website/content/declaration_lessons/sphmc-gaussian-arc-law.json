@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law",
+      "title": "Actual Gaussian gradient-arc joint law and calculus",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "Appendix D.1 gradient arc and Claim 1",
+          "scope": "Actual independent position and velocity law used before exponential-moment analysis."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.1 and A.4(2)",
+          "scope": "Terminal gradient-estimator consumer of the external arc construction."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGaussianArcLaw"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner product space with its Borel measurable structure; second countability is explicitly available. Zero dimension is allowed.",
+        "eta>0 and h in E. The input is the actual independent product law of X=h+sqrt(eta)G1 and Z=sqrt(eta)G2, where G1,G2 are standard Gaussian.",
+        "For r in the real line set theta=pi*r/2, gamma_r=h+sin(theta)(X-h)+cos(theta)Z and v_r=(pi/2)(cos(theta)(X-h)-sin(theta)Z). Source consumption only requires r in [0,1]."
+      ],
+      "statement": "The square of sqrt(eta) is eta. The map (h,r,x,z) to (gamma_r,v_r) is jointly measurable. For every real r its pushforward of the displayed input product law is N(h,eta I) product N(0,(pi/2)^2 eta I); in particular the position and velocity are independent. For every deterministic input pair, gamma has derivative v at every real r. Its positions at 0 and 1 are h+z and x; its velocities are (pi/2)(x-h) and -(pi/2)z.",
+      "formula": "(\\gamma_r,v_r)_\\#\\bigl(N(h,\\eta I)\\otimes N(0,\\eta I)\\bigr)=N(h,\\eta I)\\otimes N(0,\\tfrac{\\pi^2}{4}\\eta I),\\qquad \\frac{d}{dr}\\gamma_r=v_r.",
+      "boundary": "This is the actual Gaussian path prerequisite, not an exponential-moment or clipping theorem. The gradient-estimator consumer must separately substitute h=x0-eta grad f(x_plus), establish gradient and reference-point conditions, and prove moment, clipping and target-error bounds. No measurability of the eta-indexed measure family or full terminal sampler is asserted. The external printed Claim 1 log-moment discrepancy is a separate possible-source-error, not silently repaired by this result.",
+      "steps": [
+        {
+          "title": "Start with actual independent standard Gaussian coordinates",
+          "text": "Swap the two coordinates of the identical product measure; the law is unchanged. The existing centered Gaussian rotation theorem applies because every continuous linear functional has mean zero under the standard Gaussian.",
+          "formula": "R_\\theta(z,x)=(\\cos\\theta\\,z+\\sin\\theta\\,x,-\\sin\\theta\\,z+\\cos\\theta\\,x).",
+          "lean": "Measure.prod_swap; IsGaussian.map_rotation_eq_self_of_forall_strongDual_eq_zero; integral_strongDual_stdGaussian"
+        },
+        {
+          "title": "Transport the rotation to the actual input scales and center",
+          "text": "Express the input as the product pushforward of h+sigma G1 and sigma G2. Compose the arc map with that input map. Scalar distributivity shows it equals the invariant rotation followed by the output map (u,w) to (h+sigma u,(pi/2)sigma w). Product-map and map-composition identities prove the entire joint product law, not merely two marginals.",
+          "formula": "\\sigma=\\sqrt\\eta,\\qquad (u,w)\\longmapsto(h+\\sigma u,\\tfrac\\pi2\\sigma w).",
+          "lean": "affine_arc_law; Measure.map_prod_map; Measure.map_map"
+        },
+        {
+          "title": "Prove joint measurability of the path and velocity",
+          "text": "Coordinates, addition, subtraction, real scalar multiplication and sine/cosine are continuous. Their displayed compositions are jointly measurable in the center, time and both input vectors. This establishes deterministic parameter measurability without asserting a parameterized Gaussian-kernel theorem.",
+          "formula": "(h,r,x,z)\\longmapsto(\\gamma_r(x,z),v_r(x,z)).",
+          "lean": "arc_joint_measurable; fun_prop"
+        },
+        {
+          "title": "Differentiate the actual path",
+          "text": "The derivative of pi*r/2 is pi/2. The sine and cosine chain rules, scalar-vector multiplication and addition give the displayed velocity; the cosine derivative contributes the negative sine sign. The proof holds at every real time.",
+          "formula": "\\gamma_r^{\\prime}=\\tfrac\\pi2\\left(\\cos(\\tfrac\\pi2r)(x-h)-\\sin(\\tfrac\\pi2r)z\\right).",
+          "lean": "arc_derivative; HasDerivAt.sin; HasDerivAt.cos; HasDerivAt.smul_const"
+        },
+        {
+          "title": "Evaluate all endpoints and restore the source variance",
+          "text": "At zero and pi/2, exact sine and cosine values give the four endpoint identities. The initial position includes the auxiliary Gaussian sample. Finally eta>0 justifies sqrt(eta)^2=eta and specializes the general affine law to the source variance.",
+          "formula": "\\gamma_0=h+z,\\quad\\gamma_1=x,\\quad v_0=\\tfrac\\pi2(x-h),\\quad v_1=-\\tfrac\\pi2z.",
+          "lean": "arc_endpoints; Real.sq_sqrt; gaussian_arc_law"
+        }
+      ],
+      "lean_statement": "Actual product pushforward, joint measurability, pointwise path derivative and four endpoints at the source variance scale.",
+      "lean_proof": "Centered Gaussian rotation invariance, actual affine pushforwards, elementary continuous-map measurability and trigonometric differentiation.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.IsGaussian.map_rotation_eq_self_of_forall_strongDual_eq_zero",
+        "ProbabilityTheory.integral_strongDual_stdGaussian",
+        "MeasureTheory.Measure.prod_swap",
+        "MeasureTheory.Measure.map_prod_map",
+        "MeasureTheory.Measure.map_map",
+        "Real.sq_sqrt"
+      ]
+    }
+  ]
+}
