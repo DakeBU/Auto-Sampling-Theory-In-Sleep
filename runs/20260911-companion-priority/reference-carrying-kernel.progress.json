@@ -3,9 +3,9 @@
   "state": "EXPLORING",
   "boundary": "Original-coordinate current output M is a supplied actual Markov kernel,not a supplied accuracy guarantee. Pointwise stopping and reference construction need no W2 input. General beta,coordinate-free positive dimension and arbitrary reference/count/history states are explicit; no history validity invariant or cost claimed. Only one-step projection equality; dependence of M on reference forbids automatic projected-chain Markovness. No constructed accurate smoothed sampler,state-varying terminalFORS,conditional moment,stage cost or complete main result.",
   "remaining": [
-    "Genuine source quadratic gradient/trajectory identity",
-    "Actual enhanced Markov kernel and single-step projection",
-    "Independent complete proof/source admission and original reader delivery"
+    "Focused production and fixed independent review",
+    "Authored original reader lesson,fresh decoder/formal source review",
+    "Independent admission,integration and delivery"
   ],
   "variable_reference_checkpoint": {
     "path": ".astis/ReferenceCarryingKernelVariable.lean",
@@ -14,5 +14,27 @@
     "exit_code": 0,
     "result": "Three private helpers plus actual firstIndex; standard three axioms,no lint. State-varying actual gradient-descent first-hit jointly measurable,finite threshold and earlier strict failure from terminal witness only. No W2 or moment premise. Independent development review pending.",
     "independent_review": "depth_commit_verifier independently compiled frozen source via stdin exit0,three theorem prints standard3/no lint. Joint variable-state iteration/first-hit measurability,true gradient,strict terminal witness only,and absence of W2/moment/probability premises accepted. b(s)>0,d>0 explicit; no actual enhanced kernel consumer or VERIFIED yet."
+  },
+  "complete_scratch": {
+    "path": ".astis/ReferenceCarryingKernelComplete.lean",
+    "sha256": "12b487513f92a6bb576319b2d1e3a52525e2e706fe0d8e8bea151835cba6950f",
+    "session": 45604,
+    "exit_code": 0,
+    "independent_review": "depth_commit_verifier independently compiled via stdin exit0,six theorem prints standard3/no lint. Actual quadratic constant/gradient/trajectory,positive precision,pre-noise start,measurable actual stop and enhanced product-kernel transition accepted. Projection single-step only. No VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "result": "Five private lemmas,firstIndex and public proof read; original-coordinate M/pre-noise GD/source scales/actual trajectories/Markov map correct. threshold is supplied precision threshold,zero immediateabsorption extension; not source threshold formula or reachability. Terminalselfloop notFORS/finaloutput. Oldxref admissibility/historyvalidity notassumed. One-step projection only; generalbeta positive-dimensional,alpha/eta/taupositive,b0allowed. No samplerprecision/querycount/history error/fullnormalization Gibbs claim. Freshpacket must expand firstIndex."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ReferenceCarryingKernel.lean",
+    "test": "Tests/SmoothedPicardHMCReferenceCarryingKernel.lean",
+    "state": "Focused PASS3768,standard three axioms,no new-module lint; historical imported warnings replayed.",
+    "session": 67160,
+    "exit_code": 0,
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ReferenceCarryingKernel.lean": "376e38b4826a5d6166ebe3c9fed28c20270e650d60316bfdc814d028ae327808",
+      "Tests/SmoothedPicardHMCReferenceCarryingKernel.lean": "1b04e97d0599a46d2ee3b1c42ea01ca539dd17a8422250375f27cd8d27b2f134"
+    }
   }
 }

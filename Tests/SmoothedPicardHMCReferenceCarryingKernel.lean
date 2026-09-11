@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel

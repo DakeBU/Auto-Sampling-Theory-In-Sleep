@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-normalized-reference-call",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
   "remaining": [
-    "PR/merge CI and actual live deployment"
+    "Merge Lean/Site CI and actual live deployment"
   ],
   "gibbs_checkpoint": {
     "path": ".astis/NormalizedReferenceCallGibbs.lean",
@@ -97,9 +97,15 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/292",
     "head": "0382e3786e62cbb13f93717d6e08629b560e890c",
-    "state": "OPEN; PR Site passed,Lean pending",
+    "state": "MERGED; all PR checks passed; merge CI/live pending",
     "lean_run": 34657202388,
     "site_run": 34657202202,
-    "site_result": "SUCCESS; PR deployment skipped"
+    "site_result": "SUCCESS; PR deployment skipped",
+    "merge_commit": "3ad156ae79d655334222c2cac4af41b8ade99750",
+    "merged_at": "2026-09-11T23:28:24Z",
+    "lean_pr_result": "SUCCESS",
+    "merge_lean_run": 34658193453,
+    "merge_site_run": 34658193448,
+    "merge_checks": "Both in_progress; live pending"
   }
 }
