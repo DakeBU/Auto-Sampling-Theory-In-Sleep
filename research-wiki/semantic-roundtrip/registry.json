@@ -18484,6 +18484,214 @@
           "evidence": "Independent formal reviewer accepted this disclosed difference: Fixed-parameter clipped law/residual inequality only; ideal-target and global adaptive-kernel obligations retained."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCIdealRGOIdentification",
+      "state": "draft",
+      "source": {
+        "source_id": "companion:sphmc-ideal-rgo-identification",
+        "anchor": "Appendix D.1 Eq18 ideal target identification; consumed by SPHMC Appendix A.4(2)",
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "original_text": "E is a finite-dimensional real inner-product space with its Borel sigma-algebra and canonical volume. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz, with beta>=0. Fix eta>0 satisfying beta*eta<1 and arbitrary x0,x_plus in E. No convexity or second differentiability is assumed.\nSet g=grad f(x_plus), h=x0-eta*g, P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P, G=(z->x0+sqrt(eta) z)_*stdGaussian(E), and q=(z->h+sqrt(eta) z)_*stdGaussian(E). Thus time and auxiliary Gaussian inputs are independent.\nFor s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z). The actual untruncated estimator is W(x,s)=<v,g-grad f(gamma)>. Define m(x)=integral W(x,s) dnu(s) and V(x)=f(x)+norm(x-x0)^2/(2eta). These are definitions of actual functions and laws, not assumptions about their means or integrability.\nexp(-f) is G-integrable with strictly positive real integral; exp(m) is q-integrable with strictly positive real integral; exp(-V) is canonical-volume-integrable with strictly positive real integral. The actual q.tilted(m) equals G.tilted(-f) and also equals volume.withDensity(x -> ofReal(exp(-V(x))/integral exp(-V) dvolume)).",
+        "text_sha256": "2f0d11bdfe428227d6647e80ba35a879d3f278a35b08ebf0b9a0240e7a2b0552"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/IdealRGOIdentification.lean",
+        "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E] (f : E → ℝ),\n  Differentiable ℝ f →\n    ∀ (beta : NNReal),\n      LipschitzWith beta (gradient f) →\n        ∀ (eta : ℝ),\n          0 < eta →\n            ↑beta * eta < 1 →\n              ∀ (x0 xp : E),\n                have h := x0 - eta • gradient f xp;\n                have P := MeasureTheory.Measure.map (fun z => √eta • z) (ProbabilityTheory.stdGaussian E);\n                have nu := (MeasureTheory.MeasureSpace.volume.restrict (Set.Ioc 0 1)).prod P;\n                have G := MeasureTheory.Measure.map (fun z => x0 + √eta • z) (ProbabilityTheory.stdGaussian E);\n                have q := MeasureTheory.Measure.map (fun z => h + √eta • z) (ProbabilityTheory.stdGaussian E);\n                have m := fun x =>\n                  ∫ (s : ℝ × E),\n                    Inner.inner ℝ\n                      ((Real.pi / 2) • (Real.cos (Real.pi / 2 * s.1) • (x - h) - Real.sin (Real.pi / 2 * s.1) • s.2))\n                      (gradient f xp -\n                        gradient f\n                          (h + Real.sin (Real.pi / 2 * s.1) • (x - h) + Real.cos (Real.pi / 2 * s.1) • s.2)) ∂nu;\n                have V := fun x => f x + ‖x - x0‖ ^ 2 / (2 * eta);\n                MeasureTheory.Integrable (fun x => Real.exp (-f x)) G ∧\n                  0 < ∫ (x : E), Real.exp (-f x) ∂G ∧\n                    MeasureTheory.Integrable (fun x => Real.exp (m x)) q ∧\n                      0 < ∫ (x : E), Real.exp (m x) ∂q ∧\n                        MeasureTheory.Integrable (fun x => Real.exp (-V x)) MeasureTheory.MeasureSpace.volume ∧\n                          0 < ∫ (x : E), Real.exp (-V x) ∧\n                            (q.tilted m = G.tilted fun x => -f x) ∧\n                              q.tilted m =\n                                MeasureTheory.MeasureSpace.volume.withDensity fun x =>\n                                  ENNReal.ofReal (Real.exp (-V x) / ∫ (y : E), Real.exp (-V y))",
+        "statement_sha256": "2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Fixed production4d165850ae8b25e5fa2dc5bdbe508f6a12a8a1a8 independently focusedPASS3659 by depth_commit_verifier; standard3/no lint; mathematical content identical to independently compiled scratchd7f2366e. Root Meta.deltaExpand/isDefEq session43956 exit0, source-name-free full estimator expansion. Independent expansion replay pending.",
+        "decoder_context": [
+          "stdGaussian E is the centered identity-covariance Gaussian probability measure. Measure.map denotes pushforward and Measure.prod independent product.",
+          "volume is canonical Lebesgue measure on the finite-dimensional real inner-product space; restricted real volume on Ioc(0,1) is the uniform probability law. Endpoints have zero mass.",
+          "gradient f is the actual real inner-product gradient. Differentiable means differentiability everywhere. LipschitzWith beta is the global distance bound, and NNReal denotes nonnegative real numbers.",
+          "Integrable asserts Bochner integrability. The displayed real integrals are the typed signed Bochner integrals. ENNReal.ofReal maps a real number to its nonnegative part in the extended nonnegative reals.",
+          "Measure.withDensity mu d multiplies mu by the extended-nonnegative density d. Measure.tilted mu m is the exponential tilt with density ofReal(exp(m)/integral exp(m) dmu).",
+          "The local scalar estimator definition has been expanded from the compiled theorem type and checked with Lean Meta.isDefEq. All let-bound quantities retain their displayed scopes."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "pending"
+      },
+      "publication_binding_sha256": "b85e042e7bb5728226be2c67a2fcefa96e5446155850da26a0801c0a2592165b",
+      "publication_context": {
+        "file": "f6779b2f86826657760e55fd7458ff8c9aa24d12b5eb1f97a9528973eaa39916",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean\nimport AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability\nimport Mathlib.Analysis.Calculus.Deriv.MeanValue\nimport Mathlib.Tactic\nimport Mathlib.MeasureTheory.Measure.Tilted\n\n/-! Actual ideal RGO identification from the unclipped gradient-arc mean.\nSource: SPHMC arXiv:2609.06906v1 Appendix A.4(2), via\narXiv:2602.01338v1 Appendix D.1 Eq18 and its ideal target construction.\n\nAll three exponential weights have proved integrability and strictly positive\nreal integrals. The actual shifted Gaussian tilted by the actual uniform-time\nand auxiliary-Gaussian estimator mean equals the ideal proximal Gaussian tilt\nand its explicit normalized canonical-volume density. The sharp beta/2 lower\nTaylor estimate retains the full beta*eta<1 range without convexity or C2.\n\nCoordinate-free spaces, beta0 and dimension zero are disclosed extensions.\nParameters are fixed, with arbitrary reference point xp. This identifies the\nideal untruncated target; clipped approximation/Renyi accuracy, adaptive kernels,\ninitialization and implementation costs remain separate proof obligations. -/\n\nopen MeasureTheory ProbabilityTheory\nopen scoped RealInnerProductSpace ENNReal NNReal\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E]\n\nprivate theorem smooth_lower (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f)) (x0 u : E) :\n    f x0 + inner ℝ (gradient f x0) u - (beta : ℝ)/2 * ‖u‖^2 ≤ f (x0+u) := by\n  let H : ℝ → ℝ := fun t => f (x0+t • u) - t * inner ℝ (gradient f x0) u +\n    (beta : ℝ)/2 * t^2 * ‖u‖^2\n  let D : ℝ → ℝ := fun t => inner ℝ (gradient f (x0+t • u)) u -\n    inner ℝ (gradient f x0) u + (beta : ℝ)*t*‖u‖^2\n  have hd (t : ℝ) : HasDerivAt H (D t) t := by\n    have hp : HasDerivAt (fun r : ℝ => x0+r • u) u t := by\n      simpa only [Pi.add_def, zero_add, one_smul, id_eq] using\n        (hasDerivAt_const t x0).add ((hasDerivAt_id t).smul_const u)\n    have hg := (hf (x0+t • u)).hasGradientAt\n    have hc := hg.hasFDerivAt.comp_hasDerivAt t hp\n    have hlin := (hasDerivAt_id t).mul_const (inner ℝ (gradient f x0) u)\n    have hquad := (((hasDerivAt_id t).pow 2).const_mul ((beta : ℝ)/2)).mul_const (‖u‖^2)\n    convert! (hc.sub hlin).add hquad using 1\n    all_goals first | rfl | (dsimp [H,D,Function.comp_def,Pi.add_def,Pi.sub_def]; ring)\n  have hnon (t : ℝ) (ht : 0 ≤ t) : 0 ≤ D t := by\n    have hn := hlip.norm_sub_le (x0+t • u) x0\n    have he : ‖gradient f (x0+t • u)-gradient f x0‖ ≤ (beta : ℝ)*t*‖u‖ := by\n      simpa [norm_smul, Real.norm_eq_abs, abs_of_nonneg ht, mul_assoc] using hn\n    have hb := norm_inner_le_norm (𝕜 := ℝ) (gradient f (x0+t • u)-gradient f x0) u\n    have hh : |inner ℝ (gradient f (x0+t • u)-gradient f x0) u| ≤\n        (beta : ℝ)*t*‖u‖^2 := by\n      rw [← Real.norm_eq_abs]\n      calc\n        _ ≤ _ := hb\n        _ ≤ ((beta : ℝ)*t*‖u‖)*‖u‖ := mul_le_mul_of_nonneg_right he (norm_nonneg _)\n        _ = _ := by ring\n    have hx := (abs_le.mp hh).1\n    dsimp [D]\n    rw [inner_sub_left] at hx\n    linarith\n  have hmono : MonotoneOn H (Set.Icc (0 : ℝ) 1) :=\n    monotoneOn_of_deriv_nonneg (convex_Icc _ _)\n      ((continuous_iff_continuousAt.mpr (fun t => (hd t).continuousAt)).continuousOn)\n      (fun t _ => (hd t).differentiableAt.differentiableWithinAt)\n      (fun t ht => by\n        rw [(hd t).deriv]\n        exact hnon t ((interior_subset ht).1))\n  have h01 := hmono (by norm_num : (0 : ℝ) ∈ Set.Icc 0 1)\n    (by norm_num : (1 : ℝ) ∈ Set.Icc 0 1) zero_le_one\n  simp only [H, zero_smul, add_zero, zero_mul, zero_pow (by decide : 2 ≠ 0),\n    mul_zero, sub_zero, one_smul, one_mul, one_pow, mul_one] at h01\n  linarith\n\nprivate theorem regularized_lower (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (eta : ℝ) (heta : 0 < eta) (hstep : (beta : ℝ)*eta < 1) (x0 u : E) :\n    let k := 1/eta - (beta : ℝ)\n    0 < k ∧ f x0 - ‖gradient f x0‖^2/k + k/4*‖u‖^2 ≤\n      f (x0+u) + ‖u‖^2/(2*eta) := by\n  let k := 1/eta - (beta : ℝ)\n  have hk : 0 < k := sub_pos.mpr ((lt_div_iff₀ heta).mpr hstep)\n  refine ⟨hk, ?_⟩\n  have hs := smooth_lower f hf beta hlip x0 u\n  have hn := norm_inner_le_norm (𝕜 := ℝ) (gradient f x0) u\n  have hin : -(‖gradient f x0‖*‖u‖) ≤ inner ℝ (gradient f x0) u := by\n    exact (abs_le.mp (by simpa only [Real.norm_eq_abs] using hn)).1\n  have hy := sq_nonneg (‖gradient f x0‖ - k/2*‖u‖)\n  have hc : (‖gradient f x0‖^2/k)*k = ‖gradient f x0‖^2 :=\n    div_mul_cancel₀ _ hk.ne'\n  have hyoung : ‖gradient f x0‖*‖u‖ ≤ ‖gradient f x0‖^2/k + k/4*‖u‖^2 := by\n    nlinarith\n  have hweight : ‖u‖^2/(2*eta) = ((beta : ℝ)+k)/2*‖u‖^2 := by\n    dsimp [k]\n    field_simp\n    ring\n  change f x0 - ‖gradient f x0‖^2/k + k/4*‖u‖^2 ≤ _\n  rw [hweight]\n  nlinarith\n\nvariable [MeasurableSpace E] [BorelSpace E]\n\nprivate theorem ideal_volume_integrable (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (eta : ℝ) (heta : 0 < eta) (hstep : (beta : ℝ)*eta < 1) (x0 : E) :\n    Integrable (fun x => Real.exp (-(f x + ‖x-x0‖^2/(2*eta)))) volume ∧\n      0 < ∫ x, Real.exp (-(f x + ‖x-x0‖^2/(2*eta))) ∂volume := by\n  let k := 1/eta - (beta : ℝ)\n  have hk : 0 < k := (regularized_lower f hf beta hlip eta heta hstep x0 0).1\n  have henv := AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_norm_sub_sq\n    (E := E) (a := k/4) (b := f x0 - ‖gradient f x0‖^2/k) x0 (by positivity)\n  have hi : Integrable (fun x => Real.exp (-(f x + ‖x-x0‖^2/(2*eta)))) volume := by\n    apply henv.mono'\n    · exact (Real.continuous_exp.comp (hf.continuous.add (by fun_prop)).neg).aestronglyMeasurable\n    · apply Filter.Eventually.of_forall\n      intro x\n      rw [Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]\n      apply Real.exp_le_exp.mpr\n      have hl := (regularized_lower f hf beta hlip eta heta hstep x0 (x-x0)).2\n      have hx : x0 + (x-x0) = x := by abel\n      rw [hx] at hl\n      dsimp only [k] at *\n      linarith\n  exact ⟨hi, integral_exp_pos hi⟩\n\nprivate theorem translated_density (a : E) (eta : ℝ) (heta : 0 < eta) :\n    (stdGaussian E).map (fun z => a + Real.sqrt eta • z) =\n      (volume : Measure E).withDensity (fun z => ENNReal.ofReal\n        (((Real.sqrt (2 * Real.pi * eta))⁻¹) ^ Module.finrank ℝ E *\n          Real.exp (-‖z-a‖ ^ 2 / (2 * eta)))) := by\n  have hmap : (stdGaussian E).map (fun z => a + Real.sqrt eta • z) =\n      ((stdGaussian E).map (fun z : E => Real.sqrt eta • z)).map\n        (MeasurableEquiv.addLeft a) := by\n    rw [Measure.map_map (by fun_prop) (by fun_prop)]\n    rfl\n  rw [hmap,\n    AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity eta heta,\n    AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity (MeasurableEquiv.addLeft a) _ (by fun_prop)]\n  have hvol : (volume : Measure E).map (MeasurableEquiv.addLeft a) = volume :=\n    Measure.IsAddLeftInvariant.map_add_left_eq_self a\n  rw [hvol]\n  congr 1\n  funext z\n  simp [MeasurableEquiv.addLeft, sub_eq_add_neg, add_comm]\n\nprivate theorem ideal_gaussian_integrable (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (eta : ℝ) (heta : 0 < eta) (hstep : (beta : ℝ)*eta < 1) (x0 : E) :\n    let G := (stdGaussian E).map (fun z => x0 + Real.sqrt eta • z)\n    Integrable (fun x => Real.exp (-f x)) G ∧\n      0 < ∫ x, Real.exp (-f x) ∂G := by\n  let G := (stdGaussian E).map (fun z => x0 + Real.sqrt eta • z)\n  let c := ((Real.sqrt (2 * Real.pi * eta))⁻¹) ^ Module.finrank ℝ E\n  have hc : 0 ≤ c := by positivity\n  have hi : Integrable (fun x => Real.exp (-f x)) G := by\n    dsimp only [G]\n    rw [translated_density x0 eta heta]\n    apply (integrable_withDensity_iff_integrable_smul' (by fun_prop)\n      (Filter.Eventually.of_forall (fun _ => ENNReal.ofReal_lt_top))).mpr\n    have hv := (ideal_volume_integrable f hf beta hlip eta heta hstep x0).1.const_mul c\n    convert! hv using 1\n    funext x\n    rw [ENNReal.toReal_ofReal (mul_nonneg hc (Real.exp_pos _).le)]\n    change c * Real.exp _ * Real.exp _ = c * Real.exp _\n    rw [mul_assoc, ← Real.exp_add]\n    congr 2\n    ring\n  let : IsProbabilityMeasure G := Measure.isProbabilityMeasure_map (by fun_prop)\n  exact ⟨hi, integral_exp_pos hi⟩\n\nomit [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [BorelSpace E] in\nprivate theorem tilt_change_density (mu : Measure E) (w m n : E → ℝ)\n    (hw : Measurable w) (hm : Measurable m)\n    (hwpos : ∀ x, 0 ≤ w x) (A : ℝ) (hA : 0 < A)\n    (heq : ∀ x, w x * Real.exp (m x) = A * Real.exp (n x))\n    (hi : Integrable (fun x => Real.exp (n x)) mu)\n    (hZ : 0 < ∫ x, Real.exp (n x) ∂mu) :\n    let q := mu.withDensity (fun x => ENNReal.ofReal (w x))\n    Integrable (fun x => Real.exp (m x)) q ∧\n      (∫ x, Real.exp (m x) ∂q) = A * ∫ x, Real.exp (n x) ∂mu ∧\n      0 < ∫ x, Real.exp (m x) ∂q ∧ q.tilted m = mu.tilted n := by\n  let q := mu.withDensity (fun x => ENNReal.ofReal (w x))\n  have hfun : (fun x => (ENNReal.ofReal (w x)).toReal • Real.exp (m x)) =\n      (fun x => A * Real.exp (n x)) := by\n    funext x\n    simpa only [ENNReal.toReal_ofReal (hwpos x), smul_eq_mul] using heq x\n  have hqi : Integrable (fun x => Real.exp (m x)) q := by\n    apply (integrable_withDensity_iff_integrable_smul' hw.ennreal_ofReal\n      (Filter.Eventually.of_forall (fun _ => ENNReal.ofReal_lt_top))).mpr\n    rw [hfun]\n    exact hi.const_mul A\n  have hZi : (∫ x, Real.exp (m x) ∂q) = A * ∫ x, Real.exp (n x) ∂mu := by\n    dsimp only [q]\n    rw [integral_withDensity_eq_integral_toReal_smul hw.ennreal_ofReal\n      (Filter.Eventually.of_forall (fun _ => ENNReal.ofReal_lt_top)), hfun,\n      integral_const_mul]\n  refine ⟨hqi, hZi, by rw [hZi]; exact mul_pos hA hZ, ?_⟩\n  rw [Measure.tilted, ← withDensity_mul _ hw.ennreal_ofReal\n    ((hm.exp.div_const _).ennreal_ofReal)]\n  change mu.withDensity _ = mu.withDensity _\n  congr 1\n  funext x\n  simp only [Pi.mul_apply]\n  rw [← ENNReal.ofReal_mul (hwpos x)]\n  congr 1\n  change w x * (Real.exp (m x) / ∫ y, Real.exp (m y) ∂q) = _\n  rw [hZi, ← mul_div_assoc, heq x]\n  exact mul_div_mul_left _ _ hA.ne'\n\nprivate theorem affine_gaussian_tilt (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (eta : ℝ) (heta : 0 < eta) (hstep : (beta : ℝ)*eta < 1)\n    (x0 g : E) (C : ℝ) :\n    let G := (stdGaussian E).map (fun z => x0 + Real.sqrt eta • z)\n    let q := (stdGaussian E).map (fun z => (x0-eta • g) + Real.sqrt eta • z)\n    let m := fun x => inner ℝ g x - f x + C\n    Integrable (fun x => Real.exp (m x)) q ∧\n      0 < ∫ x, Real.exp (m x) ∂q ∧ q.tilted m = G.tilted (fun x => -f x) := by\n  let G := (stdGaussian E).map (fun z => x0 + Real.sqrt eta • z)\n  let q := (stdGaussian E).map (fun z => (x0-eta • g) + Real.sqrt eta • z)\n  let m := fun x => inner ℝ g x - f x + C\n  let w := fun x => Real.exp\n    (inner ℝ ((x0-eta • g)-x0) (x-x0)/eta - ‖(x0-eta • g)-x0‖^2/(2*eta))\n  let A := Real.exp (C + inner ℝ g x0 - eta*‖g‖^2/2)\n  have hg := AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood\n    (x0-eta • g) x0 eta heta\n  have hq : q = G.withDensity (fun x => ENNReal.ofReal (w x)) := hg.2.1\n  have heq (x : E) : w x * Real.exp (m x) = A * Real.exp (-f x) := by\n    dsimp only [w, m, A]\n    rw [← Real.exp_add, ← Real.exp_add]\n    congr 1\n    have hs : (x0-eta • g)-x0 = (-eta) • g := by module\n    rw [hs, real_inner_smul_left, inner_sub_right, norm_smul,\n      Real.norm_eq_abs, mul_pow, sq_abs]\n    field_simp\n    ring\n  have hbase := ideal_gaussian_integrable f hf beta hlip eta heta hstep x0\n  have ht := tilt_change_density G w m (fun x => -f x) hg.1\n    (by dsimp [m]; exact ((by fun_prop : Measurable (fun x => inner ℝ g x)).sub hf.continuous.measurable).add_const C)\n    (fun x => (Real.exp_pos _).le) A (Real.exp_pos _) heq hbase.1 hbase.2\n  rw [← hq] at ht\n  exact ⟨ht.1, ht.2.2.1, ht.2.2.2⟩\n\nprivate theorem ideal_volume_law (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (eta : ℝ) (heta : 0 < eta) (hstep : (beta : ℝ)*eta < 1) (x0 : E) :\n    ((stdGaussian E).map (fun z => x0 + Real.sqrt eta • z)).tilted (fun x => -f x) =\n      (volume : Measure E).withDensity (fun x => ENNReal.ofReal\n        (Real.exp (-(f x + ‖x-x0‖^2/(2*eta))) /\n          ∫ y, Real.exp (-(f y + ‖y-x0‖^2/(2*eta))) ∂volume)) := by\n  let c := ((Real.sqrt (2 * Real.pi * eta))⁻¹) ^ Module.finrank ℝ E\n  let w := fun x : E => c * Real.exp (-‖x-x0‖^2/(2*eta))\n  have hc : 0 < c := by dsimp [c]; positivity\n  have hprod (x : E) : w x * Real.exp (-f x) =\n      c * Real.exp (-(f x + ‖x-x0‖^2/(2*eta))) := by\n    dsimp [w]\n    rw [mul_assoc, ← Real.exp_add]\n    congr 2\n    ring\n  have hv := ideal_volume_integrable f hf beta hlip eta heta hstep x0\n  have ht := tilt_change_density (volume : Measure E) w (fun x => -f x)\n    (fun x => -(f x + ‖x-x0‖^2/(2*eta))) (by dsimp [w]; fun_prop)\n    hf.continuous.measurable.neg (fun x => mul_nonneg hc.le (Real.exp_pos _).le)\n    c hc hprod hv.1 hv.2\n  rw [translated_density x0 eta heta]\n  exact ht.2.2.2\n\nprivate def estimator (f : E → ℝ) (h xp x : E) (s : ℝ × E) : ℝ :=\n  inner ℝ ((Real.pi / 2) • (Real.cos (Real.pi / 2 * s.1) • (x-h) -\n    Real.sin (Real.pi / 2 * s.1) • s.2))\n    (gradient f xp - gradient f (h + Real.sin (Real.pi / 2 * s.1) • (x-h) +\n      Real.cos (Real.pi / 2 * s.1) • s.2))\n\nprivate theorem actual_mean_tilt (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (eta : ℝ) (heta : 0 < eta) (hstep : (beta : ℝ)*eta < 1) (x0 xp : E) :\n    let h := x0-eta • gradient f xp\n    let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n    let nu := (volume.restrict (Set.Ioc (0 : ℝ) 1)).prod P\n    let q := (stdGaussian E).map (fun z => h + Real.sqrt eta • z)\n    let m := fun x => ∫ s, estimator f h xp x s ∂nu\n    Integrable (fun x => Real.exp (m x)) q ∧\n      0 < ∫ x, Real.exp (m x) ∂q ∧\n      q.tilted m = ((stdGaussian E).map (fun z => x0 + Real.sqrt eta • z)).tilted\n        (fun x => -f x) := by\n  let h := x0-eta • gradient f xp\n  let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n  let nu := (volume.restrict (Set.Ioc (0 : ℝ) 1)).prod P\n  let C := (∫ z, f (h+z) ∂P) - inner ℝ (gradient f xp) h\n  have hmean := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean\n    f hf eta (beta : ℝ) heta beta.coe_nonneg hlip h xp\n  have hm : (fun x => ∫ s, estimator f h xp x s ∂nu) =\n      (fun x => inner ℝ (gradient f xp) x - f x + C) := by\n    funext x\n    exact (hmean.2.2.2 x).2.2.2\n  change Integrable (fun x => Real.exp ((fun x => ∫ s, estimator f h xp x s ∂nu) x)) _ ∧ _\n  rw [hm]\n  exact affine_gaussian_tilt f hf beta hlip eta heta hstep x0 (gradient f xp) C\n\n/-- Positive finite normalization and equality of the actual ideal RGO laws. -/\ntheorem ideal_rgo_identification (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (eta : ℝ) (heta : 0 < eta) (hstep : (beta : ℝ)*eta < 1) (x0 xp : E) :\n    let h := x0-eta • gradient f xp\n    let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n    let nu := (volume.restrict (Set.Ioc (0 : ℝ) 1)).prod P\n    let G := (stdGaussian E).map (fun z => x0 + Real.sqrt eta • z)\n    let q := (stdGaussian E).map (fun z => h + Real.sqrt eta • z)\n    let m := fun x => ∫ s, estimator f h xp x s ∂nu\n    let V := fun x => f x + ‖x-x0‖^2/(2*eta)\n    Integrable (fun x => Real.exp (-f x)) G ∧\n      0 < ∫ x, Real.exp (-f x) ∂G ∧\n      Integrable (fun x => Real.exp (m x)) q ∧\n      0 < ∫ x, Real.exp (m x) ∂q ∧\n      Integrable (fun x => Real.exp (-V x)) volume ∧\n      0 < ∫ x, Real.exp (-V x) ∂volume ∧\n      q.tilted m = G.tilted (fun x => -f x) ∧\n      q.tilted m = (volume : Measure E).withDensity (fun x => ENNReal.ofReal\n        (Real.exp (-V x) / ∫ y, Real.exp (-V y) ∂volume)) := by\n  have hg := ideal_gaussian_integrable f hf beta hlip eta heta hstep x0\n  have hm := actual_mean_tilt f hf beta hlip eta heta hstep x0 xp\n  have hv := ideal_volume_integrable f hf beta hlip eta heta hstep x0\n  exact ⟨hg.1, hg.2, hm.1, hm.2.1, hv.1, hv.2, hm.2.2,\n    hm.2.2.trans (ideal_volume_law f hf beta hlip eta heta hstep x0)⟩\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification\n\n\n\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "edition": "arXiv:2602.01338v1",
+          "anchor": "Appendix D.1 Eq18 ideal target identification; consumed by SPHMC Appendix A.4(2)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "ASTIS mathematical restatement and exposition of the ideal target construction used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+        },
+        "statement": "exp(-f) is G-integrable with strictly positive real integral; exp(m) is q-integrable with strictly positive real integral; exp(-V) is canonical-volume-integrable with strictly positive real integral. The actual q.tilted(m) equals G.tilted(-f) and also equals volume.withDensity(x -> ofReal(exp(-V(x))/integral exp(-V) dvolume)).",
+        "formulae": [
+          {
+            "label": "Actual ideal RGO law",
+            "tex": "q.\\mathrm{tilted}(m)=G.\\mathrm{tilted}(-f)=\\frac{e^{-V(x)}}{\\int_Ee^{-V(y)}\\,dy}\\,dx,\\qquad V(x)=f(x)+\\frac{\\|x-x_0\\|^2}{2\\eta}."
+          }
+        ],
+        "assumptions": [
+          "E is a finite-dimensional real inner-product space with its Borel sigma-algebra and canonical volume. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz, with beta>=0. Fix eta>0 satisfying beta*eta<1 and arbitrary x0,x_plus in E. No convexity or second differentiability is assumed.",
+          "Set g=grad f(x_plus), h=x0-eta*g, P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P, G=(z->x0+sqrt(eta) z)_*stdGaussian(E), and q=(z->h+sqrt(eta) z)_*stdGaussian(E). Thus time and auxiliary Gaussian inputs are independent.",
+          "For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z). The actual untruncated estimator is W(x,s)=<v,g-grad f(gamma)>. Define m(x)=integral W(x,s) dnu(s) and V(x)=f(x)+norm(x-x0)^2/(2eta). These are definitions of actual functions and laws, not assumptions about their means or integrability."
+        ],
+        "obligations": [
+          {
+            "id": "actual-ideal-rgo-identification",
+            "label": "Actual unclipped-mean target identification with positive finite normalization"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+          "title": "Actual ideal RGO identification and normalization",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2602.01338v1",
+              "label": "Appendix D.1 Eq. (18) and ideal target",
+              "scope": "Unclipped gradient-arc mean and ideal normalized target."
+            },
+            {
+              "url": "https://arxiv.org/html/2609.06906v1",
+              "label": "SPHMC Appendix A.4(2)",
+              "scope": "Consumer of the ideal target construction; terminal approximation remains separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCIdealRGOIdentification"
+          ],
+          "assumptions": [
+            "E is a finite-dimensional real inner-product space with its Borel sigma-algebra and canonical volume. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz, with beta>=0. Fix eta>0 satisfying beta*eta<1 and arbitrary x0,x_plus in E. No convexity or second differentiability is assumed.",
+            "Set g=grad f(x_plus), h=x0-eta*g, P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P, G=(z->x0+sqrt(eta) z)_*stdGaussian(E), and q=(z->h+sqrt(eta) z)_*stdGaussian(E). Thus time and auxiliary Gaussian inputs are independent.",
+            "For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z). The actual untruncated estimator is W(x,s)=<v,g-grad f(gamma)>. Define m(x)=integral W(x,s) dnu(s) and V(x)=f(x)+norm(x-x0)^2/(2eta). These are definitions of actual functions and laws, not assumptions about their means or integrability."
+          ],
+          "statement": "exp(-f) is G-integrable with strictly positive real integral; exp(m) is q-integrable with strictly positive real integral; exp(-V) is canonical-volume-integrable with strictly positive real integral. The actual q.tilted(m) equals G.tilted(-f) and also equals volume.withDensity(x -> ofReal(exp(-V(x))/integral exp(-V) dvolume)).",
+          "formula": "q.\\mathrm{tilted}(m)=G.\\mathrm{tilted}(-f)=\\frac{e^{-V(x)}}{\\int_Ee^{-V(y)}\\,dy}\\,dx,\\qquad V(x)=f(x)+\\frac{\\|x-x_0\\|^2}{2\\eta}.",
+          "steps": [
+            {
+              "title": "Obtain the sharp lower Taylor estimate from first derivatives",
+              "text": "For fixed u, consider H(t)=f(x0+t u)-t<grad f(x0),u>+(beta/2)t^2 norm(u)^2 on [0,1]. Differentiate the actual potential along this path. The Lipschitz gradient bound and Cauchy-Schwarz make H prime nonnegative. Monotonicity therefore gives H(1)>=H(0). This retains the precise beta/2 coefficient without a Hessian or convexity assumption.",
+              "formula": "f(x_0+u)\\ge f(x_0)+\\langle\\nabla f(x_0),u\\rangle-\\frac\\beta2\\|u\\|^2.",
+              "lean": "smooth_lower; monotoneOn_of_deriv_nonneg"
+            },
+            {
+              "title": "Prove a coercive envelope and actual volume integrability",
+              "text": "Set k=1/eta-beta>0. Adding the proximal quadratic to the lower Taylor bound gives a quadratic with coefficient k/2. Young inequality absorbs the linear gradient term, leaving coefficient k/4. Exponentiation bounds the actual weight by an integrable translated Gaussian envelope. Continuity supplies measurability. The actual canonical volume is nonzero, so the integral of this everywhere positive integrable exponential is strictly positive.",
+              "formula": "V(x_0+u)\\ge f(x_0)-\\frac{\\|\\nabla f(x_0)\\|^2}{k}+\\frac{k}{4}\\|u\\|^2,\\qquad k=\\eta^{-1}-\\beta>0.",
+              "lean": "regularized_lower; ideal_volume_integrable; AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_norm_sub_sq; MeasureTheory.integral_exp_pos"
+            },
+            {
+              "title": "Normalize under the actual Gaussian input",
+              "text": "Reuse the public scaled Gaussian density and prove the translation adapter by pushforward composition and volume translation invariance. Multiplying this density by exp(-f) gives c_eta exp(-V), where c_eta is the strictly positive Gaussian normalization constant. The withDensity integrability equivalence transfers the established volume L1 to the actual Gaussian G. Its probability property and integrability imply a strictly positive real integral. Applying the same density identity to the tilt gives the explicit normalized volume law.",
+              "formula": "G(dx)=c_\\eta e^{-\\|x-x_0\\|^2/(2\\eta)}dx,\\qquad c_\\eta=(\\sqrt{2\\pi\\eta})^{-\\dim E}>0.",
+              "lean": "translated_density; ideal_gaussian_integrable; ideal_volume_law; AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity"
+            },
+            {
+              "title": "Use the actual gradient-arc mean with one common constant",
+              "text": "Instantiate the proved GradientArcMean result at h=x0-eta grad f(x_plus). It already establishes the auxiliary integrability needed for its Fubini argument. Expanding the local estimator verifies that it is exactly the same sine/cosine arc and gradient difference. Its potential expectation defines C before x is chosen, and gives the actual mean identity for every x. No affine mean formula is assumed in place of the random estimator.",
+              "formula": "m(x)=\\langle g,x\\rangle-f(x)+C,\\qquad C=\\mathbb E_{Z\\sim P}f(h+Z)-\\langle g,h\\rangle.",
+              "lean": "estimator; actual_mean_tilt; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean"
+            },
+            {
+              "title": "Cancel the actual translated Gaussian likelihood",
+              "text": "The public Gaussian likelihood theorem gives q=G.withDensity(L) in the correct direction. Substituting h-x0=-eta g yields log L=-<g,x-x0>-eta norm(g)^2/2. Multiplication by the actual exponential mean leaves A exp(-f), where A is positive and independent of x. This uses the actual proposal measure, not an abstract density selected to satisfy the conclusion.",
+              "formula": "L(x)e^{m(x)}=A e^{-f(x)},\\qquad A=e^{C+\\langle g,x_0\\rangle-\\eta\\|g\\|^2/2}>0.",
+              "lean": "affine_gaussian_tilt; AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood"
+            },
+            {
+              "title": "Transfer integrability before cancelling normalizers",
+              "text": "The weighted integrability equivalence and the previous product identity prove exp(m) is q-integrable. Integration gives Z_q=A Z_G, hence Z_q>0. Only then expand the definition of exponential tilt and compose the two withDensity operations. The same positive A cancels in numerator and denominator. Combine this law equality with the established normalized volume identity and all three positive integrability statements.",
+              "formula": "Z_q=\\int e^m\\,dq=A\\int e^{-f}\\,dG=A Z_G>0,\\qquad \\frac{L e^m}{Z_q}=\\frac{e^{-f}}{Z_G}.",
+              "lean": "tilt_change_density; ideal_rgo_identification; MeasureTheory.integrable_withDensity_iff_integrable_smul'; MeasureTheory.integral_withDensity_eq_integral_toReal_smul; MeasureTheory.withDensity_mul"
+            }
+          ],
+          "lean_statement": "Three actual exponential L1 and positive real integral pairs, plus shifted-Gaussian/ideal Gaussian and normalized-volume measure identities.",
+          "lean_proof": "Sharp first-derivative Taylor bound, Gaussian envelope, actual density transfer, actual parent mean, positive likelihood factor and normalizer cancellation.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_norm_sub_sq"
+          ],
+          "mathlib_dependencies": [
+            "monotoneOn_of_deriv_nonneg",
+            "MeasureTheory.integral_exp_pos",
+            "MeasureTheory.integrable_withDensity_iff_integrable_smul'",
+            "MeasureTheory.integral_withDensity_eq_integral_toReal_smul",
+            "MeasureTheory.withDensity_mul"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+          "role": "proof-edge",
+          "supports": [
+            "actual-ideal-rgo-identification"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Euclidean smooth setting in positive dimension.",
+            "lean": "Finite-dimensional real inner-product Borel space with canonical volume, including dimension zero."
+          },
+          {
+            "source": "The smoothness constant is conventionally positive.",
+            "lean": "beta is a nonnegative real parameter (NNReal); beta=0 is allowed."
+          },
+          {
+            "source": "Claim2 uses a stronger small-step condition together with ell>=2 for clipping accuracy.",
+            "lean": "eta>0 and beta*eta<1 suffice for this ideal target identification and normalization."
+          },
+          {
+            "source": "A reference-point residual bound is used for downstream clipping control.",
+            "lean": "x_plus is arbitrary for ideal mean identification."
+          },
+          {
+            "source": "Uniform time is sampled on [0,1].",
+            "lean": "U is volume restricted to Ioc(0,1), independently multiplied by the actual auxiliary Gaussian."
+          },
+          {
+            "source": "The ideal RGO is the normalized density proportional to exp(-V).",
+            "lean": "All three required exponential weights are proved integrable with strictly positive real normalizers before identifying the measures."
+          },
+          {
+            "source": "SPHMC A.4(2) uses the ideal construction in a terminal approximate implementation.",
+            "lean": "Fixed-parameter ideal target identification only; no clipped Renyi, joint adaptive kernel, initialization or cost theorem."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any finite-dimensional real inner-product space equipped with its Borel measurable structure and canonical Lebesgue measure λ. Let f:E→ℝ be differentiable everywhere, with globally β-Lipschitz gradient for some β≥0. For any η>0 satisfying βη<1 and arbitrary x₀,xₚ∈E, define h=x₀−η∇f(xₚ), P=N(0,ηI), G=N(x₀,ηI), q=N(h,ηI), and ν=Unif((0,1])⊗P. Set m(x)=∫⟨(π/2)[cos(πt/2)(x−h)−sin(πt/2)z], ∇f(xₚ)−∇f(h+sin(πt/2)(x−h)+cos(πt/2)z)⟩ν(d(t,z)), and V(x)=f(x)+‖x−x₀‖²/(2η). Then exp(−f) is G-integrable with strictly positive integral, exp(m) is q-integrable with strictly positive integral, and exp(−V) is λ-integrable with strictly positive integral. Moreover, the normalized exponential tilt of q by m equals both the normalized exponential tilt of G by −f and the probability measure with Lebesgue density exp(−V)/∫exp(−V)dλ.",
+        "text_sha256": "8cf28e83d420e38124349a1f120e0aa4d0c3623c26e078df31dd9ad3ffc5a0bd",
+        "decoder_packet_sha256": "22967d6218dc50344bb117971b73b62058a6d9140ee6d1cccb9841a78af7445e",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "blind_reconstruction_m",
+        "notes": [
+          "The theorem is universally quantified over the space, function, Lipschitz constant, admissible step size, and both points, in that order.",
+          "Every local definition is inside the scope of x₀ and xₚ. In particular, h, q, and m may depend on xₚ, whereas G and V do not.",
+          "The integral defining m averages with respect to a fixed product measure ν; x is not integrated there.",
+          "The scalar multiplier π/2 applies to the entire vector cos(πt/2)(x−h)−sin(πt/2)z.",
+          "The final equalities show that the resulting tilted measure is independent of the arbitrary choice of xₚ.",
+          "No convexity of f, minimizer condition on xₚ, or equation relating xₚ to h is assumed.",
+          "Integrability of the unregularized density exp(−f) against Lebesgue measure is not asserted.",
+          "The conclusion does not separately assert integrability of the inner integrand defining m, a pointwise simplification of m, a moment bound, or an algorithmic sampling guarantee.",
+          "No pointwise equality between unnormalized densities, or equality of their respective normalization constants, is directly asserted.",
+          "There is no unresolved notation ambiguity under the supplied definition context.",
+          "The displayed type defines m using Lean's real Bochner integral but does not include a separate conclusion certifying integrability of that inner integrand; such a certificate must not be attributed to this theorem's stated conclusion alone."
+        ],
+        "decoder_run_sha256": "4ffb67c048b4fa3db015a54c49604c0ed79fe2203c1338bb5798e12400dc7e94",
+        "lean_statement_sha256": "2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79",
+        "run_artifact": "runs/20260911-companion-priority/ideal-rgo-identification.decoder-result.json"
+      }
     }
   ]
 }

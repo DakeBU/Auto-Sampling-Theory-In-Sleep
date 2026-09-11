@@ -49,5 +49,25 @@
       "Eight public conclusions; probability instance is derivable but not separately returned. No joint adaptive kernel.",
       "Clipped/ideal Renyi comparison, initialization and implementation cost remain independent."
     ]
+  },
+  "expanded_statement": {
+    "file": ".astis/ideal-rgo-identification-expanded-statement.txt",
+    "sha256": "2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79",
+    "characters": 2040,
+    "definitionally_equal": true,
+    "source_name_free": true
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "4d165850ae8b25e5fa2dc5bdbe508f6a12a8a1a8",
+    "result": "Hashes and normalized mathematical content matched accepted scratch; independent focusedPASS3659, standard3/no lint. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-ideal-rgo-identification.json",
+    "state": "Six authored mathematical steps; formal source review pending."
+  },
+  "independent_expansion_review": {
+    "reviewer": "depth_commit_verifier",
+    "result": "Independent replay exit0 Meta.isDefEq; 2040characters SHA2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79; complete actual estimator/product mean and eightconclusions; no source names, opaque private proof leaks or ellipses. No VERIFIED."
   }
 }
