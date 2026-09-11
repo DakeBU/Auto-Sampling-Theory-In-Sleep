@@ -1,0 +1,20 @@
+{
+  "decoder": "blind_reconstruction_k",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Verbatim independent source-blind response with hash checked.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-k.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCGradientArcMean.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "17393b2685c5aba14092382890d2cf2b980384127d345053f9f43fa77a6af589",
+  "lean_statement_sha256": "5a1f72f6cafcd91f370654a19262139161cac6294af049640378fa5ae4003288",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product space, with its normed additive commutative group structure, a measurable space whose sigma-algebra is the Borel sigma-algebra, and a second-countable topology. Let f:E->R be differentiable everywhere. For every eta,beta in R with eta>0 and beta>=0, assume that gradient f is globally beta-Lipschitz. For every h,xp in E, define P as the pushforward of the centered identity-covariance Gaussian probability measure on E by z |-> sqrt(eta) z, define U as real Lebesgue measure restricted to (0,1], and define C = integral_E f(h+z) dP(z) - <gradient f(xp),h>. These definitions are made before quantifying x: P depends on E and eta, U is fixed, and C depends on f,h,xp,P but not on x. Then (sqrt(eta))^2=eta, U has total mass one, and z |-> f(h+z) is Bochner integrable with respect to P. Moreover, for every x in E, define, for every r in R and z in E, K_x(r,z) = <(pi/2)(cos((pi/2)r)(x-h) - sin((pi/2)r)z), gradient f(xp) - gradient f(h + sin((pi/2)r)(x-h) + cos((pi/2)r)z)>, where angle brackets denote the real inner product and real multiplication of vectors denotes scalar multiplication. The function K_x on the entire product R x E is measurable and is Bochner integrable with respect to the product measure U x P. For every z in E, its oriented real interval integral satisfies integral_0^1 K_x(r,z) dr = <gradient f(xp), x-(h+z)> - f(x) + f(h+z). Finally, integral_(R x E) K_x(r,z) d(U x P)(r,z) = <gradient f(xp),x> - f(x) + C. The interval integral uses real Lebesgue measure, while the last integral uses exactly U x P.",
+  "source_fidelity_verdict": null,
+  "decoder_notes": [
+    "No ambiguities reported. Decoder explicitly reconstructed the common constant before all x and distinguished interval Lebesgue integration from U.prod P.",
+    "Only anonymous compiled type and approved definition context supplied; source text not visible."
+  ]
+}

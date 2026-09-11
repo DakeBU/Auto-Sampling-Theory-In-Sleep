@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-5189c68036dbb430",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "blind_reconstruction_k",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-gradient-arc-mean",
+    "anchor": "Appendix D.1 actual unclipped mean before Eq18; consumed by SPHMC Appendix A.4(2)",
+    "original_text": "E is a finite-dimensional real inner-product space with its Borel measurable structure; second countability is explicit and automatic for this domain. The real-valued potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz.\neta>0, beta>=0 and h,x_plus are arbitrary points. No positive dimension, convexity, center residual or clipping step restriction is assumed.\nP is the pushforward of stdGaussian E by z -> sqrt(eta) z, hence the actual auxiliary N(0,eta I). U is Lebesgue measure restricted to (0,1], which is the same uniform probability law as on [0,1].\nFor each x,z and real r, theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z, v=(pi/2)(cos(theta)(x-h)-sin(theta)z), and W_x(r,z)=<v,grad f(x_plus)-grad f(gamma)>.\nThe square of sqrt(eta) equals eta, U is a probability measure, and f(h+Z) is integrable under P. Define the finite constant C=integral f(h+z) dP(z)-<grad f(x_plus),h> before choosing x. For every x, W_x is jointly measurable and integrable under U product P, its integral is <grad f(x_plus),x>-f(x)+C, and for every z its time integral from 0 to 1 equals <grad f(x_plus),x-(h+z)>-f(x)+f(h+z).",
+    "text_sha256": "1dec68b0a4f65135df4921ec2842557d946833ec4cde1646e73fed04f33f81ab"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GradientArcMean.lean",
+    "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] [SecondCountableTopology E] (f : E → ℝ),\n  Differentiable ℝ f →\n    ∀ (eta beta : ℝ),\n      0 < eta →\n        ∀ (hbeta : 0 ≤ beta),\n          LipschitzWith ⟨beta, hbeta⟩ (gradient f) →\n            ∀ (h xp : E),\n              have P := MeasureTheory.Measure.map (fun z => √eta • z) (ProbabilityTheory.stdGaussian E);\n              have U := MeasureTheory.MeasureSpace.volume.restrict (Set.Ioc 0 1);\n              have C := ∫ (z : E), f (h + z) ∂P - Inner.inner ℝ (gradient f xp) h;\n              √eta ^ 2 = eta ∧\n                MeasureTheory.IsProbabilityMeasure U ∧\n                  MeasureTheory.Integrable (fun z => f (h + z)) P ∧\n                    ∀ (x : E),\n                      (Measurable fun q =>\n                          Inner.inner ℝ\n                            ((Real.pi / 2) •\n                              (Real.cos (Real.pi / 2 * q.1) • (x - h) - Real.sin (Real.pi / 2 * q.1) • q.2))\n                            (gradient f xp -\n                              gradient f\n                                (h + Real.sin (Real.pi / 2 * q.1) • (x - h) + Real.cos (Real.pi / 2 * q.1) • q.2))) ∧\n                        MeasureTheory.Integrable\n                            (fun q =>\n                              Inner.inner ℝ\n                                ((Real.pi / 2) •\n                                  (Real.cos (Real.pi / 2 * q.1) • (x - h) - Real.sin (Real.pi / 2 * q.1) • q.2))\n                                (gradient f xp -\n                                  gradient f\n                                    (h + Real.sin (Real.pi / 2 * q.1) • (x - h) + Real.cos (Real.pi / 2 * q.1) • q.2)))\n                            (U.prod P) ∧\n                          (∀ (z : E),\n                              ∫ (r : ℝ) in 0..1,\n                                  Inner.inner ℝ\n                                    ((Real.pi / 2) •\n                                      (Real.cos (Real.pi / 2 * r) • (x - h) - Real.sin (Real.pi / 2 * r) • z))\n                                    (gradient f xp -\n                                      gradient f\n                                        (h + Real.sin (Real.pi / 2 * r) • (x - h) + Real.cos (Real.pi / 2 * r) • z)) =\n                                Inner.inner ℝ (gradient f xp) (x - (h + z)) - f x + f (h + z)) ∧\n                            ∫ (q : ℝ × E),\n                                Inner.inner ℝ\n                                  ((Real.pi / 2) •\n                                    (Real.cos (Real.pi / 2 * q.1) • (x - h) - Real.sin (Real.pi / 2 * q.1) • q.2))\n                                  (gradient f xp -\n                                    gradient f\n                                      (h + Real.sin (Real.pi / 2 * q.1) • (x - h) +\n                                        Real.cos (Real.pi / 2 * q.1) • q.2)) ∂U.prod P =\n                              Inner.inner ℝ (gradient f xp) x - f x + C",
+    "statement_sha256": "5a1f72f6cafcd91f370654a19262139161cac6294af049640378fa5ae4003288",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let E be any finite-dimensional real inner-product space, with its normed additive commutative group structure, a measurable space whose sigma-algebra is the Borel sigma-algebra, and a second-countable topology. Let f:E->R be differentiable everywhere. For every eta,beta in R with eta>0 and beta>=0, assume that gradient f is globally beta-Lipschitz. For every h,xp in E, define P as the pushforward of the centered identity-covariance Gaussian probability measure on E by z |-> sqrt(eta) z, define U as real Lebesgue measure restricted to (0,1], and define C = integral_E f(h+z) dP(z) - <gradient f(xp),h>. These definitions are made before quantifying x: P depends on E and eta, U is fixed, and C depends on f,h,xp,P but not on x. Then (sqrt(eta))^2=eta, U has total mass one, and z |-> f(h+z) is Bochner integrable with respect to P. Moreover, for every x in E, define, for every r in R and z in E, K_x(r,z) = <(pi/2)(cos((pi/2)r)(x-h) - sin((pi/2)r)z), gradient f(xp) - gradient f(h + sin((pi/2)r)(x-h) + cos((pi/2)r)z)>, where angle brackets denote the real inner product and real multiplication of vectors denotes scalar multiplication. The function K_x on the entire product R x E is measurable and is Bochner integrable with respect to the product measure U x P. For every z in E, its oriented real interval integral satisfies integral_0^1 K_x(r,z) dr = <gradient f(xp), x-(h+z)> - f(x) + f(h+z). Finally, integral_(R x E) K_x(r,z) d(U x P)(r,z) = <gradient f(xp),x> - f(x) + C. The interval integral uses real Lebesgue measure, while the last integral uses exactly U x P.",
+    "text_sha256": "bfa758fb1fa5945a81a67726c18a908d361806a54e2c35f97c8f1e6a805652c9",
+    "decoder": "blind_reconstruction_k",
+    "decoder_packet_sha256": "17393b2685c5aba14092382890d2cf2b980384127d345053f9f43fa77a6af589",
+    "decoder_run_sha256": "a972305fd7468e00715a2edf9d0f03b3567681f610cf369e873acfd54ec22a7b",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "5f0cf2635ec854df558406cb1fc930d893e78aed0e346191e533fc2cc26aecf5",
+  "candidate_publication_context": {
+    "file": "8169f6035b8ba6c922dc2643af667476c7876e5dd7f59415470a242e42c4337f",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw\nimport Mathlib.Analysis.Calculus.Gradient.Basic\nimport Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus\nimport Mathlib.Analysis.Calculus.MeanValue\nimport Mathlib.Tactic\n\n/-! Actual unclipped gradient-arc mean used before D.1 Eq18 of arXiv:2602.01338v1,\nconsumed by SPHMC arXiv:2609.06906v1 A.4(2). The same actual path and gradient\nare integrated under independent uniform time and auxiliary Gaussian input.\nPotential and joint estimator integrability are proved before Fubini.\nCoordinate-free spaces, beta0/zero dimension and arbitrary h are disclosed\nextensions. Source center substitution, target normalization, clipped law,\nRenyi accuracy and actual costs remain separate; no full sampler claim. -/\n\nopen MeasureTheory ProbabilityTheory\nopen scoped RealInnerProductSpace\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n  [SecondCountableTopology E]\n\nprivate def arc (h x z : E) (r : ℝ) : E :=\n  h + Real.sin (Real.pi / 2 * r) • (x-h) + Real.cos (Real.pi / 2 * r) • z\nprivate def velocity (h x z : E) (r : ℝ) : E :=\n  (Real.pi / 2) • (Real.cos (Real.pi / 2 * r) • (x-h) -\n    Real.sin (Real.pi / 2 * r) • z)\nprivate def estimator (f : E → ℝ) (h xp x z : E) (r : ℝ) : ℝ :=\n  inner ℝ (velocity h x z r) (gradient f xp - gradient f (arc h x z r))\n\nprivate theorem path_integral (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f)) (h xp x z : E) :\n    ∫ r in (0 : ℝ)..1, estimator f h xp x z r =\n      inner ℝ (gradient f xp) (x - (h+z)) - f x + f (h+z) := by\n  obtain ⟨_, _, _, hd, he⟩ :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law\n      (E := E) 1 (by norm_num) h\n  have hpath (r : ℝ) : HasDerivAt (arc h x z) (velocity h x z r) r := by\n    exact hd (x,z) r\n  have hderiv (r : ℝ) : HasDerivAt\n      (fun t => inner ℝ (gradient f xp) (arc h x z t) - f (arc h x z t))\n      (estimator f h xp x z r) r := by\n    have hg := (hf (arc h x z r)).hasGradientAt\n    have hc := hg.hasFDerivAt.comp_hasDerivAt r (hpath r)\n    have hi := (hasDerivAt_const r (gradient f xp)).inner ℝ (hpath r)\n    simpa [Pi.sub_def, Function.comp_def, estimator, inner_sub_right, real_inner_comm]\n      using hi.sub hc\n  have hcont : Continuous (estimator f h xp x z) := by\n    unfold estimator arc velocity\n    exact ((by fun_prop : Continuous (fun r : ℝ =>\n      (Real.pi / 2) • (Real.cos (Real.pi / 2 * r) • (x-h) -\n        Real.sin (Real.pi / 2 * r) • z)))).inner\n      (continuous_const.sub (hlip.continuous.comp (by fun_prop)))\n  have hint := intervalIntegral.integral_eq_sub_of_hasDerivAt\n    (fun r _ => hderiv r) (hcont.intervalIntegrable (0 : ℝ) 1)\n  have he := he (x,z)\n  change arc h x z 0 = h+z ∧ arc h x z 1 = x ∧ _ at he\n  rw [he.2.1, he.1] at hint\n  rw [hint, inner_sub_right]\n  ring\n\nomit [MeasurableSpace E] [BorelSpace E] [SecondCountableTopology E] in\nprivate theorem potential_growth (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f)) (h z : E) :\n    ‖f (h+z)‖ ≤ ‖f h‖ + ‖gradient f h‖ * ‖z‖ + (beta : ℝ) * ‖z‖ ^ 2 := by\n  have hd (t : ℝ) : HasDerivAt (fun s : ℝ => f (h+s • z))\n      (inner ℝ (gradient f (h+t • z)) z) t := by\n    have hp : HasDerivAt (fun s : ℝ => h+s • z) z t := by\n      simpa using ((hasDerivAt_id t).smul_const z).const_add h\n    simpa [Function.comp_def] using\n      (hf (h+t • z)).hasGradientAt.hasFDerivAt.comp_hasDerivAt t hp\n  have hg (t : ℝ) (ht : t ∈ Set.Ico (0 : ℝ) 1) :\n      ‖gradient f (h+t • z)‖ ≤ ‖gradient f h‖ + (beta : ℝ) * ‖z‖ := by\n    have hn := norm_le_norm_sub_add (gradient f (h+t • z)) (gradient f h)\n    have hl := hlip.norm_sub_le (h+t • z) h\n    simp only [add_sub_cancel_left, norm_smul, Real.norm_eq_abs, abs_of_nonneg ht.1] at hl\n    have hb := mul_le_mul_of_nonneg_left\n      (mul_le_of_le_one_left (norm_nonneg z) ht.2.le) beta.coe_nonneg\n    linarith\n  have hm := norm_image_sub_le_of_norm_deriv_le_segment_01'\n    (fun t _ => (hd t).hasDerivWithinAt)\n    (fun t ht => (norm_inner_le_norm (gradient f (h+t • z)) z).trans\n      (mul_le_mul_of_nonneg_right (hg t ht) (norm_nonneg z)))\n  simp only [one_smul, zero_smul, add_zero] at hm\n  have hn := norm_le_norm_sub_add (f (h+z)) (f h)\n  nlinarith\n\nprivate theorem potential_integrable (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f)) (h : E) (sigma : ℝ) :\n    Integrable (fun z => f (h+z)) ((stdGaussian E).map (fun z => sigma • z)) := by\n  have hs : MemLp (fun z : E => sigma • z) 2 (stdGaussian E) :=\n    (IsGaussian.memLp_two_id (μ := stdGaussian E)).const_smul sigma\n  have hi : Integrable (fun z : E => ‖sigma • z‖) (stdGaussian E) :=\n    hs.integrable (by norm_num) |>.norm\n  have hsq : Integrable (fun z : E => ‖sigma • z‖ ^ 2) (stdGaussian E) :=\n    hs.norm.integrable_sq\n  have hm := ((integrable_const ‖f h‖).add (hi.const_mul ‖gradient f h‖)).add\n    (hsq.const_mul (beta : ℝ))\n  apply (integrable_map_measure\n    (hf.continuous.comp (continuous_const.add continuous_id)).aestronglyMeasurable\n    (by fun_prop : Measurable (fun z : E => sigma • z)).aemeasurable).mpr\n  exact hm.mono' (hf.continuous.comp (by fun_prop)).aestronglyMeasurable\n    (Filter.Eventually.of_forall (fun z => potential_growth f hf beta hlip h (sigma • z)))\n\nomit [MeasurableSpace E] [BorelSpace E] [SecondCountableTopology E] in\nprivate theorem estimator_bound (f : E → ℝ)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f)) (h xp x z : E) (r : ℝ) :\n    ‖estimator f h xp x z r‖ ≤ (Real.pi / 2) * (beta : ℝ) *\n      (‖x-h‖ + ‖z‖) * (‖xp-h‖ + ‖x-h‖ + ‖z‖) := by\n  have hsin (v : E) : ‖Real.sin (Real.pi / 2 * r) • v‖ ≤ ‖v‖ := by\n    rw [norm_smul, Real.norm_eq_abs]\n    exact mul_le_of_le_one_left (norm_nonneg v) (Real.abs_sin_le_one _)\n  have hcos (v : E) : ‖Real.cos (Real.pi / 2 * r) • v‖ ≤ ‖v‖ := by\n    rw [norm_smul, Real.norm_eq_abs]\n    exact mul_le_of_le_one_left (norm_nonneg v) (Real.abs_cos_le_one _)\n  have hpi : 0 ≤ Real.pi / 2 := (div_pos Real.pi_pos (by norm_num)).le\n  have hv : ‖velocity h x z r‖ ≤ (Real.pi / 2) * (‖x-h‖ + ‖z‖) := by\n    simp only [velocity, norm_smul, Real.norm_eq_abs, abs_of_nonneg hpi]\n    apply mul_le_mul_of_nonneg_left _ hpi\n    exact (norm_sub_le _ _).trans (add_le_add (hcos (x-h)) (hsin z))\n  have ha : ‖xp - arc h x z r‖ ≤ ‖xp-h‖ + ‖x-h‖ + ‖z‖ := by\n    have he : arc h x z r - xp = (h-xp) +\n        Real.sin (Real.pi / 2*r) • (x-h) + Real.cos (Real.pi / 2*r) • z := by\n      unfold arc\n      abel\n    rw [norm_sub_rev, he]\n    calc\n      _ ≤ ‖(h-xp) + Real.sin (Real.pi / 2*r) • (x-h)‖ +\n          ‖Real.cos (Real.pi / 2*r) • z‖ := norm_add_le _ _\n      _ ≤ (‖h-xp‖ + ‖Real.sin (Real.pi / 2*r) • (x-h)‖) + ‖z‖ :=\n        add_le_add (norm_add_le _ _) (hcos z)\n      _ ≤ (‖h-xp‖ + ‖x-h‖) + ‖z‖ := by linarith [hsin (x-h)]\n      _ = _ := by rw [norm_sub_rev h xp]\n  have hg : ‖gradient f xp - gradient f (arc h x z r)‖ ≤\n      (beta : ℝ) * (‖xp-h‖ + ‖x-h‖ + ‖z‖) :=\n    (hlip.norm_sub_le _ _).trans (mul_le_mul_of_nonneg_left ha beta.coe_nonneg)\n  calc\n    _ ≤ ‖velocity h x z r‖ * ‖gradient f xp - gradient f (arc h x z r)‖ :=\n      norm_inner_le_norm _ _\n    _ ≤ ((Real.pi / 2) * (‖x-h‖ + ‖z‖)) *\n        ((beta : ℝ) * (‖xp-h‖ + ‖x-h‖ + ‖z‖)) :=\n      mul_le_mul hv hg (norm_nonneg _) (mul_nonneg hpi (add_nonneg (norm_nonneg _) (norm_nonneg _)))\n    _ = _ := by ring\n\nprivate theorem estimator_integrable (f : E → ℝ)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (h xp x : E) (sigma : ℝ) (T : Measure ℝ) [IsFiniteMeasure T] :\n    Integrable (fun q : ℝ × E => estimator f h xp x q.2 q.1)\n      (T.prod ((stdGaussian E).map (fun z => sigma • z))) := by\n  let P := (stdGaussian E).map (fun z => sigma • z)\n  have hp : MemLp (fun z : E => z) 2 P := by\n    apply (memLp_map_measure_iff (by fun_prop)\n      (by fun_prop : AEMeasurable (fun z : E => sigma • z) (stdGaussian E))).mpr\n    exact (IsGaussian.memLp_two_id (μ := stdGaussian E)).const_smul sigma\n  have hn : Integrable (fun z : E => ‖z‖) P := (hp.integrable (by norm_num)).norm\n  have hs : Integrable (fun z : E => ‖z‖ ^ 2) P := hp.norm.integrable_sq\n  have hm : Integrable (fun z : E => (Real.pi / 2) * (beta : ℝ) *\n      (‖x-h‖+‖z‖) * (‖xp-h‖+‖x-h‖+‖z‖)) P := by\n    have hpoly := ((integrable_const (‖x-h‖*(‖xp-h‖+‖x-h‖))).add\n      (hn.const_mul (‖xp-h‖+2*‖x-h‖))).add hs\n    convert hpoly.const_mul ((Real.pi / 2)*(beta : ℝ)) using 1\n    funext z\n    simp only [Pi.add_apply]\n    ring\n  have hg := hlip.continuous\n  have hc : Continuous (fun q : ℝ × E => estimator f h xp x q.2 q.1) := by\n    unfold estimator arc velocity\n    fun_prop\n  exact (hm.comp_snd T).mono' hc.aestronglyMeasurable\n    (Filter.Eventually.of_forall (fun q => estimator_bound f beta hlip h xp x q.2 q.1))\n\nprivate theorem auxiliary_mean (f : E → ℝ) (hf : Differentiable ℝ f)\n    (beta : NNReal) (hlip : LipschitzWith beta (gradient f))\n    (h xp x : E) (sigma : ℝ) :\n    ∫ q : ℝ × E, estimator f h xp x q.2 q.1\n        ∂((volume.restrict (Set.Ioc (0 : ℝ) 1)).prod\n          ((stdGaussian E).map (fun z => sigma • z))) =\n      inner ℝ (gradient f xp) x - f x +\n        ((∫ z, f (h+z) ∂((stdGaussian E).map (fun z => sigma • z))) -\n          inner ℝ (gradient f xp) h) := by\n  let P := (stdGaussian E).map (fun z => sigma • z)\n  have : IsProbabilityMeasure P := by\n    dsimp [P]\n    exact Measure.isProbabilityMeasure_map (by fun_prop)\n  have hz : Integrable (fun z : E => z) P := by\n    apply (integrable_map_measure (by fun_prop)\n      (by fun_prop : AEMeasurable (fun z : E => sigma • z) (stdGaussian E))).mpr\n    exact (IsGaussian.integrable_id (μ := stdGaussian E)).smul sigma\n  have hzero : ∫ z : E, z ∂P = 0 := by\n    dsimp [P]\n    rw [integral_map (by fun_prop) (by fun_prop), integral_smul,\n      integral_id_stdGaussian, smul_zero]\n  have hvec : Integrable (fun z : E => x - (h+z)) P :=\n    (integrable_const x).sub ((integrable_const h).add hz)\n  have hplus : Integrable (fun z : E => h+z) P := (integrable_const h).add hz\n  have hlin : Integrable (fun z : E => inner ℝ (gradient f xp) (x-(h+z))) P :=\n    hvec.const_inner (gradient f xp)\n  have hlinear : ∫ z : E, inner ℝ (gradient f xp) (x-(h+z)) ∂P =\n      inner ℝ (gradient f xp) (x-h) := by\n    rw [integral_inner hvec, integral_sub (integrable_const x)\n      hplus, integral_add (integrable_const h) hz,\n      integral_const, integral_const, hzero, add_zero]\n    simp\n  have hw := estimator_integrable f beta hlip h xp x sigma\n    (volume.restrict (Set.Ioc (0 : ℝ) 1))\n  rw [integral_prod_symm _ hw]\n  have he (z : E) : ∫ r in Set.Ioc (0 : ℝ) 1, estimator f h xp x z r =\n      inner ℝ (gradient f xp) (x-(h+z)) - f x + f (h+z) := by\n    have ht := path_integral f hf beta hlip h xp x z\n    rwa [intervalIntegral.integral_of_le (by norm_num : (0 : ℝ) ≤ 1)] at ht\n  simp_rw [he]\n  change (∫ z, (inner ℝ (gradient f xp) (x-(h+z)) - f x + f (h+z)) ∂P) = _\n  have hsub : Integrable (fun z : E => inner ℝ (gradient f xp) (x-(h+z)) - f x) P :=\n    hlin.sub (integrable_const _)\n  rw [integral_add hsub (potential_integrable f hf beta hlip h sigma),\n    integral_sub hlin (integrable_const _), hlinear, integral_const, inner_sub_right]\n  simp only [probReal_univ, one_smul]\n  change _ = inner ℝ (gradient f xp) x - f x +\n    ((∫ z, f (h+z) ∂P) - inner ℝ (gradient f xp) h)\n  ring\n\n/-- The actual unclipped path estimator has a common log-weight mean under\nthe independent uniform-time and auxiliary Gaussian input. -/\ntheorem gradient_arc_mean (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta : ℝ) (heta : 0 < eta) (hbeta : 0 ≤ beta)\n    (hlip : LipschitzWith ⟨beta,hbeta⟩ (gradient f)) (h xp : E) :\n    let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n    let U := volume.restrict (Set.Ioc (0 : ℝ) 1)\n    let C := (∫ z, f (h+z) ∂P) - inner ℝ (gradient f xp) h\n    (Real.sqrt eta)^2 = eta ∧ IsProbabilityMeasure U ∧\n      Integrable (fun z => f (h+z)) P ∧\n      ∀ x : E, Measurable (fun q : ℝ × E => estimator f h xp x q.2 q.1) ∧\n        Integrable (fun q : ℝ × E => estimator f h xp x q.2 q.1) (U.prod P) ∧\n        (∀ z : E, (∫ r in (0 : ℝ)..1, estimator f h xp x z r) =\n          inner ℝ (gradient f xp) (x-(h+z)) - f x + f (h+z)) ∧\n        (∫ q : ℝ × E, estimator f h xp x q.2 q.1 ∂(U.prod P)) =\n          inner ℝ (gradient f xp) x - f x + C := by\n  dsimp only\n  refine ⟨Real.sq_sqrt heta.le, ⟨by simp⟩,\n    potential_integrable f hf ⟨beta,hbeta⟩ hlip h (Real.sqrt eta), ?_⟩\n  intro x\n  have hg := hlip.continuous\n  have hm : Measurable (fun q : ℝ × E => estimator f h xp x q.2 q.1) := by\n    unfold estimator arc velocity\n    fun_prop\n  exact ⟨hm, estimator_integrable f ⟨beta,hbeta⟩ hlip h xp x (Real.sqrt eta) _,\n    fun z => path_integral f hf ⟨beta,hbeta⟩ hlip h xp x z,\n    auxiliary_mean f hf ⟨beta,hbeta⟩ hlip h xp x (Real.sqrt eta)⟩\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2602.01338v1",
+      "edition": "arXiv:2602.01338v1",
+      "anchor": "Appendix D.1 actual unclipped mean before Eq18; consumed by SPHMC Appendix A.4(2)",
+      "wording_status": "faithful paraphrase",
+      "attribution": "ASTIS mathematical restatement and exposition of the actual unclipped gradient-path mean, a dependency used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+    },
+    "statement": "The square of sqrt(eta) equals eta, U is a probability measure, and f(h+Z) is integrable under P. Define the finite constant C=integral f(h+z) dP(z)-<grad f(x_plus),h> before choosing x. For every x, W_x is jointly measurable and integrable under U product P, its integral is <grad f(x_plus),x>-f(x)+C, and for every z its time integral from 0 to 1 equals <grad f(x_plus),x-(h+z)>-f(x)+f(h+z).",
+    "formulae": [
+      {
+        "label": "Actual auxiliary-input mean",
+        "tex": "\\mathbb E_{(r,Z)\\sim U\\otimes P}W_x(r,Z)=\\langle\\nabla f(x_+),x\\rangle-f(x)+C,\\qquad C=\\mathbb E_P f(h+Z)-\\langle\\nabla f(x_+),h\\rangle."
+      }
+    ],
+    "assumptions": [
+      "E is a finite-dimensional real inner-product space with its Borel measurable structure; second countability is explicit and automatic for this domain. The real-valued potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz.",
+      "eta>0, beta>=0 and h,x_plus are arbitrary points. No positive dimension, convexity, center residual or clipping step restriction is assumed.",
+      "P is the pushforward of stdGaussian E by z -> sqrt(eta) z, hence the actual auxiliary N(0,eta I). U is Lebesgue measure restricted to (0,1], which is the same uniform probability law as on [0,1].",
+      "For each x,z and real r, theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z, v=(pi/2)(cos(theta)(x-h)-sin(theta)z), and W_x(r,z)=<v,grad f(x_plus)-grad f(gamma)>."
+    ],
+    "obligations": [
+      {
+        "id": "actual-gradient-arc-mean",
+        "label": "Actual unclipped path mean and auxiliary-input integrability before target comparison"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+      "title": "Actual unclipped gradient-arc mean",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "Appendix D.1 before Eq. (18)",
+          "scope": "Actual gradient-path estimator mean identifying the unnormalized log weight."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.4(2)",
+          "scope": "Terminal gradient-only approximation consumer; its full accuracy and cost remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGradientArcMean"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel measurable structure; second countability is explicit and automatic for this domain. The real-valued potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz.",
+        "eta>0, beta>=0 and h,x_plus are arbitrary points. No positive dimension, convexity, center residual or clipping step restriction is assumed.",
+        "P is the pushforward of stdGaussian E by z -> sqrt(eta) z, hence the actual auxiliary N(0,eta I). U is Lebesgue measure restricted to (0,1], which is the same uniform probability law as on [0,1].",
+        "For each x,z and real r, theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z, v=(pi/2)(cos(theta)(x-h)-sin(theta)z), and W_x(r,z)=<v,grad f(x_plus)-grad f(gamma)>."
+      ],
+      "statement": "The square of sqrt(eta) equals eta, U is a probability measure, and f(h+Z) is integrable under P. Define the finite constant C=integral f(h+z) dP(z)-<grad f(x_plus),h> before choosing x. For every x, W_x is jointly measurable and integrable under U product P, its integral is <grad f(x_plus),x>-f(x)+C, and for every z its time integral from 0 to 1 equals <grad f(x_plus),x-(h+z)>-f(x)+f(h+z).",
+      "formula": "\\mathbb E_{(r,Z)\\sim U\\otimes P}W_x(r,Z)=\\langle\\nabla f(x_+),x\\rangle-f(x)+C,\\qquad C=\\mathbb E_P f(h+Z)-\\langle\\nabla f(x_+),h\\rangle.",
+      "steps": [
+        {
+          "title": "Use the actual auxiliary input and uniform time",
+          "text": "The noise is the pushforward of the centered identity-covariance Gaussian by sqrt(eta) scaling. Positive eta gives the exact variance identity. Lebesgue measure on (0,1] has total mass one. The choice of one open endpoint changes no probability mass and agrees with the interval-integral convention used below.",
+          "formula": "(\\sqrt\\eta)^2=\\eta,\\qquad U=\\mathrm{Leb}|_{(0,1]},\\qquad U(\\mathbb R)=1.",
+          "lean": "gradient_arc_mean; Real.sq_sqrt"
+        },
+        {
+          "title": "Integrate the actual path derivative",
+          "text": "Extract the public derivative and endpoints from GaussianArcLaw. Its auxiliary scale value 1 is used only to obtain these deterministic facts, never to replace the actual noise law. Apply the true gradient chain rule to r -> <grad f(x_plus),gamma_r>-f(gamma_r). The Lipschitz gradient and continuous path imply that its derivative W is continuous, so FTC applies. The path starts at h+z and ends at x.",
+          "formula": "\\int_0^1 W_x(r,z)\\,dr=\\langle\\nabla f(x_+),x-(h+z)\\rangle-f(x)+f(h+z).",
+          "lean": "path_integral; GaussianArcLaw.gaussian_arc_law; DifferentiableAt.hasGradientAt; HasFDerivAt.comp_hasDerivAt; intervalIntegral.integral_eq_sub_of_hasDerivAt"
+        },
+        {
+          "title": "Prove potential integrability from quadratic growth",
+          "text": "Along the straight line h+t z, the gradient norm is at most norm(grad f(h))+beta norm(z) for t in [0,1]. The segment derivative bound yields the displayed quadratic growth estimate; no convexity is required. Gaussian second moments persist under actual scalar pushforward, so the constant, linear norm and squared norm terms are integrable. Measurable domination proves f(h+Z) integrable before defining its expectation.",
+          "formula": "|f(h+z)|\\le |f(h)|+\\|\\nabla f(h)\\|\\,\\|z\\|+\\beta\\|z\\|^2.",
+          "lean": "potential_growth; potential_integrable; norm_image_sub_le_of_norm_deriv_le_segment_01'; ProbabilityTheory.IsGaussian.memLp_two_id; MeasureTheory.integrable_map_measure"
+        },
+        {
+          "title": "Bound the same estimator uniformly in time",
+          "text": "Let A=norm(x-h) and D=norm(x_plus-h). Sine and cosine are bounded by one in absolute value, so the speed norm is at most (pi/2)(A+norm(z)) and the arc distance from x_plus is at most D+A+norm(z). Apply the actual gradient Lipschitz inequality and the inner-product norm inequality. This bound holds for every real time; it supplies one majorant for the whole uniform-time integral.",
+          "formula": "|W_x(r,z)|\\le\\frac\\pi2\\,\\beta(A+\\|z\\|)(D+A+\\|z\\|).",
+          "lean": "estimator_bound; norm_inner_le_norm; LipschitzWith.norm_sub_le"
+        },
+        {
+          "title": "Establish joint integrability before Fubini",
+          "text": "Expand the majorant as a constant plus a linear norm term plus a squared norm term. The actual mapped Gaussian has finite second moment, making this polynomial integrable. Its lift to the product with the finite uniform-time measure is integrable. Gradient continuity makes the explicit W jointly measurable; domination then proves W integrable under the product. The proof does not infer joint integrability merely from fixed-time sections.",
+          "formula": "W_x\\in L^1(U\\otimes P).",
+          "lean": "estimator_integrable; MeasureTheory.memLp_map_measure_iff; MeasureTheory.MemLp.integrable_sq; MeasureTheory.Integrable.comp_snd; MeasureTheory.Integrable.mono'"
+        },
+        {
+          "title": "Identify one finite constant for every x",
+          "text": "Use Fubini only after the preceding joint-integrability result, then replace each time integral by the FTC identity. The actual auxiliary mean is zero, proved by the Gaussian map integral and scalar linearity. The linear, constant and potential terms are individually integrable, so their integrals can be separated. The remaining C depends on f,h,x_plus,eta and is defined before the universal quantifier over x.",
+          "formula": "\\mathbb E_P\\langle\\nabla f(x_+),x-(h+Z)\\rangle=\\langle\\nabla f(x_+),x-h\\rangle,\\qquad \\mathbb E_P Z=0.",
+          "lean": "auxiliary_mean; MeasureTheory.integral_prod_symm; intervalIntegral.integral_of_le; ProbabilityTheory.integral_id_stdGaussian; integral_inner; gradient_arc_mean"
+        }
+      ],
+      "lean_statement": "Actual Gaussian/uniform input integrability, path integral and a common finite constant identifying the mean for every fixed output point.",
+      "lean_proof": "Actual arc calculus, quadratic potential growth, true Gaussian moments, joint polynomial domination, Fubini and zero auxiliary mean.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law"
+      ],
+      "mathlib_dependencies": [
+        "DifferentiableAt.hasGradientAt",
+        "HasFDerivAt.comp_hasDerivAt",
+        "intervalIntegral.integral_eq_sub_of_hasDerivAt",
+        "norm_image_sub_le_of_norm_deriv_le_segment_01'",
+        "ProbabilityTheory.IsGaussian.memLp_two_id",
+        "MeasureTheory.memLp_map_measure_iff",
+        "MeasureTheory.integrable_map_measure",
+        "MeasureTheory.Integrable.comp_snd",
+        "MeasureTheory.integral_prod_symm",
+        "ProbabilityTheory.integral_id_stdGaussian",
+        "integral_inner"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+      "role": "proof-edge",
+      "supports": [
+        "actual-gradient-arc-mean"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Euclidean smooth setting with positive dimension.",
+        "lean": "Coordinate-free finite-dimensional real inner-product Borel space, including zero dimension; explicit second countability."
+      },
+      {
+        "source": "Smooth setting ordinarily uses a positive smoothness constant.",
+        "lean": "beta>=0 with the actual beta-Lipschitz gradient and differentiable f."
+      },
+      {
+        "source": "The reference center is h=x0-eta grad f(x_plus).",
+        "lean": "Arbitrary h,x_plus; the same C is fixed before every x."
+      },
+      {
+        "source": "Uniform random time on [0,1].",
+        "lean": "Lebesgue measure restricted to (0,1], with total mass one proved."
+      },
+      {
+        "source": "The mean of the actual estimator identifies the log weight up to a constant.",
+        "lean": "Same estimator and independent Gaussian/uniform input; potential integrability, joint measurability, joint integrability, path FTC and common-C mean all proved."
+      },
+      {
+        "source": "Mean identification is used before Eq18 and the terminal normalized approximation.",
+        "lean": "Each fixed x has the auxiliary-input mean; no additional random-x or joint parameter-kernel statement."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "b7d8ebfebdbe70ba0774293d9cee7bc29d95b471ae6da5896acacf192264a414"
+}
