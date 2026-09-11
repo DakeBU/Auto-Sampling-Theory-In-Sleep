@@ -37,9 +37,105 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-poisson-query-tail.md",
     "planning_review": "Independent log_depth_source_review verified the small-B source counterexample and proposed the fixed-prefix failure plus Poisson Chernoff route with an additive logarithmic term.",
-    "execution_boundary": "Root sole writer; PoissonQueryTail is the sole STABILIZING packet. Source and implementation boundaries remain unchanged.",
-    "admission_boundary": "VERIFIED at3124c1a. Aggregate integration, reader/site QA and actual merge/deployment remain separate; neither paper main result is complete.",
-    "independent_verification": "runs/20260911-companion-priority/poisson-query-tail.verified-admission.json"
+    "execution_boundary": "Actual PR277 merge confirmed; stabilization lane released.",
+    "admission_boundary": "Exact-candidate local integration, independent review, browser/graph and both PR CI passed. Actual merge confirmed; post-merge CI/deployment remain separate. Neither paper main result is complete.",
+    "independent_verification": "runs/20260911-companion-priority/poisson-query-tail.verified-admission.json",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/277",
+      "candidate": "eeab557c58e783d6e5b6e3af3656479c3991ce9d",
+      "commit": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+      "merged_at": "2026-09-11T11:25:15Z",
+      "candidate_ci": {
+        "lean": "34592831533 SUCCESS",
+        "site": "34592832030 SUCCESS; PR deploy skipped"
+      },
+      "fixed_local_qa": {
+        "commit": "eeab557c58e783d6e5b6e3af3656479c3991ce9d",
+        "independent_integration": {
+          "reviewer": "depth_commit_verifier",
+          "result": "Accepted exact candidate; unchanged VERIFIED3124c1a production/test/source binding; additive root imports; independently recomputed matching source digest; sole STABILIZING."
+        },
+        "aggregate": {
+          "status": "passed",
+          "jobs": 9148,
+          "source_digest": "f3b8d54ce5b3e055c297f536ad624832ff71c992b164363b183221c3cd04e397",
+          "log": ".astis/poisson-tail-integration-gate.log"
+        },
+        "site": {
+          "status": "passed",
+          "modules": 618,
+          "declarations": 3753,
+          "reviewed_teaching": 77
+        },
+        "browser": {
+          "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-poisson-query-tail",
+          "displayed_commit": "eeab557c58e7",
+          "steps": 7,
+          "initially_closed_disclosures": 10,
+          "math_errors": 0,
+          "clicked": [
+            "Lean statement",
+            "Lean proof",
+            "Source and reuse",
+            "Exact module and namespace context"
+          ],
+          "statement_characters": 869,
+          "proof_characters": 1970,
+          "card_labels": [
+            "Compiled",
+            "Not mapped"
+          ],
+          "fresh_query": "qa=eeab557-tail"
+        },
+        "graph": {
+          "report": ".astis/poisson-tail-final-graph-check.json",
+          "actual_browser_focus": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
+          "nodes": 5,
+          "edges": 3,
+          "direct_relations": 2,
+          "label": "PARTIAL; Source-present publication; compiled badge not inferred",
+          "boundary": "Source correspondence is not a Lean dependency certificate."
+        },
+        "ci": {
+          "lean_run": 34592831533,
+          "lean_status": "success",
+          "site_run": 34592832030,
+          "site_status": "success",
+          "deploy": "skipped on PR"
+        },
+        "boundary": "Exact-candidate local integration, independent review, browser/graph and both PR CI passed. Actual merge confirmed; post-merge CI/deployment remain separate. Neither paper main result is complete."
+      },
+      "post_merge": "Merge Lean and Site succeeded; deployment103246108967 succeeded; exact38f7c55 original anchor and card live."
+    },
+    "post_merge_delivery": {
+      "merge_site": {
+        "run": 34593937395,
+        "status": "completed",
+        "conclusion": "success",
+        "deployment_job": 103246108967
+      },
+      "boundary": "Exact merge CI and deployed reader provenance independently recorded from GitHub and live HTTP; prerequisite only, neither paper completed.",
+      "live": {
+        "merge_commit": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+        "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "anchor": "sphmc-poisson-query-tail",
+        "deployed_provenance": true,
+        "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-poissonquerytail.html",
+        "card_http_status": 200,
+        "card_labels": [
+          "Partial",
+          "Not mapped"
+        ],
+        "boundary": "Actual deployed commit, HTTP status, original anchor and labels verified. Local visual checks and candidate CI remain separately pinned."
+      },
+      "merge_commit": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+      "merge_lean": {
+        "run": 34593937366,
+        "status": "completed",
+        "conclusion": "success"
+      }
+    }
   },
   "blocked": {
     "reason": "",

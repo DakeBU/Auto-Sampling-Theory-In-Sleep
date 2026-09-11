@@ -1,0 +1,133 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent formal review.",
+  "reviewer_packet_sha256": "8ec9044cd82fd69ad5fc48a5276d493f23fbd83720318da542ca5df6c2108cd0",
+  "source_sha256": "b561c15717b34aba543a6d53380710e5d60f9306af6d2d4c965214adbfda871b",
+  "statement_sha256": "ff8ba7804e5e560df9822bfaf007945ca6f136e6194bda77ecf86acf80c02c2f",
+  "reconstruction_sha256": "d9782e0b903a113654e539af41d54030f81af070e8c848ee36b0a76ecff79b7b",
+  "module_sha256": "78d8f2827489259fc4a754d1a2a1755f4ab57c2e11af71900171983f1096ba0d",
+  "module_raw_file_sha256": "6b137642c324565c87fe7bb38bd61c868dd7798995355baf3c2da966a99f9a3d",
+  "publication_binding_sha256": "873b91fd0320d4bee1551e8242ba7d831d0d45d5a8a92fe9e33d5e383bf738f7",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Gaussian proposal, independent auxiliary, path and velocity.",
+      "reconstructed": "Actual affine standard-Gaussian product and entire path/velocity pushforward.",
+      "relation": "explicit-elaboration",
+      "evidence": "Joint measure equality supplies independence, not just marginals."
+    },
+    "domains": {
+      "original": "Euclidean Gaussian arc on the unit interpolation interval.",
+      "reconstructed": "Finite-dimensional real inner-product Borel space including zero dimension; explicit second countability.",
+      "relation": "different",
+      "evidence": "No positive dimension restriction; second countability adds no substantive geometric restriction."
+    },
+    "quantifiers": {
+      "original": "Fixed center and variance, interpolation in [0,1].",
+      "reconstructed": "Every eta>0 and h, every real r, every deterministic input pair.",
+      "relation": "stronger-in-lean",
+      "evidence": "All-real extension follows from rotation invariance and trigonometric calculus."
+    },
+    "assumptions": {
+      "original": "Independent input Gaussians with variance eta and eventual gradient-based center.",
+      "reconstructed": "Actual product inputs at sqrt eta and arbitrary center.",
+      "relation": "different",
+      "evidence": "Gradient/reference hypotheses are unnecessary for this law and remain separate consumer conditions."
+    },
+    "conclusion": {
+      "original": "Independent Gaussian position and velocity at exact covariance scales.",
+      "reconstructed": "Actual product pushforward, joint measurability, derivative, four endpoints and sqrt identity.",
+      "relation": "explicit-elaboration",
+      "evidence": "Five conjunct groups correctly reconstructed; initial position h+z retained."
+    },
+    "scopes": {
+      "original": "Arc supplies moment, clipping and terminal target analysis.",
+      "reconstructed": "Gaussian law and deterministic calculus only.",
+      "relation": "different",
+      "evidence": "No MGF, clipping, eta-indexed measure-family claim or silent repair of Claim 1."
+    },
+    "constant_dependencies": {
+      "original": "Angle pi*r/2 and covariances eta I and (pi/2)^2 eta I.",
+      "reconstructed": "Input standard deviation sqrt eta and output velocity scale (pi/2)sqrt eta.",
+      "relation": "same",
+      "evidence": "Affine formulas and Real.sq_sqrt give exact normalization."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "severity": "informational",
+      "description": "Basis-independent domain includes zero dimension.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "quantifiers",
+      "classification": "generalization",
+      "severity": "informational",
+      "description": "All-real-time law and derivative extend source interval.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "severity": "informational",
+      "description": "Arbitrary center is valid; gradient substitution remains separate.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "conclusion",
+      "classification": "same",
+      "severity": "informational",
+      "description": "Actual product law preserves exact scales and independence.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    },
+    {
+      "slot": "scopes",
+      "classification": "API-limitation",
+      "severity": "informational",
+      "description": "No moment, clipping, accuracy or complete sampler assertion.",
+      "evidence": "Independent formal reviewer accepted this disclosed delta.",
+      "blocking": false
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Swap identical coordinates then centered Gaussian rotation with zero dual means."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Actual affine product pushforwards and scalar algebra give whole joint law."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Joint deterministic center/time/input measurability proved."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Chain rules give correct negative sine and pi/2 factor."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "All four endpoint identities and source square-root scale proved."
+      }
+    ]
+  },
+  "review_evidence": "Independent formal reviewer accepted seven semantic slots, five authored steps and five informational deltas, no blockers or repairs. Domain-mismatch records disclosed prerequisite generalizations, not equivalence to full FORS. Packet/source/statement/reconstruction/embedded module and raw production hashes independently recomputed; actual current reader/publication matched. External binding preimage, compilation/isDefEq, decoder execution and test/dependency hashes were not rerun by the source reviewer and remain separate verification."
+}

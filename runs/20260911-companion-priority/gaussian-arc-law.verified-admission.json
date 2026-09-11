@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "d26fc31e6cead8040bd6939c11d5fefe23a08188",
+    "gate": {
+      "production": "Production/test unchanged from independently reviewed PASS3117; complete proof and standard axioms reused. Complete2112-character type expansion and Meta.isDefEq independently rerun.",
+      "publication": "Independent reviewed gate and real check --base origin/main PASS51; 7 private implementations covered by actual public theorem. External binding preimage recomputed; current module/lesson/context and all packet/run hashes matched; identical anonymous/canonical bytes.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCGaussianArcLaw",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_h",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "873b91fd0320d4bee1551e8242ba7d831d0d45d5a8a92fe9e33d5e383bf738f7",
+        "decoder_packet_sha256": "35a5d044cf8bf86ad8c37434ad2efae008a3cd7d20f2b57a4b56976941556ef4",
+        "decoder_run_sha256": "cfc1a88975b39d3f76d19007b12d7c925712697a018c5a162989de6d6d602451",
+        "reviewer_packet_sha256": "8ec9044cd82fd69ad5fc48a5276d493f23fbd83720318da542ca5df6c2108cd0",
+        "review_run_sha256": "234e12574fa986a39828be61f72911dc9b83f0c2d04963ec53569e09e861c356",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual Gaussian product pushforward, derivative, endpoints and joint measurability."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law"
+    ],
+    "independent_checks": [
+      "7 semantic slots, 5 authored steps, 5 informational deltas, no blockers/repairs.",
+      "Exact unchanged production and test, whole module, binding preimage and packet/run hashes independently verified.",
+      "VERIFIED-only: no aggregate, site, merge or paper completion claim."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent VERIFIED-only authorization.",
+  "boundary": "Full production proof compiled and independently development-reviewed. Anonymous reconstruction pending; no PROVED_LOCAL or VERIFIED admission, and neither paper main result is complete."
+}
