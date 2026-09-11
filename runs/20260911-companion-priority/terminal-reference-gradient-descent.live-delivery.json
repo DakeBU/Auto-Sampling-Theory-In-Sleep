@@ -20,5 +20,7 @@
       "sha256": "0e5483941893fe2cb05b7cd781c60ea7c6564ea7877c7e31b23ffaa7dff62900"
     }
   ],
-  "boundary": "Fresh live HTTP source binding and declaration presence. Actual visual interactions were separately checked locally; merge Lean CI still pending."
+  "boundary": "Fresh live HTTP source binding and declaration presence; actual visual interactions separately checked locally. Merge Lean and Site CI passed. No full-paper completion claim.",
+  "merge_lean_run": 34643268197,
+  "merge_lean_result": "SUCCESS"
 }

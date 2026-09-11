@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "route": "shared",
+  "route": "samplewiki-route",
   "mode": "faithfulPaper",
   "cell_id": "ASTIS-SHARED-gibbs-gradient-moment",
   "title": "Actual Gibbs gradient second moment",
@@ -24,9 +24,10 @@
       "Shared Frontier Cells for Gibbs, gradient moments and conditional score domains"
     ],
     "classification": "missing",
-    "decision": "new_canonical_shared",
+    "decision": "new_route_local",
     "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment",
-    "canonical_shared_cell": "ASTIS-SHARED-gibbs-gradient-moment"
+    "canonical_shared_cell": "",
+    "notes": "Only the SPHMC Section6.3 consumer is established. The stable cell identifier and reusable TechnicalLemmas declaration are preserved; no second consuming route is invented."
   },
   "evidence": {
     "focused_checks": [
