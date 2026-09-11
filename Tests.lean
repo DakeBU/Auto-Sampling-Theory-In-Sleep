@@ -155,6 +155,7 @@ import Tests.SmoothedPicardHMCPoissonQueryTail
 import Tests.SmoothedPicardHMCGaussianArcLaw
 import Tests.SmoothedPicardHMCSmoothGradientArcMoment
 import Tests.SmoothedPicardHMCSmoothGradientArcClipping
+import Tests.SmoothedPicardHMCGradientArcMean
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are

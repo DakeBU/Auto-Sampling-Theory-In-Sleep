@@ -1,0 +1,84 @@
+{
+  "cell": "ASTIS-SW-SPHMC-gradient-arc-mean",
+  "state": "STABILIZING",
+  "remaining": [
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
+  ],
+  "boundary": "Actual unclipped path mean and true auxiliary-input integrability only. No center residual, clipping step, convexity or assumed mean/integrability premise. Source center h=x0-eta gradient f xp, positive finite target normalization, clipped output law, Renyi comparison, initialization and costs remain separate. Neither paper main result complete.",
+  "development_checkpoint": {
+    "scratch": ".astis/GradientArcMean.lean",
+    "scratch_sha256": "14ad9fed53ef20114fafca8d97d940a8885a3d8645fd54e73f760a7ad2e14828",
+    "command": "lake env lean .astis/GradientArcMean.lean",
+    "session": 32849,
+    "exit_code": 0,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "log": ".astis/gradient-arc-mean-scratch.log",
+    "result": "Complete actual path mean compiled: potential quadratic growth, true auxiliary Gaussian integrability, uniform-in-time quadratic estimator domination, joint integrability before Fubini, actual zero Gaussian mean, and same finite C before all x. No production admission yet."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GradientArcMean.lean",
+    "test": "Tests/SmoothedPicardHMCGradientArcMean.lean",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GradientArcMean.lean": "56bfe22d8de14e786c2fdfbe9f63a4f8aea17a0f4667b5c787a6afe04e030f88",
+      "Tests/SmoothedPicardHMCGradientArcMean.lean": "bf3a2b6da2778fc9e742818eea12dc6a8b936c4ea3ecb24b3f300611812e04a0"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCGradientArcMean",
+    "focused_log": ".astis/gradient-arc-mean-focused.log",
+    "result": "PASS3648; standard three axioms; no lint",
+    "public_declarations": 1,
+    "private_implementations": 9
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "scratch_sha256": "14ad9fed53ef20114fafca8d97d940a8885a3d8645fd54e73f760a7ad2e14828",
+    "result": "Independent complete compile0, standard three axioms, no lint. Actual source path/gradient, joint integrability before Fubini, true auxiliary input, uniform probability and common-C quantifiers accepted. No formal VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "scratch_sha256": "14ad9fed53ef20114fafca8d97d940a8885a3d8645fd54e73f760a7ad2e14828",
+    "result": "Complete source preaudit accepted; no blocker or contract repair. No independent compilation or formal admission.",
+    "disclosures": [
+      "Coordinate-free finite-dimensional real inner-product domain; second countability is automatic here.",
+      "Zero dimension, beta0 and arbitrary h are valid disclosed extensions; no center residual, clipping step or convexity needed.",
+      "Uniform Ioc(0,1) restriction equals source uniform closed interval by zero endpoint mass; full FTC endpoint difference retained.",
+      "Public measurability and joint integrability concern time/auxiliary Gaussian at every fixed x; no parameter-kernel or random-x triple integral asserted.",
+      "Source center h=x0-eta gradient f xp must still be substituted before actual target comparison.",
+      "Potential L1 integrability does not prove positive finite exponential Gibbs normalization.",
+      "Clipped output law, normalized Renyi accuracy, initialization and actual query costs remain separate."
+    ]
+  },
+  "expanded_statement": {
+    "file": ".astis\\gradient-arc-mean-expanded-statement.txt",
+    "sha256": "5a1f72f6cafcd91f370654a19262139161cac6294af049640378fa5ae4003288",
+    "characters": 3028,
+    "definitionally_equal": true
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "d5f56d043d2a44b0a928c8fa845f59780f32ce6f",
+    "result": "Fixed production/test hashes matched; mathematics identical to reviewed scratch after namespace/documentation/prints. Independent focusedPASS3648 and3028-character Meta expansion/defeq replay0; standard3nolint. No VERIFIED before formal source admission."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-gradient-arc-mean.json",
+    "state": "Six authored steps accepted; publication PASS57."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCGradientArcMean"
+    ]
+  },
+  "admission_boundary": "VERIFIED ataf4ebc6. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/gradient-arc-mean.verified-admission.json",
+  "integration_notes": {
+    "upstream": "fb8a68a13e61a2dd928235e94ac2c56026d16c25",
+    "boundary": "Parent clipping actual merge and all CI/live verification complete. No new upstream delta. Actual mean source/proof unchanged; aggregate pending."
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-gradient-arc-mean",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual unclipped gradient-arc mean",
+      "source": {
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "edition": "arXiv:2602.01338v1",
+        "anchor": "Appendix D.1 actual unclipped mean before Eq18; consumed by SPHMC Appendix A.4(2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS mathematical restatement and exposition of the actual unclipped gradient-path mean, a dependency used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+      },
+      "statement": "The square of sqrt(eta) equals eta, U is a probability measure, and f(h+Z) is integrable under P. Define the finite constant C=integral f(h+z) dP(z)-<grad f(x_plus),h> before choosing x. For every x, W_x is jointly measurable and integrable under U product P, its integral is <grad f(x_plus),x>-f(x)+C, and for every z its time integral from 0 to 1 equals <grad f(x_plus),x-(h+z)>-f(x)+f(h+z).",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel measurable structure; second countability is explicit and automatic for this domain. The real-valued potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz.",
+        "eta>0, beta>=0 and h,x_plus are arbitrary points. No positive dimension, convexity, center residual or clipping step restriction is assumed.",
+        "P is the pushforward of stdGaussian E by z -> sqrt(eta) z, hence the actual auxiliary N(0,eta I). U is Lebesgue measure restricted to (0,1], which is the same uniform probability law as on [0,1].",
+        "For each x,z and real r, theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z, v=(pi/2)(cos(theta)(x-h)-sin(theta)z), and W_x(r,z)=<v,grad f(x_plus)-grad f(gamma)>."
+      ],
+      "formulae": [
+        {
+          "label": "Actual auxiliary-input mean",
+          "tex": "\\mathbb E_{(r,Z)\\sim U\\otimes P}W_x(r,Z)=\\langle\\nabla f(x_+),x\\rangle-f(x)+C,\\qquad C=\\mathbb E_P f(h+Z)-\\langle\\nabla f(x_+),h\\rangle."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-gradient-arc-mean",
+          "label": "Actual unclipped path mean and auxiliary-input integrability before target comparison"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+          "cell": "ASTIS-SW-SPHMC-gradient-arc-mean",
+          "role": "proof-edge",
+          "supports": [
+            "actual-gradient-arc-mean"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCGradientArcMean",
+          "boundary": "This proves the actual unclipped estimator mean for each fixed x, including genuine Gaussian/uniform joint integrability. Coordinate-free spaces, zero dimension, beta=0 and arbitrary h are disclosed extensions. It does not assert joint parameter measurability in x,h,x_plus or an additional random-x integral. The source center h=x0-eta grad f(x_plus), completion of the Gaussian square, positive finite target normalization, clipped output law, Renyi comparison, initialization and actual query costs remain separate. L1 integrability of f(h+Z) does not imply exponential Gibbs integrability. Neither full companion paper is complete.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean smooth setting with positive dimension.",
+              "lean": "Coordinate-free finite-dimensional real inner-product Borel space, including zero dimension; explicit second countability.",
+              "classification": "generalization",
+              "reason": "Finite-dimensional normed spaces are second countable. The proof never divides by dimension; the zero-dimensional estimator vanishes."
+            },
+            {
+              "source": "Smooth setting ordinarily uses a positive smoothness constant.",
+              "lean": "beta>=0 with the actual beta-Lipschitz gradient and differentiable f.",
+              "classification": "generalization",
+              "reason": "The beta=0 proof is valid; no division by beta or convexity hypothesis enters the identity."
+            },
+            {
+              "source": "The reference center is h=x0-eta grad f(x_plus).",
+              "lean": "Arbitrary h,x_plus; the same C is fixed before every x.",
+              "classification": "generalization",
+              "reason": "The mean identity needs only the arc and true gradient. The specific center substitution remains necessary for the subsequent target-density consumer."
+            },
+            {
+              "source": "Uniform random time on [0,1].",
+              "lean": "Lebesgue measure restricted to (0,1], with total mass one proved.",
+              "classification": "source-implicit",
+              "reason": "Lebesgue singletons have zero mass, so these are the same uniform distribution; the interval-integral bridge retains both endpoint values."
+            },
+            {
+              "source": "The mean of the actual estimator identifies the log weight up to a constant.",
+              "lean": "Same estimator and independent Gaussian/uniform input; potential integrability, joint measurability, joint integrability, path FTC and common-C mean all proved.",
+              "classification": "source-implicit",
+              "reason": "No assumed integrability or mean. Fubini follows actual product integrability; Gaussian zero mean is proved from the actual map."
+            },
+            {
+              "source": "Mean identification is used before Eq18 and the terminal normalized approximation.",
+              "lean": "Each fixed x has the auxiliary-input mean; no additional random-x or joint parameter-kernel statement.",
+              "classification": "same",
+              "reason": "Selected proof edge only. Center substitution, positive finite Gibbs normalization, clipped law, Renyi accuracy, initialization and cost remain separate."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

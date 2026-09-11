@@ -1,0 +1,165 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent formal anti-anchored source review.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "b7d8ebfebdbe70ba0774293d9cee7bc29d95b471ae6da5896acacf192264a414",
+  "source_sha256": "1dec68b0a4f65135df4921ec2842557d946833ec4cde1646e73fed04f33f81ab",
+  "statement_sha256": "5a1f72f6cafcd91f370654a19262139161cac6294af049640378fa5ae4003288",
+  "reconstruction_sha256": "bfa758fb1fa5945a81a67726c18a908d361806a54e2c35f97c8f1e6a805652c9",
+  "module_sha256": "8169f6035b8ba6c922dc2643af667476c7876e5dd7f59415470a242e42c4337f",
+  "module_raw_sha256": "56bfe22d8de14e786c2fdfbe9f63a4f8aea17a0f4667b5c787a6afe04e030f88",
+  "publication_binding_sha256": "5f0cf2635ec854df558406cb1fc930d893e78aed0e346191e533fc2cc26aecf5",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual gradient-arc estimator with independent Gaussian noise and uniform time.",
+      "reconstructed": "Explicit arc, velocity and gradient difference under U.prod P.",
+      "relation": "explicit-elaboration",
+      "evidence": "All three definitions expanded; exact same input and estimator used by FTC and mean."
+    },
+    "domains": {
+      "original": "Euclidean smooth setting.",
+      "reconstructed": "Finite-dimensional real inner-product Borel space, including dimension zero, with second countability.",
+      "relation": "different",
+      "evidence": "Disclosed coordinate-free and zero-dimensional extension; second countability automatic, no dimension division."
+    },
+    "quantifiers": {
+      "original": "Constructed source center; an additive constant independent of x.",
+      "reconstructed": "Arbitrary h,xp; P,U,C before forall x; path identity for every z.",
+      "relation": "stronger-in-lean",
+      "evidence": "C contains no x; later source-center substitution remains separate."
+    },
+    "assumptions": {
+      "original": "Smooth potential and positive variance in the source sampler setting.",
+      "reconstructed": "Differentiable f, actual beta-Lipschitz gradient, eta>0, beta>=0; no convexity/residual/clipping restriction.",
+      "relation": "different",
+      "evidence": "Quadratic growth and Gaussian moments prove integrability; beta0 and omitted downstream restrictions valid for selected identity."
+    },
+    "conclusion": {
+      "original": "Mean supplies the log weight up to an x-independent constant.",
+      "reconstructed": "Exact FTC and common-C mean plus potential L1, joint measurability/L1, sqrt variance identity and uniform probability.",
+      "relation": "explicit-elaboration",
+      "evidence": "All public conclusions matched; positive f(h+z), negative f(x), C=E f(h+Z)-inner(g,h)."
+    },
+    "scopes": {
+      "original": "Mean identification before normalized comparison.",
+      "reconstructed": "Actual auxiliary integration for each fixed x.",
+      "relation": "same",
+      "evidence": "No random-x or joint parameter-kernel, normalization, clipped law, Renyi or cost claimed."
+    },
+    "constant_dependencies": {
+      "original": "An x-independent additive constant and unit time interval.",
+      "reconstructed": "C depends on f,h,xp,eta,P, not x; U has mass one.",
+      "relation": "explicit-elaboration",
+      "evidence": "C fixed before x; actual Gaussian zero mean removes linear auxiliary term; no missing normalization factor."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual scalar Gaussian pushforward and variance identity; U mass one, null endpoint difference."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "True gradient chain rule and FTC; parent scale1 extracts only deterministic path facts."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Segment derivative bound proves potential growth; actual scaled Gaussian moments yield integrability before domination."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Time-independent W majorant from sine/cosine, true gradient Lipschitzness and inner-product norm."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Polynomial majorant lifted to product via Integrable.comp_snd, then joint integrability by domination; not sectionwise substitution."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Fubini after joint integrability; actual Gaussian mean from map; separated terms integrable; common C before x."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 9,
+    "definitions": [
+      "arc",
+      "velocity",
+      "estimator"
+    ],
+    "theorems": [
+      "path_integral",
+      "potential_growth",
+      "potential_integrable",
+      "estimator_bound",
+      "estimator_integrable",
+      "auxiliary_mean"
+    ]
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "Coordinate-free and zero-dimensional cases; second countability automatic.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted this disclosed difference."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "description": "Beta zero valid without division; zero-Lipschitz gradient makes W vanish.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted this disclosed difference."
+    },
+    {
+      "slot": "quantifiers",
+      "classification": "generalization",
+      "description": "Arbitrary center; common C independent of x; source substitution deferred.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted this disclosed difference."
+    },
+    {
+      "slot": "objects",
+      "classification": "source-implicit",
+      "description": "Uniform Ioc equals source Icc after removing a null singleton; FTC endpoints retained.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted this disclosed difference."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "source-implicit",
+      "description": "Potential and joint estimator integrability, measurability, FTC and actual zero mean explicitly supplied.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted this disclosed difference."
+    },
+    {
+      "slot": "scopes",
+      "classification": "same",
+      "description": "Selected fixed-x mean dependency only; no extra random-x or normalized sampler conclusion.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted this disclosed difference."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent primary-source review accepted seven slots, six authored steps, six informational differences and all nine private implementations. Source D.1 before Eq18 and SPHMC A.4(2) independently checked. Packet/source/statement/reconstruction/whole embedded module and raw production hashes recomputed; lesson/publication context matched. Binding hash authenticated inside packet; external preimage, decoder artifact hashes, Meta.isDefEq, compilation/test hash/fixed admission remain separate verifier obligations. No prior populated reviewer verdict was present. Center substitution, Gaussian square, positive finite target normalization, clipped law, Renyi, initialization and actual costs remain open; L1 potential integrability is not Gibbs normalization."
+}
