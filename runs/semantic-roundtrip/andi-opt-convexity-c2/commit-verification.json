@@ -35,5 +35,10 @@
     "preservation": "Independent c2_route_review audited unchanged RGOBackward accepted proof/publication artifacts against ebaa88025ba28ebc2013c959e9a0d6fca3ffc2b6. GitHub confirms PR264 merged. Stale reservation released with attributed preservation evidence, not a fresh proof claim.",
     "ledger_merge": "Exact common prefix, exact local unique tail, exact upstream unique tail; only byte-identical duplicates omitted. Concurrent GaussianKL STABILIZING->VERIFIED preservation and original-owner STABILIZING->MERGED records are branch-local events, not a fabricated sequential chain. Original-owner upstream MERGED is replayed last. No timestamp sorting or historical event rewriting.",
     "audit_merge": "Three-way audit-id merge preserves upstream entries and the separately independently reviewed C1 boundary binding."
+  },
+  "merge": {
+    "commit": "a65cb79997ccafe5909547f5f494482319705410",
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/commit/a65cb79997ccafe5909547f5f494482319705410",
+    "method": "Authorized atomic direct push; main and task branch confirmed by Git remote response."
   }
 }

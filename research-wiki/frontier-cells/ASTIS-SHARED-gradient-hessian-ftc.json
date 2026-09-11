@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Proposition 1.6 part 2, (1.5)-(1.6), final proof paragraph",
   "target_statement": "For C2 f on a complete real inner-product space, pair the gradient difference with v and identify the integral of D2f(x+tv)[v,v].",
-  "status": "stabilized",
+  "status": "merged",
   "parents": [
     "ContDiff.fderiv_right",
     "intervalIntegral.integral_eq_sub_of_hasDerivAt"
@@ -34,7 +34,7 @@
     "independent_verification": "c2_route_review verified frozen724e90f code/test/lesson and source route; c2_blind_decoder and c2_source_reviewer independently completed packet-bound semantic reviews. Root records their recommendations with attribution.",
     "root_build": "PASS canonical gate including root Tests9120jobs, fake-closure and ATLAS36469declarations/26books, 2026-09-11T03:46:25.537792+00:00. Checked commit01ceeefa207915c119a533c99a76aea4cd5fcb01. PASS250tests,6skipped on synchronized tree; publication36source items, semantic45audits and frontier54cells validated.",
     "graph_regeneration": "PASS canonical website/scripts/build_site.py and check_site.py:12chapters,403compiled local leaves,590modules,3674declarations; all3C2 graph checks PASS. Prior desktop/mobile inspection reused for byte-identical C2 lessons; new C1 boundary confirmed in generated chapter and both lesson pages. Chapter remains partial.",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/commit/a65cb79997ccafe5909547f5f494482319705410"
   },
   "blocked": {
     "reason": "",
