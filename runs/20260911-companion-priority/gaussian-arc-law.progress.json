@@ -1,0 +1,29 @@
+{
+  "remaining": [
+    "Endpoint and joint measurability proofs",
+    "Complete source-normalized eta contract and production assembly",
+    "Independent fixed-version proof review and fresh encoder-denoiser/source admission",
+    "Focused production compilation, reader publication and integration"
+  ],
+  "state": "EXPLORING",
+  "cell": "ASTIS-SW-SPHMC-gaussian-arc-law",
+  "scratch_sha256": "1d03511b1d0b6426c489265de1af155a7aeed894de8a14c45cc621d2df12b80a",
+  "scratch": ".astis/GaussianArcLaw.lean",
+  "compiled_development": [
+    "Actual product stdGaussian swap and rotation invariant law via existing Mathlib Fernique rotation theorem",
+    "Actual shifted/scaled input product pushforward equals position/velocity Gaussian product",
+    "Actual path derivative with pi/2 scale and negative sine sign"
+  ],
+  "boundary": "Scratch results are not PROVED_LOCAL/VERIFIED admission, and neither paper main result is complete.",
+  "local_check": {
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "lint": "Unused section variables and one unused simp argument in derivative; pending cleanup",
+    "command": "lake env lean .astis/GaussianArcLaw.lean",
+    "log": ".astis/gaussian-arc-scratch.log",
+    "exit_code": 0
+  }
+}
