@@ -1,12 +1,10 @@
 {
   "cell": "ASTIS-SHARED-gibbs-gradient-moment",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Ideal actual normalized Gibbs gradient moment only, including dimension zero. Coordinate-free finite-dimensional formulation disclosed. No smoothed/approximate law moment transfer, Gaussian perturbation, random-history conditioning, summed GD cost or paper-completion claim. The initial-moment premise of TerminalReferenceGradientDescent still requires its actual starting law to be identified and controlled.",
   "remaining": [
-    "Weighted gradient/Hessian integrability from actual curvature",
-    "Directional IBP and Parseval",
-    "Actual tilted normalization, L1 and beta*d bound",
-    "Independent proof/source review and delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and actual deployment"
   ],
   "weighted_checkpoint": {
     "path": ".astis/GibbsGradientMomentWeighted.lean",
@@ -45,5 +43,35 @@
       "AutoSamplingTheory/TechnicalLemmas/Analysis/GibbsGradientMoment.lean": "5a403849fb127b21e577b9e72d1d39ebc389f4ef60ed97a39500df757ac17141",
       "Tests/GibbsGradientMoment.lean": "205e3797030f3c41acfbe3e865fc344e7adf91bfa7ea090bab8e12ec9597b18d"
     }
-  }
+  },
+  "expanded_statement": {
+    "file": ".astis/gibbs-gradient-moment-expanded.log",
+    "characters": 915,
+    "sha256": "fb0e1631711a05ef96df649ad8845a0190d18f39038f229a0d8aab017514afaa",
+    "session": 20587,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier replayed Meta.isDefEq and exact915-character hash. Final anonymous context clarifies only exact generic Mathlib tilted definition; independent old/new packet diff and final packet hash d8d893cf7c266e83aff4c19553407aa37fe0c704c73a360f3ba8e68fd7c7695b verified, no source identity."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-gibbs-gradient-moment.json",
+    "state": "Six authored steps and4private implementations accepted; publicationPASS64."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "f2c38ad1aeaf5b7b3001989f3e5ac2570d4a4810",
+    "production_sha256": "5a403849fb127b21e577b9e72d1d39ebc389f4ef60ed97a39500df757ac17141",
+    "test_sha256": "205e3797030f3c41acfbe3e865fc344e7adf91bfa7ea090bab8e12ec9597b18d",
+    "result": "Independent PASS3495 and unchanged reviewed mathematics; independently replayed 915-character Meta.isDefEq extraction accepted. No VERIFIED."
+  },
+  "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-GibbsGradientMoment"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }

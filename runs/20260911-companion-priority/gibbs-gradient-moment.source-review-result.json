@@ -1,0 +1,151 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent source reviewer.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "eae70d51c5d6b45df0bd14115bd5f81f1274d89fa9b16f239502569b9d70c137",
+  "source_sha256": "d700645723874701214290f5f2859a4512c993c894ad25774ddddbe1802be2a0",
+  "statement_sha256": "fb0e1631711a05ef96df649ad8845a0190d18f39038f229a0d8aab017514afaa",
+  "reconstruction_sha256": "6b76e6ab9189676369e93093d56493f265b07bf6419d2ebf1d6e3ef35040c616",
+  "module_sha256": "9d7f50d6803d15c696ebe8f190cb49d740154bd8c7617ebf0dc76958bf2fb542",
+  "module_raw_sha256": "5a403849fb127b21e577b9e72d1d39ebc389f4ef60ed97a39500df757ac17141",
+  "publication_binding_sha256": "200dffe7f662e5513ec4550fe49d19db0bea6f6fd0df8f37a049a61d688d26e9",
+  "semantic_slots": {
+    "objects": {
+      "original": "Ideal Gibbs gradient moment used in the reference-point estimate.",
+      "reconstructed": "Actual canonical-volume exponential tilt, actual gradient and standard-basis Hessian diagonal sum.",
+      "relation": "explicit-elaboration",
+      "evidence": "Total tilted definition reconstructed correctly; actual integrability and probability exclude degenerate zero-normalizer branch."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean setting.",
+      "reconstructed": "Complete finite-dimensional real inner-product Borel space, including dimension zero.",
+      "relation": "different",
+      "evidence": "Disclosed extension; empty sums and canonical nonzero volume validate zero dimension."
+    },
+    "quantifiers": {
+      "original": "Ideal-law estimate under source curvature assumptions.",
+      "reconstructed": "Every admissible space, potential and alpha/beta pair; five conclusions for the same determined tilted measure.",
+      "relation": "same",
+      "evidence": "No supplied minimizer, normalizer, weighted integrability or desired moment."
+    },
+    "assumptions": {
+      "original": "Normalized smooth potential with positive lower curvature in Section6.3.",
+      "reconstructed": "Actual C2 Hessian bounds, NNReal alpha/beta, alpha>0 and alpha<=beta.",
+      "relation": "different",
+      "evidence": "General beta extends beta1; alpha<=beta remains despite unused binder."
+    },
+    "conclusion": {
+      "original": "Ideal Gibbs gradient moment supplies dimension-scale input to initialization.",
+      "reconstructed": "Probability, two Gibbs L1 statements, gradient-square/Hessian-diagonal expectation equality and beta*finrank upper bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "Exactly five public conjuncts; internal weighted integrability and IBP are not extra public conclusions."
+    },
+    "scopes": {
+      "original": "Ideal-law component in reference-point construction.",
+      "reconstructed": "Ideal Gibbs moment only; no approximate output, Gaussian perturbation, history or total reference cost.",
+      "relation": "same",
+      "evidence": "Attribution, module header and reader preserve limitation."
+    },
+    "constant_dependencies": {
+      "original": "Normalized smoothness gives dimension-scale ideal control.",
+      "reconstructed": "Final beta*finrank bound; alpha and local U/gradient values occur only in integrability proof.",
+      "relation": "explicit-elaboration",
+      "evidence": "Same weighted identity normalized; no envelope constants survive."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Zero-precision regularization gives actual SC/Lip. Envelope b=U(0)-G^2/alpha agrees with Lean; no minimizer."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Quadratic absorption yields actual Gaussian L1 majorant, then weighted square and first-power L1."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Three products L1 precede Haar IBP; actual derivatives and signs correct, C2 suffices without cutoff/C3."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Finite-sum interchange uses individual L1; Parseval identifies actual gradient square including empty basis."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Actual exponential integrability and nonzero volume justify probability; both Gibbs L1 precede expectation comparison with the same denominator."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Unit-direction Hessian upper bounds integrate to beta*finrank under proved probability."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 4,
+    "declarations": [
+      "absorb_quadratic",
+      "weighted_square",
+      "weighted_gradient",
+      "directional_ibp"
+    ],
+    "evidence": "Entire scratch read and complete embedded production compared: only documentation and print removal; six authored steps cover all four helpers."
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "Coordinate-free and zero-dimensional extensions explicit and proved.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Coordinate-free and zero-dimensional extensions explicit and proved."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "description": "General beta specializes to normalized beta1; alpha<=beta retained.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: General beta specializes to normalized beta1; alpha<=beta retained."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "source-implicit",
+      "description": "Normalization, noncompact L1 and moment identity proved rather than assumed.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Normalization, noncompact L1 and moment identity proved rather than assumed."
+    },
+    {
+      "slot": "objects",
+      "classification": "source-implicit",
+      "description": "H is explicit standard-basis diagonal sum; no separate trace/Laplacian/basis-invariance API theorem.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: H is explicit standard-basis diagonal sum; no separate trace/Laplacian/basis-invariance API theorem."
+    },
+    {
+      "slot": "scopes",
+      "classification": "same",
+      "description": "Only ideal-law input to larger initialization and cost argument.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Only ideal-law input to larger initialization and cost argument."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent anti-anchored formal source review accepted seven slots, six steps, five informational differences and four private helpers; no blockers/repairs. Fresh primary Section6.3 normalized ideal-law consumer checked, including separate approximate/Gaussian/history work. Attributed expanded proof component, not verbatim quotation. Recomputed canonical packet/source/statement/reconstruction/whole module/current raw bytes; bound lesson/publication fields and delta pairs match. Registry/prior verdicts not read. Binding authenticated in packet, external preimage not recomputed. No compilation/fixedcommit, Meta/anonymous supplemental definition replay, decoder packet/run,test/toolchain/dependency hash verification by this reviewer. Source-facing acceptance only, no VERIFIED; faithful transcription authorized."
+}

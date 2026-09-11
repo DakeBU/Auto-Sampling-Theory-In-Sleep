@@ -94,9 +94,15 @@
   "remote": {
     "pr": 288,
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/288",
-    "head": "32f50f4",
+    "head": "32f50f4fb302e19bd1d61d0af41df238e78d168d",
     "lean_run": 34641811580,
     "site_run": 34641811567,
-    "state": "Both PR checks pending at last observation; no merge/deployment claim"
+    "state": "PR merged; merge CI and live deployment pending",
+    "lean_pr_result": "SUCCESS",
+    "site_pr_result": "SUCCESS",
+    "merge_commit": "61c710cb2d73b333fbd684571910b12d28a699a0",
+    "merged_at": "2026-09-11T20:15:42Z",
+    "merge_lean_run": 34643268197,
+    "merge_site_run": 34643268151
   }
 }
