@@ -1,0 +1,20 @@
+{
+  "decoder": "blind_reconstruction_h",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Verbatim independent source-blind response with hash checked.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-h.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCGaussianArcLaw.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "35a5d044cf8bf86ad8c37434ad2efae008a3cd7d20f2b57a4b56976941556ef4",
+  "lean_statement_sha256": "ff8ba7804e5e560df9822bfaf007945ca6f136e6194bda77ecf86acf80c02c2f",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner product space, equipped with its Borel measurable space and a second-countable topology. Let gamma be the centered Gaussian probability measure on E with identity covariance. For every real eta > 0 and every h in E, put a = pi/2, c = sqrt(eta), mu_h = (x -> h + c x)_* gamma, nu = (z -> c z)_* gamma, and rho = (z -> a c z)_* gamma. For p = (x,z) in E x E and t in R define F_h(t,p) = h + sin(a t)(x-h) + cos(a t)z and V_h(t,p) = a[cos(a t)(x-h) - sin(a t)z]. Then all of the following hold: (1) c^2 = eta. (2) The map ((b,t),(x,z)) -> (F_b(t,(x,z)), V_b(t,(x,z))) from (E x R) x (E x E) to E x E is measurable. (3) For every r in R, the actual pushforward of the independent product measure mu_h x nu by p -> (F_h(r,p), V_h(r,p)) equals mu_h x rho. Thus this is equality of joint measures, including independence of the two output coordinates. (4) For every p in E x E and every r in R, the real-parameter E-valued function t -> F_h(t,p) has derivative V_h(r,p) at r. (5) For every p = (x,z) in E x E, F_h(0,p) = h+z, F_h(1,p) = x, V_h(0,p) = a(x-h), and V_h(1,p) = -a z. All scalar-vector products above are real scalar multiplication; c is the nonnegative square root. There are no time restrictions, extra regularity hypotheses, or additional distributional assumptions.",
+  "source_fidelity_verdict": null,
+  "decoder_notes": [
+    "No ambiguities identified by the independent decoder. Actual full product pushforward and all-real derivative reconstructed.",
+    "Only anonymous compiled type and approved mathematical definition context were supplied."
+  ]
+}
