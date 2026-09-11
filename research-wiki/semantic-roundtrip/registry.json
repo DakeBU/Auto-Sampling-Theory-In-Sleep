@@ -12552,7 +12552,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCFiniteRGOProgram",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-finite-rgo-program",
         "anchor": "Algorithm3.3 capped recursive execution and Theorem6.5 ideal comparison",
@@ -12578,7 +12578,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "75cd395aaa06de1e49edb23e6bd9f0d847242d8b1f03976c6a56e2c11596d64e",
+        "review_run_sha256": "e5998f8bbf7a23c235714026179b515f0d43abc82756bc70e73ae0e136a0a2cb",
+        "run_artifact": "runs/20260911-companion-priority/finite-rgo-program.source-review-result.json",
+        "evidence": "Independent reviewer accepted all seven semantic slots, five authored proof steps and five informational differences. Independently recomputed packet/source/statement/reconstruction/embedded-module hashes and current module equality. Current lesson/publication fields match. Fresh primary Algorithm3.3 check and earlier Theorem6.5 reading; source text is expanded attributed paraphrase. Binding authenticated in packet; external preimage, decoder/run and toolchain hashes not independently reconstructed by source reviewer. No independent compile in this source audit. No blocking issues or repairs; fixed-commit admission separate."
       },
       "publication_binding_sha256": "0c7940bdf5baa0e174687454804e54d6aa8bfd76201d6c6c6cf292f504e9fa49",
       "publication_context": {
@@ -12731,7 +12738,84 @@
         "decoder_run_sha256": "a06c96fdde833734a6e38d4bc076e43bfe57d54ac959ff98b643c15558d5d4bc",
         "lean_statement_sha256": "1ee10f9d9dad5b69734cc4533b46f7ee1514f6a2033468e4a33e598fb50a8502",
         "run_artifact": "runs/20260911-companion-priority/finite-rgo-program.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Recursive RGO target update and terminal sample.",
+          "reconstructed": "Explicit F,T,H, absorbed P, recursive R and actual partialTraj endpoint.",
+          "relation": "explicit-elaboration",
+          "evidence": "All four coordinates updated. CQ is actual pushforward; P piecewise; R constructed from powers; endpoint_path proves actual marginal."
+        },
+        "domains": {
+          "original": "Euclidean Gibbs targets and positive terminal threshold.",
+          "reconstructed": "Arbitrary probability on finite real Hilbert Borel E and nonnegative threshold including zero.",
+          "relation": "stronger-in-lean",
+          "evidence": "No potential, density, moments or positive dimension. Both generalizations explicitly disclosed."
+        },
+        "quantifiers": {
+          "original": "Expanded contract fixes variance map/threshold, constructs ideal kernels then arbitrary observation/terminal kernels and all finite depths.",
+          "reconstructed": "Same T,H before every Q,L; one P and sequence R work for all depths.",
+          "relation": "same",
+          "evidence": "Exact public binder order agrees with fresh reconstruction. Ideal implication requires both Q=H and L=T."
+        },
+        "assumptions": {
+          "original": "Concrete source parameters and sampler assumptions; selected prerequisite has measurable positive a and Markov Q,L.",
+          "reconstructed": "a measurable positive everywhere including stopped states; arbitrary Markov Q,L and count/history.",
+          "relation": "different",
+          "evidence": "Actual hTC is derived from StateDependentRGO and F; recovery, threshold-hitting and history validity are not assumed."
+        },
+        "conclusion": {
+          "original": "Finite recursive semantics, absorption, actual path output marginal and exact ideal recovery.",
+          "reconstructed": "All identities are everywhere measure/kernel equalities for every finite depth.",
+          "relation": "same",
+          "evidence": "absorbing_program proves recursion and absorption; endpoint_path includes singleton adapter; absorbing_invariant consumes proved hTC."
+        },
+        "scopes": {
+          "original": "Full Algorithm3.3/Theorem6.5 has concrete calls, FORS, accuracy and costs.",
+          "reconstructed": "Finite capped state execution with supplied Q,L and ideal oracle comparison.",
+          "relation": "different",
+          "evidence": "Cap before threshold still calls L. Module and publication preserve limitations; state path is not a query record."
+        },
+        "constant_dependencies": {
+          "original": "Inverse variance addition, weighted center and source A<=Aunderline.",
+          "reconstructed": "b+1/a, (bu+y/a)/(b+1/a), sqrt(a), threshold<=b.",
+          "relation": "explicit-elaboration",
+          "evidence": "All coefficients retained; source positive instance uses inverse terminal variance; concrete a=(eta+tau)/beta_A deferred."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "General probability and finite Hilbert base disclosed.",
+          "evidence": "No potential, density, moments or positive dimension. Both generalizations explicitly disclosed."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Measurable current-state variance and padded history; concrete parameters and valid initialization remain.",
+          "evidence": "Actual hTC is derived from StateDependentRGO and F; recovery, threshold-hitting and history validity are not assumed."
+        },
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Zero threshold immediate-stop extension; source positive threshold retained.",
+          "evidence": "No potential, density, moments or positive dimension. Both generalizations explicitly disclosed."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Supplied Q,L and cap do not identify actual sampler/FORS or prove cap adequacy, errors or costs.",
+          "evidence": "Cap before threshold still calls L. Module and publication preserve limitations; state path is not a query record."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Same actual T,H yield ideal finite recovery; L=T is an oracle comparison.",
+          "evidence": "absorbing_program proves recursion and absorption; endpoint_path includes singleton adapter; absorbing_invariant consumes proved hTC."
+        }
+      ]
     }
   ]
 }

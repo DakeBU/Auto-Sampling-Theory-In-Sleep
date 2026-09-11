@@ -20,14 +20,20 @@
     "artifact": "runs/20260911-companion-priority/finite-rgo-program.independent-proof-review.json"
   },
   "source_fidelity": {
-    "state": "draft",
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
     "audits": [
       "ASTIS-RT-20260911-SPHMCFiniteRGOProgram"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/finite-rgo-program.source-review-result.json"
     ]
   },
   "mathematical_status": "Finite capped state execution with a supplied terminal kernel even when the cap is reached before the threshold. No claim that the cap reaches the source stopping depth, that arbitrary initial count/history is valid, or that the state path is a query execution record. Concrete smoothed sampler and FORS, source parameter selection, approximation errors and expected query costs remain separate. Ideal terminal L=T is an oracle comparison.",
   "remaining": [
-    "Formal source and fixed-commit admission",
+    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Concrete source parameters and initialized history validity",
     "Cap versus source stopping depth, FORS and actual approximate sampler",
