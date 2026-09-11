@@ -1,4 +1,5 @@
 import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder
+import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic
 import Mathlib.Analysis.Calculus.ContDiff.Basic
 import Mathlib.Analysis.ODE.DiscreteGronwall
 import Mathlib.Algebra.Ring.GeomSum
@@ -9,7 +10,7 @@ import Mathlib.Algebra.Ring.GeomSum
 Chewi, arXiv:2605.07006v1, Theorem 3.4 (3.1), (3.3) and its weighted-sum
 proof after Lemma 3.5. We use the actual gradient and actual iterates, with
 arbitrary comparator as explicitly permitted by (3.3). The descent calculation
-is a private implementation of Lemma 3.1. The signed-forcing recurrence is
+uses the shared public implementation of Lemma 3.1. The signed-forcing recurrence is
 Mathlib's product-form discrete Grönwall inequality, not a new recurrence lemma.
 
 The source's step condition needs `h ≥ 0`. The quadratic upper model and C¹
@@ -27,17 +28,6 @@ open scoped RealInnerProductSpace
 
 variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]
 
-private theorem step_descent {f : E → ℝ} {β h : ℝ}
-    (hh : 0 ≤ h) (hstep : β * h ≤ 1)
-    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)
-    (x : E) : f (x - h • gradient f x) - f x ≤ -(h / 2) * ‖gradient f x‖ ^ 2 := by
-  have hu' := hu x (x - h • gradient f x)
-  have he : x - h • gradient f x - x = -(h • gradient f x) := by abel
-  rw [he, inner_neg_right, inner_smul_right, real_inner_self_eq_norm_sq,
-    norm_neg, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs] at hu'
-  have hs := mul_le_mul_of_nonneg_right hstep (mul_nonneg hh (sq_nonneg ‖gradient f x‖))
-  nlinarith
-
 /-- One-step energy inequality for every comparator, with the necessary
 nonnegative step explicit. No sign restriction on the comparator gap. -/
 theorem gradient_step_energy_bound {f : E → ℝ} {α β h : ℝ}
@@ -49,7 +39,7 @@ theorem gradient_step_energy_bound {f : E → ℝ} {α β h : ℝ}
       (1 - α * h) * ‖x - z‖ ^ 2 := by
   have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn
     hsc (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)
-  have hd := step_descent hh hstep hu x
+  have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu x
   have hn : z - x = -(x - z) := by abel
   rw [hn, inner_neg_right, norm_neg] at hl
   have hl' := mul_le_mul_of_nonneg_left hl (by positivity : 0 ≤ 2 * h)
@@ -77,7 +67,7 @@ theorem gradient_descent_weighted_value_bound {f : E → ℝ} {α β h : ℝ}
   have hm : Antitone (fun n => f (X n)) := by
     apply antitone_nat_of_succ_le
     intro n
-    have hd := step_descent hh hstep hu (X n)
+    have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu (X n)
     rw [hX]
     dsimp [T]
     have : 0 ≤ h / 2 * ‖gradient f (X n)‖ ^ 2 := by positivity
