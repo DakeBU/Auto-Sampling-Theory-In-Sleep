@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO.state_dependent_recovery",
+      "title": "Joint posterior recovery with measurable state-dependent RGO parameters",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC v1 Algorithm 3.3 and Theorem 6.5",
+          "scope": "Expanded ideal stage semantics with measurable state-dependent parameters; not the full recursive algorithm."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCStateDependentRGO"
+      ],
+      "boundary": "Fixed probability base, arbitrary measurable state space and measurable current-state parameters. Exact ideal joint observation law only. The source interface selects a smoothing level for each fixed call input; this theorem does not construct its actual output sampler, recursive stopping, FORS, numerical accuracy or expected query costs.",
+      "statement": "Let E be a finite-dimensional real inner-product Borel space, S any measurable space, and mu a probability measure on E. Let b,a:S to R and u:S to E be measurable, with b(s)>=0 and a(s)>0 everywhere. There exist Markov kernels T,H:S to E and B:S times E to S times E, chosen before every probability state law nu. Every T(s) is the normalized mu tilt by -b(s)*norm(x-u(s))^2/2; H(s) is its actual Gaussian smoothing at standard deviation sqrt(a(s)). Every B(s,y) retains s and draws x from the actual backward tilt of T(s) by -norm(x-y)^2/(2a(s)). Equivalently, it uses the original mu tilt with precision b(s)+1/a(s) and center (b(s)*u(s)+y/a(s))/(b(s)+1/a(s)). For every probability nu, B composed with nu compProd H equals nu compProd T.",
+      "formula": "B\\circ_m(\\nu\\otimes_m H)=\\nu\\otimes_m T,\\qquad T(s)=\\mu.\\mathrm{tilted}\\!\\left(-\\frac{b(s)}2\\|x-u(s)\\|^2\\right).",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero; mu is an arbitrary probability measure.",
+        "S has only a measurable-space structure. No topology, standard Borel condition, or moment condition on the state law is needed.",
+        "b,a,u are measurable on S, with b nonnegative and a strictly positive at every state. No fixed or deterministic schedule is imposed.",
+        "All global kernels precede the universally quantified probability state law. Both posterior formulas hold at every state and observation.",
+        "Recovery assumes the actual ideal input nu compProd H. State may encode past history and its parameters are fixed conditional on the current call input. This does not assume one predetermined schedule for all calls or construct the actual approximate sampler."
+      ],
+      "steps": [
+        {
+          "title": "Normalize a jointly measurable quadratic weight",
+          "text": "On the parameter space of nonnegative precision and center, the quadratic exponential weight is jointly measurable, strictly positive and at most one. Its integral against the probability base is therefore finite and strictly positive. The parameter integral is measurable. Divide by this integral to construct one global Markov kernel through withDensity, including zero precision.",
+          "formula": "w_{q,v}(x)=e^{-q\\|x-v\\|^2/2},\\quad 0<Z(q,v)=\\int w_{q,v}\\,d\\mu\\le1,\\quad R(q,v)=\\frac{w_{q,v}}{Z(q,v)}\\mu.",
+          "lean": "Local universalTilt: integrable_const domination, integral_exp_pos, StronglyMeasurable.integral_prod_right, Kernel.withDensity, isProbabilityMeasure_tilted."
+        },
+        {
+          "title": "Use measurable current and updated parameters",
+          "text": "Compose the same global parameter kernel with the current-state map to obtain T and with the updated state-observation map to obtain K. The new precision is positive and the weighted center is measurable. This proves joint measurability; separate existential kernels for each parameter would not suffice.",
+          "formula": "q^+(s)=b(s)+a(s)^{-1}>0,\\quad c(s,y)=q^+(s)^{-1}\\bigl(b(s)u(s)+a(s)^{-1}y\\bigr),\\quad K(s,y)=R(q^+(s),c(s,y)).",
+          "lean": "Measurable.subtype_mk, Measurable.prodMk, Kernel.comap; local t,q,c,r and hKupdated."
+        },
+        {
+          "title": "Construct the state-dependent Gaussian observation",
+          "text": "Retain the input state and draw an independent standard Gaussian. Map this pair to sqrt(a(s)) times the Gaussian to form N. The product of T and N followed by addition defines H. Product and pushforward formulas establish the exact smoothing fiber and Markov property.",
+          "formula": "N(s)=\\operatorname{Law}(\\sqrt{a(s)}G),\\qquad H(s)=\\operatorname{Law}(X+\\sqrt{a(s)}G),\\quad X\\sim T(s),\\ G\\sim\\mathsf N(0,I)\\text{ independently}.",
+          "lean": "Kernel.deterministic, Kernel.const, Kernel.prod, Kernel.map, Kernel.IsMarkovKernel.map; Measure.dirac_prod and Measure.map_map."
+        },
+        {
+          "title": "Identify the actual posterior and retain the state",
+          "text": "Quadratic tilt closure identifies K with the backward tilt of T for every state and observation. Pair K with the deterministic state coordinate to form B. The already constructed section K(s,.) is identified with the existing pointwise recovery theorem; no measurable choice over pointwise witnesses is used.",
+          "formula": "K(s,y)=T(s).\\mathrm{tilted}\\!\\left(-\\frac{\\|x-y\\|^2}{2a(s)}\\right),\\quad B(s,y)=(x\\mapsto(s,x))_\\#K(s,y),\\quad K(s,\\cdot)\\circ_mH(s)=T(s).",
+          "lean": "RGOClosure.quadratic_tilt_tilt, RGOBackward.rgo_backward_recovery; local hKf,hBf,hrec and kernel extensionality."
+        },
+        {
+          "title": "Recover the complete joint state-target law",
+          "text": "For each measurable event in S times E, take its measurable section at a fixed state. The bind and compProd identities give the output event mass as an iterated nonnegative integral. Section recovery replaces the inner integral by T(s) of the section, yielding nu compProd T. No state coordinate or dependence is discarded.",
+          "formula": "\\int_S\\!\\int_E B(s,y)(A)\\,H(s)(dy)\\,\\nu(ds)=\\int_S T(s)(A_s)\\,\\nu(ds).",
+          "lean": "Measure.bind_apply, Measure.lintegral_compProd, Measure.compProd_apply, Measure.map_apply, lintegral_congr."
+        }
+      ],
+      "lean_statement": "Globally measurable state-dependent RGO target, Gaussian observation and retained-state posterior with actual joint recovery.",
+      "lean_proof": "Construct a normalized parameter kernel, comap along measurable current and updated states, construct actual variable Gaussian noise, identify posterior fibers and integrate section recovery.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.integral_exp_pos",
+        "MeasureTheory.isProbabilityMeasure_tilted",
+        "ProbabilityTheory.Kernel.withDensity",
+        "ProbabilityTheory.Kernel.comap",
+        "ProbabilityTheory.Kernel.prod",
+        "ProbabilityTheory.Kernel.map",
+        "MeasureTheory.Measure.lintegral_compProd",
+        "MeasureTheory.Measure.bind_apply"
+      ]
+    }
+  ]
+}

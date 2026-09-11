@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Algorithm3.3 parameter update and Theorem6.5 conditional recursive stages",
   "target_statement": "For a measurable state space S, fixed probability base mu on finite real Hilbert Borel E, measurable b:S->R,u:S->E,a:S->R with b>=0 and a>0 everywhere, construct Markov kernels T,H:S->E and B:S times E->S times E. Prove every T(s) is the normalized quadratic mu tilt at precision b(s), center u(s); H(s) is its actual Gaussian smoothing with variance a(s); B(s,y) retains s and samples the actual backward tilt, equivalently the original mu tilt with precision b(s)+1/a(s) and center (b(s)u(s)+y/a(s))/(b(s)+1/a(s)). For every probability state law lambda prove B composed with lambda compProd H equals lambda compProd T. Derive jointly measurable positive finite normalization and variable noise kernels; do not assume measurable target selection or desired recovery.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SW-SPHMC-adaptive-center-rgo",
     "ASTIS-SW-SPHMC-rgo-backward"
@@ -27,12 +27,23 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCStateDependentRGO",
+        "result": "PASS3749, exit0, only existing parent lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StateDependentRGO.lean": "6bcc8fbeffd30fce1e642c1ea79bae73eb1e5e1651537b1dbe8c105de6763863",
+          "Tests/SmoothedPicardHMCStateDependentRGO.lean": "a89c21062c8880aeba65233949e260cbebd6d78f454940866fbcae71cb129b77"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-state-dependent-rgo.md",
     "planning_review": "log_depth_source_review independently rechecked source: reported eta cannot be presumed deterministic; full measurable state is needed.",
-    "execution_boundary": "Root sole writer. AdaptiveKLError sole STABILIZING. This packet EXPLORING.",
+    "execution_boundary": "Root sole writer; AdaptiveKLError remains sole STABILIZING; StateDependentRGO local development only.",
     "ownership_note": "One actual paper consumer; no fabricated shared consumer.",
-    "source_interface_clarification": "Independent log_depth_source_review rechecked Section6.1 A1-A3 and7.1: faithful interface is deterministic eta(s) per fixed call input plus output Markov kernel. Random runtime report/output semantics are an optional extension, not a required paper gap. Complete current-state sampler semantics remain needed."
+    "source_interface_clarification": "Independent log_depth_source_review rechecked Section6.1 A1-A3 and7.1: faithful interface is deterministic eta(s) per fixed call input plus output Markov kernel. Random runtime report/output semantics are an optional extension, not a required paper gap. Complete current-state sampler semantics remain needed.",
+    "independent_proof_review": "runs/20260911-companion-priority/state-dependent-rgo.independent-proof-review.json",
+    "admission_boundary": "PROVED_LOCAL with independent production replay; formal source/fixed-commit admission pending."
   },
   "blocked": {
     "reason": "",

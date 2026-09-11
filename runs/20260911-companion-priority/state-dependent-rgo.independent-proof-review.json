@@ -1,0 +1,25 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent production review and focused replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCStateDependentRGO",
+  "result": "PASS3749, exit0, only existing parent lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StateDependentRGO.lean": "6bcc8fbeffd30fce1e642c1ea79bae73eb1e5e1651537b1dbe8c105de6763863",
+    "Tests/SmoothedPicardHMCStateDependentRGO.lean": "a89c21062c8880aeba65233949e260cbebd6d78f454940866fbcae71cb129b77"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Production differs from independently accepted single-public scratch only by documentation, whitespace and moving axiom query to Tests.",
+    "Actual jointly normalized parameter kernel and measurable state-dependent Gaussian kernel constructed.",
+    "Same global T,H,B constructed before nu, with both everywhere posterior formulas and retained-state joint recovery.",
+    "No measurable selection or ideal recovery assumed. Arbitrary measurable S and zero precision retained.",
+    "Tests axiom checks only. Concrete approximate algorithm, history accuracy, proxies, Wp guarantee and query costs remain separate."
+  ],
+  "qualification": "Development proof review only; formal source and fixed-commit admission separate."
+}

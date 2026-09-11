@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-state-dependent-rgo",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Joint posterior recovery with measurable state-dependent RGO parameters",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Algorithm3.3 parameter update and Theorem6.5 ideal state-dependent stage",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded state-dependent joint-kernel semantics, no author endorsement implied."
+      },
+      "statement": "Let E be a finite-dimensional real inner-product Borel space, S any measurable space, and mu a probability measure on E. Let b,a:S to R and u:S to E be measurable, with b(s)>=0 and a(s)>0 everywhere. There exist Markov kernels T,H:S to E and B:S times E to S times E, chosen before every probability state law nu. Every T(s) is the normalized mu tilt by -b(s)*norm(x-u(s))^2/2; H(s) is its actual Gaussian smoothing at standard deviation sqrt(a(s)). Every B(s,y) retains s and draws x from the actual backward tilt of T(s) by -norm(x-y)^2/(2a(s)). Equivalently, it uses the original mu tilt with precision b(s)+1/a(s) and center (b(s)*u(s)+y/a(s))/(b(s)+1/a(s)). For every probability nu, B composed with nu compProd H equals nu compProd T.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero; mu is an arbitrary probability measure.",
+        "S has only a measurable-space structure. No topology, standard Borel condition, or moment condition on the state law is needed.",
+        "b,a,u are measurable on S, with b nonnegative and a strictly positive at every state. No fixed or deterministic schedule is imposed.",
+        "All global kernels precede the universally quantified probability state law. Both posterior formulas hold at every state and observation.",
+        "Recovery assumes the actual ideal input nu compProd H. State may encode past history and its parameters are fixed conditional on the current call input. This does not assume one predetermined schedule for all calls or construct the actual approximate sampler."
+      ],
+      "formulae": [
+        {
+          "label": "Actual retained-state joint recovery",
+          "tex": "B\\circ_m(\\nu\\otimes_m H)=\\nu\\otimes_m T,\\qquad T(s)=\\mu.\\mathrm{tilted}\\!\\left(-\\frac{b(s)}2\\|x-u(s)\\|^2\\right)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "state-dependent-joint-recovery",
+          "label": "Measurable state-dependent ideal posterior update and full joint recovery"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO.state_dependent_recovery",
+          "cell": "ASTIS-SW-SPHMC-state-dependent-rgo",
+          "role": "prerequisite",
+          "supports": [
+            "state-dependent-joint-recovery"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCStateDependentRGO",
+          "boundary": "Fixed probability base, arbitrary measurable state space and measurable current-state parameters. Exact ideal joint observation law only. The source interface selects a smoothing level for each fixed call input; this theorem does not construct its actual output sampler, recursive stopping, FORS, numerical accuracy or expected query costs.",
+          "assumption_deltas": [
+            {
+              "source": "Algorithm3.3 uses a Euclidean Gibbs base target.",
+              "lean": "Arbitrary probability base mu on finite-dimensional real inner-product Borel E, including dimension zero.",
+              "classification": "generalization",
+              "reason": "Exact quadratic posterior recovery does not need a potential, curvature, density or moments; concrete Gibbs identification remains separate."
+            },
+            {
+              "source": "The current recursive target has center u and precision 1/A; new variance is (eta+tau)/beta_A.",
+              "lean": "Measurable b,a,u on arbitrary measurable S, with b>=0 and a>0 everywhere.",
+              "classification": "source-implicit",
+              "reason": "State can encode current history. Parameters are not assumed constant; actual source parameter maps and report/output semantics must still be instantiated."
+            },
+            {
+              "source": "The RGO closure updates inverse variance and center.",
+              "lean": "Both everywhere posterior formulas use b(s)+1/a(s) and weighted center (b(s)u(s)+y/a(s))/(b(s)+1/a(s)).",
+              "classification": "same",
+              "reason": "The normalized tilt composition is proved, including b(s)=0, without assuming posterior normalization."
+            },
+            {
+              "source": "The ideal Gaussian observation and posterior stage underpin recursive correctness.",
+              "lean": "Construct globally measurable T,H,B before every state distribution; B retains s and B composed with nu compProd H equals nu compProd T.",
+              "classification": "source-implicit",
+              "reason": "Joint normalized parameter kernel, state-dependent Gaussian law and full joint recovery are proved rather than assumed or selected pointwise."
+            },
+            {
+              "source": "The interface selects eta for each fixed call input and supplies a sample; the full algorithm recurses, terminates with FORS and has discrepancy/cost guarantees.",
+              "lean": "Exact ideal nu compProd H input for measurable current-state parameters, fixed conditional on the call input.",
+              "classification": "API-limitation",
+              "reason": "Actual output sampler kernels, recursion and stopping, terminal implementation, accuracy and expected costs remain open. This is a required kernel semantics edge, not full Algorithm3.3."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
