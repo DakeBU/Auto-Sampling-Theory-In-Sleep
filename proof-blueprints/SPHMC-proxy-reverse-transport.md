@@ -9,3 +9,5 @@ Call truncated_proxy once; extract actual Pdag=gamma.map T and Gamma=gamma.map(T
 Root sole writer; GaussianMixture remains sole STABILIZING. Emit the bounded publication packet before any Lean development.
 
 Production focused and independent replay PASS3729, standard three axioms. Single actual proxy precedes all tau,q with exact constants. PROVED_LOCAL only; formal source/fixed-commit admission and reader delivery pending.
+
+Independent fixed-commit VERIFIED at d16398d01018b0990d10ff6ca7fbbff5b2144055. Root now sole STABILIZING owner; aggregate and original reader/graph delivery pending. Full paper Goal remains active.

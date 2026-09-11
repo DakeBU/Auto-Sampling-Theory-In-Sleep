@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Lemmas6.2 and6.3(ii), truncation plus reverse-transport composition",
   "target_statement": "From the actual infimum p-displacement transportCost(P,Q)<=ofReal(r^p), p>=2,r>=0,0<delta<1, construct a single probability proxy Pdag and actual probability coupling Gamma(Pdag,Q), eventwise TV(P,Pdag)<=delta and displacement<=r delta^(-1/p). For this same proxy and coupling, for every tau>0 and real q>1 prove actual GaussianSmoothing absolute continuity, ENNReal RN power bound and real power integrability/exponential bound exp(q(q-1)r^2/(2 tau delta^(2/p))), and normalized log bound q r^2/(2 tau delta^(2/p)).",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-truncation",
     "ASTIS-SW-SPHMC-gaussian-mixture"
@@ -38,10 +38,11 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-proxy-reverse-transport.md",
     "planning_review": "Independent depth_commit_verifier primary/source route audit: legitimate integration-node eliminating supplied coupling and retaining same witness before forall tau,q; inherited p>=2 and raw-cost API boundary explicit.",
-    "execution_boundary": "Root sole writer. Mixture PR261 merged; proxy PROVED_LOCAL only.",
+    "execution_boundary": "Root sole writer and sole STABILIZING owner; Mixture PR261 merged.",
     "ownership_note": "One actual source consumer; no invented shared-floor second consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/proxy-reverse-transport.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL; formal source/fixed-commit admission and integrated reader delivery pending."
+    "admission_boundary": "VERIFIED at d16398d01018b0990d10ff6ca7fbbff5b2144055; aggregate and reader/graph pending.",
+    "independent_verification": "runs/20260911-companion-priority/proxy-reverse-transport.verified-admission.json"
   },
   "blocked": {
     "reason": "",
