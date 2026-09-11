@@ -1,0 +1,58 @@
+{
+  "commit": "34340bf3d1d87e4882839a30df9aeb00895cffa8",
+  "source_digest": "47955a217bcecc8753a62fff1d40447d711adbc1a93f23014e8fe995f2d6f0a8",
+  "aggregate": {
+    "command": "python tools/astis.py check",
+    "exit_code": 0,
+    "jobs": 9154,
+    "log": ".astis/smooth-gradient-arc-integration-gate.log"
+  },
+  "site": {
+    "build_exit_code": 0,
+    "check_exit_code": 0,
+    "modules": 624,
+    "declarations": 3785,
+    "reviewed_teaching": 77,
+    "build_log": ".astis/smooth-gradient-arc-site-build.log",
+    "check_log": ".astis/smooth-gradient-arc-site-check.log"
+  },
+  "browser": {
+    "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-smooth-gradient-arc-moment",
+    "fresh_query": "qa=34340bf",
+    "displayed_commit": "34340bf3d1d8",
+    "steps": 6,
+    "initially_closed_disclosures": 9,
+    "math_errors": 0,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Exact module and namespace context"
+    ],
+    "statement_characters": 861,
+    "proof_characters": 2295,
+    "card_labels": [
+      "Compiled",
+      "Not mapped"
+    ]
+  },
+  "graph": {
+    "report": ".astis/smooth-gradient-arc-graph-check.json",
+    "nodes": 5,
+    "edges": 3,
+    "direct_relations": 2,
+    "observed": "Actual browser Fit action and screenshot inspected. Owning module structural edge and companion source-correspondence edge are distinct. Public node remains partial/source-present, not a fabricated compiled badge. Exact module/reader and accepted audit are linked."
+  },
+  "pr": 279,
+  "ci": {
+    "lean_run": 34600706420,
+    "lean_status": "success",
+    "site_run": 34600706409,
+    "site_status": "success"
+  },
+  "boundary": "Exact-candidate local integration, independent review and both PR CI passed. Actual merge separately confirmed; post-merge CI/deployment remain pending.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "result": "Fixed34340bf accepted: preserved root imports, unchanged VERIFIED proof/binding, independently recomputed digest, PASS9154/site evidence and root-recorded actual UI provenance. No repeated full compile."
+  }
+}

@@ -34,6 +34,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping
 
 /-!
 # ASTIS example cases

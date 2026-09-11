@@ -1,8 +1,5 @@
 {
-  "remaining": [
-    "Aggregate integration and exact-candidate reader/graph QA",
-    "PR CI, merge and actual deployment"
-  ],
+  "remaining": [],
   "local_check": {
     "log": ".astis/smooth-gradient-arc-scratch.log",
     "exit_code": 0,
@@ -15,10 +12,10 @@
   },
   "development_result": "Complete actual smooth-gradient arc consumer compiles: true derivative/gradient, actual independent Gaussian input and arc velocity, source norm initialization, measurable and integrable exponential estimator, factor2 MGF and log2 bound.",
   "scratch_sha256": "79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "scratch": ".astis/SmoothGradientArcMoment.lean",
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
-  "boundary": "Production and fixed-commit independent focused proof pass; fresh anonymous reconstruction complete. Formal source review pending; private implementation publication gate correctly remains closed. Neither paper main result is complete.",
+  "boundary": "Actual merge Lean CI, website build/deployment and exact live reader/card provenance passed. This is one dependency proof edge; both paper main results remain incomplete.",
   "independent_quadratic_core": {
     "result": "Independent compile and mathematical development review accepted; no integrability circularity; final finite moment retains t<1/2.",
     "reviewer": "depth_commit_verifier",
@@ -79,5 +76,40 @@
     "merge": "3e16b71",
     "log_resolution": "9f8f38f",
     "boundary": "First local merge commit contained log conflict markers after failed prefix assumption; repaired before acceptance, without rewriting history. Both parents entire records preserved by Counter union; root actual GaussianArc MERGED retained. Publication53/frontier75/semantic67+3 pass. Aggregate pending."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/279",
+    "commit": "bfd7aaf36b9c64d40d8e1503e383de089949b667",
+    "merged_at": "2026-09-11T13:00:29Z",
+    "candidate": "34340bf3d1d87e4882839a30df9aeb00895cffa8",
+    "post_merge": "Merge Lean34601902305 and Site34601902173 succeeded; deploy103272074272 succeeded; exactbfd7aaf original reader/card provenance verified."
+  },
+  "local_qa": "runs/20260911-companion-priority/smooth-gradient-arc-moment.local-qa.json",
+  "post_merge_delivery": {
+    "merge_commit": "bfd7aaf36b9c64d40d8e1503e383de089949b667",
+    "merge_lean": {
+      "run": 34601902305,
+      "status": "success"
+    },
+    "merge_site": {
+      "run": 34601902173,
+      "status": "success",
+      "deployment_job": 103272074272
+    },
+    "live": {
+      "merge_commit": "bfd7aaf36b9c64d40d8e1503e383de089949b667",
+      "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchor": "sphmc-smooth-gradient-arc-moment",
+      "deployed_provenance": true,
+      "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-smoothgradientarcmoment.html",
+      "card_http_status": 200,
+      "card_labels": [
+        "Partial",
+        "Not mapped"
+      ],
+      "boundary": "Actual deployed commit, HTTP status, original anchor and labels verified. Local visual checks and candidate CI remain separately pinned."
+    },
+    "boundary": "Actual merge Lean CI, website build/deployment and exact live reader/card provenance passed. This is one dependency proof edge; both paper main results remain incomplete."
   }
 }

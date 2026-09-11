@@ -1,0 +1,78 @@
+{
+  "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
+  "state": "STABILIZING",
+  "remaining": [
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
+  ],
+  "boundary": "Complete production theorem locally compiled; full scratch independently development-reviewed. EXPLORING until publication/source admission; target identification, normalized accuracy and costs remain outside. Neither paper main result complete.",
+  "scratch": ".astis/SmoothGradientArcClipping.lean",
+  "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
+  "development_result": "Complete actual estimator clipping-excess theorem compiled. Source parameter lower bound, MGF range, exact min exponent, actual parent estimator alignment, measurable excess and integrability-before-integral comparison all proved.",
+  "local_check": {
+    "command": "lake env lean .astis/SmoothGradientArcClipping.lean",
+    "exit_code": 0,
+    "log": ".astis/smooth-gradient-arc-clipping-scratch.log"
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcClipping.lean",
+    "test": "Tests/SmoothedPicardHMCSmoothGradientArcClipping.lean",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcClipping.lean": "a9294cbfda5c53804095c49fa02a3bb763e59447125bdc8be20f18c4b9ed67b6",
+      "Tests/SmoothedPicardHMCSmoothGradientArcClipping.lean": "8dd99ff577f77bb34c775180dded0f66a64277d817ddbbf46952e82db69e7f3a"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCSmoothGradientArcClipping",
+    "focused_log": ".astis/smooth-gradient-arc-clipping-focused.log",
+    "result": "PASS3121; standard three axioms; no lint",
+    "public_declarations": 1,
+    "private_implementations": 6
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
+    "result": "Independent complete compile exit0, standard three axioms, no lint. Actual same W/input/arc consumer accepted; pointwise nonnegative domination before integral, source caps and exact40/8/factor2 checked. No VERIFIED."
+  },
+  "expanded_statement": {
+    "file": ".astis/smooth-gradient-arc-clipping-expanded-statement.txt",
+    "sha256": "c5357edb19582fcb44c247f5b7b084e967a9013f2cd32e68ed401e7ec5dd0ce0",
+    "characters": 1853,
+    "definitionally_equal": true
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
+    "result": "Read-only full source preaudit accepted actual W/input, positive eta/beta/B/d and ell>=2, center and source step condition, exact40/8/factor2 constants, and integrability before integral. No missing condition or proposed repair. No independent compile or formal admission.",
+    "disclosures": [
+      "Finite-dimensional inner-product domain and all-real r extend Euclidean/unit-time source.",
+      "This packet retains positive dimension and beta; it does not claim their zero cases.",
+      "Arbitrary residual-controlled h; no source center/reference construction.",
+      "Fixed r only; no joint parameter measurability or uniform-r integration theorem.",
+      "Arbitrary positive B does not imply uniform constant cost; later source consumer uses B=Theta(1).",
+      "Unclipped mean identity, clipped target law, Renyi accuracy and actual query cost remain open."
+    ]
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "ce585dad6d4eb56c6099ba682e1a00d61e576be7",
+    "result": "Independent focused PASS3121; standard three axioms; production body identical to reviewed scratch after namespace, documentation, print and public-name normalization. Actual parent MGF, same estimator/input, integrability and constants checked. No VERIFIED before formal source admission."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-smooth-gradient-arc-clipping.json",
+    "state": "Five authored steps accepted; publication PASS54."
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCSmoothGradientArcClipping"
+    ]
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
+  "admission_boundary": "VERIFIED at09c24a2. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.verified-admission.json",
+  "integration_notes": {
+    "upstream": "41dc7d283960a8892df37e4b73942928c3fc38f3",
+    "merge": "c5c99a639a702d7a23028b8879d4ed48ce5c848c",
+    "boundary": "Three-way registry union70 audits; Counter max event union403 preserves both branches. Publication56/frontier78 pass. Independent merge review and aggregate gate separate."
+  }
+}

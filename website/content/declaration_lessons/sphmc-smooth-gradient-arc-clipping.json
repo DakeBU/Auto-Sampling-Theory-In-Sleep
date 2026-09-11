@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
+      "title": "Actual smooth gradient-arc clipping excess",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "Appendix D.1 Claim 2, smooth s=1",
+          "scope": "Explicit clipping-excess exponential bound for the actual gradient estimator."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.4(2)",
+          "scope": "Terminal gradient-estimator approximation consumer."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCSmoothGradientArcClipping"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner product space with its Borel measurable structure and positive real dimension d=finrank(E). The real-valued function f is differentiable everywhere, and its actual gradient is beta-Lipschitz.",
+        "eta,beta,B>0, ell>=2, and 64 beta^2(ell*d/B+ell^2)<=1/eta^2. All denominators in the conclusion are strictly positive.",
+        "h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta). The independent input law is mu=N(h,eta I) product N(0,eta I), represented by the affine pushforwards of standard Gaussian.",
+        "For a fixed real r, theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)>, tau_B(w)=max(abs(w)-B,0), and F_r=exp(2ell*tau_B(W_r))-1."
+      ],
+      "statement": "W_r and F_r are measurable, F_r is integrable under the actual input law mu, and its integral is at most 2 exp(-min(B^2/(40 beta^2 d eta^2),B/(8 beta eta))).",
+      "formula": "\\mathbb E_\\mu\\!\\left[e^{2\\ell\\tau_B(W_r)}-1\\right]\\le2\\exp\\!\\left[-\\min\\!\\left\\{\\frac{B^2}{40\\beta^2d\\eta^2},\\frac{B}{8\\beta\\eta}\\right\\}\\right],\\quad\\tau_B(w)=(|w|-B)_+.",
+      "boundary": "This is the fixed-r smooth Claim 2 clipping-excess moment for the actual estimator. The finite-dimensional inner-product domain and all-real r are disclosed extensions; positive dimension and beta are retained. Constructing h=x0-eta grad f(x_plus), joint time measurability and averaging over random uniform time, unclipped mean identification, the clipped target law, normalized Renyi accuracy, initialization and actual query costs remain separate. Arbitrary B>0 does not imply a uniform constant-cost statement; later source use sets B=Theta(1). The parent factor2 moment is used, without silently repairing printed Claim 1.",
+      "steps": [
+        {
+          "title": "Choose a parameter that lies in both required ranges",
+          "text": "Let A=beta^2 d eta^2 and choose lambda as the minimum below. Multiply the step-size inequality by the positive eta^2. Its two nonnegative terms imply 8 beta eta ell<=1 and 64 beta^2 ell d eta^2<=B. These give 2ell below each cap, hence below their minimum. The first cap also ensures the previously proved moment theorem applies.",
+          "formula": "\\lambda=\\min\\!\\left\\{\\frac1{4\\beta\\eta},\\frac B{20A}\\right\\}\\ge2\\ell,\\qquad12\\beta^2\\eta^2\\lambda^2\\le1.",
+          "lean": "clipping_parameter_lower; clipping_parameter_bounds"
+        },
+        {
+          "title": "Dominate the clipping excess pointwise",
+          "text": "If abs(w)<=B, the excess is zero. Otherwise tau_B(w)=abs(w)-B>=0; since 2ell<=lambda, increasing the exponent and dropping the subtractive one gives the displayed bound. The left side is nonnegative because ell and tau_B are nonnegative.",
+          "formula": "0\\le e^{2\\ell\\tau_B(w)}-1\\le e^{-\\lambda B}e^{\\lambda|w|}.",
+          "lean": "clipping_exp_domination"
+        },
+        {
+          "title": "Apply the moment theorem to the same actual estimator",
+          "text": "The gradient is continuous by its Lipschitz hypothesis, so the explicit arc formula makes W_r measurable. Invoke the actual smooth gradient-arc moment theorem with the chosen lambda. Its source center condition is exactly the present one; definitional equality identifies the same velocity, gradient difference and original independent Gaussian product input. No new independence or exponential-integrability premise is assumed.",
+          "formula": "\\mathbb E_\\mu e^{\\lambda|W_r|}\\le2e^{10A\\lambda^2},\\qquad e^{\\lambda|W_r|}\\in L^1(\\mu).",
+          "lean": "smooth_gradient_arc_clipping; SmoothGradientArcMoment.smooth_gradient_arc_moment"
+        },
+        {
+          "title": "Establish integrability before comparing expectations",
+          "text": "The right-hand side of the pointwise inequality is an integrable constant multiple of the proved moment integrand. Measurability and nonnegative domination establish integrability of F_r first. Integral monotonicity and the constant-multiple identity then yield the exponential bound.",
+          "formula": "\\mathbb E_\\mu F_r\\le e^{-\\lambda B}\\mathbb E_\\mu e^{\\lambda|W_r|}\\le2e^{10A\\lambda^2-B\\lambda}.",
+          "lean": "clipping_integral_domination; Integrable.mono'; integral_mono; integral_const_mul"
+        },
+        {
+          "title": "Recover the two explicit source scales",
+          "text": "The second cap implies 20A lambda<=B. Multiplying by nonnegative lambda gives 10A lambda^2-B lambda<=-B lambda/2. Multiplication by positive B/2 commutes with the minimum; cancellation of the strictly positive denominators gives precisely the two scales. Exponential monotonicity finishes the claim.",
+          "formula": "10A\\lambda^2-B\\lambda\\le-\\frac{B\\lambda}{2}=-\\min\\!\\left\\{\\frac{B^2}{40A},\\frac B{8\\beta\\eta}\\right\\}.",
+          "lean": "clipping_parameter_bounds; mul_min_of_nonneg; min_div_div_right; Real.exp_le_exp"
+        }
+      ],
+      "lean_statement": "Actual fixed-time gradient clipping-excess measurability, integrability and explicit source two-scale exponential bound.",
+      "lean_proof": "Source parameter caps, pointwise nonnegative domination, actual parent MGF, integrable comparison and exact minimum algebra.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Integrable.mono'",
+        "MeasureTheory.integral_mono",
+        "MeasureTheory.integral_const_mul",
+        "mul_min_of_nonneg",
+        "min_div_div_right",
+        "Real.exp_le_exp"
+      ]
+    }
+  ]
+}

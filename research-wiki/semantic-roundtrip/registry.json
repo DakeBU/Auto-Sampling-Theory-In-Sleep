@@ -17556,6 +17556,295 @@
         ],
         "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/decoder-result.json"
       }
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCSmoothGradientArcClipping",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-smooth-gradient-arc-clipping",
+        "anchor": "Appendix D.1 Claim2, smooth s=1; consumed by SPHMC Appendix A.4(2)",
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "original_text": "E is a finite-dimensional real inner product space with its Borel measurable structure and positive real dimension d=finrank(E). The real-valued function f is differentiable everywhere, and its actual gradient is beta-Lipschitz.\neta,beta,B>0, ell>=2, and 64 beta^2(ell*d/B+ell^2)<=1/eta^2. All denominators in the conclusion are strictly positive.\nh,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta). The independent input law is mu=N(h,eta I) product N(0,eta I), represented by the affine pushforwards of standard Gaussian.\nFor a fixed real r, theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)>, tau_B(w)=max(abs(w)-B,0), and F_r=exp(2ell*tau_B(W_r))-1.\nW_r and F_r are measurable, F_r is integrable under the actual input law mu, and its integral is at most 2 exp(-min(B^2/(40 beta^2 d eta^2),B/(8 beta eta))).",
+        "text_sha256": "9b390c3831c7875e4d1c23374c8e93b318189ea9ced34b136c82cd04927f2f0d"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcClipping.lean",
+        "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (f : E → ℝ),\n  Differentiable ℝ f →\n    ∀ (eta beta B ell : ℝ),\n      0 < eta →\n        ∀ (hbeta : 0 < beta),\n          0 < B →\n            2 ≤ ell →\n              0 < ↑(Module.finrank ℝ E) →\n                LipschitzWith ⟨beta, LT.lt.le hbeta⟩ (gradient f) →\n                  ∀ (h xp : E) (r : ℝ),\n                    ‖h - xp‖ ≤ √(↑(Module.finrank ℝ E) * eta) →\n                      64 * beta ^ 2 * (ell * ↑(Module.finrank ℝ E) / B + ell ^ 2) ≤ 1 / eta ^ 2 →\n                        have mu :=\n                          (MeasureTheory.Measure.map (fun z => h + √eta • z) (ProbabilityTheory.stdGaussian E)).prod\n                            (MeasureTheory.Measure.map (fun z => √eta • z) (ProbabilityTheory.stdGaussian E));\n                        have W := fun p =>\n                          Inner.inner ℝ\n                            ((Real.pi / 2) •\n                              (Real.cos (Real.pi / 2 * r) • (p.1 - h) - Real.sin (Real.pi / 2 * r) • p.2))\n                            (gradient f xp -\n                              gradient f\n                                (h + Real.sin (Real.pi / 2 * r) • (p.1 - h) + Real.cos (Real.pi / 2 * r) • p.2));\n                        have F := fun p => Real.exp (2 * ell * Max.max (|W p| - B) 0) - 1;\n                        Measurable W ∧\n                          Measurable F ∧\n                            MeasureTheory.Integrable F mu ∧\n                              ∫ (p : E × E), F p ∂mu ≤\n                                2 *\n                                  Real.exp\n                                    (-Min.min (B ^ 2 / (40 * beta ^ 2 * ↑(Module.finrank ℝ E) * eta ^ 2))\n                                        (B / (8 * beta * eta)))",
+        "statement_sha256": "c5357edb19582fcb44c247f5b7b084e967a9013f2cd32e68ed401e7ec5dd0ce0",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Fixed production ce585dad6d4eb56c6099ba682e1a00d61e576be7 independently focused PASS3121 by depth_commit_verifier; standard three axioms, no lint and no fake closure. Complete scratch proof independently reviewed. Meta.deltaExpand and Meta.isDefEq succeeded for both actual path definitions. Formal source admission remains separate.",
+        "decoder_context": [
+          "stdGaussian E is the centered identity-covariance Gaussian probability measure on the finite-dimensional real inner-product space E. Measure.map is actual pushforward and Measure.prod is independent product.",
+          "gradient f is the real inner-product gradient operator; Differentiable means differentiability at every point. LipschitzWith beta bounds the output distance by beta times the input distance.",
+          "Module.finrank is the finite real dimension. Real.sqrt is the nonnegative square root. Max.max and Min.min are ordinary maximum and minimum of real numbers. Integrable is Bochner integrability; all displayed integrals and exponentials are real-valued.",
+          "All local path definitions have been expanded from the compiled theorem type and Lean checked definitional equality."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "6721cde20d8b61d61728db3284e5fd5765b9ef218de6c8ea8375d6cf220db0dd",
+        "review_run_sha256": "36a31cfb821afafedffb9f32dd62411a6ad4f6794ed128f948fcd275030cf255",
+        "run_artifact": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.source-review-result.json",
+        "evidence": "Independent primary-source review accepted seven slots, five authored steps, six informational differences and all six private implementations. Source D.1 Claim2 and SPHMC A.4(2) consumer independently checked. Canonical packet, source, statement, reconstruction, embedded module and raw production/test hashes recomputed; lesson/publication/context checked. External binding preimage, decoder artifact hashes, compilation, Meta.isDefEq and fixed-commit admission remain separate verifier obligations. Disclosed domain/time/center extensions accepted, not full-paper equivalence."
+      },
+      "publication_binding_sha256": "c88a1d373736de86779f3363dfae4e5bbc6c862db66e979f555f284f73d7911d",
+      "publication_context": {
+        "file": "97db509a522f0048383553cf18742a19f48f4f18f55345bfa648078d60dbffd9",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment\nimport Mathlib.Analysis.SpecialFunctions.Log.Basic\n\n/-! Actual smooth gradient-arc clipping excess, from arXiv:2602.01338v1 D.1\nClaim 2 (smooth s=1), consumed by SPHMC Appendix A.4(2).\nThe same actual estimator and independent input law feed the moment bound.\nAll-real time is a disclosed extension. Reference-point construction, target\nmean identification, normalized accuracy and query costs remain separate. -/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping\n\nopen MeasureTheory ProbabilityTheory\nnoncomputable section\n\nprivate theorem clipping_exp_domination (w B ell lam : ℝ)\n    (hell : 0 ≤ ell) (hlam : 2*ell ≤ lam) :\n    0 ≤ Real.exp (2*ell*max (|w|-B) 0)-1 ∧\n    Real.exp (2*ell*max (|w|-B) 0)-1 ≤\n      Real.exp (-lam*B)*Real.exp (lam*|w|) := by\n  have ht : 0 ≤ max (|w|-B) 0 := le_max_right _ _\n  constructor\n  · exact sub_nonneg.mpr (Real.one_le_exp (mul_nonneg (by positivity) ht))\n  · by_cases hw : |w| ≤ B\n    · rw [max_eq_right (sub_nonpos.mpr hw), mul_zero, Real.exp_zero, sub_self]\n      positivity\n    · have hp : 0 ≤ |w|-B := sub_nonneg.mpr (le_of_not_ge hw)\n      rw [max_eq_left hp]\n      calc\n        Real.exp (2*ell*(|w|-B))-1 ≤ Real.exp (2*ell*(|w|-B)) := by linarith\n        _ ≤ Real.exp (lam*(|w|-B)) :=\n          Real.exp_le_exp.mpr (mul_le_mul_of_nonneg_right hlam hp)\n        _ = Real.exp (-lam*B)*Real.exp (lam*|w|) := by\n          rw [← Real.exp_add]\n          congr 1\n          ring\n\n\nprivate theorem clipping_integral_domination {X : Type*} [MeasurableSpace X]\n    (mu : Measure X) (W : X → ℝ) (hW : Measurable W)\n    (B ell lam : ℝ) (hell : 0 ≤ ell) (hlam : 2*ell ≤ lam)\n    (hi : Integrable (fun x => Real.exp (lam*|W x|)) mu) :\n    Integrable (fun x => Real.exp (2*ell*max (|W x|-B) 0)-1) mu ∧\n    (∫ x, Real.exp (2*ell*max (|W x|-B) 0)-1 ∂mu) ≤\n      Real.exp (-lam*B)*(∫ x, Real.exp (lam*|W x|) ∂mu) := by\n  have hm : Measurable (fun x => Real.exp (2*ell*max (|W x|-B) 0)-1) := by fun_prop\n  have hd := hi.const_mul (Real.exp (-lam*B))\n  have hI : Integrable (fun x => Real.exp (2*ell*max (|W x|-B) 0)-1) mu := by\n    apply hd.mono' hm.aestronglyMeasurable\n    filter_upwards [] with x\n    rw [Real.norm_eq_abs, abs_of_nonneg (clipping_exp_domination (W x) B ell lam hell hlam).1]\n    exact (clipping_exp_domination (W x) B ell lam hell hlam).2\n  refine ⟨hI, ?_⟩\n  rw [← integral_const_mul]\n  exact integral_mono hI hd (fun x => (clipping_exp_domination (W x) B ell lam hell hlam).2)\n\n\nprivate theorem clipping_parameter_lower (eta beta B ell d : ℝ)\n    (heta : 0 < eta) (hbeta : 0 < beta) (hB : 0 < B) (hell : 0 ≤ ell) (hd : 0 < d)\n    (hstep : 64*beta^2*(ell*d/B+ell^2) ≤ 1/eta^2) :\n    2*ell ≤ min (1/(4*beta*eta)) (B/(20*beta^2*d*eta^2)) := by\n  have ht := (le_div_iff₀ (sq_pos_of_pos heta)).mp hstep\n  have hterm : 0 ≤ 64*beta^2*(ell*d/B)*eta^2 := by positivity\n  have hs : (8*beta*eta*ell)^2 ≤ 1 := by nlinarith [ht]\n  have ha : 8*beta*eta*ell ≤ 1 := by nlinarith [sq_nonneg (8*beta*eta*ell-1)]\n  have hfirst : 2*ell ≤ 1/(4*beta*eta) := by\n    apply (le_div_iff₀ (by positivity : 0 < 4*beta*eta)).mpr\n    nlinarith [ha]\n  have htB := mul_le_mul_of_nonneg_right ht hB.le\n  have heq : (64*beta^2*(ell*d/B+ell^2)*eta^2)*B =\n      64*beta^2*ell*d*eta^2+64*beta^2*ell^2*eta^2*B := by\n    field_simp\n  rw [heq] at htB\n  have hsecond : 2*ell ≤ B/(20*beta^2*d*eta^2) := by\n    apply (le_div_iff₀ (by positivity : 0 < 20*beta^2*d*eta^2)).mpr\n    have hp : 0 ≤ beta^2*ell^2*eta^2*B := by positivity\n    have hp' : 0 ≤ beta^2*ell*d*eta^2 := by positivity\n    nlinarith [htB]\n  exact le_min hfirst hsecond\n\n\nprivate theorem clipping_parameter_bounds (eta beta B ell d : ℝ)\n    (heta : 0 < eta) (hbeta : 0 < beta) (hB : 0 < B) (hell : 0 ≤ ell) (hd : 0 < d)\n    (hstep : 64*beta^2*(ell*d/B+ell^2) ≤ 1/eta^2) :\n    let lam := min (1/(4*beta*eta)) (B/(20*beta^2*d*eta^2))\n    0 ≤ lam ∧ 2*ell ≤ lam ∧ 12*beta^2*eta^2*lam^2 ≤ 1 ∧\n    10*d*eta^2*lam^2*beta^2-B*lam ≤\n      -min (B^2/(40*beta^2*d*eta^2)) (B/(8*beta*eta)) := by\n  let lam := min (1/(4*beta*eta)) (B/(20*beta^2*d*eta^2))\n  have hlower := clipping_parameter_lower eta beta B ell d heta hbeta hB hell hd hstep\n  have hl : 0 ≤ lam := (by positivity : (0 : ℝ) ≤ 2*ell).trans hlower\n  have hc1 : lam ≤ 1/(4*beta*eta) := min_le_left _ _\n  have hc2 : lam ≤ B/(20*beta^2*d*eta^2) := min_le_right _ _\n  have hp1 := (le_div_iff₀ (by positivity : 0 < 4*beta*eta)).mp hc1\n  have hp2 := (le_div_iff₀ (by positivity : 0 < 20*beta^2*d*eta^2)).mp hc2\n  have hs : (lam*(4*beta*eta))^2 ≤ 1^2 :=\n    (sq_le_sq₀ (by positivity) (by norm_num)).mpr hp1\n  have hr : 12*beta^2*eta^2*lam^2 ≤ 1 := by\n    have hn : 0 ≤ beta^2*eta^2*lam^2 := by positivity\n    nlinarith [hs]\n  have he : 10*d*eta^2*lam^2*beta^2-B*lam ≤ -B*lam/2 := by\n    have hh := mul_le_mul_of_nonneg_right hp2 hl\n    nlinarith [hh]\n  have hmin : B*lam/2 = min (B^2/(40*beta^2*d*eta^2)) (B/(8*beta*eta)) := by\n    change B*min (1/(4*beta*eta)) (B/(20*beta^2*d*eta^2))/2 = _\n    rw [mul_min_of_nonneg _ _ hB.le]\n    rw [← min_div_div_right (by norm_num : (0 : ℝ) ≤ 2)]\n    rw [min_comm]\n    congr 1 <;> field_simp <;> ring\n  refine ⟨hl, hlower, hr, ?_⟩\n  calc\n    _ ≤ -B*lam/2 := he\n    _ = _ := by rw [neg_mul, neg_div, hmin]\n\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\nprivate def clipArc (h : E) (r : ℝ) (p : E × E) : E :=\n  h + Real.sin (Real.pi/2*r) • (p.1-h) + Real.cos (Real.pi/2*r) • p.2\n\nprivate def clipVelocity (h : E) (r : ℝ) (p : E × E) : E :=\n  (Real.pi/2) • (Real.cos (Real.pi/2*r) • (p.1-h) - Real.sin (Real.pi/2*r) • p.2)\n\n/-- Measurability, integrability and the explicit two-scale exponential bound\nfor the actual gradient estimator clipping excess under the source step range. -/\ntheorem smooth_gradient_arc_clipping (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta B ell : ℝ) (heta : 0 < eta) (hbeta : 0 < beta) (hB : 0 < B)\n    (hell : 2 ≤ ell) (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (hlip : LipschitzWith ⟨beta,hbeta.le⟩ (gradient f)) (h xp : E) (r : ℝ)\n    (hcenter : ‖h-xp‖ ≤ Real.sqrt ((Module.finrank ℝ E : ℝ)*eta))\n    (hstep : 64*beta^2*(ell*(Module.finrank ℝ E : ℝ)/B+ell^2) ≤ 1/eta^2) :\n    let mu := ((stdGaussian E).map (fun z : E => h+Real.sqrt eta • z)).prod\n      ((stdGaussian E).map (fun z : E => Real.sqrt eta • z))\n    let W := fun p : E × E => inner ℝ (clipVelocity h r p)\n      (gradient f xp-gradient f (clipArc h r p))\n    let F := fun p : E × E => Real.exp (2*ell*max (|W p|-B) 0)-1\n    Measurable W ∧ Measurable F ∧ Integrable F mu ∧\n    (∫ p, F p ∂mu) ≤ 2*Real.exp (-min\n      (B^2/(40*beta^2*(Module.finrank ℝ E : ℝ)*eta^2)) (B/(8*beta*eta))) := by\n  let d := (Module.finrank ℝ E : ℝ)\n  let lam := min (1/(4*beta*eta)) (B/(20*beta^2*d*eta^2))\n  let mu := ((stdGaussian E).map (fun z : E => h+Real.sqrt eta • z)).prod\n      ((stdGaussian E).map (fun z : E => Real.sqrt eta • z))\n  let W := fun p : E × E => inner ℝ (clipVelocity h r p)\n      (gradient f xp-gradient f (clipArc h r p))\n  have hell0 : 0 ≤ ell := by linarith\n  obtain ⟨hl,hll,hrange,he⟩ := clipping_parameter_bounds eta beta B ell d heta hbeta hB hell0 hd hstep\n  change 0 ≤ lam at hl\n  change 2*ell ≤ lam at hll\n  change 12*beta^2*eta^2*lam^2 ≤ 1 at hrange\n  have hW : Measurable W := by\n    have hg := hlip.continuous.measurable\n    dsimp [W,clipVelocity,clipArc]\n    fun_prop\n  obtain ⟨_,_,hi,hv,_⟩ :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment\n      f hf eta beta lam heta hbeta.le hl hlip h xp r hcenter hrange\n  change Integrable (fun p => Real.exp (lam*|W p|)) mu at hi\n  change (∫ p, Real.exp (lam*|W p|) ∂mu) ≤ 2*Real.exp (10*d*eta^2*lam^2*beta^2) at hv\n  obtain ⟨hI,hv'⟩ := clipping_integral_domination mu W hW B ell lam hell0 hll hi\n  refine ⟨hW, ?_, hI, hv'.trans ?_⟩\n  · change Measurable (fun p => Real.exp (2*ell*max (|W p|-B) 0)-1)\n    fun_prop\n  · calc\n      _ ≤ Real.exp (-lam*B)*(2*Real.exp (10*d*eta^2*lam^2*beta^2)) :=\n        mul_le_mul_of_nonneg_left hv (Real.exp_nonneg _)\n      _ = 2*Real.exp (10*d*eta^2*lam^2*beta^2-B*lam) := by\n        rw [← mul_assoc, mul_comm (Real.exp (-lam*B)) 2, mul_assoc, ← Real.exp_add]\n        congr 2\n        ring\n      _ ≤ _ := by\n        apply mul_le_mul_of_nonneg_left _ (by norm_num : (0 : ℝ) ≤ 2)\n        exact Real.exp_le_exp.mpr he\n\n\nend\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "edition": "arXiv:2602.01338v1",
+          "anchor": "Appendix D.1 Claim2, smooth s=1; consumed by SPHMC Appendix A.4(2)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "ASTIS mathematical restatement and exposition of the actual smooth gradient-estimator clipping bound, used as a dependency of Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. The prior proof-supported factor2 moment is used without silently repairing the differing printed Claim1 log formula."
+        },
+        "statement": "W_r and F_r are measurable, F_r is integrable under the actual input law mu, and its integral is at most 2 exp(-min(B^2/(40 beta^2 d eta^2),B/(8 beta eta))).",
+        "formulae": [
+          {
+            "label": "Actual clipping-excess moment",
+            "tex": "\\mathbb E_\\mu\\!\\left[e^{2\\ell\\tau_B(W_r)}-1\\right]\\le2\\exp\\!\\left[-\\min\\!\\left\\{\\frac{B^2}{40\\beta^2d\\eta^2},\\frac{B}{8\\beta\\eta}\\right\\}\\right],\\quad\\tau_B(w)=(|w|-B)_+."
+          }
+        ],
+        "assumptions": [
+          "E is a finite-dimensional real inner product space with its Borel measurable structure and positive real dimension d=finrank(E). The real-valued function f is differentiable everywhere, and its actual gradient is beta-Lipschitz.",
+          "eta,beta,B>0, ell>=2, and 64 beta^2(ell*d/B+ell^2)<=1/eta^2. All denominators in the conclusion are strictly positive.",
+          "h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta). The independent input law is mu=N(h,eta I) product N(0,eta I), represented by the affine pushforwards of standard Gaussian.",
+          "For a fixed real r, theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)>, tau_B(w)=max(abs(w)-B,0), and F_r=exp(2ell*tau_B(W_r))-1."
+        ],
+        "obligations": [
+          {
+            "id": "smooth-gradient-arc-clipping",
+            "label": "Actual smooth clipping-excess moment before normalized target comparison"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
+          "title": "Actual smooth gradient-arc clipping excess",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2602.01338v1",
+              "label": "Appendix D.1 Claim 2, smooth s=1",
+              "scope": "Explicit clipping-excess exponential bound for the actual gradient estimator."
+            },
+            {
+              "url": "https://arxiv.org/html/2609.06906v1",
+              "label": "SPHMC Appendix A.4(2)",
+              "scope": "Terminal gradient-estimator approximation consumer."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCSmoothGradientArcClipping"
+          ],
+          "assumptions": [
+            "E is a finite-dimensional real inner product space with its Borel measurable structure and positive real dimension d=finrank(E). The real-valued function f is differentiable everywhere, and its actual gradient is beta-Lipschitz.",
+            "eta,beta,B>0, ell>=2, and 64 beta^2(ell*d/B+ell^2)<=1/eta^2. All denominators in the conclusion are strictly positive.",
+            "h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta). The independent input law is mu=N(h,eta I) product N(0,eta I), represented by the affine pushforwards of standard Gaussian.",
+            "For a fixed real r, theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)>, tau_B(w)=max(abs(w)-B,0), and F_r=exp(2ell*tau_B(W_r))-1."
+          ],
+          "statement": "W_r and F_r are measurable, F_r is integrable under the actual input law mu, and its integral is at most 2 exp(-min(B^2/(40 beta^2 d eta^2),B/(8 beta eta))).",
+          "formula": "\\mathbb E_\\mu\\!\\left[e^{2\\ell\\tau_B(W_r)}-1\\right]\\le2\\exp\\!\\left[-\\min\\!\\left\\{\\frac{B^2}{40\\beta^2d\\eta^2},\\frac{B}{8\\beta\\eta}\\right\\}\\right],\\quad\\tau_B(w)=(|w|-B)_+.",
+          "steps": [
+            {
+              "title": "Choose a parameter that lies in both required ranges",
+              "text": "Let A=beta^2 d eta^2 and choose lambda as the minimum below. Multiply the step-size inequality by the positive eta^2. Its two nonnegative terms imply 8 beta eta ell<=1 and 64 beta^2 ell d eta^2<=B. These give 2ell below each cap, hence below their minimum. The first cap also ensures the previously proved moment theorem applies.",
+              "formula": "\\lambda=\\min\\!\\left\\{\\frac1{4\\beta\\eta},\\frac B{20A}\\right\\}\\ge2\\ell,\\qquad12\\beta^2\\eta^2\\lambda^2\\le1.",
+              "lean": "clipping_parameter_lower; clipping_parameter_bounds"
+            },
+            {
+              "title": "Dominate the clipping excess pointwise",
+              "text": "If abs(w)<=B, the excess is zero. Otherwise tau_B(w)=abs(w)-B>=0; since 2ell<=lambda, increasing the exponent and dropping the subtractive one gives the displayed bound. The left side is nonnegative because ell and tau_B are nonnegative.",
+              "formula": "0\\le e^{2\\ell\\tau_B(w)}-1\\le e^{-\\lambda B}e^{\\lambda|w|}.",
+              "lean": "clipping_exp_domination"
+            },
+            {
+              "title": "Apply the moment theorem to the same actual estimator",
+              "text": "The gradient is continuous by its Lipschitz hypothesis, so the explicit arc formula makes W_r measurable. Invoke the actual smooth gradient-arc moment theorem with the chosen lambda. Its source center condition is exactly the present one; definitional equality identifies the same velocity, gradient difference and original independent Gaussian product input. No new independence or exponential-integrability premise is assumed.",
+              "formula": "\\mathbb E_\\mu e^{\\lambda|W_r|}\\le2e^{10A\\lambda^2},\\qquad e^{\\lambda|W_r|}\\in L^1(\\mu).",
+              "lean": "smooth_gradient_arc_clipping; SmoothGradientArcMoment.smooth_gradient_arc_moment"
+            },
+            {
+              "title": "Establish integrability before comparing expectations",
+              "text": "The right-hand side of the pointwise inequality is an integrable constant multiple of the proved moment integrand. Measurability and nonnegative domination establish integrability of F_r first. Integral monotonicity and the constant-multiple identity then yield the exponential bound.",
+              "formula": "\\mathbb E_\\mu F_r\\le e^{-\\lambda B}\\mathbb E_\\mu e^{\\lambda|W_r|}\\le2e^{10A\\lambda^2-B\\lambda}.",
+              "lean": "clipping_integral_domination; Integrable.mono'; integral_mono; integral_const_mul"
+            },
+            {
+              "title": "Recover the two explicit source scales",
+              "text": "The second cap implies 20A lambda<=B. Multiplying by nonnegative lambda gives 10A lambda^2-B lambda<=-B lambda/2. Multiplication by positive B/2 commutes with the minimum; cancellation of the strictly positive denominators gives precisely the two scales. Exponential monotonicity finishes the claim.",
+              "formula": "10A\\lambda^2-B\\lambda\\le-\\frac{B\\lambda}{2}=-\\min\\!\\left\\{\\frac{B^2}{40A},\\frac B{8\\beta\\eta}\\right\\}.",
+              "lean": "clipping_parameter_bounds; mul_min_of_nonneg; min_div_div_right; Real.exp_le_exp"
+            }
+          ],
+          "lean_statement": "Actual fixed-time gradient clipping-excess measurability, integrability and explicit source two-scale exponential bound.",
+          "lean_proof": "Source parameter caps, pointwise nonnegative domination, actual parent MGF, integrable comparison and exact minimum algebra.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment"
+          ],
+          "mathlib_dependencies": [
+            "MeasureTheory.Integrable.mono'",
+            "MeasureTheory.integral_mono",
+            "MeasureTheory.integral_const_mul",
+            "mul_min_of_nonneg",
+            "min_div_div_right",
+            "Real.exp_le_exp"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
+          "role": "proof-edge",
+          "supports": [
+            "smooth-gradient-arc-clipping"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Smooth s=1 Euclidean case with positive dimension and beta.",
+            "lean": "Finite-dimensional real inner-product Borel space with positive finrank and beta."
+          },
+          {
+            "source": "For each r in [0,1].",
+            "lean": "For each real r."
+          },
+          {
+            "source": "Source center h=x0-eta grad f(x_plus) with residual at most sqrt(d eta).",
+            "lean": "Arbitrary h,x_plus satisfying exactly this residual bound."
+          },
+          {
+            "source": "Positive eta,beta,B,d; ell>=2 in the surrounding theorem; 1/eta^2>=64 beta^2(ell*d/B+ell^2).",
+            "lean": "Exactly these inequalities, with d=finrank(E), differentiable f and its actual beta-Lipschitz gradient."
+          },
+          {
+            "source": "Expectation of exp(2ell tau_B(W))-1 bounded by2 exp(-min(B²/(40 beta² d eta²),B/(8 beta eta))).",
+            "lean": "Same actual input, clipping excess max(abs(W)-B,0) and constants; W and excess integrand measurable, integrand integrable."
+          },
+          {
+            "source": "Claim2 feeds Eq18 and normalized terminal approximation, later using B=Theta(1).",
+            "lean": "Fixed-time clipping-excess moment for arbitrary B>0 under the displayed step condition."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any finite-dimensional real inner-product space equipped with its Borel measurable structure, and write d = dim_R(E). Let f: E -> R be differentiable everywhere, and let eta, beta, B, ell be real numbers satisfying eta > 0, beta > 0, B > 0, ell >= 2, and d > 0. Assume that the gradient of f is globally beta-Lipschitz. For every h, xp in E and every r in R, assume ||h - xp|| <= sqrt(d * eta) and 64 * beta^2 * (ell * d / B + ell^2) <= 1 / eta^2. Let gamma be the centered identity-covariance Gaussian probability measure on E, and let mu be the product of the pushforward of gamma by z -> h + sqrt(eta) z and the pushforward of gamma by z -> sqrt(eta) z. For p = (x, y) in E x E, define W(p) = <(pi/2) * (cos(pi*r/2) * (x-h) - sin(pi*r/2) * y), gradient f(xp) - gradient f(h + sin(pi*r/2) * (x-h) + cos(pi*r/2) * y)> and F(p) = exp(2 * ell * max(|W(p)| - B, 0)) - 1. Then W and F are measurable, F is Bochner integrable with respect to mu, and the integral of F with respect to mu is at most 2 * exp(-min(B^2 / (40 * beta^2 * d * eta^2), B / (8 * beta * eta))).",
+        "text_sha256": "a93711a6c9fade3575d6b50f80ec9dedd1ca6f6292665e6aa59e48a826d109b6",
+        "decoder_packet_sha256": "b890400a1324afffa29f2684987a0e324c984b8ee198a46d488587b25aca824c",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "blind_reconstruction_j",
+        "notes": [
+          "No ambiguities reported by the independent decoder.",
+          "Only anonymous compiled type and approved mathematical definition context were supplied."
+        ],
+        "decoder_run_sha256": "70a9df209fee8fc196eaa66f5ccf8a5fe31b2718bc5825c4265a75d8a31afe33",
+        "lean_statement_sha256": "c5357edb19582fcb44c247f5b7b084e967a9013f2cd32e68ed401e7ec5dd0ce0",
+        "run_artifact": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual gradient-arc estimator, clipping excess and Gaussian product input.",
+          "reconstructed": "Explicit velocity paired with gradient difference, positive excess and affine standard-Gaussian product maps.",
+          "relation": "explicit-elaboration",
+          "evidence": "Expanded type exposes both private semantic definitions; actual same W and mu consumed by parent."
+        },
+        "domains": {
+          "original": "Euclidean smooth s=1 with positive dimension and beta.",
+          "reconstructed": "Finite-dimensional real inner-product Borel space with positive finrank and beta.",
+          "relation": "different",
+          "evidence": "Disclosed coordinate-free extension; no zero dimension or zero beta."
+        },
+        "quantifiers": {
+          "original": "Each r in [0,1] and source reference-center construction.",
+          "reconstructed": "Every real r and arbitrary h,xp satisfying residual bound.",
+          "relation": "stronger-in-lean",
+          "evidence": "Fixed-r result only; random-time integral and joint parameter kernel not asserted."
+        },
+        "assumptions": {
+          "original": "Positive eta,beta,B,d; ell>=2; smoothness, residual and step restriction.",
+          "reconstructed": "Differentiable f with actual beta-Lipschitz gradient and same numerical conditions.",
+          "relation": "explicit-elaboration",
+          "evidence": "Positive denominators; parent MGF and integrability derived, not assumed."
+        },
+        "conclusion": {
+          "original": "Clipping-excess exponential expectation bounded with factor2.",
+          "reconstructed": "Same bound plus measurability of W,F and integrability of F.",
+          "relation": "explicit-elaboration",
+          "evidence": "Four public conclusions; integrability precedes comparison."
+        },
+        "scopes": {
+          "original": "Claim2 intermediate estimate before normalized approximation.",
+          "reconstructed": "Actual fixed-time clipping-excess estimate only.",
+          "relation": "same",
+          "evidence": "Random-time averaging, mean, target law, Renyi, initialization and cost explicitly remain."
+        },
+        "constant_dependencies": {
+          "original": "Step64; factor2; denominators40 and8.",
+          "reconstructed": "Same explicit constants and dependencies.",
+          "relation": "same",
+          "evidence": "lambda=min(1/(4 beta eta),B/(20 beta² d eta²)); actual cap and minimum proofs."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "Positive-dimensional coordinate-free domain; positivity preserved.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "generalization",
+          "description": "All-real r supported by parent; random-time averaging not asserted.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "generalization",
+          "description": "Arbitrary residual-controlled center; source center construction deferred.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "description": "Positive parameters, ell and step retained without assumed MGF or integrability.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "conclusion",
+          "classification": "source-implicit",
+          "description": "Actual measurability and integrability proved; bound unchanged.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Selected Claim2 only; arbitrary B does not imply uniform constant cost.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        }
+      ]
     }
   ]
 }

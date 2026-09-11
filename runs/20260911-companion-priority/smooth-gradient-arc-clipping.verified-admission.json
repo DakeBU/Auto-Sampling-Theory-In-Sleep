@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "09c24a24d566627d0b3b151e473d9414ae4ef949",
+    "gate": {
+      "production": "Unchanged production/test; independently reviewed PASS3121 and complete actual estimator clipping proof; standard three axioms. Independent1853-character expansion and Meta.isDefEq replay passed.",
+      "publication": "Independent reviewed validator and real check --base origin/main PASS54; all six private implementations covered. External binding preimage, module, lesson, source, reconstruction, packets and run hashes independently verified; anonymous/canonical decoder bytes identical.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCSmoothGradientArcClipping",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_j",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "c88a1d373736de86779f3363dfae4e5bbc6c862db66e979f555f284f73d7911d",
+        "decoder_packet_sha256": "b890400a1324afffa29f2684987a0e324c984b8ee198a46d488587b25aca824c",
+        "decoder_run_sha256": "70a9df209fee8fc196eaa66f5ccf8a5fe31b2718bc5825c4265a75d8a31afe33",
+        "reviewer_packet_sha256": "6721cde20d8b61d61728db3284e5fd5765b9ef218de6c8ea8375d6cf220db0dd",
+        "review_run_sha256": "36a31cfb821afafedffb9f32dd62411a6ad4f6794ed128f948fcd275030cf255",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual same W, original Gaussian product input, clipping excess measurability, integrability and exponential integral bound."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping"
+    ],
+    "independent_checks": [
+      "7 semantic slots, 5 authored steps, 6 informational differences; no blockers or repairs.",
+      "Fixed commit clean; only source/admission records changed since1661b5f; other audits unchanged.",
+      "Actual whole module and external binding preimage checked independently.",
+      "VERIFIED-only; aggregate, website, merge and paper main results not completed."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent VERIFIED-only authorization.",
+  "boundary": "Complete production theorem locally compiled; full scratch independently development-reviewed. EXPLORING until publication/source admission; target identification, normalized accuracy and costs remain outside. Neither paper main result complete."
+}
