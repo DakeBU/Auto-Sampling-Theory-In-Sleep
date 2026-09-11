@@ -91,6 +91,13 @@
     "commit": "10b2e59e6a9390f16275cabff12473872fddb071",
     "merged_at": "2026-09-11T17:24:09Z",
     "candidate": "ead9e06b5addad7c6e18434439f37be85af2f9ce",
-    "post_merge": "Merge CI and actual live provenance pending."
+    "post_merge": "Merge CI and actual live provenance pending.",
+    "ci": {
+      "lean_status": "IN_PROGRESS",
+      "site_run": "34627473906",
+      "site_status": "QUEUED",
+      "live": "not yet verified",
+      "lean_run": "34627473988"
+    }
   }
 }
