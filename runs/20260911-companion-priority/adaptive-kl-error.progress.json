@@ -85,5 +85,40 @@
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/269",
     "state": "DRAFT",
     "head": "11e9540785f3ddbbfaff7341610c6c3eeec57dca"
+  },
+  "upstream_integration": {
+    "commit": "3190a65e401970456e9db7182f5c1d4e49cdaca8",
+    "preservation": {
+      "ours": "1f51f8aa27b62784b80d3ddee5169c48bb7f7f05",
+      "theirs": "1b7d3a6cb9086331f04ed940bf6ecdc0570beb9d",
+      "base": "24d166c0160e0a8c43dc08f356e3eed7d4e36c60",
+      "ledger": {
+        "base": 276,
+        "ours": 283,
+        "theirs": 286,
+        "result": 293,
+        "exact_parent_multisets_preserved": true
+      },
+      "registry": {
+        "ours": 48,
+        "theirs": 49,
+        "result": 50,
+        "exact_three_way_objects_verified": true
+      }
+    },
+    "independent_review": "depth_commit_verifier independently checked exact ledger multisets, audit objects, all upstream files and both root imports; KL source bindings unchanged, reviewed=True passed; sole stabilization owner.",
+    "gate": {
+      "passed": true,
+      "commit": "3190a65e401970456e9db7182f5c1d4e49cdaca8",
+      "source_digest": "ff2f49d486e51b8950bf6131e25dfe6866020477e1d05357ef93d6cdddc1b582",
+      "generated_at": "2026-09-11T05:18:08.691287+00:00",
+      "commands": [
+        "python3 tools/astis.py check"
+      ],
+      "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+    },
+    "result": "Canonical aggregate PASS after upstream smoothness integration.",
+    "final_validation_plan": "Independent reviewer accepts earlier fixed full local reader QA plus fresh aggregate and targeted final same-head CI artifact QA including KL and smoothness. No second complete local render required.",
+    "boundary": "Final same-head CI and artifact QA, merge decision and deployed provenance still pending."
   }
 }
