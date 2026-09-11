@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error"
   ],
@@ -33,7 +33,7 @@
   },
   "mathematical_status": "Actual error propagation for given Markov kernels, not construction or accuracy of the concrete approximate recursive algorithm. General probability base, fixed parameters; no measurable proxy choice, Wp sampler implementation, terminal FORS, accumulated numerical budgets or expected query costs. Arbitrary approximate input is allowed because its actual KL to the ideal joint law is charged. The output L need not retain center; the ideal B does, and the full joint discrepancy is bounded.",
   "remaining": [
-    "Preserve upstream changes, final candidate independent review/CI, actual merge and deployed evidence",
+    "Verify actual merge CI and deployed reader provenance",
     "Concrete Gibbs specialization and joint parameter/history obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
@@ -83,8 +83,8 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/269",
-    "state": "DRAFT",
-    "head": "11e9540785f3ddbbfaff7341610c6c3eeec57dca"
+    "state": "MERGED",
+    "head": "910570ab2e47260d0c189cd59e83102d4a6a7075"
   },
   "upstream_integration": {
     "commit": "3190a65e401970456e9db7182f5c1d4e49cdaca8",
@@ -120,5 +120,77 @@
     "result": "Canonical aggregate PASS after upstream smoothness integration.",
     "final_validation_plan": "Independent reviewer accepts earlier fixed full local reader QA plus fresh aggregate and targeted final same-head CI artifact QA including KL and smoothness. No second complete local render required.",
     "boundary": "Final same-head CI and artifact QA, merge decision and deployed provenance still pending."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/269",
+    "commit": "ed1693614d23704fb17b8970fe8bca4c2c5f6ba6",
+    "candidate": "910570ab2e47260d0c189cd59e83102d4a6a7075",
+    "merged_at": "2026-09-11T05:35:56Z",
+    "candidate_ci": {
+      "lean": "34565743692 SUCCESS",
+      "site": "34565743773 SUCCESS; PR deploy skipped"
+    },
+    "final_artifact_qa": {
+      "candidate": "910570ab2e47260d0c189cd59e83102d4a6a7075",
+      "site_run": "34565743773 SUCCESS",
+      "render_commit": "3808ad0371530d79836837b4a3571ecd06719161",
+      "render_parents": [
+        "1b7d3a6cb9086331f04ed940bf6ecdc0570beb9d",
+        "910570ab2e47260d0c189cd59e83102d4a6a7075"
+      ],
+      "candidate_and_render_tree": "4a46fa63fc026ab1cf9fce3f2db94eb0087195a9",
+      "tree_equality": "Verified by GitHub git commits API for both commits; independently confirmed by depth_commit_verifier.",
+      "artifact": ".astis/adaptive-kl-final-ci-artifact/artifact.tar",
+      "targeted_extract": ".astis/adaptive-kl-final-ci-site",
+      "extracted_files": 71,
+      "reader": {
+        "entry": "sphmc-adaptive-kl-error",
+        "steps": 6,
+        "initially_closed_disclosures": 9,
+        "statement_characters": 1105,
+        "complete_proof_characters": 4944,
+        "actual_clicks": [
+          "Lean statement",
+          "Lean proof",
+          "Source and reuse"
+        ],
+        "math_errors": 0,
+        "visual": "Actual CI artifact screenshot verified the non-AC infinite branch and P-weighted conditional chain integral."
+      },
+      "graph": {
+        "nodes": 5,
+        "edges": 3,
+        "direct_relations": 2,
+        "actual_card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-adaptiveklerror.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-adaptiveklerror-adapti-24b813bf07",
+        "card_labels": [
+          "Partial",
+          "Not mapped"
+        ]
+      },
+      "upstream_smoothness": {
+        "module": "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences",
+        "actual_declarations": [
+          "upper_model_iff_gradient_upper",
+          "upper_model_iff_fderiv2_upper"
+        ],
+        "placeholders": 0,
+        "imports": [
+          "Analysis.ConvexityC2"
+        ],
+        "consumers": [
+          "Analysis",
+          "Tests.Shared.SmoothnessEquivalences"
+        ],
+        "actual_labels": [
+          "Partial",
+          "Not mapped"
+        ]
+      },
+      "independent_final_review": "depth_commit_verifier confirmed provenance, preservation, candidate and QA coverage. Fixed-head merge authorized only after same-head Lean34565743692 SUCCESS and unchanged MERGEABLE candidate.",
+      "boundary": "Final site artifact accepted; Lean CI was still running when recorded. No actual merge or deployment claim."
+    },
+    "independent_merge_review": "depth_commit_verifier accepted preservation, fresh aggregate9128, fixed localQA and exact final artifact; authorized fixed-head merge after same-head Lean success. Root rechecked head, both CIs and MERGEABLE before actual match-head merge.",
+    "post_merge": "Actual merge CI and deployed provenance pending; candidate CI and artifact are not deployment evidence.",
+    "truth_boundary": "Actual error propagation for given Markov kernels, not construction or accuracy of the concrete approximate recursive algorithm. General probability base, fixed parameters; no measurable proxy choice, Wp sampler implementation, terminal FORS, accumulated numerical budgets or expected query costs. Arbitrary approximate input is allowed because its actual KL to the ideal joint law is charged. The output L need not retain center; the ideal B does, and the full joint discrepancy is bounded."
   }
 }

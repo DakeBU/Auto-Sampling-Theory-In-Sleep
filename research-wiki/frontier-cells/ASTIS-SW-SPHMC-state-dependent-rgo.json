@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Algorithm3.3 parameter update and Theorem6.5 conditional recursive stages",
   "target_statement": "For a measurable state space S, fixed probability base mu on finite real Hilbert Borel E, measurable b:S->R,u:S->E,a:S->R with b>=0 and a>0 everywhere, construct Markov kernels T,H:S->E and B:S times E->S times E. Prove every T(s) is the normalized quadratic mu tilt at precision b(s), center u(s); H(s) is its actual Gaussian smoothing with variance a(s); B(s,y) retains s and samples the actual backward tilt, equivalently the original mu tilt with precision b(s)+1/a(s) and center (b(s)u(s)+y/a(s))/(b(s)+1/a(s)). For every probability state law lambda prove B composed with lambda compProd H equals lambda compProd T. Derive jointly measurable positive finite normalization and variable noise kernels; do not assume measurable target selection or desired recovery.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-adaptive-center-rgo",
     "ASTIS-SW-SPHMC-rgo-backward"
@@ -27,11 +27,24 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCStateDependentRGO",
+        "result": "PASS3749, exit0, only existing parent lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StateDependentRGO.lean": "6bcc8fbeffd30fce1e642c1ea79bae73eb1e5e1651537b1dbe8c105de6763863",
+          "Tests/SmoothedPicardHMCStateDependentRGO.lean": "a89c21062c8880aeba65233949e260cbebd6d78f454940866fbcae71cb129b77"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-state-dependent-rgo.md",
     "planning_review": "log_depth_source_review independently rechecked source: reported eta cannot be presumed deterministic; full measurable state is needed.",
-    "execution_boundary": "Root sole writer. AdaptiveKLError sole STABILIZING. This packet EXPLORING.",
-    "ownership_note": "One actual paper consumer; no fabricated shared consumer."
+    "execution_boundary": "Root sole writer; StateDependentRGO sole STABILIZING after actual PR269 merge.",
+    "ownership_note": "One actual paper consumer; no fabricated shared consumer.",
+    "source_interface_clarification": "Independent log_depth_source_review rechecked Section6.1 A1-A3 and7.1: faithful interface is deterministic eta(s) per fixed call input plus output Markov kernel. Random runtime report/output semantics are an optional extension, not a required paper gap. Complete current-state sampler semantics remain needed.",
+    "independent_proof_review": "runs/20260911-companion-priority/state-dependent-rgo.independent-proof-review.json",
+    "admission_boundary": "VERIFIED at b60086b; no aggregate or reader integration admission yet.",
+    "independent_verification": "runs/20260911-companion-priority/state-dependent-rgo.verified-admission.json"
   },
   "blocked": {
     "reason": "",
@@ -46,10 +59,10 @@
       {
         "source": "https://arxiv.org/html/2609.06906v1",
         "anchor": "Algorithm3.3 and Theorem6.5",
-        "hypothesis_adapter": "b=1/A, a=(eta+tau)/beta_A; state before fresh noise; no retrospective conditioning."
+        "hypothesis_adapter": "b=1/A, a=(eta+tau)/beta_A; eta is selected for fixed current call input, with measurable state dependence."
       }
     ],
-    "fidelity_boundary": "One actual state-dependent ideal RGO stage, not complete Algorithm3.3. The state is specified before the new Gaussian draw and may encode current history. The theorem does not condition retrospectively on a reported smoothing level while assuming an unchanged sample law. Actual joint sampler/report semantics, approximate guarantees, random stopping, FORS, recursive error budgets and expected query costs remain open. No deterministic variance schedule is imposed or inferred from the source."
+    "fidelity_boundary": "Fixed probability base, arbitrary measurable state space and measurable current-state parameters. Exact ideal joint observation law only. The source interface selects a smoothing level for each fixed call input; this theorem does not construct its actual output sampler, recursive stopping, FORS, numerical accuracy or expected query costs."
   },
   "conceptual_mirror_audit": {
     "status": "none-found",

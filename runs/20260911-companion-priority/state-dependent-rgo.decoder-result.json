@@ -1,0 +1,16 @@
+{
+  "decoder": "state_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful plain-text transcription of independent reconstruction, with displayed formula notation converted to ASCII.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-state-d.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCStateDependentRGO.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "e59f859e4aa98cf752ca12e3f985327e3739f9e85b78aea776c73741e594a140",
+  "lean_statement_sha256": "ae058dcc7c38eadce546d9877be554162d5f3e63b79ad24ac23390f695be7150",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product space equipped with its Borel measurable structure, S any measurable space, and mu any probability measure on E. Suppose b,a:S to R and u:S to E are measurable, and b(s)>=0,a(s)>0 for every s. Write P^f for the exponential tilt with density exp(f(x)) divided by its integral against P. There exist Markov kernels T,H:S to E and B:S times E to S times E. Every T(s) is mu tilted by -b(s)*norm(x-u(s))^2/2. Every H(s) is the law of X+sqrt(a(s))*Z, with X distributed as T(s) and independent centered identity-covariance Gaussian Z; sqrt(a(s)) is the standard-deviation scale. For every s,y, B(s,y) is the pushforward under x to (s,x) of T(s) tilted by -norm(x-y)^2/(2*a(s)). The same fiber is the pushforward under x to (s,x) of mu tilted by -(b(s)+a(s)^-1)*norm(x-m(s,y))^2/2, where m(s,y)=(b(s)+a(s)^-1)^-1*(b(s)*u(s)+a(s)^-1*y).\nThese kernels are chosen before and work simultaneously for every probability measure nu on S. For each such nu, B composed with nu compProd H equals nu compProd T. The input joint law samples s from nu and then y from H(s); applying B gives the same full S times E law as drawing s from nu and x from T(s). Equality holds on all measurable product-space subsets. All fiber identities hold everywhere, not merely almost everywhere. Every kernel is measurable in its input and has probability fibers everywhere. No additional density, moment, smoothness or topological assumptions on S, or moment/density assumptions on mu, are imposed. There are no unspecified constants; coefficients depend explicitly on b(s),a(s),u(s), and where applicable y.",
+  "source_fidelity_verdict": null
+}

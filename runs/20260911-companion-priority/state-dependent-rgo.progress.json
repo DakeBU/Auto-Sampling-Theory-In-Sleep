@@ -1,0 +1,42 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO.state_dependent_recovery"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCStateDependentRGO",
+    "result": "PASS3749",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StateDependentRGO.lean": "6bcc8fbeffd30fce1e642c1ea79bae73eb1e5e1651537b1dbe8c105de6763863",
+      "Tests/SmoothedPicardHMCStateDependentRGO.lean": "a89c21062c8880aeba65233949e260cbebd6d78f454940866fbcae71cb129b77"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/state-dependent-rgo.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCStateDependentRGO"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/state-dependent-rgo.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Fixed probability base, arbitrary measurable state space and measurable current-state parameters. Exact ideal joint observation law only. The source interface selects a smoothing level for each fixed call input; this theorem does not construct its actual output sampler, recursive stopping, FORS, numerical accuracy or expected query costs.",
+  "remaining": [
+    "Integration, aggregate and original reader/graph delivery",
+    "Concrete Gibbs specialization and actual state/history process",
+    "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
+    "Both paper main results and agreed deliveries"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/state-dependent-rgo.verified-admission.json"
+}

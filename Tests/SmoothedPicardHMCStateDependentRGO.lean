@@ -1,0 +1,3 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO
+
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO.state_dependent_recovery
