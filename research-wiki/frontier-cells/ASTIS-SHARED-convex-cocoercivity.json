@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-convex-cocoercivity",
+  "route": "shared",
+  "title": "Convex gradient cocoercivity including zero modulus",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.1 (3.5)",
+  "target_statement": "Under the same C1 convex global model with beta>=0, squared gradient difference is at most beta times its pairing with the point difference.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SHARED-convex-bregman-gradient"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Exercise-3.1",
+    "shared:convex-gradient-steps"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib StrongConvexFirstOrder, SmoothnessEquivalences, QuadraticRegularization and frontier ledger",
+      "Pinned Mathlib db584cd convex first-order and Lipschitz APIs",
+      "Optlib 5da27c5 Lsmooth convex_to_lower/lower_to_lipschitz (Lean4.13, Apache-2.0), independent read-only review smoothness_review at e2307b2"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_cocoercive",
+    "canonical_shared_cell": "ASTIS-SHARED-convex-cocoercivity",
+    "notes": "Adapt tilted-descent mathematics through existing first-order lower and explicit quadratic upper models; no wholesale external library port."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Definition1.12 (1.7), Exercise3.1 (3.4)-(3.5)",
+    "detail_status": "omitted",
+    "gap": "The reciprocal in (3.4) and step 1/beta require beta>0 although Definition1.12 allows beta=0. C1 is explicitly sufficient at the end of Exercise3.1.",
+    "consulted": [
+      {
+        "source": "Chewi Lemma3.1 and Proposition1.6; pinned Optlib Lsmooth.lean convex_to_lower and lower_to_lipschitz",
+        "anchor": "Tilt by the tangent plane, descent at y, exchange endpoints, Cauchy-Schwarz",
+        "hypothesis_adapter": "Use positive beta for reciprocal Bregman estimate; extend scaled cocoercivity to beta=0 by positive upper-model relaxation and a real limit."
+      }
+    ],
+    "fidelity_boundary": "Hilbert-space generalization of Euclidean source. Positive denominator domain for (3.4) is explicit; no use of totalized inverse at zero. Cocoercivity and Lipschitz include beta=0. This is optimization shared background, not companion-paper progress."
+  }
+}

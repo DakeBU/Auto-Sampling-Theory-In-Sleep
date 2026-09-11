@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-41a84902aee84efa",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ} {β : ℝ},\n  ContDiff ℝ 1 f →\n    ConvexOn ℝ Set.univ f →\n      0 < β →\n        (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n          ∀ (x y : E), ‖gradient f y - gradient f x‖ ^ 2 ≤ 2 * β * (f y - f x - inner ℝ (gradient f x) (y - x))",
+    "statement_sha256": "41a84902aee84efafe01fbccfe8504d69414d1057d8d132aa0059eae65670c63",
+    "compiled": true,
+    "approved_definition_context": [
+      "ContDiff ℝ 1 f means continuous Frechet differentiability on the entire space.",
+      "ConvexOn ℝ Set.univ f is the real convex chord inequality on the whole space.",
+      "gradient f x is the Riesz vector of the Frechet derivative: inner ℝ (gradient f x) v = fderiv ℝ f x v under the displayed differentiability.",
+      "NNReal is the type of nonnegative real numbers; LipschitzWith b g means dist (g x) (g y) <= (b:ℝ) * dist x y for every x,y."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "4c8968b53068c72cdde0db05e79080a25e8156b7cc2f3d508833494297e9aa29"
+}
