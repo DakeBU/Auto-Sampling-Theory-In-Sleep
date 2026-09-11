@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "7944646baedcc4e3bbc89e2e3dfe09cda363b50e5b69907ed4d52e95abd8abbc",
+  "publication_binding_sha256": "ff730327d0ba161bc3960ce1268598306b3e6c97394bb6ea1266c0a7a30b120f",
+  "semantic_slots": {
+    "objects": {
+      "original": "Classical Euclidean derivative gradient and actual update, attained minimum and actual GD sequence.",
+      "reconstructed": "Lean totalized derivative/Riesz gradient and actual update, supplied IsMinOn point and actual Function.iterate.",
+      "relation": "different",
+      "evidence": "No differentiability premise is imposed by gradient notation in Lean. Under the source smooth specialization the objects agree. The minimum reference value is f(z), never an arbitrary scalar lower estimate.",
+      "source": "Classical Euclidean derivative gradient and actual update, attained minimum and actual GD sequence.",
+      "lean": "Lean totalized derivative/Riesz gradient and actual update, supplied IsMinOn point and actual Function.iterate.",
+      "status": "different",
+      "explanation": "No differentiability premise is imposed by gradient notation in Lean. Under the source smooth specialization the objects agree. The minimum reference value is f(z), never an arbitrary scalar lower estimate."
+    },
+    "domains": {
+      "original": "C2 objective on Euclidean d-space; positive beta reciprocal domain and alpha>0 in PL.",
+      "reconstructed": "Arbitrary f on any complete real inner-product space; signed real alpha,beta under explicit global model inequalities.",
+      "relation": "different",
+      "evidence": "Infinite-dimensional and low-regularity inputs, signed parameters and zero beta are disclosed mathematical extensions, not definitional elaboration. The model is a substantive global premise.",
+      "source": "C2 objective on Euclidean d-space; positive beta reciprocal domain and alpha>0 in PL.",
+      "lean": "Arbitrary f on any complete real inner-product space; signed real alpha,beta under explicit global model inequalities.",
+      "status": "different",
+      "explanation": "Infinite-dimensional and low-regularity inputs, signed parameters and zero beta are disclosed mathematical extensions, not definitional elaboration. The model is a substantive global premise."
+    },
+    "quantifiers": {
+      "original": "For every initial point and natural iteration count, one fixed step and source function/minimum.",
+      "reconstructed": "For every admitted f, space, attained minimizer, initial point and natural N, including zero.",
+      "relation": "different",
+      "evidence": "The global model and PL hold at all points for the same constants. Space/function class is extended; h domain restricted. No sequence or rate constants are existentially chosen.",
+      "source": "For every initial point and natural iteration count, one fixed step and source function/minimum.",
+      "lean": "For every admitted f, space, attained minimizer, initial point and natural N, including zero.",
+      "status": "different",
+      "explanation": "The global model and PL hold at all points for the same constants. Space/function class is extended; h domain restricted. No sequence or rate constants are existentially chosen."
+    },
+    "assumptions": {
+      "original": "Source C2 and beta smooth; printed h<=1/beta; alpha>0 PL, attained global minimum, no convexity.",
+      "reconstructed": "Global beta quadratic upper model, h>=0,beta h<=1; no differentiability premise; IsMinOn and global PL inequality with arbitrary real alpha, no convexity or q>=0 assumption.",
+      "relation": "different",
+      "evidence": "h>=0 is a necessary restriction, not an artifact of Lean. Remaining assumptions are transparently weakened/generalized. The attained minimum is preserved; missing q>=0 is handled by a separate proof, not assumed covertly.",
+      "source": "Source C2 and beta smooth; printed h<=1/beta; alpha>0 PL, attained global minimum, no convexity.",
+      "lean": "Global beta quadratic upper model, h>=0,beta h<=1; no differentiability premise; IsMinOn and global PL inequality with arbitrary real alpha, no convexity or q>=0 assumption.",
+      "status": "different",
+      "explanation": "h>=0 is a necessary restriction, not an artifact of Lean. Remaining assumptions are transparently weakened/generalized. The attained minimum is preserved; missing q>=0 is handled by a separate proof, not assumed covertly."
+    },
+    "conclusion": {
+      "original": "f(x_N)-fstar<=(1-alpha h)^N(f(x0)-fstar).",
+      "reconstructed": "The identical value-gap rate using f(z) and actual Function.iterate.",
+      "relation": "equivalent",
+      "evidence": "On the common smooth source domain with nonnegative h, the formula is identical with no constant loss. No supremum, averaged iterate or supplied recurrence substitutes for the final iterate.",
+      "source": "f(x_N)-fstar<=(1-alpha h)^N(f(x0)-fstar).",
+      "lean": "The identical value-gap rate using f(z) and actual Function.iterate.",
+      "status": "equivalent",
+      "explanation": "On the common smooth source domain with nonnegative h, the formula is identical with no constant loss. No supremum, averaged iterate or supplied recurrence substitutes for the final iterate."
+    },
+    "scopes": {
+      "original": "Global deterministic last-iterate value bound about a minimum, no convexity required.",
+      "reconstructed": "Global deterministic attained-minimum bound with all q signs and no convexity.",
+      "relation": "explicit-elaboration",
+      "evidence": "The extended statement does not promise strict convergence outside positive alpha and positive h. For q<0 all gaps must be zero, including at odd N.",
+      "source": "Global deterministic last-iterate value bound about a minimum, no convexity required.",
+      "lean": "Global deterministic attained-minimum bound with all q signs and no convexity.",
+      "status": "explicit-elaboration",
+      "explanation": "The extended statement does not promise strict convergence outside positive alpha and positive h. For q<0 all gaps must be zero, including at odd N."
+    },
+    "constant_dependencies": {
+      "original": "q=1-alpha h raised to N and coefficient one on initial gap.",
+      "reconstructed": "Exactly q^N and initial gap, no extra multiplicative constant.",
+      "relation": "same",
+      "evidence": "All factors and signs checked in the full proof. PL factor 2 cancels with descent factor h/2; q^0=1 and no inverse of alpha,beta,h,q appears.",
+      "source": "q=1-alpha h raised to N and coefficient one on initial gap.",
+      "lean": "Exactly q^N and initial gap, no extra multiplicative constant.",
+      "status": "same",
+      "explanation": "All factors and signs checked in the full proof. PL factor 2 cancels with descent factor h/2; q^0=1 and no inverse of alpha,beta,h,q appears."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "objects",
+      "severity": "informational",
+      "description": "Totalized-gradient algebraic interface is broader than source classical derivative assumptions.",
+      "evidence": "The two new declarations intentionally omit C1/C2. The gradient is Lean totalized fderiv passed through the Riesz map. It is not a freely supplied vector field, but one must not identify it with an existing classical derivative at arbitrary points. Lessons explicitly state this and the global model premise. Source smooth functions are a specialization; this is not source-equivalent regularity."
+    },
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Hilbert-space and signed-parameter domain extensions are explicitly disclosed.",
+      "evidence": "Fresh elaborated statement, blind reconstruction and all candidate lesson assumptions agree on absent C1/C2 and real parameters."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "The printed step condition omits the necessary nonnegative lower bound.",
+      "evidence": "Take f(t)=t^2/2 on R, alpha=beta=1, z=0, x0=1, N=1 and h=-1. These satisfy exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h)."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "No extra q>=0 assumption is needed because the supplied minimum resolves q<0.",
+      "evidence": "For q<0, 0<=G(Tx)<=q G(x) and G(x)>=0 imply G(x)=0 for every x. Consequently both sides of the conclusion vanish for every N, including odd N; the proof never multiplies an inductive inequality by a negative q. This branch is nonempty: constant functions with sufficiently large alpha h satisfy the models."
+    }
+  ],
+  "verdict": "possible-source-error",
+  "repairs": [
+    {
+      "id": "ASTIS-REPAIR-ANDI-PL-RATE-NONNEGATIVE-STEP",
+      "class": "assumption-addition",
+      "status": "proposed",
+      "necessity": "mathematically-necessary",
+      "proposed_change": "Add h>=0 to the printed h<=1/beta restriction in Theorem3.6. Retain the original pinned source separately and preserve the local algebraic generalization.",
+      "reconstructed_statement": "Let f:R^d->R be C2 and beta-smooth with beta>0, admit a global minimizer z, and satisfy ||grad f(x)||^2>=2alpha(f(x)-f(z)) for all x with alpha>0. For every step 0<=h<=1/beta, define T(x)=x-h grad f(x). For every x0 and N in the natural numbers, f(T^[N](x0))-f(z)<=(1-alpha h)^N(f(x0)-f(z)).",
+      "statement_sha256": "199cbe17a03545ede9b486705f419b29f384a004e4d51b1f07d432004055a9b1",
+      "justification": "Same f with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h).",
+      "minimality_evidence": "Only the lower bound h>=0 is added to the source step domain; h=0 remains valid. Source positive modulus/regularity/attained-minimum/PL premises are retained. No convexity or q>=0 assumption is added. Omitting the new lower bound admits the explicit quadratic counterexample.",
+      "reference_or_counterexample": "Primary source https://arxiv.org/html/2605.07006v1#S3, Theorem3.6. Exact counterexample: Same f with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h).",
+      "review": {
+        "state": "pending"
+      },
+      "proposal_author": "coco_source"
+    }
+  ],
+  "review_evidence": "Accepted scoped source support for Theorem3.6 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded. Entire current PL and imported shared Basic modules and bound lesson/provenance reviewed. Let G(x)=f(x)-f(z). IsMinOn gives G>=0 everywhere. Multiply 2alpha G(x)<=||gradient f(x)||^2 by h/2>=0 and combine shared descent to derive G(Tx)<=q G(x), q=1-alpha h. No convexity, sign of alpha or sign of beta is needed for this algebra. For q<0, 0<=G(Tx)<=q G(x) and G(x)>=0 imply G(x)=0 for every x. Consequently both sides of the conclusion vanish for every N, including odd N; the proof never multiplies an inductive inequality by a negative q. This branch is nonempty: constant functions with sufficiently large alpha h satisfy the models. Run artifact: /private/tmp/andi-pl-source-review-run-01.json",
+  "review_run_sha256": "049a93680653772164f09f30800c3f2c90161688a0238ec76b84e77bc3137ea4",
+  "review_run_artifact": "/private/tmp/andi-pl-source-review-run-01.json",
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "7944646baedcc4e3bbc89e2e3dfe09cda363b50e5b69907ed4d52e95abd8abbc",
+    "review_run_sha256": "049a93680653772164f09f30800c3f2c90161688a0238ec76b84e77bc3137ea4",
+    "evidence": "Accepted scoped source support for Theorem3.6 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded. Entire current PL and imported shared Basic modules and bound lesson/provenance reviewed. Let G(x)=f(x)-f(z). IsMinOn gives G>=0 everywhere. Multiply 2alpha G(x)<=||gradient f(x)||^2 by h/2>=0 and combine shared descent to derive G(Tx)<=q G(x), q=1-alpha h. No convexity, sign of alpha or sign of beta is needed for this algebra. For q<0, 0<=G(Tx)<=q G(x) and G(x)>=0 imply G(x)=0 for every x. Consequently both sides of the conclusion vanish for every N, including odd N; the proof never multiplies an inductive inequality by a negative q. This branch is nonempty: constant functions with sufficiently large alpha h satisfy the models. Run artifact: /private/tmp/andi-pl-source-review-run-01.json"
+  },
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Accepted scoped source support for Theorem3.6 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded.",
+    "whole_current_module_reviewed": true,
+    "dependency_provenance_checked": true,
+    "remaining_truth_boundary": "No separate differentiability/positive-modulus premises are inferred from total gradient notation. Source positive smooth regime is a specialization. Proposed h>=0 correction requires its own independent exact-proposal review and never overwrites the pinned source."
+  }
+}

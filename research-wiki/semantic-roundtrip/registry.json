@@ -17376,7 +17376,7 @@
           "slot": "assumptions",
           "severity": "review",
           "description": "The printed step condition omits the necessary nonnegative lower bound.",
-          "evidence": "Same f with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h)."
+          "evidence": "Take f(t)=t^2/2 on R, alpha=beta=1, z=0, x0=1, N=1 and h=-1. These satisfy exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h)."
         },
         {
           "slot": "scopes",
@@ -17418,9 +17418,9 @@
         "independent_from_formalizer": true,
         "independent_from_decoder": true,
         "evidence": "Accepted scoped source support for Theorem3.6 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded. Entire current PL and imported shared Basic modules and bound lesson/provenance reviewed. Let G(x)=f(x)-f(z). IsMinOn gives G>=0 everywhere. Multiply 2alpha G(x)<=||gradient f(x)||^2 by h/2>=0 and combine shared descent to derive G(Tx)<=q G(x), q=1-alpha h. No convexity, sign of alpha or sign of beta is needed for this algebra. For q<0, 0<=G(Tx)<=q G(x) and G(x)>=0 imply G(x)=0 for every x. Consequently both sides of the conclusion vanish for every N, including odd N; the proof never multiplies an inductive inequality by a negative q. This branch is nonempty: constant functions with sufficiently large alpha h satisfy the models. Run artifact: /private/tmp/andi-pl-source-review-run-01.json",
-        "review_run_sha256": "6308e333fbdb3400243579f12de7f2865e6c2188ef2e8d65fca4f41c150e8b0d",
+        "review_run_sha256": "4d4860e8458b867b7032d2eee9d2a929561664ec7aa418ead43235a0c5e66fb8",
         "reviewer_packet_sha256": "7944646baedcc4e3bbc89e2e3dfe09cda363b50e5b69907ed4d52e95abd8abbc",
-        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-1.json"
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-1-selfcontained.json"
       },
       "publication_binding_sha256": "ff730327d0ba161bc3960ce1268598306b3e6c97394bb6ea1266c0a7a30b120f",
       "publication_context": {

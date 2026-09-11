@@ -30,8 +30,8 @@
       "Focused PASS2477 independently repeated; standard axioms; no warnings."
     ],
     "independent_verification": "smoothness_review16dcffe; pl_blind,coco_source,converse_source_review exact current artifacts in runs/semantic-roundtrip/andi-opt-gd-pl.",
-    "root_build": "",
-    "graph_regeneration": "",
+    "root_build": "Canonical tools/astis.py check through website/scripts/lean_gate.py PASS oncf75c4e86c9e419906a18fa1989c7ba30d3a2e2b at2026-09-11T13:14:41.879752+00:00; includes Tests root with actual PL import. Prior1f8a1a9 import-header failure corrected.",
+    "graph_regeneration": "website/scripts/build_site.py, graph-check for both new and both refactored Value cells, check_site.py; final graph/reader inspection recorded in gradient-descent-pl memory.",
     "pr": ""
   },
   "blocked": {

@@ -1,0 +1,300 @@
+{
+  "reviewer": "smoothness_review",
+  "checked_commit": "cf75c4e86c9e419906a18fa1989c7ba30d3a2e2b",
+  "checked_merge_commit": "664f327eb1732e9b7624849e7ca584c749473921",
+  "parents_of_merge": [
+    "8bc44ce9ac467b880b824be70d9df5740c413780",
+    "bfd7aaf36b9c64d40d8e1503e383de089949b667"
+  ],
+  "baseline": "25e2670d736a381123408023181e3b70a9a945ce",
+  "decision": "Conditional ACCEPT of import-order correction and preserved integration; actual fresh canonical gate still mandatory",
+  "findings": [
+    {
+      "severity": "resolved-integration-blocker",
+      "prior_commit": "1f8a1a9213b851a5669cfb39a77ed03f136f667f",
+      "description": "New root imports were after module documentation and thus outside Lean import header. The first canonical full gate FAILED; it wrote no site evidence. My earlier static review checked import presence but missed syntactic header placement. No prior full-gate PASS was claimed.",
+      "fix_commit": "cf75c4e86c9e419906a18fa1989c7ba30d3a2e2b",
+      "resolution": "Independently inspected two-file diff: move the exact Basic/PL Analysis imports and PL Tests import to file beginning, delete their former trailing occurrences. No proof, tests, lesson, source packet or audit content changed."
+    }
+  ],
+  "frozen_proof_and_tests": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentBasic.lean": {
+      "sha256": "3489a169bf3cc4f17f4ba374a2edb1536f9cd5cfdfe67ce57ebbeacca65b1eef",
+      "matches_independent_proof_review": true
+    },
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentPL.lean": {
+      "sha256": "382c8a5ba9dae70074114a205eb03c44826cb03c9b20c0f64931ced25fd9bea2",
+      "matches_independent_proof_review": true
+    },
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentValue.lean": {
+      "sha256": "05808fb8b2cc49995a9a834121debf5f856be31f6aa95eb2bdcf83dfca3ebe1c",
+      "matches_independent_proof_review": true
+    },
+    "Tests/Shared/GradientDescentPL.lean": {
+      "sha256": "74d891613203408086107bd08e41e8495ea761183d0ad5a342a91bd00f154ab7",
+      "matches_independent_proof_review": true
+    },
+    "Tests/Shared/GradientDescentValue.lean": {
+      "sha256": "e0a9b1a144b8d207189edda00133a1e8bd6948bb7fc4b56f732c301c76354c70",
+      "matches_independent_proof_review": true
+    }
+  },
+  "frozen_readers_and_publication": {
+    "website/content/declaration_lessons/gradient-descent-pl.json": {
+      "sha256": "19a89bc40eccd6b5015f897adeeb640e57f50dd1b6a5f111174e8fcec2395ee6",
+      "matches_reviewed_draft": true
+    },
+    "website/content/declaration_lessons/gradient-descent-value.json": {
+      "sha256": "760497d2c7699f8144cbb98d45e2cd953d5e12b9ba51f5dec414eb4a85be5845",
+      "matches_reviewed_draft": true
+    },
+    "website/content/publications/optimisation.json": {
+      "sha256": "b0348f2bc592fb4bb4a9034287bb56b0a29a506b2798b2539c593cb6670d100e",
+      "matches_reviewed_draft": true
+    }
+  },
+  "roots_and_catalog": {
+    "new_analysis_imports": [
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic",
+      "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL"
+    ],
+    "tests_root": "Tests.Shared.GradientDescentPL imported once; existing Tests.Shared.GradientDescentValue and incoming Tests.SmoothedPicardHMCSmoothGradientArcMoment retained",
+    "registry_change": "Exactly canonical step-descent and PL-value entries; 412 -> 414, no duplicate count for old Value interfaces. Tests.Basic native_decide expectation414; actual compilation belongs to root running canonical gate."
+  },
+  "preservation": {
+    "upstream_audits": 67,
+    "combined_audits": 69,
+    "all_upstream_objects_except_two_deliberate_rebindings_exact": true,
+    "rebound_old_audits": [
+      "ASTIS-RT-ANDI-OPT-GradientEnergy",
+      "ASTIS-RT-ANDI-OPT-GradientWeightedValue"
+    ],
+    "new_audits": [
+      "ASTIS-RT-ANDI-OPT-GradientDescentBasic",
+      "ASTIS-RT-ANDI-OPT-GradientPL"
+    ],
+    "collaborator_artifacts": "Incoming companion production, tests, lesson, publication and all decoder/source-review artifacts remain untouched. Existing raw Value decoder/source/repair artifacts remain historical; new whole-module source/repair artifacts explicitly rebind the two changed dependencies. No same-id concurrent upstream edit was discarded.",
+    "ledger_merge_exact_base_plus_saved_local_plus_upstream": true,
+    "local_raw_tail_rows": 3,
+    "incoming_raw_tail_rows": 4,
+    "final_exact_merge_ledger_prefix": true,
+    "final_appended_rows": 4,
+    "final_events": [
+      {
+        "advance_id": "ASTIS-SA-20260911-SPHMCSmoothGradientArcMoment",
+        "worker_id": "smoothness_review",
+        "from_state": "STABILIZING",
+        "to_state": "VERIFIED",
+        "created_at": "2026-09-11T13:07:15+00:00"
+      },
+      {
+        "advance_id": "ANDI-OPT-gd-pl-001",
+        "worker_id": "andi-pl-worker",
+        "from_state": "EXPLORING",
+        "to_state": "PROVED_LOCAL",
+        "created_at": "2026-09-11T13:07:16+00:00"
+      },
+      {
+        "advance_id": "ANDI-OPT-gd-pl-001",
+        "worker_id": "smoothness_review",
+        "from_state": "PROVED_LOCAL",
+        "to_state": "VERIFIED",
+        "created_at": "2026-09-11T13:07:18+00:00"
+      },
+      {
+        "advance_id": "ANDI-OPT-gd-pl-001",
+        "worker_id": "andi-pl-integration",
+        "from_state": "VERIFIED",
+        "to_state": "STABILIZING",
+        "created_at": "2026-09-11T13:07:20+00:00"
+      }
+    ],
+    "sole_stabilizing": [
+      "ANDI-OPT-gd-pl-001"
+    ],
+    "GaussianArcLaw_final": "MERGED",
+    "SmoothGradientArcMoment_final": "VERIFIED"
+  },
+  "source_and_repair_evidence": [
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientDescentBasic",
+      "state": "accepted",
+      "verdict": "possible-source-error",
+      "formalizer": "andi-pl-worker",
+      "decoder": "pl_blind",
+      "reviewer": "coco_source",
+      "source_review_state": "accepted",
+      "source_packet_sha256": "43762ab0758e4b08c905a418275fbf8bc3e4c6c9cedd54378e94fc5141936b7b",
+      "publication_binding_sha256": "5b0266281e1213e7c9a3af084c4de432e966f6ef982115e5fc39c6b3523fcd2b",
+      "embedded_current_module_matches": true,
+      "runs": [
+        {
+          "role": "source_review",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-0.json",
+          "sha256": "c9d3c9416f79d102285788f41d7e01aa8b24e30b3f6943473d3aae45b22edab8",
+          "matches_audit": true
+        },
+        {
+          "role": "reconstruction",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/decoder-result.json",
+          "sha256": "3b1a71a93172407ceebc31c20211e6b09fe29b6233e4d059e5e4ce3ac7f97845",
+          "matches_audit": true
+        },
+        {
+          "role": "exact-repair",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/repair-review-result-0.json",
+          "sha256": "a0735dae7a9d2b3e179bf51bc9aa25805f7c205ba4eb799bb5d899151c25eef5",
+          "matches_audit": true,
+          "reviewer": "converse_source_review",
+          "proposal_sha256": "01c96d7e5fa04295516f9724c0d98fc93f0d9e08c9f97fb17c9d288a6b703034",
+          "packet_sha256": "4c29fa80c2d9bc72093473354090da5213eaf5b3e74eae6593c91304bb38f7af"
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientEnergy",
+      "state": "accepted",
+      "verdict": "possible-source-error",
+      "formalizer": "andi-gdv-worker",
+      "decoder": "value_blind",
+      "reviewer": "coco_source",
+      "source_review_state": "accepted",
+      "source_packet_sha256": "ba025345a1cce6dcbf9fac48bce4fce9138324b123ff77f5f0adb0c63cd6ae1b",
+      "publication_binding_sha256": "f4e98af75921078c6a5a6c8a76150861320331d51f69a972f1b5a0565662b808",
+      "embedded_current_module_matches": true,
+      "runs": [
+        {
+          "role": "source_review",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-2.json",
+          "sha256": "8b72079323eb2d5a9125708407ad7381b5f5ca4b5d1deeb83e18b493d37bc899",
+          "matches_audit": true
+        },
+        {
+          "role": "reconstruction",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/decoder-result.json",
+          "sha256": "b7396dc9656fc9e1cffb52a0653240289c590303bf715d7f8d7166f49c965842",
+          "matches_audit": true
+        },
+        {
+          "role": "exact-repair",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/repair-review-result-2.json",
+          "sha256": "ac8016d46185f986924549024ee67248d3bad6ef4e9f3d409591595e7a8f98c5",
+          "matches_audit": true,
+          "reviewer": "converse_source_review",
+          "proposal_sha256": "18a4aea345720418f0274543c7c0cccdeeaacc67453e3bcf3092b9bd36937baf",
+          "packet_sha256": "00e884980f64bf8508357ee1288f9ea06f2c6c13f5eeaf81b9f815535656874c"
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientPL",
+      "state": "accepted",
+      "verdict": "possible-source-error",
+      "formalizer": "andi-pl-worker",
+      "decoder": "pl_blind",
+      "reviewer": "coco_source",
+      "source_review_state": "accepted",
+      "source_packet_sha256": "7944646baedcc4e3bbc89e2e3dfe09cda363b50e5b69907ed4d52e95abd8abbc",
+      "publication_binding_sha256": "ff730327d0ba161bc3960ce1268598306b3e6c97394bb6ea1266c0a7a30b120f",
+      "embedded_current_module_matches": true,
+      "runs": [
+        {
+          "role": "source_review",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-1.json",
+          "sha256": "6308e333fbdb3400243579f12de7f2865e6c2188ef2e8d65fca4f41c150e8b0d",
+          "matches_audit": true
+        },
+        {
+          "role": "reconstruction",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/decoder-result.json",
+          "sha256": "3b1a71a93172407ceebc31c20211e6b09fe29b6233e4d059e5e4ce3ac7f97845",
+          "matches_audit": true
+        },
+        {
+          "role": "exact-repair",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/repair-review-result-1.json",
+          "sha256": "de5c83310da220d1a6c4be4fa411061066a651cb0384aeafb7b8d0230de13184",
+          "matches_audit": true,
+          "reviewer": "converse_source_review",
+          "proposal_sha256": "e93b8050169b9446d415fc4ee46c88499633ed955b3eb82b14f69832b695c458",
+          "packet_sha256": "dfd114ea1e3864169b12fe458425898c183df99699a2d92eecc07f0d39784b7b"
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientWeightedValue",
+      "state": "source-reviewed",
+      "verdict": "domain-mismatch",
+      "formalizer": "andi-gdv-worker",
+      "decoder": "value_blind",
+      "reviewer": "coco_source",
+      "source_review_state": "accepted",
+      "source_packet_sha256": "84ac3263f4fd69a54910535d8a25147cd9c9c117bb1a8140ee13834b9a95207b",
+      "publication_binding_sha256": "0684d8751d1bc984f7ddd7a969def12030ef02a4ce71879dd79d505066826deb",
+      "embedded_current_module_matches": true,
+      "runs": [
+        {
+          "role": "source_review",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-3.json",
+          "sha256": "082f1ec880ab63d4e0a6deee460d62fd993640a6ae61a953e1af23f438b54378",
+          "matches_audit": true
+        },
+        {
+          "role": "reconstruction",
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/decoder-result.json",
+          "sha256": "b7396dc9656fc9e1cffb52a0653240289c590303bf715d7f8d7166f49c965842",
+          "matches_audit": true
+        }
+      ]
+    }
+  ],
+  "independent_gates": [
+    {
+      "command": "/opt/homebrew/bin/python3; astis_publication.check_advance(four affected declarations,reviewed=True)",
+      "result": "PASS"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 tools/astis_publication.py check --base bfd7aaf",
+      "result": "PASS55 source items"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 tools/astis_semantic_roundtrip.py check",
+      "result": "PASS69 audits,5 repair proposals"
+    }
+  ],
+  "attribution": "PL PROVED_LOCAL -> VERIFIED records my explicit conditional proof authorization after fresh independent source/repair and real publication admission. Moment historical STABILIZING -> VERIFIED records my explicit historical-preservation release; no forged original-owner MERGED. Integration owner andi-pl-integration is distinct from proof-verifier attribution.",
+  "post_commit_metadata_addendum": {
+    "files": {
+      "research-wiki/frontier-cells/ASTIS-SHARED-gradient-step-energy.json": "238cb06aa11be3fa93b494ca8803d7faac8b8e849498a42e8573388f0d868dcc",
+      "research-wiki/frontier-cells/ASTIS-SHARED-gradient-descent-weighted-value.json": "7b14f6b65eea7aba11b23be24704ab108cc6188893143e180ca62fc26ef47fcb",
+      "research-wiki/technical-lemmas/gradient-descent-pl.md": "d97ffcb97f5b2fc6e4bb8c4c7b27fd2c99ca965eb1ad930ef86508de79224837",
+      "research-wiki/technical-lemmas/gradient-descent-value.md": "3ff3ac6c978902006abfd9dffcd87d465cbcff6e08e12fe3d53ac41933a63148"
+    },
+    "review": "Old energy and weighted frontier cells each gain the actual canonical descent parent consumed directly by proof, preserve merged status and existing source/mathematical boundary, and append refreshed independent review reference. This is an actual dependency update, not a conceptual mirror. PL and Value memory append truthful extraction/source/integration notes, with full gate/graph/UI still in progress; no mathematical or lesson/binding mutation.",
+    "required_graph_scope": "Both new cells plus both changed old cells need regenerated graph views and bounded graph-check/UI confirmation."
+  },
+  "conditional_approval": [
+    "Root confirms the newly running canonical full gate PASS for corrected cf75c4e; the earlier1f8a1a9 full gate FAILED due to import placement and cannot be reused. Reviewer does not duplicate the build.",
+    "Root completes regenerated site and all four affected cell graph checks plus final UI inspection.",
+    "Persist reviewed metadata addendum without unreviewed semantic changes; fresh origin/main fetch permits safe integration, otherwise reconcile new movement."
+  ],
+  "truth_boundary": "possible-source-error and domain-mismatch retained as appropriate. Three exact nonnegative-step overlays accepted independently, including fresh self-contained PL counterexample proposal. Totalized-gradient model generalization remains explicit; no invented differentiability, convexity or optimizer existence. Canonical helper extraction is reuse, actual PL iterate bound is substantive delta.",
+  "repo_mutations": "None by reviewer; only this /private/tmp report written.",
+  "prior_checked_integration_commit": "1f8a1a9213b851a5669cfb39a77ed03f136f667f",
+  "import_order_fix": {
+    "commit": "cf75c4e86c9e419906a18fa1989c7ba30d3a2e2b",
+    "file_hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/Analysis.lean": "17f02edde46673de7339def2de877a423dff443b1e63777a2a1a26b4d7d30243",
+      "Tests.lean": "2565cbc7fc07a34e5fff4d7222350df459ddf5c7e181c730f11aa8e33780c671"
+    },
+    "all_imports_before_module_documentation": true,
+    "diff_scope": [
+      "AutoSamplingTheory/TechnicalLemmas/Analysis.lean",
+      "Tests.lean"
+    ],
+    "prior_failed_log": "/private/tmp/andi-pl-full-gate.log",
+    "fresh_pending_log": "/private/tmp/andi-pl-full-gate-fixed.log",
+    "fresh_running_session_reported_by_root": 63449
+  },
+  "review_lesson": "Future root coverage reviews must check both actual import presence and syntactic placement in the Lean import header before the module doc, then require successful aggregate compilation."
+}

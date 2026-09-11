@@ -55,3 +55,13 @@ Merged candidate `21dfd69e6b27640c6859c16e617ee0a03ce99800` now passed the fresh
 User-authorized direct main push succeeded:41f04c0→943dcde6093b2e993fceb2a3196225e2e2931e24. No PR was created. The canonical SAU now records MERGED under its actual integration owner, and both frontier cells record the actual commit link. Only final ledger/cell/memory metadata changed after the accepted source state; Lean proofs/tests and publication bindings remain unchanged. Regenerate the graph for these final cell-state inputs before committing closeout metadata.
 
 Final MERGED-cell regeneration and both graph checks passed; their focused reports remain byte-identical. Final site, publication, semantic and whitespace gates pass. Temporary local preview server is stopped. The remaining delivery commit contains only these final ledger/cell/memory records; no mathematical or publication-binding change requires another Lean or source review.
+
+## Shared descent extraction (PL consumer)
+
+`ANDI-OPT-gd-pl-001` extracts the historical private `step_descent` into
+`GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound`. Both public
+Value statements are unchanged, and their proofs call the canonical shared
+lemma. Fresh whole-module source/lesson review replaces the old binding; the
+byte-identical anonymous statement reconstruction is reused. Evidence is in
+`runs/semantic-roundtrip/andi-opt-gd-pl/`. This exposure itself is not new math;
+the new substantive edge is the actual PL iterate rate.
