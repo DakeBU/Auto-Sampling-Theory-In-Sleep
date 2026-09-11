@@ -34,7 +34,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-arc-law.md",
     "planning_review": "Independent log_depth_source_review confirmed exact joint law, derivative, endpoint signs, real consumer and separate source discrepancy.",
-    "execution_boundary": "Root sole writer; GaussianArcLaw EXPLORING after actual parent PR277 merge. No STABILIZING packet.",
+    "execution_boundary": "Root sole writer; GaussianArcLaw is the sole STABILIZING packet.",
     "admission_boundary": "VERIFIED atd26fc31. Aggregate integration, site, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/gaussian-arc-law.verified-admission.json"
   },

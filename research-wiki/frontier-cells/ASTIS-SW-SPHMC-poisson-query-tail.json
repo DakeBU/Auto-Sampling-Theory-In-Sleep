@@ -105,7 +105,36 @@
         },
         "boundary": "Exact-candidate local integration, independent review, browser/graph and both PR CI passed. Actual merge confirmed; post-merge CI/deployment remain separate. Neither paper main result is complete."
       },
-      "post_merge": "Merge CI and deployed provenance pending."
+      "post_merge": "Merge Lean and Site succeeded; deployment103246108967 succeeded; exact38f7c55 original anchor and card live."
+    },
+    "post_merge_delivery": {
+      "merge_site": {
+        "run": 34593937395,
+        "status": "completed",
+        "conclusion": "success",
+        "deployment_job": 103246108967
+      },
+      "boundary": "Exact merge CI and deployed reader provenance independently recorded from GitHub and live HTTP; prerequisite only, neither paper completed.",
+      "live": {
+        "merge_commit": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+        "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "anchor": "sphmc-poisson-query-tail",
+        "deployed_provenance": true,
+        "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-poissonquerytail.html",
+        "card_http_status": 200,
+        "card_labels": [
+          "Partial",
+          "Not mapped"
+        ],
+        "boundary": "Actual deployed commit, HTTP status, original anchor and labels verified. Local visual checks and candidate CI remain separately pinned."
+      },
+      "merge_commit": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+      "merge_lean": {
+        "run": 34593937366,
+        "status": "completed",
+        "conclusion": "success"
+      }
     }
   },
   "blocked": {

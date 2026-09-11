@@ -3,7 +3,7 @@
     "Independent fixed-commit VERIFIED admission",
     "Aggregate integration, original reader/graph QA, merge and deployment"
   ],
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "cell": "ASTIS-SW-SPHMC-gaussian-arc-law",
   "scratch_sha256": "1d03511b1d0b6426c489265de1af155a7aeed894de8a14c45cc621d2df12b80a",
   "scratch": ".astis/GaussianArcLaw.lean",
