@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment"
@@ -38,10 +38,10 @@
   },
   "mathematical_status": "Actual Gaussian likelihood and exact power moment prerequisite to SPHMC Lemma6.3(ii). No mixture/data-processing power-divergence inequality, complete Renyi metric API, general reverse transport, proxy-warmness, sampler or query-cost conclusion. Finite marginal moments remain separate when later source consumers require them.",
   "remaining": [
-    "Independent fixed-commit review",
     "Integration, aggregate and reader/graph delivery",
     "Independent mixture/data-processing inequality and general Gaussian reverse transport",
     "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
     "Remaining agreed reader/conversion/copy/download deliveries"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/gaussian-power-moment.verified-admission.json"
 }
