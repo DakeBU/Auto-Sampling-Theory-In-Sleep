@@ -33,6 +33,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment
 
 /-!
 # ASTIS example cases

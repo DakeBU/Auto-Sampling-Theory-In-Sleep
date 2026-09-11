@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment",
+      "title": "Actual smooth gradient-arc exponential moment",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "D.1 Claim 1 proof and Claim 2, smooth case",
+          "scope": "Factor-2 exponential moment from the proof, with the corresponding log2 term retained."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.1 and A.4(2)",
+          "scope": "Terminal gradient-estimator approximation consumer."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCSmoothGradientArcMoment"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner product space with its Borel measurable structure, and d=finrank(E). Zero dimension is allowed. The real-valued function f is differentiable everywhere and its actual gradient is beta-Lipschitz, where beta>=0.",
+        "eta>0, lambda>=0, 12 beta^2 eta^2 lambda^2<=1, and h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta).",
+        "The actual independent input law is mu=N(h,eta I) product N(0,eta I), explicitly the product of the pushforwards of standard Gaussian by z->h+sqrt(eta)z and z->sqrt(eta)z.",
+        "For each real r set theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)> and F_r=exp(lambda abs(W_r))."
+      ],
+      "statement": "The vector gradient f(x) is the actual gradient of f at every x. For each displayed real r, F_r is measurable and integrable under the actual input law mu, its integral is at most 2 exp(10 d eta^2 lambda^2 beta^2), and the logarithm of its integral is at most log 2+10 d eta^2 lambda^2 beta^2.",
+      "formula": "\\mathbb E_\\mu e^{\\lambda|W_r|}\\le2e^{10d\\eta^2\\lambda^2\\beta^2},\\qquad\\log\\mathbb E_\\mu e^{\\lambda|W_r|}\\le\\log2+10d\\eta^2\\lambda^2\\beta^2.",
+      "boundary": "This is the smooth s=1 source-proof-supported estimator moment, preserving the factor2 used by Claim 2. It is not a silent repair or proof of printed Claim 1 without log2. beta=0, d=0 and all real r are disclosed extensions. The actual center construction h=x0-eta grad f(x_plus), clipping, target log-weight mean identification, normalized Renyi error, initialization and terminal query cost remain separate. No full SPHMC or PBPS main result is asserted.",
+      "steps": [
+        {
+          "title": "Establish finite quadratic Gaussian moments",
+          "text": "Combine the standard one-dimensional Gaussian density with exp(t x^2). For t<1/2 the remaining Gaussian exponent is strictly negative, proving integrability before evaluating the integral. Expand the finite-dimensional standard Gaussian in an orthonormal basis; the squared norm is the sum of squared independent coordinates. Product integrability and Fubini give the exact power. On 0<=t<=1/4, a scalar logarithmic inequality bounds each factor by exp(2t). Scaling by sqrt(eta) supplies the nonstandard variance.",
+          "formula": "\\mathbb E e^{t\\|G\\|^2}=(1-2t)^{-d/2}\\le e^{2dt}\\quad(0\\le t\\le1/4).",
+          "lean": "quadratic_integrable; quadratic_integral; quadratic_stdGaussian; quadratic_stdGaussian_bound; scaled_quadratic_bound"
+        },
+        {
+          "title": "Integrate the independent velocity with both signs",
+          "text": "For any fixed vector g and real a, the linear projection of a standard Gaussian has variance norm(g)^2. Add its positive and negative exponential moments to dominate exp(a abs(<g,G>)). Establish product integrability by dominating the integral of the fiber norm with an integrable position moment, then apply Fubini.",
+          "formula": "\\mathbb E e^{a|\\langle g,G\\rangle|}\\le\\mathbb E e^{a\\langle g,G\\rangle}+\\mathbb E e^{-a\\langle g,G\\rangle}=2e^{a^2\\|g\\|^2/2}.",
+          "lean": "linear_exp; linear_abs_exp; gaussian_product_abs_moment"
+        },
+        {
+          "title": "Use the actual gradient and control the position moment",
+          "text": "Differentiability identifies gradient f as the true gradient; its Lipschitz hypothesis implies norm(grad f(x_plus)-grad f(x))<=beta norm(x-x_plus). For c>=0 and x=h+Z, the squared triangle bound splits the reference-point contribution and the centered Gaussian contribution. This yields an integrable exponential majorant, not an assumed moment of the gradient.",
+          "formula": "\\mathbb E e^{c\\|\\nabla f(x_+)-\\nabla f(h+Z)\\|^2}\\le e^{2c\\beta^2\\|h-x_+\\|^2+4dc\\beta^2\\eta},\\quad 2c\\beta^2\\eta\\le\\tfrac14.",
+          "lean": "positional_moment; true_gradient_product_moment; DifferentiableAt.hasGradientAt"
+        },
+        {
+          "title": "Check the source parameter range and constants",
+          "text": "Put a=lambda(pi/2)sqrt(eta) and c=a^2/2. Since pi^2<=12, a^2<=3 eta lambda^2. The source range guarantees a^2 beta^2 eta<=1/4, exactly the quadratic moment condition. The center-distance assumption bounds the reference contribution. The two contributions sum to at most 9 d eta^2 lambda^2 beta^2, which is at most the displayed source constant 10.",
+          "formula": "a^2\\beta^2\\|h-x_+\\|^2+2da^2\\beta^2\\eta\\le9d\\eta^2\\lambda^2\\beta^2\\le10d\\eta^2\\lambda^2\\beta^2.",
+          "lean": "source_constants; field_product_moment"
+        },
+        {
+          "title": "Return to the actual arc estimator input law",
+          "text": "First push the independent centered position and standard velocity through (z,y)->(h+z,(pi/2)sqrt(eta)y). The nonnegative velocity scale and inner-product symmetry identify the pulled-back integrand exactly. Then invoke GaussianArcLaw: the actual arc position and velocity jointly have this product law under the original independent input. Pull back both integrability and the integral equality; no surrogate random variable or unproved independence is substituted.",
+          "formula": "(\\gamma_r,v_r)_\\#\\mu=N(h,\\eta I)\\otimes N(0,\\tfrac{\\pi^2}{4}\\eta I).",
+          "lean": "gradient_output_moment; actual_gradient_arc_moment; GaussianArcLaw.gaussian_arc_law; integrable_map_measure; integral_map"
+        },
+        {
+          "title": "Take logarithms only after proving positivity",
+          "text": "The Gaussian pushforwards and their product are probability measures. Since lambda>=0, F_r>=1 pointwise; its established integrability therefore gives integral F_r>=1. Monotonicity of log applies to this positive integral, and log(2 exp(K))=log2+K. Measurability follows from the continuous gradient and the explicit arc maps.",
+          "formula": "1\\le\\mathbb E_\\mu F_r\\le2e^K\\quad\\Longrightarrow\\quad\\log\\mathbb E_\\mu F_r\\le\\log2+K.",
+          "lean": "smooth_gradient_arc_moment; Measure.isProbabilityMeasure_map; integral_mono; Real.log_le_log; Real.log_mul"
+        }
+      ],
+      "lean_statement": "The actual Gaussian-input gradient estimator is measurable and exponentially integrable, with explicit factor2 MGF and log2 bounds under the source range and center condition.",
+      "lean_proof": "Finite Gaussian quadratic moments, signed linear Gaussian moments, true-gradient Lipschitz domination, actual arc joint pushforward, and positivity before logarithms.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.mgf_gaussianReal",
+        "ProbabilityTheory.integrable_exp_mul_gaussianReal",
+        "MeasureTheory.integrable_map_measure",
+        "MeasureTheory.integral_map",
+        "MeasureTheory.integral_fintype_prod_eq_pow",
+        "MeasureTheory.Integrable.fintype_prod",
+        "Real.log_le_log"
+      ]
+    }
+  ]
+}

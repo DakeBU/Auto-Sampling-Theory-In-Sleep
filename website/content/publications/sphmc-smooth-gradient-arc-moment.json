@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-smooth-gradient-arc-moment",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual smooth gradient-arc exponential moment",
+      "source": {
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "edition": "arXiv:2602.01338v1",
+        "anchor": "Appendix D.1 Claim 1 proof and Claim 2, smooth s=1 moment; consumed by SPHMC Appendix A.4(2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS source-proof-supported mathematical restatement and exposition, preserving the factor2 used in the proof and subsequent Claim 2. This is a dependency of Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. It is not the differing printed logarithmic Claim 1 formula or an author-endorsed repair."
+      },
+      "statement": "The vector gradient f(x) is the actual gradient of f at every x. For each displayed real r, F_r is measurable and integrable under the actual input law mu, its integral is at most 2 exp(10 d eta^2 lambda^2 beta^2), and the logarithm of its integral is at most log 2+10 d eta^2 lambda^2 beta^2.",
+      "assumptions": [
+        "E is a finite-dimensional real inner product space with its Borel measurable structure, and d=finrank(E). Zero dimension is allowed. The real-valued function f is differentiable everywhere and its actual gradient is beta-Lipschitz, where beta>=0.",
+        "eta>0, lambda>=0, 12 beta^2 eta^2 lambda^2<=1, and h,x_plus in E satisfy norm(h-x_plus)<=sqrt(d eta).",
+        "The actual independent input law is mu=N(h,eta I) product N(0,eta I), explicitly the product of the pushforwards of standard Gaussian by z->h+sqrt(eta)z and z->sqrt(eta)z.",
+        "For each real r set theta=pi*r/2, gamma_r(x,z)=h+sin(theta)(x-h)+cos(theta)z, v_r(x,z)=(pi/2)(cos(theta)(x-h)-sin(theta)z), W_r=<v_r,grad f(x_plus)-grad f(gamma_r)> and F_r=exp(lambda abs(W_r))."
+      ],
+      "formulae": [
+        {
+          "label": "Actual estimator exponential moment and log bound",
+          "tex": "\\mathbb E_\\mu e^{\\lambda|W_r|}\\le2e^{10d\\eta^2\\lambda^2\\beta^2},\\qquad\\log\\mathbb E_\\mu e^{\\lambda|W_r|}\\le\\log2+10d\\eta^2\\lambda^2\\beta^2."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "smooth-gradient-arc-moment",
+          "label": "Actual smooth gradient estimator moment required for clipping and target approximation"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment",
+          "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
+          "role": "proof-edge",
+          "supports": [
+            "smooth-gradient-arc-moment"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment",
+          "boundary": "This is the smooth s=1 source-proof-supported estimator moment, preserving the factor2 used by Claim 2. It is not a silent repair or proof of printed Claim 1 without log2. beta=0, d=0 and all real r are disclosed extensions. The actual center construction h=x0-eta grad f(x_plus), clipping, target log-weight mean identification, normalized Renyi error, initialization and terminal query cost remain separate. No full SPHMC or PBPS main result is asserted.",
+          "assumption_deltas": [
+            {
+              "source": "Smooth case s=1 in positive Euclidean dimension with beta>0.",
+              "lean": "Finite-dimensional real inner product space, including dimension zero, and beta>=0.",
+              "classification": "generalization",
+              "reason": "The basis-independent argument and empty Gaussian product remain valid; beta=0 makes the true gradient constant. No division by beta is used."
+            },
+            {
+              "source": "Interpolation time lies in [0,1].",
+              "lean": "Every real r.",
+              "classification": "generalization",
+              "reason": "The actual joint Gaussian arc law holds at every real angle."
+            },
+            {
+              "source": "h=x0-eta grad f(x_plus) with norm(h-x_plus)<=sqrt(d eta).",
+              "lean": "Arbitrary h,x_plus subject to the same norm bound.",
+              "classification": "generalization",
+              "reason": "The moment proof only uses this bound. Constructing the actual source center remains a later consumer."
+            },
+            {
+              "source": "Smooth differentiable potential with beta-Lipschitz gradient, eta>0, lambda>=0 and the smooth moment range.",
+              "lean": "Differentiable real f, LipschitzWith beta on its actual gradient, eta>0, lambda>=0 and 12 beta^2 eta^2 lambda^2<=1.",
+              "classification": "same",
+              "reason": "The source smooth range is expressed without division, so the valid zero-beta extension is visible."
+            },
+            {
+              "source": "The Claim 1 proof and Claim 2 use a factor2 exponential moment; printed Claim 1 logarithmic formula lacks log2.",
+              "lean": "Integral exp(lambda abs(W))<=2 exp(10 d eta^2 lambda^2 beta^2), with log2 retained in the logarithmic form.",
+              "classification": "same",
+              "reason": "The attributed source is the proof-supported factor2 contract, not the differing printed log statement. That separate possible-source-error is preserved and no repair is silently adopted."
+            },
+            {
+              "source": "Expectations of the actual Gaussian arc gradient estimator.",
+              "lean": "Actual product of affine standard-Gaussian pushforwards; measurability and integrability are conclusions, and HasGradientAt identifies the gradient.",
+              "classification": "source-implicit",
+              "reason": "These analytic obligations justify the source integration and log steps; they are proved rather than added as moment assumptions."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
