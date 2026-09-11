@@ -2,7 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
   "state": "EXPLORING",
   "remaining": [
-    "Source preaudit and authored lesson/publication",
+    "Author source-faithful lesson and publication with preaudit disclosures",
     "Fresh anonymous reconstruction and formal source review",
     "Fixed-commit independent verification and admission",
     "Aggregate integration and reader/graph/merge/deployment"
@@ -40,5 +40,17 @@
     "characters": 1853,
     "definitionally_equal": true
   },
-  "source_preaudit": "Pending independent log_depth_source_review."
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
+    "result": "Read-only full source preaudit accepted actual W/input, positive eta/beta/B/d and ell>=2, center and source step condition, exact40/8/factor2 constants, and integrability before integral. No missing condition or proposed repair. No independent compile or formal admission.",
+    "disclosures": [
+      "Finite-dimensional inner-product domain and all-real r extend Euclidean/unit-time source.",
+      "This packet retains positive dimension and beta; it does not claim their zero cases.",
+      "Arbitrary residual-controlled h; no source center/reference construction.",
+      "Fixed r only; no joint parameter measurability or uniform-r integration theorem.",
+      "Arbitrary positive B does not imply uniform constant cost; later source consumer uses B=Theta(1).",
+      "Unclipped mean identity, clipped target law, Renyi accuracy and actual query cost remain open."
+    ]
+  }
 }
