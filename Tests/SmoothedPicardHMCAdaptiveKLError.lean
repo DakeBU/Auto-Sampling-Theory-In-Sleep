@@ -1,0 +1,3 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError
+
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error
