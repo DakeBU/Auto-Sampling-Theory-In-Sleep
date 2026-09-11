@@ -39,6 +39,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram
 
 /-!

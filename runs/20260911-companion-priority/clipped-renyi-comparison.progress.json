@@ -1,9 +1,8 @@
 {
   "cell": "ASTIS-SW-SPHMC-clipped-renyi-comparison",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "remaining": [
-    "Aggregate integration and exact-candidate reader/graph QA",
-    "PR CI, actual merge and deployment"
+    "Whole Goal copy/citation/associated Lean download requirements"
   ],
   "boundary": "Actual fixed-call normalized bidirectional RN-power moment comparison. The order is the denominator-measure ell-power used by B12 proof and D1; printed B7/section1.3 definitions are inconsistent and must be disclosed. B12 intermediate step has a gap for1<ell<2; actualconsumerell>=2 avoids it, without modifying the source theorem. No logarithmic Renyi API,parameter selection,reference initialization,adaptive kernel,query cost or fullpaper completion. No TV transport of unbounded costs.",
   "scratch_checkpoint": {
@@ -72,10 +71,17 @@
       "ASTIS-RT-20260912-SPHMCClippedRenyiComparison"
     ]
   },
-  "admission_boundary": "VERIFIED atbebb883. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "admission_boundary": "Selected RN packet merged, all PR/mergeCI and actual live delivery verified; no fullpaper closure.",
   "independent_admission": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json",
   "integration_notes": {
     "upstream": "10b2e59e6a9390f16275cabff12473872fddb071",
     "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior ead9e06, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/286",
+    "commit": "722f040352d86fbcfb60a0f8b14e80955412ed2e",
+    "merged_at": "2026-09-11T18:13:44Z",
+    "candidate": "a129fa4f0fc608f64e76ba9d0bd6fc5cd8bb6fa2",
+    "post_merge": "Both exact722f040 merge CI SUCCESS (Lean34632097645, Site34632097699); companion/module HTTP200 with full merge provenance and actual declaration."
   }
 }

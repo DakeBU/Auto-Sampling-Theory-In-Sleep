@@ -1,0 +1,24 @@
+{
+  "decoder": "blind_reconstruction_p",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of initial anonymous reconstruction and supplementary source-blind finite-index confirmation.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-p.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "6f1628e177d6044036c23ca72875ee05f8279ea1312587b4b30e41b25023a82d",
+  "lean_statement_sha256": "2e7416cc9541b652d17caf853cb132898a145a4cd187643609313706cf0cd742",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product Borel space E with d=dim_R(E)>0, every everywhere differentiable f:E->R, real eta,beta,ell,eps and points x0,xp, assume eta,beta>0,ell>=2,0<eps<=1/2,actual gradient beta-Lipschitz, norm(x0-eta grad f(xp)-xp)<=sqrt(d eta), and64 beta(sqrt(d(ell+log(1/eps)))+ell+log(1/eps))<=1/eta. No convexity is assumed. Set g=grad f(xp),h=x0-eta g,P=(z->sqrt(eta)z)_*stdGaussian(E),nu=Lebesgue restricted to(0,1] product P,q=(z->h+sqrt(eta)z)_*stdGaussian(E). Define W(x,(t,v))=min(1,max(-1,< (pi/2)(cos(pi*t/2)(x-h)-sin(pi*t/2)v),g-grad f(h+sin(pi*t/2)(x-h)+cos(pi*t/2)v)>)), with circular pi. Set m(x)=integral W(x,a) dnu(a),qhat=q.tilted(m). First form q0=(z->x0+sqrt(eta)z)_*stdGaussian(E), then target pi=q0.tilted(-f). The input omega is an iid sequence of attempts(X_n,K_n,(Z_ni)_i,U_n), with independent q,Poisson2,nu^Nat,and uniform[0,1] components. Acceptance B_n means U_n<=product over i in Fin K_n of(1+W(X_n,Z_ni))/2; division is inside each factor and empty product=1. Output Y is X at the least accepting index,or x0 if none accepts. The ENNReal count C=1+sum_n K_n*indicator(all i<n reject) includes all counts through the successful batch, with one initial unit rather than one per trial. The eighteen conclusions are: Y measurable; Y_*rho=qhat;rho(all trials reject)=0;rho,qhat,pi probability;pi<<qhat andqhat<<pi;the actual real RN ell-powers are Bochner integrable under their denominator measures;their corresponding real integrals I=integral((dpi/dqhat).toReal)^ell dqhat andJ=integral((dqhat/dpi).toReal)^ell dpi are both strictly positive;I,J<=1+eps^2;log(I)/(ell-1),log(J)/(ell-1)<=eps^2;the nonnegative expectation of C<=ofReal(1+2exp2);and for every real0<p<=1/2,rho{ofReal([2(exp1-1)(exp2+1/log2)+1+1/log2]*log(2/p))<C}<=ofReal(p). ell is real,not necessarily integer. The cost threshold inequality is strict; cost and probability bounds use ENNReal.",
+  "source_fidelity_verdict": null,
+  "decoder_notes": [
+    "Fresh decoder read only anonymous packet and approved definitions; no source-fidelity or compilation claim.",
+    "Initial main pretty-print omitted the product index type; decoder explicitly flagged this uncertainty. Supplemented type-explicit compiled acceptance definition resolves it at Fin K_n,not an arbitrary finite set.",
+    "Two tilts use their actual bases; Gaussian pushforward precedes the target tilt. Clipping occurs inside m.",
+    "The initial unit charge is once per entire run and successful batch included. No evaluator/hardware trace is asserted by the statement.",
+    "All18conjuncts retained; real RN powers use denominator measures, explicit log requires returnedpositive integrals.",
+    "No extra asymptotic or limiting result,convexity,reference-point construction,joint input kernel or source identity inferred."
+  ]
+}

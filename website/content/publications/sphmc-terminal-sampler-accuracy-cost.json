@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-terminal-sampler-accuracy-cost",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual terminal sampler accuracy and cached gradient costs",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Theorem A.4(2), through smooth arXiv:2602.01338v1 D.1/B.12 and actual local Poisson query tail",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded mathematical restatement of the fixed-call terminal sampler in Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo; smooth sampling dependency from Fan Chen, Sinho Chewi, Constantinos Daskalakis and Alexander Rakhlin, High-accuracy sampling for diffusion models and log-concave distributions. Explicit scope differences below apply."
+      },
+      "statement": "The output map is measurable and its rho-pushforward equals qhat; the never-accepted event has rho-measure zero. rho,qhat,pi are probability measures, and pi and qhat are mutually absolutely continuous. Both actual real RN ell-power functions are integrable under their denominator measures, and both integrals are strictly positive and at most 1+eps^2. Each explicit logarithmic RN moment divided by ell-1 is at most eps^2. The actual cached gradient count has expected value at most 1+2*exp(2). For every 0<p<=1/2, rho{G_cost>K_G*log(2/p)}<=p, where K_G=2*(exp(1)-1)*(exp(2)+1/log(2))+1+1/log(2). The cost expectation and tail are stated in extended nonnegative reals.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with d=finrank(E)>0. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta>0, ell>=2 and 0<eps<=1/2. Convexity is not used in this fixed smooth dependency.",
+        "Given x0 and supplied x_plus, cache g=grad f(x_plus) and set h=x0-eta*g. Assume norm(h-x_plus)<=sqrt(d*eta). Let L=ell+log(1/eps), and assume 64*beta*(sqrt(d*L)+L)<=1/eta. The reference-point construction and its cost are outside this fixed-call input contract.",
+        "Let P=(z->sqrt(eta)*z)_*stdGaussian(E), nu=Lebesgue restricted to (0,1] product P, and q=(z->h+sqrt(eta)*z)_*stdGaussian(E). For theta=pi*r/2 define W0(x,r,z)=<(pi/2)*(cos(theta)*(x-h)-sin(theta)*z),g-grad f(h+sin(theta)*(x-h)+cos(theta)*z)>. Set W=min(1,max(-1,W0)), m(x)=integral W(x,a) dnu(a), and qhat=q.tilted(m). First form G=(z->x0+sqrt(eta)*z)_*stdGaussian(E), then pi=G.tilted(-f). The mean m describes a law; the algorithm does not calculate that integral.",
+        "One attempt is (x,N,a,u), with independent laws q,Poisson(2),nu^Nat and uniform[0,1]. Accept when u<=product over i<N of (1+W(x,a_i))/2. The full attempt sequence has iid law rho. Output the x-coordinate of the least accepted index, or x0 if no index is accepted. C(omega) sums each batch size N_n whenever all earlier attempts failed, including the successful batch. The specified cached gradient count is G_cost=1+C: one initial evaluation of g and one new gradient evaluation in each W0 call. Random-number generation is not counted as a gradient query."
+      ],
+      "formulae": [
+        {
+          "label": "Actual output accuracy",
+          "tex": "I_{\\pi\\|\\widehat\\pi}=\\int\\left(\\frac{d\\pi}{d\\widehat\\pi}\\right)^\\ell d\\widehat\\pi,\\quad I_{\\widehat\\pi\\|\\pi}=\\int\\left(\\frac{d\\widehat\\pi}{d\\pi}\\right)^\\ell d\\pi,\\quad 0<I_{\\cdot\\|\\cdot}\\le1+\\varepsilon^2,\\quad \\frac{\\log I_{\\cdot\\|\\cdot}}{\\ell-1}\\le\\varepsilon^2,\\quad \\widehat\\pi=\\widehat q."
+        },
+        {
+          "label": "Actual cached gradient costs",
+          "tex": "\\mathbb E_\\rho(1+C)\\le1+2e^2,\\quad \\rho\\{1+C>K_G\\log(2/p)\\}\\le p,\\quad K_G=2(e-1)(e^2+1/\\log2)+1+1/\\log2."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-terminal-accuracy-cost",
+          "label": "Actual terminal output accuracy and cached gradient expected/tail costs"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost",
+          "cell": "ASTIS-SW-SPHMC-terminal-sampler-accuracy-cost",
+          "role": "proof-edge",
+          "supports": [
+            "actual-terminal-accuracy-cost"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost",
+          "boundary": "Eighteen public conjuncts bind the actual first-success probability program to both accuracy directions and the specified cached gradient count. This is a probability program with an explicit cost random variable, not a formally verified compiler, evaluator or hardware trace. The supplied reference point is not constructed and finding it is not charged; its one cached gradient evaluation is charged. Positive beta and dimension are retained; zero-beta/zero-dimensional cases remain separate. The explicit logarithmic RN expressions are proved, but no complete named Renyi API is asserted. The chosen denominator-measure powers follow B.12/D.1 despite inconsistent printed B.7/section1.3 notation. The below-order-two B.12 intermediate proof gap and the external tail proof final constant substitution are not silently imported or claimed repaired. The tail uses the independently proved local PoissonQueryTail on the same actual law/event/cost. No joint input-parameter kernel, outer recursion, initialization construction, PBPS composition or complete paper result is asserted; no unbounded cost is transferred by TV or Renyi closeness.",
+          "assumption_deltas": [
+            {
+              "source": "A.4(2) is stated in Euclidean space.",
+              "lean": "Finite-dimensional real inner-product Borel space.",
+              "classification": "generalization",
+              "reason": "Coordinate-free formulation; positive dimension remains explicit."
+            },
+            {
+              "source": "The terminal application is described for smooth convex potentials.",
+              "lean": "No convexity; actual differentiability and Lipschitz gradient are assumed.",
+              "classification": "generalization",
+              "reason": "The D.1 smooth fixed-call proof does not use convexity; this broadens the fixed-call conclusion beyond the A.4 application context."
+            },
+            {
+              "source": "The paper statement does not isolate beta=0 or zero-dimensional cases.",
+              "lean": "beta>0 and d>0 are explicit.",
+              "classification": "API-limitation",
+              "reason": "This packet uses the positive-denominator parent bounds. Degenerate branches remain unproved here; no claim of equivalence to every source domain."
+            },
+            {
+              "source": "A.4(2) uses a universal step constant and O(1)/O(log(2/p)) costs.",
+              "lean": "Explicit inverse-step constant64, B=1, expected cost1+2exp2 and displayed K_G.",
+              "classification": "source-implicit",
+              "reason": "The numerical implications and constants are proved; the actual cached count includes the initial gradient and successful full batch."
+            },
+            {
+              "source": "B.12/D.1 uses denominator-measure powers; B.7/section1.3 definitions have inconsistent printed subscripts/powers.",
+              "lean": "Two explicit denominator-measure RN ell-power logarithmic expressions with true L1 and positive integrals.",
+              "classification": "source-implicit",
+              "reason": "Follows the actual B.12/D.1 use; no author-confirmed erratum or complete named Renyi API is claimed. ell>=2 does not claim to repair B.12 below2."
+            },
+            {
+              "source": "D.1 samples a uniform auxiliary time and queries a stochastic gradient estimator.",
+              "lean": "Actual Ioc uniform time product, cached g, one new gradient per estimator, full-batch C and cost1+C.",
+              "classification": "source-implicit",
+              "reason": "Null endpoints preserve the uniform law. The specified probability-program count is not a compiler/evaluator or hardware-trace certificate."
+            },
+            {
+              "source": "D.1 cites a rejection-query tail proof whose last constant substitution is not directly justified.",
+              "lean": "Instantiate the independently proved local PoissonQueryTail on the identical law/event/cost and absorb the cached unit.",
+              "classification": "source-implicit",
+              "reason": "No stopping/batch-size independence is assumed, and no claim repairs the entire external printed theorem."
+            },
+            {
+              "source": "A.4(2) receives a reference point satisfying the stated residual bound and feeds larger algorithms.",
+              "lean": "Supplied xp and its single cached gradient evaluation; actual fixed-input program, both accuracy directions, expected/tail cost.",
+              "classification": "same",
+              "reason": "Finding xp, joint parameter kernel and outer recursion are not asserted; no full-paper or composition completion follows."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

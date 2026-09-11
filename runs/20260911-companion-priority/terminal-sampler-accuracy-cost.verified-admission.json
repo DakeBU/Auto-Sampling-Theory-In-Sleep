@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "73ce28e167a2aa04da1a0470a13f0be585e6b170",
+    "gate": {
+      "production": "Unchanged production/test, independently focusedPASS3740; actual clipped/ideal bidirectional RN powers, weighted L1 and bounds reviewed, standard3nolint. Independent9141-character statement and1572-character acceptance supplement Meta expansion and defeq replay accepted; Fin N clarification matches anonymous packet.",
+      "publication": "Independent reviewed validator and actual check --base a129fa4f0fc608f64e76ba9d0bd6fc5cd8bb6fa2 PASS62; all14private implementations covered. External binding preimage,wholemodule,lesson,source,reconstruction,packets,runs,test hashes verified; anonymous/canonical decoder bytes identical.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_p",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "77b538ad85ac31b8a0261e2d32e235b7adb84a822b834f0e43a6c764c47b3a9c",
+        "decoder_packet_sha256": "6f1628e177d6044036c23ca72875ee05f8279ea1312587b4b30e41b25023a82d",
+        "decoder_run_sha256": "5b8ada1e0605561640282383c19ae0100a2860923ef5c52ca44dd0377df7d200",
+        "reviewer_packet_sha256": "e1d1aa4137386fe993981c7767659a54eeab22c74f424cf01834b89fcb8e06c3",
+        "review_run_sha256": "b1f718c7c6419308d7e86db9141e4686c78488378ff8aa2e7b7645235b2a4668",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual source gradient arc, positive normalization, weighted L1 before both RN-power identities; eighteen actual output/accuracy/cached-cost conclusions."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost"
+    ],
+    "independent_checks": [
+      "7 semantic slots,8 authored steps,8 informational differences; no blockers/repairs.",
+      "Fixedcommit clean; production/test unchanged; root unique writer and no active stabilizer.",
+      "Actual wholemodule and external binding preimage independently checked.",
+      "VERIFIED-only; Reference construction and its cost,joint parameter kernels,outer recursion,aggregate,reader,merge and full papers not completed."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs."
+}

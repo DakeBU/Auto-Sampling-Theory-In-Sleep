@@ -1,0 +1,110 @@
+{
+  "cell": "ASTIS-SW-SPHMC-terminal-sampler-accuracy-cost",
+  "state": "STABILIZING",
+  "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs.",
+  "remaining": [
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
+  ],
+  "scratch_checkpoint": {
+    "path": ".astis/TerminalSamplerAccuracyCost.lean",
+    "sha256": "e850e00f1475df8ea71ee743338f1ddde9874efb9667c23deed5e69dc9a65190",
+    "session": 34665,
+    "exit_code": 0,
+    "result": "Seven private foundations compiled, standard three axioms/no lint: scaled and original parameter conditions, epsilon exponential error, actual RN moment positivity, logarithmic bound, cached expected count and logarithmic tail threshold shift. No public consumer, production or admission."
+  },
+  "independent_foundations_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "4e719427b94c1ce46bae469e71a72baefea011821d1a93d51695ce9039554550",
+    "scope": "First five private foundations only, before cost helpers.",
+    "result": "Independent normalized frozen-source stdin compilation exit0 standard3/no lint; parameter algebra, denominator RN positivity and finite-toReal/L1 before log accepted. No VERIFIED."
+  },
+  "complete_scratch": {
+    "path": ".astis/TerminalSamplerAccuracyCost.lean",
+    "sha256": "a8e1884698917cd091e2ce89b7132dfdc0d5793da375fdbe5779144db098ea41",
+    "session": 59342,
+    "exit_code": 0,
+    "result": "Actual_program and18-conjunct public terminal_sampler_accuracy_cost compiled standard3/no lint. Actual iid law/output/never-hit, both RN moments and log accuracy, cached gradient expected and tail costs. Fourteen private declarations. No production/admission; independent full reviews pending."
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "a8e1884698917cd091e2ce89b7132dfdc0d5793da375fdbe5779144db098ea41",
+    "result": "Independent whole frozen source stdin compile exit0,2prints standard3/no lint;14private and18publicconjuncts accepted. Actual stream/event/fullbatchcachedcost and RN measures checked. No production VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "a8e1884698917cd091e2ce89b7132dfdc0d5793da375fdbe5779144db098ea41",
+    "result": "Complete readonly source preaudit accepted; no contract/code blocker; no compile or formal decoder admission.",
+    "disclosures": [
+      "Explicit probability program and specified cached count, not verified evaluator/hardware trace.",
+      "Actual log RN expressions, no full named Renyi API; printed notation discrepancies retained.",
+      "Actual local tail theorem rather than unchecked external final constant substitution.",
+      "No convexity faithful to D1 smooth dependency, generalizes SPHMC convex fixed application;positive beta/dimension.",
+      "xp supplied, construction and its cost excluded; no joint kernel/outer recursion/fullpaper.",
+      "18publicconjuncts; internal parameter inequalities not extra conclusions."
+    ]
+  },
+  "production": {
+    "module": "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalSamplerAccuracyCost.lean",
+    "test": "Tests\\SmoothedPicardHMCTerminalSamplerAccuracyCost.lean",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalSamplerAccuracyCost.lean": "4ee703cbc18f13f2eab0cb95ca7dca000e962712f0f75413eae505fa447704ae",
+      "Tests\\SmoothedPicardHMCTerminalSamplerAccuracyCost.lean": "afcef68f7c6b5fbb7aab3d85e24e75615159a4160414ccf4daf7ca245faddd54"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCTerminalSamplerAccuracyCost",
+    "state": "Focused PASS3740 and independent production review accepted; formal source review accepted; fixed admission pending."
+  },
+  "expanded_statement": {
+    "file": ".astis/terminal-sampler-accuracy-cost-expanded.log",
+    "sha256": "2e7416cc9541b652d17caf853cb132898a145a4cd187643609313706cf0cd742",
+    "characters": 9141,
+    "definitionally_equal": true,
+    "private_names_expanded": "All current local namespace constants, including generated NNReal positivity proof. Initial six-name expansion exposed attemptLaw._proof_1 and was replaced before any decoder.",
+    "independent_review": "depth_commit_verifier accepted corrected9141-character source-free expansion and Meta.isDefEq replay at610b935.",
+    "source_name_free": true
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "610b935b1b6ad6d32322830d0c0c767e1bda3498",
+    "result": "Unchanged reviewed mathematical proof, independent focused PASS3740 standard3; independent corrected expanded9141chars SHA2e7416cc9541b652d17caf853cb132898a145a4cd187643609313706cf0cd742, Meta.isDefEq success and no private/source names or ellipsis. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-terminal-sampler-accuracy-cost.json",
+    "state": "Eight authored steps and14private implementations accepted; publicationPASS62."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_p",
+    "packet_sha256": "6f1628e177d6044036c23ca72875ee05f8279ea1312587b4b30e41b25023a82d",
+    "result": "All18conjuncts reconstructed. Initial pretty-printed product index limitation resolved by supplementary type-explicit compiled acceptance definition; same source-blind decoder confirmed Fin N and per-factor division.",
+    "supplement": {
+      "script": ".astis/TerminalSamplerAcceptanceIndex.lean",
+      "log": ".astis/terminal-sampler-acceptance-index.log",
+      "characters": 1572,
+      "sha256": "b37c71f67d785859229524cc4a87c6ba8a762ab23a464d728e80495868895544",
+      "independent_review": "depth_commit_verifier replay exit0/Meta.isDefEq, exact context/packet hash verified, no source/private leaks. Initial panic output rejected; final safe Name pattern match used."
+    }
+  },
+  "formal_source_review": {
+    "state": "accepted",
+    "reviewer": "log_depth_source_review",
+    "packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost.reviewer.json",
+    "packet_sha256": "e1d1aa4137386fe993981c7767659a54eeab22c74f424cf01834b89fcb8e06c3",
+    "binding": "77b538ad85ac31b8a0261e2d32e235b7adb84a822b834f0e43a6c764c47b3a9c",
+    "verdict": "domain-mismatch",
+    "result_file": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.source-review-result.json"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost"
+    ]
+  },
+  "admission_boundary": "VERIFIED at73ce28e. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json",
+  "integration_notes": {
+    "upstream": "722f040352d86fbcfb60a0f8b14e80955412ed2e",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior a129fa4, metadata ancestry conflicts resolved after verifying main tree equals a129fa4; zero merge tree delta. Accepted program/source unchanged; aggregate pending."
+  }
+}
