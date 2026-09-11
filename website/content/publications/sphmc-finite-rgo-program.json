@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-finite-rgo-program",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Finite threshold-absorbed RGO execution, terminal marginal and ideal recovery",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Algorithm3.3 capped recursive execution and Theorem6.5 ideal comparison",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded finite execution semantics, no author endorsement implied."
+      },
+      "statement": "Let E be a finite-dimensional real inner-product Borel space, mu a probability measure, and S the state space of tuples (b,u,k,h) with nonnegative precision b, center u, natural count k and padded E-valued sequence h. Fix measurable a:S to R, positive at every state, and a nonnegative threshold B. Define F(s,y) by b_new=b+1/a(s), u_new=(b*u+y/a(s))/b_new, k_new=k+1 and h_new=(y,h(0),h(1),...). There exist Markov target and observation kernels T,H, before every choice of Markov Q,L, with T(s) the mu tilt by -b*norm(x-u)^2/2 and H(s) its actual Gaussian smoothing at standard deviation sqrt(a(s)). For each Q,L there are a Markov transition P and Markov output kernels R_n. P(s) is the point mass at s if B<=b and the F(s,.) pushforward of Q(s) otherwise. R_0=L; R_(n+1)(s) is L(s) if B<=b and the Q(s) integral of R_n(F(s,y)) otherwise. At stopped states every R_n(s)=L(s). The actual finite path kernel started at s, advanced by P for n transitions, projected to its final state and followed by L equals R_n. If Q=H and L=T, every R_n=T.",
+      "assumptions": [
+        "E has its Borel measurable structure and is finite-dimensional over the reals; mu is any probability measure, with no density or moment assumption.",
+        "S is the product of nonnegative real precision, E, natural count and the countable product E^N. The update is explicit; no history validity is inferred for arbitrary starting count/sequence.",
+        "a is measurable and strictly positive at every state, including stopped states. Source maps such as a=(eta+tau)/beta_A remain to be instantiated.",
+        "B is nonnegative. The paper uses the positive inverse terminal variance; B=0 is a valid immediate-stop generalization.",
+        "Q and L are arbitrary Markov kernels. The same globally constructed T,H precede them, and the constructed P is used for every finite depth.",
+        "At a finite cap the remaining call is represented by L even if the threshold was not reached. Exact ideal recovery uses both Q=H and L=T; no approximation or runtime bound follows."
+      ],
+      "formulae": [
+        {
+          "label": "Actual recursion and ideal finite-depth recovery",
+          "tex": "R_{n+1}(s)=\\begin{cases}L(s),&B\\le b(s),\\\\\\int R_n(F(s,y))\\,Q(s)(dy),&b(s)<B,\\end{cases}\\qquad Q=H,\\ L=T\\ \\Longrightarrow\\ R_n=T."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "finite-rgo-execution",
+          "label": "Finite threshold-absorbed execution, actual path endpoint and ideal recovery"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program",
+          "cell": "ASTIS-SW-SPHMC-finite-rgo-program",
+          "role": "prerequisite",
+          "supports": [
+            "finite-rgo-execution"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCFiniteRGOProgram",
+          "boundary": "Finite capped state execution with a supplied terminal kernel even when the cap is reached before the threshold. No claim that the cap reaches the source stopping depth, that arbitrary initial count/history is valid, or that the state path is a query execution record. Concrete smoothed sampler and FORS, source parameter selection, approximation errors and expected query costs remain separate. Ideal terminal L=T is an oracle comparison.",
+          "assumption_deltas": [
+            {
+              "source": "Algorithm3.3 uses a Euclidean Gibbs target.",
+              "lean": "Any probability base on a finite-dimensional real inner-product Borel space.",
+              "classification": "generalization",
+              "reason": "The exact posterior execution law requires no density or moment hypothesis; concrete Gibbs identification remains separate."
+            },
+            {
+              "source": "The recursion updates precision and center, with call-dependent smoothing parameters.",
+              "lean": "Explicit precision, center, count and padded-history update with measurable a(s)>0 everywhere.",
+              "classification": "source-implicit",
+              "reason": "This supplies measurable state semantics. Concrete source a=(eta+tau)/beta_A and valid initialization still require instantiation; no fixed schedule is imposed."
+            },
+            {
+              "source": "Termination uses the positive inverse terminal variance.",
+              "lean": "Nonnegative threshold, with identity state transition on terminal states.",
+              "classification": "generalization",
+              "reason": "Zero threshold immediately stops. The source instance uses a positive threshold. State self-loops represent absorption and do not assert extra oracle calls."
+            },
+            {
+              "source": "Algorithm3.3 uses a smoothed sampler, recurses and terminates with FORS.",
+              "lean": "Arbitrary Markov observation and terminal kernels Q,L; a finite cap with L used at the cap.",
+              "classification": "API-limitation",
+              "reason": "The actual finite recursive and path endpoint semantics are proved, but identification of Q,L, adequate cap, FORS, accuracy and expected costs are not supplied."
+            },
+            {
+              "source": "Ideal posterior consistency supports the stagewise correctness argument.",
+              "lean": "Construct actual ideal T,H before Q,L and derive R_n=T for Q=H,L=T at every finite depth.",
+              "classification": "source-implicit",
+              "reason": "Recovery is proved from StateDependentRGO and the explicit update. Ideal L=T is an oracle comparison, not an implemented terminal sampler."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

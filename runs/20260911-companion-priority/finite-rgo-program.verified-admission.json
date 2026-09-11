@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "13a89217bc00a064609c98ac10650cad40e1edb8",
+    "gate": {
+      "production": "Independent PASS3752 reused at unchanged raw hashes; complete imported statement freshly reprinted and matched registry/anonymous packet.",
+      "publication": "Independent check_advance reviewed=True PASS; all packet/run/component hashes and external binding preimage verified.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCFiniteRGOProgram",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "finite_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "0c7940bdf5baa0e174687454804e54d6aa8bfd76201d6c6c6cf292f504e9fa49",
+        "decoder_packet_sha256": "b4d8bb465624f120d24919a360ff3cd0b8376564acdc4b1ad1d6a0481f274eb8",
+        "decoder_run_sha256": "a06c96fdde833734a6e38d4bc076e43bfe57d54ac959ff98b643c15558d5d4bc",
+        "reviewer_packet_sha256": "75cd395aaa06de1e49edb23e6bd9f0d847242d8b1f03976c6a56e2c11596d64e",
+        "review_run_sha256": "e5998f8bbf7a23c235714026179b515f0d43abc82756bc70e73ae0e136a0a2cb",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused test; actual explicit update, absorbed recursion, finite trajectory endpoint and derived ideal recovery."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program"
+    ],
+    "independent_checks": [
+      "Clean fixed commit and worktree match.",
+      "Seven semantic slots, five authored steps, five informational deltas; no blockers or repairs.",
+      "StateDependentRGO actually merged PR270. This independent admission covers VERIFIED only; integration is a separate step."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED-only authorization.",
+  "boundary": "Finite capped state execution with a supplied terminal kernel even when the cap is reached before the threshold. No claim that the cap reaches the source stopping depth, that arbitrary initial count/history is valid, or that the state path is a query execution record. Concrete smoothed sampler and FORS, source parameter selection, approximation errors and expected query costs remain separate. Ideal terminal L=T is an oracle comparison."
+}

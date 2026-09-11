@@ -1,0 +1,43 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCFiniteRGOProgram",
+    "result": "PASS3752",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/FiniteRGOProgram.lean": "ec3f050f15e82fc77248dcc4eec66c55998f883df33db2e732b7c3019030e5ac",
+      "Tests/SmoothedPicardHMCFiniteRGOProgram.lean": "0e3991dd9fc8a5ca32a43b6b6e3cc18cdaa0ffe4b36c3e755cc4afdb1318f381"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/finite-rgo-program.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCFiniteRGOProgram"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/finite-rgo-program.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Finite capped state execution with a supplied terminal kernel even when the cap is reached before the threshold. No claim that the cap reaches the source stopping depth, that arbitrary initial count/history is valid, or that the state path is a query execution record. Concrete smoothed sampler and FORS, source parameter selection, approximation errors and expected query costs remain separate. Ideal terminal L=T is an oracle comparison.",
+  "remaining": [
+    "Integration, aggregate and original reader/graph delivery",
+    "Concrete source parameters and initialized history validity",
+    "Cap versus source stopping depth, FORS and actual approximate sampler",
+    "Errors and actual-input expected query costs",
+    "Both paper main results and agreed deliveries"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/finite-rgo-program.verified-admission.json"
+}
