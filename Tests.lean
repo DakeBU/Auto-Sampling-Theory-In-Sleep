@@ -159,6 +159,7 @@ import Tests.SmoothedPicardHMCGradientArcMean
 import Tests.SmoothedPicardHMCIdealRGOIdentification
 import Tests.SmoothedPicardHMCClippedMeanExponential
 import Tests.SmoothedPicardHMCClippedRenyiComparison
+import Tests.SmoothedPicardHMCTerminalSamplerAccuracyCost
 import Tests.SmoothedPicardHMCClippedGradientProgram
 
 /-!

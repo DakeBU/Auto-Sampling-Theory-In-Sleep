@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-sampler-accuracy-cost",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
   ],
   "scratch_checkpoint": {
     "path": ".astis/TerminalSamplerAccuracyCost.lean",
@@ -102,5 +102,9 @@
     ]
   },
   "admission_boundary": "VERIFIED at73ce28e. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json",
+  "integration_notes": {
+    "upstream": "722f040352d86fbcfb60a0f8b14e80955412ed2e",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior a129fa4, metadata ancestry conflicts resolved after verifying main tree equals a129fa4; zero merge tree delta. Accepted program/source unchanged; aggregate pending."
+  }
 }

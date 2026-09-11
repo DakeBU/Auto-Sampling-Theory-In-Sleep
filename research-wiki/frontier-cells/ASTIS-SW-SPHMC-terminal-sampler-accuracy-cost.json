@@ -38,7 +38,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-terminal-sampler-accuracy-cost.md",
     "planning_review": "Independent log_depth source/route audit accepted explicit64parameter route, corrected cached count to1+C, identified reusable actual PoissonQueryTail.",
-    "execution_boundary": "Root sole writer; prior RN PR286 merged, no active stabilizer. This packet EXPLORING; full scratch compiled, independent wholeproof/source review pending.",
+    "execution_boundary": "Root sole writer; TerminalSamplerAccuracyCost sole STABILIZING; accepted production/source unchanged.",
     "admission_boundary": "VERIFIED at73ce28e. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json"
   },
