@@ -43,6 +43,7 @@ import Tests.FiniteTimeGrid
 import Tests.GeneratorFunctionalInequalities
 import Tests.GeodesicConvexity
 import Tests.Shared.StrongConvexFirstOrder
+import Tests.Shared.StrongConvexGradientConverse
 import Tests.ItoTerminalCompletion
 import Tests.ItoHorizonConsistency
 import Tests.ItoHorizonProcessConsistency

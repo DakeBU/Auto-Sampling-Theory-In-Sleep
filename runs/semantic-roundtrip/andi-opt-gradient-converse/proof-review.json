@@ -1,0 +1,45 @@
+{
+  "review_scope": "Independent read-only proof and test audit; no VERIFIED transition; full gate delegated to parent",
+  "checked_head": "4fec6664ccbb0c338b81febe48c02e76486f0da4",
+  "branch": "andi/opt-gradient-converse",
+  "findings": [],
+  "file_sha256": {
+    "/Users/andyjm3/Documents/Codex/samplinglib/AutoSamplingTheory/TechnicalLemmas/Analysis/StrongConvexGradientConverse.lean": "3110476d62f569293ece3f78b556b1123ffd4c949b4de4bbc1edba23332e9e14",
+    "/Users/andyjm3/Documents/Codex/samplinglib/Tests/Shared/StrongConvexGradientConverse.lean": "ef3d0f282f0067ba535de2247e1b4fc770d9e223c6ad24ec28084363777ebb90",
+    "/Users/andyjm3/Documents/Codex/samplinglib/Tests.lean": "c6b929c0495e697ed7d626e3951f6079401cf45948097df00c5aac36a2f8b855",
+    "/Users/andyjm3/Documents/Codex/samplinglib/AutoSamplingTheory/TechnicalLemmas/Analysis.lean": "7371eb587d3e18218ea7545219de2fbfe3987303f8756a179fd3d6f4dbb92384"
+  },
+  "fake_closure_scan": {
+    "hits": [],
+    "files": [
+      "AutoSamplingTheory/TechnicalLemmas/Analysis/StrongConvexGradientConverse.lean",
+      "Tests/Shared/StrongConvexGradientConverse.lean"
+    ]
+  },
+  "checks": [
+    {
+      "command": "lake build AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse Tests.Shared.StrongConvexGradientConverse",
+      "exit_code": 0,
+      "log": "/private/tmp/converse-proof-review-build.log",
+      "result": "Build completed successfully (2452 jobs)."
+    },
+    {
+      "command": "lake env lean --deps Tests.lean",
+      "exit_code": 0,
+      "log": "/private/tmp/converse-proof-review-deps.log",
+      "result": "Includes Tests/Shared/StrongConvexGradientConverse.olean"
+    },
+    {
+      "command": "lake env lean --deps Tests/Shared/StrongConvexGradientConverse.lean",
+      "exit_code": 0,
+      "log": "/private/tmp/converse-proof-review-test-deps.log",
+      "result": "Includes theorem module .olean"
+    },
+    {
+      "command": "lake env lean /private/tmp/converse-proof-review-axioms.lean",
+      "exit_code": 0,
+      "log": "/private/tmp/converse-proof-review-axioms.log",
+      "result": "Only propext, Classical.choice, Quot.sound; elaborated type has only displayed assumptions"
+    }
+  ]
+}

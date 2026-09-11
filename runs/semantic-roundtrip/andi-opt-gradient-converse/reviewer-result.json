@@ -1,0 +1,59 @@
+{
+  "semantic_slots": {
+    "objects": {
+      "original": "Complete real inner-product space E, a subset s, f:E→ℝ, supplied gradient field g:E→E, and a real scalar m.",
+      "reconstructed": "Complete real inner-product space E, convex subset s, f:E→ℝ, grad:E→E and m∈ℝ.",
+      "relation": "same",
+      "evidence": "The pinned Optlib file declares E with NormedAddCommGroup and InnerProductSpace ℝ, s:Set E, f:E→ℝ, f′:E→E and m:ℝ; the enclosing section immediately before Lower_Strong_Convex supplies CompleteSpace E. The candidate elaborated statement has precisely these types and instances. Renaming f′ to grad introduces no new object."
+    },
+    "domains": {
+      "original": "An arbitrary convex subset s of E; gradients are ambient at every point of s, including any boundary; functions are defined on all E.",
+      "reconstructed": "Any convex s⊆E, with ambient Fréchet derivatives at each z∈s and chord conclusions for x,y∈s.",
+      "relation": "explicit-elaboration",
+      "evidence": "Optlib Lower_Strong_Convex explicitly takes hs:Convex ℝ s and hf:∀ x∈s, HasGradientAt f (f′ x) x; it does not require s to be open, closed, nonempty or the whole space. Mathlib Gradient/Basic.lean defines HasGradientAt using the full neighborhood filter, unlike HasGradientWithinAt. The candidate hgrad and decoder preserve this boundary distinction; hp establishes all segment points stay in s."
+    },
+    "quantifiers": {
+      "original": "For every z∈s a supplied ambient gradient exists as the given g(z); for every ordered x,y∈s the lower bound holds; the conclusion is StrongConvexOn s m f.",
+      "reconstructed": "For every z∈s the derivative equals v↦⟨grad(z),v⟩; for all x,y∈s the lower bound holds; for all nonnegative a,b summing to one the chord bound holds.",
+      "relation": "explicit-elaboration",
+      "evidence": "The candidate preserves all outer universal parameters and both ∀ x∈s, ∀ y∈s binders. Expanding Mathlib UniformConvexOn reveals all x,y,a,b with 0≤a,0≤b,a+b=1. Endpoints a=0 or b=0 are included, as are x=y and empty or singleton domains. Source uses x−y while candidate uses y−x; swapping the two universally quantified points gives the same hypothesis."
+    },
+    "assumptions": {
+      "original": "Completeness, real inner product structure, convex domain, supplied HasGradientAt at all domain points and the quantitative gradient inequality; no stated positivity constraint on m.",
+      "reconstructed": "The identical structural conditions with ambient Fréchet differentiability and its represented derivative made explicit; m can have either sign.",
+      "relation": "explicit-elaboration",
+      "evidence": "The source has an unused file-level variable mp:m>0, but Lower_Strong_Convex neither mentions nor uses mp and its proof never invokes positivity of m. Its h hypothesis and candidate hmono use the same modulus. Mathlib hasGradientAt_iff_hasFDerivAt and toDual turn HasGradientAt into the stated derivative map. Neither source theorem nor candidate adds continuity of grad, a Hessian, a measure, integrability or domination. The candidate derives continuity of q on the closed interval from hq, rather than assuming it."
+    },
+    "conclusion": {
+      "original": "StrongConvexOn s m f, with the chord correction m/2.",
+      "reconstructed": "Convexity of s and f(ax+by)≤af(x)+bf(y)−(m/2)ab‖x−y‖² for all allowed endpoints and weights.",
+      "relation": "explicit-elaboration",
+      "evidence": "Mathlib Analysis/Convex/Strong.lean defines StrongConvexOn as UniformConvexOn with modulus r↦m/2*r²; UniformConvexOn is domain convexity conjoined with exactly this chord inequality. Scalar multiplication in ℝ is ordinary multiplication. The candidate constructs the convexity component from hs and proves the full inequality with both endpoint weights allowed to vanish. No minimizer, strict convexity for negative m, or Hessian equivalence is inferred."
+    },
+    "scopes": {
+      "original": "The domain-local converse from quantitative monotonicity of actual gradients to the chord definition of strong convexity.",
+      "reconstructed": "The same implication, explicitly in the signed-modulus chord sense on s.",
+      "relation": "same",
+      "evidence": "The exact provenance is Optlib Lower_Strong_Convex at lines 144–155. Inspection of its upstream monotone_gradient_convex′ confirms a mean-value argument is available without continuous gradients. Candidate code imports Mathlib, not Optlib, and follows its own segmentwise scalar-convexity proof. The lesson clearly distinguishes statement provenance, actual Mathlib calls and the secondary Chewi comparison; it does not claim the whole convexity/Hessian equivalence proposition."
+    },
+    "constant_dependencies": {
+      "original": "One arbitrary real modulus m in the lower bound yields exactly the same modulus m in StrongConvexOn, hence m/2 in the chord inequality.",
+      "reconstructed": "The same m and exactly (m/2)ab‖x−y‖²; no dimension, domain-diameter or regularity constant appears.",
+      "relation": "same",
+      "evidence": "With d=y−x and N=‖d‖², q(t)=f(x+td)−(m/2)t²N has derivative ⟨grad(x+td),d⟩−mtN. For u<v the bound gives m(v−u)²N≤(v−u)⟨grad(p(v))−grad(p(u)),d⟩. Cancelling the positive v−u yields monotonicity of q′ for arbitrary signed m. Restoring q at 0,b,1 yields (m/2)(b−b²)N=(m/2)abN, with norm_sub_rev only changing orientation. The focused tests include the sharp signed quadratic and the midpoint correction m/8."
+    }
+  },
+  "deltas": [],
+  "verdict": "equivalent-after-elaboration",
+  "repairs": [],
+  "reviewer": "converse_source_review",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Independent anti-anchored review of the supplied packet only, the pinned primary Optlib StronglyConvex.lean and exact upstream ConvexFunction.lean dependency, candidate production module and focused consumers, and local Mathlib Strong/Deriv/Gradient definitions. No semantic registry or prior reviewer result/verdict was read. All seven slots were compared mathematically, independently of compilation. Attribution is supported by the primary Optlib header: Apache-2.0, authors Chenyi Li and Ziyu Wang. The primary theorem has complete real inner-product spaces, arbitrary convex subsets, actual ambient gradients on the subset and arbitrary real m. The decoder expansion and candidate theorem preserve this boundary exactly. Authored proof review: hp uses domain convexity; hq composes the ambient derivative with an affine scalar path and differentiates the correction, establishing endpoint continuity; hmon separates u=v and cancels only v−u>0; hconv invokes MonotoneOn.convexOn_of_deriv with continuity on Icc and differentiability/derivative monotonicity on its interior; hchord specializes at 0,1; hpoint and a=1−b restore exactly m/2. The actual Mathlib criterion (Analysis/Convex/Deriv.lean:35 onward) proves adjacent slope monotonicity using exists_deriv_eq_slope twice, so the mean-value-theorem description is accurate. Every named dependency family in the lesson is present in the candidate proof; astis_dependencies=[] is accurate. No hidden gradient continuity, Hessian, integral or measure argument is used. Secondary comparison independently checked at https://arxiv.org/html/2605.07006v1#S1.SS2 : Proposition 1.6 assumes the whole Euclidean space, alpha≥0 and continuous differentiability, and its (1.5)⇒(1.3) proof uses the fundamental theorem of calculus. This supports the stated contrast without treating Chewi as the exact provenance of the generalized local statement. Module bytes match publication-context SHA-256 3110476d62f569293ece3f78b556b1123ffd4c949b4de4bbc1edba23332e9e14. Independent focused compilation succeeded (exit 0, no diagnostics) for both the production module and Tests/Shared/StrongConvexGradientConverse.lean using /Users/andyjm3/.elan/bin/lake env lean. A targeted textual scan of both files found no sorry, admit, axiom, Prop := True or := trivial. These focused checks are evidence for this review, not a substitute for the coordinator full repository gate or commit-bound integration verification. No source or authored-exposition mismatch found; no repair is proposed.",
+  "review_run_sha256": "",
+  "reviewer_packet_sha256": "932f552acfb554d3dcc6137378a1677241854280c7355e1fd8d80cd94e88c872",
+  "decision": "accepted",
+  "publication_binding_sha256": "0c9c46021b1869738d716a7a8d92d3c02d20825d88822f74271fb195653b9b42",
+  "reviewer_packet_file_sha256": "bdfc32fa189cc2c6084b998541c78aa25ae1bcf76e3ff5ae9016ecaf161b7398",
+  "run_hash_policy": "Coordinator will pin the SHA-256 of this exact emitted artifact as the run hash; this artifact does not contain a self-referential hash."
+}

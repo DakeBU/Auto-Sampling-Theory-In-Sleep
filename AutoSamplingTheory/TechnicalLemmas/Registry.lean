@@ -93,6 +93,16 @@ def analysisMemory : List LemmaMemoryEntry := [
     note := "PR #248 by andyjm3: sum the ASTIS first-order bounds in both directions. Arbitrary real modulus; only the injectivity consumer needs positivity. No reverse implication, Hessian equivalence, flow theorem, Gibbs invariance or new conceptual transport certificate is claimed."
   },
   {
+    key := "analysis.strong-convexity.of-gradient-inner-lower-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound",
+    upstreamDecl := "Lower_Strong_Convex",
+    upstreamFile := "Optlib/Convex/StronglyConvex.lean@5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "CONV", "strong-convexity", "gradient", "monotonicity", "shared"],
+    saldUse := "Shared converse for optimization gradient criteria; signed quadratic and closed-domain midpoint consumers in Tests.Shared.StrongConvexGradientConverse",
+    note := "Domain-local ambient-gradient criterion with arbitrary real modulus. Optlib statement provenance: Chenyi Li and Ziyu Wang, Apache-2.0. ASTIS proof uses Mathlib scalar derivative monotonicity along a segment. No complete Chewi equivalence or textbook integral proof is claimed."
+  },
+  {
     key := "analysis.integrability.of-real-lintegral-finite",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.lintegral_ofReal_ne_top_of_integrable_nonneg",
     upstreamDecl := "lintegral_ofReal_ne_top_iff_integrable",

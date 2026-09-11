@@ -92,7 +92,26 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/262",
-    "state": "draft",
-    "boundary": "Root aggregate and original companion/graph QA passed; final-head independent review and CI, merge and deployment pending."
+    "state": "OPEN ready",
+    "boundary": "Upstream merge resolved preserving collaborator changes; fresh aggregate and final-head CI/review required."
+  },
+  "upstream_integration": {
+    "previous_candidate": "74d877edafb303812f9793781d77f1d242eca3c2",
+    "previous_ci": {
+      "lean": "34552059241 SUCCESS",
+      "site": "34552059254 SUCCESS"
+    },
+    "merge_attempt": "GitHub refused merge due to conflicts after collaborator main advances; PR remains OPEN, now ready. No merge claimed.",
+    "upstream": "e2c32c5",
+    "merge_commit": "c6f73ebac6fc7ac3a80a54545ec6daaf9bab9b35",
+    "resolution": "Only semantic registry and append-only ledger conflicted. Three-way audit-by-id merge retained both new audits and unchanged/one-sided edits; ledger retained common213 records plus both7/8-record tails. Collaborator Lean, registry, tools and reader changes retained.",
+    "checks": [
+      "Semantic registry37audits valid",
+      "Frontier46cells valid",
+      "Publication34items PASS",
+      "44 tests for modified publication/site tools PASS30.458s",
+      "git diff --check PASS"
+    ],
+    "boundary": "Earlier local reader/browser QA remains bound to435106d; after upstream integration, fresh aggregate and final-head CI/review pending. No new local renderer or online badge claim."
   }
 }

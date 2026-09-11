@@ -523,6 +523,20 @@ def source_index() -> tuple[dict[str, dict[str, object]], dict[str, str]]:
 
 def enrich_entries(entries: list[RegistryEntry]) -> tuple[list[RegistryEntry], dict[str, str]]:
     indexed, module_files = source_index()
+    modules, _ = scan_project_sources()
+    imports_by_module = {module.name: module.imports for module in modules}
+    module_by_file = {module.source_file: module.name for module in modules}
+
+    def visible_modules(source_file: str) -> set[str]:
+        pending = [module_by_file.get(source_file, '')]
+        visible: set[str] = set()
+        while pending:
+            module = pending.pop()
+            if module in visible:
+                continue
+            visible.add(module)
+            pending.extend(imports_by_module.get(module, []))
+        return visible
     test_paths = [ROOT / "Tests.lean", *sorted((ROOT / "Tests").rglob("*.lean"))]
     tests_text = "\n".join(path.read_text(encoding="utf-8") for path in test_paths if path.exists())
     by_short: dict[str, list[dict[str, object]]] = defaultdict(list)
@@ -542,16 +556,24 @@ def enrich_entries(entries: list[RegistryEntry]) -> tuple[list[RegistryEntry], d
             entry.docstring = str(record["docstring"])
         entry.explicit_test = entry.short_name in tests_text
 
-    local_by_short = {
-        entry.short_name: entry.local_decl
-        for entry in entries
-        if entry.local_decl and entry.source_text
-    }
+    local_by_short: dict[str, list[RegistryEntry]] = defaultdict(list)
+    for entry in entries:
+        if entry.local_decl and entry.source_text:
+            local_by_short[entry.short_name].append(entry)
     for entry in entries:
         if not entry.source_text:
             continue
         deps: set[str] = set()
-        for short, full in local_by_short.items():
+        visible = visible_modules(entry.source_file)
+        for short, candidates in local_by_short.items():
+            # A dot-method name such as const_mul may belong to Mathlib, not
+            # an unrelated ASTIS declaration. Imports are a necessary bound;
+            # ambiguous visible short names still cannot certify an edge.
+            candidates = [candidate for candidate in candidates
+                          if module_by_file.get(candidate.source_file) in visible]
+            if len(candidates) != 1:
+                continue
+            full = candidates[0].local_decl
             if full == entry.local_decl:
                 continue
             if re.search(rf"(?<![A-Za-z0-9_']){re.escape(short)}(?![A-Za-z0-9_'])", entry.source_text):

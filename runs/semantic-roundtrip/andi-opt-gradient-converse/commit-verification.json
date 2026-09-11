@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "advance_id": "ANDI-OPT-gradient-converse-001",
+  "verifier_id": "converse_proof_review",
+  "verified_commit": "e84cd69e87338f9b9593b12e9b11524aa0989d07",
+  "verified_at_utc": "2026-09-09T23:30:31.799610+00:00",
+  "verdict": "verified",
+  "findings": [],
+  "scope": "Independent commit-bound verification of the exact implementation commit. No stabilization, merge, source change or new source verdict.",
+  "environment": {
+    "python": "Homebrew Python 3.14",
+    "PATH": "/Users/andyjm3/.elan/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LEAN_NUM_THREADS": "4"
+  },
+  "reviewed_file_hashes": [
+    {
+      "file": "AutoSamplingTheory/TechnicalLemmas/Registry.lean",
+      "sha256": "ed00db08bbe51aea53b13f3e4a1bef03f4ded9de531c412d7c76a818e6719e50"
+    },
+    {
+      "file": "Tests/Basic.lean",
+      "sha256": "6a395732bca1c8ea2acee819d48cc2551937b9b847043b50667b060a7c7129b0"
+    },
+    {
+      "file": "tools/astis_publication.py",
+      "sha256": "63cf7e64a4a810e569c450ca78661a20d1c0f2c56076a011724246bbdaf5ebca"
+    },
+    {
+      "file": "tools/tests/test_astis_publication.py",
+      "sha256": "8c8dd26eb5b669dadf62d213582ed7c8aa94dadfca4c3337f25aa1785a23f594"
+    },
+    {
+      "file": "tools/astis_site.py",
+      "sha256": "aeae4cb2a48d134946e8236cf0b4248160083b3407e56c73461bcd4c5d676bc4"
+    },
+    {
+      "file": "tools/tests/test_astis_site.py",
+      "sha256": "379cd36c7f6b7588f42edbbc5f1068635bf39b5db5bce8f8de54a6319bfa1f06"
+    },
+    {
+      "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/StrongConvexGradientConverse.lean",
+      "sha256": "3110476d62f569293ece3f78b556b1123ffd4c949b4de4bbc1edba23332e9e14"
+    },
+    {
+      "file": "Tests/Shared/StrongConvexGradientConverse.lean",
+      "sha256": "ef3d0f282f0067ba535de2247e1b4fc770d9e223c6ad24ec28084363777ebb90"
+    },
+    {
+      "file": "AutoSamplingTheory/TechnicalLemmas/Analysis.lean",
+      "sha256": "7371eb587d3e18218ea7545219de2fbfe3987303f8756a179fd3d6f4dbb92384"
+    },
+    {
+      "file": "Tests.lean",
+      "sha256": "c6b929c0495e697ed7d626e3951f6079401cf45948097df00c5aac36a2f8b855"
+    }
+  ],
+  "unchanged_source_evidence_hashes": {
+    "research-wiki/semantic-roundtrip/registry.json": "2aaba798cd853fc36c6ea611fb666ec4eb84617860670470f6cc4ba95ded123f",
+    "website/content/publications/optimisation-gradient-converse.json": "b4cfda61f6d731e135cbe16e82c5b99fc13f2e363c80b7d445c75df35d926dee",
+    "website/content/declaration_lessons/strong-convex-gradient-converse.json": "5c8d1f4575a7b5311c27ccfb520b83430175239d7336f0757fbb96190069e537",
+    "runs/semantic-roundtrip/andi-opt-gradient-converse/decoder-result.json": "7578dc5d2c6de08e785d8fb1ea7f5d53ec673bab58b8f07dbf2e61ac592ed65e",
+    "runs/semantic-roundtrip/andi-opt-gradient-converse/reviewer-result.json": "6bb2cacecdf2046da566e7d204dca8ca2052bbd2cd34820aa1fc399381c90f11"
+  },
+  "checks": [
+    {
+      "command": "python3 tools/astis.py check",
+      "exit_code": 0,
+      "log_path": "/private/tmp/andi-converse-commit-gate.log",
+      "log_sha256": "a967899ca39f7f849ace8f0ee126d250b2de4524dc9749ad384d525b4be3b546",
+      "summary": "Build completed successfully (9054 jobs).\nATLAS memory check passed: 36469 named declarations, 26 books, index fb43cfe200da\n$ lake exe cache get\n$ lake build\n$ lake build Tests\n$ /opt/homebrew/opt/python@3.14/bin/python3.14 tools/atlas_memory.py check\nASTIS check passed"
+    },
+    {
+      "command": "python3 tools/astis_publication.py check --base 4fec6664ccbb0c338b81febe48c02e76486f0da4",
+      "exit_code": 0,
+      "log_path": "/private/tmp/andi-converse-commit-publication.log",
+      "log_sha256": "1ed42a681ae8f439b70734755c1321da3c88e43f6e34b6c1690e2cd7b5c83085",
+      "summary": "Publication PASS"
+    },
+    {
+      "command": "python3 tools/astis_semantic_roundtrip.py check",
+      "exit_code": 0,
+      "log_path": "/private/tmp/andi-converse-commit-semantic.log",
+      "log_sha256": "d1f475c8c9d10941e1e4fc4a9aced72dff9cd29c20ab8ac324acd358d3db25a1",
+      "summary": "semantic round-trip registry valid"
+    },
+    {
+      "command": "python3 tools/astis_frontier_cells.py check",
+      "exit_code": 0,
+      "log_path": "/private/tmp/andi-converse-commit-cell.log",
+      "log_sha256": "cbb31696e7768f8df3456fee4073022e9be609f9fe387025b088d4b5f86567c7",
+      "summary": "ASTIS Frontier Cell protocol check passed"
+    },
+    {
+      "command": "lake env lean /private/tmp/converse-proof-review-axioms.lean",
+      "exit_code": 0,
+      "log_path": "/private/tmp/andi-converse-commit-axioms.log",
+      "log_sha256": "06df831a90e161dfac2ed476066480ce49d6edefc793b2c14432b5c04fe92270",
+      "summary": "Quot.sound"
+    }
+  ],
+  "source_audit": {
+    "audit_id": "ASTIS-RT-ANDI-OPT-GradientConverse",
+    "state": "source-reviewed",
+    "source_review_state": "accepted",
+    "verdict": "equivalent-after-elaboration",
+    "reviewer": "converse_source_review",
+    "reviewer_packet_sha256": "932f552acfb554d3dcc6137378a1677241854280c7355e1fd8d80cd94e88c872",
+    "review_run_sha256": "6bb2cacecdf2046da566e7d204dca8ca2052bbd2cd34820aa1fc399381c90f11",
+    "decoder": "blind_reconstruct",
+    "decoder_packet_sha256": "d3ad172348420ca0be50969e3ae5202ab220339a8411bdc8f8412428102d99ac",
+    "decoder_run_sha256": "7578dc5d2c6de08e785d8fb1ea7f5d53ec673bab58b8f07dbf2e61ac592ed65e",
+    "source_text_visible": false,
+    "publication_binding_sha256": "0c9c46021b1869738d716a7a8d92d3c02d20825d88822f74271fb195653b9b42",
+    "reuse_basis": "Source, decoder, review, publication context, authored lesson and Lean module are unchanged committed bytes; publication and semantic gates passed; independent mathematical audit found no assumption or normalization drift."
+  },
+  "fake_closure_scan": {
+    "command": "tools.astis.forbidden_pattern_hits() and canonical ASTIS check",
+    "result": "passed",
+    "hits": [],
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "publication_declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound"
+  ],
+  "truth_boundary": "Exact Optlib Lower_Strong_Convex statement port with a Mathlib segment/MVT proof. No Chewi integral proof, full Proposition 1.6 equivalence, Hessian characterization or geodesic extension.",
+  "advance_transition": {
+    "from": "PROVED_LOCAL",
+    "to": "VERIFIED",
+    "worker_id": "converse_proof_review"
+  },
+  "cell_status": "independently_verified",
+  "stabilization_status": "Not entered; reserved for integration owner.",
+  "post_admission_checks": [
+    {
+      "command": "python3 tools/astis_frontier_cells.py check",
+      "exit_code": 0,
+      "summary": "ASTIS Frontier Cell protocol check passed: 13 registered cells",
+      "log_sha256": "cbb31696e7768f8df3456fee4073022e9be609f9fe387025b088d4b5f86567c7"
+    },
+    {
+      "command": "python3 tools/astis_publication.py check --base 4fec6664ccbb0c338b81febe48c02e76486f0da4",
+      "exit_code": 0,
+      "summary": "Publication PASS: 2 source items; code, prose, assumptions and semantic-audit links checked. Legacy audit debt remains explicit.",
+      "log_sha256": "1ed42a681ae8f439b70734755c1321da3c88e43f6e34b6c1690e2cd7b5c83085"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "concurrent_nonproof_change": "Root independently updated research-wiki/technical-lemmas/strong-convex-gradient-converse.md closeout prose after gate completion; all reviewed implementation and source-audit inputs remained identical to verified_commit."
+}

@@ -1,0 +1,24 @@
+{
+  "reconstructed_theorem_text": "Let E be a complete real inner product space, let s be any convex subset of E, let f : E → ℝ and grad : E → E, and let m ∈ ℝ. Suppose that f is Fréchet differentiable in the ambient space at every z ∈ s, with derivative v ↦ ⟨grad(z), v⟩. Suppose further that for every x,y ∈ s, m‖y−x‖² ≤ ⟨grad(y)−grad(x), y−x⟩. Then f is strongly convex on s with parameter m in the following precise sense: for every x,y ∈ s and every a,b ∈ ℝ with a ≥ 0, b ≥ 0 and a+b=1, f(ax+by) ≤ af(x)+bf(y)−(m/2)ab‖x−y‖². Convexity of s is also part of the conclusion. No sign restriction is imposed on m.",
+  "reconstructed_text_sha256": "b342cbc2120b86426489947c80e472af43ca67c98ad3cb7b6d4f894987dfa4dc",
+  "objects": "A real normed additive group E with compatible real inner product and completeness; a subset s of E; a real-valued function f on all of E; a vector field grad on all of E; and a real parameter m. The ambient derivative of f at z is represented by the inner product with grad(z).",
+  "domains": "E is a complete real inner product space, with no finite-dimensional restriction. The set s is any convex subset, with no openness, closedness, boundedness or nonemptiness requirement. Both f and grad are defined on E. The parameter m ranges over all real numbers.",
+  "quantifiers": "Universally quantify over E and its stated structures, s, f, m and grad. Assume ambient gradient existence for every z ∈ s. Assume the gradient monotonicity inequality for every ordered pair x,y ∈ s. Conclude the convex-combination inequality for every x,y ∈ s and all real a,b satisfying a ≥ 0, b ≥ 0 and a+b=1.",
+  "assumptions": "E is a complete real inner product space. The set s is convex over ℝ. At each z ∈ s, f has an ambient Fréchet derivative represented by v ↦ ⟨grad(z),v⟩. For every x,y ∈ s, m‖y−x‖² ≤ ⟨grad(y)−grad(x),y−x⟩. No positivity assumption on m or continuity assumption on the vector field grad is separately imposed.",
+  "conclusion": "StrongConvexOn s m f: s is convex, and for x,y ∈ s and a,b ≥ 0 with a+b=1, f(ax+by) ≤ af(x)+bf(y)−ab(m/2)‖x−y‖². This conclusion is asserted even when m is zero or negative, using the supplied definition.",
+  "scopes": "Gradient existence is required only at points belonging to s, but there it is differentiation in the ambient E, including at boundary points; it is not a derivative restricted to s. The gradient monotonicity and strong convexity inequalities concern pairs in s. The conclusion uses convexity to keep the convex combination in s. There is no claim of strong convexity on all of E unless s=E, nor a reverse implication, minimizer existence, or uniqueness claim.",
+  "constant_dependencies": "The same universally quantified real m appearing in the gradient inequality is the strong convexity parameter. The convexity inequality contains exactly m/2 multiplied by ab‖x−y‖². There are no extra constants, hidden dimension dependence, positivity restrictions, or changed parameter values.",
+  "decoder": "blind_reconstruct",
+  "source_text_visible": false,
+  "packet_id": "ASTIS-BLIND-4454cd5b7a2bb8ea",
+  "packet_sha256": "d3ad172348420ca0be50969e3ae5202ab220339a8411bdc8f8412428102d99ac",
+  "input_artifacts": [
+    "/private/tmp/astis-blind-d3ad17234842/input.json"
+  ],
+  "input_artifact_kinds": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean_statement_sha256": "4454cd5b7a2bb8ea759a3f29c6ae35aca03beb866779d12bbdd8d0e3ce03c3fb",
+  "decoder_run_sha256": "10c318ae6a60c6eb9d2e2cc179f739d76e73e3f04bed42d1be8fec25d228dfa7"
+}

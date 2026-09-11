@@ -4,6 +4,7 @@ import json
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -77,6 +78,25 @@ def registry_entry() -> RegistryEntry:
 
 
 class SourceIndexTests(unittest.TestCase):
+    def test_registry_dependencies_respect_import_closure(self) -> None:
+        entries = astis_site.parse_registry()
+        with patch.object(astis_site, 'source_index',
+                          side_effect=lambda: source_index_from_project_scan(astis_site)):
+            entries, _ = astis_site.enrich_entries(entries)
+        by_name = {entry.local_decl: entry for entry in entries}
+        converse = by_name[
+            'AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.'
+            'strongConvexOn_of_gradient_inner_lower_bound']
+        # It only imports Mathlib; .const_mul is a derivative operation, not
+        # the similarly named ASTIS LogConcaveOn.const_mul theorem.
+        self.assertEqual(converse.dependencies, [])
+        forward = by_name[
+            'AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.'
+            'gradient_inner_lower_bound_of_strongConvexOn']
+        self.assertIn(
+            'AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.'
+            'firstOrder_lower_bound_of_strongConvexOn', forward.dependencies)
+
     def test_dotted_local_name_keeps_enclosing_namespace(self) -> None:
         indexed, _ = source_index_from_project_scan(astis_site)
         self.assertIn(
