@@ -85,3 +85,26 @@ domain-mismatch; no exact-source/chapter badge is forced or hand-edited.
 Ready for authorized direct-main integration. Next useful bounded target:
 convex one-sided smoothness to gradient Lipschitz/cocoercivity; first audit the
 precise source regularity and reuse Optlib/Mathlib/QuadraticRegularization.
+
+The initial atomic push was rejected because main advanced to PR266
+24d166c0160e0a8c43dc08f356e3eed7d4e36c60 (merged2026-09-11T04:40:36Z).
+No ref was overwritten. Merge bbcb641e7127a2f3730fa370b18216e7a9d819ab
+preserves both contributions. Audit conflicts resolved by exact id-based
+three-way merge with no overlapping id edits; all49audits remain valid.
+Ledger merge preserves exact base prefix, local unique tail, upstream unique
+tail, removing only exact duplicates. Concurrent branch-local transitions keep
+their original timestamp/from-state; no fabricated sequential history. The
+upstream original-owner TwoNoise MERGED event is replayed last. All four
+independently reviewed smoothness file hashes are unchanged. Final joint gate
+is repeated because the upstream change adds a production module and root test.
+
+Final synchronized canonical gate PASS9126jobs onbbcb641e7127a2f3730fa370b18216e7a9d819ab
+at2026-09-11T04:51:46.329733+00:00, rootTests/fake-closure/ATLAS included.
+Synchronized harness250tests6skips, publication39items, semantic49audits and
+58cells PASS. Canonical website build/check PASS12chapters,405compiled local
+leaves,596modules,3678declarations. Both regenerated affected graph reports
+are exactly identical to the reports already visually inspected; proof/test/
+lesson/publication bytes unchanged. Independent preservation review accepted
+the actual ledger/audit conflict resolution and AdaptiveCenter's unchanged
+historical proof/source artifacts; its already-merged stale reservation was
+released with attribution, without impersonating its owner.
