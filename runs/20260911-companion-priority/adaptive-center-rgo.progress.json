@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery"
   ],
@@ -33,7 +33,7 @@
   },
   "mathematical_status": "Joint state/center measurability for fixed base,precision andvariance, not joint selection over all base/precision/variance/history parameters. Input must be actual ideal joint lambda compProd H, not arbitrary correlated center-observation law. General probability base abstracts source Gibbs; no marginal moments, approximate recursive kernel, measurable proxy,error orcost guarantee. Expanded source-needed probability semantics, not a verbatim paper theorem.",
   "remaining": [
-    "Integration, aggregate and original reader/graph delivery",
+    "Verify actual merge CI and deployed reader provenance",
     "Concrete Gibbs specialization and joint parameter/history obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
@@ -90,7 +90,21 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/266",
-    "state": "DRAFT",
-    "local_qa_commit": "e9dd5a8f0d17b15565214f82bdd94031a1749fde"
+    "state": "MERGED",
+    "local_qa_commit": "e9dd5a8f0d17b15565214f82bdd94031a1749fde",
+    "head": "37d7698f47870a98b66524f30c188d0ce39fe5af"
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/266",
+    "commit": "24d166c0160e0a8c43dc08f356e3eed7d4e36c60",
+    "candidate": "37d7698f47870a98b66524f30c188d0ce39fe5af",
+    "merged_at": "2026-09-11T04:40:36Z",
+    "independent_merge_review": "depth_commit_verifier accepted fixed production/source bindings, root imports, aggregate9124 and original reader/graph QA; final delta two evidenceJSON only. Root verified same-head Lean/site success and MERGEABLE then match-head merged.",
+    "candidate_ci": {
+      "lean": "34562369365 SUCCESS",
+      "site": "34562369369 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": "Actual merge CI/deployed provenance pending; earlier local evidence remains fixed to e9dd5a8.",
+    "truth_boundary": "Joint state/center measurability for fixed base,precision andvariance, not joint selection over all base/precision/variance/history parameters. Input must be actual ideal joint lambda compProd H, not arbitrary correlated center-observation law. General probability base abstracts source Gibbs; no marginal moments, approximate recursive kernel, measurable proxy,error orcost guarantee. Expanded source-needed probability semantics, not a verbatim paper theorem."
   }
 }

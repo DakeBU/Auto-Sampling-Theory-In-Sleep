@@ -23,6 +23,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError
 
 /-!
 # ASTIS example cases

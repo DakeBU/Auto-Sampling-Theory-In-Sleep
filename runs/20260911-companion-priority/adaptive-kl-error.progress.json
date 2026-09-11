@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error"
   ],
@@ -33,10 +33,10 @@
   },
   "mathematical_status": "Actual error propagation for given Markov kernels, not construction or accuracy of the concrete approximate recursive algorithm. General probability base, fixed parameters; no measurable proxy choice, Wp sampler implementation, terminal FORS, accumulated numerical budgets or expected query costs. Arbitrary approximate input is allowed because its actual KL to the ideal joint law is charged. The output L need not retain center; the ideal B does, and the full joint discrepancy is bounded.",
   "remaining": [
-    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Concrete Gibbs specialization and joint parameter/history obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/adaptive-kl-error.verified-admission.json"
 }
