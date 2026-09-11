@@ -1,0 +1,68 @@
+{
+  "remaining": [
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and deployment"
+  ],
+  "state": "STABILIZING",
+  "cell": "ASTIS-SW-SPHMC-gaussian-arc-law",
+  "scratch_sha256": "1d03511b1d0b6426c489265de1af155a7aeed894de8a14c45cc621d2df12b80a",
+  "scratch": ".astis/GaussianArcLaw.lean",
+  "compiled_development": [
+    "Actual product stdGaussian swap and rotation invariant law via existing Mathlib Fernique rotation theorem",
+    "Actual shifted/scaled input product pushforward equals position/velocity Gaussian product",
+    "Actual path derivative with pi/2 scale and negative sine sign"
+  ],
+  "boundary": "Full production proof compiled and independently development-reviewed. Anonymous reconstruction pending; no PROVED_LOCAL or VERIFIED admission, and neither paper main result is complete.",
+  "local_check": {
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "lint": "Unused section variables and one unused simp argument in derivative; pending cleanup",
+    "command": "lake env lean .astis/GaussianArcLaw.lean",
+    "log": ".astis/gaussian-arc-scratch.log",
+    "exit_code": 0
+  },
+  "independent_law_development_review": {
+    "boundary": "Derivative and complete packet not independently reviewed; not VERIFIED.",
+    "reviewer": "depth_commit_verifier",
+    "fixed_two_law_sha256": "ba720663284af1de8a5731bb2e851ec971d4fdf6041c7ca9d4c1d30c54e7aaa5",
+    "result": "Two original laws independently replayed via stdin, exit0, standard three axioms; actual product pushforward, signs and scale accepted."
+  },
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianArcLaw.lean",
+    "complete_contract": "Actual product pushforward at sqrt eta, all-real path derivative, all four endpoints, joint (h,r,x,z) measurability, eta scale identity",
+    "focused": "lake build Tests.SmoothedPicardHMCGaussianArcLaw",
+    "result": "PASS3117, exit0, standard three axioms, no lint",
+    "test_sha256": "354df2c4a325e1fe9a0d9e8747f8764d14927d17489803a4224d5000be7158b1",
+    "sha256": "6b137642c324565c87fe7bb38bd61c868dd7798995355baf3c2da966a99f9a3d"
+  },
+  "full_source_pre_review": {
+    "reviewer": "log_depth_source_review",
+    "boundary": "Not independently compiled by source reviewer; no formal encoder-decoder admission. Parameterized measure-family measurability, gradient conditions and MGF/clipping remain separate.",
+    "result": "No necessary correction to bounded packet. Actual independent joint law, covariance scales, derivative, endpoints and disclosed all-real/zero-dimensional extensions accepted."
+  },
+  "independent_full_development_review": {
+    "test_sha256": "354df2c4a325e1fe9a0d9e8747f8764d14927d17489803a4224d5000be7158b1",
+    "production_sha256": "6b137642c324565c87fe7bb38bd61c868dd7798995355baf3c2da966a99f9a3d",
+    "commit": "73bfb023e2cc40302332d9b6010493d38c5bce01",
+    "result": "Independent full proof and focused compile PASS3117; complete delta-expanded type isDefEq checked.",
+    "boundary": "Development review, not VERIFIED admission.",
+    "reviewer": "depth_commit_verifier"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCGaussianArcLaw"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-gaussian-arc-law.json",
+    "state": "Five authored steps accepted; publication PASS51."
+  },
+  "admission_boundary": "VERIFIED atd26fc31. Aggregate integration, site, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/gaussian-arc-law.verified-admission.json"
+}

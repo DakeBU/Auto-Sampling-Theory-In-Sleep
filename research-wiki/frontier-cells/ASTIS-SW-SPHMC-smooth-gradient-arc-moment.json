@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
+  "route": "samplewiki-route",
+  "title": "Actual smooth gradient-arc exponential moment",
+  "mode": "faithfulPaper",
+  "source_anchor": "SPHMC arXiv:2609.06906v1 A.4(2), via arXiv:2602.01338v1 D.1 Claim 1 proof and Claim 2, smooth s=1 case",
+  "target_statement": "For finite-dimensional real Hilbert E with d=finrank(E)>0, eta>0, beta>0, differentiable f with actual beta-Lipschitz gradient, norm(h-x_plus)<=sqrt(d eta), lambda>=0 and 12 beta^2 eta^2 lambda^2<=1, prove exponential integrability and E exp(lambda |W_r|)<=2 exp(10 d eta^2 lambda^2 beta^2), with log bound log2+10 d eta^2 lambda^2 beta^2. W_r is the actual inner product of GaussianArcLaw velocity and grad f(x_plus)-grad f(gamma_r), under its actual independent input law; all-real r is disclosed extension of [0,1].",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-gaussian-arc-law"
+  ],
+  "consumers": [
+    "SPHMC terminal gradient estimator clipping and target approximation via external D.1 Claim 2"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib GaussianArcLaw and GaussianPowerMoment local linear_exp proof; no actual estimator MGF found",
+      "Mathlib Gaussian density integrals, linear Gaussian MGF, orthonormal product law and nonnegative integration"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-smooth-gradient-arc-moment.md",
+    "planning_review": "Independent log_depth_source_review verified source smooth lambda range, factor2 and actual gradient consumer; exact quadratic Gaussian moment needed.",
+    "execution_boundary": "Root sole writer; GaussianArcLaw sole STABILIZING; this cell EXPLORING only."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Direct source Gaussian estimator analysis; no new conceptual equivalence asserted."
+  },
+  "outside_library_review": {
+    "status": "consulted",
+    "need": "Explicit true estimator exponential moment before clipping.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2602.01338v1",
+        "anchor": "D.1 Claim 1 proof and Claim 2",
+        "hypothesis_adapter": "Smooth s=1; eta,beta positive; lambda nonnegative; 12 beta^2 eta^2 lambda^2<=1; center residual <=sqrt(d eta)."
+      }
+    ],
+    "fidelity_boundary": "Independent source-proof-supported factor2 contract, not the unrestricted printed logarithmic Claim1 without log2. Preserve possible-source-error. Actual gradient-based center substitution, clipping, target log-weight mean, normalized Renyi, initialization and complete terminal cost remain separate. No assumed exponential integrability or surrogate random variable."
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "A.4(2)",
+    "detail_status": "cites_external",
+    "gap": "Actual gradient estimator MGF and explicit quadratic Gaussian moment before clipping.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2602.01338v1",
+        "anchor": "D.1 Claim 1 proof, smooth case",
+        "hypothesis_adapter": "Use source proof factor2, not printed log statement missing log2."
+      }
+    ],
+    "fidelity_boundary": "Independent source-proof-supported factor2 contract, not the unrestricted printed logarithmic Claim1 without log2. Preserve possible-source-error. Actual gradient-based center substitution, clipping, target log-weight mean, normalized Renyi, initialization and complete terminal cost remain separate. No assumed exponential integrability or surrogate random variable."
+  }
+}
