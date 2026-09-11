@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Definition2.5 and Theorem3.6",
   "target_statement": "For a supplied global minimizer z, the quadratic upper model and PL inequality imply f(T^N x0)-f(z) <= (1-alpha*h)^N (f(x0)-f(z)) for actual gradient iterates, h>=0,beta*h<=1. Negative coefficient handled by zero-gap degeneracy.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-gradient-step-descent"
   ],
@@ -26,8 +26,10 @@
     "notes": "Extract exact existing descent without duplicate proof; PL consumer reuses scalar le_geom, does not assume convexity or a supplied recurrence."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "Focused PASS2477 independently repeated; standard axioms; no warnings."
+    ],
+    "independent_verification": "smoothness_review16dcffe; pl_blind,coco_source,converse_source_review exact current artifacts in runs/semantic-roundtrip/andi-opt-gd-pl.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

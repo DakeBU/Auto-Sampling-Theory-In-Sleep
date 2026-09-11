@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Lemma3.1",
   "target_statement": "Expose the existing compiled descent calculation as a canonical public interface, reused by comparator-energy and PL consumers.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [],
   "consumers": [
     "optimisation:Chewi-Theorem-3.6",
@@ -25,8 +25,10 @@
     "notes": "Extract exact existing descent without duplicate proof; PL consumer reuses scalar le_geom, does not assume convexity or a supplied recurrence."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "Focused PASS2477 independently repeated; standard axioms; no warnings."
+    ],
+    "independent_verification": "smoothness_review16dcffe; pl_blind,coco_source,converse_source_review exact current artifacts in runs/semantic-roundtrip/andi-opt-gd-pl.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

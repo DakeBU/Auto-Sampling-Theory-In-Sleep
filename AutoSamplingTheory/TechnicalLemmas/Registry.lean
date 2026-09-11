@@ -73,6 +73,26 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.gradient-descent.step-descent",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+    upstreamDecl := "Lemma3.1",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "smoothness", "optimisation"],
+    saldUse := "Canonical public extraction of existing actual-gradient descent; reused by energy/value and PL consumers.",
+    note := "Actual totalized gradient in global upper/PL models, h>=0,beta*h<=1; real Hilbert and signed-moduli algebraic extension. Source step repair independently accepted. No convexity, optimizer existence or companion-paper claim."
+  },
+  {
+    key := "analysis.gradient-descent.pl-value",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL.gradient_descent_pl_value_bound",
+    upstreamDecl := "Theorem3.6",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "smoothness", "optimisation"],
+    saldUse := "Actual iterate PL final-value rate; supplied global minimum handles both signs of geometric coefficient.",
+    note := "Actual totalized gradient in global upper/PL models, h>=0,beta*h<=1; real Hilbert and signed-moduli algebraic extension. Source step repair independently accepted. No convexity, optimizer existence or companion-paper claim."
+  },
+  {
     key := "analysis.gradient-descent.comparator-energy",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
     upstreamDecl := "Theorem3.4 (3.1),(3.3)",
