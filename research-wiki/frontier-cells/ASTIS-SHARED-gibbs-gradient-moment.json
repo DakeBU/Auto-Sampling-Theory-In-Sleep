@@ -6,7 +6,7 @@
   "title": "Actual Gibbs gradient second moment",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Section 6.3 reference-point construction: ideal Gibbs gradient second moment",
   "target_statement": "For an actual C2 potential U on finite-dimensional complete real inner-product Borel E with genuine Hessian bounds alpha I<=Hess U<=beta I, alpha>0 and beta nonnegative, define pi=volume.tilted(-U). Prove pi is probability, actual gradient-square and canonical orthonormal-basis Hessian-diagonal sum are L1(pi), their expectations agree, and expected gradient square<=beta*finrank(E). Derive every weighted integrability and normalization input from the curvature assumptions; no supplied minimizer or Gibbs score moment.",
-  "status": "independently_verified",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-quadratic-regularization",
     "ASTIS-SHARED-strong-convex-gibbs-integrability"
@@ -42,9 +42,18 @@
     ],
     "proof_plan": "proof-blueprints/gibbs-gradient-moment.md",
     "planning_review": "Independent readonly log_depth_source_review accepted the direct IBP route: all three products L1 must be proved, C2 suffices, no cutoff/Poincare/minimizer/C3 required. Existing compact results do not supply the target.",
-    "execution_boundary": "Root sole writer and GibbsGradientMoment sole STABILIZING; admitted proof/source unchanged.",
+    "execution_boundary": "Actual merge releases stabilization lane; post-merge CI/live remain tracked separately. No complete-paper claim.",
     "admission_boundary": "VERIFIED at16acdc7. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-    "independent_verification": "runs/20260911-companion-priority/gibbs-gradient-moment.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/gibbs-gradient-moment.verified-admission.json",
+    "root_build": "runs/20260911-companion-priority/gibbs-gradient-moment.local-qa.json: independent exact fa3c103 canonical gate,Tests9175",
+    "graph_regeneration": "runs/20260911-companion-priority/gibbs-gradient-moment.local-qa.json: full reader build,graph coverage and actual root browser checks",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/289",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/289",
+      "commit": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
+      "merged_at": "2026-09-11T21:10:08Z",
+      "post_merge": "PR Lean/Site passed. Merge CI and actual live delivery pending."
+    }
   },
   "blocked": {
     "reason": "",

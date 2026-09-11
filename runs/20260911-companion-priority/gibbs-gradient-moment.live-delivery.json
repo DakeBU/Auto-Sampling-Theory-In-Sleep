@@ -1,0 +1,24 @@
+{
+  "pr": 289,
+  "merge_commit": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
+  "checked_at": "2026-09-11T21:19:13.511934+00:00",
+  "site_run": 34648009056,
+  "site_result": "SUCCESS including deploy",
+  "pages": [
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "status": 200,
+      "merge_commit_present": true,
+      "declaration_present": true,
+      "sha256": "a0a2593676912bf5b470bc167c681b020b5b8b3a0981dcdbe59ce19962edfe41"
+    },
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-technicallemmas-analysis-gibbsgradientmoment.html",
+      "status": 200,
+      "merge_commit_present": true,
+      "declaration_present": true,
+      "sha256": "56dc9e1d441f6a64f9a0bdd77143a3c05f8a9155e8bc373467343096b9efb13b"
+    }
+  ],
+  "boundary": "Fresh HTTP commit/declaration provenance, not independent browser review. Local actual browser QA recorded separately. Merge Lean run34648009062 remains pending."
+}

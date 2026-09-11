@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SHARED-gibbs-gradient-moment",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Ideal actual normalized Gibbs gradient moment only, including dimension zero. Coordinate-free finite-dimensional formulation disclosed. No smoothed/approximate law moment transfer, Gaussian perturbation, random-history conditioning, summed GD cost or paper-completion claim. The initial-moment premise of TerminalReferenceGradientDescent still requires its actual starting law to be identified and controlled.",
   "remaining": [
-    "PR Lean CI,actual merge and deployment"
+    "Merge Lean/Site CI and actual live deployment"
   ],
   "weighted_checkpoint": {
     "path": ".astis/GibbsGradientMomentWeighted.lean",
@@ -82,11 +82,13 @@
   "remote": {
     "pr": 289,
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/289",
-    "head": "72f5401",
+    "head": "72f5401a4dbd2ba23e35fed60acc02690f730638",
     "lean_run": 34646676051,
     "site_run": 34646675060,
     "site_pr_result": "SUCCESS",
-    "lean_pr_result": "IN_PROGRESS",
-    "state": "PR open; no merge/deployment claim"
+    "lean_pr_result": "SUCCESS",
+    "state": "MERGED; post-merge CI/live pending",
+    "merge_commit": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
+    "merged_at": "2026-09-11T21:10:08Z"
   }
 }

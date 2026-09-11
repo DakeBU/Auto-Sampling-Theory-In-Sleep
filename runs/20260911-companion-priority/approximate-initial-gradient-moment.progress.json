@@ -11,16 +11,52 @@
   },
   "boundary": "Fixed-call actual input moment only, including eta0/r0/dim0. Coordinate-free/general-beta formulation disclosed. No optimal coupling, marginal state-second-moment, gradient-moment or cross-term-integrability input is assumed. W2 is the actual extended-real coupling-cost definition. Gaussian independence is the explicit product law. Random-history conditional moment, jointly measurable GD stopping with the random center, summed reference cost and complete sampler remain separate. Source specialization beta1,r^2=kappa_U*eps_j^2,eta<=c0<1/4 permits derived sufficient constant5, not a printed source numerical constant.",
   "remaining": [
-    "Actual Gaussian norm second moment and smoothed gradient moment",
-    "Finite-cost coupling L1 and strict-budget limit",
-    "Random-center actual gradient and integrable zero cross term",
-    "Independent proof/source admission and reader delivery"
+    "Actual Gibbs and regularized-gradient public consumer",
+    "Independent complete proof/source admission and reader delivery"
   ],
   "perturbation_checkpoint": {
     "path": ".astis/ApproximateInitialGradientMomentPerturbation.lean",
     "sha256": "94d0c66e5db199efbae4010d7041e9fbb31ce81eef72f1ea839bacc583443047",
     "session": 3031,
     "exit_code": 0,
-    "result": "Two private helpers compile with standard3/no lint. Actual independent Gaussian perturbation square L1 and exact additive expectation proved after cross-term absolute integrability. Independent increment review pending; no actual smoothing/W2 consumer or production theorem yet."
+    "result": "Two private helpers compile with standard3/no lint. Actual independent Gaussian perturbation square L1 and exact additive expectation proved after cross-term absolute integrability. Independent increment review pending; no actual smoothing/W2 consumer or production theorem yet.",
+    "independent_review": "depth_commit_verifier independently compiled exact frozen source exit0,standard3/no lint. Actual product-law absolute cross integrability precedes Gaussian mean-zero cancellation. Development acceptance only."
+  },
+  "smoothing_checkpoint": {
+    "path": ".astis/ApproximateInitialGradientMomentSmoothing.lean",
+    "sha256": "665dea0f7de56a286ab41b674ae4da52043097214c79e4566ba634bbac7efa1a",
+    "session": 49731,
+    "exit_code": 0,
+    "independent_review": "depth_commit_verifier independent frozen-source compile exit0,standard3/no lint. Actual additive pushforward equality,L1 and exact2 coefficient bound accepted; no consumer completion."
+  },
+  "transport_checkpoint": {
+    "path": ".astis/ApproximateInitialGradientMomentTransport.lean",
+    "sha256": "6cd4268c5e5c2ab0dd1853bd47427c59a4a0f284f29bafc2774e019c77f8d304",
+    "session": 46335,
+    "exit_code": 0,
+    "result": "Six private helpers standard3/no lint. Finite-cost coupling gives actual gradient-square L1 and bound; strict-budget elimination handles r0/b0 with no optimizer. Independent transport review and actual public consumer pending.",
+    "independent_review": "depth_commit_verifier independently compiled exact frozen source exit0 standard3/no lint; actual finite-cost integrability, marginal directions and strict-budget elimination accepted without state moment or optimizer assumptions."
+  },
+  "complete_scratch": {
+    "path": ".astis/ApproximateInitialGradientMomentComplete.lean",
+    "sha256": "4edfcdc82dcb6026d7c95d1431a7747152313c02a573cbfcce2332883c964f39",
+    "session": 17857,
+    "exit_code": 0,
+    "result": "7 private helpers and actual public consumer, standard3/no lint. Actual Gibbs/smoothing/W2 input moment and same-pair regularized gradient identity, joint L1, exact expectation and bounds; no history/GD/cost closure. Independent complete review/source preaudit pending.",
+    "independent_review": "depth_commit_verifier independently replayed exact frozen source exit0,8 prints standard3/no lint; all actual Gibbs/smoothing/W2 and same-pair joint expectation mathematics accepted, no production VERIFIED."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ApproximateInitialGradientMoment.lean",
+    "test": "Tests/SmoothedPicardHMCApproximateInitialGradientMoment.lean",
+    "state": "Focused production build session69146 exit0; standard3 for public theorem. No new-module lint; pre-existing CouplingQuadraticIntegrability unused-section-variable warnings replayed. Independent production review/formal source admission pending.",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ApproximateInitialGradientMoment.lean": "4be239f5398966751db2efa2d89d1126456e8e9011cc32c12bbdbb06bed26163",
+      "Tests/SmoothedPicardHMCApproximateInitialGradientMoment.lean": "0e159efaa445f74471e3da6ff6eb8522159610fc19dfcedbc2a62dd1f3bc5529"
+    }
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "4edfcdc82dcb6026d7c95d1431a7747152313c02a573cbfcce2332883c964f39",
+    "result": "Entire7private/public proof read; no mathematical blocker or required contract repair. Disclose general beta,coordinate-free/dim0/eta0 extensions,derived M/constant5 versus source generic C,actual W2 input still supplied,r>=0 retained,tau>0,beta0 excluded,and no joint-program/history/cost conclusions. Not independent compilation or formal roundtrip."
   }
 }
