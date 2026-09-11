@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "a799db1cb6a87c2707a9dd83bd5138a58f6655414c8e443fd71bafd5e1020feb",
+  "publication_binding_sha256": "f44e6985759f3be332fac83c518da644a43235b463a8c528ccf11e7932b0ddaa",
+  "semantic_slots": {
+    "objects": {
+      "original": "Gradient step x-h grad f(x) for the actual derivative of a scalar function.",
+      "reconstructed": "The genuine Riesz gradient determines T; both actual updated points appear in the norm.",
+      "relation": "explicit-elaboration",
+      "evidence": "The vector field is the derivative gradient, never an abstract assumed contraction. The expanded difference is exactly T(y)-T(x).",
+      "source": "Gradient step x-h grad f(x) for the actual derivative of a scalar function.",
+      "lean": "The genuine Riesz gradient determines T; both actual updated points appear in the norm.",
+      "status": "explicit-elaboration",
+      "explanation": "The vector field is the derivative gradient, never an abstract assumed contraction. The expanded difference is exactly T(y)-T(x)."
+    },
+    "domains": {
+      "original": "Euclidean d-space with the source ordinary reciprocal/square-root domains.",
+      "reconstructed": "Any complete real inner-product space, including singleton; beta=0 is permitted and Real.sqrt is total.",
+      "relation": "different",
+      "evidence": "The infinite-dimensional and zero-modulus cases extend the source. The lesson explicitly defines Real.sqrt to be zero on negative input; the squared estimate forces zero distance in that case, so this extension is mathematically sound but not source equivalence.",
+      "source": "Euclidean d-space with the source ordinary reciprocal/square-root domains.",
+      "lean": "Any complete real inner-product space, including singleton; beta=0 is permitted and Real.sqrt is total.",
+      "status": "different",
+      "explanation": "The infinite-dimensional and zero-modulus cases extend the source. The lesson explicitly defines Real.sqrt to be zero on negative input; the squared estimate forces zero distance in that case, so this extension is mathematically sound but not source equivalence."
+    },
+    "quantifiers": {
+      "original": "For all x,y and printed h<=1/beta.",
+      "reconstructed": "For every space, x,y, and h>=0 with beta h<=1.",
+      "relation": "different",
+      "evidence": "Both use global model inequalities at every pair and one fixed set of parameters. The point quantifiers agree on Euclidean specialization; the negative-step part of the literal source quantifier is excluded.",
+      "source": "For all x,y and printed h<=1/beta.",
+      "lean": "For every space, x,y, and h>=0 with beta h<=1.",
+      "status": "different",
+      "explanation": "Both use global model inequalities at every pair and one fixed set of parameters. The point quantifiers agree on Euclidean specialization; the negative-step part of the literal source quantifier is excluded."
+    },
+    "assumptions": {
+      "original": "Section-wide C2; alpha-convexity and beta-smooth upper model. The printed step condition lacks h>=0.",
+      "reconstructed": "C1, strong-convex chord inequality, global beta upper model, alpha,beta,h>=0 and beta h<=1.",
+      "relation": "different",
+      "evidence": "C2 to C1 weakens differentiability; beta=0 extends the source reciprocal domain; explicit nonnegative h removes a false negative-step claim. For beta>0, beta h<=1 is equivalent to h<=1/beta. The general result adds no alpha<=beta assumption and needs none on a singleton.",
+      "source": "Section-wide C2; alpha-convexity and beta-smooth upper model. The printed step condition lacks h>=0.",
+      "lean": "C1, strong-convex chord inequality, global beta upper model, alpha,beta,h>=0 and beta h<=1.",
+      "status": "different",
+      "explanation": "C2 to C1 weakens differentiability; beta=0 extends the source reciprocal domain; explicit nonnegative h removes a false negative-step claim. For beta>0, beta h<=1 is equivalent to h<=1/beta. The general result adds no alpha<=beta assumption and needs none on a singleton."
+    },
+    "conclusion": {
+      "original": "||T(y)-T(x)||<=sqrt(1-alpha h)||y-x||.",
+      "reconstructed": "The same pointwise norm inequality with total Real.sqrt.",
+      "relation": "equivalent",
+      "evidence": "Equivalent on the common ordinary source domain. The norm, endpoint order, factor one-half through the square root, and multiplicative distance all match.",
+      "source": "||T(y)-T(x)||<=sqrt(1-alpha h)||y-x||.",
+      "lean": "The same pointwise norm inequality with total Real.sqrt.",
+      "status": "equivalent",
+      "explanation": "Equivalent on the common ordinary source domain. The norm, endpoint order, factor one-half through the square root, and multiplicative distance all match."
+    },
+    "scopes": {
+      "original": "Global deterministic bound, not almost-everywhere or restricted to a sublevel set.",
+      "reconstructed": "Global bound on univ.",
+      "relation": "same",
+      "evidence": "No hidden integrability, compactness, Hessian, stochastic, or boundary hypothesis is introduced. At h=0 the map is nonexpansive identity; strict contraction is not claimed by the inequality.",
+      "source": "Global deterministic bound, not almost-everywhere or restricted to a sublevel set.",
+      "lean": "Global bound on univ.",
+      "status": "same",
+      "explanation": "No hidden integrability, compactness, Hessian, stochastic, or boundary hypothesis is introduced. At h=0 the map is nonexpansive identity; strict contraction is not claimed by the inequality."
+    },
+    "constant_dependencies": {
+      "original": "sqrt(1-alpha h), with beta restricting h.",
+      "reconstructed": "r=sqrt(1-alpha h), beta only in upper model/step constraint.",
+      "relation": "equivalent",
+      "evidence": "No dimension-dependent constant or change of factor 2. From h^2||d||^2<=hp the squared estimate has exactly coefficient 1-alpha h.",
+      "source": "sqrt(1-alpha h), with beta restricting h.",
+      "lean": "r=sqrt(1-alpha h), beta only in upper model/step constraint.",
+      "status": "equivalent",
+      "explanation": "No dimension-dependent constant or change of factor 2. From h^2||d||^2<=hp the squared estimate has exactly coefficient 1-alpha h."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Euclidean C2 source extended to C1 functions on arbitrary complete real inner-product spaces.",
+      "evidence": "Full supplied module and lesson explicitly state these generalized domains; source section introduction has C2 Euclidean assumptions."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "Explicit h>=0 is mathematically necessary for the general one-step bound and is absent from the printed theorem restriction.",
+      "evidence": "On R take f(t)=t^2/2, alpha=beta=1, h=-1, x=0,y=1. The printed h<=1/beta holds, but T(t)=2t, so the asserted bound requires 2<=sqrt(2), false since 4>2. More generally every h<0 fails this quadratic: (1-h)^2>1-h."
+    },
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Division-free beta h<=1 permits beta=0; total Real.sqrt also covers vacuous negative-coefficient singleton cases.",
+      "evidence": "If 1-alpha h<0, the squared estimate rules out v nonzero. For v=0 the bound is 0<=0 with the stated total Real.sqrt. On nontrivial Euclidean source domains alpha<=beta gives the usual nonnegative square-root argument."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Source proof middle line has stray gradient before y-x; candidate explains the displacement calculation.",
+      "evidence": "Primary source line 550 contrasts with its own exact square expansion at line 546. With v=y-x the candidate norm expansion is an identity, so its proof explanation is correct; pinned source not rewritten."
+    }
+  ],
+  "verdict": "possible-source-error",
+  "repairs": [
+    {
+      "id": "ASTIS-REPAIR-ANDI-GD-NONNEGATIVE-STEP",
+      "class": "assumption-addition",
+      "status": "proposed",
+      "necessity": "mathematically-necessary",
+      "proposed_change": "In Theorem3.3 replace the printed step restriction h<=1/beta with 0<=h<=1/beta. Retain the pinned source statement separately; do not overwrite it.",
+      "reconstructed_statement": "In the source C2 Euclidean setting, let f be alpha-convex and beta-smooth. For every x,y and step size 0 <= h <= 1/beta, with T(z)=z-h grad f(z), ||T(y)-T(x)|| <= sqrt(1-alpha h)||y-x||. The source positive reciprocal and ordinary square-root domains remain unchanged; this proposal only makes the missing nonnegative-step restriction explicit.",
+      "statement_sha256": "8a047dafe3d5c1e8605ca06c74c3f9817afa64874f9eab0afc6ebeb75c5f34de",
+      "justification": "The literal all-real-step statement fails for every negative h on f(t)=t^2/2 with alpha=beta=1. The proof needs h>=0 when multiplying the curvature and step bounds.",
+      "minimality_evidence": "Only add h>=0; include h=0 because T is then identity and the factor is 1. No strict positivity of h, no additional smoothness, and no dimension restriction is proposed. Existing reciprocal/square-root source domains are not redefined. Removing h>=0 admits the explicit quadratic counterexample.",
+      "reference_or_counterexample": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "counterexample": "f(t)=t^2/2 on R, alpha=beta=1, h=-1, x=0,y=1: h<=1/beta but 2>sqrt(2). For every h<0, (1-h)^2-(1-h)=h(h-1)>0."
+      },
+      "review": {
+        "state": "pending"
+      },
+      "proposal_author": "coco_source"
+    }
+  ],
+  "review_evidence": "Independent review of ASTIS-REVIEW-3a1f83cfac20a899 and bound publication context. Accepted as a disclosed C1 Hilbert-space generalization supporting the source one-step theorem on its meaningful reciprocal/square-root domain with explicit 0<=h<=1/beta. The literal unrestricted-negative-step printed claim is not accepted. All seven slots, full module, every lesson symbol/formula and constant, endpoint norm expansion, nonnegative multipliers, total square-root boundary checked directly. Primary source consulted only at pinned URL; no registry or prior target review consulted. Run record: /private/tmp/andi-gd-source-review-run.json. A proposed repair is not an accepted source change.",
+  "review_run_sha256": "3270161a914387c0ad24aa7852af63d5a7c8043d8b86c393d3e2c22cbb42dd59",
+  "review_run_artifact": "/private/tmp/andi-gd-source-review-run.json",
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "a799db1cb6a87c2707a9dd83bd5138a58f6655414c8e443fd71bafd5e1020feb",
+    "review_run_sha256": "3270161a914387c0ad24aa7852af63d5a7c8043d8b86c393d3e2c22cbb42dd59",
+    "evidence": "Independent review of ASTIS-REVIEW-3a1f83cfac20a899 and bound publication context. Accepted as a disclosed C1 Hilbert-space generalization supporting the source one-step theorem on its meaningful reciprocal/square-root domain with explicit 0<=h<=1/beta. The literal unrestricted-negative-step printed claim is not accepted. All seven slots, full module, every lesson symbol/formula and constant, endpoint norm expansion, nonnegative multipliers, total square-root boundary checked directly. Primary source consulted only at pinned URL; no registry or prior target review consulted. Run record: /private/tmp/andi-gd-source-review-run.json. A proposed repair is not an accepted source change."
+  },
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Accepted as a disclosed C1 Hilbert-space generalization supporting the source one-step theorem on its meaningful reciprocal/square-root domain with explicit 0<=h<=1/beta. The literal unrestricted-negative-step printed claim is not accepted.",
+    "proof_and_symbol_checks": [
+      "All local variables T,r,v,d,p,xstar,x0,N,R,a are explicitly defined in the relevant lesson or step. N is natural and T^0 is identity; N=0 produces equality.",
+      "No alpha<=beta premise is smuggled into the generic proof. Zero modulus, zero step and singleton cases are handled by the displayed formal statement.",
+      "C2 to C1 and Euclidean to arbitrary complete real inner-product space are actual mathematical generalizations, disclosed by the candidate module and assumptions.",
+      "Iterated theorem permits every admitted constant step, more general than the source rate at 1/beta. The logarithmic complexity obligation is explicitly uncovered.",
+      "The title about approaching a minimizer is interpreted through the displayed bounds: alpha h=0 gives no strict decay; no unconditional convergence theorem is accepted.",
+      "The source typo is not silently promoted to mathematics: the module explicitly identifies the displacement interpretation, verified by the exact norm expansion."
+    ],
+    "remaining_truth_boundary": "No acceptance of the source negative-step literal claim; no accepted source repair. Infinite-dimensional C1 and zero-modulus cases are ASTIS generalizations."
+  }
+}

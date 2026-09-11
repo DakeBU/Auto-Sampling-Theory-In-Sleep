@@ -518,6 +518,121 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-ConvexSmoothLipschitz"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-theorem-3-3",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Theorem3.3 · gradient-descent distance contraction",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Section3, Theorem3.3, proof and immediately following distance-rate paragraph",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS restatement, not quoted prose; no endorsement implied."
+      },
+      "statement": "In the section’s C² Euclidean setting, an α-strongly convex β-smooth objective gives the displayed contraction of the gradient update x⁺=x−h∇f(x), for all x,y and h≤1/β. Taking y to be a global minimizer x⋆, using h=1/β, κ=β/α and R=‖x₀−x⋆‖, iteration yields the geometric and exponential distance estimates. The following logarithmic complexity conclusion is retained as a separate uncovered obligation. The printed step restriction omits h≥0; its necessary domain is exposed in the bindings without rewriting the source.",
+      "assumptions": [
+        "f:ℝᵈ→ℝ is C² throughout the section, α-strongly convex and β-smooth, with nonnegative curvature parameters.",
+        "The theorem prints h≤1/β; the rate paragraph uses h=1/β, κ=β/α≥1 and a minimizer x⋆. Positive denominator domains are implicit."
+      ],
+      "formulae": [
+        {
+          "label": "Single-step distance",
+          "tex": "\\|y^+-x^+\\|\\le\\sqrt{1-\\alpha h}\\|y-x\\|"
+        },
+        {
+          "label": "Distance after N steps, h=1/β",
+          "tex": "\\begin{gathered}\\|x_N-x_\\star\\|\\le(1-1/\\kappa)^{N/2}R,\\\\(1-1/\\kappa)^{N/2}R\\le e^{-N/(2\\kappa)}R.\\end{gathered}"
+        },
+        {
+          "label": "Subsequent complexity, outside this unit",
+          "tex": "N\\ge2\\kappa\\log(R/\\varepsilon)\\ \\Longrightarrow\\ \\|x_N-x_\\star\\|\\le\\varepsilon"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "step-contraction",
+          "label": "Single-step contraction with the necessary step domain explicit"
+        },
+        {
+          "id": "iterated-distance",
+          "label": "Geometric and exponential distance bounds about an actual minimizer"
+        },
+        {
+          "id": "logarithmic-complexity",
+          "label": "Subsequent logarithmic iteration-complexity consequence with its positive domains"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction",
+          "cell": "ASTIS-SHARED-gradient-step-contraction",
+          "role": "proof-edge",
+          "supports": [
+            "step-contraction"
+          ],
+          "boundary": "C¹ on a complete real inner-product space is an explicit extension of the section’s C² Euclidean setting. The source reciprocal restriction is recovered for β>0; the division-free statement also includes β=0 and h=0. If 1−αh<0, the squared bound forces every pairwise distance to vanish, so the norm result remains valid on a singleton space without an unjustified α≤β assumption. No constrained-domain, Riemannian or stochastic method is covered; this is shared optimization background, not companion-paper progress. The source prints h≤1/β without stating h≥0. Nonnegative step is essential: f(t)=t²/2, α=β=1 and h=−1 gives T(t)=2t, contradicting the claimed factor √2 for distinct points. The reciprocal formula additionally needs β>0. The stray gradient before y−x in the middle proof display is a transcription typo, resolved by the preceding expansion and Proposition1.6. The source specializes to h=1/β and κ=β/α. For 0<α≤β, r^N=(1−1/κ)^(N/2) and the exponential factor is exp(−N/(2κ)). This unit does not formalize the subsequent logarithmic iteration-complexity statement or the improved step of Exercise3.2.",
+          "assumption_deltas": [
+            {
+              "source": "C² on Euclidean d-space.",
+              "lean": "C¹ on a complete real inner-product space.",
+              "classification": "generalization",
+              "reason": "Only genuine first derivatives, Riesz representation, first-order curvature and inner-product algebra are used; no Hessian, integration or finite dimension is required."
+            },
+            {
+              "source": "The source prints h≤1/β.",
+              "lean": "h≥0, β≥0 and βh≤1.",
+              "classification": "mathematically-necessary",
+              "reason": "The source prints h≤1/β without stating h≥0. Nonnegative step is essential: f(t)=t²/2, α=β=1 and h=−1 gives T(t)=2t, contradicting the claimed factor √2 for distinct points. The reciprocal formula additionally needs β>0. The stray gradient before y−x in the middle proof display is a transcription typo, resolved by the preceding expansion and Proposition1.6. The β=0 division-free case is an explicit extension, not a totalized reciprocal interpretation."
+            },
+            {
+              "source": "Nonnegative curvature moduli; the rate uses κ=β/α≥1.",
+              "lean": "α≥0, β≥0; factor sqrt(1−αh) raised to a natural power.",
+              "classification": "generalization",
+              "reason": "No unnecessary α≤β premise on a singleton Hilbert space; a negative coefficient forces all relevant distances to be zero. For positive compatible moduli and h=1/β the source condition-number formula is recovered."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientStep"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_descent_distance_bound",
+          "cell": "ASTIS-SHARED-gradient-descent-distance",
+          "role": "proof-edge",
+          "supports": [
+            "iterated-distance"
+          ],
+          "boundary": "C¹ on a complete real inner-product space is an explicit extension of the section’s C² Euclidean setting. The source reciprocal restriction is recovered for β>0; the division-free statement also includes β=0 and h=0. If 1−αh<0, the squared bound forces every pairwise distance to vanish, so the norm result remains valid on a singleton space without an unjustified α≤β assumption. No constrained-domain, Riemannian or stochastic method is covered; this is shared optimization background, not companion-paper progress. The source prints h≤1/β without stating h≥0. Nonnegative step is essential: f(t)=t²/2, α=β=1 and h=−1 gives T(t)=2t, contradicting the claimed factor √2 for distinct points. The reciprocal formula additionally needs β>0. The stray gradient before y−x in the middle proof display is a transcription typo, resolved by the preceding expansion and Proposition1.6. The source specializes to h=1/β and κ=β/α. For 0<α≤β, r^N=(1−1/κ)^(N/2) and the exponential factor is exp(−N/(2κ)). This unit does not formalize the subsequent logarithmic iteration-complexity statement or the improved step of Exercise3.2.",
+          "assumption_deltas": [
+            {
+              "source": "C² on Euclidean d-space.",
+              "lean": "C¹ on a complete real inner-product space.",
+              "classification": "generalization",
+              "reason": "Only genuine first derivatives, Riesz representation, first-order curvature and inner-product algebra are used; no Hessian, integration or finite dimension is required."
+            },
+            {
+              "source": "The source prints h≤1/β.",
+              "lean": "h≥0, β≥0 and βh≤1.",
+              "classification": "mathematically-necessary",
+              "reason": "The source prints h≤1/β without stating h≥0. Nonnegative step is essential: f(t)=t²/2, α=β=1 and h=−1 gives T(t)=2t, contradicting the claimed factor √2 for distinct points. The reciprocal formula additionally needs β>0. The stray gradient before y−x in the middle proof display is a transcription typo, resolved by the preceding expansion and Proposition1.6. The β=0 division-free case is an explicit extension, not a totalized reciprocal interpretation."
+            },
+            {
+              "source": "Nonnegative curvature moduli; the rate uses κ=β/α≥1.",
+              "lean": "α≥0, β≥0; factor sqrt(1−αh) raised to a natural power.",
+              "classification": "generalization",
+              "reason": "No unnecessary α≤β premise on a singleton Hilbert space; a negative coefficient forces all relevant distances to be zero. For positive compatible moduli and h=1/β the source condition-number formula is recovered."
+            },
+            {
+              "source": "Take y as a global minimizer x⋆ and iterate at h=1/β.",
+              "lean": "IsMinOn f Set.univ xstar and actual Function.iterate at any admitted h, all N:ℕ.",
+              "classification": "generalization",
+              "reason": "Stationarity and fixed-point behavior follow from Fermat, not from an extra supplied-gradient hypothesis. N=0 and h=0 are retained; existence of a minimizer is not proved."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientDistance"
+        }
+      ]
     }
   ]
 }

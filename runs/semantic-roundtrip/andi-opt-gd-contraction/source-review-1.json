@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "6da23aabe81f06dac38e14897f294ea7fd17eae6d36a620440ff90a6fd7be3e4",
+  "publication_binding_sha256": "30735b40dfed65ad9d812494462a69b3b1e195c9fdff97f268c9bc88b5e75e3a",
+  "semantic_slots": {
+    "objects": {
+      "original": "Gradient step x-h grad f(x) for the actual derivative of a scalar function. GD iterates and an actual global minimizer.",
+      "reconstructed": "The genuine Riesz gradient determines T; Function.iterate T N and IsMinOn f univ xstar.",
+      "relation": "explicit-elaboration",
+      "evidence": "The vector field is the derivative gradient, never an abstract assumed contraction. The minimizer supplies zero gradient via Fermat and is not replaced by a presumed fixed point.",
+      "source": "Gradient step x-h grad f(x) for the actual derivative of a scalar function. GD iterates and an actual global minimizer.",
+      "lean": "The genuine Riesz gradient determines T; Function.iterate T N and IsMinOn f univ xstar.",
+      "status": "explicit-elaboration",
+      "explanation": "The vector field is the derivative gradient, never an abstract assumed contraction. The minimizer supplies zero gradient via Fermat and is not replaced by a presumed fixed point."
+    },
+    "domains": {
+      "original": "Euclidean d-space with the source ordinary reciprocal/square-root domains.",
+      "reconstructed": "Any complete real inner-product space, including singleton; beta=0 is permitted and Real.sqrt is total.",
+      "relation": "different",
+      "evidence": "The infinite-dimensional and zero-modulus cases extend the source. The lesson explicitly defines Real.sqrt to be zero on negative input; the squared estimate forces zero distance in that case, so this extension is mathematically sound but not source equivalence.",
+      "source": "Euclidean d-space with the source ordinary reciprocal/square-root domains.",
+      "lean": "Any complete real inner-product space, including singleton; beta=0 is permitted and Real.sqrt is total.",
+      "status": "different",
+      "explanation": "The infinite-dimensional and zero-modulus cases extend the source. The lesson explicitly defines Real.sqrt to be zero on negative input; the squared estimate forces zero distance in that case, so this extension is mathematically sound but not source equivalence."
+    },
+    "quantifiers": {
+      "original": "For every initial point and iteration count, at h=1/beta, relative to a supplied minimizer.",
+      "reconstructed": "For every space, initial point, natural N including zero, supplied global minimizer, and constant h with h>=0 and beta h<=1.",
+      "relation": "different",
+      "evidence": "Both use global model inequalities at every pair and one fixed set of parameters. The Lean rate permits all admitted constant steps, extending the chosen source step.",
+      "source": "For every initial point and iteration count, at h=1/beta, relative to a supplied minimizer.",
+      "lean": "For every space, initial point, natural N including zero, supplied global minimizer, and constant h with h>=0 and beta h<=1.",
+      "status": "different",
+      "explanation": "Both use global model inequalities at every pair and one fixed set of parameters. The Lean rate permits all admitted constant steps, extending the chosen source step."
+    },
+    "assumptions": {
+      "original": "Section-wide C2; alpha-convexity and beta-smooth upper model. The rate uses positive alpha,beta, kappa=beta/alpha>=1 and a minimizer.",
+      "reconstructed": "C1, strong-convex chord inequality, global beta upper model, alpha,beta,h>=0 and beta h<=1. IsMinOn f univ xstar.",
+      "relation": "different",
+      "evidence": "C2 to C1 weakens differentiability; beta=0 extends the source reciprocal domain; explicit nonnegative h removes a false negative-step claim. For beta>0, beta h<=1 is equivalent to h<=1/beta. The general result adds no alpha<=beta assumption and needs none on a singleton.",
+      "source": "Section-wide C2; alpha-convexity and beta-smooth upper model. The rate uses positive alpha,beta, kappa=beta/alpha>=1 and a minimizer.",
+      "lean": "C1, strong-convex chord inequality, global beta upper model, alpha,beta,h>=0 and beta h<=1. IsMinOn f univ xstar.",
+      "status": "different",
+      "explanation": "C2 to C1 weakens differentiability; beta=0 extends the source reciprocal domain; explicit nonnegative h removes a false negative-step claim. For beta>0, beta h<=1 is equivalent to h<=1/beta. The general result adds no alpha<=beta assumption and needs none on a singleton."
+    },
+    "conclusion": {
+      "original": "||x_N-xstar||<=(1-1/kappa)^(N/2)R<=exp(-N/(2kappa))R.",
+      "reconstructed": "||T^[N](x0)-xstar||<=sqrt(1-alpha h)^N R<=exp(-alpha h N/2)R.",
+      "relation": "equivalent",
+      "evidence": "Equivalent on the common ordinary source domain. Set h=1/beta and kappa=beta/alpha; with kappa>=1 the geometric power matches the source N/2 power, and the exponential factors agree exactly.",
+      "source": "||x_N-xstar||<=(1-1/kappa)^(N/2)R<=exp(-N/(2kappa))R.",
+      "lean": "||T^[N](x0)-xstar||<=sqrt(1-alpha h)^N R<=exp(-alpha h N/2)R.",
+      "status": "equivalent",
+      "explanation": "Equivalent on the common ordinary source domain. Set h=1/beta and kappa=beta/alpha; with kappa>=1 the geometric power matches the source N/2 power, and the exponential factors agree exactly."
+    },
+    "scopes": {
+      "original": "Global deterministic bound, not almost-everywhere or restricted to a sublevel set. Subsequent complexity is outside the selected source anchor.",
+      "reconstructed": "Global bound on univ. Supplied minimizer and actual Nth iterate; no existence or logarithmic-complexity theorem.",
+      "relation": "same",
+      "evidence": "No hidden integrability, compactness, Hessian, stochastic, or boundary hypothesis is introduced. At alpha h=0 the accepted conclusion is a nondecay bound, not unconditional convergence.",
+      "source": "Global deterministic bound, not almost-everywhere or restricted to a sublevel set. Subsequent complexity is outside the selected source anchor.",
+      "lean": "Global bound on univ. Supplied minimizer and actual Nth iterate; no existence or logarithmic-complexity theorem.",
+      "status": "same",
+      "explanation": "No hidden integrability, compactness, Hessian, stochastic, or boundary hypothesis is introduced. At alpha h=0 the accepted conclusion is a nondecay bound, not unconditional convergence."
+    },
+    "constant_dependencies": {
+      "original": "Geometric factor (1-1/kappa)^(N/2), exponential exponent -N/(2kappa), and initial distance R.",
+      "reconstructed": "r^N and exp(-alpha h N/2) times R=||x0-xstar||.",
+      "relation": "equivalent",
+      "evidence": "No dimension-dependent constant or change of factor 2. Every local symbol, natural exponent and real coercion in the exponential is explained. r^0=1 includes the zero-step-count boundary.",
+      "source": "Geometric factor (1-1/kappa)^(N/2), exponential exponent -N/(2kappa), and initial distance R.",
+      "lean": "r^N and exp(-alpha h N/2) times R=||x0-xstar||.",
+      "status": "equivalent",
+      "explanation": "No dimension-dependent constant or change of factor 2. Every local symbol, natural exponent and real coercion in the exponential is explained. r^0=1 includes the zero-step-count boundary."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Euclidean C2 source extended to C1 functions on arbitrary complete real inner-product spaces.",
+      "evidence": "Full supplied module and lesson explicitly state these generalized domains; source section introduction has C2 Euclidean assumptions."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "Explicit h>=0 is mathematically necessary for the general one-step bound and is absent from the printed theorem restriction.",
+      "evidence": "On R take f(t)=t^2/2, alpha=beta=1, h=-1, x=0,y=1. The printed h<=1/beta holds, but T(t)=2t, so the asserted bound requires 2<=sqrt(2), false since 4>2. More generally every h<0 fails this quadratic: (1-h)^2>1-h."
+    },
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Division-free beta h<=1 permits beta=0; total Real.sqrt also covers vacuous negative-coefficient singleton cases.",
+      "evidence": "If 1-alpha h<0, the squared estimate rules out v nonzero. For v=0 the bound is 0<=0 with the stated total Real.sqrt. On nontrivial Euclidean source domains alpha<=beta gives the usual nonnegative square-root argument."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Source proof middle line has stray gradient before y-x; candidate explains the displacement calculation.",
+      "evidence": "Primary source line 550 contrasts with its own exact square expansion at line 546. With v=y-x the candidate norm expansion is an identity, so its proof explanation is correct; pinned source not rewritten."
+    },
+    {
+      "slot": "quantifiers",
+      "severity": "informational",
+      "description": "The iterated rate extends the source h=1/beta choice to every admitted fixed h, all natural N, and explicitly supplied global minimizer.",
+      "evidence": "For beta>0, h=1/beta, positive alpha and kappa=beta/alpha>=1, r^N=(1-1/kappa)^(N/2), exp(-alpha h N/2)=exp(-N/(2 kappa))."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "repairs": [],
+  "review_evidence": "Independent review of ASTIS-REVIEW-8a3c3b196cb5cd92 and bound publication context. Accepted as a disclosed C1 Hilbert-space and arbitrary-admitted-constant-step generalization. Specializing to Euclidean C2, h=1/beta and positive condition-number domain recovers precisely the geometric/exponential distance paragraph. Logarithmic complexity and minimizer existence remain outside this declaration. All seven slots, full module, every lesson symbol/formula and constant, endpoint norm expansion, nonnegative multipliers, total square-root boundary, Fermat fixed point, natural iteration and exponential comparison checked directly. Primary source consulted only at pinned URL; no registry or prior target review consulted. Run record: /private/tmp/andi-gd-source-review-run.json. A proposed repair is not an accepted source change.",
+  "review_run_sha256": "3270161a914387c0ad24aa7852af63d5a7c8043d8b86c393d3e2c22cbb42dd59",
+  "review_run_artifact": "/private/tmp/andi-gd-source-review-run.json",
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "6da23aabe81f06dac38e14897f294ea7fd17eae6d36a620440ff90a6fd7be3e4",
+    "review_run_sha256": "3270161a914387c0ad24aa7852af63d5a7c8043d8b86c393d3e2c22cbb42dd59",
+    "evidence": "Independent review of ASTIS-REVIEW-8a3c3b196cb5cd92 and bound publication context. Accepted as a disclosed C1 Hilbert-space and arbitrary-admitted-constant-step generalization. Specializing to Euclidean C2, h=1/beta and positive condition-number domain recovers precisely the geometric/exponential distance paragraph. Logarithmic complexity and minimizer existence remain outside this declaration. All seven slots, full module, every lesson symbol/formula and constant, endpoint norm expansion, nonnegative multipliers, total square-root boundary, Fermat fixed point, natural iteration and exponential comparison checked directly. Primary source consulted only at pinned URL; no registry or prior target review consulted. Run record: /private/tmp/andi-gd-source-review-run.json. A proposed repair is not an accepted source change."
+  },
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Accepted as a disclosed C1 Hilbert-space and arbitrary-admitted-constant-step generalization. Specializing to Euclidean C2, h=1/beta and positive condition-number domain recovers precisely the geometric/exponential distance paragraph. Logarithmic complexity and minimizer existence remain outside this declaration.",
+    "proof_and_symbol_checks": [
+      "All local variables T,r,v,d,p,xstar,x0,N,R,a are explicitly defined in the relevant lesson or step. N is natural and T^0 is identity; N=0 produces equality.",
+      "No alpha<=beta premise is smuggled into the generic proof. Zero modulus, zero step and singleton cases are handled by the displayed formal statement.",
+      "C2 to C1 and Euclidean to arbitrary complete real inner-product space are actual mathematical generalizations, disclosed by the candidate module and assumptions.",
+      "Iterated theorem permits every admitted constant step, more general than the source rate at 1/beta. The logarithmic complexity obligation is explicitly uncovered.",
+      "The title about approaching a minimizer is interpreted through the displayed bounds: alpha h=0 gives no strict decay; no unconditional convergence theorem is accepted.",
+      "The source typo is not silently promoted to mathematics: the module explicitly identifies the displacement interpretation, verified by the exact norm expansion."
+    ],
+    "remaining_truth_boundary": "No acceptance of the source negative-step literal claim; no accepted source repair. Infinite-dimensional C1 and zero-modulus cases are ASTIS generalizations. No minimizer existence, strict decay at alpha h=0, or logarithmic complexity claimed."
+  }
+}

@@ -73,6 +73,26 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.gradient-descent.step-contraction",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction",
+    upstreamDecl := "Theorem3.3 single-step inequality",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "convexity", "smoothness", "optimisation"],
+    saldUse := "Actual parent of the iterated distance theorem.",
+    note := "C1 complete real inner-product space; global strong convexity and quadratic upper model. Nonnegative step and division-free beta*h<=1 explicit. Source gap independently reviewed; no logarithmic complexity or companion-paper theorem."
+  },
+  {
+    key := "analysis.gradient-descent.distance-rate",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_descent_distance_bound",
+    upstreamDecl := "Theorem3.3 iterated distance paragraph",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "convexity", "smoothness", "optimisation"],
+    saldUse := "Actual Nth gradient iterate around a global minimizer, with geometric and exponential distance control.",
+    note := "C1 complete real inner-product space; global strong convexity and quadratic upper model. Nonnegative step and division-free beta*h<=1 explicit. Source gap independently reviewed; no logarithmic complexity or companion-paper theorem."
+  },
+  {
     key := "analysis.convex-smooth.bregman-gradient",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_gap_sq_le_bregman",
     upstreamDecl := "Exercise3.1 (3.4), positive reciprocal domain",
