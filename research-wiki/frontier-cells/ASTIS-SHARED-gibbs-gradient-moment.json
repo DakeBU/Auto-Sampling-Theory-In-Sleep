@@ -41,7 +41,7 @@
     ],
     "proof_plan": "proof-blueprints/gibbs-gradient-moment.md",
     "planning_review": "Independent readonly log_depth_source_review accepted the direct IBP route: all three products L1 must be proved, C2 suffices, no cutoff/Poincare/minimizer/C3 required. Existing compact results do not supply the target.",
-    "execution_boundary": "Root sole writer. Current terminal-reference lane retains stabilization until delivery; this successor only EXPLORING.",
+    "execution_boundary": "Root sole writer and GibbsGradientMoment sole STABILIZING; admitted proof/source unchanged.",
     "admission_boundary": "VERIFIED at16acdc7. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/gibbs-gradient-moment.verified-admission.json"
   },

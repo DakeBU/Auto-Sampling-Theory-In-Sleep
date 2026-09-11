@@ -1,10 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-reference-gradient-descent",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Same actual GD as source section6.3, fixed A/u with explicit supplied initial law moment only for expected bound. Coordinate-free finite-dimensional extension and nonnegative m/beta extension disclosed; positive regularization/dimension. Adjacent-iterate contraction gives stronger gradient bound than printed prefactor-kappa route. No actual recursive-history moment, joint random-parameter kernel, summed stage cost or fullpaper claim. Cost model includes final gradient check and reuses each gradient for the update; downstream cache sharing not silently deducted.",
   "remaining": [
-    "Aggregate integration and exact-candidate reader/graph QA",
-    "PR CI, actual merge and deployment"
+    "Confirm merge Lean run34643268197 final result"
   ],
   "scratch_checkpoint": {
     "path": ".astis\\TerminalReferenceGradientDescent.lean",
@@ -97,12 +96,13 @@
     "head": "32f50f4fb302e19bd1d61d0af41df238e78d168d",
     "lean_run": 34641811580,
     "site_run": 34641811567,
-    "state": "PR merged; merge CI and live deployment pending",
+    "state": "Actual merged and live; merge Lean repeat gate pending",
     "lean_pr_result": "SUCCESS",
     "site_pr_result": "SUCCESS",
     "merge_commit": "61c710cb2d73b333fbd684571910b12d28a699a0",
     "merged_at": "2026-09-11T20:15:42Z",
     "merge_lean_run": 34643268197,
     "merge_site_run": 34643268151
-  }
+  },
+  "post_merge_delivery": "runs/20260911-companion-priority/terminal-reference-gradient-descent.live-delivery.json"
 }

@@ -6,6 +6,7 @@ import Tests.GibbsAugmentation
 import Tests.SmoothedPicardRecursiveCondition
 import Tests.SmoothedPicardRGOClosure
 import Tests.StrongConvexGibbsIntegrability
+import Tests.GibbsGradientMoment
 import Tests.IsotropicGaussianDensity
 import Tests.ProximalBPSGaussianAugmentation
 import Tests.ProximalBPSGaussianReflection
